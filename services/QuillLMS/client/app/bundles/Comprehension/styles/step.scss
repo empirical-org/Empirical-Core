@@ -80,7 +80,10 @@
       line-height: normal;
       p {
         white-space: pre-wrap;
-        margin-top: -5px;
+        margin-top: -3px;
+        p {
+          margin-top: 0px;
+        }
       }
       img {
         margin-right: 12px;

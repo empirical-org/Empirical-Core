@@ -9,6 +9,8 @@ module Demo::ReportDemoCreator
     unit_activities = create_unit_activities(unit)
     activity_sessions = create_activity_sessions(students)
     subscription = create_subscription(teacher)
+
+    TeacherActivityFeedRefillWorker.perform_async(teacher.id)
   end
 
   def self.create_teacher(name)

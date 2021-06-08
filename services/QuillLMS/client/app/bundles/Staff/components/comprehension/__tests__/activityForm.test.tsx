@@ -11,11 +11,12 @@ jest.mock('string-strip-html', () => ({
 const mockProps = {
   activity: mockActivity,
   closeModal: jest.fn(),
+  requestErrors: [],
   submitActivity: jest.fn()
 };
 
 describe('Activity Form component', () => {
-  const container = shallow(<ActivityForm {...mockProps} />);
+  let container = shallow(<ActivityForm {...mockProps} />);
 
   it('should render Activities', () => {
     expect(container).toMatchSnapshot();
@@ -28,5 +29,10 @@ describe('Activity Form component', () => {
   it('clicking submit button should submit activity', () => {
     container.find('#activity-submit-button').simulate('click');
     expect(mockProps.closeModal).toHaveBeenCalled();
+  });
+  it('should render request errors if present', () => {
+    mockProps.requestErrors = ['passage.text: passage text is too short'];
+    container = shallow(<ActivityForm {...mockProps} />);
+    expect(container.find('p.all-errors-message').text()).toEqual('passage.text: passage text is too short');
   });
 });

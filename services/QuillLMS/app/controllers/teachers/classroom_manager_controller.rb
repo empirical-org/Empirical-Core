@@ -8,7 +8,6 @@ class Teachers::ClassroomManagerController < ApplicationController
   before_action :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
   before_action :set_alternative_schools, only: [:my_account, :update_my_account, :update_my_password]
   include ScorebookHelper
-  include ActivityFeedHelper
   include QuillAuthentication
 
   MY_ACCOUNT = 'my_account'
@@ -215,7 +214,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def activity_feed
-    render json: { data: data_for_activity_feed(current_user) }
+    render json: { data: TeacherActivityFeed.get(current_user.id) }
   end
 
   private def generate_onboarding_checklist

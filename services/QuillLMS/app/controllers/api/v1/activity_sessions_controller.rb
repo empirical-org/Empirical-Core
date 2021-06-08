@@ -95,8 +95,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
                   :activity_uid,
                   :activity_id,
                   :anonymous,
-                  :temporary,
-                  :data
+                  :temporary
                 )
       .merge(data: @data).reject {|k,v| v.nil? }
       .merge(timespent: @activity_session&.timespent)

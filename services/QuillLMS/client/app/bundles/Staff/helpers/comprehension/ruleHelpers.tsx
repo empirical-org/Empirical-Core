@@ -3,8 +3,21 @@ import { EditorState, ContentState } from 'draft-js';
 import stripHtml from "string-strip-html";
 
 import { validateForm } from '../comprehension';
-import { AUTO_ML, PLAGIARISM } from '../../../../constants/comprehension';
-import { InputEvent, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
+import {
+  AUTO_ML,
+  PLAGIARISM,
+  FEEDBACK,
+  HIGHLIGHT_TEXT,
+  HIGHLIGHT_ADDITION,
+  HIGHLIGHT_REMOVAL,
+  HIGHLIGHT_TYPE,
+  FEEDBACK_LAYER_ADDITION,
+  FEEDBACK_LAYER_REMOVAL,
+  RULES_BASED_1,
+  RULES_BASED_2,
+  RULES_BASED_3
+} from '../../../../constants/comprehension';
+import { InputEvent, DropdownObjectInterface, RuleInterface } from '../../interfaces/comprehensionInterfaces';
 import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions, regexRuleSequenceOptions, regexRuleTypes } from '../../../../constants/comprehension';
 import { TextEditor, DropdownInput, Modal } from '../../../Shared/index';
 
@@ -132,23 +145,36 @@ export function handleSetFeedback({
     feedbackIndex,
     highlightIndex
 }) {
-  const updatedFeedback = [...feedback];
-  if(updateType === 'feedback') {
-    updatedFeedback[feedbackIndex].text = text;
-    setFeedback(updatedFeedback);
-  } else if(updateType === 'highlight text') {
-    updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].text = text;
-    setFeedback(updatedFeedback);
-  } else if(updateType === 'highlight addition') {
-    updatedFeedback[feedbackIndex].highlights_attributes.push({ text: '' });
-  } else if(updateType === 'highlight type') {
-    updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].highlight_type = text
-  } else if(updateType === 'feedback layer addition') {
-    updatedFeedback.push({
-      text: '',
-      order: feedback.length,
-      highlights_attributes: []
-    });
+  let updatedFeedback = [...feedback];
+
+  switch(updateType) {
+    case FEEDBACK:
+      updatedFeedback[feedbackIndex].text = text;
+      setFeedback(updatedFeedback);
+      break
+    case HIGHLIGHT_TEXT:
+      updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].text = text;
+      setFeedback(updatedFeedback);
+      break
+    case HIGHLIGHT_ADDITION:
+      updatedFeedback[feedbackIndex].highlights_attributes.push({ text: '' });
+      break
+    case HIGHLIGHT_REMOVAL:
+      updatedFeedback[feedbackIndex].highlights_attributes = updatedFeedback[feedbackIndex].highlights_attributes.slice(0, -1)
+      break
+    case HIGHLIGHT_TYPE:
+      updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].highlight_type = text
+      break
+    case FEEDBACK_LAYER_ADDITION:
+      updatedFeedback.push({
+        text: '',
+        order: feedback.length,
+        highlights_attributes: []
+      });
+      break
+    case FEEDBACK_LAYER_REMOVAL:
+      updatedFeedback = updatedFeedback.slice(0, -1)
+      break
   }
   setFeedback(updatedFeedback);
 }
@@ -424,6 +450,24 @@ export function getReturnLinkLabel(ruleType) {
   return label + 'Rules Index';
 }
 
+export function getRefetchQueryString(rule: RuleInterface, activityId: string) {
+  const { rule_type } = rule;
+  switch (rule_type) {
+    case RULES_BASED_1:
+      return `rules-${activityId}-${RULES_BASED_1}`;
+    case RULES_BASED_2:
+      return `rules-${activityId}-${RULES_BASED_2}`;
+    case RULES_BASED_3:
+      return `rules-${activityId}-${RULES_BASED_3}`;
+    case PLAGIARISM:
+      return `rules-${activityId}-${PLAGIARISM}`;
+    case AUTO_ML:
+      return `rules-${activityId}-${AUTO_ML}`;
+    default:
+      return `rules-${activityId}`;
+  }
+}
+
 export function getPromptIdString(prompts) {
   let promptIdString = '';
   prompts.forEach((prompt, i) => {
@@ -434,23 +478,6 @@ export function getPromptIdString(prompts) {
     }
   });
   return promptIdString;
-}
-
-export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors: string[]) {
-  if(formErrorsPresent) {
-    return(
-      <div className="error-message-container">
-        <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
-      </div>
-    );
-  }
-  return(
-    <div className="error-message-container">
-      {requestErrors.map((error, i) => {
-        return <p className="all-errors-message" key={i}>{error}</p>
-      })}
-    </div>
-  )
 }
 
 export function renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModal) {

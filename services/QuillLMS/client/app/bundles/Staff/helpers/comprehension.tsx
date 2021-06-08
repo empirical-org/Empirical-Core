@@ -10,7 +10,6 @@ import {
   MINIMUM_READING_LEVEL,
   MAXIMUM_READING_LEVEL,
   TARGET_READING_LEVEL,
-  PARENT_ACTIVITY_ID,
   SCORED_READING_LEVEL,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
@@ -106,7 +105,7 @@ export const buildActivity = ({
     activity: {
       name: activityName,
       title: activityTitle,
-      parent_activity_id: parseInt(activityParentActivityId),
+      parent_activity_id: activityParentActivityId ? parseInt(activityParentActivityId) : null,
       // flag: label,
       scored_level: activityScoredReadingLevel,
       target_level: parseInt(activityTargetReadingLevel),
@@ -271,9 +270,6 @@ export const validateForm = (keys: string[], state: any[], ruleType?: string) =>
           errors[keys[i]] = 'Concept UID cannot be blank. Default for plagiarism rules is "Kr8PdUfXnU0L7RrGpY4uqg"'
         }
         break;
-      case PARENT_ACTIVITY_ID:
-        // this field is not required
-        break;
       default:
         const strippedValue = value && stripHtml(value);
         if(!strippedValue || strippedValue.length === 0) {
@@ -316,3 +312,29 @@ export const getCsrfToken = () => {
   const token = document.querySelector('meta[name="csrf-token"]')
   if (token) { return token.getAttribute('content') }
 };
+
+export const renderIDorUID = (idOrRuleId: string | number, type: string) => {
+  return(
+    <section className="label-status-container">
+      <p id="label-status-label">{type}</p>
+      <p id="label-status">{idOrRuleId}</p>
+    </section>
+  );
+}
+
+export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors: string[]) {
+  if(formErrorsPresent) {
+    return(
+      <div className="error-message-container">
+        <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
+      </div>
+    );
+  }
+  return(
+    <div className="error-message-container">
+      {requestErrors.map((error, i) => {
+        return <p className="all-errors-message" key={i}>{error}</p>
+      })}
+    </div>
+  )
+}

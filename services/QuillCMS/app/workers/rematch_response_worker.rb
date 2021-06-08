@@ -1,11 +1,10 @@
 require 'json'
 require 'net/http'
 
-MAX_RETRIES = 3
-
 class RematchResponseWorker
   include Sidekiq::Worker
-  sidekiq_options retry: 3, queue: SidekiqQueue::DEFAULT
+
+  sidekiq_options retry: 1, queue: SidekiqQueue::DEFAULT
 
   DEFAULT_PARAMS_HASH = {
     'parent_id' => nil,
