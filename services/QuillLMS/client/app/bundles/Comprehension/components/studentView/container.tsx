@@ -22,6 +22,7 @@ import getParameterByName from '../../helpers/getParameterByName';
 import { Passage } from '../../interfaces/activities'
 import { postTurkSession } from '../../utils/turkAPI';
 import { getCsrfToken } from "../../../Staff/helpers/comprehension";
+import { roundMillisecondsToSeconds, } from '../../../Shared/index'
 
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
 const tadaSrc =  `${process.env.CDN_URL}/images/illustrations/tada.svg`
@@ -143,7 +144,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
       if (inactivityTimer) { clearTimeout(inactivityTimer) }
 
-      let elapsedTime = _.round((now - startTime) / 1000)
+      let elapsedTime = now - startTime
       if (isIdle) {
         elapsedTime = 0
       }
@@ -178,10 +179,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const conceptResults = generateConceptResults(currentActivity, submittedResponses)
     const data = {
       time_tracking: {
-        reading: timeTracking[READ_PASSAGE_STEP],
-        because: timeTracking[2],
-        but: timeTracking[3],
-        so: timeTracking[4],
+        reading: roundMillisecondsToSeconds(timeTracking[READ_PASSAGE_STEP]),
+        because: roundMillisecondsToSeconds(timeTracking[2]),
+        but: roundMillisecondsToSeconds(timeTracking[3]),
+        so: roundMillisecondsToSeconds(timeTracking[4]),
       }
     }
     const callback = handleFinishActivity ? handleFinishActivity : window.location.href = '/'

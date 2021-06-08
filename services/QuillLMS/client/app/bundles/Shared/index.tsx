@@ -83,7 +83,9 @@ export {
   getQuestionsWithAttempts,
   getFilteredQuestions,
   getDisplayedText,
-  renderPreviewFeedback
+  renderPreviewFeedback,
+  roundValuesToSeconds,
+  roundMillisecondsToSeconds
 } from './libs/index'
 
 export {

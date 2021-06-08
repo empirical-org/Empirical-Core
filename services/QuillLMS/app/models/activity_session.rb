@@ -66,7 +66,6 @@ class ActivitySession < ActiveRecord::Base
   before_save   :set_completed_at, :set_activity_id
 
   after_save    :determine_if_final_score, :update_milestones
-  after_save :record_teacher_activity_feed, if: [:completed_at_changed?, :completed?]
 
   after_commit :invalidate_activity_session_count_if_completed
 
@@ -77,8 +76,6 @@ class ActivitySession < ActiveRecord::Base
 
   scope :completed,  -> { where.not(completed_at: nil) }
   scope :incomplete, -> { where(completed_at: nil, is_retry: false) }
-  # this is a default scope, adding this for unscoped use.
-  scope :visible,  -> { where(visible: true) }
 
   scope :for_teacher, lambda { |teacher_id|
     joins(classroom_unit: {classroom: :teachers})
@@ -119,8 +116,10 @@ class ActivitySession < ActiveRecord::Base
   def timespent
     if read_attribute(:timespent).present?
       read_attribute(:timespent)
+    elsif data.nil?
+      nil
     else
-      calculate_timespent
+      self.class.calculate_timespent(data['time_tracking'])
     end
   end
 
@@ -128,10 +127,8 @@ class ActivitySession < ActiveRecord::Base
     state == FINISHED_STATE
   end
 
-  def calculate_timespent
-    return nil if !finished? || started_at.nil? || completed_at.nil?
-
-    completed_at - started_at
+  def self.calculate_timespent(time_tracking)
+    time_tracking&.values&.sum
   end
 
   def eligible_for_tracking?
@@ -551,9 +548,5 @@ class ActivitySession < ActiveRecord::Base
 
   def self.has_a_started_session?(activity_id_or_ids, classroom_unit_id_or_ids)
     !!ActivitySession.find_by(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: "started")
-  end
-
-  private def record_teacher_activity_feed
-    teachers.each { |teacher| TeacherActivityFeed.add(teacher.id, id) }
   end
 end

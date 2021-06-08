@@ -13,7 +13,8 @@ import {
   SmartSpinner,
   PlayTitleCard,
   ProgressBar,
-  hashToCollection
+  hashToCollection,
+  roundValuesToSeconds
 } from '../../../Shared/index';
 import SessionActions from '../../actions/sessions.js';
 import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateCurrentQuestion, resumePreviousDiagnosticSession, setCurrentQuestion, setDiagnosticID } from '../../actions/diagnostics.js';
@@ -27,6 +28,8 @@ import {
 
 const request = require('request');
 
+const TITLE_CARD_TYPE = "TL"
+
 // TODO: triage issue with missing title cards. Currently, we have to dipatch data from this.questionsForLesson() to the loadData action in
 // three different places to ensure that preview mode always works: componentDidMount, onSpinnerMount & startActivity. Without these three calls,
 // sometimes the spinner will hang at 50% or the user will be unable to click title card questions.
@@ -39,6 +42,9 @@ export class StudentDiagnostic extends React.Component {
       saved: false,
       sessionID: this.getSessionId(),
       hasOrIsGettingResponses: false,
+      startTime: Date.now(),
+      isIdle: false,
+      timeTracking: {}
     }
   }
 
@@ -53,25 +59,83 @@ export class StudentDiagnostic extends React.Component {
     dispatch(clearData());
     dispatch(setDiagnosticID({ diagnosticID }))
     if (sessionID) {
+      const { timeTracking, } = this.state
       SessionActions.get(sessionID, (data) => {
-        this.setState({ session: data, });
+        if (data) {
+          this.setState({ session: data, timeTracking: data.timeTracking || timeTracking });
+        }
       });
     }
     const data = this.questionsForLesson()
     const action = loadData(data);
     dispatch(action);
+
+    window.addEventListener('keydown', this.resetTimers)
+    window.addEventListener('mousemove', this.resetTimers)
+    window.addEventListener('mousedown', this.resetTimers)
+    window.addEventListener('click', this.resetTimers)
+    window.addEventListener('keypress', this.resetTimers)
+    window.addEventListener('scroll', this.resetTimers)
+    window.addEventListener('visibilitychange', this.setIdle)
   }
 
   componentDidUpdate(prevProps) {
+    const { timeTracking, } = this.state
     const { skippedToQuestionFromIntro, previewMode, playDiagnostic } = this.props;
 
     if(previewMode && skippedToQuestionFromIntro !== prevProps.skippedToQuestionFromIntro) {
       this.startActivity();
     }
     if (prevProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
-      this.saveSessionData(playDiagnostic);
+      this.saveSessionData({ ...playDiagnostic, timeTracking, });
     }
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.resetTimers)
+    window.removeEventListener('mousemove', this.resetTimers)
+    window.removeEventListener('mousedown', this.resetTimers)
+    window.removeEventListener('click', this.resetTimers)
+    window.removeEventListener('keypress', this.resetTimers)
+    window.removeEventListener('scroll', this.resetTimers)
+    window.removeEventListener('visibilitychange', this.setIdle)
+  }
+
+  determineActiveStepForTimeTracking(playDiagnostic) {
+    const { currentQuestion, answeredQuestions, } = playDiagnostic
+
+    if (!currentQuestion) { return 'landing' }
+
+    const finishedTitleCards = answeredQuestions.filter(q => q.type === TITLE_CARD_TYPE)
+    const finishedQuestions = answeredQuestions.filter(q => q.type !== TITLE_CARD_TYPE)
+
+    if (currentQuestion.type === TITLE_CARD_TYPE) { return `title_card_${finishedTitleCards.length + 1}`}
+    if (currentQuestion.type !== TITLE_CARD_TYPE) { return `prompt_${finishedQuestions.length + 1}`}
+  }
+
+  resetTimers = (e=null) => {
+    const now = Date.now()
+    this.setState((prevState, props) => {
+      const { startTime, timeTracking, isIdle, inactivityTimer, completedSteps, } = prevState
+      const { playDiagnostic, } = props
+      const activeStep = this.determineActiveStepForTimeTracking(playDiagnostic)
+
+      if (inactivityTimer) { clearTimeout(inactivityTimer) }
+
+      let elapsedTime = now - startTime
+      if (isIdle || !playDiagnostic.questionSet) {
+        elapsedTime = 0
+      }
+      const newTimeTracking = {...timeTracking, [activeStep]: (timeTracking[activeStep] || 0) + elapsedTime}
+      const newInactivityTimer = setTimeout(this.setIdle, 30000);  // time is in milliseconds (1000 is 1 second)
+
+      return { timeTracking: newTimeTracking, isIdle: false, inactivityTimer: newInactivityTimer, startTime: now, }
+    })
+
+    return Promise.resolve(true);
+  }
+
+  setIdle = () => { this.resetTimers().then(() => this.setState({ isIdle: true })) }
 
   getPreviousSessionData = () => {
     const { session, } = this.state
@@ -111,7 +175,7 @@ export class StudentDiagnostic extends React.Component {
   }
 
   saveToLMS = () => {
-    const { sessionID, } = this.state
+    const { sessionID, timeTracking, } = this.state
     const { playDiagnostic, match } = this.props
     const { params } = match
     const { diagnosticID } = params
@@ -119,15 +183,16 @@ export class StudentDiagnostic extends React.Component {
     this.setState({ error: false, });
 
     const results = getConceptResultsForAllQuestions(playDiagnostic.answeredQuestions);
+    const data = { time_tracking: roundValuesToSeconds(timeTracking), }
 
     if (sessionID) {
-      this.finishActivitySession(sessionID, results, 1);
+      this.finishActivitySession(sessionID, results, 1, data);
     } else {
-      this.createAnonActivitySession(diagnosticID, results, 1);
+      this.createAnonActivitySession(diagnosticID, results, 1, data);
     }
   }
 
-  finishActivitySession = (sessionID, results, score) => {
+  finishActivitySession = (sessionID, results, score, data) => {
     request(
       {
         url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
@@ -137,6 +202,7 @@ export class StudentDiagnostic extends React.Component {
           state: 'finished',
           concept_results: results,
           percentage: score,
+          data
         }
       },
       (err, httpResponse, body) => {
@@ -155,7 +221,7 @@ export class StudentDiagnostic extends React.Component {
     );
   }
 
-  createAnonActivitySession = (lessonID, results, score) => {
+  createAnonActivitySession = (lessonID, results, score, data) => {
     request(
       {
         url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
@@ -166,6 +232,7 @@ export class StudentDiagnostic extends React.Component {
           activity_uid: lessonID,
           concept_results: results,
           percentage: score,
+          data
         }
       },
       (err, httpResponse, body) => {
@@ -221,6 +288,8 @@ export class StudentDiagnostic extends React.Component {
   nextQuestion = () => {
     const { dispatch, playDiagnostic, previewMode } = this.props;
     const { unansweredQuestions } = playDiagnostic;
+
+    this.resetTimers()
     // we set the current question here; otherwise, the attempts will be reset if the next question has already been answered
     if(previewMode) {
       const question = unansweredQuestions[0].data;
@@ -281,7 +350,7 @@ export class StudentDiagnostic extends React.Component {
           type = 'FB'
           break
         case 'titleCards':
-          type = 'TL'
+          type = TITLE_CARD_TYPE
           break
         case 'sentenceFragments':
         default:
@@ -317,7 +386,7 @@ export class StudentDiagnostic extends React.Component {
         questionType = 'FB'
         break
       case 'titleCards':
-        questionType = 'TL'
+        questionType = TITLE_CARD_TYPE
         break
       case 'sentenceFragments':
         questionType = 'SF'
@@ -340,7 +409,7 @@ export class StudentDiagnostic extends React.Component {
 
     const calculatedAnsweredQuestionCount = answeredQuestionCount(playDiagnostic)
 
-    const currentQuestionIsTitleCard = playDiagnostic.currentQuestion.type === 'TL'
+    const currentQuestionIsTitleCard = playDiagnostic.currentQuestion.type === TITLE_CARD_TYPE
     const currentQuestionIsNotFirstQuestion = calculatedAnsweredQuestionCount !== 0
 
     const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
@@ -411,7 +480,7 @@ export class StudentDiagnostic extends React.Component {
           previewMode={previewMode}
           question={question}
         />)
-      } else if (questionType === 'TL') {
+      } else if (questionType === TITLE_CARD_TYPE) {
         component = (
           <PlayTitleCard
             currentKey={key}
