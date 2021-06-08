@@ -5,7 +5,7 @@ class RuleFeedbackHistory
     end
 
     def self.exec_query(conjunction:, activity_id:, start_date:, end_date:)
-        start_date_param = start_date || Comprehension::Rule.first&.created_at
+        start_date_param = start_date || "1991-10-17T19:02:54.814Z"
         end_date_param = end_date || Time.now
         Comprehension::Rule.select(<<~SELECT
           comprehension_rules.uid AS rules_uid,
@@ -45,7 +45,7 @@ class RuleFeedbackHistory
     end
 
     def self.generate_rulewise_report(rule_uid:, prompt_id:, start_date:, end_date:)
-        start_date_param = start_date || FeedbackHistory.first&.created_at
+        start_date_param = start_date || "1991-10-17T19:02:54.814Z"
         end_date_param = end_date || Time.now
         feedback_histories = FeedbackHistory.where(rule_uid: rule_uid, prompt_id: prompt_id, used: true, created_at: start_date_param..end_date_param)
         response_jsons = []
