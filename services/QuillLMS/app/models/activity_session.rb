@@ -204,7 +204,7 @@ class ActivitySession < ActiveRecord::Base
                        .where.not(id: id).first
     if a.nil?
       update_columns is_final_score: true
-    elsif percentage > a.percentage
+    elsif a.percentage.nil? || percentage >= a.percentage
       update_columns is_final_score: true
       a.update_columns is_final_score: false
     end

@@ -15,6 +15,19 @@ exports[`SessionsIndex component should render SessionsIndex 1`] = `
     <p
       className="link-info-blurb"
     >
+      Use 
+      <a
+        href="https://data.quill.org/question/615?activity_id=undefined"
+      >
+        <strong>
+          this Metabase
+        </strong>
+      </a>
+       query to display feedback sessions on a single page.
+    </p>
+    <p
+      className="link-info-blurb"
+    >
       If you want to look up an individual activity session, plug the activity session ID into this url and it will load: https://www.quill.org/cms/comprehension#/activities/
       <strong>
         activityID

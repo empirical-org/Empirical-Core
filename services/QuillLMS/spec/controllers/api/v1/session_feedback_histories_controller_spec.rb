@@ -81,6 +81,35 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
         end
       end
+
+      context 'start_date, end_date' do
+        setup do
+          create(:feedback_history, created_at: '2021-04-05T20:43:27.698Z')
+          create(:feedback_history, created_at: '2021-04-06T20:43:27.698Z')
+          create(:feedback_history, created_at: '2021-04-07T20:43:27.698Z')
+          create(:feedback_history, created_at: '2021-04-08T20:43:27.698Z')
+          create(:feedback_history, created_at: '2021-04-09T20:43:27.698Z')
+        end
+
+        it 'should retrieve only items from the specified time constraints' do
+          get :index, start_date: '2021-04-06T20:43:27.698Z'
+
+          parsed_response = JSON.parse(response.body)
+
+          expect(response).to have_http_status(200)
+          expect(parsed_response['activity_sessions'].length).to eq(4)
+        end
+
+        it 'should retrieve only items from the specified time constraints' do
+          get :index, start_date: '2021-04-06T20:43:27.698Z', end_date: '2021-04-08T20:43:27.698Z'
+
+          parsed_response = JSON.parse(response.body)
+
+          expect(response).to have_http_status(200)
+          expect(parsed_response['activity_sessions'].length).to eq(3)
+
+        end
+      end
     end
   end
 

@@ -149,7 +149,7 @@ class FeedbackHistory < ActiveRecord::Base
     self.feedback_session_uid = FeedbackSession.get_uid_for_activity_session(feedback_session_uid)
   end
 
-  def self.list_by_activity_session(activity_id: nil, page: 1, page_size: DEFAULT_PAGE_SIZE)
+  def self.list_by_activity_session(activity_id: nil, page: 1, start_date: nil, end_date: nil, page_size: DEFAULT_PAGE_SIZE)
     query = select(
       <<-SQL
         feedback_histories.feedback_session_uid AS session_uid,
@@ -181,6 +181,8 @@ class FeedbackHistory < ActiveRecord::Base
       .group(:feedback_session_uid, :activity_id)
       .order('start_date DESC')
     query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
+    query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
+    query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
     query = query.limit(page_size)
     query = query.offset((page.to_i - 1) * page_size.to_i) if page && page.to_i > 1
     query
