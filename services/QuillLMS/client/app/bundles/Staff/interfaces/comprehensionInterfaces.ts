@@ -1,6 +1,7 @@
 export interface ActivityRouteProps {
   activityId: string,
-  type?: string
+  type?: string,
+  promptConjunction?: string
 }
 
 export interface ActivityInterface {
@@ -113,6 +114,12 @@ export interface ActivitySessionInterface {
   start_date: string,
   strong_count: number,
   weak_count: number
+}
+
+export interface ActivitySessionsInterface {
+  current_page: number,
+  total_pages: number,
+  activity_sessions: ActivitySessionInterface[]
 }
 
 export interface DropdownObjectInterface {

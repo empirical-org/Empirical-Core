@@ -1,5 +1,4 @@
-
-package endpoint
+package main
 
 import (
 	"bytes"
@@ -12,6 +11,7 @@ import (
 	"time"
 	"os"
 	"net/http/httputil"
+	"github.com/gin-gonic/gin"
 )
 
 const automl_index = 3
@@ -32,7 +32,7 @@ var client = &http.Client {
 	},
 }
 
-func GetBatchFeedbackHistoryUrl() (string) {
+func GetFeedbackHistoryUrl() (string) {
 	lms_domain := GetLMSDomain()
 	return fmt.Sprintf("%s/api/v1/feedback_histories/batch.json", lms_domain)
 }
@@ -57,10 +57,10 @@ func AssembleUrls() ([8]string) {
 		sentence_structure_regex_api = fmt.Sprintf("%s/api/v1/comprehension/feedback/regex/rules-based-1.json", lms_domain)
 		post_topic_regex_api         = fmt.Sprintf("%s/api/v1/comprehension/feedback/regex/rules-based-2.json", lms_domain)
 		typo_regex_api               = fmt.Sprintf("%s/api/v1/comprehension/feedback/regex/rules-based-3.json", lms_domain)
-		spell_check_bing             = fmt.Sprintf("%s/api/v1/comprehension/feedback/spelling.json", lms_domain)		
+		spell_check_bing             = fmt.Sprintf("%s/api/v1/comprehension/feedback/spelling.json", lms_domain)
 
 		grammar_check_api = "https://grammar-api.ue.r.appspot.com"
-		opinion_check_api = "https://opinion-api.ue.r.appspot.com/"	
+		opinion_check_api = "https://opinion-api.ue.r.appspot.com/"
 	)
 
 	var urls = [...]string{
@@ -77,43 +77,33 @@ func AssembleUrls() ([8]string) {
 	return urls
 }
 
-func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
+func Endpoint(context *gin.Context) {
 	urls := AssembleUrls()
-	// need this for javascript cors requests
-	// https://cloud.google.com/functions/docs/writing/http#functions_http_cors-go
-	if request.Method == http.MethodOptions {
-		responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
-		responseWriter.Header().Set("Access-Control-Allow-Methods", "POST")
-		responseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-		responseWriter.Header().Set("Access-Control-Max-Age", "3600")
-		responseWriter.WriteHeader(http.StatusNoContent)
-		return
-	}
 
-	requestDump, err := httputil.DumpRequest(request, true)
+	requestDump, err := httputil.DumpRequest(context.Request, true)
 	if err != nil {
 		fmt.Println(err)
 	}
 	fmt.Println(string(requestDump))
 
-	request_body, err := ioutil.ReadAll(request.Body)
+	request_body, err := ioutil.ReadAll(context.Request.Body)
 	if err != nil {
 		//TODO make this response in the same format maybe?
-		http.Error(responseWriter, err.Error(), http.StatusInternalServerError)
+		context.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	results := map[int]InternalAPIResponse{}
 
-	c := make(chan InternalAPIResponse)
+	channel := make(chan InternalAPIResponse)
 
 	for priority, url := range urls {
-		go getAPIResponse(url, priority, request_body, c)
+		go getAPIResponse(url, priority, request_body, channel)
 	}
 
 	var returnable_result APIResponse
 
-	for response := range c {
+	for response := range channel {
 		results[response.Priority] = response
 		return_index, finished := processResults(results, len(urls))
 
@@ -143,11 +133,11 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	go batchRecordFeedback(request_object, results, GetBatchFeedbackHistoryUrl())
+	go recordFeedback(request_object, returnable_result, GetFeedbackHistoryUrl())
 
-	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
-	responseWriter.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(responseWriter).Encode(returnable_result)
+	context.Header("Access-Control-Allow-Origin", "*")
+	context.Header("Content-Type", "application/json")
+	context.JSON(200, returnable_result)
 
 	wg.Wait()
 }
@@ -209,62 +199,37 @@ func identifyUsedFeedbackIndex(feedbacks map[int]InternalAPIResponse) int {
 	return -1
 }
 
-func buildFeedbackHistory(request_object APIRequest, feedback InternalAPIResponse, used bool, time_received time.Time) FeedbackHistory {
+func buildFeedbackHistory(request_object APIRequest, feedback APIResponse, used bool, time_received time.Time) FeedbackHistory {
 	return FeedbackHistory{
 		Feedback_session_uid: request_object.Session_id,
 		Prompt_id: request_object.Prompt_id,
-		Concept_uid: feedback.APIResponse.Concept_uid,
+		Concept_uid: feedback.Concept_uid,
 		Attempt: request_object.Attempt,
 		Entry: request_object.Entry,
-		Feedback_text: feedback.APIResponse.Feedback,
-		Feedback_type: feedback.APIResponse.Feedback_type,
-		Optimal: feedback.APIResponse.Optimal,
+		Feedback_text: feedback.Feedback,
+		Feedback_type: feedback.Feedback_type,
+		Optimal: feedback.Optimal,
 		Used: used,
 		Time: time_received,
-		Rule_uid: feedback.APIResponse.Rule_uid,
+		Rule_uid: feedback.Rule_uid,
 		Metadata: FeedbackHistoryMetadata{
-			Highlight: feedback.APIResponse.Highlight,
-			Labels: feedback.APIResponse.Labels,
-			Response_id: feedback.APIResponse.Response_id,
+			Highlight: feedback.Highlight,
+			Labels: feedback.Labels,
+			Response_id: feedback.Response_id,
 		},
 	}
 }
 
-func buildBatchFeedbackHistories(
-	request_object APIRequest, 
-	feedbacks map[int]InternalAPIResponse, 
-	time_received time.Time,
-	) (BatchHistoriesAPIRequest, error) {
-	feedback_histories := []FeedbackHistory{}
-	used_key := identifyUsedFeedbackIndex(feedbacks)
-	for key, feedback := range feedbacks {
-		if !feedback.Error{
-			feedback_histories = append(feedback_histories, buildFeedbackHistory(request_object, feedback, used_key == key, time_received))
-		} else if key == automl_index {
-			fallback_feedback := InternalAPIResponse{APIResponse: default_api_response}
-			feedback_histories = append(feedback_histories, buildFeedbackHistory(request_object, fallback_feedback, used_key == -1, time_received))
-		}
-	}
-
-	return BatchHistoriesAPIRequest {
-		Feedback_histories: feedback_histories,
-	}, nil
-}
-
-func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]InternalAPIResponse, batch_feedback_history_url string) {
+func recordFeedback(incoming_params APIRequest, feedback APIResponse, feedback_history_url string) {
 	defer wg.Done() // mark task as done in WaitGroup on return
 
-	histories, err := buildBatchFeedbackHistories(incoming_params, feedbacks, time.Now())
+	history := buildFeedbackHistory(incoming_params, feedback, true, time.Now())
 
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	histories_json, _ := json.Marshal(histories)
+	history_json, _ := json.Marshal(history)
 
 	// TODO For now, just swallow any errors from this, but we'd want to report errors.
 	// TODO: Replace "client" with "http" when we remove the segment above
-	client.Post(batch_feedback_history_url, "application/json",  bytes.NewBuffer(histories_json))
+	client.Post(feedback_history_url, "application/json",  bytes.NewBuffer(history_json))
 }
 
 type APIRequest struct {
@@ -319,8 +284,4 @@ type FeedbackHistory struct {
 	Time time.Time `json:"time"`
 	Metadata FeedbackHistoryMetadata `json:"metadata"`
 	Rule_uid string `json:"rule_uid"`
-}
-
-type BatchHistoriesAPIRequest struct {
-	Feedback_histories []FeedbackHistory `json:"feedback_histories"`
 }

@@ -50,6 +50,13 @@ export function getModelsUrl(promptId: string, state: string) {
   return url;
 }
 
+export function getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate }) {
+  let url = `session_feedback_histories.json?page=${pageNumber}&activity_id=${activityId}`;
+  url = startDate ? url + `&start_date=${startDate}` : url;
+  url = endDate ? url + `&end_date=${endDate}` : url;
+  return url;
+}
+
 export const getPromptsIcons = (activityData, promptIds: number[]) => {
   if(activityData && activityData.activity && activityData.activity.prompts) {
     const { activity } = activityData;

@@ -8,7 +8,7 @@ import DateTimePicker from 'react-datetime-picker';
 
 import { Error, Spinner, DropdownInput } from '../../../../Shared/index';
 import { fetchActivity, fetchActivitySessions } from '../../../utils/comprehension/activityAPIs';
-import { DropdownObjectInterface, ActivitySessionInterface } from '../../../interfaces/comprehensionInterfaces';
+import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface } from '../../../interfaces/comprehensionInterfaces';
 import { ALL, SCORED, UNSCORED, WEAK, COMPLETE, INCOMPLETE, activitySessionIndexResponseHeaders, activitySessionFilterOptions } from '../../../../../constants/comprehension';
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
@@ -17,6 +17,11 @@ const SessionsIndex = ({ match }) => {
   const { params } = match;
   const { activityId } = params;
 
+  const initialStartDateString = window.sessionStorage.getItem("storedStartDate") || '';
+  const initialEndDateString = window.sessionStorage.getItem("storedEndDate") || '';
+  const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
+  const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
+
   const [showError, setShowError] = React.useState<boolean>(false);
   const [pageNumber, setPageNumber] = React.useState<DropdownObjectInterface>(null);
   const [pageDropdownOptions, setPageDropdownOptions] = React.useState<DropdownObjectInterface[]>(null);
@@ -24,10 +29,10 @@ const SessionsIndex = ({ match }) => {
   const [rowData, setRowData] = React.useState<any[]>([]);
   const [sortInfo, setSortInfo] = React.useState<any>(null);
   const pageNumberForQuery = pageNumber && pageNumber.value ? pageNumber.value : 1;
-  const [startDate, onStartDateChange] = React.useState<Date>(null);
-  const [startDateForQuery, setStartDate] = React.useState<string>('');
-  const [endDate, onEndDateChange] = React.useState<Date>(null);
-  const [endDateForQuery, setEndDate] = React.useState<string>('');
+  const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
+  const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
+  const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
+  const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
 
   // cache activity data for updates
   const { data: activityData } = useQuery({
@@ -46,7 +51,7 @@ const SessionsIndex = ({ match }) => {
   }, [sessionsData]);
 
   React.useEffect(() => {
-    if(sessionsData && sessionsData.activitySessions && sessionsData.activitySessions.activity_sessions && !rowData.length) {
+    if(sessionsData && sessionsData.activitySessions && sessionsData.activitySessions.activity_sessions && startDateForQuery) {
       const { activitySessions } = sessionsData;
       const { activity_sessions } = activitySessions;
       const rows = formatSessionsData(activity_sessions)
@@ -60,9 +65,14 @@ const SessionsIndex = ({ match }) => {
       return;
     }
     setShowError(false);
-    setStartDate(startDate.toISOString());
+    setPageNumber({ value: '1', label: "Page 1" })
+    const startDateString = startDate.toISOString();
+    window.sessionStorage.setItem("storedStartDate", startDateString);
+    setStartDate(startDateString);
     if(endDate) {
-      setEndDate(endDate.toISOString());
+      const endDateString = endDate.toISOString();
+      window.sessionStorage.setItem("storedEndDate", endDateString);
+      setEndDate(endDateString);
     }
   }
 
@@ -86,23 +96,27 @@ const SessionsIndex = ({ match }) => {
   }
 
   function handleFilterOptionChange(option: DropdownObjectInterface, activitySessions: ActivitySessionInterface[]) {
-    const { value } = option;
-    const formattedRows = formatSessionsData(activitySessions);
-    const sortedRows = sortedSessions(formattedRows, sortInfo)
-    const filteredRows = getFilteredRows(value, sortedRows);
-    setFilterOption(option);
-    setRowData(filteredRows);
+    if(startDateForQuery) {
+      const { value } = option;
+      const formattedRows = formatSessionsData(activitySessions);
+      const sortedRows = sortedSessions(formattedRows, sortInfo)
+      const filteredRows = getFilteredRows(value, sortedRows);
+      setFilterOption(option);
+      setRowData(filteredRows);
+    }
   }
 
   function handleDataUpdate(activity_sessions: ActivitySessionInterface[], state: { sorted: object[]}) {
-    const { sorted } = state;
-    const sortInfo = sorted[0];
-    const rows = formatSessionsData(activity_sessions);
-    const sortedRows = sortedSessions(rows, sortInfo)
-    setRowData(sortedRows);
+    if(startDateForQuery)  {
+      const { sorted } = state;
+      const sortInfo = sorted[0];
+      const rows = formatSessionsData(activity_sessions);
+      const sortedRows = sortedSessions(rows, sortInfo)
+      setRowData(sortedRows);
+    }
   }
 
-  function getPageDropdownOptions(sessionsData) {
+  function getPageDropdownOptions(sessionsData: { activitySessions: ActivitySessionsInterface }) {
     if(!sessionsData) {
       return null;
     }
@@ -111,7 +125,7 @@ const SessionsIndex = ({ match }) => {
     }
     const { activitySessions } = sessionsData
     const { current_page, total_pages } = activitySessions;
-    setPageNumber({'value': current_page, 'label':`Page ${current_page}`})
+    setPageNumber({'value': current_page.toString(), 'label':`Page ${current_page}`})
     const options = [];
     for(let i=1; i <= total_pages; i++) {
       options.push({'value':i, 'label':`Page ${i}`})
@@ -187,6 +201,7 @@ const SessionsIndex = ({ match }) => {
   const { title } = activity;
   const { activitySessions } = sessionsData;
   const { total_activity_sessions, activity_sessions } = activitySessions;
+  const metabaseLink = `https://data.quill.org/question/615?activity_id=${activity.id}`
 
   return(
     <div className="sessions-index-container">
@@ -194,6 +209,7 @@ const SessionsIndex = ({ match }) => {
         <h1>{title}</h1>
       </section>
       <section>
+        <p className="link-info-blurb">Use <a href={metabaseLink}><strong>this Metabase</strong></a> query to display feedback sessions on a single page.</p>
         <p className="link-info-blurb">If you want to look up an individual activity session, plug the activity session ID into this url and it will load: https://www.quill.org/cms/comprehension#/activities/<strong>activityID</strong>/<strong>sessionID</strong></p>
         <section className="top-section">
           <section className="total-container">

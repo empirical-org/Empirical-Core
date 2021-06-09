@@ -1,5 +1,5 @@
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
-import { handleApiError, apiFetch, mainApiFetch, handleRequestErrors, requestFailed } from '../../helpers/comprehension';
+import { handleApiError, apiFetch, mainApiFetch, handleRequestErrors, requestFailed, getActivitySessionsUrl } from '../../helpers/comprehension';
 
 export const fetchActivities = async () => {
   let activities: ActivityInterface[];
@@ -66,8 +66,7 @@ export const archiveParentActivity = async (parentActivityId: string) => {
 }
 
 export const fetchActivitySessions = async (key: string, activityId: string, pageNumber: number, startDate: string, endDate?: string) => {
-  let url = `session_feedback_histories.json?page=${pageNumber}&activity_id=${activityId}&start_date=${startDate}`;
-  url = endDate ? url + `&end_date=${endDate}` : url;
+  const url = getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate });
   const response = await mainApiFetch(url);
   const activitySessions = await response.json();
 

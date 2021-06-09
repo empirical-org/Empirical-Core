@@ -21,6 +21,7 @@ class Cron
     ResetDemoAccountWorker.perform_async
     SyncVitallyWorker.perform_async
     MaterializedViewRefreshWorker.perform_async
+    RematchUpdatedQuestionsWorker.perform_async(date.beginning_of_day, date.end_of_day)
   end
 
   def self.run_saturday

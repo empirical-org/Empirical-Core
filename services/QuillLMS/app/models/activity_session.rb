@@ -66,6 +66,7 @@ class ActivitySession < ActiveRecord::Base
   before_save   :set_completed_at, :set_activity_id
 
   after_save    :determine_if_final_score, :update_milestones
+  after_save :record_teacher_activity_feed, if: [:completed_at_changed?, :completed?]
 
   after_commit :invalidate_activity_session_count_if_completed
 
@@ -76,6 +77,8 @@ class ActivitySession < ActiveRecord::Base
 
   scope :completed,  -> { where.not(completed_at: nil) }
   scope :incomplete, -> { where(completed_at: nil, is_retry: false) }
+  # this is a default scope, adding this for unscoped use.
+  scope :visible,  -> { where(visible: true) }
 
   scope :for_teacher, lambda { |teacher_id|
     joins(classroom_unit: {classroom: :teachers})
@@ -201,7 +204,7 @@ class ActivitySession < ActiveRecord::Base
                        .where.not(id: id).first
     if a.nil?
       update_columns is_final_score: true
-    elsif percentage > a.percentage
+    elsif a.percentage.nil? || percentage >= a.percentage
       update_columns is_final_score: true
       a.update_columns is_final_score: false
     end
@@ -548,5 +551,9 @@ class ActivitySession < ActiveRecord::Base
 
   def self.has_a_started_session?(activity_id_or_ids, classroom_unit_id_or_ids)
     !!ActivitySession.find_by(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: "started")
+  end
+
+  private def record_teacher_activity_feed
+    teachers.each { |teacher| TeacherActivityFeed.add(teacher.id, id) }
   end
 end
