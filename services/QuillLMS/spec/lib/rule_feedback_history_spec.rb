@@ -20,7 +20,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       }.merge(yield)
     )
   end
- 
+
   describe '#generate_report' do
     it 'should format' do
       # activities
@@ -40,7 +40,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       # users
       user1 = create(:user)
       user2 = create(:user)
-      
+
       #feedback ratings
       f_rating_1a = FeedbackHistoryRating.create!(feedback_history_id: f_h1.id, user_id: user1.id, rating: true)
       f_rating_1b = FeedbackHistoryRating.create!(feedback_history_id: f_h1.id, user_id: user2.id, rating: false)
@@ -51,7 +51,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       flag_consecutive = create(:feedback_history_flag, feedback_history_id: f_h1.id, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE)
       flag_non_consecutive = create(:feedback_history_flag, feedback_history_id: f_h1.id, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_NON_CONSECUTIVE)
 
-      report = RuleFeedbackHistory.generate_report(conjunction: 'so', activity_id: activity1.id)
+      report = RuleFeedbackHistory.generate_report(conjunction: 'so', activity_id: activity1.id, start_date: nil, end_date: nil)
 
       expected = {
         api_name: so_rule1.rule_type,
@@ -82,15 +82,19 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       because_prompt1 = Comprehension::Prompt.create!(activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
 
       # rules
-      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
+      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML' } }
+      so_rule2 = rule_factory { { name: 'so_rule2', rule_type: 'autoML' } }
+      so_rule3 = rule_factory { { name: 'so_rule3', rule_type: 'autoML' } }
+      so_rule4 = rule_factory { { name: 'so_rule4', rule_type: 'autoML' } }
 
       # feedbacks
-      create(:feedback_history, rule_uid: so_rule1.uid)
-      create(:feedback_history, rule_uid: so_rule1.uid)
+      create(:feedback_history, rule_uid: so_rule1.uid, time: "2021-03-07T19:02:54.814Z")
+      create(:feedback_history, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54.814Z")
+      create(:feedback_history, rule_uid: so_rule3.uid, time: "2021-05-07T19:02:54.814Z")
+      create(:feedback_history, rule_uid: so_rule4.uid, time: "2021-06-07T19:02:54.814Z")
 
-      sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id)
-
-      expect(sql_result.all.length).to eq 1
+      sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id, start_date: "2021-03-06T19:02:54.814Z", end_date: "2021-04-10T19:02:54.814Z")
+      expect(sql_result.all.length).to eq 2
       expect(sql_result[0].rule_type).to eq 'autoML'
     end
   end
@@ -103,10 +107,12 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       f_h1 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
       f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
       f_h3 = create(:feedback_history, rule_uid: unused_rule.uid, prompt_id: 1)
-      
+
       result = RuleFeedbackHistory.generate_rulewise_report(
         rule_uid: so_rule1.uid,
-        prompt_id: 1)
+        prompt_id: 1,
+        start_date: nil,
+        end_date: nil)
 
       expect(result.keys.length).to eq 1
       expect(result.keys.first.to_s).to eq so_rule1.uid
@@ -120,19 +126,23 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
     end
 
-    it 'should filter feedback histories by prompt id and used=true' do 
-      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} } 
-      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} } 
+    it 'should filter feedback histories by prompt id, used=true and time params' do
+      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
+      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} }
 
       f_h1 = create(:feedback_history, rule_uid: so_rule1.uid)
-      f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
+      f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: "2021-02-07T19:02:54.814Z")
       f_h3 = create(:feedback_history, rule_uid: unused_rule.uid)
       f_h4 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, used: false)
+      f_h5 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: "2021-03-07T19:02:54.814Z")
+      f_h6 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: "2021-04-07T19:02:54.814Z")
+      f_h7 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: "2021-05-07T19:02:54.814Z")
 
       result = RuleFeedbackHistory.generate_rulewise_report(
         rule_uid: so_rule1.uid,
-        prompt_id: 1
-      )
+        prompt_id: 1,
+        start_date: "2021-03-07T19:02:54.814Z",
+        end_date: "2021-04-07T19:02:54.814Z")
 
       expect(result.keys.length).to eq 1
       expect(result.keys.first.to_s).to eq so_rule1.uid
@@ -141,14 +151,14 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
       response_ids = responses.map {|r| r[:response_id]}
       expect(
-        Set[*response_ids] == Set[f_h2.id]
+        Set[*response_ids] == Set[f_h5.id, f_h6.id]
       ).to be true
 
     end
-    
-    it 'should display the most recent feedback history rating, if it exists' do 
-      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} } 
-      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} } 
+
+    it 'should display the most recent feedback history rating, if it exists' do
+      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
+      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} }
 
       # users
       user1 = create(:user)
@@ -174,7 +184,9 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       )
       result = RuleFeedbackHistory.generate_rulewise_report(
         rule_uid: so_rule1.uid,
-        prompt_id: 1)
+        prompt_id: 1,
+        start_date: nil,
+        end_date: nil)
 
       expect(result.keys.length).to eq 1
       expect(result.keys.first.to_s).to eq so_rule1.uid
