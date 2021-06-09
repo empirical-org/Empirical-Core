@@ -1,11 +1,11 @@
 class RuleFeedbackHistory
-    def self.generate_report(conjunction:, activity_id:)
-        sql_result = exec_query(conjunction: conjunction, activity_id: activity_id)
+    def self.generate_report(conjunction:, activity_id:, start_date: nil, end_date: nil)
+        sql_result = exec_query(conjunction: conjunction, activity_id: activity_id, start_date: start_date, end_date: end_date)
         format_sql_results(sql_result)
     end
 
-    def self.exec_query(conjunction:, activity_id:)
-        Comprehension::Rule.select(<<~SELECT
+    def self.exec_query(conjunction:, activity_id:, start_date:, end_date:)
+        query = Comprehension::Rule.select(<<~SELECT
           comprehension_rules.uid AS rules_uid,
           prompts.activity_id AS activity_id,
           comprehension_rules.rule_type AS rule_type,
@@ -27,6 +27,9 @@ class RuleFeedbackHistory
         .where("prompts.conjunction = ? AND activity_id = ?", conjunction, activity_id)
         .group('rules_uid, activity_id, rule_type, rule_suborder, rule_name, rule_note')
         .includes(:feedbacks)
+        query = query.where("feedback_histories.time >= ?", start_date) if start_date
+        query = query.where("feedback_histories.time <= ?", end_date) if end_date
+        query
     end
 
     def self.feedback_history_to_json(f_h)
@@ -40,8 +43,10 @@ class RuleFeedbackHistory
         }
     end
 
-    def self.generate_rulewise_report(rule_uid:, prompt_id: )
+    def self.generate_rulewise_report(rule_uid:, prompt_id:, start_date: nil, end_date: nil)
         feedback_histories = FeedbackHistory.where(rule_uid: rule_uid, prompt_id: prompt_id, used: true)
+        feedback_histories = feedback_histories.where("created_at >= ?", start_date) if start_date
+        feedback_histories = feedback_histories.where("created_at <= ?", end_date) if end_date
         response_jsons = []
         feedback_histories.each do |f_h|
             response_jsons.append(feedback_history_to_json(f_h))
