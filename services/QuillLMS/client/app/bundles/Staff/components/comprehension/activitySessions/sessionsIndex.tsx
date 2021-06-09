@@ -169,6 +169,7 @@ const SessionsIndex = ({ match }) => {
   const { title } = activity;
   const { activitySessions } = sessionsData;
   const { total_activity_sessions, activity_sessions } = activitySessions;
+  const metabaseLink = `https://data.quill.org/question/615?activity_id=${activity.id}`
 
   return(
     <div className="sessions-index-container">
@@ -176,6 +177,7 @@ const SessionsIndex = ({ match }) => {
         <h1>{title}</h1>
       </section>
       <section>
+        <p className="link-info-blurb">Use <a href={metabaseLink}><strong>this Metabase</strong></a> query to display feedback sessions on a single page.</p>
         <p className="link-info-blurb">If you want to look up an individual activity session, plug the activity session ID into this url and it will load: https://www.quill.org/cms/comprehension#/activities/<strong>activityID</strong>/<strong>sessionID</strong></p>
         <section className="top-section">
           <section className="total-container">
