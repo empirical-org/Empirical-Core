@@ -30,6 +30,7 @@ import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
 import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'
 import { Question, FormattedConceptResult } from '../../interfaces/questions'
 import LoadingSpinner from '../shared/loading_spinner'
+import { roundValuesToSeconds, } from '../../../Shared/index'
 
 interface PlayGrammarContainerState {
   showTurkCode: boolean;
@@ -37,6 +38,9 @@ interface PlayGrammarContainerState {
   error: boolean;
   saving: boolean;
   introSkipped: boolean;
+  startTime: number;
+  isIdle: boolean;
+  timeTracking: { [key:string]: number };
 }
 
 interface PlayGrammarContainerProps {
@@ -60,7 +64,10 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         saving: false,
         saved: false,
         error: false,
-        introSkipped: false
+        introSkipped: false,
+        startTime: Date.now(),
+        isIdle: false,
+        timeTracking: {}
       }
 
       const { dispatch, previewMode } = props
@@ -79,6 +86,14 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       if (proofreaderSessionId) {
         dispatch(startListeningToFollowUpQuestionsForProofreaderSession(proofreaderSessionId))
       }
+
+      window.addEventListener('keydown', this.resetTimers)
+      window.addEventListener('mousemove', this.resetTimers)
+      window.addEventListener('mousedown', this.resetTimers)
+      window.addEventListener('click', this.resetTimers)
+      window.addEventListener('keypress', this.resetTimers)
+      window.addEventListener('scroll', this.resetTimers)
+      window.addEventListener('visibilitychange', this.setIdle)
     }
 
     //TODO: refactor into componentDidUpdate
@@ -86,7 +101,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     UNSAFE_componentWillReceiveProps(nextProps: PlayGrammarContainerProps) {
       const { previewMode, questions, questionToPreview, grammarActivities, session, skippedToQuestionFromIntro } = nextProps;
       const { dispatch, handleToggleQuestion } = this.props;
-      const { introSkipped } = this.state;
+      const { introSkipped, timeTracking, } = this.state;
       if (grammarActivities.hasreceiveddata && grammarActivities.currentActivity && !session.hasreceiveddata && !session.pending && !session.error) {
         const { questions, concepts, flag } = grammarActivities.currentActivity
         if (questions && questions.length) {
@@ -106,7 +121,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const sessionID = getParameterByName('student', window.location.href)
       // eslint-disable-next-line react/destructuring-assignment
       if (sessionID && !_.isEqual(session, this.props.session) && !session.pending && session.hasreceiveddata) {
-        updateSession(sessionID, session)
+        updateSession(sessionID, {...session, timeTracking, })
       }
       if(previewMode && questions && session.currentQuestion && !questionToPreview) {
         const uid = session.currentQuestion.uid;
@@ -120,7 +135,8 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     }
 
     componentDidUpdate(prevProps) {
-      const { grammarActivities, dispatch, } = this.props
+      const { timeTracking, } = this.state
+      const { grammarActivities, dispatch, session, } = this.props
       const { hasreceiveddata } = grammarActivities
 
       const activityUID = getParameterByName('uid', window.location.href)
@@ -132,9 +148,57 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       if (!hasreceiveddata && activityUID) {
         dispatch(getActivity(activityUID))
       }
+
+      if (!_.isEqual(prevProps.session.timeTracking, session.timeTracking)) {
+        this.setState({ timeTracking: session.timeTracking || timeTracking })
+      }
     }
 
+    componentWillUnmount() {
+      window.removeEventListener('keydown', this.resetTimers)
+      window.removeEventListener('mousemove', this.resetTimers)
+      window.removeEventListener('mousedown', this.resetTimers)
+      window.removeEventListener('click', this.resetTimers)
+      window.removeEventListener('keypress', this.resetTimers)
+      window.removeEventListener('scroll', this.resetTimers)
+      window.removeEventListener('visibilitychange', this.setIdle)
+    }
+
+    determineActiveStepForTimeTracking(session) {
+      const { currentQuestion, answeredQuestions, } = session
+
+      if (!currentQuestion) { return 'landing' }
+
+      return `prompt_${answeredQuestions.length + 1}`
+    }
+
+    resetTimers = (e=null) => {
+      const now = Date.now()
+      this.setState((prevState, props) => {
+        const { startTime, timeTracking, isIdle, inactivityTimer, } = prevState
+        const { session, } = props
+        const activeStep = this.determineActiveStepForTimeTracking(session)
+
+        if (inactivityTimer) { clearTimeout(inactivityTimer) }
+
+        let elapsedTime = now - startTime
+        if (isIdle || !session.questionSet) {
+          elapsedTime = 0
+        }
+        const newTimeTracking = {...timeTracking, [activeStep]: (timeTracking[activeStep] || 0) + elapsedTime}
+        const newInactivityTimer = setTimeout(this.setIdle, 30000);  // time is in milliseconds (1000 is 1 second)
+
+        return { timeTracking: newTimeTracking, isIdle: false, inactivityTimer: newInactivityTimer, startTime: now, }
+      })
+
+      return Promise.resolve(true);
+    }
+
+    setIdle = () => { this.resetTimers().then(() => this.setState({ isIdle: true })) }
+
+
     saveToLMS = (questions: SessionState) => {
+      const { timeTracking, } = this.state
       const { session, previewMode } = this.props
       const { answeredQuestions } = questions
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
@@ -144,6 +208,8 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       let results
 
       this.setState({ saving: true, })
+
+      const data = { time_tracking: roundValuesToSeconds(timeTracking), }
 
       if (window.location.href.includes('turk')) {
         this.setState({showTurkCode: true})
@@ -164,16 +230,16 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         }
         if (proofreaderSession.anonymous) {
           const proofreaderActivityUID = proofreaderSession.activityUID
-          this.createAnonActivitySession(proofreaderActivityUID, proofreaderAndGrammarResults, totalScore)
+          this.createAnonActivitySession(proofreaderActivityUID, proofreaderAndGrammarResults, totalScore, data)
         } else if(!previewMode) {
-          this.finishActivitySession(proofreaderSessionId, proofreaderAndGrammarResults, totalScore)
+          this.finishActivitySession(proofreaderSessionId, proofreaderAndGrammarResults, totalScore, data)
         }
       } else {
         results = getConceptResultsForAllQuestions(answeredQuestions);
         if (sessionID && !previewMode) {
-          this.finishActivitySession(sessionID, results, score);
+          this.finishActivitySession(sessionID, results, score, data);
         } else if (activityUID) {
-          this.createAnonActivitySession(activityUID, results, score);
+          this.createAnonActivitySession(activityUID, results, score, data);
         }
       }
     }
@@ -184,7 +250,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       removeSession(sessionID || proofreaderSessionId);
     }
 
-    finishActivitySession = (sessionID: string, results: FormattedConceptResult[], score: number) => {
+    finishActivitySession = (sessionID: string, results: FormattedConceptResult[], score: number, data) => {
       request(
         { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
           method: 'PUT',
@@ -193,6 +259,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
             state: 'finished',
             concept_results: results,
             percentage: score,
+            data
           },
         },
         (err, httpResponse, body) => {
@@ -210,7 +277,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       );
     }
 
-    createAnonActivitySession = (lessonID: string, results: FormattedConceptResult[], score: number) => {
+    createAnonActivitySession = (lessonID: string, results: FormattedConceptResult[], score: number, data) => {
       const { showTurkCode, } = this.state;
       const { previewMode } = this.props;
       request(
@@ -222,6 +289,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
             activity_uid: lessonID,
             concept_results: results,
             percentage: score,
+            data,
           },
         },
         (err, httpResponse, body) => {
@@ -242,6 +310,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
     goToNextQuestion = () => {
       const { dispatch, } = this.props
+      this.resetTimers()
       dispatch(goToNextQuestion())
     }
 

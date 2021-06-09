@@ -11,6 +11,7 @@ export interface SessionState {
   unansweredQuestions: Question[]|never;
   questionSet: Question[]|never;
   currentQuestion: Question|null;
+  timeTracking: { [key:string]: number };
   proofreaderSession?: any;
   error?: string;
   pending: boolean;
