@@ -212,7 +212,7 @@ group :test do
 end
 
 # Memory profiling
-gem 'puma_worker_killer'
+gem 'puma_worker_killer', '0.1.0'
 gem 'sqreen'
 
 # temp for migrations

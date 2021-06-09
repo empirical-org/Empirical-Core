@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "google-cloud-automl", "~> 1.0.2"
+  s.add_dependency "google-cloud-automl-v1", "0.3.0"
   s.add_dependency "rails", "=4.2.11.3"
 
   # Gems needed for the test environment
