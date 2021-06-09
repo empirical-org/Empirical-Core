@@ -477,9 +477,9 @@ GEM
     public_suffix (4.0.6)
     puma (4.3.8)
       nio4r (~> 2.0)
-    puma_worker_killer (0.3.1)
+    puma_worker_killer (0.1.1)
       get_process_mem (~> 0.2)
-      puma (>= 2.7)
+      puma (>= 2.7, < 5)
     pusher (1.3.2)
       httpclient (~> 2.7)
       multi_json (~> 1.0)
@@ -855,7 +855,7 @@ DEPENDENCIES
   pry-rescue
   pry-stack_explorer
   puma (~> 4.3.8)
-  puma_worker_killer
+  puma_worker_killer (~> 0.1.0)
   pusher
   quiet_assets
   rack-affiliates (= 0.4.0)
