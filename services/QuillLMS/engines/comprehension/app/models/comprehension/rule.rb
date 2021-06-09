@@ -131,18 +131,19 @@ module Comprehension
       end
     end
 
-    def log_update(user_id, prev_value, new_value=nil)
-      if automl? && label.present? && !prev_value.is_a?(Hash)
-        send_change_log(user_id, :update_semantic, "#{label.name} | #{name}", prev_value)
+    def log_update(user_id, old_values_arr, new_values_arr=nil)
+      if automl? && label.present? && !old_values_arr.select { |n| n.key?("name")}.empty?
+        prev_values = change_text_automl(old_values_arr.select { |n| n.key?("name")}.first["name"])
+        send_change_log(user_id, :update_semantic, "#{label.name} | #{name}", prev_values)
       elsif regex?
-        prev_values = change_text_regex(prev_value)
-        send_change_log(user_id, :update_regex, change_text_regex(new_values(new_value || prev_value)), prev_values)
+        prev_values = change_text_regex(old_values_arr)
+        send_change_log(user_id, :update_regex, change_text_regex(new_values(new_values_arr || old_values_arr)), prev_values)
       elsif plagiarism?
-        prev_values = change_text_plagiarism(prev_value)
-        send_change_log(user_id, :update_plagiarism, change_text_plagiarism(new_values(new_value || prev_value)), prev_values)
+        prev_values = change_text_plagiarism(old_values_arr)
+        send_change_log(user_id, :update_plagiarism, change_text_plagiarism(new_values(new_values_arr || old_values_arr)), prev_values)
       elsif universal?
-        prev_values = change_text_universal(prev_value)
-        send_change_log(user_id, :update_universal, change_text_universal(new_values(new_value || prev_value)), prev_values)
+        prev_values = change_text_universal(old_values_arr)
+        send_change_log(user_id, :update_universal, change_text_universal(new_values(new_values_arr || old_values_arr)), prev_values)
       end
     end
 
@@ -167,6 +168,10 @@ module Comprehension
 
     private def change_text_universal(values=nil)
       values.present? ? "#{name} - #{rule_type} - #{values.to_s}" : "#{name} - #{rule_type}"
+    end
+
+    private def change_text_automl(values=nil)
+      values.present? ? "#{label.name} | #{values}" : nil
     end
   end
 end

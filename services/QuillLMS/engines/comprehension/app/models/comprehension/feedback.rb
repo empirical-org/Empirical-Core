@@ -14,10 +14,6 @@ module Comprehension
     validates :text, presence: true, length: {minimum: MIN_FEEDBACK_LENGTH, maximum: MAX_FEEDBACK_LENGTH}
     validates :order, numericality: {only_integer: true, greater_than_or_equal_to: 0}, uniqueness: {scope: :rule_id}
 
-    # after_create :log_creation
-    # after_destroy :log_deletion
-    # after_update :log_update, if: :text_changed?
-
     def serializable_hash(options = nil)
       options ||= {}
 
@@ -37,18 +33,6 @@ module Comprehension
 
     private def second_order
       order == 1
-    end
-
-    private def change_text(change_index)
-      "#{rule.label&.name} | #{rule.name}\n#{text_change[change_index]}"
-    end
-
-    private def log_creation
-      rule.log_update({feedback: text})
-    end
-
-    private def log_deletion
-      rule.log_update({feedback: nil}, {feedback: text})
     end
 
     def log_update(user_id, prev_value)

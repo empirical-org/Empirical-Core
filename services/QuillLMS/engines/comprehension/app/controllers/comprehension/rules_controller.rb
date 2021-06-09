@@ -36,7 +36,6 @@ module Comprehension
     def update
       if @rule.update(rule_params)
         @rule.log_update(lms_user_id, @rule_vals)
-        @rule.log_update(lms_user_id, @prev_name) if @prev_name.present?
         log_nested_changes
         head :no_content
       else
@@ -68,40 +67,49 @@ module Comprehension
     end
 
     private def save_nested_vars_for_log
-      @prev_name = nil
-      @feedback_vals = []
-      @highlights_vals = []
-      @plagiarism_text_vals = []
-      @regex_rules_vals = []
-      @rule_vals = []
+      initialize_arrays_for_log
 
+      save_label_vars_for_log
+      save_regex_rules_vars_for_log
+      save_plagiarism_text_vars_for_log
+      save_rule_vars_for_log
+    end
+
+    private def initialize_arrays_for_log
+      @feedback_vals, @highlights_vals, @plagiarism_text_vals, @regex_rules_vals, @rule_vals = [], [], [], [], []
+    end
+
+    private def save_label_vars_for_log
       label = Comprehension::Rule.find_by_id(params[:id])&.label
       if label.present?
         label_string = "#{label.name} | #{Comprehension::Rule.find(params[:id]).name}"
-        if rule_params[:name]
-          @prev_name = label_string
-        end
         rule_params[:feedbacks_attributes]&.each do |fa|
           old_feedback = Comprehension::Feedback.find_by_id(fa[:id])&.text
-          @feedback_vals.push({id: fa[:id], value: "#{label_string}\n#{old_feedback}"}) if fa[:id] && fa[:text] && fa[:text] != old_feedback
+          @feedback_vals.push({id: fa[:id], label_string: label_string, text: old_feedback || fa[:text]}) if fa[:text] && fa[:text] != old_feedback
           fa[:highlights_attributes]&.each do |ha|
             old_highlight = Comprehension::Highlight.find(ha[:id]).text
-            @highlights_vals.push({id: ha[:id], value: "#{label_string}\n#{old_highlight}"}) if ha[:id] && ha[:text] && ha[:text] != old_highlight
+            @highlights_vals.push({id: ha[:id], label_string: label_string, text: old_highlight || ha[:text]}) if ha[:text] && ha[:text] != old_highlight
           end
         end
       end
+    end
 
+    private def save_regex_rules_vars_for_log
       rule_params[:regex_rules_attributes]&.each do |rr|
         old_regex = Comprehension::RegexRule.find_by_id(rr[:id])&.regex_text
         @regex_rules_vals.push({id: rr[:id], regex_text: old_regex || rr[:regex_text]}) if rr[:regex_text] && rr[:regex_text] != old_regex
       end
+    end
 
+    private def save_plagiarism_text_vars_for_log
       if rule_params[:plagiarism_text_attributes]&.key?(:text)
         pt = rule_params[:plagiarism_text_attributes]
         old_text = Comprehension::PlagiarismText.find_by_id(pt[:id])&.text
         @plagiarism_text_vals.push({id: pt[:id], text: old_text || pt[:text]}) if pt[:text] && pt[:text] != old_text
       end
+    end
 
+    private def save_rule_vars_for_log
       rule = Comprehension::Rule.find_by_id(params[:id])
       if rule.present?
         rule_params.except(:prompt_ids, :plagiarism_text_attributes, :regex_rules_attributes, :label_attributes, :feedbacks_attributes).each do |key, value|
@@ -116,23 +124,31 @@ module Comprehension
 
     private def log_nested_changes
       @feedback_vals.each do |f|
-        Comprehension::Feedback.find(f[:id]).log_update(lms_user_id, f[:value])
+        if f[:id]
+          Comprehension::Feedback.find(f[:id]).log_update(lms_user_id, "#{f[:label_string]}\n#{f[:text]}")
+        else
+          Comprehension::Feedback.find_by(text: f[:text])&.log_update(lms_user_id, f[:label_string])
+        end
       end
       @highlights_vals.each do |h|
-        Comprehension::Highlight.find(h[:id]).log_update(lms_user_id, h[:value])
+        if h[:id]
+          Comprehension::Highlight.find(h[:id]).log_update(lms_user_id, "#{h[:label_string]}\n#{h[:text]}")
+        else
+          Comprehension::Highlight.find_by(text: h[:text])&.log_update(lms_user_id, h[:label_string])
+        end
       end
       @regex_rules_vals.each do |r|
         if r[:id]
           Comprehension::RegexRule.find(r[:id]).log_update(lms_user_id, r[:regex_text])
         else
-          Comprehension::RegexRule.find_by(regex_text: r[:regex_text]).log_update(lms_user_id, nil)
+          Comprehension::RegexRule.find_by(regex_text: r[:regex_text])&.log_update(lms_user_id, nil)
         end
       end
       @plagiarism_text_vals.each do |pt|
         if pt[:id]
           Comprehension::PlagiarismText.find(pt[:id]).log_update(lms_user_id, pt[:value])
         else
-          Comprehension::PlagiarismText.find_by(text: pt[:text]).log_update(lms_user_id, nil)
+          Comprehension::PlagiarismText.find_by(text: pt[:text])&.log_update(lms_user_id, nil)
         end
       end
     end

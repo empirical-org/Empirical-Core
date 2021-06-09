@@ -399,65 +399,65 @@ module Comprehension
       end
     end
 
-  #   context "show" do
-  #     setup do
-  #       @rule = create(:comprehension_rule)
-  #     end
+    context "show" do
+      setup do
+        @rule = create(:comprehension_rule)
+      end
 
-  #     should "return json if found by id" do
-  #       get :show, id: @rule.id
+      should "return json if found by id" do
+        get :show, id: @rule.id
 
-  #       parsed_response = JSON.parse(response.body)
+        parsed_response = JSON.parse(response.body)
 
-  #       assert_equal 200, response.code.to_i
-  #       assert_equal @rule.uid, parsed_response['uid']
+        assert_equal 200, response.code.to_i
+        assert_equal @rule.uid, parsed_response['uid']
 
-  #       assert_equal @rule.name, parsed_response['name']
+        assert_equal @rule.name, parsed_response['name']
 
-  #       assert_equal @rule.note, parsed_response['note']
+        assert_equal @rule.note, parsed_response['note']
 
-  #       assert_equal @rule.universal, parsed_response['universal']
+        assert_equal @rule.universal, parsed_response['universal']
 
-  #       assert_equal @rule.rule_type, parsed_response['rule_type']
+        assert_equal @rule.rule_type, parsed_response['rule_type']
 
-  #       assert_equal @rule.optimal, parsed_response['optimal']
+        assert_equal @rule.optimal, parsed_response['optimal']
 
-  #       assert_equal @rule.suborder, parsed_response['suborder']
+        assert_equal @rule.suborder, parsed_response['suborder']
 
-  #       assert_equal @rule.concept_uid, parsed_response['concept_uid']
+        assert_equal @rule.concept_uid, parsed_response['concept_uid']
 
-  #     end
+      end
 
-  #     should "return json if found by uid" do
-  #       get :show, id: @rule.uid
+      should "return json if found by uid" do
+        get :show, id: @rule.uid
 
-  #       parsed_response = JSON.parse(response.body)
+        parsed_response = JSON.parse(response.body)
 
-  #       assert_equal 200, response.code.to_i
-  #       assert_equal @rule.uid, parsed_response['uid']
+        assert_equal 200, response.code.to_i
+        assert_equal @rule.uid, parsed_response['uid']
 
-  #       assert_equal @rule.name, parsed_response['name']
+        assert_equal @rule.name, parsed_response['name']
 
-  #       assert_equal @rule.note, parsed_response['note']
+        assert_equal @rule.note, parsed_response['note']
 
-  #       assert_equal @rule.universal, parsed_response['universal']
+        assert_equal @rule.universal, parsed_response['universal']
 
-  #       assert_equal @rule.rule_type, parsed_response['rule_type']
+        assert_equal @rule.rule_type, parsed_response['rule_type']
 
-  #       assert_equal @rule.optimal, parsed_response['optimal']
+        assert_equal @rule.optimal, parsed_response['optimal']
 
-  #       assert_equal @rule.suborder, parsed_response['suborder']
+        assert_equal @rule.suborder, parsed_response['suborder']
 
-  #       assert_equal @rule.concept_uid, parsed_response['concept_uid']
+        assert_equal @rule.concept_uid, parsed_response['concept_uid']
 
-  #     end
+      end
 
-  #     should "raise if not found (to be handled by parent app)" do
-  #       assert_raises ActiveRecord::RecordNotFound do
-  #         get :show, id: 99999
-  #       end
-  #     end
-  #   end
+      should "raise if not found (to be handled by parent app)" do
+        assert_raises ActiveRecord::RecordNotFound do
+          get :show, id: 99999
+        end
+      end
+    end
 
     context "update" do
       setup do
