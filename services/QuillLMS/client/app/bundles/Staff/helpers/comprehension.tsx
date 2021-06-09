@@ -19,8 +19,8 @@ import { PromptInterface } from '../interfaces/comprehensionInterfaces'
 
 const quillCheckmark = `/images/green_check.svg`;
 const quillX = '/images/red_x.svg';
-// const mainApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
-const mainApiBaseUrl = `https://www.quill.org/api/v1/`;
+const mainApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
+// const mainApiBaseUrl = `https://quill.org/api/v1/`;
 const comprehensionBaseUrl = `${mainApiBaseUrl}comprehension/`;
 const fetchDefaults = require("fetch-defaults");
 
@@ -52,6 +52,13 @@ export function getModelsUrl(promptId: string, state: string) {
 
 export function getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate }) {
   let url = `session_feedback_histories.json?page=${pageNumber}&activity_id=${activityId}`;
+  url = startDate ? url + `&start_date=${startDate}` : url;
+  url = endDate ? url + `&end_date=${endDate}` : url;
+  return url;
+}
+
+export const getRuleFeedbackHistoriesUrl = ({ activityId, selectedConjunction, startDate, endDate }) => {
+  let url = `rule_feedback_histories?activity_id=${activityId}&conjunction=${selectedConjunction}`;
   url = startDate ? url + `&start_date=${startDate}` : url;
   url = endDate ? url + `&end_date=${endDate}` : url;
   return url;
@@ -242,6 +249,23 @@ const scoredReadingLevelError = (value: string) => {
   const num = parseInt(value);
   if(isNaN(num) || num < 4 || num > 12) {
     return `${SCORED_READING_LEVEL} must be a number between 4 and 12, or left blank.`;
+  }
+}
+
+export const handlePageFilterClick = ({ startDate, endDate, setStartDate, setEndDate, setShowError, setPageNumber, storageKey }) => {
+  if(!startDate) {
+    setShowError(true);
+    return;
+  }
+  setShowError(false);
+  setPageNumber && setPageNumber({ value: '1', label: "Page 1" })
+  const startDateString = startDate.toISOString();
+  window.sessionStorage.setItem(`${storageKey}startDate`, startDateString);
+  setStartDate(startDateString);
+  if(endDate) {
+    const endDateString = endDate.toISOString();
+    window.sessionStorage.setItem(`${storageKey}endDate`, endDateString);
+    setEndDate(endDateString);
   }
 }
 

@@ -46,7 +46,7 @@ const RuleAnalysis = ({ history, match }) => {
     queryFn: fetchRuleFeedbackHistoriesByRule
   })
 
-  const prompt = activityData ? activityData.activity.prompts.find(prompt => prompt.conjunction === promptConjunction) : {}
+  const prompt: any = activityData ? activityData.activity.prompts.find(prompt => prompt.conjunction === promptConjunction) : {}
 
   React.useEffect(() => {
     if (!ruleFeedbackHistoryData) { return }

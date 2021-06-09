@@ -6,10 +6,11 @@ import * as moment from 'moment';
 import { firstBy } from 'thenby';
 import DateTimePicker from 'react-datetime-picker';
 
+import { handlePageFilterClick } from "../../../helpers/comprehension";
 import { Error, Spinner, DropdownInput } from '../../../../Shared/index';
 import { fetchActivity, fetchActivitySessions } from '../../../utils/comprehension/activityAPIs';
 import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface } from '../../../interfaces/comprehensionInterfaces';
-import { ALL, SCORED, UNSCORED, WEAK, COMPLETE, INCOMPLETE, activitySessionIndexResponseHeaders, activitySessionFilterOptions } from '../../../../../constants/comprehension';
+import { ALL, SCORED, UNSCORED, WEAK, COMPLETE, INCOMPLETE, activitySessionIndexResponseHeaders, activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/comprehension';
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 
@@ -17,8 +18,8 @@ const SessionsIndex = ({ match }) => {
   const { params } = match;
   const { activityId } = params;
 
-  const initialStartDateString = window.sessionStorage.getItem("storedStartDate") || '';
-  const initialEndDateString = window.sessionStorage.getItem("storedEndDate") || '';
+  const initialStartDateString = window.sessionStorage.getItem(`${SESSION_INDEX}startDate`) || '';
+  const initialEndDateString = window.sessionStorage.getItem(`${SESSION_INDEX}endDate`) || '';
   const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
 
@@ -60,20 +61,7 @@ const SessionsIndex = ({ match }) => {
   }, [sessionsData]);
 
   function handleFilterClick() {
-    if(!startDate) {
-      setShowError(true);
-      return;
-    }
-    setShowError(false);
-    setPageNumber({ value: '1', label: "Page 1" })
-    const startDateString = startDate.toISOString();
-    window.sessionStorage.setItem("storedStartDate", startDateString);
-    setStartDate(startDateString);
-    if(endDate) {
-      const endDateString = endDate.toISOString();
-      window.sessionStorage.setItem("storedEndDate", endDateString);
-      setEndDate(endDateString);
-    }
+    handlePageFilterClick({ startDate, endDate, setStartDate, setEndDate, setShowError, setPageNumber, storageKey: SESSION_INDEX });
   }
 
   function getFilteredRows(filter: string, activitySessions: ActivitySessionInterface[]) {

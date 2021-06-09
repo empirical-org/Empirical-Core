@@ -11,6 +11,39 @@
     margin-right: 40px;
   }
 
+  .date-selection-container {
+    display: flex;
+    align-items: baseline;
+    .date-picker-label {
+      margin-right: 8px;
+    }
+    .start-date-picker {
+      margin-right: 22px;
+    }
+    .end-date-picker {
+      margin-right: 16px;
+    }
+    .react-datetime-picker__inputGroup {
+      padding-top: 2px;
+    }
+    .react-datetime-picker__inputGroup__input {
+      height: auto;
+    }
+  }
+
+  .error-container {
+    justify-content: flex-start;
+    padding-top: 0;
+    margin-bottom: 8px;
+    min-height: 24px;
+    .error-message {
+      font-size: 12px;
+      font-weight: 600;
+      color: #ff0000;
+      margin: 0;
+    }
+  }
+
   .ReactTable .rt-thead .rt-resizable-header-content {
     overflow: visible;
     white-space: pre-wrap;
