@@ -17,8 +17,6 @@ module Comprehension
     # after_create :log_creation
     # after_destroy :log_deletion
     # after_update :log_update, if: :text_changed?
-    # after_update :log_first_update, if: -> {semantic_rule && first_order && text_changed?}
-    # after_update :log_second_update, if: -> {semantic_rule && second_order && text_changed?}
 
     def serializable_hash(options = nil)
       options ||= {}
@@ -41,18 +39,6 @@ module Comprehension
       order == 1
     end
 
-    private def log_first_update
-      rule&.prompts&.each do |prompt|
-        log_change(:update_feedback_1, prompt, nil, nil, change_text(0), change_text(1))
-      end
-    end
-
-    private def log_second_update
-      rule&.prompts&.each do |prompt|
-        log_change(:update_feedback_2, prompt, nil, nil, change_text(0), change_text(1))
-      end
-    end
-
     private def change_text(change_index)
       "#{rule.label&.name} | #{rule.name}\n#{text_change[change_index]}"
     end
@@ -65,8 +51,16 @@ module Comprehension
       rule.log_update({feedback: nil}, {feedback: text})
     end
 
-    private def log_update
-      rule.log_update({feedback: text_change[1]}, {feedback: text_change[0]})
+    def log_update(user_id, prev_value)
+      if semantic_rule && first_order
+        rule&.prompts&.each do |prompt|
+          log_change(user_id, :update_feedback_1, prompt, nil, nil, prev_value, "#{rule.label.name} | #{rule.name}\n#{text}")
+        end
+      elsif semantic_rule && second_order
+        rule&.prompts&.each do |prompt|
+          log_change(user_id, :update_feedback_2, prompt, nil, nil, prev_value, "#{rule.label.name} | #{rule.name}\n#{text}")
+        end
+      end
     end
   end
 end

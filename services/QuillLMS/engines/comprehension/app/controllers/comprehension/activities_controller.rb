@@ -4,7 +4,7 @@ module Comprehension
   class ActivitiesController < ApplicationController
     skip_before_action :verify_authenticity_token
     before_action :set_activity, only: [:show, :update, :destroy, :rules]
-    before_action :save_nested_vars_for_log, only: [:update]
+    before_action :save_nested_vars_for_log, only: [:update, :create]
 
     # GET /activities.json
     def index
@@ -24,6 +24,7 @@ module Comprehension
 
       if @activity.save
         @activity.log_creation(lms_user_id)
+        log_nested_changes
         render json: @activity, status: :created
       else
         render json: @activity.errors, status: :unprocessable_entity
@@ -72,19 +73,27 @@ module Comprehension
       @prompts_vars = []
       @passages_vars = []
       activity_params[:passages_attributes]&.each do |pa|
-        @passages_vars.push({id: pa[:id], text: Comprehension::Passage.find(pa[:id]).text}) if pa[:id] && pa[:text]
+        @passages_vars.push({id: pa[:id], text: Comprehension::Passage.find_by_id(pa[:id])&.text || pa[:text]}) if pa[:text]
       end
       activity_params[:prompts_attributes]&.each do |pp|
-        @prompts_vars.push({id: pp[:id], text: Comprehension::Prompt.find(pp[:id]).text}) if pp[:id] && pp[:text]
+        @prompts_vars.push({id: pp[:id], text: Comprehension::Prompt.find_by_id(pp[:id])&.text || pp[:text]}) if pp[:text]
       end
     end
 
     private def log_nested_changes
       @prompts_vars.each do |pv|
-        Comprehension::Prompt.find(pv[:id]).log_update(lms_user_id, pv[:text])
+        if pv[:id]
+          Comprehension::Prompt.find(pv[:id]).log_update(lms_user_id, pv[:text])
+        else
+          Comprehension::Prompt.find_by(text: pv[:text])&.log_update(lms_user_id, nil)
+        end
       end
       @passages_vars.each do |pp|
-        Comprehension::Passage.find(pp[:id]).log_update(lms_user_id, pp[:text])
+        if pp[:id]
+          Comprehension::Passage.find(pp[:id]).log_update(lms_user_id, pp[:text])
+        else
+          Comprehension::Passage.find_by(text: pp[:text])&.log_update(lms_user_id, nil)
+        end
       end
     end
   end

@@ -337,6 +337,36 @@ module Comprehension
         assert_equal 1, Label.count
       end
 
+      should "make a change log record when nested label is created" do
+        assert_equal 0, Label.count
+
+        @rule.prompt_ids = [@prompt.id]
+        @rule.save
+        label = build(:comprehension_label)
+        post :create, rule: {
+          concept_uid: @rule.concept_uid,
+          note: @rule.note,
+          name: @rule.name,
+          optimal: @rule.optimal,
+          state: @rule.state,
+          suborder: @rule.suborder,
+          rule_type: @rule.rule_type,
+          universal: @rule.universal,
+          prompt_ids: @rule.prompt_ids,
+          label_attributes: {
+            name: label.name
+          }
+        }
+
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Semantic Label - created"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.new_value, "[#{label.name} | #{@rule.name}] - created"
+        assert_equal change_log.previous_value, nil
+      end
+
       should "create nested regex rule record when present in params" do
         assert_equal 0, RegexRule.count
 
@@ -429,109 +459,298 @@ module Comprehension
   #     end
   #   end
 
-  #   context "update" do
-  #     setup do
-  #       @prompt = create(:comprehension_prompt)
-  #       @rule = create(:comprehension_rule, prompt_ids: [@prompt.id])
-  #     end
+    context "update" do
+      setup do
+        @controller.session[:user_id] = 1
+        @prompt = create(:comprehension_prompt)
+        @rule = create(:comprehension_rule, prompt_ids: [@prompt.id])
+      end
 
-  #     should "update record if valid, return nothing" do
-  #       new_prompt = create(:comprehension_prompt)
-  #       patch :update, id: @rule.id, rule: { concept_uid: @rule.concept_uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, state: @rule.state, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal, prompt_ids: [new_prompt.id] }
+      should "update record if valid, return nothing" do
+        new_prompt = create(:comprehension_prompt)
+        patch :update, id: @rule.id, rule: { concept_uid: @rule.concept_uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, state: @rule.state, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal, prompt_ids: [new_prompt.id] }
 
-  #       assert_equal "", response.body
-  #       assert_equal 204, response.code.to_i
+        assert_equal "", response.body
+        assert_equal 204, response.code.to_i
 
-  #       assert_equal @rule.reload.prompt_ids, [new_prompt.id]
-  #     end
+        assert_equal @rule.reload.prompt_ids, [new_prompt.id]
+      end
 
-  #     should "not update record and return errors as json" do
-  #       patch :update, id: @rule.id, rule: { concept_uid: @rule.concept_uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, state: @rule.state, suborder: -1, rule_type: @rule.rule_type, universal: @rule.universal }
+      should "create a change log record after updating a universal rule" do
+        universal_rule = create(:comprehension_rule, prompt_ids: [@prompt.id], universal: true, rule_type: 'spelling')
+        old_name = universal_rule.name
+        new_name = "new rule name"
+        patch :update, id: universal_rule.id, rule: { concept_uid: universal_rule.concept_uid, note: universal_rule.note, name: new_name }
 
-  #       parsed_response = JSON.parse(response.body)
+        universal_rule.reload
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Universal Rule - updated"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.new_value, "#{universal_rule.name} - #{universal_rule.display_name} - #{[{"name"=>new_name}].to_s}"
+        assert_equal change_log.previous_value, "#{universal_rule.name} - #{universal_rule.display_name} - #{[{"name"=>old_name}].to_s}"
+      end
 
-  #       assert_equal 422, response.code.to_i
-  #       assert parsed_response['suborder'].include?("must be greater than or equal to 0")
-  #     end
+      should "create a change log record after updating a plagiarism rule" do
+        plagiarism_rule = create(:comprehension_rule, prompt_ids: [@prompt.id], rule_type: 'plagiarism', state: 'inactive')
+        plagiarized_text = create(:comprehension_plagiarism_text, rule: plagiarism_rule)
+        feedback = create(:comprehension_feedback, rule: plagiarism_rule)
+        old_name = plagiarism_rule.name
+        old_state = plagiarism_rule.state
+        new_name = "new rule name"
+        new_state = "active"
+        patch :update, id: plagiarism_rule.id, rule: { concept_uid: plagiarism_rule.concept_uid, name: new_name, state: new_state }
 
-  #     should "update a valid record with plagiarism_text attributes" do
-  #       plagiarism_text = "New plagiarism text"
-  #       patch :update, id: @rule.id, rule: { plagiarism_text_attributes: {text: plagiarism_text}}
+        plagiarism_rule.reload
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Plagiarism - updated"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.new_value, "#{plagiarism_rule.name} - #{plagiarized_text.text} - #{feedback.text}\n#{[{"name"=>new_name},{"state"=>new_state}]}"
+        assert_equal change_log.previous_value, "#{plagiarism_rule.name} - #{plagiarized_text.text} - #{feedback.text}\n#{[{"name"=>old_name},{"state"=>old_state}]}"
+      end
 
-  #       assert_equal @rule.reload.plagiarism_text.text, plagiarism_text
-  #     end
+      should "create a change log record after updating a regex rule" do
+        regex_rule = create(:comprehension_rule, prompt_ids: [@prompt.id], rule_type: 'rules-based-1')
+        old_name = regex_rule.name
+        new_name = "new rule name"
+        patch :update, id: regex_rule.id, rule: { concept_uid: regex_rule.concept_uid, name: new_name, state: regex_rule.state }
 
-  #     should "update nested feedback attributes if present" do
-  #       feedback = create(:comprehension_feedback, rule: @rule)
-  #       new_text = 'new text for the feedbacks object'
-  #       patch :update, id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: new_text}]}
+        regex_rule.reload
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Regex Rule - updated"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.new_value, "#{regex_rule.name} - #{regex_rule.display_name} - #{[{"name"=>new_name}]}"
+        assert_equal change_log.previous_value, "#{regex_rule.name} - #{regex_rule.display_name} - #{[{"name"=>old_name}]}"
+      end
 
-  #       assert_equal 204, response.code.to_i
-  #       assert_equal "", response.body
+      should "not update record and return errors as json" do
+        patch :update, id: @rule.id, rule: { concept_uid: @rule.concept_uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, state: @rule.state, suborder: -1, rule_type: @rule.rule_type, universal: @rule.universal }
 
-  #       feedback.reload
-  #       assert_equal feedback.text, new_text
-  #     end
+        parsed_response = JSON.parse(response.body)
 
-  #     should "update nested highlight attributes in feedback if present" do
-  #       feedback = create(:comprehension_feedback, rule: @rule)
-  #       highlight = create(:comprehension_highlight, feedback: feedback)
-  #       new_text = "New text to highlight"
+        assert_equal 422, response.code.to_i
+        assert parsed_response['suborder'].include?("must be greater than or equal to 0")
+      end
 
-  #       post :update, id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: [{id: highlight.id, text: new_text}]}]}
+      should "update a valid record with plagiarism_text attributes" do
+        plagiarism_text = "New plagiarism text"
+        patch :update, id: @rule.id, rule: { plagiarism_text_attributes: {text: plagiarism_text}}
 
-  #       assert_equal 204, response.code.to_i
-  #       assert_equal "", response.body
+        assert_equal @rule.reload.plagiarism_text.text, plagiarism_text
+      end
 
-  #       highlight.reload
-  #       assert_equal new_text, highlight.text
-  #     end
+      should "make a change log record after creating new plagiarism text through update call" do
+        plagiarism_text = "New plagiarism text"
+        @rule.update(rule_type: 'plagiarism')
+        patch :update, id: @rule.id, rule: { plagiarism_text_attributes: {text: plagiarism_text}}
 
-  #     should "not update read-only nested label name" do
-  #       label = create(:comprehension_label, rule: @rule)
-  #       new_name = 'can not be updated'
+        @rule.reload
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Plagiarism - updated"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.new_value, "#{@rule.name} - #{@rule.plagiarism_text.text} - \n#{[{:plagiarized_text=>"New plagiarism text"}]}"
+        assert_equal change_log.previous_value, "#{@rule.name} - #{@rule.plagiarism_text.text} - \n#{[{:plagiarized_text=>nil}]}"
+      end
 
-  #       post :update, id: @rule.id, rule: { label_attributes: {id: label.id, name: new_name}}
+      should "update nested feedback attributes if present" do
+        feedback = create(:comprehension_feedback, rule: @rule)
+        new_text = 'new text for the feedbacks object'
+        patch :update, id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: new_text}]}
+
+        assert_equal 204, response.code.to_i
+        assert_equal "", response.body
+
+        feedback.reload
+        assert_equal feedback.text, new_text
+      end
+
+      should 'make a change log record after updating feedback text for a semantic first order rule' do
+        automl_rule = create(:comprehension_rule, rule_type: 'autoML', prompt_ids: [@prompt.id])
+        label = create(:comprehension_label, rule: automl_rule)
+        feedback = create(:comprehension_feedback, order: 0, rule: automl_rule)
+        old_text = feedback.text
+        post :update, id: automl_rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: 'new test feedback text is some new test feedback'}]}
+
+        automl_rule.reload
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Semantic Label First Layer Feedback - updated"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.new_value, "#{label.name} | #{automl_rule.name}\nnew test feedback text is some new test feedback"
+        assert_equal change_log.previous_value, "#{label.name} | #{automl_rule.name}\n#{old_text}"
+      end
+
+      should 'make a change log record after updating feedback text for a semantic second order rule' do
+        automl_rule = create(:comprehension_rule, rule_type: 'autoML', prompt_ids: [@prompt.id])
+        label = create(:comprehension_label, rule: automl_rule)
+        feedback = create(:comprehension_feedback, order: 1, rule: automl_rule)
+        old_text = feedback.text
+        post :update, id: automl_rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: 'new test feedback text is some new test feedback'}]}
+
+        automl_rule.reload
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Semantic Label Second Layer Feedback - updated"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.new_value, "#{label.name} | #{automl_rule.name}\nnew test feedback text is some new test feedback"
+        assert_equal change_log.previous_value, "#{label.name} | #{automl_rule.name}\n#{old_text}"
+      end
+
+      should "update nested highlight attributes in feedback if present" do
+        feedback = create(:comprehension_feedback, rule: @rule)
+        highlight = create(:comprehension_highlight, feedback: feedback)
+        new_text = "New text to highlight"
+
+        post :update, id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: [{id: highlight.id, text: new_text}]}]}
+
+        assert_equal 204, response.code.to_i
+        assert_equal "", response.body
+
+        highlight.reload
+        assert_equal new_text, highlight.text
+      end
+
+      should 'make a change log record after updating highlight text for a semantic first order rule' do
+        automl_rule = create(:comprehension_rule, rule_type: 'autoML', prompt_ids: [@prompt.id])
+        label = create(:comprehension_label, rule: automl_rule)
+        feedback = create(:comprehension_feedback, order: 0, rule: automl_rule)
+        highlight = create(:comprehension_highlight, feedback: feedback)
+        old_text = highlight.text
+        new_text = "New text to highlight"
+
+        post :update, id: automl_rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: [{id: highlight.id, text: new_text}]}]}
+
+        automl_rule.reload
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Semantic Label First Layer Feedback Highlight - updated"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.new_value, "#{label.name} | #{automl_rule.name}\n#{new_text}"
+        assert_equal change_log.previous_value, "#{label.name} | #{automl_rule.name}\n#{old_text}"
+      end
+
+      should 'make a change log record after updating highlight text for a semantic second order rule' do
+        automl_rule = create(:comprehension_rule, rule_type: 'autoML', prompt_ids: [@prompt.id])
+        label = create(:comprehension_label, rule: automl_rule)
+        feedback = create(:comprehension_feedback, order: 1, rule: automl_rule)
+        highlight = create(:comprehension_highlight, feedback: feedback)
+        old_text = highlight.text
+        new_text = "New text to highlight"
+
+        post :update, id: automl_rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: [{id: highlight.id, text: new_text}]}]}
+
+        automl_rule.reload
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Semantic Label Second Layer Feedback Highlight - updated"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.new_value, "#{label.name} | #{automl_rule.name}\n#{new_text}"
+        assert_equal change_log.previous_value, "#{label.name} | #{automl_rule.name}\n#{old_text}"
+      end
+
+      should "not update read-only nested label name" do
+        label = create(:comprehension_label, rule: @rule)
+        new_name = 'can not be updated'
+
+        post :update, id: @rule.id, rule: { label_attributes: {id: label.id, name: new_name}}
 
 
-  #       assert_equal 204, response.code.to_i
+        assert_equal 204, response.code.to_i
 
-  #       label.reload
-  #       assert label.name != new_name
-  #     end
+        label.reload
+        assert label.name != new_name
+      end
 
-  #     should "update nested regex rule attributes if present" do
-  #       regex_rule = create(:comprehension_regex_rule, rule: @rule)
-  #       new_text = "new regex text"
+      should "update nested regex rule attributes if present" do
+        regex_rule = create(:comprehension_regex_rule, rule: @rule)
+        new_text = "new regex text"
 
-  #       post :update, id: @rule.id, rule: { regex_rules_attributes: [{id: regex_rule.id, regex_text: new_text}]}
+        post :update, id: @rule.id, rule: { regex_rules_attributes: [{id: regex_rule.id, regex_text: new_text}]}
 
-  #       assert_equal 204, response.code.to_i
-  #       assert_equal "", response.body
+        assert_equal 204, response.code.to_i
+        assert_equal "", response.body
 
-  #       regex_rule.reload
-  #       assert_equal new_text, regex_rule.regex_text
-  #     end
+        regex_rule.reload
+        assert_equal new_text, regex_rule.regex_text
+      end
 
-  #     should "return an error if regex is invalid" do
-  #       regex_rule = create(:comprehension_regex_rule, rule: @rule)
-  #       new_text = "(invalid|"
+      should "make a change log record after updating nested regex rule text" do
+        regex_rule = create(:comprehension_regex_rule, rule: @rule)
+        new_text = "new regex text"
+        old_text = regex_rule.regex_text
 
-  #       post :update, id: @rule.id, rule: { regex_rules_attributes: [{id: regex_rule.id, regex_text: new_text}]}
+        post :update, id: @rule.id, rule: { regex_rules_attributes: [{id: regex_rule.id, regex_text: new_text}]}
 
-  #       parsed_response = JSON.parse(response.body)
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Regex Rule - updated"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.new_value, "#{@rule.name} - #{@rule.display_name} - #{[{:regex_text=>"new regex text"}]}"
+        assert_equal change_log.previous_value, "#{@rule.name} - #{@rule.display_name} - #{[{:regex_text=>old_text}]}"
+      end
 
-  #       assert_equal 422, response.code.to_i
-  #       assert parsed_response['invalid_regex'][0].include?("end pattern with unmatched parenthesis")
-  #     end
+      should "make a change log record after creating a nested regex rule through update call" do
+        new_text = "new regex text"
 
-  #   end
+        post :update, id: @rule.id, rule: { regex_rules_attributes: [{regex_text: new_text}]}
+
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Regex Rule - updated"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.new_value, "#{@rule.name} - #{@rule.display_name} - #{[{:regex_text=>"new regex text"}]}"
+        assert_equal change_log.previous_value, "#{@rule.name} - #{@rule.display_name} - #{[{:regex_text=>nil}]}"
+      end
+
+      should "return an error if regex is invalid" do
+        regex_rule = create(:comprehension_regex_rule, rule: @rule)
+        new_text = "(invalid|"
+
+        post :update, id: @rule.id, rule: { regex_rules_attributes: [{id: regex_rule.id, regex_text: new_text}]}
+
+        parsed_response = JSON.parse(response.body)
+
+        assert_equal 422, response.code.to_i
+        assert parsed_response['invalid_regex'][0].include?("end pattern with unmatched parenthesis")
+      end
+
+      should 'make a change log record after updating the name of an autoML rule' do
+        automl_rule = create(:comprehension_rule, rule_type: 'autoML', prompt_ids: [@prompt.id])
+        label = create(:comprehension_label, rule_id: automl_rule.id)
+        old_name = automl_rule.name
+
+        post :update, id: automl_rule.id, rule: { name: 'new name'}
+
+        automl_rule.reload
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Semantic Label - updated"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.new_value, "#{label.name} | #{automl_rule.name}"
+        assert_equal change_log.previous_value, "#{label.name} | #{old_name}"
+      end
+    end
 
     context 'destroy' do
       setup do
         @controller.session[:user_id] = 1
         @prompt = create(:comprehension_prompt)
         @rule = create(:comprehension_rule, rule_type: 'rules-based-1', prompts: [@prompt])
+        @rule2 = create(:comprehension_rule, rule_type: 'autoML', prompts: [@prompt])
       end
 
       should "destroy record at id" do
@@ -553,6 +772,19 @@ module Comprehension
         assert_equal change_log.changed_record_type, "Comprehension::Prompt"
         assert_equal change_log.new_value, nil
         assert_equal change_log.previous_value, "#{@rule.name} - #{@rule.display_name}"
+      end
+
+      should 'make a change log record after destroying a label' do
+        label = create(:comprehension_label, rule_id: @rule2.id)
+        delete :destroy, id: @rule2.id
+
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Semantic Label - deleted"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.new_value, "[#{label.name} | #{@rule2.name}] - deleted"
+        assert_equal change_log.previous_value, "[#{label.name} | #{@rule2.name}] - active"
       end
     end
   end

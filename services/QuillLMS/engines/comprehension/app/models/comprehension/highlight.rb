@@ -42,18 +42,6 @@ module Comprehension
       feedback.order == 1
     end
 
-    private def log_first_update
-      feedback&.rule&.prompts&.each do |prompt|
-        log_change(:update_feedback_1, prompt, nil, nil, change_text(0), change_text(1))
-      end
-    end
-
-    private def log_second_update
-      feedback&.rule&.prompts&.each do |prompt|
-        log_change(:update_feedback_2, prompt, nil, nil, change_text(0), change_text(1))
-      end
-    end
-
     private def change_text(change_index)
       "#{feedback&.rule&.label&.name} | #{feedback&.rule&.name}\n#{text_change[change_index]}"
     end
@@ -66,8 +54,20 @@ module Comprehension
       feedback&.rule&.log_update({highlight: nil}, {highlight: text})
     end
 
-    private def log_update
-      feedback&.rule&.log_update({highlight: text_change[1]}, {highlight: text_change[0]})
+    # private def log_update
+    #   feedback&.rule&.log_update({highlight: text_change[1]}, {highlight: text_change[0]})
+    # end
+
+    def log_update(user_id, prev_value)
+      if semantic_rule && first_order
+        feedback&.rule&.prompts&.each do |prompt|
+          log_change(user_id, :update_highlight_1, prompt, nil, nil, prev_value, "#{feedback.rule.label.name} | #{feedback.rule.name}\n#{text}")
+        end
+      elsif semantic_rule && second_order
+        feedback&.rule&.prompts&.each do |prompt|
+          log_change(user_id, :update_highlight_2, prompt, nil, nil, prev_value, "#{feedback.rule.label.name} | #{feedback.rule.name}\n#{text}")
+        end
+      end
     end
   end
 end

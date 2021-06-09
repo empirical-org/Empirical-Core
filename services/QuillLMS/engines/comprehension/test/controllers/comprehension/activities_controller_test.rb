@@ -119,6 +119,19 @@ module Comprehension
         assert_equal ("Hello " * 20), Activity.first.passages.first.text
       end
 
+      should "create a change log record after creating a record with passage attributes" do
+        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, name: @activity.name, passages_attributes: [{text: ("Hello " * 20) }] }
+
+        activity = Activity.last
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Comprehension Passage Text - updated"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_type, "Comprehension::Activity"
+        assert_equal change_log.changed_record_id, activity.id
+        assert_equal change_log.new_value, ("Hello " * 20)
+        assert_equal change_log.previous_value, nil
+      end
+
       should "create a valid record with prompt attributes" do
         post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, name: @activity.name, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because"}] }
 
@@ -224,6 +237,31 @@ module Comprehension
         assert_equal "this is a good thing.", @prompt.text
       end
 
+      should "make a change log record after updating Prompt text" do
+        old_text = @prompt.text
+        put :update, id: @activity.id, activity: { prompts_attributes: [{id: @prompt.id, text: "this is a good thing."}] }
+
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Comprehension Stem - updated"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.changed_record_id, @prompt.id
+        assert_equal change_log.previous_value, old_text
+        assert_equal change_log.new_value, "this is a good thing."
+      end
+
+      should "make a change log record after creating Prompt text through update call" do
+        put :update, id: @activity.id, activity: { prompts_attributes: [{text: "this is a new prompt.", conjunction: "because"}] }
+
+        prompt = Comprehension::Prompt.last
+        change_log = Comprehension.change_log_class.last
+        assert_equal change_log.action, "Comprehension Stem - updated"
+        assert_equal change_log.user_id, 1
+        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.changed_record_id, prompt.id
+        assert_equal change_log.previous_value, nil
+        assert_equal change_log.new_value, "this is a new prompt."
+      end
 
       should "not update record and return errors as json" do
         put :update, id: @activity.id, activity: { parent_activity_id: 2, scored_level: "5th grade", target_level: 99999999, title: "New title" }

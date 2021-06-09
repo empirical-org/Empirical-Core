@@ -54,8 +54,8 @@ module Comprehension
       rule.log_update({regex_text: nil}, {regex_text: regex_text})
     end
 
-    private def log_update
-      rule.log_update({regex_text: regex_text_change[1]}, {regex_text: regex_text_change[0]})
+    def log_update(user_id, prev_value)
+      rule.log_update(user_id, [{regex_text: prev_value}], [{regex_text: regex_text}])
     end
   end
 end

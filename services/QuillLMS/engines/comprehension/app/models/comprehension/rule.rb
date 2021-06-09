@@ -88,6 +88,10 @@ module Comprehension
       rule_type == TYPE_REGEX_ONE || rule_type == TYPE_REGEX_TWO || rule_type == TYPE_REGEX_THREE
     end
 
+    private def automl?
+      rule_type == TYPE_AUTOML
+    end
+
     private def universal?
       universal
     end
@@ -127,15 +131,20 @@ module Comprehension
       end
     end
 
-    # def log_update(user_id, new_values=nil, prev_values=nil)
-    #   if regex?
-    #     send_change_log(:update_regex, new_values || change_text_regex(new_change_values), prev_values || change_text_regex(previous_change_values))
-    #   elsif plagiarism?
-    #     send_change_log(:update_plagiarism, new_values || change_text_plagiarism(new_change_values), prev_values || change_text_plagiarism(previous_change_values))
-    #   elsif universal?
-    #     send_change_log(:update_universal, new_values || change_text_universal(new_change_values), prev_values || change_text_universal(previous_change_values))
-    #   end
-    # end
+    def log_update(user_id, prev_value, new_value=nil)
+      if automl? && label.present? && !prev_value.is_a?(Hash)
+        send_change_log(user_id, :update_semantic, "#{label.name} | #{name}", prev_value)
+      elsif regex?
+        prev_values = change_text_regex(prev_value)
+        send_change_log(user_id, :update_regex, change_text_regex(new_values(new_value || prev_value)), prev_values)
+      elsif plagiarism?
+        prev_values = change_text_plagiarism(prev_value)
+        send_change_log(user_id, :update_plagiarism, change_text_plagiarism(new_values(new_value || prev_value)), prev_values)
+      elsif universal?
+        prev_values = change_text_universal(prev_value)
+        send_change_log(user_id, :update_universal, change_text_universal(new_values(new_value || prev_value)), prev_values)
+      end
+    end
 
     private def send_change_log(user_id, action_type, new_value, prev_value=nil)
       prompts&.each do |prompt|
@@ -143,20 +152,13 @@ module Comprehension
       end
     end
 
-    private def previous_change_values
-      filtered_changes.transform_values {|v| v[0]}
-    end
-
-    private def new_change_values
-      filtered_changes.transform_values {|v| v[1]}
-    end
-
-    private def filtered_changes
-      changes.except(:updated_at)
+    private def new_values(prev_values)
+      hash = prev_values.clone
+      hash.map {|e| e.update(e) { |key, value| self.respond_to?(key) ? self.send(key) : value}}
     end
 
     private def change_text_regex(values=nil)
-      values.present? ? "#{name} - #{display_name}\n#{values}" : "#{name} - #{display_name}"
+      values.present? ? "#{name} - #{display_name} - #{values}" : "#{name} - #{display_name}"
     end
 
     private def change_text_plagiarism(values=nil)
@@ -164,7 +166,7 @@ module Comprehension
     end
 
     private def change_text_universal(values=nil)
-      values.present? ? "#{name} - #{rule_type}\n#{values}" : "#{name} - #{rule_type}"
+      values.present? ? "#{name} - #{rule_type} - #{values.to_s}" : "#{name} - #{rule_type}"
     end
   end
 end

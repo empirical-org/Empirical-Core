@@ -26,8 +26,8 @@ module Comprehension
       rule.log_update({plagiarism_text: nil}, {plagiarism_text: text})
     end
 
-    private def log_update
-      rule.log_update({plagiarism_text: text_change[1]}, {regex_text: text_change[0]})
+    def log_update(user_id, prev_value)
+      rule.log_update(user_id, [{plagiarized_text: prev_value}], [{plagiarized_text: text}])
     end
   end
 end

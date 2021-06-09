@@ -70,18 +70,6 @@ module Comprehension
       end
     end
 
-    context 'create' do
-      setup do
-        Comprehension.change_log_class.any_instance.stubs(:current_user).returns("War and Peace")
-      end
-
-      should 'set log creation in change logs' do
-        @activity = create(:comprehension_activity, parent_activity_id: 7)
-
-        expect(ChangeLog.last.action).to eq(ChangeLog::COMPREHENSION_ACTIONS[:create_activity])
-      end
-    end
-
     context 'create parent activity' do
       should 'set the parent_activity_id to nil if passed in Activity does NOT exist' do
         @activity = create(:comprehension_activity, parent_activity_id: 7)

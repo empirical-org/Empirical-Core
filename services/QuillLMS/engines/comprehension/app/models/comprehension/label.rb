@@ -14,10 +14,6 @@ module Comprehension
 
     validate :name_unique_for_prompt, on: :create
 
-    after_create :log_creation
-    after_destroy :log_deletion
-    after_update :log_update, if: :name_changed?
-
     def serializable_hash(options = nil)
       options ||= {}
 
@@ -33,21 +29,15 @@ module Comprehension
       end
     end
 
-    private def log_creation
+    def log_creation(user_id)
       rule&.prompts&.each do |prompt|
-        log_change(:create_semantic, prompt, nil, nil, nil, "#{rule.name} | #{name}")
+        log_change(user_id, :create_semantic, prompt, nil, nil, nil, "[#{name} | #{rule.name}] - created")
       end
     end
 
-    private def log_deletion
+    def log_deletion(user_id)
       rule&.prompts&.each do |prompt|
-        log_change(:delete_semantic, prompt, nil, nil, "#{rule.name} | #{name}", "#{rule.name} | #{name}")
-      end
-    end
-
-    private def log_update
-      rule&.prompts&.each do |prompt|
-        log_change(:update_semantic, prompt, nil, nil, "#{rule.name} | #{name_change[0]}", "#{rule.name} | #{name_change[1]}")
+        log_change(user_id, :delete_semantic, prompt, nil, nil, "[#{name} | #{rule.name}] - active", "[#{name} | #{rule.name}] - deleted")
       end
     end
   end
