@@ -152,7 +152,7 @@ module TeacherFixes
     end
 
     remaining_activity_sessions = get_all_completed_activity_sessions_for_a_given_user_and_activity(user_id, activity_id)
-    if remaining_activity_sessions.length > 1 && remaining_activity_sessions.none? { |as| as.is_final_score} && remaining_activity_sessions.any? { |as| as.state === 'finished'}
+    if remaining_activity_sessions.length >= 1 && remaining_activity_sessions.none? { |as| as.is_final_score} && remaining_activity_sessions.any? { |as| as.state === 'finished'}
       remaining_activity_sessions.order(:percentage).first.update(is_final_score: true)
     end
   end

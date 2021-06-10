@@ -58,6 +58,10 @@ FactoryBot.define do
       activity { create(:diagnostic_activity) }
     end
 
+    factory :comprehension_activity_session do
+      activity { create(:comprehension_activity) }
+    end
+
     factory :proofreader_activity_session do
       activity { create(:proofreader_activity) }
     end

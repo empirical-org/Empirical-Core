@@ -20,15 +20,21 @@ module Comprehension
     before_validation :set_max_attempts, on: :create
 
     validates_presence_of :activity
-    validates :text, presence: true, length: { in: MIN_TEXT_LENGTH..MAX_TEXT_LENGTH, allow_nil: true }
+    validates :text, presence: true
     validates :conjunction, presence: true, inclusion: { in: CONJUNCTIONS }
     validates :max_attempts, inclusion: { in: MIN_MAX_ATTEMPTS..MAX_MAX_ATTEMPTS }
+
+    validate :validate_prompt_text_length, on: [:create, :update]
 
     def serializable_hash(options = nil)
       options ||= {}
       super(options.reverse_merge(
         only: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :plagiarism_text, :plagiarism_first_feedback, :plagiarism_second_feedback]
       ))
+    end
+    
+    def log_update(user_id, prev_value)
+      log_change(user_id, :update_prompt, self, nil, nil, prev_value, text)
     end
 
     private def downcase_conjunction
@@ -48,8 +54,16 @@ module Comprehension
       save!
     end
 
-    def log_update(user_id, prev_value)
-      log_change(user_id, :update_prompt, self, nil, nil, prev_value, text)
+    private def validate_prompt_text_length
+      length = text&.length
+      prompt = "#{conjunction} prompt"
+      if length
+        if length < MIN_TEXT_LENGTH
+          errors.add(:text, "#{prompt} too short (minimum is #{MIN_TEXT_LENGTH} characters)")
+        elsif length > MAX_TEXT_LENGTH
+          errors.add(:text, "#{prompt} too long (maximum is #{MAX_TEXT_LENGTH} characters)")
+        end
+      end
     end
   end
 end

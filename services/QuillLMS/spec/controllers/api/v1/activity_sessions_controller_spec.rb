@@ -146,6 +146,20 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       expect(@parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
     end
 
+    it 'returns a 200 if the activity session is not already finished and can be updated' do
+      @activity_session.update(completed_at: nil, state: 'started')
+      put :update, id: @activity_session.uid
+      @parsed_body = JSON.parse(response.body)
+      expect(@parsed_body["meta"]["message"]).to eq("Activity Session Updated")
+    end
+
+    it 'returns a 200 and creates a new activity session record if it does not already exist' do
+      @activity_session = build(:activity_session, user: user, percentage: 1.0)
+      put :update, id: @activity_session.uid
+      @parsed_body = JSON.parse(response.body)
+      expect(@parsed_body["meta"]["message"]).to eq("Activity Session Updated")
+    end
+
     it 'returns a 422 error if activity session update method fails' do
       # create a double
       activity_session = create(:activity_session, state: 'started', user: user)
