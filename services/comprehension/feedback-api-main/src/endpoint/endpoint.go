@@ -34,7 +34,7 @@ var client = &http.Client {
 
 func GetFeedbackHistoryUrl() (string) {
 	lms_domain := GetLMSDomain()
-	return fmt.Sprintf("%s/api/v1/feedback_histories/batch.json", lms_domain)
+	return fmt.Sprintf("%s/api/v1/feedback_histories.json", lms_domain)
 }
 
 func GetLMSDomain() (string) {
