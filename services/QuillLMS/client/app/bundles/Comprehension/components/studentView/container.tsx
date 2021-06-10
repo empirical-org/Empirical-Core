@@ -179,10 +179,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const conceptResults = generateConceptResults(currentActivity, submittedResponses)
     const data = {
       time_tracking: {
-        reading: roundMillisecondsToSeconds(timeTracking[READ_PASSAGE_STEP]),
-        because: roundMillisecondsToSeconds(timeTracking[2]),
-        but: roundMillisecondsToSeconds(timeTracking[3]),
-        so: roundMillisecondsToSeconds(timeTracking[4]),
+        reading: timeTracking[READ_PASSAGE_STEP],
+        because: timeTracking[2],
+        but: timeTracking[3],
+        so: timeTracking[4],
       }
     }
     const callback = handleFinishActivity ? handleFinishActivity : window.location.href = '/'
