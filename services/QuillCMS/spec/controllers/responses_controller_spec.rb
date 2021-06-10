@@ -88,6 +88,30 @@ RSpec.describe ResponsesController, type: :controller do
     end
   end
 
+  describe '#create_or_update' do
+    it 'should create a new response if the response text does not exist' do
+      count = Response.count
+      response_payload = {question_uid: '12345', text: 'response text', optimal: true}
+      post :create_or_update, params: {response: response_payload}
+
+      expect(Response.count).to eq(count+1)
+      expect(Response.last.text).to eq(response_payload[:text])
+      expect(Response.last.question_uid).to eq(response_payload[:question_uid])
+      expect(Response.last.optimal).to eq(response_payload[:optimal])
+
+      expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)['text']).to eq(response_payload[:text])
+      expect(JSON.parse(response.body)['question_uid']).to eq(response_payload[:question_uid])
+      expect(JSON.parse(response.body)['optimal']).to eq(response_payload[:optimal])
+    end
+
+    it 'should update an old response with new attributes if the response text exists' do
+    end
+
+    it 'should return the appropriate errors if the response could not be saved' do
+    end
+  end
+
   describe '#responses_for_question' do
     let(:q_response) { create(:response, question_uid: '123456') }
 
