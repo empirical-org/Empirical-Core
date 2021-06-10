@@ -74,10 +74,12 @@ module Comprehension
       @passages_vars = []
       # save the current text attribute for logging if the incoming call wiil update the text attribute
       activity_params[:passages_attributes]&.each do |pa|
-        @passages_vars.push({id: pa[:id], text: Comprehension::Passage.find_by_id(pa[:id])&.text || pa[:text]}) if pa[:text]
+        current_text = Comprehension::Passage.find_by_id(pa[:id])&.text
+        @passages_vars.push({id: pa[:id], text: current_text || pa[:text]}) if pa[:text] && pa[:text] != current_text
       end
       activity_params[:prompts_attributes]&.each do |pp|
-        @prompts_vars.push({id: pp[:id], text: Comprehension::Prompt.find_by_id(pp[:id])&.text || pp[:text]}) if pp[:text]
+        current_text = Comprehension::Prompt.find_by_id(pp[:id])&.text
+        @prompts_vars.push({id: pp[:id], text: current_text || pp[:text]}) if pp[:text] && pp[:text] != current_text
       end
     end
 
