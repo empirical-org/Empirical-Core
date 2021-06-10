@@ -51,10 +51,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
       :used,
       :time,
       :rule_uid,
-      metadata: [
-        :response_id,
-        highlight: []
-      ]
+      metadata: params.dig('feedback_history', 'metadata')&.keys 
     )
   end
 
@@ -73,10 +70,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
         :used,
         :time,
         :rule_uid,
-        metadata: [
-          :response_id,
-          highlight: []
-        ]
+        metadata: params.dig('feedback_history', 'metadata')&.keys 
       ]
     )[:feedback_histories]
   end
