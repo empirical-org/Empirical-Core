@@ -70,7 +70,8 @@ module Comprehension
     end
 
     private def save_nested_vars_for_log
-      @prompts_vars, @passages_vars = [], []
+      @prompts_vars = []
+      @passages_vars = []
       # save the current text attribute for logging if the incoming call wiil update the text attribute
       activity_params[:passages_attributes]&.each do |pa|
         @passages_vars.push({id: pa[:id], text: Comprehension::Passage.find_by_id(pa[:id])&.text || pa[:text]}) if pa[:text]

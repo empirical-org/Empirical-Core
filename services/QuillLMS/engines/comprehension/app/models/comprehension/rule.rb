@@ -155,7 +155,7 @@ module Comprehension
 
     private def new_values(prev_values)
       hash = prev_values.clone
-      hash.map {|e| e.update(e) { |key, value| self.respond_to?(key) ? self.send(key) : value}}
+      hash.map {|e| e.update(e) { |key, value| respond_to?(key) ? send(key) : value}}
     end
 
     private def change_text_regex(values=nil)
@@ -167,7 +167,7 @@ module Comprehension
     end
 
     private def change_text_universal(values=nil)
-      values.present? ? "#{name} - #{rule_type} - #{values.to_s}" : "#{name} - #{rule_type}"
+      values.present? ? "#{name} - #{rule_type} - #{values}" : "#{name} - #{rule_type}"
     end
 
     private def change_text_automl(values=nil)

@@ -17,7 +17,7 @@ module Comprehension
     end
 
     def log_update(user_id, prev_value)
-      log_change(user_id, :update_passage, self.activity, nil, nil, prev_value, text)
+      log_change(user_id, :update_passage, activity, nil, nil, prev_value, text)
     end
   end
 end

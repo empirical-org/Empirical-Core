@@ -488,8 +488,8 @@ module Comprehension
         assert_equal change_log.user_id, 1
         assert_equal change_log.changed_record_id, @prompt.id
         assert_equal change_log.changed_record_type, "Comprehension::Prompt"
-        assert_equal change_log.new_value, "#{universal_rule.name} - #{universal_rule.display_name} - #{[{"name"=>new_name}].to_s}"
-        assert_equal change_log.previous_value, "#{universal_rule.name} - #{universal_rule.display_name} - #{[{"name"=>old_name}].to_s}"
+        assert_equal change_log.new_value, "#{universal_rule.name} - #{universal_rule.display_name} - #{[{'name'=>new_name}]}"
+        assert_equal change_log.previous_value, "#{universal_rule.name} - #{universal_rule.display_name} - #{[{'name'=>old_name}]}"
       end
 
       should "create a change log record after updating a plagiarism rule" do
@@ -508,8 +508,8 @@ module Comprehension
         assert_equal change_log.user_id, 1
         assert_equal change_log.changed_record_id, @prompt.id
         assert_equal change_log.changed_record_type, "Comprehension::Prompt"
-        assert_equal change_log.new_value, "#{plagiarism_rule.name} - #{plagiarized_text.text} - #{feedback.text}\n#{[{"name"=>new_name},{"state"=>new_state}]}"
-        assert_equal change_log.previous_value, "#{plagiarism_rule.name} - #{plagiarized_text.text} - #{feedback.text}\n#{[{"name"=>old_name},{"state"=>old_state}]}"
+        assert_equal change_log.new_value, "#{plagiarism_rule.name} - #{plagiarized_text.text} - #{feedback.text}\n#{[{'name'=>new_name},{'state'=>new_state}]}"
+        assert_equal change_log.previous_value, "#{plagiarism_rule.name} - #{plagiarized_text.text} - #{feedback.text}\n#{[{'name'=>old_name},{'state'=>old_state}]}"
       end
 
       should "create a change log record after updating a regex rule" do
@@ -524,8 +524,8 @@ module Comprehension
         assert_equal change_log.user_id, 1
         assert_equal change_log.changed_record_id, @prompt.id
         assert_equal change_log.changed_record_type, "Comprehension::Prompt"
-        assert_equal change_log.new_value, "#{regex_rule.name} - #{regex_rule.display_name} - #{[{"name"=>new_name}]}"
-        assert_equal change_log.previous_value, "#{regex_rule.name} - #{regex_rule.display_name} - #{[{"name"=>old_name}]}"
+        assert_equal change_log.new_value, "#{regex_rule.name} - #{regex_rule.display_name} - #{[{'name'=>new_name}]}"
+        assert_equal change_log.previous_value, "#{regex_rule.name} - #{regex_rule.display_name} - #{[{'name'=>old_name}]}"
       end
 
       should "not update record and return errors as json" do
@@ -555,8 +555,8 @@ module Comprehension
         assert_equal change_log.user_id, 1
         assert_equal change_log.changed_record_id, @prompt.id
         assert_equal change_log.changed_record_type, "Comprehension::Prompt"
-        assert_equal change_log.new_value, "#{@rule.name} - #{@rule.plagiarism_text.text} - \n#{[{:plagiarized_text=>"New plagiarism text"}]}"
-        assert_equal change_log.previous_value, "#{@rule.name} - #{@rule.plagiarism_text.text} - \n#{[{:plagiarized_text=>nil}]}"
+        assert_equal change_log.new_value, "#{@rule.name} - #{@rule.plagiarism_text.text} - \n[{:plagiarized_text=>'New plagiarism text'}]"
+        assert_equal change_log.previous_value, "#{@rule.name} - #{@rule.plagiarism_text.text} - \n[{:plagiarized_text=>nil}]"
       end
 
       should "update nested feedback attributes if present" do
@@ -697,8 +697,8 @@ module Comprehension
         assert_equal change_log.user_id, 1
         assert_equal change_log.changed_record_id, @prompt.id
         assert_equal change_log.changed_record_type, "Comprehension::Prompt"
-        assert_equal change_log.new_value, "#{@rule.name} - #{@rule.display_name} - #{[{:regex_text=>"new regex text"}]}"
-        assert_equal change_log.previous_value, "#{@rule.name} - #{@rule.display_name} - #{[{:regex_text=>old_text}]}"
+        assert_equal change_log.new_value, "#{@rule.name} - #{@rule.display_name} - [{:regex_text=>'new regex text'}]"
+        assert_equal change_log.previous_value, "#{@rule.name} - #{@rule.display_name} - [{:regex_text=>#{old_text}}]"
       end
 
       should "make a change log record after creating a nested regex rule through update call" do
@@ -711,8 +711,8 @@ module Comprehension
         assert_equal change_log.user_id, 1
         assert_equal change_log.changed_record_id, @prompt.id
         assert_equal change_log.changed_record_type, "Comprehension::Prompt"
-        assert_equal change_log.new_value, "#{@rule.name} - #{@rule.display_name} - #{[{:regex_text=>"new regex text"}]}"
-        assert_equal change_log.previous_value, "#{@rule.name} - #{@rule.display_name} - #{[{:regex_text=>nil}]}"
+        assert_equal change_log.new_value, "#{@rule.name} - #{@rule.display_name} - [{:regex_text=>'new regex text'}]"
+        assert_equal change_log.previous_value, "#{@rule.name} - #{@rule.display_name} - [{:regex_text=>nil}]"
       end
 
       should "return an error if regex is invalid" do

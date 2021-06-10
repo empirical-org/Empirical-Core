@@ -76,7 +76,11 @@ module Comprehension
     end
 
     private def initialize_arrays_for_log
-      @feedback_vals, @highlights_vals, @plagiarism_text_vals, @regex_rules_vals, @rule_vals = [], [], [], [], []
+      @feedback_vals = []
+      @highlights_vals = []
+      @plagiarism_text_vals = []
+      @regex_rules_vals = []
+      @rule_vals = []
     end
 
     private def save_label_vars_for_log
