@@ -184,11 +184,16 @@ const RuleAnalysis = ({ history, match }) => {
     { name: "", attribute:"value", width: "750px" }
   ];
 
+  const extractHighlight = (highlightObject) => {
+    if (!highlightObject || !highlightObject.length || !highlightObject[0].text) return '';
+    return highlightObject[0].text;
+  }
+
   const responseRows = () => {
     if (!activityData || !responses) { return [] }
     return responses.filter(filterResponsesByScored).filter(filterResponsesBySearch).map(r => {
-      const formattedResponse = {...r}
-      const highlightedEntry = r.entry.replace(r.highlight, `<strong>${r.highlight}</strong>`)
+      const formattedResponse = {...r,  ...{highlight: extractHighlight(r.highlight)}}
+      const highlightedEntry = r.entry.replace(formattedResponse.highlight, `<strong>${formattedResponse.highlight}</strong>`)
       const strongButton = <button className={r.strength === true ? 'strength-button strong' : 'strength-button'} onClick={() => toggleStrength(r)} tabIndex={-1} type="button">Strong</button> // curriculum developers want to be able to skip these when tab navigating
       const weakButton = <button className={r.strength === false ? 'strength-button weak' : 'strength-button'} onClick={() => toggleWeakness(r)} tabIndex={-1} type="button">Weak</button> // curriculum developers want to be able to skip these when tab navigating
 

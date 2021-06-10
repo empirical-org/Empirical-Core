@@ -48,13 +48,22 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
     end
 
     it "should populate metadata['highlight']" do 
+      metadata = { 
+        "highlight" => [
+          { 'text' => 'is',
+            'type' => 'response',
+            'category' => 'lorem',
+            'character' => 40 } 
+        ]
+      } 
+
       post :create, feedback_history: { feedback_session_uid: '1', attempt: 1, optimal: false, used: true,
                                         time: DateTime.now, entry: 'This is the entry provided by the student',
                                         feedback_text: 'This is the feedback provided by the algorithm',
-                                        feedback_type: 'autoML', metadata: {highlight: "entry"} }
+                                        feedback_type: 'autoML', metadata: metadata }
 
       parsed_response = JSON.parse(response.body)
-      expect(parsed_response['metadata']['highlight']).to eq 'entry'
+      expect(parsed_response['metadata']['highlight'].first.keys).to eq metadata['highlight'].first.keys 
     end
 
     it "should set prompt_type to Comprehension::Prompt if prompt_id is provided" do
