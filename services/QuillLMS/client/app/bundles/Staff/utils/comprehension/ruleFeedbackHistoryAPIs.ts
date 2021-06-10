@@ -1,4 +1,4 @@
-import { handleApiError, mainApiFetch, getRuleFeedbackHistoriesUrl } from '../../helpers/comprehension';
+import { handleApiError, mainApiFetch, getRuleFeedbackHistoriesUrl, getRuleFeedbackHistoryUrl } from '../../helpers/comprehension';
 
 export const fetchRuleFeedbackHistories = async (key: string, activityId: string, selectedConjunction: string, startDate: string, endDate?: string) => {
   if (!selectedConjunction) { return }
@@ -11,8 +11,9 @@ export const fetchRuleFeedbackHistories = async (key: string, activityId: string
   };
 }
 
-export const fetchRuleFeedbackHistoriesByRule = async (key: string, ruleUID: string, promptId: string) => {
-  const response = await mainApiFetch(`rule_feedback_history/${ruleUID}?prompt_id=${promptId}`);
+export const fetchRuleFeedbackHistoriesByRule = async (key: string, ruleUID: string, promptId: string, startDate: string, endDate?: string) => {
+  const url = getRuleFeedbackHistoryUrl({ ruleUID, promptId, startDate, endDate });
+  const response = await mainApiFetch(url);
   const ruleFeedbackHistories = await response.json();
   return {
     error: handleApiError('Failed to fetch rule feedback histories, please refresh the page.', response),

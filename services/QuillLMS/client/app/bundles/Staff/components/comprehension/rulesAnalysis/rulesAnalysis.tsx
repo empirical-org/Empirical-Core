@@ -337,7 +337,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       </div>
       <div className="error-container">
           {showError && <p className="error-message">Start date is required.</p>}
-        </div>
+      </div>
       {selectedPrompt && formattedRows && (<ReactTable
         className="rules-analysis-table"
         columns={dataTableFields}

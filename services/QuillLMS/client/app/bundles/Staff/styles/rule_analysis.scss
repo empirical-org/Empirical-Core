@@ -12,6 +12,34 @@
     }
   }
 
+  .date-selection-container {
+    display: flex;
+    align-items: baseline;
+    margin-top: 16px;
+    .date-picker-label {
+      margin-right: 8px;
+    }
+    .start-date-picker {
+      margin-right: 22px;
+    }
+    .end-date-picker {
+      margin-right: 16px;
+    }
+    .react-datetime-picker__inputGroup {
+      padding-top: 2px;
+    }
+    .react-datetime-picker__inputGroup__input {
+      height: auto;
+    }
+  }
+
+  .error-message {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff0000;
+    margin-left: 8px;
+  }
+
   .responses-table {
     margin-top: 20px;
     height: 100vh;

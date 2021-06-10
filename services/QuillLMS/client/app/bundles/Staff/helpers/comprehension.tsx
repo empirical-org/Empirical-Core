@@ -64,6 +64,13 @@ export const getRuleFeedbackHistoriesUrl = ({ activityId, selectedConjunction, s
   return url;
 }
 
+export const getRuleFeedbackHistoryUrl = ({ ruleUID, promptId, startDate, endDate }) => {
+  let url = `rule_feedback_history/${ruleUID}?prompt_id=${promptId}`;
+  url = startDate ? url + `&start_date=${startDate}` : url;
+  url = endDate ? url + `&end_date=${endDate}` : url;
+  return url;
+};
+
 export const getPromptsIcons = (activityData, promptIds: number[]) => {
   if(activityData && activityData.activity && activityData.activity.prompts) {
     const { activity } = activityData;
