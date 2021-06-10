@@ -1,11 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe PromptFeedbackHistory, type: :model do
-  before do
-    # This is for CircleCI. Note that this refresh is NOT concurrent.
-    ActiveRecord::Base.refresh_materialized_view('feedback_histories_grouped_by_rule_uid', false)
-  end
-  
   describe '#promptwise_sessions' do 
     it 'should aggregate rows correctly' do 
       main_activity = Comprehension::Activity.create!(name: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
