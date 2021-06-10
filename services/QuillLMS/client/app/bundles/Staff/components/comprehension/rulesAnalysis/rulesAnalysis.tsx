@@ -336,7 +336,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
         <button className="quill-button fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
       </div>
       <div className="error-container">
-          {showError && <p className="error-message">Start date is required.</p>}
+        {showError && <p className="error-message">Start date is required.</p>}
       </div>
       {selectedPrompt && formattedRows && (<ReactTable
         className="rules-analysis-table"
