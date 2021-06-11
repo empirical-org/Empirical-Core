@@ -118,7 +118,7 @@ module Comprehension
         assert_equal change_log.user_id, 1
         assert_equal change_log.changed_record_type, "Comprehension::Prompt"
         assert_equal change_log.changed_record_id, automl.prompt_id
-        assert_equal change_log.new_value, automl.id.to_s
+        assert_equal change_log.new_value, automl.automl_model_id.to_s
       end
     end
 
@@ -219,7 +219,7 @@ module Comprehension
           assert_equal change_log.user_id, 1
           assert_equal change_log.changed_record_type, "Comprehension::Prompt"
           assert_equal change_log.changed_record_id, @automl_model.prompt_id
-          assert_equal change_log.new_value, @automl_model.id.to_s
+          assert_equal change_log.new_value, @automl_model.automl_model_id.to_s
         end
       end
     end

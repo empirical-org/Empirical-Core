@@ -116,11 +116,11 @@ module Comprehension
     end
 
     def log_creation(user_id)
-      log_change(user_id, :create_automl, prompt, nil, nil, nil, id)
+      log_change(user_id, :create_automl, prompt, nil, nil, nil, automl_model_id)
     end
 
     def log_activation(user_id)
-      log_change(user_id, :activate_automl, prompt, nil, nil, nil, id)
+      log_change(user_id, :activate_automl, prompt, nil, nil, nil, automl_model_id)
     end
   end
 end
