@@ -85,15 +85,14 @@ module Comprehension
 
     private def save_label_vars_for_log
       label = Comprehension::Rule.find_by_id(params[:id])&.label
-      if label.present?
-        label_string = "#{label.name} | #{Comprehension::Rule.find(params[:id]).name}"
-        rule_params[:feedbacks_attributes]&.each do |fa|
-          old_feedback = Comprehension::Feedback.find_by_id(fa[:id])&.text
-          @feedback_vals.push({id: fa[:id], label_string: label_string, text: old_feedback || fa[:text]}) if fa[:text] && fa[:text] != old_feedback
-          fa[:highlights_attributes]&.each do |ha|
-            old_highlight = Comprehension::Highlight.find_by_id(ha[:id])&.text
-            @highlights_vals.push({id: ha[:id], label_string: label_string, text: old_highlight || ha[:text]}) if ha[:text] && ha[:text] != old_highlight
-          end
+      label_string = label.present? ? "#{label.name} | #{Comprehension::Rule.find(params[:id]).name}\n" : ""
+
+      rule_params[:feedbacks_attributes]&.each do |fa|
+        old_feedback = Comprehension::Feedback.find_by_id(fa[:id])&.text
+        @feedback_vals.push({id: fa[:id], label_string: label_string, text: old_feedback || fa[:text]}) if fa[:text] && fa[:text] != old_feedback
+        fa[:highlights_attributes]&.each do |ha|
+          old_highlight = Comprehension::Highlight.find_by_id(ha[:id])&.text
+          @highlights_vals.push({id: ha[:id], label_string: label_string, text: old_highlight || ha[:text]}) if ha[:text] && ha[:text] != old_highlight
         end
       end
     end
@@ -129,14 +128,14 @@ module Comprehension
     private def log_nested_changes
       @feedback_vals.each do |f|
         if f[:id]
-          Comprehension::Feedback.find(f[:id]).log_update(lms_user_id, "#{f[:label_string]}\n#{f[:text]}")
+          Comprehension::Feedback.find(f[:id]).log_update(lms_user_id, "#{f[:label_string]}#{f[:text]}")
         else
           Comprehension::Feedback.find_by(text: f[:text])&.log_update(lms_user_id, f[:label_string])
         end
       end
       @highlights_vals.each do |h|
         if h[:id]
-          Comprehension::Highlight.find(h[:id]).log_update(lms_user_id, "#{h[:label_string]}\n#{h[:text]}")
+          Comprehension::Highlight.find(h[:id]).log_update(lms_user_id, "#{h[:label_string]}#{h[:text]}")
         else
           Comprehension::Highlight.find_by(text: h[:text])&.log_update(lms_user_id, h[:label_string])
         end

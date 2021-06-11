@@ -113,7 +113,7 @@ module Comprehension
         @prompt = create(:comprehension_prompt)
         @rule = build(:comprehension_rule)
         @universal_rule = build(:comprehension_rule, prompts: [@prompt], universal: true, rule_type: Rule::TYPE_GRAMMAR)
-        @plagiarism_rule = build(:comprehension_rule, prompts: [@prompt], universal: true, rule_type: Rule::TYPE_PLAGIARISM)
+        @plagiarism_rule = build(:comprehension_rule, prompts: [@prompt], universal: false, rule_type: Rule::TYPE_PLAGIARISM)
       end
 
       should "create a valid record and return it as json" do
@@ -160,11 +160,12 @@ module Comprehension
       should "make a change log record after creating a universal Rule record" do
         post :create, rule: { concept_uid: @universal_rule.concept_uid, note: @universal_rule.note, name: @universal_rule.name, optimal: @universal_rule.optimal, state: @universal_rule.state, suborder: @universal_rule.suborder, rule_type: @universal_rule.rule_type, universal: @universal_rule.universal, prompt_ids: [@prompt.id] }
 
+        rule = Comprehension::Rule.last
         change_log = Comprehension.change_log_class.last
         assert_equal change_log.action, "Universal Rule - created"
         assert_equal change_log.user_id, 1
-        assert_equal change_log.changed_record_id, @prompt.id
-        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.changed_record_id, rule.id
+        assert_equal change_log.changed_record_type, "Comprehension::Rule"
         assert_equal change_log.previous_value, nil
         assert_equal change_log.new_value, "#{@universal_rule.name} - #{@universal_rule.rule_type}"
       end
@@ -486,8 +487,8 @@ module Comprehension
         change_log = Comprehension.change_log_class.last
         assert_equal change_log.action, "Universal Rule - updated"
         assert_equal change_log.user_id, 1
-        assert_equal change_log.changed_record_id, @prompt.id
-        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
+        assert_equal change_log.changed_record_id, universal_rule.id
+        assert_equal change_log.changed_record_type, "Comprehension::Rule"
         assert_equal change_log.new_value, "#{universal_rule.name} - #{universal_rule.display_name} - #{[{'name'=>new_name}]}"
         assert_equal change_log.previous_value, "#{universal_rule.name} - #{universal_rule.display_name} - #{[{'name'=>old_name}]}"
       end
@@ -555,7 +556,7 @@ module Comprehension
         assert_equal change_log.user_id, 1
         assert_equal change_log.changed_record_id, @prompt.id
         assert_equal change_log.changed_record_type, "Comprehension::Prompt"
-        assert_equal change_log.new_value, "#{@rule.name} - #{@rule.plagiarism_text.text} - \n[{:plagiarized_text=>'New plagiarism text'}]"
+        assert_equal change_log.new_value, "#{@rule.name} - #{@rule.plagiarism_text.text} - \n[{:plagiarized_text=>\"New plagiarism text\"}]"
         assert_equal change_log.previous_value, "#{@rule.name} - #{@rule.plagiarism_text.text} - \n[{:plagiarized_text=>nil}]"
       end
 
@@ -697,8 +698,8 @@ module Comprehension
         assert_equal change_log.user_id, 1
         assert_equal change_log.changed_record_id, @prompt.id
         assert_equal change_log.changed_record_type, "Comprehension::Prompt"
-        assert_equal change_log.new_value, "#{@rule.name} - #{@rule.display_name} - [{:regex_text=>'new regex text'}]"
-        assert_equal change_log.previous_value, "#{@rule.name} - #{@rule.display_name} - [{:regex_text=>#{old_text}}]"
+        assert_equal change_log.new_value, "#{@rule.name} - #{@rule.display_name} - [{:regex_text=>\"new regex text\"}]"
+        assert_equal change_log.previous_value, "#{@rule.name} - #{@rule.display_name} - [{:regex_text=>\"#{old_text}\"}]"
       end
 
       should "make a change log record after creating a nested regex rule through update call" do
@@ -711,7 +712,7 @@ module Comprehension
         assert_equal change_log.user_id, 1
         assert_equal change_log.changed_record_id, @prompt.id
         assert_equal change_log.changed_record_type, "Comprehension::Prompt"
-        assert_equal change_log.new_value, "#{@rule.name} - #{@rule.display_name} - [{:regex_text=>'new regex text'}]"
+        assert_equal change_log.new_value, "#{@rule.name} - #{@rule.display_name} - [{:regex_text=>\"new regex text\"}]"
         assert_equal change_log.previous_value, "#{@rule.name} - #{@rule.display_name} - [{:regex_text=>nil}]"
       end
 

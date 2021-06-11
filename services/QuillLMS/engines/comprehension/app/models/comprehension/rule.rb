@@ -148,8 +148,12 @@ module Comprehension
     end
 
     private def send_change_log(user_id, action_type, new_value, prev_value=nil)
-      prompts&.each do |prompt|
-        log_change(user_id, action_type, prompt, nil, nil, prev_value, new_value)
+      if universal?
+        log_change(user_id, action_type, self, nil, nil, prev_value, new_value)
+      else
+        prompts&.each do |prompt|
+          log_change(user_id, action_type, prompt, nil, nil, prev_value, new_value)
+        end
       end
     end
 
