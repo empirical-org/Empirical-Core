@@ -73,11 +73,12 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const { dispatch, previewMode } = props
       dispatch(startListeningToConceptsFeedback());
       dispatch(startListeningToConcepts());
-      const sessionID = getParameterByName('student', window.location.href)
-      const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
 
-      if (sessionID && !previewMode) {
-        dispatch(startListeningToQuestions(sessionID));
+      const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
+      const sessionIdentifier = getParameterByName('student', window.location.href) || proofreaderSessionId
+
+      if (sessionIdentifier && !previewMode) {
+        dispatch(startListeningToQuestions(sessionIdentifier));
       } else {
         dispatch(startListeningToQuestions());
         dispatch(startNewSession())
@@ -119,9 +120,11 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       }
 
       const sessionID = getParameterByName('student', window.location.href)
+      const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
+      const sessionIdentifier = sessionID || proofreaderSessionId
       // eslint-disable-next-line react/destructuring-assignment
-      if (sessionID && !_.isEqual(session, this.props.session) && !session.pending && session.hasreceiveddata) {
-        updateSession(sessionID, {...session, timeTracking, })
+      if (sessionIdentifier && !_.isEqual(session, this.props.session) && !session.pending && session.hasreceiveddata) {
+        updateSession(sessionIdentifier, {...session, timeTracking, })
       }
       if(previewMode && questions && session.currentQuestion && !questionToPreview) {
         const uid = session.currentQuestion.uid;
