@@ -24,6 +24,7 @@ gem "doorkeeper", ">= 4.2.0"
 gem 'omniauth'
 gem 'omniauth-google-oauth2', '0.6.0'
 gem 'omniauth-clever'
+gem 'omniauth-rails_csrf_protection'
 gem 'cancancan'
 gem 'firebase_token_generator'
 gem 'rack-attack'
