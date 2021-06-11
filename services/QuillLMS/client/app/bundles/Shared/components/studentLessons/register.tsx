@@ -82,7 +82,7 @@ class Register extends React.Component<any, any> {
       return (
         <div className="container">
           <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: lesson.landingPageHtml, }} />
-          <button className="quill-button focus-on-light large primary contained" onClick={this.handleStartLessonClick} type="button">Start lesson</button>
+          <button className="quill-button focus-on-light large primary contained" onClick={this.handleStartLessonClick} type="button">Start activity</button>
         </div>
       );
     } else if (hasSentenceFragment) {
