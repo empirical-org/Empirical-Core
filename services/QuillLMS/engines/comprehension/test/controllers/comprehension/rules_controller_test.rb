@@ -480,7 +480,7 @@ module Comprehension
         universal_rule = create(:comprehension_rule, prompt_ids: [@prompt.id], universal: true, rule_type: 'spelling')
         old_name = universal_rule.name
         new_name = "new rule name"
-        patch :update, id: universal_rule.id, rule: { concept_uid: universal_rule.concept_uid, note: universal_rule.note, name: new_name }
+        put :update, id: universal_rule.id, rule: { concept_uid: universal_rule.concept_uid, note: universal_rule.note, name: new_name }
 
         universal_rule.reload
         change_log = Comprehension.change_log_class.last
@@ -732,7 +732,7 @@ module Comprehension
         label = create(:comprehension_label, rule_id: automl_rule.id)
         old_name = automl_rule.name
 
-        post :update, id: automl_rule.id, rule: { name: 'new name'}
+        put :update, id: automl_rule.id, rule: { name: 'new name'}
 
         automl_rule.reload
         change_log = Comprehension.change_log_class.last

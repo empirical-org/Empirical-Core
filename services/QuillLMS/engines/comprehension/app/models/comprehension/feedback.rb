@@ -44,6 +44,8 @@ module Comprehension
         rule&.prompts&.each do |prompt|
           log_change(user_id, :update_feedback_2, prompt, nil, nil, prev_value, "#{rule.label.name} | #{rule.name}\n#{text}")
         end
+      else
+        rule.log_update(user_id, [{feedback: prev_value}], [{feedback: text}])
       end
     end
   end

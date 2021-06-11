@@ -91,7 +91,7 @@ module Comprehension
           old_feedback = Comprehension::Feedback.find_by_id(fa[:id])&.text
           @feedback_vals.push({id: fa[:id], label_string: label_string, text: old_feedback || fa[:text]}) if fa[:text] && fa[:text] != old_feedback
           fa[:highlights_attributes]&.each do |ha|
-            old_highlight = Comprehension::Highlight.find(ha[:id]).text
+            old_highlight = Comprehension::Highlight.find_by_id(ha[:id])&.text
             @highlights_vals.push({id: ha[:id], label_string: label_string, text: old_highlight || ha[:text]}) if ha[:text] && ha[:text] != old_highlight
           end
         end
