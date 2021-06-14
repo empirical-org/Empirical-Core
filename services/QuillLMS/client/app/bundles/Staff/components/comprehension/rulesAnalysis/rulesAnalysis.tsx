@@ -160,7 +160,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       Header: "API Name",
       accessor: "apiName",
       key: "apiName",
-      width: 150,
+      width: 280,
       sortMethod: (a, b) => apiOrderLookup[b] - apiOrderLookup[a],
       Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.apiName}</button>),
     },
@@ -317,7 +317,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
           value={selectedRuleType}
         />
       </div>
-      <div className="date-selection-container">
+      <div className="date-selection-container rules-analysis">
         <p className="date-picker-label">Start Date:</p>
         <DateTimePicker
           ampm={false}

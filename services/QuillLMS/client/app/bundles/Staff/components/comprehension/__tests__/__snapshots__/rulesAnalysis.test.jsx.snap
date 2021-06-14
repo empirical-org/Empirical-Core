@@ -68,7 +68,7 @@ exports[`RulesAnalysis component should render RulesAnalysis 1`] = `
     />
   </div>
   <div
-    className="date-selection-container"
+    className="date-selection-container rules-analysis"
   >
     <p
       className="date-picker-label"
