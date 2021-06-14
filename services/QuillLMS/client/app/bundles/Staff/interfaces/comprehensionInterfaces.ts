@@ -8,7 +8,7 @@ export interface ActivityInterface {
   id?: string,
   parent_activity_id?: string,
   title: string,
-  name: string,
+  notes: string,
   // flag: string,
   scored_level: string,
   target_level: number,

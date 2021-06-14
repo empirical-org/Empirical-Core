@@ -233,6 +233,7 @@ export const DEFAULT_CONCEPT_UIDS = {
 
 export const TITLE = 'Title';
 export const NAME = 'Name';
+export const NOTES = 'Notes';
 export const SCORED_READING_LEVEL = 'Scored reading level';
 export const TARGET_READING_LEVEL = 'Target reading level';
 export const PARENT_ACTIVITY_ID = 'Parent Activity ID'
@@ -245,8 +246,8 @@ export const IMAGE_LINK = 'Image link'
 export const IMAGE_ALT_TEXT = 'Image alt text'
 
 export const activityFormKeys = [
-  NAME,
   TITLE,
+  NOTES,
   SCORED_READING_LEVEL,
   TARGET_READING_LEVEL,
   PASSAGE,
