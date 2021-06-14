@@ -20,7 +20,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       "content_partners": Array [
         Object {
           "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-          "id": "1",
+          "id": 1,
           "name": "Core Knowledge",
         },
       ],
@@ -37,26 +37,26 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       "standard_name": "87",
       "topics": Array [
         Object {
-          "id": "16",
-          "level": "3",
+          "id": 16,
+          "level": 3,
           "name": "History",
           "parent_id": null,
         },
         Object {
-          "id": "93",
-          "level": "2",
+          "id": 93,
+          "level": 2,
           "name": "World Historical Figures",
-          "parent_id": "16",
+          "parent_id": 16,
         },
         Object {
-          "id": "171",
-          "level": "0",
+          "id": 171,
+          "level": 0,
           "name": "Hernan Cortes & the Aztec Empire",
           "parent_id": null,
         },
         Object {
-          "id": "172",
-          "level": "1",
+          "id": 172,
+          "level": 1,
           "name": "Maya, Aztec, & Inca Civilizations",
           "parent_id": null,
         },
@@ -93,7 +93,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           "content_partners": Array [
             Object {
               "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-              "id": "1",
+              "id": 1,
               "name": "Core Knowledge",
             },
           ],
@@ -110,26 +110,26 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           "standard_name": "87",
           "topics": Array [
             Object {
-              "id": "16",
-              "level": "3",
+              "id": 16,
+              "level": 3,
               "name": "History",
               "parent_id": null,
             },
             Object {
-              "id": "93",
-              "level": "2",
+              "id": 93,
+              "level": 2,
               "name": "World Historical Figures",
-              "parent_id": "16",
+              "parent_id": 16,
             },
             Object {
-              "id": "171",
-              "level": "0",
+              "id": 171,
+              "level": 0,
               "name": "Hernan Cortes & the Aztec Empire",
               "parent_id": null,
             },
             Object {
-              "id": "172",
-              "level": "1",
+              "id": 172,
+              "level": 1,
               "name": "Maya, Aztec, & Inca Civilizations",
               "parent_id": null,
             },
@@ -244,26 +244,26 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           topics={
             Array [
               Object {
-                "id": "16",
-                "level": "3",
+                "id": 16,
+                "level": 3,
                 "name": "History",
                 "parent_id": null,
               },
               Object {
-                "id": "93",
-                "level": "2",
+                "id": 93,
+                "level": 2,
                 "name": "World Historical Figures",
-                "parent_id": "16",
+                "parent_id": 16,
               },
               Object {
-                "id": "171",
-                "level": "0",
+                "id": 171,
+                "level": 0,
                 "name": "Hernan Cortes & the Aztec Empire",
                 "parent_id": null,
               },
               Object {
-                "id": "172",
-                "level": "1",
+                "id": 172,
+                "level": 1,
                 "name": "Maya, Aztec, & Inca Civilizations",
                 "parent_id": null,
               },
@@ -330,7 +330,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           "content_partners": Array [
             Object {
               "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-              "id": "1",
+              "id": 1,
               "name": "Core Knowledge",
             },
           ],
@@ -347,26 +347,26 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           "standard_name": "87",
           "topics": Array [
             Object {
-              "id": "16",
-              "level": "3",
+              "id": 16,
+              "level": 3,
               "name": "History",
               "parent_id": null,
             },
             Object {
-              "id": "93",
-              "level": "2",
+              "id": 93,
+              "level": 2,
               "name": "World Historical Figures",
-              "parent_id": "16",
+              "parent_id": 16,
             },
             Object {
-              "id": "171",
-              "level": "0",
+              "id": 171,
+              "level": 0,
               "name": "Hernan Cortes & the Aztec Empire",
               "parent_id": null,
             },
             Object {
-              "id": "172",
-              "level": "1",
+              "id": 172,
+              "level": 1,
               "name": "Maya, Aztec, & Inca Civilizations",
               "parent_id": null,
             },
@@ -417,7 +417,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       "content_partners": Array [
         Object {
           "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-          "id": "1",
+          "id": 1,
           "name": "Core Knowledge",
         },
       ],
@@ -434,26 +434,26 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       "standard_name": "87",
       "topics": Array [
         Object {
-          "id": "16",
-          "level": "3",
+          "id": 16,
+          "level": 3,
           "name": "History",
           "parent_id": null,
         },
         Object {
-          "id": "93",
-          "level": "2",
+          "id": 93,
+          "level": 2,
           "name": "World Historical Figures",
-          "parent_id": "16",
+          "parent_id": 16,
         },
         Object {
-          "id": "171",
-          "level": "0",
+          "id": 171,
+          "level": 0,
           "name": "Hernan Cortes & the Aztec Empire",
           "parent_id": null,
         },
         Object {
-          "id": "172",
-          "level": "1",
+          "id": 172,
+          "level": 1,
           "name": "Maya, Aztec, & Inca Civilizations",
           "parent_id": null,
         },
@@ -490,7 +490,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           "content_partners": Array [
             Object {
               "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-              "id": "1",
+              "id": 1,
               "name": "Core Knowledge",
             },
           ],
@@ -507,26 +507,26 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           "standard_name": "87",
           "topics": Array [
             Object {
-              "id": "16",
-              "level": "3",
+              "id": 16,
+              "level": 3,
               "name": "History",
               "parent_id": null,
             },
             Object {
-              "id": "93",
-              "level": "2",
+              "id": 93,
+              "level": 2,
               "name": "World Historical Figures",
-              "parent_id": "16",
+              "parent_id": 16,
             },
             Object {
-              "id": "171",
-              "level": "0",
+              "id": 171,
+              "level": 0,
               "name": "Hernan Cortes & the Aztec Empire",
               "parent_id": null,
             },
             Object {
-              "id": "172",
-              "level": "1",
+              "id": 172,
+              "level": 1,
               "name": "Maya, Aztec, & Inca Civilizations",
               "parent_id": null,
             },
@@ -641,26 +641,26 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           topics={
             Array [
               Object {
-                "id": "16",
-                "level": "3",
+                "id": 16,
+                "level": 3,
                 "name": "History",
                 "parent_id": null,
               },
               Object {
-                "id": "93",
-                "level": "2",
+                "id": 93,
+                "level": 2,
                 "name": "World Historical Figures",
-                "parent_id": "16",
+                "parent_id": 16,
               },
               Object {
-                "id": "171",
-                "level": "0",
+                "id": 171,
+                "level": 0,
                 "name": "Hernan Cortes & the Aztec Empire",
                 "parent_id": null,
               },
               Object {
-                "id": "172",
-                "level": "1",
+                "id": 172,
+                "level": 1,
                 "name": "Maya, Aztec, & Inca Civilizations",
                 "parent_id": null,
               },
@@ -727,7 +727,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           "content_partners": Array [
             Object {
               "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-              "id": "1",
+              "id": 1,
               "name": "Core Knowledge",
             },
           ],
@@ -744,26 +744,26 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           "standard_name": "87",
           "topics": Array [
             Object {
-              "id": "16",
-              "level": "3",
+              "id": 16,
+              "level": 3,
               "name": "History",
               "parent_id": null,
             },
             Object {
-              "id": "93",
-              "level": "2",
+              "id": 93,
+              "level": 2,
               "name": "World Historical Figures",
-              "parent_id": "16",
+              "parent_id": 16,
             },
             Object {
-              "id": "171",
-              "level": "0",
+              "id": 171,
+              "level": 0,
               "name": "Hernan Cortes & the Aztec Empire",
               "parent_id": null,
             },
             Object {
-              "id": "172",
-              "level": "1",
+              "id": 172,
+              "level": 1,
               "name": "Maya, Aztec, & Inca Civilizations",
               "parent_id": null,
             },
@@ -814,7 +814,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       "content_partners": Array [
         Object {
           "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-          "id": "1",
+          "id": 1,
           "name": "Core Knowledge",
         },
       ],
@@ -831,26 +831,26 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       "standard_name": "87",
       "topics": Array [
         Object {
-          "id": "16",
-          "level": "3",
+          "id": 16,
+          "level": 3,
           "name": "History",
           "parent_id": null,
         },
         Object {
-          "id": "93",
-          "level": "2",
+          "id": 93,
+          "level": 2,
           "name": "World Historical Figures",
-          "parent_id": "16",
+          "parent_id": 16,
         },
         Object {
-          "id": "171",
-          "level": "0",
+          "id": 171,
+          "level": 0,
           "name": "Hernan Cortes & the Aztec Empire",
           "parent_id": null,
         },
         Object {
-          "id": "172",
-          "level": "1",
+          "id": 172,
+          "level": 1,
           "name": "Maya, Aztec, & Inca Civilizations",
           "parent_id": null,
         },
@@ -887,7 +887,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           "content_partners": Array [
             Object {
               "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-              "id": "1",
+              "id": 1,
               "name": "Core Knowledge",
             },
           ],
@@ -904,26 +904,26 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           "standard_name": "87",
           "topics": Array [
             Object {
-              "id": "16",
-              "level": "3",
+              "id": 16,
+              "level": 3,
               "name": "History",
               "parent_id": null,
             },
             Object {
-              "id": "93",
-              "level": "2",
+              "id": 93,
+              "level": 2,
               "name": "World Historical Figures",
-              "parent_id": "16",
+              "parent_id": 16,
             },
             Object {
-              "id": "171",
-              "level": "0",
+              "id": 171,
+              "level": 0,
               "name": "Hernan Cortes & the Aztec Empire",
               "parent_id": null,
             },
             Object {
-              "id": "172",
-              "level": "1",
+              "id": 172,
+              "level": 1,
               "name": "Maya, Aztec, & Inca Civilizations",
               "parent_id": null,
             },
@@ -960,7 +960,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
               "content_partners": Array [
                 Object {
                   "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": "1",
+                  "id": 1,
                   "name": "Core Knowledge",
                 },
               ],
@@ -977,26 +977,26 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
               "standard_name": "87",
               "topics": Array [
                 Object {
-                  "id": "16",
-                  "level": "3",
+                  "id": 16,
+                  "level": 3,
                   "name": "History",
                   "parent_id": null,
                 },
                 Object {
-                  "id": "93",
-                  "level": "2",
+                  "id": 93,
+                  "level": 2,
                   "name": "World Historical Figures",
-                  "parent_id": "16",
+                  "parent_id": 16,
                 },
                 Object {
-                  "id": "171",
-                  "level": "0",
+                  "id": 171,
+                  "level": 0,
                   "name": "Hernan Cortes & the Aztec Empire",
                   "parent_id": null,
                 },
                 Object {
-                  "id": "172",
-                  "level": "1",
+                  "id": 172,
+                  "level": 1,
                   "name": "Maya, Aztec, & Inca Civilizations",
                   "parent_id": null,
                 },
@@ -1112,26 +1112,26 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           topics={
             Array [
               Object {
-                "id": "16",
-                "level": "3",
+                "id": 16,
+                "level": 3,
                 "name": "History",
                 "parent_id": null,
               },
               Object {
-                "id": "93",
-                "level": "2",
+                "id": 93,
+                "level": 2,
                 "name": "World Historical Figures",
-                "parent_id": "16",
+                "parent_id": 16,
               },
               Object {
-                "id": "171",
-                "level": "0",
+                "id": 171,
+                "level": 0,
                 "name": "Hernan Cortes & the Aztec Empire",
                 "parent_id": null,
               },
               Object {
-                "id": "172",
-                "level": "1",
+                "id": 172,
+                "level": 1,
                 "name": "Maya, Aztec, & Inca Civilizations",
                 "parent_id": null,
               },
@@ -1198,7 +1198,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           "content_partners": Array [
             Object {
               "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-              "id": "1",
+              "id": 1,
               "name": "Core Knowledge",
             },
           ],
@@ -1215,26 +1215,26 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           "standard_name": "87",
           "topics": Array [
             Object {
-              "id": "16",
-              "level": "3",
+              "id": 16,
+              "level": 3,
               "name": "History",
               "parent_id": null,
             },
             Object {
-              "id": "93",
-              "level": "2",
+              "id": 93,
+              "level": 2,
               "name": "World Historical Figures",
-              "parent_id": "16",
+              "parent_id": 16,
             },
             Object {
-              "id": "171",
-              "level": "0",
+              "id": 171,
+              "level": 0,
               "name": "Hernan Cortes & the Aztec Empire",
               "parent_id": null,
             },
             Object {
-              "id": "172",
-              "level": "1",
+              "id": 172,
+              "level": 1,
               "name": "Maya, Aztec, & Inca Civilizations",
               "parent_id": null,
             },
@@ -1270,7 +1270,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       "content_partners": Array [
         Object {
           "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-          "id": "1",
+          "id": 1,
           "name": "Core Knowledge",
         },
       ],
@@ -1287,26 +1287,26 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       "standard_name": "87",
       "topics": Array [
         Object {
-          "id": "16",
-          "level": "3",
+          "id": 16,
+          "level": 3,
           "name": "History",
           "parent_id": null,
         },
         Object {
-          "id": "93",
-          "level": "2",
+          "id": 93,
+          "level": 2,
           "name": "World Historical Figures",
-          "parent_id": "16",
+          "parent_id": 16,
         },
         Object {
-          "id": "171",
-          "level": "0",
+          "id": 171,
+          "level": 0,
           "name": "Hernan Cortes & the Aztec Empire",
           "parent_id": null,
         },
         Object {
-          "id": "172",
-          "level": "1",
+          "id": 172,
+          "level": 1,
           "name": "Maya, Aztec, & Inca Civilizations",
           "parent_id": null,
         },
@@ -1343,7 +1343,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           "content_partners": Array [
             Object {
               "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-              "id": "1",
+              "id": 1,
               "name": "Core Knowledge",
             },
           ],
@@ -1360,26 +1360,26 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           "standard_name": "87",
           "topics": Array [
             Object {
-              "id": "16",
-              "level": "3",
+              "id": 16,
+              "level": 3,
               "name": "History",
               "parent_id": null,
             },
             Object {
-              "id": "93",
-              "level": "2",
+              "id": 93,
+              "level": 2,
               "name": "World Historical Figures",
-              "parent_id": "16",
+              "parent_id": 16,
             },
             Object {
-              "id": "171",
-              "level": "0",
+              "id": 171,
+              "level": 0,
               "name": "Hernan Cortes & the Aztec Empire",
               "parent_id": null,
             },
             Object {
-              "id": "172",
-              "level": "1",
+              "id": 172,
+              "level": 1,
               "name": "Maya, Aztec, & Inca Civilizations",
               "parent_id": null,
             },
@@ -1416,7 +1416,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
               "content_partners": Array [
                 Object {
                   "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": "1",
+                  "id": 1,
                   "name": "Core Knowledge",
                 },
               ],
@@ -1433,26 +1433,26 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
               "standard_name": "87",
               "topics": Array [
                 Object {
-                  "id": "16",
-                  "level": "3",
+                  "id": 16,
+                  "level": 3,
                   "name": "History",
                   "parent_id": null,
                 },
                 Object {
-                  "id": "93",
-                  "level": "2",
+                  "id": 93,
+                  "level": 2,
                   "name": "World Historical Figures",
-                  "parent_id": "16",
+                  "parent_id": 16,
                 },
                 Object {
-                  "id": "171",
-                  "level": "0",
+                  "id": 171,
+                  "level": 0,
                   "name": "Hernan Cortes & the Aztec Empire",
                   "parent_id": null,
                 },
                 Object {
-                  "id": "172",
-                  "level": "1",
+                  "id": 172,
+                  "level": 1,
                   "name": "Maya, Aztec, & Inca Civilizations",
                   "parent_id": null,
                 },
@@ -1572,26 +1572,26 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           topics={
             Array [
               Object {
-                "id": "16",
-                "level": "3",
+                "id": 16,
+                "level": 3,
                 "name": "History",
                 "parent_id": null,
               },
               Object {
-                "id": "93",
-                "level": "2",
+                "id": 93,
+                "level": 2,
                 "name": "World Historical Figures",
-                "parent_id": "16",
+                "parent_id": 16,
               },
               Object {
-                "id": "171",
-                "level": "0",
+                "id": 171,
+                "level": 0,
                 "name": "Hernan Cortes & the Aztec Empire",
                 "parent_id": null,
               },
               Object {
-                "id": "172",
-                "level": "1",
+                "id": 172,
+                "level": 1,
                 "name": "Maya, Aztec, & Inca Civilizations",
                 "parent_id": null,
               },
@@ -1658,7 +1658,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           "content_partners": Array [
             Object {
               "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-              "id": "1",
+              "id": 1,
               "name": "Core Knowledge",
             },
           ],
@@ -1675,26 +1675,26 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           "standard_name": "87",
           "topics": Array [
             Object {
-              "id": "16",
-              "level": "3",
+              "id": 16,
+              "level": 3,
               "name": "History",
               "parent_id": null,
             },
             Object {
-              "id": "93",
-              "level": "2",
+              "id": 93,
+              "level": 2,
               "name": "World Historical Figures",
-              "parent_id": "16",
+              "parent_id": 16,
             },
             Object {
-              "id": "171",
-              "level": "0",
+              "id": 171,
+              "level": 0,
               "name": "Hernan Cortes & the Aztec Empire",
               "parent_id": null,
             },
             Object {
-              "id": "172",
-              "level": "1",
+              "id": 172,
+              "level": 1,
               "name": "Maya, Aztec, & Inca Civilizations",
               "parent_id": null,
             },
