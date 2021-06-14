@@ -13,7 +13,7 @@ import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { createOrUpdateFeedbackHistoryRating, massCreateOrUpdateFeedbackHistoryRating, } from '../../../utils/comprehension/feedbackHistoryRatingAPIs';
 import { DataTable, Error, Spinner, Input, Tooltip, smallWhiteCheckIcon, } from '../../../../Shared/index';
 import { handlePageFilterClick } from "../../../helpers/comprehension";
-import { ALL, SCORED, UNSCORED, STRONG, WEAK, RULE_ANALYSIS } from '../../../../../constants/comprehension';
+import { ALL, SCORED, UNSCORED, STRONG, WEAK, RULE_ANALYSIS, RULES_ANALYSIS } from '../../../../../constants/comprehension';
 
 const extractHighlight = (highlightObject) => {
   if (!highlightObject || !highlightObject.length || !highlightObject[0].text) return '';
@@ -24,8 +24,8 @@ const RuleAnalysis = ({ match }) => {
   const { params } = match;
   const { activityId, ruleId, promptConjunction, promptId } = params;
 
-  const initialStartDateString = window.sessionStorage.getItem(`${RULE_ANALYSIS}startDate`) || '';
-  const initialEndDateString = window.sessionStorage.getItem(`${RULE_ANALYSIS}endDate`) || '';
+  const initialStartDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}startDate`) || window.sessionStorage.getItem(`${RULE_ANALYSIS}startDate`) || '';
+  const initialEndDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}endDate`) || window.sessionStorage.getItem(`${RULE_ANALYSIS}endDate`) || '';
   const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
 

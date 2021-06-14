@@ -222,8 +222,5 @@ exports[`RulesAnalysis component should render RulesAnalysis 1`] = `
       Filter
     </button>
   </div>
-  <div
-    className="error-container"
-  />
 </div>
 `;
