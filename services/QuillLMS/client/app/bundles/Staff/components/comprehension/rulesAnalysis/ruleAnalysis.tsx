@@ -17,6 +17,11 @@ const UNSCORED = 'Unscored'
 const STRONG = 'Strong'
 const WEAK = 'Weak'
 
+const extractHighlight = (highlightObject) => {
+  if (!highlightObject || !highlightObject.length || !highlightObject[0].text) return '';
+  return highlightObject[0].text;
+}
+
 const RuleAnalysis = ({ history, match }) => {
   const { params } = match;
   const { activityId, ruleId, promptConjunction, promptId } = params;
@@ -183,11 +188,6 @@ const RuleAnalysis = ({ history, match }) => {
     { name: "", attribute:"field", width: "180px" },
     { name: "", attribute:"value", width: "750px" }
   ];
-
-  const extractHighlight = (highlightObject) => {
-    if (!highlightObject || !highlightObject.length || !highlightObject[0].text) return '';
-    return highlightObject[0].text;
-  }
 
   const responseRows = () => {
     if (!activityData || !responses) { return [] }
