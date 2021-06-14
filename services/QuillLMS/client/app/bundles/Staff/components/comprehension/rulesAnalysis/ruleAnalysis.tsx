@@ -15,6 +15,11 @@ import { DataTable, Error, Spinner, Input, Tooltip, smallWhiteCheckIcon, } from 
 import { handlePageFilterClick } from "../../../helpers/comprehension";
 import { ALL, SCORED, UNSCORED, STRONG, WEAK, RULE_ANALYSIS } from '../../../../../constants/comprehension';
 
+const extractHighlight = (highlightObject) => {
+  if (!highlightObject || !highlightObject.length || !highlightObject[0].text) return '';
+  return highlightObject[0].text;
+}
+
 const RuleAnalysis = ({ match }) => {
   const { params } = match;
   const { activityId, ruleId, promptConjunction, promptId } = params;
@@ -219,8 +224,8 @@ const RuleAnalysis = ({ match }) => {
   const responseRows = (responses) => {
     if (!activityData || !responses) { return [] }
     return responses.filter(filterResponsesByScored).filter(filterResponsesBySearch).map(r => {
-      const formattedResponse = {...r}
-      const highlightedEntry = r.entry.replace(r.highlight, `<strong>${r.highlight}</strong>`)
+      const formattedResponse = {...r,  ...{highlight: extractHighlight(r.highlight)}}
+      const highlightedEntry = r.entry.replace(formattedResponse.highlight, `<strong>${formattedResponse.highlight}</strong>`)
       const strongButton = <button className={r.strength === true ? 'strength-button strong' : 'strength-button'} onClick={() => toggleStrength(r)} tabIndex={-1} type="button">Strong</button> // curriculum developers want to be able to skip these when tab navigating
       const weakButton = <button className={r.strength === false ? 'strength-button weak' : 'strength-button'} onClick={() => toggleWeakness(r)} tabIndex={-1} type="button">Weak</button> // curriculum developers want to be able to skip these when tab navigating
 
