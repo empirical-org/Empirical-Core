@@ -32,13 +32,22 @@ describe BlogPostsController, type: :controller do
     let(:blog_post) { create(:blog_post) }
     let(:three_most_recent_posts) { create_list(:blog_post, 3) }
 
-    it 'should return a 404 if no such post found' do
-      expect { get :show, slug: 'does-not-exist' }.to raise_error ActiveRecord::RecordNotFound
+    it 'should redirect to teacher center home if no such post found' do
+      get :show, slug: 'does-not-exist'
+
+      expect(response).to redirect_to blog_posts_path
+      expect(flash[:error]).to include("Oops! We can't seem to find that blog post.")
     end
 
     it 'should return the called blog post' do
       get :show, slug: blog_post.slug
       expect(assigns(:blog_post)).to eq(blog_post)
+    end
+
+    it 'should redirect to blog post even if there are extra chars' do
+      get :show, slug: blog_post.slug + ')()('
+
+      expect(response).to redirect_to blog_post
     end
 
     it 'should increment the blog post read count' do

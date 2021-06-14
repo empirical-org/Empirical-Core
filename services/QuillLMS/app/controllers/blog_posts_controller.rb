@@ -26,7 +26,9 @@ class BlogPostsController < ApplicationController
   def show
     find_by_hash = { slug: params[:slug] }
     find_by_hash[:draft] = false unless @role == 'staff'
+
     @blog_post = BlogPost.find_by!(find_by_hash)
+
     @topic = @blog_post.topic
     @display_paywall = true unless @blog_post.can_be_accessed_by(current_user)
     @blog_post.increment_read_count
@@ -35,6 +37,18 @@ class BlogPostsController < ApplicationController
     @title = @blog_post.title
     @description = @blog_post.subtitle || @title
     @image_link = @blog_post.image_link
+  rescue ActiveRecord::RecordNotFound => e
+    # try fixing params and redirect to correct url.
+    corrected_slug = find_by_hash.merge(slug: params[:slug]&.gsub(/[^a-zA-Z\d\s-]/, '')&.downcase)
+
+    if blog_post = BlogPost.find_by(corrected_slug)
+      redirect_to blog_post
+    else
+      flash[:error] = "Oops! We can't seem to find that blog post. Trying searching on this page!"
+      redirect_to blog_posts_path
+    end
+
+
   end
 
   def search
