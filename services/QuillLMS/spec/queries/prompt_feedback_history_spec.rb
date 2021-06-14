@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe PromptFeedbackHistory, type: :model do
   def generate_feedback_history(prompt_id, session_uid: nil, attempts: 1, ends_optimally: true)
     histories = []
-    session_uid = SecureRandom.uuid unless session_uid
+    session_uid ||= SecureRandom.uuid
     (attempts - 1).times do |idx|
       histories.append(create(:feedback_history, attempt: idx + 1, optimal: false, prompt_id: prompt_id, feedback_session_uid: session_uid))
     end
@@ -73,7 +73,7 @@ RSpec.describe PromptFeedbackHistory, type: :model do
     it 'should count the number of sessions that do not end optimally as num_final_attempt_not_optimal' do
       generate_feedback_history(@prompt1.id, attempts: 1)
       generate_feedback_history(@prompt1.id, attempts: 1)
-      generate_feedback_history(@prompt1.id, attempts: 1, attempts: 5, ends_optimally: false)
+      generate_feedback_history(@prompt1.id, attempts: 5, ends_optimally: false)
 
       result = PromptFeedbackHistory.prompt_health_query(@main_activity.id)
 
