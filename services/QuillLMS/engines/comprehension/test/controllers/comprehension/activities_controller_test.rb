@@ -45,8 +45,8 @@ module Comprehension
       context 'with actitivites' do
         setup do
           # The controller sorts items alphabetically by "title"
-          @first_activity = create(:comprehension_activity, title: "Z Activity", notes: "Notes 1", target_level: 8)
-          create(:comprehension_activity, title: "A Activity", notes: "Notes 2", target_level: 5)
+          @first_activity = create(:comprehension_activity, title: "An Activity", notes: "Notes 1", target_level: 8)
+          create(:comprehension_activity, title: "The Activity", notes: "Notes 2", target_level: 5)
         end
 
         should "return successfully" do
@@ -59,7 +59,7 @@ module Comprehension
           refute parsed_response.empty?
 
           # We expect these to be ordered alphabetically by title
-          assert_equal  "Z Activity", parsed_response.first['title']
+          assert_equal  "An Activity", parsed_response.first['title']
           assert_equal  8, parsed_response.first['target_level']
           assert_equal  @first_activity.parent_activity.id, parsed_response.first['parent_activity_id']
         end
