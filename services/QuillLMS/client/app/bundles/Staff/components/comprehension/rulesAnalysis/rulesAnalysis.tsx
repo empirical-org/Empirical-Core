@@ -147,6 +147,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     }
   }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
 
+  /* eslint-disable react/display-name */
   const dataTableFields = [
     {
       expander: true,
@@ -334,10 +335,11 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
           value={endDate}
         />
         <button className="quill-button fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
-      </div>
-      <div className="error-container">
         {showError && <p className="error-message">Start date is required.</p>}
       </div>
+      {/* <div className="error-container">
+        {showError && <p className="error-message">Start date is required.</p>}
+      </div> */}
       {selectedPrompt && formattedRows && (<ReactTable
         className="rules-analysis-table"
         columns={dataTableFields}

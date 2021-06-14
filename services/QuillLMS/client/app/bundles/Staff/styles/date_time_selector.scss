@@ -1,0 +1,39 @@
+.date-selection-container {
+  display: flex;
+  align-items: baseline;
+  margin-top: 16px;
+  .start-date-picker {
+    margin-right: 22px;
+  }
+  .end-date-picker {
+    margin-right: 16px;
+  }
+}
+
+.date-picker-label {
+  margin: 0px 16px 0px 0px;
+}
+.react-datetime-picker {
+  display: inline;
+  margin-right: 24px;
+}
+.react-datetime-picker__inputGroup {
+  padding-top: 2px;
+}
+.react-datetime-picker__inputGroup__input {
+  height: auto;
+}
+
+.error-container {
+  justify-content: flex-start;
+  padding-top: 0;
+  margin-bottom: 8px;
+  min-height: 24px;
+}
+
+.error-message {
+  font-size: 12px;
+  font-weight: 600;
+  color: #ff0000;
+  margin-left: 8px;
+}

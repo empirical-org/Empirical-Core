@@ -215,6 +215,7 @@ const RuleAnalysis = ({ match }) => {
     { name: "", attribute:"value", width: "750px" }
   ];
 
+  /* eslint-disable react/jsx-no-bind */
   const responseRows = (responses) => {
     if (!activityData || !responses) { return [] }
     return responses.filter(filterResponsesByScored).filter(filterResponsesBySearch).map(r => {
@@ -331,7 +332,7 @@ const RuleAnalysis = ({ match }) => {
           value={endDate}
         />
         <button className="quill-button fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
-        {showError && <p className="error-message">Start date is required.</p>}
+        {showError && <p className="error-message rule-analysis">Start date is required.</p>}
       </div>
       <div className="radio-options">
         <div className="radio">
