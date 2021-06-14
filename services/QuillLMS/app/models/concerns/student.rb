@@ -38,7 +38,7 @@ module Student
         SQL
       ).to_a.first['avg']
 
-      (avg * 100).to_i
+      (avg.to_f * 100).to_i
     end
 
     def move_student_from_one_class_to_another(old_classroom, new_classroom)
