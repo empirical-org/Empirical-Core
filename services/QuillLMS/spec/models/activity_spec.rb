@@ -189,7 +189,7 @@ describe Activity, type: :model, redis: true do
       comp_activity = Comprehension::Activity.create!(parent_activity_id: classified_activity.id,
         target_level: 12,
         title: 'Test Comprehension Activity',
-        name: 'Test Comprehension Activity')
+        notes: 'Test Comprehension Activity')
       expect(classified_activity).to receive(:comprehension_url_helper).with({student: activity_session.uid}).and_call_original
       result = classified_activity.module_url(activity_session)
       expect(result.to_s).to eq("#{classification.module_url}?session=#{activity_session.uid}&uid=#{comp_activity.id}")
@@ -224,7 +224,7 @@ describe Activity, type: :model, redis: true do
       comp_activity = Comprehension::Activity.create!(parent_activity_id: classified_activity.id,
         target_level: 12,
         title: 'Test Comprehension Activity',
-        name: 'Test Comprehension Activity')
+        notes: 'Test Comprehension Activity')
       expect(classified_activity).to receive(:comprehension_url_helper).with({anonymous: true}).and_call_original
       result = classified_activity.anonymous_module_url
       expect(result.to_s).to eq("#{classification.module_url}?anonymous=true&uid=#{comp_activity.id}")
