@@ -369,6 +369,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'rule_feedback_history/:rule_uid' => 'rule_feedback_histories#rule_detail'
       get 'prompt_health/:activity_id' => 'rule_feedback_histories#prompt_health'
 
+      
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
       resources :activity_sessions,       except: [:index, :new, :edit]
@@ -385,7 +386,12 @@ EmpiricalGrammar::Application.routes.draw do
           get 'level_zero_concepts_with_lineage'
         end
       end
-      resources :users,                   only: [:index]
+      
+      resources :users, only: [:index] do
+        resources :app_settings, only: [:index] 
+        get 'app_setting(/:name)' => 'app_settings#show'
+      end
+
       resources :classroom_units,         only: [] do
         collection do
           get 'student_names'

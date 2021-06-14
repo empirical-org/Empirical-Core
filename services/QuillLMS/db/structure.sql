@@ -77,6 +77,18 @@ CREATE FUNCTION public.blog_posts_search_trigger() RETURNS trigger
 
 
 --
+-- Name: my_jsonb_to_hstore(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.my_jsonb_to_hstore(jsonb) RETURNS public.hstore
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$
+            SELECT hstore(array_agg(key), array_agg(value))
+            FROM   jsonb_each_text($1)
+          $_$;
+
+
+--
 -- Name: old_timespent_teacher(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -702,6 +714,54 @@ CREATE SEQUENCE public.announcements_id_seq
 --
 
 ALTER SEQUENCE public.announcements_id_seq OWNED BY public.announcements.id;
+
+
+--
+-- Name: app_settings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.app_settings (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    user_ids_allow_list character varying[] DEFAULT '{}'::character varying[] NOT NULL,
+    enabled_for_admins boolean DEFAULT false NOT NULL,
+    enabled boolean DEFAULT false NOT NULL,
+    percent_active integer DEFAULT 0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: app_settings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.app_settings_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: app_settings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.app_settings_id_seq OWNED BY public.app_settings.id;
+
+
+--
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
 
 
 --
@@ -3819,6 +3879,13 @@ ALTER TABLE ONLY public.announcements ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: app_settings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.app_settings ALTER COLUMN id SET DEFAULT nextval('public.app_settings_id_seq'::regclass);
+
+
+--
 -- Name: auth_credentials id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4508,6 +4575,22 @@ ALTER TABLE ONLY public.admin_accounts_teachers
 
 ALTER TABLE ONLY public.announcements
     ADD CONSTRAINT announcements_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: app_settings app_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.app_settings
+    ADD CONSTRAINT app_settings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
 
 
 --
@@ -5383,6 +5466,13 @@ CREATE INDEX index_admin_accounts_teachers_on_teacher_id ON public.admin_account
 --
 
 CREATE INDEX index_announcements_on_start_and_end ON public.announcements USING btree (start, "end" DESC);
+
+
+--
+-- Name: index_app_settings_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_app_settings_on_name ON public.app_settings USING btree (name);
 
 
 --
@@ -7637,4 +7727,6 @@ INSERT INTO schema_migrations (version) VALUES ('20210528142650');
 
 INSERT INTO schema_migrations (version) VALUES ('20210614190031');
 INSERT INTO schema_migrations (version) VALUES ('20210525200201');
+
+INSERT INTO schema_migrations (version) VALUES ('20210614205654');
 
