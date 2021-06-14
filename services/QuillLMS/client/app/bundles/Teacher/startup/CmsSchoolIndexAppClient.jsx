@@ -53,7 +53,7 @@ export default class CmsSchoolIndex extends React.Component {
           accessor: 'frl',
           resizable: false,
           minWidth: 60,
-          Cell: row => `${row.original.frl}%`,
+          Cell: row => row.original.frl ? `${row.original.frl}%` : '',
         }, {
           Header: "Teachers",
           accessor: 'number_teachers',
