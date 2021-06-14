@@ -38,11 +38,11 @@ module Comprehension
     def log_update(user_id, prev_value)
       if semantic_rule && first_order
         rule&.prompts&.each do |prompt|
-          log_change(user_id, :update_feedback_1, prompt, nil, nil, prev_value, "#{rule.label.name} | #{rule.name}\n#{text}")
+          log_change(user_id, :update_feedback_1, prompt, rule.url, nil, prev_value, "#{rule.label.name} | #{rule.name}\n#{text}")
         end
       elsif semantic_rule && second_order
         rule&.prompts&.each do |prompt|
-          log_change(user_id, :update_feedback_2, prompt, nil, nil, prev_value, "#{rule.label.name} | #{rule.name}\n#{text}")
+          log_change(user_id, :update_feedback_2, prompt, rule.url, nil, prev_value, "#{rule.label.name} | #{rule.name}\n#{text}")
         end
       else
         rule.log_update(user_id, [{feedback: prev_value}], [{feedback: text}])

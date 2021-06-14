@@ -32,9 +32,9 @@ module Comprehension
         only: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :plagiarism_text, :plagiarism_first_feedback, :plagiarism_second_feedback]
       ))
     end
-    
+
     def log_update(user_id, prev_value)
-      log_change(user_id, :update_prompt, self, nil, nil, prev_value, text)
+      log_change(user_id, :update_prompt, self, activity.url, nil, prev_value, text)
     end
 
     private def downcase_conjunction

@@ -147,12 +147,50 @@ module Comprehension
       end
     end
 
+    private def activity_id
+      prompts&.first&.activity&.id
+    end
+
+    private def prompt_id
+      prompts&.first&.id
+    end
+
+    def url
+      if regex?
+        regex_url
+      elsif universal?
+        universal_url
+      elsif plagiarism?
+        plagiarism_url
+      elsif automl?
+        automl_url
+      else
+        ""
+      end
+    end
+
+    private def universal_url
+      "comprehension/#/universal-rules/#{id}"
+    end
+
+    private def regex_url
+      "comprehension/#/activities/#{activity_id}/regex-rules/#{id}"
+    end
+
+    private def plagiarism_url
+      "comprehension/#/activities/#{activity_id}/plagiarism-rules/#{id}"
+    end
+
+    private def automl_url
+      "comprehension/#/activities/#{activity_id}/semantic-labels/#{prompt_id}/#{id}"
+    end
+
     private def send_change_log(user_id, action_type, new_value, prev_value=nil)
       if universal?
-        log_change(user_id, action_type, self, nil, nil, prev_value, new_value)
+        log_change(user_id, action_type, self, url, nil, prev_value, new_value)
       else
         prompts&.each do |prompt|
-          log_change(user_id, action_type, prompt, nil, nil, prev_value, new_value)
+          log_change(user_id, action_type, prompt, url, nil, prev_value, new_value)
         end
       end
     end

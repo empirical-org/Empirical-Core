@@ -110,7 +110,8 @@ module Comprehension
     context "create" do
       setup do
         @controller.session[:user_id] = 1
-        @prompt = create(:comprehension_prompt)
+        @activity = create(:comprehension_activity)
+        @prompt = create(:comprehension_prompt, activity: @activity)
         @rule = build(:comprehension_rule)
         @universal_rule = build(:comprehension_rule, prompts: [@prompt], universal: true, rule_type: Rule::TYPE_GRAMMAR)
         @plagiarism_rule = build(:comprehension_rule, prompts: [@prompt], universal: false, rule_type: Rule::TYPE_PLAGIARISM)
@@ -149,12 +150,14 @@ module Comprehension
         post :create, rule: { concept_uid: @rule.concept_uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, state: @rule.state, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal, prompt_ids: [@prompt.id] }
 
         change_log = Comprehension.change_log_class.last
+        rule = Comprehension::Rule.last
         assert_equal change_log.action, "Regex Rule - created"
         assert_equal change_log.user_id, 1
         assert_equal change_log.changed_record_id, @prompt.id
         assert_equal change_log.changed_record_type, "Comprehension::Prompt"
         assert_equal change_log.previous_value, nil
         assert_equal change_log.new_value, "#{@rule.name} - #{@rule.display_name}"
+        assert_equal change_log.explanation, "comprehension/#/activities/#{@activity.id}/regex-rules/#{rule.id}"
       end
 
       should "make a change log record after creating a universal Rule record" do
@@ -168,6 +171,7 @@ module Comprehension
         assert_equal change_log.changed_record_type, "Comprehension::Rule"
         assert_equal change_log.previous_value, nil
         assert_equal change_log.new_value, "#{@universal_rule.name} - #{@universal_rule.rule_type}"
+        assert_equal change_log.explanation, "comprehension/#/universal-rules/#{rule.id}"
       end
 
       should "make a change log record after creating a plagiarism Rule record" do
@@ -197,12 +201,14 @@ module Comprehension
             }
 
         change_log = Comprehension.change_log_class.last
+        rule = Comprehension::Rule.last
         assert_equal change_log.action, "Plagiarism - created"
         assert_equal change_log.user_id, 1
         assert_equal change_log.changed_record_id, @prompt.id
         assert_equal change_log.changed_record_type, "Comprehension::Prompt"
         assert_equal change_log.previous_value, nil
         assert_equal change_log.new_value, "#{@plagiarism_rule.name} - #{plagiarism_text} - #{feedback.text}"
+        assert_equal change_log.explanation, "comprehension/#/activities/#{@activity.id}/plagiarism-rules/#{rule.id}"
       end
 
       should "not create an invalid record and return errors as json" do
@@ -360,12 +366,14 @@ module Comprehension
         }
 
         change_log = Comprehension.change_log_class.last
+        rule = Comprehension::Rule.last
         assert_equal change_log.action, "Semantic Label - created"
         assert_equal change_log.user_id, 1
         assert_equal change_log.changed_record_id, @prompt.id
         assert_equal change_log.changed_record_type, "Comprehension::Prompt"
         assert_equal change_log.new_value, "[#{label.name} | #{@rule.name}] - created"
         assert_equal change_log.previous_value, nil
+        assert_equal change_log.explanation, "comprehension/#/activities/#{@activity.id}/semantic-labels/#{@prompt.id}/#{rule.id}"
       end
 
       should "create nested regex rule record when present in params" do

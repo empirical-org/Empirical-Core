@@ -29,15 +29,27 @@ module Comprehension
       end
     end
 
+    private def activity_id
+      rule&.prompts&.first&.activity&.id
+    end
+
+    private def prompt_id
+      rule&.prompts&.first&.id
+    end
+
+    private def url
+      "comprehension/#/activities/#{activity_id}/semantic-labels/#{prompt_id}/#{rule&.id}"
+    end
+
     def log_creation(user_id)
       rule&.prompts&.each do |prompt|
-        log_change(user_id, :create_semantic, prompt, nil, nil, nil, "[#{name} | #{rule.name}] - created")
+        log_change(user_id, :create_semantic, prompt, url, nil, nil, "[#{name} | #{rule.name}] - created")
       end
     end
 
     def log_deletion(user_id)
       rule&.prompts&.each do |prompt|
-        log_change(user_id, :delete_semantic, prompt, nil, nil, "[#{name} | #{rule.name}] - active", "[#{name} | #{rule.name}] - deleted")
+        log_change(user_id, :delete_semantic, prompt, url, nil, "[#{name} | #{rule.name}] - active", "[#{name} | #{rule.name}] - deleted")
       end
     end
   end

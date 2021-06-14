@@ -32,6 +32,12 @@ module Comprehension
     validates :name, presence: true, length: {in: MIN_TITLE_LENGTH..MAX_TITLE_LENGTH}
     validates :scored_level, length: { maximum: MAX_SCORED_LEVEL_LENGTH, allow_nil: true}
 
+    CHANGE_LOG_DISPLAY_NAMES = {
+      "Comprehension::Prompt": "Prompt",
+      "Comprehension::Activity": "Activity",
+      "Comprehension::Rule": "Universal"
+    }
+
     def set_parent_activity
       if parent_activity_id
         self.parent_activity = Comprehension.parent_activity_class.find_by_id(parent_activity_id)
@@ -52,16 +58,38 @@ module Comprehension
       ))
     end
 
+    def change_logs
+      change_logs = []
+      change_logs.push(Comprehension.change_log_class.where(changed_record_type: 'Comprehension::Activity', changed_record_id: id))
+      prompts.each do |p|
+        change_logs.push(Comprehension.change_log_class.where(changed_record_type: 'Comprehension::Prompt', changed_record_id: p.id))
+      end
+      change_logs.push(Comprehension.change_log_class.where(changed_record_type: 'Comprehension::Rule'))
+      change_logs.flatten!
+      change_logs.map do |cl|
+        cl.attributes.merge(
+          {
+          "user": User.find(cl["user_id"]).name,
+          "record_type_display_name": CHANGE_LOG_DISPLAY_NAMES[cl["changed_record_type"].to_sym],
+          "updated_local_time": cl["updated_at"].localtime.to_s
+          })
+      end
+    end
+
     private def expire_turking_rounds
       turking_rounds.each(&:expire!)
     end
 
+    def url
+      "comprehension/#/activities/#{id}/settings"
+    end
+
     def log_creation(user_id)
-      log_change(user_id, :create_activity, self, nil, nil, nil, "Comprehension Activity #{id} - active")
+      log_change(user_id, :create_activity, self, url, nil, nil, "Comprehension Activity #{id} - active")
     end
 
     def log_deletion(user_id)
-      log_change(user_id, :delete_activity, self, nil, nil, "Comprehension Activity #{id} - active", "Comprehension Activity #{id} - deleted")
+      log_change(user_id, :delete_activity, self, url, nil, "Comprehension Activity #{id} - active", "Comprehension Activity #{id} - deleted")
     end
   end
 end
