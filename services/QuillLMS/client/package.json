@@ -76,6 +76,7 @@
     "react-css-transition-replace": "^4.0.2",
     "react-csv": "^1.0.8",
     "react-dates": "21.8.0",
+    "react-datetime-picker": "^3.3.0",
     "react-dom": "^16.13.1",
     "react-dropzone": "^4.2.8",
     "react-i18next": "^8.4.0",
