@@ -1,7 +1,6 @@
 class PromptFeedbackHistory
 
     def self.run(activity_id)
-        #promptwise_postprocessing promptwise_sessions(activity_id)
         serialize_results prompt_health_query(activity_id)
     end
 
