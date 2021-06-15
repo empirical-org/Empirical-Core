@@ -32,17 +32,28 @@ class Dashboard
   end
 
   def self.completed_activity_count(user_id)
-    ActiveRecord::Base.connection.execute("SELECT COUNT(DISTINCT acts.id) FROM activity_sessions as acts
-    #{body_of_sql_search(user_id)}").to_a.first["count"].to_i
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT COUNT(DISTINCT acts.id)
+        FROM activity_sessions AS acts
+        #{body_of_sql_search(user_id)}
+      SQL
+    ).to_a.first["count"].to_i
   end
 
   def self.lowest_performing_students(user_id)
-    ActiveRecord::Base.connection.execute(
-        "SELECT students.name, (AVG(acts.percentage)*100) AS score FROM activity_sessions as acts
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+          students.name,
+          (AVG(acts.percentage)*100) AS score
+        FROM activity_sessions AS acts
         #{body_of_sql_search(user_id)}
         GROUP BY students.id
         ORDER BY score
-        LIMIT #{RESULT_LIMITS}").to_a
+        LIMIT #{RESULT_LIMITS}
+      SQL
+    ).to_a
   end
 
   def self.body_of_sql_search(user_id)
@@ -63,17 +74,37 @@ class Dashboard
   end
 
   def self.difficult_concepts(user_id)
-    ActiveRecord::Base.connection.execute("
-    SELECT concepts.id, concepts.name, AVG((concept_results.metadata::json->>'correct')::int) * 100  AS score, (CASE WHEN AVG((concept_results.metadata::json->>'correct')::int) *100 > 0 THEN true ELSE false END) AS non_zero
-      FROM activity_sessions as acts
-    JOIN classroom_units ON classroom_units.id = acts.classroom_unit_id
-    JOIN concept_results ON acts.id = concept_results.activity_session_id
-    JOIN concepts ON concepts.id = concept_results.concept_id
-    JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_units.classroom_id
-    WHERE classrooms_teachers.user_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true AND #{completed_since_sql}
-    GROUP BY concepts.id
-    ORDER BY non_zero DESC, score
-    LIMIT #{RESULT_LIMITS}").to_a
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+          concepts.id,
+          concepts.name,
+          AVG((concept_results.metadata::json->>'correct')::int) * 100 AS score,
+          (
+            CASE
+              WHEN AVG((concept_results.metadata::json->>'correct')::int) * 100 > 0
+              THEN true
+              ELSE false
+            END
+          ) AS non_zero
+        FROM activity_sessions AS acts
+        JOIN classroom_units
+          ON classroom_units.id = acts.classroom_unit_id
+        JOIN concept_results
+          ON acts.id = concept_results.activity_session_id
+        JOIN concepts
+          ON concepts.id = concept_results.concept_id
+        JOIN classrooms_teachers
+          ON classrooms_teachers.classroom_id = classroom_units.classroom_id
+        WHERE classrooms_teachers.user_id = #{user_id}
+          AND acts.percentage IS NOT null
+          AND acts.visible IS true
+          AND #{completed_since_sql}
+        GROUP BY concepts.id
+        ORDER BY non_zero DESC, score
+        LIMIT #{RESULT_LIMITS}
+      SQL
+    ).to_a
   end
 
 

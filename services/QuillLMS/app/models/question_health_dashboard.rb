@@ -53,7 +53,6 @@ class QuestionHealthDashboard
         cr.metadata::json->>'questionScore',
         cr.activity_session_id
     SQL
-    @attempt_data ||= ActiveRecord::Base.connection.execute(query).to_a
+    @attempt_data ||= RawSqlRunner.execute(query).to_a
   end
-
 end

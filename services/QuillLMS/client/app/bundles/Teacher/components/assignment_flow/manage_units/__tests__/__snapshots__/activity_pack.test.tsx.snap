@@ -6,11 +6,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
     Object {
       "classroomActivities": Map {
         "438" => Object {
-          "activityClassificationId": "5",
-          "activityId": "438",
-          "classroomId": "484154",
+          "activityClassificationId": 5,
+          "activityId": 438,
+          "classroomId": 484154,
           "created_at": "1610377917.5772",
-          "cuId": "2898069",
+          "cuId": 2898069,
           "dueDate": null,
           "dueDatePicker": <withStyles(SingleDatePicker)
             anchorDirection="left"
@@ -113,7 +113,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
             withFullScreenPortal={false}
             withPortal={false}
           />,
-          "id": "7543552",
+          "id": 7543552,
           "name": "Adverbs of Manner 1 (Starter)",
           "ownedByCurrentUser": true,
           "ownerName": "Emilia F",
@@ -138,14 +138,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               Adverbs of Manner 1 (Starter)
             </a>
           </a>,
-          "uaId": "7543552",
+          "uaId": 7543552,
         },
         "441" => Object {
-          "activityClassificationId": "5",
-          "activityId": "441",
-          "classroomId": "484157",
+          "activityClassificationId": 5,
+          "activityId": 441,
+          "classroomId": 484157,
           "created_at": "1610377917.65364",
-          "cuId": "2898070",
+          "cuId": 2898070,
           "dueDate": null,
           "dueDatePicker": <withStyles(SingleDatePicker)
             anchorDirection="left"
@@ -248,7 +248,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
             withFullScreenPortal={false}
             withPortal={false}
           />,
-          "id": "7543553",
+          "id": 7543553,
           "name": "Adverbs of Manner (Intermediate)",
           "ownedByCurrentUser": true,
           "ownerName": "Emilia F",
@@ -273,14 +273,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               Adverbs of Manner (Intermediate)
             </a>
           </a>,
-          "uaId": "7543553",
+          "uaId": 7543553,
         },
         "775" => Object {
-          "activityClassificationId": "5",
-          "activityId": "775",
-          "classroomId": "484154",
+          "activityClassificationId": 5,
+          "activityId": 775,
+          "classroomId": 484154,
           "created_at": "1610377917.6953",
-          "cuId": "2898069",
+          "cuId": 2898069,
           "dueDate": null,
           "dueDatePicker": <withStyles(SingleDatePicker)
             anchorDirection="left"
@@ -383,7 +383,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
             withFullScreenPortal={false}
             withPortal={false}
           />,
-          "id": "7543554",
+          "id": 7543554,
           "name": "Adjectives and Adverbs (Starter)",
           "ownedByCurrentUser": true,
           "ownerName": "Emilia F",
@@ -408,14 +408,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               Adjectives and Adverbs (Starter)
             </a>
           </a>,
-          "uaId": "7543554",
+          "uaId": 7543554,
         },
         "844" => Object {
-          "activityClassificationId": "5",
-          "activityId": "844",
-          "classroomId": "484157",
+          "activityClassificationId": 5,
+          "activityId": 844,
+          "classroomId": 484157,
           "created_at": "1610377917.80622",
-          "cuId": "2898070",
+          "cuId": 2898070,
           "dueDate": null,
           "dueDatePicker": <withStyles(SingleDatePicker)
             anchorDirection="left"
@@ -518,7 +518,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
             withFullScreenPortal={false}
             withPortal={false}
           />,
-          "id": "7543555",
+          "id": 7543555,
           "name": "Adjectives vs. Adverbs",
           "ownedByCurrentUser": true,
           "ownerName": "Emilia F",
@@ -543,14 +543,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               Adjectives vs. Adverbs
             </a>
           </a>,
-          "uaId": "7543555",
+          "uaId": 7543555,
         },
         "846" => Object {
-          "activityClassificationId": "5",
-          "activityId": "846",
-          "classroomId": "484157",
+          "activityClassificationId": 5,
+          "activityId": 846,
+          "classroomId": 484157,
           "created_at": "1610377917.82881",
-          "cuId": "2898070",
+          "cuId": 2898070,
           "dueDate": null,
           "dueDatePicker": <withStyles(SingleDatePicker)
             anchorDirection="left"
@@ -653,7 +653,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
             withFullScreenPortal={false}
             withPortal={false}
           />,
-          "id": "7543556",
+          "id": 7543556,
           "name": "Adjectives, Adverbs, and Prepositional Phrases 1",
           "ownedByCurrentUser": true,
           "ownerName": "Emilia F",
@@ -678,28 +678,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               Adjectives, Adverbs, and Prepositional Phrases 1
             </a>
           </a>,
-          "uaId": "7543556",
+          "uaId": 7543556,
         },
       },
       "classrooms": Array [
         Object {
           "assignedStudentCount": 3,
           "name": "A Class With A Pretty Freaking Long Name Really Lo",
-          "totalStudentCount": "3",
+          "totalStudentCount": 3,
         },
         Object {
-          "assignedStudentCount": "0",
+          "assignedStudentCount": 0,
           "name": "A Class With A Pretty Freaking Long Name Really Lo A Class With A Pretty Freaking Long Name Really Lo",
-          "totalStudentCount": "0",
+          "totalStudentCount": 0,
         },
         Object {
           "assignedStudentCount": 5,
           "name": "Quill Classroom",
-          "totalStudentCount": "5",
+          "totalStudentCount": 5,
         },
       ],
       "unitCreated": "1610377917.54176",
-      "unitId": "826300",
+      "unitId": 826300,
       "unitName": "Adverbs of Manner Practice",
     }
   }
@@ -804,11 +804,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
         Object {
           "classroomActivities": Map {
             "438" => Object {
-              "activityClassificationId": "5",
-              "activityId": "438",
-              "classroomId": "484154",
+              "activityClassificationId": 5,
+              "activityId": 438,
+              "classroomId": 484154,
               "created_at": "1610377917.5772",
-              "cuId": "2898069",
+              "cuId": 2898069,
               "dueDate": null,
               "dueDatePicker": <withStyles(SingleDatePicker)
                 anchorDirection="left"
@@ -911,7 +911,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                 withFullScreenPortal={false}
                 withPortal={false}
               />,
-              "id": "7543552",
+              "id": 7543552,
               "name": "Adverbs of Manner 1 (Starter)",
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
@@ -936,14 +936,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   Adverbs of Manner 1 (Starter)
                 </a>
               </a>,
-              "uaId": "7543552",
+              "uaId": 7543552,
             },
             "441" => Object {
-              "activityClassificationId": "5",
-              "activityId": "441",
-              "classroomId": "484157",
+              "activityClassificationId": 5,
+              "activityId": 441,
+              "classroomId": 484157,
               "created_at": "1610377917.65364",
-              "cuId": "2898070",
+              "cuId": 2898070,
               "dueDate": null,
               "dueDatePicker": <withStyles(SingleDatePicker)
                 anchorDirection="left"
@@ -1046,7 +1046,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                 withFullScreenPortal={false}
                 withPortal={false}
               />,
-              "id": "7543553",
+              "id": 7543553,
               "name": "Adverbs of Manner (Intermediate)",
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
@@ -1071,14 +1071,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   Adverbs of Manner (Intermediate)
                 </a>
               </a>,
-              "uaId": "7543553",
+              "uaId": 7543553,
             },
             "775" => Object {
-              "activityClassificationId": "5",
-              "activityId": "775",
-              "classroomId": "484154",
+              "activityClassificationId": 5,
+              "activityId": 775,
+              "classroomId": 484154,
               "created_at": "1610377917.6953",
-              "cuId": "2898069",
+              "cuId": 2898069,
               "dueDate": null,
               "dueDatePicker": <withStyles(SingleDatePicker)
                 anchorDirection="left"
@@ -1181,7 +1181,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                 withFullScreenPortal={false}
                 withPortal={false}
               />,
-              "id": "7543554",
+              "id": 7543554,
               "name": "Adjectives and Adverbs (Starter)",
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
@@ -1206,14 +1206,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   Adjectives and Adverbs (Starter)
                 </a>
               </a>,
-              "uaId": "7543554",
+              "uaId": 7543554,
             },
             "844" => Object {
-              "activityClassificationId": "5",
-              "activityId": "844",
-              "classroomId": "484157",
+              "activityClassificationId": 5,
+              "activityId": 844,
+              "classroomId": 484157,
               "created_at": "1610377917.80622",
-              "cuId": "2898070",
+              "cuId": 2898070,
               "dueDate": null,
               "dueDatePicker": <withStyles(SingleDatePicker)
                 anchorDirection="left"
@@ -1316,7 +1316,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                 withFullScreenPortal={false}
                 withPortal={false}
               />,
-              "id": "7543555",
+              "id": 7543555,
               "name": "Adjectives vs. Adverbs",
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
@@ -1341,14 +1341,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   Adjectives vs. Adverbs
                 </a>
               </a>,
-              "uaId": "7543555",
+              "uaId": 7543555,
             },
             "846" => Object {
-              "activityClassificationId": "5",
-              "activityId": "846",
-              "classroomId": "484157",
+              "activityClassificationId": 5,
+              "activityId": 846,
+              "classroomId": 484157,
               "created_at": "1610377917.82881",
-              "cuId": "2898070",
+              "cuId": 2898070,
               "dueDate": null,
               "dueDatePicker": <withStyles(SingleDatePicker)
                 anchorDirection="left"
@@ -1451,7 +1451,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                 withFullScreenPortal={false}
                 withPortal={false}
               />,
-              "id": "7543556",
+              "id": 7543556,
               "name": "Adjectives, Adverbs, and Prepositional Phrases 1",
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
@@ -1476,28 +1476,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   Adjectives, Adverbs, and Prepositional Phrases 1
                 </a>
               </a>,
-              "uaId": "7543556",
+              "uaId": 7543556,
             },
           },
           "classrooms": Array [
             Object {
               "assignedStudentCount": 3,
               "name": "A Class With A Pretty Freaking Long Name Really Lo",
-              "totalStudentCount": "3",
+              "totalStudentCount": 3,
             },
             Object {
-              "assignedStudentCount": "0",
+              "assignedStudentCount": 0,
               "name": "A Class With A Pretty Freaking Long Name Really Lo A Class With A Pretty Freaking Long Name Really Lo",
-              "totalStudentCount": "0",
+              "totalStudentCount": 0,
             },
             Object {
               "assignedStudentCount": 5,
               "name": "Quill Classroom",
-              "totalStudentCount": "5",
+              "totalStudentCount": 5,
             },
           ],
           "unitCreated": "1610377917.54176",
-          "unitId": "826300",
+          "unitId": 826300,
           "unitName": "Adverbs of Manner Practice",
         }
       }
@@ -1545,11 +1545,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
         rows={
           Array [
             Object {
-              "activityClassificationId": "5",
-              "activityId": "438",
-              "classroomId": "484154",
+              "activityClassificationId": 5,
+              "activityId": 438,
+              "classroomId": 484154,
               "created_at": "1610377917.5772",
-              "cuId": "2898069",
+              "cuId": 2898069,
               "dueDate": null,
               "dueDatePicker": <withStyles(SingleDatePicker)
                 anchorDirection="left"
@@ -1652,7 +1652,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                 withFullScreenPortal={false}
                 withPortal={false}
               />,
-              "id": "7543552",
+              "id": 7543552,
               "name": "Adverbs of Manner 1 (Starter)",
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
@@ -1677,14 +1677,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   Adverbs of Manner 1 (Starter)
                 </a>
               </a>,
-              "uaId": "7543552",
+              "uaId": 7543552,
             },
             Object {
-              "activityClassificationId": "5",
-              "activityId": "441",
-              "classroomId": "484157",
+              "activityClassificationId": 5,
+              "activityId": 441,
+              "classroomId": 484157,
               "created_at": "1610377917.65364",
-              "cuId": "2898070",
+              "cuId": 2898070,
               "dueDate": null,
               "dueDatePicker": <withStyles(SingleDatePicker)
                 anchorDirection="left"
@@ -1787,7 +1787,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                 withFullScreenPortal={false}
                 withPortal={false}
               />,
-              "id": "7543553",
+              "id": 7543553,
               "name": "Adverbs of Manner (Intermediate)",
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
@@ -1812,14 +1812,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   Adverbs of Manner (Intermediate)
                 </a>
               </a>,
-              "uaId": "7543553",
+              "uaId": 7543553,
             },
             Object {
-              "activityClassificationId": "5",
-              "activityId": "775",
-              "classroomId": "484154",
+              "activityClassificationId": 5,
+              "activityId": 775,
+              "classroomId": 484154,
               "created_at": "1610377917.6953",
-              "cuId": "2898069",
+              "cuId": 2898069,
               "dueDate": null,
               "dueDatePicker": <withStyles(SingleDatePicker)
                 anchorDirection="left"
@@ -1922,7 +1922,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                 withFullScreenPortal={false}
                 withPortal={false}
               />,
-              "id": "7543554",
+              "id": 7543554,
               "name": "Adjectives and Adverbs (Starter)",
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
@@ -1947,14 +1947,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   Adjectives and Adverbs (Starter)
                 </a>
               </a>,
-              "uaId": "7543554",
+              "uaId": 7543554,
             },
             Object {
-              "activityClassificationId": "5",
-              "activityId": "844",
-              "classroomId": "484157",
+              "activityClassificationId": 5,
+              "activityId": 844,
+              "classroomId": 484157,
               "created_at": "1610377917.80622",
-              "cuId": "2898070",
+              "cuId": 2898070,
               "dueDate": null,
               "dueDatePicker": <withStyles(SingleDatePicker)
                 anchorDirection="left"
@@ -2057,7 +2057,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                 withFullScreenPortal={false}
                 withPortal={false}
               />,
-              "id": "7543555",
+              "id": 7543555,
               "name": "Adjectives vs. Adverbs",
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
@@ -2082,14 +2082,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   Adjectives vs. Adverbs
                 </a>
               </a>,
-              "uaId": "7543555",
+              "uaId": 7543555,
             },
             Object {
-              "activityClassificationId": "5",
-              "activityId": "846",
-              "classroomId": "484157",
+              "activityClassificationId": 5,
+              "activityId": 846,
+              "classroomId": 484157,
               "created_at": "1610377917.82881",
-              "cuId": "2898070",
+              "cuId": 2898070,
               "dueDate": null,
               "dueDatePicker": <withStyles(SingleDatePicker)
                 anchorDirection="left"
@@ -2192,7 +2192,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                 withFullScreenPortal={false}
                 withPortal={false}
               />,
-              "id": "7543556",
+              "id": 7543556,
               "name": "Adjectives, Adverbs, and Prepositional Phrases 1",
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
@@ -2217,7 +2217,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   Adjectives, Adverbs, and Prepositional Phrases 1
                 </a>
               </a>,
-              "uaId": "7543556",
+              "uaId": 7543556,
             },
           ]
         }
@@ -12470,14 +12470,14 @@ exports[`ActivityPack component renders if the current user did not create the u
     Object {
       "classroomActivities": Map {
         "41" => Object {
-          "activityClassificationId": "1",
-          "activityId": "41",
-          "classroomId": "484154",
+          "activityClassificationId": 1,
+          "activityId": 41,
+          "classroomId": 484154,
           "created_at": "1602619968.81477",
-          "cuId": "2898054",
+          "cuId": 2898054,
           "dueDate": null,
           "dueDatePicker": "No due date",
-          "id": "7543506",
+          "id": 7543506,
           "name": "Oedipus and the Sphinx",
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
@@ -12502,17 +12502,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               Oedipus and the Sphinx
             </a>
           </a>,
-          "uaId": "7543506",
+          "uaId": 7543506,
         },
         "215" => Object {
-          "activityClassificationId": "1",
-          "activityId": "215",
-          "classroomId": "484154",
+          "activityClassificationId": 1,
+          "activityId": 215,
+          "classroomId": 484154,
           "created_at": "1602619968.79848",
-          "cuId": "2898054",
+          "cuId": 2898054,
           "dueDate": null,
           "dueDatePicker": "No due date",
-          "id": "7543505",
+          "id": 7543505,
           "name": "Why Sun and Moon Live in the Sky!",
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
@@ -12537,17 +12537,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               Why Sun and Moon Live in the Sky!
             </a>
           </a>,
-          "uaId": "7543505",
+          "uaId": 7543505,
         },
         "289" => Object {
-          "activityClassificationId": "2",
-          "activityId": "289",
-          "classroomId": "484154",
+          "activityClassificationId": 2,
+          "activityId": 289,
+          "classroomId": 484154,
           "created_at": "1602619968.84804",
-          "cuId": "2898054",
+          "cuId": 2898054,
           "dueDate": null,
           "dueDatePicker": "No due date",
-          "id": "7543508",
+          "id": 7543508,
           "name": "After, Although, Since",
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
@@ -12572,17 +12572,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               After, Although, Since
             </a>
           </a>,
-          "uaId": "7543508",
+          "uaId": 7543508,
         },
         "295" => Object {
-          "activityClassificationId": "2",
-          "activityId": "295",
-          "classroomId": "484154",
+          "activityClassificationId": 2,
+          "activityId": 295,
+          "classroomId": 484154,
           "created_at": "1602619968.85918",
-          "cuId": "2898054",
+          "cuId": 2898054,
           "dueDate": null,
           "dueDatePicker": "No due date",
-          "id": "7543509",
+          "id": 7543509,
           "name": "Once, Since, So That",
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
@@ -12607,17 +12607,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               Once, Since, So That
             </a>
           </a>,
-          "uaId": "7543509",
+          "uaId": 7543509,
         },
         "386" => Object {
-          "activityClassificationId": "1",
-          "activityId": "386",
-          "classroomId": "484154",
+          "activityClassificationId": 1,
+          "activityId": 386,
+          "classroomId": 484154,
           "created_at": "1602619968.82864",
-          "cuId": "2898054",
+          "cuId": 2898054,
           "dueDate": null,
           "dueDatePicker": "No due date",
-          "id": "7543507",
+          "id": 7543507,
           "name": "New York City Ballet",
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
@@ -12642,17 +12642,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               New York City Ballet
             </a>
           </a>,
-          "uaId": "7543507",
+          "uaId": 7543507,
         },
         "418" => Object {
-          "activityClassificationId": "5",
-          "activityId": "418",
-          "classroomId": "484154",
+          "activityClassificationId": 5,
+          "activityId": 418,
+          "classroomId": 484154,
           "created_at": "1602619968.88343",
-          "cuId": "2898054",
+          "cuId": 2898054,
           "dueDate": null,
           "dueDatePicker": "No due date",
-          "id": "7543510",
+          "id": 7543510,
           "name": "Since, Because 1 (Starter)",
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
@@ -12677,17 +12677,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               Since, Because 1 (Starter)
             </a>
           </a>,
-          "uaId": "7543510",
+          "uaId": 7543510,
         },
         "434" => Object {
-          "activityClassificationId": "5",
-          "activityId": "434",
-          "classroomId": "484154",
+          "activityClassificationId": 5,
+          "activityId": 434,
+          "classroomId": 484154,
           "created_at": "1602619968.78419",
-          "cuId": "2898054",
+          "cuId": 2898054,
           "dueDate": null,
           "dueDatePicker": "No due date",
-          "id": "7543504",
+          "id": 7543504,
           "name": "Compound Subjects 1",
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
@@ -12712,17 +12712,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               Compound Subjects 1
             </a>
           </a>,
-          "uaId": "7543504",
+          "uaId": 7543504,
         },
         "437" => Object {
-          "activityClassificationId": "5",
-          "activityId": "437",
-          "classroomId": "484154",
+          "activityClassificationId": 5,
+          "activityId": 437,
+          "classroomId": 484154,
           "created_at": "1602619968.76723",
-          "cuId": "2898054",
+          "cuId": 2898054,
           "dueDate": null,
           "dueDatePicker": "No due date",
-          "id": "7543503",
+          "id": 7543503,
           "name": "Compound Subjects, Objects, and Predicates 1",
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
@@ -12747,17 +12747,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               Compound Subjects, Objects, and Predicates 1
             </a>
           </a>,
-          "uaId": "7543503",
+          "uaId": 7543503,
         },
         "849" => Object {
-          "activityClassificationId": "4",
-          "activityId": "849",
-          "classroomId": "484154",
+          "activityClassificationId": 4,
+          "activityId": 849,
+          "classroomId": 484154,
           "created_at": "1602619968.73132",
-          "cuId": "2898054",
+          "cuId": 2898054,
           "dueDate": "2021-2-10T17:0:0",
           "dueDatePicker": "Invalid date",
-          "id": "7543502",
+          "id": 7543502,
           "name": "Starter Diagnostic",
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
@@ -12782,18 +12782,18 @@ exports[`ActivityPack component renders if the current user did not create the u
               Starter Diagnostic
             </a>
           </a>,
-          "uaId": "7543502",
+          "uaId": 7543502,
         },
       },
       "classrooms": Array [
         Object {
           "assignedStudentCount": 5,
           "name": "Quill Classroom",
-          "totalStudentCount": "5",
+          "totalStudentCount": 5,
         },
       ],
       "unitCreated": "1602619968.65002",
-      "unitId": "826289",
+      "unitId": 826289,
       "unitName": "Quill Activity Pack",
     }
   }
@@ -12874,14 +12874,14 @@ exports[`ActivityPack component renders if the current user did not create the u
         Object {
           "classroomActivities": Map {
             "41" => Object {
-              "activityClassificationId": "1",
-              "activityId": "41",
-              "classroomId": "484154",
+              "activityClassificationId": 1,
+              "activityId": 41,
+              "classroomId": 484154,
               "created_at": "1602619968.81477",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": null,
               "dueDatePicker": "No due date",
-              "id": "7543506",
+              "id": 7543506,
               "name": "Oedipus and the Sphinx",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -12906,17 +12906,17 @@ exports[`ActivityPack component renders if the current user did not create the u
                   Oedipus and the Sphinx
                 </a>
               </a>,
-              "uaId": "7543506",
+              "uaId": 7543506,
             },
             "215" => Object {
-              "activityClassificationId": "1",
-              "activityId": "215",
-              "classroomId": "484154",
+              "activityClassificationId": 1,
+              "activityId": 215,
+              "classroomId": 484154,
               "created_at": "1602619968.79848",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": null,
               "dueDatePicker": "No due date",
-              "id": "7543505",
+              "id": 7543505,
               "name": "Why Sun and Moon Live in the Sky!",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -12941,17 +12941,17 @@ exports[`ActivityPack component renders if the current user did not create the u
                   Why Sun and Moon Live in the Sky!
                 </a>
               </a>,
-              "uaId": "7543505",
+              "uaId": 7543505,
             },
             "289" => Object {
-              "activityClassificationId": "2",
-              "activityId": "289",
-              "classroomId": "484154",
+              "activityClassificationId": 2,
+              "activityId": 289,
+              "classroomId": 484154,
               "created_at": "1602619968.84804",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": null,
               "dueDatePicker": "No due date",
-              "id": "7543508",
+              "id": 7543508,
               "name": "After, Although, Since",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -12976,17 +12976,17 @@ exports[`ActivityPack component renders if the current user did not create the u
                   After, Although, Since
                 </a>
               </a>,
-              "uaId": "7543508",
+              "uaId": 7543508,
             },
             "295" => Object {
-              "activityClassificationId": "2",
-              "activityId": "295",
-              "classroomId": "484154",
+              "activityClassificationId": 2,
+              "activityId": 295,
+              "classroomId": 484154,
               "created_at": "1602619968.85918",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": null,
               "dueDatePicker": "No due date",
-              "id": "7543509",
+              "id": 7543509,
               "name": "Once, Since, So That",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -13011,17 +13011,17 @@ exports[`ActivityPack component renders if the current user did not create the u
                   Once, Since, So That
                 </a>
               </a>,
-              "uaId": "7543509",
+              "uaId": 7543509,
             },
             "386" => Object {
-              "activityClassificationId": "1",
-              "activityId": "386",
-              "classroomId": "484154",
+              "activityClassificationId": 1,
+              "activityId": 386,
+              "classroomId": 484154,
               "created_at": "1602619968.82864",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": null,
               "dueDatePicker": "No due date",
-              "id": "7543507",
+              "id": 7543507,
               "name": "New York City Ballet",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -13046,17 +13046,17 @@ exports[`ActivityPack component renders if the current user did not create the u
                   New York City Ballet
                 </a>
               </a>,
-              "uaId": "7543507",
+              "uaId": 7543507,
             },
             "418" => Object {
-              "activityClassificationId": "5",
-              "activityId": "418",
-              "classroomId": "484154",
+              "activityClassificationId": 5,
+              "activityId": 418,
+              "classroomId": 484154,
               "created_at": "1602619968.88343",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": null,
               "dueDatePicker": "No due date",
-              "id": "7543510",
+              "id": 7543510,
               "name": "Since, Because 1 (Starter)",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -13081,17 +13081,17 @@ exports[`ActivityPack component renders if the current user did not create the u
                   Since, Because 1 (Starter)
                 </a>
               </a>,
-              "uaId": "7543510",
+              "uaId": 7543510,
             },
             "434" => Object {
-              "activityClassificationId": "5",
-              "activityId": "434",
-              "classroomId": "484154",
+              "activityClassificationId": 5,
+              "activityId": 434,
+              "classroomId": 484154,
               "created_at": "1602619968.78419",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": null,
               "dueDatePicker": "No due date",
-              "id": "7543504",
+              "id": 7543504,
               "name": "Compound Subjects 1",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -13116,17 +13116,17 @@ exports[`ActivityPack component renders if the current user did not create the u
                   Compound Subjects 1
                 </a>
               </a>,
-              "uaId": "7543504",
+              "uaId": 7543504,
             },
             "437" => Object {
-              "activityClassificationId": "5",
-              "activityId": "437",
-              "classroomId": "484154",
+              "activityClassificationId": 5,
+              "activityId": 437,
+              "classroomId": 484154,
               "created_at": "1602619968.76723",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": null,
               "dueDatePicker": "No due date",
-              "id": "7543503",
+              "id": 7543503,
               "name": "Compound Subjects, Objects, and Predicates 1",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -13151,17 +13151,17 @@ exports[`ActivityPack component renders if the current user did not create the u
                   Compound Subjects, Objects, and Predicates 1
                 </a>
               </a>,
-              "uaId": "7543503",
+              "uaId": 7543503,
             },
             "849" => Object {
-              "activityClassificationId": "4",
-              "activityId": "849",
-              "classroomId": "484154",
+              "activityClassificationId": 4,
+              "activityId": 849,
+              "classroomId": 484154,
               "created_at": "1602619968.73132",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": "2021-2-10T17:0:0",
               "dueDatePicker": "Invalid date",
-              "id": "7543502",
+              "id": 7543502,
               "name": "Starter Diagnostic",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -13186,18 +13186,18 @@ exports[`ActivityPack component renders if the current user did not create the u
                   Starter Diagnostic
                 </a>
               </a>,
-              "uaId": "7543502",
+              "uaId": 7543502,
             },
           },
           "classrooms": Array [
             Object {
               "assignedStudentCount": 5,
               "name": "Quill Classroom",
-              "totalStudentCount": "5",
+              "totalStudentCount": 5,
             },
           ],
           "unitCreated": "1602619968.65002",
-          "unitId": "826289",
+          "unitId": 826289,
           "unitName": "Quill Activity Pack",
         }
       }
@@ -13245,14 +13245,14 @@ exports[`ActivityPack component renders if the current user did not create the u
         rows={
           Array [
             Object {
-              "activityClassificationId": "1",
-              "activityId": "41",
-              "classroomId": "484154",
+              "activityClassificationId": 1,
+              "activityId": 41,
+              "classroomId": 484154,
               "created_at": "1602619968.81477",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": null,
               "dueDatePicker": "No due date",
-              "id": "7543506",
+              "id": 7543506,
               "name": "Oedipus and the Sphinx",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -13277,17 +13277,17 @@ exports[`ActivityPack component renders if the current user did not create the u
                   Oedipus and the Sphinx
                 </a>
               </a>,
-              "uaId": "7543506",
+              "uaId": 7543506,
             },
             Object {
-              "activityClassificationId": "1",
-              "activityId": "215",
-              "classroomId": "484154",
+              "activityClassificationId": 1,
+              "activityId": 215,
+              "classroomId": 484154,
               "created_at": "1602619968.79848",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": null,
               "dueDatePicker": "No due date",
-              "id": "7543505",
+              "id": 7543505,
               "name": "Why Sun and Moon Live in the Sky!",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -13312,17 +13312,17 @@ exports[`ActivityPack component renders if the current user did not create the u
                   Why Sun and Moon Live in the Sky!
                 </a>
               </a>,
-              "uaId": "7543505",
+              "uaId": 7543505,
             },
             Object {
-              "activityClassificationId": "2",
-              "activityId": "289",
-              "classroomId": "484154",
+              "activityClassificationId": 2,
+              "activityId": 289,
+              "classroomId": 484154,
               "created_at": "1602619968.84804",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": null,
               "dueDatePicker": "No due date",
-              "id": "7543508",
+              "id": 7543508,
               "name": "After, Although, Since",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -13347,17 +13347,17 @@ exports[`ActivityPack component renders if the current user did not create the u
                   After, Although, Since
                 </a>
               </a>,
-              "uaId": "7543508",
+              "uaId": 7543508,
             },
             Object {
-              "activityClassificationId": "2",
-              "activityId": "295",
-              "classroomId": "484154",
+              "activityClassificationId": 2,
+              "activityId": 295,
+              "classroomId": 484154,
               "created_at": "1602619968.85918",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": null,
               "dueDatePicker": "No due date",
-              "id": "7543509",
+              "id": 7543509,
               "name": "Once, Since, So That",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -13382,17 +13382,17 @@ exports[`ActivityPack component renders if the current user did not create the u
                   Once, Since, So That
                 </a>
               </a>,
-              "uaId": "7543509",
+              "uaId": 7543509,
             },
             Object {
-              "activityClassificationId": "1",
-              "activityId": "386",
-              "classroomId": "484154",
+              "activityClassificationId": 1,
+              "activityId": 386,
+              "classroomId": 484154,
               "created_at": "1602619968.82864",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": null,
               "dueDatePicker": "No due date",
-              "id": "7543507",
+              "id": 7543507,
               "name": "New York City Ballet",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -13417,17 +13417,17 @@ exports[`ActivityPack component renders if the current user did not create the u
                   New York City Ballet
                 </a>
               </a>,
-              "uaId": "7543507",
+              "uaId": 7543507,
             },
             Object {
-              "activityClassificationId": "5",
-              "activityId": "418",
-              "classroomId": "484154",
+              "activityClassificationId": 5,
+              "activityId": 418,
+              "classroomId": 484154,
               "created_at": "1602619968.88343",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": null,
               "dueDatePicker": "No due date",
-              "id": "7543510",
+              "id": 7543510,
               "name": "Since, Because 1 (Starter)",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -13452,17 +13452,17 @@ exports[`ActivityPack component renders if the current user did not create the u
                   Since, Because 1 (Starter)
                 </a>
               </a>,
-              "uaId": "7543510",
+              "uaId": 7543510,
             },
             Object {
-              "activityClassificationId": "5",
-              "activityId": "434",
-              "classroomId": "484154",
+              "activityClassificationId": 5,
+              "activityId": 434,
+              "classroomId": 484154,
               "created_at": "1602619968.78419",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": null,
               "dueDatePicker": "No due date",
-              "id": "7543504",
+              "id": 7543504,
               "name": "Compound Subjects 1",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -13487,17 +13487,17 @@ exports[`ActivityPack component renders if the current user did not create the u
                   Compound Subjects 1
                 </a>
               </a>,
-              "uaId": "7543504",
+              "uaId": 7543504,
             },
             Object {
-              "activityClassificationId": "5",
-              "activityId": "437",
-              "classroomId": "484154",
+              "activityClassificationId": 5,
+              "activityId": 437,
+              "classroomId": 484154,
               "created_at": "1602619968.76723",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": null,
               "dueDatePicker": "No due date",
-              "id": "7543503",
+              "id": 7543503,
               "name": "Compound Subjects, Objects, and Predicates 1",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -13522,17 +13522,17 @@ exports[`ActivityPack component renders if the current user did not create the u
                   Compound Subjects, Objects, and Predicates 1
                 </a>
               </a>,
-              "uaId": "7543503",
+              "uaId": 7543503,
             },
             Object {
-              "activityClassificationId": "4",
-              "activityId": "849",
-              "classroomId": "484154",
+              "activityClassificationId": 4,
+              "activityId": 849,
+              "classroomId": 484154,
               "created_at": "1602619968.73132",
-              "cuId": "2898054",
+              "cuId": 2898054,
               "dueDate": "2021-2-10T17:0:0",
               "dueDatePicker": "Invalid date",
-              "id": "7543502",
+              "id": 7543502,
               "name": "Starter Diagnostic",
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
@@ -13557,7 +13557,7 @@ exports[`ActivityPack component renders if the current user did not create the u
                   Starter Diagnostic
                 </a>
               </a>,
-              "uaId": "7543502",
+              "uaId": 7543502,
             },
           ]
         }
