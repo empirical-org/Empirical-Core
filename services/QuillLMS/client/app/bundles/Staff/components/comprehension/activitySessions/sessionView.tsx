@@ -6,6 +6,7 @@ import PromptTable from './promptTable';
 import SessionOverview from './sessionOverview';
 
 import { Error, Spinner } from '../../../../Shared/index';
+import { fetchRules, } from '../../../utils/comprehension/ruleAPIs';
 import { fetchActivity, fetchActivitySession } from '../../../utils/comprehension/activityAPIs';
 import { getPromptForActivitySession } from "../../../helpers/comprehension";
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
@@ -20,11 +21,33 @@ const SessionView = ({ match }) => {
     queryFn: fetchActivity
   });
 
+  // cache rule data for updates
+  const { data: rulesData } = useQuery({
+    queryKey: [`rules-${activityId}`, activityId],
+    queryFn: fetchRules
+  });
+
   // cache session data for updates
   const { data: sessionData } = useQuery({
     queryKey: [`activity-${activityId}-session-${sessionId}`, sessionId],
     queryFn: fetchActivitySession
   });
+
+  if(!rulesData) {
+    return(
+      <div className="loading-spinner-container">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if(rulesData && rulesData.error) {
+    return(
+      <div className="error-container">
+        <Error error={rulesData.error} />
+      </div>
+    );
+  }
 
   if(!sessionData) {
     return(
@@ -44,6 +67,7 @@ const SessionView = ({ match }) => {
 
   const { activity } = activityData;
   const { title } = activity;
+  const { rules } = rulesData;
   const { activitySession } = sessionData;
   const { session_uid } = activitySession;
 
@@ -78,13 +102,13 @@ const SessionView = ({ match }) => {
       <Switch>
         <Redirect exact from='/activities/:activityId/activity-sessions/:sessionId' to='/activities/:activityId/activity-sessions/:sessionId/overview' />
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <Route component={() => <SessionOverview activity={activity} sessionData={sessionData} />} path='/activities/:activityId/activity-sessions/:sessionId/overview' />
+        <Route component={() => <SessionOverview activity={activity} rules={rules} sessionData={sessionData} />} path='/activities/:activityId/activity-sessions/:sessionId/overview' />
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <Route component={() => <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, BECAUSE)} sessionId={sessionId} />} path='/activities/:activityId/activity-sessions/:sessionId/because-responses' />
+        <Route component={() => <PromptTable activity={activity} rules={rules} prompt={getPromptForActivitySession(sessionData, BECAUSE)} sessionId={sessionId} />} path='/activities/:activityId/activity-sessions/:sessionId/because-responses' />
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <Route component={() => <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, BUT)} sessionId={sessionId} />} path='/activities/:activityId/activity-sessions/:sessionId/but-responses' />
+        <Route component={() => <PromptTable activity={activity} rules={rules} prompt={getPromptForActivitySession(sessionData, BUT)} sessionId={sessionId} />} path='/activities/:activityId/activity-sessions/:sessionId/but-responses' />
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <Route component={() => <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, SO)} sessionId={sessionId} />} path='/activities/:activityId/activity-sessions/:sessionId/so-responses' />
+        <Route component={() => <PromptTable activity={activity} rules={rules} prompt={getPromptForActivitySession(sessionData, SO)} sessionId={sessionId} />} path='/activities/:activityId/activity-sessions/:sessionId/so-responses' />
       </Switch>
     </div>
   );
