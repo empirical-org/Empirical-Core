@@ -17,7 +17,7 @@ import {
   roundValuesToSeconds
 } from '../../../Shared/index';
 import SessionActions from '../../actions/sessions.js';
-import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateCurrentQuestion, resumePreviousDiagnosticSession, setCurrentQuestion, setDiagnosticID } from '../../actions/diagnostics.js';
+import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion, resumePreviousDiagnosticSession, setCurrentQuestion, setDiagnosticID } from '../../actions/diagnostics.js';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
 import {
@@ -182,7 +182,8 @@ export class StudentDiagnostic extends React.Component {
 
     this.setState({ error: false, });
 
-    const results = getConceptResultsForAllQuestions(playDiagnostic.answeredQuestions);
+    const relevantAnsweredQuestions = playDiagnostic.answeredQuestions.filter(q => q.questionType !== TITLE_CARD_TYPE)
+    const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
     const data = { time_tracking: roundValuesToSeconds(timeTracking), }
 
     if (sessionID) {
@@ -297,20 +298,6 @@ export class StudentDiagnostic extends React.Component {
       dispatch(action);
     } else {
       const next = nextQuestion();
-      dispatch(next);
-    }
-  }
-
-  nextQuestionWithoutSaving = () => {
-    const { dispatch, playDiagnostic, previewMode } = this.props;
-    const { unansweredQuestions } = playDiagnostic;
-    // same case as above; questions that follow title cards will have their attempts reset without this
-    if(previewMode) {
-      const question = unansweredQuestions[0].data;
-      const action = setCurrentQuestion(question);
-      dispatch(action);
-    } else {
-      const next = nextQuestionWithoutSaving();
       dispatch(next);
     }
   }
@@ -486,7 +473,7 @@ export class StudentDiagnostic extends React.Component {
             currentKey={key}
             data={question}
             dispatch={dispatch}
-            handleContinueClick={this.nextQuestionWithoutSaving}
+            handleContinueClick={this.nextQuestion}
             isLastQuestion={isLastQuestion}
             previewMode={previewMode}
           />

@@ -53,15 +53,6 @@ function question(state = initialState, action) {
       state.currentQuestion = newCurrentQuestion;
 
       return Object.assign({}, state, action.data);
-    case SubmitActions.NEXT_DIAGNOSTIC_QUESTION_WITHOUT_SAVING:
-      changes.currentQuestion = state.unansweredQuestions[0];
-      if (changes.currentQuestion) {
-        changes.currentQuestion.data.attempts = [];
-      }
-      if (state.unansweredQuestions.length > 0) {
-        changes.unansweredQuestions = state.unansweredQuestions.slice(1);
-      }
-      return Object.assign({}, state, changes);
     case SubmitActions.LOAD_DIAGNOSTIC_DATA:
       var changes2 = {
         unansweredQuestions: action.data,

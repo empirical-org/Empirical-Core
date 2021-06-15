@@ -20,7 +20,6 @@ import {
   clearData,
   loadData,
   nextQuestion,
-  nextQuestionWithoutSaving,
   submitResponse,
   updateCurrentQuestion,
   resumePreviousDiagnosticSession,
@@ -184,7 +183,8 @@ export class ELLStudentDiagnostic extends React.Component {
     const { sessionID, timeTracking, } = this.state
 
     this.setState({ error: false, });
-    const results = getConceptResultsForAllQuestions(playDiagnostic.answeredQuestions);
+    const relevantAnsweredQuestions = playDiagnostic.answeredQuestions.filter(q => q.questionType !== TITLE_CARD_TYPE)
+    const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
     const data = { time_tracking: roundValuesToSeconds(timeTracking), }
 
     if (sessionID) {
@@ -290,7 +290,7 @@ export class ELLStudentDiagnostic extends React.Component {
           currentKey={playDiagnostic.currentQuestion.data.key}
           data={playDiagnostic.currentQuestion.data}
           dispatch={dispatch}
-          handleContinueClick={this.nextQuestionWithoutSaving}
+          handleContinueClick={this.nextQuestion}
           isLastQuestion={isLastQuestion}
           key={playDiagnostic.currentQuestion.data.key}
           language={this.language()}
@@ -347,20 +347,6 @@ export class ELLStudentDiagnostic extends React.Component {
       dispatch(action);
     } else {
       const next = nextQuestion();
-      dispatch(next);
-    }
-  }
-
-  nextQuestionWithoutSaving = () => {
-    const { dispatch, playDiagnostic, previewMode } = this.props;
-    const { unansweredQuestions } = playDiagnostic;
-    // we set the current question here; otherwise, the attempts will be reset if the next question has already been answered
-    if(previewMode) {
-      const question = unansweredQuestions[0].data;
-      const action = setCurrentQuestion(question);
-      dispatch(action);
-    } else {
-      const next = nextQuestionWithoutSaving();
       dispatch(next);
     }
   }
