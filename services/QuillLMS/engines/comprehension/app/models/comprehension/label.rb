@@ -43,13 +43,13 @@ module Comprehension
 
     def log_creation(user_id)
       rule&.prompts&.each do |prompt|
-        log_change(user_id, :create_semantic, prompt, url, nil, nil, "[#{name} | #{rule.name}] - created")
+        log_change(user_id, :create_semantic, prompt, {url: url, conjunction: prompt.conjunction}.to_json, nil, nil, "[#{name} | #{rule.name}] - created")
       end
     end
 
     def log_deletion(user_id)
       rule&.prompts&.each do |prompt|
-        log_change(user_id, :delete_semantic, prompt, url, nil, "[#{name} | #{rule.name}] - active", "[#{name} | #{rule.name}] - deleted")
+        log_change(user_id, :delete_semantic, prompt, {url: url, conjunction: prompt.conjunction}.to_json, nil, "[#{name} | #{rule.name}] - active", "[#{name} | #{rule.name}] - deleted")
       end
     end
   end

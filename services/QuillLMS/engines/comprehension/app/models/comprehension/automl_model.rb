@@ -120,11 +120,11 @@ module Comprehension
     end
 
     def log_creation(user_id)
-      log_change(user_id, :create_automl, prompt, url, nil, nil, automl_model_id)
+      log_change(user_id, :create_automl, prompt, {url: url, conjunction: prompt.conjunction}.to_json, nil, nil, automl_model_id)
     end
 
     def log_activation(user_id)
-      log_change(user_id, :activate_automl, prompt, url, nil, nil, automl_model_id)
+      log_change(user_id, :activate_automl, prompt, {url: url, conjunction: prompt.conjunction}.to_json, nil, nil, automl_model_id)
     end
   end
 end

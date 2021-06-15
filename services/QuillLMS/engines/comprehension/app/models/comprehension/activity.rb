@@ -85,11 +85,11 @@ module Comprehension
     end
 
     def log_creation(user_id)
-      log_change(user_id, :create_activity, self, url, nil, nil, "Comprehension Activity #{id} - active")
+      log_change(user_id, :create_activity, self, {url: url}.to_json, nil, nil, "Comprehension Activity #{id} - active")
     end
 
     def log_deletion(user_id)
-      log_change(user_id, :delete_activity, self, url, nil, "Comprehension Activity #{id} - active", "Comprehension Activity #{id} - deleted")
+      log_change(user_id, :delete_activity, self, {url: url}.to_json, nil, "Comprehension Activity #{id} - active", "Comprehension Activity #{id} - deleted")
     end
   end
 end

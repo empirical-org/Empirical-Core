@@ -187,10 +187,10 @@ module Comprehension
 
     private def send_change_log(user_id, action_type, new_value, prev_value=nil)
       if universal?
-        log_change(user_id, action_type, self, url, nil, prev_value, new_value)
+        log_change(user_id, action_type, self, {url: url}.to_json, nil, prev_value, new_value)
       else
         prompts&.each do |prompt|
-          log_change(user_id, action_type, prompt, url, nil, prev_value, new_value)
+          log_change(user_id, action_type, prompt, {url: url, conjunction: prompt.conjunction}.to_json, nil, prev_value, new_value)
         end
       end
     end

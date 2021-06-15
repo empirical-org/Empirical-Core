@@ -3,7 +3,7 @@ require_dependency 'comprehension/application_controller'
 module Comprehension
   class ActivitiesController < ApplicationController
     skip_before_action :verify_authenticity_token
-    before_action :set_activity, only: [:show, :update, :destroy, :rules]
+    before_action :set_activity, only: [:show, :update, :destroy, :rules, :change_log]
     before_action :save_nested_vars_for_log, only: [:update, :create]
 
     # GET /activities.json
@@ -51,6 +51,11 @@ module Comprehension
     # GET /activities/1/rules.json
     def rules
       render json: @activity.prompts&.map {|p| p.rules}&.flatten&.uniq
+    end
+
+    # GET /activities/1/change_log.json
+    def change_log
+      render json: @activity.change_logs
     end
 
     private def set_activity

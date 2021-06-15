@@ -34,7 +34,7 @@ module Comprehension
     end
 
     def log_update(user_id, prev_value)
-      log_change(user_id, :update_prompt, self, activity.url, nil, prev_value, text)
+      log_change(user_id, :update_prompt, self, {url: activity.url, conjunction: conjunction}.to_json, nil, prev_value, text)
     end
 
     private def downcase_conjunction

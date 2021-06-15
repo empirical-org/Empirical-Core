@@ -157,7 +157,7 @@ module Comprehension
         assert_equal change_log.changed_record_type, "Comprehension::Prompt"
         assert_equal change_log.previous_value, nil
         assert_equal change_log.new_value, "#{@rule.name} - #{@rule.display_name}"
-        assert_equal change_log.explanation, "comprehension/#/activities/#{@activity.id}/regex-rules/#{rule.id}"
+        assert_equal change_log.explanation, {url:"comprehension/#/activities/#{@activity.id}/regex-rules/#{rule.id}", conjunction:"#{@prompt.conjunction}"}.to_json
       end
 
       should "make a change log record after creating a universal Rule record" do
@@ -171,7 +171,7 @@ module Comprehension
         assert_equal change_log.changed_record_type, "Comprehension::Rule"
         assert_equal change_log.previous_value, nil
         assert_equal change_log.new_value, "#{@universal_rule.name} - #{@universal_rule.rule_type}"
-        assert_equal change_log.explanation, "comprehension/#/universal-rules/#{rule.id}"
+        assert_equal change_log.explanation, {url:"comprehension/#/universal-rules/#{rule.id}"}.to_json
       end
 
       should "make a change log record after creating a plagiarism Rule record" do
@@ -208,7 +208,7 @@ module Comprehension
         assert_equal change_log.changed_record_type, "Comprehension::Prompt"
         assert_equal change_log.previous_value, nil
         assert_equal change_log.new_value, "#{@plagiarism_rule.name} - #{plagiarism_text} - #{feedback.text}"
-        assert_equal change_log.explanation, "comprehension/#/activities/#{@activity.id}/plagiarism-rules/#{rule.id}"
+        assert_equal change_log.explanation, {url:"comprehension/#/activities/#{@activity.id}/plagiarism-rules/#{rule.id}", conjunction:"#{@prompt.conjunction}"}.to_json
       end
 
       should "not create an invalid record and return errors as json" do
@@ -373,7 +373,7 @@ module Comprehension
         assert_equal change_log.changed_record_type, "Comprehension::Prompt"
         assert_equal change_log.new_value, "[#{label.name} | #{@rule.name}] - created"
         assert_equal change_log.previous_value, nil
-        assert_equal change_log.explanation, "comprehension/#/activities/#{@activity.id}/semantic-labels/#{@prompt.id}/#{rule.id}"
+        assert_equal change_log.explanation, {url:"comprehension/#/activities/#{@activity.id}/semantic-labels/#{@prompt.id}/#{rule.id}", conjunction: "#{@prompt.conjunction}"}.to_json
       end
 
       should "create nested regex rule record when present in params" do
