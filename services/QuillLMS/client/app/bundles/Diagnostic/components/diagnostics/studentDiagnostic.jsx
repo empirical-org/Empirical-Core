@@ -13,7 +13,8 @@ import {
   SmartSpinner,
   PlayTitleCard,
   ProgressBar,
-  hashToCollection
+  hashToCollection,
+  TeacherPreviewMenuButton,
 } from '../../../Shared/index';
 import SessionActions from '../../actions/sessions.js';
 import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateCurrentQuestion, resumePreviousDiagnosticSession, setCurrentQuestion, setDiagnosticID } from '../../actions/diagnostics.js';
@@ -357,7 +358,7 @@ export class StudentDiagnostic extends React.Component {
   }
 
   render() {
-    const { playDiagnostic, dispatch, previewMode } = this.props
+    const { playDiagnostic, dispatch, previewMode, isOnMobile, handleTogglePreview } = this.props
     const { error, saved, } = this.state
     let component;
 
@@ -441,6 +442,7 @@ export class StudentDiagnostic extends React.Component {
     return (
       <div>
         <section className="section is-fullheight minus-nav student">
+          {isOnMobile && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreview} />}
           {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             <CarouselAnimation>

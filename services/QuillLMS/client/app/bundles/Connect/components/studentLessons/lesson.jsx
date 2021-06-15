@@ -13,7 +13,8 @@ import {
   PlayTitleCard,
   Spinner,
   ProgressBar,
-  Register
+  Register,
+  TeacherPreviewMenuButton
 } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion, resumePreviousSession, setCurrentQuestion } from '../../actions.js';
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../libs/conceptResults/lesson';
@@ -345,7 +346,7 @@ export class Lesson extends React.Component {
 
   render() {
     const { sessionInitialized, error, sessionID, saved, session, isLastQuestion } = this.state
-    const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode, onHandleToggleQuestion, questionToPreview } = this.props
+    const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode, onHandleToggleQuestion, questionToPreview, handleTogglePreview, isOnMobile } = this.props
     const { data, hasreceiveddata, } = lessons
     const { params } = match
     const { lessonID, } = params;
@@ -444,6 +445,7 @@ export class Lesson extends React.Component {
     return (
       <div>
         <section className="section is-fullheight minus-nav student">
+          {isOnMobile && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreview} />}
           {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             {component}

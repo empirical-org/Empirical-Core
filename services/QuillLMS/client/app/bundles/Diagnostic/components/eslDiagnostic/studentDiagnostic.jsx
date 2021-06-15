@@ -13,7 +13,8 @@ import Footer from './footer'
 
 import {
   CarouselAnimation,
-  ProgressBar
+  ProgressBar,
+  TeacherPreviewMenuButton,
 } from '../../../Shared/index';
 import {
   clearData,
@@ -404,7 +405,7 @@ export class ELLStudentDiagnostic extends React.Component {
 
   render() {
     const { error, saved, } = this.state
-    const { dispatch, match, playDiagnostic, t, previewMode } = this.props;
+    const { dispatch, match, playDiagnostic, t, previewMode, isOnMobile, handleTogglePreview } = this.props;
     const { params } = match;
     const { diagnosticID } = params;
 
@@ -444,6 +445,7 @@ export class ELLStudentDiagnostic extends React.Component {
     return (
       <div className="ell-diagnostic-container">
         <section className={`section is-fullheight student ${minusHowMuch}`}>
+          {isOnMobile && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreview} />}
           {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             <CarouselAnimation>

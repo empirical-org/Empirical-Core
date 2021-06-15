@@ -32,6 +32,7 @@ export {
   Spinner,
   SortableList,
   TeacherPreviewMenu,
+  TeacherPreviewMenuButton,
   TextEditor,
   TextArea,
   Tooltip,

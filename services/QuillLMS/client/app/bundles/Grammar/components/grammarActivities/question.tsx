@@ -13,7 +13,8 @@ import {
   ProgressBar,
   ConceptExplanation,
   Feedback,
-  getLatestAttempt
+  getLatestAttempt,
+  TeacherPreviewMenuButton
 } from '../../../Shared/index'
 
 const ALLOWED_ATTEMPTS = 5
@@ -36,6 +37,8 @@ interface QuestionProps {
   questions: Question[];
   questionSet: Question[];
   handleToggleQuestion: (question: Question) => void;
+  isOnMobile: boolean;
+  handleTogglePreviewMenu: () => void;
 }
 
 interface QuestionState {
@@ -318,10 +321,11 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   renderTopSection(): JSX.Element {
-    const { activity } = this.props;
+    const { activity, isOnMobile, handleTogglePreviewMenu } = this.props;
     const counts = this.getQuestionCounts();
     const meterWidth = counts['answeredQuestionCount'] / counts['totalQuestionCount'] * 100
     return (<div className="top-section">
+      {isOnMobile && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreviewMenu} />}
       <ProgressBar
         answeredQuestionCount={counts['answeredQuestionCount']}
         label="questions"

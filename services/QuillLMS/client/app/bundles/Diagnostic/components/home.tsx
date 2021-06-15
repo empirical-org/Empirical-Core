@@ -58,13 +58,10 @@ export const Home = () => {
     setSkippedToQuestionFromIntro(true);
   }
 
-  function onMobile() {
-    return window.innerWidth < 1100
-  }
-
   let className = "ant-layout "
   className = showFocusState ? '' : 'hide-focus-outline'
-  const showPreview = previewShowing && isTeacherOrAdmin && isPlaying && !onMobile();
+  const showPreview = previewShowing && isTeacherOrAdmin && isPlaying;
+  const isOnMobile = window.innerWidth < 1100;
   return(
     <div className={className}>
       <div className="activity-container">
@@ -73,6 +70,7 @@ export const Home = () => {
           style={{ height: '100vh', overflowY: 'auto', width: '360px' }}
         >
           <TeacherPreviewMenu
+            isOnMobile={isOnMobile}
             onHandleSkipToQuestionFromIntro={handleSkipToQuestionFromIntro}
             onTogglePreview={handleTogglePreviewMenu}
             onToggleQuestion={handleToggleQuestion}
@@ -83,8 +81,10 @@ export const Home = () => {
         <main style={{ height: '100vh', overflow: 'auto' }}>
           {isPlaying && !isTeacherOrAdmin && <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>}
           {isPlaying && !isTeacherOrAdmin && <StudentNavBar />}
-          {isPlaying && isTeacherOrAdmin && <TeacherNavbar onTogglePreview={handleTogglePreviewMenu} previewShowing={previewShowing} />}
+          {isPlaying && isTeacherOrAdmin && <TeacherNavbar isOnMobile={isOnMobile} onTogglePreview={handleTogglePreviewMenu} previewShowing={previewShowing} />}
           <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
+            isOnMobile: isOnMobile,
+            handleTogglePreview: handleTogglePreviewMenu,
             switchedBackToPreview: switchedBackToPreview,
             handleToggleQuestion: handleToggleQuestion,
             previewMode: showPreview,

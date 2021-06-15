@@ -21,9 +21,16 @@
       text-align: center;
     }
     .close-preview-button {
+      display: flex;
+      align-items: center;
       border: none;
       background-color: white;
       padding: 0;
+      .close-text {
+        font-size: 18px;
+        margin: 0;
+        padding: 0;
+      }
     }
     .close-preview-button:hover {
       cursor: pointer;
