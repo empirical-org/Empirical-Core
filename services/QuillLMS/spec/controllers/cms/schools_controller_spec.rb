@@ -8,9 +8,7 @@ describe Cms::SchoolsController do
 
   let(:user) { create(:staff) }
 
-  before do
-    allow(controller).to receive(:current_user) { user }
-  end
+  before { allow(controller).to receive(:current_user) { user } }
 
   describe "SCHOOLS_PER_PAGE" do
     it 'should have the correct value' do
@@ -21,9 +19,7 @@ describe Cms::SchoolsController do
   describe '#index' do
     let(:school_hash) { {school_zip: "1234", number_teachers: 23, number_admins: 5, frl: "frl"} }
 
-    before do
-      allow(ActiveRecord::Base.connection).to receive(:execute) { [school_hash] }
-    end
+    before { allow(RawSqlRunner).to receive(:execute) { [school_hash] } }
 
     it 'should allows staff memeber to view and search through school' do
       get :index
@@ -36,9 +32,7 @@ describe Cms::SchoolsController do
   describe '#search' do
     let(:school_hash) { {school_zip: 1234, number_teachers: 23, number_admins: 5, frl: "frl"} }
 
-    before do
-      allow(ActiveRecord::Base.connection).to receive(:execute).and_return([school_hash])
-    end
+    before { allow(RawSqlRunner).to receive(:execute).and_return([school_hash]) }
 
     it 'should search for the school and give the results' do
       get :search

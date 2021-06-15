@@ -70,28 +70,50 @@ class GetConceptsInUseIndividualConceptWorker
 
   def get_activity_rows(id)
     begin
-      ActiveRecord::Base.connection.execute("
-        SELECT concepts.name AS concept_name,
-        concepts.uid AS concept_uid,
-        activities.name AS activity_name,
-        activity_classifications.name AS classification_name,
-        parent_concepts.name AS parent_name,
-        grandparent_concepts.name AS grandparent_name,
-        recommendations.name AS recommendation_name
-        FROM concepts
-        LEFT JOIN concepts AS parent_concepts ON concepts.parent_id = parent_concepts.id
-        LEFT JOIN concepts AS grandparent_concepts ON parent_concepts.parent_id = grandparent_concepts.id
-        LEFT JOIN concept_results ON concept_results.concept_id = concepts.id
-        LEFT JOIN activity_sessions ON concept_results.activity_session_id = activity_sessions.id
-        LEFT JOIN activities on activity_sessions.activity_id = activities.id
-        LEFT JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id
-        LEFT JOIN criteria ON criteria.concept_id = concepts.id
-        LEFT JOIN recommendations ON criteria.recommendation_id = recommendations.id
-        WHERE concepts.id = #{id}
-        AND activities.flags = '{production}'
-        GROUP BY concept_name, parent_concepts.name, grandparent_concepts.name, activity_name, concept_uid, classification_name, recommendations.name
-        ORDER BY grandparent_concepts.name, parent_concepts.name, concept_name, classification_name
-      ").to_a
+      RawSqlRunner.execute(
+        <<-SQL
+          SELECT
+            concepts.name AS concept_name,
+            concepts.uid AS concept_uid,
+            activities.name AS activity_name,
+            activity_classifications.name AS classification_name,
+            parent_concepts.name AS parent_name,
+            grandparent_concepts.name AS grandparent_name,
+            recommendations.name AS recommendation_name
+          FROM concepts
+          LEFT JOIN concepts AS parent_concepts
+            ON concepts.parent_id = parent_concepts.id
+          LEFT JOIN concepts AS grandparent_concepts
+            ON parent_concepts.parent_id = grandparent_concepts.id
+          LEFT JOIN concept_results
+            ON concept_results.concept_id = concepts.id
+          LEFT JOIN activity_sessions
+            ON concept_results.activity_session_id = activity_sessions.id
+          LEFT JOIN activities
+            ON activity_sessions.activity_id = activities.id
+          LEFT JOIN activity_classifications
+            ON activities.activity_classification_id = activity_classifications.id
+          LEFT JOIN criteria
+            ON criteria.concept_id = concepts.id
+          LEFT JOIN recommendations
+            ON criteria.recommendation_id = recommendations.id
+          WHERE concepts.id = #{id}
+            AND activities.flags = '{production}'
+          GROUP BY
+            concept_name,
+            parent_concepts.name,
+            grandparent_concepts.name,
+            activity_name,
+            concept_uid,
+            classification_name,
+            recommendations.name
+          ORDER BY
+            grandparent_concepts.name,
+            parent_concepts.name,
+            concept_name,
+            classification_name
+        SQL
+      ).to_a
     rescue => e
       get_activity_rows(id)
     end

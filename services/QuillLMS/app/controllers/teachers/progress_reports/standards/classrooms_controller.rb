@@ -20,18 +20,28 @@ class Teachers::ProgressReports::Standards::ClassroomsController < Teachers::Pro
   end
 end
 
-private
+private def student_names_and_ids(classroom_id)
+  classroom_conditional = "AND classrooms.id = #{classroom_id}" if classroom_id
 
-def student_names_and_ids(classroom_id)
-  if classroom_id
-    classroom_conditional = "AND classrooms.id = #{classroom_id}"
-  end
-    ActiveRecord::Base.connection.execute("SELECT DISTINCT students.name, students.id, substring(students.name, '([^[:space:]]+)(?:,|$)') AS last_name FROM users AS teacher
-    JOIN classrooms_teachers AS ct ON ct.user_id = teacher.id
-    JOIN classrooms ON classrooms.id = ct.classroom_id AND classrooms.visible = TRUE
-    JOIN students_classrooms AS sc ON sc.classroom_id = ct.classroom_id
-    JOIN users AS students ON students.id = sc.student_id
-    WHERE teacher.id = #{current_user.id}
-    #{classroom_conditional}
-    ORDER BY substring(students.name, '([^[:space:]]+)(?:,|$)')").to_a
+  RawSqlRunner.execute(
+    <<-SQL
+      SELECT DISTINCT
+        students.name,
+        students.id,
+        SUBSTRING(students.name, '([^[:space:]]+)(?:,|$)') AS last_name
+      FROM users AS teacher
+      JOIN classrooms_teachers AS ct
+        ON ct.user_id = teacher.id
+      JOIN classrooms
+        ON classrooms.id = ct.classroom_id
+        AND classrooms.visible = TRUE
+      JOIN students_classrooms AS sc
+        ON sc.classroom_id = ct.classroom_id
+      JOIN users AS students
+        ON students.id = sc.student_id
+      WHERE teacher.id = #{current_user.id}
+        #{classroom_conditional}
+      ORDER BY SUBSTRING(students.name, '([^[:space:]]+)(?:,|$)')
+    SQL
+  ).to_a
 end

@@ -43,7 +43,17 @@ class ReferralsUser < ActiveRecord::Base
   end
 
   def send_activation_email
-    user_info = ActiveRecord::Base.connection.execute("SELECT name, email FROM users WHERE id = #{referrer_id} OR id = #{referral_id}").to_a
+    user_info = RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+          name,
+          email
+        FROM users
+        WHERE id = #{referrer_id}
+          OR id = #{referral_id}
+      SQL
+    ).to_a
+
     referrer_hash = user_info.first
     referral_hash = user_info.last
     if Rails.env.production? || (referrer_hash['email'].match('quill.org') && referral_hash['email'].match('quill.org'))
@@ -52,32 +62,43 @@ class ReferralsUser < ActiveRecord::Base
   end
 
   def self.ids_due_for_activation
-    act_sess_ids = ActiveRecord::Base.connection.execute("
-      SELECT DISTINCT classroom_units.id as classroom_unit_id FROM referrals_users
-        JOIN classrooms_teachers ON referrals_users.referred_user_id = classrooms_teachers.user_id
-        JOIN classroom_units ON classrooms_teachers.classroom_id = classroom_units.classroom_id
-        WHERE referrals_users.activated = FALSE;
-    ").to_a.map(&:values).flatten
+    act_sess_ids = RawSqlRunner.execute(
+      <<-SQL
+        SELECT DISTINCT
+          classroom_units.id as classroom_unit_id
+        FROM referrals_users
+        JOIN classrooms_teachers
+          ON referrals_users.referred_user_id = classrooms_teachers.user_id
+        JOIN classroom_units
+          ON classrooms_teachers.classroom_id = classroom_units.classroom_id
+        WHERE referrals_users.activated = false
+      SQL
+    ).to_a.map(&:values).flatten
 
-    if act_sess_ids.empty?
-      return []
-    end
+    return [] if act_sess_ids.empty?
 
-    classroom_unit_ids =ActiveRecord::Base.connection.execute("
-      SELECT classroom_unit_id FROM activity_sessions WHERE classroom_unit_id IN (#{act_sess_ids.join(',')})
-      AND activity_sessions.completed_at IS NOT NULL
-    ").to_a.map(&:values).flatten
+    classroom_unit_ids = RawSqlRunner.execute(
+      <<-SQL
+        SELECT classroom_unit_id
+        FROM activity_sessions
+        WHERE classroom_unit_id IN (#{act_sess_ids.join(',')})
+          AND activity_sessions.completed_at IS NOT NULL
+      SQL
+    ).to_a.map(&:values).flatten
 
-    if classroom_unit_ids.empty?
-      return []
-    end
+    return [] if classroom_unit_ids.empty?
 
-    ActiveRecord::Base.connection.execute("
-      SELECT DISTINCT referrals_users.id FROM referrals_users
-        JOIN classrooms_teachers ON referrals_users.referred_user_id = classrooms_teachers.user_id
-        JOIN classroom_units ON classrooms_teachers.classroom_id = classroom_units.classroom_id
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT DISTINCT referrals_users.id
+        FROM referrals_users
+        JOIN classrooms_teachers
+          ON referrals_users.referred_user_id = classrooms_teachers.user_id
+        JOIN classroom_units
+          ON classrooms_teachers.classroom_id = classroom_units.classroom_id
         WHERE classroom_units.id IN (#{classroom_unit_ids.join(',')})
-    ").to_a.map(&:values).flatten
+      SQL
+    ).to_a.map(&:values).flatten
   end
 
   private def trigger_invited_event

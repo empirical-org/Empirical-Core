@@ -15,6 +15,6 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
     "sequelize": "^4.44.3",
-    "underscore": "^1.9.1"
+    "underscore": "^1.12.1"
   }
 }

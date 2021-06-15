@@ -52,9 +52,13 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
       :time,
       :rule_uid,
       metadata: [
-        :response_id,
-        highlight: []
-      ]
+        highlight: [
+          :text,
+          :type,
+          :category,
+          :character
+        ]
+      ] 
     )
   end
 
@@ -74,9 +78,13 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
         :time,
         :rule_uid,
         metadata: [
-          :response_id,
-          highlight: []
-        ]
+          highlight: [
+            :text,
+            :type,
+            :category,
+            :character
+          ]
+        ] 
       ]
     )[:feedback_histories]
   end

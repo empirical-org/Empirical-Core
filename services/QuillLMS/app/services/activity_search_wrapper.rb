@@ -101,14 +101,23 @@ class ActivitySearchWrapper
 
   private def activity_classifications
     if @activity_classification_ids.any?
-      activity_classifications = ActiveRecord::Base.connection.execute("SELECT ac.key, ac.id, ac.order_number FROM activity_classifications AS ac WHERE ac.id = ANY(array#{@activity_classification_ids})").to_a
+      activity_classifications = RawSqlRunner.execute(
+        <<-SQL
+          SELECT
+            ac.key,
+            ac.id,
+            ac.order_number
+          FROM activity_classifications AS ac
+          WHERE ac.id = ANY(array#{@activity_classification_ids})
+        SQL
+      ).to_a
+
       activity_classification_details = activity_classifications.map do |ac|
-        ac_id = ac['id'].to_i
         {
-          alias: classification_hash(ac_id)[:alias],
-          id: ac_id,
+          alias: classification_hash(ac['id'])[:alias],
+          id: ac['id'],
           key: ac['key'],
-          order: ac['order_number'].to_i
+          order: ac['order_number']
         }
       end
       activity_classification_details.sort_by { |key| key[:order] }

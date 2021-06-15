@@ -184,7 +184,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         so: roundMillisecondsToSeconds(timeTracking[4]),
       }
     }
-    const callback = handleFinishActivity ? handleFinishActivity : window.location.href = '/'
+    const callback = handleFinishActivity ? handleFinishActivity : () => { window.location.href = '/' }
     dispatch(completeActivitySession(sessionID, currentActivity.parent_activity_id, percentage, conceptResults, data, callback))
   }
 
