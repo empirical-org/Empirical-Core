@@ -383,7 +383,7 @@ class ActivitySession < ActiveRecord::Base
       activity: activity
     )
     activity_sessions.each do |as|
-      time_tracking = ActiveActivitySession.find_by_uid(as.uid)&.data['timeTracking']
+      time_tracking = ActiveActivitySession.find_by_uid(as.uid)&.data&.fetch(:timeTracking)
       as.data['time_tracking'] = time_tracking&.map{ |k, milliseconds| [k, (milliseconds / 1000).round] }.to_h # timetracking is stored in milliseconds for active activity sessions, but seconds on the activity session
       as.timespent = as.timespent
       as.save
