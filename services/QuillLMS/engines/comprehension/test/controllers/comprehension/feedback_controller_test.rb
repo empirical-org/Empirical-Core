@@ -8,10 +8,11 @@ module Comprehension
       @prompt = create(:comprehension_prompt)
       @rule = create(:comprehension_rule, rule_type: 'plagiarism')
       @rule_regex = create(:comprehension_rule, rule_type: 'rules-based-1')
+      @plagiarized_text = "do not plagiarize this text please there will be consequences"
       create(:comprehension_regex_rule, regex_text: '^test', rule: @rule_regex)
       create(:comprehension_prompts_rule, rule: @rule, prompt: @prompt)
       create(:comprehension_prompts_rule, rule: @rule_regex, prompt: @prompt)
-      create(:comprehension_plagiarism_text, text: "do not plagiarize this text please there will be consequences", rule: @rule)
+      create(:comprehension_plagiarism_text, text: @plagiarized_text, rule: @rule )
       @first_feedback = create(:comprehension_feedback, text: 'here is our first feedback', rule: @rule, order: 0)
       @second_feedback = create(:comprehension_feedback, text: 'here is our second feedback', rule: @rule, order: 1)
     end
@@ -47,7 +48,7 @@ module Comprehension
       should "return successfully when there is plagiarism" do
         post 'plagiarism',
           params: {
-            entry: "bla bla bla do not plagiarize this text please",
+            entry: "bla bla bla #{@plagiarized_text}",
             prompt_id: @prompt.id,
             session_id: 1,
             previous_feedback: []
@@ -56,8 +57,8 @@ module Comprehension
 
         parsed_response = JSON.parse(response.body)
         assert_equal parsed_response["optimal"], false
-        assert_equal parsed_response["highlight"][0]["text"], "do not plagiarize this text please there will be consequences"
-        assert_equal parsed_response["highlight"][1]["text"], "do not plagiarize this text please there will be consequences"
+        assert_equal parsed_response["highlight"][0]["text"], @plagiarized_text
+        assert_equal parsed_response["highlight"][1]["text"], @plagiarized_text
         assert_equal parsed_response["feedback"], @first_feedback.text
 
         # Remove after upgrade to 5.2 https://github.com/rails/rails/issues/31643#issuecomment-611067165
@@ -65,7 +66,7 @@ module Comprehension
 
         post 'plagiarism',
           params: {
-            entry: "bla bla bla do not plagiarize this text please",
+            entry: "bla bla bla #{@plagiarized_text}",
             prompt_id: @prompt.id,
             session_id: 5,
             previous_feedback: [parsed_response]
