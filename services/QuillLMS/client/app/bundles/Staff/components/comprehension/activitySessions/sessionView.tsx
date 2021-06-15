@@ -104,11 +104,11 @@ const SessionView = ({ match }) => {
         {/* eslint-disable-next-line react/jsx-no-bind */}
         <Route component={() => <SessionOverview activity={activity} rules={rules} sessionData={sessionData} />} path='/activities/:activityId/activity-sessions/:sessionId/overview' />
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <Route component={() => <PromptTable activity={activity} rules={rules} prompt={getPromptForActivitySession(sessionData, BECAUSE)} sessionId={sessionId} />} path='/activities/:activityId/activity-sessions/:sessionId/because-responses' />
+        <Route component={() => <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, BECAUSE)} rules={rules} sessionId={sessionId} />} path='/activities/:activityId/activity-sessions/:sessionId/because-responses' />
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <Route component={() => <PromptTable activity={activity} rules={rules} prompt={getPromptForActivitySession(sessionData, BUT)} sessionId={sessionId} />} path='/activities/:activityId/activity-sessions/:sessionId/but-responses' />
+        <Route component={() => <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, BUT)} rules={rules} sessionId={sessionId} />} path='/activities/:activityId/activity-sessions/:sessionId/but-responses' />
         {/* eslint-disable-next-line react/jsx-no-bind */}
-        <Route component={() => <PromptTable activity={activity} rules={rules} prompt={getPromptForActivitySession(sessionData, SO)} sessionId={sessionId} />} path='/activities/:activityId/activity-sessions/:sessionId/so-responses' />
+        <Route component={() => <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, SO)} rules={rules} sessionId={sessionId} />} path='/activities/:activityId/activity-sessions/:sessionId/so-responses' />
       </Switch>
     </div>
   );
