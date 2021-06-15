@@ -213,32 +213,32 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       window.removeEventListener('visibilitychange', this.setIdle)
     }
 
-  resetTimers = (e=null) => {
-    const { session, dispatch, } = this.props
+    resetTimers = (e=null) => {
+      const { session, dispatch, } = this.props
 
-    if (!session) { return }
+      if (!session) { return }
 
-    const now = Date.now()
-    this.setState((prevState, props) => {
-      const { timeTracking, } = props.session
+      const now = Date.now()
+      this.setState((prevState, props) => {
+        const { timeTracking, } = props.session
 
-      const { startTime, isIdle, inactivityTimer, completedSteps, } = prevState
+        const { startTime, isIdle, inactivityTimer, } = prevState
 
-      if (inactivityTimer) { clearTimeout(inactivityTimer) }
+        if (inactivityTimer) { clearTimeout(inactivityTimer) }
 
-      let elapsedTime = now - startTime
+        let elapsedTime = now - startTime
 
-      if (isIdle) {
-        elapsedTime = 0
-      }
-      dispatch(updateTimeTracking({...timeTracking, 'proofreading_the_passage': (timeTracking['proofreading_the_passage'] || 0) + elapsedTime}))
-      const newInactivityTimer = setTimeout(this.setIdle, 30000);  // time is in milliseconds (1000 is 1 second)
+        if (isIdle) {
+          elapsedTime = 0
+        }
+        dispatch(updateTimeTracking({...timeTracking, 'proofreading_the_passage': (timeTracking['proofreading_the_passage'] || 0) + elapsedTime}))
+        const newInactivityTimer = setTimeout(this.setIdle, 30000);  // time is in milliseconds (1000 is 1 second)
 
-      return { isIdle: false, inactivityTimer: newInactivityTimer, startTime: now, }
-    })
+        return { isIdle: false, inactivityTimer: newInactivityTimer, startTime: now, }
+      })
 
-    return Promise.resolve(true);
-  }
+      return Promise.resolve(true);
+    }
 
     setIdle = () => { this.resetTimers().then(() => this.setState({ isIdle: true })) }
 

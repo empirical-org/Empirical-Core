@@ -8,7 +8,9 @@ import {
   easyJoinLessonAddName,
   goToNextSlide,
   goToPreviousSlide,
-  saveStudentSubmission
+  saveStudentSubmission,
+  fetchActiveActivitySession,
+  saveActiveActivitySession,
 } from '../../../actions/classroomSessions';
 import CLAbsentTeacher from './absentTeacher';
 import CLStudentLobby from './lobby';
@@ -53,7 +55,10 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     this.state = {
       easyDemoName: '',
       classroomUnitId,
-      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null,
+      startTime: Date.now(),
+      isIdle: false,
+      timeTracking: {}
     }
 
     if (getParameterByName('projector')) {
@@ -62,9 +67,9 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
 
     if (!activityUid) {
       const classroom_unit_id = getParameterByName('classroom_unit_id');
+      const student = getParameterByName('student');
       const lessonID = getParameterByName('uid');
       document.title = 'Quill Lessons';
-      const student = getParameterByName('student');
       if (lessonID) {
         document.location.href = `${document.location.origin + document.location.pathname}#/play/class-lessons/${lessonID}?student=${student}&classroom_unit_id=${classroom_unit_id}`;
       }
@@ -74,9 +79,15 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   componentDidMount() {
     const { dispatch, } = this.props
     const { classroomSessionId, } = this.state
+
     if (classroomSessionId) {
       dispatch(startListeningToSession(classroomSessionId));
     }
+
+    const student = getParameterByName('student');
+
+    fetchActiveActivitySession({ sessionID: student, callback: this.loadPreviousSessionFromLMS })
+
     document.getElementsByTagName("html")[0].style.backgroundColor = "white";
     this.setInitialData(this.props)
 
@@ -84,6 +95,14 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       e.preventDefault()
       return false
     }, true);
+
+    window.addEventListener('keydown', this.resetTimers)
+    window.addEventListener('mousemove', this.resetTimers)
+    window.addEventListener('mousedown', this.resetTimers)
+    window.addEventListener('click', this.resetTimers)
+    window.addEventListener('keypress', this.resetTimers)
+    window.addEventListener('scroll', this.resetTimers)
+    window.addEventListener('visibilitychange', this.setIdle)
   }
 
   UNSAFE_componentWillReceiveProps(nextProps, nextState) {
@@ -91,16 +110,29 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   }
 
   componentDidUpdate(prevProps) {
-    const { classroomLesson } = this.props
+    const { timeTracking, } = this.state
+    const { classroomLesson, classroomSessions, } = this.props
     const { hasreceiveddata } = classroomLesson
     if (classroomLesson.hasreceiveddata != prevProps.hasreceiveddata && hasreceiveddata) {
       document.title = `Quill.org | ${classroomLesson.data.title}`
+    }
+
+    if (classroomSessions.data.current_slide !== prevProps.classroomSessions.data.current_slide) {
+      const student = getParameterByName('student');
+      saveActiveActivitySession({ sessionID: student, timeTracking, })
     }
   }
 
   componentWillUnmount() {
     document.getElementsByTagName("html")[0].style.backgroundColor = "whitesmoke";
     document.removeEventListener("keydown", this.handleKeyDown.bind(this));
+    window.removeEventListener('keydown', this.resetTimers)
+    window.removeEventListener('mousemove', this.resetTimers)
+    window.removeEventListener('mousedown', this.resetTimers)
+    window.removeEventListener('click', this.resetTimers)
+    window.removeEventListener('keypress', this.resetTimers)
+    window.removeEventListener('scroll', this.resetTimers)
+    window.removeEventListener('visibilitychange', this.setIdle)
   }
 
   setInitialData = (props) => {
@@ -145,6 +177,38 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       }
     }
   }
+
+  loadPreviousSessionFromLMS = (data: object) => {
+    const {timeTracking, } = this.state
+    const newState = {
+      timeTracking: data.timeTracking || timeTracking
+    }
+
+    this.setState(newState)
+  }
+
+  resetTimers = (e=null) => {
+    const now = Date.now()
+    this.setState((prevState, props) => {
+      const { startTime, isIdle, inactivityTimer, timeTracking, } = prevState
+
+      if (inactivityTimer) { clearTimeout(inactivityTimer) }
+
+      let elapsedTime = now - startTime
+
+      if (isIdle) {
+        elapsedTime = 0
+      }
+      const newTimeTracking = {...timeTracking, 'total': (timeTracking['total'] || 0) + elapsedTime}
+      const newInactivityTimer = setTimeout(this.setIdle, 30000);  // time is in milliseconds (1000 is 1 second)
+
+      return { timeTracking: newTimeTracking, isIdle: false, inactivityTimer: newInactivityTimer, startTime: now, }
+    })
+
+    return Promise.resolve(true);
+  }
+
+  setIdle = () => { this.resetTimers().then(() => this.setState({ isIdle: true })) }
 
   handleClickRightButton = () => {
     const { classroomSessionId, } = this.state

@@ -373,6 +373,20 @@ class ActivitySession < ActiveRecord::Base
     ActivitySession.where(id: incomplete_activity_session_ids).destroy_all
   end
 
+  def self.save_timetracking_data_from_active_activity_session(classroom_unit_id, activity_id)
+    activity = Activity.find_by_id_or_uid(activity_id)
+    activity_sessions = ActivitySession.where(
+      classroom_unit_id: classroom_unit_id,
+      activity: activity
+    )
+    activity_sessions.each do |as|
+      time_tracking = ActiveActivitySession.find_by_uid(as.uid)&.data['timeTracking']&.each{ |_,milliseconds| (milliseconds / 1000).round } # timetracking is stored in milliseconds for active activity sessions, but seconds on the activity session
+      as.data['time_tracking'] = time_tracking
+      as.timespent = as.timespent
+      as.save
+    end
+  end
+
   def self.mark_all_activity_sessions_complete(classroom_unit_id, activity_id, data={})
     activity = Activity.find_by_id_or_uid(activity_id)
     ActivitySession.unscoped.where(classroom_unit_id: classroom_unit_id, activity: activity).each do |as|

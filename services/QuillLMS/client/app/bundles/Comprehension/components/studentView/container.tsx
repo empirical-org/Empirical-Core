@@ -170,7 +170,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   defaultHandleFinishActivity = () => {
-    // We only post completed sessions if we had one specified when the activity loaded
     const { timeTracking, } = this.state
     const { activities, dispatch, session, handleFinishActivity, } = this.props
     const { sessionID, submittedResponses, } = session
@@ -179,10 +178,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const conceptResults = generateConceptResults(currentActivity, submittedResponses)
     const data = {
       time_tracking: {
-        reading: timeTracking[READ_PASSAGE_STEP],
-        because: timeTracking[2],
-        but: timeTracking[3],
-        so: timeTracking[4],
+        reading: roundMillisecondsToSeconds(timeTracking[READ_PASSAGE_STEP]),
+        because: roundMillisecondsToSeconds(timeTracking[2]),
+        but: roundMillisecondsToSeconds(timeTracking[3]),
+        so: roundMillisecondsToSeconds(timeTracking[4]),
       }
     }
     const callback = handleFinishActivity ? handleFinishActivity : window.location.href = '/'
