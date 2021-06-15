@@ -28,7 +28,7 @@ class QuestionHealthDashboard
     begin
       JSON.parse(cms_data.body)
     rescue JSON::ParserError
-      {"percent_common_unmatched": 0, "percent_specified_algos": 0}
+      {}
     end
   end
 
