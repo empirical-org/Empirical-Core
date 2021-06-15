@@ -17,7 +17,7 @@ class QuestionHealthObj
     health_dashboard = QuestionHealthDashboard.new(@activity.id, @question_number, @question.uid)
     data = @question.data
     {
-      url: ENV['DEFAULT_URL'].to_s + "/" + @tool + "/#/admin/" + question_url + "/" + @question.uid + "/responses",
+      url: [ENV['DEFAULT_URL']&.to_s , "/", @tool, "/#/admin/", question_url, "/", @question&.uid, "/responses"].join(""),
       text: data["prompt"],
       flag: data["flag"],
       incorrect_sequences: data["incorrectSequences"]&.length,

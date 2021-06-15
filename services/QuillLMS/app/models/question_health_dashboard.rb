@@ -25,7 +25,11 @@ class QuestionHealthDashboard
   end
 
   def cms_dashboard_stats
-    JSON.parse(cms_data.body)
+    begin
+      JSON.parse(cms_data.body)
+    rescue JSON::ParserError
+      {"percent_common_unmatched": 0, "percent_specified_algos": 0}
+    end
   end
 
   private def score_to_attempts(score)
