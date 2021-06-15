@@ -70,6 +70,16 @@ describe 'Student Concern', type: :model do
      create(:activity_session, user_id: student2.id, classroom_unit_id: classroom_unit5.id)
   end
 
+  describe "#student_average_score" do
+    let(:student_with_no_activity) { create(:student)}
+
+    context "no average" do
+      it "should not error" do
+        expect(student_with_no_activity.student_average_score).to be 0
+      end
+    end
+  end
+
   describe "#hide_extra_activity_sessions" do
     context "there is an activity session with a final score" do
       it "leaves the activity session with a final score" do
@@ -117,10 +127,10 @@ describe 'Student Concern', type: :model do
       expect(new_ca.assigned_student_ids).to include(student1.id)
     end
 
-    it 'should not raise error when moving to unit that has a naming collision' do 
+    it 'should not raise error when moving to unit that has a naming collision' do
       new_unit_name = "#{student1.name}'s Activities from #{classroom.name}"
       same_named_unit = Unit.create!(name: new_unit_name, user_id: classroom2.owner.id)
-      
+
       student1.move_activity_sessions(classroom, classroom2)
       started.reload
       new_ca = started.classroom_unit
