@@ -1,5 +1,6 @@
 class PopulateActivityHealthWorker
   include Sidekiq::Worker
+  sidekiq_options retry: 1
 
   def perform(id)
     @activity = Activity.find(id)
