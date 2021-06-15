@@ -45,6 +45,8 @@ module Comprehension
         feedback&.rule&.prompts&.each do |prompt|
           log_change(user_id, :update_highlight_2, prompt, {url: feedback.rule.url, conjunction: prompt.conjunction}.to_json, nil, prev_value, "#{feedback.rule.label.name} | #{feedback.rule.name}\n#{text}")
         end
+      else
+        feedback&.rule&.log_update(user_id, [{highlight: prev_value}], [{highlight: text}])
       end
     end
   end

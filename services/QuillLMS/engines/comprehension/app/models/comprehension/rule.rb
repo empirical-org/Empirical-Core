@@ -132,9 +132,17 @@ module Comprehension
     end
 
     def log_update(user_id, old_values_arr, new_values_arr=nil)
-      if automl? && label.present? && !old_values_arr.select { |n| n.key?("name")}.empty?
-        prev_values = change_text_automl(old_values_arr.select { |n| n.key?("name")}.first["name"])
-        send_change_log(user_id, :update_semantic, "#{label.name} | #{name}", prev_values)
+      if automl? && label.present?
+        if !old_values_arr.select { |n| n.key?("name")}.empty?
+          name_obj = old_values_arr.select { |n| n.key?("name")}.first
+          prev_values = change_text_automl(name_obj["name"])
+          send_change_log(user_id, :update_semantic, "#{label.name} | #{name}", prev_values)
+          old_values_arr.delete(name_obj)
+        end
+        if !old_values_arr.empty?
+          prev_values = "#{label.name} | #{name}\n#{old_values_arr}"
+          send_change_log(user_id, :update_semantic, "#{label.name} | #{name}\n#{new_values(old_values_arr)}", prev_values)
+        end
       elsif regex?
         prev_values = change_text_regex(old_values_arr)
         send_change_log(user_id, :update_regex, change_text_regex(new_values(new_values_arr || old_values_arr)), prev_values)
