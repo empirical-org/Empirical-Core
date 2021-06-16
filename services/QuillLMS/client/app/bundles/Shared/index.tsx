@@ -107,3 +107,13 @@ export {
   previewIcon,
   smallWhiteCheckIcon,
 } from './images/index'
+
+export {
+  KEYDOWN,
+  MOUSEMOVE,
+  MOUSEDOWN,
+  CLICK,
+  KEYPRESS,
+  VISIBILITYCHANGE,
+  SCROLL,
+} from './utils/eventNames'
