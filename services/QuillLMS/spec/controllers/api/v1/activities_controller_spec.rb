@@ -224,8 +224,8 @@ describe Api::V1::ActivitiesController, type: :controller do
     end
 
     it 'should return a list of all questions and their health' do
-      activity.update(data: {questions: [{key: question.uid}]}.to_json)
-      get :question_health, id: activity.id, format: :json
+      activity.update(data: {questions: [{key: question.uid}]})
+      get :question_health, params: { id: activity.id }, as: :json
 
       response_obj = JSON.parse(response.body)["question_health"]
       expect(response_obj[0]["url"]).to eq("https://quill.org/connect/#/admin/questions/#{question.uid}/responses")
@@ -240,8 +240,8 @@ describe Api::V1::ActivitiesController, type: :controller do
     end
 
     it 'returns empty hashes if questions do not exist' do
-      activity.update(data: {questions: [{key: question.uid}, {key: SecureRandom.uuid}]}.to_json)
-      get :question_health, id: activity.id, format: :json
+      activity.update(data: {questions: [{key: question.uid}, {key: SecureRandom.uuid}]})
+      get :question_health, params: { id: activity.id }, as: :json
       expect(response.status).to eq(200)
       response_obj = JSON.parse(response.body)["question_health"]
       expect(response_obj[1]).to eq({})

@@ -115,25 +115,28 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
       session[:user_id] = teacher.id
       concept_result = create(:concept_result)
 
-      put(:finish_lesson,
-        activity_id: activity.uid,
-        classroom_unit_id: classroom_unit.id,
-        concept_results: [],
-        follow_up: true,
-        format: 'json'
-      )
+      put :finish_lesson,
+        params: {
+          activity_id: activity.uid,
+          classroom_unit_id: classroom_unit.id,
+          concept_results: [],
+          follow_up: true
+        },
+        as: :json
+
       expect(response.status).not_to eq(303)
     end
 
     it 'returns JSON object with follow up url if requested' do
       session[:user_id] = teacher.id
-      put(:finish_lesson,
-        activity_id: activity.uid,
-        classroom_unit_id: classroom_unit.id,
-        concept_results: [],
-        follow_up: true,
-        format: 'json'
-      )
+      put :finish_lesson,
+        params: {
+          activity_id: activity.uid,
+          classroom_unit_id: classroom_unit.id,
+          concept_results: [],
+          follow_up: true
+        },
+        as: :json
 
       expected_url = "#{ENV['DEFAULT_URL']}/activity_sessions/classroom_units/" \
         "#{classroom_unit.id}/activities/#{activity.follow_up_activity_id}"
@@ -144,13 +147,15 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
 
     it 'returns JSON object with link to home if not requested' do
       session[:user_id] = teacher.id
-      put(:finish_lesson,
-        activity_id: activity.uid,
-        classroom_unit_id: classroom_unit.id,
-        concept_results: [],
-        follow_up: false,
-        format: 'json'
-      )
+      put :finish_lesson,
+        params: {
+          activity_id: activity.uid,
+          classroom_unit_id: classroom_unit.id,
+          concept_results: [],
+          follow_up: false
+        },
+        as: :json
+
       expect(JSON.parse(response.body))
         .to eq({"follow_up_url"=> (ENV['DEFAULT_URL']).to_s})
     end
