@@ -22,7 +22,15 @@ import getParameterByName from '../../helpers/getParameterByName';
 import { Passage } from '../../interfaces/activities'
 import { postTurkSession } from '../../utils/turkAPI';
 import { getCsrfToken } from "../../../Staff/helpers/comprehension";
-import { roundMillisecondsToSeconds, } from '../../../Shared/index'
+import {
+  roundMillisecondsToSeconds,
+  KEYDOWN,
+  MOUSEMOVE,
+  MOUSEDOWN,
+  CLICK,
+  KEYPRESS,
+  VISIBILITYCHANGE,
+} from '../../../Shared/index'
 
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
 const tadaSrc =  `${process.env.CDN_URL}/images/illustrations/tada.svg`
@@ -101,21 +109,21 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       }
     }
 
-    window.addEventListener('keydown', this.handleKeyDown)
-    window.addEventListener('mousemove', this.resetTimers)
-    window.addEventListener('mousedown', this.resetTimers)
-    window.addEventListener('click', this.resetTimers)
-    window.addEventListener('keypress', this.resetTimers)
-    window.addEventListener('visibilitychange', this.setIdle)
+    window.addEventListener(KEYDOWN, this.handleKeyDown)
+    window.addEventListener(MOUSEMOVE, this.resetTimers)
+    window.addEventListener(MOUSEDOWN, this.resetTimers)
+    window.addEventListener(CLICK, this.resetTimers)
+    window.addEventListener(KEYPRESS, this.resetTimers)
+    window.addEventListener(VISIBILITYCHANGE, this.setIdle)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown)
-    window.removeEventListener('mousemove', this.resetTimers)
-    window.removeEventListener('mousedown', this.resetTimers)
-    window.removeEventListener('click', this.resetTimers)
-    window.removeEventListener('keypress', this.resetTimers)
-    window.removeEventListener('visibilitychange', this.setIdle)
+    window.removeEventListener(KEYDOWN, this.handleKeyDown)
+    window.removeEventListener(MOUSEMOVE, this.resetTimers)
+    window.removeEventListener(MOUSEDOWN, this.resetTimers)
+    window.removeEventListener(CLICK, this.resetTimers)
+    window.removeEventListener(KEYPRESS, this.resetTimers)
+    window.removeEventListener(VISIBILITYCHANGE, this.setIdle)
   }
 
   outOfAttemptsForActivePrompt = () => {

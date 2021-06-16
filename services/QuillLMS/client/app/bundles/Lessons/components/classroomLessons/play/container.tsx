@@ -40,7 +40,16 @@ import { ClassroomLesson } from '../../../interfaces/classroomLessons';
 import * as CustomizeIntf from '../../../interfaces/customize';
 import { scriptTagStrip } from '../shared/scriptTagStrip';
 
-import { Spinner } from '../../../../Shared/index';
+import {
+  Spinner,
+  KEYDOWN,
+  MOUSEMOVE,
+  MOUSEDOWN,
+  CLICK,
+  KEYPRESS,
+  VISIBILITYCHANGE,
+  SCROLL,
+} from '../../../../Shared/index';
 
 const arrowSrc = `${process.env.CDN_URL}/images/icons/chevron-arrow-filled.svg`
 
@@ -62,7 +71,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     }
 
     if (getParameterByName('projector')) {
-      document.addEventListener("keydown", this.handleKeyDown.bind(this));
+      document.addEventListener(KEYDOWN, this.handleKeyDown.bind(this));
     }
 
     if (!activityUid) {
@@ -96,13 +105,13 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       return false
     }, true);
 
-    window.addEventListener('keydown', this.resetTimers)
-    window.addEventListener('mousemove', this.resetTimers)
-    window.addEventListener('mousedown', this.resetTimers)
-    window.addEventListener('click', this.resetTimers)
-    window.addEventListener('keypress', this.resetTimers)
-    window.addEventListener('scroll', this.resetTimers)
-    window.addEventListener('visibilitychange', this.setIdle)
+    window.addEventListener(KEYDOWN, this.resetTimers)
+    window.addEventListener(MOUSEMOVE, this.resetTimers)
+    window.addEventListener(MOUSEDOWN, this.resetTimers)
+    window.addEventListener(CLICK, this.resetTimers)
+    window.addEventListener(KEYPRESS, this.resetTimers)
+    window.addEventListener(SCROLL, this.resetTimers)
+    window.addEventListener(VISIBILITYCHANGE, this.setIdle)
   }
 
   UNSAFE_componentWillReceiveProps(nextProps, nextState) {
@@ -125,14 +134,14 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
 
   componentWillUnmount() {
     document.getElementsByTagName("html")[0].style.backgroundColor = "whitesmoke";
-    document.removeEventListener("keydown", this.handleKeyDown.bind(this));
-    window.removeEventListener('keydown', this.resetTimers)
-    window.removeEventListener('mousemove', this.resetTimers)
-    window.removeEventListener('mousedown', this.resetTimers)
-    window.removeEventListener('click', this.resetTimers)
-    window.removeEventListener('keypress', this.resetTimers)
-    window.removeEventListener('scroll', this.resetTimers)
-    window.removeEventListener('visibilitychange', this.setIdle)
+    document.removeEventListener(KEYDOWN, this.handleKeyDown.bind(this));
+    window.removeEventListener(KEYDOWN, this.resetTimers)
+    window.removeEventListener(MOUSEMOVE, this.resetTimers)
+    window.removeEventListener(MOUSEDOWN, this.resetTimers)
+    window.removeEventListener(CLICK, this.resetTimers)
+    window.removeEventListener(KEYPRESS, this.resetTimers)
+    window.removeEventListener(SCROLL, this.resetTimers)
+    window.removeEventListener(VISIBILITYCHANGE, this.setIdle)
   }
 
   setInitialData = (props) => {
