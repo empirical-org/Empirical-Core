@@ -11,7 +11,7 @@ import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
 import { Spinner } from '../../../../Shared/index';
 import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
-import { formatPrompts, renderErrorsContainer } from '../../../helpers/comprehension';
+import { formatPrompts, renderErrorsContainer, renderHeader } from '../../../helpers/comprehension';
 import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules, getReturnLinkRuleType, getReturnLinkLabel, renderDeleteRuleModal } from '../../../helpers/comprehension/ruleHelpers';
 import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM } from '../../../../../constants/comprehension';
 import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
@@ -113,6 +113,16 @@ const RuleViewForm = ({
     }
   }, [rulesData, universalRulesData]);
 
+  // function merp() {
+  //   const header = ruleType && ruleType.label
+  //   const header = renderHeader(activityData, 'Regex Rules')
+  //   console.log("🚀 ~ file: ruleViewForm.tsx ~ line 118 ~ merp ~ header", header)
+  // }
+
+  // function renderHeaderForRuleViewForm() {
+  //   renderHeader({activity: activityData}, ruleType && ruleType.label)
+  // }
+
   function toggleShowDeleteRuleModal() {
     setShowDeleteRuleModal(!showDeleteRuleModal);
   }
@@ -176,10 +186,12 @@ const RuleViewForm = ({
   const formErrorsPresent = !!Object.keys(errors).length;
   const requestErrorsPresent = !!(requestErrors && requestErrors.length);
   const showErrorsContainer = formErrorsPresent || requestErrorsPresent;
+  const header = `${rule.id ? 'View Individual Rule - ' : 'Add'} ${ruleType && ruleType.label}`;
 
   return(
     <div className="rule-form-container">
       {showDeleteRuleModal && renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModal)}
+      {renderHeader({activity: activityData}, header)}
       <section className="semantic-rule-form-header">
         <Link className="return-link" to={`/activities/${activityId}/${returnLinkRuleType}`}>{returnLinkLabel}</Link>
         <button className="quill-button fun primary contained" id="rule-delete-button" onClick={toggleShowDeleteRuleModal} type="button">

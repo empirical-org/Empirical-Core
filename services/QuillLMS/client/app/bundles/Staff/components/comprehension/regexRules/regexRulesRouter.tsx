@@ -23,14 +23,6 @@ const RegexRulesRouter = ({ history, match }) => {
     queryFn: fetchActivity
   });
 
-  function renderActivityName({ activity }) {
-    if(!activity) {
-      return;
-    }
-    const { name } = activity;
-    return <h2>{name}</h2>
-  }
-
   function handleCreateRule({rule}: {rule: RuleInterface}) {
     createRule(rule).then((response) => {
       const { errors, rule } = response;
@@ -82,9 +74,6 @@ const RegexRulesRouter = ({ history, match }) => {
 
   return(
     <div className="semantic-labels-container">
-      <div className="header-container">
-        {activityData && renderActivityName(activityData)}
-      </div>
       <Switch>
         {/* eslint-disable react/jsx-no-bind */}
         <Route

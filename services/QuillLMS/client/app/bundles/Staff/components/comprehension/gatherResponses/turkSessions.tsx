@@ -28,7 +28,6 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   const { params } = match;
   const { activityId } = params;
 
-  // get cached activity data to pass to ruleForm
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity

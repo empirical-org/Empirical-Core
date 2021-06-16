@@ -16,7 +16,6 @@ const ModelForm = ({ location, history, match }) => {
   const [modelId, setModelId] = React.useState<string>('');
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  // get cached activity data to pass to ruleForm
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity

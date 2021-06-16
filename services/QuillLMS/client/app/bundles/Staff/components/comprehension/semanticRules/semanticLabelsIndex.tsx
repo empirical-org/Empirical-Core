@@ -77,7 +77,7 @@ const SemanticLabelsIndex = ({ location, history, match }) => {
     );
   }
 
-  const showHeader = !(location.pathname.includes('new') || location.pathname.includes('add'));
+  const showHeader = !(location.pathname.includes('new') || location.pathname.includes('add') || location.pathname.includes('cheat-sheet'));
 
   return(
     <div className="semantic-labels-container">
