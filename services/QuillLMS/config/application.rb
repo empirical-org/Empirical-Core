@@ -31,6 +31,7 @@ module EmpiricalGrammar
     config.autoload_paths += %W(
       #{config.root}/app/controllers/concerns
       #{config.root}/lib
+      #{config.root}/app/lib
       #{config.root}/app/uploaders
       #{config.root}/app/services
       #{config.root}/app/services/analytics
