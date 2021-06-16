@@ -107,7 +107,7 @@ export const buildBlankPrompt = (conjunction: string) => {
 }
 
 export const buildActivity = ({
-  activityName,
+  activityNotes,
   activityTitle,
   activityScoredReadingLevel,
   activityTargetReadingLevel,
@@ -124,7 +124,7 @@ export const buildActivity = ({
   prompts.forEach(prompt => prompt.max_attempts_feedback = maxFeedback);
   return {
     activity: {
-      name: activityName,
+      notes: activityNotes,
       title: activityTitle,
       parent_activity_id: activityParentActivityId ? parseInt(activityParentActivityId) : null,
       // flag: label,

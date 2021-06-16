@@ -142,7 +142,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
       return [];
     } else {
       // format for DataTable to display labels on left side and values on right
-      const { passages, prompts, title, scored_level, target_level, name, } = activity
+      const { passages, prompts, title, scored_level, target_level, name, notes } = activity
 
       const passageLength = passages && passages[0] ? `${passages[0].text.split(' ').length} words` : null;
       const formattedPrompts = promptsByConjunction(prompts);
@@ -152,12 +152,12 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
 
       const fields = [
         {
-          label: 'Name',
-          value: name
+          label: 'Activity Title',
+          value: title
         },
         {
-          label: 'Title',
-          value: title
+          label: 'Activity Notes',
+          value: notes
         },
         // {
         //   label: 'Development Stage',

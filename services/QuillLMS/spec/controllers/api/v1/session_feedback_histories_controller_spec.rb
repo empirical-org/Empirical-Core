@@ -56,7 +56,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
       context 'activity_id' do
         setup do
-          @activity = Comprehension::Activity.create!(name: 'Title 1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
+          @activity = Comprehension::Activity.create!(notes: 'Title 1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
           @prompt = Comprehension::Prompt.create!(activity: @activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
           10.times { create(:feedback_history, prompt: @prompt) }
           10.times { create(:feedback_history) }
