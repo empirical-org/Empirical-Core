@@ -231,7 +231,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         if (isIdle) {
           elapsedTime = 0
         }
-        dispatch(updateTimeTracking({...timeTracking, 'proofreading_the_passage': (timeTracking['proofreading_the_passage'] || 0) + elapsedTime}))
+        dispatch(updateTimeTracking({...timeTracking, 'proofreading_the_passage': (timeTracking && timeTracking['proofreading_the_passage'] || 0) + elapsedTime}))
         const newInactivityTimer = setTimeout(this.setIdle, 30000);  // time is in milliseconds (1000 is 1 second)
 
         return { isIdle: false, inactivityTimer: newInactivityTimer, startTime: now, }
