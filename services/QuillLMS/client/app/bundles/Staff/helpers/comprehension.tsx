@@ -15,7 +15,8 @@ import {
   IMAGE_ALT_TEXT,
   PLAGIARISM
 } from '../../../constants/comprehension';
-import { PromptInterface } from '../interfaces/comprehensionInterfaces'
+import { PromptInterface, ActivityInterface } from '../interfaces/comprehensionInterfaces'
+import { PageHeader } from '../components/comprehension/shared/pageHeader';
 
 const quillCheckmark = `/images/green_check.svg`;
 const quillX = '/images/red_x.svg';
@@ -375,4 +376,12 @@ export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors:
       })}
     </div>
   )
+}
+
+export const renderHeader = (activityData: {activity: ActivityInterface}, header: string) => {
+  if(!activityData) { return }
+  if(!activityData.activity) { return }
+  const { activity } = activityData;
+  const { title, notes } = activity;
+  return <PageHeader header={header} notes={notes} title={title} />;
 }
