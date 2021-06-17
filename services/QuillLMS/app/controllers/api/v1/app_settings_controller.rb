@@ -1,4 +1,4 @@
-class API::V1::AppSettingsController < ApplicationController
+class Api::V1::AppSettingsController < ApplicationController
   def index
     user = User.find(app_setting_index_params)
     render(json: AppSetting.all_enabled_for_user(user))

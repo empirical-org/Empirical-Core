@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe API::V1::AppSettingsController, type: :controller do
+RSpec.describe Api::V1::AppSettingsController, type: :controller do
   let(:user) { create(:user) }
 
   describe "GET #index" do
@@ -13,7 +13,7 @@ RSpec.describe API::V1::AppSettingsController, type: :controller do
       get(:index, user_id: user.id) 
       
       expect(response).to be_success
-      expected_keys = Set[%w(first second third)]
+      expected_keys = Set["first", "second", "third"]
       expect(Set[*JSON.parse(response.body).keys]).to eq expected_keys
     end
   end
