@@ -376,6 +376,8 @@ class ActivitySession < ActiveRecord::Base
     ActivitySession.where(id: incomplete_activity_session_ids).destroy_all
   end
 
+  # this function is only for use by Lesson activities, which are not individually saved when the activity ends
+  # other activity types make a call directly to the api/v1/activity_sessions controller with timetracking data included
   def self.save_timetracking_data_from_active_activity_session(classroom_unit_id, activity_id)
     activity = Activity.find_by_id_or_uid(activity_id)
     activity_sessions = ActivitySession.where(
