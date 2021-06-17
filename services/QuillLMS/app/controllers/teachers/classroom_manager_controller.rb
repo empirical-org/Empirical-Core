@@ -250,48 +250,27 @@ class Teachers::ClassroomManagerController < ApplicationController
 
 
   private def classroom_with_students_json(classrooms)
-    {
-        classrooms_and_their_students: classrooms.map { |classroom|
-          classroom_json(classroom)
-        }
-    }
+    { classrooms_and_their_students: classrooms.map { |classroom| classroom_json(classroom) } }
   end
 
   private def classroom_json(classroom)
-    {  classroom: classroom, students: classroom.students.sort_by(&:sorting_name)}
+    { classroom: classroom, students: classroom.students.sort_by(&:sorting_name) }
   end
 
-  private def invited_classrooms
-    ActiveRecord::Base.connection.execute("
-        SELECT coteacher_classroom_invitations.id AS classroom_invitation_id, users.name AS inviter_name, classrooms.name AS classroom_name, TRUE AS invitation
-        FROM invitations
-        JOIN coteacher_classroom_invitations ON coteacher_classroom_invitations.invitation_id = invitations.id
-        JOIN users ON users.id = invitations.inviter_id
-        JOIN classrooms ON classrooms.id = coteacher_classroom_invitations.classroom_id
-        WHERE invitations.invitee_email = #{ActiveRecord::Base.sanitize(current_user.email)} AND invitations.archived = false;
-      ").to_a
-  end
-
-  private def active_and_inactive_classrooms_hash
-    classrooms = {}
-    classrooms[:active] = invited_classrooms
-    classrooms[:inactive] = []
-    ClassroomsTeacher.where(user_id: current_user.id).each do |classrooms_teacher|
-      classroom = Classroom.unscoped.find(classrooms_teacher.classroom_id)
-      if classroom.visible
-        classrooms[:active] << classroom.archived_classrooms_manager
-      else
-        classrooms[:inactive] << classroom.archived_classrooms_manager
-      end
-    end
-    classrooms
-  end
 
   private def classrooms_with_data
-    ActiveRecord::Base.connection.execute(
-      "SELECT classrooms.id, classrooms.id AS value, classrooms.name from classrooms_teachers AS ct
-      JOIN classrooms ON ct.classroom_id = classrooms.id AND classrooms.visible = TRUE
-      WHERE ct.user_id = #{current_user.id}"
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+          classrooms.id,
+          classrooms.id AS value,
+          classrooms.name
+        FROM classrooms_teachers AS ct
+        JOIN classrooms
+          ON ct.classroom_id = classrooms.id
+          AND classrooms.visible = true
+        WHERE ct.user_id = #{current_user.id}
+      SQL
     ).to_a
   end
 

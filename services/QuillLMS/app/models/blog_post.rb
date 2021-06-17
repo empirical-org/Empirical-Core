@@ -135,7 +135,14 @@ class BlogPost < ActiveRecord::Base
 
     # This looks for slugs that look like #{current-slug}-2 so we
     # can change our slug for this post to increment the end digit.
-    existing_posts_with_incremented_slug = ActiveRecord::Base.connection.execute("SELECT slug FROM blog_posts WHERE slug ~* CONCAT(#{ActiveRecord::Base.sanitize(slug)}, '-\\d$');").to_a.map{ |h| h['slug'] }
+    existing_posts_with_incremented_slug = RawSqlRunner.execute(
+      <<-SQL
+        SELECT slug
+        FROM blog_posts
+        WHERE slug ~* CONCAT(#{ActiveRecord::Base.sanitize(slug)}, '-\\d$')
+      SQL
+    ).values.flatten
+
     if existing_posts_with_incremented_slug.any?
       incremented_values = existing_posts_with_incremented_slug.map do |incremented_slug|
         incremented_slug.gsub("#{slug}-", '').to_i

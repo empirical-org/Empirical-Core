@@ -43,14 +43,25 @@ module Teacher
   end
 
   def classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach
-    ids = Set.new
-    all_ids = ActiveRecord::Base.connection.execute("SELECT DISTINCT(coteacher_classroom_invitations.classroom_id) AS invitation_id, classrooms_teachers.classroom_id FROM users
-      LEFT JOIN invitations ON invitations.invitee_email = users.email AND invitations.archived = false
-      LEFT JOIN coteacher_classroom_invitations ON coteacher_classroom_invitations.invitation_id = invitations.id
-      LEFT JOIN classrooms_teachers ON classrooms_teachers.user_id = #{id} AND classrooms_teachers.role = 'coteacher'
-      WHERE users.id = #{id}").to_a
-      all_ids.each{|row| row.each{|k,v| ids << v}}
-      ids
+    all_ids = RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+          DISTINCT(coteacher_classroom_invitations.classroom_id) AS invitation_id,
+          classrooms_teachers.classroom_id
+        FROM users
+        LEFT JOIN invitations
+          ON invitations.invitee_email = users.email
+          AND invitations.archived = false
+        LEFT JOIN coteacher_classroom_invitations
+          ON coteacher_classroom_invitations.invitation_id = invitations.id
+        LEFT JOIN classrooms_teachers
+          ON classrooms_teachers.user_id = #{id}
+          AND classrooms_teachers.role = 'coteacher'
+        WHERE users.id = #{id}
+      SQL
+    ).to_a
+
+    Set.new.tap { |ids| all_ids.each { |row| ids.merge(row.values) } }
   end
 
   def ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classrooms_ids_to_check=nil)
@@ -59,31 +70,59 @@ module Teacher
       coteacher_classroom_invitation_additional_join = "AND coteacher_classroom_invitations.classroom_id IN (#{classrooms_ids_to_check.map(&:to_i).join(', ')})"
       classrooms_teacher_additional_join = "AND classrooms_teachers.classroom_id IN (#{classrooms_ids_to_check.map(&:to_i).join(', ')})"
     end
+
     classrooms_teachers_ids = Set.new
     coteacher_classroom_invitation_ids = Set.new
-    all_ids = ActiveRecord::Base.connection.execute("SELECT coteacher_classroom_invitations.id AS coteacher_classroom_invitation_id, classrooms_teachers.id AS classrooms_teachers_id FROM users
-      LEFT JOIN invitations ON invitations.invitee_email = users.email AND invitations.archived = false
-      LEFT JOIN coteacher_classroom_invitations ON coteacher_classroom_invitations.invitation_id = invitations.id #{coteacher_classroom_invitation_additional_join}
-      LEFT JOIN classrooms_teachers ON classrooms_teachers.user_id = #{id} AND classrooms_teachers.role = 'coteacher' #{classrooms_teacher_additional_join}
-      WHERE users.id = #{id}")
-      all_ids.each do |row|
-        row.each do |k,v|
-          if k == 'coteacher_classroom_invitation_id'
-            coteacher_classroom_invitation_ids << v.to_i
-          elsif k == 'classrooms_teachers_id'
-            classrooms_teachers_ids << v.to_i
-          end
+    all_ids = RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+          coteacher_classroom_invitations.id AS coteacher_classroom_invitation_id,
+          classrooms_teachers.id AS classrooms_teachers_id
+        FROM users
+        LEFT JOIN invitations
+          ON invitations.invitee_email = users.email
+          AND invitations.archived = false
+        LEFT JOIN coteacher_classroom_invitations
+          ON coteacher_classroom_invitations.invitation_id = invitations.id
+          #{coteacher_classroom_invitation_additional_join}
+        LEFT JOIN classrooms_teachers
+          ON classrooms_teachers.user_id = #{id}
+          AND classrooms_teachers.role = 'coteacher'
+          #{classrooms_teacher_additional_join}
+        WHERE users.id = #{id}
+      SQL
+    )
+
+    all_ids.each do |row|
+      row.each do |k,v|
+        if k == 'coteacher_classroom_invitation_id'
+          coteacher_classroom_invitation_ids << v
+        elsif k == 'classrooms_teachers_id'
+          classrooms_teachers_ids << v.to_i
         end
       end
-      {coteacher_classroom_invitations_ids: coteacher_classroom_invitation_ids.to_a, classrooms_teachers_ids: classrooms_teachers_ids.to_a}
+    end
+
+    {
+      coteacher_classroom_invitations_ids: coteacher_classroom_invitation_ids.to_a,
+      classrooms_teachers_ids: classrooms_teachers_ids.to_a
+    }
   end
 
-  def affiliated_with_unit(unit_id)
-    ActiveRecord::Base.connection.execute("SELECT units.id FROM units
-      JOIN classroom_units ON classroom_units.unit_id = units.id
-      JOIN classrooms_teachers ON classroom_units.classroom_id = classrooms_teachers.classroom_id
-      WHERE classrooms_teachers.user_id = #{id} AND units.id = #{unit_id.to_i}
-      LIMIT(1)").to_a.any?
+  def affiliated_with_unit?(unit_id)
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT units.id
+        FROM units
+        JOIN classroom_units
+          ON classroom_units.unit_id = units.id
+        JOIN classrooms_teachers
+          ON classroom_units.classroom_id = classrooms_teachers.classroom_id
+        WHERE classrooms_teachers.user_id = #{id}
+          AND units.id = #{unit_id.to_i}
+        LIMIT 1
+      SQL
+    ).to_a.any?
   end
 
   def students
@@ -151,21 +190,45 @@ module Teacher
   end
 
   def classrooms_i_own_that_have_coteachers
-    ActiveRecord::Base.connection.execute(
-      "SELECT classrooms.name AS name, coteacher.name AS coteacher_name, coteacher.email AS coteacher_email, coteacher.id AS coteacher_id FROM classrooms_teachers AS my_classrooms
-      JOIN classrooms_teachers AS coteachers_classrooms ON coteachers_classrooms.classroom_id = my_classrooms.classroom_id
-      JOIN classrooms ON coteachers_classrooms.classroom_id = classrooms.id
-      JOIN users AS coteacher ON coteachers_classrooms.user_id = coteacher.id
-      WHERE my_classrooms.user_id = #{id} AND coteachers_classrooms.role = 'coteacher' AND my_classrooms.role = 'owner'").to_a
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+          classrooms.name AS name,
+          coteacher.name AS coteacher_name,
+          coteacher.email AS coteacher_email,
+          coteacher.id AS coteacher_id
+        FROM classrooms_teachers AS my_classrooms
+        JOIN classrooms_teachers AS coteachers_classrooms
+          ON coteachers_classrooms.classroom_id = my_classrooms.classroom_id
+        JOIN classrooms
+          ON coteachers_classrooms.classroom_id = classrooms.id
+        JOIN users AS coteacher
+          ON coteachers_classrooms.user_id = coteacher.id
+        WHERE my_classrooms.user_id = #{id}
+          AND coteachers_classrooms.role = 'coteacher'
+          AND my_classrooms.role = 'owner'
+      SQL
+    ).to_a
   end
 
   def classrooms_i_own_that_have_pending_coteacher_invitations
-    ActiveRecord::Base.connection.execute(
-      "SELECT DISTINCT classrooms.name AS name, invitations.invitee_email AS coteacher_email FROM classrooms_teachers AS my_classrooms
-      JOIN invitations ON invitations.inviter_id = my_classrooms.user_id
-      JOIN coteacher_classroom_invitations ON invitations.id = coteacher_classroom_invitations.invitation_id
-      JOIN classrooms ON coteacher_classroom_invitations.classroom_id = classrooms.id
-      WHERE my_classrooms.user_id = #{id} AND invitations.invitation_type = '#{Invitation::TYPES[:coteacher]}' AND invitations.archived = false AND my_classrooms.role = 'owner'").to_a
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT DISTINCT
+          classrooms.name AS name,
+          invitations.invitee_email AS coteacher_email
+        FROM classrooms_teachers AS my_classrooms
+        JOIN invitations
+          ON invitations.inviter_id = my_classrooms.user_id
+        JOIN coteacher_classroom_invitations
+          ON invitations.id = coteacher_classroom_invitations.invitation_id
+        JOIN classrooms
+          ON coteacher_classroom_invitations.classroom_id = classrooms.id
+        WHERE my_classrooms.user_id = #{id}
+          AND invitations.invitation_type = '#{Invitation::TYPES[:coteacher]}'
+          AND invitations.archived = false AND my_classrooms.role = 'owner'
+      SQL
+    ).to_a
   end
 
 
@@ -185,40 +248,57 @@ module Teacher
 
   def classroom_minis_info
     cache = classroom_minis_cache
-    if cache
-      return cache
-    end
-    classrooms = ActiveRecord::Base.connection.execute("
-      SELECT
-        classrooms.name AS name,
-        classrooms.id AS id,
-        classrooms.code AS code,
-        COUNT(DISTINCT sc.id) as student_count,
-        classrooms.google_classroom_id AS google_classroom_id,
-        classrooms.clever_id AS clever_id,
-        classrooms.created_at AS created_at,
-        classrooms.grade AS grade
-      FROM classrooms
-			LEFT JOIN students_classrooms AS sc ON sc.classroom_id = classrooms.id
-      LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
-			WHERE classrooms.visible = true AND classrooms_teachers.user_id = #{id}
-			GROUP BY classrooms.name, classrooms.id"
+
+    return cache if cache
+
+    classrooms = RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+          classrooms.name AS name,
+          classrooms.id AS id,
+          classrooms.code AS code,
+          COUNT(DISTINCT sc.id) as student_count,
+          classrooms.google_classroom_id AS google_classroom_id,
+          classrooms.clever_id AS clever_id,
+          classrooms.created_at AS created_at,
+          classrooms.grade AS grade
+        FROM classrooms
+        LEFT JOIN students_classrooms AS sc
+          ON sc.classroom_id = classrooms.id
+        LEFT JOIN classrooms_teachers
+          ON classrooms_teachers.classroom_id = classrooms.id
+        WHERE classrooms.visible = true
+          AND classrooms_teachers.user_id = #{id}
+        GROUP BY
+          classrooms.name,
+          classrooms.id
+      SQL
     ).to_a
-    counts = ActiveRecord::Base.connection.execute("SELECT classrooms.id AS id, COUNT(DISTINCT acts.id) FROM classrooms
-          FULL OUTER JOIN classroom_units AS class_units ON class_units.classroom_id = classrooms.id
-          FULL OUTER JOIN activity_sessions AS acts ON acts.classroom_unit_id = class_units.id
-          LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
-          WHERE classrooms_teachers.user_id = #{id}
+
+    counts = RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+          classrooms.id AS id, COUNT(DISTINCT acts.id)
+        FROM classrooms
+        FULL OUTER JOIN classroom_units AS class_units
+          ON class_units.classroom_id = classrooms.id
+        FULL OUTER JOIN activity_sessions AS acts
+          ON acts.classroom_unit_id = class_units.id
+        LEFT JOIN classrooms_teachers
+          ON classrooms_teachers.classroom_id = classrooms.id
+        WHERE classrooms_teachers.user_id = #{id}
           AND classrooms.visible
           AND class_units.visible
           AND acts.visible
           AND acts.is_final_score = true
-          GROUP BY classrooms.id").to_a
+        GROUP BY classrooms.id
+      SQL
+    ).to_a
+
     info = classrooms.map do |classy|
       count = counts.find { |elm| elm['id'] == classy['id'] }
-      classy['activity_count'] = count  ? count['count'] : 0
-      has_coteacher = ClassroomsTeacher.where(classroom_id: classy['id']).length > 1
-      classy['has_coteacher'] = has_coteacher
+      classy['activity_count'] = count ? count['count'] : 0
+      classy['has_coteacher'] = ClassroomsTeacher.where(classroom_id: classy['id']).length > 1
       classy['teacher_role'] = ClassroomsTeacher.find_by(classroom_id: classy['id'], user_id: id).role
       classy
     end
@@ -448,10 +528,18 @@ module Teacher
   end
 
   def classroom_ids_i_have_invited_a_specific_teacher_to_coteach(teacher_id)
-    ActiveRecord::Base.connection.execute("SELECT cci.classroom_id FROM invitations
-    JOIN users AS coteachers ON coteachers.email = invitations.invitee_email
-    JOIN coteacher_classroom_invitations AS cci ON cci.invitation_id = invitations.id
-    WHERE coteachers.id = #{teacher_id.to_i} AND invitations.inviter_id = #{id}").to_a.map{|res| res['classroom_id'].to_i}
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT cci.classroom_id
+        FROM invitations
+        JOIN users AS coteachers
+          ON coteachers.email = invitations.invitee_email
+        JOIN coteacher_classroom_invitations AS cci
+          ON cci.invitation_id = invitations.id
+        WHERE coteachers.id = #{teacher_id.to_i}
+          AND invitations.inviter_id = #{id}
+      SQL
+    ).values.flatten
   end
 
   def has_outstanding_coteacher_invitation?
@@ -459,37 +547,62 @@ module Teacher
   end
 
   def ids_and_names_of_affiliated_classrooms
-    ActiveRecord::Base.connection.execute("
-      SELECT DISTINCT(classrooms.id), classrooms.name
-      FROM classrooms_teachers
-      JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id AND classrooms.visible = TRUE
-      WHERE classrooms_teachers.user_id = #{id}
-      ORDER BY classrooms.name ASC;
-    ").to_a
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT DISTINCT
+          classrooms.id,
+          classrooms.name
+        FROM classrooms_teachers
+        JOIN classrooms
+          ON classrooms.id = classrooms_teachers.classroom_id
+          AND classrooms.visible = TRUE
+        WHERE classrooms_teachers.user_id = #{id}
+        ORDER BY classrooms.name ASC;
+      SQL
+    ).to_a
   end
 
   def ids_and_names_of_affiliated_students
-    ActiveRecord::Base.connection.execute("
-      SELECT DISTINCT(users.id), users.name, substring(users.name from (position(' ' in users.name) + 1) for (char_length(users.name))) || substring(users.name from (1) for (position(' ' in users.name))) AS sorting_name
-      FROM classrooms_teachers
-      JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id AND classrooms.visible = TRUE
-      JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id AND students_classrooms.visible = TRUE
-      JOIN users ON users.id = students_classrooms.student_id
-      WHERE classrooms_teachers.user_id = #{id}
-      ORDER BY sorting_name ASC;
-    ").to_a
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT DISTINCT
+          users.id,
+          users.name,
+          SUBSTRING(users.name FROM (position(' ' IN users.name) + 1) FOR (char_length(users.name))) || SUBSTRING(users.name FROM (1) for (position(' ' IN users.name))) AS sorting_name
+        FROM classrooms_teachers
+        JOIN classrooms
+          ON classrooms.id = classrooms_teachers.classroom_id
+          AND classrooms.visible = true
+        JOIN students_classrooms
+          ON students_classrooms.classroom_id = classrooms.id
+          AND students_classrooms.visible = TRUE
+        JOIN users
+          ON users.id = students_classrooms.student_id
+        WHERE classrooms_teachers.user_id = #{id}
+        ORDER BY sorting_name ASC
+      SQL
+    ).to_a
   end
 
   def ids_and_names_of_affiliated_units
-    ActiveRecord::Base.connection.execute("
-      SELECT DISTINCT(units.id), units.name
-      FROM classrooms_teachers
-      JOIN classrooms_teachers AS all_affiliated_classrooms ON all_affiliated_classrooms.classroom_id = classrooms_teachers.classroom_id
-      JOIN classrooms ON classrooms.id = all_affiliated_classrooms.classroom_id AND classrooms.visible = TRUE
-      JOIN units ON all_affiliated_classrooms.user_id = units.user_id AND units.visible = TRUE
-      WHERE classrooms_teachers.user_id = #{id}
-      ORDER BY units.name ASC;
-    ").to_a
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT DISTINCT
+          units.id,
+          units.name
+        FROM classrooms_teachers
+        JOIN classrooms_teachers AS all_affiliated_classrooms
+          ON all_affiliated_classrooms.classroom_id = classrooms_teachers.classroom_id
+        JOIN classrooms
+          ON classrooms.id = all_affiliated_classrooms.classroom_id
+          AND classrooms.visible = TRUE
+        JOIN units
+          ON all_affiliated_classrooms.user_id = units.user_id
+          AND units.visible = TRUE
+        WHERE classrooms_teachers.user_id = #{id}
+        ORDER BY units.name ASC
+      SQL
+    ).to_a
   end
 
   def referral_code
@@ -518,15 +631,17 @@ module Teacher
   end
 
   def teaches_student?(student_id)
-    ActiveRecord::Base.connection.execute("
-      SELECT 1
-      FROM users
-      JOIN students_classrooms
-        ON users.id = students_classrooms.student_id
-      JOIN classrooms_teachers
-        ON students_classrooms.classroom_id = classrooms_teachers.classroom_id
-        AND classrooms_teachers.user_id = #{id}
-    ").to_a.any?
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT 1
+        FROM users
+        JOIN students_classrooms
+          ON users.id = students_classrooms.student_id
+        JOIN classrooms_teachers
+          ON students_classrooms.classroom_id = classrooms_teachers.classroom_id
+          AND classrooms_teachers.user_id = #{id}
+      SQL
+    ).to_a.any?
   end
 
   def generate_referrer_id

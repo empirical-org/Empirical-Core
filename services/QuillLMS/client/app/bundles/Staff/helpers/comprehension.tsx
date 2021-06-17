@@ -49,6 +49,27 @@ export function getModelsUrl(promptId: string, state: string) {
   return url;
 }
 
+export function getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate }) {
+  let url = `session_feedback_histories.json?page=${pageNumber}&activity_id=${activityId}`;
+  url = startDate ? url + `&start_date=${startDate}` : url;
+  url = endDate ? url + `&end_date=${endDate}` : url;
+  return url;
+}
+
+export const getRuleFeedbackHistoriesUrl = ({ activityId, selectedConjunction, startDate, endDate }) => {
+  let url = `rule_feedback_histories?activity_id=${activityId}&conjunction=${selectedConjunction}`;
+  url = startDate ? url + `&start_date=${startDate}` : url;
+  url = endDate ? url + `&end_date=${endDate}` : url;
+  return url;
+}
+
+export const getRuleFeedbackHistoryUrl = ({ ruleUID, promptId, startDate, endDate }) => {
+  let url = `rule_feedback_history/${ruleUID}?prompt_id=${promptId}`;
+  url = startDate ? url + `&start_date=${startDate}` : url;
+  url = endDate ? url + `&end_date=${endDate}` : url;
+  return url;
+};
+
 export const getPromptsIcons = (activityData, promptIds: number[]) => {
   if(activityData && activityData.activity && activityData.activity.prompts) {
     const { activity } = activityData;
@@ -86,7 +107,7 @@ export const buildBlankPrompt = (conjunction: string) => {
 }
 
 export const buildActivity = ({
-  activityName,
+  activityNotes,
   activityTitle,
   activityScoredReadingLevel,
   activityTargetReadingLevel,
@@ -103,7 +124,7 @@ export const buildActivity = ({
   prompts.forEach(prompt => prompt.max_attempts_feedback = maxFeedback);
   return {
     activity: {
-      name: activityName,
+      notes: activityNotes,
       title: activityTitle,
       parent_activity_id: activityParentActivityId ? parseInt(activityParentActivityId) : null,
       // flag: label,
@@ -234,6 +255,23 @@ const scoredReadingLevelError = (value: string) => {
   const num = parseInt(value);
   if(isNaN(num) || num < 4 || num > 12) {
     return `${SCORED_READING_LEVEL} must be a number between 4 and 12, or left blank.`;
+  }
+}
+
+export const handlePageFilterClick = ({ startDate, endDate, setStartDate, setEndDate, setShowError, setPageNumber, storageKey }) => {
+  if(!startDate) {
+    setShowError(true);
+    return;
+  }
+  setShowError(false);
+  setPageNumber && setPageNumber({ value: '1', label: "Page 1" })
+  const startDateString = startDate.toISOString();
+  window.sessionStorage.setItem(`${storageKey}startDate`, startDateString);
+  setStartDate(startDateString);
+  if(endDate) {
+    const endDateString = endDate.toISOString();
+    window.sessionStorage.setItem(`${storageKey}endDate`, endDateString);
+    setEndDate(endDateString);
   }
 }
 

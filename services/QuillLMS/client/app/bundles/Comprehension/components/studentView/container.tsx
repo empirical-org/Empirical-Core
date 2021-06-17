@@ -22,6 +22,15 @@ import getParameterByName from '../../helpers/getParameterByName';
 import { Passage } from '../../interfaces/activities'
 import { postTurkSession } from '../../utils/turkAPI';
 import { getCsrfToken } from "../../../Staff/helpers/comprehension";
+import {
+  roundMillisecondsToSeconds,
+  KEYDOWN,
+  MOUSEMOVE,
+  MOUSEDOWN,
+  CLICK,
+  KEYPRESS,
+  VISIBILITYCHANGE,
+} from '../../../Shared/index'
 
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
 const tadaSrc =  `${process.env.CDN_URL}/images/illustrations/tada.svg`
@@ -100,21 +109,21 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       }
     }
 
-    window.addEventListener('keydown', this.handleKeyDown)
-    window.addEventListener('mousemove', this.resetTimers)
-    window.addEventListener('mousedown', this.resetTimers)
-    window.addEventListener('click', this.resetTimers)
-    window.addEventListener('keypress', this.resetTimers)
-    window.addEventListener('visibilitychange', this.setIdle)
+    window.addEventListener(KEYDOWN, this.handleKeyDown)
+    window.addEventListener(MOUSEMOVE, this.resetTimers)
+    window.addEventListener(MOUSEDOWN, this.resetTimers)
+    window.addEventListener(CLICK, this.resetTimers)
+    window.addEventListener(KEYPRESS, this.resetTimers)
+    window.addEventListener(VISIBILITYCHANGE, this.setIdle)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown)
-    window.removeEventListener('mousemove', this.resetTimers)
-    window.removeEventListener('mousedown', this.resetTimers)
-    window.removeEventListener('click', this.resetTimers)
-    window.removeEventListener('keypress', this.resetTimers)
-    window.removeEventListener('visibilitychange', this.setIdle)
+    window.removeEventListener(KEYDOWN, this.handleKeyDown)
+    window.removeEventListener(MOUSEMOVE, this.resetTimers)
+    window.removeEventListener(MOUSEDOWN, this.resetTimers)
+    window.removeEventListener(CLICK, this.resetTimers)
+    window.removeEventListener(KEYPRESS, this.resetTimers)
+    window.removeEventListener(VISIBILITYCHANGE, this.setIdle)
   }
 
   outOfAttemptsForActivePrompt = () => {
@@ -143,7 +152,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
       if (inactivityTimer) { clearTimeout(inactivityTimer) }
 
-      let elapsedTime = _.round((now - startTime) / 1000)
+      let elapsedTime = now - startTime
       if (isIdle) {
         elapsedTime = 0
       }
@@ -169,7 +178,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   defaultHandleFinishActivity = () => {
-    // We only post completed sessions if we had one specified when the activity loaded
     const { timeTracking, } = this.state
     const { activities, dispatch, session, handleFinishActivity, } = this.props
     const { sessionID, submittedResponses, } = session
@@ -178,13 +186,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const conceptResults = generateConceptResults(currentActivity, submittedResponses)
     const data = {
       time_tracking: {
-        reading: timeTracking[READ_PASSAGE_STEP],
-        because: timeTracking[2],
-        but: timeTracking[3],
-        so: timeTracking[4],
+        reading: roundMillisecondsToSeconds(timeTracking[READ_PASSAGE_STEP]),
+        because: roundMillisecondsToSeconds(timeTracking[2]),
+        but: roundMillisecondsToSeconds(timeTracking[3]),
+        so: roundMillisecondsToSeconds(timeTracking[4]),
       }
     }
-    const callback = handleFinishActivity ? handleFinishActivity : window.location.href = '/'
+    const callback = handleFinishActivity ? handleFinishActivity : () => { window.location.href = '/' }
     dispatch(completeActivitySession(sessionID, currentActivity.parent_activity_id, percentage, conceptResults, data, callback))
   }
 

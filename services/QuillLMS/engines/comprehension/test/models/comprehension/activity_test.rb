@@ -19,8 +19,7 @@ module Comprehension
       should validate_presence_of(:title)
       should validate_length_of(:title).is_at_least(5).is_at_most(100)
 
-      should validate_presence_of(:name)
-      should validate_length_of(:name).is_at_least(5).is_at_most(100)
+      should validate_presence_of(:notes)
 
       should validate_length_of(:scored_level).is_at_most(100)
 
@@ -41,7 +40,7 @@ module Comprehension
 
     context 'serializable_hash' do
       setup do
-        @activity = create(:comprehension_activity, title: "First Activity", target_level: 8, scored_level: "4th grade")
+        @activity = create(:comprehension_activity, title: "First Activity", notes: "First Activity - Notes", target_level: 8, scored_level: "4th grade")
         @passage = create(:comprehension_passage, activity: @activity, text: ('Hello' * 20))
         @prompt = create(:comprehension_prompt, activity: @activity, text: "it is good.", conjunction: "because", max_attempts_feedback: "good work!.")
       end
@@ -52,6 +51,7 @@ module Comprehension
         assert_equal json_hash['id'], @activity.id
         assert_equal json_hash['parent_activity_id'], @activity.parent_activity.id
         assert_equal json_hash['title'], "First Activity"
+        assert_equal json_hash['notes'], "First Activity - Notes"
         assert_equal json_hash['target_level'], 8
         assert_equal json_hash['scored_level'], "4th grade"
 
