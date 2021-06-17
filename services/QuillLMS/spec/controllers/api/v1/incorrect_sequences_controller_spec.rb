@@ -96,13 +96,7 @@ describe Api::V1::IncorrectSequencesController, type: :controller do
 
     it "should handle array data as an input" do
       data = [{"foo" => "bar"}, {"boo" => "baz"}]
-      put :update_all,
-        params: {
-          question_id: question.uid,
-          incorrect_sequence: data
-        },
-        as: :json
-
+      put :update_all, question_id: question.uid, incorrect_sequence: data
       question.reload
       expect(question.data["incorrectSequences"]).to eq(data)
     end
