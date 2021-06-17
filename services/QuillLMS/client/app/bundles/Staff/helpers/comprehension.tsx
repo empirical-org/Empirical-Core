@@ -16,12 +16,10 @@ import {
   PLAGIARISM
 } from '../../../constants/comprehension';
 import { PromptInterface, ActivityInterface } from '../interfaces/comprehensionInterfaces'
-import { PageHeader } from '../components/comprehension/shared/pageHeader';
 
 const quillCheckmark = `/images/green_check.svg`;
 const quillX = '/images/red_x.svg';
-// const mainApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
-const mainApiBaseUrl = `https://www.quill.org/api/v1/`;
+const mainApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
 const comprehensionBaseUrl = `${mainApiBaseUrl}comprehension/`;
 const fetchDefaults = require("fetch-defaults");
 
@@ -384,5 +382,11 @@ export const renderHeader = (activityData: {activity: ActivityInterface}, header
   if(!activityData.activity) { return }
   const { activity } = activityData;
   const { title, notes } = activity;
-  return <PageHeader header={header} notes={notes} title={title} />;
+  return(
+    <section className="comprehension-page-header-container">
+      <h2>{header}</h2>
+      <h3>{title}</h3>
+      <h4>{notes}</h4>
+    </section>
+  );
 }

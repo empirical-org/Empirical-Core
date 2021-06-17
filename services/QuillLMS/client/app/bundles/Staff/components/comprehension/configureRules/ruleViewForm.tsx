@@ -113,16 +113,6 @@ const RuleViewForm = ({
     }
   }, [rulesData, universalRulesData]);
 
-  // function merp() {
-  //   const header = ruleType && ruleType.label
-  //   const header = renderHeader(activityData, 'Regex Rules')
-  //   console.log("🚀 ~ file: ruleViewForm.tsx ~ line 118 ~ merp ~ header", header)
-  // }
-
-  // function renderHeaderForRuleViewForm() {
-  //   renderHeader({activity: activityData}, ruleType && ruleType.label)
-  // }
-
   function toggleShowDeleteRuleModal() {
     setShowDeleteRuleModal(!showDeleteRuleModal);
   }
@@ -186,7 +176,7 @@ const RuleViewForm = ({
   const formErrorsPresent = !!Object.keys(errors).length;
   const requestErrorsPresent = !!(requestErrors && requestErrors.length);
   const showErrorsContainer = formErrorsPresent || requestErrorsPresent;
-  const header = `${rule.id ? 'View Individual Rule - ' : 'Add'} ${ruleType && ruleType.label}`;
+  const header = `${rule.id ? 'View Individual Rule - ' : 'Add'} ${ruleType && ruleType.label} ${rule.id ? '' : 'Rule'}`;
 
   return(
     <div className="rule-form-container">

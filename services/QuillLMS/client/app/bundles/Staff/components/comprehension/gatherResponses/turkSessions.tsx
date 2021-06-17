@@ -146,7 +146,6 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     { name: "", attribute:"edit", width: "100px" },
     { name: "", attribute:"delete", width: "100px" },
   ];
-  const header = "Semantic Labels"
 
   return(
     <div className="turk-sessions-container">

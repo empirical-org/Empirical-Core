@@ -4,10 +4,17 @@ exports[`ActivityStats component should render ActivityStats 1`] = `
 <div
   className="activity-stats-container"
 >
-  <Component
-    header="Activity Stats"
-    title="Could Capybaras Create Chaos?"
-  />
+  <section
+    className="comprehension-page-header-container"
+  >
+    <h2>
+      Activity Stats
+    </h2>
+    <h3>
+      Could Capybaras Create Chaos?
+    </h3>
+    <h4 />
+  </section>
   <ReactTable
     AggregatedComponent={[Function]}
     ExpanderComponent={[Function]}

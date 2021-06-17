@@ -4,10 +4,17 @@ exports[`SemanticRulesCheatSheet component should render SemanticRulesCheatSheet
 <section
   className="semantic-labels-container"
 >
-  <Component
-    header="Semantic Rules Cheat Sheet"
-    title="Could Capybaras Create Chaos?"
-  />
+  <section
+    className="comprehension-page-header-container"
+  >
+    <h2>
+      Semantic Rules Cheat Sheet
+    </h2>
+    <h3>
+      Could Capybaras Create Chaos?
+    </h3>
+    <h4 />
+  </section>
   <h4
     dangerouslySetInnerHTML={
       Object {
