@@ -109,11 +109,9 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activity_sessions/classroom_units/:classroom_unit_id/activities/:activity_id' => 'activity_sessions#activity_session_from_classroom_unit_and_activity'
   get 'activity_sessions/:uid' => 'activity_sessions#result'
 
-
   get 'students_classrooms_json' => 'profiles#students_classrooms_json'
   get 'student_profile_data' => 'profiles#student_profile_data'
   get 'student_mobile_profile_data/:current_classroom_id' => 'profiles#mobile_profile_data'
-
 
   resources :activities, only: [] do
     post :retry, on: :member

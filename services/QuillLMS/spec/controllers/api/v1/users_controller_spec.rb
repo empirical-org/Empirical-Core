@@ -1,15 +1,14 @@
 require 'rails_helper'
 
 describe Api::V1::UsersController do
-  let(:user) { create(:user) }
-
-  before do
-    allow(controller).to receive(:current_user) { user }
-  end
+  before { allow(controller).to receive(:current_user) { user } }
 
   describe '#index' do
+    let(:user) { create(:user) }
+
     it 'should return the correct json' do
       get :index, format: :json
+
       expect(response.body).to eq({
         user: user,
         text: "Hi",
@@ -20,44 +19,71 @@ describe Api::V1::UsersController do
   end
 
   describe '#current_user_and_coteachers' do
-    let!(:teacher) { create(:teacher) }
+    context 'current_user not present' do
+      let(:user) { nil }
 
-    before do
-      allow(ActiveRecord::Base.connection).to receive(:execute).and_return([teacher])
+      it 'should return the correct json' do
+        get :current_user_and_coteachers, format: :json
+
+        expect(response.body).to eq({
+          user: user,
+          coteachers: []
+        }.to_json)
+      end
     end
 
-    it 'should return the correct json' do
-      get :current_user_and_coteachers, format: :json
-      expect(response.body).to eq({
-        user: user,
-        coteachers: [teacher]
-      }.to_json)
+    context 'current_user is present' do
+      let!(:classroom) { create(:classroom, :with_coteacher) }
+      let!(:user) { classroom.owner }
+      let!(:coteachers) { classroom.coteachers.map { |ct| ct.attributes.slice('id', 'name') } }
+
+      it 'should return the correct json' do
+        get :current_user_and_coteachers, format: :json
+
+        expect(response.body).to eq({
+          user: user,
+          coteachers: coteachers
+        }.to_json)
+      end
     end
   end
+
   describe '#current_user_role' do
-    it 'should return teacher for teacher users' do
-      user = create(:teacher)
-      allow(controller).to receive(:current_user) { user }
-      get :current_user_role, format: :json
-      expect(response.body).to eq({ role: "teacher" }.to_json)
+    context 'teachers' do
+      let(:user) { create(:teacher) }
+
+      it 'should return teacher for teacher users' do
+        get :current_user_role, format: :json
+
+        expect(response.body).to eq({ role: "teacher" }.to_json)
+      end
     end
-    it 'should return admin for admin users' do
-      user = create(:admin)
-      allow(controller).to receive(:current_user) { user }
-      get :current_user_role, format: :json
-      expect(response.body).to eq({ role: "admin" }.to_json)
+
+    context 'admins' do
+      let(:user) { create(:admin) }
+
+      it 'should return admin for admin users' do
+        get :current_user_role, format: :json
+        expect(response.body).to eq({ role: "admin" }.to_json)
+      end
     end
-    it 'should return student for student users' do
-      user = create(:student)
-      allow(controller).to receive(:current_user) { user }
-      get :current_user_role, format: :json
-      expect(response.body).to eq({ role: "student" }.to_json)
+
+    context 'students' do
+      let(:user)  { create(:student) }
+
+      it 'should return student for student users' do
+        get :current_user_role, format: :json
+        expect(response.body).to eq({ role: "student" }.to_json)
+      end
     end
-    it 'should return nil if current_user is nil' do
-      user = nil
-      allow(controller).to receive(:current_user) { user }
-      get :current_user_role, format: :json
-      expect(response.body).to eq({ role: nil }.to_json)
+
+    context 'no user' do
+      let(:user) { nil }
+
+      it 'should return nil if current_user is nil' do
+        get :current_user_role, format: :json
+        expect(response.body).to eq({ role: nil }.to_json)
+      end
     end
   end
 end

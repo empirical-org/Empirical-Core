@@ -26,6 +26,8 @@ class QuestionHealthDashboard
 
   def cms_dashboard_stats
     JSON.parse(cms_data.body)
+  rescue JSON::ParserError
+    {}
   end
 
   private def score_to_attempts(score)
@@ -53,7 +55,6 @@ class QuestionHealthDashboard
         cr.metadata::json->>'questionScore',
         cr.activity_session_id
     SQL
-    @attempt_data ||= ActiveRecord::Base.connection.execute(query).to_a
+    @attempt_data ||= RawSqlRunner.execute(query).to_a
   end
-
 end

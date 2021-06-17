@@ -18,6 +18,9 @@ export const STRONG =  'strong';
 export const RULES_BASED_1 = 'rules-based-1';
 export const RULES_BASED_2 = 'rules-based-2';
 export const RULES_BASED_3 = 'rules-based-3';
+export const SESSION_INDEX = 'sessionIndex';
+export const RULES_ANALYSIS = 'rulesAnalysis';
+export const RULE_ANALYSIS = 'ruleAnalysis';
 
 export const flagOptions = [
   {
@@ -233,6 +236,7 @@ export const DEFAULT_CONCEPT_UIDS = {
 
 export const TITLE = 'Title';
 export const NAME = 'Name';
+export const NOTES = 'Notes';
 export const SCORED_READING_LEVEL = 'Scored reading level';
 export const TARGET_READING_LEVEL = 'Target reading level';
 export const PARENT_ACTIVITY_ID = 'Parent Activity ID'
@@ -245,8 +249,8 @@ export const IMAGE_LINK = 'Image link'
 export const IMAGE_ALT_TEXT = 'Image alt text'
 
 export const activityFormKeys = [
-  NAME,
   TITLE,
+  NOTES,
   SCORED_READING_LEVEL,
   TARGET_READING_LEVEL,
   PASSAGE,

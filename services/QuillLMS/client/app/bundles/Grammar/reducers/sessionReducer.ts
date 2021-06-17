@@ -11,6 +11,7 @@ export interface SessionState {
   unansweredQuestions: Question[]|never;
   questionSet: Question[]|never;
   currentQuestion: Question|null;
+  timeTracking: { [key:string]: number };
   proofreaderSession?: any;
   error?: string;
   pending: boolean;
@@ -51,7 +52,7 @@ export default (
             currentQuestion.attempts = currentQuestion.attempts ? currentQuestion.attempts.concat([action.response]) : [action.response]
             return Object.assign({}, currentState, {currentQuestion})
         case ActionTypes.SET_PROOFREADER_SESSION_TO_REDUCER:
-            return Object.assign({}, currentState, {proofreaderSession: action.data})
+            return Object.assign({}, currentState, {proofreaderSession: action.data, timeTracking: action.data.timeTracking})
         case ActionTypes.SET_SESSION_PENDING:
             return Object.assign({}, currentState, {pending: action.pending})
         case ActionTypes.START_NEW_SESSION:
