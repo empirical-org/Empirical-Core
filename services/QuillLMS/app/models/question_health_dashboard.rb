@@ -25,7 +25,6 @@ class QuestionHealthDashboard
   end
 
   def cms_dashboard_stats
-    begin
       JSON.parse(cms_data.body)
     rescue JSON::ParserError
       {}
