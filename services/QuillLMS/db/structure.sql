@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.16
--- Dumped by pg_dump version 10.16
+-- Dumped from database version 10.15
+-- Dumped by pg_dump version 10.15
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -751,19 +751,6 @@ CREATE SEQUENCE public.app_settings_id_seq
 
 ALTER SEQUENCE public.app_settings_id_seq OWNED BY public.app_settings.id;
 
-
---
--- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.ar_internal_metadata (
-    key character varying NOT NULL,
-    value character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
 --
 -- Name: auth_credentials; Type: TABLE; Schema: public; Owner: -
 --
@@ -1256,8 +1243,7 @@ CREATE TABLE public.comprehension_automl_models (
     prompt_id integer,
     state character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    notes text DEFAULT ''::text
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -4583,15 +4569,6 @@ ALTER TABLE ONLY public.announcements
 
 ALTER TABLE ONLY public.app_settings
     ADD CONSTRAINT app_settings_pkey PRIMARY KEY (id);
-
-
---
--- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.ar_internal_metadata
-    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
-
 
 --
 -- Name: auth_credentials auth_credentials_pkey; Type: CONSTRAINT; Schema: public; Owner: -
