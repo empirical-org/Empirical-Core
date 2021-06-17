@@ -18,7 +18,7 @@ export const updateModel = async (modelId: number, notes: string) => {
   });
 
   const updatedModel = await response.json();
-  return { error: handleApiError('Failed to update model, please try again.', response) };
+  return { error: handleApiError('Failed to update model, please try again.', response), model: updatedModel };
 }
 
 export const fetchModel = async (key: string, modelId: string) => {

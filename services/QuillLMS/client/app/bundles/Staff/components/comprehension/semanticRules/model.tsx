@@ -1,6 +1,6 @@
 import * as React from "react";
-import { useQuery } from 'react-query';
-import { withRouter, Link } from 'react-router-dom';
+import { useQuery, queryCache } from 'react-query';
+import { withRouter, Link, useHistory } from 'react-router-dom';
 import { EditorState, ContentState } from 'draft-js';
 
 import { fetchModel, updateModel } from '../../../utils/comprehension/modelAPIs';
@@ -12,6 +12,7 @@ const Model = ({ match }) => {
   const { activityId, modelId } = params;
 
   const [errors, setErrors] = React.useState<object>({});
+  let history = useHistory();
 
   // cache ruleSets data for handling rule suborder
   const { data: modelData } = useQuery({
@@ -32,7 +33,10 @@ const Model = ({ match }) => {
         const updatedErrors = {};
         updatedErrors['Model Submission Error'] = error;
         setErrors(updatedErrors);
-      } 
+      } else {
+        queryCache.refetchQueries(`model-${modelId}`);
+        history.push(`/activities/${activityId}/semantic-labels/all`);
+      }
     });
   }
 
