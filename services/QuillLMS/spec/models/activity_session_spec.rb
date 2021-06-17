@@ -819,6 +819,21 @@ end
       expect{ ActivitySession.delete_activity_sessions_with_no_concept_results(classroom_unit.id, activity.id) }.to change(ActivitySession, :count).by(-1)
     end
   end
+
+  describe '#save_timetracking_data_from_active_activity_session' do
+    let!(:activity) { create(:activity)}
+    let(:classroom_unit) { create(:classroom_unit) }
+    let!(:activity_session) { create(:activity_session, activity: activity, classroom_unit: classroom_unit) }
+    let!(:active_activity_session) { create(:active_activity_session, uid: activity_session.uid, data: { 'timeTracking': { 'total': 64691 }})}
+
+    it 'should save the timetracking hash to the data field on the activity session and the total time to the timespent field' do
+      ActivitySession.save_timetracking_data_from_active_activity_session(classroom_unit.id, activity.id)
+      activity_session.reload
+      expect(activity_session.data).to eq({'time_tracking' => { 'total' => 64 }})
+      expect(activity_session.timespent).to eq(64)
+    end
+  end
+
   describe '#has_a_completed_session?' do
     context 'when session exists' do
       let(:activity_session) { create(:activity_session, state: "finished") }
@@ -946,27 +961,18 @@ end
   end
 
   describe "#timespent" do
-    it "should be nil for unfinished sessions" do
-      activity_session = build(:activity_session, state: 'started')
+    it "should be nil for sessions with no timetracking data" do
+      activity_session = build(:activity_session)
       expect(activity_session.timespent).to be_nil
     end
 
-    it "should be nil for finished sessions without data" do
-      activity_session = build(:activity_session, state: 'finished', started_at: nil, completed_at: nil)
-      expect(activity_session.timespent).to be_nil
-    end
-
-    it "should calculate time using started and completed" do
-      time = Time.zone.now
-      interval = 76.seconds
-      activity_session = build(:activity_session, state: 'finished', started_at: time - interval, completed_at: time)
-      expect(activity_session.timespent).to eq(76)
+    it "should calculate time using the values of the keys in the data['time_tracking'] hash" do
+      activity_session = build(:activity_session, data: {"time_tracking"=>{"so"=>9, "but"=>2, "because"=>9, "reading"=>1}})
+      expect(activity_session.timespent).to eq(21)
     end
 
     it "should have calculation overridden by DB value" do
-      time = Time.zone.now
-      interval = 76.seconds
-      activity_session = build(:activity_session, state: 'finished', started_at: time - interval, completed_at: time, timespent: 99)
+      activity_session = build(:activity_session, state: 'finished', data: {"time_tracking"=>{"so"=>9, "but"=>2, "because"=>9, "reading"=>1}}, timespent: 99)
       expect(activity_session.timespent).to eq(99)
     end
   end

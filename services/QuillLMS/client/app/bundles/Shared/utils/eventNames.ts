@@ -1,0 +1,7 @@
+export const KEYDOWN = 'keydown'
+export const MOUSEMOVE = 'mousemove'
+export const MOUSEDOWN = 'mousedown'
+export const CLICK = 'click'
+export const KEYPRESS = 'keypress'
+export const VISIBILITYCHANGE = 'visibilitychange'
+export const SCROLL = 'scroll'
