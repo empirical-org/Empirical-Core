@@ -30,71 +30,61 @@ describe Cms::ActivityCategoriesController, type: :controller do
     let!(:activity) { create(:activity)}
 
     it 'should update an activity category with changed attributes' do
-      put :mass_update,
-        params: {
-          activity_categories: [
-            {
-              id: activity_categories[0].id,
-              name: activity_categories[0].name,
-              order_number: activity_categories[0].order_number,
-              activity_ids: [activity.id]
-            },
-            {
-              id: activity_categories[1].id,
-              name: 'New Name',
-              order_number: activity_categories[1].order_number,
-              activity_ids: []
-            }
-          ]
+      params = [
+        {
+          id: activity_categories[0].id,
+          name: activity_categories[0].name,
+          order_number: activity_categories[0].order_number,
+          activity_ids: [activity.id]
         },
-        as: :json
+        {
+          id: activity_categories[1].id,
+          name: 'New Name',
+          order_number: activity_categories[1].order_number,
+          activity_ids: []
+        }
+      ]
 
+      put :mass_update, activity_categories: params
       expect(ActivityCategory.find(activity_categories[1].id).name).to eq('New Name')
     end
 
     it 'should create activity category activities for an activity category with activity_ids' do
-      put :mass_update,
-        params: {
-          activity_categories: [
-            {
-              id: activity_categories[0].id,
-              name: activity_categories[0].name,
-              order_number: activity_categories[0].order_number,
-              activity_ids: [activity.id]
-            },
-            {
-              id: activity_categories[1].id,
-              name: 'New Name',
-              order_number: activity_categories[1].order_number,
-              activity_ids: []
-            }
-          ]
+      params = [
+        {
+          id: activity_categories[0].id,
+          name: activity_categories[0].name,
+          order_number: activity_categories[0].order_number,
+          activity_ids: [activity.id]
         },
-        as: :json
+        {
+          id: activity_categories[1].id,
+          name: 'New Name',
+          order_number: activity_categories[1].order_number,
+          activity_ids: []
+        }
+      ]
 
+      put :mass_update, activity_categories: params
       expect(ActivityCategoryActivity.find_by(activity_category_id: activity_categories[0].id, activity_id: activity.id)).to be
     end
 
     it 'should destroy an activity category that is no longer on the list' do
-      put :mass_update,
-        params: {
-          activity_categories: [
-            {
-              id: activity_categories[0].id,
-              name: activity_categories[0].name,
-              order_number: activity_categories[0].order_number,
-              activity_ids: [activity.id]
-            },
-            {
-              id: activity_categories[1].id,
-              name: 'New Name',
-              order_number: activity_categories[1].order_number,
-              activity_ids: []
-            }
-          ]
+      params = [
+        {
+          id: activity_categories[0].id,
+          name: activity_categories[0].name,
+          order_number: activity_categories[0].order_number,
+          activity_ids: [activity.id]
         },
-        as: :json
-
+        {
+          id: activity_categories[1].id,
+          name: 'New Name',
+          order_number: activity_categories[1].order_number,
+          activity_ids: []
+        }
+      ]
+      put :mass_update, activity_categories: params
       expect(ActivityCategory.find_by(id: activity_categories[2].id)).not_to be
     end
   end

@@ -119,8 +119,10 @@ class ActivitySession < ActiveRecord::Base
   def timespent
     if read_attribute(:timespent).present?
       read_attribute(:timespent)
+    elsif data.nil?
+      nil
     else
-      calculate_timespent
+      self.class.calculate_timespent(data['time_tracking'])
     end
   end
 
@@ -128,10 +130,8 @@ class ActivitySession < ActiveRecord::Base
     state == FINISHED_STATE
   end
 
-  def calculate_timespent
-    return nil if !finished? || started_at.nil? || completed_at.nil?
-
-    completed_at - started_at
+  def self.calculate_timespent(time_tracking)
+    time_tracking&.values&.sum
   end
 
   def eligible_for_tracking?
@@ -374,6 +374,22 @@ class ActivitySession < ActiveRecord::Base
       end
     end
     ActivitySession.where(id: incomplete_activity_session_ids).destroy_all
+  end
+
+  # this function is only for use by Lesson activities, which are not individually saved when the activity ends
+  # other activity types make a call directly to the api/v1/activity_sessions controller with timetracking data included
+  def self.save_timetracking_data_from_active_activity_session(classroom_unit_id, activity_id)
+    activity = Activity.find_by_id_or_uid(activity_id)
+    activity_sessions = ActivitySession.where(
+      classroom_unit_id: classroom_unit_id,
+      activity: activity
+    )
+    activity_sessions.each do |as|
+      time_tracking = ActiveActivitySession.find_by_uid(as.uid)&.data&.fetch("timeTracking")
+      as.data['time_tracking'] = time_tracking&.map{ |k, milliseconds| [k, (milliseconds / 1000).round] }.to_h # timetracking is stored in milliseconds for active activity sessions, but seconds on the activity session
+      as.timespent = as.timespent
+      as.save
+    end
   end
 
   def self.mark_all_activity_sessions_complete(classroom_unit_id, activity_id, data={})

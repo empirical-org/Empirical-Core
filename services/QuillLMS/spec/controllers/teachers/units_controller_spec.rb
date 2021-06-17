@@ -27,18 +27,15 @@ describe Teachers::UnitsController, type: :controller do
   describe '#create' do
     it 'kicks off a background job' do
       create(:auth_credential, user: teacher)
-
       expect {
-        post :create,
-          params: {
-            classroom_id: classroom.id,
-            unit: {
-              name: 'A Cool Learning Experience',
-              classrooms: [],
-              activities: []
-            }
-          },
-          as: :json
+        post(:create,
+          classroom_id: classroom.id,
+          unit: {
+            name: 'A Cool Learning Experience',
+            classrooms: [],
+            activities: []
+          }
+        )
       }.to change(AssignActivityWorker.jobs, :size).by(1)
       expect(response.status).to eq(200)
     end

@@ -25,8 +25,8 @@ describe('Session actions', () => {
       const sessionApiUpdate= Promise.resolve({"passage": MOCK_PASSAGE})
       const apiSpy = jest.spyOn(SessionApi, 'update').mockImplementation(() => sessionApiUpdate);
       const actionsSpy = jest.spyOn(sessionActions, "setSessionReducerToSavedSession").mockImplementation(() => Promise.resolve());
-      dispatch(sessionActions.updateSessionOnFirebase(MOCK_SESSION_ID, null, null))
-      expect(apiSpy).toHaveBeenCalledWith(MOCK_SESSION_ID, {"passage":null})
+      dispatch(sessionActions.updateSessionOnFirebase(MOCK_SESSION_ID, { passage: null, timeTracking: {} }, null))
+      expect(apiSpy).toHaveBeenCalledWith(MOCK_SESSION_ID, { passage: null, timeTracking: {} })
       await sessionApiUpdate
       expect(actionsSpy).toHaveBeenCalledWith(MOCK_SESSION_ID)
     })

@@ -39,13 +39,7 @@ describe Teachers::ClassroomsController, type: :controller do
       student2_with_account_type[:account_type] = 'Teacher Created Account'
       expect(Creators::StudentCreator).to receive(:create_student).with(student1_with_account_type, classroom.id)
       expect(Creators::StudentCreator).to receive(:create_student).with(student2_with_account_type, classroom.id)
-      post :create_students,
-        params: {
-          classroom_id: classroom.id,
-          students: [student1, student2],
-          classroom: {}
-        },
-        as: :json
+      post :create_students, classroom_id: classroom.id, students: [student1, student2], classroom: {}
     end
 
     it 'student creator catches duplicate usernames' do
@@ -55,15 +49,7 @@ describe Teachers::ClassroomsController, type: :controller do
       student1_with_account_type[:account_type] = 'Teacher Created Account'
       student2_with_account_type = student2.dup
       student2_with_account_type[:account_type] = 'Teacher Created Account'
-
-      post :create_students,
-        params: {
-          classroom_id: classroom.id,
-          students: [student1, student2],
-          classroom: {}
-        },
-        as: :json
-
+      post :create_students, classroom_id: classroom.id, students: [student1, student2], classroom: {}
       expect(User.find_by_username_or_email("good.kid@#{classroom.code}")).to be
       expect(User.find_by_username_or_email("good.kid1@#{classroom.code}")).to be
     end

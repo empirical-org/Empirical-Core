@@ -83,7 +83,9 @@ export {
   getQuestionsWithAttempts,
   getFilteredQuestions,
   getDisplayedText,
-  renderPreviewFeedback
+  renderPreviewFeedback,
+  roundValuesToSeconds,
+  roundMillisecondsToSeconds
 } from './libs/index'
 
 export {
@@ -105,3 +107,13 @@ export {
   previewIcon,
   smallWhiteCheckIcon,
 } from './images/index'
+
+export {
+  KEYDOWN,
+  MOUSEMOVE,
+  MOUSEDOWN,
+  CLICK,
+  KEYPRESS,
+  VISIBILITYCHANGE,
+  SCROLL,
+} from './utils/eventNames'
