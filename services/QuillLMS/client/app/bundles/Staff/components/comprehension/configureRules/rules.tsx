@@ -4,7 +4,7 @@ import { queryCache, useQuery } from 'react-query';
 
 import RuleForm from './ruleForm';
 
-import { getPromptsIcons, getCheckIcon } from '../../../helpers/comprehension';
+import { getPromptsIcons, getCheckIcon, renderHeader } from '../../../helpers/comprehension';
 import { ActivityRouteProps, RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRule } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
@@ -112,9 +112,7 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
   return(
     <div className="rules-container">
       {showAddRuleModal && renderRuleForm()}
-      <div className="header-container">
-        <h2>Rules</h2>
-      </div>
+      {renderHeader(activityData, 'View All Rules')}
       <button className="quill-button fun primary contained" id="add-rule-button" onClick={toggleAddRuleModal} type="submit">
           Add Rule
       </button>
