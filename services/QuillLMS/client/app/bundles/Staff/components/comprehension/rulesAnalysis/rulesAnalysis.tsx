@@ -345,6 +345,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
         columns={dataTableFields}
         data={formattedRows ? formattedRows : []}
         defaultPageSize={formattedRows.length}
+        freezeWhenExpanded={true}
         onSortedChange={setSorted}
         pivotBy={["apiName"]}
         showPagination={false}
