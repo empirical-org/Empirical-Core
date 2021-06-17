@@ -9,9 +9,9 @@ describe InvitationsController, type: :controller do
 
   before(:each) do
     # It is necessary to load Invitation here explicitly.
-    # Otherwise, RSpec will stub Invitation as a Module (rather than an ActiveRecord::Base descendent) 
+    # Otherwise, RSpec will stub Invitation as a Module (rather than an ActiveRecord::Base descendent)
     # when stub_const is called within a spec.
-    # Reference: 
+    # Reference:
     # https://stackoverflow.com/questions/32563359/stubing-a-model-constant-for-assosiation-undefined-method-relation-delegate-cl
     # rubocop:disable all
     CoteacherClassroomInvitation
@@ -36,7 +36,13 @@ describe InvitationsController, type: :controller do
     end
 
     it 'should give error for empty classroom ids' do
-      post :create_coteacher_invitation, classroom_ids: [], invitee_email: "test@test.com"
+      post :create_coteacher_invitation,
+        params: {
+          classroom_ids: [],
+          invitee_email: "test@test.com"
+        },
+        as: :json
+
       expect(response.body).to eq({error: "Please make sure you've entered a valid email and selected at least one classroom."}.to_json)
     end
 

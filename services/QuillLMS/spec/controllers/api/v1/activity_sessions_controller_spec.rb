@@ -189,7 +189,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     let(:params) { activity_session.attributes.except('id', 'classroom_unit_id') }
 
     it 'creates the activity session' do
-      put :create, params: params, as: :json
+      post :create, params: params, as: :json
 
       expect(JSON.parse(response.body)["meta"]).to eq({
         "status" => "success",
