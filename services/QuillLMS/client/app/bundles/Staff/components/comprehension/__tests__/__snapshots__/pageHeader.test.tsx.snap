@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageHeader component should render PageHeader 1`] = `
+<section
+  className="comprehension-page-header-container"
+>
+  <h2 />
+  <h3 />
+  <h4 />
+</section>
+`;

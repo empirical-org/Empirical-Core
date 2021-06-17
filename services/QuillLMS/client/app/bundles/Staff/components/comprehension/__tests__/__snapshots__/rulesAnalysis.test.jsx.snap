@@ -4,9 +4,6 @@ exports[`RulesAnalysis component should render RulesAnalysis 1`] = `
 <div
   className="rules-analysis-container show-colored-rows"
 >
-  <h1>
-    Rules Analysis
-  </h1>
   <div
     className="dropdowns"
   >

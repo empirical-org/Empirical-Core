@@ -4,6 +4,10 @@ exports[`PlagiarismRulesIndex component should render PlagiarismRulesIndex 1`] =
 <div
   className="rules-container"
 >
+  <Component
+    header="Plagiarism Rules"
+    title="Could Capybaras Create Chaos?"
+  />
   <section
     className="plagiarism-section"
     id="first-plagiarism-section"

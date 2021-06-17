@@ -4,13 +4,10 @@ exports[`SessionsIndex component should render SessionsIndex 1`] = `
 <div
   className="sessions-index-container"
 >
-  <section
-    className="sessions-header"
-  >
-    <h1>
-      merp
-    </h1>
-  </section>
+  <Component
+    header="View Sessions"
+    title="merp"
+  />
   <section>
     <p
       className="link-info-blurb"
