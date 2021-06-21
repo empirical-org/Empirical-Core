@@ -4,7 +4,14 @@ import userIsPremium from '../modules/user_is_premium'
 import _ from 'underscore'
 import _l from 'lodash'
 
-export default class extends React.Component {
+function formatData(data) {
+  return data.map(row => {
+    delete row['Concept Id']
+    return row
+  })
+}
+
+export default class CSVDownloadForProgressReports extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -114,15 +121,15 @@ export default class extends React.Component {
             <div className='button-wrapper'>
 
               <button className="print-button" onClick={window.print}>
-                <img 
-                  alt="print" 
-                  className="print-img" 
-                  src="https://assets.quill.org/images/icons/download-report-premium.svg" 
+                <img
+                  alt="print"
+                  className="print-img"
+                  src="https://assets.quill.org/images/icons/download-report-premium.svg"
                 />PDF
               </button>
 
-              <CSVLink 
-                data={this.state.data} 
+              <CSVLink
+                data={formatData(this.state.data)}
                 filename={this.formatFilename(this.props.studentName)}
                 target="_blank"
               >
