@@ -7,7 +7,7 @@ import SessionOverview from './sessionOverview';
 
 import { Error, Spinner } from '../../../../Shared/index';
 import { fetchActivity, fetchActivitySession } from '../../../utils/comprehension/activityAPIs';
-import { getPromptForActivitySession } from "../../../helpers/comprehension";
+import { getPromptForActivitySession, renderHeader } from "../../../helpers/comprehension";
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 
 const SessionView = ({ match }) => {
@@ -49,10 +49,8 @@ const SessionView = ({ match }) => {
 
   return(
     <div className="session-view-container">
-      <section className="sessions-header">
-        <h1>{title}</h1>
-        <Link className="return-link" to={`/activities/${activityId}/activity-sessions`}>← Return to Sessions Index</Link>
-      </section>
+      {renderHeader(activityData, 'View Sessions - Individual Session')}
+      <Link className="return-link" to={`/activities/${activityId}/activity-sessions`}>← Return to Sessions Index</Link>
       <div className="tabs-container">
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/activity-sessions/${session_uid}/overview`}>
           <div className="tab-option">

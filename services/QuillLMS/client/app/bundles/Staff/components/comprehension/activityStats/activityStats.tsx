@@ -1,16 +1,14 @@
 import * as React from "react";
 import { RouteComponentProps } from 'react-router-dom'
 import { useQuery } from 'react-query';
-import { firstBy } from "thenby";
 import ReactTable from 'react-table';
-import qs from 'qs';
 import * as _ from 'lodash'
 
-import { ActivityRouteProps, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityRouteProps, PromptHealthInterface } from '../../../interfaces/comprehensionInterfaces';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchPromptHealth } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
-import { DropdownInput, Spinner, } from '../../../../Shared/index';
-
+import { Spinner, } from '../../../../Shared/index';
+import { renderHeader } from '../../../helpers/comprehension';
 
 const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
   const { params } = match;
@@ -29,7 +27,7 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   });
 
 
-  const formattedRows = promptHealth && promptHealth.prompts && Object.values(promptHealth.prompts).map(prompt => {
+  const formattedRows = promptHealth && promptHealth.prompts && Object.values(promptHealth.prompts).map((prompt: PromptHealthInterface) => {
     const {
       session_count,
       total_responses,
@@ -119,11 +117,9 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     return <Spinner />
   }
 
-  debugger;
-
   return(
     <div className="activity-stats-container">
-      <h1>Activity Stats</h1>
+      {renderHeader(activityData, 'Activity Stats')}
       {formattedRows && (<ReactTable
         className="activity-stats-table"
         columns={dataTableFields}

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TeacherPreviewMenu component should match snapshot 1`] = `
+<div
+  className=""
+>
+  <button
+    className="quill-button medium secondary outlined focus-on-dark"
+    id="teacher-preview-menu-button"
+    onClick={[MockFunction]}
+    type="button"
+  >
+    Show menu
+  </button>
+</div>
+`;

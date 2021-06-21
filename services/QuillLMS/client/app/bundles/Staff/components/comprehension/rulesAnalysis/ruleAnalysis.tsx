@@ -12,7 +12,7 @@ import { fetchRuleFeedbackHistoriesByRule } from '../../../utils/comprehension/r
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { createOrUpdateFeedbackHistoryRating, massCreateOrUpdateFeedbackHistoryRating, } from '../../../utils/comprehension/feedbackHistoryRatingAPIs';
 import { DataTable, Error, Spinner, Input, Tooltip, smallWhiteCheckIcon, } from '../../../../Shared/index';
-import { handlePageFilterClick } from "../../../helpers/comprehension";
+import { handlePageFilterClick, renderHeader } from "../../../helpers/comprehension";
 import { ALL, SCORED, UNSCORED, STRONG, WEAK, RULE_ANALYSIS, RULES_ANALYSIS } from '../../../../../constants/comprehension';
 
 const extractHighlight = (highlightObject) => {
@@ -307,9 +307,7 @@ const RuleAnalysis = ({ match }) => {
 
   return(
     <div className="rule-analysis-container">
-      <div className="header-container">
-        <h2>Rule: {ruleData.rule.name}</h2>
-      </div>
+      {renderHeader(activityData, `Rule: ${ruleData.rule.name}`)}
       <DataTable
         className="rule-table"
         headers={ruleHeaders}

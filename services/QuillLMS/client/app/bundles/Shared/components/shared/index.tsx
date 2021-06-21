@@ -68,6 +68,10 @@ export {
 } from './teacherPreviewMenu'
 
 export {
+  TeacherPreviewMenuButton
+} from './teacherPreviewMenuButton'
+
+export {
   TextEditor
 } from './textEditor'
 

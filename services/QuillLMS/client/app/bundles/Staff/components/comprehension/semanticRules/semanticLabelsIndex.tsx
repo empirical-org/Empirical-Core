@@ -14,9 +14,10 @@ import { getPromptForComponent } from '../../../helpers/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { createRule, updateRule } from '../../../utils/comprehension/ruleAPIs';
 import { Error, Spinner } from '../../../../Shared/index';
+import { renderHeader } from '../../../helpers/comprehension';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 
-const SemanticLabelsIndex = ({ history, match }) => {
+const SemanticLabelsIndex = ({ location, history, match }) => {
   const { params } = match;
   const { activityId } = params;
 
@@ -27,14 +28,6 @@ const SemanticLabelsIndex = ({ history, match }) => {
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity
   });
-
-  function renderTitle({ activity }) {
-    if(!activity) {
-      return;
-    }
-    const { name } = activity;
-    return <h2>{name}</h2>
-  }
 
   function handleCreateRule({rule}: {rule: RuleInterface}) {
     createRule(rule).then((response) => {
@@ -84,11 +77,11 @@ const SemanticLabelsIndex = ({ history, match }) => {
     );
   }
 
+  const showHeader = !(location.pathname.includes('new') || location.pathname.includes('add') || location.pathname.includes('cheat-sheet'));
+
   return(
     <div className="semantic-labels-container">
-      <div className="header-container">
-        {activityData && renderTitle(activityData)}
-      </div>
+      {showHeader && renderHeader(activityData, 'Semantic Labels')}
       <Switch>
         <Redirect exact from='/activities/:activityId/semantic-labels' to='/activities/:activityId/semantic-labels/all' />
         {/* eslint-disable react/jsx-no-bind */}

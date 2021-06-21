@@ -10,8 +10,9 @@ import RulePrompts from '../configureRules/rulePrompts';
 import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
 import { Spinner, Modal } from '../../../../Shared/index';
 import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
+import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
-import { renderErrorsContainer } from '../../../helpers/comprehension';
+import { renderErrorsContainer, renderHeader } from '../../../helpers/comprehension';
 import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback } from '../../../helpers/comprehension/ruleHelpers';
 import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM } from '../../../../../constants/comprehension';
 import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
@@ -62,6 +63,11 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
   const [ruleType, setRuleType] = React.useState<DropdownObjectInterface>(initialRuleType);
   const [showDeleteRuleModal, setShowDeleteRuleModal] = React.useState<boolean>(false);
   const [universalRulesCount, setUniversalRulesCount] = React.useState<number>(null);
+
+  const { data: activityData } = useQuery({
+    queryKey: [`activity-${activityId}`, activityId],
+    queryFn: fetchActivity
+  });
 
   // cache ruleSets data for handling rule suborder
   const { data: rulesData } = useQuery({
@@ -166,11 +172,14 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
 
   const formErrorsPresent = !!Object.keys(errors).length;
   const requestErrorsPresent = !!(requestErrors && requestErrors.length);
-  const showErrorsContainer = formErrorsPresent || requestErrorsPresent
+  const showErrorsContainer = formErrorsPresent || requestErrorsPresent;
+  const conjunction = location && location.state && location.state.conjunction || '';
+  const header = `Semantic Labels - Add Label (${conjunction})`
 
   return(
     <div className="rule-form-container">
       {showDeleteRuleModal && renderDeleteRuleModal()}
+      {renderHeader(activityData, header)}
       <section className="semantic-rule-form-header">
         <Link className="return-link" to={`/activities/${activityId}/semantic-labels`}>← Return to Semantic Rules Index</Link>
         <button className="quill-button fun primary contained" id="rule-delete-button" onClick={toggleShowDeleteRuleModal} type="button">

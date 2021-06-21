@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { firstBy } from 'thenby';
 import DateTimePicker from 'react-datetime-picker';
 
-import { handlePageFilterClick } from "../../../helpers/comprehension";
+import { handlePageFilterClick, renderHeader } from "../../../helpers/comprehension";
 import { Error, Spinner, DropdownInput } from '../../../../Shared/index';
 import { fetchActivity, fetchActivitySessions } from '../../../utils/comprehension/activityAPIs';
 import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface } from '../../../interfaces/comprehensionInterfaces';
@@ -193,9 +193,7 @@ const SessionsIndex = ({ match }) => {
 
   return(
     <div className="sessions-index-container">
-      <section className="sessions-header">
-        <h1>{title}</h1>
-      </section>
+      {renderHeader(activityData, 'View Sessions')}
       <section>
         <p className="link-info-blurb">Use <a href={metabaseLink}><strong>this Metabase</strong></a> query to display feedback sessions on a single page.</p>
         <p className="link-info-blurb">If you want to look up an individual activity session, plug the activity session ID into this url and it will load: https://www.quill.org/cms/comprehension#/activities/<strong>activityID</strong>/<strong>sessionID</strong></p>

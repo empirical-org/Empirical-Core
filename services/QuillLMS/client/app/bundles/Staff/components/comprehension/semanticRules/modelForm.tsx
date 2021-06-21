@@ -1,17 +1,25 @@
 import * as React from "react";
+import { useQuery, queryCache } from 'react-query';
 import { withRouter, Link } from 'react-router-dom';
 
 import { InputEvent } from '../../../interfaces/comprehensionInterfaces';
 import { Input, Spinner } from '../../../../Shared/index';
 import { createModel } from '../../../utils/comprehension/modelAPIs';
+import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
+import { renderHeader } from '../../../helpers/comprehension';
 
-const ModelForm = ({ history, match }) => {
+const ModelForm = ({ location, history, match }) => {
   const { params } = match;
   const { activityId, promptId } = params;
 
   const [errors, setErrors] = React.useState<object>({});
   const [modelId, setModelId] = React.useState<string>('');
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+  const { data: activityData } = useQuery({
+    queryKey: [`activity-${activityId}`, activityId],
+    queryFn: fetchActivity
+  });
 
   function handleSetModelId(e: InputEvent) {
     setModelId(e.target.value);
@@ -46,8 +54,12 @@ const ModelForm = ({ history, match }) => {
     );
   }
 
+  const conjunction = location && location.state && location.state.conjunction || '';
+  const header = `Semantic Labels - Add Model (${conjunction})`
+
   return(
     <div className="model-form-container">
+      {renderHeader(activityData, header)}
       <Link className="return-link" to={{ pathname: `/activities/${activityId}/semantic-labels`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
       <Input
         className="model-id"
