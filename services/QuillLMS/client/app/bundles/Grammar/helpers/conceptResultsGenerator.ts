@@ -45,12 +45,25 @@ function getConceptResultsForAttempt(attempt: ResponseAttempt, question: Questio
 
   let directions = question.instructions
 
+  let lastFeedback
+  if (index > 0) {
+    lastFeedback = question.attempts[index - 1].feedback;
+  }
+
   const attemptNumber = index + 1
   return conceptResults.map((conceptResult: ConceptResult) => {
     return {
       concept_uid: conceptResult.conceptUID,
       question_type: 'sentence-writing',
-      metadata: {
+      metadata: lastFeedback ? {
+        correct: conceptResult.correct ? 1 : 0,
+        directions,
+        lastFeedback,
+        prompt,
+        answer,
+        attemptNumber,
+        question_uid:  question.uid
+      } : {
         correct: conceptResult.correct ? 1 : 0,
         directions,
         prompt,

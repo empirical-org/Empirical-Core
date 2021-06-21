@@ -39,7 +39,7 @@ export default createReactClass({
 				let index = 0;
 				// iterate until we find a next attempt with directions
 				while (!feedback && nextAttempt[index]) {
-					feedback = nextAttempt[index].directions
+					feedback = nextAttempt[index].lastFeedback || nextAttempt[index].directions
 					index += 1;
 				}
 				// sometimes feedback is coming through as a react variable, I've been unable to find the source of it
