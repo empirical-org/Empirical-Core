@@ -5,11 +5,15 @@ exports[`SessionsIndex component should render SessionsIndex 1`] = `
   className="sessions-index-container"
 >
   <section
-    className="sessions-header"
+    className="comprehension-page-header-container"
   >
-    <h1>
+    <h2>
+      View Sessions
+    </h2>
+    <h3>
       merp
-    </h1>
+    </h3>
+    <h4 />
   </section>
   <section>
     <p

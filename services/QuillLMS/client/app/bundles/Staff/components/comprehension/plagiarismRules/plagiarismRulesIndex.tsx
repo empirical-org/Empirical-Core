@@ -3,7 +3,7 @@ import { Link, RouteComponentProps } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import stripHtml from "string-strip-html";
 
-import { promptsByConjunction, titleCase } from "../../../helpers/comprehension";
+import { promptsByConjunction, titleCase, renderHeader } from "../../../helpers/comprehension";
 import { getPromptIdString } from '../../../helpers/comprehension/ruleHelpers';
 import { ActivityRouteProps, RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, PLAGIARISM } from '../../../../../constants/comprehension';
@@ -170,6 +170,7 @@ const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = 
 
   return(
     <div className="rules-container">
+      {renderHeader(activityData, 'Plagiarism Rules')}
       <section className="plagiarism-section" id="first-plagiarism-section">
         <button className={`quill-button fun primary contained add-rule-button ${becauseDisabled}`} type="submit">{becauseRuleLink}</button>
         {becauseDisabled && <p className="one-rule-warning">{oneRuleWarning}</p>}
