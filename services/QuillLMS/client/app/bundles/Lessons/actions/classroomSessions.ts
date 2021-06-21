@@ -62,6 +62,37 @@ export function startLesson(classroomUnitId: ClassroomUnitId, classroomSessionId
   }
 }
 
+export const fetchActiveActivitySession = ({ sessionID, callback, }) => {
+  const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
+
+  const requestObject = {
+    url: activeActivitySessionUrl,
+    json: true,
+  }
+
+  request.get(requestObject, (e, r, body) => {
+    if (callback) callback(body)
+  })
+}
+
+export const saveActiveActivitySession = ({ sessionID, timeTracking, callback, }) => {
+  const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
+
+  const requestObject = {
+    url: activeActivitySessionUrl,
+    body: {
+      active_activity_session: {
+        timeTracking,
+      }
+    },
+    json: true,
+  }
+
+  request.put(requestObject, (e, r, body) => {
+    if (callback) callback()
+  })
+}
+
 export function finishActivity(
   followUp,
   conceptResults,

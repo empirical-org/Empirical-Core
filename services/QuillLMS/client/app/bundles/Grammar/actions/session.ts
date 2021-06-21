@@ -168,24 +168,27 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
 
 const handleProofreaderSession = (proofreaderSession, state) => {
   return dispatch => {
-    // but we don't want to overwrite anything if there's already a proofreader session saved to the state here
-    if (proofreaderSession && proofreaderSession.conceptResults && !state.session.proofreaderSession) {
-      const concepts: { [key: string]: { quantity: 1|2|3 } } = {}
-      const incorrectConcepts = proofreaderSession.conceptResults.filter(cr => cr.metadata.correct === 0)
-      let quantity = 3
-      if (incorrectConcepts.length > 9) {
-        quantity = 1
-      } else if (incorrectConcepts.length > 4) {
-        quantity = 2
-      }
-      proofreaderSession.conceptResults.forEach(cr => {
-        if (cr.metadata.correct === 0) {
-          concepts[cr.concept_uid] = { quantity }
-        }
-      })
-      dispatch(saveProofreaderSessionToReducer(proofreaderSession))
-      dispatch(getQuestionsForConcepts(concepts, 'production'))
+
+    // if there is no proofreader session or concept results for that session, we can't do anything here
+    // if there are already answered questions or the session is already in the state
+    // that all gets processed by the normal `setSessionReducerToSavedSession` function and we don't need to set new ones
+    if (!proofreaderSession || !proofreaderSession.conceptResults || proofreaderSession.answeredQuestions || state.session.proofreaderSession) { return }
+
+    const concepts: { [key: string]: { quantity: 1|2|3 } } = {}
+    const incorrectConcepts = proofreaderSession.conceptResults.filter(cr => cr.metadata.correct === 0)
+    let quantity = 3
+    if (incorrectConcepts.length > 9) {
+      quantity = 1
+    } else if (incorrectConcepts.length > 4) {
+      quantity = 2
     }
+    proofreaderSession.conceptResults.forEach(cr => {
+      if (cr.metadata.correct === 0) {
+        concepts[cr.concept_uid] = { quantity }
+      }
+    })
+    dispatch(saveProofreaderSessionToReducer(proofreaderSession))
+    dispatch(getQuestionsForConcepts(concepts, 'production'))
   }
 }
 
