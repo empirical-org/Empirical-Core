@@ -13,7 +13,8 @@ import {
   SCORED_READING_LEVEL,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
-  PLAGIARISM
+  PLAGIARISM,
+  ALL
 } from '../../../constants/comprehension';
 import { PromptInterface, ActivityInterface } from '../interfaces/comprehensionInterfaces'
 
@@ -184,7 +185,7 @@ export function getPromptConjunction(activityData: any, id: number | string) {
   const formattedId = typeof id === 'string' ? parseInt(id) : id;
   const appliedPrompt = prompts.filter(prompt => prompt.id === formattedId)[0];
   if(!appliedPrompt) {
-    return 'all'
+    return ALL;
   }
   return appliedPrompt.conjunction;
 }
