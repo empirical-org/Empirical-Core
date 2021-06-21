@@ -175,6 +175,20 @@ export function getPromptForComponent(activityData: any, key: string) {
   return promptsHash[key];
 }
 
+export function getPromptConjunction(activityData: any, id: number | string) {
+  if(!activityData || activityData && !activityData.activity) {
+    return null;
+  }
+  const { activity } = activityData;
+  const { prompts } = activity;
+  const formattedId = typeof id === 'string' ? parseInt(id) : id;
+  const appliedPrompt = prompts.filter(prompt => prompt.id === formattedId)[0];
+  if(!appliedPrompt) {
+    return 'all'
+  }
+  return appliedPrompt.conjunction;
+}
+
 export function getActivityPrompt({
   activityBecausePrompt,
   activityButPrompt,
