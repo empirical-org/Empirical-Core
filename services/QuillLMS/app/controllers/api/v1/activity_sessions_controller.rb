@@ -68,6 +68,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
 
     concept_results_to_save = @concept_results.map { |c| concept_results_hash(c) }.reject(&:empty?)
     return if concept_results_to_save.empty?
+    binding.pry
 
     ConceptResult.bulk_insert(values: concept_results_to_save)
   end
@@ -106,20 +107,10 @@ class Api::V1::ActivitySessionsController < Api::ApiController
 
   private def transform_incoming_request
     if params[:concept_results].present?
-      @concept_results = params.permit(concept_results_permitted_params).delete(:concept_results).map(&:to_h)
+      @concept_results = params.delete(:concept_results).map(&:to_unsafe_h)
     else
       params.delete(:concept_results)
     end
-  end
-
-  private def concept_results_permitted_params
-    {
-      concept_results: [
-        :concept_uid,
-        :question_type,
-        metadata: {}
-      ]
-    }
   end
 
   private def strip_access_token_from_request
