@@ -117,24 +117,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       concept_results: [
         :concept_uid,
         :question_type,
-        metadata: [
-          :answer,
-          :attemptNumber,
-          :browser,
-          :correct,
-          :directions,
-          :incorrect,
-          :instructions,
-          :os,
-          :prompt,
-          :question_uid,
-          :questionNumber,
-          :questionScore,
-          :questionUid,
-          :questionUrl,
-          :unchanged,
-          :wpm
-        ]
+        metadata: {}
       ]
     }
   end
