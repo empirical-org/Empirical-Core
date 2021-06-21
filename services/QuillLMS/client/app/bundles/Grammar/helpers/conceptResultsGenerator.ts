@@ -1,5 +1,6 @@
 import { ConceptResult } from 'quill-marking-logic'
 import * as _ from 'lodash'
+
 import { Question, FormattedConceptResult, ResponseAttempt } from '../interfaces/questions'
 import { hashToCollection } from '../../Shared/index'
 
@@ -43,10 +44,6 @@ function getConceptResultsForAttempt(attempt: ResponseAttempt, question: Questio
   }
 
   let directions = question.instructions
-
-  if (index > 0) {
-    directions = question.attempts[index - 1].feedback;
-  }
 
   const attemptNumber = index + 1
   return conceptResults.map((conceptResult: ConceptResult) => {

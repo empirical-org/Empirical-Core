@@ -3,14 +3,11 @@ import { hashToCollection } from '../../../Shared/index'
 
 export function getConceptResultsForAttempt(question, attemptIndex, question_type, defaultInstructions = '') {
   let directions;
-  if (attemptIndex > 0) {
-    directions = question.attempts[attemptIndex - 1].response.feedback;
-  } else {
-    directions = question.instructions || defaultInstructions;
-    if (question.cues && question.cues[0] !== '') {
-      directions += ` ${formattedCues(question.cues)}`;
-    }
+  directions = question.instructions || defaultInstructions;
+  if (question.cues && question.cues[0] !== '') {
+    directions += ` ${formattedCues(question.cues)}`;
   }
+
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '');
   const answer = question.attempts[attemptIndex].response.text;
   const attemptNumber = attemptIndex + 1;
