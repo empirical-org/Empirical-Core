@@ -6,15 +6,16 @@ import { queryCache } from 'react-query';
 import { createOrUpdateFeedbackHistoryRating } from '../../../utils/comprehension/feedbackHistoryRatingAPIs';
 import { DataTable, Spinner, ButtonLoadingSpinner } from '../../../../Shared/index';
 import { PROMPT_ATTEMPTS_FEEDBACK_LABELS, PROMPT_HEADER_LABELS, DEFAULT_MAX_ATTEMPTS, NONE, STRONG, WEAK } from '../../../../../constants/comprehension';
-import { ActivityInterface, PromptInterface } from "../../../interfaces/comprehensionInterfaces";
+import { ActivityInterface, PromptInterface, RuleInterface } from "../../../interfaces/comprehensionInterfaces";
 
 interface PromptTableProps {
   activity: ActivityInterface;
+  rules: RuleInterface[];
   prompt: PromptInterface;
   sessionId: string;
   showHeader?: boolean;
 }
-const PromptTable = ({ activity, prompt, showHeader, sessionId }: PromptTableProps) => {
+const PromptTable = ({ activity, rules, prompt, showHeader, sessionId }: PromptTableProps) => {
 
   const [loadingType, setLoadingType] = React.useState<string>(null);
 
@@ -56,6 +57,13 @@ const PromptTable = ({ activity, prompt, showHeader, sessionId }: PromptTablePro
     });
   }
 
+  function getRuleName(ruleUID: string) {
+    if (!rules) return null;
+
+    const rule = rules.find((rule) => { return rule.uid == ruleUID });
+    return rule ? rule.name: ''
+  }
+
   function getStrongWeakButtons(attempt: any) {
     const { id, most_recent_rating } = attempt;
     return(
@@ -80,6 +88,7 @@ const PromptTable = ({ activity, prompt, showHeader, sessionId }: PromptTablePro
       const filteredAttempt = attempts[key].filter(attempt => attempt.used)[0];
       const attempt = filteredAttempt || attempts[key][0];
       const { entry, feedback_text, feedback_type, optimal, rule_uid } = attempt;
+      const ruleName = getRuleName(rule_uid);
       const { attemptLabel, feedbackLabel } = PROMPT_ATTEMPTS_FEEDBACK_LABELS[key];
       const promptText = matchedPrompt && matchedPrompt.text;
       const promptConjunction = matchedPrompt && matchedPrompt.conjunction;
@@ -93,10 +102,10 @@ const PromptTable = ({ activity, prompt, showHeader, sessionId }: PromptTablePro
           </div>
         )
       };
-      const feedbackLinkLabel = `${feedback_type}:${rule_uid ? rule_uid.substring(0,6) : ''}`
+      const feedbackLinkLabel = `${feedback_type}: ${ruleName}`
       const feedbackLink = (
         <Link
-          className="data-link"
+          className="data-link word-wrap"
           rel="noopener noreferrer"
           target="_blank"
           to={`/activities/${id}/rules-analysis/${promptConjunction}/rule/${rule_uid}/prompt/${prompt_id}`}
@@ -138,8 +147,8 @@ const PromptTable = ({ activity, prompt, showHeader, sessionId }: PromptTablePro
 
   const dataTableFields = [
     { name: "Status", attribute:"status", width: "100px" },
-    { name: "Results", attribute:"results", width: "800px" },
-    { name: "Feedback Type", attribute:"feedback", width: "120px" },
+    { name: "Results", attribute:"results", width: "600px" },
+    { name: "Rule", attribute:"feedback", width: "300px" },
     { name: "", attribute:"buttons", width: "120px" }
   ];
 
