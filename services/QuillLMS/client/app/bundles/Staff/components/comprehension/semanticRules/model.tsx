@@ -34,7 +34,7 @@ const Model = ({ match }) => {
         updatedErrors['Model Submission Error'] = error;
         setErrors(updatedErrors);
       } else {
-        queryCache.refetchQueries(`model-${modelId}`);
+        queryCache.clear();
         history.push(`/activities/${activityId}/semantic-labels/all`);
       }
     });
