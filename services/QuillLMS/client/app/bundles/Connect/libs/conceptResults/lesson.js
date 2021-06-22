@@ -15,10 +15,10 @@ import _ from 'underscore'
 
 const scoresForNAttempts = {
   1: 1,
-  2: 0.75,
-  3: 0.5,
-  4: 0.25,
-  5: 0,
+  2: 0.8,
+  3: 0.6,
+  4: 0.4,
+  5: 0.2,
 };
 
 export function getConceptResultsForQuestion(questionObj) {
