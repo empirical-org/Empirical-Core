@@ -80,8 +80,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   end
 
   private def find_activity_session
-    @activity_session = ActivitySession.unscoped.find_by_uid(params[:id]) || ActivitySession.new(activity_session_params.except(:id, :concept_results))
-    @activity_session.uid = params[:id]
+    @activity_session = ActivitySession.unscoped.find_by_uid!(params[:id])
   end
 
   private def activity_session_params
