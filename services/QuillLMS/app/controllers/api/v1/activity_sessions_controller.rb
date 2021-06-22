@@ -109,8 +109,8 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       @concept_results = params.delete(:concept_results).map do |concept_result|
         concept_result
           .permit(concept_results_permitted_params)
+          .merge(metadata: concept_result[:metadata].permit!)
           .to_h
-          .merge(metadata: concept_result[:metadata].permit!.to_h)
       end
     else
       params.delete(:concept_results)
