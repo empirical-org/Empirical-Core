@@ -21,6 +21,17 @@ RSpec.describe RuleFeedbackHistory, type: :model do
     )
   end
 
+  def feedback_factory(&hash_block)
+    Comprehension::Feedback.create!(
+      {
+        rule: rule_factory { {} },
+        text: 'Feedback string',
+        description: 'Internal description of feedback',
+        order: 1
+      }.merge(yield)
+    )
+  end
+
   describe '#generate_report' do
     it 'should format' do
       # activities
@@ -32,6 +43,9 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
       # rules
       so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
+
+      # feedback
+      so_feedback = feedback_factory { { rule: so_rule1 } }
 
       # feedback_histories
       f_h1 = create(:feedback_history, rule_uid: so_rule1.uid, entry: "f_h1 lorem")
@@ -56,7 +70,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       expected = {
         api_name: so_rule1.rule_type,
         rule_order: so_rule1.suborder,
-        first_feedback: '',
+        first_feedback: so_feedback.text,
         rule_name: so_rule1.name,
         rule_note: so_rule1.note,
         rule_uid: so_rule1.uid,
@@ -67,6 +81,8 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         repeated_non_consecutive_responses: 1,
       }
 
+      RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
+      expect(so_feedback.rule_id).to eq(so_rule1.id)
       expect(report.first).to eq(expected)
 
     end
