@@ -21,6 +21,12 @@ export const RULES_BASED_3 = 'rules-based-3';
 export const SESSION_INDEX = 'sessionIndex';
 export const RULES_ANALYSIS = 'rulesAnalysis';
 export const RULE_ANALYSIS = 'ruleAnalysis';
+export const GRAMMAR = 'grammar';
+export const OPINION = 'opinion';
+export const SPELLING = 'spelling';
+export const AUTO_ML = 'autoML';
+export const ACTIVE = 'active';
+export const INACTIVE = 'inactive';
 
 export const flagOptions = [
   {
@@ -86,6 +92,8 @@ export const readingLevelOptions = [
     value: 12
   },
 ];
+
+export const ruleApiOrder = [RULES_BASED_1, OPINION, PLAGIARISM, AUTO_ML, RULES_BASED_2, GRAMMAR,  SPELLING, RULES_BASED_3];
 
 export const regexRuleTypes = ["rules-based-1", "rules-based-2", "rules-based-3"];
 
@@ -165,9 +173,6 @@ export const PROMPT_HEADER_LABELS = {
   "but": 'But Responses',
   "so": 'So Responses',
 }
-export const AUTO_ML = 'autoML';
-export const ACTIVE = 'active';
-export const INACTIVE = 'inactive';
 
 export const blankActivity = {
   title: '',

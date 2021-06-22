@@ -1,12 +1,13 @@
 import * as React from "react";
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { queryCache, useQuery } from 'react-query';
+import { firstBy } from "thenby";
 
 import RuleForm from './ruleForm';
 
 import { getPromptsIcons, getCheckIcon, renderHeader } from '../../../helpers/comprehension';
 import { ActivityRouteProps, RuleInterface } from '../../../interfaces/comprehensionInterfaces';
-import { BECAUSE, BUT, SO, blankRule } from '../../../../../constants/comprehension';
+import { BECAUSE, BUT, SO, blankRule, ruleApiOrder } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { createRule, fetchRules } from '../../../utils/comprehension/ruleAPIs';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
@@ -16,6 +17,7 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
   const { activityId } = params;
   const [showAddRuleModal, setShowAddRuleModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<string[]>([]);
+  const [sortedRules, setSortedRules] = React.useState<[]>([]);
 
   // cache rules data for updates
   const { data: rulesData } = useQuery({
@@ -23,13 +25,27 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
     queryFn: fetchRules
   });
 
+  function sortByRuleApiOrder(ruleOneRuleType: string, ruleTwoRuleType: string) {
+    return ruleApiOrder.indexOf(ruleOneRuleType) - ruleApiOrder.indexOf(ruleTwoRuleType);
+  }
+
+  if(rulesData && rulesData.rules && !sortedRules.length) {
+    const { rules } = rulesData;
+    const multiSortRules = rules.sort(
+      firstBy("rule_type", { cmp: sortByRuleApiOrder, direction: "asc" })
+      .thenBy('prompt_ids')
+      .thenBy('suborder')
+    );
+    setSortedRules(multiSortRules);
+  }
+
   // get cached activity data to pass to rule
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity
   });
 
-  const formattedRows = rulesData && rulesData.rules && rulesData.rules.map(rule => {
+  const formattedRows = sortedRules.map(rule => {
     const { name, id, rule_type, universal, suborder, prompt_ids } = rule;
     const ruleLink = (<Link to={`/activities/${activityId}/rules/${id}`}>View</Link>);
     const promptsIcons = getPromptsIcons(activityData, prompt_ids);
