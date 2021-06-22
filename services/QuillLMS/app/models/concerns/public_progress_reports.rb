@@ -198,7 +198,6 @@ module PublicProgressReports
           directions: directfirst.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", ""),
           prompt: cr.first[:metadata]["prompt"],
           answer: cr.first[:metadata]["answer"],
-          lastFeedback: cr.first[:metadata]["lastFeedback"],
           score: get_score_for_question(cr),
           concepts: cr.map { |crs|
             direct = crs[:metadata]["directions"] || crs[:metadata]["instructions"] || ""
@@ -206,6 +205,7 @@ module PublicProgressReports
               id: crs.concept_id,
               name: crs.concept.name,
               correct: crs[:metadata]["correct"] == 1,
+              lastFeedback: crs[:metadata]["lastFeedback"],
               attempt: crs[:metadata]["attemptNumber"] || 1,
               answer: crs[:metadata]["answer"],
               directions: direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
