@@ -81,8 +81,6 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         repeated_non_consecutive_responses: 1,
       }
 
-      RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
-      expect(so_feedback.rule_id).to eq(so_rule1.id)
       expect(report.first).to eq(expected)
 
     end
