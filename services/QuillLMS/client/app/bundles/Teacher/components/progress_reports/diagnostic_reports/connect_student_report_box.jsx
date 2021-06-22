@@ -39,6 +39,8 @@ export default createReactClass({
 				let index = 0;
 				// iterate until we find a next attempt with directions
 				while (!feedback && nextAttempt[index]) {
+					// in some legacy data, we were not storing feedback in lastFeedback, but in directions.
+					// so the second clause accounts for legacy data without lastFeedback fields.
 					feedback = nextAttempt[index].lastFeedback || nextAttempt[index].directions
 					index += 1;
 				}
