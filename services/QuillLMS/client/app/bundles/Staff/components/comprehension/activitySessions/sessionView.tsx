@@ -33,7 +33,7 @@ const SessionView = ({ match }) => {
     queryFn: fetchActivitySession
   });
 
-  if(!rulesData) {
+  if(!rulesData || !sessionData) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -41,26 +41,18 @@ const SessionView = ({ match }) => {
     );
   }
 
-  if(rulesData && rulesData.error) {
-    return(
-      <div className="error-container">
-        <Error error={rulesData.error} />
-      </div>
-    );
-  }
-
-  if(!sessionData) {
-    return(
-      <div className="loading-spinner-container">
-        <Spinner />
-      </div>
-    );
-  }
-
-  if(sessionData && sessionData.error) {
+  if(sessionData.error) {
     return(
       <div className="error-container">
         <Error error={sessionData.error} />
+      </div>
+    );
+  }
+
+  if(rulesData.error) {
+    return(
+      <div className="error-container">
+        <Error error={rulesData.error} />
       </div>
     );
   }
