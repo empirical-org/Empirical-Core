@@ -40,7 +40,7 @@ export function embedQuestionNumbers(nestedConceptResultArray) {
     const lastAttempt = _.sortBy(conceptResultArray, (conceptResult) => {
       return conceptResult.metadata.attemptNumber;
     }).reverse()[0]
-    const maxAttemptNo = lastAttempt ? lastAttempt.metadata.attemptNumber : undefined;
+    const maxAttemptNo = lastAttempt && lastAttempt.metadata.correct ? lastAttempt.metadata.attemptNumber : undefined;
     const questionScore = scoresForNAttempts[maxAttemptNo] || 0;
     return conceptResultArray.map((conceptResult) => {
       conceptResult.metadata.questionNumber = index + 1;
@@ -57,9 +57,12 @@ export function getConceptResultsForAllQuestions(questions) {
 }
 
 export function getScoreForSentenceCombining(question) {
+  if (!question.attempts.find(attempt => attempt.response.optimal)) { return 0 }
   return scoresForNAttempts[question.attempts.length] || 0
 }
+
 export function getScoreForSentenceFragment(question) {
+  if (!question.attempts.find(attempt => attempt.response.optimal)) { return 0 }
   return scoresForNAttempts[question.attempts.length] || 0
 }
 
