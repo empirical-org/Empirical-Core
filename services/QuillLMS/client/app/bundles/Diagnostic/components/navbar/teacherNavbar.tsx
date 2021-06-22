@@ -1,6 +1,7 @@
 import * as React from "react";
 import { connect } from 'react-redux';
 
+import { TeacherPreviewMenuButton } from '../../../Shared/index';
 import { LanguageOptions } from '../shared/languageOptions';
 import { closeLanguageMenu } from '../../actions/diagnostics'
 
@@ -11,12 +12,13 @@ const LogoComponent = <a className="focus-on-dark" href={process.env.DEFAULT_URL
 interface HeaderProps {
   dispatch: (action: any) => void;
   diagnosticID: string;
+  isOnMobile: boolean;
   languageMenuOpen: boolean;
   previewShowing?: boolean;
   onTogglePreview?: () => void;
 }
 
-export const TeacherNavbar = ({ dispatch, diagnosticID, languageMenuOpen, previewShowing, onTogglePreview }: HeaderProps) => {
+export const TeacherNavbar = ({ dispatch, diagnosticID, isOnMobile, languageMenuOpen, previewShowing, onTogglePreview }: HeaderProps) => {
 
   function handleTogglePreview() { onTogglePreview() }
   function handleClickClose() { dispatch(closeLanguageMenu()) }
@@ -25,7 +27,7 @@ export const TeacherNavbar = ({ dispatch, diagnosticID, languageMenuOpen, previe
     return (
       <div className="header">
         <div className="activity-navbar-content">
-          {!previewShowing && <button className="quill-button medium secondary outlined focus-on-dark" onClick={handleTogglePreview} type="button">Show menu</button>}
+          {!previewShowing && !isOnMobile && <TeacherPreviewMenuButton handleTogglePreview={handleTogglePreview} />}
           {LogoComponent}
           <a className="focus-on-dark" href={process.env.DEFAULT_URL}>Save and exit</a>
         </div>

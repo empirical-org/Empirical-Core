@@ -5,7 +5,7 @@ import stripHtml from "string-strip-html";
 
 import RuleForm from './ruleForm';
 
-import { getPromptsIcons } from '../../../helpers/comprehension';
+import { getPromptsIcons, renderHeader } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { updateRule, deleteRule, fetchRule } from '../../../utils/comprehension/ruleAPIs';
 import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
@@ -194,10 +194,8 @@ const Rule = ({ history, match }) => {
     <div className="rule-container">
       {showDeleteRuleModal && renderDeleteRuleModal()}
       {showEditRuleModal && renderRuleForm()}
-      <div className="header-container">
-        <h2>Rule</h2>
-        <Link to={`/activities/${activityId}/rules`}>← Return to Rules Index</Link>
-      </div>
+      {renderHeader(activityData, 'View All Rules - View Individual Rule')}
+      <Link className="data-link" to={`/activities/${activityId}/rules`}>← Return to Rules Index</Link>
       <DataTable
         className="rule-table"
         headers={dataTableFields}

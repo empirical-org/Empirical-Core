@@ -127,5 +127,18 @@ export interface DropdownObjectInterface {
   label: string
 }
 
+export interface PromptHealthInterface {
+  session_count: number,
+  total_responses: number,
+  display_name: number,
+  num_final_attempt_optimal: number,
+  num_final_attempt_not_optimal: number,
+  avg_attempts_to_optimal: number,
+  num_sessions_with_consecutive_repeated_rule: number,
+  num_sessions_with_non_consecutive_repeated_rule: number,
+  num_first_attempt_optimal: number,
+  num_first_attempt_not_optimal: number
+}
+
 export type InputEvent = React.ChangeEvent<HTMLInputElement>;
 export type ClickEvent = React.MouseEvent<HTMLElement>;

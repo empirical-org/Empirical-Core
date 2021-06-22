@@ -15,7 +15,7 @@ import {
   IMAGE_ALT_TEXT,
   PLAGIARISM
 } from '../../../constants/comprehension';
-import { PromptInterface } from '../interfaces/comprehensionInterfaces'
+import { PromptInterface, ActivityInterface } from '../interfaces/comprehensionInterfaces'
 
 const quillCheckmark = `/images/green_check.svg`;
 const quillX = '/images/red_x.svg';
@@ -375,4 +375,18 @@ export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors:
       })}
     </div>
   )
+}
+
+export const renderHeader = (activityData: {activity: ActivityInterface}, header: string) => {
+  if(!activityData) { return }
+  if(!activityData.activity) { return }
+  const { activity } = activityData;
+  const { title, notes } = activity;
+  return(
+    <section className="comprehension-page-header-container">
+      <h2>{header}</h2>
+      <h3>{title}</h3>
+      <h4>{notes}</h4>
+    </section>
+  );
 }

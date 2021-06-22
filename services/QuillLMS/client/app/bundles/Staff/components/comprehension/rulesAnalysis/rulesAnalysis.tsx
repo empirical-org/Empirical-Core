@@ -7,7 +7,7 @@ import qs from 'qs';
 import _ from 'lodash';
 import DateTimePicker from 'react-datetime-picker';
 
-import { handlePageFilterClick } from "../../../helpers/comprehension";
+import { handlePageFilterClick, renderHeader } from "../../../helpers/comprehension";
 import { ActivityRouteProps, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchRuleFeedbackHistories } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
@@ -301,7 +301,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
   return(
     <div className={containerClassName}>
-      <h1>Rules Analysis</h1>
+      {renderHeader(activityData, 'Rules Analysis')}
       <div className="dropdowns">
         <DropdownInput
           handleChange={setSelectedPrompt}

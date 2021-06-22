@@ -26,6 +26,8 @@ class QuestionHealthDashboard
 
   def cms_dashboard_stats
     JSON.parse(cms_data.body)
+  rescue JSON::ParserError
+    {}
   end
 
   private def score_to_attempts(score)

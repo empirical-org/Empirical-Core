@@ -62,6 +62,8 @@ interface PlayGrammarContainerProps {
   questions: Question[];
   handleToggleQuestion: (question: Question) => void;
   skippedToQuestionFromIntro: boolean;
+  isOnMobile: boolean;
+  handleTogglePreviewMenu: () => void;
 }
 
 export class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, PlayGrammarContainerState> {
@@ -329,7 +331,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     render(): JSX.Element {
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       const { showTurkCode, saving, } = this.state
-      const { dispatch, grammarActivities, session, concepts, conceptsFeedback, previewMode, questions, handleToggleQuestion } = this.props
+      const { dispatch, grammarActivities, session, concepts, conceptsFeedback, previewMode, questions, handleToggleQuestion, isOnMobile, handleTogglePreviewMenu } = this.props
       if (showTurkCode) {
         return <TurkCodePage />
       }
@@ -346,7 +348,9 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
             currentQuestion={session.currentQuestion}
             dispatch={dispatch}
             goToNextQuestion={this.goToNextQuestion}
+            handleTogglePreviewMenu={handleTogglePreviewMenu}
             handleToggleQuestion={handleToggleQuestion}
+            isOnMobile={isOnMobile}
             previewMode={previewMode}
             questions={questions}
             questionSet={session.questionSet}

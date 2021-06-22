@@ -1,128 +1,42 @@
 class PromptFeedbackHistory
 
     def self.run(activity_id)
-        promptwise_postprocessing promptwise_sessions(activity_id)
+        serialize_results prompt_health_query(activity_id)
     end
 
-    def self.promptwise_sessions(activity_id)
-        sql = <<~SQL 
-          SELECT prompt_id, feedback_session_uid, 
-            count(*) as session_count, 
-            bool_or(optimal) as at_least_one_optimal, 
-            MAX(attempt) as attempt_cardinal,
-            ARRAY_AGG(rule_uid) as rule_uids,
-            -- assumes that multiple ARRAY_AGG functions process data in the same sequence
-            ARRAY_AGG(attempt) as attempts,
-            ARRAY_AGG(optimal) as optimals
-          FROM feedback_histories
-          JOIN comprehension_prompts
-            ON feedback_histories.prompt_id = comprehension_prompts.id
-          WHERE comprehension_prompts.activity_id = ?
-          GROUP BY prompt_id, feedback_session_uid
-        SQL
-        FeedbackHistory.find_by_sql([sql, activity_id])
+    def self.prompt_health_query(activity_id)
+        FeedbackHistory.select(<<~SELECT
+          prompt_id,
+          COUNT(DISTINCT feedback_histories.id) AS total_responses,
+          COUNT(DISTINCT feedback_histories.feedback_session_uid) AS session_count,
+          comprehension_prompts.text AS display_name,
+          COUNT(DISTINCT CASE WHEN optimal = true THEN feedback_histories.feedback_session_uid END) AS num_final_attempt_optimal,
+          COUNT(DISTINCT CASE WHEN attempt = 5 AND optimal = false THEN feedback_histories.feedback_session_uid END) AS num_final_attempt_not_optimal,
+          1.0 * SUM(CASE WHEN optimal = true THEN feedback_histories.attempt END) / COUNT(DISTINCT CASE WHEN optimal = true THEN feedback_histories.feedback_session_uid END) AS avg_attempts_to_optimal,
+          COUNT(DISTINCT CASE WHEN flag = 'repeated-consecutive' THEN feedback_histories.feedback_session_uid END) AS num_sessions_consecutive_repeated,
+          COUNT(DISTINCT CASE WHEN flag = 'repeated-non-consecutive' THEN feedback_histories.feedback_session_uid END) AS num_sessions_non_consecutive_repeated,
+          COUNT(DISTINCT CASE WHEN attempt = 1 AND optimal = true THEN feedback_histories.feedback_session_uid END) AS num_first_attempt_optimal,
+          COUNT(DISTINCT CASE WHEN attempt = 1 AND optimal = false THEN feedback_histories.feedback_session_uid END) AS num_first_attempt_not_optimal
+        SELECT
+        )
+        .joins('JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
+        .joins('LEFT JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
+        .where(used: true)
+        .where('comprehension_prompts.activity_id = ?', activity_id)
+        .group('feedback_histories.prompt_id, comprehension_prompts.text')
     end
 
-    def self.promptwise_postprocessing(grouped_feedback_histories)
-        prompt_hash = {}
-        
-        prompts = Comprehension::Prompt.where(id: grouped_feedback_histories.map(&:prompt_id))
-   
-        grouped_feedback_histories.each do |prompt_session|
-            prompt_id = prompt_session.prompt_id.to_s.to_sym
-
-            prompt_hash[prompt_id] ||= {
-
-                total_responses: 0.0,
-                session_count: 0.0, 
-                optimal_attempt_array: [],
-                display_name: '',
-
-                num_final_attempt_optimal: 0.0,
-                num_final_attempt_not_optimal: 0.0,
-
-                avg_attempts_to_optimal: 0.0,
-
-                num_sessions_with_consecutive_repeated_rule: 0.0,
-                num_sessions_with_non_consecutive_repeated_rule: 0.0,
-
-                num_first_attempt_optimal: 0.0,
-                num_first_attempt_not_optimal: 0.0,
-            }
-
-            prompt_hash[prompt_id][:display_name] = prompts.find(prompt_session.prompt_id).text
-
-            if first_attempt_optimal?(prompt_session.attempts, prompt_session.optimals)
-              prompt_hash[prompt_id][:num_first_attempt_optimal] += 1
-            else 
-              prompt_hash[prompt_id][:num_first_attempt_not_optimal] += 1 
-            end
-
-            if consecutive_repeated_rule?(prompt_session.attempts, prompt_session.rule_uids)
-              prompt_hash[prompt_id][:num_sessions_with_consecutive_repeated_rule] += 1
-            end 
-
-            if non_consecutive_repeated_rule?(prompt_session.attempts, prompt_session.rule_uids)
-              prompt_hash[prompt_id][:num_sessions_with_non_consecutive_repeated_rule] += 1
-            end 
-
-            if prompt_session.at_least_one_optimal
-              prompt_hash[prompt_id][:num_final_attempt_optimal] += 1
-              prompt_hash[prompt_id][:optimal_attempt_array].append prompt_session.attempt_cardinal
-            else 
-              prompt_hash[prompt_id][:num_final_attempt_not_optimal] += 1
-            end
-
-            prompt_hash[prompt_id][:total_responses] += prompt_session.session_count
-            prompt_hash[prompt_id][:session_count] += 1
-        end
-        apply_summations(prompt_hash)
-    end
-
-    def self.apply_summations(prompt_hash)
-      prompt_hash.each do |k,v|
-        session_count = prompt_hash[k][:session_count].to_f
-
-        if v[:num_final_attempt_optimal] == 0
-          prompt_hash[k][:avg_attempts_to_optimal] = 0.0
-        else 
-          prompt_hash[k][:avg_attempts_to_optimal] = v[:optimal_attempt_array].sum / v[:num_final_attempt_optimal].to_f
-        end
-
-        v.delete_if {|key,val| key == :optimal_attempt_array}
+    def self.serialize_results(results)
+      serialized_rows = results.map do |result|
+        payload = result.serializable_hash(
+          only: [:prompt_id, :total_responses, :session_count, :display_name, :num_final_attempt_optimal, :num_final_attempt_not_optimal, :avg_attempts_to_optimal, :num_first_attempt_optimal, :num_first_attempt_not_optimal],
+          include: []
+        )
+        payload['num_sessions_with_consecutive_repeated_rule'] = result.num_sessions_consecutive_repeated
+        payload['num_sessions_with_non_consecutive_repeated_rule'] = result.num_sessions_non_consecutive_repeated
+        payload['avg_attempts_to_optimal'] = payload['avg_attempts_to_optimal']&.round(2) || 0
+        payload
       end
-
-      prompt_hash
-    end
-
-    def self.first_attempt_optimal?(attempts_array, optimals_array)
-      attempts_rule_uids = attempts_array.zip(optimals_array).sort{|a, b| a.first <=> b.first } 
-      attempts_rule_uids.first.last 
-    end
-
-    def self.non_consecutive_repeated_rule?(attempts_array, rule_array)
-      return false unless rule_array.uniq.count != rule_array.count
-      attempts_rule_uids = attempts_array.zip(rule_array).sort{|a, b| a.first <=> b.first }
-      consecutive_repeats_removed = []
-      (0...attempts_rule_uids.length-1).each do |idx|
-        if attempts_rule_uids[idx].last != attempts_rule_uids[idx+1].last 
-          consecutive_repeats_removed.append attempts_rule_uids[idx].last
-        end
-      end 
-      consecutive_repeats_removed.append(attempts_rule_uids.last.last)
-
-      consecutive_repeats_removed.length != consecutive_repeats_removed.uniq.length
-    end
-
-    def self.consecutive_repeated_rule?(attempts_array, rule_array)
-      return false unless rule_array.uniq.count != rule_array.count
-      attempts_rule_uids = attempts_array.zip(rule_array).sort{|a, b| a.first <=> b.first }
-
-      (0...attempts_rule_uids.length-1).each do |idx|
-        if attempts_rule_uids[idx].last == attempts_rule_uids[idx+1].last 
-          return true
-        end 
-      end 
-      return false
+      serialized_rows.map{ |row| [row['prompt_id'], row] }.to_h
     end
 end

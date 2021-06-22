@@ -193,6 +193,7 @@ interface TeacherPreviewMenuProps {
   activity: Activity;
   dispatch: Function;
   fillInBlank: any[];
+  isOnMobile: boolean;
   onHandleSkipToQuestionFromIntro: () => void;
   onTogglePreview?: () => void;
   onToggleQuestion?: (question: Question) => void;
@@ -212,6 +213,7 @@ const TeacherPreviewMenuComponent = ({
   activity,
   dispatch,
   fillInBlank,
+  isOnMobile,
   onHandleSkipToQuestionFromIntro,
   onTogglePreview,
   onToggleQuestion,
@@ -266,6 +268,7 @@ const TeacherPreviewMenuComponent = ({
         <h1>Menu</h1>
         <button className="close-preview-button focus-on-light" onClick={handleToggleMenu} type="button">
           <img alt="close-preview-button" src={`${process.env.CDN_URL}/images/icons/close.svg`} />
+          {isOnMobile && <p className="close-text">Close</p>}
         </button>
       </section>
       <section className="preview-section">

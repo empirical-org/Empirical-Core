@@ -163,7 +163,7 @@ describe('Getting concept results from an answered SC object', () => {
         directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
         prompt: 'A coconut is mature.\nIt is brown.',
         questionNumber: 1,
-        questionScore: 0.5,
+        questionScore: 0.6,
       },
       question_type: 'sentence-combining',
     }, {
@@ -175,7 +175,7 @@ describe('Getting concept results from an answered SC object', () => {
         directions: 'There may be an error. How could you update the punctuation?',
         prompt: 'A coconut is mature.\nIt is brown.',
         questionNumber: 1,
-        questionScore: 0.5,
+        questionScore: 0.6,
       },
       question_type: 'sentence-combining',
     }, {
@@ -187,7 +187,7 @@ describe('Getting concept results from an answered SC object', () => {
         directions: 'Revise your work. Which joining word helps show the order of events? ',
         prompt: 'A coconut is mature.\nIt is brown.',
         questionNumber: 1,
-        questionScore: 0.5,
+        questionScore: 0.6,
       },
       question_type: 'sentence-combining',
     }, {
@@ -199,7 +199,7 @@ describe('Getting concept results from an answered SC object', () => {
         directions: 'Revise your work. Which joining word helps show the order of events? ',
         prompt: 'A coconut is mature.\nIt is brown.',
         questionNumber: 1,
-        questionScore: 0.5,
+        questionScore: 0.6,
       },
       question_type: 'sentence-combining',
     },
@@ -212,7 +212,7 @@ describe('Getting concept results from an answered SC object', () => {
         directions: 'Revise your work. Which joining word helps show the order of events? ',
         prompt: 'A coconut is mature.\nIt is brown.',
         questionNumber: 1,
-        questionScore: 0.5,
+        questionScore: 0.6,
       },
       question_type: 'sentence-combining',
     }], [{
@@ -331,7 +331,7 @@ describe('Getting concept results from an answered SC object', () => {
           directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
           prompt: 'A coconut is mature.\nIt is brown.',
           questionNumber: 1,
-          questionScore: 0.5,
+          questionScore: 0.6,
         },
         question_type: 'sentence-combining',
       }, {
@@ -343,7 +343,7 @@ describe('Getting concept results from an answered SC object', () => {
           directions: 'There may be an error. How could you update the punctuation?',
           prompt: 'A coconut is mature.\nIt is brown.',
           questionNumber: 1,
-          questionScore: 0.5,
+          questionScore: 0.6,
         },
         question_type: 'sentence-combining',
       }, {
@@ -355,7 +355,7 @@ describe('Getting concept results from an answered SC object', () => {
           directions: 'Revise your work. Which joining word helps show the order of events? ',
           prompt: 'A coconut is mature.\nIt is brown.',
           questionNumber: 1,
-          questionScore: 0.5,
+          questionScore: 0.6,
         },
         question_type: 'sentence-combining',
       }, {
@@ -367,7 +367,7 @@ describe('Getting concept results from an answered SC object', () => {
           directions: 'Revise your work. Which joining word helps show the order of events? ',
           prompt: 'A coconut is mature.\nIt is brown.',
           questionNumber: 1,
-          questionScore: 0.5,
+          questionScore: 0.6,
         },
         question_type: 'sentence-combining',
       },
@@ -380,7 +380,7 @@ describe('Getting concept results from an answered SC object', () => {
           directions: 'Revise your work. Which joining word helps show the order of events? ',
           prompt: 'A coconut is mature.\nIt is brown.',
           questionNumber: 1,
-          questionScore: 0.5,
+          questionScore: 0.6,
         },
         question_type: 'sentence-combining',
       }, {
@@ -489,8 +489,8 @@ describe('Getting concept results from an answered SC object', () => {
     expect(generated).toEqual(expected);
   });
 
-  it('can calculate the percentage of first attempts that are correct', () => {
-    const expected = 0.5;
+  it('can calculate the average score', () => {
+    const expected = 0.53;
     const generated = calculateScoreForLesson(data);
     expect(generated).toEqual(expected);
   });

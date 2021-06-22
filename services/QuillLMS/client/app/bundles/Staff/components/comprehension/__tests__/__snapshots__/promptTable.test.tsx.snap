@@ -45,12 +45,12 @@ exports[`PromptTable component should render PromptTable 1`] = `
         Object {
           "attribute": "results",
           "name": "Results",
-          "width": "800px",
+          "width": "600px",
         },
         Object {
           "attribute": "feedback",
-          "name": "Feedback Type",
-          "width": "120px",
+          "name": "Rule",
+          "width": "300px",
         },
         Object {
           "attribute": "buttons",
@@ -94,12 +94,12 @@ exports[`PromptTable component should render PromptTable 1`] = `
           </div>,
           "className": "sub-optimal",
           "feedback": <ForwardRef
-            className="data-link"
+            className="data-link word-wrap"
             rel="noopener noreferrer"
             target="_blank"
             to="/activities/undefined/rules-analysis/undefined/rule/undefined/prompt/undefined"
           >
-            :
+            : null
           </ForwardRef>,
           "id": "undefined:0:feedback",
           "results": undefined,

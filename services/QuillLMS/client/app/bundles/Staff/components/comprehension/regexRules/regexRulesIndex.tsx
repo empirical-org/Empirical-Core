@@ -3,7 +3,7 @@ import { Link, RouteComponentProps } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import { firstBy } from 'thenby';
 
-import { getPromptsIcons } from '../../../helpers/comprehension';
+import { getPromptsIcons, renderHeader } from '../../../helpers/comprehension';
 import { getPromptIdString } from '../../../helpers/comprehension/ruleHelpers';
 import { ActivityRouteProps, RuleInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, RULES_BASED_1, RULES_BASED_2, RULES_BASED_3 } from '../../../../../constants/comprehension';
@@ -148,6 +148,7 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
 
   return(
     <div className="rules-container">
+      {renderHeader(activityData, 'Regex Rules')}
       <section className="rules-based-section">
         <button className="quill-button fun primary contained add-rule-button" type="submit">{addRulesBased1Link}</button>
         {renderTable(rulesBased1Rows, 'Sentence Structure')}

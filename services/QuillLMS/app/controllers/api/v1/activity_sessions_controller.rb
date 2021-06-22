@@ -66,7 +66,9 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   private def handle_concept_results
     return if !@concept_results
 
-    concept_results_to_save = @concept_results.map{ |c| concept_results_hash(c) }.reject(&:empty?)
+    concept_results_to_save = @concept_results.map { |c| concept_results_hash(c) }.reject(&:empty?)
+    return if concept_results_to_save.empty?
+
     ConceptResult.bulk_insert(values: concept_results_to_save)
   end
 
@@ -78,8 +80,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   end
 
   private def find_activity_session
-    @activity_session = ActivitySession.unscoped.find_by_uid(params[:id]) || ActivitySession.new(activity_session_params.except(:id, :concept_results))
-    @activity_session.uid = params[:id]
+    @activity_session = ActivitySession.unscoped.find_by_uid!(params[:id])
   end
 
   private def activity_session_params
@@ -104,10 +105,25 @@ class Api::V1::ActivitySessionsController < Api::ApiController
 
   private def transform_incoming_request
     if params[:concept_results].present?
-      @concept_results = params.delete(:concept_results)
+      @concept_results = params.delete(:concept_results).map do |concept_result|
+        concept_result
+          .permit(concept_results_permitted_params)
+          .merge(metadata: concept_result[:metadata].permit!)
+          .to_h
+      end
     else
       params.delete(:concept_results)
     end
+  end
+
+  private def concept_results_permitted_params
+    [
+      :activity_session_id,
+      :concept_id,
+      :activity_classification_id,
+      :concept_uid,
+      :question_type
+    ]
   end
 
   private def strip_access_token_from_request

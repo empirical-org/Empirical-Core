@@ -60,6 +60,19 @@ RSpec.describe QuestionHealthObj, type: :model do
       expect(health_obj[:difficulty]).to eq(2.67)
       expect(health_obj[:percent_reached_optimal]).to eq(66.67)
     end
+
+    it 'should return without erroring if one of the url values is nil' do
+      health_obj = QuestionHealthObj.new(activity, question, 1, nil).run
+      expect(health_obj[:url]).to eq("https://quill.org//#/admin/questions/#{question.uid}/responses")
+      expect(health_obj[:text]).to eq(question.data['prompt'])
+      expect(health_obj[:flag]).to eq(question.data['flag'])
+      expect(health_obj[:incorrect_sequences]).to eq(question.data["incorrectSequences"].length)
+      expect(health_obj[:focus_points]).to eq(question.data["focusPoints"].length)
+      expect(health_obj[:percent_common_unmatched]).to eq(50)
+      expect(health_obj[:percent_specified_algorithms]).to eq(75)
+      expect(health_obj[:difficulty]).to eq(2.67)
+      expect(health_obj[:percent_reached_optimal]).to eq(66.67)
+    end
   end
 
 end
