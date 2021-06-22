@@ -146,19 +146,19 @@ module Comprehension
         patch :update, id: @automl_model.id, automl_model: { prompt_id: new_prompt_id }
 
         assert_equal 200, response.code.to_i
-        assert_equal JSON.parse(response.body).keys, ["id", "automl_model_id", "name", "labels", "prompt_id", "state", "created_at", "notes", "older_models"]
+        assert_equal JSON.parse(response.body)['id'], @automl_model.id
 
         @automl_model.reload
 
         assert_equal new_prompt_id, @automl_model.prompt_id
       end
 
-      should "not update read-only attributes return 204" do
+      should "not update read-only attributes return 200" do
         old_id = @automl_model.automl_model_id
         patch :update, id: @automl_model.id, automl_model: { automl_model_id: 'anything', name: 'anything', labels: ['anything'] }
 
         assert_equal 200, response.code.to_i
-        assert_equal JSON.parse(response.body).keys, ["id", "automl_model_id", "name", "labels", "prompt_id", "state", "created_at", "notes", "older_models"]
+        assert_equal JSON.parse(response.body)['id'], @automl_model.id
 
         @automl_model.reload
         assert_equal @automl_model.automl_model_id, old_id
