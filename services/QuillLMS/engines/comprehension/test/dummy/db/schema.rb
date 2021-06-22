@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210511160025) do
+ActiveRecord::Schema.define(version: 20210614190110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20210511160025) do
     t.string   "scored_level",       limit: 100
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.string   "name"
+    t.string   "notes"
   end
 
   add_index "comprehension_activities", ["parent_activity_id"], name: "index_comprehension_activities_on_parent_activity_id", using: :btree

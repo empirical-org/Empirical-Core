@@ -24,7 +24,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
   describe '#generate_report' do
     it 'should format' do
       # activities
-      activity1 = Comprehension::Activity.create!(title: 'Title 1', parent_activity_id: 1, target_level: 1, name: 'an_activity_1')
+      activity1 = Comprehension::Activity.create!(title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1')
 
       # prompts
       so_prompt1 = Comprehension::Prompt.create!(activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
@@ -75,7 +75,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
   describe '#exec_query' do
     it 'should aggregate feedbacks for a given rule' do
       # activities
-      activity1 = Comprehension::Activity.create!(title: 'Title 1', parent_activity_id: 1, target_level: 1, name: 'an_activity_1')
+      activity1 = Comprehension::Activity.create!(title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1')
 
       # prompts
       so_prompt1 = Comprehension::Prompt.create!(activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')

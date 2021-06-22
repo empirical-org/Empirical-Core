@@ -8,7 +8,7 @@ export interface ActivityInterface {
   id?: string,
   parent_activity_id?: string,
   title: string,
-  name: string,
+  notes: string,
   // flag: string,
   scored_level: string,
   target_level: number,
@@ -102,9 +102,42 @@ export interface RuleFeedbackInterface {
   text: string
 }
 
+export interface ActivitySessionInterface {
+  activity_id: number,
+  because_attempts: number,
+  but_attempts: number,
+  complete: boolean,
+  flags: string[],
+  scored_count: number,
+  session_uid: string,
+  so_attempts: number,
+  start_date: string,
+  strong_count: number,
+  weak_count: number
+}
+
+export interface ActivitySessionsInterface {
+  current_page: number,
+  total_pages: number,
+  activity_sessions: ActivitySessionInterface[]
+}
+
 export interface DropdownObjectInterface {
   value: string,
   label: string
+}
+
+export interface PromptHealthInterface {
+  session_count: number,
+  total_responses: number,
+  display_name: number,
+  num_final_attempt_optimal: number,
+  num_final_attempt_not_optimal: number,
+  avg_attempts_to_optimal: number,
+  num_sessions_with_consecutive_repeated_rule: number,
+  num_sessions_with_non_consecutive_repeated_rule: number,
+  num_first_attempt_optimal: number,
+  num_first_attempt_not_optimal: number
 }
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>;

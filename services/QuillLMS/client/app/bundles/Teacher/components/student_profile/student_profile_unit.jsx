@@ -144,15 +144,15 @@ export default class StudentProfileUnit extends React.Component {
 
   toolIcon = (id) => {
     switch(id) {
-      case "1":
+      case 1:
         return <img alt="Flag representing Quill Proofreader" src={proofreaderSrc} />
-      case "2":
+      case 2:
         return <img alt="Puzzle piece representing Quill Grammar" src={grammarSrc} />
-      case "4":
+      case 3:
         return <img alt="Magnifying glass representing Quill Diagnostic" src={diagnosticSrc} />
-      case "5":
+      case 5:
         return <img alt="Target representing Quill Connect" src={connectSrc} />
-      case "6":
+      case 6:
         return <img alt="Apple representing Quill Lessons" src={lessonsSrc} />
       default:
         return

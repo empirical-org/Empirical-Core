@@ -55,7 +55,7 @@ const LabelsTable = ({ activityId, prompt }) => {
     { name: "Optimal?", attribute:"optimal", width: "70px" },
     { name: "", attribute:"edit", width: "70px" }
   ];
-  const addRuleLink = <Link className="quill-button fun primary contained" id="add-rule-button" to={`/activities/${activityId}/semantic-labels/${prompt.id}/new`}>Add Label</Link>;
+  const addRuleLink = <Link className="quill-button fun primary contained" id="add-rule-button" to={{ pathname: `/activities/${activityId}/semantic-labels/${prompt.id}/new`, state: { conjunction: prompt.conjunction }}}>Add Label</Link>;
   const semanticRulesCheatSheetLink = <Link className="quill-button fun secondary outlined" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/semantic-labels/${prompt.id}/semantic-rules-cheat-sheet`} >Semantic Rules Cheat Sheet</Link>;
 
   return(

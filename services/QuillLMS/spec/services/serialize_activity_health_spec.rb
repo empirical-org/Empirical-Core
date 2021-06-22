@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'SerializeActivityHealth' do
   let!(:question) { create(:question)}
   let!(:another_question) { create(:question)}
+  let!(:a_bad_question) { create(:question)}
   let!(:connect) { create(:activity_classification, key: ActivityClassification::CONNECT_KEY) }
 
   let!(:activity) do
@@ -12,6 +13,18 @@ describe 'SerializeActivityHealth' do
         questions: [
           {key: question.uid},
           {key: another_question.uid}
+        ]
+      }
+    )
+  end
+
+  let!(:bad_activity) do
+    create(:activity,
+      activity_classification_id: connect.id,
+      data: {
+        questions: [
+          {key: question.uid},
+          {key: a_bad_question.uid}
         ]
       }
     )
@@ -78,6 +91,8 @@ describe 'SerializeActivityHealth' do
       .to_return(status: 200, body: { percent_common_unmatched: 50,  percent_specified_algos: 75}.to_json, headers: {})
     stub_request(:get, "#{ENV['CMS_URL']}/questions/#{another_question.uid}/question_dashboard_data")
       .to_return(status: 200, body: { percent_common_unmatched: 100,  percent_specified_algos: 75}.to_json, headers: {})
+    stub_request(:get, "#{ENV['CMS_URL']}/questions/#{a_bad_question.uid}/question_dashboard_data")
+      .to_return(status: 200, body: { percent_common_unmatched: nil,  percent_specified_algos: nil}.to_json, headers: {})
   end
 
   it 'gets the correct basic data for that activity' do
@@ -147,6 +162,15 @@ describe 'SerializeActivityHealth' do
     expect(data[:avg_difficulty]).to eq(nil)
     expect(data[:avg_common_unmatched]).to eq(nil)
     expect(data[:standard_dev_difficulty]).to eq(nil)
+  end
+
+  it 'calculates the data without nil erroring for a badly formatted activity with no assignments or attributes' do
+
+    data = SerializeActivityHealth.new(bad_activity).data
+
+    expect(data[:avg_difficulty]).to eq(0)
+    expect(data[:avg_common_unmatched]).to eq(25)
+    expect(data[:standard_dev_difficulty]).to eq(0)
   end
 
 end

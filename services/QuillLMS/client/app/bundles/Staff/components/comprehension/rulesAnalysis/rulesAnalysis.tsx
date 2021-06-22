@@ -4,12 +4,15 @@ import { useQuery } from 'react-query';
 import { firstBy } from "thenby";
 import ReactTable from 'react-table';
 import qs from 'qs';
-import _ from 'lodash'
+import _ from 'lodash';
+import DateTimePicker from 'react-datetime-picker';
 
+import { handlePageFilterClick, renderHeader } from "../../../helpers/comprehension";
 import { ActivityRouteProps, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchRuleFeedbackHistories } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
 import { DropdownInput, } from '../../../../Shared/index';
+import { RULES_ANALYSIS } from '../../../../../constants/comprehension';
 
 const DEFAULT_RULE_TYPE = 'All Rules'
 
@@ -55,17 +58,26 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const ruleTypeValues = [DEFAULT_RULE_TYPE].concat(Object.keys(apiOrderLookup))
   const ruleTypeOptions = ruleTypeValues.map(val => ({ label: val, value: val, }))
   const ruleTypeFromUrl = (history.location && qs.parse(history.location.search.replace('?', '')).selected_rule_type) || DEFAULT_RULE_TYPE
+  const initialStartDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}startDate`) || '';
+  const initialEndDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}endDate`) || '';
+  const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
+  const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
 
   const selectedRuleTypeOption = ruleTypeOptions.find(opt => opt.value === ruleTypeFromUrl)
 
+  const [showError, setShowError] = React.useState<boolean>(false);
   const [selectedPrompt, setSelectedPrompt] = React.useState(null)
   const [selectedRuleType, setSelectedRuleType] = React.useState(selectedRuleTypeOption)
   const [sorted, setSorted] = React.useState([])
+  const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
+  const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
+  const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
+  const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
 
   const selectedConjunction = selectedPrompt ? selectedPrompt.conjunction : promptConjunction
   // cache rules data for updates
   const { data: ruleFeedbackHistory } = useQuery({
-    queryKey: [`rule-feedback-history-by-conjunction-${selectedConjunction}-and-activity-${activityId}`, activityId, selectedConjunction],
+    queryKey: [`rule-feedback-history-by-conjunction-${selectedConjunction}-and-activity-${activityId}`, activityId, selectedConjunction, startDateForQuery, endDateForQuery],
     queryFn: fetchRuleFeedbackHistories
   });
 
@@ -99,6 +111,10 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     history.push(url)
   }, [selectedPrompt, selectedRuleType])
 
+  function handleFilterClick() {
+    handlePageFilterClick({ startDate, endDate, setStartDate, setEndDate, setShowError, setPageNumber: null, storageKey: RULES_ANALYSIS });
+  }
+
   function setPromptBasedOnActivity() {
     if (!activityData || !promptConjunction) { return }
 
@@ -131,6 +147,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     }
   }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
 
+  /* eslint-disable react/display-name */
   const dataTableFields = [
     {
       expander: true,
@@ -143,7 +160,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       Header: "API Name",
       accessor: "apiName",
       key: "apiName",
-      width: 150,
+      width: 280,
       sortMethod: (a, b) => apiOrderLookup[b] - apiOrderLookup[a],
       Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.apiName}</button>),
     },
@@ -284,7 +301,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
   return(
     <div className={containerClassName}>
-      <h1>Rules Analysis</h1>
+      {renderHeader(activityData, 'Rules Analysis')}
       <div className="dropdowns">
         <DropdownInput
           handleChange={setSelectedPrompt}
@@ -300,11 +317,35 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
           value={selectedRuleType}
         />
       </div>
+      <div className="date-selection-container rules-analysis">
+        <p className="date-picker-label">Start Date:</p>
+        <DateTimePicker
+          ampm={false}
+          className="start-date-picker"
+          format='y-MM-dd HH:mm'
+          onChange={onStartDateChange}
+          value={startDate}
+        />
+        <p className="date-picker-label">End Date (optional):</p>
+        <DateTimePicker
+          ampm={false}
+          className="end-date-picker"
+          format='y-MM-dd HH:mm'
+          onChange={onEndDateChange}
+          value={endDate}
+        />
+        <button className="quill-button fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
+        {showError && <p className="error-message">Start date is required.</p>}
+      </div>
+      {/* <div className="error-container">
+        {showError && <p className="error-message">Start date is required.</p>}
+      </div> */}
       {selectedPrompt && formattedRows && (<ReactTable
         className="rules-analysis-table"
         columns={dataTableFields}
         data={formattedRows ? formattedRows : []}
         defaultPageSize={formattedRows.length}
+        freezeWhenExpanded={true}
         onSortedChange={setSorted}
         pivotBy={["apiName"]}
         showPagination={false}

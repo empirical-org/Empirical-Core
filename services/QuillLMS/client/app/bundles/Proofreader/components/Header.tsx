@@ -28,8 +28,8 @@ class Header extends React.Component<any, any> {
     const { session, dispatch, } = this.props
     const { firebaseSessionID, } = this.state
     if (firebaseSessionID) {
-      const { passage, } = session
-      dispatch(updateSessionOnFirebase(firebaseSessionID, passage, this.goToLMS))
+      const { passage, timeTracking, } = session
+      dispatch(updateSessionOnFirebase(firebaseSessionID, { passage, timeTracking, }, this.goToLMS))
     } else {
       this.goToLMS()
     }

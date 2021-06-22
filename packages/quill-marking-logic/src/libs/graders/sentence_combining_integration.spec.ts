@@ -184,7 +184,7 @@ describe('The checking a sentence combining question', () => {
     });
 
     it('should be able to find a required words match', () => {
-      const questionString = 'Bats have wings so fly."'
+      const questionString = 'Bats have wings so.'
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.feedback, '<p>Revise your sentence to include the word <em>they</em>. You may have misspelled it.</p>');
     });

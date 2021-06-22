@@ -65,8 +65,8 @@ class ApplicationController < ActionController::Base
       # in a content-less error response at all, but CORS security logic in Rails
       # falsely flags lack of content-type headers in responses to routes that end
       # in ".js" as a class of responses that need CORS protection and 500s when
-      # attempting to serve a 404.  So we set the header to an empty value here.
-      format.js { render nothing: true, status: status, content_type: '' }
+      # attempting to serve a 404.  So, we set the content_type to 'text/html'.
+      format.js { render nothing: true, status: status, content_type: 'text/html' }
       format.all { render nothing: true, status: status }
     end
   end

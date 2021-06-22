@@ -32,6 +32,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
     )
 
     data = params[:edition_id] ? { edition_id: params[:edition_id] } : {}
+
     ActivitySession.mark_all_activity_sessions_complete(
       params[:classroom_unit_id],
       params[:activity_id],
@@ -47,6 +48,11 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
     )
 
     ActivitySession.delete_activity_sessions_with_no_concept_results(
+      params[:classroom_unit_id],
+      params[:activity_id]
+    )
+
+    ActivitySession.save_timetracking_data_from_active_activity_session(
       params[:classroom_unit_id],
       params[:activity_id]
     )

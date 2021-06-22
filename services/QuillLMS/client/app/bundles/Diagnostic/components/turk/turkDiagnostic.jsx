@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom';
-import {clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateCurrentQuestion} from '../../actions/diagnostics.js'
+import {clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion} from '../../actions/diagnostics.js'
 import _ from 'underscore'
 import {
   CarouselAnimation,
@@ -78,7 +78,8 @@ class TurkDiagnostic extends React.Component {
     const { diagnosticID } = params
 
     this.setState({ error: false, });
-    const results = getConceptResultsForAllQuestions(playDiagnostic.answeredQuestions);
+    const relevantAnsweredQuestions = playDiagnostic.answeredQuestions.filter(q => q.questionType !== TITLE_CARD_TYPE)
+    const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
 
     if (sessionID) {
       this.finishActivitySession(sessionID, results, 1);
@@ -150,12 +151,6 @@ class TurkDiagnostic extends React.Component {
   nextQuestion = () => {
     const { dispatch, } = this.props
     const next = nextQuestion();
-    dispatch(next);
-  }
-
-  nextQuestionWithoutSaving = () => {
-    const { dispatch, } = this.props
-    const next = nextQuestionWithoutSaving();
     dispatch(next);
   }
 
@@ -299,7 +294,7 @@ class TurkDiagnostic extends React.Component {
               currentKey={playDiagnostic.currentQuestion.data.key}
               data={playDiagnostic.currentQuestion.data}
               dispatch={dispatch}
-              handleContinueClick={this.nextQuestionWithoutSaving}
+              handleContinueClick={this.nextQuestion}
             />
           );
         }
