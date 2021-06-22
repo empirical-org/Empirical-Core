@@ -3,10 +3,20 @@ import * as moment from 'moment';
 import { Link } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import { firstBy } from 'thenby';
+import stripHtml from "string-strip-html";
 
+import { EditorState, ContentState } from 'draft-js'
 import { titleCase } from '../../../helpers/comprehension';
 import { fetchModels } from '../../../utils/comprehension/modelAPIs';
-import { DataTable, Spinner } from '../../../../Shared/index';
+import { DataTable, Input, Spinner, TextEditor } from '../../../../Shared/index';
+import * as request from 'request';
+import { render } from "react-dom";
+
+const renderUnsafeHtml = (html) => { 
+  return(
+    <div dangerouslySetInnerHTML={{__html: html}} />
+  )
+}
 
 const ModelsTable = ({ activityId, prompt }) => {
   // cache models data for updates
@@ -25,11 +35,13 @@ const ModelsTable = ({ activityId, prompt }) => {
         const activateLink = (
           <Link className="data-link" to={`/activities/${activityId}/semantic-labels/${prompt.id}/model/${id}/activate`}>Activate</Link>
         );
+
         return {
           id: id,
           created_at: moment(created_at).format('MM/DD/YY'),
           version: older_models + 1,
           name,
+          notes: renderUnsafeHtml(model.notes),
           label_count: `${labels.length} labels`,
           status: state,
           view: viewLink,
@@ -54,7 +66,7 @@ const ModelsTable = ({ activityId, prompt }) => {
     { name: "Created At", attribute:"created_at", width: "100px" },
     { name: "Version", attribute:"version", width: "70px" },
     { name: "Model Name", attribute:"name", width: "300px" },
-    // { name: "Model Notes", attribute:"", width: "200px" },
+    { name: "Model Notes", attribute:"notes", width: "150px" },
     { name: "Label Count", attribute:"label_count", width: "70px" },
     { name: "Status", attribute:"status", width: "70px" },
     { name: "", attribute:"view", width: "100px" },

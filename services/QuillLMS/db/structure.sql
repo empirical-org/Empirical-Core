@@ -1196,7 +1196,8 @@ CREATE TABLE public.comprehension_automl_models (
     prompt_id integer,
     state character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    notes text DEFAULT ''::text
 );
 
 
@@ -7635,4 +7636,5 @@ INSERT INTO schema_migrations (version) VALUES ('20210521152206');
 INSERT INTO schema_migrations (version) VALUES ('20210528142650');
 
 INSERT INTO schema_migrations (version) VALUES ('20210614190031');
+INSERT INTO schema_migrations (version) VALUES ('20210525200201');
 

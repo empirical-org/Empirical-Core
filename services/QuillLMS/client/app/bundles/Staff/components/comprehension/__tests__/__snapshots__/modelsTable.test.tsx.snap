@@ -33,6 +33,11 @@ exports[`LabelsTable component should render ModelsTable 1`] = `
           "width": "300px",
         },
         Object {
+          "attribute": "notes",
+          "name": "Model Notes",
+          "width": "150px",
+        },
+        Object {
           "attribute": "label_count",
           "name": "Label Count",
           "width": "70px",
