@@ -497,3 +497,14 @@ export function renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModa
     </Modal>
   );
 }
+
+export function getConceptName(conceptsData, conceptUID) {
+  if(!conceptsData) { return 'loading...' }
+  if(!conceptsData.concepts) { return 'loading...' }
+
+  const { concepts } = conceptsData;
+  const concept = concepts.filter(concept => concept.uid === conceptUID)[0];
+  if(!concept) { return 'N/A' }
+  const splitConcepts = concept.name.split('|');
+  return splitConcepts[splitConcepts.length - 1];
+}

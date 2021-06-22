@@ -2,14 +2,17 @@ import * as React from "react";
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { queryCache, useQuery } from 'react-query';
 import { firstBy } from "thenby";
+import stripHtml from "string-strip-html";
 
 import RuleForm from './ruleForm';
 
-import { getPromptsIcons, getCheckIcon, renderHeader } from '../../../helpers/comprehension';
+import { getConceptName } from '../../../helpers/comprehension/ruleHelpers';
+import { getPromptsIcons, renderHeader } from '../../../helpers/comprehension';
 import { ActivityRouteProps, RuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRule, ruleApiOrder } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { createRule, fetchRules } from '../../../utils/comprehension/ruleAPIs';
+import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
 const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
@@ -19,10 +22,21 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
   const [errors, setErrors] = React.useState<string[]>([]);
   const [sortedRules, setSortedRules] = React.useState<[]>([]);
 
+  // get cached activity data to pass to rule
+  const { data: activityData } = useQuery({
+    queryKey: [`activity-${activityId}`, activityId],
+    queryFn: fetchActivity
+  });
+
   // cache rules data for updates
   const { data: rulesData } = useQuery({
     queryKey: [`rules-${activityId}`, activityId],
     queryFn: fetchRules
+  });
+
+  const { data: conceptsData } = useQuery({
+    queryKey: ['concepts', activityId],
+    queryFn: fetchConcepts
   });
 
   function sortByRuleApiOrder(ruleOneRuleType: string, ruleTwoRuleType: string) {
@@ -39,25 +53,24 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
     setSortedRules(multiSortRules);
   }
 
-  // get cached activity data to pass to rule
-  const { data: activityData } = useQuery({
-    queryKey: [`activity-${activityId}`, activityId],
-    queryFn: fetchActivity
-  });
 
-  const formattedRows = sortedRules.map(rule => {
-    const { name, id, rule_type, universal, suborder, prompt_ids } = rule;
+  const formattedRows = sortedRules.map((rule: RuleInterface, i: number) => {
+    const { name, id, rule_type, prompt_ids, feedbacks, concept_uid } = rule;
     const ruleLink = (<Link to={`/activities/${activityId}/rules/${id}`}>View</Link>);
     const promptsIcons = getPromptsIcons(activityData, prompt_ids);
+    const firstFeedback = feedbacks && feedbacks[0] ? <p className="word-wrap">{stripHtml(feedbacks[0].text)}</p> : 'N/A'
+    const secondFeedback = feedbacks && feedbacks[1] ? <p className="word-wrap">{stripHtml(feedbacks[1].text)}</p> : 'N/A'
     return {
       id: `${activityId}-${id}`,
       type: rule_type,
-      name,
+      name: <p className="word-wrap">{name}</p>,
+      first_feedback: firstFeedback,
+      second_feedback: secondFeedback,
       because_prompt: promptsIcons[BECAUSE],
       but_prompt: promptsIcons[BUT],
       so_prompt: promptsIcons[SO],
-      universal: getCheckIcon(universal),
-      suborder,
+      concept: <p className="word-wrap">{getConceptName(conceptsData, concept_uid)}</p>,
+      order: i + 1,
       view: ruleLink
     }
   });
@@ -115,14 +128,16 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
   }
 
   const dataTableFields = [
+    // { name: "Rule Order", attribute:"order", width: "60px" },
     { name: "Type", attribute:"type", width: "100px" },
-    { name: "Name", attribute:"name", width: "400px" },
-    { name: "Because", attribute:"because_prompt", width: "70px" },
-    { name: "But", attribute:"but_prompt", width: "70px" },
-    { name: "So", attribute:"so_prompt", width: "70px" },
-    { name: "Universal?", attribute:"universal", width: "70px" },
-    { name: "Sub Order", attribute:"suborder", width: "70px" },
-    { name: "", attribute:"view", width: "70px" },
+    { name: "Because", attribute:"because_prompt", width: "30px" },
+    { name: "But", attribute:"but_prompt", width: "30px" },
+    { name: "So", attribute:"so_prompt", width: "30px" },
+    { name: "Name", attribute:"name", width: "200px" },
+    { name: "First Feedback", attribute:"first_feedback", width: "250px" },
+    { name: "Second Feedback", attribute:"second_feedback", width: "250px" },
+    { name: "Level 0 Concept", attribute:"concept", width: "200px" },
+    { name: "", attribute:"view", width: "40px" },
   ];
 
   return(
