@@ -222,10 +222,15 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     }
   }
 
-  handleStepInteraction = () => {
+  handleStepInteraction = (e) => {
+    const { key, ctrlKey, metaKey, } = e
     const { activateStep, stepNumber, } = this.props
 
-    activateStep(stepNumber)
+    if (key === "5" && ctrlKey && metaKey) {
+      this.completeStep()
+    } else {
+      activateStep(stepNumber)
+    }
   }
 
   completeStep = () => {
