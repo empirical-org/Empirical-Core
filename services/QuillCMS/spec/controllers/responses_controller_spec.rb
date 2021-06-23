@@ -89,9 +89,27 @@ RSpec.describe ResponsesController, type: :controller do
   end
 
   describe '#create_or_update' do
+    let(:client) { double(:client, trigger: true) }
+
+    before do
+      allow_any_instance_of(Response).to receive(:create_index_in_elastic_search)
+      ENV['PUSHER_APP_ID'] = 'pusher-app-id'
+      ENV['PUSHER_KEY'] = 'pusher-key'
+      ENV['PUSHER_SECRET'] = 'pusher-secret'
+      allow(Pusher::Client).to receive(:new) { client }
+    end
+
     it 'should create a new response if the response text does not exist' do
       count = Response.count
       response_payload = {question_uid: '12345', text: 'response text', optimal: true}
+
+      expect(Pusher::Client).to receive(:new).with(
+        app_id: ENV['PUSHER_APP_ID'],
+        key: ENV['PUSHER_KEY'],
+        secret: ENV['PUSHER_SECRET'],
+        encrypted: true
+      )
+      expect(client).to receive(:trigger).with("admin-12345", "new-response", message: "time to reload!")
       post :create_or_update, params: {response: response_payload}
 
       expect(Response.count).to eq(count+1)
@@ -107,13 +125,14 @@ RSpec.describe ResponsesController, type: :controller do
     end
 
     it 'should update an old response with new attributes if the response text exists' do
-      new_response = create(:response, question_uid: '123456', text: 'Reading is fundamental.', optimal: false, concept_results: {"12345": false}.to_json)
-      response_payload = {question_uid: new_response.question_uid, text: new_response.text, optimal: true}
+      new_response = create(:response, question_uid: '123456', text: 'Reading is fundamental.', optimal: false, concept_results: {"12345": false})
+      response_payload = {question_uid: new_response.question_uid, text: new_response.text, optimal: true,  concept_results: {"12345": true}}
       post :create_or_update, params: {response: response_payload}
 
       new_response.reload
+
       expect(new_response.optimal).to eq(true)
-      expect(new_response.concept_results).to eq({"12345": true}.to_json)
+      expect(new_response.concept_results).to eq({"12345"=> true})
     end
   end
 
