@@ -1,6 +1,6 @@
 namespace :concept_results do
-  task update_metadata_strings_to_json: :environment do
-    concept_results = ConceptResult.where("id >= 1065661250 AND question_type = 'lessons-slide'")
+  task :update_metadata_strings_to_json, [:id] => [:environment] do |task, args|
+    concept_results = ConceptResult.where("id >= ? AND question_type = 'lessons-slide'", args[:id])
 
     puts "Going to check #{concept_results.count} concept results"
     num_updates = 0
