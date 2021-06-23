@@ -67,8 +67,6 @@ export function submitResponse(content, prid, isFirstAttempt) {
 
 export function uploadOptimalResponse(content, prid, isFirstAttempt) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
-  rubyConvertedResponse.first_attempt_count = isFirstAttempt ? 1 : 0;
-  rubyConvertedResponse.is_first_attempt = isFirstAttempt;
   return (dispatch) => {
     request.post({
       url: `${process.env.QUILL_CMS}/responses/create_or_update`,
@@ -323,7 +321,6 @@ export function submitOptimalResponses(qid, conceptUID, responses, concepts) {
         feedback: "That's a strong sentence!",
         optimal: true,
         questionUID: qid,
-        count: 1,
         conceptResults: _.isEmpty(obj.concepts) ? defaultConcept : obj.concepts,
       }
       dispatch(uploadOptimalResponse(response))
