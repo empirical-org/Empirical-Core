@@ -126,6 +126,20 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     window.removeEventListener(VISIBILITYCHANGE, this.setIdle)
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { activeStep, } = this.state
+    const { session, } = this.props
+    const { submittedResponses, } = session
+
+    if (submittedResponses === prevProps.session.submittedResponses) { return }
+
+    if (!this.outOfAttemptsForActivePrompt()) { return }
+
+    if (!this.everyOtherStepCompleted(activeStep)) { return }
+
+    this.completeStep(activeStep)
+  }
+
   outOfAttemptsForActivePrompt = () => {
     const { activeStep, } = this.state
     const { session, } = this.props
@@ -192,7 +206,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         so: roundMillisecondsToSeconds(timeTracking[4]),
       }
     }
-    const callback = handleFinishActivity ? handleFinishActivity : () => { window.location.href = '/' }
+    const callback = handleFinishActivity ? handleFinishActivity : () => {}
     dispatch(completeActivitySession(sessionID, currentActivity.parent_activity_id, percentage, conceptResults, data, callback))
   }
 
@@ -521,6 +535,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
+  everyOtherStepCompleted = (stepNumber) => {
+    const { completedSteps, } = this.state
+
+    return completedSteps.filter(s => s !== stepNumber).length === 3
+  }
+
+
   renderPromptSteps = () => {
     const { activities, session, } = this.props
     const { activeStep, completedSteps } = this.state
@@ -532,7 +553,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const steps =  this.orderedSteps().map((prompt, i) => {
       // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
       const stepNumber = i + 2
-      const everyOtherStepCompleted = completedSteps.filter(s => s !== stepNumber).length === 3
       const canBeClicked = completedSteps.includes(stepNumber - 1) || completedSteps.includes(stepNumber) // can click on completed steps or the one after the last completed
 
       return (<PromptStep
@@ -541,7 +561,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         canBeClicked={canBeClicked}
         className={`step ${canBeClicked ? 'clickable' : ''} ${activeStep === stepNumber ? 'active' : ''}`}
         completeStep={this.completeStep}
-        everyOtherStepCompleted={everyOtherStepCompleted}
+        everyOtherStepCompleted={this.everyOtherStepCompleted(stepNumber)}
         key={stepNumber}
         passedRef={(node: JSX.Element) => this[`step${stepNumber}`] = node} // eslint-disable-line react/jsx-no-bind
         prompt={prompt}
@@ -588,21 +608,11 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
-  renderCompletedView = () => {
-    return (<div className="activity-completed">
-      <img alt="Party hat with confetti coming out" src={tadaSrc} />
-      <h1>Activity Complete!</h1>
-      <p>Thank you for taking the time to try our newest tool, Quill Comprehension.</p>
-    </div>)
-  }
-
   render = () => {
     const { activities, } = this.props
     const { showFocusState, completedSteps, } = this.state
 
     if (!activities.hasReceivedData) { return <LoadingSpinner /> }
-
-    if (completedSteps.length === ALL_STEPS.length) { return this.renderCompletedView() }
 
     const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'}`
 
