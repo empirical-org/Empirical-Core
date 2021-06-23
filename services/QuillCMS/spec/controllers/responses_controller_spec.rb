@@ -93,6 +93,7 @@ RSpec.describe ResponsesController, type: :controller do
 
     before do
       allow_any_instance_of(Response).to receive(:create_index_in_elastic_search)
+      allow_any_instance_of(Response).to receive(:update_index_in_elastic_search)
       ENV['PUSHER_APP_ID'] = 'pusher-app-id'
       ENV['PUSHER_KEY'] = 'pusher-key'
       ENV['PUSHER_SECRET'] = 'pusher-secret'
