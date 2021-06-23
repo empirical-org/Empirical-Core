@@ -345,7 +345,7 @@ class ActivitySession < ActiveRecord::Base
         end
       end&.id
       concept = Concept.find_by_id_or_uid(concept_result[:concept_id])
-      concept_result[:metadata] = concept_result[:metadata].to_json
+      concept_result[:metadata] = concept_result[:metadata]
       concept_result[:concept_id] = concept.id
       concept_result[:activity_session_id] = activity_session_id
       concept_result.delete(:activity_session_uid)
