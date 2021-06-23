@@ -27,6 +27,22 @@ describe PublicProgressReports, type: :model do
       expect(report[:missed_names].first).to be nil
     end
 
+    it 'populates directions and last feedback' do
+      activity_session_two = create(:activity_session_without_concept_results, classroom_unit_id: classroom_unit.id, activity_id: activity.id, user: students_classrooms1.student)
+
+      last_feedback = "This is the last feedback the student received."
+      directions = "Combine the sentences."
+      create(:concept_result, activity_session: activity_session_two, metadata: { "attemptNumber": 1, "answer": 'Arbitrary sample incorrect answer.', "correct": 0, "directions": directions, "prompt": "prompt", "questionNumber": 1, "questionScore": 0.75})
+      create(:concept_result, activity_session: activity_session_two, metadata: { "attemptNumber": 2, "answer": 'Arbitrary sample correct answer.', "correct": 1, "lastFeedback": last_feedback, "directions": directions, "prompt": "prompt", "questionNumber": 1, "questionScore": 0.75})
+      report = FakeReports.new.results_for_classroom(classroom_unit.unit_id, activity.id, classroom.id)
+
+      expect(report[:students].count).to eq 1
+      concept_results = report[:students][0][:concept_results][0][:concepts]
+      expect(concept_results.count).to eq 2
+      expect(concept_results[1][:directions]).to eq(directions)
+      expect(concept_results[1][:lastFeedback]).to eq(last_feedback)
+    end
+
     describe "completed activities" do
       before(:each) do
         unit_activity = UnitActivity.where(activity: activity, unit: classroom_unit.unit).first

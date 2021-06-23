@@ -205,6 +205,7 @@ module PublicProgressReports
               id: crs.concept_id,
               name: crs.concept.name,
               correct: crs[:metadata]["correct"] == 1,
+              lastFeedback: crs[:metadata]["lastFeedback"],
               attempt: crs[:metadata]["attemptNumber"] || 1,
               answer: crs[:metadata]["answer"],
               directions: direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
