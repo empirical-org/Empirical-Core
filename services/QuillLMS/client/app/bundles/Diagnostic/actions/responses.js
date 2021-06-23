@@ -67,6 +67,25 @@ export function submitResponse(content, prid, isFirstAttempt) {
   };
 }
 
+export function uploadOptimalResponse(content, prid, isFirstAttempt) {
+  const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
+  rubyConvertedResponse.first_attempt_count = isFirstAttempt ? 1 : 0;
+  rubyConvertedResponse.is_first_attempt = isFirstAttempt;
+  return (dispatch) => {
+    request.post({
+      url: `${process.env.QUILL_CMS}/responses/create_or_update`,
+      form: { response: rubyConvertedResponse, }, },
+      (error, httpStatus, body) => {
+        if (error) {
+          dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+        } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+        }
+      },
+    );
+  };
+}
+
 export function submitMassEditFeedback(ids, properties, qid) {
   return (dispatch) => {
     const updated_attribute = properties;
@@ -269,11 +288,10 @@ export function submitOptimalResponses(qid, conceptUID, responses, concepts) {
         feedback: "That's a strong sentence!",
         optimal: true,
         questionUID: qid,
-        gradeIndex: `human${qid}`,
         count: 1,
         conceptResults: _.isEmpty(obj.concepts) ? defaultConcept : obj.concepts,
       }
-      dispatch(submitResponse(response))
+      dispatch(uploadOptimalResponse(response))
     })
   }
 }
