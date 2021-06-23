@@ -21,7 +21,7 @@ class RuleFeedbackHistory
         )
         .joins('INNER JOIN comprehension_prompts_rules as prompts_rules ON comprehension_rules.id = prompts_rules.rule_id')
         .joins('INNER JOIN comprehension_prompts as prompts ON prompts_rules.prompt_id = prompts.id')
-        .joins('LEFT JOIN feedback_histories ON feedback_histories.rule_uid = comprehension_rules.uid')
+        .joins('LEFT JOIN feedback_histories ON feedback_histories.rule_uid = comprehension_rules.uid AND feedback_histories.prompt_id = prompts.id')
         .joins('LEFT JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
         .joins('LEFT JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
         .where("prompts.conjunction = ? AND activity_id = ?", conjunction, activity_id)
