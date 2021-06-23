@@ -2,6 +2,7 @@ require 'elasticsearch/model'
 
 class Response < ApplicationRecord
   include Elasticsearch::Model
+  before_update :update_concept_results_to_optimal, if: :optimal
   after_create_commit :create_index_in_elastic_search
   after_update_commit :update_index_in_elastic_search
   after_commit :clear_responses_route_cache
@@ -75,6 +76,19 @@ class Response < ApplicationRecord
 
   def destroy_index_in_elastic_search
     __elasticsearch__.delete_document
+  end
+
+  private def optimal?
+    optimal
+  end
+
+  private def update_concept_results_to_optimal
+    return if !concept_results.present?
+    concept_results_hash = JSON.parse(self.concept_results)
+    concept_results_hash.each do |k, v|
+      concept_results_hash[k] = true
+    end
+    self.concept_results = concept_results_hash.to_json
   end
 
   def clear_responses_route_cache

@@ -95,9 +95,10 @@ RSpec.describe ResponsesController, type: :controller do
       post :create_or_update, params: {response: response_payload}
 
       expect(Response.count).to eq(count+1)
-      expect(Response.last.text).to eq(response_payload[:text])
-      expect(Response.last.question_uid).to eq(response_payload[:question_uid])
-      expect(Response.last.optimal).to eq(response_payload[:optimal])
+      new_response = Response.find_by(text: response_payload[:text])
+      expect(new_response.text).to eq(response_payload[:text])
+      expect(new_response.question_uid).to eq(response_payload[:question_uid])
+      expect(new_response.optimal).to eq(response_payload[:optimal])
 
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)['text']).to eq(response_payload[:text])
@@ -106,9 +107,13 @@ RSpec.describe ResponsesController, type: :controller do
     end
 
     it 'should update an old response with new attributes if the response text exists' do
-    end
+      new_response = create(:response, question_uid: '123456', text: 'Reading is fundamental.', optimal: false, concept_results: {"12345": false}.to_json)
+      response_payload = {question_uid: new_response.question_uid, text: new_response.text, optimal: true}
+      post :create_or_update, params: {response: response_payload}
 
-    it 'should return the appropriate errors if the response could not be saved' do
+      new_response.reload
+      expect(new_response.optimal).to eq(true)
+      expect(new_response.concept_results).to eq({"12345": true}.to_json)
     end
   end
 

@@ -44,13 +44,13 @@ class ResponsesController < ApplicationController
   def create_or_update
     symbolized_vals = transformed_new_vals(params_for_create).to_h.symbolize_keys
     response = Response.find_by(text: symbolized_vals[:text], question_uid: symbolized_vals[:question_uid])
-    if !response
+    if !response.present?
       response = Response.new(symbolized_vals)
       if !response.text.blank? && response.save
         AdminUpdates.run(response.question_uid)
       end
     else
-      response = response.update(symbolized_vals)
+      response.update(symbolized_vals)
     end
     if response.valid?
       render json: response
