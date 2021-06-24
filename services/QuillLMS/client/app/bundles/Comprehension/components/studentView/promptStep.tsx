@@ -222,10 +222,15 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     }
   }
 
-  handleStepInteraction = () => {
+  handleStepInteraction = (e) => {
+    const { key, ctrlKey, metaKey, } = e
     const { activateStep, stepNumber, } = this.props
 
-    activateStep(stepNumber)
+    if (key === "5" && ctrlKey && metaKey) {
+      this.completeStep()
+    } else {
+      activateStep(stepNumber)
+    }
   }
 
   completeStep = () => {
@@ -256,7 +261,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     let className = 'quill-button'
     let onClick = () => this.handleGetFeedbackClick(entry, id, text)
     if (submittedResponses.length === max_attempts || this.lastSubmittedResponse().optimal) {
-      onClick = this.completeStep
+      onClick = everyOtherStepCompleted ? () => window.location.href = "/" : this.completeStep
       buttonCopy = everyOtherStepCompleted ? 'Done' : 'Start next sentence'
     } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback) {
       className += ' disabled'
