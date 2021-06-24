@@ -85,8 +85,8 @@ class Api::V1::ActivitySessionsController < Api::ApiController
 
   private def activity_session_params
     params.delete(:activity_session)
-    @data = params.delete(:data)
-    @time_tracking = @data && @data['time_tracking']
+    @data ||= params.delete(:data)
+    @time_tracking ||= @data && @data['time_tracking']
     params.permit(:id,
                   :access_token, # Required by OAuth
                   :percentage,
