@@ -44,7 +44,7 @@ module Demo::ConceptResults
   def self.update_metadata(concept_result, key, value)
     new_metadata = concept_result.metadata
     new_metadata[key] = value
-    concept_result.update(metadata: new_metadata.to_json)
+    concept_result.update(metadata: new_metadata)
     concept_result
   end
 
@@ -53,7 +53,7 @@ module Demo::ConceptResults
     crs = []
     number_of_concept_results.to_i.times do |i|
       cr = ConceptResult.find_or_create_by(concept: concept, activity_session: activity_session)
-      cr.update(metadata: {}.to_json)
+      cr.update(metadata: {})
       crs.push(cr)
     end
     crs
