@@ -87,30 +87,30 @@ RSpec.describe AppSetting, type: :model do
   end
 
   describe '#user_in_rollout_bucket?' do 
-    let(:pseudo_random_numbers) { (1..100).to_a }
+    let(:one_to_a_hundred) { (1..100).to_a }
 
     context 'statistical sanity test for hashing algorithm' do 
       it 'when percent_active is 50, users should be evenishly distributed' do 
         app_setting = create(:app_setting, name: 'lorem1', enabled: true, percent_active: 50)
-        result = pseudo_random_numbers.count {|r| app_setting.user_in_rollout_bucket?(r) }
+        result = one_to_a_hundred.count {|r| app_setting.user_in_rollout_bucket?(r) }
         expect(result).to eq 49
       end
 
       it 'when percent_active is low, few users should be in bucket' do
         app_setting = create(:app_setting, name: 'lorem2', enabled: true, percent_active: 10)
-        result = pseudo_random_numbers.count {|r| app_setting.user_in_rollout_bucket?(r) }
+        result = one_to_a_hundred.count {|r| app_setting.user_in_rollout_bucket?(r) }
         expect(result).to eq 8
       end
 
       it 'when percent_active is high, many users should be in bucket' do
         app_setting = create(:app_setting, name: 'lorem3', enabled: true, percent_active: 95)
-        result = pseudo_random_numbers.count {|r| app_setting.user_in_rollout_bucket?(r) }
+        result = one_to_a_hundred.count {|r| app_setting.user_in_rollout_bucket?(r) }
         expect(result).to eq 99
       end
 
-      it 'when percent_active is 0, all users should be in bucket' do
+      it 'when percent_active is 100, all users should be in bucket' do
         app_setting = create(:app_setting, name: 'lorem4', enabled: true, percent_active: 100)
-        result = pseudo_random_numbers.count {|r| app_setting.user_in_rollout_bucket?(r) }
+        result = one_to_a_hundred.count {|r| app_setting.user_in_rollout_bucket?(r) }
         expect(result).to eq 100
       end
     end
