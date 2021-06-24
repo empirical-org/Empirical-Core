@@ -343,6 +343,11 @@
       }
     }
   }
+  .rules-container {
+    #add-rule-button {
+      margin-top: 16px;
+    }
+  }
   .rules-container, .rule-container, .turk-sessions-container, .semantic-labels-container, .model-container {
     width: 80vw;
     .semantic-rules-cheat-sheet {

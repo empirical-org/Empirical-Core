@@ -1,26 +1,35 @@
 import * as React from "react";
-import { Link, RouteComponentProps } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import { queryCache, useQuery } from 'react-query';
 import { firstBy } from "thenby";
 import stripHtml from "string-strip-html";
 
 import RuleForm from './ruleForm';
 
-import { getConceptName } from '../../../helpers/comprehension/ruleHelpers';
-import { getPromptsIcons, renderHeader } from '../../../helpers/comprehension';
-import { ActivityRouteProps, RuleInterface } from '../../../interfaces/comprehensionInterfaces';
+import { getConceptName, getPromptIdString } from '../../../helpers/comprehension/ruleHelpers';
+import { getPromptsIcons } from '../../../helpers/comprehension';
+import { RuleInterface, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRule, ruleApiOrder } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { createRule, fetchRules } from '../../../utils/comprehension/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
-const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
-  const { params } = match;
-  const { activityId } = params;
+function sortByRuleApiOrder(ruleOneRuleType: string, ruleTwoRuleType: string) {
+  return ruleApiOrder.indexOf(ruleOneRuleType) - ruleApiOrder.indexOf(ruleTwoRuleType);
+}
+
+interface RulesProps {
+  activityId: string,
+  history: any,
+  prompt: PromptInterface
+}
+
+const Rules = ({ activityId, history, prompt }: RulesProps) => {
+  const promptIdsForApi = prompt ? getPromptIdString(prompt) : '';
   const [showAddRuleModal, setShowAddRuleModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<string[]>([]);
-  const [sortedRules, setSortedRules] = React.useState<[]>([]);
+  const [sortedRules, setSortedRules] = React.useState<[]>(null);
 
   // get cached activity data to pass to rule
   const { data: activityData } = useQuery({
@@ -30,7 +39,7 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
 
   // cache rules data for updates
   const { data: rulesData } = useQuery({
-    queryKey: [`rules-${activityId}`, activityId],
+    queryKey: [`rules-${activityId}`, activityId, promptIdsForApi],
     queryFn: fetchRules
   });
 
@@ -39,22 +48,19 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
     queryFn: fetchConcepts
   });
 
-  function sortByRuleApiOrder(ruleOneRuleType: string, ruleTwoRuleType: string) {
-    return ruleApiOrder.indexOf(ruleOneRuleType) - ruleApiOrder.indexOf(ruleTwoRuleType);
-  }
+  React.useEffect(() => {
+    if(rulesData && rulesData.rules) {
+      const { rules } = rulesData;
+      const multiSortRules = rules.sort(
+        firstBy("rule_type", { cmp: sortByRuleApiOrder, direction: "asc" })
+        .thenBy('prompt_ids')
+        .thenBy('suborder')
+      );
+      setSortedRules(multiSortRules);
+    }
+  }, [rulesData]);
 
-  if(rulesData && rulesData.rules && !sortedRules.length) {
-    const { rules } = rulesData;
-    const multiSortRules = rules.sort(
-      firstBy("rule_type", { cmp: sortByRuleApiOrder, direction: "asc" })
-      .thenBy('prompt_ids')
-      .thenBy('suborder')
-    );
-    setSortedRules(multiSortRules);
-  }
-
-
-  const formattedRows = sortedRules.map((rule: RuleInterface, i: number) => {
+  const formattedRows = sortedRules && sortedRules.map((rule: RuleInterface, i: number) => {
     const { name, id, rule_type, prompt_ids, feedbacks, concept_uid } = rule;
     const ruleLink = (<Link to={`/activities/${activityId}/rules/${id}`}>View</Link>);
     const promptsIcons = getPromptsIcons(activityData, prompt_ids);
@@ -128,7 +134,7 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
   }
 
   const dataTableFields = [
-    // { name: "Rule Order", attribute:"order", width: "60px" },
+    { name: "Order", attribute:"order", width: "30px" },
     { name: "Type", attribute:"type", width: "100px" },
     { name: "Because", attribute:"because_prompt", width: "30px" },
     { name: "But", attribute:"but_prompt", width: "30px" },
@@ -143,9 +149,8 @@ const Rules: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, mat
   return(
     <div className="rules-container">
       {showAddRuleModal && renderRuleForm()}
-      {renderHeader(activityData, 'View All Rules')}
       <button className="quill-button fun primary contained" id="add-rule-button" onClick={toggleAddRuleModal} type="submit">
-          Add Rule
+        Add Rule
       </button>
       <DataTable
         className="rules-table"

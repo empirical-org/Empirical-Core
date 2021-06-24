@@ -411,9 +411,7 @@ export async function handleSubmitRule({
 
 export function getRulesUrl(activityId: string, promptId: string, ruleType: string) {
   const url = `activities/${activityId}/rules`;
-  if(activityId) {
-    return url;
-  } else if(promptId && !ruleType) {
+  if(promptId && !ruleType) {
     return `rules?prompt_id=${promptId}`
   } else if(!promptId && ruleType) {
     return `rules?rule_type=${ruleType}`

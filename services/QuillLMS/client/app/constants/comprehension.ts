@@ -176,7 +176,7 @@ export const PROMPT_HEADER_LABELS = {
 
 export const blankActivity = {
   title: '',
-  name: '',
+  notes: '',
   // flag:'',
   scored_level: '',
   target_level: null,
