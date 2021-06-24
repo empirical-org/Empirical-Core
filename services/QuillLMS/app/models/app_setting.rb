@@ -7,7 +7,7 @@
 #  enabled_for_admins  :boolean          default(FALSE), not null
 #  name                :string           not null
 #  percent_active      :integer          default(0), not null
-#  user_ids_allow_list :string           default([]), not null, is an Array
+#  user_ids_allow_list :integer          default([]), not null, is an Array
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #
@@ -49,7 +49,7 @@ class AppSetting < ActiveRecord::Base
 
     return true if user_in_rollout_bucket?(user.id)
     
-    return true if user_ids_allow_list.include?(user.id.to_s)
+    return true if user_ids_allow_list.include?(user.id)
 
     false
   end

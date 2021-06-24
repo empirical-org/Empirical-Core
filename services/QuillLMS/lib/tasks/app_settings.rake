@@ -13,8 +13,8 @@ namespace :app_settings do
   end
 
   desc 'Updates user allow list for existing AppSetting.'
-  # Example usage: rake 'app_settings:updateUserIdsAllowList[theName, 4 5]'
-  task :updateUserIdsAllowList, [:name, :user_ids_allow_list] => :environment do |t, args|
+  # Example usage: rake 'app_settings:update_user_ids_allow_list[theName, 4 5]'
+  task :update_user_ids_allow_list, [:name, :user_ids_allow_list] => :environment do |t, args|
     app_setting = AppSetting.find_by_name(args[:name])
     user_ids = args[:user_ids_allow_list].split(' ').map(&:to_i)
     app_setting.update!(user_ids_allow_list: user_ids)

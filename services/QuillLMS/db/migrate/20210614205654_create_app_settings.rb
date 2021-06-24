@@ -2,7 +2,7 @@ class CreateAppSettings < ActiveRecord::Migration
   def change
     create_table :app_settings do |t|
       t.string :name, null: false
-      t.string :user_ids_allow_list, null: false, default: [], array: true
+      t.integer :user_ids_allow_list, null: false, default: [], array: true
       t.boolean :enabled_for_admins, null: false, default: false
       t.boolean :enabled, null: false, default: false
       t.integer :percent_active, null: false, default: 0

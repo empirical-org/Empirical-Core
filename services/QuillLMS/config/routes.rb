@@ -388,8 +388,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
       
       resources :users, only: [:index] do
-        resources :app_settings, only: [:index] 
-        get 'app_setting(/:name)' => 'app_settings#show'
+        resources :app_settings, only: [:index, :show], param: :name 
       end
 
       resources :classroom_units,         only: [] do
