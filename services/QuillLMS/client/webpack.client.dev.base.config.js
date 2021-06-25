@@ -5,7 +5,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const devBuild = process.env.RAILS_ENV === 'development';
 const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV
 
-const goFanoutUrl = 'https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-fanout-staging';
+const goFanoutUrl = process.env.GOLANG_FANOUT_URL;
 const pusherKey = process.env.PUSHER_KEY;
 const defaultUrl = process.env.DEFAULT_URL;
 const cdnUrl = process.env.CDN_URL;
