@@ -192,7 +192,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def determine_if_final_score
-    return if percentage.nil? || state != 'finished'
+    return if state != 'finished' || (percentage.nil? && !activity.is_comprehension?)
 
     # mark all finished anonymous sessions as final score.
     if user.nil?
