@@ -726,7 +726,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   get 'demo' => 'teachers/progress_reports#demo'
-  get 'demo_ap' => 'teachers/progress_reports#demo_ap'
+  get 'coach_demo' => 'teachers/progress_reports#coach_demo'
   get 'student_demo' => 'students#student_demo'
   get 'student_demo_ap' => 'students#demo_ap'
   get 'admin_demo', to: 'teachers/progress_reports#admin_demo'
