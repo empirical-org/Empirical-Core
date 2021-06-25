@@ -34,6 +34,7 @@ module Student
             ON activity_sessions.activity_id = activities.id
           WHERE activities.activity_classification_id != 6
             AND activities.activity_classification_id != 4
+            AND activities.activity_classification_id != 9
             AND users.id = #{id}
         SQL
       ).to_a.first['avg']

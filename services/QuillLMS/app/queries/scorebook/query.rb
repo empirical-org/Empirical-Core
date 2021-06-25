@@ -19,7 +19,7 @@ class Scorebook::Query
           MAX(acts.updated_at) AS updated_at,
           MIN(acts.started_at) AS started_at,
           MAX(acts.percentage) AS percentage,
-          SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) AS completed_attempts,
+          SUM(CASE WHEN acts.state = 'finished' THEN 1 ELSE 0 END) AS completed_attempts,
           SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS started,
           SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS id
         FROM classroom_units AS cu

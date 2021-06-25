@@ -124,6 +124,7 @@ class UnitActivity < ActiveRecord::Base
           COALESCE(cuas.locked, false) AS locked,
           COALESCE(cuas.pinned, false) AS pinned,
           MAX(acts.percentage) AS max_percentage,
+          SUM(CASE WHEN acts.state = 'finished' THEN 1 ELSE 0 END) > 0 AS finished,
           SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS resume_link
         FROM unit_activities AS ua
         JOIN units AS unit
