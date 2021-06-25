@@ -2,7 +2,7 @@ module Comprehension
   class SpellingCheck
 
     ALL_CORRECT_FEEDBACK = 'Correct spelling!'
-    FALLBACK_INCORRECT_FEEDBACK = 'Update the spelling of the bolded word.'
+    FALLBACK_INCORRECT_FEEDBACK = 'Update the spelling of the bolded word(s).'
     FEEDBACK_TYPE = Rule::TYPE_SPELLING
     RESPONSE_TYPE = 'response'
     BING_API_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck'
