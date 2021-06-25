@@ -4,6 +4,7 @@ import ScorebookTooltip from '../modules/componentGenerators/tooltip_title/score
 import $ from 'jquery';
 import request from 'request';
 import gradeColor from '../modules/grade_color.js';
+import { nonRelevantActivityClassificationIds, } from '../../../../modules/activity_classifications'
 import activityFromClassificationId from '../modules/activity_from_classification_id.js';
 
 export default class ActivityIconWithTooltip extends React.Component {
@@ -62,7 +63,7 @@ export default class ActivityIconWithTooltip extends React.Component {
 
   iconClass() {
     if (this.props.data.completed_attempts > 0 || this.props.data.percentage) {
-      if (this.props.context === 'scorebook' && (Number(this.props.data.activity_classification_id) === 4 || Number(this.props.data.activity_classification_id) === 6)) {
+      if (this.props.context === 'scorebook' && nonRelevantActivityClassificationIds.includes(Number(this.props.data.activity_classification_id))) {
         return  `icon-blue icon-${activityFromClassificationId(this.getActClassId())}`
       } else {
         return `icon-${gradeColor(parseFloat(this.props.data.percentage))} icon-${activityFromClassificationId(this.getActClassId())}`
