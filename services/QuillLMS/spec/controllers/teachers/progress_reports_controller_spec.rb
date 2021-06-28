@@ -23,7 +23,7 @@ describe Teachers::ProgressReportsController do
         end
 
         it 'should use the hello+demot\eacher+ap@quill account and redirect to scorebook teachers classrooms path' do
-          get :demo_ap
+          get :coach_demo
           expect(assigns(:ap_user)).to eq ap_user
           expect(response).to redirect_to scorebook_teachers_classrooms_path
         end
@@ -134,12 +134,12 @@ describe Teachers::ProgressReportsController do
     end
   end
 
-  describe '#demo_ap' do
+  describe '#coach_demo' do
 
     context 'when demo account exists' do
       it 'sets the user and redirects to scorebook teachers classrooms path when user exists' do
         ap_user = create(:user, email: "hello+demoteacher+ap@quill.org")
-        get :demo_ap
+        get :coach_demo
         expect(assigns(:ap_user)).to eq ap_user
         expect(response).to redirect_to scorebook_teachers_classrooms_path
       end
@@ -153,7 +153,7 @@ describe Teachers::ProgressReportsController do
       it 'sets the user, redirects to scorebook teachers classrooms path when user doesnt exist' do
         expect(Demo::ReportDemoAPCreator).to receive(:create_demo).with("demoteacher")
 
-        get :demo_ap
+        get :coach_demo
         expect(response).to redirect_to scorebook_teachers_classrooms_path
       end
     end
