@@ -48,6 +48,7 @@ class Question < ActiveRecord::Base
   validates :question_type, presence: true, inclusion: {in: TYPES}
   validates :uid, presence: true, uniqueness: true
   validate :data_must_be_hash
+  validate :validate_sequences
 
   after_save :expire_all_questions_cache
 
@@ -148,5 +149,37 @@ class Question < ActiveRecord::Base
 
   private def stored_as_array(key)
     data[key].class == Array
+  end
+
+  private def validate_sequences
+    return if !data.present? || !data.is_a?(Hash)
+    parse_and_validate(data['incorrectSequences']) && parse_and_validate(data['focusPoints'])
+  end
+
+  private def parse_and_validate(sequences)
+    return true if !sequences.present?
+    if sequences.is_a?(Hash)
+      sequences.each do |key, value|
+        validate_text_and_feedback(value)
+      end
+    elsif stored_as_array(data)
+      sequences.each do |value|
+        validate_text_and_feedback(value)
+      end
+    end
+  end
+
+  private def validate_text_and_feedback(value)
+    errors.add(:data, "Focus Points and Incorrect Sequences must have text and feedback.") unless value['text'].present? && value['feedback'].present?
+    return unless value['text'].present? && value['feedback'].present?
+    value['text'].split('|||').each do |regex|
+      validate_regex(regex)
+    end
+  end
+
+  private def validate_regex(regex)
+    Regexp.new(regex)
+  rescue RegexpError => e
+    errors.add(:data, "There is incorrectly formatted regex.")
   end
 end
