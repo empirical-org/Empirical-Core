@@ -31,7 +31,7 @@ export default class ActivityIconWithTooltip extends React.Component {
   getConceptResultInfo() {
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/grades/tooltip/classroom_unit_id/${this.props.data.cuId}/user_id/${this.props.data.userId}/activity_id/${this.activityId()}/completed/${!!this.props.data.percentage}`,
+      url: `${process.env.DEFAULT_URL}/grades/tooltip/classroom_unit_id/${this.props.data.cuId}/user_id/${this.props.data.userId}/activity_id/${this.activityId()}/completed/${!!this.props.data.completed_attempts}`,
     }, (error, httpStatus, body) => {
       const parsedBody = JSON.parse(body);
       that.loadTooltipTitle(parsedBody);
@@ -46,7 +46,7 @@ export default class ActivityIconWithTooltip extends React.Component {
 
 
   checkForStudentReport = () => {
-    if (this.props.data.percentage) {
+    if (this.props.data.completed_attempts) {
       this.goToReport();
     } else {
       alert('This activity has not been completed, so there is no report yet.');
