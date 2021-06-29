@@ -19,6 +19,7 @@ import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/comp
 interface RuleViewFormProps {
   activityData?: any,
   activityId?: string,
+  closeModal?: (event) => void,
   isUniversal?: boolean,
   isSemantic?: boolean,
   requestErrors: string[],
@@ -35,6 +36,7 @@ interface RuleViewFormProps {
 const RuleViewForm = ({
   activityData,
   activityId,
+  closeModal,
   isSemantic,
   isUniversal,
   requestErrors,
@@ -131,7 +133,7 @@ const RuleViewForm = ({
       ruleFeedbacks,
       ruleOptimal,
       rulePrompts,
-      rulePromptIds: [promptId],
+      rulePromptIds: promptId ? [promptId] : rule.prompt_ids,
       rulesCount,
       ruleType,
       setErrors,
@@ -158,7 +160,15 @@ const RuleViewForm = ({
     });
   }
 
-  const cancelLink = (<Link to={`/activities/${activityId}/${returnLinkRuleType}`}>Cancel</Link>);
+  function renderCancelButton() {
+    const cancelLink = (<Link to={`/activities/${activityId}/${returnLinkRuleType}`}>Cancel</Link>);
+    if(closeModal) {
+      return <button className="quill-button fun primary contained" id="rule-cancel-button" onClick={closeModal} type="submit">Cancel</button>
+    } else {
+      return <button className="quill-button fun primary contained" id="rule-cancel-button" type="submit">{cancelLink}</button>
+    }
+  }
+
   const autoMLParams = {
     label: 'Descriptive Label',
     notes: 'Label Notes',
@@ -177,13 +187,17 @@ const RuleViewForm = ({
   const requestErrorsPresent = !!(requestErrors && requestErrors.length);
   const showErrorsContainer = formErrorsPresent || requestErrorsPresent;
   const header = `${rule.id ? 'View Individual Rule - ' : 'Add'} ${ruleType && ruleType.label} ${rule.id ? '' : 'Rule'}`;
+  const isRulesIndexModal = !!closeModal;
 
   return(
     <div className="rule-form-container">
       {showDeleteRuleModal && renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModal)}
+      {isRulesIndexModal && <div className="close-button-container">
+        <button className="quill-button fun primary contained" id="activity-close-button" onClick={closeModal} type="submit">x</button>
+      </div>}
       {renderHeader({activity: activityData}, header)}
       <section className="semantic-rule-form-header">
-        <Link className="return-link" to={`/activities/${activityId}/${returnLinkRuleType}`}>{returnLinkLabel}</Link>
+        {!isRulesIndexModal && <Link className="return-link" to={`/activities/${activityId}/${returnLinkRuleType}`}>{returnLinkLabel}</Link>}
         <button className="quill-button fun primary contained" id="rule-delete-button" onClick={toggleShowDeleteRuleModal} type="button">
           Delete
         </button>
@@ -252,7 +266,7 @@ const RuleViewForm = ({
           <button className="quill-button fun primary contained" id="rule-submit-button" onClick={onHandleSubmitRule} type="button">
             Submit
           </button>
-          <button className="quill-button fun primary contained" id="rule-cancel-button" type="submit">{cancelLink}</button>
+          {renderCancelButton()}
         </div>
       </form>
     </div>

@@ -347,6 +347,20 @@
     #add-rule-button {
       margin-top: 16px;
     }
+    .modal {
+      .modal-container {
+        .modal-content {
+          height: 90%;
+          .rule-form-container {
+            height: 100%;
+            padding: 16px;
+            .close-button-container {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
   }
   .rules-container, .rule-container, .turk-sessions-container, .semantic-labels-container, .model-container {
     width: 80vw;

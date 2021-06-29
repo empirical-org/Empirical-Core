@@ -4,14 +4,14 @@ import { queryCache, useQuery } from 'react-query';
 import { firstBy } from "thenby";
 import stripHtml from "string-strip-html";
 
-import RuleForm from './ruleForm';
+import RuleViewForm from './ruleViewForm';
 
 import { getConceptName, getPromptIdString } from '../../../helpers/comprehension/ruleHelpers';
 import { getPromptsIcons } from '../../../helpers/comprehension';
 import { RuleInterface, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRule, ruleApiOrder } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
-import { createRule, fetchRules } from '../../../utils/comprehension/ruleAPIs';
+import { createRule, fetchRules, updateRule } from '../../../utils/comprehension/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
@@ -28,6 +28,8 @@ interface RulesProps {
 const Rules = ({ activityId, history, prompt }: RulesProps) => {
   const promptIdsForApi = prompt ? getPromptIdString(prompt) : '';
   const [showAddRuleModal, setShowAddRuleModal] = React.useState<boolean>(false);
+  const [showEditRuleModal, setShowEditRuleModal] = React.useState<boolean>(false);
+  const [ruleToEdit, setRuleToEdit] = React.useState<RuleInterface>(null);
   const [errors, setErrors] = React.useState<string[]>([]);
   const [sortedRules, setSortedRules] = React.useState<[]>(null);
 
@@ -62,14 +64,15 @@ const Rules = ({ activityId, history, prompt }: RulesProps) => {
 
   const formattedRows = sortedRules && sortedRules.map((rule: RuleInterface, i: number) => {
     const { name, id, rule_type, prompt_ids, feedbacks, concept_uid } = rule;
-    const ruleLink = (<Link to={`/activities/${activityId}/rules/${id}`}>View</Link>);
+    const viewRuleLink = (<Link to={`/activities/${activityId}/rules/${id}`}><p className="word-wrap">{name}</p></Link>);
+    const editRuleLink = (<a onClick={() => handleEditRule(rule)}>Edit</a>);
     const promptsIcons = getPromptsIcons(activityData, prompt_ids);
     const firstFeedback = feedbacks && feedbacks[0] ? <p className="word-wrap">{stripHtml(feedbacks[0].text)}</p> : 'N/A'
     const secondFeedback = feedbacks && feedbacks[1] ? <p className="word-wrap">{stripHtml(feedbacks[1].text)}</p> : 'N/A'
     return {
       id: `${activityId}-${id}`,
       type: rule_type,
-      name: <p className="word-wrap">{name}</p>,
+      name: viewRuleLink,
       first_feedback: firstFeedback,
       second_feedback: secondFeedback,
       because_prompt: promptsIcons[BECAUSE],
@@ -77,22 +80,41 @@ const Rules = ({ activityId, history, prompt }: RulesProps) => {
       so_prompt: promptsIcons[SO],
       concept: <p className="word-wrap">{getConceptName(conceptsData, concept_uid)}</p>,
       order: i + 1,
-      view: ruleLink
+      view: editRuleLink
     }
   });
 
-  const submitRule = ({rule}: {rule: RuleInterface}) => {
+  function handleEditRule(rule: RuleInterface) {
+    setRuleToEdit(rule);
+    toggleEditRuleModal();
+  }
+
+  const handleCreateRule = ({rule}: {rule: RuleInterface}) => {
     createRule(rule).then((response) => {
       const { errors, rule } = response;
       if(errors && errors.length) {
         setErrors(errors);
       } else {
         setErrors([]);
-        // update ruleSets cache to display newly created ruleSet
-        queryCache.refetchQueries(`rules-${activityId}`);
+        // clear rule cache to display newly created rule
+        queryCache.clear();
         history.push(`/activities/${activityId}/rules/${rule.id}`);
-
         toggleAddRuleModal();
+      }
+    });
+  }
+
+  const handleUpdateRule = ({rule}: {rule: RuleInterface}) => {
+    const { id } = ruleToEdit;
+    updateRule(id, rule).then((response) => {
+      const { errors } = response;
+      if(errors && errors.length) {
+        setErrors(errors);
+      } else {
+        setErrors([]);
+        // clear rule cache to display newly updated rule
+        queryCache.clear();
+        toggleEditRuleModal();
       }
     });
   }
@@ -101,16 +123,22 @@ const Rules = ({ activityId, history, prompt }: RulesProps) => {
     setShowAddRuleModal(!showAddRuleModal);
   }
 
-  const renderRuleForm = () => {
+  const toggleEditRuleModal = () => {
+    setShowEditRuleModal(!showEditRuleModal);
+  }
+
+  const renderRuleForm = (rule: RuleInterface, submitRule: any, toggleModal: any) => {
     return(
       <Modal>
-        <RuleForm
+        <RuleViewForm
           activityData={activityData && activityData.activity}
           activityId={activityId}
-          closeModal={toggleAddRuleModal}
+          closeModal={toggleModal}
+          isRulesIndexModal={true}
+          isSemantic={rule && rule.rule_type === 'autoML'}
           isUniversal={false}
           requestErrors={errors}
-          rule={blankRule}
+          rule={rule}
           submitRule={submitRule}
         />
       </Modal>
@@ -148,7 +176,8 @@ const Rules = ({ activityId, history, prompt }: RulesProps) => {
 
   return(
     <div className="rules-container">
-      {showAddRuleModal && renderRuleForm()}
+      {showAddRuleModal && renderRuleForm(blankRule, handleCreateRule, toggleAddRuleModal)}
+      {showEditRuleModal && renderRuleForm(ruleToEdit, handleUpdateRule, toggleEditRuleModal)}
       <button className="quill-button fun primary contained" id="add-rule-button" onClick={toggleAddRuleModal} type="submit">
         Add Rule
       </button>
