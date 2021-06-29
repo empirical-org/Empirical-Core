@@ -19,6 +19,7 @@ RSpec.describe Response do
       expect(response).to receive(:destroy_index_in_elastic_search)
       response.destroy
     end
+
   end
 
   describe "validates unique question_uid + text" do

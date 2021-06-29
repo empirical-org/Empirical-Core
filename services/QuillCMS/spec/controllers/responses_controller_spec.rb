@@ -88,6 +88,55 @@ RSpec.describe ResponsesController, type: :controller do
     end
   end
 
+  describe '#create_or_update' do
+    let(:client) { double(:client, trigger: true) }
+
+    before do
+      allow_any_instance_of(Response).to receive(:create_index_in_elastic_search)
+      allow_any_instance_of(Response).to receive(:update_index_in_elastic_search)
+      ENV['PUSHER_APP_ID'] = 'pusher-app-id'
+      ENV['PUSHER_KEY'] = 'pusher-key'
+      ENV['PUSHER_SECRET'] = 'pusher-secret'
+      allow(Pusher::Client).to receive(:new) { client }
+    end
+
+    it 'should create a new response if the response text does not exist' do
+      count = Response.count
+      response_payload = {question_uid: '12345', text: 'response text', optimal: true}
+
+      expect(Pusher::Client).to receive(:new).with(
+        app_id: ENV['PUSHER_APP_ID'],
+        key: ENV['PUSHER_KEY'],
+        secret: ENV['PUSHER_SECRET'],
+        encrypted: true
+      )
+      expect(client).to receive(:trigger).with("admin-12345", "new-response", message: "time to reload!")
+      post :create_or_update, params: {response: response_payload}
+
+      expect(Response.count).to eq(count+1)
+      new_response = Response.find_by(text: response_payload[:text])
+      expect(new_response.text).to eq(response_payload[:text])
+      expect(new_response.question_uid).to eq(response_payload[:question_uid])
+      expect(new_response.optimal).to eq(response_payload[:optimal])
+
+      expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)['text']).to eq(response_payload[:text])
+      expect(JSON.parse(response.body)['question_uid']).to eq(response_payload[:question_uid])
+      expect(JSON.parse(response.body)['optimal']).to eq(response_payload[:optimal])
+    end
+
+    it 'should update an old response with new attributes if the response text exists' do
+      new_response = create(:response, question_uid: '123456', text: 'Reading is fundamental.', optimal: false, concept_results: {"12345": false})
+      response_payload = {question_uid: new_response.question_uid, text: new_response.text, optimal: true,  concept_results: {"12345": true}}
+      post :create_or_update, params: {response: response_payload}
+
+      new_response.reload
+
+      expect(new_response.optimal).to eq(true)
+      expect(new_response.concept_results).to eq({"12345"=> true})
+    end
+  end
+
   describe '#responses_for_question' do
     let(:q_response) { create(:response, question_uid: '123456') }
 

@@ -23,7 +23,7 @@ export function getConceptResultsForFillInTheBlanks(question) {
   if (question.cues && question.cues[0] !== '') {
     directions += ` ${formattedCues(question.cues)}`;
   }
-  return conceptResults.map(conceptResult => ({
+  return conceptResults.map((conceptResult, i) => ({
     concept_uid: conceptResult.conceptUID,
     question_type: 'fill-in-the-blanks',
     metadata: {
@@ -31,6 +31,7 @@ export function getConceptResultsForFillInTheBlanks(question) {
       directions,
       prompt,
       answer,
+      attemptNumber: i + 1
     },
   }));
 }

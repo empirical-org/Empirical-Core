@@ -40,6 +40,18 @@ class ResponsesController < ApplicationController
     render json: {}
   end
 
+  # POST /responses/create_or_update
+  def create_or_update
+    symbolized_vals = transformed_new_vals(params_for_create).to_h.symbolize_keys
+    response = Response.find_or_initialize_by(text: symbolized_vals[:text], question_uid: symbolized_vals[:question_uid])
+    if response.update(symbolized_vals)
+      AdminUpdates.run(response.question_uid) if !response.text.blank?
+      render json: response
+    else
+      render json: response.errors, status: :unprocessable_entity
+    end
+  end
+
   # PATCH/PUT /responses/1
   def update
     new_vals = transformed_new_vals(response_params)
