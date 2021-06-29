@@ -423,7 +423,7 @@ export function getRulesUrl(activityId: string, promptId: string, ruleType: stri
 
 export function getReturnLinkRuleType(ruleType) {
   if(!ruleType) {
-    return 'rules';
+    return 'rules-index';
   }
   const { value } = ruleType
   if(regexRuleTypes.includes(value)) {
@@ -431,7 +431,7 @@ export function getReturnLinkRuleType(ruleType) {
   } else if(value === PLAGIARISM) {
     return 'plagiarism-rules';
   }
-  return 'rules';
+  return 'rules-index';
 }
 
 export function getReturnLinkLabel(ruleType) {

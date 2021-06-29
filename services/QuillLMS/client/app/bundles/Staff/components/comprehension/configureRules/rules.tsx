@@ -64,7 +64,7 @@ const Rules = ({ activityId, history, prompt }: RulesProps) => {
 
   const formattedRows = sortedRules && sortedRules.map((rule: RuleInterface, i: number) => {
     const { name, id, rule_type, prompt_ids, feedbacks, concept_uid } = rule;
-    const viewRuleLink = (<Link to={`/activities/${activityId}/rules/${id}`}><p className="word-wrap">{name}</p></Link>);
+    const viewRuleLink = (<Link className="data-link" to={`/activities/${activityId}/rules/${id}`}><p className="word-wrap">{name}</p></Link>);
     const editRuleLink = (<a onClick={() => handleEditRule(rule)}>Edit</a>);
     const promptsIcons = getPromptsIcons(activityData, prompt_ids);
     const firstFeedback = feedbacks && feedbacks[0] ? <p className="word-wrap">{stripHtml(feedbacks[0].text)}</p> : 'N/A'
@@ -129,12 +129,12 @@ const Rules = ({ activityId, history, prompt }: RulesProps) => {
 
   const renderRuleForm = (rule: RuleInterface, submitRule: any, toggleModal: any) => {
     return(
-      <Modal>
+      <Modal className="rule-view-form-modal">
         <RuleViewForm
           activityData={activityData && activityData.activity}
           activityId={activityId}
           closeModal={toggleModal}
-          isRulesIndexModal={true}
+          isRulesIndex={true}
           isSemantic={rule && rule.rule_type === 'autoML'}
           isUniversal={false}
           requestErrors={errors}

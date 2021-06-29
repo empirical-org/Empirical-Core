@@ -21,6 +21,7 @@ interface RuleViewFormProps {
   activityId?: string,
   closeModal?: (event) => void,
   isUniversal?: boolean,
+  isRulesIndex?: boolean,
   isSemantic?: boolean,
   requestErrors: string[],
   rule?: RuleInterface,
@@ -38,6 +39,7 @@ const RuleViewForm = ({
   activityId,
   closeModal,
   isSemantic,
+  isRulesIndex,
   isUniversal,
   requestErrors,
   rule,
@@ -144,7 +146,7 @@ const RuleViewForm = ({
     });
   }
 
-  const returnLinkRuleType = getReturnLinkRuleType(ruleType);
+  const returnLinkRuleType = isRulesIndex ? getReturnLinkRuleType(null) : getReturnLinkRuleType(ruleType);
   const returnLinkLabel = getReturnLinkLabel(ruleType);
 
   function handleDeleteRule() {
@@ -162,7 +164,7 @@ const RuleViewForm = ({
 
   function renderCancelButton() {
     const cancelLink = (<Link to={`/activities/${activityId}/${returnLinkRuleType}`}>Cancel</Link>);
-    if(closeModal) {
+    if(isRulesIndex) {
       return <button className="quill-button fun primary contained" id="rule-cancel-button" onClick={closeModal} type="submit">Cancel</button>
     } else {
       return <button className="quill-button fun primary contained" id="rule-cancel-button" type="submit">{cancelLink}</button>
@@ -187,17 +189,16 @@ const RuleViewForm = ({
   const requestErrorsPresent = !!(requestErrors && requestErrors.length);
   const showErrorsContainer = formErrorsPresent || requestErrorsPresent;
   const header = `${rule.id ? 'View Individual Rule - ' : 'Add'} ${ruleType && ruleType.label} ${rule.id ? '' : 'Rule'}`;
-  const isRulesIndexModal = !!closeModal;
 
   return(
     <div className="rule-form-container">
       {showDeleteRuleModal && renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModal)}
-      {isRulesIndexModal && <div className="close-button-container">
+      {isRulesIndex && <div className="close-button-container">
         <button className="quill-button fun primary contained" id="activity-close-button" onClick={closeModal} type="submit">x</button>
       </div>}
       {renderHeader({activity: activityData}, header)}
       <section className="semantic-rule-form-header">
-        {!isRulesIndexModal && <Link className="return-link" to={`/activities/${activityId}/${returnLinkRuleType}`}>{returnLinkLabel}</Link>}
+        {!isRulesIndex && <Link className="return-link" to={`/activities/${activityId}/${returnLinkRuleType}`}>{returnLinkLabel}</Link>}
         <button className="quill-button fun primary contained" id="rule-delete-button" onClick={toggleShowDeleteRuleModal} type="button">
           Delete
         </button>

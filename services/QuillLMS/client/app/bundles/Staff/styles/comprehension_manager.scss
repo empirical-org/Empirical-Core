@@ -350,12 +350,16 @@
     .modal {
       .modal-container {
         .modal-content {
-          height: 90%;
           .rule-form-container {
-            height: 100%;
+            height: 90%;
             padding: 16px;
             .close-button-container {
               width: 100%;
+            }
+            .submit-button-container {
+              button {
+                margin-bottom: 12px;
+              }
             }
           }
         }

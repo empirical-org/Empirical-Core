@@ -7,7 +7,7 @@ import 'whatwg-fetch';
 
 const mockProps = {
   activityId: '17',
-  prompt: {id: 1, conjunction: 'because', text: 'test', max_attempts: 5, max_attempts_feedback: 'good try!'},
+  prompt: [{id: 1, conjunction: 'because', text: 'test', max_attempts: 5, max_attempts_feedback: 'good try!'}],
   match: {
     params: {
       activityId: '1'
