@@ -92,7 +92,7 @@ RSpec.describe Question, type: :model do
     it 'should be invalid if a focus point text is invalid regex' do
       question.data = {'focusPoints'=>{'0'=>{'text'=>'(foo|', 'feedback'=>'bar'}}}
       expect(question.valid?).to be false
-      expect(question.errors[:data]).to include('There is incorrectly formatted regex.')
+      expect(question.errors[:data]).to include('There is incorrectly formatted regex: (foo|')
     end
 
     it 'should be valid if focus point has valid regex and feedback' do
@@ -115,7 +115,7 @@ RSpec.describe Question, type: :model do
     it 'should be invalid if an incorrect sequence is invalid regex' do
       question.data = {'incorrectSequences'=>{'0'=>{'text'=>'(foo|', 'feedback'=>'bar'}}}
       expect(question.valid?).to be false
-      expect(question.errors[:data]).to include('There is incorrectly formatted regex.')
+      expect(question.errors[:data]).to include('There is incorrectly formatted regex: (foo|')
     end
 
     it 'should be valid if an incorrect sequence has valid regex and feedback' do

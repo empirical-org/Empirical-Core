@@ -185,6 +185,6 @@ class Question < ActiveRecord::Base
   private def validate_regex(regex)
     Regexp.new(regex)
   rescue RegexpError => e
-    errors.add(:data, "There is incorrectly formatted regex.")
+    errors.add(:data, "There is incorrectly formatted regex: #{regex}")
   end
 end

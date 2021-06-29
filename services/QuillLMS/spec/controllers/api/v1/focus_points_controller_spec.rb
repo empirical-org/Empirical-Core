@@ -85,7 +85,7 @@ describe Api::V1::FocusPointsController, type: :controller do
       put :update, question_id: new_q.uid, id: focus_point_uid, focus_point: data
 
       expect(response.status).to eq(422)
-      expect(JSON.parse(response.body)["data"]).to include("There is incorrectly formatted regex.")
+      expect(JSON.parse(response.body)["data"]).to include("There is incorrectly formatted regex: (and|")
     end
   end
 
