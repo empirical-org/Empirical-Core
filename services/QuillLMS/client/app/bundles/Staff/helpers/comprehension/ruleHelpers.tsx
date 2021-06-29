@@ -497,3 +497,10 @@ export function renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModa
     </Modal>
   );
 }
+
+export function calculatePercentageForResponses(totalResponsesByRule, totalResponsesByConjunction) {
+  if(!totalResponsesByRule || !totalResponsesByConjunction) {
+    return null;
+  }
+  return ((totalResponsesByRule / totalResponsesByConjunction) * 100).toFixed(2);
+}
