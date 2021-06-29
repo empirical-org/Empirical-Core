@@ -68,7 +68,7 @@ module Comprehension
 
     def regex_is_passing?(entry)
       return true if regex_rules.empty?
-      if regex_rules.first.is_incorrect_sequence?
+      if regex_rules.first.incorrect_sequence?
         regex_rules.none? do |regex_rule|
           regex_rule.entry_failing?(entry)
         end

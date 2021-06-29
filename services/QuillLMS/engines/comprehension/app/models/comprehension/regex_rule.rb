@@ -32,7 +32,7 @@ module Comprehension
       sequence_type == TYPE_INCORRECT ? regex_match(entry) : !regex_match(entry)
     end
 
-    def is_incorrect_sequence?
+    def incorrect_sequence?
       sequence_type == TYPE_INCORRECT
     end
 

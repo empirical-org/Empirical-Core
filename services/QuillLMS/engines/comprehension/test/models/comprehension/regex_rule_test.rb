@@ -63,16 +63,16 @@ module Comprehension
       end
     end
 
-    context 'is_incorrect_sequence?' do
+    context 'incorrect_sequence?' do
 
       should 'be true if regex rule is incorrect sequence_type' do
         incorrect_rule = create(:comprehension_regex_rule, sequence_type: 'incorrect')
-        assert incorrect_rule.is_incorrect_sequence?
+        assert incorrect_rule.incorrect_sequence?
       end
 
       should 'be false if regex rule is required sequence type' do
         required_rule = create(:comprehension_regex_rule, sequence_type: 'required')
-        refute required_rule.is_incorrect_sequence?
+        refute required_rule.incorrect_sequence?
       end
     end
   end
