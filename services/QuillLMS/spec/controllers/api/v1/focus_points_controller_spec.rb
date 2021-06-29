@@ -78,16 +78,14 @@ describe Api::V1::FocusPointsController, type: :controller do
     end
 
     it "should return a 404 if the focus point is not valid" do
-      data = {"key"=>"-Lp-tB4rOx6sGVpm2AG3","text"=>"a(n)?na(')?(s)?(')?(s)? and (my|me|i|mine)|||(my|me|i|mine)(')?(s)?(')?(s)? and lan|||(and|","order"=>1,"feedback"=>"<p>Revise your work. Make sure your sentence tells that the snack belonged to <em>Lana and me</em>.</p>","conceptResults"=>{"N5VXCdTAs91gP46gATuvPQ"=>{"name"=>"Structure | Sentence Quality | Including Details From Prompt","correct"=>false,"conceptUID"=>"N5VXCdTAs91gP46gATuvPQ"}}}
+      data = {"key"=>"-Lp-tB4rOx6sGVpm2AG3","text"=>"(and|","feedback"=>"feedback"}
 
       focus_point_uid = new_q.data["focusPoints"].keys.first
-      binding.pry
+
       put :update, question_id: new_q.uid, id: focus_point_uid, focus_point: data
-      expect(response.status).to eq(200)
-      binding.pry
-      # expect(response.body).to include("The resource you were looking for does not exist")
-      new_q.reload
-      expect(new_q.data["focusPoints"][focus_point_uid]).to eq(data)
+
+      expect(response.status).to eq(422)
+      expect(JSON.parse(response.body)["data"]).to include("There is incorrectly formatted regex.")
     end
   end
 

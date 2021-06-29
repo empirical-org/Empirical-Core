@@ -67,7 +67,6 @@ class Question < ActiveRecord::Base
     data['focusPoints'] ||= {}
     data['focusPoints'][focus_point_id] = new_data
     save
-    focus_point_id
   end
 
   def update_focus_points(new_data)
@@ -110,7 +109,6 @@ class Question < ActiveRecord::Base
     incorrect_sequence_id = incorrect_sequence_id.to_i if stored_as_array('incorrectSequences')
     data['incorrectSequences'][incorrect_sequence_id] = new_data
     save
-    incorrect_sequence_id
   end
 
   def update_incorrect_sequences(new_data)
@@ -153,13 +151,12 @@ class Question < ActiveRecord::Base
 
   private def validate_sequences
     return if !data.present? || !data.is_a?(Hash)
-    binding.pry
-    parse_and_validate(data['incorrectSequences']) && parse_and_validate(data['focusPoints'])
+    parse_and_validate(data['incorrectSequences'])
+    parse_and_validate(data['focusPoints'])
   end
 
   private def parse_and_validate(sequences)
-    binding.pry
-    return true if !sequences.present?
+    return if !sequences.present?
     if sequences.is_a?(Hash)
       sequences.each do |key, value|
         validate_text_and_feedback(value)
