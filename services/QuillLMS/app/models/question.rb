@@ -2,17 +2,17 @@
 #
 # Table name: questions
 #
-#  id            :integer          not null, primary key
-#  data          :jsonb            not null
-#  question_type :string           not null
-#  uid           :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id            :integer
+#  data          :jsonb
+#  question_type :string
+#  uid           :string
+#  created_at    :datetime
+#  updated_at    :datetime
+#  temp_id       :integer          not null, primary key
 #
 # Indexes
 #
 #  index_questions_on_question_type  (question_type)
-#  index_questions_on_uid            (uid) UNIQUE
 #
 class Question < ActiveRecord::Base
   TYPES = [
@@ -153,16 +153,18 @@ class Question < ActiveRecord::Base
 
   private def validate_sequences
     return if !data.present? || !data.is_a?(Hash)
+    binding.pry
     parse_and_validate(data['incorrectSequences']) && parse_and_validate(data['focusPoints'])
   end
 
   private def parse_and_validate(sequences)
+    binding.pry
     return true if !sequences.present?
     if sequences.is_a?(Hash)
       sequences.each do |key, value|
         validate_text_and_feedback(value)
       end
-    elsif stored_as_array(data)
+    elsif stored_as_array(sequences)
       sequences.each do |value|
         validate_text_and_feedback(value)
       end

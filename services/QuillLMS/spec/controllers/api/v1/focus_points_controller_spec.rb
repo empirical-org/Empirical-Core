@@ -3,6 +3,8 @@ require 'rails_helper'
 
 describe Api::V1::FocusPointsController, type: :controller do
   let!(:question) { create(:question) }
+  let!(:new_q) {create(:question, data: {"focusPoints"=>{"0"=>{"text"=>"text","feedback"=>"fff"}},"incorrectSequences"=>[{"text"=>"foo","feedback"=>"bar"}]}) }
+
 
   describe "#index" do
     it "should return a list of Question Focus Points" do
@@ -40,7 +42,7 @@ describe Api::V1::FocusPointsController, type: :controller do
 
   describe "#create" do
     it "should add a new focus point to the question data" do
-      data = {"foo" => "bar"}
+      data = {"text" => "foo", "feedback"=>"bar"}
       focus_point_count = question.data["focusPoints"].keys.length
       post :create, question_id: question.uid, focus_point: data
       question.reload
@@ -56,7 +58,7 @@ describe Api::V1::FocusPointsController, type: :controller do
 
   describe "#update" do
     it "should update an existing focus point in the question data" do
-      data = {"foo" => "bar"}
+      data = {"text" => "foo", "feedback"=>"bar"}
       focus_point_uid = question.data["focusPoints"].keys.first
       put :update, question_id: question.uid, id: focus_point_uid, focus_point: data
       question.reload
@@ -73,6 +75,19 @@ describe Api::V1::FocusPointsController, type: :controller do
       put :update, question_id: question.uid, id: 'doesnotexist'
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
+    end
+
+    it "should return a 404 if the focus point is not valid" do
+      data = {"key"=>"-Lp-tB4rOx6sGVpm2AG3","text"=>"a(n)?na(')?(s)?(')?(s)? and (my|me|i|mine)|||(my|me|i|mine)(')?(s)?(')?(s)? and lan|||(and|","order"=>1,"feedback"=>"<p>Revise your work. Make sure your sentence tells that the snack belonged to <em>Lana and me</em>.</p>","conceptResults"=>{"N5VXCdTAs91gP46gATuvPQ"=>{"name"=>"Structure | Sentence Quality | Including Details From Prompt","correct"=>false,"conceptUID"=>"N5VXCdTAs91gP46gATuvPQ"}}}
+
+      focus_point_uid = new_q.data["focusPoints"].keys.first
+      binding.pry
+      put :update, question_id: new_q.uid, id: focus_point_uid, focus_point: data
+      expect(response.status).to eq(200)
+      binding.pry
+      # expect(response.body).to include("The resource you were looking for does not exist")
+      new_q.reload
+      expect(new_q.data["focusPoints"][focus_point_uid]).to eq(data)
     end
   end
 
