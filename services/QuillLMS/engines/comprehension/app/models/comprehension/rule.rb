@@ -67,13 +67,28 @@ module Comprehension
     end
 
     def regex_is_passing?(entry)
-      regex_rules.none? do |regex_rule|
-        regex_rule.entry_failing?(entry)
+      return true if regex_rules.empty?
+      if regex_rules.first.incorrect_sequence?
+        all_regex_rules_passing?(entry)
+      else
+        at_least_one_regex_rule_passing?(entry)
       end
     end
 
     def display_name
       DISPLAY_NAMES[rule_type.to_sym] || rule_type
+    end
+
+    private def all_regex_rules_passing?(entry)
+      regex_rules.none? do |regex_rule|
+        regex_rule.entry_failing?(entry)
+      end
+    end
+
+    private def at_least_one_regex_rule_passing?(entry)
+      regex_rules.any? do |regex_rule|
+        !regex_rule.entry_failing?(entry)
+      end
     end
 
     private def plagiarism?
