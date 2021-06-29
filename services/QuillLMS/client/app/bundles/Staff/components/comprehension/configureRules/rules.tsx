@@ -65,7 +65,8 @@ const Rules = ({ activityId, history, prompt }: RulesProps) => {
   const formattedRows = sortedRules && sortedRules.map((rule: RuleInterface, i: number) => {
     const { name, id, rule_type, prompt_ids, feedbacks, concept_uid } = rule;
     const viewRuleLink = (<Link className="data-link" to={`/activities/${activityId}/rules/${id}`}><p className="word-wrap">{name}</p></Link>);
-    const editRuleLink = (<a onClick={() => handleEditRule(rule)}>Edit</a>);
+    /* eslint-disable-next-line react/jsx-no-bind, jsx-a11y/anchor-is-valid */
+    const editRuleLink = (<button onClick={() => handleEditRule(rule)} type="button"><a className="data-link">Edit</a></button>);
     const promptsIcons = getPromptsIcons(activityData, prompt_ids);
     const firstFeedback = feedbacks && feedbacks[0] ? <p className="word-wrap">{stripHtml(feedbacks[0].text)}</p> : 'N/A'
     const secondFeedback = feedbacks && feedbacks[1] ? <p className="word-wrap">{stripHtml(feedbacks[1].text)}</p> : 'N/A'

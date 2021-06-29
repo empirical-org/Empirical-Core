@@ -365,6 +365,18 @@
         }
       }
     }
+    .rules-table {
+      .data-table-row {
+        .quill-tooltip-trigger {
+          .data-table-row-section {
+            button {
+              background-color: transparent;
+              border: none;
+            }
+          }
+        }
+      }
+    }
   }
   .rules-container, .rule-container, .turk-sessions-container, .semantic-labels-container, .model-container {
     width: 80vw;
