@@ -60,7 +60,12 @@ class Question < ActiveRecord::Base
   end
 
   def add_focus_point(new_data)
-    set_focus_point(new_uuid, new_data)
+    new_uid = new_uuid
+    if set_focus_point(new_uid, new_data)
+      new_uid
+    else
+      nil
+    end
   end
 
   def set_focus_point(focus_point_id, new_data)
@@ -101,7 +106,8 @@ class Question < ActiveRecord::Base
     else
       new_id = new_uuid
     end
-    set_incorrect_sequence(new_id, new_data)
+    return new_id if set_incorrect_sequence(new_id, new_data)
+    nil
   end
 
   def set_incorrect_sequence(incorrect_sequence_id, new_data)

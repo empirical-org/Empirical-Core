@@ -140,10 +140,10 @@ RSpec.describe Question, type: :model do
   end
 
   describe '#set_focus_point' do
-    it 'should return the passed uid' do
+    it 'should return true on success' do
       uid = SecureRandom.uuid
-      response = question.set_focus_point(uid, {})
-      expect(response).to eq(uid)
+      response = question.set_focus_point(uid, {"text"=>"text","feedback"=>"feedback"})
+      expect(response).to eq(true)
     end
 
     it 'should set the value of the specified focusPoint' do
@@ -240,8 +240,8 @@ RSpec.describe Question, type: :model do
       original_incorrect_sequences = [{"1" => {"text"=>"text", "feedback"=>"bar"}}, {"2" => {"text"=>"text", "feedback"=>"bar"}}, {"3" => {"text"=>"text", "feedback"=>"bar"}}]
       original_length = original_incorrect_sequences.length
       question.update_incorrect_sequences(original_incorrect_sequences)
-      uid = question.add_incorrect_sequence(new_incorrect_sequence)
-      expect(uid).to eq(original_length)
+      question.add_incorrect_sequence(new_incorrect_sequence)
+      expect(question.data["incorrectSequences"][original_length]).to eq(new_incorrect_sequence)
     end
 
     it 'should put the new incorrectSequence in the data attribute' do
@@ -252,10 +252,10 @@ RSpec.describe Question, type: :model do
   end
 
   describe '#set_incorrect_sequence' do
-    it 'should return the passed uid' do
+    it 'should return true on success' do
       uid = SecureRandom.uuid
-      response = question.set_incorrect_sequence(uid, {})
-      expect(response).to eq(uid)
+      response = question.set_incorrect_sequence(uid, {"text"=>"Text","feedback"=>"feedback"})
+      expect(response).to eq(true)
     end
 
     it 'should set the value of the specified incorrectSequence if in hash' do
@@ -266,7 +266,7 @@ RSpec.describe Question, type: :model do
     end
 
     it 'should set the value of the specified incorrectSequence if in array' do
-      question.update_incorrect_sequences([1,2,3])
+      question.update_incorrect_sequences([{"text"=>"text1","feedback"=>"feedback1"},{"text"=>"text2","feedback"=>"feedback2"},{"text"=>"text3","feedback"=>"feedback3"}])
       replace_uid = 0
       question.set_incorrect_sequence(replace_uid, new_incorrect_sequence)
       question.reload
