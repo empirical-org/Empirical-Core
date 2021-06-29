@@ -231,7 +231,7 @@ export const languageData = {
     },
     [GERMAN]: {
         flag: 'https://assets.quill.org/images/flags/germany.png',
-        label: 'Deutsche',
+        label: 'Deutsch',
         intro: {
             '-LyFRZvbHAmooTTIIVE2': {
                 header: 'Quill Platzdeckchen-Methode (Placemat)',
