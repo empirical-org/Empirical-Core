@@ -32,6 +32,10 @@ module Comprehension
       sequence_type == TYPE_INCORRECT ? regex_match(entry) : !regex_match(entry)
     end
 
+    def is_incorrect_sequence?
+      sequence_type == TYPE_INCORRECT
+    end
+
     private def regex_match(entry)
       case_sensitive? ? Regexp.new(regex_text).match(entry) : Regexp.new(regex_text, Regexp::IGNORECASE).match(entry)
     end
