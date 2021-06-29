@@ -16,12 +16,15 @@ class Api::V1::FocusPointsController < Api::ApiController
 
   def update
     return not_found unless @question.data.dig("focusPoints", params[:id])
-    @question.set_focus_point(params[:id], valid_params)
-    render_focus_point
+    if @question.set_focus_point(params[:id], valid_params)
+      render_focus_point
+    else
+      render json: @question.errors, status: 422
+    end
   end
 
   def update_all
-    @question.update_focus_points(valid_params)
+    @question.update_focus_points(params_as_hash)
     render_all_focus_points
   end
 
@@ -34,8 +37,13 @@ class Api::V1::FocusPointsController < Api::ApiController
     @question = Question.find_by!(uid: params[:question_id])
   end
 
+  private def params_as_hash
+    valid_params.is_a?(Array) ? valid_params.map {|x| x.to_h } : valid_params.to_h
+  end
+
   private def valid_params
-    params.require(:focus_point).except(:uid)
+    filtered_params = params.require(:focus_point)
+    filtered_params.is_a?(Array) ? filtered_params.map {|x| x.except(:uid).permit! } : filtered_params.except(:uid).permit!
   end
 
   private def render_focus_point

@@ -161,7 +161,7 @@ class Question < ActiveRecord::Base
       sequences.each do |key, value|
         validate_text_and_feedback(value)
       end
-    elsif stored_as_array(sequences)
+    elsif sequences.is_a?(Array)
       sequences.each do |value|
         validate_text_and_feedback(value)
       end

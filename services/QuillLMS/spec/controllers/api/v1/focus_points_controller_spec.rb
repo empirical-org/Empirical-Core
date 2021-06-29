@@ -107,7 +107,7 @@ describe Api::V1::FocusPointsController, type: :controller do
 
   describe "#update_all" do
     it "should replace all focusPoints" do
-      data = {"foo" => "bar"}
+      data = {"0" => {"text"=>"text", "feedback"=>"feedback"}}
       put :update_all, question_id: question.uid, focus_point: data
       question.reload
       expect(question.data["focusPoints"]).to eq(data)
