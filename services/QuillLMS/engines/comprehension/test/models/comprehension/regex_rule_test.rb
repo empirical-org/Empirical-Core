@@ -62,5 +62,18 @@ module Comprehension
         refute @regex_rule.entry_failing?('TEST REGEX')
       end
     end
+
+    context 'incorrect_sequence?' do
+
+      should 'be true if regex rule is incorrect sequence_type' do
+        incorrect_rule = create(:comprehension_regex_rule, sequence_type: 'incorrect')
+        assert incorrect_rule.incorrect_sequence?
+      end
+
+      should 'be false if regex rule is required sequence type' do
+        required_rule = create(:comprehension_regex_rule, sequence_type: 'required')
+        refute required_rule.incorrect_sequence?
+      end
+    end
   end
 end
