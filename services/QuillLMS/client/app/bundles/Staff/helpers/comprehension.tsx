@@ -13,7 +13,8 @@ import {
   SCORED_READING_LEVEL,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
-  PLAGIARISM
+  PLAGIARISM,
+  ALL
 } from '../../../constants/comprehension';
 import { PromptInterface, ActivityInterface } from '../interfaces/comprehensionInterfaces'
 
@@ -174,6 +175,20 @@ export function getPromptForComponent(activityData: any, key: string) {
   prompts.forEach(prompt => promptsHash[prompt.conjunction] = [prompt]);
   promptsHash['all'] = [promptsHash[BECAUSE][0], promptsHash[BUT][0], promptsHash[SO][0]];
   return promptsHash[key];
+}
+
+export function getPromptConjunction(activityData: any, id: number | string) {
+  if(!activityData || activityData && !activityData.activity) {
+    return null;
+  }
+  const { activity } = activityData;
+  const { prompts } = activity;
+  const formattedId = typeof id === 'string' ? parseInt(id) : id;
+  const appliedPrompt = prompts.filter(prompt => prompt.id === formattedId)[0];
+  if(!appliedPrompt) {
+    return ALL;
+  }
+  return appliedPrompt.conjunction;
 }
 
 export function getActivityPrompt({
