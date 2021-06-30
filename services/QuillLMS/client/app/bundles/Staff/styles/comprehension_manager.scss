@@ -1,7 +1,7 @@
 .main-admin-container {
   display: flex;
   border-bottom: 1px solid lightgray;
-  overflow: auto;
+  // overflow: auto;
   .button-wrapper {
     display: flex;
     .quill-button {
@@ -366,6 +366,7 @@
       }
     }
     .rules-table {
+      overflow: unset !important;
       .data-table-row {
         .quill-tooltip-trigger {
           .data-table-row-section {

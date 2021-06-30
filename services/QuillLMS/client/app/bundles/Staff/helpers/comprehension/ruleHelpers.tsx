@@ -504,5 +504,9 @@ export function getConceptName(conceptsData, conceptUID) {
   const concept = concepts.filter(concept => concept.uid === conceptUID)[0];
   if(!concept) { return 'N/A' }
   const splitConcepts = concept.name.split('|');
-  return splitConcepts[splitConcepts.length - 1];
+  const finalConceptString = splitConcepts[splitConcepts.length - 1];
+  if(finalConceptString[0] === ' ') {
+    return finalConceptString.substring(1);
+  }
+  return finalConceptString;
 }

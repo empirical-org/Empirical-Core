@@ -68,8 +68,8 @@ const Rules = ({ activityId, history, prompt }: RulesProps) => {
     /* eslint-disable-next-line react/jsx-no-bind, jsx-a11y/anchor-is-valid */
     const editRuleLink = (<button onClick={() => handleEditRule(rule)} type="button"><a className="data-link">Edit</a></button>);
     const promptsIcons = getPromptsIcons(activityData, prompt_ids);
-    const firstFeedback = feedbacks && feedbacks[0] ? <p className="word-wrap">{stripHtml(feedbacks[0].text)}</p> : 'N/A'
-    const secondFeedback = feedbacks && feedbacks[1] ? <p className="word-wrap">{stripHtml(feedbacks[1].text)}</p> : 'N/A'
+    const firstFeedback = feedbacks && feedbacks[0] ? <p className="word-wrap" dangerouslySetInnerHTML={{__html: feedbacks[0].text }} /> : 'N/A'
+    const secondFeedback = feedbacks && feedbacks[1] ? <p className="word-wrap" dangerouslySetInnerHTML={{__html: feedbacks[1].text }} /> : 'N/A'
     return {
       id: `${activityId}-${id}`,
       type: rule_type,
@@ -169,8 +169,8 @@ const Rules = ({ activityId, history, prompt }: RulesProps) => {
     { name: "But", attribute:"but_prompt", width: "30px" },
     { name: "So", attribute:"so_prompt", width: "30px" },
     { name: "Name", attribute:"name", width: "200px" },
-    { name: "First Feedback", attribute:"first_feedback", width: "250px" },
-    { name: "Second Feedback", attribute:"second_feedback", width: "250px" },
+    { name: "First Layer Feedback", attribute:"first_feedback", width: "250px" },
+    { name: "Second Layer Feedback", attribute:"second_feedback", width: "250px" },
     { name: "Level 0 Concept", attribute:"concept", width: "200px" },
     { name: "", attribute:"view", width: "40px" },
   ];
