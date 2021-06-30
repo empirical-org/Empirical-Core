@@ -27,8 +27,8 @@ describe('Comprehension rule helper functions', () => {
   });
   describe('#calculatePercentageForResponses', () => {
     it('should return the expected percentage amount', () => {
-      expect(calculatePercentageForResponses(3, 9)).toEqual(33.33);
-      expect(calculatePercentageForResponses(3, 4)).toEqual(75);
+      expect(calculatePercentageForResponses(3, 9)).toEqual('33.33');
+      expect(calculatePercentageForResponses(3, 4)).toEqual('75.00');
     });
   });
 });
