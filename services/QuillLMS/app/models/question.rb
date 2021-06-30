@@ -61,11 +61,7 @@ class Question < ActiveRecord::Base
 
   def add_focus_point(new_data)
     new_uid = new_uuid
-    if set_focus_point(new_uid, new_data)
-      new_uid
-    else
-      nil
-    end
+    return new_uid if set_focus_point(new_uid, new_data)
   end
 
   def set_focus_point(focus_point_id, new_data)
@@ -96,23 +92,22 @@ class Question < ActiveRecord::Base
 
   def get_incorrect_sequence(incorrect_sequence_id)
     return nil if !data['incorrectSequences']
-    incorrect_sequence_id = incorrect_sequence_id.to_i if stored_as_array('incorrectSequences')
+    incorrect_sequence_id = incorrect_sequence_id.to_i if stored_as_array?('incorrectSequences')
     return data['incorrectSequences'][incorrect_sequence_id]
   end
 
   def add_incorrect_sequence(new_data)
-    if stored_as_array('incorrectSequences')
+    if stored_as_array?('incorrectSequences')
       new_id = data['incorrectSequences'].length
     else
       new_id = new_uuid
     end
     return new_id if set_incorrect_sequence(new_id, new_data)
-    nil
   end
 
   def set_incorrect_sequence(incorrect_sequence_id, new_data)
     data['incorrectSequences'] ||= {}
-    incorrect_sequence_id = incorrect_sequence_id.to_i if stored_as_array('incorrectSequences')
+    incorrect_sequence_id = incorrect_sequence_id.to_i if stored_as_array?('incorrectSequences')
     data['incorrectSequences'][incorrect_sequence_id] = new_data
     save
   end
@@ -123,7 +118,7 @@ class Question < ActiveRecord::Base
   end
 
   def delete_incorrect_sequence(incorrect_sequence_id)
-    if stored_as_array('incorrectSequences')
+    if stored_as_array?('incorrectSequences')
       data['incorrectSequences'].delete_at(incorrect_sequence_id.to_i)
     else
       data['incorrectSequences'].delete(incorrect_sequence_id)
@@ -151,35 +146,34 @@ class Question < ActiveRecord::Base
     errors.add(:data, "must be a hash") unless data.is_a?(Hash)
   end
 
-  private def stored_as_array(key)
+  private def stored_as_array?(key)
     data[key].class == Array
   end
 
   private def validate_sequences
-    return if !data.present? || !data.is_a?(Hash)
+    return if data.blank? || !data.is_a?(Hash)
+
     parse_and_validate(data['incorrectSequences'])
     parse_and_validate(data['focusPoints'])
   end
 
   private def parse_and_validate(sequences)
-    return if !sequences.present?
+    return if sequences.blank?
+
     if sequences.is_a?(Hash)
-      sequences.each do |key, value|
-        validate_text_and_feedback(value)
-      end
+      sequences.each { |key, value| validate_text_and_feedback(value) }
     elsif sequences.is_a?(Array)
-      sequences.each do |value|
-        validate_text_and_feedback(value)
-      end
+      sequences.each { |value| validate_text_and_feedback(value) }
     end
   end
 
   private def validate_text_and_feedback(value)
-    errors.add(:data, "Focus Points and Incorrect Sequences must have text and feedback.") unless value['text'].present? && value['feedback'].present?
-    return unless value['text'].present? && value['feedback'].present?
-    value['text'].split('|||').each do |regex|
-      validate_regex(regex)
+    if value['text'].nil? || value['feedback'].nil?
+      errors.add(:data, "Focus Points and Incorrect Sequences must have text and feedback.")
+      return
     end
+
+    value['text'].split('|||').each { |regex| validate_regex(regex) }
   end
 
   private def validate_regex(regex)

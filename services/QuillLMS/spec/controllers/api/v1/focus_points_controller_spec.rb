@@ -3,7 +3,18 @@ require 'rails_helper'
 
 describe Api::V1::FocusPointsController, type: :controller do
   let!(:question) { create(:question) }
-  let!(:new_q) {create(:question, data: {"focusPoints"=>{"0"=>{"text"=>"text","feedback"=>"fff"}},"incorrectSequences"=>[{"text"=>"foo","feedback"=>"bar"}]}) }
+  let!(:new_q) do
+    create(:question,
+      data: {
+        "focusPoints" => {
+          "0" => { "text" => "text", "feedback"=>"fff" }
+        },
+        "incorrectSequences"=> [
+          { "text"=>"foo", "feedback"=>"bar" }
+        ]
+      }
+    )
+  end
 
 
   describe "#index" do

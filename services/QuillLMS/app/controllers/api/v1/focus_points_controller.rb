@@ -24,7 +24,7 @@ class Api::V1::FocusPointsController < Api::ApiController
   end
 
   def update_all
-    @question.update_focus_points(params_as_hash)
+    @question.update_focus_points(valid_params)
     render_all_focus_points
   end
 
@@ -37,13 +37,13 @@ class Api::V1::FocusPointsController < Api::ApiController
     @question = Question.find_by!(uid: params[:question_id])
   end
 
-  private def params_as_hash
-    valid_params.is_a?(Array) ? valid_params.map {|x| x.to_h } : valid_params.to_h
-  end
-
   private def valid_params
     filtered_params = params.require(:focus_point)
-    filtered_params.is_a?(Array) ? filtered_params.map {|x| x.except(:uid).permit! } : filtered_params.except(:uid).permit!
+    if filtered_params.is_a?(Array)
+      filtered_params.map {|x| x.except(:uid).permit!.to_h }
+    else
+      filtered_params.except(:uid).permit!.to_h
+    end
   end
 
   private def render_focus_point
