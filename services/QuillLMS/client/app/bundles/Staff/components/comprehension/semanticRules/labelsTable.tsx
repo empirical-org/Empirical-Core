@@ -23,7 +23,7 @@ const LabelsTable = ({ activityId, prompt }) => {
     const formattedRows = rulesData.rules.map(rule => {
       const { name, id, state, optimal, label } = rule;
       const ruleLink = (
-        <Link className="data-link" to={{ pathname: `/activities/${activityId}/semantic-labels/${prompt.id}/${id}`, state: { rule: rule } }}>View</Link>
+        <Link className="data-link" to={{ pathname: `/activities/${activityId}/semantic-labels/${prompt.id}/${id}`, state: { rule: rule, conjunction: prompt.conjunction } }}>View</Link>
       );
       const isActive = state === 'active';
       return {
