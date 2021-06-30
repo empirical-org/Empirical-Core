@@ -22,6 +22,6 @@
     "local-web-server": "^4.0.0"
   },
   "dependencies": {
-    "ws": "^7.4.4"
+    "ws": "^7.4.6"
   }
 }
