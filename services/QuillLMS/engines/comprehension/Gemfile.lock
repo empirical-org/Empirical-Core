@@ -248,12 +248,13 @@ PLATFORMS
 DEPENDENCIES
   byebug
   comprehension!
-  factory_bot_rails
+  factory_bot_rails (~> 4.8.2)
+  google-cloud-automl
   httparty
   m (~> 1.5.0)
   minitest-stub_any_instance
   pg (= 0.18.4)
-  pry (~> 0.13.1)
+  pry
   pry-byebug
   rails-controller-testing
   redis
