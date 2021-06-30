@@ -13,7 +13,9 @@ exports[`PlagiarismRulesIndex component should render PlagiarismRulesIndex 1`] =
     <h3>
       Could Capybaras Create Chaos?
     </h3>
-    <h4 />
+    <h4>
+      Could Capybaras Create Chaos? [student testing]
+    </h4>
   </section>
   <section
     className="plagiarism-section"

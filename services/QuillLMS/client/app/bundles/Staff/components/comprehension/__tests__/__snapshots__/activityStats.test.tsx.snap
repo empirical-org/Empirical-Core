@@ -13,7 +13,9 @@ exports[`ActivityStats component should render ActivityStats 1`] = `
     <h3>
       Could Capybaras Create Chaos?
     </h3>
-    <h4 />
+    <h4>
+      Could Capybaras Create Chaos? [student testing]
+    </h4>
   </section>
   <ReactTable
     AggregatedComponent={[Function]}

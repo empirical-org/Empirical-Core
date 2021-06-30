@@ -52,6 +52,7 @@ exports[`LabelsTable component should render LabelsTable 1`] = `
               Object {
                 "pathname": "/activities/17/semantic-labels/1/1",
                 "state": Object {
+                  "conjunction": "because",
                   "rule": Object {
                     "id": 1,
                     "label": Object {
@@ -88,6 +89,7 @@ exports[`LabelsTable component should render LabelsTable 1`] = `
               Object {
                 "pathname": "/activities/17/semantic-labels/1/2",
                 "state": Object {
+                  "conjunction": "because",
                   "rule": Object {
                     "id": 2,
                     "label": Object {
@@ -128,7 +130,7 @@ exports[`LabelsTable component should render LabelsTable 1`] = `
         Object {
           "pathname": "/activities/17/semantic-labels/1/new",
           "state": Object {
-            "conjunction": undefined,
+            "conjunction": "because",
           },
         }
       }
