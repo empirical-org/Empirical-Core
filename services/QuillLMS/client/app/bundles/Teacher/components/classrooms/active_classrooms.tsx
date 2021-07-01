@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Pusher from 'pusher-js';
 import { SortableHandle, } from 'react-sortable-hoc';
+import stringHash from 'string-hash';
 
 import CreateAClassModal from './create_a_class_modal'
 import RenameClassModal from './rename_classroom_modal'
@@ -83,11 +84,10 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
 
   checkForSortedClassrooms() {
     const { user } = this.props
-    const { ip_address } = user;
-    const { addr } = ip_address;
-    const sortedClassroomsJsonString = localStorage.getItem(`${addr}-sorted-classes`);
+    const { email } = user;
+    const sortedClassroomsJsonString = localStorage.getItem(`${stringHash(email)}-sorted-classes`);
     if(sortedClassroomsJsonString) {
-      const sortedClassrooms = JSON.parse(localStorage.getItem(`${addr}-sorted-classes`));
+      const sortedClassrooms = JSON.parse(sortedClassroomsJsonString);
       this.setState({ classrooms: sortedClassrooms });
     }
   }
@@ -216,15 +216,14 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
 
   sortClassrooms = (sortedClassroomObjects) => {
     const { user } = this.props
-    const { ip_address } = user;
-    const { addr } = ip_address;
+    const { email } = user;
     const newlySortedClassrooms = sortedClassroomObjects.map(classroomObject => {
       const { props } = classroomObject;
       const { children } = props;
       return children[1].props.classroom;
     });
     this.setState({ classrooms: newlySortedClassrooms });
-    localStorage.setItem(`${addr}-sorted-classes`, JSON.stringify(newlySortedClassrooms));
+    localStorage.setItem(`${stringHash(email)}-sorted-classes`, JSON.stringify(newlySortedClassrooms));
   }
 
   getClassroomCardsWithHandle(classroomCards) {
