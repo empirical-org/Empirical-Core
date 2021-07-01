@@ -2,7 +2,6 @@ import * as React from "react";
 import { Link } from 'react-router-dom';
 import { queryCache, useQuery } from 'react-query';
 import { firstBy } from "thenby";
-import stripHtml from "string-strip-html";
 
 import RuleViewForm from './ruleViewForm';
 
@@ -63,7 +62,7 @@ const Rules = ({ activityId, history, prompt }: RulesProps) => {
   }, [rulesData]);
 
   const formattedRows = sortedRules && sortedRules.map((rule: RuleInterface, i: number) => {
-    const { name, id, rule_type, prompt_ids, feedbacks, concept_uid } = rule;
+    const { name, id, rule_type, prompt_ids, feedbacks, concept_uid, universal } = rule;
     const viewRuleLink = (<Link className="data-link" to={`/activities/${activityId}/rules/${id}`}><p className="word-wrap">{name}</p></Link>);
     /* eslint-disable-next-line react/jsx-no-bind, jsx-a11y/anchor-is-valid */
     const editRuleLink = (<button onClick={() => handleEditRule(rule)} type="button"><a className="data-link">Edit</a></button>);
@@ -81,7 +80,7 @@ const Rules = ({ activityId, history, prompt }: RulesProps) => {
       so_prompt: promptsIcons[SO],
       concept: <p className="word-wrap">{getConceptName(conceptsData, concept_uid)}</p>,
       order: i + 1,
-      view: editRuleLink
+      view: universal ? '' : editRuleLink
     }
   });
 
