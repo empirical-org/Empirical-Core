@@ -30,6 +30,7 @@ interface PromptStepState {
 }
 
 const RESPONSE = 'response'
+export const DIRECTIONS = 'Use information from the text to finish the sentence:'
 
 export class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
@@ -341,7 +342,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     return (<div>
       <div className="step-header">
         {stepNumberComponent}
-        <p className="directions">Use information from the text to finish the sentence:</p>
+        <p className="directions">{DIRECTIONS}</p>
       </div>
       <div className="active-content-container">
         {this.renderEditorContainer()}
