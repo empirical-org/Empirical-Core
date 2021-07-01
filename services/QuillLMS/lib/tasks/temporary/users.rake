@@ -1,9 +1,9 @@
 namespace :users do
   task :update_email_domain, [:old_domain, :new_domain] => [:environment] do |task, args|
-    old_domain = "@#{args[:old_domain]}"
-    new_domain = "@#{args[:new_domain]}"
+    old_domain = "@#{args[:old_domain].downcase}"
+    new_domain = "@#{args[:new_domain].downcase}"
 
-    users = User.where("email ILIKE ?", "%#{old_domain}")
+    users = User.where("email LIKE ?", "%#{old_domain}")
 
     puts "Going to update #{users.count} email addresses"
     num_updates = 0
