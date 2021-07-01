@@ -30,6 +30,10 @@ jest.spyOn(global.Date, 'now').mockImplementation(() =>
   new Date('2019-08-14T11:01:58.135Z').valueOf()
 );
 
+jest.mock('string-hash', () => ({
+  default: jest.fn()
+}));
+
 describe('ActiveClassrooms component', () => {
 
   describe('with no classrooms or coteacher invitations ', () => {
