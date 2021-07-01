@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Pusher from 'pusher-js';
-import { Snackbar, defaultSnackbarTimeout } from '../../../Shared/index'
+import { SortableHandle, } from 'react-sortable-hoc';
 
 import CreateAClassModal from './create_a_class_modal'
 import RenameClassModal from './rename_classroom_modal'
@@ -17,10 +17,12 @@ import CoteacherInvitation from './coteacher_invitation'
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner'
 import ViewAsStudentModal from '../shared/view_as_student_modal'
+import { Snackbar, defaultSnackbarTimeout, SortableList } from '../../../Shared/index'
 
 import { requestGet } from '../../../../modules/request/index.js';
 
 const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
+const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
 
 interface ActiveClassroomsProps {
   classrooms: Array<any>;
@@ -200,6 +202,45 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     return <Snackbar text={snackbarCopy} visible={showSnackbar} />
   }
 
+  renderClassroomRows(ownActiveClassrooms) {
+    const classroomCards = this.renderClassroomCards(ownActiveClassrooms)
+    const DragHandle = SortableHandle(() => <img alt="Reorder icon" className="reorder-icon focus-on-light" src={reorderSrc} tabIndex={0} />);
+    const handle = <span className='reorder-classroom-item'><DragHandle /></span>
+    const rows = classroomCards.map(card => {
+      return (
+        <React.Fragment>
+          {handle}
+          {card}
+        </React.Fragment>
+      )
+    })
+    return <SortableList data={rows} sortCallback={() => console.log('woo')} useDragHandle={true} />
+  }
+
+  renderClassroomCards(ownActiveClassrooms) {
+    const { user } = this.props
+    const { classrooms } = this.state
+    return classrooms.map(classroom => {
+      const isOwnedByCurrentUser = !!ownActiveClassrooms.find(c => c.id === classroom.id)
+      return (<Classroom
+        archiveClass={() => this.openModal(archiveClassModal)}
+        changeGrade={() => this.openModal(changeGradeModal)}
+        classroom={classroom}
+        classrooms={ownActiveClassrooms}
+        clickClassroomHeader={this.clickClassroomHeader}
+        importGoogleClassroomStudents={() => this.openModal(importGoogleClassroomStudentsModal)}
+        inviteStudents={() => this.openModal(inviteStudentsModal)}
+        isOwnedByCurrentUser={isOwnedByCurrentUser}
+        key={classroom.id}
+        onSuccess={this.onSuccess}
+        renameClass={() => this.openModal(renameClassModal)}
+        selected={classroom.id === this.state.selectedClassroomId}
+        user={user}
+        viewAsStudent={this.viewAsStudent}
+      />)
+    })
+  }
+
   renderPageContent() {
     const { user } = this.props
     const { classrooms, coteacherInvitations } = this.state
@@ -221,28 +262,11 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           showSnackbar={this.showSnackbar}
         />)
       })
-      const classroomCards = classrooms.map(classroom => {
-        const isOwnedByCurrentUser = !!ownActiveClassrooms.find(c => c.id === classroom.id)
-        return (<Classroom
-          archiveClass={() => this.openModal(archiveClassModal)}
-          changeGrade={() => this.openModal(changeGradeModal)}
-          classroom={classroom}
-          classrooms={ownActiveClassrooms}
-          clickClassroomHeader={this.clickClassroomHeader}
-          importGoogleClassroomStudents={() => this.openModal(importGoogleClassroomStudentsModal)}
-          inviteStudents={() => this.openModal(inviteStudentsModal)}
-          isOwnedByCurrentUser={isOwnedByCurrentUser}
-          key={classroom.id}
-          onSuccess={this.onSuccess}
-          renameClass={() => this.openModal(renameClassModal)}
-          selected={classroom.id === this.state.selectedClassroomId}
-          user={user}
-          viewAsStudent={this.viewAsStudent}
-        />)
-      })
+      // const classroomCards = this.renderClassroomCards(ownActiveClassrooms)
       return (<div className="active-classes">
         {coteacherInvitationCards}
-        {classroomCards}
+        {this.renderClassroomRows(ownActiveClassrooms)}
+        {/* {classroomCards} */}
       </div>)
     }
   }
