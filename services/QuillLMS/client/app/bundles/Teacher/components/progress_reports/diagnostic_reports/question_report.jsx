@@ -10,13 +10,14 @@ export default class QuestionReport extends React.Component {
     };
   }
 
-  columnDefinitions = () => {
+  columnDefinitions = (activityClassification) => {
     return [
       {
         name: 'Score',
         field: 'score',
         sortByField: 'score',
         customCell: function(row) {
+          if (activityClassification === 'comprehension') return 'N/A'
           return row['score'] === null ? 'Not Completed' : row['score'] + '%';
         }
       },

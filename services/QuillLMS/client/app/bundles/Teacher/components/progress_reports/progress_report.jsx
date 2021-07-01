@@ -141,6 +141,7 @@ export default createReactClass({
     this.setState({loading: true});
     $.get(this.props.sourceUrl, this.requestParams(), function onSuccess(data) {
         this.setState({
+        activityClassification: data.classification,
         numPages: data.page_count,
         loading: false,
         results: this.strippedResults(data[this.props.jsonResultsKey]),
@@ -149,6 +150,9 @@ export default createReactClass({
         studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
         unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs')
       });
+      if (data.classification === 'comprehension') this.setState({
+        currentSort: {direction: 'asc', field: 'question_id'}
+      })
       if (setStateBasedOnURLParams) {
         const classroomId = getParameterByName('classroom_id') || '';
         const studentId = getParameterByName('student_id') || '';
@@ -218,7 +222,7 @@ export default createReactClass({
     if (this.state.loading) {
       mainSection = <LoadingIndicator />;
     } else {
-      mainSection = <SortableTable colorByScoreKeys={this.props.colorByScoreKeys} columns={this.props.columnDefinitions()} currentSort={this.state.currentSort} onNonPremiumStudentPage={this.studentPageBlur()} rows={visibleResults} sortHandler={this.handleSort()} />;
+      mainSection = <SortableTable colorByScoreKeys={this.props.colorByScoreKeys} columns={this.props.columnDefinitions(this.state.activityClassification)} currentSort={this.state.currentSort} onNonPremiumStudentPage={this.studentPageBlur()} rows={visibleResults} sortHandler={this.handleSort()} />;
     }
     if (!this.props.hideFaqLink) {
       faqLink = <FaqLink />

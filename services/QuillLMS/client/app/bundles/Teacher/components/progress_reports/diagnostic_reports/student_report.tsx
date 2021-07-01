@@ -50,7 +50,7 @@ export class StudentReport extends React.Component<RouteComponentProps, StudentR
     const concept_results = _.sortBy(studentData.concept_results, 'question_number')
     return concept_results.map((question: QuestionData, index: number) => {
       if (studentData.activity_classification === 'connect' || studentData.activity_classification === 'sentence' || studentData.activity_classification === 'comprehension') {
-        return <ConnectStudentReportBox boxNumber={index + 1} key={index} questionData={question} />
+        return <ConnectStudentReportBox boxNumber={index + 1} key={index} questionData={question} showScore={studentData.activity_classification !== 'comprehension'} />
       }
       return <StudentReportBox boxNumber={index + 1} key={index} questionData={question} />
     })
@@ -62,12 +62,13 @@ export class StudentReport extends React.Component<RouteComponentProps, StudentR
     if (loading) { return <LoadingSpinner /> }
     const student = this.selectedStudent(students);
     const { name, score, id } = student;
+    const displayScore = score ? `${score}%` : ''
     const options = students.map(s => ({ value: s.id, label: s.name, }))
     const value = options.find(s => id === s.value)
     return (
       <div className='individual-student-activity-view'>
         <header className="activity-view-header-container">
-          <h3 className='activity-view-header'>{name}  <strong className='activity-view-score'>{score}%</strong></h3>
+          <h3 className='activity-view-header'>{name}  <strong className='activity-view-score'>{displayScore}</strong></h3>
           <DropdownInput handleChange={studentDropdownCallback} options={options} value={value} />
         </header>
         {this.studentBoxes(students)}

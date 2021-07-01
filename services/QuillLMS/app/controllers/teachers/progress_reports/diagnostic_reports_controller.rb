@@ -11,7 +11,10 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def question_view
-        render json: { data: results_by_question(params) }.to_json
+        activity = Activity.includes(:classification)
+                           .find(params[:activity_id])
+        render json: { data: results_by_question(params),
+                       classification: activity.classification.key }.to_json
     end
 
     def students_by_classroom
