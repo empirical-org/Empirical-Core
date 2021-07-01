@@ -78,6 +78,18 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   componentDidMount() {
     this.getGoogleClassrooms()
     this.setStateBasedOnParams()
+    this.checkForSortedClassrooms();
+  }
+
+  checkForSortedClassrooms() {
+    const { user } = this.props
+    const { ip_address } = user;
+    const { addr } = ip_address;
+    const sortedClassroomsJsonString = localStorage.getItem(`${addr}-sorted-classes`);
+    if(sortedClassroomsJsonString) {
+      const sortedClassrooms = JSON.parse(localStorage.getItem(`${addr}-sorted-classes`));
+      this.setState({ classrooms: sortedClassrooms });
+    }
   }
 
   setStateBasedOnParams() {
@@ -202,11 +214,23 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     return <Snackbar text={snackbarCopy} visible={showSnackbar} />
   }
 
-  renderClassroomRows(ownActiveClassrooms) {
-    const classroomCards = this.renderClassroomCards(ownActiveClassrooms)
+  sortClassrooms = (sortedClassroomObjects) => {
+    const { user } = this.props
+    const { ip_address } = user;
+    const { addr } = ip_address;
+    const newlySortedClassrooms = sortedClassroomObjects.map(classroomObject => {
+      const { props } = classroomObject;
+      const { children } = props;
+      return children[1].props.classroom;
+    });
+    this.setState({ classrooms: newlySortedClassrooms });
+    localStorage.setItem(`${addr}-sorted-classes`, JSON.stringify(newlySortedClassrooms));
+  }
+
+  getClassroomCardsWithHandle(classroomCards) {
     const DragHandle = SortableHandle(() => <img alt="Reorder icon" className="reorder-icon focus-on-light" src={reorderSrc} tabIndex={0} />);
     const handle = <span className='reorder-classroom-item'><DragHandle /></span>
-    const rows = classroomCards.map(card => {
+    return classroomCards.map(card => {
       return (
         <React.Fragment>
           {handle}
@@ -214,7 +238,12 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
         </React.Fragment>
       )
     })
-    return <SortableList data={rows} sortCallback={() => console.log('woo')} useDragHandle={true} />
+  }
+
+  renderClassroomRows(ownActiveClassrooms) {
+    const classroomCards = this.renderClassroomCards(ownActiveClassrooms)
+    const rows = this.getClassroomCardsWithHandle(classroomCards)
+    return <SortableList data={rows} sortCallback={this.sortClassrooms} useDragHandle={true} />
   }
 
   renderClassroomCards(ownActiveClassrooms) {
@@ -238,16 +267,20 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
         user={user}
         viewAsStudent={this.viewAsStudent}
       />)
+    });
+  }
+
+  getOwnActiveClassrooms(classrooms) {
+    const { user } = this.props
+    return classrooms.filter(c => {
+      const classroomOwner = c.teachers.find(teacher => teacher.classroom_relation === 'owner')
+      return c.visible && classroomOwner.id === user.id
     })
   }
 
   renderPageContent() {
-    const { user } = this.props
     const { classrooms, coteacherInvitations } = this.state
-    const ownActiveClassrooms = classrooms.filter(c => {
-      const classroomOwner = c.teachers.find(teacher => teacher.classroom_relation === 'owner')
-      return c.visible && classroomOwner.id === user.id
-    })
+    const ownActiveClassrooms = this.getOwnActiveClassrooms(classrooms)
     if (classrooms.length === 0 && coteacherInvitations.length === 0) {
       return (<div className="no-active-classes">
         <img src={emptyClassSrc} />
@@ -262,11 +295,10 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           showSnackbar={this.showSnackbar}
         />)
       })
-      // const classroomCards = this.renderClassroomCards(ownActiveClassrooms)
+      const classroomCards = this.renderClassroomRows(ownActiveClassrooms);
       return (<div className="active-classes">
         {coteacherInvitationCards}
-        {this.renderClassroomRows(ownActiveClassrooms)}
-        {/* {classroomCards} */}
+        {classroomCards}
       </div>)
     }
   }
