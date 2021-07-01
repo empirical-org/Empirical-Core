@@ -45,7 +45,8 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
 
       # feedback
-      so_feedback = feedback_factory { { rule: so_rule1 } }
+      so_feedback1 = feedback_factory { { rule: so_rule1 } }
+      so_feedback2 = feedback_factory { { rule: so_rule1, order: 2 } }
 
       # feedback_histories
       f_h1 = create(:feedback_history, rule_uid: so_rule1.uid, entry: "f_h1 lorem")
@@ -70,7 +71,8 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       expected = {
         api_name: so_rule1.rule_type,
         rule_order: so_rule1.suborder,
-        first_feedback: so_feedback.text,
+        first_feedback: so_feedback1.text,
+        second_feedback: so_feedback2.text,
         rule_name: so_rule1.name,
         rule_note: so_rule1.note,
         rule_uid: so_rule1.uid,
