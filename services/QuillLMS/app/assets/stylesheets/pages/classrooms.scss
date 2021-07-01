@@ -248,6 +248,8 @@
 .list-item {
   display: flex;
   align-items: baseline;
+  width: 992px;
+  margin-left: -38px;
   .reorder-classroom-item {
     margin-right: 16px;
   }
@@ -415,5 +417,23 @@
     .expand-arrow {
       transform: rotate(180deg);
     }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .list-item {
+    display: flex;
+    align-items: baseline;
+    width: 762px;
+    margin-left: -38px;
+  }
+}
+
+@media (max-width: 768px) {
+  .list-item {
+    display: flex;
+    align-items: baseline;
+    width: auto;
+    margin-left: 0px;
   }
 }
