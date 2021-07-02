@@ -1,6 +1,6 @@
 class CreateOrIncrementResponseWorker
   include Sidekiq::Worker
-  sidekiq_options queue: SidekiqQueue::CRITICAL
+  sidekiq_options retry: 3, queue: SidekiqQueue::CRITICAL
 
   class RaceConditionError < StandardError; end
 
@@ -19,7 +19,6 @@ class CreateOrIncrementResponseWorker
       # The data should persist to the DB safely.
       rescue Elasticsearch::Transport::Transport::Errors::BadRequest => e
         AdminUpdates.run(response.question_uid)
-        NewRelic::Agent.notice_error(e)
       rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid => e
         raise CreateOrIncrementResponseWorker::RaceConditionError, symbolized_vals[:question_uid]
       end
