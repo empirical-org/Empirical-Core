@@ -9,7 +9,7 @@ class BlogPostsController < ApplicationController
     topic_names.each do |name|
       @topics.push({ name: name, slug: CGI::escape(name.downcase.gsub(' ','-'))})
     end
-    @blog_posts = BlogPost.where(draft: false, topic: topic_names).order('order_number')
+    @blog_posts = BlogPost.for_topics(topic_names)
   end
 
   def student_center_index
@@ -19,29 +19,29 @@ class BlogPostsController < ApplicationController
     topic_names.each do |name|
       @topics.push({ name: name, slug: CGI::escape(name.downcase.gsub(' ','-'))})
     end
-    @blog_posts = BlogPost.where(draft: false, topic: topic_names)
+    @blog_posts = BlogPost.for_topics(topic_names)
     render :index
   end
 
   def show
-    find_by_hash = { slug: params[:slug] }
-    find_by_hash[:draft] = false unless @role == 'staff'
+    # find_by_hash = { slug: params[:slug] }
+    # find_by_hash[:draft] = false unless @role == 'staff'
+    draft_status = (@role == 'staff') ? [true, false] : false
 
-    @blog_post = BlogPost.find_by!(find_by_hash)
-
-    @topic = @blog_post.topic
-    @display_paywall = true unless @blog_post.can_be_accessed_by(current_user)
+    @blog_post = BlogPost.find_by!(slug: params[:slug], draft: draft_status)
+    # TODO remove SQL write from get endpoint
     @blog_post.increment_read_count
-    @author = @blog_post.author
-    @most_recent_posts = BlogPost.where("draft = false AND id != #{@blog_post.id}").order('updated_at DESC').limit(3)
+    @most_recent_posts = BlogPost.most_recent.where.not(id: @blog_post.id)
+
     @title = @blog_post.title
     @description = @blog_post.subtitle || @title
     @image_link = @blog_post.image_link
   rescue ActiveRecord::RecordNotFound => e
     # try fixing params and redirect to correct url.
-    corrected_slug = find_by_hash.merge(slug: params[:slug]&.gsub(/[^a-zA-Z\d\s-]/, '')&.downcase)
 
-    if blog_post = BlogPost.find_by(corrected_slug)
+    corrected_slug = params[:slug]&.gsub(/[^a-zA-Z\d\s-]/, '')&.downcase
+
+    if blog_post = BlogPost.find_by(slug: corrected_slug, draft: draft_status)
       redirect_to blog_post
     else
       flash[:error] = "Oops! We can't seem to find that blog post. Trying searching on this page!"
@@ -88,7 +88,7 @@ class BlogPostsController < ApplicationController
       if !BlogPost::TOPICS.include?(topic) && !BlogPost::STUDENT_TOPICS.include?(topic)
         raise ActionController::RoutingError, 'Topic Not Found'
       end
-      @blog_posts = BlogPost.where(draft: false, topic: topic).order('order_number')
+      @blog_posts = BlogPost.for_topics(topic)
       # hide student part of topic name for display
       @title = @role == 'student' ? topic.gsub('Student ', '').capitalize : topic
       render 'index'

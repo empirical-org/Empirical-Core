@@ -1,17 +1,17 @@
 <% if @topic.in?([BlogPost::GETTING_STARTED, @topic == BlogPost::TEACHER_STORIES, @topic == BlogPost::WRITING_INSTRUCTION_RESEARCH]) %>
-  <% @active_tab = @topic %>
+  <% active_tab = @topic %>
 <% else %>
-  <% @active_tab = 'All resources'%>
+  <% active_tab = 'All resources'%>
 <% end %>
 
 <%= render partial: 'teachers/shared/scorebook_tabs' if current_user %>
-<%= render partial: 'pages/shared/teacher_center_navbar', active_tab: @active_tab %>
+<%= render partial: 'pages/shared/teacher_center_navbar', active_tab: active_tab %>
 <%= react_component('BlogPostsApp', props: {
   route: 'show',
   blogPost: @blog_post,
   announcement: @announcement,
   mostRecentPosts: @most_recent_posts,
   author: @author,
-  displayPaywall: @display_paywall,
+  displayPaywall: @blog_post.can_be_accessed_by(current_user),
   role: @role
 }) %>
