@@ -27,11 +27,12 @@ common: &default_settings
   # from affecting your application's error rate and Apdex score.
   # This allows you to retain the error information for troubleshooting purposes
   # while avoiding alerts based on error rate or Apdex score.
-  # error_collector.expected_classes:
-  #   - 'Net::HTTPRetriableError'
-  #   - 'ActionController::RoutingError'
-  #   - 'Net::ReadTimeout'
-  #   - 'CreateOrIncrementResponseWorker::RaceConditionError'
+  error_collector.expected_classes:
+    - 'Net::HTTPRetriableError'
+    - 'ActionController::RoutingError'
+    - 'Net::ReadTimeout'
+    - 'CreateOrIncrementResponseWorker::RaceConditionError'
+    - 'RematchResponseWorker::LambdaError'
 
 
 # Environment-specific settings are in this section.

@@ -19,6 +19,8 @@ class RematchResponseWorker
     'spelling_error' => false
   }.freeze
 
+  class LambdaError < StandardError; end
+
   def perform(response_id, question_type, question_hash, reference_response_ids)
     response = Response.find_by(id: response_id)
     return unless response
@@ -62,7 +64,7 @@ class RematchResponseWorker
     end
 
     if resp.code != '200'
-      raise Net::HTTPError.new("Got a #{resp.code} response trying to rematch #{lambda_payload[:response][:id]}: #{resp.message}", resp.code)
+      raise RematchResponseWorker::LambdaError.new("Got a #{resp.code} response trying to rematch #{lambda_payload[:response][:id]}: #{resp.message}", resp.code)
     end
 
     JSON.parse(resp.body)

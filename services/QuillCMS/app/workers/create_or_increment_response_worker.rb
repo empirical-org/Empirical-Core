@@ -2,7 +2,7 @@ class CreateOrIncrementResponseWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
-  class RaceConditionError < StandardError;
+  class RaceConditionError < StandardError; end
 
   def perform(new_vals)
     symbolized_vals = new_vals.symbolize_keys
