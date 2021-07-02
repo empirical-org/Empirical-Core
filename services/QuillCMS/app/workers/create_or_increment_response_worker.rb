@@ -2,6 +2,8 @@ class CreateOrIncrementResponseWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
+  class RaceConditionError < StandardError;
+
   def perform(new_vals)
     symbolized_vals = new_vals.symbolize_keys
     response = Response.find_by(text: symbolized_vals[:text], question_uid: symbolized_vals[:question_uid])
@@ -18,6 +20,8 @@ class CreateOrIncrementResponseWorker
       rescue Elasticsearch::Transport::Transport::Errors::BadRequest => e
         AdminUpdates.run(response.question_uid)
         NewRelic::Agent.notice_error(e)
+      rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid => e
+        raise CreateOrIncrementResponseWorker::RaceConditionError, symbolized_vals[:question_uid]
       end
     else
       increment_counts(response, symbolized_vals)
