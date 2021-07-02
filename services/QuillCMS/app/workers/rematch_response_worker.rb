@@ -6,6 +6,9 @@ class RematchResponseWorker
 
   sidekiq_options retry: 1, queue: SidekiqQueue::DEFAULT
 
+  # retry 10 seconds later to spread out attempts
+  sidekiq_retry_in { 5 }
+
   DEFAULT_PARAMS_HASH = {
     'parent_id' => nil,
     'author' => nil,
@@ -59,7 +62,7 @@ class RematchResponseWorker
     end
 
     if resp.code != '200'
-      raise Net::HTTPError.new("Got a #{resp.code} response trying to rematch #{lambda_payload[:response][:id]}", resp.code)
+      raise Net::HTTPError.new("Got a #{resp.code} response trying to rematch #{lambda_payload[:response][:id]}: #{resp.message}", resp.code)
     end
 
     JSON.parse(resp.body)
