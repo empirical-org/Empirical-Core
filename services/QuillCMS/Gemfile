@@ -40,7 +40,8 @@ gem 'elasticsearch-rails', '~> 5.1'
 gem 'kaminari'
 
 # OTHER
-gem 'newrelic_rpm', '~> 6.15.0'
+# TODO: replace with rubygems version when 7.2 is officially released.
+gem 'newrelic_rpm', '~>7.2', git: 'https://github.com/newrelic/newrelic-ruby-agent.git', tag: '7.2.0-pre'
 gem 'rubyzip'
 
 # WEBSOCKETS
