@@ -6,7 +6,7 @@ class RematchResponseWorker
 
   sidekiq_options retry: 1, queue: SidekiqQueue::DEFAULT
 
-  # retry 10 seconds later to spread out attempts
+  # spread out retries
   sidekiq_retry_in { 5 }
 
   DEFAULT_PARAMS_HASH = {
