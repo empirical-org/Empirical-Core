@@ -14,8 +14,6 @@ class Rack::Attack
   # Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
 
   EXACT_BLOCK_PATHS = [
-    '/.env',
-    '/test/.env',
     '/shell',
     '/boaform/admin/formLogin',
     '/GponForm/diag_Form',
@@ -31,6 +29,7 @@ class Rack::Attack
     /\.aspx/,
     /\.git/,
     /\.cgi/,
+    /\.env/,
     /wp-admin/,
     /wp-login/,
     /wp-content/,

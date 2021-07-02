@@ -4,7 +4,7 @@ require 'modules/response_search'
 RSpec.describe 'Rack Attack configuration checks', type: :request do
   context 'pentester' do
     it 'should return forbidden for a url in ban list' do
-      get '/.env'
+      get '/owa'
 
       expect(response).to have_http_status(403)
     end
