@@ -55,7 +55,9 @@ const Ap = ({ isPartOfAssignmentFlow, }: ApContainerProps) => {
     if(isVisible && !isScrollingFromClick) {
       setActiveSection(section);
     }
-    if(isVisible && section === TOP_SECTION && showScrollBox === 'show') {
+    if(isVisible && section === WRITING_SKILLS_SURVEYS) {
+      setShowScrollBox('show');
+    } else if(isVisible && section === TOP_SECTION && showScrollBox === 'show') {
       setShowScrollBox('obscure');
     }
   }

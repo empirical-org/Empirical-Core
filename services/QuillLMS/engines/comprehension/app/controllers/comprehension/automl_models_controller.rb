@@ -33,7 +33,7 @@ module Comprehension
     # PATCH/PUT /automl_models/1.json
     def update
       if @automl_model.update(automl_model_params)
-        head :no_content
+        render json: @automl_model, status: :ok
       else
         render json: @automl_model.errors, status: :unprocessable_entity
       end
@@ -59,7 +59,7 @@ module Comprehension
     end
 
     private def automl_model_params
-      params.require(:automl_model).permit(:automl_model_id, :prompt_id)
+      params.require(:automl_model).permit(:automl_model_id, :prompt_id, :notes)
     end
   end
 end

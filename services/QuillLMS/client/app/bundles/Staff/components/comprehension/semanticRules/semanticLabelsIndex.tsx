@@ -10,7 +10,7 @@ import ActivateModelForm from './activateModelForm';
 import Model from './model';
 
 import { ALL, BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
-import { getPromptForComponent } from '../../../helpers/comprehension';
+import { getPromptForComponent, getPromptConjunction } from '../../../helpers/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { createRule, updateRule } from '../../../utils/comprehension/ruleAPIs';
 import { Error, Spinner } from '../../../../Shared/index';
@@ -35,11 +35,11 @@ const SemanticLabelsIndex = ({ location, history, match }) => {
       if(errors && errors.length) {
         setErrors(errors);
       } else {
+        const { prompt_ids } = rule;
+        const conjunction = getPromptConjunction(activityData, prompt_ids[0]);
         setErrors([]);
-        // update rules cache to display newly created rule
-        queryCache.refetchQueries(`rules-${activityId}`).then(() => {
-          history.push(`/activities/${activityId}/semantic-labels/all`);
-        });
+        queryCache.clear();
+        history.push(`/activities/${activityId}/semantic-labels/${conjunction}`);
       }
       return rule;
     });
@@ -51,11 +51,11 @@ const SemanticLabelsIndex = ({ location, history, match }) => {
       if(errors && errors.length) {
         setErrors(errors);
       } else {
+        const { prompt_ids } = rule;
+        const conjunction = getPromptConjunction(activityData, prompt_ids[0]);
         setErrors([]);
-        // update rules cache to display newly updated rule
-        queryCache.refetchQueries(`rules-${activityId}`).then(() => {
-          history.push(`/activities/${activityId}/semantic-labels/all`);
-        });
+        queryCache.clear();
+        history.push(`/activities/${activityId}/semantic-labels/${conjunction}`);
       }
       return rule;
     });

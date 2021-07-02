@@ -132,7 +132,8 @@ module Comprehension
           state: automl_model.state,
           created_at: automl_model.created_at,
           prompt_id: automl_model.prompt_id,
-          older_models: automl_model.older_models
+          older_models: automl_model.older_models,
+          notes: automl_model.notes
         }.stringify_keys
       end
     end

@@ -55,7 +55,7 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch, 
       res.author = 'Modified Word Hint';
       res.parent_id = match.response.key;
       res.concept_results = copyMatchConceptResults && matchConceptResults ? matchConceptResults : [
-        conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g')
+        conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
       ];
       return res;
     case ERROR_TYPES.MISSPELLED_WORD:

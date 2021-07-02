@@ -17,9 +17,9 @@ export default class extends React.Component {
 
   activityImage(activity_classification_id, color) {
     if (color === 'unstarted') {
-      return <div className={`icon-${color} icon-${activity_classification_id}-lightgray`} />
+      return <div className={`icon-wrapper icon-${color} icon-${activity_classification_id}-lightgray`} />
     }
-    return <div className={`icon-${color} icon-${activity_classification_id}`} />
+    return <div className={`icon-wrapper icon-${color} icon-${activity_classification_id}`} />
   }
 
   activityTableRowsAndAverageScore(unit) {

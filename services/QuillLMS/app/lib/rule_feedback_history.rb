@@ -6,6 +6,7 @@ class RuleFeedbackHistory
 
     def self.exec_query(conjunction:, activity_id:, start_date:, end_date:)
         query = Comprehension::Rule.select(<<~SELECT
+          comprehension_rules.id,
           comprehension_rules.uid AS rules_uid,
           prompts.activity_id AS activity_id,
           comprehension_rules.rule_type AS rule_type,
@@ -24,8 +25,9 @@ class RuleFeedbackHistory
         .joins('LEFT JOIN feedback_histories ON feedback_histories.rule_uid = comprehension_rules.uid AND feedback_histories.prompt_id = prompts.id')
         .joins('LEFT JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
         .joins('LEFT JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
+        .where("feedback_histories.used = ?", true)
         .where("prompts.conjunction = ? AND activity_id = ?", conjunction, activity_id)
-        .group('rules_uid, activity_id, rule_type, rule_suborder, rule_name, rule_note')
+        .group('comprehension_rules.id, rules_uid, activity_id, rule_type, rule_suborder, rule_name, rule_note')
         .includes(:feedbacks)
         query = query.where("feedback_histories.time >= ?", start_date) if start_date
         query = query.where("feedback_histories.time <= ?", end_date) if end_date
@@ -65,7 +67,7 @@ class RuleFeedbackHistory
                 rule_uid: r.rules_uid,
                 api_name: r.rule_type,
                 rule_order: r.rule_suborder,
-                first_feedback: r.feedbacks.first&.text || '',
+                first_feedback: r.feedbacks.order(:order).first&.text || '',
                 rule_note: r.rule_note,
                 rule_name: r.rule_name,
                 total_responses: r.total_responses,

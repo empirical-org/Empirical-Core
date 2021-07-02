@@ -784,24 +784,24 @@ end
     let!(:unit_activity) { create(:unit_activity, activity: activity, unit: unit) }
     let!(:classroom_unit) { create(:classroom_unit, unit: unit, assigned_student_ids: [student.id]) }
     let(:activity_session) { create(:activity_session, classroom_unit_id: classroom_unit.id, user_id: student.id, activity: activity) }
+    let(:metadata) { { correct: 1 } }
+
     let(:concept_results) do
       [{
         activity_session_uid: activity_session.uid,
         concept_id: concept.id,
-        metadata: {},
+        metadata: metadata,
         question_type: 'lessons-slide'
       }]
     end
 
-    before do
-      activity_session.update_attributes(visible: true)
-    end
+    before { activity_session.update_attributes(visible: true) }
 
     it 'should create a concept result with the hash given' do
       expect(ConceptResult).to receive(:create).with({
         activity_session_id: activity_session.id,
         concept_id: concept.id,
-        metadata: '{}',
+        metadata: metadata,
         question_type: 'lessons-slide'
       })
       ActivitySession.save_concept_results(classroom_unit.id, unit_activity.activity_id, concept_results)

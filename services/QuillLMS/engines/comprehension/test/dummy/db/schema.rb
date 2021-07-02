@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20210614190110) do
     t.string   "state",                        null: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.text     "notes",           default: ""
   end
 
   create_table "comprehension_feedbacks", force: :cascade do |t|
