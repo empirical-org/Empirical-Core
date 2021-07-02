@@ -1,31 +1,21 @@
 import * as React from "react";
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import Navigation from './navigation'
+
+import Navigation from './navigation';
+
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { fetchActivities } from '../../utils/comprehension/activityAPIs';
 import { DataTable, Error, Spinner } from '../../../Shared/index';
-import { fetchAppSetting } from "../../../Shared/utils/appSettingAPIs";
+import { handleHasAppSetting } from "../../../Shared/utils/appSettingAPIs";
 
 const Activities = ({ location, match }) => {
 
   // cache activity data for updates
   const { data: activitiesData } = useQuery("activities", fetchActivities);
 
-  const appSettingName = 'foo'
-  const appSettingQueryKey = `appSetting-${appSettingName}`
-  const { data: appSettingData } = useQuery({
-    queryKey: [appSettingQueryKey, appSettingName],
-    queryFn: fetchAppSetting
-  });
-
-
-  let appSettingValue = false;
-  if (appSettingData && appSettingData.appSetting && appSettingData.appSetting[appSettingName]) {
-    appSettingValue = appSettingData.appSetting[appSettingName]
-  } 
-  console.log("appSettingValue: ", appSettingValue)
-
+  const [hasAppSetting, setHasAppSetting] = React.useState<boolean>(false);
+  handleHasAppSetting(hasAppSetting, setHasAppSetting, 'foo')
 
   const formattedRows = activitiesData && activitiesData.activities && activitiesData.activities.map((activity: ActivityInterface) => {
     const { id, title} = activity;
@@ -61,6 +51,7 @@ const Activities = ({ location, match }) => {
 
   return(<React.Fragment>
     <Navigation location={location} match={match} />
+    {hasAppSetting && <div>App setting is enabled.</div>}
     <div className="activities-container">
       <DataTable
         className="activities-table"
