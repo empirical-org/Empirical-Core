@@ -40,7 +40,7 @@ describe Api::V1::IncorrectSequencesController, type: :controller do
 
   describe "#create" do
     it "should add a new incorrect sequence to the question data" do
-      data = {"foo" => "bar"}
+      data = {"text" => "text", "feedback"=>"feedback"}
       incorrect_sequence_count = question.data["incorrectSequences"].keys.length
       post :create, question_id: question.uid, incorrect_sequence: data
       question.reload
@@ -50,7 +50,7 @@ describe Api::V1::IncorrectSequencesController, type: :controller do
 
   describe "#update" do
     it "should update an existing incorrect sequence in the question data" do
-      data = {"foo" => "bar"}
+      data = {"text" => "text", "feedback"=>"feedback"}
       incorrect_sequence_uid = question.data["incorrectSequences"].keys.first
       put :update, question_id: question.uid, id: incorrect_sequence_uid, incorrect_sequence: data
       question.reload
@@ -88,14 +88,14 @@ describe Api::V1::IncorrectSequencesController, type: :controller do
 
   describe "#update_all" do
     it "should replace all incorrectSequences" do
-      data = {"foo" => "bar"}
+      data = {"0"=>{"text" => "text", "feedback"=>"feedback"}}
       put :update_all, question_id: question.uid, incorrect_sequence: data
       question.reload
       expect(question.data["incorrectSequences"]).to eq(data)
     end
 
     it "should handle array data as an input" do
-      data = [{"foo" => "bar"}, {"boo" => "baz"}]
+      data = [{"text" => "text", "feedback"=>"feedback"}, {"text"=>"text2", "feedback"=>"feedback2"}]
       put :update_all,
         params: {
           question_id: question.uid,
