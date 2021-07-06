@@ -496,6 +496,13 @@ export function renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModa
   );
 }
 
+export function calculatePercentageForResponses(totalResponsesByRule, totalResponsesByConjunction) {
+  if(!totalResponsesByRule || !totalResponsesByConjunction) {
+    return null;
+  }
+  return ((totalResponsesByRule / totalResponsesByConjunction) * 100).toFixed(2);
+}
+
 export function getConceptName(conceptsData, conceptUID) {
   if(!conceptsData) { return 'loading...' }
   if(!conceptsData.concepts) { return 'loading...' }
