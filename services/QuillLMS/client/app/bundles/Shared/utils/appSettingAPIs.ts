@@ -1,22 +1,28 @@
 import { mainApiFetch, requestFailed, handleRequestErrors } from './../../Staff/helpers/comprehension';
 
-export const handleHasAppSetting = async (hasAppSetting, setHasAppSetting, key: string) => {
-  const response = await mainApiFetch(`app_settings/${key}`);
+interface HandleHasAppSettingArgs {
+  appSettingSetter: (value: boolean) => void,
+  errorSetter: (value: any) => void,
+  key: string,
+}
+
+export const handleHasAppSetting = async (args: HandleHasAppSettingArgs) => {
+  const response = await mainApiFetch(`app_settings/${args.key}`);
 
   const { status } = response;
 
   if(requestFailed(status)) {
-    const errors = await response.json();
-    const returnedErrors = await handleRequestErrors(errors);
+    const returnedErrors = [`AppSetting HTTP status: ${status}`]
+    args.errorSetter(returnedErrors)
     return { errors: returnedErrors };
   }
 
   const appSetting = await response.json();
 
-  if (appSetting && appSetting[key]) {
-    setHasAppSetting(true)
+  if (appSetting && appSetting[args.key]) {
+    args.appSettingSetter(true)
   } else {
-    setHasAppSetting(false)
+    args.appSettingSetter(false)
   }
   return { errors: [] };
 }
