@@ -3,7 +3,7 @@ import { Redirect, Route, RouteComponentProps, Switch, withRouter } from 'react-
 
 import Navigation from './navigation'
 import ActivitySettings from './configureSettings/activitySettings';
-import Rules from './configureRules/rules';
+import RulesIndexRouter from './configureRules/rulesIndexRouter';
 import Rule from './configureRules/rule';
 import RulesAnalysis from './rulesAnalysis/rulesAnalysis';
 import ActivityStats from './activityStats/activityStats';
@@ -26,7 +26,7 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, lo
           <Redirect exact from='/activities/:activityId' to='/activities/:activityId/settings' />
           <Route component={ActivitySettings} path='/activities/:activityId/settings' />
           <Route component={Rule} path='/activities/:activityId/rules/:ruleId' />
-          <Route component={Rules} path='/activities/:activityId/rules' />
+          <Route component={RulesIndexRouter} path='/activities/:activityId/rules-index' />
           <Route component={ActivityStats} path='/activities/:activityId/stats' />
           <Route component={RuleAnalysis} path='/activities/:activityId/rules-analysis/:promptConjunction/rule/:ruleId/prompt/:promptId' />
           <Route component={RulesAnalysis} path='/activities/:activityId/rules-analysis/:promptConjunction' />
