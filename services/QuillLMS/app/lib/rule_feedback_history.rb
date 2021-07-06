@@ -68,7 +68,7 @@ class RuleFeedbackHistory
                 api_name: r.rule_type,
                 rule_order: r.rule_suborder,
                 first_feedback: r.feedbacks.order(:order).first&.text || '',
-                second_feedback: r.feedbacks.order(:order).last&.text || '',
+                second_feedback: r.feedbacks.order(:order).second&.text || '',
                 rule_note: r.rule_note,
                 rule_name: r.rule_name,
                 total_responses: r.total_responses,
