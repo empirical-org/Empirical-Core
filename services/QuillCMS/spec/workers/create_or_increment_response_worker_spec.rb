@@ -48,7 +48,7 @@ describe CreateOrIncrementResponseWorker do
         text = 'Totally different text'
         exception = Elasticsearch::Transport::Transport::Errors::BadRequest
         expect_any_instance_of(Response).to receive(:create_index_in_elastic_search).and_raise(exception)
-        expect(NewRelic::Agent).to receive(:notice_error).with(exception)
+
         subject.perform({ text: text })
         expect(Response.find_by(text: 'Totally different text').id).to be
       end

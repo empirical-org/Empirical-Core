@@ -41,7 +41,8 @@ gem 'elasticsearch-rails', '~> 5.1'
 gem 'kaminari'
 
 # OTHER
-gem 'newrelic_rpm', '~> 6.15.0'
+
+gem 'newrelic_rpm'
 gem 'rubyzip'
 
 # WEBSOCKETS
