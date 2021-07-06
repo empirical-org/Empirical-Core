@@ -65,8 +65,8 @@ export const archiveParentActivity = async (parentActivityId: string) => {
   return { error: handleApiError('Failed to archive activity, please try again.', response) }
 }
 
-export const fetchActivitySessions = async (key: string, activityId: string, pageNumber: number, startDate: string, endDate?: string) => {
-  const url = getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate });
+export const fetchActivitySessions = async (key: string, activityId: string, pageNumber: number, startDate: string, endDate?: string, turkSessionUID?: string) => {
+  const url = getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, turkSessionUID });
   const response = await mainApiFetch(url);
   const activitySessions = await response.json();
 
