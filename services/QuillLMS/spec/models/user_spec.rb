@@ -1318,4 +1318,16 @@ describe User, type: :model do
       expect(user.valid?).to be
     end
   end
+
+  describe '.deleted_users' do
+    before { user.save }
+
+    let!(:to_be_deleted_user) { create(:user) }
+
+    it 'returns all deleted users' do
+      expect(User.count).to eq 2
+
+      expect { to_be_deleted_user.clear_data }.to change { User.deleted_users.count }.from(0).to(1)
+    end
+  end
 end

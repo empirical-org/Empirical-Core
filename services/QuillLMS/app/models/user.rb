@@ -164,6 +164,16 @@ class User < ActiveRecord::Base
 
   attr_accessor :newsletter
 
+  def self.deleted_users
+    where(
+      <<-SQL
+        name LIKE 'Deleted_User_%'
+          AND email LIKE 'deleted_user_%'
+          AND username LIKE 'deleted_user_%'
+      SQL
+    )
+  end
+
   def testing_flag
     role == STAFF ? ARCHIVED : flags.detect{|f| TESTING_FLAGS.include?(f)}
   end
