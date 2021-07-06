@@ -411,9 +411,7 @@ export async function handleSubmitRule({
 
 export function getRulesUrl(activityId: string, promptId: string, ruleType: string) {
   const url = `activities/${activityId}/rules`;
-  if(activityId) {
-    return url;
-  } else if(promptId && !ruleType) {
+  if(promptId && !ruleType) {
     return `rules?prompt_id=${promptId}`
   } else if(!promptId && ruleType) {
     return `rules?rule_type=${ruleType}`
@@ -425,7 +423,7 @@ export function getRulesUrl(activityId: string, promptId: string, ruleType: stri
 
 export function getReturnLinkRuleType(ruleType) {
   if(!ruleType) {
-    return 'rules';
+    return 'rules-index';
   }
   const { value } = ruleType
   if(regexRuleTypes.includes(value)) {
@@ -433,7 +431,7 @@ export function getReturnLinkRuleType(ruleType) {
   } else if(value === PLAGIARISM) {
     return 'plagiarism-rules';
   }
-  return 'rules';
+  return 'rules-index';
 }
 
 export function getReturnLinkLabel(ruleType) {
@@ -496,4 +494,19 @@ export function renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModa
       </div>
     </Modal>
   );
+}
+
+export function getConceptName(conceptsData, conceptUID) {
+  if(!conceptsData) { return 'loading...' }
+  if(!conceptsData.concepts) { return 'loading...' }
+
+  const { concepts } = conceptsData;
+  const concept = concepts.filter(concept => concept.uid === conceptUID)[0];
+  if(!concept) { return 'N/A' }
+  const splitConcepts = concept.name.split('|');
+  const finalConceptString = splitConcepts[splitConcepts.length - 1];
+  if(finalConceptString[0] === ' ') {
+    return finalConceptString.substring(1);
+  }
+  return finalConceptString;
 }
