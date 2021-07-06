@@ -32,7 +32,7 @@ common: &default_settings
     - 'ActionController::RoutingError'
     - 'Net::ReadTimeout'
     - 'CreateOrIncrementResponseWorker::RaceConditionError'
-    - 'RematchResponseWorker::LambdaError'
+    - 'RematchResponseWorker::LambdaHTTPError'
 
 
 # Environment-specific settings are in this section.
