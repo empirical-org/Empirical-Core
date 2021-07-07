@@ -31,8 +31,10 @@ class BlogPostsController < ApplicationController
   def show
     draft_statuses = @role == 'staff' ? [true, false] : false
 
-    if @blog_post = BlogPost.find_by(slug: params[:slug], draft: draft_statuses)
-      # TODO remove SQL write from GET endpoint
+    @blog_post = BlogPost.find_by(slug: params[:slug], draft: draft_statuses)
+
+    if @blog_post
+      # TODO: remove SQL write from GET endpoint
       @blog_post.increment_read_count
       @most_recent_posts = BlogPost.most_recent.where.not(id: @blog_post.id)
 
@@ -42,8 +44,9 @@ class BlogPostsController < ApplicationController
     else
       # try fixing params and redirect to correct url.
       corrected_slug = params[:slug]&.gsub(/[^a-zA-Z\d\s-]/, '')&.downcase
+      blog_post = BlogPost.find_by(slug: corrected_slug, draft: draft_statuses)
 
-      if blog_post = BlogPost.find_by(slug: corrected_slug, draft: draft_statuses)
+      if blog_post
         redirect_to blog_post
       else
         flash[:error] = "Oops! We can't seem to find that blog post. Trying searching on this page."

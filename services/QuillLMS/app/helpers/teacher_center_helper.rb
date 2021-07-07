@@ -1,4 +1,3 @@
-
 module TeacherCenterHelper
   FAQ = 'FAQ'
   PREMIUM = 'Premium'
