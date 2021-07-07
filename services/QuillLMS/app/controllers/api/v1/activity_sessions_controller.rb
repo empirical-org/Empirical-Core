@@ -38,7 +38,6 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   def create
     @activity_session = ActivitySession.new(activity_session_params)
     @activity_session.user = current_user if current_user
-    @activity_session.concept_results = []
 
     if @activity_session.save
       handle_concept_results if @concept_results
