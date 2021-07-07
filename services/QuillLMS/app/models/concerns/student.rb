@@ -32,9 +32,9 @@ module Student
             ON activity_sessions.user_id = users.id
           JOIN activities
             ON activity_sessions.activity_id = activities.id
-          WHERE activities.activity_classification_id != 6
-            AND activities.activity_classification_id != 4
-            AND activities.activity_classification_id != 9
+          JOIN activity_classifications
+            ON activities.activity_classification_id = activity_classifications.id
+          WHERE activity_classifications.key not in ('diagnostic', 'lessons', 'comprehension')
             AND users.id = #{id}
         SQL
       ).to_a.first['avg']

@@ -1,5 +1,6 @@
 import React from 'react'
 import ProgressReport from '../progress_report.jsx'
+import { COMPREHENSION_KEY, } from '../constants'
 
 export default class QuestionReport extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ export default class QuestionReport extends React.Component {
         field: 'score',
         sortByField: 'score',
         customCell: function(row) {
-          if (activityClassification === 'comprehension') return 'N/A'
+          if (activityClassification === COMPREHENSION_KEY) return 'N/A'
           return row['score'] === null ? 'Not Completed' : row['score'] + '%';
         }
       },

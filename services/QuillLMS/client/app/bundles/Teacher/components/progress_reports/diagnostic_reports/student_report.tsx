@@ -8,6 +8,7 @@ import Student from '../../../../interfaces/student';
 import QuestionData from '../../../../interfaces/questionData';
 import { DropdownInput } from '../../../../Shared/index'
 import { requestGet } from '../../../../../modules/request/index.js';
+import { GRAMMAR_KEY, CONNECT_KEY, COMPREHENSION_KEY, } from '../constants';
 
 export interface StudentReportState {
   loading: boolean,
@@ -49,8 +50,8 @@ export class StudentReport extends React.Component<RouteComponentProps, StudentR
     const studentData = this.selectedStudent(students);
     const concept_results = _.sortBy(studentData.concept_results, 'question_number')
     return concept_results.map((question: QuestionData, index: number) => {
-      if (studentData.activity_classification === 'connect' || studentData.activity_classification === 'sentence' || studentData.activity_classification === 'comprehension') {
-        return <ConnectStudentReportBox boxNumber={index + 1} key={index} questionData={question} showScore={studentData.activity_classification !== 'comprehension'} />
+      if ([GRAMMAR_KEY, CONNECT_KEY, COMPREHENSION_KEY].includes(studentData.activity_classification)) {
+        return <ConnectStudentReportBox boxNumber={index + 1} key={index} questionData={question} showScore={studentData.activity_classification !== COMPREHENSION_KEY} />
       }
       return <StudentReportBox boxNumber={index + 1} key={index} questionData={question} />
     })

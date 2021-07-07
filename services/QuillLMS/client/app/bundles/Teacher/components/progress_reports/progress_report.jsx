@@ -9,6 +9,7 @@ import ExportCsv from './export_csv'
 import LoadingIndicator from '../shared/loading_indicator'
 import SortableTable from '../general_components/table/sortable_table/sortable_table.jsx'
 import FaqLink from './faq_link.jsx'
+import { COMPREHENSION_KEY, } from './constants'
 import ProgressReportFilters from './progress_report_filters.jsx'
 import getParameterByName from '../modules/get_parameter_by_name';
 import stripHtml from "string-strip-html";
@@ -150,7 +151,7 @@ export default createReactClass({
         studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
         unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs')
       });
-      if (data.classification === 'comprehension') this.setState({
+      if (data.classification === COMPREHENSION_KEY) this.setState({
         currentSort: {direction: 'asc', field: 'question_id'}
       })
       if (setStateBasedOnURLParams) {

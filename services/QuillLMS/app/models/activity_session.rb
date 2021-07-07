@@ -44,6 +44,10 @@ class ActivitySession < ActiveRecord::Base
   include Uid
   include Concepts
 
+  STATE_UNSTARTED = 'unstarted'
+  STATE_STARTED = 'started'
+  STATE_FINISHED = 'finished'
+
   default_scope { where(visible: true)}
   has_many :feedback_sessions, foreign_key: :activity_session_uid, primary_key: :uid
   has_many :feedback_histories, through: :feedback_sessions

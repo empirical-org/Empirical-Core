@@ -164,9 +164,9 @@ module PublicProgressReports
     def formatted_score_obj(final_activity_session, activity, student)
       formatted_concept_results = get_concept_results(final_activity_session)
       activity_classification_key = ActivityClassification.find(activity.activity_classification_id).key
-      if ['lessons', 'diagnostic'].include?(activity_classification_key)
+      if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(activity_classification_key)
         score = get_average_score(formatted_concept_results)
-      elsif ['comprehension'].include?(activity_classification_key)
+      elsif [ActivityClassification::COMPREHENSION_KEY].include?(activity_classification_key)
         score = nil
       else
         score = (final_activity_session.percentage * 100).round
