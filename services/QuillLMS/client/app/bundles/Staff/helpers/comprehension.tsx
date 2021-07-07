@@ -310,7 +310,10 @@ export const handlePageFilterClick = ({
     window.sessionStorage.setItem(`${storageKey}endDate`, endDateString);
     setEndDate(endDateString);
   }
-  if(turkSessionUID) {
+  if(turkSessionUID === '') {
+    // reset to null so backend doesn't check on empty string
+    setTurkSessionUIDForQuery(null);
+  } else if(turkSessionUID) {
     setTurkSessionUIDForQuery(turkSessionUID);
   }
 }
