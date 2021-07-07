@@ -110,6 +110,24 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
         end
       end
+      context 'turk_session_uid' do
+        setup do
+          create(:feedback_history, feedback_session_uid: 'abc')
+          create(:feedback_history, feedback_session_uid: 'def')
+          create(:feedback_history, feedback_session_uid: 'ghi')
+          create(:feedback_history, feedback_session_uid: 'jkl')
+          create(:feedback_history, feedback_session_uid: 'abc')
+        end
+
+        it 'should retrieve only items with the specified turk_session_uid' do
+          get :index, turk_session_uid: 'abc'
+
+          parsed_response = JSON.parse(response.body)
+
+          expect(response).to have_http_status(200)
+          expect(parsed_response['activity_sessions'].length).to eq(2)
+        end
+      end
     end
   end
 

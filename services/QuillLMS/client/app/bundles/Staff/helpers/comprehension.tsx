@@ -305,7 +305,10 @@ export const handlePageFilterClick = ({
   const startDateString = startDate.toISOString();
   window.sessionStorage.setItem(`${storageKey}startDate`, startDateString);
   setStartDate(startDateString);
-  if(endDate) {
+  if(!endDate) {
+    // reset to null when user has cleared endDate value
+    setEndDate(null);
+  } else if(endDate)  {
     const endDateString = endDate.toISOString();
     window.sessionStorage.setItem(`${storageKey}endDate`, endDateString);
     setEndDate(endDateString);

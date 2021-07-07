@@ -78,6 +78,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [totalResponsesByConjunction, setTotalResponsesByConjunction] = React.useState<number>(null);
   const [turkSessionUID, setTurkSessionUID] = React.useState<string>(null);
   const [turkSessionUIDForQuery, setTurkSessionUIDForQuery] = React.useState<string>(null);
+  const [formattedRows, setFormattedRows] = React.useState<any[]>(null);
 
   const selectedConjunction = selectedPrompt ? selectedPrompt.conjunction : promptConjunction
   // cache rules data for updates
@@ -135,6 +136,37 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     }
   });
 
+  React.useEffect(() => {
+    if(selectedPrompt && ruleFeedbackHistory && ruleFeedbackHistory.ruleFeedbackHistories && ruleFeedbackHistory.ruleFeedbackHistories) {
+      const formattedRows = ruleFeedbackHistory.ruleFeedbackHistories.filter(rule => {
+        return selectedRuleType.value === DEFAULT_RULE_TYPE || rule.api_name === selectedRuleType.value
+      }).map(rule => {
+        const { rule_name, rule_uid, api_name, rule_order, note, total_responses, strong_responses, weak_responses, first_feedback, second_feedback, repeated_consecutive_responses, repeated_non_consecutive_responses } = rule;
+        const apiOrder = apiOrderLookup[api_name] || Object.keys(apiOrderLookup).length
+        return {
+          rule_uid,
+          className: apiOrder % 2 === 0 ? 'even' : 'odd',
+          apiOrder,
+          apiName: api_name,
+          ruleOrder: Number(rule_order),
+          rule: rule_name,
+          strongResponses: strong_responses,
+          weakResponses: weak_responses,
+          repeatedConsecutiveResponses: repeated_consecutive_responses,
+          repeatedNonConsecutiveResponses: repeated_non_consecutive_responses,
+          totalResponses: total_responses,
+          scoredResponses: strong_responses + weak_responses,
+          activityId,
+          note,
+          firstLayerFeedback: first_feedback,
+          secondLayerFeedback: second_feedback,
+          handleClick: () => window.open(`/cms/comprehension#/activities/${activityId}/rules-analysis/${selectedPrompt.conjunction}/rule/${rule_uid}/prompt/${selectedPrompt.id}`, '_blank')
+        }
+      }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
+      setFormattedRows(formattedRows);
+    }
+  }, [ruleFeedbackHistory])
+
   function handleSetTurkSessionUID(e: InputEvent){ setTurkSessionUID(e.target.value) };
 
   function handleFilterClick() {
@@ -147,32 +179,6 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     const prompt = activityData.activity.prompts.find(prompt => prompt.conjunction === promptConjunction)
     setSelectedPrompt(prompt)
   }
-
-  const formattedRows = selectedPrompt && ruleFeedbackHistory && ruleFeedbackHistory.ruleFeedbackHistories && ruleFeedbackHistory.ruleFeedbackHistories.filter(rule => {
-    return selectedRuleType.value === DEFAULT_RULE_TYPE || rule.api_name === selectedRuleType.value
-  }).map(rule => {
-    const { rule_name, rule_uid, api_name, rule_order, note, total_responses, strong_responses, weak_responses, first_feedback, second_feedback, repeated_consecutive_responses, repeated_non_consecutive_responses } = rule;
-    const apiOrder = apiOrderLookup[api_name] || Object.keys(apiOrderLookup).length
-    return {
-      rule_uid,
-      className: apiOrder % 2 === 0 ? 'even' : 'odd',
-      apiOrder,
-      apiName: api_name,
-      ruleOrder: Number(rule_order),
-      rule: rule_name,
-      strongResponses: strong_responses,
-      weakResponses: weak_responses,
-      repeatedConsecutiveResponses: repeated_consecutive_responses,
-      repeatedNonConsecutiveResponses: repeated_non_consecutive_responses,
-      totalResponses: total_responses,
-      scoredResponses: strong_responses + weak_responses,
-      activityId,
-      note,
-      firstLayerFeedback: first_feedback,
-      secondLayerFeedback: second_feedback,
-      handleClick: () => window.open(`/cms/comprehension#/activities/${activityId}/rules-analysis/${selectedPrompt.conjunction}/rule/${rule_uid}/prompt/${selectedPrompt.id}`, '_blank')
-    }
-  }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
 
   /* eslint-disable react/display-name */
   const dataTableFields = [
@@ -380,9 +386,6 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
         <button className="quill-button fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
         {showError && <p className="error-message">Start date is required.</p>}
       </div>
-      {/* <div className="error-container">
-        {showError && <p className="error-message">Start date is required.</p>}
-      </div> */}
       {selectedPrompt && formattedRows && (<ReactTable
         className="rules-analysis-table"
         columns={dataTableFields}
