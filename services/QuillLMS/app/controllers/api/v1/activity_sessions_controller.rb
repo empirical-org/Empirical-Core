@@ -37,18 +37,13 @@ class Api::V1::ActivitySessionsController < Api::ApiController
 
   def create
     @activity_session = ActivitySession.new(activity_session_params)
-    crs = @activity_session.concept_results
     @activity_session.user = current_user if current_user
     @activity_session.concept_results = []
-    # activity_session.owner=(current_user) if activity_session.ownable?
-    # activity_session.data = @data # FIXME: may no longer be necessary?
-    if @activity_session.save
-      if @activity_session.update(activity_session_params)
-        handle_concept_results if @concept_results
 
-        @status = :success
-        @message = "Activity Session Created"
-      end
+    if @activity_session.save
+      handle_concept_results if @concept_results
+      @status = :success
+      @message = "Activity Session Created"
     else
       @status = :failed
       @message = "Activity Session Create Failed"
