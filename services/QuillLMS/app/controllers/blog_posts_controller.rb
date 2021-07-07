@@ -114,7 +114,6 @@ class BlogPostsController < ApplicationController
     return unless params[:topic].include?('_')
 
     new_topic = params[:topic].gsub('_', '-')
-
     base_url = @role == 'student' ? 'student-center' : 'teacher-center'
 
     redirect_to "/#{base_url}/topic/#{new_topic}" and return
