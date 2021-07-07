@@ -1,10 +1,10 @@
 class RuleFeedbackHistory
-    def self.generate_report(conjunction:, activity_id:, start_date: nil, end_date: nil)
-        sql_result = exec_query(conjunction: conjunction, activity_id: activity_id, start_date: start_date, end_date: end_date)
+    def self.generate_report(conjunction:, activity_id:, start_date: nil, end_date: nil, turk_session_uid: nil)
+        sql_result = exec_query(conjunction: conjunction, activity_id: activity_id, start_date: start_date, end_date: end_date, turk_session_uid: turk_session_uid)
         format_sql_results(sql_result)
     end
 
-    def self.exec_query(conjunction:, activity_id:, start_date:, end_date:)
+    def self.exec_query(conjunction:, activity_id:, start_date:, end_date:, turk_session_uid:)
         query = Comprehension::Rule.select(<<~SELECT
           comprehension_rules.id,
           comprehension_rules.uid AS rules_uid,
@@ -31,6 +31,7 @@ class RuleFeedbackHistory
         .includes(:feedbacks)
         query = query.where("feedback_histories.time >= ?", start_date) if start_date
         query = query.where("feedback_histories.time <= ?", end_date) if end_date
+        query = query.where("feedback_histories.feedback_session_uid = ?", turk_session_uid) if turk_session_uid
         query
     end
 

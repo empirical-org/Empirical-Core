@@ -9,10 +9,10 @@ import DateTimePicker from 'react-datetime-picker';
 
 import { handlePageFilterClick, renderHeader } from "../../../helpers/comprehension";
 import { calculatePercentageForResponses } from "../../../helpers/comprehension/ruleHelpers";
-import { ActivityRouteProps, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityRouteProps, PromptInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchRuleFeedbackHistories } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
-import { DropdownInput, } from '../../../../Shared/index';
+import { DropdownInput, Input } from '../../../../Shared/index';
 import { RULES_ANALYSIS } from '../../../../../constants/comprehension';
 
 const DEFAULT_RULE_TYPE = 'All Rules'
@@ -76,11 +76,13 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
   const [totalResponsesByConjunction, setTotalResponsesByConjunction] = React.useState<number>(null);
+  const [turkSessionUID, setTurkSessionUID] = React.useState<string>(null);
+  const [turkSessionUIDForQuery, setTurkSessionUIDForQuery] = React.useState<string>(null);
 
   const selectedConjunction = selectedPrompt ? selectedPrompt.conjunction : promptConjunction
   // cache rules data for updates
   const { data: ruleFeedbackHistory } = useQuery({
-    queryKey: [`rule-feedback-history-by-conjunction-${selectedConjunction}-and-activity-${activityId}`, activityId, selectedConjunction, startDateForQuery, endDateForQuery],
+    queryKey: [`rule-feedback-history-by-conjunction-${selectedConjunction}-and-activity-${activityId}`, activityId, selectedConjunction, startDateForQuery, endDateForQuery, turkSessionUIDForQuery],
     queryFn: fetchRuleFeedbackHistories
   });
 
@@ -133,8 +135,10 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     }
   });
 
+  function handleSetTurkSessionUID(e: InputEvent){ setTurkSessionUID(e.target.value) };
+
   function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, setStartDate, setEndDate, setShowError, setPageNumber: null, storageKey: RULES_ANALYSIS });
+    handlePageFilterClick({ startDate, endDate, turkSessionUID, setStartDate, setEndDate, setShowError, setTurkSessionUIDForQuery, setPageNumber: null, storageKey: RULES_ANALYSIS });
   }
 
   function setPromptBasedOnActivity() {
@@ -365,6 +369,13 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
           format='y-MM-dd HH:mm'
           onChange={onEndDateChange}
           value={endDate}
+        />
+        <p className="date-picker-label">Turk Session UID (optional):</p>
+        <Input
+          className="turk-session-uid-input"
+          handleChange={handleSetTurkSessionUID}
+          label=""
+          value={turkSessionUID}
         />
         <button className="quill-button fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
         {showError && <p className="error-message">Start date is required.</p>}
