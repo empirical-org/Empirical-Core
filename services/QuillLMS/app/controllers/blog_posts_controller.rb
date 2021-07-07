@@ -6,6 +6,7 @@ class BlogPostsController < ApplicationController
   def index
     topic_names = BlogPost::TEACHER_TOPICS
     @topics = []
+    @topic = BlogPost::ALL_RESOURCES
     topic_names.each do |name|
       @topics.push({ name: name, slug: CGI::escape(name.downcase.gsub(' ','-'))})
     end
@@ -29,7 +30,7 @@ class BlogPostsController < ApplicationController
     draft_status = (@role == 'staff') ? [true, false] : false
 
     @blog_post = BlogPost.find_by!(slug: params[:slug], draft: draft_status)
-    # TODO remove SQL write from get endpoint
+    # TODO remove SQL write from GET endpoint
     @blog_post.increment_read_count
     @most_recent_posts = BlogPost.most_recent.where.not(id: @blog_post.id)
 
@@ -84,13 +85,14 @@ class BlogPostsController < ApplicationController
         redirect_to "/teacher-center/topic/#{new_topic}"
       end
     else
-      topic = CGI::unescape(params[:topic]).gsub('-', ' ').capitalize
-      if !BlogPost::TOPICS.include?(topic) && !BlogPost::STUDENT_TOPICS.include?(topic)
+      @topic = CGI::unescape(params[:topic]).gsub('-', ' ').capitalize
+      if !BlogPost::TOPICS.include?(@topic) && !BlogPost::STUDENT_TOPICS.include?(@topic)
         raise ActionController::RoutingError, 'Topic Not Found'
       end
-      @blog_posts = BlogPost.for_topics(topic)
+      @blog_posts = BlogPost.for_topics(@topic)
       # hide student part of topic name for display
-      @title = @role == 'student' ? topic.gsub('Student ', '').capitalize : topic
+      @title = @role == 'student' ? topic.gsub('Student ', '').capitalize : @topic
+
       render 'index'
     end
   end

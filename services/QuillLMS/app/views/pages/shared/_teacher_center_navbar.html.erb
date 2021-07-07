@@ -1,75 +1,23 @@
-<% @all = 'All' %>
-<% @research = 'Research' %>
-<% @faq = 'FAQ' %>
-<% @premium = 'Premium' %>
+<%-# locals: active_tab %>
+<%-# TODO - this feels like a bug, but everything is labeled mobile = false %>
+<% @mobile = false %>
 
 <div class="subnav teacher-center-navbar">
   <div class="container">
     <% if current_user&.role == 'student' %>
-      <% tabs = [
-        {name: BlogPost::ALL_RESOURCES, url: 'student-center'},
-        {name: BlogPost::GETTING_STARTED, url: 'student-center/topic/student-getting-started'},
-        {name: BlogPost::HOW_TO, url: 'student-center/topic/student-how-to'},
-      ]
-        @tabs = tabs
-        @mobile = false
-      %>
-
       <div class="full-screen">
-        <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab: @active_tab, mobile: @mobile } %>
+        <%= render partial: "pages/shared/generic_tabs", locals: { tabs: student_center_tabs(large: true), active_tab: active_tab} %>
       </div>
-
-      <% tabs = [
-        {name: @all, url: 'student-center'},
-        {name: BlogPost::GETTING_STARTED, url: 'student-center/topic/student-getting-started'},
-        {name: BlogPost::HOW_TO, url: 'student-center/topic/student-how-to'},
-      ]
-      @tabs = tabs
-      if @active_tab == BlogPost::ALL_RESOURCES
-        @active_tab = @all
-      end
-      %>
       <div class="small-screen">
-        <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab:  @active_tab, mobile: @mobile} %>
+        <%= render partial: "pages/shared/generic_tabs", locals: { tabs: student_center_tabs(large: false), active_tab:  active_tab} %>
       </div>
-
     <% else %>
-
-      <% tabs = [
-        {name: BlogPost::ALL_RESOURCES, url: 'teacher-center'},
-        {name: BlogPost::GETTING_STARTED, url: 'teacher-center/topic/getting-started'},
-        {name: BlogPost::TEACHER_STORIES, url: 'teacher-center/topic/teacher-stories'},
-        {name: BlogPost::WRITING_INSTRUCTION_RESEARCH, url: 'teacher-center/topic/writing-instruction-research'},
-        {name: @faq, url: 'faq'},
-        {name: 'Premium', url: 'premium'},
-      ]
-        @tabs = tabs
-        @mobile = false
-      %>
-
       <div class="full-screen">
-        <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab: @active_tab, mobile: @mobile } %>
+        <%= render partial: "pages/shared/generic_tabs", locals: { tabs: teacher_center_tabs(large: true), active_tab: active_tab} %>
       </div>
-
-      <% tabs = [
-        {name: @all, url: 'teacher-center'},
-        {name: BlogPost::GETTING_STARTED, url: 'teacher-center/topic/getting-started'},
-        {name: BlogPost::TEACHER_STORIES, url: 'teacher-center/topic/teacher-stories'},
-        {name: @research, url: 'teacher-center/topic/writing-instruction-research'},
-        {name: @faq, url: 'faq'},
-        {name: @premium, url: 'premium'},
-      ]
-      @tabs = tabs
-      if @active_tab == BlogPost::ALL_RESOURCES
-        @active_tab = @all
-      elsif @active_tab == BlogPost::WRITING_INSTRUCTION_RESEARCH
-        @active_tab = @research
-      end
-      %>
       <div class="small-screen">
-        <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab:  @active_tab, mobile: @mobile} %>
+        <%= render partial: "pages/shared/generic_tabs", locals: { tabs: teacher_center_tabs(large: false), active_tab:  active_tab} %>
       </div>
     <% end%>
-
   </div>
 </div>

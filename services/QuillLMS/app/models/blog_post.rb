@@ -84,7 +84,7 @@ class BlogPost < ActiveRecord::Base
   scope :live, -> { where(draft: false) }
   scope :most_recent, -> { live.order('updated_at DESC').limit(MOST_RECENT_LIMIT)}
 
-  scope :for_topics, -> {|topic| live.order('order_number ASC').where(topic: topic)}
+  scope :for_topics, lambda { |topic| live.order('order_number ASC').where(topic: topic) }
 
   def set_order_number
     if order_number.nil?
