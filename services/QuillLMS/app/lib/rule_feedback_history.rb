@@ -46,10 +46,11 @@ class RuleFeedbackHistory
         }
     end
 
-    def self.generate_rulewise_report(rule_uid:, prompt_id:, start_date: nil, end_date: nil)
+    def self.generate_rulewise_report(rule_uid:, prompt_id:, start_date: nil, end_date: nil, turk_session_uid: nil)
         feedback_histories = FeedbackHistory.where(rule_uid: rule_uid, prompt_id: prompt_id, used: true)
         feedback_histories = feedback_histories.where("created_at >= ?", start_date) if start_date
         feedback_histories = feedback_histories.where("created_at <= ?", end_date) if end_date
+        feedback_histories = feedback_histories.where("feedback_session_uid = ?", turk_session_uid) if turk_session_uid
         response_jsons = []
         feedback_histories.each do |f_h|
             response_jsons.append(feedback_history_to_json(f_h))

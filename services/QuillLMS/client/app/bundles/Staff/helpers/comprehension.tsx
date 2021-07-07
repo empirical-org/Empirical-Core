@@ -20,8 +20,7 @@ import { PromptInterface, ActivityInterface, DropdownObjectInterface } from '../
 
 const quillCheckmark = `/images/green_check.svg`;
 const quillX = '/images/red_x.svg';
-const mainApiBaseUrl = `https://www.quill.org/api/v1/`;
-// const mainApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
+const mainApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
 const comprehensionBaseUrl = `${mainApiBaseUrl}comprehension/`;
 const fetchDefaults = require("fetch-defaults");
 
@@ -67,10 +66,11 @@ export const getRuleFeedbackHistoriesUrl = ({ activityId, selectedConjunction, s
   return url;
 }
 
-export const getRuleFeedbackHistoryUrl = ({ ruleUID, promptId, startDate, endDate }) => {
+export const getRuleFeedbackHistoryUrl = ({ ruleUID, promptId, startDate, endDate, turkSessionUID }) => {
   let url = `rule_feedback_history/${ruleUID}?prompt_id=${promptId}`;
   url = startDate ? url + `&start_date=${startDate}` : url;
   url = endDate ? url + `&end_date=${endDate}` : url;
+  url = turkSessionUID ? url + `&turk_session_uid=${turkSessionUID}` : url;
   return url;
 };
 

@@ -11,8 +11,8 @@ export const fetchRuleFeedbackHistories = async (key: string, activityId: string
   };
 }
 
-export const fetchRuleFeedbackHistoriesByRule = async (key: string, ruleUID: string, promptId: string, startDate?: string, endDate?: string) => {
-  const url = getRuleFeedbackHistoryUrl({ ruleUID, promptId, startDate, endDate });
+export const fetchRuleFeedbackHistoriesByRule = async (key: string, ruleUID: string, promptId: string, startDate?: string, endDate?: string, turkSessionUID?: string) => {
+  const url = getRuleFeedbackHistoryUrl({ ruleUID, promptId, startDate, endDate, turkSessionUID });
   const response = await mainApiFetch(url);
   const ruleFeedbackHistories = await response.json();
   return {
