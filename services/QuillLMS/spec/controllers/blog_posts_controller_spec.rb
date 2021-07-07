@@ -86,8 +86,24 @@ describe BlogPostsController, type: :controller do
     let(:blog_posts) { create_list(:blog_post, 3, topic: topic) }
     let(:draft_post) { create(:blog_post, :draft, topic: topic) }
 
-    it 'should return a 404 if topic slug is not found' do
-      expect { get :show_topic, topic: 'does-not-exist' }.to raise_error ActionController::RoutingError
+    it 'should redirect a legacy_url' do
+      get :show_topic, topic: 'param_with_underscores'
+
+      expect(response).to redirect_to '/teacher-center/topic/param-with-underscores'
+    end
+
+    it 'should redirect to teacher_center if topic slug is not found' do
+      get :show_topic, topic: 'does-not-exist'
+
+      expect(response).to redirect_to '/teacher-center'
+    end
+
+    it 'should redirect students to student_center if topic slug is not found' do
+      allow(controller).to receive(:current_user) { create(:student) }
+
+      get :show_topic, topic: 'does-not-exist'
+
+      expect(response).to redirect_to '/student-center'
     end
 
     it 'should never return a draft' do
