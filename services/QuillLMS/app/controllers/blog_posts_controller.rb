@@ -1,5 +1,4 @@
 class BlogPostsController < ApplicationController
-  before_action :set_role
   before_action :redirect_legacy_topic_urls, only: [:show_topic]
   before_action :redirect_invalid_topics, only: [:show_topic]
 
@@ -29,7 +28,7 @@ class BlogPostsController < ApplicationController
   end
 
   def show
-    draft_statuses = @role == 'staff' ? [true, false] : false
+    draft_statuses =current_user&.staff? ? [true, false] : false
 
     @blog_post = BlogPost.find_by(slug: params[:slug], draft: draft_statuses)
 
@@ -83,7 +82,7 @@ class BlogPostsController < ApplicationController
 
     @blog_posts = BlogPost.for_topics(topic)
     # hide student part of topic name for display
-    @topic = @role == 'student' ? topic.gsub('Student ', '').capitalize : topic
+    @topic = current_user&.student? ? topic.gsub('Student ', '').capitalize : topic
     @title = @topic
 
     render 'index'
@@ -91,10 +90,6 @@ class BlogPostsController < ApplicationController
 
   private def set_announcement
     @announcement = Announcement.current_webinar_announcement
-  end
-
-  private def set_role
-    @role = current_user ? current_user.role : nil
   end
 
   private def set_root_url
@@ -117,7 +112,7 @@ class BlogPostsController < ApplicationController
     return unless params[:topic].include?('_')
 
     new_topic = params[:topic].gsub('_', '-')
-    base_url = @role == 'student' ? 'student-center' : 'teacher-center'
+    base_url = current_user&.student? ? 'student-center' : 'teacher-center'
 
     redirect_to "/#{base_url}/topic/#{new_topic}" and return
   end

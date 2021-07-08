@@ -13,5 +13,5 @@
   mostRecentPosts: @most_recent_posts,
   author: @author,
   displayPaywall: !@blog_post.can_be_accessed_by(current_user),
-  role: @role
+  role: current_user&.role
 }) %>
