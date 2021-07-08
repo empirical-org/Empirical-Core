@@ -1,16 +1,4 @@
-<% current_path = request.env['PATH_INFO'] %>
-<% if current_path.include?('getting-started') %>
-  <% @active_tab = BlogPost::GETTING_STARTED %>
-<% elsif current_path.include?('teacher-stories') %>
-  <% @active_tab = BlogPost::TEACHER_STORIES %>
-<% elsif current_path.include?('writing-instruction-research') %>
-  <% @active_tab = BlogPost::WRITING_INSTRUCTION_RESEARCH %>
-<% elsif current_path.include?('how-to') %>
-    <% @active_tab = BlogPost::HOW_TO %>
-<% else %>
-  <% @active_tab = BlogPost::ALL_RESOURCES%>
-<% end %>
-<%= render partial: 'pages/shared/teacher_center_navbar', active_tab: @active_tab %>
+<%= render partial: 'pages/shared/teacher_center_navbar', locals: {active_tab: @topic || BlogPost::ALL_RESOURCES } %>
 <div class="container">
-  <%= react_component('BlogPostsApp', props: {route: 'index', blogPosts: @blog_posts, announcement: @announcement, query: @query, topics: @topics, studentTopics: @student_topics, role: @role, title: @title}) %>
+  <%= react_component('BlogPostsApp', props: {route: 'index', blogPosts: @blog_posts, announcement: @announcement, query: @query, topics: @topics, studentTopics: @student_topics, role: current_user&.role, title: @title}) %>
 </div>

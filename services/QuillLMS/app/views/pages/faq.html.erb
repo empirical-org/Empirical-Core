@@ -1,5 +1,4 @@
-<% @active_tab = 'FAQ' %>
-<%= render partial: 'pages/shared/teacher_center_navbar', active_tab: @active_tab %>
+<%= render partial: 'pages/shared/teacher_center_navbar', locals: { active_tab: TeacherCenterHelper::FAQ} %>
 
 <div class="container pages-container pages-faq">
 
