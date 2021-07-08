@@ -6,6 +6,7 @@ import Feedback from './feedback'
 import EditCaretPositioning from '../../helpers/EditCaretPositioning'
 import ButtonLoadingSpinner from '../shared/buttonLoadingSpinner'
 import preFilters from '../../modules/prefilters'
+import { highlightSpellingGrammar } from '../../libs/stringFormatting'
 
 interface PromptStepProps {
   active: Boolean;
@@ -105,7 +106,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     if (lastSubmittedResponse.feedback_type == 'plagiarism') {
       return this.formatPlagiarismHighlight(str, wordsToFormat)
     } else {
-      return this.formatSpellingGrammarHighlight(str, wordsToFormat)
+      return highlightSpellingGrammar(str, wordsToFormat)
     }
   }
 
@@ -114,14 +115,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     return str.replace(wordsToFormat, boldedString)
   }
 
-  formatSpellingGrammarHighlight = (str: string, wordsToFormat: string | string[]) => {
-    let wordArray = [].concat(wordsToFormat)
-    let newString = str
-    wordArray.forEach((word) => {
-      newString = newString.replace(word, `<b>${word}</b>`)
-    })
-    return newString
-  }
+
 
   htmlStrippedPrompt = (escapeRegexCharacters=false) => {
     const strippedPrompt = this.formattedStem().replace(/<p>|<\/p>|<br>/g, '')
