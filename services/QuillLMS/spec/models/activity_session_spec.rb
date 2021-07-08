@@ -751,6 +751,17 @@ end
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
 
+    it 'updates when the ActivityClassification.key is "comprehension" even if the percentage is nil' do
+      classification = create(:activity_classification, key: 'comprehension')
+      activity
+      activity.update(classification: classification)
+      previous_final_score
+      previous_final_score.update(percentage: nil)
+      new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
+      new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: nil
+      expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
+    end
+
     it 'doesnt update when new activity session has lower percentage' do
       previous_final_score
       new_activity_session =  create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.5, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)

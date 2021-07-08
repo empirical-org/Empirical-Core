@@ -89,6 +89,7 @@ export default createReactClass({
 		// don't just do ...questionData && ...questionData.questionScore because
 		// if it questionScore is zero it will evaluate to false
 		if (typeof this.props.questionData.questionScore !== undefined) {
+      if (!this.props.showScore) return;
       let score
       if (this.props.questionData.questionScore) {
         score = this.props.questionData.questionScore * 100

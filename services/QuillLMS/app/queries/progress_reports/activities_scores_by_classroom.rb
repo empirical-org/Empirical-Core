@@ -34,8 +34,7 @@ class ProgressReports::ActivitiesScoresByClassroom
         students.name,
         AVG(activity_sessions.percentage)
         FILTER (
-          WHERE activities.activity_classification_id <> 6
-            AND activities.activity_classification_id <> 4
+          WHERE activity_classifications.scored = true
         ) AS average_score,
         COUNT(activity_sessions.id) AS activity_count,
         classrooms.id AS classroom_id
@@ -48,6 +47,8 @@ class ProgressReports::ActivitiesScoresByClassroom
         ON classrooms.id = classroom_units.classroom_id
       JOIN users AS students
         ON students.id = activity_sessions.user_id
+      JOIN activity_classifications
+        ON activities.activity_classification_id = activity_classifications.id
       WHERE classroom_units.classroom_id IN (#{classroom_ids})
       AND activity_sessions.is_final_score = TRUE
       AND classroom_units.visible = true
