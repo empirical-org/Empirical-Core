@@ -46,7 +46,7 @@ class BlogPostsController < ApplicationController
       blog_post = BlogPost.find_by(slug: corrected_slug, draft: draft_statuses)
 
       if blog_post
-        redirect_to blog_post
+        redirect_to blog_post_path(blog_post.slug)
       else
         flash[:error] = "Oops! We can't seem to find that blog post. Trying searching on this page."
         redirect_to blog_posts_path

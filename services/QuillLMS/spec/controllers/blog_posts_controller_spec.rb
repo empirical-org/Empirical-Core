@@ -47,7 +47,7 @@ describe BlogPostsController, type: :controller do
     it 'should redirect to blog post even if there are extra chars' do
       get :show, slug: blog_post.slug + ')()('
 
-      expect(response).to redirect_to blog_post
+      expect(response).to redirect_to "/teacher-center/#{blog_post.slug}"
     end
 
     it 'should increment the blog post read count' do
