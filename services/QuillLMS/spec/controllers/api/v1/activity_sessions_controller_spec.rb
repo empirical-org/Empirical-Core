@@ -121,6 +121,34 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         expect(activity_session.concept_results).to eq([])
       end
     end
+
+    context 'data time_tracking is included ' do
+      let(:data) do
+        {
+          'time_tracking' => {
+            'so' => 1,
+            'but' => 2,
+            'because' => 3
+          }
+        }
+      end
+
+      before do
+         put :update,
+          params: {
+           id: activity_session.uid,
+           data: data
+          },
+          as: :json
+      end
+
+      it 'updates timespent on activity session' do
+        activity_session.reload
+
+        expect(activity_session.timespent).to eq 6
+        expect(activity_session.data['time_tracking']).to include(data['time_tracking'])
+      end
+    end
   end
 
   describe '#show' do
