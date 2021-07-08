@@ -102,7 +102,7 @@ class BlogPostsController < ApplicationController
     return if BlogPost::STUDENT_TOPICS.include?(topic)
 
     flash[:error] = "Oops! We can't seem to find that topic!"
-    center_home_url = @role == 'student' ? '/student-center' : '/teacher-center'
+    center_home_url = current_user&.student? ? '/student-center' : '/teacher-center'
 
     redirect_to center_home_url and return
   end
