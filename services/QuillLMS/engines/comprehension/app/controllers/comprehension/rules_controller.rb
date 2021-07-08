@@ -47,15 +47,15 @@ module Comprehension
 
     def update_rule_order
       ordered_rules = ordered_rules_params[:ordered_rule_ids].map.with_index do |id, index|
-        rule = Comprehension::Rule.find(id)
-        rule.suborder = index
+        rule = Comprehension::Rule.find_by_id(id)
+        rule.suborder = index if rule
         rule
       end
 
-      if ordered_rules.all? { |r| r.valid? }
+      if ordered_rules.all? { |r| r&.valid? }
         ordered_rules.each { |r| r.save! }
       else
-        render json: {error_messages: ordered_rules.map { |r| r.errors }.join('; ')}, status: :unprocessable_entity
+        render json: {error_messages: ordered_rules.map { |r| r&.errors }.join('; ')}, status: :unprocessable_entity
       end
 
       render(json: {status: 200})
