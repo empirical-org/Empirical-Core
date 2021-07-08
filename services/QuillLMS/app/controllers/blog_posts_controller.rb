@@ -28,7 +28,7 @@ class BlogPostsController < ApplicationController
   end
 
   def show
-    draft_statuses =current_user&.staff? ? [true, false] : false
+    draft_statuses = current_user&.staff? ? [true, false] : false
 
     @blog_post = BlogPost.find_by(slug: params[:slug], draft: draft_statuses)
 
