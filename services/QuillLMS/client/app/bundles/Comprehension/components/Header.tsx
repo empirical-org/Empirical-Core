@@ -47,12 +47,13 @@ export class Header extends React.Component<any, any> {
   }
 
   render() {
+    const isNotTurk = !window.location.href.includes('turk')
     return (
       <div className="header">
         <div>
           <img alt="Quill.org logo" className="hide-on-desktop" src={mobileLogoSrc} />
           <img alt="Quill.org logo" className="hide-on-mobile" src={logoSrc} />
-          <button className="save-and-exit" onClick={this.handleOnClick} type="button"><span>Save and exit</span></button>
+          {isNotTurk && <button className="save-and-exit" onClick={this.handleOnClick} type="button"><span>Save and exit</span></button>}
         </div>
       </div>
     );
