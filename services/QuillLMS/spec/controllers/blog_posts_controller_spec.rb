@@ -32,13 +32,22 @@ describe BlogPostsController, type: :controller do
     let(:blog_post) { create(:blog_post) }
     let(:three_most_recent_posts) { create_list(:blog_post, 3) }
 
-    it 'should return a 404 if no such post found' do
-      expect { get :show, slug: 'does-not-exist' }.to raise_error ActiveRecord::RecordNotFound
+    it 'should redirect to teacher center home if no such post found' do
+      get :show, slug: 'does-not-exist'
+
+      expect(response).to redirect_to blog_posts_path
+      expect(flash[:error]).to include("Oops! We can't seem to find that blog post.")
     end
 
     it 'should return the called blog post' do
       get :show, slug: blog_post.slug
       expect(assigns(:blog_post)).to eq(blog_post)
+    end
+
+    it 'should redirect to blog post even if there are extra chars' do
+      get :show, slug: blog_post.slug + ')()('
+
+      expect(response).to redirect_to "/teacher-center/#{blog_post.slug}"
     end
 
     it 'should increment the blog post read count' do
@@ -77,8 +86,24 @@ describe BlogPostsController, type: :controller do
     let(:blog_posts) { create_list(:blog_post, 3, topic: topic) }
     let(:draft_post) { create(:blog_post, :draft, topic: topic) }
 
-    it 'should return a 404 if topic slug is not found' do
-      expect { get :show_topic, topic: 'does-not-exist' }.to raise_error ActionController::RoutingError
+    it 'should redirect a legacy_url' do
+      get :show_topic, topic: 'param_with_underscores'
+
+      expect(response).to redirect_to '/teacher-center/topic/param-with-underscores'
+    end
+
+    it 'should redirect to teacher_center if topic slug is not found' do
+      get :show_topic, topic: 'does-not-exist'
+
+      expect(response).to redirect_to '/teacher-center'
+    end
+
+    it 'should redirect students to student_center if topic slug is not found' do
+      allow(controller).to receive(:current_user) { create(:student) }
+
+      get :show_topic, topic: 'does-not-exist'
+
+      expect(response).to redirect_to '/student-center'
     end
 
     it 'should never return a draft' do
