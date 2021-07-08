@@ -56,6 +56,7 @@ module Comprehension
         ordered_rules.each { |r| r.save! }
       else
         render json: {error_messages: ordered_rules.map { |r| r&.errors }.join('; ')}, status: :unprocessable_entity
+        return
       end
 
       render(json: {status: 200})
