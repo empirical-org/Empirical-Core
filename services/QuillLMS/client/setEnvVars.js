@@ -1,1 +1,1 @@
-process.env.GOLANG_FANOUT_URL = 'https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-fanout-staging';
+process.env.GOLANG_FANOUT_URL = 'https://staging.comprehension-feedback.quill.org/';

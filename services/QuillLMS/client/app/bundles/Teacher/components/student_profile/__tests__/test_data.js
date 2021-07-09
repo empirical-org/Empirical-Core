@@ -18,6 +18,7 @@ export const activities = [
     locked: false,
     pinned: true,
     max_percentage: null,
+    finished: false,
     resume_link: 1
   },
   {
@@ -39,6 +40,7 @@ export const activities = [
     locked: false,
     pinned: false,
     max_percentage: null,
+    finished: false,
     resume_link: 0
   },
   {
@@ -60,6 +62,7 @@ export const activities = [
     locked: false,
     pinned: false,
     max_percentage: null,
+    finished: false,
     resume_link: 0
   },
   {
@@ -81,6 +84,7 @@ export const activities = [
     locked: false,
     pinned: false,
     max_percentage: null,
+    finished: false,
     resume_link: 0
   },
   {
@@ -102,6 +106,7 @@ export const activities = [
     locked: false,
     pinned: false,
     max_percentage: null,
+    finished: false,
     resume_link: 0
   },
   {
@@ -123,6 +128,7 @@ export const activities = [
     locked: false,
     pinned: false,
     max_percentage: null,
+    finished: false,
     resume_link: 0
   },
   {
@@ -144,6 +150,7 @@ export const activities = [
     locked: false,
     pinned: false,
     max_percentage: null,
+    finished: false,
     resume_link: 0
   },
   {
@@ -165,6 +172,7 @@ export const activities = [
     locked: false,
     pinned: false,
     max_percentage: null,
+    finished: false,
     resume_link: 0
   },
   {
@@ -186,6 +194,7 @@ export const activities = [
     locked: false,
     pinned: false,
     max_percentage: null,
+    finished: false,
     resume_link: 0
   },
   {
@@ -207,6 +216,7 @@ export const activities = [
     locked: false,
     pinned: false,
     max_percentage: 1,
+    finished: true,
     resume_link: 0
   },
   {
@@ -228,6 +238,7 @@ export const activities = [
     locked: false,
     pinned: false,
     max_percentage: 0.764705882352941,
+    finished: true,
     resume_link: 0
   },
   {
@@ -249,6 +260,7 @@ export const activities = [
     locked: true,
     pinned: false,
     max_percentage: null,
+    finished: false,
     resume_link: 0
   },
   {
@@ -270,6 +282,7 @@ export const activities = [
     locked: true,
     pinned: false,
     max_percentage: null,
+    finished: false,
     resume_link: 0
   },
   {
@@ -291,6 +304,7 @@ export const activities = [
     locked: true,
     pinned: false,
     max_percentage: null,
+    finished: false,
     resume_link: 0
   }
 ]
@@ -316,6 +330,7 @@ export const categorizedActivities = {
       locked: false,
       pinned: false,
       max_percentage: 1,
+      finished: true,
       resume_link: 0
     }, {
       name: "Age of Exploration: Spices",
@@ -336,6 +351,7 @@ export const categorizedActivities = {
       locked: false,
       pinned: false,
       max_percentage: 0.764705882352941,
+      finished: true,
       resume_link: 0
     }
   ],
@@ -359,6 +375,7 @@ export const categorizedActivities = {
       locked: false,
       pinned: false,
       max_percentage: null,
+      finished: false,
       resume_link: 0
     }, {
       name: "Christopher Columbus",
@@ -379,6 +396,7 @@ export const categorizedActivities = {
       locked: false,
       pinned: false,
       max_percentage: null,
+      finished: false,
       resume_link: 0
     }, {
       name: "A, An, The",
@@ -399,6 +417,7 @@ export const categorizedActivities = {
       locked: false,
       pinned: false,
       max_percentage: null,
+      finished: false,
       resume_link: 0
     }, {
       name: "Magellan",
@@ -419,6 +438,7 @@ export const categorizedActivities = {
       locked: false,
       pinned: false,
       max_percentage: null,
+      finished: false,
       resume_link: 0
     }, {
       name: "Jamestown",
@@ -439,6 +459,7 @@ export const categorizedActivities = {
       locked: false,
       pinned: false,
       max_percentage: null,
+      finished: false,
       resume_link: 0
     }, {
       name: "Age of Exploration: Sailing with the Stars",
@@ -459,6 +480,7 @@ export const categorizedActivities = {
       locked: false,
       pinned: false,
       max_percentage: null,
+      finished: false,
       resume_link: 0
     }, {
         name: "Age of Exploration: The Cape of Good Hope",
@@ -479,6 +501,7 @@ export const categorizedActivities = {
         locked: false,
         pinned: false,
         max_percentage: null,
+        finished: false,
         resume_link: 0
       }, {
           name: "Age of Exploration: Roanoke",
@@ -499,6 +522,7 @@ export const categorizedActivities = {
           locked: false,
           pinned: false,
           max_percentage: null,
+          finished: false,
           resume_link: 0
         }
       ]

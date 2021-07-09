@@ -386,10 +386,9 @@ EmpiricalGrammar::Application.routes.draw do
           get 'level_zero_concepts_with_lineage'
         end
       end
-      
-      resources :users, only: [:index] do
-        resources :app_settings, only: [:index, :show], param: :name 
-      end
+
+      resources :users, only: [:index]
+      resources :app_settings, only: [:index, :show], param: :name 
 
       resources :classroom_units,         only: [] do
         collection do

@@ -31,7 +31,7 @@ export default class ClassReport extends React.Component {
         field: 'score',
         sortByField: 'score',
         customCell(row) {
-          return row['score'] + '%'
+          return row['score'] ? row['score'] + '%' : 'N/A'
         }
       },
       {
