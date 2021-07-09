@@ -23,7 +23,6 @@ class Cms::SchoolsController < Cms::CmsController
 
   def search
     school_search_query = school_query_params
-    puts school_search_query
     school_search_query_results = school_query(school_query_params)
     school_search_query_results ||= []
     number_of_pages = (number_of_schools_matched / SCHOOLS_PER_PAGE).ceil
