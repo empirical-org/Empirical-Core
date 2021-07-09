@@ -23,6 +23,7 @@ class Cms::SchoolsController < Cms::CmsController
 
   def search
     school_search_query = school_query_params
+    puts school_search_query
     school_search_query_results = school_query(school_query_params)
     school_search_query_results ||= []
     number_of_pages = (number_of_schools_matched / SCHOOLS_PER_PAGE).ceil
@@ -266,7 +267,7 @@ class Cms::SchoolsController < Cms::CmsController
     when 'school_name'
       "schools.name ILIKE #{sanitized_fuzzy_param_value}"
     when 'school_city'
-      "(schools.city ILIKE #{sanitized_fuzzy_param_value} OR schools.mail_city ILIKE #{sanitized_fuzzy_param_value}"
+      "schools.city ILIKE #{sanitized_fuzzy_param_value} OR schools.mail_city ILIKE #{sanitized_fuzzy_param_value}"
     when 'school_state'
       "(UPPER(schools.state) = UPPER(#{sanitized_param_value}) OR UPPER(schools.mail_state) = UPPER(#{sanitized_param_value}))"
     when 'school_zip'
