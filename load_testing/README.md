@@ -14,7 +14,7 @@ Usage
 ===
 
 1. Fine-tune your test plan via the JMeter GUI. Avoiding running large/continuous tests from the GUI. 
-2. Run your test plan via CLI - [instructions](https://jmeter.apache.org/usermanual/get-started.html#non_gui). Example: `HEAP="-Xms512m -Xmx4096m" jmeter -n -t prod.jmx -l outputs/latest.csv -p property_files/some.properties`
+2. Run your test plan via CLI - [instructions](https://jmeter.apache.org/usermanual/get-started.html#non_gui). Example: `HEAP="-Xms512m -Xmx4096m" jmeter -n -t prod.jmx -l outputs/latest.csv -p property_files/prod_all_1_min_low_traffic.properties`
 
 Conventions
 ====
