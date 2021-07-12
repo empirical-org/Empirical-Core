@@ -151,7 +151,7 @@ const SessionsIndex = ({ match }) => {
       const { start_date, session_uid, because_attempts, but_attempts, so_attempts, complete } = session;
       const dateObject = new Date(start_date);
       const date = moment(dateObject).format("MM/DD/YY");
-      const time = moment(dateObject).format("HH:MM A");
+      const time = moment(dateObject).format("hh:mm a");
       const total = because_attempts + but_attempts + so_attempts;
       const formattedSession = {
         ...session,
