@@ -3,8 +3,8 @@ require("rails_helper")
 module Comprehension
   RSpec.describe(ActivitiesController, :type => :controller) do
     before { @routes = Engine.routes }
-    context 'foo' do 
-      it 'should foo' do 
+    context 'foo' do
+      it 'should foo' do
       end
     end
     context("index") do
@@ -36,8 +36,8 @@ module Comprehension
       end
       context("with actitivites") do
         before do
-          @first_activity = create(:comprehension_activity, :title => "First Activity", :name => "Name 1", :target_level => 8)
-          create(:comprehension_activity, :title => "Second Activity", :name => "Name 2", :target_level => 5)
+          @first_activity = create(:comprehension_activity, title: "First Activity", notes: "Notes 1", target_level: 8)
+          create(:comprehension_activity, :title => "Second Activity", :notes => "Notes 2", :target_level => 5)
         end
         it("return successfully") do
           get(:index)
@@ -53,15 +53,15 @@ module Comprehension
     end
     context("create") do
       before do
-        @activity = build(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade", :name => "First Activity - Name")
+        @activity = build(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade", :notes => "First Activity - Notes")
         Comprehension.parent_activity_classification_class.create(:key => "comprehension")
       end
       it("create a valid record and return it as json") do
-        post(:create, :activity => ({ :parent_activity_id => @activity.parent_activity_id, :scored_level => @activity.scored_level, :target_level => @activity.target_level, :title => @activity.title, :name => @activity.name }))
+        post(:create, :activity => ({ :parent_activity_id => @activity.parent_activity_id, :scored_level => @activity.scored_level, :target_level => @activity.target_level, :title => @activity.title, :notes => @activity.notes }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response["title"]).to(eq("First Activity"))
-        expect(parsed_response["name"]).to(eq("First Activity - Name"))
+        expect(parsed_response["notes"]).to(eq("First Activity - Notes"))
         expect(Activity.count).to(eq(1))
       end
       it("not create an invalid record and return errors as json") do
@@ -72,27 +72,27 @@ module Comprehension
         expect(Activity.count).to(eq(0))
       end
       it("create a valid record with passage attributes") do
-        post(:create, :activity => ({ :parent_activity_id => @activity.parent_activity_id, :scored_level => @activity.scored_level, :target_level => @activity.target_level, :title => @activity.title, :name => @activity.name, :passages_attributes => ([{ :text => ("Hello " * 20) }]) }))
+        post(:create, :activity => ({ :parent_activity_id => @activity.parent_activity_id, :scored_level => @activity.scored_level, :target_level => @activity.target_level, :title => @activity.title, :notes => @activity.notes, :passages_attributes => ([{ :text => ("Hello " * 20) }]) }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response["title"]).to(eq("First Activity"))
-        expect(parsed_response["name"]).to(eq("First Activity - Name"))
+        expect(parsed_response["notes"]).to(eq("First Activity - Notes"))
         expect(Activity.count).to(eq(1))
         expect(Activity.first.passages.count).to(eq(1))
         expect(Activity.first.passages.first.text).to(eq(("Hello " * 20)))
       end
       it("create a valid record with prompt attributes") do
-        post(:create, :activity => ({ :parent_activity_id => @activity.parent_activity_id, :scored_level => @activity.scored_level, :target_level => @activity.target_level, :title => @activity.title, :name => @activity.name, :prompts_attributes => ([{ :text => "meat is bad for you.", :conjunction => "because" }]) }))
+        post(:create, :activity => ({ :parent_activity_id => @activity.parent_activity_id, :scored_level => @activity.scored_level, :target_level => @activity.target_level, :title => @activity.title, :notes => @activity.notes, :prompts_attributes => ([{ :text => "meat is bad for you.", :conjunction => "because" }]) }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response["title"]).to(eq("First Activity"))
-        expect(parsed_response["name"]).to(eq("First Activity - Name"))
+        expect(parsed_response["notes"]).to(eq("First Activity - Notes"))
         expect(Activity.count).to(eq(1))
         expect(Activity.first.prompts.count).to(eq(1))
         expect(Activity.first.prompts.first.text).to(eq("meat is bad for you."))
       end
       it("create a new parent activity and activity if no parent_activity_id is passed") do
-        post(:create, :activity => ({ :parent_activity_id => nil, :scored_level => @activity.scored_level, :target_level => @activity.target_level, :title => @activity.title, :name => @activity.title, :prompts_attributes => ([{ :text => "meat is bad for you.", :conjunction => "because" }]) }))
+        post(:create, :activity => ({ :parent_activity_id => nil, :scored_level => @activity.scored_level, :target_level => @activity.target_level, :title => @activity.title, :notes => @activity.notes, :prompts_attributes => ([{ :text => "meat is bad for you.", :conjunction => "because" }]) }))
         parent_activity = Comprehension.parent_activity_class.find_by_name(@activity.title)
         new_activity = Activity.find_by_title(@activity.title)
         expect(parent_activity.present?).to(eq(true))
