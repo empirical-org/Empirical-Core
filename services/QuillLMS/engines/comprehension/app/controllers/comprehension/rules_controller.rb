@@ -54,12 +54,10 @@ module Comprehension
 
       if ordered_rules.all? { |r| r&.valid? }
         ordered_rules.each { |r| r.save! }
+        render(json: {status: 200})
       else
         render json: {error_messages: ordered_rules.map { |r| r&.errors }.join('; ')}, status: :unprocessable_entity
-        return
       end
-
-      render(json: {status: 200})
     end
 
     private def set_rule
