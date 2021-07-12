@@ -24,10 +24,10 @@ group :test do
   gem 'webmock'
 end
 
-group :test, :development do 
+group :test, :development do
+  gem 'factory_bot_rails', '~> 4.8.2', require: false
+  gem 'pry'
   gem 'rspec-rails', '~> 3.9.1'
   gem 'simplecov'
   gem 'simplecov-json', require: false
-  gem 'pry'
-  gem 'factory_bot_rails', '~> 4.8.2', require: false
 end

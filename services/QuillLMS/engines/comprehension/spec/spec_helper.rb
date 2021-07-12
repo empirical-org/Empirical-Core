@@ -8,7 +8,7 @@ WebMock.disable_net_connect!
 if ENV['CONTINUOUS_INTEGRATION'] == true
   SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new([
     SimpleCov::Formatter::HTMLFormatter,
-    SimpleCov::Formatter::JSONFormatter,
+    SimpleCov::Formatter::JSONFormatter
   ])
 
   SimpleCov.start do

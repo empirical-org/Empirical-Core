@@ -10,10 +10,6 @@ ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('../spec/dummy/config/environment', __dir__)
 
-
-
-
-
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
@@ -45,23 +41,20 @@ end
 
 
 RSpec.configure do |config|
-    config.formatter = :progress
-    config.expect_with :rspec do |expectations|
-      expectations.include_chain_clauses_in_custom_matcher_descriptions = true
-    end
-
-    config.use_transactional_fixtures = true
-  
-    config.include FactoryBot::Syntax::Methods
-    config.infer_spec_type_from_file_location! 
-    config.mock_with :rspec do |mocks|
-      mocks.verify_partial_doubles = true
-    end
-  
+  config.formatter = :progress
+  config.expect_with :rspec do |expectations|
+    expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
+
+  config.use_transactional_fixtures = true
+
+  config.include FactoryBot::Syntax::Methods
+  config.infer_spec_type_from_file_location!
+  config.mock_with :rspec do |mocks|
+    mocks.verify_partial_doubles = true
+  end
+end
 
 factory_files = Dir.glob('spec/factories/comprehension/*')
 
 factory_files.each {|f| require File.expand_path(File.join(Rails.root, '..', '..', f))}
-
-#FactoryBot.definition_file_paths = Dir.glob('spec/factories/comprehension/*')
