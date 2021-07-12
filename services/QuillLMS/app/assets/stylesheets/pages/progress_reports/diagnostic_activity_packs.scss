@@ -71,6 +71,13 @@
     .data-table {
       .data-table-row {
         height: 72px;
+        .quill-tooltip-trigger {
+          .quill-tooltip-wrapper {
+            .quill-tooltip {
+              max-width: 254px;
+            }
+          }
+        }
       }
       .recommendations-row-section, .recommendations-header {
         margin-right: 0px;
