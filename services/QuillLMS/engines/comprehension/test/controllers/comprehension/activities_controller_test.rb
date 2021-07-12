@@ -68,12 +68,7 @@ module Comprehension
 
     context "create" do
       setup do
-<<<<<<< HEAD
-        @controller.session[:user_id] = 1
-        @activity = build(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade", name: "First Activity - Name")
-=======
         @activity = build(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade", notes: "First Activity - Notes")
->>>>>>> c3730038ab8cf85bfbd0dd7ffb4ed37936236c83
         Comprehension.parent_activity_classification_class.create(key: 'comprehension')
       end
 

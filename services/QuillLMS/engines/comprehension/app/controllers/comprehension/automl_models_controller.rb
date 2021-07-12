@@ -23,7 +23,6 @@ module Comprehension
       @automl_model.populate_from_automl_model_id
 
       if @automl_model.save
-        @automl_model.log_creation(lms_user_id)
         render json: @automl_model, status: :created
       else
         render json: @automl_model.errors, status: :unprocessable_entity

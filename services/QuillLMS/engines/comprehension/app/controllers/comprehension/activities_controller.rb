@@ -39,7 +39,6 @@ module Comprehension
 
     # DELETE /activities/1.json
     def destroy
-      @activity.log_deletion(lms_user_id)
       @activity.destroy
       head :no_content
     end
