@@ -3,6 +3,7 @@ module Comprehension
     include Comprehension::ChangeLog
 
     belongs_to :rule, inverse_of: :plagiarism_text
+    has_many :change_logs
 
     validates_presence_of :rule
     validates :text, presence: true

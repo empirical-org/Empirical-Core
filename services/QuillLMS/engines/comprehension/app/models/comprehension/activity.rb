@@ -9,11 +9,12 @@ module Comprehension
     MAX_TITLE_LENGTH = 100
     MAX_SCORED_LEVEL_LENGTH = 100
 
+    attr_accessor :lms_user_id
+
     before_destroy :expire_turking_rounds
     before_validation :set_parent_activity, on: :create
-    after_create :log_create
+    after_save :log_creation
     after_destroy :log_deletion
-    after_update :log_update
 
     has_many :passages, inverse_of: :activity, dependent: :destroy
     has_many :prompts, inverse_of: :activity, dependent: :destroy
@@ -41,9 +42,14 @@ module Comprehension
       "Comprehension::Rule": "Universal"
     }
 
-    def update_with_session_user(user_id, params)
+    def save_with_session_user(user_id)
       @lms_user_id = user_id
-      self.update(params)
+      save
+    end
+
+    def destroy_with_session_user(user_id)
+      @lms_user_id = user_id
+      destroy
     end
 
     def set_parent_activity
@@ -92,18 +98,14 @@ module Comprehension
       "comprehension/#/activities/#{id}/settings"
     end
 
-    def log_creation(user_id)
-      log_change(@lms_user_id, :create_activity, self, {url: url}.to_json, nil, nil, "Comprehension Activity #{id} - active")
+    def log_creation
+      return unless @lms_user_id.present?
+      log_change(@lms_user_id, :create_activity, self, {url: url}.to_json, nil, nil, nil)
     end
 
-    def log_deletion(user_id)
-      log_change(@lms_user_id, :delete_activity, self, {url: url}.to_json, nil, "Comprehension Activity #{id} - active", "Comprehension Activity #{id} - deleted")
-    end
-
-    def log_update
-      if title_changed?
-        log_change(@lms_user_id, :delete_activity, self, {url: url}.to_json, nil, "Comprehension Activity #{id} - title changed", "Comprehension Activity #{id} - deleted")
-      end
+    def log_deletion
+      return unless @lms_user_id.present?
+      log_change(@lms_user_id, :delete_activity, self, {url: url}.to_json, nil, nil, nil)
     end
   end
 end

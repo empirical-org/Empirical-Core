@@ -8,6 +8,7 @@ module Comprehension
     attr_readonly :name
 
     belongs_to :rule, inverse_of: :label
+    has_many :change_logs
 
     validates :rule, presence: true, uniqueness: true
     validates :name, presence: true, length: {in: NAME_MIN_LENGTH..NAME_MAX_LENGTH}

@@ -11,6 +11,7 @@ module Comprehension
     ]
 
     belongs_to :rule, inverse_of: :regex_rules
+    has_many :change_logs
 
     before_validation :set_default_case_sensitivity, on: :create
     before_save :validate_regex

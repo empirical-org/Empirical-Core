@@ -68,12 +68,15 @@ class ChangeLog < ActiveRecord::Base
     RENAMED
   ]
   COMPREHENSION_ACTIONS = {
-    create_activity: 'Comprehension Activity - created',
-    delete_activity: 'Comprehension Activity - deleted',
-    update_passage: 'Comprehension Passage Text - updated',
+    create_activity: 'Comprehension Activity - created', #tested
+    delete_activity: 'Comprehension Activity - deleted', #tested
+    update_passage: 'Comprehension Passage Text - updated', #tested
     create_regex: 'Regex Rule - created',
     update_regex: 'Regex Rule - updated',
     delete_regex: 'Regex Rule - deleted',
+    update_regex_feedack: 'Regex Rule Feedback - updated',
+    update_regex_highlight: 'Regex Rule Highlight - updated',
+    update_regex_text: 'Regex Rule Regex - updated',
     update_prompt: 'Comprehension Stem - updated',
     create_automl: 'AutoML Model - created',
     activate_automl: 'AutoML Model - activated',
@@ -85,8 +88,11 @@ class ChangeLog < ActiveRecord::Base
     update_highlight_1: 'Semantic Label First Layer Feedback Highlight - updated',
     update_feedback_2: 'Semantic Label Second Layer Feedback - updated',
     update_highlight_2: 'Semantic Label Second Layer Feedback Highlight - updated',
-    create_plagiarism: 'Plagiarism - created',
-    update_plagiarism: 'Plagiarism - updated',
+    create_plagiarism: 'Plagiarism Rule - created',
+    update_plagiarism: 'Plagiarism Rule - updated',
+    update_plagiarism_feedback: 'Plagiarism Rule Feedback - updated',
+    update_plagiarism_highlight: 'Plagiarism Rule Highlight - updated',
+    update_plagiarism_text: 'Plagiarism Rule Text - updated',
     update_universal: 'Universal Rule - updated',
     create_universal: 'Universal Rule - created'
   }
@@ -99,7 +105,14 @@ class ChangeLog < ActiveRecord::Base
     'StandardCategory',
     'Comprehension::Activity',
     'Comprehension::Prompt',
-    'Comprehension::Rule'
+    'Comprehension::Rule',
+    'Comprehension::Passage',
+    'Comprehension::AutomlModel',
+    'Comprehension::Label',
+    'Comprehension::Feedback',
+    'Comprehension::Highlight',
+    'Comprehension::RegexRule',
+    'Comprehension::PlagiarismText'
   ]
   USER_ACTIONS = {
     index: 'Visited User Directory',
@@ -124,7 +137,23 @@ class ChangeLog < ActiveRecord::Base
   validates :changed_record_type, inclusion: CHANGED_RECORD_TYPES
 
   def applies_to_single_record?
-    ['Concept', 'Topic', 'Standard', 'StandardLevel', 'StandardCategory', 'Comprehension::Activity', 'Comprehension::Prompt', 'Comprehension::Rule'].include?(changed_record_type) || !(GENERIC_USER_ACTIONS.include?(action))
+    [
+      'Concept',
+      'Topic',
+      'Standard',
+      'StandardLevel',
+      'StandardCategory',
+      'Comprehension::Activity',
+      'Comprehension::Prompt',
+      'Comprehension::Rule',
+      'Comprehension::Passage',
+      'Comprehension::AutomlModel',
+      'Comprehension::Label',
+      'Comprehension::Feedback',
+      'Comprehension::Highlight',
+      'Comprehension::RegexRule',
+      'Comprehension::PlagiarismText'
+    ].include?(changed_record_type) || !(GENERIC_USER_ACTIONS.include?(action))
   end
 
   def record_is_not_being_created_from_cms?

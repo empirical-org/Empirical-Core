@@ -7,6 +7,7 @@ module Comprehension
 
     belongs_to :rule, inverse_of: :feedbacks
     has_many :highlights, inverse_of: :feedback, dependent: :destroy
+    has_many :change_logs
 
     accepts_nested_attributes_for :highlights
 

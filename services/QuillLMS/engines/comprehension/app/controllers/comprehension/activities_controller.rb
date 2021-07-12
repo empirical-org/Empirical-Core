@@ -21,7 +21,7 @@ module Comprehension
     def create
       @activity = Comprehension::Activity.new(activity_params)
 
-      if @activity.save
+      if @activity.save_with_session_user(lms_user_id)
         render json: @activity, status: :created
       else
         render json: @activity.errors, status: :unprocessable_entity
@@ -30,7 +30,7 @@ module Comprehension
 
     # PATCH/PUT /activities/1.json
     def update
-      if @activity.update_with_session_user(lms_user_id, activity_params)
+      if @activity.update(activity_params)
         head :no_content
       else
         render json: @activity.errors, status: :unprocessable_entity
@@ -39,7 +39,7 @@ module Comprehension
 
     # DELETE /activities/1.json
     def destroy
-      @activity.destroy
+      @activity.destroy_with_session_user(lms_user_id)
       head :no_content
     end
 

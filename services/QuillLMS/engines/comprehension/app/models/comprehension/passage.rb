@@ -5,6 +5,9 @@ module Comprehension
     MIN_TEXT_LENGTH = 50
 
     belongs_to :activity, inverse_of: :passages
+    has_many :change_logs
+
+    after_save :log_update
 
     validates_presence_of :activity
     validates :text, presence: true, length: {minimum: MIN_TEXT_LENGTH}
@@ -16,8 +19,10 @@ module Comprehension
       ))
     end
 
-    def log_update(user_id, prev_value)
-      log_change(user_id, :update_passage, activity, {url: activity.url}.to_json, nil, prev_value, text)
+    private def log_update
+      if text_changed?
+        log_change(1, :update_passage, self, {url: activity.url}.to_json, "text", text_was, text)
+      end
     end
   end
 end

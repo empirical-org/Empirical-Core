@@ -13,6 +13,7 @@ module Comprehension
     attr_readonly :automl_model_id, :name, :labels
 
     belongs_to :prompt, inverse_of: :automl_models
+    has_many :change_logs
 
     validate :validate_label_associations, if: :active?
 

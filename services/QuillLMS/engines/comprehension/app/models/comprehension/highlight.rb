@@ -11,6 +11,7 @@ module Comprehension
     ]
 
     belongs_to :feedback, inverse_of: :highlights
+    has_many :change_logs
 
     validates :text, presence: true, length: {minimum: MIN_TEXT_LENGTH, maximum: MAX_TEXT_LENGTH}
     validates :highlight_type, presence: true, inclusion: {in: TYPES}
