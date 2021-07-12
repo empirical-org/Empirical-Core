@@ -134,7 +134,7 @@ module Comprehension
       end
 
       it("raise if not found (to be handled by parent app)") do
-        expect { get(:show, :id => 99999) }.to(raise_error(ActiveRecord::RecordNotFound))
+        expect { get(:show, params: {:id => 99999}) }.to(raise_error(ActiveRecord::RecordNotFound))
       end
     end
 
