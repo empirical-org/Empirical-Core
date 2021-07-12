@@ -20,7 +20,7 @@ jest.mock("react-query", () => ({
 describe('LabelsTable component', () => {
   const mockProps = {
     activityId: '17',
-    prompt: { id: 1 }
+    prompt: { id: 1, conjunction: 'because' }
   }
   const container = shallow(
     <LabelsTable {...mockProps} />

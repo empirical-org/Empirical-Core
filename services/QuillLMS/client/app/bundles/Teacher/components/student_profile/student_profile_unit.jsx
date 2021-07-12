@@ -89,18 +89,18 @@ const completeHeaders = [
 export default class StudentProfileUnit extends React.Component {
   actionButton = (act, nextActivitySession) => {
     const { isBeingPreviewed, onShowPreviewModal, } = this.props
-    const { repeatable, max_percentage, locked, marked_complete, activity_classification_id, resume_link, ca_id, activity_id, } = act
+    const { repeatable, locked, marked_complete, activity_classification_id, resume_link, ca_id, activity_id, finished, } = act
     let linkText = 'Start'
 
-    if (repeatable === 'f' && max_percentage) { return <span /> }
+    if (!repeatable && finished) { return <span /> }
 
-    if (max_percentage === null && marked_complete === 't') { return <span>Missed</span> }
+    if (!finished && marked_complete) { return <span>Missed</span> }
 
-    if (locked === 't') { return <span className="needs-teacher">Needs teacher</span> }
+    if (locked) { return <span className="needs-teacher">Needs teacher</span> }
 
-    if (max_percentage) {
+    if (finished) {
       linkText = 'Replay';
-    } else if (resume_link === '1') {
+    } else if (resume_link === 1) {
       linkText = 'Resume';
     }
 
@@ -144,15 +144,15 @@ export default class StudentProfileUnit extends React.Component {
 
   toolIcon = (id) => {
     switch(id) {
-      case "1":
+      case 1:
         return <img alt="Flag representing Quill Proofreader" src={proofreaderSrc} />
-      case "2":
+      case 2:
         return <img alt="Puzzle piece representing Quill Grammar" src={grammarSrc} />
-      case "4":
+      case 3:
         return <img alt="Magnifying glass representing Quill Diagnostic" src={diagnosticSrc} />
-      case "5":
+      case 5:
         return <img alt="Target representing Quill Connect" src={connectSrc} />
-      case "6":
+      case 6:
         return <img alt="Apple representing Quill Lessons" src={lessonsSrc} />
       default:
         return
@@ -164,7 +164,7 @@ export default class StudentProfileUnit extends React.Component {
     if (!(data.complete && data.complete.length)) { return null}
 
     const rows = data.complete.map(act => {
-      const { name, activity_classification_id, max_percentage, ua_id, due_date, } = act
+      const { name, activity_classification_id, ua_id, due_date, } = act
       return {
         name,
         score: this.score(act),

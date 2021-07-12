@@ -42,6 +42,7 @@ module PublicProgressReports
 
     def results_by_question(params)
       classroom_unit = ClassroomUnit.find_by(classroom_id: params[:classroom_id], unit_id: params[:unit_id])
+      activity = Activity.includes(:classification).find(params[:activity_id])
       questions = Hash.new{|h,k| h[k]={} }
       all_answers = ActivitySession.activity_session_metadata(classroom_unit.id, params[:activity_id])
       all_answers.each do |answer|
@@ -54,14 +55,14 @@ module PublicProgressReports
         curr_quest[:question_number] ||= answer["question_number"]
         if answer["attemptNumber"] == 1 || !curr_quest[:instructions]
           direct = answer["directions"] || answer["instructions"] || ""
-          curr_quest[:instructions] ||= direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
+          curr_quest[:instructions] = direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
         end
       end
       # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
       # being converted to an array because that is what the diagnostic reports expect
       questions_arr = questions.map do |k,v|
         {question_id: k,
-         score: ((v[:correct].to_f/v[:total]) * 100).round,
+         score: activity.is_comprehension? ? nil : ((v[:correct].to_f/v[:total]) * 100).round,
          prompt: v[:prompt],
          instructions: v[:instructions]}
       end
@@ -163,8 +164,10 @@ module PublicProgressReports
     def formatted_score_obj(final_activity_session, activity, student)
       formatted_concept_results = get_concept_results(final_activity_session)
       activity_classification_key = ActivityClassification.find(activity.activity_classification_id).key
-      if ['lessons', 'diagnostic'].include?(activity_classification_key)
+      if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(activity_classification_key)
         score = get_average_score(formatted_concept_results)
+      elsif [ActivityClassification::COMPREHENSION_KEY].include?(activity_classification_key)
+        score = nil
       else
         score = (final_activity_session.percentage * 100).round
       end
@@ -205,6 +208,7 @@ module PublicProgressReports
               id: crs.concept_id,
               name: crs.concept.name,
               correct: crs[:metadata]["correct"] == 1,
+              lastFeedback: crs[:metadata]["lastFeedback"],
               attempt: crs[:metadata]["attemptNumber"] || 1,
               answer: crs[:metadata]["answer"],
               directions: direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")

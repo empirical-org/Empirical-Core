@@ -6,6 +6,7 @@ import Feedback from './feedback'
 import EditCaretPositioning from '../../helpers/EditCaretPositioning'
 import ButtonLoadingSpinner from '../shared/buttonLoadingSpinner'
 import preFilters from '../../modules/prefilters'
+import { highlightSpellingGrammar } from '../../libs/stringFormatting'
 
 interface PromptStepProps {
   active: Boolean;
@@ -30,6 +31,7 @@ interface PromptStepState {
 }
 
 const RESPONSE = 'response'
+export const DIRECTIONS = 'Use information from the text to finish the sentence:'
 
 export class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
@@ -104,7 +106,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     if (lastSubmittedResponse.feedback_type == 'plagiarism') {
       return this.formatPlagiarismHighlight(str, wordsToFormat)
     } else {
-      return this.formatSpellingGrammarHighlight(str, wordsToFormat)
+      return highlightSpellingGrammar(str, wordsToFormat)
     }
   }
 
@@ -113,14 +115,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     return str.replace(wordsToFormat, boldedString)
   }
 
-  formatSpellingGrammarHighlight = (str: string, wordsToFormat: string | string[]) => {
-    let wordArray = [].concat(wordsToFormat)
-    let newString = str
-    wordArray.forEach((word) => {
-      newString = newString.replace(word, `<b>${word}</b>`)
-    })
-    return newString
-  }
+
 
   htmlStrippedPrompt = (escapeRegexCharacters=false) => {
     const strippedPrompt = this.formattedStem().replace(/<p>|<\/p>|<br>/g, '')
@@ -222,10 +217,15 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     }
   }
 
-  handleStepInteraction = () => {
+  handleStepInteraction = (e) => {
+    const { key, ctrlKey, metaKey, } = e
     const { activateStep, stepNumber, } = this.props
 
-    activateStep(stepNumber)
+    if (key === "5" && ctrlKey && metaKey) {
+      this.completeStep()
+    } else {
+      activateStep(stepNumber)
+    }
   }
 
   completeStep = () => {
@@ -256,7 +256,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     let className = 'quill-button'
     let onClick = () => this.handleGetFeedbackClick(entry, id, text)
     if (submittedResponses.length === max_attempts || this.lastSubmittedResponse().optimal) {
-      onClick = this.completeStep
+      onClick = everyOtherStepCompleted ? () => window.location.href = "/" : this.completeStep
       buttonCopy = everyOtherStepCompleted ? 'Done' : 'Start next sentence'
     } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback) {
       className += ' disabled'
@@ -336,7 +336,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     return (<div>
       <div className="step-header">
         {stepNumberComponent}
-        <p className="directions">Use information from the text to finish the sentence:</p>
+        <p className="directions">{DIRECTIONS}</p>
       </div>
       <div className="active-content-container">
         {this.renderEditorContainer()}

@@ -9,7 +9,7 @@ module Comprehension
     MIN_MAX_ATTEMPTS = 3
     MAX_MAX_ATTEMPTS = 6
 
-    belongs_to :activity, inverse_of: :passages
+    belongs_to :activity, inverse_of: :prompts
     has_many :automl_models, inverse_of: :prompt
     has_many :prompts_rules
     has_many :rules, through: :prompts_rules, inverse_of: :prompts

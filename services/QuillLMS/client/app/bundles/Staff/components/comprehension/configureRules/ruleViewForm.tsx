@@ -11,7 +11,7 @@ import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
 import { Spinner } from '../../../../Shared/index';
 import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/comprehension/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
-import { formatPrompts, renderErrorsContainer } from '../../../helpers/comprehension';
+import { formatPrompts, renderErrorsContainer, renderHeader } from '../../../helpers/comprehension';
 import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules, getReturnLinkRuleType, getReturnLinkLabel, renderDeleteRuleModal } from '../../../helpers/comprehension/ruleHelpers';
 import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM } from '../../../../../constants/comprehension';
 import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
@@ -19,7 +19,9 @@ import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/comp
 interface RuleViewFormProps {
   activityData?: any,
   activityId?: string,
+  closeModal?: (event) => void,
   isUniversal?: boolean,
+  isRulesIndex?: boolean,
   isSemantic?: boolean,
   requestErrors: string[],
   rule?: RuleInterface,
@@ -35,7 +37,9 @@ interface RuleViewFormProps {
 const RuleViewForm = ({
   activityData,
   activityId,
+  closeModal,
   isSemantic,
+  isRulesIndex,
   isUniversal,
   requestErrors,
   rule,
@@ -131,7 +135,7 @@ const RuleViewForm = ({
       ruleFeedbacks,
       ruleOptimal,
       rulePrompts,
-      rulePromptIds: [promptId],
+      rulePromptIds: promptId ? [promptId] : rule.prompt_ids,
       rulesCount,
       ruleType,
       setErrors,
@@ -142,7 +146,7 @@ const RuleViewForm = ({
     });
   }
 
-  const returnLinkRuleType = getReturnLinkRuleType(ruleType);
+  const returnLinkRuleType = isRulesIndex ? getReturnLinkRuleType(null) : getReturnLinkRuleType(ruleType);
   const returnLinkLabel = getReturnLinkLabel(ruleType);
 
   function handleDeleteRule() {
@@ -158,7 +162,15 @@ const RuleViewForm = ({
     });
   }
 
-  const cancelLink = (<Link to={`/activities/${activityId}/${returnLinkRuleType}`}>Cancel</Link>);
+  function renderCancelButton() {
+    const cancelLink = (<Link to={`/activities/${activityId}/${returnLinkRuleType}`}>Cancel</Link>);
+    if(isRulesIndex) {
+      return <button className="quill-button fun primary contained" id="rule-cancel-button" onClick={closeModal} type="submit">Cancel</button>
+    } else {
+      return <button className="quill-button fun primary contained" id="rule-cancel-button" type="submit">{cancelLink}</button>
+    }
+  }
+
   const autoMLParams = {
     label: 'Descriptive Label',
     notes: 'Label Notes',
@@ -176,12 +188,17 @@ const RuleViewForm = ({
   const formErrorsPresent = !!Object.keys(errors).length;
   const requestErrorsPresent = !!(requestErrors && requestErrors.length);
   const showErrorsContainer = formErrorsPresent || requestErrorsPresent;
+  const header = `${rule.id ? 'View Individual Rule - ' : 'Add'} ${ruleType && ruleType.label} ${rule.id ? '' : 'Rule'}`;
 
   return(
     <div className="rule-form-container">
       {showDeleteRuleModal && renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModal)}
+      {isRulesIndex && <div className="close-button-container">
+        <button className="quill-button fun primary contained" id="activity-close-button" onClick={closeModal} type="submit">x</button>
+      </div>}
+      {renderHeader({activity: activityData}, header)}
       <section className="semantic-rule-form-header">
-        <Link className="return-link" to={`/activities/${activityId}/${returnLinkRuleType}`}>{returnLinkLabel}</Link>
+        {!isRulesIndex && <Link className="return-link" to={`/activities/${activityId}/${returnLinkRuleType}`}>{returnLinkLabel}</Link>}
         <button className="quill-button fun primary contained" id="rule-delete-button" onClick={toggleShowDeleteRuleModal} type="button">
           Delete
         </button>
@@ -250,7 +267,7 @@ const RuleViewForm = ({
           <button className="quill-button fun primary contained" id="rule-submit-button" onClick={onHandleSubmitRule} type="button">
             Submit
           </button>
-          <button className="quill-button fun primary contained" id="rule-cancel-button" type="submit">{cancelLink}</button>
+          {renderCancelButton()}
         </div>
       </form>
     </div>

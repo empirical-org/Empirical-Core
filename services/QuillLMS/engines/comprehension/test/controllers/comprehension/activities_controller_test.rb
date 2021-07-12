@@ -44,9 +44,9 @@ module Comprehension
 
       context 'with actitivites' do
         setup do
-          # The controller sorts items alphabetically by "name"
-          @first_activity = create(:comprehension_activity, title: "First Activity", name: "Name 1", target_level: 8)
-          create(:comprehension_activity, title: "Second Activity", name: "Name 2", target_level: 5)
+          # The controller sorts items alphabetically by "title"
+          @first_activity = create(:comprehension_activity, title: "An Activity", notes: "Notes 1", target_level: 8)
+          create(:comprehension_activity, title: "The Activity", notes: "Notes 2", target_level: 5)
         end
 
         should "return successfully" do
@@ -58,8 +58,8 @@ module Comprehension
           assert_equal Array, parsed_response.class
           refute parsed_response.empty?
 
-          # We expect these to be ordered alphatbetically by name
-          assert_equal  "First Activity", parsed_response.first['title']
+          # We expect these to be ordered alphabetically by title
+          assert_equal  "An Activity", parsed_response.first['title']
           assert_equal  8, parsed_response.first['target_level']
           assert_equal  @first_activity.parent_activity.id, parsed_response.first['parent_activity_id']
         end
@@ -68,19 +68,23 @@ module Comprehension
 
     context "create" do
       setup do
+<<<<<<< HEAD
         @controller.session[:user_id] = 1
         @activity = build(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade", name: "First Activity - Name")
+=======
+        @activity = build(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade", notes: "First Activity - Notes")
+>>>>>>> c3730038ab8cf85bfbd0dd7ffb4ed37936236c83
         Comprehension.parent_activity_classification_class.create(key: 'comprehension')
       end
 
       should "create a valid record and return it as json" do
-        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, name: @activity.name }
+        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, notes: @activity.notes }
 
         parsed_response = JSON.parse(response.body)
 
         assert_equal 201, response.code.to_i
         assert_equal "First Activity", parsed_response['title']
-        assert_equal "First Activity - Name", parsed_response['name']
+        assert_equal "First Activity - Notes", parsed_response['notes']
         assert_equal 1, Activity.count
       end
 
@@ -107,13 +111,13 @@ module Comprehension
       end
 
       should "create a valid record with passage attributes" do
-        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, name: @activity.name, passages_attributes: [{text: ("Hello " * 20) }] }
+        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, notes: @activity.notes, passages_attributes: [{text: ("Hello " * 20) }] }
 
         parsed_response = JSON.parse(response.body)
 
         assert_equal 201, response.code.to_i
         assert_equal "First Activity", parsed_response['title']
-        assert_equal "First Activity - Name", parsed_response['name']
+        assert_equal "First Activity - Notes", parsed_response['notes']
         assert_equal 1, Activity.count
         assert_equal 1, Activity.first.passages.count
         assert_equal ("Hello " * 20), Activity.first.passages.first.text
@@ -133,20 +137,20 @@ module Comprehension
       end
 
       should "create a valid record with prompt attributes" do
-        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, name: @activity.name, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because"}] }
+        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, notes: @activity.notes, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because"}] }
 
         parsed_response = JSON.parse(response.body)
 
         assert_equal 201, response.code.to_i
         assert_equal "First Activity", parsed_response['title']
-        assert_equal "First Activity - Name", parsed_response['name']
+        assert_equal "First Activity - Notes", parsed_response['notes']
         assert_equal 1, Activity.count
         assert_equal 1, Activity.first.prompts.count
         assert_equal "meat is bad for you.", Activity.first.prompts.first.text
       end
 
       should "create a new parent activity and activity if no parent_activity_id is passed" do
-        post :create, activity: { parent_activity_id: nil, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, name: @activity.title, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because"}] }
+        post :create, activity: { parent_activity_id: nil, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, notes: @activity.notes, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because"}] }
         parent_activity = Comprehension.parent_activity_class.find_by_name(@activity.title)
         new_activity = Activity.find_by_title(@activity.title)
         assert parent_activity.present?

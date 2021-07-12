@@ -21,17 +21,17 @@ exports[`Activity Form component should render Activities 1`] = `
   >
     <Input
       autoComplete="on"
-      className="name-input"
+      className="title-input"
       handleChange={[Function]}
-      label="Activity Name"
-      value="Could Capybaras Create Chaos? [student testing]"
+      label="Activity Title"
+      value="Could Capybaras Create Chaos?"
     />
     <Input
       autoComplete="on"
-      className="title-input"
+      className="name-input"
       handleChange={[Function]}
-      label="Passage Title"
-      value="Could Capybaras Create Chaos?"
+      label="Activity Notes"
+      value="Could Capybaras Create Chaos? [student testing]"
     />
     <Input
       autoComplete="on"
@@ -95,31 +95,34 @@ exports[`Activity Form component should render Activities 1`] = `
       EditorState={[Function]}
       handleTextChange={[Function]}
       key="max-attempt-feedback"
-      text="Nice effort! You worked hard to make your sentence stronger."
+      text="At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul."
     />
     <PromptsForm
       activityBecausePrompt={
         Object {
           "conjunction": "because",
+          "id": 7,
           "max_attempts": 5,
-          "max_attempts_feedback": "",
-          "text": "",
+          "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+          "text": "1",
         }
       }
       activityButPrompt={
         Object {
           "conjunction": "but",
+          "id": 8,
           "max_attempts": 5,
-          "max_attempts_feedback": "",
-          "text": "",
+          "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+          "text": "2",
         }
       }
       activitySoPrompt={
         Object {
           "conjunction": "so",
+          "id": 9,
           "max_attempts": 5,
-          "max_attempts_feedback": "",
-          "text": "",
+          "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+          "text": "3",
         }
       }
       errors={Object {}}

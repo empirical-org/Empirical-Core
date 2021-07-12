@@ -17,6 +17,7 @@ Comprehension::Engine.routes.draw do
     post 'regex/:rule_type' => :regex
     post :spelling
   end
+  put 'rules/update_rule_order' => 'rules#update_rule_order'
   resources :rules, only: [:index, :show, :create, :update, :destroy]
   resources :turking_round_activity_sessions, only: [:index, :show, :create, :update, :destroy]
   resources :turking_rounds, only: [:index, :show, :create, :update, :destroy]

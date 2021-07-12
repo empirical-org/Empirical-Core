@@ -2,7 +2,6 @@ module Comprehension
   class RulesController < ApplicationController
     skip_before_action :verify_authenticity_token
     before_action :set_rule, only: [:show, :update, :destroy]
-    before_action :save_nested_vars_for_log, only: [:create, :update]
 
     # GET /rules.json
     def index
@@ -23,8 +22,6 @@ module Comprehension
     def create
       @rule = Comprehension::Rule.new(rule_params)
       if @rule.save
-        @rule.log_creation(lms_user_id)
-        @rule.label.log_creation(lms_user_id) if @rule.label.present?
         render json: @rule, status: :created
       else
         render json: @rule.errors, status: :unprocessable_entity
@@ -35,8 +32,6 @@ module Comprehension
     # PATCH/PUT /rules/1.json
     def update
       if @rule.update(rule_params)
-        @rule.log_update(lms_user_id, @rule_vals)
-        log_nested_changes
         head :no_content
       else
         render json: @rule.errors, status: :unprocessable_entity
@@ -45,10 +40,23 @@ module Comprehension
 
     # DELETE /rules/1.json
     def destroy
-      @rule.log_deletion(lms_user_id)
-      @rule.label&.log_deletion(lms_user_id)
       @rule.destroy
       head :no_content
+    end
+
+    def update_rule_order
+      ordered_rules = ordered_rules_params[:ordered_rule_ids].map.with_index do |id, index|
+        rule = Comprehension::Rule.find_by_id(id)
+        rule.suborder = index if rule
+        rule
+      end
+
+      if ordered_rules.all? { |r| r&.valid? }
+        ordered_rules.each { |r| r.save! }
+        render(json: {status: 200})
+      else
+        render json: {error_messages: ordered_rules.map { |r| r&.errors }.join('; ')}, status: :unprocessable_entity
+      end
     end
 
     private def set_rule
@@ -66,94 +74,8 @@ module Comprehension
       )
     end
 
-    private def save_nested_vars_for_log
-      initialize_arrays_for_log
-
-      save_label_vars_for_log
-      save_regex_rules_vars_for_log
-      save_plagiarism_text_vars_for_log
-      save_rule_vars_for_log
-    end
-
-    private def initialize_arrays_for_log
-      @feedback_vals = []
-      @highlights_vals = []
-      @plagiarism_text_vals = []
-      @regex_rules_vals = []
-      @rule_vals = []
-    end
-
-    private def save_label_vars_for_log
-      label = Comprehension::Rule.find_by_id(params[:id])&.label
-      label_string = label.present? ? "#{label.name} | #{Comprehension::Rule.find(params[:id]).name}\n" : ""
-
-      rule_params[:feedbacks_attributes]&.each do |fa|
-        old_feedback = Comprehension::Feedback.find_by_id(fa[:id])&.text
-        @feedback_vals.push({id: fa[:id], label_string: label_string, text: old_feedback || fa[:text]}) if fa[:text] && fa[:text] != old_feedback
-        fa[:highlights_attributes]&.each do |ha|
-          old_highlight = Comprehension::Highlight.find_by_id(ha[:id])&.text
-          @highlights_vals.push({id: ha[:id], label_string: label_string, text: old_highlight || ha[:text]}) if ha[:text] && ha[:text] != old_highlight
-        end
-      end
-    end
-
-    private def save_regex_rules_vars_for_log
-      rule_params[:regex_rules_attributes]&.each do |rr|
-        old_regex = Comprehension::RegexRule.find_by_id(rr[:id])&.regex_text
-        @regex_rules_vals.push({id: rr[:id], regex_text: old_regex || rr[:regex_text]}) if rr[:regex_text] && rr[:regex_text] != old_regex
-      end
-    end
-
-    private def save_plagiarism_text_vars_for_log
-      if rule_params[:plagiarism_text_attributes]&.key?(:text)
-        pt = rule_params[:plagiarism_text_attributes]
-        old_text = Comprehension::PlagiarismText.find_by_id(pt[:id])&.text
-        @plagiarism_text_vals.push({id: pt[:id], text: old_text || pt[:text]}) if pt[:text] && pt[:text] != old_text
-      end
-    end
-
-    private def save_rule_vars_for_log
-      rule = Comprehension::Rule.find_by_id(params[:id])
-      if rule.present?
-        rule_params.except(:prompt_ids, :plagiarism_text_attributes, :regex_rules_attributes, :label_attributes, :feedbacks_attributes).each do |key, value|
-          if rule.send(key) != value
-            rule_obj = {}
-            rule_obj[key] = rule.send(key)
-            @rule_vals.push(rule_obj)
-          end
-        end
-      end
-    end
-
-    private def log_nested_changes
-      @feedback_vals.each do |f|
-        if f[:id]
-          Comprehension::Feedback.find(f[:id]).log_update(lms_user_id, "#{f[:label_string]}#{f[:text]}")
-        else
-          Comprehension::Feedback.find_by(text: f[:text])&.log_update(lms_user_id, f[:label_string])
-        end
-      end
-      @highlights_vals.each do |h|
-        if h[:id]
-          Comprehension::Highlight.find(h[:id]).log_update(lms_user_id, "#{h[:label_string]}#{h[:text]}")
-        else
-          Comprehension::Highlight.find_by(text: h[:text])&.log_update(lms_user_id, h[:label_string])
-        end
-      end
-      @regex_rules_vals.each do |r|
-        if r[:id]
-          Comprehension::RegexRule.find(r[:id]).log_update(lms_user_id, r[:regex_text])
-        else
-          Comprehension::RegexRule.find_by(regex_text: r[:regex_text])&.log_update(lms_user_id, nil)
-        end
-      end
-      @plagiarism_text_vals.each do |pt|
-        if pt[:id]
-          Comprehension::PlagiarismText.find(pt[:id]).log_update(lms_user_id, pt[:value])
-        else
-          Comprehension::PlagiarismText.find_by(text: pt[:text])&.log_update(lms_user_id, nil)
-        end
-      end
+    private def ordered_rules_params
+      params.permit(ordered_rule_ids: [])
     end
   end
 end

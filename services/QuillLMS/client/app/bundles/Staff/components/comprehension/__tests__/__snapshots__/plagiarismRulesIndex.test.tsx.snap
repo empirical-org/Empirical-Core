@@ -5,6 +5,19 @@ exports[`PlagiarismRulesIndex component should render PlagiarismRulesIndex 1`] =
   className="rules-container"
 >
   <section
+    className="comprehension-page-header-container"
+  >
+    <h2>
+      Plagiarism Rules
+    </h2>
+    <h3>
+      Could Capybaras Create Chaos?
+    </h3>
+    <h4>
+      Could Capybaras Create Chaos? [student testing]
+    </h4>
+  </section>
+  <section
     className="plagiarism-section"
     id="first-plagiarism-section"
   >

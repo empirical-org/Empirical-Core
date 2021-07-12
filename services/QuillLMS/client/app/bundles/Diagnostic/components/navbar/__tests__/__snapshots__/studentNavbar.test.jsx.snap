@@ -254,7 +254,7 @@ exports[`StudentNavbar renders when the language menu is open 1`] = `
                   src="https://assets.quill.org/images/flags/germany.png"
                 />
                 <span>
-                  Deutsche
+                  Deutsch
                 </span>
               </button>
               <button

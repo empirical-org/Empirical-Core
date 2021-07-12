@@ -11,7 +11,9 @@ import TurkSessionButton from './turkSessionButton';
 import SubmissionModal from '../shared/submissionModal';
 import { ActivityRouteProps, TurkSessionInterface } from '../../../interfaces/comprehensionInterfaces';
 import { createTurkSession, fetchTurkSessions } from '../../../utils/comprehension/turkAPIs';
+import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { DataTable, Error, Modal, Spinner, Snackbar, copyToClipboard } from '../../../../Shared/index';
+import { renderHeader } from '../../../helpers/comprehension';
 
 const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const [newTurkSessionDate, setNewTurkSessionDate] = React.useState<any>(null);
@@ -26,8 +28,13 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   const { params } = match;
   const { activityId } = params;
 
+  const { data: activityData } = useQuery({
+    queryKey: [`activity-${activityId}`, activityId],
+    queryFn: fetchActivity
+  });
+
   // get turk session data
-  const { data } = useQuery({
+  const { data: turkSessionsData } = useQuery({
     queryKey: [`turk-sessions-${activityId}`, activityId],
     queryFn: fetchTurkSessions
   });
@@ -91,7 +98,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     copyToClipboard(e, setSnackBarVisible);
   }
 
-  const turkSessionsRows = data && data.turkSessions && data.turkSessions.map((turkSession: TurkSessionInterface) => {
+  const turkSessionsRows = turkSessionsData && turkSessionsData.turkSessions && turkSessionsData.turkSessions.map((turkSession: TurkSessionInterface) => {
     const { activity_id, expires_at, id } = turkSession;
     const url = `${process.env.DEFAULT_URL}/comprehension/#/turk?uid=${activity_id}&id=${id}`;
     const link = <a href={url} rel="noopener noreferrer" target="_blank">{url}</a>;
@@ -116,7 +123,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
 
   const toggleEditTurkSessionModal = () => {setShowEditOrDeleteTurkSessionModal(!showEditOrDeleteTurkSessionModal)  }
 
-  if(!data) {
+  if(!turkSessionsData) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -124,10 +131,10 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     );
   }
 
-  if(data && data.error) {
+  if(turkSessionsData && turkSessionsData.error) {
     return(
       <div className="error-container">
-        <Error error={`${data.error}`} />
+        <Error error={`${turkSessionsData.error}`} />
       </div>
     );
   }
@@ -144,9 +151,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     <div className="turk-sessions-container">
       {showSubmissionModal && renderSubmissionModal()}
       {showEditOrDeleteTurkSessionModal && renderEditOrDeleteTurkSessionModal()}
-      <div className="header-container">
-        <h2>Turk Sessions</h2>
-      </div>
+      {renderHeader(activityData, 'Collect Turk Responses')}
       <div className="add-session-container">
         <div className="date-picker-container">
           <label className="datepicker-label" htmlFor="date-picker">Expiration</label>

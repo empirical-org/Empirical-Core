@@ -796,5 +796,28 @@ module Comprehension
         assert_equal change_log.previous_value, "[#{label.name} | #{@rule2.name}] - active"
       end
     end
+
+    context 'update_rule_order' do
+      setup do
+        @rule1 = create(:comprehension_rule, suborder: 100)
+        @rule2 = create(:comprehension_rule, suborder: 12)
+        @rule3 = create(:comprehension_rule, suborder: 77)
+      end
+
+      should "update the rules to have the suborders in the order of their ids" do
+        put :update_rule_order, ordered_rule_ids: [@rule2.id, @rule3.id, @rule1.id]
+
+        assert_equal 200, response.code.to_i
+        assert_equal @rule2.reload.suborder, 0
+        assert_equal @rule3.reload.suborder, 1
+        assert_equal @rule1.reload.suborder, 2
+      end
+
+      should "return an error if any of the updated rules are invalid" do
+        put :update_rule_order, ordered_rule_ids: [@rule2.id, nil, @rule1.id]
+
+        assert_equal 422, response.code.to_i
+      end
+    end
   end
 end

@@ -4,7 +4,7 @@
 #
 #  id                    :integer          not null, primary key
 #  completed_at          :datetime
-#  data                  :hstore
+#  data                  :jsonb
 #  is_final_score        :boolean          default(FALSE)
 #  is_retry              :boolean          default(FALSE)
 #  percentage            :float
@@ -751,6 +751,17 @@ end
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
 
+    it 'updates when the ActivityClassification.key is "comprehension" even if the percentage is nil' do
+      classification = create(:activity_classification, key: 'comprehension')
+      activity
+      activity.update(classification: classification)
+      previous_final_score
+      previous_final_score.update(percentage: nil)
+      new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
+      new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: nil
+      expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
+    end
+
     it 'doesnt update when new activity session has lower percentage' do
       previous_final_score
       new_activity_session =  create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.5, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
@@ -784,24 +795,24 @@ end
     let!(:unit_activity) { create(:unit_activity, activity: activity, unit: unit) }
     let!(:classroom_unit) { create(:classroom_unit, unit: unit, assigned_student_ids: [student.id]) }
     let(:activity_session) { create(:activity_session, classroom_unit_id: classroom_unit.id, user_id: student.id, activity: activity) }
+    let(:metadata) { { correct: 1 } }
+
     let(:concept_results) do
       [{
         activity_session_uid: activity_session.uid,
         concept_id: concept.id,
-        metadata: {},
+        metadata: metadata,
         question_type: 'lessons-slide'
       }]
     end
 
-    before do
-      activity_session.update_attributes(visible: true)
-    end
+    before { activity_session.update_attributes(visible: true) }
 
     it 'should create a concept result with the hash given' do
       expect(ConceptResult).to receive(:create).with({
         activity_session_id: activity_session.id,
         concept_id: concept.id,
-        metadata: '{}',
+        metadata: metadata,
         question_type: 'lessons-slide'
       })
       ActivitySession.save_concept_results(classroom_unit.id, unit_activity.activity_id, concept_results)
@@ -819,6 +830,21 @@ end
       expect{ ActivitySession.delete_activity_sessions_with_no_concept_results(classroom_unit.id, activity.id) }.to change(ActivitySession, :count).by(-1)
     end
   end
+
+  describe '#save_timetracking_data_from_active_activity_session' do
+    let!(:activity) { create(:activity)}
+    let(:classroom_unit) { create(:classroom_unit) }
+    let!(:activity_session) { create(:activity_session, activity: activity, classroom_unit: classroom_unit) }
+    let!(:active_activity_session) { create(:active_activity_session, uid: activity_session.uid, data: { 'timeTracking': { 'total': 64691 }})}
+
+    it 'should save the timetracking hash to the data field on the activity session and the total time to the timespent field' do
+      ActivitySession.save_timetracking_data_from_active_activity_session(classroom_unit.id, activity.id)
+      activity_session.reload
+      expect(activity_session.data).to eq({'time_tracking' => { 'total' => 64 }})
+      expect(activity_session.timespent).to eq(64)
+    end
+  end
+
   describe '#has_a_completed_session?' do
     context 'when session exists' do
       let(:activity_session) { create(:activity_session, state: "finished") }
@@ -946,27 +972,18 @@ end
   end
 
   describe "#timespent" do
-    it "should be nil for unfinished sessions" do
-      activity_session = build(:activity_session, state: 'started')
+    it "should be nil for sessions with no timetracking data" do
+      activity_session = build(:activity_session)
       expect(activity_session.timespent).to be_nil
     end
 
-    it "should be nil for finished sessions without data" do
-      activity_session = build(:activity_session, state: 'finished', started_at: nil, completed_at: nil)
-      expect(activity_session.timespent).to be_nil
-    end
-
-    it "should calculate time using started and completed" do
-      time = Time.zone.now
-      interval = 76.seconds
-      activity_session = build(:activity_session, state: 'finished', started_at: time - interval, completed_at: time)
-      expect(activity_session.timespent).to eq(76)
+    it "should calculate time using the values of the keys in the data['time_tracking'] hash" do
+      activity_session = build(:activity_session, data: {"time_tracking"=>{"so"=>9, "but"=>2, "because"=>9, "reading"=>1}})
+      expect(activity_session.timespent).to eq(21)
     end
 
     it "should have calculation overridden by DB value" do
-      time = Time.zone.now
-      interval = 76.seconds
-      activity_session = build(:activity_session, state: 'finished', started_at: time - interval, completed_at: time, timespent: 99)
+      activity_session = build(:activity_session, state: 'finished', data: {"time_tracking"=>{"so"=>9, "but"=>2, "because"=>9, "reading"=>1}}, timespent: 99)
       expect(activity_session.timespent).to eq(99)
     end
   end

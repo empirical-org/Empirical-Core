@@ -27,15 +27,18 @@ describe Teachers::UnitsController, type: :controller do
   describe '#create' do
     it 'kicks off a background job' do
       create(:auth_credential, user: teacher)
+
       expect {
-        post(:create,
-          classroom_id: classroom.id,
-          unit: {
-            name: 'A Cool Learning Experience',
-            classrooms: [],
-            activities: []
-          }
-        )
+        post :create,
+          params: {
+            classroom_id: classroom.id,
+            unit: {
+              name: 'A Cool Learning Experience',
+              classrooms: [],
+              activities: []
+            }
+          },
+          as: :json
       }.to change(AssignActivityWorker.jobs, :size).by(1)
       expect(response.status).to eq(200)
     end
@@ -143,12 +146,12 @@ describe Teachers::UnitsController, type: :controller do
       expect(parsed_response[0]['unit_name']).to eq(unit.name)
       expect(parsed_response[0]['activity_name']).to eq(diagnostic_activity.name)
       expect(parsed_response[0]['class_name']).to eq(classroom.name)
-      expect(parsed_response[0]['classroom_id']).to eq(classroom.id.to_s)
-      expect(parsed_response[0]['activity_classification_id']).to eq(diagnostic_activity.activity_classification_id.to_s)
-      expect(parsed_response[0]['classroom_unit_id']).to eq(classroom_unit.id.to_s)
-      expect(parsed_response[0]['unit_activity_id']).to eq(unit_activity.id.to_s)
-      expect(parsed_response[0]['unit_id']).to eq(unit.id.to_s)
-      expect(parsed_response[0]['class_size']).to eq(classroom.students.count.to_s)
+      expect(parsed_response[0]['classroom_id']).to eq(classroom.id)
+      expect(parsed_response[0]['activity_classification_id']).to eq(diagnostic_activity.activity_classification_id)
+      expect(parsed_response[0]['classroom_unit_id']).to eq(classroom_unit.id)
+      expect(parsed_response[0]['unit_activity_id']).to eq(unit_activity.id)
+      expect(parsed_response[0]['unit_id']).to eq(unit.id)
+      expect(parsed_response[0]['class_size']).to eq(classroom.students.count)
       expect(parsed_response[0]['number_of_assigned_students']).to eq(classroom_unit.assigned_student_ids.length)
       expect(parsed_response[0]['activity_uid']).to eq(diagnostic_activity.uid)
       expect(DateTime.parse(parsed_response[0]['due_date']).to_i).to eq(unit_activity.due_date.to_i)

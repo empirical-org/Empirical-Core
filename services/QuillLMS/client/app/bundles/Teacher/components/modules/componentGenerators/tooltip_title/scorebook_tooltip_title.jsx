@@ -26,9 +26,9 @@ export default class ScorebookTooltip extends React.Component {
 
   conceptResultsOrLoadingOrNotCompleted = () => {
     const data = this.props.data
-    if (data.marked_complete === 't' && data.completed_attempts === 0) {
+    if (data.marked_complete && data.completed_attempts === 0) {
       return <span>This student has missed this lesson. To make up this material, you can assign this lesson again to the students who missed it.</span>
-    } else if (!data.percentage) {
+    } else if (!data.completed_attempts) {
       return <span>This activity has not been completed.</span>;
     } else if (data.concept_results && data.concept_results.length) {
       return <ConceptResultStats results={data.concept_results} />;
@@ -63,6 +63,8 @@ export default class ScorebookTooltip extends React.Component {
       totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}>Quill Diagnostic does not provide a score. You can click to view recommended activities based on the student's performance.</p>;
     } else if (Number(actClassId) === 6 && data.percentage) {
       totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}>Quill Lessons are facilitated by the teachers and not graded. You can click to view your student’s’ answers from this lesson.</p>;
+    } else if (Number(actClassId) === 9 && data.completed_attempts) {
+      totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}>Quill Comprehension does not provide a score. You can click the activity icon to load the full report.</p>;
     } else if (data.percentage && data.scores && data.scores.length > 0) {
       totalScoreOrNot = this.displayScores()
     } else {

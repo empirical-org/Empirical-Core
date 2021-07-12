@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, withRouter } from 'react-router-dom';
+
 import StudentDiagnostic from '../diagnostics/studentDiagnostic';
 import ELLStudentDiagnostic from '../eslDiagnostic/studentDiagnostic';
 import { SmartSpinner } from '../../../Shared/index';
 import { Location } from '../../interfaces/location';
 import { PlayDiagnostic } from '../../interfaces/playDiagnostic';
-import { RouteInterace } from '../../interfaces/routeInterfaces';
+import { RouteInterface } from '../../interfaces/routeInterface';
 import { Router } from '../../interfaces/router';
 import { FillInBlankReducerState } from '../../reducers/fillInBlank';
 import { LessonsReducerState } from '../../reducers/lessons';
@@ -33,7 +34,7 @@ interface DiagnosticRouterProps {
   previewMode: boolean,
   questions: QuestionsReducerState,
   questionToPreview: object,
-  route: RouteInterace,
+  route: RouteInterface,
   routeParams: {
     diagnosticID: string
   },

@@ -18,6 +18,15 @@ export const STRONG =  'strong';
 export const RULES_BASED_1 = 'rules-based-1';
 export const RULES_BASED_2 = 'rules-based-2';
 export const RULES_BASED_3 = 'rules-based-3';
+export const SESSION_INDEX = 'sessionIndex';
+export const RULES_ANALYSIS = 'rulesAnalysis';
+export const RULE_ANALYSIS = 'ruleAnalysis';
+export const GRAMMAR = 'grammar';
+export const OPINION = 'opinion';
+export const SPELLING = 'spelling';
+export const AUTO_ML = 'autoML';
+export const ACTIVE = 'active';
+export const INACTIVE = 'inactive';
 
 export const flagOptions = [
   {
@@ -83,6 +92,8 @@ export const readingLevelOptions = [
     value: 12
   },
 ];
+
+export const ruleApiOrder = [RULES_BASED_1, OPINION, PLAGIARISM, AUTO_ML, RULES_BASED_2, GRAMMAR,  SPELLING, RULES_BASED_3];
 
 export const regexRuleTypes = ["rules-based-1", "rules-based-2", "rules-based-3"];
 
@@ -162,13 +173,10 @@ export const PROMPT_HEADER_LABELS = {
   "but": 'But Responses',
   "so": 'So Responses',
 }
-export const AUTO_ML = 'autoML';
-export const ACTIVE = 'active';
-export const INACTIVE = 'inactive';
 
 export const blankActivity = {
   title: '',
-  name: '',
+  notes: '',
   // flag:'',
   scored_level: '',
   target_level: null,
@@ -233,6 +241,7 @@ export const DEFAULT_CONCEPT_UIDS = {
 
 export const TITLE = 'Title';
 export const NAME = 'Name';
+export const NOTES = 'Notes';
 export const SCORED_READING_LEVEL = 'Scored reading level';
 export const TARGET_READING_LEVEL = 'Target reading level';
 export const PARENT_ACTIVITY_ID = 'Parent Activity ID'
@@ -245,8 +254,8 @@ export const IMAGE_LINK = 'Image link'
 export const IMAGE_ALT_TEXT = 'Image alt text'
 
 export const activityFormKeys = [
-  NAME,
   TITLE,
+  NOTES,
   SCORED_READING_LEVEL,
   TARGET_READING_LEVEL,
   PASSAGE,

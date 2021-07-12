@@ -1,16 +1,12 @@
 require 'rails_helper'
 
 describe Cms::TeacherSearchQuery do
-  before do
-    Timecop.freeze
-  end
-
-  after do 
-    Timecop.return
-  end
+  before { Timecop.freeze }
+  after { Timecop.return }
 
   describe '#run' do
     todays_date = Date.today
+
     let!(:user) { create(:user) }
     let!(:school) { create(:school) }
     let!(:subscription) { create(:subscription) }
@@ -25,19 +21,19 @@ describe Cms::TeacherSearchQuery do
 
     it 'should return the correct result in the right format' do
       output = subject.run
+
       expected = {
         teacher_name: user.name,
-        number_classrooms: "1",
-        number_students: "1",
-        number_activities_completed: "1",
+        number_classrooms: 1,
+        number_students: 1,
+        number_activities_completed: 1,
         last_active: (todays_date).strftime("%b %d,\u00A0%Y"),
         subscription: subscription.account_type,
-        user_id: user.id.to_s,
-        admin_id: schools_admins.id.to_s
-        }
-      expect(output).to eql(
-        [expected.stringify_keys]
-      )
+        user_id: user.id,
+        admin_id: schools_admins.id
+      }
+
+      expect(output).to eql [expected.stringify_keys]
     end
   end
 end

@@ -21,9 +21,16 @@
       text-align: center;
     }
     .close-preview-button {
+      display: flex;
+      align-items: center;
       border: none;
       background-color: white;
       padding: 0;
+      .close-text {
+        font-size: 16px;
+        margin: 0;
+        padding: 0px 4px 0px 0px;
+      }
     }
     .close-preview-button:hover {
       cursor: pointer;
@@ -76,8 +83,7 @@
         border: none;
         padding: 5px 5px 5px 13px;
         border-radius: 4px;
-        width: 95%;
-        width: 344px;
+        width: 100%;
         font-family: adelle-sans !important;
         &.highlighted {
           background-color: #e1f3f1;
@@ -126,5 +132,14 @@
   color: #04806a;
   span {
     margin-top: 15px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .sider-container {
+    width: 100% !important;
+  }
+  .teacher-preview-menu-container {
+    max-width: 100%;
   }
 }

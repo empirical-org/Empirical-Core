@@ -22,6 +22,15 @@ import getParameterByName from '../../helpers/getParameterByName';
 import { Passage } from '../../interfaces/activities'
 import { postTurkSession } from '../../utils/turkAPI';
 import { getCsrfToken } from "../../../Staff/helpers/comprehension";
+import {
+  roundMillisecondsToSeconds,
+  KEYDOWN,
+  MOUSEMOVE,
+  MOUSEDOWN,
+  CLICK,
+  KEYPRESS,
+  VISIBILITYCHANGE,
+} from '../../../Shared/index'
 
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
 const tadaSrc =  `${process.env.CDN_URL}/images/illustrations/tada.svg`
@@ -100,21 +109,35 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       }
     }
 
-    window.addEventListener('keydown', this.handleKeyDown)
-    window.addEventListener('mousemove', this.resetTimers)
-    window.addEventListener('mousedown', this.resetTimers)
-    window.addEventListener('click', this.resetTimers)
-    window.addEventListener('keypress', this.resetTimers)
-    window.addEventListener('visibilitychange', this.setIdle)
+    window.addEventListener(KEYDOWN, this.handleKeyDown)
+    window.addEventListener(MOUSEMOVE, this.resetTimers)
+    window.addEventListener(MOUSEDOWN, this.resetTimers)
+    window.addEventListener(CLICK, this.resetTimers)
+    window.addEventListener(KEYPRESS, this.resetTimers)
+    window.addEventListener(VISIBILITYCHANGE, this.setIdle)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown)
-    window.removeEventListener('mousemove', this.resetTimers)
-    window.removeEventListener('mousedown', this.resetTimers)
-    window.removeEventListener('click', this.resetTimers)
-    window.removeEventListener('keypress', this.resetTimers)
-    window.removeEventListener('visibilitychange', this.setIdle)
+    window.removeEventListener(KEYDOWN, this.handleKeyDown)
+    window.removeEventListener(MOUSEMOVE, this.resetTimers)
+    window.removeEventListener(MOUSEDOWN, this.resetTimers)
+    window.removeEventListener(CLICK, this.resetTimers)
+    window.removeEventListener(KEYPRESS, this.resetTimers)
+    window.removeEventListener(VISIBILITYCHANGE, this.setIdle)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { activeStep, } = this.state
+    const { session, } = this.props
+    const { submittedResponses, } = session
+
+    if (submittedResponses === prevProps.session.submittedResponses) { return }
+
+    if (!this.outOfAttemptsForActivePrompt()) { return }
+
+    if (!this.everyOtherStepCompleted(activeStep)) { return }
+
+    this.completeStep(activeStep)
   }
 
   outOfAttemptsForActivePrompt = () => {
@@ -143,7 +166,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
       if (inactivityTimer) { clearTimeout(inactivityTimer) }
 
-      let elapsedTime = _.round((now - startTime) / 1000)
+      let elapsedTime = now - startTime
       if (isIdle) {
         elapsedTime = 0
       }
@@ -169,7 +192,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   defaultHandleFinishActivity = () => {
-    // We only post completed sessions if we had one specified when the activity loaded
     const { timeTracking, } = this.state
     const { activities, dispatch, session, handleFinishActivity, } = this.props
     const { sessionID, submittedResponses, } = session
@@ -178,13 +200,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const conceptResults = generateConceptResults(currentActivity, submittedResponses)
     const data = {
       time_tracking: {
-        reading: timeTracking[READ_PASSAGE_STEP],
-        because: timeTracking[2],
-        but: timeTracking[3],
-        so: timeTracking[4],
+        reading: roundMillisecondsToSeconds(timeTracking[READ_PASSAGE_STEP]),
+        because: roundMillisecondsToSeconds(timeTracking[2]),
+        but: roundMillisecondsToSeconds(timeTracking[3]),
+        so: roundMillisecondsToSeconds(timeTracking[4]),
       }
     }
-    const callback = handleFinishActivity ? handleFinishActivity : window.location.href = '/'
+    const callback = handleFinishActivity ? handleFinishActivity : () => {}
     dispatch(completeActivitySession(sessionID, currentActivity.parent_activity_id, percentage, conceptResults, data, callback))
   }
 
@@ -513,6 +535,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
+  everyOtherStepCompleted = (stepNumber) => {
+    const { completedSteps, } = this.state
+
+    return completedSteps.filter(s => s !== stepNumber).length === 3
+  }
+
+
   renderPromptSteps = () => {
     const { activities, session, } = this.props
     const { activeStep, completedSteps } = this.state
@@ -524,7 +553,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const steps =  this.orderedSteps().map((prompt, i) => {
       // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
       const stepNumber = i + 2
-      const everyOtherStepCompleted = completedSteps.filter(s => s !== stepNumber).length === 3
       const canBeClicked = completedSteps.includes(stepNumber - 1) || completedSteps.includes(stepNumber) // can click on completed steps or the one after the last completed
 
       return (<PromptStep
@@ -533,7 +561,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         canBeClicked={canBeClicked}
         className={`step ${canBeClicked ? 'clickable' : ''} ${activeStep === stepNumber ? 'active' : ''}`}
         completeStep={this.completeStep}
-        everyOtherStepCompleted={everyOtherStepCompleted}
+        everyOtherStepCompleted={this.everyOtherStepCompleted(stepNumber)}
         key={stepNumber}
         passedRef={(node: JSX.Element) => this[`step${stepNumber}`] = node} // eslint-disable-line react/jsx-no-bind
         prompt={prompt}
@@ -580,21 +608,11 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
-  renderCompletedView = () => {
-    return (<div className="activity-completed">
-      <img alt="Party hat with confetti coming out" src={tadaSrc} />
-      <h1>Activity Complete!</h1>
-      <p>Thank you for taking the time to try our newest tool, Quill Comprehension.</p>
-    </div>)
-  }
-
   render = () => {
     const { activities, } = this.props
     const { showFocusState, completedSteps, } = this.state
 
     if (!activities.hasReceivedData) { return <LoadingSpinner /> }
-
-    if (completedSteps.length === ALL_STEPS.length) { return this.renderCompletedView() }
 
     const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'}`
 

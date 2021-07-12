@@ -117,6 +117,7 @@ module Comprehension
       setup do
         @rule = create(:comprehension_rule)
         @regex_rule = create(:comprehension_regex_rule, rule: @rule, regex_text: "^Hello", sequence_type: 'incorrect')
+        @regex_rule_two = create(:comprehension_regex_rule, rule: @rule, regex_text: "^Something", sequence_type: 'incorrect')
       end
 
       should 'be true if entry does not match the regex text' do
@@ -127,28 +128,43 @@ module Comprehension
         assert @rule.regex_is_passing?('Nope, I dont start with hello.')
       end
 
+      should 'be false if sequence_type is incorrect and entry matches the regex text and there are more than one sequences' do
+        refute @rule.regex_is_passing?('Something is wrong here.')
+      end
+
       should 'be false if sequence_type is incorrect and entry matches regex text' do
         assert !@rule.regex_is_passing?('Hello!!!')
       end
 
       should 'be false if sequence_type is required and entry does not match regex text' do
-        @regex_rule_two= create(:comprehension_regex_rule, rule: @rule, regex_text: "you need this sequence", sequence_type: 'required')
-        assert !@rule.regex_is_passing?('I do not have the right sequence')
+        required_rule = create(:comprehension_rule)
+        @regex_rule_three= create(:comprehension_regex_rule, rule: required_rule, regex_text: "you need this sequence", sequence_type: 'required')
+        assert !required_rule.regex_is_passing?('I do not have the right sequence')
       end
 
       should 'be true if sequence_type is required and entry matches regex text' do
-        @regex_rule_two= create(:comprehension_regex_rule, rule: @rule, regex_text: "you need this sequence", sequence_type: 'required')
-        assert @rule.regex_is_passing?('you need this sequence and I do have it')
+        required_rule = create(:comprehension_rule)
+        @regex_rule_three= create(:comprehension_regex_rule, rule: required_rule, regex_text: "you need this sequence", sequence_type: 'required')
+        assert required_rule.regex_is_passing?('you need this sequence and I do have it')
+      end
+
+      should 'be true if sequence_type is required and entry matches regex text and there are multiple required sequences' do
+        required_rule = create(:comprehension_rule)
+        @regex_rule_three= create(:comprehension_regex_rule, rule: required_rule, regex_text: "you need this sequence", sequence_type: 'required')
+        @regex_rule_four= create(:comprehension_regex_rule, rule: required_rule, regex_text: "or you need this one", sequence_type: 'required')
+        assert required_rule.regex_is_passing?('you need this sequence and I do have it')
       end
 
       should 'be true if rule is NOT case sensitive and entry matches regardless of casing' do
-        @regex_rule_two= create(:comprehension_regex_rule, rule: @rule, regex_text: "you need this sequence", sequence_type: 'required', case_sensitive: false)
-        assert @rule.regex_is_passing?('YOU NEED THIS SEQUENCE AND I DO HAVE IT')
+        required_rule = create(:comprehension_rule)
+        @regex_rule_three= create(:comprehension_regex_rule, rule: required_rule, regex_text: "you need this sequence", sequence_type: 'required', case_sensitive: false)
+        assert required_rule.regex_is_passing?('YOU NEED THIS SEQUENCE AND I DO HAVE IT')
       end
 
       should 'be false if rule IS case sensitive and entry does not match casing' do
-        @regex_rule_two= create(:comprehension_regex_rule, rule: @rule, regex_text: "you need this sequence", sequence_type: 'required', case_sensitive: true)
-        assert !@rule.regex_is_passing?('YOU NEED THIS SEQUENCE AND I do not HAVE IT in the right casing')
+        required_rule = create(:comprehension_rule)
+        @regex_rule_three= create(:comprehension_regex_rule, rule: required_rule, regex_text: "you need this sequence", sequence_type: 'required', case_sensitive: true)
+        assert !required_rule.regex_is_passing?('YOU NEED THIS SEQUENCE AND I do not HAVE IT in the right casing')
       end
     end
 

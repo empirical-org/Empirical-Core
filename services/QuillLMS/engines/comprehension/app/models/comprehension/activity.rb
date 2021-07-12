@@ -11,6 +11,9 @@ module Comprehension
 
     before_destroy :expire_turking_rounds
     before_validation :set_parent_activity, on: :create
+    after_create :log_create
+    after_destroy :log_deletion
+    after_update :log_update
 
     has_many :passages, inverse_of: :activity, dependent: :destroy
     has_many :prompts, inverse_of: :activity, dependent: :destroy
@@ -29,7 +32,7 @@ module Comprehension
         greater_than_or_equal_to: MIN_TARGET_LEVEL
       }
     validates :title, presence: true, length: {in: MIN_TITLE_LENGTH..MAX_TITLE_LENGTH}
-    validates :name, presence: true, length: {in: MIN_TITLE_LENGTH..MAX_TITLE_LENGTH}
+    validates :notes, presence: true
     validates :scored_level, length: { maximum: MAX_SCORED_LEVEL_LENGTH, allow_nil: true}
 
     CHANGE_LOG_DISPLAY_NAMES = {
@@ -37,6 +40,11 @@ module Comprehension
       "Comprehension::Activity": "Activity",
       "Comprehension::Rule": "Universal"
     }
+
+    def update_with_session_user(user_id, params)
+      @lms_user_id = user_id
+      self.update(params)
+    end
 
     def set_parent_activity
       if parent_activity_id
@@ -53,7 +61,7 @@ module Comprehension
     def serializable_hash(options = nil)
       options ||= {}
       super(options.reverse_merge(
-        only: [:id, :parent_activity_id, :title, :name, :target_level, :scored_level],
+        only: [:id, :parent_activity_id, :title, :notes, :target_level, :scored_level],
         include: [:passages, :prompts]
       ))
     end
@@ -85,11 +93,17 @@ module Comprehension
     end
 
     def log_creation(user_id)
-      log_change(user_id, :create_activity, self, {url: url}.to_json, nil, nil, "Comprehension Activity #{id} - active")
+      log_change(@lms_user_id, :create_activity, self, {url: url}.to_json, nil, nil, "Comprehension Activity #{id} - active")
     end
 
     def log_deletion(user_id)
-      log_change(user_id, :delete_activity, self, {url: url}.to_json, nil, "Comprehension Activity #{id} - active", "Comprehension Activity #{id} - deleted")
+      log_change(@lms_user_id, :delete_activity, self, {url: url}.to_json, nil, "Comprehension Activity #{id} - active", "Comprehension Activity #{id} - deleted")
+    end
+
+    def log_update
+      if title_changed?
+        log_change(@lms_user_id, :delete_activity, self, {url: url}.to_json, nil, "Comprehension Activity #{id} - title changed", "Comprehension Activity #{id} - deleted")
+      end
     end
   end
 end

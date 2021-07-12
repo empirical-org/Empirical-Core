@@ -10,6 +10,8 @@ import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {getFeedbackForMissingWord} from '../helpers/joining_words_feedback'
 import {sortByLevenshteinAndOptimal} from '../responseTools'
 
+const CHANGED_WORD_MAX = 3
+
 export interface TextChangesObject {
   missingText: string|null,
   extraneousText: string|null,
@@ -53,7 +55,7 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch, 
       res.author = 'Modified Word Hint';
       res.parent_id = match.response.key;
       res.concept_results = copyMatchConceptResults && matchConceptResults ? matchConceptResults : [
-        conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g')
+        conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
       ];
       return res;
     case ERROR_TYPES.MISSPELLED_WORD:
@@ -209,13 +211,13 @@ const checkForAdditions = (changeObjects):boolean => {
       coCount += 1;
     }
     tooLongError = checkForTooLongError(current);
-    if (current.added && getLengthOfChangeObject(current) < 2 && index === 0) {
+    if (current.added && getLengthOfChangeObject(current) < CHANGED_WORD_MAX && index === 0) {
       foundCount += 1;
     } else {
-      foundCount += current.added && getLengthOfChangeObject(current) < 2 && !array[index - 1].removed ? 1 : 0;
+      foundCount += current.added && getLengthOfChangeObject(current) < CHANGED_WORD_MAX && !array[index - 1].removed ? 1 : 0;
     }
   });
-  return !tooLongError && (foundCount === 1) && (coCount === 1);
+  return !tooLongError && foundCount < CHANGED_WORD_MAX && (foundCount === coCount);
 };
 
 const checkForDeletions = (changeObjects):boolean => {
@@ -228,18 +230,18 @@ const checkForDeletions = (changeObjects):boolean => {
       coCount += 1;
     }
     tooLongError = checkForTooLongError(current);
-    if (current.removed && getLengthOfChangeObject(current) < 2 && index === array.length - 1) {
+    if (current.removed && getLengthOfChangeObject(current) < CHANGED_WORD_MAX && index === array.length - 1) {
       foundCount += 1;
     } else {
-      foundCount += current.removed && getLengthOfChangeObject(current) < 2 && !array[index + 1].added ? 1 : 0;
+      foundCount += current.removed && getLengthOfChangeObject(current) < CHANGED_WORD_MAX && !array[index + 1].added ? 1 : 0;
     }
   });
-  return !tooLongError && (foundCount === 1) && (coCount === 1);
+  return !tooLongError && foundCount < CHANGED_WORD_MAX && (foundCount === coCount);
 };
 
 const checkForAddedOrRemoved = changeObject => changeObject.removed || changeObject.added;
 
-const checkForTooLongChangeObjects = changeObject => getLengthOfChangeObject(changeObject) >= 2;
+const checkForTooLongChangeObjects = changeObject => getLengthOfChangeObject(changeObject) >= CHANGED_WORD_MAX;
 
 const checkForTooLongError = changeObject => (changeObject.removed || changeObject.added) && checkForTooLongChangeObjects(changeObject);
 

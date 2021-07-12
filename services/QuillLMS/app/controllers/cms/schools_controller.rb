@@ -188,35 +188,43 @@ class Cms::SchoolsController < Cms::CmsController
 
     # NOTE: IF YOU CHANGE THIS QUERY'S CONDITIONS, PLEASE BE SURE TO
     # ADJUST THE PAGINATION QUERY STRING AS WELL.
-    ActiveRecord::Base.connection.execute("
-      SELECT
-        schools.name AS school_name,
-        schools.leanm AS district_name,
-        COALESCE(schools.city, schools.mail_city) AS school_city,
-        COALESCE(schools.state, schools.mail_state) AS school_state,
-        COALESCE(schools.zipcode, schools.mail_zipcode) AS school_zip,
-        schools.free_lunches AS frl,
-        COUNT(DISTINCT schools_users.id) AS number_teachers,
-        subscriptions.account_type AS premium_status,
-        COUNT(DISTINCT schools_admins.id) AS number_admins,
-        schools.id AS id
-      FROM schools
-      LEFT JOIN schools_users ON schools_users.school_id = schools.id
-      LEFT JOIN schools_admins ON schools_admins.school_id = schools.id
-      LEFT JOIN school_subscriptions ON school_subscriptions.school_id = schools.id
-      LEFT JOIN subscriptions ON subscriptions.id = school_subscriptions.subscription_id
-      #{where_query_string_builder}
-      GROUP BY schools.name, schools.leanm, schools.city, schools.state, schools.zipcode, schools.free_lunches, subscriptions.account_type, schools.id
-      #{having_string}
-      #{order_by_query_string}
-      #{pagination_query_string}
-    ").to_a.map do |school|
-      school['school_zip'] = school['school_zip'].to_i
-      school['number_teachers'] = school['number_teachers'].to_i
-      school['number_admins'] = school['number_admins'].to_i
-      school['frl'] = school['frl'].to_i
-      school
-    end
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+          schools.name AS school_name,
+          schools.leanm AS district_name,
+          COALESCE(schools.city, schools.mail_city) AS school_city,
+          COALESCE(schools.state, schools.mail_state) AS school_state,
+          COALESCE(schools.zipcode, schools.mail_zipcode) AS school_zip,
+          schools.free_lunches AS frl,
+          COUNT(DISTINCT schools_users.id) AS number_teachers,
+          subscriptions.account_type AS premium_status,
+          COUNT(DISTINCT schools_admins.id) AS number_admins,
+          schools.id AS id
+        FROM schools
+        LEFT JOIN schools_users
+          ON schools_users.school_id = schools.id
+        LEFT JOIN schools_admins
+          ON schools_admins.school_id = schools.id
+        LEFT JOIN school_subscriptions
+          ON school_subscriptions.school_id = schools.id
+        LEFT JOIN subscriptions
+          ON subscriptions.id = school_subscriptions.subscription_id
+        #{where_query_string_builder}
+        GROUP BY
+          schools.name,
+          schools.leanm,
+          schools.city,
+          schools.state,
+          schools.zipcode,
+          schools.free_lunches,
+          subscriptions.account_type,
+          schools.id
+        #{having_string}
+        #{order_by_query_string}
+        #{pagination_query_string}
+      SQL
+    ).to_a
   end
 
   private def having_string
@@ -258,7 +266,7 @@ class Cms::SchoolsController < Cms::CmsController
     when 'school_name'
       "schools.name ILIKE #{sanitized_fuzzy_param_value}"
     when 'school_city'
-      "(schools.city ILIKE #{sanitized_fuzzy_param_value} OR schools.mail_city ILIKE #{sanitized_fuzzy_param_value}"
+      "schools.city ILIKE #{sanitized_fuzzy_param_value} OR schools.mail_city ILIKE #{sanitized_fuzzy_param_value}"
     when 'school_state'
       "(UPPER(schools.state) = UPPER(#{sanitized_param_value}) OR UPPER(schools.mail_state) = UPPER(#{sanitized_param_value}))"
     when 'school_zip'
@@ -278,19 +286,28 @@ class Cms::SchoolsController < Cms::CmsController
   end
 
   private def number_of_schools_matched
-    ActiveRecord::Base.connection.execute("
-      SELECT count(*) as count FROM
-        (SELECT
-        	COUNT(schools.id) AS count
-        FROM schools
-        LEFT JOIN schools_users ON schools_users.school_id = schools.id
-        LEFT JOIN schools_admins ON schools_admins.school_id = schools.id
-        LEFT JOIN school_subscriptions ON school_subscriptions.school_id = schools.id
-        LEFT JOIN subscriptions ON subscriptions.id = school_subscriptions.subscription_id
-        #{where_query_string_builder}
-        GROUP BY schools.id
-        #{having_string}) as subquery
-    ").to_a[0]['count'].to_i
+    result = RawSqlRunner.execute(
+      <<-SQL
+        SELECT COUNT(*) as count
+        FROM (
+          SELECT COUNT(schools.id) AS count
+          FROM schools
+          LEFT JOIN schools_users
+            ON schools_users.school_id = schools.id
+          LEFT JOIN schools_admins
+            ON schools_admins.school_id = schools.id
+          LEFT JOIN school_subscriptions
+            ON school_subscriptions.school_id = schools.id
+          LEFT JOIN subscriptions
+            ON subscriptions.id = school_subscriptions.subscription_id
+          #{where_query_string_builder}
+          GROUP BY schools.id
+          #{having_string}
+        ) AS subquery
+      SQL
+    )
+
+    result.to_a[0]['count'].to_i
   end
 
   private def order_by_query_string

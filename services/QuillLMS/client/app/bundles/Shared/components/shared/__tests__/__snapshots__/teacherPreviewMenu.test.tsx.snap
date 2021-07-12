@@ -28,6 +28,7 @@ exports[`TeacherPreviewMenu component should match snapshot 1`] = `
         ],
       }
     }
+    isOnMobile={false}
     onHandleSkipToQuestionFromIntro={[Function]}
     questions={
       Object {
@@ -51,6 +52,7 @@ exports[`TeacherPreviewMenu component should match snapshot 1`] = `
       activity={null}
       dispatch={[Function]}
       fillInBlank={null}
+      isOnMobile={false}
       lesson={null}
       onHandleSkipToQuestionFromIntro={[Function]}
       questions={null}

@@ -136,7 +136,7 @@ describe ProfilesController, type: :controller do
         it 'sorts pinned activities to the front' do
           get :student_profile_data
           scores = JSON.parse(response.body)['scores']
-          pinned_flags = scores.map { |score| score['pinned'] }
+          pinned_flags = scores.map { |score| score['pinned'].to_s }
           expect(pinned_flags).to eq(pinned_flags.sort.reverse)
         end
 
@@ -147,7 +147,7 @@ describe ProfilesController, type: :controller do
           end
           get :student_profile_data
           scores = JSON.parse(response.body)['scores']
-          locked_flags = scores.map { |score| score['locked'] }
+          locked_flags = scores.map { |score| score['locked'].to_s }
           expect(locked_flags).to eq(locked_flags.sort)
         end
 
@@ -174,11 +174,11 @@ describe ProfilesController, type: :controller do
           get :student_profile_data
           scores = JSON.parse(response.body)['scores']
           single_unit_scores = scores.select { |item| item['unit_id'] == units[0].id }
-          max_percentages = single_unit_scores.map { |score| score['max_percentage'] }
+          max_percentages = single_unit_scores.map { |score| score['max_percentage'] }.compact
           expect(max_percentages).to eq(max_percentages.sort.reverse)
         end
 
-        it 'respects assigned "order_number" when there are no pins or locks and all acticities belong to the same unit and have the same level of completion' do
+        it 'respects assigned "order_number" when there are no pins or locks and all activities belong to the same unit and have the same level of completion' do
           classroom_unit_activity_states.each do |activity_state|
             activity_state.pinned = false
             activity_state.locked = false
@@ -187,6 +187,7 @@ describe ProfilesController, type: :controller do
           get :student_profile_data
           scores = JSON.parse(response.body)['scores']
           single_unit_scores = scores.select { |item| item['unit_id'] == units[0].id }
+          single_unit_scores = scores.reject { |item| item['max_percentage'].nil? }
           order_numbers = single_unit_scores.map { |score| score['order_number'] }
           expect(order_numbers).to eq(order_numbers.sort)
         end
@@ -222,14 +223,15 @@ describe ProfilesController, type: :controller do
                 'unit_created_at' => unit.created_at,
                 'unit_name' => unit.name,
                 'ca_id' => classroom_unit.id,
-                'marked_complete' => 'f',
+                'marked_complete' => false,
                 'activity_id' => activity.id,
                 'act_sesh_updated_at' => activity_session&.updated_at,
                 'due_date' => unit_activity.due_date,
                 'unit_activity_created_at' => classroom_unit.created_at,
-                'locked' => unit_activity.classroom_unit_activity_states[0].locked ? 't' : 'f',
-                'pinned' => unit_activity.classroom_unit_activity_states[0].pinned ? 't' : 'f',
+                'locked' => unit_activity.classroom_unit_activity_states[0].locked,
+                'pinned' => unit_activity.classroom_unit_activity_states[0].pinned,
                 'max_percentage' => activity_session&.percentage,
+                'finished' => activity_session&.percentage ? true : false,
                 'resume_link' => activity_session&.state == 'started' ? 1 : 0
               }
             end
@@ -238,12 +240,13 @@ describe ProfilesController, type: :controller do
           # This sort emulates the sort we are doing in the student_profile_data_sql method.
           sorted_scores = scores_array.sort { |a, b|
             [
-              b['pinned'], a['locked'], a['unit_created_at'], b['max_percentage'].nil? ? 1.01 : b['max_percentage'], a['order_number'], a['unit_activity_created_at']
+              b['pinned'].to_s, a['locked'].to_s, a['unit_created_at'], a['max_percentage'] || 1.01, a['order_number'], a['unit_activity_created_at']
             ] <=> [
-              a['pinned'], b['locked'], b['unit_created_at'], a['max_percentage'].nil? ? 1.01 : a['max_percentage'], b['order_number'], b['unit_activity_created_at']
+              a['pinned'].to_s, b['locked'].to_s, b['unit_created_at'], b['max_percentage'] || 1.01, b['order_number'], b['unit_activity_created_at']
             ]
           }
-          expect(scores).to eq(sanitize_hash_array_for_comparison_with_sql(sorted_scores))
+
+          expect(scores).to eq sanitize_hash_array_for_comparison_with_sql(sorted_scores)
         end
 
         it 'returns next activity session' do

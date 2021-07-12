@@ -15,7 +15,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     if @activity_session.completed_at
       status = :unprocessable_entity
       message = "Activity Session Already Completed"
-    elsif @activity_session.update(activity_session_params.except(:id, :concept_results))
+    elsif @activity_session.update(activity_session_params)
       status = :ok
       message = "Activity Session Updated"
       NotifyOfCompletedActivity.new(@activity_session).call if @activity_session.classroom_unit_id
@@ -26,39 +26,53 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       @errors = @activity_session.errors
     end
 
-    render json: @activity_session, meta: {message: message, errors: @errors || []}, status: status, serializer: ActivitySessionSerializer
+    render json: @activity_session,
+      meta: {
+        message: message,
+        errors: @errors || []
+      },
+      status: status,
+      serializer: ActivitySessionSerializer
   end
 
   def create
-    @activity_session = ActivitySession.new(activity_session_params.except(:id, :concept_results))
-    crs = @activity_session.concept_results
+    @activity_session = ActivitySession.new(activity_session_params)
     @activity_session.user = current_user if current_user
-    @activity_session.concept_results = []
-    # activity_session.owner=(current_user) if activity_session.ownable?
-    # activity_session.data = @data # FIXME: may no longer be necessary?
+
     if @activity_session.save
-      if @activity_session.update(activity_session_params.except(:id))
-        if @concept_results
-          handle_concept_results
-        end
-        @status = :success
-        @message = "Activity Session Created"
-      end
+      handle_concept_results if @concept_results
+      @status = :success
+      @message = "Activity Session Created"
     else
       @status = :failed
       @message = "Activity Session Create Failed"
     end
-    render json: @activity_session, meta: {status: @status, message: @message, errors: @activity_session.errors}, serializer: ActivitySessionSerializer
+
+    render json: @activity_session,
+      meta: {
+        status: @status,
+        message: @message,
+        errors: @activity_session.errors
+      },
+      serializer: ActivitySessionSerializer
   end
 
   def destroy
     if @activity_session.destroy!
-      render json: ActivitySession.new, meta:
-        {status: 'success', message: "Activity Session Destroy Successful", errors: nil},
+      render json: ActivitySession.new,
+        meta: {
+          status: 'success',
+          message: "Activity Session Destroy Successful",
+          errors: nil
+        },
         serializer: ActivitySessionSerializer
     else
-      render json: @activity_session, meta:
-        {status: 'failed', message: "Activity Session Destroy Failed", errors: @activity_session.errors},
+      render json: @activity_session,
+        meta: {
+          status: 'failed',
+          message: "Activity Session Destroy Failed",
+          errors: @activity_session.errors
+        },
         serializer: ActivitySessionSerializer
     end
   end
@@ -66,7 +80,9 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   private def handle_concept_results
     return if !@concept_results
 
-    concept_results_to_save = @concept_results.map{ |c| concept_results_hash(c) }.reject(&:empty?)
+    concept_results_to_save = @concept_results.map { |c| concept_results_hash(c) }.reject(&:empty?)
+    return if concept_results_to_save.empty?
+
     ConceptResult.bulk_insert(values: concept_results_to_save)
   end
 
@@ -78,35 +94,58 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   end
 
   private def find_activity_session
-    @activity_session = ActivitySession.unscoped.find_by_uid(params[:id]) || ActivitySession.new(activity_session_params.except(:id, :concept_results))
-    @activity_session.uid = params[:id]
+    @activity_session = ActivitySession.unscoped.find_by_uid!(params[:id])
   end
 
   private def activity_session_params
     params.delete(:activity_session)
-    @data = params.delete(:data)
-    params.permit(:id,
-                  :access_token, # Required by OAuth
-                  :percentage,
-                  :state,
-                  :question_type,
-                  :completed_at,
-                  :classroom_unit_id,
-                  :activity_uid,
-                  :activity_id,
-                  :anonymous,
-                  :temporary
-                )
-      .merge(data: @data).reject {|k,v| v.nil? }
-      .merge(timespent: @activity_session&.timespent)
+    data = params.delete(:data)&.permit!
+    time_tracking = data && data['time_tracking']
+    timespent = @activity_session&.timespent || ActivitySession.calculate_timespent(time_tracking)
+
+    params
+      .permit(activity_session_permitted_params)
+      .merge(data: data)
+      .reject { |_, v| v.nil? }
+      .merge(timespent: timespent)
   end
 
   private def transform_incoming_request
     if params[:concept_results].present?
-      @concept_results = params.delete(:concept_results)
+      @concept_results = params.delete(:concept_results).map do |concept_result|
+        concept_result
+          .permit(concept_results_permitted_params)
+          .merge(metadata: concept_result[:metadata].permit!)
+          .to_h
+      end
     else
       params.delete(:concept_results)
     end
+  end
+
+  private def activity_session_permitted_params
+    [
+      :access_token, # Required by OAuth
+      :activity_id,
+      :activity_uid,
+      :anonymous,
+      :classroom_unit_id,
+      :completed_at,
+      :percentage,
+      :question_type,
+      :state,
+      :temporary
+    ]
+  end
+
+  private def concept_results_permitted_params
+    [
+      :activity_classification_id,
+      :activity_session_id,
+      :concept_id,
+      :concept_uid,
+      :question_type
+    ]
   end
 
   private def strip_access_token_from_request

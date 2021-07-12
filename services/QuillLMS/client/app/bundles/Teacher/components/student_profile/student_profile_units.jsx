@@ -60,7 +60,7 @@ export default class StudentProfileUnits extends React.Component {
     const groupedUnits = _.groupBy(data, 'unit_id');
     const unitsWithGroupedActivities = {};
     for (const unit in groupedUnits) {
-      const partitionedActivities = _.partition(groupedUnits[unit], activity => (activity.max_percentage != null));
+      const partitionedActivities = _.partition(groupedUnits[unit], activity => (activity.finished));
       unitsWithGroupedActivities[unit] = {};
       if (partitionedActivities[0].length) {
         unitsWithGroupedActivities[unit].complete = _.sortBy(partitionedActivities[0], 'unit_activity_created_at');
@@ -124,7 +124,7 @@ export default class StudentProfileUnits extends React.Component {
 
   renderPinnedActivityBar = () => {
     const { data, isBeingPreviewed, } = this.props
-    const pinnedActivity = data.find(act => act.pinned === 't')
+    const pinnedActivity = data.find(act => act.pinned)
     if (!pinnedActivity) { return }
 
     const { name, ca_id, activity_id, } = pinnedActivity
@@ -152,7 +152,7 @@ export default class StudentProfileUnits extends React.Component {
   renderPinnedActivityModal = () => {
     const { data, teacherName, isBeingPreviewed, } = this.props
     const { closedPinnedActivityModal, } = this.state
-    const pinnedActivity = data.find(act => act.pinned === 't')
+    const pinnedActivity = data.find(act => act.pinned)
     if (isBeingPreviewed || !pinnedActivity || closedPinnedActivityModal) { return }
 
     const { name, ca_id, activity_id, } = pinnedActivity

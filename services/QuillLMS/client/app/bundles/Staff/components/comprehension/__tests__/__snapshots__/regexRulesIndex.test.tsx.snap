@@ -72,12 +72,14 @@ exports[`RegexRulesIndex component should render RegexRulesIndex 1`] = `
           },
         ]
       }
+      isReorderable={true}
+      reorderCallback={[Function]}
       rows={
         Array [
           Object {
             "because_prompt": undefined,
             "but_prompt": undefined,
-            "id": "1-1",
+            "id": 1,
             "incorrect_sequence": <div
               className="regex-text-container"
             />,
@@ -96,7 +98,7 @@ exports[`RegexRulesIndex component should render RegexRulesIndex 1`] = `
           Object {
             "because_prompt": undefined,
             "but_prompt": undefined,
-            "id": "1-2",
+            "id": 2,
             "incorrect_sequence": <div
               className="regex-text-container"
             />,
@@ -184,12 +186,14 @@ exports[`RegexRulesIndex component should render RegexRulesIndex 1`] = `
           },
         ]
       }
+      isReorderable={true}
+      reorderCallback={[Function]}
       rows={
         Array [
           Object {
             "because_prompt": undefined,
             "but_prompt": undefined,
-            "id": "1-1",
+            "id": 1,
             "incorrect_sequence": <div
               className="regex-text-container"
             />,
@@ -208,7 +212,7 @@ exports[`RegexRulesIndex component should render RegexRulesIndex 1`] = `
           Object {
             "because_prompt": undefined,
             "but_prompt": undefined,
-            "id": "1-2",
+            "id": 2,
             "incorrect_sequence": <div
               className="regex-text-container"
             />,
@@ -296,12 +300,14 @@ exports[`RegexRulesIndex component should render RegexRulesIndex 1`] = `
           },
         ]
       }
+      isReorderable={true}
+      reorderCallback={[Function]}
       rows={
         Array [
           Object {
             "because_prompt": undefined,
             "but_prompt": undefined,
-            "id": "1-1",
+            "id": 1,
             "incorrect_sequence": <div
               className="regex-text-container"
             />,
@@ -320,7 +326,7 @@ exports[`RegexRulesIndex component should render RegexRulesIndex 1`] = `
           Object {
             "because_prompt": undefined,
             "but_prompt": undefined,
-            "id": "1-2",
+            "id": 2,
             "incorrect_sequence": <div
               className="regex-text-container"
             />,

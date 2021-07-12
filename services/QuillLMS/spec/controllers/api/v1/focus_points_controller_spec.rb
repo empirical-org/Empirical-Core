@@ -3,6 +3,19 @@ require 'rails_helper'
 
 describe Api::V1::FocusPointsController, type: :controller do
   let!(:question) { create(:question) }
+  let!(:new_q) do
+    create(:question,
+      data: {
+        "focusPoints" => {
+          "0" => { "text" => "text", "feedback"=>"fff" }
+        },
+        "incorrectSequences"=> [
+          { "text"=>"foo", "feedback"=>"bar" }
+        ]
+      }
+    )
+  end
+
 
   describe "#index" do
     it "should return a list of Question Focus Points" do
@@ -40,7 +53,7 @@ describe Api::V1::FocusPointsController, type: :controller do
 
   describe "#create" do
     it "should add a new focus point to the question data" do
-      data = {"foo" => "bar"}
+      data = {"text" => "foo", "feedback"=>"bar"}
       focus_point_count = question.data["focusPoints"].keys.length
       post :create, question_id: question.uid, focus_point: data
       question.reload
@@ -56,7 +69,7 @@ describe Api::V1::FocusPointsController, type: :controller do
 
   describe "#update" do
     it "should update an existing focus point in the question data" do
-      data = {"foo" => "bar"}
+      data = {"text" => "foo", "feedback"=>"bar"}
       focus_point_uid = question.data["focusPoints"].keys.first
       put :update, question_id: question.uid, id: focus_point_uid, focus_point: data
       question.reload
@@ -73,6 +86,17 @@ describe Api::V1::FocusPointsController, type: :controller do
       put :update, question_id: question.uid, id: 'doesnotexist'
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
+    end
+
+    it "should return a 404 if the focus point is not valid" do
+      data = {"key"=>"-Lp-tB4rOx6sGVpm2AG3","text"=>"(and|","feedback"=>"feedback"}
+
+      focus_point_uid = new_q.data["focusPoints"].keys.first
+
+      put :update, question_id: new_q.uid, id: focus_point_uid, focus_point: data
+
+      expect(response.status).to eq(422)
+      expect(JSON.parse(response.body)["data"]).to include("There is incorrectly formatted regex: (and|")
     end
   end
 
@@ -94,7 +118,7 @@ describe Api::V1::FocusPointsController, type: :controller do
 
   describe "#update_all" do
     it "should replace all focusPoints" do
-      data = {"foo" => "bar"}
+      data = {"0" => {"text"=>"text", "feedback"=>"feedback"}}
       put :update_all, question_id: question.uid, focus_point: data
       question.reload
       expect(question.data["focusPoints"]).to eq(data)

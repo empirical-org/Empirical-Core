@@ -13,9 +13,10 @@ import {
   SCORED_READING_LEVEL,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
-  PLAGIARISM
+  PLAGIARISM,
+  ALL
 } from '../../../constants/comprehension';
-import { PromptInterface } from '../interfaces/comprehensionInterfaces'
+import { PromptInterface, ActivityInterface } from '../interfaces/comprehensionInterfaces'
 
 const quillCheckmark = `/images/green_check.svg`;
 const quillX = '/images/red_x.svg';
@@ -48,6 +49,27 @@ export function getModelsUrl(promptId: string, state: string) {
   }
   return url;
 }
+
+export function getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate }) {
+  let url = `session_feedback_histories.json?page=${pageNumber}&activity_id=${activityId}`;
+  url = startDate ? url + `&start_date=${startDate}` : url;
+  url = endDate ? url + `&end_date=${endDate}` : url;
+  return url;
+}
+
+export const getRuleFeedbackHistoriesUrl = ({ activityId, selectedConjunction, startDate, endDate }) => {
+  let url = `rule_feedback_histories?activity_id=${activityId}&conjunction=${selectedConjunction}`;
+  url = startDate ? url + `&start_date=${startDate}` : url;
+  url = endDate ? url + `&end_date=${endDate}` : url;
+  return url;
+}
+
+export const getRuleFeedbackHistoryUrl = ({ ruleUID, promptId, startDate, endDate }) => {
+  let url = `rule_feedback_history/${ruleUID}?prompt_id=${promptId}`;
+  url = startDate ? url + `&start_date=${startDate}` : url;
+  url = endDate ? url + `&end_date=${endDate}` : url;
+  return url;
+};
 
 export const getPromptsIcons = (activityData, promptIds: number[]) => {
   if(activityData && activityData.activity && activityData.activity.prompts) {
@@ -86,7 +108,7 @@ export const buildBlankPrompt = (conjunction: string) => {
 }
 
 export const buildActivity = ({
-  activityName,
+  activityNotes,
   activityTitle,
   activityScoredReadingLevel,
   activityTargetReadingLevel,
@@ -103,7 +125,7 @@ export const buildActivity = ({
   prompts.forEach(prompt => prompt.max_attempts_feedback = maxFeedback);
   return {
     activity: {
-      name: activityName,
+      notes: activityNotes,
       title: activityTitle,
       parent_activity_id: activityParentActivityId ? parseInt(activityParentActivityId) : null,
       // flag: label,
@@ -152,6 +174,20 @@ export function getPromptForComponent(activityData: any, key: string) {
   prompts.forEach(prompt => promptsHash[prompt.conjunction] = [prompt]);
   promptsHash['all'] = [promptsHash[BECAUSE][0], promptsHash[BUT][0], promptsHash[SO][0]];
   return promptsHash[key];
+}
+
+export function getPromptConjunction(activityData: any, id: number | string) {
+  if(!activityData || activityData && !activityData.activity) {
+    return null;
+  }
+  const { activity } = activityData;
+  const { prompts } = activity;
+  const formattedId = typeof id === 'string' ? parseInt(id) : id;
+  const appliedPrompt = prompts.filter(prompt => prompt.id === formattedId)[0];
+  if(!appliedPrompt) {
+    return ALL;
+  }
+  return appliedPrompt.conjunction;
 }
 
 export function getActivityPrompt({
@@ -234,6 +270,23 @@ const scoredReadingLevelError = (value: string) => {
   const num = parseInt(value);
   if(isNaN(num) || num < 4 || num > 12) {
     return `${SCORED_READING_LEVEL} must be a number between 4 and 12, or left blank.`;
+  }
+}
+
+export const handlePageFilterClick = ({ startDate, endDate, setStartDate, setEndDate, setShowError, setPageNumber, storageKey }) => {
+  if(!startDate) {
+    setShowError(true);
+    return;
+  }
+  setShowError(false);
+  setPageNumber && setPageNumber({ value: '1', label: "Page 1" })
+  const startDateString = startDate.toISOString();
+  window.sessionStorage.setItem(`${storageKey}startDate`, startDateString);
+  setStartDate(startDateString);
+  if(endDate) {
+    const endDateString = endDate.toISOString();
+    window.sessionStorage.setItem(`${storageKey}endDate`, endDateString);
+    setEndDate(endDateString);
   }
 }
 
@@ -337,4 +390,18 @@ export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors:
       })}
     </div>
   )
+}
+
+export const renderHeader = (activityData: {activity: ActivityInterface}, header: string) => {
+  if(!activityData) { return }
+  if(!activityData.activity) { return }
+  const { activity } = activityData;
+  const { title, notes } = activity;
+  return(
+    <section className="comprehension-page-header-container">
+      <h2>{header}</h2>
+      <h3>{title}</h3>
+      <h4>{notes}</h4>
+    </section>
+  );
 }

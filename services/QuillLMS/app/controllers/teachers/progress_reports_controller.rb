@@ -1,5 +1,5 @@
 class Teachers::ProgressReportsController < ApplicationController
-  before_action :authorize!, except: [:demo, :admin_demo, :demo_ap]
+  before_action :authorize!, except: [:demo, :admin_demo, :coach_demo]
   before_action :set_vary_header, if: -> { request.xhr? || request.format == :json }
   layout 'progress_reports'
 
@@ -9,7 +9,7 @@ class Teachers::ProgressReportsController < ApplicationController
     redirect_to demo_redirect_path
   end
 
-  def demo_ap
+  def coach_demo
     set_ap_user
     switch_current_user(@ap_user)
     redirect_to demo_redirect_path
@@ -42,9 +42,9 @@ class Teachers::ProgressReportsController < ApplicationController
     auth_failed
   end
 
-  private def switch_current_user user
+  private def switch_current_user(user)
     sign_out if current_user
-    sign_in user
+    sign_in(user)
   end
 
   private def set_admin_user
@@ -78,10 +78,11 @@ class Teachers::ProgressReportsController < ApplicationController
 
   private def set_ap_user
     @ap_user = User.find_by_email "hello+#{demo_name}+ap@quill.org"
-    if @ap_user.nil?
-      Demo::ReportDemoAPCreator.create_demo(demo_name)
-      set_ap_user
-    end
+
+    return unless @ap_user.nil?
+
+    Demo::ReportDemoAPCreator.create_demo(demo_name)
+    set_ap_user
   end
 
   private def demo_name

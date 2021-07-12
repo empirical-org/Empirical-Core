@@ -2,27 +2,32 @@ import * as React from "react";
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 
-import Navigation from './navigation'
+import Navigation from './navigation';
 
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { fetchActivities } from '../../utils/comprehension/activityAPIs';
 import { DataTable, Error, Spinner } from '../../../Shared/index';
+import { handleHasAppSetting } from "../../../Shared/utils/appSettingAPIs";
+import { renderErrorsContainer } from "../../helpers/comprehension";
 
 const Activities = ({ location, match }) => {
 
   // cache activity data for updates
-  const { data } = useQuery("activities", fetchActivities);
+  const { data: activitiesData } = useQuery("activities", fetchActivities);
+  const [errors, setErrors] = React.useState<string[]>([])
+  const [hasAppSetting, setHasAppSetting] = React.useState<boolean>(false);
+  handleHasAppSetting({appSettingSetter: setHasAppSetting, errorSetter: setErrors, key: 'foo', })
 
-  const formattedRows = data && data.activities && data.activities.map((activity: ActivityInterface) => {
-    const { id,  name, } = activity;
-    const activityLink = (<Link to={`/activities/${id}`}>{name}</Link>);
+  const formattedRows = activitiesData && activitiesData.activities && activitiesData.activities.map((activity: ActivityInterface) => {
+    const { id, title} = activity;
+    const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
     return {
       id,
-      name: activityLink
+      title: activityLink
     }
   });
 
-  if(!data) {
+  if(!activitiesData) {
     return(
       <React.Fragment>
         <Navigation location={location} match={match} />
@@ -33,20 +38,22 @@ const Activities = ({ location, match }) => {
     );
   }
 
-  if(data.error) {
+  if(activitiesData.error) {
     return(
       <div className="error-container">
-        <Error error={`${data.error}`} />
+        <Error error={`${activitiesData.error}`} />
       </div>
     );
   }
 
   const dataTableFields = [
-    { name: "Name", attribute:"name", width: "900px" }
+    { name: "Title", attribute:"title", width: "900px" }
   ];
 
   return(<React.Fragment>
     <Navigation location={location} match={match} />
+    {hasAppSetting && <div>App setting is enabled.</div>}
+    {errors && renderErrorsContainer(false, errors)}
     <div className="activities-container">
       <DataTable
         className="activities-table"

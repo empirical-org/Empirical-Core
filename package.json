@@ -9,7 +9,8 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "request": "^2.81.0",
-    "typescript": "^3.6.4"
+    "typescript": "^3.6.4",
+    "glob-parent": ">=5.1.2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "2.14.0",
@@ -33,7 +34,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "npm run eslint:staged_files"
+    "*.{jsdfsfx}": "npm run eslint:staged_files"
   },
   "repository": {
     "type": "git",

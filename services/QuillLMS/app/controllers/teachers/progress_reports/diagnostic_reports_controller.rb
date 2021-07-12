@@ -11,7 +11,10 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def question_view
-        render json: { data: results_by_question(params) }.to_json
+        activity = Activity.includes(:classification)
+                           .find(params[:activity_id])
+        render json: { data: results_by_question(params),
+                       classification: activity.classification.key }.to_json
     end
 
     def students_by_classroom
@@ -91,26 +94,29 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def diagnostic_status
-      cas = ActiveRecord::Base.connection.execute("
-        SELECT activity_sessions.state
-        FROM classrooms_teachers
-        JOIN classrooms
-          ON  classrooms_teachers.classroom_id = classrooms.id
-          AND classrooms.visible = TRUE
-        JOIN classroom_units
-          ON  classrooms.id = classroom_units.classroom_id
-          AND classroom_units.visible = TRUE
-        JOIN unit_activities
-          ON classroom_units.unit_id = unit_activities.unit_id
-          AND unit_activities.visible = TRUE
-          AND unit_activities.activity_id IN (#{Activity.diagnostic_activity_ids.join(', ')})
-        LEFT JOIN activity_sessions
-          ON  classroom_units.id = activity_sessions.classroom_unit_id
-          AND unit_activities.activity_id = activity_sessions.activity_id
-          AND activity_sessions.state = 'finished'
-          AND activity_sessions.visible = TRUE
-        WHERE classrooms_teachers.user_id = #{current_user.id}
-      ").to_a
+      cas = RawSqlRunner.execute(
+        <<-SQL
+          SELECT activity_sessions.state
+          FROM classrooms_teachers
+          JOIN classrooms
+            ON  classrooms_teachers.classroom_id = classrooms.id
+            AND classrooms.visible = true
+          JOIN classroom_units
+            ON  classrooms.id = classroom_units.classroom_id
+            AND classroom_units.visible = true
+          JOIN unit_activities
+            ON classroom_units.unit_id = unit_activities.unit_id
+            AND unit_activities.visible = true
+            AND unit_activities.activity_id IN (#{Activity.diagnostic_activity_ids.join(', ')})
+          LEFT JOIN activity_sessions
+            ON  classroom_units.id = activity_sessions.classroom_unit_id
+            AND unit_activities.activity_id = activity_sessions.activity_id
+            AND activity_sessions.state = 'finished'
+            AND activity_sessions.visible = true
+          WHERE classrooms_teachers.user_id = #{current_user.id}
+        SQL
+      ).to_a
+
       if cas.include?('finished')
         diagnostic_status = 'completed'
       elsif cas.any?

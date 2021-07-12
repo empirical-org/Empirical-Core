@@ -72,7 +72,7 @@ class SegmentAnalytics
       user_id: teacher_id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT,
       properties: {
-        activity_pack_name: unit&.unit_template&.name || unit.name,
+        activity_pack_name: unit&.unit_template&.name || unit&.name,
         activity_pack_type: activity_pack_type
       }
     })

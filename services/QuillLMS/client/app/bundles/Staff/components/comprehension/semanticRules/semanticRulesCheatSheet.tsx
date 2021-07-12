@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 import { fetchRules } from '../../../utils/comprehension/ruleAPIs';
 import { DataTable, Spinner } from '../../../../Shared/index';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
+import { renderHeader } from '../../../helpers/comprehension';
 
 const SemanticRulesCheatSheet = ({ match, }) => {
   const { params } = match;
@@ -61,7 +62,7 @@ const SemanticRulesCheatSheet = ({ match, }) => {
 
   return(
     <section className="semantic-labels-container">
-      <h3>Semantic Rules Cheat Sheet</h3>
+      {renderHeader(activityData, 'Semantic Rules Cheat Sheet')}
       <h4 dangerouslySetInnerHTML={{ __html: `Prompt: ${prompt.text.replace(prompt.conjunction, `<b>${prompt.conjunction}</b>`)}`}} />
       <DataTable
         className="semantic-rules-cheat-sheet"
