@@ -8,6 +8,7 @@ import _ from 'lodash';
 import DateTimePicker from 'react-datetime-picker';
 
 import { handlePageFilterClick, renderHeader } from "../../../helpers/comprehension";
+import { calculatePercentageForResponses } from "../../../helpers/comprehension/ruleHelpers";
 import { ActivityRouteProps, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchRuleFeedbackHistories } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
@@ -48,6 +49,7 @@ const MoreInfo = (row) => {
   return (<div className="more-info">
     <p><strong>Rule Note:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.note || "N/A" }} /></p>
     <p><strong>First Layer Feedback:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.firstLayerFeedback || "N/A" }} /></p>
+    <p><strong>Second Layer Feedback:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.secondLayerFeedback || "N/A" }} /></p>
   </div>)
 }
 
@@ -73,11 +75,17 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
+  const [totalResponsesByConjunction, setTotalResponsesByConjunction] = React.useState<number>(null);
 
   const selectedConjunction = selectedPrompt ? selectedPrompt.conjunction : promptConjunction
   // cache rules data for updates
   const { data: ruleFeedbackHistory } = useQuery({
     queryKey: [`rule-feedback-history-by-conjunction-${selectedConjunction}-and-activity-${activityId}`, activityId, selectedConjunction, startDateForQuery, endDateForQuery],
+    queryFn: fetchRuleFeedbackHistories
+  });
+
+  const { data: dataForTotalResponseCount } = useQuery({
+    queryKey: [`rule-feedback-history-for-total-response-count`, activityId, selectedConjunction],
     queryFn: fetchRuleFeedbackHistories
   });
 
@@ -111,6 +119,20 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     history.push(url)
   }, [selectedPrompt, selectedRuleType])
 
+  React.useEffect(() => {
+    if(!totalResponsesByConjunction && dataForTotalResponseCount && dataForTotalResponseCount.ruleFeedbackHistories) {
+      let count = 0;
+      const { ruleFeedbackHistories } = dataForTotalResponseCount;
+      ruleFeedbackHistories.map(feedbackHistory => {
+        if(feedbackHistory.total_responses) {
+          count += feedbackHistory.total_responses;
+        }
+      });
+      count = count * 1.0;
+      setTotalResponsesByConjunction(count);
+    }
+  });
+
   function handleFilterClick() {
     handlePageFilterClick({ startDate, endDate, setStartDate, setEndDate, setShowError, setPageNumber: null, storageKey: RULES_ANALYSIS });
   }
@@ -125,7 +147,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const formattedRows = selectedPrompt && ruleFeedbackHistory && ruleFeedbackHistory.ruleFeedbackHistories && ruleFeedbackHistory.ruleFeedbackHistories.filter(rule => {
     return selectedRuleType.value === DEFAULT_RULE_TYPE || rule.api_name === selectedRuleType.value
   }).map(rule => {
-    const { rule_name, rule_uid, api_name, rule_order, note, total_responses, strong_responses, weak_responses, first_feedback, repeated_consecutive_responses, repeated_non_consecutive_responses } = rule;
+    const { rule_name, rule_uid, api_name, rule_order, note, total_responses, strong_responses, weak_responses, first_feedback, second_feedback, repeated_consecutive_responses, repeated_non_consecutive_responses } = rule;
     const apiOrder = apiOrderLookup[api_name] || Object.keys(apiOrderLookup).length
     return {
       rule_uid,
@@ -143,6 +165,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       activityId,
       note,
       firstLayerFeedback: first_feedback,
+      secondLayerFeedback: second_feedback,
       handleClick: () => window.open(`/cms/comprehension#/activities/${activityId}/rules-analysis/${selectedPrompt.conjunction}/rule/${rule_uid}/prompt/${selectedPrompt.id}`, '_blank')
     }
   }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
@@ -187,9 +210,18 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       accessor: "totalResponses",
       key: "totalResponses",
       width: 100,
-      aggregate: vals => _.sum(vals),
-      Aggregated: (row) => (<span>{row.value}</span>),
-      Cell: (data) => (<button className={data.original.className} onClick={data.original.handleClick} type="button">{data.original.totalResponses}</button>),
+      aggregate: (values) => {
+        const totalResponses = _.sum(values);
+        const percentageOutOfAllResponses = calculatePercentageForResponses(totalResponses, totalResponsesByConjunction);
+        return { totalResponses, percentageOutOfAllResponses }
+      },
+      Aggregated: (row) => (<span>{row.value.percentageOutOfAllResponses}% <span className="gray">({row.value.totalResponses})</span></span>),
+      Cell: (data) => {
+        const { original } = data;
+        const { className, handleClick, totalResponses } = original;
+        const percentageOutOfAllResponses = calculatePercentageForResponses(totalResponses, totalResponsesByConjunction);
+        return (<button className={className} onClick={handleClick} type="button">{percentageOutOfAllResponses}% <span className="gray">({totalResponses})</span></button>)
+      },
     },
     {
       Header: "Rule Repeated: Consecutive",

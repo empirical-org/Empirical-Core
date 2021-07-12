@@ -64,6 +64,7 @@ const Navigation = ({ location, match }) => {
 
   let rulesAnalysisSubLinks
   let semanticLabelsSubLinks
+  let rulesIndexSubLinks
 
   if (pathname.includes('rules-analysis')) {
     rulesAnalysisSubLinks = (<React.Fragment>
@@ -93,6 +94,20 @@ const Navigation = ({ location, match }) => {
     </React.Fragment>)
   }
 
+  if (pathname.includes('rules-index')) {
+    rulesIndexSubLinks = (<React.Fragment>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/rules-index/because`}>
+        Because
+      </NavLink>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/rules-index/but`}>
+        But
+      </NavLink>
+      <NavLink activeClassName="is-active" className="sublink" to={`/activities/${activityId}/rules-index/so`}>
+        So
+      </NavLink>
+    </React.Fragment>)
+  }
+
   let activityEditorAndResults
 
   if (activityId) {
@@ -117,9 +132,10 @@ const Navigation = ({ location, match }) => {
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/plagiarism-rules`}>
           Plagiarism Rules
         </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/rules`}>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/rules-index`}>
           View All Rules
         </NavLink>
+        {rulesIndexSubLinks}
       </ul>
       <p className="menu-label">
         Activity Results

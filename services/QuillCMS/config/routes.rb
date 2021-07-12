@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get  'questions/:question_uid/grade_breakdown' => 'responses#grade_breakdown'
   get  'questions/:question_uid/question_dashboard_data' => 'responses#question_dashboard'
   post 'responses/create_or_increment'
+  post 'responses/create_or_update'
   post 'responses/mass_edit/show_many' => 'responses#show_many'
   put  'responses/mass_edit/edit_many' => 'responses#edit_many'
   post 'responses/mass_edit/delete_many' => 'responses#delete_many'

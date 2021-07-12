@@ -45,6 +45,21 @@ module Comprehension
       head :no_content
     end
 
+    def update_rule_order
+      ordered_rules = ordered_rules_params[:ordered_rule_ids].map.with_index do |id, index|
+        rule = Comprehension::Rule.find_by_id(id)
+        rule.suborder = index if rule
+        rule
+      end
+
+      if ordered_rules.all? { |r| r&.valid? }
+        ordered_rules.each { |r| r.save! }
+        render(json: {status: 200})
+      else
+        render json: {error_messages: ordered_rules.map { |r| r&.errors }.join('; ')}, status: :unprocessable_entity
+      end
+    end
+
     private def set_rule
       # warning - the id param is getting used as both an id and a uid, which is an antipattern
       @rule = Comprehension::Rule.find_by_uid(params[:id]) || Comprehension::Rule.find(params[:id])
@@ -58,6 +73,10 @@ module Comprehension
          label_attributes: [:id, :name, :state],
          feedbacks_attributes: [:id, :text, :description, :order, highlights_attributes: [:id, :text, :highlight_type, :starting_index]]
       )
+    end
+
+    private def ordered_rules_params
+      params.permit(ordered_rule_ids: [])
     end
   end
 end

@@ -48,8 +48,20 @@ func GetLMSDomain() (string) {
 	return lms_domain
 }
 
+func GetOpinionDomain() (string) {
+	var maybe_domain = os.Getenv("opinion_domain")
+
+	var opinion_domain = "https://opinion-api.quill.org"
+
+	if len(maybe_domain) > 0 {
+		opinion_domain = maybe_domain
+	}
+	return opinion_domain
+}
+
 func AssembleUrls() ([8]string) {
 	lms_domain := GetLMSDomain()
+	opinion_domain := GetOpinionDomain()
 
 	var (
 		automl_api = fmt.Sprintf("%s/api/v1/comprehension/feedback/automl.json", lms_domain)
@@ -60,7 +72,7 @@ func AssembleUrls() ([8]string) {
 		spell_check_bing             = fmt.Sprintf("%s/api/v1/comprehension/feedback/spelling.json", lms_domain)
 
 		grammar_check_api = "https://grammar-api.ue.r.appspot.com"
-		opinion_check_api = "https://opinion-api.ue.r.appspot.com/"
+		opinion_check_api = fmt.Sprintf("%s/", opinion_domain)
 	)
 
 	var urls = [...]string{

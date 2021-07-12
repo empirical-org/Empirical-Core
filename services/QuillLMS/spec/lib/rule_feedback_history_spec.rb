@@ -21,6 +21,37 @@ RSpec.describe RuleFeedbackHistory, type: :model do
     )
   end
 
+  def activity_factory(&hash_block)
+    Comprehension::Activity.create!(
+      {
+        title: "Activity Title",
+        notes: "Activity notes",
+        target_level: 1,
+        parent_activity_id: 1
+      }.merge(yield)
+    )
+  end
+
+  def prompt_factory(&hash_block)
+    Comprehension::Prompt.create!(
+      {
+        activity: yield[:activity] || activity_factory { {} },
+        conjunction: "because",
+        text: "my text would go here.",
+        max_attempts_feedback: "MyText"
+      }.merge(yield)
+    )
+  end
+
+  def prompt_rule_factory(&hash_block)
+    Comprehension::PromptsRule.find_or_create_by!(
+      {
+        prompt: yield[:prompt] || prompt_factory { {} },
+        rule: yield[:rule] || rule_factory { {} }
+      }.merge(yield)
+    )
+  end
+
   def feedback_factory(&hash_block)
     Comprehension::Feedback.create!(
       {
@@ -35,21 +66,25 @@ RSpec.describe RuleFeedbackHistory, type: :model do
   describe '#generate_report' do
     it 'should format' do
       # activities
-      activity1 = Comprehension::Activity.create!(title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1')
+      activity1 = activity_factory { {title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1'} }
 
       # prompts
-      so_prompt1 = Comprehension::Prompt.create!(activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-      because_prompt1 = Comprehension::Prompt.create!(activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      so_prompt1 = prompt_factory { {activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback'} }
+      because_prompt1 = prompt_factory { {activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback'} }
 
       # rules
       so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
 
+      # prompts_rules
+      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule1} }
+
       # feedback
-      so_feedback = feedback_factory { { rule: so_rule1 } }
+      so_feedback1 = feedback_factory { { rule: so_rule1 } }
+      so_feedback2 = feedback_factory { { rule: so_rule1, order: 2 } }
 
       # feedback_histories
-      f_h1 = create(:feedback_history, rule_uid: so_rule1.uid, entry: "f_h1 lorem")
-      f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, entry: "f_h2 ipsum")
+      f_h1 = create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, entry: "f_h1 lorem")
+      f_h2 = create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, entry: "f_h2 ipsum")
 
       # users
       user1 = create(:user)
@@ -70,7 +105,8 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       expected = {
         api_name: so_rule1.rule_type,
         rule_order: so_rule1.suborder,
-        first_feedback: so_feedback.text,
+        first_feedback: so_feedback1.text,
+        second_feedback: so_feedback2.text,
         rule_name: so_rule1.name,
         rule_note: so_rule1.note,
         rule_uid: so_rule1.uid,
@@ -101,11 +137,17 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       so_rule3 = rule_factory { { name: 'so_rule3', rule_type: 'autoML' } }
       so_rule4 = rule_factory { { name: 'so_rule4', rule_type: 'autoML' } }
 
+      # prompts_rules
+      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule1} }
+      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule2} }
+      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule3} }
+      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule4} }
+
       # feedbacks
-      create(:feedback_history, rule_uid: so_rule1.uid, time: "2021-03-07T19:02:54.814Z")
-      create(:feedback_history, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54.814Z")
-      create(:feedback_history, rule_uid: so_rule3.uid, time: "2021-05-07T19:02:54.814Z")
-      create(:feedback_history, rule_uid: so_rule4.uid, time: "2021-06-07T19:02:54.814Z")
+      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, time: "2021-03-07T19:02:54.814Z")
+      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54.814Z")
+      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: "2021-05-07T19:02:54.814Z")
+      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: "2021-06-07T19:02:54.814Z")
 
       sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id, start_date: "2021-03-06T19:02:54.814Z", end_date: "2021-04-10T19:02:54.814Z")
       expect(sql_result.all.length).to eq 2

@@ -68,9 +68,11 @@ const PromptTable = ({ activity, rules, prompt, showHeader, sessionId }: PromptT
     const { id, most_recent_rating } = attempt;
     return(
       <div className="strength-buttons">
+        {/* eslint-disable-next-line react/jsx-no-bind */}
         <button className={most_recent_rating ? 'strength-button strong' : 'strength-button'} onClick={() => toggleStrength(attempt)} type="button">
           {loadingType === `${STRONG}-${id}` ? <ButtonLoadingSpinner /> : STRONG}
         </button>
+        {/* eslint-disable-next-line react/jsx-no-bind */}
         <button className={most_recent_rating === false ? 'strength-button weak' : 'strength-button'} onClick={() => toggleWeakness(attempt)} type="button">
           {loadingType === `${WEAK}-${id}` ? <ButtonLoadingSpinner /> : WEAK}
         </button>
@@ -114,7 +116,7 @@ const PromptTable = ({ activity, rules, prompt, showHeader, sessionId }: PromptT
       const feedbackObject: any = {
         id: `${rule_uid}:${i}:feedback`,
         status: feedbackLabel,
-        results: stripHtml(feedback_text),
+        results: <p className="word-wrap">{stripHtml(feedback_text)}</p>,
         feedback: feedbackLink,
         buttons: getStrongWeakButtons(attempt),
         className: optimal ? 'optimal' : 'sub-optimal'

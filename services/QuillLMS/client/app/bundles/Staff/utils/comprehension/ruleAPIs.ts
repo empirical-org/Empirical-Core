@@ -80,3 +80,18 @@ export const updateRule = async (ruleId: number, rule: RuleInterface) => {
   }
   return { errors: [] };
 }
+
+export const updateRuleOrders = async (orderedRuleIds: number[]) => {
+  const response = await apiFetch(`rules/update_rule_order`, {
+    method: 'PUT',
+    body: JSON.stringify({ ordered_rule_ids: orderedRuleIds, })
+  });
+  const { status } = response;
+
+  if(requestFailed(status)) {
+    const errors = await response.json();
+    const returnedErrors = await handleRequestErrors(errors);
+    return { errors: returnedErrors };
+  }
+  return { errors: [] };
+}

@@ -231,6 +231,7 @@ describe ProfilesController, type: :controller do
                 'locked' => unit_activity.classroom_unit_activity_states[0].locked,
                 'pinned' => unit_activity.classroom_unit_activity_states[0].pinned,
                 'max_percentage' => activity_session&.percentage,
+                'finished' => activity_session&.percentage ? true : false,
                 'resume_link' => activity_session&.state == 'started' ? 1 : 0
               }
             end
