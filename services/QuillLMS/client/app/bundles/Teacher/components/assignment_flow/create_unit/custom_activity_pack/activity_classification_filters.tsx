@@ -53,6 +53,9 @@ const IndividualActivityClassificationFilterRow = ({ activityClassificationFilte
   }
 
   const activityClassification = uniqueActivityClassifications.find(ac => ac.key === activityClassificationKey)
+
+  if (!activityClassification) { return <span /> }
+
   const activityCount = filteredActivities.filter(act => activityClassificationKey === act.activity_classification.key).length
   let checkbox = <button aria-label={`Check ${activityClassification.alias}`} className="focus-on-light quill-checkbox unselected" onClick={checkIndividualFilter} type="button" />
 
