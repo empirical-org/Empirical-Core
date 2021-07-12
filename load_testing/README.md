@@ -8,7 +8,7 @@ Setup / Installation
 1. Install JMeter
     `$ brew install jmeter`
 2. Run JMeter GUI
-    `$ open /usr/local/bin/jmeter -p PROPERTYFILE`
+    `$ /usr/local/bin/jmeter -p PROPERTYFILE`
 
 Usage
 ===
@@ -20,3 +20,5 @@ Conventions
 ====
 
 All CSV files in the `inputs/` directory should be cleaned of double quotes - JMeter does not escape double quotes.
+
+When using the Precise timer, the Timer sets the rate (expected), but the TG sets the total number of requests to be worked off. Thus, a thread group of 100, using a Timer rate of 2 rpm, will take 50 mins.
