@@ -116,7 +116,6 @@ class User < ActiveRecord::Base
 
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 
-
   validates :name,                  presence: true,
                                     format:       {without: /\t/, message: 'cannot contain tabs'}
 
@@ -634,6 +633,12 @@ class User < ActiveRecord::Base
       last_name,
       get_class_code(classroom_id)
     ).call
+  end
+
+  def google_authorized?
+    return false if auth_credential.nil?
+
+    auth_credential.google_authorized?
   end
 
   private def validate_flags

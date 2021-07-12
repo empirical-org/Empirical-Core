@@ -24,4 +24,18 @@
 #
 class AuthCredential < ActiveRecord::Base
   belongs_to :user
+
+  def google_authorized?
+    provider == 'google' && refresh_token_valid?
+  end
+
+  def refresh_token_valid?
+    return false if expires_at.nil? || refresh_token.nil?
+
+    Time.now < refresh_token_expires_at
+  end
+
+  def refresh_token_expires_at
+    expires_at + 6.months
+  end
 end

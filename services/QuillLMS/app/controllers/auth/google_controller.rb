@@ -1,28 +1,32 @@
 class Auth::GoogleController < ApplicationController
-  before_action :set_profile,                     only: :google
-  before_action :set_user,                        only: :google
+  before_action :set_profile, only: :google
+  before_action :set_user, only: :google
   before_action :save_teacher_from_google_signup, only: :google
   before_action :save_student_from_google_signup, only: :google
-  before_action :follow_google_redirect,          only: :google
+  before_action :follow_google_redirect, only: :google
+  before_action :verify_credentials, only: :google
 
   def google
-    if @user.teacher?
-      GoogleStudentImporterWorker.perform_async(@user.id, 'Auth::GoogleController')
-    end
-
-    if @user.student?
-      GoogleStudentClassroomWorker.perform_async(@user.id)
-    end
+    run_background_jobs
 
     sign_in(@user)
 
     if session[ApplicationController::POST_AUTH_REDIRECT].present?
       url = session[ApplicationController::POST_AUTH_REDIRECT]
       session.delete(ApplicationController::POST_AUTH_REDIRECT)
-      return redirect_to url
+      redirect_to url
+    else
+      redirect_to profile_path
     end
+  end
 
-    redirect_to profile_path
+  private def verify_credentials
+    redirect_to GoogleIntegration::AUTHORIZATION_AND_AUTHENTICATION_PATH unless @user.google_authorized?
+  end
+
+  private def run_background_jobs
+    GoogleStudentImporterWorker.perform_async(@user.id, 'Auth::GoogleController') if @user.teacher?
+    GoogleStudentClassroomWorker.perform_async(@user.id) if @user.student?
   end
 
   private def follow_google_redirect
@@ -53,12 +57,23 @@ class Auth::GoogleController < ApplicationController
       end
     end
     @user = GoogleIntegration::User.new(@profile).update_or_initialize
+
     if @user.new_record? && session[:role].blank?
-      flash[:error] = "<p align='left'>We could not find your account. Is this your first time logging in? <a href='/account/new'>Sign up</a> here if so."\
-      "<br/>If you believe this is an error, please contact <strong>support@quill.org</strong> with the following info to unblock your account: <i>failed login of #{@profile.email} and googleID #{@profile.google_id} at #{Time.zone.now}</i>."
+      flash[:error] = user_not_found_error_message
       flash.keep(:error)
       redirect_to(new_session_path, status: :see_other)
     end
+  end
+
+  private def user_not_found_error_message
+    <<-HTML
+      <p align='left'>
+        We could not find your account. Is this your first time logging in? <a href='/account/new'>Sign up</a> here if so.
+        <br/>
+        If you believe this is an error, please contact <strong>support@quill.org</strong> with the following info to unblock your account:
+        <i>failed login of #{@profile.email} and googleID #{@profile.google_id} at #{Time.zone.now}</i>.
+      </p>
+    HTML
   end
 
   private def save_student_from_google_signup

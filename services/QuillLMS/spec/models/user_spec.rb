@@ -1330,4 +1330,16 @@ describe User, type: :model do
       expect { to_be_deleted_user.clear_data }.to change { User.deleted_users.count }.from(0).to(1)
     end
   end
+
+  describe '#google_authorized?' do
+    context 'user without auth_credentials is unauthorized' do
+      it { expect(user.google_authorized?).to be false }
+    end
+
+    context 'user with auth credentials has valid authorization' do
+      let(:google_user) { create(:auth_credential, provider: 'google').user }
+
+      it { expect(google_user.google_authorized?).to be true }
+    end
+  end
 end
