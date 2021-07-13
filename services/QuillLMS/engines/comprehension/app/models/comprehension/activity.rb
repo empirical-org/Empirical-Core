@@ -2,6 +2,7 @@ module Comprehension
 
   class Activity < ActiveRecord::Base
     include Comprehension::ChangeLog
+    include Comprehension::FetchChangeLogs
 
     MIN_TARGET_LEVEL = 1
     MAX_TARGET_LEVEL = 12
@@ -73,21 +74,7 @@ module Comprehension
     end
 
     def change_logs
-      change_logs = []
-      change_logs.push(Comprehension.change_log_class.where(changed_record_type: 'Comprehension::Activity', changed_record_id: id))
-      prompts.each do |p|
-        change_logs.push(Comprehension.change_log_class.where(changed_record_type: 'Comprehension::Prompt', changed_record_id: p.id))
-      end
-      change_logs.push(Comprehension.change_log_class.where(changed_record_type: 'Comprehension::Rule'))
-      change_logs.flatten!
-      change_logs.map do |cl|
-        cl.attributes.merge(
-          {
-          "user": User.find(cl["user_id"]).name,
-          "record_type_display_name": CHANGE_LOG_DISPLAY_NAMES[cl["changed_record_type"].to_sym],
-          "updated_local_time": cl["updated_at"].localtime.to_s
-          })
-      end
+      change_logs_for_activity(self)
     end
 
     private def expire_turking_rounds

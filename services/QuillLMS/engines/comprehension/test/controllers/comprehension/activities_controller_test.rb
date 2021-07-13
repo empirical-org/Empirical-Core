@@ -119,19 +119,6 @@ module Comprehension
         assert_equal ("Hello " * 20), Activity.first.passages.first.text
       end
 
-      # should "create a change log record after creating a record with passage attributes" do
-      #   post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, passages_attributes: [{text: ("Hello " * 20) }] }
-
-      #   activity = Activity.last
-      #   change_log = Comprehension.change_log_class.last
-      #   assert_equal change_log.action, "Comprehension Passage Text - updated"
-      #   assert_equal change_log.user_id, 1
-      #   assert_equal change_log.changed_record_type, "Comprehension::Activity"
-      #   assert_equal change_log.changed_record_id, activity.id
-      #   assert_equal change_log.new_value, ("Hello " * 20)
-      #   assert_equal change_log.previous_value, nil
-      # end
-
       should "create a valid record with prompt attributes" do
         post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, notes: @activity.notes, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because"}] }
 
@@ -337,6 +324,53 @@ module Comprehension
         assert_raises ActiveRecord::RecordNotFound do
           get :rules, id: 99999
         end
+      end
+    end
+
+    context 'change_logs' do
+      setup do
+        @controller.session[:user_id] = 1
+        @activity = build(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade", notes: "First Activity - Notes")
+        @prompt = build(:comprehension_prompt)
+        @passage = build(:comprehension_passage)
+        Comprehension.parent_activity_classification_class.create(key: 'comprehension')
+      end
+
+      should "return change logs for that activity" do
+        post :create, activity: {
+          parent_activity_id: @activity.parent_activity_id,
+          scored_level: @activity.scored_level,
+          target_level: @activity.target_level,
+          title: @activity.title,
+          notes: @activity.notes,
+          passages_attributes: [{
+            text: @passage.text
+          }],
+          prompts_attributes: [{
+            text: @prompt.text,
+            conjunction: @prompt.conjunction,
+            max_attempts: @prompt.max_attempts,
+            max_attempts_feedback: @prompt.max_attempts_feedback
+          }],
+        }
+
+        activity = Comprehension::Activity.last
+        get :change_logs, id: activity.id
+        parsed_response = JSON.parse(response.body)
+
+        assert_equal 200, response.code.to_i
+        assert parsed_response.select {|cl| cl["changed_record_type"] == 'Comprehension::Passage'}.count == 1
+        assert parsed_response.select {|cl| cl["changed_record_type"] == 'Comprehension::Activity'}.count == 1
+        assert parsed_response.select {|cl| cl["changed_record_type"] == 'Comprehension::Prompt'}.count == 1
+
+      end
+
+      should "return empty array if no change logs exist" do
+        get :change_logs, id: "none"
+        parsed_response = JSON.parse(response.body)
+
+        assert_equal 200, response.code.to_i
+        assert_equal [], parsed_response
       end
     end
   end

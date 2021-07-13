@@ -2,7 +2,7 @@ Comprehension::Engine.routes.draw do
   resources :activities, only: [:index, :show, :create, :update, :destroy] do
     member do
       get :rules
-      get :change_log
+      get :change_logs
     end
   end
 

@@ -48,9 +48,9 @@ module Comprehension
       render json: @activity.prompts&.map {|p| p.rules}&.flatten&.uniq
     end
 
-    # GET /activities/1/change_log.json
-    def change_log
-      render json: @activity.change_logs
+    # GET /activities/1/change_logs.json
+    def change_logs
+      render json: @activity&.change_logs || []
     end
 
     private def set_activity

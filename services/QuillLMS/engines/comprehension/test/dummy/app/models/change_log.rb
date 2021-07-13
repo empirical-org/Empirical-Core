@@ -29,4 +29,5 @@ class ChangeLog < ActiveRecord::Base
     create_universal: 'Universal Rule - created'
   }
 
+  belongs_to :changed_record, polymorphic: true
 end

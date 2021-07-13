@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210614190110) do
+ActiveRecord::Schema.define(version: 20210713204109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -168,6 +168,10 @@ ActiveRecord::Schema.define(version: 20210614190110) do
     t.datetime "updated_at",  null: false
     t.index ["activity_id"], name: "index_comprehension_turking_rounds_on_activity_id", using: :btree
     t.index ["uuid"], name: "index_comprehension_turking_rounds_on_uuid", unique: true, using: :btree
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
   end
 
   add_foreign_key "comprehension_automl_models", "comprehension_prompts", column: "prompt_id"
