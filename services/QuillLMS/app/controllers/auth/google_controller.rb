@@ -1,16 +1,24 @@
 class Auth::GoogleController < ApplicationController
-  before_action :set_profile, only: :google
-  before_action :set_user, only: :google
-  before_action :save_teacher_from_google_signup, only: :google
-  before_action :save_student_from_google_signup, only: :google
-  before_action :follow_google_redirect, only: :google
-  before_action :verify_credentials, only: :google
+  before_action :set_profile, only: [:authorized_and_authenticated, :authenticated]
+  before_action :verify_credentials, only: :authenticated
+  before_action :set_user, only: [:authorized_and_authenticated, :authenticated]
+  before_action :save_teacher_from_google_signup, only: [:authorized_and_authenticated, :authenticated]
+  before_action :save_student_from_google_signup, only: [:authorized_and_authenticated, :authenticated]
+  before_action :follow_google_redirect, only: [:authorized_and_authenticated, :authenticated]
 
-  def google
+  def authorized_and_authenticated
     run_background_jobs
-
     sign_in(@user)
+    redirect_to_profile_or_post_auth
+  end
 
+  def authenticated
+    run_background_jobs
+    sign_in(@user)
+    redirect_to_profile_or_post_auth
+  end
+
+  private def redirect_to_profile_or_post_auth
     if session[ApplicationController::POST_AUTH_REDIRECT].present?
       url = session[ApplicationController::POST_AUTH_REDIRECT]
       session.delete(ApplicationController::POST_AUTH_REDIRECT)
@@ -21,7 +29,10 @@ class Auth::GoogleController < ApplicationController
   end
 
   private def verify_credentials
-    redirect_to GoogleIntegration::AUTHORIZATION_AND_AUTHENTICATION_PATH unless @user.google_authorized?
+    user = User.where('google_id = ? OR email = ?', @profile.google_id&.to_s, @profile.email&.downcase).first
+    return if user.nil?
+
+    redirect_to GoogleIntegration::AUTHORIZATION_AND_AUTHENTICATION_PATH unless user.google_authorized?
   end
 
   private def run_background_jobs
