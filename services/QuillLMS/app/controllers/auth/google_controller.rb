@@ -1,18 +1,18 @@
 class Auth::GoogleController < ApplicationController
-  before_action :set_profile, only: [:authorized_and_authenticated, :authenticated]
-  before_action :verify_credentials, only: :authenticated
-  before_action :set_user, only: [:authorized_and_authenticated, :authenticated]
-  before_action :save_teacher_from_google_signup, only: [:authorized_and_authenticated, :authenticated]
-  before_action :save_student_from_google_signup, only: [:authorized_and_authenticated, :authenticated]
-  before_action :follow_google_redirect, only: [:authorized_and_authenticated, :authenticated]
+  before_action :set_profile, only: [:authorization_and_authentication, :authentication]
+  before_action :verify_credentials, only: :authentication
+  before_action :set_user, only: [:authorization_and_authentication, :authentication]
+  before_action :save_teacher_from_google_signup, only: [:authorization_and_authentication, :authentication]
+  before_action :save_student_from_google_signup, only: [:authorization_and_authentication, :authentication]
+  before_action :follow_google_redirect, only: [:authorization_and_authentication, :authentication]
 
-  def authorized_and_authenticated
+  def authorization_and_authentication
     run_background_jobs
     sign_in(@user)
     redirect_to_profile_or_post_auth
   end
 
-  def authenticated
+  def authentication
     run_background_jobs
     sign_in(@user)
     redirect_to_profile_or_post_auth

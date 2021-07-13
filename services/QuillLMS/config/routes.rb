@@ -476,8 +476,8 @@ EmpiricalGrammar::Application.routes.draw do
   get '/sign-up/add-non-k12', to: 'accounts#new'
 
   namespace :auth do
-    get '/google_oauth2/callback' => 'google#authorized_and_authenticated'
-    get '/google_oauth2_authentication_only/callback' => 'google#authenticated'
+    get '/google_oauth2/callback' => 'google#authorization_and_authentication'
+    get '/google_oauth2_authentication_only/callback' => 'google#authentication'
     get '/clever/callback', to: 'clever#clever'
   end
 
