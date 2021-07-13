@@ -38,18 +38,22 @@ module Comprehension
       order == 1
     end
 
-    def log_update
+    private def log_update
       if text_changed?
         if semantic_rule && first_order
-          log_change(nil, :update_feedback_1, self, {url: rule.url}.to_json, "text", text_was, text)
+          send_change_log(:update_feedback_1)
         elsif semantic_rule && second_order
-          log_change(nil, :update_feedback_2, self, {url: rule.url}.to_json, "text", text_was, text)
+          send_change_log(:update_feedback_2)
         elsif rule.plagiarism?
-          log_change(nil, :update_plagiarism_feedback, self, {url: rule.url}.to_json, "text", text_was, text)
+          send_change_log(:update_plagiarism_feedback)
         elsif rule.regex?
-          log_change(nil, :update_regex_feedback, self, {url: rule.url}.to_json, "text", text_was, text)
+          send_change_log(:update_regex_feedback)
         end
       end
+    end
+
+    private def send_change_log(action)
+      log_change(nil, action, self, {url: rule.url}.to_json, "text", text_was, text)
     end
   end
 end

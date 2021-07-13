@@ -37,12 +37,6 @@ module Comprehension
     validates :notes, presence: true
     validates :scored_level, length: { maximum: MAX_SCORED_LEVEL_LENGTH, allow_nil: true}
 
-    CHANGE_LOG_DISPLAY_NAMES = {
-      "Comprehension::Prompt": "Prompt",
-      "Comprehension::Activity": "Activity",
-      "Comprehension::Rule": "Universal"
-    }
-
     def save_with_session_user(user_id)
       @lms_user_id = user_id
       save
@@ -77,20 +71,20 @@ module Comprehension
       change_logs_for_activity(self)
     end
 
-    private def expire_turking_rounds
-      turking_rounds.each(&:expire!)
-    end
-
     def url
       "comprehension/#/activities/#{id}/settings"
     end
 
-    def log_creation
+    private def expire_turking_rounds
+      turking_rounds.each(&:expire!)
+    end
+
+    private def log_creation
       return unless @lms_user_id.present?
       log_change(@lms_user_id, :create_activity, self, {url: url}.to_json, nil, nil, nil)
     end
 
-    def log_deletion
+    private def log_deletion
       return unless @lms_user_id.present?
       log_change(@lms_user_id, :delete_activity, self, {url: url}.to_json, nil, nil, nil)
     end

@@ -39,18 +39,22 @@ module Comprehension
       feedback.order == 1
     end
 
-    def log_update
+    private def log_update
       if text_changed?
         if semantic_rule && first_order
-          log_change(nil, :update_highlight_1, self, {url: feedback.rule.url}.to_json, "text", text_was, text)
+          send_change_log(:update_highlight_1)
         elsif semantic_rule && second_order
-          log_change(nil, :update_highlight_2, self, {url: feedback.rule.url}.to_json, "text", text_was, text)
+          send_change_log(:update_highlight_2)
         elsif feedback.rule.plagiarism?
-          log_change(nil, :update_plagiarism_highlight, self, {url: feedback.rule.url}.to_json, "text", text_was, text)
+          send_change_log(:update_plagiarism_highlight)
         elsif feedback.rule.regex?
-          log_change(nil, :update_regex_highlight, self, {url: feedback.rule.url}.to_json, "text", text_was, text)
+          send_change_log(:update_regex_highlight)
         end
       end
+    end
+
+    private def send_change_log(action)
+      log_change(nil, action, self, {url: feedback.rule.url}.to_json, "text", text_was, text)
     end
   end
 end
