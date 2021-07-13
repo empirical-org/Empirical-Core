@@ -172,6 +172,16 @@ func processResults(results map[int]InternalAPIResponse, length int) (int, bool)
 	return automl_index, all_correct
 }
 
+func safeSendToChannel(c chan InternalAPIResponse, response InternalAPIResponse) {
+	select {
+	case <-c:
+		return
+	default:
+	}
+
+	c <- response
+}
+
 func getAPIResponse(url string, priority int, json_params [] byte, c chan InternalAPIResponse) {
 	// response_json, err := http.Post(url, "application/json", bytes.NewReader(json_params))
 
@@ -180,7 +190,7 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 	response_json, err := client.Post(url, "application/json",  bytes.NewReader(json_params))
 
 	if err != nil {
-		c <- InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an error hitting the API", Feedback_type: "API Error", Optimal: false}}
+		safeSendToChannel(c, InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an error hitting the API", Feedback_type: "API Error", Optimal: false}})
 		return
 	}
 
@@ -188,11 +198,11 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 
 	if err := json.NewDecoder(response_json.Body).Decode(&result); err != nil {
 		// TODO might want to think about what this should be.
-		c <- InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an JSON error" + err.Error(), Feedback_type: "API Error", Labels: url, Optimal: false}}
+		safeSendToChannel(c, InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an JSON error" + err.Error(), Feedback_type: "API Error", Labels: url, Optimal: false}})
 		return
 	}
 
-	c <- InternalAPIResponse{Priority: priority, Error: false, APIResponse: result}
+	safeSendToChannel(c, InternalAPIResponse{Priority: priority, Error: false, APIResponse: result})
 }
 
 func identifyUsedFeedbackIndex(feedbacks map[int]InternalAPIResponse) int {
