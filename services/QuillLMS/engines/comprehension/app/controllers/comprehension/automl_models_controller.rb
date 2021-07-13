@@ -22,7 +22,7 @@ module Comprehension
       @automl_model = Comprehension::AutomlModel.new(automl_model_params)
       @automl_model.populate_from_automl_model_id
 
-      if @automl_model.save
+      if @automl_model.save_with_session_user(lms_user_id)
         render json: @automl_model, status: :created
       else
         render json: @automl_model.errors, status: :unprocessable_entity
@@ -41,7 +41,7 @@ module Comprehension
 
     # PATCH/PUT /automl_models/1.json
     def activate
-      if @automl_model.activate
+      if @automl_model.activate_with_session_user(lms_user_id)
         head :no_content
       else
         render json: @automl_model, status: :unprocessable_entity

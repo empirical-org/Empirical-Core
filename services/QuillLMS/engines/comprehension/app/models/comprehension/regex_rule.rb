@@ -21,6 +21,8 @@ module Comprehension
     validates :case_sensitive, inclusion: CASE_SENSITIVE_ALLOWED_VALUES
     validates :sequence_type, inclusion: SEQUENCE_TYPES
 
+    after_save :log_update
+
     def serializable_hash(options = nil)
       options ||= {}
 
@@ -57,8 +59,10 @@ module Comprehension
       end
     end
 
-    def log_update(user_id, prev_value)
-      rule.log_update(user_id, [{regex_text: prev_value}], [{regex_text: regex_text}])
+    def log_update
+      if regex_text_changed?
+        log_change(nil, :update_regex_text, self, {url: rule.url}.to_json, "regex_text", regex_text_was, regex_text)
+      end
     end
   end
 end

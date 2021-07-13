@@ -219,7 +219,7 @@ module Comprehension
 
         change_log = Comprehension.change_log_class.last
         assert_equal change_log.action, "Comprehension Passage Text - updated"
-        assert_equal change_log.user_id, 1
+        assert_equal change_log.user_id, nil
         assert_equal change_log.changed_record_type, "Comprehension::Passage"
         assert_equal change_log.changed_record_id, @passage.id
         assert_equal change_log.previous_value, old_text
@@ -232,7 +232,7 @@ module Comprehension
 
         change_log = Comprehension.change_log_class.last
         assert_equal change_log.action, "Comprehension Passage Text - updated"
-        assert_equal change_log.user_id, 1
+        assert_equal change_log.user_id, nil
         assert_equal change_log.changed_record_type, "Comprehension::Passage"
         assert_equal change_log.previous_value, nil
         assert_equal change_log.new_value, ('Goodbye' * 20)

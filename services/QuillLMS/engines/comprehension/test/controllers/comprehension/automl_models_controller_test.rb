@@ -116,9 +116,9 @@ module Comprehension
         change_log = Comprehension.change_log_class.last
         assert_equal change_log.action, "AutoML Model - created"
         assert_equal change_log.user_id, 1
-        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
-        assert_equal change_log.changed_record_id, automl.prompt_id
-        assert_equal change_log.new_value, automl.automl_model_id.to_s
+        assert_equal change_log.changed_record_type, "Comprehension::AutomlModel"
+        assert_equal change_log.changed_record_id, automl.id
+        assert_equal change_log.new_value, nil
       end
     end
 
@@ -211,16 +211,20 @@ module Comprehension
       end
 
       should "make a change log record after activating the AutoML record" do
-        AutomlModel.stub_any_instance(:activate, true) do
-          patch :activate, id: @automl_model.id
+          prompt = create(:comprehension_prompt)
+          automl = create(:comprehension_automl_model, prompt: prompt)
+          rule = create(:comprehension_rule, rule_type: Comprehension::Rule::TYPE_AUTOML)
+          label = create(:comprehension_label, rule: rule, name: automl.labels[0])
+          create(:comprehension_prompts_rule, prompt: prompt, rule: rule)
+          patch :activate, id: automl.id
 
           change_log = Comprehension.change_log_class.last
           assert_equal change_log.action, "AutoML Model - activated"
           assert_equal change_log.user_id, 1
-          assert_equal change_log.changed_record_type, "Comprehension::Prompt"
-          assert_equal change_log.changed_record_id, @automl_model.prompt_id
-          assert_equal change_log.new_value, @automl_model.automl_model_id.to_s
-        end
+          assert_equal change_log.changed_record_type, "Comprehension::AutomlModel"
+          assert_equal change_log.changed_record_id, automl.id
+          assert_equal change_log.new_value, nil
+
       end
     end
 

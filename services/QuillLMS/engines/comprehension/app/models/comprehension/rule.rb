@@ -26,8 +26,20 @@ module Comprehension
       'rules-based-3': 'Typo Regex',
       'plagiarism': 'Plagiarism'
     }
+    UPDATE_ACTIONS = {
+      'rules-based-1': :update_regex,
+      'rules-based-2': :update_regex,
+      'rules-based-3': :update_regex,
+      'plagiarism': :update_plagiarism,
+      'spelling': :update_universal,
+      'grammar': :update_universal,
+      'autoML': :update_semantic
+    }
 
     after_create :assign_to_all_prompts, if: :universal
+    after_create :log_creation
+    after_update :log_update
+    after_destroy :log_deletion
     before_validation :assign_uid_if_missing
     validate :one_plagiarism_per_prompt, on: :create, if: :plagiarism?
 
@@ -95,11 +107,11 @@ module Comprehension
       end
     end
 
-    private def plagiarism?
+    def plagiarism?
       rule_type == TYPE_PLAGIARISM
     end
 
-    private def regex?
+    def regex?
       rule_type == TYPE_REGEX_ONE || rule_type == TYPE_REGEX_TWO || rule_type == TYPE_REGEX_THREE
     end
 
@@ -130,43 +142,26 @@ module Comprehension
       end
     end
 
-    def log_creation(user_id)
+    private def log_creation
       if regex?
-        send_change_log(user_id, :create_regex, change_text_regex)
+        log_change(nil, :create_regex, self, {url: url}.to_json, nil, nil, nil)
       elsif plagiarism?
-        send_change_log(user_id, :create_plagiarism, change_text_plagiarism)
+        log_change(nil, :create_plagiarism, self, {url: url}.to_json, nil, nil, nil)
       elsif universal?
-        send_change_log(user_id, :create_universal, change_text_universal)
+        log_change(nil, :create_universal, self, {url: url}.to_json, nil, nil, nil)
       end
     end
 
-    def log_deletion(user_id)
+    private def log_deletion
       if regex?
-        send_change_log(user_id, :delete_regex, nil, change_text_regex)
+        log_change(nil, :delete_regex, self, {url: url}.to_json, nil, nil, nil)
       end
     end
 
-    def log_update(user_id, old_values_arr, new_values_arr=nil)
-      if automl? && label.present?
-        if !old_values_arr.select { |n| n.key?("name")}.empty?
-          name_obj = old_values_arr.select { |n| n.key?("name")}.first
-          prev_values = change_text_automl(name_obj["name"])
-          send_change_log(user_id, :update_semantic, "#{label.name} | #{name}", prev_values)
-          old_values_arr.delete(name_obj)
-        end
-        if !old_values_arr.empty?
-          prev_values = "#{label.name} | #{name}\n#{old_values_arr}"
-          send_change_log(user_id, :update_semantic, "#{label.name} | #{name}\n#{new_values(old_values_arr)}", prev_values)
-        end
-      elsif regex?
-        prev_values = change_text_regex(old_values_arr)
-        send_change_log(user_id, :update_regex, change_text_regex(new_values(new_values_arr || old_values_arr)), prev_values)
-      elsif plagiarism?
-        prev_values = change_text_plagiarism(old_values_arr)
-        send_change_log(user_id, :update_plagiarism, change_text_plagiarism(new_values(new_values_arr || old_values_arr)), prev_values)
-      elsif universal?
-        prev_values = change_text_universal(old_values_arr)
-        send_change_log(user_id, :update_universal, change_text_universal(new_values(new_values_arr || old_values_arr)), prev_values)
+    private def log_update
+      return if rule_type == TYPE_OPINION
+      changes.except(:"updated_at").each do |key, value|
+        log_change(nil, UPDATE_ACTIONS[rule_type.to_sym], self, {url: url}.to_json, key, value[0], value[1])
       end
     end
 
@@ -206,37 +201,6 @@ module Comprehension
 
     private def automl_url
       "comprehension/#/activities/#{activity_id}/semantic-labels/#{prompt_id}/#{id}"
-    end
-
-    private def send_change_log(user_id, action_type, new_value, prev_value=nil)
-      if universal?
-        log_change(user_id, action_type, self, {url: url}.to_json, nil, prev_value, new_value)
-      else
-        prompts&.each do |prompt|
-          log_change(user_id, action_type, prompt, {url: url, conjunction: prompt.conjunction}.to_json, nil, prev_value, new_value)
-        end
-      end
-    end
-
-    private def new_values(prev_values)
-      hash = prev_values.clone
-      hash.map {|e| e.update(e) { |key, value| respond_to?(key) ? send(key) : value}}
-    end
-
-    private def change_text_regex(values=nil)
-      values.present? ? "#{name} - #{display_name} - #{values}" : "#{name} - #{display_name}"
-    end
-
-    private def change_text_plagiarism(values=nil)
-      values.present? ? "#{name} - #{plagiarism_text&.text} - #{feedbacks&.first&.text}\n#{values}" : "#{name} - #{plagiarism_text&.text} - #{feedbacks&.first&.text}"
-    end
-
-    private def change_text_universal(values=nil)
-      values.present? ? "#{name} - #{rule_type} - #{values}" : "#{name} - #{rule_type}"
-    end
-
-    private def change_text_automl(values=nil)
-      values.present? ? "#{label.name} | #{values}" : nil
     end
   end
 end

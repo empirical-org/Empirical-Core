@@ -21,7 +21,7 @@ module Comprehension
 
     private def log_update
       if text_changed?
-        log_change(1, :update_passage, self, {url: activity.url}.to_json, "text", text_was, text)
+        log_change(nil, :update_passage, self, {url: activity.url}.to_json, "text", text_was, text)
       end
     end
   end

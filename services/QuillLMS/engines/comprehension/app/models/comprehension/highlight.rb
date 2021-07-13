@@ -17,6 +17,8 @@ module Comprehension
     validates :highlight_type, presence: true, inclusion: {in: TYPES}
     validates :starting_index, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
+    after_save :log_update
+
     def serializable_hash(options = nil)
       options ||= {}
 
@@ -37,17 +39,17 @@ module Comprehension
       feedback.order == 1
     end
 
-    def log_update(user_id, prev_value)
-      if semantic_rule && first_order
-        feedback&.rule&.prompts&.each do |prompt|
-          log_change(user_id, :update_highlight_1, prompt, {url: feedback.rule.url, conjunction: prompt.conjunction}.to_json, nil, prev_value, "#{feedback.rule.label.name} | #{feedback.rule.name}\n#{text}")
+    def log_update
+      if text_changed?
+        if semantic_rule && first_order
+          log_change(nil, :update_highlight_1, self, {url: feedback.rule.url}.to_json, "text", text_was, text)
+        elsif semantic_rule && second_order
+          log_change(nil, :update_highlight_2, self, {url: feedback.rule.url}.to_json, "text", text_was, text)
+        elsif feedback.rule.plagiarism?
+          log_change(nil, :update_plagiarism_highlight, self, {url: feedback.rule.url}.to_json, "text", text_was, text)
+        elsif feedback.rule.regex?
+          log_change(nil, :update_regex_highlight, self, {url: feedback.rule.url}.to_json, "text", text_was, text)
         end
-      elsif semantic_rule && second_order
-        feedback&.rule&.prompts&.each do |prompt|
-          log_change(user_id, :update_highlight_2, prompt, {url: feedback.rule.url, conjunction: prompt.conjunction}.to_json, nil, prev_value, "#{feedback.rule.label.name} | #{feedback.rule.name}\n#{text}")
-        end
-      else
-        feedback&.rule&.log_update(user_id, [{highlight: prev_value}], [{highlight: text}])
       end
     end
   end

@@ -15,6 +15,9 @@ module Comprehension
 
     validate :name_unique_for_prompt, on: :create
 
+    after_create :log_creation
+    after_destroy :log_deletion
+
     def serializable_hash(options = nil)
       options ||= {}
 
@@ -42,16 +45,12 @@ module Comprehension
       "comprehension/#/activities/#{activity_id}/semantic-labels/#{prompt_id}/#{rule&.id}"
     end
 
-    def log_creation(user_id)
-      rule&.prompts&.each do |prompt|
-        log_change(user_id, :create_semantic, prompt, {url: url, conjunction: prompt.conjunction}.to_json, nil, nil, "[#{name} | #{rule.name}] - created")
-      end
+    private def log_creation
+      log_change(nil, :create_semantic, self, {url: url}.to_json, nil, nil, nil)
     end
 
-    def log_deletion(user_id)
-      rule&.prompts&.each do |prompt|
-        log_change(user_id, :delete_semantic, prompt, {url: url, conjunction: prompt.conjunction}.to_json, nil, "[#{name} | #{rule.name}] - active", "[#{name} | #{rule.name}] - deleted")
-      end
+    private def log_deletion
+      log_change(nil, :delete_semantic, self, {url: url}.to_json, nil, nil, nil)
     end
   end
 end
