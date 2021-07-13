@@ -114,4 +114,9 @@ EmpiricalGrammar::Application.configure do
     'www.quill.org.' => 'www.quill.org',
     'quill.org' => 'www.quill.org'
   }
+
+  config.public_file_server.headers = {
+    'Access-Control-Allow-Origin' => '*'
+  }
+
 end
