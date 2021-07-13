@@ -134,6 +134,7 @@ func Endpoint(context *gin.Context) {
 			break
 		}
 	}
+	close(channel)
 
 	// TODO make this a purely async task instead of coroutine that waits to finish
 	wg.Add(1)
