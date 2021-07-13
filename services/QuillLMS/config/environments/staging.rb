@@ -115,8 +115,4 @@ EmpiricalGrammar::Application.configure do
   config.middleware.use Rack::HostRedirect, {
     'staging.quill.org.' => 'staging.quill.org'
   }
-
-  config.public_file_server.headers = {
-    'Access-Control-Allow-Origin' => '*'
-  }
 end
