@@ -1,6 +1,7 @@
 module Comprehension
   module FetchChangeLogs
     include Comprehension::ChangeLog
+    UNIVERSAL_RULE_ACTIONS = ['Universal Rule - updated', 'Universal Rule - created']
 
     def change_logs_for_activity(activity)
       @activity = activity
@@ -16,7 +17,7 @@ module Comprehension
     end
 
     def universal_change_logs
-      @change_log.where(action: ['Universal Rule - updated', 'Universal Rule - created']).map(&:attributes) || []
+      @change_log.where(action: UNIVERSAL_RULE_ACTIONS).map(&:attributes) || []
     end
 
     def activity_change_logs
