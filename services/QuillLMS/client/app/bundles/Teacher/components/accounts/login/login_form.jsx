@@ -85,7 +85,6 @@ class LoginFormApp extends React.Component {
     },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200 && body.redirect) {
-          // console.log(body);
           window.location = body.redirect;
         } else {
           let state;
