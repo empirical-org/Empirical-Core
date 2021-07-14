@@ -74,6 +74,12 @@ module EmpiricalGrammar
         origins 'quill.org', %r{https://(.)*.quill.org}, /localhost:.*/, /127.0.0.1:.*/
         resource '/api/*', headers: :any, methods: [:get, :post, :patch, :put, :delete, :options], credentials: true
       end
+
+      allow do
+        origins '*'
+        resource '/webpack/*', headers: :any, methods: :get
+      end
+
     end
 
     config.public_file_server.enabled = true
@@ -81,5 +87,9 @@ module EmpiricalGrammar
     config.public_file_server.headers = {
       'Access-Control-Allow-Origin' => '*'
     }
+
+    # config.assets.header_rules = {
+    #   :global => {'Access-Control-Allow-Origin' => '*'},
+    # }
   end
 end
