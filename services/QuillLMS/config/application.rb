@@ -87,5 +87,9 @@ module EmpiricalGrammar
     config.public_file_server.headers = {
       'Access-Control-Allow-Origin' => '*'
     }
+
+    config.assets.header_rules = {
+      :global => {'Access-Control-Allow-Origin' => '*'},
+    }
   end
 end
