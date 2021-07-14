@@ -4,7 +4,7 @@
 #
 #  id                  :integer          not null, primary key
 #  enabled             :boolean          default(FALSE), not null
-#  enabled_for_admins  :boolean          default(FALSE), not null
+#  enabled_for_staff   :boolean          default(FALSE), not null
 #  name                :string           not null
 #  percent_active      :integer          default(0), not null
 #  user_ids_allow_list :string           default([]), not null, is an Array

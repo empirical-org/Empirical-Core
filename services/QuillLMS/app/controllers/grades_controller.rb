@@ -58,7 +58,9 @@ class GradesController < ApplicationController
         WHERE activity_sessions.classroom_unit_id = #{ActiveRecord::Base.sanitize(tooltip_params[:classroom_unit_id].to_i)}
           AND activity_sessions.user_id = #{ActiveRecord::Base.sanitize(tooltip_params[:user_id].to_i)}
           AND activity_sessions.activity_id = #{ActiveRecord::Base.sanitize(tooltip_params[:activity_id].to_i)}
-          AND activity_sessions.percentage IS NOT NULL
+          AND (activity_sessions.percentage IS NOT NULL
+            OR activity_sessions.state = 'finished'
+          )
           AND activity_sessions.visible
         ORDER BY activity_sessions.completed_at
       SQL

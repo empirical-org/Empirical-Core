@@ -117,7 +117,7 @@ export const expectedPayload = {
         "answer":"Type an answer because some response may be provided.",
         "attemptNumber":1,
         "correct":1,
-        "directions":"Complete this sentence",
+        "directions":"Use information from the text to finish the sentence:",
         "prompt":"Type an answer because",
         "questionNumber":1,
         "questionScore":1
@@ -130,7 +130,7 @@ export const expectedPayload = {
         "answer":"Type an answer, but some response must be provided.",
         "attemptNumber":1,
         "correct":0,
-        "directions":"Complete this sentence",
+        "directions":"Use information from the text to finish the sentence:",
         "prompt":"Type an answer, but",
         "questionNumber":2,
         "questionScore":0.75
@@ -156,7 +156,7 @@ export const expectedPayload = {
         "answer":"Type an answer, so some response should be provided.",
         "attemptNumber":1,
         "correct":0,
-        "directions":"Complete this sentence",
+        "directions":"Use information from the text to finish the sentence:",
         "prompt":"Type an answer, so",
         "questionNumber":3,
         "questionScore":0.75

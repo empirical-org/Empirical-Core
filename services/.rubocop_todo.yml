@@ -444,6 +444,7 @@ Naming/PredicateName:
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: always, conditionals
 Style/AndOr:
+  EnforcedStyle: conditionals
   Exclude:
     - 'QuillLMS/app/controllers/schools_controller.rb'
     - 'QuillLMS/app/controllers/sessions_controller.rb'

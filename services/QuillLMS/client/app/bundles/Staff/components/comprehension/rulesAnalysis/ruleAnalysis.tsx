@@ -230,16 +230,8 @@ const RuleAnalysis = ({ match }) => {
     if (!activityData || !responsesData) { return [] }
     return responsesData.filter(filterResponsesByScored).filter(filterResponsesBySearch).map(r => {
       const formattedResponse = {...r,  ...{highlight: extractHighlight(r.highlight)}}
-      const highlightedEntry = r.entry.replace(formattedResponse.highlight, `<strong>${formattedResponse.highlight}</strong>`)
       const strongButton = <button className={r.strength === true ? 'strength-button strong' : 'strength-button'} onClick={() => toggleStrength(r)} tabIndex={-1} type="button">Strong</button> // curriculum developers want to be able to skip these when tab navigating
       const weakButton = <button className={r.strength === false ? 'strength-button weak' : 'strength-button'} onClick={() => toggleWeakness(r)} tabIndex={-1} type="button">Weak</button> // curriculum developers want to be able to skip these when tab navigating
-      const feedbackText = ruleData && ruleData.rule ? ruleData.rule.feedbacks[0].text : '';
-      const noteText = ruleData && ruleData.rule ? ruleData.rule.note : '';
-      const tooltip = (<Tooltip
-        key={r.entry}
-        tooltipText={`<div><b>Feedback:</b><p>${feedbackText}</p><br /><b>Notes:</b><p>${noteText}</p></div>`}
-        tooltipTriggerText={<span dangerouslySetInnerHTML={{ __html: highlightedEntry }} key={r.entry} />}
-      />)
 
       if (selectedIds.includes(r.response_id)) {
         formattedResponse.selected = (<button className="quill-checkbox selected" onClick={() => unselectRow(r.response_id)} type="button">
@@ -249,7 +241,7 @@ const RuleAnalysis = ({ match }) => {
         formattedResponse.selected = <button aria-label="Unchecked checkbox" className="quill-checkbox unselected" onClick={() => selectRow(r.response_id)} type="button" />
       }
 
-      formattedResponse.response = tooltip
+      formattedResponse.response = r.entry
       formattedResponse.datetime = moment(r.datetime).format('MM/DD/YYYY')
       formattedResponse.strengthButtons = (<div className="strength-buttons">{strongButton}{weakButton}</div>)
       formattedResponse.viewSessionLink = <Link className="data-link" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/activity-sessions/${r.session_uid}/overview`}>View Session</Link>

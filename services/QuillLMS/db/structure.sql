@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.15
--- Dumped by pg_dump version 10.15
+-- Dumped from database version 10.16
+-- Dumped by pg_dump version 10.16
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -74,18 +74,6 @@ CREATE FUNCTION public.blog_posts_search_trigger() RETURNS trigger
         return new;
       end
       $$;
-
-
---
--- Name: my_jsonb_to_hstore(jsonb); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.my_jsonb_to_hstore(jsonb) RETURNS public.hstore
-    LANGUAGE sql IMMUTABLE STRICT
-    AS $_$
-            SELECT hstore(array_agg(key), array_agg(value))
-            FROM   jsonb_each_text($1)
-          $_$;
 
 
 --
@@ -1184,6 +1172,7 @@ CREATE TABLE public.classrooms_teachers (
     role character varying NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
+    "order" integer,
     CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
 );
 
@@ -1569,9 +1558,10 @@ CREATE TABLE public.comprehension_rules (
     rule_type character varying NOT NULL,
     optimal boolean NOT NULL,
     suborder integer,
-    concept_uid character varying,
+    concept_uid character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    sequence_type character varying,
     state character varying NOT NULL
 );
 
@@ -7317,6 +7307,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210525200201'),
 ('20210528142650'),
 ('20210614190031'),
-('20210614205654');
+('20210614205654'),
+('20210709161400');
 
 

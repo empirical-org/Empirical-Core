@@ -112,7 +112,7 @@ class Cms::SchoolsController < Cms::CmsController
       redirect_to cms_school_path(params[:id])
     rescue
       flash[:error] = "It didn't work! 😭😭😭"
-      redirect_to :back
+      redirect_back(fallback_location: fallback_location)
     end
   end
 
@@ -127,13 +127,13 @@ class Cms::SchoolsController < Cms::CmsController
       redirect_to cms_school_path(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:error] = "It didn't work! Make sure the email you typed is correct."
-      redirect_to :back
+      redirect_back(fallback_location: fallback_location)
     rescue ArgumentError
       flash[:error] = "It didn't work! Make sure the account you entered belogs to a teacher, not staff or student."
-      redirect_to :back
+      redirect_back(fallback_location: fallback_location)
     rescue
       flash[:error] = "It didn't work. See a developer about this issue."
-      redirect_to :back
+      redirect_back(fallback_location: fallback_location)
     end
   end
 
@@ -145,7 +145,7 @@ class Cms::SchoolsController < Cms::CmsController
       else
         flash[:error] = "It didn't work. See a developer about this issue."
       end
-      redirect_to :back
+      redirect_back(fallback_location: fallback_location)
     rescue
       flash[:error] = "It didn't work. Make sure the teacher still exists and belongs to this school."
     end
@@ -266,7 +266,7 @@ class Cms::SchoolsController < Cms::CmsController
     when 'school_name'
       "schools.name ILIKE #{sanitized_fuzzy_param_value}"
     when 'school_city'
-      "(schools.city ILIKE #{sanitized_fuzzy_param_value} OR schools.mail_city ILIKE #{sanitized_fuzzy_param_value}"
+      "schools.city ILIKE #{sanitized_fuzzy_param_value} OR schools.mail_city ILIKE #{sanitized_fuzzy_param_value}"
     when 'school_state'
       "(UPPER(schools.state) = UPPER(#{sanitized_param_value}) OR UPPER(schools.mail_state) = UPPER(#{sanitized_param_value}))"
     when 'school_zip'
@@ -342,5 +342,9 @@ class Cms::SchoolsController < Cms::CmsController
 
   private def teacher_search_query_for_school(school_id)
     Cms::TeacherSearchQuery.new(school_id).run
+  end
+  
+  def fallback_location
+    cms_school_path(params[:id].to_i)
   end
 end

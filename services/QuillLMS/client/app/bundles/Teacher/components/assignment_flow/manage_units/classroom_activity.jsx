@@ -5,6 +5,7 @@ import activityFromClassificationId from '../../modules/activity_from_classifica
 import { Tooltip } from '../../../../Shared/index'
 
 import PreviewOrLaunchModal from '../../shared/preview_or_launch_modal';
+import { nonRelevantActivityClassificationIds, } from '../../../../../modules/activity_classifications'
 
 const styles = {
   row: {
@@ -82,11 +83,10 @@ export default class ClassroomActivity extends React.Component {
 
   calculateAverageScore = () => {
     const { data, } = this.props
-    const DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID = 4
     const averageScore = data.cumulativeScore / data.completedCount;
     if (isNaN(averageScore)) {
       return '—';
-    } else if (data.activityClassificationId === DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID) {
+    } else if (nonRelevantActivityClassificationIds.includes(data.activityClassificationId)) {
       return (<Tooltip
         tooltipText={`This type of activity is not graded.`}
         tooltipTriggerText="N/A"

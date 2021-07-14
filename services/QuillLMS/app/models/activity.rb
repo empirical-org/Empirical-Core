@@ -211,6 +211,14 @@ class Activity < ActiveRecord::Base
     classification&.key == ActivityClassification::DIAGNOSTIC_KEY
   end
 
+  def is_proofreader?
+    classification.key == ActivityClassification::PROOFREADER_KEY
+  end
+
+  def is_comprehension?
+    classification&.key == ActivityClassification::COMPREHENSION_KEY
+  end
+
   private def data_must_be_hash
     errors.add(:data, "must be a hash") unless data.is_a?(Hash) || data.blank?
   end
@@ -282,13 +290,5 @@ class Activity < ActiveRecord::Base
       return false
     end
     return true
-  end
-
-  private def is_proofreader?
-    classification.key == ActivityClassification::PROOFREADER_KEY
-  end
-
-  private def is_comprehension?
-    classification&.key == ActivityClassification::COMPREHENSION_KEY
   end
 end
