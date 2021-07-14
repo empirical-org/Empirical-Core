@@ -224,9 +224,9 @@ class Cms::UsersController < Cms::CmsController
     # School name: schools.name
     # User flag: user.flags
     # Premium status: subscriptions.account_type
-    sanitized_fuzzy_param_value = ActiveRecord::Base.sanitize('%' + param_value + '%')
-    sanitized_param_value = ActiveRecord::Base.sanitize(param_value)
-    # sanitized_and_joined_param_value = ActiveRecord::Base.sanitize(param_value.join('\',\''))
+    sanitized_fuzzy_param_value = ActiveRecord::Base.connection.quote('%' + param_value + '%')
+    sanitized_param_value = ActiveRecord::Base.connection.quote(param_value)
+    # sanitized_and_joined_param_value = ActiveRecord::Base.connection.quote(param_value.join('\',\''))
 
     case param
     when 'user_name'
@@ -253,7 +253,7 @@ class Cms::UsersController < Cms::CmsController
   protected def class_code_string_builder
     class_code = user_query_params["class_code"]
     if class_code.present?
-      sanitized_class_code = ActiveRecord::Base.sanitize(class_code)
+      sanitized_class_code = ActiveRecord::Base.connection.quote(class_code)
       query = """AND users.id IN
         (( SELECT user_id FROM classrooms_teachers
         JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id

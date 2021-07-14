@@ -68,8 +68,8 @@ class BlogPostsController < ApplicationController
         FROM blog_posts
         WHERE draft IS false
           AND topic != '#{BlogPost::IN_THE_NEWS}'
-          AND tsv @@ plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)})
-        ORDER BY ts_rank(tsv, plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)}))
+          AND tsv @@ plainto_tsquery(#{ActiveRecord::Base.connection.quote(@query)})
+        ORDER BY ts_rank(tsv, plainto_tsquery(#{ActiveRecord::Base.connection.quote(@query)}))
       SQL
     ).to_a
 

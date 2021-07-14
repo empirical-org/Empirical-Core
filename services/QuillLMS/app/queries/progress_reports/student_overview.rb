@@ -15,7 +15,7 @@ class ProgressReports::StudentOverview
         FROM classroom_units
         LEFT JOIN activity_sessions
           ON classroom_units.id = activity_sessions.classroom_unit_id
-          AND activity_sessions.user_id = #{ActiveRecord::Base.sanitize(student_id)}
+          AND activity_sessions.user_id = #{ActiveRecord::Base.connection.quote(student_id)}
           AND activity_sessions.visible = true
           AND activity_sessions.is_final_score = true
         JOIN units
@@ -28,8 +28,8 @@ class ProgressReports::StudentOverview
         LEFT JOIN classroom_unit_activity_states AS cuas
           ON cuas.unit_activity_id = unit_activities.id
           AND cuas.classroom_unit_id = classroom_units.id
-        WHERE classroom_units.classroom_id = #{ActiveRecord::Base.sanitize(classroom_id)}
-          AND #{ActiveRecord::Base.sanitize(student_id)} = ANY (classroom_units.assigned_student_ids::int[])
+        WHERE classroom_units.classroom_id = #{ActiveRecord::Base.connection.quote(classroom_id)}
+          AND #{ActiveRecord::Base.connection.quote(student_id)} = ANY (classroom_units.assigned_student_ids::int[])
           AND classroom_units.visible = true
           AND units.visible = true
         GROUP BY

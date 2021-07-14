@@ -172,8 +172,8 @@ module Student
         FROM
           students_classrooms A,
           students_classrooms B
-        WHERE A.student_id = #{ActiveRecord::Base.sanitize(id)}
-          AND B.student_id = #{ActiveRecord::Base.sanitize(other_student_id)}
+        WHERE A.student_id = #{ActiveRecord::Base.connection.quote(id)}
+          AND B.student_id = #{ActiveRecord::Base.connection.quote(other_student_id)}
           AND A.classroom_id = B.classroom_id
       SQL
     ).to_a
