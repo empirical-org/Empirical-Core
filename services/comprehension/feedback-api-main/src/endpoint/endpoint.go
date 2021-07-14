@@ -104,18 +104,11 @@ func Endpoint(context *gin.Context) {
 	}
 
 	results := map[int]InternalAPIResponse{}
-	responses := make([]InternalAPIResponse, api_count)
-
-	for priority, url := range urls {
-
-		responses[priority] = getAPIResponse(url, priority, request_body)
-	}
-
 
 	var returnable_result APIResponse
 
-	for _, response := range responses {
-		results[response.Priority] = response
+	for index, url := range urls {
+		results[index] = getAPIResponse(url, index, request_body)
 		return_index, finished := processResults(results, len(urls))
 
 		if finished {
