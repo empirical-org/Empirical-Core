@@ -96,7 +96,7 @@ class GoogleIntegration::RefreshAccessToken
   private def token_too_old_to_refresh?
     return false if nil_access_token_expiration?
 
-    Time.now - 6.months >= current_credentials.expires_at
+    Time.now >= current_credentials.refresh_token_expires_at
   end
 
   private def refresh_token_options

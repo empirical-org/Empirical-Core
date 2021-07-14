@@ -1,6 +1,6 @@
 class Auth::GoogleController < ApplicationController
   before_action :set_profile, only: [:authorization_and_authentication, :authentication]
-  before_action :verify_credentials, only: :authentication
+  before_action :verify_authorization_for_offline_access, only: :authentication
   before_action :set_user,
     :save_teacher_from_google_signup,
     :save_student_from_google_signup,
@@ -33,7 +33,7 @@ class Auth::GoogleController < ApplicationController
     end
   end
 
-  private def verify_credentials
+  private def verify_authorization_for_offline_access
     user = User.where('google_id = ? OR email = ?', @profile.google_id&.to_s, @profile.email&.downcase).first
     return if user.nil?
 

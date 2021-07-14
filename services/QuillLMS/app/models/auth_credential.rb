@@ -25,8 +25,11 @@
 class AuthCredential < ActiveRecord::Base
   belongs_to :user
 
+  GOOGLE_PROVIDER = 'google'.freeze
+  EXPIRATION_DURATION = 6.months
+
   def google_authorized?
-    provider == 'google' && refresh_token_valid?
+    provider == GOOGLE_PROVIDER && refresh_token_valid?
   end
 
   def refresh_token_valid?
@@ -36,6 +39,6 @@ class AuthCredential < ActiveRecord::Base
   end
 
   def refresh_token_expires_at
-    expires_at + 6.months
+    expires_at + EXPIRATION_DURATION
   end
 end
