@@ -1,8 +1,8 @@
 import { handleApiError, mainApiFetch, getRuleFeedbackHistoriesUrl, getRuleFeedbackHistoryUrl } from '../../helpers/comprehension';
 
-export const fetchRuleFeedbackHistories = async (key: string, activityId: string, selectedConjunction: string, startDate?: string, endDate?: string, turkSessionUID?: string) => {
+export const fetchRuleFeedbackHistories = async (key: string, activityId: string, selectedConjunction: string, startDate?: string, endDate?: string, turkSessionID?: string) => {
   if (!selectedConjunction) { return }
-  const url = getRuleFeedbackHistoriesUrl({ activityId, selectedConjunction, startDate, endDate, turkSessionUID });
+  const url = getRuleFeedbackHistoriesUrl({ activityId, selectedConjunction, startDate, endDate, turkSessionID });
   const response = await mainApiFetch(url);
   const ruleFeedbackHistories = await response.json();
   return {
@@ -11,8 +11,8 @@ export const fetchRuleFeedbackHistories = async (key: string, activityId: string
   };
 }
 
-export const fetchRuleFeedbackHistoriesByRule = async (key: string, ruleUID: string, promptId: string, startDate?: string, endDate?: string, turkSessionUID?: string) => {
-  const url = getRuleFeedbackHistoryUrl({ ruleUID, promptId, startDate, endDate, turkSessionUID });
+export const fetchRuleFeedbackHistoriesByRule = async (key: string, ruleUID: string, promptId: string, startDate?: string, endDate?: string, turkSessionID?: string) => {
+  const url = getRuleFeedbackHistoryUrl({ ruleUID, promptId, startDate, endDate, turkSessionID });
   const response = await mainApiFetch(url);
   const ruleFeedbackHistories = await response.json();
   return {

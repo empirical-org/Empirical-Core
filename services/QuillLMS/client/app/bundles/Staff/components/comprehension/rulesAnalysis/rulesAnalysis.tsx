@@ -76,14 +76,14 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
   const [totalResponsesByConjunction, setTotalResponsesByConjunction] = React.useState<number>(null);
-  const [turkSessionUID, setTurkSessionUID] = React.useState<string>(null);
-  const [turkSessionUIDForQuery, setTurkSessionUIDForQuery] = React.useState<string>(null);
+  const [turkSessionID, setTurkSessionID] = React.useState<string>(null);
+  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(null);
   const [formattedRows, setFormattedRows] = React.useState<any[]>(null);
 
   const selectedConjunction = selectedPrompt ? selectedPrompt.conjunction : promptConjunction
   // cache rules data for updates
   const { data: ruleFeedbackHistory } = useQuery({
-    queryKey: [`rule-feedback-history-by-conjunction-${selectedConjunction}-and-activity-${activityId}`, activityId, selectedConjunction, startDateForQuery, endDateForQuery, turkSessionUIDForQuery],
+    queryKey: [`rule-feedback-history-by-conjunction-${selectedConjunction}-and-activity-${activityId}`, activityId, selectedConjunction, startDateForQuery, endDateForQuery, turkSessionIDForQuery],
     queryFn: fetchRuleFeedbackHistories
   });
 
@@ -167,10 +167,10 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     }
   }, [ruleFeedbackHistory])
 
-  function handleSetTurkSessionUID(e: InputEvent){ setTurkSessionUID(e.target.value) };
+  function handleSetTurkSessionID(e: InputEvent){ setTurkSessionID(e.target.value) };
 
   function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, turkSessionUID, setStartDate, setEndDate, setShowError, setTurkSessionUIDForQuery, setPageNumber: null, storageKey: RULES_ANALYSIS });
+    handlePageFilterClick({ startDate, endDate, turkSessionID, setStartDate, setEndDate, setShowError, setTurkSessionIDForQuery, setPageNumber: null, storageKey: RULES_ANALYSIS });
   }
 
   function setPromptBasedOnActivity() {
@@ -376,12 +376,12 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
           onChange={onEndDateChange}
           value={endDate}
         />
-        <p className="date-picker-label">Turk Session UID (optional):</p>
+        <p className="date-picker-label">Turk Session ID (optional):</p>
         <Input
-          className="turk-session-uid-input"
-          handleChange={handleSetTurkSessionUID}
+          className="turk-session-id-input"
+          handleChange={handleSetTurkSessionID}
           label=""
-          value={turkSessionUID}
+          value={turkSessionID}
         />
         <button className="quill-button fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
         {showError && <p className="error-message">Start date is required.</p>}

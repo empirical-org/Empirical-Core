@@ -27,8 +27,8 @@ const SessionsIndex = ({ match }) => {
   const [pageNumber, setPageNumber] = React.useState<DropdownObjectInterface>(null);
   const [pageDropdownOptions, setPageDropdownOptions] = React.useState<DropdownObjectInterface[]>(null);
   const [filterOption, setFilterOption] = React.useState<DropdownObjectInterface>(activitySessionFilterOptions[0]);
-  const [turkSessionUID, setTurkSessionUID] = React.useState<string>(null);
-  const [turkSessionUIDForQuery, setTurkSessionUIDForQuery] = React.useState<string>(null);
+  const [turkSessionID, setTurkSessionID] = React.useState<string>(null);
+  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(null);
   const [rowData, setRowData] = React.useState<any[]>([]);
   const [sortInfo, setSortInfo] = React.useState<any>(null);
   const pageNumberForQuery = pageNumber && pageNumber.value ? pageNumber.value : 1;
@@ -45,7 +45,7 @@ const SessionsIndex = ({ match }) => {
 
   // cache activity sessions data for updates
   const { data: sessionsData } = useQuery({
-    queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery, startDateForQuery, endDateForQuery, turkSessionUIDForQuery],
+    queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery, startDateForQuery, endDateForQuery, turkSessionIDForQuery],
     queryFn: fetchActivitySessions
   });
 
@@ -62,10 +62,10 @@ const SessionsIndex = ({ match }) => {
     }
   }, [sessionsData]);
 
-  function handleSetTurkSessionUID(e: InputEvent){ setTurkSessionUID(e.target.value) };
+  function handleSetTurkSessionID(e: InputEvent){ setTurkSessionID(e.target.value) };
 
   function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, turkSessionUID, setStartDate, setEndDate, setShowError, setPageNumber, setTurkSessionUIDForQuery, storageKey: SESSION_INDEX });
+    handlePageFilterClick({ startDate, endDate, turkSessionID, setStartDate, setEndDate, setShowError, setPageNumber, setTurkSessionIDForQuery, storageKey: SESSION_INDEX });
   }
 
   function getFilteredRows(filter: string, activitySessions: ActivitySessionInterface[]) {
@@ -237,12 +237,12 @@ const SessionsIndex = ({ match }) => {
             onChange={onEndDateChange}
             value={endDate}
           />
-          <p className="date-picker-label">Turk Session UID (optional):</p>
+          <p className="date-picker-label">Turk Session ID (optional):</p>
           <Input
-            className="turk-session-uid-input"
-            handleChange={handleSetTurkSessionUID}
+            className="turk-session-id-input"
+            handleChange={handleSetTurkSessionID}
             label=""
-            value={turkSessionUID}
+            value={turkSessionID}
           />
           <button className="quill-button fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
         </section>

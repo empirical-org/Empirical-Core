@@ -1,10 +1,10 @@
 class RuleFeedbackHistory
-    def self.generate_report(conjunction:, activity_id:, start_date: nil, end_date: nil, turk_session_uid: nil)
-        sql_result = exec_query(conjunction: conjunction, activity_id: activity_id, start_date: start_date, end_date: end_date, turk_session_uid: turk_session_uid)
+    def self.generate_report(conjunction:, activity_id:, start_date: nil, end_date: nil, turk_session_id: nil)
+        sql_result = exec_query(conjunction: conjunction, activity_id: activity_id, start_date: start_date, end_date: end_date, turk_session_id: turk_session_id)
         format_sql_results(sql_result)
     end
 
-    def self.exec_query(conjunction:, activity_id:, start_date:, end_date:, turk_session_uid:)
+    def self.exec_query(conjunction:, activity_id:, start_date:, end_date:, turk_session_id:)
         query = Comprehension::Rule.select(<<~SELECT
           comprehension_rules.id,
           comprehension_rules.uid AS rules_uid,
@@ -25,13 +25,15 @@ class RuleFeedbackHistory
         .joins('LEFT JOIN feedback_histories ON feedback_histories.rule_uid = comprehension_rules.uid AND feedback_histories.prompt_id = prompts.id')
         .joins('LEFT JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
         .joins('LEFT JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
+        .joins('JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
+        .joins('JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')
         .where("feedback_histories.used = ?", true)
         .where("prompts.conjunction = ? AND activity_id = ?", conjunction, activity_id)
         .group('comprehension_rules.id, rules_uid, activity_id, rule_type, rule_suborder, rule_name, rule_note')
         .includes(:feedbacks)
         query = query.where("feedback_histories.time >= ?", start_date) if start_date
         query = query.where("feedback_histories.time <= ?", end_date) if end_date
-        query = query.where("feedback_histories.feedback_session_uid = ?", turk_session_uid) if turk_session_uid
+        query = query.where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id) if turk_session_id
         query
     end
 
@@ -46,11 +48,13 @@ class RuleFeedbackHistory
         }
     end
 
-    def self.generate_rulewise_report(rule_uid:, prompt_id:, start_date: nil, end_date: nil, turk_session_uid: nil)
+    def self.generate_rulewise_report(rule_uid:, prompt_id:, start_date: nil, end_date: nil, turk_session_id: nil)
         feedback_histories = FeedbackHistory.where(rule_uid: rule_uid, prompt_id: prompt_id, used: true)
+        feedback_histories = feedback_histories.joins('JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
+        feedback_histories = feedback_histories.joins('JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')
         feedback_histories = feedback_histories.where("created_at >= ?", start_date) if start_date
         feedback_histories = feedback_histories.where("created_at <= ?", end_date) if end_date
-        feedback_histories = feedback_histories.where("feedback_session_uid = ?", turk_session_uid) if turk_session_uid
+        feedback_histories = feedback_histories.where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id) if turk_session_id
         response_jsons = []
         feedback_histories.each do |f_h|
             response_jsons.append(feedback_history_to_json(f_h))
