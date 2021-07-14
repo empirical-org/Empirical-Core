@@ -145,7 +145,7 @@ class BlogPost < ApplicationRecord
       <<-SQL
         SELECT slug
         FROM blog_posts
-        WHERE slug ~* CONCAT(#{ActiveRecord::Base.sanitize(slug)}, '-\\d$')
+        WHERE slug ~* CONCAT(#{ActiveRecord::Base.connection.quote(slug)}, '-\\d$')
       SQL
     ).values.flatten
 
