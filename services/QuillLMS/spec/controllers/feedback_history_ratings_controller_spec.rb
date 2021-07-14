@@ -21,10 +21,10 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
           })
 
           expect do
-            post :create_or_update, {:feedback_history_rating => {
+            post :create_or_update, params: { :feedback_history_rating => {
               rating: nil,
               feedback_history_id: f_h.id
-            }}
+            } }
           end.to change(FeedbackHistoryRating, :count).by(0)
           expect(FeedbackHistoryRating.find_by(
             user_id: user.id,
@@ -44,10 +44,10 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
           })
 
           expect do
-            post :create_or_update, {:feedback_history_rating => {
+            post :create_or_update, params: { :feedback_history_rating => {
               rating: false,
               feedback_history_id: f_h.id
-            }}
+            } }
           end.to change(FeedbackHistoryRating, :count).by(0)
           expect(FeedbackHistoryRating.find_by(
             user_id: user.id,
@@ -68,7 +68,7 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
           }
 
           expect {
-            post :create_or_update, {:feedback_history_rating => valid_attributes}
+            post :create_or_update, params: { :feedback_history_rating => valid_attributes }
           }.to change(FeedbackHistoryRating, :count).by(1)
         end
       end
@@ -77,7 +77,7 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
       context "with invalid params" do
         it "should raise ParameterMissing" do
           expect do
-            post :create_or_update, {:feedback_history_rating => {}}
+            post :create_or_update, params: { :feedback_history_rating => {} }
           end.to raise_error(ActionController::ParameterMissing)
         end
       end
@@ -97,10 +97,7 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
       })
 
       expect do
-        post :mass_mark, {
-          rating: false,
-          feedback_history_ids: [f_h1.id, f_h2.id]
-        }
+        post :mass_mark, params: { rating: false, feedback_history_ids: [f_h1.id, f_h2.id] }
       end.to change(FeedbackHistoryRating, :count).by(1)
       expect(FeedbackHistoryRating.find_by(
         user_id: user.id,

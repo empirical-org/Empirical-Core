@@ -25,8 +25,7 @@ describe Cms::StandardsController do
 
   describe '#create' do
     it 'creates a new standard with the nested change logs' do
-      post :create, {
-        standard: {
+      post :create, params: { standard: {
           name: 'New Standard',
           level: 3,
           visible: true,
@@ -39,8 +38,7 @@ describe Cms::StandardsController do
               explanation: 'Here is an explanation'
             }
           ]
-        }
-      }
+        } }
       parsed_response = JSON.parse(response.body)
       id = parsed_response["standard"]["id"]
       expect(id).to be
@@ -53,9 +51,7 @@ describe Cms::StandardsController do
     it 'creates a new standard with the nested change logs' do
       new_name = 'New Standard Name'
       id = standards[0].id
-      put :update, {
-        id: id,
-        standard: {
+      put :update, params: { id: id, standard: {
           name: new_name,
           id: id,
           change_logs_attributes: [
@@ -66,8 +62,7 @@ describe Cms::StandardsController do
               explanation: 'Here is an explanation'
             }
           ]
-        }
-      }
+        } }
       expect(Standard.find_by_id(id).name).to eq(new_name)
       expect(ChangeLog.find_by(changed_record_id: id, changed_record_type: 'Standard', action: 'Renamed')).to be
     end

@@ -27,7 +27,7 @@ describe PasswordResetController do
         expect_any_instance_of(User).to receive(:refresh_token!)
         expect(UserMailer).to receive(:password_reset_email).with(user)
         expect(ExpirePasswordTokenWorker).to receive(:perform_in).with(24.hours, user.id)
-        post :create, user: { email: user.email }
+        post :create, params: { user: { email: user.email } }
         expect(response.body).to eq ({ redirect: '/password_reset'}.to_json)
 
       end
@@ -35,7 +35,7 @@ describe PasswordResetController do
 
     context 'when user does not exist' do
       it 'should render the index page and show error' do
-        post :create, user: { email: "test@test.com" }
+        post :create, params: { user: { email: "test@test.com" } }
         expect(response.body).to eq ({ message: 'An account with this email does not exist. Try again.', type: 'email' }.to_json)
       end
     end
@@ -50,14 +50,14 @@ describe PasswordResetController do
       end
 
       it 'should set the user' do
-        get :show, id: user.token
+        get :show, params: { id: user.token }
         expect(assigns(:user)).to eq user
       end
     end
 
     context 'when user does not exists' do
       it 'should redirect to password reset index' do
-        get :show, id: 1234
+        get :show, params: { id: 1234 }
         expect(response).to redirect_to password_reset_index_path
       end
     end
@@ -71,7 +71,7 @@ describe PasswordResetController do
 
     it 'should update the sign the user in and redirect to profile path' do
       expect(@user.password).to_not eq "test123"
-      post :update, id: @user.token, user: { password: "test123" }
+      post :update, params: { id: @user.token, user: { password: "test123" } }
       expect(session[:user_id]).to eq @user.id
       expect(response.body).to eq({ redirect: '/profile'}.to_json)
       expect(@user.reload.token).to eq nil

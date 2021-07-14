@@ -11,7 +11,7 @@ describe Teachers::StudentsController, type: :controller do
 
     it 'kicks off a background job' do
       expect {
-        post :create, classroom_id: classroom.id, user: {first_name: 'Joe', last_name: 'Bob'}
+        post :create, params: { classroom_id: classroom.id, user: {first_name: 'Joe', last_name: 'Bob'} }
         expect(response.status).to eq(200) # Success
       }.to change(StudentJoinedClassroomWorker.jobs, :size).by(1)
     end

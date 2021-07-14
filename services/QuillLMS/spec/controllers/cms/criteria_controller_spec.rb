@@ -23,10 +23,7 @@ describe Cms::CriteriaController do
     end
   
     it 'should give a new criteria' do
-      get :new, 
-        activity_classification_id: activity_classification.id,
-        activity_id: activity.id, 
-        recommendation_id: recommendation.id
+      get :new, params: { activity_classification_id: activity_classification.id, activity_id: activity.id, recommendation_id: recommendation.id }
       expect(assigns(:criterion)).to eq criteria
     end
   end
@@ -38,14 +35,11 @@ describe Cms::CriteriaController do
     let!(:concept) { create(:concept) }
 
     it 'should create the criteria with the given params' do
-      post :create, criterion: {
+      post :create, params: { criterion: {
         concept_id: concept.id, 
         count: 1, 
         no_incorrect: 0 
-      },
-      activity_classification_id: activity_classification.id,
-      activity_id: activity.id, 
-      recommendation_id: recommendation.id
+      }, activity_classification_id: activity_classification.id, activity_id: activity.id, recommendation_id: recommendation.id }
 
       expect(response).to redirect_to cms_activity_classification_activity_recommendation_path(
         activity_classification,
@@ -64,12 +58,7 @@ describe Cms::CriteriaController do
     let(:criterion) { create(:criterion, concept: concept, count: 1, no_incorrect: 0) }
 
     it 'should update the given criterion' do
-      post :update, 
-        activity_classification_id: activity_classification.id,
-        activity_id: activity.id, 
-        recommendation_id: recommendation.id,
-        id: criterion.id,
-        criterion: { count: 2 }
+      post :update, params: { activity_classification_id: activity_classification.id, activity_id: activity.id, recommendation_id: recommendation.id, id: criterion.id, criterion: { count: 2 } }
       expect(response).to redirect_to cms_activity_classification_activity_recommendation_path(
         activity_classification,
         activity,
@@ -89,11 +78,7 @@ describe Cms::CriteriaController do
 
 
     it 'should destroy the given criterion' do
-      delete :destroy, 
-        activity_classification_id: activity_classification.id,
-        activity_id: activity.id, 
-        recommendation_id: recommendation.id,
-        id: criterion.id
+      delete :destroy, params: { activity_classification_id: activity_classification.id, activity_id: activity.id, recommendation_id: recommendation.id, id: criterion.id }
       expect{ Criterion.find(criterion.id) }.to raise_exception ActiveRecord::RecordNotFound
     end
   end

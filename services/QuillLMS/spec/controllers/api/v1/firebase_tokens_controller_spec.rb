@@ -12,7 +12,7 @@ describe Api::V1::FirebaseTokensController, type: :controller do
       end
 
       def subject
-        post :create, app: 'foobar'
+        post :create, params: { app: 'foobar' }
       end
 
       it 'responds with 200' do
@@ -34,7 +34,7 @@ describe Api::V1::FirebaseTokensController, type: :controller do
       end
 
       def subject
-        post :create, app: 'foobar'
+        post :create, params: { app: 'foobar' }
       end
 
       it 'responds with 200' do
@@ -50,7 +50,7 @@ describe Api::V1::FirebaseTokensController, type: :controller do
 
     context 'when the firebase app does not exist' do
       subject do
-        post :create, app: 'nonexistent'
+        post :create, params: { app: 'nonexistent' }
       end
 
       it 'responds with 404' do
@@ -70,7 +70,7 @@ describe Api::V1::FirebaseTokensController, type: :controller do
     end
 
     def subject
-      post :create_for_connect, "json" => { "app" => 'foobar' }.to_json, format: :json
+      post :create_for_connect, params: { "json" => { "app" => 'foobar' }.to_json, format: :json }
     end
 
     it 'should respond with the connect token' do

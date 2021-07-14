@@ -8,7 +8,7 @@ describe Api::V1::ActivitiesController, type: :controller do
     before do
       @activity1 = create(:activity)
 
-      get :show, format: :json, id: @activity1.uid
+      get :show, params: { format: :json, id: @activity1.uid }
       @parsed_body = JSON.parse(response.body)
     end
 
@@ -19,7 +19,7 @@ describe Api::V1::ActivitiesController, type: :controller do
     end
 
     it 'responds with 404 if activity does not exist' do
-      get :show, format: :json, id: 'doesnotexist'
+      get :show, params: { format: :json, id: 'doesnotexist' }
       expect(response.status).to eq(404)
     end
 
@@ -38,7 +38,7 @@ describe Api::V1::ActivitiesController, type: :controller do
     let!(:activity) { create(:activity) }
 
     before do
-      put :update, format: :json, id: activity.uid, name: 'foobar'
+      put :update, params: { format: :json, id: activity.uid, name: 'foobar' }
       @parsed_body = JSON.parse(response.body)
     end
 
@@ -56,12 +56,7 @@ describe Api::V1::ActivitiesController, type: :controller do
     let(:activity_classification) { create(:activity_classification) }
 
     subject do
-      post :create, {
-        name: 'foobar',
-        uid: 'abcdef123',
-        standard_uid: standard.uid,
-        activity_classification_uid: activity_classification.uid
-      }
+      post :create, params: { name: 'foobar', uid: 'abcdef123', standard_uid: standard.uid, activity_classification_uid: activity_classification.uid }
     end
 
     describe 'general API behavior' do
@@ -110,7 +105,7 @@ describe Api::V1::ActivitiesController, type: :controller do
         # So far the only way to create an invalid activity
         # is to give it a non-unique uid.
         another_activity = create(:activity)
-        post :create, foobar: 'whatever', uid: another_activity.uid
+        post :create, params: { foobar: 'whatever', uid: another_activity.uid }
         expect(response.status).to eq(422)
       end
     end
@@ -122,7 +117,7 @@ describe Api::V1::ActivitiesController, type: :controller do
 
     context 'when the destroy is successful' do
       it 'should return the success json' do
-        get :destroy, format: :json, id: activity.uid
+        get :destroy, params: { format: :json, id: activity.uid }
         expect(JSON.parse(response.body)["meta"]).to eq({"status" => 'success', "message" => "Activity Destroy Successful", "errors" => nil})
       end
     end
@@ -133,7 +128,7 @@ describe Api::V1::ActivitiesController, type: :controller do
       end
 
       it 'should return the failed json' do
-        get :destroy, format: :json, id: activity.uid
+        get :destroy, params: { format: :json, id: activity.uid }
         expect(JSON.parse(response.body)["meta"]).to eq({"status" => 'failed', "message" => "Activity Destroy Failed", "errors" => {}})
       end
     end
@@ -145,7 +140,7 @@ describe Api::V1::ActivitiesController, type: :controller do
     let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
 
     it 'should render the correct json' do
-      get :follow_up_activity_name_and_supporting_info, id: activity.id, format: :json
+      get :follow_up_activity_name_and_supporting_info, params: { id: activity.id, format: :json }
       expect(response.body).to eq({
         follow_up_activity_name: activity.follow_up_activity.name,
         supporting_info: activity.supporting_info
@@ -157,7 +152,7 @@ describe Api::V1::ActivitiesController, type: :controller do
     let(:activity) { create(:activity) }
 
     it 'should render the correct json' do
-      get :supporting_info, id: activity.id, format: :json
+      get :supporting_info, params: { id: activity.id, format: :json }
       expect(response.body).to eq ({supporting_info: activity.supporting_info}.to_json)
     end
   end
@@ -276,13 +271,13 @@ describe Api::V1::ActivitiesController, type: :controller do
 
     it 'PUT #update returns 401 Unauthorized' do
       activity = create(:activity)
-      put :update, format: :json, id: activity.uid
+      put :update, params: { format: :json, id: activity.uid }
       expect(response.status).to eq(401)
     end
 
     it 'DELETE #destroy returns 401 Unauthorized' do
       activity = create(:activity)
-      delete :destroy, format: :json, id: activity.uid
+      delete :destroy, params: { format: :json, id: activity.uid }
       expect(response.status).to eq(401)
     end
   end
