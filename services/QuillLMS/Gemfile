@@ -126,7 +126,7 @@ gem 'webpacker', '~> 3.0.0'
 # ASSET/UI
 gem 'therubyracer', require: false
 gem 'uglifier',     require: false
-gem 'kaminari'
+gem 'kaminari', '~> 1.2.1'
 
 # MIDDLEWARE
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
