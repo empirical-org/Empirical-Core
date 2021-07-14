@@ -1,5 +1,5 @@
 module Comprehension
-  class RegexRule < ActiveRecord::Base
+  class RegexRule < ApplicationRecord
     DEFAULT_CASE_SENSITIVITY = true
     MAX_REGEX_TEXT_LENGTH = 200
     CASE_SENSITIVE_ALLOWED_VALUES = [true, false]

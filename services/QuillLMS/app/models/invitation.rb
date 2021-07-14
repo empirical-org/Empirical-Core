@@ -15,7 +15,7 @@
 #  index_invitations_on_invitee_email  (invitee_email)
 #  index_invitations_on_inviter_id     (inviter_id)
 #
-class Invitation < ActiveRecord::Base
+class Invitation < ApplicationRecord
 
   belongs_to :inviter, class_name: 'User', foreign_key: 'inviter_id'
   has_many :coteacher_classroom_invitations, dependent: :destroy

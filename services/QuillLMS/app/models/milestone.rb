@@ -11,7 +11,7 @@
 #
 #  index_milestones_on_name  (name)
 #
-class Milestone < ActiveRecord::Base
+class Milestone < ApplicationRecord
   has_many :user_milestones
   has_many :users, through: :user_milestones
 

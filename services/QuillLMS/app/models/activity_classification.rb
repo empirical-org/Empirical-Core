@@ -20,7 +20,7 @@
 #
 #  index_activity_classifications_on_uid  (uid) UNIQUE
 #
-class ActivityClassification < ActiveRecord::Base
+class ActivityClassification < ApplicationRecord
 
   include Uid
 

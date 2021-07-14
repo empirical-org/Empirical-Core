@@ -2,7 +2,7 @@ require "google/cloud/automl"
 
 
 module Comprehension
-  class AutomlModel < ActiveRecord::Base
+  class AutomlModel < ApplicationRecord
     MIN_LABELS_LENGTH = 1
     STATES = [
       STATE_ACTIVE = 'active',

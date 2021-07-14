@@ -21,7 +21,7 @@
 #  index_unit_templates_on_author_id                  (author_id)
 #  index_unit_templates_on_unit_template_category_id  (unit_template_category_id)
 #
-class UnitTemplate < ActiveRecord::Base
+class UnitTemplate < ApplicationRecord
   belongs_to :unit_template_category
   belongs_to :author
   has_many :activities_unit_templates, -> { order('order_number ASC') }

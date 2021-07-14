@@ -12,7 +12,7 @@
 #  index_schools_users_on_school_id_and_user_id  (school_id,user_id)
 #  index_schools_users_on_user_id                (user_id) UNIQUE
 #
-class SchoolsUsers < ActiveRecord::Base
+class SchoolsUsers < ApplicationRecord
   belongs_to :school
   belongs_to :user
 

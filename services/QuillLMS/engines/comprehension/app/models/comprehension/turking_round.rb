@@ -1,5 +1,5 @@
 module Comprehension
-  class TurkingRound < ActiveRecord::Base
+  class TurkingRound < ApplicationRecord
     attr_readonly :uuid
 
     before_validation :set_default_uuid, on: :create

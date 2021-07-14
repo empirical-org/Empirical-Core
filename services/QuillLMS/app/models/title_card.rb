@@ -15,7 +15,7 @@
 #  index_title_cards_on_title_card_type  (title_card_type)
 #  index_title_cards_on_uid              (uid) UNIQUE
 #
-class TitleCard < ActiveRecord::Base
+class TitleCard < ApplicationRecord
   TYPES = [
     TYPE_CONNECT = 'connect_title_card',
     TYPE_DIAGNOSTIC = 'diagnostic_title_card'

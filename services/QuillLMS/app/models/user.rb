@@ -53,7 +53,7 @@
 #  users_to_tsvector_idx4             (to_tsvector('english'::regconfig, (username)::text)) USING gin
 #  users_to_tsvector_idx5             (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
 #
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include Student
   include Teacher
   include CheckboxCallback

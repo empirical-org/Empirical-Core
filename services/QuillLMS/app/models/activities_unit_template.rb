@@ -12,7 +12,7 @@
 #  aut  (activity_id,unit_template_id)
 #  uta  (unit_template_id,activity_id)
 #
-class ActivitiesUnitTemplate < ActiveRecord::Base
+class ActivitiesUnitTemplate < ApplicationRecord
   belongs_to :unit_template
   belongs_to :activity
 end
