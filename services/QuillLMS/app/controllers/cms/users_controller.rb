@@ -226,7 +226,6 @@ class Cms::UsersController < Cms::CmsController
     # Premium status: subscriptions.account_type
     sanitized_fuzzy_param_value = ActiveRecord::Base.connection.quote('%' + param_value + '%')
     sanitized_param_value = ActiveRecord::Base.connection.quote(param_value)
-    # sanitized_and_joined_param_value = ActiveRecord::Base.connection.quote(param_value.join('\',\''))
 
     case param
     when 'user_name'
