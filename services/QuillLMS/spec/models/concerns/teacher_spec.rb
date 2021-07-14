@@ -548,13 +548,13 @@ describe User, type: :model do
       let!(:assigned_units) { teacher.assigned_students_per_activity_assigned }
 
       it 'should return only the correct students assigned' do
-        student_ids = assigned_units.pluck(:assigned_student_ids).each_with_object([]) {|n, memo| memo.concat(n)}
+        student_ids = assigned_units.pluck(:assigned_student_ids).flatten
 
         other_teacher = create(:teacher, :with_classrooms_students_and_activities) 
         other_assigned_activities_ids = other_teacher.assigned_students_per_activity_assigned.pluck(:id)
         other_student_ids = other_teacher.assigned_students_per_activity_assigned
           .pluck(:assigned_student_ids)
-          .each_with_object([]) {|n, memo| memo.concat(n)}
+          .flatten
 
         expect(other_assigned_activities_ids & assigned_units.pluck(:id)).to be_empty
         expect(other_student_ids & student_ids).to be_empty
