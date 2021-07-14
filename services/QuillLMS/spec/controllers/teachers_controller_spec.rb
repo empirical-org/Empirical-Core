@@ -73,14 +73,14 @@ describe TeachersController, type: :controller do
       it 'unlinks teacher from school' do
         expect(SchoolsUsers.find_by(user: teacher)).to be
         expect($redis).to receive(:del).with("SERIALIZED_ADMIN_USERS_FOR_#{teacher.id}")
-        post :unlink, teacher_id: teacher.id
+        post :unlink, params: { teacher_id: teacher.id }
         expect(SchoolsUsers.find_by(user: teacher)).not_to be
       end
 
       it 'returns 400 response if cannot unlink' do
         user2 = create(:teacher, school: nil)
         expect(SchoolsUsers.find_by(user: user2)).not_to be
-        post :unlink, teacher_id: user2.id
+        post :unlink, params: { teacher_id: user2.id }
         expect(response.status).to eq(400)
       end
     end

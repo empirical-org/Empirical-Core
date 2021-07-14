@@ -7,13 +7,10 @@ describe Teachers::ProgressReports::CsvExportsController, type: :controller do
     let(:export_type) { 'activity_sessions' }
     let(:filters) { { unit_id: '123' } }
     subject do
-      post :create, {
-        report_url: "/teachers/progress_reports/standards/classrooms/#{classroom_one.id}/students",
-        csv_export: {
+      post :create, params: { report_url: "/teachers/progress_reports/standards/classrooms/#{classroom_one.id}/students", csv_export: {
           export_type: export_type,
           filters: filters,
-        }
-      }
+        } }
     end
 
     context 'when authenticated as a teacher' do
