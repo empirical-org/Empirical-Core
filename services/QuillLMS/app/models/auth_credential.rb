@@ -24,4 +24,21 @@
 #
 class AuthCredential < ApplicationRecord
   belongs_to :user
+
+  GOOGLE_PROVIDER = 'google'.freeze
+  EXPIRATION_DURATION = 6.months
+
+  def google_authorized?
+    provider == GOOGLE_PROVIDER && refresh_token_valid?
+  end
+
+  def refresh_token_valid?
+    return false if expires_at.nil? || refresh_token.nil?
+
+    Time.now < refresh_token_expires_at
+  end
+
+  def refresh_token_expires_at
+    expires_at + EXPIRATION_DURATION
+  end
 end

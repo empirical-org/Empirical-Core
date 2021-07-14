@@ -102,15 +102,28 @@ class SessionsController < ApplicationController
     @js_file = 'login'
     @user = User.new
     @title = 'Log In'
+    @clever_link = clever_link
+    @google_link = GoogleIntegration::AUTHENTICATION_ONLY_PATH
     session[:role] = nil
-    if params[:redirect]
-      session[ApplicationController::POST_AUTH_REDIRECT] = params[:redirect]
-    end
+    session[ApplicationController::POST_AUTH_REDIRECT] = params[:redirect] if params[:redirect]
   end
 
   def failure
     login_failure_message
     # redirect_to signed_out_path
+  end
+
+  def clever_link
+    "https://clever.com/oauth/authorize?#{clever_link_query_params}"
+  end
+
+  def clever_link_query_params
+    {
+      response_type: 'code',
+      redirect_uri: Clever::REDIRECT_URL,
+      client_id: Clever::CLIENT_ID,
+      scope: QuillClever.scope
+    }.to_param
   end
 
 

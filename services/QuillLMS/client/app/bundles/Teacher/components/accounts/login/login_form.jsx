@@ -37,10 +37,10 @@ class LoginFormApp extends React.Component {
       mode: 'cors',
       credentials: 'include',
     }).then((response) => {
-    if (!response.ok) {
-      throw Error(response.statusText);
-    }
-    return response.json();
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
     });
   }
 
@@ -50,17 +50,8 @@ class LoginFormApp extends React.Component {
   }
 
   handleGoogleClick = (e) => {
-    this.fetchUser().then(userData => {
-        var now = new Date().toISOString();
-        if (userData.user === null || (userData.hasOwnProperty('role') && !userData.user.has_refresh_token) ||
-            now > userData.user.refresh_token_expires_at) {
-          window.location.href = '/auth/google_oauth2?prompt=consent';
-        }
-        else {
-            window.location.href = '/auth/google_oauth2';
-        }
-      }
-    );
+    const { googleLink, } = this.props
+    window.location.href = googleLink
   }
 
   handleKeyEnterOnSignUpLink = (e) => {
@@ -92,26 +83,25 @@ class LoginFormApp extends React.Component {
         authenticity_token: getAuthToken(),
       },
     },
-    (err, httpResponse, body) => {
-      if (httpResponse.statusCode === 200 && body.redirect) {
-        // console.log(body);
-        window.location = body.redirect;
-      } else {
-        let state;
-        if (body.type && body.message) {
-          const errors = {};
-          errors[body.type] = body.message;
-          state = { lastUpdate: new Date(), errors, timesSubmitted: timesSubmitted + 1, };
+      (err, httpResponse, body) => {
+        if (httpResponse.statusCode === 200 && body.redirect) {
+          window.location = body.redirect;
         } else {
-          let message = 'You have entered an incorrect email/username or password.';
-          if (httpResponse.statusCode === 429) {
-            message = 'Too many failed attempts. Please wait one minute and try again.';
+          let state;
+          if (body.type && body.message) {
+            const errors = {};
+            errors[body.type] = body.message;
+            state = { lastUpdate: new Date(), errors, timesSubmitted: timesSubmitted + 1, };
+          } else {
+            let message = 'You have entered an incorrect email/username or password.';
+            if (httpResponse.statusCode === 429) {
+              message = 'Too many failed attempts. Please wait one minute and try again.';
+            }
+            state = { lastUpdate: new Date(), message: (body.message || message), };
           }
-          state = { lastUpdate: new Date(), message: (body.message || message), };
+          this.setState(state);
         }
-        this.setState(state);
-      }
-    });
+      });
   }
 
   submitClass = () => {
@@ -152,7 +142,7 @@ class LoginFormApp extends React.Component {
                 <span>Log in with Clever</span>
               </button>
             </div>
-            <div className="break"><span  />or<span  /></div>
+            <div className="break"><span />or<span /></div>
             <div className="login-form">
               <div>
                 <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
