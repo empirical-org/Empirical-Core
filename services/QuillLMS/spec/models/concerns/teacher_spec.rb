@@ -542,13 +542,23 @@ describe User, type: :model do
     end
   end
 
-  describe '#number_of_assigned_students_per_activity_assigned' do
+  describe '#assigned_students_per_activity_assigned' do
     context 'assigned students' do
       let!(:teacher) { create(:teacher, :with_classrooms_students_and_activities) }
       let!(:assigned_units) { teacher.assigned_students_per_activity_assigned }
 
-      it 'should return the correct students assigned' do
-        assigned_units_arr = assigned_units.to_a
+      it 'should return only the correct students assigned' do
+        student_ids = assigned_units.pluck(:assigned_student_ids).each_with_object([]) {|n, memo| memo.concat(n)}
+
+        other_teacher = create(:teacher, :with_classrooms_students_and_activities) 
+        other_assigned_activities_ids = other_teacher.assigned_students_per_activity_assigned.pluck(:id)
+        other_student_ids = other_teacher.assigned_students_per_activity_assigned
+          .pluck(:assigned_student_ids)
+          .each_with_object([]) {|n, memo| memo.concat(n)}
+
+        expect(other_assigned_activities_ids & assigned_units.pluck(:id)).to be_empty
+        expect(other_student_ids & student_ids).to be_empty
+
         teacher.classroom_units.each do |cu|
           cu.unit.unit_activities.each do |ua|
             matching_element = assigned_units.detect {|u| u.id == ua.activity_id && u.assigned_student_ids == cu.assigned_student_ids}
