@@ -1,5 +1,5 @@
 module Comprehension
-  class PlagiarismText < ActiveRecord::Base
+  class PlagiarismText < ApplicationRecord
 
     belongs_to :rule, inverse_of: :plagiarism_text
 

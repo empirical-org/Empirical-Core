@@ -18,7 +18,7 @@
 #
 #  fk_rails_...  (activity_health_id => activity_healths.id) ON DELETE => cascade
 #
-class PromptHealth < ActiveRecord::Base
+class PromptHealth < ApplicationRecord
   FLAGS = %w(production archived alpha beta private)
 
   belongs_to :activity_health

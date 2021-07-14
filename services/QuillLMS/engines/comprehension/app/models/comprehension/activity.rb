@@ -1,5 +1,5 @@
 module Comprehension
-  class Activity < ActiveRecord::Base
+  class Activity < ApplicationRecord
     MIN_TARGET_LEVEL = 1
     MAX_TARGET_LEVEL = 12
     MIN_TITLE_LENGTH = 5

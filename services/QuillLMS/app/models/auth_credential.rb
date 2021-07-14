@@ -22,6 +22,6 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class AuthCredential < ActiveRecord::Base
+class AuthCredential < ApplicationRecord
   belongs_to :user
 end

@@ -1,4 +1,4 @@
-class ActivityClassification < ActiveRecord::Base
+class ActivityClassification < ApplicationRecord
   COMPREHENSION_KEY = 'comprehension'
 
   def self.comprehension

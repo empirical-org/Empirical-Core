@@ -8,7 +8,7 @@
 #  updated_at          :datetime         not null
 #  feedback_history_id :integer          not null
 #
-class FeedbackHistoryFlag < ActiveRecord::Base
+class FeedbackHistoryFlag < ApplicationRecord
   FLAG_TYPES = [
     FLAG_REPEATED_RULE_NON_CONSECUTIVE = 'repeated-non-consecutive',
     FLAG_REPEATED_RULE_CONSECUTIVE = 'repeated-consecutive'

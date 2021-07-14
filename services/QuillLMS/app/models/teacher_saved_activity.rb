@@ -19,7 +19,7 @@
 #  fk_rails_...  (activity_id => activities.id)
 #  fk_rails_...  (teacher_id => users.id)
 #
-class TeacherSavedActivity < ActiveRecord::Base
+class TeacherSavedActivity < ApplicationRecord
   belongs_to :activity
   belongs_to :teacher, class_name: "User"
 

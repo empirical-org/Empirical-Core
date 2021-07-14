@@ -14,7 +14,7 @@
 #  index_questions_on_question_type  (question_type)
 #  index_questions_on_uid            (uid) UNIQUE
 #
-class Question < ActiveRecord::Base
+class Question < ApplicationRecord
   TYPES = [
     TYPE_CONNECT_SENTENCE_COMBINING = 'connect_sentence_combining',
     TYPE_CONNECT_SENTENCE_FRAGMENTS = 'connect_sentence_fragments',

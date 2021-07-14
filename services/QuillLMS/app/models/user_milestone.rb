@@ -14,7 +14,7 @@
 #  index_user_milestones_on_user_id                   (user_id)
 #  index_user_milestones_on_user_id_and_milestone_id  (user_id,milestone_id) UNIQUE
 #
-class UserMilestone < ActiveRecord::Base
+class UserMilestone < ApplicationRecord
   belongs_to :user
   belongs_to :milestone
 end

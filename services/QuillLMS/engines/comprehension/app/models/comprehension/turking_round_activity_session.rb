@@ -1,5 +1,5 @@
 module Comprehension
-  class TurkingRoundActivitySession < ActiveRecord::Base
+  class TurkingRoundActivitySession < ApplicationRecord
     belongs_to :turking_round
 
     validates :activity_session_uid, presence: true, uniqueness: true

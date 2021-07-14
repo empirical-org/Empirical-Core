@@ -17,7 +17,7 @@
 #  tool                    :string
 #  url                     :string
 #
-class ActivityHealth < ActiveRecord::Base
+class ActivityHealth < ApplicationRecord
   ALLOWED_TOOLS = %w(connect grammar)
   FLAGS = %w(production archived alpha beta private)
 

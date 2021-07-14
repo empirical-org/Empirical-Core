@@ -1,5 +1,5 @@
 module Comprehension
-  class PromptsRule < ActiveRecord::Base
+  class PromptsRule < ApplicationRecord
     belongs_to :prompt
     belongs_to :rule
 

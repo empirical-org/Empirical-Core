@@ -15,7 +15,7 @@
 #  index_students_classrooms_on_student_id                   (student_id)
 #  index_students_classrooms_on_student_id_and_classroom_id  (student_id,classroom_id) UNIQUE
 #
-class StudentsClassrooms < ActiveRecord::Base
+class StudentsClassrooms < ApplicationRecord
   include CheckboxCallback
   belongs_to :student, class_name: "User"
   belongs_to :classroom, class_name: "Classroom"

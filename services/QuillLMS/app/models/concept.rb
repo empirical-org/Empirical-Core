@@ -13,7 +13,7 @@
 #  parent_id      :integer
 #  replacement_id :integer
 #
-class Concept < ActiveRecord::Base
+class Concept < ApplicationRecord
   include Uid
   belongs_to :parent, class_name: 'Concept', foreign_key: :parent_id
   belongs_to :replacement, class_name: 'Concept', foreign_key: :replacement_id

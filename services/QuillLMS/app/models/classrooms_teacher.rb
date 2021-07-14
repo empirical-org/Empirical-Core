@@ -17,7 +17,7 @@
 #  index_classrooms_teachers_on_user_id                  (user_id)
 #  unique_classroom_and_user_ids_on_classrooms_teachers  (user_id,classroom_id) UNIQUE
 #
-class ClassroomsTeacher < ActiveRecord::Base
+class ClassroomsTeacher < ApplicationRecord
   belongs_to :user
   belongs_to :classroom
 

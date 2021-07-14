@@ -23,7 +23,7 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class ChangeLog < ActiveRecord::Base
+class ChangeLog < ApplicationRecord
   RENAMED = 'Renamed'
   UNARCHIVED = 'Unarchived'
   ARCHIVED = 'Archived'

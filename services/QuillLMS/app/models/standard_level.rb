@@ -10,7 +10,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class StandardLevel < ActiveRecord::Base
+class StandardLevel < ApplicationRecord
   include Uid
   include RankedModel
   include ArchiveAssociatedStandards
