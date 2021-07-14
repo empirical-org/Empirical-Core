@@ -148,7 +148,6 @@ func Endpoint(context *gin.Context) {
 	context.JSON(200, returnable_result)
 
 	wg.Wait()
-	close(channel)
 }
 // returns a typle of results index and that should be returned.
 func processResults(results map[int]InternalAPIResponse, length int) (int, bool) {
