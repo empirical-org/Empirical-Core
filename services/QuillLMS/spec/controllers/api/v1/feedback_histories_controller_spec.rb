@@ -47,15 +47,15 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       expect(1).to eq(FeedbackHistory.count)
     end
 
-    it "should populate metadata['highlight']" do 
-      metadata = { 
+    it "should populate metadata['highlight']" do
+      metadata = {
         "highlight" => [
           { 'text' => 'is',
             'type' => 'response',
             'category' => 'lorem',
-            'character' => 40 } 
+            'character' => 40 }
         ]
-      } 
+      }
 
       post :create, params: { feedback_history: { feedback_session_uid: '1', attempt: 1, optimal: false, used: true,
                                         time: DateTime.now, entry: 'This is the entry provided by the student',
@@ -63,7 +63,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
                                         feedback_type: 'autoML', metadata: metadata } }
 
       parsed_response = JSON.parse(response.body)
-      expect(parsed_response['metadata']['highlight'].first.keys).to eq metadata['highlight'].first.keys 
+      expect(parsed_response['metadata']['highlight'].first.keys).to eq metadata['highlight'].first.keys
     end
 
     it "should set prompt_type to Comprehension::Prompt if prompt_id is provided" do
@@ -94,28 +94,75 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
   context "batch" do
     it "should create valid records and return them as json" do
-      post :batch, params: { feedback_histories: [{ feedback_session_uid: '1', attempt: 1, optimal: false, used: true,
-                                          time: DateTime.now, entry: 'This is the entry provided by the student',
-                                          feedback_text: 'This is the feedback provided by the algorithm',
-                                          feedback_type: 'autoML', metadata: {highlight: [], response_id: "0", rule_uid: ""} },
-                                        { feedback_session_uid: '1', attempt: 1, optimal: false, used: true,
-                                          time: DateTime.now, entry: 'This is the entry provided by the student',
-                                          feedback_text: 'This is the feedback provided by the algorithm',
-                                          feedback_type: 'autoML', metadata: {foo: 'bar'} }] }
+      post :batch,
+        params: {
+          feedback_histories: [
+            {
+              feedback_session_uid: '1',
+              attempt: 1,
+              optimal: false,
+              used: true,
+              time: DateTime.now,
+              entry: 'This is the entry provided by the student',
+              feedback_text: 'This is the feedback provided by the algorithm',
+              feedback_type: 'autoML',
+              metadata: {
+                highlight: [],
+                response_id: "0",
+                rule_uid: ""
+              }
+            },
+            {
+              feedback_session_uid: '1',
+              attempt: 1,
+              optimal: false,
+              used: true,
+              time: DateTime.now,
+              entry: 'This is the entry provided by the student',
+              feedback_text: 'This is the feedback provided by the algorithm',
+              feedback_type: 'autoML',
+              metadata: {
+                foo: 'bar'
+              }
+            }
+          ]
+        }
 
       expect(201).to eq(response.code.to_i)
       expect(2).to eq(FeedbackHistory.count)
     end
 
     it "should not create valid records if one is invalid record but return errors as json" do
-      post :batch, params: { feedback_histories: [{ feedback_session_uid: '1', attempt: 1, optimal: false, used: true,
-                                          time: DateTime.now, entry: 'This is the entry provided by the student',
-                                          feedback_text: 'This is the feedback provided by the algorithm',
-                                          feedback_type: 'autoML', metadata: {foo: 'bar'} },
-                                        { attempt: 1, optimal: false, used: true,
-                                          time: DateTime.now, entry: 'This is the entry provided by the student',
-                                          feedback_text: 'This is the feedback provided by the algorithm',
-                                          feedback_type: 'autoML', metadata: {foo: 'bar'} }] }
+      post :batch,
+        params: {
+          feedback_histories: [
+            {
+              feedback_session_uid: '1',
+              attempt: 1,
+              optimal: false,
+              used: true,
+              time: DateTime.now,
+              entry: 'This is the entry provided by the student',
+              feedback_text: 'This is the feedback provided by the algorithm',
+              feedback_type: 'autoML',
+              metadata: {
+                foo: 'bar'
+              }
+            },
+            {
+              attempt: 1,
+              optimal: false,
+              used: true,
+              time: DateTime.now,
+              entry: 'This is the entry provided by the student',
+              feedback_text: 'This is the feedback provided by the algorithm',
+              feedback_type: 'autoML',
+              metadata: {
+                foo: 'bar'
+              }
+            }
+          ]
+        }
 
       parsed_response = JSON.parse(response.body)
 
@@ -157,7 +204,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       get :show, params: { id: feedback_history.id }
 
       parsed_response = JSON.parse(response.body)
-      
+
       expect(200).to eq(response.code.to_i)
       expect(prompt.as_json).to eq(parsed_response['prompt'])
     end
