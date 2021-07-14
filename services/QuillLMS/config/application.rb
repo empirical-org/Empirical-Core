@@ -75,10 +75,10 @@ module EmpiricalGrammar
         resource '/api/*', headers: :any, methods: [:get, :post, :patch, :put, :delete, :options], credentials: true
       end
 
-      allow do
-        origins '*'
-        resource '/webpack/*', headers: :any, methods: :get
-      end
+      # allow do
+      #   origins '*'
+      #   resource '/webpack/*', headers: :any, methods: :get
+      # end
 
     end
 
@@ -88,8 +88,8 @@ module EmpiricalGrammar
       'Access-Control-Allow-Origin' => '*'
     }
 
-    # config.assets.header_rules = {
-    #   :global => {'Access-Control-Allow-Origin' => '*'},
-    # }
+    config.assets.header_rules = {
+      :global => {'Access-Control-Allow-Origin' => '*'},
+    }
   end
 end
