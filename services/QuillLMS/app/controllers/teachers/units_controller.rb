@@ -177,7 +177,7 @@ class Teachers::UnitsController < ApplicationController
         JOIN unit_activities
           ON unit_activities.unit_id = units.id
         WHERE classrooms_teachers.user_id = #{current_user.id.to_i}
-          AND unit_activities.activity_id = #{ActiveRecord::Base.sanitize(params[:activity_id])}
+          AND unit_activities.activity_id = #{ActiveRecord::Base.connection.quote(params[:activity_id])}
           AND classroom_units.visible IS true
       SQL
     ).to_a
@@ -251,7 +251,7 @@ class Teachers::UnitsController < ApplicationController
           #{scores}
           EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
           EXTRACT(EPOCH FROM ua.created_at) AS unit_activity_created_at,
-          #{ActiveRecord::Base.sanitize(teach_own_or_coteach)} AS teach_own_or_coteach,
+          #{ActiveRecord::Base.connection.quote(teach_own_or_coteach)} AS teach_own_or_coteach,
           unit_owner.name AS owner_name,
           ua.id AS unit_activity_id,
           CASE

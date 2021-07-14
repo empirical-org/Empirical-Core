@@ -259,8 +259,8 @@ class Cms::SchoolsController < Cms::CmsController
     # School zip: schools.zipcode or schools.mail_zipcode
     # District name: schools.leanm
     # Premium status: subscriptions.account_type
-    sanitized_fuzzy_param_value = ActiveRecord::Base.sanitize('%' + param_value + '%')
-    sanitized_param_value = ActiveRecord::Base.sanitize(param_value)
+    sanitized_fuzzy_param_value = ActiveRecord::Base.connection.quote('%' + param_value + '%')
+    sanitized_param_value = ActiveRecord::Base.connection.quote(param_value)
 
     case param
     when 'school_name'
@@ -343,7 +343,7 @@ class Cms::SchoolsController < Cms::CmsController
   private def teacher_search_query_for_school(school_id)
     Cms::TeacherSearchQuery.new(school_id).run
   end
-  
+
   def fallback_location
     cms_school_path(params[:id].to_i)
   end
