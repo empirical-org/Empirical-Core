@@ -1,10 +1,12 @@
 class Auth::GoogleController < ApplicationController
   before_action :set_profile, only: [:authorization_and_authentication, :authentication]
   before_action :verify_credentials, only: :authentication
-  before_action :set_user, only: [:authorization_and_authentication, :authentication]
-  before_action :save_teacher_from_google_signup, only: [:authorization_and_authentication, :authentication]
-  before_action :save_student_from_google_signup, only: [:authorization_and_authentication, :authentication]
-  before_action :follow_google_redirect, only: [:authorization_and_authentication, :authentication]
+  before_action [
+    :set_user,
+    :save_teacher_from_google_signup,
+    :save_student_from_google_signup,
+    :follow_google_redirect
+  ], only: [:authorization_and_authentication, :authentication]
 
   # The reason for the separate 'authentication' and`authorization_and_authentication` methods lies in the
   # before_action hook :verify_credentials.  This is only called with the authentication flow and if it fails
