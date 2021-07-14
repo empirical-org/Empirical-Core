@@ -6,6 +6,10 @@ class Auth::GoogleController < ApplicationController
   before_action :save_student_from_google_signup, only: [:authorization_and_authentication, :authentication]
   before_action :follow_google_redirect, only: [:authorization_and_authentication, :authentication]
 
+  # The reason for the separate 'authentication' and`authorization_and_authentication` methods lies in the
+  # before_action hook :verify_credentials.  This is only called with the authentication flow and if it fails
+  # will redirect to `google_oauth2` for reauthorization.
+
   def authorization_and_authentication
     run_background_jobs
     sign_in(@user)
