@@ -16,8 +16,6 @@ import (
 
 const automl_index = 3
 
-var wg sync.WaitGroup
-
 // you can't use const for structs, so this is the closest thing we can get for this value
 var default_api_response = APIResponse{
 	Feedback: "Thank you for your response.",
@@ -91,6 +89,7 @@ func AssembleUrls() ([8]string) {
 
 func Endpoint(context *gin.Context) {
 	urls := AssembleUrls()
+	wg := sync.WaitGroup{}
 
 	requestDump, err := httputil.DumpRequest(context.Request, true)
 	if err != nil {
@@ -110,7 +109,7 @@ func Endpoint(context *gin.Context) {
 	channel := make(chan InternalAPIResponse)
 
 	for priority, url := range urls {
-		go getAPIResponse(url, priority, request_body, channel)
+		go getAPIResponse(url, priority, request_body, channel, wg)
 	}
 
 	var returnable_result APIResponse
@@ -135,9 +134,6 @@ func Endpoint(context *gin.Context) {
 		}
 	}
 
-	// TODO make this a purely async task instead of coroutine that waits to finish
-	wg.Add(1)
-
 	var request_object APIRequest
 	// TODO convert the 'feedback' bytes and combine with incoming_params bytes
 	// instead of transforming from bytes to object, combining, and then converting back to bytes
@@ -145,7 +141,7 @@ func Endpoint(context *gin.Context) {
 		return
 	}
 
-	go recordFeedback(request_object, returnable_result, GetFeedbackHistoryUrl())
+	recordFeedback(request_object, returnable_result, GetFeedbackHistoryUrl())
 
 	context.Header("Access-Control-Allow-Origin", "*")
 	context.Header("Content-Type", "application/json")
@@ -171,7 +167,9 @@ func processResults(results map[int]InternalAPIResponse, length int) (int, bool)
 	return automl_index, all_correct
 }
 
-func getAPIResponse(url string, priority int, json_params [] byte, c chan InternalAPIResponse) {
+func getAPIResponse(url string, priority int, json_params [] byte, c chan InternalAPIResponse, wg sync.WaitGroup) {
+	wg.Add(1)
+	defer wg.Done()
 	// response_json, err := http.Post(url, "application/json", bytes.NewReader(json_params))
 
 	// TODO For now, just swallow any errors from this, but we'd want to report errors.
@@ -182,6 +180,7 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 		c <- InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an error hitting the API", Feedback_type: "API Error", Optimal: false}}
 		return
 	}
+	defer response_json.Body.Close()
 
 	var result APIResponse
 
@@ -233,7 +232,7 @@ func buildFeedbackHistory(request_object APIRequest, feedback APIResponse, used 
 }
 
 func recordFeedback(incoming_params APIRequest, feedback APIResponse, feedback_history_url string) {
-	defer wg.Done() // mark task as done in WaitGroup on return
+
 
 	history := buildFeedbackHistory(incoming_params, feedback, true, time.Now())
 
