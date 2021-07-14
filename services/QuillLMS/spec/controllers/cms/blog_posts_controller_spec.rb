@@ -44,7 +44,7 @@ describe Cms::BlogPostsController, type: :controller do
     let!(:bpost) { create(:blog_post) }
 
     it 'should update the given blog post' do
-      post :update, id: bpost.id, blog_post: { title: "new test title" }
+      post :update, params: { id: bpost.id, blog_post: { title: "new test title" } }
       expect(bpost.reload.title).to eq "new test title"
     end
   end
@@ -53,7 +53,7 @@ describe Cms::BlogPostsController, type: :controller do
     let!(:bpost) { create(:blog_post) }
 
     it 'should destroy the given blog post' do
-      delete :destroy, id: bpost.id
+      delete :destroy, params: { id: bpost.id }
       expect{BlogPost.find(bpost.id)}.to raise_exception(ActiveRecord::RecordNotFound)
     end
   end
@@ -62,7 +62,7 @@ describe Cms::BlogPostsController, type: :controller do
     let!(:bpost) { create(:blog_post) }
 
     it 'should make draft true in the given blog post' do
-      get :unpublish, id: bpost.id
+      get :unpublish, params: { id: bpost.id }
       expect(bpost.reload.draft).to eq true
       expect(flash[:success]).to eq "Blog post successfully set to draft."
       expect(response).to redirect_to cms_blog_posts_path
@@ -74,7 +74,7 @@ describe Cms::BlogPostsController, type: :controller do
     let!(:bpost1) { create(:blog_post) }
 
     it 'should update the order number for all given blog posts' do
-      get :update_order_numbers, blog_posts: [{ id: bpost.id, order_number: 2 }, { id: bpost1.id, order_number: 4 }].to_json
+      get :update_order_numbers, params: { blog_posts: [{ id: bpost.id, order_number: 2 }, { id: bpost1.id, order_number: 4 }].to_json }
       expect(bpost.reload.order_number).to eq 2
       expect(bpost1.reload.order_number).to eq 4
     end
@@ -85,7 +85,7 @@ describe Cms::BlogPostsController, type: :controller do
     let!(:bpost1) { create(:blog_post) }
 
     it 'should update the order number for all given blog posts' do
-      get :update_featured_order_numbers, blog_posts: [{ id: bpost.id, featured_order_number: 2 }, { id: bpost1.id, featured_order_number: 4 }].to_json
+      get :update_featured_order_numbers, params: { blog_posts: [{ id: bpost.id, featured_order_number: 2 }, { id: bpost1.id, featured_order_number: 4 }].to_json }
       expect(bpost.reload.featured_order_number).to eq 2
       expect(bpost1.reload.featured_order_number).to eq 4
     end

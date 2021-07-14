@@ -8,7 +8,7 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
 
   describe '#by_conjunction' do
     it 'should return successfully' do
-        get :by_conjunction, conjunction: 'so', activity_id: 1
+        get :by_conjunction, params: { conjunction: 'so', activity_id: 1 }
 
         expect(response.status).to eq 200
         expect(JSON.parse(response.body)).to eq(
@@ -28,13 +28,13 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
         start_date: START_DATE,
         end_date: END_DATE,
       })
-      get :by_conjunction, conjunction: CONJUNCTION, activity_id: ACTIVITY_ID, start_date: START_DATE, end_date: END_DATE
+      get :by_conjunction, params: { conjunction: CONJUNCTION, activity_id: ACTIVITY_ID, start_date: START_DATE, end_date: END_DATE }
     end
   end
 
   describe '#rule_detail' do
     it 'should return successfully' do
-      get :rule_detail, rule_uid: 1, prompt_id: 1
+      get :rule_detail, params: { rule_uid: 1, prompt_id: 1 }
       expect(response.status).to eq 200
       expect(JSON.parse(response.body)).to eq({"1"=>{"responses"=>[]}})
     end
@@ -43,7 +43,7 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
   describe '#prompt_health' do
     context 'no associated feedback sessions' do
       it 'should return successfully' do
-        get :prompt_health, activity_id: 1
+        get :prompt_health, params: { activity_id: 1 }
         expect(response.status).to eq 200
         expect(JSON.parse(response.body)).to eq({})
       end
@@ -64,7 +64,7 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
 
         f_h1 = create(:feedback_history, feedback_session_uid: as1.uid, attempt: 1, optimal: false, prompt_id: prompt.id)
 
-        get :prompt_health, activity_id: main_activity.id
+        get :prompt_health, params: { activity_id: main_activity.id }
         expect(response.status).to eq 200
         expect(JSON.parse(response.body).keys.length).to eq 1
       end

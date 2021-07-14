@@ -26,11 +26,9 @@ describe Cms::RawScoresController do
 
   describe '#create' do
     it 'creates a new raw score' do
-      post :create, {
-        raw_score: {
+      post :create, params: { raw_score: {
           name: 'New Raw Score',
-        }
-      }
+        } }
       parsed_response = JSON.parse(response.body)
       id = parsed_response["raw_score"]["id"]
       expect(id).to be
@@ -42,12 +40,9 @@ describe Cms::RawScoresController do
     it 'creates a new raw_score with the nested change logs' do
       new_name = 'New RawScore Name'
       id = raw_scores[0].id
-      put :update, {
-        id: id,
-        raw_score: {
+      put :update, params: { id: id, raw_score: {
           name: new_name
-        }
-      }
+        } }
       expect(RawScore.find_by_id(id).name).to eq(new_name)
     end
   end

@@ -38,19 +38,19 @@ describe Teachers::ClassroomUnitsController, type: :controller do
           let(:teach_class_url) { "#{activity.classification_form_url}teach/class-lessons/#{activity.uid}?&classroom_unit_id=#{classroom_unit.id}" }
 
           it 'should redirect to teach class lessons url' do
-            get :launch_lesson, id: classroom_unit.id, lesson_uid: activity.uid
+            get :launch_lesson, params: { id: classroom_unit.id, lesson_uid: activity.uid }
             expect(response).to redirect_to teach_class_url
           end
         end
 
         it 'should redirect_to customize lesson url' do
-          get :launch_lesson, id: classroom_unit.id, lesson_uid: activity.uid
+          get :launch_lesson, params: { id: classroom_unit.id, lesson_uid: activity.uid }
           expect(response).to redirect_to customize_lesson_url
         end
 
         it 'should kick of the pusher lesson worker and update the classroom unit activity state' do
           expect(PusherLessonLaunched).to receive(:run).with(classroom_unit.classroom)
-          get :launch_lesson, id: classroom_unit.id, lesson_uid: activity.uid
+          get :launch_lesson, params: { id: classroom_unit.id, lesson_uid: activity.uid }
           expect(cuas.reload.locked).to eq false
           expect(cuas.reload.pinned).to eq true
         end
@@ -65,7 +65,7 @@ describe Teachers::ClassroomUnitsController, type: :controller do
 
         it 'should redirect back to the referrer' do
           request.env["HTTP_REFERER"] = '/'
-          get :launch_lesson, id: classroom_unit.id, lesson_uid: activity.uid
+          get :launch_lesson, params: { id: classroom_unit.id, lesson_uid: activity.uid }
           expect(response).to redirect_to '/'
         end
       end
@@ -124,7 +124,7 @@ describe Teachers::ClassroomUnitsController, type: :controller do
     describe '#launch_lesson' do
 
       it 'should redirect to login' do
-        get :launch_lesson, id: classroom_unit.id, lesson_uid: activity.uid
+        get :launch_lesson, params: { id: classroom_unit.id, lesson_uid: activity.uid }
 
         response.should redirect_to '/session/new'
       end
@@ -133,7 +133,7 @@ describe Teachers::ClassroomUnitsController, type: :controller do
     describe '#mark_lesson_as_completed' do
 
       it 'should redirect to login' do
-        get :mark_lesson_as_completed, id: classroom_unit.id, lesson_uid: activity.uid
+        get :mark_lesson_as_completed, params: { id: classroom_unit.id, lesson_uid: activity.uid }
 
         response.should redirect_to '/session/new'
       end

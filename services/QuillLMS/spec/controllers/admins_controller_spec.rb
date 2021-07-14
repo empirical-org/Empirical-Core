@@ -20,28 +20,28 @@ describe AdminsController  do
     end
 
     it 'should render the correct json' do
-      get :show, id: teacher.id
+      get :show, params: { id: teacher.id }
       expect(response.body).to eq(({id: user.id}).to_json)
     end
   end
 
   describe '#sign_in_classroom_manager' do
     it 'should redirect to teachers classrooms path' do
-      get :sign_in_classroom_manager, id: teacher.id
+      get :sign_in_classroom_manager, params: { id: teacher.id }
       expect(response).to redirect_to teachers_classrooms_path
     end
   end
 
   describe '#sign_in_progress_reports' do
     it 'should redirect to progress reports standards classrooms path' do
-      get :sign_in_progress_reports, id: teacher.id
+      get :sign_in_progress_reports, params: { id: teacher.id }
       expect(response).to redirect_to teachers_progress_reports_standards_classrooms_path
     end
   end
 
   describe '#sign_in_accounts_path' do
     it 'should redirect to teaches my account path' do
-      get :sign_in_account_settings, id: teacher.id
+      get :sign_in_account_settings, params: { id: teacher.id }
       expect(response).to redirect_to teachers_my_account_path
     end
   end

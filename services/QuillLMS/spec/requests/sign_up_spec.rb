@@ -12,10 +12,10 @@ describe 'Sign up', type: :request do
 
   describe 'Create New Teacher Account' do
     it 'requires unique email' do
-      post '/account', user: user_params
+      post '/account', params: { user: user_params }
       sign_up_succeeds
 
-      post '/account', user: user_params
+      post '/account', params: { user: user_params }
       sign_up_fails
       expect(JSON.parse(response.body)['errors']['email']).to include("That email is taken. Try another.")
     end
@@ -23,16 +23,16 @@ describe 'Sign up', type: :request do
 
   describe 'Create New Student Account (from sign up)' do
     it 'requires unique username' do
-      post '/account', user: user_params(username: 'TestStudent', role: 'student')
+      post '/account', params: { user: user_params(username: 'TestStudent', role: 'student') }
       sign_up_succeeds
 
-      post '/account', user: user_params(username: 'TestStudent', role: 'student')
+      post '/account', params: { user: user_params(username: 'TestStudent', role: 'student') }
       sign_up_fails
       expect(JSON.parse(response.body)['errors']['username']).to include("That username is taken. Try another.")
     end
 
     it 'does not require email' do
-      post '/account', user: user_params(username: 'TestStudent', role: 'student').except(:email)
+      post '/account', params: { user: user_params(username: 'TestStudent', role: 'student').except(:email) }
       sign_up_succeeds
     end
   end
@@ -72,7 +72,7 @@ describe 'Sign up', type: :request do
 
     context "when the teacher enters the student's name correctly" do
       before do
-        post teachers_classroom_students_path(classroom), user: {first_name: student_first_name, last_name: student_last_name}
+        post teachers_classroom_students_path(classroom), params: { user: {first_name: student_first_name, last_name: student_last_name} }
       end
 
       it 'generates password' do
