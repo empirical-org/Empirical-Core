@@ -1,4 +1,4 @@
-class DeleteRuleSets < ActiveRecord::Migration
+class DeleteRuleSets < ActiveRecord::Migration[4.2]
   def change
     drop_table :comprehension_rule_sets
     drop_table :comprehension_prompts_rule_sets
