@@ -18,9 +18,7 @@ describe Teachers::ProgressReports::ActivitySessionsController, type: :controlle
     context 'when logged in' do
       let(:json) { JSON.parse(response.body) }
 
-      before do
-        session[:user_id] = teacher.id
-      end
+      before { session[:user_id] = teacher.id }
 
       it 'includes the serialized data for activity sessions' do
         get :index, params: { page: 1, format: :json }

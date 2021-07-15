@@ -15,9 +15,7 @@ shared_examples_for "Progress Report" do
     end
 
     describe 'when the teacher is logged in' do
-      before do
-        login
-      end
+      before { login }
 
       it 'renders the view' do
         subject
@@ -28,6 +26,7 @@ shared_examples_for "Progress Report" do
 
   describe 'GET #index JSON' do
     subject { get :index, params: default_filters.merge(format: :json) }
+
     let(:json) { JSON.parse(response.body) }
 
     it 'requires a logged-in teacher' do
@@ -36,9 +35,7 @@ shared_examples_for "Progress Report" do
     end
 
     describe 'when the teacher is logged in' do
-      before do
-        login
-      end
+      before { login }
 
       it 'sends a Vary: Accept header (for Chrome caching issues)' do
         subject
@@ -65,15 +62,13 @@ shared_examples_for "Progress Report" do
 end
 
 shared_examples_for "filtering progress reports by Unit" do
-
-  let(:filters) { default_filters.merge({unit_id: filter_value, format: :json})}
+  let(:filters) { { unit_id: filter_value, xhr: true, format: :json } }
 
   describe 'GET #index JSON' do
-    before do
-      login
-    end
+    before { login }
 
-    subject { xhr :get, :index, filters }
+    subject { get :index, params: default_filters.merge(filters) }
+
     let(:json) { JSON.parse(response.body) }
 
     it "can filter the progress report by unit" do
@@ -96,6 +91,7 @@ shared_examples_for "exporting to CSV" do
   end
 
   subject { get :index, params: default_filters.merge(format: :json) }
+
   let(:json) { JSON.parse(response.body) }
 
   it "includes the teacher data in the JSON response" do
