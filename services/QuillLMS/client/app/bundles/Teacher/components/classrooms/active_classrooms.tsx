@@ -211,11 +211,12 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       classroom.order = i
       return classroom;
     });
-    console.log("🚀 ~ file: active_classrooms.tsx ~ line 225 ~ ActiveClassrooms ~ newlySortedClassrooms", newlySortedClassrooms)
     requestPut('/classrooms_teachers/update_order', { updated_classrooms: JSON.stringify(newlySortedClassrooms) }, (body) => {
-      console.log('body', body)
+      const { classrooms } = body;
+      if(classrooms) {
+        this.setState({ classrooms: newlySortedClassrooms });
+      }
     })
-    this.setState({ classrooms: newlySortedClassrooms });
   }
 
   getClassroomCardsWithHandle(classroomCards) {
