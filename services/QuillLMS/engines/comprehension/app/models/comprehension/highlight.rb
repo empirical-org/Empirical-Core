@@ -1,5 +1,5 @@
 module Comprehension
-  class Highlight < ActiveRecord::Base
+  class Highlight < ApplicationRecord
     MIN_TEXT_LENGTH = 1
     MAX_TEXT_LENGTH = 5000
     TYPES= [

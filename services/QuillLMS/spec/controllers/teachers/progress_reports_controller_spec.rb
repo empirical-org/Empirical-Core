@@ -48,7 +48,7 @@ describe Teachers::ProgressReportsController do
         let!(:user) { create(:user, email: "hello+test@quill.org" ) }
 
         it 'should use the hello+test@quill account and redirect to scorebook teachers classrooms path' do
-          get :demo, name: "test"
+          get :demo, params: { name: "test" }
           expect(assigns(:user)).to eq User.find_by_email 'hello+test@quill.org'
           expect(response).to redirect_to scorebook_teachers_classrooms_path
         end
@@ -57,7 +57,7 @@ describe Teachers::ProgressReportsController do
           let!(:user) { create(:user, email: "hello+demoaccount@quill.org" ) }
 
           it 'should redirect to teachers_progress_reports_concepts_students_path path' do
-            get :demo, name: "demoaccount"
+            get :demo, params: { name: "demoaccount" }
             expect(response).to redirect_to teachers_progress_reports_concepts_students_path
           end
         end
@@ -66,7 +66,7 @@ describe Teachers::ProgressReportsController do
           let!(:user) { create(:user, email: "hello+admin_demo@quill.org" ) }
 
           it 'should redirect to profile path' do
-            get :demo, name: "admin_demo"
+            get :demo, params: { name: "admin_demo" }
             expect(response).to redirect_to profile_path
           end
         end
@@ -81,7 +81,7 @@ describe Teachers::ProgressReportsController do
         it 'should destroy the current demo and create a new demo' do
           expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with("test")
           expect(Demo::ReportDemoCreator).to receive(:create_demo).with("test")
-          get :demo, name: "test"
+          get :demo, params: { name: "test" }
         end
       end
     end
@@ -91,7 +91,7 @@ describe Teachers::ProgressReportsController do
     context 'when name given' do
       it 'sets the user and redirects to teacher_admin_dashboard path when user exists' do
         user = create(:user, email: "hello+demoadmin-test@quill.org")
-        get :admin_demo, name: "test"
+        get :admin_demo, params: { name: "test" }
         expect(assigns(:admin_user)).to eq user
       end
 
@@ -106,7 +106,7 @@ describe Teachers::ProgressReportsController do
           .with("test", "test", "hello+demoadmin-test@quill.org")
           .and_return(admin_report_service)
 
-        get :admin_demo, name: "test"
+        get :admin_demo, params: { name: "test" }
       end
     end
 

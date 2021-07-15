@@ -1,3 +1,6 @@
+import { DIRECTIONS, } from '../components/studentView/promptStep'
+
+
 export const ATTEMPTS_TO_SCORE = {
   1: 1.0,
   2: 0.75,
@@ -5,8 +8,6 @@ export const ATTEMPTS_TO_SCORE = {
   4: 0.25,
   5: 0.0
 }
-
-export const COMPREHENSION_DIRECTIONS = 'Complete this sentence'
 
 export const generateConceptResults = (currentActivity, submittedResponses) => {
   const conjunctionToQuestionNumber = {
@@ -28,7 +29,7 @@ export const generateConceptResults = (currentActivity, submittedResponses) => {
           answer: response.entry,
           attemptNumber: attempt,
           correct: response.optimal ? 1 : 0,
-          directions: (attempt == 1) ? COMPREHENSION_DIRECTIONS : responses[index - 1].feedback,
+          directions: (attempt == 1) ? DIRECTIONS : responses[index - 1].feedback,
           prompt: prompt.text,
           questionNumber: conjunctionToQuestionNumber[prompt.conjunction],
           questionScore: ATTEMPTS_TO_SCORE[responses.length],

@@ -27,26 +27,26 @@ describe ActivitySessionsController, type: :controller do
         allow_any_instance_of(Activity).to receive(:activity_classification_id) { 3 }
       end
       it 'should redirect to module url' do
-        get :play, id: activity_session.id
+        get :play, params: { id: activity_session.id }
         expect(response).to redirect_to activity.module_url(activity_session)
       end
   end
 
   describe '#result' do
     it 'should set the activity results classroom_id' do
-      get :result, uid: activity_session.uid
+      get :result, params: { uid: activity_session.uid }
       expect(assigns(:activity)).to eq activity_session
       expect(assigns(:results)).to eq activity_session.parse_for_results
       expect(assigns(:classroom_id)).to eq activity_session.classroom_unit.classroom_id
     end
 
     it 'should allow iFrames for this endpoint' do
-      get :result, uid: activity_session.uid
+      get :result, params: { uid: activity_session.uid }
       expect(response.headers).not_to include('X-Frame-Options')
     end
 
     it 'shouldnt error unfound sessions' do
-      get :result, uid: 923123213123123123
+      get :result, params: { uid: 923123213123123123 }
 
       expect(response.code).to eq("404")
     end
@@ -59,12 +59,12 @@ describe ActivitySessionsController, type: :controller do
       end
 
       it 'should assign the activity' do
-        get :anonymous, activity_id: activity.id
+        get :anonymous, params: { activity_id: activity.id }
         expect(assigns(:activity)).to eq activity
       end
 
       it 'should redirect to preview lesson url' do
-        get :anonymous, activity_id: activity.id
+        get :anonymous, params: { activity_id: activity.id }
         expect(response).to redirect_to "#{ENV['DEFAULT_URL']}/preview_lesson/#{activity.uid}"
       end
     end
@@ -75,7 +75,7 @@ describe ActivitySessionsController, type: :controller do
       end
 
       it 'should redirect to anonymous module url' do
-        get :anonymous, activity_id: activity.id
+        get :anonymous, params: { activity_id: activity.id }
         expect(response).to redirect_to activity.anonymous_module_url.to_s
       end
     end
@@ -91,7 +91,7 @@ describe ActivitySessionsController, type: :controller do
     end
 
     it 'should redirect to the correct activity session url' do
-      get :activity_session_from_classroom_unit_and_activity, classroom_unit_id: cu.id, activity_id: activity.id
+      get :activity_session_from_classroom_unit_and_activity, params: { classroom_unit_id: cu.id, activity_id: activity.id }
       expect(response).to redirect_to activity_session_url
     end
   end

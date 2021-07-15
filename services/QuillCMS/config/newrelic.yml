@@ -23,6 +23,16 @@ common: &default_settings
 
   # Logging level for log/newrelic_agent.log
   log_level: info
+  # Expecting errors prevents the specified exception classes or codes
+  # from affecting your application's error rate and Apdex score.
+  # This allows you to retain the error information for troubleshooting purposes
+  # while avoiding alerts based on error rate or Apdex score.
+  error_collector.expected_classes:
+    - 'Net::HTTPRetriableError'
+    - 'ActionController::RoutingError'
+    - 'Net::ReadTimeout'
+    - 'CreateOrIncrementResponseWorker::RaceConditionError'
+    - 'RematchResponseWorker::LambdaHTTPError'
 
 
 # Environment-specific settings are in this section.
@@ -30,7 +40,7 @@ common: &default_settings
 # If your application has other named environments, configure them here.
 development:
   <<: *default_settings
-  app_name: My Application (Development)
+  app_name: Quill CMS (Development)
 
 test:
   <<: *default_settings
@@ -39,7 +49,7 @@ test:
 
 staging:
   <<: *default_settings
-  app_name: My Application (Staging)
+  app_name: Quill CMS (Staging)
 
 production:
   <<: *default_settings

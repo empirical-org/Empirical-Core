@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::AppSettingsController, type: :controller do
   let(:user) { create(:user) }
+  before do 
+    allow(controller).to receive(:current_user) { user }
+  end
 
   describe "GET #index" do
     it "returns a success response" do
@@ -10,7 +13,7 @@ RSpec.describe Api::V1::AppSettingsController, type: :controller do
       create(:app_setting, name: 'second', enabled: true) 
       create(:app_setting, name: 'third', enabled: true) 
 
-      get(:index, user_id: user.id) 
+      get(:index) 
       
       expect(response).to be_success
       expected_keys = Set["first", "second", "third"]
@@ -22,7 +25,7 @@ RSpec.describe Api::V1::AppSettingsController, type: :controller do
     it "returns a success response" do
       create(:app_setting, name: 'lorem', enabled: false)
       
-      get(:show, user_id: user.id, name: 'lorem') 
+      get(:show, params: { name: 'lorem' }) 
       
       expect(response).to be_success
       expect(JSON.parse(response.body)).to eq({ "lorem" => false })

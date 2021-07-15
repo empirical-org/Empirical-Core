@@ -23,7 +23,7 @@
 #  fk_rails_...  (classroom_unit_id => classroom_units.id)
 #  fk_rails_...  (unit_activity_id => unit_activities.id)
 #
-class ClassroomUnitActivityState < ActiveRecord::Base
+class ClassroomUnitActivityState < ApplicationRecord
   include ::NewRelic::Agent
   include LessonsCache
 

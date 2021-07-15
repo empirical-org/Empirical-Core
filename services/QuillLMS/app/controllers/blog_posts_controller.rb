@@ -1,7 +1,11 @@
 class BlogPostsController < ApplicationController
+  before_action :redirect_legacy_topic_urls, only: [:show_topic]
+  before_action :redirect_invalid_topics, only: [:show_topic]
+
   before_action :set_announcement, only: [:index, :show, :show_topic]
-  before_action :set_role
   before_action :set_root_url
+
+
 
   def index
     topic_names = BlogPost::TEACHER_TOPICS
@@ -9,7 +13,7 @@ class BlogPostsController < ApplicationController
     topic_names.each do |name|
       @topics.push({ name: name, slug: CGI::escape(name.downcase.gsub(' ','-'))})
     end
-    @blog_posts = BlogPost.where(draft: false, topic: topic_names).order('order_number')
+    @blog_posts = BlogPost.for_topics(topic_names)
   end
 
   def student_center_index
@@ -19,29 +23,42 @@ class BlogPostsController < ApplicationController
     topic_names.each do |name|
       @topics.push({ name: name, slug: CGI::escape(name.downcase.gsub(' ','-'))})
     end
-    @blog_posts = BlogPost.where(draft: false, topic: topic_names)
+    @blog_posts = BlogPost.for_topics(topic_names)
     render :index
   end
 
   def show
-    find_by_hash = { slug: params[:slug] }
-    find_by_hash[:draft] = false unless @role == 'staff'
-    @blog_post = BlogPost.find_by!(find_by_hash)
-    @topic = @blog_post.topic
-    @display_paywall = true unless @blog_post.can_be_accessed_by(current_user)
-    @blog_post.increment_read_count
-    @author = @blog_post.author
-    @most_recent_posts = BlogPost.where("draft = false AND id != #{@blog_post.id}").order('updated_at DESC').limit(3)
-    @title = @blog_post.title
-    @description = @blog_post.subtitle || @title
-    @image_link = @blog_post.image_link
+    draft_statuses = current_user&.staff? ? [true, false] : false
+
+    @blog_post = BlogPost.find_by(slug: params[:slug], draft: draft_statuses)
+
+    if @blog_post
+      # TODO: remove SQL write from GET endpoint
+      @blog_post.increment_read_count
+      @most_recent_posts = BlogPost.most_recent.where.not(id: @blog_post.id)
+
+      @title = @blog_post.title
+      @description = @blog_post.subtitle || @title
+      @image_link = @blog_post.image_link
+    else
+      # try fixing params and redirect to correct url.
+      corrected_slug = params[:slug]&.gsub(/[^a-zA-Z\d\s-]/, '')&.downcase
+      blog_post = BlogPost.find_by(slug: corrected_slug, draft: draft_statuses)
+
+      if blog_post
+        redirect_to blog_post_path(blog_post.slug)
+      else
+        flash[:error] = "Oops! We can't seem to find that blog post. Trying searching on this page."
+        redirect_to blog_posts_path
+      end
+    end
   end
 
   def search
     @query = params[:query]
     if params[:query].blank?
       flash[:error] = 'Oops! Please enter a search query.'
-      return redirect_to :back
+      return redirect_back(fallback_location: search_blog_posts_path)
     end
     @blog_posts = RawSqlRunner.execute(
       <<-SQL
@@ -51,8 +68,8 @@ class BlogPostsController < ApplicationController
         FROM blog_posts
         WHERE draft IS false
           AND topic != '#{BlogPost::IN_THE_NEWS}'
-          AND tsv @@ plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)})
-        ORDER BY ts_rank(tsv, plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)}))
+          AND tsv @@ plainto_tsquery(#{ActiveRecord::Base.connection.quote(@query)})
+        ORDER BY ts_rank(tsv, plainto_tsquery(#{ActiveRecord::Base.connection.quote(@query)}))
       SQL
     ).to_a
 
@@ -61,35 +78,42 @@ class BlogPostsController < ApplicationController
   end
 
   def show_topic
-    # handling links that were possibly broken by changing slug function for topic names
-    if params[:topic].include?('_')
-      new_topic = params[:topic].gsub('_', '-')
-      if current_user&.role == 'student'
-        redirect_to "/student-center/topic/#{new_topic}"
-      else
-        redirect_to "/teacher-center/topic/#{new_topic}"
-      end
-    else
-      topic = CGI::unescape(params[:topic]).gsub('-', ' ').capitalize
-      if !BlogPost::TOPICS.include?(topic) && !BlogPost::STUDENT_TOPICS.include?(topic)
-        raise ActionController::RoutingError, 'Topic Not Found'
-      end
-      @blog_posts = BlogPost.where(draft: false, topic: topic).order('order_number')
-      # hide student part of topic name for display
-      @title = @role == 'student' ? topic.gsub('Student ', '').capitalize : topic
-      render 'index'
-    end
+    topic = CGI::unescape(params[:topic]).gsub('-', ' ').capitalize
+
+    @blog_posts = BlogPost.for_topics(topic)
+    # hide student part of topic name for display
+    @topic = current_user&.student? ? topic.gsub('Student ', '').capitalize : topic
+    @title = @topic
+
+    render 'index'
   end
 
   private def set_announcement
     @announcement = Announcement.current_webinar_announcement
   end
 
-  private def set_role
-    @role = current_user ? current_user.role : nil
-  end
-
   private def set_root_url
     @root_url = root_url
+  end
+
+  private def redirect_invalid_topics
+    topic = CGI::unescape(params[:topic]).gsub('-', ' ').capitalize
+    return if BlogPost::TOPICS.include?(topic)
+    return if BlogPost::STUDENT_TOPICS.include?(topic)
+
+    flash[:error] = "Oops! We can't seem to find that topic!"
+    center_home_url = current_user&.student? ? '/student-center' : '/teacher-center'
+
+    redirect_to center_home_url and return
+  end
+
+  # handling links that were possibly broken by changing slug function for topic names
+  private def redirect_legacy_topic_urls
+    return unless params[:topic].include?('_')
+
+    new_topic = params[:topic].gsub('_', '-')
+    base_url = current_user&.student? ? 'student-center' : 'teacher-center'
+
+    redirect_to "/#{base_url}/topic/#{new_topic}" and return
   end
 end

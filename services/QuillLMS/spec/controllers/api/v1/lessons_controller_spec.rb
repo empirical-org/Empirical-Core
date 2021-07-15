@@ -7,24 +7,24 @@ describe Api::V1::LessonsController, type: :controller do
 
   describe "#index" do
     it "should return a list of Lessons" do
-      get :index, lesson_type: "connect_lesson"
+      get :index, params: { lesson_type: "connect_lesson" }
       expect(JSON.parse(response.body).keys.length).to eq(1)
     end
 
     it "should include the response from the db" do
-      get :index, lesson_type: "connect_lesson"
+      get :index, params: { lesson_type: "connect_lesson" }
       expect(JSON.parse(response.body).keys.first).to eq(activity.uid)
     end
   end
 
   describe "#show" do
     it "should return the specified lesson" do
-      get :show, id: activity.uid
+      get :show, params: { id: activity.uid }
       expect(JSON.parse(response.body)).to eq(activity.data)
     end
 
     it "should return a 404 if the requested Lesson is not found" do
-      get :show, id: 'doesnotexist'
+      get :show, params: { id: 'doesnotexist' }
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
@@ -36,7 +36,7 @@ describe Api::V1::LessonsController, type: :controller do
       data = {foo: "bar", name: "name", flag: "alpha"}
       expect(SecureRandom).to receive(:uuid).and_return(uuid)
       pre_create_count = Activity.count
-      post :create, lesson_type: "connect_lesson", lesson: data
+      post :create, params: { lesson_type: "connect_lesson", lesson: data }
       expect(Activity.count).to eq(pre_create_count + 1)
       expect(Activity.find_by(name: data[:name]).flag = data[:flag])
     end
@@ -45,14 +45,14 @@ describe Api::V1::LessonsController, type: :controller do
   describe "#update" do
     it "should update the existing record" do
       data = {"foo" => "bar", "flag" => "alpha", "name" => "new name"}
-      put :update, id: activity.uid, lesson: data
+      put :update, params: { id: activity.uid, lesson: data }
       activity.reload
       expect(activity.data).to eq(data)
       expect(Activity.find_by(name: data["name"]).flag = data["flag"])
     end
 
     it "should return a 404 if the requested Lesson is not found" do
-      get :update, id: 'doesnotexist'
+      get :update, params: { id: 'doesnotexist' }
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
@@ -64,20 +64,20 @@ describe Api::V1::LessonsController, type: :controller do
 
     it "should destroy the existing record if the current user is staff" do
       allow(controller).to receive(:current_user).and_return(staff)
-      delete :destroy, id: activity.uid
+      delete :destroy, params: { id: activity.uid }
       expect(Activity.where(uid: activity.uid).count).to eq(0)
     end
 
     it "should return a 404 if the requested Lesson is not found if the current user is staff" do
       allow(controller).to receive(:current_user).and_return(staff)
-      delete :destroy, id: 'doesnotexist'
+      delete :destroy, params: { id: 'doesnotexist' }
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
 
     it "should return a 403 if the current user is not staff" do
       allow(controller).to receive(:current_user).and_return(teacher)
-      delete :destroy, id: activity.uid
+      delete :destroy, params: { id: activity.uid }
       expect(response.status).to eq(403)
       expect(response.body).to include("You are not authorized to access this resource")
     end
@@ -86,14 +86,14 @@ describe Api::V1::LessonsController, type: :controller do
   describe "#add_question" do
     it "should add a question to the existing record" do
       data = {"key" => question.uid, "questionType" => "questions"}
-      put :add_question, id: activity.uid, question: data
+      put :add_question, params: { id: activity.uid, question: data }
       activity.reload
       expect(activity.data["questions"]).to include(data)
     end
 
     it "should return a 404 if the requested Question is not found" do
       data = {"question" => {"key" => "notarealID", "questionType" => "question"}}
-      put :add_question, id: activity.uid, question: data
+      put :add_question, params: { id: activity.uid, question: data }
       expect(response.status).to eq(404)
       expect(response.body).to include("does not exist")
     end

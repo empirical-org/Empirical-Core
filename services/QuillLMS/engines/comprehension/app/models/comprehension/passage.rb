@@ -1,5 +1,5 @@
 module Comprehension
-  class Passage < ActiveRecord::Base
+  class Passage < ApplicationRecord
     MIN_TEXT_LENGTH = 50
 
     belongs_to :activity, inverse_of: :passages

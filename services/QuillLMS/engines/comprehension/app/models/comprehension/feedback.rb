@@ -1,5 +1,5 @@
 module Comprehension
-  class Feedback < ActiveRecord::Base
+  class Feedback < ApplicationRecord
     MIN_FEEDBACK_LENGTH = 10 
     MAX_FEEDBACK_LENGTH = 500
 

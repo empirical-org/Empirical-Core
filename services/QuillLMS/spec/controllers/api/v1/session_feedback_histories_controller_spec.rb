@@ -45,7 +45,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it "should skip pages if specified" do
-          get :index, page: 2
+          get :index, params: { page: 2 }
 
           parsed_response = JSON.parse(response.body)
 
@@ -63,7 +63,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only items from the specified activity' do
-          get :index, activity_id: @activity.id
+          get :index, params: { activity_id: @activity.id }
 
           parsed_response = JSON.parse(response.body)
 
@@ -92,7 +92,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only items from the specified time constraints' do
-          get :index, start_date: '2021-04-06T20:43:27.698Z'
+          get :index, params: { start_date: '2021-04-06T20:43:27.698Z' }
 
           parsed_response = JSON.parse(response.body)
 
@@ -101,7 +101,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only items from the specified time constraints' do
-          get :index, start_date: '2021-04-06T20:43:27.698Z', end_date: '2021-04-08T20:43:27.698Z'
+          get :index, params: { start_date: '2021-04-06T20:43:27.698Z', end_date: '2021-04-08T20:43:27.698Z' }
 
           parsed_response = JSON.parse(response.body)
 
@@ -119,7 +119,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
     end
 
     it "should return json if found" do
-      get :show, id: @feedback_history.feedback_session_uid
+      get :show, params: { id: @feedback_history.feedback_session_uid }
 
       parsed_response = JSON.parse(response.body)
 
@@ -128,7 +128,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
     end
 
     it "should raise if not found (to be handled by parent app)" do
-      get :show, id: 99999
+      get :show, params: { id: 99999 }
       expect(404).to eq(response.status)
       expect(response.body.include?("The resource you were looking for does not exist")).to be
     end

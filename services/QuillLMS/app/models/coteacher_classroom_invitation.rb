@@ -14,7 +14,7 @@
 #  index_coteacher_classroom_invitations_on_classroom_id   (classroom_id)
 #  index_coteacher_classroom_invitations_on_invitation_id  (invitation_id)
 #
-class CoteacherClassroomInvitation < ActiveRecord::Base
+class CoteacherClassroomInvitation < ApplicationRecord
   belongs_to :invitation
   belongs_to :classroom
 

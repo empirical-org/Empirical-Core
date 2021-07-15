@@ -1,6 +1,6 @@
 import { handleApiError, mainApiFetch, getRuleFeedbackHistoriesUrl, getRuleFeedbackHistoryUrl } from '../../helpers/comprehension';
 
-export const fetchRuleFeedbackHistories = async (key: string, activityId: string, selectedConjunction: string, startDate: string, endDate?: string) => {
+export const fetchRuleFeedbackHistories = async (key: string, activityId: string, selectedConjunction: string, startDate?: string, endDate?: string) => {
   if (!selectedConjunction) { return }
   const url = getRuleFeedbackHistoriesUrl({ activityId, selectedConjunction, startDate, endDate });
   const response = await mainApiFetch(url);
@@ -11,7 +11,7 @@ export const fetchRuleFeedbackHistories = async (key: string, activityId: string
   };
 }
 
-export const fetchRuleFeedbackHistoriesByRule = async (key: string, ruleUID: string, promptId: string, startDate: string, endDate?: string) => {
+export const fetchRuleFeedbackHistoriesByRule = async (key: string, ruleUID: string, promptId: string, startDate?: string, endDate?: string) => {
   const url = getRuleFeedbackHistoryUrl({ ruleUID, promptId, startDate, endDate });
   const response = await mainApiFetch(url);
   const ruleFeedbackHistories = await response.json();

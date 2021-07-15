@@ -30,7 +30,7 @@ class UniqueNameWhenVisible < ActiveModel::Validator
 end
 
 
-class Unit < ActiveRecord::Base
+class Unit < ApplicationRecord
   include ActiveModel::Validations
   validates_with UniqueNameWhenVisible
   belongs_to :user

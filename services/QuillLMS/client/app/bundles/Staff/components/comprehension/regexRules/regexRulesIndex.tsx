@@ -1,13 +1,13 @@
 import * as React from "react";
 import { Link, RouteComponentProps } from 'react-router-dom'
-import { useQuery } from 'react-query';
+import { queryCache, useQuery } from 'react-query';
 import { firstBy } from 'thenby';
 
 import { getPromptsIcons, renderHeader } from '../../../helpers/comprehension';
 import { getPromptIdString } from '../../../helpers/comprehension/ruleHelpers';
 import { ActivityRouteProps, RuleInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, RULES_BASED_1, RULES_BASED_2, RULES_BASED_3 } from '../../../../../constants/comprehension';
-import { fetchRules } from '../../../utils/comprehension/ruleAPIs';
+import { fetchRules, updateRuleOrders, } from '../../../utils/comprehension/ruleAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
 
@@ -49,6 +49,15 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
     queryFn: fetchRules
   });
 
+  function handleReorder(sortInfo) {
+    const idsInOrder = sortInfo.map(item => item.key)
+    updateRuleOrders(idsInOrder).then((response) => {
+      queryCache.refetchQueries([`rules-${activityId}-${RULES_BASED_1}`])
+      queryCache.refetchQueries([`rules-${activityId}-${RULES_BASED_2}`])
+      queryCache.refetchQueries([`rules-${activityId}-${RULES_BASED_3}`])
+    });
+  }
+
   function getFormattedRows(rulesData: { rules: RuleInterface[]}) {
     if(!(rulesData && rulesData.rules && rulesData.rules.length)) {
       return [];
@@ -58,7 +67,7 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
       const ruleLink = (<Link to={`/activities/${activityId}/regex-rules/${id}`}>View</Link>);
       const promptsIcons = getPromptsIcons(activityData, prompt_ids);
       return {
-        id: `${activityId}-${id}`,
+        id,
         priority: typeof suborder === 'string' ? parseInt(suborder) : suborder,
         name,
         incorrect_sequence: renderRegexTags(regex_rules, 'incorrect'),
@@ -96,6 +105,8 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
         className="rules-table regex-index-table"
         defaultSortAttribute="name"
         headers={dataTableFields}
+        isReorderable={true}
+        reorderCallback={handleReorder}
         rows={rows}
       />
     );

@@ -1,7 +1,7 @@
 .main-admin-container {
   display: flex;
   border-bottom: 1px solid lightgray;
-  overflow: auto;
+  // overflow: auto;
   .button-wrapper {
     display: flex;
     .quill-button {
@@ -339,6 +339,42 @@
           color: #ff0000;
           display: flex;
           text-align: left;
+        }
+      }
+    }
+  }
+  .rules-container {
+    #add-rule-button {
+      margin-top: 16px;
+    }
+    .modal {
+      .modal-container {
+        .modal-content {
+          .rule-form-container {
+            height: 90%;
+            padding: 16px;
+            .close-button-container {
+              width: 100%;
+            }
+            .submit-button-container {
+              button {
+                margin-bottom: 12px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .rules-table {
+      overflow: unset !important;
+      .data-table-row {
+        .quill-tooltip-trigger {
+          .data-table-row-section {
+            button {
+              background-color: transparent;
+              border: none;
+            }
+          }
         }
       }
     }

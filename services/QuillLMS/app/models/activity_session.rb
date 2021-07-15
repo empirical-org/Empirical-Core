@@ -37,12 +37,16 @@
 require 'newrelic_rpm'
 require 'new_relic/agent'
 
-class ActivitySession < ActiveRecord::Base
+class ActivitySession < ApplicationRecord
 
   include ::NewRelic::Agent
 
   include Uid
   include Concepts
+
+  STATE_UNSTARTED = 'unstarted'
+  STATE_STARTED = 'started'
+  STATE_FINISHED = 'finished'
 
   default_scope { where(visible: true)}
   has_many :feedback_sessions, foreign_key: :activity_session_uid, primary_key: :uid
@@ -192,7 +196,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def determine_if_final_score
-    return if percentage.nil? || state != 'finished'
+    return if state != 'finished' || (percentage.nil? && !activity.is_comprehension?)
 
     # mark all finished anonymous sessions as final score.
     if user.nil?

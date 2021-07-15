@@ -111,7 +111,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
             }
           }
         ]
-        put :update, id: activity_session.uid, concept_results: results
+        put :update, params: { id: activity_session.uid, concept_results: results }
       end
 
       # this is no longer the case, as results should not be saved with nonexistent concept tag
@@ -121,13 +121,41 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         expect(activity_session.concept_results).to eq([])
       end
     end
+
+    context 'data time_tracking is included ' do
+      let(:data) do
+        {
+          'time_tracking' => {
+            'so' => 1,
+            'but' => 2,
+            'because' => 3
+          }
+        }
+      end
+
+      before do
+         put :update,
+          params: {
+           id: activity_session.uid,
+           data: data
+          },
+          as: :json
+      end
+
+      it 'updates timespent on activity session' do
+        activity_session.reload
+
+        expect(activity_session.timespent).to eq 6
+        expect(activity_session.data['time_tracking']).to include(data['time_tracking'])
+      end
+    end
   end
 
   describe '#show' do
     let!(:session) { create(:activity_session) }
 
     it 'renders the correct json' do
-      get :show, id: session.uid
+      get :show, params: { id: session.uid }
       expect(JSON.parse(response.body)["meta"]).to eq({
           "status" => "success",
           "message" => nil,
@@ -153,14 +181,14 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     before { allow(controller).to receive(:doorkeeper_token) {token} }
 
     it 'returns a 422 error if activity session is already saved' do
-      put :update, id: activity_session.uid
+      put :update, params: { id: activity_session.uid }
       parsed_body = JSON.parse(response.body)
       expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
     end
 
     it 'returns a 200 if the activity session is not already finished and can be updated' do
       activity_session.update(completed_at: nil, state: 'started')
-      put :update, id: activity_session.uid
+      put :update, params: { id: activity_session.uid }
       parsed_body = JSON.parse(response.body)
       expect(parsed_body["meta"]["message"]).to eq("Activity Session Updated")
     end
@@ -170,7 +198,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       activity_session = create(:activity_session, state: 'started', user: user)
       activity_session.stub(:update) { false }
 
-      put :update, id: activity_session.uid
+      put :update, params: { id: activity_session.uid }
       parsed_body = JSON.parse(response.body)
       expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
     end
@@ -197,7 +225,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     let!(:session) { create(:proofreader_activity_session) }
 
     it 'destroys the activity session' do
-      delete :destroy, id: session.uid, format: :json
+      delete :destroy, params: { id: session.uid, format: :json }
       expect(JSON.parse(response.body)["meta"]).to eq({
         "status" => "success",
         "message" => "Activity Session Destroy Successful",

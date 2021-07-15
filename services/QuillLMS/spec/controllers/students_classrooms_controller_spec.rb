@@ -14,7 +14,7 @@ describe StudentsClassroomsController, type: :controller do
 
         it 'should kick off the students to classroom associator and join classroom worker' do
           expect(Associators::StudentsToClassrooms).to receive(:run).with(user, classroom)
-          post :create, classcode: classroom.code
+          post :create, params: { classcode: classroom.code }
           expect(response.body).to eq classroom.attributes.to_json
         end
       end
@@ -24,7 +24,7 @@ describe StudentsClassroomsController, type: :controller do
           let!(:classroom) { create(:classroom, visible: false) }
 
           it 'should return that class is archived' do
-            post :create, classcode: classroom.code
+            post :create, params: { classcode: classroom.code }
             expect(response.body).to eq({error: "Class is archived"}.to_json)
             expect(response.code).to eq "400"
           end
@@ -32,7 +32,7 @@ describe StudentsClassroomsController, type: :controller do
 
         context 'when classroom does not exist' do
           it 'should return the class does not exist' do
-            post :create, classcode: "some_code"
+            post :create, params: { classcode: "some_code" }
             expect(response.body).to eq({error: "No such classcode"}.to_json)
             expect(response.code).to eq "404"
           end
@@ -42,7 +42,7 @@ describe StudentsClassroomsController, type: :controller do
 
     context 'when current user does not exist' do
       it 'should return not logged in' do
-        post :create, classcode: "some_code"
+        post :create, params: { classcode: "some_code" }
         expect(response.body).to eq({error: "Student not logged in."}.to_json)
         expect(response.code).to eq "403"
       end

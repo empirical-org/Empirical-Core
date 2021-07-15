@@ -9,7 +9,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
-class ContentPartner < ActiveRecord::Base
+class ContentPartner < ApplicationRecord
   has_many :content_partner_activities, dependent: :destroy
   has_many :activities, :through => :content_partner_activities
 

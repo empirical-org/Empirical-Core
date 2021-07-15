@@ -25,7 +25,7 @@ describe Cms::RecommendationsController do
     end
 
     it 'should assign the normal, independent, and group recommendations' do
-      get :index, activity_classification_id: activity_classification.id, activity_id: activity.id
+      get :index, params: { activity_classification_id: activity_classification.id, activity_id: activity.id }
       expect(assigns(:recommendations)).to eq recommendations
       expect(assigns(:independent_recommendations)).to eq independent_recommendations
       expect(assigns(:group_recommendations)).to eq group_recommendations
@@ -45,7 +45,7 @@ describe Cms::RecommendationsController do
     end
 
     it 'should assign the concepts and recommendation' do
-      get :new, activity_classification_id: activity_classification.id, activity_id: activity.id
+      get :new, params: { activity_classification_id: activity_classification.id, activity_id: activity.id }
       expect(assigns(:concepts)).to eq [concept]
       expect(assigns(:recommendation)).to eq recommendation
       expect(assigns(:unit_templates)).to eq [unit_template]
@@ -59,7 +59,7 @@ describe Cms::RecommendationsController do
 
 
     it 'should find the recommendation' do
-      get :show, id: recommendation.id, activity_id: activity.id, activity_classification_id: activity_classification.id
+      get :show, params: { id: recommendation.id, activity_id: activity.id, activity_classification_id: activity_classification.id }
       expect(assigns(:recommendation)).to eq recommendation
     end
   end
@@ -73,15 +73,11 @@ describe Cms::RecommendationsController do
       let!(:recommendation) { create(:recommendation, activity: activity, category: 0) }
 
       it 'should create the recommendation with the given activity and order number greater than that of the category' do
-        post :create,
-           activity_id: activity.id,
-           activity_classification_id: activity_classification.id,
-           category: "independent_practice",
-           recommendation: {
+        post :create, params: { activity_id: activity.id, activity_classification_id: activity_classification.id, category: "independent_practice", recommendation: {
              name: "some_name",
              unit_template_id: unit_template.id,
              category: "independent_practice"
-           }
+           } }
         expect(Recommendation.last.order).to eq recommendation.order + 1
         expect(Recommendation.last.activity).to eq activity
       end
@@ -89,27 +85,20 @@ describe Cms::RecommendationsController do
 
 
     it 'should create the recommendation with the given activity and next order number' do
-      post :create,
-           activity_id: activity.id,
-           activity_classification_id: activity_classification.id,
-           category: "independent_practice",
-           recommendation: {
+      post :create, params: { activity_id: activity.id, activity_classification_id: activity_classification.id, category: "independent_practice", recommendation: {
                name: "some_name",
                unit_template_id: unit_template.id,
                category: "independent_practice"
-           }
+           } }
       expect(Recommendation.last.order).to eq 0
       expect(Recommendation.last.activity).to eq activity
     end
 
     it 'should throw error if recommendation is not created' do
-      post :create,
-           activity_id: activity.id,
-           activity_classification_id: activity_classification.id,
-           recommendation: {
+      post :create, params: { activity_id: activity.id, activity_classification_id: activity_classification.id, recommendation: {
                unit_template_id: unit_template.id,
                category: "independent_practice"
-           }
+           } }
       expect(response).to render_template :new
       expect(flash[:error]).to eq "Unable to create recommendation."
     end
@@ -121,7 +110,7 @@ describe Cms::RecommendationsController do
     let!(:recommendation) { create(:recommendation) }
 
     it 'should destroy the recommendation' do
-      delete :destroy, id: recommendation.id, activity_id: activity.id, activity_classification_id: activity_classification.id
+      delete :destroy, params: { id: recommendation.id, activity_id: activity.id, activity_classification_id: activity_classification.id }
       expect{ Recommendation.find(recommendation.id) }.to raise_exception ActiveRecord::RecordNotFound
     end
   end

@@ -14,7 +14,7 @@
 #  index_concept_feedbacks_on_activity_type          (activity_type)
 #  index_concept_feedbacks_on_uid_and_activity_type  (uid,activity_type) UNIQUE
 #
-class ConceptFeedback < ActiveRecord::Base
+class ConceptFeedback < ApplicationRecord
   TYPES = [
     TYPE_CONNECT = 'connect',
     TYPE_GRAMMAR = 'grammar'

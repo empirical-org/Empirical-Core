@@ -19,8 +19,8 @@ class Scorebook::Query
           MAX(acts.updated_at) AS updated_at,
           MIN(acts.started_at) AS started_at,
           MAX(acts.percentage) AS percentage,
-          SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) AS completed_attempts,
-          SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS started,
+          SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) AS completed_attempts,
+          SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) AS started,
           SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS id
         FROM classroom_units AS cu
         LEFT JOIN students_classrooms AS sc
@@ -58,7 +58,7 @@ class Scorebook::Query
         ORDER BY split_part( students.name, ' ' , 2),
           CASE WHEN SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
           MIN(acts.completed_at),
-          CASE WHEN SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
+          CASE WHEN SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
           cu.created_at ASC
           OFFSET (#{(current_page.to_i - 1) * SCORES_PER_PAGE})
           FETCH NEXT #{SCORES_PER_PAGE} ROWS ONLY
@@ -68,12 +68,12 @@ class Scorebook::Query
 
   def self.units(unit_id)
     if unit_id && !unit_id.blank?
-      ["JOIN units ON cu.unit_id = units.id", "AND units.id = #{ActiveRecord::Base.sanitize(unit_id)}"]
+      ["JOIN units ON cu.unit_id = units.id", "AND units.id = #{ActiveRecord::Base.connection.quote(unit_id)}"]
     end
   end
 
   def self.sanitize_date(date)
-    return ActiveRecord::Base.sanitize(date) if date && !date.blank?
+    return ActiveRecord::Base.connection.quote(date) if date && !date.blank?
   end
 
   def self.date_conditional_string(begin_date, end_date, offset)

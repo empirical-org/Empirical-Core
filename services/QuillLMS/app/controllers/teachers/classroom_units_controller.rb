@@ -22,7 +22,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
     )
     rescue ActiveRecord::StatementInvalid
       flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
-      redirect_to :back
+      redirect_back(fallback_location: dashboard_teachers_classrooms_path)
       return
     end
 
@@ -30,13 +30,10 @@ class Teachers::ClassroomUnitsController < ApplicationController
       if cuas && cuas.update(locked: false, pinned: true)
         find_or_create_lesson_activity_sessions_for_classroom
         PusherLessonLaunched.run(@classroom_unit.classroom)
-        # if @classroom_unit.is_valid_for_google_announcement_with_specific_user?(current_user)
-        #   return post_to_google_classroom
-        # end
         redirect_to lesson_url(lesson) and return
       else
         flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
-        redirect_to :back
+        redirect_back(fallback_location: dashboard_teachers_classrooms_path)
       end
     else
       redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.encode_www_form_component(launch_lesson_url)}" and return
@@ -93,17 +90,6 @@ class Teachers::ClassroomUnitsController < ApplicationController
     else
       "#{lesson.classification_form_url}customize/#{lesson.uid}?&classroom_unit_id=#{@classroom_unit.id}"
     end
-  end
-
-  private def post_to_google_classroom
-    # google_response = GoogleIntegration::LessonAnnouncement
-    #   .new(@classroom_unit, @unit_activity).post
-    # if google_response == 'UNAUTHENTICATED'
-    #   session[GOOGLE_REDIRECT] = request.path
-    #   return redirect_to '/auth/google_oauth2'
-    # else
-    #   redirect_to lesson_url(lesson)
-    # end
   end
 
   private def find_or_create_lesson_activity_sessions_for_classroom

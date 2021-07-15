@@ -102,7 +102,9 @@ exports[`PromptTable component should render PromptTable 1`] = `
             : null
           </ForwardRef>,
           "id": "undefined:0:feedback",
-          "results": undefined,
+          "results": <p
+            className="word-wrap"
+          />,
           "status": "1st Feedback",
         },
       ]

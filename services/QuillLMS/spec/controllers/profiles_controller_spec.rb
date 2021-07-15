@@ -119,7 +119,7 @@ describe ProfilesController, type: :controller do
       context 'when the student is in multiple classrooms' do
         it 'returns correct student, classrooms, and teachers info based on current_classroom_id' do
           classroom = student.classrooms.first
-          get :student_profile_data, current_classroom_id: classroom.id
+          get :student_profile_data, params: { current_classroom_id: classroom.id }
           response_body = JSON.parse(response.body)
           expect(response_body['student']).to eq({
             'name' => student.name,
@@ -231,6 +231,7 @@ describe ProfilesController, type: :controller do
                 'locked' => unit_activity.classroom_unit_activity_states[0].locked,
                 'pinned' => unit_activity.classroom_unit_activity_states[0].pinned,
                 'max_percentage' => activity_session&.percentage,
+                'finished' => activity_session&.percentage ? true : false,
                 'resume_link' => activity_session&.state == 'started' ? 1 : 0
               }
             end

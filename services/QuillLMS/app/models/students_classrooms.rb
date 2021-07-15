@@ -15,7 +15,7 @@
 #  index_students_classrooms_on_student_id                   (student_id)
 #  index_students_classrooms_on_student_id_and_classroom_id  (student_id,classroom_id) UNIQUE
 #
-class StudentsClassrooms < ActiveRecord::Base
+class StudentsClassrooms < ApplicationRecord
   include CheckboxCallback
   belongs_to :student, class_name: "User"
   belongs_to :classroom, class_name: "Classroom"
@@ -49,7 +49,7 @@ class StudentsClassrooms < ActiveRecord::Base
   end
 
   private def invalidate_classroom_minis
-    if classroom.owner.present?
+    if classroom&.owner.present?
       $redis.del("user_id:#{classroom.owner.id}_classroom_minis")
     end
   end

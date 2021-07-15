@@ -276,6 +276,7 @@ EmpiricalGrammar::Application.routes.draw do
       post :remove_students
 
       put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
+
       collection do
         get :archived, action: 'index', as: :archived
         get :classrooms_i_teach
@@ -369,7 +370,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'rule_feedback_history/:rule_uid' => 'rule_feedback_histories#rule_detail'
       get 'prompt_health/:activity_id' => 'rule_feedback_histories#prompt_health'
 
-      
+
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
       resources :activity_sessions,       except: [:index, :new, :edit]
@@ -386,10 +387,9 @@ EmpiricalGrammar::Application.routes.draw do
           get 'level_zero_concepts_with_lineage'
         end
       end
-      
-      resources :users, only: [:index] do
-        resources :app_settings, only: [:index, :show], param: :name 
-      end
+
+      resources :users, only: [:index]
+      resources :app_settings, only: [:index, :show], param: :name
 
       resources :classroom_units,         only: [] do
         collection do
@@ -476,7 +476,8 @@ EmpiricalGrammar::Application.routes.draw do
   get '/sign-up/add-non-k12', to: 'accounts#new'
 
   namespace :auth do
-    get "/google_oauth2/callback" => 'google#google'
+    get '/google_oauth2/callback' => 'google#authorization_and_authentication'
+    get '/google_oauth2_authentication_only/callback' => 'google#authentication'
     get '/clever/callback', to: 'clever#clever'
   end
 
