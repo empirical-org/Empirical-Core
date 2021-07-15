@@ -27,22 +27,6 @@ describe TeacherActivityFeed, type: :model do
       end
     end
 
-    context "activity_session without user" do
-      it 'shouldnt show in activity feed' do
-        TeacherActivityFeed.new(1).send(:delete_all)
-        activity_session_with_user = create(:activity_session, user: create(:user))
-        activity_session_without_user = create(:activity_session, user_id: nil)
-
-        TeacherActivityFeed.add(1, activity_session_with_user.id)
-        TeacherActivityFeed.add(1, activity_session_without_user.id)
-
-        feed = TeacherActivityFeed.get(1)
-
-        expect(feed.size).to eq(1)
-        expect(feed.first[:id]).to eq(activity_session_with_user.id)
-      end
-    end
-
     context "activity_session's user gets deleted after storage" do
       it 'should not show the activity session' do
         TeacherActivityFeed.new(1).send(:delete_all)
