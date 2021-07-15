@@ -20,7 +20,7 @@ class Api::V1::SessionFeedbackHistoriesController < Api::ApiController
     if results
       render json: results
     else
-      render text: "The resource you were looking for does not exist", status: 404
+      render plain: "The resource you were looking for does not exist", status: 404
     end
   end
 end
