@@ -20,7 +20,7 @@ import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner'
 import ViewAsStudentModal from '../shared/view_as_student_modal'
 import { Snackbar, defaultSnackbarTimeout, SortableList } from '../../../Shared/index'
 
-import { requestGet } from '../../../../modules/request/index.js';
+import { requestGet, requestPut } from '../../../../modules/request/index.js';
 
 const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
 const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
@@ -79,17 +79,6 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   componentDidMount() {
     this.getGoogleClassrooms()
     this.setStateBasedOnParams()
-    this.checkForSortedClassrooms();
-  }
-
-  checkForSortedClassrooms() {
-    const { user } = this.props
-    const { email } = user;
-    const sortedClassroomsJsonString = localStorage.getItem(`${stringHash(email)}-sorted-classes`);
-    if(sortedClassroomsJsonString) {
-      const sortedClassrooms = JSON.parse(sortedClassroomsJsonString);
-      this.setState({ classrooms: sortedClassrooms });
-    }
   }
 
   setStateBasedOnParams() {
@@ -215,15 +204,18 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   sortClassrooms = (sortedClassroomObjects) => {
-    const { user } = this.props
-    const { email } = user;
-    const newlySortedClassrooms = sortedClassroomObjects.map(classroomObject => {
+    const newlySortedClassrooms = sortedClassroomObjects.map((classroomObject, i) => {
       const { props } = classroomObject;
       const { children } = props;
-      return children[1].props.classroom;
+      let classroom = children[1].props.classroom
+      classroom.order = i
+      return classroom;
     });
+    console.log("🚀 ~ file: active_classrooms.tsx ~ line 225 ~ ActiveClassrooms ~ newlySortedClassrooms", newlySortedClassrooms)
+    requestPut('/classrooms_teachers/update_order', { updated_classrooms: JSON.stringify(newlySortedClassrooms) }, (body) => {
+      console.log('body', body)
+    })
     this.setState({ classrooms: newlySortedClassrooms });
-    localStorage.setItem(`${stringHash(email)}-sorted-classes`, JSON.stringify(newlySortedClassrooms));
   }
 
   getClassroomCardsWithHandle(classroomCards) {
