@@ -2,7 +2,9 @@ require 'rails_helper'
 
 describe Teachers::ProgressReports::Concepts::ConceptsController, type: :controller do
   include_context 'Concept Progress Report'
+
   let!(:teacher) { classroom.owner }
+
   it_behaves_like 'Progress Report' do
     let(:result_key) { 'concepts' }
     let(:default_filters) { { student_id: student.id } }
