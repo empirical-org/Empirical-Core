@@ -5,6 +5,8 @@ import { regexRuleSequenceOptions } from '../../../../../constants/comprehension
 import { DropdownObjectInterface } from '../../../interfaces/comprehensionInterfaces';
 import { getSequenceType } from "../../../helpers/comprehension/ruleHelpers";
 
+const MAX_REGEX_LENGTH = 200
+
 interface RegexRulesProps {
   errors: {},
   handleAddRegexInput: (event: React.MouseEvent) => void,
@@ -28,6 +30,7 @@ const RegexRules = ({ errors, handleAddRegexInput, handleDeleteRegexRule, handle
     const regexRuleKeys = Object.keys(regexRules);
     return !!regexRuleKeys.length && regexRuleKeys.map((ruleKey, i) => {
       const sequenceType = getInitialSequenceType(regexRules[ruleKey]);
+      const charactersRemaining = MAX_REGEX_LENGTH - regexRules[ruleKey].regex_text.length
       return(
         <div className="regex-rule-container" key={`regex-rule-container-${i}`}>
           <div className="regex-input-container">
@@ -38,6 +41,7 @@ const RegexRules = ({ errors, handleAddRegexInput, handleDeleteRegexRule, handle
               id={ruleKey}
               value={regexRules[ruleKey].regex_text}
             />
+            <p className="characters-remaining">{charactersRemaining} characters remaining</p>
             <div className="checkbox-container">
               <DropdownInput
                 className='rule-type-input'
