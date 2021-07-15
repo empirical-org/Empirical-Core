@@ -8,12 +8,12 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
 
   describe '#by_conjunction' do
     it 'should return successfully' do
-        get :by_conjunction, params: { conjunction: 'so', activity_id: 1 }
+      get :by_conjunction, params: { conjunction: 'so', activity_id: 1 }
 
-        expect(response.status).to eq 200
-        expect(JSON.parse(response.body)).to eq(
-            {"rule_feedback_histories"=>[]}
-        )
+      expect(response.status).to eq 200
+      expect(JSON.parse(response.body)).to eq(
+        {"rule_feedback_histories"=>[]}
+      )
     end
 
     it 'should pass conjunction, activity_id, start_date and end_date through to #generate_report' do
@@ -28,7 +28,14 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
         start_date: START_DATE,
         end_date: END_DATE,
       })
-      get :by_conjunction, params: { conjunction: CONJUNCTION, activity_id: ACTIVITY_ID, start_date: START_DATE, end_date: END_DATE }
+
+      get :by_conjunction,
+        params: {
+          conjunction: CONJUNCTION,
+          activity_id: ACTIVITY_ID,
+          start_date: START_DATE,
+          end_date: END_DATE
+        }
     end
   end
 

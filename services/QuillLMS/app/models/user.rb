@@ -99,7 +99,6 @@ class User < ApplicationRecord
   has_many :unit_activities, through: :units
   has_many :classroom_unit_activity_states, through: :unit_activities
 
-  has_many :students_classrooms, class_name: 'StudentsClassrooms', foreign_key: 'student_id'
   has_many :student_in_classroom, through: :students_classrooms, source: :classroom
 
   has_and_belongs_to_many :districts
