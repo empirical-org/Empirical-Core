@@ -112,21 +112,21 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
       end
       context 'turk_session_uid' do
         setup do
-          create(:feedback_history, feedback_session_uid: "abc")
-          create(:feedback_history, feedback_session_uid: "def")
-          create(:feedback_history, feedback_session_uid: "ghi")
-          create(:feedback_history, feedback_session_uid: "jkl")
-          create(:feedback_history, feedback_session_uid: "mno")
+          @activity_session_1 = create(:activity_session)
+          @comprehension_turking_round_1 = create(:comprehension_turking_round_activity_session, activity_session_uid: @activity_session_1.uid)
+          @feedback_history_1 = create(:feedback_history, feedback_session_uid: @activity_session_1.uid)
+          @feedback_history_2 = create(:feedback_history, feedback_session_uid: "def")
+          @feedback_history_3 = create(:feedback_history, feedback_session_uid: "ghi")
         end
 
         it 'should retrieve only items with the specified turk_session_uid' do
-          uid = FeedbackSession.find_by(activity_session_uid: "abc").uid
-          get :index, turk_session_uid: uid
+          get :index, turk_session_id: @comprehension_turking_round_1.turking_round_id
 
           parsed_response = JSON.parse(response.body)
 
           expect(response).to have_http_status(200)
           expect(parsed_response['activity_sessions'].length).to eq(1)
+          expect(parsed_response['activity_sessions'][0]['session_uid']).to eq(@feedback_history_1.feedback_session_uid)
         end
       end
     end

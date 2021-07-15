@@ -214,11 +214,11 @@ exports[`RulesAnalysis component should render RulesAnalysis 1`] = `
     <p
       className="date-picker-label"
     >
-      Turk Session UID (optional):
+      Turk Session ID (optional):
     </p>
     <Input
       autoComplete="on"
-      className="turk-session-uid-input"
+      className="turk-session-id-input"
       handleChange={[Function]}
       label=""
       value={null}
