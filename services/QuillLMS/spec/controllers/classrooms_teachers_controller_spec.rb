@@ -25,7 +25,7 @@ describe ClassroomsTeachersController, type: :controller do
     end
 
     it 'should set the classroom, coteachers, and selected teacher and classroom' do
-      get :edit_coteacher_form, classrooms_teacher_id: 45
+      get :edit_coteacher_form, params: { classrooms_teacher_id: 45 }
       expect(response).to redirect_to(teachers_classrooms_path)
     end
   end
@@ -55,7 +55,7 @@ describe ClassroomsTeachersController, type: :controller do
     end
 
     it 'should render the correct json' do
-      get :specific_coteacher_info, format: :json, coteacher_id: user.id
+      get :specific_coteacher_info, params: { format: :json, coteacher_id: user.id }
       expect(response.body).to eq({
       selectedTeachersClassroomIds: {
           is_coteacher: [classroom.id],
@@ -70,7 +70,7 @@ describe ClassroomsTeachersController, type: :controller do
     let!(:classroom_teacher) { create(:classrooms_teacher, user: user, classroom: classroom) }
 
     it 'should destroy the given classroom teacher' do
-      delete :destroy, classroom_id: classroom.id
+      delete :destroy, params: { classroom_id: classroom.id }
       expect{ ClassroomsTeacher.find(classroom_teacher.id) }.to raise_exception ActiveRecord::RecordNotFound
       expect(response.body).to eq({message: "Deletion Succeeded!"}.to_json)
     end

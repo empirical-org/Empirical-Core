@@ -9,7 +9,7 @@ describe Api::V1::ConceptsController, type: :controller do
     let!(:parent_concept) { create(:concept) }
 
     def subject
-      post :create, {concept: {name: concept_name, parent_uid: parent_concept.uid}}
+      post :create, params: { concept: {name: concept_name, parent_uid: parent_concept.uid} }
     end
 
     it_behaves_like 'protected endpoint'

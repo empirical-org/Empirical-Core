@@ -12,7 +12,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
-class Objective < ActiveRecord::Base
+class Objective < ApplicationRecord
   has_many :checkboxes
   has_many :users, through: :checkboxes
 

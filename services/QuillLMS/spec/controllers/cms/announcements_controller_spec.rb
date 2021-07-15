@@ -23,7 +23,7 @@ describe Cms::AnnouncementsController, type: :controller do
     let(:announcement) { build(:announcement) }
 
     it 'should create the announcement with the given params' do
-      post :create, announcement: announcement.attributes
+      post :create, params: { announcement: announcement.attributes }
       expect(flash[:success]).to eq "Announcement created successfully!"
       expect(response).to redirect_to cms_announcements_path
       expect(Announcement.last.link).to eq announcement.link
@@ -35,7 +35,7 @@ describe Cms::AnnouncementsController, type: :controller do
     let!(:announcement) { create(:announcement) }
 
     it 'should update the announcement with the params given' do
-      post :update, id: announcement.id, announcement: { link: "new_link.com" }
+      post :update, params: { id: announcement.id, announcement: { link: "new_link.com" } }
       expect(announcement.reload.link).to eq "new_link.com"
     end
   end

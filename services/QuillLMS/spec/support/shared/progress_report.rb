@@ -7,7 +7,7 @@ shared_examples_for "Progress Report" do
   end
 
   describe 'GET #index HTML' do
-    subject { get :index, default_filters }
+    subject { get :index, params: default_filters }
 
     it 'requires an authenticated teacher' do
       subject
@@ -27,7 +27,7 @@ shared_examples_for "Progress Report" do
   end
 
   describe 'GET #index JSON' do
-    subject { get :index, default_filters.merge(format: :json) }
+    subject { get :index, params: default_filters.merge(format: :json) }
     let(:json) { JSON.parse(response.body) }
 
     it 'requires a logged-in teacher' do
@@ -95,7 +95,7 @@ shared_examples_for "exporting to CSV" do
     subject
   end
 
-  subject { get :index, default_filters.merge(format: :json) }
+  subject { get :index, params: default_filters.merge(format: :json) }
   let(:json) { JSON.parse(response.body) }
 
   it "includes the teacher data in the JSON response" do

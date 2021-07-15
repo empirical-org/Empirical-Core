@@ -23,7 +23,7 @@ describe Cms::ActivityClassificationsController, type: :controller do
     let(:classification) { build(:activity_classification) }
 
     it 'should create the activity classification with the given params' do
-      post :create, activity_classification: classification.attributes
+      post :create, params: { activity_classification: classification.attributes }
       expect(ActivityClassification.last.name).to eq classification.name
       expect(ActivityClassification.last.order_number).to eq classification.order_number
       expect(ActivityClassification.last.form_url).to eq classification.form_url
@@ -38,7 +38,7 @@ describe Cms::ActivityClassificationsController, type: :controller do
 
     it 'should update the classification with the params provided' do
       classification.update(order_number: 19)
-      put :update, id: classification.id, activity_classification: { id: classification.id, order_number: 20 }
+      put :update, params: { id: classification.id, activity_classification: { id: classification.id, order_number: 20 } }
       expect(classification.reload.order_number).to eq 20
     end
   end
@@ -48,7 +48,7 @@ describe Cms::ActivityClassificationsController, type: :controller do
 
     it 'should update the classification with the params provided' do
       classification.update(order_number: 19)
-      put :update_order_numbers, activity_classifications: [{ id: classification.id, order_number: 20 }]
+      put :update_order_numbers, params: { activity_classifications: [{ id: classification.id, order_number: 20 }] }
       expect(classification.reload.order_number).to eq 20
       expect(response.body).to eq({activity_classifications: ActivityClassification.order(order_number: :asc)}.to_json)
     end
@@ -58,7 +58,7 @@ describe Cms::ActivityClassificationsController, type: :controller do
     let!(:classification) { create(:activity_classification) }
 
     it 'should destroy the given classification' do
-      delete :destroy, id: classification.id
+      delete :destroy, params: { id: classification.id }
       expect{ActivityClassification.find(classification.id)}.to raise_exception(ActiveRecord::RecordNotFound)
     end
   end

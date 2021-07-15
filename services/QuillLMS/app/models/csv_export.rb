@@ -13,7 +13,7 @@
 #
 require 'csv'
 
-class CsvExport < ActiveRecord::Base
+class CsvExport < ApplicationRecord
   EXPORT_TYPE_OPTIONS = %w(activity_sessions
                            standards_classrooms
                            standards_classroom_students

@@ -15,7 +15,7 @@ describe SchoolsController, type: :controller do
   end
 
   it 'fetches schools based on zipcode' do
-    get :index, search: '60657', format: 'json'
+    get :index, params: { search: '60657', format: 'json' }
 
     expect(response.status).to eq(200)
 
@@ -24,7 +24,7 @@ describe SchoolsController, type: :controller do
   end
 
   it 'fetches schools based on text string' do
-    get :index, search: 'Max A', format: 'json'
+    get :index, params: { search: 'Max A', format: 'json' }
 
     expect(response.status).to eq(200)
 
@@ -56,7 +56,7 @@ describe SchoolsController, type: :controller do
       end
 
       it 'should redirect to login' do
-        put :select_school, school_id_or_type: @school1.id, format: :json
+        put :select_school, params: { school_id_or_type: @school1.id, format: :json }
 
         response.should redirect_to '/session/new'
       end

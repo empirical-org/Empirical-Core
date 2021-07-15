@@ -26,7 +26,7 @@
 #  index_feedback_histories_on_prompt_type_and_id    (prompt_type,prompt_id)
 #  index_feedback_histories_on_rule_uid              (rule_uid)
 #
-class FeedbackHistory < ActiveRecord::Base
+class FeedbackHistory < ApplicationRecord
   CONCEPT_UID_LENGTH = 22
   DEFAULT_PAGE_SIZE = 25
   DEFAULT_PROMPT_TYPE = "Comprehension::Prompt"

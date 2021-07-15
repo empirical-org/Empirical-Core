@@ -12,7 +12,7 @@
 require 'firebase_token_generator'
 require "jwt"
 
-class FirebaseApp < ActiveRecord::Base
+class FirebaseApp < ApplicationRecord
 
   def token_for(user)
     payload = create_payload(user)

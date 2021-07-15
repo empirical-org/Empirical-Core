@@ -53,7 +53,7 @@
 #  users_to_tsvector_idx4             (to_tsvector('english'::regconfig, (username)::text)) USING gin
 #  users_to_tsvector_idx5             (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
 #
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include Student
   include Teacher
   include CheckboxCallback
@@ -115,7 +115,6 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :auth_credential
 
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
-
 
   validates :name,                  presence: true,
                                     format:       {without: /\t/, message: 'cannot contain tabs'}
@@ -634,6 +633,12 @@ class User < ActiveRecord::Base
       last_name,
       get_class_code(classroom_id)
     ).call
+  end
+
+  def google_authorized?
+    return false if auth_credential.nil?
+
+    auth_credential.google_authorized?
   end
 
   private def validate_flags

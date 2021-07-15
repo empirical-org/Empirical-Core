@@ -21,7 +21,7 @@
 #  index_classrooms_on_grade_level  (grade_level)
 #  index_classrooms_on_teacher_id   (teacher_id)
 #
-class Classroom < ActiveRecord::Base
+class Classroom < ApplicationRecord
   include CheckboxCallback
 
   GRADES = %w(1 2 3 4 5 6 7 8 9 10 11 12 University)

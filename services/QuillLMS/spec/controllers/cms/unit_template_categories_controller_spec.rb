@@ -20,7 +20,7 @@ describe Cms::UnitTemplateCategoriesController do
 
   describe '#create' do
     it 'should create the unit template category with the given params' do
-      post :create, unit_template_category: { name: "test", primary_color: "primary", secondary_color: "secondary" }
+      post :create, params: { unit_template_category: { name: "test", primary_color: "primary", secondary_color: "secondary" } }
       expect(UnitTemplateCategory.last.name).to eq "test"
       expect(UnitTemplateCategory.last.primary_color).to eq "primary"
       expect(UnitTemplateCategory.last.secondary_color).to eq "secondary"
@@ -31,7 +31,7 @@ describe Cms::UnitTemplateCategoriesController do
     let(:category) { create(:unit_template_category) }
 
     it 'should update the given unit template category' do
-      post :update, id: category.id, unit_template_category: { name: "new name" }
+      post :update, params: { id: category.id, unit_template_category: { name: "new name" } }
       expect(category.reload.name).to eq "new name"
     end
   end
@@ -40,7 +40,7 @@ describe Cms::UnitTemplateCategoriesController do
     let(:category) { create(:unit_template_category) }
 
     it 'should destory the given category' do
-      delete :destroy, id: category.id
+      delete :destroy, params: { id: category.id }
       expect{ UnitTemplateCategory.find(category.id) }.to raise_exception ActiveRecord::RecordNotFound
     end
   end

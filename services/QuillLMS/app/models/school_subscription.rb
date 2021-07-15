@@ -13,7 +13,7 @@
 #  index_school_subscriptions_on_school_id        (school_id)
 #  index_school_subscriptions_on_subscription_id  (subscription_id)
 #
-class SchoolSubscription < ActiveRecord::Base
+class SchoolSubscription < ApplicationRecord
   validates :school_id, :subscription_id, presence: true
   belongs_to :school
   belongs_to :subscription

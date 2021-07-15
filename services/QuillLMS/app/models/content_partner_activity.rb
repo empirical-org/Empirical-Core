@@ -18,7 +18,7 @@
 #  fk_rails_...  (activity_id => activities.id)
 #  fk_rails_...  (content_partner_id => content_partners.id)
 #
-class ContentPartnerActivity < ActiveRecord::Base
+class ContentPartnerActivity < ApplicationRecord
   belongs_to :content_partner
   belongs_to :activity
 end

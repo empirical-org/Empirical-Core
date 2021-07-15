@@ -11,7 +11,7 @@ class CoteacherClassroomInvitationsController < ApplicationController
         FROM coteacher_classroom_invitations
         JOIN invitations
           ON invitations.invitation_type = '#{Invitation::TYPES[:coteacher]}'
-          AND invitations.invitee_email = #{ActiveRecord::Base.sanitize(current_user.email)}
+          AND invitations.invitee_email = #{ActiveRecord::Base.connection.quote(current_user.email)}
           AND invitations.archived = false
         WHERE coteacher_classroom_invitations.id IN (#{coteacher_invitations_to_accept.join(', ')})
       SQL
