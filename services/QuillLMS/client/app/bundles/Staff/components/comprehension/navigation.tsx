@@ -152,6 +152,14 @@ const Navigation = ({ location, match }) => {
         </NavLink>
         {rulesAnalysisSubLinks}
       </ul>
+      <p className="menu-label">
+        Change Log
+      </p>
+      <ul className="menu-list">
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/change-log`}>
+          Change Log
+        </NavLink>
+      </ul>
     </React.Fragment>)
   }
 
