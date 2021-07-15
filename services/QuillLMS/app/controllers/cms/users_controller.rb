@@ -318,7 +318,7 @@ class Cms::UsersController < Cms::CmsController
       new_user_params = user_params.except("password_confirmation")
     end
 
-    difference = Hash[new_user_params.to_a - previous_user_params.to_a]
+    difference = Hash[new_user_params.to_h.to_a - previous_user_params.to_h.to_a]
     difference.each_key do |field|
       new_value = field == 'password' ? nil : difference[field]
       log_change(params[:action].to_sym, @user.id.to_s, nil, field, previous_user_params[field], new_value)
