@@ -552,7 +552,8 @@ class ActivitySession < ApplicationRecord
   end
 
   private def set_completed_at
-    return true if state != 'finished'
+    return unless state == 'finished'
+
     self.completed_at ||= Time.current
   end
 
