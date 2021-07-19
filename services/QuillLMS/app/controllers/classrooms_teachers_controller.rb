@@ -23,6 +23,14 @@ class ClassroomsTeachersController < ApplicationController
     render json: {}
   end
 
+  def update_order
+    JSON.parse(params[:updated_classrooms]).each do |updated_classroom|
+      ClassroomsTeacher.where(classroom_id: updated_classroom['id'])&.first&.update(order: updated_classroom['order'])
+    end
+    classrooms = ClassroomsTeacher.where(user_id: current_user.id)
+    render json: { classrooms: classrooms }
+  end
+
   def specific_coteacher_info
     render json: { selectedTeachersClassroomIds: edit_info_for_specific_teacher(params[:coteacher_id])}
   end

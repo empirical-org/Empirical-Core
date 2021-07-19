@@ -173,7 +173,9 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   private def format_classrooms_for_index
-    classrooms = Classroom.unscoped.order(created_at: :desc).joins(:classrooms_teachers).where(classrooms_teachers: {user_id: current_user.id})
+    has_classroom_order = ClassroomsTeacher.where(user_id: current_user.id).all? { |classroom| classroom.order }
+    classrooms = Classroom.unscoped.joins(:classrooms_teachers).where(classrooms_teachers: {user_id: current_user.id})
+    classrooms = has_classroom_order ? classrooms.includes(:classrooms_teachers).order('classrooms_teachers.order') : classrooms.order(created_at: :desc)
     classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
       classroom_obj[:students] = format_students_for_classroom(classroom)
