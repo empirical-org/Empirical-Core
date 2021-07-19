@@ -55,8 +55,8 @@ class RuleFeedbackHistory
         feedback_histories = feedback_histories.where("feedback_histories.created_at >= ?", start_date) if start_date
         feedback_histories = feedback_histories.where("feedback_histories.created_at <= ?", end_date) if end_date
         if turk_session_id
-          feedback_histories = feedback_histories.where('LEFT JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
-          feedback_histories = feedback_histories.where('LEFT JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')
+          feedback_histories = feedback_histories.joins('LEFT JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
+          feedback_histories = feedback_histories.joins('LEFT JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')
           feedback_histories = feedback_histories.where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id)
         end
         response_jsons = []
