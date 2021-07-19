@@ -29,6 +29,7 @@ class ActivitySearch
           standard_levels.name AS standard_level_name,
           standards.name AS standard_name,
           activity_classifications.id AS classification_id,
+          activity_classifications.key AS classification_key,
           activity_classifications.order_number,
           activity_categories.order_number,
           activity_category_activities.order_number,

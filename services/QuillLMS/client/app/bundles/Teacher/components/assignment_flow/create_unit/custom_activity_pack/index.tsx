@@ -12,6 +12,7 @@ import MobileSortMenu from './mobile_sort_menu'
 import useDebounce from '../../../../hooks/useDebounce'
 import { requestGet, requestPost, requestDelete } from '../../../../../../modules/request/index'
 import { Spinner, Snackbar, defaultSnackbarTimeout } from '../../../../../Shared/index'
+import { handleHasAppSetting } from "../../../../../Shared/utils/appSettingAPIs";
 
 const DEBOUNCE_LENGTH = 500
 
@@ -60,6 +61,7 @@ const CustomActivityPack = ({
   const [savedActivityIds, setSavedActivityIds] = React.useState([])
   const [showSnackbar, setShowSnackbar] = React.useState(false)
   const [snackbarText, setSnackbarText] = React.useState('')
+  const [showComprehension, setShowComprehension] = React.useState<boolean>(false);
 
   const debouncedSearch = useDebounce(search, DEBOUNCE_LENGTH);
   const debouncedActivityClassificationFilters = useDebounce(activityClassificationFilters, DEBOUNCE_LENGTH);
@@ -74,6 +76,7 @@ const CustomActivityPack = ({
   React.useEffect(() => {
     if (loading) { getActivities() }
     getSavedActivities();
+    handleHasAppSetting({appSettingSetter: setShowComprehension, key: 'comprehension', errorSetter: () => {}})
   }, []);
 
   React.useEffect(() => {
@@ -114,7 +117,7 @@ const CustomActivityPack = ({
     number += savedActivityFilters.length ? 1 : 0
     number += flagFilters.length
 
-    activityClassificationGroupings.forEach((g) => {
+    activityClassificationGroupings(true).forEach((g) => {
       if (g.keys.every(key => activityClassificationFilters.includes(key))) {
         number += 1
       } else {
@@ -294,7 +297,8 @@ const CustomActivityPack = ({
     handleFlagFilterChange,
     flagFilters,
     isStaff,
-    activityCategoryEditor
+    activityCategoryEditor,
+    showComprehension
   }
 
   const selectedActivitiesFilteredByFlag =  isStaff && !flagFilters.length ? [] : selectedActivities.filter(a => filterByFlag(flagFilters, a))

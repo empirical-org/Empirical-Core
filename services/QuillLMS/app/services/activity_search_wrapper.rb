@@ -69,7 +69,7 @@ class ActivitySearchWrapper
           id: activity_id,
           uid: a['activity_uid'],
           anonymous_path: Rails.application.routes.url_helpers.anonymous_activity_sessions_path(activity_id: activity_id),
-          activity_classification: classification_hash(classification_id),
+          activity_classification: classification_hash(a['classification_key'], classification_id),
           activity_category: {id: a['activity_category_id'].to_i, name: a['activity_category_name']},
           activity_category_name: a['activity_category_name'],
           activity_category_id: a['activity_category_id'].to_i,
@@ -114,7 +114,7 @@ class ActivitySearchWrapper
 
       activity_classification_details = activity_classifications.map do |ac|
         {
-          alias: classification_hash(ac['id'])[:alias],
+          alias: classification_hash(ac['key'], ac['id'])[:alias],
           id: ac['id'],
           key: ac['key'],
           order: ac['order_number']
@@ -126,37 +126,43 @@ class ActivitySearchWrapper
     end
   end
 
-  private def classification_hash(classification_id)
-    case classification_id
-    when 1
+  private def classification_hash(classification_key, classification_id)
+    case classification_key
+    when ActivityClassification::PROOFREADER_KEY
       h = {
         alias: 'Quill Proofreader',
         description: 'Fix Errors in Passages',
-        key: 'passage'
+        key: ActivityClassification::PROOFREADER_KEY
       }
-    when 2
+    when ActivityClassification::GRAMMAR_KEY
       h = {
         alias: 'Quill Grammar',
         description: 'Practice Mechanics',
-        key: 'sentence'
+        key: ActivityClassification::GRAMMAR_KEY
       }
-    when 4
+    when ActivityClassification::DIAGNOSTIC_KEY
       h = {
         alias: 'Quill Diagnostic',
         description: 'Identify Learning Gaps',
-        key: 'diagnostic'
+        key: ActivityClassification::DIAGNOSTIC_KEY
       }
-    when 5
+    when ActivityClassification::CONNECT_KEY
       h = {
         alias: 'Quill Connect',
         description: 'Combine Sentences',
-        key: 'connect'
+        key: ActivityClassification::CONNECT_KEY
       }
-    when 6
+    when ActivityClassification::LESSONS_KEY
       h = {
         alias: 'Quill Lessons',
         description: 'Lead Group Lessons',
-        key: 'lessons'
+        key: ActivityClassification::LESSONS_KEY
+      }
+    when ActivityClassification::COMPREHENSION_KEY
+      h = {
+        alias: 'Quill Comprehension',
+        description: '',
+        key: ActivityClassification::COMPREHENSION_KEY
       }
     else
       h = {}

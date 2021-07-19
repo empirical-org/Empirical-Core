@@ -34,7 +34,8 @@ describe ActivitySearch do
           "content_partner_id" => content_partner.id,
           "content_partner_name" => content_partner.name,
           "order_number" => activity_category_activity.order_number,
-          "classification_id" => activity_classification.id
+          "classification_id" => activity_classification.id,
+          "classification_key" => activity_classification.key
         }
       )
     end

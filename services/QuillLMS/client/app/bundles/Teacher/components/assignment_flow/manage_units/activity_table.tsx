@@ -14,6 +14,7 @@ const diagnosticSrc = `${process.env.CDN_URL}/images/icons/diagnostic-forest-gre
 const lessonsSrc = `${process.env.CDN_URL}/images/icons/lessons-forest-green.svg`
 const proofreaderSrc = `${process.env.CDN_URL}/images/icons/proofreader-forest-green.svg`
 const grammarSrc = `${process.env.CDN_URL}/images/icons/grammar-forest-green.svg`
+const comprehensionSrc = `${process.env.CDN_URL}/images/icons/tool-comprehension.svg`
 
 export const AVERAGE_FONT_WIDTH = 7
 
@@ -40,6 +41,10 @@ const imageTagForClassification = (activityClassificationId: string): JSX.Elemen
     case 1:
       imgAlt = "Flag representing Quill Proofreader"
       imgSrc = proofreaderSrc
+      break
+    case 9:
+      imgAlt = "Book representing Quill Comprehension"
+      imgSrc = comprehensionSrc
       break
   }
 
