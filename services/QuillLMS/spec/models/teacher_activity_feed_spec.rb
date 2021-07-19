@@ -26,6 +26,25 @@ describe TeacherActivityFeed, type: :model do
         expect(feed.last[:score]).to eq("Proficient")
       end
     end
+
+    context "activity_session's user gets deleted after storage" do
+      it 'should not show the activity session' do
+        TeacherActivityFeed.new(1).send(:delete_all)
+        TeacherActivityFeed.add(1, activity_session.id)
+        TeacherActivityFeed.add(1, activity_session2.id)
+        # delete the user after storage
+        activity_session2.update(user_id: nil)
+
+        feed = TeacherActivityFeed.get(1)
+
+        expect(feed.class).to eq(Array)
+        expect(feed.size).to eq(1)
+
+        expect(feed.first[:id]).to eq(activity_session.id)
+        expect(feed.first[:completed]).to eq("5 mins ago")
+        expect(feed.first[:score]).to eq("Proficient")
+      end
+    end
   end
 
   describe "feed integration test" do
