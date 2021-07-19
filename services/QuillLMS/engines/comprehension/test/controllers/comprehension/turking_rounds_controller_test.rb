@@ -44,7 +44,14 @@ module Comprehension
       end
 
       should "create a valid record and return it as json" do
-        post :create, turking_round: { activity_id: @activity.id, uuid: @turking_round.uuid, expires_at: @turking_round.expires_at.iso8601(3) }
+        post :create,
+          params: {
+            turking_round: {
+              activity_id: @activity.id,
+              uuid: @turking_round.uuid,
+              expires_at: @turking_round.expires_at.iso8601(3)
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
 
@@ -56,7 +63,7 @@ module Comprehension
       end
 
       should "not create an invalid record and return errors as json" do
-        post :create, turking_round: { activity_id: nil, expires_at: nil }
+        post :create, params: { turking_round: { activity_id: nil, expires_at: nil } }
 
         parsed_response = JSON.parse(response.body)
 
@@ -73,7 +80,7 @@ module Comprehension
       end
 
       should "return json if found" do
-        get :show, id: @turking_round.id
+        get :show, params: { id: @turking_round.id }
 
         parsed_response = JSON.parse(response.body)
 
@@ -85,7 +92,7 @@ module Comprehension
 
       should "raise if not found (to be handled by parent app)" do
         assert_raises ActiveRecord::RecordNotFound do
-          get :show, id: 99999
+          get :show, params: { id: 99999 }
         end
       end
     end
@@ -98,7 +105,14 @@ module Comprehension
       should "update record if valid, return nothing" do
         new_activity = create(:comprehension_activity)
         new_datetime = DateTime.now.utc
-        patch :update, id: @turking_round.id, turking_round: { activity_id: new_activity.id, expires_at: new_datetime }
+        patch :update,
+          params: {
+            id: @turking_round.id,
+            turking_round: {
+              activity_id: new_activity.id,
+              expires_at: new_datetime
+            }
+          }
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i
@@ -109,7 +123,15 @@ module Comprehension
       end
 
       should "not update record and return errors as json" do
-        patch :update, id: @turking_round.id, turking_round: { activity_id: nil, uuid: nil, expires_at: nil }
+        patch :update,
+          params: {
+            id: @turking_round.id,
+            turking_round: {
+              activity_id: nil,
+              uuid: nil,
+              expires_at: nil
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
 
@@ -126,7 +148,7 @@ module Comprehension
       end
 
       should "destroy record at id" do
-        delete :destroy, id: @turking_round.id
+        delete :destroy, params: { id: @turking_round.id }
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i

@@ -66,7 +66,7 @@ module Comprehension
         end
 
         should 'only get Rules for specified prompt when provided' do
-          get :index, prompt_id: @prompt1.id
+          get :index, params: { prompt_id: @prompt1.id }
 
           parsed_response = JSON.parse(response.body)
 
@@ -77,7 +77,7 @@ module Comprehension
         end
 
         should 'only get unique Rules for specified prompts when provided' do
-          get :index, prompt_id: "#{@prompt1.id}, #{@prompt2.id}"
+          get :index, params: { prompt_id: "#{@prompt1.id}, #{@prompt2.id}" }
 
           parsed_response = JSON.parse(response.body)
 
@@ -85,7 +85,7 @@ module Comprehension
         end
 
         should 'only get Rules for specified rule type when provided' do
-          get :index, rule_type: Rule::TYPE_AUTOML
+          get :index, params: { rule_type: Rule::TYPE_AUTOML }
 
           parsed_response = JSON.parse(response.body)
 
@@ -96,7 +96,11 @@ module Comprehension
         end
 
         should 'only get Rules for the intersection of prompt and rule type when both are provided' do
-          get :index, prompt_id: @prompt1.id, rule_type: Rule::TYPE_AUTOML
+          get :index,
+            params: {
+              prompt_id: @prompt1.id,
+              rule_type: Rule::TYPE_AUTOML
+            }
 
           parsed_response = JSON.parse(response.body)
 
@@ -116,7 +120,20 @@ module Comprehension
       should "create a valid record and return it as json" do
         assert_equal 0, Rule.count
 
-        post :create, rule: { concept_uid: @rule.concept_uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, state: @rule.state, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal, prompt_ids: @rule.prompt_ids }
+        post :create,
+          params: {
+            rule: {
+              concept_uid: @rule.concept_uid,
+              note: @rule.note,
+              name: @rule.name,
+              optimal: @rule.optimal,
+              state: @rule.state,
+              suborder: @rule.suborder,
+              rule_type: @rule.rule_type,
+              universal: @rule.universal,
+              prompt_ids: @rule.prompt_ids
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
         assert_equal 201, response.code.to_i
@@ -143,7 +160,19 @@ module Comprehension
       end
 
       should "not create an invalid record and return errors as json" do
-        post :create, rule: { concept_uid: @rule.uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, state: nil, suborder: -1, rule_type: @rule.rule_type, universal: @rule.universal }
+        post :create,
+          params: {
+            rule: {
+              concept_uid: @rule.uid,
+              note: @rule.note,
+              name: @rule.name,
+              optimal: @rule.optimal,
+              state: nil,
+              suborder: -1,
+              rule_type: @rule.rule_type,
+              universal: @rule.universal
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
 
@@ -153,14 +182,25 @@ module Comprehension
       end
 
       should "return an error if regex is invalid" do
-        post :create, rule: { concept_uid: @rule.uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, suborder: 1, rule_type: @rule.rule_type, universal: @rule.universal, state: Rule::STATE_INACTIVE,
-          regex_rules_attributes:
-            [
-              {
-                regex_text: '(invalid|',
-                case_sensitive: false
-              }
-            ]}
+        post :create,
+          params: {
+            rule: {
+              concept_uid: @rule.uid,
+              note: @rule.note,
+              name: @rule.name,
+              optimal: @rule.optimal,
+              suborder: 1,
+              rule_type: @rule.rule_type,
+              universal: @rule.universal,
+              state: Rule::STATE_INACTIVE,
+              regex_rules_attributes: [
+                {
+                  regex_text: '(invalid|',
+                  case_sensitive: false
+                }
+              ]
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
 
@@ -170,7 +210,9 @@ module Comprehension
 
       should "create a valid record with plagiarism_text attributes" do
         plagiarism_text = "Here is some text to be checked for plagiarism."
-        post :create, rule: {
+        post :create,
+          params: {
+            rule: {
               concept_uid: @rule.concept_uid,
               note: @rule.note,
               name: @rule.name,
@@ -183,6 +225,7 @@ module Comprehension
                 text: plagiarism_text
               }
             }
+          }
 
         parsed_response = JSON.parse(response.body)
         assert_equal @rule.name, parsed_response['name']
@@ -191,7 +234,20 @@ module Comprehension
 
       should "return an error if plagiarism rule already exists for prompt" do
         plagiarism_rule = create(:comprehension_rule, prompt_ids: [@prompt.id], rule_type: Rule::TYPE_PLAGIARISM)
-        post :create, rule: { concept_uid: @rule.uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, suborder: 1, rule_type: Rule::TYPE_PLAGIARISM, universal: false, state: Rule::STATE_ACTIVE, prompt_ids: [@prompt.id]}
+        post :create,
+          params: {
+            rule: {
+              concept_uid: @rule.uid,
+              note: @rule.note,
+              name: @rule.name,
+              optimal: @rule.optimal,
+              suborder: 1,
+              rule_type: Rule::TYPE_PLAGIARISM,
+              universal: false,
+              state: Rule::STATE_ACTIVE,
+              prompt_ids: [@prompt.id]
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
 
@@ -203,24 +259,26 @@ module Comprehension
         assert_equal 0, Feedback.count
 
         feedback = build(:comprehension_feedback)
-        post :create, rule: {
-          concept_uid: @rule.concept_uid,
-          note: @rule.note,
-          name: @rule.name,
-          optimal: @rule.optimal,
-          state: @rule.state,
-          suborder: @rule.suborder,
-          rule_type: @rule.rule_type,
-          universal: @rule.universal,
-          feedbacks_attributes:
-            [
-              {
-                text: feedback.text,
-                description: feedback.description,
-                order: feedback.order
-              }
-            ]
-        }
+        post :create,
+          params: {
+            rule: {
+              concept_uid: @rule.concept_uid,
+              note: @rule.note,
+              name: @rule.name,
+              optimal: @rule.optimal,
+              state: @rule.state,
+              suborder: @rule.suborder,
+              rule_type: @rule.rule_type,
+              universal: @rule.universal,
+              feedbacks_attributes: [
+                {
+                  text: feedback.text,
+                  description: feedback.description,
+                  order: feedback.order
+                }
+              ]
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
         assert_equal 201, response.code.to_i
@@ -237,7 +295,33 @@ module Comprehension
 
         feedback = create(:comprehension_feedback, rule: @rule)
         highlight = build(:comprehension_highlight, starting_index: 2)
-        post :create, rule: { concept_uid: @rule.concept_uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, state: @rule.state, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal, feedbacks_attributes: [{text: feedback.text, description: feedback.description, order: feedback.order, highlights_attributes: [{text: highlight.text, highlight_type: highlight.highlight_type, starting_index: highlight.starting_index }]}]}
+        post :create,
+          params: {
+            rule: {
+              concept_uid: @rule.concept_uid,
+              note: @rule.note,
+              name: @rule.name,
+              optimal: @rule.optimal,
+              state: @rule.state,
+              suborder: @rule.suborder,
+              rule_type: @rule.rule_type,
+              universal: @rule.universal,
+              feedbacks_attributes: [
+                {
+                  text: feedback.text,
+                  description: feedback.description,
+                  order: feedback.order,
+                  highlights_attributes: [
+                    {
+                      text: highlight.text,
+                      highlight_type: highlight.highlight_type,
+                      starting_index: highlight.starting_index
+                    }
+                  ]
+                }
+              ]
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
         assert_equal 201, response.code.to_i
@@ -253,19 +337,22 @@ module Comprehension
         assert_equal 0, Label.count
 
         label = build(:comprehension_label)
-        post :create, rule: {
-          concept_uid: @rule.concept_uid,
-          note: @rule.note,
-          name: @rule.name,
-          optimal: @rule.optimal,
-          state: @rule.state,
-          suborder: @rule.suborder,
-          rule_type: @rule.rule_type,
-          universal: @rule.universal,
-          label_attributes: {
-            name: label.name
+        post :create,
+          params: {
+            rule: {
+              concept_uid: @rule.concept_uid,
+              note: @rule.note,
+              name: @rule.name,
+              optimal: @rule.optimal,
+              state: @rule.state,
+              suborder: @rule.suborder,
+              rule_type: @rule.rule_type,
+              universal: @rule.universal,
+              label_attributes: {
+                name: label.name
+              }
+            }
           }
-        }
 
         parsed_response = JSON.parse(response.body)
         assert_equal 201, response.code.to_i
@@ -279,23 +366,25 @@ module Comprehension
         assert_equal 0, RegexRule.count
 
         regex_rule = build(:comprehension_regex_rule)
-        post :create, rule: {
-          concept_uid: @rule.concept_uid,
-          note: @rule.note,
-          name: @rule.name,
-          optimal: @rule.optimal,
-          state: @rule.state,
-          suborder: @rule.suborder,
-          rule_type: @rule.rule_type,
-          universal: @rule.universal,
-          regex_rules_attributes:
-            [
-              {
-                regex_text: regex_rule.regex_text,
-                case_sensitive: regex_rule.case_sensitive
-              }
-            ]
-        }
+        post :create,
+          params: {
+            rule: {
+              concept_uid: @rule.concept_uid,
+              note: @rule.note,
+              name: @rule.name,
+              optimal: @rule.optimal,
+              state: @rule.state,
+              suborder: @rule.suborder,
+              rule_type: @rule.rule_type,
+              universal: @rule.universal,
+              regex_rules_attributes: [
+                {
+                  regex_text: regex_rule.regex_text,
+                  case_sensitive: regex_rule.case_sensitive
+                }
+              ]
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
         assert_equal 201, response.code.to_i
@@ -313,7 +402,7 @@ module Comprehension
       end
 
       should "return json if found by id" do
-        get :show, id: @rule.id
+        get :show, params: { id: @rule.id }
 
         parsed_response = JSON.parse(response.body)
 
@@ -337,7 +426,7 @@ module Comprehension
       end
 
       should "return json if found by uid" do
-        get :show, id: @rule.uid
+        get :show, params: { id: @rule.uid }
 
         parsed_response = JSON.parse(response.body)
 
@@ -362,7 +451,7 @@ module Comprehension
 
       should "raise if not found (to be handled by parent app)" do
         assert_raises ActiveRecord::RecordNotFound do
-          get :show, id: 99999
+          get :show, params: { id: 99999 }
         end
       end
     end
@@ -375,7 +464,21 @@ module Comprehension
 
       should "update record if valid, return nothing" do
         new_prompt = create(:comprehension_prompt)
-        patch :update, id: @rule.id, rule: { concept_uid: @rule.concept_uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, state: @rule.state, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal, prompt_ids: [new_prompt.id] }
+        patch :update,
+          params: {
+            id: @rule.id,
+            rule: {
+              concept_uid: @rule.concept_uid,
+              note: @rule.note,
+              name: @rule.name,
+              optimal: @rule.optimal,
+              state: @rule.state,
+              suborder: @rule.suborder,
+              rule_type: @rule.rule_type,
+              universal: @rule.universal,
+              prompt_ids: [new_prompt.id]
+            }
+          }
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i
@@ -384,7 +487,20 @@ module Comprehension
       end
 
       should "not update record and return errors as json" do
-        patch :update, id: @rule.id, rule: { concept_uid: @rule.concept_uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, state: @rule.state, suborder: -1, rule_type: @rule.rule_type, universal: @rule.universal }
+        patch :update,
+          params: {
+            id: @rule.id,
+            rule: {
+              concept_uid: @rule.concept_uid,
+              note: @rule.note,
+              name: @rule.name,
+              optimal: @rule.optimal,
+              state: @rule.state,
+              suborder: -1,
+              rule_type: @rule.rule_type,
+              universal: @rule.universal
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
 
@@ -394,7 +510,15 @@ module Comprehension
 
       should "update a valid record with plagiarism_text attributes" do
         plagiarism_text = "New plagiarism text"
-        patch :update, id: @rule.id, rule: { plagiarism_text_attributes: {text: plagiarism_text}}
+        patch :update,
+          params: {
+            id: @rule.id,
+            rule: {
+              plagiarism_text_attributes: {
+                text: plagiarism_text
+              }
+            }
+          }
 
         assert_equal @rule.reload.plagiarism_text.text, plagiarism_text
       end
@@ -402,7 +526,18 @@ module Comprehension
       should "update nested feedback attributes if present" do
         feedback = create(:comprehension_feedback, rule: @rule)
         new_text = 'new text for the feedbacks object'
-        patch :update, id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: new_text}]}
+        patch :update,
+          params: {
+            id: @rule.id,
+            rule: {
+              feedbacks_attributes: [
+                {
+                  id: feedback.id,
+                  text: new_text
+                }
+              ]
+            }
+          }
 
         assert_equal 204, response.code.to_i
         assert_equal "", response.body
@@ -416,7 +551,23 @@ module Comprehension
         highlight = create(:comprehension_highlight, feedback: feedback)
         new_text = "New text to highlight"
 
-        post :update, id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: [{id: highlight.id, text: new_text}]}]}
+        post :update,
+          params: {
+            id: @rule.id,
+            rule: {
+              feedbacks_attributes: [
+                {
+                  id: feedback.id,
+                  highlights_attributes: [
+                    {
+                      id: highlight.id,
+                      text: new_text
+                    }
+                  ]
+                }
+              ]
+            }
+          }
 
         assert_equal 204, response.code.to_i
         assert_equal "", response.body
@@ -429,8 +580,16 @@ module Comprehension
         label = create(:comprehension_label, rule: @rule)
         new_name = 'can not be updated'
 
-        post :update, id: @rule.id, rule: { label_attributes: {id: label.id, name: new_name}}
-
+        post :update,
+          params: {
+            id: @rule.id,
+            rule: {
+              label_attributes: {
+                id: label.id,
+                name: new_name
+              }
+            }
+          }
 
         assert_equal 204, response.code.to_i
 
@@ -442,7 +601,18 @@ module Comprehension
         regex_rule = create(:comprehension_regex_rule, rule: @rule)
         new_text = "new regex text"
 
-        post :update, id: @rule.id, rule: { regex_rules_attributes: [{id: regex_rule.id, regex_text: new_text}]}
+        post :update,
+          params: {
+            id: @rule.id,
+            rule: {
+              regex_rules_attributes: [
+                {
+                  id: regex_rule.id,
+                  regex_text: new_text
+                }
+              ]
+            }
+          }
 
         assert_equal 204, response.code.to_i
         assert_equal "", response.body
@@ -455,7 +625,18 @@ module Comprehension
         regex_rule = create(:comprehension_regex_rule, rule: @rule)
         new_text = "(invalid|"
 
-        post :update, id: @rule.id, rule: { regex_rules_attributes: [{id: regex_rule.id, regex_text: new_text}]}
+        post :update,
+          params: {
+            id: @rule.id,
+            rule: {
+              regex_rules_attributes: [
+                {
+                  id: regex_rule.id,
+                  regex_text: new_text
+                }
+              ]
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
 
@@ -471,7 +652,7 @@ module Comprehension
       end
 
       should "destroy record at id" do
-        delete :destroy, id: @rule.id
+        delete :destroy, params: { id: @rule.id }
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i
@@ -488,7 +669,14 @@ module Comprehension
       end
 
       should "update the rules to have the suborders in the order of their ids" do
-        put :update_rule_order, ordered_rule_ids: [@rule2.id, @rule3.id, @rule1.id]
+        put :update_rule_order,
+          params: {
+            ordered_rule_ids: [
+              @rule2.id,
+              @rule3.id,
+              @rule1.id
+            ]
+          }
 
         assert_equal 200, response.code.to_i
         assert_equal @rule2.reload.suborder, 0
@@ -497,7 +685,14 @@ module Comprehension
       end
 
       should "return an error if any of the updated rules are invalid" do
-        put :update_rule_order, ordered_rule_ids: [@rule2.id, nil, @rule1.id]
+        put :update_rule_order,
+          params: {
+            ordered_rule_ids: [
+              @rule2.id,
+              nil,
+              @rule1.id
+            ]
+          }
 
         assert_equal 422, response.code.to_i
       end
