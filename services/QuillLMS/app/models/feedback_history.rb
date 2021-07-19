@@ -177,15 +177,17 @@ class FeedbackHistory < ApplicationRecord
       .joins("LEFT OUTER JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id")
       .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
       .joins("LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id")
-      .joins("LEFT OUTER JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid")
-      .joins("LEFT OUTER JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid")
       .where(used: true)
       .group(:feedback_session_uid, :activity_id)
       .order('start_date DESC')
     query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
     query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
     query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
-    query = query.where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id) if turk_session_id
+    if turk_session_id
+      query = query.joins('LEFT JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
+      .joins('LEFT JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')
+      .where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id)
+    end
     query = query.limit(page_size)
     query = query.offset((page.to_i - 1) * page_size.to_i) if page && page.to_i > 1
     query
