@@ -73,7 +73,16 @@ module Comprehension
       end
 
       should "create a valid record and return it as json" do
-        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, notes: @activity.notes }
+        post :create,
+          params: {
+            activity: {
+              parent_activity_id: @activity.parent_activity_id,
+              scored_level: @activity.scored_level,
+              target_level: @activity.target_level,
+              title: @activity.title,
+              notes: @activity.notes
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
 
@@ -84,7 +93,12 @@ module Comprehension
       end
 
       should "not create an invalid record and return errors as json" do
-        post :create, activity: { parent_activity_id: @activity.parent_activity_id }
+        post :create,
+          params: {
+            activity: {
+              parent_activity_id: @activity.parent_activity_id
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
 
@@ -94,7 +108,21 @@ module Comprehension
       end
 
       should "create a valid record with passage attributes" do
-        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, notes: @activity.notes, passages_attributes: [{text: ("Hello " * 20) }] }
+        post :create,
+          params: {
+            activity: {
+              parent_activity_id: @activity.parent_activity_id,
+              scored_level: @activity.scored_level,
+              target_level: @activity.target_level,
+              title: @activity.title,
+              notes: @activity.notes,
+              passages_attributes: [
+                {
+                  text: ("Hello " * 20)
+                }
+              ]
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
 
@@ -107,7 +135,22 @@ module Comprehension
       end
 
       should "create a valid record with prompt attributes" do
-        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, notes: @activity.notes, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because"}] }
+        post :create,
+          params: {
+            activity: {
+              parent_activity_id: @activity.parent_activity_id,
+              scored_level: @activity.scored_level,
+              target_level: @activity.target_level,
+              title: @activity.title,
+              notes: @activity.notes,
+              prompts_attributes: [
+                {
+                  text: "meat is bad for you.",
+                  conjunction: "because"
+                }
+              ]
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
 
@@ -120,7 +163,22 @@ module Comprehension
       end
 
       should "create a new parent activity and activity if no parent_activity_id is passed" do
-        post :create, activity: { parent_activity_id: nil, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, notes: @activity.notes, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because"}] }
+        post :create,
+          params: {
+            activity: {
+              parent_activity_id: nil,
+              scored_level: @activity.scored_level,
+              target_level: @activity.target_level,
+              title: @activity.title,
+              notes: @activity.notes,
+              prompts_attributes: [
+                {
+                  text: "meat is bad for you.",
+                  conjunction: "because"
+                }
+              ]
+            }
+          }
         parent_activity = Comprehension.parent_activity_class.find_by_name(@activity.title)
         new_activity = Activity.find_by_title(@activity.title)
         assert parent_activity.present?
@@ -137,7 +195,7 @@ module Comprehension
       end
 
       should "return json if found" do
-        get :show, id: @activity.id
+        get :show, params: { id: @activity.id }
 
         parsed_response = JSON.parse(response.body)
 
@@ -149,7 +207,7 @@ module Comprehension
 
       should "raise if not found (to be handled by parent app)" do
         assert_raises ActiveRecord::RecordNotFound do
-          get :show, id: 99999
+          get :show, params: { id: 99999 }
         end
       end
     end
@@ -162,7 +220,17 @@ module Comprehension
       end
 
       should "update record if valid, return nothing" do
-        put :update, id: @activity.id, activity: { parent_activity_id: 2, scored_level: "5th grade", target_level: 9, title: "New title" }
+        put :update,
+          params: {
+            id: @activity.id,
+            activity: {
+              parent_activity_id: 2,
+              scored_level: "5th grade",
+              target_level: 9,
+              title: "New title"
+            }
+          }
+
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i
@@ -176,7 +244,18 @@ module Comprehension
       end
 
       should "update passage if valid, return nothing" do
-        put :update, id: @activity.id, activity: { passages_attributes: [{id: @passage.id, text: ('Goodbye' * 20)}] }
+        put :update,
+          params: {
+            id: @activity.id,
+            activity: {
+              passages_attributes: [
+                {
+                  id: @passage.id,
+                  text: ('Goodbye' * 20)
+                }
+              ]
+            }
+          }
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i
@@ -187,7 +266,18 @@ module Comprehension
       end
 
       should "update prompt if valid, return nothing" do
-        put :update, id: @activity.id, activity: { prompts_attributes: [{id: @prompt.id, text: "this is a good thing."}] }
+        put :update,
+          params: {
+            id: @activity.id,
+            activity: {
+              prompts_attributes: [
+                {
+                  id: @prompt.id,
+                  text: "this is a good thing."
+                }
+              ]
+            }
+          }
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i
@@ -199,7 +289,16 @@ module Comprehension
 
 
       should "not update record and return errors as json" do
-        put :update, id: @activity.id, activity: { parent_activity_id: 2, scored_level: "5th grade", target_level: 99999999, title: "New title" }
+        put :update,
+          params: {
+            id: @activity.id,
+            activity: {
+              parent_activity_id: 2,
+              scored_level: "5th grade",
+              target_level: 99999999,
+              title: "New title"
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
 
@@ -215,7 +314,7 @@ module Comprehension
       end
 
       should "destroy record at id" do
-        delete :destroy, id: @activity.id
+        delete :destroy, params: { id: @activity.id }
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i
@@ -235,7 +334,7 @@ module Comprehension
       end
 
       should "return rules" do
-        get :rules, id: @activity.id
+        get :rules, params: { id: @activity.id }
 
         parsed_response = JSON.parse(response.body)
 
@@ -245,7 +344,7 @@ module Comprehension
 
       should "404 if activity is invalid" do
         assert_raises ActiveRecord::RecordNotFound do
-          get :rules, id: 99999
+          get :rules, params: { id: 99999 }
         end
       end
     end

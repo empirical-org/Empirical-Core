@@ -1,4 +1,4 @@
-class CreatePlagiarismTextTable < ActiveRecord::Migration
+class CreatePlagiarismTextTable < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_plagiarism_texts do |t|
       t.references :rule, null: false
