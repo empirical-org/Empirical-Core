@@ -82,7 +82,7 @@ class Teachers::ClassroomsController < ApplicationController
   def destroy
     authorize_owner! { params[:id] }
     Classroom.find(params[:id]).destroy
-    # we need a performed? check here to avoid a double render, since 
+    # we need a performed? check here to avoid a double render, since
     # authorize_owner can trigger a render, which is an anti-pattern
     # more info: https://medium.com/cedarcode/abstractcontroller-doublerendererror-fix-d18881b80476
     redirect_to teachers_classrooms_path unless performed?
@@ -225,7 +225,18 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   private def create_students_params
-    params.permit(:classroom_id, :students => [:name, :username, :password, :account_type], :classroom => classroom_params)
+    params
+      .permit(
+        :classroom_id,
+        classroom: classroom_params,
+        students: [
+          :name,
+          :username,
+          :password,
+          :account_type
+        ]
+      )
+      .to_h
   end
 
   private def classroom_params

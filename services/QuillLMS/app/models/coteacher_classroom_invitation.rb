@@ -45,7 +45,7 @@ class CoteacherClassroomInvitation < ApplicationRecord
       SQL
     ).to_a
 
-    return false if classrooms_teachers.any?
+    throw(:abort) if classrooms_teachers.any?
   end
 
   private def trigger_analytics
