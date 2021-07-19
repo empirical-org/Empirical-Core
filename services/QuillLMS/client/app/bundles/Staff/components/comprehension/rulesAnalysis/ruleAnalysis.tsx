@@ -11,7 +11,8 @@ import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchRuleFeedbackHistoriesByRule } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
 import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
 import { createOrUpdateFeedbackHistoryRating, massCreateOrUpdateFeedbackHistoryRating, } from '../../../utils/comprehension/feedbackHistoryRatingAPIs';
-import { DataTable, Error, Spinner, Input, Tooltip, smallWhiteCheckIcon, } from '../../../../Shared/index';
+import { InputEvent } from '../../../interfaces/comprehensionInterfaces';
+import { DataTable, Error, Spinner, Input, smallWhiteCheckIcon, } from '../../../../Shared/index';
 import { handlePageFilterClick, renderHeader } from "../../../helpers/comprehension";
 import { ALL, SCORED, UNSCORED, STRONG, WEAK, RULE_ANALYSIS, RULES_ANALYSIS } from '../../../../../constants/comprehension';
 
@@ -38,6 +39,8 @@ const RuleAnalysis = ({ match }) => {
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
+  const [turkSessionID, setTurkSessionID] = React.useState<string>(null);
+  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(null);
 
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
@@ -55,7 +58,7 @@ const RuleAnalysis = ({ match }) => {
   });
 
   const { data: ruleFeedbackHistoryData } = useQuery({
-    queryKey: [`rule-feedback-histories-by-rule-${ruleId}-${promptId}`, ruleId, promptId, startDateForQuery, endDateForQuery],
+    queryKey: [`rule-feedback-histories-by-rule-${ruleId}-${promptId}`, ruleId, promptId, startDateForQuery, endDateForQuery, turkSessionIDForQuery],
     queryFn: fetchRuleFeedbackHistoriesByRule
   })
 
@@ -79,8 +82,10 @@ const RuleAnalysis = ({ match }) => {
     }
   }, [filter, search, selectedIds])
 
+  function handleSetTurkSessionID(e: InputEvent){ setTurkSessionID(e.target.value) };
+
   function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, setStartDate, setEndDate, setShowError, setPageNumber: null, storageKey: RULE_ANALYSIS });
+    handlePageFilterClick({ startDate, endDate, turkSessionID, setStartDate, setEndDate, setShowError, setTurkSessionIDForQuery, setPageNumber: null, storageKey: RULE_ANALYSIS });
   }
 
   function handleFilterChange(e) { setFilter(e.target.value) }
@@ -326,6 +331,13 @@ const RuleAnalysis = ({ match }) => {
           format='y-MM-dd HH:mm'
           onChange={onEndDateChange}
           value={endDate}
+        />
+        <p className="date-picker-label">Turk Session ID (optional):</p>
+        <Input
+          className="turk-session-id-input"
+          handleChange={handleSetTurkSessionID}
+          label=""
+          value={turkSessionID}
         />
         <button className="quill-button fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
         {showError && <p className="error-message rule-analysis">Start date is required.</p>}
