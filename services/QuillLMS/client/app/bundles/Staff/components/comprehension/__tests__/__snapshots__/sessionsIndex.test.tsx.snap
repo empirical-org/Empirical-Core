@@ -21,7 +21,7 @@ exports[`SessionsIndex component should render SessionsIndex 1`] = `
     >
       Use 
       <a
-        href="https://data.quill.org/question/615?activity_id=undefined"
+        href="https://data.quill.org/question/615?activity_id=1"
       >
         <strong>
           this Metabase
@@ -66,6 +66,10 @@ exports[`SessionsIndex component should render SessionsIndex 1`] = `
         options={null}
         value={null}
       />
+    </section>
+    <section
+      className="top-section"
+    >
       <DropdownInput
         className="session-filters-dropdown"
         handleChange={[Function]}
@@ -246,6 +250,18 @@ exports[`SessionsIndex component should render SessionsIndex 1`] = `
         maxDetail="minute"
         onChange={[Function]}
         openWidgetsOnFocus={true}
+        value={null}
+      />
+      <p
+        className="date-picker-label"
+      >
+        Turk Session ID (optional):
+      </p>
+      <Input
+        autoComplete="on"
+        className="turk-session-id-input"
+        handleChange={[Function]}
+        label=""
         value={null}
       />
       <button
