@@ -34,31 +34,31 @@ describe Topic, type: :model do
 
   describe 'saving a topic with parent id' do
     it 'should raise error if level is not 2' do
-      level_one_topic = Topic.new(name: 'test', level: 1, parent_id: level_three_topic.id,visible: true)
-      expect{ level_one_topic.save! }.to raise_error
+      level_one_topic = Topic.new(name: 'test', level: 1, parent_id: level_three_topic.id, visible: true)
+      expect { level_one_topic.save! }.to raise_error(ActiveRecord::RecordNotSaved)
     end
 
     it 'should raise error if level is 2 and parent is not level 3' do
       level_one_topic = Topic.create(name: 'test', level: 1, visible: true)
       level_two_topic = Topic.new(name: 'test', level: 2, visible: true, parent_id: level_one_topic.id)
-      expect{ level_two_topic.save! }.to raise_error
+      expect { level_two_topic.save! }.to raise_error(ActiveRecord::RecordNotSaved)
     end
 
     it 'should not raise error if level is 2 and parent is 3' do
       level_two_topic = Topic.new(name: 'test', level: 2, visible: true, parent_id: level_three_topic.id)
-      expect{ level_two_topic.save! }.not_to raise_error
+      expect { level_two_topic.save! }.not_to raise_error
     end
   end
 
   describe 'saving a topic without parent id' do
     it 'should raise error if level is 2' do
       level_two_topic = Topic.new(name: 'test', level: 2, visible: true)
-      expect{ level_two_topic.save! }.to raise_error
+      expect { level_two_topic.save! }.to raise_error(ActiveRecord::RecordNotSaved)
     end
 
     it 'should not raise error if level is not 2' do
       level_one_topic = Topic.new(name: 'test', level: 1, visible: true)
-      expect{ level_one_topic.save! }.not_to raise_error
+      expect { level_one_topic.save! }.not_to raise_error
     end
   end
 
