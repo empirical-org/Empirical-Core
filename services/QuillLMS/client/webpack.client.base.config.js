@@ -49,6 +49,9 @@ const basePlugins = [
 
 module.exports = {
   mode,
+  output: {
+    crossOriginLoading: 'anonymous'
+  },
   context: __dirname,
   entry: {
     shared: [

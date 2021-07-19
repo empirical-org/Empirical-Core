@@ -21,6 +21,7 @@ module.exports = {
     // './app/bundles/comments/startup/serverRegistration',
   ],
   output: {
+    crossOriginLoading: 'anonymous',
     filename: 'server-bundle.js',
     publicPath: output.publicPath,
     path: output.path,

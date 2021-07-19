@@ -75,5 +75,11 @@ module EmpiricalGrammar
         resource '/api/*', headers: :any, methods: [:get, :post, :patch, :put, :delete, :options], credentials: true
       end
     end
+
+    config.public_file_server.enabled = true
+
+    config.public_file_server.headers = {
+      'Access-Control-Allow-Origin' => '*'
+    }
   end
 end

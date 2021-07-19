@@ -13,6 +13,7 @@ module.exports = merge(config, {
   devtool: 'eval-source-map',
 
   output: {
+    crossOriginLoading: 'anonymous',
     filename: '[name]-bundle-[hash].js',
     publicPath: output.publicPath,
     path: output.path,
