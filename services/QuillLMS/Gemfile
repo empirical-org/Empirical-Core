@@ -68,6 +68,7 @@ gem 'httparty'
 gem 'intercom', '~> 3.5.23'
 gem 'haversine'
 gem 'configs'
+gem 'rack-test', '~> 0.6.3'
 
 # Engines
 gem 'comprehension', path: 'engines/comprehension'

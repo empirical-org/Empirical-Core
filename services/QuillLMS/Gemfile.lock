@@ -511,8 +511,8 @@ GEM
       rack
     rack-proxy (0.6.5)
       rack
-    rack-test (1.1.0)
-      rack (>= 1.0, < 3)
+    rack-test (0.6.3)
+      rack (>= 1.0)
     rails (5.1.7)
       actioncable (= 5.1.7)
       actionmailer (= 5.1.7)
@@ -865,6 +865,7 @@ DEPENDENCIES
   rack-cors
   rack-heartbeat
   rack-host-redirect
+  rack-test (~> 0.6.3)
   rails (= 5.1.7)
   rails-controller-testing
   rails_12factor
