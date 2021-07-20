@@ -190,7 +190,7 @@ const ChangeLog = ({ history, match }) => {
       <div id="rule-dropdown">
         <p className="control">
           <span className="select">
-            <select id='rule-dropdown-select' defaultValue='all' onChange={handleRuleChange}>
+            <select defaultValue='all' id='rule-dropdown-select' onChange={handleRuleChange}>
               <option value="all">All Rules</option>
               {ruleOptions}
             </select>
@@ -221,19 +221,19 @@ const ChangeLog = ({ history, match }) => {
         </div>
         <div id="bottom-selectors">
           <p className="date-picker-label">Start Date:</p>
-            <DateTimePicker
-              ampm={false}
-              format='y-MM-dd HH:mm'
-              onChange={onStartDateChange}
-              value={startDate}
+          <DateTimePicker
+            ampm={false}
+            format='y-MM-dd HH:mm'
+            onChange={onStartDateChange}
+            value={startDate}
           />
           <p className="date-picker-label">End Date (optional):</p>
-            <DateTimePicker
-              ampm={false}
-              format='y-MM-dd HH:mm'
-              onChange={onEndDateChange}
-              value={endDate}
-            />
+          <DateTimePicker
+            ampm={false}
+            format='y-MM-dd HH:mm'
+            onChange={onEndDateChange}
+            value={endDate}
+          />
         </div>
       </div>
       <br />
