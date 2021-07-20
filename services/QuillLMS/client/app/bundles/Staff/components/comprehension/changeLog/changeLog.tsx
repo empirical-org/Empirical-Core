@@ -200,8 +200,6 @@ const ChangeLog = ({ history, match }) => {
     )
   }
 
-  console.log(activityData)
-  console.log(changeLogData)
   return(
     <div className="activity-stats-container">
       {renderHeader(activityData, 'Change Log')}
