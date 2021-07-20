@@ -13,6 +13,11 @@ if defined?(Sprockets)
         # Use open3 so an error aborts the build (backticks `` swallow the error)
         stdout, stderr, status = Open3.capture3(npm_build)
 
+        if ENV.fetch('VERBOSE_ASSETS_PRECOMPILE', false) == 'true'
+          puts "stdout:\n#{stdout}" if stdout.present?
+          puts "stderr:\n#{stderr}" if stderr.present?
+        end
+
         if !status.success?
           # print everything in the case of an error
           puts stdout
