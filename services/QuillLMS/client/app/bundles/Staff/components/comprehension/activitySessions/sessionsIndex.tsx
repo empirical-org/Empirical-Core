@@ -20,6 +20,7 @@ const SessionsIndex = ({ match }) => {
 
   const initialStartDateString = window.sessionStorage.getItem(`${SESSION_INDEX}startDate`) || '';
   const initialEndDateString = window.sessionStorage.getItem(`${SESSION_INDEX}endDate`) || '';
+  const initialTurkSessionId = window.sessionStorage.getItem(`${SESSION_INDEX}turkSessionId`) || '';
   const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
 
@@ -27,8 +28,8 @@ const SessionsIndex = ({ match }) => {
   const [pageNumber, setPageNumber] = React.useState<DropdownObjectInterface>(null);
   const [pageDropdownOptions, setPageDropdownOptions] = React.useState<DropdownObjectInterface[]>(null);
   const [filterOption, setFilterOption] = React.useState<DropdownObjectInterface>(activitySessionFilterOptions[0]);
-  const [turkSessionID, setTurkSessionID] = React.useState<string>(null);
-  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(null);
+  const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
+  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
   const [rowData, setRowData] = React.useState<any[]>([]);
   const [sortInfo, setSortInfo] = React.useState<any>(null);
   const pageNumberForQuery = pageNumber && pageNumber.value ? pageNumber.value : 1;
