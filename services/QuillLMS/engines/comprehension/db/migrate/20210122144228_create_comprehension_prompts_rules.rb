@@ -1,4 +1,4 @@
-class CreateComprehensionPromptsRules < ActiveRecord::Migration
+class CreateComprehensionPromptsRules < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_prompts_rules do |t|
       t.references :prompt, null: false

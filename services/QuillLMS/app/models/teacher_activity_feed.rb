@@ -18,6 +18,7 @@ class TeacherActivityFeed < RedisFeed
     sessions = ActivitySession
       .includes(:user, :classification, :classroom_unit)
       .where(id: ids)
+      .where.not(user_id: nil)
       .select(:id, :user_id, :classroom_unit_id, :activity_id, :percentage, :completed_at)
 
     # purposely avoiding the SQL sort on the large activity_sessions table

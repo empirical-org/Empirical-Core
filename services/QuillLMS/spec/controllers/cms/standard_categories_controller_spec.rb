@@ -23,8 +23,7 @@ describe Cms::StandardCategoriesController do
 
   describe '#create' do
     it 'creates a new standard with the nested change logs' do
-      post :create, {
-        standard_category: {
+      post :create, params: { standard_category: {
           name: 'New StandardCategory',
           level: 3,
           visible: true,
@@ -35,8 +34,7 @@ describe Cms::StandardCategoriesController do
               explanation: 'Here is an explanation'
             }
           ]
-        }
-      }
+        } }
       parsed_response = JSON.parse(response.body)
       id = parsed_response["standard_category"]["id"]
       expect(id).to be
@@ -49,9 +47,7 @@ describe Cms::StandardCategoriesController do
     it 'creates a new standard with the nested change logs' do
       new_name = 'New StandardCategory Name'
       id = standard_categories[0].id
-      put :update, {
-        id: id,
-        standard_category: {
+      put :update, params: { id: id, standard_category: {
           name: new_name,
           id: id,
           change_logs_attributes: [
@@ -62,8 +58,7 @@ describe Cms::StandardCategoriesController do
               explanation: 'Here is an explanation'
             }
           ]
-        }
-      }
+        } }
       expect(StandardCategory.find_by_id(id).name).to eq(new_name)
       expect(ChangeLog.find_by(changed_record_id: id, changed_record_type: 'StandardCategory', action: 'Renamed')).to be
     end

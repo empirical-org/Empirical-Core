@@ -35,7 +35,7 @@ class Cms::TeacherSearchQuery
           ON subscriptions.id = user_subscriptions.subscription_id
         LEFT JOIN schools_admins
           ON users.id = schools_admins.user_id
-        WHERE schools_users.school_id = #{ActiveRecord::Base.sanitize(school_id)}
+        WHERE schools_users.school_id = #{ActiveRecord::Base.connection.quote(school_id)}
         GROUP BY
           users.name,
           users.last_sign_in,

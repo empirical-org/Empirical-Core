@@ -45,7 +45,7 @@ describe Cms::SchoolsController do
 
     it 'should assign the correct values' do
       allow_any_instance_of(Cms::TeacherSearchQuery).to receive(:run) { "teacher data" }
-      get :show, id: school.id
+      get :show, params: { id: school.id }
       expect(assigns(:subscription)).to eq school.subscription
       expect(assigns(:school_subscription_info)).to eq({
        'School Premium Type' => school&.subscription&.account_type,
@@ -78,7 +78,7 @@ describe Cms::SchoolsController do
     let!(:school) { create(:school) }
 
     it 'should assign the school and editable attributes' do
-      get :edit, id: school.id
+      get :edit, params: { id: school.id }
       expect(assigns(:school)).to eq school
       expect(assigns(:editable_attributes)).to eq({
           'School Name' => :name,
@@ -96,7 +96,7 @@ describe Cms::SchoolsController do
     let!(:school) { create(:school) }
 
     it 'should update the given school' do
-      post :update, id: school.id, school: { id: school.id, name: "test name" }
+      post :update, params: { id: school.id, school: { id: school.id, name: "test name" } }
       expect(school.reload.name).to eq "test name"
       expect(response).to redirect_to cms_school_path(school.id)
     end
@@ -106,21 +106,21 @@ describe Cms::SchoolsController do
     let!(:school) { create(:school) }
 
     it 'should assing the subscription' do
-      get :edit_subscription, id: school.id
+      get :edit_subscription, params: { id: school.id }
       expect(assigns(:subscription)).to eq school.subscription
     end
   end
 
   describe '#create' do
     it 'should create the school with the given params' do
-      post :create, school: {
+      post :create, params: { school: {
           name: "test",
           city: "test city",
           state: "test state",
           zipcode: "1100",
           leanm: "lean",
           free_lunches: 2
-      }
+      } }
       expect(School.last.name).to eq "test"
       expect(School.last.city).to eq "test city"
       expect(School.last.state).to eq "test state"
@@ -140,7 +140,7 @@ describe Cms::SchoolsController do
 
     describe 'when there is no existing subscription' do
       it 'should create a new subscription that starts today and ends at the promotional expiration date' do
-        get :new_subscription, id: school_with_no_subscription.id
+        get :new_subscription, params: { id: school_with_no_subscription.id }
         expect(assigns(:subscription).start_date).to eq Date.today
         expect(assigns(:subscription).expiration).to eq Subscription.promotional_dates[:expiration]
       end
@@ -148,7 +148,7 @@ describe Cms::SchoolsController do
 
     describe 'when there is an existing subscription' do
       it 'should create a new subscription with starting after the current subscription ends' do
-        get :new_subscription, id: school.id
+        get :new_subscription, params: { id: school.id }
         expect(assigns(:subscription).start_date).to eq subscription.expiration
         expect(assigns(:subscription).expiration).to eq subscription.expiration + 1.year
       end
@@ -160,7 +160,7 @@ describe Cms::SchoolsController do
     let!(:school) { create(:school) }
 
     it 'should create the schools admin and redirect to cms school path' do
-      post :add_admin_by_email, email_address: another_user.email, id: school.id
+      post :add_admin_by_email, params: { email_address: another_user.email, id: school.id }
       expect(flash[:success]).to eq "Yay! It worked! 🎉"
       expect(response).to redirect_to cms_school_path(school.id)
       expect(SchoolsAdmins.last.user).to eq another_user
@@ -176,7 +176,7 @@ describe Cms::SchoolsController do
     end
 
     it 'should create the schools users and redirect to cms school path' do
-      post :add_existing_user_by_email, email_address: another_user.email, id: school.id
+      post :add_existing_user_by_email, params: { email_address: another_user.email, id: school.id }
       expect(flash[:success]).to eq "Yay! It worked! 🎉"
       expect(response).to redirect_to cms_school_path(school.id)
       expect(SchoolsUsers.last.user).to eq another_user
@@ -185,7 +185,7 @@ describe Cms::SchoolsController do
     end
 
     it 'should not create the schools users and redirect to cms school path if email is invalid' do
-      post :add_existing_user_by_email, email_address: 'random-invalid-email', id: school.id
+      post :add_existing_user_by_email, params: { email_address: 'random-invalid-email', id: school.id }
       expect(flash[:error]).to eq "It didn't work! Make sure the email you typed is correct."
     end
   end
@@ -199,7 +199,7 @@ describe Cms::SchoolsController do
 
     it 'should unlink the user and redirect to cms school path' do
       expect(SchoolsUsers.find_by(user: another_user.id, school: school)).to be
-      post :unlink, teacher_id: another_user.id, id: school.id
+      post :unlink, params: { teacher_id: another_user.id, id: school.id }
       expect(flash[:success]).to eq "Yay! It worked! 🎉"
       expect(response).to redirect_to cms_school_path(school.id)
       expect(SchoolsUsers.find_by(user: another_user.id, school: school)).not_to be

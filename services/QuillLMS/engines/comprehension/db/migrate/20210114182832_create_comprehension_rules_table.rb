@@ -1,4 +1,4 @@
-class CreateComprehensionRulesTable < ActiveRecord::Migration
+class CreateComprehensionRulesTable < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_rules do |t|
       t.string :uid, null: false

@@ -442,10 +442,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": null,
                   "id": 41,
                   "name": "Lesson 2: Dependent Clause Fragments",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <span
@@ -456,10 +453,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": null,
                   "id": 42,
                   "name": "Lesson 3: -ing Fragments",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <span
@@ -470,10 +464,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": null,
                   "id": 43,
                   "name": "Lesson 4: Fragments Review",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
               ]
             }
@@ -503,7 +494,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   style={
                     Object {
                       "minWidth": "24px",
-                      "textAlign": "left",
+                      "textAlign": "right",
                       "width": "24px",
                     }
                   }
@@ -565,16 +556,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
@@ -630,16 +616,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
@@ -695,16 +676,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
@@ -998,10 +974,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": "Feb 29, 2020",
                   "id": 1,
                   "name": "The Travels of Marco Polo",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -1013,10 +986,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": "Feb 29, 2020",
                   "id": 2,
                   "name": "Christopher Columbus",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -1028,10 +998,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": "Feb 29, 2020",
                   "id": 10,
                   "name": "A, An, The",
-                  "tool": <img
-                    alt="Puzzle piece representing Quill Grammar"
-                    src="undefined/images/icons/tool-grammar-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -1043,10 +1010,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": "Feb 29, 2020",
                   "id": 3,
                   "name": "Magellan",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -1058,10 +1022,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": "Feb 29, 2020",
                   "id": 4,
                   "name": "Jamestown",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -1073,10 +1034,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": "Feb 29, 2020",
                   "id": 6,
                   "name": "Age of Exploration: Sailing with the Stars",
-                  "tool": <img
-                    alt="Flag representing Quill Proofreader"
-                    src="undefined/images/icons/tool-proofreader-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -1088,10 +1046,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": "Feb 29, 2020",
                   "id": 7,
                   "name": "Age of Exploration: The Cape of Good Hope",
-                  "tool": <img
-                    alt="Flag representing Quill Proofreader"
-                    src="undefined/images/icons/tool-proofreader-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -1103,10 +1058,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": "Feb 29, 2020",
                   "id": 8,
                   "name": "Age of Exploration: Roanoke",
-                  "tool": <img
-                    alt="Flag representing Quill Proofreader"
-                    src="undefined/images/icons/tool-proofreader-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
               ]
             }
@@ -1136,7 +1088,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   style={
                     Object {
                       "minWidth": "24px",
-                      "textAlign": "left",
+                      "textAlign": "right",
                       "width": "24px",
                     }
                   }
@@ -1198,16 +1150,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
@@ -1266,16 +1213,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
@@ -1334,16 +1276,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Puzzle piece representing Quill Grammar"
-                      src="undefined/images/icons/tool-grammar-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
@@ -1402,16 +1339,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
@@ -1470,16 +1402,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
@@ -1538,16 +1465,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Flag representing Quill Proofreader"
-                      src="undefined/images/icons/tool-proofreader-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
@@ -1606,16 +1528,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Flag representing Quill Proofreader"
-                      src="undefined/images/icons/tool-proofreader-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
@@ -1674,16 +1591,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Flag representing Quill Proofreader"
-                      src="undefined/images/icons/tool-proofreader-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
@@ -2171,10 +2083,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": null,
                   "id": 41,
                   "name": "Lesson 2: Dependent Clause Fragments",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <span
@@ -2185,10 +2094,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": null,
                   "id": 42,
                   "name": "Lesson 3: -ing Fragments",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <span
@@ -2199,10 +2105,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": null,
                   "id": 43,
                   "name": "Lesson 4: Fragments Review",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
               ]
             }
@@ -2232,7 +2135,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   style={
                     Object {
                       "minWidth": "24px",
-                      "textAlign": "left",
+                      "textAlign": "right",
                       "width": "24px",
                     }
                   }
@@ -2294,16 +2197,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
@@ -2359,16 +2257,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
@@ -2424,16 +2317,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
@@ -2727,10 +2615,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": "Feb 29, 2020",
                   "id": 1,
                   "name": "The Travels of Marco Polo",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -2742,10 +2627,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": "Feb 29, 2020",
                   "id": 2,
                   "name": "Christopher Columbus",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -2757,10 +2639,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": "Feb 29, 2020",
                   "id": 10,
                   "name": "A, An, The",
-                  "tool": <img
-                    alt="Puzzle piece representing Quill Grammar"
-                    src="undefined/images/icons/tool-grammar-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -2772,10 +2651,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": "Feb 29, 2020",
                   "id": 3,
                   "name": "Magellan",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -2787,10 +2663,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": "Feb 29, 2020",
                   "id": 4,
                   "name": "Jamestown",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -2802,10 +2675,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": "Feb 29, 2020",
                   "id": 6,
                   "name": "Age of Exploration: Sailing with the Stars",
-                  "tool": <img
-                    alt="Flag representing Quill Proofreader"
-                    src="undefined/images/icons/tool-proofreader-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -2817,10 +2687,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": "Feb 29, 2020",
                   "id": 7,
                   "name": "Age of Exploration: The Cape of Good Hope",
-                  "tool": <img
-                    alt="Flag representing Quill Proofreader"
-                    src="undefined/images/icons/tool-proofreader-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -2832,10 +2699,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "dueDate": "Feb 29, 2020",
                   "id": 8,
                   "name": "Age of Exploration: Roanoke",
-                  "tool": <img
-                    alt="Flag representing Quill Proofreader"
-                    src="undefined/images/icons/tool-proofreader-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
               ]
             }
@@ -2865,7 +2729,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   style={
                     Object {
                       "minWidth": "24px",
-                      "textAlign": "left",
+                      "textAlign": "right",
                       "width": "24px",
                     }
                   }
@@ -2927,16 +2791,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
@@ -2995,16 +2854,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
@@ -3063,16 +2917,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Puzzle piece representing Quill Grammar"
-                      src="undefined/images/icons/tool-grammar-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
@@ -3131,16 +2980,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
@@ -3199,16 +3043,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
@@ -3267,16 +3106,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Flag representing Quill Proofreader"
-                      src="undefined/images/icons/tool-proofreader-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
@@ -3335,16 +3169,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Flag representing Quill Proofreader"
-                      src="undefined/images/icons/tool-proofreader-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
@@ -3403,16 +3232,11 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Flag representing Quill Proofreader"
-                      src="undefined/images/icons/tool-proofreader-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
@@ -3991,10 +3815,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                       Proficient
                     </span>
                   </div>,
-                  "tool": <img
-                    alt="Puzzle piece representing Quill Grammar"
-                    src="undefined/images/icons/tool-grammar-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -4016,10 +3837,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                       Nearly proficient
                     </span>
                   </div>,
-                  "tool": <img
-                    alt="Flag representing Quill Proofreader"
-                    src="undefined/images/icons/tool-proofreader-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
               ]
             }
@@ -4063,7 +3881,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   style={
                     Object {
                       "minWidth": "24px",
-                      "textAlign": "left",
+                      "textAlign": "right",
                       "width": "24px",
                     }
                   }
@@ -4147,16 +3965,11 @@ exports[`StudentProfileUnits component should render only completed activities i
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Puzzle piece representing Quill Grammar"
-                      src="undefined/images/icons/tool-grammar-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section completed-due-date-section"
                     key="dueDate-9"
@@ -4237,16 +4050,11 @@ exports[`StudentProfileUnits component should render only completed activities i
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Flag representing Quill Proofreader"
-                      src="undefined/images/icons/tool-proofreader-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section completed-due-date-section"
                     key="dueDate-5"
@@ -4851,10 +4659,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "dueDate": null,
                   "id": 40,
                   "name": "Lesson 1: Missing Subject or Verb Fragments",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <span
@@ -4865,10 +4670,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "dueDate": null,
                   "id": 41,
                   "name": "Lesson 2: Dependent Clause Fragments",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <span
@@ -4879,10 +4681,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "dueDate": null,
                   "id": 42,
                   "name": "Lesson 3: -ing Fragments",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <span
@@ -4893,10 +4692,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "dueDate": null,
                   "id": 43,
                   "name": "Lesson 4: Fragments Review",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
               ]
             }
@@ -4926,7 +4722,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   style={
                     Object {
                       "minWidth": "24px",
-                      "textAlign": "left",
+                      "textAlign": "right",
                       "width": "24px",
                     }
                   }
@@ -4988,16 +4784,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-40"
@@ -5054,16 +4845,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
@@ -5119,16 +4905,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
@@ -5184,16 +4965,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
@@ -5487,10 +5263,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "dueDate": "Feb 29, 2020",
                   "id": 1,
                   "name": "The Travels of Marco Polo",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -5502,10 +5275,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "dueDate": "Feb 29, 2020",
                   "id": 2,
                   "name": "Christopher Columbus",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -5517,10 +5287,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "dueDate": "Feb 29, 2020",
                   "id": 10,
                   "name": "A, An, The",
-                  "tool": <img
-                    alt="Puzzle piece representing Quill Grammar"
-                    src="undefined/images/icons/tool-grammar-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -5532,10 +5299,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "dueDate": "Feb 29, 2020",
                   "id": 3,
                   "name": "Magellan",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -5547,10 +5311,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "dueDate": "Feb 29, 2020",
                   "id": 4,
                   "name": "Jamestown",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -5562,10 +5323,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "dueDate": "Feb 29, 2020",
                   "id": 6,
                   "name": "Age of Exploration: Sailing with the Stars",
-                  "tool": <img
-                    alt="Flag representing Quill Proofreader"
-                    src="undefined/images/icons/tool-proofreader-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -5577,10 +5335,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "dueDate": "Feb 29, 2020",
                   "id": 7,
                   "name": "Age of Exploration: The Cape of Good Hope",
-                  "tool": <img
-                    alt="Flag representing Quill Proofreader"
-                    src="undefined/images/icons/tool-proofreader-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -5592,10 +5347,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "dueDate": "Feb 29, 2020",
                   "id": 8,
                   "name": "Age of Exploration: Roanoke",
-                  "tool": <img
-                    alt="Flag representing Quill Proofreader"
-                    src="undefined/images/icons/tool-proofreader-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
               ]
             }
@@ -5625,7 +5377,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   style={
                     Object {
                       "minWidth": "24px",
-                      "textAlign": "left",
+                      "textAlign": "right",
                       "width": "24px",
                     }
                   }
@@ -5687,16 +5439,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
@@ -5755,16 +5502,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
@@ -5823,16 +5565,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Puzzle piece representing Quill Grammar"
-                      src="undefined/images/icons/tool-grammar-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
@@ -5891,16 +5628,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
@@ -5959,16 +5691,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
@@ -6027,16 +5754,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Flag representing Quill Proofreader"
-                      src="undefined/images/icons/tool-proofreader-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
@@ -6095,16 +5817,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Flag representing Quill Proofreader"
-                      src="undefined/images/icons/tool-proofreader-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
@@ -6163,16 +5880,11 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Flag representing Quill Proofreader"
-                      src="undefined/images/icons/tool-proofreader-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
@@ -6777,10 +6489,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "dueDate": null,
                   "id": 40,
                   "name": "Lesson 1: Missing Subject or Verb Fragments",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <span
@@ -6791,10 +6500,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "dueDate": null,
                   "id": 41,
                   "name": "Lesson 2: Dependent Clause Fragments",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <span
@@ -6805,10 +6511,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "dueDate": null,
                   "id": 42,
                   "name": "Lesson 3: -ing Fragments",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <span
@@ -6819,10 +6522,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "dueDate": null,
                   "id": 43,
                   "name": "Lesson 4: Fragments Review",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
               ]
             }
@@ -6852,7 +6552,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   style={
                     Object {
                       "minWidth": "24px",
-                      "textAlign": "left",
+                      "textAlign": "right",
                       "width": "24px",
                     }
                   }
@@ -6914,16 +6614,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-40"
@@ -6980,16 +6675,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
@@ -7045,16 +6735,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
@@ -7110,16 +6795,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
@@ -7413,10 +7093,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "dueDate": "Feb 29, 2020",
                   "id": 1,
                   "name": "The Travels of Marco Polo",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -7428,10 +7105,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "dueDate": "Feb 29, 2020",
                   "id": 2,
                   "name": "Christopher Columbus",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -7443,10 +7117,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "dueDate": "Feb 29, 2020",
                   "id": 10,
                   "name": "A, An, The",
-                  "tool": <img
-                    alt="Puzzle piece representing Quill Grammar"
-                    src="undefined/images/icons/tool-grammar-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -7458,10 +7129,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "dueDate": "Feb 29, 2020",
                   "id": 3,
                   "name": "Magellan",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -7473,10 +7141,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "dueDate": "Feb 29, 2020",
                   "id": 4,
                   "name": "Jamestown",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -7488,10 +7153,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "dueDate": "Feb 29, 2020",
                   "id": 6,
                   "name": "Age of Exploration: Sailing with the Stars",
-                  "tool": <img
-                    alt="Flag representing Quill Proofreader"
-                    src="undefined/images/icons/tool-proofreader-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -7503,10 +7165,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "dueDate": "Feb 29, 2020",
                   "id": 7,
                   "name": "Age of Exploration: The Cape of Good Hope",
-                  "tool": <img
-                    alt="Flag representing Quill Proofreader"
-                    src="undefined/images/icons/tool-proofreader-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -7518,10 +7177,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "dueDate": "Feb 29, 2020",
                   "id": 8,
                   "name": "Age of Exploration: Roanoke",
-                  "tool": <img
-                    alt="Flag representing Quill Proofreader"
-                    src="undefined/images/icons/tool-proofreader-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
               ]
             }
@@ -7551,7 +7207,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   style={
                     Object {
                       "minWidth": "24px",
-                      "textAlign": "left",
+                      "textAlign": "right",
                       "width": "24px",
                     }
                   }
@@ -7613,16 +7269,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
@@ -7681,16 +7332,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
@@ -7749,16 +7395,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Puzzle piece representing Quill Grammar"
-                      src="undefined/images/icons/tool-grammar-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
@@ -7817,16 +7458,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
@@ -7885,16 +7521,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
@@ -7953,16 +7584,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Flag representing Quill Proofreader"
-                      src="undefined/images/icons/tool-proofreader-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
@@ -8021,16 +7647,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Flag representing Quill Proofreader"
-                      src="undefined/images/icons/tool-proofreader-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
@@ -8089,16 +7710,11 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Flag representing Quill Proofreader"
-                      src="undefined/images/icons/tool-proofreader-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
@@ -8703,10 +8319,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "dueDate": null,
                   "id": 40,
                   "name": "Lesson 1: Missing Subject or Verb Fragments",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <span
@@ -8717,10 +8330,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "dueDate": null,
                   "id": 41,
                   "name": "Lesson 2: Dependent Clause Fragments",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <span
@@ -8731,10 +8341,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "dueDate": null,
                   "id": 42,
                   "name": "Lesson 3: -ing Fragments",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <span
@@ -8745,10 +8352,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "dueDate": null,
                   "id": 43,
                   "name": "Lesson 4: Fragments Review",
-                  "tool": <img
-                    alt="Apple representing Quill Lessons"
-                    src="undefined/images/icons/tool-lessons-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
               ]
             }
@@ -8778,7 +8382,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   style={
                     Object {
                       "minWidth": "24px",
-                      "textAlign": "left",
+                      "textAlign": "right",
                       "width": "24px",
                     }
                   }
@@ -8840,16 +8444,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-40"
@@ -8906,16 +8505,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
@@ -8971,16 +8565,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
@@ -9036,16 +8625,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Apple representing Quill Lessons"
-                      src="undefined/images/icons/tool-lessons-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
@@ -9339,10 +8923,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "dueDate": "Feb 29, 2020",
                   "id": 1,
                   "name": "The Travels of Marco Polo",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -9354,10 +8935,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "dueDate": "Feb 29, 2020",
                   "id": 2,
                   "name": "Christopher Columbus",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -9369,10 +8947,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "dueDate": "Feb 29, 2020",
                   "id": 10,
                   "name": "A, An, The",
-                  "tool": <img
-                    alt="Puzzle piece representing Quill Grammar"
-                    src="undefined/images/icons/tool-grammar-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -9384,10 +8959,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "dueDate": "Feb 29, 2020",
                   "id": 3,
                   "name": "Magellan",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -9399,10 +8971,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "dueDate": "Feb 29, 2020",
                   "id": 4,
                   "name": "Jamestown",
-                  "tool": <img
-                    alt="Target representing Quill Connect"
-                    src="undefined/images/icons/tool-connect-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -9414,10 +8983,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "dueDate": "Feb 29, 2020",
                   "id": 6,
                   "name": "Age of Exploration: Sailing with the Stars",
-                  "tool": <img
-                    alt="Flag representing Quill Proofreader"
-                    src="undefined/images/icons/tool-proofreader-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -9429,10 +8995,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "dueDate": "Feb 29, 2020",
                   "id": 7,
                   "name": "Age of Exploration: The Cape of Good Hope",
-                  "tool": <img
-                    alt="Flag representing Quill Proofreader"
-                    src="undefined/images/icons/tool-proofreader-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
                 Object {
                   "actionButton": <a
@@ -9444,10 +9007,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "dueDate": "Feb 29, 2020",
                   "id": 8,
                   "name": "Age of Exploration: Roanoke",
-                  "tool": <img
-                    alt="Flag representing Quill Proofreader"
-                    src="undefined/images/icons/tool-proofreader-gray.svg"
-                  />,
+                  "tool": undefined,
                 },
               ]
             }
@@ -9477,7 +9037,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   style={
                     Object {
                       "minWidth": "24px",
-                      "textAlign": "left",
+                      "textAlign": "right",
                       "width": "24px",
                     }
                   }
@@ -9539,16 +9099,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
@@ -9607,16 +9162,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
@@ -9675,16 +9225,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Puzzle piece representing Quill Grammar"
-                      src="undefined/images/icons/tool-grammar-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
@@ -9743,16 +9288,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
@@ -9811,16 +9351,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Target representing Quill Connect"
-                      src="undefined/images/icons/tool-connect-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
@@ -9879,16 +9414,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Flag representing Quill Proofreader"
-                      src="undefined/images/icons/tool-proofreader-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
@@ -9947,16 +9477,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Flag representing Quill Proofreader"
-                      src="undefined/images/icons/tool-proofreader-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
@@ -10015,16 +9540,11 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     style={
                       Object {
                         "minWidth": "24px",
-                        "textAlign": "left",
+                        "textAlign": "right",
                         "width": "24px",
                       }
                     }
-                  >
-                    <img
-                      alt="Flag representing Quill Proofreader"
-                      src="undefined/images/icons/tool-proofreader-gray.svg"
-                    />
-                  </span>
+                  />
                   <span
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"

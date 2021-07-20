@@ -2,7 +2,9 @@ require 'rails_helper'
 
 describe Teachers::ProgressReports::Concepts::ConceptsController, type: :controller do
   include_context 'Concept Progress Report'
+
   let!(:teacher) { classroom.owner }
+
   it_behaves_like 'Progress Report' do
     let(:result_key) { 'concepts' }
     let(:default_filters) { { student_id: student.id } }
@@ -10,7 +12,7 @@ describe Teachers::ProgressReports::Concepts::ConceptsController, type: :control
   end
 
   context 'GET #index' do
-    subject { get :index, student_id: student.id }
+    subject { get :index, params: { student_id: student.id } }
     before do
       session[:user_id] = teacher.id
     end
@@ -24,7 +26,7 @@ describe Teachers::ProgressReports::Concepts::ConceptsController, type: :control
   context 'GET #index json' do
     context 'when logged in' do
       let(:json) { JSON.parse(response.body) }
-      subject { get :index, student_id: student.id, format: :json }
+      subject { get :index, params: { student_id: student.id, format: :json } }
       before do
         session[:user_id] = teacher.id
       end
@@ -42,7 +44,7 @@ describe Teachers::ProgressReports::Concepts::ConceptsController, type: :control
       end
 
       context 'accessing another teacher\'s student data' do
-        subject { get :index, student_id: other_student.id, format: :json }
+        subject { get :index, params: { student_id: other_student.id, format: :json } }
 
         it 'raises error' do
           expect {

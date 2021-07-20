@@ -137,7 +137,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
         }
       end
     else
-      render text: csv_string(activity_sessions)
+      render plain: csv_string(activity_sessions)
     end
   end
 

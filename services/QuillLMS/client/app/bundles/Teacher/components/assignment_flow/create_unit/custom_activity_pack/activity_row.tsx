@@ -23,6 +23,7 @@ const diagnosticSrc = `${process.env.CDN_URL}/images/icons/description-diagnosti
 const lessonsSrc = `${process.env.CDN_URL}/images/icons/description-lessons.svg`
 const proofreaderSrc = `${process.env.CDN_URL}/images/icons/description-proofreader.svg`
 const grammarSrc = `${process.env.CDN_URL}/images/icons/description-grammar.svg`
+const comprehensionSrc = `${process.env.CDN_URL}/images/icons/description-comprehension.svg`
 
 const IMAGE_WIDTH = 18
 const MARGIN = 16
@@ -92,6 +93,10 @@ const imageTagForClassification = (classificationKey: string): JSX.Element => {
     case 'passage':
       imgAlt = "Flag representing Quill Proofreader"
       imgSrc = proofreaderSrc
+      break
+    case 'comprehension':
+      imgAlt = "Book representing Quill Comprehension"
+      imgSrc = comprehensionSrc
       break
   }
 

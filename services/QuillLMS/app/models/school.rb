@@ -47,7 +47,7 @@
 #  unique_index_schools_on_nces_id  (nces_id) UNIQUE WHERE ((nces_id)::text <> ''::text)
 #  unique_index_schools_on_ppin     (ppin) UNIQUE WHERE ((ppin)::text <> ''::text)
 #
-class School < ActiveRecord::Base
+class School < ApplicationRecord
   has_many :school_subscription
   has_many :subscriptions, through: :school_subscription
   has_many :schools_users,  class_name: 'SchoolsUsers'
@@ -123,7 +123,7 @@ class School < ActiveRecord::Base
   end
 
   def students
-    User.joins(student_in_classroom: {teachers: :school}).where(schools: {id: id}).uniq
+    User.joins(student_in_classroom: {teachers: :school}).where(schools: {id: id}).distinct
   end
 
   def self.school_year_start(time)

@@ -1,5 +1,5 @@
 module Comprehension
-  class Label < ActiveRecord::Base
+  class Label < ApplicationRecord
     NAME_MIN_LENGTH = 3
     NAME_MAX_LENGTH = 50
 

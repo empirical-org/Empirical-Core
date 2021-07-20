@@ -22,7 +22,7 @@
 #  fk_rails_...  (activity_id => activities.id)
 #  fk_rails_...  (unit_id => units.id)
 #
-class UnitActivity < ActiveRecord::Base
+class UnitActivity < ApplicationRecord
   include ::NewRelic::Agent
   include CheckboxCallback
 

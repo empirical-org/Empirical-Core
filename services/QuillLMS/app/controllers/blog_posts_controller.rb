@@ -58,7 +58,7 @@ class BlogPostsController < ApplicationController
     @query = params[:query]
     if params[:query].blank?
       flash[:error] = 'Oops! Please enter a search query.'
-      return redirect_to :back
+      return redirect_back(fallback_location: search_blog_posts_path)
     end
     @blog_posts = RawSqlRunner.execute(
       <<-SQL
@@ -68,8 +68,8 @@ class BlogPostsController < ApplicationController
         FROM blog_posts
         WHERE draft IS false
           AND topic != '#{BlogPost::IN_THE_NEWS}'
-          AND tsv @@ plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)})
-        ORDER BY ts_rank(tsv, plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)}))
+          AND tsv @@ plainto_tsquery(#{ActiveRecord::Base.connection.quote(@query)})
+        ORDER BY ts_rank(tsv, plainto_tsquery(#{ActiveRecord::Base.connection.quote(@query)}))
       SQL
     ).to_a
 

@@ -17,7 +17,7 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class ThirdPartyUserId < ActiveRecord::Base
+class ThirdPartyUserId < ApplicationRecord
 
   module SOURCES
     LEAP ||= "LEAP"

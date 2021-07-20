@@ -101,7 +101,7 @@ describe Cms::ActivityCategoriesController, type: :controller do
 
   describe '#create' do
     it 'should create the activity category with the params' do
-      post :create, activity_category: { name: "test", order_number: 2 }
+      post :create, params: { activity_category: { name: "test", order_number: 2 } }
       expect(ActivityCategory.last.name).to eq "test"
       expect(ActivityCategory.last.order_number).to eq 2
     end

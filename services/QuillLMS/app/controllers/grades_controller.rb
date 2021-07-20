@@ -37,9 +37,9 @@ class GradesController < ApplicationController
           JOIN unit_activities
             ON activities.id = unit_activities.activity_id
             AND unit_activities.unit_id = classroom_units.unit_id
-          WHERE activity_sessions.classroom_unit_id = #{ActiveRecord::Base.sanitize(tooltip_params[:classroom_unit_id].to_i)}
-            AND activity_sessions.user_id = #{ActiveRecord::Base.sanitize(tooltip_params[:user_id].to_i)}
-            AND activity_sessions.activity_id = #{ActiveRecord::Base.sanitize(tooltip_params[:activity_id].to_i)}
+          WHERE activity_sessions.classroom_unit_id = #{ActiveRecord::Base.connection.quote(tooltip_params[:classroom_unit_id].to_i)}
+            AND activity_sessions.user_id = #{ActiveRecord::Base.connection.quote(tooltip_params[:user_id].to_i)}
+            AND activity_sessions.activity_id = #{ActiveRecord::Base.connection.quote(tooltip_params[:activity_id].to_i)}
             AND activity_sessions.is_final_score IS true
             AND activity_sessions.visible
         SQL
@@ -55,9 +55,9 @@ class GradesController < ApplicationController
           activity_sessions.percentage,
           activity_sessions.completed_at + INTERVAL '#{current_user.utc_offset} seconds' AS completed_at
         FROM activity_sessions
-        WHERE activity_sessions.classroom_unit_id = #{ActiveRecord::Base.sanitize(tooltip_params[:classroom_unit_id].to_i)}
-          AND activity_sessions.user_id = #{ActiveRecord::Base.sanitize(tooltip_params[:user_id].to_i)}
-          AND activity_sessions.activity_id = #{ActiveRecord::Base.sanitize(tooltip_params[:activity_id].to_i)}
+        WHERE activity_sessions.classroom_unit_id = #{ActiveRecord::Base.connection.quote(tooltip_params[:classroom_unit_id].to_i)}
+          AND activity_sessions.user_id = #{ActiveRecord::Base.connection.quote(tooltip_params[:user_id].to_i)}
+          AND activity_sessions.activity_id = #{ActiveRecord::Base.connection.quote(tooltip_params[:activity_id].to_i)}
           AND (activity_sessions.percentage IS NOT NULL
             OR activity_sessions.state = 'finished'
           )

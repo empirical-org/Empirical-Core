@@ -18,7 +18,7 @@
 #
 #  fk_rails_...  (activity_classification_id => activity_classifications.id)
 #
-class ConceptResult < ActiveRecord::Base
+class ConceptResult < ApplicationRecord
 
   belongs_to :concept
   belongs_to :activity_session

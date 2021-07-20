@@ -17,7 +17,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
       let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
 
       it "redirects to the correct page" do
-        get :report_from_classroom_unit_activity_and_user, ({classroom_unit_id: classroom_unit.id, user_id: student.id, activity_id: activity.id})
+        get :report_from_classroom_unit_activity_and_user, params: ({classroom_unit_id: classroom_unit.id, user_id: student.id, activity_id: activity.id})
         expect(response).to redirect_to("/teachers/progress_reports/diagnostic_reports#/u/#{unit.id}/a/#{activity.id}/c/#{classroom.id}/student_report/#{student.id}")
       end
     end
@@ -31,15 +31,14 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     end
 
     it 'should not error with no activity_sessions' do
-      get :lesson_recommendations_for_classroom,
-        ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
+      get :lesson_recommendations_for_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
 
       expect(response).to be_success
     end
 
     it 'should not error with activity_sessions' do
       create(:activity_session, classroom_unit: @classroom_unit, activity: activity)
-      get :lesson_recommendations_for_classroom, ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
+      get :lesson_recommendations_for_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
 
       expect(response).to be_success
     end

@@ -43,7 +43,7 @@ class Cms::UsersController < Cms::CmsController
       redirect_to cms_school_path(school_id_param)
     else
       flash[:error] = 'Did not save.'
-      redirect_to :back
+      redirect_back(fallback_location: cms_school_path(school_id_param))
     end
   end
 
@@ -61,7 +61,7 @@ class Cms::UsersController < Cms::CmsController
       redirect_to cms_users_path
     else
       flash[:error] = 'Did not save.'
-      redirect_to :back
+      redirect_back(fallback_location: cms_users_path)
     end
   end
 
@@ -76,14 +76,14 @@ class Cms::UsersController < Cms::CmsController
     admin.school_id = params[:school_id]
     admin.user_id = params[:user_id]
     flash[:error] = 'Something went wrong.' unless admin.save
-    redirect_to :back
+    redirect_back(fallback_location: cms_users_path)
   end
 
   def remove_admin
     admin = SchoolsAdmins.find_by(user_id: params[:user_id], school_id: params[:school_id])
     flash[:error] = 'Something went wrong.' unless admin.destroy
     flash[:success] = 'Success! 🎉'
-    redirect_to :back
+    redirect_back(fallback_location: cms_users_path)
   end
 
   def edit
@@ -224,9 +224,8 @@ class Cms::UsersController < Cms::CmsController
     # School name: schools.name
     # User flag: user.flags
     # Premium status: subscriptions.account_type
-    sanitized_fuzzy_param_value = ActiveRecord::Base.sanitize('%' + param_value + '%')
-    sanitized_param_value = ActiveRecord::Base.sanitize(param_value)
-    # sanitized_and_joined_param_value = ActiveRecord::Base.sanitize(param_value.join('\',\''))
+    sanitized_fuzzy_param_value = ActiveRecord::Base.connection.quote('%' + param_value + '%')
+    sanitized_param_value = ActiveRecord::Base.connection.quote(param_value)
 
     case param
     when 'user_name'
@@ -253,7 +252,7 @@ class Cms::UsersController < Cms::CmsController
   protected def class_code_string_builder
     class_code = user_query_params["class_code"]
     if class_code.present?
-      sanitized_class_code = ActiveRecord::Base.sanitize(class_code)
+      sanitized_class_code = ActiveRecord::Base.connection.quote(class_code)
       query = """AND users.id IN
         (( SELECT user_id FROM classrooms_teachers
         JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id
@@ -319,7 +318,7 @@ class Cms::UsersController < Cms::CmsController
       new_user_params = user_params.except("password_confirmation")
     end
 
-    difference = Hash[new_user_params.to_a - previous_user_params.to_a]
+    difference = Hash[new_user_params.to_h.to_a - previous_user_params.to_h.to_a]
     difference.each_key do |field|
       new_value = field == 'password' ? nil : difference[field]
       log_change(params[:action].to_sym, @user.id.to_s, nil, field, previous_user_params[field], new_value)

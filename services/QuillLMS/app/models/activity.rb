@@ -30,7 +30,7 @@
 #  fk_rails_...  (raw_score_id => raw_scores.id)
 #  fk_rails_...  (standard_id => standards.id)
 #
-class Activity < ActiveRecord::Base
+class Activity < ApplicationRecord
   include Flags
   include Uid
 
