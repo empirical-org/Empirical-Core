@@ -37,7 +37,8 @@ interface ActivityClassificationFiltersProps {
   handleActivityClassificationFilterChange: (activityClassificationFilters: string[]) => void,
   handleSavedActivityFilterChange: () => void,
   savedActivityFilters: number[],
-  savedActivityIds: number[]
+  savedActivityIds: number[],
+  showComprehension: boolean
 }
 
 const IndividualActivityClassificationFilterRow = ({ activityClassificationFilters, activityClassificationKey, handleActivityClassificationFilterChange, uniqueActivityClassifications, filteredActivities, }: IndividualActivityClassificationFilterRowProps) => {
@@ -52,6 +53,9 @@ const IndividualActivityClassificationFilterRow = ({ activityClassificationFilte
   }
 
   const activityClassification = uniqueActivityClassifications.find(ac => ac.key === activityClassificationKey)
+
+  if (!activityClassification) { return <span /> }
+
   const activityCount = filteredActivities.filter(act => activityClassificationKey === act.activity_classification.key).length
   let checkbox = <button aria-label={`Check ${activityClassification.alias}`} className="focus-on-light quill-checkbox unselected" onClick={checkIndividualFilter} type="button" />
 
@@ -164,8 +168,10 @@ const ActivityClassificationFilters = ({
   handleActivityClassificationFilterChange,
   handleSavedActivityFilterChange,
   savedActivityFilters,
-  savedActivityIds
+  savedActivityIds,
+  showComprehension
 }: ActivityClassificationFiltersProps) => {
+
   const allActivityClassifications = activities.map(a => a.activity_classification)
   const uniqueActivityClassificationIds = Array.from(new Set(allActivityClassifications.map(a => a.id)))
   const uniqueActivityClassifications = uniqueActivityClassificationIds.map(id => allActivityClassifications.find(ac => ac.id === id))
@@ -174,7 +180,7 @@ const ActivityClassificationFilters = ({
 
   const filteredActivities = filterActivities(ACTIVITY_CLASSIFICATION_FILTERS)
 
-  const activityClassificationToggles = activityClassificationGroupings.map(grouping =>
+  const activityClassificationToggles = activityClassificationGroupings(showComprehension).map(grouping =>
     (<ActivityClassificationToggle
       activityClassificationFilters={activityClassificationFilters}
       filteredActivities={filteredActivities}
