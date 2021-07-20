@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "google-cloud-automl", "~> 1.0.2"
   s.add_dependency "google-cloud-automl-v1", "~> 0.3.0"
-  s.add_dependency "rails", "5.0.7.2"
+  s.add_dependency "rails", "5.1.7"
 
   # Gems needed for the test environment
   s.add_development_dependency "factory_bot_rails"
