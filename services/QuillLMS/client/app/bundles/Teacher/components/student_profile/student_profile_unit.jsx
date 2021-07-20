@@ -9,7 +9,11 @@ const connectSrc = `${process.env.CDN_URL}/images/icons/tool-connect-gray.svg`
 const grammarSrc = `${process.env.CDN_URL}/images/icons/tool-grammar-gray.svg`
 const proofreaderSrc = `${process.env.CDN_URL}/images/icons/tool-proofreader-gray.svg`
 const lessonsSrc = `${process.env.CDN_URL}/images/icons/tool-lessons-gray.svg`
+const comprehensionSrc = `${process.env.CDN_URL}/images/icons/tool-comprehension-gray.svg`
 
+const CONNECT_ACTIVITY_CLASSIFICATION_KEY = "connect"
+const GRAMMAR_ACTIVITY_CLASSIFICATION_KEY = "sentence"
+const PROOFREADER_ACTIVITY_CLASSIFICATION_KEY = "passage"
 const LESSONS_ACTIVITY_CLASSIFICATION_KEY = "lessons"
 const DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY = "diagnostic"
 const COMPREHENSION_ACTIVITY_CLASSIFICATION_KEY = "comprehension"
@@ -89,7 +93,7 @@ const completeHeaders = [
 export default class StudentProfileUnit extends React.Component {
   actionButton = (act, nextActivitySession) => {
     const { isBeingPreviewed, onShowPreviewModal, } = this.props
-    const { repeatable, locked, marked_complete, activity_classification_id, resume_link, ca_id, activity_id, finished, } = act
+    const { repeatable, locked, marked_complete, activity_classification_key, resume_link, ca_id, activity_id, finished, } = act
     let linkText = 'Start'
 
     if (!repeatable && finished) { return <span /> }
@@ -142,18 +146,20 @@ export default class StudentProfileUnit extends React.Component {
     return (<div className="score"><div className="not-yet-proficient" /><span>Not yet proficient</span></div>)
   }
 
-  toolIcon = (id) => {
-    switch(id) {
-      case 1:
+  toolIcon = (key) => {
+    switch(key) {
+      case PROOFREADER_ACTIVITY_CLASSIFICATION_KEY:
         return <img alt="Flag representing Quill Proofreader" src={proofreaderSrc} />
-      case 2:
+      case GRAMMAR_ACTIVITY_CLASSIFICATION_KEY:
         return <img alt="Puzzle piece representing Quill Grammar" src={grammarSrc} />
-      case 3:
+      case DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY:
         return <img alt="Magnifying glass representing Quill Diagnostic" src={diagnosticSrc} />
-      case 5:
+      case CONNECT_ACTIVITY_CLASSIFICATION_KEY:
         return <img alt="Target representing Quill Connect" src={connectSrc} />
-      case 6:
+      case LESSONS_ACTIVITY_CLASSIFICATION_KEY:
         return <img alt="Apple representing Quill Lessons" src={lessonsSrc} />
+      case COMPREHENSION_ACTIVITY_CLASSIFICATION_KEY:
+        return <img alt="Book representing Quill Comprehension" src={comprehensionSrc} />
       default:
         return
     }
@@ -164,11 +170,11 @@ export default class StudentProfileUnit extends React.Component {
     if (!(data.complete && data.complete.length)) { return null}
 
     const rows = data.complete.map(act => {
-      const { name, activity_classification_id, ua_id, due_date, } = act
+      const { name, activity_classification_key, ua_id, due_date, } = act
       return {
         name,
         score: this.score(act),
-        tool: this.toolIcon(activity_classification_id),
+        tool: this.toolIcon(activity_classification_key),
         actionButton: this.actionButton(act, nextActivitySession),
         dueDate: due_date ? moment(due_date).format('MMM D, YYYY') : null,
         id: ua_id
@@ -189,10 +195,10 @@ export default class StudentProfileUnit extends React.Component {
     if (!(data.incomplete && data.incomplete.length)) { return null}
 
     const rows = data.incomplete.map(act => {
-      const { name, activity_classification_id, due_date, ua_id, } = act
+      const { name, activity_classification_key, due_date, ua_id, } = act
       return {
         name,
-        tool: this.toolIcon(activity_classification_id),
+        tool: this.toolIcon(activity_classification_key),
         dueDate: due_date ? moment(due_date).format('MMM D, YYYY') : null,
         actionButton: this.actionButton(act, nextActivitySession),
         id: ua_id
