@@ -1,0 +1,40 @@
+#prompt-dropdown {
+  width: 150px;
+  padding: 10px;
+}
+
+#rule-dropdown {
+  width: 150px;
+  padding: 10px;
+}
+
+#rule-dropdown-select {
+  max-width: 300px;
+}
+
+#change-log-selectors {
+  background-color: lightgray;
+  border-radius: 10px;
+  #top-selectors {
+    display: flex;
+    position: relative;
+    width: 1000px;
+    #change-log-dropdowns {
+      float: left;
+      display: flex;
+    }
+    #action-search {
+      width: 500px;
+      margin: 10px;
+      position: absolute;
+      right: 10px;
+    }
+  }
+}
+
+#bottom-selectors {
+  display: flex;
+  margin-left: 10px;
+  padding-bottom: 20px;
+}
+

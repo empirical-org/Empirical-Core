@@ -8,8 +8,9 @@ import qs from 'qs';
 import * as _ from 'lodash'
 import DateTimePicker from 'react-datetime-picker';
 
+import { renderHeader } from '../../../helpers/comprehension';
 import { sort } from '../../../../../modules/sortingMethods.js';
-import { fetchChangeLog } from '../../../utils/comprehension/activityAPIs';
+import { fetchChangeLog, fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { DropdownInput, Spinner, } from '../../../../Shared/index';
 
 interface ChangeLogProps {
@@ -31,10 +32,14 @@ const ChangeLog = ({ history, match }) => {
   const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
 
-  // get cached activity data to pass to rule
   const { data: changeLogData, status: status } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchChangeLog
+  });
+
+  const { data: activityData } = useQuery({
+    queryKey: [``, activityId],
+    queryFn: fetchActivity
   });
 
   function handleSearch(e) {
@@ -50,10 +55,10 @@ const ChangeLog = ({ history, match }) => {
   }
 
   const promptDropdown = (
-    <div style={{width: '150px', padding: '10px'}}>
+    <div id="prompt-dropdown">
       <p className="control" >
         <span className="select">
-          <select defaultValue='all' onBlur={handlePromptChange}>
+          <select defaultValue='all' onChange={handlePromptChange}>
             <option value="all">All Prompts</option>
             <option value="because">because</option>
             <option value="but">but</option>
@@ -75,7 +80,8 @@ const ChangeLog = ({ history, match }) => {
       user,
       explanation,
       conjunction,
-      name
+      name,
+      changed_attribute
     } = log;
 
     const changedRecord = `${record_type_display_name} - ${changed_record_id}`
@@ -92,7 +98,8 @@ const ChangeLog = ({ history, match }) => {
       actionLink: actionLink,
       prompt: prompt,
       conjunction: conjunction,
-      name: name
+      name: name,
+      changedAttribute: changed_attribute
     }
   })
 
@@ -141,6 +148,13 @@ const ChangeLog = ({ history, match }) => {
       width: 160,
     },
     {
+      Header: 'Changed Attribute',
+      accessor: "changedAttribute",
+      key: "changedAttribute",
+      sortMethod: sort,
+      width: 160,
+    },
+    {
       Header: 'Previous Value',
       accessor: "previousValue",
       key: "previousValue",
@@ -163,20 +177,20 @@ const ChangeLog = ({ history, match }) => {
     }
   ];
 
-  if (status === 'loading') {
+  if (status === 'loading' || !formattedRows || changeLogData.error || !activityData || activityData.error) {
     return <Spinner />
   }
 
   function ruleDropdown() {
     const rules = _.uniq(formattedRows.filter(a => a.name != null).map((a)=>a.name))
     const ruleOptions = rules.map((currentValue, i) => {
-      return <option key={i} value={currentValue}>{currentValue}</option>
+      return <option key={currentValue} value={currentValue}>{currentValue}</option>
     })
     return (
-      <div style={{width: '150px', padding: '10px'}}>
+      <div id="rule-dropdown">
         <p className="control">
           <span className="select">
-            <select defaultValue='all' onBlur={handleRuleChange}>
+            <select id='rule-dropdown-select' defaultValue='all' onChange={handleRuleChange}>
               <option value="all">All Rules</option>
               {ruleOptions}
             </select>
@@ -186,26 +200,28 @@ const ChangeLog = ({ history, match }) => {
     )
   }
 
+  console.log(activityData)
+  console.log(changeLogData)
   return(
     <div className="activity-stats-container">
-      <h1>Change Log</h1>
-      <div style={{backgroundColor: 'lightgray', borderRadius: '10px'}}>
-        <div style={{display: 'flex', position: 'relative', width: '1000px'}}>
-          <div style={{float: 'left', display: 'flex'}}>
+      {renderHeader(activityData, 'Change Log')}
+      <div id="change-log-selectors">
+        <div id="top-selectors">
+          <div id="change-log-dropdowns">
             {promptDropdown}
             {ruleDropdown()}
           </div>
           <input
             aria-label="Search by action or value"
             className="search-box"
+            id="action-search"
             name="searchInput"
             onChange={handleSearch}
             placeholder="Search by action or value"
-            style={{width: '500px', margin: '10px', position: 'absolute', right: '10px'}}
             value={searchInput || ""}
           />
         </div>
-        <div style={{display: 'flex', marginLeft: '10px', paddingBottom: '20px'}}>
+        <div id="bottom-selectors">
           <p className="date-picker-label">Start Date:</p>
             <DateTimePicker
               ampm={false}
