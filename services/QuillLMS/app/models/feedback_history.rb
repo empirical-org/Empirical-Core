@@ -241,7 +241,7 @@ class FeedbackHistory < ApplicationRecord
       .joins('LEFT JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')
       .where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id)
     end
-    query = apply_activity_session_filter(query, filter_type) if filter_type
+    query = self.apply_activity_session_filter(query, filter_type) if filter_type
     query = query.limit(page_size)
     query = query.offset((page.to_i - 1) * page_size.to_i) if page && page.to_i > 1
     query
