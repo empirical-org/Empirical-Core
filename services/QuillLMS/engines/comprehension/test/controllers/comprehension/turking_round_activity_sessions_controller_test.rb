@@ -30,7 +30,7 @@ module Comprehension
           assert_response :success
           assert_equal Array, parsed_response.class
           refute parsed_response.empty?
-      
+
         end
       end
     end
@@ -47,7 +47,7 @@ module Comprehension
         parsed_response = JSON.parse(response.body)
 
         assert_equal 201, response.code.to_i
-    
+
         assert_equal 1, TurkingRoundActivitySession.count
       end
 
@@ -73,7 +73,7 @@ module Comprehension
         parsed_response = JSON.parse(response.body)
 
         assert_equal 200, response.code.to_i
-    
+
       end
 
       should "raise if not found (to be handled by parent app)" do

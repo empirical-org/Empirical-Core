@@ -13,10 +13,8 @@ module Comprehension
     has_many :automl_models, inverse_of: :prompt
     has_many :prompts_rules
     has_many :rules, through: :prompts_rules, inverse_of: :prompts
-    has_many :change_logs
 
     after_create :assign_universal_rules
-    after_save :log_update
     before_validation :downcase_conjunction
     before_validation :set_max_attempts, on: :create
 
@@ -32,6 +30,14 @@ module Comprehension
       super(options.reverse_merge(
         only: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :plagiarism_text, :plagiarism_first_feedback, :plagiarism_second_feedback]
       ))
+    end
+
+    def change_log_name
+      "Comprehension Stem"
+    end
+
+    def url
+      activity.url
     end
 
     private def downcase_conjunction
@@ -60,12 +66,6 @@ module Comprehension
         elsif length > MAX_TEXT_LENGTH
           errors.add(:text, "#{prompt} too long (maximum is #{MAX_TEXT_LENGTH} characters)")
         end
-      end
-    end
-
-    private def log_update
-      if text_changed?
-        log_change(1, :update_prompt, self, {url: activity.url, conjunction: conjunction}.to_json, "text", text_was, text)
       end
     end
   end

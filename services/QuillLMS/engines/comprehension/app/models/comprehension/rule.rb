@@ -26,20 +26,8 @@ module Comprehension
       'rules-based-3': 'Typo Regex',
       'plagiarism': 'Plagiarism'
     }
-    UPDATE_ACTIONS = {
-      'rules-based-1': :update_regex,
-      'rules-based-2': :update_regex,
-      'rules-based-3': :update_regex,
-      'plagiarism': :update_plagiarism,
-      'spelling': :update_universal,
-      'grammar': :update_universal,
-      'autoML': :update_semantic
-    }
 
     after_create :assign_to_all_prompts, if: :universal
-    after_create :log_creation
-    after_update :log_update
-    after_destroy :log_deletion
     before_validation :assign_uid_if_missing
     validate :one_plagiarism_per_prompt, on: :create, if: :plagiarism?
 
@@ -115,12 +103,44 @@ module Comprehension
       rule_type == TYPE_REGEX_ONE || rule_type == TYPE_REGEX_TWO || rule_type == TYPE_REGEX_THREE
     end
 
-    private def automl?
+    def automl?
       rule_type == TYPE_AUTOML
     end
 
-    private def universal?
+    def universal_rule_type?
+      rule_type == TYPE_SPELLING || rule_type == TYPE_GRAMMAR
+    end
+
+    def universal?
       universal
+    end
+
+    def change_log_name
+      if regex?
+        "Regex Rule"
+      elsif plagiarism?
+        "Plagiarism Rule"
+      elsif automl?
+        "Semantic Label"
+      elsif universal_rule_type?
+        "Universal Rule"
+      else
+        "Rule"
+      end
+    end
+
+    def url
+      if regex?
+        regex_url
+      elsif universal?
+        universal_url
+      elsif plagiarism?
+        plagiarism_url
+      elsif automl?
+        automl_url
+      else
+        ""
+      end
     end
 
     private def assign_uid_if_missing
@@ -142,49 +162,12 @@ module Comprehension
       end
     end
 
-    private def log_creation
-      if regex?
-        log_change(nil, :create_regex, self, {url: url}.to_json, nil, nil, nil)
-      elsif plagiarism?
-        log_change(nil, :create_plagiarism, self, {url: url}.to_json, nil, nil, nil)
-      elsif universal?
-        log_change(nil, :create_universal, self, {url: url}.to_json, nil, nil, nil)
-      end
-    end
-
-    private def log_deletion
-      if regex?
-        log_change(nil, :delete_regex, self, {url: url}.to_json, nil, nil, nil)
-      end
-    end
-
-    private def log_update
-      return if rule_type == TYPE_OPINION
-      changes.except(:"updated_at").each do |key, value|
-        log_change(nil, UPDATE_ACTIONS[rule_type.to_sym], self, {url: url}.to_json, key, value[0], value[1])
-      end
-    end
-
     private def activity_id
       prompts&.first&.activity&.id
     end
 
     private def prompt_id
       prompts&.first&.id
-    end
-
-    def url
-      if regex?
-        regex_url
-      elsif universal?
-        universal_url
-      elsif plagiarism?
-        plagiarism_url
-      elsif automl?
-        automl_url
-      else
-        ""
-      end
     end
 
     private def universal_url

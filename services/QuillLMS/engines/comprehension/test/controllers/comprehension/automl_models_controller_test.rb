@@ -114,7 +114,7 @@ module Comprehension
 
         automl = AutomlModel.last
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.action, "AutoML Model - created"
+        assert_equal change_log.serializable_hash["comprehension_action"], "AutoML Model - created"
         assert_equal change_log.user_id, 1
         assert_equal change_log.changed_record_type, "Comprehension::AutomlModel"
         assert_equal change_log.changed_record_id, automl.id
@@ -219,7 +219,7 @@ module Comprehension
           patch :activate, id: automl.id
 
           change_log = Comprehension.change_log_class.last
-          assert_equal change_log.action, "AutoML Model - activated"
+          assert_equal change_log.serializable_hash["comprehension_action"], "AutoML Model - activated"
           assert_equal change_log.user_id, 1
           assert_equal change_log.changed_record_type, "Comprehension::AutomlModel"
           assert_equal change_log.changed_record_id, automl.id

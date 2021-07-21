@@ -3,7 +3,8 @@ require_dependency 'comprehension/application_controller'
 module Comprehension
   class ActivitiesController < ApplicationController
     skip_before_action :verify_authenticity_token
-    before_action :set_activity, only: [:show, :update, :destroy, :rules, :change_log]
+    before_action :set_activity, only: [:create, :show, :update, :destroy, :rules, :change_logs]
+    append_before_action :set_lms_user_id, only: [:create, :destroy]
 
     # GET /activities.json
     def index
@@ -19,9 +20,7 @@ module Comprehension
 
     # POST /activities.json
     def create
-      @activity = Comprehension::Activity.new(activity_params)
-
-      if @activity.save_with_session_user(lms_user_id)
+      if @activity.save
         render json: @activity, status: :created
       else
         render json: @activity.errors, status: :unprocessable_entity
@@ -39,7 +38,7 @@ module Comprehension
 
     # DELETE /activities/1.json
     def destroy
-      @activity.destroy_with_session_user(lms_user_id)
+      @activity.destroy
       head :no_content
     end
 
@@ -50,11 +49,19 @@ module Comprehension
 
     # GET /activities/1/change_logs.json
     def change_logs
-      render json: @activity&.change_logs || []
+      render json: @activity&.fetch_change_logs || []
     end
 
     private def set_activity
-      @activity = Comprehension::Activity.find(params[:id])
+      if params[:id].present?
+        @activity = Comprehension::Activity.find(params[:id])
+      else
+        @activity = Comprehension::Activity.new(activity_params)
+      end
+    end
+
+    private def set_lms_user_id
+      @activity.lms_user_id = lms_user_id
     end
 
     private def activity_params

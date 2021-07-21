@@ -2,17 +2,17 @@
 #
 # Table name: change_logs
 #
-#  id                          :integer          not null, primary key
-#  action                      :string           not null
-#  changed_attribute           :string
-#  changed_record_type         :string           not null
-#  explanation                 :text
-#  new_value                   :text
-#  previous_value              :text
-#  created_at                  :datetime
-#  updated_at                  :datetime
-#  changed_record_id           :integer
-#  user_id                     :integer          not null
+#  id                  :integer          not null, primary key
+#  action              :string           not null
+#  changed_attribute   :string
+#  changed_record_type :string           not null
+#  explanation         :text
+#  new_value           :text
+#  previous_value      :text
+#  created_at          :datetime
+#  updated_at          :datetime
+#  changed_record_id   :integer
+#  user_id             :integer
 #
 # Indexes
 #
@@ -68,33 +68,37 @@ class ChangeLog < ActiveRecord::Base
     RENAMED
   ]
   COMPREHENSION_ACTIONS = {
-    create_activity: 'Comprehension Activity - created', #tested
-    delete_activity: 'Comprehension Activity - deleted', #tested
-    update_passage: 'Comprehension Passage Text - updated', #tested
-    create_regex: 'Regex Rule - created',
-    update_regex: 'Regex Rule - updated',
-    delete_regex: 'Regex Rule - deleted',
-    update_regex_feedack: 'Regex Rule Feedback - updated',
-    update_regex_highlight: 'Regex Rule Highlight - updated',
-    update_regex_text: 'Regex Rule Regex - updated',
-    update_prompt: 'Comprehension Stem - updated',
-    create_automl: 'AutoML Model - created',
-    activate_automl: 'AutoML Model - activated',
-    deactivate_automl: 'AutoML Model - de-activated',
-    create_semantic: 'Semantic Label - created',
-    delete_semantic: 'Semantic Label - deleted',
-    update_semantic: 'Semantic Label - updated',
-    update_feedback_1: 'Semantic Label First Layer Feedback - updated',
-    update_highlight_1: 'Semantic Label First Layer Feedback Highlight - updated',
-    update_feedback_2: 'Semantic Label Second Layer Feedback - updated',
-    update_highlight_2: 'Semantic Label Second Layer Feedback Highlight - updated',
-    create_plagiarism: 'Plagiarism Rule - created',
-    update_plagiarism: 'Plagiarism Rule - updated',
-    update_plagiarism_feedback: 'Plagiarism Rule Feedback - updated',
-    update_plagiarism_highlight: 'Plagiarism Rule Highlight - updated',
-    update_plagiarism_text: 'Plagiarism Rule Text - updated',
-    update_universal: 'Universal Rule - updated',
-    create_universal: 'Universal Rule - created'
+    create: 'created',
+    delete: 'deleted',
+    update: 'updated',
+    activate_automl: 'activated'
+    # create_activity: 'Comprehension Activity - created',
+    # delete_activity: 'Comprehension Activity - deleted',
+    # update_passage: 'Comprehension Passage Text - updated',
+    # create_regex: 'Regex Rule - created',
+    # update_regex: 'Regex Rule - updated',
+    # delete_regex: 'Regex Rule - deleted',
+    # update_regex_feedback: 'Regex Rule Feedback - updated',
+    # update_regex_highlight: 'Regex Rule Highlight - updated',
+    # update_regex_text: 'Regex Rule Regex - updated',
+    # update_prompt: 'Comprehension Stem - updated',
+    # create_automl: 'AutoML Model - created',
+    # activate_automl: 'AutoML Model - activated',
+    # deactivate_automl: 'AutoML Model - de-activated',
+    # create_semantic: 'Semantic Label - created',
+    # delete_semantic: 'Semantic Label - deleted',
+    # update_semantic: 'Semantic Label - updated',
+    # update_feedback_1: 'Semantic Label First Layer Feedback - updated',
+    # update_highlight_1: 'Semantic Label First Layer Feedback Highlight - updated',
+    # update_feedback_2: 'Semantic Label Second Layer Feedback - updated',
+    # update_highlight_2: 'Semantic Label Second Layer Feedback Highlight - updated',
+    # create_plagiarism: 'Plagiarism Rule - created',
+    # update_plagiarism: 'Plagiarism Rule - updated',
+    # update_plagiarism_feedback: 'Plagiarism Rule Feedback - updated',
+    # update_plagiarism_highlight: 'Plagiarism Rule Highlight - updated',
+    # update_plagiarism_text: 'Plagiarism Rule Text - updated',
+    # update_universal: 'Universal Rule - updated',
+    # create_universal: 'Universal Rule - created'
   }
   CHANGED_RECORD_TYPES = [
     'Concept',
@@ -130,7 +134,7 @@ class ChangeLog < ActiveRecord::Base
 
   belongs_to :changed_record, polymorphic: true
   belongs_to :user
-  validates_presence_of :changed_record_type, :user_id, :action
+  validates_presence_of :changed_record_type, :action
 
   validates :changed_record_id, presence: true, if: :needs_a_changed_record_id?
   validates :action, inclusion: ALL_ACTIONS
@@ -164,5 +168,23 @@ class ChangeLog < ActiveRecord::Base
 
   def needs_a_changed_record_id?
     applies_to_single_record? && record_is_not_being_created_from_cms?
+  end
+
+  def serializable_hash(options = nil)
+    options ||= {}
+
+    super(options.reverse_merge(
+      only: [:id, :action, :changed_attribute, :changed_record_type, :changed_record_id,
+             :explanation, :new_value, :previous_value, :created_at, :updated_at, :user_id],
+      methods: [:comprehension_action, :comprehension_url]
+    ))
+  end
+
+  def comprehension_action
+    "#{changed_record.change_log_name} - #{action}"
+  end
+
+  def comprehension_url
+    changed_record.url
   end
 end

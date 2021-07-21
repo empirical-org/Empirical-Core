@@ -11,7 +11,6 @@ module Comprehension
     ]
 
     belongs_to :rule, inverse_of: :regex_rules
-    has_many :change_logs, class_name: "::ChangeLog"
 
     before_validation :set_default_case_sensitivity, on: :create
     before_save :validate_regex
@@ -20,8 +19,6 @@ module Comprehension
     validates :regex_text, presence: true, length: {maximum: MAX_REGEX_TEXT_LENGTH}
     validates :case_sensitive, inclusion: CASE_SENSITIVE_ALLOWED_VALUES
     validates :sequence_type, inclusion: SEQUENCE_TYPES
-
-    after_save :log_update
 
     def serializable_hash(options = nil)
       options ||= {}
@@ -39,6 +36,14 @@ module Comprehension
 
     def incorrect_sequence?
       sequence_type == TYPE_INCORRECT
+    end
+
+    def change_log_name
+      "Regex Rule Regex"
+    end
+
+    def url
+      rule.url
     end
 
     private def regex_match(entry)
@@ -59,9 +64,13 @@ module Comprehension
       end
     end
 
-    def log_update
+    private def log_creation
+      log_change(nil, :update, self, "regex_text", nil, regex_text)
+    end
+
+    private def log_update
       if regex_text_changed?
-        log_change(nil, :update_regex_text, self, {url: rule.url}.to_json, "regex_text", regex_text_was, regex_text)
+        log_change(nil, :update, self, "regex_text", regex_text_was, regex_text)
       end
     end
   end
