@@ -46,6 +46,14 @@ class FeedbackHistory < ApplicationRecord
     SPELLING = "spelling",
     OPINION = "opinion"
   ]
+  FILTER_TYPES = [
+    FILTER_ALL = 'all';
+    FILTER_SCORED =  'scored';
+    FILTER_UNSCORED =  'unscored';
+    FILTER_WEAK =  'weak';
+    FILTER_COMPLETE =  'complete';
+    FILTER_INCOMPLETE =  'incomplete';
+  ]
 
   after_commit :initiate_flag_worker, on: :create
   before_create :anonymize_session_uid
@@ -149,7 +157,52 @@ class FeedbackHistory < ApplicationRecord
     self.feedback_session_uid = FeedbackSession.get_uid_for_activity_session(feedback_session_uid)
   end
 
-  def self.list_by_activity_session(activity_id: nil, page: 1, start_date: nil, end_date: nil, page_size: DEFAULT_PAGE_SIZE, turk_session_id: nil)
+  private def apply_activity_session_filter(query, filter_type)
+    case filter_type
+    when FILTER_ALL
+      query
+    when FILTER_SCORED
+      query = query.where("feedback_history_ratings.rating IS NOT NULL")
+    when FILTER_UNSCORED
+      query = query.where("feedback_history_ratings.rating IS NULL")
+    when FILTER_WEAK
+      query = query.where("feedback_history_ratings.rating IS FALSE")
+    when FILTER_COMPLETE
+      query = query.where(
+        <<-SQL
+        (
+          CASE WHEN
+            ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' AND feedback_histories.optimal THEN 1 END) = 1) OR
+              (COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'because' THEN comprehension_prompts.max_attempts END))) AND
+            ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' AND feedback_histories.optimal THEN 1 END) = 1) OR
+              (COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'but' THEN comprehension_prompts.max_attempts END))) AND
+            ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' AND feedback_histories.optimal THEN 1 END) = 1) OR
+              (COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'so' THEN comprehension_prompts.max_attempts END)))
+          THEN true ELSE false END
+        ) = true
+        SQL
+      )
+    when FILTER_INCOMPLETE
+      query = query.where(
+        <<-SQL
+        (
+          CASE WHEN
+            ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' AND feedback_histories.optimal THEN 1 END) = 1) OR
+              (COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'because' THEN comprehension_prompts.max_attempts END))) AND
+            ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' AND feedback_histories.optimal THEN 1 END) = 1) OR
+              (COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'but' THEN comprehension_prompts.max_attempts END))) AND
+            ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' AND feedback_histories.optimal THEN 1 END) = 1) OR
+              (COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'so' THEN comprehension_prompts.max_attempts END)))
+          THEN true ELSE false END
+        ) = false
+        SQL
+      )
+    else
+      query
+    end
+  end
+
+  def self.list_by_activity_session(activity_id: nil, page: 1, start_date: nil, end_date: nil, page_size: DEFAULT_PAGE_SIZE, turk_session_id: nil, filter_type: nil)
     query = select(
       <<-SQL
         feedback_histories.feedback_session_uid AS session_uid,
@@ -188,6 +241,7 @@ class FeedbackHistory < ApplicationRecord
       .joins('LEFT JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')
       .where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id)
     end
+    query = apply_activity_session_filter(query, filter_type) if filter_type
     query = query.limit(page_size)
     query = query.offset((page.to_i - 1) * page_size.to_i) if page && page.to_i > 1
     query

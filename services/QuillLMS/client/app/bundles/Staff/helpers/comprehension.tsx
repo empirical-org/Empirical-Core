@@ -51,12 +51,12 @@ export function getModelsUrl(promptId: string, state: string) {
   return url;
 }
 
-export function getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, turkSessionID, filter }) {
+export function getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, turkSessionID, filterType }) {
   let url = `session_feedback_histories.json?page=${pageNumber}&activity_id=${activityId}`;
   url = startDate ? url + `&start_date=${startDate}` : url;
   url = endDate ? url + `&end_date=${endDate}` : url;
   url = turkSessionID ? url + `&turk_session_id=${turkSessionID}` : url;
-  url = filter ? url + `&filter=${filter}` : url;
+  url = filterType ? url + `&filter_type=${filterType}` : url;
   return url;
 }
 

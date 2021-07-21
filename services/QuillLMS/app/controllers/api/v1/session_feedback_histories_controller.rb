@@ -1,7 +1,7 @@
 class Api::V1::SessionFeedbackHistoriesController < Api::ApiController
   # GET /feedback_histories.json?page=1&activity_id=33&start_date=2021-04-18T03:00:00.000Z&end_date=2021-05-18T03:00:00.000Z
   def index
-    options = params.permit(:page, :activity_id, :start_date, :end_date, :turk_session_id).to_h.symbolize_keys
+    options = params.permit(:page, :activity_id, :start_date, :end_date, :turk_session_id, :filter_type).to_h.symbolize_keys
     records = FeedbackHistory.list_by_activity_session(**options)
     count = FeedbackHistory.select(:feedback_session_uid).distinct.count
 
