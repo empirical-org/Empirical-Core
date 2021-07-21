@@ -47,12 +47,12 @@ class FeedbackHistory < ApplicationRecord
     OPINION = "opinion"
   ]
   FILTER_TYPES = [
-    FILTER_ALL = 'all';
-    FILTER_SCORED =  'scored';
-    FILTER_UNSCORED =  'unscored';
-    FILTER_WEAK =  'weak';
-    FILTER_COMPLETE =  'complete';
-    FILTER_INCOMPLETE =  'incomplete';
+    FILTER_ALL = "all",
+    FILTER_SCORED =  "scored",
+    FILTER_UNSCORED =  "unscored",
+    FILTER_WEAK =  "weak",
+    FILTER_COMPLETE =  "complete",
+    FILTER_INCOMPLETE =  "incomplete"
   ]
 
   after_commit :initiate_flag_worker, on: :create
