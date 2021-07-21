@@ -168,7 +168,7 @@ class FeedbackHistory < ApplicationRecord
     when FILTER_WEAK
       query = query.where("feedback_history_ratings.rating IS FALSE")
     when FILTER_COMPLETE
-      query = query.where(
+      query = query.having(
         <<-SQL
         (
           CASE WHEN
@@ -183,7 +183,7 @@ class FeedbackHistory < ApplicationRecord
         SQL
       )
     when FILTER_INCOMPLETE
-      query = query.where(
+      query = query.having(
         <<-SQL
         (
           CASE WHEN
