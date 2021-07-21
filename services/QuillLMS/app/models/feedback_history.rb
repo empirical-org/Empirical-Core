@@ -157,7 +157,7 @@ class FeedbackHistory < ApplicationRecord
     self.feedback_session_uid = FeedbackSession.get_uid_for_activity_session(feedback_session_uid)
   end
 
-  private def apply_activity_session_filter(query, filter_type)
+  private def self.apply_activity_session_filter(query, filter_type)
     case filter_type
     when FILTER_ALL
       query
