@@ -1,0 +1,62 @@
+require("rails_helper")
+module Comprehension
+  RSpec.describe(RegexRule, :type => :model) do
+    context("relationships") { it { should belong_to(:rule)} }
+    context("validations") do
+      it { should validate_presence_of(:rule) }
+      it { should validate_presence_of(:regex_text) }
+      it { should validate_length_of(:regex_text).is_at_most(200) }
+      it { should validate_inclusion_of(:case_sensitive).in_array(RegexRule::CASE_SENSITIVE_ALLOWED_VALUES) }
+      it { should validate_inclusion_of(:sequence_type).in_array(RegexRule::SEQUENCE_TYPES) }
+    end
+    context("custom validations") do
+      before do
+        @rule = create(:comprehension_rule)
+        @regex_rule = RegexRule.create(:rule => (@rule), :regex_text => "test regex")
+      end
+      it("provide a default value for \"case_sensitive\"") do
+        expect(@regex_rule.case_sensitive).to(be_truthy)
+      end
+      it("not override a \"case_sensitive\" with the default if one is provided") do
+        rule = RegexRule.create(:rule => (@rule), :regex_text => "test regex", :case_sensitive => false)
+        expect(rule.valid?).to(eq(true))
+        expect(rule.case_sensitive).to(be_falsey)
+      end
+      it("validate the presence of \"case_sensitive\"") do
+        @regex_rule.case_sensitive = nil
+        expect(@regex_rule.valid?).to(eq(false))
+      end
+    end
+    context("entry_failing?") do
+      before do
+        @rule = create(:comprehension_rule)
+        @regex_rule = RegexRule.create(:rule => (@rule), :regex_text => "^test", :sequence_type => "required", :case_sensitive => false)
+      end
+      it("flag entry as failing if regex does not match and sequence type is required") do
+        expect(@regex_rule.entry_failing?("not test passing")).to(eq(true))
+      end
+      it("flag entry as failing if regex matches and sequence type is incorrect") do
+        @regex_rule.update(:sequence_type => "incorrect")
+        expect(@regex_rule.entry_failing?("test regex").to_s).to eq 'test'
+      end
+      it("flag entry as failing case-insensitive if the regex_rule is case insensitive") do
+        @regex_rule.update(:sequence_type => "incorrect")
+        expect(@regex_rule.entry_failing?("TEST REGEX").to_s).to eq 'TEST'
+      end
+      it("not flag entry as failing if the regex_rule is case sensitive and the casing does not match") do
+        @regex_rule.update(:sequence_type => "incorrect", :case_sensitive => true)
+        expect(@regex_rule.entry_failing?("TEST REGEX").to_s).to eq ''
+      end
+    end
+    context("incorrect_sequence?") do
+      it("be true if regex rule is incorrect sequence_type") do
+        incorrect_rule = create(:comprehension_regex_rule, :sequence_type => "incorrect")
+        expect(incorrect_rule.incorrect_sequence?).to(eq(true))
+      end
+      it("be false if regex rule is required sequence type") do
+        required_rule = create(:comprehension_regex_rule, :sequence_type => "required")
+        expect(required_rule.incorrect_sequence?).to(eq(false))
+      end
+    end
+  end
+end
