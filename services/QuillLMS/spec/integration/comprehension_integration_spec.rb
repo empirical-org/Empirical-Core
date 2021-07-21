@@ -23,7 +23,7 @@ describe 'ComprehensionIntegration' do
   # )
   csv = CSV.open("#{__dir__}/comprehension_integration_samples.csv", headers: true)
   csv.each do |row|
-    it "Should match record for entry: '#{row['entry']}'" do
+    it "Should match record for prompt #{row['prompt_id']} entry: '#{row['entry']}'" do
       response = HTTParty.post(FEEDBACK_URL,
         headers: {'Content-Type': 'application/json'},
         body: {
