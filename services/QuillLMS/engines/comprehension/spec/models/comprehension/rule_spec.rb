@@ -97,12 +97,12 @@ module Comprehension
         expect(@rule.regex_is_passing?("Something is wrong here.")).to(eq(false))
       end
       it("be false if sequence_type is incorrect and entry matches regex text") do
-        expect((not @rule.regex_is_passing?("Hello!!!"))).to(be_truthy)
+        expect((!@rule.regex_is_passing?("Hello!!!"))).to(be_truthy)
       end
       it("be false if sequence_type is required and entry does not match regex text") do
         required_rule = create(:comprehension_rule)
         @regex_rule_three = create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required")
-        expect((not required_rule.regex_is_passing?("I do not have the right sequence"))).to(be_truthy)
+        expect((!required_rule.regex_is_passing?("I do not have the right sequence"))).to(be_truthy)
       end
       it("be true if sequence_type is required and entry matches regex text") do
         required_rule = create(:comprehension_rule)
@@ -123,7 +123,7 @@ module Comprehension
       it("be false if rule IS case sensitive and entry does not match casing") do
         required_rule = create(:comprehension_rule)
         @regex_rule_three = create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => true)
-        expect((not required_rule.regex_is_passing?("YOU NEED THIS SEQUENCE AND I do not HAVE IT in the right casing"))).to(be_truthy)
+        expect((!required_rule.regex_is_passing?("YOU NEED THIS SEQUENCE AND I do not HAVE IT in the right casing"))).to(be_truthy)
       end
     end
     context("one_plagiarism_per_prompt") do
@@ -137,7 +137,7 @@ module Comprehension
       end
       it("does not create plagiarism rule if plagiarism rule already exists for prompt") do
         invalid_plagiarism_rule = build(:comprehension_rule, :rule_type => (Rule::TYPE_PLAGIARISM), :prompt_ids => ([@prompt1.id]))
-        expect((not invalid_plagiarism_rule.valid?)).to(be_truthy)
+        expect((!invalid_plagiarism_rule.valid?)).to(be_truthy)
       end
       it("creates subsequent plagiarism rule for different prompt") do
         second_plagiarism_rule = build(:comprehension_rule, :rule_type => (Rule::TYPE_PLAGIARISM), :prompt_ids => ([@prompt2.id]))

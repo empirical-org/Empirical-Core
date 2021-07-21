@@ -2,8 +2,6 @@
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 
-#require File.expand_path('../spec/dummy/config/environment', __dir__)
-
 
 # ActiveRecord::Migrator.migrations_paths = [File.expand_path("../../test/dummy/db/migrate", __FILE__)]
 # ActiveRecord::Migrator.migrations_paths << File.expand_path('../../db/migrate', __FILE__)

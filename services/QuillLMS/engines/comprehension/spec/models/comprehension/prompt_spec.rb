@@ -17,14 +17,14 @@ module Comprehension
         it("not allow a prompt to be created that is too short") do
           activity = create(:comprehension_activity)
           prompt = build(:comprehension_prompt, :conjunction => "but", :text => "too short", :max_attempts => 5, :activity_id => activity.id)
-          expect((not prompt.valid?)).to(be_truthy)
+          expect((!prompt.valid?)).to(be_truthy)
           expect(prompt.errors[:text].include?("#{prompt.conjunction} prompt too short (minimum is #{Prompt::MIN_TEXT_LENGTH} characters)")).to(eq(true))
         end
         it("not allow a prompt to be created that is too long") do
           activity = create(:comprehension_activity)
           prompt_text = "And both that morning equally lay In leaves no step had trodden black. Oh, I kept the first for another day! Yet knowing how way leads on to way, I doubted if I should ever come back. I shall be telling this with a sigh Somewhere ages and ages hence: Two roads diverged in a wood, and I\u2014 I took the one less traveled by, And that has made all the difference."
           prompt = build(:comprehension_prompt, :conjunction => "because", :text => prompt_text, :max_attempts => 5, :activity_id => activity.id)
-          expect((not prompt.valid?)).to(be_truthy)
+          expect((!prompt.valid?)).to(be_truthy)
           expect(prompt.errors[:text].include?("#{prompt.conjunction} prompt too long (maximum is #{Prompt::MAX_TEXT_LENGTH} characters)")).to(eq(true))
         end
       end

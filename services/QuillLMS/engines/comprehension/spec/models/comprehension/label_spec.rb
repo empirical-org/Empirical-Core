@@ -19,7 +19,7 @@ module Comprehension
           @label.rule.update(:prompts => ([prompt]))
           rule = create(:comprehension_rule, :prompts => ([prompt]))
           label = build(:comprehension_label, :rule => rule, :name => @label.name)
-          expect((not label.valid?)).to(be_truthy)
+          expect((!label.valid?)).to(be_truthy)
           expect(label.errors[:name].include?("can't be the same as any other labels related to the same prompt")).to(eq(true))
         end
       end

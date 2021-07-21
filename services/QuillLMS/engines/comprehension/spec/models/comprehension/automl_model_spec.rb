@@ -12,7 +12,7 @@ module Comprehension
         it("not be valid if labels is not an array") do
           automl_model = build(:comprehension_automl_model)
           automl_model.labels = "not an array"
-          expect((not automl_model.valid?)).to(be_truthy)
+          expect((!automl_model.valid?)).to(be_truthy)
         end
         it("be valid if labels is an array") do
           automl_model = build(:comprehension_automl_model)
@@ -22,7 +22,7 @@ module Comprehension
         it("not be valid if labels is empty") do
           automl_model = build(:comprehension_automl_model)
           automl_model.labels = []
-          expect((not automl_model.valid?)).to(be_truthy)
+          expect((!automl_model.valid?)).to(be_truthy)
         end
         it("be valid if labels has at least one item in it") do
           automl_model = build(:comprehension_automl_model)
@@ -94,7 +94,7 @@ module Comprehension
       end
       it("be false if there are missing labels from the referenced prompt") do
         @automl_model.state = AutomlModel::STATE_ACTIVE
-        expect((not @automl_model.valid?)).to(be_truthy)
+        expect((!@automl_model.valid?)).to(be_truthy)
       end
     end
     context("relationships") { it { should belong_to(:prompt)} }
@@ -151,14 +151,14 @@ module Comprehension
           end
         end
 
-        prediction_client = double()
+        prediction_client = double
         result1 = MockResult.new(2, 'result1')
         result2 = MockResult.new(1, 'result2')
  
         allow(prediction_client).to receive(:predict).and_return( MockPayload.new([result1, result2]) )
         Google::Cloud::AutoML.stub(:prediction_service).and_return(prediction_client)
 
-        client = double()
+        client = double
         allow(client).to receive(:model_path).and_return("the_path")
         Google::Cloud::AutoML.stub(:auto_ml).and_return(client)
 
@@ -174,7 +174,7 @@ module Comprehension
         ENV["AUTOML_GOOGLE_PROJECT_ID"] = project_id
         ENV["AUTOML_GOOGLE_LOCATION"] = location
 
-        client = double()
+        client = double
         allow(client).to receive(:model_path).and_return("the_path")
         Google::Cloud::AutoML.stub(:auto_ml).and_return(client)
         expect(model.send(:automl_model_full_id)).to eq "the_path"
