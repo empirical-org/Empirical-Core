@@ -31,14 +31,14 @@ module Comprehension
     def prompts_change_logs
       @activity.prompts.map { |prompt|
         prompt_logs = @change_log.where(changed_record_type: 'Comprehension::Prompt', changed_record_id: prompt.id).map(&:attributes)
-        logs = prompt_logs + autoML_change_logs(prompt) + rules_change_logs(prompt)
+        logs = prompt_logs + automl_change_logs(prompt) + rules_change_logs(prompt)
         logs.map { |log|
           log.merge({conjunction: prompt.conjunction})
         }
       }.flatten || []
     end
 
-    def autoML_change_logs(prompt)
+    def automl_change_logs(prompt)
       prompt.automl_models.map {|a| @change_log.where(changed_record_type: 'Comprehension::AutomlModel', changed_record_id: a.id).map {|cl| cl.attributes.merge({name: a.name})}}.flatten! || []
     end
 
