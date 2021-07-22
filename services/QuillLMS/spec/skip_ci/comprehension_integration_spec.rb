@@ -1,26 +1,16 @@
 require 'csv'
 require 'httparty'
 
+# This file is excluded from Rspec test auto-discovery, so won't be run
+# by default.  If you do want to run this test, you'll need to specify
+# it directly:
+# `bundle exec rspec spec/skip_ci/comprehension_integration_spec.rb`
 describe 'ComprehensionIntegration' do
   FEEDBACK_URL = 'https://comprehension-feedback.quill.org'
   SESSION_ID = 'INTEGRATION_TEST'
 
-  # CSV generated via the following query
-  # SELECT prompt_id, c_p.text AS stem, entry, f_h.optimal, c_r.rule_type, rule_uid, f_h.concept_uid
-  #     FROM feedback_histories AS f_h
-  #     JOIN comprehension_prompts AS c_p
-  #         ON f_h.prompt_id = c_p.id
-  #     JOIN comprehension_rules AS c_r
-  #         ON f_h.rule_uid = c_r.uid
-  #     WHERE f_h.id IN (
-  # SELECT max(f_h.id) AS id
-  #     FROM feedback_histories AS f_h
-  #     JOIN comprehension_prompts AS c_p
-  #         ON f_h.prompt_id = c_p.id
-  #     WHERE c_p.activity_id = 87
-  #         AND f_h.used = true
-  #     GROUP BY (rule_uid)
-  # )
+  # CSV generated via the following Metabase query
+  # http://data.quill.org/question/655?comprehension_activity_id=87
   csv = CSV.open("#{__dir__}/comprehension_integration_samples.csv", headers: true)
   csv.each do |row|
     it "Should match record for prompt #{row['prompt_id']} entry: '#{row['entry']}'" do
