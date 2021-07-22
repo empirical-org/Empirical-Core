@@ -79,6 +79,10 @@ module Comprehension
       "comprehension/#/activities/#{prompt.activity.id}/semantic-labels/model/#{id}"
     end
 
+    def comprehension_name
+      name
+    end
+
     private def prompt_automl_rules
       prompt.rules.where(rule_type: Rule::TYPE_AUTOML)
     end

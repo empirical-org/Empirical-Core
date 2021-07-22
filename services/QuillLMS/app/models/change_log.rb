@@ -72,33 +72,6 @@ class ChangeLog < ActiveRecord::Base
     delete: 'deleted',
     update: 'updated',
     activate_automl: 'activated'
-    # create_activity: 'Comprehension Activity - created',
-    # delete_activity: 'Comprehension Activity - deleted',
-    # update_passage: 'Comprehension Passage Text - updated',
-    # create_regex: 'Regex Rule - created',
-    # update_regex: 'Regex Rule - updated',
-    # delete_regex: 'Regex Rule - deleted',
-    # update_regex_feedback: 'Regex Rule Feedback - updated',
-    # update_regex_highlight: 'Regex Rule Highlight - updated',
-    # update_regex_text: 'Regex Rule Regex - updated',
-    # update_prompt: 'Comprehension Stem - updated',
-    # create_automl: 'AutoML Model - created',
-    # activate_automl: 'AutoML Model - activated',
-    # deactivate_automl: 'AutoML Model - de-activated',
-    # create_semantic: 'Semantic Label - created',
-    # delete_semantic: 'Semantic Label - deleted',
-    # update_semantic: 'Semantic Label - updated',
-    # update_feedback_1: 'Semantic Label First Layer Feedback - updated',
-    # update_highlight_1: 'Semantic Label First Layer Feedback Highlight - updated',
-    # update_feedback_2: 'Semantic Label Second Layer Feedback - updated',
-    # update_highlight_2: 'Semantic Label Second Layer Feedback Highlight - updated',
-    # create_plagiarism: 'Plagiarism Rule - created',
-    # update_plagiarism: 'Plagiarism Rule - updated',
-    # update_plagiarism_feedback: 'Plagiarism Rule Feedback - updated',
-    # update_plagiarism_highlight: 'Plagiarism Rule Highlight - updated',
-    # update_plagiarism_text: 'Plagiarism Rule Text - updated',
-    # update_universal: 'Universal Rule - updated',
-    # create_universal: 'Universal Rule - created'
   }
   CHANGED_RECORD_TYPES = [
     'Concept',
@@ -176,7 +149,7 @@ class ChangeLog < ActiveRecord::Base
     super(options.reverse_merge(
       only: [:id, :action, :changed_attribute, :changed_record_type, :changed_record_id,
              :explanation, :new_value, :previous_value, :created_at, :updated_at, :user_id],
-      methods: [:comprehension_action, :comprehension_url]
+      methods: [:comprehension_action, :comprehension_url, :comprehension_name, :conjunction, :user, :updated_local_time]
     ))
   end
 
@@ -186,5 +159,25 @@ class ChangeLog < ActiveRecord::Base
 
   def comprehension_url
     changed_record.url
+  end
+
+  def rule_name
+    changed_record.rule_name
+  end
+
+  def comprehension_name
+    changed_record.comprehension_name
+  end
+
+  def conjunction
+    changed_record.conjunction
+  end
+
+  def user
+    User.find_by(id: user_id)&.name
+  end
+
+  def updated_local_time
+    updated_at.localtime.to_s
   end
 end

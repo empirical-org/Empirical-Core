@@ -37,7 +37,6 @@ module Comprehension
     has_many :prompts_rules, inverse_of: :rule
     has_many :prompts, through: :prompts_rules, inverse_of: :rules
     has_many :regex_rules, inverse_of: :rule, dependent: :destroy
-    has_many :change_logs
 
     accepts_nested_attributes_for :plagiarism_text
     accepts_nested_attributes_for :feedbacks
@@ -83,18 +82,6 @@ module Comprehension
       DISPLAY_NAMES[rule_type.to_sym] || rule_type
     end
 
-    private def all_regex_rules_passing?(entry)
-      regex_rules.none? do |regex_rule|
-        regex_rule.entry_failing?(entry)
-      end
-    end
-
-    private def at_least_one_regex_rule_passing?(entry)
-      regex_rules.any? do |regex_rule|
-        !regex_rule.entry_failing?(entry)
-      end
-    end
-
     def plagiarism?
       rule_type == TYPE_PLAGIARISM
     end
@@ -131,15 +118,31 @@ module Comprehension
 
     def url
       if regex?
-        regex_url
+        "comprehension/#/activities/#{activity_id}/regex-rules/#{id}"
       elsif universal?
-        universal_url
+        "comprehension/#/universal-rules/#{id}"
       elsif plagiarism?
-        plagiarism_url
+        "comprehension/#/activities/#{activity_id}/plagiarism-rules/#{id}"
       elsif automl?
-        automl_url
+        "comprehension/#/activities/#{activity_id}/semantic-labels/#{prompt_id}/#{id}"
       else
         ""
+      end
+    end
+
+    def comprehension_name
+      name
+    end
+
+    private def all_regex_rules_passing?(entry)
+      regex_rules.none? do |regex_rule|
+        regex_rule.entry_failing?(entry)
+      end
+    end
+
+    private def at_least_one_regex_rule_passing?(entry)
+      regex_rules.any? do |regex_rule|
+        !regex_rule.entry_failing?(entry)
       end
     end
 
@@ -168,22 +171,6 @@ module Comprehension
 
     private def prompt_id
       prompts&.first&.id
-    end
-
-    private def universal_url
-      "comprehension/#/universal-rules/#{id}"
-    end
-
-    private def regex_url
-      "comprehension/#/activities/#{activity_id}/regex-rules/#{id}"
-    end
-
-    private def plagiarism_url
-      "comprehension/#/activities/#{activity_id}/plagiarism-rules/#{id}"
-    end
-
-    private def automl_url
-      "comprehension/#/activities/#{activity_id}/semantic-labels/#{prompt_id}/#{id}"
     end
   end
 end

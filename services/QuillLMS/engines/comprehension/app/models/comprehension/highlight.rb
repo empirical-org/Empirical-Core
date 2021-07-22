@@ -42,6 +42,14 @@ module Comprehension
       feedback.rule.url
     end
 
+    def comprehension_name
+      feedback.rule.name
+    end
+
+    def conjunction
+      feedback.rule.prompts.map(&:conjunction)
+    end
+
     private def semantic_rule
       feedback.rule.rule_type == Rule::TYPE_AUTOML
     end

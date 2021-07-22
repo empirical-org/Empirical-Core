@@ -21,5 +21,13 @@ module Comprehension
     def url
       rule.url
     end
+
+    def comprehension_name
+      rule.name
+    end
+
+    def conjunction
+      rule.prompts.map(&:conjunction)
+    end
   end
 end

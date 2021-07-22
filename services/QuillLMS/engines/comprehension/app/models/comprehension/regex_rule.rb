@@ -46,6 +46,14 @@ module Comprehension
       rule.url
     end
 
+    def comprehension_name
+      rule.name
+    end
+
+    def conjunction
+      rule.prompts.map(&:conjunction)
+    end
+
     private def regex_match(entry)
       case_sensitive? ? Regexp.new(regex_text).match(entry) : Regexp.new(regex_text, Regexp::IGNORECASE).match(entry)
     end
