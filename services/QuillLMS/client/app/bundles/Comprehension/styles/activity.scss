@@ -36,8 +36,13 @@
       height: auto;
       max-width: 100%;
     }
-    .passage p {
-      margin-bottom: 40px;
+    .passage {
+      p {
+        margin-bottom: 40px;
+      }
+      mark {
+        background-color: inherit;
+      }
     }
     .passage-highlight {
       background-color: #fff6e4;

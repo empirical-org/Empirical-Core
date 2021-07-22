@@ -18,7 +18,8 @@ import {
   PASSAGE,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
-  PARENT_ACTIVITY_ID
+  PARENT_ACTIVITY_ID,
+  HIGHLIGHT_PROMPT
 } from '../../../../../constants/comprehension';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
 import { Input, TextEditor, } from '../../../../Shared/index'
@@ -72,6 +73,8 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
 
   function handleSetActivityTargetReadingLevel(e: InputEvent){ setActivityTargetReadingLevel(e.target.value) };
 
+  function handleSetHighlightPrompt(e: InputEvent){ handleSetActivityPassages('highlight_prompt', e.target.value) };
+
   function handleSetImageLink(e: InputEvent){ handleSetActivityPassages('image_link', e.target.value) };
 
   function handleSetImageAltText(e: InputEvent){ handleSetActivityPassages('image_alt_text', e.target.value) };
@@ -104,7 +107,7 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
       activityMaxFeedback,
       activityBecausePrompt,
       activityButPrompt,
-      activitySoPrompt
+      activitySoPrompt,
     });
     const state = [
       activityTitle,
@@ -117,7 +120,8 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
       activityButPrompt.text,
       activitySoPrompt.text,
       activityPassages[0].image_link,
-      activityPassages[0].image_alt_text
+      activityPassages[0].image_alt_text,
+      activityPassages[0].highlight_prompt
     ];
     const validationErrors = validateForm(activityFormKeys, state);
     if(validationErrors && Object.keys(validationErrors).length !== 0) {
@@ -207,6 +211,13 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
           handleTextChange={handleSetActivityMaxFeedback}
           key="max-attempt-feedback"
           text={activityMaxFeedback}
+        />
+        <Input
+          className="highlight-prompt-input"
+          error={errors[HIGHLIGHT_PROMPT]}
+          handleChange={handleSetHighlightPrompt}
+          label='Highlight Prompt: "As you read, highlight two sentences that explain..."'
+          value={activityPassages[0].highlight_prompt}
         />
         {errors[MAX_ATTEMPTS_FEEDBACK] && <p className="error-message">{errors[MAX_ATTEMPTS_FEEDBACK]}</p>}
         <PromptsForm

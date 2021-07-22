@@ -13,6 +13,7 @@ import {
   SCORED_READING_LEVEL,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
+  HIGHLIGHT_PROMPT,
   PLAGIARISM,
   ALL
 } from '../../../constants/comprehension';
@@ -120,7 +121,8 @@ export const buildActivity = ({
   activityMaxFeedback,
   activityBecausePrompt,
   activityButPrompt,
-  activitySoPrompt
+  activitySoPrompt,
+  highlightPrompt,
 }) => {
   // const { label } = activityFlag;
   const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt];
@@ -134,6 +136,7 @@ export const buildActivity = ({
       // flag: label,
       scored_level: activityScoredReadingLevel,
       target_level: parseInt(activityTargetReadingLevel),
+      highlight_prompt: highlightPrompt,
       passages_attributes: activityPassages,
       prompts_attributes: prompts
     }
@@ -327,6 +330,7 @@ export const validateForm = (keys: string[], state: any[], ruleType?: string) =>
     switch(keys[i]) {
       case IMAGE_LINK:
       case IMAGE_ALT_TEXT:
+      case HIGHLIGHT_PROMPT:
         break;
       case TARGET_READING_LEVEL:
         const targetError = targetReadingLevelError(value);
