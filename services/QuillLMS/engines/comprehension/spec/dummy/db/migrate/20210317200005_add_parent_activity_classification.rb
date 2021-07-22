@@ -1,4 +1,4 @@
-class AddParentActivityClassification < ActiveRecord::Migration
+class AddParentActivityClassification < ActiveRecord::Migration[4.2]
   def change
     create_table :activity_classifications do |t|
       t.string :key
