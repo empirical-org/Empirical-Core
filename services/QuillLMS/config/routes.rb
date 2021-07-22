@@ -346,6 +346,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :remove_coteacher
   end
   get '/classrooms_teachers/specific_coteacher_info/:coteacher_id', to: 'classrooms_teachers#specific_coteacher_info'
+  put '/classrooms_teachers/update_order' => 'classrooms_teachers#update_order'
   delete '/classrooms_teachers/destroy/:classroom_id', to: 'classrooms_teachers#destroy'
 
   put 'feedback_history_rating' => 'feedback_history_ratings#create_or_update'

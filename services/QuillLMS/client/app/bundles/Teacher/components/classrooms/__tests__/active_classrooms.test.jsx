@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { classroomProps, userProps, coteacherInvitations } from './test_data/test_data'
+
 import ActiveClassrooms, {
   createAClassModal,
   renameClassModal,
@@ -12,7 +14,6 @@ import ActiveClassrooms, {
   googleClassroomEmailModal,
   googleClassroomsEmptyModal
 } from '../active_classrooms.tsx';
-import Classroom from '../classroom.tsx'
 import CreateAClassModal from '../create_a_class_modal'
 import RenameClassModal from '../rename_classroom_modal'
 import ChangeGradeModal from '../change_grade_modal'
@@ -23,12 +24,15 @@ import ImportGoogleClassroomStudentsModal from '../import_google_classroom_stude
 import GoogleClassroomEmailModal from '../google_classroom_email_modal'
 import GoogleClassroomsEmptyModal from '../google_classrooms_empty_modal'
 import CoteacherInvitation from '../coteacher_invitation'
-
-import { classroomProps, userProps, coteacherInvitations } from './test_data/test_data'
+import { SortableList } from '../../../../Shared/index'
 
 jest.spyOn(global.Date, 'now').mockImplementation(() =>
   new Date('2019-08-14T11:01:58.135Z').valueOf()
 );
+
+jest.mock('string-hash', () => ({
+  default: jest.fn()
+}));
 
 describe('ActiveClassrooms component', () => {
 
@@ -60,8 +64,8 @@ describe('ActiveClassrooms component', () => {
       expect(wrapper.find(CoteacherInvitation).length).toBe(coteacherInvitations.length)
     })
 
-    it('should have a classroom component for each classroom', () => {
-      expect(wrapper.find(Classroom).length).toBe(classroomProps.length);
+    it('should have a SortableList component for all classrooms', () => {
+      expect(wrapper.find(SortableList).length).toBe(1);
     })
 
     it('should render the create a class modal if showModal equals createAClassModal', () => {

@@ -22,6 +22,15 @@ export class FocusPointsContainer extends Component {
     this.state = { fpOrderedIds: null, questionType, actionFile, questionTypeLink, focusPoints };
   }
 
+  componentDidUpdate(previousProps, previousState) {
+    const question = this.props[this.state.questionType].data[this.props.match.params.questionID]
+    const focusPoints = this.getFocusPoints(question)
+
+    if (previousState.focusPoints === focusPoints) return;
+
+    this.setState({ focusPoints, });
+  }
+
   getFocusPoints = (question) => {
     return question.focusPoints;
   }
@@ -217,7 +226,7 @@ export class FocusPointsContainer extends Component {
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Focus Points</h1>
-          <a className="button is-outlined is-primary" href={`/diagnostic/#/admin/${questionTypeLink}/${questionID}/focus-points/new`} rel="noopener noreferrer" style={{ float: 'right', }} target="_blank">Add Focus Point</a>
+          <a className="button is-outlined is-primary" href={`/diagnostic/#/admin/${questionTypeLink}/${questionID}/focus-points/new`} rel="noopener noreferrer" style={{ float: 'right', }}>Add Focus Point</a>
           {this.renderfPButton()}
         </div>
         {this.renderFocusPointsList()}
