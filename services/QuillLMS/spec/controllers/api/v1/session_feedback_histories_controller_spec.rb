@@ -120,7 +120,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only items with the specified turk_session_uid' do
-          get :index, turk_session_id: @comprehension_turking_round.turking_round_id
+          get :index, params: { turk_session_id: @comprehension_turking_round.turking_round_id }
 
           parsed_response = JSON.parse(response.body)
 
