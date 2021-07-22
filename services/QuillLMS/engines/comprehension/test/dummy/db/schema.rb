@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210614190110) do
+ActiveRecord::Schema.define(version: 20210722143752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,10 +76,11 @@ ActiveRecord::Schema.define(version: 20210614190110) do
   create_table "comprehension_passages", force: :cascade do |t|
     t.integer  "activity_id"
     t.text     "text"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "image_link"
-    t.string   "image_alt_text", default: ""
+    t.string   "image_alt_text",   default: ""
+    t.string   "highlight_prompt"
     t.index ["activity_id"], name: "index_comprehension_passages_on_activity_id", using: :btree
   end
 

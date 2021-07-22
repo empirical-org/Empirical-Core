@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Draft from 'draft-js';
+import * as Draft from 'draft-js';
 import Editor from 'draft-js-plugins-editor'
 import { convertFromHTML, convertToHTML } from 'draft-convert'
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin'
