@@ -2,7 +2,7 @@ require 'rails_helper'
 
 module Comprehension
   RSpec.describe(PlagiarismCheck, :type => :model) do
-    before { let!(:rule) { create(:comprehension_rule, :rule_type => "plagiarism") } }
+    let!(:rule) { create(:comprehension_rule, :rule_type => "plagiarism") } 
 
     context 'should #feedback_object' do
 

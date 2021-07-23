@@ -2,12 +2,10 @@ require 'rails_helper'
 
 module Comprehension
   RSpec.describe(RegexCheck, :type => :model) do
-    before do
-      let!(:prompt) { create(:comprehension_prompt) }
-      let!(:rule) { create(:comprehension_rule, :rule_type => "rules-based-1", :prompts => ([prompt]), :suborder => 0) }
-      let!(:regex_rule) { create(:comprehension_regex_rule, :rule => (rule), :regex_text => "^Test") }
-      let!(:feedback) { create(:comprehension_feedback, :rule => (rule), :text => "This string begins with the word Test!") }
-    end
+    let!(:prompt) { create(:comprehension_prompt) }
+    let!(:rule) { create(:comprehension_rule, :rule_type => "rules-based-1", :prompts => ([prompt]), :suborder => 0) }
+    let!(:regex_rule) { create(:comprehension_regex_rule, :rule => (rule), :regex_text => "^Test") }
+    let!(:feedback) { create(:comprehension_feedback, :rule => (rule), :text => "This string begins with the word Test!") }
 
     context 'should #initialize' do
 
@@ -37,13 +35,13 @@ module Comprehension
       it 'should be false when there is a regex match' do
         entry = "Test this is a good regex match"
         regex_check = Comprehension::RegexCheck.new(entry, prompt, rule.rule_type)
-        feedback = regex_check.feedback_object
-        expect(feedback.text).to(eq(feedback[:feedback]))
-        expect(rule.rule_type).to(eq(feedback[:feedback_type]))
-        expect(feedback[:optimal]).to(be_falsey)
-        expect(entry).to(eq(feedback[:entry]))
-        expect(rule.concept_uid).to(eq(feedback[:concept_uid]))
-        expect(rule.uid).to(eq(feedback[:rule_uid]))
+        local_feedback = regex_check.feedback_object
+        expect(feedback.text).to(eq(local_feedback[:feedback]))
+        expect(rule.rule_type).to(eq(local_feedback[:feedback_type]))
+        expect(local_feedback[:optimal]).to(be_falsey)
+        expect(entry).to(eq(local_feedback[:entry]))
+        expect(rule.concept_uid).to(eq(local_feedback[:concept_uid]))
+        expect(rule.uid).to(eq(local_feedback[:rule_uid]))
       end
 
       it 'should return the highest priority feedback when two feedbacks exist' do

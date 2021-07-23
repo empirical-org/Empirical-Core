@@ -2,13 +2,11 @@ require 'rails_helper'
 
 module Comprehension
   RSpec.describe(AutomlCheck, :type => :model) do
-    before do
-      let!(:prompt) { create(:comprehension_prompt) }
-      let!(:rule) { create(:comprehension_rule, :rule_type => (Comprehension::Rule::TYPE_AUTOML), :prompts => ([prompt]), :suborder => 0) }
-      let!(:label) { create(:comprehension_label, :rule => (rule)) }
-      let!(:feedback) { create(:comprehension_feedback, :rule => (rule)) }
-      let!(:automl_model) { create(:comprehension_automl_model, :prompt => (prompt), :labels => ([label.name]), :state => (Comprehension::AutomlModel::STATE_ACTIVE)) }
-    end
+    let!(:prompt) { create(:comprehension_prompt) }
+    let!(:rule) { create(:comprehension_rule, :rule_type => (Comprehension::Rule::TYPE_AUTOML), :prompts => ([prompt]), :suborder => 0) }
+    let!(:label) { create(:comprehension_label, :rule => (rule)) }
+    let!(:feedback) { create(:comprehension_feedback, :rule => (rule)) }
+    let!(:automl_model) { create(:comprehension_automl_model, :prompt => (prompt), :labels => ([label.name]), :state => (Comprehension::AutomlModel::STATE_ACTIVE)) }
 
     context 'should #initialize' do
 

@@ -31,8 +31,8 @@ module Comprehension
           ::ActivityClassification.create(:key => "comprehension")
           parent_activity = ::Activity.create
           create(:comprehension_activity, :parent_activity_id => parent_activity.id)
-          let!(:activity_with_same_parent) { build(:comprehension_activity, :parent_activity_id => parent_activity.id) }
         end
+        let!(:activity_with_same_parent) { build(:comprehension_activity, :parent_activity_id => parent_activity.id) }
 
         it 'should not be valid if not unique' do
           expect(activity_with_same_parent.valid?).to(eq(false))
@@ -43,11 +43,9 @@ module Comprehension
 
 
     context 'should serializable_hash' do
-      before do
-        let!(:activity) { create(:comprehension_activity, :title => "First Activity", :notes => "First Activity - Notes", :target_level => 8, :scored_level => "4th grade") }
-        let!(:passage) { create(:comprehension_passage, :activity => (activity), :text => ("Hello" * 20)) }
-        let!(:prompt) { create(:comprehension_prompt, :activity => (activity), :text => "it is good.", :conjunction => "because", :max_attempts_feedback => "good work!.") }
-      end
+      let!(:activity) { create(:comprehension_activity, :title => "First Activity", :notes => "First Activity - Notes", :target_level => 8, :scored_level => "4th grade") }
+      let!(:passage) { create(:comprehension_passage, :activity => (activity), :text => ("Hello" * 20)) }
+      let!(:prompt) { create(:comprehension_prompt, :activity => (activity), :text => "it is good.", :conjunction => "because", :max_attempts_feedback => "good work!.") }
 
       it 'should fill out hash with all fields' do
         json_hash = activity.as_json

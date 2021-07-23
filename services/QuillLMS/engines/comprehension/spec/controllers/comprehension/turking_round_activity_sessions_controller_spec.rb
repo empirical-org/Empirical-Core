@@ -15,9 +15,7 @@ module Comprehension
       end
 
       context 'should with turking_round_activity_sessions' do
-        before do
-          let!(:turking_round_activity_session) { create(:comprehension_turking_round_activity_session) }
-        end
+        let!(:turking_round_activity_session) { create(:comprehension_turking_round_activity_session) }
 
         it 'should return successfully' do
           get(:index)
@@ -30,9 +28,7 @@ module Comprehension
     end
 
     context 'should create' do
-      before do
-        let!(:turking_round_activity_session) { build(:comprehension_turking_round_activity_session) }
-      end
+      let!(:turking_round_activity_session) { build(:comprehension_turking_round_activity_session) }
 
       it 'should create a valid record and return it as json' do
         turking_round = create(:comprehension_turking_round)
@@ -52,9 +48,7 @@ module Comprehension
     end
 
     context 'should show' do
-      before do
-        let!(:turking_round_activity_session) { create(:comprehension_turking_round_activity_session) }
-      end
+      let!(:turking_round_activity_session) { create(:comprehension_turking_round_activity_session) }
 
       it 'should return json if found' do
         get(:show, :params => ({ :id => turking_round_activity_session.id }))
@@ -68,9 +62,7 @@ module Comprehension
     end
 
     context 'should update' do
-      before do
-        let!(:turking_round_activity_session) { create(:comprehension_turking_round_activity_session) }
-      end
+      let!(:turking_round_activity_session) { create(:comprehension_turking_round_activity_session) }
 
       it 'should update record if valid, return nothing' do
         new_session_uid = SecureRandom.uuid
@@ -90,9 +82,7 @@ module Comprehension
     end
 
     context 'should destroy' do
-      before do
-        let!(:turking_round_activity_session) { create(:comprehension_turking_round_activity_session) }
-      end
+      let!(:turking_round_activity_session) { create(:comprehension_turking_round_activity_session) }
 
       it 'should destroy record at id' do
         delete(:destroy, :params => ({ :id => turking_round_activity_session.id }))

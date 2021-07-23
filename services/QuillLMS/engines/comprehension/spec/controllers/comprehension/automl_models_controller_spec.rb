@@ -15,7 +15,7 @@ module Comprehension
       end
 
       context 'should with automl_models' do
-        before { let!(:automl_model) { create(:comprehension_automl_model) } }
+        let!(:automl_model) { create(:comprehension_automl_model) } 
 
         it 'should return successfully' do
           get(:index)
@@ -33,7 +33,7 @@ module Comprehension
     end
 
     context 'should create' do
-      before { let!(:automl_model) { build(:comprehension_automl_model) } }
+      let!(:automl_model) { build(:comprehension_automl_model) } 
 
       it 'should create a valid record and return it as json' do
         AutomlModel.stub_any_instance(:automl_name, automl_model.name) do
@@ -77,7 +77,7 @@ module Comprehension
     end
 
     context 'should show' do
-      before { let!(:automl_model) { create(:comprehension_automl_model) } }
+      let!(:automl_model) { create(:comprehension_automl_model) } 
 
       it 'should return json if found' do
         get(:show, :params => ({ :id => automl_model.id }))
@@ -96,10 +96,10 @@ module Comprehension
     end
 
     context 'should update' do
-      before { let!(:automl_model) { create(:comprehension_automl_model) } }
+      let!(:automl_model) { create(:comprehension_automl_model) } 
 
       it 'should update record if valid' do
-        let!(:new_prompt) { create(:comprehension_prompt) }
+        new_prompt = create(:comprehension_prompt) 
         new_prompt_id = new_prompt_id
         patch(:update, :params => ({ :id => automl_model.id, :automl_model => ({ :prompt_id => new_prompt_id }) }))
         expect(response.code.to_i).to(eq(200))
@@ -119,7 +119,7 @@ module Comprehension
     end
 
     context 'should activate' do
-      before { let!(:automl_model) { create(:comprehension_automl_model) } }
+      let!(:automl_model) { create(:comprehension_automl_model) } 
 
       it 'should return an empty 200 response if activation is successful' do
         AutomlModel.stub_any_instance(:activate, true) do
@@ -140,7 +140,7 @@ module Comprehension
     end
 
     context 'should destroy' do
-      before { let!(:automl_model) { create(:comprehension_automl_model) } }
+      let!(:automl_model) { create(:comprehension_automl_model) } 
 
       it 'should destroy record at id' do
         delete(:destroy, :params => ({ :id => automl_model.id }))

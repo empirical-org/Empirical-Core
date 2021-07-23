@@ -21,8 +21,8 @@ module Comprehension
     end
 
     context 'should custom validations' do
+      let!(:rule) { create(:comprehension_rule) }
       before do
-        let!(:rule) { create(:comprehension_rule) }
         regex_rule = RegexRule.create(:rule => (rule), :regex_text => "test regex")
       end
 
@@ -43,8 +43,8 @@ module Comprehension
     end
 
     context 'should entry_failing?' do
+      let!(:rule) { create(:comprehension_rule) }
       before do
-        let!(:rule) { create(:comprehension_rule) }
         regex_rule = RegexRule.create(:rule => (rule), :regex_text => "^test", :sequence_type => "required", :case_sensitive => false)
       end
 

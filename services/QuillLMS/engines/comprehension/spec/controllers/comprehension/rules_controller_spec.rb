@@ -15,7 +15,7 @@ module Comprehension
       end
 
       context 'should with rules' do
-        before { let!(:rule) { create(:comprehension_rule) } }
+        let!(:rule) { create(:comprehension_rule) } 
 
         it 'should return successfully' do
           get(:index)
@@ -36,15 +36,13 @@ module Comprehension
       end
 
       context 'should with filter params' do
-        before do
-          let!(:prompt1) { create(:comprehension_prompt) }
-          let!(:prompt2) { create(:comprehension_prompt) }
-          let!(:rule1) { create(:comprehension_rule, :prompts => ([prompt1]), :rule_type => (Rule::TYPE_AUTOML)) }
-          let!(:rule2) { create(:comprehension_rule, :prompts => ([prompt1]), :rule_type => (Rule::TYPE_GRAMMAR)) }
-          let!(:rule3) { create(:comprehension_rule, :prompts => ([prompt2]), :rule_type => (Rule::TYPE_AUTOML)) }
-          let!(:rule4) { create(:comprehension_rule, :prompts => ([prompt2]), :rule_type => (Rule::TYPE_GRAMMAR)) }
-          let!(:rule5) { create(:comprehension_rule, :prompts => ([prompt1, prompt2]), :rule_type => (Rule::TYPE_REGEX_ONE)) }
-        end
+        let!(:prompt1) { create(:comprehension_prompt) }
+        let!(:prompt2) { create(:comprehension_prompt) }
+        let!(:rule1) { create(:comprehension_rule, :prompts => ([prompt1]), :rule_type => (Rule::TYPE_AUTOML)) }
+        let!(:rule2) { create(:comprehension_rule, :prompts => ([prompt1]), :rule_type => (Rule::TYPE_GRAMMAR)) }
+        let!(:rule3) { create(:comprehension_rule, :prompts => ([prompt2]), :rule_type => (Rule::TYPE_AUTOML)) }
+        let!(:rule4) { create(:comprehension_rule, :prompts => ([prompt2]), :rule_type => (Rule::TYPE_GRAMMAR)) }
+        let!(:rule5) { create(:comprehension_rule, :prompts => ([prompt1, prompt2]), :rule_type => (Rule::TYPE_REGEX_ONE)) }
 
         it 'should only get Rules for specified prompt when provided' do
           get(:index, :params => ({ :prompt_id => prompt1.id }))
@@ -79,10 +77,8 @@ module Comprehension
     end
 
     context 'should create' do
-      before do
-        let!(:prompt) { create(:comprehension_prompt) }
-        let!(:rule) { build(:comprehension_rule) }
-      end
+      let!(:prompt) { create(:comprehension_prompt) }
+      let!(:rule) { build(:comprehension_rule) }
 
       it 'should create a valid record and return it as json' do
         expect(Rule.count).to(eq(0))
@@ -180,7 +176,7 @@ module Comprehension
     end
 
     context 'should show' do
-      before { let!(:rule) { create(:comprehension_rule) } }
+      let!(:rule) { create(:comprehension_rule) } 
 
       it 'should return json if found by id' do
         get(:show, :params => ({ :id => rule.id }))
@@ -216,10 +212,8 @@ module Comprehension
     end
 
     context 'should update' do
-      before do
-        let!(:prompt) { create(:comprehension_prompt) }
-        let!(:rule) { create(:comprehension_rule, :prompt_ids => ([prompt.id])) }
-      end
+      let!(:prompt) { create(:comprehension_prompt) }
+      let!(:rule) { create(:comprehension_rule, :prompt_ids => ([prompt.id])) }
 
       it 'should update record if valid, return nothing' do
         new_prompt = create(:comprehension_prompt)
@@ -293,7 +287,7 @@ module Comprehension
     end
 
     context 'should destroy' do
-      before { let!(:rule) { create(:comprehension_rule) } }
+      let!(:rule) { create(:comprehension_rule) } 
 
       it 'should destroy record at id' do
         delete(:destroy, :params => ({ :id => rule.id }))
@@ -305,11 +299,9 @@ module Comprehension
     end
 
     context 'should update_rule_order' do
-      before do
-        let!(:rule1) { create(:comprehension_rule, :suborder => 100) }
-        let!(:rule2) { create(:comprehension_rule, :suborder => 12) }
-        let!(:rule3) { create(:comprehension_rule, :suborder => 77) }
-      end
+      let!(:rule1) { create(:comprehension_rule, :suborder => 100) }
+      let!(:rule2) { create(:comprehension_rule, :suborder => 12) }
+      let!(:rule3) { create(:comprehension_rule, :suborder => 77) }
 
       it 'should update the rules to have the suborders in the order of their ids' do
         put(:update_rule_order, :params => ({ :ordered_rule_ids => ([rule2.id, rule3.id, rule1.id]) }))
