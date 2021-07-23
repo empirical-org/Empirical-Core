@@ -78,7 +78,7 @@ module Comprehension
     end
 
     def universal_change_logs
-      Comprehension.change_log_class.where(action: UNIVERSAL_RULE_ACTIONS) || []
+      Comprehension::Rule.select { |r| r.universal_rule_type? }.map(&:change_logs).flatten || []
     end
 
     def activity_change_logs

@@ -437,22 +437,22 @@ module Comprehension
 
       should "return change logs for that activity" do
         post :create, params: { activity: {
-          parent_activity_id: @activity.parent_activity_id,
-          scored_level: @activity.scored_level,
-          target_level: @activity.target_level,
-          title: @activity.title,
-          notes: @activity.notes,
-          passages_attributes: [{
-            text: @passage.text
-          }],
-          prompts_attributes: [{
-            text: @prompt.text,
-            conjunction: @prompt.conjunction,
-            max_attempts: @prompt.max_attempts,
-            max_attempts_feedback: @prompt.max_attempts_feedback
-          }],
+            parent_activity_id: @activity.parent_activity_id,
+            scored_level: @activity.scored_level,
+            target_level: @activity.target_level,
+            title: @activity.title,
+            notes: @activity.notes,
+            passages_attributes: [{
+              text: @passage.text
+            }],
+            prompts_attributes: [{
+              text: @prompt.text,
+              conjunction: @prompt.conjunction,
+              max_attempts: @prompt.max_attempts,
+              max_attempts_feedback: @prompt.max_attempts_feedback
+            }],
+          }
         }
-      }
 
         activity = Comprehension::Activity.last
         get :change_logs, params: {id: activity.id}

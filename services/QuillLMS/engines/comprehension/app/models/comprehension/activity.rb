@@ -1,6 +1,6 @@
 module Comprehension
 
-  class Activity < ActiveRecord::Base
+  class Activity < ApplicationRecord
     include Comprehension::ChangeLog
     MIN_TARGET_LEVEL = 1
     MAX_TARGET_LEVEL = 12
@@ -48,10 +48,6 @@ module Comprehension
         only: [:id, :parent_activity_id, :title, :notes, :target_level, :scored_level],
         include: [:passages, :prompts]
       ))
-    end
-
-    def fetch_change_logs
-      change_logs_for_activity
     end
 
     def change_log_name

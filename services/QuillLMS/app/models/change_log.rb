@@ -154,19 +154,19 @@ class ChangeLog < ApplicationRecord
   end
 
   def comprehension_action
-    "#{changed_record.change_log_name} - #{action}"
+    "#{changed_record&.change_log_name} - #{action}" if changed_record&.respond_to? :change_log_name
   end
 
   def comprehension_url
-    changed_record.url if changed_record.respond_to? :url
+    changed_record&.url if changed_record&.respond_to? :url
   end
 
   def comprehension_name
-    changed_record.comprehension_name if changed_record.respond_to? :comprehension_name
+    changed_record&.comprehension_name if changed_record&.respond_to? :comprehension_name
   end
 
   def conjunctions
-    changed_record.conjunctions if changed_record.respond_to? :conjunctions
+    changed_record&.conjunctions if changed_record&.respond_to? :conjunctions
   end
 
   def user

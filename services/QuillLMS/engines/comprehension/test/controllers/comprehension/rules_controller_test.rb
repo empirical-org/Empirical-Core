@@ -194,29 +194,30 @@ module Comprehension
       should "make a change log record after creating a plagiarism Rule record" do
         plagiarism_text = "Here is some text to be checked for plagiarism."
         feedback = build(:comprehension_feedback)
-        post :create, params: {rule: {
-              concept_uid: @plagiarism_rule.concept_uid,
-              note: @plagiarism_rule.note,
-              name: @plagiarism_rule.name,
-              optimal: @plagiarism_rule.optimal,
-              state: @plagiarism_rule.state,
-              suborder: @plagiarism_rule.suborder,
-              rule_type: @plagiarism_rule.rule_type,
-              universal: @plagiarism_rule.universal,
-              prompt_ids: [@prompt.id],
-              plagiarism_text_attributes: {
-                text: plagiarism_text
-              },
-              feedbacks_attributes:
-              [
-                {
-                  text: feedback.text,
-                  description: feedback.description,
-                  order: feedback.order
-                }
-              ]
-            }
+        post :create, params: {
+          rule: {
+            concept_uid: @plagiarism_rule.concept_uid,
+            note: @plagiarism_rule.note,
+            name: @plagiarism_rule.name,
+            optimal: @plagiarism_rule.optimal,
+            state: @plagiarism_rule.state,
+            suborder: @plagiarism_rule.suborder,
+            rule_type: @plagiarism_rule.rule_type,
+            universal: @plagiarism_rule.universal,
+            prompt_ids: [@prompt.id],
+            plagiarism_text_attributes: {
+              text: plagiarism_text
+            },
+            feedbacks_attributes:
+            [
+              {
+                text: feedback.text,
+                description: feedback.description,
+                order: feedback.order
+              }
+            ]
           }
+        }
 
         rule = Comprehension::Rule.last
         change_log = Comprehension.change_log_class.find_by(changed_record_id: rule.id)
@@ -439,21 +440,22 @@ module Comprehension
         @rule.prompt_ids = [@prompt.id]
         @rule.save
         label = build(:comprehension_label)
-        post :create, params: { rule: {
-          concept_uid: @rule.concept_uid,
-          note: @rule.note,
-          name: @rule.name,
-          optimal: @rule.optimal,
-          state: @rule.state,
-          suborder: @rule.suborder,
-          rule_type: @rule.rule_type,
-          universal: @rule.universal,
-          prompt_ids: @rule.prompt_ids,
-          label_attributes: {
-            name: label.name
+        post :create, params: {
+          rule: {
+            concept_uid: @rule.concept_uid,
+            note: @rule.note,
+            name: @rule.name,
+            optimal: @rule.optimal,
+            state: @rule.state,
+            suborder: @rule.suborder,
+            rule_type: @rule.rule_type,
+            universal: @rule.universal,
+            prompt_ids: @rule.prompt_ids,
+            label_attributes: {
+              name: label.name
+            }
           }
         }
-      }
 
         change_log = Comprehension.change_log_class.last
         rule = Comprehension::Rule.last

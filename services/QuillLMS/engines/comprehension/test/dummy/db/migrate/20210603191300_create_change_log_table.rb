@@ -1,4 +1,4 @@
-class CreateChangeLogTable < ActiveRecord::Migration
+class CreateChangeLogTable < ActiveRecord::Migration[4.2]
   def change
     create_table :change_logs do |t|
       t.text :explanation

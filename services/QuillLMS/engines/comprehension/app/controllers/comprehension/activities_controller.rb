@@ -49,7 +49,7 @@ module Comprehension
 
     # GET /activities/1/change_logs.json
     def change_logs
-      render json: @activity&.fetch_change_logs || []
+      render json: @activity&.change_logs_for_activity || []
     end
 
     private def set_activity
