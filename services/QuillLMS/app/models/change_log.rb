@@ -149,7 +149,7 @@ class ChangeLog < ActiveRecord::Base
     super(options.reverse_merge(
       only: [:id, :action, :changed_attribute, :changed_record_type, :changed_record_id,
              :explanation, :new_value, :previous_value, :created_at, :updated_at, :user_id],
-      methods: [:comprehension_action, :comprehension_url, :comprehension_name, :conjunction, :user, :updated_local_time]
+      methods: [:comprehension_action, :comprehension_url, :comprehension_name, :conjunctions, :user, :updated_local_time]
     ))
   end
 
@@ -158,19 +158,15 @@ class ChangeLog < ActiveRecord::Base
   end
 
   def comprehension_url
-    changed_record.url
-  end
-
-  def rule_name
-    changed_record.rule_name
+    changed_record.url if changed_record.respond_to? :url
   end
 
   def comprehension_name
-    changed_record.comprehension_name
+    changed_record.comprehension_name if changed_record.respond_to? :comprehension_name
   end
 
-  def conjunction
-    changed_record.conjunction
+  def conjunctions
+    changed_record.conjunctions if changed_record.respond_to? :conjunctions
   end
 
   def user

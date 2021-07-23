@@ -50,7 +50,7 @@ module Comprehension
       rule.name
     end
 
-    def conjunction
+    def conjunctions
       rule.prompts.map(&:conjunction)
     end
 

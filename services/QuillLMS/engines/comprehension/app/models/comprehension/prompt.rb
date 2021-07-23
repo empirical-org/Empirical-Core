@@ -40,8 +40,8 @@ module Comprehension
       activity.url
     end
 
-    def comprehension_name
-      name
+    def conjunctions
+      [conjunction]
     end
 
     private def downcase_conjunction

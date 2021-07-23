@@ -52,7 +52,7 @@ module Comprehension
     end
 
     def fetch_change_logs
-      change_logs_for_activity(self)
+      change_logs_for_activity
     end
 
     def change_log_name

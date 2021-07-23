@@ -134,6 +134,11 @@ module Comprehension
       name
     end
 
+    def conjunctions
+      return nil if universal_rule_type?
+      prompts.map(&:conjunction)
+    end
+
     private def all_regex_rules_passing?(entry)
       regex_rules.none? do |regex_rule|
         regex_rule.entry_failing?(entry)

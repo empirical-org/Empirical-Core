@@ -57,7 +57,7 @@ module Comprehension
       Comprehension.change_log_class.create(change_log)
     end
 
-    def change_logs_for_activity(activity)
+    def change_logs_for_activity
       @activity = Comprehension::Activity.includes(
                       :change_logs,
                       passages: [:change_logs],
@@ -72,21 +72,21 @@ module Comprehension
                         ],
                       automl_models: [:change_logs]
                       ]
-                    ).find(activity.id)
+                    ).find(id)
       change_logs = activity_change_logs + passages_change_logs + prompts_change_logs + universal_change_logs
       change_logs.map(&:serializable_hash)
     end
 
     def universal_change_logs
-      Comprehension.change_log_class.where(action: UNIVERSAL_RULE_ACTIONS)
+      Comprehension.change_log_class.where(action: UNIVERSAL_RULE_ACTIONS) || []
     end
 
     def activity_change_logs
-      @activity.change_logs
+      @activity.change_logs || []
     end
 
     def passages_change_logs
-      @activity.passages.map(&:change_logs).flatten
+      @activity.passages.map(&:change_logs).flatten || []
     end
 
     def prompts_change_logs
@@ -115,7 +115,7 @@ module Comprehension
     def feedbacks_change_logs(rule)
       rule.feedbacks.map {|f|
         (f.change_logs || []) + highlights_change_logs(f)
-      }.flatten!
+      }.flatten! || []
     end
 
     def highlights_change_logs(feedback)

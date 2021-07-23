@@ -46,7 +46,7 @@ module Comprehension
       feedback.rule.name
     end
 
-    def conjunction
+    def conjunctions
       feedback.rule.prompts.map(&:conjunction)
     end
 
