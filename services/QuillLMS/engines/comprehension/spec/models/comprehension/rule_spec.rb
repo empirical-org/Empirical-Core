@@ -59,7 +59,7 @@ module Comprehension
 
     context 'should serializable_hash' do
       before do
-        let(:rule_prompt) { create(:comprehension_prompts_rule) }
+        let!(:rule_prompt) { create(:comprehension_prompts_rule) }
         rule = rule_prompt.rule
         prompt = rule_prompt.prompt
       end
@@ -89,10 +89,10 @@ module Comprehension
 
     context 'should #determine_feedback_from_history' do
       before do
-        let(:rule) { create(:comprehension_rule) }
-        let(:feedback1) { create(:comprehension_feedback, :rule => (rule), :order => 0, :text => "Example feedback 1") }
-        let(:feedback2) { create(:comprehension_feedback, :rule => (rule), :order => 1, :text => "Example feedback 2") }
-        let(:feedback3) { create(:comprehension_feedback, :rule => (rule), :order => 2, :text => "Example feedback 3") }
+        let!(:rule) { create(:comprehension_rule) }
+        let!(:feedback1) { create(:comprehension_feedback, :rule => (rule), :order => 0, :text => "Example feedback 1") }
+        let!(:feedback2) { create(:comprehension_feedback, :rule => (rule), :order => 1, :text => "Example feedback 2") }
+        let!(:feedback3) { create(:comprehension_feedback, :rule => (rule), :order => 2, :text => "Example feedback 3") }
       end
 
       it 'should fetch lowest order feedback if feedback history is empty' do
@@ -113,9 +113,9 @@ module Comprehension
 
     context 'should regex_is_passing?' do
       before do
-        let(:rule) { create(:comprehension_rule) }
-        let(:regex_rule) { create(:comprehension_regex_rule, :rule => (rule), :regex_text => "^Hello", :sequence_type => "incorrect") }
-        let(:regex_rule_two) { create(:comprehension_regex_rule, :rule => (rule), :regex_text => "^Something", :sequence_type => "incorrect") }
+        let!(:rule) { create(:comprehension_rule) }
+        let!(:regex_rule) { create(:comprehension_regex_rule, :rule => (rule), :regex_text => "^Hello", :sequence_type => "incorrect") }
+        let!(:regex_rule_two) { create(:comprehension_regex_rule, :rule => (rule), :regex_text => "^Something", :sequence_type => "incorrect") }
       end
 
       it 'should be true if entry does not match the regex text' do
@@ -136,41 +136,41 @@ module Comprehension
 
       it 'should be false if sequence_type is required and entry does not match regex text' do
         required_rule = create(:comprehension_rule)
-        let(:regex_rule_three) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required") }
+        let!(:regex_rule_three) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required") }
         expect((!required_rule.regex_is_passing?("I do not have the right sequence"))).to(be_truthy)
       end
 
       it 'should be true if sequence_type is required and entry matches regex text' do
         required_rule = create(:comprehension_rule)
-        let(:regex_rule_three) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required") }
+        let!(:regex_rule_three) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required") }
         expect(required_rule.regex_is_passing?("you need this sequence and I do have it")).to(eq(true))
       end
 
       it 'should be true if sequence_type is required and entry matches regex text and there are multiple required sequences' do
         required_rule = create(:comprehension_rule)
-        let(:regex_rule_three) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required") }
-        let(:regex_rule_four) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "or you need this one", :sequence_type => "required") }
+        let!(:regex_rule_three) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required") }
+        let!(:regex_rule_four) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "or you need this one", :sequence_type => "required") }
         expect(required_rule.regex_is_passing?("you need this sequence and I do have it")).to(eq(true))
       end
 
       it 'should be true if rule is NOT case sensitive and entry matches regardless of casing' do
         required_rule = create(:comprehension_rule)
-        let(:regex_rule_three) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => false) }
+        let!(:regex_rule_three) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => false) }
         expect(required_rule.regex_is_passing?("YOU NEED THIS SEQUENCE AND I DO HAVE IT")).to(eq(true))
       end
 
       it 'should be false if rule IS case sensitive and entry does not match casing' do
         required_rule = create(:comprehension_rule)
-        let(:regex_rule_three) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => true) }
+        let!(:regex_rule_three) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => true) }
         expect((!required_rule.regex_is_passing?("YOU NEED THIS SEQUENCE AND I do not HAVE IT in the right casing"))).to(be_truthy)
       end
     end
 
     context 'should one_plagiarism_per_prompt' do
       before do
-        let(:prompt1) { create(:comprehension_prompt) }
-        let(:prompt2) { create(:comprehension_prompt) }
-        let(:plagiarism_rule) { create(:comprehension_rule, :rule_type => (Rule::TYPE_PLAGIARISM), :prompt_ids => ([prompt1.id])) }
+        let!(:prompt1) { create(:comprehension_prompt) }
+        let!(:prompt2) { create(:comprehension_prompt) }
+        let!(:plagiarism_rule) { create(:comprehension_rule, :rule_type => (Rule::TYPE_PLAGIARISM), :prompt_ids => ([prompt1.id])) }
       end
 
       it 'should creates plagiarism rule if first rule for prompt' do

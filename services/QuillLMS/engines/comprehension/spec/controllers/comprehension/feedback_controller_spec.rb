@@ -5,16 +5,16 @@ module Comprehension
   RSpec.describe(FeedbackController, :type => :controller) do
     before do
       routes = Engine.routes
-      let(:prompt) { create(:comprehension_prompt) }
-      let(:rule) { create(:comprehension_rule, :rule_type => "plagiarism") }
-      let(:rule_regex) { create(:comprehension_rule, :rule_type => "rules-based-1") }
+      let!(:prompt) { create(:comprehension_prompt) }
+      let!(:rule) { create(:comprehension_rule, :rule_type => "plagiarism") }
+      let!(:rule_regex) { create(:comprehension_rule, :rule_type => "rules-based-1") }
       plagiarized_text = "do not plagiarize this text please there will be consequences"
       create(:comprehension_regex_rule, :regex_text => "^test", :rule => (rule_regex))
       create(:comprehension_prompts_rule, :rule => (rule), :prompt => (prompt))
       create(:comprehension_prompts_rule, :rule => (rule_regex), :prompt => (prompt))
       create(:comprehension_plagiarism_text, :text => (plagiarized_text), :rule => (rule))
-      let(:first_feedback) { create(:comprehension_feedback, :text => "here is our first feedback", :rule => (rule), :order => 0) }
-      let(:second_feedback) { create(:comprehension_feedback, :text => "here is our second feedback", :rule => (rule), :order => 1) }
+      let!(:first_feedback) { create(:comprehension_feedback, :text => "here is our first feedback", :rule => (rule), :order => 0) }
+      let!(:second_feedback) { create(:comprehension_feedback, :text => "here is our second feedback", :rule => (rule), :order => 1) }
     end
 
     context 'should plagiarism' do

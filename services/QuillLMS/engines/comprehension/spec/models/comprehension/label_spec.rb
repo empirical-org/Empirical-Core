@@ -4,7 +4,7 @@ module Comprehension
   RSpec.describe(Label, :type => :model) do
 
     context 'should validations' do
-      before { let(:label) { create(:comprehension_label) } }
+      before { let!(:label) { create(:comprehension_label) } }
 
       it { should validate_presence_of(:name) }
 

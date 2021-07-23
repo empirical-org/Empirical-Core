@@ -3,10 +3,10 @@ require 'rails_helper'
 module Comprehension
   RSpec.describe(RegexCheck, :type => :model) do
     before do
-      let(:prompt) { create(:comprehension_prompt) }
-      let(:rule) { create(:comprehension_rule, :rule_type => "rules-based-1", :prompts => ([prompt]), :suborder => 0) }
-      let(:regex_rule) { create(:comprehension_regex_rule, :rule => (rule), :regex_text => "^Test") }
-      let(:feedback) { create(:comprehension_feedback, :rule => (rule), :text => "This string begins with the word Test!") }
+      let!(:prompt) { create(:comprehension_prompt) }
+      let!(:rule) { create(:comprehension_rule, :rule_type => "rules-based-1", :prompts => ([prompt]), :suborder => 0) }
+      let!(:regex_rule) { create(:comprehension_regex_rule, :rule => (rule), :regex_text => "^Test") }
+      let!(:feedback) { create(:comprehension_feedback, :rule => (rule), :text => "This string begins with the word Test!") }
     end
 
     context 'should #initialize' do

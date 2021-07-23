@@ -15,9 +15,9 @@ module Comprehension
       end
 
       context 'should with activities where one has an archived parent' do
-        let(:archived_activity) { Comprehension.parent_activity_class.create(:name => "Archived Activity", :flags => (["archived"])) }
-        let(:unarchived_activity) { Comprehension.parent_activity_class.create(:name => "Unarchived Activity") }
-        
+        let!(:archived_activity) { Comprehension.parent_activity_class.create(:name => "Archived Activity", :flags => (["archived"])) }
+        let!(:unarchived_activity) { Comprehension.parent_activity_class.create(:name => "Unarchived Activity") }
+
         before do
           create(:comprehension_activity, :parent_activity_id => archived_activity.id, :title => "First Activity", :target_level => 8)
           create(:comprehension_activity, :parent_activity_id => unarchived_activity.id, :title => "Second Activity", :target_level => 5)
