@@ -166,12 +166,12 @@ class FeedbackHistory < ApplicationRecord
     <<-SQL
     (
       CASE WHEN
-        ((COUNT(CASE WHEN comprehension_prompts.conjunction = #{BECAUSE} AND feedback_histories.optimal THEN 1 END) = 1) OR
-          (COUNT(CASE WHEN comprehension_prompts.conjunction = #{BECAUSE} THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = #{BECAUSE} THEN comprehension_prompts.max_attempts END))) AND
-        ((COUNT(CASE WHEN comprehension_prompts.conjunction = #{BUT} AND feedback_histories.optimal THEN 1 END) = 1) OR
-          (COUNT(CASE WHEN comprehension_prompts.conjunction = #{BUT} THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = #{BUT} THEN comprehension_prompts.max_attempts END))) AND
-        ((COUNT(CASE WHEN comprehension_prompts.conjunction = #{SO} AND feedback_histories.optimal THEN 1 END) = 1) OR
-          (COUNT(CASE WHEN comprehension_prompts.conjunction = #{SO} THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = #{SO} THEN comprehension_prompts.max_attempts END)))
+        ((COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' AND feedback_histories.optimal THEN 1 END) = 1) OR
+          (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN comprehension_prompts.max_attempts END))) AND
+        ((COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' AND feedback_histories.optimal THEN 1 END) = 1) OR
+          (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN comprehension_prompts.max_attempts END))) AND
+        ((COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' AND feedback_histories.optimal THEN 1 END) = 1) OR
+          (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN comprehension_prompts.max_attempts END)))
       THEN true ELSE false END
     ) = #{complete}
     SQL
@@ -203,20 +203,20 @@ class FeedbackHistory < ApplicationRecord
         MIN(feedback_histories.time) AS start_date,
         comprehension_prompts.activity_id,
         ARRAY_REMOVE(ARRAY_AGG(DISTINCT feedback_history_flags.flag), NULL) AS flags,
-        COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' THEN 1 END) AS because_attempts,
-        COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' THEN 1 END) AS but_attempts,
-        COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' THEN 1 END) AS so_attempts,
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) AS because_attempts,
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN 1 END) AS but_attempts,
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END) AS so_attempts,
         COUNT(CASE WHEN feedback_history_ratings.rating IS NOT NULL THEN 1 END) AS scored_count,
         COUNT(CASE WHEN feedback_history_ratings.rating = false THEN 1 END) AS weak_count,
         COUNT(CASE WHEN feedback_history_ratings.rating = true THEN 1 END) AS strong_count,
         (
           CASE WHEN
-            ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' AND feedback_histories.optimal THEN 1 END) = 1) OR
-              (COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'because' THEN comprehension_prompts.max_attempts END))) AND
-            ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' AND feedback_histories.optimal THEN 1 END) = 1) OR
-              (COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'but' THEN comprehension_prompts.max_attempts END))) AND
-            ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' AND feedback_histories.optimal THEN 1 END) = 1) OR
-              (COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'so' THEN comprehension_prompts.max_attempts END)))
+            ((COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' AND feedback_histories.optimal THEN 1 END) = 1) OR
+              (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN comprehension_prompts.max_attempts END))) AND
+            ((COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' AND feedback_histories.optimal THEN 1 END) = 1) OR
+              (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN comprehension_prompts.max_attempts END))) AND
+            ((COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' AND feedback_histories.optimal THEN 1 END) = 1) OR
+              (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN comprehension_prompts.max_attempts END)))
           THEN true ELSE false END
         ) AS complete
       SQL
