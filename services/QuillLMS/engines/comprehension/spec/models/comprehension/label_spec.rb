@@ -21,14 +21,14 @@ module Comprehension
       end
 
       context 'should #name_unique_for_prompt' do
-
+        let!(:label) { create(:comprehension_label) } 
         it 'should not allow a label to be created if its name collides with another on the prompt' do
           prompt = create(:comprehension_prompt)
           label.rule.update(:prompts => ([prompt]))
           rule = create(:comprehension_rule, :prompts => ([prompt]))
-          label = build(:comprehension_label, :rule => rule, :name => label.name)
-          expect((!label.valid?)).to(be_truthy)
-          expect(label.errors[:name].include?("can't be the same as any other labels related to the same prompt")).to(eq(true))
+          new_label = build(:comprehension_label, :rule => rule, :name => label.name)
+          expect((!new_label.valid?)).to(be_truthy)
+          expect(new_label.errors[:name].include?("can't be the same as any other labels related to the same prompt")).to(eq(true))
         end
       end
     end
@@ -36,6 +36,7 @@ module Comprehension
     context 'should relationships' do 
 
       it { should belong_to(:rule) }
+
     end
   end
 end

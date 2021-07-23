@@ -58,11 +58,9 @@ module Comprehension
     end
 
     context 'should serializable_hash' do
-      before do
-        rule_prompt = create(:comprehension_prompts_rule) 
-        rule = rule_prompt.rule
-        prompt = rule_prompt.prompt
-      end
+      let(:rule_prompt) { create(:comprehension_prompts_rule) }
+      let(:rule) { rule_prompt.rule }
+      let(:prompt) { rule_prompt.prompt }
 
       it 'should fill out hash with all fields' do
         json_hash = rule.as_json
@@ -132,32 +130,32 @@ module Comprehension
 
       it 'should be false if sequence_type is required and entry does not match regex text' do
         required_rule = create(:comprehension_rule)
-        let!(:regex_rule_three) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required") }
+        regex_rule_three = create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required") 
         expect((!required_rule.regex_is_passing?("I do not have the right sequence"))).to(be_truthy)
       end
 
       it 'should be true if sequence_type is required and entry matches regex text' do
         required_rule = create(:comprehension_rule)
-        let!(:regex_rule_three) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required") }
+        regex_rule_three = create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required") 
         expect(required_rule.regex_is_passing?("you need this sequence and I do have it")).to(eq(true))
       end
 
       it 'should be true if sequence_type is required and entry matches regex text and there are multiple required sequences' do
         required_rule = create(:comprehension_rule)
-        let!(:regex_rule_three) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required") }
-        let!(:regex_rule_four) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "or you need this one", :sequence_type => "required") }
+        regex_rule_three = create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required") 
+        regex_rule_four = create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "or you need this one", :sequence_type => "required") 
         expect(required_rule.regex_is_passing?("you need this sequence and I do have it")).to(eq(true))
       end
 
       it 'should be true if rule is NOT case sensitive and entry matches regardless of casing' do
         required_rule = create(:comprehension_rule)
-        let!(:regex_rule_three) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => false) }
+        regex_rule_three = create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => false) 
         expect(required_rule.regex_is_passing?("YOU NEED THIS SEQUENCE AND I DO HAVE IT")).to(eq(true))
       end
 
       it 'should be false if rule IS case sensitive and entry does not match casing' do
         required_rule = create(:comprehension_rule)
-        let!(:regex_rule_three) { create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => true) }
+        regex_rule_three = create(:comprehension_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => true) 
         expect((!required_rule.regex_is_passing?("YOU NEED THIS SEQUENCE AND I do not HAVE IT in the right casing"))).to(be_truthy)
       end
     end

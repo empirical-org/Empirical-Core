@@ -27,9 +27,9 @@ module Comprehension
       it { should validate_length_of(:scored_level).is_at_most(100) }
 
       context 'should parent_activity_id' do
+        let!(:parent_activity) { ::Activity.create }
         before do
           ::ActivityClassification.create(:key => "comprehension")
-          parent_activity = ::Activity.create
           create(:comprehension_activity, :parent_activity_id => parent_activity.id)
         end
         let!(:activity_with_same_parent) { build(:comprehension_activity, :parent_activity_id => parent_activity.id) }
@@ -70,18 +70,18 @@ module Comprehension
     context 'should create parent activity' do
 
       it 'should set the parent_activity_id to nil if passed in Activity does NOT exist' do
-        let!(:activity) { create(:comprehension_activity, :parent_activity_id => 7) }
+        activity = create(:comprehension_activity, :parent_activity_id => 7) 
         expect(activity.parent_activity).to(be_nil)
       end
 
       it 'should set the parent_activity_id if passed in Activity does exist' do
         parent_activity = ::Activity.create(:name => "test name")
-        let!(:activity) { create(:comprehension_activity, :parent_activity_id => parent_activity.id) }
+        activity = create(:comprehension_activity, :parent_activity_id => parent_activity.id) 
         expect(activity.parent_activity.id).to_not(be_nil)
       end
 
       it 'should create a new LMS activity if the parent_activity_id is not present' do
-        let!(:activity) { create(:comprehension_activity, :parent_activity_id => nil) }
+        activity = create(:comprehension_activity, :parent_activity_id => nil) 
         expect(activity.parent_activity.id).to(be_truthy)
       end
     end
@@ -89,15 +89,15 @@ module Comprehension
     context 'should dependent destroy' do
 
       it 'should destroy dependent passages' do
-        let!(:activity) { create(:comprehension_activity) }
-        let!(:passage) { create(:comprehension_passage, :activity => (activity)) }
+        activity = create(:comprehension_activity) 
+        passage = create(:comprehension_passage, :activity => (activity)) 
         activity.destroy
         expect(Passage.exists?(passage.id)).to(eq(false))
       end
 
       it 'should destroy dependent prompts' do
-        let!(:activity) { create(:comprehension_activity) }
-        let!(:prompt) { create(:comprehension_prompt, :activity => (activity)) }
+        activity = create(:comprehension_activity) 
+        prompt = create(:comprehension_prompt, :activity => (activity)) 
         activity.destroy
         expect(Prompt.exists?(prompt.id)).to(eq(false))
       end
@@ -106,8 +106,8 @@ module Comprehension
     context 'should before_destroy' do
 
       it 'should expire all associated Turking Rounds before destroy' do
-        let!(:activity) { create(:comprehension_activity) }
-        let!(:turking_round) { create(:comprehension_turking_round, :activity => (activity)) }
+        activity = create(:comprehension_activity) 
+        turking_round = create(:comprehension_turking_round, :activity => (activity)) 
         expect(turking_round.expires_at > Time.zone.now).to be true
         activity.destroy
         turking_round.reload

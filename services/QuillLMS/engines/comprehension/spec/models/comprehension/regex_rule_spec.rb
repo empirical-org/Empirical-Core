@@ -22,18 +22,16 @@ module Comprehension
 
     context 'should custom validations' do
       let!(:rule) { create(:comprehension_rule) }
-      before do
-        regex_rule = RegexRule.create(:rule => (rule), :regex_text => "test regex")
-      end
+      let(:regex_rule) { RegexRule.create(:rule => (rule), :regex_text => "test regex") }
 
       it "provide a default value for \"case_sensitive\"" do
         expect(regex_rule.case_sensitive).to(be_truthy)
       end
 
       it "not override a \"case_sensitive\" with the default if one is provided" do
-        rule = RegexRule.create(:rule => (rule), :regex_text => "test regex", :case_sensitive => false)
-        expect(rule.valid?).to(eq(true))
-        expect(rule.case_sensitive).to(be_falsey)
+        a_rule = RegexRule.create(:rule => (rule), :regex_text => "test regex", :case_sensitive => false)
+        expect(a_rule.valid?).to(eq(true))
+        expect(a_rule.case_sensitive).to(be_falsey)
       end
 
       it "validate the presence of \"case_sensitive\"" do
@@ -44,9 +42,7 @@ module Comprehension
 
     context 'should entry_failing?' do
       let!(:rule) { create(:comprehension_rule) }
-      before do
-        regex_rule = RegexRule.create(:rule => (rule), :regex_text => "^test", :sequence_type => "required", :case_sensitive => false)
-      end
+      let!(:regex_rule) { RegexRule.create(:rule => (rule), :regex_text => "^test", :sequence_type => "required", :case_sensitive => false) }
 
       it 'should flag entry as failing if regex does not match and sequence type is required' do
         expect(regex_rule.entry_failing?("not test passing")).to(eq(true))
