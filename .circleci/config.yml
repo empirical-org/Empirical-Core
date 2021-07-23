@@ -56,7 +56,7 @@ jobs:
           name: Run tests
           command: |
             cd services/QuillLMS
-            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split)
+            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | grep -v "/skip_ci/" | circleci tests split)
             bundle exec rspec -- ${TESTFILES}
   lms_node_build:
     working_directory: ~/Empirical-Core
