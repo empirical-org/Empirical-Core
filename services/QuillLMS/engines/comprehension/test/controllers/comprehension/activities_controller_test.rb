@@ -94,7 +94,7 @@ module Comprehension
       end
 
       should "make a change log record after creating the Activity record" do
-        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, notes: @activity.notes }
+        post :create, params: { activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, notes: @activity.notes }}
 
         activity = Activity.last
         change_log = Comprehension.change_log_class.last
@@ -281,7 +281,7 @@ module Comprehension
 
       should "make a change log record after updating Passage text" do
         old_text = @passage.text
-        put :update, id: @activity.id, activity: { passages_attributes: [{id: @passage.id, text: ('Goodbye' * 20)}] }
+        put :update, params: {id: @activity.id, activity: { passages_attributes: [{id: @passage.id, text: ('Goodbye' * 20)}] }}
 
         change_log = Comprehension.change_log_class.last
         assert_equal change_log.serializable_hash["comprehension_action"], "Comprehension Passage Text - updated"
@@ -294,7 +294,7 @@ module Comprehension
 
       should "make a change log record after creating Passage text" do
         new_activity = create(:comprehension_activity)
-        put :update, id: @activity.id, activity: { passages_attributes: [{text: ('Goodbye' * 20)}] }
+        put :update, params: {id: @activity.id, activity: { passages_attributes: [{text: ('Goodbye' * 20)}] }}
 
         change_log = Comprehension.change_log_class.last
         assert_equal change_log.serializable_hash["comprehension_action"], "Comprehension Passage Text - created"
@@ -328,7 +328,7 @@ module Comprehension
 
       should "make a change log record after updating Prompt text" do
         old_text = @prompt.text
-        put :update, id: @activity.id, activity: { prompts_attributes: [{id: @prompt.id, text: "this is a good thing."}] }
+        put :update, params: { id: @activity.id, activity: { prompts_attributes: [{id: @prompt.id, text: "this is a good thing."}] }}
 
         change_log = Comprehension.change_log_class.last
         assert_equal change_log.serializable_hash["comprehension_action"], "Comprehension Stem - updated"
@@ -340,7 +340,7 @@ module Comprehension
       end
 
       should "make a change log record after creating Prompt text through update call" do
-        put :update, id: @activity.id, activity: { prompts_attributes: [{text: "this is a new prompt.", conjunction: "because"}] }
+        put :update, params: { id: @activity.id, activity: { prompts_attributes: [{text: "this is a new prompt.", conjunction: "because"}] }}
 
         prompt = Comprehension::Prompt.last
         change_log = Comprehension.change_log_class.last
@@ -436,7 +436,7 @@ module Comprehension
       end
 
       should "return change logs for that activity" do
-        post :create, activity: {
+        post :create, params: { activity: {
           parent_activity_id: @activity.parent_activity_id,
           scored_level: @activity.scored_level,
           target_level: @activity.target_level,
@@ -452,9 +452,10 @@ module Comprehension
             max_attempts_feedback: @prompt.max_attempts_feedback
           }],
         }
+      }
 
         activity = Comprehension::Activity.last
-        get :change_logs, id: activity.id
+        get :change_logs, params: {id: activity.id}
         parsed_response = JSON.parse(response.body)
 
         assert_equal 200, response.code.to_i
@@ -467,7 +468,7 @@ module Comprehension
       should "return empty array if no change logs exist" do
         activity = create(:comprehension_activity)
         Comprehension.change_log_class.destroy_all
-        get :change_logs, id: activity.id
+        get :change_logs, params: { id: activity.id }
         parsed_response = JSON.parse(response.body)
 
         assert_equal 200, response.code.to_i

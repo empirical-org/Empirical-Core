@@ -127,7 +127,7 @@ module Comprehension
       should "make a change log record after creating the AutoML record" do
         AutomlModel.stub_any_instance(:automl_name, @automl_model.name) do
           AutomlModel.stub_any_instance(:automl_labels, @automl_model.labels) do
-            post :create, automl_model: { prompt_id: @automl_model.prompt_id, automl_model_id: @automl_model.automl_model_id }
+            post :create, params: {automl_model: { prompt_id: @automl_model.prompt_id, automl_model_id: @automl_model.automl_model_id }}
           end
         end
 
@@ -249,7 +249,7 @@ module Comprehension
           rule = create(:comprehension_rule, rule_type: Comprehension::Rule::TYPE_AUTOML)
           label = create(:comprehension_label, rule: rule, name: automl.labels[0])
           create(:comprehension_prompts_rule, prompt: prompt, rule: rule)
-          patch :activate, id: automl.id
+          patch :activate, params: {id: automl.id}
 
           change_log = Comprehension.change_log_class.last
           assert_equal change_log.serializable_hash["comprehension_action"], "AutoML Model - activated"

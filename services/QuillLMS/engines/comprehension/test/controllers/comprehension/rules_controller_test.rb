@@ -164,7 +164,7 @@ module Comprehension
       end
 
       should "make a change log record after creating a regex Rule record" do
-        post :create, rule: { concept_uid: @rule.concept_uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, state: @rule.state, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal, prompt_ids: [@prompt.id] }
+        post :create, params: {rule: { concept_uid: @rule.concept_uid, note: @rule.note, name: @rule.name, optimal: @rule.optimal, state: @rule.state, suborder: @rule.suborder, rule_type: @rule.rule_type, universal: @rule.universal, prompt_ids: [@prompt.id] }}
 
         change_log = Comprehension.change_log_class.last
         rule = Comprehension::Rule.last
@@ -178,7 +178,7 @@ module Comprehension
       end
 
       should "make a change log record after creating a universal Rule record" do
-        post :create, rule: { concept_uid: @universal_rule.concept_uid, note: @universal_rule.note, name: @universal_rule.name, optimal: @universal_rule.optimal, state: @universal_rule.state, suborder: @universal_rule.suborder, rule_type: @universal_rule.rule_type, universal: @universal_rule.universal, prompt_ids: [@prompt.id] }
+        post :create, params: {rule: { concept_uid: @universal_rule.concept_uid, note: @universal_rule.note, name: @universal_rule.name, optimal: @universal_rule.optimal, state: @universal_rule.state, suborder: @universal_rule.suborder, rule_type: @universal_rule.rule_type, universal: @universal_rule.universal, prompt_ids: [@prompt.id] }}
 
         rule = Comprehension::Rule.last
         change_log = Comprehension.change_log_class.last
@@ -194,7 +194,7 @@ module Comprehension
       should "make a change log record after creating a plagiarism Rule record" do
         plagiarism_text = "Here is some text to be checked for plagiarism."
         feedback = build(:comprehension_feedback)
-        post :create, rule: {
+        post :create, params: {rule: {
               concept_uid: @plagiarism_rule.concept_uid,
               note: @plagiarism_rule.note,
               name: @plagiarism_rule.name,
@@ -216,6 +216,7 @@ module Comprehension
                 }
               ]
             }
+          }
 
         rule = Comprehension::Rule.last
         change_log = Comprehension.change_log_class.find_by(changed_record_id: rule.id)
@@ -438,7 +439,7 @@ module Comprehension
         @rule.prompt_ids = [@prompt.id]
         @rule.save
         label = build(:comprehension_label)
-        post :create, rule: {
+        post :create, params: { rule: {
           concept_uid: @rule.concept_uid,
           note: @rule.note,
           name: @rule.name,
@@ -452,6 +453,7 @@ module Comprehension
             name: label.name
           }
         }
+      }
 
         change_log = Comprehension.change_log_class.last
         rule = Comprehension::Rule.last
@@ -594,7 +596,7 @@ module Comprehension
         universal_rule = create(:comprehension_rule, prompt_ids: [@prompt.id], universal: true, rule_type: 'spelling')
         old_name = universal_rule.name
         new_name = "new rule name"
-        put :update, id: universal_rule.id, rule: { concept_uid: universal_rule.concept_uid, note: universal_rule.note, name: new_name }
+        put :update, :params => { :id=> universal_rule.id, :rule => { concept_uid: universal_rule.concept_uid, note: universal_rule.note, name: new_name }}
 
         universal_rule.reload
         change_log = Comprehension.change_log_class.last
@@ -615,7 +617,7 @@ module Comprehension
         old_state = plagiarism_rule.state
         new_name = "new rule name"
         new_state = "active"
-        patch :update, id: plagiarism_rule.id, rule: { concept_uid: plagiarism_rule.concept_uid, name: new_name, state: new_state }
+        patch :update, :params => { :id => plagiarism_rule.id, :rule => { concept_uid: plagiarism_rule.concept_uid, name: new_name, state: new_state } }
 
         plagiarism_rule.reload
         change_log = Comprehension.change_log_class.find_by(changed_attribute: 'state')
@@ -632,7 +634,7 @@ module Comprehension
         regex_rule = create(:comprehension_rule, prompt_ids: [@prompt.id], rule_type: 'rules-based-1')
         old_name = regex_rule.name
         new_name = "new rule name"
-        patch :update, id: regex_rule.id, rule: { concept_uid: regex_rule.concept_uid, name: new_name, state: regex_rule.state }
+        patch :update, params: {id: regex_rule.id, rule: { concept_uid: regex_rule.concept_uid, name: new_name, state: regex_rule.state }}
 
         regex_rule.reload
         change_log = Comprehension.change_log_class.last
@@ -685,7 +687,7 @@ module Comprehension
       should "make a change log record after creating new plagiarism text through update call" do
         plagiarism_text = "New plagiarism text"
         @rule.update(rule_type: 'plagiarism')
-        patch :update, id: @rule.id, rule: { plagiarism_text_attributes: {text: plagiarism_text}}
+        patch :update, params: {id: @rule.id, rule: { plagiarism_text_attributes: {text: plagiarism_text}}}
 
         @rule.reload
         plagiarism_text_obj = Comprehension::PlagiarismText.last
@@ -704,7 +706,7 @@ module Comprehension
         new_text = "new feedback"
         old_text = feedback.text
 
-        post :update, id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: new_text}]}
+        post :update, params: {id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: new_text}]}}
 
         feedback = Comprehension::Feedback.last
         change_log = Comprehension.change_log_class.last
@@ -723,7 +725,7 @@ module Comprehension
         new_text = "new highlight"
         old_text = highlight.text
 
-        post :update, id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: {id: highlight.id, text: new_text}}]}
+        post :update, params: {id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: {id: highlight.id, text: new_text}}]}}
 
         highlight = Comprehension::Highlight.last
         change_log = Comprehension.change_log_class.last
@@ -764,7 +766,7 @@ module Comprehension
         feedback = create(:comprehension_feedback, order: 0, rule: automl_rule)
         old_text = feedback.text
         new_text = 'new test feedback text is some new test feedback'
-        post :update, id: automl_rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: new_text}]}
+        post :update, params: {id: automl_rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: new_text}]}}
 
         automl_rule.reload
         change_log = Comprehension.change_log_class.last
@@ -782,7 +784,7 @@ module Comprehension
         feedback = create(:comprehension_feedback, order: 1, rule: automl_rule)
         old_text = feedback.text
         new_text = 'new test feedback text is some new test feedback'
-        post :update, id: automl_rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: new_text}]}
+        post :update, params: {id: automl_rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: new_text}]}}
 
         automl_rule.reload
         change_log = Comprehension.change_log_class.last
@@ -832,7 +834,7 @@ module Comprehension
         old_text = highlight.text
         new_text = "New text to highlight"
 
-        post :update, id: automl_rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: [{id: highlight.id, text: new_text}]}]}
+        post :update, params: {id: automl_rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: [{id: highlight.id, text: new_text}]}]}}
 
         automl_rule.reload
         change_log = Comprehension.change_log_class.last
@@ -852,7 +854,7 @@ module Comprehension
         old_text = highlight.text
         new_text = "New text to highlight"
 
-        post :update, id: automl_rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: [{id: highlight.id, text: new_text}]}]}
+        post :update, params: {id: automl_rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: [{id: highlight.id, text: new_text}]}]}}
 
         automl_rule.reload
         change_log = Comprehension.change_log_class.last
@@ -914,7 +916,7 @@ module Comprehension
         new_text = "new regex text"
         old_text = regex_rule.regex_text
 
-        post :update, id: @rule.id, rule: { regex_rules_attributes: [{id: regex_rule.id, regex_text: new_text}]}
+        post :update, params: {id: @rule.id, rule: { regex_rules_attributes: [{id: regex_rule.id, regex_text: new_text}]}}
 
         regex_rule = Comprehension::RegexRule.last
         change_log = Comprehension.change_log_class.last
@@ -931,7 +933,7 @@ module Comprehension
         new_text = "new feedback"
         old_text = feedback.text
 
-        post :update, id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: new_text}]}
+        post :update, params: {id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: new_text}]}}
 
         feedback = Comprehension::Feedback.last
         change_log = Comprehension.change_log_class.last
@@ -949,7 +951,7 @@ module Comprehension
         new_text = "new highlight"
         old_text = highlight.text
 
-        post :update, id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: {id: highlight.id, text: new_text}}]}
+        post :update, params: {id: @rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: {id: highlight.id, text: new_text}}]}}
 
         highlight = Comprehension::Highlight.last
         change_log = Comprehension.change_log_class.last
@@ -964,7 +966,7 @@ module Comprehension
       should "make a change log record after creating a nested regex rule through update call" do
         new_text = "new regex text"
 
-        post :update, id: @rule.id, rule: { regex_rules_attributes: [{regex_text: new_text}]}
+        post :update, params: {id: @rule.id, rule: { regex_rules_attributes: [{regex_text: new_text}]}}
 
         regex_rule = Comprehension::RegexRule.last
         change_log = Comprehension.change_log_class.last
@@ -1005,7 +1007,7 @@ module Comprehension
         old_name = automl_rule.name
         new_name = 'new name'
 
-        put :update, id: automl_rule.id, rule: { name: 'new name'}
+        put :update, params: {id: automl_rule.id, rule: { name: 'new name'}}
 
         automl_rule.reload
         change_log = Comprehension.change_log_class.last
