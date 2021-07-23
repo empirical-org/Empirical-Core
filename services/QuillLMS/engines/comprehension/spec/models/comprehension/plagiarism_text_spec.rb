@@ -18,9 +18,9 @@ module Comprehension
       before { let(:plagiarism_text) { create(:comprehension_plagiarism_text) } }
 
       it "fill out hash with all fields" do
-        json_hash = @plagiarism_text.as_json
-        expect(@plagiarism_text.id).to(eq(json_hash["id"]))
-        expect(@plagiarism_text.text).to(eq(json_hash["text"]))
+        json_hash = plagiarism_text.as_json
+        expect(plagiarism_text.id).to(eq(json_hash["id"]))
+        expect(plagiarism_text.text).to(eq(json_hash["text"]))
       end
     end
   end

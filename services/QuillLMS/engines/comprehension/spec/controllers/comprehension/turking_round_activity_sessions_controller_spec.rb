@@ -2,7 +2,7 @@ require 'rails_helper'
 
 module Comprehension
   RSpec.describe(TurkingRoundActivitySessionsController, :type => :controller) do
-    before { @routes = Engine.routes }
+    before { routes = Engine.routes }
 
     context 'should index' do
 
@@ -57,7 +57,7 @@ module Comprehension
       end
 
       it 'should return json if found' do
-        get(:show, :params => ({ :id => @turking_round_activity_session.id }))
+        get(:show, :params => ({ :id => turking_round_activity_session.id }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(200))
       end
@@ -74,15 +74,15 @@ module Comprehension
 
       it 'should update record if valid, return nothing' do
         new_session_uid = SecureRandom.uuid
-        patch(:update, :params => ({ :id => @turking_round_activity_session.id, :turking_round_activity_session => ({ :activity_session_uid => new_session_uid }) }))
+        patch(:update, :params => ({ :id => turking_round_activity_session.id, :turking_round_activity_session => ({ :activity_session_uid => new_session_uid }) }))
         expect(response.body).to(eq(""))
         expect(response.code.to_i).to(eq(204))
-        @turking_round_activity_session.reload
-        expect(new_session_uid).to(eq(@turking_round_activity_session.activity_session_uid))
+        turking_round_activity_session.reload
+        expect(new_session_uid).to(eq(turking_round_activity_session.activity_session_uid))
       end
 
       it 'should not update record and return errors as json' do
-        patch(:update, :params => ({ :id => @turking_round_activity_session.id, :turking_round_activity_session => ({ :activity_session_uid => nil }) }))
+        patch(:update, :params => ({ :id => turking_round_activity_session.id, :turking_round_activity_session => ({ :activity_session_uid => nil }) }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
         expect(parsed_response["activity_session_uid"].include?("can't be blank")).to(eq(true))
@@ -95,11 +95,11 @@ module Comprehension
       end
 
       it 'should destroy record at id' do
-        delete(:destroy, :params => ({ :id => @turking_round_activity_session.id }))
+        delete(:destroy, :params => ({ :id => turking_round_activity_session.id }))
         expect(response.body).to(eq(""))
         expect(response.code.to_i).to(eq(204))
-        expect(@turking_round_activity_session.id).to(be_truthy)
-        expect(TurkingRoundActivitySession.find_by_id(@turking_round_activity_session.id)).to(be_nil)
+        expect(turking_round_activity_session.id).to(be_truthy)
+        expect(TurkingRoundActivitySession.find_by_id(turking_round_activity_session.id)).to(be_nil)
       end
     end
   end

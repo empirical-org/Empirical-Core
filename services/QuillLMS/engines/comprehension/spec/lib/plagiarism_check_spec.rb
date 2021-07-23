@@ -11,7 +11,7 @@ module Comprehension
         entry = "these are s'',ome! r''esponse words to plagiarize and this is plagiarism"
         passage = "these are some res,,,,ponse,,,, words to plagiarize and this is plagiarism"
         feedback = "this is some standard plagiarism feedback"
-        plagiarism_check = Comprehension::PlagiarismCheck.new(entry, passage, feedback, @rule)
+        plagiarism_check = Comprehension::PlagiarismCheck.new(entry, passage, feedback, rule)
         feedback = plagiarism_check.feedback_object
         expect(feedback[:feedback]).to(be_truthy)
         expect(feedback[:feedback_type]).to(be_truthy)
@@ -28,7 +28,7 @@ module Comprehension
         passage = "it is always bad to plagiarize"
         feedback = "this is some standard plagiarism feedback"
         optimal_rule = create(:comprehension_rule, :rule_type => "plagiarism", :optimal => true)
-        plagiarism_check = Comprehension::PlagiarismCheck.new(entry, passage, feedback, @rule)
+        plagiarism_check = Comprehension::PlagiarismCheck.new(entry, passage, feedback, rule)
         feedback = plagiarism_check.feedback_object
         expect(feedback[:feedback]).to(be_truthy)
         expect(feedback[:feedback_type]).to(be_truthy)
@@ -43,7 +43,7 @@ module Comprehension
         passage = "it is always bad to plagiarize"
         feedback = "it is always bad to plagiarize"
         optimal_rule = create(:comprehension_rule, :rule_type => "plagiarism", :optimal => true)
-        plagiarism_check = Comprehension::PlagiarismCheck.new(entry, passage, feedback, @rule)
+        plagiarism_check = Comprehension::PlagiarismCheck.new(entry, passage, feedback, rule)
         feedback = plagiarism_check.feedback_object
         expect(feedback[:feedback]).to(be_truthy)
         expect(feedback[:feedback_type]).to(be_truthy)

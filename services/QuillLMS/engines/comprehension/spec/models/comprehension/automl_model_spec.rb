@@ -109,15 +109,15 @@ module Comprehension
       it 'should be true if there are matching labels tied to the same prompt as the automl_model' do
         prompt = create(:comprehension_prompt)
         rule = create(:comprehension_rule, :rule_type => (Rule::TYPE_AUTOML), :prompts => ([prompt]))
-        label = create(:comprehension_label, :name => @automl_model.labels[0], :rule => rule)
-        @automl_model.state = AutomlModel::STATE_ACTIVE
-        expect(@automl_model.send(:prompt_labels)).to(be_truthy)
-        expect(@automl_model.errors).to(be_truthy)
+        label = create(:comprehension_label, :name => automl_model.labels[0], :rule => rule)
+        automl_model.state = AutomlModel::STATE_ACTIVE
+        expect(automl_model.send(:prompt_labels)).to(be_truthy)
+        expect(automl_model.errors).to(be_truthy)
       end
 
       it 'should be false if there are missing labels from the referenced prompt' do
-        @automl_model.state = AutomlModel::STATE_ACTIVE
-        expect((!@automl_model.valid?)).to(be_truthy)
+        automl_model.state = AutomlModel::STATE_ACTIVE
+        expect((!automl_model.valid?)).to(be_truthy)
       end
     end
 
@@ -165,13 +165,13 @@ module Comprehension
           class Classification
             attr_reader :score 
             def initialize(score)
-              @score = score 
+              score = score 
             end 
           end
 
           def initialize(score, display_name)
-            @classification = Classification.new(score)
-            @display_name = display_name
+            classification = Classification.new(score)
+            display_name = display_name
           end
 
         end
@@ -179,7 +179,7 @@ module Comprehension
         class MockPayload
           attr_reader :payload
           def initialize(payload)
-            @payload = payload
+            payload = payload
           end
         end
 
@@ -218,74 +218,74 @@ module Comprehension
     context 'should #activate' do
       before do
         let(:prompt) { create(:comprehension_prompt) }
-        @label1 = "label1"
-        @label2 = "label2"
-        @label3 = "label3"
-        let(:rule1) { create(:comprehension_rule, :prompts => ([@prompt]), :rule_type => (Rule::TYPE_AUTOML), :state => (Rule::STATE_INACTIVE)) }
-        let(:rule2) { create(:comprehension_rule, :prompts => ([@prompt]), :rule_type => (Rule::TYPE_AUTOML), :state => (Rule::STATE_INACTIVE)) }
-        let(:rule3) { create(:comprehension_rule, :prompts => ([@prompt]), :rule_type => (Rule::TYPE_AUTOML), :state => (Rule::STATE_INACTIVE)) }
-        create(:comprehension_label, :name => (@label1), :rule => (@rule1))
-        create(:comprehension_label, :name => (@label2), :rule => (@rule2))
-        create(:comprehension_label, :name => (@label3), :rule => (@rule3))
+        label1 = "label1"
+        label2 = "label2"
+        label3 = "label3"
+        let(:rule1) { create(:comprehension_rule, :prompts => ([prompt]), :rule_type => (Rule::TYPE_AUTOML), :state => (Rule::STATE_INACTIVE)) }
+        let(:rule2) { create(:comprehension_rule, :prompts => ([prompt]), :rule_type => (Rule::TYPE_AUTOML), :state => (Rule::STATE_INACTIVE)) }
+        let(:rule3) { create(:comprehension_rule, :prompts => ([prompt]), :rule_type => (Rule::TYPE_AUTOML), :state => (Rule::STATE_INACTIVE)) }
+        create(:comprehension_label, :name => (label1), :rule => (rule1))
+        create(:comprehension_label, :name => (label2), :rule => (rule2))
+        create(:comprehension_label, :name => (label3), :rule => (rule3))
       end
 
       it 'should set model and associated rules to state active if valid' do
-        let(:model) { create(:comprehension_automl_model, :prompt => (@prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => ([@label1, @label2])) }
-        @model.activate
-        @rule1.reload
-        @rule2.reload
-        expect(@model.valid?).to(eq(true))
-        expect(AutomlModel::STATE_ACTIVE).to(eq(@model.state))
-        expect(Rule::STATE_ACTIVE).to(eq(@rule1.state))
-        expect(Rule::STATE_ACTIVE).to(eq(@rule2.state))
+        let(:model) { create(:comprehension_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => ([label1, label2])) }
+        model.activate
+        rule1.reload
+        rule2.reload
+        expect(model.valid?).to(eq(true))
+        expect(AutomlModel::STATE_ACTIVE).to(eq(model.state))
+        expect(Rule::STATE_ACTIVE).to(eq(rule1.state))
+        expect(Rule::STATE_ACTIVE).to(eq(rule2.state))
       end
 
       it 'should set previously active model and unassociated rules to state inactive' do
-        @rule1.update(:state => (Rule::STATE_ACTIVE))
-        @rule2.update(:state => (Rule::STATE_ACTIVE))
-        let(:old_model) { create(:comprehension_automl_model, :prompt => (@prompt), :state => (AutomlModel::STATE_ACTIVE), :labels => ([@label1, @label2])) }
-        let(:new_model) { create(:comprehension_automl_model, :prompt => (@prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => ([@label2, @label3])) }
-        expect(@old_model.valid?).to(eq(true))
-        @new_model.activate
-        @old_model.reload
-        @rule1.reload
-        @rule2.reload
-        expect(AutomlModel::STATE_INACTIVE).to(eq(@old_model.state))
-        expect(Rule::STATE_INACTIVE).to(eq(@rule1.state))
-        expect(Rule::STATE_ACTIVE).to(eq(@rule2.state))
+        rule1.update(:state => (Rule::STATE_ACTIVE))
+        rule2.update(:state => (Rule::STATE_ACTIVE))
+        let(:old_model) { create(:comprehension_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_ACTIVE), :labels => ([label1, label2])) }
+        let(:new_model) { create(:comprehension_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => ([label2, label3])) }
+        expect(old_model.valid?).to(eq(true))
+        new_model.activate
+        old_model.reload
+        rule1.reload
+        rule2.reload
+        expect(AutomlModel::STATE_INACTIVE).to(eq(old_model.state))
+        expect(Rule::STATE_INACTIVE).to(eq(rule1.state))
+        expect(Rule::STATE_ACTIVE).to(eq(rule2.state))
       end
 
       it 'should return false and not activate if the active state can not be validated because of labels without corresponding rules' do
-        let(:model) { create(:comprehension_automl_model, :prompt => (@prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => (["no_rule_for_label"])) }
-        response = @model.activate
-        @model.reload
+        let(:model) { create(:comprehension_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => (["no_rule_for_label"])) }
+        response = model.activate
+        model.reload
         expect(false).to(eq(response))
-        expect(AutomlModel::STATE_INACTIVE).to(eq(@model.state))
+        expect(AutomlModel::STATE_INACTIVE).to(eq(model.state))
       end
 
       it 'should not change state of anything if activate fails' do
-        @rule1.update(:state => (Rule::STATE_ACTIVE))
-        @rule2.update(:state => (Rule::STATE_ACTIVE))
-        let(:old_model) { create(:comprehension_automl_model, :prompt => (@prompt), :state => (AutomlModel::STATE_ACTIVE), :labels => ([@label1, @label2])) }
-        let(:new_model) { create(:comprehension_automl_model, :prompt => (@prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => (["no_rule_for_label"])) }
-        response = @new_model.activate
+        rule1.update(:state => (Rule::STATE_ACTIVE))
+        rule2.update(:state => (Rule::STATE_ACTIVE))
+        let(:old_model) { create(:comprehension_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_ACTIVE), :labels => ([label1, label2])) }
+        let(:new_model) { create(:comprehension_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => (["no_rule_for_label"])) }
+        response = new_model.activate
         expect(false).to(eq(response))
-        @old_model.reload
-        @rule1.reload
-        @rule2.reload
-        expect(@old_model.active?).to(eq(true))
-        expect(Rule::STATE_ACTIVE).to(eq(@rule1.state))
-        expect(Rule::STATE_ACTIVE).to(eq(@rule2.state))
+        old_model.reload
+        rule1.reload
+        rule2.reload
+        expect(old_model.active?).to(eq(true))
+        expect(Rule::STATE_ACTIVE).to(eq(rule1.state))
+        expect(Rule::STATE_ACTIVE).to(eq(rule2.state))
       end
 
       it 'should return self and be valid with state active if this item is already the active model' do
-        let(:model) { create(:comprehension_automl_model, :prompt => (@prompt), :state => (AutomlModel::STATE_ACTIVE), :labels => ([@label1, @label2])) }
-        expect(@model.valid?).to(eq(true))
-        expect(AutomlModel::STATE_ACTIVE).to(eq(@model.state))
-        result = @model.activate
-        expect(@model.valid?).to(eq(true))
-        expect(AutomlModel::STATE_ACTIVE).to(eq(@model.state))
-        expect(@model).to(eq(result))
+        let(:model) { create(:comprehension_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_ACTIVE), :labels => ([label1, label2])) }
+        expect(model.valid?).to(eq(true))
+        expect(AutomlModel::STATE_ACTIVE).to(eq(model.state))
+        result = model.activate
+        expect(model.valid?).to(eq(true))
+        expect(AutomlModel::STATE_ACTIVE).to(eq(model.state))
+        expect(model).to(eq(result))
       end
     end
 
@@ -293,12 +293,12 @@ module Comprehension
       before { let(:first_model) { create(:comprehension_automl_model) } }
 
       it 'should be 0 if there are no previous models for the prompt' do
-        expect(0).to(eq(@first_model.older_models))
+        expect(0).to(eq(first_model.older_models))
       end
 
       it 'should be 1 if there is a single previous model for the prompt' do
-        second_model = create(:comprehension_automl_model, :prompt => @first_model.prompt)
-        expect(0).to(eq(@first_model.older_models))
+        second_model = create(:comprehension_automl_model, :prompt => first_model.prompt)
+        expect(0).to(eq(first_model.older_models))
         expect(1).to(eq(second_model.older_models))
       end
     end
