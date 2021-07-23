@@ -2,14 +2,14 @@ require("rails_helper")
 module Comprehension
   RSpec.describe(RegexRule, :type => :model) do
     context("relationships") { it { should belong_to(:rule)} }
-    context("validations") do
+    context 'should validations' do
       it { should validate_presence_of(:rule) }
       it { should validate_presence_of(:regex_text) }
       it { should validate_length_of(:regex_text).is_at_most(200) }
       it { should validate_inclusion_of(:case_sensitive).in_array(RegexRule::CASE_SENSITIVE_ALLOWED_VALUES) }
       it { should validate_inclusion_of(:sequence_type).in_array(RegexRule::SEQUENCE_TYPES) }
     end
-    context("custom validations") do
+    context 'should custom validations' do
       before do
         @rule = create(:comprehension_rule)
         @regex_rule = RegexRule.create(:rule => (@rule), :regex_text => "test regex")
@@ -27,7 +27,7 @@ module Comprehension
         expect(@regex_rule.valid?).to(eq(false))
       end
     end
-    context("entry_failing?") do
+    context 'should entry_failing?' do
       before do
         @rule = create(:comprehension_rule)
         @regex_rule = RegexRule.create(:rule => (@rule), :regex_text => "^test", :sequence_type => "required", :case_sensitive => false)
@@ -48,7 +48,7 @@ module Comprehension
         expect(@regex_rule.entry_failing?("TEST REGEX").to_s).to eq ''
       end
     end
-    context("incorrect_sequence?") do
+    context 'should incorrect_sequence?' do
       it 'should be true if regex rule is incorrect sequence_type' do
         incorrect_rule = create(:comprehension_regex_rule, :sequence_type => "incorrect")
         expect(incorrect_rule.incorrect_sequence?).to(eq(true))

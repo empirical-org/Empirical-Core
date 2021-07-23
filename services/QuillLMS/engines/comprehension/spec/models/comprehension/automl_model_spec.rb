@@ -1,14 +1,14 @@
 require("rails_helper")
 module Comprehension
   RSpec.describe(AutomlModel, :type => :model) do
-    context("validations") do
-      context("shoulda matchers") do
+    context 'should validations' do
+      context 'should shoulda matchers' do
         before { create(:comprehension_automl_model) }
         it { should validate_presence_of(:automl_model_id) }
         it { should validate_uniqueness_of(:automl_model_id) }
         it { should validate_presence_of(:name) }
       end
-      context("validate labels") do
+      context 'should validate labels' do
         it 'should not be valid if labels is not an array' do
           automl_model = build(:comprehension_automl_model)
           automl_model.labels = "not an array"
@@ -51,7 +51,7 @@ module Comprehension
         end
       end
 
-      context("#forbid_automl_model_id_change") do
+      context 'should #forbid_automl_model_id_change' do
         it 'should not allow automl_model_id to change after create' do
           original_id = "automl_id"
           automl_model = create(:comprehension_automl_model, :automl_model_id => original_id)
@@ -61,7 +61,7 @@ module Comprehension
           expect(original_id).to(eq(automl_model.automl_model_id))
         end
       end
-      context("#forbid_name_change") do
+      context 'should #forbid_name_change' do
         it 'should not allow name to change after create' do
           original_name = "name"
           automl_model = create(:comprehension_automl_model, :name => original_name)
@@ -71,7 +71,7 @@ module Comprehension
           expect(original_name).to(eq(automl_model.name))
         end
       end
-      context("#forbid_labels_change") do
+      context 'should #forbid_labels_change' do
         it 'should not allow labels to change after create' do
           original_labels = ["label1"]
           automl_model = create(:comprehension_automl_model, :labels => original_labels)
@@ -82,7 +82,7 @@ module Comprehension
         end
       end
     end
-    context("#labels_have_associated_rules?") do
+    context 'should #labels_have_associated_rules?' do
       before { @automl_model = create(:comprehension_automl_model) }
       it 'should be true if there are matching labels tied to the same prompt as the automl_model' do
         prompt = create(:comprehension_prompt)
@@ -98,13 +98,13 @@ module Comprehension
       end
     end
     context("relationships") { it { should belong_to(:prompt)} }
-    context("#serializable_hash") do
+    context 'should #serializable_hash' do
       it 'should serialize into the expected shape' do
         automl_model = create(:comprehension_automl_model)
         expect({ :id => automl_model.id, :automl_model_id => automl_model.automl_model_id, :name => automl_model.name, :labels => automl_model.labels, :state => automl_model.state, :created_at => automl_model.created_at, :prompt_id => automl_model.prompt_id, :older_models => automl_model.older_models, :notes => automl_model.notes }.stringify_keys).to(eq(automl_model.serializable_hash))
       end
     end
-    context("#populate_from_automl_model_id") do
+    context 'should #populate_from_automl_model_id' do
       it 'should set name, labels, and state when called' do
         automl_model_id = "Test-ID"
         name = "Test name"
@@ -122,7 +122,7 @@ module Comprehension
         end
       end
     end
-    context("#fetch_automl_label") do 
+    context 'should #fetch_automl_label' do 
       let(:automl_model) { create(:comprehension_automl_model) }
 
       it 'return the highest score label display_name' do
@@ -166,7 +166,7 @@ module Comprehension
       end
     end
 
-    context("#automl_model_full_id") do
+    context 'should #automl_model_full_id' do
       it 'should call model_path on the automl_client with specified values' do
         project_id = "PROJECT"
         location = "us-central1"
@@ -180,7 +180,7 @@ module Comprehension
         expect(model.send(:automl_model_full_id)).to eq "the_path"
       end
     end
-    context("#activate") do
+    context 'should #activate' do
       before do
         @prompt = create(:comprehension_prompt)
         @label1 = "label1"
@@ -248,7 +248,7 @@ module Comprehension
         expect(@model).to(eq(result))
       end
     end
-    context("#older_models") do
+    context 'should #older_models' do
       before { @first_model = create(:comprehension_automl_model) }
       it 'should be 0 if there are no previous models for the prompt' do
         expect(0).to(eq(@first_model.older_models))

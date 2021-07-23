@@ -2,7 +2,7 @@ require("rails_helper")
 require("webmock/minitest")
 module Comprehension
   RSpec.describe(SpellingCheck, :type => :model) do
-    context("#feedback_object") do
+    context 'should #feedback_object' do
       it 'should return appropriate feedback attributes if there is a spelling error' do
         stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=there%20is%20a%20spelin%20error%20here").to_return(:status => 200, :body => { :flaggedTokens => ([{ :token => "spelin" }]) }.to_json, :headers => ({}))
         entry = "there is a spelin error here"
@@ -36,7 +36,7 @@ module Comprehension
         expect(spelling_check.error).to(be_truthy)
       end
     end
-    context("#non_optimal_feedback_string") do
+    context 'should #non_optimal_feedback_string' do
       it 'should use the fallback feedback if there is no spelling Rule with feedback' do
         spelling_check = Comprehension::SpellingCheck.new("")
         expect(Comprehension::SpellingCheck::FALLBACK_INCORRECT_FEEDBACK).to(eq(spelling_check.non_optimal_feedback_string))

@@ -2,7 +2,7 @@ require("rails_helper")
 module Comprehension
   RSpec.describe(AutomlModelsController, :type => :controller) do
     before { @routes = Engine.routes }
-    context("index") do
+    context 'should index' do
       it 'should return successfully - no automl_model' do
         get(:index)
         parsed_response = JSON.parse(response.body)
@@ -10,7 +10,7 @@ module Comprehension
         expect(parsed_response.class).to(eq(Array))
         expect(parsed_response.empty?).to(eq(true))
       end
-      context("with automl_models") do
+      context 'should with automl_models' do
         before { @automl_model = create(:comprehension_automl_model) }
         it 'should return successfully' do
           get(:index)
@@ -26,7 +26,7 @@ module Comprehension
         end
       end
     end
-    context("create") do
+    context 'should create' do
       before { @automl_model = build(:comprehension_automl_model) }
       it 'should create a valid record and return it as json' do
         AutomlModel.stub_any_instance(:automl_name, @automl_model.name) do
@@ -66,7 +66,7 @@ module Comprehension
         expect(AutomlModel.count).to(eq(0))
       end
     end
-    context("show") do
+    context 'should show' do
       before { @automl_model = create(:comprehension_automl_model) }
       it 'should return json if found' do
         get(:show, :params => ({ :id => @automl_model.id }))
@@ -82,7 +82,7 @@ module Comprehension
         expect { get(:show, :params => ({ :id => 99999 })) }.to(raise_error(ActiveRecord::RecordNotFound))
       end
     end
-    context("update") do
+    context 'should update' do
       before { @automl_model = create(:comprehension_automl_model) }
       it 'should update record if valid' do
         @new_prompt = create(:comprehension_prompt)
@@ -102,7 +102,7 @@ module Comprehension
         expect(old_id).to(eq(@automl_model.automl_model_id))
       end
     end
-    context("activate") do
+    context 'should activate' do
       before { @automl_model = create(:comprehension_automl_model) }
       it 'should return an empty 200 response if activation is successful' do
         AutomlModel.stub_any_instance(:activate, true) do
@@ -120,7 +120,7 @@ module Comprehension
         end
       end
     end
-    context("destroy") do
+    context 'should destroy' do
       before { @automl_model = create(:comprehension_automl_model) }
       it 'should destroy record at id' do
         delete(:destroy, :params => ({ :id => @automl_model.id }))

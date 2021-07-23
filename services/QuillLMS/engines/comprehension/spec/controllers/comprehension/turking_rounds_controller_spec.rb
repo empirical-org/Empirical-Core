@@ -2,7 +2,7 @@ require("rails_helper")
 module Comprehension
   RSpec.describe(TurkingRoundsController, :type => :controller) do
     before { @routes = Engine.routes }
-    context("index") do
+    context 'should index' do
       it 'should return successfully - no turking_round' do
         get(:index)
         parsed_response = JSON.parse(response.body)
@@ -10,7 +10,7 @@ module Comprehension
         expect(parsed_response.class).to(eq(Array))
         expect(parsed_response.empty?).to(eq(true))
       end
-      context("with turking_rounds") do
+      context 'should with turking_rounds' do
         before { @turking_round = create(:comprehension_turking_round) }
         it 'should return successfully' do
           get(:index)
@@ -24,7 +24,7 @@ module Comprehension
         end
       end
     end
-    context("create") do
+    context 'should create' do
       before do
         @activity = create(:comprehension_activity)
         @turking_round = build(:comprehension_turking_round, :activity => (@activity))
@@ -47,7 +47,7 @@ module Comprehension
         expect(TurkingRound.count).to(eq(0))
       end
     end
-    context("show") do
+    context 'should show' do
       before { @turking_round = create(:comprehension_turking_round) }
       it 'should return json if found' do
         get(:show, :params => ({ :id => @turking_round.id }))
@@ -61,7 +61,7 @@ module Comprehension
         expect { get(:show, :params => ({ :id => 99999 })) }.to(raise_error(ActiveRecord::RecordNotFound))
       end
     end
-    context("update") do
+    context 'should update' do
       before { @turking_round = create(:comprehension_turking_round) }
       it 'should update record if valid, return nothing' do
         new_activity = create(:comprehension_activity)
@@ -82,7 +82,7 @@ module Comprehension
         expect(parsed_response["expires_at"].include?("can't be blank")).to(eq(true))
       end
     end
-    context("destroy") do
+    context 'should destroy' do
       before { @turking_round = create(:comprehension_turking_round) }
       it 'should destroy record at id' do
         delete(:destroy, :params => ({ :id => @turking_round.id }))

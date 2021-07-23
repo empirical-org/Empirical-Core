@@ -2,7 +2,7 @@ require("rails_helper")
 module Comprehension
   RSpec.describe(RulesController, :type => :controller) do
     before { @routes = Engine.routes }
-    context("index") do
+    context 'should index' do
       it 'should return successfully - no rule' do
         get(:index)
         parsed_response = JSON.parse(response.body)
@@ -10,7 +10,7 @@ module Comprehension
         expect(parsed_response.class).to(eq(Array))
         expect(parsed_response.empty?).to(eq(true))
       end
-      context("with rules") do
+      context 'should with rules' do
         before { @rule = create(:comprehension_rule) }
         it 'should return successfully' do
           get(:index)
@@ -29,7 +29,7 @@ module Comprehension
           expect(parsed_response.first["display_name"]).to(eq(@rule.display_name))
         end
       end
-      context("with filter params") do
+      context 'should with filter params' do
         before do
           @prompt1 = create(:comprehension_prompt)
           @prompt2 = create(:comprehension_prompt)
@@ -67,7 +67,7 @@ module Comprehension
         end
       end
     end
-    context("create") do
+    context 'should create' do
       before do
         @prompt = create(:comprehension_prompt)
         @rule = build(:comprehension_rule)
@@ -158,7 +158,7 @@ module Comprehension
         expect(RegexRule.count).to(eq(1))
       end
     end
-    context("show") do
+    context 'should show' do
       before { @rule = create(:comprehension_rule) }
       it 'should return json if found by id' do
         get(:show, :params => ({ :id => @rule.id }))
@@ -190,7 +190,7 @@ module Comprehension
         expect { get(:show, :params => ({ :id => 99999 })) }.to(raise_error(ActiveRecord::RecordNotFound))
       end
     end
-    context("update") do
+    context 'should update' do
       before do
         @prompt = create(:comprehension_prompt)
         @rule = create(:comprehension_rule, :prompt_ids => ([@prompt.id]))
@@ -258,7 +258,7 @@ module Comprehension
         expect(parsed_response["invalid_regex"][0].include?("end pattern with unmatched parenthesis")).to(eq(true))
       end
     end
-    context("destroy") do
+    context 'should destroy' do
       before { @rule = create(:comprehension_rule) }
       it 'should destroy record at id' do
         delete(:destroy, :params => ({ :id => @rule.id }))
@@ -268,7 +268,7 @@ module Comprehension
         expect(Rule.find_by_id(@rule.id)).to(be_nil)
       end
     end
-    context("update_rule_order") do
+    context 'should update_rule_order' do
       before do
         @rule1 = create(:comprehension_rule, :suborder => 100)
         @rule2 = create(:comprehension_rule, :suborder => 12)

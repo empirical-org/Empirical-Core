@@ -2,11 +2,11 @@ require("rails_helper")
 module Comprehension
   RSpec.describe(PlagiarismText, :type => :model) do
     context("relations") { it { should belong_to(:rule) } }
-    context("validations") do
+    context 'should validations' do
       it { should validate_presence_of(:rule) }
       it { should validate_presence_of(:text) }
     end
-    context("serializable_hash") do
+    context 'should serializable_hash' do
       before { @plagiarism_text = create(:comprehension_plagiarism_text) }
       it "fill out hash with all fields" do
         json_hash = @plagiarism_text.as_json

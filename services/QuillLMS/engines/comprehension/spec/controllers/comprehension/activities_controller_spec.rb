@@ -2,7 +2,7 @@ require("rails_helper")
 module Comprehension
   RSpec.describe(ActivitiesController, :type => :controller) do
     before { @routes = Engine.routes }
-    context("index") do
+    context 'should index' do
       it 'should return successfully - no activities' do
         get(:index)
         parsed_response = JSON.parse(response.body)
@@ -10,7 +10,7 @@ module Comprehension
         expect(parsed_response.class).to(eq(Array))
         expect(parsed_response.empty?).to(eq(true))
       end
-      context("with activities where one has an archived parent") do
+      context 'should with activities where one has an archived parent' do
         before do
           @archived_activity = Comprehension.parent_activity_class.create(:name => "Archived Activity", :flags => (["archived"]))
           @unarchived_activity = Comprehension.parent_activity_class.create(:name => "Unarchived Activity")
@@ -29,7 +29,7 @@ module Comprehension
           expect(parsed_response.first["parent_activity_id"]).to(eq(@unarchived_activity.id))
         end
       end
-      context("with actitivites") do
+      context 'should with actitivites' do
         before do
           @first_activity = create(:comprehension_activity, :title => "An Activity", :notes => "Notes 1", :target_level => 8)
           create(:comprehension_activity, :title => "The Activity", :notes => "Notes 2", :target_level => 5)
@@ -46,7 +46,7 @@ module Comprehension
         end
       end
     end
-    context("create") do
+    context 'should create' do
       before do
         @activity = build(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade", :notes => "First Activity - Notes")
         Comprehension.parent_activity_classification_class.create(:key => "comprehension")
@@ -95,7 +95,7 @@ module Comprehension
         expect(new_activity.present?).to(eq(true))
       end
     end
-    context("show") do
+    context 'should show' do
       before do
         @activity = create(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade")
         @passage = create(:comprehension_passage, :activity => (@activity), :text => ("Hello" * 20))
@@ -113,7 +113,7 @@ module Comprehension
         expect { get(:show, :params => ({ :id => 99999 })) }.to(raise_error(ActiveRecord::RecordNotFound))
       end
     end
-    context("update") do
+    context 'should update' do
       before do
         @activity = create(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade")
         @passage = create(:comprehension_passage, :activity => (@activity))
@@ -150,7 +150,7 @@ module Comprehension
         expect(parsed_response["target_level"].include?("must be less than or equal to 12")).to(eq(true))
       end
     end
-    context("destroy") do
+    context 'should destroy' do
       before do
         @activity = create(:comprehension_activity)
         @passage = create(:comprehension_passage, :activity => (@activity))
@@ -165,7 +165,7 @@ module Comprehension
         expect(Passage.find_by_id(@passage.id)).to(be_nil)
       end
     end
-    context("rules") do
+    context 'should rules' do
       before do
         @activity = create(:comprehension_activity)
         @prompt = create(:comprehension_prompt, :activity => (@activity))

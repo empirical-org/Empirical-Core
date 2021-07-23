@@ -8,14 +8,14 @@ module Comprehension
       @feedback = create(:comprehension_feedback, :rule => (@rule))
       @automl_model = create(:comprehension_automl_model, :prompt => (@prompt), :labels => ([@label.name]), :state => (Comprehension::AutomlModel::STATE_ACTIVE))
     end
-    context("#initialize") do
+    context 'should #initialize' do
       it 'should should have working accessor methods for all initialized fields' do
         automl_check = Comprehension::AutomlCheck.new("entry", @prompt)
         expect("entry").to(eq(automl_check.entry))
         expect(@prompt).to(eq(automl_check.prompt))
       end
     end
-    context("#feedback_object") do
+    context 'should #feedback_object' do
       it 'should return nil if there is no matched rule' do
         AutomlModel.stub_any_instance(:fetch_automl_label, "NOT#{@label.name}") do
           automl_check = Comprehension::AutomlCheck.new("entry", @prompt)

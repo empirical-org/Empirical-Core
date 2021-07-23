@@ -1,7 +1,7 @@
 require("rails_helper")
 module Comprehension
   RSpec.describe(TurkingRound, :type => :model) do
-    context("validations") do
+    context 'should validations' do
       before { create(:comprehension_turking_round) }
       it { should validate_presence_of(:activity_id) }
       it { should validate_presence_of(:expires_at) }

@@ -7,14 +7,14 @@ module Comprehension
       @regex_rule = create(:comprehension_regex_rule, :rule => (@rule), :regex_text => "^Test")
       @feedback = create(:comprehension_feedback, :rule => (@rule), :text => "This string begins with the word Test!")
     end
-    context("#initialize") do
+    context 'should #initialize' do
       it 'should should have working accessor methods for all initialized fields' do
         regex_check = Comprehension::RegexCheck.new("entry", @prompt, @rule.rule_type)
         expect("entry").to(eq(regex_check.entry))
         expect(@prompt).to(eq(regex_check.prompt))
       end
     end
-    context("#feedback_object") do
+    context 'should #feedback_object' do
       it 'should return optimal blank feedback when there is no regex match' do
         $redis.redis.flushdb
         optimal_rule = create(:comprehension_rule, :rule_type => "rules-based-1", :optimal => true)

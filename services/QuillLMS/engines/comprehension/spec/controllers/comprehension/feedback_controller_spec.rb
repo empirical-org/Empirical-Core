@@ -15,7 +15,7 @@ module Comprehension
       @first_feedback = create(:comprehension_feedback, :text => "here is our first feedback", :rule => (@rule), :order => 0)
       @second_feedback = create(:comprehension_feedback, :text => "here is our second feedback", :rule => (@rule), :order => 1)
     end
-    context("plagiarism") do
+    context 'should plagiarism' do
       it 'should return successfully' do
         post("plagiarism", :params => ({ :entry => "No plagiarism here.", :prompt_id => @prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
@@ -39,7 +39,7 @@ module Comprehension
         expect(@second_feedback.text).to(eq(parsed_response["feedback"]))
       end
     end
-    context("regex") do
+    context 'should regex' do
       it 'should return successfully' do
         post("regex", :params => ({ :rule_type => @rule_regex.rule_type, :entry => "no regex problems here.", :prompt_id => @prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
@@ -59,7 +59,7 @@ module Comprehension
         expect(false).to(eq(parsed_response["optimal"]))
       end
     end
-    context("#automl") do
+    context 'should #automl' do
       it 'should return 404 if prompt id does not exist' do
         post("automl", :params => ({ :entry => "some text", :prompt_id => (@prompt.id + 1000), :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         expect(404).to(eq(response.status))
@@ -79,7 +79,7 @@ module Comprehension
         end
       end
     end
-    context("#spelling") do
+    context 'should #spelling' do
       it 'should return correct spelling feedback when endpoint returns 200' do
         stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=test%20spelin%20error").to_return(:status => 200, :body => { :flaggedTokens => ([{ :token => "spelin" }]) }.to_json, :headers => ({}))
         post("spelling", :params => ({ :entry => "test spelin error", :prompt_id => @prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)

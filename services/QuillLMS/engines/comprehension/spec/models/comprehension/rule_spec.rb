@@ -1,7 +1,7 @@
 require("rails_helper")
 module Comprehension
   RSpec.describe(Rule, :type => :model) do
-    context("validations") do
+    context 'should validations' do
       subject { FactoryBot.build(:comprehension_rule) }
       it { should validate_uniqueness_of(:uid) }
       it { should validate_presence_of(:name) }
@@ -12,7 +12,7 @@ module Comprehension
       it { should validate_inclusion_of(:optimal).in_array(Rule::ALLOWED_BOOLEANS) }
       it { should validate_numericality_of(:suborder).only_integer.is_greater_than_or_equal_to(0).allow_nil }
     end
-    context("relationships") do
+    context 'should relationships' do
       it { should have_one(:label) }
       it { should have_one(:plagiarism_text) }
       it { should have_many(:feedbacks) }
@@ -20,8 +20,8 @@ module Comprehension
       it { should have_many(:prompts).through(:prompts_rules) }
       it { should have_many(:regex_rules).dependent(:destroy) }
     end
-    context("before_validation") do
-      context("assign_uid_if_missing") do
+    context 'should before_validation' do
+      context 'should assign_uid_if_missing' do
         it 'should keep existing uid if already set' do
           rule = build(:comprehension_rule)
           old_uid = rule.uid
@@ -35,7 +35,7 @@ module Comprehension
         end
       end
     end
-    context("serializable_hash") do
+    context 'should serializable_hash' do
       before do
         @rule_prompt = create(:comprehension_prompts_rule)
         @rule = @rule_prompt.rule
@@ -55,13 +55,13 @@ module Comprehension
         expect(@rule.prompt_ids).to(eq(json_hash["prompt_ids"]))
       end
     end
-    context("display_name") do
+    context 'should display_name' do
       it 'should correspond to the correct display name' do
         rule = create(:comprehension_rule, :rule_type => "rules-based-2")
         expect(rule.display_name).to(be_truthy)
       end
     end
-    context("#determine_feedback_from_history") do
+    context 'should #determine_feedback_from_history' do
       before do
         @rule = create(:comprehension_rule)
         @feedback1 = create(:comprehension_feedback, :rule => (@rule), :order => 0, :text => "Example feedback 1")
@@ -81,7 +81,7 @@ module Comprehension
         expect(@feedback3).to(eq(@rule.determine_feedback_from_history(feedback_history)))
       end
     end
-    context("regex_is_passing?") do
+    context 'should regex_is_passing?' do
       before do
         @rule = create(:comprehension_rule)
         @regex_rule = create(:comprehension_regex_rule, :rule => (@rule), :regex_text => "^Hello", :sequence_type => "incorrect")
@@ -126,7 +126,7 @@ module Comprehension
         expect((!required_rule.regex_is_passing?("YOU NEED THIS SEQUENCE AND I do not HAVE IT in the right casing"))).to(be_truthy)
       end
     end
-    context("one_plagiarism_per_prompt") do
+    context 'should one_plagiarism_per_prompt' do
       before do
         @prompt1 = create(:comprehension_prompt)
         @prompt2 = create(:comprehension_prompt)
@@ -148,8 +148,8 @@ module Comprehension
         expect(valid_automl_rule.valid?).to(eq(true))
       end
     end
-    context("#after_create") do
-      context("#assign_to_all_prompts") do
+    context 'should #after_create' do
+      context 'should #assign_to_all_prompts' do
         it 'should assign newly created rule to all prompts if the rule is universal' do
           prompt = create(:comprehension_prompt)
           rule = create(:comprehension_rule, :universal => true)

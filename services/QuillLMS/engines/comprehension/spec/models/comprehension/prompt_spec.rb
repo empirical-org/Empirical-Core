@@ -1,19 +1,19 @@
 require("rails_helper")
 module Comprehension
   RSpec.describe(Prompt, :type => :model) do
-    context("relations") do
+    context 'should relations' do
       it { should belong_to(:activity) }
       it { should have_many(:automl_models) }
       it { should have_many(:prompts_rules) }
       it { should have_many(:rules).through(:prompts_rules) }
     end
-    context("validations") do
+    context 'should validations' do
       it { should validate_presence_of(:activity) }
       it { should validate_inclusion_of(:max_attempts).in_array([3, 4, 5, 6]) }
       it { should validate_presence_of(:text) }
       it { should validate_presence_of(:conjunction) }
       it { should validate_inclusion_of(:conjunction).in_array(["because", "but", "so"]) }
-      context("#validate_prompt_length") do
+      context 'should #validate_prompt_length' do
         it 'should not allow a prompt to be created that is too short' do
           activity = create(:comprehension_activity)
           prompt = build(:comprehension_prompt, :conjunction => "but", :text => "too short", :max_attempts => 5, :activity_id => activity.id)
@@ -29,8 +29,8 @@ module Comprehension
         end
       end
     end
-    context("#after_create") do
-      context("#assign_universal_rules") do
+    context 'should #after_create' do
+      context 'should #assign_universal_rules' do
         it 'should assign all universal rules to new prompts' do
           rule1 = create(:comprehension_rule, :universal => true)
           rule2 = create(:comprehension_rule, :universal => true)

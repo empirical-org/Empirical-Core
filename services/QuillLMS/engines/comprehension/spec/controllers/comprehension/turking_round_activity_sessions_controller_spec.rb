@@ -2,7 +2,7 @@ require("rails_helper")
 module Comprehension
   RSpec.describe(TurkingRoundActivitySessionsController, :type => :controller) do
     before { @routes = Engine.routes }
-    context("index") do
+    context 'should index' do
       it 'should return successfully - no turking_round_activity_session' do
         get(:index)
         parsed_response = JSON.parse(response.body)
@@ -10,7 +10,7 @@ module Comprehension
         expect(parsed_response.class).to(eq(Array))
         expect(parsed_response.empty?).to(eq(true))
       end
-      context("with turking_round_activity_sessions") do
+      context 'should with turking_round_activity_sessions' do
         before do
           @turking_round_activity_session = create(:comprehension_turking_round_activity_session)
         end
@@ -23,7 +23,7 @@ module Comprehension
         end
       end
     end
-    context("create") do
+    context 'should create' do
       before do
         @turking_round_activity_session = build(:comprehension_turking_round_activity_session)
       end
@@ -42,7 +42,7 @@ module Comprehension
         expect(TurkingRoundActivitySession.count).to(eq(0))
       end
     end
-    context("show") do
+    context 'should show' do
       before do
         @turking_round_activity_session = create(:comprehension_turking_round_activity_session)
       end
@@ -55,7 +55,7 @@ module Comprehension
         expect { get(:show, :params => ({ :id => 99999 })) }.to(raise_error(ActiveRecord::RecordNotFound))
       end
     end
-    context("update") do
+    context 'should update' do
       before do
         @turking_round_activity_session = create(:comprehension_turking_round_activity_session)
       end
@@ -74,7 +74,7 @@ module Comprehension
         expect(parsed_response["activity_session_uid"].include?("can't be blank")).to(eq(true))
       end
     end
-    context("destroy") do
+    context 'should destroy' do
       before do
         @turking_round_activity_session = create(:comprehension_turking_round_activity_session)
       end
