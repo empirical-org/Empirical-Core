@@ -2,7 +2,7 @@ require 'rails_helper'
 
 module Comprehension
   RSpec.describe(AutomlModelsController, :type => :controller) do
-    before { routes = Engine.routes }
+    before { @routes = Engine.routes }
 
     context 'should index' do
 
