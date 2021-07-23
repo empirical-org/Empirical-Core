@@ -1,8 +1,7 @@
 module Comprehension
-  class Feedback < ActiveRecord::Base
+  class Feedback < ApplicationRecord
     include Comprehension::ChangeLog
-
-    MIN_FEEDBACK_LENGTH = 10
+    MIN_FEEDBACK_LENGTH = 10 
     MAX_FEEDBACK_LENGTH = 500
 
     belongs_to :rule, inverse_of: :feedbacks

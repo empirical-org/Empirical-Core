@@ -13,7 +13,7 @@
 #  index_user_subscriptions_on_subscription_id  (subscription_id)
 #  index_user_subscriptions_on_user_id          (user_id)
 #
-class UserSubscription < ActiveRecord::Base
+class UserSubscription < ApplicationRecord
   validates :user_id, :subscription_id, presence: true
   belongs_to :user
   belongs_to :subscription

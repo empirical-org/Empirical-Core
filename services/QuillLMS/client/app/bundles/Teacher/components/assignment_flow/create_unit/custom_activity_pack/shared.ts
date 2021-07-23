@@ -10,20 +10,26 @@ export const lowerBound = (currentPage: number): number => (currentPage - 1) * R
 
 export const upperBound = (currentPage: number): number => currentPage * RESULTS_PER_PAGE;
 
-export const activityClassificationGroupings = [
-  {
-    group: 'Independent Practice',
-    keys: ['connect', 'sentence', 'passage']
-  },
-  {
-    group: 'Whole Class Instruction',
-    keys: ['lessons']
-  },
-  {
-    group: 'Diagnostics',
-    keys: ['diagnostic']
+export const activityClassificationGroupings = (showComprehension: boolean) => {
+  let independentPracticeKeys = ['connect', 'sentence', 'passage']
+  if (showComprehension) {
+    independentPracticeKeys = independentPracticeKeys.concat(['comprehension'])
   }
-]
+  return ([
+    {
+      group: 'Independent Practice',
+      keys: independentPracticeKeys
+    },
+    {
+      group: 'Whole Class Instruction',
+      keys: ['lessons']
+    },
+    {
+      group: 'Diagnostics',
+      keys: ['diagnostic']
+    }
+  ])
+}
 
 export const getNumberFromString = (string) => {
   if (!string) { return null }

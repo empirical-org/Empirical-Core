@@ -29,7 +29,7 @@ describe ActivitiesController, type: :controller, redis: true do
         let!(:milestone) { create(:milestone, name: "View Lessons Tutorial", users: [student]) }
 
         it 'should redirect to the preview url' do
-          get :preview_lesson, lesson_id: activity.id
+          get :preview_lesson, params: { lesson_id: activity.id }
           expect(response).to redirect_to preview_url
         end
       end
@@ -38,7 +38,7 @@ describe ActivitiesController, type: :controller, redis: true do
         let!(:milestone) { create(:milestone, name: "View Lessons Tutorial", users: []) }
 
         it 'should redirect to the tutorials/lessons/preview url' do
-          get :preview_lesson, lesson_id: activity.id
+          get :preview_lesson, params: { lesson_id: activity.id }
           expect(response).to redirect_to tutorial_lesson_preview_url
         end
       end
@@ -51,7 +51,7 @@ describe ActivitiesController, type: :controller, redis: true do
       end
 
       it 'should redirect to preview url' do
-        get :preview_lesson, lesson_id: activity.id
+        get :preview_lesson, params: { lesson_id: activity.id }
         expect(response).to redirect_to preview_url
       end
     end
@@ -61,7 +61,7 @@ describe ActivitiesController, type: :controller, redis: true do
     let!(:activity) { create(:activity) }
 
     it 'should redirect to the correct url' do
-      get :customize_lesson, id: activity.id
+      get :customize_lesson, params: { id: activity.id }
       expect(response).to redirect_to "#{activity.classification_form_url}customize/#{activity.uid}"
     end
   end

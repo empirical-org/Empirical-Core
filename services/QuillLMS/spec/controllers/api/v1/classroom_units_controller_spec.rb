@@ -25,42 +25,26 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
   context '#student_names' do
     it 'does not authenticate a teacher who is not associated with the classroom activity' do
       session[:user_id] = other_teacher.id
-      get(:student_names,
-        activity_id: activity.uid,
-        classroom_unit_id: classroom_unit.id,
-        format: 'json'
-      )
+      get(:student_names, params: { activity_id: activity.uid, classroom_unit_id: classroom_unit.id, format: 'json' })
       expect(response.status).to be_in([303, 404])
     end
 
     it 'authenticates a teacher who is associated with the classroom activity classroom' do
       session[:user_id] = teacher.id
-      get(:student_names,
-        activity_id: activity.uid,
-        classroom_unit_id: classroom_unit.id,
-        format: 'json'
-      )
+      get(:student_names, params: { activity_id: activity.uid, classroom_unit_id: classroom_unit.id, format: 'json' })
       expect(response.status).not_to eq(303)
     end
 
     it 'returns JSON object with activity session name key values' do
       session[:user_id] = teacher.id
-      get(:student_names,
-        activity_id: activity.uid,
-        classroom_unit_id: classroom_unit.id,
-        format: 'json'
-      )
+      get(:student_names, params: { activity_id: activity.uid, classroom_unit_id: classroom_unit.id, format: 'json' })
       expect(JSON.parse(response.body)['activity_sessions_and_names'].keys.count)
         .to eq(5)
     end
 
     it 'returns JSON object with student id key values' do
       session[:user_id] = teacher.id
-      get(:student_names,
-        activity_id: activity.uid,
-        classroom_unit_id: classroom_unit.id,
-        format: 'json'
-      )
+      get(:student_names, params: { activity_id: activity.uid, classroom_unit_id: classroom_unit.id, format: 'json' })
       expect(JSON.parse(response.body)['student_ids'].keys.count).to eq(5)
     end
   end
@@ -68,28 +52,19 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
   context '#teacher_and_classroom_name' do
     it 'does not authenticate a teacher who is not associated with the classroom activity' do
       session[:user_id] = other_teacher.id
-      get(:teacher_and_classroom_name,
-        classroom_unit_id: classroom_unit.id,
-        format: 'json'
-      )
+      get(:teacher_and_classroom_name, params: { classroom_unit_id: classroom_unit.id, format: 'json' })
       expect(response.status).to be_in([303, 404])
     end
 
     it 'authenticates a teacher who is associated with the classroom activity classroom' do
       session[:user_id] = teacher.id
-      get(:teacher_and_classroom_name,
-        classroom_unit_id: classroom_unit.id,
-        format: 'json'
-      )
+      get(:teacher_and_classroom_name, params: { classroom_unit_id: classroom_unit.id, format: 'json' })
       expect(response.status).not_to eq(303)
     end
 
     it 'returns JSON object with activity session name key values' do
       session[:user_id] = teacher.id
-      get(:teacher_and_classroom_name,
-        classroom_unit_id: classroom_unit.id,
-        format: 'json'
-      )
+      get(:teacher_and_classroom_name, params: { classroom_unit_id: classroom_unit.id, format: 'json' })
       expect(JSON.parse(response.body))
         .to eq({"teacher"=>teacher.name, "classroom"=>classroom.name})
     end
@@ -101,13 +76,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
 
     it 'does not authenticate a teacher who does not own the classroom activity' do
       session[:user_id] = other_teacher.id
-      put(:finish_lesson,
-        activity_id: activity.uid,
-        classroom_unit_id: classroom_unit.id,
-        concept_results: [],
-        follow_up: true,
-        format: 'json'
-      )
+      put(:finish_lesson, params: { activity_id: activity.uid, classroom_unit_id: classroom_unit.id, concept_results: [], follow_up: true, format: 'json' })
       expect(response.status).to be_in([303, 404])
     end
 
@@ -180,11 +149,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
     end
 
     it 'should unpin and lock the state of classroom unit activity' do
-      put(:unpin_and_lock_activity,
-        activity_id: activity.uid,
-        classroom_unit_id: classroom_unit.id,
-        format: :json
-      )
+      put(:unpin_and_lock_activity, params: { activity_id: activity.uid, classroom_unit_id: classroom_unit.id, format: :json })
 
       expect(classroom_unit_activity_state.reload).to have_attributes(
         pinned: false,
@@ -201,10 +166,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
     end
 
     it 'should return the teacher ids in the classroom' do
-      get(:classroom_teacher_and_coteacher_ids,
-        format: :json,
-        classroom_unit_id: classroom_unit.id
-      )
+      get(:classroom_teacher_and_coteacher_ids, params: { format: :json, classroom_unit_id: classroom_unit.id })
       expect(response.body).to eq({ teacher_ids: teacher_ids }.to_json)
     end
   end

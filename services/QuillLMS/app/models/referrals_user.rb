@@ -15,7 +15,7 @@
 #  index_referrals_users_on_referred_user_id  (referred_user_id) UNIQUE
 #  index_referrals_users_on_user_id           (user_id)
 #
-class ReferralsUser < ActiveRecord::Base
+class ReferralsUser < ApplicationRecord
   belongs_to :user
   has_one :referred_user, class_name: 'User', foreign_key: :id, primary_key: :referred_user_id
 

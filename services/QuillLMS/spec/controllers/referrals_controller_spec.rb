@@ -11,8 +11,8 @@ RSpec.describe ReferralsController, type: :controller do
     inviting_teacher.update(email: 'current_user@quill.org')
     invitee_email = 'invitee@quill.org'
     session[:user_id] = inviting_teacher.id
-    post :invite, email: invitee_email
-    expect { post :invite, email: invitee_email }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    post :invite, params: { email: invitee_email }
+    expect { post :invite, params: { email: invitee_email } }.to change { ActionMailer::Base.deliveries.count }.by(1)
     expect(ActionMailer::Base.deliveries.last.subject).to eq("#{inviting_teacher.name} invites you to join Quill.org!")
     expect(ActionMailer::Base.deliveries.last.to).to eq([invitee_email])
   end

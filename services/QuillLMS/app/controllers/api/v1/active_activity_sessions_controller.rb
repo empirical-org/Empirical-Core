@@ -33,7 +33,10 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
   end
 
   private def valid_params
-    params.require(:active_activity_session).except(:uid)
+    params
+      .permit(active_activity_session: {})
+      .require(:active_activity_session)
+      .except(:uid)
   end
 
   private def activity_session_by_uid

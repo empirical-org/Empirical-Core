@@ -9,7 +9,7 @@
 #  created_at   :datetime
 #  updated_at   :datetime
 #
-class StudentFeedbackResponse < ActiveRecord::Base
+class StudentFeedbackResponse < ApplicationRecord
   validates_presence_of :question, :response
   validates :response, length: { maximum: 1000 }
 end

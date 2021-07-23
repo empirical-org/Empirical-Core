@@ -1,4 +1,4 @@
-class CreateComprehensionTurkingRoundActivitySessions < ActiveRecord::Migration
+class CreateComprehensionTurkingRoundActivitySessions < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_turking_round_activity_sessions do |t|
       t.integer :turking_round_id

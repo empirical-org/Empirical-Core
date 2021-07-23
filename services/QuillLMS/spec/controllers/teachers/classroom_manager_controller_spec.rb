@@ -14,7 +14,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'should assign the tab, grade, students, last_classroom_name and last_lassroom_id' do
-      get :lesson_planner, id: teacher.id, tab: "test tab", grade: "test grade"
+      get :lesson_planner, params: { id: teacher.id, tab: "test tab", grade: "test grade" }
       expect(assigns(:tab)).to eq "test tab"
       expect(assigns(:grade)).to eq "test grade"
       expect(assigns(:students)).to eq user.students.any?
@@ -30,7 +30,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'should assign the tab, grade, students, last_classroom_name and last_classroom_id' do
-      get :assign, tab: "test tab", grade: "test grade"
+      get :assign, params: { tab: "test tab", grade: "test grade" }
       expect(response.status).to eq(200)
     end
   end
@@ -50,7 +50,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
         end
 
         it 'should assign the tab, grade, students, last_classroom_name and last_classroom_id' do
-          get :assign, tab: "test tab", grade: "test grade"
+          get :assign, params: { tab: "test tab", grade: "test grade" }
           expect(assigns(:tab)).to eq "test tab"
           expect(assigns(:grade)).to eq "test grade"
           expect(assigns(:students)).to eq user.students.any?
@@ -61,7 +61,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
       context 'when user has classrooms i teach' do
         it 'should assign the tab, grade, students, last_classroom_name and last_classroom_id' do
-          get :assign, tab: "test tab", grade: "test grade"
+          get :assign, params: { tab: "test tab", grade: "test grade" }
           expect(assigns(:tab)).to eq "test tab"
           expect(assigns(:grade)).to eq "test grade"
           expect(assigns(:students)).to eq user.students.any?
@@ -135,12 +135,12 @@ describe Teachers::ClassroomManagerController, type: :controller do
         context 'on the /assign/diagnostic route' do
 
           it 'should create the Explore our library checkbox for the current user' do
-            get :assign, { tab: 'diagnostic' }
+            get :assign, params: { tab: 'diagnostic' }
             expect(Checkbox.find_by(objective_id: explore_our_library.id, user_id: user.id)).to be
           end
 
           it 'should create the Explore our diagnostics checkbox for the current user' do
-            get :assign, { tab: 'diagnostic' }
+            get :assign, params: { tab: 'diagnostic' }
             expect(Checkbox.find_by(objective_id: explore_our_diagnostics.id, user_id: user.id)).to be
           end
 
@@ -252,7 +252,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     context 'when classroom id is passed' do
       it 'should assign the classrooms and classroom' do
-        get :scorebook, classroom_id: classroom1.id
+        get :scorebook, params: { classroom_id: classroom1.id }
         expect(assigns(:classrooms)).to eq ([classroom, classroom1].as_json)
         expect(assigns(:classroom)).to eq (classroom1.as_json)
       end
@@ -356,7 +356,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'should assign the classroom and render the correct json' do
-      get :students_list, id: classroom.id, format: :json
+      get :students_list, params: { id: classroom.id, format: :json }
       expect(assigns(:classroom)).to eq classroom
       expect(response.body).to eq({
         students: classroom.students.order("substring(users.name, '(?=\s).*') asc, users.name asc"),
@@ -473,7 +473,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       create(:auth_credential, user: teacher)
 
       expect(GoogleStudentImporterWorker).to receive(:perform_async)
-      put :import_google_students, selected_classroom_ids: [1,2], format: :json
+      put :import_google_students, params: { selected_classroom_ids: [1,2], format: :json }
     end
   end
 
@@ -514,7 +514,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     it 'should return empty array with no classrooms' do
       expect(GoogleIntegration::Classroom::Creators::Classrooms).to receive(:run)
       classroom_json = [{id: 1}, {id: 2}].to_json
-      post :update_google_classrooms, selected_classrooms: classroom_json, format: :json
+      post :update_google_classrooms, params: { selected_classrooms: classroom_json, format: :json }
 
       expect(response.body).to eq({classrooms: []}.to_json)
    end
@@ -536,27 +536,27 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     it 'will call preview_student_id= if the student exists and is in one of the teachers classrooms' do
       expect(controller).to receive(:preview_student_id=).with(student1.id.to_s)
-      get :preview_as_student, student_id: student1.id
+      get :preview_as_student, params: { student_id: student1.id }
     end
 
     it 'will not call preview_student_id= if the student exists and is not in one of the teachers classrooms' do
       expect(controller).not_to receive(:preview_student_id=)
-      get :preview_as_student, student_id: student2.id
+      get :preview_as_student, params: { student_id: student2.id }
     end
 
     it 'will not call preview_student_id= if the student does not exist' do
       expect(controller).not_to receive(:preview_student_id=)
-      get :preview_as_student, student_id: 'random'
+      get :preview_as_student, params: { student_id: 'random' }
     end
 
     it 'will redirect to the profile path' do
-      get :preview_as_student, student_id: 'random'
+      get :preview_as_student, params: { student_id: 'random' }
       expect(response).to redirect_to profile_path
     end
 
     it 'will track event' do
       expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::VIEWED_AS_STUDENT)
-      get :preview_as_student, student_id: student1.id
+      get :preview_as_student, params: { student_id: student1.id }
     end
   end
 
@@ -569,7 +569,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     it 'will redirect to the redirect param if it exists' do
       redirect = '/teachers/classes'
-      get :unset_preview_as_student, redirect: redirect
+      get :unset_preview_as_student, params: { redirect: redirect }
       expect(response).to redirect_to redirect
     end
 

@@ -20,7 +20,7 @@ describe GradesController do
     before { allow(RawSqlRunner).to receive(:execute) { result } }
 
     it 'should render the correct json' do
-      get :tooltip, user_id: teacher.id, completed: true, classroom_unit_id: "", activity_id: ""
+      get :tooltip, params: { user_id: teacher.id, completed: true, classroom_unit_id: "", activity_id: "" }
       expect(response.body).to eq({concept_results: result, scores: result}.to_json)
     end
   end

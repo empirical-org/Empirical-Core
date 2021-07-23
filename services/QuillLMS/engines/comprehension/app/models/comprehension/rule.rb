@@ -1,5 +1,5 @@
 module Comprehension
-  class Rule < ActiveRecord::Base
+  class Rule < ApplicationRecord
     include Comprehension::ChangeLog
 
     attr_accessor :first_feedback

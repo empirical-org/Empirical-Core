@@ -14,7 +14,7 @@
 #
 #  index_sales_stage_types_on_name_and_order  (name,order) UNIQUE
 #
-class SalesStageType < ActiveRecord::Base
+class SalesStageType < ApplicationRecord
   validates :name, uniqueness: true
   validates :order, uniqueness: true
 

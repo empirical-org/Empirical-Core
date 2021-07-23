@@ -9,7 +9,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class StandardCategory < ActiveRecord::Base
+class StandardCategory < ApplicationRecord
   include Uid
   include ArchiveAssociatedStandards
 

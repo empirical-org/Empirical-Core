@@ -27,7 +27,7 @@
 require 'newrelic_rpm'
 require 'new_relic/agent'
 
-class Subscription < ActiveRecord::Base
+class Subscription < ApplicationRecord
   has_many :user_subscriptions
   has_many :users, through: :user_subscriptions
   has_many :school_subscriptions

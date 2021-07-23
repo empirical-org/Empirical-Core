@@ -7,7 +7,8 @@ FactoryBot.define do
     factory :classroom_unit_with_activity_sessions do
       after(:create) do |cu|
         unit_activity = create(:unit_activity, unit: cu.unit)
-        create_list(:activity_session, 2, classroom_unit_id: cu.id, activity: unit_activity.activity)
+        create(:activity_session, percentage: 19, classroom_unit_id: cu.id, activity: unit_activity.activity)
+        create(:activity_session, percentage: 21, classroom_unit_id: cu.id, activity: unit_activity.activity)
       end
     end
 

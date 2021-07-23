@@ -17,7 +17,7 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class Notification < ActiveRecord::Base
+class Notification < ApplicationRecord
   belongs_to :user
 
   validates :text, presence: true, length: { maximum: 500 }

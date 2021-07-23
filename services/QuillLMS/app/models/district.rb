@@ -9,7 +9,7 @@
 #  updated_at :datetime
 #  clever_id  :string
 #
-class District < ActiveRecord::Base
+class District < ApplicationRecord
   
   has_and_belongs_to_many :users
 end

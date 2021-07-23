@@ -9,10 +9,10 @@ import DateTimePicker from 'react-datetime-picker';
 
 import { handlePageFilterClick, renderHeader } from "../../../helpers/comprehension";
 import { calculatePercentageForResponses } from "../../../helpers/comprehension/ruleHelpers";
-import { ActivityRouteProps, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityRouteProps, PromptInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchRuleFeedbackHistories } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
-import { DropdownInput, } from '../../../../Shared/index';
+import { DropdownInput, Input } from '../../../../Shared/index';
 import { RULES_ANALYSIS } from '../../../../../constants/comprehension';
 
 const DEFAULT_RULE_TYPE = 'All Rules'
@@ -76,11 +76,14 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
   const [totalResponsesByConjunction, setTotalResponsesByConjunction] = React.useState<number>(null);
+  const [turkSessionID, setTurkSessionID] = React.useState<string>(null);
+  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(null);
+  const [formattedRows, setFormattedRows] = React.useState<any[]>(null);
 
   const selectedConjunction = selectedPrompt ? selectedPrompt.conjunction : promptConjunction
   // cache rules data for updates
   const { data: ruleFeedbackHistory } = useQuery({
-    queryKey: [`rule-feedback-history-by-conjunction-${selectedConjunction}-and-activity-${activityId}`, activityId, selectedConjunction, startDateForQuery, endDateForQuery],
+    queryKey: [`rule-feedback-history-by-conjunction-${selectedConjunction}-and-activity-${activityId}`, activityId, selectedConjunction, startDateForQuery, endDateForQuery, turkSessionIDForQuery],
     queryFn: fetchRuleFeedbackHistories
   });
 
@@ -133,8 +136,41 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     }
   });
 
+  React.useEffect(() => {
+    if(selectedPrompt && ruleFeedbackHistory && ruleFeedbackHistory.ruleFeedbackHistories && ruleFeedbackHistory.ruleFeedbackHistories) {
+      const formattedRows = ruleFeedbackHistory.ruleFeedbackHistories.filter(rule => {
+        return selectedRuleType.value === DEFAULT_RULE_TYPE || rule.api_name === selectedRuleType.value
+      }).map(rule => {
+        const { rule_name, rule_uid, api_name, rule_order, note, total_responses, strong_responses, weak_responses, first_feedback, second_feedback, repeated_consecutive_responses, repeated_non_consecutive_responses } = rule;
+        const apiOrder = apiOrderLookup[api_name] || Object.keys(apiOrderLookup).length
+        return {
+          rule_uid,
+          className: apiOrder % 2 === 0 ? 'even' : 'odd',
+          apiOrder,
+          apiName: api_name,
+          ruleOrder: Number(rule_order),
+          rule: rule_name,
+          strongResponses: strong_responses,
+          weakResponses: weak_responses,
+          repeatedConsecutiveResponses: repeated_consecutive_responses,
+          repeatedNonConsecutiveResponses: repeated_non_consecutive_responses,
+          totalResponses: total_responses,
+          scoredResponses: strong_responses + weak_responses,
+          activityId,
+          note,
+          firstLayerFeedback: first_feedback,
+          secondLayerFeedback: second_feedback,
+          handleClick: () => window.open(`/cms/comprehension#/activities/${activityId}/rules-analysis/${selectedPrompt.conjunction}/rule/${rule_uid}/prompt/${selectedPrompt.id}`, '_blank')
+        }
+      }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
+      setFormattedRows(formattedRows);
+    }
+  }, [ruleFeedbackHistory])
+
+  function handleSetTurkSessionID(e: InputEvent){ setTurkSessionID(e.target.value) };
+
   function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, setStartDate, setEndDate, setShowError, setPageNumber: null, storageKey: RULES_ANALYSIS });
+    handlePageFilterClick({ startDate, endDate, turkSessionID, setStartDate, setEndDate, setShowError, setTurkSessionIDForQuery, setPageNumber: null, storageKey: RULES_ANALYSIS });
   }
 
   function setPromptBasedOnActivity() {
@@ -143,32 +179,6 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     const prompt = activityData.activity.prompts.find(prompt => prompt.conjunction === promptConjunction)
     setSelectedPrompt(prompt)
   }
-
-  const formattedRows = selectedPrompt && ruleFeedbackHistory && ruleFeedbackHistory.ruleFeedbackHistories && ruleFeedbackHistory.ruleFeedbackHistories.filter(rule => {
-    return selectedRuleType.value === DEFAULT_RULE_TYPE || rule.api_name === selectedRuleType.value
-  }).map(rule => {
-    const { rule_name, rule_uid, api_name, rule_order, note, total_responses, strong_responses, weak_responses, first_feedback, second_feedback, repeated_consecutive_responses, repeated_non_consecutive_responses } = rule;
-    const apiOrder = apiOrderLookup[api_name] || Object.keys(apiOrderLookup).length
-    return {
-      rule_uid,
-      className: apiOrder % 2 === 0 ? 'even' : 'odd',
-      apiOrder,
-      apiName: api_name,
-      ruleOrder: Number(rule_order),
-      rule: rule_name,
-      strongResponses: strong_responses,
-      weakResponses: weak_responses,
-      repeatedConsecutiveResponses: repeated_consecutive_responses,
-      repeatedNonConsecutiveResponses: repeated_non_consecutive_responses,
-      totalResponses: total_responses,
-      scoredResponses: strong_responses + weak_responses,
-      activityId,
-      note,
-      firstLayerFeedback: first_feedback,
-      secondLayerFeedback: second_feedback,
-      handleClick: () => window.open(`/cms/comprehension#/activities/${activityId}/rules-analysis/${selectedPrompt.conjunction}/rule/${rule_uid}/prompt/${selectedPrompt.id}`, '_blank')
-    }
-  }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
 
   /* eslint-disable react/display-name */
   const dataTableFields = [
@@ -366,12 +376,16 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
           onChange={onEndDateChange}
           value={endDate}
         />
+        <p className="date-picker-label">Turk Session ID (optional):</p>
+        <Input
+          className="turk-session-id-input"
+          handleChange={handleSetTurkSessionID}
+          label=""
+          value={turkSessionID}
+        />
         <button className="quill-button fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
         {showError && <p className="error-message">Start date is required.</p>}
       </div>
-      {/* <div className="error-container">
-        {showError && <p className="error-message">Start date is required.</p>}
-      </div> */}
       {selectedPrompt && formattedRows && (<ReactTable
         className="rules-analysis-table"
         columns={dataTableFields}

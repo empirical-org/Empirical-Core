@@ -9,7 +9,7 @@
 #  blog_post_id :integer
 #  user_id      :integer
 #
-class BlogPostUserRating < ActiveRecord::Base
+class BlogPostUserRating < ApplicationRecord
   belongs_to :user
   belongs_to :blog_post
 
