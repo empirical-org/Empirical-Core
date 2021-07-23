@@ -1,4 +1,5 @@
-require("rails_helper")
+require 'rails_helper'
+
 module Comprehension
   RSpec.describe(TurkingRoundsController, :type => :controller) do
     before { @routes = Engine.routes }

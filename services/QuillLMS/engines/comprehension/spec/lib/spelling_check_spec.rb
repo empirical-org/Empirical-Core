@@ -1,4 +1,5 @@
-require("rails_helper")
+require 'rails_helper'
+
 require("webmock/minitest")
 module Comprehension
   RSpec.describe(SpellingCheck, :type => :model) do

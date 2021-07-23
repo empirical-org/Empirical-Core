@@ -1,4 +1,5 @@
-require("rails_helper")
+require 'rails_helper'
+
 module Comprehension
   RSpec.describe(PlagiarismCheck, :type => :model) do
     before { @rule = create(:comprehension_rule, :rule_type => "plagiarism") }
