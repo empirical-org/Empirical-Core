@@ -436,7 +436,8 @@ module Comprehension
       end
 
       should "return change logs for that activity" do
-        post :create, params: { activity: {
+        post :create, params: {
+          activity: {
             parent_activity_id: @activity.parent_activity_id,
             scored_level: @activity.scored_level,
             target_level: @activity.target_level,

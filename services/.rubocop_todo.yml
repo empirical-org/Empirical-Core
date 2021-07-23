@@ -405,6 +405,8 @@ Metrics/BlockLength:
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
   Max: 700
+  Exclude:
+    - 'QuillLMS/engines/comprehension/test/controllers/comprehension/rules_controller_test.rb'
 
 # Offense count: 46
 Metrics/CyclomaticComplexity:
