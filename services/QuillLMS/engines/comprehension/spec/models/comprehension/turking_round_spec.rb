@@ -39,6 +39,8 @@ module Comprehension
       end
     end
 
-    context("relationships") { it { should belong_to(:activity)} }
+    context 'relationships' do
+      it { should belong_to(:activity) }
+    end
   end
 end

@@ -3,7 +3,9 @@ require 'rails_helper'
 module Comprehension
   RSpec.describe(Passage, :type => :model) do
 
-    context("relations") { it { should belong_to(:activity) } }
+    context 'relations' do
+      it { should belong_to(:activity) } 
+    end
 
     context 'should validations' do
 

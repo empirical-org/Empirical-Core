@@ -3,7 +3,9 @@ require 'rails_helper'
 module Comprehension
   RSpec.describe(RegexRule, :type => :model) do
 
-    context("relationships") { it { should belong_to(:rule)} }
+    context 'relationships' do
+      it { should belong_to(:rule) }
+    end
 
     context 'should validations' do
 

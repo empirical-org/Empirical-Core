@@ -121,7 +121,9 @@ module Comprehension
       end
     end
 
-    context("relationships") { it { should belong_to(:prompt)} }
+    context 'relationships' do
+      it { should belong_to(:prompt) }
+    end
 
     context 'should #serializable_hash' do
 

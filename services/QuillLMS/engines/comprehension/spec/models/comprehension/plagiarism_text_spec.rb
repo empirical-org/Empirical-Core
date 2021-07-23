@@ -3,7 +3,9 @@ require 'rails_helper'
 module Comprehension
   RSpec.describe(PlagiarismText, :type => :model) do
 
-    context("relations") { it { should belong_to(:rule) } }
+    context 'relations' do
+      it { should belong_to(:rule) }
+    end
 
     context 'should validations' do
 

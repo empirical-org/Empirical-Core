@@ -12,6 +12,8 @@ module Comprehension
       it { should validate_uniqueness_of(:activity_session_uid) }
     end
 
-    context("relationships") { it { should belong_to(:turking_round)} }
+    context 'relationships' do
+      it { should belong_to(:turking_round) }
+    end
   end
 end
