@@ -67,7 +67,7 @@ EmpiricalGrammar::Application.configure do
                                  scorebook/**/*
                                  sign_up_email.css
                                  )
-
+  config.assets.unknown_asset_fallback = true
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
