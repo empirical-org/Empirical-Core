@@ -52,6 +52,54 @@ module Comprehension
         expect(feedback[:rule_uid]).to(be_truthy)
         expect(feedback[:concept_uid]).to(be_truthy)
       end
+
+      context 'space normalization handling' do
+        let(:feedback) { "this is some standard plagiarism feedback" }
+
+        it 'should successfully highlight even when the user entry has multiple consecutive spaces but the passage does not' do
+          entry = "This phrase plagiarises from  the    passage even     though it  has a ton of spaces in it."
+          passage = "From the passage even though it has a ton of spaces."
+
+          plagiarism_check = Comprehension::PlagiarismCheck.new(entry, passage, feedback, rule)
+          feedback = plagiarism_check.feedback_object
+
+          expect(feedback[:highlight][0][:text]).to eq("from  the    passage even     though it  has a ton of spaces")
+          expect(feedback[:highlight][1][:text]).to eq("From the passage even though it has a ton of spaces")
+        end
+
+        it 'should successfully highlight even when the passage has multiple consecutive spaces but the user entry does not' do
+          entry = "This phrase plagiarises from the passage even though it has a ton of spaces in it."
+          passage = "From the  passage even    though it has   a ton of spaces."
+
+          plagiarism_check = Comprehension::PlagiarismCheck.new(entry, passage, feedback, rule)
+          feedback = plagiarism_check.feedback_object
+
+          expect(feedback[:highlight][0][:text]).to eq("from the passage even though it has a ton of spaces")
+          expect(feedback[:highlight][1][:text]).to eq("From the  passage even    though it has   a ton of spaces")
+        end
+
+        it 'should successfully highlight even when the user entry has isolated punctuation but the passage does not' do
+          entry = "This phrase plagiarises from - the  --  passage even -  -  though it , has a ton of spaces in it."
+          passage = "From the passage even though it has a ton of spaces."
+
+          plagiarism_check = Comprehension::PlagiarismCheck.new(entry, passage, feedback, rule)
+          feedback = plagiarism_check.feedback_object
+
+          expect(feedback[:highlight][0][:text]).to eq("from - the  --  passage even -  -  though it , has a ton of spaces")
+          expect(feedback[:highlight][1][:text]).to eq("From the passage even though it has a ton of spaces")
+        end
+
+        it 'should successfully highlight even when the passage has isolated punctuation but the user entry does not' do
+          entry = "This phrase plagiarises from the passage even though it has a ton of spaces in it."
+          passage = "From the - passage even - - - though it has --  a ton of spaces."
+
+          plagiarism_check = Comprehension::PlagiarismCheck.new(entry, passage, feedback, rule)
+          feedback = plagiarism_check.feedback_object
+
+          expect(feedback[:highlight][0][:text]).to eq("from the passage even though it has a ton of spaces")
+          expect(feedback[:highlight][1][:text]).to eq("From the - passage even - - - though it has --  a ton of spaces")
+        end
+      end
     end
   end
 end
