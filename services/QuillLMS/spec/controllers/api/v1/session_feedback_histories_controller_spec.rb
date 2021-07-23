@@ -141,7 +141,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve all sessions when filter_type is all' do
-          get :index, filter_type: "all"
+          get :index, params: { filter_type: "all" }
 
           parsed_response = JSON.parse(response.body)
 
@@ -153,7 +153,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only scored sessions when filter_type is scored' do
-          get :index, filter_type: "scored"
+          get :index, params: { filter_type: "scored" }
 
           parsed_response = JSON.parse(response.body)
 
@@ -164,7 +164,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only unscored sessions when filter_type is unscored' do
-          get :index, filter_type: "unscored"
+          get :index, params: { filter_type: "unscored" }
 
           parsed_response = JSON.parse(response.body)
 
@@ -174,7 +174,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only weak sessions when filter_type is weak' do
-          get :index, filter_type: "weak"
+          get :index, params: { filter_type: "weak" }
 
           parsed_response = JSON.parse(response.body)
 
@@ -184,7 +184,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only incomplete sessions when filter_type is incomplete' do
-          get :index, filter_type: "incomplete"
+          get :index, params: { filter_type: "incomplete" }
 
           parsed_response = JSON.parse(response.body)
 
@@ -202,7 +202,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
           feedback_history4 = create(:feedback_history, feedback_session_uid: activity_session.uid, prompt: but_prompt, optimal: true)
           feedback_history5 = create(:feedback_history, feedback_session_uid: activity_session.uid, prompt: so_prompt, optimal: true)
 
-          get :index, filter_type: "complete"
+          get :index, params: { filter_type: "complete" }
 
           parsed_response = JSON.parse(response.body)
 
