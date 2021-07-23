@@ -175,7 +175,7 @@ class FeedbackHistory < ApplicationRecord
       THEN true ELSE false END
     ) = #{complete}
     SQL
-end
+  end
 
   def self.apply_activity_session_filter(query, filter_type)
     case filter_type
