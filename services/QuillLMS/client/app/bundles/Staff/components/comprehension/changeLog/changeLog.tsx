@@ -13,32 +13,29 @@ import { sort } from '../../../../../modules/sortingMethods.js';
 import { fetchChangeLog, fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { DropdownInput, Spinner, } from '../../../../Shared/index';
 
-interface ChangeLogProps {
-
-}
-
 const ChangeLog = ({ history, match }) => {
   const { params } = match;
   const { activityId, } = params;
-  const SESSION_INDEX=1;
-  const initialStartDateString = window.sessionStorage.getItem(`${SESSION_INDEX}startDate`) || '';
-  const initialEndDateString = window.sessionStorage.getItem(`${SESSION_INDEX}endDate`) || '';
+  const initialStartDateString = '';
+  const initialEndDateString = '';
   const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
+  const DEFAULT_RULE = 'all'
+  const DEFAULT_PROMPT = 'all'
 
   const [searchInput, setSearchInput] = React.useState<string>('');
-  const [prompt, setPrompt] = React.useState<string>('all');
-  const [rule, setRule] = React.useState<string>('all');
+  const [prompt, setPrompt] = React.useState<string>(DEFAULT_PROMPT);
+  const [rule, setRule] = React.useState<string>(DEFAULT_RULE);
   const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
 
   const { data: changeLogData, status: status } = useQuery({
-    queryKey: [`activity-${activityId}`, activityId],
+    queryKey: [`change-log-${activityId}`, activityId],
     queryFn: fetchChangeLog
   });
 
   const { data: activityData } = useQuery({
-    queryKey: [``, activityId],
+    queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity
   });
 
@@ -58,8 +55,8 @@ const ChangeLog = ({ history, match }) => {
     <div id="prompt-dropdown">
       <p className="control" >
         <span className="select">
-          <select defaultValue='all' onChange={handlePromptChange}>
-            <option value="all">All Prompts</option>
+          <select defaultValue={DEFAULT_PROMPT} onChange={handlePromptChange}>
+            <option value={DEFAULT_PROMPT}>All Prompts</option>
             <option value="because">because</option>
             <option value="but">but</option>
             <option value="so">so</option>
@@ -103,20 +100,28 @@ const ChangeLog = ({ history, match }) => {
     }
   })
 
-  const filteredRows = formattedRows && formattedRows.filter(value => {
+  const filteredRowsBySearch = formattedRows && formattedRows.filter(value => {
     return (value.action.toLowerCase().includes(searchInput.toLowerCase()) ||
     (value.previousValue && value.previousValue.toLowerCase().includes(searchInput.toLowerCase())) ||
     (value.newValue && value.newValue.toLowerCase().includes(searchInput.toLowerCase())))
-  }).filter(value => {
-    return prompt === 'all' || value.conjunction === prompt
-  }).filter(value => {
-    return rule === 'all' || value.name === rule
-  }).filter(value => {
+  })
+
+  const filteredRowsByPrompt = formattedRows && filteredRowsBySearch.filter(value => {
+    return prompt === DEFAULT_PROMPT || value.conjunction === prompt
+  })
+
+  const filteredRowsByRule = formattedRows && filteredRowsByPrompt.filter(value => {
+    return rule === DEFAULT_RULE || value.name === rule
+  })
+
+  const filteredRowsByDatePicker = formattedRows && filteredRowsByRule.filter(value => {
     if (startDate == null && endDate == null) return true
     if (startDate == null) return Date.parse(value.dateTime) <= Date.parse(endDate.toString())
     if (endDate == null) return Date.parse(startDate.toString()) <= Date.parse(value.dateTime)
     return Date.parse(startDate.toString()) <= Date.parse(value.dateTime) && Date.parse(value.dateTime) <= Date.parse(endDate.toString())
   })
+
+  const filteredRows = formattedRows && filteredRowsByDatePicker
 
   const dataTableFields = [
     {
@@ -138,14 +143,14 @@ const ChangeLog = ({ history, match }) => {
       accessor: "name",
       key: "name",
       sortMethod: sort,
-      width: 160,
+      width: 251,
     },
     {
       Header: 'Prompt',
       accessor: "conjunction",
       key: "conjunction",
       sortMethod: sort,
-      width: 160,
+      width: 100,
     },
     {
       Header: 'Changed Attribute',
@@ -190,8 +195,8 @@ const ChangeLog = ({ history, match }) => {
       <div id="rule-dropdown">
         <p className="control">
           <span className="select">
-            <select defaultValue='all' id='rule-dropdown-select' onChange={handleRuleChange}>
-              <option value="all">All Rules</option>
+            <select defaultValue={DEFAULT_RULE} id='rule-dropdown-select' onChange={handleRuleChange}>
+              <option value={DEFAULT_RULE}>All Rules</option>
               {ruleOptions}
             </select>
           </span>
@@ -203,6 +208,7 @@ const ChangeLog = ({ history, match }) => {
   return(
     <div className="activity-stats-container">
       {renderHeader(activityData, 'Change Log')}
+      <a id="concept-uid-lookup" href="https://docs.google.com/spreadsheets/u/2/d/1i1BpgGWSYh_UCm6jrYBjtFMoeBlcd6CeCGMqI037oPY/edit#gid=0" rel="noopener noreferrer" target="_blank">Concept UID Lookup</a>
       <div id="change-log-selectors">
         <div id="top-selectors">
           <div id="change-log-dropdowns">
