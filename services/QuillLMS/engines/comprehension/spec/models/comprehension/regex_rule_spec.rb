@@ -32,28 +32,28 @@ module Comprehension
         @rule = create(:comprehension_rule)
         @regex_rule = RegexRule.create(:rule => (@rule), :regex_text => "^test", :sequence_type => "required", :case_sensitive => false)
       end
-      it("flag entry as failing if regex does not match and sequence type is required") do
+      it 'should flag entry as failing if regex does not match and sequence type is required' do
         expect(@regex_rule.entry_failing?("not test passing")).to(eq(true))
       end
-      it("flag entry as failing if regex matches and sequence type is incorrect") do
+      it 'should flag entry as failing if regex matches and sequence type is incorrect' do
         @regex_rule.update(:sequence_type => "incorrect")
         expect(@regex_rule.entry_failing?("test regex").to_s).to eq 'test'
       end
-      it("flag entry as failing case-insensitive if the regex_rule is case insensitive") do
+      it 'should flag entry as failing case-insensitive if the regex_rule is case insensitive' do
         @regex_rule.update(:sequence_type => "incorrect")
         expect(@regex_rule.entry_failing?("TEST REGEX").to_s).to eq 'TEST'
       end
-      it("not flag entry as failing if the regex_rule is case sensitive and the casing does not match") do
+      it 'should not flag entry as failing if the regex_rule is case sensitive and the casing does not match' do
         @regex_rule.update(:sequence_type => "incorrect", :case_sensitive => true)
         expect(@regex_rule.entry_failing?("TEST REGEX").to_s).to eq ''
       end
     end
     context("incorrect_sequence?") do
-      it("be true if regex rule is incorrect sequence_type") do
+      it 'should be true if regex rule is incorrect sequence_type' do
         incorrect_rule = create(:comprehension_regex_rule, :sequence_type => "incorrect")
         expect(incorrect_rule.incorrect_sequence?).to(eq(true))
       end
-      it("be false if regex rule is required sequence type") do
+      it 'should be false if regex rule is required sequence type' do
         required_rule = create(:comprehension_regex_rule, :sequence_type => "required")
         expect(required_rule.incorrect_sequence?).to(eq(false))
       end

@@ -9,22 +9,22 @@ module Comprehension
         it { should validate_presence_of(:name) }
       end
       context("validate labels") do
-        it("not be valid if labels is not an array") do
+        it 'should not be valid if labels is not an array' do
           automl_model = build(:comprehension_automl_model)
           automl_model.labels = "not an array"
           expect((!automl_model.valid?)).to(be_truthy)
         end
-        it("be valid if labels is an array") do
+        it 'should be valid if labels is an array' do
           automl_model = build(:comprehension_automl_model)
           automl_model.labels = ["is", "an", "array"]
           expect(automl_model.valid?).to(eq(true))
         end
-        it("not be valid if labels is empty") do
+        it 'should not be valid if labels is empty' do
           automl_model = build(:comprehension_automl_model)
           automl_model.labels = []
           expect((!automl_model.valid?)).to(be_truthy)
         end
-        it("be valid if labels has at least one item in it") do
+        it 'should be valid if labels has at least one item in it' do
           automl_model = build(:comprehension_automl_model)
           automl_model.labels = ["one item"]
           expect(automl_model.valid?).to(eq(true))
@@ -52,7 +52,7 @@ module Comprehension
       end
 
       context("#forbid_automl_model_id_change") do
-        it("not allow automl_model_id to change after create") do
+        it 'should not allow automl_model_id to change after create' do
           original_id = "automl_id"
           automl_model = create(:comprehension_automl_model, :automl_model_id => original_id)
           automl_model.automl_model_id = "some new value"
@@ -62,7 +62,7 @@ module Comprehension
         end
       end
       context("#forbid_name_change") do
-        it("not allow name to change after create") do
+        it 'should not allow name to change after create' do
           original_name = "name"
           automl_model = create(:comprehension_automl_model, :name => original_name)
           automl_model.name = "some new value"
@@ -72,7 +72,7 @@ module Comprehension
         end
       end
       context("#forbid_labels_change") do
-        it("not allow labels to change after create") do
+        it 'should not allow labels to change after create' do
           original_labels = ["label1"]
           automl_model = create(:comprehension_automl_model, :labels => original_labels)
           automl_model.labels = ["some new value"]
@@ -84,7 +84,7 @@ module Comprehension
     end
     context("#labels_have_associated_rules?") do
       before { @automl_model = create(:comprehension_automl_model) }
-      it("be true if there are matching labels tied to the same prompt as the automl_model") do
+      it 'should be true if there are matching labels tied to the same prompt as the automl_model' do
         prompt = create(:comprehension_prompt)
         rule = create(:comprehension_rule, :rule_type => (Rule::TYPE_AUTOML), :prompts => ([prompt]))
         label = create(:comprehension_label, :name => @automl_model.labels[0], :rule => rule)
@@ -92,20 +92,20 @@ module Comprehension
         expect(@automl_model.send(:prompt_labels)).to(be_truthy)
         expect(@automl_model.errors).to(be_truthy)
       end
-      it("be false if there are missing labels from the referenced prompt") do
+      it 'should be false if there are missing labels from the referenced prompt' do
         @automl_model.state = AutomlModel::STATE_ACTIVE
         expect((!@automl_model.valid?)).to(be_truthy)
       end
     end
     context("relationships") { it { should belong_to(:prompt)} }
     context("#serializable_hash") do
-      it("serialize into the expected shape") do
+      it 'should serialize into the expected shape' do
         automl_model = create(:comprehension_automl_model)
         expect({ :id => automl_model.id, :automl_model_id => automl_model.automl_model_id, :name => automl_model.name, :labels => automl_model.labels, :state => automl_model.state, :created_at => automl_model.created_at, :prompt_id => automl_model.prompt_id, :older_models => automl_model.older_models, :notes => automl_model.notes }.stringify_keys).to(eq(automl_model.serializable_hash))
       end
     end
     context("#populate_from_automl_model_id") do
-      it("set name, labels, and state when called") do
+      it 'should set name, labels, and state when called' do
         automl_model_id = "Test-ID"
         name = "Test name"
         labels = ["Test label"]
@@ -167,7 +167,7 @@ module Comprehension
     end
 
     context("#automl_model_full_id") do
-      it("call model_path on the automl_client with specified values") do
+      it 'should call model_path on the automl_client with specified values' do
         project_id = "PROJECT"
         location = "us-central1"
         model = create(:comprehension_automl_model)
@@ -193,7 +193,7 @@ module Comprehension
         create(:comprehension_label, :name => (@label2), :rule => (@rule2))
         create(:comprehension_label, :name => (@label3), :rule => (@rule3))
       end
-      it("set model and associated rules to state active if valid") do
+      it 'should set model and associated rules to state active if valid' do
         @model = create(:comprehension_automl_model, :prompt => (@prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => ([@label1, @label2]))
         @model.activate
         @rule1.reload
@@ -203,7 +203,7 @@ module Comprehension
         expect(Rule::STATE_ACTIVE).to(eq(@rule1.state))
         expect(Rule::STATE_ACTIVE).to(eq(@rule2.state))
       end
-      it("set previously active model and unassociated rules to state inactive") do
+      it 'should set previously active model and unassociated rules to state inactive' do
         @rule1.update(:state => (Rule::STATE_ACTIVE))
         @rule2.update(:state => (Rule::STATE_ACTIVE))
         @old_model = create(:comprehension_automl_model, :prompt => (@prompt), :state => (AutomlModel::STATE_ACTIVE), :labels => ([@label1, @label2]))
@@ -217,14 +217,14 @@ module Comprehension
         expect(Rule::STATE_INACTIVE).to(eq(@rule1.state))
         expect(Rule::STATE_ACTIVE).to(eq(@rule2.state))
       end
-      it("return false and not activate if the active state can not be validated because of labels without corresponding rules") do
+      it 'should return false and not activate if the active state can not be validated because of labels without corresponding rules' do
         @model = create(:comprehension_automl_model, :prompt => (@prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => (["no_rule_for_label"]))
         response = @model.activate
         @model.reload
         expect(false).to(eq(response))
         expect(AutomlModel::STATE_INACTIVE).to(eq(@model.state))
       end
-      it("not change state of anything if activate fails") do
+      it 'should not change state of anything if activate fails' do
         @rule1.update(:state => (Rule::STATE_ACTIVE))
         @rule2.update(:state => (Rule::STATE_ACTIVE))
         @old_model = create(:comprehension_automl_model, :prompt => (@prompt), :state => (AutomlModel::STATE_ACTIVE), :labels => ([@label1, @label2]))
@@ -238,7 +238,7 @@ module Comprehension
         expect(Rule::STATE_ACTIVE).to(eq(@rule1.state))
         expect(Rule::STATE_ACTIVE).to(eq(@rule2.state))
       end
-      it("return self and be valid with state active if this item is already the active model") do
+      it 'should return self and be valid with state active if this item is already the active model' do
         @model = create(:comprehension_automl_model, :prompt => (@prompt), :state => (AutomlModel::STATE_ACTIVE), :labels => ([@label1, @label2]))
         expect(@model.valid?).to(eq(true))
         expect(AutomlModel::STATE_ACTIVE).to(eq(@model.state))
@@ -250,10 +250,10 @@ module Comprehension
     end
     context("#older_models") do
       before { @first_model = create(:comprehension_automl_model) }
-      it("be 0 if there are no previous models for the prompt") do
+      it 'should be 0 if there are no previous models for the prompt' do
         expect(0).to(eq(@first_model.older_models))
       end
-      it("be 1 if there is a single previous model for the prompt") do
+      it 'should be 1 if there is a single previous model for the prompt' do
         second_model = create(:comprehension_automl_model, :prompt => @first_model.prompt)
         expect(0).to(eq(@first_model.older_models))
         expect(1).to(eq(second_model.older_models))

@@ -6,7 +6,7 @@ module Comprehension
       it { should validate_presence_of(:name) }
       it { should validate_presence_of(:rule) }
       it { should validate_uniqueness_of(:rule) }
-      it("not allow changes to name after creation") do
+      it 'should not allow changes to name after creation' do
         old_name = @label.name
         @label.name = "NEW_#{@old_name}"
         @label.save
@@ -14,7 +14,7 @@ module Comprehension
         expect(old_name).to(eq(@label.name))
       end
       context("#name_unique_for_prompt") do
-        it("not allow a label to be created if its name collides with another on the prompt") do
+        it 'should not allow a label to be created if its name collides with another on the prompt' do
           prompt = create(:comprehension_prompt)
           @label.rule.update(:prompts => ([prompt]))
           rule = create(:comprehension_rule, :prompts => ([prompt]))

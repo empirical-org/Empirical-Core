@@ -3,7 +3,7 @@ module Comprehension
   RSpec.describe(TurkingRoundActivitySessionsController, :type => :controller) do
     before { @routes = Engine.routes }
     context("index") do
-      it("return successfully - no turking_round_activity_session") do
+      it 'should return successfully - no turking_round_activity_session' do
         get(:index)
         parsed_response = JSON.parse(response.body)
         expect(response.status).to eq(200)
@@ -14,7 +14,7 @@ module Comprehension
         before do
           @turking_round_activity_session = create(:comprehension_turking_round_activity_session)
         end
-        it("return successfully") do
+        it 'should return successfully' do
           get(:index)
           parsed_response = JSON.parse(response.body)
           expect(response.status).to eq(200)
@@ -27,14 +27,14 @@ module Comprehension
       before do
         @turking_round_activity_session = build(:comprehension_turking_round_activity_session)
       end
-      it("create a valid record and return it as json") do
+      it 'should create a valid record and return it as json' do
         turking_round = create(:comprehension_turking_round)
         post(:create, :params => ({ :turking_round_activity_session => ({ :turking_round_id => turking_round.id, :activity_session_uid => SecureRandom.uuid }) }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         expect(TurkingRoundActivitySession.count).to(eq(1))
       end
-      it("not create an invalid record and return errors as json") do
+      it 'should not create an invalid record and return errors as json' do
         post(:create, :params => ({ :turking_round_activity_session => ({ :activity_session_uid => nil }) }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
@@ -46,12 +46,12 @@ module Comprehension
       before do
         @turking_round_activity_session = create(:comprehension_turking_round_activity_session)
       end
-      it("return json if found") do
+      it 'should return json if found' do
         get(:show, :params => ({ :id => @turking_round_activity_session.id }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(200))
       end
-      it("raise if not found (to be handled by parent app)") do
+      it 'should raise if not found (to be handled by parent app)' do
         expect { get(:show, :params => ({ :id => 99999 })) }.to(raise_error(ActiveRecord::RecordNotFound))
       end
     end
@@ -59,7 +59,7 @@ module Comprehension
       before do
         @turking_round_activity_session = create(:comprehension_turking_round_activity_session)
       end
-      it("update record if valid, return nothing") do
+      it 'should update record if valid, return nothing' do
         new_session_uid = SecureRandom.uuid
         patch(:update, :params => ({ :id => @turking_round_activity_session.id, :turking_round_activity_session => ({ :activity_session_uid => new_session_uid }) }))
         expect(response.body).to(eq(""))
@@ -67,7 +67,7 @@ module Comprehension
         @turking_round_activity_session.reload
         expect(new_session_uid).to(eq(@turking_round_activity_session.activity_session_uid))
       end
-      it("not update record and return errors as json") do
+      it 'should not update record and return errors as json' do
         patch(:update, :params => ({ :id => @turking_round_activity_session.id, :turking_round_activity_session => ({ :activity_session_uid => nil }) }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
@@ -78,7 +78,7 @@ module Comprehension
       before do
         @turking_round_activity_session = create(:comprehension_turking_round_activity_session)
       end
-      it("destroy record at id") do
+      it 'should destroy record at id' do
         delete(:destroy, :params => ({ :id => @turking_round_activity_session.id }))
         expect(response.body).to(eq(""))
         expect(response.code.to_i).to(eq(204))

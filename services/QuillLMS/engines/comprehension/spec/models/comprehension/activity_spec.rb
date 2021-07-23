@@ -21,7 +21,7 @@ module Comprehension
           create(:comprehension_activity, :parent_activity_id => parent_activity.id)
           @activity_with_same_parent = build(:comprehension_activity, :parent_activity_id => parent_activity.id)
         end
-        it("not be valid if not unique") do
+        it 'should not be valid if not unique' do
           expect(@activity_with_same_parent.valid?).to(eq(false))
           expect("has already been taken".in?(@activity_with_same_parent.errors.messages[:parent_activity_id])).to(eq(true))
         end
@@ -34,7 +34,7 @@ module Comprehension
         @passage = create(:comprehension_passage, :activity => (@activity), :text => ("Hello" * 20))
         @prompt = create(:comprehension_prompt, :activity => (@activity), :text => "it is good.", :conjunction => "because", :max_attempts_feedback => "good work!.")
       end
-      it("fill out hash with all fields") do
+      it 'should fill out hash with all fields' do
         json_hash = @activity.as_json
         expect(@activity.id).to(eq(json_hash["id"]))
         expect(@activity.parent_activity.id).to(eq(json_hash["parent_activity_id"]))
@@ -54,28 +54,28 @@ module Comprehension
       end
     end
     context("create parent activity") do
-      it("set the parent_activity_id to nil if passed in Activity does NOT exist") do
+      it 'should set the parent_activity_id to nil if passed in Activity does NOT exist' do
         @activity = create(:comprehension_activity, :parent_activity_id => 7)
         expect(@activity.parent_activity).to(be_nil)
       end
-      it("set the parent_activity_id if passed in Activity does exist") do
+      it 'should set the parent_activity_id if passed in Activity does exist' do
         @parent_activity = ::Activity.create(:name => "test name")
         @activity = create(:comprehension_activity, :parent_activity_id => @parent_activity.id)
         expect(@activity.parent_activity.id).to_not(be_nil)
       end
-      it("create a new LMS activity if the parent_activity_id is not present") do
+      it 'should create a new LMS activity if the parent_activity_id is not present' do
         @activity = create(:comprehension_activity, :parent_activity_id => nil)
         expect(@activity.parent_activity.id).to(be_truthy)
       end
     end
     context("dependent destroy") do
-      it("destroy dependent passages") do
+      it 'should destroy dependent passages' do
         @activity = create(:comprehension_activity)
         @passage = create(:comprehension_passage, :activity => (@activity))
         @activity.destroy
         expect(Passage.exists?(@passage.id)).to(eq(false))
       end
-      it("destroy dependent prompts") do
+      it 'should destroy dependent prompts' do
         @activity = create(:comprehension_activity)
         @prompt = create(:comprehension_prompt, :activity => (@activity))
         @activity.destroy
@@ -83,7 +83,7 @@ module Comprehension
       end
     end
     context("before_destroy") do
-      it("expire all associated Turking Rounds before destroy") do
+      it 'should expire all associated Turking Rounds before destroy' do
         @activity = create(:comprehension_activity)
         @turking_round = create(:comprehension_turking_round, :activity => (@activity))
         expect(@turking_round.expires_at > Time.zone.now).to be true

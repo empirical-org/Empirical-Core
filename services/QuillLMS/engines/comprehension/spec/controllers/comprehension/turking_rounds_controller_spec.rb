@@ -3,7 +3,7 @@ module Comprehension
   RSpec.describe(TurkingRoundsController, :type => :controller) do
     before { @routes = Engine.routes }
     context("index") do
-      it("return successfully - no turking_round") do
+      it 'should return successfully - no turking_round' do
         get(:index)
         parsed_response = JSON.parse(response.body)
         expect(response.status).to eq(200)
@@ -12,7 +12,7 @@ module Comprehension
       end
       context("with turking_rounds") do
         before { @turking_round = create(:comprehension_turking_round) }
-        it("return successfully") do
+        it 'should return successfully' do
           get(:index)
           parsed_response = JSON.parse(response.body)
           expect(response.status).to eq(200)
@@ -29,7 +29,7 @@ module Comprehension
         @activity = create(:comprehension_activity)
         @turking_round = build(:comprehension_turking_round, :activity => (@activity))
       end
-      it("create a valid record and return it as json") do
+      it 'should create a valid record and return it as json' do
         post(:create, :params => ({ :turking_round => ({ :activity_id => @activity.id, :uuid => @turking_round.uuid, :expires_at => @turking_round.expires_at.iso8601(3) }) }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
@@ -38,7 +38,7 @@ module Comprehension
         expect(parsed_response["expires_at"]).to(eq(@turking_round.expires_at.iso8601(3)))
         expect(TurkingRound.count).to(eq(1))
       end
-      it("not create an invalid record and return errors as json") do
+      it 'should not create an invalid record and return errors as json' do
         post(:create, :params => ({ :turking_round => ({ :activity_id => nil, :expires_at => nil }) }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
@@ -49,7 +49,7 @@ module Comprehension
     end
     context("show") do
       before { @turking_round = create(:comprehension_turking_round) }
-      it("return json if found") do
+      it 'should return json if found' do
         get(:show, :params => ({ :id => @turking_round.id }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(200))
@@ -57,13 +57,13 @@ module Comprehension
         expect(parsed_response["uuid"]).to(eq(@turking_round.uuid))
         expect(parsed_response["expires_at"]).to(eq(@turking_round.expires_at.iso8601(3)))
       end
-      it("raise if not found (to be handled by parent app)") do
+      it 'should raise if not found (to be handled by parent app)' do
         expect { get(:show, :params => ({ :id => 99999 })) }.to(raise_error(ActiveRecord::RecordNotFound))
       end
     end
     context("update") do
       before { @turking_round = create(:comprehension_turking_round) }
-      it("update record if valid, return nothing") do
+      it 'should update record if valid, return nothing' do
         new_activity = create(:comprehension_activity)
         new_datetime = DateTime.now.utc
         patch(:update, :params => ({ :id => @turking_round.id, :turking_round => ({ :activity_id => new_activity.id, :expires_at => new_datetime }) }))
@@ -73,7 +73,7 @@ module Comprehension
         expect(@turking_round.activity_id).to(eq(new_activity.id))
         expect(@turking_round.expires_at.to_s(:db)).to(eq(new_datetime.to_s(:db)))
       end
-      it("not update record and return errors as json") do
+      it 'should not update record and return errors as json' do
         patch(:update, :params => ({ :id => @turking_round.id, :turking_round => ({ :activity_id => nil, :uuid => nil, :expires_at => nil }) }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
@@ -84,7 +84,7 @@ module Comprehension
     end
     context("destroy") do
       before { @turking_round = create(:comprehension_turking_round) }
-      it("destroy record at id") do
+      it 'should destroy record at id' do
         delete(:destroy, :params => ({ :id => @turking_round.id }))
         expect(response.body).to(eq(""))
         expect(response.code.to_i).to(eq(204))
