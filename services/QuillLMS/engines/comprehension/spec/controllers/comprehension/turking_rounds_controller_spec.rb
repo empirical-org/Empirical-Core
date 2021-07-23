@@ -6,7 +6,7 @@ module Comprehension
       it("return successfully - no turking_round") do
         get(:index)
         parsed_response = JSON.parse(response.body)
-        assert_response(:success)
+        expect(response.status).to eq(200)
         expect(parsed_response.class).to(eq(Array))
         expect(parsed_response.empty?).to(eq(true))
       end
@@ -15,7 +15,7 @@ module Comprehension
         it("return successfully") do
           get(:index)
           parsed_response = JSON.parse(response.body)
-          assert_response(:success)
+          expect(response.status).to eq(200)
           expect(parsed_response.class).to(eq(Array))
           expect(parsed_response.empty?).to(eq(false))
           expect(parsed_response.first["activity_id"]).to(eq(@turking_round.activity.id))

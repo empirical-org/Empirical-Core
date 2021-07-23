@@ -6,7 +6,7 @@ module Comprehension
       it("return successfully - no automl_model") do
         get(:index)
         parsed_response = JSON.parse(response.body)
-        assert_response(:success)
+        expect(response.status).to eq(200)
         expect(parsed_response.class).to(eq(Array))
         expect(parsed_response.empty?).to(eq(true))
       end
@@ -15,7 +15,7 @@ module Comprehension
         it("return successfully") do
           get(:index)
           parsed_response = JSON.parse(response.body)
-          assert_response(:success)
+          expect(response.status).to eq(200)
           expect(parsed_response.class).to(eq(Array))
           expect(parsed_response.empty?).to(eq(false))
           expect(parsed_response.first["automl_model_id"]).to(eq(@automl_model.automl_model_id))

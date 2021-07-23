@@ -6,7 +6,7 @@ module Comprehension
       it("return successfully - no activities") do
         get(:index)
         parsed_response = JSON.parse(response.body)
-        assert_response(:success)
+        expect(response.status).to eq(200)
         expect(parsed_response.class).to(eq(Array))
         expect(parsed_response.empty?).to(eq(true))
       end
@@ -20,7 +20,7 @@ module Comprehension
         it("return with only the unarchived activity") do
           get(:index)
           parsed_response = JSON.parse(response.body)
-          assert_response(:success)
+          expect(response.status).to eq(200)
           expect(parsed_response.class).to(eq(Array))
           expect(parsed_response.empty?).to(eq(false))
           expect(1).to(eq(parsed_response.length))
@@ -37,7 +37,7 @@ module Comprehension
         it("return successfully") do
           get(:index)
           parsed_response = JSON.parse(response.body)
-          assert_response(:success)
+          expect(response.status).to eq(200)
           expect(parsed_response.class).to(eq(Array))
           expect(parsed_response.empty?).to(eq(false))
           expect(parsed_response.first["title"]).to(eq("An Activity"))

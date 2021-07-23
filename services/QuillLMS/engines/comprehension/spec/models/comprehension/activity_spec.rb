@@ -86,10 +86,10 @@ module Comprehension
       it("expire all associated Turking Rounds before destroy") do
         @activity = create(:comprehension_activity)
         @turking_round = create(:comprehension_turking_round, :activity => (@activity))
-        assert_operator(@turking_round.expires_at, :>, Time.zone.now)
+        expect(@turking_round.expires_at > Time.zone.now).to be true
         @activity.destroy
         @turking_round.reload
-        assert_operator(@turking_round.expires_at, :<, Time.zone.now)
+        expect(@turking_round.expires_at < Time.zone.now).to be true
       end
     end
   end
