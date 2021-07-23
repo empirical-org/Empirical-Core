@@ -15,9 +15,10 @@ module Comprehension
       end
 
       context 'should with activities where one has an archived parent' do
+        let(:archived_activity) { Comprehension.parent_activity_class.create(:name => "Archived Activity", :flags => (["archived"])) }
+        let(:unarchived_activity) { Comprehension.parent_activity_class.create(:name => "Unarchived Activity") }
+        
         before do
-          archived_activity = Comprehension.parent_activity_class.create(:name => "Archived Activity", :flags => (["archived"]))
-          unarchived_activity = Comprehension.parent_activity_class.create(:name => "Unarchived Activity")
           create(:comprehension_activity, :parent_activity_id => archived_activity.id, :title => "First Activity", :target_level => 8)
           create(:comprehension_activity, :parent_activity_id => unarchived_activity.id, :title => "Second Activity", :target_level => 5)
         end
@@ -36,8 +37,8 @@ module Comprehension
       end
 
       context 'should with actitivites' do
+        let!(:first_activity) { create(:comprehension_activity, :title => "An Activity", :notes => "Notes 1", :target_level => 8) }
         before do
-          let(:first_activity) { create(:comprehension_activity, :title => "An Activity", :notes => "Notes 1", :target_level => 8) }
           create(:comprehension_activity, :title => "The Activity", :notes => "Notes 2", :target_level => 5)
         end
 
@@ -55,8 +56,8 @@ module Comprehension
     end
 
     context 'should create' do
+      let!(:activity) { build(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade", :notes => "First Activity - Notes") }
       before do
-        let(:activity) { build(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade", :notes => "First Activity - Notes") }
         Comprehension.parent_activity_classification_class.create(:key => "comprehension")
       end
 
@@ -110,11 +111,9 @@ module Comprehension
     end
 
     context 'should show' do
-      before do
-        let(:activity) { create(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade") }
-        let(:passage) { create(:comprehension_passage, :activity => (activity), :text => ("Hello" * 20)) }
-        let(:prompt) { create(:comprehension_prompt, :activity => (activity), :text => "it is good.") }
-      end
+      let!(:activity) { create(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade") }
+      let!(:passage) { create(:comprehension_passage, :activity => (activity), :text => ("Hello" * 20)) }
+      let!(:prompt) { create(:comprehension_prompt, :activity => (activity), :text => "it is good.") }
 
       it 'should return json if found' do
         get(:show, :params => ({ :id => activity.id }))
@@ -131,11 +130,9 @@ module Comprehension
     end
 
     context 'should update' do
-      before do
-        let(:activity) { create(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade") }
-        let(:passage) { create(:comprehension_passage, :activity => (activity)) }
-        let(:prompt) { create(:comprehension_prompt, :activity => (activity)) }
-      end
+      let!(:activity) { create(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade") }
+      let!(:passage) { create(:comprehension_passage, :activity => (activity)) }
+      let!(:prompt) { create(:comprehension_prompt, :activity => (activity)) }
 
       it 'should update record if valid, return nothing' do
         put(:update, :params => ({ :id => activity.id, :activity => ({ :parent_activity_id => 2, :scored_level => "5th grade", :target_level => 9, :title => "New title" }) }))
@@ -173,10 +170,8 @@ module Comprehension
     end
 
     context 'should destroy' do
-      before do
-        let(:activity) { create(:comprehension_activity) }
-        let(:passage) { create(:comprehension_passage, :activity => (activity)) }
-      end
+      let!(:activity) { create(:comprehension_activity) }
+      let!(:passage) { create(:comprehension_passage, :activity => (activity)) }
 
       it 'should destroy record at id' do
         delete(:destroy, :params => ({ :id => activity.id }))
@@ -190,12 +185,10 @@ module Comprehension
     end
 
     context 'should rules' do
-      before do
-        let(:activity) { create(:comprehension_activity) }
-        let(:prompt) { create(:comprehension_prompt, :activity => (activity)) }
-        let(:rule) { create(:comprehension_rule, :prompts => ([prompt])) }
-        let(:passage) { create(:comprehension_passage, :activity => (activity)) }
-      end
+      let!(:activity) { create(:comprehension_activity) }
+      let!(:prompt) { create(:comprehension_prompt, :activity => (activity)) }
+      let!(:rule) { create(:comprehension_rule, :prompts => ([prompt])) }
+      let!(:passage) { create(:comprehension_passage, :activity => (activity)) }
 
       it 'should return rules' do
         get(:rules, :params => ({ :id => activity.id }))
