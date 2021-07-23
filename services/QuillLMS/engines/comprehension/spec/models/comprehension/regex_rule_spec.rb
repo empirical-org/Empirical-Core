@@ -23,17 +23,17 @@ module Comprehension
         @regex_rule = RegexRule.create(:rule => (@rule), :regex_text => "test regex")
       end
 
-      it("provide a default value for \"case_sensitive\"") do
+      it "provide a default value for \"case_sensitive\"" do
         expect(@regex_rule.case_sensitive).to(be_truthy)
       end
 
-      it("not override a \"case_sensitive\" with the default if one is provided") do
+      it "not override a \"case_sensitive\" with the default if one is provided" do
         rule = RegexRule.create(:rule => (@rule), :regex_text => "test regex", :case_sensitive => false)
         expect(rule.valid?).to(eq(true))
         expect(rule.case_sensitive).to(be_falsey)
       end
 
-      it("validate the presence of \"case_sensitive\"") do
+      it "validate the presence of \"case_sensitive\"" do
         @regex_rule.case_sensitive = nil
         expect(@regex_rule.valid?).to(eq(false))
       end
