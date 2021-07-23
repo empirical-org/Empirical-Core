@@ -2,7 +2,9 @@ require("rails_helper")
 module Comprehension
   RSpec.describe(PlagiarismCheck, :type => :model) do
     before { @rule = create(:comprehension_rule, :rule_type => "plagiarism") }
+
     context 'should #feedback_object' do
+
       it 'should return appropriate feedback attributes if there is plagiarism' do
         $redis.redis.flushdb
         entry = "these are s'',ome! r''esponse words to plagiarize and this is plagiarism"
@@ -19,6 +21,7 @@ module Comprehension
         expect(feedback[:highlight][0][:text]).to(be_truthy)
         expect(feedback[:highlight][1][:text]).to(be_truthy)
       end
+
       it 'should return appropriate feedback when there is no plagiarism' do
         entry = "these are some response words to plagiarize"
         passage = "it is always bad to plagiarize"
@@ -33,6 +36,7 @@ module Comprehension
         expect(feedback[:rule_uid]).to(be_truthy)
         expect(feedback[:concept_uid]).to(be_truthy)
       end
+
       it 'should not be plagiarized if the plagiarism word phrase is under the match minimum' do
         entry = "these are some response words to plagiarize"
         passage = "it is always bad to plagiarize"
