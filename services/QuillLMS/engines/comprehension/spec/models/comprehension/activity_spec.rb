@@ -31,7 +31,7 @@ module Comprehension
           ::ActivityClassification.create(:key => "comprehension")
           parent_activity = ::Activity.create
           create(:comprehension_activity, :parent_activity_id => parent_activity.id)
-          @activity_with_same_parent = build(:comprehension_activity, :parent_activity_id => parent_activity.id)
+          let(:activity_with_same_parent) { build(:comprehension_activity, :parent_activity_id => parent_activity.id) }
         end
 
         it 'should not be valid if not unique' do
@@ -44,9 +44,9 @@ module Comprehension
 
     context 'should serializable_hash' do
       before do
-        @activity = create(:comprehension_activity, :title => "First Activity", :notes => "First Activity - Notes", :target_level => 8, :scored_level => "4th grade")
-        @passage = create(:comprehension_passage, :activity => (@activity), :text => ("Hello" * 20))
-        @prompt = create(:comprehension_prompt, :activity => (@activity), :text => "it is good.", :conjunction => "because", :max_attempts_feedback => "good work!.")
+        let(:activity) { create(:comprehension_activity, :title => "First Activity", :notes => "First Activity - Notes", :target_level => 8, :scored_level => "4th grade") }
+        let(:passage) { create(:comprehension_passage, :activity => (@activity), :text => ("Hello" * 20)) }
+        let(:prompt) { create(:comprehension_prompt, :activity => (@activity), :text => "it is good.", :conjunction => "because", :max_attempts_feedback => "good work!.") }
       end
 
       it 'should fill out hash with all fields' do
@@ -72,18 +72,18 @@ module Comprehension
     context 'should create parent activity' do
 
       it 'should set the parent_activity_id to nil if passed in Activity does NOT exist' do
-        @activity = create(:comprehension_activity, :parent_activity_id => 7)
+        let(:activity) { create(:comprehension_activity, :parent_activity_id => 7) }
         expect(@activity.parent_activity).to(be_nil)
       end
 
       it 'should set the parent_activity_id if passed in Activity does exist' do
         @parent_activity = ::Activity.create(:name => "test name")
-        @activity = create(:comprehension_activity, :parent_activity_id => @parent_activity.id)
+        let(:activity) { create(:comprehension_activity, :parent_activity_id => @parent_activity.id) }
         expect(@activity.parent_activity.id).to_not(be_nil)
       end
 
       it 'should create a new LMS activity if the parent_activity_id is not present' do
-        @activity = create(:comprehension_activity, :parent_activity_id => nil)
+        let(:activity) { create(:comprehension_activity, :parent_activity_id => nil) }
         expect(@activity.parent_activity.id).to(be_truthy)
       end
     end
@@ -91,15 +91,15 @@ module Comprehension
     context 'should dependent destroy' do
 
       it 'should destroy dependent passages' do
-        @activity = create(:comprehension_activity)
-        @passage = create(:comprehension_passage, :activity => (@activity))
+        let(:activity) { create(:comprehension_activity) }
+        let(:passage) { create(:comprehension_passage, :activity => (@activity)) }
         @activity.destroy
         expect(Passage.exists?(@passage.id)).to(eq(false))
       end
 
       it 'should destroy dependent prompts' do
-        @activity = create(:comprehension_activity)
-        @prompt = create(:comprehension_prompt, :activity => (@activity))
+        let(:activity) { create(:comprehension_activity) }
+        let(:prompt) { create(:comprehension_prompt, :activity => (@activity)) }
         @activity.destroy
         expect(Prompt.exists?(@prompt.id)).to(eq(false))
       end
@@ -108,8 +108,8 @@ module Comprehension
     context 'should before_destroy' do
 
       it 'should expire all associated Turking Rounds before destroy' do
-        @activity = create(:comprehension_activity)
-        @turking_round = create(:comprehension_turking_round, :activity => (@activity))
+        let(:activity) { create(:comprehension_activity) }
+        let(:turking_round) { create(:comprehension_turking_round, :activity => (@activity)) }
         expect(@turking_round.expires_at > Time.zone.now).to be true
         @activity.destroy
         @turking_round.reload

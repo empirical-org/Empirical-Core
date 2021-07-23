@@ -16,7 +16,7 @@ module Comprehension
 
       context 'should with turking_round_activity_sessions' do
         before do
-          @turking_round_activity_session = create(:comprehension_turking_round_activity_session)
+          let(:turking_round_activity_session) { create(:comprehension_turking_round_activity_session) }
         end
 
         it 'should return successfully' do
@@ -31,7 +31,7 @@ module Comprehension
 
     context 'should create' do
       before do
-        @turking_round_activity_session = build(:comprehension_turking_round_activity_session)
+        let(:turking_round_activity_session) { build(:comprehension_turking_round_activity_session) }
       end
 
       it 'should create a valid record and return it as json' do
@@ -53,7 +53,7 @@ module Comprehension
 
     context 'should show' do
       before do
-        @turking_round_activity_session = create(:comprehension_turking_round_activity_session)
+        let(:turking_round_activity_session) { create(:comprehension_turking_round_activity_session) }
       end
 
       it 'should return json if found' do
@@ -69,7 +69,7 @@ module Comprehension
 
     context 'should update' do
       before do
-        @turking_round_activity_session = create(:comprehension_turking_round_activity_session)
+        let(:turking_round_activity_session) { create(:comprehension_turking_round_activity_session) }
       end
 
       it 'should update record if valid, return nothing' do
@@ -91,7 +91,7 @@ module Comprehension
 
     context 'should destroy' do
       before do
-        @turking_round_activity_session = create(:comprehension_turking_round_activity_session)
+        let(:turking_round_activity_session) { create(:comprehension_turking_round_activity_session) }
       end
 
       it 'should destroy record at id' do

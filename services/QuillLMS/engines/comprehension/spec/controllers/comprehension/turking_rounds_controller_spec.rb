@@ -15,7 +15,7 @@ module Comprehension
       end
 
       context 'should with turking_rounds' do
-        before { @turking_round = create(:comprehension_turking_round) }
+        before { let(:turking_round) { create(:comprehension_turking_round) } }
 
         it 'should return successfully' do
           get(:index)
@@ -32,8 +32,8 @@ module Comprehension
 
     context 'should create' do
       before do
-        @activity = create(:comprehension_activity)
-        @turking_round = build(:comprehension_turking_round, :activity => (@activity))
+        let(:activity) { create(:comprehension_activity) }
+        let(:turking_round) { build(:comprehension_turking_round, :activity => (@activity)) }
       end
 
       it 'should create a valid record and return it as json' do
@@ -57,7 +57,7 @@ module Comprehension
     end
 
     context 'should show' do
-      before { @turking_round = create(:comprehension_turking_round) }
+      before { let(:turking_round) { create(:comprehension_turking_round) } }
 
       it 'should return json if found' do
         get(:show, :params => ({ :id => @turking_round.id }))
@@ -74,7 +74,7 @@ module Comprehension
     end
 
     context 'should update' do
-      before { @turking_round = create(:comprehension_turking_round) }
+      before { let(:turking_round) { create(:comprehension_turking_round) } }
 
       it 'should update record if valid, return nothing' do
         new_activity = create(:comprehension_activity)
@@ -98,7 +98,7 @@ module Comprehension
     end
 
     context 'should destroy' do
-      before { @turking_round = create(:comprehension_turking_round) }
+      before { let(:turking_round) { create(:comprehension_turking_round) } }
 
       it 'should destroy record at id' do
         delete(:destroy, :params => ({ :id => @turking_round.id }))

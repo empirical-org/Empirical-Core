@@ -15,7 +15,7 @@ module Comprehension
     end
 
     context 'should serializable_hash' do
-      before { @plagiarism_text = create(:comprehension_plagiarism_text) }
+      before { let(:plagiarism_text) { create(:comprehension_plagiarism_text) } }
 
       it "fill out hash with all fields" do
         json_hash = @plagiarism_text.as_json

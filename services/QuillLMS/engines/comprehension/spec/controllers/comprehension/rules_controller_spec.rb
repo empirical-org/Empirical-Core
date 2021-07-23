@@ -15,7 +15,7 @@ module Comprehension
       end
 
       context 'should with rules' do
-        before { @rule = create(:comprehension_rule) }
+        before { let(:rule) { create(:comprehension_rule) } }
 
         it 'should return successfully' do
           get(:index)
@@ -37,13 +37,13 @@ module Comprehension
 
       context 'should with filter params' do
         before do
-          @prompt1 = create(:comprehension_prompt)
-          @prompt2 = create(:comprehension_prompt)
-          @rule1 = create(:comprehension_rule, :prompts => ([@prompt1]), :rule_type => (Rule::TYPE_AUTOML))
-          @rule2 = create(:comprehension_rule, :prompts => ([@prompt1]), :rule_type => (Rule::TYPE_GRAMMAR))
-          @rule3 = create(:comprehension_rule, :prompts => ([@prompt2]), :rule_type => (Rule::TYPE_AUTOML))
-          @rule4 = create(:comprehension_rule, :prompts => ([@prompt2]), :rule_type => (Rule::TYPE_GRAMMAR))
-          @rule5 = create(:comprehension_rule, :prompts => ([@prompt1, @prompt2]), :rule_type => (Rule::TYPE_REGEX_ONE))
+          let(:prompt1) { create(:comprehension_prompt) }
+          let(:prompt2) { create(:comprehension_prompt) }
+          let(:rule1) { create(:comprehension_rule, :prompts => ([@prompt1]), :rule_type => (Rule::TYPE_AUTOML)) }
+          let(:rule2) { create(:comprehension_rule, :prompts => ([@prompt1]), :rule_type => (Rule::TYPE_GRAMMAR)) }
+          let(:rule3) { create(:comprehension_rule, :prompts => ([@prompt2]), :rule_type => (Rule::TYPE_AUTOML)) }
+          let(:rule4) { create(:comprehension_rule, :prompts => ([@prompt2]), :rule_type => (Rule::TYPE_GRAMMAR)) }
+          let(:rule5) { create(:comprehension_rule, :prompts => ([@prompt1, @prompt2]), :rule_type => (Rule::TYPE_REGEX_ONE)) }
         end
 
         it 'should only get Rules for specified prompt when provided' do
@@ -80,8 +80,8 @@ module Comprehension
 
     context 'should create' do
       before do
-        @prompt = create(:comprehension_prompt)
-        @rule = build(:comprehension_rule)
+        let(:prompt) { create(:comprehension_prompt) }
+        let(:rule) { build(:comprehension_rule) }
       end
 
       it 'should create a valid record and return it as json' do
@@ -180,7 +180,7 @@ module Comprehension
     end
 
     context 'should show' do
-      before { @rule = create(:comprehension_rule) }
+      before { let(:rule) { create(:comprehension_rule) } }
 
       it 'should return json if found by id' do
         get(:show, :params => ({ :id => @rule.id }))
@@ -217,8 +217,8 @@ module Comprehension
 
     context 'should update' do
       before do
-        @prompt = create(:comprehension_prompt)
-        @rule = create(:comprehension_rule, :prompt_ids => ([@prompt.id]))
+        let(:prompt) { create(:comprehension_prompt) }
+        let(:rule) { create(:comprehension_rule, :prompt_ids => ([@prompt.id])) }
       end
 
       it 'should update record if valid, return nothing' do
@@ -293,7 +293,7 @@ module Comprehension
     end
 
     context 'should destroy' do
-      before { @rule = create(:comprehension_rule) }
+      before { let(:rule) { create(:comprehension_rule) } }
 
       it 'should destroy record at id' do
         delete(:destroy, :params => ({ :id => @rule.id }))
@@ -306,9 +306,9 @@ module Comprehension
 
     context 'should update_rule_order' do
       before do
-        @rule1 = create(:comprehension_rule, :suborder => 100)
-        @rule2 = create(:comprehension_rule, :suborder => 12)
-        @rule3 = create(:comprehension_rule, :suborder => 77)
+        let(:rule1) { create(:comprehension_rule, :suborder => 100) }
+        let(:rule2) { create(:comprehension_rule, :suborder => 12) }
+        let(:rule3) { create(:comprehension_rule, :suborder => 77) }
       end
 
       it 'should update the rules to have the suborders in the order of their ids' do

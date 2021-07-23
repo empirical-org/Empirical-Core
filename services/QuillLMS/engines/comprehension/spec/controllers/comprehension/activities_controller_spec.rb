@@ -37,7 +37,7 @@ module Comprehension
 
       context 'should with actitivites' do
         before do
-          @first_activity = create(:comprehension_activity, :title => "An Activity", :notes => "Notes 1", :target_level => 8)
+          let(:first_activity) { create(:comprehension_activity, :title => "An Activity", :notes => "Notes 1", :target_level => 8) }
           create(:comprehension_activity, :title => "The Activity", :notes => "Notes 2", :target_level => 5)
         end
 
@@ -56,7 +56,7 @@ module Comprehension
 
     context 'should create' do
       before do
-        @activity = build(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade", :notes => "First Activity - Notes")
+        let(:activity) { build(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade", :notes => "First Activity - Notes") }
         Comprehension.parent_activity_classification_class.create(:key => "comprehension")
       end
 
@@ -111,9 +111,9 @@ module Comprehension
 
     context 'should show' do
       before do
-        @activity = create(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade")
-        @passage = create(:comprehension_passage, :activity => (@activity), :text => ("Hello" * 20))
-        @prompt = create(:comprehension_prompt, :activity => (@activity), :text => "it is good.")
+        let(:activity) { create(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade") }
+        let(:passage) { create(:comprehension_passage, :activity => (@activity), :text => ("Hello" * 20)) }
+        let(:prompt) { create(:comprehension_prompt, :activity => (@activity), :text => "it is good.") }
       end
 
       it 'should return json if found' do
@@ -132,9 +132,9 @@ module Comprehension
 
     context 'should update' do
       before do
-        @activity = create(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade")
-        @passage = create(:comprehension_passage, :activity => (@activity))
-        @prompt = create(:comprehension_prompt, :activity => (@activity))
+        let(:activity) { create(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade") }
+        let(:passage) { create(:comprehension_passage, :activity => (@activity)) }
+        let(:prompt) { create(:comprehension_prompt, :activity => (@activity)) }
       end
 
       it 'should update record if valid, return nothing' do
@@ -174,8 +174,8 @@ module Comprehension
 
     context 'should destroy' do
       before do
-        @activity = create(:comprehension_activity)
-        @passage = create(:comprehension_passage, :activity => (@activity))
+        let(:activity) { create(:comprehension_activity) }
+        let(:passage) { create(:comprehension_passage, :activity => (@activity)) }
       end
 
       it 'should destroy record at id' do
@@ -191,10 +191,10 @@ module Comprehension
 
     context 'should rules' do
       before do
-        @activity = create(:comprehension_activity)
-        @prompt = create(:comprehension_prompt, :activity => (@activity))
-        @rule = create(:comprehension_rule, :prompts => ([@prompt]))
-        @passage = create(:comprehension_passage, :activity => (@activity))
+        let(:activity) { create(:comprehension_activity) }
+        let(:prompt) { create(:comprehension_prompt, :activity => (@activity)) }
+        let(:rule) { create(:comprehension_rule, :prompts => ([@prompt])) }
+        let(:passage) { create(:comprehension_passage, :activity => (@activity)) }
       end
 
       it 'should return rules' do
