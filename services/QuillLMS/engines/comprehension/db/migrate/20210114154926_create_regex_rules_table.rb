@@ -1,4 +1,4 @@
-class CreateRegexRulesTable < ActiveRecord::Migration
+class CreateRegexRulesTable < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_regex_rules do |t|
       t.integer :rule_set_id, null: false

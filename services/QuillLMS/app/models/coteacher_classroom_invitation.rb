@@ -14,7 +14,7 @@
 #  index_coteacher_classroom_invitations_on_classroom_id   (classroom_id)
 #  index_coteacher_classroom_invitations_on_invitation_id  (invitation_id)
 #
-class CoteacherClassroomInvitation < ActiveRecord::Base
+class CoteacherClassroomInvitation < ApplicationRecord
   belongs_to :invitation
   belongs_to :classroom
 
@@ -45,7 +45,7 @@ class CoteacherClassroomInvitation < ActiveRecord::Base
       SQL
     ).to_a
 
-    return false if classrooms_teachers.any?
+    throw(:abort) if classrooms_teachers.any?
   end
 
   private def trigger_analytics

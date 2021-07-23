@@ -1,5 +1,5 @@
 module Comprehension
-  class Passage < ActiveRecord::Base
+  class Passage < ApplicationRecord
     include Comprehension::ChangeLog
 
     MIN_TEXT_LENGTH = 50

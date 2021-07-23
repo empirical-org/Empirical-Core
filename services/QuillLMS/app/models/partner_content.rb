@@ -15,7 +15,7 @@
 #  index_partner_contents_on_content_type_and_content_id  (content_type,content_id)
 #  index_partner_contents_on_partner                      (partner)
 #
-class PartnerContent < ActiveRecord::Base
+class PartnerContent < ApplicationRecord
   PARTNERS = [
     AMPLIFY = 'amplify'
   ]

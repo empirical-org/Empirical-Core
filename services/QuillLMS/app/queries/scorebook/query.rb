@@ -68,12 +68,12 @@ class Scorebook::Query
 
   def self.units(unit_id)
     if unit_id && !unit_id.blank?
-      ["JOIN units ON cu.unit_id = units.id", "AND units.id = #{ActiveRecord::Base.sanitize(unit_id)}"]
+      ["JOIN units ON cu.unit_id = units.id", "AND units.id = #{ActiveRecord::Base.connection.quote(unit_id)}"]
     end
   end
 
   def self.sanitize_date(date)
-    return ActiveRecord::Base.sanitize(date) if date && !date.blank?
+    return ActiveRecord::Base.connection.quote(date) if date && !date.blank?
   end
 
   def self.date_conditional_string(begin_date, end_date, offset)

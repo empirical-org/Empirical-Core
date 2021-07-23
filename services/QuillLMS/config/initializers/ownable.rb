@@ -1,2 +1,1 @@
-ActiveRecord::Base.include Owner
-
+ApplicationRecord.include(Owner)

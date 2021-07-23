@@ -56,7 +56,13 @@ module Comprehension
       should "create a valid record and return it as json" do
         AutomlModel.stub_any_instance(:automl_name, @automl_model.name) do
           AutomlModel.stub_any_instance(:automl_labels, @automl_model.labels) do
-            post :create, automl_model: { prompt_id: @automl_model.prompt_id, automl_model_id: @automl_model.automl_model_id }
+            post :create,
+              params: {
+                automl_model: {
+                  prompt_id: @automl_model.prompt_id,
+                  automl_model_id: @automl_model.automl_model_id
+                }
+              }
           end
         end
 
@@ -80,7 +86,14 @@ module Comprehension
       should "create new records with state = inactive no matter what is passed in" do
         AutomlModel.stub_any_instance(:automl_name, @automl_model.name) do
           AutomlModel.stub_any_instance(:automl_labels, @automl_model.labels) do
-            post :create, automl_model: { prompt_id: @automl_model.prompt_id, automl_model_id: @automl_model.automl_model_id, state: AutomlModel::STATE_ACTIVE }
+            post :create,
+              params: {
+                automl_model: {
+                  prompt_id: @automl_model.prompt_id,
+                  automl_model_id: @automl_model.automl_model_id,
+                  state: AutomlModel::STATE_ACTIVE
+                }
+              }
           end
         end
 
@@ -94,7 +107,13 @@ module Comprehension
       should "not create an invalid record and return errors as json" do
         AutomlModel.stub_any_instance(:automl_name, @automl_model.name) do
           AutomlModel.stub_any_instance(:automl_labels, @automl_model.labels) do
-            post :create, automl_model: { prompt_id: @automl_model.prompt_id, automl_model_id: '' }
+            post :create,
+              params: {
+                automl_model: {
+                  prompt_id: @automl_model.prompt_id,
+                  automl_model_id: ''
+                }
+              }
           end
         end
 
@@ -128,7 +147,7 @@ module Comprehension
       end
 
       should "return json if found" do
-        get :show, id: @automl_model.id
+        get :show, params: { id: @automl_model.id }
 
         parsed_response = JSON.parse(response.body)
 
@@ -148,7 +167,7 @@ module Comprehension
 
       should "raise if not found (to be handled by parent app)" do
         assert_raises ActiveRecord::RecordNotFound do
-          get :show, id: 99999
+          get :show, params: { id: 99999 }
         end
       end
     end
@@ -162,7 +181,13 @@ module Comprehension
         # NOTE: Only prompt_id is available to change during an update call
         @new_prompt = create(:comprehension_prompt)
         new_prompt_id = @new_prompt_id
-        patch :update, id: @automl_model.id, automl_model: { prompt_id: new_prompt_id }
+        patch :update,
+          params: {
+            id: @automl_model.id,
+            automl_model: {
+              prompt_id: new_prompt_id
+            }
+          }
 
         assert_equal 200, response.code.to_i
         assert_equal JSON.parse(response.body)['id'], @automl_model.id
@@ -174,7 +199,15 @@ module Comprehension
 
       should "not update read-only attributes return 200" do
         old_id = @automl_model.automl_model_id
-        patch :update, id: @automl_model.id, automl_model: { automl_model_id: 'anything', name: 'anything', labels: ['anything'] }
+        patch :update,
+          params: {
+            id: @automl_model.id,
+            automl_model: {
+              automl_model_id: 'anything',
+              name: 'anything',
+              labels: ['anything']
+            }
+          }
 
         assert_equal 200, response.code.to_i
         assert_equal JSON.parse(response.body)['id'], @automl_model.id
@@ -192,7 +225,7 @@ module Comprehension
 
       should 'return an empty 200 response if activation is successful' do
         AutomlModel.stub_any_instance(:activate, true) do
-          patch :activate, id: @automl_model.id
+          patch :activate, params: { id: @automl_model.id }
 
           assert_equal "", response.body
           assert_equal 204, response.code.to_i
@@ -201,7 +234,7 @@ module Comprehension
 
       should 'return a 422 with the unmodified object if activation fails' do
         AutomlModel.stub_any_instance(:activate, false) do
-          patch :activate, id: @automl_model.id
+          patch :activate, params: { id: @automl_model.id }
 
           parsed_response = JSON.parse(response.body)
 
@@ -234,7 +267,7 @@ module Comprehension
       end
 
       should "destroy record at id" do
-        delete :destroy, id: @automl_model.id
+        delete :destroy, params: { id: @automl_model.id }
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i

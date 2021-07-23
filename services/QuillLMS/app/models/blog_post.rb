@@ -33,7 +33,7 @@
 #  index_blog_posts_on_topic       (topic)
 #  tsv_idx                         (tsv) USING gin
 #
-class BlogPost < ActiveRecord::Base
+class BlogPost < ApplicationRecord
   GETTING_STARTED = "Getting started"
   TEACHER_STORIES = "Teacher stories"
   WRITING_INSTRUCTION_RESEARCH = "Writing instruction research"
@@ -145,7 +145,7 @@ class BlogPost < ActiveRecord::Base
       <<-SQL
         SELECT slug
         FROM blog_posts
-        WHERE slug ~* CONCAT(#{ActiveRecord::Base.sanitize(slug)}, '-\\d$')
+        WHERE slug ~* CONCAT(#{ActiveRecord::Base.connection.quote(slug)}, '-\\d$')
       SQL
     ).values.flatten
 

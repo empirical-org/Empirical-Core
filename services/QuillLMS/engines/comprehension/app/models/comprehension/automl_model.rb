@@ -2,7 +2,7 @@ require "google/cloud/automl"
 
 
 module Comprehension
-  class AutomlModel < ActiveRecord::Base
+  class AutomlModel < ApplicationRecord
     include Comprehension::ChangeLog
     MIN_LABELS_LENGTH = 1
     STATES = [

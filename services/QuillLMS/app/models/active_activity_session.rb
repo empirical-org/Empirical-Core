@@ -12,7 +12,7 @@
 #
 #  index_active_activity_sessions_on_uid  (uid) UNIQUE
 #
-class ActiveActivitySession < ActiveRecord::Base
+class ActiveActivitySession < ApplicationRecord
   validates :data, presence: true
   validates :uid, presence: true, uniqueness: true
   validate :data_must_be_hash

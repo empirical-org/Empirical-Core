@@ -82,7 +82,7 @@ class Teachers::ClassroomsController < ApplicationController
   def destroy
     authorize_owner! { params[:id] }
     Classroom.find(params[:id]).destroy
-    # we need a performed? check here to avoid a double render, since 
+    # we need a performed? check here to avoid a double render, since
     # authorize_owner can trigger a render, which is an anti-pattern
     # more info: https://medium.com/cedarcode/abstractcontroller-doublerendererror-fix-d18881b80476
     redirect_to teachers_classrooms_path unless performed?
@@ -125,7 +125,7 @@ class Teachers::ClassroomsController < ApplicationController
     @classroom = Classroom.find(params[:id])
     if @classroom.students.empty?
       flash[:info] = 'You can print a sheet with student logins once you add students.'
-      return redirect_to :back
+      redirect_back(fallback_location: dashboard_teachers_classrooms_path)
     end
     respond_to do |format|
       format.pdf do
@@ -173,7 +173,9 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   private def format_classrooms_for_index
-    classrooms = Classroom.unscoped.order(created_at: :desc).joins(:classrooms_teachers).where(classrooms_teachers: {user_id: current_user.id})
+    has_classroom_order = ClassroomsTeacher.where(user_id: current_user.id).all? { |classroom| classroom.order }
+    classrooms = Classroom.unscoped.joins(:classrooms_teachers).where(classrooms_teachers: {user_id: current_user.id})
+    classrooms = has_classroom_order ? classrooms.includes(:classrooms_teachers).order('classrooms_teachers.order') : classrooms.order(created_at: :desc)
     classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
       classroom_obj[:students] = format_students_for_classroom(classroom)
@@ -225,7 +227,18 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   private def create_students_params
-    params.permit(:classroom_id, :students => [:name, :username, :password, :account_type], :classroom => classroom_params)
+    params
+      .permit(
+        :classroom_id,
+        classroom: classroom_params,
+        students: [
+          :name,
+          :username,
+          :password,
+          :account_type
+        ]
+      )
+      .to_h
   end
 
   private def classroom_params

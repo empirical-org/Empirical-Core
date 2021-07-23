@@ -117,170 +117,6 @@
     }
   }
 
-  .classroom {
-    border-radius: 6px;
-    border: solid 1px #e0e0e0;
-    background-color: #ffffff;
-    margin-bottom: 24px;
-    h3 {
-      font-size: 16px;
-      font-weight: bold;
-      margin-bottom: 24px;
-    }
-    .classroom-card-header, .students-section, .teacher-section {
-      padding: 32px;
-    }
-    .classroom-card-header {
-      height: 122px;
-      justify-content: space-between;
-      align-items: center;
-      display: flex;
-      flex-direction: row;
-      cursor: pointer;
-    }
-    .classroom-data {
-      margin-top: 4px;
-      .item {
-        line-height: 1.57;
-        color: #646464;
-        margin-right: 8px;
-        .text-and-icon-wrapper {
-          display: inline-flex;
-          align-items: center;
-        }
-        &.bullet {
-          color: #bdbdbd;
-        }
-      }
-      .quill-tooltip b {
-        text-decoration: underline;
-      }
-    }
-    .class-settings, .students-section {
-      border-bottom: 1px solid #e0e0e0;
-    }
-    .class-settings {
-      padding: 0px 32px 32px;
-      &.coteacher-class-settings {
-        h3 {
-          margin-bottom: 8px;
-        }
-        .coteacher-note {
-          line-height: 1.57;
-          color: #646464;
-          margin-bottom: 24px;
-        }
-      }
-    }
-    .class-settings-buttons {
-      display: flex;
-      .quill-button {
-        margin-right: 16px;
-      }
-    }
-    .invite-google-classroom-students, .invite-clever-students {
-      display: flex;
-      flex-direction: column;
-      span {
-        font-weight: 600;
-        line-height: 1;
-        color: #7f7f7f;
-        font-size: 12px;
-      }
-    }
-    .invite-google-classroom-students {
-      align-items: flex-end;
-      margin-bottom: 20px;
-      span {
-        margin-top: 8px;
-      }
-      .quill-button {
-        width: 255px;
-      }
-    }
-    .invite-quill-classroom-students {
-      margin-bottom: 40px;
-      .quill-button {
-        width: 128px;
-      }
-    }
-    .invite-clever-students {
-      margin-bottom: 38px;
-      p {
-        font-size: 14px;
-        line-height: 1.57;
-        color: #000;
-      }
-      span {
-        margin-top: 4px;
-      }
-    }
-    .no-students {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 58px;
-      p {
-        font-size: 14px;
-        line-height: 1.57;
-        margin-top: 24px;
-        color: #646464;
-        max-width: 528px;
-        text-align: center;
-      }
-    }
-    .students-section-header, .teacher-section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-    .teacher-section-header {
-      margin-bottom: 26px;
-      .quill-button {
-        width: 148px;
-      }
-    }
-    .students-section-header.with-students {
-      display: flex;
-      flex-direction: column;
-      align-items:flex-start;
-      .students-section-header-buttons {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        min-height: 76px;
-        div {
-          display: flex;
-          .quill-button {
-            margin-right: 16px;
-          }
-        }
-      }
-    }
-    .student-actions-dropdown {
-      width: 200px;
-      height: 91px;
-      justify-content: flex-start;
-      .dropdown {
-        font-size: 16px;
-      }
-      .dropdown__menu-list {
-        padding: 8px 0px;
-        .dropdown__option {
-          height: 48px;
-          padding: 0px 12px;
-          display: flex;
-          align-items: center;
-        }
-      }
-    }
-    &.open {
-      .expand-arrow {
-        transform: rotate(180deg);
-      }
-    }
-  }
-
   .quill-snackbar {
     z-index: 5;
   }
@@ -406,5 +242,202 @@
 
   .data-table-headers, .data-table-row {
     min-width: min-content;
+  }
+}
+
+.list-item {
+  display: flex;
+  align-items: baseline;
+  width: 992px;
+  margin-left: -38px;
+  h2 {
+    font-weight: bold;
+    font-size: 24px;
+  }
+  .reorder-classroom-item {
+    margin-right: 16px;
+  }
+}
+
+.classroom {
+  width: 100%;
+  border-radius: 6px;
+  border: solid 1px #e0e0e0;
+  background-color: #ffffff;
+  margin-bottom: 24px;
+  h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 24px;
+  }
+  .classroom-card-header, .students-section, .teacher-section {
+    padding: 32px;
+  }
+  .classroom-card-header {
+    height: 122px;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+  }
+  .classroom-data {
+    margin-top: 4px;
+    .item {
+      line-height: 1.57;
+      color: #646464;
+      margin-right: 8px;
+      .text-and-icon-wrapper {
+        display: inline-flex;
+        align-items: center;
+      }
+      &.bullet {
+        color: #bdbdbd;
+      }
+    }
+    .quill-tooltip b {
+      text-decoration: underline;
+    }
+  }
+  .class-settings, .students-section {
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .class-settings {
+    padding: 0px 32px 32px;
+    &.coteacher-class-settings {
+      h3 {
+        margin-bottom: 8px;
+      }
+      .coteacher-note {
+        line-height: 1.57;
+        color: #646464;
+        margin-bottom: 24px;
+      }
+    }
+  }
+  .class-settings-buttons {
+    display: flex;
+    .quill-button {
+      margin-right: 16px;
+    }
+  }
+  .invite-google-classroom-students, .invite-clever-students {
+    display: flex;
+    flex-direction: column;
+    span {
+      font-weight: 600;
+      line-height: 1;
+      color: #7f7f7f;
+      font-size: 12px;
+    }
+  }
+  .invite-google-classroom-students {
+    align-items: flex-end;
+    margin-bottom: 20px;
+    span {
+      margin-top: 8px;
+    }
+    .quill-button {
+      width: 255px;
+    }
+  }
+  .invite-quill-classroom-students {
+    margin-bottom: 40px;
+    .quill-button {
+      width: 128px;
+    }
+  }
+  .invite-clever-students {
+    margin-bottom: 38px;
+    p {
+      font-size: 14px;
+      line-height: 1.57;
+      color: #000;
+    }
+    span {
+      margin-top: 4px;
+    }
+  }
+  .no-students {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 58px;
+    p {
+      font-size: 14px;
+      line-height: 1.57;
+      margin-top: 24px;
+      color: #646464;
+      max-width: 528px;
+      text-align: center;
+    }
+  }
+  .students-section-header, .teacher-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .teacher-section-header {
+    margin-bottom: 26px;
+    .quill-button {
+      width: 148px;
+    }
+  }
+  .students-section-header.with-students {
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    .students-section-header-buttons {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      min-height: 76px;
+      div {
+        display: flex;
+        .quill-button {
+          margin-right: 16px;
+        }
+      }
+    }
+  }
+  .student-actions-dropdown {
+    width: 200px;
+    height: 91px;
+    justify-content: flex-start;
+    .dropdown {
+      font-size: 16px;
+    }
+    .dropdown__menu-list {
+      padding: 8px 0px;
+      .dropdown__option {
+        height: 48px;
+        padding: 0px 12px;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+  &.open {
+    .expand-arrow {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .list-item {
+    display: flex;
+    align-items: baseline;
+    width: 762px;
+    margin-left: -38px;
+  }
+}
+
+@media (max-width: 768px) {
+  .list-item {
+    display: flex;
+    align-items: baseline;
+    width: auto;
+    margin-left: 0px;
   }
 }

@@ -25,7 +25,7 @@ RSpec.describe Api::V1::AppSettingsController, type: :controller do
     it "returns a success response" do
       create(:app_setting, name: 'lorem', enabled: false)
       
-      get(:show, name: 'lorem') 
+      get(:show, params: { name: 'lorem' }) 
       
       expect(response).to be_success
       expect(JSON.parse(response.body)).to eq({ "lorem" => false })

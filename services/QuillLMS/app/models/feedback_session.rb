@@ -11,7 +11,7 @@
 #  index_feedback_sessions_on_activity_session_uid  (activity_session_uid) UNIQUE
 #  index_feedback_sessions_on_uid                   (uid) UNIQUE
 #
-class FeedbackSession < ActiveRecord::Base
+class FeedbackSession < ApplicationRecord
   has_one :activity_session, foreign_key: :uid, primary_key: :activity_session_uid
   has_many :feedback_history, foreign_key: :feedback_session_uid, primary_key: :uid
 

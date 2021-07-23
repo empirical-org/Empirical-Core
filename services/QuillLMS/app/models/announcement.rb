@@ -13,7 +13,7 @@
 #
 #  index_announcements_on_start_and_end  (start,end)
 #
-class Announcement < ActiveRecord::Base
+class Announcement < ApplicationRecord
   TYPES = {
     webinar: 'webinar'
   }

@@ -6,7 +6,7 @@
 #  avatar :text
 #  name   :string
 #
-class Author < ActiveRecord::Base
+class Author < ApplicationRecord
   has_many :unit_templates
   after_commit :delete_relevant_caches
 

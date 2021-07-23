@@ -45,7 +45,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it "should skip pages if specified" do
-          get :index, page: 2
+          get :index, params: { page: 2 }
 
           parsed_response = JSON.parse(response.body)
 
@@ -63,7 +63,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only items from the specified activity' do
-          get :index, activity_id: @activity.id
+          get :index, params: { activity_id: @activity.id }
 
           parsed_response = JSON.parse(response.body)
 
@@ -92,7 +92,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only items from the specified time constraints' do
-          get :index, start_date: '2021-04-06T20:43:27.698Z'
+          get :index, params: { start_date: '2021-04-06T20:43:27.698Z' }
 
           parsed_response = JSON.parse(response.body)
 
@@ -101,13 +101,32 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only items from the specified time constraints' do
-          get :index, start_date: '2021-04-06T20:43:27.698Z', end_date: '2021-04-08T20:43:27.698Z'
+          get :index, params: { start_date: '2021-04-06T20:43:27.698Z', end_date: '2021-04-08T20:43:27.698Z' }
 
           parsed_response = JSON.parse(response.body)
 
           expect(response).to have_http_status(200)
           expect(parsed_response['activity_sessions'].length).to eq(3)
 
+        end
+      end
+      context 'turk_session_uid' do
+        setup do
+          @activity_session = create(:activity_session)
+          @comprehension_turking_round = create(:comprehension_turking_round_activity_session, activity_session_uid: @activity_session.uid)
+          @feedback_history1 = create(:feedback_history, feedback_session_uid: @activity_session.uid)
+          @feedback_history2 = create(:feedback_history, feedback_session_uid: "def")
+          @feedback_history3 = create(:feedback_history, feedback_session_uid: "ghi")
+        end
+
+        it 'should retrieve only items with the specified turk_session_uid' do
+          get :index, params: { turk_session_id: @comprehension_turking_round.turking_round_id }
+
+          parsed_response = JSON.parse(response.body)
+
+          expect(response).to have_http_status(200)
+          expect(parsed_response['activity_sessions'].length).to eq(1)
+          expect(parsed_response['activity_sessions'][0]['session_uid']).to eq(@feedback_history1.feedback_session_uid)
         end
       end
     end
@@ -119,7 +138,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
     end
 
     it "should return json if found" do
-      get :show, id: @feedback_history.feedback_session_uid
+      get :show, params: { id: @feedback_history.feedback_session_uid }
 
       parsed_response = JSON.parse(response.body)
 
@@ -128,7 +147,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
     end
 
     it "should raise if not found (to be handled by parent app)" do
-      get :show, id: 99999
+      get :show, params: { id: 99999 }
       expect(404).to eq(response.status)
       expect(response.body.include?("The resource you were looking for does not exist")).to be
     end

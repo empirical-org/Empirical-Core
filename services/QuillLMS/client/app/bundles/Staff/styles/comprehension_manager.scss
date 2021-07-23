@@ -262,9 +262,11 @@
         }
       }
     }
+    .activity-form {
+      max-height: 80vh;
+    }
     .activity-form , .rule-form, .semantic-rule-form {
       padding: 0px 30px 0px 30px;
-      max-height: 80vh;
       .title-input, .course-input, .flag-input, .reading-level-input,
       .reading-score-input, .because-input, .but-input {
         margin-top: 20px;
@@ -1010,6 +1012,10 @@
             display: flex;
           }
         }
+      }
+      .turk-session-id-input {
+        min-height: 40px;
+        margin-right: 16px;
       }
     }
     .activity-sessions-table {

@@ -1,5 +1,5 @@
 <% module_namespacing do -%>
-class <%= class_name %> < ActiveRecord::Base
+class <%= class_name %> < ApplicationRecord
   # FIXME, add relationships
 
   # FIXME, add validations

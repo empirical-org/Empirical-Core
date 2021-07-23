@@ -42,7 +42,13 @@ module Comprehension
 
       should "create a valid record and return it as json" do
         turking_round = create(:comprehension_turking_round)
-        post :create, turking_round_activity_session: { turking_round_id: turking_round.id, activity_session_uid: SecureRandom.uuid }
+        post :create,
+          params: {
+            turking_round_activity_session: {
+              turking_round_id: turking_round.id,
+              activity_session_uid: SecureRandom.uuid
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
 
@@ -52,7 +58,7 @@ module Comprehension
       end
 
       should "not create an invalid record and return errors as json" do
-        post :create, turking_round_activity_session: { activity_session_uid: nil }
+        post :create, params: { turking_round_activity_session: { activity_session_uid: nil } }
 
         parsed_response = JSON.parse(response.body)
 
@@ -68,7 +74,7 @@ module Comprehension
       end
 
       should "return json if found" do
-        get :show, id: @turking_round_activity_session.id
+        get :show, params: { id: @turking_round_activity_session.id }
 
         parsed_response = JSON.parse(response.body)
 
@@ -78,7 +84,7 @@ module Comprehension
 
       should "raise if not found (to be handled by parent app)" do
         assert_raises ActiveRecord::RecordNotFound do
-          get :show, id: 99999
+          get :show, params: { id: 99999 }
         end
       end
     end
@@ -90,7 +96,13 @@ module Comprehension
 
       should "update record if valid, return nothing" do
         new_session_uid = SecureRandom.uuid
-        patch :update, id: @turking_round_activity_session.id, turking_round_activity_session: { activity_session_uid: new_session_uid }
+        patch :update,
+          params: {
+            id: @turking_round_activity_session.id,
+            turking_round_activity_session: {
+              activity_session_uid: new_session_uid
+            }
+          }
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i
@@ -100,7 +112,13 @@ module Comprehension
       end
 
       should "not update record and return errors as json" do
-        patch :update, id: @turking_round_activity_session.id, turking_round_activity_session: { activity_session_uid: nil }
+        patch :update,
+          params: {
+            id: @turking_round_activity_session.id,
+            turking_round_activity_session: {
+              activity_session_uid: nil
+            }
+          }
 
         parsed_response = JSON.parse(response.body)
 
@@ -115,7 +133,7 @@ module Comprehension
       end
 
       should "destroy record at id" do
-        delete :destroy, id: @turking_round_activity_session.id
+        delete :destroy, params: { id: @turking_round_activity_session.id }
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i

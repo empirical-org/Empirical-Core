@@ -1,5 +1,5 @@
 module Comprehension
-  class RegexRule < ActiveRecord::Base
+  class RegexRule < ApplicationRecord
     include Comprehension::ChangeLog
 
     DEFAULT_CASE_SENSITIVITY = true
@@ -68,7 +68,7 @@ module Comprehension
         Regexp.new(regex_text)
       rescue RegexpError => e
         rule.errors.add(:invalid_regex, e.to_s)
-        false
+        throw(:abort)
       end
     end
 

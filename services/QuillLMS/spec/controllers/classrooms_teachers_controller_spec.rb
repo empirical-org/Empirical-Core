@@ -25,7 +25,7 @@ describe ClassroomsTeachersController, type: :controller do
     end
 
     it 'should set the classroom, coteachers, and selected teacher and classroom' do
-      get :edit_coteacher_form, classrooms_teacher_id: 45
+      get :edit_coteacher_form, params: { classrooms_teacher_id: 45 }
       expect(response).to redirect_to(teachers_classrooms_path)
     end
   end
@@ -46,6 +46,28 @@ describe ClassroomsTeachersController, type: :controller do
   #   end
   # end
 
+  describe '#update_order' do
+
+    before do
+      user = create(:user, role: "teacher")
+      @classrooms_teacher1 = create(:classrooms_teacher, user_id: user.id)
+      @classrooms_teacher2 = create(:classrooms_teacher, user_id: user.id)
+      @classrooms_teacher3 = create(:classrooms_teacher, user_id: user.id)
+    end
+
+    it 'should update the order value for classrooms_teachers' do
+      classrooms_teacher_array = [@classrooms_teacher1, @classrooms_teacher2, @classrooms_teacher3]
+      order = [1, 2, 0]
+      params_array = [{ id: @classrooms_teacher1.classroom_id, order: 1 }, { id: @classrooms_teacher2.classroom_id, order: 2 }, { id: @classrooms_teacher3.classroom_id, order: 0 }]
+
+      put :update_order, params: { updated_classrooms: params_array.to_json }
+
+      classrooms_teacher_array.each_with_index do |classrooms_teacher, i|
+        expect classrooms_teacher.order == order[i]
+      end
+    end
+  end
+
   describe '#specific_coteacher_info' do
     let(:classroom) { create(:classroom) }
 
@@ -55,7 +77,7 @@ describe ClassroomsTeachersController, type: :controller do
     end
 
     it 'should render the correct json' do
-      get :specific_coteacher_info, format: :json, coteacher_id: user.id
+      get :specific_coteacher_info, params: { format: :json, coteacher_id: user.id }
       expect(response.body).to eq({
       selectedTeachersClassroomIds: {
           is_coteacher: [classroom.id],
@@ -70,7 +92,7 @@ describe ClassroomsTeachersController, type: :controller do
     let!(:classroom_teacher) { create(:classrooms_teacher, user: user, classroom: classroom) }
 
     it 'should destroy the given classroom teacher' do
-      delete :destroy, classroom_id: classroom.id
+      delete :destroy, params: { classroom_id: classroom.id }
       expect{ ClassroomsTeacher.find(classroom_teacher.id) }.to raise_exception ActiveRecord::RecordNotFound
       expect(response.body).to eq({message: "Deletion Succeeded!"}.to_json)
     end

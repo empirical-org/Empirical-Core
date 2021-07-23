@@ -23,7 +23,7 @@ module CsvExporter::Standards
 
     def model_data(teacher, filters)
       ::ProgressReports::Standards::Standard.new(teacher)
-        .results(HashWithIndifferentAccess.new(filters) || {})
+        .results(ActiveSupport::HashWithIndifferentAccess.new(filters) || {})
     end
 
     private def page_title(filters)

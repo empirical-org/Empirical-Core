@@ -30,6 +30,7 @@ module.exports = merge(config, {
     filename: '[name]-bundle-[chunkhash].js',
     publicPath: output.publicPath,
     path: output.path,
+    crossOriginLoading: 'anonymous',
   },
 
   optimization: {

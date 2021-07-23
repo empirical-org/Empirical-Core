@@ -11,7 +11,7 @@ module Comprehension
       @rules = @rules.where(rule_type: params[:rule_type]) if params[:rule_type]
 
       # some rules will apply to multiple prompts so we only want to return them once
-      render json: @rules.uniq.all
+      render json: @rules.distinct.all
     end
 
     # GET /rules/1.json

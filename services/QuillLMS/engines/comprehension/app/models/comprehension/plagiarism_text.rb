@@ -1,5 +1,5 @@
 module Comprehension
-  class PlagiarismText < ActiveRecord::Base
+  class PlagiarismText < ApplicationRecord
     include Comprehension::ChangeLog
 
     belongs_to :rule, inverse_of: :plagiarism_text

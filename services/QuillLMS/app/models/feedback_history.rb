@@ -26,7 +26,7 @@
 #  index_feedback_histories_on_prompt_type_and_id    (prompt_type,prompt_id)
 #  index_feedback_histories_on_rule_uid              (rule_uid)
 #
-class FeedbackHistory < ActiveRecord::Base
+class FeedbackHistory < ApplicationRecord
   CONCEPT_UID_LENGTH = 22
   DEFAULT_PAGE_SIZE = 25
   DEFAULT_PROMPT_TYPE = "Comprehension::Prompt"
@@ -149,7 +149,7 @@ class FeedbackHistory < ActiveRecord::Base
     self.feedback_session_uid = FeedbackSession.get_uid_for_activity_session(feedback_session_uid)
   end
 
-  def self.list_by_activity_session(activity_id: nil, page: 1, start_date: nil, end_date: nil, page_size: DEFAULT_PAGE_SIZE)
+  def self.list_by_activity_session(activity_id: nil, page: 1, start_date: nil, end_date: nil, page_size: DEFAULT_PAGE_SIZE, turk_session_id: nil)
     query = select(
       <<-SQL
         feedback_histories.feedback_session_uid AS session_uid,
@@ -183,6 +183,11 @@ class FeedbackHistory < ActiveRecord::Base
     query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
     query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
     query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
+    if turk_session_id
+      query = query.joins('LEFT JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
+      .joins('LEFT JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')
+      .where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id)
+    end
     query = query.limit(page_size)
     query = query.offset((page.to_i - 1) * page_size.to_i) if page && page.to_i > 1
     query

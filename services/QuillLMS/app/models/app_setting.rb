@@ -17,7 +17,7 @@
 #
 require 'zlib'
 
-class AppSetting < ActiveRecord::Base
+class AppSetting < ApplicationRecord
   validates :percent_active, numericality: {
     only_integer: true,
     greater_than_or_equal_to: 0,

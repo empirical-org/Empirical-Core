@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"fmt"
-	"sync"
 	"time"
 	"os"
 	"net/http/httputil"
@@ -15,8 +14,7 @@ import (
 )
 
 const automl_index = 3
-
-var wg sync.WaitGroup
+const api_count = 8
 
 // you can't use const for structs, so this is the closest thing we can get for this value
 var default_api_response = APIResponse{
@@ -59,7 +57,7 @@ func GetOpinionDomain() (string) {
 	return opinion_domain
 }
 
-func AssembleUrls() ([8]string) {
+func AssembleUrls() ([api_count]string) {
 	lms_domain := GetLMSDomain()
 	opinion_domain := GetOpinionDomain()
 
@@ -107,16 +105,10 @@ func Endpoint(context *gin.Context) {
 
 	results := map[int]InternalAPIResponse{}
 
-	channel := make(chan InternalAPIResponse)
-
-	for priority, url := range urls {
-		go getAPIResponse(url, priority, request_body, channel)
-	}
-
 	var returnable_result APIResponse
 
-	for response := range channel {
-		results[response.Priority] = response
+	for index, url := range urls {
+		results[index] = getAPIResponse(url, index, request_body)
 		return_index, finished := processResults(results, len(urls))
 
 		if finished {
@@ -135,9 +127,6 @@ func Endpoint(context *gin.Context) {
 		}
 	}
 
-	// TODO make this a purely async task instead of coroutine that waits to finish
-	wg.Add(1)
-
 	var request_object APIRequest
 	// TODO convert the 'feedback' bytes and combine with incoming_params bytes
 	// instead of transforming from bytes to object, combining, and then converting back to bytes
@@ -145,13 +134,12 @@ func Endpoint(context *gin.Context) {
 		return
 	}
 
-	go recordFeedback(request_object, returnable_result, GetFeedbackHistoryUrl())
+	recordFeedback(request_object, returnable_result, GetFeedbackHistoryUrl())
 
 	context.Header("Access-Control-Allow-Origin", "*")
 	context.Header("Content-Type", "application/json")
 	context.JSON(200, returnable_result)
 
-	wg.Wait()
 }
 // returns a typle of results index and that should be returned.
 func processResults(results map[int]InternalAPIResponse, length int) (int, bool) {
@@ -171,7 +159,8 @@ func processResults(results map[int]InternalAPIResponse, length int) (int, bool)
 	return automl_index, all_correct
 }
 
-func getAPIResponse(url string, priority int, json_params [] byte, c chan InternalAPIResponse) {
+func getAPIResponse(url string, priority int, json_params [] byte) InternalAPIResponse {
+
 	// response_json, err := http.Post(url, "application/json", bytes.NewReader(json_params))
 
 	// TODO For now, just swallow any errors from this, but we'd want to report errors.
@@ -179,19 +168,20 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 	response_json, err := client.Post(url, "application/json",  bytes.NewReader(json_params))
 
 	if err != nil {
-		c <- InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an error hitting the API", Feedback_type: "API Error", Optimal: false}}
-		return
+		return InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an error hitting the API", Feedback_type: "API Error", Optimal: false}}
+
 	}
+	defer response_json.Body.Close()
 
 	var result APIResponse
 
 	if err := json.NewDecoder(response_json.Body).Decode(&result); err != nil {
 		// TODO might want to think about what this should be.
-		c <- InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an JSON error" + err.Error(), Feedback_type: "API Error", Labels: url, Optimal: false}}
-		return
+		return InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an JSON error" + err.Error(), Feedback_type: "API Error", Labels: url, Optimal: false}}
+
 	}
 
-	c <- InternalAPIResponse{Priority: priority, Error: false, APIResponse: result}
+	return InternalAPIResponse{Priority: priority, Error: false, APIResponse: result}
 }
 
 func identifyUsedFeedbackIndex(feedbacks map[int]InternalAPIResponse) int {
@@ -233,7 +223,7 @@ func buildFeedbackHistory(request_object APIRequest, feedback APIResponse, used 
 }
 
 func recordFeedback(incoming_params APIRequest, feedback APIResponse, feedback_history_url string) {
-	defer wg.Done() // mark task as done in WaitGroup on return
+
 
 	history := buildFeedbackHistory(incoming_params, feedback, true, time.Now())
 

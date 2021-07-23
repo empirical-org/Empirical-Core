@@ -1,2 +1,2 @@
-<%= react_component('LoginFormApp', props: { cleverLink: "https://clever.com/oauth/authorize?#{ {response_type: 'code', redirect_uri: Clever::REDIRECT_URL, client_id: Clever::CLIENT_ID, scope: QuillClever.scope}.to_param }" }) %>
+<%= react_component('LoginFormApp', props: { cleverLink: @clever_link, googleLink: @google_link } ) %>
 <%= javascript_include_tag('cookie_warning.js') %>

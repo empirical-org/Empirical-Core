@@ -67,17 +67,9 @@ class GoogleIntegration::RefreshAccessToken
 
   private def parse_attributes(data)
     {}.tap do |attributes|
-      if data['access_token'].present?
-        attributes[:access_token] = data['access_token']
-      end
-
-      if data['expires_in'].present?
-        attributes[:expires_at] = data['expires_in']
-      end
-
-      if data['issued_at'].present?
-        attributes[:timestamp] = data['issued_at']
-      end
+      attributes[:access_token] = data['access_token'] if data['access_token'].present?
+      attributes[:expires_at] = data['expires_in'] if data['expires_in'].present?
+      attributes[:timestamp] = data['issued_at'] if data['issued_at'].present?
     end
   end
 
@@ -90,14 +82,21 @@ class GoogleIntegration::RefreshAccessToken
   end
 
   private def should_refresh?
-    current_credentials && (current_credentials.expires_at.nil? ||
-      Time.now > current_credentials.expires_at
-    )
+    current_credentials && ( nil_access_token_expiration? || access_token_expired? )
+  end
+
+  private def nil_access_token_expiration?
+    current_credentials.expires_at.nil?
+  end
+
+  private def access_token_expired?
+    Time.now > current_credentials.expires_at
   end
 
   private def token_too_old_to_refresh?
-    return false if current_credentials.expires_at.nil?
-    Time.now - 6.months >= current_credentials.expires_at
+    return false if nil_access_token_expiration?
+
+    Time.now >= current_credentials.refresh_token_expires_at
   end
 
   private def refresh_token_options
