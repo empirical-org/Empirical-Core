@@ -32,6 +32,11 @@
     align-items: center;
     flex-direction: column;
     height: 100%;
+    .read-passage-inner-container.blur {
+      opacity: 0.2;
+      -webkit-filter: blur(4px);
+      filter: blur(4px);
+    }
     .header-image {
       height: auto;
       max-width: 100%;

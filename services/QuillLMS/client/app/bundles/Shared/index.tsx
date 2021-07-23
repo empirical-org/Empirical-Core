@@ -107,6 +107,8 @@ export {
   playBoxIcon,
   previewIcon,
   smallWhiteCheckIcon,
+  cursorClick,
+  cursorPointingHand,
 } from './images/index'
 
 export {

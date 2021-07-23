@@ -82,3 +82,13 @@ export const smallWhiteCheckIcon = {
   src: `${process.env.CDN_URL}/images/shared/check-small-white.svg`,
   alt: 'Check icon'
 }
+
+export const cursorClick = {
+  src: `${process.env.CDN_URL}/images/icons/cursor-click.svg`,
+  alt: 'Default cursor showing exaggerated clicking'
+}
+
+export const cursorPointingHand = {
+  src: `${process.env.CDN_URL}/images/icons/cursor-pointinghand.svg`,
+  alt: 'Cursor pointing hand'
+}

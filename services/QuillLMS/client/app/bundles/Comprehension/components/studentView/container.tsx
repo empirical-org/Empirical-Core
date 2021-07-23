@@ -5,6 +5,7 @@ import stripHtml from "string-strip-html";
 
 import PromptStep from './promptStep'
 import StepLink from './stepLink'
+import ReadAndHighlightInstructions from './readAndHighlightInstructions'
 
 import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
@@ -69,6 +70,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       showFocusState: false,
       startTime: Date.now(),
       isIdle: false,
+      studentHighlights: [],
+      scrolledToEndOfPassage: false,
+      showReadTheDirectionsModal: true,
       timeTracking: {
         1: 0,
         2: 0,
@@ -192,7 +196,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   defaultHandleFinishActivity = () => {
-    const { timeTracking, } = this.state
+    const { timeTracking, studentHighlights, } = this.state
     const { activities, dispatch, session, handleFinishActivity, } = this.props
     const { sessionID, submittedResponses, } = session
     const { currentActivity, } = activities
@@ -204,7 +208,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         because: roundMillisecondsToSeconds(timeTracking[2]),
         but: roundMillisecondsToSeconds(timeTracking[3]),
         so: roundMillisecondsToSeconds(timeTracking[4]),
-      }
+      },
+      student_highlights: studentHighlights
     }
     const callback = handleFinishActivity ? handleFinishActivity : () => {}
     dispatch(completeActivitySession(sessionID, currentActivity.parent_activity_id, percentage, conceptResults, data, callback))
@@ -231,11 +236,25 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   loadPreviousSession = (data: object) => {
-    const { activeStep, completedSteps, timeTracking, } = this.state
+    const {
+      activeStep,
+      completedSteps,
+      timeTracking,
+      studentHighlights,
+    } = this.state
+
+    const highlights = data.studentHighlights || studentHighlights
+    // if the student hasn't gotten to the highlighting stage yet,
+    // we don't want them to skip seeing the directions modal and reading the passage again
+    const studentHasAtLeastStartedHighlighting = highlights && highlights.length
+
     const newState = {
       activeStep: data.activeStep || activeStep,
       completedSteps: data.completedSteps || completedSteps,
-      timeTracking: data.timeTracking || timeTracking
+      timeTracking: data.timeTracking || timeTracking,
+      studentHighlights: highlights,
+      scrolledToEndOfPassage: studentHasAtLeastStartedHighlighting,
+      showReadTheDirectionsModal: studentHasAtLeastStartedHighlighting,
     }
 
     this.setState(newState, () => {
@@ -411,6 +430,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       activeStep,
       completedSteps,
       timeTracking,
+      studentHighlights,
     }
     dispatch(saveActiveActivitySession(args))
   }
@@ -581,6 +601,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   renderReadPassageContainer = () => {
+    const { showReadTheDirectionsModal, } = this.state
     const { activities, } = this.props
     const { currentActivity, } = activities
     if (!currentActivity) { return }
@@ -588,9 +609,11 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { title, passages, } = currentActivity
 
     const headerImage = passages[0].image_link && <img alt={passages[0].image_alt_text} className="header-image" src={passages[0].image_link} />
+    let innerContainerClassName = "read-passage-inner-container "
+    innerContainerClassName += showReadTheDirectionsModal ? 'blur' : ''
 
     return (<div className="read-passage-container" onScroll={this.resetTimers}>
-      <div>
+      <div className={innerContainerClassName}>
         <p className="directions">Read the passage.</p>
         <h1 className="title">{currentActivity.title}</h1>
         {headerImage}
@@ -608,9 +631,40 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
+  renderRightPanel() {
+    const { activities, } = this.props
+    const { activeStep, showReadTheDirectionsModal, } = this.state
+    if (activeStep === READ_PASSAGE_STEP) {
+      return (
+        <div className="steps-outer-container" onScroll={this.resetTimers}>
+          <ReadAndHighlightInstructions
+            activeStep={activeStep}
+            passage={activities.currentActivity.passages[0]}
+            resetTimers={this.resetTimers}
+            showReadTheDirectionsModal={showReadTheDirectionsModal}
+          />
+          <div className="read-and-highlight-tracker">
+            <button className="quill-button contained primary large focus-on-light disabled" type="button">Done</button>
+            <div className="read-and-highlight-steps">
+              <div className="read-and-highlight-step">
+                <div className="incomplete-indicator" />
+                <span>Read the entire passage</span>
+              </div>
+              <div className="read-and-highlight-step">
+                <div className="incomplete-indicator" />
+                <span>Highlight at least two sentences</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    return this.renderSteps()
+  }
+
   render = () => {
     const { activities, } = this.props
-    const { showFocusState, completedSteps, } = this.state
+    const { showFocusState, } = this.state
 
     if (!activities.hasReceivedData) { return <LoadingSpinner /> }
 
@@ -619,7 +673,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     return (<div className={className}>
       {this.renderStepLinks()}
       {this.renderReadPassageContainer()}
-      {this.renderSteps()}
+      {this.renderRightPanel()}
     </div>)
   }
 }
