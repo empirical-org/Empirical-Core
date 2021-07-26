@@ -344,6 +344,32 @@ class ResponseComponent extends React.Component {
     this.props.dispatch(submitResponseEdit(rid, vals, this.props.questionID));
   };
 
+  incorrectSequenceNames = () => {
+    const { question } = this.props
+    const { incorrectSequences } = question
+
+    let incorrectSequenceNames = []
+    if (Array.isArray(incorrectSequences)) {
+      incorrectSequenceNames = incorrectSequences.map(i => i.name)
+    } else {
+      incorrectSequenceNames = Object.keys(incorrectSequences).map((key) => incorrectSequences[key].name)
+    }
+    return incorrectSequenceNames.filter(f => f !== undefined)
+  }
+
+  focusPointNames = () => {
+    const { question } = this.props
+    const { focusPoints } = question
+
+    let focusPointNames = []
+    if (Array.isArray(focusPoints)) {
+      focusPointNames = focusPoints.map(fp => fp.name)
+    } else {
+      focusPointNames = Object.keys(focusPoints).map((key) => focusPoints[key].name)
+    }
+    return focusPointNames.filter(f => f !== undefined)
+  }
+
   renderDeselectAllFiltersButton = () => {
     return (
       <div className="column">
@@ -498,15 +524,18 @@ class ResponseComponent extends React.Component {
   renderStatusToggleMenu = () => {
     let usedQualityLabels = qualityLabels
     const { mode } = this.props
+    const regexLabels = this.incorrectSequenceNames().concat(this.focusPointNames())
     if (mode === 'questions') {
       usedQualityLabels = _.without(qualityLabels, 'Algorithm Optimal')
     }
+
     return (
       <ResponseToggleFields
         deselectFields={this.deselectFields}
         excludeMisspellings={this.props.filters.formattedFilterData.filters.excludeMisspellings}
         labels={labels}
         qualityLabels={usedQualityLabels}
+        regexLabels={regexLabels}
         resetFields={this.resetFields}
         resetPageNumber={this.resetPageNumber}
         toggleExcludeMisspellings={this.toggleExcludeMisspellings}

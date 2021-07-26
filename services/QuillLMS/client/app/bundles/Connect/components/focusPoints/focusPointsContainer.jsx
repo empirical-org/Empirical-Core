@@ -180,7 +180,7 @@ export class FocusPointsContainer extends Component {
       return (
         <div className="card is-fullwidth has-bottom-margin" key={fp.key}>
           <header className="card-header">
-            <input className="regex-name" onChange={(e) => this.handleNameChange(e, s.key)} placeholder="Name" type="text" value={fp.name || ''} />
+            <input className="regex-name" onChange={(e) => this.handleNameChange(e, fp.key)} placeholder="Name" type="text" value={fp.name || ''} />
           </header>
           <header className="card-header">
             <p className="card-header-title" style={{ display: 'inline-block', }}>
