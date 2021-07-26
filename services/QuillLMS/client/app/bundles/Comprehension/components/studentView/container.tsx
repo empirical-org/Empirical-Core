@@ -146,8 +146,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   handleReadPassageContainerScroll = (e) => {
-    const el = e.target
-    if (el.scrollHeight - el.scrollTop - el.clientHeight < 1) {
+    const el = document.getElementById('end-of-passage')
+    const rect = el.getBoundingClientRect();
+    const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+    if (!(rect.bottom < 100 || rect.top - viewHeight >= 100)) {
       this.setState({ scrolledToEndOfPassage: true, })
     }
     this.resetTimers(e)
@@ -503,9 +505,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     if (!activeStep || activeStep === READ_PASSAGE_STEP) { return passagesWithPTags }
 
-    // we return the unhighlighted text when an active response has maxed attempts
-    if (this.outOfAttemptsForActivePrompt()) { return passagesWithoutSpanTags }
-
     const promptIndex = activeStep - 2 // have to subtract 2 because the prompts array index starts at 0 but the prompt numbers in the state are 2..4
     const activePromptId = currentActivity.prompts[promptIndex].id
     const submittedResponsesForActivePrompt = session.submittedResponses[activePromptId]
@@ -641,6 +640,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         <h1 className="title">{currentActivity.title}</h1>
         {headerImage}
         <div className="passage" dangerouslySetInnerHTML={{__html: this.formatHtmlForPassage()}} />
+        <span id="end-of-passage" />
       </div>
     </div>)
   }
@@ -694,7 +694,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP ? 'on-read-passage' : ''}`
 
-    return (<div className={className}>
+    return (<div className={className} onTouchMove={this.handleReadPassageContainerScroll}>
       {this.renderStepLinks()}
       {this.renderReadPassageContainer()}
       {this.renderRightPanel()}

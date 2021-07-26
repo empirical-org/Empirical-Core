@@ -44,9 +44,11 @@
       margin-bottom: 6px;
     }
     .incomplete-indicator {
+      border-width: 3px;
+    }
+    .incomplete-indicator, .check-icon {
       width: 16px;
       height: 16px;
-      border-width: 3px;
     }
   }
 }
