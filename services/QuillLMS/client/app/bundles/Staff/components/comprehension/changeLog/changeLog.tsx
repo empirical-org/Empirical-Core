@@ -208,7 +208,7 @@ const ChangeLog = ({ history, match }) => {
   return(
     <div className="activity-stats-container">
       {renderHeader(activityData, 'Change Log')}
-      <a id="concept-uid-lookup" href="https://docs.google.com/spreadsheets/u/2/d/1i1BpgGWSYh_UCm6jrYBjtFMoeBlcd6CeCGMqI037oPY/edit#gid=0" rel="noopener noreferrer" target="_blank">Concept UID Lookup</a>
+      <a href="https://docs.google.com/spreadsheets/u/2/d/1i1BpgGWSYh_UCm6jrYBjtFMoeBlcd6CeCGMqI037oPY/edit#gid=0" id="concept-uid-lookup" rel="noopener noreferrer" target="_blank">Concept UID Lookup</a>
       <div id="change-log-selectors">
         <div id="top-selectors">
           <div id="change-log-dropdowns">
