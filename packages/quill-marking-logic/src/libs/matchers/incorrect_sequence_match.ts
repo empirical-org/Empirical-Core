@@ -29,7 +29,7 @@ export function incorrectSequenceChecker(responseString: string, incorrectSequen
 export function incorrectSequenceResponseBuilder(incorrectSequenceMatch:IncorrectSequence, responses:Array<Response>): PartialResponse {
   const res: PartialResponse = {
     feedback: incorrectSequenceMatch.feedback,
-    author: 'Incorrect Sequence Hint',
+    author: incorrectSequenceMatch.name || 'Incorrect Sequence Hint',
     parent_id: getTopOptimalResponse(responses).id
   }
 
