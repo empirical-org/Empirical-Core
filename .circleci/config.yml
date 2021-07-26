@@ -3,7 +3,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 4
     docker:
-      - image: circleci/ruby:2.6-node-browsers
+      - image: circleci/ruby:2.6.6-node-browsers
         environment:
           PG_DB: quill_test_db
           PG_USER: ubuntu
