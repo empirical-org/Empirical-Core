@@ -86,7 +86,7 @@ export const fetchActivitySession = async (key: string, sessionId: string) => {
   };
 }
 
-export const fetchChangeLog = async (key: string, activityId: string) => {
+export const fetchChangeLogs = async (key: string, activityId: string) => {
   const response = await apiFetch(`activities/${activityId}/change_logs`);
   const changeLogs = await response.json();
 

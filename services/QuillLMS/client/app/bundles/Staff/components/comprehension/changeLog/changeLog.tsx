@@ -10,7 +10,7 @@ import DateTimePicker from 'react-datetime-picker';
 
 import { renderHeader } from '../../../helpers/comprehension';
 import { sort } from '../../../../../modules/sortingMethods.js';
-import { fetchChangeLog, fetchActivity } from '../../../utils/comprehension/activityAPIs';
+import { fetchChangeLogs, fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { DropdownInput, Spinner, } from '../../../../Shared/index';
 
 const ChangeLog = ({ history, match }) => {
@@ -31,7 +31,7 @@ const ChangeLog = ({ history, match }) => {
 
   const { data: changeLogData, status: status } = useQuery({
     queryKey: [`change-log-${activityId}`, activityId],
-    queryFn: fetchChangeLog
+    queryFn: fetchChangeLogs
   });
 
   const { data: activityData } = useQuery({
@@ -68,34 +68,28 @@ const ChangeLog = ({ history, match }) => {
 
   const formattedRows = changeLogData && changeLogData.changeLogs && changeLogData.changeLogs.map(log => {
     const {
-      action,
+      comprehension_action,
       changed_record_id,
       updated_local_time,
       previous_value,
       new_value,
       record_type_display_name,
       user,
-      explanation,
-      conjunction,
-      name,
-      changed_attribute
+      conjunctions,
+      comprehension_name,
+      changed_attribute,
+      comprehension_url
     } = log;
 
-    const changedRecord = `${record_type_display_name} - ${changed_record_id}`
-    const actionLink = explanation && JSON.parse(explanation).url
-    const prompt = explanation && JSON.parse(explanation).conjunction
-
     return {
-      action: action,
-      changedRecord: changedRecord,
+      action: comprehension_action,
       previousValue: previous_value,
       newValue: new_value,
       author: user,
       dateTime: updated_local_time,
-      actionLink: actionLink,
-      prompt: prompt,
-      conjunction: conjunction,
-      name: name,
+      actionLink: comprehension_url,
+      conjunctions: conjunctions,
+      name: comprehension_name,
       changedAttribute: changed_attribute
     }
   })
@@ -107,7 +101,7 @@ const ChangeLog = ({ history, match }) => {
   })
 
   const filteredRowsByPrompt = formattedRows && filteredRowsBySearch.filter(value => {
-    return prompt === DEFAULT_PROMPT || value.conjunction === prompt
+    return prompt === DEFAULT_PROMPT || (value.conjunctions && value.conjunctions.includes(prompt))
   })
 
   const filteredRowsByRule = formattedRows && filteredRowsByPrompt.filter(value => {
@@ -147,8 +141,8 @@ const ChangeLog = ({ history, match }) => {
     },
     {
       Header: 'Prompt',
-      accessor: "conjunction",
-      key: "conjunction",
+      accessor: "conjunctions",
+      key: "conjunctions",
       sortMethod: sort,
       width: 100,
     },
