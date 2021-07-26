@@ -6,7 +6,7 @@ inherit_mode:
 
 AllCops:
   Exclude:
-    - "QuillLMS/engines/comprehension/test/dummy/**/*"
+    - "QuillLMS/engines/comprehension/spec/dummy/**/*"
     - "QuillLMS/engines/comprehension/lib/generators/**/*"
 
 Style/ZeroLengthPredicate:
