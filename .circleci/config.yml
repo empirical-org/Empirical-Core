@@ -23,6 +23,9 @@ jobs:
           keys:
             - bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
             - bundle-cache-lms-v2
+            - npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+            - npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package.json" }}-
+            - npm-cache-lms-client-v6-
       - run:
           name: Bundle Install if cache isn't present.
           command: |
@@ -46,6 +49,11 @@ jobs:
             cd services/QuillLMS
             cp .env-sample .env
             cp config/database.yml.circle config/database.yml
+      - run:
+          name: Install NPM dependencies
+          command: |
+            cd services/QuillLMS/client
+            npm install
       - run:
           name: Set up DB
           command: |
