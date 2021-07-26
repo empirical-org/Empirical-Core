@@ -61,7 +61,8 @@ export interface FocusPoint {
   concept_uid?: string,
   concept_results?: Array<ConceptResult>,
   conceptResults?: Array<ConceptResult>,
-  key?: string
+  key?: string,
+  name?: string
 }
 
 export interface IncorrectSequence {
