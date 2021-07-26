@@ -16,6 +16,7 @@ jobs:
           POSTGRES_DB: quill_test_db
           POSTGRES_PASSWORD: ""
       - image: selenium/standalone-chrome:3.5.3
+      - image: circleci/node:erbium
     steps:
       - checkout
       - restore_cache:
