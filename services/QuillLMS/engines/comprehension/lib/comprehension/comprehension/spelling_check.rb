@@ -1,5 +1,6 @@
 module Comprehension
   class SpellingCheck
+    class BingRateLimitException < StandardError; end
 
     ALL_CORRECT_FEEDBACK = 'Correct spelling!'
     FALLBACK_INCORRECT_FEEDBACK = 'Update the spelling of the bolded word(s).'
@@ -62,6 +63,10 @@ module Comprehension
           mode: "proof"
         }
       )
+      # The rest of this code basically swallows any errors, but we want
+      # to avoid swallowing errors around rate limiting, so raise those here
+      raise BingRateLimitException if @response.code == 429
+
       JSON.parse(@response.body)
     end
   end

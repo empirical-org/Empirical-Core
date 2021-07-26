@@ -69,5 +69,14 @@ module Comprehension
         expect(feedback.text).to(eq(spelling_check.non_optimal_feedback_string))
       end
     end
+
+    context 'should handle appropriate Bing API errors' do
+      it 'should raise exception if the endpoint returns a rate-limit error' do
+        stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=there%20is%20no%20spelling%20error%20here").to_return(:status => 429, :body => { :error => ({ :message => "There's a problem here" }) }.to_json, :headers => ({}))
+        entry = "there is no spelling error here"
+        spelling_check = Comprehension::SpellingCheck.new(entry)
+        expect { spelling_check.feedback_object }.to raise_error(Comprehension::SpellingCheck::BingRateLimitException)
+      end
+    end
   end
 end
