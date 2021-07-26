@@ -1,4 +1,3 @@
-version: 2
 jobs:
   lms_rails_build:
     working_directory: ~/Empirical-Core
@@ -10,11 +9,13 @@ jobs:
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
+          SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub
       - image: postgres:10.5-alpine
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_test_db
           POSTGRES_PASSWORD: ""
+      - image: selenium/standalone-chrome:3.5.3
     steps:
       - checkout
       - restore_cache:
