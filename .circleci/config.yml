@@ -30,6 +30,7 @@ jobs:
       - run:
           name: Install NPM dependencies
           command: |
+            cd services/QuillLMS
             npm install
             npm rebuild node-sass
       - save_cache:
