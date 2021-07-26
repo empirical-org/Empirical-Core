@@ -5,19 +5,34 @@ exports[`Activity Form component should render Activities 1`] = `
   className="activity-form-container"
 >
   <div
-    className="close-button-container"
+    className="button-container"
   >
+    <a
+      className="quill-button fun secondary outlined"
+      href="/comprehension/#/play?uid=undefined"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Play Activity
+    </a>
     <button
-      className="quill-button fun primary contained"
-      id="activity-close-button"
+      className="quill-button fun secondary outlined"
       onClick={[MockFunction]}
       type="button"
     >
-      x
+      Archive Activity
+    </button>
+    <button
+      className="quill-button fun primary contained"
+      id="activity-submit-button"
+      onClick={[Function]}
+      type="submit"
+    >
+      Save
     </button>
   </div>
   <form
-    className="activity-form"
+    className="comprehension-activity-form"
   >
     <Input
       autoComplete="on"
@@ -128,26 +143,6 @@ exports[`Activity Form component should render Activities 1`] = `
       errors={Object {}}
       handleSetPrompt={[Function]}
     />
-    <div
-      className="submit-button-container"
-    >
-      <button
-        className="quill-button fun primary contained"
-        id="activity-submit-button"
-        onClick={[Function]}
-        type="submit"
-      >
-        Submit
-      </button>
-      <button
-        className="quill-button fun primary contained"
-        id="activity-cancel-button"
-        onClick={[MockFunction]}
-        type="button"
-      >
-        Cancel
-      </button>
-    </div>
   </form>
 </div>
 `;
