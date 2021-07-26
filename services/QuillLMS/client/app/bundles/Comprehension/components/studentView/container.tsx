@@ -31,6 +31,7 @@ import {
   CLICK,
   KEYPRESS,
   VISIBILITYCHANGE,
+  bigCheckIcon,
 } from '../../../Shared/index'
 
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
@@ -116,7 +117,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     window.addEventListener(KEYDOWN, this.handleKeyDown)
     window.addEventListener(MOUSEMOVE, this.resetTimers)
     window.addEventListener(MOUSEDOWN, this.resetTimers)
-    window.addEventListener(CLICK, this.resetTimers)
+    window.addEventListener(CLICK, this.handleClick)
     window.addEventListener(KEYPRESS, this.resetTimers)
     window.addEventListener(VISIBILITYCHANGE, this.setIdle)
   }
@@ -125,7 +126,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     window.removeEventListener(KEYDOWN, this.handleKeyDown)
     window.removeEventListener(MOUSEMOVE, this.resetTimers)
     window.removeEventListener(MOUSEDOWN, this.resetTimers)
-    window.removeEventListener(CLICK, this.resetTimers)
+    window.removeEventListener(CLICK, this.handleClick)
     window.removeEventListener(KEYPRESS, this.resetTimers)
     window.removeEventListener(VISIBILITYCHANGE, this.setIdle)
   }
@@ -143,6 +144,16 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     this.completeStep(activeStep)
   }
+
+  handleReadPassageContainerScroll = (e) => {
+    const el = e.target
+    if (el.scrollHeight - el.scrollTop - el.clientHeight < 1) {
+      this.setState({ scrolledToEndOfPassage: true, })
+    }
+    this.resetTimers(e)
+  }
+
+  closeReadTheDirectionsModal = () => this.setState({ showReadTheDirectionsModal: false, })
 
   outOfAttemptsForActivePrompt = () => {
     const { activeStep, } = this.state
@@ -378,6 +389,15 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     })
   }
 
+  handleClick = (e) => {
+    const { showReadTheDirectionsModal, } = this.state
+    if (showReadTheDirectionsModal && e.target.className.indexOf('read-the-directions-modal') === -1) {
+      this.closeReadTheDirectionsModal()
+    }
+
+    this.resetTimers(e)
+  }
+
   handleKeyDown = (e) => {
     const { showFocusState, } = this.state
 
@@ -515,9 +535,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   renderStepLinks = () => {
+    const { activeStep, } = this.state
     const { activities, } = this.props
     const { currentActivity, } = activities
-    if (!currentActivity) return
+    if (!currentActivity || activeStep === READ_PASSAGE_STEP) return
 
     const links = []
     const numberOfLinks = ALL_STEPS.length
@@ -612,9 +633,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     let innerContainerClassName = "read-passage-inner-container "
     innerContainerClassName += showReadTheDirectionsModal ? 'blur' : ''
 
-    return (<div className="read-passage-container" onScroll={this.resetTimers}>
+    return (<div className="read-passage-container" onScroll={this.handleReadPassageContainerScroll}>
       <div className={innerContainerClassName}>
-        <p className="directions">Read the passage.</p>
         <h1 className="title">{currentActivity.title}</h1>
         {headerImage}
         <div className="passage" dangerouslySetInnerHTML={{__html: this.formatHtmlForPassage()}} />
@@ -633,12 +653,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   renderRightPanel() {
     const { activities, } = this.props
-    const { activeStep, showReadTheDirectionsModal, } = this.state
+    const { activeStep, showReadTheDirectionsModal, scrolledToEndOfPassage, } = this.state
     if (activeStep === READ_PASSAGE_STEP) {
       return (
         <div className="steps-outer-container" onScroll={this.resetTimers}>
           <ReadAndHighlightInstructions
             activeStep={activeStep}
+            closeReadTheDirectionsModal={this.closeReadTheDirectionsModal}
             passage={activities.currentActivity.passages[0]}
             resetTimers={this.resetTimers}
             showReadTheDirectionsModal={showReadTheDirectionsModal}
@@ -647,12 +668,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
             <button className="quill-button contained primary large focus-on-light disabled" type="button">Done</button>
             <div className="read-and-highlight-steps">
               <div className="read-and-highlight-step">
-                <div className="incomplete-indicator" />
+                {scrolledToEndOfPassage ? <img alt={bigCheckIcon.alt} className="check-icon" src={bigCheckIcon.src} /> : <div className="incomplete-indicator" />}
                 <span>Read the entire passage</span>
               </div>
               <div className="read-and-highlight-step">
                 <div className="incomplete-indicator" />
-                <span>Highlight at least two sentences</span>
+                <span>Highlight{this.onMobile() ? '': ' at least'} two sentences</span>
               </div>
             </div>
           </div>
@@ -664,11 +685,11 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   render = () => {
     const { activities, } = this.props
-    const { showFocusState, } = this.state
+    const { showFocusState, activeStep, } = this.state
 
     if (!activities.hasReceivedData) { return <LoadingSpinner /> }
 
-    const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'}`
+    const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP ? 'on-read-passage' : ''}`
 
     return (<div className={className}>
       {this.renderStepLinks()}

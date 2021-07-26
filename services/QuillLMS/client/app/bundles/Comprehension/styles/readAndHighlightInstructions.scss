@@ -1,5 +1,6 @@
 .read-and-highlight-container {
   padding-top: 48px;
+  position: relative;
   section {
     padding: 0px 24px;
   }
@@ -17,6 +18,18 @@
   }
   h5 {
     margin-bottom: 16px;
+  }
+  .read-the-directions-modal {
+    padding: 16px 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 8px 0 #00000033, 0 3px 3px -2px #0000001e, 0 3px 4px 0 #00000023;
+    background-color: #ffffff;
+    position: absolute;
+    width: 320px;
+    left: -310px;
+    p {
+      margin-bottom: 16px;
+    }
   }
   .directions-section {
     margin-bottom: 48px;
@@ -57,6 +70,24 @@
     padding: 2px 0px;
     &.hover {
       background-color: #e1f3f1;
+    }
+  }
+  @media (max-width: 1099px) {
+    padding-top: 32px;
+    .read-the-directions-modal {
+      transform: translate(-50%, 0%);
+      bottom: -176px;
+      left: 50%;
+    }
+    .highlight-section {
+      display: none;
+    }
+    .directions-section {
+      padding-left: 16px;
+      p {
+        font-size: 20px;
+        line-height: 1.3;
+      }
     }
   }
 }

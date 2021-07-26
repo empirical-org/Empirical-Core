@@ -8,14 +8,17 @@
   padding: 16px 24px;
   align-items: center;
   justify-content: space-between;
+  background-color: white;
   .read-and-highlight-steps {
     display: flex;
   }
   .incomplete-indicator {
-    width: 24px;
-    height: 24px;
     border: solid 4px #c4c4c4;
     border-radius: 13px;
+  }
+  .check-icon, .incomplete-indicator {
+    width: 24px;
+    height: 24px;
   }
   .read-and-highlight-step {
     display: flex;
@@ -26,6 +29,24 @@
       line-height: 1.43;
       margin-left: 8px;
       color: #5c5c5c;
+    }
+  }
+  @media (max-width: 1099px) {
+    max-width: 100%;
+    justify-content: flex-start;
+    .read-and-highlight-steps {
+      flex-direction: column;
+    }
+    .read-and-highlight-step {
+      margin-left: 16px;
+    }
+    .read-and-highlight-step:first-of-type {
+      margin-bottom: 6px;
+    }
+    .incomplete-indicator {
+      width: 16px;
+      height: 16px;
+      border-width: 3px;
     }
   }
 }

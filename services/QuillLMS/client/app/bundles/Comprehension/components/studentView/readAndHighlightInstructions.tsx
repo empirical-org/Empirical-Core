@@ -3,9 +3,15 @@ import * as React from 'react'
 import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../Shared/utils/constants'
 import { cursorClick, cursorPointingHand, } from '../../../Shared/index'
 
-const ReadAndHighlightInstructions = ({ passage, activeStep, showReadTheDirectionsModal, resetTimers, }) => {
+const ReadTheDirectionsModal = ({ closeReadTheDirectionsModal, }) => (<section className="read-the-directions-modal">
+  <p>Read the directions carefully before moving onto reading and highlighting.</p>
+  <button className="quill-button primary contained large focus-on-light" onClick={closeReadTheDirectionsModal} type="button">Got it</button>
+</section>)
+
+const ReadAndHighlightInstructions = ({ passage, activeStep, showReadTheDirectionsModal, closeReadTheDirectionsModal, resetTimers, }) => {
   const uniquePartOfHighlightPrompt = passage.highlight_prompt.replace(DEFAULT_HIGHLIGHT_PROMPT, '')
   return (<div className="read-and-highlight-container">
+    {showReadTheDirectionsModal && <ReadTheDirectionsModal closeReadTheDirectionsModal={closeReadTheDirectionsModal} />}
     <section className="directions-section">
       <h3>Directions</h3>
       <p>{DEFAULT_HIGHLIGHT_PROMPT}<u>{uniquePartOfHighlightPrompt}</u></p>

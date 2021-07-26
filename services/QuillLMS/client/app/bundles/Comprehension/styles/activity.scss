@@ -62,7 +62,6 @@
     height: auto;
     max-width: 676px;
     width: 100%;
-    overflow: auto;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
     margin-right: 4px;
@@ -141,7 +140,6 @@
     padding-top: 60px;
 
     .steps-outer-container {
-      overflow: auto;
       -webkit-overflow-scrolling: touch;
       -ms-overflow-style: none;
       margin-right: 4px;
@@ -170,6 +168,9 @@
   @media (max-width: 1099px) {
     flex-direction: column;
     height: auto;
+    &.on-read-passage {
+      flex-direction: column-reverse;
+    }
     .steps-outer-container {
       height: auto;
     }
