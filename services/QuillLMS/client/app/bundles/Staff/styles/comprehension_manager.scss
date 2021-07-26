@@ -246,7 +246,7 @@
         color: #29d8bc;
       }
     }
-    .activity-form {
+    .comprehension-activity-form {
       .label-status-container {
         min-height: 58px;
         margin-top: 8px;
@@ -262,15 +262,15 @@
         }
       }
     }
-    .activity-form {
-      max-height: 80vh;
+    .comprehension-activity-form {
+      max-width: none !important;
     }
-    .activity-form , .rule-form, .semantic-rule-form {
+    .comprehension-activity-form , .rule-form, .semantic-rule-form {
       padding: 0px 30px 0px 30px;
       .title-input, .course-input, .flag-input, .reading-level-input,
-      .reading-score-input, .because-input, .but-input {
+      .reading-score-input, .because-input, .but-input, .name-input {
         margin-top: 20px;
-        max-width: 650px;
+        // max-width: 650px;
       }
       .so-input {
         margin: 20px 0px 20px 0px;
@@ -377,6 +377,42 @@
               border: none;
             }
           }
+        }
+      }
+    }
+  }
+  .rule-container {
+    .modal {
+      .rule-form {
+        max-height: 80vh;
+      }
+    }
+  }
+  .activity-settings-container {
+    width: 80vw;
+    .comprehension-page-header-container, .button-container {
+      width: 100%;
+    }
+    .button-container {
+      justify-content: flex-start;
+      a, button {
+        margin: 0px 8px 0px 8px;
+      }
+    }
+    .activity-form-container {
+      width: 100%;
+      .card {
+        max-width: unset !important;
+      }
+      .error-message-container {
+        width: 100%;
+        .all-errors-message {
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: normal;
+          color: #ff0000;
+          display: flex;
+          text-align: left;
         }
       }
     }
