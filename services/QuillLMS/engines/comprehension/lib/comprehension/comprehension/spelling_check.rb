@@ -49,7 +49,7 @@ module Comprehension
     end
 
     private def misspelled
-      bing_response['flaggedTokens']
+      bing_response['flaggedTokens'] || []
     end
 
     private def bing_response
