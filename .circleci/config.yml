@@ -77,7 +77,7 @@ jobs:
           name: Run tests
           command: |
             cd services/QuillLMS
-            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | grep -v "/skip_ci/" | circleci tests split)
+            TESTFILES=$(circleci tests glob "spec/system/*_spec.rb" | grep -v "/skip_ci/" | circleci tests split)
             bundle exec rspec -- ${TESTFILES}
       - store_artifacts:
           path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
