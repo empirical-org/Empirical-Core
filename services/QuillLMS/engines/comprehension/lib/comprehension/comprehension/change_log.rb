@@ -101,8 +101,7 @@ module Comprehension
     end
 
     def rules_change_logs(prompt)
-      prompt.rules.map { |rule|
-        next [] if rule.universal_rule_type?
+      prompt.rules.select { |rule| !rule.universal_rule_type? }.map { |rule|
         rule_logs = rule.change_logs || []
         logs = rule_logs + feedbacks_change_logs(rule) + regex_rules_change_logs(rule) + plagiarism_text_change_logs(rule)
       }.flatten! || []
