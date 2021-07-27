@@ -9,7 +9,7 @@ import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { blankActivity } from '../../../../../constants/comprehension';
 import { Spinner } from '../../../../Shared/index';
 
-const ActivityFormWrapper = ({ match }) => {
+const ActivitySettingsWrapper = ({ match }) => {
   const { params } = match;
   const { activityId} = params;
 
@@ -38,4 +38,4 @@ const ActivityFormWrapper = ({ match }) => {
   );
 }
 
-export default withRouter<any, any>(ActivityFormWrapper)
+export default withRouter<any, any>(ActivitySettingsWrapper)
