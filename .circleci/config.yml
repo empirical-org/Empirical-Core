@@ -78,7 +78,7 @@ jobs:
             TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | grep -v "/skip_ci/" | circleci tests split)
             bundle exec rspec -- ${TESTFILES}
       - store_artifacts:
-          path: tmp/screenshots
+          path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
   lms_node_build:
     working_directory: ~/Empirical-Core
     parallelism: 3
