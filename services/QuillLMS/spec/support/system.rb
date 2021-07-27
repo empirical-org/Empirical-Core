@@ -1,13 +1,13 @@
 RSpec.configure do |config|
   Capybara.register_driver :local_selenium_chrome_headless do |app|
-    Capybara::Selenium::Driver.new(
-      app,
-      browser: :chrome,
+    options = Selenium::WebDriver::Chrome::Options.new(
       args: [
         'headless',
         'window-size=1920x1280'
       ]
     )
+
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
   end
 
   Capybara.register_driver :remote_selenium_chrome do |app|
@@ -18,6 +18,8 @@ RSpec.configure do |config|
       desired_capabilities: :chrome
     )
   end
+
+  Capybara.server_port = 3000
 
   config.before(:each, type: :system) { driven_by :rack_test }
 
