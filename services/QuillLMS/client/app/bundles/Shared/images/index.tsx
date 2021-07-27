@@ -92,3 +92,8 @@ export const cursorPointingHand = {
   src: `${process.env.CDN_URL}/images/icons/cursor-pointinghand.svg`,
   alt: 'Cursor pointing hand'
 }
+
+export const removeIcon = {
+  src: `${process.env.CDN_URL}/images/icons/icons-remove.svg`,
+  alt: 'Icon showing a gray circle with a horizontal white line inside of it'
+}

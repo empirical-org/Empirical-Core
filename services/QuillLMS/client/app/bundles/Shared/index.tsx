@@ -109,6 +109,7 @@ export {
   smallWhiteCheckIcon,
   cursorClick,
   cursorPointingHand,
+  removeIcon,
 } from './images/index'
 
 export {

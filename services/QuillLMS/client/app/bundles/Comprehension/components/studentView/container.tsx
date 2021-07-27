@@ -2,6 +2,7 @@ import * as React from "react";
 import queryString from 'query-string';
 import { connect } from "react-redux";
 import stripHtml from "string-strip-html";
+import ReactHtmlParser from 'react-html-parser'
 
 import PromptStep from './promptStep'
 import StepLink from './stepLink'
@@ -492,6 +493,32 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     })
   }
 
+  handleHighlightClick = (e) => this.toggleStudentHighlight(e.target.textContent, () => document.activeElement.blur())
+
+  toggleStudentHighlight = (text, callback) => {
+    const { studentHighlights, } = this.state
+
+    let newHighlights = []
+
+    if (studentHighlights.includes(text)) {
+      newHighlights = studentHighlights.filter(hl => hl !== text)
+    } else {
+      newHighlights = studentHighlights.concat(text)
+    }
+
+    this.setState({ studentHighlights: newHighlights, }, callback ? callback() : () => {})
+  }
+
+  transformMarkTags = (node) => {
+    const { studentHighlights, showReadTheDirectionsModal, } = this.state
+    if (node.name === 'mark') {
+      const text = node.children[0].data
+      const className = studentHighlights.includes(text) ? 'highlighted' : ''
+      if (showReadTheDirectionsModal) { return <span>{text}</span>}
+      return <mark className={className} onClick={this.handleHighlightClick} onKeyDown={this.handleHighlightClick} tabIndex={0}>{text}</mark>
+    }
+  }
+
   formatHtmlForPassage = () => {
     const { activeStep, studentHighlights, } = this.state
     const { activities, session, } = this.props
@@ -503,9 +530,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const passagesWithPTags = this.addPTagsToPassages(passages)
     const passagesWithoutSpanTags = this.removeElementsFromPassages(passagesWithPTags, 'span');
 
-    if (!activeStep || activeStep === READ_PASSAGE_STEP) {
-      return passagesWithPTags.map(p => p.replace(/<mark>/g, "<mark tabIndex='0' />"))
-    }
+    if (!activeStep || activeStep === READ_PASSAGE_STEP) { return passagesWithPTags }
 
     const promptIndex = activeStep - 2 // have to subtract 2 because the prompts array index starts at 0 but the prompt numbers in the state are 2..4
     const activePromptId = currentActivity.prompts[promptIndex].id
@@ -641,7 +666,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       <div className={innerContainerClassName}>
         <h1 className="title">{currentActivity.title}</h1>
         {headerImage}
-        <div className="passage" dangerouslySetInnerHTML={{__html: this.formatHtmlForPassage()}} />
+        <div className="passage">{ReactHtmlParser(this.formatHtmlForPassage(), { transform: this.transformMarkTags })}</div>
         <span id="end-of-passage" />
       </div>
     </div>)
@@ -658,7 +683,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   renderRightPanel() {
     const { activities, } = this.props
-    const { activeStep, showReadTheDirectionsModal, scrolledToEndOfPassage, } = this.state
+    const { activeStep, showReadTheDirectionsModal, scrolledToEndOfPassage, studentHighlights, } = this.state
     if (activeStep === READ_PASSAGE_STEP) {
       return (
         <div className="steps-outer-container" onScroll={this.resetTimers}>
@@ -666,8 +691,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
             activeStep={activeStep}
             closeReadTheDirectionsModal={this.closeReadTheDirectionsModal}
             passage={activities.currentActivity.passages[0]}
-            resetTimers={this.resetTimers}
+            removeHighlight={this.toggleStudentHighlight}
             showReadTheDirectionsModal={showReadTheDirectionsModal}
+            studentHighlights={studentHighlights}
           />
           <div className="read-and-highlight-tracker">
             <button className="quill-button contained primary large focus-on-light disabled" type="button">Done</button>
