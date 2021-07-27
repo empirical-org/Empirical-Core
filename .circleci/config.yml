@@ -10,6 +10,8 @@ jobs:
           RAILS_ENV: test
           RACK_ENV: test
           SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub
+          GOOGLE_CLIENT_ID: $GOOGLE_CLIENT_ID
+          GOOGLE_CLIENT_SECRET: $GOOGLE_CLIENT_SECRET
           GOOGLE_TEST_USER_EMAIL: $GOOGLE_TEST_USER_EMAIL
           GOOGLE_TEST_USER_PASSWORD: $GOOGLE_TEST_USER_PASSWORD
       - image: postgres:10.5-alpine
@@ -286,6 +288,7 @@ workflows:
     jobs:
       - lms_rails_build:
           context:
+            - google_client_config
             - google_test_user
       - lms_node_build
       - marking_logic_node_build
