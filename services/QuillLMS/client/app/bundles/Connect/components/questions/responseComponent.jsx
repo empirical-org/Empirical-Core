@@ -523,8 +523,13 @@ class ResponseComponent extends React.Component {
 
   renderStatusToggleMenu = () => {
     let usedQualityLabels = qualityLabels
-    const { mode } = this.props
+    const { mode, filters } = this.props
+    const { visibleStatuses } = filters
     const regexLabels = this.incorrectSequenceNames().concat(this.focusPointNames())
+    regexLabels.forEach(author =>
+      visibleStatuses[author] = true
+    );
+
     if (mode === 'questions') {
       usedQualityLabels = _.without(qualityLabels, 'Algorithm Optimal')
     }
@@ -540,7 +545,7 @@ class ResponseComponent extends React.Component {
         resetPageNumber={this.resetPageNumber}
         toggleExcludeMisspellings={this.toggleExcludeMisspellings}
         toggleField={this.toggleField}
-        visibleStatuses={this.props.filters.visibleStatuses}
+        visibleStatuses={visibleStatuses}
       />
     );
   };
