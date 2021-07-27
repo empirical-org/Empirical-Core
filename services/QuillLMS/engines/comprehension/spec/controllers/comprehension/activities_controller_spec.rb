@@ -38,7 +38,7 @@ module Comprehension
 
       context 'should with actitivites' do
         let!(:first_activity) { create(:comprehension_activity, :title => "An Activity", :notes => "Notes 1", :target_level => 8) }
-        before do
+        before(:each) do
           create(:comprehension_activity, :title => "The Activity", :notes => "Notes 2", :target_level => 5)
         end
 
@@ -57,8 +57,8 @@ module Comprehension
 
     context 'should create' do
       let!(:activity) { build(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade", :notes => "First Activity - Notes") }
-      before do
-        session[:user_id] = 1        ]
+      before(:each) do
+        session[:user_id] = 1
         Comprehension.parent_activity_classification_class.create(:key => "comprehension")
       end
 
@@ -143,7 +143,7 @@ module Comprehension
     end
 
     context 'should update' do
-      before do
+      before(:each) do
         session[:user_id] = 1
       end
       let!(:activity) { create(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade") }
@@ -254,11 +254,11 @@ module Comprehension
     context 'change_logs' do
       before do
         session[:user_id] = 1
-        let!(:activity) {build(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade", notes: "First Activity - Notes")}
-        let!(:prompt) {build(:comprehension_prompt)}
-        let!(:passage) {build(:comprehension_passage)}
-        Comprehension.parent_activity_classification_class.create(key: 'comprehension')
       end
+      let!(:activity) {build(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade", notes: "First Activity - Notes")}
+      let!(:prompt) {build(:comprehension_prompt)}
+      let!(:passage) {build(:comprehension_passage)}
+      Comprehension.parent_activity_classification_class.create(key: 'comprehension')
 
       it "should return change logs for that activity" do
         post :create, params: {

@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 20210722143752) do
     t.datetime "updated_at", null: false
     t.string "image_link"
     t.string "image_alt_text", default: ""
+    t.string "highlight_prompt"
     t.index ["activity_id"], name: "index_comprehension_passages_on_activity_id"
   end
 
@@ -124,17 +125,6 @@ ActiveRecord::Schema.define(version: 20210722143752) do
     t.datetime "updated_at", null: false
     t.index ["prompt_id", "rule_id"], name: "index_comprehension_prompts_rules_on_prompt_id_and_rule_id", unique: true
     t.index ["rule_id"], name: "index_comprehension_prompts_rules_on_rule_id"
-  end
-
-  create_table "comprehension_passages", force: :cascade do |t|
-    t.integer  "activity_id"
-    t.text     "text"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.string   "image_link"
-    t.string   "image_alt_text",   default: ""
-    t.string   "highlight_prompt"
-    t.index ["activity_id"], name: "index_comprehension_passages_on_activity_id", using: :btree
   end
 
   create_table "comprehension_regex_rules", id: :serial, force: :cascade do |t|
