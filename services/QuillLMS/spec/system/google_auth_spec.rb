@@ -22,6 +22,6 @@ RSpec.describe 'Google Auth' do
     click_button 'Next'
     fill_in 'password', with: user.password
     click_button 'Next'
-    sleep 5
+    click_button 'Sign out'
   end
 end
