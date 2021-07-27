@@ -25,6 +25,13 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       expect(active_activity_session.data).to eq(data)
     end
 
+    it "should filter out uid" do
+      data = {"foo" => "bar", "uid" => "this-should-be-filtered-out" }
+      put :update, params: { id: active_activity_session.uid, active_activity_session: data }
+      active_activity_session.reload
+      expect(active_activity_session.data).to eq({"foo" => "bar"})
+    end
+
     it "should handle nested data" do
       old_data = active_activity_session.data
 

@@ -249,11 +249,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { sessionID, } = session
     const activityUID = this.activityUID()
     const previousFeedback = session.submittedResponses[promptID] || [];
+    // strip any HTML injected by browser extensions (such as Chrome highlight)
+    const strippedEntry = stripHtml(entry);
     if (activityUID) {
       const args = {
         sessionID,
         activityUID,
-        entry,
+        entry: strippedEntry,
         promptID,
         promptText,
         attempt,
@@ -462,6 +464,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const passagesWithoutSpanTags = this.removeSpansFromPassages(passagesWithPTags);
 
     if (!activeStep || activeStep === READ_PASSAGE_STEP) { return passagesWithPTags }
+
+    // we return the unhighlighted text when an active response has maxed attempts
+    if (this.outOfAttemptsForActivePrompt()) { return passagesWithoutSpanTags }
 
     const promptIndex = activeStep - 2 // have to subtract 2 because the prompts array index starts at 0 but the prompt numbers in the state are 2..4
     const activePromptId = currentActivity.prompts[promptIndex].id
