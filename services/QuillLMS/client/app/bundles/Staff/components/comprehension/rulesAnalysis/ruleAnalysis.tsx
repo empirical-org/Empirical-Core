@@ -27,6 +27,7 @@ const RuleAnalysis = ({ match }) => {
 
   const initialStartDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}startDate`) || window.sessionStorage.getItem(`${RULE_ANALYSIS}startDate`) || '';
   const initialEndDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}endDate`) || window.sessionStorage.getItem(`${RULE_ANALYSIS}endDate`) || '';
+  const initialTurkSessionId = window.sessionStorage.getItem(`${RULES_ANALYSIS}turkSessionId`) || '';
   const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
 
@@ -39,8 +40,8 @@ const RuleAnalysis = ({ match }) => {
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
-  const [turkSessionID, setTurkSessionID] = React.useState<string>(null);
-  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(null);
+  const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
+  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
 
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
