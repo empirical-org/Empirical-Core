@@ -97,6 +97,13 @@ exports[`Activity Form component should render Activities 1`] = `
       key="max-attempt-feedback"
       text="At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul."
     />
+    <Input
+      autoComplete="on"
+      className="highlight-prompt-input"
+      handleChange={[Function]}
+      label="Highlight Prompt: \\"As you read, highlight two sentences that explain ...\\""
+      value="As you read, highlight two sentences that explain "
+    />
     <PromptsForm
       activityBecausePrompt={
         Object {
