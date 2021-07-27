@@ -13,6 +13,7 @@ import {
   SCORED_READING_LEVEL,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
+  HIGHLIGHT_PROMPT,
   PLAGIARISM,
   ALL
 } from '../../../constants/comprehension';
@@ -50,11 +51,12 @@ export function getModelsUrl(promptId: string, state: string) {
   return url;
 }
 
-export function getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, turkSessionID }) {
+export function getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, turkSessionID, filterType }) {
   let url = `session_feedback_histories.json?page=${pageNumber}&activity_id=${activityId}`;
   url = startDate ? url + `&start_date=${startDate}` : url;
   url = endDate ? url + `&end_date=${endDate}` : url;
   url = turkSessionID ? url + `&turk_session_id=${turkSessionID}` : url;
+  url = filterType ? url + `&filter_type=${filterType}` : url;
   return url;
 }
 
@@ -120,7 +122,8 @@ export const buildActivity = ({
   activityMaxFeedback,
   activityBecausePrompt,
   activityButPrompt,
-  activitySoPrompt
+  activitySoPrompt,
+  highlightPrompt,
 }) => {
   // const { label } = activityFlag;
   const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt];
@@ -134,6 +137,7 @@ export const buildActivity = ({
       // flag: label,
       scored_level: activityScoredReadingLevel,
       target_level: parseInt(activityTargetReadingLevel),
+      highlight_prompt: highlightPrompt,
       passages_attributes: activityPassages,
       prompts_attributes: prompts
     }
@@ -280,18 +284,22 @@ export const handlePageFilterClick = ({
   startDate,
   endDate,
   turkSessionID,
+  filterOption,
   setStartDate,
   setEndDate,
   setShowError,
   setPageNumber,
   setTurkSessionIDForQuery,
+  setFilterOptionForQuery,
   storageKey }: {
     startDate: Date,
     endDate?: Date,
+    filterOption?: DropdownObjectInterface,
     turkSessionID?: string,
     setStartDate: (startDate: string) => void,
     setEndDate: (endDate: string) => void,
     setTurkSessionIDForQuery?: (turkSessionID: string) => void,
+    setFilterOptionForQuery?: (filterOption: DropdownObjectInterface) => void,
     setShowError: (showError: boolean) => void,
     setPageNumber: (pageNumber: DropdownObjectInterface) => void,
     storageKey: string,
@@ -317,7 +325,12 @@ export const handlePageFilterClick = ({
     // reset to null so backend doesn't check on empty string
     setTurkSessionIDForQuery(null);
   } else if(turkSessionID) {
+    window.sessionStorage.setItem(`${storageKey}turkSessionId`, turkSessionID);
     setTurkSessionIDForQuery(turkSessionID);
+  }
+  if(filterOption) {
+    window.sessionStorage.setItem(`${storageKey}filterOption`, JSON.stringify(filterOption));
+    setFilterOptionForQuery(filterOption);
   }
 }
 
@@ -327,6 +340,7 @@ export const validateForm = (keys: string[], state: any[], ruleType?: string) =>
     switch(keys[i]) {
       case IMAGE_LINK:
       case IMAGE_ALT_TEXT:
+      case HIGHLIGHT_PROMPT:
         break;
       case TARGET_READING_LEVEL:
         const targetError = targetReadingLevelError(value);
