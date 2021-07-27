@@ -486,14 +486,14 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     return currentActivity ? currentActivity.prompts.sort((a, b) => a.conjunction.localeCompare(b.conjunction)) : [];
   }
 
-  removeSpansFromPassages = (passages) => {
+  removeElementsFromPassages = (passages, element) => {
     return passages.map(passage => {
-      return stripHtml(passage, { onlyStripTags: ['span'] })
+      return stripHtml(passage, { onlyStripTags: [element] })
     })
   }
 
   formatHtmlForPassage = () => {
-    const { activeStep, } = this.state
+    const { activeStep, studentHighlights, } = this.state
     const { activities, session, } = this.props
     const { currentActivity, } = activities
 
@@ -501,9 +501,11 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     let passages: any[] = currentActivity.passages
     const passagesWithPTags = this.addPTagsToPassages(passages)
-    const passagesWithoutSpanTags = this.removeSpansFromPassages(passagesWithPTags);
+    const passagesWithoutSpanTags = this.removeElementsFromPassages(passagesWithPTags, 'span');
 
-    if (!activeStep || activeStep === READ_PASSAGE_STEP) { return passagesWithPTags }
+    if (!activeStep || activeStep === READ_PASSAGE_STEP) {
+      return passagesWithPTags.map(p => p.replace(/<mark>/g, "<mark tabIndex='0' />"))
+    }
 
     const promptIndex = activeStep - 2 // have to subtract 2 because the prompts array index starts at 0 but the prompt numbers in the state are 2..4
     const activePromptId = currentActivity.prompts[promptIndex].id

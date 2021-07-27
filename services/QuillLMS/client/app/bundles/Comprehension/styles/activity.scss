@@ -48,6 +48,12 @@
       }
       mark {
         background-color: inherit;
+        &:hover, &:focus {
+          background-color: #e1f3f1;
+          outline: none;
+          cursor: pointer;
+          padding: 2px 0px;
+        }
       }
     }
     .passage-highlight {
