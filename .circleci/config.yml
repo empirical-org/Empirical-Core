@@ -23,21 +23,21 @@ jobs:
     steps:
       - checkout
 
-      - restore_cache:
-          keys:
-            - npm-cache-lms-rails-build-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-            - npm-cache-lms-rails-build-v6-{{ checksum "services/QuillLMS/client/package.json" }}-
-            - npm-cache-lms-rails-build-v6
-      - run:
-          name: Install NPM dependencies
-          command: |
-            cd services/QuillLMS
-            npm install
-            npm rebuild node-sass
-      - save_cache:
-          key: npm-cache-lms-rails-build-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-          paths:
-            - services/QuillLMS/client/node_modules
+      # - restore_cache:
+      #     keys:
+      #       - npm-cache-lms-rails-build-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+      #       - npm-cache-lms-rails-build-v6-{{ checksum "services/QuillLMS/client/package.json" }}-
+      #       - npm-cache-lms-rails-build-v6
+      # - run:
+      #     name: Install NPM dependencies
+      #     command: |
+      #       cd services/QuillLMS
+      #       npm install
+      #       npm rebuild node-sass
+      # - save_cache:
+      #     key: npm-cache-lms-rails-build-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+      #     paths:
+      #       - services/QuillLMS/client/node_modules
       - restore_cache:
           keys:
             - bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
