@@ -32,10 +32,10 @@ class SerializeActivityHealth
     questions = @activity.data["questions"]
     return [] if !questions.present?
 
-    @questions_arr ||= questions.each.with_index(1).map do |q, question_number|
+    @questions_arr ||= questions.each.with_index(1).map { |q, question_number|
       question = Question.find_by(uid: q["key"])
-      question.present? ? QuestionHealthObj.new(@activity, question, question_number, tool).run : {}
-    end
+      question.present? ? QuestionHealthObj.new(@activity, question, question_number, tool).run : nil
+    }.compact
   end
 
   private def tool

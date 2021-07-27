@@ -120,13 +120,94 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only items with the specified turk_session_uid' do
-          get :index, turk_session_id: @comprehension_turking_round.turking_round_id
+          get :index, params: { turk_session_id: @comprehension_turking_round.turking_round_id }
 
           parsed_response = JSON.parse(response.body)
 
           expect(response).to have_http_status(200)
           expect(parsed_response['activity_sessions'].length).to eq(1)
           expect(parsed_response['activity_sessions'][0]['session_uid']).to eq(@feedback_history1.feedback_session_uid)
+        end
+      end
+      context 'filters' do
+        setup do
+          user = create(:user)
+          @feedback_history1 = create(:feedback_history)
+          feedback_history_rating1 = create(:feedback_history_rating, user_id: user.id, feedback_history_id: @feedback_history1.id, rating: true)
+          @feedback_history2 = create(:feedback_history)
+          feedback_history_rating2 = create(:feedback_history_rating, user_id: user.id, feedback_history_id: @feedback_history2.id, rating: nil)
+          @feedback_history3 = create(:feedback_history)
+          feedback_history_rating3 = create(:feedback_history_rating, user_id: user.id, feedback_history_id: @feedback_history3.id, rating: false)
+        end
+
+        it 'should retrieve all sessions when filter_type is all' do
+          get :index, params: { filter_type: "all" }
+
+          parsed_response = JSON.parse(response.body)
+
+          expect(response).to have_http_status(200)
+          expect(parsed_response['activity_sessions'].length).to eq(3)
+          expect(parsed_response['activity_sessions'][0]['session_uid']).to eq(@feedback_history3.feedback_session_uid)
+          expect(parsed_response['activity_sessions'][1]['session_uid']).to eq(@feedback_history2.feedback_session_uid)
+          expect(parsed_response['activity_sessions'][2]['session_uid']).to eq(@feedback_history1.feedback_session_uid)
+        end
+
+        it 'should retrieve only scored sessions when filter_type is scored' do
+          get :index, params: { filter_type: "scored" }
+
+          parsed_response = JSON.parse(response.body)
+
+          expect(response).to have_http_status(200)
+          expect(parsed_response['activity_sessions'].length).to eq(2)
+          expect(parsed_response['activity_sessions'][0]['session_uid']).to eq(@feedback_history3.feedback_session_uid)
+          expect(parsed_response['activity_sessions'][1]['session_uid']).to eq(@feedback_history1.feedback_session_uid)
+        end
+
+        it 'should retrieve only unscored sessions when filter_type is unscored' do
+          get :index, params: { filter_type: "unscored" }
+
+          parsed_response = JSON.parse(response.body)
+
+          expect(response).to have_http_status(200)
+          expect(parsed_response['activity_sessions'].length).to eq(1)
+          expect(parsed_response['activity_sessions'][0]['session_uid']).to eq(@feedback_history2.feedback_session_uid)
+        end
+
+        it 'should retrieve only weak sessions when filter_type is weak' do
+          get :index, params: { filter_type: "weak" }
+
+          parsed_response = JSON.parse(response.body)
+
+          expect(response).to have_http_status(200)
+          expect(parsed_response['activity_sessions'].length).to eq(1)
+          expect(parsed_response['activity_sessions'][0]['session_uid']).to eq(@feedback_history3.feedback_session_uid)
+        end
+
+        it 'should retrieve only incomplete sessions when filter_type is incomplete' do
+          get :index, params: { filter_type: "incomplete" }
+
+          parsed_response = JSON.parse(response.body)
+
+          expect(response).to have_http_status(200)
+          expect(parsed_response['activity_sessions'].length).to eq(3)
+        end
+
+        it 'should retrieve only complete sessions when filter_type is complete' do
+          activity = Comprehension::Activity.create!(notes: 'Title 1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
+          because_prompt = Comprehension::Prompt.create!(activity: activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+          but_prompt = Comprehension::Prompt.create!(activity: activity, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+          so_prompt = Comprehension::Prompt.create!(activity: activity, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+          activity_session = create(:activity_session)
+          feedback_history3 = create(:feedback_history, feedback_session_uid: activity_session.uid, prompt: because_prompt, optimal: true)
+          feedback_history4 = create(:feedback_history, feedback_session_uid: activity_session.uid, prompt: but_prompt, optimal: true)
+          feedback_history5 = create(:feedback_history, feedback_session_uid: activity_session.uid, prompt: so_prompt, optimal: true)
+
+          get :index, params: { filter_type: "complete" }
+
+          parsed_response = JSON.parse(response.body)
+
+          expect(response).to have_http_status(200)
+          expect(parsed_response['activity_sessions'].length).to eq(1)
         end
       end
     end

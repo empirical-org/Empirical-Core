@@ -46,6 +46,28 @@ describe ClassroomsTeachersController, type: :controller do
   #   end
   # end
 
+  describe '#update_order' do
+
+    before do
+      user = create(:user, role: "teacher")
+      @classrooms_teacher1 = create(:classrooms_teacher, user_id: user.id)
+      @classrooms_teacher2 = create(:classrooms_teacher, user_id: user.id)
+      @classrooms_teacher3 = create(:classrooms_teacher, user_id: user.id)
+    end
+
+    it 'should update the order value for classrooms_teachers' do
+      classrooms_teacher_array = [@classrooms_teacher1, @classrooms_teacher2, @classrooms_teacher3]
+      order = [1, 2, 0]
+      params_array = [{ id: @classrooms_teacher1.classroom_id, order: 1 }, { id: @classrooms_teacher2.classroom_id, order: 2 }, { id: @classrooms_teacher3.classroom_id, order: 0 }]
+
+      put :update_order, params: { updated_classrooms: params_array.to_json }
+
+      classrooms_teacher_array.each_with_index do |classrooms_teacher, i|
+        expect classrooms_teacher.order == order[i]
+      end
+    end
+  end
+
   describe '#specific_coteacher_info' do
     let(:classroom) { create(:classroom) }
 
