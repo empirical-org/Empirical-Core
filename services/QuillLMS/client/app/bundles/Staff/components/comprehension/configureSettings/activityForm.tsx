@@ -18,7 +18,8 @@ import {
   PASSAGE,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
-  PARENT_ACTIVITY_ID
+  PARENT_ACTIVITY_ID,
+  HIGHLIGHT_PROMPT
 } from '../../../../../constants/comprehension';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
 import { Input, TextEditor, } from '../../../../Shared/index'
@@ -30,13 +31,15 @@ interface ActivityFormProps {
   submitActivity: (activity: object) => void
 }
 
+const DEFAULT_HIGHLIGHT_PROMPT = "As you read, highlight two sentences that explain "
+
 const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: ActivityFormProps) => {
 
   const { parent_activity_id, passages, prompts, scored_level, target_level, title, notes, } = activity;
   // const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
   const formattedScoredLevel = scored_level || '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
-  const formattedPassage = passages && passages.length ? passages : [{ text: ''}];
+  const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT }];
   let formattedMaxFeedback;
   if(prompts && prompts[0] && prompts[0].max_attempts_feedback) {
     formattedMaxFeedback = prompts[0].max_attempts_feedback
@@ -72,6 +75,8 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
 
   function handleSetActivityTargetReadingLevel(e: InputEvent){ setActivityTargetReadingLevel(e.target.value) };
 
+  function handleSetHighlightPrompt(e: InputEvent){ handleSetActivityPassages('highlight_prompt', e.target.value) };
+
   function handleSetImageLink(e: InputEvent){ handleSetActivityPassages('image_link', e.target.value) };
 
   function handleSetImageAltText(e: InputEvent){ handleSetActivityPassages('image_alt_text', e.target.value) };
@@ -104,7 +109,7 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
       activityMaxFeedback,
       activityBecausePrompt,
       activityButPrompt,
-      activitySoPrompt
+      activitySoPrompt,
     });
     const state = [
       activityTitle,
@@ -117,7 +122,8 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
       activityButPrompt.text,
       activitySoPrompt.text,
       activityPassages[0].image_link,
-      activityPassages[0].image_alt_text
+      activityPassages[0].image_alt_text,
+      activityPassages[0].highlight_prompt
     ];
     const validationErrors = validateForm(activityFormKeys, state);
     if(validationErrors && Object.keys(validationErrors).length !== 0) {
@@ -207,6 +213,13 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
           handleTextChange={handleSetActivityMaxFeedback}
           key="max-attempt-feedback"
           text={activityMaxFeedback}
+        />
+        <Input
+          className="highlight-prompt-input"
+          error={errors[HIGHLIGHT_PROMPT]}
+          handleChange={handleSetHighlightPrompt}
+          label={`Highlight Prompt: "${DEFAULT_HIGHLIGHT_PROMPT}..."`}
+          value={activityPassages[0].highlight_prompt || DEFAULT_HIGHLIGHT_PROMPT}
         />
         {errors[MAX_ATTEMPTS_FEEDBACK] && <p className="error-message">{errors[MAX_ATTEMPTS_FEEDBACK]}</p>}
         <PromptsForm
