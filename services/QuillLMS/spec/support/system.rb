@@ -1,6 +1,4 @@
 RSpec.configure do |config|
-  config.before(:each, type: :system) { driven_by :rack_test }
-
   Capybara.register_driver :local_selenium_chrome_headless do |app|
     Capybara::Selenium::Driver.new(
       app,
@@ -21,8 +19,7 @@ RSpec.configure do |config|
     )
   end
 
-  Capybara.server_port = 60947
-  Capybara.default_max_wait_time = 15
+  config.before(:each, type: :system) { driven_by :rack_test }
 
   config.before(:each, type: :system, js: true) do
     if ENV["SELENIUM_DRIVER_URL"].present?
