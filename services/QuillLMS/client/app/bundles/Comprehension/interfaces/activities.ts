@@ -19,5 +19,6 @@ export interface Passage {
   id: number,
   text: string,
   image_link?: string,
-  image_alt_text?: string
+  image_alt_text?: string,
+  highlight_prompt?: string,
 }
