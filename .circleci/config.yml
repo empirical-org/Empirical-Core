@@ -1,7 +1,7 @@
 jobs:
   lms_rails_build:
     working_directory: ~/Empirical-Core
-    parallelism: 4
+    parallelism: 1
     docker:
       - image: circleci/ruby:2.6.6-node
         environment:

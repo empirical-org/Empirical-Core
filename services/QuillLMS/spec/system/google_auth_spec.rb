@@ -9,10 +9,10 @@ RSpec.describe 'Google Auth' do
     visit root_path
     click_link 'Log In'
     click_button 'Log in with Google'
-    fill_in 'Email', with:  user.email
+    fill_in 'identifierId', with:  user.email
     click_button 'Next'
     fill_in 'password', with: user.password
-    click_button 'Sign in'
+    click_button 'Next'
     click_button 'Allow'
   end
 end
