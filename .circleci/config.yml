@@ -60,7 +60,7 @@ jobs:
             bundle exec rspec --exclude-pattern "spec/system/**/*_spec.rb" -- ${TESTFILES}
   lms_integration_build:
     working_directory: ~/Empirical-Core
-    parallelism: 4
+    parallelism: 1
     docker:
       - image: circleci/ruby:2.6.6-node
         environment:
@@ -68,7 +68,7 @@ jobs:
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
-          SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub
+          SELENIUM_DRIVER_URL: http://127.0.0.1:4444/wd/hub
           DEFAULT_URL: http://127.0.0.1:3000
       - image: postgres:10.5-alpine
         environment:
@@ -133,7 +133,7 @@ jobs:
           command: |
             cd services/QuillLMS
             TESTFILES=$(circleci tests glob "spec/system/*_spec.rb" | circleci tests split)
-            bundle exec rspec -- ${TESTFILES}
+            bundle exec rspec ${TESTFILES}
       - store_artifacts:
           path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
   lms_node_build:
