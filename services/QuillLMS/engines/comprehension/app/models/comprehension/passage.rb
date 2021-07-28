@@ -1,5 +1,7 @@
 module Comprehension
   class Passage < ApplicationRecord
+    include Comprehension::ChangeLog
+
     MIN_TEXT_LENGTH = 50
 
     belongs_to :activity, inverse_of: :passages
@@ -12,6 +14,14 @@ module Comprehension
       super(options.reverse_merge(
         only: [:id, :text, :image_link, :image_alt_text, :highlight_prompt]
       ))
+    end
+
+    def change_log_name
+      "Comprehension Passage Text"
+    end
+
+    def url
+      activity.url
     end
   end
 end

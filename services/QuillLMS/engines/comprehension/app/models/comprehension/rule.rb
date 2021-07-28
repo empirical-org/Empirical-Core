@@ -1,5 +1,7 @@
 module Comprehension
   class Rule < ApplicationRecord
+    include Comprehension::ChangeLog
+
     attr_accessor :first_feedback
 
     MAX_NAME_LENGTH = 250
@@ -80,6 +82,63 @@ module Comprehension
       DISPLAY_NAMES[rule_type.to_sym] || rule_type
     end
 
+    def plagiarism?
+      rule_type == TYPE_PLAGIARISM
+    end
+
+    def regex?
+      rule_type == TYPE_REGEX_ONE || rule_type == TYPE_REGEX_TWO || rule_type == TYPE_REGEX_THREE
+    end
+
+    def automl?
+      rule_type == TYPE_AUTOML
+    end
+
+    def universal_rule_type?
+      rule_type == TYPE_SPELLING || rule_type == TYPE_GRAMMAR
+    end
+
+    def universal?
+      universal
+    end
+
+    def change_log_name
+      if regex?
+        "Regex Rule"
+      elsif plagiarism?
+        "Plagiarism Rule"
+      elsif automl?
+        "Semantic Label"
+      elsif universal_rule_type?
+        "Universal Rule"
+      else
+        "Rule"
+      end
+    end
+
+    def url
+      if regex?
+        "comprehension/#/activities/#{activity_id}/regex-rules/#{id}"
+      elsif universal?
+        "comprehension/#/universal-rules/#{id}"
+      elsif plagiarism?
+        "comprehension/#/activities/#{activity_id}/plagiarism-rules/#{id}"
+      elsif automl?
+        "comprehension/#/activities/#{activity_id}/semantic-labels/#{prompt_id}/#{id}"
+      else
+        ""
+      end
+    end
+
+    def comprehension_name
+      name
+    end
+
+    def conjunctions
+      return nil if universal_rule_type?
+      prompts.map(&:conjunction)
+    end
+
     private def all_regex_rules_passing?(entry)
       regex_rules.none? do |regex_rule|
         regex_rule.entry_failing?(entry)
@@ -90,10 +149,6 @@ module Comprehension
       regex_rules.any? do |regex_rule|
         !regex_rule.entry_failing?(entry)
       end
-    end
-
-    private def plagiarism?
-      rule_type == TYPE_PLAGIARISM
     end
 
     private def assign_uid_if_missing
@@ -113,6 +168,14 @@ module Comprehension
       prompts.each do |prompt|
         errors.add(:prompts, "prompt #{prompt.id} already has a plagiarism rule") if prompt.rules.where(rule_type: TYPE_PLAGIARISM).first&.id
       end
+    end
+
+    private def activity_id
+      prompts&.first&.activity&.id
+    end
+
+    private def prompt_id
+      prompts&.first&.id
     end
   end
 end

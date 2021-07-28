@@ -87,3 +87,13 @@ export const fetchActivitySession = async (key: string, sessionId: string) => {
     error: handleApiError('Failed to fetch activity sessions, please refresh the page.', response),
   };
 }
+
+export const fetchChangeLogs = async (key: string, activityId: string) => {
+  const response = await apiFetch(`activities/${activityId}/change_logs`);
+  const changeLogs = await response.json();
+
+  return {
+    changeLogs,
+    error: handleApiError('Failed to fetch change log, please refresh the page.', response)
+  };
+}
