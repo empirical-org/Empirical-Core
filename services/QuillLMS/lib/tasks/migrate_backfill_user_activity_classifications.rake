@@ -1,4 +1,8 @@
 namespace :migrate_backfill_user_activity_classifications do
+  # NOTE: In production environments, this task requires more memory
+  # than is available in via a default `heroku run` command.
+  # You'll need to run this with the `--size=` flag.  I've tested it
+  # in staging with `--size=performance-l`
   desc 'Establish initial values for UserActivityClassification counts'
   task :run => :environment do
     records = User.select(<<-SELECT
