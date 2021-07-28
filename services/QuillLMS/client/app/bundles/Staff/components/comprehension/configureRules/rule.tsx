@@ -189,26 +189,31 @@ const Rule = ({ history, match }) => {
       </div>
     );
   }
+  const validRule = ruleData && ruleData.rule;
 
   return(
     <div className="rule-container">
       {showDeleteRuleModal && renderDeleteRuleModal()}
       {showEditRuleModal && renderRuleForm()}
       {renderHeader(activityData, 'View All Rules - View Individual Rule')}
-      <Link className="data-link" to={`/activities/${activityId}/rules`}>← Return to Rules Index</Link>
-      <DataTable
-        className="rule-table"
-        headers={dataTableFields}
-        rows={ruleRows(ruleData)}
-      />
-      <div className="button-container">
-        <button className="quill-button fun primary contained" id="edit-rule-button" onClick={toggleShowEditRuleModal} type="button">
-          Configure
-        </button>
-        <button className="quill-button fun primary contained" id="delete-rule-button" onClick={toggleShowDeleteRuleModal} type="button">
-          Delete
-        </button>
-      </div>
+      <Link className="data-link" to={`/activities/${activityId}/rules-index`}>← Return to Rules Index</Link>
+      {validRule &&
+      <React.Fragment>
+        <DataTable
+          className="rule-table"
+          headers={dataTableFields}
+          rows={ruleRows(ruleData)}
+        />
+        <div className="button-container">
+          <button className="quill-button fun primary contained" id="edit-rule-button" onClick={toggleShowEditRuleModal} type="button">
+            Configure
+          </button>
+          <button className="quill-button fun primary contained" id="delete-rule-button" onClick={toggleShowDeleteRuleModal} type="button">
+            Delete
+          </button>
+        </div>
+      </React.Fragment>}
+      {!validRule && <p className="invalid-rule-text">{`Rule with id ${ruleId} does not exist.`}</p>}
     </div>
   );
 }

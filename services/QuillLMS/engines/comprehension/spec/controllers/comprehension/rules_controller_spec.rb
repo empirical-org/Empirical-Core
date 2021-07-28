@@ -15,7 +15,7 @@ module Comprehension
       end
 
       context 'should with rules' do
-        let!(:rule) { create(:comprehension_rule) } 
+        let!(:rule) { create(:comprehension_rule) }
 
         it 'should return successfully' do
           get(:index)
@@ -176,7 +176,7 @@ module Comprehension
     end
 
     context 'should show' do
-      let!(:rule) { create(:comprehension_rule) } 
+      let!(:rule) { create(:comprehension_rule) }
 
       it 'should return json if found by id' do
         get(:show, :params => ({ :id => rule.id }))
@@ -206,8 +206,10 @@ module Comprehension
         expect(parsed_response["concept_uid"]).to(eq(rule.concept_uid))
       end
 
-      it 'should raise if not found (to be handled by parent app)' do
-        expect { get(:show, :params => ({ :id => 99999 })) }.to(raise_error(ActiveRecord::RecordNotFound))
+      it 'should not raise exception if not found (to be handled by parent app)' do
+        get(:show, :params => ({ :id => 99999 }))
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response).to eq(nil)
       end
     end
 
@@ -287,7 +289,7 @@ module Comprehension
     end
 
     context 'should destroy' do
-      let!(:rule) { create(:comprehension_rule) } 
+      let!(:rule) { create(:comprehension_rule) }
 
       it 'should destroy record at id' do
         delete(:destroy, :params => ({ :id => rule.id }))
