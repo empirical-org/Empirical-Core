@@ -39,5 +39,5 @@ RSpec.configure do |config|
     end
   end
 
-  config.after(type: :system) { STDERR.puts page.driver.browser.manage.logs.get(:browser) }
+  config.after(type: :system) { warn(page.driver.browser.manage.logs.get(:browser)) }
 end

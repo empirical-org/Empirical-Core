@@ -69,7 +69,7 @@ jobs:
           RAILS_ENV: test
           RACK_ENV: test
           SELENIUM_DRIVER_URL: http://127.0.0.1:4444/wd/hub
-          DEFAULT_URL: http://127.0.0.1:3000
+          # DEFAULT_URL: http://127.0.0.1:3000
       - image: postgres:10.5-alpine
         environment:
           POSTGRES_USER: ubuntu
@@ -340,15 +340,15 @@ workflows:
   version: 2
   build-test:
     jobs:
-      - lms_rails_build
+      # - lms_rails_build
       - lms_integration_build
-      - lms_node_build
-      - marking_logic_node_build
-      - cms_rails_build
-      - comprehension_go_build
-      - comprehension_rails_build
-  lint-code:
-    jobs:
-      - node_lint
-      - rubocop_lint
-      - flake8_lint
+  #     - lms_node_build
+  #     - marking_logic_node_build
+  #     - cms_rails_build
+  #     - comprehension_go_build
+  #     - comprehension_rails_build
+  # lint-code:
+  #   jobs:
+  #     - node_lint
+  #     - rubocop_lint
+  #     - flake8_lint
