@@ -79,9 +79,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-            - npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package.json" }}-
-            - npm-cache-lms-client-v6
+            - npm-cache-lms-client-v7-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+            - npm-cache-lms-client-v7-{{ checksum "services/QuillLMS/client/package.json" }}-
+            - npm-cache-lms-client-v7
       - run:
           name: Install NPM dependencies
           command: |
@@ -89,7 +89,7 @@ jobs:
             npm install
             npm rebuild node-sass
       - save_cache:
-          key: npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+          key: npm-cache-lms-client-v7-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
           paths:
             - services/QuillLMS/client/node_modules
       - restore_cache:
