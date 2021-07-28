@@ -65,11 +65,11 @@ module Comprehension
 
         automl = AutomlModel.last
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "AutoML Model - created"
-        assert_equal change_log.user_id, 1
-        assert_equal change_log.changed_record_type, "Comprehension::AutomlModel"
-        assert_equal change_log.changed_record_id, automl.id
-        assert_equal change_log.new_value, nil
+        expect(change_log.serializable_hash["full_action"]).to(eq("AutoML Model - created"))
+        expect(change_log.user_id).to(eq(1))
+        expect(change_log.changed_record_type).to(eq("Comprehension::AutomlModel"))
+        expect(change_log.changed_record_id).to(eq(automl.id))
+        expect(change_log.new_value).to(eq(nil))
       end
 
       it 'should create new records with state = inactive no matter what is passed in' do
@@ -162,11 +162,11 @@ module Comprehension
         patch :activate, params: {id: automl.id}
 
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "AutoML Model - activated"
-        assert_equal change_log.user_id, 1
-        assert_equal change_log.changed_record_type, "Comprehension::AutomlModel"
-        assert_equal change_log.changed_record_id, automl.id
-        assert_equal change_log.new_value, nil
+        expect(change_log.serializable_hash["full_action"]).to(eq("AutoML Model - activated"))
+        expect(change_log.user_id).to(eq(1))
+        expect(change_log.changed_record_type).to(eq("Comprehension::AutomlModel"))
+        expect(change_log.changed_record_id).to(eq(automl.id))
+        expect(change_log.new_value).to(eq(nil))
       end
 
       it 'should return a 422 with the unmodified object if activation fails' do

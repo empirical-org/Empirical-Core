@@ -15,20 +15,20 @@ class ChangeLog < ActiveRecord::Base
     super(options.reverse_merge(
       only: [:id, :action, :changed_attribute, :changed_record_type, :changed_record_id,
              :explanation, :new_value, :previous_value, :created_at, :updated_at, :user_id],
-      methods: [:comprehension_action, :comprehension_url, :comprehension_name, :conjunctions, :user, :updated_local_time]
+      methods: [:full_action, :changed_record_url, :changed_record_display_name, :conjunctions, :user, :updated_local_time]
     ))
   end
 
-  def comprehension_action
+  def full_action
     "#{changed_record.change_log_name} - #{action}"
   end
 
-  def comprehension_url
+  def changed_record_url
     changed_record.url if changed_record.respond_to? :url
   end
 
-  def comprehension_name
-    changed_record.comprehension_name if changed_record.respond_to? :comprehension_name
+  def changed_record_display_name
+    changed_record.changed_record_display_name if changed_record.respond_to? :changed_record_display_name
   end
 
   def conjunctions

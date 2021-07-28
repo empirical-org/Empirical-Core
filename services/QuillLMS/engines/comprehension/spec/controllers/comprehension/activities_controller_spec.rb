@@ -76,11 +76,11 @@ module Comprehension
 
         new_activity = Activity.last
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Comprehension Activity - created"
-        assert_equal change_log.user_id, 1
-        assert_equal change_log.changed_record_type, "Comprehension::Activity"
-        assert_equal change_log.changed_record_id, new_activity.id
-        assert_equal change_log.new_value, nil
+        expect(change_log.serializable_hash["full_action"]).to(eq("Comprehension Activity - created"))
+        expect(change_log.user_id).to(eq(1))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Activity"))
+        expect(change_log.changed_record_id).to(eq(new_activity.id))
+        expect(change_log.new_value).to(eq(nil))
       end
 
       it 'should not create an invalid record and return errors as json' do
@@ -166,12 +166,12 @@ module Comprehension
         put :update, params: {id: activity.id, activity: { passages_attributes: [{id: passage.id, text: ('Goodbye' * 20)}] }}
 
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Comprehension Passage Text - updated"
-        assert_equal change_log.user_id, nil
-        assert_equal change_log.changed_record_type, "Comprehension::Passage"
-        assert_equal change_log.changed_record_id, passage.id
-        assert_equal change_log.previous_value, old_text
-        assert_equal change_log.new_value, ('Goodbye' * 20)
+        expect(change_log.serializable_hash["full_action"]).to(eq("Comprehension Passage Text - updated"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Passage"))
+        expect(change_log.changed_record_id).to(eq(passage.id))
+        expect(change_log.previous_value).to(eq(old_text))
+        expect(change_log.new_value).to(eq(('Goodbye' * 20)))
       end
 
       it "should make a change log record after creating Passage text" do
@@ -179,11 +179,11 @@ module Comprehension
         put :update, params: {id: activity.id, activity: { passages_attributes: [{text: ('Goodbye' * 20)}] }}
 
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Comprehension Passage Text - created"
-        assert_equal change_log.user_id, nil
-        assert_equal change_log.changed_record_type, "Comprehension::Passage"
-        assert_equal change_log.previous_value, nil
-        assert_equal change_log.new_value, ('Goodbye' * 20)
+        expect(change_log.serializable_hash["full_action"]).to(eq("Comprehension Passage Text - created"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Passage"))
+        expect(change_log.previous_value).to(eq(nil))
+        expect(change_log.new_value).to(eq('Goodbye' * 20))
       end
 
       it 'should update passage if valid, return nothing' do
@@ -207,12 +207,12 @@ module Comprehension
         put :update, params: { id: activity.id, activity: { prompts_attributes: [{id: prompt.id, text: "this is a good thing."}] }}
 
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Comprehension Stem - updated"
-        assert_equal change_log.user_id, nil
-        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
-        assert_equal change_log.changed_record_id, prompt.id
-        assert_equal change_log.previous_value, old_text
-        assert_equal change_log.new_value, "this is a good thing."
+        expect(change_log.serializable_hash["full_action"]).to(eq("Comprehension Stem - updated"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Prompt"))
+        expect(change_log.changed_record_id).to(eq(prompt.id))
+        expect(change_log.previous_value).to(eq(old_text))
+        expect(change_log.new_value).to(eq("this is a good thing."))
       end
 
       it "should make a change log record after creating Prompt text through update call" do
@@ -220,12 +220,12 @@ module Comprehension
 
         new_prompt = Comprehension::Prompt.last
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Comprehension Stem - created"
-        assert_equal change_log.user_id, nil
-        assert_equal change_log.changed_record_type, "Comprehension::Prompt"
-        assert_equal change_log.changed_record_id, new_prompt.id
-        assert_equal change_log.previous_value, nil
-        assert_equal change_log.new_value, "this is a new prompt."
+        expect(change_log.serializable_hash["full_action"]).to(eq("Comprehension Stem - created"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Prompt"))
+        expect(change_log.changed_record_id).to(eq(new_prompt.id))
+        expect(change_log.previous_value).to(eq(nil))
+        expect(change_log.new_value).to(eq("this is a new prompt."))
       end
 
       it 'should not update record and return errors as json' do
@@ -284,10 +284,10 @@ module Comprehension
         get :change_logs, params: {id: activity.id}
         parsed_response = JSON.parse(response.body)
 
-        assert_equal 200, response.code.to_i
-        assert parsed_response.select {|cl| cl["changed_record_type"] == 'Comprehension::Passage'}.count == 1
-        assert parsed_response.select {|cl| cl["changed_record_type"] == 'Comprehension::Activity'}.count == 1
-        assert parsed_response.select {|cl| cl["changed_record_type"] == 'Comprehension::Prompt'}.count == 1
+        expect(response.code.to_i).to(eq(200))
+        expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Comprehension::Passage'}.count).to(eq(1))
+        expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Comprehension::Activity'}.count).to(eq(1))
+        expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Comprehension::Prompt'}.count).to(eq(1))
 
       end
 
@@ -297,8 +297,8 @@ module Comprehension
         get :change_logs, params: { id: activity.id }
         parsed_response = JSON.parse(response.body)
 
-        assert_equal 200, response.code.to_i
-        assert_equal [], parsed_response
+        expect(response.code.to_i).to(eq(200))
+        expect(parsed_response).to(eq([]))
       end
     end
 

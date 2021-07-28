@@ -110,13 +110,13 @@ module Comprehension
 
         change_log = Comprehension.change_log_class.last
         new_rule = Comprehension::Rule.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Regex Rule - created"
-        assert_equal change_log.user_id, 1
-        assert_equal change_log.changed_record_id, new_rule.id
-        assert_equal change_log.changed_record_type, "Comprehension::Rule"
-        assert_equal change_log.previous_value, nil
-        assert_equal change_log.new_value, nil
-        assert_equal change_log.serializable_hash["comprehension_url"], "comprehension/#/activities/#{activity.id}/regex-rules/#{new_rule.id}"
+        expect(change_log.serializable_hash["full_action"]).to(eq("Regex Rule - created"))
+        expect(change_log.user_id).to(eq(1))
+        expect(change_log.changed_record_id).to(eq(new_rule.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Rule"))
+        expect(change_log.previous_value).to(eq(nil))
+        expect(change_log.new_value).to(eq(nil))
+        expect(change_log.serializable_hash["changed_record_url"]).to(eq("comprehension/#/activities/#{activity.id}/regex-rules/#{new_rule.id}"))
       end
 
       it "make a change log record after creating a universal Rule record" do
@@ -124,13 +124,13 @@ module Comprehension
 
         new_rule = Comprehension::Rule.last
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Universal Rule - created"
-        assert_equal change_log.user_id, 1
-        assert_equal change_log.changed_record_id, new_rule.id
-        assert_equal change_log.changed_record_type, "Comprehension::Rule"
-        assert_equal change_log.previous_value, nil
-        assert_equal change_log.new_value, nil
-        assert_equal change_log.serializable_hash["comprehension_url"], "comprehension/#/universal-rules/#{new_rule.id}"
+        expect(change_log.serializable_hash["full_action"]).to(eq("Universal Rule - created"))
+        expect(change_log.user_id).to(eq(1))
+        expect(change_log.changed_record_id).to(eq(new_rule.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Rule"))
+        expect(change_log.previous_value).to(eq(nil))
+        expect(change_log.new_value).to(eq(nil))
+        expect(change_log.serializable_hash["changed_record_url"]).to(eq("comprehension/#/universal-rules/#{new_rule.id}"))
       end
 
       it "make a change log record after creating a plagiarism Rule record" do
@@ -163,13 +163,13 @@ module Comprehension
 
         new_rule = Comprehension::Rule.last
         change_log = Comprehension.change_log_class.find_by(changed_record_id: new_rule.id)
-        assert_equal change_log.serializable_hash["comprehension_action"], "Plagiarism Rule - created"
-        assert_equal change_log.user_id, 1
-        assert_equal change_log.changed_record_id, new_rule.id
-        assert_equal change_log.changed_record_type, "Comprehension::Rule"
-        assert_equal change_log.previous_value, nil
-        assert_equal change_log.new_value, nil
-        assert_equal change_log.serializable_hash["comprehension_url"], "comprehension/#/activities/#{activity.id}/plagiarism-rules/#{new_rule.id}"
+        expect(change_log.serializable_hash["full_action"]).to(eq("Plagiarism Rule - created"))
+        expect(change_log.user_id).to(eq(1))
+        expect(change_log.changed_record_id).to(eq(new_rule.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Rule"))
+        expect(change_log.previous_value).to(eq(nil))
+        expect(change_log.new_value).to(eq(nil))
+        expect(change_log.serializable_hash["changed_record_url"]).to(eq("comprehension/#/activities/#{activity.id}/plagiarism-rules/#{new_rule.id}"))
       end
 
       it 'should not create an invalid record and return errors as json' do
@@ -181,7 +181,7 @@ module Comprehension
       end
 
       it "make a change log record when nested label is created" do
-        assert_equal 0, Label.count
+        expect(Label.count).to(eq(0))
 
         rule.rule_type = 'autoML'
         rule.prompt_ids = [prompt.id]
@@ -207,13 +207,13 @@ module Comprehension
         change_log = Comprehension.change_log_class.last
         new_rule = Comprehension::Rule.last
         label = Comprehension::Label.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Semantic Label - created"
-        assert_equal change_log.user_id, 1
-        assert_equal change_log.changed_record_id, new_rule.id
-        assert_equal change_log.changed_record_type, "Comprehension::Rule"
-        assert_equal change_log.new_value, nil
-        assert_equal change_log.previous_value, nil
-        assert_equal change_log.serializable_hash["comprehension_url"], "comprehension/#/activities/#{activity.id}/semantic-labels/#{prompt.id}/#{new_rule.id}"
+        expect(change_log.serializable_hash["full_action"]).to(eq("Semantic Label - created"))
+        expect(change_log.user_id).to(eq(1))
+        expect(change_log.changed_record_id).to(eq(new_rule.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Rule"))
+        expect(change_log.new_value).to(eq(nil))
+        expect(change_log.previous_value).to(eq(nil))
+        expect(change_log.serializable_hash["changed_record_url"]).to(eq("comprehension/#/activities/#{activity.id}/semantic-labels/#{prompt.id}/#{new_rule.id}"))
       end
 
       it 'should return an error if regex is invalid' do
@@ -345,13 +345,13 @@ module Comprehension
 
         universal_rule.reload
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Universal Rule - updated"
-        assert_equal change_log.user_id, 1
-        assert_equal change_log.changed_record_id, universal_rule.id
-        assert_equal change_log.changed_record_type, "Comprehension::Rule"
-        assert_equal change_log.changed_attribute, "name"
-        assert_equal change_log.new_value, new_name
-        assert_equal change_log.previous_value, old_name
+        expect(change_log.serializable_hash["full_action"]).to(eq("Universal Rule - updated"))
+        expect(change_log.user_id).to(eq(1))
+        expect(change_log.changed_record_id).to(eq(universal_rule.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Rule"))
+        expect(change_log.changed_attribute).to(eq("name"))
+        expect(change_log.new_value).to(eq(new_name))
+        expect(change_log.previous_value).to(eq(old_name))
       end
 
       it "create a change log record after updating a plagiarism rule" do
@@ -366,13 +366,13 @@ module Comprehension
 
         plagiarism_rule.reload
         change_log = Comprehension.change_log_class.find_by(changed_attribute: 'state')
-        assert_equal change_log.serializable_hash["comprehension_action"], "Plagiarism Rule - updated"
-        assert_equal change_log.user_id, 1
-        assert_equal change_log.changed_record_id, plagiarism_rule.id
-        assert_equal change_log.changed_record_type, "Comprehension::Rule"
-        assert_equal change_log.changed_attribute, "state"
-        assert_equal change_log.new_value, new_state
-        assert_equal change_log.previous_value, old_state
+        expect(change_log.serializable_hash["full_action"]).to(eq("Plagiarism Rule - updated"))
+        expect(change_log.user_id).to(eq(1))
+        expect(change_log.changed_record_id).to(eq(plagiarism_rule.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Rule"))
+        expect(change_log.changed_attribute).to(eq("state"))
+        expect(change_log.new_value).to(eq(new_state))
+        expect(change_log.previous_value).to(eq(old_state))
       end
 
       it "create a change log record after updating a regex rule" do
@@ -383,13 +383,13 @@ module Comprehension
 
         regex_rule.reload
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Regex Rule - updated"
-        assert_equal change_log.user_id, 1
-        assert_equal change_log.changed_record_id, regex_rule.id
-        assert_equal change_log.changed_record_type, "Comprehension::Rule"
-        assert_equal change_log.changed_attribute, "name"
-        assert_equal change_log.new_value, new_name
-        assert_equal change_log.previous_value, old_name
+        expect(change_log.serializable_hash["full_action"]).to(eq("Regex Rule - updated"))
+        expect(change_log.user_id).to(eq(1))
+        expect(change_log.changed_record_id).to(eq(regex_rule.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Rule"))
+        expect(change_log.changed_attribute).to(eq("name"))
+        expect(change_log.new_value).to(eq(new_name))
+        expect(change_log.previous_value).to(eq(old_name))
       end
 
       it 'should not update record and return errors as json' do
@@ -407,12 +407,12 @@ module Comprehension
         rule.reload
         plagiarism_text_obj = Comprehension::PlagiarismText.last
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Plagiarism Rule Text - created"
-        assert_equal change_log.user_id, nil
-        assert_equal change_log.changed_record_id, plagiarism_text_obj.id
-        assert_equal change_log.changed_record_type, "Comprehension::PlagiarismText"
-        assert_equal change_log.new_value, plagiarism_text
-        assert_equal change_log.previous_value, nil
+        expect(change_log.serializable_hash["full_action"]).to(eq("Plagiarism Rule Text - created"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_id).to(eq(plagiarism_text_obj.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::PlagiarismText"))
+        expect(change_log.new_value).to(eq(plagiarism_text))
+        expect(change_log.previous_value).to(eq(nil))
       end
 
       it "make a change log record after updating nested plagiarism rule feedback" do
@@ -425,12 +425,12 @@ module Comprehension
 
         feedback = Comprehension::Feedback.last
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Plagiarism Rule Feedback - updated"
-        assert_equal change_log.user_id, nil
-        assert_equal change_log.changed_record_id, feedback.id
-        assert_equal change_log.changed_record_type, "Comprehension::Feedback"
-        assert_equal change_log.new_value, new_text
-        assert_equal change_log.previous_value, old_text
+        expect(change_log.serializable_hash["full_action"]).to(eq("Plagiarism Rule Feedback - updated"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_id).to(eq(feedback.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Feedback"))
+        expect(change_log.new_value).to(eq(new_text))
+        expect(change_log.previous_value).to(eq(old_text))
       end
 
       it "make a change log record after updating nested plagiarism rule highlights" do
@@ -444,12 +444,12 @@ module Comprehension
 
         highlight = Comprehension::Highlight.last
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Plagiarism Rule Highlight - updated"
-        assert_equal change_log.user_id, nil
-        assert_equal change_log.changed_record_id, highlight.id
-        assert_equal change_log.changed_record_type, "Comprehension::Highlight"
-        assert_equal change_log.new_value, new_text
-        assert_equal change_log.previous_value, old_text
+        expect(change_log.serializable_hash["full_action"]).to(eq("Plagiarism Rule Highlight - updated"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_id).to(eq(highlight.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Highlight"))
+        expect(change_log.new_value).to(eq(new_text))
+        expect(change_log.previous_value).to(eq(old_text))
       end
 
       it 'should update a valid record with plagiarism_text attributes' do
@@ -478,12 +478,12 @@ module Comprehension
 
         automl_rule.reload
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Semantic Label First Layer Feedback - updated"
-        assert_equal change_log.user_id, nil
-        assert_equal change_log.changed_record_id, feedback.id
-        assert_equal change_log.changed_record_type, "Comprehension::Feedback"
-        assert_equal change_log.new_value, new_text
-        assert_equal change_log.previous_value, old_text
+        expect(change_log.serializable_hash["full_action"]).to(eq("Semantic Label First Layer Feedback - updated"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_id).to(eq(feedback.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Feedback"))
+        expect(change_log.new_value).to(eq(new_text))
+        expect(change_log.previous_value).to(eq(old_text))
       end
 
       it 'make a change log record after updating feedback text for a semantic second order rule' do
@@ -496,12 +496,12 @@ module Comprehension
 
         automl_rule.reload
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Semantic Label Second Layer Feedback - updated"
-        assert_equal change_log.user_id, nil
-        assert_equal change_log.changed_record_id, feedback.id
-        assert_equal change_log.changed_record_type, "Comprehension::Feedback"
-        assert_equal change_log.new_value, new_text
-        assert_equal change_log.previous_value, old_text
+        expect(change_log.serializable_hash["full_action"]).to(eq("Semantic Label Second Layer Feedback - updated"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_id).to(eq(feedback.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Feedback"))
+        expect(change_log.new_value).to(eq(new_text))
+        expect(change_log.previous_value).to(eq(old_text))
       end
 
       it 'should update nested highlight attributes in feedback if present' do
@@ -527,12 +527,12 @@ module Comprehension
 
         automl_rule.reload
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Semantic Label First Layer Feedback Highlight - updated"
-        assert_equal change_log.user_id, nil
-        assert_equal change_log.changed_record_id, highlight.id
-        assert_equal change_log.changed_record_type, "Comprehension::Highlight"
-        assert_equal change_log.new_value, new_text
-        assert_equal change_log.previous_value, old_text
+        expect(change_log.serializable_hash["full_action"]).to(eq("Semantic Label First Layer Feedback Highlight - updated"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_id).to(eq(highlight.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Highlight"))
+        expect(change_log.new_value).to(eq(new_text))
+        expect(change_log.previous_value).to(eq(old_text))
       end
 
       it 'make a change log record after updating highlight text for a semantic second order rule' do
@@ -547,12 +547,12 @@ module Comprehension
 
         automl_rule.reload
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Semantic Label Second Layer Feedback Highlight - updated"
-        assert_equal change_log.user_id, nil
-        assert_equal change_log.changed_record_id, highlight.id
-        assert_equal change_log.changed_record_type, "Comprehension::Highlight"
-        assert_equal change_log.new_value, new_text
-        assert_equal change_log.previous_value, old_text
+        expect(change_log.serializable_hash["full_action"]).to(eq("Semantic Label Second Layer Feedback Highlight - updated"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_id).to(eq(highlight.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Highlight"))
+        expect(change_log.new_value).to(eq(new_text))
+        expect(change_log.previous_value).to(eq(old_text))
       end
 
       it 'should not update read-only nested label name' do
@@ -573,12 +573,12 @@ module Comprehension
 
         regex_rule = Comprehension::RegexRule.last
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Regex Rule Regex - updated"
-        assert_equal change_log.user_id, nil
-        assert_equal change_log.changed_record_id, regex_rule.id
-        assert_equal change_log.changed_record_type, "Comprehension::RegexRule"
-        assert_equal change_log.new_value, new_text
-        assert_equal change_log.previous_value, old_text
+        expect(change_log.serializable_hash["full_action"]).to(eq("Regex Rule Regex - updated"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_id).to(eq(regex_rule.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::RegexRule"))
+        expect(change_log.new_value).to(eq(new_text))
+        expect(change_log.previous_value).to(eq(old_text))
       end
 
       it "make a change log record after updating nested regex rule feedback" do
@@ -590,12 +590,12 @@ module Comprehension
 
         feedback = Comprehension::Feedback.last
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Regex Rule Feedback - updated"
-        assert_equal change_log.user_id, nil
-        assert_equal change_log.changed_record_id, feedback.id
-        assert_equal change_log.changed_record_type, "Comprehension::Feedback"
-        assert_equal change_log.new_value, new_text
-        assert_equal change_log.previous_value, old_text
+        expect(change_log.serializable_hash["full_action"]).to(eq("Regex Rule Feedback - updated"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_id).to(eq(feedback.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Feedback"))
+        expect(change_log.new_value).to(eq(new_text))
+        expect(change_log.previous_value).to(eq(old_text))
       end
 
       it "make a change log record after updating nested regex rule highlights" do
@@ -608,12 +608,12 @@ module Comprehension
 
         highlight = Comprehension::Highlight.last
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Regex Rule Highlight - updated"
-        assert_equal change_log.user_id, nil
-        assert_equal change_log.changed_record_id, highlight.id
-        assert_equal change_log.changed_record_type, "Comprehension::Highlight"
-        assert_equal change_log.new_value, new_text
-        assert_equal change_log.previous_value, old_text
+        expect(change_log.serializable_hash["full_action"]).to(eq("Regex Rule Highlight - updated"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_id).to(eq(highlight.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Highlight"))
+        expect(change_log.new_value).to(eq(new_text))
+        expect(change_log.previous_value).to(eq(old_text))
       end
 
       it "make a change log record after creating a nested regex rule through update call" do
@@ -623,12 +623,12 @@ module Comprehension
 
         regex_rule = Comprehension::RegexRule.last
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Regex Rule Regex - updated"
-        assert_equal change_log.user_id, nil
-        assert_equal change_log.changed_record_id, regex_rule.id
-        assert_equal change_log.changed_record_type, "Comprehension::RegexRule"
-        assert_equal change_log.new_value, new_text
-        assert_equal change_log.previous_value, nil
+        expect(change_log.serializable_hash["full_action"]).to(eq("Regex Rule Regex - updated"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_id).to(eq(regex_rule.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::RegexRule"))
+        expect(change_log.new_value).to(eq(new_text))
+        expect(change_log.previous_value).to(eq(nil))
       end
 
       it 'should update nested regex rule attributes if present' do
@@ -660,12 +660,12 @@ module Comprehension
 
         automl_rule.reload
         change_log = Comprehension.change_log_class.last
-        assert_equal change_log.serializable_hash["comprehension_action"], "Semantic Label - updated"
-        assert_equal change_log.user_id, 1
-        assert_equal change_log.changed_record_id, automl_rule.id
-        assert_equal change_log.changed_record_type, "Comprehension::Rule"
-        assert_equal change_log.new_value, new_name
-        assert_equal change_log.previous_value, old_name
+        expect(change_log.serializable_hash["full_action"]).to(eq("Semantic Label - updated"))
+        expect(change_log.user_id).to(eq(1))
+        expect(change_log.changed_record_id).to(eq(automl_rule.id))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Rule"))
+        expect(change_log.new_value).to(eq(new_name))
+        expect(change_log.previous_value).to(eq(old_name))
       end
     end
 

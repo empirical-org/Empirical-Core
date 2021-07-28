@@ -14,7 +14,6 @@
 module Comprehension
   module ChangeLog
     extend ActiveSupport::Concern
-    UNIVERSAL_RULE_ACTIONS = ['Universal Rule - updated', 'Universal Rule - created']
 
     included do
       attr_accessor :lms_user_id
