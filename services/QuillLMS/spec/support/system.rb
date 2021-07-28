@@ -23,9 +23,15 @@ RSpec.configure do |config|
 
   Capybara.server_port = 3000
 
-  config.before(:each, type: :system) { driven_by :rack_test }
+  config.around(type: :system) do |example|
+    WebMock.allow_net_connect!
+    VCR.turned_off { example.run }
+    WebMock.disable_net_connect!
+  end
 
-  config.before(:each, type: :system, js: true) do
+  config.before(type: :system) { driven_by :rack_test }
+
+  config.before(type: :system, js: true) do
     if ENV["SELENIUM_DRIVER_URL"].present?
       driven_by :remote_selenium_chrome
     else
