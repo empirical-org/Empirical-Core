@@ -1,4 +1,4 @@
-.read-and-highlight-container {
+.read-and-highlight-container, .step-links-and-directions-container {
   padding-top: 48px;
   position: relative;
   section {
@@ -27,6 +27,7 @@
     position: absolute;
     width: 320px;
     left: -310px;
+    z-index: 1;
     p {
       margin-bottom: 16px;
     }
@@ -95,14 +96,15 @@
     padding-top: 32px;
     .read-the-directions-modal {
       transform: translate(-50%, 0%);
-      bottom: -176px;
+      top: 176px;
       left: 50%;
     }
-    .highlight-section {
-      display: none;
+    .highlights-section {
+      padding: 0px 16px;
     }
     .directions-section {
       padding-left: 16px;
+      margin-bottom: 0px;
       p {
         font-size: 20px;
         line-height: 1.3;

@@ -7,6 +7,7 @@ import ReactHtmlParser from 'react-html-parser'
 import PromptStep from './promptStep'
 import StepLink from './stepLink'
 import ReadAndHighlightInstructions from './readAndHighlightInstructions'
+import DirectionsSectionAndModal from './directionsSectionAndModal'
 
 import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
@@ -51,7 +52,8 @@ interface StudentViewContainerState {
   activeStep?: number;
   completedSteps: Array<number>;
   showFocusState: boolean;
-  timeTracking: { [key:number]: number }
+  timeTracking: { [key:number]: number };
+  studentHighlights: string[];
 }
 
 const READ_PASSAGE_STEP = 1
@@ -446,7 +448,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   saveActiveActivitySession = () => {
     const { dispatch, session, } = this.props
     const { sessionID, submittedResponses, } = session
-    const { activeStep, completedSteps, timeTracking, } = this.state
+    const { activeStep, completedSteps, timeTracking, studentHighlights, } = this.state
     const args = {
       sessionID,
       submittedResponses,
@@ -493,9 +495,14 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     })
   }
 
+  handleHighlightKeyDown = (e) => {
+    if (e.key !== 'Enter') { return }
+    this.toggleStudentHighlight(e.target.textContent)
+  }
+
   handleHighlightClick = (e) => this.toggleStudentHighlight(e.target.textContent, () => document.activeElement.blur())
 
-  toggleStudentHighlight = (text, callback) => {
+  toggleStudentHighlight = (text, callback=null) => {
     const { studentHighlights, } = this.state
 
     let newHighlights = []
@@ -506,7 +513,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       newHighlights = studentHighlights.concat(text)
     }
 
-    this.setState({ studentHighlights: newHighlights, }, callback ? callback() : () => {})
+    this.setState({ studentHighlights: newHighlights, }, () => {
+      callback && callback()
+      this.saveActiveActivitySession()
+    })
   }
 
   transformMarkTags = (node) => {
@@ -515,7 +525,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       const text = node.children[0].data
       const className = studentHighlights.includes(text) ? 'highlighted' : ''
       if (showReadTheDirectionsModal) { return <span>{text}</span>}
-      return <mark className={className} onClick={this.handleHighlightClick} onKeyDown={this.handleHighlightClick} tabIndex={0}>{text}</mark>
+      return <mark className={className} onClick={this.handleHighlightClick} onKeyDown={this.handleHighlightKeyDown} tabIndex={0}>{text}</mark>
     }
   }
 
@@ -563,11 +573,20 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     return this.addPTagsToPassages(passages)
   }
 
-  renderStepLinks = () => {
-    const { activeStep, } = this.state
+  renderStepLinksAndDirections = () => {
+    const { activeStep, showReadTheDirectionsModal, } = this.state
     const { activities, } = this.props
     const { currentActivity, } = activities
-    if (!currentActivity || activeStep === READ_PASSAGE_STEP) return
+
+    const directionsSectionAndModal = (<DirectionsSectionAndModal
+      closeReadTheDirectionsModal={this.closeReadTheDirectionsModal}
+      passage={activities.currentActivity.passages[0]}
+      showReadTheDirectionsModal={showReadTheDirectionsModal}
+    />)
+
+    if (!currentActivity || activeStep === READ_PASSAGE_STEP) {
+      return (<div className="hide-on-desktop step-links-and-directions-container">{directionsSectionAndModal}</div>)
+    }
 
     const links = []
     const numberOfLinks = ALL_STEPS.length
@@ -577,8 +596,11 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       links.push(<StepLink clickStepLink={this.clickStepLink} index={i} renderStepNumber={this.renderStepNumber} />)
     }
 
-    return (<div className="hide-on-desktop step-links">
-      {links}
+    return (<div className="hide-on-desktop step-links-and-directions-container">
+      <div className="step-links">
+        {links}
+      </div>
+      {directionsSectionAndModal}
     </div>)
   }
 
@@ -703,7 +725,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
                 <span>Read the entire passage</span>
               </div>
               <div className="read-and-highlight-step">
-                <div className="incomplete-indicator" />
+                {studentHighlights.length > 1 ? <img alt={bigCheckIcon.alt} className="check-icon" src={bigCheckIcon.src} /> : <div className="incomplete-indicator" />}
                 <span>Highlight{this.onMobile() ? '': ' at least'} two sentences</span>
               </div>
             </div>
@@ -723,7 +745,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP ? 'on-read-passage' : ''}`
 
     return (<div className={className} onTouchMove={this.handleReadPassageContainerScroll}>
-      {this.renderStepLinks()}
+      {this.renderStepLinksAndDirections()}
       {this.renderReadPassageContainer()}
       {this.renderRightPanel()}
     </div>)

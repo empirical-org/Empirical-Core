@@ -1,21 +1,9 @@
 import * as React from 'react'
 
-import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../Shared/utils/constants'
-import { cursorClick, cursorPointingHand, removeIcon, } from '../../../Shared/index'
+import DisplayStudentHighlight from './displayStudentHighlight'
+import DirectionsSectionAndModal from './directionsSectionAndModal'
 
-const ReadTheDirectionsModal = ({ closeReadTheDirectionsModal, }) => (<section className="read-the-directions-modal">
-  <p>Read the directions carefully before moving onto reading and highlighting.</p>
-  <button className="quill-button primary contained large focus-on-light" onClick={closeReadTheDirectionsModal} type="button">Got it</button>
-</section>)
-
-const DisplayStudentHighlight = ({ studentHighlight, removeHighlight, }) => {
-  function handleClickRemove() { removeHighlight(studentHighlight)}
-
-  return (<div className="display-student-highlight">
-    <span>{studentHighlight}</span>
-    <button className="interactive-wrapper focus-on-light" onClick={handleClickRemove} type="button"><img alt={removeIcon.alt} src={removeIcon.src} /></button>
-  </div>)
-}
+import { cursorClick, cursorPointingHand, } from '../../../Shared/index'
 
 const HighlightInstructions = () => (
   <div className="highlight-instructions">
@@ -44,14 +32,14 @@ const HighlightInstructions = () => (
 )
 
 const ReadAndHighlightInstructions = ({ passage, activeStep, showReadTheDirectionsModal, closeReadTheDirectionsModal, studentHighlights, removeHighlight, }) => {
-  const uniquePartOfHighlightPrompt = passage.highlight_prompt.replace(DEFAULT_HIGHLIGHT_PROMPT, '')
-  const studentHighlightsOrHighlightInstructions = studentHighlights.length ? studentHighlights.map(sh => <DisplayStudentHighlight key={sh} removeHighlight={removeHighlight} studentHighlight={sh} />) : <HighlightInstructions />
-  return (<div className="read-and-highlight-container">
-    {showReadTheDirectionsModal && <ReadTheDirectionsModal closeReadTheDirectionsModal={closeReadTheDirectionsModal} />}
-    <section className="directions-section">
-      <h3>Directions</h3>
-      <p>{DEFAULT_HIGHLIGHT_PROMPT}<u>{uniquePartOfHighlightPrompt}</u></p>
-    </section>
+  let studentHighlightsOrHighlightInstructions = <HighlightInstructions />
+  let readAndHighlightContainerClassName = 'read-and-highlight-container hide-on-mobile'
+  if (studentHighlights.length) {
+    studentHighlightsOrHighlightInstructions = studentHighlights.map(sh => <DisplayStudentHighlight key={sh} removeHighlight={removeHighlight} studentHighlight={sh} />)
+    readAndHighlightContainerClassName = 'read-and-highlight-container'
+  }
+  return (<div className={readAndHighlightContainerClassName}>
+    <DirectionsSectionAndModal className="hide-on-mobile" closeReadTheDirectionsModal={closeReadTheDirectionsModal} passage={passage} showReadTheDirectionsModal={showReadTheDirectionsModal} />
     <section className="highlight-section">
       <h3>Highlights</h3>
       {studentHighlightsOrHighlightInstructions}
