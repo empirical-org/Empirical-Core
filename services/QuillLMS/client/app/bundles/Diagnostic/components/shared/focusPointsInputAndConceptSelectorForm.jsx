@@ -41,7 +41,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
       );
     };
 
-  handleName = e => {
+  handleNameChange = e => {
     this.setState({name: e.target.value})
   }
 
