@@ -1,7 +1,8 @@
 module Comprehension
   class AutomlModelsController < ApplicationController
     skip_before_action :verify_authenticity_token
-    before_action :set_automl_model, only: [:show, :update, :activate, :destroy]
+    before_action :set_automl_model, only: [:create, :show, :update, :activate, :destroy]
+    append_before_action :set_lms_user_id, only: [:create, :activate]
 
     # GET /automl_models.json
     def index
@@ -19,7 +20,6 @@ module Comprehension
 
     # POST /automl_models.json
     def create
-      @automl_model = Comprehension::AutomlModel.new(automl_model_params)
       @automl_model.populate_from_automl_model_id
 
       if @automl_model.save
@@ -54,8 +54,16 @@ module Comprehension
       head :no_content
     end
 
+    private def set_lms_user_id
+      @automl_model.lms_user_id = lms_user_id
+    end
+
     private def set_automl_model
-      @automl_model = Comprehension::AutomlModel.find(params[:id])
+      if params[:id].present?
+        @automl_model = Comprehension::AutomlModel.find(params[:id])
+      else
+        @automl_model = Comprehension::AutomlModel.new(automl_model_params)
+      end
     end
 
     private def automl_model_params

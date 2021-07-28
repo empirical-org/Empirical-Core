@@ -12,7 +12,7 @@
 #  created_at          :datetime
 #  updated_at          :datetime
 #  changed_record_id   :integer
-#  user_id             :integer          not null
+#  user_id             :integer
 #
 # Indexes
 #
@@ -67,13 +67,29 @@ class ChangeLog < ApplicationRecord
     CREATED,
     RENAMED
   ]
+  COMPREHENSION_ACTIONS = {
+    create: 'created',
+    delete: 'deleted',
+    update: 'updated',
+    activate_automl: 'activated'
+  }
   CHANGED_RECORD_TYPES = [
     'Concept',
     'User',
     'Topic',
     'Standard',
     'StandardLevel',
-    'StandardCategory'
+    'StandardCategory',
+    'Comprehension::Activity',
+    'Comprehension::Prompt',
+    'Comprehension::Rule',
+    'Comprehension::Passage',
+    'Comprehension::AutomlModel',
+    'Comprehension::Label',
+    'Comprehension::Feedback',
+    'Comprehension::Highlight',
+    'Comprehension::RegexRule',
+    'Comprehension::PlagiarismText'
   ]
   USER_ACTIONS = {
     index: 'Visited User Directory',
@@ -87,18 +103,34 @@ class ChangeLog < ApplicationRecord
     'Visited User Directory',
     'Searched Users'
   ]
-  ALL_ACTIONS = USER_ACTIONS.values + CONCEPT_ACTIONS + TOPIC_ACTIONS + STANDARD_ACTIONS + STANDARD_CATEGORY_ACTIONS + STANDARD_LEVEL_ACTIONS
+  ALL_ACTIONS = USER_ACTIONS.values + CONCEPT_ACTIONS + TOPIC_ACTIONS + STANDARD_ACTIONS + STANDARD_CATEGORY_ACTIONS + STANDARD_LEVEL_ACTIONS + COMPREHENSION_ACTIONS.values
 
   belongs_to :changed_record, polymorphic: true
   belongs_to :user
-  validates_presence_of :changed_record_type, :user_id, :action
+  validates_presence_of :changed_record_type, :action
 
   validates :changed_record_id, presence: true, if: :needs_a_changed_record_id?
   validates :action, inclusion: ALL_ACTIONS
   validates :changed_record_type, inclusion: CHANGED_RECORD_TYPES
 
   def applies_to_single_record?
-    ['Concept', 'Topic', 'Standard', 'StandardLevel', 'StandardCategory'].include?(changed_record_type) || !(GENERIC_USER_ACTIONS.include?(action))
+    [
+      'Concept',
+      'Topic',
+      'Standard',
+      'StandardLevel',
+      'StandardCategory',
+      'Comprehension::Activity',
+      'Comprehension::Prompt',
+      'Comprehension::Rule',
+      'Comprehension::Passage',
+      'Comprehension::AutomlModel',
+      'Comprehension::Label',
+      'Comprehension::Feedback',
+      'Comprehension::Highlight',
+      'Comprehension::RegexRule',
+      'Comprehension::PlagiarismText'
+    ].include?(changed_record_type) || !(GENERIC_USER_ACTIONS.include?(action))
   end
 
   def record_is_not_being_created_from_cms?
@@ -109,5 +141,39 @@ class ChangeLog < ApplicationRecord
 
   def needs_a_changed_record_id?
     applies_to_single_record? && record_is_not_being_created_from_cms?
+  end
+
+  def serializable_hash(options = nil)
+    options ||= {}
+
+    super(options.reverse_merge(
+      only: [:id, :action, :changed_attribute, :changed_record_type, :changed_record_id,
+             :explanation, :new_value, :previous_value, :created_at, :updated_at, :user_id],
+      methods: [:full_action, :changed_record_url, :changed_record_display_name, :conjunctions, :user, :updated_local_time]
+    ))
+  end
+
+  def full_action
+    "#{changed_record&.change_log_name} - #{action}" if changed_record&.respond_to?(:change_log_name)
+  end
+
+  def changed_record_url
+    changed_record&.url if changed_record&.respond_to? :url
+  end
+
+  def changed_record_display_name
+    changed_record&.comprehension_name if changed_record&.respond_to?(:comprehension_name)
+  end
+
+  def conjunctions
+    changed_record&.conjunctions if changed_record&.respond_to?(:conjunctions)
+  end
+
+  def user
+    User.find_by(id: user_id)&.name
+  end
+
+  def updated_local_time
+    updated_at.localtime.to_s
   end
 end
