@@ -79,9 +79,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - npm-cache-lms-integration-build-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-            - npm-cache-lms-integration-build-v6-{{ checksum "services/QuillLMS/client/package.json" }}-
-            - npm-cache-lms-integration-build-v6
+            - npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+            - npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package.json" }}-
+            - npm-cache-lms-client-v6
       - run:
           name: Install NPM dependencies
           command: |
@@ -89,7 +89,7 @@ jobs:
             npm install
             npm rebuild node-sass
       - save_cache:
-          key: npm-cache-lms-integration-build-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+          key: npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
           paths:
             - services/QuillLMS/client/node_modules
       - restore_cache:
@@ -131,7 +131,7 @@ jobs:
           name: Run tests
           command: |
             cd services/QuillLMS
-            TESTFILES=$(circleci tests glob "spec/system/*_spec.rb" | grep -v "/skip_ci/" | circleci tests split)
+            TESTFILES=$(circleci tests glob "spec/system/*_spec.rb" | circleci tests split)
             bundle exec rspec -- ${TESTFILES}
       - store_artifacts:
           path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
