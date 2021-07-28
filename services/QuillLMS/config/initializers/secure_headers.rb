@@ -1,9 +1,10 @@
 SecureHeaders::Configuration.default do |config|
+  config.csp = SecureHeaders::OPT_OUT
   config.cookies = {
-    secure: true, # mark all cookies as "Secure"
-    httponly: true, # mark all cookies as "HttpOnly"
+    secure: true, 
+    httponly: true, 
     samesite: {
-      lax: true # mark all cookies as SameSite=lax
+      lax: true 
     }
   }
 end
