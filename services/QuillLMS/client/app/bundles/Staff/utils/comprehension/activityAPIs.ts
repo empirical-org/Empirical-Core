@@ -39,7 +39,8 @@ export const createActivity = async (activity: object) => {
     const returnedErrors = await handleRequestErrors(errors);
     return { errors: returnedErrors };
   }
-  return { errors: [] };
+  const newActivity = await response.json();
+  return { errors: [], activityId: newActivity.id };
 }
 
 export const updateActivity = async (activity: object, activityId: string) => {

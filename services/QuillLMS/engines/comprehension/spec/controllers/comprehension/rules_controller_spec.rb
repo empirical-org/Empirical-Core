@@ -317,8 +317,10 @@ module Comprehension
         expect(parsed_response["concept_uid"]).to(eq(rule.concept_uid))
       end
 
-      it 'should raise if not found (to be handled by parent app)' do
-        expect { get(:show, :params => ({ :id => 99999 })) }.to(raise_error(ActiveRecord::RecordNotFound))
+      it 'should not raise exception if not found (to be handled by parent app)' do
+        get(:show, :params => ({ :id => 99999 }))
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response).to eq(nil)
       end
     end
 

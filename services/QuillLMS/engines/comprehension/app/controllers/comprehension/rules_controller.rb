@@ -62,7 +62,7 @@ module Comprehension
     private def set_rule
       if params[:id].present?
         # warning - the id param is getting used as both an id and a uid, which is an antipattern
-        @rule = Comprehension::Rule.find_by_uid(params[:id]) || Comprehension::Rule.find(params[:id])
+        @rule = Comprehension::Rule.find_by_uid(params[:id]) || Comprehension::Rule.find_by_id(params[:id])
       else
         @rule = Comprehension::Rule.new(rule_params)
       end
