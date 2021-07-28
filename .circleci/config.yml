@@ -58,7 +58,7 @@ jobs:
             cd services/QuillLMS
             TESTFILES=$(circleci tests glob "spec/{[!system/]**/*,*}_spec.rb" | grep -v "/skip_ci/" | circleci tests split)
             bundle exec rspec -- ${TESTFILES}
-  lms_rails_integration_build:
+  lms_integration_build:
     working_directory: ~/Empirical-Core
     parallelism: 4
     docker:
@@ -79,9 +79,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - npm-cache-lms-rails-integration-build-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-            - npm-cache-lms-rails-integration-build-v6-{{ checksum "services/QuillLMS/client/package.json" }}-
-            - npm-cache-lms-rails-integration-build-v6
+            - npm-cache-lms-integration-build-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+            - npm-cache-lms-integration-build-v6-{{ checksum "services/QuillLMS/client/package.json" }}-
+            - npm-cache-lms-integration-build-v6
       - run:
           name: Install NPM dependencies
           command: |
@@ -89,7 +89,7 @@ jobs:
             npm install
             npm rebuild node-sass
       - save_cache:
-          key: npm-cache-lms-rails-integration-build-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+          key: npm-cache-lms-integration-build-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
           paths:
             - services/QuillLMS/client/node_modules
       - restore_cache:
@@ -340,7 +340,7 @@ workflows:
   build-test:
     jobs:
       - lms_rails_build
-      - lms_rails_integration_build
+      - lms_integration_build
       - lms_node_build
       - marking_logic_node_build
       - cms_rails_build
