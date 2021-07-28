@@ -69,31 +69,27 @@ const ChangeLog = ({ history, match }) => {
 
   const formattedRows = changeLogData && changeLogData.changeLogs && changeLogData.changeLogs.map(log => {
     const {
-      comprehension_action,
+      full_action,
       changed_record_id,
       updated_local_time,
       previous_value,
       new_value,
-      record_type_display_name,
+      changed_record_display_name,
       user,
       conjunctions,
-      comprehension_name,
+      changed_record_url,
       changed_attribute,
-      comprehension_url
     } = log;
 
-    const changedRecord = `${record_type_display_name} - ${changed_record_id}`
-
     return {
-      action: comprehension_action,
-      changedRecord: changedRecord,
+      action: full_action,
       previousValue: previous_value,
       newValue: new_value,
       author: user,
       dateTime: updated_local_time,
-      actionLink: comprehension_url,
+      actionLink: changed_record_url,
       conjunctions: conjunctions,
-      name: comprehension_name,
+      name: changed_record_display_name,
       changedAttribute: changed_attribute
     }
   })
