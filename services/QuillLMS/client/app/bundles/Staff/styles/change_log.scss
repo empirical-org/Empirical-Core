@@ -1,0 +1,49 @@
+.change-log-table {
+  height: 600px;
+}
+
+#prompt-dropdown {
+  width: 150px;
+  padding: 10px;
+}
+
+#rule-dropdown {
+  width: 150px;
+  padding: 10px;
+}
+
+#rule-dropdown-select {
+  max-width: 300px;
+}
+
+#concept-uid-lookup {
+  color: #00c2a2;
+  font-style: italic;
+}
+
+#change-log-selectors {
+  margin-top: 10px;
+  background-color: lightgray;
+  border-radius: 10px;
+  #top-selectors {
+    display: flex;
+    position: relative;
+    width: 1000px;
+    #change-log-dropdowns {
+      float: left;
+      display: flex;
+    }
+    #action-search {
+      width: 500px;
+      margin: 10px;
+      position: absolute;
+      right: 10px;
+    }
+  }
+}
+
+#bottom-selectors {
+  display: flex;
+  margin-left: 10px;
+  padding-bottom: 20px;
+}
