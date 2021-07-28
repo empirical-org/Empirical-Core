@@ -168,10 +168,11 @@ describe Activity, type: :model, redis: true do
       classification = create(:activity_classification, key: 'connect')
       classified_activity = create(:activity, classification: classification)
       student = create(:student)
-      activity_session = create(:activity_session, activity: classified_activity, user: student)
       uac = create(:user_activity_classification, user: student, activity_classification: classification, count: 4)
+      activity_session = create(:activity_session, activity: classified_activity, user: student)
 
-      activity_session.classification.user_activity_classifications.reload
+      classification.reload
+
       expect(activity_session.classification.user_activity_classifications.where(id: student.id).first.count).to eq(4)
       expect(classified_activity.module_url(activity_session).to_s).to include("activities=#{uac.count}")
     end
