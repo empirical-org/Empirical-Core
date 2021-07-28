@@ -343,9 +343,6 @@ class ResponseComponent extends React.Component {
     const { filters } = this.props
     const { visibleStatuses } = filters
     const regexLabels = this.incorrectSequenceNames().concat(this.focusPointNames())
-    regexLabels.forEach(author =>
-      visibleStatuses[author] = true
-    );
 
     return (
       <ResponseToggleFields

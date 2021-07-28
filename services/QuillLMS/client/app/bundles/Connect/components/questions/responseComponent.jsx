@@ -526,9 +526,6 @@ class ResponseComponent extends React.Component {
     const { mode, filters } = this.props
     const { visibleStatuses } = filters
     const regexLabels = this.incorrectSequenceNames().concat(this.focusPointNames())
-    regexLabels.forEach(author =>
-      visibleStatuses[author] = true
-    );
 
     if (mode === 'questions') {
       usedQualityLabels = _.without(qualityLabels, 'Algorithm Optimal')
