@@ -1,5 +1,7 @@
 module Comprehension
   class Prompt < ApplicationRecord
+    include Comprehension::ChangeLog
+    
     MIN_TEXT_LENGTH = 10
     MAX_TEXT_LENGTH = 255
     CONJUNCTIONS = %w(because but so)
@@ -7,7 +9,7 @@ module Comprehension
     MIN_MAX_ATTEMPTS = 3
     MAX_MAX_ATTEMPTS = 6
 
-    belongs_to :activity, inverse_of: :passages
+    belongs_to :activity, inverse_of: :prompts
     has_many :automl_models, inverse_of: :prompt
     has_many :prompts_rules
     has_many :rules, through: :prompts_rules, inverse_of: :prompts
@@ -28,6 +30,18 @@ module Comprehension
       super(options.reverse_merge(
         only: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :plagiarism_text, :plagiarism_first_feedback, :plagiarism_second_feedback]
       ))
+    end
+
+    def change_log_name
+      "Comprehension Stem"
+    end
+
+    def url
+      activity.url
+    end
+
+    def conjunctions
+      [conjunction]
     end
 
     private def downcase_conjunction

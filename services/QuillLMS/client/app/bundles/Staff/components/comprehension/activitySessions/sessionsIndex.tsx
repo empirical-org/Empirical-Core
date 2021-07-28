@@ -7,10 +7,10 @@ import { firstBy } from 'thenby';
 import DateTimePicker from 'react-datetime-picker';
 
 import { handlePageFilterClick, renderHeader } from "../../../helpers/comprehension";
-import { Error, Spinner, DropdownInput } from '../../../../Shared/index';
+import { Error, Spinner, DropdownInput, Input } from '../../../../Shared/index';
 import { fetchActivity, fetchActivitySessions } from '../../../utils/comprehension/activityAPIs';
-import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface } from '../../../interfaces/comprehensionInterfaces';
-import { ALL, SCORED, UNSCORED, WEAK, COMPLETE, INCOMPLETE, activitySessionIndexResponseHeaders, activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/comprehension';
+import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
+import { activitySessionIndexResponseHeaders, activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/comprehension';
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 
@@ -20,15 +20,19 @@ const SessionsIndex = ({ match }) => {
 
   const initialStartDateString = window.sessionStorage.getItem(`${SESSION_INDEX}startDate`) || '';
   const initialEndDateString = window.sessionStorage.getItem(`${SESSION_INDEX}endDate`) || '';
+  const initialTurkSessionId = window.sessionStorage.getItem(`${SESSION_INDEX}turkSessionId`) || '';
+  const initialFilterOption = JSON.parse(window.sessionStorage.getItem(`${SESSION_INDEX}filterOption`)) || activitySessionFilterOptions[0];
   const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
 
   const [showError, setShowError] = React.useState<boolean>(false);
   const [pageNumber, setPageNumber] = React.useState<DropdownObjectInterface>(null);
   const [pageDropdownOptions, setPageDropdownOptions] = React.useState<DropdownObjectInterface[]>(null);
-  const [filterOption, setFilterOption] = React.useState<DropdownObjectInterface>(activitySessionFilterOptions[0]);
+  const [filterOption, setFilterOption] = React.useState<DropdownObjectInterface>(initialFilterOption);
+  const [filterOptionForQuery, setFilterOptionForQuery] = React.useState<DropdownObjectInterface>(initialFilterOption);
+  const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
+  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
   const [rowData, setRowData] = React.useState<any[]>([]);
-  const [sortInfo, setSortInfo] = React.useState<any>(null);
   const pageNumberForQuery = pageNumber && pageNumber.value ? pageNumber.value : 1;
   const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
@@ -43,7 +47,7 @@ const SessionsIndex = ({ match }) => {
 
   // cache activity sessions data for updates
   const { data: sessionsData } = useQuery({
-    queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery, startDateForQuery, endDateForQuery],
+    queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery, startDateForQuery, filterOptionForQuery, endDateForQuery, turkSessionIDForQuery],
     queryFn: fetchActivitySessions
   });
 
@@ -60,38 +64,14 @@ const SessionsIndex = ({ match }) => {
     }
   }, [sessionsData]);
 
+  function handleSetTurkSessionID(e: InputEvent){ setTurkSessionID(e.target.value) };
+
   function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, setStartDate, setEndDate, setShowError, setPageNumber, storageKey: SESSION_INDEX });
+    handlePageFilterClick({ startDate, endDate, turkSessionID, filterOption, setStartDate, setEndDate, setShowError, setPageNumber, setTurkSessionIDForQuery, setFilterOptionForQuery, storageKey: SESSION_INDEX });
   }
 
-  function getFilteredRows(filter: string, activitySessions: ActivitySessionInterface[]) {
-    switch (filter) {
-      case ALL:
-        return activitySessions;
-      case SCORED:
-        return activitySessions.filter(row => row.scored_count > 0);
-      case UNSCORED:
-        return activitySessions.filter(row => row.scored_count === 0);
-      case WEAK:
-        return activitySessions.filter(row => row.weak_count > 0);
-      case COMPLETE:
-        return activitySessions.filter(row => row.complete);
-      case INCOMPLETE:
-        return activitySessions.filter(row => !row.complete);
-      default:
-        return activitySessions;
-    }
-  }
-
-  function handleFilterOptionChange(option: DropdownObjectInterface, activitySessions: ActivitySessionInterface[]) {
-    if(startDateForQuery) {
-      const { value } = option;
-      const formattedRows = formatSessionsData(activitySessions);
-      const sortedRows = sortedSessions(formattedRows, sortInfo)
-      const filteredRows = getFilteredRows(value, sortedRows);
-      setFilterOption(option);
-      setRowData(filteredRows);
-    }
+  function handleFilterOptionChange(filterOption: DropdownObjectInterface) {
+    setFilterOption(filterOption);
   }
 
   function handleDataUpdate(activity_sessions: ActivitySessionInterface[], state: { sorted: object[]}) {
@@ -135,7 +115,6 @@ const SessionsIndex = ({ match }) => {
 
   function sortedSessions(activitySessions: ActivitySessionInterface[], sortInfo?: any) {
     if(sortInfo) {
-      setSortInfo(sortInfo);
       const { id, desc } = sortInfo;
       // we have this reversed so that the first click will sort from highest to lowest by default
       const directionOfSort = desc ? `asc` : 'desc';
@@ -185,11 +164,9 @@ const SessionsIndex = ({ match }) => {
     );
   }
 
-  const { activity } = activityData;
-  const { title } = activity;
   const { activitySessions } = sessionsData;
   const { total_activity_sessions, activity_sessions } = activitySessions;
-  const metabaseLink = `https://data.quill.org/question/615?activity_id=${activity.id}`
+  const metabaseLink = `https://data.quill.org/question/615?activity_id=${activityId}`
 
   return(
     <div className="sessions-index-container">
@@ -210,10 +187,11 @@ const SessionsIndex = ({ match }) => {
             options={pageDropdownOptions}
             value={pageNumber}
           />
+        </section>
+        <section className="top-section">
           <DropdownInput
             className="session-filters-dropdown"
-            /* eslint-disable-next-line react/jsx-no-bind */
-            handleChange={(option) => handleFilterOptionChange(option, activity_sessions)}
+            handleChange={handleFilterOptionChange}
             isSearchable={false}
             label=""
             options={activitySessionFilterOptions}
@@ -232,6 +210,13 @@ const SessionsIndex = ({ match }) => {
             format='y-MM-dd HH:mm'
             onChange={onEndDateChange}
             value={endDate}
+          />
+          <p className="date-picker-label">Turk Session ID (optional):</p>
+          <Input
+            className="turk-session-id-input"
+            handleChange={handleSetTurkSessionID}
+            label=""
+            value={turkSessionID}
           />
           <button className="quill-button fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
         </section>

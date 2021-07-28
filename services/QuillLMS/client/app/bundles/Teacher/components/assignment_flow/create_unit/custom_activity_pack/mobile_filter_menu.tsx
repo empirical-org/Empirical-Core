@@ -30,6 +30,7 @@ interface MobileFilterMenuProps {
   savedActivityIds: number[],
   flagFilters: string[],
   handleFlagFilterChange: () => void,
+  showComprehension?: boolean,
   isStaff?: boolean,
   activityCategoryEditor?: ActivityCategoryEditor
 }
@@ -58,6 +59,7 @@ const MobileFilterMenu = ({
   handleSavedActivityFilterChange,
   savedActivityIds,
   isStaff,
+  showComprehension,
   flagFilters,
   handleFlagFilterChange,
   activityCategoryEditor
@@ -90,6 +92,7 @@ const MobileFilterMenu = ({
     handleFlagFilterChange,
     flagFilters,
     isStaff,
+    showComprehension,
     activityCategoryEditor
   }
 

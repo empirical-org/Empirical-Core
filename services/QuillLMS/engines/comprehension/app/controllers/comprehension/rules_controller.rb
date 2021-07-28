@@ -1,7 +1,8 @@
 module Comprehension
   class RulesController < ApplicationController
     skip_before_action :verify_authenticity_token
-    before_action :set_rule, only: [:show, :update, :destroy]
+    before_action :set_rule, only: [:create, :show, :update, :destroy]
+    append_before_action :set_lms_user_id, only: [:create, :update, :destroy]
 
     # GET /rules.json
     def index
@@ -10,7 +11,7 @@ module Comprehension
       @rules = @rules.where(rule_type: params[:rule_type]) if params[:rule_type]
 
       # some rules will apply to multiple prompts so we only want to return them once
-      render json: @rules.uniq.all
+      render json: @rules.distinct.all
     end
 
     # GET /rules/1.json
@@ -20,8 +21,6 @@ module Comprehension
 
     # POST /rules.json
     def create
-      @rule = Comprehension::Rule.new(rule_params)
-
       if @rule.save
         render json: @rule, status: :created
       else
@@ -61,8 +60,12 @@ module Comprehension
     end
 
     private def set_rule
-      # warning - the id param is getting used as both an id and a uid, which is an antipattern
-      @rule = Comprehension::Rule.find_by_uid(params[:id]) || Comprehension::Rule.find(params[:id])
+      if params[:id].present?
+        # warning - the id param is getting used as both an id and a uid, which is an antipattern
+        @rule = Comprehension::Rule.find_by_uid(params[:id]) || Comprehension::Rule.find_by_id(params[:id])
+      else
+        @rule = Comprehension::Rule.new(rule_params)
+      end
     end
 
     private def rule_params
@@ -77,6 +80,10 @@ module Comprehension
 
     private def ordered_rules_params
       params.permit(ordered_rule_ids: [])
+    end
+
+    private def set_lms_user_id
+      @rule.lms_user_id = lms_user_id
     end
   end
 end

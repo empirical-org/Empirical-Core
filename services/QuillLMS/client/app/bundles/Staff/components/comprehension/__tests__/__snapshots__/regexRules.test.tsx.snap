@@ -18,6 +18,12 @@ exports[`RegexRules component should render RegexRules 1`] = `
         id="regex-rule-0"
         value="it contain(s)? methane gas"
       />
+      <p
+        className="characters-remaining"
+      >
+        174
+         characters remaining
+      </p>
       <div
         className="checkbox-container"
       >
@@ -86,6 +92,12 @@ exports[`RegexRules component should render RegexRules 1`] = `
         id="regex-rule-1"
         value="another reg(ex) line"
       />
+      <p
+        className="characters-remaining"
+      >
+        180
+         characters remaining
+      </p>
       <div
         className="checkbox-container"
       >
@@ -154,6 +166,12 @@ exports[`RegexRules component should render RegexRules 1`] = `
         id="regex-rule-2"
         value="some m?ore reg(ex"
       />
+      <p
+        className="characters-remaining"
+      >
+        183
+         characters remaining
+      </p>
       <div
         className="checkbox-container"
       >

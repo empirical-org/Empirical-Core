@@ -3,7 +3,8 @@ require_dependency 'comprehension/application_controller'
 module Comprehension
   class ActivitiesController < ApplicationController
     skip_before_action :verify_authenticity_token
-    before_action :set_activity, only: [:show, :update, :destroy, :rules]
+    before_action :set_activity, only: [:create, :show, :update, :destroy, :rules, :change_logs]
+    append_before_action :set_lms_user_id, only: [:create, :destroy]
 
     # GET /activities.json
     def index
@@ -19,8 +20,6 @@ module Comprehension
 
     # POST /activities.json
     def create
-      @activity = Comprehension::Activity.new(activity_params)
-
       if @activity.save
         render json: @activity, status: :created
       else
@@ -48,8 +47,21 @@ module Comprehension
       render json: @activity.prompts&.map {|p| p.rules}&.flatten&.uniq
     end
 
+    # GET /activities/1/change_logs.json
+    def change_logs
+      render json: @activity&.change_logs_for_activity || []
+    end
+
     private def set_activity
-      @activity = Comprehension::Activity.find(params[:id])
+      if params[:id].present?
+        @activity = Comprehension::Activity.find(params[:id])
+      else
+        @activity = Comprehension::Activity.new(activity_params)
+      end
+    end
+
+    private def set_lms_user_id
+      @activity.lms_user_id = lms_user_id
     end
 
     private def activity_params
@@ -59,7 +71,7 @@ module Comprehension
         :parent_activity_id,
         :target_level,
         :scored_level,
-        passages_attributes: [:id, :text, :image_link, :image_alt_text],
+        passages_attributes: [:id, :text, :image_link, :image_alt_text, :highlight_prompt],
         prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback]
       )
     end

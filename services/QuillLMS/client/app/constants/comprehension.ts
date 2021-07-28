@@ -245,6 +245,7 @@ export const NOTES = 'Notes';
 export const SCORED_READING_LEVEL = 'Scored reading level';
 export const TARGET_READING_LEVEL = 'Target reading level';
 export const PARENT_ACTIVITY_ID = 'Parent Activity ID'
+export const HIGHLIGHT_PROMPT = 'Highlight Prompt'
 export const PASSAGE = 'Passage';
 export const MAX_ATTEMPTS_FEEDBACK = 'Max attempts feedback';
 export const BECAUSE_STEM = 'Because stem';

@@ -149,9 +149,14 @@ module PagesHelper
             img: 'team-sherry-lewkowicz@2x.png'
           },
           {
-            name: 'Maddy Maher',
-            title: 'Partnerships Specialist',
-            img: 'team-maddy-maher@2x.png'
+            name: 'Scarlet Melo',
+            title: 'Partnerships Associate',
+            img: 'team-scarlet-melo@2x.png'
+          },
+          {
+            name: 'Robert Morgan',
+            title: 'Partnerships Associate',
+            img: 'team-robert-morgan@2x.png'
           },
           {
             name: 'Lindsey Murphy',
@@ -187,11 +192,6 @@ module PagesHelper
             name: 'Emma Volk',
             title: 'Lead Curriculum Developer',
             img: 'team-emma-volk@2x.png'
-          },
-          {
-            name: 'Rhea Wong',
-            title: 'Director of Strategic Initiatives',
-            img: 'team-rhea-wong@2x.png'
           },
           {
             name: 'Cissy Yu',

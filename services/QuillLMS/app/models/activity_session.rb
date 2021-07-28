@@ -58,7 +58,7 @@ class ActivitySession < ApplicationRecord
   has_one :unit, through: :classroom_unit
   has_many :concept_results
   has_many :teachers, through: :classroom
-  has_many :concepts, -> { uniq }, through: :concept_results
+  has_many :concepts, -> { distinct }, through: :concept_results
 
   validate :correctly_assigned, :on => :create
 
@@ -552,7 +552,8 @@ class ActivitySession < ApplicationRecord
   end
 
   private def set_completed_at
-    return true if state != 'finished'
+    return unless state == 'finished'
+
     self.completed_at ||= Time.current
   end
 

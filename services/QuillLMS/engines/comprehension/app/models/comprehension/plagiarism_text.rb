@@ -1,5 +1,6 @@
 module Comprehension
   class PlagiarismText < ApplicationRecord
+    include Comprehension::ChangeLog
 
     belongs_to :rule, inverse_of: :plagiarism_text
 
@@ -11,6 +12,22 @@ module Comprehension
       super(options.reverse_merge(
         only: [:id, :rule_id, :text]
       ))
+    end
+
+    def change_log_name
+      "Plagiarism Rule Text"
+    end
+
+    def url
+      rule.url
+    end
+
+    def comprehension_name
+      rule.name
+    end
+
+    def conjunctions
+      rule.prompts.map(&:conjunction)
     end
   end
 end

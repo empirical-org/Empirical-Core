@@ -3,7 +3,6 @@ import { EditorState, ContentState } from 'draft-js';
 
 import PromptsForm from './promptsForm';
 
-// import { flagOptions } from '../../../../../constants/comprehension'
 import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction, getActivityPrompt, getActivityPromptSetter, renderErrorsContainer, renderIDorUID } from '../../../helpers/comprehension';
 import {
   BECAUSE,
@@ -18,25 +17,27 @@ import {
   PASSAGE,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
-  PARENT_ACTIVITY_ID
+  PARENT_ACTIVITY_ID,
+  HIGHLIGHT_PROMPT
 } from '../../../../../constants/comprehension';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
 import { Input, TextEditor, } from '../../../../Shared/index'
 
 interface ActivityFormProps {
   activity: ActivityInterface,
-  closeModal: (event: React.MouseEvent) => void,
+  handleClickArchiveActivity: (any) => void,
   requestErrors: string[],
   submitActivity: (activity: object) => void
 }
 
-const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: ActivityFormProps) => {
+const DEFAULT_HIGHLIGHT_PROMPT = "As you read, highlight two sentences that explain "
+
+const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, submitActivity }: ActivityFormProps) => {
 
   const { parent_activity_id, passages, prompts, scored_level, target_level, title, notes, } = activity;
-  // const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
   const formattedScoredLevel = scored_level || '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
-  const formattedPassage = passages && passages.length ? passages : [{ text: ''}];
+  const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT }];
   let formattedMaxFeedback;
   if(prompts && prompts[0] && prompts[0].max_attempts_feedback) {
     formattedMaxFeedback = prompts[0].max_attempts_feedback
@@ -50,7 +51,6 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
 
   const [activityTitle, setActivityTitle] = React.useState<string>(title || '');
   const [activityNotes, setActivityNotes] = React.useState<string>(notes || '');
-  // const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(formattedFlag);
   const [activityScoredReadingLevel, setActivityScoredReadingLevel] = React.useState<string>(formattedScoredLevel);
   const [activityTargetReadingLevel, setActivityTargetReadingLevel] = React.useState<string>(formattedTargetLevel);
   const [activityPassages, setActivityPassages] = React.useState<PassagesInterface[]>(formattedPassage);
@@ -64,13 +64,13 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
 
   function handleSetActivityNotes(e: InputEvent){ setActivityNotes(e.target.value) };
 
-  // const handleSetActivityFlag = (flag: FlagInterface) => { setActivityFlag(flag) };
-
   function handleSetActivityMaxFeedback(text: string){ setActivityMaxFeedback(text) };
 
   function handleSetActivityScoredReadingLevel(e: InputEvent){ setActivityScoredReadingLevel(e.target.value) };
 
   function handleSetActivityTargetReadingLevel(e: InputEvent){ setActivityTargetReadingLevel(e.target.value) };
+
+  function handleSetHighlightPrompt(e: InputEvent){ handleSetActivityPassages('highlight_prompt', e.target.value) };
 
   function handleSetImageLink(e: InputEvent){ handleSetActivityPassages('image_link', e.target.value) };
 
@@ -104,7 +104,8 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
       activityMaxFeedback,
       activityBecausePrompt,
       activityButPrompt,
-      activitySoPrompt
+      activitySoPrompt,
+      highlightPrompt: activityPassages[0].highlight_prompt || DEFAULT_HIGHLIGHT_PROMPT
     });
     const state = [
       activityTitle,
@@ -117,7 +118,8 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
       activityButPrompt.text,
       activitySoPrompt.text,
       activityPassages[0].image_link,
-      activityPassages[0].image_alt_text
+      activityPassages[0].image_alt_text,
+      activityPassages[0].highlight_prompt
     ];
     const validationErrors = validateForm(activityFormKeys, state);
     if(validationErrors && Object.keys(validationErrors).length !== 0) {
@@ -136,10 +138,13 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
 
   return(
     <div className="activity-form-container">
-      <div className="close-button-container">
-        <button className="quill-button fun primary contained" id="activity-close-button" onClick={closeModal} type="button">x</button>
+      <div className="button-container">
+        <a className="quill-button fun secondary outlined" href={`/comprehension/#/play?uid=${activity.id}`} rel="noopener noreferrer" target="_blank">Play Activity</a>
+        {activity.parent_activity_id && <button className="quill-button fun secondary outlined" onClick={handleClickArchiveActivity} type="button">Archive Activity</button>}
+        <button className="quill-button fun primary contained" id="activity-submit-button" onClick={handleSubmitActivity} type="submit">Save</button>
       </div>
-      <form className="activity-form">
+      {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
+      <form className="comprehension-activity-form">
         <Input
           className="title-input"
           error={errors[TITLE]}
@@ -154,14 +159,6 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
           label="Activity Notes"
           value={activityNotes}
         />
-        {/* <DropdownInput
-          className="flag-input"
-          handleChange={handleSetActivityFlag}
-          isSearchable={true}
-          label="Development Stage"
-          options={flagOptions}
-          value={activityFlag}
-        /> */}
         <Input
           className="scored-reading-level-input"
           error={errors[SCORED_READING_LEVEL]}
@@ -208,6 +205,13 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
           key="max-attempt-feedback"
           text={activityMaxFeedback}
         />
+        <Input
+          className="highlight-prompt-input"
+          error={errors[HIGHLIGHT_PROMPT]}
+          handleChange={handleSetHighlightPrompt}
+          label={`Highlight Prompt: "${DEFAULT_HIGHLIGHT_PROMPT}..."`}
+          value={activityPassages[0].highlight_prompt || DEFAULT_HIGHLIGHT_PROMPT}
+        />
         {errors[MAX_ATTEMPTS_FEEDBACK] && <p className="error-message">{errors[MAX_ATTEMPTS_FEEDBACK]}</p>}
         <PromptsForm
           activityBecausePrompt={activityBecausePrompt}
@@ -216,15 +220,6 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
           errors={errors}
           handleSetPrompt={handleSetPrompt}
         />
-        <div className="submit-button-container">
-          {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
-          <button className="quill-button fun primary contained" id="activity-submit-button" onClick={handleSubmitActivity} type="submit">
-            Submit
-          </button>
-          <button className="quill-button fun primary contained" id="activity-cancel-button" onClick={closeModal} type="button">
-            Cancel
-          </button>
-        </div>
       </form>
     </div>
   )

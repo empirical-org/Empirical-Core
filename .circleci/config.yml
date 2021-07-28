@@ -56,7 +56,7 @@ jobs:
           name: Run tests
           command: |
             cd services/QuillLMS
-            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split)
+            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | grep -v "/skip_ci/" | circleci tests split)
             bundle exec rspec -- ${TESTFILES}
   lms_node_build:
     working_directory: ~/Empirical-Core
@@ -205,7 +205,7 @@ jobs:
       - run:
           name: Copy Config files
           command: |
-            cd services/QuillLMS/engines/comprehension/test/dummy
+            cd services/QuillLMS/engines/comprehension/spec/dummy
             cp config/database.yml.circle config/database.yml
       - run:
           name: Set up DB
@@ -219,7 +219,7 @@ jobs:
           name: Run tests
           command: |
             cd services/QuillLMS/engines/comprehension
-            bundle exec rake test
+            bundle exec rspec
   node_lint:
     working_directory: ~/Empirical-Core
     docker:

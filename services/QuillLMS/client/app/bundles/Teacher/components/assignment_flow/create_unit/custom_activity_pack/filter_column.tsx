@@ -33,6 +33,7 @@ interface FilterColumnProps {
   savedActivityIds: number[],
   flagFilters: string[],
   handleFlagFilterChange: () => void,
+  showComprehension: boolean,
   isStaff?: boolean,
   activityCategoryEditor?: ActivityCategoryEditor
 }
@@ -59,6 +60,7 @@ const FilterColumn = ({
   handleSavedActivityFilterChange,
   savedActivityIds,
   isStaff,
+  showComprehension,
   flagFilters,
   handleFlagFilterChange,
   activityCategoryEditor
@@ -105,6 +107,7 @@ const FilterColumn = ({
       handleSavedActivityFilterChange={handleSavedActivityFilterChange}
       savedActivityFilters={savedActivityFilters}
       savedActivityIds={savedActivityIds}
+      showComprehension={showComprehension}
     />
     <ReadabilityGradeLevelFilters
       handleReadabilityGradeLevelFilterChange={handleReadabilityGradeLevelFilterChange}

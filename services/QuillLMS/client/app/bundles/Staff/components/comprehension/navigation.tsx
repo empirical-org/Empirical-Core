@@ -7,8 +7,6 @@ import ActivityForm from './configureSettings/activityForm';
 
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { createActivity } from '../../utils/comprehension/activityAPIs';
-import { Modal } from '../../../Shared/index';
-import { blankActivity } from '../../../../constants/comprehension';
 import { getCsrfToken } from "../../helpers/comprehension";
 
 const Navigation = ({ location, match }) => {
@@ -48,14 +46,6 @@ const Navigation = ({ location, match }) => {
         setShowSubmissionModal(true);
       }
     });
-  }
-
-  function renderActivityForm() {
-    return(
-      <Modal>
-        <ActivityForm activity={blankActivity} closeModal={toggleCreateActivityModal} requestErrors={errors} submitActivity={submitActivity} />
-      </Modal>
-    );
   }
 
   function renderSubmissionModal () {
@@ -110,7 +100,7 @@ const Navigation = ({ location, match }) => {
 
   let activityEditorAndResults
 
-  if (activityId) {
+  if (activityId && activityId !== 'new') {
     activityEditorAndResults = (<React.Fragment>
       <p className="menu-label">
         Activity Editor
@@ -163,27 +153,28 @@ const Navigation = ({ location, match }) => {
     </React.Fragment>)
   }
 
-  return(<React.Fragment>
-    <section className="left-side-menu">
-      <p className="menu-label">
-        Tool Views
-      </p>
-      <ul className="menu-list">
-        <NavLink activeClassName='is-active' isActive={checkOverviewActive} to="/activities">
-          View Activities
-        </NavLink>
-        <button className={`create-activity-button ${showCreateActivityModal ? 'is-active' :''}`} onClick={toggleCreateActivityModal} type="submit">
-          Create New Activity
-        </button>
-        <NavLink activeClassName={!showCreateActivityModal ? 'is-active' :''} to="/universal-rules">
-          View Universal Rules
-        </NavLink>
-      </ul>
-      {activityEditorAndResults}
-    </section>
-    {showCreateActivityModal && renderActivityForm()}
-    {showSubmissionModal && renderSubmissionModal()}
-  </React.Fragment>)
+  return(
+    <React.Fragment>
+      <section className="left-side-menu">
+        <p className="menu-label">
+          Tool Views
+        </p>
+        <ul className="menu-list">
+          <NavLink activeClassName='is-active' isActive={checkOverviewActive} to="/activities">
+            View Activities
+          </NavLink>
+          <NavLink activeClassName='is-active' to="/activities/new">
+            Create New Activity
+          </NavLink>
+          <NavLink activeClassName='is-active' to="/universal-rules">
+            View Universal Rules
+          </NavLink>
+        </ul>
+        {activityEditorAndResults}
+      </section>
+      {showSubmissionModal && renderSubmissionModal()}
+    </React.Fragment>
+  )
 }
 
 export default Navigation

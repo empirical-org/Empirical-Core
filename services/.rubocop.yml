@@ -6,7 +6,7 @@ inherit_mode:
 
 AllCops:
   Exclude:
-    - "QuillLMS/engines/comprehension/test/dummy/**/*"
+    - "QuillLMS/engines/comprehension/spec/dummy/**/*"
     - "QuillLMS/engines/comprehension/lib/generators/**/*"
 
 Style/ZeroLengthPredicate:
@@ -323,6 +323,7 @@ Metrics/ModuleLength:
   Exclude:
     - "QuillLMS/app/models/concerns/teacher.rb"
     - "QuillLMS/app/helpers/pages_helper.rb"
+    - "QuillLMS/engines/comprehension/spec/controllers/comprehension/rules_controller_spec.rb"
 
 Style/AsciiComments:
   Enabled: true

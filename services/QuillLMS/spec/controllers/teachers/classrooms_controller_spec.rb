@@ -157,8 +157,12 @@ describe Teachers::ClassroomsController, type: :controller do
 
   describe '#index' do
     let!(:teacher) { create(:teacher) }
-    let!(:classroom) { create(:classroom)}
-    let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher )}
+    let!(:classroom1) { create(:classroom)}
+    let!(:classroom2) { create(:classroom)}
+    let!(:classroom3) { create(:classroom)}
+    let!(:classrooms_teacher1) { create(:classrooms_teacher, classroom: classroom1, user: teacher )}
+    let!(:classrooms_teacher2) { create(:classrooms_teacher, classroom: classroom2, user: teacher )}
+    let!(:classrooms_teacher3) { create(:classrooms_teacher, classroom: classroom3, user: teacher )}
 
     before do
       allow(controller).to receive(:current_user) { teacher }
@@ -166,23 +170,84 @@ describe Teachers::ClassroomsController, type: :controller do
 
     context 'when current user has classrooms i teach' do
 
+      it 'should return classrooms in order of creation date' do
+        request.accept = "application/json"
+        get :index
+
+        parsed_response = JSON.parse(response.body)
+
+        expect(parsed_response["classrooms"][0]["id"]).to eq(classroom3.id)
+        expect(parsed_response["classrooms"][1]["id"]).to eq(classroom2.id)
+        expect(parsed_response["classrooms"][2]["id"]).to eq(classroom1.id)
+      end
+
       it 'should assign the classrooms and classroom and no students' do
         get :index
-        expect(assigns(:classrooms)[0]['id']).to eq classroom.id
+        expect(assigns(:classrooms)[0]['id']).to eq classroom3.id
+        expect(assigns(:classrooms)[1]['id']).to eq classroom2.id
+        expect(assigns(:classrooms)[2]['id']).to eq classroom1.id
         expect(assigns(:classrooms)[0][:students]).to be_empty
+        expect(assigns(:classrooms)[1][:students]).to be_empty
+        expect(assigns(:classrooms)[2][:students]).to be_empty
       end
 
       context "with activity sesions" do
         let!(:activity) { create(:activity) }
-        let!(:student) { create(:user, classcode: classroom.code) }
-        let!(:cu) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
+        let!(:student) { create(:user, classcode: classroom3.code) }
+        let!(:cu) { create(:classroom_unit, classroom: classroom3, assigned_student_ids: [student.id])}
         let!(:ua) { create(:unit_activity, unit: cu.unit, activity: activity)}
         let!(:activity_session) { create(:activity_session, user: student, activity: activity, classroom_unit: cu, state: 'finished') }
 
         it 'should assign students and number_of_completed_activities' do
           get :index
-          expect(assigns(:classrooms)[0]['id']).to eq classroom.id
+          expect(assigns(:classrooms)[0]['id']).to eq classroom3.id
           expect(assigns(:classrooms)[0][:students][0][:number_of_completed_activities]).to eq 1
+        end
+      end
+
+      context "with order property" do
+        before do
+          # remove classroom_teacher entries from earlier tests
+          ids = [classrooms_teacher1.id, classrooms_teacher2.id, classrooms_teacher3.id]
+          ClassroomsTeacher.all.each do |classroom_teacher|
+            if !ids.include?(classroom_teacher.id)
+              classroom_teacher.destroy!
+            end
+          end
+        end
+
+        it 'should return classrooms in order of creation date if only some classrooms_teacher entries have order property' do
+          ct1 = ClassroomsTeacher.where(classroom_id: classroom1.id).first
+          ct1.order = 1
+          ct1.save!
+
+          request.accept = "application/json"
+          get :index
+
+          parsed_response = JSON.parse(response.body)
+          expect(parsed_response["classrooms"][0]["id"]).to eq(classroom3.id)
+          expect(parsed_response["classrooms"][1]["id"]).to eq(classroom2.id)
+          expect(parsed_response["classrooms"][2]["id"]).to eq(classroom1.id)
+        end
+
+        it 'should return classrooms ordered by order properity if all classrooms_teacher entries have order property' do
+          ct1 = ClassroomsTeacher.where(classroom_id: classroom1.id).first
+          ct1.order = 1
+          ct1.save!
+          ct2 = ClassroomsTeacher.where(classroom_id: classroom2.id).first
+          ct2.order = 0
+          ct2.save!
+          ct3 = ClassroomsTeacher.where(classroom_id: classroom3.id).first
+          ct3.order = 2
+          ct3.save!
+
+          request.accept = "application/json"
+          get :index
+
+          parsed_response = JSON.parse(response.body)
+          expect(parsed_response["classrooms"][0]["id"]).to eq(classroom2.id)
+          expect(parsed_response["classrooms"][1]["id"]).to eq(classroom1.id)
+          expect(parsed_response["classrooms"][2]["id"]).to eq(classroom3.id)
         end
       end
     end

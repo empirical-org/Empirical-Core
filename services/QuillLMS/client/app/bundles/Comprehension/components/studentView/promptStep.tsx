@@ -89,10 +89,10 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   }
 
   formatStudentResponse = (str: string) => {
-    const { prompt, } = this.props
+    const { prompt, submittedResponses, } = this.props
     const lastSubmittedResponse = this.lastSubmittedResponse()
 
-    if (!lastSubmittedResponse || !lastSubmittedResponse.highlight || !lastSubmittedResponse.entry) { return str }
+    if (!lastSubmittedResponse || !lastSubmittedResponse.highlight || !lastSubmittedResponse.entry || submittedResponses.length === prompt.max_attempts) { return str }
 
     const thereAreResponseHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).length
     const lastSubmittedResponseWithoutStem = lastSubmittedResponse.entry.replace(prompt.text, '').trim()

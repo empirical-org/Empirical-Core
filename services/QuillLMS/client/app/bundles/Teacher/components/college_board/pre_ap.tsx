@@ -302,7 +302,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
       </div>
     </div>
     <div ref={questionAndAnswerRef}>
-      <QuestionsAndAnswers handleChange={handleChange} questionsAndAnswersFile="ap" supportLink="" />
+      <QuestionsAndAnswers handleChange={handleChange} questionsAndAnswersFile="preap" supportLink="" />
     </div>
   </div>
   )

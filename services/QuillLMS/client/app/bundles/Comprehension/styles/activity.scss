@@ -34,10 +34,16 @@
     height: 100%;
     .header-image {
       height: auto;
-      max-width: 100%;
+      width: 100%;
+      max-width: 680px;
     }
-    .passage p {
-      margin-bottom: 40px;
+    .passage {
+      p {
+        margin-bottom: 40px;
+      }
+      mark {
+        background-color: inherit;
+      }
     }
     .passage-highlight {
       background-color: #fff6e4;

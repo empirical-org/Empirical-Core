@@ -166,6 +166,12 @@
   background-position: center;
   height: 40px;
 }
+.icon-comprehension-green-no-border, .icon-9-green-no-border {
+  background-image: url("https://assets.quill.org/images/icons/tool-comprehension.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
 
 .icon-lessons, .icon-6 {
   background-image: url("https://assets.quill.org/images/scorebook/icon-lessons.svg");
@@ -191,6 +197,11 @@
   background-position: 9px;
 }
 
+.icon-comprehension, .icon-9 {
+  background-image: url("https://assets.quill.org/images/icons/tool-comprehension-white.svg");
+  background-repeat: no-repeat;
+  background-position: 9px;
+}
 
 .icon-flag-gray, .icon-1-gray {
   background-image: url("https://assets.quill.org/images/scorebook/icon-flag-gray.png");
@@ -266,6 +277,11 @@
 }
 .icon-connect-lightgray, .icon-5-lightgray {
   background-image: url("https://assets.quill.org/images/scorebook/icon-connect-lightgray.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.icon-comprehension-lightgray, .icon-9-lightgray {
+  background-image: url("https://assets.quill.org/images/icons/tool-comprehension-light-gray.svg");
   background-repeat: no-repeat;
   background-position: center;
 }

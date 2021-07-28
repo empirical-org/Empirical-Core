@@ -1,6 +1,6 @@
 .date-selection-container {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   margin-top: 16px;
   .start-date-picker {
     margin-right: 22px;
@@ -10,6 +10,12 @@
   }
   &.rules-analysis {
     margin-bottom: 24px;
+  }
+  .turk-session-id-input {
+    margin-right: 16px;
+    input {
+      margin-bottom: 12px;
+    }
   }
 }
 
