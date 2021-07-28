@@ -339,7 +339,7 @@ workflows:
   version: 2
   build-test:
     jobs:
-      - lms_rails_build
+      # - lms_rails_build
       - lms_integration_build
       # - lms_node_build
       # - marking_logic_node_build
