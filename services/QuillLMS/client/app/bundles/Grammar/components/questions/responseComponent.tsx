@@ -391,7 +391,7 @@ class ResponseComponent extends React.Component {
     let incorrectSequenceNames = []
     if (Array.isArray(incorrectSequences)) {
       incorrectSequenceNames = incorrectSequences.map(i => i.name)
-    } else {
+    } else if (incorrectSequences) {
       incorrectSequenceNames = Object.keys(incorrectSequences).map((key) => incorrectSequences[key].name)
     }
     return incorrectSequenceNames.filter(f => f !== undefined)
@@ -404,7 +404,7 @@ class ResponseComponent extends React.Component {
     let focusPointNames = []
     if (Array.isArray(focusPoints)) {
       focusPointNames = focusPoints.map(fp => fp.name)
-    } else {
+    } else if (focusPoints) {
       focusPointNames = Object.keys(focusPoints).map((key) => focusPoints[key].name)
     }
     return focusPointNames.filter(f => f !== undefined)
