@@ -1,14 +1,30 @@
 import * as React from "react";
 
-export const PostActivitySlide = ({ handleFinishActivity }) => {
+export const PostActivitySlide = ({ responses, user }) => {
+
   function handleClick() {
-    handleFinishActivity();
+    window.location.href = "/"
+  }
+
+  function getRevisionCount() {
+    let count = 0;
+    if(!responses) { return '0 revisions' }
+    Object.keys(responses).map(key => {
+      count += responses[key].length;
+    });
+    if(count <= 3) { return '0 revisions' }
+    // we subtract 3 to account for a student having 3 optimal first attempts
+    const calculatedCount = count - 3;
+    if(count === 1) {
+      return '1 revision';
+    }
+    return `${calculatedCount} revisions`;
   }
   return(
     <div className="post-activity-slide-container">
       <section id="information-section">
-        <p className="slide-sub-text">{`Ja’shonda, you completed the activity!`}</p>
-        <p id="revision-text">{`You made 14 revisions!`}</p>
+        <p className="slide-sub-text">{`${user}, you completed the activity!`}</p>
+        <p id="revision-text">{`You made ${getRevisionCount()} revisions!`}</p>
         <img alt="An illustration of a party popper" id="celebration-vector" src={`${process.env.CDN_URL}/images/comprehension/celebrating-activity-completion.svg`} />
         <section id="reminder-badge-section">
           <img alt="An illustration of an A+ that is crossed out" id="grade-badge" src={`${process.env.CDN_URL}/images/comprehension/no-grade-badge.svg`} />

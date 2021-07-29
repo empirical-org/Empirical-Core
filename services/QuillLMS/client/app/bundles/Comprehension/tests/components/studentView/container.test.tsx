@@ -171,7 +171,7 @@ describe('StudentViewContainer component', () => {
       describe('when the read passage step has been completed', () => {
         beforeAll(() => {
           mockTrackAnalyticsEvent.mockClear()
-          wrapper.setState({ completedSteps: [1], activeStep: 1 })
+          wrapper.setState({ completedSteps: [1], activeStep: 1, activityIsComplete: false })
           wrapper.find('.step-links').find('.step-link').last().simulate('click')
         })
 

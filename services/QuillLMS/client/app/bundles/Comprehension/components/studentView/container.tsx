@@ -43,6 +43,7 @@ interface StudentViewContainerProps {
   location?: any;
   handleFinishActivity?: () => void;
   isTurk?: boolean;
+  user: string;
 }
 
 interface StudentViewContainerState {
@@ -334,7 +335,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     }));
 
     this.setState({ activityIsComplete: true });
-    // this.defaultHandleFinishActivity()
+    this.defaultHandleFinishActivity()
   }
 
   activateStep = (step?: number, callback?: Function, skipTracking?: boolean) => {
@@ -622,8 +623,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   render = () => {
-    const { activities, } = this.props
-    console.log("🚀 ~ file: container.tsx ~ line 626 ~ StudentViewContainer ~ this.props", this.props)
+    const { activities, session, user } = this.props;
+    const { submittedResponses } = session;
     const { showFocusState, activityIsComplete } = this.state
 
     if (!activities.hasReceivedData) { return <LoadingSpinner /> }
@@ -632,7 +633,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     if(activityIsComplete) {
       return(
-        <PostActivitySlide handleFinishActivity={this.defaultHandleFinishActivity} />
+        <PostActivitySlide responses={submittedResponses} user={user} />
       );
     }
     return (
