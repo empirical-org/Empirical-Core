@@ -340,17 +340,22 @@ class ResponseComponent extends React.Component {
   }
 
   renderStatusToggleMenu() {
+    const { filters } = this.props
+    const { visibleStatuses } = filters
+    const regexLabels = this.incorrectSequenceNames().concat(this.focusPointNames())
+
     return (
       <ResponseToggleFields
         deselectFields={this.deselectFields}
         excludeMisspellings={this.props.filters.formattedFilterData.filters.excludeMisspellings}
         labels={labels}
         qualityLabels={qualityLabels}
+        regexLabels={regexLabels}
         resetFields={this.resetFields}
         resetPageNumber={this.resetPageNumber}
         toggleExcludeMisspellings={this.toggleExcludeMisspellings}
         toggleField={this.toggleField}
-        visibleStatuses={this.props.filters.visibleStatuses}
+        visibleStatuses={visibleStatuses}
       />
     );
   }
@@ -374,6 +379,32 @@ class ResponseComponent extends React.Component {
       if (expanded[i] === true) { return false; }
     }
     return true;
+  }
+
+  incorrectSequenceNames = () => {
+    const { question } = this.props
+    const { incorrectSequences } = question
+
+    let incorrectSequenceNames = []
+    if (Array.isArray(incorrectSequences)) {
+      incorrectSequenceNames = incorrectSequences.map(i => i.name)
+    } else if (incorrectSequences) {
+      incorrectSequenceNames = Object.keys(incorrectSequences).map((key) => incorrectSequences[key].name)
+    }
+    return incorrectSequenceNames.filter(f => f !== undefined)
+  }
+
+  focusPointNames = () => {
+    const { question } = this.props
+    const { focusPoints } = question
+
+    let focusPointNames = []
+    if (Array.isArray(focusPoints)) {
+      focusPointNames = focusPoints.map(fp => fp.name)
+    } else if (focusPoints) {
+      focusPointNames = Object.keys(focusPoints).map((key) => focusPoints[key].name)
+    }
+    return focusPointNames.filter(f => f !== undefined)
   }
 
   renderExpandCollapseAll() {
