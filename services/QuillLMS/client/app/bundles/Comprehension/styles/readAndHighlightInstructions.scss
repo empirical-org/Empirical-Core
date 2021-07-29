@@ -121,7 +121,12 @@
     }
   }
   @media (max-width: 1099px) {
-    padding-top: 32px;
+    &.read-and-highlight-container {
+      padding-top: 32px;
+    }
+    &.step-links-and-directions-container {
+      padding-top: 0px;
+    }
     section.read-the-directions-modal {
       transform: translate(-50%, 0%);
       bottom: -176px;
@@ -129,6 +134,7 @@
     }
     .reflection-section {
       margin-bottom: 0px;
+      padding-top: 32px;
       h3, p {
         padding-left: 16px;
         padding-right: 16px;
@@ -139,6 +145,7 @@
     }
     .directions-section {
       margin-bottom: 0px;
+      padding-top: 32px;
       p {
         font-size: 20px;
         line-height: 1.3;

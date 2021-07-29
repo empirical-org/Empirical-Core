@@ -136,15 +136,16 @@
     max-width: 680px;
   }
 
-  .step-links {
+  .step-link-container {
     display: flex;
     border-bottom: 1px solid #d8d8d8;
-    padding: 8px 0px 8px 16px;
+    padding: 8px 16px;
     position: sticky;
     position: -webkit-sticky;/* required */
     top: 0;
     background-color: white;
     z-index: 100;
+    justify-content: space-between;
     .step-link {
       width: 32px;
       margin-right: 16px;
@@ -152,6 +153,12 @@
       border: none;
       background-color: transparent;
       line-height: 24px;
+    }
+    .interactive-wrapper {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.43;
+      color: #5c5c5c;
     }
   }
 
@@ -162,9 +169,11 @@
     padding-top: 60px;
 
     .steps-outer-container {
+      &:not(.step-overview-container) {
+        margin-right: 4px;
+      }
       -webkit-overflow-scrolling: touch;
       -ms-overflow-style: none;
-      margin-right: 4px;
       border-left: 1px solid #d8d8d8;
     }
 

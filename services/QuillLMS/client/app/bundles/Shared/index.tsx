@@ -110,6 +110,8 @@ export {
   cursorClick,
   cursorPointingHand,
   removeIcon,
+  encircledWhiteArrowIcon,
+  greenCheckIcon,
 } from './images/index'
 
 export {

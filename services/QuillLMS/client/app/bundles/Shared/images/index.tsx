@@ -97,3 +97,13 @@ export const removeIcon = {
   src: `${process.env.CDN_URL}/images/icons/icons-remove.svg`,
   alt: 'Icon showing a gray circle with a horizontal white line inside of it'
 }
+
+export const encircledWhiteArrowIcon = {
+  src: `${process.env.CDN_URL}/images/icons/icons-arrow-right-circle-white.svg`,
+  alt: 'Right arrow in a circle'
+}
+
+export const greenCheckIcon = {
+  src: `${process.env.CDN_URL}/images/icons/check-green.svg`,
+  alt: 'Green check icon'
+}
