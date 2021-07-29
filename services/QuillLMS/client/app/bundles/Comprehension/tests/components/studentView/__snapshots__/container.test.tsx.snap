@@ -22,13 +22,13 @@ But how can democracies have representative governments unless all or most of th
         ],
         "prompts": Array [
           Object {
-            "conjunction": "so",
+            "conjunction": "because",
             "max_attempts": 5,
             "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
- Governments should make voting compulsory so that the elected government represents the majority of the population.",
-            "prompt_id": 3,
-            "text": "Governments should make voting compulsory so",
+ Governments should make voting compulsory because otherwise not everyone will vote.",
+            "prompt_id": 1,
+            "text": "Governments should make voting compulsory because",
           },
           Object {
             "conjunction": "but",
@@ -40,13 +40,13 @@ But how can democracies have representative governments unless all or most of th
             "text": "Governments should make voting compulsory, but",
           },
           Object {
-            "conjunction": "because",
+            "conjunction": "so",
             "max_attempts": 5,
             "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
- Governments should make voting compulsory because otherwise not everyone will vote.",
-            "prompt_id": 1,
-            "text": "Governments should make voting compulsory because",
+ Governments should make voting compulsory so that the elected government represents the majority of the population.",
+            "prompt_id": 3,
+            "text": "Governments should make voting compulsory so",
           },
         ],
         "title": "Should Voting be Required?",
@@ -69,65 +69,69 @@ But how can democracies have representative governments unless all or most of th
   }
 >
   <div
-    className="activity-container hide-focus-outline on-read-passage"
+    className="activity-container hide-focus-outline "
     onTouchMove={[Function]}
   >
     <div
-      className="hide-on-desktop step-links-and-directions-container"
+      className="hide-on-desktop step-links"
     >
-      <DirectionsSectionAndModal
-        closeReadTheDirectionsModal={[Function]}
-        inReflection={false}
-        passage={
-          Object {
-            "highlight_prompt": "As you read, highlight two sentences that explain why some people think voting should be required.",
-            "text": "Crispin Morales is a poor Bolivian factory worker who works 12-hour days. He works every day but Sunday. The last presidential election fell on a Saturday. Although he was given the day off as the law required, Crispin was unable to get to a polling station to vote. After failing to vote, Crispin was not allowed to withdraw his salary from his bank for over two months. This is because those who do not vote are punished in Bolivia given that voting there is compulsory, a civic duty required by law. Not all countries with compulsory voting enforce this law.
-
-If a citizen of Australia or Brazil provides a good reason for not voting (e.g. being in a hospital) it is accepted. In fact, many nations have dropped mandatory voting altogether. However, this can have a negative effect. When Venezuela, for example, discontinued mandatory voting in 1993, it saw a 30% decline in attendance at the polls.
-
-Low voter turnout is a common problem in countries without compulsory voting. This problem might be explained by voter apathy or lack of enthusiasm around elections. Of 222 million eligible voters, only 125 million cast their votes in the 2012 U.S. presidential election. By contrast, over 750 million votes were cast during season 10 of American Idol. Some people find it discouraging that voting for American Idol seems to generate more enthusiasm than voting in national elections. While it's important to note that American Idol viewers as young as 13 years old can vote multiple times during multiple episodes, these numbers may indicate that some citizens feel that their vote counts more in television contests than in political contests. Or perhaps they’re just not interested in politics.
-
-Mandatory voting may seem like a great way to encourage voter participation, but governments can sometimes misuse it. For example, in some dictatorships, citizens are forced to vote, but the same person is elected every time because the government does not allow political competition. In March 2014 in North Korea, 99% of the country cast votes for Kim Jong Un, the only candidate listed on the ballot.
-
-But how can democracies have representative governments unless all or most of their citizens vote? Some say that compulsory voting ensures that the elected government represents the majority of the population. But those against compulsory voting say that it is a violation of personal liberties and choices. Others say that voting should be seen as a civic right and not a civic duty.",
-          }
-        }
-        showReadTheDirectionsModal={true}
+      <StepLink
+        clickStepLink={[Function]}
+        index={2}
+        renderStepNumber={[Function]}
       >
-        <div>
-          <ReadTheDirectionsModal
-            closeReadTheDirectionsModal={[Function]}
+        <button
+          className="step-link"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          type="button"
+        >
+          <div
+            className="step-number active"
+            key="2"
           >
-            <section
-              className="read-the-directions-modal"
-            >
-              <p>
-                Read the directions carefully before moving onto reading and highlighting.
-              </p>
-              <button
-                className="quill-button primary contained large focus-on-light"
-                onClick={[Function]}
-                type="button"
-              >
-                Got it
-              </button>
-            </section>
-          </ReadTheDirectionsModal>
-          <section
-            className="directions-section"
+            1
+          </div>
+        </button>
+      </StepLink>
+      <StepLink
+        clickStepLink={[Function]}
+        index={3}
+        renderStepNumber={[Function]}
+      >
+        <button
+          className="step-link"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          type="button"
+        >
+          <div
+            className="step-number "
+            key="3"
           >
-            <h3>
-              Directions
-            </h3>
-            <p>
-              As you read, highlight two sentences that explain 
-              <u>
-                why some people think voting should be required.
-              </u>
-            </p>
-          </section>
-        </div>
-      </DirectionsSectionAndModal>
+            2
+          </div>
+        </button>
+      </StepLink>
+      <StepLink
+        clickStepLink={[Function]}
+        index={4}
+        renderStepNumber={[Function]}
+      >
+        <button
+          className="step-link"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          type="button"
+        >
+          <div
+            className="step-number "
+            key="4"
+          >
+            3
+          </div>
+        </button>
+      </StepLink>
     </div>
     <div
       className="read-passage-container"
@@ -143,33 +147,14 @@ But how can democracies have representative governments unless all or most of th
         </h1>
         <div
           className="passage"
-        >
-          <p
-            key="0"
-          >
-            Crispin Morales is a poor Bolivian factory worker who works 12-hour days. He works every day but Sunday. The last presidential election fell on a Saturday. Although he was given the day off as the law required, Crispin was unable to get to a polling station to vote. After failing to vote, Crispin was not allowed to withdraw his salary from his bank for over two months. This is because those who do not vote are punished in Bolivia given that voting there is compulsory, a civic duty required by law. Not all countries with compulsory voting enforce this law.
-          </p>
-          <p
-            key="1"
-          >
-            If a citizen of Australia or Brazil provides a good reason for not voting (e.g. being in a hospital) it is accepted. In fact, many nations have dropped mandatory voting altogether. However, this can have a negative effect. When Venezuela, for example, discontinued mandatory voting in 1993, it saw a 30% decline in attendance at the polls.
-          </p>
-          <p
-            key="2"
-          >
-            Low voter turnout is a common problem in countries without compulsory voting. This problem might be explained by voter apathy or lack of enthusiasm around elections. Of 222 million eligible voters, only 125 million cast their votes in the 2012 U.S. presidential election. By contrast, over 750 million votes were cast during season 10 of American Idol. Some people find it discouraging that voting for American Idol seems to generate more enthusiasm than voting in national elections. While it's important to note that American Idol viewers as young as 13 years old can vote multiple times during multiple episodes, these numbers may indicate that some citizens feel that their vote counts more in television contests than in political contests. Or perhaps they’re just not interested in politics.
-          </p>
-          <p
-            key="3"
-          >
-            Mandatory voting may seem like a great way to encourage voter participation, but governments can sometimes misuse it. For example, in some dictatorships, citizens are forced to vote, but the same person is elected every time because the government does not allow political competition. In March 2014 in North Korea, 99% of the country cast votes for Kim Jong Un, the only candidate listed on the ballot.
-          </p>
-          <p
-            key="4"
-          >
-            But how can democracies have representative governments unless all or most of their citizens vote? Some say that compulsory voting ensures that the elected government represents the majority of the population. But those against compulsory voting say that it is a violation of personal liberties and choices. Others say that voting should be seen as a civic right and not a civic duty.
-          </p>
-        </div>
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": Array [
+                Object {},
+              ],
+            }
+          }
+        />
         <span
           id="end-of-passage"
         />
@@ -179,177 +164,233 @@ But how can democracies have representative governments unless all or most of th
       className="steps-outer-container"
       onScroll={[Function]}
     >
-      <ReadAndHighlightInstructions
-        activeStep={1}
-        closeReadTheDirectionsModal={[Function]}
-        inReflection={false}
-        passage={
-          Object {
-            "highlight_prompt": "As you read, highlight two sentences that explain why some people think voting should be required.",
-            "text": "Crispin Morales is a poor Bolivian factory worker who works 12-hour days. He works every day but Sunday. The last presidential election fell on a Saturday. Although he was given the day off as the law required, Crispin was unable to get to a polling station to vote. After failing to vote, Crispin was not allowed to withdraw his salary from his bank for over two months. This is because those who do not vote are punished in Bolivia given that voting there is compulsory, a civic duty required by law. Not all countries with compulsory voting enforce this law.
-
-If a citizen of Australia or Brazil provides a good reason for not voting (e.g. being in a hospital) it is accepted. In fact, many nations have dropped mandatory voting altogether. However, this can have a negative effect. When Venezuela, for example, discontinued mandatory voting in 1993, it saw a 30% decline in attendance at the polls.
-
-Low voter turnout is a common problem in countries without compulsory voting. This problem might be explained by voter apathy or lack of enthusiasm around elections. Of 222 million eligible voters, only 125 million cast their votes in the 2012 U.S. presidential election. By contrast, over 750 million votes were cast during season 10 of American Idol. Some people find it discouraging that voting for American Idol seems to generate more enthusiasm than voting in national elections. While it's important to note that American Idol viewers as young as 13 years old can vote multiple times during multiple episodes, these numbers may indicate that some citizens feel that their vote counts more in television contests than in political contests. Or perhaps they’re just not interested in politics.
-
-Mandatory voting may seem like a great way to encourage voter participation, but governments can sometimes misuse it. For example, in some dictatorships, citizens are forced to vote, but the same person is elected every time because the government does not allow political competition. In March 2014 in North Korea, 99% of the country cast votes for Kim Jong Un, the only candidate listed on the ballot.
-
-But how can democracies have representative governments unless all or most of their citizens vote? Some say that compulsory voting ensures that the elected government represents the majority of the population. But those against compulsory voting say that it is a violation of personal liberties and choices. Others say that voting should be seen as a civic right and not a civic duty.",
-          }
-        }
-        removeHighlight={[Function]}
-        showReadTheDirectionsModal={true}
-        studentHighlights={Array []}
+      <div
+        className="steps-inner-container"
+        onScroll={[Function]}
       >
-        <div
-          className="read-and-highlight-container hide-on-mobile"
-        >
-          <DirectionsSectionAndModal
-            className="hide-on-mobile"
-            closeReadTheDirectionsModal={[Function]}
-            inReflection={false}
-            passage={
+        <div>
+          <h2>
+            Use information from the text to finish the sentence. Remember to put the response in your own words.
+          </h2>
+          <PromptStep
+            activateStep={[Function]}
+            active={true}
+            canBeClicked={true}
+            className="step clickable active"
+            completeStep={[Function]}
+            everyOtherStepCompleted={false}
+            key="2"
+            passedRef={[Function]}
+            prompt={
               Object {
-                "highlight_prompt": "As you read, highlight two sentences that explain why some people think voting should be required.",
-                "text": "Crispin Morales is a poor Bolivian factory worker who works 12-hour days. He works every day but Sunday. The last presidential election fell on a Saturday. Although he was given the day off as the law required, Crispin was unable to get to a polling station to vote. After failing to vote, Crispin was not allowed to withdraw his salary from his bank for over two months. This is because those who do not vote are punished in Bolivia given that voting there is compulsory, a civic duty required by law. Not all countries with compulsory voting enforce this law.
+                "conjunction": "because",
+                "max_attempts": 5,
+                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
-If a citizen of Australia or Brazil provides a good reason for not voting (e.g. being in a hospital) it is accepted. In fact, many nations have dropped mandatory voting altogether. However, this can have a negative effect. When Venezuela, for example, discontinued mandatory voting in 1993, it saw a 30% decline in attendance at the polls.
-
-Low voter turnout is a common problem in countries without compulsory voting. This problem might be explained by voter apathy or lack of enthusiasm around elections. Of 222 million eligible voters, only 125 million cast their votes in the 2012 U.S. presidential election. By contrast, over 750 million votes were cast during season 10 of American Idol. Some people find it discouraging that voting for American Idol seems to generate more enthusiasm than voting in national elections. While it's important to note that American Idol viewers as young as 13 years old can vote multiple times during multiple episodes, these numbers may indicate that some citizens feel that their vote counts more in television contests than in political contests. Or perhaps they’re just not interested in politics.
-
-Mandatory voting may seem like a great way to encourage voter participation, but governments can sometimes misuse it. For example, in some dictatorships, citizens are forced to vote, but the same person is elected every time because the government does not allow political competition. In March 2014 in North Korea, 99% of the country cast votes for Kim Jong Un, the only candidate listed on the ballot.
-
-But how can democracies have representative governments unless all or most of their citizens vote? Some say that compulsory voting ensures that the elected government represents the majority of the population. But those against compulsory voting say that it is a violation of personal liberties and choices. Others say that voting should be seen as a civic right and not a civic duty.",
+ Governments should make voting compulsory because otherwise not everyone will vote.",
+                "prompt_id": 1,
+                "text": "Governments should make voting compulsory because",
               }
             }
-            showReadTheDirectionsModal={true}
+            stepNumber={2}
+            stepNumberComponent={
+              <div
+                className="step-number active"
+              >
+                1
+              </div>
+            }
+            submitResponse={[Function]}
+            submittedResponses={Array []}
           >
             <div
-              className="hide-on-mobile"
+              className="step clickable active"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="button"
+              tabIndex={0}
             >
-              <ReadTheDirectionsModal
-                closeReadTheDirectionsModal={[Function]}
-              >
-                <section
-                  className="read-the-directions-modal"
-                >
-                  <p>
-                    Read the directions carefully before moving onto reading and highlighting.
-                  </p>
-                  <button
-                    className="quill-button primary contained large focus-on-light"
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    Got it
-                  </button>
-                </section>
-              </ReadTheDirectionsModal>
-              <section
-                className="directions-section"
-              >
-                <h3>
-                  Directions
-                </h3>
-                <p>
-                  As you read, highlight two sentences that explain 
-                  <u>
-                    why some people think voting should be required.
-                  </u>
-                </p>
-              </section>
-            </div>
-          </DirectionsSectionAndModal>
-          <section
-            className="highlight-section"
-          >
-            <h3>
-              Highlights
-            </h3>
-            <HighlightInstructions>
               <div
-                className="highlight-instructions"
+                className="step-content"
               >
-                <h4>
-                  How to highlight
-                </h4>
-                <div
-                  className="highlight-instruction one"
-                >
-                  <h5
-                    className="highlight-instruction-header"
+                <div>
+                  <div
+                    className="step-header"
                   >
-                    <span
-                      className="highlight-instruction-number"
+                    <div
+                      className="step-number active"
+                      key="2"
                     >
                       1
-                    </span>
-                    <span>
-                      Hover over a sentence
-                    </span>
-                  </h5>
-                  <img
-                    alt="undefined/images/icons/cursor-pointinghand.svg"
-                    src="undefined/images/icons/cursor-pointinghand.svg"
-                  />
-                  <p>
-                    <span
-                      className="student-highlight hover"
+                    </div>
+                    <p
+                      className="directions"
                     >
-                      Yellowstone National Park was established in 1872 as the first national park in the United States.
-                    </span>
-                     It spans across areas in Wyoming, Idaho, and Montana. Yellowstone is extremely special and famous because it is located on a dormant volcano.
-                  </p>
-                </div>
-                <div
-                  className="highlight-instruction two"
-                >
-                  <h5
-                    className="highlight-instruction-header"
+                      Use information from the text to finish the sentence:
+                    </p>
+                  </div>
+                  <div
+                    className="active-content-container"
                   >
-                    <span
-                      className="highlight-instruction-number"
+                    <EditorContainer
+                      className="editor"
+                      disabled={false}
+                      handleTextChange={[Function]}
+                      html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
+                      innerRef={[Function]}
+                      isResettable={false}
+                      promptText="Governments should make voting compulsory because"
+                      resetText={[Function]}
+                      stripHtml={[Function]}
                     >
-                      2
-                    </span>
-                    <span>
-                      Click, tap, or select the sentence
-                    </span>
-                  </h5>
-                  <img
-                    alt="undefined/images/icons/cursor-click.svg"
-                    src="undefined/images/icons/cursor-click.svg"
-                  />
-                  <p>
-                    <span
-                      className="student-highlight"
+                      <div
+                        className="editor-container"
+                      >
+                        <ContentEditable
+                          className="editor"
+                          data-gramm={false}
+                          disabled={false}
+                          html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
+                          innerRef={[Function]}
+                          onChange={[Function]}
+                          spellCheck={false}
+                        >
+                          <div
+                            className="editor"
+                            contentEditable={true}
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>",
+                              }
+                            }
+                            data-gramm={false}
+                            disabled={false}
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onInput={[Function]}
+                            onKeyDown={[Function]}
+                            onKeyUp={[Function]}
+                            spellCheck={false}
+                          />
+                        </ContentEditable>
+                        <button
+                          className="disabled clear-button"
+                          type="button"
+                        >
+                          <img
+                            alt="circle with an x in it"
+                            className="clear"
+                            src="undefined/images/icons/clear-disabled.svg"
+                          />
+                          Clear response
+                        </button>
+                      </div>
+                    </EditorContainer>
+                    <button
+                      className="quill-button disabled"
+                      onClick={[Function]}
+                      type="button"
                     >
-                      Yellowstone National Park was established in 1872 as the first national park in the United States.
-                    </span>
-                     It spans across areas in Wyoming, Idaho, and Montana. Yellowstone is extremely special and famous because it is located on a dormant volcano.
-                  </p>
+                      <span>
+                        Get feedback
+                      </span>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </HighlightInstructions>
-          </section>
-        </div>
-      </ReadAndHighlightInstructions>
-      <BottomNavigation
-        doneHighlighting={false}
-        handleClickDoneHighlighting={[Function]}
-        handleDoneReadingClick={[Function]}
-        onMobile={true}
-        scrolledToEndOfPassage={false}
-        studentHighlights={Array []}
-      >
-        <ReadAndHighlightTracker
-          handleClickDoneHighlighting={[Function]}
-          onMobile={true}
-          scrolledToEndOfPassage={false}
-          studentHighlights={Array []}
-        >
-          <div
-            className="read-and-highlight-tracker bottom-navigation"
+            </div>
+          </PromptStep>
+          <PromptStep
+            activateStep={[Function]}
+            active={false}
+            canBeClicked={false}
+            className="step  "
+            completeStep={[Function]}
+            everyOtherStepCompleted={false}
+            key="3"
+            passedRef={[Function]}
+            prompt={
+              Object {
+                "conjunction": "but",
+                "max_attempts": 5,
+                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory, but with exceptions for people who have good reasons for not being able to vote.",
+                "prompt_id": 2,
+                "text": "Governments should make voting compulsory, but",
+              }
+            }
+            stepNumber={3}
+            stepNumberComponent={
+              <div
+                className="step-number "
+              >
+                2
+              </div>
+            }
+            submitResponse={[Function]}
+            submittedResponses={Array []}
+          >
+            <div
+              className="step  "
+            >
+              <div
+                className="step-content"
+              >
+                <div>
+                  <div
+                    className="step-header"
+                  >
+                    <div
+                      className="step-number "
+                      key="3"
+                    >
+                      2
+                    </div>
+                    <p
+                      className="prompt-text"
+                    >
+                      Governments should make voting compulsory,
+                       
+                      <span>
+                        but
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </PromptStep>
+          <PromptStep
+            activateStep={[Function]}
+            active={false}
+            canBeClicked={false}
+            className="step  "
+            completeStep={[Function]}
+            everyOtherStepCompleted={false}
+            key="4"
+            passedRef={[Function]}
+            prompt={
+              Object {
+                "conjunction": "so",
+                "max_attempts": 5,
+                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory so that the elected government represents the majority of the population.",
+                "prompt_id": 3,
+                "text": "Governments should make voting compulsory so",
+              }
+            }
+            stepNumber={4}
+            stepNumberComponent={
+              <div
+                className="step-number "
+              >
+                3
+              </div>
+            }
+            submitResponse={[Function]}
+            submittedResponses={Array []}
           >
             <button
               className="quill-button contained primary large focus-on-light disabled"
@@ -358,33 +399,37 @@ But how can democracies have representative governments unless all or most of th
               Done
             </button>
             <div
-              className="read-and-highlight-steps"
+              className="step  "
             >
               <div
-                className="read-and-highlight-step"
+                className="step-content"
               >
-                <div
-                  className="incomplete-indicator"
-                />
-                <span>
-                  Read the entire passage
-                </span>
-              </div>
-              <div
-                className="read-and-highlight-step"
-              >
-                <div
-                  className="incomplete-indicator"
-                />
-                <span>
-                  Highlight
-                   two sentences
-                </span>
+                <div>
+                  <div
+                    className="step-header"
+                  >
+                    <div
+                      className="step-number "
+                      key="4"
+                    >
+                      3
+                    </div>
+                    <p
+                      className="prompt-text"
+                    >
+                      Governments should make voting compulsory
+                       
+                      <span>
+                        so
+                      </span>
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </ReadAndHighlightTracker>
-      </BottomNavigation>
+          </PromptStep>
+        </div>
+      </div>
     </div>
   </div>
 </StudentViewContainer>
