@@ -6,6 +6,7 @@ import stripHtml from "string-strip-html";
 import PromptStep from './promptStep'
 import StepLink from './stepLink'
 
+import PostActivitySlide from '../activitySlides/postActivitySlide';
 import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
@@ -46,8 +47,12 @@ interface StudentViewContainerProps {
 
 interface StudentViewContainerState {
   activeStep?: number;
+  activityIsComplete: boolean;
+  activityIsReadyForSubmission: boolean;
   completedSteps: Array<number>;
+  isIdle: boolean;
   showFocusState: boolean;
+  startTime: number;
   timeTracking: { [key:number]: number }
 }
 
@@ -65,6 +70,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     this.state = {
       activeStep: READ_PASSAGE_STEP,
+      activityIsComplete: false,
+      activityIsReadyForSubmission: false,
       completedSteps: [],
       showFocusState: false,
       startTime: Date.now(),
@@ -326,7 +333,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       sessionID,
     }));
 
-    this.defaultHandleFinishActivity()
+    this.setState({ activityIsComplete: true });
+    // this.defaultHandleFinishActivity()
   }
 
   activateStep = (step?: number, callback?: Function, skipTracking?: boolean) => {
@@ -615,17 +623,25 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   render = () => {
     const { activities, } = this.props
-    const { showFocusState, completedSteps, } = this.state
+    console.log("🚀 ~ file: container.tsx ~ line 626 ~ StudentViewContainer ~ this.props", this.props)
+    const { showFocusState, activityIsComplete } = this.state
 
     if (!activities.hasReceivedData) { return <LoadingSpinner /> }
 
     const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'}`
 
-    return (<div className={className}>
-      {this.renderStepLinks()}
-      {this.renderReadPassageContainer()}
-      {this.renderSteps()}
-    </div>)
+    if(activityIsComplete) {
+      return(
+        <PostActivitySlide handleFinishActivity={this.defaultHandleFinishActivity} />
+      );
+    }
+    return (
+      <div className={className}>
+        {this.renderStepLinks()}
+        {this.renderReadPassageContainer()}
+        {this.renderSteps()}
+      </div>
+    )
   }
 }
 
