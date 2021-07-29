@@ -20,8 +20,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       message = "Activity Session Updated"
       NotifyOfCompletedActivity.new(@activity_session).call if @activity_session.classroom_unit_id
       handle_concept_results
-      # TODO: turn this next line back on once we've backfilled the data
-      # count_completed_activity
+      count_completed_activity
     else
       status = :unprocessable_entity
       message = "Activity Session Update Failed"
