@@ -8,8 +8,16 @@ const ReadTheDirectionsModal = ({ closeReadTheDirectionsModal, }) => (<section c
 </section>)
 
 
-const DirectionsSectionAndModal = ({ className, closeReadTheDirectionsModal, passage, showReadTheDirectionsModal, }) => {
+const DirectionsSectionAndModal = ({ className, closeReadTheDirectionsModal, passage, showReadTheDirectionsModal, inReflection, }) => {
   const uniquePartOfHighlightPrompt = passage.highlight_prompt.replace(DEFAULT_HIGHLIGHT_PROMPT, '')
+  if (inReflection) {
+    return (<div className={className}>
+      <section className="reflection-section">
+        <h3>Directions</h3>
+        <p>Great! <u>Now take a moment to reflect.</u> Look back at what you highlighted to think about reasons {uniquePartOfHighlightPrompt}</p>
+      </section>
+    </div>)
+  }
   return (<div className={className}>
     {showReadTheDirectionsModal ? <ReadTheDirectionsModal closeReadTheDirectionsModal={closeReadTheDirectionsModal} /> : <span />}
     <section className="directions-section">

@@ -49,16 +49,18 @@
       mark {
         background-color: inherit;
         padding: 2px 0px;
-        cursor: pointer;
-        &:hover, &:focus {
-          background-color: #e1f3f1;
-          outline: none;
-        }
-        &:focus > .hide-focus-outline {
-          background-color: white;
-        }
-        &:hover > .hide-focus-outline {
-          background-color: #e1f3f1;
+        &.highlightable {
+          cursor: pointer;
+          &:hover, &:focus {
+            background-color: #e1f3f1;
+            outline: none;
+          }
+          &:focus > .hide-focus-outline {
+            background-color: white;
+          }
+          &:hover > .hide-focus-outline {
+            background-color: #e1f3f1;
+          }
         }
         &.highlighted {
           background-color: #b4e2db;
