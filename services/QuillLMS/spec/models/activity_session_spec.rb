@@ -41,6 +41,8 @@ describe ActivitySession, type: :model, redis: true do
 
   it { should belong_to(:classroom_unit) }
   it { should belong_to(:activity) }
+  it { should have_one(:classification).through(:activity) }
+  it { should have_many(:user_activity_classifications).through(:classification) }
   it { should have_many(:feedback_sessions) }
   it { should have_many(:feedback_histories).through(:feedback_sessions) }
   it { should have_one(:classroom).through(:classroom_unit) }
