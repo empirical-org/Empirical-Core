@@ -38,7 +38,7 @@ RSpec.describe UserActivityClassification, type: :model do
 
   context '#new' do
     it 'should default count to 0' do
-      user_activity_classification = UserActivityClassification.new()
+      user_activity_classification = UserActivityClassification.new
       expect(user_activity_classification.count).to be(0)
     end
   end
