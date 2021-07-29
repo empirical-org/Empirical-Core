@@ -38,20 +38,20 @@ RSpec.describe UserActivityClassification, type: :model do
 
   context '#new' do
     it 'should default count to 0' do
-      new = UserActivityClassification.new()
-      expect(new.count).to be(0)
+      user_activity_classification = UserActivityClassification.new()
+      expect(user_activity_classification.count).to be(0)
     end
   end
 
   context '#increment_count' do
-    START_COUNT = 10
-    let(:user_activity_classification) { create(:user_activity_classification, count: START_COUNT) }
+    let(:start_count) { 10 }
+    let(:user_activity_classification) { create(:user_activity_classification, count: start_count) }
 
     it 'should increment the value of count by 1' do
 
       user_activity_classification.increment_count
       user_activity_classification.reload
-      expect(user_activity_classification.count).to eq(START_COUNT + 1)
+      expect(user_activity_classification.count).to eq(start_count + 1)
     end
   end
 end

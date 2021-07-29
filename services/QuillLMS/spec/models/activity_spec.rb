@@ -164,16 +164,14 @@ describe Activity, type: :model, redis: true do
       expect(activity.module_url(student.activity_sessions.build()).to_s).to include "student"
     end
 
-    it "must add 'activities' param if it the student has completed previous sessions of this activity classification" do
+    it "must add 'activities' param if the student has completed previous sessions of this activity classification" do
       classification = create(:activity_classification, key: 'connect')
       classified_activity = create(:activity, classification: classification)
       student = create(:student)
       uac = create(:user_activity_classification, user: student, activity_classification: classification, count: 4)
       activity_session = create(:activity_session, activity: classified_activity, user: student)
 
-      activity_session.reload
-
-      expect(activity_session.classification.user_activity_classifications.where(id: student.id).first.count).to eq(4)
+      expect(activity_session.user_activity_classifications.find_by(user_id: student.id)).to eq(uac)
       expect(classified_activity.module_url(activity_session).to_s).to include("activities=#{uac.count}")
     end
 
