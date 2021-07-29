@@ -35,7 +35,9 @@
   }
   @media (max-width: 1099px) {
     max-width: 100%;
-    justify-content: flex-start;
+    &.read-and-highlight-tracker {
+      justify-content: flex-start;
+    }
     .read-and-highlight-steps {
       flex-direction: column;
     }

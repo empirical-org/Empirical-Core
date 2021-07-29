@@ -43,7 +43,7 @@
       max-width: 680px;
     }
     .passage {
-      p {
+      p:not(:last-child) {
         margin-bottom: 40px;
       }
       mark {
@@ -64,6 +64,10 @@
         }
         &.highlighted {
           background-color: #b4e2db;
+          &:hover, &:focus {
+            background-color: #b4e2db;
+            outline: none;
+          }
         }
       }
     }

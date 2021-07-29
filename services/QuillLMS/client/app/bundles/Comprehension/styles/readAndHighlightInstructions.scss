@@ -1,9 +1,6 @@
 .read-and-highlight-container, .step-links-and-directions-container {
   padding-top: 48px;
   position: relative;
-  section:not(.reflection-section) {
-    padding: 0px 24px;
-  }
   h3, h4, h5 {
     font-size: 14px;
     font-weight: 600;
@@ -47,7 +44,10 @@
       line-height: 1.3;
     }
   }
-  .read-the-directions-modal {
+  .directions-section, .highlight-section {
+    padding: 0px 24px;
+  }
+  section.read-the-directions-modal {
     padding: 16px 20px;
     border-radius: 10px;
     box-shadow: 0 1px 8px 0 #00000033, 0 3px 3px -2px #0000001e, 0 3px 4px 0 #00000023;
@@ -122,9 +122,9 @@
   }
   @media (max-width: 1099px) {
     padding-top: 32px;
-    .read-the-directions-modal {
+    section.read-the-directions-modal {
       transform: translate(-50%, 0%);
-      top: 176px;
+      bottom: -176px;
       left: 50%;
     }
     .reflection-section {
@@ -134,11 +134,10 @@
         padding-right: 16px;
       }
     }
-    .highlights-section {
+    .highlight-section, .directions-section {
       padding: 0px 16px;
     }
     .directions-section {
-      padding-left: 16px;
       margin-bottom: 0px;
       p {
         font-size: 20px;

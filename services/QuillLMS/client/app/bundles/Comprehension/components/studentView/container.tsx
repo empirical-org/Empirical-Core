@@ -484,7 +484,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     return passages.map(passage => {
       const { text } = passage;
       const paragraphArray = text ? text.match(/[^\r\n]+/g) : [];
-      return paragraphArray.map(p => `<p>${p}</p>`).join('')
+      return paragraphArray.map(p => `<p>${p}</p>`).join('').replace('<p><p>', '<p>').replace('</p></p>', '</p>')
     })
   }
 
@@ -530,8 +530,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     if (node.name === 'mark') {
       const text = node.children[0].data
       let className = ''
-      className += studentHighlights.includes(text) ? 'highlighted' : ''
-      className += doneHighlighting || showReadTheDirectionsModal ? '' : 'highlightable'
+      className += studentHighlights.includes(text) ? ' highlighted' : ''
+      className += doneHighlighting || showReadTheDirectionsModal ? '' : ' highlightable'
       if (doneHighlighting || showReadTheDirectionsModal) { return <mark className={className}>{text}</mark>}
       return <mark className={className} onClick={this.handleHighlightClick} onKeyDown={this.handleHighlightKeyDown} tabIndex={0}>{text}</mark>
     }
