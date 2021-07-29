@@ -171,7 +171,7 @@ describe Activity, type: :model, redis: true do
       uac = create(:user_activity_classification, user: student, activity_classification: classification, count: 4)
       activity_session = create(:activity_session, activity: classified_activity, user: student)
 
-      classification.reload
+      activity_session.reload
 
       expect(activity_session.classification.user_activity_classifications.where(id: student.id).first.count).to eq(4)
       expect(classified_activity.module_url(activity_session).to_s).to include("activities=#{uac.count}")
