@@ -33,7 +33,7 @@ export function focusPointChecker(responseString: string, focusPoints:Array<Focu
 export function focusPointResponseBuilder(focusPointMatch:FocusPoint, responses:Array<Response>): PartialResponse {
   const res: PartialResponse = {
     feedback: focusPointMatch.feedback,
-    author: 'Focus Point Hint',
+    author: focusPointMatch.name || 'Focus Point Hint',
     parent_id: getTopOptimalResponse(responses).id
   }
 
