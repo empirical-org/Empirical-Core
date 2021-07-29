@@ -20,6 +20,8 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       message = "Activity Session Updated"
       NotifyOfCompletedActivity.new(@activity_session).call if @activity_session.classroom_unit_id
       handle_concept_results
+      # TODO: turn this next line back on once we've backfilled the data
+      # count_completed_activity
     else
       status = :unprocessable_entity
       message = "Activity Session Update Failed"
@@ -95,6 +97,13 @@ class Api::V1::ActivitySessionsController < Api::ApiController
 
   private def find_activity_session
     @activity_session = ActivitySession.unscoped.find_by_uid!(params[:id])
+  end
+
+  private def count_completed_activity
+    return unless @activity_session.finished?
+
+    counter = UserActivityClassification.find_or_create_by(user: @activity_session.user, activity_classification: @activity_session.classification)
+    counter.increment_count
   end
 
   private def activity_session_params

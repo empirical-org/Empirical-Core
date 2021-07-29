@@ -79,6 +79,7 @@ describe User, type: :model do
   it { should have_many(:classrooms_i_teach).through(:classrooms_teachers).source(:classroom) }
   it { should have_and_belong_to_many(:districts) }
   it { should have_one(:ip_location) }
+  it { should have_many(:user_activity_classifications).dependent(:destroy) }
   it { should have_many(:user_milestones) }
   it { should have_many(:milestones).through(:user_milestones) }
 
