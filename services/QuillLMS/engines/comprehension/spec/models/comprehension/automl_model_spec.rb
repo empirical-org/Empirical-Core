@@ -42,6 +42,14 @@ module Comprehension
         end
       end
 
+      context '#before_validation' do
+        it 'should strip whitespace from "automl_model_id"' do
+          automl_model = build(:comprehension_automl_model, automl_model_id: '  HAS_SPACES   ')
+          automl_model.valid?
+          expect(automl_model.automl_model_id).to eq('HAS_SPACES')
+        end
+      end
+
 
       context '#state_can_be_active' do
         let!(:automl_model) { create(:comprehension_automl_model) } 
@@ -150,6 +158,19 @@ module Comprehension
             expect(AutomlModel::STATE_INACTIVE).to(eq(model.state))
           end
         end
+      end
+
+      it 'should strip any whitespace that is on "automl_model_id" before looking records up via Google' do
+        ENV['AUTOML_GOOGLE_PROJECT_ID'] = 'PROJECT_ID'
+        ENV['AUTOML_GOOGLE_LOCATION'] = 'LOCATION'
+        automl_model_id = '   HAS_SPACES   '
+        stripped_automl_model_id = automl_model_id.strip
+        automl_model = build(:comprehension_automl_model, automl_model_id: automl_model_id)
+
+        auto_ml_stub = double
+        expect(Google::Cloud::AutoML).to receive(:auto_ml).and_return(auto_ml_stub)
+        expect(auto_ml_stub).to receive(:model_path).with(project: ENV['AUTOML_GOOGLE_PROJECT_ID'], location: ENV['AUTOML_GOOGLE_LOCATION'], model: stripped_automl_model_id)
+        automl_model.send(:automl_model_full_id)
       end
     end
 
