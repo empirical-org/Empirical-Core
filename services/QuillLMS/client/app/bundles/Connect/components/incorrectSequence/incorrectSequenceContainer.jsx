@@ -19,7 +19,7 @@ class IncorrectSequencesContainer extends Component {
     const question = props[questionType].data[props.match.params.questionID]
     const incorrectSequences = this.getSequences(question)
 
-    this.state = { orderedIds: null, questionType, actionFile, questionTypeLink, incorrectSequences };
+    this.state = { orderedIds: null, questionType, actionFile, questionTypeLink, incorrectSequences, newSequenceSet: false };
   }
 
   componentDidMount() {
@@ -37,7 +37,7 @@ class IncorrectSequencesContainer extends Component {
     const question = this.props[this.state.questionType].data[this.props.match.params.questionID]
     const incorrectSequences = this.getSequences(question)
 
-    if (previousState.incorrectSequences === incorrectSequences) return;
+    if (_.isEqual(previousState.incorrectSequences, incorrectSequences)) return;
 
     this.setState({ incorrectSequences, });
   }
@@ -126,6 +126,7 @@ class IncorrectSequencesContainer extends Component {
   }
 
   addNewSequence = (e, key) => {
+    console.log('adding new sequence')
     const { incorrectSequences } = this.state
     const className = `regex-${key}`
     const value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}|||`;
