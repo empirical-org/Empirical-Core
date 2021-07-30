@@ -60,6 +60,12 @@ const incorrectSequences = [
     text: 'likes&&loves',
     feedback: 'Inc 7',
     concept_results: [{correct: true, conceptUID: 'a'}]
+  },
+  {
+    text: '^Cissy',
+    feedback: 'Inc 8',
+    name: 'do not mention Cissy',
+    concept_results: [{correct: true, conceptUID: 'a'}]
   }
 ]
 
@@ -133,5 +139,20 @@ describe('The incorrectSequenceChecker', () => {
   it('Should return undefined if the response string does not match an incorrect sequence', () => {
     const responseString = "Jared likes Edtech and startups.";
     assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses), undefined);
+  });
+
+  it("Should return a partialResponse object with the incorrectSequence's name as the author if the response string matches an incorrect sequence with a name", () => {
+    const responseString = "Cissy likes some companies.";
+    const partialResponse =  {
+        feedback: incorrectSequenceMatch(responseString, incorrectSequences).feedback,
+        author: 'do not mention Cissy',
+        parent_id: getTopOptimalResponse(savedResponses).id,
+        concept_results: incorrectSequenceMatch(responseString, incorrectSequences).concept_results
+      }
+
+    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).feedback, partialResponse.feedback);
+    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).author, partialResponse.author);
+    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).parent_id, partialResponse.parent_id);
+    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).concept_results, partialResponse.concept_results);
   });
 })

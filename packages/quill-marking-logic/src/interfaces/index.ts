@@ -61,7 +61,8 @@ export interface FocusPoint {
   concept_uid?: string,
   concept_results?: Array<ConceptResult>,
   conceptResults?: Array<ConceptResult>,
-  key?: string
+  key?: string,
+  name?: string
 }
 
 export interface IncorrectSequence {
@@ -69,7 +70,8 @@ export interface IncorrectSequence {
   feedback: string,
   concept_results?: Array<ConceptResult>,
   conceptResults?: Array<ConceptResult>,
-  caseInsensitive?: boolean|null
+  caseInsensitive?: boolean|null,
+  name?: string
 }
 
 export interface FeedbackObject {

@@ -152,6 +152,7 @@ class LoginFormApp extends React.Component {
                     className="email"
                     error={errors.email}
                     handleChange={this.onEmailChange}
+                    id="email-or-username"
                     label="Email or username"
                     timesSubmitted={timesSubmitted}
                     type="text"
@@ -171,7 +172,14 @@ class LoginFormApp extends React.Component {
                     {this.renderKeepMeSignedIn()}
                     <a className="inline-link" href="/password_reset">Forgot password?</a>
                   </div>
-                  <input aria-label="Log in" className={this.submitClass()} name="commit" type="submit" value="Log in" />
+                  <input
+                    aria-label="Log in"
+                    className={this.submitClass()}
+                    id="log-in"
+                    name="commit"
+                    type="submit"
+                    value="Log in"
+                  />
                 </form>
               </div>
             </div>

@@ -14,6 +14,7 @@ export default class extends React.Component {
     const { item } = props;
 
     this.state = {
+      name: item ? (item.name ? item.name : '') : '',
       itemText: item ? `${item.text}|||` : '',
       itemFeedback: item ? item.feedback : '',
       itemConcepts: item ? (item.conceptResults ? item.conceptResults : {}) : {},
@@ -42,6 +43,10 @@ export default class extends React.Component {
       );
     };
 
+  handleNameChange = (e) => {
+    this.setState({name: e.target.value})
+  }
+
   handleChange = (stateKey, e) => {
     const obj = {};
     let value = e.target.value;
@@ -67,10 +72,12 @@ export default class extends React.Component {
   };
 
   submit = (incorrectSequence) => {
+    const { name } = this.state
     const incorrectSequences = this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
     if (incorrectSequences.every(is => isValidRegex(is))) {
       const incorrectSequenceString = incorrectSequences.join('|||')
       const data = {
+        name: name,
         text: incorrectSequenceString,
         feedback: this.state.itemFeedback,
         conceptResults: this.state.itemConcepts,
@@ -143,13 +150,15 @@ export default class extends React.Component {
   render() {
     const appropriateData = this.returnAppropriateDataset();
     const { dataset, mode, } = appropriateData;
-    const { caseInsensitive } = this.state;
+    const { caseInsensitive, name } = this.state;
     return (
       <div>
         <div className="box add-incorrect-sequence">
           <h4 className="title">{this.addOrEditItemLabel()}</h4>
           {this.renderExplanatoryNote()}
           <div className="control">
+            <label className="label">Name</label>
+            <input className="input" onChange={this.handleNameChange} type="text" value={name || ''} />
             <label className="label">{this.props.itemLabel} Text</label>
             {this.renderTextInputFields()}
             <label className="label" style={{ marginTop: 10, }}>Feedback</label>
