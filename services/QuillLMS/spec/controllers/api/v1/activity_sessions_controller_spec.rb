@@ -4,7 +4,9 @@ describe Api::V1::ActivitySessionsController, type: :controller do
   describe '#update' do
     let(:token) { double :acceptable? => true, resource_owner_id: user.id }
     let(:user) { create(:student) }
-    let!(:activity_session) { create(:activity_session, state: 'started', user: user, completed_at: nil) }
+    let(:activity_classification) { create(:activity_classification) }
+    let(:activity) { create(:activity, classification: activity_classification) }
+    let!(:activity_session) { create(:activity_session, state: 'started', user: user, completed_at: nil, activity: activity) }
 
     before { allow(controller).to receive(:doorkeeper_token) { token } }
 
@@ -36,6 +38,31 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       it 'responds with the updated activity session' do
         parsed_body = JSON.parse(response.body)
         expect(parsed_body['activity_session']['uid']).to eq(activity_session.uid)
+      end
+    end
+
+    context 'user_activity_classification counts increment when they should' do
+      it 'should create a new user_activity_classification row if necessary' do
+        records = UserActivityClassification.count
+        expect do
+          put :update, params: { id: activity_session.uid, state: 'finished' }, as: :json
+        end.to change { UserActivityClassification.count }.by(1)
+      end
+
+      it 'should increment an existing user_activity_classification row if one exists' do
+        start_count = 10
+        uac = UserActivityClassification.create(user: user, activity_classification: activity_classification, count: start_count)
+
+        expect do
+          put :update, params: { id: activity_session.uid, state: 'finished' }, as: :json
+          uac.reload
+        end.to change { uac.count }.to(start_count + 1)
+      end
+
+      it 'should not touch user_activity_classification counts if the state of the session is not "finished"' do
+        expect do
+          put :update, params: { id: activity_session.uid }, as: :json
+        end.to_not(change { UserActivityClassification.count })
       end
     end
 

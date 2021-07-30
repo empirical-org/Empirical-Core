@@ -37,9 +37,9 @@ class IncorrectSequencesContainer extends Component {
     const question = this.props[this.state.questionType].data[this.props.match.params.questionID]
     const incorrectSequences = this.getSequences(question)
 
-    if (previousState.incorrectSequences === incorrectSequences) return;
-
-    this.setState({ incorrectSequences, });
+    if (!_.isEqual(previousState.incorrectSequences, incorrectSequences)) {
+      this.setState({ incorrectSequences, });
+    };
   }
 
   getSequences = (question) => {
