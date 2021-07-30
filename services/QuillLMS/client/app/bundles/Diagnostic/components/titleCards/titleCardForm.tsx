@@ -14,7 +14,8 @@ import _ from 'lodash'
 
 interface TitleCardFormState {
   title: string,
-  content: string
+  content: string,
+  titleChanged: boolean
 }
 
 export interface TitleCardFormProps {
@@ -35,12 +36,14 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
       const titleCard = props.titleCards.data[titleCardID]
       this.state = {
         content: titleCard && titleCard.content ? titleCard.content : '',
-        title: titleCard && titleCard.title ? titleCard.title : ''
+        title: titleCard && titleCard.title ? titleCard.title : '',
+        titleChanged: false,
       }
     } else {
       this.state = {
         title: '',
-        content: ''
+        content: '',
+        titleChanged: false,
       }
     }
   }
@@ -62,17 +65,27 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     const { dispatch, history, match } = this.props
     const { params } = match
     const { titleCardID } = params
+    const { titleChanged } = this.state
     // TODO: fix add/edit title card action to show new/updated title card without refreshing
-    if (titleCardID) {
-      dispatch(submitTitleCardEdit(titleCardID, this.state))
-    } else {
-      dispatch(submitNewTitleCard(this.state))
+    if (this.warnTitleChange(titleChanged)) {
+      if (titleCardID) {
+        dispatch(submitTitleCardEdit(titleCardID, this.state))
+      } else {
+        dispatch(submitNewTitleCard(this.state))
+      }
+      history.push(`/admin/title-cards`)
     }
-    history.push(`/admin/title-cards`)
+  }
+
+  warnTitleChange = (titleChanged) => {
+    if (titleChanged) {
+      return confirm("Making this change may break the translation mapping. Make a request on the support board to change the translation mapping before making this change. Are you sure you want to proceed?")
+    }
+    return true
   }
 
   handleTitleChange = (e) => {
-    this.setState({title: e.target.value})
+    this.setState({title: e.target.value, titleChanged: true})
   }
 
   handleContentChange = (e) => {

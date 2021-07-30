@@ -7,7 +7,8 @@ import _ from 'lodash'
 
 interface TitleCardFormState {
   title: string,
-  content: string
+  content: string,
+  titleChanged: boolean
 }
 
 export interface TitleCardFormProps {
@@ -30,12 +31,14 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
       const { title, content } = titleCard
       this.state = {
         content: content ? content : '',
-        title: title ? title : ''
+        title: title ? title : '',
+        titleChanged: false,
       }
     } else {
       this.state = {
         title: '',
-        content: ''
+        content: '',
+        titleChanged: false
       }
     }
   }
@@ -61,17 +64,27 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     const { dispatch, match, submit } = this.props
     const { params } = match
     const { titleCardID } = params
-    if (submit) {
-      submit(this.state)
-    } else if (titleCardID) {
-      dispatch(titleCardActions.submitTitleCardEdit(titleCardID, this.state))
-    } else {
-      dispatch(titleCardActions.submitNewTitleCard(this.state))
+    const { titleChanged } = this.state
+    if (this.warnTitleChange(titleChanged)) {
+      if (submit) {
+        submit(this.state)
+      } else if (titleCardID) {
+        dispatch(titleCardActions.submitTitleCardEdit(titleCardID, this.state))
+      } else {
+        dispatch(titleCardActions.submitNewTitleCard(this.state))
+      }
     }
   }
 
+  warnTitleChange = (titleChanged) => {
+    if (titleChanged) {
+      return confirm("Making this change may break the translation mapping. Make a request on the support board to change the translation mapping before making this change. Are you sure you want to proceed?")
+    }
+    return true
+  }
+
   handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    this.setState({title: e.target.value})
+    this.setState({title: e.target.value, titleChanged: true})
   }
 
   handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
