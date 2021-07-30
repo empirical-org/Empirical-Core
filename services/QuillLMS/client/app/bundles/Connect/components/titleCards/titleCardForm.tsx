@@ -7,8 +7,7 @@ import _ from 'lodash'
 
 interface TitleCardFormState {
   title: string,
-  content: string,
-  titleChanged: boolean
+  content: string
 }
 
 export interface TitleCardFormProps {
@@ -31,14 +30,12 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
       const { title, content } = titleCard
       this.state = {
         content: content ? content : '',
-        title: title ? title : '',
-        titleChanged: false,
+        title: title ? title : ''
       }
     } else {
       this.state = {
         title: '',
-        content: '',
-        titleChanged: false
+        content: ''
       }
     }
   }
@@ -64,30 +61,17 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     const { dispatch, match, submit } = this.props
     const { params } = match
     const { titleCardID } = params
-    const { titleChanged } = this.state
-    if (this.warnTitleChange(titleChanged)) {
-      if (submit) {
-        submit(this.state)
-      } else if (titleCardID) {
-        dispatch(titleCardActions.submitTitleCardEdit(titleCardID, this.state))
-      } else {
-        dispatch(titleCardActions.submitNewTitleCard(this.state))
-      }
+    if (submit) {
+      submit(this.state)
+    } else if (titleCardID) {
+      dispatch(titleCardActions.submitTitleCardEdit(titleCardID, this.state))
+    } else {
+      dispatch(titleCardActions.submitNewTitleCard(this.state))
     }
-  }
-
-  warnTitleChange = (titleChanged) => {
-    const { match } = this.props
-    const { params } = match
-    const { titleCardID } = params
-    if (titleCardID && titleChanged) {
-      return confirm("Making this change may break the translation mapping. Make a request on the support board to change the translation mapping before making this change. Are you sure you want to proceed?")
-    }
-    return true
   }
 
   handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    this.setState({title: e.target.value, titleChanged: true})
+    this.setState({title: e.target.value})
   }
 
   handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

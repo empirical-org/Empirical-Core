@@ -5,6 +5,7 @@ import {
   submitNewTitleCard,
   submitTitleCardEdit
 } from '../../actions/titleCards'
+import { commonText } from '../../modules/translation/commonText';
 import {
   hashToCollection,
   TextEditor
@@ -65,9 +66,9 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     const { dispatch, history, match } = this.props
     const { params } = match
     const { titleCardID } = params
-    const { titleChanged } = this.state
+    const { title, titleChanged } = this.state
     // TODO: fix add/edit title card action to show new/updated title card without refreshing
-    if (this.warnTitleChange(titleChanged)) {
+    if (this.warnTitleChange(title, titleChanged)) {
       if (titleCardID) {
         dispatch(submitTitleCardEdit(titleCardID, this.state))
       } else {
@@ -77,12 +78,13 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     }
   }
 
-  warnTitleChange = (titleChanged) => {
+  warnTitleChange = (title, titleChanged) => {
     const { match } = this.props
     const { params } = match
     const { titleCardID } = params
-    if (titleCardID && titleChanged) {
-      return confirm("Making this change may break the translation mapping. Make a request on the support board to change the translation mapping before making this change. Are you sure you want to proceed?")
+    const translationMappingMissing = commonText[title] == undefined
+    if (titleCardID && titleChanged && translationMappingMissing) {
+      return confirm(`Making this change will break the translation mapping because "${title}" does not yet exist on the mappings. Make a request on the support board to change the translation mapping before making this change. Are you sure you want to proceed?`)
     }
     return true
   }
