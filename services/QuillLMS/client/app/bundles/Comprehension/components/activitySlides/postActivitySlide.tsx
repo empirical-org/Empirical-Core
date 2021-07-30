@@ -23,7 +23,7 @@ export const PostActivitySlide = ({ responses, user }) => {
   return(
     <div className="post-activity-slide-container">
       <section id="information-section">
-        <p className="slide-sub-text">{`${user}, you completed the activity!`}</p>
+        <p className="slide-sub-text" id="first-sub-text">{`${user}, you completed the activity!`}</p>
         <p id="revision-text">{`You made ${getRevisionCount()}!`}</p>
         <img alt="An illustration of a party popper" id="celebration-vector" src={`${process.env.CDN_URL}/images/comprehension/celebrating-activity-completion.svg`} />
         <section id="reminder-badge-section">
@@ -33,7 +33,7 @@ export const PostActivitySlide = ({ responses, user }) => {
             <p id="reminder-subtext">Your teacher will see all of your revisions, but this activity was for practice, so it isn’t graded.</p>
           </section>
         </section>
-        <p className="slide-sub-text">Revising is a sign of being a thoughtful writer. Be proud of the work you did today and celebrate your success!</p>
+        <p className="slide-sub-text" id="second-sub-text">Revising is a sign of being a thoughtful writer. Be proud of the work you did today and celebrate your success!</p>
       </section>
       <section id="button-container">
         <button className="quill-button large secondary outlined" onClick={handleClick} type="submit">Save and exit</button>

@@ -67,6 +67,48 @@
 
 @media (max-width: 1099px) {
   .post-activity-slide-container {
-    height: calc(100% - 48px);
+    height: 100%;
+
+    #information-section {
+
+      .slide-sub-text {
+        text-align: center;
+        padding: 0px 16px;
+        font-size: 20px;
+      }
+
+      #revision-text {
+        text-align: center;
+        font-size: 24px;
+      }
+
+      #celebration-vector {
+        max-width: 320px;
+      }
+
+      #reminder-badge-section {
+        width: 280px;
+        padding: 0px 16px;
+        margin: 0px 38px 0px 38px;
+
+        #grade-badge {
+          display: none;
+        }
+      }
+
+      #first-sub-text {
+        margin-top: 32px;
+      }
+      #second-sub-text {
+        margin-top: 22px;
+        margin-bottom: 36px;
+      }
+    }
+    #button-container {
+      justify-content: flex-start;
+      button {
+        margin-left: 16px;
+      }
+    }
   }
 }
