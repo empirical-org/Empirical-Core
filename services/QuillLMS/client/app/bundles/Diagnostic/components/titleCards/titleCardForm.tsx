@@ -78,7 +78,10 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
   }
 
   warnTitleChange = (titleChanged) => {
-    if (titleChanged) {
+    const { match } = this.props
+    const { params } = match
+    const { titleCardID } = params
+    if (titleCardID && titleChanged) {
       return confirm("Making this change may break the translation mapping. Make a request on the support board to change the translation mapping before making this change. Are you sure you want to proceed?")
     }
     return true
