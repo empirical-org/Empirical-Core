@@ -62,7 +62,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       it 'should not touch user_activity_classification counts if the state of the session is not "finished"' do
         expect do
           put :update, params: { id: activity_session.uid }, as: :json
-        end.to_not change { UserActivityClassification.count }
+        end.to_not(change { UserActivityClassification.count })
       end
     end
 
