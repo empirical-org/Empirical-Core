@@ -44,21 +44,25 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     context 'user_activity_classification counts increment when they should' do
       it 'should create a new user_activity_classification row if necessary' do
         records = UserActivityClassification.count
-        put :update, params: { id: activity_session.uid, state: 'finished' }, as: :json
-        expect(UserActivityClassification.count).to eq(records + 1)
+        expect do
+          put :update, params: { id: activity_session.uid, state: 'finished' }, as: :json
+        end.to change { UserActivityClassification.count }.by(1)
       end
 
       it 'should increment an existing user_activity_classification row if one exists' do
         start_count = 10
-        UserActivityClassification.create(user: user, activity_classification: activity_classification, count: start_count)
-        put :update, params: { id: activity_session.uid, state: 'finished' }, as: :json
-        expect(UserActivityClassification.find_by(user: user, activity_classification: activity_classification).count).to eq(start_count + 1)
+        uac = UserActivityClassification.create(user: user, activity_classification: activity_classification, count: start_count)
+
+        expect do
+          put :update, params: { id: activity_session.uid, state: 'finished' }, as: :json
+          uac.reload
+        end.to change { uac.count }.to(start_count + 1)
       end
 
       it 'should not touch user_activity_classification counts if the state of the session is not "finished"' do
-        records = UserActivityClassification.count
-        put :update, params: { id: activity_session.uid }, as: :json
-        expect(UserActivityClassification.count).to eq(records)
+        expect do
+          put :update, params: { id: activity_session.uid }, as: :json
+        end.to_not change { UserActivityClassification.count }
       end
     end
 
