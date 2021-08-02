@@ -13,7 +13,7 @@ const HighlightInstructions = () => (
         <span className="highlight-instruction-number">1</span>
         <span>Hover over a sentence</span>
       </h5>
-      <img alt={cursorPointingHand.src} src={cursorPointingHand.src} />
+      <img alt={cursorPointingHand.alt} src={cursorPointingHand.src} />
       <p>
         <span className="student-highlight hover">Yellowstone National Park was established in 1872 as the first national park in the United States.</span> It spans across areas in Wyoming, Idaho, and Montana. Yellowstone is extremely special and famous because it is located on a dormant volcano.
       </p>

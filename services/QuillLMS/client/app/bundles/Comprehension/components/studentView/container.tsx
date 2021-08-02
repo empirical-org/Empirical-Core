@@ -586,7 +586,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         let formattedPassage = passage;
         const { text } = passage;
         // we want to remove any highlights returned from inactive prompts
-        const formattedPassageText = stripHtml(text, { onlyStripTags: ['span'] });
+        const formattedPassageText = stripHtml(text, { onlyStripTags: ['span', 'mark'] });
         const strippedText = stripHtml(hl.text);
         const passageBeforeCharacterStart = formattedPassageText.substring(0, characterStart)
         const passageAfterCharacterStart = formattedPassageText.substring(characterStart)
@@ -595,20 +595,42 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         return formattedPassage
       })
     })
+
+    // if there were passage highlights to account for, we stripped away the student highlights and need to add them back
+    studentHighlights.forEach(hl => {
+      passages = passages.map((passage: Passage) => {
+        let formattedPassage = passage;
+        const { text } = passage;
+        formattedPassage.text = text.replace(hl, `<mark class="highlighted">${hl}</mark>`)
+        return formattedPassage
+      })
+    })
+
     return this.addPTagsToPassages(passages)
   }
 
-  renderStepLinksAndDirections = () => {
-    const { activeStep, showReadTheDirectionsModal, doneHighlighting, hasStartedReadPassageStep, hasStartedPromptSteps, } = this.state
+  renderDirectionsSectionAndModal = (className) => {
+    const { activeStep, doneHighlighting, showReadTheDirectionsModal, } = this.state
     const { activities, } = this.props
     const { currentActivity, } = activities
 
-    const directionsSectionAndModal = (<DirectionsSectionAndModal
+    return  (<DirectionsSectionAndModal
+      activeStep={activeStep}
+      className={className}
       closeReadTheDirectionsModal={this.closeReadTheDirectionsModal}
       inReflection={activeStep === READ_PASSAGE_STEP && doneHighlighting}
-      passage={activities.currentActivity.passages[0]}
+      passage={currentActivity.passages[0]}
       showReadTheDirectionsModal={showReadTheDirectionsModal}
     />)
+
+  }
+
+  renderStepLinksAndDirections = () => {
+    const { activeStep, hasStartedReadPassageStep, hasStartedPromptSteps, } = this.state
+    const { activities, } = this.props
+    const { currentActivity, } = activities
+
+    const directionsSectionAndModal = this.renderDirectionsSectionAndModal()
 
     if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && this.onMobile()) {
       return
@@ -697,7 +719,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       />)
     })
 
-    return (<div>
+    return (<div className="prompt-steps">
+      {this.renderDirectionsSectionAndModal('hide-on-mobile')}
       {steps}
     </div>)
   }

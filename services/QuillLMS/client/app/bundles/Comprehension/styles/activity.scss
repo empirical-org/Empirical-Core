@@ -77,6 +77,9 @@
       text-decoration-color: #ff9f00;
       padding-top: 3px;
       padding-bottom: 3px;
+      mark.highlighted {
+        background-color: inherit;
+      }
     }
   }
 
@@ -84,10 +87,10 @@
     height: auto;
     max-width: 676px;
     width: 100%;
+    padding-bottom: 80px;
     -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none;
-    margin-right: 4px;
     border-left: 1px solid #d8d8d8;
+    position: relative;
   }
 
   .steps-inner-container {
@@ -102,6 +105,21 @@
       font-weight: bold;
       margin-bottom: 16px;
       text-align: center;
+    }
+    .prompt-steps .directions-section {
+      h3 {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.43;
+        color: #5c5c5c;
+        margin-bottom: 8px;
+      }
+      p {
+        font-size: 20px;
+        line-height: 1.3;
+        color: #262626;
+        margin-bottom: 40px;
+      }
     }
   }
 
@@ -199,13 +217,18 @@
   @media (max-width: 1099px) {
     flex-direction: column;
     height: auto;
+    &.on-read-passage {
+      .steps-outer-container, .steps-inner-container {
+        padding-bottom: 80px;
+      }
+    }
     .steps-outer-container {
       height: auto;
     }
     .steps-outer-container, .steps-inner-container {
       position: inherit;
       max-width: 100%;
-      padding: 0px 0px 80px;
+      padding: 0px;
       margin-top: 0px;
       .step {
         max-width: 100%;
@@ -221,6 +244,9 @@
       .passage {
         max-width: 100%;
       }
+    }
+    .prompt-steps {
+      margin-top: 32px;
     }
   }
 }
