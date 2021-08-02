@@ -186,6 +186,12 @@
     margin-top: -60px;
     padding-top: 60px;
 
+    &:not(.on-read-passage) {
+      .steps-outer-container {
+        overflow: auto;
+      }
+    }
+
     .steps-outer-container {
       &:not(.step-overview-container) {
         margin-right: 4px;
@@ -193,7 +199,6 @@
       -webkit-overflow-scrolling: touch;
       -ms-overflow-style: none;
       border-left: 1px solid #d8d8d8;
-      overflow: auto;
     }
 
     .read-passage-container {
@@ -201,13 +206,13 @@
       margin-right: 4px;
     }
 
-    .read-passage-container::-webkit-scrollbar, .steps-outer-container::-webkit-scrollbar {
+    .read-passage-container::-webkit-scrollbar, .steps-outer-container::-webkit-scrollbar, .read-and-highlight-container::-webkit-scrollbar, .step-overview::-webkit-scrollbar {
       background-color: white;
       width: 7px;
       height: 7px;
     }
 
-    .read-passage-container::-webkit-scrollbar-thumb, .steps-outer-container::-webkit-scrollbar-thumb {
+    .read-passage-container::-webkit-scrollbar-thumb, .steps-outer-container::-webkit-scrollbar-thumb, .read-and-highlight-container::-webkit-scrollbar-thumb, .step-overview::-webkit-scrollbar-thumb {
       -webkit-border-radius: 10px;
       border-radius: 10px;
       background: #7f7f7f;

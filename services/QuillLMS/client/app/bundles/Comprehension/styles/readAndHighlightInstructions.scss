@@ -1,8 +1,12 @@
 .read-and-highlight-container, .step-links-and-directions-container {
   padding-top: 48px;
-  overflow: scroll;
+  overflow: auto;
   height: 100%;
   padding-bottom: 20px;
+  &.hide-on-desktop {
+    overflow: visible;
+    position: relative;
+  }
   h3, h4, h5 {
     font-size: 14px;
     font-weight: 600;
