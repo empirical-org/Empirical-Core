@@ -174,14 +174,6 @@ describe('The checking a sentence combining question', () => {
       assert.equal(matchedResponse.misspelled_words[0], 'shave')
     });
 
-    it('should be able to find a missing word match but not return spelling errors', () => {
-      const questionString = "Batss have, so they can fly."
-      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
-      assert.equal(matchedResponse.author, 'Missing Word Hint');
-      assert.equal(matchedResponse.spelling_error, true);
-      assert.equal(matchedResponse.misspelled_words, undefined)
-    })
-
   })
 
   describe('second matchers - original sentence', () => {
