@@ -17,10 +17,9 @@ class ApplicationController < ActionController::Base
   #helper CMS::Helper
   helper SegmentioHelper
 
-  # FIXME: disabled till it's clear what this does
-  # before_action :setup_visitor
   before_action :set_raven_context
   before_action :confirm_valid_session
+  before_action :set_default_cache_security_headers
 
   def admin!
     return if current_user.try(:admin?)
@@ -69,13 +68,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def setup_visitor
-    return true if signed_in?
-
-    # FIXME: ??
-    # sign_in(User.create_visitor)
-  end
-
   def login_failure_message
     login_failure 'Incorrect username/email or password'
   end
@@ -120,10 +112,10 @@ class ApplicationController < ActionController::Base
      response.headers['Vary'] = 'Accept'
   end
 
-  protected def set_cache_buster
-    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  protected def set_default_cache_security_headers
+    response.headers['Cache-Control'] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers['Pragma'] = "no-cache"
+    response.headers['Expires'] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
 
   protected def set_raven_context
@@ -176,4 +168,5 @@ class ApplicationController < ActionController::Base
     diff = now - timestamp
     diff.round.abs
   end
+
 end
