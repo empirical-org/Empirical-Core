@@ -44,9 +44,10 @@ module Comprehension
 
       context '#before_validation' do
         it 'should strip whitespace from "automl_model_id"' do
-          automl_model = build(:comprehension_automl_model, automl_model_id: '  HAS_SPACES   ')
+          model_id = '   STRIP_ME   '
+          automl_model = build(:comprehension_automl_model, automl_model_id: model_id)
           automl_model.valid?
-          expect(automl_model.automl_model_id).to eq('HAS_SPACES')
+          expect(automl_model.automl_model_id).to eq(model_id.strip)
         end
       end
 
