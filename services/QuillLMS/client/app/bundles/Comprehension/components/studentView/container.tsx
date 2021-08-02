@@ -6,6 +6,8 @@ import stripHtml from "string-strip-html";
 import PromptStep from './promptStep'
 import StepLink from './stepLink'
 
+import { explanationData } from "../activitySlides/explanationData";
+import ExplanationSlide from "../activitySlides/explanationSlide";
 import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
@@ -47,6 +49,8 @@ interface StudentViewContainerProps {
 interface StudentViewContainerState {
   activeStep?: number;
   completedSteps: Array<number>;
+  explanationSlideStep: number;
+  explanationSlidesCompleted: boolean;
   showFocusState: boolean;
   timeTracking: { [key:number]: number }
 }
@@ -65,7 +69,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     this.state = {
       activeStep: READ_PASSAGE_STEP,
+      explanationSlideStep: 1,
       completedSteps: [],
+      explanationSlidesCompleted: false,
       showFocusState: false,
       startTime: Date.now(),
       isIdle: false,
@@ -613,11 +619,26 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
+  handleExplanationSlideClick = () => {
+    const { explanationSlideStep } = this.state;
+    const nextStep = explanationSlideStep + 1;
+    if(nextStep > 3) {
+      this.setState({ explanationSlidesCompleted: true });
+    } else {
+      this.setState({  explanationSlideStep: nextStep });
+    }
+  }
+
   render = () => {
     const { activities, } = this.props
-    const { showFocusState, completedSteps, } = this.state
+    const { showFocusState, completedSteps, explanationSlidesCompleted, explanationSlideStep } = this.state
 
     if (!activities.hasReceivedData) { return <LoadingSpinner /> }
+    if(activities.hasReceivedData && !explanationSlidesCompleted) {
+      return(
+        <ExplanationSlide onHandleClick={this.handleExplanationSlideClick} slideData={explanationData[explanationSlideStep]} />
+      );
+    }
 
     const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'}`
 
