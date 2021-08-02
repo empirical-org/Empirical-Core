@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   end
 
   def show_errors
-    status = env["PATH_INFO"][1..-1]
+    status = env['PATH_INFO'][1..-1]
     render_error(status)
   end
 
@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
       # So technically we shouldn't really be setting the content-type header
       # in a content-less error response at all, but CORS security logic in Rails
       # falsely flags lack of content-type headers in responses to routes that end
-      # in ".js" as a class of responses that need CORS protection and 500s when
+      # in '.js' as a class of responses that need CORS protection and 500s when
       # attempting to serve a 404.  So, we set the content_type to 'text/html'.
       format.js { render head: :not_found, body: nil, status: status, content_type: 'text/html' }
       format.any { render head: :not_found, body: nil, status: status }
@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
   def login_failure(error)
     @user = User.new
     flash[:error] = error
-    redirect_to "/session/new"
+    redirect_to '/session/new'
   end
 
   def default_params
@@ -113,9 +113,9 @@ class ApplicationController < ActionController::Base
   end
 
   protected def set_default_cache_security_headers
-    response.headers['Cache-Control'] = "no-cache, no-store, max-age=0, must-revalidate"
-    response.headers['Pragma'] = "no-cache"
-    response.headers['Expires'] = "Fri, 01 Jan 1990 00:00:00 GMT"
+    response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
   end
 
   protected def set_raven_context
