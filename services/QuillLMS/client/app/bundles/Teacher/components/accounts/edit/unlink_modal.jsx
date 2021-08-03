@@ -94,7 +94,7 @@ export default class UnlinkModal extends React.Component {
   }
 
   render() {
-    const { googleOrClever, updateUser, cancel, timesSubmitted, errors, } = this.props
+    const { googleOrClever, cancel, timesSubmitted, errors, } = this.props
     const { email, password, } = this.state
     return (
       <div>
@@ -126,7 +126,13 @@ export default class UnlinkModal extends React.Component {
           {this.renderCheckboxes()}
           <div className="button-section">
             <div className="quill-button outlined secondary medium" id="cancel" onClick={cancel}>Cancel</div>
-            <input className={this.submitClass()} name="commit" onClick={this.handleSubmit} type="submit" value={`Unlink ${googleOrClever}`} />
+            <input
+              className={this.submitClass()}
+              name="commit"
+              onClick={this.handleSubmit}
+              type="submit"
+              value={`Unlink ${googleOrClever}`}
+            />
           </div>
         </div>
       </div>)

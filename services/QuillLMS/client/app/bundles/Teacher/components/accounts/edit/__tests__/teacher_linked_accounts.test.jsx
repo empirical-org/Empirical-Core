@@ -54,8 +54,8 @@ describe('TeacherLinkedAccounts component', () => {
       const wrapper = shallow(
         <TeacherLinkedAccounts
           {...sharedProps}
-          cleverId={456}
-          googleId={null}
+          cleverId={null}
+          googleId={123}
           postGoogleClassroomAssignments={false}
         />
       );

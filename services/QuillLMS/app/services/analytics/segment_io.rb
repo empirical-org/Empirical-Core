@@ -18,6 +18,7 @@ module SegmentIo
     TEACHER_SIGNED_UP_FOR_NEWSLETTER ||= 'Teacher signed up for newsletter'
     TEACHERS_STUDENT_ACCOUNT_CREATION ||= "Teacher's student account created"
     TEACHER_SIGNIN ||= 'Teacher signed in'
+    TEACHER_GOOGLE_AND_CLEVER ||= 'Teacher attempted to connect to Google and Clever'
     TEACHERS_STUDENT_SIGNIN ||= "Teacher's student signed in"
     CLASSROOM_CREATION ||= 'Teacher created a classroom'
     ACTIVITY_COMPLETION ||= 'Student completed an activity'
