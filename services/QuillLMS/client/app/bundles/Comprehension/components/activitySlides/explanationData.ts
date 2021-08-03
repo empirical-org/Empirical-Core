@@ -7,6 +7,7 @@ export const explanationData = {
       imageUrl: "images/comprehension/no-grades.svg"
     },
     isBeta: false,
+    step: 1,
     subtext: "This is a safe space to practice your writing, so it won't be graded. Your teacher will see your revisions, but there are no scores or points."
   },
   2: {
@@ -17,6 +18,7 @@ export const explanationData = {
       imageUrl: "images/comprehension/feedback-bot.svg"
     },
     isBeta: true,
+    step: 2,
     subtext: "We use artificial intelligence (AI) to help us give you feedback on your writing. You should know that AI isn't always correct."
   },
   3: {
@@ -27,6 +29,7 @@ export const explanationData = {
       imageUrl: "images/comprehension/revising-pencil.svg"
     },
     isBeta: false,
+    step: 3,
     subtext: "You'll be able to revise each sentence up to five times. We give you feedback because we want to help you write a stronger sentence."
   }
 }

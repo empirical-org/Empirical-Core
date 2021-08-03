@@ -43,12 +43,63 @@
   }
   #button-container {
     display: flex;
-    justify-content: center;
-    position: fixed;
-    bottom: 0;
+    justify-content: space-between;
     border-top: 1px solid #ffffff;
     width: 100%;
     padding: 16px;
     background-color: #005341;
+
+    button {
+      margin-left: 96px;
+    }
+
+    #step-indictator-container {
+      display: flex;
+      align-items: center;
+      visibility: visible;
+      .step-indicator {
+        width: 16px;
+        height: 16px;
+        border: solid 2px #2bac9a;
+        border-radius: 8px;
+        margin-left: 8px;
+        &.active {
+          background-color: #ffffff;
+          border-color: #ffffff;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1099px) {
+  .explanation-slide-container {
+    width: 100%;
+    #information-section {
+      margin-bottom: 36px;
+      #header-container {
+        flex-direction: column;
+        #header {
+          font-size: 24px;
+        }
+      }
+      #image {
+        max-width: 320px;
+      }
+      .subtext {
+        max-width: 288px;
+      }
+    }
+    #button-container {
+      justify-content: space-between;
+      position: fixed;
+      bottom: 0;
+      span {
+        display: none;
+      }
+      button {
+        margin-left: 0px;
+      }
+    }
   }
 }
