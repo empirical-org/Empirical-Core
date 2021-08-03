@@ -159,6 +159,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     this.completeStep(activeStep)
   }
 
+  handleReadPassageContainerTouchMoveEnd = (e) => {
+    setTimeout(() => this.handleReadPassageContainerScroll(e), 300)
+  }
+
   handleReadPassageContainerScroll = (e) => {
     const el = document.getElementById('end-of-passage')
     const rect = el.getBoundingClientRect();
@@ -836,7 +840,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP ? 'on-read-passage' : ''}`
 
-    return (<div className={className} onTouchEnd={this.handleReadPassageContainerScroll}>
+    return (<div className={className} onTouchEnd={this.handleReadPassageContainerTouchMoveEnd}>
       {this.renderStepLinksAndDirections()}
       {this.renderReadPassageContainer()}
       {this.renderRightPanel()}
