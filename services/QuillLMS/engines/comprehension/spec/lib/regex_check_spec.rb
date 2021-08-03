@@ -65,7 +65,8 @@ module Comprehension
         expect(rule.concept_uid).to(eq(local_feedback[:concept_uid]))
         expect(rule.uid).to(eq(local_feedback[:rule_uid]))
         expect(local_feedback[:highlight].length).to eq(1)
-        expect(local_feedback[:highlight].first.text).to eq(highlight.text)
+        expect(local_feedback[:highlight].first[:text]).to eq(highlight.text)
+        expect(local_feedback[:highlight].first[:type]).to eq(highlight.highlight_type)
       end
     end
   end

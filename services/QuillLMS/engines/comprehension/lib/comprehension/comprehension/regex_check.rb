@@ -20,7 +20,7 @@ module Comprehension
         entry: @entry,
         concept_uid: matched_rule&.concept_uid || '',
         rule_uid: matched_rule&.uid || optimal_rule_uid,
-        highlight: feedback&.highlights || []
+        highlight: highlights
       }
     end
 
@@ -45,6 +45,18 @@ module Comprehension
 
     private def matched_rule
       @matched_rule ||= first_failing_regex_rule
+    end
+
+    private def highlights
+      return [] unless feedback&.highlights
+
+      feedback&.highlights.map do |h|
+        {
+          type: h.highlight_type,
+          text: h.text,
+          category: ''
+        }
+      end
     end
 
     private def first_failing_regex_rule
