@@ -836,7 +836,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP ? 'on-read-passage' : ''}`
 
-    return (<div className={className} onTouchMove={this.handleReadPassageContainerScroll}>
+    return (<div className={className} onTouchEnd={this.handleReadPassageContainerScroll}>
       {this.renderStepLinksAndDirections()}
       {this.renderReadPassageContainer()}
       {this.renderRightPanel()}
