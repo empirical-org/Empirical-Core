@@ -15,7 +15,7 @@ export const PostActivitySlide = ({ responses, user }) => {
     if(count <= 3) { return '0 revisions' }
     // we subtract 3 to account for a student having 3 optimal first attempts
     const calculatedCount = count - 3;
-    if(count === 1) {
+    if(calculatedCount === 1) {
       return '1 revision';
     }
     return `${calculatedCount} revisions`;

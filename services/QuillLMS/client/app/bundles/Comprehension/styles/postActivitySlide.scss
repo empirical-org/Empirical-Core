@@ -67,7 +67,7 @@
 
 @media (max-width: 1099px) {
   .post-activity-slide-container {
-    height: 100%;
+    height: calc(100% - 48px);
 
     #information-section {
 
@@ -106,6 +106,9 @@
     }
     #button-container {
       justify-content: flex-start;
+      position: fixed;
+      bottom: 0;
+      background-color: #025341;
       button {
         margin-left: 16px;
       }
