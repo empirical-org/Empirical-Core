@@ -49,7 +49,7 @@ const selectCard = (history: any, unitTemplateName: string, activityIdsArray: st
 const minis = ({ history }) => [
   (<AssignmentCard
     bodyArray={[
-      { key: 'What', text: 'What: Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words', },
+      { key: 'What', text: 'Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words', },
       { key: 'When', text: 'Your students are working on basic grammar concepts.', }
     ]}
     buttonLink={`/activity_sessions/anonymous?activity_id=${STARTER_DIAGNOSTIC_ACTIVITY_ID}`}
