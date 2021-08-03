@@ -1,0 +1,54 @@
+.explanation-slide-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: #005341;
+  height: calc(100% - 60px);
+  .subtext {
+    font-size: 20px;
+    font-weight: 600;
+    color: #e1f3f1
+  }
+  #information-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    #header-container {
+      display: flex;
+      align-items: center;
+      #header {
+        font-size: 40px;
+        font-weight: bold;
+        color: #ffffff;
+      }
+      #beta-tag {
+        width: 66px;
+        border-radius: 13.5px;
+        background-color: #06806b;
+        color: #b4e2db;
+        font-size: 16px;
+        font-weight: 600;
+        margin-left: 16px;
+      }
+    }
+    #image {
+      max-width: 580px;
+    }
+    .subtext {
+      max-width: 496px;
+    }
+  }
+  #button-container {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid #ffffff;
+    width: 100%;
+    padding: 16px;
+    background-color: #005341;
+  }
+}
