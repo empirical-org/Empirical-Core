@@ -43,7 +43,7 @@
       max-width: 680px;
     }
     .passage {
-      p:not(:last-child) {
+      p:not(:last-child):not(:last-of-type) {
         margin-bottom: 40px;
       }
       mark {
@@ -89,7 +89,6 @@
     width: 100%;
     padding-bottom: 80px;
     -webkit-overflow-scrolling: touch;
-    border-left: 1px solid #d8d8d8;
     position: relative;
   }
 
@@ -164,6 +163,10 @@
     background-color: white;
     z-index: 100;
     justify-content: space-between;
+    .step-links {
+      align-items: center;
+      display: flex;
+    }
     .step-link {
       width: 32px;
       margin-right: 16px;

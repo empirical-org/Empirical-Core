@@ -435,7 +435,11 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   onStartPromptSteps = () => this.setState({ hasStartedPromptSteps: true, })
 
-  handleClickDoneHighlighting = () => this.setState({ doneHighlighting: true})
+  handleClickDoneHighlighting = () => {
+    this.setState({ doneHighlighting: true}, () => {
+      if (this.onMobile()) { window.scrollTo(0, 0) }
+    })
+  }
 
   scrollToStep = (ref: string) => {
     if (this.onMobile()) {
@@ -498,10 +502,16 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   addPTagsToPassages = (passages: Passage[]) => {
+    const { studentHighlights, } = this.state
     return passages.map(passage => {
       const { text } = passage;
       const paragraphArray = text ? text.match(/[^\r\n]+/g) : [];
-      return paragraphArray.map(p => `<p>${p}</p>`).join('').replace('<p><p>', '<p>').replace('</p></p>', '</p>')
+      return paragraphArray.map((p, i) => {
+        if (i === paragraphArray.length - 1 && !studentHighlights.length) {
+          return `<p>${p}<span id="end-of-passage"></span></p>`
+        }
+        return `<p>${p}</p>`
+      }).join('').replace('<p><p>', '<p>').replace('</p></p>', '</p>')
     })
   }
 
@@ -543,13 +553,14 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   transformMarkTags = (node) => {
-    const { studentHighlights, showReadTheDirectionsModal, doneHighlighting, } = this.state
+    const { studentHighlights, showReadTheDirectionsModal, doneHighlighting, hasStartedReadPassageStep, } = this.state
     if (node.name === 'mark') {
+      const shouldBeHighlightable = !doneHighlighting && !showReadTheDirectionsModal && hasStartedReadPassageStep
       const text = node.children[0].data
       let className = ''
       className += studentHighlights.includes(text) ? ' highlighted' : ''
-      className += doneHighlighting || showReadTheDirectionsModal ? '' : ' highlightable'
-      if (doneHighlighting || showReadTheDirectionsModal) { return <mark className={className}>{text}</mark>}
+      className += shouldBeHighlightable  ? ' highlightable' : ''
+      if (!shouldBeHighlightable) { return <mark className={className}>{text}</mark>}
       return <mark className={className} onClick={this.handleHighlightClick} onKeyDown={this.handleHighlightKeyDown} tabIndex={0}>{text}</mark>
     }
   }
@@ -746,7 +757,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         <h1 className="title">{currentActivity.title}</h1>
         {headerImage}
         <div className="passage">{ReactHtmlParser(this.formatHtmlForPassage(), { transform: this.transformMarkTags })}</div>
-        <span id="end-of-passage" />
       </div>
     </div>)
   }
