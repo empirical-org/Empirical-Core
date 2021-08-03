@@ -50,7 +50,7 @@ module Comprehension
     private def highlights
       return [] unless feedback&.highlights
 
-      feedback&.highlights.map do |h|
+      feedback&.highlights&.map do |h|
         {
           type: h.highlight_type,
           text: h.text,
