@@ -52,6 +52,21 @@ module Comprehension
         feedback = regex_check.feedback_object
         expect(rule.uid).to(eq(feedback[:rule_uid]))
       end
+
+      it 'should include any highlights that are attached to the feedback it returns' do
+        highlight = create(:comprehension_highlight, feedback: feedback)
+        entry = "Test this is a good regex match"
+        regex_check = Comprehension::RegexCheck.new(entry, prompt, rule.rule_type)
+        local_feedback = regex_check.feedback_object
+        expect(feedback.text).to(eq(local_feedback[:feedback]))
+        expect(rule.rule_type).to(eq(local_feedback[:feedback_type]))
+        expect(local_feedback[:optimal]).to(be_falsey)
+        expect(entry).to(eq(local_feedback[:entry]))
+        expect(rule.concept_uid).to(eq(local_feedback[:concept_uid]))
+        expect(rule.uid).to(eq(local_feedback[:rule_uid]))
+        expect(local_feedback[:highlight].length).to eq(1)
+        expect(local_feedback[:highlight].first.text).to eq(highlight.text)
+      end
     end
   end
 end

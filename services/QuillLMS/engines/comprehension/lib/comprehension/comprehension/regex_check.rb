@@ -13,14 +13,14 @@ module Comprehension
 
     def feedback_object
       {
-        feedback: feedback,
+        feedback: feedback_text,
         feedback_type: @rule_type,
         optimal: matched_rule.blank?,
         response_id: '',
         entry: @entry,
         concept_uid: matched_rule&.concept_uid || '',
         rule_uid: matched_rule&.uid || optimal_rule_uid,
-        highlight: []
+        highlight: feedback&.highlights || []
       }
     end
 
@@ -35,8 +35,12 @@ module Comprehension
     end
 
     private def feedback
+      matched_rule&.feedbacks&.first
+    end
+
+    private def feedback_text
       return ALL_CORRECT_FEEDBACK unless matched_rule
-      matched_rule&.feedbacks&.first&.text
+      feedback&.text
     end
 
     private def matched_rule
