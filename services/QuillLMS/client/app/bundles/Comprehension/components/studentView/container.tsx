@@ -8,6 +8,7 @@ import StepLink from './stepLink'
 
 import { explanationData } from "../activitySlides/explanationData";
 import ExplanationSlide from "../activitySlides/explanationSlide";
+import WelcomeSlide from "../activitySlides/welcomeSlide";
 import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
@@ -69,7 +70,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     this.state = {
       activeStep: READ_PASSAGE_STEP,
-      explanationSlideStep: 1,
+      explanationSlideStep: 0,
       completedSteps: [],
       explanationSlidesCompleted: false,
       showFocusState: false,
@@ -635,6 +636,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     if (!activities.hasReceivedData) { return <LoadingSpinner /> }
     if(activities.hasReceivedData && !explanationSlidesCompleted) {
+      if(explanationSlideStep === 0) {
+        return <WelcomeSlide onHandleClick={this.handleExplanationSlideClick} />
+      }
       return(
         <ExplanationSlide onHandleClick={this.handleExplanationSlideClick} slideData={explanationData[explanationSlideStep]} />
       );

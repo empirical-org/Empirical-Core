@@ -1,12 +1,10 @@
 import * as React from "react";
 
+import Footer from './footer';
+
 export const ExplanationSlide = ({ slideData, onHandleClick }) => {
   const { buttonText, header, imageData, isBeta, step, subtext } = slideData;
   const { imageAlt, imageUrl } = imageData;
-
-  function handleClick() {
-    onHandleClick();
-  }
 
   return(
     <div className="explanation-slide-container">
@@ -19,16 +17,7 @@ export const ExplanationSlide = ({ slideData, onHandleClick }) => {
         <img alt={imageAlt} id="image" src={`${process.env.CDN_URL}/${imageUrl}`} />
         <p className="subtext">{subtext}</p>
       </section>
-      <section id="button-container">
-        <span />
-        <button className="quill-button large secondary outlined" onClick={handleClick} type="submit">{buttonText}</button>
-        <div id="step-indictator-container">
-          <div className="step-indicator" />
-          <div className={`step-indicator ${step === 1 ? 'active' : ''}`} />
-          <div className={`step-indicator ${step === 2 ? 'active' : ''}`} />
-          <div className={`step-indicator ${step === 3 ? 'active' : ''}`} />
-        </div>
-      </section>
+      <Footer buttonText={buttonText} onHandleClick={onHandleClick} step={step} />
     </div>
   );
 }
