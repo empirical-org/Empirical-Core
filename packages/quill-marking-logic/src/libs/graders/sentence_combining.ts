@@ -23,6 +23,8 @@ import {caseStartChecker} from '../matchers/case_start_match';
 import {punctuationEndChecker} from '../matchers/punctuation_end_match';
 import {spellingFeedbackStrings} from '../constants/feedback_strings';
 
+const MISSING_WORD_HINT = 'Missing Word Hint'
+
 export function checkSentenceCombining(
   question_uid: string,
   response: string,
@@ -66,11 +68,8 @@ export function checkSentenceCombining(
       spellingPass.concept_results.push(conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g'));
     }
     const spellingAwareFeedback = getSpellingFeedback(spellingPass);
-    const spellingFeedbackObj = {
-      text: data.response,
-      spelling_error: true,
-      misspelled_words: misspelledWords
-    }
+    const spellingFeedbackObj = getSpellingFeedbackObj(spellingPass, data, misspelledWords)
+
     return Object.assign(responseTemplate, spellingAwareFeedback, spellingFeedbackObj);
   };
 
@@ -155,4 +154,20 @@ function getMisspelledWords(text: string, spellCheckedText: string) {
   const spellCheckedTextArray: Array<string> = removePunctuation(spellCheckedText).split(' ')
   const misspelledWords = textArray.filter(word => !spellCheckedTextArray.includes(word))
   return misspelledWords
+}
+
+function getSpellingFeedbackObj(spellingPass, data, misspelledWords) {
+  // missing word hint should not return any highlighted words
+  if (spellingPass.author == MISSING_WORD_HINT) {
+    return {
+      text: data.response,
+      spelling_error: true
+    }
+  } else {
+    return {
+      text: data.response,
+      spelling_error: true,
+      misspelled_words: misspelledWords
+    }
+  }
 }
