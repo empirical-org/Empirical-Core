@@ -163,14 +163,15 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     setTimeout(() => this.handleReadPassageContainerScroll(e), 300)
   }
 
-  handleReadPassageContainerScroll = (e) => {
+  handleReadPassageContainerScroll = (e=null) => {
     const el = document.getElementById('end-of-passage')
+    if (!el) { return }
     const rect = el.getBoundingClientRect();
     const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
     if (!(rect.bottom < 100 || rect.top - viewHeight >= 100)) {
       this.setState({ scrolledToEndOfPassage: true, })
     }
-    this.resetTimers(e)
+    if (e) { this.resetTimers(e) }
   }
 
   closeReadTheDirectionsModal = () => this.setState({ showReadTheDirectionsModal: false, })
