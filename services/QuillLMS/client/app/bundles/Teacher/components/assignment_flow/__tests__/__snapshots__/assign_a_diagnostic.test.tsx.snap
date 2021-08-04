@@ -20,7 +20,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
           Array [
             Object {
               "key": "What",
-              "text": "Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization",
+              "text": "Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words",
             },
             Object {
               "key": "When",

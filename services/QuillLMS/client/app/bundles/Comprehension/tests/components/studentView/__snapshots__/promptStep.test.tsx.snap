@@ -256,8 +256,7 @@ exports[`PromptStep component active state when a profane response has been subm
                 component="div"
                 notifyLeaving={false}
                 overflowHidden={true}
-                transitionAppear={true}
-                transitionAppearTimeout={400}
+                transitionAppear={false}
                 transitionEnter={true}
                 transitionEnterTimeout={1000}
                 transitionLeave={true}
@@ -272,8 +271,7 @@ exports[`PromptStep component active state when a profane response has been subm
                     style={null}
                   >
                     <CSSTransitionGroupChild
-                      appear={true}
-                      appearTimeout={400}
+                      appear={false}
                       enter={true}
                       enterTimeout={1000}
                       leave={true}
@@ -453,8 +451,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
                 component="div"
                 notifyLeaving={false}
                 overflowHidden={true}
-                transitionAppear={true}
-                transitionAppearTimeout={400}
+                transitionAppear={false}
                 transitionEnter={true}
                 transitionEnterTimeout={1000}
                 transitionLeave={true}
@@ -469,8 +466,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
                     style={null}
                   >
                     <CSSTransitionGroupChild
-                      appear={true}
-                      appearTimeout={400}
+                      appear={false}
                       enter={true}
                       enterTimeout={1000}
                       leave={true}
@@ -679,8 +675,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
                 component="div"
                 notifyLeaving={false}
                 overflowHidden={true}
-                transitionAppear={true}
-                transitionAppearTimeout={400}
+                transitionAppear={false}
                 transitionEnter={true}
                 transitionEnterTimeout={1000}
                 transitionLeave={true}
@@ -688,29 +683,14 @@ exports[`PromptStep component active state when a suboptimal response has been s
                 transitionName="fade"
               >
                 <div
-                  style={
-                    Object {
-                      "overflow": "hidden",
-                      "position": "relative",
-                    }
-                  }
+                  style={Object {}}
                 >
                   <span
                     key="1"
-                    style={
-                      Object {
-                        "bottom": 0,
-                        "left": 0,
-                        "position": "absolute",
-                        "right": 0,
-                        "top": 0,
-                        "userSelect": "none",
-                      }
-                    }
+                    style={null}
                   >
                     <CSSTransitionGroupChild
-                      appear={true}
-                      appearTimeout={400}
+                      appear={false}
                       enter={true}
                       enterTimeout={1000}
                       leave={true}
@@ -890,8 +870,7 @@ exports[`PromptStep component active state when a too-long response has been sub
                 component="div"
                 notifyLeaving={false}
                 overflowHidden={true}
-                transitionAppear={true}
-                transitionAppearTimeout={400}
+                transitionAppear={false}
                 transitionEnter={true}
                 transitionEnterTimeout={1000}
                 transitionLeave={true}
@@ -906,8 +885,7 @@ exports[`PromptStep component active state when a too-long response has been sub
                     style={null}
                   >
                     <CSSTransitionGroupChild
-                      appear={true}
-                      appearTimeout={400}
+                      appear={false}
                       enter={true}
                       enterTimeout={1000}
                       leave={true}
@@ -1087,8 +1065,7 @@ exports[`PromptStep component active state when a too-short response has been su
                 component="div"
                 notifyLeaving={false}
                 overflowHidden={true}
-                transitionAppear={true}
-                transitionAppearTimeout={400}
+                transitionAppear={false}
                 transitionEnter={true}
                 transitionEnterTimeout={1000}
                 transitionLeave={true}
@@ -1103,8 +1080,7 @@ exports[`PromptStep component active state when a too-short response has been su
                     style={null}
                   >
                     <CSSTransitionGroupChild
-                      appear={true}
-                      appearTimeout={400}
+                      appear={false}
                       enter={true}
                       enterTimeout={1000}
                       leave={true}
@@ -1301,8 +1277,7 @@ exports[`PromptStep component active state when an optimal response has been sub
                 component="div"
                 notifyLeaving={false}
                 overflowHidden={true}
-                transitionAppear={true}
-                transitionAppearTimeout={400}
+                transitionAppear={false}
                 transitionEnter={true}
                 transitionEnterTimeout={1000}
                 transitionLeave={true}
@@ -1310,29 +1285,14 @@ exports[`PromptStep component active state when an optimal response has been sub
                 transitionName="fade"
               >
                 <div
-                  style={
-                    Object {
-                      "overflow": "hidden",
-                      "position": "relative",
-                    }
-                  }
+                  style={Object {}}
                 >
                   <span
                     key="1"
-                    style={
-                      Object {
-                        "bottom": 0,
-                        "left": 0,
-                        "position": "absolute",
-                        "right": 0,
-                        "top": 0,
-                        "userSelect": "none",
-                      }
-                    }
+                    style={null}
                   >
                     <CSSTransitionGroupChild
-                      appear={true}
-                      appearTimeout={400}
+                      appear={false}
                       enter={true}
                       enterTimeout={1000}
                       leave={true}
@@ -1585,8 +1545,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 component="div"
                 notifyLeaving={false}
                 overflowHidden={true}
-                transitionAppear={true}
-                transitionAppearTimeout={400}
+                transitionAppear={false}
                 transitionEnter={true}
                 transitionEnterTimeout={1000}
                 transitionLeave={true}
@@ -1601,8 +1560,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                     style={null}
                   >
                     <CSSTransitionGroupChild
-                      appear={true}
-                      appearTimeout={400}
+                      appear={false}
                       enter={true}
                       enterTimeout={1000}
                       leave={true}
@@ -1801,8 +1759,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 component="div"
                 notifyLeaving={false}
                 overflowHidden={true}
-                transitionAppear={true}
-                transitionAppearTimeout={400}
+                transitionAppear={false}
                 transitionEnter={true}
                 transitionEnterTimeout={1000}
                 transitionLeave={true}
@@ -1817,8 +1774,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                     style={null}
                   >
                     <CSSTransitionGroupChild
-                      appear={true}
-                      appearTimeout={400}
+                      appear={false}
                       enter={true}
                       enterTimeout={1000}
                       leave={true}
