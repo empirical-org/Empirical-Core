@@ -62,7 +62,7 @@ describe('StudentViewContainer component', () => {
     })
 
     describe('when the first step has been completed', () => {
-      wrapper.setState({ completedSteps: [1], activeStep: 2 })
+      wrapper.setState({ completedSteps: [1], activeStep: 2, hasStartedReadPassageStep: true, hasStartedPromptSteps: true, })
       it('should render a promptStep for each prompt in the activity', () => {
         expect(wrapper.find(PromptStep).length).toBe(activityOne.prompts.length)
       })
@@ -149,7 +149,7 @@ describe('StudentViewContainer component', () => {
       describe('when the read passage step has been completed', () => {
         beforeAll(() => {
           mockTrackAnalyticsEvent.mockClear()
-          wrapper.setState({ completedSteps: [1], activeStep: 2 })
+          wrapper.setState({ completedSteps: [1], activeStep: 2, hasStartedReadPassageStep: true, hasStartedPromptSteps: true, })
           wrapper.find('.step-links').find('.step-link').last().simulate('click')
         })
 

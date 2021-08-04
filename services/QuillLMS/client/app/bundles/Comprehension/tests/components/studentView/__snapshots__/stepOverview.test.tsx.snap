@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StepOverview component when the student is on step one renders 1`] = `
+<StepOverview
+  activeStep={1}
+  handleClick={[Function]}
+>
+  <div
+    className="step-overview"
+  >
+    <h1>
+      Here’s what you’ll do
+    </h1>
+    <Step
+      active={true}
+      handleClick={[Function]}
+      text="Read a passage and highlight sentences"
+      title="Step 1 - Now"
+    >
+      <section
+        className="step-overview-step-container"
+      >
+        <img
+          alt="Right arrow in a circle"
+          src="undefined/images/icons/icons-arrow-right-circle-white.svg"
+        />
+        <button
+          className="step-overview-step active"
+          onClick={[Function]}
+          type="button"
+        >
+          <span>
+            Step 1 - Now
+          </span>
+          <p>
+            Read a passage and highlight sentences
+          </p>
+        </button>
+      </section>
+    </Step>
+    <Step
+      text="Write three sentences using evidence"
+      title="Step 2 - After"
+    >
+      <section
+        className="step-overview-step-container"
+      >
+        <div
+          className="step-overview-step"
+        >
+          <span>
+            Step 2 - After
+          </span>
+          <p>
+            Write three sentences using evidence
+          </p>
+        </div>
+      </section>
+    </Step>
+  </div>
+</StepOverview>
+`;
+
+exports[`StepOverview component when the student is past step one renders 1`] = `
+<StepOverview
+  activeStep={2}
+  handleClick={[Function]}
+>
+  <div
+    className="step-overview"
+  >
+    <h1>
+      Nice! Keep going!
+    </h1>
+    <Step
+      completed={true}
+      text="Read a passage and highlight sentences"
+      title="Step 1 - Done"
+    >
+      <section
+        className="step-overview-step-container"
+      >
+        <img
+          alt="Green check icon"
+          src="undefined/images/icons/check-green.svg"
+        />
+        <div
+          className="step-overview-step completed"
+        >
+          <span>
+            Step 1 - Done
+          </span>
+          <p>
+            Read a passage and highlight sentences
+          </p>
+        </div>
+      </section>
+    </Step>
+    <Step
+      active={true}
+      handleClick={[Function]}
+      text="Write three sentences using evidence"
+      title="Step 2 - After"
+    >
+      <section
+        className="step-overview-step-container"
+      >
+        <img
+          alt="Right arrow in a circle"
+          src="undefined/images/icons/icons-arrow-right-circle-white.svg"
+        />
+        <button
+          className="step-overview-step active"
+          onClick={[Function]}
+          type="button"
+        >
+          <span>
+            Step 2 - After
+          </span>
+          <p>
+            Write three sentences using evidence
+          </p>
+        </button>
+      </section>
+    </Step>
+  </div>
+</StepOverview>
+`;

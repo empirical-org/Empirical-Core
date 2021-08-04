@@ -9,6 +9,7 @@ import StepLink from './stepLink'
 import ReadAndHighlightInstructions from './readAndHighlightInstructions'
 import DirectionsSectionAndModal from './directionsSectionAndModal'
 import BottomNavigation from './bottomNavigation'
+import StepOverview from './stepOverview'
 
 import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
@@ -55,6 +56,11 @@ interface StudentViewContainerState {
   timeTracking: { [key:number]: number };
   studentHighlights: string[];
   doneHighlighting: boolean;
+  showReadTheDirectionsModal: boolean;
+  scrolledToEndOfPassage: boolean;
+  hasStartedReadPassageStep: boolean;
+  hasStartedPromptSteps: boolean;
+
 }
 
 const READ_PASSAGE_STEP = 1
@@ -78,7 +84,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       isIdle: false,
       studentHighlights: [],
       scrolledToEndOfPassage: false,
-      showReadTheDirectionsModal: true,
+      showReadTheDirectionsModal: false,
+      hasStartedReadPassageStep: false,
+      hasStartedPromptSteps: false,
       doneHighlighting: false,
       timeTracking: {
         1: 0,
@@ -151,14 +159,19 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     this.completeStep(activeStep)
   }
 
-  handleReadPassageContainerScroll = (e) => {
+  handleReadPassageContainerTouchMoveEnd = (e) => {
+    setTimeout(() => this.handleReadPassageContainerScroll(e), 300)
+  }
+
+  handleReadPassageContainerScroll = (e=null) => {
     const el = document.getElementById('end-of-passage')
+    if (!el) { return }
     const rect = el.getBoundingClientRect();
     const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
     if (!(rect.bottom < 100 || rect.top - viewHeight >= 100)) {
       this.setState({ scrolledToEndOfPassage: true, })
     }
-    this.resetTimers(e)
+    if (e) { this.resetTimers(e) }
   }
 
   closeReadTheDirectionsModal = () => this.setState({ showReadTheDirectionsModal: false, })
@@ -272,8 +285,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       completedSteps: data.completedSteps || completedSteps,
       timeTracking: data.timeTracking || timeTracking,
       studentHighlights: highlights,
+      hasStartedReadPassageStep: studentHasAtLeastStartedHighlighting,
       scrolledToEndOfPassage: studentHasAtLeastStartedHighlighting,
-      showReadTheDirectionsModal: studentHasAtLeastStartedHighlighting,
       doneHighlighting: studentHasAtLeastStartedHighlighting && highlights.length >= MINIMUM_STUDENT_HIGHLIGHT_COUNT
     }
 
@@ -420,7 +433,18 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     this.trackPassageReadEvent();
   }
 
-  handleClickDoneHighlighting = () => this.setState({ doneHighlighting: true})
+  onStartReadPassage = (e) => {
+    e.stopPropagation()
+    this.setState({ hasStartedReadPassageStep: true, showReadTheDirectionsModal: true, })
+  }
+
+  onStartPromptSteps = () => this.setState({ hasStartedPromptSteps: true, })
+
+  handleClickDoneHighlighting = () => {
+    this.setState({ doneHighlighting: true}, () => {
+      if (this.onMobile()) { window.scrollTo(0, 0) }
+    })
+  }
 
   scrollToStep = (ref: string) => {
     if (this.onMobile()) {
@@ -475,16 +499,24 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     this[ref].scrollIntoView(false)
   }
 
+  scrollToQuestionSectionOnMobile = () => this.scrollToStepOnMobile('step2')
+
   clickStepLink = (stepNumber: number) => {
     this.activateStep(stepNumber)
     this.scrollToStepOnMobile(`step${stepNumber}`)
   }
 
   addPTagsToPassages = (passages: Passage[]) => {
+    const { studentHighlights, } = this.state
     return passages.map(passage => {
       const { text } = passage;
       const paragraphArray = text ? text.match(/[^\r\n]+/g) : [];
-      return paragraphArray.map(p => `<p>${p}</p>`).join('').replace('<p><p>', '<p>').replace('</p></p>', '</p>')
+      return paragraphArray.map((p, i) => {
+        if (i === paragraphArray.length - 1 && !studentHighlights.length) {
+          return `<p>${p}<span id="end-of-passage"></span></p>`
+        }
+        return `<p>${p}</p>`
+      }).join('').replace('<p><p>', '<p>').replace('</p></p>', '</p>')
     })
   }
 
@@ -526,13 +558,14 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   transformMarkTags = (node) => {
-    const { studentHighlights, showReadTheDirectionsModal, doneHighlighting, } = this.state
+    const { studentHighlights, showReadTheDirectionsModal, doneHighlighting, hasStartedReadPassageStep, } = this.state
     if (node.name === 'mark') {
+      const shouldBeHighlightable = !doneHighlighting && !showReadTheDirectionsModal && hasStartedReadPassageStep
       const text = node.children[0].data
       let className = ''
       className += studentHighlights.includes(text) ? ' highlighted' : ''
-      className += doneHighlighting || showReadTheDirectionsModal ? '' : ' highlightable'
-      if (doneHighlighting || showReadTheDirectionsModal) { return <mark className={className}>{text}</mark>}
+      className += shouldBeHighlightable  ? ' highlightable' : ''
+      if (!shouldBeHighlightable) { return <mark className={className}>{text}</mark>}
       return <mark className={className} onClick={this.handleHighlightClick} onKeyDown={this.handleHighlightKeyDown} tabIndex={0}>{text}</mark>
     }
   }
@@ -569,7 +602,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         let formattedPassage = passage;
         const { text } = passage;
         // we want to remove any highlights returned from inactive prompts
-        const formattedPassageText = stripHtml(text, { onlyStripTags: ['span'] });
+        const formattedPassageText = stripHtml(text, { onlyStripTags: ['span', 'mark'] });
         const strippedText = stripHtml(hl.text);
         const passageBeforeCharacterStart = formattedPassageText.substring(0, characterStart)
         const passageAfterCharacterStart = formattedPassageText.substring(characterStart)
@@ -578,20 +611,46 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         return formattedPassage
       })
     })
+
+    // if there were passage highlights to account for, we stripped away the student highlights and need to add them back
+    studentHighlights.forEach(hl => {
+      passages = passages.map((passage: Passage) => {
+        let formattedPassage = passage;
+        const { text } = passage;
+        formattedPassage.text = text.replace(hl, `<mark class="highlighted">${hl}</mark>`)
+        return formattedPassage
+      })
+    })
+
     return this.addPTagsToPassages(passages)
   }
 
-  renderStepLinksAndDirections = () => {
-    const { activeStep, showReadTheDirectionsModal, doneHighlighting, } = this.state
+  renderDirectionsSectionAndModal = (className) => {
+    const { activeStep, doneHighlighting, showReadTheDirectionsModal, } = this.state
     const { activities, } = this.props
     const { currentActivity, } = activities
 
-    const directionsSectionAndModal = (<DirectionsSectionAndModal
+    return  (<DirectionsSectionAndModal
+      activeStep={activeStep}
+      className={className}
       closeReadTheDirectionsModal={this.closeReadTheDirectionsModal}
       inReflection={activeStep === READ_PASSAGE_STEP && doneHighlighting}
-      passage={activities.currentActivity.passages[0]}
+      passage={currentActivity.passages[0]}
       showReadTheDirectionsModal={showReadTheDirectionsModal}
     />)
+
+  }
+
+  renderStepLinksAndDirections = () => {
+    const { activeStep, hasStartedReadPassageStep, hasStartedPromptSteps, } = this.state
+    const { activities, } = this.props
+    const { currentActivity, } = activities
+
+    const directionsSectionAndModal = this.renderDirectionsSectionAndModal()
+
+    if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && this.onMobile()) {
+      return
+    }
 
     if (!currentActivity || activeStep === READ_PASSAGE_STEP) {
       return (<div className="hide-on-desktop step-links-and-directions-container">{directionsSectionAndModal}</div>)
@@ -606,8 +665,11 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     }
 
     return (<div className="hide-on-desktop step-links-and-directions-container">
-      <div className="step-links">
-        {links}
+      <div className="step-link-container">
+        <div className="step-links">
+          {links}
+        </div>
+        <button className="interactive-wrapper focus-on-light" onClick={this.scrollToQuestionSectionOnMobile} type="button">View questions</button>
       </div>
       {directionsSectionAndModal}
     </div>)
@@ -673,16 +735,14 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       />)
     })
 
-    const headerCopy = activeStep === READ_PASSAGE_STEP ? 'Then, use information from the text to finish the sentence. Remember to put the response in your own\u00A0words.' : 'Use information from the text to finish the sentence. Remember to put the response in your own words.'
-
-    return (<div>
-      <h2>{headerCopy}</h2>
+    return (<div className="prompt-steps">
+      {this.renderDirectionsSectionAndModal('hide-on-mobile')}
       {steps}
     </div>)
   }
 
   renderReadPassageContainer = () => {
-    const { showReadTheDirectionsModal, doneHighlighting, } = this.state
+    const { showReadTheDirectionsModal, hasStartedReadPassageStep, hasStartedPromptSteps, activeStep, } = this.state
     const { activities, } = this.props
     const { currentActivity, } = activities
     if (!currentActivity) { return }
@@ -691,14 +751,17 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     const headerImage = passages[0].image_link && <img alt={passages[0].image_alt_text} className="header-image" src={passages[0].image_link} />
     let innerContainerClassName = "read-passage-inner-container "
-    innerContainerClassName += showReadTheDirectionsModal && !doneHighlighting ? 'blur' : ''
+    innerContainerClassName += !hasStartedReadPassageStep || showReadTheDirectionsModal ? 'blur' : ''
+
+    if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && this.onMobile()) {
+      return
+    }
 
     return (<div className="read-passage-container" onScroll={this.handleReadPassageContainerScroll}>
       <div className={innerContainerClassName}>
         <h1 className="title">{currentActivity.title}</h1>
         {headerImage}
         <div className="passage">{ReactHtmlParser(this.formatHtmlForPassage(), { transform: this.transformMarkTags })}</div>
-        <span id="end-of-passage" />
       </div>
     </div>)
   }
@@ -714,12 +777,33 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   renderRightPanel() {
     const { activities, } = this.props
-    const { activeStep, showReadTheDirectionsModal, scrolledToEndOfPassage, studentHighlights, doneHighlighting, } = this.state
+    const { activeStep, showReadTheDirectionsModal, scrolledToEndOfPassage, studentHighlights, doneHighlighting, hasStartedReadPassageStep, hasStartedPromptSteps, } = this.state
+
+    const bottomNavigation = (<BottomNavigation
+      doneHighlighting={doneHighlighting}
+      handleClickDoneHighlighting={this.handleClickDoneHighlighting}
+      handleDoneReadingClick={this.handleDoneReadingClick}
+      handleStartPromptStepsClick={this.onStartPromptSteps}
+      handleStartReadingPassageClick={this.onStartReadPassage}
+      hasStartedPromptSteps={hasStartedPromptSteps}
+      hasStartedReadPassageStep={hasStartedReadPassageStep}
+      inReflection={doneHighlighting && activeStep === READ_PASSAGE_STEP}
+      onMobile={this.onMobile()}
+      scrolledToEndOfPassage={scrolledToEndOfPassage}
+      studentHighlights={studentHighlights}
+    />)
+
+    if (!hasStartedReadPassageStep) {
+      return (<div className="steps-outer-container step-overview-container" onScroll={this.resetTimers}>
+        <StepOverview
+          activeStep={activeStep}
+          handleClick={this.onStartReadPassage}
+        />
+        {bottomNavigation}
+      </div>)
+    }
+
     if (activeStep === READ_PASSAGE_STEP) {
-      let doneButton = <button className="quill-button contained primary large focus-on-light disabled" type="button">Done</button>
-      if (studentHighlights.length >= MINIMUM_STUDENT_HIGHLIGHT_COUNT) {
-        doneButton = <button className="quill-button contained primary large focus-on-light" onClick={this.handleClickDoneHighlighting} type="button">Done</button>
-      }
       return (
         <div className="steps-outer-container" onScroll={this.resetTimers}>
           <ReadAndHighlightInstructions
@@ -731,17 +815,21 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
             showReadTheDirectionsModal={showReadTheDirectionsModal}
             studentHighlights={studentHighlights}
           />
-          <BottomNavigation
-            doneHighlighting={doneHighlighting}
-            handleClickDoneHighlighting={this.handleClickDoneHighlighting}
-            handleDoneReadingClick={this.handleDoneReadingClick}
-            onMobile={this.onMobile()}
-            scrolledToEndOfPassage={scrolledToEndOfPassage}
-            studentHighlights={studentHighlights}
-          />
+          {bottomNavigation}
         </div>
       )
     }
+
+    if (!hasStartedPromptSteps) {
+      return (<div className="steps-outer-container step-overview-container" onScroll={this.resetTimers}>
+        <StepOverview
+          activeStep={activeStep}
+          handleClick={this.onStartPromptSteps}
+        />
+        {bottomNavigation}
+      </div>)
+    }
+
     return this.renderSteps()
   }
 
@@ -753,7 +841,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP ? 'on-read-passage' : ''}`
 
-    return (<div className={className} onTouchMove={this.handleReadPassageContainerScroll}>
+    return (<div className={className} onTouchEnd={this.handleReadPassageContainerTouchMoveEnd}>
       {this.renderStepLinksAndDirections()}
       {this.renderReadPassageContainer()}
       {this.renderRightPanel()}

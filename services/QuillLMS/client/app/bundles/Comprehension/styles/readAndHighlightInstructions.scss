@@ -1,6 +1,12 @@
 .read-and-highlight-container, .step-links-and-directions-container {
   padding-top: 48px;
-  position: relative;
+  overflow: auto;
+  height: 100%;
+  padding-bottom: 20px;
+  &.hide-on-desktop {
+    overflow: visible;
+    position: relative;
+  }
   h3, h4, h5 {
     font-size: 14px;
     font-weight: 600;
@@ -62,6 +68,10 @@
   }
   .directions-section {
     margin-bottom: 48px;
+    p {
+      font-size: 20px;
+      line-height: 1.3;
+    }
   }
   .highlight-instructions {
     padding: 20px 77px 32px;
@@ -121,7 +131,12 @@
     }
   }
   @media (max-width: 1099px) {
-    padding-top: 32px;
+    &.read-and-highlight-container {
+      padding-top: 32px;
+    }
+    &.step-links-and-directions-container {
+      padding-top: 0px;
+    }
     section.read-the-directions-modal {
       transform: translate(-50%, 0%);
       bottom: -176px;
@@ -129,6 +144,7 @@
     }
     .reflection-section {
       margin-bottom: 0px;
+      padding-top: 32px;
       h3, p {
         padding-left: 16px;
         padding-right: 16px;
@@ -139,10 +155,7 @@
     }
     .directions-section {
       margin-bottom: 0px;
-      p {
-        font-size: 20px;
-        line-height: 1.3;
-      }
+      padding-top: 32px;
     }
   }
 }
