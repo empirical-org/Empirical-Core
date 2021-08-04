@@ -44,4 +44,7 @@ Rails.application.routes.draw do
   # cron controller runs a job in the last hour of the day
   post 'cron' => 'cron#new'
 
+  # catch-all 404
+  get '*path', to: 'application#routing_error'
+
 end
