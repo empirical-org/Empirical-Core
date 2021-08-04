@@ -5,7 +5,7 @@ FactoryBot.define do
 
   factory :classroom do
     name  { "#{['Period', 'Block', 'Class', 'Classroom'].sample} #{(1..100).to_a.sample}#{('A'..'Z').to_a.sample}" }
-    grade { [(1..12).to_a, 'University', 'Kindergarten', 'Other'].flatten.sample.to_s }
+    grade { [(1..12).to_a, 'University', 'Kindergarten'].flatten.sample.to_s }
 
     trait :from_google do
       google_classroom_id { (1..10).map { (1..9).to_a.sample }.join } # mock a google id
