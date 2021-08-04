@@ -7,7 +7,7 @@
 #  grade               :string
 #  grade_level         :integer
 #  name                :string
-#  source              :string
+#  synced_name         :string
 #  visible             :boolean          default(TRUE), not null
 #  created_at          :datetime
 #  updated_at          :datetime

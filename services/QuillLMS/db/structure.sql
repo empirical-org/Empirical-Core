@@ -1131,7 +1131,7 @@ CREATE TABLE public.classrooms (
     visible boolean DEFAULT true NOT NULL,
     google_classroom_id bigint,
     grade_level integer,
-    source character varying
+    synced_name character varying
 );
 
 
