@@ -47,6 +47,7 @@ const ReadAndHighlightInstructions = ({ passage, activeStep, showReadTheDirectio
   }
   return (<div className={readAndHighlightContainerClassName}>
     <DirectionsSectionAndModal
+      activeStep={activeStep}
       className="hide-on-mobile"
       closeReadTheDirectionsModal={closeReadTheDirectionsModal}
       inReflection={inReflection}

@@ -11,7 +11,7 @@ const ReadTheDirectionsModal = ({ closeReadTheDirectionsModal, }) => (<section c
 
 
 const DirectionsSectionAndModal = ({ className, closeReadTheDirectionsModal, passage, showReadTheDirectionsModal, inReflection, activeStep, }) => {
-  const uniquePartOfHighlightPrompt = passage.highlight_prompt.replace(DEFAULT_HIGHLIGHT_PROMPT, '')
+  const uniquePartOfHighlightPrompt = passage.highlight_prompt ? passage.highlight_prompt.replace(DEFAULT_HIGHLIGHT_PROMPT, '') : ''
   if (inReflection) {
     return (<div className={className}>
       <section className="reflection-section">
