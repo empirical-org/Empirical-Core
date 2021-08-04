@@ -2,7 +2,7 @@ import * as React from "react";
 import { Redirect, Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
 
 import Navigation from './navigation'
-import ActivitySettings from './configureSettings/activitySettings';
+import ActivitySettingsWrapper from './configureSettings/activitySettingsWrapper';
 import RulesIndexRouter from './configureRules/rulesIndexRouter';
 import Rule from './configureRules/rule';
 import RulesAnalysis from './rulesAnalysis/rulesAnalysis';
@@ -14,6 +14,7 @@ import SessionView from './activitySessions/sessionView';
 import SemanticLabelsIndex from './semanticRules/semanticLabelsIndex';
 import RegexRulesRouter from './regexRules/regexRulesRouter';
 import PlagiarismRulesRouter from './plagiarismRules/plagiarismRulesRouter';
+import ChangeLog from './changeLog/changeLog';
 
 import { ActivityRouteProps } from '../../interfaces/comprehensionInterfaces';
 
@@ -24,7 +25,8 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, lo
       <div className="activity-container">
         <Switch>
           <Redirect exact from='/activities/:activityId' to='/activities/:activityId/settings' />
-          <Route component={ActivitySettings} path='/activities/:activityId/settings' />
+          <Route component={ActivitySettingsWrapper} path='/activities/new/settings' />
+          <Route component={ActivitySettingsWrapper} path='/activities/:activityId/settings' />
           <Route component={Rule} path='/activities/:activityId/rules/:ruleId' />
           <Route component={RulesIndexRouter} path='/activities/:activityId/rules-index' />
           <Route component={ActivityStats} path='/activities/:activityId/stats' />
@@ -37,6 +39,7 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, lo
           <Route component={SemanticLabelsIndex} path='/activities/:activityId/semantic-labels' />
           <Route component={RegexRulesRouter} path='/activities/:activityId/regex-rules' />
           <Route component={PlagiarismRulesRouter} path='/activities/:activityId/plagiarism-rules' />
+          <Route component={ChangeLog} path='/activities/:activityId/change-log' />
         </Switch>
       </div>
     </React.Fragment>

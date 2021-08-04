@@ -10,7 +10,7 @@ jest.mock('string-strip-html', () => ({
 
 const mockProps = {
   activity: mockActivity,
-  closeModal: jest.fn(),
+  handleClickArchiveActivity: jest.fn(),
   requestErrors: [],
   submitActivity: jest.fn()
 };
@@ -20,15 +20,6 @@ describe('Activity Form component', () => {
 
   it('should render Activities', () => {
     expect(container).toMatchSnapshot();
-  });
-  it('clicking the "x" button or "close" button should call closeModal prop', () => {
-    container.find('#activity-close-button').simulate('click');
-    container.find('#activity-cancel-button').simulate('click');
-    expect(mockProps.closeModal).toHaveBeenCalledTimes(2);
-  });
-  it('clicking submit button should submit activity', () => {
-    container.find('#activity-submit-button').simulate('click');
-    expect(mockProps.closeModal).toHaveBeenCalled();
   });
   it('should render request errors if present', () => {
     mockProps.requestErrors = ['passage.text: passage text is too short'];

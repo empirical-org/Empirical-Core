@@ -53,8 +53,6 @@ class ApplicationController < ActionController::Base
   end
 
   def routing_error(error = 'Routing error', status = :not_found, exception=nil)
-    @current_user = current_user
-    #if current_user == nil render_error(404) : render_error()
     render_error(404)
   end
 
@@ -66,8 +64,8 @@ class ApplicationController < ActionController::Base
       # falsely flags lack of content-type headers in responses to routes that end
       # in ".js" as a class of responses that need CORS protection and 500s when
       # attempting to serve a 404.  So, we set the content_type to 'text/html'.
-      format.js { render nothing: true, status: status, content_type: 'text/html' }
-      format.all { render nothing: true, status: status }
+      format.js { render head: :not_found, body: nil, status: status, content_type: 'text/html' }
+      format.any { render head: :not_found, body: nil, status: status }
     end
   end
 

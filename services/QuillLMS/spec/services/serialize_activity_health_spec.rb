@@ -173,4 +173,22 @@ describe 'SerializeActivityHealth' do
     expect(data[:standard_dev_difficulty]).to eq(0)
   end
 
+  it 'calculates the data without erroring for an activity with one question uid that does not exist' do
+    missing_question_activity =
+      create(:activity,
+        activity_classification_id: connect.id,
+        data: {
+          questions: [
+            {key: question.uid},
+            {key: 'not-a-real-uid'}
+          ]
+        }
+      )
+
+    data = SerializeActivityHealth.new(missing_question_activity).data
+
+    expect(data[:avg_difficulty]).to eq(0)
+    expect(data[:avg_common_unmatched]).to eq(50)
+    expect(data[:standard_dev_difficulty]).to eq(0)
+  end
 end

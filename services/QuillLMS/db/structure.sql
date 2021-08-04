@@ -1,10 +1,3 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 10.16
--- Dumped by pg_dump version 10.16
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -712,7 +705,7 @@ CREATE TABLE public.app_settings (
     id integer NOT NULL,
     name character varying NOT NULL,
     user_ids_allow_list integer[] DEFAULT '{}'::integer[] NOT NULL,
-    enabled_for_admins boolean DEFAULT false NOT NULL,
+    enabled_for_staff boolean DEFAULT false NOT NULL,
     enabled boolean DEFAULT false NOT NULL,
     percent_active integer DEFAULT 0 NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -1516,8 +1509,8 @@ ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.compreh
 
 CREATE TABLE public.comprehension_regex_rules (
     id integer NOT NULL,
-    regex_text character varying(200) NOT NULL,
-    case_sensitive boolean NOT NULL,
+    regex_text character varying(200),
+    case_sensitive boolean,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_id integer,
@@ -1558,10 +1551,9 @@ CREATE TABLE public.comprehension_rules (
     rule_type character varying NOT NULL,
     optimal boolean NOT NULL,
     suborder integer,
-    concept_uid character varying NOT NULL,
+    concept_uid character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    sequence_type character varying,
     state character varying NOT NULL
 );
 
@@ -3618,6 +3610,37 @@ ALTER SEQUENCE public.units_id_seq OWNED BY public.units.id;
 
 
 --
+-- Name: user_activity_classifications; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.user_activity_classifications (
+    id bigint NOT NULL,
+    user_id bigint,
+    activity_classification_id bigint,
+    count integer DEFAULT 0
+);
+
+
+--
+-- Name: user_activity_classifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.user_activity_classifications_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_activity_classifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.user_activity_classifications_id_seq OWNED BY public.user_activity_classifications.id;
+
+
+--
 -- Name: user_milestones; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4435,6 +4458,13 @@ ALTER TABLE ONLY public.units ALTER COLUMN id SET DEFAULT nextval('public.units_
 
 
 --
+-- Name: user_activity_classifications id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_activity_classifications ALTER COLUMN id SET DEFAULT nextval('public.user_activity_classifications_id_seq'::regclass);
+
+
+--
 -- Name: user_milestones id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5220,6 +5250,14 @@ ALTER TABLE ONLY public.unit_templates
 
 ALTER TABLE ONLY public.units
     ADD CONSTRAINT units_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_activity_classifications user_activity_classifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_activity_classifications
+    ADD CONSTRAINT user_activity_classifications_pkey PRIMARY KEY (id);
 
 
 --
@@ -6333,6 +6371,20 @@ CREATE INDEX index_units_on_user_id ON public.units USING btree (user_id);
 
 
 --
+-- Name: index_user_activity_classifications_on_classifications; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_activity_classifications_on_classifications ON public.user_activity_classifications USING btree (activity_classification_id);
+
+
+--
+-- Name: index_user_activity_classifications_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_activity_classifications_on_user_id ON public.user_activity_classifications USING btree (user_id);
+
+
+--
 -- Name: index_user_milestones_on_milestone_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6522,6 +6574,13 @@ CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING b
 
 
 --
+-- Name: user_activity_classification_unique_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX user_activity_classification_unique_index ON public.user_activity_classifications USING btree (user_id, activity_classification_id);
+
+
+--
 -- Name: username_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6630,6 +6689,14 @@ ALTER TABLE ONLY public.comprehension_automl_models
 
 ALTER TABLE ONLY public.classroom_units
     ADD CONSTRAINT fk_rails_3e1ff09783 FOREIGN KEY (unit_id) REFERENCES public.units(id);
+
+
+--
+-- Name: user_activity_classifications fk_rails_3ef65d581c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_activity_classifications
+    ADD CONSTRAINT fk_rails_3ef65d581c FOREIGN KEY (activity_classification_id) REFERENCES public.activity_classifications(id);
 
 
 --
@@ -6838,6 +6905,14 @@ ALTER TABLE ONLY public.teacher_saved_activities
 
 ALTER TABLE ONLY public.content_partner_activities
     ADD CONSTRAINT fk_rails_d292764f4f FOREIGN KEY (activity_id) REFERENCES public.activities(id);
+
+
+--
+-- Name: user_activity_classifications fk_rails_d544d0cd3e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_activity_classifications
+    ADD CONSTRAINT fk_rails_d544d0cd3e FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -7308,6 +7383,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210528142650'),
 ('20210614190031'),
 ('20210614205654'),
-('20210709161400');
+('20210709155935'),
+('20210709161400'),
+('20210726193112');
 
 

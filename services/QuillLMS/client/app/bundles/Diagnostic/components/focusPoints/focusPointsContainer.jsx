@@ -105,6 +105,12 @@ export class FocusPointsContainer extends Component {
     this.setState({focusPoints: focusPoints})
   }
 
+  handleNameChange = (e, key) => {
+    const { focusPoints } = this.state
+    focusPoints[key].name = e.target.value
+    this.setState({focusPoints: focusPoints})
+  }
+
   handleFocusPointChange = (e, key) => {
     const { focusPoints } = this.state
     const className = `regex-${key}`
@@ -172,6 +178,9 @@ export class FocusPointsContainer extends Component {
       const { conceptResults, feedback, key, order, text } = fp;
       return (
         <div className="card is-fullwidth has-bottom-margin" key={key}>
+          <header className="card-header">
+            <input className="regex-name" onChange={(e) => this.handleNameChange(e, key)} placeholder="Name" type="text" value={fp.name || ''} />
+          </header>
           <header className="card-header">
             <p className="card-header-title" style={{ display: 'inline-block', }}>
               {this.renderTextInputFields(text, key)}

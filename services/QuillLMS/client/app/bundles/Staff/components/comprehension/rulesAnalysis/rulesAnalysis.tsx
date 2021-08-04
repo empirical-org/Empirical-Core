@@ -62,6 +62,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const ruleTypeFromUrl = (history.location && qs.parse(history.location.search.replace('?', '')).selected_rule_type) || DEFAULT_RULE_TYPE
   const initialStartDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}startDate`) || '';
   const initialEndDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}endDate`) || '';
+  const initialTurkSessionId = window.sessionStorage.getItem(`${RULES_ANALYSIS}turkSessionId`) || '';
   const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
 
@@ -76,8 +77,8 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
   const [totalResponsesByConjunction, setTotalResponsesByConjunction] = React.useState<number>(null);
-  const [turkSessionID, setTurkSessionID] = React.useState<string>(null);
-  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(null);
+  const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
+  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
   const [formattedRows, setFormattedRows] = React.useState<any[]>(null);
 
   const selectedConjunction = selectedPrompt ? selectedPrompt.conjunction : promptConjunction

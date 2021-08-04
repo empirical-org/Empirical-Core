@@ -1,5 +1,7 @@
 module Comprehension
   class RegexRule < ApplicationRecord
+    include Comprehension::ChangeLog
+
     DEFAULT_CASE_SENSITIVITY = true
     MAX_REGEX_TEXT_LENGTH = 200
     CASE_SENSITIVE_ALLOWED_VALUES = [true, false]
@@ -36,6 +38,22 @@ module Comprehension
       sequence_type == TYPE_INCORRECT
     end
 
+    def change_log_name
+      "Regex Rule Regex"
+    end
+
+    def url
+      rule.url
+    end
+
+    def comprehension_name
+      rule.name
+    end
+
+    def conjunctions
+      rule.prompts.map(&:conjunction)
+    end
+
     private def regex_match(entry)
       case_sensitive? ? Regexp.new(regex_text).match(entry) : Regexp.new(regex_text, Regexp::IGNORECASE).match(entry)
     end
@@ -51,6 +69,16 @@ module Comprehension
       rescue RegexpError => e
         rule.errors.add(:invalid_regex, e.to_s)
         throw(:abort)
+      end
+    end
+
+    private def log_creation
+      log_change(nil, :update, self, "regex_text", nil, regex_text)
+    end
+
+    private def log_update
+      if regex_text_changed?
+        log_change(nil, :update, self, "regex_text", regex_text_was, regex_text)
       end
     end
   end

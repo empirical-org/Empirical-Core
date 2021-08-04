@@ -79,10 +79,18 @@ describe PublicProgressReports, type: :model do
           instance = FakeReports.new
           instance.session = { user_id: teacher.id }
           classrooms = instance.classrooms_with_students_for_report(unit.id, diagnostic_activity.id)
-          expect(classrooms[0]['id']).to eq(classroom_1.id)
-          expect(classrooms[1]['id']).to eq(classroom_2.id)
-          expect(classrooms[0][:classroom_unit_id]).to eq(classroom_unit_1.id)
-          expect(classrooms[1][:classroom_unit_id]).to eq(classroom_unit_2.id)
+
+          classroom_ids = classrooms.map { |c| c['id'] }
+          expect(classroom_ids).to include(classroom_1.id)
+          expect(classroom_ids).to include(classroom_2.id)
+
+          c1_index = classroom_ids.index(classroom_1.id)
+          c2_index = classroom_ids.index(classroom_2.id)
+
+          expect(classrooms[c1_index][:classroom_unit_id]).to eq(classroom_unit_1.id)
+          expect(classrooms[c2_index][:classroom_unit_id]).to eq(classroom_unit_2.id)
+
+      
         end
       end
     end

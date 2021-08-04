@@ -266,6 +266,7 @@ export const activityFormKeys = [
   SO_STEM,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
+  HIGHLIGHT_PROMPT
 ];
 
 export const MINIMUM_READING_LEVEL = 4;

@@ -120,8 +120,17 @@ module Comprehension
     end
 
     private def get_highlight(text, cleaned_text)
-      start_index = cleaned_text.index(matched_slice)
+      extra_space_indexes = []
+      cleaned_text.each_char.with_index { |c, i| extra_space_indexes.push(i) if c == ' ' && cleaned_text[i+1] == ' ' }
+
+      space_normalized_text = cleaned_text.split.join(' ')
+
+      start_index = space_normalized_text.index(matched_slice)
+      extra_space_indexes.each { |i| start_index += 1 if i <= start_index }
+
       end_index = start_index + matched_slice.size - 1
+      extra_space_indexes.each { |i| end_index += 1 if i > start_index && i <= end_index }
+
       char_positions = text.enum_for(:scan, /[A-Za-z0-9\s]/).map { |c| Regexp.last_match.begin(0) }
       text[char_positions[start_index]..char_positions[end_index]]
     end

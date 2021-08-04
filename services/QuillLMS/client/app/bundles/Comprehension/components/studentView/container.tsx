@@ -301,11 +301,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { sessionID, } = session
     const activityUID = this.activityUID()
     const previousFeedback = session.submittedResponses[promptID] || [];
+    // strip any HTML injected by browser extensions (such as Chrome highlight)
+    const strippedEntry = stripHtml(entry);
     if (activityUID) {
       const args = {
         sessionID,
         activityUID,
-        entry,
+        entry: strippedEntry,
         promptID,
         promptText,
         attempt,

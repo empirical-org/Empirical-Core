@@ -46,6 +46,19 @@ class FeedbackHistory < ApplicationRecord
     SPELLING = "spelling",
     OPINION = "opinion"
   ]
+  FILTER_TYPES = [
+    FILTER_ALL = "all",
+    FILTER_SCORED =  "scored",
+    FILTER_UNSCORED =  "unscored",
+    FILTER_WEAK =  "weak",
+    FILTER_COMPLETE =  "complete",
+    FILTER_INCOMPLETE =  "incomplete"
+  ]
+  CONJUNCTIONS = [
+    BECAUSE =  "because",
+    BUT =  "but",
+    SO =  "so"
+  ]
 
   after_commit :initiate_flag_worker, on: :create
   before_create :anonymize_session_uid
@@ -149,27 +162,61 @@ class FeedbackHistory < ApplicationRecord
     self.feedback_session_uid = FeedbackSession.get_uid_for_activity_session(feedback_session_uid)
   end
 
-  def self.list_by_activity_session(activity_id: nil, page: 1, start_date: nil, end_date: nil, page_size: DEFAULT_PAGE_SIZE, turk_session_id: nil)
+  def self.completeness_filter_query(complete)
+    <<-SQL
+    (
+      CASE WHEN
+        ((COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' AND feedback_histories.optimal THEN 1 END) = 1) OR
+          (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN comprehension_prompts.max_attempts END))) AND
+        ((COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' AND feedback_histories.optimal THEN 1 END) = 1) OR
+          (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN comprehension_prompts.max_attempts END))) AND
+        ((COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' AND feedback_histories.optimal THEN 1 END) = 1) OR
+          (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN comprehension_prompts.max_attempts END)))
+      THEN true ELSE false END
+    ) = #{complete}
+    SQL
+  end
+
+  def self.apply_activity_session_filter(query, filter_type)
+    case filter_type
+    when FILTER_ALL
+      query
+    when FILTER_SCORED
+      query = query.where("feedback_history_ratings.rating IS NOT NULL")
+    when FILTER_UNSCORED
+      query = query.where("feedback_history_ratings.rating IS NULL")
+    when FILTER_WEAK
+      query = query.where("feedback_history_ratings.rating IS FALSE")
+    when FILTER_COMPLETE
+      query = query.having(FeedbackHistory.completeness_filter_query(true))
+    when FILTER_INCOMPLETE
+      query = query.having(FeedbackHistory.completeness_filter_query(false))
+    else
+      query
+    end
+  end
+
+  def self.list_by_activity_session(activity_id: nil, page: 1, start_date: nil, end_date: nil, page_size: DEFAULT_PAGE_SIZE, turk_session_id: nil, filter_type: nil)
     query = select(
       <<-SQL
         feedback_histories.feedback_session_uid AS session_uid,
         MIN(feedback_histories.time) AS start_date,
         comprehension_prompts.activity_id,
         ARRAY_REMOVE(ARRAY_AGG(DISTINCT feedback_history_flags.flag), NULL) AS flags,
-        COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' THEN 1 END) AS because_attempts,
-        COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' THEN 1 END) AS but_attempts,
-        COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' THEN 1 END) AS so_attempts,
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) AS because_attempts,
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN 1 END) AS but_attempts,
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END) AS so_attempts,
         COUNT(CASE WHEN feedback_history_ratings.rating IS NOT NULL THEN 1 END) AS scored_count,
         COUNT(CASE WHEN feedback_history_ratings.rating = false THEN 1 END) AS weak_count,
         COUNT(CASE WHEN feedback_history_ratings.rating = true THEN 1 END) AS strong_count,
         (
           CASE WHEN
-            ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' AND feedback_histories.optimal THEN 1 END) = 1) OR
-              (COUNT(CASE WHEN comprehension_prompts.conjunction = 'because' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'because' THEN comprehension_prompts.max_attempts END))) AND
-            ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' AND feedback_histories.optimal THEN 1 END) = 1) OR
-              (COUNT(CASE WHEN comprehension_prompts.conjunction = 'but' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'but' THEN comprehension_prompts.max_attempts END))) AND
-            ((COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' AND feedback_histories.optimal THEN 1 END) = 1) OR
-              (COUNT(CASE WHEN comprehension_prompts.conjunction = 'so' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = 'so' THEN comprehension_prompts.max_attempts END)))
+            ((COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' AND feedback_histories.optimal THEN 1 END) = 1) OR
+              (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN comprehension_prompts.max_attempts END))) AND
+            ((COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' AND feedback_histories.optimal THEN 1 END) = 1) OR
+              (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN comprehension_prompts.max_attempts END))) AND
+            ((COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' AND feedback_histories.optimal THEN 1 END) = 1) OR
+              (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END) = MAX(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN comprehension_prompts.max_attempts END)))
           THEN true ELSE false END
         ) AS complete
       SQL
@@ -188,6 +235,7 @@ class FeedbackHistory < ApplicationRecord
       .joins('LEFT JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')
       .where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id)
     end
+    query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
     query = query.limit(page_size)
     query = query.offset((page.to_i - 1) * page_size.to_i) if page && page.to_i > 1
     query

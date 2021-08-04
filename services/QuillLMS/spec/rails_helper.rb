@@ -5,9 +5,7 @@ SimpleCov.start "rails"
 require File.expand_path("../../config/environment", __FILE__)
 
 require 'rspec/rails'
-require 'capybara/poltergeist'
 require 'capybara/rails'
-require 'database_cleaner'
 require 'byebug'
 require 'vcr'
 require 'sidekiq/testing'
@@ -23,6 +21,7 @@ VCR.configure do |c|
   c.hook_into :webmock
   c.configure_rspec_metadata!
   c.ignore_hosts 'codeclimate.com'
+  c.ignore_localhost = true
   c.allow_http_connections_when_no_cassette = false
 end
 
@@ -31,19 +30,6 @@ Shoulda::Matchers.configure do |config|
     with.test_framework :rspec
     with.library :rails
   end
-end
-
-
-Capybara.configure do |config|
-  # Use a high(er) timeout for JS-based UI -- e.g., React.js
-  # Give Selenium a bit more time to render before declaring an async component test a failure
-  config.default_max_wait_time = 15
-
-  Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 10)
-  end
-
-  config.javascript_driver = :poltergeist
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -83,27 +69,8 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
-  config.before(:suite) do
-    Rails.cache.clear
-    DatabaseCleaner.clean_with(:truncation)
-  end
-
-  # most examples
-  config.before(:each) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.start
-    SegmentAnalytics.backend = FakeSegmentBackend.new
-  end
-
-  # examples running in a browser
-  # config.before(:each, js: true) do
-  #   DatabaseCleaner.strategy = :truncation
-  # end
-
-
-  config.after(:each) do
-    DatabaseCleaner.clean
-  end
+  config.before(:suite) { Rails.cache.clear }
+  config.before(:each) { SegmentAnalytics.backend = FakeSegmentBackend.new }
 
   config.infer_spec_type_from_file_location!
 

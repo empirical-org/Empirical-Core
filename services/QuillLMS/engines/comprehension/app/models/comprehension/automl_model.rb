@@ -3,6 +3,7 @@ require "google/cloud/automl"
 
 module Comprehension
   class AutomlModel < ApplicationRecord
+    include Comprehension::ChangeLog
     MIN_LABELS_LENGTH = 1
     STATES = [
       STATE_ACTIVE = 'active',
@@ -19,6 +20,8 @@ module Comprehension
     validates :labels, presence: true, length: {minimum: MIN_LABELS_LENGTH}
     validates :name, presence: true
     validates :state, inclusion: {in: ['active', 'inactive']}
+
+    before_validation :strip_whitespace
 
     def serializable_hash(options = nil)
       options ||= {}
@@ -48,6 +51,7 @@ module Comprehension
           rule.update!(state: Rule::STATE_ACTIVE) if labels.include?(rule.label&.name)
         end
       end
+      log_activation
       self
     rescue StandardError => e
       raise e unless e.is_a?(ActiveRecord::RecordInvalid)
@@ -67,6 +71,22 @@ module Comprehension
 
     def older_models
       @older_models ||= AutomlModel.where(prompt_id: prompt_id).where("created_at < ?", created_at).count
+    end
+
+    def change_log_name
+      "AutoML Model"
+    end
+
+    def url
+      "comprehension/#/activities/#{prompt.activity.id}/semantic-labels/model/#{id}"
+    end
+
+    def comprehension_name
+      name
+    end
+
+    private def strip_whitespace
+      self.automl_model_id = automl_model_id.strip unless automl_model_id.nil?
     end
 
     private def prompt_automl_rules
@@ -101,7 +121,7 @@ module Comprehension
     end
 
     private def automl_model_full_id
-      @model_full_id ||= automl_client.model_path(project: ENV['AUTOML_GOOGLE_PROJECT_ID'], location: ENV['AUTOML_GOOGLE_LOCATION'], model: automl_model_id)
+      @model_full_id ||= automl_client.model_path(project: ENV['AUTOML_GOOGLE_PROJECT_ID'], location: ENV['AUTOML_GOOGLE_LOCATION'], model: automl_model_id.strip)
     end
 
     private def automl_labels
@@ -112,6 +132,10 @@ module Comprehension
     private def automl_name
       model = automl_client.get_model(name: automl_model_full_id)
       model.display_name
+    end
+
+    private def log_activation
+      log_change(@lms_user_id, :activate_automl, self, nil, nil, nil)
     end
   end
 end

@@ -20,7 +20,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
           Array [
             Object {
               "key": "What",
-              "text": "Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manner, commas, prepositions, and capitalization",
+              "text": "Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words",
             },
             Object {
               "key": "When",
@@ -28,7 +28,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             },
           ]
         }
-        buttonLink="/activity_sessions/anonymous?activity_id=849"
+        buttonLink="/activity_sessions/anonymous?activity_id=1663"
         buttonText="Preview"
         header="Starter Diagnostic"
         imgAlt="page with a little writing"
@@ -40,7 +40,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
           Array [
             Object {
               "key": "What",
-              "text": "Compound sentences, complex sentences, conjunctive adverbs, pronouns, and commonly confused words",
+              "text": "Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization",
             },
             Object {
               "key": "When",
@@ -48,7 +48,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             },
           ]
         }
-        buttonLink="/activity_sessions/anonymous?activity_id=850"
+        buttonLink="/activity_sessions/anonymous?activity_id=1668"
         buttonText="Preview"
         header="Intermediate Diagnostic"
         imgAlt="page with a medium amount of writing"
@@ -68,7 +68,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             },
           ]
         }
-        buttonLink="/activity_sessions/anonymous?activity_id=888"
+        buttonLink="/activity_sessions/anonymous?activity_id=1678"
         buttonText="Preview"
         header="Advanced Diagnostic"
         imgAlt="page with a large amount of writing"

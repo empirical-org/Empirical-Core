@@ -1,4 +1,4 @@
-import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
+import { ActivityInterface, DropdownObjectInterface } from '../../interfaces/comprehensionInterfaces';
 import { handleApiError, apiFetch, mainApiFetch, handleRequestErrors, requestFailed, getActivitySessionsUrl } from '../../helpers/comprehension';
 
 export const fetchActivities = async () => {
@@ -39,7 +39,8 @@ export const createActivity = async (activity: object) => {
     const returnedErrors = await handleRequestErrors(errors);
     return { errors: returnedErrors };
   }
-  return { errors: [] };
+  const newActivity = await response.json();
+  return { errors: [], activityId: newActivity.id };
 }
 
 export const updateActivity = async (activity: object, activityId: string) => {
@@ -65,8 +66,9 @@ export const archiveParentActivity = async (parentActivityId: string) => {
   return { error: handleApiError('Failed to archive activity, please try again.', response) }
 }
 
-export const fetchActivitySessions = async (key: string, activityId: string, pageNumber: number, startDate: string, endDate?: string, turkSessionID?: string) => {
-  const url = getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, turkSessionID });
+export const fetchActivitySessions = async (key: string, activityId: string, pageNumber: number, startDate: string, filterOptionForQuery: DropdownObjectInterface, endDate?: string, turkSessionID?: string) => {
+  const { value } = filterOptionForQuery
+  const url = getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, turkSessionID, filterType: value });
   const response = await mainApiFetch(url);
   const activitySessions = await response.json();
 
@@ -83,5 +85,15 @@ export const fetchActivitySession = async (key: string, sessionId: string) => {
   return {
     activitySession,
     error: handleApiError('Failed to fetch activity sessions, please refresh the page.', response),
+  };
+}
+
+export const fetchChangeLogs = async (key: string, activityId: string) => {
+  const response = await apiFetch(`activities/${activityId}/change_logs`);
+  const changeLogs = await response.json();
+
+  return {
+    changeLogs,
+    error: handleApiError('Failed to fetch change log, please refresh the page.', response)
   };
 }
