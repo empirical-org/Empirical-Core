@@ -650,7 +650,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     if(!explanationSlidesCompleted) {
       if(explanationSlideStep === 0) {
-        return <WelcomeSlide onHandleClick={this.handleExplanationSlideClick} />
+        return <WelcomeSlide onHandleClick={this.handleExplanationSlideClick} user={user} />
       }
       return(
         <ExplanationSlide onHandleClick={this.handleExplanationSlideClick} slideData={explanationData[explanationSlideStep]} />
