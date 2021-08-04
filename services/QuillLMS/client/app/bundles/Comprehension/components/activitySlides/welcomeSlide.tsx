@@ -7,7 +7,8 @@ export const WelcomeSlide = ({ onHandleClick }) => {
   return(
     <div className="explanation-slide-container" id="welcome-slide-container">
       <section id="information-section">
-        <p className="subtext">Hi, Eric!</p>
+        {/* this will be replaced with user prop after offboarding branch is merged */}
+        <p className="subtext">Hi, User!</p>
         <section id="header-container">
           <p id="header">Welcome to Quill Evidence</p>
         </section>
