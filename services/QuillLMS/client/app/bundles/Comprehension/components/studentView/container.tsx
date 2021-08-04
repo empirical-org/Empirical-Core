@@ -6,6 +6,9 @@ import stripHtml from "string-strip-html";
 import PromptStep from './promptStep'
 import StepLink from './stepLink'
 
+import { explanationData } from "../activitySlides/explanationData";
+import ExplanationSlide from "../activitySlides/explanationSlide";
+import WelcomeSlide from "../activitySlides/welcomeSlide";
 import PostActivitySlide from '../activitySlides/postActivitySlide';
 import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
@@ -50,6 +53,8 @@ interface StudentViewContainerState {
   activeStep?: number;
   activityIsComplete: boolean;
   activityIsReadyForSubmission: boolean;
+  explanationSlidesCompleted: boolean;
+  explanationSlideStep:  number;
   completedSteps: Array<number>;
   isIdle: boolean;
   showFocusState: boolean;
@@ -73,6 +78,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       activeStep: READ_PASSAGE_STEP,
       activityIsComplete: false,
       activityIsReadyForSubmission: false,
+      explanationSlidesCompleted: false,
+      explanationSlideStep: 0,
       completedSteps: [],
       showFocusState: false,
       startTime: Date.now(),
@@ -622,15 +629,33 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
+  handleExplanationSlideClick = () => {
+    const { explanationSlideStep } = this.state;
+    const nextStep = explanationSlideStep + 1;
+    if(nextStep > 3) {
+      this.setState({ explanationSlidesCompleted: true });
+    } else {
+      this.setState({  explanationSlideStep: nextStep });
+    }
+  }
+
   render = () => {
     const { activities, session, user } = this.props;
     const { submittedResponses } = session;
-    const { showFocusState, activityIsComplete } = this.state
+    const { showFocusState, activityIsComplete, explanationSlidesCompleted, explanationSlideStep } = this.state
 
     if (!activities.hasReceivedData) { return <LoadingSpinner /> }
 
     const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'}`
 
+    if(!explanationSlidesCompleted) {
+      if(explanationSlideStep === 0) {
+        return <WelcomeSlide onHandleClick={this.handleExplanationSlideClick} />
+      }
+      return(
+        <ExplanationSlide onHandleClick={this.handleExplanationSlideClick} slideData={explanationData[explanationSlideStep]} />
+      );
+    }
     if(activityIsComplete) {
       return(
         <PostActivitySlide responses={submittedResponses} user={user} />
