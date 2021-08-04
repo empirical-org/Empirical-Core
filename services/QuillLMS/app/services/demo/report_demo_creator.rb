@@ -108,7 +108,7 @@ module Demo::ReportDemoCreator
   end
 
   def self.create_unit_activities(unit)
-    activities = [849, 437, 434, 215, 41, 386, 289, 295, 418]
+    activities = [1663, 437, 434, 215, 41, 386, 289, 295, 418]
     unit_activities = []
     activities.each do |act_id|
       values = {
@@ -130,7 +130,7 @@ module Demo::ReportDemoCreator
 
   def self.create_activity_sessions(students)
     templates = [
-      {849 => 2949282,
+      {1663 => 9706466,
       437 => 313241,
       434 => 446637,
       215 => 369874,
@@ -141,7 +141,7 @@ module Demo::ReportDemoCreator
       418 => 662204},
 
 
-      {849 => 2949340,
+      {1663 => 9706465,
       437 => 409030,
       434 => 313319,
       215 => 370995,
@@ -152,7 +152,7 @@ module Demo::ReportDemoCreator
       418 => 662204},
 
 
-      {849 => 2949330,
+      {1663 => 9706463,
       437 => 446637,
       434 => 312664,
       215 => 369875,
@@ -163,7 +163,7 @@ module Demo::ReportDemoCreator
       418 => 662204},
 
 
-      {849 => 2949353,
+      {1663 => 9962415,
       437 => 312664,
       434 => 313241,
       215 => 369883,
@@ -173,7 +173,7 @@ module Demo::ReportDemoCreator
       295 => 442653,
       418 => 662204},
 
-      {849 => 3050346,
+      {1663 => 9962377,
       437 => 446641,
       434 => 446641,
       215 => 369872,
