@@ -5,7 +5,7 @@ import Footer from './footer';
 export const WelcomeSlide = ({ onHandleClick }) => {
 
   return(
-    <div className="explanation-slide-container">
+    <div className="explanation-slide-container" id="welcome-slide-container">
       <section id="information-section">
         <p className="subtext">Hi, Eric!</p>
         <section id="header-container">
