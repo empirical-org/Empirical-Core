@@ -291,7 +291,7 @@ $background-images-list: (diagnostic-pattern-magnifier connect-pattern-bullseye 
 
 section.q-hero {
   width: 100%;
-  height: 530px;
+  min-height: 530px;
   background-image: url(../../../../public/images/homepage/homepage_pattern.png);
   background-position: center center;
   .navbar {

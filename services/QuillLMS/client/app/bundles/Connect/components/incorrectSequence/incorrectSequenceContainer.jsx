@@ -37,9 +37,9 @@ class IncorrectSequencesContainer extends Component {
     const question = this.props[this.state.questionType].data[this.props.match.params.questionID]
     const incorrectSequences = this.getSequences(question)
 
-    if (previousState.incorrectSequences === incorrectSequences) return;
-
-    this.setState({ incorrectSequences, });
+    if (!_.isEqual(previousState.incorrectSequences, incorrectSequences)) {
+      this.setState({ incorrectSequences, });
+    };
   }
 
   getSequences = (question) => {
@@ -146,6 +146,12 @@ class IncorrectSequencesContainer extends Component {
     this.setState({incorrectSequences: incorrectSequences})
   }
 
+  handleNameChange = (e, key) => {
+    const { incorrectSequences } = this.state
+    incorrectSequences[key].name = e.target.value
+    this.setState({incorrectSequences: incorrectSequences})
+  }
+
   handleFeedbackChange = (e, key) => {
     const { incorrectSequences } = this.state
     incorrectSequences[key].feedback = e
@@ -176,6 +182,9 @@ class IncorrectSequencesContainer extends Component {
     const components = this.sequencesSortedByOrder().map((s) => {
       return (
         <div className="card is-fullwidth has-bottom-margin" key={s.key}>
+          <header className="card-header">
+            <input className="regex-name" onChange={(e) => this.handleNameChange(e, s.key)} placeholder="Name" type="text" value={s.name || ''} />
+          </header>
           <header className="card-header">
             <p className="card-header-title" style={{ display: 'inline-block', }}>
               {this.renderTextInputFields(s.text, s.key)}

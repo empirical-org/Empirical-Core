@@ -92,14 +92,14 @@ describe('The checking a sentence combining question', () => {
     });
 
     it('should add spelling concept result to concept results', () => {
-      const questionString = "Batss wings, so they can fly."
+      const questionString = "Batss have wi ngs, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.spelling_error, true);
       assert.include(matchedResponse.concept_results, conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g'));
     });
 
     it('should add spelling concept result to concept results if there are two or more spelling errors', () => {
-      const questionString = "Batss wingss, so they can fly."
+      const questionString = "Batss have wi ngss, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.spelling_error, true);
       assert.include(matchedResponse.concept_results, conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g'));
@@ -163,7 +163,7 @@ describe('The checking a sentence combining question', () => {
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.feedback, spellingFeedbackStrings[matchedResponse.author]);
       assert.equal(matchedResponse.spelling_error, true);
-      assert.equal(matchedResponse.misspelled_words[0], 'zings')
+      assert.equal(matchedResponse.misspelled_words, undefined)
     });
 
     it('should be able to find a flexible change match', () => {

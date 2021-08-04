@@ -1,8 +1,9 @@
 module GoogleIntegration::Classroom::Creators::Classrooms
 
   def self.run(teacher, courses)
-    courses.map{ |course| create_classroom(teacher, course) }
-           .compact
+    courses
+      .map { |course| create_classroom(teacher, course) }
+      .compact
   end
 
   def self.create_classroom(teacher, course)
@@ -16,5 +17,4 @@ module GoogleIntegration::Classroom::Creators::Classrooms
       classroom.reload
     classroom
   end
-
 end

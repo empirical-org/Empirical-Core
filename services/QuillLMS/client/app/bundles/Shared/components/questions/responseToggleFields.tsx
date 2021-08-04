@@ -61,6 +61,9 @@ class ResponseToggleFields extends React.Component<any, any> {
         <div style={{ margin: '10 0 0 0', display: 'flex', flexWrap: 'wrap', }}>
           {this.props.labels.map((label: string, i: number) => this.renderToggleField(label, i))}
         </div>
+        <div style={{ margin: '10 0', display: 'flex', flexWrap: 'wrap', }}>
+          {this.props.regexLabels.map((label: string, i: number) => this.renderToggleField(label, i))}
+        </div>
       </div>
     );
   }

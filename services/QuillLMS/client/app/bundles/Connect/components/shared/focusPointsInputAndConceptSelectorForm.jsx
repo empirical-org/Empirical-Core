@@ -13,6 +13,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
 
     const item = this.props.item;
     this.state = {
+      name: item && item.name ? item.name : '',
       itemText: item ? `${item.text}|||` : '',
       itemFeedback: item ? item.feedback : '',
       itemConcepts: item && item.conceptResults ? item.conceptResults : {},
@@ -44,6 +45,10 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
     const newConceptResults = Object.assign({}, this.state.itemConcepts)
     delete newConceptResults[key]
     this.setState({itemConcepts: newConceptResults})
+  }
+
+  handleNameChange = e => {
+    this.setState({name: e.target.value})
   }
 
   handleChange = (stateKey, e) => {
@@ -85,10 +90,12 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
   }
 
   submit = (focusPoint) => {
+    const { name } = this.state
     const focusPoints = this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
     if (focusPoints.every(fp => isValidRegex(fp))) {
       const focusPointString = focusPoints.join('|||')
       const data = {
+        name: name,
         text: focusPointString,
         feedback: this.state.itemFeedback,
         conceptResults: this.state.itemConcepts,
@@ -160,12 +167,15 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
   render() {
     const appropriateData = this.returnAppropriateDataset();
     const { dataset, mode, } = appropriateData;
+    const { name } = this.state
     return (
       <div>
         <div className="box add-incorrect-sequence">
           <h4 className="title">{this.addOrEditItemLabel()}</h4>
           {this.renderExplanatoryNote()}
           <div className="control">
+            <label className="label">Name</label>
+            <input className="input" onChange={this.handleNameChange} type="text" value={name || ''} />
             <label className="label">{this.props.itemLabel} Text</label>
             {this.renderTextInputFields()}
             <label className="label" style={{ marginTop: 10, }}>Feedback</label>

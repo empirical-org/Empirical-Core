@@ -21,6 +21,8 @@ module Comprehension
     validates :name, presence: true
     validates :state, inclusion: {in: ['active', 'inactive']}
 
+    before_validation :strip_whitespace
+
     def serializable_hash(options = nil)
       options ||= {}
 
@@ -83,6 +85,10 @@ module Comprehension
       name
     end
 
+    private def strip_whitespace
+      self.automl_model_id = automl_model_id.strip unless automl_model_id.nil?
+    end
+
     private def prompt_automl_rules
       prompt.rules.where(rule_type: Rule::TYPE_AUTOML)
     end
@@ -115,7 +121,7 @@ module Comprehension
     end
 
     private def automl_model_full_id
-      @model_full_id ||= automl_client.model_path(project: ENV['AUTOML_GOOGLE_PROJECT_ID'], location: ENV['AUTOML_GOOGLE_LOCATION'], model: automl_model_id)
+      @model_full_id ||= automl_client.model_path(project: ENV['AUTOML_GOOGLE_PROJECT_ID'], location: ENV['AUTOML_GOOGLE_LOCATION'], model: automl_model_id.strip)
     end
 
     private def automl_labels

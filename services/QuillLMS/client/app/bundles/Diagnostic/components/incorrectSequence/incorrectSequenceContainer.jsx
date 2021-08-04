@@ -111,6 +111,12 @@ class IncorrectSequencesContainer extends Component {
     this.setState({incorrectSequences: incorrectSequences})
   }
 
+  handleNameChange = (e, key) => {
+    const { incorrectSequences } = this.state
+    incorrectSequences[key].name = e.target.value
+    this.setState({incorrectSequences: incorrectSequences})
+  }
+
   handleSequenceChange = (e, key) => {
     const { incorrectSequences } = this.state
     const className = `regex-${key}`
@@ -180,6 +186,9 @@ class IncorrectSequencesContainer extends Component {
     const components = this.sequencesSortedByOrder().map((seq) => {
       return (
         <div className="card is-fullwidth has-bottom-margin" key={seq.key}>
+          <header className="card-header">
+            <input className="regex-name" onChange={(e) => this.handleNameChange(e, seq.key)} placeholder="Name" type="text" value={seq.name || ''} />
+          </header>
           <header className="card-header">
             <p className="card-header-title" style={{ display: 'inline-block', }}>
               {this.renderTextInputFields(seq.text, seq.key)}
