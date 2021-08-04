@@ -70,75 +70,126 @@ But how can democracies have representative governments unless all or most of th
 >
   <div
     className="activity-container hide-focus-outline "
-    onTouchMove={[Function]}
+    onTouchEnd={[Function]}
   >
     <div
-      className="hide-on-desktop step-links"
+      className="hide-on-desktop step-links-and-directions-container"
     >
-      <StepLink
-        clickStepLink={[Function]}
-        index={2}
-        renderStepNumber={[Function]}
+      <div
+        className="step-link-container"
       >
+        <div
+          className="step-links"
+        >
+          <StepLink
+            clickStepLink={[Function]}
+            index={2}
+            renderStepNumber={[Function]}
+          >
+            <button
+              className="step-link"
+              onClick={[Function]}
+              onKeyPress={[Function]}
+              type="button"
+            >
+              <div
+                className="step-number active"
+                key="2"
+              >
+                1
+              </div>
+            </button>
+          </StepLink>
+          <StepLink
+            clickStepLink={[Function]}
+            index={3}
+            renderStepNumber={[Function]}
+          >
+            <button
+              className="step-link"
+              onClick={[Function]}
+              onKeyPress={[Function]}
+              type="button"
+            >
+              <div
+                className="step-number "
+                key="3"
+              >
+                2
+              </div>
+            </button>
+          </StepLink>
+          <StepLink
+            clickStepLink={[Function]}
+            index={4}
+            renderStepNumber={[Function]}
+          >
+            <button
+              className="step-link"
+              onClick={[Function]}
+              onKeyPress={[Function]}
+              type="button"
+            >
+              <div
+                className="step-number "
+                key="4"
+              >
+                3
+              </div>
+            </button>
+          </StepLink>
+        </div>
         <button
-          className="step-link"
+          className="interactive-wrapper focus-on-light"
           onClick={[Function]}
-          onKeyPress={[Function]}
           type="button"
         >
-          <div
-            className="step-number active"
-            key="2"
-          >
-            1
-          </div>
+          View questions
         </button>
-      </StepLink>
-      <StepLink
-        clickStepLink={[Function]}
-        index={3}
-        renderStepNumber={[Function]}
+      </div>
+      <DirectionsSectionAndModal
+        activeStep={2}
+        closeReadTheDirectionsModal={[Function]}
+        inReflection={false}
+        passage={
+          Object {
+            "highlight_prompt": "As you read, highlight two sentences that explain why some people think voting should be required.",
+            "text": "Crispin Morales is a poor Bolivian factory worker who works 12-hour days. He works every day but Sunday. The last presidential election fell on a Saturday. Although he was given the day off as the law required, Crispin was unable to get to a polling station to vote. After failing to vote, Crispin was not allowed to withdraw his salary from his bank for over two months. This is because those who do not vote are punished in Bolivia given that voting there is compulsory, a civic duty required by law. Not all countries with compulsory voting enforce this law.
+
+If a citizen of Australia or Brazil provides a good reason for not voting (e.g. being in a hospital) it is accepted. In fact, many nations have dropped mandatory voting altogether. However, this can have a negative effect. When Venezuela, for example, discontinued mandatory voting in 1993, it saw a 30% decline in attendance at the polls.
+
+Low voter turnout is a common problem in countries without compulsory voting. This problem might be explained by voter apathy or lack of enthusiasm around elections. Of 222 million eligible voters, only 125 million cast their votes in the 2012 U.S. presidential election. By contrast, over 750 million votes were cast during season 10 of American Idol. Some people find it discouraging that voting for American Idol seems to generate more enthusiasm than voting in national elections. While it's important to note that American Idol viewers as young as 13 years old can vote multiple times during multiple episodes, these numbers may indicate that some citizens feel that their vote counts more in television contests than in political contests. Or perhaps they’re just not interested in politics.
+
+Mandatory voting may seem like a great way to encourage voter participation, but governments can sometimes misuse it. For example, in some dictatorships, citizens are forced to vote, but the same person is elected every time because the government does not allow political competition. In March 2014 in North Korea, 99% of the country cast votes for Kim Jong Un, the only candidate listed on the ballot.
+
+But how can democracies have representative governments unless all or most of their citizens vote? Some say that compulsory voting ensures that the elected government represents the majority of the population. But those against compulsory voting say that it is a violation of personal liberties and choices. Others say that voting should be seen as a civic right and not a civic duty.",
+          }
+        }
+        showReadTheDirectionsModal={false}
       >
-        <button
-          className="step-link"
-          onClick={[Function]}
-          onKeyPress={[Function]}
-          type="button"
-        >
-          <div
-            className="step-number "
-            key="3"
+        <div>
+          <section
+            className="directions-section"
           >
-            2
-          </div>
-        </button>
-      </StepLink>
-      <StepLink
-        clickStepLink={[Function]}
-        index={4}
-        renderStepNumber={[Function]}
-      >
-        <button
-          className="step-link"
-          onClick={[Function]}
-          onKeyPress={[Function]}
-          type="button"
-        >
-          <div
-            className="step-number "
-            key="4"
-          >
-            3
-          </div>
-        </button>
-      </StepLink>
+            <h3>
+              Directions
+            </h3>
+            <p>
+              Use information from the text to finish the sentence. 
+              <u>
+                Remember to put the response in your own words.
+              </u>
+            </p>
+          </section>
+        </div>
+      </DirectionsSectionAndModal>
     </div>
     <div
       className="read-passage-container"
       onScroll={[Function]}
     >
       <div
-        className="read-passage-inner-container blur"
+        className="read-passage-inner-container "
       >
         <h1
           className="title"
@@ -147,17 +198,9 @@ But how can democracies have representative governments unless all or most of th
         </h1>
         <div
           className="passage"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": Array [
-                Object {},
-              ],
-            }
-          }
-        />
-        <span
-          id="end-of-passage"
-        />
+        >
+          [object Object]
+        </div>
       </div>
     </div>
     <div
@@ -168,10 +211,48 @@ But how can democracies have representative governments unless all or most of th
         className="steps-inner-container"
         onScroll={[Function]}
       >
-        <div>
-          <h2>
-            Use information from the text to finish the sentence. Remember to put the response in your own words.
-          </h2>
+        <div
+          className="prompt-steps"
+        >
+          <DirectionsSectionAndModal
+            activeStep={2}
+            className="hide-on-mobile"
+            closeReadTheDirectionsModal={[Function]}
+            inReflection={false}
+            passage={
+              Object {
+                "highlight_prompt": "As you read, highlight two sentences that explain why some people think voting should be required.",
+                "text": "Crispin Morales is a poor Bolivian factory worker who works 12-hour days. He works every day but Sunday. The last presidential election fell on a Saturday. Although he was given the day off as the law required, Crispin was unable to get to a polling station to vote. After failing to vote, Crispin was not allowed to withdraw his salary from his bank for over two months. This is because those who do not vote are punished in Bolivia given that voting there is compulsory, a civic duty required by law. Not all countries with compulsory voting enforce this law.
+
+If a citizen of Australia or Brazil provides a good reason for not voting (e.g. being in a hospital) it is accepted. In fact, many nations have dropped mandatory voting altogether. However, this can have a negative effect. When Venezuela, for example, discontinued mandatory voting in 1993, it saw a 30% decline in attendance at the polls.
+
+Low voter turnout is a common problem in countries without compulsory voting. This problem might be explained by voter apathy or lack of enthusiasm around elections. Of 222 million eligible voters, only 125 million cast their votes in the 2012 U.S. presidential election. By contrast, over 750 million votes were cast during season 10 of American Idol. Some people find it discouraging that voting for American Idol seems to generate more enthusiasm than voting in national elections. While it's important to note that American Idol viewers as young as 13 years old can vote multiple times during multiple episodes, these numbers may indicate that some citizens feel that their vote counts more in television contests than in political contests. Or perhaps they’re just not interested in politics.
+
+Mandatory voting may seem like a great way to encourage voter participation, but governments can sometimes misuse it. For example, in some dictatorships, citizens are forced to vote, but the same person is elected every time because the government does not allow political competition. In March 2014 in North Korea, 99% of the country cast votes for Kim Jong Un, the only candidate listed on the ballot.
+
+But how can democracies have representative governments unless all or most of their citizens vote? Some say that compulsory voting ensures that the elected government represents the majority of the population. But those against compulsory voting say that it is a violation of personal liberties and choices. Others say that voting should be seen as a civic right and not a civic duty.",
+              }
+            }
+            showReadTheDirectionsModal={false}
+          >
+            <div
+              className="hide-on-mobile"
+            >
+              <section
+                className="directions-section"
+              >
+                <h3>
+                  Directions
+                </h3>
+                <p>
+                  Use information from the text to finish the sentence. 
+                  <u>
+                    Remember to put the response in your own words.
+                  </u>
+                </p>
+              </section>
+            </div>
+          </DirectionsSectionAndModal>
           <PromptStep
             activateStep={[Function]}
             active={true}

@@ -1,4 +1,4 @@
-.read-and-highlight-tracker {
+.bottom-navigation {
   position: fixed;
   bottom: 0;
   display: flex;
@@ -7,8 +7,10 @@
   max-width: 676px;
   padding: 16px 24px;
   align-items: center;
-  justify-content: space-between;
   background-color: white;
+  &.read-and-highlight-tracker {
+    justify-content: space-between;
+  }
   .read-and-highlight-steps {
     display: flex;
   }
@@ -33,7 +35,9 @@
   }
   @media (max-width: 1099px) {
     max-width: 100%;
-    justify-content: flex-start;
+    &.read-and-highlight-tracker {
+      justify-content: flex-start;
+    }
     .read-and-highlight-steps {
       flex-direction: column;
     }
