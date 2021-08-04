@@ -1,5 +1,8 @@
 module Demo::ReportDemoCreator
 
+  REPLAYED_ACTIVITY_ID = 434
+  REPLAYED_SAMPLE_USER_ID = 312664
+
   def self.create_demo(name)
     teacher = create_teacher(name)
     classroom = create_classroom(teacher)
@@ -128,6 +131,21 @@ module Demo::ReportDemoCreator
         assign_on_join: true)
   end
 
+  def self.create_replayed_activity_session(student)
+    temp = ActivitySession.unscoped.where({activity_id: REPLAYED_ACTIVITY_ID, user_id: REPLAYED_SAMPLE_USER_ID, is_final_score: true}).first
+    cu = ClassroomUnit.where("#{student.id} = ANY (assigned_student_ids)").to_a.first
+    act_session = ActivitySession.create({activity_id: REPLAYED_ACTIVITY_ID, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp&.percentage})
+    temp&.concept_results&.each do |cr|
+      values = {
+        activity_session_id: act_session.id,
+        concept_id: cr.concept_id,
+        metadata: cr.metadata,
+        question_type: cr.question_type
+      }
+      ConceptResult.create(values)
+    end
+  end
+
   def self.create_activity_sessions(students)
     templates = [
       {1663 => 9706466,
@@ -201,5 +219,7 @@ module Demo::ReportDemoCreator
         end
       end
     end
+
+    create_replayed_activity_session(students.first)
   end
 end
