@@ -68,6 +68,8 @@
 @media (max-width: 1099px) {
   .post-activity-slide-container {
     height: calc(100% - 48px);
+    overflow-x: hidden;
+    width: 100%;
 
     #information-section {
 
@@ -101,7 +103,7 @@
       }
       #second-sub-text {
         margin-top: 22px;
-        margin-bottom: 36px;
+        padding-bottom: 88px;
       }
     }
     #button-container {
