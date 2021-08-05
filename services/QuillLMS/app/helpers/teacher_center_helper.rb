@@ -12,6 +12,11 @@ module TeacherCenterHelper
         url: 'teacher-center'
       },
       {
+        id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
+        name: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
+        url: 'teacher-center/topic/using-quill-for-reading-comprehension'
+      },
+      {
         id: BlogPost::GETTING_STARTED,
         name: BlogPost::GETTING_STARTED,
         url: 'teacher-center/topic/getting-started'

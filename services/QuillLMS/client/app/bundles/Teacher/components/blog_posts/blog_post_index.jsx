@@ -22,6 +22,7 @@ import {
   BEST_PRACTICES,
   SUPPORT,
   WEBINARS,
+  USING_QUILL_FOR_READING_COMPREHENSION
 } from './blog_post_constants'
 
 export default class BlogPostIndex extends React.Component {
@@ -62,6 +63,8 @@ export default class BlogPostIndex extends React.Component {
         return 'Stay up to date on the latest Quill news'
       case TEACHER_MATERIALS:
         return 'Read and download useful materials to help navigate Quill, support students, and teach writing'
+      case USING_QUILL_FOR_READING_COMPREHENSION:
+        return "Learn all about Quill's new reading and writing tool"
       case TEACHER_CENTER:
       default:
         return 'Everything you need to know about Quill’s pedagogy and use in the classroom'

@@ -47,6 +47,7 @@ class BlogPost < ApplicationRecord
   TWITTER_LOVE = "Twitter love"
   VIDEO_TUTORIALS = "Video tutorials"
   WHATS_NEW = "What's new?"
+  USING_QUILL_FOR_READING_COMPREHENSION = "Using Quill for Reading Comprehension"
 
   STUDENT_GETTING_STARTED = 'Student getting started'
   STUDENT_HOW_TO = 'Student how to'
@@ -67,7 +68,8 @@ class BlogPost < ApplicationRecord
     IN_THE_NEWS,
     CASE_STUDIES,
     SUPPORT,
-    TWITTER_LOVE
+    TWITTER_LOVE,
+    USING_QUILL_FOR_READING_COMPREHENSION
   ]
 
   TEACHER_TOPICS = TOPICS.reject { |t| [PRESS_RELEASES, IN_THE_NEWS].include?(t) }

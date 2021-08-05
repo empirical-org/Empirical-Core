@@ -16,3 +16,4 @@ export const WEBINARS = 'Webinars'
 export const VIDEO_TUTORIALS = 'Video tutorials'
 export const BEST_PRACTICES = 'Best practices'
 export const TEACHER_MATERIALS = 'Teacher materials'
+export const USING_QUILL_FOR_READING_COMPREHENSION = "Learn all about Quill's new reading and writing tool"
