@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+    <defs>
+        <filter id="7i5j8cq5ca" width="141.3%" height="146.2%" x="-20.6%" y="-23.1%" filterUnits="objectBoundingBox">
+            <feOffset in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1.5"/>
+            <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.278093245 0"/>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <filter id="hl8huuddsb" width="205.6%" height="166.7%" x="-52.8%" y="-33.3%" filterUnits="objectBoundingBox">
+            <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1.5"/>
+            <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"/>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g fill="#FFF" fill-rule="nonzero" filter="url(#7i5j8cq5ca)" transform="translate(-1231.000000, -568.000000) translate(1231.000000, 568.000000) translate(8.000000, 6.000000)">
+                    <path d="M22.737 17.5V14h8.745v3.5h-8.745M20.69 8.33l4.95-4.953 2.466 2.468-4.95 4.952L20.69 8.33M13.992 0h3.498v8.75h-3.498V0M3.376 25.655l4.95-4.953 2.465 2.468-4.95 4.952-2.465-2.467m0-19.81l2.466-2.467 4.95 4.952-2.467 2.467-4.95-4.952M8.746 17.5H0V14h8.745v3.5"/>
+                </g>
+                <path d="M0 0H48V48H0z" transform="translate(-1231.000000, -568.000000) translate(1231.000000, 568.000000)"/>
+                <g filter="url(#hl8huuddsb)" transform="translate(-1231.000000, -568.000000) translate(1231.000000, 568.000000) translate(23.000000, 18.000000)">
+                    <path fill="#FFF" d="M0 20.743L0 0.514 14.641 15.191 6.076 15.191 5.557 15.347z"/>
+                    <path fill="#FFF" d="M11.475 21.595L6.921 23.534 1.007 9.527 5.663 7.565z"/>
+                    <path fill="#000" d="M9.791 20.735L7.461 21.713 3.546 12.399 5.871 11.42z"/>
+                    <path fill="#000" d="M1.263 3.555L1.263 17.687 5.013 14.067 5.554 13.891 11.577 13.891z"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

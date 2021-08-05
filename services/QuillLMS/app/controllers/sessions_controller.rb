@@ -5,7 +5,6 @@ class SessionsController < ApplicationController
   CLEAR_ANALYTICS_SESSION_KEY = "clear_analytics_session"
 
   before_action :signed_in!, only: [:destroy]
-  before_action :set_cache_buster, only: [:new]
 
   def create
     email_or_username = params[:user][:email].downcase.strip unless params[:user][:email].nil?

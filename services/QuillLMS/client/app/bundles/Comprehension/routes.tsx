@@ -16,8 +16,10 @@ export const routes: RouteConfig[] = [
   }
 ];
 
-export const route = (
-  <Switch>
-    <Route component={PageLayout} path="/" />
-  </Switch>
-);
+export const route = (user: string) => {
+  return(
+    <Switch>
+      <Route component={(props: any) => <PageLayout user={user} {...props} />} path="/" />
+    </Switch>
+  );
+}

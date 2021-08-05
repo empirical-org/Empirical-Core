@@ -107,6 +107,11 @@ export {
   playBoxIcon,
   previewIcon,
   smallWhiteCheckIcon,
+  cursorClick,
+  cursorPointingHand,
+  removeIcon,
+  encircledWhiteArrowIcon,
+  greenCheckIcon,
 } from './images/index'
 
 export {
