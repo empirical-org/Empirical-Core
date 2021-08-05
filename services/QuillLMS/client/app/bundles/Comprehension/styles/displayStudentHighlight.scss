@@ -1,0 +1,20 @@
+.display-student-highlight {
+  padding: 16px;
+  border-radius: 6px;
+  background-color: #f1f3f4;
+  display: flex;
+  margin-bottom: 16px;
+  align-items: flex-start;
+  justify-content: space-between;
+  
+  .interactive-wrapper {
+    margin-left: 12px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    img {
+      min-width: 24px;
+      min-height: 24px;
+    }
+  }
+}

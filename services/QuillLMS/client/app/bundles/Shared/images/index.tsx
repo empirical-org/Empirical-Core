@@ -1,6 +1,6 @@
 export const bigCheckIcon = {
   src: `${process.env.CDN_URL}/images/icons/icons-check-big.svg`,
-  alt: "White checkmark in green circle"
+  alt: "Green check icon"
 }
 
 export const searchMapIcon = {
@@ -81,4 +81,29 @@ export const previewIcon = {
 export const smallWhiteCheckIcon = {
   src: `${process.env.CDN_URL}/images/shared/check-small-white.svg`,
   alt: 'Check icon'
+}
+
+export const cursorClick = {
+  src: `${process.env.CDN_URL}/images/icons/cursor-click.svg`,
+  alt: 'Default cursor showing exaggerated clicking'
+}
+
+export const cursorPointingHand = {
+  src: `${process.env.CDN_URL}/images/icons/cursor-pointinghand.svg`,
+  alt: 'Cursor pointing hand'
+}
+
+export const removeIcon = {
+  src: `${process.env.CDN_URL}/images/icons/icons-remove.svg`,
+  alt: 'Icon showing a gray circle with a horizontal white line inside of it'
+}
+
+export const encircledWhiteArrowIcon = {
+  src: `${process.env.CDN_URL}/images/icons/icons-arrow-right-circle-white.svg`,
+  alt: 'Right arrow in a circle'
+}
+
+export const greenCheckIcon = {
+  src: `${process.env.CDN_URL}/images/icons/check-green.svg`,
+  alt: 'Green check icon'
 }
