@@ -1,1 +1,1 @@
-<%= react_component('App', props: { user: current_user&.name&.split(" ")[0] })%>
+<%= react_component('App', props: { user: current_user&.name&.split(" ")&[0] })%>
