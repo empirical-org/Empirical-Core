@@ -938,7 +938,7 @@ CREATE TABLE public.change_logs (
     action character varying NOT NULL,
     changed_record_id integer,
     changed_record_type character varying NOT NULL,
-    user_id integer NOT NULL,
+    user_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     changed_attribute character varying,
@@ -1130,7 +1130,8 @@ CREATE TABLE public.classrooms (
     grade character varying,
     visible boolean DEFAULT true NOT NULL,
     google_classroom_id bigint,
-    grade_level integer
+    grade_level integer,
+    synced_name character varying
 );
 
 
@@ -1166,7 +1167,7 @@ CREATE TABLE public.classrooms_teachers (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     "order" integer,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
 );
 
 
@@ -1377,7 +1378,8 @@ CREATE TABLE public.comprehension_passages (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     image_link character varying,
-    image_alt_text character varying DEFAULT ''::character varying
+    image_alt_text character varying DEFAULT ''::character varying,
+    highlight_prompt character varying
 );
 
 
@@ -7385,6 +7387,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210614205654'),
 ('20210709155935'),
 ('20210709161400'),
-('20210726193112');
+('20210712213724'),
+('20210722144950'),
+('20210726193112'),
+('20210803163028');
 
 
