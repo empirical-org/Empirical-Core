@@ -91,7 +91,7 @@ export const fetchActiveActivitySession = ({ sessionID, activityUID, callback, }
   }
 }
 
-export const saveActiveActivitySession = ({ sessionID, submittedResponses, activeStep, completedSteps, timeTracking, callback, }: SaveActiveActivitySessionArguments) => {
+export const saveActiveActivitySession = ({ sessionID, submittedResponses, activeStep, completedSteps, timeTracking, studentHighlights, callback, }: SaveActiveActivitySessionArguments) => {
   return (dispatch: Function) => {
     const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
 
@@ -103,6 +103,7 @@ export const saveActiveActivitySession = ({ sessionID, submittedResponses, activ
           activeStep,
           completedSteps,
           timeTracking,
+          studentHighlights,
         }
       },
       json: true,

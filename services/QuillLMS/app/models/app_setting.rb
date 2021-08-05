@@ -44,6 +44,7 @@ class AppSetting < ApplicationRecord
 
   def enabled_for_user?(user)
     return false unless enabled
+    return false unless user
 
     return true if enabled_for_staff && user.staff?
 
