@@ -2,6 +2,7 @@ module TeacherCenterHelper
   FAQ = 'FAQ'
   PREMIUM = 'Premium'
   RESEARCH_SHORT = 'Research'
+  COMPREHENSION_SHORT = 'Reading Comprehension'
   ALL_SHORT = 'All'
 
   def teacher_center_tabs(large: true)
@@ -13,7 +14,7 @@ module TeacherCenterHelper
       },
       {
         id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
-        name: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
+        name: large ? 'Using Quill for reading comprehension' : COMPREHENSION_SHORT,
         url: 'teacher-center/topic/using-quill-for-reading-comprehension'
       },
       {

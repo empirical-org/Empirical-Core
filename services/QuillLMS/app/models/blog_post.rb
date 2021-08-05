@@ -47,7 +47,7 @@ class BlogPost < ApplicationRecord
   TWITTER_LOVE = "Twitter love"
   VIDEO_TUTORIALS = "Video tutorials"
   WHATS_NEW = "What's new?"
-  USING_QUILL_FOR_READING_COMPREHENSION = "Using Quill for Reading Comprehension"
+  USING_QUILL_FOR_READING_COMPREHENSION = "Using quill for reading comprehension"
 
   STUDENT_GETTING_STARTED = 'Student getting started'
   STUDENT_HOW_TO = 'Student how to'
@@ -140,7 +140,6 @@ class BlogPost < ApplicationRecord
   private def generate_slug
     title = self.title
     slug = title.gsub(/[^a-zA-Z\d\s]/, '').gsub(' ', '-').downcase
-
     # This looks for slugs that look like #{current-slug}-2 so we
     # can change our slug for this post to increment the end digit.
     existing_posts_with_incremented_slug = RawSqlRunner.execute(
