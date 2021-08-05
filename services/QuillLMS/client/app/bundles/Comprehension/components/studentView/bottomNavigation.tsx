@@ -16,7 +16,7 @@ const ReadAndHighlightTracker = ({ scrolledToEndOfPassage, studentHighlights, on
       <div className="read-and-highlight-steps">
         <div className="read-and-highlight-step">
           {scrolledToEndOfPassage ? <img alt={bigCheckIcon.alt} className="check-icon" src={bigCheckIcon.src} /> : <div className="incomplete-indicator" />}
-          <span>Read the entire passage</span>
+          <span>Read the entire text</span>
         </div>
         <div className="read-and-highlight-step">
           {minimumMet ? <img alt={bigCheckIcon.alt} className="check-icon" src={bigCheckIcon.src} /> : <div className="incomplete-indicator" />}

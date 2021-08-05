@@ -52,7 +52,7 @@ exports[`BottomNavigation component when the student has made at least two highl
             src="undefined/images/icons/icons-check-big.svg"
           />
           <span>
-            Read the entire passage
+            Read the entire text
           </span>
         </div>
         <div
@@ -127,7 +127,7 @@ exports[`BottomNavigation component when the student has made at least two highl
             src="undefined/images/icons/icons-check-big.svg"
           />
           <span>
-            Read the entire passage
+            Read the entire text
           </span>
         </div>
         <div
@@ -246,7 +246,7 @@ exports[`BottomNavigation component when the student has scrolled to the end of 
             src="undefined/images/icons/icons-check-big.svg"
           />
           <span>
-            Read the entire passage
+            Read the entire text
           </span>
         </div>
         <div
@@ -308,7 +308,7 @@ exports[`BottomNavigation component when the student has scrolled to the end of 
             src="undefined/images/icons/icons-check-big.svg"
           />
           <span>
-            Read the entire passage
+            Read the entire text
           </span>
         </div>
         <div
@@ -377,7 +377,7 @@ exports[`BottomNavigation component when the student has started highlighting re
             src="undefined/images/icons/icons-check-big.svg"
           />
           <span>
-            Read the entire passage
+            Read the entire text
           </span>
         </div>
         <div
@@ -447,7 +447,7 @@ exports[`BottomNavigation component when the student has started highlighting re
             src="undefined/images/icons/icons-check-big.svg"
           />
           <span>
-            Read the entire passage
+            Read the entire text
           </span>
         </div>
         <div
@@ -508,7 +508,7 @@ exports[`BottomNavigation component when the student has started the read passag
             src="undefined/images/icons/icons-check-big.svg"
           />
           <span>
-            Read the entire passage
+            Read the entire text
           </span>
         </div>
         <div
@@ -570,7 +570,7 @@ exports[`BottomNavigation component when the student has started the read passag
             src="undefined/images/icons/icons-check-big.svg"
           />
           <span>
-            Read the entire passage
+            Read the entire text
           </span>
         </div>
         <div

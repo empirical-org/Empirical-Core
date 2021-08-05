@@ -14,7 +14,7 @@ exports[`StepOverview component when the student is on step one renders 1`] = `
     <Step
       active={true}
       handleClick={[Function]}
-      text="Read a passage and highlight sentences"
+      text="Read a text and highlight sentences"
       title="Step 1 - Now"
     >
       <section
@@ -33,7 +33,7 @@ exports[`StepOverview component when the student is on step one renders 1`] = `
             Step 1 - Now
           </span>
           <p>
-            Read a passage and highlight sentences
+            Read a text and highlight sentences
           </p>
         </button>
       </section>
@@ -74,7 +74,7 @@ exports[`StepOverview component when the student is past step one renders 1`] = 
     </h1>
     <Step
       completed={true}
-      text="Read a passage and highlight sentences"
+      text="Read a text and highlight sentences"
       title="Step 1 - Done"
     >
       <section
@@ -91,7 +91,7 @@ exports[`StepOverview component when the student is past step one renders 1`] = 
             Step 1 - Done
           </span>
           <p>
-            Read a passage and highlight sentences
+            Read a text and highlight sentences
           </p>
         </div>
       </section>

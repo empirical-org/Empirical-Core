@@ -6,7 +6,7 @@ const READ_PASSAGE_STEP = 1
 
 const steps = [
   {
-    text: 'Read a passage and highlight sentences'
+    text: 'Read a text and highlight sentences'
   },
   {
     text: 'Write three sentences using evidence'

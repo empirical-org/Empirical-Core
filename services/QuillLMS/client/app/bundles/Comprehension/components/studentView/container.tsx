@@ -60,7 +60,6 @@ interface StudentViewContainerState {
   scrolledToEndOfPassage: boolean;
   hasStartedReadPassageStep: boolean;
   hasStartedPromptSteps: boolean;
-
 }
 
 const READ_PASSAGE_STEP = 1
@@ -509,12 +508,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   addPTagsToPassages = (passages: Passage[]) => {
-    const { studentHighlights, } = this.state
+    const { studentHighlights, scrolledToEndOfPassage, } = this.state
     return passages.map(passage => {
       const { text } = passage;
       const paragraphArray = text ? text.match(/[^\r\n]+/g) : [];
       return paragraphArray.map((p, i) => {
-        if (i === paragraphArray.length - 1 && !studentHighlights.length) {
+        if (i === paragraphArray.length - 1 && !scrolledToEndOfPassage) {
           return `<p>${p}<span id="end-of-passage"></span></p>`
         }
         return `<p>${p}</p>`
