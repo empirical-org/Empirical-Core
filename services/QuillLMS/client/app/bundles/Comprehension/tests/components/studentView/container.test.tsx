@@ -52,6 +52,7 @@ describe('StudentViewContainer component', () => {
 
     const scrollToStepMock = jest.fn()
     wrapper.instance().scrollToStep = scrollToStepMock
+    wrapper.setState({ explanationSlidesCompleted: true })
 
     it('renders', () => {
       expect(toJson(wrapper)).toMatchSnapshot()
@@ -149,7 +150,7 @@ describe('StudentViewContainer component', () => {
       describe('when the read passage step has been completed', () => {
         beforeAll(() => {
           mockTrackAnalyticsEvent.mockClear()
-          wrapper.setState({ completedSteps: [1], activeStep: 2, hasStartedReadPassageStep: true, hasStartedPromptSteps: true, })
+          wrapper.setState({ completedSteps: [1], activeStep: 2, hasStartedReadPassageStep: true, hasStartedPromptSteps: true, activityIsComplete: false, explanationSlidesCompleted: true })
           wrapper.find('.step-links').find('.step-link').last().simulate('click')
         })
 

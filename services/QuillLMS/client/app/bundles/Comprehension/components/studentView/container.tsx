@@ -11,6 +11,10 @@ import DirectionsSectionAndModal from './directionsSectionAndModal'
 import BottomNavigation from './bottomNavigation'
 import StepOverview from './stepOverview'
 
+import { explanationData } from "../activitySlides/explanationData";
+import ExplanationSlide from "../activitySlides/explanationSlide";
+import WelcomeSlide from "../activitySlides/welcomeSlide";
+import PostActivitySlide from '../activitySlides/postActivitySlide';
 import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
@@ -47,12 +51,19 @@ interface StudentViewContainerProps {
   location?: any;
   handleFinishActivity?: () => void;
   isTurk?: boolean;
+  user: string;
 }
 
 interface StudentViewContainerState {
   activeStep?: number;
+  activityIsComplete: boolean;
+  activityIsReadyForSubmission: boolean;
+  explanationSlidesCompleted: boolean;
+  explanationSlideStep:  number;
   completedSteps: Array<number>;
+  isIdle: boolean;
   showFocusState: boolean;
+  startTime: number;
   timeTracking: { [key:number]: number };
   studentHighlights: string[];
   doneHighlighting: boolean;
@@ -77,6 +88,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     this.state = {
       activeStep: READ_PASSAGE_STEP,
+      activityIsComplete: false,
+      activityIsReadyForSubmission: false,
+      explanationSlidesCompleted: false,
+      explanationSlideStep: 0,
       completedSteps: [],
       showFocusState: false,
       startTime: Date.now(),
@@ -377,6 +392,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       sessionID,
     }));
 
+    this.setState({ activityIsComplete: true });
     this.defaultHandleFinishActivity()
   }
 
@@ -834,19 +850,45 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     return this.renderSteps()
   }
 
+  handleExplanationSlideClick = () => {
+    const { explanationSlideStep } = this.state;
+    const nextStep = explanationSlideStep + 1;
+    if(nextStep > 3) {
+      this.setState({ explanationSlidesCompleted: true });
+    } else {
+      this.setState({  explanationSlideStep: nextStep });
+    }
+  }
+
   render = () => {
-    const { activities, } = this.props
-    const { showFocusState, activeStep, } = this.state
+    const { activities, session, user } = this.props
+    const { submittedResponses } = session;
+    const { showFocusState, activeStep, activityIsComplete, explanationSlidesCompleted, explanationSlideStep } = this.state
 
     if (!activities.hasReceivedData) { return <LoadingSpinner /> }
 
     const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP ? 'on-read-passage' : ''}`
 
-    return (<div className={className} onTouchEnd={this.handleReadPassageContainerTouchMoveEnd}>
-      {this.renderStepLinksAndDirections()}
-      {this.renderReadPassageContainer()}
-      {this.renderRightPanel()}
-    </div>)
+    if(!explanationSlidesCompleted) {
+      if(explanationSlideStep === 0) {
+        return <WelcomeSlide onHandleClick={this.handleExplanationSlideClick} user={user} />
+      }
+      return(
+        <ExplanationSlide onHandleClick={this.handleExplanationSlideClick} slideData={explanationData[explanationSlideStep]} />
+      );
+    }
+    if(activityIsComplete) {
+      return(
+        <PostActivitySlide responses={submittedResponses} user={user} />
+      );
+    }
+    return (
+      <div className={className} onTouchEnd={this.handleReadPassageContainerTouchMoveEnd}>
+        {this.renderStepLinksAndDirections()}
+        {this.renderReadPassageContainer()}
+        {this.renderRightPanel()}
+      </div>
+    )
   }
 }
 
