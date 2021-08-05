@@ -37,69 +37,48 @@ import { Events } from '../../../modules/analytics'
 
 const dispatch = () => {}
 
+const activitiesReducer = { hasReceivedData: true, currentActivity: activityOne}
+const sessionReducer = { submittedResponses: [], sessionID: 'MockSessionID', hasReceivedData: true }
+
+const wrapper = mount(<StudentViewContainer
+  activities={activitiesReducer}
+  dispatch={dispatch}
+  location={{ search: "?uid=1" }}
+  session={sessionReducer}
+/>)
+
 describe('StudentViewContainer component', () => {
   describe('when the activity has loaded', () => {
-    const activitiesReducer = { hasReceivedData: true, currentActivity: activityOne}
-    const sessionReducer = { submittedResponses: [], sessionID: 'MockSessionID', hasReceivedData: true }
-    const wrapper = mount(<StudentViewContainer
-      activities={activitiesReducer}
-      dispatch={dispatch}
-      location={{ search: "?uid=1" }}
-      session={sessionReducer}
-    />)
 
     const scrollToStepMock = jest.fn()
     wrapper.instance().scrollToStep = scrollToStepMock
+    wrapper.setState({ explanationSlidesCompleted: true })
 
     it('renders', () => {
       expect(toJson(wrapper)).toMatchSnapshot()
     })
 
-    it('should render a promptStep for each prompt in the activity', () => {
-      expect(wrapper.find(PromptStep).length).toBe(activityOne.prompts.length)
-    })
-
-    it('should render prompts in correct order', () => {
-      expect(wrapper.find(PromptStep).at(0).props().prompt.conjunction).toEqual('because')
-      expect(wrapper.find(PromptStep).at(1).props().prompt.conjunction).toEqual('but')
-      expect(wrapper.find(PromptStep).at(2).props().prompt.conjunction).toEqual('so')
-    });
-
     it('should track a COMPREHENSION_ACTIVITY_STARTED event', () => {
       expect(mockGetActivity).toHaveBeenCalledWith(sessionReducer.sessionID, activityOne.activity_id)
     })
 
-    describe('when the user clicks the done reading button', () => {
-      beforeAll(() => {
-        mockTrackAnalyticsEvent.mockClear()
-        wrapper.find('.done-reading-button').simulate('click')
+    describe('when the first step has been completed', () => {
+      wrapper.setState({ completedSteps: [1], activeStep: 2, hasStartedReadPassageStep: true, hasStartedPromptSteps: true, })
+      it('should render a promptStep for each prompt in the activity', () => {
+        expect(wrapper.find(PromptStep).length).toBe(activityOne.prompts.length)
       })
 
-      it('should increase to the next step', () => {
-        expect(wrapper.state('activeStep')).toBe(2)
-        expect(wrapper.state('completedSteps')).toEqual([1])
-      })
+      it('should render prompts in correct order', () => {
+        expect(wrapper.find(PromptStep).at(0).props().prompt.conjunction).toEqual('because')
+        expect(wrapper.find(PromptStep).at(1).props().prompt.conjunction).toEqual('but')
+        expect(wrapper.find(PromptStep).at(2).props().prompt.conjunction).toEqual('so')
+      });
 
-      it('should track a COMPREHENSION_PASSAGE_READ event', () => {
-        expect(mockTrackAnalyticsEvent).toHaveBeenNthCalledWith(1, Events.COMPREHENSION_PASSAGE_READ, {
-          activityID: activityOne.activity_id,
-          sessionID: sessionReducer.sessionID
-        })
-      })
-
-      it('should also track a COMPREHENSION_PROMPT_STARTED event', () => {
-        expect(mockTrackAnalyticsEvent).toHaveBeenNthCalledWith(2, Events.COMPREHENSION_PROMPT_STARTED, {
-          activityID: activityOne.activity_id,
-          sessionID: sessionReducer.sessionID,
-          promptID: activityOne.prompts[0].id
-        })
-      })
     })
 
     describe('when complete step is called', () => {
       describe('when the next step has not yet been completed and is not more than the total number of steps', () => {
         beforeAll(() => {
-          mockTrackAnalyticsEvent.mockClear()
           wrapper.setState({ completedSteps: [1] })
           wrapper.instance().completeStep(2)
         })
@@ -171,7 +150,7 @@ describe('StudentViewContainer component', () => {
       describe('when the read passage step has been completed', () => {
         beforeAll(() => {
           mockTrackAnalyticsEvent.mockClear()
-          wrapper.setState({ completedSteps: [1], activeStep: 1 })
+          wrapper.setState({ completedSteps: [1], activeStep: 2, hasStartedReadPassageStep: true, hasStartedPromptSteps: true, activityIsComplete: false, explanationSlidesCompleted: true })
           wrapper.find('.step-links').find('.step-link').last().simulate('click')
         })
 
@@ -187,16 +166,6 @@ describe('StudentViewContainer component', () => {
             sessionID: sessionReducer.sessionID,
             promptID: activityOne.prompts[lastPromptIndex].id
           })
-        })
-      })
-
-      describe('when the read passage step has not been completed', () => {
-
-        it('does not change the step', () => {
-          wrapper.setState({ completedSteps: [], activeStep: 1 })
-          wrapper.find('.step-links').find('.step-link').last().simulate('click')
-          expect(wrapper.state('activeStep')).toBe(1)
-          expect(scrollToStepOnMobileMock).toHaveBeenCalled()
         })
       })
     })

@@ -26,9 +26,9 @@ const PRE_AP_WRITINGS_SKILLS_2 = 'Pre-AP Writing Skills Survey 2'
 const AP_WRITINGS_SKILLS = 'AP Writing Skills Survey'
 const SPRING_BOARD_WRITINGS_SKILLS = 'SpringBoard Writing Skills Survey'
 
-const STARTER_DIAGNOSTIC_ACTIVITY_ID = 849
-const INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID = 850
-const ADVANCED_DIAGNOSTIC_ACTIVITY_ID = 888
+const STARTER_DIAGNOSTIC_ACTIVITY_ID = 1663
+const INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID = 1668
+const ADVANCED_DIAGNOSTIC_ACTIVITY_ID = 1678
 const ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID = 1161
 const ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID = 1568
 const ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID = 1590
@@ -49,7 +49,7 @@ const selectCard = (history: any, unitTemplateName: string, activityIdsArray: st
 const minis = ({ history }) => [
   (<AssignmentCard
     bodyArray={[
-      { key: 'What', text: 'Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manner, commas, prepositions, and capitalization', },
+      { key: 'What', text: 'Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words', },
       { key: 'When', text: 'Your students are working on basic grammar concepts.', }
     ]}
     buttonLink={`/activity_sessions/anonymous?activity_id=${STARTER_DIAGNOSTIC_ACTIVITY_ID}`}
@@ -61,7 +61,7 @@ const minis = ({ history }) => [
   />),
   (<AssignmentCard
     bodyArray={[
-      { key: 'What', text: 'Compound sentences, complex sentences, conjunctive adverbs, pronouns, and commonly confused words', },
+      { key: 'What', text: 'Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization', },
       { key: 'When', text: 'Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.', }
     ]}
     buttonLink={`/activity_sessions/anonymous?activity_id=${INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID}`}

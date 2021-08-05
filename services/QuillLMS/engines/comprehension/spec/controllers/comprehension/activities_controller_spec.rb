@@ -38,7 +38,7 @@ module Comprehension
 
       context 'should with actitivites' do
         let!(:first_activity) { create(:comprehension_activity, :title => "An Activity", :notes => "Notes 1", :target_level => 8) }
-        before do
+        before(:each) do
           create(:comprehension_activity, :title => "The Activity", :notes => "Notes 2", :target_level => 5)
         end
 
@@ -57,7 +57,8 @@ module Comprehension
 
     context 'should create' do
       let!(:activity) { build(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade", :notes => "First Activity - Notes") }
-      before do
+      before(:each) do
+        session[:user_id] = 1
         Comprehension.parent_activity_classification_class.create(:key => "comprehension")
       end
 
@@ -68,6 +69,18 @@ module Comprehension
         expect(parsed_response["title"]).to(eq("First Activity"))
         expect(parsed_response["notes"]).to(eq("First Activity - Notes"))
         expect(Activity.count).to(eq(1))
+      end
+
+      it "should make a change log record after creating the Activity record" do
+        post :create, params: { activity: { parent_activity_id: activity.parent_activity_id, scored_level: activity.scored_level, target_level: activity.target_level, title: activity.title, notes: activity.notes }}
+
+        new_activity = Activity.last
+        change_log = Comprehension.change_log_class.last
+        expect(change_log.serializable_hash["full_action"]).to(eq("Comprehension Activity - created"))
+        expect(change_log.user_id).to(eq(1))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Activity"))
+        expect(change_log.changed_record_id).to(eq(new_activity.id))
+        expect(change_log.new_value).to(eq(nil))
       end
 
       it 'should not create an invalid record and return errors as json' do
@@ -130,6 +143,9 @@ module Comprehension
     end
 
     context 'should update' do
+      before(:each) do
+        session[:user_id] = 1
+      end
       let!(:activity) { create(:comprehension_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade") }
       let!(:passage) { create(:comprehension_passage, :activity => (activity)) }
       let!(:prompt) { create(:comprehension_prompt, :activity => (activity)) }
@@ -143,6 +159,31 @@ module Comprehension
         expect(activity.scored_level).to(eq("5th grade"))
         expect(activity.target_level).to(eq(9))
         expect(activity.title).to(eq("New title"))
+      end
+
+      it "should make a change log record after updating Passage text" do
+        old_text = passage.text
+        put :update, params: {id: activity.id, activity: { passages_attributes: [{id: passage.id, text: ('Goodbye' * 20)}] }}
+
+        change_log = Comprehension.change_log_class.last
+        expect(change_log.serializable_hash["full_action"]).to(eq("Comprehension Passage Text - updated"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Passage"))
+        expect(change_log.changed_record_id).to(eq(passage.id))
+        expect(change_log.previous_value).to(eq(old_text))
+        expect(change_log.new_value).to(eq(('Goodbye' * 20)))
+      end
+
+      it "should make a change log record after creating Passage text" do
+        new_activity = create(:comprehension_activity)
+        put :update, params: {id: activity.id, activity: { passages_attributes: [{text: ('Goodbye' * 20)}] }}
+
+        change_log = Comprehension.change_log_class.last
+        expect(change_log.serializable_hash["full_action"]).to(eq("Comprehension Passage Text - created"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Passage"))
+        expect(change_log.previous_value).to(eq(nil))
+        expect(change_log.new_value).to(eq('Goodbye' * 20))
       end
 
       it 'should update passage if valid, return nothing' do
@@ -159,6 +200,32 @@ module Comprehension
         expect(response.code.to_i).to(eq(204))
         prompt.reload
         expect(prompt.text).to(eq("this is a good thing."))
+      end
+
+      it "should make a change log record after updating Prompt text" do
+        old_text = prompt.text
+        put :update, params: { id: activity.id, activity: { prompts_attributes: [{id: prompt.id, text: "this is a good thing."}] }}
+
+        change_log = Comprehension.change_log_class.last
+        expect(change_log.serializable_hash["full_action"]).to(eq("Comprehension Stem - updated"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Prompt"))
+        expect(change_log.changed_record_id).to(eq(prompt.id))
+        expect(change_log.previous_value).to(eq(old_text))
+        expect(change_log.new_value).to(eq("this is a good thing."))
+      end
+
+      it "should make a change log record after creating Prompt text through update call" do
+        put :update, params: { id: activity.id, activity: { prompts_attributes: [{text: "this is a new prompt.", conjunction: "because"}] }}
+
+        new_prompt = Comprehension::Prompt.last
+        change_log = Comprehension.change_log_class.last
+        expect(change_log.serializable_hash["full_action"]).to(eq("Comprehension Stem - created"))
+        expect(change_log.user_id).to(eq(nil))
+        expect(change_log.changed_record_type).to(eq("Comprehension::Prompt"))
+        expect(change_log.changed_record_id).to(eq(new_prompt.id))
+        expect(change_log.previous_value).to(eq(nil))
+        expect(change_log.new_value).to(eq("this is a new prompt."))
       end
 
       it 'should not update record and return errors as json' do
@@ -181,6 +248,57 @@ module Comprehension
         expect(Activity.find_by_id(activity.id)).to(be_nil)
         expect(passage.id).to(be_truthy)
         expect(Passage.find_by_id(passage.id)).to(be_nil)
+      end
+    end
+
+    context 'change_logs' do
+      before do
+        session[:user_id] = 1
+      end
+      let!(:activity) {build(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade", notes: "First Activity - Notes")}
+      let!(:prompt) {build(:comprehension_prompt)}
+      let!(:passage) {build(:comprehension_passage)}
+      Comprehension.parent_activity_classification_class.create(key: 'comprehension')
+
+      it "should return change logs for that activity" do
+        post :create, params: {
+          activity: {
+            parent_activity_id: activity.parent_activity_id,
+            scored_level: activity.scored_level,
+            target_level: activity.target_level,
+            title: activity.title,
+            notes: activity.notes,
+            passages_attributes: [{
+              text: passage.text
+            }],
+            prompts_attributes: [{
+              text: prompt.text,
+              conjunction: prompt.conjunction,
+              max_attempts: prompt.max_attempts,
+              max_attempts_feedback: prompt.max_attempts_feedback
+            }],
+          }
+        }
+
+        activity = Comprehension::Activity.last
+        get :change_logs, params: {id: activity.id}
+        parsed_response = JSON.parse(response.body)
+
+        expect(response.code.to_i).to(eq(200))
+        expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Comprehension::Passage'}.count).to(eq(1))
+        expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Comprehension::Activity'}.count).to(eq(1))
+        expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Comprehension::Prompt'}.count).to(eq(1))
+
+      end
+
+      it "should return empty array if no change logs exist" do
+        activity = create(:comprehension_activity)
+        Comprehension.change_log_class.destroy_all
+        get :change_logs, params: { id: activity.id }
+        parsed_response = JSON.parse(response.body)
+
+        expect(response.code.to_i).to(eq(200))
+        expect(parsed_response).to(eq([]))
       end
     end
 

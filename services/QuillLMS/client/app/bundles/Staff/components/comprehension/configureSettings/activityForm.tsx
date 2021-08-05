@@ -3,7 +3,6 @@ import { EditorState, ContentState } from 'draft-js';
 
 import PromptsForm from './promptsForm';
 
-// import { flagOptions } from '../../../../../constants/comprehension'
 import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction, getActivityPrompt, getActivityPromptSetter, renderErrorsContainer, renderIDorUID } from '../../../helpers/comprehension';
 import {
   BECAUSE,
@@ -23,20 +22,20 @@ import {
 } from '../../../../../constants/comprehension';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
 import { Input, TextEditor, } from '../../../../Shared/index'
+import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../../Shared/utils/constants'
 
 interface ActivityFormProps {
   activity: ActivityInterface,
-  closeModal: (event: React.MouseEvent) => void,
+  handleClickArchiveActivity: (any) => void,
   requestErrors: string[],
   submitActivity: (activity: object) => void
 }
 
 const DEFAULT_HIGHLIGHT_PROMPT = "As you read, highlight two sentences that explain "
 
-const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: ActivityFormProps) => {
+const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, submitActivity }: ActivityFormProps) => {
 
   const { parent_activity_id, passages, prompts, scored_level, target_level, title, notes, } = activity;
-  // const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
   const formattedScoredLevel = scored_level || '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
   const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT }];
@@ -53,7 +52,6 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
 
   const [activityTitle, setActivityTitle] = React.useState<string>(title || '');
   const [activityNotes, setActivityNotes] = React.useState<string>(notes || '');
-  // const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(formattedFlag);
   const [activityScoredReadingLevel, setActivityScoredReadingLevel] = React.useState<string>(formattedScoredLevel);
   const [activityTargetReadingLevel, setActivityTargetReadingLevel] = React.useState<string>(formattedTargetLevel);
   const [activityPassages, setActivityPassages] = React.useState<PassagesInterface[]>(formattedPassage);
@@ -66,8 +64,6 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
   function handleSetActivityTitle(e: InputEvent){ setActivityTitle(e.target.value) };
 
   function handleSetActivityNotes(e: InputEvent){ setActivityNotes(e.target.value) };
-
-  // const handleSetActivityFlag = (flag: FlagInterface) => { setActivityFlag(flag) };
 
   function handleSetActivityMaxFeedback(text: string){ setActivityMaxFeedback(text) };
 
@@ -110,6 +106,7 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
       activityBecausePrompt,
       activityButPrompt,
       activitySoPrompt,
+      highlightPrompt: activityPassages[0].highlight_prompt || DEFAULT_HIGHLIGHT_PROMPT
     });
     const state = [
       activityTitle,
@@ -142,10 +139,13 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
 
   return(
     <div className="activity-form-container">
-      <div className="close-button-container">
-        <button className="quill-button fun primary contained" id="activity-close-button" onClick={closeModal} type="button">x</button>
+      <div className="button-container">
+        <a className="quill-button fun secondary outlined" href={`/comprehension/#/play?uid=${activity.id}`} rel="noopener noreferrer" target="_blank">Play Activity</a>
+        {activity.parent_activity_id && <button className="quill-button fun secondary outlined" onClick={handleClickArchiveActivity} type="button">Archive Activity</button>}
+        <button className="quill-button fun primary contained" id="activity-submit-button" onClick={handleSubmitActivity} type="submit">Save</button>
       </div>
-      <form className="activity-form">
+      {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
+      <form className="comprehension-activity-form">
         <Input
           className="title-input"
           error={errors[TITLE]}
@@ -160,14 +160,6 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
           label="Activity Notes"
           value={activityNotes}
         />
-        {/* <DropdownInput
-          className="flag-input"
-          handleChange={handleSetActivityFlag}
-          isSearchable={true}
-          label="Development Stage"
-          options={flagOptions}
-          value={activityFlag}
-        /> */}
         <Input
           className="scored-reading-level-input"
           error={errors[SCORED_READING_LEVEL]}
@@ -229,15 +221,6 @@ const ActivityForm = ({ activity, closeModal, requestErrors, submitActivity }: A
           errors={errors}
           handleSetPrompt={handleSetPrompt}
         />
-        <div className="submit-button-container">
-          {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
-          <button className="quill-button fun primary contained" id="activity-submit-button" onClick={handleSubmitActivity} type="submit">
-            Submit
-          </button>
-          <button className="quill-button fun primary contained" id="activity-cancel-button" onClick={closeModal} type="button">
-            Cancel
-          </button>
-        </div>
       </form>
     </div>
   )

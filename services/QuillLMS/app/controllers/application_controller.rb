@@ -17,10 +17,9 @@ class ApplicationController < ActionController::Base
   #helper CMS::Helper
   helper SegmentioHelper
 
-  # FIXME: disabled till it's clear what this does
-  # before_action :setup_visitor
   before_action :set_raven_context
   before_action :confirm_valid_session
+  before_action :set_default_cache_security_headers
 
   def admin!
     return if current_user.try(:admin?)
@@ -48,13 +47,11 @@ class ApplicationController < ActionController::Base
   end
 
   def show_errors
-    status = env["PATH_INFO"][1..-1]
+    status = env['PATH_INFO'][1..-1]
     render_error(status)
   end
 
   def routing_error(error = 'Routing error', status = :not_found, exception=nil)
-    @current_user = current_user
-    #if current_user == nil render_error(404) : render_error()
     render_error(404)
   end
 
@@ -64,18 +61,11 @@ class ApplicationController < ActionController::Base
       # So technically we shouldn't really be setting the content-type header
       # in a content-less error response at all, but CORS security logic in Rails
       # falsely flags lack of content-type headers in responses to routes that end
-      # in ".js" as a class of responses that need CORS protection and 500s when
+      # in '.js' as a class of responses that need CORS protection and 500s when
       # attempting to serve a 404.  So, we set the content_type to 'text/html'.
-      format.js { render nothing: true, status: status, content_type: 'text/html' }
-      format.all { render nothing: true, status: status }
+      format.js { render head: :not_found, body: nil, status: status, content_type: 'text/html' }
+      format.any { render head: :not_found, body: nil, status: status }
     end
-  end
-
-  def setup_visitor
-    return true if signed_in?
-
-    # FIXME: ??
-    # sign_in(User.create_visitor)
   end
 
   def login_failure_message
@@ -86,7 +76,7 @@ class ApplicationController < ActionController::Base
   def login_failure(error)
     @user = User.new
     flash[:error] = error
-    redirect_to "/session/new"
+    redirect_to '/session/new'
   end
 
   def default_params
@@ -122,10 +112,10 @@ class ApplicationController < ActionController::Base
      response.headers['Vary'] = 'Accept'
   end
 
-  protected def set_cache_buster
-    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  protected def set_default_cache_security_headers
+    response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
   end
 
   protected def set_raven_context
@@ -178,4 +168,5 @@ class ApplicationController < ActionController::Base
     diff = now - timestamp
     diff.round.abs
   end
+
 end

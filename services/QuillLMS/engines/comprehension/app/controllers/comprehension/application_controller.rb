@@ -18,5 +18,11 @@ module Comprehension
       options.merge(json: json.to_json)
     end
 
+    # TODO: we should eventually configure the Comprehension engine to access outside
+    # variables like current_user
+    private def lms_user_id
+      session[:user_id]
+    end
+
   end
 end

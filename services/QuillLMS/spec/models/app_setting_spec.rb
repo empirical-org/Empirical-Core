@@ -4,7 +4,7 @@
 #
 #  id                  :integer          not null, primary key
 #  enabled             :boolean          default(FALSE), not null
-#  enabled_for_staff  :boolean          default(FALSE), not null
+#  enabled_for_staff   :boolean          default(FALSE), not null
 #  name                :string           not null
 #  percent_active      :integer          default(0), not null
 #  user_ids_allow_list :integer          default([]), not null, is an Array
@@ -62,6 +62,14 @@ RSpec.describe AppSetting, type: :model do
         expect(app_setting_1.enabled_for_user?(user)).to be false
       end
 
+    end
+
+    context 'user is nil' do 
+      let(:app_setting_1) { create(:app_setting, percent_active: 100, enabled: true) }
+
+      it 'should return false' do
+        expect(app_setting_1.enabled_for_user?(nil)).to be false
+      end
     end
 
     context 'override is true, staff is true' do

@@ -12,7 +12,7 @@
 #  created_at          :datetime
 #  updated_at          :datetime
 #  changed_record_id   :integer
-#  user_id             :integer          not null
+#  user_id             :integer
 #
 # Indexes
 #
@@ -44,11 +44,6 @@ RSpec.describe ChangeLog, type: :model do
 
     it "should not save if it is missing an action" do
       change_log.update(action: nil)
-      expect(change_log.save).not_to be
-    end
-
-    it "should not save if it is missing a user_id" do
-      change_log.update(user_id: nil)
       expect(change_log.save).not_to be
     end
 

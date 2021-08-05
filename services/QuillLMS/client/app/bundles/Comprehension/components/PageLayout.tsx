@@ -1,14 +1,16 @@
 import * as React from "react";
-import Header from "./Header";
-import { Redirect } from "react-router-dom";
 import {renderRoutes} from "react-router-config";
+
+import Header from "./Header";
+
 import { routes } from "../routes";
 
-const PageLayout: React.StatelessComponent<{}> = () => {
+const PageLayout: React.StatelessComponent<{}> = (props: any) => {
+  const { user } = props;
     return (
       <div className="app-container">
         <Header />
-        {renderRoutes(routes)}
+        {renderRoutes(routes, { user })}
       </div>
     );
 };

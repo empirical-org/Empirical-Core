@@ -1,5 +1,6 @@
 export interface FeedbackStrings {
   punctuationError: string;
+  punctuationEndError: string;
   punctuationAndCaseError: string;
   typingError: string;
   caseError: string;
@@ -19,6 +20,7 @@ export interface FeedbackStrings {
 
 export const feedbackStrings: FeedbackStrings = {
   punctuationError: 'Proofread your work. Check your punctuation.',
+  punctuationEndError: 'Proofread your work. Check your ending punctuation.',
   punctuationAndCaseError: 'Proofread your work. Check your punctuation and capitalization.',
   typingError: 'Proofread your work. Check your spelling.',
   caseError: 'Proofread your work. Check your capitalization.',

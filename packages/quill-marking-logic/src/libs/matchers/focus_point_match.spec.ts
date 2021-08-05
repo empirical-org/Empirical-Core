@@ -42,8 +42,9 @@ const focusPoints = [
   {
     text: 'likes',
     feedback: "Use a word that conveys appreciation and starts with l.",
+    name: "Use the word likes",
     concept_results: [{correct: true, conceptUID: 'a'}]
-  },
+  }
 ]
 
 describe('focusPointMatch', () => {
@@ -85,6 +86,20 @@ describe('The focusPointChecker', () => {
         parent_id: getTopOptimalResponse(savedResponses).id,
         concept_results: focusPointMatch(responseString, focusPoints).concept_results
       }
+    assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).feedback, partialResponse.feedback);
+    assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).author, partialResponse.author);
+    assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).parent_id, partialResponse.parent_id);
+  });
+
+  it('Should return a partialResponse object if the response string matches a focus point', () => {
+    const responseString = "Jared loves edtech and startups.";
+    const partialResponse =  {
+        feedback: focusPointMatch(responseString, focusPoints).feedback,
+        author: 'Use the word likes',
+        parent_id: getTopOptimalResponse(savedResponses).id,
+        concept_results: focusPointMatch(responseString, focusPoints).concept_results
+      }
+
     assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).feedback, partialResponse.feedback);
     assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).author, partialResponse.author);
     assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).parent_id, partialResponse.parent_id);

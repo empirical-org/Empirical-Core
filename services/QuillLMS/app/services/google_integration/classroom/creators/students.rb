@@ -34,49 +34,71 @@ module GoogleIntegration::Classroom::Creators::Students
   end
 
   def self.create_students(student_data)
-    students = student_data.map do |k, v|
-      create_student(student_data[k])
-    end
-    students.compact
+    student_data
+      .map { |k, v| create_student(student_data[k]) }
+      .compact
   end
 
   def self.create_student(data, counter=0)
-    if counter > 2
-      return nil
-    end
-    if data[:email]
-      student = User.find_or_initialize_by(email: data[:email].downcase)
-      if student.new_record?
-        classroom = Classroom.unscoped.find(data[:classrooms].first)
-        username = GenerateUsername.new(
-          data[:first_name],
-          data[:last_name],
-          classroom.code
-        ).call
-        student.update(name: data[:name],
-                       role: 'student',
-                       password: data[:last_name],
-                       username: username,
-                       signed_up_with_google: true,
-                       account_type: 'Google Classroom',
-                       google_id: data[:google_id]
-                      )
-      else
-        student.update(account_type: 'Google Classroom', google_id: data[:google_id])
-      end
+    return nil if data[:email].nil?
+    return nil if counter > 2
 
-      if student.errors.any?
-        student = create_student(data, counter += 1)
-      else
-        data[:classrooms].each do |id|
-          classroom = Classroom.find(id)
-          Associators::StudentsToClassrooms.run(student, classroom)
-        end
-      end
-      student
+    update_existing_student_with_google_id_and_different_email(data)
+
+    student = User.find_or_initialize_by(email: data[:email].downcase)
+
+    if student.new_record?
+      student.update(
+        name: data[:name],
+        role: 'student',
+        password: data[:last_name],
+        username: generate_username(data),
+        signed_up_with_google: true
+      )
+    else
+      student.update(
+        account_type: 'Google Classroom',
+        google_id: data[:google_id]
+      )
     end
+
+    if student.errors.any?
+      student = create_student(data, counter += 1)
+    else
+      assign_students_to_classrooms(student, data[:classrooms])
+    end
+
+    student
   end
 
+  def self.save_student_with_google_info(data)
+    student
+  end
 
+  def self.update_existing_student_with_google_id_and_different_email(data)
+    student = User.find_by(google_id: data[:google_id])
+    email = data[:email].downcase
 
+    return if student.nil?
+    return if student.email == email
+    return if User.find_by(email: email)
+
+    student.update(email: email)
+  end
+
+  def self.assign_students_to_classrooms(student, classroom_ids)
+    classroom_ids
+      .map { |id| Classroom.find(id) }
+      .each { |classroom| Associators::StudentsToClassrooms.run(student, classroom) }
+  end
+
+  def self.generate_username(data)
+    classroom = Classroom.unscoped.find(data[:classrooms].first)
+
+    GenerateUsername.new(
+      data[:first_name],
+      data[:last_name],
+      classroom.code
+    ).call
+  end
 end

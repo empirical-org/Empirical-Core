@@ -38,8 +38,6 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
         Feedback<span>{submittedResponses.length} of {prompt.max_attempts} attempts</span>
       </p>
       <ReactCSSTransitionReplace
-        transitionAppear={true}
-        transitionAppearTimeout={400}
         transitionEnterTimeout={1000}
         transitionLeaveTimeout={400}
         transitionName="fade"

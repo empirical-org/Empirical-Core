@@ -76,6 +76,7 @@ class User < ApplicationRecord
   has_many :credit_transactions
   has_many :invitations, foreign_key: 'inviter_id'
   has_many :objectives, through: :checkboxes
+  has_many :user_activity_classifications, dependent: :destroy
   has_many :user_subscriptions
   has_many :subscriptions, through: :user_subscriptions
   has_many :activity_sessions

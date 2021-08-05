@@ -136,7 +136,9 @@ class Activity < ApplicationRecord
 
   def module_url(activity_session)
     @activity_session = activity_session
+    classification_count = @activity_session&.user_activity_classifications&.find_by(user_id: @activity_session.user_id)&.count
     initial_params = {student: activity_session.uid}
+    initial_params[:activities] = classification_count if classification_count
     module_url_helper(initial_params)
   end
 

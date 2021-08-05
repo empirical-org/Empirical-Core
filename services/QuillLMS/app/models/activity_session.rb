@@ -54,6 +54,7 @@ class ActivitySession < ApplicationRecord
   belongs_to :classroom_unit
   belongs_to :activity
   has_one :classification, through: :activity
+  has_many :user_activity_classifications, through: :classification
   has_one :classroom, through: :classroom_unit
   has_one :unit, through: :classroom_unit
   has_many :concept_results
