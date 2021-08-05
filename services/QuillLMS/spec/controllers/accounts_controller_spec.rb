@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe AccountsController, type: :controller do
   it { should use_before_action :signed_in! }
-  it { should use_before_action :set_cache_buster }
 
   let(:user) { create(:user) }
 
