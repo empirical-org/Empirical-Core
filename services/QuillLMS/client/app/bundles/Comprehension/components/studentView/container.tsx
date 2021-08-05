@@ -2,7 +2,7 @@ import * as React from "react";
 import queryString from 'query-string';
 import { connect } from "react-redux";
 import stripHtml from "string-strip-html";
-import ReactHtmlParser from 'react-html-parser'
+import ReactHtmlParser, { convertNodeToElement, } from 'react-html-parser'
 
 import PromptStep from './promptStep'
 import StepLink from './stepLink'
@@ -578,12 +578,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { studentHighlights, showReadTheDirectionsModal, doneHighlighting, hasStartedReadPassageStep, } = this.state
     if (node.name === 'mark') {
       const shouldBeHighlightable = !doneHighlighting && !showReadTheDirectionsModal && hasStartedReadPassageStep
-      const text = node.children[0].data
+      const innerElements = node.children.map((n, i) => convertNodeToElement(n, i, this.transformMarkTags))
+      const stringifiedInnerElements = node.children.map(n => n.data ? n.data : n.children[0].data).join('')
       let className = ''
-      className += studentHighlights.includes(text) ? ' highlighted' : ''
+      className += studentHighlights.includes(stringifiedInnerElements) ? ' highlighted' : ''
       className += shouldBeHighlightable  ? ' highlightable' : ''
-      if (!shouldBeHighlightable) { return <mark className={className}>{text}</mark>}
-      return <mark className={className} onClick={this.handleHighlightClick} onKeyDown={this.handleHighlightKeyDown} tabIndex={0}>{text}</mark>
+      if (!shouldBeHighlightable) { return <mark className={className}>{innerElements}</mark>}
+      return <mark className={className} onClick={this.handleHighlightClick} onKeyDown={this.handleHighlightKeyDown} tabIndex={0}>{innerElements}</mark>
     }
   }
 
