@@ -12,10 +12,12 @@ describe CreateOrIncrementResponseWorker do
 
   describe '#perform' do
     context 'if the response already exists' do
-      it 'should increment the count of the response' do
+      it 'should increment the count of the response and set updated at timestamp' do
         original_count = response.count
+        original_updated_at = response.updated_at
         subject.perform({ text: response.text, question_uid: response.question_uid })
         expect(response.reload.count).to eq(original_count + 1)
+        expect(response.reload.updated_at).to be > original_updated_at
       end
 
       it 'should increment the child count of the parent response if there is a parent id' do
