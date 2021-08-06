@@ -1,5 +1,8 @@
 module Demo::ReportDemoCreator
 
+  REPLAYED_ACTIVITY_ID = 434
+  REPLAYED_SAMPLE_USER_ID = 312664
+
   def self.create_demo(name)
     teacher = create_teacher(name)
     classroom = create_classroom(teacher)
@@ -108,7 +111,7 @@ module Demo::ReportDemoCreator
   end
 
   def self.create_unit_activities(unit)
-    activities = [849, 437, 434, 215, 41, 386, 289, 295, 418]
+    activities = [1663, 437, 434, 215, 41, 386, 289, 295, 418]
     unit_activities = []
     activities.each do |act_id|
       values = {
@@ -128,9 +131,25 @@ module Demo::ReportDemoCreator
         assign_on_join: true)
   end
 
+  def self.create_replayed_activity_session(student)
+    replayed_session = ActivitySession.unscoped.where({activity_id: REPLAYED_ACTIVITY_ID, user_id: REPLAYED_SAMPLE_USER_ID, is_final_score: true}).first
+    student_id = student.id
+    cu = ClassroomUnit.where("#{student.id} = ANY (assigned_student_ids)").to_a.first
+    act_session = ActivitySession.create({activity_id: REPLAYED_ACTIVITY_ID, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: replayed_session&.percentage})
+    replayed_session&.concept_results&.each do |cr|
+      values = {
+        activity_session_id: act_session.id,
+        concept_id: cr.concept_id,
+        metadata: cr.metadata,
+        question_type: cr.question_type
+      }
+      ConceptResult.create(values)
+    end
+  end
+
   def self.create_activity_sessions(students)
     templates = [
-      {849 => 2949282,
+      {1663 => 9706466,
       437 => 313241,
       434 => 446637,
       215 => 369874,
@@ -141,7 +160,7 @@ module Demo::ReportDemoCreator
       418 => 662204},
 
 
-      {849 => 2949340,
+      {1663 => 9706465,
       437 => 409030,
       434 => 313319,
       215 => 370995,
@@ -152,7 +171,7 @@ module Demo::ReportDemoCreator
       418 => 662204},
 
 
-      {849 => 2949330,
+      {1663 => 9706463,
       437 => 446637,
       434 => 312664,
       215 => 369875,
@@ -163,7 +182,7 @@ module Demo::ReportDemoCreator
       418 => 662204},
 
 
-      {849 => 2949353,
+      {1663 => 9962415,
       437 => 312664,
       434 => 313241,
       215 => 369883,
@@ -173,7 +192,7 @@ module Demo::ReportDemoCreator
       295 => 442653,
       418 => 662204},
 
-      {849 => 3050346,
+      {1663 => 9962377,
       437 => 446641,
       434 => 446641,
       215 => 369872,
@@ -201,5 +220,7 @@ module Demo::ReportDemoCreator
         end
       end
     end
+
+    create_replayed_activity_session(students.first)
   end
 end
