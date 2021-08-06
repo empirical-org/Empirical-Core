@@ -87,6 +87,11 @@ class SegmentAnalytics
   end
 
   def track_classroom_creation(classroom)
+    # TODO Remove early return once this bug is fixed
+    # https://sentry.io/organizations/quillorg-5s/issues/2459924163/?project=11238&query=is%3Aunresolved
+    # https://www.notion.so/quill/Clever-Classrooms-missing-Teachers-1be9032fb94e4af48a1afa3e8156804d
+    return unless classroom&.owner&.id
+
     # first event is for Vitally, which does not show properties
     track({
       user_id: classroom&.owner&.id,
