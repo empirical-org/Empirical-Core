@@ -169,10 +169,6 @@ module Teacher
     end
   end
 
-  def google_classrooms
-    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND ct.role = 'owner' AND classrooms.google_classroom_id IS NOT null")
-  end
-
   def classrooms_i_teach_with_students
     classrooms_i_teach.map{|classroom| classroom.with_students}
   end
@@ -657,8 +653,12 @@ module Teacher
   end
 
   private def base_sql_for_teacher_classrooms(only_visible_classrooms=true)
-    base = "SELECT classrooms.* from classrooms_teachers AS ct
-    JOIN classrooms ON ct.classroom_id = classrooms.id #{only_visible_classrooms ? ' AND classrooms.visible = TRUE' : nil}
-    WHERE ct.user_id = #{id}"
+    <<-SQL
+      SELECT classrooms.*
+      FROM classrooms_teachers AS ct
+      JOIN classrooms
+        ON ct.classroom_id = classrooms.id #{only_visible_classrooms ? ' AND classrooms.visible = TRUE' : nil}
+      WHERE ct.user_id = #{id}
+    SQL
   end
 end
