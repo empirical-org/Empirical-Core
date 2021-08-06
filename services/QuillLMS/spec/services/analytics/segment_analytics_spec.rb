@@ -10,6 +10,7 @@ describe 'SegmentAnalytics' do
 
   context 'tracking classroom creation' do
     let(:classroom) { create(:classroom) }
+    let(:classroom_with_no_teacher) { create(:classroom, :with_no_teacher) }
 
     it 'sends two events' do
       analytics.track_classroom_creation(classroom)
@@ -21,6 +22,12 @@ describe 'SegmentAnalytics' do
       expect(track_calls[1][:user_id]).to eq(classroom.owner.id)
       expect(track_calls[1][:properties][:classroom_type]).to eq(classroom.classroom_type_for_segment)
       expect(track_calls[1][:properties][:classroom_grade]).to eq(classroom.grade_as_integer)
+    end
+
+    it 'should not send event if there is no owner' do
+      analytics.track_classroom_creation(classroom_with_no_teacher)
+      expect(identify_calls.size).to eq(0)
+      expect(track_calls.size).to eq(0)
     end
   end
 
