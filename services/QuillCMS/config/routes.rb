@@ -47,5 +47,7 @@ Rails.application.routes.draw do
   # catch-all 404
   # DO NOT PLACE ROUTES BELOW THIS ONE, this catch-all must be last
   get '*path', to: 'application#routing_error'
+  post '/', to: 'application#routing_error'
+  post '*path', to: 'application#routing_error'
 
 end
