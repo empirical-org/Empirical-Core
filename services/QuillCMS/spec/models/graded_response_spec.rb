@@ -16,7 +16,7 @@ RSpec.describe GradedResponse, type: :model do
       expect(GradedResponse.count).to be 2
     end
 
-    it 'should return responses for queries' do
+    it 'should return response objects for queries' do
       GradedResponse.refresh
       graded_responses = GradedResponse.where(question_uid: '123').sort_by(&:id)
 
