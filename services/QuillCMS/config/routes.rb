@@ -34,6 +34,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :questions, only: [], param: :question_uid do
+    get :responses, :multiple_choice_options, on: :member
+  end
+
   # Sidekiq web interface
   mount Sidekiq::Web => '/sidekiq'
 

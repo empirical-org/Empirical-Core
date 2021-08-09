@@ -6,7 +6,6 @@ RSpec.describe GradedResponse, type: :model do
     let!(:response_nonoptimal) {create(:response, question_uid: '123', optimal: false)}
     let!(:response_ungraded) {create(:response, question_uid: '123', optimal: nil)}
 
-
     it 'should return no records if refresh is not run' do
       expect(GradedResponse.count).to be 0
     end
