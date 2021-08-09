@@ -10,7 +10,6 @@ RSpec.describe QuestionsController, type: :controller do
       get :responses, params: {question_uid: '123'}
 
       expect(response.status).to eq 200
-
       expect(JSON.parse(response.body)).to be_empty
     end
 
@@ -43,7 +42,6 @@ RSpec.describe QuestionsController, type: :controller do
       get :multiple_choice_options, params: {question_uid: '123'}
 
       expect(response.status).to eq 200
-
       expect(JSON.parse(response.body)).to be_empty
     end
 
