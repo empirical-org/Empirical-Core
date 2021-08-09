@@ -1,12 +1,24 @@
 SecureHeaders::Configuration.default do |config|
-  #config.csp = SecureHeaders::OPT_OUT
   config.csp = {
-    #disable_nonce_backwards_compatibility: true,
-    default_src: %w('none'),
-    object_src: %w('none'),
-    script_src: %w('unsafe-inline' 'unsafe-eval' 'strict-dynamic'),
-    base_uri: %w('self')
+    default_src: [
+      "'self'", 
+      "https://*.quill.org",
+      "'unsafe-inline'"
+    ],                                                            # fallback for more specific directives
+    object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>
+    script_src: [
+      "'self'", 
+      "'unsafe-inline'",
+      "'unsafe-eval'",                                            # allows use of eval()
+      "http://*.typekit.net",
+      "https://*.typekit.net"                                     # typekit currently serves fonts over http, 
+                                                                  # but we want to avoid an outage if and when they upgrade to https
+    ],                                                            
+    font_src: %w('self' https://*.typekit.net),
+    img_src: %w('self' https://*.quill.org https://*.typekit.net),
+    base_uri: %w('self')                                          # used for relative URLs
   }
+
   config.cookies = {
     secure: true, 
     httponly: true, 
@@ -14,17 +26,4 @@ SecureHeaders::Configuration.default do |config|
       lax: true 
     }
   }
-
-  config.csp_report_only = config.csp.merge({
-    img_src: %w(somewhereelse.com),
-    report_uri: %w(https://hooks.slack.com/services/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)
-  })
 end
-
-
-
-# Content-Security-Policy:
-#   object-src 'none';
-#   script-src 'nonce-{random}' 'unsafe-inline' 'unsafe-eval' 'strict-dynamic' https: http:;
-#   base-uri 'none';
-#   report-uri https://your-report-collector.example.com/
