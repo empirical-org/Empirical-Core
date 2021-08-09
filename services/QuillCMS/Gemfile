@@ -18,6 +18,7 @@ gem 'dotenv-rails', '~> 2.7'
 gem 'activerecord-import'
 gem 'bulk_insert'
 gem 'pg', '~> 1.2'
+gem 'scenic'
 
 # QUEUE/CACHING
 gem 'connection_pool'
