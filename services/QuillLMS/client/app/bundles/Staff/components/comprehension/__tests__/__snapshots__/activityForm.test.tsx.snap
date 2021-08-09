@@ -97,6 +97,7 @@ exports[`Activity Form component should render Activities 1`] = `
       <button
         className="quill-button fun secondary outlined focus-on-light"
         onClick={[Function]}
+        type="button"
       >
         Hide highlights
       </button>
