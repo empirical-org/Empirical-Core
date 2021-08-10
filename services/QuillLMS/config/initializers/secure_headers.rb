@@ -29,7 +29,16 @@ SecureHeaders::Configuration.default do |config|
     ],                                                            
     font_src: %w('self' https://*.typekit.net),
     img_src: %w('self' https://*.quill.org https://*.typekit.net),
-    base_uri: %w('self')                                          # used for relative URLs
+    base_uri: %w('self'),                                          # used for relative URLs
+    style_src: [
+      "https://*.fontawesome.com",
+      "https://*.googleapis.com"      
+    ],
+    connect_src: [
+      "https://*.segment.com",
+      "https://*.segment.io",
+      "https://*.nr-data.net"
+    ]
   }
 
   config.cookies = {
