@@ -40,7 +40,7 @@ exports[`ReadAndHighlightInstructions component when the student has not started
             Directions
           </h3>
           <p>
-            As you read, highlight two sentences that explain 
+            As you read, highlight two sentences 
             <u />
           </p>
         </section>
@@ -166,7 +166,7 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
             Directions
           </h3>
           <p>
-            As you read, highlight two sentences that explain 
+            As you read, highlight two sentences 
             <u />
           </p>
         </section>
