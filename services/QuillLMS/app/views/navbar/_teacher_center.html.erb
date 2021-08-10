@@ -18,7 +18,7 @@
       image_id: 'gettingstarted-img',
       link: '/teacher-center/topic/getting-started'
     %>
-    <% if AppSetting.enabled?(name: 'comprehension', user: current_user) %>
+    <% if current_user && AppSetting.enabled?(name: 'comprehension', user: current_user) %>
       <%= render 'navbar/tooltip_link',
         text: 'Using Quill for Reading Comprehension',
         subtext: "Learn all about Quill's new reading and writing tool",

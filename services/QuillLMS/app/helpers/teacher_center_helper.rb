@@ -6,7 +6,7 @@ module TeacherCenterHelper
   ALL_SHORT = 'All'
 
   def teacher_center_tabs(large: true)
-    is_comprehension_user = AppSetting.enabled?(name: 'comprehension', user: current_user)
+    is_comprehension_user = current_user && AppSetting.enabled?(name: 'comprehension', user: current_user)
     comprehension_tab = {
       id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
       name: large ? 'Using Quill for reading comprehension' : COMPREHENSION_SHORT,
