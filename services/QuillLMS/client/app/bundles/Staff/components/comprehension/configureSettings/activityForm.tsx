@@ -22,6 +22,7 @@ import {
 } from '../../../../../constants/comprehension';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
 import { Input, TextEditor, } from '../../../../Shared/index'
+import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../../Shared/utils/constants'
 
 interface ActivityFormProps {
   activity: ActivityInterface,
@@ -30,7 +31,7 @@ interface ActivityFormProps {
   submitActivity: (activity: object) => void
 }
 
-const DEFAULT_HIGHLIGHT_PROMPT = "As you read, highlight two sentences that explain "
+const DEFAULT_HIGHLIGHT_PROMPT = "As you read, highlight two sentences "
 
 const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, submitActivity }: ActivityFormProps) => {
 

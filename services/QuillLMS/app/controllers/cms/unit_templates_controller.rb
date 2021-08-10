@@ -1,4 +1,5 @@
 class Cms::UnitTemplatesController < Cms::CmsController
+  skip_before_action :verify_authenticity_token
   before_action :set_unit_template, only: [:update, :destroy]
 
   def index

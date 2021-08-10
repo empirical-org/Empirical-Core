@@ -1,6 +1,5 @@
 class AccountsController < ApplicationController
   before_action :signed_in!, only: [:edit, :update]
-  before_action :set_cache_buster, only: [:new]
   before_action :set_user, only: [:create]
 
   def new
