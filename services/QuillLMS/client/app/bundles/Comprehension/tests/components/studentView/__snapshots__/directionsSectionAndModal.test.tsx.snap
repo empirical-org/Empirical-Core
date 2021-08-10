@@ -25,9 +25,8 @@ exports[`DirectionsSectionAndModal component when the student is in reflection r
       <p>
         Great! 
         <u>
-          Now take a moment to reflect.
+          Now take a moment to reflect on the sentences you highlighted.
         </u>
-         Look back at what you highlighted to think about reasons 
       </p>
     </section>
   </div>
@@ -58,7 +57,7 @@ exports[`DirectionsSectionAndModal component when the student is on the read pas
         Directions
       </h3>
       <p>
-        As you read, highlight two sentences that explain 
+        As you read, highlight two sentences 
         <u />
       </p>
     </section>
@@ -140,7 +139,7 @@ exports[`DirectionsSectionAndModal component when the student should see the mod
         Directions
       </h3>
       <p>
-        As you read, highlight two sentences that explain 
+        As you read, highlight two sentences 
         <u />
       </p>
     </section>
