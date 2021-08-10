@@ -31,7 +31,7 @@ interface ActivityFormProps {
   submitActivity: (activity: object) => void
 }
 
-const DEFAULT_HIGHLIGHT_PROMPT = "As you read, highlight two sentences that explain "
+const DEFAULT_HIGHLIGHT_PROMPT = "As you read, highlight two sentences "
 
 const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, submitActivity }: ActivityFormProps) => {
 

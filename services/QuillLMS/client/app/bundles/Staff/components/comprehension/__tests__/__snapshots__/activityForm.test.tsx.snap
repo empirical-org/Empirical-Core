@@ -116,8 +116,8 @@ exports[`Activity Form component should render Activities 1`] = `
       autoComplete="on"
       className="highlight-prompt-input"
       handleChange={[Function]}
-      label="Highlight Prompt: \\"As you read, highlight two sentences that explain ...\\""
-      value="As you read, highlight two sentences that explain "
+      label="Highlight Prompt: \\"As you read, highlight two sentences ...\\""
+      value="As you read, highlight two sentences "
     />
     <PromptsForm
       activityBecausePrompt={
