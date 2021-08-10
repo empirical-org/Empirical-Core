@@ -24,13 +24,10 @@ SecureHeaders::Configuration.default do |config|
       "https://*.satismeter.com",
       "https://*.stripe.com",
       "https://*.amplitude.com",
-      "https://*.nr-data.net",
-      "https://*.doubleclick.net",
-      "https://*.typekit.net"                                     # typekit currently serves fonts over http, 
-                                                                  # but we want to avoid an outage if and when they upgrade to https
+      "https://*.doubleclick.net"
     ],                                                            
 
-    font_src: %w('self' https://*.typekit.net),
+    font_src: %w('self' https://*.typekit.net https://*.fontawesome.com),
 
     img_src: %w('self' https://*.quill.org https://*.typekit.net),
 
