@@ -3,9 +3,11 @@ SecureHeaders::Configuration.default do |config|
     default_src: [
       "'self'", 
       "https://*.quill.org",
-      "'unsafe-inline'"
+      "'unsafe-inline'"                                           # TODO: remove once nonce strategy is in place
     ],                                                            # fallback for more specific directives
+
     object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>
+
     script_src: [
       "'self'", 
       "'unsafe-inline'",
@@ -27,14 +29,21 @@ SecureHeaders::Configuration.default do |config|
       "https://*.typekit.net"                                     # typekit currently serves fonts over http, 
                                                                   # but we want to avoid an outage if and when they upgrade to https
     ],                                                            
+
     font_src: %w('self' https://*.typekit.net),
+
     img_src: %w('self' https://*.quill.org https://*.typekit.net),
-    base_uri: %w('self'),                                          # used for relative URLs
+
+    base_uri: %w('self'),                                         # used for relative URLs
+
     style_src: [
+      "'self'",
+      "'unsafe-inline'",
       "https://*.fontawesome.com",
       "https://*.googleapis.com"      
     ],
-    connect_src: [
+
+    connect_src: [                                                # for XHR, etc
       "https://*.segment.com",
       "https://*.segment.io",
       "https://*.nr-data.net"
