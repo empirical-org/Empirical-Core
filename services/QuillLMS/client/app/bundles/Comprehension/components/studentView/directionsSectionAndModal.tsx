@@ -16,7 +16,7 @@ const DirectionsSectionAndModal = ({ className, closeReadTheDirectionsModal, pas
     return (<div className={className}>
       <section className="reflection-section">
         <h3>Directions</h3>
-        <p>Great! <u>Now take a moment to reflect.</u> Look back at what you highlighted to think about reasons {uniquePartOfHighlightPrompt}</p>
+        <p>Great! <u>Now take a moment to reflect on the sentences you highlighted.</u></p>
       </section>
     </div>)
   }
