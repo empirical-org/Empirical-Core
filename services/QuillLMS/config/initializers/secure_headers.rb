@@ -41,9 +41,12 @@ SecureHeaders::Configuration.default do |config|
     ],
 
     connect_src: [                                                # for XHR, etc
+      "'self'",  
       "https://*.segment.com",
       "https://*.segment.io",
-      "https://*.nr-data.net"
+      "https://*.nr-data.net",
+      "https://*.google-analytics.com",
+      "https://*.inspectlet.com"
     ]
   }
 
