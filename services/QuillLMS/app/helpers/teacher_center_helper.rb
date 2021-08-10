@@ -6,16 +6,18 @@ module TeacherCenterHelper
   ALL_SHORT = 'All'
 
   def teacher_center_tabs(large: true)
+    is_comprehension_user = AppSetting.enabled?(name: 'comprehension', user: current_user)
+    comprehension_tab = {
+      id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
+      name: large ? 'Using Quill for reading comprehension' : COMPREHENSION_SHORT,
+      url: 'teacher-center/topic/using-quill-for-reading-comprehension'
+    }
+    tabs =
      [
       {
         id: BlogPost::ALL_RESOURCES,
         name: large ? BlogPost::ALL_RESOURCES : ALL_SHORT,
         url: 'teacher-center'
-      },
-      {
-        id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
-        name: large ? 'Using Quill for reading comprehension' : COMPREHENSION_SHORT,
-        url: 'teacher-center/topic/using-quill-for-reading-comprehension'
       },
       {
         id: BlogPost::GETTING_STARTED,
@@ -43,6 +45,8 @@ module TeacherCenterHelper
         url: 'premium'
       }
     ]
+    tabs.insert(1, comprehension_tab) if is_comprehension_user
+    tabs
   end
 
   def student_center_tabs(large: true)
