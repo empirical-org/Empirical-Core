@@ -97,7 +97,7 @@ class FeedbackHistory < ApplicationRecord
     {
       concept_uid: concept_uid,
       activity_session_id: activity_session&.id,
-      activity_classification_id: ActivityClassification.comprehension.id,
+      activity_classification_id: ActivityClassification.evidence.id,
       concept_id: concept.id,
       metadata: {
         correct: optimal ? 1: 0,

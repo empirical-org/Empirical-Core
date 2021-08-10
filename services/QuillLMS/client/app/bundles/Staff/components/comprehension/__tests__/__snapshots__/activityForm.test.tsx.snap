@@ -9,7 +9,7 @@ exports[`Activity Form component should render Activities 1`] = `
   >
     <a
       className="quill-button fun secondary outlined"
-      href="/comprehension/#/play?uid=undefined"
+      href="/evidence/#/play?uid=undefined"
       rel="noopener noreferrer"
       target="_blank"
     >

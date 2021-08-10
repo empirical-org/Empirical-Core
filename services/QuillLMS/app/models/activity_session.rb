@@ -197,7 +197,7 @@ class ActivitySession < ApplicationRecord
   end
 
   def determine_if_final_score
-    return if state != 'finished' || (percentage.nil? && !activity.is_comprehension?)
+    return if state != 'finished' || (percentage.nil? && !activity.is_evidence?)
 
     # mark all finished anonymous sessions as final score.
     if user.nil?

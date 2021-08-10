@@ -753,8 +753,8 @@ end
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
 
-    it 'updates when the ActivityClassification.key is "comprehension" even if the percentage is nil' do
-      classification = create(:activity_classification, key: 'comprehension')
+    it 'updates when the ActivityClassification.key is "evidence" even if the percentage is nil' do
+      classification = create(:activity_classification, key: 'evidence')
       activity
       activity.update(classification: classification)
       previous_final_score
