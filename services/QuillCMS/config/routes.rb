@@ -7,8 +7,10 @@ Rails.application.routes.draw do
 
   resources :responses, only: [:show, :create, :update, :destroy]
 
+  # TODO: remove these 2 routes to transition to GradedResponse setup
   get  'questions/:question_uid/responses' => 'responses#responses_for_question'
   get  'questions/:question_uid/multiple_choice_options' => 'responses#multiple_choice_options'
+  # END
   get  'questions/:question_uid/health' => 'responses#health_of_question'
   get  'questions/:question_uid/grade_breakdown' => 'responses#grade_breakdown'
   get  'questions/:question_uid/question_dashboard_data' => 'responses#question_dashboard'
@@ -32,6 +34,11 @@ Rails.application.routes.draw do
     collection do
       get :index, :database, :redis_cache, :redis_queue, :elasticsearch, :memcached
     end
+  end
+
+  # TODO: remove path :graded to match routes used by frontend apps
+  resources :questions, only: [], param: :question_uid, path: :graded do
+    get :responses, :multiple_choice_options, on: :member
   end
 
   # Sidekiq web interface

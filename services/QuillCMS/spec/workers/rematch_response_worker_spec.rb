@@ -119,13 +119,16 @@ describe RematchResponseWorker do
       "spelling_error":false
     }]
   }.stringify_keys
-  reference_responses = []
-  sample_payload["referenceResponses"].each do |r|
-    reference_responses.push(Response.create_with(r).find_or_create_by(id: r[:id]))
-  end
+
 
   describe '#perform' do
     let(:response) { Response.create(sample_payload['response']) }
+    let(:reference_responses) do
+      sample_payload["referenceResponses"].map do |params|
+        create(:response, params)
+      end
+    end
+
     it 'should update the response based on the lambda payload' do
       stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/)
         .to_return(status: 200, body: sample_lambda_response.to_json, headers: {})
