@@ -58,7 +58,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.inspectlet.com",
       "https://*.doubleclick.net",
       "https://*.pusherapp.com",
-      "https://*.pusher.com"
+      "https://*.pusher.com",
+      "wss://*.pusherapp.com"
     ]
   }
 
