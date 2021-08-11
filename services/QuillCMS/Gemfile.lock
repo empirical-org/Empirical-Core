@@ -320,7 +320,7 @@ DEPENDENCIES
   redis-namespace
   rspec-rails (~> 4.0)
   rubyzip
-  scenic
+  scenic (~> 1.5.4)
   sidekiq (~> 5.2.9)
   sidekiq-pro (= 5.0.0)!
   sinatra
