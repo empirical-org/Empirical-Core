@@ -58,6 +58,7 @@ RSpec.describe QuestionsController, type: :controller do
         GradedResponse.refresh
       end
 
+      # Note, this expectation is bound to QuestionsController::MULTIPLE_CHOICE_LIMIT
       it 'should return graded responses, 2 optimal, 2 nonoptimal' do
         get :multiple_choice_options, params: {question_uid: '123'}
 
@@ -84,6 +85,7 @@ RSpec.describe QuestionsController, type: :controller do
         GradedResponse.refresh
       end
 
+      # Note, this expectation is bound to QuestionsController::MULTIPLE_CHOICE_LIMIT
       it 'should return graded responses, 2 optimal' do
         get :multiple_choice_options, params: {question_uid: '123'}
 
