@@ -28,13 +28,13 @@ class CreateOrIncrementResponseWorker
   end
 
   def increment_counts(response, symbolized_vals)
-    response.increment!(:count)
+    response.increment!(:count, 1, touch: true)
     increment_first_attempt_count(response, symbolized_vals)
     increment_child_count_of_parent(response)
   end
 
   def increment_first_attempt_count(response, symbolized_vals)
-    symbolized_vals[:is_first_attempt] == "true" ? response.increment!(:first_attempt_count) : nil
+    symbolized_vals[:is_first_attempt] == "true" ? response.increment!(:first_attempt_count, 1, touch: true) : nil
   end
 
   def increment_child_count_of_parent(response)
@@ -46,7 +46,7 @@ class CreateOrIncrementResponseWorker
     # id is truthy and not 0
     if id && id != 0
       parent = Response.find_by_id_or_uid(id)
-      parent.increment!(:child_count) unless parent.nil?
+      parent.increment!(:child_count, 1, touch: true) unless parent.nil?
     end
   end
 
