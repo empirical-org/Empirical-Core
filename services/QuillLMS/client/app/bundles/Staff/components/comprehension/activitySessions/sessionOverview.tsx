@@ -7,7 +7,7 @@ import { DataTable, Error, Spinner } from '../../../../Shared/index';
 import { getPromptForActivitySession } from "../../../helpers/comprehension";
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 
-const SessionOverview = ({ activity, sessionData }) => {
+const SessionOverview = ({ activity, rules, sessionData }) => {
 
   function sessionRows({ activitySession }) {
     if(!activitySession) {
@@ -78,9 +78,9 @@ const SessionOverview = ({ activity, sessionData }) => {
         headers={dataTableFields}
         rows={sessionRows(sessionData)}
       />
-      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, BECAUSE)} sessionId={sessionId} showHeader={true} />
-      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, BUT)} sessionId={sessionId} showHeader={true} />
-      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, SO)} sessionId={sessionId} showHeader={true} />
+      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, BECAUSE)} rules={rules} sessionId={sessionId} showHeader={true} />
+      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, BUT)} rules={rules} sessionId={sessionId} showHeader={true} />
+      <PromptTable activity={activity} prompt={getPromptForActivitySession(sessionData, SO)} rules={rules} sessionId={sessionId} showHeader={true} />
     </div>
   );
 }
