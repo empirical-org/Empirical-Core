@@ -28,7 +28,13 @@ SecureHeaders::Configuration.default do |config|
       "https://*.doubleclick.net"
     ],                                                            
 
-    font_src: %w('self' https://*.typekit.net https://*.fontawesome.com),
+    font_src: [
+      "'self'",
+      "https://*.typekit.net",
+      "https://*.fontawesome.com",
+      "https://*.gstatic.com"
+
+    ], 
 
     img_src: %w('self' https://*.quill.org https://*.typekit.net),
 
@@ -44,12 +50,15 @@ SecureHeaders::Configuration.default do |config|
 
     connect_src: [                                                # for XHR, etc
       "'self'",  
+      "https://*.quill.org",
       "https://*.segment.com",
       "https://*.segment.io",
       "https://*.nr-data.net",
       "https://*.google-analytics.com",
       "https://*.inspectlet.com",
-      "https://*.doubleclick.net" 
+      "https://*.doubleclick.net",
+      "https://*.pusherapp.com",
+      "https://*.pusher.com"
     ]
   }
 
