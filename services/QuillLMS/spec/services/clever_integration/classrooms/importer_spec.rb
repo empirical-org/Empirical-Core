@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe CleverIntegration::Classrooms::Importer do
+  let(:name) { 'clever classroom' }
+
   let(:data) do
     {
       clever_id: clever_id,
-      name: 'clever classroom',
+      name: name,
       grade: '1'
     }
   end
@@ -13,11 +15,12 @@ RSpec.describe CleverIntegration::Classrooms::Importer do
 
   context 'classroom exists with clever_id' do
     let(:clever_id) { '123_abc' }
+    let(:synced_name) { 'original ' + name}
 
-    before { create(:classroom, clever_id: clever_id) }
+    let!(:classroom) { create(:classroom, synced_name: synced_name, clever_id: clever_id) }
 
     it 'runs classroom updater' do
-      expect { subject.run }.to_not change(Classroom, :count)
+      expect { subject.run }.to(change { classroom.reload.synced_name }.from(synced_name).to(name))
     end
   end
 

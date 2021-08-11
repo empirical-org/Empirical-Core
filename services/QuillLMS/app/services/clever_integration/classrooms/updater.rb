@@ -18,16 +18,16 @@ module CleverIntegration
         @classroom ||= Classroom.unscoped.find_by!(clever_id: clever_id)
       end
 
+      private def custom_name?
+        classroom.name != classroom.synced_name
+      end
+
       private def name
         custom_name? ? classroom.name : data[:name]
       end
 
       private def synced_name
         data[:name]
-      end
-
-      private def custom_name?
-        classroom.name != classroom.synced_name
       end
 
       private def update!
