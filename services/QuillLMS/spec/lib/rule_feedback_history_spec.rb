@@ -189,6 +189,23 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
     end
 
+    it 'should include rules that have no related FeedbackHistory records' do
+      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
+
+      result = RuleFeedbackHistory.generate_rulewise_report(
+        rule_uid: so_rule1.uid,
+        prompt_id: 1,
+        start_date: nil,
+        end_date: nil)
+
+      expect(result.keys.length).to eq 1
+      expect(result.keys.first.to_s).to eq so_rule1.uid
+
+      responses = result[so_rule1.uid.to_sym][:responses]
+
+      expect(responses.length).to eq(0)
+    end
+
     it 'should filter feedback histories by prompt id, used=true, time params and turk session ID' do
       so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
       unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} }

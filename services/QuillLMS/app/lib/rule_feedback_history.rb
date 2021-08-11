@@ -25,7 +25,7 @@ class RuleFeedbackHistory
         .joins('LEFT JOIN feedback_histories ON feedback_histories.rule_uid = comprehension_rules.uid AND feedback_histories.prompt_id = prompts.id')
         .joins('LEFT JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
         .joins('LEFT JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
-        .where("feedback_histories.used = ?", true)
+        .where("(feedback_histories.used = ? OR feedback_histories.id IS NULL)", true)
         .where("prompts.conjunction = ? AND activity_id = ?", conjunction, activity_id)
         .group('comprehension_rules.id, rules_uid, activity_id, rule_type, rule_suborder, rule_name, rule_note')
         .includes(:feedbacks)
