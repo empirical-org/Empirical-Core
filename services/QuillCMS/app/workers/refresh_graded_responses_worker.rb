@@ -7,14 +7,14 @@ class RefreshGradedResponsesWorker
   # Make the DB statement timeout longer while refreshing the materialized view
   def perform
     original_timeout = db_timeout
-    set_db_timeout(REFRESH_TIMEOUT)
+    db_set_timeout(REFRESH_TIMEOUT)
 
     GradedResponse.refresh
   ensure
-    set_db_timeout(original_timeout)
+    db_set_timeout(original_timeout)
   end
 
-  private def set_db_timeout(time_string)
+  private def db_set_timeout(time_string)
     escaped_time_string = ActiveRecord::Base.connection.quote(time_string)
 
     ActiveRecord::Base.connection.execute("SET statement_timeout = #{escaped_time_string}")
