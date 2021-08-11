@@ -17,6 +17,7 @@ SecureHeaders::Configuration.default do |config|
       "https://*.segment.com",
       "https://*.segment.io",
       "https://*.newrelic.com",
+      "https://*.nr-data.net",
       "https://*.googleapis.com",
       "https://*.pusher.com",
       "https://*.google-analytics.com",
@@ -37,7 +38,8 @@ SecureHeaders::Configuration.default do |config|
       "'self'",
       "'unsafe-inline'",
       "https://*.fontawesome.com",
-      "https://*.googleapis.com"      
+      "https://*.googleapis.com",
+      "https://*.gstatic.com"      
     ],
 
     connect_src: [                                                # for XHR, etc
@@ -46,7 +48,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.segment.io",
       "https://*.nr-data.net",
       "https://*.google-analytics.com",
-      "https://*.inspectlet.com"
+      "https://*.inspectlet.com",
+      "https://*.doubleclick.net" 
     ]
   }
 
