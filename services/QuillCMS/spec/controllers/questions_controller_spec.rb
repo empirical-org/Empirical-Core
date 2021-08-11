@@ -46,13 +46,15 @@ RSpec.describe QuestionsController, type: :controller do
     end
 
     context 'with all data' do
-      let!(:response_optimal1) {create(:response, question_uid: '123', optimal: true)}
-      let!(:response_optimal2) {create(:response, question_uid: '123', optimal: true)}
-      let!(:response_optimal3) {create(:response, question_uid: '123', optimal: true)}
-      let!(:response_nonoptimal1) {create(:response, question_uid: '123', optimal: false)}
-      let!(:response_nonoptimal2) {create(:response, question_uid: '123', optimal: false)}
-      let!(:response_nonoptimal3) {create(:response, question_uid: '123', optimal: false)}
-      let!(:response_ungraded) {create(:response, question_uid: '123', optimal: nil)}
+      let!(:optimal1) {create(:response, question_uid: '123', optimal: true, count: 5)}
+      let!(:optimal2) {create(:response, question_uid: '123', optimal: true, count: 7)}
+      let!(:optimal3) {create(:response, question_uid: '123', optimal: true, count: 9)}
+
+      let!(:nonoptimal1) {create(:response, question_uid: '123', optimal: false, count: 7)}
+      let!(:nonoptimal2) {create(:response, question_uid: '123', optimal: false, count: 5)}
+      let!(:nonoptimal3) {create(:response, question_uid: '123', optimal: false, count: 9)}
+
+      let!(:ungraded) {create(:response, question_uid: '123', optimal: nil, count: 1000)}
 
       before(:each) do
         GradedResponse.refresh
@@ -74,12 +76,24 @@ RSpec.describe QuestionsController, type: :controller do
         expect(nonoptimal_count).to eq 2
         expect(null_optimal_count).to eq 0
       end
+
+      it 'should return responses with the highest counts' do
+        get :multiple_choice_options, params: {question_uid: '123'}
+
+        expect(response.status).to eq 200
+
+        json = JSON.parse(response.body)
+        response_ids = json.map{|r| r['id']}.sort
+        highest_count_ids = [optimal2.id, optimal3.id, nonoptimal1.id, nonoptimal3.id].sort
+
+        expect(response_ids).to eq highest_count_ids
+      end
     end
 
     context 'only optimal responses available' do
-      let!(:response_optimal1) {create(:response, question_uid: '123', optimal: true)}
-      let!(:response_optimal2) {create(:response, question_uid: '123', optimal: true)}
-      let!(:response_optimal3) {create(:response, question_uid: '123', optimal: true)}
+      let!(:optimal1) {create(:response, question_uid: '123', optimal: true)}
+      let!(:optimal2) {create(:response, question_uid: '123', optimal: true)}
+      let!(:optimal3) {create(:response, question_uid: '123', optimal: true)}
 
       before(:each) do
         GradedResponse.refresh

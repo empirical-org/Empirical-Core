@@ -6,11 +6,11 @@ class QuestionsController < ApplicationController
   end
 
   def multiple_choice_options
-    scope = GradedResponse.where(question_uid: params[:question_uid]).limit(MULTIPLE_CHOICE_LIMIT)
+    scope = GradedResponse
+      .where(question_uid: params[:question_uid])
+      .limit(MULTIPLE_CHOICE_LIMIT)
+      .order('count DESC')
 
-    optimal = scope.optimal
-    nonoptimal = scope.nonoptimal.order('count DESC')
-
-    render json: optimal.to_a.concat(nonoptimal.to_a)
+    render json: scope.optimal.to_a.concat(scope.nonoptimal.to_a)
   end
 end
