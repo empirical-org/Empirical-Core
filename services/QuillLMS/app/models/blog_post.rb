@@ -57,6 +57,7 @@ class BlogPost < ApplicationRecord
 
   TOPICS = [
     WHATS_NEW,
+    USING_QUILL_FOR_READING_COMPREHENSION,
     GETTING_STARTED,
     BEST_PRACTICES,
     WEBINARS,
@@ -68,8 +69,7 @@ class BlogPost < ApplicationRecord
     IN_THE_NEWS,
     CASE_STUDIES,
     SUPPORT,
-    TWITTER_LOVE,
-    USING_QUILL_FOR_READING_COMPREHENSION
+    TWITTER_LOVE
   ]
 
   TEACHER_TOPICS = TOPICS.reject { |t| [PRESS_RELEASES, IN_THE_NEWS].include?(t) }

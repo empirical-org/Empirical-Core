@@ -1,22 +1,27 @@
 module TeacherCenterHelper
   FAQ = 'FAQ'
   PREMIUM = 'Premium'
-  RESEARCH_SHORT = 'Research'
-  COMPREHENSION_SHORT = 'Reading Comprehension'
-  ALL_SHORT = 'All'
+  RESEARCH = 'Research'
+  COMPREHENSION = 'Reading comprehension'
+  ALL = 'All'
 
   def teacher_center_tabs(large: true)
     is_comprehension_user = current_user && AppSetting.enabled?(name: 'comprehension', user: current_user)
     comprehension_tab = {
       id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
-      name: large ? 'Using Quill for reading comprehension' : COMPREHENSION_SHORT,
+      name: COMPREHENSION,
       url: 'teacher-center/topic/using-quill-for-reading-comprehension'
+    }
+    premium_tab = {
+      id: PREMIUM,
+      name: PREMIUM,
+      url: PREMIUM
     }
     tabs =
      [
       {
         id: BlogPost::ALL_RESOURCES,
-        name: large ? BlogPost::ALL_RESOURCES : ALL_SHORT,
+        name: ALL,
         url: 'teacher-center'
       },
       {
@@ -25,13 +30,13 @@ module TeacherCenterHelper
         url: 'teacher-center/topic/getting-started'
       },
       {
-        id: BlogPost::TEACHER_STORIES,
-        name: BlogPost::TEACHER_STORIES,
-        url: 'teacher-center/topic/teacher-stories'
+        id: BlogPost::BEST_PRACTICES,
+        name: BlogPost::BEST_PRACTICES,
+        url: 'teacher-center/topic/best-practices'
       },
       {
         id: BlogPost::WRITING_INSTRUCTION_RESEARCH,
-        name: large ? BlogPost::WRITING_INSTRUCTION_RESEARCH : RESEARCH_SHORT,
+        name: RESEARCH,
         url: 'teacher-center/topic/writing-instruction-research'
       },
       {
@@ -39,13 +44,9 @@ module TeacherCenterHelper
         name: FAQ,
         url: 'faq'
       },
-      {
-        id: PREMIUM,
-        name: PREMIUM,
-        url: 'premium'
-      }
     ]
     tabs.insert(1, comprehension_tab) if is_comprehension_user
+    tabs << premium_tab if !current_user
     tabs
   end
 
@@ -53,7 +54,7 @@ module TeacherCenterHelper
      [
       {
         id: BlogPost::ALL_RESOURCES,
-        name: large ? BlogPost::ALL_RESOURCES : ALL_SHORT,
+        name: large ? BlogPost::ALL_RESOURCES : ALL,
         url: 'student-center'
       },
       {
