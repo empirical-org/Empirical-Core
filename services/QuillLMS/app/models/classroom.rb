@@ -53,6 +53,8 @@ class Classroom < ApplicationRecord
 
   before_validation :set_code, if: proc {|c| c.code.blank?}
 
+  accepts_nested_attributes_for :classrooms_teachers
+
 
   def validate_name
     return unless name_changed?
