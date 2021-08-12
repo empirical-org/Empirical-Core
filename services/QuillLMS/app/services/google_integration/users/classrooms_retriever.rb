@@ -6,6 +6,8 @@ module GoogleIntegration
         GoogleIntegration::Client::AccessTokenError
       ].freeze
 
+      UNAUTHENTICATED_RESPONSE = 'UNAUTHENTICATED'.freeze
+
       attr_reader :user_id
 
       def initialize(user_id)
@@ -27,7 +29,11 @@ module GoogleIntegration
       end
 
       private def data
-        google_response == 'UNAUTHENTICATED' ? { errors: google_response } : { classrooms: google_response }
+        unauthenticated_response? ? { errors: google_response } : { classrooms: google_response }
+      end
+
+      private def unauthenticated_response?
+        google_response == UNAUTHENTICATED_RESPONSE
       end
 
       private def google_response

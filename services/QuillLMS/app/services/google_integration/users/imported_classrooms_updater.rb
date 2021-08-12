@@ -23,7 +23,8 @@ module GoogleIntegration
         classrooms_data.select do |classroom_data|
           ::Classroom.unscoped.exists?(
             google_classroom_id: classroom_data[:google_classroom_id],
-            teacher_id: user_id
+            teacher_id: user_id,
+            visible: true
           )
         end
       end

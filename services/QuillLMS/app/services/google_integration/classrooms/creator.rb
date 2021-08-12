@@ -10,7 +10,6 @@ module GoogleIntegration
       end
 
       def run
-        create_classrooms_teacher
         classroom
       end
 
@@ -19,15 +18,10 @@ module GoogleIntegration
           google_classroom_id: google_classroom_id,
           name: name,
           synced_name: synced_name,
-          teacher_id: teacher_id
-        )
-      end
-
-      private def create_classrooms_teacher
-        ::ClassroomsTeacher.create!(
-          classroom: classroom,
-          user_id: user_id,
-          role: role
+          teacher_id: teacher_id,
+          classrooms_teachers_attributes: [
+            { user_id: user_id, role: role }
+          ]
         )
       end
 

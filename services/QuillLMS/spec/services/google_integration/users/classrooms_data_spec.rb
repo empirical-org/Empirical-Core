@@ -28,8 +28,8 @@ RSpec.describe GoogleIntegration::Users::ClassroomsData do
 
     let(:expected_classrooms_data) do
       [
-        { google_classroom_id: google_classroom_id_1, teacher_id: user.id },
-        { google_classroom_id: google_classroom_id_2, teacher_id: user.id }
+        { google_classroom_id: google_classroom_id_1, teacher_id: user.id, name: nil, grade: nil },
+        { google_classroom_id: google_classroom_id_2, teacher_id: user.id, name: nil, grade: nil }
       ]
     end
 

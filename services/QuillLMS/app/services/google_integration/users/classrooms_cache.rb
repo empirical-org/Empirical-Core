@@ -2,7 +2,7 @@ module GoogleIntegration
   module Users
     class ClassroomsCache
       SERIALIZED_GOOGLE_CLASSROOMS_FOR_ = 'SERIALIZED_GOOGLE_CLASSROOMS_FOR_'.freeze
-      SERIALIZED_GOOGLE_CLASSROOMS_CACHE_LIFE = 60
+      SERIALIZED_GOOGLE_CLASSROOMS_CACHE_LIFE = 300
 
       def self.cache_key(user_id)
         "#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{user_id}"

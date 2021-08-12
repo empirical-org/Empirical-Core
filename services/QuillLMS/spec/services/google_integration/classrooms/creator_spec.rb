@@ -17,6 +17,8 @@ RSpec.describe GoogleIntegration::Classrooms::Creator do
 
   let(:google_classroom_id) { 123456 }
 
+  around { |example| expect { example.run }.to change(ClassroomsTeacher, :count).from(0).to(1) }
+
   context 'name present' do
     let(:name) { 'google classroom name'}
 
