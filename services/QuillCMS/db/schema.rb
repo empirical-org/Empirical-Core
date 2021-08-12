@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_09_165937) do
+ActiveRecord::Schema.define(version: 2021_08_12_215158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,5 +66,49 @@ ActiveRecord::Schema.define(version: 2021_08_09_165937) do
   add_index "graded_responses", ["id"], name: "index_graded_responses_on_id", unique: true
   add_index "graded_responses", ["optimal"], name: "index_graded_responses_on_optimal"
   add_index "graded_responses", ["question_uid"], name: "index_graded_responses_on_question_uid"
+
+  create_view "multiple_choice_responses", materialized: true, sql_definition: <<-SQL
+      SELECT responses_filtered.id,
+      responses_filtered.uid,
+      responses_filtered.parent_id,
+      responses_filtered.parent_uid,
+      responses_filtered.question_uid,
+      responses_filtered.author,
+      responses_filtered.text,
+      responses_filtered.feedback,
+      responses_filtered.count,
+      responses_filtered.first_attempt_count,
+      responses_filtered.child_count,
+      responses_filtered.optimal,
+      responses_filtered.weak,
+      responses_filtered.concept_results,
+      responses_filtered.created_at,
+      responses_filtered.updated_at,
+      responses_filtered.spelling_error
+     FROM ( SELECT responses.id,
+              responses.uid,
+              responses.parent_id,
+              responses.parent_uid,
+              responses.question_uid,
+              responses.author,
+              responses.text,
+              responses.feedback,
+              responses.count,
+              responses.first_attempt_count,
+              responses.child_count,
+              responses.optimal,
+              responses.weak,
+              responses.concept_results,
+              responses.created_at,
+              responses.updated_at,
+              responses.spelling_error,
+              rank() OVER (PARTITION BY responses.question_uid ORDER BY responses.count DESC) AS rank
+             FROM responses
+            WHERE ((responses.optimal IS NULL) OR (responses.optimal = false))) responses_filtered
+    WHERE (responses_filtered.rank <= 2);
+  SQL
+  add_index "multiple_choice_responses", ["id"], name: "index_multiple_choice_responses_on_id", unique: true
+  add_index "multiple_choice_responses", ["optimal"], name: "index_multiple_choice_responses_on_optimal"
+  add_index "multiple_choice_responses", ["question_uid"], name: "index_multiple_choice_responses_on_question_uid"
 
 end

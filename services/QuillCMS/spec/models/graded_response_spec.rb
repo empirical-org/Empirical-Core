@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe GradedResponse, type: :model do
   context 'basic queries' do
-    let!(:response_optimal) {create(:response, question_uid: '123', optimal: true)}
-    let!(:response_nonoptimal) {create(:response, question_uid: '123', optimal: false)}
-    let!(:response_ungraded) {create(:response, question_uid: '123', optimal: nil)}
+    let!(:optimal) {create(:response, question_uid: '123', optimal: true)}
+    let!(:nonoptimal) {create(:response, question_uid: '123', optimal: false)}
+    let!(:ungraded) {create(:response, question_uid: '123', optimal: nil)}
 
     it 'should return no records if refresh is not run' do
       expect(GradedResponse.count).to be 0
@@ -17,10 +17,12 @@ RSpec.describe GradedResponse, type: :model do
 
     it 'should return response objects for queries' do
       GradedResponse.refresh
-      graded_responses = GradedResponse.where(question_uid: '123').sort_by(&:id)
+      responses = GradedResponse.where(question_uid: '123').sort_by(&:id)
+      response_ids = responses.map(&:id).sort
+      graded_ids = [optimal.id, nonoptimal.id].sort
 
-      expect(graded_responses.first.id).to be response_optimal.id
-      expect(graded_responses.second.id).to be response_nonoptimal.id
+      expect(response_ids).to eq graded_ids
+      expect(responses.first.attributes.keys.sort).to eq nonoptimal.attributes.keys.sort
     end
   end
 end

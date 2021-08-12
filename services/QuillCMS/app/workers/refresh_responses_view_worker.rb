@@ -1,15 +1,21 @@
-class RefreshGradedResponsesWorker
+class RefreshResponsesViewWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
 
   REFRESH_TIMEOUT = ENV["VIEW_STATEMENT_TIMEOUT"] || '10min'
+  VIEWS = %w(GradedResponse MultipleChoiceResponse)
+
+  class InvalidView < StandardError; end
 
   # Make the DB statement timeout longer while refreshing the materialized view
-  def perform
+  def perform(view)
     original_timeout = db_timeout
+
+    raise InvalidView unless view.in?(VIEWS)
+
     db_set_timeout(REFRESH_TIMEOUT)
 
-    GradedResponse.refresh
+    view.constantize.refresh
   ensure
     db_set_timeout(original_timeout)
   end
