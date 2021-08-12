@@ -14,30 +14,31 @@ module CleverIntegration::Importers::Library
       {type: 'user_success', data: user}
     end
   rescue
-    {type: 'user_failure', data: "Error: " + $!.message}
+    {type: 'user_failure', data: 'Error: ' + $!.message}
   end
 
   def self.import_teacher(client)
-    teacher_id = client.user()["id"]
+    teacher_id = client.user()['id']
     teacher_data = client.get_teacher(teacher_id: teacher_id)
     CleverIntegration::Creators::Teacher.run(
-      email: teacher_data["email"],
+      email: teacher_data['email'],
       name: "#{teacher_data['name']['first']} #{teacher_data['name']['middle']} #{teacher_data['name']['last']}".squish,
-      clever_id: teacher_data["id"]
+      clever_id: teacher_data['id']
     )
   end
 
   def self.import_classrooms(client, teacher_id)
-    classrooms_data = client.get_teacher_sections(teacher_id: teacher_id)
-    CleverIntegration::Creators::Classrooms.run(classrooms_data.map{|classroom| {clever_id: classroom["id"], name: classroom["name"], grade: classroom["grade"]} })
+    client
+      .get_teacher_sections(teacher_id: teacher_id)
+      .map { |section| { clever_id: section['id'], name: section['name'], grade: section['grade'] } }
+      .map { |section_data| CleverIntegration::Classrooms::Importer.new(section_data).run }
   end
 
   def self.import_schools(client, user_id)
-    schools_data = client.get_school_admin_schools(school_admin_id: user_id)
-    schools = schools_data.map do |school|
-      CleverIntegration::Creators::School.run(school)
-    end
-    schools.each { |school| SchoolsAdmins.create(school_id: school.id, user_id: user_id)}
+    client
+      .get_school_admin_schools(school_admin_id: user_id)
+      .map { |school_data| CleverIntegration::Creators::School.run(school_data) }
+      .each { |school| SchoolsAdmins.create(school_id: school.id, user_id: user_id) }
   end
 
 end

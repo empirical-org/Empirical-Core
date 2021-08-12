@@ -111,30 +111,9 @@ class Classroom < ApplicationRecord
       .order('')
   end
 
-  def self.setup_from_clever(section, teacher)
-    c = Classroom.where(clever_id: section.id).includes(:units).first_or_initialize
-    c.update_attributes(
-      name: section.name,
-      grade: section.grade
-    )
-    ClassroomsTeacher.find_or_create_by(user: teacher, role: 'owner', classroom: c)
-    c.import_students!
-    c
-  end
-
   def archived_classrooms_manager
     coteachers = !self.coteachers.empty? ? self.coteachers.map { |ct| { name: ct.name, id: ct.id, email: ct.email } } : []
     {createdDate: created_at.strftime("%m/%d/%Y"), className: name, id: id, studentCount: students.count, classcode: code, ownerName: owner.name, from_google: !!google_classroom_id, coteachers: coteachers}
-  end
-
-  def import_students!
-    clever_students = clever_classroom.students
-
-    existing_student_ids = students.pluck(&:clever_id).uniq.compact
-    students_to_add = clever_students.reject {|s| existing_student_ids.include?(s.id) }
-    new_students = students_to_add.collect {|s| User.create_from_clever({info: s}, 'student')}
-
-    students << new_students
   end
 
   def set_code
