@@ -24,7 +24,7 @@ module GoogleIntegration
       end
 
       private def create_classrooms_teacher
-        ClassroomsTeacher.create!(
+        ::ClassroomsTeacher.create!(
           classroom: classroom,
           user_id: user_id,
           role: role

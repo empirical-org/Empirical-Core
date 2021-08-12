@@ -23,7 +23,7 @@ module GoogleIntegration
       end
 
       private def grade
-        data[:grade].present? ? data[:grade] : classroom.grade
+        data.key?(:grade) ? data[:grade] : classroom.grade
       end
 
       private def name
@@ -38,13 +38,8 @@ module GoogleIntegration
         classroom.update!(
           name: name,
           synced_name: synced_name,
-          grade: grade,
-          visible: visible
+          grade: grade
         )
-      end
-
-      private def visible
-        true
       end
     end
   end
