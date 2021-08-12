@@ -17,7 +17,6 @@ import {
 export default class TopicSection extends React.Component {
   displayTitle() {
     const { role, title, } = this.props
-    console.log("🚀 ~ file: topic_section.jsx ~ line 19 ~ TopicSection ~ displayTitle ~ title", title)
     if (role !== STUDENT && title === USING_QUILL_FOR_READING_COMPREHENSION) {
       return title.replace('quill', 'Quill')
     } else if(role !== STUDENT) {
