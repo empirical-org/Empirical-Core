@@ -1,7 +1,7 @@
 class CreateGradedResponses < ActiveRecord::Migration[6.1]
   def up
     original_timeout = db_timeout
-    db_set_timeout(RefreshGradedResponsesWorker::REFRESH_TIMEOUT)
+    db_set_timeout(RefreshResponsesViewWorker::REFRESH_TIMEOUT)
 
     create_view :graded_responses, materialized: true
 
