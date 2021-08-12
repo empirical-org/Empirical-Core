@@ -9,15 +9,13 @@ module GoogleIntegration
       end
 
       def run
-        cleaned_data
+        clean_data
       end
 
-      private def cleaned_data
-        {}.tap do |result|
-          result[:google_classroom_id] = data.fetch(:id)
-          result[:grade] = data[:grade]
-          result[:name] = data[:name]
-          result[user_role_id_key] = user.id
+      private def clean_data
+        data.tap do |cleaned_data|
+          cleaned_data[:google_classroom_id] = data.fetch(:id)
+          cleaned_data[user_role_id_key] = user.id
         end
       end
 

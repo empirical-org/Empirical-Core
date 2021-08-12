@@ -14,7 +14,6 @@ RSpec.describe GoogleIntegration::Users::ClassroomDataAdapter do
       let(:role) { 'teacher' }
 
       it 'correctly updates data' do
-        expect(updated_data[:id]).to be_nil
         expect(updated_data[:google_classroom_id]).to eq google_classroom_id
         expect(updated_data[:teacher_id]).to eq user.id
       end
@@ -24,7 +23,6 @@ RSpec.describe GoogleIntegration::Users::ClassroomDataAdapter do
       let(:role) { 'student' }
 
       it 'correctly updates data' do
-        expect(updated_data[:id]).to be_nil
         expect(updated_data[:google_classroom_id]).to eq google_classroom_id
         expect(updated_data[:student_id]).to eq user.id
       end
