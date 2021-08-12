@@ -501,7 +501,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       [
         { id: google_classroom_id_1 },
         { id: google_classroom_id_2 }
-      ].to_json
+      ]
     end
 
     before { allow(controller).to receive(:current_user) { teacher } }
