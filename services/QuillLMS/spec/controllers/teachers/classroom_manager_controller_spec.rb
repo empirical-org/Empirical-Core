@@ -154,18 +154,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
     let(:student) { create(:student) }
     let(:teacher) { create(:teacher) }
 
-    # the before filter authorize_teacher! redirects the user so this branch is never traversed
-    # context 'when current is not a teacher' do
-    #   before do
-    #     allow(controller).to receive(:current_user) { student }
-    #   end
-    #
-    #   it 'should redirect to profile path' do
-    #     get :generic_add_students
-    #     expect(response).to redirect_to profile_path
-    #   end
-    # end
-
     context 'when current user is a teacher' do
       before do
         allow(controller).to receive(:current_user) { teacher }
@@ -506,17 +494,26 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#update_google_classrooms' do
     let(:teacher) { create(:teacher) }
+    let(:google_classroom_id_1) { 123 }
+    let(:google_classroom_id_2) { 456 }
 
-    before do
-      allow(controller).to receive(:current_user) { teacher }
+    let(:selected_classrooms) do
+      [
+        { id: google_classroom_id_1 },
+        { id: google_classroom_id_2 }
+      ]
     end
 
-    it 'should return empty array with no classrooms' do
-      expect(GoogleIntegration::Classroom::Creators::Classrooms).to receive(:run)
-      classroom_json = [{id: 1}, {id: 2}].to_json
-      post :update_google_classrooms, params: { selected_classrooms: classroom_json, format: :json }
+    before { allow(controller).to receive(:current_user) { teacher } }
 
-      expect(response.body).to eq({classrooms: []}.to_json)
+    it 'should return an array with two classrooms' do
+      post :update_google_classrooms, params: { selected_classrooms: selected_classrooms, format: :json }
+
+      classrooms = JSON.parse(response.body).deep_symbolize_keys.fetch(:classrooms)
+
+      expect(classrooms.count).to eq 2
+      expect(classrooms.first[:google_classroom_id]).to eq google_classroom_id_1
+      expect(classrooms.second[:google_classroom_id]).to eq google_classroom_id_2
    end
   end
 
