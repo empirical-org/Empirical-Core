@@ -10,7 +10,7 @@
       link: '/teacher-center',
       text: 'All Resources'
     %>
-    <% if current_user && AppSetting.enabled?(name: 'comprehension', user: current_user) %>
+    <% if current_user && AppSetting.enabled?(name: AppSetting::COMPREHENSION, user: current_user) %>
       <%= render 'navbar/tooltip_link',
         text: 'Reading Comprehension',
         subtext: "Learn all about Quill's new reading and writing tool",

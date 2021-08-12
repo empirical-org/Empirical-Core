@@ -6,9 +6,7 @@ export const HeaderSection = ({ title, subtitle, showCancelSearchButton, query }
 
   function renderTitle() {
     if(title === USING_QUILL_FOR_READING_COMPREHENSION) {
-      const words = title.split(" ");
-      const quill = words[1].charAt(0).toUpperCase() + words[1].slice(1);
-      return words[0] + ' ' + quill + ' ' + words.slice(2).join(" ");
+      return title.replace('quill', 'Quill')
     }
     return title;
   }

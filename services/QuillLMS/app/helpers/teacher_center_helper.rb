@@ -6,7 +6,7 @@ module TeacherCenterHelper
   ALL = 'All'
 
   def teacher_center_tabs
-    is_comprehension_user = current_user && AppSetting.enabled?(name: 'comprehension', user: current_user)
+    is_comprehension_user = current_user && AppSetting.enabled?(name: AppSetting::COMPREHENSION, user: current_user)
     comprehension_tab = {
       id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
       name: COMPREHENSION,
@@ -17,8 +17,7 @@ module TeacherCenterHelper
       name: PREMIUM,
       url: PREMIUM
     }
-    tabs =
-     [
+    tabs = [
       {
         id: BlogPost::ALL_RESOURCES,
         name: ALL,
@@ -43,7 +42,7 @@ module TeacherCenterHelper
         id: FAQ,
         name: FAQ,
         url: 'faq'
-      },
+      }
     ]
     tabs.insert(1, comprehension_tab) if is_comprehension_user
     tabs << premium_tab if !current_user

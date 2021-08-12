@@ -4,14 +4,14 @@ describe TeacherCenterHelper do
   describe '#teacher_center_tabs' do
     let(:current_user) { create(:teacher) }
     let(:app_setting) { create(:app_setting, name: "comprehension") }
-    let(:tabs){[
-      { id: "All resources", name: "All resources", url: "teacher-center" },
+    let(:tabs) {
+      [{ id: "All resources", name: "All resources", url: "teacher-center" },
       { id: "Getting started", name: "Getting started", url: "teacher-center/topic/getting-started" },
       { id: "Teacher stories", name: "Teacher stories", url: "teacher-center/topic/teacher-stories" },
       { id: "Writing instruction research", name: "Writing instruction research", url: "teacher-center/topic/writing-instruction-research" },
       { id: "FAQ", name: "FAQ", url: "faq" },
-      { id: "Premium", name: "Premium", url: "premium" }
-    ]}
+      { id: "Premium", name: "Premium", url: "premium" }]
+    }
 
     before do
       allow(helper).to receive(:current_user) { current_user }
