@@ -2,7 +2,7 @@ import { mainApiFetch, requestFailed, handleRequestErrors } from './../../Staff/
 
 interface HandleHasAppSettingArgs {
   appSettingSetter: (value: boolean) => void,
-  errorSetter?: (value: any) => void,
+  errorSetter: (value: any) => void,
   key: string,
 }
 
