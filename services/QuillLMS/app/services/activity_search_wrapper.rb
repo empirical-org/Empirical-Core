@@ -158,11 +158,11 @@ class ActivitySearchWrapper
         description: 'Lead Group Lessons',
         key: ActivityClassification::LESSONS_KEY
       }
-    when ActivityClassification::COMPREHENSION_KEY
+    when ActivityClassification::EVIDENCE_KEY
       h = {
-        alias: 'Quill Comprehension',
+        alias: 'Quill Evidence',
         description: '',
-        key: ActivityClassification::COMPREHENSION_KEY
+        key: ActivityClassification::EVIDENCE_KEY
       }
     else
       h = {}

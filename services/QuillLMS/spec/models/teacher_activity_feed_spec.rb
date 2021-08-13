@@ -71,7 +71,7 @@ describe TeacherActivityFeed, type: :model do
   describe '#text_for_score' do
     let(:lesson_activity_session) { create(:lesson_activity_session) }
     let(:diagnostic_activity_session) { create(:diagnostic_activity_session) }
-    let(:comprehension_activity_session) { create(:comprehension_activity_session) }
+    let(:evidence_activity_session) { create(:evidence_activity_session) }
     let(:proficient_activity_session) { create(:connect_activity_session, percentage: 0.90) }
     let(:nearly_proficient_activity_session) { create(:grammar_activity_session, percentage: 0.75) }
     let(:not_yet_proficient_activity_session) { create(:proofreader_activity_session, percentage: 0.40) }
@@ -94,9 +94,9 @@ describe TeacherActivityFeed, type: :model do
       end
     end
 
-    context 'when the activity session is a comprehension activity' do
+    context 'when the activity session is a evidence activity' do
       it "returns #{ActivitySession::COMPLETED}" do
-        text = feed.send(:text_for_score, comprehension_activity_session.classification.key, comprehension_activity_session.percentage)
+        text = feed.send(:text_for_score, evidence_activity_session.classification.key, evidence_activity_session.percentage)
 
         expect(text).to eq(ActivitySession::COMPLETED)
       end

@@ -85,7 +85,7 @@ RSpec.describe FeedbackHistory, type: :model do
   context 'concept results hash' do
     setup do
       @prompt = Comprehension::Prompt.create(text: 'Test test test text')
-      @activity = create(:comprehension_activity)
+      @activity = create(:evidence_activity)
       @activity_session = create(:activity_session, activity_id: @activity.id)
       @concept = create(:concept)
       @feedback_history = create(:feedback_history, feedback_session_uid: @activity_session.uid, concept: @concept, prompt: @prompt)

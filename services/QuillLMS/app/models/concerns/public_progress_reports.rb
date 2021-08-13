@@ -62,7 +62,7 @@ module PublicProgressReports
       # being converted to an array because that is what the diagnostic reports expect
       questions_arr = questions.map do |k,v|
         {question_id: k,
-         score: activity.is_comprehension? ? nil : ((v[:correct].to_f/v[:total]) * 100).round,
+         score: activity.is_evidence? ? nil : ((v[:correct].to_f/v[:total]) * 100).round,
          prompt: v[:prompt],
          instructions: v[:instructions]}
       end
@@ -166,7 +166,7 @@ module PublicProgressReports
       activity_classification_key = ActivityClassification.find(activity.activity_classification_id).key
       if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(activity_classification_key)
         score = get_average_score(formatted_concept_results)
-      elsif [ActivityClassification::COMPREHENSION_KEY].include?(activity_classification_key)
+      elsif [ActivityClassification::EVIDENCE_KEY].include?(activity_classification_key)
         score = nil
       else
         score = (final_activity_session.percentage * 100).round

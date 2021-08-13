@@ -42,7 +42,7 @@ module Student
             ON activity_sessions.activity_id = activities.id
           JOIN activity_classifications
             ON activities.activity_classification_id = activity_classifications.id
-          WHERE activity_classifications.key not in ('diagnostic', 'lessons', 'comprehension')
+          WHERE activity_classifications.key not in ('diagnostic', 'lessons', '#{ActivityClassification::EVIDENCE_KEY}')
             AND users.id = #{id}
         SQL
       ).to_a.first['avg']
