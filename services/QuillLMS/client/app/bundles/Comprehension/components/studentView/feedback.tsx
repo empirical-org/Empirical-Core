@@ -1,5 +1,4 @@
 import * as React from 'react'
-
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 
 const loopSrc = `${process.env.CDN_URL}/images/icons/loop.svg`
@@ -44,7 +43,7 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
       >
         <div className={className} key={key}>
           <img alt={imageAlt} src={imageSrc} />
-          <p className="feedback-text" dangerouslySetInnerHTML={feedbackForInnerHTML(feedback)} />
+          <p className="feedback-text" dangerouslySetInnerHTML={feedbackForInnerHTML(feedback)} role="status" />
         </div>
       </ReactCSSTransitionReplace>
     </div>
