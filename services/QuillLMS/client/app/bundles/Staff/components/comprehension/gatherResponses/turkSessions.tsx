@@ -60,6 +60,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   }
 
   function handleEditOrDeleteTurkSession (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.preventDefault();
     const target  = e.target as HTMLButtonElement;
     const { id, value } = target;
     setEditTurkSessionId(id);
@@ -95,6 +96,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   }
 
   function handleCopyTurkLink (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.preventDefault();
     copyToClipboard(e, setSnackBarVisible);
   }
 
