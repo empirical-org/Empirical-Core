@@ -41,8 +41,12 @@ class Auth::GoogleController < ApplicationController
   end
 
   private def run_background_jobs
-    GoogleStudentImporterWorker.perform_async(@user.id, 'Auth::GoogleController') if @user.teacher?
-    GoogleStudentClassroomWorker.perform_async(@user.id) if @user.student?
+    if @user.teacher?
+      GoogleIntegration::Users::UpdateImportedClassroomsWorker.perform_async(@user.id)
+      GoogleStudentImporterWorker.perform_async(@user.id, 'Auth::GoogleController')
+    elsif @user.student?
+      GoogleStudentClassroomWorker.perform_async(@user.id)
+    end
   end
 
   private def follow_google_redirect

@@ -363,20 +363,6 @@ describe User, type: :model do
     end
   end
 
-  describe '#clever_district_id' do
-    let(:user) { build_stubbed(:user) }
-    let(:district) { double(:district, id: 1) }
-    let(:clever_user) { double(:clever_user, district: district) }
-
-    before do
-      allow(user).to receive(:clever_user).and_return(clever_user)
-    end
-
-    it 'should return the distric id' do
-      expect(user.clever_district_id).to eq(district.id)
-    end
-  end
-
   describe '#send_account_created_email' do
     let(:user) { create(:user) }
 

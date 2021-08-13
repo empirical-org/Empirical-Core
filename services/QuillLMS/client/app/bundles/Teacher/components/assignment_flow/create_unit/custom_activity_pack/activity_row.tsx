@@ -94,8 +94,8 @@ const imageTagForClassification = (classificationKey: string): JSX.Element => {
       imgAlt = "Flag representing Quill Proofreader"
       imgSrc = proofreaderSrc
       break
-    case 'comprehension':
-      imgAlt = "Book representing Quill Comprehension"
+    case 'evidence':
+      imgAlt = "Book representing Quill Evidence"
       imgSrc = comprehensionSrc
       break
   }

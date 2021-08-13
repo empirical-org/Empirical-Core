@@ -1,7 +1,7 @@
 class ActivityClassification < ApplicationRecord
-  COMPREHENSION_KEY = 'comprehension'
+  EVIDENCE_KEY = 'evidence'
 
-  def self.comprehension
-    find_by_key COMPREHENSION_KEY
+  def self.evidence
+    find_by_key EVIDENCE_KEY
   end
 end

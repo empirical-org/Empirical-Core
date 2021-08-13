@@ -12,7 +12,6 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   MY_ACCOUNT = 'my_account'
   ASSIGN = 'assign'
-  SERIALIZED_GOOGLE_CLASSROOMS_FOR_ = 'SERIALIZED_GOOGLE_CLASSROOMS_FOR_'
 
   def lesson_planner
     set_classroom_variables
@@ -172,7 +171,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def retrieve_google_classrooms
-    serialized_google_classrooms = $redis.get("#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{current_user.id}")
+    serialized_google_classrooms = GoogleIntegration::Users::ClassroomsCache.get(current_user.id)
     if serialized_google_classrooms
       render json: JSON.parse(serialized_google_classrooms)
     else
@@ -182,14 +181,19 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def update_google_classrooms
-    GoogleIntegration::Classroom::Creators::Classrooms.run(current_user, params[:selected_classrooms])
-    $redis.del("#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{current_user.id}")
+    serialized_classrooms_data = { classrooms: params[:selected_classrooms] }.to_json
+    classrooms_data = GoogleIntegration::Users::ClassroomsData.new(current_user, serialized_classrooms_data)
+
+    classrooms_data.each { |data| GoogleIntegration::Classrooms::Importer.new(data).run }
+
+    GoogleIntegration::Users::ClassroomsCache.del(current_user.id)
+    RetrieveGoogleClassroomsWorker.perform_async(current_user.id)
     render json: { classrooms: current_user.google_classrooms }.to_json
   end
 
   def import_google_students
     selected_classroom_ids = Classroom.where(id: params[:classroom_id] || params[:selected_classroom_ids]).ids
-    $redis.del("#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{current_user.id}")
+    GoogleIntegration::Users::ClassroomsCache.del(current_user.id)
     GoogleStudentImporterWorker.perform_async(
       current_user.id,
       'Teachers::ClassroomManagerController',

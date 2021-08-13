@@ -33,14 +33,14 @@ class ActivityClassification < ApplicationRecord
   DIAGNOSTIC_KEY = 'diagnostic'
   PROOFREADER_KEY = 'passage'
   LESSONS_KEY = 'lessons'
-  COMPREHENSION_KEY = 'comprehension'
+  EVIDENCE_KEY = 'evidence'
   CONNECT_KEY = 'connect'
   GRAMMAR_KEY = 'sentence'
 
   UNSCORED_KEYS = [
     DIAGNOSTIC_KEY,
     LESSONS_KEY,
-    COMPREHENSION_KEY
+    EVIDENCE_KEY
   ]
 
   def self.unscored?(key)
@@ -51,8 +51,8 @@ class ActivityClassification < ApplicationRecord
     find_by_key DIAGNOSTIC_KEY
   end
 
-  def self.comprehension
-    find_by_key COMPREHENSION_KEY
+  def self.evidence
+    find_by_key EVIDENCE_KEY
   end
 
   def self.lessons

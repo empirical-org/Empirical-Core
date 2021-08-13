@@ -54,7 +54,7 @@ module NavigationHelper
 
   def playing_activity?
     activity_actions = [
-        ApplicationController::COMPREHENSION,
+        ApplicationController::EVIDENCE,
         ApplicationController::PROOFREADER,
         ApplicationController::GRAMMAR,
         ApplicationController::LESSONS,
