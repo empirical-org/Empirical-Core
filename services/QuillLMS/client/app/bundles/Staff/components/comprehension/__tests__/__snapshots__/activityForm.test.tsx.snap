@@ -91,15 +91,28 @@ exports[`Activity Form component should render Activities 1`] = `
     <p
       className="text-editor-label has-text"
     >
-      Passage
+      <span>
+        Passage
+      </span>
+      <button
+        className="quill-button fun secondary outlined focus-on-light"
+        onClick={[Function]}
+        type="button"
+      >
+        Hide highlights
+      </button>
     </p>
-    <TextEditor
-      ContentState={[Function]}
-      EditorState={[Function]}
-      handleTextChange={[Function]}
-      key="passage-description"
-      text="..."
-    />
+    <div
+      className=""
+    >
+      <TextEditor
+        ContentState={[Function]}
+        EditorState={[Function]}
+        handleTextChange={[Function]}
+        key="passage-description"
+        text="..."
+      />
+    </div>
     <p
       className="text-editor-label has-text"
     >
