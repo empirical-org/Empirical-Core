@@ -11,6 +11,6 @@ export default (classificationId) => {
   } else if (intClassificationId === 6) {
     return 'lessons';
   } else if (intClassificationId === 9) {
-    return 'comprehension';
+    return 'evidence';
   }
 };

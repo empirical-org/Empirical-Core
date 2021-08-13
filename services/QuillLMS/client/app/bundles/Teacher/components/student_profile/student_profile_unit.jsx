@@ -9,15 +9,15 @@ const connectSrc = `${process.env.CDN_URL}/images/icons/tool-connect-gray.svg`
 const grammarSrc = `${process.env.CDN_URL}/images/icons/tool-grammar-gray.svg`
 const proofreaderSrc = `${process.env.CDN_URL}/images/icons/tool-proofreader-gray.svg`
 const lessonsSrc = `${process.env.CDN_URL}/images/icons/tool-lessons-gray.svg`
-const comprehensionSrc = `${process.env.CDN_URL}/images/icons/tool-comprehension-gray.svg`
+const evidenceSrc = `${process.env.CDN_URL}/images/icons/tool-comprehension-gray.svg`
 
 const CONNECT_ACTIVITY_CLASSIFICATION_KEY = "connect"
 const GRAMMAR_ACTIVITY_CLASSIFICATION_KEY = "sentence"
 const PROOFREADER_ACTIVITY_CLASSIFICATION_KEY = "passage"
 const LESSONS_ACTIVITY_CLASSIFICATION_KEY = "lessons"
 const DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY = "diagnostic"
-const COMPREHENSION_ACTIVITY_CLASSIFICATION_KEY = "comprehension"
-const UNGRADED_ACTIVITY_CLASSIFICATIONS = [LESSONS_ACTIVITY_CLASSIFICATION_KEY, DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY, COMPREHENSION_ACTIVITY_CLASSIFICATION_KEY]
+const EVIDENCE_ACTIVITY_CLASSIFICATION_KEY = "evidence"
+const UNGRADED_ACTIVITY_CLASSIFICATIONS = [LESSONS_ACTIVITY_CLASSIFICATION_KEY, DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY, EVIDENCE_ACTIVITY_CLASSIFICATION_KEY]
 const PROFICIENT_CUTOFF = 0.8
 const NEARLY_PROFICIENT_CUTOFF = 0.6
 
@@ -158,8 +158,8 @@ export default class StudentProfileUnit extends React.Component {
         return <img alt="Target representing Quill Connect" src={connectSrc} />
       case LESSONS_ACTIVITY_CLASSIFICATION_KEY:
         return <img alt="Apple representing Quill Lessons" src={lessonsSrc} />
-      case COMPREHENSION_ACTIVITY_CLASSIFICATION_KEY:
-        return <img alt="Book representing Quill Comprehension" src={comprehensionSrc} />
+      case EVIDENCE_ACTIVITY_CLASSIFICATION_KEY:
+        return <img alt="Book representing Quill Evidence" src={evidenceSrc} />
       default:
         return
     }

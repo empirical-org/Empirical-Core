@@ -604,7 +604,7 @@ EmpiricalGrammar::Application.routes.draw do
     announcements
     backpack
     careers
-    comprehension
+    evidence
     proofreader
     grammar
     lessons

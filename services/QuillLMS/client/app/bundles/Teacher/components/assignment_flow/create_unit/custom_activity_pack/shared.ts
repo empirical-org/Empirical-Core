@@ -13,7 +13,7 @@ export const upperBound = (currentPage: number): number => currentPage * RESULTS
 export const activityClassificationGroupings = (showComprehension: boolean) => {
   let independentPracticeKeys = ['connect', 'sentence', 'passage']
   if (showComprehension) {
-    independentPracticeKeys = independentPracticeKeys.concat(['comprehension'])
+    independentPracticeKeys = independentPracticeKeys.concat(['evidence'])
   }
   return ([
     {
