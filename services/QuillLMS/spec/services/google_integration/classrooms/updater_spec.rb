@@ -6,6 +6,7 @@ RSpec.describe GoogleIntegration::Classrooms::Updater do
 
   let!(:classroom) do
     create(:classroom,
+      :with_no_teacher,
       google_classroom_id: google_classroom_id,
       name: name,
       synced_name: synced_name,
@@ -22,11 +23,11 @@ RSpec.describe GoogleIntegration::Classrooms::Updater do
     }
   end
 
+  before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom) }
+
   subject { described_class.new(data) }
 
   let(:updated_classroom) { subject.run }
-
-  before { expect(updated_classroom.id).to eq classroom.id }
 
   context 'no custom classroom name' do
     let(:name) { 'google_classroom classroom' }
@@ -74,6 +75,32 @@ RSpec.describe GoogleIntegration::Classrooms::Updater do
       it 'updates synced name with data_name' do
         expect(updated_classroom.name).to eq classroom.name
         expect(updated_classroom.synced_name).to eq data_name
+      end
+    end
+  end
+
+  context "teacher owns another classroom with same name" do
+    let(:name_1) { 'other google_classroom classroom' }
+    let(:classroom_1) { create(:classroom, :from_google, :with_no_teacher, name: name_1) }
+
+    let(:name) { 'google_classroom classroom'}
+    let(:synced_name) { name }
+    let(:data_name) { name_1 }
+
+    before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom_1) }
+
+    it 'creates a new classroom object with new name to avoid a naming collision' do
+      expect(updated_classroom.name).to eq "#{name_1}_1"
+    end
+
+    context 'and another classroom as same name as renamed collision' do
+      let(:name_2) { "#{name_1}_1"}
+      let(:classroom_2) { create(:classroom, :from_google, :with_no_teacher, name: name_2) }
+
+      before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom_2) }
+
+      it 'creates a new classroom object with new name to avoid two naming collisions' do
+        expect(updated_classroom.name).to eq "#{name_2}_1"
       end
     end
   end
