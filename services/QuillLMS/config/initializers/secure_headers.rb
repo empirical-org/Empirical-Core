@@ -12,6 +12,7 @@ SecureHeaders::Configuration.default do |config|
       "'self'", 
       "'unsafe-inline'",
       "'unsafe-eval'",                                            # allows use of eval()
+      "https://*.clever.com",
       "https://*.fontawesome.com",
       "http://*.typekit.net",
       "https://*.segment.com",
@@ -19,6 +20,7 @@ SecureHeaders::Configuration.default do |config|
       "https://*.newrelic.com",
       "https://*.nr-data.net",
       "https://*.googleapis.com",
+      "https://*.gstatic.com",
       "https://*.pusher.com",
       "https://*.google-analytics.com",
       "https://*.inspectlet.com",
@@ -59,6 +61,7 @@ SecureHeaders::Configuration.default do |config|
       "https://*.segment.io",
       "https://*.nr-data.net",
       "https://*.google-analytics.com",
+      "https://*.google.com",
       "https://*.inspectlet.com",
       "https://*.doubleclick.net",
       "https://*.pusherapp.com",
