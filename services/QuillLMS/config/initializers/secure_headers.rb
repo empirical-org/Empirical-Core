@@ -25,7 +25,11 @@ SecureHeaders::Configuration.default do |config|
       "https://*.satismeter.com",
       "https://*.stripe.com",
       "https://*.amplitude.com",
-      "https://*.doubleclick.net"
+      "https://*.doubleclick.net",
+      "https://*.intercom.io",
+      "https://*.intercomcdn.com",
+      "https://*.coview.com",
+      "https://*.sentry.io"
     ],                                                            
 
     font_src: [
@@ -59,7 +63,10 @@ SecureHeaders::Configuration.default do |config|
       "https://*.doubleclick.net",
       "https://*.pusherapp.com",
       "https://*.pusher.com",
-      "wss://*.pusherapp.com"
+      "wss://*.pusherapp.com",
+      "https://*.intercom.io",
+      "https://*.coview.com",
+      "https://*.sentry.io"
     ]
   }
 
