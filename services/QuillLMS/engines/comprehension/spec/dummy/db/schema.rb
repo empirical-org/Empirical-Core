@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210722143752) do
+ActiveRecord::Schema.define(version: 20210811130211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,9 @@ ActiveRecord::Schema.define(version: 20210722143752) do
     t.string "image_link"
     t.string "image_alt_text", default: ""
     t.string "highlight_prompt"
+    t.string "image_caption", default: ""
+    t.string "image_author", default: ""
+    t.string "image_source", default: ""
     t.index ["activity_id"], name: "index_comprehension_passages_on_activity_id"
   end
 

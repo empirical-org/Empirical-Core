@@ -21,7 +21,7 @@ module GoogleIntegration
           teacher_id: teacher_id,
           classrooms_teachers_attributes: [
             {
-              user_id: user_id,
+              user_id: teacher_id,
               role: role
             }
           ]
@@ -29,19 +29,32 @@ module GoogleIntegration
       end
 
       private def name
-        data[:name].present? ? data[:name] : "Classroom #{google_classroom_id}"
+        data[:name].present? ? valid_name : "Classroom #{google_classroom_id}"
+      end
+
+      private def other_owned_classroom_names
+        @other_owned_classroom_names ||= teacher.classrooms_i_own.pluck(:name)
       end
 
       private def role
         'owner'
       end
 
+      private def teacher
+        ::User.find(teacher_id)
+      end
+
       private def synced_name
         data[:name]
       end
 
-      private def user_id
-        teacher_id
+      private def valid_name
+        temp_name = data[:name]
+
+        loop do
+          return temp_name unless other_owned_classroom_names.include?(temp_name)
+          temp_name += '_1'
+        end
       end
     end
   end
