@@ -1380,9 +1380,8 @@ CREATE TABLE public.comprehension_passages (
     image_link character varying,
     image_alt_text character varying DEFAULT ''::character varying,
     highlight_prompt character varying,
-    image_caption character varying DEFAULT ''::character varying,
-    image_author character varying DEFAULT ''::character varying,
-    image_source character varying DEFAULT ''::character varying
+    image_caption text DEFAULT ''::text,
+    image_attribution text DEFAULT ''::text
 );
 
 
@@ -7395,6 +7394,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210722144950'),
 ('20210726193112'),
 ('20210803163028'),
-('20210811130155');
+('20210811130155'),
+('20210816195838');
 
 
