@@ -82,11 +82,9 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
 
   function handleSetPassageText(text: string) { handleSetActivityPassages('text', text)}
 
-  function handleSetImageAuthor(e: InputEvent) { handleSetActivityPassages('image_author', e.target.value)}
+  function handleSetImageAttribution(text: string) { handleSetActivityPassages('image_attribution', text)}
 
-  function handleSetImageCaption(e: InputEvent) { handleSetActivityPassages('image_caption', e.target.value)}
-
-  function handleSetImageSource(e: InputEvent) { handleSetActivityPassages('image_source', e.target.value)}
+  function handleSetImageCaption(text: string) { handleSetActivityPassages('image_caption', text)}
 
   function handleSetActivityPassages(key, value){
     const updatedPassages = [...activityPassages];
@@ -129,9 +127,8 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
       activitySoPrompt.text,
       activityPassages[0].image_link,
       activityPassages[0].image_alt_text,
-      activityPassages[0].image_author,
       activityPassages[0].image_caption,
-      activityPassages[0].image_source,
+      activityPassages[0].image_attribution,
       activityPassages[0].highlight_prompt
     ];
     const validationErrors = validateForm(activityFormKeys, state);
@@ -201,29 +198,22 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
           label="Image Alt Text"
           value={activityPassages[0].image_alt_text}
         />
-        <Input
-          className="image-caption-text-input"
-          error={errors[IMAGE_CAPTION]}
-          handleChange={handleSetImageCaption}
-          label="Image Caption"
-          value={activityPassages[0].image_caption}
+        <p className="text-editor-label">Image Caption</p>
+        <TextEditor
+          ContentState={ContentState}
+          EditorState={EditorState}
+          handleTextChange={handleSetImageCaption}
+          key="passage-image-caption"
+          text={activityPassages[0].image_caption}
         />
-        <section className="image-properties-section">
-          <Input
-            className="image-author-text-input"
-            error={errors[IMAGE_AUTHOR]}
-            handleChange={handleSetImageAuthor}
-            label="Image Author"
-            value={activityPassages[0].image_author}
-          />
-          <Input
-            className="image-source-text-input"
-            error={errors[IMAGE_SOURCE]}
-            handleChange={handleSetImageSource}
-            label="Image Source"
-            value={activityPassages[0].image_source}
-          />
-        </section>
+        <p className="text-editor-label">Image Attribution</p>
+        <TextEditor
+          ContentState={ContentState}
+          EditorState={EditorState}
+          handleTextChange={handleSetImageAttribution}
+          key="passage-image-attribution"
+          text={activityPassages[0].image_attribution}
+        />
         <p className={`text-editor-label ${passageLabelStyle}`}>
           <span>Passage</span>
           <button className="quill-button fun secondary outlined focus-on-light" onClick={toggleShowHighlights} type="button">{showHighlights ? 'Hide highlights' : 'Show highlights'}</button>

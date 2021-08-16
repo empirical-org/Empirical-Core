@@ -57,8 +57,7 @@ export interface PassagesInterface {
   image_link?: string,
   image_alt_text?: string,
   image_caption?: string,
-  image_author?: string,
-  image_source?: string,
+  image_attribution?: string,
   highlight_prompt?: string
 }
 

@@ -71,7 +71,7 @@ module Comprehension
         :parent_activity_id,
         :target_level,
         :scored_level,
-        passages_attributes: [:id, :text, :image_link, :image_alt_text, :image_author, :image_caption, :image_source, :highlight_prompt],
+        passages_attributes: [:id, :text, :image_link, :image_alt_text, :image_caption, :image_attribution, :highlight_prompt],
         prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback]
       )
     end

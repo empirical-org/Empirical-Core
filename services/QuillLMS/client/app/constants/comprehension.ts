@@ -253,9 +253,8 @@ export const BUT_STEM = 'But stem';
 export const SO_STEM = 'So stem';
 export const IMAGE_LINK = 'Image link';
 export const IMAGE_ALT_TEXT = 'Image alt text';
-export const IMAGE_AUTHOR = 'Image author';
 export const IMAGE_CAPTION = 'Image caption';
-export const IMAGE_SOURCE = 'Image source';
+export const IMAGE_ATTRIBUTION = 'Image attribution';
 
 export const activityFormKeys = [
   TITLE,
@@ -269,9 +268,8 @@ export const activityFormKeys = [
   SO_STEM,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
-  IMAGE_AUTHOR,
   IMAGE_CAPTION,
-  IMAGE_SOURCE,
+  IMAGE_ATTRIBUTION,
   HIGHLIGHT_PROMPT
 ];
 

@@ -39,6 +39,7 @@ import {
   CLICK,
   KEYPRESS,
   VISIBILITYCHANGE,
+  Tooltip
 } from '../../../Shared/index'
 
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
@@ -768,6 +769,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { title, passages, } = currentActivity
 
     const headerImage = passages[0].image_link && <img alt={passages[0].image_alt_text} className="header-image" src={passages[0].image_link} />
+    const headerImageContainer = headerImage && <section className="header-image-container">
+      {headerImage}
+      <section className="header-image-information">
+        <p>{passages[0].image_caption}</p>
+        <Tooltip tooltipText="test" tooltipTriggerText="Image credit" tooltipTriggerTextClass="image-attribution-tooltip" />
+      </section>
+    </section>
     let innerContainerClassName = "read-passage-inner-container "
     innerContainerClassName += !hasStartedReadPassageStep || showReadTheDirectionsModal ? 'blur' : ''
 
@@ -778,7 +786,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     return (<div className="read-passage-container" onScroll={this.handleReadPassageContainerScroll}>
       <div className={innerContainerClassName}>
         <h1 className="title">{currentActivity.title}</h1>
-        {headerImage}
+        {headerImageContainer}
         <div className="passage">{ReactHtmlParser(this.formatHtmlForPassage(), { transform: this.transformMarkTags })}</div>
       </div>
     </div>)
