@@ -341,24 +341,6 @@ class User < ApplicationRecord
     User.where("email = ? OR username = ?", login_name, login_name).first
   end
 
-  def self.setup_from_clever(auth_hash)
-    user = User.create_from_clever(auth_hash)
-
-    d = District.find_by(clever_id: auth_hash[:info][:district])
-
-
-    return user if d.nil? #FIXME: replace with ERROR("DISTRICT NOT FOUND")
-
-    user.districts << d unless user.districts.include?(d)
-
-    if user.teacher?
-      user.create_classrooms!
-    elsif user.student?
-      user.connect_to_classrooms!
-    end
-    user
-  end
-
   # replace with authority, cancan or something
   def role
     @role_inquirer ||= ActiveSupport::StringInquirer.new(self[:role])
@@ -486,10 +468,6 @@ class User < ApplicationRecord
     generate_password
   end
 
-  def clever_district_id
-    clever_user.district.id
-  end
-
   def teacher_of_student
     unless classrooms.empty?
       classrooms.first.owner
@@ -549,12 +527,6 @@ class User < ApplicationRecord
     Arel::Nodes::SqlLiteral.new "date(items.created_at)"
   end
 
-  # Connect to any classrooms already created by a teacher
-  def connect_to_classrooms!
-    classrooms = Classroom.where(clever_id: clever_user.sections.collect(&:id)).all
-    classrooms.each { |c| c.students << self}
-  end
-
   # Create the user from a Clever info hash
   def self.create_from_clever(hash, role_override = nil)
     user = User.where(email: hash[:info][:email]).first_or_initialize
@@ -567,13 +539,6 @@ class User < ApplicationRecord
       last_name: hash[:info][:name][:last]
     )
     user
-  end
-
-  # Create all classrooms this teacher is connected to
-  def create_classrooms!
-    clever_user.sections.each do |section|
-      Classroom.setup_from_clever(section, self)
-    end
   end
 
   def generate_student_username_if_absent
@@ -658,12 +623,6 @@ class User < ApplicationRecord
     if school
       find_or_create_checkbox('Add School', self)
     end
-  end
-
-  # Clever integration
-  private def clever_user
-    klass = "Clever::#{role.capitalize}".constantize
-    @clever_user ||= klass.retrieve(clever_id, districts.first.token)
   end
 
   # validation filters

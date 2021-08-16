@@ -1,17 +1,28 @@
 import React from 'react'
 
-import { TEACHER_CENTER_SLUG } from './blog_post_constants'
+import { TEACHER_CENTER_SLUG, USING_QUILL_FOR_READING_COMPREHENSION } from './blog_post_constants'
 
-export default (props) => (
-  <div className="header-section">
-    <div className="text">
-      <h1>{props.title}</h1>
-      <p>{props.subtitle}</p>
+export const HeaderSection = ({ title, subtitle, showCancelSearchButton, query }) => {
+
+  function renderTitle() {
+    if(title === USING_QUILL_FOR_READING_COMPREHENSION) {
+      return title.replace('quill', 'Quill')
+    }
+    return title;
+  }
+  return(
+    <div className="header-section">
+      <div className="text">
+        <h1>{renderTitle()}</h1>
+        <p>{subtitle}</p>
+      </div>
+      <form action={`${process.env.DEFAULT_URL}/${TEACHER_CENTER_SLUG}/search`}>
+        <input defaultValue={query || null} name='query' placeholder='Search for posts' type='text' />
+        <i className="fas fa-icon fa-search" />
+        {showCancelSearchButton ? <img className="cancel-button" onClick={() => window.location.href = `${process.env.DEFAULT_URL}/${TEACHER_CENTER_SLUG}/`} src={`${process.env.CDN_URL}/images/icons/CloseIcon.svg`} /> : null}
+      </form>
     </div>
-    <form action={`${process.env.DEFAULT_URL}/${TEACHER_CENTER_SLUG}/search`}>
-      <input defaultValue={props.query ? props.query : null} name='query' placeholder='Search for posts' type='text' />
-      <i className="fas fa-icon fa-search" />
-      {props.showCancelSearchButton ? <img className="cancel-button" onClick={() => window.location.href = `${process.env.DEFAULT_URL}/${TEACHER_CENTER_SLUG}/`} src={`${process.env.CDN_URL}/images/icons/CloseIcon.svg`} /> : null}
-    </form>
-  </div>
-)
+  )
+}
+
+export default HeaderSection

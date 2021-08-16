@@ -57,15 +57,28 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
 
   renderClassType() {
     const { classroom } = this.props
-    if (!classroom.google_classroom_id && !classroom.clever_id) { return }
+    const { name, synced_name } = classroom
 
     const text = classroom.google_classroom_id ? 'Google Classroom' : 'Clever Classroom'
 
-    return (<React.Fragment>
-      <span className="item">{text}</span>
-      <span className="bullet item">•</span>
-    </React.Fragment>)
+    if (synced_name === null || synced_name === name) {  return text }
+
+    return (
+      <Tooltip
+        tooltipText={`Source: ${synced_name}`}
+        tooltipTriggerText={
+          <div className="text-and-icon-wrapper">
+            <span>{text}&nbsp;</span>
+            <img
+              alt={helpIcon.alt}
+              src={helpIcon.src}
+            />
+          </div>
+        }
+      />
+    )
   }
+
 
   renderClassCode() {
     const { classroom } = this.props
@@ -98,18 +111,20 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
 
   renderClassroomData() {
     const { classroom } = this.props
+    const { clever_id, google_classroom_id } = classroom
     const numberOfStudents = classroom.students.length
     const numberOfTeachers = classroom.teachers.length
     const createdAt = moment(classroom.created_at).format('MMM D, YYYY')
     const updatedAt = moment(classroom.updated_at).format('MMM D, YYYY')
     const archivedDate = classroom.visible ? null : [<span className="bullet item">•</span>, <span className="item">Archived {updatedAt}</span>]
     const coteachers = numberOfTeachers > 1 ? [<span className="item">{numberOfTeachers - 1} {numberOfTeachers === 2 ? 'co-teacher' : 'co-teachers'}</span>, <span className="bullet item">•</span>] : null
+    const classType = (google_classroom_id || clever_id) ? [<span className="item">{this.renderClassType()}</span>, <span className="bullet item">•</span>] : null
 
     return (<div className="classroom-data">
       <span className="item">{numberOfStudents} {numberOfStudents === 1 ? 'student' : 'students'}</span>
       <span className="bullet item">•</span>
       {coteachers}
-      {this.renderClassType()}
+      {classType}
       <span className="item">{this.renderClassCode()}</span>
       <span className="bullet item">•</span>
       <span className="item">{this.renderGrade()}</span>

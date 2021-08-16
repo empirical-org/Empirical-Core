@@ -24,7 +24,7 @@ class RawScore < ApplicationRecord
     activity_classification = ActivityClassification.find_by_id(activity_classification_id)
     case name
     when "1200-1300"
-      if ActivityClassification::COMPREHENSION_KEY == activity_classification.key
+      if ActivityClassification::EVIDENCE_KEY == activity_classification.key
         "8th-9th"
       else
         "10th-12th"
@@ -36,7 +36,7 @@ class RawScore < ApplicationRecord
     when "600-700", "700-800", "800-900"
       "6th-7th"
     when "500-600"
-      if [ActivityClassification::PROOFREADER_KEY, ActivityClassification::COMPREHENSION_KEY].include?(activity_classification.key)
+      if [ActivityClassification::PROOFREADER_KEY, ActivityClassification::EVIDENCE_KEY].include?(activity_classification.key)
         "4th-5th"
       else
         "6th-7th"
@@ -44,7 +44,7 @@ class RawScore < ApplicationRecord
     when "400-500"
       "4th-5th"
     when "300-400"
-      if [ActivityClassification::PROOFREADER_KEY, ActivityClassification::COMPREHENSION_KEY].include?(activity_classification.key)
+      if [ActivityClassification::PROOFREADER_KEY, ActivityClassification::EVIDENCE_KEY].include?(activity_classification.key)
         "2nd-3rd"
       else
         "4th-5th"

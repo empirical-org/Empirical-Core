@@ -7,7 +7,7 @@
 export const nonRelevantActivityClassificationIds = [
   4, // Diagnostic
   6, // Lessons
-  9, // Comprehension
+  9, // Evidence
 ];
 
 export default function shouldCountForScoring(activityClassificationID) {

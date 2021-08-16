@@ -43,7 +43,7 @@ const imageTagForClassification = (activityClassificationId: string): JSX.Elemen
       imgSrc = proofreaderSrc
       break
     case 9:
-      imgAlt = "Book representing Quill Comprehension"
+      imgAlt = "Book representing Quill Evidence"
       imgSrc = comprehensionSrc
       break
   }

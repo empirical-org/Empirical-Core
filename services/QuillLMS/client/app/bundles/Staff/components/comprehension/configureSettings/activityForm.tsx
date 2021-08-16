@@ -35,7 +35,6 @@ interface ActivityFormProps {
 }
 
 const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, submitActivity }: ActivityFormProps) => {
-
   const { parent_activity_id, passages, prompts, scored_level, target_level, title, notes, } = activity;
   const formattedScoredLevel = scored_level || '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
@@ -61,6 +60,9 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   const [activityButPrompt, setActivityButPrompt] = React.useState<PromptInterface>(butPrompt);
   const [activitySoPrompt, setActivitySoPrompt] = React.useState<PromptInterface>(soPrompt);
   const [errors, setErrors] = React.useState<{}>({});
+  const [showHighlights, setShowHighlights] = React.useState(true)
+
+  function toggleShowHighlights(e: MouseEvent) { setShowHighlights(!showHighlights)}
 
   function handleSetActivityTitle(e: InputEvent){ setActivityTitle(e.target.value) };
 
@@ -150,7 +152,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   return(
     <div className="activity-form-container">
       <div className="button-container">
-        <a className="quill-button fun secondary outlined" href={`/comprehension/#/play?uid=${activity.id}`} rel="noopener noreferrer" target="_blank">Play Activity</a>
+        <a className="quill-button fun secondary outlined" href={`/evidence/#/play?uid=${activity.id}`} rel="noopener noreferrer" target="_blank">Play Activity</a>
         {activity.parent_activity_id && <button className="quill-button fun secondary outlined" onClick={handleClickArchiveActivity} type="button">Archive Activity</button>}
         <button className="quill-button fun primary contained" id="activity-submit-button" onClick={handleSubmitActivity} type="submit">Save</button>
       </div>
@@ -222,14 +224,19 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
             value={activityPassages[0].image_source}
           />
         </section>
-        <p className={`text-editor-label ${passageLabelStyle}`}>Passage</p>
-        <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
-          handleTextChange={handleSetPassageText}
-          key="passage-description"
-          text={activityPassages[0].text}
-        />
+        <p className={`text-editor-label ${passageLabelStyle}`}>
+          <span>Passage</span>
+          <button className="quill-button fun secondary outlined focus-on-light" onClick={toggleShowHighlights} type="button">{showHighlights ? 'Hide highlights' : 'Show highlights'}</button>
+        </p>
+        <div className={showHighlights ? '' : 'hide-highlights'}>
+          <TextEditor
+            ContentState={ContentState}
+            EditorState={EditorState}
+            handleTextChange={handleSetPassageText}
+            key="passage-description"
+            text={activityPassages[0].text}
+          />
+        </div>
         {errors[PASSAGE] && <p className="error-message">{errors[PASSAGE]}</p>}
         <p className={`text-editor-label ${maxAttemptStyle}`}>Max Attempts Feedback</p>
         <TextEditor

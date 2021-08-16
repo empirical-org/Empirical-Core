@@ -50,7 +50,7 @@ describe ActivityClassification, type: :model, redis: true do
 
   describe '#form_url' do
     form_urls = %w[
-      https://www.quill.org/comprehension/#/play
+      https://www.quill.org/evidence/#/play
       https://www.quill.org/proofreader/#/play/pf
       https://www.quill.org/diagnostic/#/play/diagnostic/
       https://www.quill.org/grammar/#/play/sw/
@@ -70,7 +70,7 @@ describe ActivityClassification, type: :model, redis: true do
 
   describe '#module_url' do
     module_urls = %w[
-      https://www.quill.org/comprehension/#/play
+      https://www.quill.org/evidence/#/play
       https://www.quill.org/proofreader/#/play/pf
       https://www.quill.org/diagnostic/#/play/diagnostic/
       https://www.quill.org/grammar/#/play/sw/
