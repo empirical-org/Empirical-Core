@@ -2,7 +2,6 @@ import * as React from 'react';
 import _ from 'underscore';
 
 import TopicSection from './topic_section.jsx';
-import PreviewCard from '../shared/preview_card.jsx';
 import HeaderSection from './header_section'
 import {
   STUDENT,
@@ -22,7 +21,10 @@ import {
   BEST_PRACTICES,
   SUPPORT,
   WEBINARS,
+  USING_QUILL_FOR_READING_COMPREHENSION
 } from './blog_post_constants'
+
+import PreviewCard from '../shared/preview_card.jsx';
 
 export default class BlogPostIndex extends React.Component {
   constructor(props) {
@@ -62,6 +64,8 @@ export default class BlogPostIndex extends React.Component {
         return 'Stay up to date on the latest Quill news'
       case TEACHER_MATERIALS:
         return 'Read and download useful materials to help navigate Quill, support students, and teach writing'
+      case USING_QUILL_FOR_READING_COMPREHENSION:
+        return "Learn all about Quill's new reading and writing tool"
       case TEACHER_CENTER:
       default:
         return 'Everything you need to know about Quill’s pedagogy and use in the classroom'
@@ -174,16 +178,21 @@ export default class BlogPostIndex extends React.Component {
 
 
   renderPreviewCardsByTopic() {
+    const { blogPosts, isComprehensionUser, role, topics } = this.props;
     let sections = [];
-    const articlesByTopic = _.groupBy(this.props.blogPosts, TOPIC);
-    this.props.topics.forEach(topic => {
+    const articlesByTopic = _.groupBy(blogPosts, TOPIC);
+    topics.forEach(topic => {
       const articlesInThisTopic = articlesByTopic[topic.name];
+      const skipComprehension = topic.name === USING_QUILL_FOR_READING_COMPREHENSION && !isComprehensionUser;
+
+      if(skipComprehension) { return }
+
       if (articlesInThisTopic) {
         sections.push(<TopicSection
           articleCount={articlesInThisTopic.length}
           articles={articlesInThisTopic.sort((a, b) => a.order_number - b.order_number)}
           key={topic.name}
-          role={this.props.role}
+          role={role}
           slug={topic.slug}
           title={topic.name}
         />
