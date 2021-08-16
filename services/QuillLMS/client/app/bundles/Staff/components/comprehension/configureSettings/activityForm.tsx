@@ -23,7 +23,7 @@ import {
   PARENT_ACTIVITY_ID,
   HIGHLIGHT_PROMPT
 } from '../../../../../constants/comprehension';
-import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent, ClickEvent } from '../../../interfaces/comprehensionInterfaces';
 import { Input, TextEditor, } from '../../../../Shared/index'
 import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../../Shared/utils/constants'
 
@@ -62,7 +62,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   const [errors, setErrors] = React.useState<{}>({});
   const [showHighlights, setShowHighlights] = React.useState(true)
 
-  function toggleShowHighlights(e: MouseEvent) { setShowHighlights(!showHighlights)}
+  function toggleShowHighlights(e: ClickEvent) { setShowHighlights(!showHighlights)}
 
   function handleSetActivityTitle(e: InputEvent){ setActivityTitle(e.target.value) };
 
