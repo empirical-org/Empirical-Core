@@ -60,7 +60,6 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   }
 
   function handleEditOrDeleteTurkSession (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    e.preventDefault();
     const target  = e.target as HTMLButtonElement;
     const { id, value } = target;
     setEditTurkSessionId(id);
@@ -96,17 +95,14 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   }
 
   function handleCopyTurkLink (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    e.preventDefault();
     copyToClipboard(e, setSnackBarVisible);
   }
 
   const turkSessionsRows = turkSessionsData && turkSessionsData.turkSessions && turkSessionsData.turkSessions.map((turkSession: TurkSessionInterface) => {
     const { activity_id, expires_at, id } = turkSession;
     const url = `${process.env.DEFAULT_URL}/evidence/#/turk?uid=${activity_id}&id=${id}`;
-    const link = <a href={url} rel="noopener noreferrer" target="_blank">{url}</a>;
     return {
       id: `${activity_id}-${id}`,
-      link,
       expiration: moment(expires_at).format('MMMM Do, YYYY'),
       copy: <TurkSessionButton clickHandler={handleCopyTurkLink} id={id} label="copy" value={url} />,
       edit: <TurkSessionButton clickHandler={handleEditOrDeleteTurkSession} id={id} label="edit" value={expires_at} />,
