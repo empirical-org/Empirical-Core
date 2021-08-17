@@ -138,7 +138,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const initialPassageData = formatInitialPassage(passage)
       const formattedPassage = initialPassageData.passage
       let currentPassage = formattedPassage
-
+      if (session.passageFromFirebase && typeof session.passageFromFirebase !== 'string') {
+        currentPassage = session.passageFromFirebase
+      }
       dispatch(setPassage(currentPassage))
       return { originalPassage: _.cloneDeep(formattedPassage), necessaryEdits: initialPassageData.necessaryEdits, edits: editCount(currentPassage), currentActivity: proofreaderActivities.currentActivity, loadingFirebaseSession: false }
     }
