@@ -83,7 +83,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
 
   function handleSetImageAttribution(e: TextAreaEvent) { handleSetActivityPassages('image_attribution', e.target.value)}
 
-  function handleSetImageCaption(text: string) { handleSetActivityPassages('image_caption', text)}
+  function handleSetImageCaption(e: InputEvent) { handleSetActivityPassages('image_caption', e.target.value)}
 
   function handleSetActivityPassages(key, value){
     const updatedPassages = [...activityPassages];
@@ -198,13 +198,12 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
           label="Image Alt Text"
           value={activityPassages[0].image_alt_text}
         />
-        <p className="text-editor-label">Image Caption</p>
-        <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
-          handleTextChange={handleSetImageCaption}
-          key="passage-image-caption"
-          text={activityPassages[0].image_caption}
+        <Input
+          className="image-caption-text-input"
+          error={errors[IMAGE_CAPTION]}
+          handleChange={handleSetImageCaption}
+          label="Image Caption"
+          value={activityPassages[0].image_caption}
         />
         {errors[IMAGE_CAPTION] && <p className="error-message">{errors[IMAGE_CAPTION]}</p>}
         <p className="text-editor-label" id="image-attribution-label"> Image Attribution</p>
