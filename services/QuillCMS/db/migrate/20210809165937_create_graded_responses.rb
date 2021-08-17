@@ -13,6 +13,10 @@ class CreateGradedResponses < ActiveRecord::Migration[6.1]
   end
 
   def down
+    drop_index :graded_responses, :id
+    drop_index :graded_responses, :question_uid
+    drop_index :graded_responses, :optimal
+
     drop_view :graded_responses, materialized: true
   end
 
