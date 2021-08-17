@@ -1,6 +1,10 @@
 import * as React from 'react'
+import marked from 'marked';
 
 interface TooltipProps {
+  isMarkdown?: boolean,
+  setNavigationUrl?: (url: string) => void,
+  toggleWarningModal?: () => void,
   tooltipText: string,
   tooltipTriggerText: string|JSX.Element,
   tooltipTriggerTextClass?: string,
@@ -25,22 +29,29 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
     this.hideTooltip = this.hideTooltip.bind(this)
   }
 
+
   componentWillUnmount() {
     document.removeEventListener('click', this.hideTooltipOnClick, false)
   }
 
   hideTooltipOnClick(e) {
+    const { setNavigationUrl, toggleWarningModal } = this.props;
     if (this.tooltip && e.target !== this.tooltip && e.target !== this.tooltipTrigger) {
       this.hideTooltip()
+    }
+    if(e.target.href) {
+      e.preventDefault();
+      setNavigationUrl(e.target.href)
+      toggleWarningModal();
     }
   }
 
   showTooltip() {
-    const { tooltipText, } = this.props
+    const { tooltipText, isMarkdown } = this.props
     const activeTooltips = document.getElementsByClassName('visible quill-tooltip')
     Array.from(activeTooltips).forEach(tooltip => tooltip.classList.remove('visible'))
     clearTimeout(this.timer)
-    this.tooltip.innerHTML = tooltipText
+    this.tooltip.innerHTML = isMarkdown ? marked(tooltipText) : tooltipText
     this.tooltip.classList.add('visible')
   }
 

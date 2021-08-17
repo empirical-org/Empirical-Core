@@ -17,13 +17,12 @@ import {
   PASSAGE,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
-  IMAGE_AUTHOR,
+  IMAGE_ATTRIBUTION,
   IMAGE_CAPTION,
-  IMAGE_SOURCE,
   PARENT_ACTIVITY_ID,
   HIGHLIGHT_PROMPT
 } from '../../../../../constants/comprehension';
-import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent, ClickEvent } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent, ClickEvent,  TextAreaEvent } from '../../../interfaces/comprehensionInterfaces';
 import { Input, TextEditor, } from '../../../../Shared/index'
 import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../../Shared/utils/constants'
 
@@ -82,7 +81,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
 
   function handleSetPassageText(text: string) { handleSetActivityPassages('text', text)}
 
-  function handleSetImageAttribution(text: string) { handleSetActivityPassages('image_attribution', text)}
+  function handleSetImageAttribution(e: TextAreaEvent) { handleSetActivityPassages('image_attribution', e.target.value)}
 
   function handleSetImageCaption(text: string) { handleSetActivityPassages('image_caption', text)}
 
@@ -145,6 +144,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   const showErrorsContainer = formErrorsPresent || requestErrorsPresent;
   const passageLabelStyle = activityPassages[0].text.length  && activityPassages[0].text !== '<br/>' ? 'has-text' : '';
   const maxAttemptStyle = activityMaxFeedback.length && activityMaxFeedback !== '<br/>' ? 'has-text' : '';
+  const imageAttributionGuideLink = 'https://www.notion.so/quill/Activity-Images-9bc3993400da46a6af445a8a0d2d9d3f#11e9a01b071e41bc954e1182d56e93e8';
 
   return(
     <div className="activity-form-container">
@@ -206,14 +206,15 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
           key="passage-image-caption"
           text={activityPassages[0].image_caption}
         />
-        <p className="text-editor-label">Image Attribution</p>
-        <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
-          handleTextChange={handleSetImageAttribution}
-          key="passage-image-attribution"
-          text={activityPassages[0].image_attribution}
+        {errors[IMAGE_CAPTION] && <p className="error-message">{errors[IMAGE_CAPTION]}</p>}
+        <p className="text-editor-label" id="image-attribution-label"> Image Attribution</p>
+        <a className="data-link image-attribution-guide-link" href={imageAttributionGuideLink} rel="noopener noreferrer" target="_blank">Image Atributtion Guide</a>
+        <textarea
+          className="image-attribution-text-area"
+          onChange={handleSetImageAttribution}
+          value={activityPassages[0].image_attribution}
         />
+        {errors[IMAGE_ATTRIBUTION] && <p className="error-message">{errors[IMAGE_ATTRIBUTION]}</p>}
         <p className={`text-editor-label ${passageLabelStyle}`}>
           <span>Passage</span>
           <button className="quill-button fun secondary outlined focus-on-light" onClick={toggleShowHighlights} type="button">{showHighlights ? 'Hide highlights' : 'Show highlights'}</button>

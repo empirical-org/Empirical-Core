@@ -89,6 +89,35 @@ exports[`Activity Form component should render Activities 1`] = `
       label="Image Alt Text"
     />
     <p
+      className="text-editor-label"
+    >
+      Image Caption
+    </p>
+    <TextEditor
+      ContentState={[Function]}
+      EditorState={[Function]}
+      handleTextChange={[Function]}
+      key="passage-image-caption"
+    />
+    <p
+      className="text-editor-label"
+      id="image-attribution-label"
+    >
+       Image Attribution
+    </p>
+    <a
+      className="data-link image-attribution-guide-link"
+      href="https://www.notion.so/quill/Activity-Images-9bc3993400da46a6af445a8a0d2d9d3f#11e9a01b071e41bc954e1182d56e93e8"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Image Atributtion Guide
+    </a>
+    <textarea
+      className="image-attribution-text-area"
+      onChange={[Function]}
+    />
+    <p
       className="text-editor-label has-text"
     >
       <span>
