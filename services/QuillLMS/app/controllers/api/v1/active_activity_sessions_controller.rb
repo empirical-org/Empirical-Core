@@ -10,7 +10,7 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
     begin
       @activity_session = ActiveActivitySession.find_or_initialize_by(uid: params[:id])
       @activity_session.data ||= {}
-      @activity_session.data = @activity_session.data.merge(valid_params)
+      @activity_session.data = @activity_session.data.merge(working_params)
       @activity_session.save!
     rescue ActiveRecord::RecordNotUnique => e
       # Due to the way that ActiveRecord handles unique validations such as the one on UID,
@@ -30,6 +30,15 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
   def destroy
     @activity_session.destroy
     render(plain: 'OK')
+  end
+
+  private def working_params
+    permitted_passage_object = params[:active_activity_session][:passage].map do |paragraph| 
+      paragraph.map do |word_object|
+        word_object.permit!
+      end
+    end
+    valid_params.merge({ passage: permitted_passage_object })
   end
 
   private def valid_params
