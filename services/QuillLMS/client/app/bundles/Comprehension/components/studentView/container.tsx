@@ -786,7 +786,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       {headerImage}
       <section className="header-image-information">
         <p className="header-image-caption">{passages[0].image_caption && stripHtml(passages[0].image_caption)}</p>
-        <Tooltip isMarkdown={true} toggleWarningModal={this.handleImageAttributionClick} tooltipText={passages[0].image_attribution} tooltipTriggerText="Image credit" tooltipTriggerTextClass="image-attribution-tooltip" setNavigationUrl={this.handleSetNavigationUrl} />
+        <Tooltip isMarkdown={true} setNavigationUrl={this.handleSetNavigationUrl} toggleWarningModal={this.handleImageAttributionClick} tooltipText={passages[0].image_attribution} tooltipTriggerText="Image credit" tooltipTriggerTextClass="image-attribution-tooltip" />
       </section>
     </section>
     let innerContainerClassName = "read-passage-inner-container "

@@ -48,7 +48,6 @@
         justify-content: space-between;
         max-width: 680px;
         margin: 8px 0px 32px 0px;
-        overflow: hidden;
         .header-image-caption {
           font-size: 14px;
           color: #5c5c5c;
@@ -304,6 +303,11 @@
       padding: 24px 16px 0px;
       .passage {
         max-width: 100%;
+      }
+      .header-image-container {
+        .header-image-information {
+          overflow-x: hidden;
+        }
       }
     }
     .prompt-steps {
