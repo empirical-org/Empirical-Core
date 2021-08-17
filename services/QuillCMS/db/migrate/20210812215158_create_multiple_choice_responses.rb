@@ -13,9 +13,9 @@ class CreateMultipleChoiceResponses < ActiveRecord::Migration[6.1]
   end
 
   def down
-    drop_index :multiple_choice_responses, :id
-    drop_index :multiple_choice_responses, :question_uid
-    drop_index :multiple_choice_responses, :optimal
+    remove_index :multiple_choice_responses, :id
+    remove_index :multiple_choice_responses, :question_uid
+    remove_index :multiple_choice_responses, :optimal
 
     drop_view :multiple_choice_responses, materialized: true
   end
