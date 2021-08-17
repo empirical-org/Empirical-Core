@@ -13,9 +13,8 @@ describe Teachers::ProgressReports::Concepts::ConceptsController, type: :control
 
   context 'GET #index' do
     subject { get :index, params: { student_id: student.id } }
-    before do
-      session[:user_id] = teacher.id
-    end
+
+    before { session[:user_id] = teacher.id }
 
     it 'assigns the student to the view' do
       subject
@@ -26,10 +25,10 @@ describe Teachers::ProgressReports::Concepts::ConceptsController, type: :control
   context 'GET #index json' do
     context 'when logged in' do
       let(:json) { JSON.parse(response.body) }
-      subject { get :index, params: { student_id: student.id, format: :json } }
-      before do
-        session[:user_id] = teacher.id
-      end
+
+      subject { get :index, params: { student_id: student.id }, as: :json }
+
+      before { session[:user_id] = teacher.id }
 
       it 'includes a list of concepts in the JSON' do
         subject
@@ -44,12 +43,10 @@ describe Teachers::ProgressReports::Concepts::ConceptsController, type: :control
       end
 
       context 'accessing another teacher\'s student data' do
-        subject { get :index, params: { student_id: other_student.id, format: :json } }
+        subject { get :index, params: { student_id: other_student.id }, as: :json }
 
         it 'raises error' do
-          expect {
-            subject
-          }.to raise_error(ActiveRecord::RecordNotFound)
+          expect { subject }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
     end
