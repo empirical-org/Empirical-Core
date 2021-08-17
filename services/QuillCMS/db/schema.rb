@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(version: 2021_08_12_215158) do
               responses.spelling_error,
               rank() OVER (PARTITION BY responses.question_uid ORDER BY responses.count DESC) AS rank
              FROM responses
-            WHERE ((responses.optimal IS NULL) OR (responses.optimal = false))) responses_filtered
+            WHERE ((responses.count > 10) AND ((responses.optimal IS NULL) OR (responses.optimal = false)))) responses_filtered
     WHERE (responses_filtered.rank <= 2);
   SQL
   add_index "multiple_choice_responses", ["id"], name: "index_multiple_choice_responses_on_id", unique: true

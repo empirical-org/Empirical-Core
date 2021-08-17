@@ -7,7 +7,7 @@ module ResponsesView
     self.primary_key = :id
 
     scope :optimal, -> { where(optimal: true) }
-    scope :nonoptimal, -> { where(optimal: false) }
+    scope :nonoptimal, -> { where(optimal: [false, nil]) }
     scope :no_parent, -> { where(parent_id: nil) }
 
     def self.refresh

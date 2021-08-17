@@ -50,9 +50,9 @@ RSpec.describe QuestionsController, type: :controller do
       let!(:optimal2) {create(:optimal_response, question_uid: '123', count: 7)}
       let!(:optimal3) {create(:optimal_response, question_uid: '123', count: 9)}
 
-      let!(:nonoptimal1) {create(:graded_nonoptimal_response, question_uid: '123', count: 7)}
-      let!(:nonoptimal2) {create(:graded_nonoptimal_response, question_uid: '123', count: 5)}
-      let!(:nonoptimal3) {create(:graded_nonoptimal_response, question_uid: '123', count: 9)}
+      let!(:nonoptimal1) {create(:graded_nonoptimal_response, question_uid: '123', count: 17)}
+      let!(:nonoptimal2) {create(:graded_nonoptimal_response, question_uid: '123', count: 15)}
+      let!(:nonoptimal3) {create(:graded_nonoptimal_response, question_uid: '123', count: 19)}
 
       let!(:ungraded) {create(:ungraded_response, question_uid: '123', count: 1000)}
 
@@ -116,6 +116,35 @@ RSpec.describe QuestionsController, type: :controller do
         expect(optimal_count).to eq 2
         expect(nonoptimal_count).to eq 0
         expect(null_optimal_count).to eq 0
+      end
+    end
+
+    context 'fallback responses needed' do
+      let!(:nonoptimal) {create(:graded_nonoptimal_response, question_uid: '123', count: 17)}
+      let!(:ungraded_low_count1) {create(:ungraded_response, question_uid: '123', count: 9)}
+      let!(:ungraded_low_count2) {create(:ungraded_response, question_uid: '123', count: 2)}
+      let!(:ungraded_low_count3) {create(:ungraded_response, question_uid: '123', count: 2)}
+
+      before(:each) do
+        GradedResponse.refresh
+        MultipleChoiceResponse.refresh
+      end
+
+      # Note, this expectation is bound to QuestionsController::MULTIPLE_CHOICE_LIMIT
+      it 'should return graded responses, 2 nonoptimal' do
+        get :multiple_choice_options, params: {question_uid: '123'}
+
+        expect(response.status).to eq 200
+
+        json = JSON.parse(response.body)
+        optimal_count = json.count {|gr| gr['optimal']}
+        nonoptimal_count = json.count {|gr| gr['optimal'] == false}
+        null_optimal_count = json.count {|gr| gr['optimal'].nil?}
+
+        expect(json.count).to eq 2
+        expect(optimal_count).to eq 0
+        expect(nonoptimal_count).to eq 1
+        expect(null_optimal_count).to eq 1
       end
     end
   end

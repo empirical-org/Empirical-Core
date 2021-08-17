@@ -9,6 +9,8 @@ class Response < ApplicationRecord
 
   validates :question_uid, uniqueness: { scope: :text }
 
+  scope :nonoptimal, -> { where(optimal: [false, nil]) }
+
   settings analysis: {
     analyzer: {
       custom_analyzer: {

@@ -1,3 +1,5 @@
+-- Note, this SQL uses an count > 10 to make the query more performant
+-- Otherwise this wouldn't finish on production
 SELECT
   responses_filtered.id,
   responses_filtered.uid,
@@ -23,5 +25,5 @@ FROM (
       ORDER BY COUNT DESC
     )
   FROM responses
-  WHERE (optimal IS NULL OR optimal = FALSE)
+  WHERE count > 10 AND (optimal IS NULL OR optimal = FALSE)
 ) responses_filtered WHERE RANK <= 2;
