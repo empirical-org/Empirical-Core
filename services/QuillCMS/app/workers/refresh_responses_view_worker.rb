@@ -2,7 +2,7 @@ class RefreshResponsesViewWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
 
-  REFRESH_TIMEOUT = ENV["VIEW_STATEMENT_TIMEOUT"] || '10min'
+  REFRESH_TIMEOUT = ENV.fetch("VIEW_STATEMENT_TIMEOUT", '10min')
   VIEWS = %w(GradedResponse MultipleChoiceResponse)
 
   class InvalidView < StandardError; end
