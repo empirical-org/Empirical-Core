@@ -14,9 +14,9 @@ RSpec.describe QuestionsController, type: :controller do
     end
 
     context 'with data' do
-      let!(:response_optimal) {create(:response, question_uid: '123', optimal: true)}
-      let!(:response_nonoptimal) {create(:response, question_uid: '123', optimal: false)}
-      let!(:response_ungraded) {create(:response, question_uid: '123', optimal: nil)}
+      let!(:optimal) {create(:optimal_response, question_uid: '123')}
+      let!(:nonoptimal) {create(:graded_nonoptimal_response, question_uid: '123')}
+      let!(:ungraded) {create(:ungraded_response, question_uid: '123')}
 
       before(:each) do
         GradedResponse.refresh
@@ -30,8 +30,8 @@ RSpec.describe QuestionsController, type: :controller do
         json = JSON.parse(response.body).sort_by{|gr| gr['id']}
 
         expect(json.count).to eq 2
-        expect(json.first['id']).to eq response_optimal.id
-        expect(json.second['id']).to eq response_nonoptimal.id
+        expect(json.first['id']).to eq optimal.id
+        expect(json.second['id']).to eq nonoptimal.id
       end
     end
   end
@@ -46,15 +46,15 @@ RSpec.describe QuestionsController, type: :controller do
     end
 
     context 'with all data' do
-      let!(:optimal1) {create(:response, question_uid: '123', optimal: true, count: 5)}
-      let!(:optimal2) {create(:response, question_uid: '123', optimal: true, count: 7)}
-      let!(:optimal3) {create(:response, question_uid: '123', optimal: true, count: 9)}
+      let!(:optimal1) {create(:optimal_response, question_uid: '123', count: 5)}
+      let!(:optimal2) {create(:optimal_response, question_uid: '123', count: 7)}
+      let!(:optimal3) {create(:optimal_response, question_uid: '123', count: 9)}
 
-      let!(:nonoptimal1) {create(:response, question_uid: '123', optimal: false, count: 7)}
-      let!(:nonoptimal2) {create(:response, question_uid: '123', optimal: false, count: 5)}
-      let!(:nonoptimal3) {create(:response, question_uid: '123', optimal: false, count: 9)}
+      let!(:nonoptimal1) {create(:graded_nonoptimal_response, question_uid: '123', count: 7)}
+      let!(:nonoptimal2) {create(:graded_nonoptimal_response, question_uid: '123', count: 5)}
+      let!(:nonoptimal3) {create(:graded_nonoptimal_response, question_uid: '123', count: 9)}
 
-      let!(:ungraded) {create(:response, question_uid: '123', optimal: nil, count: 1000)}
+      let!(:ungraded) {create(:ungraded_response, question_uid: '123', count: 1000)}
 
       before(:each) do
         GradedResponse.refresh
@@ -92,9 +92,9 @@ RSpec.describe QuestionsController, type: :controller do
     end
 
     context 'only optimal responses available' do
-      let!(:optimal1) {create(:response, question_uid: '123', optimal: true)}
-      let!(:optimal2) {create(:response, question_uid: '123', optimal: true)}
-      let!(:optimal3) {create(:response, question_uid: '123', optimal: true)}
+      let!(:optimal1) {create(:optimal_response, question_uid: '123')}
+      let!(:optimal2) {create(:optimal_response, question_uid: '123')}
+      let!(:optimal3) {create(:optimal_response, question_uid: '123')}
 
       before(:each) do
         GradedResponse.refresh
