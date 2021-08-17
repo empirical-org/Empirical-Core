@@ -42,7 +42,13 @@ SecureHeaders::Configuration.default do |config|
 
     ], 
 
-    img_src: %w('self' https://*.quill.org https://*.typekit.net),
+    img_src: [
+      "'self'",
+      "https://*.quill.org",
+      "https://*.typekit.net",
+      "https://*.inspectlet.com",
+      "https://*.google.com"
+    ],
 
     base_uri: %w('self'),                                         # used for relative URLs
 
@@ -63,11 +69,13 @@ SecureHeaders::Configuration.default do |config|
       "https://*.google-analytics.com",
       "https://*.google.com",
       "https://*.inspectlet.com",
+      "wss://*.inspectlet.com",
       "https://*.doubleclick.net",
       "https://*.pusherapp.com",
       "https://*.pusher.com",
       "wss://*.pusherapp.com",
       "https://*.intercom.io",
+      "wss://*.intercom.io",
       "https://*.coview.com",
       "https://*.sentry.io"
     ]
