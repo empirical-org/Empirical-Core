@@ -201,6 +201,25 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
   setEditorRef = (node: JSX.Element) => this.editor = node
 
+  onFocus = () => {
+    // following code ensures tabbing into editor always puts cursor at the end of the text
+    const el = this.editor
+    // retrieved from https://stackoverflow.com/a/4238971
+    if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      range.collapse(false);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } else if (typeof document.body.createTextRange != "undefined") {
+      const textRange = document.body.createTextRange();
+      textRange.moveToElementText(el);
+      textRange.collapse(false);
+      textRange.select();
+    }
+  }
+
   handleGetFeedbackClick = (entry: string, promptId: string, promptText: string) => {
     const { submitResponse, } = this.props
 
@@ -254,7 +273,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     const awaitingFeedback = numberOfSubmissions !== submittedResponses.length
     const buttonLoadingSpinner = awaitingFeedback ? <ButtonLoadingSpinner /> : null
     let buttonCopy = submittedResponses.length ? 'Get new feedback' : 'Get feedback'
-    let className = 'quill-button'
+    let className = 'quill-button focus-on-light'
     let onClick = () => this.handleGetFeedbackClick(entry, id, text)
     if (submittedResponses.length === max_attempts || this.lastSubmittedResponse().optimal) {
       onClick = everyOtherStepCompleted ? () => window.location.href = "/" : this.completeStep
@@ -302,6 +321,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     return (<EditorContainer
       className={className}
       disabled={disabled}
+      handleFocus={this.onFocus}
       handleTextChange={this.onTextChange}
       html={formattedText.htmlWithBolding}
       innerRef={this.setEditorRef}

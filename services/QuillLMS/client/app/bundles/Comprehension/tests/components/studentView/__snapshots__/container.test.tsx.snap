@@ -316,6 +316,7 @@ But how can democracies have representative governments unless all or most of th
                     <EditorContainer
                       className="editor"
                       disabled={false}
+                      handleFocus={[Function]}
                       handleTextChange={[Function]}
                       html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
                       innerRef={[Function]}
@@ -334,6 +335,7 @@ But how can democracies have representative governments unless all or most of th
                           html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
                           innerRef={[Function]}
                           onChange={[Function]}
+                          onFocus={[Function]}
                           spellCheck={false}
                         >
                           <div
@@ -348,6 +350,7 @@ But how can democracies have representative governments unless all or most of th
                             disabled={false}
                             onBlur={[Function]}
                             onChange={[Function]}
+                            onFocus={[Function]}
                             onInput={[Function]}
                             onKeyDown={[Function]}
                             onKeyUp={[Function]}
@@ -368,7 +371,7 @@ But how can democracies have representative governments unless all or most of th
                       </div>
                     </EditorContainer>
                     <button
-                      className="quill-button disabled"
+                      className="quill-button focus-on-light disabled"
                       onClick={[Function]}
                       type="button"
                     >

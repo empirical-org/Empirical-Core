@@ -30,7 +30,7 @@ const ReadAndHighlightTracker = ({ scrolledToEndOfPassage, studentHighlights, on
 const BottomNavigation = ({ scrolledToEndOfPassage, studentHighlights, onMobile, handleClickDoneHighlighting, doneHighlighting, handleDoneReadingClick, hasStartedPromptSteps, hasStartedReadPassageStep, handleStartPromptStepsClick, handleStartReadingPassageClick, inReflection, }) => {
   if (!hasStartedReadPassageStep) {
     return (<div className="bottom-navigation">
-      <button className="quill-button outlined secondary large focus-on-light" onClick={handleStartReadingPassageClick} type="button">Start</button>
+      <button className="quill-button outlined secondary large focus-on-dark" onClick={handleStartReadingPassageClick} type="button">Start</button>
     </div>)
   }
 
@@ -51,7 +51,7 @@ const BottomNavigation = ({ scrolledToEndOfPassage, studentHighlights, onMobile,
 
   if (!hasStartedPromptSteps) {
     return (<div className="bottom-navigation">
-      <button className="quill-button outlined secondary large focus-on-light" onClick={handleStartPromptStepsClick} type="button">Next</button>
+      <button className="quill-button outlined secondary large focus-on-dark" onClick={handleStartPromptStepsClick} type="button">Next</button>
     </div>)
   }
 }

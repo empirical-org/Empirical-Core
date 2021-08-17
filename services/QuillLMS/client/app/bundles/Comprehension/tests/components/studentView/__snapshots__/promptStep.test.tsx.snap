@@ -46,6 +46,7 @@ exports[`PromptStep component active state before any responses have been submit
           <EditorContainer
             className="editor"
             disabled={false}
+            handleFocus={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
@@ -64,6 +65,7 @@ exports[`PromptStep component active state before any responses have been submit
                 html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
                 innerRef={[Function]}
                 onChange={[Function]}
+                onFocus={[Function]}
                 spellCheck={false}
               >
                 <div
@@ -78,6 +80,7 @@ exports[`PromptStep component active state before any responses have been submit
                   disabled={false}
                   onBlur={[Function]}
                   onChange={[Function]}
+                  onFocus={[Function]}
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
@@ -98,7 +101,7 @@ exports[`PromptStep component active state before any responses have been submit
             </div>
           </EditorContainer>
           <button
-            className="quill-button disabled"
+            className="quill-button focus-on-light disabled"
             onClick={[Function]}
             type="button"
           >
@@ -159,6 +162,7 @@ exports[`PromptStep component active state when a profane response has been subm
           <EditorContainer
             className="editor"
             disabled={false}
+            handleFocus={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
@@ -177,6 +181,7 @@ exports[`PromptStep component active state when a profane response has been subm
                 html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
                 innerRef={[Function]}
                 onChange={[Function]}
+                onFocus={[Function]}
                 spellCheck={false}
               >
                 <div
@@ -191,6 +196,7 @@ exports[`PromptStep component active state when a profane response has been subm
                   disabled={false}
                   onBlur={[Function]}
                   onChange={[Function]}
+                  onFocus={[Function]}
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
@@ -211,7 +217,7 @@ exports[`PromptStep component active state when a profane response has been subm
             </div>
           </EditorContainer>
           <button
-            className="quill-button disabled"
+            className="quill-button focus-on-light disabled"
             onClick={[Function]}
             type="button"
           >
@@ -354,6 +360,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
           <EditorContainer
             className="editor"
             disabled={false}
+            handleFocus={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
@@ -372,6 +379,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
                 html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
                 innerRef={[Function]}
                 onChange={[Function]}
+                onFocus={[Function]}
                 spellCheck={false}
               >
                 <div
@@ -386,6 +394,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
                   disabled={false}
                   onBlur={[Function]}
                   onChange={[Function]}
+                  onFocus={[Function]}
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
@@ -406,7 +415,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
             </div>
           </EditorContainer>
           <button
-            className="quill-button disabled"
+            className="quill-button focus-on-light disabled"
             onClick={[Function]}
             type="button"
           >
@@ -559,6 +568,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
           <EditorContainer
             className="editor suboptimal"
             disabled={false}
+            handleFocus={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
             innerRef={[Function]}
@@ -577,6 +587,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
                 html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
                 innerRef={[Function]}
                 onChange={[Function]}
+                onFocus={[Function]}
                 spellCheck={false}
               >
                 <div
@@ -591,6 +602,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
                   disabled={false}
                   onBlur={[Function]}
                   onChange={[Function]}
+                  onFocus={[Function]}
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
@@ -612,7 +624,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
             </div>
           </EditorContainer>
           <button
-            className="quill-button disabled"
+            className="quill-button focus-on-light disabled"
             onClick={[Function]}
             type="button"
           >
@@ -773,6 +785,7 @@ exports[`PromptStep component active state when a too-long response has been sub
           <EditorContainer
             className="editor"
             disabled={false}
+            handleFocus={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
@@ -791,6 +804,7 @@ exports[`PromptStep component active state when a too-long response has been sub
                 html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
                 innerRef={[Function]}
                 onChange={[Function]}
+                onFocus={[Function]}
                 spellCheck={false}
               >
                 <div
@@ -805,6 +819,7 @@ exports[`PromptStep component active state when a too-long response has been sub
                   disabled={false}
                   onBlur={[Function]}
                   onChange={[Function]}
+                  onFocus={[Function]}
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
@@ -825,7 +840,7 @@ exports[`PromptStep component active state when a too-long response has been sub
             </div>
           </EditorContainer>
           <button
-            className="quill-button disabled"
+            className="quill-button focus-on-light disabled"
             onClick={[Function]}
             type="button"
           >
@@ -968,6 +983,7 @@ exports[`PromptStep component active state when a too-short response has been su
           <EditorContainer
             className="editor"
             disabled={false}
+            handleFocus={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
@@ -986,6 +1002,7 @@ exports[`PromptStep component active state when a too-short response has been su
                 html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
                 innerRef={[Function]}
                 onChange={[Function]}
+                onFocus={[Function]}
                 spellCheck={false}
               >
                 <div
@@ -1000,6 +1017,7 @@ exports[`PromptStep component active state when a too-short response has been su
                   disabled={false}
                   onBlur={[Function]}
                   onChange={[Function]}
+                  onFocus={[Function]}
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
@@ -1020,7 +1038,7 @@ exports[`PromptStep component active state when a too-short response has been su
             </div>
           </EditorContainer>
           <button
-            className="quill-button disabled"
+            className="quill-button focus-on-light disabled"
             onClick={[Function]}
             type="button"
           >
@@ -1173,6 +1191,7 @@ exports[`PromptStep component active state when an optimal response has been sub
           <EditorContainer
             className="editor optimal disabled"
             disabled={true}
+            handleFocus={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
             innerRef={[Function]}
@@ -1191,6 +1210,7 @@ exports[`PromptStep component active state when an optimal response has been sub
                 html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
                 innerRef={[Function]}
                 onChange={[Function]}
+                onFocus={[Function]}
                 spellCheck={false}
               >
                 <div
@@ -1205,6 +1225,7 @@ exports[`PromptStep component active state when an optimal response has been sub
                   disabled={true}
                   onBlur={[Function]}
                   onChange={[Function]}
+                  onFocus={[Function]}
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
@@ -1214,7 +1235,7 @@ exports[`PromptStep component active state when an optimal response has been sub
             </div>
           </EditorContainer>
           <button
-            className="quill-button"
+            className="quill-button focus-on-light"
             onClick={[Function]}
             type="button"
           >
@@ -1413,6 +1434,7 @@ exports[`PromptStep component active state when the max attempts have been reach
           <EditorContainer
             className="editor suboptimal disabled"
             disabled={true}
+            handleFocus={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
             innerRef={[Function]}
@@ -1431,6 +1453,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
                 innerRef={[Function]}
                 onChange={[Function]}
+                onFocus={[Function]}
                 spellCheck={false}
               >
                 <div
@@ -1445,6 +1468,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                   disabled={true}
                   onBlur={[Function]}
                   onChange={[Function]}
+                  onFocus={[Function]}
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
@@ -1454,7 +1478,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             </div>
           </EditorContainer>
           <button
-            className="quill-button"
+            className="quill-button focus-on-light"
             onClick={[Function]}
             type="button"
           >
@@ -1655,6 +1679,7 @@ exports[`PromptStep component active state when the max attempts have been reach
           <EditorContainer
             className="editor optimal disabled"
             disabled={true}
+            handleFocus={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
             innerRef={[Function]}
@@ -1673,6 +1698,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
                 innerRef={[Function]}
                 onChange={[Function]}
+                onFocus={[Function]}
                 spellCheck={false}
               >
                 <div
@@ -1687,6 +1713,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                   disabled={true}
                   onBlur={[Function]}
                   onChange={[Function]}
+                  onFocus={[Function]}
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
@@ -1696,7 +1723,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             </div>
           </EditorContainer>
           <button
-            className="quill-button"
+            className="quill-button focus-on-light"
             onClick={[Function]}
             type="button"
           >

@@ -51,7 +51,7 @@ export default class EditorContainer extends React.Component<EditorContainerProp
   }
 
   render() {
-    const { disabled, html, innerRef, handleTextChange, className, } = this.props
+    const { disabled, html, innerRef, handleTextChange, className, handleFocus, } = this.props
     return (<div className="editor-container">
       <ContentEditable
         className={className}
@@ -60,6 +60,7 @@ export default class EditorContainer extends React.Component<EditorContainerProp
         html={html}
         innerRef={innerRef}
         onChange={handleTextChange}
+        onFocus={handleFocus}
         spellCheck={false}
       />
       {this.renderClear()}
