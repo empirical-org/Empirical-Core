@@ -35,7 +35,7 @@ jobs:
       - run:
           name: Install postgres dependencies
           command: |
-            sudo apt-get update
+            sudo apt update
             sudo apt-cache search postgres
             sudo apt install -y postgresql-client
       - run:
@@ -111,7 +111,7 @@ jobs:
       - run:
           name: Install postgres dependencies
           command: |
-            sudo apt-get update
+            sudo apt update
             sudo apt-cache search postgres
             sudo apt install -y postgresql-client
       - run:
@@ -276,7 +276,7 @@ jobs:
       - run:
           name: Install postgres dependencies
           command: |
-            sudo apt-get update
+            sudo apt update
             sudo apt-cache search postgres
             sudo apt install -y postgresql-client
       - run:

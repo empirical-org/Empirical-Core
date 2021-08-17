@@ -10,13 +10,18 @@ import {
   WHATS_NEW,
   TEACHER_STORIES,
   WRITING_INSTRUCTION_RESEARCH,
-  IN_THE_NEWS
+  IN_THE_NEWS,
+  USING_QUILL_FOR_READING_COMPREHENSION
 } from './blog_post_constants'
 
 export default class TopicSection extends React.Component {
   displayTitle() {
     const { role, title, } = this.props
-    if (role !== STUDENT) { return title }
+    if (role !== STUDENT && title === USING_QUILL_FOR_READING_COMPREHENSION) {
+      return title.replace('quill', 'Quill')
+    } else if(role !== STUDENT) {
+      return title
+    }
     const titleWithoutWordStudent = this.props.title.replace('Student ', '')
     return titleWithoutWordStudent.charAt(0).toUpperCase() + titleWithoutWordStudent.slice(1)
   }

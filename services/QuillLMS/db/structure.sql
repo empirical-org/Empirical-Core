@@ -1167,7 +1167,7 @@ CREATE TABLE public.classrooms_teachers (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     "order" integer,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
 );
 
 
@@ -1379,7 +1379,9 @@ CREATE TABLE public.comprehension_passages (
     updated_at timestamp without time zone NOT NULL,
     image_link character varying,
     image_alt_text character varying DEFAULT ''::character varying,
-    highlight_prompt character varying
+    highlight_prompt character varying,
+    image_caption text DEFAULT ''::text,
+    image_attribution text DEFAULT ''::text
 );
 
 
@@ -1511,8 +1513,8 @@ ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.compreh
 
 CREATE TABLE public.comprehension_regex_rules (
     id integer NOT NULL,
-    regex_text character varying(200),
-    case_sensitive boolean,
+    regex_text character varying(200) NOT NULL,
+    case_sensitive boolean NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_id integer,
@@ -1553,9 +1555,10 @@ CREATE TABLE public.comprehension_rules (
     rule_type character varying NOT NULL,
     optimal boolean NOT NULL,
     suborder integer,
-    concept_uid character varying,
+    concept_uid character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    sequence_type character varying,
     state character varying NOT NULL
 );
 
@@ -7390,6 +7393,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210712213724'),
 ('20210722144950'),
 ('20210726193112'),
-('20210803163028');
+('20210803163028'),
+('20210811130155'),
+('20210816195838');
 
 
