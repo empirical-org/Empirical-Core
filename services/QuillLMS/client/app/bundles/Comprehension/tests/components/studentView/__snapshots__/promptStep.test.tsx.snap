@@ -293,6 +293,7 @@ exports[`PromptStep component active state when a profane response has been subm
                               "__html": "Revise your work. When writing your response, make sure to use appropriate language.",
                             }
                           }
+                          role="status"
                         />
                       </div>
                     </CSSTransitionGroupChild>
@@ -488,6 +489,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
                               "__html": "Revise your work. Your response should be only one sentence long.",
                             }
                           }
+                          role="status"
                         />
                       </div>
                     </CSSTransitionGroupChild>
@@ -712,6 +714,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
                               "__html": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                             }
                           }
+                          role="status"
                         />
                       </div>
                     </CSSTransitionGroupChild>
@@ -907,6 +910,7 @@ exports[`PromptStep component active state when a too-long response has been sub
                               "__html": "Revise your work so it is shorter and more concise.",
                             }
                           }
+                          role="status"
                         />
                       </div>
                     </CSSTransitionGroupChild>
@@ -1102,6 +1106,7 @@ exports[`PromptStep component active state when a too-short response has been su
                               "__html": "Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided.",
                             }
                           }
+                          role="status"
                         />
                       </div>
                     </CSSTransitionGroupChild>
@@ -1314,6 +1319,7 @@ exports[`PromptStep component active state when an optimal response has been sub
                               "__html": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
                             }
                           }
+                          role="status"
                         />
                       </div>
                     </CSSTransitionGroupChild>
@@ -1584,6 +1590,7 @@ exports[`PromptStep component active state when the max attempts have been reach
  Governments should make voting compulsory because otherwise not everyone will vote.",
                             }
                           }
+                          role="status"
                         />
                       </div>
                     </CSSTransitionGroupChild>
@@ -1796,6 +1803,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                               "__html": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
                             }
                           }
+                          role="status"
                         />
                       </div>
                     </CSSTransitionGroupChild>
