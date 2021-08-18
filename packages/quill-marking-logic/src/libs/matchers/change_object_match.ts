@@ -1,13 +1,13 @@
 import * as _ from 'underscore';
 import { diffWords } from 'diff';
-import {getOptimalResponses, getSubOptimalResponses} from '../sharedResponseFunctions'
 import {stringNormalize} from 'quill-string-normalizer'
+
+import {getOptimalResponses, getSubOptimalResponses} from '../sharedResponseFunctions'
 import {processSentences, correct, train} from '../spellchecker/main';
 import {Response, PartialResponse} from '../../interfaces'
 import {removePunctuation} from '../helpers/remove_punctuation'
 import {feedbackStrings, spellingFeedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
-import {getFeedbackForMissingWord} from '../helpers/joining_words_feedback'
 import {sortByLevenshteinAndOptimal} from '../responseTools'
 
 const CHANGED_WORD_MAX = 3
@@ -49,9 +49,7 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch, 
   const matchConceptResults = match.response.concept_results || match.response.conceptResults
   switch (match.errorType) {
     case ERROR_TYPES.INCORRECT_WORD:
-      const missingWord = match.missingText;
-      const missingTextFeedback = getFeedbackForMissingWord(missingWord);
-      res.feedback = missingTextFeedback || feedbackStrings.modifiedWordError;
+      res.feedback = feedbackStrings.modifiedWordError;
       res.author = 'Modified Word Hint';
       res.parent_id = match.response.key;
       res.concept_results = copyMatchConceptResults && matchConceptResults ? matchConceptResults : [
