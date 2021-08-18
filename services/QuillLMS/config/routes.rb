@@ -604,7 +604,7 @@ EmpiricalGrammar::Application.routes.draw do
     announcements
     backpack
     careers
-    comprehension
+    evidence
     proofreader
     grammar
     lessons
@@ -621,6 +621,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   # These are legacy routes that we are redirecting for posterity.
+  get 'comprehension', to: redirect('evidence')
   get 'blog_posts', to: redirect('/news')
   get 'supporters', to: redirect('https://community.quill.org/')
   get 'story', to: redirect('/mission')

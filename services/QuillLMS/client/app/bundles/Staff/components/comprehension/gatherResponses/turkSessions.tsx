@@ -100,11 +100,11 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
 
   const turkSessionsRows = turkSessionsData && turkSessionsData.turkSessions && turkSessionsData.turkSessions.map((turkSession: TurkSessionInterface) => {
     const { activity_id, expires_at, id } = turkSession;
-    const url = `${process.env.DEFAULT_URL}/comprehension/#/turk?uid=${activity_id}&id=${id}`;
-    const link = <a href={url} rel="noopener noreferrer" target="_blank">{url}</a>;
+    const url = `${process.env.DEFAULT_URL}/evidence/#/turk?uid=${activity_id}&id=${id}`;
+    const turkLink = <a href={url} rel="noopener noreferrer" target="_blank">{url}</a>;
     return {
       id: `${activity_id}-${id}`,
-      link,
+      turkLink,
       expiration: moment(expires_at).format('MMMM Do, YYYY'),
       copy: <TurkSessionButton clickHandler={handleCopyTurkLink} id={id} label="copy" value={url} />,
       edit: <TurkSessionButton clickHandler={handleEditOrDeleteTurkSession} id={id} label="edit" value={expires_at} />,
@@ -140,7 +140,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   }
 
   const dataTableFields = [
-    { name: "Link", attribute:"link", width: "500px" },
+    { name: "Link", attribute:"turkLink", width: "500px" },
     { name: "Expiration Date", attribute:"expiration", width: "200px" },
     { name: "", attribute:"copy", width: "100px" },
     { name: "", attribute:"edit", width: "100px" },

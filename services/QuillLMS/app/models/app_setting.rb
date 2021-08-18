@@ -18,6 +18,9 @@
 require 'zlib'
 
 class AppSetting < ApplicationRecord
+
+  COMPREHENSION = 'comprehension'
+
   validates :percent_active, numericality: {
     only_integer: true,
     greater_than_or_equal_to: 0,

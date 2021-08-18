@@ -64,7 +64,7 @@ export default class ScorebookTooltip extends React.Component {
     } else if (Number(actClassId) === 6 && data.percentage) {
       totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}>Quill Lessons are facilitated by the teachers and not graded. You can click to view your student’s’ answers from this lesson.</p>;
     } else if (Number(actClassId) === 9 && data.completed_attempts) {
-      totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}>Quill Comprehension does not provide a score. You can click the activity icon to load the full report.</p>;
+      totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}>Quill Evidence does not provide a score. You can click the activity icon to load the full report.</p>;
     } else if (data.percentage && data.scores && data.scores.length > 0) {
       totalScoreOrNot = this.displayScores()
     } else {

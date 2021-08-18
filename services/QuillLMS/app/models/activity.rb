@@ -178,7 +178,7 @@ class Activity < ApplicationRecord
   end
 
   def uses_feedback_history?
-    is_comprehension?
+    is_evidence?
   end
 
   def self.search_results(flag)
@@ -217,8 +217,8 @@ class Activity < ApplicationRecord
     classification.key == ActivityClassification::PROOFREADER_KEY
   end
 
-  def is_comprehension?
-    classification&.key == ActivityClassification::COMPREHENSION_KEY
+  def is_evidence?
+    classification&.key == ActivityClassification::EVIDENCE_KEY
   end
 
   private def data_must_be_hash
@@ -243,9 +243,9 @@ class Activity < ApplicationRecord
     construct_redirect_url(base_url, initial_params)
   end
 
-  private def comprehension_url_helper(initial_params)
+  private def evidence_url_helper(initial_params)
     base_url = classification.module_url.to_s
-    # Rename "student" to "session" because it's called "student" in all tools other than Comprehension
+    # Rename "student" to "session" because it's called "student" in all tools other than Evidence
     initial_params[:session] = initial_params.delete :student if initial_params[:student]
     initial_params[:uid] = Comprehension::Activity.find_by(parent_activity_id: id).id
     construct_redirect_url(base_url, initial_params)
@@ -262,7 +262,7 @@ class Activity < ApplicationRecord
   private def module_url_helper(initial_params)
     return connect_url_helper(initial_params) if [ActivityClassification::DIAGNOSTIC_KEY, ActivityClassification::CONNECT_KEY].include?(classification.key)
     return lesson_url_helper if classification.key == ActivityClassification::LESSONS_KEY
-    return comprehension_url_helper(initial_params) if classification.key == ActivityClassification::COMPREHENSION_KEY
+    return evidence_url_helper(initial_params) if classification.key == ActivityClassification::EVIDENCE_KEY
 
     @url = Addressable::URI.parse(classification.module_url)
     params = (@url.query_values || {})

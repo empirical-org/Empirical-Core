@@ -1,4 +1,14 @@
 <%= render partial: 'pages/shared/teacher_center_navbar', locals: {active_tab: @topic || BlogPost::ALL_RESOURCES } %>
 <div class="container">
-  <%= react_component('BlogPostsApp', props: {route: 'index', blogPosts: @blog_posts, announcement: @announcement, query: @query, topics: @topics, studentTopics: @student_topics, role: current_user&.role, title: @title}) %>
+  <%= react_component('BlogPostsApp', props: {
+    route: 'index',
+    blogPosts: @blog_posts,
+    announcement: @announcement,
+    query: @query,
+    topics: @topics,
+    studentTopics: @student_topics,
+    role: current_user&.role,
+    title: @title,
+    isComprehensionUser: current_user && AppSetting.enabled?(name: AppSetting::COMPREHENSION, user: current_user)
+  })%>
 </div>
