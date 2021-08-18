@@ -39,9 +39,7 @@ import {
   MOUSEDOWN,
   CLICK,
   KEYPRESS,
-  VISIBILITYCHANGE,
-  Tooltip,
-  Modal
+  VISIBILITYCHANGE
 } from '../../../Shared/index'
 
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
@@ -64,8 +62,6 @@ interface StudentViewContainerState {
   explanationSlidesCompleted: boolean;
   explanationSlideStep:  number;
   completedSteps: Array<number>;
-  imageAttributionModalOpen: boolean;
-  imageUrlToVisit: string;
   isIdle: boolean;
   showFocusState: boolean;
   startTime: number;
@@ -100,7 +96,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       completedSteps: [],
       showFocusState: false,
       startTime: Date.now(),
-      imageUrlToVisit: null,
       isIdle: false,
       studentHighlights: [],
       scrolledToEndOfPassage: false,
@@ -113,8 +108,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         2: 0,
         3: 0,
         4: 0
-      },
-      imageAttributionModalOpen: false
+      }
     }
 
     this.step1 = React.createRef()
@@ -564,10 +558,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   handleHighlightClick = (e) => this.toggleStudentHighlight(e.target.textContent, () => document.activeElement.blur())
 
-  handleImageAttributionClick = () => {
-    this.setState({ imageAttributionModalOpen: true });
-  }
-
   toggleStudentHighlight = (text, callback=null) => {
     const { studentHighlights, } = this.state
 
@@ -770,10 +760,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
-  handleSetNavigationUrl = (url: string) => {
-    this.setState({ imageUrlToVisit: url });
-  }
-
   renderReadPassageContainer = () => {
     const { showReadTheDirectionsModal, hasStartedReadPassageStep, hasStartedPromptSteps, activeStep, } = this.state
     const { activities, } = this.props
@@ -876,42 +862,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     }
   }
 
-  handleStayClick = () => {
-    this.setState({ imageAttributionModalOpen: false });
-  }
-
-  handleLeaveClick = () => {
-    const { imageUrlToVisit } = this.state;
-    if (!imageUrlToVisit) {
-      this.setState({ imageAttributionModalOpen: false });
-    }
-    window.open(imageUrlToVisit, "_blank");
-    this.setState({ imageAttributionModalOpen: false });
-  }
-
-  renderImageAttributionModal = () => {
-    return(
-      <Modal>
-        <div className="leave-activity-warning-container">
-          <p className="leave-activity-warning-header">Wait! Are you sure you want to leave?</p>
-          <p className="leave-activity-warning-text">You are about to leave the activity. You will be taken to a different website.</p>
-          <div className="button-container">
-            <button className="stay-on-quill quill-button small secondary outlined focus-on-light" id="close-modal-button" onClick={this.handleLeaveClick} type="button">
-              Yes, leave Quill
-            </button>
-            <button className="quill-button small primary contained focus-on-light" id="leave-activity-button" onClick={this.handleStayClick} type="button">
-              Stay on Quill
-            </button>
-          </div>
-        </div>
-      </Modal>
-    );
-  }
-
   render = () => {
     const { activities, session, user } = this.props
     const { submittedResponses } = session;
-    const { showFocusState, activeStep, activityIsComplete, explanationSlidesCompleted, explanationSlideStep, imageAttributionModalOpen } = this.state
+    const { showFocusState, activeStep, activityIsComplete, explanationSlidesCompleted, explanationSlideStep } = this.state
 
     if (!activities.hasReceivedData) { return <LoadingSpinner /> }
 
@@ -932,7 +886,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     }
     return (
       <div className={className} onTouchEnd={this.handleReadPassageContainerTouchMoveEnd}>
-        {imageAttributionModalOpen && this.renderImageAttributionModal()}
         {this.renderStepLinksAndDirections()}
         {this.renderReadPassageContainer()}
         {this.renderRightPanel()}
