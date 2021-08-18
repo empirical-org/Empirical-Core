@@ -24,7 +24,6 @@ RSpec.describe GradedResponse, type: :model do
       expect(response_ids).to eq graded_ids
     end
 
-
     # Note, if this test fails, you might need a migration for this view
     # Scenic View attributes are locked at the time of the view migration
     # So a query for responses.* doesn't update as you add fields
