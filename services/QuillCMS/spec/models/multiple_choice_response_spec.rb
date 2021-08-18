@@ -23,7 +23,16 @@ RSpec.describe MultipleChoiceResponse, type: :model do
       highest_two_count_ids = [graded_nonoptimal.id, ungraded2.id].sort
 
       expect(response_ids).to eq highest_two_count_ids
-      expect(responses.first.attributes.keys.sort).to eq graded_nonoptimal.attributes.keys.sort
+    end
+
+    # Note, if this test fails, you might need a migration for this view
+    # Scenic View attributes are locked at the time of the view migration
+    # So a query for responses.* doesn't update as you add fields
+    # https://github.com/scenic-views/scenic#faqs
+    it 'should have the same attributes as Response' do
+      MultipleChoiceResponse.refresh
+
+      expect(MultipleChoiceResponse.first.attributes.keys.sort).to eq Response.first.attributes.keys.sort
     end
   end
 

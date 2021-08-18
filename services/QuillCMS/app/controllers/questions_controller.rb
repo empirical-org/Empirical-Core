@@ -31,12 +31,25 @@ class QuestionsController < ApplicationController
   private def nonoptimal_fallback(nonoptimal_count)
     return [] if nonoptimal_count >= MULTIPLE_CHOICE_LIMIT
 
-    Response
+    needed_count = MULTIPLE_CHOICE_LIMIT - nonoptimal_count
+
+    # favor graded answers as fallbacks
+    graded_nonoptimal = GradedResponse
+      .graded_nonoptimal
       .where(question_uid: params[:question_uid])
+      .where("count <= #{MultipleChoiceResponse::MIN_COUNT}")
+      .limit(needed_count)
+      .to_a
+
+    return graded_nonoptimal if graded_nonoptimal.count == needed_count
+
+    # otherwise pull any nonoptimal answer
+    # ignore responses with count = 1 to avoid junk responses
+    Response
       .nonoptimal
+      .where(question_uid: params[:question_uid])
       .where("count > 1 AND count <= #{MultipleChoiceResponse::MIN_COUNT}")
-      .limit(MULTIPLE_CHOICE_LIMIT - nonoptimal_count)
-      .order('count DESC')
+      .limit(needed_count)
       .to_a
   end
 end
