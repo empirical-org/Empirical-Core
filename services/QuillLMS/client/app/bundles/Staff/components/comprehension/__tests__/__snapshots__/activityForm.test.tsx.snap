@@ -88,16 +88,11 @@ exports[`Activity Form component should render Activities 1`] = `
       handleChange={[Function]}
       label="Image Alt Text"
     />
-    <p
-      className="text-editor-label"
-    >
-      Image Caption
-    </p>
-    <TextEditor
-      ContentState={[Function]}
-      EditorState={[Function]}
-      handleTextChange={[Function]}
-      key="passage-image-caption"
+    <Input
+      autoComplete="on"
+      className="image-caption-text-input"
+      handleChange={[Function]}
+      label="Image Caption"
     />
     <p
       className="text-editor-label"

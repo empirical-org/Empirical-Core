@@ -10,6 +10,7 @@ import ReadAndHighlightInstructions from './readAndHighlightInstructions'
 import DirectionsSectionAndModal from './directionsSectionAndModal'
 import BottomNavigation from './bottomNavigation'
 import StepOverview from './stepOverview'
+import HeaderImage from './headerImage'
 
 import { explanationData } from "../activitySlides/explanationData";
 import ExplanationSlide from "../activitySlides/explanationSlide";
@@ -782,13 +783,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { title, passages, } = currentActivity
 
     const headerImage = passages[0].image_link && <img alt={passages[0].image_alt_text} className="header-image" src={passages[0].image_link} />
-    const headerImageContainer = headerImage && <section className="header-image-container">
-      {headerImage}
-      <section className="header-image-information">
-        <p className="header-image-caption">{passages[0].image_caption && stripHtml(passages[0].image_caption)}</p>
-        <Tooltip isMarkdown={true} setNavigationUrl={this.handleSetNavigationUrl} toggleWarningModal={this.handleImageAttributionClick} tooltipText={passages[0].image_attribution} tooltipTriggerText="Image credit" tooltipTriggerTextClass="image-attribution-tooltip" />
-      </section>
-    </section>
     let innerContainerClassName = "read-passage-inner-container "
     innerContainerClassName += !hasStartedReadPassageStep || showReadTheDirectionsModal ? 'blur' : ''
 
@@ -799,7 +793,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     return (<div className="read-passage-container" onScroll={this.handleReadPassageContainerScroll}>
       <div className={innerContainerClassName}>
         <h1 className="title">{currentActivity.title}</h1>
-        {headerImageContainer}
+        <HeaderImage headerImage={headerImage} passage={passages[0]} />
         <div className="passage">{ReactHtmlParser(this.formatHtmlForPassage(), { transform: this.transformMarkTags })}</div>
       </div>
     </div>)
