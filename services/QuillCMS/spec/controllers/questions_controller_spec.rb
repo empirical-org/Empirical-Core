@@ -15,7 +15,7 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with data' do
       let!(:optimal) {create(:optimal_response, question_uid: '123')}
-      let!(:nonoptimal) {create(:graded_nonoptimal_response, question_uid: '123')}
+      let!(:graded_nonoptimal) {create(:graded_nonoptimal_response, question_uid: '123')}
       let!(:ungraded) {create(:ungraded_response, question_uid: '123')}
 
       before(:each) do
@@ -31,7 +31,7 @@ RSpec.describe QuestionsController, type: :controller do
 
         expect(json.count).to eq 2
         expect(json.first['id']).to eq optimal.id
-        expect(json.second['id']).to eq nonoptimal.id
+        expect(json.second['id']).to eq graded_nonoptimal.id
       end
     end
   end
@@ -50,9 +50,9 @@ RSpec.describe QuestionsController, type: :controller do
       let!(:optimal2) {create(:optimal_response, question_uid: '123', count: 7)}
       let!(:optimal3) {create(:optimal_response, question_uid: '123', count: 9)}
 
-      let!(:nonoptimal1) {create(:graded_nonoptimal_response, question_uid: '123', count: 17)}
-      let!(:nonoptimal2) {create(:graded_nonoptimal_response, question_uid: '123', count: 15)}
-      let!(:nonoptimal3) {create(:graded_nonoptimal_response, question_uid: '123', count: 19)}
+      let!(:graded_nonoptimal1) {create(:graded_nonoptimal_response, question_uid: '123', count: 17)}
+      let!(:graded_nonoptimal2) {create(:graded_nonoptimal_response, question_uid: '123', count: 15)}
+      let!(:graded_nonoptimal3) {create(:graded_nonoptimal_response, question_uid: '123', count: 19)}
 
       let!(:ungraded) {create(:ungraded_response, question_uid: '123', count: 1000)}
 
@@ -69,13 +69,13 @@ RSpec.describe QuestionsController, type: :controller do
 
         json = JSON.parse(response.body)
         optimal_count = json.count {|gr| gr['optimal']}
-        nonoptimal_count = json.count {|gr| gr['optimal'] == false }
-        null_optimal_count = json.count {|gr| gr['optimal'].nil?}
+        graded_nonoptimal_count = json.count {|gr| gr['optimal'] == false }
+        ungraded_count = json.count {|gr| gr['optimal'].nil?}
 
         expect(json.count).to eq 4
         expect(optimal_count).to eq 2
-        expect(nonoptimal_count).to eq 1
-        expect(null_optimal_count).to eq 1
+        expect(graded_nonoptimal_count).to eq 1
+        expect(ungraded_count).to eq 1
       end
 
       it 'should return responses with the highest counts' do
@@ -85,7 +85,7 @@ RSpec.describe QuestionsController, type: :controller do
 
         json = JSON.parse(response.body)
         response_ids = json.map{|r| r['id']}.sort
-        highest_count_ids = [optimal2.id, optimal3.id, ungraded.id, nonoptimal3.id].sort
+        highest_count_ids = [optimal2.id, optimal3.id, ungraded.id, graded_nonoptimal3.id].sort
 
         expect(response_ids).to eq highest_count_ids
       end
@@ -109,18 +109,18 @@ RSpec.describe QuestionsController, type: :controller do
 
         json = JSON.parse(response.body)
         optimal_count = json.count {|gr| gr['optimal']}
-        nonoptimal_count = json.count {|gr| gr['optimal'] == false}
-        null_optimal_count = json.count {|gr| gr['optimal'].nil?}
+        graded_nonoptimal_count = json.count {|gr| gr['optimal'] == false}
+        ungraded_count = json.count {|gr| gr['optimal'].nil?}
 
         expect(json.count).to eq 2
         expect(optimal_count).to eq 2
-        expect(nonoptimal_count).to eq 0
-        expect(null_optimal_count).to eq 0
+        expect(graded_nonoptimal_count).to eq 0
+        expect(ungraded_count).to eq 0
       end
     end
 
     context 'fallback responses needed' do
-      let!(:nonoptimal) {create(:graded_nonoptimal_response, question_uid: '123', count: 17)}
+      let!(:graded_nonoptimal) {create(:graded_nonoptimal_response, question_uid: '123', count: 17)}
       let!(:ungraded_low_count1) {create(:ungraded_response, question_uid: '123', count: 9)}
       let!(:ungraded_low_count2) {create(:ungraded_response, question_uid: '123', count: 2)}
       let!(:ungraded_low_count3) {create(:ungraded_response, question_uid: '123', count: 2)}
@@ -138,13 +138,13 @@ RSpec.describe QuestionsController, type: :controller do
 
         json = JSON.parse(response.body)
         optimal_count = json.count {|gr| gr['optimal']}
-        nonoptimal_count = json.count {|gr| gr['optimal'] == false}
-        null_optimal_count = json.count {|gr| gr['optimal'].nil?}
+        graded_nonoptimal_count = json.count {|gr| gr['optimal'] == false}
+        ungraded_count = json.count {|gr| gr['optimal'].nil?}
 
         expect(json.count).to eq 2
         expect(optimal_count).to eq 0
-        expect(nonoptimal_count).to eq 1
-        expect(null_optimal_count).to eq 1
+        expect(graded_nonoptimal_count).to eq 1
+        expect(ungraded_count).to eq 1
       end
     end
   end

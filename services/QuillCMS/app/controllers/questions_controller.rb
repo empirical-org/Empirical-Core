@@ -26,7 +26,7 @@ class QuestionsController < ApplicationController
 
   # The MultipleChoiceResponse model contains responses
   # that have a count > MultipleChoiceResponse::MIN_COUNT
-  # All questions, like new ones, may may not have enough responses,
+  # All questions, like new ones, may not have enough responses,
   # so pull other nonoptimal responses as a fallback if needed
   private def nonoptimal_fallback(nonoptimal_count)
     return [] if nonoptimal_count >= MULTIPLE_CHOICE_LIMIT

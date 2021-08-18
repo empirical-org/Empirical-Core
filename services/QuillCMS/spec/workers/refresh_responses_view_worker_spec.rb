@@ -5,14 +5,12 @@ describe RefreshResponsesViewWorker do
 
   describe '#perform' do
     it 'should call refresh for GradedResponse' do
-
       expect(GradedResponse).to receive(:refresh)
 
       worker.perform("GradedResponse")
     end
 
     it 'should call refresh for MultipleChoiceResponse' do
-
       expect(MultipleChoiceResponse).to receive(:refresh)
 
       worker.perform("MultipleChoiceResponse")
