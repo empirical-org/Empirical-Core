@@ -223,6 +223,7 @@ But how can democracies have representative governments unless all or most of th
               />
               <Tooltip
                 handleClick={[Function]}
+                isTabbable={true}
                 tooltipText=""
                 tooltipTriggerText="Image credit"
                 tooltipTriggerTextClass="image-attribution-tooltip"
@@ -234,6 +235,7 @@ But how can democracies have representative governments unless all or most of th
                     className="image-attribution-tooltip"
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}
+                    tabIndex={0}
                   >
                     Image credit
                   </span>

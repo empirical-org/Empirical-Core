@@ -16,6 +16,7 @@ exports[`Activity Form component should render Activities 1`] = `
       />
       <Tooltip
         handleClick={[Function]}
+        isTabbable={true}
         tooltipTriggerText="Image credit"
         tooltipTriggerTextClass="image-attribution-tooltip"
       />

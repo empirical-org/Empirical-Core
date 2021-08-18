@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 interface TooltipProps {
+  isTabbable?: boolean,
   handleClick?: (e: any) => void,
   tooltipText: string,
   tooltipTriggerText: string|JSX.Element,
@@ -60,7 +61,8 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
   }
 
   render() {
-    const { tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, } = this.props
+    const { tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, isTabbable } = this.props
+    const tabIndex = isTabbable ? 0 : null;
     return (
       <span
         className="quill-tooltip-trigger"
@@ -72,6 +74,7 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
           onMouseEnter={this.showTooltip}
           onMouseLeave={this.startTimer}
           style={tooltipTriggerTextStyle}
+          tabIndex={tabIndex}
         >
           {tooltipTriggerText}
         </span>

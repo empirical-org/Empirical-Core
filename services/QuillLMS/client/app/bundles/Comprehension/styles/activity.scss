@@ -59,6 +59,10 @@
           .image-attribution-tooltip {
             border-bottom: dashed 1px #808080;
           }
+          .image-attribution-tooltip:focus {
+            outline: dashed 2px #06806b;
+            outline-offset: 4px;
+          }
           .quill-tooltip-wrapper {
             .quill-tooltip {
               a {
