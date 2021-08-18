@@ -138,7 +138,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const initialPassageData = formatInitialPassage(passage)
       const formattedPassage = initialPassageData.passage
       let currentPassage = formattedPassage
-      if (session.passageFromFirebase && typeof session.passageFromFirebase !== 'string') {
+      if (session.passageFromFirebase && typeof session.passageFromFirebase !== 'string' && session.passageFromFirebase.length) {
         currentPassage = session.passageFromFirebase
       }
       dispatch(setPassage(currentPassage))

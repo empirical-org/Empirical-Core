@@ -7,7 +7,7 @@ const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
 const ReadAndHighlightTracker = ({ scrolledToEndOfPassage, studentHighlights, onMobile, handleClickDoneHighlighting, }) => {
   const minimumMet = studentHighlights.length >= MINIMUM_STUDENT_HIGHLIGHT_COUNT
   let doneButton = <button className="quill-button contained primary large focus-on-light disabled" type="button">Done</button>
-  if (minimumMet) {
+  if (scrolledToEndOfPassage && minimumMet) {
     doneButton = <button className="quill-button contained primary large focus-on-light" onClick={handleClickDoneHighlighting} type="button">Done</button>
   }
   return (

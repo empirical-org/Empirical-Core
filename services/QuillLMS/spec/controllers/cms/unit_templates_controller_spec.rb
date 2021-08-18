@@ -9,13 +9,13 @@ describe Cms::UnitTemplatesController, type: :controller do
     allow(controller).to receive(:current_user) { staff }
   end
 
-  describe '#index, format: :json' do
-    let!(:author) {create(:author)}
+  describe '#index, as: :json' do
+    let!(:author) { create(:author) }
     let!(:unit_template1) { create(:unit_template, author_id: author.id) }
     let!(:unit_template2) { create(:unit_template, author_id: author.id) }
 
     it 'responds with list of unit_templates' do
-      get :index, format: :json
+      get :index, as: :json
       expect(parsed_body['unit_templates'].length).to eq(2)
     end
   end

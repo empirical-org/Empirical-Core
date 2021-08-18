@@ -9,7 +9,7 @@ describe Api::V1::ConceptsController, type: :controller do
     let!(:parent_concept) { create(:concept) }
 
     def subject
-      post :create, params: { concept: {name: concept_name, parent_uid: parent_concept.uid} }
+      post :create, params: { concept: {name: concept_name, parent_uid: parent_concept.uid} }, as: :json
     end
 
     it_behaves_like 'protected endpoint'
@@ -43,12 +43,10 @@ describe Api::V1::ConceptsController, type: :controller do
     let(:parsed_body) { JSON.parse(response.body) }
 
     def subject
-      get :index
+      get :index, as: :json
     end
 
-    before do
-      subject
-    end
+    before { subject }
 
     it 'returns all concepts' do
       expect(parsed_body['concepts'].length).to eq(2)
@@ -68,9 +66,7 @@ describe Api::V1::ConceptsController, type: :controller do
       get :level_zero_concepts_with_lineage
     end
 
-    before do
-      subject
-    end
+    before { subject }
 
     it 'returns a row for each level 0 concept' do
       expect(parsed_body['concepts'].length).to eq(2)

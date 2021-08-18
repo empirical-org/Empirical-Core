@@ -18,12 +18,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         .and_return(service_instance)
       expect(service_instance).to receive(:call)
 
-      put :update,
-        params: {
-          id: activity_session.uid,
-          state: 'finished'
-        },
-        as: :json
+      put :update, params: { id: activity_session.uid, state: 'finished' }, as: :json
     end
 
     context 'default behavior' do
@@ -100,14 +95,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         results
       end
 
-      before do
-        put :update,
-          params: {
-            id: activity_session.uid,
-            concept_results: concept_results
-          },
-          as: :json
-      end
+      before { put :update, params: { id: activity_session.uid, concept_results: concept_results }, as: :json }
 
       it 'succeeds' do
         expect(response.status).to eq(200)
@@ -138,7 +126,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
             }
           }
         ]
-        put :update, params: { id: activity_session.uid, concept_results: results }
+        put :update, params: { id: activity_session.uid, concept_results: results }, as: :json
       end
 
       # this is no longer the case, as results should not be saved with nonexistent concept tag
@@ -160,14 +148,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         }
       end
 
-      before do
-         put :update,
-          params: {
-           id: activity_session.uid,
-           data: data
-          },
-          as: :json
-      end
+      before { put :update, params: { id: activity_session.uid, data: data }, as: :json }
 
       it 'updates timespent on activity session' do
         activity_session.reload
@@ -182,7 +163,8 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     let!(:session) { create(:activity_session) }
 
     it 'renders the correct json' do
-      get :show, params: { id: session.uid }
+      get :show, params: { id: session.uid }, as: :json
+
       expect(JSON.parse(response.body)["meta"]).to eq({
           "status" => "success",
           "message" => nil,
@@ -208,14 +190,14 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     before { allow(controller).to receive(:doorkeeper_token) {token} }
 
     it 'returns a 422 error if activity session is already saved' do
-      put :update, params: { id: activity_session.uid }
+      put :update, params: { id: activity_session.uid }, as: :json
       parsed_body = JSON.parse(response.body)
       expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
     end
 
     it 'returns a 200 if the activity session is not already finished and can be updated' do
       activity_session.update(completed_at: nil, state: 'started')
-      put :update, params: { id: activity_session.uid }
+      put :update, params: { id: activity_session.uid }, as: :json
       parsed_body = JSON.parse(response.body)
       expect(parsed_body["meta"]["message"]).to eq("Activity Session Updated")
     end
@@ -225,7 +207,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       activity_session = create(:activity_session, state: 'started', user: user)
       activity_session.stub(:update) { false }
 
-      put :update, params: { id: activity_session.uid }
+      put :update, params: { id: activity_session.uid }, as: :json
       parsed_body = JSON.parse(response.body)
       expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
     end
@@ -252,7 +234,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     let!(:session) { create(:proofreader_activity_session) }
 
     it 'destroys the activity session' do
-      delete :destroy, params: { id: session.uid, format: :json }
+      delete :destroy, params: { id: session.uid }, as: :json
       expect(JSON.parse(response.body)["meta"]).to eq({
         "status" => "success",
         "message" => "Activity Session Destroy Successful",
