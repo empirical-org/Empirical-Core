@@ -11,7 +11,7 @@ describe Api::V1::ProgressReportsController, type: :controller do
   context '#activities_scores_by_classroom_data' do
     it 'should return ProgressReports::ActivitiesScoresByClassroom for my classes' do
       session[:user_id] = teacher.id
-      get :activities_scores_by_classroom_data
+      get :activities_scores_by_classroom_data, as: :json
       expect(response.body).to eq({
         data: ProgressReports::ActivitiesScoresByClassroom.results(teacher.classrooms_i_teach.map(&:id))
       }.to_json)
@@ -21,25 +21,25 @@ describe Api::V1::ProgressReportsController, type: :controller do
   context '#student_overview_data' do
     it 'should not allow access if no teacher classroom relationship exists' do
       session[:user_id] = unaffiliated_teacher.id
-      get :student_overview_data, params: { student_id: student.id, classroom_id: classroom.id }
+      get :student_overview_data, params: { student_id: student.id, classroom_id: classroom.id }, as: :json
       expect(response).to redirect_to new_session_path
     end
 
     it 'should not allow access if student is not in classroom' do
       session[:user_id] = teacher.id
-      get :student_overview_data, params: { student_id: unaffiliated_student.id, classroom_id: classroom.id }
+      get :student_overview_data, params: { student_id: unaffiliated_student.id, classroom_id: classroom.id }, as: :json
       expect(response).to redirect_to new_session_path
     end
 
     it 'should not allow access if teacher is admin but not admin of that school' do
       session[:user_id] = admin.id
-      get :student_overview_data, params: { student_id: student.id, classroom_id: classroom.id }
+      get :student_overview_data, params: { student_id: student.id, classroom_id: classroom.id }, as: :json
       expect(response).to redirect_to new_session_path
     end
 
     it 'should return appropriate data' do
       session[:user_id] = teacher.id
-      get :student_overview_data, params: { student_id: student.id, classroom_id: classroom.id }
+      get :student_overview_data, params: { student_id: student.id, classroom_id: classroom.id }, as: :json
       expect(response.body).to eq({
         report_data: ProgressReports::StudentOverview.results(classroom.id, student.id),
         student_data: {
@@ -60,7 +60,7 @@ describe Api::V1::ProgressReportsController, type: :controller do
     end
 
     it 'should return the district activit scores progress reports' do
-      get :district_activity_scores, format: :json
+      get :district_activity_scores, as: :json
       expect(response.body).to eq({id: teacher.id}.to_json)
     end
   end
@@ -73,7 +73,7 @@ describe Api::V1::ProgressReportsController, type: :controller do
     end
 
     it 'should return the district activity scores progress reports' do
-      get :district_concept_reports, format: :json
+      get :district_concept_reports, as: :json
       expect(response.body).to eq({id: teacher.id}.to_json)
     end
   end
@@ -86,7 +86,7 @@ describe Api::V1::ProgressReportsController, type: :controller do
     end
 
     it 'should return the district activit scores progress reports' do
-      get :district_standards_reports, format: :json
+      get :district_standards_reports, as: :json
       expect(response.body).to eq({id: teacher.id}.to_json)
     end
   end

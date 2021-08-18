@@ -86,22 +86,24 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   constructor(props: StudentViewContainerProps) {
     super(props)
 
+    const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
+
     this.state = {
-      activeStep: READ_PASSAGE_STEP,
+      activeStep: shouldSkipToPrompts ? READ_PASSAGE_STEP + 1: READ_PASSAGE_STEP,
       activityIsComplete: false,
       activityIsReadyForSubmission: false,
-      explanationSlidesCompleted: false,
+      explanationSlidesCompleted: shouldSkipToPrompts,
       explanationSlideStep: 0,
-      completedSteps: [],
+      completedSteps: shouldSkipToPrompts ? [READ_PASSAGE_STEP] : [],
       showFocusState: false,
       startTime: Date.now(),
       isIdle: false,
       studentHighlights: [],
-      scrolledToEndOfPassage: false,
+      scrolledToEndOfPassage: shouldSkipToPrompts,
       showReadTheDirectionsModal: false,
-      hasStartedReadPassageStep: false,
-      hasStartedPromptSteps: false,
-      doneHighlighting: false,
+      hasStartedReadPassageStep: shouldSkipToPrompts,
+      hasStartedPromptSteps: shouldSkipToPrompts,
+      doneHighlighting: shouldSkipToPrompts,
       timeTracking: {
         1: 0,
         2: 0,
@@ -447,6 +449,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   handleDoneReadingClick = () => {
     this.completeStep(READ_PASSAGE_STEP)
+    const scrollContainer = document.getElementsByClassName("read-passage-container")[0]
+    scrollContainer.scrollTo(0, 0)
     this.trackPassageReadEvent();
   }
 
@@ -584,7 +588,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       className += studentHighlights.includes(stringifiedInnerElements) ? ' highlighted' : ''
       className += shouldBeHighlightable  ? ' highlightable' : ''
       if (!shouldBeHighlightable) { return <mark className={className}>{innerElements}</mark>}
-      return <mark className={className} onClick={this.handleHighlightClick} onKeyDown={this.handleHighlightKeyDown} tabIndex={0}>{innerElements}</mark>
+      return <mark className={className} onClick={this.handleHighlightClick} onKeyDown={this.handleHighlightKeyDown} role="button" tabIndex={0}>{innerElements}</mark>
     }
   }
 
@@ -769,7 +773,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     const headerImage = passages[0].image_link && <img alt={passages[0].image_alt_text} className="header-image" src={passages[0].image_link} />
     let innerContainerClassName = "read-passage-inner-container "
-    innerContainerClassName += !hasStartedReadPassageStep || showReadTheDirectionsModal ? 'blur' : ''
+    innerContainerClassName += !hasStartedReadPassageStep || showReadTheDirectionsModal || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps) ? 'blur' : ''
 
     if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && this.onMobile()) {
       return
@@ -878,7 +882,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         <ExplanationSlide onHandleClick={this.handleExplanationSlideClick} slideData={explanationData[explanationSlideStep]} />
       );
     }
-    if(activityIsComplete) {
+    if(activityIsComplete && !window.location.href.includes('turk')) {
       return(
         <PostActivitySlide responses={submittedResponses} user={user} />
       );

@@ -25,7 +25,7 @@ shared_examples_for "Progress Report" do
   end
 
   describe 'GET #index JSON' do
-    subject { get :index, params: default_filters.merge(format: :json) }
+    subject { get :index, params: default_filters, as: :json }
 
     let(:json) { JSON.parse(response.body) }
 
@@ -62,12 +62,12 @@ shared_examples_for "Progress Report" do
 end
 
 shared_examples_for "filtering progress reports by Unit" do
-  let(:filters) { { unit_id: filter_value, xhr: true, format: :json } }
+  let(:filters) { { unit_id: filter_value, xhr: true } }
 
   describe 'GET #index JSON' do
     before { login }
 
-    subject { get :index, params: default_filters.merge(filters) }
+    subject { get :index, params: default_filters.merge(filters), as: :json }
 
     let(:json) { JSON.parse(response.body) }
 
@@ -90,7 +90,7 @@ shared_examples_for "exporting to CSV" do
     subject
   end
 
-  subject { get :index, params: default_filters.merge(format: :json) }
+  subject { get :index, params: default_filters, as: :json }
 
   let(:json) { JSON.parse(response.body) }
 

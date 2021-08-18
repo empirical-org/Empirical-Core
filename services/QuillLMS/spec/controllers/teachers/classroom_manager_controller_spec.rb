@@ -182,7 +182,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
             students: classroom.students.sort_by(&:sorting_name)
         }
       }
-      get :retrieve_classrooms_for_assigning_activities, format: :json
+      get :retrieve_classrooms_for_assigning_activities, as: :json
       expect(response.body).to eq ({
           classrooms_and_their_students: json
       }).to_json
@@ -205,7 +205,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
             students: classroom.students.sort_by(&:sorting_name)
         }
       }
-      get :retrieve_classrooms_i_teach_for_custom_assigning_activities, format: :json
+      get :retrieve_classrooms_i_teach_for_custom_assigning_activities, as: :json
       expect(response.body).to eq ({
           classrooms_and_their_students: json
       }).to_json
@@ -344,7 +344,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'should assign the classroom and render the correct json' do
-      get :students_list, params: { id: classroom.id, format: :json }
+      get :students_list, params: { id: classroom.id }, as: :json
       expect(assigns(:classroom)).to eq classroom
       expect(response.body).to eq({
         students: classroom.students.order("substring(users.name, '(?=\s).*') asc, users.name asc"),
@@ -382,7 +382,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'should render the correct json' do
-      get :classroom_mini, format: :json
+      get :classroom_mini, as: :json
       expect(response.body).to eq({
         classes: "some class info"
       }.to_json)
@@ -413,7 +413,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'should render the correct json' do
-      get :getting_started, format: :json
+      get :getting_started, as: :json
       expect(response.body).to eq(teacher.getting_started_info.to_json)
     end
   end
@@ -427,7 +427,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'should render the correct json' do
-      get :scores, format: :json
+      get :scores, as: :json
       expect(response.body).to eq({
         scores: [1, 2, 3],
         is_last_page: true
@@ -461,7 +461,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       create(:auth_credential, user: teacher)
 
       expect(GoogleStudentImporterWorker).to receive(:perform_async)
-      put :import_google_students, params: { selected_classroom_ids: [1,2], format: :json }
+      put :import_google_students, params: { selected_classroom_ids: [1,2], as: :json }
     end
   end
 
@@ -507,7 +507,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     before { allow(controller).to receive(:current_user) { teacher } }
 
     it 'should return an array with two classrooms' do
-      post :update_google_classrooms, params: { selected_classrooms: selected_classrooms, format: :json }
+      post :update_google_classrooms, params: { selected_classrooms: selected_classrooms }, as: :json
 
       classrooms = JSON.parse(response.body).deep_symbolize_keys.fetch(:classrooms)
 

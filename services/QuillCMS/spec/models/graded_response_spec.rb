@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe GradedResponse, type: :model do
   context 'basic queries' do
-    let!(:response_optimal) {create(:response, question_uid: '123', optimal: true)}
-    let!(:response_nonoptimal) {create(:response, question_uid: '123', optimal: false)}
-    let!(:response_ungraded) {create(:response, question_uid: '123', optimal: nil)}
+    let!(:optimal) {create(:optimal_response, question_uid: '123')}
+    let!(:graded_nonoptimal) {create(:graded_nonoptimal_response, question_uid: '123')}
+    let!(:ungraded) {create(:ungraded_response, question_uid: '123')}
 
     it 'should return no records if refresh is not run' do
       expect(GradedResponse.count).to be 0
@@ -17,10 +17,21 @@ RSpec.describe GradedResponse, type: :model do
 
     it 'should return response objects for queries' do
       GradedResponse.refresh
-      graded_responses = GradedResponse.where(question_uid: '123').sort_by(&:id)
+      responses = GradedResponse.where(question_uid: '123').sort_by(&:id)
+      response_ids = responses.map(&:id).sort
+      graded_ids = [optimal.id, graded_nonoptimal.id].sort
 
-      expect(graded_responses.first.id).to be response_optimal.id
-      expect(graded_responses.second.id).to be response_nonoptimal.id
+      expect(response_ids).to eq graded_ids
+    end
+
+    # Note, if this test fails, you might need a migration for this view
+    # Scenic View attributes are locked at the time of the view migration
+    # So a query for responses.* doesn't update as you add fields
+    # https://github.com/scenic-views/scenic#faqs
+    it 'should have the same attributes as Response' do
+      GradedResponse.refresh
+
+      expect(GradedResponse.first.attributes.keys.sort).to eq Response.first.attributes.keys.sort
     end
   end
 end
