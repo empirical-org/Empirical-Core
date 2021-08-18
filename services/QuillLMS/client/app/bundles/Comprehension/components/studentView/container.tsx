@@ -584,7 +584,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       className += studentHighlights.includes(stringifiedInnerElements) ? ' highlighted' : ''
       className += shouldBeHighlightable  ? ' highlightable' : ''
       if (!shouldBeHighlightable) { return <mark className={className}>{innerElements}</mark>}
-      return <mark className={className} onClick={this.handleHighlightClick} onKeyDown={this.handleHighlightKeyDown} tabIndex={0}>{innerElements}</mark>
+      return <mark className={className} onClick={this.handleHighlightClick} onKeyDown={this.handleHighlightKeyDown} role="button" tabIndex={0}>{innerElements}</mark>
     }
   }
 
