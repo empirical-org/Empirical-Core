@@ -35,8 +35,7 @@ class QuestionsController < ApplicationController
       .where(question_uid: params[:question_uid])
       .nonoptimal
       .where("count > 1 AND count <= #{MultipleChoiceResponse::MIN_COUNT}")
-      .limit(MULTIPLE_CHOICE_LIMIT - nonoptimal_count)
-      .order('count DESC')
+      .limit(needed_count)
       .to_a
   end
 end
