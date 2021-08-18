@@ -217,11 +217,7 @@ But how can democracies have representative governments unless all or most of th
           >
             <section
               className="header-image-information"
-            >
-              <p
-                className="header-image-caption"
-              />
-            </section>
+            />
           </section>
         </Component>
         <div
