@@ -86,22 +86,24 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   constructor(props: StudentViewContainerProps) {
     super(props)
 
+    const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
+
     this.state = {
-      activeStep: READ_PASSAGE_STEP,
+      activeStep: shouldSkipToPrompts ? READ_PASSAGE_STEP + 1: READ_PASSAGE_STEP,
       activityIsComplete: false,
       activityIsReadyForSubmission: false,
-      explanationSlidesCompleted: false,
+      explanationSlidesCompleted: shouldSkipToPrompts,
       explanationSlideStep: 0,
-      completedSteps: [],
+      completedSteps: shouldSkipToPrompts ? [READ_PASSAGE_STEP] : [],
       showFocusState: false,
       startTime: Date.now(),
       isIdle: false,
       studentHighlights: [],
-      scrolledToEndOfPassage: false,
+      scrolledToEndOfPassage: shouldSkipToPrompts,
       showReadTheDirectionsModal: false,
-      hasStartedReadPassageStep: false,
-      hasStartedPromptSteps: false,
-      doneHighlighting: false,
+      hasStartedReadPassageStep: shouldSkipToPrompts,
+      hasStartedPromptSteps: shouldSkipToPrompts,
+      doneHighlighting: shouldSkipToPrompts,
       timeTracking: {
         1: 0,
         2: 0,
@@ -878,7 +880,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         <ExplanationSlide onHandleClick={this.handleExplanationSlideClick} slideData={explanationData[explanationSlideStep]} />
       );
     }
-    if(activityIsComplete) {
+    if(activityIsComplete && !window.location.href.includes('turk')) {
       return(
         <PostActivitySlide responses={submittedResponses} user={user} />
       );

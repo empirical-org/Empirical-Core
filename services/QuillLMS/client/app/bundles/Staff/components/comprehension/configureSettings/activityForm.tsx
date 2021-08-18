@@ -142,7 +142,8 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   return(
     <div className="activity-form-container">
       <div className="button-container">
-        <a className="quill-button fun secondary outlined" href={`/evidence/#/play?uid=${activity.id}`} rel="noopener noreferrer" target="_blank">Play Activity</a>
+        <a className="quill-button fun secondary outlined" href={`/evidence/#/play?uid=${activity.id}&skipToPrompts=true`} rel="noopener noreferrer" target="_blank">Play Activity</a>
+        <a className="quill-button fun secondary outlined" href={`/evidence/#/play?uid=${activity.id}`} rel="noopener noreferrer" target="_blank">Full Student Play</a>
         {activity.parent_activity_id && <button className="quill-button fun secondary outlined" onClick={handleClickArchiveActivity} type="button">Archive Activity</button>}
         <button className="quill-button fun primary contained" id="activity-submit-button" onClick={handleSubmitActivity} type="submit">Save</button>
       </div>
