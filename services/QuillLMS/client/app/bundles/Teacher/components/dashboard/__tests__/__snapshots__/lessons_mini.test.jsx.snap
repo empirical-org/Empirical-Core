@@ -731,6 +731,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                       "width": "289px",
                     }
                   }
+                  tabIndex={null}
                 >
                   Advanced Combining: Complex Sentences with Modifiers
                 </span>
@@ -987,6 +988,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                       "width": "289px",
                     }
                   }
+                  tabIndex={null}
                 >
                   Lesson 1: Conjunctions of Time (After, Until, Before, etc.)
                 </span>

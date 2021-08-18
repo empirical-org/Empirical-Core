@@ -718,6 +718,7 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                               "width": "215px",
                             }
                           }
+                          tabIndex={null}
                         >
                           Quill Classroom Extremely Long So Long SUper Duper
                         </span>
@@ -914,6 +915,7 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                               "width": "215px",
                             }
                           }
+                          tabIndex={null}
                         >
                           Quill Classroom Extremely Long So Long SUper Duper
                         </span>
@@ -1436,6 +1438,7 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                               "width": "215px",
                             }
                           }
+                          tabIndex={null}
                         >
                           Quill Classroom Extremely Long So Long SUper Duper
                         </span>
@@ -1958,6 +1961,7 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                               "width": "215px",
                             }
                           }
+                          tabIndex={null}
                         >
                           Quill Classroom Extremely Long So Long SUper Duper
                         </span>
@@ -2480,6 +2484,7 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                               "width": "215px",
                             }
                           }
+                          tabIndex={null}
                         >
                           Quill Classroom Extremely Long So Long SUper Duper
                         </span>
@@ -3002,6 +3007,7 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                               "width": "215px",
                             }
                           }
+                          tabIndex={null}
                         >
                           Quill Classroom Extremely Long So Long SUper Duper
                         </span>
@@ -3524,6 +3530,7 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                               "width": "215px",
                             }
                           }
+                          tabIndex={null}
                         >
                           Quill Classroom Extremely Long So Long SUper Duper
                         </span>
@@ -4046,6 +4053,7 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                               "width": "215px",
                             }
                           }
+                          tabIndex={null}
                         >
                           Quill Classroom Extremely Long So Long SUper Duper
                         </span>
@@ -4568,6 +4576,7 @@ exports[`DiagnosticActivityPacks component should render when there are diagnost
                               "width": "215px",
                             }
                           }
+                          tabIndex={null}
                         >
                           Quill Classroom Extremely Long So Long SUper Duper
                         </span>
