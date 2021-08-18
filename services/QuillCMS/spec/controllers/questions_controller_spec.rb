@@ -92,11 +92,11 @@ RSpec.describe QuestionsController, type: :controller do
     end
 
     context 'only optimal responses available' do
-      let!(:optimal1) {create(:optimal_response, question_uid: '123')}
-      let!(:optimal2) {create(:optimal_response, question_uid: '123')}
-      let!(:optimal3) {create(:optimal_response, question_uid: '123')}
+      before do
+        create(:optimal_response, question_uid: '123')
+        create(:optimal_response, question_uid: '123')
+        create(:optimal_response, question_uid: '123')
 
-      before(:each) do
         GradedResponse.refresh
         MultipleChoiceResponse.refresh
       end
@@ -119,19 +119,47 @@ RSpec.describe QuestionsController, type: :controller do
       end
     end
 
-    context 'fallback responses needed' do
-      let!(:graded_nonoptimal) {create(:graded_nonoptimal_response, question_uid: '123', count: 17)}
-      let!(:ungraded_low_count1) {create(:ungraded_response, question_uid: '123', count: 9)}
-      let!(:ungraded_low_count2) {create(:ungraded_response, question_uid: '123', count: 2)}
-      let!(:ungraded_low_count3) {create(:ungraded_response, question_uid: '123', count: 2)}
+    context 'fallback responses needed - use graded' do
+      before do
+        create(:graded_nonoptimal_response, question_uid: '123', count: 17)
+        create(:ungraded_response, question_uid: '123', count: 9)
+        create(:ungraded_response, question_uid: '123', count: 3)
+        create(:graded_nonoptimal_response, question_uid: '123', count: 2)
 
-      before(:each) do
         GradedResponse.refresh
         MultipleChoiceResponse.refresh
       end
 
       # Note, this expectation is bound to QuestionsController::MULTIPLE_CHOICE_LIMIT
-      it 'should return graded responses, 1 from MultipleChoiceResponse and 1 from fallback' do
+      it 'should return graded responses, 1 from MultipleChoiceResponse and 1 from fallback, favoring graded responses even with lower counts' do
+        get :multiple_choice_options, params: {question_uid: '123'}
+
+        expect(response.status).to eq 200
+
+        json = JSON.parse(response.body)
+        optimal_count = json.count {|gr| gr['optimal']}
+        graded_nonoptimal_count = json.count {|gr| gr['optimal'] == false}
+        ungraded_count = json.count {|gr| gr['optimal'].nil?}
+
+        expect(json.count).to eq 2
+        expect(optimal_count).to eq 0
+        expect(graded_nonoptimal_count).to eq 2
+        expect(ungraded_count).to eq 0
+      end
+    end
+
+    context 'fallback responses needed - use ungraded' do
+      before do
+        create(:graded_nonoptimal_response, question_uid: '123', count: 17)
+        create(:ungraded_response, question_uid: '123', count: 9)
+        create(:ungraded_response, question_uid: '123', count: 3)
+
+        GradedResponse.refresh
+        MultipleChoiceResponse.refresh
+      end
+
+      # Note, this expectation is bound to QuestionsController::MULTIPLE_CHOICE_LIMIT
+      it 'should return graded responses, 1 from MultipleChoiceResponse and 1 from ungraded responses )if there are no more graded responses' do
         get :multiple_choice_options, params: {question_uid: '123'}
 
         expect(response.status).to eq 200

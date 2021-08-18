@@ -8,6 +8,7 @@ module ResponsesView
 
     scope :optimal, -> { where(optimal: true) }
     scope :nonoptimal, -> { where(optimal: [false, nil]) }
+    scope :graded_nonoptimal, -> { where(optimal: false) }
     scope :no_parent, -> { where(parent_id: nil) }
 
     def self.refresh
