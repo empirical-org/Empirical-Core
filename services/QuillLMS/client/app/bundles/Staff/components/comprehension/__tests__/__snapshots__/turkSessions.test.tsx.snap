@@ -1136,7 +1136,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
       headers={
         Array [
           Object {
-            "attribute": "link",
+            "attribute": "turkLink",
             "name": "Link",
             "width": "500px",
           },
@@ -1184,7 +1184,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
             />,
             "expiration": "December 7th, 2020",
             "id": "17-1",
-            "link": <a
+            "turkLink": <a
               href="undefined/evidence/#/turk?uid=17&id=1"
               rel="noopener noreferrer"
               target="_blank"
@@ -1269,22 +1269,13 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
         <div
           className="data-table-body"
         >
-          <a
+          <div
             className="data-table-row  "
-            href={
-              <a
-                href="undefined/evidence/#/turk?uid=17&id=1"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                undefined/evidence/#/turk?uid=17&id=1
-              </a>
-            }
             key="17-1"
           >
             <span
               className="data-table-row-section undefined"
-              key="link-17-1"
+              key="turkLink-17-1"
               style={
                 Object {
                   "minWidth": "500px",
@@ -1559,7 +1550,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
             <span
               className="removable data-table-row-section"
             />
-          </a>
+          </div>
         </div>
       </div>
     </DataTable>

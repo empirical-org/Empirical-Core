@@ -8,7 +8,7 @@ import { routes } from "../routes";
 const PageLayout: React.StatelessComponent<{}> = (props: any) => {
   const { user } = props;
     return (
-      <div className="app-container">
+      <div aria-live="polite" className="app-container">
         <Header />
         {renderRoutes(routes, { user })}
       </div>

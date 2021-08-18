@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Api::V1::FeedbackHistoriesController, type: :controller do
   context "index" do
     it "should return successfully - no history" do
-      get :index
+      get :index, as: :json
 
       parsed_response = JSON.parse(response.body)['feedback_histories']
 
@@ -19,7 +19,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       end
 
       it "should return successfully" do
-        get :index
+        get :index, as: :json
 
         parsed_response = JSON.parse(response.body)['feedback_histories']
 
@@ -35,10 +35,23 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
   context "create" do
     it "should create a valid record and return it as json" do
-      post :create, params: { feedback_history: { feedback_session_uid: '1', attempt: 1, optimal: false, used: true,
-                                        time: DateTime.now, entry: 'This is the entry provided by the student',
-                                        feedback_text: 'This is the feedback provided by the algorithm',
-                                        feedback_type: 'autoML', metadata: {foo: 'bar'} } }
+      post :create,
+        params: {
+          feedback_history: {
+            feedback_session_uid: '1',
+            attempt: 1,
+            optimal: false,
+            used: true,
+            time: DateTime.now,
+            entry: 'This is the entry provided by the student',
+            feedback_text: 'This is the feedback provided by the algorithm',
+            feedback_type: 'autoML',
+            metadata: {
+              foo: 'bar'
+            }
+          }
+        },
+        as: :json
 
       parsed_response = JSON.parse(response.body)
 
@@ -57,10 +70,21 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
         ]
       }
 
-      post :create, params: { feedback_history: { feedback_session_uid: '1', attempt: 1, optimal: false, used: true,
-                                        time: DateTime.now, entry: 'This is the entry provided by the student',
-                                        feedback_text: 'This is the feedback provided by the algorithm',
-                                        feedback_type: 'autoML', metadata: metadata } }
+      post :create,
+        params: {
+          feedback_history: {
+            feedback_session_uid: '1',
+            attempt: 1,
+            optimal: false,
+            used: true,
+            time: DateTime.now,
+            entry: 'This is the entry provided by the student',
+            feedback_text: 'This is the feedback provided by the algorithm',
+            feedback_type: 'autoML',
+            metadata: metadata
+          }
+        },
+        as: :json
 
       parsed_response = JSON.parse(response.body)
       expect(parsed_response['metadata']['highlight'].first.keys).to eq metadata['highlight'].first.keys
@@ -69,10 +93,24 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
     it "should set prompt_type to Comprehension::Prompt if prompt_id is provided" do
       activity = Comprehension::Activity.create(target_level: 1, title: 'Test Activity Title')
       prompt = Comprehension::Prompt.create(activity: activity, text: 'Test prompt text', conjunction: 'but')
-      post :create, params: { feedback_history: { feedback_session_uid: '1', attempt: 1, optimal: false, used: true,
-                                        time: DateTime.now, entry: 'This is the entry provided by the student',
-                                        feedback_text: 'This is the feedback provided by the algorithm',
-                                        feedback_type: 'autoML', metadata: {foo: 'bar'}, prompt_id: prompt.id } }
+      post :create,
+        params: {
+          feedback_history: {
+            feedback_session_uid: '1',
+            attempt: 1,
+            optimal: false,
+            used: true,
+            time: DateTime.now,
+            entry: 'This is the entry provided by the student',
+            feedback_text: 'This is the feedback provided by the algorithm',
+            feedback_type: 'autoML',
+            prompt_id: prompt.id,
+            metadata: {
+              foo: 'bar'
+            }
+          },
+        },
+        as: :json
 
       parsed_response = JSON.parse(response.body)
 
@@ -82,7 +120,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
     end
 
     it "should not create an invalid record and return errors as json" do
-      post :create, params: { feedback_history: { entry: nil } }
+      post :create, params: { feedback_history: { entry: nil } }, as: :json
 
       parsed_response = JSON.parse(response.body)
 
@@ -126,7 +164,8 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
               }
             }
           ]
-        }
+        },
+        as: :json
 
       expect(201).to eq(response.code.to_i)
       expect(2).to eq(FeedbackHistory.count)
@@ -162,7 +201,8 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
               }
             }
           ]
-        }
+        },
+        as: :json
 
       parsed_response = JSON.parse(response.body)
 
@@ -175,12 +215,10 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
   end
 
   context "show" do
-    setup do
-      @feedback_history = create(:feedback_history, entry: 'This is the first entry in history')
-    end
+    setup { @feedback_history = create(:feedback_history, entry: 'This is the first entry in history') }
 
     it "should return json if found" do
-      get :show, params: { id: @feedback_history.id }
+      get :show, params: { id: @feedback_history.id }, as: :json
 
       parsed_response = JSON.parse(response.body)
 
@@ -189,7 +227,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
     end
 
     it "should raise if not found (to be handled by parent app)" do
-      get :show, params: { id: 99999 }
+      get :show, params: { id: 99999 }, as: :json
       expect(404).to eq(response.status)
       expect(response.body.include?("The resource you were looking for does not exist")).to be
     end
@@ -201,7 +239,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       feedback_history.prompt = prompt
       feedback_history.save
 
-      get :show, params: { id: feedback_history.id }
+      get :show, params: { id: feedback_history.id }, as: :json
 
       parsed_response = JSON.parse(response.body)
 
