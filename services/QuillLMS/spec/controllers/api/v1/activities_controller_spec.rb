@@ -8,7 +8,7 @@ describe Api::V1::ActivitiesController, type: :controller do
     before do
       @activity1 = create(:activity)
 
-      get :show, params: { format: :json, id: @activity1.uid }
+      get :show, params: { id: @activity1.uid }, as: :json
       @parsed_body = JSON.parse(response.body)
     end
 
@@ -19,7 +19,7 @@ describe Api::V1::ActivitiesController, type: :controller do
     end
 
     it 'responds with 404 if activity does not exist' do
-      get :show, params: { format: :json, id: 'doesnotexist' }
+      get :show, params: { id: 'doesnotexist' }, as: :json
       expect(response.status).to eq(404)
     end
 
@@ -38,7 +38,7 @@ describe Api::V1::ActivitiesController, type: :controller do
     let!(:activity) { create(:activity) }
 
     before do
-      put :update, params: { format: :json, id: activity.uid, name: 'foobar' }
+      put :update, params: { id: activity.uid, name: 'foobar' }, as: :json
       @parsed_body = JSON.parse(response.body)
     end
 
@@ -56,7 +56,14 @@ describe Api::V1::ActivitiesController, type: :controller do
     let(:activity_classification) { create(:activity_classification) }
 
     subject do
-      post :create, params: { name: 'foobar', uid: 'abcdef123', standard_uid: standard.uid, activity_classification_uid: activity_classification.uid }
+      post :create,
+        params: {
+          name: 'foobar',
+          uid: 'abcdef123',
+          standard_uid: standard.uid,
+          activity_classification_uid: activity_classification.uid
+        },
+        as: :json
     end
 
     describe 'general API behavior' do
@@ -90,9 +97,7 @@ describe Api::V1::ActivitiesController, type: :controller do
 
     describe 'when the request is valid' do
       it 'creates an activity' do
-        expect {
-          subject
-        }.to change(Activity, :count).by(1)
+        expect { subject }.to change(Activity, :count).by(1)
       end
 
       it 'responds with 200' do
@@ -117,18 +122,16 @@ describe Api::V1::ActivitiesController, type: :controller do
 
     context 'when the destroy is successful' do
       it 'should return the success json' do
-        get :destroy, params: { format: :json, id: activity.uid }
+        get :destroy, params: { id: activity.uid }, as: :json
         expect(JSON.parse(response.body)["meta"]).to eq({"status" => 'success', "message" => "Activity Destroy Successful", "errors" => nil})
       end
     end
 
     context 'when the destroy is not successful' do
-      before do
-        allow_any_instance_of(Activity).to receive(:destroy!) { false }
-      end
+      before { allow_any_instance_of(Activity).to receive(:destroy!) { false } }
 
       it 'should return the failed json' do
-        get :destroy, params: { format: :json, id: activity.uid }
+        get :destroy, params: { id: activity.uid }, as: :json
         expect(JSON.parse(response.body)["meta"]).to eq({"status" => 'failed', "message" => "Activity Destroy Failed", "errors" => {}})
       end
     end
@@ -140,7 +143,7 @@ describe Api::V1::ActivitiesController, type: :controller do
     let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
 
     it 'should render the correct json' do
-      get :follow_up_activity_name_and_supporting_info, params: { id: activity.id, format: :json }
+      get :follow_up_activity_name_and_supporting_info, params: { id: activity.id }, as: :json
       expect(response.body).to eq({
         follow_up_activity_name: activity.follow_up_activity.name,
         supporting_info: activity.supporting_info
@@ -152,7 +155,7 @@ describe Api::V1::ActivitiesController, type: :controller do
     let(:activity) { create(:activity) }
 
     it 'should render the correct json' do
-      get :supporting_info, params: { id: activity.id, format: :json }
+      get :supporting_info, params: { id: activity.id }, as: :json
       expect(response.body).to eq ({supporting_info: activity.supporting_info}.to_json)
     end
   end
@@ -162,7 +165,7 @@ describe Api::V1::ActivitiesController, type: :controller do
     let!(:activity1) { create(:activity) }
 
     it 'should render the correct json' do
-      get :uids_and_flags
+      get :uids_and_flags, as: :json
       expect(JSON.parse(response.body)).to eq({
         activity.uid => {
           "flag" => activity.flag.to_s
@@ -179,14 +182,12 @@ describe Api::V1::ActivitiesController, type: :controller do
     let(:milestone) { create(:milestone, name: "Publish Customized Lesson") }
     let(:user) { create(:user) }
 
-    before do
-      allow(controller).to receive(:current_user) { user }
-    end
+    before { allow(controller).to receive(:current_user) { user } }
 
     it 'should create the usermilestone and checkbox' do
       expect(Checkbox.find_by(objective_id: objective.id, user_id: user.id)).to eq nil
       expect(UserMilestone.find_by(milestone_id: milestone.id, user_id: user.id)).to eq nil
-      get :published_edition
+      get :published_edition, as: :json
       expect(Checkbox.find_by(objective_id: objective.id, user_id: user.id)).to_not eq nil
       expect(UserMilestone.find_by(milestone_id: milestone.id, user_id: user.id)).to_not eq nil
     end
@@ -248,7 +249,7 @@ describe Api::V1::ActivitiesController, type: :controller do
     let!(:activity_health) {create(:activity_health, prompt_healths: [prompt_health])}
 
     it 'should return a list of all activity healths with associated prompt health' do
-      get :activities_health
+      get :activities_health, as: :json
       expect(response.status).to eq(200)
       response_obj = JSON.parse(response.body)["activities_health"]
       expect(response_obj[0]).to eq(ActivityHealth.first.as_json)
@@ -256,7 +257,7 @@ describe Api::V1::ActivitiesController, type: :controller do
 
     it 'should return an empty list if no activity healths exist' do
       ActivityHealth.destroy_all
-      get :activities_health
+      get :activities_health, as: :json
       expect(response.status).to eq(200)
       response_obj = JSON.parse(response.body)["activities_health"]
       expect(response_obj).to eq([])
@@ -265,19 +266,19 @@ describe Api::V1::ActivitiesController, type: :controller do
 
   context 'when not authenticated via OAuth' do
     it 'POST #create returns 401 Unauthorized' do
-      post :create, format: :json
+      post :create, as: :json
       expect(response.status).to eq(401)
     end
 
     it 'PUT #update returns 401 Unauthorized' do
       activity = create(:activity)
-      put :update, params: { format: :json, id: activity.uid }
+      put :update, params: { id: activity.uid }, as: :json
       expect(response.status).to eq(401)
     end
 
     it 'DELETE #destroy returns 401 Unauthorized' do
       activity = create(:activity)
-      delete :destroy, params: { format: :json, id: activity.uid }
+      delete :destroy, params: { id: activity.uid }, as: :json
       expect(response.status).to eq(401)
     end
   end

@@ -82,7 +82,7 @@ describe Cms::ActivitiesController, type: :controller do
       selected_attributes[:topic_ids] = [topic.id]
       selected_attributes[:content_partner_ids] = [content_partner.id]
       selected_attributes[:activity_category_ids] = [activity_category.id]
-      post :create, params: { activity_classification_id: classification.id, activity: selected_attributes, format: :json }
+      post :create, params: { activity_classification_id: classification.id, activity: selected_attributes }, as: :json
       created_activity = Activity.find_by_name('Unique Name')
       expect(created_activity).to be
       expect(created_activity.topics).to eq([topic])

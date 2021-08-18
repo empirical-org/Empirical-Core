@@ -77,7 +77,7 @@ describe ClassroomsTeachersController, type: :controller do
     end
 
     it 'should render the correct json' do
-      get :specific_coteacher_info, params: { format: :json, coteacher_id: user.id }
+      get :specific_coteacher_info, params: { coteacher_id: user.id }, as: :json
       expect(response.body).to eq({
       selectedTeachersClassroomIds: {
           is_coteacher: [classroom.id],

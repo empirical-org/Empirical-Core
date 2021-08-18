@@ -431,6 +431,9 @@
   }
   .rules-container, .rule-container, .turk-sessions-container, .semantic-labels-container, .model-container {
     width: 80vw;
+    .play-activity-button {
+      margin-bottom: 20px;
+    }
     .semantic-rules-cheat-sheet {
       .data-table-row {
         height: min-content;
