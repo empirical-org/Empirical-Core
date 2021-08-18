@@ -21,27 +21,27 @@ describe Teachers::ProgressReports::ActivitySessionsController, type: :controlle
       before { session[:user_id] = teacher.id }
 
       it 'includes the serialized data for activity sessions' do
-        get :index, params: { page: 1, format: :json }
+        get :index, params: { page: 1 }, as: :json
         expect(json['activity_sessions'][0]['activity_classification_name']).to_not be_nil
       end
 
       it 'includes the number of pages of results' do
-        get :index, params: { page: 1, format: :json }
+        get :index, params: { page: 1 }, as: :json
         expect(json['page_count']).to eq(1)
       end
 
       it 'can filter by classroom' do
-        get :index, params: { classroom_id: empty_classroom.id, page: 1, format: :json }
+        get :index, params: { classroom_id: empty_classroom.id, page: 1}, as: :json
         expect(json['activity_sessions'].size).to eq(0)
       end
 
       it 'can filter by student' do
-        get :index, params: { student_id: zojirushi.id, page: 1, format: :json }
+        get :index, params: { student_id: zojirushi.id, page: 1 }, as: :json
         expect(json['activity_sessions'].size).to eq(1)
       end
 
       it 'fetches classroom and student data for the filter options' do
-        get :index, params: { page: 1, format: :json }
+        get :index, params: { page: 1 }, as: :json
         expect(json['classrooms']).to eq(teacher.ids_and_names_of_affiliated_classrooms)
         expect(json['students']).to eq(teacher.ids_and_names_of_affiliated_students)
         expect(json['units']).to eq(teacher.ids_and_names_of_affiliated_units)

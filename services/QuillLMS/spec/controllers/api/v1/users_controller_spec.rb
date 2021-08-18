@@ -7,7 +7,7 @@ describe Api::V1::UsersController do
     let(:user) { create(:user) }
 
     it 'should return the correct json' do
-      get :index, format: :json
+      get :index, as: :json
 
       expect(response.body).to eq({
         user: user,
@@ -23,7 +23,7 @@ describe Api::V1::UsersController do
       let(:user) { nil }
 
       it 'should return the correct json' do
-        get :current_user_and_coteachers, format: :json
+        get :current_user_and_coteachers, as: :json
 
         expect(response.body).to eq({
           user: user,
@@ -38,7 +38,7 @@ describe Api::V1::UsersController do
       let!(:coteachers) { classroom.coteachers.map { |ct| ct.attributes.slice('id', 'name') } }
 
       it 'should return the correct json' do
-        get :current_user_and_coteachers, format: :json
+        get :current_user_and_coteachers, as: :json
 
         expect(response.body).to eq({
           user: user,
@@ -53,7 +53,7 @@ describe Api::V1::UsersController do
       let(:user) { create(:teacher) }
 
       it 'should return teacher for teacher users' do
-        get :current_user_role, format: :json
+        get :current_user_role, as: :json
 
         expect(response.body).to eq({ role: "teacher" }.to_json)
       end
@@ -63,7 +63,7 @@ describe Api::V1::UsersController do
       let(:user) { create(:admin) }
 
       it 'should return admin for admin users' do
-        get :current_user_role, format: :json
+        get :current_user_role, as: :json
         expect(response.body).to eq({ role: "admin" }.to_json)
       end
     end
@@ -72,7 +72,7 @@ describe Api::V1::UsersController do
       let(:user)  { create(:student) }
 
       it 'should return student for student users' do
-        get :current_user_role, format: :json
+        get :current_user_role, as: :json
         expect(response.body).to eq({ role: "student" }.to_json)
       end
     end
@@ -81,7 +81,7 @@ describe Api::V1::UsersController do
       let(:user) { nil }
 
       it 'should return nil if current_user is nil' do
-        get :current_user_role, format: :json
+        get :current_user_role, as: :json
         expect(response.body).to eq({ role: nil }.to_json)
       end
     end

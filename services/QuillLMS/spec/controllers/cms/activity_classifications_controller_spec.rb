@@ -12,7 +12,7 @@ describe Cms::ActivityClassificationsController, type: :controller do
     let!(:classification1) { create(:activity_classification) }
 
     it 'should return all the activity classifications' do
-      get :index, format: :json
+      get :index, as: :json
       expect(response.body).to eq({
         activity_classifications: ActivityClassification.order(order_number: :asc)
       }.to_json)

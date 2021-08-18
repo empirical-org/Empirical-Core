@@ -19,12 +19,12 @@ describe Api::V1::FocusPointsController, type: :controller do
 
   describe "#index" do
     it "should return a list of Question Focus Points" do
-      get :index, params: { question_id: question.uid }
+      get :index, params: { question_id: question.uid }, as: :json
       expect(JSON.parse(response.body)).to eq(question.data["focusPoints"])
     end
 
     it "should return a 404 if the requested Question is not found" do
-      get :index, params: { question_id: 'doesnotexist' }
+      get :index, params: { question_id: 'doesnotexist' }, as: :json
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
@@ -33,19 +33,19 @@ describe Api::V1::FocusPointsController, type: :controller do
   describe "#show" do
     it "should return the containing focus points object" do
       fp_id = question.data["focusPoints"].keys.first
-      get :show, params: { question_id: question.uid, id: fp_id }
+      get :show, params: { question_id: question.uid, id: fp_id }, as: :json
       expect(JSON.parse(response.body)).to eq(question.data["focusPoints"][fp_id])
     end
 
     it "should return a 404 if the requested Question is not found" do
       fp_id = question.data["focusPoints"].keys.first
-      get :show, params: { question_id: 'doesnotexist', id: fp_id }
+      get :show, params: { question_id: 'doesnotexist', id: fp_id }, as: :json
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
 
     it "should return a 404 if the requested FocusPoint is not found" do
-      get :show, params: { question_id: question.id, id: "doesnotexist" }
+      get :show, params: { question_id: question.id, id: "doesnotexist" }, as: :json
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
@@ -55,13 +55,13 @@ describe Api::V1::FocusPointsController, type: :controller do
     it "should add a new focus point to the question data" do
       data = {"text" => "foo", "feedback"=>"bar"}
       focus_point_count = question.data["focusPoints"].keys.length
-      post :create, params: { question_id: question.uid, focus_point: data }
+      post :create, params: { question_id: question.uid, focus_point: data }, as: :json
       question.reload
       expect(question.data["focusPoints"].keys.length).to eq(focus_point_count + 1)
     end
 
     it "should return a 404 if the requested Question is not found" do
-      get :index, params: { question_id: 'doesnotexist' }
+      get :index, params: { question_id: 'doesnotexist' }, as: :json
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
@@ -71,19 +71,26 @@ describe Api::V1::FocusPointsController, type: :controller do
     it "should update an existing focus point in the question data" do
       data = {"text" => "foo", "feedback"=>"bar"}
       focus_point_uid = question.data["focusPoints"].keys.first
-      put :update, params: { question_id: question.uid, id: focus_point_uid, focus_point: data }
+      put :update,
+        params: {
+          question_id: question.uid,
+          id: focus_point_uid,
+          focus_point: data
+        },
+        as: :json
+
       question.reload
       expect(question.data["focusPoints"][focus_point_uid]).to eq(data)
     end
 
     it "should return a 404 if the requested Question is not found" do
-      put :update, params: { question_id: 'doesnotexist', id: 'doesnotexist' }
+      put :update, params: { question_id: 'doesnotexist', id: 'doesnotexist' }, as: :json
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
 
     it "should return a 404 if the requested Question does not have the specified focusPoint" do
-      put :update, params: { question_id: question.uid, id: 'doesnotexist' }
+      put :update, params: { question_id: question.uid, id: 'doesnotexist' }, as: :json
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
@@ -93,7 +100,13 @@ describe Api::V1::FocusPointsController, type: :controller do
 
       focus_point_uid = new_q.data["focusPoints"].keys.first
 
-      put :update, params: { question_id: new_q.uid, id: focus_point_uid, focus_point: data }
+      put :update,
+        params: {
+          question_id: new_q.uid,
+          id: focus_point_uid,
+          focus_point: data
+        },
+        as: :json
 
       expect(response.status).to eq(422)
       expect(JSON.parse(response.body)["data"]).to include("There is incorrectly formatted regex: (and|")
@@ -104,7 +117,7 @@ describe Api::V1::FocusPointsController, type: :controller do
     it "should delete the focus point" do
       focus_point_uid = question.data["focusPoints"].keys.first
       pre_delete_count = question.data["focusPoints"].keys.length
-      delete :destroy, params: { question_id: question.uid, id: focus_point_uid }
+      delete :destroy, params: { question_id: question.uid, id: focus_point_uid }, as: :json
       question.reload
       expect(question.data["focusPoints"].keys.length).to eq(pre_delete_count - 1)
     end
@@ -119,13 +132,13 @@ describe Api::V1::FocusPointsController, type: :controller do
   describe "#update_all" do
     it "should replace all focusPoints" do
       data = {"0" => {"text"=>"text", "feedback"=>"feedback"}}
-      put :update_all, params: { question_id: question.uid, focus_point: data }
+      put :update_all, params: { question_id: question.uid, focus_point: data }, as: :json
       question.reload
       expect(question.data["focusPoints"]).to eq(data)
     end
 
     it "should return a 404 if the requested Question is not found" do
-      put :update_all, params: { question_id: 'doesnotexist' }
+      put :update_all, params: { question_id: 'doesnotexist' }, as: :json
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
