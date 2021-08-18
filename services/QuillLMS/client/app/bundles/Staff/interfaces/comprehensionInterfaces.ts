@@ -56,6 +56,8 @@ export interface PassagesInterface {
   text: string,
   image_link?: string,
   image_alt_text?: string,
+  image_caption?: string,
+  image_attribution?: string,
   highlight_prompt?: string
 }
 
@@ -142,4 +144,5 @@ export interface PromptHealthInterface {
 }
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>;
+export type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>;
 export type ClickEvent = React.MouseEvent<HTMLElement>;

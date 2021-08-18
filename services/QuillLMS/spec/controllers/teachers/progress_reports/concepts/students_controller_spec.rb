@@ -10,10 +10,10 @@ describe Teachers::ProgressReports::Concepts::StudentsController, type: :control
   context 'GET #index json' do
     context 'when logged in' do
       let(:json) { JSON.parse(response.body) }
-      subject { get :index, format: :json }
-      before do
-        session[:user_id] = teacher.id
-      end
+
+      subject { get :index, as: :json }
+
+      before { session[:user_id] = teacher.id }
 
       it 'includes a list of students in the JSON' do
         crs = alice.activity_sessions.map(&:concept_results).flatten.map(&:metadata)

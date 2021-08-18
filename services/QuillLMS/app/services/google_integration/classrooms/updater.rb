@@ -27,11 +27,19 @@ module GoogleIntegration
       end
 
       private def name
-        custom_name? ? classroom.name : data[:name]
+        custom_name? ? classroom.name : valid_name
+      end
+
+      private def other_owned_classroom_names
+        @other_owned_classroom_names ||= teacher.classrooms_i_own.reject { |c| c.id == classroom.id }.pluck(:name)
       end
 
       private def synced_name
         data[:name]
+      end
+
+      private def teacher
+        ::User.find(teacher_id)
       end
 
       private def update
@@ -41,6 +49,15 @@ module GoogleIntegration
           grade: grade,
           visible: visible
         )
+      end
+
+      private def valid_name
+        temp_name = data[:name]
+
+        loop do
+          return temp_name unless other_owned_classroom_names.include?(temp_name)
+          temp_name += '_1'
+        end
       end
 
       private def visible

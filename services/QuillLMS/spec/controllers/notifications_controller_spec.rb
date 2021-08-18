@@ -6,7 +6,7 @@ RSpec.describe NotificationsController do
       user = create(:simple_user)
       allow(controller).to receive(:current_user).and_return(user)
 
-      get :index, format: :json
+      get :index, as: :json
 
       expect(response).to have_http_status(:ok)
     end
@@ -15,7 +15,7 @@ RSpec.describe NotificationsController do
       user = create(:simple_user)
       allow(controller).to receive(:current_user).and_return(user)
 
-      get :index, format: :json
+      get :index, as: :json
 
       expect(response).to render_template(:index)
     end
@@ -25,7 +25,7 @@ RSpec.describe NotificationsController do
       notification = create(:notification, user: student)
 
       allow(controller).to receive(:current_user).and_return(student)
-      get :index, format: :json
+      get :index, as: :json
 
       expect(assigns(:notifications)).to eq([notification])
     end

@@ -443,6 +443,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                       "width": "180px",
                     }
                   }
+                  tabIndex={null}
                 >
                   Quill Classroom Extremely Long So Long SUper Duper
                 </span>
@@ -625,6 +626,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                       "width": "180px",
                     }
                   }
+                  tabIndex={null}
                 >
                   Quill Classroom Extremely Long So Long SUper Duper
                 </span>
@@ -736,6 +738,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                       "width": "180px",
                     }
                   }
+                  tabIndex={null}
                 >
                   Quill Classroom Extremely Long So Long SUper Duper
                 </span>

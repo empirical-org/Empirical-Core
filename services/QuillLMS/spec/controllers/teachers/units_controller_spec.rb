@@ -49,7 +49,7 @@ describe Teachers::UnitsController, type: :controller do
     let(:unit_template_names) { UnitTemplate.pluck(:name).map(&:downcase) }
 
     it 'should render the correct json' do
-      get :prohibited_unit_names, format: :json
+      get :prohibited_unit_names, as: :json
       expect(response.body).to eq({
           prohibitedUnitNames: unit_names.concat(unit_template_names)
       }.to_json)
@@ -58,7 +58,7 @@ describe Teachers::UnitsController, type: :controller do
 
   describe '#last_assigned_unit_id' do
     it 'should render the current json' do
-      get :last_assigned_unit_id, format: :json
+      get :last_assigned_unit_id, as: :json
       expect(response.body).to eq({
         id: Unit.where(user: teacher).last.id,
         referral_code: teacher.referral_code
@@ -75,7 +75,7 @@ describe Teachers::UnitsController, type: :controller do
       end
 
       it 'should render the correct json' do
-        get :lesson_info_for_activity, params: { activity_id: activities.first.id, format: :json }
+        get :lesson_info_for_activity, params: { activity_id: activities.first.id }, as: :json
         expect(response.body).to eq({
           classroom_units: activities,
           activity_name: Activity.select('name').where("id = #{activities.first.id}")
@@ -89,7 +89,7 @@ describe Teachers::UnitsController, type: :controller do
       end
 
       it 'should render the correct json' do
-        get :lesson_info_for_activity, params: { activity_id: classroom.activities.first.id, format: :json }
+        get :lesson_info_for_activity, params: { activity_id: classroom.activities.first.id }, as: :json
         expect(response.body).to eq({
           errors: "No activities found"
         }.to_json)

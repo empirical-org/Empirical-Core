@@ -13,6 +13,8 @@ import {
   SCORED_READING_LEVEL,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
+  IMAGE_CAPTION,
+  IMAGE_ATTRIBUTION,
   HIGHLIGHT_PROMPT,
   PLAGIARISM,
   ALL
@@ -339,6 +341,8 @@ export const validateForm = (keys: string[], state: any[], ruleType?: string) =>
     switch(keys[i]) {
       case IMAGE_LINK:
       case IMAGE_ALT_TEXT:
+      case IMAGE_CAPTION:
+      case IMAGE_ATTRIBUTION:
       case HIGHLIGHT_PROMPT:
         break;
       case TARGET_READING_LEVEL:
