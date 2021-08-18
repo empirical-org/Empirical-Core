@@ -32,6 +32,17 @@ class UserActivityClassification < ApplicationRecord
       greater_than_or_equal_to: 0
     }
 
+  def self.count_for(user, activity_classification)
+    begin
+      transaction(requires_new: true) do
+        instance = find_or_create_by(user: user, activity_classification: activity_classification)
+        instance.increment_count
+      end
+    rescue ActiveRecord::RecordNotUnique
+      retry
+    end
+  end
+
   def increment_count
     # Note that this could theoretically be susceptible to race conditions
     # if two calls are made at the same time, but since we only intend to
