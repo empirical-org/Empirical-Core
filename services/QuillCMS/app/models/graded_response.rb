@@ -1,3 +1,4 @@
 class GradedResponse < ApplicationRecord
-  include ResponsesView
+  include ResponseView
+  include ResponseScopes
 end
