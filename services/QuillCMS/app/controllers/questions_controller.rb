@@ -37,12 +37,14 @@ class QuestionsController < ApplicationController
     graded_nonoptimal = GradedResponse
       .graded_nonoptimal
       .where(question_uid: params[:question_uid])
-      .where("count > 1 AND count <= #{MultipleChoiceResponse::MIN_COUNT}")
+      .where("count <= #{MultipleChoiceResponse::MIN_COUNT}")
       .limit(needed_count)
       .to_a
 
     return graded_nonoptimal if graded_nonoptimal.count == needed_count
 
+    # otherwise pull any nonoptimal answer
+    # ignore responses with count = 1 to avoid junk responses
     Response
       .nonoptimal
       .where(question_uid: params[:question_uid])
