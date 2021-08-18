@@ -5,7 +5,9 @@ exports[`Activity Form component should render Activities 1`] = `
   <section
     className="header-image-container"
   >
-    <img />
+    <img
+      alt="header"
+    />
     <section
       className="header-image-information"
     >
