@@ -10,6 +10,7 @@ import ReadAndHighlightInstructions from './readAndHighlightInstructions'
 import DirectionsSectionAndModal from './directionsSectionAndModal'
 import BottomNavigation from './bottomNavigation'
 import StepOverview from './stepOverview'
+import HeaderImage from './headerImage'
 
 import { explanationData } from "../activitySlides/explanationData";
 import ExplanationSlide from "../activitySlides/explanationSlide";
@@ -38,7 +39,7 @@ import {
   MOUSEDOWN,
   CLICK,
   KEYPRESS,
-  VISIBILITYCHANGE,
+  VISIBILITYCHANGE
 } from '../../../Shared/index'
 
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
@@ -782,7 +783,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     return (<div className="read-passage-container" onScroll={this.handleReadPassageContainerScroll}>
       <div className={innerContainerClassName}>
         <h1 className="title">{currentActivity.title}</h1>
-        {headerImage}
+        <HeaderImage headerImage={headerImage} passage={passages[0]} />
         <div className="passage">{ReactHtmlParser(this.formatHtmlForPassage(), { transform: this.transformMarkTags })}</div>
       </div>
     </div>)
