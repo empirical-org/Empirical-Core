@@ -159,7 +159,7 @@ RSpec.describe QuestionsController, type: :controller do
       end
 
       # Note, this expectation is bound to QuestionsController::MULTIPLE_CHOICE_LIMIT
-      it 'should return graded responses, 1 from MultipleChoiceResponse and 1 from ungraded responses )if there are no more graded responses' do
+      it 'should return graded responses, 1 from MultipleChoiceResponse and 1 from ungraded responses since there are no more graded responses' do
         get :multiple_choice_options, params: {question_uid: '123'}
 
         expect(response.status).to eq 200
