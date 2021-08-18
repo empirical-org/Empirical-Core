@@ -13,7 +13,7 @@ exports[`Activity Form component should render Activities 1`] = `
       rel="noopener noreferrer"
       target="_blank"
     >
-      Play Activity
+      Play Test Activity
     </a>
     <a
       className="quill-button fun secondary outlined"
@@ -21,7 +21,7 @@ exports[`Activity Form component should render Activities 1`] = `
       rel="noopener noreferrer"
       target="_blank"
     >
-      Full Student Play
+      Play Student Activity
     </a>
     <button
       className="quill-button fun secondary outlined"

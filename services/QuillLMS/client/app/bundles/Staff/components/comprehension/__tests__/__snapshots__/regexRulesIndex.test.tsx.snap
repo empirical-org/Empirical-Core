@@ -10,7 +10,7 @@ exports[`RegexRulesIndex component should render RegexRulesIndex 1`] = `
     rel="noopener noreferrer"
     target="_blank"
   >
-    Play Activity
+    Play Test Activity
   </a>
   <section
     className="rules-based-section"
