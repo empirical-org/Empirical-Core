@@ -221,33 +221,6 @@ But how can democracies have representative governments unless all or most of th
               <p
                 className="header-image-caption"
               />
-              <Tooltip
-                handleClick={[Function]}
-                isTabbable={true}
-                tooltipText=""
-                tooltipTriggerText="Image credit"
-                tooltipTriggerTextClass="image-attribution-tooltip"
-              >
-                <span
-                  className="quill-tooltip-trigger"
-                >
-                  <span
-                    className="image-attribution-tooltip"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    tabIndex={0}
-                  >
-                    Image credit
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      className="quill-tooltip"
-                    />
-                  </span>
-                </span>
-              </Tooltip>
             </section>
           </section>
         </Component>
