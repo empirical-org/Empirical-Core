@@ -24,7 +24,7 @@ class Cron
     timeout = RefreshResponsesViewWorker::REFRESH_TIMEOUT
     default_interval = 600 # 10 minutes
 
-    interval = minute_string.in?(timeout) ? (timeout.gsub(minute_string,'').to_i * 60) : default_inteveral
+    interval = minute_string.in?(timeout) ? (timeout.gsub(minute_string,'').to_i * 60) : default_interval
 
     RefreshResponsesViewWorker::VIEWS.each.with_index do |view, index|
       RefreshResponsesViewWorker.perform_in(index * interval, view)
