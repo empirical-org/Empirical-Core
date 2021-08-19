@@ -60,6 +60,7 @@ class Activity < ApplicationRecord
   has_many :topics, through: :activity_topics
   before_create :flag_as_beta, unless: :flags?
   after_commit :clear_activity_search_cache
+  after_save :update_evidence_child_title, if: :update_evidence_title?
 
   delegate :form_url, to: :classification, prefix: true
 
@@ -219,6 +220,19 @@ class Activity < ApplicationRecord
 
   def is_evidence?
     classification&.key == ActivityClassification::EVIDENCE_KEY
+  end
+
+  def child_activity
+    return unless is_evidence?
+    Comprehension::Activity.find_by(parent_activity_id: id)
+  end
+
+  private def update_evidence_title?
+    is_evidence? && name_changed?
+  end
+
+  private def update_evidence_child_title
+    child_activity&.update(title: name)
   end
 
   private def data_must_be_hash
