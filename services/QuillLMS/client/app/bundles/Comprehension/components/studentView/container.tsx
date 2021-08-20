@@ -596,7 +596,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   formatHtmlForPassage = () => {
     const { activeStep, studentHighlights, } = this.state
     const { activities, session, } = this.props
-    console.log("🚀 ~ file: container.tsx ~ line 599 ~ StudentViewContainer ~ session", session)
     const { currentActivity, } = activities
 
     if (!currentActivity) { return }
