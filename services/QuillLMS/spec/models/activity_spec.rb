@@ -571,6 +571,7 @@ describe Activity, type: :model, redis: true do
 
       it 'should update the parent_activity.name when the comprehension activity.title is updated' do
         new_title = 'New Title'
+        expect(activity.name).not_to eq(new_title)
         comp_activity.update(title: new_title)
         activity.reload
         expect(activity.name).to eq(new_title)
