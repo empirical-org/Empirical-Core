@@ -16,6 +16,11 @@
       document.body.insertBefore(skipLinks, document.body.firstChild);
     }
   </script>
+  <head>
+    <% if content_for? :for_head %>
+      <%= yield :for_head %>
+    <% end %>
+  </head>
   <body class="hide-focus-outline" id="body" onkeydown="handleTabNavigation(event)">
     <% flash.each do |key, value| %>
       <%= content_tag(:div, "<p>#{value}</p><i class='fas fa-times-circle' aria-hidden='true'></i>".html_safe, {class: "flash #{key}", onClick: "$(this).slideUp(300)"}) %>

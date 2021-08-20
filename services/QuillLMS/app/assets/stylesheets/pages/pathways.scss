@@ -61,7 +61,26 @@
       }
     }
   }
-  .text-section:last-of-type {
+  #last-text-section {
     margin-bottom: 0px;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .pathways-page {
+    .header {
+      h1 {
+        text-align: left;
+      }
+    }
+    .cta-container {
+      margin: 48px 0px 48px 0px;
+      display: inline;
+      a {
+        button {
+          margin-top: 24px;
+        }
+      }
+    }
   }
 }

@@ -1,13 +1,13 @@
 <% @active_tab = 'Pathways Initiative' %>
-<%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab %>
-
-<% base_image_url = "#{ENV['CDN_URL']}/images/pathways" %>
+<% @title = 'Pathways Writing Initiative' %>
+<% @image_link = 'https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2962b312-7f1a-4c46-9855-9be8d36c0b1c/featured-image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210820%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210820T205536Z&X-Amz-Expires=86400&X-Amz-Signature=cb8540cf33a5935d3555bf12f86ad898b109bacd3dc36f626fd8535c12e1a950&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22featured-image.png%22' %>
+<%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab, title: @title, image_link:  @image_link %>
 
 <div class="white-background">
   <div class="container about-us-page pathways-page">
     <div class="header">
       <h1>How can we teach kids to write well? <br/> Phil Weinberg launches a research project with Quill.org to find out. </h1>
-      <p class="hide-mobile">Quill.org launches the <i>Writing Pathways Initiative</i>, partnering with teachers to create a research-based, open-source roadmap for implementing the highest-quality writing instruction. Phil Weinberg, former academic chief for the New York City Department of Education, leads the initiative.</p>
+      <p>Quill.org launches the <i>Writing Pathways Initiative</i>, partnering with teachers to create a research-based, open-source roadmap for implementing the highest-quality writing instruction. Phil Weinberg, former academic chief for the New York City Department of Education, leads the initiative.</p>
     </div>
     <div class="cta-container">
       <div class="cta-text">
@@ -52,7 +52,7 @@
       <h1>Phase III: How will we disseminate this work broadly?</h1>
       <p>After it has been tested and refined, the pathway will be shared widely on an easy to use website and supported with a playbook for implementation. The pathway, playbook, and a benchmark dataset will be free, transparently presented, and open source in perpetuity. While primarily being offered as a tool for teachers, schools, and districts, the resources will also be available to teacher preparation programs, curriculum developers, and education technology companies.</p>
     </div>
-    <div class="text-section">
+    <div class="text-section" id="last-text-section">
       <h1>Interested in learning more? </h1>
       <p>The Writing Pathways Initiative invites schools interested in participating in this project, as well as philanthropic partners interested in learning about this research, to email the team at <a href="mailto:pathways@quill.org" rel="noopener noreferrer" target="_blank">pathways@quill.org</a>.</p>
     </div>
