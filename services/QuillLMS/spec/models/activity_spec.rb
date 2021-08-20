@@ -563,4 +563,18 @@ describe Activity, type: :model, redis: true do
       expect { activity.update(name: 'New name') }.not_to raise_error(NoMethodError)
     end
   end
+
+  context 'a test that belongs in Comprehension that we need here because the engine stubs the LMS Activity model, and we need them both to behave as if real' do
+    describe '#Comprehension::Activity.update_parent_activity_name' do
+      let(:activity) { create(:activity) }
+      let(:comp_activity) { Comprehension::Activity.create!(title: 'Old Title', notes: 'Some notes', target_level: 1, parent_activity_id: activity.id) }
+
+      it 'should update the parent_activity.name when the comprehension activity.title is updated' do
+        new_title = 'New Title'
+        comp_activity.update(title: new_title)
+        activity.reload
+        expect(activity.name).to eq(new_title)
+      end
+    end
+  end
 end
