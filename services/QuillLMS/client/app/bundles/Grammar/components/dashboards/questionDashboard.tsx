@@ -9,7 +9,7 @@ import { QuestionAndConceptMapReducerState } from '../../reducers/questionAndCon
 import { DashboardConceptRow, DashboardQuestionRow, DashboardActivity } from '../../interfaces/dashboards'
 import Constants from '../../constants'
 
-const { PRODUCTION, BETA, ALPHA, ARCHIVED, NONE, } = Constants
+const { PRODUCTION, GAMMA, BETA, ALPHA, ARCHIVED, NONE, } = Constants
 
 interface QuestionDashboardProps {
   dispatch: Function;
@@ -23,8 +23,8 @@ interface QuestionDashboardState {
 
 class QuestionDashboard extends React.Component<QuestionDashboardProps, QuestionDashboardState> {
   state = {
-    allowedActivityFlags: [PRODUCTION, BETA, ALPHA, ARCHIVED, NONE],
-    allowedQuestionFlags: [PRODUCTION, BETA, ALPHA, ARCHIVED, NONE]
+    allowedActivityFlags: [PRODUCTION, GAMMA, BETA, ALPHA, ARCHIVED, NONE],
+    allowedQuestionFlags: [PRODUCTION, GAMMA, BETA, ALPHA, ARCHIVED, NONE]
   }
 
   UNSAFE_componentWillMount() {

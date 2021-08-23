@@ -32,7 +32,7 @@ describe UnitTemplate, redis: true, type: :model do
   it { should have_many(:activities).through(:activities_unit_templates) }
   it { should have_many(:units) }
   it { should serialize(:grades).as(Array) }
-  it { should validate_inclusion_of(:flag).in_array([:alpha, :beta, :production])}
+  it { should validate_inclusion_of(:flag).in_array([:alpha, :beta, :gamma, :production])}
 
   describe '#activity_ids=' do
     let(:activity) { create(:activity) }
@@ -73,6 +73,7 @@ describe UnitTemplate, redis: true, type: :model do
     it 'should give the right unit template for the given flags' do
       expect(UnitTemplate.user_scope('alpha')).to eq(UnitTemplate.alpha_user)
       expect(UnitTemplate.user_scope('beta')).to eq(UnitTemplate.beta_user)
+      expect(UnitTemplate.user_scope('gamma')).to eq(UnitTemplate.gamma_user)
       expect(UnitTemplate.user_scope('production')).to eq(UnitTemplate.production)
     end
   end
@@ -149,12 +150,13 @@ describe UnitTemplate, redis: true, type: :model do
       $redis.multi{
         $redis.set('beta_unit_templates', 'a')
         $redis.set('production_unit_templates', 'a')
+        $redis.set('gamma_unit_templates', 'a')
         $redis.set('alpha_unit_templates', 'a')
       }
     end
 
     def exist_count
-      flag_types = ['beta_unit_templates', 'production_unit_templates', 'alpha_unit_templates']
+      flag_types = ['beta_unit_templates', 'production_unit_templates', 'gamma_unit_templates', 'alpha_unit_templates']
       exist_count = 0
       flag_types.each do |flag|
         exist_count += $redis.exists(flag) ? 1 : 0
@@ -187,6 +189,11 @@ describe UnitTemplate, redis: true, type: :model do
       expect(unit_template).to be_valid
     end
 
+    it "can equal gamma" do
+      unit_template.update(flag:'gamma')
+      expect(unit_template).to be_valid
+    end
+
     it "can equal beta" do
       unit_template.update(flag:'beta')
       expect(unit_template).to be_valid
@@ -202,7 +209,7 @@ describe UnitTemplate, redis: true, type: :model do
       expect(unit_template).to be_valid
     end
 
-    it "cannot equal anything other than alpha, beta, production or nil" do
+    it "cannot equal anything other than alpha, beta, gamma, production or nil" do
       unit_template.update(flag: 'sunglasses')
       expect(unit_template).to_not be_valid
     end
@@ -217,9 +224,11 @@ describe UnitTemplate, redis: true, type: :model do
       $redis.set('beta_unit_templates', "is")
       $redis.set('alpha_unit_templates', "real")
       $redis.set('private_unit_templates', "data")
+      $redis.set('gamma_unit_templates', "same")
       UnitTemplate.delete_all_caches
       expect($redis.get("unit_template_id:#{template.id}_serialized")).to eq nil
       expect($redis.get('production_unit_templates')).to eq nil
+      expect($redis.get('gamma_unit_templates')).to eq nil
       expect($redis.get('beta_unit_templates')).to eq nil
       expect($redis.get('alpha_unit_templates')).to eq nil
       expect($redis.get('private_unit_templates')).to eq nil
@@ -229,9 +238,10 @@ describe UnitTemplate, redis: true, type: :model do
 
   describe 'scope results' do
     let!(:production_unit_template){ create(:unit_template, flag: 'production') }
+    let!(:gamma_unit_template){ create(:unit_template, flag: 'gamma') }
     let!(:beta_unit_template){ create(:unit_template, flag: 'beta') }
     let!(:alpha_unit_template){ create(:unit_template, flag: 'alpha') }
-    let!(:all_types){[production_unit_template, beta_unit_template, alpha_unit_template]}
+    let!(:all_types){[production_unit_template, gamma_unit_template, beta_unit_template, alpha_unit_template]}
 
     context 'the default scope' do
 
@@ -246,7 +256,7 @@ describe UnitTemplate, redis: true, type: :model do
     context 'the production scope' do
 
       it 'must show only production flagged activities' do
-        expect(all_types - UnitTemplate.production).to eq [beta_unit_template, alpha_unit_template]
+        expect(all_types - UnitTemplate.production).to eq [beta_unit_template, alpha_unit_template, gamma_unit_template]
       end
 
       it 'must return the same thing as UnitTemplate.user_scope(nil)' do
@@ -255,9 +265,22 @@ describe UnitTemplate, redis: true, type: :model do
 
     end
 
+    context 'the gamma_user scope' do
+
+      it 'must show only production and gamma flagged activities' do
+        expect(all_types - UnitTemplate.gamma_user).to eq [alpha_unit_template, beta_unit_template]
+      end
+
+      it 'must return the same thing as UnitTemplate.user_scope(gamma)' do
+        expect(UnitTemplate.gamma_user).to eq (UnitTemplate.user_scope('gamma'))
+      end
+
+
+    end
+
     context 'the beta_user scope' do
 
-      it 'must show only production and beta flagged activities' do
+      it 'must show only production and beta and gamma flagged activities' do
         expect(all_types - UnitTemplate.beta_user).to eq [alpha_unit_template]
       end
 

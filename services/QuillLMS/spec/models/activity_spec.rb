@@ -273,10 +273,11 @@ describe Activity, type: :model, redis: true do
 
   describe 'scope results' do
     let!(:production_activity){ create(:activity, flag: 'production') }
+    let!(:gamma_activity){ create(:activity, flag: 'gamma') }
     let!(:beta_activity){ create(:activity, flag: 'beta') }
     let!(:alpha_activity){ create(:activity, flag: 'alpha') }
     let!(:archived_activity){ create(:activity, flag: 'archived') }
-    let!(:all_types){[production_activity, beta_activity, alpha_activity, archived_activity]}
+    let!(:all_types){[production_activity, gamma_activity, beta_activity, alpha_activity, archived_activity]}
 
     context 'the default scope' do
       it 'must show all types of flagged activities when default scope' do
@@ -286,7 +287,7 @@ describe Activity, type: :model, redis: true do
 
     context 'the production scope' do
       it 'must show only production flagged activities' do
-        expect(all_types - Activity.production.all).to eq [beta_activity, alpha_activity, archived_activity]
+        expect(all_types - Activity.production.all).to eq [gamma_activity, beta_activity, alpha_activity, archived_activity]
       end
 
       it 'must return the same thing as Activity.user_scope(nil)' do
@@ -294,8 +295,18 @@ describe Activity, type: :model, redis: true do
       end
     end
 
+    context 'the gamma scope' do
+      it 'must show only production and gamma flagged activities' do
+        expect(all_types - Activity.beta_user).to eq [alpha_activity, archived_activity, beta_activity]
+      end
+
+      it 'must return the same thing as Activity.user_scope(gamma)' do
+        expect(Activity.gamma_user).to eq (Activity.user_scope('gamma'))
+      end
+    end
+
     context 'the beta scope' do
-      it 'must show only production and beta flagged activities' do
+      it 'must show only production, beta, and gamma flagged activities' do
         expect(all_types - Activity.beta_user).to eq [alpha_activity, archived_activity]
       end
 
