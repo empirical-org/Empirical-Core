@@ -1,6 +1,6 @@
 module Comprehension
   class TurkingRoundActivitySessionsController < ApplicationController
-    ARCHIVED_FLAG = "archived"
+    ARCHIVED_FLAG = :archived
 
     skip_before_action :verify_authenticity_token
 

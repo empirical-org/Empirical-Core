@@ -1,3 +1,5 @@
+import * as request from 'request';
+
 import { apiFetch, handleApiError } from '../../Staff/helpers/comprehension';
 
 export const postTurkSession = async (turkingRoundID: string, activitySessionUID: string) => {
@@ -10,4 +12,18 @@ export const postTurkSession = async (turkingRoundID: string, activitySessionUID
     })
   });
   return { error: handleApiError('Failed to create turking activity session. Please refresh the page and try again.', response) };
+}
+
+export default function validateTurkSession(turkingRoundId, activityId, callback) {
+  const requestObject = {
+    url: `${process.env.DEFAULT_URL}/api/v1/comprehension/turking_round_activity_sessions/validate.json`,
+    body: { activity_id: activityId, turking_round_id: turkingRoundId },
+    json: true,
+  }
+  request.post(requestObject, (e, r, body) => {
+    if (e) {
+      alert("Failed to validate turking activity session: " + e)
+    }
+    callback(body)
+  })
 }
