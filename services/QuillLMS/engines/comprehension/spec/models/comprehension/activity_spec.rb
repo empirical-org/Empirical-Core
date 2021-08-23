@@ -86,6 +86,28 @@ module Comprehension
       end
     end
 
+    context '#update_parent_activity_name' do
+      let(:activity) { create(:comprehension_activity) }
+
+      it 'should change the value of parent_activity.name to current title' do
+        new_title = 'Some new title'
+        activity.update(title: new_title)
+        activity.parent_activity.reload
+        expect(activity.parent_activity.name).to eq(new_title)
+      end
+
+      it 'should return early if title is not changed' do
+        expect(activity.parent_activity).not_to receive(:update)
+        activity.update(notes: 'Not updating title')
+      end
+
+      it 'should not crash if the parent_activity is somehow missing' do
+        activity.parent_activity.destroy!
+
+        expect { activity.update(title: 'New Title') }.not_to raise_error(NoMethodError)
+      end
+    end
+
     context 'should dependent destroy' do
 
       it 'should destroy dependent passages' do
@@ -112,6 +134,22 @@ module Comprehension
         activity.destroy
         turking_round.reload
         expect(turking_round.expires_at < Time.zone.now).to be true
+      end
+    end
+
+    context '#after_save' do
+      context '#update_parent_activity_name' do
+        let(:activity) { create(:comprehension_activity) }
+
+        it 'should call update_parent_activity_name if the title is changed' do
+          expect(activity).to receive(:update_parent_activity_name)
+          activity.update(title: 'New Name')
+        end
+
+        it 'should not call update_parent_activity_name if title is unchanged' do
+          expect(activity).not_to receive(:update_parent_activity_name)
+          activity.update(notes: 'Update notes, but not title')
+        end
       end
     end
   end
