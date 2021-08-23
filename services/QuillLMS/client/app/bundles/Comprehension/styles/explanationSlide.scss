@@ -158,3 +158,13 @@
     }
   }
 }
+
+@media (max-height: 670px) {
+  .explanation-slide-container {
+    #information-section {
+      #instructions-container {
+        margin-top: 40px;
+      }
+    }
+  }
+}
