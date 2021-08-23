@@ -1,9 +1,9 @@
 <% @active_tab = 'Press' %>
-
+<% @title = 'Press' %>
 <% base_image_url = "#{ENV['CDN_URL']}/images/press" %>
 <% teacher_center_link = '/teacher-center' %>
 
-<%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab %>
+<%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab, title: @title %>
 <div class="white-background">
   <div class="container press-page">
     <div class="press-highlight-container">
