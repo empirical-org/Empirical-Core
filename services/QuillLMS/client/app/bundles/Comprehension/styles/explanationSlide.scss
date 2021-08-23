@@ -161,9 +161,12 @@
 
 @media (max-height: 670px) {
   .explanation-slide-container {
+    height: min-content;
+    padding-top: 16px;
     #information-section {
       #instructions-container {
         margin-top: 40px;
+        padding-bottom: 16px;
       }
     }
   }
