@@ -19,6 +19,10 @@ Comprehension::Engine.routes.draw do
   end
   put 'rules/update_rule_order' => 'rules#update_rule_order'
   resources :rules, only: [:index, :show, :create, :update, :destroy]
-  resources :turking_round_activity_sessions, only: [:index, :show, :create, :update, :destroy]
+  resources :turking_round_activity_sessions, only: [:index, :show, :create, :update, :destroy] do
+    collection do
+      post :validate
+    end
+  end
   resources :turking_rounds, only: [:index, :show, :create, :update, :destroy]
 end

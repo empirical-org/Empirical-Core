@@ -1,5 +1,7 @@
 module Comprehension
   class TurkingRoundActivitySessionsController < ApplicationController
+    ARCHIVED_FLAG = "archived"
+
     skip_before_action :verify_authenticity_token
 
     before_action :set_turking_round_activity_session, only: [:show, :update, :destroy]
@@ -41,6 +43,14 @@ module Comprehension
     def destroy
       @turking_round_activity_session.destroy
       head :no_content
+    end
+
+    def validate
+      if Comprehension::TurkingRound.find(params[:turking_round_id]).expires_at > Time.now && Comprehension::Activity.find(params[:activity_id]).parent_activity.flag != ARCHIVED_FLAG
+        return render json: true
+      end
+
+      render json: false
     end
 
     private def set_turking_round_activity_session

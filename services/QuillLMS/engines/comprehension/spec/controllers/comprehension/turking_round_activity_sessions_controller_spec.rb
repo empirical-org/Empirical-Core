@@ -92,5 +92,34 @@ module Comprehension
         expect(TurkingRoundActivitySession.find_by_id(turking_round_activity_session.id)).to(be_nil)
       end
     end
+
+    context 'should validate' do
+      let!(:archived_activity) { Comprehension.parent_activity_class.create(:name => "Archived Activity", :flags => (["archived"])) }
+      let!(:unarchived_activity) { Comprehension.parent_activity_class.create(:name => "Unarchived Activity") }
+      let!(:turking_round) { create(:comprehension_turking_round, expires_at: Time.now + 1.second) }
+      let!(:activity) { create(:comprehension_activity, parent_activity_id: unarchived_activity.id)}
+
+      it 'should return false if turking round is expired' do
+        sleep(2.seconds)
+        post(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }) )
+        expect(JSON.parse(response.body)).to(eq(false))
+        expect(response.code.to_i).to(eq(200))
+      end
+
+      it 'should return false if the parent activity is archived' do
+        turking_round.update(expires_at: Time.now + 1.day)
+        activity.update(parent_activity_id: archived_activity.id)
+        post(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }) )
+        expect(JSON.parse(response.body)).to(eq(false))
+        expect(response.code.to_i).to(eq(200))
+      end
+
+      it 'should return true if turking round is not expired and parent activity is not archived' do
+        turking_round.update(expires_at: Time.now + 1.day)
+        post(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }) )
+        expect(JSON.parse(response.body)).to(eq(true))
+        expect(response.code.to_i).to(eq(200))
+      end
+    end
   end
 end
