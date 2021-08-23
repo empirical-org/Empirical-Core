@@ -31,7 +31,6 @@ import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
 import { Passage } from '../../interfaces/activities'
 import { postTurkSession } from '../../utils/turkAPI';
-import { getCsrfToken } from "../../../Staff/helpers/comprehension";
 import {
   roundMillisecondsToSeconds,
   KEYDOWN,
@@ -117,9 +116,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     this.step2 = React.createRef()
     this.step3 = React.createRef()
     this.step4 = React.createRef()
-
-    const csrfToken = getCsrfToken();
-    localStorage.setItem('csrfToken', csrfToken);
   }
 
   componentDidMount() {

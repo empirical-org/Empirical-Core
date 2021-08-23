@@ -1,8 +1,7 @@
 require_dependency 'comprehension/application_controller'
 
 module Comprehension
-  class ActivitiesController < ApplicationController
-    skip_before_action :verify_authenticity_token
+  class ActivitiesController < ApiController
     before_action :set_activity, only: [:create, :show, :update, :destroy, :rules, :change_logs]
     append_before_action :set_lms_user_id, only: [:create, :destroy]
 
