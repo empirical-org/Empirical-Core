@@ -172,12 +172,12 @@ describe UnitTemplate, redis: true, type: :model do
     end
 
     it "deletes the cache of the saved unit's flag, or production before and after save" do
-      expect(exist_count).to eq(3)
+      expect(exist_count).to eq(4)
       unit_template.update(flag: 'beta')
-      expect(exist_count).to eq(2)
+      expect(exist_count).to eq(3)
       expect($redis.exists('alpha_unit_templates')).to be
       unit_template.update(flag: 'alpha')
-      expect(exist_count).to eq(1)
+      expect(exist_count).to eq(2)
     end
   end
 
@@ -256,7 +256,7 @@ describe UnitTemplate, redis: true, type: :model do
     context 'the production scope' do
 
       it 'must show only production flagged activities' do
-        expect(all_types - UnitTemplate.production).to eq [beta_unit_template, alpha_unit_template, gamma_unit_template]
+        expect(all_types - UnitTemplate.production).to eq [gamma_unit_template, beta_unit_template, alpha_unit_template]
       end
 
       it 'must return the same thing as UnitTemplate.user_scope(nil)' do
@@ -268,7 +268,7 @@ describe UnitTemplate, redis: true, type: :model do
     context 'the gamma_user scope' do
 
       it 'must show only production and gamma flagged activities' do
-        expect(all_types - UnitTemplate.gamma_user).to eq [alpha_unit_template, beta_unit_template]
+        expect(all_types - UnitTemplate.gamma_user).to eq [beta_unit_template, alpha_unit_template]
       end
 
       it 'must return the same thing as UnitTemplate.user_scope(gamma)' do
