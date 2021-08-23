@@ -1,8 +1,7 @@
 module Comprehension
   require 'json'
 
-  class FeedbackController < ApplicationController
-    skip_before_action :verify_authenticity_token
+  class FeedbackController < ApiController
     before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling]
 
     def plagiarism

@@ -483,4 +483,99 @@ describe Activity, type: :model, redis: true do
       refute connect_activity.is_diagnostic?
     end
   end
+
+  describe '#update_evidence_title?' do
+    let(:evidence) { create(:evidence) }
+    let(:activity) { create(:activity, classification: evidence) }
+
+    it 'should return true if both is_evidence? and name_changed?' do
+      activity.name = 'New Name'
+
+      expect(activity.send(:update_evidence_title?)).to eq(true)
+    end
+
+    it 'should return false if activity is not an evidence activity' do
+      activity.classification = create(:connect)
+      activity.name = 'New Name'
+
+      expect(activity.send(:update_evidence_title?)).to eq(false)
+    end
+
+    it 'should return false if name has not been changed on activity' do
+      activity.supporting_info = 'Name not changed'
+      expect(activity.send(:update_evidence_title?)).to eq(false)
+    end
+  end
+
+  describe '#after_save' do
+    let(:evidence) { create(:evidence) }
+    let(:activity) { create(:activity, classification: evidence) }
+
+    it 'should call update_evidence_child_title if update_evidence_title? is true' do
+      expect(activity).to receive(:update_evidence_child_title)
+      activity.update(name: 'New name')
+    end
+
+    it 'should not call update_evidence_child_title if update_evidence_title? is false' do
+      expect(activity).to receive(:update_evidence_title?).and_return(false)
+      activity.update(supporting_info: 'No name change')
+    end
+  end
+
+  describe '#child_activity' do
+    let(:evidence) { create(:evidence) }
+    let(:activity) { create(:activity, classification: evidence) }
+
+    it 'should do nothing if is_evidence? is false' do
+      activity.classification = create(:connect)
+      expect(Comprehension::Activity).not_to receive(:find_by)
+      activity.update(supporting_info: 'No name change')
+    end
+
+    it 'should call Comprehension::Activity.find_by if is_evidence? is true' do
+      expect(Comprehension::Activity).to receive(:find_by).with(parent_activity_id: activity.id)
+      activity.update(name: 'New name')
+    end
+
+    it 'should return nil if there is no child activity' do
+      expect(activity.child_activity).to be_nil
+    end
+
+    it 'should return a Comprehension::Activity if one has the LMS Activity.id as its parent_activity_id' do
+      comp_activity = Comprehension::Activity.create!(title: 'Old Title', notes: 'Some notes', target_level: 1, parent_activity_id: activity.id)
+      expect(activity.child_activity).to eq(comp_activity)
+    end
+  end
+
+  describe '#update_evidence_child_title' do
+    let(:evidence) { create(:evidence) }
+    let(:activity) { create(:activity, classification: evidence) }
+
+    it 'should update the child activity title to the name value' do
+      new_name = 'A new name'
+      comp_activity = Comprehension::Activity.create!(title: 'Old Title', notes: 'Some notes', target_level: 1, parent_activity_id: activity.id)
+      activity.update(name: new_name)
+      comp_activity.reload
+      expect(comp_activity.title).to eq(new_name)
+    end
+
+    it 'should not error if there is no child activity' do
+      expect { activity.update(name: 'New name') }.not_to raise_error(NoMethodError)
+    end
+  end
+
+  context 'a test that belongs in Comprehension that we need here because the engine stubs the LMS Activity model, and we need them both to behave as if real' do
+    describe '#Comprehension::Activity.update_parent_activity_name' do
+      let(:activity) { create(:activity) }
+      let(:comp_activity) { Comprehension::Activity.create!(title: 'Old Title', notes: 'Some notes', target_level: 1, parent_activity_id: activity.id) }
+
+      it 'should update the parent_activity.name when the comprehension activity.title is updated' do
+        new_title = 'New Title'
+        expect(activity.name).not_to eq(new_title)
+        comp_activity.update(title: new_title)
+        activity.reload
+        expect(activity.name).to eq(new_title)
+      end
+    end
+  end
 end

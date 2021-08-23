@@ -7,7 +7,6 @@ import ActivityForm from './configureSettings/activityForm';
 
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { createActivity } from '../../utils/comprehension/activityAPIs';
-import { getCsrfToken } from "../../helpers/comprehension";
 
 const Navigation = ({ location, match }) => {
   const { pathname } = location
@@ -16,9 +15,6 @@ const Navigation = ({ location, match }) => {
   const [showCreateActivityModal, setShowCreateActivityModal] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<string[]>([]);
-
-  const csrfToken = getCsrfToken();
-  localStorage.setItem('csrfToken', csrfToken);
 
   function checkOverviewActive() {
     if(!location) return false;

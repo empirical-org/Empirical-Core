@@ -68,37 +68,12 @@ class ResponsesController < ApplicationController
     @response.destroy
   end
 
-  # GET /questions/:question_uid/responses
-  def responses_for_question
-    ids = Rails.cache.fetch(Response.questions_cache_key(params[:question_uid]), expires_in: CACHE_EXPIRY) do
-      #NB, the result of this query is too large to store as objects in Memcached for some questions, so storing the ids then fetching them in a query.
-      # We might consider removing this caching entirely since the gains are less.
-      # As of 9/3/2020 The question with the most responses for this query has 6997 responses.
-      Response.where(question_uid: params[:question_uid], parent_id: nil).where.not(optimal: nil).pluck(:id)
-    end
-    @responses = Response.where(id: ids).to_a
-    render json: @responses
-  end
-
   # POST /questions/rematch_all
   # params uid, type, delay (integer for seconds to delay job)
   def rematch_all_responses_for_question
     delay = params[:delay] || 0
 
     RematchResponsesForQuestionWorker.perform_in(delay, params[:uid], params[:type])
-  end
-
-  def multiple_choice_options
-    multiple_choice_options = Rails.cache.fetch(Response.multiple_choice_cache_key(params[:question_uid]), expires_in: CACHE_EXPIRY) do
-      # NB, This is much faster to do the sort and limit in Ruby than Postgres
-      # The DB picks a terrible query plan for some reason
-      # 45seconds in the DB vs. 0.25 seconds in Ruby
-      optimal_responses = Response.where(question_uid: params[:question_uid], optimal: true).sort_by {|r| -r.count}.first(MULTIPLE_CHOICE_LIMIT)
-      # This, almost identical query does not have the same query issues
-      sub_optimal_responses = Response.where(question_uid: params[:question_uid], optimal: [false, nil]).order('count DESC').limit(MULTIPLE_CHOICE_LIMIT).to_a
-      optimal_responses.concat(sub_optimal_responses)
-    end
-    render json: multiple_choice_options
   end
 
   def health_of_question

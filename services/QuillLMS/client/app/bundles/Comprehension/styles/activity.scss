@@ -37,10 +37,42 @@
       -webkit-filter: blur(4px);
       filter: blur(4px);
     }
-    .header-image {
-      height: auto;
-      width: 100%;
-      max-width: 680px;
+    .header-image-container {
+      .header-image {
+        height: auto;
+        width: 100%;
+        max-width: 680px;
+      }
+      .header-image-information {
+        display: flex;
+        justify-content: space-between;
+        max-width: 680px;
+        margin: 8px 0px 32px 0px;
+        .header-image-caption {
+          font-size: 14px;
+          color: #5c5c5c;
+        }
+        .quill-tooltip-trigger {
+          margin-left: 24px;
+          font-size: 14px;
+          color: #808080;
+          .image-attribution-tooltip {
+            border-bottom: dashed 1px #808080;
+          }
+          .image-attribution-tooltip:focus {
+            outline: dashed 2px #06806b;
+            outline-offset: 4px;
+          }
+          .quill-tooltip-wrapper {
+            .quill-tooltip {
+              a {
+                color: white;
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
     }
     .passage {
       p:not(:last-child):not(:last-of-type) {
@@ -183,6 +215,29 @@
     }
   }
 
+  .leave-activity-warning-container {
+    background-color: white;
+    padding: 32px;
+    border-radius: 6px;
+    .leave-activity-warning-header {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 0px 0px 24px 0px;
+    }
+    .leave-activity-warning-text {
+      margin: 0;
+      color: #646464;
+    }
+    .button-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 48px;
+      .stay-on-quill {
+        margin-right: 24px;
+      }
+    }
+  }
+
   @media (min-width: 1100px) {
     overflow: hidden;
     height: 100vh;
@@ -253,9 +308,17 @@
       .passage {
         max-width: 100%;
       }
+      .header-image-container {
+        .header-image-information {
+          overflow-x: hidden;
+        }
+      }
     }
     .prompt-steps {
       margin-top: 32px;
+    }
+    .leave-activity-warning-container {
+      max-width: 380px;
     }
   }
 }

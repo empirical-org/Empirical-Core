@@ -437,6 +437,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                       "width": "245px",
                     }
                   }
+                  tabIndex={null}
                 >
                   Subject and Object Pronoun Agreement 1
                 </span>
@@ -542,6 +543,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                       "width": "245px",
                     }
                   }
+                  tabIndex={null}
                 >
                   Capitalize Names of People and the Pronoun "I"
                 </span>
@@ -907,6 +909,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                       "width": "245px",
                     }
                   }
+                  tabIndex={null}
                 >
                   Capitalize Holidays and Geographic Names
                 </span>
