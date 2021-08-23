@@ -81,6 +81,11 @@ module PagesHelper
             name: 'Hannah Monk',
             title: 'Curriculum Director',
             img: 'team-hannah-monk@2x.png'
+          },
+          {
+            name: 'Phil Weinberg',
+            title: 'Senior Partner',
+            img: 'team-phil-weinberg@2x.png'
           }
         ]
       },
@@ -97,6 +102,11 @@ module PagesHelper
             name: 'Taha Adib',
             title: 'Associate Data Product Manager',
             img: 'team-taha-adib@2x.png'
+          },
+          {
+            name: 'Jessica Azani',
+            title: 'Director of Research & Instruction',
+            img: 'team-jessica-azani@2x.png'
           },
           {
             name: 'Devin Kawailani Barricklow',
@@ -117,11 +127,6 @@ module PagesHelper
             name: 'Rachel Dantzler',
             title: 'Curriculum Developer',
             img: 'team-rachel-dantzler@2x.png'
-          },
-          {
-            name: 'Maximilian de Martino',
-            title: 'Curriculum Developer',
-            img: 'team-maximilian-de-martino@2x.png'
           },
           {
             name: 'Emilia Friedberg',
