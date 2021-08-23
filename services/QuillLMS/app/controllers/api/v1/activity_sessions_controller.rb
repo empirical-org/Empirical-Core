@@ -101,8 +101,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   private def count_completed_activity
     return unless @activity_session.finished?
 
-    counter = UserActivityClassification.find_or_create_by(user: @activity_session.user, activity_classification: @activity_session.classification)
-    counter.increment_count
+    UserActivityClassification.count_for(@activity_session.user, @activity_session.classification)
   end
 
   private def activity_session_params
