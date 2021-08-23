@@ -4,7 +4,7 @@ const BETA = 'beta'
 const GAMMA = 'gamma'
 const ARCHIVED = 'archived'
 
-export const flagArray = (flag: string): Array<string|undefined> => {
+export const flagArray = (flag) => {
   let flagArray = [PRODUCTION]
   if (flag === ALPHA) {
     flagArray = [ALPHA, BETA, GAMMA, PRODUCTION]
@@ -18,7 +18,7 @@ export const flagArray = (flag: string): Array<string|undefined> => {
   return flagArray
 }
 
-export const permittedFlag = (activityFlag: string|undefined, questionFlag: string|undefined):Boolean => {
+export const permittedFlag = (activityFlag, questionFlag) => {
   const notNullActivityFlag = activityFlag || PRODUCTION
   const notNullQuestionFlag = questionFlag || PRODUCTION
   return flagArray(notNullActivityFlag).includes(notNullQuestionFlag)
