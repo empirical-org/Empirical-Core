@@ -297,7 +297,7 @@ describe Activity, type: :model, redis: true do
 
     context 'the gamma scope' do
       it 'must show only production and gamma flagged activities' do
-        expect(all_types - Activity.beta_user).to eq [alpha_activity, archived_activity, beta_activity]
+        expect(all_types - Activity.gamma_user).to eq [beta_activity, alpha_activity, archived_activity]
       end
 
       it 'must return the same thing as Activity.user_scope(gamma)' do
