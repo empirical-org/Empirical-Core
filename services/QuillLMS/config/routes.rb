@@ -591,6 +591,7 @@ EmpiricalGrammar::Application.routes.draw do
     privacy
     activities
     impact
+    pathways
     stats
     team
     premium

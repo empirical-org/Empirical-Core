@@ -17821,6 +17821,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 className="tooltip-trigger-text"
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
+                tabIndex={null}
               >
                 History: Causes of the American Revolution
               </span>
@@ -44643,6 +44644,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 className="tooltip-trigger-text"
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
+                tabIndex={null}
               >
                 History: Causes of the American Revolution
               </span>

@@ -1,8 +1,7 @@
 require_dependency 'comprehension/application_controller'
 
 module Comprehension
-  class ActivitiesController < ApplicationController
-    skip_before_action :verify_authenticity_token
+  class ActivitiesController < ApiController
     before_action :set_activity, only: [:create, :show, :update, :destroy, :rules, :change_logs]
     append_before_action :set_lms_user_id, only: [:create, :destroy]
 
@@ -71,7 +70,7 @@ module Comprehension
         :parent_activity_id,
         :target_level,
         :scored_level,
-        passages_attributes: [:id, :text, :image_link, :image_alt_text, :highlight_prompt],
+        passages_attributes: [:id, :text, :image_link, :image_alt_text, :image_caption, :image_attribution, :highlight_prompt],
         prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback]
       )
     end

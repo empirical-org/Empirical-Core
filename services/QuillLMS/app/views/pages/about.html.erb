@@ -1,5 +1,6 @@
 <% @active_tab = 'About Us' %>
-<%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab %>
+<% @title = 'About Us' %>
+<%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab, title: @title %>
 
 <% base_image_url = "#{ENV['CDN_URL']}/images/about_us" %>
 <% expand_icon_url = "#{base_image_url}/expand.svg" %>

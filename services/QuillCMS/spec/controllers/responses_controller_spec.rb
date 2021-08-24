@@ -137,41 +137,6 @@ RSpec.describe ResponsesController, type: :controller do
     end
   end
 
-  describe '#responses_for_question' do
-    let(:q_response) { create(:response, question_uid: '123456') }
-
-    before do
-      allow_any_instance_of(Response).to receive(:create_index_in_elastic_search)
-    end
-
-    it 'should return 200 for found' do
-      get :responses_for_question, params: { question_uid: q_response.question_uid}
-
-      expect(response.status).to eq(200)
-    end
-
-    it 'should return 200 for not-found' do
-      get :responses_for_question, params: { question_uid: 'adsfdsf'}
-
-      expect(response.status).to eq(200)
-    end
-  end
-
-  describe '#multiple_choice_options' do
-    let(:q_response) { create(:response, question_uid: '123456') }
-    let(:q_response_optimal) { create(:response, question_uid: '123456', optimal: true) }
-
-    before do
-      allow_any_instance_of(Response).to receive(:create_index_in_elastic_search)
-    end
-
-    it 'should return 200 for found' do
-      get :multiple_choice_options, params: { question_uid: q_response.question_uid}
-
-      expect(response.status).to eq(200)
-    end
-  end
-
   describe 'POST #batch_responses_for_lesson' do
 
     it 'returns an object with question uids as keys and an array of responses as values' do

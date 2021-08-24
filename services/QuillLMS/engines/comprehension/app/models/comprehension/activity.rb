@@ -10,6 +10,7 @@ module Comprehension
 
     before_destroy :expire_turking_rounds
     before_validation :set_parent_activity, on: :create
+    after_save :update_parent_activity_name, if: :title_changed?
 
     has_many :passages, inverse_of: :activity, dependent: :destroy
     has_many :prompts, inverse_of: :activity, dependent: :destroy
@@ -56,6 +57,10 @@ module Comprehension
 
     def url
       "comprehension/#/activities/#{id}/settings"
+    end
+
+    private def update_parent_activity_name
+      parent_activity&.update(name: title)
     end
 
     private def expire_turking_rounds

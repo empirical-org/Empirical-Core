@@ -1,6 +1,5 @@
 module Comprehension
-  class RulesController < ApplicationController
-    skip_before_action :verify_authenticity_token
+  class RulesController < ApiController
     before_action :set_rule, only: [:create, :show, :update, :destroy]
     append_before_action :set_lms_user_id, only: [:create, :update, :destroy]
 

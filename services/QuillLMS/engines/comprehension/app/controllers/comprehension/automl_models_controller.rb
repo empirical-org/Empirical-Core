@@ -1,6 +1,5 @@
 module Comprehension
-  class AutomlModelsController < ApplicationController
-    skip_before_action :verify_authenticity_token
+  class AutomlModelsController < ApiController
     before_action :set_automl_model, only: [:create, :show, :update, :activate, :destroy]
     append_before_action :set_lms_user_id, only: [:create, :activate]
 
