@@ -101,7 +101,7 @@ module Comprehension
 
       it 'should return false if turking round is expired' do
         sleep(2.seconds)
-        post(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }) )
+        get(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }) )
         expect(JSON.parse(response.body)).to(eq(false))
         expect(response.code.to_i).to(eq(200))
       end
@@ -109,14 +109,14 @@ module Comprehension
       it 'should return false if the parent activity is archived' do
         turking_round.update(expires_at: Time.now + 1.day)
         activity.update(parent_activity_id: archived_activity.id)
-        post(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }) )
+        get(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }) )
         expect(JSON.parse(response.body)).to(eq(false))
         expect(response.code.to_i).to(eq(200))
       end
 
       it 'should return true if turking round is not expired and parent activity is not archived' do
         turking_round.update(expires_at: Time.now + 1.day)
-        post(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }) )
+        get(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }) )
         expect(JSON.parse(response.body)).to(eq(true))
         expect(response.code.to_i).to(eq(200))
       end

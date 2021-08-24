@@ -21,7 +21,7 @@ Comprehension::Engine.routes.draw do
   resources :rules, only: [:index, :show, :create, :update, :destroy]
   resources :turking_round_activity_sessions, only: [:index, :show, :create, :update, :destroy] do
     collection do
-      post :validate
+      get :validate
     end
   end
   resources :turking_rounds, only: [:index, :show, :create, :update, :destroy]
