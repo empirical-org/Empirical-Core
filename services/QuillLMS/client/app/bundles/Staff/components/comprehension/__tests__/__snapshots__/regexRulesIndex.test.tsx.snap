@@ -4,6 +4,14 @@ exports[`RegexRulesIndex component should render RegexRulesIndex 1`] = `
 <div
   className="rules-container"
 >
+  <a
+    className="quill-button fun secondary outlined focus-on-light play-activity-button"
+    href="/evidence/#/play?uid=1&skipToPrompts=true"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    Play Test Activity
+  </a>
   <section
     className="rules-based-section"
   >

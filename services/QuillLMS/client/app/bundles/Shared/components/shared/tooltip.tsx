@@ -1,6 +1,8 @@
 import * as React from 'react'
 
 interface TooltipProps {
+  isTabbable?: boolean,
+  handleClick?: (e: any) => void,
   tooltipText: string,
   tooltipTriggerText: string|JSX.Element,
   tooltipTriggerTextClass?: string,
@@ -25,18 +27,23 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
     this.hideTooltip = this.hideTooltip.bind(this)
   }
 
+
   componentWillUnmount() {
     document.removeEventListener('click', this.hideTooltipOnClick, false)
   }
 
   hideTooltipOnClick(e) {
+    const { handleClick } = this.props;
     if (this.tooltip && e.target !== this.tooltip && e.target !== this.tooltipTrigger) {
       this.hideTooltip()
+    }
+    if(handleClick) {
+      handleClick(e);
     }
   }
 
   showTooltip() {
-    const { tooltipText, } = this.props
+    const { tooltipText } = this.props
     const activeTooltips = document.getElementsByClassName('visible quill-tooltip')
     Array.from(activeTooltips).forEach(tooltip => tooltip.classList.remove('visible'))
     clearTimeout(this.timer)
@@ -54,7 +61,8 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
   }
 
   render() {
-    const { tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, } = this.props
+    const { tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, isTabbable } = this.props
+    const tabIndex = isTabbable ? 0 : null;
     return (
       <span
         className="quill-tooltip-trigger"
@@ -66,6 +74,7 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
           onMouseEnter={this.showTooltip}
           onMouseLeave={this.startTimer}
           style={tooltipTriggerTextStyle}
+          tabIndex={tabIndex}
         >
           {tooltipTriggerText}
         </span>

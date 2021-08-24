@@ -1,5 +1,6 @@
 <% @active_tab = 'Impact' %>
-<%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab %>
+<% @title = 'Impact' %>
+<%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab, title: @title %>
 
 <% base_image_url = "#{ENV['CDN_URL']}/images/impact" %>
 

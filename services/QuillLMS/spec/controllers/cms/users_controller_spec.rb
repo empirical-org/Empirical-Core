@@ -85,16 +85,6 @@ describe Cms::UsersController do
     end
   end
 
-  # there is no route for this action, not sure if its used
-  # describe '#show_json' do
-  #   let!(:another_user) { create(:user) }
-  #
-  #   it 'should give the correct json' do
-  #     get :show_json, format: :json
-  #     expect(JSON.parse(response.body)).to eq(another_user.generate_teacher_account_info)
-  #   end
-  # end
-
   describe 'show' do
     let(:another_user) { create(:user) }
 

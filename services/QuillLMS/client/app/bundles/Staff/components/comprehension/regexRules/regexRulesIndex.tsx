@@ -160,6 +160,7 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
   return(
     <div className="rules-container">
       {renderHeader(activityData, 'Regex Rules')}
+      <a className="quill-button fun secondary outlined focus-on-light play-activity-button" href={`/evidence/#/play?uid=${activityId}&skipToPrompts=true`} rel="noopener noreferrer" target="_blank">Play Test Activity</a>
       <section className="rules-based-section">
         <button className="quill-button fun primary contained add-rule-button" type="submit">{addRulesBased1Link}</button>
         {renderTable(rulesBased1Rows, 'Sentence Structure')}

@@ -32,13 +32,20 @@ class UnitTemplate < ApplicationRecord
   serialize :grades, Array
 
   validates :flag,
-    inclusion: { in: %w(archived alpha beta production private) },
+    inclusion: { in: %w(archived alpha beta gamma production private) },
     allow_nil: true
 
-  scope :production, -> {where("unit_templates.flag IN('production') OR unit_templates.flag IS null")}
-  scope :beta_user, -> { where("unit_templates.flag IN('production','beta') OR unit_templates.flag IS null")}
-  scope :alpha_user, -> { where("unit_templates.flag IN('production','beta','alpha') OR unit_templates.flag IS null")}
-  scope :private_user, -> { where("unit_templates.flag IN('private', 'production','beta','alpha') OR unit_templates.flag IS null")}
+  PRODUCTION = 'production'
+  GAMMA = 'gamma'
+  BETA = 'beta'
+  ALPHA = 'alpha'
+  PRIVATE = 'private'
+
+  scope :production, -> {where("unit_templates.flag IN('#{PRODUCTION}') OR unit_templates.flag IS null")}
+  scope :gamma_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}') OR unit_templates.flag IS null")}
+  scope :beta_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}','#{BETA}') OR unit_templates.flag IS null")}
+  scope :alpha_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}','#{BETA}','#{ALPHA}') OR unit_templates.flag IS null")}
+  scope :private_user, -> { where("unit_templates.flag IN('private', '#{PRODUCTION}','#{GAMMA}','#{BETA}','#{ALPHA}') OR unit_templates.flag IS null")}
   around_save :delete_relevant_caches
 
   WHOLE_CLASS_AND_INDEPENDENT_PRACTICE = 'Whole class + Independent practice'
@@ -60,12 +67,14 @@ class UnitTemplate < ApplicationRecord
   end
 
   def self.user_scope(user_flag)
-    if user_flag == 'private'
+    if user_flag == PRIVATE
       UnitTemplate.private_user
-    elsif user_flag == 'alpha'
+    elsif user_flag == ALPHA
       UnitTemplate.alpha_user
-    elsif user_flag == 'beta'
+    elsif user_flag == BETA
       UnitTemplate.beta_user
+    elsif user_flag == GAMMA
+      UnitTemplate.gamma_user
     else
       UnitTemplate.production
     end
@@ -99,10 +108,9 @@ class UnitTemplate < ApplicationRecord
 
   def self.delete_all_caches
     UnitTemplate.all.each { |ut| $redis.del("unit_template_id:#{ut.id}_serialized") }
-    $redis.del('production_unit_templates')
-    $redis.del('beta_unit_templates')
-    $redis.del('alpha_unit_templates')
-    $redis.del('private_unit_templates')
+    %w(private_ production_ gamma_ beta_ alpha_).each do |flag|
+      $redis.del("#{flag}unit_templates")
+    end
   end
 
   private def delete_relevant_caches

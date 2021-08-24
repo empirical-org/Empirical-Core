@@ -1,5 +1,6 @@
 <% @active_tab = 'Careers' %>
-<%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab %>
+<% @title = 'Careers' %>
+<%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab, title: @title %>
 
 <% base_image_url = "#{ENV['CDN_URL']}/images/careers" %>
 <% expand_icon_url = "#{base_image_url}/expand.svg" %>

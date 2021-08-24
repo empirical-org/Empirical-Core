@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Activity Form component should render Activities 1`] = `
+<Fragment>
+  <section
+    className="header-image-container"
+  >
+    <img
+      alt="header"
+    />
+    <section
+      className="header-image-information"
+    >
+      <p
+        className="header-image-caption"
+      />
+      <Tooltip
+        handleClick={[Function]}
+        isTabbable={true}
+        tooltipTriggerText="Image credit"
+        tooltipTriggerTextClass="image-attribution-tooltip"
+      />
+    </section>
+  </section>
+</Fragment>
+`;

@@ -1,5 +1,5 @@
 module Comprehension
-  class TurkingRoundsController < ApplicationController
+  class TurkingRoundsController < ApiController
     before_action :set_turking_round, only: [:show, :update, :destroy]
 
     # GET /turking_rounds.json
