@@ -3,7 +3,6 @@ import { sentences } from 'sbd'
 
 const filter = new Filter()
 
-
 const MINIMUM_WORD_COUNT = 3
 const MAXIMUM_WORD_COUNT = 100
 
@@ -11,6 +10,7 @@ export const TOO_SHORT_FEEDBACK = "Whoops, it looks like you submitted your resp
 export const TOO_LONG_FEEDBACK = "Revise your work so it is shorter and more concise."
 export const PROFANITY_FEEDBACK = "Revise your work. When writing your response, make sure to use appropriate language."
 export const MULTIPLE_SENTENCES_FEEDBACK = "Revise your work. Your response should be only one sentence long."
+export const QUESTION_MARK_FEEDBACK = "Revise your response. Instead of using a question mark, write a statement that ends with a period. Remember, anytime you do an activity like this one on Quill, you'll write statements instead of questions."
 
 interface FilterResponse {
   matched: boolean,
@@ -24,6 +24,7 @@ const filters: PreFilter[] = [
   profanity,
   tooShort,
   multipleSentences,
+  endsWithQuestionMark,
   tooLong,
 ];
 
@@ -56,6 +57,11 @@ export function multipleSentences(str: string): FilterResponse {
 export function tooLong(str: string): FilterResponse {
   const matched = textWithoutStemArray(str).length > MAXIMUM_WORD_COUNT
   return { matched, feedback: TOO_LONG_FEEDBACK, feedbackKey: 'too-long' }
+}
+
+export function endsWithQuestionMark(str: string): FilterResponse {
+  const matched = !!str.match(/\?$/)
+  return { matched, feedback: QUESTION_MARK_FEEDBACK, feedbackKey: 'question-mark' }
 }
 
 function textWithoutStemArray(str: string): string[] {
