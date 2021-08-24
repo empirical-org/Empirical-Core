@@ -19,7 +19,7 @@ exports[`StudentViewContainer component when the activity has loaded renders 1`]
         src="undefined/images/logos/quill-logo-white.svg"
       />
       <button
-        className="save-and-exit"
+        className="save-and-exit focus-on-dark"
         onClick={[Function]}
         type="button"
       >

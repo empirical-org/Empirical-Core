@@ -160,8 +160,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   componentDidUpdate(prevProps, prevState) {
     const { activeStep, } = this.state
-    const { session, } = this.props
+    const { session, activities, } = this.props
     const { submittedResponses, } = session
+
+    if (activities.currentActivity) { document.title = `Quill.org | ${activities.currentActivity.title}`}
 
     if (submittedResponses === prevProps.session.submittedResponses) { return }
 

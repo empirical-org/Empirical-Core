@@ -167,7 +167,7 @@ exports[`BottomNavigation component when the student has not started the read pa
     className="bottom-navigation"
   >
     <button
-      className="quill-button outlined secondary large focus-on-light"
+      className="quill-button outlined secondary large focus-on-dark"
       onClick={[Function]}
       type="button"
     >
@@ -195,7 +195,7 @@ exports[`BottomNavigation component when the student has not started the read pa
     className="bottom-navigation"
   >
     <button
-      className="quill-button outlined secondary large focus-on-light"
+      className="quill-button outlined secondary large focus-on-dark"
       onClick={[Function]}
       type="button"
     >
@@ -613,7 +613,7 @@ exports[`BottomNavigation component when the student is done reflecting renders 
     className="bottom-navigation"
   >
     <button
-      className="quill-button outlined secondary large focus-on-light"
+      className="quill-button outlined secondary large focus-on-dark"
       onClick={[Function]}
       type="button"
     >
@@ -646,7 +646,7 @@ exports[`BottomNavigation component when the student is done reflecting renders 
     className="bottom-navigation"
   >
     <button
-      className="quill-button outlined secondary large focus-on-light"
+      className="quill-button outlined secondary large focus-on-dark"
       onClick={[Function]}
       type="button"
     >

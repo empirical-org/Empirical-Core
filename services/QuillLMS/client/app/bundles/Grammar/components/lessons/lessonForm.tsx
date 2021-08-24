@@ -231,6 +231,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
             <select defaultValue={flag} onChange={this.handleFlagSelect}>
               <option value="alpha">alpha</option>
               <option value="beta">beta</option>
+              <option value="gamma">gamma</option>
               <option value="production">production</option>
               <option value="archived">archived</option>
             </select>

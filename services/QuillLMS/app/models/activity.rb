@@ -70,8 +70,14 @@ class Activity < ApplicationRecord
     SQL
   }
 
-  scope :beta_user, -> { where("'beta' = ANY(activities.flags) OR 'production' = ANY(activities.flags)")}
-  scope :alpha_user, -> { where("'alpha' = ANY(activities.flags) OR 'beta' = ANY(activities.flags) OR 'production' = ANY(activities.flags)")}
+  PRODUCTION = 'production'
+  GAMMA = 'gamma'
+  BETA = 'beta'
+  ALPHA = 'alpha'
+
+  scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
+  scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
+  scope :alpha_user, -> { where("'#{ALPHA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 
@@ -106,10 +112,12 @@ class Activity < ApplicationRecord
   end
 
   def self.user_scope(user_flag)
-    if user_flag == 'alpha'
+    if user_flag == ALPHA
       Activity.alpha_user
-    elsif user_flag == 'beta'
+    elsif user_flag == BETA
       Activity.beta_user
+    elsif user_flag == GAMMA
+      Activity.gamma_user
     else
       Activity.production
     end
@@ -165,7 +173,7 @@ class Activity < ApplicationRecord
   end
 
   def self.clear_activity_search_cache
-    %w(private_ production_ beta_ alpha_ archived_).push('').each do |flag|
+    %w(private_ production_ gamma_ beta_ alpha_ archived_).push('').each do |flag|
       $redis.del("default_#{flag}activity_search")
     end
   end

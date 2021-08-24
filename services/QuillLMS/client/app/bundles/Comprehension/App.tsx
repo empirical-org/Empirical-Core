@@ -9,10 +9,6 @@ const store = configureStore();
 store.dispatch(initStore());
 
 class App extends React.Component<{user: string}, {}> {
-  componentDidMount() {
-    document.title = 'Quill Evidence'
-  }
-
   public render(): JSX.Element {
     const { user } = this.props;
     return (

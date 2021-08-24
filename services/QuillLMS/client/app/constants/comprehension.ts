@@ -38,6 +38,10 @@ export const flagOptions = [
     value: 'beta'
   },
   {
+    label: 'gamma',
+    value: 'gamma'
+  },
+  {
     label: 'production',
     value: 'production'
   },
