@@ -152,9 +152,10 @@ class User < ApplicationRecord
 
   ALPHA = 'alpha'
   BETA = 'beta'
+  GAMMA = 'gamma'
   PRIVATE = 'private'
   ARCHIVED = 'archived'
-  TESTING_FLAGS = [ALPHA, BETA, PRIVATE, ARCHIVED]
+  TESTING_FLAGS = [ALPHA, BETA, GAMMA, PRIVATE, ARCHIVED]
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 

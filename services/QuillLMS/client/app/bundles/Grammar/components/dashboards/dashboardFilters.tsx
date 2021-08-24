@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import Constants from '../../constants'
 
-const { PRODUCTION, BETA, ALPHA, ARCHIVED, NONE, } = Constants
+const { PRODUCTION, GAMMA, BETA, ALPHA, ARCHIVED, NONE, } = Constants
 
 const ACTIVITY = 'activity'
 const QUESTION = 'question'
@@ -70,6 +70,7 @@ export default class DashboardFilters extends React.Component<DashboardFiltersPr
       return (<div className="question-filters">
         <p>Question Flags</p>
         {this.renderCheckbox(QUESTION, PRODUCTION)}
+        {this.renderCheckbox(QUESTION, GAMMA)}
         {this.renderCheckbox(QUESTION, BETA)}
         {this.renderCheckbox(QUESTION, ALPHA)}
         {this.renderCheckbox(QUESTION, ARCHIVED)}
@@ -83,6 +84,7 @@ export default class DashboardFilters extends React.Component<DashboardFiltersPr
       return (<div className="activity-filters">
         <p>Activity Flags</p>
         {this.renderCheckbox(ACTIVITY, PRODUCTION)}
+        {this.renderCheckbox(ACTIVITY, GAMMA)}
         {this.renderCheckbox(ACTIVITY, BETA)}
         {this.renderCheckbox(ACTIVITY, ALPHA)}
         {this.renderCheckbox(ACTIVITY, ARCHIVED)}
