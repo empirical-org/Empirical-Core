@@ -115,7 +115,7 @@ namespace :schools do
         original_id_holder = School.find_by(clever_id: school[CLEVER_ID_KEY])
         original_id_holder&.update(clever_id: nil)
         new_id_holder = School.find(school[QUILL_ID_KEY])
-        new_id_holder.update(clever_id: school[CLEVER_ID_KEY])
+        new_id_holder.update!(clever_id: school[CLEVER_ID_KEY])
       end
     end
   end
