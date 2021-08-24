@@ -10,6 +10,7 @@ import ReadAndHighlightInstructions from './readAndHighlightInstructions'
 import DirectionsSectionAndModal from './directionsSectionAndModal'
 import BottomNavigation from './bottomNavigation'
 import StepOverview from './stepOverview'
+import HeaderImage from './headerImage'
 
 import { explanationData } from "../activitySlides/explanationData";
 import ExplanationSlide from "../activitySlides/explanationSlide";
@@ -30,7 +31,6 @@ import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
 import { Passage } from '../../interfaces/activities'
 import { postTurkSession } from '../../utils/turkAPI';
-import { getCsrfToken } from "../../../Staff/helpers/comprehension";
 import {
   roundMillisecondsToSeconds,
   KEYDOWN,
@@ -38,7 +38,7 @@ import {
   MOUSEDOWN,
   CLICK,
   KEYPRESS,
-  VISIBILITYCHANGE,
+  VISIBILITYCHANGE
 } from '../../../Shared/index'
 
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
@@ -116,9 +116,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     this.step2 = React.createRef()
     this.step3 = React.createRef()
     this.step4 = React.createRef()
-
-    const csrfToken = getCsrfToken();
-    localStorage.setItem('csrfToken', csrfToken);
   }
 
   componentDidMount() {
@@ -163,8 +160,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   componentDidUpdate(prevProps, prevState) {
     const { activeStep, } = this.state
-    const { session, } = this.props
+    const { session, activities, } = this.props
     const { submittedResponses, } = session
+
+    if (activities.currentActivity) { document.title = `Quill.org | ${activities.currentActivity.title}`}
 
     if (submittedResponses === prevProps.session.submittedResponses) { return }
 
@@ -613,8 +612,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     if (!(submittedResponsesForActivePrompt && submittedResponsesForActivePrompt.length)) { return passagesWithoutSpanTags }
 
     const lastSubmittedResponse = submittedResponsesForActivePrompt[submittedResponsesForActivePrompt.length - 1]
-
-    if (!lastSubmittedResponse.highlight || (lastSubmittedResponse.highlight && !lastSubmittedResponse.highlight.length)) { return passagesWithoutSpanTags }
+    const noPassageHighlights = !lastSubmittedResponse.highlight || (lastSubmittedResponse.highlight && !lastSubmittedResponse.highlight.length);
+    const isResponseHighlight = lastSubmittedResponse.highlight && lastSubmittedResponse.highlight[0] && lastSubmittedResponse.highlight[0].type === 'response';
+    if (noPassageHighlights || isResponseHighlight) { return passagesWithoutSpanTags }
 
     const passageHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === "passage")
 
@@ -782,7 +782,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     return (<div className="read-passage-container" onScroll={this.handleReadPassageContainerScroll}>
       <div className={innerContainerClassName}>
         <h1 className="title">{currentActivity.title}</h1>
-        {headerImage}
+        <HeaderImage headerImage={headerImage} passage={passages[0]} />
         <div className="passage">{ReactHtmlParser(this.formatHtmlForPassage(), { transform: this.transformMarkTags })}</div>
       </div>
     </div>)

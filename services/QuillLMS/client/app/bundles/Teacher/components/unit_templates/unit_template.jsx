@@ -75,7 +75,7 @@ export default createReactClass({
       { name: 'grades', value: [], fromServer: true, },
       { name: 'unit_template_categories', value: [], fromServer: true, cmsController: true, },
       { name: 'authors', value: [], fromServer: true, cmsController: true, },
-      { name: 'flag', value: ['production', 'alpha', 'beta', 'archived', 'private'], fromServer: false, cmsController: true, },
+      { name: 'flag', value: ['production', 'alpha', 'beta', 'gamma', 'archived', 'private'], fromServer: false, cmsController: true, },
       { name: 'order_number', value: _.range(1, 30), fromServer: false, }
     ];
     return this.modelOptions;

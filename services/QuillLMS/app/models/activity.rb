@@ -60,6 +60,7 @@ class Activity < ApplicationRecord
   has_many :topics, through: :activity_topics
   before_create :flag_as_beta, unless: :flags?
   after_commit :clear_activity_search_cache
+  after_save :update_evidence_child_title, if: :update_evidence_title?
 
   delegate :form_url, to: :classification, prefix: true
 
@@ -69,8 +70,14 @@ class Activity < ApplicationRecord
     SQL
   }
 
-  scope :beta_user, -> { where("'beta' = ANY(activities.flags) OR 'production' = ANY(activities.flags)")}
-  scope :alpha_user, -> { where("'alpha' = ANY(activities.flags) OR 'beta' = ANY(activities.flags) OR 'production' = ANY(activities.flags)")}
+  PRODUCTION = 'production'
+  GAMMA = 'gamma'
+  BETA = 'beta'
+  ALPHA = 'alpha'
+
+  scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
+  scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
+  scope :alpha_user, -> { where("'#{ALPHA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 
@@ -105,10 +112,12 @@ class Activity < ApplicationRecord
   end
 
   def self.user_scope(user_flag)
-    if user_flag == 'alpha'
+    if user_flag == ALPHA
       Activity.alpha_user
-    elsif user_flag == 'beta'
+    elsif user_flag == BETA
       Activity.beta_user
+    elsif user_flag == GAMMA
+      Activity.gamma_user
     else
       Activity.production
     end
@@ -164,7 +173,7 @@ class Activity < ApplicationRecord
   end
 
   def self.clear_activity_search_cache
-    %w(private_ production_ beta_ alpha_ archived_).push('').each do |flag|
+    %w(private_ production_ gamma_ beta_ alpha_ archived_).push('').each do |flag|
       $redis.del("default_#{flag}activity_search")
     end
   end
@@ -219,6 +228,19 @@ class Activity < ApplicationRecord
 
   def is_evidence?
     classification&.key == ActivityClassification::EVIDENCE_KEY
+  end
+
+  def child_activity
+    return unless is_evidence?
+    Comprehension::Activity.find_by(parent_activity_id: id)
+  end
+
+  private def update_evidence_title?
+    is_evidence? && name_changed?
+  end
+
+  private def update_evidence_child_title
+    child_activity&.update(title: name)
   end
 
   private def data_must_be_hash

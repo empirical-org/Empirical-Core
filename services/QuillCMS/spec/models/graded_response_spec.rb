@@ -22,7 +22,16 @@ RSpec.describe GradedResponse, type: :model do
       graded_ids = [optimal.id, graded_nonoptimal.id].sort
 
       expect(response_ids).to eq graded_ids
-      expect(responses.first.attributes.keys.sort).to eq graded_nonoptimal.attributes.keys.sort
+    end
+
+    # Note, if this test fails, you might need a migration for this view
+    # Scenic View attributes are locked at the time of the view migration
+    # So a query for responses.* doesn't update as you add fields
+    # https://github.com/scenic-views/scenic#faqs
+    it 'should have the same attributes as Response' do
+      GradedResponse.refresh
+
+      expect(GradedResponse.first.attributes.keys.sort).to eq Response.first.attributes.keys.sort
     end
   end
 end

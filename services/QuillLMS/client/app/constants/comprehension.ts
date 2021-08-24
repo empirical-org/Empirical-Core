@@ -38,6 +38,10 @@ export const flagOptions = [
     value: 'beta'
   },
   {
+    label: 'gamma',
+    value: 'gamma'
+  },
+  {
     label: 'production',
     value: 'production'
   },
@@ -244,15 +248,17 @@ export const NAME = 'Name';
 export const NOTES = 'Notes';
 export const SCORED_READING_LEVEL = 'Scored reading level';
 export const TARGET_READING_LEVEL = 'Target reading level';
-export const PARENT_ACTIVITY_ID = 'Parent Activity ID'
-export const HIGHLIGHT_PROMPT = 'Highlight Prompt'
+export const PARENT_ACTIVITY_ID = 'Parent Activity ID';
+export const HIGHLIGHT_PROMPT = 'Highlight Prompt';
 export const PASSAGE = 'Passage';
 export const MAX_ATTEMPTS_FEEDBACK = 'Max attempts feedback';
 export const BECAUSE_STEM = 'Because stem';
 export const BUT_STEM = 'But stem';
 export const SO_STEM = 'So stem';
-export const IMAGE_LINK = 'Image link'
-export const IMAGE_ALT_TEXT = 'Image alt text'
+export const IMAGE_LINK = 'Image link';
+export const IMAGE_ALT_TEXT = 'Image alt text';
+export const IMAGE_CAPTION = 'Image caption';
+export const IMAGE_ATTRIBUTION = 'Image attribution';
 
 export const activityFormKeys = [
   TITLE,
@@ -266,6 +272,8 @@ export const activityFormKeys = [
   SO_STEM,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
+  IMAGE_CAPTION,
+  IMAGE_ATTRIBUTION,
   HIGHLIGHT_PROMPT
 ];
 

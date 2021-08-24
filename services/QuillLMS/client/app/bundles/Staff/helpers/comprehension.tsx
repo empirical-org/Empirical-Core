@@ -13,6 +13,8 @@ import {
   SCORED_READING_LEVEL,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
+  IMAGE_CAPTION,
+  IMAGE_ATTRIBUTION,
   HIGHLIGHT_PROMPT,
   PLAGIARISM,
   ALL
@@ -28,8 +30,7 @@ const fetchDefaults = require("fetch-defaults");
 const headerHash = {
   headers: {
     "Accept": "application/JSON",
-    "Content-Type": "application/json",
-    "X-CSRF-Token": localStorage.getItem('csrfToken')
+    "Content-Type": "application/json"
   }
 }
 
@@ -340,6 +341,8 @@ export const validateForm = (keys: string[], state: any[], ruleType?: string) =>
     switch(keys[i]) {
       case IMAGE_LINK:
       case IMAGE_ALT_TEXT:
+      case IMAGE_CAPTION:
+      case IMAGE_ATTRIBUTION:
       case HIGHLIGHT_PROMPT:
         break;
       case TARGET_READING_LEVEL:
@@ -405,11 +408,6 @@ export const handleRequestErrors = async (errors: object) => {
 export function titleCase(string: string){
   return string[0].toUpperCase() + string.slice(1).toLowerCase();
 }
-
-export const getCsrfToken = () => {
-  const token = document.querySelector('meta[name="csrf-token"]')
-  if (token) { return token.getAttribute('content') }
-};
 
 export const renderIDorUID = (idOrRuleId: string | number, type: string) => {
   return(

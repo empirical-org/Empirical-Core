@@ -2,14 +2,13 @@ require 'elasticsearch/model'
 
 class Response < ApplicationRecord
   include Elasticsearch::Model
+  include ResponseScopes
   after_create_commit :create_index_in_elastic_search
   after_update_commit :update_index_in_elastic_search
   after_commit :clear_responses_route_cache
   before_destroy :destroy_index_in_elastic_search
 
   validates :question_uid, uniqueness: { scope: :text }
-
-  scope :nonoptimal, -> { where(optimal: [false, nil]) }
 
   settings analysis: {
     analyzer: {
