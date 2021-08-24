@@ -156,7 +156,7 @@ export default class Cms extends React.Component {
   renderFlagDropdown = () => {
     const resourceName = this.props.resourceNamePlural;
     if (resourceName === 'unit_templates') {
-      const options = ['All', 'Not Archived', 'Archived', 'Alpha', 'Beta', 'Production']
+      const options = ['All', 'Not Archived', 'Archived', 'Alpha', 'Beta', 'Gamma', 'Production']
       return (<div style={{ marginLeft: '10px', display: 'inline', }}>
         <ItemDropdown
           callback={this.switchFlag}

@@ -4,13 +4,15 @@ class ActivitySearch
   def self.search(flag)
     case flag
     when 'archived'
-      flags = "'private', 'alpha', 'beta', 'production', 'archived'"
+      flags = "'private', 'alpha', 'beta', 'gamma', 'production', 'archived'"
     when 'private'
-      flags = "'private', 'alpha', 'beta', 'production'"
+      flags = "'private', 'alpha', 'beta', 'gamma', 'production'"
     when 'alpha'
-      flags = "'alpha', 'beta', 'production'"
+      flags = "'alpha', 'beta', 'gamma', 'production'"
     when 'beta'
-      flags = "'beta', 'production'"
+      flags = "'beta', 'gamma', 'production'"
+    when 'gamma'
+      flags = "'gamma', 'production'"
     else
       flags = "'production'"
     end

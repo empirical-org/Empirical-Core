@@ -10,11 +10,12 @@ module Comprehension
 
     before_destroy :expire_turking_rounds
     before_validation :set_parent_activity, on: :create
+    after_save :update_parent_activity_name, if: :title_changed?
 
     has_many :passages, inverse_of: :activity, dependent: :destroy
     has_many :prompts, inverse_of: :activity, dependent: :destroy
     has_many :turking_rounds, inverse_of: :activity
-    belongs_to :parent_activity, class_name: Comprehension.parent_activity_class
+    belongs_to :parent_activity, class_name: Comprehension.parent_activity_classname
 
     accepts_nested_attributes_for :passages, reject_if: proc { |p| p['text'].blank? }
     accepts_nested_attributes_for :prompts
@@ -56,6 +57,10 @@ module Comprehension
 
     def url
       "comprehension/#/activities/#{id}/settings"
+    end
+
+    private def update_parent_activity_name
+      parent_activity&.update(name: title)
     end
 
     private def expire_turking_rounds

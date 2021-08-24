@@ -4,7 +4,8 @@ import preFilters, {
   profanity,
   tooShort,
   multipleSentences,
-  tooLong
+  tooLong,
+  endsWithQuestionMark
 } from '../../modules/prefilters'
 
 describe('#preFilters', () => {
@@ -53,6 +54,19 @@ describe("#multipleSentences", () => {
   it('returns matched: false if the string passed in includes an abbreviation at the end of the sentence', () => {
     expect(multipleSentences('because we should follow Martin Luther King Jr.').matched).toEqual(false)
   })
+})
+
+describe("#endsWithQuestionMark", () => {
+  it('returns matched: true if the string passed in ends with a question mark', () => {
+    const str = "Is this a question?"
+    expect(endsWithQuestionMark(str).matched).toEqual(true)
+  })
+
+  it('returns matched: false if the string passed in does not end with a question mark', () => {
+    const str = "This is not a question."
+    expect(endsWithQuestionMark(str).matched).toEqual(false)
+  })
+
 })
 
 describe("#tooLong", () => {

@@ -6,7 +6,7 @@ describe Api::V1::ActivityFlagsController, type: :controller do
       get :index, as: :json
 
       expect(JSON.parse(response.body)['activity_flags']).to match_array(
-        ['production', 'archive', 'alpha', 'beta', 'private'])
+        ['production', 'archive', 'alpha', 'beta', 'gamma', 'private'])
     end
   end
 end

@@ -53,7 +53,7 @@ export class Header extends React.Component<any, any> {
         <div>
           <img alt="Quill.org logo" className="hide-on-desktop" src={mobileLogoSrc} />
           <img alt="Quill.org logo" className="hide-on-mobile" src={logoSrc} />
-          {isNotTurk && <button className="save-and-exit" onClick={this.handleOnClick} type="button"><span>Save and exit</span></button>}
+          {isNotTurk && <button className="save-and-exit focus-on-dark" onClick={this.handleOnClick} type="button"><span>Save and exit</span></button>}
         </div>
       </div>
     );

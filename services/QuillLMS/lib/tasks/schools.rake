@@ -91,4 +91,32 @@ namespace :schools do
       school.save! 
     end  
   end
+
+  desc 'Update Clever IDs for existing schools based on a CSV file'
+  task :update_clever_ids => :environment do
+
+    QUILL_ID_KEY = 'Quill ID'
+    CLEVER_ID_KEY = 'Clever School ID'
+
+    pipe_data = STDIN.read unless STDIN.tty?
+
+    unless pipe_data
+      puts 'No data detected on STDIN.  You must pass data to the task for it to run.  Example:'
+      puts '  rake schools:update_clever_ids < path/to/local/file.csv'
+      puts ''
+      puts 'If you are piping data into Heroku, you need to include the --no-tty flag:'
+      puts '  heroku run rake schools:update_clever_ids -a empirical-grammar --no-tty < path/to/local/file.csv'
+      exit 1
+    end
+
+    ActiveRecord::Base.transaction do
+      CSV.parse(pipe_data, headers: true) do |school|
+        # Just in case this CleverID was once assigned to a different school
+        original_id_holder = School.find_by(clever_id: school[CLEVER_ID_KEY])
+        original_id_holder&.update(clever_id: nil)
+        new_id_holder = School.find(school[QUILL_ID_KEY])
+        new_id_holder.update!(clever_id: school[CLEVER_ID_KEY])
+      end
+    end
+  end
 end
