@@ -39,7 +39,7 @@ describe TeacherCenterHelper do
         {name: 'AP Activities', url: 'ap'},
         {name: 'Pre-AP Activities', url: 'preap'},
         {name: 'SpringBoard Activities', url: 'springboard'},
-        {name: 'ELA Standards', url: 'activities/standard_level/7'},
+        {name: 'ELA Standards', url: 'activities/standard_level/7'}
       ]
     }
     let(:small_tabs) {
@@ -48,7 +48,7 @@ describe TeacherCenterHelper do
         {name: 'AP', url: 'ap'},
         {name: 'Pre-AP', url: 'preap'},
         {name: 'SpringBoard', url: 'springboard'},
-        {name: 'Standards', url: 'activities/standard_level/7'},
+        {name: 'Standards', url: 'activities/standard_level/7'}
       ]
     }
     it 'should return large_tabs if large is true' do
