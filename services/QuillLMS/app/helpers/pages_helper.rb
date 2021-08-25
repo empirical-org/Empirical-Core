@@ -264,16 +264,6 @@ module PagesHelper
             img: 'advisor-rick-benger@2x.png'
           },
           {
-            name: 'Donald McKendrick',
-            title: 'Curriculum at Chan Zuckerberg Initiative',
-            img: 'advisor-donald-mckendrick@2x.png'
-          },
-          {
-            name: 'Jane Nevins',
-            title: 'Director of Giving at Freedom for All Americans',
-            img: 'advisor-jane-nevins@2x.png'
-          },
-          {
             name: 'Alex Redmon',
             title: 'Engineering Manager at Hearst',
             img: 'advisor-alex-redmon@2x.png'
