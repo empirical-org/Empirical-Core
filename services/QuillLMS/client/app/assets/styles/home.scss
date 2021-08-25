@@ -320,10 +320,23 @@ section.q-hero {
     color: #ffffff;
     background-color: #00DFB1;
   }
+  @media only screen and (max-width : 600px) {
+    text-align: left;
+    padding: 0px 16px 0px 16px;
+    .q-h1 {
+      font-size: 24px !important;
+    }
+    .text-white {
+      font-size: 16px;
+    }
+    .q-button {
+      width: 100%;
+      margin-left: 0px !important;
+    }
+  }
 }
 
 .q-hero-footer {
-  // min-height: 92px;
   text-align: center;
   background-color: #027360;
   p {
@@ -337,14 +350,12 @@ section.q-hero {
   }
 
   @media only screen and (max-width : 600px) {
-    padding: 10px 15px;
     p {
-      line-height: 36px;
+      line-height: 22px;
+      text-align: left;
+      font-size: 16px;
+      padding: 24px 16px 24px 16px;
     }
-  }
-
-  @media only screen and (max-width : 419px) {
-    padding: 10px 45px;
   }
 }
 
