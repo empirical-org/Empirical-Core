@@ -5,7 +5,7 @@ module MobileHelper
     end
   end
 
-  def render_content(device, type, url)
+  def render_video_content(device, type, url)
     if device == type
       "<div class='video-section'>
         <video class='lazyload' data-src='#{url}' autoplay loop playsinline muted/>

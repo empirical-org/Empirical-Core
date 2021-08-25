@@ -79,8 +79,6 @@ module ApplicationHelper
   end
 
   def device
-    agent = request.user_agent
-    return "mobile" if agent =~ /Mobile/
-    return "desktop"
+    request.user_agent =~ /Mobile/ ? 'mobile' : 'desktop'
   end
 end
