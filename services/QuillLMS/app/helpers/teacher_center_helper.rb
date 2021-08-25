@@ -75,7 +75,7 @@ module TeacherCenterHelper
       {name: large ? 'AP Activities' : 'AP', url: 'ap'},
       {name: large ? 'Pre-AP Activities' : 'Pre-AP', url: 'preap'},
       {name: large ? 'SpringBoard Activities' : 'SpringBoard', url: 'springboard'},
-      {name: large ? 'ELA Standards' : 'Standards', url: 'activities/standard_level/7'},
+      {name: large ? 'ELA Standards' : 'Standards', url: 'activities/standard_level/7'}
     ]
   end
 end
