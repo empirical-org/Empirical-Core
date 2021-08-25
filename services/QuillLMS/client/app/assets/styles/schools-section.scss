@@ -549,7 +549,9 @@
   }
   .premium-text-container {
     flex-direction: column;
-    width: 420px;
+    .premium-text {
+      max-width: 296px;
+    }
   }
   .premium-button-container {
     display: flex;
@@ -565,9 +567,6 @@
     align-items: center;
     height: auto;
   }
-  img {
-    max-width: 100%;
-  }
   .premium-text-container {
     align-items: center;
     margin-bottom: 0px !important;
@@ -581,5 +580,8 @@
   }
   .premium-button-container {
     margin-top: 10px !important;
+  }
+  .quill-premium-user-interfaces {
+    max-width: 100%;
   }
 }
