@@ -29,23 +29,29 @@ if [[ "$response" =~ ^([y])$ ]]
 then
   if [ $1 == 'prod' ]
   then
+
     # stash local changes and update local production branch
     # you would need to already be on production to get here
     # but checking out production just in case
-    git stash
     git fetch origin production
     git checkout production
     git pull origin production
-    git stash apply
   fi
 
-  # Slack deploy start
-  sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
+  if [[ -z $(git status -s) ]]
+  then
+    echo "tree is clean"
+  else
+    echo "tree is dirty, please commit changes before running this"
+    exit
+  fi
 
-  eb deploy ${EB_ENVIRONMENT_NAME} --label `git rev-parse HEAD`
-  open "https://rpm.newrelic.com/accounts/2639113/applications/548895592"
-  eb console ${EB_ENVIRONMENT_NAME}
+  # # Slack deploy start
+  # sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
 
+  # eb deploy ${EB_ENVIRONMENT_NAME} --label `git rev-parse HEAD`-$(date '+%s')
+  # open "https://rpm.newrelic.com/accounts/2639113/applications/548895592"
+  # eb console ${EB_ENVIRONMENT_NAME}
 else
     echo "Ok, we won't deploy. Have a good day!"
 fi
