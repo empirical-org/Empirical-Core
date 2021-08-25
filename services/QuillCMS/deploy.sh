@@ -39,7 +39,7 @@ then
       git pull origin production
     else
       echo "Your working tree is dirty, please stash or commit changes before deploying."
-      exit
+      exit 1
     fi
   fi
 
