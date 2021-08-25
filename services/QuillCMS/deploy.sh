@@ -38,7 +38,7 @@ then
     git pull origin production
   fi
 
-  if [[ -z $(git status -s) ]]
+  if [[ -z $(git status -uno -s) ]]
   then
     echo "tree is clean"
   else
