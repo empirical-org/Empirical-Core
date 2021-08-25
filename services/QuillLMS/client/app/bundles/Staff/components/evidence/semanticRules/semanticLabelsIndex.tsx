@@ -11,11 +11,11 @@ import Model from './model';
 
 import { ALL, BECAUSE, BUT, SO } from '../../../../../constants/evidence';
 import { getPromptForComponent, getPromptConjunction } from '../../../helpers/evidence';
-import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
-import { createRule, updateRule } from '../../../utils/comprehension/ruleAPIs';
+import { fetchActivity } from '../../../utils/evidence/activityAPIs';
+import { createRule, updateRule } from '../../../utils/evidence/ruleAPIs';
 import { Error, Spinner } from '../../../../Shared/index';
 import { renderHeader } from '../../../helpers/evidence';
-import { RuleInterface } from '../../../interfaces/comprehensionInterfaces';
+import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
 
 const SemanticLabelsIndex = ({ location, history, match }) => {
   const { params } = match;

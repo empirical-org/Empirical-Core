@@ -8,8 +8,8 @@ import DateTimePicker from 'react-datetime-picker';
 
 import { handlePageFilterClick, renderHeader } from "../../../helpers/evidence";
 import { Error, Spinner, DropdownInput, Input } from '../../../../Shared/index';
-import { fetchActivity, fetchActivitySessions } from '../../../utils/comprehension/activityAPIs';
-import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
+import { fetchActivity, fetchActivitySessions } from '../../../utils/evidence/activityAPIs';
+import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { activitySessionIndexResponseHeaders, activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/evidence';
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';

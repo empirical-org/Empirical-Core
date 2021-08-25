@@ -6,8 +6,8 @@ import PromptTable from './promptTable';
 import SessionOverview from './sessionOverview';
 
 import { Error, Spinner } from '../../../../Shared/index';
-import { fetchRules, } from '../../../utils/comprehension/ruleAPIs';
-import { fetchActivity, fetchActivitySession } from '../../../utils/comprehension/activityAPIs';
+import { fetchRules, } from '../../../utils/evidence/ruleAPIs';
+import { fetchActivity, fetchActivitySession } from '../../../utils/evidence/activityAPIs';
 import { getPromptForActivitySession, renderHeader } from "../../../helpers/evidence";
 import { BECAUSE, BUT, SO } from '../../../../../constants/evidence';
 

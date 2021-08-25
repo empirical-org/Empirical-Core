@@ -6,7 +6,7 @@ import Rules from './rules';
 
 import { getPromptForComponent, renderHeader } from '../../../helpers/evidence';
 import { BECAUSE, BUT, SO, ALL } from '../../../../../constants/evidence';
-import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
+import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { Error, Spinner } from '../../../../Shared/index';
 
 const RulesIndexRouter = ({ history, match }) => {

@@ -4,9 +4,9 @@ import { useQuery } from 'react-query';
 import ReactTable from 'react-table';
 import * as _ from 'lodash'
 
-import { ActivityRouteProps, PromptHealthInterface } from '../../../interfaces/comprehensionInterfaces';
-import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
-import { fetchPromptHealth } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
+import { ActivityRouteProps, PromptHealthInterface } from '../../../interfaces/evidenceInterfaces';
+import { fetchActivity } from '../../../utils/evidence/activityAPIs';
+import { fetchPromptHealth } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 import { Spinner, } from '../../../../Shared/index';
 import { renderHeader } from '../../../helpers/evidence';
 

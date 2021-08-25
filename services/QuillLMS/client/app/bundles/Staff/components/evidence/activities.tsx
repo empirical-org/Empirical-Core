@@ -4,8 +4,8 @@ import { useQuery } from 'react-query';
 
 import Navigation from './navigation';
 
-import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
-import { fetchActivities } from '../../utils/comprehension/activityAPIs';
+import { ActivityInterface } from '../../interfaces/evidenceInterfaces';
+import { fetchActivities } from '../../utils/evidence/activityAPIs';
 import { DataTable, Error, Spinner } from '../../../Shared/index';
 import { handleHasAppSetting } from "../../../Shared/utils/appSettingAPIs";
 import { renderErrorsContainer } from "../../helpers/evidence";

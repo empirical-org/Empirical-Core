@@ -16,7 +16,7 @@ import RegexRulesRouter from './regexRules/regexRulesRouter';
 import PlagiarismRulesRouter from './plagiarismRules/plagiarismRulesRouter';
 import ChangeLog from './changeLog/changeLog';
 
-import { ActivityRouteProps } from '../../interfaces/comprehensionInterfaces';
+import { ActivityRouteProps } from '../../interfaces/evidenceInterfaces';
 
 const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, location, }) => {
   return(

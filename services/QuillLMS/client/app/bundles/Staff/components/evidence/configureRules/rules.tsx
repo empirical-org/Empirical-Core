@@ -7,11 +7,11 @@ import RuleViewForm from './ruleViewForm';
 
 import { getConceptName, getPromptIdString } from '../../../helpers/evidence/ruleHelpers';
 import { getPromptsIcons } from '../../../helpers/evidence';
-import { RuleInterface, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
+import { RuleInterface, PromptInterface } from '../../../interfaces/evidenceInterfaces';
 import { BECAUSE, BUT, SO, blankRule, ruleApiOrder } from '../../../../../constants/evidence';
-import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
-import { createRule, fetchRules, updateRule } from '../../../utils/comprehension/ruleAPIs';
-import { fetchConcepts, } from '../../../utils/comprehension/conceptAPIs';
+import { fetchActivity } from '../../../utils/evidence/activityAPIs';
+import { createRule, fetchRules, updateRule } from '../../../utils/evidence/ruleAPIs';
+import { fetchConcepts, } from '../../../utils/evidence/conceptAPIs';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 
 function sortByRuleApiOrder(ruleOneRuleType: string, ruleTwoRuleType: string) {

@@ -3,10 +3,10 @@ import stripHtml from "string-strip-html";
 import { Link } from 'react-router-dom';
 import { queryCache } from 'react-query';
 
-import { createOrUpdateFeedbackHistoryRating } from '../../../utils/comprehension/feedbackHistoryRatingAPIs';
+import { createOrUpdateFeedbackHistoryRating } from '../../../utils/evidence/feedbackHistoryRatingAPIs';
 import { DataTable, Spinner, ButtonLoadingSpinner } from '../../../../Shared/index';
 import { PROMPT_ATTEMPTS_FEEDBACK_LABELS, PROMPT_HEADER_LABELS, DEFAULT_MAX_ATTEMPTS, NONE, STRONG, WEAK } from '../../../../../constants/evidence';
-import { ActivityInterface, PromptInterface, RuleInterface } from "../../../interfaces/comprehensionInterfaces";
+import { ActivityInterface, PromptInterface, RuleInterface } from "../../../interfaces/evidenceInterfaces";
 
 interface PromptTableProps {
   activity: ActivityInterface;

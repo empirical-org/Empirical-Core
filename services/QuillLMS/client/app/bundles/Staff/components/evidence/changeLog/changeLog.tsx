@@ -11,7 +11,7 @@ import DateTimePicker from 'react-datetime-picker';
 
 import { renderHeader } from '../../../helpers/evidence';
 import { sort } from '../../../../../modules/sortingMethods.js';
-import { fetchChangeLogs, fetchActivity } from '../../../utils/comprehension/activityAPIs';
+import { fetchChangeLogs, fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { DropdownInput, Spinner, } from '../../../../Shared/index';
 
 const ChangeLog = ({ history, match }) => {
