@@ -29,26 +29,22 @@ if [[ "$response" =~ ^([y])$ ]]
 then
   if [ $1 == 'prod' ]
   then
-    if [[ -z $(git status --untracked-files=no -s) ]]
-    then
-      # update local production branch
-      # you would need to already be on production to get here
-      # but checking out production just in case
-      git fetch origin production
-      git checkout production
-      git pull origin production
-    else
-      echo "Your working tree is dirty, please stash or commit changes before deploying."
-      exit 1
-    fi
+    git checkout production
+    git pull origin production
   fi
 
-  # Slack deploy start
-  sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
+  if [[ -z $(git status --untracked-files=no -s) ]]
+  then
+    # Slack deploy start
+    sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
 
-  eb deploy ${EB_ENVIRONMENT_NAME} --label `git rev-parse HEAD`-$(date '+%s')
-  open "https://rpm.newrelic.com/accounts/2639113/applications/548895592"
-  eb console ${EB_ENVIRONMENT_NAME}
+    eb deploy ${EB_ENVIRONMENT_NAME} --label `git rev-parse HEAD`-$(date '+%s')
+    open "https://rpm.newrelic.com/accounts/2639113/applications/548895592"
+    eb console ${EB_ENVIRONMENT_NAME}
+  else
+    echo "Your working tree is dirty, please stash or commit changes before deploying."
+    exit 1
+  fi
 else
     echo "Ok, we won't deploy. Have a good day!"
 fi
