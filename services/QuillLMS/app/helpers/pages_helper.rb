@@ -165,7 +165,7 @@ module PagesHelper
           },
           {
             name: 'Lindsey Murphy',
-            title: 'Lead Curriculum Developer',
+            title: 'Curriculum & Product Manager',
             img: 'team-lindsey-murphy@2x.png'
           },
           {
