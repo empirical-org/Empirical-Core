@@ -118,7 +118,7 @@ export const saveActiveActivitySession = ({ sessionID, submittedResponses, activ
 export const getFeedback = (args: GetFeedbackArguments) => {
   const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, } = args
   return (dispatch: Function) => {
-    const feedbackURL = `https://comprehension-feedback.quill.org/`
+    const feedbackURL = `${process.env.GOLANG_FANOUT_URL}`
 
     const promptRegex = new RegExp(`^${promptText}`)
     const entryWithoutStem = entry.replace(promptRegex, "").trim()
