@@ -1,6 +1,6 @@
 class Cms::UnitTemplatesController < Cms::CmsController
   skip_before_action :verify_authenticity_token
-  before_action :set_unit_template, only: [:update, :destroy]
+  before_action :set_unit_template, only: [:edit, :update, :destroy]
 
   def index
     respond_to do |format|
@@ -9,6 +9,9 @@ class Cms::UnitTemplatesController < Cms::CmsController
         render json: UnitTemplate.order(order_number: :asc).map{|u| Cms::UnitTemplateSerializer.new(u).as_json(root: false)}
       end
     end
+  end
+
+  def edit
   end
 
   def create

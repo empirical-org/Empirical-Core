@@ -15,7 +15,6 @@ import AdminAccountsApp from './AdminAccountsAppClient';
 import AdminsEditorApp from './AdminsEditorAppClient';
 import PublicActivityPacksApp from './PublicActivityPacksAppClient.jsx';
 import DiagnosticReportsApp from './DiagnosticReportsAppClient.jsx';
-import UnitTemplatesApp from './UnitTemplatesClient.jsx';
 import PublicUnitTemplatesApp from './PublicUnitTemplatesAppClient.jsx';
 import AssignActivitiesApp from './AssignActivitiesAppClient';
 import TutorialsApp from './TutorialsAppClient';
@@ -27,6 +26,7 @@ import SubscriptionApp from './SubscriptionAppClient';
 import BlogPostsApp from './BlogPostsAppClient'
 import PressApp from './PressAppClient'
 import AnnouncementsApp from './AnnouncementsAppClient'
+import CmsActivitiesAppClient from './CmsActivitiesAppClient';
 import CmsUserIndexApp from './CmsUserIndexAppClient'
 import CmsSchoolIndexApp from './CmsSchoolIndexAppClient'
 import ForgotPasswordApp from './ForgotPasswordAppClient'
@@ -59,7 +59,6 @@ ReactOnRails.register({ TeacherGuideApp,
   AdminsEditorApp,
   PublicActivityPacksApp,
   DiagnosticReportsApp,
-  UnitTemplatesApp,
   PublicUnitTemplatesApp,
   AssignActivitiesApp,
   TutorialsApp,
@@ -71,6 +70,7 @@ ReactOnRails.register({ TeacherGuideApp,
   BlogPostsApp,
   PressApp,
   AnnouncementsApp,
+  CmsActivitiesAppClient,
   CmsUserIndexApp,
   CmsSchoolIndexApp,
   ResetPasswordApp,
