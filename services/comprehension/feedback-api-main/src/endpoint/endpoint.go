@@ -69,7 +69,7 @@ func AssembleUrls() ([api_count]string) {
 		typo_regex_api               = fmt.Sprintf("%s/api/v1/comprehension/feedback/regex/rules-based-3.json", lms_domain)
 		spell_check_bing             = fmt.Sprintf("%s/api/v1/comprehension/feedback/spelling.json", lms_domain)
 
-		grammar_check_api = "https://grammar-api.ue.r.appspot.com"
+		grammar_check_api = "https://quill.spell.services/Quill/grammar/predict"
 		opinion_check_api = fmt.Sprintf("%s/", opinion_domain)
 	)
 
