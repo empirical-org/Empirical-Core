@@ -51,8 +51,7 @@
     "quill-marking-logic": "0.15.8",
     "react-csv": "^1.1.2",
     "react-select": "^1.1.0",
-    "react-table": "^6.10.3",
-    "ts-loader": "^8.2.0"
+    "react-table": "^6.10.3"
   },
   "devDependencies": {
     "qs": "^6.9.0",
