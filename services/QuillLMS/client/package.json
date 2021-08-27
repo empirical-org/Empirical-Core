@@ -121,7 +121,7 @@
     "sass-resources-loader": "^2.0.1",
     "sbd": "^1.0.19",
     "smooth-scroll-into-view-if-needed": "^1.1.32",
-    "socket.io-client": "^2.3.0",
+    "socket.io-client": "^2.4.0",
     "string-hash": "^1.1.3",
     "string-strip-html": "^4.3.22",
     "style-loader": "^1.2.1",
