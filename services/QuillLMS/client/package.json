@@ -47,7 +47,7 @@
     "font-awesome": "^4.7.0",
     "fuse.js": "^3.2.1",
     "fuzzyset.js": "0.0.7",
-    "graphql": "^0.13.2",
+    "graphql": "^14.0.0",
     "graphql-tag": "^2.9.2",
     "history": "^2.0.1",
     "i18next": "^19.6.2",
