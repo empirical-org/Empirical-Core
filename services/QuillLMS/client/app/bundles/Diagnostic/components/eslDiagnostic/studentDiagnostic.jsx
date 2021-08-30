@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
@@ -533,4 +533,4 @@ function select(state) {
     titleCards: state.titleCards
   };
 }
-export default withNamespaces()(connect(select)(ELLStudentDiagnostic));
+export default withTranslation()(connect(select)(ELLStudentDiagnostic));
