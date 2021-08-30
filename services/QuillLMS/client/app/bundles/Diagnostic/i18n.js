@@ -1,5 +1,6 @@
 import i18n from "i18next";
-import { reactI18nextModule } from "react-i18next";
+import { initReactI18next } from "react-i18next";
+
 import translationAR from './modules/translation/arabic/translation.json';
 import translationCN from './modules/translation/chinese/translation.json';
 import translationDE from './modules/translation/german/translation.json';
@@ -42,12 +43,12 @@ const resources = {
 //i18n configurations
 
 i18n
-  .use(reactI18nextModule)
+  .use(initReactI18next)
   .init({
     resources,
     lng: "english",
     defaultTransParent: 'div',
-    // we use the ^ and | as separators because many label strings contain a period or colon, 
+    // we use the ^ and | as separators because many label strings contain a period or colon,
     // which will cause the translation to fail
     keySeparator: '^',
     nsSeparator: '|',
