@@ -93,14 +93,14 @@ exports[`PromptTable component should render PromptTable 1`] = `
             </button>
           </div>,
           "className": "sub-optimal",
-          "feedback": <ForwardRef
+          "feedback": <Link
             className="data-link word-wrap"
             rel="noopener noreferrer"
             target="_blank"
             to="/activities/undefined/rules-analysis/undefined/rule/undefined/prompt/undefined"
           >
             : null
-          </ForwardRef>,
+          </Link>,
           "id": "undefined:0:feedback",
           "results": <p
             className="word-wrap"
