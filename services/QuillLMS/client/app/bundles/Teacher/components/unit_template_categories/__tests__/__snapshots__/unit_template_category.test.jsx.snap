@@ -160,6 +160,7 @@ exports[`UnitTemplateCategory component UnitTemplateCategory container should re
       className="button-green pull-right"
       id="continue"
       onClick={[Function]}
+      type="button"
     >
       Save
     </button>
