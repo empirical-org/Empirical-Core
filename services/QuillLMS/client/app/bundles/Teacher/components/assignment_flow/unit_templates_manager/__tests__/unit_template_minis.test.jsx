@@ -82,5 +82,10 @@ describe('UnitTemplateMinis component', () => {
     const wrapper = shallow(<UnitTemplateMinis {...sharedProps} signedInTeacher={true} />)
     expect(wrapper.find('UnitTemplateMini').findWhere(n => n.prop('data').id === 'createYourOwn')).toHaveLength(1)
   })
+  it('should render dropdowns when on mobile', () => {
+    const wrapper = shallow(<UnitTemplateMinis {...sharedProps} signedInTeacher={true} />)
+    wrapper.setState({ onMobile: true });
+    expect(wrapper).toMatchSnapshot();
+  })
 
 });

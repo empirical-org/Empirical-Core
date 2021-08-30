@@ -68,4 +68,14 @@ module TeacherCenterHelper
       }
     ]
   end
+
+  def explore_curriculum_tabs(large: true)
+    [
+      {name: large ? 'Featured Activities' : 'Featured', url: 'activities/packs'},
+      {name: large ? 'AP Activities' : 'AP', url: 'ap'},
+      {name: large ? 'Pre-AP Activities' : 'Pre-AP', url: 'preap'},
+      {name: large ? 'SpringBoard Activities' : 'SpringBoard', url: 'springboard'},
+      {name: large ? 'ELA Standards' : 'Standards', url: 'activities/standard_level/7'}
+    ]
+  end
 end

@@ -165,7 +165,7 @@ module PagesHelper
           },
           {
             name: 'Lindsey Murphy',
-            title: 'Lead Curriculum Developer',
+            title: 'Curriculum & Product Manager',
             img: 'team-lindsey-murphy@2x.png'
           },
           {
@@ -262,16 +262,6 @@ module PagesHelper
             name: 'Rick Benger',
             title: 'Creator of Once upon a Pancake',
             img: 'advisor-rick-benger@2x.png'
-          },
-          {
-            name: 'Donald McKendrick',
-            title: 'Curriculum at Chan Zuckerberg Initiative',
-            img: 'advisor-donald-mckendrick@2x.png'
-          },
-          {
-            name: 'Jane Nevins',
-            title: 'Director of Giving at Freedom for All Americans',
-            img: 'advisor-jane-nevins@2x.png'
           },
           {
             name: 'Alex Redmon',

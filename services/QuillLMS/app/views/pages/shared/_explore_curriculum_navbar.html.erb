@@ -1,23 +1,14 @@
 <div class="subnav">
   <div class="container">
-  <% tabs = [
-    {name: 'Featured Activities', url: 'activities/packs'},
-    {name: 'AP Activities', url: 'ap'},
-    {name: 'Pre-AP Activities', url: 'preap'},
-    {name: 'SpringBoard Activities', url: 'springboard'},
-    {name: 'ELA Standards', url: 'activities/standard_level/7'},
-  ]
-    @tabs = tabs
-    @mobile = false
-  %>
+  <% @mobile = false %>
 
   <div class="full-screen">
-    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab: @active_tab, mobile: @mobile } %>
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: explore_curriculum_tabs(large: true), active_tab: @active_tab, mobile: @mobile } %>
   </div>
 
 
   <div class="small-screen">
-    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab:  @active_tab, mobile: @mobile} %>
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: explore_curriculum_tabs(large: false), active_tab:  @active_tab, mobile: @mobile} %>
   </div>
 
   </div>
