@@ -7,22 +7,22 @@ RSpec.describe RuleFeedbackHistory, type: :model do
   end
 
   def rule_factory(&hash_block)
-    Comprehension::Rule.create!(
+    Evidence::Rule.create!(
       {
         uid: SecureRandom.uuid,
         name: 'name',
         universal: true,
         suborder: 1,
-        rule_type: Comprehension::Rule::TYPES.first,
+        rule_type: Evidence::Rule::TYPES.first,
         optimal: true,
         concept_uid: SecureRandom.uuid,
-        state: Comprehension::Rule::STATES.first
+        state: Evidence::Rule::STATES.first
       }.merge(yield)
     )
   end
 
   def activity_factory(&hash_block)
-    Comprehension::Activity.create!(
+    Evidence::Activity.create!(
       {
         title: "Activity Title",
         notes: "Activity notes",
@@ -33,7 +33,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
   end
 
   def prompt_factory(&hash_block)
-    Comprehension::Prompt.create!(
+    Evidence::Prompt.create!(
       {
         activity: yield[:activity] || activity_factory { {} },
         conjunction: "because",
@@ -44,7 +44,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
   end
 
   def prompt_rule_factory(&hash_block)
-    Comprehension::PromptsRule.find_or_create_by!(
+    Evidence::PromptsRule.find_or_create_by!(
       {
         prompt: yield[:prompt] || prompt_factory { {} },
         rule: yield[:rule] || rule_factory { {} }
@@ -53,7 +53,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
   end
 
   def feedback_factory(&hash_block)
-    Comprehension::Feedback.create!(
+    Evidence::Feedback.create!(
       {
         rule: rule_factory { {} },
         text: 'Feedback string',
@@ -125,11 +125,11 @@ RSpec.describe RuleFeedbackHistory, type: :model do
   describe '#exec_query' do
     it 'should aggregate feedbacks for a given rule' do
       # activities
-      activity1 = Comprehension::Activity.create!(title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1')
+      activity1 = Evidence::Activity.create!(title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1')
 
       # prompts
-      so_prompt1 = Comprehension::Prompt.create!(activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-      because_prompt1 = Comprehension::Prompt.create!(activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      so_prompt1 = Evidence::Prompt.create!(activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      because_prompt1 = Evidence::Prompt.create!(activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
 
       # rules
       so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML' } }

@@ -29,7 +29,7 @@
 class FeedbackHistory < ApplicationRecord
   CONCEPT_UID_LENGTH = 22
   DEFAULT_PAGE_SIZE = 25
-  DEFAULT_PROMPT_TYPE = "Comprehension::Prompt"
+  DEFAULT_PROMPT_TYPE = "Evidence::Prompt"
   MIN_ATTEMPT = 1
   MAX_ATTEMPT = 5
   MIN_ENTRY_LENGTH = 5

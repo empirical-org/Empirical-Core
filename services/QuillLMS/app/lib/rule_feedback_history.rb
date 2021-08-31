@@ -5,7 +5,7 @@ class RuleFeedbackHistory
     end
 
     def self.exec_query(conjunction:, activity_id:, start_date:, end_date:, turk_session_id:)
-        query = Comprehension::Rule.select(<<~SELECT
+        query = Evidence::Rule.select(<<~SELECT
           comprehension_rules.id,
           comprehension_rules.uid AS rules_uid,
           prompts.activity_id AS activity_id,

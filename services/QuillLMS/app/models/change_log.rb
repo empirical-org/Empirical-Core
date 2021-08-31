@@ -80,16 +80,16 @@ class ChangeLog < ApplicationRecord
     'Standard',
     'StandardLevel',
     'StandardCategory',
-    'Comprehension::Activity',
-    'Comprehension::Prompt',
-    'Comprehension::Rule',
-    'Comprehension::Passage',
-    'Comprehension::AutomlModel',
-    'Comprehension::Label',
-    'Comprehension::Feedback',
-    'Comprehension::Highlight',
-    'Comprehension::RegexRule',
-    'Comprehension::PlagiarismText'
+    'Evidence::Activity',
+    'Evidence::Prompt',
+    'Evidence::Rule',
+    'Evidence::Passage',
+    'Evidence::AutomlModel',
+    'Evidence::Label',
+    'Evidence::Feedback',
+    'Evidence::Highlight',
+    'Evidence::RegexRule',
+    'Evidence::PlagiarismText'
   ]
   USER_ACTIONS = {
     index: 'Visited User Directory',
@@ -120,16 +120,16 @@ class ChangeLog < ApplicationRecord
       'Standard',
       'StandardLevel',
       'StandardCategory',
-      'Comprehension::Activity',
-      'Comprehension::Prompt',
-      'Comprehension::Rule',
-      'Comprehension::Passage',
-      'Comprehension::AutomlModel',
-      'Comprehension::Label',
-      'Comprehension::Feedback',
-      'Comprehension::Highlight',
-      'Comprehension::RegexRule',
-      'Comprehension::PlagiarismText'
+      'Evidence::Activity',
+      'Evidence::Prompt',
+      'Evidence::Rule',
+      'Evidence::Passage',
+      'Evidence::AutomlModel',
+      'Evidence::Label',
+      'Evidence::Feedback',
+      'Evidence::Highlight',
+      'Evidence::RegexRule',
+      'Evidence::PlagiarismText'
     ].include?(changed_record_type) || !(GENERIC_USER_ACTIONS.include?(action))
   end
 
