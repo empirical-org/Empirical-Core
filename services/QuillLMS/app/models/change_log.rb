@@ -67,7 +67,7 @@ class ChangeLog < ApplicationRecord
     CREATED,
     RENAMED
   ]
-  COMPREHENSION_ACTIONS = {
+  EVIDENCE_ACTIONS = {
     create: 'created',
     delete: 'deleted',
     update: 'updated',
@@ -103,7 +103,7 @@ class ChangeLog < ApplicationRecord
     'Visited User Directory',
     'Searched Users'
   ]
-  ALL_ACTIONS = USER_ACTIONS.values + CONCEPT_ACTIONS + TOPIC_ACTIONS + STANDARD_ACTIONS + STANDARD_CATEGORY_ACTIONS + STANDARD_LEVEL_ACTIONS + COMPREHENSION_ACTIONS.values
+  ALL_ACTIONS = USER_ACTIONS.values + CONCEPT_ACTIONS + TOPIC_ACTIONS + STANDARD_ACTIONS + STANDARD_CATEGORY_ACTIONS + STANDARD_LEVEL_ACTIONS + EVIDENCE_ACTIONS.values
 
   belongs_to :changed_record, polymorphic: true
   belongs_to :user
@@ -162,7 +162,7 @@ class ChangeLog < ApplicationRecord
   end
 
   def changed_record_display_name
-    changed_record&.comprehension_name if changed_record&.respond_to?(:comprehension_name)
+    changed_record&.evidence_name if changed_record&.respond_to?(:evidence_name)
   end
 
   def conjunctions
