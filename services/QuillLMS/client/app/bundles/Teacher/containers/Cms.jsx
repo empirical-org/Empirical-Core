@@ -101,7 +101,8 @@ export default class Cms extends React.Component {
   };
 
   edit = (resource) => {
-    this.setState({crudState: 'edit', resourceToEdit: resource});
+    const { resourceNamePlural } = this.props
+    window.open(`/cms/${resourceNamePlural}/${resource.id}/edit`)
   };
 
   delete = (resource) => {
