@@ -197,7 +197,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
           SubComponent={MoreInfo}
         />
       );
-    } else if(!ruleFeedbackHistory && startDateForQuery) {
+    } else if(!ruleFeedbackHistory && startDateForQuery && selectedPrompt) {
       return(
         <div className="loading-spinner-container">
           <Spinner />
