@@ -131,19 +131,25 @@ module PublicProgressReports
 
       students = User.includes(:students_classrooms).where(id: classroom_unit.assigned_student_ids)
 
-      finished_sessions = ActivitySession.where(
-        user_id: students.map(&:id),
-        is_final_score: true,
-        classroom_unit_id: classroom_unit.id,
-        activity_id: activity_id
-      ).group_by(&:user_id)
+      finished_sessions = ActivitySession
+        .select("DISTINCT ON (user_id) user_id, *")
+        .includes(concept_results: :concept)
+        .where(
+          user_id: students.map(&:id),
+          is_final_score: true,
+          classroom_unit_id: classroom_unit.id,
+          activity_id: activity_id)
+        .order('user_id')
+        .group_by(&:user_id)
+
+      average_scores = ActivitySession.average_scores_by_student(students.map(&:id))
 
       students.each do |student|
         next if !student.students_classrooms.map(&:classroom_id).include?(classroom.id)
 
         finished_session = finished_sessions[student.id]&.first
         if finished_session.present?
-          scores[:students].push(formatted_score_obj(finished_session, activity, student))
+          scores[:students].push(formatted_score_obj(finished_session, activity, student, average_scores[student.id]))
           next
         end
 
@@ -161,7 +167,7 @@ module PublicProgressReports
       :not_completed_names
     end
 
-    def formatted_score_obj(final_activity_session, activity, student)
+    def formatted_score_obj(final_activity_session, activity, student, average_score_on_quill)
       formatted_concept_results = get_concept_results(final_activity_session)
       activity_classification_key = ActivityClassification.find(activity.activity_classification_id).key
       if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(activity_classification_key)
@@ -179,7 +185,7 @@ module PublicProgressReports
         number_of_questions: formatted_concept_results.length,
         concept_results: formatted_concept_results,
         score: score,
-        average_score_on_quill: student.student_average_score
+        average_score_on_quill: average_score_on_quill
       }
     end
 
