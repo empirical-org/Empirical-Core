@@ -184,14 +184,14 @@ module PublicProgressReports
     end
 
 
-    def get_time_in_minutes activity_session
+    def get_time_in_minutes(activity_session)
       return 'Untracked' if !(activity_session.started_at && activity_session.completed_at)
 
       time = ((activity_session.completed_at - activity_session.started_at) / 60).round()
       time > 60 ? '> 60' : time
     end
 
-    def get_concept_results activity_session
+    def get_concept_results(activity_session)
       activity_session.concept_results.group_by{|cr| cr[:metadata]["questionNumber"]}.map { |key, cr|
         # if we don't sort them, we can't rely on the first result being the first attemptNum
         # however, it would be more efficient to make them a hash with attempt numbers as keys
@@ -223,7 +223,7 @@ module PublicProgressReports
       }
     end
 
-    def get_score_for_question concept_results
+    def get_score_for_question(concept_results)
       if !concept_results.empty? && concept_results.first[:metadata]['questionScore']
         concept_results.first[:metadata]['questionScore'] * 100
       else
@@ -231,7 +231,7 @@ module PublicProgressReports
       end
     end
 
-    def get_average_score formatted_results
+    def get_average_score(formatted_results)
       if formatted_results.empty?
         100
       else
@@ -276,7 +276,7 @@ module PublicProgressReports
       }
     end
 
-    def return_value_for_recommendation students, activity_pack_recommendation
+    def return_value_for_recommendation(students, activity_pack_recommendation)
       {
         activity_pack_id: activity_pack_recommendation[:activityPackId],
         name: activity_pack_recommendation[:recommendation],
@@ -311,7 +311,7 @@ module PublicProgressReports
       }
     end
 
-    def activity_sessions_with_counted_concepts activity_sessions
+    def activity_sessions_with_counted_concepts(activity_sessions)
       activity_sessions.map do |activity_session|
         {
           user_id: activity_session.user_id,
@@ -320,7 +320,7 @@ module PublicProgressReports
       end
     end
 
-    def concept_results_by_count activity_session
+    def concept_results_by_count(activity_session)
       hash = Hash.new { |h, k| h[k] = Hash.new { |j, l| j[l] = 0 } }
       activity_session.concept_results.each do |concept_result|
         hash[concept_result.concept.uid]["correct"] += concept_result["metadata"]["correct"]
