@@ -1,7 +1,7 @@
 PATH
-  remote: engines/comprehension
+  remote: engines/evidence
   specs:
-    comprehension (0.0.2)
+    evidence (0.0.3)
       google-cloud-automl (~> 1.0.2)
       google-cloud-automl-v1 (~> 0.3.0)
       rails (= 5.1.7)
@@ -804,12 +804,12 @@ DEPENDENCIES
   codeclimate-test-reporter
   codecov
   coffee-rails
-  comprehension!
   configs
   cypress-on-rails (~> 1.0)
   doorkeeper (>= 4.2.0)
   dotenv-rails
   es5-shim-rails
+  evidence!
   factory_bot_rails (~> 4.8.2)
   faker
   fakeredis (~> 0.7.0)
