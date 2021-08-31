@@ -182,7 +182,7 @@ class Teachers::ClassroomsController < ApplicationController
       .includes(
         :students,
         coteacher_classroom_invitations: :invitation,
-        classrooms_teachers: :user,
+        classrooms_teachers: :user
       )
       .order(has_classroom_order ? 'classrooms_teachers.order' : 'created_at DESC')
 
