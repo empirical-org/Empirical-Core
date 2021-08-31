@@ -82,12 +82,21 @@
       display: none;
     }
   }
-}
-
-@media only screen and (max-width: 500px) {
   .related-activity-packs {
     .small-screen-unit-template-container {
         padding: 0px !important;
     }
+  }
+  .filter-options {
+    flex-direction: column;
+    .dropdown-container {
+      width: 100% !important;
+    }
+    .dropdown-container:first-of-type {
+      margin-bottom: 24px;
+    }
+  }
+  .unit-template-minis {
+    justify-content: center !important;
   }
 }
