@@ -41,9 +41,7 @@ describe('CreateStudentAccounts component', () => {
   })
 
   describe('after adding a student', () => {
-    const wrapper = mount(
-      <CreateStudentAccounts classroom={classroom} next={() => {}} />
-    );
+    const wrapper = mount(<CreateStudentAccounts classroom={classroom} next={() => {}} />, { attachTo: document.body });
 
     wrapper.setState({ firstName: 'Hello', lastName: 'Kid', students: [{ name: 'Happy Kid', password: 'Kid', username: 'happy.kid@happy-day'}] })
     wrapper.instance().addStudent({ preventDefault() {} })
@@ -57,7 +55,9 @@ describe('CreateStudentAccounts component', () => {
     })
 
     it('should focus on the first name input box', () => {
-      expect(wrapper.find('input#first-name').is(':focus')).toBe(true)
+      const focusedElement = document.activeElement;
+      const inputNode = wrapper.find('input#first-name').getDOMNode();
+      expect(focusedElement).toBe(inputNode);
       expect(wrapper.find('.input-container.last-name').hasClass('active')).toBe(false)
     })
 

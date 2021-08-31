@@ -171,27 +171,6 @@ describe.skip('ManageUnits component', () => {
     expect(wrapper.instance().parseUnits.mock.calls[0][0]).toEqual(arbitraryData);
   });
 
-  // skip for now because parseUnits isn't tested and this relies on
-  // our data being transformed by parseunits
-  describe.skip('hideUnit', () => {
-    const UNIT_ID_TO_HIDE = 42;
-    const wrapper = shallow(<ManageUnits />);
-    wrapper.setState({ units: mockUnits });
-    wrapper.instance().hideUnit(UNIT_ID_TO_HIDE);
-
-    it('updates state appropriately', () => {
-      expect(wrapper.state().units).toEqual(
-        mockUnits.filter(u => u.unit_id !== UNIT_ID_TO_HIDE)
-      );
-    });
-
-    it('calls the correct API endpoint with authenticity_token', () => {
-      expect(request.put).toHaveBeenCalled();
-      expect(request.put.mock.calls[0][0]).toEqual(`${process.env.DEFAULT_URL}/teachers/units/${UNIT_ID_TO_HIDE}/hide`);
-      // TODO: test JSON w/ auth token
-    });
-  });
-
   describe('hideClassroomActivity', () => {
     it('sets state to reflect removed classroomActivity', () => {
 

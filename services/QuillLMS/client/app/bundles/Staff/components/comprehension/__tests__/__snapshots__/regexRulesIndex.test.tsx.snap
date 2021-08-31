@@ -97,11 +97,11 @@ exports[`RegexRulesIndex component should render RegexRulesIndex 1`] = `
               className="regex-text-container"
             />,
             "so_prompt": undefined,
-            "view": <ForwardRef
+            "view": <Link
               to="/activities/1/regex-rules/1"
             >
               View
-            </ForwardRef>,
+            </Link>,
           },
           Object {
             "because_prompt": undefined,
@@ -116,11 +116,11 @@ exports[`RegexRulesIndex component should render RegexRulesIndex 1`] = `
               className="regex-text-container"
             />,
             "so_prompt": undefined,
-            "view": <ForwardRef
+            "view": <Link
               to="/activities/1/regex-rules/2"
             >
               View
-            </ForwardRef>,
+            </Link>,
           },
         ]
       }
@@ -211,11 +211,11 @@ exports[`RegexRulesIndex component should render RegexRulesIndex 1`] = `
               className="regex-text-container"
             />,
             "so_prompt": undefined,
-            "view": <ForwardRef
+            "view": <Link
               to="/activities/1/regex-rules/1"
             >
               View
-            </ForwardRef>,
+            </Link>,
           },
           Object {
             "because_prompt": undefined,
@@ -230,11 +230,11 @@ exports[`RegexRulesIndex component should render RegexRulesIndex 1`] = `
               className="regex-text-container"
             />,
             "so_prompt": undefined,
-            "view": <ForwardRef
+            "view": <Link
               to="/activities/1/regex-rules/2"
             >
               View
-            </ForwardRef>,
+            </Link>,
           },
         ]
       }
@@ -325,11 +325,11 @@ exports[`RegexRulesIndex component should render RegexRulesIndex 1`] = `
               className="regex-text-container"
             />,
             "so_prompt": undefined,
-            "view": <ForwardRef
+            "view": <Link
               to="/activities/1/regex-rules/1"
             >
               View
-            </ForwardRef>,
+            </Link>,
           },
           Object {
             "because_prompt": undefined,
@@ -344,11 +344,11 @@ exports[`RegexRulesIndex component should render RegexRulesIndex 1`] = `
               className="regex-text-container"
             />,
             "so_prompt": undefined,
-            "view": <ForwardRef
+            "view": <Link
               to="/activities/1/regex-rules/2"
             >
               View
-            </ForwardRef>,
+            </Link>,
           },
         ]
       }

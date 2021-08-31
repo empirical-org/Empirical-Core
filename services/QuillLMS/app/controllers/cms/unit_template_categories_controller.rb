@@ -1,5 +1,5 @@
 class Cms::UnitTemplateCategoriesController < Cms::CmsController
-  before_action :set_unit_template_category, only: [:update, :destroy]
+  before_action :set_unit_template_category, only: [:edit, :update, :destroy]
 
   def index
     @unit_template_categories = UnitTemplateCategory.all
@@ -9,6 +9,9 @@ class Cms::UnitTemplateCategoriesController < Cms::CmsController
         render json: @unit_template_categories
       end
     end
+  end
+
+  def edit
   end
 
   def create

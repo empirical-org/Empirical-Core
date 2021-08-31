@@ -46,7 +46,7 @@ exports[`LabelsTable component should render LabelsTable 1`] = `
         Object {
           "automl_label": "label_1",
           "descriptive_label": "rule_1",
-          "edit": <ForwardRef
+          "edit": <Link
             className="data-link"
             to={
               Object {
@@ -68,7 +68,7 @@ exports[`LabelsTable component should render LabelsTable 1`] = `
             }
           >
             View
-          </ForwardRef>,
+          </Link>,
           "id": 1,
           "optimal": <img
             alt="quill-circle-checkmark"
@@ -83,7 +83,7 @@ exports[`LabelsTable component should render LabelsTable 1`] = `
         Object {
           "automl_label": "label_2",
           "descriptive_label": "rule_2",
-          "edit": <ForwardRef
+          "edit": <Link
             className="data-link"
             to={
               Object {
@@ -105,7 +105,7 @@ exports[`LabelsTable component should render LabelsTable 1`] = `
             }
           >
             View
-          </ForwardRef>,
+          </Link>,
           "id": 2,
           "optimal": <img
             alt="quill-circle-checkmark"
