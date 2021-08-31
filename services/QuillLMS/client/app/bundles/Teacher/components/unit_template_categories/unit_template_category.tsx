@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import _ from 'underscore'
 
 import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx'
