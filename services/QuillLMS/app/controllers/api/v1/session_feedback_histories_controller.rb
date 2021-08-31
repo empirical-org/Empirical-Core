@@ -3,7 +3,7 @@ class Api::V1::SessionFeedbackHistoriesController < Api::ApiController
   def index
     options = params.permit(:page, :activity_id, :start_date, :end_date, :turk_session_id, :filter_type).to_h.symbolize_keys
     records = FeedbackHistory.list_by_activity_session(**options)
-    count = FeedbackHistory.select(:feedback_session_uid).distinct.count
+    count = FeedbackHistory.get_total_count(**options)
 
     render json: {
       total_pages: (count / FeedbackHistory::DEFAULT_PAGE_SIZE.to_f).ceil,
