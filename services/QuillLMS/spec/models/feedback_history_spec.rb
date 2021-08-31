@@ -369,6 +369,14 @@ RSpec.describe FeedbackHistory, type: :model do
       end
     end
 
+    context '#get_total_count' do
+      it 'return the total count of activity sessions' do
+        expect(FeedbackHistory.get_total_count).to eq(2)
+        expect(FeedbackHistory.get_total_count(activity_id: @activity1.id)).to eq(1)
+        expect(FeedbackHistory.get_total_count(start_date: Time.now)).to eq(0)
+      end
+    end
+
     context '#serialize_list_by_activity_session' do
       it 'should take the query from #list_by_activity_session and return a shaped payload' do
         responses = FeedbackHistory.list_by_activity_session
