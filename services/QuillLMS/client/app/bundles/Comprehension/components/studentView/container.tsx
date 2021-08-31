@@ -64,7 +64,7 @@ interface StudentViewContainerState {
   isIdle: boolean;
   showFocusState: boolean;
   startTime: number;
-  timeTracking: { [key:number]: number };
+  timeTracking: { [key:string]: number };
   studentHighlights: string[];
   doneHighlighting: boolean;
   showReadTheDirectionsModal: boolean;
@@ -73,6 +73,7 @@ interface StudentViewContainerState {
   hasStartedPromptSteps: boolean;
 }
 
+const ONBOARDING = 'onboarding'
 const READ_PASSAGE_STEP = 1
 const ALL_STEPS = [READ_PASSAGE_STEP, 2, 3, 4]
 const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
@@ -105,6 +106,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       hasStartedPromptSteps: shouldSkipToPrompts,
       doneHighlighting: shouldSkipToPrompts,
       timeTracking: {
+        [ONBOARDING]: 0,
         1: 0,
         2: 0,
         3: 0,
@@ -211,9 +213,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   resetTimers = (e=null) => {
     const now = Date.now()
     this.setState((prevState, props) => {
-      const { activeStep, startTime, timeTracking, isIdle, inactivityTimer, completedSteps, } = prevState
+      const { activeStep, startTime, timeTracking, isIdle, inactivityTimer, completedSteps, explanationSlidesCompleted, hasStartedPromptSteps, } = prevState
       if (completedSteps.includes(activeStep)) { return } // don't want to add time if a user is revisiting a previously completed step
-      if (this.outOfAttemptsForActivePrompt()) { return }// or if they are finished submitting responses for the current active step
+      if (this.outOfAttemptsForActivePrompt()) { return } // or if they are finished submitting responses for the current active step
+      if (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps) { return } // or if they are between the read passage step and starting the prompts
 
       if (inactivityTimer) { clearTimeout(inactivityTimer) }
 
@@ -221,7 +224,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       if (isIdle) {
         elapsedTime = 0
       }
-      const newTimeTracking = {...timeTracking, [activeStep]: timeTracking[activeStep] + elapsedTime}
+
+      const activeStepKey = explanationSlidesCompleted ? activeStep : ONBOARDING
+      const newTimeTracking = {...timeTracking, [activeStepKey]: timeTracking[activeStepKey] + elapsedTime}
       const newInactivityTimer = setTimeout(this.setIdle, 30000);  // time is in milliseconds (1000 is 1 second)
 
       return { timeTracking: newTimeTracking, isIdle: false, inactivityTimer: newInactivityTimer, startTime: now, }
@@ -251,6 +256,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const conceptResults = generateConceptResults(currentActivity, submittedResponses)
     const data = {
       time_tracking: {
+        onboarding: roundMillisecondsToSeconds(timeTracking[ONBOARDING]),
         reading: roundMillisecondsToSeconds(timeTracking[READ_PASSAGE_STEP]),
         because: roundMillisecondsToSeconds(timeTracking[2]),
         but: roundMillisecondsToSeconds(timeTracking[3]),
