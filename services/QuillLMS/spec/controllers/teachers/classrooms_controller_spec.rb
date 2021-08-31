@@ -171,8 +171,7 @@ describe Teachers::ClassroomsController, type: :controller do
     context 'when current user has classrooms i teach' do
 
       it 'should return classrooms in order of creation date' do
-        request.accept = "application/json"
-        get :index
+        get :index, as: :json
 
         parsed_response = JSON.parse(response.body)
 
@@ -221,8 +220,7 @@ describe Teachers::ClassroomsController, type: :controller do
           ct1.order = 1
           ct1.save!
 
-          request.accept = "application/json"
-          get :index
+          get :index, as: :json
 
           parsed_response = JSON.parse(response.body)
           expect(parsed_response["classrooms"][0]["id"]).to eq(classroom3.id)
@@ -241,8 +239,7 @@ describe Teachers::ClassroomsController, type: :controller do
           ct3.order = 2
           ct3.save!
 
-          request.accept = "application/json"
-          get :index
+          get :index, as: :json
 
           parsed_response = JSON.parse(response.body)
           expect(parsed_response["classrooms"][0]["id"]).to eq(classroom2.id)
