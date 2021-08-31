@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import _ from 'underscore'
 
 import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx'
@@ -75,8 +75,8 @@ export default class UnitTemplateCategory extends React.Component<UnitTemplateCa
 
   handleSave = () => {
     const { modules, model, savingKeys } = this.state
-    var data = _.pick(model, savingKeys);
-    var options = {
+    const data = _.pick(model, savingKeys);
+    const options = {
       savingKeys: savingKeys
     }
     modules.server.save(data, options);
