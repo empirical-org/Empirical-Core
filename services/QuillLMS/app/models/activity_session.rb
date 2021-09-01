@@ -89,6 +89,14 @@ class ActivitySession < ApplicationRecord
     joins(classroom_unit: {classroom: :teachers})
     .where(users: { id: teacher_id})
   }
+  scope :averages_for_user_ids, lambda {|user_ids|
+    select('user_id, AVG(percentage) as avg')
+    .joins(activity: :classification)
+    .where.not(activity_classifications: {key: ActivityClassification::UNSCORED_KEYS})
+    .where(user_id: user_ids)
+    .group(:user_id)
+  }
+
   # scope :started_or_better, -> { where("state != 'unstarted'") }
   #
   # scope :current_session, -> {
@@ -119,6 +127,13 @@ class ActivitySession < ApplicationRecord
 
   def self.with_best_scores
     where(is_final_score: true)
+  end
+
+  # returns {user_id: average}
+  def self.average_scores_by_student(user_ids)
+    averages_for_user_ids(user_ids)
+    .map{|as| [as['user_id'], (as['avg'].to_f * 100).to_i]}
+    .to_h
   end
 
   def timespent
