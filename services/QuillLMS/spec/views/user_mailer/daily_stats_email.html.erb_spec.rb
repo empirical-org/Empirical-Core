@@ -25,6 +25,6 @@ describe "user_mailer/daily_stats_email.html.erb", type: :view do
 
     render
 
-    rendered.should match("nps")
+    expect(rendered).to match("nps")
   end
 end
