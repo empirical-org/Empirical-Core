@@ -114,6 +114,7 @@ module PublicProgressReports
         unit_id: unit_id
       )
       activity = Activity.find_by_id_or_uid(activity_id)
+      classification_key = activity.classification.key
       unit_activity = UnitActivity.find_by(unit_id: unit_id, activity: activity)
       state = ClassroomUnitActivityState.find_by(
         unit_activity: unit_activity,
@@ -131,15 +132,16 @@ module PublicProgressReports
 
       students = User.includes(:students_classrooms).where(id: classroom_unit.assigned_student_ids)
 
-      finished_sessions = ActivitySession
-        .select("DISTINCT ON (user_id) user_id, *")
+      # Use DISTINCT ON to only pull one session per user
+      final_sessions_by_user = ActivitySession
+        .select("DISTINCT ON (activity_sessions.user_id) user_id, activity_sessions.*")
         .includes(concept_results: :concept)
         .where(
           user_id: students.map(&:id),
           is_final_score: true,
           classroom_unit_id: classroom_unit.id,
           activity_id: activity_id)
-        .order('user_id')
+        .order('activity_sessions.user_id')
         .group_by(&:user_id)
 
       average_scores = ActivitySession.average_scores_by_student(students.map(&:id))
@@ -147,9 +149,10 @@ module PublicProgressReports
       students.each do |student|
         next if !student.students_classrooms.map(&:classroom_id).include?(classroom.id)
 
-        finished_session = finished_sessions[student.id]&.first
+        finished_session = final_sessions_by_user[student.id]&.first
         if finished_session.present?
-          scores[:students].push(formatted_score_obj(finished_session, activity, student, average_scores[student.id]))
+          score_obj = formatted_score_obj(finished_session, classification_key, student, average_scores[student.id])
+          scores[:students].push(score_obj)
           next
         end
 
@@ -167,25 +170,24 @@ module PublicProgressReports
       :not_completed_names
     end
 
-    def formatted_score_obj(final_activity_session, activity, student, average_score_on_quill)
-      formatted_concept_results = get_concept_results(final_activity_session)
-      activity_classification_key = ActivityClassification.find(activity.activity_classification_id).key
-      if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(activity_classification_key)
+    def formatted_score_obj(final_activity_session, classification_key, student, average_score_on_quill)
+      formatted_concept_results = format_concept_results(final_activity_session.concept_results)
+      if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification_key)
         score = get_average_score(formatted_concept_results)
-      elsif [ActivityClassification::EVIDENCE_KEY].include?(activity_classification_key)
+      elsif [ActivityClassification::EVIDENCE_KEY].include?(classification_key)
         score = nil
       else
         score = (final_activity_session.percentage * 100).round
       end
       {
-        activity_classification: activity_classification_key,
+        activity_classification: classification_key,
         id: student.id,
         name: student.name,
         time: get_time_in_minutes(final_activity_session),
         number_of_questions: formatted_concept_results.length,
         concept_results: formatted_concept_results,
         score: score,
-        average_score_on_quill: average_score_on_quill || 0.0
+        average_score_on_quill: average_score_on_quill || 0
       }
     end
 
@@ -197,8 +199,8 @@ module PublicProgressReports
       time > 60 ? '> 60' : time
     end
 
-    def get_concept_results(activity_session)
-      activity_session.concept_results.group_by{|cr| cr[:metadata]["questionNumber"]}.map { |key, cr|
+    def format_concept_results(concept_results)
+      concept_results.group_by{|cr| cr[:metadata]["questionNumber"]}.map { |key, cr|
         # if we don't sort them, we can't rely on the first result being the first attemptNum
         # however, it would be more efficient to make them a hash with attempt numbers as keys
         cr.sort!{|x,y| (x[:metadata]['attemptNumber'] || 0) <=> (y[:metadata]['attemptNumber'] || 0)}

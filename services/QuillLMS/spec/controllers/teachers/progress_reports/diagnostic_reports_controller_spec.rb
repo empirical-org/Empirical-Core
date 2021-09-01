@@ -52,7 +52,6 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
       end
 
       it 'should return report data for students and not_completed_name' do
-        Rails.logger.info "\n\n\n***********START TEST********\n\n\n"
         get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
 
         expect(response).to be_success
@@ -97,20 +96,23 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         end
       end
 
-      context 'with graded activities' do
+      context 'with multiple graded and non-graded activities' do
         before do
           create(:grammar_activity_session, :finished, user: student1, percentage: 0.60)
           create(:grammar_activity_session, :finished, user: student1, percentage: 0.50)
+
+          create(:activity_session, :finished, user: student2, activity: activity, classroom_unit: cu)
+          create(:activity_session, :finished, user: student3, activity: activity, classroom_unit: cu)
         end
 
-        it 'should return average score' do
+        it 'should return all 3 records and average score' do
           get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
 
           expect(response).to be_success
 
           json = JSON.parse(response.body)
 
-          expect(json['students'].count).to eq(1)
+          expect(json['students'].count).to eq(3)
           expect(json['students'].first['average_score_on_quill']).to eq(55)
         end
       end
