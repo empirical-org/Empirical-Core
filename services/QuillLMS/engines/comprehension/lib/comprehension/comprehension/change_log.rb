@@ -23,7 +23,6 @@ module Comprehension
     end
 
     def log_creation
-      @logged_creation = true
       if attributes.key?('text')
         log_change(@lms_user_id, :create, self, "text", nil, text)
       else
@@ -33,7 +32,7 @@ module Comprehension
 
     def log_update
       # certain callbacks cause log_update to be called on creation, so we want to return early when a record has just been created
-      return if @logged_creation
+      return unless id_before_last_save 
 
       if !attributes.key?('text')
         saved_changes.except("updated_at".to_sym).each do |key, value|
