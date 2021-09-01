@@ -241,7 +241,7 @@ class FeedbackHistory < ApplicationRecord
     query
   end
 
-  def self.get_total_count(activity_id: nil, page: 1, start_date: nil, end_date: nil, turk_session_id: nil)
+  def self.get_total_count(activity_id: nil, start_date: nil, end_date: nil, turk_session_id: nil)
     query = FeedbackHistory.select(:feedback_session_uid)
       .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
       .group(:feedback_session_uid, :activity_id)
