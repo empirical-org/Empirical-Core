@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20210816195955) do
     t.index ["user_id"], name: "index_change_logs_on_user_id"
   end
 
-  create_table "evidence_activities", id: :serial, force: :cascade do |t|
+  create_table "comprehension_activities", id: :serial, force: :cascade do |t|
     t.string "title", limit: 100
     t.integer "parent_activity_id"
     t.integer "target_level", limit: 2
@@ -48,10 +48,10 @@ ActiveRecord::Schema.define(version: 20210816195955) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "notes"
-    t.index ["parent_activity_id"], name: "index_evidence_activities_on_parent_activity_id"
+    t.index ["parent_activity_id"], name: "index_comprehension_activities_on_parent_activity_id"
   end
 
-  create_table "evidence_automl_models", id: :serial, force: :cascade do |t|
+  create_table "comprehension_automl_models", id: :serial, force: :cascade do |t|
     t.string "automl_model_id", null: false
     t.string "name", null: false
     t.string "labels", default: [], array: true
@@ -62,17 +62,17 @@ ActiveRecord::Schema.define(version: 20210816195955) do
     t.text "notes", default: ""
   end
 
-  create_table "evidence_feedbacks", id: :serial, force: :cascade do |t|
+  create_table "comprehension_feedbacks", id: :serial, force: :cascade do |t|
     t.integer "rule_id", null: false
     t.string "text", null: false
     t.string "description"
     t.integer "order", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["rule_id", "order"], name: "index_evidence_feedbacks_on_rule_id_and_order", unique: true
+    t.index ["rule_id", "order"], name: "index_comprehension_feedbacks_on_rule_id_and_order", unique: true
   end
 
-  create_table "evidence_highlights", id: :serial, force: :cascade do |t|
+  create_table "comprehension_highlights", id: :serial, force: :cascade do |t|
     t.integer "feedback_id", null: false
     t.string "text", null: false
     t.string "highlight_type", null: false
@@ -81,14 +81,14 @@ ActiveRecord::Schema.define(version: 20210816195955) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "evidence_labels", id: :serial, force: :cascade do |t|
+  create_table "comprehension_labels", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.integer "rule_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "evidence_passages", id: :serial, force: :cascade do |t|
+  create_table "comprehension_passages", id: :serial, force: :cascade do |t|
     t.integer "activity_id"
     t.text "text"
     t.datetime "created_at", null: false
@@ -98,18 +98,18 @@ ActiveRecord::Schema.define(version: 20210816195955) do
     t.string "highlight_prompt"
     t.text "image_caption", default: ""
     t.text "image_attribution", default: ""
-    t.index ["activity_id"], name: "index_evidence_passages_on_activity_id"
+    t.index ["activity_id"], name: "index_comprehension_passages_on_activity_id"
   end
 
-  create_table "evidence_plagiarism_texts", id: :serial, force: :cascade do |t|
+  create_table "comprehension_plagiarism_texts", id: :serial, force: :cascade do |t|
     t.integer "rule_id", null: false
     t.string "text", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["rule_id"], name: "index_evidence_plagiarism_texts_on_rule_id", unique: true
+    t.index ["rule_id"], name: "index_comprehension_plagiarism_texts_on_rule_id", unique: true
   end
 
-  create_table "evidence_prompts", id: :serial, force: :cascade do |t|
+  create_table "comprehension_prompts", id: :serial, force: :cascade do |t|
     t.integer "activity_id"
     t.integer "max_attempts", limit: 2
     t.string "conjunction", limit: 20
@@ -117,29 +117,29 @@ ActiveRecord::Schema.define(version: 20210816195955) do
     t.text "max_attempts_feedback"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["activity_id"], name: "index_evidence_prompts_on_activity_id"
+    t.index ["activity_id"], name: "index_comprehension_prompts_on_activity_id"
   end
 
-  create_table "evidence_prompts_rules", id: :serial, force: :cascade do |t|
+  create_table "comprehension_prompts_rules", id: :serial, force: :cascade do |t|
     t.integer "prompt_id", null: false
     t.integer "rule_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["prompt_id", "rule_id"], name: "index_evidence_prompts_rules_on_prompt_id_and_rule_id", unique: true
-    t.index ["rule_id"], name: "index_evidence_prompts_rules_on_rule_id"
+    t.index ["prompt_id", "rule_id"], name: "index_comprehension_prompts_rules_on_prompt_id_and_rule_id", unique: true
+    t.index ["rule_id"], name: "index_comprehension_prompts_rules_on_rule_id"
   end
 
-  create_table "evidence_regex_rules", id: :serial, force: :cascade do |t|
+  create_table "comprehension_regex_rules", id: :serial, force: :cascade do |t|
     t.string "regex_text", limit: 200, null: false
     t.boolean "case_sensitive", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "rule_id"
     t.text "sequence_type", default: "incorrect", null: false
-    t.index ["rule_id"], name: "index_evidence_regex_rules_on_rule_id"
+    t.index ["rule_id"], name: "index_comprehension_regex_rules_on_rule_id"
   end
 
-  create_table "evidence_rules", id: :serial, force: :cascade do |t|
+  create_table "comprehension_rules", id: :serial, force: :cascade do |t|
     t.string "uid", null: false
     t.string "name", null: false
     t.string "note"
@@ -151,35 +151,35 @@ ActiveRecord::Schema.define(version: 20210816195955) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "state", null: false
-    t.index ["uid"], name: "index_evidence_rules_on_uid", unique: true
+    t.index ["uid"], name: "index_comprehension_rules_on_uid", unique: true
   end
 
-  create_table "evidence_turking_round_activity_sessions", id: :serial, force: :cascade do |t|
+  create_table "comprehension_turking_round_activity_sessions", id: :serial, force: :cascade do |t|
     t.integer "turking_round_id"
     t.string "activity_session_uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["activity_session_uid"], name: "evidence_turking_sessions_activity_uid", unique: true
-    t.index ["turking_round_id"], name: "evidence_turking_sessions_turking_id"
+    t.index ["activity_session_uid"], name: "comprehension_turking_sessions_activity_uid", unique: true
+    t.index ["turking_round_id"], name: "comprehension_turking_sessions_turking_id"
   end
 
-  create_table "evidence_turking_rounds", id: :serial, force: :cascade do |t|
+  create_table "comprehension_turking_rounds", id: :serial, force: :cascade do |t|
     t.integer "activity_id"
     t.uuid "uuid"
     t.datetime "expires_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["activity_id"], name: "index_evidence_turking_rounds_on_activity_id"
-    t.index ["uuid"], name: "index_evidence_turking_rounds_on_uuid", unique: true
+    t.index ["activity_id"], name: "index_comprehension_turking_rounds_on_activity_id"
+    t.index ["uuid"], name: "index_comprehension_turking_rounds_on_uuid", unique: true
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "name"
   end
 
-  add_foreign_key "evidence_automl_models", "evidence_prompts", column: "prompt_id"
-  add_foreign_key "evidence_highlights", "evidence_feedbacks", column: "feedback_id", on_delete: :cascade
-  add_foreign_key "evidence_labels", "evidence_rules", column: "rule_id", on_delete: :cascade
-  add_foreign_key "evidence_plagiarism_texts", "evidence_rules", column: "rule_id", on_delete: :cascade
-  add_foreign_key "evidence_regex_rules", "evidence_rules", column: "rule_id", on_delete: :cascade
+  add_foreign_key "comprehension_automl_models", "comprehension_prompts", column: "prompt_id"
+  add_foreign_key "comprehension_highlights", "comprehension_feedbacks", column: "feedback_id", on_delete: :cascade
+  add_foreign_key "comprehension_labels", "comprehension_rules", column: "rule_id", on_delete: :cascade
+  add_foreign_key "comprehension_plagiarism_texts", "comprehension_rules", column: "rule_id", on_delete: :cascade
+  add_foreign_key "comprehension_regex_rules", "comprehension_rules", column: "rule_id", on_delete: :cascade
 end
