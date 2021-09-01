@@ -185,7 +185,7 @@ module PublicProgressReports
         number_of_questions: formatted_concept_results.length,
         concept_results: formatted_concept_results,
         score: score,
-        average_score_on_quill: average_score_on_quill
+        average_score_on_quill: average_score_on_quill || 0.0
       }
     end
 

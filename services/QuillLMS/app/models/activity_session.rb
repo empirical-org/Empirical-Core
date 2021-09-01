@@ -132,7 +132,7 @@ class ActivitySession < ApplicationRecord
   # returns {user_id: average}
   def self.average_scores_by_student(user_ids)
     averages_for_user_ids(user_ids)
-    .map{|as| [as['user_id'], as['avg'].to_f * 100]}
+    .map{|as| [as['user_id'], (as['avg'].to_f * 100).to_i]}
     .to_h
   end
 

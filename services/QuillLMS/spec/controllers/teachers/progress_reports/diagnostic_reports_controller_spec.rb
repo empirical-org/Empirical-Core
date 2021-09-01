@@ -46,11 +46,13 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     end
 
     context 'with activity_sessions' do
-      let!(:activity_session_finished) { create(:activity_session, :finished, user: student1, activity: activity, classroom_unit: cu) }
-      let!(:activity_session_started) { create(:activity_session, :started, user: student2, activity: activity, classroom_unit: cu) }
-
+      before do
+        create(:activity_session, :finished, user: student1, activity: activity, classroom_unit: cu)
+        create(:activity_session, :started, user: student2, activity: activity, classroom_unit: cu)
+      end
 
       it 'should return report data for students and not_completed_name' do
+        Rails.logger.info "\n\n\n***********START TEST********\n\n\n"
         get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
 
         expect(response).to be_success
@@ -62,39 +64,55 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
 
         expect(json['students'].count).to eq(1)
         expect(json['students'].first['id']).to eq(student1.id)
+        expect(json['students'].first['average_score_on_quill']).to eq(0)
 
         expect(json['not_completed_names'].count).to eq(1)
         expect(json['not_completed_names'].first).to eq(student2.name)
 
         expect(json['missed_names']).to be_empty
       end
-    end
 
-    context 'with activity_sessions when ClassroomUnitActivityState completed' do
-      let!(:activity_session_finished) { create(:activity_session, :finished, user: student1, activity: activity, classroom_unit: cu) }
-      let!(:activity_session_started) { create(:activity_session, :started, user: student2, activity: activity, classroom_unit: cu) }
+      context 'when ClassroomUnitActivityState completed' do
+        before do
+          create(:classroom_unit_activity_state, completed: true, classroom_unit: cu, unit_activity: ua)
+        end
 
-      before do
-        create(:classroom_unit_activity_state, completed: true, classroom_unit: cu, unit_activity: ua)
+        it 'should return report data for students and missing_name' do
+          get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
+
+          expect(response).to be_success
+
+          json = JSON.parse(response.body)
+
+          expect(json['id']).to eq(classroom.id)
+          expect(json['name']).to eq(classroom.name)
+
+          expect(json['students'].count).to eq(1)
+          expect(json['students'].first['id']).to eq(student1.id)
+
+          expect(json['not_completed_names']).to be_empty
+
+          expect(json['missed_names'].count).to eq(1)
+          expect(json['missed_names'].first).to eq(student2.name)
+        end
       end
 
-      it 'should return report data for students and missing_name' do
-        get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
+      context 'with graded activities' do
+        before do
+          create(:grammar_activity_session, :finished, user: student1, percentage: 0.60)
+          create(:grammar_activity_session, :finished, user: student1, percentage: 0.50)
+        end
 
-        expect(response).to be_success
+        it 'should return average score' do
+          get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
 
-        json = JSON.parse(response.body)
+          expect(response).to be_success
 
-        expect(json['id']).to eq(classroom.id)
-        expect(json['name']).to eq(classroom.name)
+          json = JSON.parse(response.body)
 
-        expect(json['students'].count).to eq(1)
-        expect(json['students'].first['id']).to eq(student1.id)
-
-        expect(json['not_completed_names']).to be_empty
-
-        expect(json['missed_names'].count).to eq(1)
-        expect(json['missed_names'].first).to eq(student2.name)
+          expect(json['students'].count).to eq(1)
+          expect(json['students'].first['average_score_on_quill']).to eq(55)
+        end
       end
     end
   end
