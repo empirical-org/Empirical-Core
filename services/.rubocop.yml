@@ -323,7 +323,7 @@ Metrics/ModuleLength:
   Exclude:
     - "QuillLMS/app/models/concerns/teacher.rb"
     - "QuillLMS/app/helpers/pages_helper.rb"
-    - "QuillLMS/engines/comprehension/spec/controllers/comprehension/rules_controller_spec.rb"
+    - "QuillLMS/engines/evidence/spec/controllers/evidence/rules_controller_spec.rb"
 
 Style/AsciiComments:
   Enabled: true
