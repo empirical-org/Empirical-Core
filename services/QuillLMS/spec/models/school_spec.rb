@@ -56,6 +56,10 @@ describe School, type: :model do
   let!(:bk_teacher_colleague) { create(:teacher, school: bk_school) }
   let!(:queens_teacher) { create(:teacher, school: queens_school) }
 
+  describe('associations') do
+    it { should have_many(:previous_year_school_data).dependent(:destroy) }
+  end
+
   describe('#subscription') do
       let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
       let!(:school_subscription) {create(:school_subscription, school: bk_school, subscription: subscription)}

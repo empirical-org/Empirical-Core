@@ -48,10 +48,16 @@
 #  username_idx                       (username gin_trgm_ops) USING gin
 #  users_to_tsvector_idx              (to_tsvector('english'::regconfig, (name)::text)) USING gin
 #  users_to_tsvector_idx1             (to_tsvector('english'::regconfig, (email)::text)) USING gin
+#  users_to_tsvector_idx10            (to_tsvector('english'::regconfig, (username)::text)) USING gin
+#  users_to_tsvector_idx11            (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
 #  users_to_tsvector_idx2             (to_tsvector('english'::regconfig, (role)::text)) USING gin
 #  users_to_tsvector_idx3             (to_tsvector('english'::regconfig, (classcode)::text)) USING gin
 #  users_to_tsvector_idx4             (to_tsvector('english'::regconfig, (username)::text)) USING gin
 #  users_to_tsvector_idx5             (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
+#  users_to_tsvector_idx6             (to_tsvector('english'::regconfig, (name)::text)) USING gin
+#  users_to_tsvector_idx7             (to_tsvector('english'::regconfig, (email)::text)) USING gin
+#  users_to_tsvector_idx8             (to_tsvector('english'::regconfig, (role)::text)) USING gin
+#  users_to_tsvector_idx9             (to_tsvector('english'::regconfig, (classcode)::text)) USING gin
 #
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :name, :role, :active, :classcode, :username, :ip_address, :email
