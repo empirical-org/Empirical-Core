@@ -73,7 +73,7 @@ describe('Cms container', () => {
         resourceNameSingular="Pug"
       />
     );
-    wrapper.setState({crudState: 'something absurd', resourceToEdit: {something: 'absurd'}});
+    wrapper.setState({crudState: 'something absurd', resourceToEdit: {something: 'absurd', id: 1}});
 
     it('crudNew should change crudState to new and empty resourceToEdit', () => {
       wrapper.instance().crudNew();
@@ -81,10 +81,11 @@ describe('Cms container', () => {
       expect(Object.keys(wrapper.state().resourceToEdit)).toHaveLength(0);
     });
 
-    it('edit should change crudState to edit and update resourceToEdit', () => {
+    it('edit should open a new window', () => {
+      window.open = jest.fn()
       wrapper.instance().edit({foo: 'bar'});
-      expect(wrapper.state().crudState).toBe('edit');
-      expect(wrapper.state().resourceToEdit.foo).toBe('bar');
+
+      expect(window.open).toHaveBeenCalled()
     });
 
     it('delete should call cmsDestroy and getIndexFromServer', () => {
