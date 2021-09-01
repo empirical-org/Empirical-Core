@@ -45,7 +45,6 @@ class UserActivityClassification < ApplicationRecord
     .to_h
   end
 
-
   def self.count_for(user, activity_classification)
     begin
       transaction(requires_new: true) do
