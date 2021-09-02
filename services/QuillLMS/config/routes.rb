@@ -508,7 +508,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :categories
     get '/concepts/concepts_in_use', to: 'concepts#concepts_in_use', only: [:csv], defaults: { format: 'csv' }
     resources :concepts
-    resources :comprehension, only: [:index]
+    resources :evidence, only: [:index]
     resources :standard_levels, only: [:index, :create, :update]
     resources :standards, only: [:index, :create, :update]
     resources :content_partners, only: [:index, :create, :update]
@@ -516,8 +516,8 @@ EmpiricalGrammar::Application.routes.draw do
     resources :standard_categories, only: [:index, :create, :update]
     resources :authors, only: [:index, :create, :edit, :update, :new]
     put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
-    resources :unit_templates, only: [:index, :create, :update, :destroy]
-    resources :unit_template_categories, only: [:index, :create, :update, :destroy]
+    resources :unit_templates, only: [:index, :create, :edit, :update, :destroy]
+    resources :unit_template_categories, only: [:index, :edit, :create, :update, :destroy]
     put '/blog_posts/update_order_numbers', to: 'blog_posts#update_order_numbers'
     put '/blog_posts/update_featured_order_numbers', to: 'blog_posts#update_featured_order_numbers'
     resources :blog_posts

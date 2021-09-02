@@ -81,8 +81,8 @@ module.exports = {
     staff: [
       './app/bundles/Staff/startup/clientRegistration.js'
     ],
-    comprehension: [
-      './app/bundles/Comprehension/clientRegistration.js'
+    evidence: [
+      './app/bundles/Evidence/clientRegistration.js'
     ],
     proofreader: [
       './app/bundles/Proofreader/clientRegistration'
@@ -101,7 +101,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.mjs', '.js', '.jsx'],
     modules: [
       './node_modules',
       './app'

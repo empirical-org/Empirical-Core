@@ -4,7 +4,10 @@ import { shallow } from 'enzyme';
 import EmptyProgressReport from '../EmptyProgressReport.jsx';
 
 describe('EmptyProgressReport component', () => {
-  window.location.assign = jest.fn();
+  Object.defineProperty(window, 'location', {
+    writable: true,
+    value: { assign: jest.fn() }
+  });
 
   describe('when "activities" is passed as its missing prop', () => {
     const wrapper = shallow(

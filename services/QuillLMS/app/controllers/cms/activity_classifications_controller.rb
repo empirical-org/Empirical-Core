@@ -17,6 +17,10 @@ class Cms::ActivityClassificationsController < Cms::CmsController
     end
   end
 
+  def edit
+    @activity_classification = ActivityClassification.find(params[:id])
+  end
+
   def update
     activity_classification = ActivityClassification.find(params[:id])
     if activity_classification.update_attributes(filtered_activity_classification_params)

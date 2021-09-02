@@ -1,4 +1,4 @@
-<% @active_tab = 'ELA Standards' %>
+<% @active_tab = device == 'mobile' ? 'Standards' : 'ELA Standards' %>
 <%= render partial: 'pages/shared/explore_curriculum_navbar', active_tab: @active_tab  %>
 
 <div class="container pages-activities">

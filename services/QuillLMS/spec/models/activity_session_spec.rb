@@ -159,6 +159,41 @@ describe ActivitySession, type: :model, redis: true do
     end
   end
 
+  describe "self.average_scores_by_student" do
+    let(:student) { create(:student) }
+
+    it 'should return empty hash for no sessions' do
+      averages = ActivitySession.average_scores_by_student(student.id)
+      expect(averages).to be_empty
+      expect(averages.class).to be Hash
+    end
+
+    context 'with non-graded sessions' do
+      before do
+        create(:diagnostic_activity_session, :finished, user: student)
+      end
+
+      it 'should return empty hash for non-graded sessions' do
+        averages = ActivitySession.average_scores_by_student(student.id)
+        expect(averages).to be_empty
+        expect(averages.class).to be Hash
+      end
+    end
+
+    context 'with graded sessions' do
+      before do
+        create(:grammar_activity_session, :finished, user: student, percentage: 0.60)
+        create(:grammar_activity_session, :finished, user: student, percentage: 0.50)
+      end
+
+      it 'should return average of scores' do
+        averages = ActivitySession.average_scores_by_student(student.id)
+
+        expect(averages[student.id]).to eq(55)
+      end
+    end
+  end
+
   describe '#classroom_owner' do
     let(:classroom) { build(:classroom) }
     let(:owner) { build(:teacher) }
