@@ -56,6 +56,7 @@ describe ActivitySession, type: :model, redis: true do
   it { is_expected.to callback(:set_activity_id).before(:save) }
   it { is_expected.to callback(:determine_if_final_score).after(:save) }
   it { is_expected.to callback(:update_milestones).after(:save) }
+  it { is_expected.to callback(:increment_counts).after(:save) }
   it { is_expected.to callback(:invalidate_activity_session_count_if_completed).after(:commit) }
   it { is_expected.to callback(:trigger_events).around(:save) }
 
@@ -808,6 +809,33 @@ end
     it 'mark finished anonymous sessions as final' do
       new_activity_session =  create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.5, is_final_score: false, user: nil, classroom_unit: nil, activity: activity)
       expect(new_activity_session.is_final_score).to eq(true)
+    end
+  end
+
+  describe "#increment_counts" do
+    let(:student) { create(:student) }
+
+    context "finished activities" do
+      before do
+        create(:diagnostic_activity_session, :finished, user: student)
+        create(:diagnostic_activity_session, :finished, user: student)
+        create(:proofreader_activity_session, :finished, user: student)
+      end
+
+      it 'should increment counts' do
+        expect(student.completed_activity_count).to be 3
+      end
+    end
+
+    context "unfinished activities" do
+      before do
+        create(:diagnostic_activity_session, :started, user: student)
+        create(:evidence_activity_session, :started, user: student)
+      end
+
+      it 'should NOT increment counts' do
+        expect(student.completed_activity_count).to be 0
+      end
     end
   end
 
