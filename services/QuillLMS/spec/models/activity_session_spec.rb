@@ -56,6 +56,7 @@ describe ActivitySession, type: :model, redis: true do
   it { is_expected.to callback(:set_activity_id).before(:save) }
   it { is_expected.to callback(:determine_if_final_score).after(:save) }
   it { is_expected.to callback(:update_milestones).after(:save) }
+  it { is_expected.to callback(:increment_counts).after(:save) }
   it { is_expected.to callback(:invalidate_activity_session_count_if_completed).after(:commit) }
   it { is_expected.to callback(:trigger_events).around(:save) }
 
@@ -155,6 +156,41 @@ describe ActivitySession, type: :model, redis: true do
         expect(follow_up_unit_activity.id).to eq(unit_activity.id)
         expect(follow_up_unit_activity.visible).to eq(true)
         expect(unit_activity.classroom_unit_activity_states.first).to be
+      end
+    end
+  end
+
+  describe "self.average_scores_by_student" do
+    let(:student) { create(:student) }
+
+    it 'should return empty hash for no sessions' do
+      averages = ActivitySession.average_scores_by_student(student.id)
+      expect(averages).to be_empty
+      expect(averages.class).to be Hash
+    end
+
+    context 'with non-graded sessions' do
+      before do
+        create(:diagnostic_activity_session, :finished, user: student)
+      end
+
+      it 'should return empty hash for non-graded sessions' do
+        averages = ActivitySession.average_scores_by_student(student.id)
+        expect(averages).to be_empty
+        expect(averages.class).to be Hash
+      end
+    end
+
+    context 'with graded sessions' do
+      before do
+        create(:grammar_activity_session, :finished, user: student, percentage: 0.60)
+        create(:grammar_activity_session, :finished, user: student, percentage: 0.50)
+      end
+
+      it 'should return average of scores' do
+        averages = ActivitySession.average_scores_by_student(student.id)
+
+        expect(averages[student.id]).to eq(55)
       end
     end
   end
@@ -773,6 +809,33 @@ end
     it 'mark finished anonymous sessions as final' do
       new_activity_session =  create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.5, is_final_score: false, user: nil, classroom_unit: nil, activity: activity)
       expect(new_activity_session.is_final_score).to eq(true)
+    end
+  end
+
+  describe "#increment_counts" do
+    let(:student) { create(:student) }
+
+    context "finished activities" do
+      before do
+        create(:diagnostic_activity_session, :finished, user: student)
+        create(:diagnostic_activity_session, :finished, user: student)
+        create(:proofreader_activity_session, :finished, user: student)
+      end
+
+      it 'should increment counts' do
+        expect(student.completed_activity_count).to be 3
+      end
+    end
+
+    context "unfinished activities" do
+      before do
+        create(:diagnostic_activity_session, :started, user: student)
+        create(:evidence_activity_session, :started, user: student)
+      end
+
+      it 'should NOT increment counts' do
+        expect(student.completed_activity_count).to be 0
+      end
     end
   end
 
