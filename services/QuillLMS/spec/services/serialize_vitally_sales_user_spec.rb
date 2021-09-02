@@ -16,10 +16,11 @@ describe 'SerializeVitallySalesUser' do
   let!(:old_unit_activity) { create(:unit_activity, unit: old_unit, created_at: Time.now - 1.year) }
   let!(:student) { create(:user, role: 'student') }
   let!(:old_student) { create(:user, role: 'student') }
+  let!(:year) { Time.now.year }
 
   it 'includes the accountId and userId in the data' do
-    teacher_data = SerializeVitallySalesUser.new(teacher).data
-
+    teacher_data = SerializeVitallySalesUser.create(user: teacher, year: year).data
+    binding.pry
     expect(teacher_data).to include(accountId: teacher.school.id.to_s)
     expect(teacher_data).to include(userId: teacher.id.to_s)
   end
@@ -260,7 +261,7 @@ describe 'SerializeVitallySalesUser' do
       teacher_link: "https://www.quill.org/cms/users/#{teacher.id}/sign_in"
     )
   end
-  
+
   context 'testing private methods' do
     let(:teacher) { create(:teacher, :with_classrooms_students_and_activities) }
     let(:classroom_unit) { [teacher.classroom_units[0]] }

@@ -4097,6 +4097,39 @@ ALTER SEQUENCE public.verification_tokens_id_seq OWNED BY public.verification_to
 
 
 --
+-- Name: vitally_teacher_records; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.vitally_teacher_records (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    year integer NOT NULL,
+    data jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: vitally_teacher_records_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.vitally_teacher_records_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: vitally_teacher_records_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.vitally_teacher_records_id_seq OWNED BY public.vitally_teacher_records.id;
+
+
+--
 -- Name: zipcode_infos; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4890,6 +4923,13 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 
 ALTER TABLE ONLY public.verification_tokens ALTER COLUMN id SET DEFAULT nextval('public.verification_tokens_id_seq'::regclass);
+
+
+--
+-- Name: vitally_teacher_records id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vitally_teacher_records ALTER COLUMN id SET DEFAULT nextval('public.vitally_teacher_records_id_seq'::regclass);
 
 
 --
@@ -5745,6 +5785,14 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.verification_tokens
     ADD CONSTRAINT verification_tokens_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: vitally_teacher_records vitally_teacher_records_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vitally_teacher_records
+    ADD CONSTRAINT vitally_teacher_records_pkey PRIMARY KEY (id);
 
 
 --
@@ -6989,6 +7037,13 @@ CREATE INDEX index_users_on_username ON public.users USING btree (username);
 
 
 --
+-- Name: index_vitally_teacher_records_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_vitally_teacher_records_on_user_id ON public.vitally_teacher_records USING btree (user_id);
+
+
+--
 -- Name: index_zipcode_infos_on_zipcode; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7438,6 +7493,14 @@ ALTER TABLE ONLY public.classroom_unit_activity_states
 
 ALTER TABLE ONLY public.comprehension_plagiarism_texts
     ADD CONSTRAINT fk_rails_bcd03e8630 FOREIGN KEY (rule_id) REFERENCES public.comprehension_rules(id) ON DELETE CASCADE;
+
+
+--
+-- Name: vitally_teacher_records fk_rails_c1a509f353; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vitally_teacher_records
+    ADD CONSTRAINT fk_rails_c1a509f353 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -7978,6 +8041,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210811130155'),
 ('20210816195838'),
 ('20210831164128'),
-('20210831164146');
+('20210831164146'),
+('20210901204120');
 
 
