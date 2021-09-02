@@ -163,6 +163,7 @@ class Teachers::ClassroomsController < ApplicationController
 
   private def format_coteacher_invitations_for_index
     coteacher_invitations = CoteacherClassroomInvitation.includes(invitation: :inviter).joins(:invitation, :classroom).where(invitations: {invitee_email: current_user.email}, classrooms: { visible: true})
+
     coteacher_invitations.map do |coteacher_invitation|
       coteacher_invitation_obj = coteacher_invitation.attributes
       coteacher_invitation_obj[:classroom_name] = Classroom.find(coteacher_invitation.classroom_id)&.name
@@ -174,11 +175,24 @@ class Teachers::ClassroomsController < ApplicationController
 
   private def format_classrooms_for_index
     has_classroom_order = ClassroomsTeacher.where(user_id: current_user.id).all? { |classroom| classroom.order }
-    classrooms = Classroom.unscoped.joins(:classrooms_teachers).where(classrooms_teachers: {user_id: current_user.id})
-    classrooms = has_classroom_order ? classrooms.includes(:classrooms_teachers).order('classrooms_teachers.order') : classrooms.order(created_at: :desc)
+
+    classrooms = Classroom.unscoped
+      .joins(:classrooms_teachers)
+      .where(classrooms_teachers: {user_id: current_user.id})
+      .includes(
+        :students,
+        coteacher_classroom_invitations: :invitation,
+        classrooms_teachers: :user
+      )
+      .order(has_classroom_order ? 'classrooms_teachers.order' : 'created_at DESC')
+
+    student_ids = classrooms.flat_map(&:students).map(&:id)
+
+    activity_counts_by_student = UserActivityClassification.completed_activities_by_student(student_ids)
+
     classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
-      classroom_obj[:students] = format_students_for_classroom(classroom)
+      classroom_obj[:students] = format_students_for_classroom(classroom, activity_counts_by_student)
       classroom_teachers = format_teachers_for_classroom(classroom)
       pending_coteachers = format_pending_coteachers_for_classroom(classroom)
       classroom_obj[:teachers] = classroom_teachers.concat(pending_coteachers)
@@ -186,26 +200,16 @@ class Teachers::ClassroomsController < ApplicationController
     end.compact
   end
 
-  private def format_students_for_classroom(classroom)
-    sorted_students = classroom.students.sort_by { |s| s.last_name }
-    # create a hash of the form {user_id: count}
-    activity_counts_by_student = ActivitySession
-      .select(:user_id, "count(activity_sessions.id) as total")
-      .where(user_id: sorted_students.map(&:id), state: 'finished')
-      .group(:user_id)
-      .map{|r| [r.user_id, r.total]}
-      .to_h
+  private def format_students_for_classroom(classroom, activity_counts)
+    sorted_students = classroom.students.sort_by(&:last_name)
 
     sorted_students.map do |s|
-      student = s.attributes
-      student[:number_of_completed_activities] = activity_counts_by_student[s.id] || 0
-      student
+      s.attributes.merge(number_of_completed_activities: activity_counts[s.id] || 0)
     end
   end
 
   private def format_pending_coteachers_for_classroom(classroom)
-    coteacher_invitations = CoteacherClassroomInvitation.where(classroom_id: classroom.id)
-    coteacher_invitations.map do |cci|
+    classroom.coteacher_classroom_invitations.map do |cci|
       {
         email: cci.invitation.invitee_email,
         classroom_relation: 'coteacher',
