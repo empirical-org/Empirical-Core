@@ -20,8 +20,8 @@
 require 'rails_helper'
 
 RSpec.describe PreviousYearTeacherDatum, type: :model do
-  # it { should belong_to(:user) }
-  # it { should validate_presence_of(:year)}
+  it { should belong_to(:user) }
+  it { should validate_presence_of(:year)}
 
   context '#calculate_data' do
     #TODO: description of what I'm trying to create in this spec.

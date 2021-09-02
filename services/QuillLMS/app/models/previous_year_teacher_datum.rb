@@ -1,4 +1,12 @@
-class PreviousYearTeacherDatum < VitallyTeacherRecord
+class PreviousYearTeacherDatum < ApplicationRecord
+  include VitallyStatsHelper
+
+  DIAGNOSTIC_ID = 4
+
+  belongs_to :user
+  validates :year, presence: true
+
+  after_initialize :calculate_data
 
   def calculate_data
     school_year_start = Date.new(year, 1, 1) + 7.months
@@ -11,7 +19,7 @@ class PreviousYearTeacherDatum < VitallyTeacherRecord
     diagnostics_assigned_this_year = diagnostics_assigned_in_year_count(user, school_year_start, school_year_end)
     diagnostics_finished_this_year = diagnostics_finished(user).where("activity_sessions.completed_at >=? and activity_sessions.completed_at < ?", school_year_start, school_year_end).count
     self.data = {
-      total_students: total_students_in_year(school_year_start, school_year_end),
+      total_students: total_students_in_year(user, school_year_start, school_year_end),
       active_students: active_students,
       activities_assigned: activities_assigned,
       completed_activities: activities_finished,
