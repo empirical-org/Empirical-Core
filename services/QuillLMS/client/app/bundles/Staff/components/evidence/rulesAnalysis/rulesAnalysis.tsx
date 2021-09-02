@@ -7,8 +7,8 @@ import qs from 'qs';
 import _ from 'lodash';
 import DateTimePicker from 'react-datetime-picker';
 
-import { handlePageFilterClick, renderHeader } from "../../../helpers/comprehension";
-import { calculatePercentageForResponses } from "../../../helpers/comprehension/ruleHelpers";
+import { handlePageFilterClick, renderHeader } from "../../../helpers/evidence";
+import { calculatePercentageForResponses } from "../../../helpers/evidence/ruleHelpers";
 import { ActivityRouteProps, PromptInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchRuleFeedbackHistories } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
