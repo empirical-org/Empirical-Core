@@ -41,6 +41,6 @@ RSpec.describe ProviderClassroomUser, type: :model do
        )
     end
 
-    it { expect(provider_classroom_user.dup.save!).to raise_error ActiveRecord::RecordNotUnique }
+    it { expect { provider_classroom_user.dup.save!}.to raise_error ActiveRecord::RecordNotUnique }
   end
 end
