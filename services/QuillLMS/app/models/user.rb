@@ -159,6 +159,8 @@ class User < ApplicationRecord
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
+  GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
+
   scope :teacher, -> { where(role: TEACHER) }
   scope :student, -> { where(role: STUDENT) }
 
