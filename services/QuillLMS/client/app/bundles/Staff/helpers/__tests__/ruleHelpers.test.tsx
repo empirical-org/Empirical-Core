@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { mockRule } from '../../components/comprehension/__mocks__/data';
-import { getRefetchQueryString, calculatePercentageForResponses } from '../comprehension/ruleHelpers';
-import { RULES_BASED_1, RULES_BASED_2, RULES_BASED_3, PLAGIARISM, AUTO_ML } from '../../../../constants/comprehension';
+import { mockRule } from '../../components/evidence/__mocks__/data';
+import { getRefetchQueryString, calculatePercentageForResponses } from '../evidence/ruleHelpers';
+import { RULES_BASED_1, RULES_BASED_2, RULES_BASED_3, PLAGIARISM, AUTO_ML } from '../../../../constants/evidence';
 
-describe('Comprehension rule helper functions', () => {
+describe('Evidence rule helper functions', () => {
 
   describe('#getRefetchQueryString', () => {
     const mockRulesHash = {

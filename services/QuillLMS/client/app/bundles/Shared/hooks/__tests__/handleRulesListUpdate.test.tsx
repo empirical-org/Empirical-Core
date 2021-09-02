@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react-hooks";
 
-import handleRulesListUpdate from "../comprehension/handleRulesListUpdate";
+import handleRulesListUpdate from "../evidence/handleRulesListUpdate";
 
 describe("handleRulesListUpdate tests", () => {
   const handleUpdateRulesList = jest.fn();
