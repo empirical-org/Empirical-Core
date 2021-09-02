@@ -56,7 +56,7 @@ exports[`SemanticRulesCheatSheet component should render SemanticRulesCheatSheet
     rows={
       Array [
         Object {
-          "edit": <ForwardRef
+          "edit": <Link
             className="quill-button fun contained primary"
             rel="noopener noreferrer"
             target="_blank"
@@ -79,7 +79,7 @@ exports[`SemanticRulesCheatSheet component should render SemanticRulesCheatSheet
             }
           >
             Edit Rule
-          </ForwardRef>,
+          </Link>,
           "firstLayerFeedback": <div
             dangerouslySetInnerHTML={
               Object {
@@ -104,7 +104,7 @@ exports[`SemanticRulesCheatSheet component should render SemanticRulesCheatSheet
           />,
         },
         Object {
-          "edit": <ForwardRef
+          "edit": <Link
             className="quill-button fun contained primary"
             rel="noopener noreferrer"
             target="_blank"
@@ -127,7 +127,7 @@ exports[`SemanticRulesCheatSheet component should render SemanticRulesCheatSheet
             }
           >
             Edit Rule
-          </ForwardRef>,
+          </Link>,
           "firstLayerFeedback": <div
             dangerouslySetInnerHTML={
               Object {

@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnitTemplateCategory component UnitTemplateCategory container should render a UnitTemplateCategory component 1`] = `
+<UnitTemplateCategory
+  unitTemplateCategory={
+    Object {
+      "name": "unit template category name",
+      "primary_color": "red",
+      "secondary_color": "white",
+    }
+  }
+>
+  <div
+    className="edit_activity_classification cms-form"
+  >
+    <TextInput
+      default="unit template category name"
+      errors={Array []}
+      key="name"
+      name="name"
+      update={[Function]}
+    >
+      <div
+        className="row text-input-row"
+      >
+        <div
+          className="col-xs-12"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-xs-12"
+            >
+              <div
+                className="form-label"
+              >
+                 Name
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-xs-8"
+            >
+              <input
+                defaultValue="unit template category name"
+                id="name"
+                onChange={[Function]}
+                placeholder=" Name"
+                type={null}
+              />
+            </div>
+            <div
+              className="col-xs-4 error"
+            />
+          </div>
+        </div>
+      </div>
+    </TextInput>
+    <TextInput
+      default="red"
+      errors={Array []}
+      key="primary_color"
+      label="primary color"
+      name="primary_color"
+      update={[Function]}
+    >
+      <div
+        className="row text-input-row"
+      >
+        <div
+          className="col-xs-12"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-xs-12"
+            >
+              <div
+                className="form-label"
+              >
+                primary color
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-xs-8"
+            >
+              <input
+                defaultValue="red"
+                id="primary_color"
+                onChange={[Function]}
+                placeholder="primary color"
+                type={null}
+              />
+            </div>
+            <div
+              className="col-xs-4 error"
+            />
+          </div>
+        </div>
+      </div>
+    </TextInput>
+    <TextInput
+      default="white"
+      errors={Array []}
+      key="secondary_color"
+      label="secondary color"
+      name="secondary_color"
+      update={[Function]}
+    >
+      <div
+        className="row text-input-row"
+      >
+        <div
+          className="col-xs-12"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-xs-12"
+            >
+              <div
+                className="form-label"
+              >
+                secondary color
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-xs-8"
+            >
+              <input
+                defaultValue="white"
+                id="secondary_color"
+                onChange={[Function]}
+                placeholder="secondary color"
+                type={null}
+              />
+            </div>
+            <div
+              className="col-xs-4 error"
+            />
+          </div>
+        </div>
+      </div>
+    </TextInput>
+    <button
+      className="button-green pull-right"
+      id="continue"
+      onClick={[Function]}
+      type="button"
+    >
+      Save
+    </button>
+  </div>
+</UnitTemplateCategory>
+`;
