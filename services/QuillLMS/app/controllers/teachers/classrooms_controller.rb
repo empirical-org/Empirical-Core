@@ -188,13 +188,7 @@ class Teachers::ClassroomsController < ApplicationController
 
     student_ids = classrooms.flat_map(&:students).map(&:id)
 
-    # create a hash of the form {user_id: count}
-    activity_counts_by_student = ActivitySession
-      .select(:user_id, "count(activity_sessions.id) as total")
-      .where(user_id: student_ids, state: 'finished')
-      .group(:user_id)
-      .map{|r| [r.user_id, r.total]}
-      .to_h
+    activity_counts_by_student = UserActivityClassification.completed_activities_by_student(student_ids)
 
     classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
