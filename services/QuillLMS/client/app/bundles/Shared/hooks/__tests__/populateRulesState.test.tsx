@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react-hooks";
 
-import populateRulesState from "../comprehension/populateRulesState";
+import populateRulesState from "../evidence/populateRulesState";
 
 describe("populateRulesState tests", () => {
   const setRulesHashAndList = jest.fn();

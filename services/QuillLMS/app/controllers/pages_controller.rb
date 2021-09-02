@@ -469,7 +469,7 @@ class PagesController < ApplicationController
 
   def evidence
     allow_iframe
-    @style_file = ApplicationController::COMPREHENSION
+    @style_file = ApplicationController::EVIDENCE
   end
 
   def proofreader
@@ -521,7 +521,7 @@ class PagesController < ApplicationController
     when 'backpack'
       @js_file = 'staff'
     when ApplicationController::EVIDENCE
-      @js_file = ApplicationController::COMPREHENSION
+      @js_file = ApplicationController::EVIDENCE
     when ApplicationController::PROOFREADER
       @js_file = ApplicationController::PROOFREADER
     when ApplicationController::GRAMMAR
