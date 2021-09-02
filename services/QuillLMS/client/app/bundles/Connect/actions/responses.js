@@ -322,6 +322,7 @@ export function submitOptimalResponses(qid, conceptUID, responses, concepts) {
         optimal: true,
         questionUID: qid,
         conceptResults: _.isEmpty(obj.concepts) ? defaultConcept : obj.concepts,
+        parent_id: null,
       }
       dispatch(uploadOptimalResponse(response))
     })
