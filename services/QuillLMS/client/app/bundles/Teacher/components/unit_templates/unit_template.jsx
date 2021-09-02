@@ -121,7 +121,7 @@ export default createReactClass({
       // {name: 'related_unit_templates', idName: 'related_unit_template_ids'}
     ];
 
-    this.modules.server.save(model, { callback: (() => { window.location.href = `${process.env.DEFAULT_URL}/cms/unit_templates` }), fieldsToNormalize ,});
+    this.modules.server.save(model, { fieldsToNormalize ,});
   },
 
   toggleActivitySelection(activity) {
@@ -233,7 +233,7 @@ export default createReactClass({
   getErrorMessageAndButton() {
     return (<div className="error-message-and-button">
       <div className={this.determineErrorMessageClass()}>{this.determineErrorMessage()}</div>
-      <button className={this.determineContinueButtonClass()} id="continue" onClick={this.save}>Continue</button>
+      <button className={this.determineContinueButtonClass()} id="continue" onClick={this.save}>Save</button>
     </div>);
   },
 
@@ -242,7 +242,6 @@ export default createReactClass({
     inputs = this.modules.textInputGenerator.generate(this.formFields);
     return (
       <span id="unit-template-editor">
-        <span onClick={this.props.returnToIndex}>Back to List of Activity Packs</span>
         <span>
           {inputs}
           {this.determineMarkdownParser()}

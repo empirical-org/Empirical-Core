@@ -27,7 +27,7 @@ module.exports = {
     path: output.path,
   },
   resolve: {
-    extensions: ['.tx', '.txs', '.js', '.jsx'],
+    extensions: ['.tx', '.txs', '.mjs', '.js', '.jsx'],
     alias: {
       libs: path.join(process.cwd(), 'app', 'libs'),
     },

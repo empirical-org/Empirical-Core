@@ -2,20 +2,25 @@ import React from 'react'
 import _ from 'underscore'
 import _l from 'lodash'
 import { Link } from 'react-router-dom'
-import { DropdownInput } from '../../../../Shared/index'
 
 import UnitTemplateMini from './unit_template_mini'
+
 import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
+import { DropdownInput } from '../../../../Shared/index'
 
 export default class UnitTemplateMinis extends React.Component {
+  state =  { onMobile: window.innerWidth < 770 }
   getIndexLink() {
-    return this.props.signedInTeacher ? '/assign/featured-activity-packs' : '/activities/packs'
+    const { signedInTeacher } = this.props;
+    return signedInTeacher ? '/assign/featured-activity-packs' : '/activities/packs'
   }
 
   //adds a final model, which is simply flagged as a createYourOwn one via the key
   addCreateYourOwnModel(models) {
+    const { data } = this.props;
+    const { non_authenticated } = data;
     if (models && models.length) {
-      models.push({id: 'createYourOwn', non_authenticated: this.props.data.non_authenticated});
+      models.push({id: 'createYourOwn', non_authenticated: non_authenticated});
     }
     return _l.uniqBy(models, 'id');
   }
@@ -86,7 +91,38 @@ export default class UnitTemplateMinis extends React.Component {
     return !this.userLoggedIn();
   }
 
+  handleTypeDropdownChange(type) {
+    const { value } = type;
+    window.location.href = value;
+  }
+
+  getDropdownValue(typeOptionsForDropdown) {
+    const { location } = window;
+    const { href } = location;
+
+    if(href.includes('diagnostic')) {
+      return typeOptionsForDropdown[1];
+    } else if(href.includes('whole-class')) {
+      return typeOptionsForDropdown[2];
+    } else if(href.includes('independent')) {
+      return typeOptionsForDropdown[3];
+    }
+    return typeOptionsForDropdown[0];
+  }
+
+  getLabelName(name) {
+    switch (name) {
+      case 'Whole class + Independent practice':
+        return 'Whole class + Independent';
+      case 'Independent practice':
+        return 'Independent'
+      default:
+        return name;
+    }
+  }
+
   renderFilterOptions() {
+    const { onMobile } = this.state
     const { types, selectedTypeId, data, selectCategory, } = this.props
     const categoryOptions = this.generateCategoryOptions()
 
@@ -102,15 +138,39 @@ export default class UnitTemplateMinis extends React.Component {
       >{name}</Link>)
     })
 
+    const typeOptionsForDropdown = types.map(type => {
+      const { id, name } = type;
+      const qs = currentCategory ? `?category=${currentCategory.label}&type=${id}` : `?type=${id}`
+      return {
+        label: this.getLabelName(name),
+        value: `${baseLink}${qs}`
+      }
+    });
+    typeOptionsForDropdown.unshift({ label: 'All packs', value: '/activities/packs' });
+
+    const allPacksLink = (
+      <Link
+        className={!selectedTypeId ? 'active' : null}
+        to={currentCategory ? `${baseLink}?category=${currentCategory.label}`: baseLink}
+      >All packs</Link>
+    );
+
+    const typeOptionsWidget = onMobile ? (
+      <DropdownInput
+        handleChange={this.handleTypeDropdownChange}
+        options={typeOptionsForDropdown}
+        value={this.getDropdownValue(typeOptionsForDropdown)}
+      />
+    ) : (
+      <div className='type-options'>
+        {allPacksLink}
+        {typeOptions}
+      </div>
+    )
+
     return (
       <div className="filter-options">
-        <div className='type-options'>
-          <Link
-            className={!selectedTypeId ? 'active' : null}
-            to={currentCategory ? `${baseLink}?category=${currentCategory.label}`: baseLink}
-          >All packs</Link>
-          {typeOptions}
-        </div>
+        {typeOptionsWidget}
         <DropdownInput
           handleChange={selectCategory}
           options={categoryOptions}

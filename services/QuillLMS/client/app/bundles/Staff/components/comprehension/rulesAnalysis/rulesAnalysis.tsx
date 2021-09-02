@@ -12,7 +12,7 @@ import { calculatePercentageForResponses } from "../../../helpers/comprehension/
 import { ActivityRouteProps, PromptInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import { fetchRuleFeedbackHistories } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
-import { DropdownInput, Input } from '../../../../Shared/index';
+import { DropdownInput, Input, Spinner } from '../../../../Shared/index';
 import { RULES_ANALYSIS } from '../../../../../constants/comprehension';
 
 const DEFAULT_RULE_TYPE = 'All Rules'
@@ -89,7 +89,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   });
 
   const { data: dataForTotalResponseCount } = useQuery({
-    queryKey: [`rule-feedback-history-for-total-response-count`, activityId, selectedConjunction],
+    queryKey: [`rule-feedback-history-for-total-response-count`, activityId, selectedConjunction, startDateForQuery, endDateForQuery, turkSessionIDForQuery],
     queryFn: fetchRuleFeedbackHistories
   });
 
@@ -179,6 +179,31 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
     const prompt = activityData.activity.prompts.find(prompt => prompt.conjunction === promptConjunction)
     setSelectedPrompt(prompt)
+  }
+
+  function renderDataSection() {
+    if(selectedPrompt && formattedRows) {
+      return(
+        <ReactTable
+          className="rules-analysis-table"
+          columns={dataTableFields}
+          data={formattedRows ? formattedRows : []}
+          defaultPageSize={formattedRows.length}
+          freezeWhenExpanded={true}
+          onSortedChange={setSorted}
+          pivotBy={["apiName"]}
+          showPagination={false}
+          sorted={sorted}
+          SubComponent={MoreInfo}
+        />
+      );
+    } else if(!ruleFeedbackHistory && startDateForQuery && selectedPrompt) {
+      return(
+        <div className="loading-spinner-container">
+          <Spinner />
+        </div>
+      )
+    }
   }
 
   /* eslint-disable react/display-name */
@@ -342,6 +367,14 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
   const containerClassName = sorted.length ? "rules-analysis-container" : "rules-analysis-container show-colored-rows"
 
+  if(!activityData) {
+    return(
+      <div className="loading-spinner-container">
+        <Spinner />
+      </div>
+    )
+  }
+
   return(
     <div className={containerClassName}>
       {renderHeader(activityData, 'Rules Analysis')}
@@ -387,18 +420,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
         <button className="quill-button fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
         {showError && <p className="error-message">Start date is required.</p>}
       </div>
-      {selectedPrompt && formattedRows && (<ReactTable
-        className="rules-analysis-table"
-        columns={dataTableFields}
-        data={formattedRows ? formattedRows : []}
-        defaultPageSize={formattedRows.length}
-        freezeWhenExpanded={true}
-        onSortedChange={setSorted}
-        pivotBy={["apiName"]}
-        showPagination={false}
-        sorted={sorted}
-        SubComponent={MoreInfo}
-      />)}
+      {renderDataSection()}
     </div>
   );
 }
