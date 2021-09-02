@@ -9,11 +9,11 @@ import DateTimePicker from 'react-datetime-picker';
 
 import { handlePageFilterClick, renderHeader } from "../../../helpers/evidence";
 import { calculatePercentageForResponses } from "../../../helpers/evidence/ruleHelpers";
-import { ActivityRouteProps, PromptInterface, InputEvent } from '../../../interfaces/comprehensionInterfaces';
-import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
-import { fetchRuleFeedbackHistories } from '../../../utils/comprehension/ruleFeedbackHistoryAPIs';
+import { ActivityRouteProps, PromptInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
+import { fetchActivity } from '../../../utils/evidence/activityAPIs';
+import { fetchRuleFeedbackHistories } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 import { DropdownInput, Input, Spinner } from '../../../../Shared/index';
-import { RULES_ANALYSIS } from '../../../../../constants/comprehension';
+import { RULES_ANALYSIS } from '../../../../../constants/evidence';
 
 const DEFAULT_RULE_TYPE = 'All Rules'
 
