@@ -5,7 +5,6 @@ class Response < ApplicationRecord
   include ResponseScopes
   after_create_commit :create_index_in_elastic_search
   after_update_commit :update_index_in_elastic_search
-  after_commit :clear_responses_route_cache
   before_destroy :destroy_index_in_elastic_search
 
   validates :question_uid, uniqueness: { scope: :text }
@@ -76,12 +75,6 @@ class Response < ApplicationRecord
 
   def destroy_index_in_elastic_search
     __elasticsearch__.delete_document
-  end
-
-  def clear_responses_route_cache
-    return if optimal.nil?
-
-    Rails.cache.delete(::Response.questions_cache_key(question_uid))
   end
 
   def self.questions_cache_key(question_uid)
