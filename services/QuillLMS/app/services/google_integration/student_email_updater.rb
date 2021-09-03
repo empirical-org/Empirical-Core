@@ -8,9 +8,7 @@ module GoogleIntegration
     end
 
     def run
-      return if invalid_email?
-      return if invalid_google_id?
-      return if student_not_found?
+      return if email.nil? || google_id.nil? || student.nil?
       return if email_not_changed?
       return if another_user_has_email?
 
@@ -23,18 +21,6 @@ module GoogleIntegration
 
     private def email_not_changed?
       student.email == email
-    end
-
-    private def invalid_email?
-      email.nil?
-    end
-
-    private def invalid_google_id?
-      google_id.nil?
-    end
-
-    private def student_not_found?
-      student.nil?
     end
 
     private def student
