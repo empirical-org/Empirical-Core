@@ -170,7 +170,7 @@ describe Activity, type: :model, redis: true do
       student = create(:student)
       activity_count = 2
       activity_count.times do
-        create(:activity_session, activity: classified_activity, user: student)
+        create(:activity_session, :finished, activity: classified_activity, user: student)
       end
 
       activity_session = student.activity_sessions.last
