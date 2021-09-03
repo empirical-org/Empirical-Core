@@ -77,6 +77,14 @@ export const getRuleFeedbackHistoryUrl = ({ ruleUID, promptId, startDate, endDat
   return url;
 };
 
+export const getActivityStatsUrl = ({ activityId, startDate, endDate, turkSessionID }) => {
+  let url = `prompt_health?activity_id=${activityId}`;
+  url = startDate ? url + `&start_date=${startDate}` : url;
+  url = endDate ? url + `&end_date=${endDate}` : url;
+  url = turkSessionID ? url + `&turk_session_id=${turkSessionID}` : url;
+  return url;
+};
+
 export const getPromptsIcons = (activityData, promptIds: number[]) => {
   if(activityData && activityData.activity && activityData.activity.prompts) {
     const { activity } = activityData;

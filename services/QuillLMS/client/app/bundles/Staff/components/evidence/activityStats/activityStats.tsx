@@ -45,7 +45,7 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   function handleSetTurkSessionID(e: InputEvent){ setTurkSessionID(e.target.value) };
 
   function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, turkSessionID, setStartDate, setEndDate, setShowError, setTurkSessionIDForQuery, setPageNumber: null, storageKey: RULE_ANALYSIS });
+    handlePageFilterClick({ startDate, endDate, turkSessionID, setStartDate, setEndDate, setShowError, setTurkSessionIDForQuery, setPageNumber: null, storageKey: ACTIVITY_STATS });
   }
 
 
