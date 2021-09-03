@@ -33,7 +33,7 @@ exports[`StudentViewContainer component when the activity has loaded renders 1`]
           tooltipTriggerText={
             <div>
               <img
-                alt=""
+                alt="Question mark icon"
                 src="undefined/images/icons/icons-help-white.svg"
               />
               <span>
@@ -57,7 +57,7 @@ exports[`StudentViewContainer component when the activity has loaded renders 1`]
             >
               <div>
                 <img
-                  alt=""
+                  alt="Question mark icon"
                   src="undefined/images/icons/icons-help-white.svg"
                 />
                 <span>

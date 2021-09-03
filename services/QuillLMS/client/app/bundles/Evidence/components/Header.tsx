@@ -50,7 +50,7 @@ export class Header extends React.Component<any, any> {
 
   render() {
     const isNotTurk = !window.location.href.includes('turk')
-    const tooltipTrigger = <div><img alt="" src={helpIcon} /><span>Beta: <span>in development</span></span></div>
+    const tooltipTrigger = <div><img alt="Question mark icon" src={helpIcon} /><span>Beta: <span>in development</span></span></div>
     return (
       <div className="header">
         <div className="inner-header">
