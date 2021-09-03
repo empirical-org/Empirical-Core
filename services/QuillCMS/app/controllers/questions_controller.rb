@@ -68,6 +68,4 @@ class QuestionsController < ApplicationController
       .limit(needed_count)
       .to_a
   end
-
-  private
 end
