@@ -18,7 +18,7 @@ module GoogleIntegration
     end
 
     private def update_provider_classroom_users
-      GoogleClassroomUsersUpdater.new(google_classroom_id, google_ids).run
+      ProviderClassroomUsersUpdater.new(google_classroom_id, google_ids, GoogleClassroomUser).run
     end
   end
 end

@@ -1,19 +1,16 @@
 class ProviderClassroomUsersUpdater
-  attr_reader :provider_classroom_id, :provider_user_ids
+  attr_reader :provider_classroom_id, :provider_user_ids, :provider_classroom_user_class
 
-  def initialize(provider_classroom_id, provider_user_ids)
+  def initialize(provider_classroom_id, provider_user_ids, provider_classroom_user_class)
     @provider_classroom_id = provider_classroom_id
     @provider_user_ids = provider_user_ids
+    @provider_classroom_user_class = provider_classroom_user_class
   end
 
   def run
     update_deleted_to_active
     update_active_to_deleted
     create_new_active
-  end
-
-  private def provider_classroom_user_class
-    ProviderClassroomUser
   end
 
   private def update_deleted_to_active
