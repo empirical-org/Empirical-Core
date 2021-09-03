@@ -1,9 +1,9 @@
 class PromptFeedbackHistory
     def self.run(activity_id:, start_date: nil, end_date: nil, turk_session_id: nil)
-      serialize_results prompt_health_query(activity_id, start_date, end_date, turk_session_id)
+      serialize_results prompt_health_query(activity_id: activity_id, start_date: start_date, end_date: end_date, turk_session_id: turk_session_id)
     end
 
-    def self.prompt_health_query(activity_id, start_date, end_date, turk_session_id)
+    def self.prompt_health_query(activity_id:, start_date: nil, end_date: nil, turk_session_id: nil)
       query = FeedbackHistory.select(<<~SELECT
         prompt_id,
         COUNT(DISTINCT feedback_histories.id) AS total_responses,
