@@ -89,7 +89,7 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       Header: '',
       accessor: "promptText",
       key: "promptText",
-      Cell: (data) => <span className="prompt-text">{data.original.promptText}</span>
+      Cell: (data) => <span className="prompt-text">{data.original.promptText}</span> // eslint-disable-line react/display-name
     },
     {
       Header: 'Total Responses',
