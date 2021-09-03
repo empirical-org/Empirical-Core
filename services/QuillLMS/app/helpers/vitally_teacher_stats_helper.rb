@@ -1,4 +1,4 @@
-module VitallyStatsHelper
+module VitallyTeacherStatsHelper
   DIAGNOSTIC_ID = 4
 
   def total_students_in_year(user, school_year_start, school_year_end)

@@ -1,4 +1,5 @@
 class SerializeVitallySalesAccount
+  include VitallySchoolStatsHelper
 
   def initialize(school)
     @school = school
@@ -47,27 +48,6 @@ class SerializeVitallySalesAccount
         last_active: last_active
       }
     }
-  end
-
-  private def activities_per_student(active_students, activities_finished)
-    if active_students > 0
-      (activities_finished.to_f / active_students).round(2)
-    else
-      0
-    end
-  end
-
-  private def active_students_query(school)
-    ActivitySession.select(:user_id).distinct
-          .joins(classroom_unit: {classroom: {teachers: :school}})
-          .where(state: 'finished')
-          .where('schools.id = ?', school.id)
-  end
-
-  private def activities_finished_query(school)
-    ClassroomsTeacher.joins(user: :school, classroom: :activity_sessions)
-      .where('schools.id = ?', @school.id)
-      .where('activity_sessions.state = ?', 'finished')
   end
 
   private def school_subscription

@@ -1,12 +1,31 @@
+# == Schema Information
+#
+# Table name: previous_year_teacher_data
+#
+#  id         :bigint           not null, primary key
+#  data       :jsonb
+#  year       :integer          not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :bigint           not null
+#
+# Indexes
+#
+#  index_previous_year_teacher_data_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
 class PreviousYearTeacherDatum < ApplicationRecord
-  include VitallyStatsHelper
+  include VitallyTeacherStatsHelper
 
   DIAGNOSTIC_ID = 4
 
   belongs_to :user
   validates :year, presence: true
 
-  after_initialize :calculate_data
+  before_save :calculate_data
 
   def calculate_data
     school_year_start = Date.new(year, 1, 1) + 7.months

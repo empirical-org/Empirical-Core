@@ -1,5 +1,5 @@
 class SerializeVitallySalesUser
-  include VitallyStatsHelper
+  include VitallyTeacherStatsHelper
 
   BASE_USER_URL = "https://www.quill.org/cms/users"
   # TODO: This should not be hard coded.
