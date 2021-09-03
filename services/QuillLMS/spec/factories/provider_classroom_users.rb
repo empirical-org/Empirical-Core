@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: provider_classroom_user_imports
+# Table name: provider_classroom_users
 #
 #  id                    :bigint           not null, primary key
 #  deleted_at            :datetime
@@ -9,6 +9,10 @@
 #  updated_at            :datetime         not null
 #  provider_classroom_id :string           not null
 #  provider_user_id      :string           not null
+#
+# Indexes
+#
+#  index_provider_type_and_classroom_id_and_user_id  (type,provider_classroom_id,provider_user_id) UNIQUE
 #
 FactoryBot.define do
   factory :provider_classroom_user, class: 'ProviderClassroomUser' do

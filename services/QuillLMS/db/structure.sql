@@ -6075,24 +6075,10 @@ CREATE INDEX index_partner_contents_on_partner ON public.partner_contents USING 
 
 
 --
--- Name: index_provider_classroom_users_on_provider_classroom_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_provider_type_and_classroom_id_and_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_provider_classroom_users_on_provider_classroom_id ON public.provider_classroom_users USING btree (provider_classroom_id);
-
-
---
--- Name: index_provider_classroom_users_on_provider_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_provider_classroom_users_on_provider_user_id ON public.provider_classroom_users USING btree (provider_user_id);
-
-
---
--- Name: index_provider_user_id_and_provider_classroom_id_and_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_provider_user_id_and_provider_classroom_id_and_type ON public.provider_classroom_users USING btree (provider_user_id, provider_classroom_id, type);
+CREATE UNIQUE INDEX index_provider_type_and_classroom_id_and_user_id ON public.provider_classroom_users USING btree (type, provider_classroom_id, provider_user_id);
 
 
 --

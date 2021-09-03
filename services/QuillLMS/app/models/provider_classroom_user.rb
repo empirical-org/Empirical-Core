@@ -12,16 +12,24 @@
 #
 # Indexes
 #
-#  index_provider_classroom_users_on_provider_classroom_id    (provider_classroom_id)
-#  index_provider_classroom_users_on_provider_user_id         (provider_user_id)
-#  index_provider_user_id_and_provider_classroom_id_and_type  (provider_user_id,provider_classroom_id,type) UNIQUE
+#  index_provider_type_and_classroom_id_and_user_id  (type,provider_classroom_id,provider_user_id) UNIQUE
 #
 class ProviderClassroomUser < ApplicationRecord
+  ACTIVE = :active
+  DELETED = :deleted
+
+  TYPES = %w[CleverClassroomUser GoogleClassroomUser].freeze
+
   scope :active, -> { where(deleted_at: nil) }
   scope :deleted, -> { where.not(deleted_at: nil) }
 
-  ACTIVE = :active
-  DELETED = :deleted
+  validates :type, inclusion: { in: TYPES }
+
+  # max_lengths: { clever_id: 24, google_classroom_id: 12 }
+  validates :provider_classroom_id, length: { maximum: 25 }
+
+  # max_lengths: { clever_id: 24, google_id: 21 }
+  validates :provider_user_id, length: { maximum: 25 }
 
   def active?
     deleted_at.nil?

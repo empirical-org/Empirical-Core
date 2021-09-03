@@ -12,9 +12,7 @@
 #
 # Indexes
 #
-#  index_provider_classroom_users_on_provider_classroom_id    (provider_classroom_id)
-#  index_provider_classroom_users_on_provider_user_id         (provider_user_id)
-#  index_provider_user_id_and_provider_classroom_id_and_type  (provider_user_id,provider_classroom_id,type) UNIQUE
+#  index_provider_type_and_classroom_id_and_user_id  (type,provider_classroom_id,provider_user_id) UNIQUE
 #
 class CleverClassroomUser < ProviderClassroomUser
   def clever_classroom_id
