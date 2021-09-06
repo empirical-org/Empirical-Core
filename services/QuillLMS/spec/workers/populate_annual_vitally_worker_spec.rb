@@ -5,7 +5,7 @@ describe PopulateAnnualVitallyWorker do
 
   describe "#perform" do
     it "make queries for schools and users and enqueue them for further jobs" do
-      past_year = Date.today.year - 1.year
+      past_year = Date.today.year - 1
       ENV['SYNC_TO_VITALLY'] = 'true'
       school = create(:school)
       user = create(:user)

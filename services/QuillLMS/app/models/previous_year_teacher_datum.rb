@@ -1,22 +1,3 @@
-# == Schema Information
-#
-# Table name: previous_year_teacher_data
-#
-#  id         :bigint           not null, primary key
-#  data       :jsonb
-#  year       :integer          not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :bigint           not null
-#
-# Indexes
-#
-#  index_previous_year_teacher_data_on_user_id  (user_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (user_id => users.id)
-#
 class PreviousYearTeacherDatum
   include VitallyTeacherStatsHelper
 
@@ -28,7 +9,7 @@ class PreviousYearTeacherDatum
   end
 
   def calculate_and_save_data
-    school_year_start = Date.new(@year, 1, 1) + 7.months
+    school_year_start = Date.new(@year, 7, 1)
     school_year_end = school_year_start + 1.year
     raise "Cannot calculate data for a school year that is still ongoing." if school_year_end > Time.now
 

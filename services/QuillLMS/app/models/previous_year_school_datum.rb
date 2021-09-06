@@ -7,7 +7,7 @@ class PreviousYearSchoolDatum
   end
 
   def calculate_and_save_data
-    school_year_start = Date.new(@year, 1, 1) + 7.months
+    school_year_start = Date.new(@year, 7, 1)
     school_year_end = school_year_start + 1.year
     raise "Cannot calculate data for a school year that is still ongoing." if school_year_end > Time.now
 

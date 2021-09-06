@@ -38,20 +38,6 @@ COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs
 
 
 --
--- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
-
-
---
--- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
-
-
---
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -118,69 +104,6 @@ CREATE FUNCTION public.old_timespent_teacher(teacher integer) RETURNS bigint
           ) AS time_spent_query ON users.id = time_spent_query.teacher_id
           WHERE users.id = teacher
           GROUP BY users.id) as times_spent;
-      $$;
-
-
---
--- Name: timespent_activity_session(integer); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.timespent_activity_session(act_sess integer) RETURNS integer
-    LANGUAGE plpgsql
-    AS $$
-        DECLARE
-            first_item timestamp;
-          last_item timestamp;
-          max_item timestamp;
-          as_created_at timestamp;
-          arow record;
-          time_spent float;
-          item timestamp;
-        BEGIN
-          -- backward compatibility block
-          SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-          IF as_created_at IS NULL OR as_created_at < timestamp '2018-08-25 00:00:00.000000' THEN
-            SELECT SUM(
-                  CASE
-                  WHEN (activity_sessions.started_at IS NULL)
-                    OR (activity_sessions.completed_at IS NULL)
-                    OR (activity_sessions.completed_at - activity_sessions.started_at < interval '1 minute')
-                    OR (activity_sessions.completed_at - activity_sessions.started_at > interval '30 minutes')
-                  THEN 441
-                  ELSE
-                    EXTRACT (
-                      'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
-                    )
-                END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-                
-                RETURN COALESCE(time_spent,0);
-          END IF;
-          -- modern calculation (using activity session interaction logs) 
-          first_item := NULL;
-          last_item := NULL;
-          max_item := NULL;
-          time_spent := 0.0;
-          FOR arow IN (SELECT date FROM activity_session_interaction_logs WHERE activity_session_id = act_sess order by date) LOOP
-            item := arow;
-            IF last_item IS NULL THEN
-              first_item := item;
-              max_item := item;
-              last_item := item;
-            ELSIF item - last_item <= '2 minute'::interval THEN
-              max_item := item;
-              last_item := item;
-            ELSE
-              time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
-              first_item := item;
-              last_item := item;
-              max_item := item;
-            END IF;
-          END LOOP;
-          IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
-            time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
-          END IF;
-          RETURN time_spent;
-        END;
       $$;
 
 
@@ -300,36 +223,6 @@ CREATE FUNCTION public.timespent_teacher(teacher integer) RETURNS bigint
           WHERE users.id = teacher
           GROUP BY users.id, activity_sessions.id) as times_spent;
       $$;
-
-
---
--- Name: xx(); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.xx() RETURNS integer[]
-    LANGUAGE plpgsql
-    AS $$
-DECLARE
-	act_sess_ids int[];
-	classroom_unit_ids int[];
-	result int[];
-BEGIN
-	act_sess_ids := ARRAY(SELECT DISTINCT classroom_units.id as classroom_unit_id FROM referrals_users
-		JOIN classrooms_teachers ON referrals_users.referred_user_id = classrooms_teachers.user_id
-		JOIN classroom_units ON classrooms_teachers.classroom_id = classroom_units.classroom_id
-		WHERE referrals_users.activated = FALSE
-	);
-	classroom_unit_ids := ARRAY(SELECT classroom_unit_id FROM activity_sessions WHERE classroom_unit_id = ANY (act_sess_ids)
-		AND activity_sessions.completed_at IS NOT NULL);
-	
-	return ARRAY(SELECT DISTINCT referrals_users.id FROM referrals_users
-		JOIN classrooms_teachers ON referrals_users.referred_user_id = classrooms_teachers.user_id
-		JOIN classroom_units ON classrooms_teachers.classroom_id = classroom_units.classroom_id
-		WHERE classroom_units.id = ANY (classroom_unit_ids));
-	
-END
-
-$$;
 
 
 SET default_tablespace = '';
@@ -563,11 +456,11 @@ CREATE TABLE public.activity_healths (
     activity_categories character varying[],
     content_partners character varying[],
     tool character varying,
+    recent_plays integer,
     diagnostics character varying[],
     avg_difficulty double precision,
     avg_common_unmatched double precision,
     standard_dev_difficulty double precision,
-    recent_plays integer,
     avg_mins_to_complete double precision,
     flag character varying,
     activity_packs jsonb
@@ -592,38 +485,6 @@ CREATE SEQUENCE public.activity_healths_id_seq
 --
 
 ALTER SEQUENCE public.activity_healths_id_seq OWNED BY public.activity_healths.id;
-
-
---
--- Name: activity_session_interaction_logs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.activity_session_interaction_logs (
-    id integer NOT NULL,
-    date timestamp without time zone,
-    meta jsonb,
-    activity_session_id integer
-);
-
-
---
--- Name: activity_session_interaction_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.activity_session_interaction_logs_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: activity_session_interaction_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.activity_session_interaction_logs_id_seq OWNED BY public.activity_session_interaction_logs.id;
 
 
 --
@@ -1331,42 +1192,6 @@ ALTER SEQUENCE public.classrooms_teachers_id_seq OWNED BY public.classrooms_teac
 
 
 --
--- Name: comments; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.comments (
-    id integer NOT NULL,
-    title character varying(255),
-    body text,
-    user_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    ancestry character varying(255),
-    reply_type character varying(255),
-    lecture_chapter_id integer
-);
-
-
---
--- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.comments_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
-
-
---
 -- Name: comprehension_activities; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1730,7 +1555,7 @@ CREATE TABLE public.comprehension_rules (
     rule_type character varying NOT NULL,
     optimal boolean NOT NULL,
     suborder integer,
-    concept_uid character varying,
+    concept_uid character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     sequence_type character varying,
@@ -2786,72 +2611,6 @@ ALTER SEQUENCE public.partner_contents_id_seq OWNED BY public.partner_contents.i
 
 
 --
--- Name: previous_year_school_data; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.previous_year_school_data (
-    id bigint NOT NULL,
-    school_id bigint NOT NULL,
-    year integer NOT NULL,
-    data jsonb,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: previous_year_school_data_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.previous_year_school_data_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: previous_year_school_data_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.previous_year_school_data_id_seq OWNED BY public.previous_year_school_data.id;
-
-
---
--- Name: previous_year_teacher_data; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.previous_year_teacher_data (
-    id bigint NOT NULL,
-    user_id bigint NOT NULL,
-    year integer NOT NULL,
-    data jsonb,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: previous_year_teacher_data_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.previous_year_teacher_data_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: previous_year_teacher_data_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.previous_year_teacher_data_id_seq OWNED BY public.previous_year_teacher_data.id;
-
-
---
 -- Name: prompt_healths; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2895,13 +2654,12 @@ ALTER SEQUENCE public.prompt_healths_id_seq OWNED BY public.prompt_healths.id;
 --
 
 CREATE TABLE public.questions (
-    id integer,
-    uid character varying,
-    data jsonb,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    question_type character varying,
-    temp_id integer NOT NULL
+    id integer NOT NULL,
+    uid character varying NOT NULL,
+    data jsonb NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    question_type character varying NOT NULL
 );
 
 
@@ -2923,26 +2681,6 @@ CREATE SEQUENCE public.questions_id_seq
 --
 
 ALTER SEQUENCE public.questions_id_seq OWNED BY public.questions.id;
-
-
---
--- Name: questions_temp_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.questions_temp_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: questions_temp_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.questions_temp_id_seq OWNED BY public.questions.temp_id;
 
 
 --
@@ -3076,41 +2814,6 @@ CREATE SEQUENCE public.referrer_users_id_seq
 --
 
 ALTER SEQUENCE public.referrer_users_id_seq OWNED BY public.referrer_users.id;
-
-
---
--- Name: rules_misseds; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.rules_misseds (
-    id integer NOT NULL,
-    rule_id integer,
-    user_id integer,
-    assessment_id integer,
-    time_take timestamp without time zone,
-    missed boolean,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: rules_misseds_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.rules_misseds_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: rules_misseds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.rules_misseds_id_seq OWNED BY public.rules_misseds.id;
 
 
 --
@@ -4061,75 +3764,6 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: verification_tokens; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.verification_tokens (
-    id integer NOT NULL,
-    user_id integer,
-    token text,
-    email_verified text,
-    verified boolean,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    age_at_time_of_creation integer
-);
-
-
---
--- Name: verification_tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.verification_tokens_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: verification_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.verification_tokens_id_seq OWNED BY public.verification_tokens.id;
-
-
---
--- Name: vitally_teacher_records; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.vitally_teacher_records (
-    id bigint NOT NULL,
-    user_id bigint NOT NULL,
-    year integer NOT NULL,
-    data jsonb,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: vitally_teacher_records_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.vitally_teacher_records_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: vitally_teacher_records_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.vitally_teacher_records_id_seq OWNED BY public.vitally_teacher_records.id;
-
-
---
 -- Name: zipcode_infos; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4168,26 +3802,6 @@ CREATE SEQUENCE public.zipcode_infos_id_seq
 --
 
 ALTER SEQUENCE public.zipcode_infos_id_seq OWNED BY public.zipcode_infos.id;
-
-
---
--- Name: zipcodes; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.zipcodes (
-    zipcode character varying NOT NULL,
-    zipcode_type character varying,
-    city character varying,
-    state character varying,
-    timezone character varying,
-    lat double precision,
-    lng double precision,
-    _secondary_cities character varying,
-    county character varying,
-    decommissioned boolean,
-    estimated_population integer,
-    _area_codes character varying
-);
 
 
 --
@@ -4237,13 +3851,6 @@ ALTER TABLE ONLY public.activity_classifications ALTER COLUMN id SET DEFAULT nex
 --
 
 ALTER TABLE ONLY public.activity_healths ALTER COLUMN id SET DEFAULT nextval('public.activity_healths_id_seq'::regclass);
-
-
---
--- Name: activity_session_interaction_logs id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_session_interaction_logs ALTER COLUMN id SET DEFAULT nextval('public.activity_session_interaction_logs_id_seq'::regclass);
 
 
 --
@@ -4377,13 +3984,6 @@ ALTER TABLE ONLY public.classrooms ALTER COLUMN id SET DEFAULT nextval('public.c
 --
 
 ALTER TABLE ONLY public.classrooms_teachers ALTER COLUMN id SET DEFAULT nextval('public.classrooms_teachers_id_seq'::regclass);
-
-
---
--- Name: comments id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.comments_id_seq'::regclass);
 
 
 --
@@ -4667,20 +4267,6 @@ ALTER TABLE ONLY public.partner_contents ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- Name: previous_year_school_data id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.previous_year_school_data ALTER COLUMN id SET DEFAULT nextval('public.previous_year_school_data_id_seq'::regclass);
-
-
---
--- Name: previous_year_teacher_data id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.previous_year_teacher_data ALTER COLUMN id SET DEFAULT nextval('public.previous_year_teacher_data_id_seq'::regclass);
-
-
---
 -- Name: prompt_healths id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4692,13 +4278,6 @@ ALTER TABLE ONLY public.prompt_healths ALTER COLUMN id SET DEFAULT nextval('publ
 --
 
 ALTER TABLE ONLY public.questions ALTER COLUMN id SET DEFAULT nextval('public.questions_id_seq'::regclass);
-
-
---
--- Name: questions temp_id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.questions ALTER COLUMN temp_id SET DEFAULT nextval('public.questions_temp_id_seq'::regclass);
 
 
 --
@@ -4727,13 +4306,6 @@ ALTER TABLE ONLY public.referrals_users ALTER COLUMN id SET DEFAULT nextval('pub
 --
 
 ALTER TABLE ONLY public.referrer_users ALTER COLUMN id SET DEFAULT nextval('public.referrer_users_id_seq'::regclass);
-
-
---
--- Name: rules_misseds id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.rules_misseds ALTER COLUMN id SET DEFAULT nextval('public.rules_misseds_id_seq'::regclass);
 
 
 --
@@ -4919,20 +4491,6 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- Name: verification_tokens id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.verification_tokens ALTER COLUMN id SET DEFAULT nextval('public.verification_tokens_id_seq'::regclass);
-
-
---
--- Name: vitally_teacher_records id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.vitally_teacher_records ALTER COLUMN id SET DEFAULT nextval('public.vitally_teacher_records_id_seq'::regclass);
-
-
---
 -- Name: zipcode_infos id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4996,27 +4554,11 @@ ALTER TABLE ONLY public.activity_healths
 
 
 --
--- Name: activity_session_interaction_logs activity_session_interaction_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_session_interaction_logs
-    ADD CONSTRAINT activity_session_interaction_logs_pkey PRIMARY KEY (id);
-
-
---
 -- Name: activity_sessions activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.activity_sessions
     ADD CONSTRAINT activity_sessions_pkey PRIMARY KEY (id);
-
-
---
--- Name: activity_sessions activity_sessions_uid_key; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_sessions
-    ADD CONSTRAINT activity_sessions_uid_key UNIQUE (uid);
 
 
 --
@@ -5169,14 +4711,6 @@ ALTER TABLE ONLY public.classrooms
 
 ALTER TABLE ONLY public.classrooms_teachers
     ADD CONSTRAINT classrooms_teachers_pkey PRIMARY KEY (id);
-
-
---
--- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comments
-    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
 
 
 --
@@ -5500,22 +5034,6 @@ ALTER TABLE ONLY public.partner_contents
 
 
 --
--- Name: previous_year_school_data previous_year_school_data_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.previous_year_school_data
-    ADD CONSTRAINT previous_year_school_data_pkey PRIMARY KEY (id);
-
-
---
--- Name: previous_year_teacher_data previous_year_teacher_data_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.previous_year_teacher_data
-    ADD CONSTRAINT previous_year_teacher_data_pkey PRIMARY KEY (id);
-
-
---
 -- Name: prompt_healths prompt_healths_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5528,7 +5046,7 @@ ALTER TABLE ONLY public.prompt_healths
 --
 
 ALTER TABLE ONLY public.questions
-    ADD CONSTRAINT questions_pkey PRIMARY KEY (temp_id);
+    ADD CONSTRAINT questions_pkey PRIMARY KEY (id);
 
 
 --
@@ -5561,14 +5079,6 @@ ALTER TABLE ONLY public.referrals_users
 
 ALTER TABLE ONLY public.referrer_users
     ADD CONSTRAINT referrer_users_pkey PRIMARY KEY (id);
-
-
---
--- Name: rules_misseds rules_misseds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.rules_misseds
-    ADD CONSTRAINT rules_misseds_pkey PRIMARY KEY (id);
 
 
 --
@@ -5780,42 +5290,11 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: verification_tokens verification_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.verification_tokens
-    ADD CONSTRAINT verification_tokens_pkey PRIMARY KEY (id);
-
-
---
--- Name: vitally_teacher_records vitally_teacher_records_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.vitally_teacher_records
-    ADD CONSTRAINT vitally_teacher_records_pkey PRIMARY KEY (id);
-
-
---
 -- Name: zipcode_infos zipcode_infos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.zipcode_infos
     ADD CONSTRAINT zipcode_infos_pkey PRIMARY KEY (id);
-
-
---
--- Name: zipcodes zipcodes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.zipcodes
-    ADD CONSTRAINT zipcodes_pkey PRIMARY KEY (zipcode);
-
-
---
--- Name: activity_sessions_classroom_unit_id_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX activity_sessions_classroom_unit_id_idx ON public.activity_sessions USING btree (classroom_unit_id);
 
 
 --
@@ -5907,13 +5386,6 @@ CREATE UNIQUE INDEX index_activities_on_uid ON public.activities USING btree (ui
 --
 
 CREATE UNIQUE INDEX index_activity_classifications_on_uid ON public.activity_classifications USING btree (uid);
-
-
---
--- Name: index_activity_session_interaction_logs_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_session_interaction_logs_on_activity_session_id ON public.activity_session_interaction_logs USING btree (activity_session_id);
 
 
 --
@@ -6229,13 +5701,6 @@ CREATE INDEX index_classrooms_teachers_on_role ON public.classrooms_teachers USI
 --
 
 CREATE INDEX index_classrooms_teachers_on_user_id ON public.classrooms_teachers USING btree (user_id);
-
-
---
--- Name: index_comments_on_ancestry; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_comments_on_ancestry ON public.comments USING btree (ancestry);
 
 
 --
@@ -6561,24 +6026,17 @@ CREATE INDEX index_partner_contents_on_partner ON public.partner_contents USING 
 
 
 --
--- Name: index_previous_year_school_data_on_school_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_previous_year_school_data_on_school_id ON public.previous_year_school_data USING btree (school_id);
-
-
---
--- Name: index_previous_year_teacher_data_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_previous_year_teacher_data_on_user_id ON public.previous_year_teacher_data USING btree (user_id);
-
-
---
 -- Name: index_questions_on_question_type; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_questions_on_question_type ON public.questions USING btree (question_type);
+
+
+--
+-- Name: index_questions_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_questions_on_uid ON public.questions USING btree (uid);
 
 
 --
@@ -7037,13 +6495,6 @@ CREATE INDEX index_users_on_username ON public.users USING btree (username);
 
 
 --
--- Name: index_vitally_teacher_records_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_vitally_teacher_records_on_user_id ON public.vitally_teacher_records USING btree (user_id);
-
-
---
 -- Name: index_zipcode_infos_on_zipcode; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7156,20 +6607,6 @@ CREATE INDEX users_to_tsvector_idx1 ON public.users USING gin (to_tsvector('engl
 
 
 --
--- Name: users_to_tsvector_idx10; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx10 ON public.users USING gin (to_tsvector('english'::regconfig, (username)::text));
-
-
---
--- Name: users_to_tsvector_idx11; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx11 ON public.users USING gin (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1)));
-
-
---
 -- Name: users_to_tsvector_idx2; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7195,34 +6632,6 @@ CREATE INDEX users_to_tsvector_idx4 ON public.users USING gin (to_tsvector('engl
 --
 
 CREATE INDEX users_to_tsvector_idx5 ON public.users USING gin (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1)));
-
-
---
--- Name: users_to_tsvector_idx6; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx6 ON public.users USING gin (to_tsvector('english'::regconfig, (name)::text));
-
-
---
--- Name: users_to_tsvector_idx7; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx7 ON public.users USING gin (to_tsvector('english'::regconfig, (email)::text));
-
-
---
--- Name: users_to_tsvector_idx8; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx8 ON public.users USING gin (to_tsvector('english'::regconfig, (role)::text));
-
-
---
--- Name: users_to_tsvector_idx9; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx9 ON public.users USING gin (to_tsvector('english'::regconfig, (classcode)::text));
 
 
 --
@@ -7256,27 +6665,11 @@ ALTER TABLE ONLY public.units
 
 
 --
--- Name: previous_year_teacher_data fk_rails_132204549c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.previous_year_teacher_data
-    ADD CONSTRAINT fk_rails_132204549c FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
 -- Name: change_logs fk_rails_1a847a1740; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.change_logs
     ADD CONSTRAINT fk_rails_1a847a1740 FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
--- Name: activity_session_interaction_logs fk_rails_1ac1e7b3b5; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_session_interaction_logs
-    ADD CONSTRAINT fk_rails_1ac1e7b3b5 FOREIGN KEY (activity_session_id) REFERENCES public.activity_sessions(id);
 
 
 --
@@ -7424,14 +6817,6 @@ ALTER TABLE ONLY public.comprehension_highlights
 
 
 --
--- Name: previous_year_school_data fk_rails_a392739c67; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.previous_year_school_data
-    ADD CONSTRAINT fk_rails_a392739c67 FOREIGN KEY (school_id) REFERENCES public.schools(id);
-
-
---
 -- Name: classroom_units fk_rails_a3c514fc6d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7493,14 +6878,6 @@ ALTER TABLE ONLY public.classroom_unit_activity_states
 
 ALTER TABLE ONLY public.comprehension_plagiarism_texts
     ADD CONSTRAINT fk_rails_bcd03e8630 FOREIGN KEY (rule_id) REFERENCES public.comprehension_rules(id) ON DELETE CASCADE;
-
-
---
--- Name: vitally_teacher_records fk_rails_c1a509f353; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.vitally_teacher_records
-    ADD CONSTRAINT fk_rails_c1a509f353 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -7599,10 +6976,6 @@ SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20121024193845'),
-('20121211230953'),
-('20121211231231'),
-('20121214024613'),
-('20121218155200'),
 ('20130309011601'),
 ('20130319203258'),
 ('20130319203518'),
@@ -7617,7 +6990,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20130426032817'),
 ('20130426032952'),
 ('20130429171512'),
-('20130510221334'),
 ('20130517024024'),
 ('20130517024604'),
 ('20130517024731'),
@@ -7776,9 +7148,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170505182334'),
 ('20170505195744'),
 ('20170517152031'),
-('20170523175919'),
 ('20170526220204'),
-('20170601140325'),
 ('20170718160133'),
 ('20170719192243'),
 ('20170720140557'),
@@ -7846,7 +7216,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180207154242'),
 ('20180207165525'),
 ('20180209153502'),
-('20180214051916'),
 ('20180220204422'),
 ('20180221162940'),
 ('20180221163408'),
@@ -7878,7 +7247,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180502152419'),
 ('20180517045137'),
 ('20180530145153'),
-('20180612212919'),
 ('20180625211305'),
 ('20180627183421'),
 ('20180627184008'),
@@ -7895,7 +7263,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180709190427'),
 ('20180709192646'),
 ('20180718195853'),
-('20180809210431'),
 ('20180810181001'),
 ('20180815174156'),
 ('20180815180204'),
@@ -7914,18 +7281,14 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180824185824'),
 ('20180824195642'),
 ('20180827212450'),
-('20180831194317'),
 ('20180831194810'),
 ('20180910152342'),
 ('20180911171536'),
 ('20181012155250'),
 ('20181018195753'),
-('20181023173450'),
-('20181025181015'),
 ('20181026201202'),
 ('20181030155356'),
 ('20181105212102'),
-('20181126221244'),
 ('20181203161708'),
 ('20181214192858'),
 ('20190128203336'),
@@ -7951,7 +7314,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200326220320'),
 ('20200409151835'),
 ('20200415170227'),
-('20200417172506'),
 ('20200505171239'),
 ('20200511203004'),
 ('20200601153535'),
@@ -7978,9 +7340,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201019183425'),
 ('20201020200935'),
 ('20201020204615'),
-('20201022165958'),
-('20201023184825'),
-('20201023185207'),
 ('20201023192128'),
 ('20201023192229'),
 ('20201023212528'),
@@ -7990,7 +7349,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201125190536'),
 ('20201202224853'),
 ('20201203173440'),
-('20201203180917'),
 ('20210113130854'),
 ('20210114160155'),
 ('20210114164445'),
@@ -8023,7 +7381,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210430212613'),
 ('20210505150457'),
 ('20210511161300'),
-('20210517155138'),
 ('20210518151248'),
 ('20210518162719'),
 ('20210521152206'),
@@ -8034,14 +7391,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210709155935'),
 ('20210709161400'),
 ('20210712213724'),
-('20210714163300'),
 ('20210722144950'),
 ('20210726193112'),
 ('20210803163028'),
 ('20210811130155'),
-('20210816195838'),
-('20210831164128'),
-('20210831164146'),
-('20210901204120');
+('20210816195838');
 
 
