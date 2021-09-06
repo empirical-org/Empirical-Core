@@ -23,6 +23,102 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     end
   end
 
+  context '#students_by_classroom' do
+    let!(:student1) { create(:user, classcode: classroom.code) }
+    let!(:student2) { create(:user, classcode: classroom.code) }
+    let!(:student3) { create(:user, classcode: classroom.code) }
+    let!(:cu) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [student1.id, student2.id, student3.id])}
+    let!(:ua) { create(:unit_activity, unit: unit, activity: activity)}
+
+    it 'should return empty arrays when there are no activity_sessions' do
+      get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
+
+      expect(response).to be_success
+
+      json = JSON.parse(response.body)
+
+      expect(json['id']).to eq(classroom.id)
+      expect(json['name']).to eq(classroom.name)
+
+      expect(json['students']).to be_empty
+      expect(json['not_completed_names']).to be_empty
+      expect(json['missed_names']).to be_empty
+    end
+
+    context 'with activity_sessions' do
+      before do
+        create(:activity_session, :finished, user: student1, activity: activity, classroom_unit: cu)
+        create(:activity_session, :started, user: student2, activity: activity, classroom_unit: cu)
+      end
+
+      it 'should return report data for students and not_completed_name' do
+        get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
+
+        expect(response).to be_success
+
+        json = JSON.parse(response.body)
+
+        expect(json['id']).to eq(classroom.id)
+        expect(json['name']).to eq(classroom.name)
+
+        expect(json['students'].count).to eq(1)
+        expect(json['students'].first['id']).to eq(student1.id)
+        expect(json['students'].first['average_score_on_quill']).to eq(0)
+
+        expect(json['not_completed_names'].count).to eq(1)
+        expect(json['not_completed_names'].first).to eq(student2.name)
+
+        expect(json['missed_names']).to be_empty
+      end
+
+      context 'when ClassroomUnitActivityState completed' do
+        before do
+          create(:classroom_unit_activity_state, completed: true, classroom_unit: cu, unit_activity: ua)
+        end
+
+        it 'should return report data for students and missing_name' do
+          get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
+
+          expect(response).to be_success
+
+          json = JSON.parse(response.body)
+
+          expect(json['id']).to eq(classroom.id)
+          expect(json['name']).to eq(classroom.name)
+
+          expect(json['students'].count).to eq(1)
+          expect(json['students'].first['id']).to eq(student1.id)
+
+          expect(json['not_completed_names']).to be_empty
+
+          expect(json['missed_names'].count).to eq(1)
+          expect(json['missed_names'].first).to eq(student2.name)
+        end
+      end
+
+      context 'with multiple graded and non-graded activities' do
+        before do
+          create(:grammar_activity_session, :finished, user: student1, percentage: 0.60)
+          create(:grammar_activity_session, :finished, user: student1, percentage: 0.50)
+
+          create(:activity_session, :finished, user: student2, activity: activity, classroom_unit: cu)
+          create(:activity_session, :finished, user: student3, activity: activity, classroom_unit: cu)
+        end
+
+        it 'should return all 3 records and average score' do
+          get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
+
+          expect(response).to be_success
+
+          json = JSON.parse(response.body)
+
+          expect(json['students'].count).to eq(3)
+          expect(json['students'].first['average_score_on_quill']).to eq(55)
+        end
+      end
+    end
+  end
+
   context 'lesson_recommendations_for_classroom' do
     before do
       # stub complicated query that returns activities
