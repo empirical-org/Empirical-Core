@@ -17,6 +17,17 @@ describe 'SerializeVitallySalesAccount' do
     )
   end
 
+  before do
+    previous_year_data = {
+      total_students: 2,
+      active_students: 1,
+      activities_finished: 1,
+      activities_per_student: 1.0
+    }
+    year = Date.today.year - 1
+    $redis.set("school_id:#{school.id}_vitally_stats_for_year_#{year}", previous_year_data.to_json)
+  end
+
   it 'includes the accountId' do
     school_data = SerializeVitallySalesAccount.new(school).data
 
@@ -122,6 +133,16 @@ describe 'SerializeVitallySalesAccount' do
       paid_teacher_subscriptions: 1,
       active_students: 0,
       activities_finished: 0
+    )
+  end
+
+  it 'generates previous year data' do
+    school_data = SerializeVitallySalesAccount.new(school).data
+    expect(school_data[:traits]).to include(
+      total_students_last_year: 2,
+      active_students_last_year: 1,
+      activities_finished_last_year: 1,
+      activities_per_student_last_year: 1.0
     )
   end
 

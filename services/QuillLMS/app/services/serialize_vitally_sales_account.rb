@@ -36,18 +36,27 @@ class SerializeVitallySalesAccount
         paid_teacher_subscriptions: paid_teacher_subscriptions,
         total_students: @school.students.count,
         total_students_this_year: @school.students.where(last_sign_in: school_year_start..current_time).count,
+        total_students_last_year: get_from_cache("total_students"),
         active_students: active_students,
         active_students_this_year: active_students_this_year,
+        active_students_last_year: get_from_cache("active_students"),
         activities_finished: activities_finished,
         activities_finished_this_year: activities_finished_this_year,
+        activities_finished_last_year: get_from_cache("activities_finished"),
         activities_per_student: activities_per_student(active_students, activities_finished),
         activities_per_student_this_year: activities_per_student(active_students_this_year, activities_finished_this_year),
+        activities_per_student_last_year: get_from_cache("activities_per_student"),
         school_link: school_link,
         created_at: @school.created_at,
         premium_expiry_date: subscription_expiration_date,
         last_active: last_active
       }
     }
+  end
+
+  private def get_from_cache(key)
+    @cached_data ||= JSON.parse($redis.get("school_id:#{@school.id}_vitally_stats_for_year_#{Date.today.year - 1}") || '{}')
+    @cached_data[key]
   end
 
   private def school_subscription

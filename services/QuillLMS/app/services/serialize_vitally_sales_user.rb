@@ -60,14 +60,23 @@ class SerializeVitallySalesUser
         diagnostics_finished: diagnostics_finished,
         percent_completed_diagnostics: diagnostics_assigned > 0 ? (diagnostics_finished.to_f / diagnostics_assigned).round(2) : 'N/A',
         total_students_this_year: total_students_in_year(@user, school_year_start, school_year_end),
+        total_students_last_year: get_from_cache("total_students"),
         active_students_this_year: active_students_this_year,
+        active_students_last_year: get_from_cache("active_students"),
         activities_assigned_this_year: activities_assigned_this_year,
+        activities_assigned_last_year: get_from_cache("activities_assigned"),
         completed_activities_this_year: activities_finished_this_year,
+        completed_activities_last_year: get_from_cache("completed_activities"),
         completed_activities_per_student_this_year: activities_per_student(active_students_this_year, activities_finished_this_year),
+        completed_activities_per_student_last_year: get_from_cache("completed_activities_per_student"),
         percent_completed_activities_this_year: activities_assigned_this_year > 0 ? (activities_finished_this_year.to_f / activities_assigned_this_year).round(2) : 'N/A',
+        percent_completed_activities_last_year: get_from_cache("percent_completed_activities"),
         diagnostics_assigned_this_year: diagnostics_assigned_this_year,
+        diagnostics_assigned_last_year: get_from_cache("diagnostics_assigned"),
         diagnostics_finished_this_year: diagnostics_finished_this_year,
-        percent_completed_diagnostics_this_year: diagnostics_assigned_this_year > 0 ? (diagnostics_finished_this_year.to_f / diagnostics_assigned_this_year).round(2) : 'N/A'
+        diagnostics_finished_last_year: get_from_cache("diagnostics_finished"),
+        percent_completed_diagnostics_this_year: diagnostics_assigned_this_year > 0 ? (diagnostics_finished_this_year.to_f / diagnostics_assigned_this_year).round(2) : 'N/A',
+        percent_completed_diagnostics_last_year: get_from_cache("percent_completed_diagnostics")
       }.merge(account_data_params)
     }
   end
@@ -80,6 +89,11 @@ class SerializeVitallySalesUser
         traits: account_data_params
       }
     end
+  end
+
+  private def get_from_cache(key)
+    @cached_data ||= JSON.parse($redis.get("teacher_id:#{@user.id}_vitally_stats_for_year_#{Date.today.year - 1}") || '{}')
+    @cached_data[key]
   end
 
   private def account_data_params

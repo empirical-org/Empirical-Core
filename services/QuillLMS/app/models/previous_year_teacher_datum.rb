@@ -17,28 +17,28 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class PreviousYearTeacherDatum < ApplicationRecord
+class PreviousYearTeacherDatum
   include VitallyTeacherStatsHelper
 
   DIAGNOSTIC_ID = 4
 
-  belongs_to :user
-  validates :year, presence: true
+  def initialize(user, year)
+    @year = year
+    @user = user
+  end
 
-  before_save :calculate_data
-
-  def calculate_data
-    school_year_start = Date.new(year, 1, 1) + 7.months
+  def calculate_and_save_data
+    school_year_start = Date.new(@year, 1, 1) + 7.months
     school_year_end = school_year_start + 1.year
     raise "Cannot calculate data for a school year that is still ongoing." if school_year_end > Time.now
 
-    active_students = active_students_query(user).where("activity_sessions.completed_at >= ? and activity_sessions.completed_at < ?", school_year_start, school_year_end).count
-    activities_assigned = activities_assigned_in_year_count(user, school_year_start, school_year_end)
-    activities_finished = activities_finished_query(user).where("activity_sessions.completed_at >= ? and activity_sessions.completed_at < ?", school_year_start, school_year_end).count
-    diagnostics_assigned_this_year = diagnostics_assigned_in_year_count(user, school_year_start, school_year_end)
-    diagnostics_finished_this_year = diagnostics_finished(user).where("activity_sessions.completed_at >=? and activity_sessions.completed_at < ?", school_year_start, school_year_end).count
-    self.data = {
-      total_students: total_students_in_year(user, school_year_start, school_year_end),
+    active_students = active_students_query(@user).where("activity_sessions.completed_at >= ? and activity_sessions.completed_at < ?", school_year_start, school_year_end).count
+    activities_assigned = activities_assigned_in_year_count(@user, school_year_start, school_year_end)
+    activities_finished = activities_finished_query(@user).where("activity_sessions.completed_at >= ? and activity_sessions.completed_at < ?", school_year_start, school_year_end).count
+    diagnostics_assigned_this_year = diagnostics_assigned_in_year_count(@user, school_year_start, school_year_end)
+    diagnostics_finished_this_year = diagnostics_finished(@user).where("activity_sessions.completed_at >=? and activity_sessions.completed_at < ?", school_year_start, school_year_end).count
+    data = {
+      total_students: total_students_in_year(@user, school_year_start, school_year_end),
       active_students: active_students,
       activities_assigned: activities_assigned,
       completed_activities: activities_finished,
@@ -48,5 +48,7 @@ class PreviousYearTeacherDatum < ApplicationRecord
       diagnostics_finished: diagnostics_finished_this_year,
       percent_completed_diagnostics: diagnostics_assigned_this_year > 0 ? (diagnostics_finished_this_year.to_f / diagnostics_assigned_this_year).round(2) : 'N/A'
     }
+
+    $redis.set("teacher_id:#{@user.id}_vitally_stats_for_year_#{@year}", data.to_json, {ex: 1.year})
   end
 end

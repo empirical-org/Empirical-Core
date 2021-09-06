@@ -20,11 +20,8 @@
 require 'rails_helper'
 
 RSpec.describe PreviousYearTeacherDatum, type: :model do
-  it { should belong_to(:user) }
-  it { should validate_presence_of(:year)}
 
   context '#calculate_data' do
-    #TODO: description of what I'm trying to create in this spec.
     let!(:year) { 2016 }
     let!(:teacher) { create(:user, role: 'teacher') }
     let!(:active_classroom) { create(:classroom, created_at: Date.new(year,10,1), visible: true) }
@@ -88,52 +85,23 @@ RSpec.describe PreviousYearTeacherDatum, type: :model do
     end
 
     it 'should raise error if the year is the current year' do
-      expect { PreviousYearTeacherDatum.create(user: teacher, year: Time.now.year) }.to raise_error("Cannot calculate data for a school year that is still ongoing.")
+      expect { PreviousYearTeacherDatum.new(teacher, Time.now.year).calculate_and_save_data }.to raise_error("Cannot calculate data for a school year that is still ongoing.")
     end
 
-    it 'should calculate total students' do
-      teacher_data = PreviousYearTeacherDatum.create(user: teacher, year: year).data
-      expect(teacher_data['total_students']).to eq(3)
-    end
-
-    it 'should calculate active students' do
-      teacher_data = PreviousYearTeacherDatum.create(user: teacher, year: year).data
-      expect(teacher_data['active_students']).to eq(2)
-    end
-
-    it 'should calculate activities assigned' do
-      teacher_data = PreviousYearTeacherDatum.create(user: teacher, year: year).data
-      expect(teacher_data['activities_assigned']).to eq(3)
-    end
-
-    it 'should calculate activities finished' do
-      teacher_data = PreviousYearTeacherDatum.create(user: teacher, year: year).data
-      expect(teacher_data['completed_activities']).to eq(3)
-    end
-
-    it 'should calculate activities finished per student' do
-      teacher_data = PreviousYearTeacherDatum.create(user: teacher, year: year).data
-      expect(teacher_data['completed_activities_per_student']).to eq(1.5)
-    end
-
-    it 'should calculate percent_completed_activities' do
-      teacher_data = PreviousYearTeacherDatum.create(user: teacher, year: year).data
-      expect(teacher_data['percent_completed_activities']).to eq(1)
-    end
-
-    it 'should calculate diagnostics_assigned' do
-      teacher_data = PreviousYearTeacherDatum.create(user: teacher, year: year).data
-      expect(teacher_data['diagnostics_assigned']).to eq(2)
-    end
-
-    it 'should calculate diagnostics_finished' do
-      teacher_data = PreviousYearTeacherDatum.create(user: teacher, year: year).data
-      expect(teacher_data['diagnostics_finished']).to eq(2)
-    end
-
-    it 'should calculate percent_completed_diagnostics' do
-      teacher_data = PreviousYearTeacherDatum.create(user: teacher, year: year).data
-      expect(teacher_data['percent_completed_diagnostics']).to eq(1)
+    it 'should calculate all data' do
+      expected_data = {
+        total_students: 3,
+        active_students: 2,
+        activities_assigned: 3,
+        completed_activities: 3,
+        completed_activities_per_student: 1.5,
+        percent_completed_activities: 1.0,
+        diagnostics_assigned: 2,
+        diagnostics_finished: 2,
+        percent_completed_diagnostics: 1.0
+      }
+      expect($redis).to receive(:set).with("teacher_id:#{teacher.id}_vitally_stats_for_year_#{year}", expected_data.to_json, {ex: 1.year})
+      teacher_data = PreviousYearTeacherDatum.new(teacher, year).calculate_and_save_data
     end
   end
 end
