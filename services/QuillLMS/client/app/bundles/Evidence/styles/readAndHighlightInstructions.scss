@@ -3,6 +3,12 @@
   overflow: auto;
   height: 100%;
   padding-bottom: 20px;
+  .unhighlight-instructions {
+    font-size: 14px;
+    font-weight: 600;
+    color: #5c5c5c;
+    margin-top: 22px;
+  }
   &.hide-on-desktop {
     overflow: visible;
     position: relative;
