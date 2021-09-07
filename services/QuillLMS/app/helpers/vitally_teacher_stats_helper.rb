@@ -19,12 +19,12 @@ module VitallyTeacherStatsHelper
     sum_students(in_school_year(activities_assigned_query(user), school_year_start, school_year_end))
   end
 
-  def sum_students(records)
-    records.map { |r| r&.assigned_student_ids&.count || 0 }.sum || 0
+  def sum_students(activities)
+    activities.map { |r| r&.assigned_student_ids&.count || 0 }.sum
   end
 
-  def in_school_year(records, school_year_start, school_year_end)
-    records.select {|r| r.created_at >= school_year_start && r.created_at < school_year_end }
+  def in_school_year(activities, school_year_start, school_year_end)
+    activities.select {|r| r.created_at >= school_year_start && r.created_at < school_year_end }
   end
 
   def activities_assigned_query(user)
@@ -52,8 +52,9 @@ module VitallyTeacherStatsHelper
     sum_students(filter_diagnostics(in_school_year(activities_assigned_query(user), school_year_start, school_year_end)))
   end
 
-  def filter_diagnostics(records)
-    records.select {|r| Activity.find(r.id).is_diagnostic? }
+  def filter_diagnostics(activities)
+    diagnostic_ids = Activity.where(activity_classification_id: DIAGNOSTIC_ID).pluck(:id)
+    activities.select {|r| diagnostic_ids.include?(r.id) }
   end
 
   def diagnostics_finished(user)
