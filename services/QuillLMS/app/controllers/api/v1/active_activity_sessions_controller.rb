@@ -24,7 +24,7 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
       retried = true
       retry
     end
-    render json: @activity_session.as_json
+    head :no_content
   end
 
   def destroy
@@ -34,7 +34,7 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
 
   private def working_params
     return valid_params unless params.dig(:active_activity_session, :passage)
-    permitted_passage_object = params[:active_activity_session][:passage].map do |paragraph| 
+    permitted_passage_object = params[:active_activity_session][:passage].map do |paragraph|
       paragraph.map do |word_object|
         word_object.permit!
       end
