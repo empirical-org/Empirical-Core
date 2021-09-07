@@ -9,7 +9,7 @@ SecureHeaders::Configuration.default do |config|
     object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>
 
     script_src: [
-      "'self'", 
+      "https://*.quill.org",  
       "'unsafe-inline'",
       "'unsafe-eval'",                                            # allows use of eval()
       "https://*.clever.com",
@@ -47,7 +47,7 @@ SecureHeaders::Configuration.default do |config|
     base_uri: %w('self'),                                         # used for relative URLs
 
     style_src: [
-      "'self'",
+      "https://*.quill.org",  
       "'unsafe-inline'",
       "https://*.fontawesome.com",
       "https://*.googleapis.com",
