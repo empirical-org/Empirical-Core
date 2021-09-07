@@ -1,8 +1,13 @@
 class QuestionsController < ApplicationController
   MULTIPLE_CHOICE_LIMIT = 2
+  CACHE_EXPIRY = 24.hours.to_i
 
   def responses
-    render json: GradedResponse.no_parent.where(question_uid: params[:question_uid])
+    graded = GradedResponse.no_parent.where(question_uid: params[:question_uid])
+
+    responses = graded.present? ? graded : graded_fallback
+
+    render json: responses
   end
 
   def multiple_choice_options
@@ -22,6 +27,17 @@ class QuestionsController < ApplicationController
     nonoptimal = nonoptimal_main.concat(nonoptimal_fallback(nonoptimal_main.count))
 
     render json: optimal.concat(nonoptimal)
+  end
+
+
+  # Newly added questions aren't in GradedResponse since that's only refreshed nightly
+  private def graded_fallback
+    ids = Rails.cache.fetch(Response.questions_cache_key(params[:question_uid]), expires_in: CACHE_EXPIRY) do
+      #NB, the result of this query is too large to store as objects in Memcached for some questions, so storing the ids then fetching them in a query.
+      Response.where(question_uid: params[:question_uid], parent_id: nil).where.not(optimal: nil).pluck(:id)
+    end
+
+    Response.where(id: ids)
   end
 
   # The MultipleChoiceResponse model contains responses
