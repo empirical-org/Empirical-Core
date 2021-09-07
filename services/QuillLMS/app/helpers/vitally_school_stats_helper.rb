@@ -1,13 +1,6 @@
 module VitallySchoolStatsHelper
 
   private def active_students_query(school)
-    ActivitySession.select(:user_id).distinct
-          .joins(classroom_unit: {classroom: {teachers: :school}})
-          .where(state: 'finished')
-          .where('schools.id = ?', school.id)
-  end
-
-  private def active_students_query(school)
     # use raw SQL to bypass scope limits (visible: true) on classrooms
     ActivitySession.select(:user_id)
       .distinct
