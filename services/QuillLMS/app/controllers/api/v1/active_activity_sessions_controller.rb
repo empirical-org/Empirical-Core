@@ -34,6 +34,7 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
 
   private def working_params
     return valid_params unless params.dig(:active_activity_session, :passage)
+    # TODO: This can be optimized in Rails 5.2
     permitted_passage_object = params[:active_activity_session][:passage].map do |paragraph|
       paragraph.map do |word_object|
         word_object.permit!
