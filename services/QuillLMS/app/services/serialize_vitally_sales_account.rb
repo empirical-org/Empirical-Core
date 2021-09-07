@@ -55,8 +55,15 @@ class SerializeVitallySalesAccount
   end
 
   private def get_from_cache(key)
-    @cached_data ||= JSON.parse($redis.get("school_id:#{@school.id}_vitally_stats_for_year_#{Date.today.year - 1}") || '{}')
-    @cached_data[key]
+    year = Date.today.year - 1
+    cached_data = $redis.get("school_id:#{@school.id}_vitally_stats_for_year_#{year}")
+    if cached_data.present?
+      parsed_data = JSON.parse(cached_data)
+    else
+      PreviousYearSchoolDatum.new(@school, year).calculate_and_save_data
+      parsed_data = JSON.parse($redis.get("school_id:#{@school.id}_vitally_stats_for_year_#{year}") || '{}')
+    end
+    parsed_data[key]
   end
 
   private def school_subscription
