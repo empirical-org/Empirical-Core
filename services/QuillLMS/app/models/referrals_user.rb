@@ -20,7 +20,7 @@ class ReferralsUser < ApplicationRecord
   has_one :referred_user, class_name: 'User', foreign_key: :id, primary_key: :referred_user_id
 
   after_create :trigger_invited_event
-  after_save :trigger_activated_event, if: proc { activated_changed? && activated }
+  after_save :trigger_activated_event, if: proc { saved_change_to_activated? && activated }
 
   def referring_user
     user

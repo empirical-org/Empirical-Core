@@ -77,8 +77,8 @@ module Comprehension
     end
 
     private def log_update
-      if regex_text_changed?
-        log_change(nil, :update, self, "regex_text", regex_text_was, regex_text)
+      if saved_change_to_regex_text?
+        log_change(nil, :update, self, "regex_text", regex_text_before_last_save, regex_text)
       end
     end
   end
