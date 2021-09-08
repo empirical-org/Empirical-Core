@@ -287,7 +287,7 @@ describe TeachersController, type: :controller do
       it 'should redirect to login' do
         get :classrooms_i_own_with_students
 
-        response.should redirect_to '/session/new'
+        expect(response).to redirect_to('/session/new')
       end
     end
 
@@ -296,7 +296,7 @@ describe TeachersController, type: :controller do
       it 'should redirect to login' do
         get :classrooms_i_teach_with_students
 
-        response.should redirect_to '/session/new'
+        expect(response).to redirect_to('/session/new')
       end
     end
 

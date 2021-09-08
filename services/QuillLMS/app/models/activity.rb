@@ -236,7 +236,7 @@ class Activity < ApplicationRecord
   end
 
   private def update_evidence_title?
-    is_evidence? && name_changed?
+    is_evidence? && saved_change_to_name?
   end
 
   private def update_evidence_child_title
