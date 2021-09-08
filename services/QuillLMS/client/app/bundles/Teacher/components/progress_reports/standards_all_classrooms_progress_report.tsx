@@ -12,6 +12,7 @@ import moment from 'moment'
 import userIsPremium from '../modules/user_is_premium'
 import {sortByStandardLevel} from '../../../../modules/sortingMethods.js'
 import EmptyStateForReport from './empty_state_for_report'
+import { Tooltip } from '../../../Shared/components/shared'
 
 import _ from 'underscore'
 
@@ -79,11 +80,8 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
         sortMethod: sortByStandardLevel,
         resizable: false,
         minWidth: 300,
-        Cell: (row) => (
-          <a className="row-link-disguise" href={row.original['link']}>
-            {row.original['name']}
-          </a>
-        )
+        Cell: (row, header) => (this.renderTooltipRow(row, header)),
+        style: {overflow: 'visible !important'}
       }, {
         Header: "Students",
         accessor: 'number_of_students',
@@ -123,6 +121,31 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
     ])
   }
 
+  renderTooltipRow(row, header) {
+    let style: React.CSSProperties = { width: `300px`, minWidth: `300px`, textAlign: `left` as CSS.TextAlignProperty }
+    const headerWidthNumber = 300
+    const averageFontWidth = 7
+    const rowDisplayText = row.original['name']
+
+    const key = `${row.id}`
+    const sectionText = (<a className="row-link-disguise" href={row.original['link']}>
+                            {row.original['name']}
+                          </a>)
+                          console.log((String(rowDisplayText).length * averageFontWidth))
+    if ((String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
+      console.log('here')
+      return (<Tooltip
+        key={key}
+        tooltipText={rowDisplayText}
+        tooltipTriggerStyle={style}
+        tooltipTriggerText={sectionText}
+        tooltipTriggerTextStyle={style}
+      />)
+    } else {
+      return sectionText
+    }
+  }
+
   formatDataForCSV() {
     const csvData = [
       ['Standard Level', 'Standard Name', 'Students', 'Proficient', 'Activities']
@@ -137,7 +160,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
 
   formatStandardsData(data) {
     const { selectedClassroomId, } = this.state
-    
+
     return data.map((row) => {
       row.standard_level = row.standard_level_name
       row.standard_name = row.name
@@ -186,6 +209,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
               showPagination={false}
               showPaginationBottom={false}
               showPaginationTop={false}
+              style={{overflow: 'visible'}}
             /></div>
         )
       } else {

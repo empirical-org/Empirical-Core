@@ -258,7 +258,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const dataTableRowSectionClassName = `data-table-row-section ${header.rowSectionClassName}`
     const key = `${header.attribute}-${row.id || sectionText}`
     let linkDisplayText
-    if (sectionText.type === 'a' && sectionText.props.children && sectionText.props.children[1]) {
+    if (sectionText && sectionText.type === 'a' && sectionText.props.children && sectionText.props.children[1] && sectionText.props.children[1].props) {
       linkDisplayText = sectionText.props.children[1].props.children
     }
     const rowDisplayText = linkDisplayText || sectionText
