@@ -79,8 +79,8 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
     it "should create a new session if the requested activity session is not found" do
       data = {"foo" => "bar"}
       put :update, params: { id: 'doesnotexist', active_activity_session: data }, as: :json
-      expect(response.status).to eq(204)
-      expect(response.body).to eq("")
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(data.to_json)
       new_activity_session = ActiveActivitySession.find_by(uid: 'doesnotexist')
       expect(new_activity_session).to be
       expect(new_activity_session.data).to eq(data)
