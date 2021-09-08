@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react';
 import ReactTooltip from 'react-tooltip'
 import ReactTable from 'react-table'
 
@@ -61,7 +61,7 @@ export default class UnitTemplateProfileActivityTable extends React.Component {
   };
 
   renderTooltipRow(props) {
-    const averageFontWidth = 7
+    const averageFontWidth = 9
     const headerWidthNumber = 183
     const rowDisplayText = props.value.standard.standard_category.name
     let style: React.CSSProperties = { width: `183px`, minWidth: `183px`, textAlign: `left` as CSS.TextAlignProperty }

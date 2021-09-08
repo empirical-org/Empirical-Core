@@ -129,8 +129,8 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
     const key = `${row.id}`
     const sectionClass = 'something-class'
     const sectionText = (<a className="row-link-disguise" href={row.original['link']}>
-                            {row.original['name']}
-                          </a>)
+      {row.original['name']}
+    </a>)
     if ((String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
       return (<Tooltip
         key={key}
