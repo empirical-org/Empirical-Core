@@ -1167,7 +1167,7 @@ CREATE TABLE public.classrooms_teachers (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     "order" integer,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
 );
 
 
@@ -2647,6 +2647,40 @@ CREATE SEQUENCE public.prompt_healths_id_seq
 --
 
 ALTER SEQUENCE public.prompt_healths_id_seq OWNED BY public.prompt_healths.id;
+
+
+--
+-- Name: provider_classroom_users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.provider_classroom_users (
+    id bigint NOT NULL,
+    type character varying NOT NULL,
+    provider_classroom_id character varying NOT NULL,
+    provider_user_id character varying NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: provider_classroom_users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.provider_classroom_users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: provider_classroom_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.provider_classroom_users_id_seq OWNED BY public.provider_classroom_users.id;
 
 
 --
@@ -4274,6 +4308,13 @@ ALTER TABLE ONLY public.prompt_healths ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
+-- Name: provider_classroom_users id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.provider_classroom_users ALTER COLUMN id SET DEFAULT nextval('public.provider_classroom_users_id_seq'::regclass);
+
+
+--
 -- Name: questions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5039,6 +5080,14 @@ ALTER TABLE ONLY public.partner_contents
 
 ALTER TABLE ONLY public.prompt_healths
     ADD CONSTRAINT prompt_healths_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: provider_classroom_users provider_classroom_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.provider_classroom_users
+    ADD CONSTRAINT provider_classroom_users_pkey PRIMARY KEY (id);
 
 
 --
@@ -6023,6 +6072,13 @@ CREATE INDEX index_partner_contents_on_content_type_and_content_id ON public.par
 --
 
 CREATE INDEX index_partner_contents_on_partner ON public.partner_contents USING btree (partner);
+
+
+--
+-- Name: index_provider_type_and_classroom_id_and_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_provider_type_and_classroom_id_and_user_id ON public.provider_classroom_users USING btree (type, provider_classroom_id, provider_user_id);
 
 
 --
@@ -7395,6 +7451,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210726193112'),
 ('20210803163028'),
 ('20210811130155'),
-('20210816195838');
+('20210816195838'),
+('20210824114552');
 
 

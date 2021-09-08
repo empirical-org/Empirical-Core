@@ -607,6 +607,11 @@ class User < ApplicationRecord
     auth_credential.google_authorized?
   end
 
+  # Note this is an incremented count, so could be off.
+  def completed_activity_count
+    user_activity_classifications.sum(:count)
+  end
+
   private def validate_flags
     # ensures there are no items in the flags array that are not in the VALID_FLAGS const
     invalid_flags = flags - VALID_FLAGS

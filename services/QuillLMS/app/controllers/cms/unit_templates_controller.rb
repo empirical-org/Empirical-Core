@@ -12,6 +12,7 @@ class Cms::UnitTemplatesController < Cms::CmsController
   end
 
   def edit
+    @unit_template = Cms::UnitTemplateSerializer.new(@unit_template).as_json(root: false)
   end
 
   def create

@@ -70,7 +70,7 @@ class ActivitySession < ApplicationRecord
   before_create :set_state
   before_save   :set_completed_at, :set_activity_id
 
-  after_save    :determine_if_final_score, :update_milestones
+  after_save    :determine_if_final_score, :update_milestones, :increment_counts
   after_save :record_teacher_activity_feed, if: [:saved_change_to_completed_at?, :completed?]
 
   after_commit :invalidate_activity_session_count_if_completed
@@ -580,6 +580,13 @@ class ActivitySession < ApplicationRecord
     if self.state == 'finished'
       UpdateMilestonesWorker.perform_async(uid)
     end
+  end
+
+  private def increment_counts
+    return unless finished?
+    return unless saved_change_to_completed_at?
+
+    UserActivityClassification.count_for(user, classification)
   end
 
   def self.has_a_completed_session?(activity_id_or_ids, classroom_unit_id_or_ids)

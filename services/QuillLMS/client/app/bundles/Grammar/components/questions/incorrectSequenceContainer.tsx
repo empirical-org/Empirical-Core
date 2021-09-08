@@ -6,7 +6,7 @@ import { EditorState, ContentState } from 'draft-js'
 import { TextEditor } from '../../../Shared/index';
 import * as questionActions from '../../actions/questions';
 import { hashToCollection, SortableList, } from '../../../Shared/index';
-import dispatch from '../../../Comprehension/__mocks__/dispatch';
+import dispatch from '../../../Evidence/__mocks__/dispatch';
 
 class IncorrectSequencesContainer extends React.Component {
 
