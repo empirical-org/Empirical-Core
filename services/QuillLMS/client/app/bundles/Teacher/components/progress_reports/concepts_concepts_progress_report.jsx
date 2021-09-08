@@ -43,6 +43,7 @@ export default class extends React.Component {
       }, {
         Header: 'Name',
         accessor: 'concept_name',
+        className: 'show-overflow',
         resizable: false,
       }, {
         Header: 'Questions',
@@ -54,13 +55,13 @@ export default class extends React.Component {
         accessor: 'correct_result_count',
         resizable: false,
         className: blurIfNotPremium,
-        width: 120
+        width: 105
       }, {
         Header: 'Incorrect',
         accessor: 'incorrect_result_count',
         resizable: false,
         className: blurIfNotPremium,
-        width: 120
+        width: 115
       }, {
         Header: 'Percentage',
         accessor: 'percentage',
