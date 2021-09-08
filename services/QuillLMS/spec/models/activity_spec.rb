@@ -517,7 +517,7 @@ describe Activity, type: :model, redis: true do
     end
 
     it 'should return false if name has not been changed on activity' do
-      activity.supporting_info = 'Name not changed'
+      activity.update(supporting_info: 'Name not changed')
       expect(activity.send(:update_evidence_title?)).to eq(false)
     end
   end
@@ -575,7 +575,7 @@ describe Activity, type: :model, redis: true do
     end
 
     it 'should not error if there is no child activity' do
-      expect { activity.update(name: 'New name') }.not_to raise_error(NoMethodError)
+      expect { activity.update(name: 'New name') }.not_to raise_error
     end
   end
 

@@ -27,7 +27,6 @@ describe Api::V1::QuestionsController, type: :controller do
 
     it "should include the response from the db" do
       get :index, params: { question_type: 'connect_sentence_combining' }, as: :json
-      puts response.body
       expect(JSON.parse(response.body).keys.first).to eq(question.uid)
     end
   end

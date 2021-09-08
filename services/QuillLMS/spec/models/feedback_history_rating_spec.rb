@@ -29,6 +29,6 @@ RSpec.describe FeedbackHistoryRating, type: :model do
     create(:feedback_history_rating, **params)
     expect do 
       create(:feedback_history_rating, **params)
-    end.to raise_error
+    end.to raise_error(ActiveRecord::RecordNotUnique)
   end
 end
