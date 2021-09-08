@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   POST_AUTH_REDIRECT = :post_auth_redirect
   GOOGLE_OR_CLEVER_JUST_SET = :google_or_clever_just_set
   KEEP_ME_SIGNED_IN = :keep_me_signed_in
-  COMPREHENSION = 'comprehension'
   EVIDENCE = 'evidence'
   PROOFREADER = 'proofreader'
   GRAMMAR = 'grammar'

@@ -103,7 +103,7 @@ describe UserSubscription, type: :model do
     end
 
     it 'calls #self.redeem_present_and_future_subscriptions_for_credit with the user_id ' do
-      UserSubscription.should receive(:redeem_present_and_future_subscriptions_for_credit).with(user_1.id)
+      expect(UserSubscription).to receive(:redeem_present_and_future_subscriptions_for_credit).with(user_1.id)
       UserSubscription.create_user_sub_from_school_sub(user_1.id, new_sub.id)
     end
   end

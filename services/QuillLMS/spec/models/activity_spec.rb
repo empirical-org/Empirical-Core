@@ -168,17 +168,21 @@ describe Activity, type: :model, redis: true do
       classification = create(:activity_classification, key: 'connect')
       classified_activity = create(:activity, classification: classification)
       student = create(:student)
-      uac = create(:user_activity_classification, user: student, activity_classification: classification, count: 4)
-      activity_session = create(:activity_session, activity: classified_activity, user: student)
+      activity_count = 2
+      activity_count.times do
+        create(:activity_session, :finished, activity: classified_activity, user: student)
+      end
 
-      expect(activity_session.user_activity_classifications.find_by(user_id: student.id)).to eq(uac)
-      expect(classified_activity.module_url(activity_session).to_s).to include("activities=#{uac.count}")
+      activity_session = student.activity_sessions.last
+
+      expect(activity_session.user_activity_classifications.find_by(user_id: student.id).count).to eq(activity_count)
+      expect(classified_activity.module_url(activity_session).to_s).to include("activities=#{activity_count}")
     end
 
     it "must not add 'activities' param if the student has not completed any other activities of this classification" do
       classification = create(:activity_classification, key: 'connect')
       classified_activity = create(:activity, classification: classification)
-      activity_session = create(:activity_session, activity: classified_activity)
+      activity_session = create(:activity_session, :started, activity: classified_activity)
 
       expect(classified_activity.module_url(activity_session).to_s).to_not include("activities")
     end
@@ -513,7 +517,7 @@ describe Activity, type: :model, redis: true do
     end
 
     it 'should return false if name has not been changed on activity' do
-      activity.supporting_info = 'Name not changed'
+      activity.update(supporting_info: 'Name not changed')
       expect(activity.send(:update_evidence_title?)).to eq(false)
     end
   end
@@ -571,7 +575,7 @@ describe Activity, type: :model, redis: true do
     end
 
     it 'should not error if there is no child activity' do
-      expect { activity.update(name: 'New name') }.not_to raise_error(NoMethodError)
+      expect { activity.update(name: 'New name') }.not_to raise_error
     end
   end
 

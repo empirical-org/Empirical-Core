@@ -64,7 +64,7 @@ class User < ApplicationRecord
   before_validation :generate_student_username_if_absent
   before_validation :prep_authentication_terms
   before_save :capitalize_name
-  after_save  :update_invitee_email_address, if: proc { email_changed? }
+  after_save  :update_invitee_email_address, if: proc { saved_change_to_email? }
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
 
@@ -607,6 +607,11 @@ class User < ApplicationRecord
     auth_credential.google_authorized?
   end
 
+  # Note this is an incremented count, so could be off.
+  def completed_activity_count
+    user_activity_classifications.sum(:count)
+  end
+
   private def validate_flags
     # ensures there are no items in the flags array that are not in the VALID_FLAGS const
     invalid_flags = flags - VALID_FLAGS
@@ -663,6 +668,6 @@ class User < ApplicationRecord
   end
 
   private def update_invitee_email_address
-    Invitation.where(invitee_email: email_was).update_all(invitee_email: email)
+    Invitation.where(invitee_email: email_before_last_save).update_all(invitee_email: email)
   end
 end

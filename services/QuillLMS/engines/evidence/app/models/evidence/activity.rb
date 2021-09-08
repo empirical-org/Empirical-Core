@@ -12,7 +12,7 @@ module Evidence
 
     before_destroy :expire_turking_rounds
     before_validation :set_parent_activity, on: :create
-    after_save :update_parent_activity_name, if: :title_changed?
+    after_save :update_parent_activity_name, if: :saved_change_to_title?
 
     has_many :passages, inverse_of: :activity, dependent: :destroy
     has_many :prompts, inverse_of: :activity, dependent: :destroy

@@ -44,7 +44,7 @@ describe SchoolsController, type: :controller do
       it 'should redirect to login' do
         put :select_school, params: { school_id_or_type: @school1.id }, as: :json
 
-        response.should redirect_to '/session/new'
+        expect(response).to redirect_to('/session/new')
       end
     end
 

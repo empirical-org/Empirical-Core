@@ -6,11 +6,33 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   context '#responses' do
+    before(:each) do
+      Rails.cache.clear
+    end
+
     it 'should return empty array if nothing found' do
       get :responses, params: {question_uid: '123'}
 
       expect(response.status).to eq 200
       expect(JSON.parse(response.body)).to be_empty
+    end
+
+    context 'with data not in GradedResponse' do
+      let!(:optimal) {create(:optimal_response, question_uid: '123')}
+      let!(:graded_nonoptimal) {create(:graded_nonoptimal_response, question_uid: '123')}
+      let!(:ungraded) {create(:ungraded_response, question_uid: '123')}
+
+      it 'should return graded responses' do
+        get :responses, params: {question_uid: '123'}
+
+        expect(response.status).to eq 200
+        # sorting to make test consistent (order doesn't matter for this API)
+        json = JSON.parse(response.body).sort_by{|gr| gr['id']}
+
+        expect(json.count).to eq 2
+        expect(json.first['id']).to eq optimal.id
+        expect(json.second['id']).to eq graded_nonoptimal.id
+      end
     end
 
     context 'with data' do

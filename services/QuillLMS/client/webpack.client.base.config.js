@@ -81,8 +81,8 @@ module.exports = {
     staff: [
       './app/bundles/Staff/startup/clientRegistration.js'
     ],
-    comprehension: [
-      './app/bundles/Comprehension/clientRegistration.js'
+    evidence: [
+      './app/bundles/Evidence/clientRegistration.js'
     ],
     proofreader: [
       './app/bundles/Proofreader/clientRegistration'
