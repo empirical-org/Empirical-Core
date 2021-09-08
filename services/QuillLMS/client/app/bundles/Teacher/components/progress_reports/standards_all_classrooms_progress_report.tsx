@@ -80,8 +80,8 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
         sortMethod: sortByStandardLevel,
         resizable: false,
         minWidth: 300,
-        Cell: (row, header) => (this.renderTooltipRow(row, header)),
-        style: {overflow: 'visible !important'}
+        Cell: (row) => this.renderTooltipRow(row),
+        style: {overflow: 'visible'},
       }, {
         Header: "Students",
         accessor: 'number_of_students',
@@ -121,24 +121,23 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
     ])
   }
 
-  renderTooltipRow(row, header) {
-    let style: React.CSSProperties = { width: `300px`, minWidth: `300px`, textAlign: `left` as CSS.TextAlignProperty }
-    const headerWidthNumber = 300
+  renderTooltipRow(row) {
     const averageFontWidth = 7
+    const headerWidthNumber = 300
     const rowDisplayText = row.original['name']
-
+    let style: React.CSSProperties = { width: `300px`, minWidth: `300px`, textAlign: `left` as CSS.TextAlignProperty }
     const key = `${row.id}`
+    const sectionClass = 'something-class'
     const sectionText = (<a className="row-link-disguise" href={row.original['link']}>
                             {row.original['name']}
                           </a>)
-                          console.log((String(rowDisplayText).length * averageFontWidth))
     if ((String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
-      console.log('here')
       return (<Tooltip
         key={key}
         tooltipText={rowDisplayText}
         tooltipTriggerStyle={style}
         tooltipTriggerText={sectionText}
+        tooltipTriggerTextClass={sectionClass}
         tooltipTriggerTextStyle={style}
       />)
     } else {
