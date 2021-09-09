@@ -122,7 +122,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
   context 'lesson_recommendations_for_classroom' do
     before do
       # stub complicated query that returns activities
-      LessonRecommendationsQuery.any_instance.stub(:activity_recommendations).and_return([activity])
+      allow_any_instance_of(LessonRecommendationsQuery).to receive(:activity_recommendations).and_return([activity])
       @classroom_unit = create(:classroom_unit, classroom: classroom, unit: unit)
     end
 

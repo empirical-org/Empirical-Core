@@ -102,9 +102,9 @@ module Comprehension
       end
 
       it 'should not crash if the parent_activity is somehow missing' do
-        activity.parent_activity.destroy!
+        activity.update(parent_activity_id: nil)
 
-        expect { activity.update(title: 'New Title') }.not_to raise_error(NoMethodError)
+        expect { activity.update(title: 'New Title') }.not_to raise_error
       end
     end
 

@@ -114,11 +114,11 @@ describe Subscription, type: :model do
     let!(:subscription) { build(:subscription, expiration: Date.new(2018,4,6), purchaser: user) }
 
     before do
-      Subscription.any_instance.stub(:charge_user_for_teacher_premium).and_return({status: 'succeeded'})
+      allow_any_instance_of(Subscription).to receive(:charge_user_for_teacher_premium).and_return({status: 'succeeded'})
     end
 
     it "calls #Subscription.new_teacher_premium_sub" do
-      Subscription.should receive(:new_teacher_premium_sub).with(user).and_return(subscription)
+      expect(Subscription).to receive(:new_teacher_premium_sub).with(user).and_return(subscription)
       Subscription.give_teacher_premium_if_charge_succeeds(user)
     end
 
@@ -156,7 +156,7 @@ describe Subscription, type: :model do
 
     context 'when the charge does not suceed' do
       before do
-        Subscription.any_instance.stub(:charge_user_for_teacher_premium).and_return({status: 'failed'})
+        allow_any_instance_of(Subscription).to receive(:charge_user_for_teacher_premium).and_return({status: 'failed'})
       end
 
       it "does not create a new subscription when the charge succeeds" do
@@ -181,11 +181,11 @@ describe Subscription, type: :model do
     # let!(:school_sub) {build(:school_subscription, school: school, subscription: subscription)}
 
     before do
-      Subscription.any_instance.stub(:charge_user_for_school_premium).and_return({status: 'succeeded'})
+      allow_any_instance_of(Subscription).to receive(:charge_user_for_school_premium).and_return({status: 'succeeded'})
     end
 
     it "calls #Subscription.new_school_premium_sub" do
-      Subscription.should receive(:new_school_premium_sub).with(school, user).and_return(subscription)
+      expect(Subscription).to receive(:new_school_premium_sub).with(school, user).and_return(subscription)
       Subscription.give_school_premium_if_charge_succeeds(school, user)
     end
 
@@ -224,7 +224,7 @@ describe Subscription, type: :model do
 
     context 'when the charge does not suceed' do
       before do
-        Subscription.any_instance.stub(:charge_user_for_school_premium).and_return({status: 'failed'})
+        allow_any_instance_of(Subscription).to receive(:charge_user_for_school_premium).and_return({status: 'failed'})
       end
 
       it "does not create a new subscription" do
@@ -387,7 +387,7 @@ describe Subscription, type: :model do
       end
 
       it "does not call update_if_charge_succeeds on any other subscriptions" do
-        Subscription.any_instance.stub(:update_if_charge_succeeds)
+        allow_any_instance_of(Subscription).to receive(:update_if_charge_succeeds)
         [recurring_subscription_expiring_tomorrow, non_recurring_subscription_expiring_today].each do |s|
           expect(s).not_to receive(:update_if_charge_succeeds)
         end
@@ -402,7 +402,7 @@ describe Subscription, type: :model do
 
       context 'when the charge succeeds' do
         before do
-          recurring_subscription_expiring_today_1.stub(:charge_user).and_return({status: 'succeeded'})
+          allow(recurring_subscription_expiring_today_1).to receive(:charge_user).and_return({status: 'succeeded'})
         end
 
         it "calls charge_user" do
@@ -417,7 +417,7 @@ describe Subscription, type: :model do
 
       context 'when the charge does not succeed' do
         before do
-          recurring_subscription_expiring_today_1.stub(:charge_user).and_return({status: 'failed'})
+          allow(recurring_subscription_expiring_today_1).to receive(:charge_user).and_return({status: 'failed'})
         end
 
         it "calls charge_user" do
@@ -512,8 +512,4 @@ describe Subscription, type: :model do
       end
     end
   end
-
-
-
-
 end

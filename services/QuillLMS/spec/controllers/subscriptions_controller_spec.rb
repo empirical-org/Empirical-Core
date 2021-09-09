@@ -91,7 +91,7 @@ describe SubscriptionsController do
       it 'should redirect to login' do
         get :index
 
-        response.should redirect_to '/session/new'
+        expect(response).to redirect_to('/session/new')
       end
     end
 

@@ -209,12 +209,12 @@ module Comprehension
         result1 = MockResult.new(2, 'result1')
         result2 = MockResult.new(1, 'result2')
  
-        allow(prediction_client).to receive(:predict).and_return( MockPayload.new([result1, result2]) )
-        Google::Cloud::AutoML.stub(:prediction_service).and_return(prediction_client)
+        expect(prediction_client).to receive(:predict).and_return( MockPayload.new([result1, result2]) )
+        expect(Google::Cloud::AutoML).to receive(:prediction_service).and_return(prediction_client)
 
         client = double
-        allow(client).to receive(:model_path).and_return("the_path")
-        Google::Cloud::AutoML.stub(:auto_ml).and_return(client)
+        expect(client).to receive(:model_path).and_return("the_path")
+        expect(Google::Cloud::AutoML).to receive(:auto_ml).and_return(client)
 
         expect(automl_model.fetch_automl_label('some text')).to eq 'result1'
       end
@@ -232,7 +232,7 @@ module Comprehension
 
         client = double
         allow(client).to receive(:model_path).and_return("the_path")
-        Google::Cloud::AutoML.stub(:auto_ml).and_return(client)
+        expect(Google::Cloud::AutoML).to receive(:auto_ml).and_return(client)
         expect(model.send(:automl_model_full_id)).to eq "the_path"
       end
     end
