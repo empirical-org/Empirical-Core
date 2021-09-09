@@ -448,7 +448,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
       resources :active_activity_sessions, only: [:show, :update, :destroy]
 
-      mount Comprehension::Engine => "/comprehension", as: :comprehension
+      mount Evidence::Engine => "/evidence", as: :evidence
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
