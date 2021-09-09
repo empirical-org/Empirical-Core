@@ -910,6 +910,13 @@ end
     end
   end
 
+  describe '#calculate_timespent' do
+    it 'should save timetracking data even if one of the values is nil' do
+      time_tracking = {"1"=>188484, "2"=>94405, "3"=>89076, "4"=>120504, "onboarding"=>nil}
+      expect(ActivitySession.calculate_timespent(time_tracking)).to eq(492469)
+    end
+  end
+
   describe '#has_a_completed_session?' do
     context 'when session exists' do
       let(:activity_session) { create(:activity_session, state: "finished") }
