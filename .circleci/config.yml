@@ -191,7 +191,7 @@ jobs:
           name: Bundle Install if cache isn't present.
           command: |
             cd services/QuillCMS
-            bundle update --bundler
+            gem install bundler:2.2.27
             bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
             bundle check || bundle install --path vendor/bundle
       - save_cache:
