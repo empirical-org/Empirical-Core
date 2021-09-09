@@ -28,7 +28,7 @@ describe('Activities actions', () => {
     })
 
     it('makes a GET request to the activities API', () => {
-      const expectedUrl = `${process.env.DEFAULT_URL}/api/v1/comprehension/activities/${mockActivityID}`
+      const expectedUrl = `${process.env.DEFAULT_URL}/api/v1/evidence/activities/${mockActivityID}`
       expect(request.get).toBeCalledWith(expectedUrl, expect.anything())
     })
   })
