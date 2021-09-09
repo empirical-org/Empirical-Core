@@ -42,7 +42,7 @@ SecureHeaders::Configuration.default do |config|
 
     ], 
 
-    img_src: %w('self' https://*.quill.org https://*.typekit.net),
+    img_src: %w(https://*.quill.org https://*.typekit.net),
 
     base_uri: %w('self'),                                         # used for relative URLs
 
