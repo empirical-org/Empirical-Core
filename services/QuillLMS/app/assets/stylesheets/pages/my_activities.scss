@@ -202,11 +202,14 @@
 }
 
 .tool-and-name-section {
-  overflow: visible;
   a {
     height: 22px;
+    width: 650px;
     display: inline-block;
     color: #027360;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .interactive-wrapper {
     display: flex;

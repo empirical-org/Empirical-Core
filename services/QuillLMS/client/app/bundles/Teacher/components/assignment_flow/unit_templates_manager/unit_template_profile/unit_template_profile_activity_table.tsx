@@ -1,6 +1,8 @@
-import React from 'react'
+import * as React from 'react';
 import ReactTooltip from 'react-tooltip'
 import ReactTable from 'react-table'
+
+import {Tooltip} from '../../../../../Shared/components/shared/tooltip'
 
 export default class UnitTemplateProfileActivityTable extends React.Component {
   redirectToActivity = (activityId) => {
@@ -20,6 +22,7 @@ export default class UnitTemplateProfileActivityTable extends React.Component {
       {
         Header: 'Activity',
         accessor: a => a,
+        width: 586,
         id: 'activityName',
         Cell: props => (<a
           className='row-link-disguise highlight-on-hover'
@@ -40,19 +43,44 @@ export default class UnitTemplateProfileActivityTable extends React.Component {
       {
         Header: 'Concept',
         accessor: a => a,
+        width: 183,
         id: 'conceptName',
-        Cell: props => <a className='row-link-disguise' onClick={() => this.redirectToActivity(props.value.id)} style={{color: 'black'}}><span>{props.value.standard.standard_category.name}</span></a>
+        Cell: props => this.renderTooltipRow(props),
+        style: {overflow: 'visible'}
       },
       {
         accessor: 'id',
-        maxWidth: 150,
+        maxWidth: 81,
         textAlign: 'right',
         accessor: a => a,
         id: 'chevron',
-        Cell: props => <a className='row-link-disguise' onClick={() => this.redirectToActivity(props.value.id)}>Preview<img className="chevron-right" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" /></a>,
+        Cell: props => <a className='row-link-disguise' onClick={() => this.redirectToActivity(props.value.id)}>Preview</a>,
+        style: {marginLeft: '14px'}
       }
     ];
   };
+
+  renderTooltipRow(props) {
+    const averageFontWidth = 9
+    const headerWidthNumber = 183
+    const rowDisplayText = props.value.standard.standard_category.name
+    let style: React.CSSProperties = { width: `183px`, minWidth: `183px`, textAlign: `left` as CSS.TextAlignProperty }
+    const key = `${props.value.id}`
+    const sectionClass = 'something-class'
+    const sectionText = (<a className='row-link-disguise' onClick={() => this.redirectToActivity(props.value.id)} style={{color: 'black'}}><span>{props.value.standard.standard_category.name}</span></a>)
+    if ((String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
+      return (<Tooltip
+        key={key}
+        tooltipText={rowDisplayText}
+        tooltipTriggerStyle={style}
+        tooltipTriggerText={sectionText}
+        tooltipTriggerTextClass={sectionClass}
+        tooltipTriggerTextStyle={style}
+      />)
+    } else {
+      return sectionText
+    }
+  }
 
   render() {
     return (
@@ -78,6 +106,7 @@ export default class UnitTemplateProfileActivityTable extends React.Component {
         resizable={false}
         showPagination={false}
         sortable={false}
+        style={{overflow: 'visible'}}
       />
     )
   }

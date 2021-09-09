@@ -84,6 +84,9 @@
     width: 100%;
     display: inline-block;
     color: black;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }
 

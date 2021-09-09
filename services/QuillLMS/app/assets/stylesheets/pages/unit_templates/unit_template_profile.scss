@@ -43,6 +43,9 @@
     .row-link-disguise {
       width: 100%;
       display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     .ReactTable .rt-thead {

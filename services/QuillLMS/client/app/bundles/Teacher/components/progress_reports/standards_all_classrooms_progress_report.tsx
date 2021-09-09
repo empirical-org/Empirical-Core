@@ -1,6 +1,5 @@
-import React from 'react'
+import * as React from 'react'
 import request from 'request'
-import {CSVDownload, CSVLink} from 'react-csv'
 import queryString from 'query-string';
 
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
@@ -8,18 +7,33 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
-import moment from 'moment'
 import userIsPremium from '../modules/user_is_premium'
 import {sortByStandardLevel} from '../../../../modules/sortingMethods.js'
 import EmptyStateForReport from './empty_state_for_report'
+import { Tooltip } from '../../../Shared/components/shared'
 
 import _ from 'underscore'
+
+interface StandardsAllClassroomsProgressReportProps {
+
+}
+
+interface StandardsAllClassroomsProgressReportState {
+  loading: boolean,
+  errors: boolean,
+  selectedClassroomId: string | string[],
+  standardsData: Array<Object>,
+  students: Array<any>,
+  updatingData: boolean,
+  classrooms: Array<any>,
+  userIsPremium: boolean
+}
 
 const showAllClassroomKey = 'All Classrooms'
 const showAllStudentsKey = 'All Students'
 
 
-export default class StandardsAllClassroomsProgressReport extends React.Component {
+export default class StandardsAllClassroomsProgressReport extends React.Component<StandardsAllClassroomsProgressReportProps, StandardsAllClassroomsProgressReportState> {
   constructor(props) {
     super(props)
     this.state = {
@@ -28,7 +42,9 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
       selectedClassroomId: queryString.parse(window.location.search).classroom_id,
       updatingData: true,
       classrooms: [],
-      userIsPremium: userIsPremium()
+      userIsPremium: userIsPremium(),
+      standardsData: null,
+      students: []
     }
   }
 
@@ -79,11 +95,8 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
         sortMethod: sortByStandardLevel,
         resizable: false,
         minWidth: 300,
-        Cell: (row) => (
-          <a className="row-link-disguise" href={row.original['link']}>
-            {row.original['name']}
-          </a>
-        )
+        Cell: (row) => this.renderTooltipRow(row),
+        style: {overflow: 'visible'},
       }, {
         Header: "Students",
         accessor: 'number_of_students',
@@ -123,6 +136,30 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
     ])
   }
 
+  renderTooltipRow(row) {
+    const averageFontWidth = 7
+    const headerWidthNumber = 300
+    const rowDisplayText = row.original['name']
+    let style: React.CSSProperties = { width: `300px`, minWidth: `300px` }
+    const key = `${row.id}`
+    const sectionClass = 'something-class'
+    const sectionText = (<a className="row-link-disguise" href={row.original['link']}>
+      {row.original['name']}
+    </a>)
+    if ((String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
+      return (<Tooltip
+        key={key}
+        tooltipText={rowDisplayText}
+        tooltipTriggerStyle={style}
+        tooltipTriggerText={sectionText}
+        tooltipTriggerTextClass={sectionClass}
+        tooltipTriggerTextStyle={style}
+      />)
+    } else {
+      return sectionText
+    }
+  }
+
   formatDataForCSV() {
     const csvData = [
       ['Standard Level', 'Standard Name', 'Students', 'Proficient', 'Activities']
@@ -137,7 +174,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
 
   formatStandardsData(data) {
     const { selectedClassroomId, } = this.state
-    
+
     return data.map((row) => {
       row.standard_level = row.standard_level_name
       row.standard_name = row.name
@@ -186,6 +223,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
               showPagination={false}
               showPaginationBottom={false}
               showPaginationTop={false}
+              style={{overflow: 'visible'}}
             /></div>
         )
       } else {
