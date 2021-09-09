@@ -169,6 +169,7 @@ jobs:
     docker:
       - image: ruby:2.6.8
         environment:
+          BUNDLER_VERSION: 2.2.27
           PG_DB: quill_cms_test_db
           PG_USER: ubuntu
           RAILS_ENV: test
