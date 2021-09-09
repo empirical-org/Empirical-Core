@@ -155,7 +155,7 @@ class FeedbackHistory < ApplicationRecord
   end
 
   private def confirm_prompt_type
-    self.prompt_type = DEFAULT_PROMPT_TYPE if prompt_id #&& !prompt_type
+    self.prompt_type = DEFAULT_PROMPT_TYPE if prompt_id && !prompt_type
   end
 
   private def anonymize_session_uid
