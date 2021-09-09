@@ -128,9 +128,11 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   componentDidMount() {
-    const { dispatch, session, isTurk } = this.props
+    const { dispatch, session, isTurk, location } = this.props
     const activityUID = getUrlParam('uid', location, isTurk)
+    console.log("🚀 ~ file: container.tsx ~ line 133 ~ StudentViewContainer ~ componentDidMount ~ activityUID", activityUID)
     const sessionFromUrl = getUrlParam('session', location, isTurk)
+    console.log("🚀 ~ file: container.tsx ~ line 135 ~ StudentViewContainer ~ componentDidMount ~ sessionFromUrl", sessionFromUrl)
     if (sessionFromUrl) {
       const fetchActiveActivitySessionArgs = {
         sessionID: sessionFromUrl,
@@ -289,7 +291,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   submitResponse = (entry: string, promptID: string, promptText: string, attempt: number) => {
-    const { dispatch, session, isTurk } = this.props
+    const { dispatch, session, isTurk, location } = this.props
     const { sessionID, } = session
     const activityUID = getUrlParam('uid', location, isTurk)
     const previousFeedback = session.submittedResponses[promptID] || [];
@@ -311,7 +313,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   trackPassageReadEvent = () => {
-    const { dispatch, isTurk } = this.props
+    const { dispatch, isTurk, location } = this.props
     const { session, } = this.props
     const { sessionID, } = session
     const activityUID = getUrlParam('uid', location, isTurk)
@@ -343,7 +345,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   trackActivityCompletedEvent = () => {
-    const { dispatch, isTurk, handleFinishActivity } = this.props
+    const { dispatch, isTurk, location } = this.props
     const { session, } = this.props
     const { sessionID, } = session
     const activityID = getUrlParam('uid', location, isTurk)
