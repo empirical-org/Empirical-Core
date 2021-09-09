@@ -17,6 +17,16 @@ exports[`ActivityStats component should render ActivityStats 1`] = `
       Could Capybaras Create Chaos? [student testing]
     </h4>
   </section>
+  <FilterWidget
+    endDate={null}
+    handleFilterClick={[Function]}
+    handleSetTurkSessionID={[Function]}
+    onEndDateChange={[Function]}
+    onStartDateChange={[Function]}
+    showError={false}
+    startDate={null}
+    turkSessionID=""
+  />
   <ReactTable
     AggregatedComponent={[Function]}
     ExpanderComponent={[Function]}

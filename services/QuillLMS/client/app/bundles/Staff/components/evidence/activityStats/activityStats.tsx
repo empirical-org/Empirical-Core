@@ -4,15 +4,31 @@ import { useQuery } from 'react-query';
 import ReactTable from 'react-table';
 import * as _ from 'lodash'
 
-import { ActivityRouteProps, PromptHealthInterface } from '../../../interfaces/evidenceInterfaces';
+import FilterWidget from "../shared/filterWidget";
+import { ActivityRouteProps, PromptHealthInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { fetchPromptHealth } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 import { Spinner, } from '../../../../Shared/index';
-import { renderHeader } from '../../../helpers/evidence';
+import { renderHeader, handlePageFilterClick } from '../../../helpers/evidence';
+import { ACTIVITY_STATS } from '../../../../../constants/evidence';
 
 const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
   const { params } = match;
   const { activityId, } = params;
+
+  const initialStartDateString = window.sessionStorage.getItem(`${ACTIVITY_STATS}startDate`) || '';
+  const initialEndDateString = window.sessionStorage.getItem(`${ACTIVITY_STATS}endDate`) || '';
+  const initialTurkSessionId = window.sessionStorage.getItem(`${ACTIVITY_STATS}turkSessionId`) || '';
+  const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
+  const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
+
+  const [showError, setShowError] = React.useState<boolean>(false);
+  const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
+  const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
+  const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
+  const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
+  const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
+  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
 
   // get cached activity data to pass to rule
   const { data: activityData } = useQuery({
@@ -22,9 +38,15 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
   // cache rules data for updates
   const { data: promptHealth } = useQuery({
-    queryKey: [`prompt-health-by-activity-${activityId}`, activityId],
+    queryKey: [`prompt-health-by-activity-${activityId}`, activityId, startDateForQuery, endDateForQuery, turkSessionIDForQuery],
     queryFn: fetchPromptHealth
   });
+
+  function handleSetTurkSessionID(e: InputEvent){ setTurkSessionID(e.target.value) };
+
+  function handleFilterClick() {
+    handlePageFilterClick({ startDate, endDate, turkSessionID, setStartDate, setEndDate, setShowError, setTurkSessionIDForQuery, setPageNumber: null, storageKey: ACTIVITY_STATS });
+  }
 
 
   const formattedRows = promptHealth && promptHealth.prompts && Object.values(promptHealth.prompts).map((prompt: PromptHealthInterface) => {
@@ -67,7 +89,7 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       Header: '',
       accessor: "promptText",
       key: "promptText",
-      Cell: (data) => <span className="prompt-text">{data.original.promptText}</span>
+      Cell: (data) => <span className="prompt-text">{data.original.promptText}</span> // eslint-disable-line react/display-name
     },
     {
       Header: 'Total Responses',
@@ -120,6 +142,16 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   return(
     <div className="activity-stats-container">
       {renderHeader(activityData, 'Activity Stats')}
+      <FilterWidget
+        endDate={endDate}
+        handleFilterClick={handleFilterClick}
+        handleSetTurkSessionID={handleSetTurkSessionID}
+        onEndDateChange={onEndDateChange}
+        onStartDateChange={onStartDateChange}
+        showError={showError}
+        startDate={startDate}
+        turkSessionID={turkSessionID}
+      />
       {formattedRows && (<ReactTable
         className="activity-stats-table"
         columns={dataTableFields}
