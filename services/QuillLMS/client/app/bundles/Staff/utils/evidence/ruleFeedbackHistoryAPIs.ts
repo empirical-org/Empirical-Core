@@ -1,4 +1,4 @@
-import { handleApiError, mainApiFetch, getRuleFeedbackHistoriesUrl, getRuleFeedbackHistoryUrl } from '../../helpers/evidence';
+import { handleApiError, mainApiFetch, getRuleFeedbackHistoriesUrl, getRuleFeedbackHistoryUrl, getActivityStatsUrl } from '../../helpers/evidence';
 
 export const fetchRuleFeedbackHistories = async (key: string, activityId: string, selectedConjunction: string, startDate?: string, endDate?: string, turkSessionID?: string) => {
   if (!selectedConjunction || !startDate) { return }
@@ -21,8 +21,9 @@ export const fetchRuleFeedbackHistoriesByRule = async (key: string, ruleUID: str
   };
 }
 
-export const fetchPromptHealth = async (key: string, activityId: string) => {
-  const response = await mainApiFetch(`prompt_health/${activityId}`);
+export const fetchPromptHealth = async (key: string, activityId: string, startDate?: string, endDate?: string, turkSessionID?: string) => {
+  const url = getActivityStatsUrl({ activityId, startDate, endDate, turkSessionID });
+  const response = await mainApiFetch(url);
   const promptHealth = await response.json();
   return {
     error: handleApiError('Failed to fetch rule feedback histories, please refresh the page.', response),
