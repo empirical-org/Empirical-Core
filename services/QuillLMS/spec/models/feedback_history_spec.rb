@@ -318,6 +318,7 @@ RSpec.describe FeedbackHistory, type: :model do
       @feedback_session1_uid = FeedbackSession.get_uid_for_activity_session(@activity_session1_uid)
       @activity_session2_uid = SecureRandom.uuid
       @feedback_session2_uid = FeedbackSession.get_uid_for_activity_session(@activity_session2_uid)
+      @comprehension_turking_round = create(:comprehension_turking_round_activity_session, activity_session_uid: @activity_session1_uid)
 
       @user = create(:user)
       @first_session_feedback1 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, optimal: false)
@@ -366,6 +367,15 @@ RSpec.describe FeedbackHistory, type: :model do
         5.times {|i| create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @but_prompt2.id, attempt: i + 1, optimal: false) }
         5.times {|i| create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @so_prompt2.id, attempt: i + 1, optimal: false) }
         expect(FeedbackHistory.list_by_activity_session[0].complete).to be
+      end
+    end
+
+    context '#get_total_count' do
+      it 'return the total count of activity sessions' do
+        expect(FeedbackHistory.get_total_count).to eq(2)
+        expect(FeedbackHistory.get_total_count(activity_id: @activity1.id)).to eq(1)
+        expect(FeedbackHistory.get_total_count(start_date: Time.now)).to eq(0)
+        expect(FeedbackHistory.get_total_count(turk_session_id: @comprehension_turking_round.turking_round_id)).to eq(1)
       end
     end
 
