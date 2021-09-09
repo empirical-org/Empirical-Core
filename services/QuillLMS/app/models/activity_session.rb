@@ -547,11 +547,9 @@ class ActivitySession < ApplicationRecord
   end
 
   private def trigger_events
-    should_async = saved_change_to_state?
-
     yield # http://stackoverflow.com/questions/4998553/rails-around-callbacks
 
-    return unless should_async
+    return unless saved_change_to_state?
 
     if state == 'finished'
       FinishActivityWorker.perform_async(uid)
