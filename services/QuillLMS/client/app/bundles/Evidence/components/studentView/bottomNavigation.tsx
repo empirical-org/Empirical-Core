@@ -20,7 +20,7 @@ const ReadAndHighlightTracker = ({ scrolledToEndOfPassage, studentHighlights, on
         </div>
         <div className="read-and-highlight-step">
           {minimumMet ? <img alt={bigCheckIcon.alt} className="check-icon" src={bigCheckIcon.src} /> : <div className="incomplete-indicator" />}
-          <span>Highlight{onMobile ? '': ' at least'} two sentences</span>
+          <span>Highlight two sentences</span>
         </div>
       </div>
     </div>

@@ -64,9 +64,7 @@ exports[`BottomNavigation component when the student has made at least two highl
             src="undefined/images/icons/icons-check-big.svg"
           />
           <span>
-            Highlight
-             at least
-             two sentences
+            Highlight two sentences
           </span>
         </div>
       </div>
@@ -139,8 +137,7 @@ exports[`BottomNavigation component when the student has made at least two highl
             src="undefined/images/icons/icons-check-big.svg"
           />
           <span>
-            Highlight
-             two sentences
+            Highlight two sentences
           </span>
         </div>
       </div>
@@ -256,9 +253,7 @@ exports[`BottomNavigation component when the student has scrolled to the end of 
             className="incomplete-indicator"
           />
           <span>
-            Highlight
-             at least
-             two sentences
+            Highlight two sentences
           </span>
         </div>
       </div>
@@ -318,8 +313,7 @@ exports[`BottomNavigation component when the student has scrolled to the end of 
             className="incomplete-indicator"
           />
           <span>
-            Highlight
-             two sentences
+            Highlight two sentences
           </span>
         </div>
       </div>
@@ -387,9 +381,7 @@ exports[`BottomNavigation component when the student has started highlighting re
             className="incomplete-indicator"
           />
           <span>
-            Highlight
-             at least
-             two sentences
+            Highlight two sentences
           </span>
         </div>
       </div>
@@ -457,8 +449,7 @@ exports[`BottomNavigation component when the student has started highlighting re
             className="incomplete-indicator"
           />
           <span>
-            Highlight
-             two sentences
+            Highlight two sentences
           </span>
         </div>
       </div>
@@ -518,9 +509,7 @@ exports[`BottomNavigation component when the student has started the read passag
             className="incomplete-indicator"
           />
           <span>
-            Highlight
-             at least
-             two sentences
+            Highlight two sentences
           </span>
         </div>
       </div>
@@ -580,8 +569,7 @@ exports[`BottomNavigation component when the student has started the read passag
             className="incomplete-indicator"
           />
           <span>
-            Highlight
-             two sentences
+            Highlight two sentences
           </span>
         </div>
       </div>

@@ -192,7 +192,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     it 'returns a 422 error if activity session update method fails' do
       # create a double
       activity_session = create(:activity_session, state: 'started', user: user)
-      activity_session.stub(:update) { false }
+      allow(activity_session).to receive(:update).and_return(false)
 
       put :update, params: { id: activity_session.uid }, as: :json
       parsed_body = JSON.parse(response.body)

@@ -206,6 +206,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       goToNextQuestion();
       this.setState({ response: '', questionStatus: UNANSWERED, responses: {} })
     }
+    const element = document.getElementById("main-content")
+    if (!element) { return }
+    element.focus()
   }
 
   handleExampleButtonClick = () => this.setState(prevState => ({ showExample: !prevState.showExample }))

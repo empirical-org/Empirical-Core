@@ -32,14 +32,14 @@ module Comprehension
 
     def log_update
       # certain callbacks cause log_update to be called on creation, so we want to return early when a record has just been created
-      return if id_changed?
+      return unless id_before_last_save 
 
       if !attributes.key?('text')
-        changes.except("updated_at".to_sym).each do |key, value|
+        saved_changes.except("updated_at".to_sym).each do |key, value|
           log_change(@lms_user_id, :update, self, key, value[0], value[1])
         end
-      elsif text_changed?
-        log_change(@lms_user_id, :update, self, "text", text_was, text)
+      elsif saved_change_to_text?
+        log_change(@lms_user_id, :update, self, "text", text_before_last_save, text)
       end
     end
 

@@ -21,12 +21,13 @@ const HighlightInstructions = () => (
     <div className="highlight-instruction two">
       <h5 className="highlight-instruction-header">
         <span className="highlight-instruction-number">2</span>
-        <span>Click, tap, or select the sentence</span>
+        <span>Click, tap, or select the sentence*</span>
       </h5>
       <img alt={cursorClick.alt} src={cursorClick.src} />
       <p>
         <span className="student-highlight">Yellowstone National Park was established in 1872 as the first national park in the United States.</span> It spans across areas in Wyoming, Idaho, and Montana. Yellowstone is extremely special and famous because it is located on a dormant volcano.
       </p>
+      <p className="unhighlight-instructions">*If you change your mind about something you&#39;ve highlighted, click, tap, or deselect the sentence to remove the highlight</p>
     </div>
   </div>
 )
