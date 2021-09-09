@@ -29,6 +29,13 @@ import { generateConceptResults, } from '../../libs/conceptResults'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
+import {
+  getUrlParam,
+  onMobile,
+  orderedSteps,
+  outOfAttemptsForActivePrompt,
+  getCurrentStepDataForEventTracking
+} from '../../helpers/containerHelpers';
 import { Passage } from '../../interfaces/activities'
 import { postTurkSession } from '../../utils/turkAPI';
 import {
@@ -122,8 +129,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   componentDidMount() {
     const { dispatch, session, isTurk } = this.props
-    const activityUID = this.activityUID()
-    const sessionFromUrl = this.specifiedActivitySessionUID()
+    const activityUID = getUrlParam('uid', location, isTurk)
+    const sessionFromUrl = getUrlParam('session', location, isTurk)
     if (sessionFromUrl) {
       const fetchActiveActivitySessionArgs = {
         sessionID: sessionFromUrl,
@@ -169,7 +176,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     if (submittedResponses === prevProps.session.submittedResponses) { return }
 
-    if (!this.outOfAttemptsForActivePrompt()) { return }
+    if (!outOfAttemptsForActivePrompt(activeStep, session, activities)) { return }
 
     if (!this.everyOtherStepCompleted(activeStep)) { return }
 
@@ -193,29 +200,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   closeReadTheDirectionsModal = () => this.setState({ showReadTheDirectionsModal: false, })
 
-  outOfAttemptsForActivePrompt = () => {
-    const { activeStep, } = this.state
-    const { session, } = this.props
-    const { submittedResponses, } = session
-    const activePrompt = this.orderedSteps()[activeStep - 2] // subtracting 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
-
-    if (!activePrompt) { return }
-
-    const responsesForPrompt = submittedResponses[activePrompt.id]
-
-    if (!responsesForPrompt) { return }
-
-    const lastAttempt = responsesForPrompt[responsesForPrompt.length - 1]
-
-    return (responsesForPrompt.length === activePrompt.max_attempts) || lastAttempt.optimal
-  }
-
   resetTimers = (e=null) => {
     const now = Date.now()
     this.setState((prevState, props) => {
+      const { session, activities } = props;
       const { activeStep, startTime, timeTracking, isIdle, inactivityTimer, completedSteps, explanationSlidesCompleted, hasStartedPromptSteps, } = prevState
       if (completedSteps.includes(activeStep)) { return } // don't want to add time if a user is revisiting a previously completed step
-      if (this.outOfAttemptsForActivePrompt()) { return } // or if they are finished submitting responses for the current active step
+      if (outOfAttemptsForActivePrompt(activeStep, session, activities)) { return } // or if they are finished submitting responses for the current active step
       if (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps) { return } // or if they are between the read passage step and starting the prompts
 
       if (inactivityTimer) { clearTimeout(inactivityTimer) }
@@ -268,26 +259,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     dispatch(completeActivitySession(sessionID, currentActivity.parent_activity_id, percentage, conceptResults, data, callback))
   }
 
-  onMobile = () => window.innerWidth < 1100
-
-  getUrlParam = (paramName: string) => {
-    const { location, isTurk } = this.props
-    if(isTurk) {
-      return getParameterByName(paramName, window.location.href)
-    }
-    const { search, } = location
-    if (!search) { return }
-    return queryString.parse(search)[paramName]
-  }
-
-  activityUID = () => {
-    return this.getUrlParam('uid')
-  }
-
-  specifiedActivitySessionUID = () => {
-    return this.getUrlParam('session')
-  }
-
   loadPreviousSession = (data: object) => {
     const {
       activeStep,
@@ -318,9 +289,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   submitResponse = (entry: string, promptID: string, promptText: string, attempt: number) => {
-    const { dispatch, session, } = this.props
+    const { dispatch, session, isTurk } = this.props
     const { sessionID, } = session
-    const activityUID = this.activityUID()
+    const activityUID = getUrlParam('uid', location, isTurk)
     const previousFeedback = session.submittedResponses[promptID] || [];
     // strip any HTML injected by browser extensions (such as Chrome highlight)
     const strippedEntry = stripHtml(entry);
@@ -339,30 +310,11 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     }
   }
 
-  getCurrentStepDataForEventTracking = () => {
-    const { activities, session, } = this.props
-    const { currentActivity, } = activities
-    const { sessionID, } = session
-    const activityID = this.activityUID()
-    const { activeStep, } = this.state
-    const promptIndex = activeStep - 2 // have to subtract 2 because the prompts array index starts at 0 but the prompt numbers in the state are 2..4
-
-    if (promptIndex < 0 || !currentActivity.prompts[promptIndex]) return; // If we're on a step earlier than a prompt, or there's no prompt for this step then there's nothing to track
-
-    const promptID = currentActivity.prompts[promptIndex].id
-
-    return {
-      activityID,
-      sessionID,
-      promptID,
-    }
-  }
-
   trackPassageReadEvent = () => {
-    const { dispatch, } = this.props
+    const { dispatch, isTurk } = this.props
     const { session, } = this.props
     const { sessionID, } = session
-    const activityUID = this.activityUID()
+    const activityUID = getUrlParam('uid', location, isTurk)
 
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PASSAGE_READ, {
       activityID: activityUID,
@@ -371,18 +323,20 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   trackCurrentPromptStartedEvent = () => {
-    const { dispatch, } = this.props
+    const { activeStep } = this.state
+    const { dispatch, activities, session, isTurk } = this.props
 
-    const trackingParams = this.getCurrentStepDataForEventTracking()
+    const trackingParams = getCurrentStepDataForEventTracking(activeStep, activities, session, isTurk)
     if (!trackingParams) return; // Bail if there's no data to track
 
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PROMPT_STARTED, trackingParams))
   }
 
   trackCurrentPromptCompletedEvent = () => {
-    const { dispatch, } = this.props
+    const { activeStep } = this.state
+    const { dispatch, activities, session, isTurk } = this.props
 
-    const trackingParams = this.getCurrentStepDataForEventTracking()
+    const trackingParams = getCurrentStepDataForEventTracking(activeStep, activities, session, isTurk)
     if (!trackingParams) return; // Bail if there's no data to track
 
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PROMPT_COMPLETED, trackingParams))
@@ -392,7 +346,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { dispatch, isTurk, handleFinishActivity } = this.props
     const { session, } = this.props
     const { sessionID, } = session
-    const activityID = this.activityUID()
+    const activityID = getUrlParam('uid', location, isTurk)
 
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_COMPLETED, {
       activityID,
@@ -468,12 +422,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   handleClickDoneHighlighting = () => {
     this.setState({ doneHighlighting: true}, () => {
-      if (this.onMobile()) { window.scrollTo(0, 0) }
+      if (onMobile()) { window.scrollTo(0, 0) }
     })
   }
 
   scrollToStep = (ref: string) => {
-    if (this.onMobile()) {
+    if (onMobile()) {
       this.scrollToStepOnMobile(ref)
     } else {
       const scrollContainer = document.getElementsByClassName("steps-outer-container")[0]
@@ -492,7 +446,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     // we want to scroll 24px above the top of the paragraph, but we have to use 84 because of the 60px padding set at the top of the activity-container element
     const additionalTopOffset = 84
 
-    if (this.onMobile()) {
+    if (onMobile()) {
       el.scrollIntoView(true)
       window.scrollBy(0, -additionalTopOffset)
     } else {
@@ -546,12 +500,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     })
   }
 
-  orderedSteps = () => {
-    const { activities, } = this.props
-    const { currentActivity, } = activities
+  // orderedSteps = () => {
+  //   const { activities, } = this.props
+  //   const { currentActivity, } = activities
 
-    return currentActivity ? currentActivity.prompts.sort((a, b) => a.conjunction.localeCompare(b.conjunction)) : [];
-  }
+  //   return currentActivity ? currentActivity.prompts.sort((a, b) => a.conjunction.localeCompare(b.conjunction)) : [];
+  // }
 
   removeElementsFromPassages = (passages, element) => {
     return passages.map(passage => {
@@ -676,7 +630,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     const directionsSectionAndModal = this.renderDirectionsSectionAndModal()
 
-    if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && this.onMobile()) {
+    if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && onMobile()) {
       return
     }
 
@@ -741,7 +695,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     if (!currentActivity || !hasReceivedData) return
 
     // sort by conjunctions in alphabetical order: because, but, so
-    const steps =  this.orderedSteps().map((prompt, i) => {
+    const steps =  orderedSteps(activities).map((prompt, i) => {
       // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
       const stepNumber = i + 2
       const canBeClicked = completedSteps.includes(stepNumber - 1) || completedSteps.includes(stepNumber) // can click on completed steps or the one after the last completed
@@ -781,7 +735,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     let innerContainerClassName = "read-passage-inner-container "
     innerContainerClassName += !hasStartedReadPassageStep || showReadTheDirectionsModal || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps) ? 'blur' : ''
 
-    if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && this.onMobile()) {
+    if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && onMobile()) {
       return
     }
 
@@ -816,7 +770,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       hasStartedPromptSteps={hasStartedPromptSteps}
       hasStartedReadPassageStep={hasStartedReadPassageStep}
       inReflection={doneHighlighting && activeStep === READ_PASSAGE_STEP}
-      onMobile={this.onMobile()}
+      onMobile={onMobile()}
       scrolledToEndOfPassage={scrolledToEndOfPassage}
       studentHighlights={studentHighlights}
     />)
