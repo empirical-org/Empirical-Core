@@ -151,7 +151,7 @@ class ActivitySession < ApplicationRecord
   end
 
   def self.calculate_timespent(time_tracking)
-    time_tracking&.values&.sum
+    time_tracking&.values&.compact&.sum
   end
 
   def eligible_for_tracking?
