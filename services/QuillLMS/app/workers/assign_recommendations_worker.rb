@@ -48,8 +48,8 @@ class AssignRecommendationsWorker
   end
 
   def show_classroom_units(unit_id, classroom_id)
-    ClassroomUnit.unscoped.where(unit_id: unit_id, classroom_id: classroom_id).each do |classroom_unit|
-      classroom_unit.update(visible: true)
+    ClassroomUnit.unscoped.where(unit_id: unit_id, classroom_id: classroom_id, visible: false).each do |classroom_unit|
+      classroom_unit.update(visible: true, assigned_student_ids: [])
     end
   end
 
