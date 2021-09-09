@@ -1,4 +1,5 @@
-module VitallySchoolStatsHelper
+module VitallySchoolStats
+  extend ActiveSupport::Concern
 
   private def active_students_query(school)
     # use raw SQL to bypass scope limits (visible: true) on classrooms

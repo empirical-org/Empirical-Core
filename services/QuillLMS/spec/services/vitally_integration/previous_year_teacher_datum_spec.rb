@@ -66,7 +66,7 @@ RSpec.describe PreviousYearTeacherDatum, type: :model do
     end
 
     it 'should raise error if the year is the current year' do
-      expect { PreviousYearTeacherDatum.new(teacher, Time.now.year).calculate_and_save_data }.to raise_error("Cannot calculate data for a school year that is still ongoing.")
+      expect { PreviousYearTeacherDatum.new(teacher, Time.now.year).calculate_data }.to raise_error("Cannot calculate data for a school year that is still ongoing.")
     end
 
     it 'should calculate all data' do
@@ -81,8 +81,9 @@ RSpec.describe PreviousYearTeacherDatum, type: :model do
         diagnostics_finished: 2,
         percent_completed_diagnostics: 1.0
       }
-      expect($redis).to receive(:set).with("teacher_id:#{teacher.id}_vitally_stats_for_year_#{year}", expected_data.to_json, {ex: 1.year})
-      teacher_data = PreviousYearTeacherDatum.new(teacher, year).calculate_and_save_data
+      #expect($redis).to receive(:set).with("teacher_id:#{teacher.id}_vitally_stats_for_year_#{year}", expected_data.to_json, {ex: 1.year})
+      teacher_data = PreviousYearTeacherDatum.new(teacher, year).calculate_data
+      expect(teacher_data).to eq(expected_data)
     end
   end
 end

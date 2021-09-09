@@ -1,5 +1,5 @@
 class SerializeVitallySalesAccount
-  include VitallySchoolStatsHelper
+  include VitallySchoolStats
 
   def initialize(school)
     @school = school
@@ -60,8 +60,8 @@ class SerializeVitallySalesAccount
     if cached_data.present?
       parsed_data = JSON.parse(cached_data)
     else
-      PreviousYearSchoolDatum.new(@school, last_school_year).calculate_and_save_data
-      parsed_data = JSON.parse($redis.get("school_id:#{@school.id}_vitally_stats_for_year_#{last_school_year}") || '{}')
+      parsed_data = PreviousYearSchoolDatum.new(@school, last_school_year).calculate_data || {}
+      CacheVitallySchoolData.set(@school.id, last_school_year, parsed_data.to_json)
     end
     parsed_data[key]
   end

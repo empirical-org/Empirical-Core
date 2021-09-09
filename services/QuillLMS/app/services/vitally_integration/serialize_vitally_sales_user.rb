@@ -1,5 +1,5 @@
 class SerializeVitallySalesUser
-  include VitallyTeacherStatsHelper
+  include VitallyTeacherStats
 
   BASE_USER_URL = "https://www.quill.org/cms/users"
   # TODO: This should not be hard coded.
@@ -97,8 +97,8 @@ class SerializeVitallySalesUser
     if cached_data.present?
       parsed_data = JSON.parse(cached_data)
     else
-      PreviousYearTeacherDatum.new(@user, last_school_year).calculate_and_save_data
-      parsed_data = JSON.parse($redis.get("teacher_id:#{@user.id}_vitally_stats_for_year_#{last_school_year}") || '{}')
+      parsed_data = PreviousYearTeacherDatum.new(@user, last_school_year).calculate_data || {}
+      CacheVitallyTeacherData.set(@user.id, last_school_year, parsed_data.to_json)
     end
     parsed_data[key]
   end

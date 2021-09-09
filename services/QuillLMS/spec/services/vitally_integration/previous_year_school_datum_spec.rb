@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PreviousYearSchoolDatum, type: :model do
 
-  context '#calculate_and_save_data' do
+  context '#calculate_data' do
     let!(:year) { 2016 }
     let!(:student) { create(:user, last_sign_in: Date.new(year, 10, 2))}
     let!(:student2) { create(:user, last_sign_in: Date.new(year, 10, 2))}
@@ -31,7 +31,7 @@ RSpec.describe PreviousYearSchoolDatum, type: :model do
     end
 
     it 'should raise error if the year is the current year' do
-      expect { PreviousYearSchoolDatum.new(school, Date.today.year).calculate_and_save_data }.to raise_error("Cannot calculate data for a school year that is still ongoing.")
+      expect { PreviousYearSchoolDatum.new(school, Date.today.year).calculate_data }.to raise_error("Cannot calculate data for a school year that is still ongoing.")
     end
 
     it 'should calculate active students' do
@@ -41,8 +41,8 @@ RSpec.describe PreviousYearSchoolDatum, type: :model do
         activities_finished: 1,
         activities_per_student: 1.0
       }
-      expect($redis).to receive(:set).with("school_id:#{school.id}_vitally_stats_for_year_#{year}", expected_data.to_json, {ex: 1.year})
-      teacher_data = PreviousYearSchoolDatum.new(school, year).calculate_and_save_data
+      teacher_data = PreviousYearSchoolDatum.new(school, year).calculate_data
+      expect(teacher_data).to eq(expected_data)
     end
   end
 end

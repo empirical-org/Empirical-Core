@@ -1,4 +1,6 @@
-module VitallyTeacherStatsHelper
+module VitallyTeacherStats
+  extend ActiveSupport::Concern
+
   DIAGNOSTIC_ID = 4
 
   def total_students_in_year(user, school_year_start, school_year_end)
@@ -60,4 +62,5 @@ module VitallyTeacherStatsHelper
   def diagnostics_finished(user)
     activities_finished_query(user).where("activities.activity_classification_id=?", DIAGNOSTIC_ID)
   end
+
 end
