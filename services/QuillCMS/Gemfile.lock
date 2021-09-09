@@ -1,6 +1,12 @@
 GEM
-  remote: https://rubygems.org/
   remote: https://gems.contribsys.com/
+  specs:
+    sidekiq-pro (5.0.0)
+      concurrent-ruby (>= 1.0.5)
+      sidekiq (>= 5.2.7)
+
+GEM
+  remote: https://rubygems.org/
   specs:
     actioncable (6.1.3.2)
       actionpack (= 6.1.3.2)
@@ -257,9 +263,6 @@ GEM
       rack (~> 2.0)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 4.2)
-    sidekiq-pro (5.0.0)
-      concurrent-ruby (>= 1.0.5)
-      sidekiq (>= 5.2.7)
     sinatra (2.1.0)
       mustermann (~> 1.0)
       rack (~> 2.2)
@@ -332,4 +335,4 @@ RUBY VERSION
    ruby 2.6.8p205
 
 BUNDLED WITH
-   1.17.3
+   2.2.27
