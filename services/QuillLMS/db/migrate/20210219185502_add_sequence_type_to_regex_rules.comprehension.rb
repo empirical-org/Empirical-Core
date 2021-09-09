@@ -5,5 +5,5 @@ class AddSequenceTypeToRegexRules < ActiveRecord::Migration[4.2]
     change_column :comprehension_rules, :suborder, :text, null: true
   end
 
-  Evidence::Rule.all.each { |r| r.update!(suborder: nil) if r.rule_type == Comprehension::Rule::TYPE_PLAGIARISM }
+  Evidence::Rule.all.each { |r| r.update!(suborder: nil) if r.rule_type == Evidence::Rule::TYPE_PLAGIARISM }
 end
