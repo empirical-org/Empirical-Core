@@ -1,4 +1,4 @@
-class DropOldActivitySessionsTable < ActiveRecord::Migration
+class DropOldActivitySessionsTable < ActiveRecord::Migration[4.2]
   def up
     return unless ActiveRecord::Base.connection.tables.include?('old_activity_sessions')
 

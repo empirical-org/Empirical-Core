@@ -1,4 +1,4 @@
-class MigrateToNewFormats < ActiveRecord::Migration
+class MigrateToNewFormats < ActiveRecord::Migration[4.2]
   def change
     create_table :activity_classifications, force: true do |t|
       t.string :name

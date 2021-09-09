@@ -1,4 +1,4 @@
-class MigrateLessonsToActivity < ActiveRecord::Migration
+class MigrateLessonsToActivity < ActiveRecord::Migration[4.2]
   def change
     if defined?(Lesson)
       # Before running this part, make sure that the inconsistent names in this
@@ -18,43 +18,47 @@ class MigrateLessonsToActivity < ActiveRecord::Migration
                           '-LKld_Wf0lzgNnEvY5aA'
                         ]
 
-      Lesson.where(uid: lessons_to_archive).each do |lesson|
-        lesson[:data]["flag"] = "archived"
-        lesson.save!
-      end
+      # The Lesson model is no longer in the code base, so this
+      # migration can't run as-written.  Failing to do these updates
+      # should be fine, however, since a subsequent migration drops
+      # the `lessons` table entirely
+      #Lesson.where(uid: lessons_to_archive).each do |lesson|
+      #  lesson[:data]["flag"] = "archived"
+      #  lesson.save!
+      #end
 
-      Lesson.where(uid: lessons_to_alpha).each do |lesson|
-        lesson[:data]["flag"] = "alpha"
-        lesson.save!
-      end
+      #Lesson.where(uid: lessons_to_alpha).each do |lesson|
+      #  lesson[:data]["flag"] = "alpha"
+      #  lesson.save!
+      #end
 
-      Lesson.all.each do |lesson|
-        activity = Activity.find_by(uid: lesson.uid)
-        if activity.blank?
-          activity = Activity.new(:name=> lesson[:data]["name"], :uid=>lesson.uid, :flags=>[lesson[:data]["flag"]])
+      #Lesson.all.each do |lesson|
+      #  activity = Activity.find_by(uid: lesson.uid)
+      #  if activity.blank?
+      #    activity = Activity.new(:name=> lesson[:data]["name"], :uid=>lesson.uid, :flags=>[lesson[:data]["flag"]])
 
-          if lesson.lesson_type == Lesson::TYPE_CONNECT_LESSON
-            activity.activity_classification_id = 5
-          elsif lesson.lesson_type == Lesson::TYPE_DIAGNOSTIC_LESSON
-            activity.activity_classification_id = 4
-          elsif lesson.lesson_type == Lesson::TYPE_GRAMMAR_ACTIVITY
-            activity.name = lesson[:data]["title"]
-            activity.activity_classification_id = 2
-          else
-            activity.activity_classification_id = 1
-          end
+      #    if lesson.lesson_type == Lesson::TYPE_CONNECT_LESSON
+      #      activity.activity_classification_id = 5
+      #    elsif lesson.lesson_type == Lesson::TYPE_DIAGNOSTIC_LESSON
+      #      activity.activity_classification_id = 4
+      #    elsif lesson.lesson_type == Lesson::TYPE_GRAMMAR_ACTIVITY
+      #      activity.name = lesson[:data]["title"]
+      #      activity.activity_classification_id = 2
+      #    else
+      #      activity.activity_classification_id = 1
+      #    end
 
-          if lesson[:data]["flag"] == "archived"
-            activity.flags = ["archived"]
-          elsif lesson[:data]["flag"] == "alpha"
-            activity.flags = ["alpha"]
-          end
-        end
+      #    if lesson[:data]["flag"] == "archived"
+      #      activity.flags = ["archived"]
+      #    elsif lesson[:data]["flag"] == "alpha"
+      #      activity.flags = ["alpha"]
+      #    end
+      #  end
 
-        activity.data = lesson.data
-        activity.save! if !lesson[:data]["flag"].blank?
+      #  activity.data = lesson.data
+      #  activity.save! if !lesson[:data]["flag"].blank?
 
-      end
+      #end
 
       Activity.where(:data=> nil).each do |a|
         data = {}

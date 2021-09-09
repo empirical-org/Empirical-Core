@@ -1,4 +1,4 @@
-class RemoveTitleFromAssessment < ActiveRecord::Migration
+class RemoveTitleFromAssessment < ActiveRecord::Migration[4.2]
   def up
   	remove_column :assessments, :title
   end

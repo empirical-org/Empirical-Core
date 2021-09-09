@@ -1,4 +1,4 @@
-class AddPromptToLessons < ActiveRecord::Migration
+class AddPromptToLessons < ActiveRecord::Migration[4.2]
   def up
   	add_column :lessons, :prompt, :text
   end

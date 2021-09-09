@@ -1,4 +1,4 @@
-class ReplaceFunctionOldTimespentTeacher < ActiveRecord::Migration
+class ReplaceFunctionOldTimespentTeacher < ActiveRecord::Migration[4.2]
   # backward compatibility function. hardcoded timestamp should be the datetime
   # of the migration.
   def up

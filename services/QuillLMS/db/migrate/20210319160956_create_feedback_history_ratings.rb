@@ -1,4 +1,4 @@
-class CreateFeedbackHistoryRatings < ActiveRecord::Migration
+class CreateFeedbackHistoryRatings < ActiveRecord::Migration[4.2]
   def change
     create_table :feedback_history_ratings do |t|
       t.boolean :rating,  null: false

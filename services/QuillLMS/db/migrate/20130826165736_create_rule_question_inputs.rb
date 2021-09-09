@@ -1,4 +1,4 @@
-class CreateRuleQuestionInputs < ActiveRecord::Migration
+class CreateRuleQuestionInputs < ActiveRecord::Migration[4.2]
   def change
     create_table :rule_question_inputs do |t|
       t.string :step

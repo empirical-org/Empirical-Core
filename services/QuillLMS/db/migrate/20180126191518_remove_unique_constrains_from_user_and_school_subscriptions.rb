@@ -1,4 +1,4 @@
-class RemoveUniqueConstrainsFromUserAndSchoolSubscriptions < ActiveRecord::Migration
+class RemoveUniqueConstrainsFromUserAndSchoolSubscriptions < ActiveRecord::Migration[4.2]
   def change
     remove_index :user_subscriptions, :user_id
     add_index :user_subscriptions, :user_id, unique: false

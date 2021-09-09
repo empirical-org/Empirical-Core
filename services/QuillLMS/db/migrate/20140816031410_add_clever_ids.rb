@@ -1,4 +1,4 @@
-class AddCleverIds < ActiveRecord::Migration
+class AddCleverIds < ActiveRecord::Migration[4.2]
   def change
     add_column :users, :clever_id, :string
     add_column :classrooms, :clever_id, :string

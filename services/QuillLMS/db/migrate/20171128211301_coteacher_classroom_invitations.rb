@@ -1,4 +1,4 @@
-class CoteacherClassroomInvitations < ActiveRecord::Migration
+class CoteacherClassroomInvitations < ActiveRecord::Migration[4.2]
   def change
     create_table :coteacher_classroom_invitations do |t|
       t.integer :pending_invitation_id, null: false, index: true, foreign_key: true

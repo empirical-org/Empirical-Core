@@ -1,4 +1,4 @@
-class RenameSectionsSequence < ActiveRecord::Migration
+class RenameSectionsSequence < ActiveRecord::Migration[4.2]
   def up
     # execute 'DROP SEQUENCE IF EXISTS sections_id_seq'
     # execute 'ALTER SEQUENCE chapter_levels_id_seq RENAME TO sections_id_seq'
