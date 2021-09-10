@@ -4,7 +4,7 @@ class SyncVitallyPastYearUsersWorker
   def perform(teacher_ids, year)
     teachers = User.where(id: teacher_ids)
     teachers.each do |teacher|
-      CalculateAndCacheVitallyAccountWorker.perform_async(teacher.id, year)
+      CalculateAndCacheVitallyUserWorker.perform_async(teacher.id, year)
     end
   end
 end

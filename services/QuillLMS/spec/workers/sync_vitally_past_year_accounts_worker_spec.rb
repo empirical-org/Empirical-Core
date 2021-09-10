@@ -8,8 +8,7 @@ describe SyncVitallyPastYearAccountsWorker do
   describe '#perform' do
     it 'call calculate and save data on schools' do
       year = 2017
-      # new_datum = PreviousYearSchoolDatum.new(school, year)
-      # teacher_datum = double(PreviousYearSchoolDatum, new: new_datum)
+
       expect(CalculateAndCacheVitallyAccountWorker).to receive(:perform_async).with(school.id, year)
       subject.perform([school.id], year)
     end
