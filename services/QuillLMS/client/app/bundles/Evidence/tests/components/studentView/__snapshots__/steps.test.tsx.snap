@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Steps component should render Steps 1`] = `
+<div
+  className="steps-outer-container"
+  onScroll={[MockFunction]}
+>
+  <div
+    className="steps-inner-container"
+    onScroll={[MockFunction]}
+  />
+</div>
+`;

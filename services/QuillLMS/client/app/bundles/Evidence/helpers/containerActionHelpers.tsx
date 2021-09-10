@@ -1,7 +1,7 @@
-import queryString from 'query-string';
-import stripHtml from "string-strip-html";
+import queryString from 'query-string'
+import stripHtml from "string-strip-html"
 
-import getParameterByName from './getParameterByName';
+import getParameterByName from './getParameterByName'
 
 import { Passage } from '../interfaces/activities'
 
