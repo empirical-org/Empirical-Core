@@ -12,7 +12,7 @@ module GoogleIntegration
       end
 
       private def google_id?(user_id)
-        user_id && ::User.find_by(id: user_id)&.google_id&.present?
+        user_id && ::User.find_by(id: user_id)&.google_id
       end
     end
   end
