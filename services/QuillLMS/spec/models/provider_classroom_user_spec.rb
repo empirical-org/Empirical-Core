@@ -56,13 +56,58 @@ RSpec.describe ProviderClassroomUser, type: :model do
     let(:provider_user_id) { '123' }
 
     let!(:provider_classroom_user) do
-      create(factory,
-        provider_classroom_id: provider_classroom_id,
-        provider_user_id: provider_user_id,
-        type: type
-       )
+      create(factory, provider_classroom_id: provider_classroom_id, provider_user_id: provider_user_id)
     end
 
     it { expect { provider_classroom_user.dup.save!}.to raise_error ActiveRecord::RecordNotUnique }
+  end
+
+  context 'scopes' do
+    let!(:active_user) { create(factory, deleted_at: nil) }
+    let!(:deleted_user) { create(factory, deleted_at: Time.now) }
+
+    describe '.active' do
+      it { expect(klass.active.to_a).to eq [active_user] }
+    end
+
+    describe '.inactive' do
+      it { expect(klass.deleted.to_a).to eq [deleted_user] }
+    end
+  end
+
+  context '.create_list' do
+    subject { klass.create_list(provider_classroom_id, provider_user_ids) }
+
+    let(:provider_classroom_id) { 'provider-classroom-id' }
+
+    context 'zero provider_user_ids' do
+      let(:provider_user_ids) { [] }
+
+      it { expect { subject }.not_to change(klass, :count) }
+    end
+
+    context 'one provider_user_id' do
+      let(:provider_user_ids) { ['a-provider-user-id'] }
+
+      it { expect { subject }.to change(klass, :count).from(0).to(1) }
+    end
+
+    context 'two provider_user_ids' do
+      let(:provider_user_ids) { ['a-provider-user-id', 'the-provider-user-id'] }
+
+      it { expect { subject }.to change(klass, :count).from(0).to(2) }
+    end
+  end
+
+  describe '#active?' do
+    let(:active_user) { create(factory, deleted_at: nil) }
+
+    it { expect(active_user.active?).to be true }
+  end
+
+  describe '#deleted?' do
+    let(:deleted_user) { create(factory, deleted_at: Time.now) }
+
+    it { expect(deleted_user.deleted?).to be true }
   end
 end
