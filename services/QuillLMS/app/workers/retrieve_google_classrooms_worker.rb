@@ -5,6 +5,6 @@ class RetrieveGoogleClassroomsWorker
   def perform(user_id)
     return unless user_id
 
-    GoogleIntegration::TeacherClassroomsRetriever.new(user_id).run
+    GoogleIntegration::Users::ClassroomsRetriever.new(user_id).run
   end
 end
