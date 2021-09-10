@@ -28,4 +28,10 @@ describe BulkReindexResponsesWorker do
       worker.perform(response.id, 5)
     end
   end
+
+  describe '#cancel' do
+    it 'should cancel the job and prevent the job from running' do
+
+    end
+  end
 end

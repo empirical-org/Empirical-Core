@@ -66,7 +66,7 @@ class Response < ApplicationRecord
   end
 
   def create_index_in_elastic_search
-    __elasticsearch__.index_document
+    # __elasticsearch__.index_document
   end
 
   def update_index_in_elastic_search
