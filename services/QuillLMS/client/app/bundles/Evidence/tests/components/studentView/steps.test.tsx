@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
+import { activityOne } from './data'
+
 import Steps from '../../../components/studentView/steps';
 
 const mockProps = {
-  activities: [],
+  activities: { currentActivity: activityOne },
   activateStep: jest.fn(),
   activeStep: 1,
   closeReadTheDirectionsModal: jest.fn(),
