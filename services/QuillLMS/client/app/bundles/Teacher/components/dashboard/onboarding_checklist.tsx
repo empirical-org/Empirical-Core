@@ -1,8 +1,12 @@
 import * as React from 'react'
 
-import { bigCheckIcon, } from '../../../Shared/index'
-
 const personWithChecklistSrc = `${process.env.CDN_URL}/images/pages/dashboard/person-with-checklist.svg`
+const bigCheckIconSrc = `${process.env.CDN_URL}/images/pages/dashboard/icons-check-big.svg`
+
+const bigCheckIcon = {
+  src: bigCheckIconSrc,
+  alt: 'Green check icon'
+}
 
 interface OnboardingChecklistItemInterface {
   checked: boolean;
