@@ -25,7 +25,7 @@ describe 'SerializeVitallySalesAccount' do
       activities_per_student: 1.0
     }
     year = Date.today.year - 1
-    $redis.set("school_id:#{school.id}_vitally_stats_for_year_#{year}", previous_year_data.to_json)
+    CacheVitallySchoolData.set(school.id, year, previous_year_data.to_json)
   end
 
   it 'includes the accountId' do

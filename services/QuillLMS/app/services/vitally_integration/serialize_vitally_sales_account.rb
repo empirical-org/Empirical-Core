@@ -56,7 +56,7 @@ class SerializeVitallySalesAccount
 
   private def get_from_cache(key)
     last_school_year = Date.today.year - 1
-    cached_data = $redis.get("school_id:#{@school.id}_vitally_stats_for_year_#{last_school_year}")
+    cached_data = CacheVitallySchoolData.get(@school.id, last_school_year)
     if cached_data.present?
       parsed_data = JSON.parse(cached_data)
     else

@@ -30,7 +30,7 @@ describe 'SerializeVitallySalesUser' do
       percent_completed_diagnostics: 1.0
     }
     year = Date.today.year - 1
-    $redis.set("teacher_id:#{teacher.id}_vitally_stats_for_year_#{year}", previous_year_data.to_json)
+    CacheVitallyTeacherData.set(teacher.id, year, previous_year_data.to_json)
   end
 
   it 'includes the accountId and userId in the data' do
