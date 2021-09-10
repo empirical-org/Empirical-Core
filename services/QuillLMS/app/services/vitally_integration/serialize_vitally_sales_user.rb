@@ -1,4 +1,6 @@
 class SerializeVitallySalesUser
+  include VitallyTeacherStats
+
   BASE_USER_URL = "https://www.quill.org/cms/users"
   # TODO: This should not be hard coded.
   DIAGNOSTIC_ID = 4
@@ -10,14 +12,15 @@ class SerializeVitallySalesUser
   def data
     current_time = Time.zone.now
     school_year_start = School.school_year_start(current_time)
+    school_year_end = school_year_start + 1.year
     active_students = active_students_query(@user).count
     active_students_this_year = active_students_query(@user).where("activity_sessions.completed_at >= ?", school_year_start).count
     activities_finished = activities_finished_query(@user).count
     activities_finished_this_year = activities_finished_query(@user).where("activity_sessions.completed_at >= ?", school_year_start).count
     activities_assigned = activities_assigned_count(@user)
-    activities_assigned_this_year = activities_assigned_this_year_count(@user, school_year_start)
+    activities_assigned_this_year = activities_assigned_in_year_count(@user, school_year_start, school_year_end)
     diagnostics_assigned = diagnostics_assigned_count(@user)
-    diagnostics_assigned_this_year = diagnostics_assigned_this_year_count(@user, school_year_start)
+    diagnostics_assigned_this_year = diagnostics_assigned_in_year_count(@user, school_year_start, school_year_end)
     diagnostics_finished = diagnostics_finished(@user).count
     diagnostics_finished_this_year = diagnostics_finished(@user).where("activity_sessions.completed_at >=?", school_year_start).count
     {
@@ -56,15 +59,24 @@ class SerializeVitallySalesUser
         diagnostics_assigned: diagnostics_assigned,
         diagnostics_finished: diagnostics_finished,
         percent_completed_diagnostics: diagnostics_assigned > 0 ? (diagnostics_finished.to_f / diagnostics_assigned).round(2) : 'N/A',
-        total_students_this_year: total_students_this_year(school_year_start),
+        total_students_this_year: total_students_in_year(@user, school_year_start, school_year_end),
+        total_students_last_year: get_from_cache("total_students"),
         active_students_this_year: active_students_this_year,
+        active_students_last_year: get_from_cache("active_students"),
         activities_assigned_this_year: activities_assigned_this_year,
+        activities_assigned_last_year: get_from_cache("activities_assigned"),
         completed_activities_this_year: activities_finished_this_year,
+        completed_activities_last_year: get_from_cache("completed_activities"),
         completed_activities_per_student_this_year: activities_per_student(active_students_this_year, activities_finished_this_year),
+        completed_activities_per_student_last_year: get_from_cache("completed_activities_per_student"),
         percent_completed_activities_this_year: activities_assigned_this_year > 0 ? (activities_finished_this_year.to_f / activities_assigned_this_year).round(2) : 'N/A',
+        percent_completed_activities_last_year: get_from_cache("percent_completed_activities"),
         diagnostics_assigned_this_year: diagnostics_assigned_this_year,
+        diagnostics_assigned_last_year: get_from_cache("diagnostics_assigned"),
         diagnostics_finished_this_year: diagnostics_finished_this_year,
-        percent_completed_diagnostics_this_year: diagnostics_assigned_this_year > 0 ? (diagnostics_finished_this_year.to_f / diagnostics_assigned_this_year).round(2) : 'N/A'
+        diagnostics_finished_last_year: get_from_cache("diagnostics_finished"),
+        percent_completed_diagnostics_this_year: diagnostics_assigned_this_year > 0 ? (diagnostics_finished_this_year.to_f / diagnostics_assigned_this_year).round(2) : 'N/A',
+        percent_completed_diagnostics_last_year: get_from_cache("percent_completed_diagnostics")
       }.merge(account_data_params)
     }
   end
@@ -77,6 +89,18 @@ class SerializeVitallySalesUser
         traits: account_data_params
       }
     end
+  end
+
+  private def get_from_cache(key)
+   last_school_year = Date.today.year - 1
+    cached_data = CacheVitallyTeacherData.get(@user.id, last_school_year)
+    if cached_data.present?
+      parsed_data = JSON.parse(cached_data)
+    else
+      parsed_data = PreviousYearTeacherDatum.new(@user, last_school_year).calculate_data || {}
+      CacheVitallyTeacherData.set(@user.id, last_school_year, parsed_data.to_json)
+    end
+    parsed_data[key]
   end
 
   private def account_data_params
@@ -107,67 +131,12 @@ class SerializeVitallySalesUser
     end
   end
 
-  private def activities_per_student(active_students, activities_finished)
-    if active_students > 0
-      (activities_finished.to_f / active_students).round(2)
-    else
-      0
-    end
-  end
-
-  private def total_students_this_year(school_year_start)
-    classrooms = @user.classrooms_i_teach.select { |c| school_year_start <= c.created_at }
-    classrooms.sum { |c| c.students.count}
-  end
-
-  private def active_students_query(user)
-    @active_students ||= ActivitySession.select(:user_id).distinct
-      .joins(classroom_unit: {classroom: [:teachers]})
-      .where(state: 'finished')
-      .where('classrooms_teachers.user_id = ?', user.id)
-  end
-
-  private def activities_assigned_query(user)
-    @activities_assigned ||= user.assigned_students_per_activity_assigned
-  end
-
   private def activities_assigned_count(user)
     sum_students(activities_assigned_query(user))
   end
 
   private def diagnostics_assigned_count(user)
     sum_students(filter_diagnostics(activities_assigned_query(user)))
-  end
-
-  private def diagnostics_assigned_this_year_count(user, school_year_start)
-    sum_students(filter_diagnostics(this_school_year(activities_assigned_query(user), school_year_start)))
-  end
-
-  private def activities_assigned_this_year_count(user, school_year_start)
-    sum_students(this_school_year(activities_assigned_query(user), school_year_start))
-  end
-
-  private def sum_students(records)
-    records.map { |r| r&.assigned_student_ids&.count || 0 }.sum || 0
-  end
-
-  private def this_school_year(records, school_year_start)
-    records.select {|r| r.created_at >= school_year_start }
-  end
-
-  private def filter_diagnostics(records)
-    records.select {|r| Activity.find(r.id).is_diagnostic? }
-  end
-
-  private def diagnostics_finished(user)
-    activities_finished_query(user).where("activities.activity_classification_id=?", DIAGNOSTIC_ID)
-  end
-
-  private def activities_finished_query(user)
-    @activities_finished ||= ClassroomsTeacher
-      .where(user_id: user.id)
-      .joins(classroom: [classroom_units: [activity_sessions: :activity]])
-      .where("activity_sessions.state='finished'")
   end
 
   private def premium_status

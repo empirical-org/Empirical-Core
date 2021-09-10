@@ -17,6 +17,22 @@ describe 'SerializeVitallySalesUser' do
   let!(:student) { create(:user, role: 'student') }
   let!(:old_student) { create(:user, role: 'student') }
 
+  before do
+    previous_year_data = {
+      total_students: 3,
+      active_students: 2,
+      activities_assigned: 3,
+      completed_activities: 3,
+      completed_activities_per_student: 1.5,
+      percent_completed_activities: 1.0,
+      diagnostics_assigned: 2,
+      diagnostics_finished: 2,
+      percent_completed_diagnostics: 1.0
+    }
+    year = Date.today.year - 1
+    CacheVitallyTeacherData.set(teacher.id, year, previous_year_data.to_json)
+  end
+
   it 'includes the accountId and userId in the data' do
     teacher_data = SerializeVitallySalesUser.new(teacher).data
 
@@ -260,7 +276,22 @@ describe 'SerializeVitallySalesUser' do
       teacher_link: "https://www.quill.org/cms/users/#{teacher.id}/sign_in"
     )
   end
-  
+
+  it 'presents previous year data' do
+    teacher_data = SerializeVitallySalesUser.new(teacher).data
+    expect(teacher_data[:traits]).to include(
+      total_students_last_year: 3,
+      active_students_last_year: 2,
+      activities_assigned_last_year: 3,
+      completed_activities_last_year: 3,
+      completed_activities_per_student_last_year: 1.5,
+      percent_completed_activities_last_year: 1.0,
+      diagnostics_assigned_last_year: 2,
+      diagnostics_finished_last_year: 2,
+      percent_completed_diagnostics_last_year: 1.0
+    )
+  end
+
   context 'testing private methods' do
     let(:teacher) { create(:teacher, :with_classrooms_students_and_activities) }
     let(:classroom_unit) { [teacher.classroom_units[0]] }
