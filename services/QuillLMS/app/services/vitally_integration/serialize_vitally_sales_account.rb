@@ -1,4 +1,5 @@
 class SerializeVitallySalesAccount
+  include VitallySchoolStats
 
   def initialize(school)
     @school = school
@@ -35,12 +36,16 @@ class SerializeVitallySalesAccount
         paid_teacher_subscriptions: paid_teacher_subscriptions,
         total_students: @school.students.count,
         total_students_this_year: @school.students.where(last_sign_in: school_year_start..current_time).count,
+        total_students_last_year: get_from_cache("total_students"),
         active_students: active_students,
         active_students_this_year: active_students_this_year,
+        active_students_last_year: get_from_cache("active_students"),
         activities_finished: activities_finished,
         activities_finished_this_year: activities_finished_this_year,
+        activities_finished_last_year: get_from_cache("activities_finished"),
         activities_per_student: activities_per_student(active_students, activities_finished),
         activities_per_student_this_year: activities_per_student(active_students_this_year, activities_finished_this_year),
+        activities_per_student_last_year: get_from_cache("activities_per_student"),
         school_link: school_link,
         created_at: @school.created_at,
         premium_expiry_date: subscription_expiration_date,
@@ -49,25 +54,16 @@ class SerializeVitallySalesAccount
     }
   end
 
-  private def activities_per_student(active_students, activities_finished)
-    if active_students > 0
-      (activities_finished.to_f / active_students).round(2)
+  private def get_from_cache(key)
+    last_school_year = Date.today.year - 1
+    cached_data = CacheVitallySchoolData.get(@school.id, last_school_year)
+    if cached_data.present?
+      parsed_data = JSON.parse(cached_data)
     else
-      0
+      parsed_data = PreviousYearSchoolDatum.new(@school, last_school_year).calculate_data || {}
+      CacheVitallySchoolData.set(@school.id, last_school_year, parsed_data.to_json)
     end
-  end
-
-  private def active_students_query(school)
-    ActivitySession.select(:user_id).distinct
-          .joins(classroom_unit: {classroom: {teachers: :school}})
-          .where(state: 'finished')
-          .where('schools.id = ?', school.id)
-  end
-
-  private def activities_finished_query(school)
-    ClassroomsTeacher.joins(user: :school, classroom: :activity_sessions)
-      .where('schools.id = ?', @school.id)
-      .where('activity_sessions.state = ?', 'finished')
+    parsed_data[key]
   end
 
   private def school_subscription
