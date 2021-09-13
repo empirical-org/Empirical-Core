@@ -17,10 +17,11 @@
 #
 # Indexes
 #
-#  index_classrooms_on_code         (code)
-#  index_classrooms_on_grade        (grade)
-#  index_classrooms_on_grade_level  (grade_level)
-#  index_classrooms_on_teacher_id   (teacher_id)
+#  index_classrooms_on_code                 (code)
+#  index_classrooms_on_google_classroom_id  (google_classroom_id)
+#  index_classrooms_on_grade                (grade)
+#  index_classrooms_on_grade_level          (grade_level)
+#  index_classrooms_on_teacher_id           (teacher_id)
 #
 require 'rails_helper'
 
