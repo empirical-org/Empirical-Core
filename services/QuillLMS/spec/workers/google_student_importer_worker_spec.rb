@@ -2,19 +2,25 @@ require 'rails_helper'
 
 describe GoogleStudentImporterWorker do
   describe '#perform' do
-    let!(:teacher) { create(:teacher, :signed_up_with_google) }
-    let(:client) { double(:client, create: true) }
-    let(:students_requester) { double(:requester) }
+    let(:teacher) { create(:teacher, :signed_up_with_google) }
+    let(:selected_classroom_ids) { [123, 456] }
 
-    before do
-      allow(GoogleIntegration::Client).to receive(:new) { client }
-      allow(GoogleIntegration::Classroom::Requesters::Students).to receive(:generate) { students_requester }
+    it 'should raise an error with a invalid teacher_id' do
+      expect(GoogleIntegration::TeacherClassroomsStudentsImporter).not_to receive(:new)
+
+      subject.perform(nil)
     end
 
-    it 'should run the google student creator and requester' do
-      expect(GoogleIntegration::Classroom::Requesters::Students).to receive(:generate).with(true)
-      expect(GoogleIntegration::Classroom::Creators::Students).to receive(:run).with(teacher.google_classrooms.to_a, students_requester)
+    it 'should run importing with valid teacher id and no selected_classroom_ids' do
+      expect(GoogleIntegration::TeacherClassroomsStudentsImporter).to receive(:new).with(teacher, nil)
+
       subject.perform(teacher.id)
+    end
+
+    it 'should run importing with valid teacher id and no selected_classroom_ids' do
+      expect(GoogleIntegration::TeacherClassroomsStudentsImporter).to receive(:new).with(teacher, selected_classroom_ids)
+
+      GoogleStudentImporterWorker.new.perform(teacher.id, nil, selected_classroom_ids)
     end
   end
 end

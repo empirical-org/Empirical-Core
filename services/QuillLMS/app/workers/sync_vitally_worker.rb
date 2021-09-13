@@ -2,8 +2,13 @@ class SyncVitallyWorker
   include Sidekiq::Worker
 
   USER_ROLES_TO_SYNC = ['teacher', 'admin', 'auditor']
+  FIRST_DAY_OF_SCHOOL_YEAR_MONTH = 7
+  FIRST_DAY_OF_SCHOOL_YEAR_DAY = 1
 
   def perform
+    if Date.today.month == FIRST_DAY_OF_SCHOOL_YEAR_MONTH && Date.today.day == FIRST_DAY_OF_SCHOOL_YEAR_DAY
+      PopulateAnnualVitallyWorker.perform_async
+    end
     # Don't synchronize non-production data
     return unless ENV['SYNC_TO_VITALLY'] == 'true'
     schools_to_sync.each_slice(100) do |school_batch|
@@ -24,4 +29,3 @@ class SyncVitallyWorker
     User.select(:id).joins(:school).where(:role => USER_ROLES_TO_SYNC)
   end
 end
-

@@ -21,6 +21,7 @@ export const RULES_BASED_3 = 'rules-based-3';
 export const SESSION_INDEX = 'sessionIndex';
 export const RULES_ANALYSIS = 'rulesAnalysis';
 export const RULE_ANALYSIS = 'ruleAnalysis';
+export const ACTIVITY_STATS = 'activityStats';
 export const GRAMMAR = 'grammar';
 export const OPINION = 'opinion';
 export const SPELLING = 'spelling';

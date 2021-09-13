@@ -84,7 +84,7 @@ RSpec.describe FeedbackHistory, type: :model do
 
   context 'concept results hash' do
     setup do
-      @prompt = Comprehension::Prompt.create(text: 'Test test test text')
+      @prompt = Evidence::Prompt.create(text: 'Test test test text')
       @activity = create(:evidence_activity)
       @activity_session = create(:activity_session, activity_id: @activity.id)
       @concept = create(:concept)
@@ -111,7 +111,7 @@ RSpec.describe FeedbackHistory, type: :model do
 
   context 'serializable_hash' do
     setup do
-      @prompt = Comprehension::Prompt.create(text: 'Test text')
+      @prompt = Evidence::Prompt.create(text: 'Test text')
       @feedback_history = create(:feedback_history, prompt: @prompt)
     end
 
@@ -305,19 +305,20 @@ RSpec.describe FeedbackHistory, type: :model do
 
   context 'Session-aggregate FeedbackHistories' do
     setup do
-      @activity1 = Comprehension::Activity.create!(notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
-      @activity2 = Comprehension::Activity.create!(notes: 'Title_2', title: 'Title 2', parent_activity_id: 2, target_level: 1)
-      @because_prompt1 = Comprehension::Prompt.create!(activity: @activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-      @because_prompt2 = Comprehension::Prompt.create!(activity: @activity2, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-      @but_prompt1 = Comprehension::Prompt.create!(activity: @activity1, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-      @but_prompt2 = Comprehension::Prompt.create!(activity: @activity2, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-      @so_prompt1 = Comprehension::Prompt.create!(activity: @activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-      @so_prompt2 = Comprehension::Prompt.create!(activity: @activity2, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      @activity1 = Evidence::Activity.create!(notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
+      @activity2 = Evidence::Activity.create!(notes: 'Title_2', title: 'Title 2', parent_activity_id: 2, target_level: 1)
+      @because_prompt1 = Evidence::Prompt.create!(activity: @activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      @because_prompt2 = Evidence::Prompt.create!(activity: @activity2, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      @but_prompt1 = Evidence::Prompt.create!(activity: @activity1, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      @but_prompt2 = Evidence::Prompt.create!(activity: @activity2, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      @so_prompt1 = Evidence::Prompt.create!(activity: @activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      @so_prompt2 = Evidence::Prompt.create!(activity: @activity2, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
 
       @activity_session1_uid = SecureRandom.uuid
       @feedback_session1_uid = FeedbackSession.get_uid_for_activity_session(@activity_session1_uid)
       @activity_session2_uid = SecureRandom.uuid
       @feedback_session2_uid = FeedbackSession.get_uid_for_activity_session(@activity_session2_uid)
+      @comprehension_turking_round = create(:comprehension_turking_round_activity_session, activity_session_uid: @activity_session1_uid)
 
       @user = create(:user)
       @first_session_feedback1 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, optimal: false)
@@ -366,6 +367,15 @@ RSpec.describe FeedbackHistory, type: :model do
         5.times {|i| create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @but_prompt2.id, attempt: i + 1, optimal: false) }
         5.times {|i| create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @so_prompt2.id, attempt: i + 1, optimal: false) }
         expect(FeedbackHistory.list_by_activity_session[0].complete).to be
+      end
+    end
+
+    context '#get_total_count' do
+      it 'return the total count of activity sessions' do
+        expect(FeedbackHistory.get_total_count).to eq(2)
+        expect(FeedbackHistory.get_total_count(activity_id: @activity1.id)).to eq(1)
+        expect(FeedbackHistory.get_total_count(start_date: Time.now)).to eq(0)
+        expect(FeedbackHistory.get_total_count(turk_session_id: @comprehension_turking_round.turking_round_id)).to eq(1)
       end
     end
 
@@ -476,7 +486,7 @@ RSpec.describe FeedbackHistory, type: :model do
 
     context '#most_recent_rating' do
       setup do
-        @prompt = Comprehension::Prompt.create(text: 'Test text')
+        @prompt = Evidence::Prompt.create(text: 'Test text')
         @feedback_history = create(:feedback_history, prompt: @prompt)
         @user1 = create(:user)
         @user2 = create(:user)

@@ -31,6 +31,18 @@ class ProviderClassroomUser < ApplicationRecord
   # max_lengths: { clever_id: 24, google_id: 21 }
   validates :provider_user_id, length: { maximum: 25 }
 
+  def self.create_list(provider_classroom_id, provider_user_ids)
+    create!(
+      provider_user_ids.map do |provider_user_id|
+        {
+          provider_classroom_id: provider_classroom_id,
+          provider_user_id: provider_user_id,
+          type: name
+        }
+      end
+    )
+  end
+
   def active?
     deleted_at.nil?
   end
@@ -47,4 +59,3 @@ class ProviderClassroomUser < ApplicationRecord
     update!(deleted_at: Time.now)
   end
 end
-

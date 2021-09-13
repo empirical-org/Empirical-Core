@@ -42,7 +42,7 @@ class Auth::GoogleController < ApplicationController
 
   private def run_background_jobs
     if @user.teacher?
-      GoogleIntegration::Users::UpdateImportedClassroomsWorker.perform_async(@user.id)
+      GoogleIntegration::UpdateTeacherImportedClassroomsWorker.perform_async(@user.id)
       GoogleStudentImporterWorker.perform_async(@user.id, 'Auth::GoogleController')
     elsif @user.student?
       GoogleStudentClassroomWorker.perform_async(@user.id)

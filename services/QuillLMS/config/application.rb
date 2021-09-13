@@ -35,6 +35,7 @@ module EmpiricalGrammar
       #{config.root}/app/services
       #{config.root}/app/services/analytics
       #{config.root}/app/queries/scorebook
+      #{config.root}/app/services/vitally_integration
     )
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.

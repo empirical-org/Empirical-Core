@@ -49,7 +49,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update_classroom_unit_assigned_students
-    activities_data = UnitActivity.where(unit_id: params[:id]).pluck(:activity_id).map{|id| {id: id}}
+    activities_data = UnitActivity.where(unit_id: params[:id]).order(:order_number).pluck(:activity_id).map { |id| { id: id } }
     if activities_data.any?
       classroom_data = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
       Units::Updater.run(params[:id], activities_data, classroom_data, current_user.id)

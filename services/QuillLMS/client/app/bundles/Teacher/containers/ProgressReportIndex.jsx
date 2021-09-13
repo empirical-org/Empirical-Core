@@ -1,7 +1,7 @@
 import React from 'react'
 
 import ActivitiesProgressReport from '../components/progress_reports/activities_progress_report.jsx'
-import StandardsAllClassroomsProgressReport from '../components/progress_reports/standards_all_classrooms_progress_report.jsx'
+import StandardsAllClassroomsProgressReport from '../components/progress_reports/standards_all_classrooms_progress_report'
 import StandardsClassroomStudentsProgressReport from '../components/progress_reports/standards_classroom_students_progress_report.jsx'
 import StandardsStandardsProgressReport from '../components/progress_reports/standards_standards_progress_report.jsx'
 import StandardsClassroomStandardsProgressReport from '../components/progress_reports/standards_classroom_standards_progress_report.jsx'
