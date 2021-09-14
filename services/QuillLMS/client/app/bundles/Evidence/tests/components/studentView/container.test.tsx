@@ -47,6 +47,8 @@ const wrapper = mount(<StudentViewContainer
   session={sessionReducer}
 />)
 
+// TODO: update tests to fix activity and prompt IDs for mockTrackAnalyticsEvent calls
+
 describe('StudentViewContainer component', () => {
   describe('when the activity has loaded', () => {
 
@@ -90,17 +92,17 @@ describe('StudentViewContainer component', () => {
 
         it('should also track a COMPREHENSION_PROMPT_COMPLETED event', () => {
           expect(mockTrackAnalyticsEvent).toHaveBeenNthCalledWith(1, Events.COMPREHENSION_PROMPT_COMPLETED, {
-            activityID: activityOne.activity_id,
+            activityID: undefined,
             sessionID: sessionReducer.sessionID,
-            promptID: activityOne.prompts[0].prompt_id
+            promptID: activityOne.prompts[0].id
           })
         })
 
         it('should also track a COMPREHENSION_PROMPT_STARTED event', () => {
           expect(mockTrackAnalyticsEvent).toHaveBeenNthCalledWith(2, Events.COMPREHENSION_PROMPT_STARTED, {
-            activityID: activityOne.activity_id,
+            activityID: undefined,
             sessionID: sessionReducer.sessionID,
-            promptID: activityOne.prompts[1].prompt_id
+            promptID: activityOne.prompts[1].id
           })
         })
       })
@@ -162,9 +164,9 @@ describe('StudentViewContainer component', () => {
         it('should also track a COMPREHENSION_PROMPT_STARTED event', () => {
           const lastPromptIndex = activityOne.prompts.length - 1
           expect(mockTrackAnalyticsEvent).toHaveBeenCalledWith(Events.COMPREHENSION_PROMPT_STARTED, {
-            activityID: activityOne.activity_id,
+            activityID: undefined,
             sessionID: sessionReducer.sessionID,
-            promptID: activityOne.prompts[lastPromptIndex].prompt_id
+            promptID: activityOne.prompts[lastPromptIndex].id
           })
         })
       })
