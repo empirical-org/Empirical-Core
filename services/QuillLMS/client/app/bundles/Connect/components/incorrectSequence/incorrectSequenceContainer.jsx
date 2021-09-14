@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import _ from 'underscore';
 import { EditorState, ContentState } from 'draft-js'
 
-import { TextEditor } from '../../../Shared/index';
+import { TextEditor, isValidRegex } from '../../../Shared/index';
 import { hashToCollection, SortableList } from '../../../Shared/index';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
@@ -81,7 +81,7 @@ class IncorrectSequencesContainer extends Component {
     const { orderedIds, incorrectSequences } = this.state
     if (orderedIds) {
       const sequencesCollection = hashToCollection(incorrectSequences)
-      return orderedIds.map(id => sequencesCollection.find(s => s.key === id))
+      return orderedIds.map(id => sequencesCollection.find(sequence => sequence.key === id))
     } else {
       return hashToCollection(incorrectSequences).sort((a, b) => a.order - b.order);
     }
@@ -110,6 +110,8 @@ class IncorrectSequencesContainer extends Component {
     if (data.text === '') {
       delete filteredSequences[key]
       dispatch(deleteIncorrectSequence(questionID, key));
+    } else if (data.text.split('|||').some(sequence => !isValidRegex(sequence))) {
+      alert('Your regex syntax is invalid. Try again!')
     } else {
       dispatch(submitEditedIncorrectSequence(questionID, data, key));
     }
@@ -179,19 +181,19 @@ class IncorrectSequencesContainer extends Component {
   renderSequenceList = () => {
     const { match } = this.props
 
-    const components = this.sequencesSortedByOrder().map((s) => {
+    const components = this.sequencesSortedByOrder().map((sequence) => {
       return (
-        <div className="card is-fullwidth has-bottom-margin" key={s.key}>
+        <div className="card is-fullwidth has-bottom-margin" key={sequence.key}>
           <header className="card-header">
-            <input className="regex-name" onChange={(e) => this.handleNameChange(e, s.key)} placeholder="Name" type="text" value={s.name || ''} />
+            <input className="regex-name" onChange={(e) => this.handleNameChange(e, sequence.key)} placeholder="Name" type="text" value={sequence.name || ''} />
           </header>
           <header className="card-header">
             <p className="card-header-title" style={{ display: 'inline-block', }}>
-              {this.renderTextInputFields(s.text, s.key)}
-              <button className="add-regex-button" onClick={(e) => this.addNewSequence(e, s.key)} type="button">+</button>
+              {this.renderTextInputFields(sequence.text, sequence.key)}
+              <button className="add-regex-button" onClick={(e) => this.addNewSequence(e, sequence.key)} type="button">+</button>
             </p>
             <p className="card-header-icon">
-              {s.order}
+              {sequence.order}
             </p>
           </header>
           <div className="card-content">
@@ -199,17 +201,17 @@ class IncorrectSequencesContainer extends Component {
             <TextEditor
               ContentState={ContentState}
               EditorState={EditorState}
-              handleTextChange={(e) => this.handleFeedbackChange(e, s.key)}
+              handleTextChange={(e) => this.handleFeedbackChange(e, sequence.key)}
               key="feedback"
-              text={s.feedback}
+              text={sequence.feedback}
             />
             <br />
-            {this.renderConceptResults(s.conceptResults, s.key)}
+            {this.renderConceptResults(sequence.conceptResults, sequence.key)}
           </div>
           <footer className="card-footer">
-            <NavLink className="card-footer-item" to={`${match.url}/${s.key}/edit`}>Edit</NavLink>
-            <a className="card-footer-item" onClick={() => this.deleteSequence(s.key)}>Delete</a>
-            <a className="card-footer-item" onClick={() => this.saveSequencesAndFeedback(s.key)}>Save</a>
+            <NavLink className="card-footer-item" to={`${match.url}/${sequence.key}/edit`}>Edit</NavLink>
+            <a className="card-footer-item" onClick={() => this.deleteSequence(sequence.key)}>Delete</a>
+            <a className="card-footer-item" onClick={() => this.saveSequencesAndFeedback(sequence.key)}>Save</a>
           </footer>
         </div>
       )

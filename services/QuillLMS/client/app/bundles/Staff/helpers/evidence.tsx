@@ -24,7 +24,7 @@ import { PromptInterface, ActivityInterface, DropdownObjectInterface } from '../
 const quillCheckmark = `/images/green_check.svg`;
 const quillX = '/images/red_x.svg';
 const mainApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
-const comprehensionBaseUrl = `${mainApiBaseUrl}comprehension/`;
+const evidenceBaseUrl = `${mainApiBaseUrl}evidence/`;
 const fetchDefaults = require("fetch-defaults");
 
 const headerHash = {
@@ -34,7 +34,7 @@ const headerHash = {
   }
 }
 
-export const apiFetch = fetchDefaults(fetch, comprehensionBaseUrl, headerHash)
+export const apiFetch = fetchDefaults(fetch, evidenceBaseUrl, headerHash)
 
 export const mainApiFetch = fetchDefaults(fetch, mainApiBaseUrl, headerHash)
 
@@ -71,6 +71,14 @@ export const getRuleFeedbackHistoriesUrl = ({ activityId, selectedConjunction, s
 
 export const getRuleFeedbackHistoryUrl = ({ ruleUID, promptId, startDate, endDate, turkSessionID }) => {
   let url = `rule_feedback_history/${ruleUID}?prompt_id=${promptId}`;
+  url = startDate ? url + `&start_date=${startDate}` : url;
+  url = endDate ? url + `&end_date=${endDate}` : url;
+  url = turkSessionID ? url + `&turk_session_id=${turkSessionID}` : url;
+  return url;
+};
+
+export const getActivityStatsUrl = ({ activityId, startDate, endDate, turkSessionID }) => {
+  let url = `prompt_health?activity_id=${activityId}`;
   url = startDate ? url + `&start_date=${startDate}` : url;
   url = endDate ? url + `&end_date=${endDate}` : url;
   url = turkSessionID ? url + `&turk_session_id=${turkSessionID}` : url;

@@ -88,7 +88,8 @@ export default createReactClass({
         accessor: 'student_id',
         resizeable: false,
         Cell: props => this.state.studentFilters.find(student => student.value == props.value).name,
-        className: this.nonPremiumBlur()
+        className: this.nonPremiumBlur(),
+        maxWidth: 200
       },
       {
         Header: 'Date',
@@ -101,6 +102,7 @@ export default createReactClass({
         Header: 'Activity',
         accessor: 'activity_name',
         resizeable: false,
+        className: 'show-overflow',
         Cell: props => props.value
       },
       {
@@ -234,7 +236,7 @@ export default createReactClass({
 
   render: function() {
     return (
-      <div className='progress-reports-2018'>
+      <div className='progress-reports-2018 data-export'>
         <div className='meta-overview flex-row space-between'>
           <div className='header-and-info'>
             <h1>Data Export</h1>

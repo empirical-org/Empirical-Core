@@ -56,8 +56,8 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
       context 'activity_id' do
         setup do
-          @activity = Comprehension::Activity.create!(notes: 'Title 1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
-          @prompt = Comprehension::Prompt.create!(activity: @activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+          @activity = Evidence::Activity.create!(notes: 'Title 1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
+          @prompt = Evidence::Prompt.create!(activity: @activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
           10.times { create(:feedback_history, prompt: @prompt) }
           10.times { create(:feedback_history) }
         end
@@ -193,10 +193,10 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only complete sessions when filter_type is complete' do
-          activity = Comprehension::Activity.create!(notes: 'Title 1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
-          because_prompt = Comprehension::Prompt.create!(activity: activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-          but_prompt = Comprehension::Prompt.create!(activity: activity, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-          so_prompt = Comprehension::Prompt.create!(activity: activity, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+          activity = Evidence::Activity.create!(notes: 'Title 1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
+          because_prompt = Evidence::Prompt.create!(activity: activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+          but_prompt = Evidence::Prompt.create!(activity: activity, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+          so_prompt = Evidence::Prompt.create!(activity: activity, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
           activity_session = create(:activity_session)
           feedback_history3 = create(:feedback_history, feedback_session_uid: activity_session.uid, prompt: because_prompt, optimal: true)
           feedback_history4 = create(:feedback_history, feedback_session_uid: activity_session.uid, prompt: but_prompt, optimal: true)

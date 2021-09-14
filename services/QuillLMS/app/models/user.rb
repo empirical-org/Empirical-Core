@@ -64,7 +64,7 @@ class User < ApplicationRecord
   before_validation :generate_student_username_if_absent
   before_validation :prep_authentication_terms
   before_save :capitalize_name
-  after_save  :update_invitee_email_address, if: proc { email_changed? }
+  after_save  :update_invitee_email_address, if: proc { saved_change_to_email? }
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
 
@@ -158,6 +158,8 @@ class User < ApplicationRecord
   TESTING_FLAGS = [ALPHA, BETA, GAMMA, PRIVATE, ARCHIVED]
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
+
+  GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
 
   scope :teacher, -> { where(role: TEACHER) }
   scope :student, -> { where(role: STUDENT) }
@@ -668,6 +670,6 @@ class User < ApplicationRecord
   end
 
   private def update_invitee_email_address
-    Invitation.where(invitee_email: email_was).update_all(invitee_email: email)
+    Invitation.where(invitee_email: email_before_last_save).update_all(invitee_email: email)
   end
 end

@@ -369,7 +369,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'activities/activities_health' => 'activities#activities_health'
       get 'rule_feedback_histories' => 'rule_feedback_histories#by_conjunction'
       get 'rule_feedback_history/:rule_uid' => 'rule_feedback_histories#rule_detail'
-      get 'prompt_health/:activity_id' => 'rule_feedback_histories#prompt_health'
+      get 'prompt_health' => 'rule_feedback_histories#prompt_health'
 
 
       resources :activities,              except: [:index, :new, :edit]
@@ -390,7 +390,11 @@ EmpiricalGrammar::Application.routes.draw do
       end
 
       resources :users, only: [:index]
-      resources :app_settings, only: [:index, :show], param: :name
+      resources :app_settings, only: [:index, :show], param: :name do 
+          member do 
+            get :admin_show
+          end
+      end
 
       resources :classroom_units,         only: [] do
         collection do
@@ -444,7 +448,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
       resources :active_activity_sessions, only: [:show, :update, :destroy]
 
-      mount Comprehension::Engine => "/comprehension", as: :comprehension
+      mount Evidence::Engine => "/evidence", as: :evidence
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.

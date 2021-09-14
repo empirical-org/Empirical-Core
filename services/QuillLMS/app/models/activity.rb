@@ -232,11 +232,11 @@ class Activity < ApplicationRecord
 
   def child_activity
     return unless is_evidence?
-    Comprehension::Activity.find_by(parent_activity_id: id)
+    Evidence::Activity.find_by(parent_activity_id: id)
   end
 
   private def update_evidence_title?
-    is_evidence? && name_changed?
+    is_evidence? && saved_change_to_name?
   end
 
   private def update_evidence_child_title
@@ -269,7 +269,7 @@ class Activity < ApplicationRecord
     base_url = classification.module_url.to_s
     # Rename "student" to "session" because it's called "student" in all tools other than Evidence
     initial_params[:session] = initial_params.delete :student if initial_params[:student]
-    initial_params[:uid] = Comprehension::Activity.find_by(parent_activity_id: id).id
+    initial_params[:uid] = Evidence::Activity.find_by(parent_activity_id: id).id
     construct_redirect_url(base_url, initial_params)
   end
 

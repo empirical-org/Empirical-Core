@@ -13,6 +13,12 @@
   padding-top: 30px;
   padding-bottom: 180px;
 
+  &.data-export, &.concept-student-concepts {
+    .ReactTable .rt-td.show-overflow {
+      white-space: pre-wrap;
+    }
+  }
+
   .rt-table {
     border-radius: 6px;
   }
@@ -84,6 +90,9 @@
     width: 100%;
     display: inline-block;
     color: black;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }
 

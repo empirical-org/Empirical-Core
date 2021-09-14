@@ -24,7 +24,7 @@ describe Cms::SchoolsController do
     it 'should allows staff memeber to view and search through school' do
       get :index
       expect(assigns(:school_search_query)).to eq({'search_schools_with_zero_teachers' => true})
-      expect(assigns(:school_search_query_results)).to eq [school_hash]
+      expect(assigns(:school_search_query_results)).to eq []
       expect(assigns(:number_of_pages)).to eq 0
     end
   end

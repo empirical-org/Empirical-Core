@@ -160,7 +160,7 @@ export function handleSetFeedback({
       updatedFeedback[feedbackIndex].highlights_attributes.push({ text: '' });
       break
     case HIGHLIGHT_REMOVAL:
-      updatedFeedback[feedbackIndex].highlights_attributes = updatedFeedback[feedbackIndex].highlights_attributes.slice(0, -1)
+      updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex]._destroy = true
       break
     case HIGHLIGHT_TYPE:
       updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].highlight_type = text
@@ -181,6 +181,7 @@ export function handleSetFeedback({
 
 export function renderHighlights(highlights, i, changeHandler) {
   return highlights.map((highlight, j) => {
+    if (highlight._destroy) return null;
     let highlightTypeValue = ruleHighlightOptions[0];
     // this is an update for existing rule, convert to object for DropdownInput value
     if(highlight.highlight_type && typeof highlight.highlight_type === 'string') {

@@ -29,7 +29,7 @@
 class FeedbackHistory < ApplicationRecord
   CONCEPT_UID_LENGTH = 22
   DEFAULT_PAGE_SIZE = 25
-  DEFAULT_PROMPT_TYPE = "Comprehension::Prompt"
+  DEFAULT_PROMPT_TYPE = "Evidence::Prompt"
   MIN_ATTEMPT = 1
   MAX_ATTEMPT = 5
   MIN_ENTRY_LENGTH = 5
@@ -239,6 +239,21 @@ class FeedbackHistory < ApplicationRecord
     query = query.limit(page_size)
     query = query.offset((page.to_i - 1) * page_size.to_i) if page && page.to_i > 1
     query
+  end
+
+  def self.get_total_count(activity_id: nil, start_date: nil, end_date: nil, turk_session_id: nil)
+    query = FeedbackHistory.select(:feedback_session_uid)
+      .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
+      .group(:feedback_session_uid, :activity_id)
+    query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
+    query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
+    query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
+    if turk_session_id
+      query = query.joins('LEFT JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
+      .joins('LEFT JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')
+      .where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id)
+    end
+    query.length
   end
 
   def self.serialize_detail_by_activity_session(feedback_session_uid)

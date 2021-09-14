@@ -251,17 +251,21 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
   renderRowSection(row, header) {
     if (header.isActions) { return this.renderActions(row) }
-
     const { averageFontWidth, } = this.props
     let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
     const sectionText = row[header.attribute]
     const headerWidthNumber = Number(header.width.slice(0, -2))
     const dataTableRowSectionClassName = `data-table-row-section ${header.rowSectionClassName}`
     const key = `${header.attribute}-${row.id || sectionText}`
-    if (!header.noTooltip && (String(sectionText).length * averageFontWidth) >= headerWidthNumber) {
+    let linkDisplayText
+    if (sectionText && sectionText.type === 'a' && sectionText.props.children && sectionText.props.children[1] && sectionText.props.children[1].props) {
+      linkDisplayText = sectionText.props.children[1].props.children
+    }
+    const rowDisplayText = linkDisplayText || sectionText
+    if (!header.noTooltip && (String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
       return (<Tooltip
         key={key}
-        tooltipText={sectionText}
+        tooltipText={rowDisplayText}
         tooltipTriggerStyle={style}
         tooltipTriggerText={sectionText}
         tooltipTriggerTextClass={dataTableRowSectionClassName}
