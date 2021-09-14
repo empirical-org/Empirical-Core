@@ -53,8 +53,6 @@ const MoreInfo = (row) => {
   </div>)
 }
 
-
-
 const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
   const { params } = match;
   const { activityId, promptConjunction, } = params;
@@ -82,16 +80,8 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
   const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
   const [formattedRows, setFormattedRows] = React.useState<any[]>(null);
-  const [incrementer, setIncrementer] = React.useState(0)
 
   const selectedConjunction = selectedPrompt ? selectedPrompt.conjunction : promptConjunction
-
-  // function handleSetSelectedRuleType(thing) {
-  //   console.log("here", thing)
-  //   setSelectedRuleType(thing)
-
-  //   setIncrementer(incrementer + 1)
-  // }
 
   // cache rules data for updates
   const { data: ruleFeedbackHistory } = useQuery({
@@ -149,7 +139,6 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
   React.useEffect(() => {
     if(selectedPrompt && ruleFeedbackHistory && ruleFeedbackHistory.ruleFeedbackHistories && ruleFeedbackHistory.ruleFeedbackHistories) {
-      console.log("about to filter rows with selectedRuleType: ", selectedRuleType)
       const formattedRows = ruleFeedbackHistory.ruleFeedbackHistories.filter(rule => {
         return selectedRuleType.value === DEFAULT_RULE_TYPE || rule.api_name === selectedRuleType.value
       }).map(rule => {
