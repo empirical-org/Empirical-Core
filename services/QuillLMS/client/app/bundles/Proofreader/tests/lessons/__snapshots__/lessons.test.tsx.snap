@@ -48,21 +48,21 @@ exports[`Lessons Component should match snapshot 1`] = `
           <ul
             className="menu-list"
           >
-            <Component
+            <LinkListItem
               activeClassName="is-active"
               basePath="lessons"
               itemKey="17"
               key="17"
               text="Activity 1"
             />
-            <Component
+            <LinkListItem
               activeClassName="is-active"
               basePath="lessons"
               itemKey="18"
               key="18"
               text="Activity 2"
             />
-            <Component
+            <LinkListItem
               activeClassName="is-active"
               basePath="lessons"
               itemKey="19"

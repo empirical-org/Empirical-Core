@@ -2,7 +2,7 @@
 
 exports[`Assign students component should render 1`] = `
 <div>
-  <Component />
+  <Snackbar />
   <div
     className="assignment-section"
   >

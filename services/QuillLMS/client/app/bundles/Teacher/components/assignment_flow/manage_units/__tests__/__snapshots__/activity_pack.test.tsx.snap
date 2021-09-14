@@ -708,14 +708,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
   <section
     className="activity-pack"
   >
-    <Component
+    <Snackbar
       text=""
       visible={false}
     >
       <div
         className="quill-snackbar "
       />
-    </Component>
+    </Snackbar>
     <div
       className="top-section"
     >
@@ -13797,14 +13797,14 @@ exports[`ActivityPack component renders if the current user did not create the u
   <section
     className="activity-pack"
   >
-    <Component
+    <Snackbar
       text=""
       visible={false}
     >
       <div
         className="quill-snackbar "
       />
-    </Component>
+    </Snackbar>
     <div
       className="top-section"
     >
