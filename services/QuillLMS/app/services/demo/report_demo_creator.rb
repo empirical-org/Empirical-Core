@@ -2,14 +2,31 @@ module Demo::ReportDemoCreator
 
   REPLAYED_ACTIVITY_ID = 434
   REPLAYED_SAMPLE_USER_ID = 312664
+  ACTIVITY_PACKS = [
+    {
+      name: "Quill Activity Pack",
+      activity_ids: [1663, 437, 434, 215, 41, 386, 289, 295, 418]
+    },
+    {
+      name: "Paragraph Transitions",
+      activity_ids: [851, 863, 861, 985, 986, 1446]
+    },
+    {
+      name: "Social Studies: Maya, Aztec, and Inca Sentence Combining Practice",
+      activity_ids: [627, 628, 629, 535, 523]
+    },
+    {
+      name: "Subject-Verb Agreement Practice",
+      activity_ids: [742, 751, 765]
+    }
+  ]
 
   def self.create_demo(name)
     teacher = create_teacher(name)
     classroom = create_classroom(teacher)
     students = create_students(classroom)
-    unit = create_unit(teacher)
-    classroom_units = create_classroom_units(classroom, unit)
-    unit_activities = create_unit_activities(unit)
+    units = create_units(teacher)
+    classroom_units = create_classroom_units(classroom, units)
     activity_sessions = create_activity_sessions(students)
     subscription = create_subscription(teacher)
 
@@ -42,12 +59,16 @@ module Demo::ReportDemoCreator
     classroom = Classroom.create_with_join(values, teacher.id)
   end
 
-  def self.create_unit(teacher)
-    values = {
-      name: "Quill Activity Pack",
-      user: teacher,
-    }
-    unit = Unit.create(values)
+  def self.create_units(teacher)
+    units = []
+    ACTIVITY_PACKS.each do |ap|
+      unit = Unit.create({name: ap[:name], user: teacher})
+      ap[:activity_ids].each do |act_id|
+        UnitActivity.create({activity_id: act_id, unit: unit})
+      end
+      units.push(unit)
+    end
+    units
   end
 
   def self.create_subscription(teacher)
@@ -110,25 +131,13 @@ module Demo::ReportDemoCreator
     students
   end
 
-  def self.create_unit_activities(unit)
-    activities = [1663, 437, 434, 215, 41, 386, 289, 295, 418]
-    unit_activities = []
-    activities.each do |act_id|
-      values = {
-        activity_id: act_id,
-        unit: unit,
-      }
-      ua = UnitActivity.create(values)
-      unit_activities.push(ua)
-    end
-    unit_activities
-  end
-
-  def self.create_classroom_units(classroom, unit)
-    ClassroomUnit.create(
+  def self.create_classroom_units(classroom, units)
+    units.each do |unit|
+      ClassroomUnit.create(
         classroom: classroom,
         unit: unit,
         assign_on_join: true)
+    end
   end
 
   def self.create_replayed_activity_session(student)
