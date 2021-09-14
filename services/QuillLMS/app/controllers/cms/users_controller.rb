@@ -235,7 +235,7 @@ class Cms::UsersController < Cms::CmsController
     when 'user_username'
       "users.username ILIKE #{(sanitized_fuzzy_param_value)}"
     when 'user_email'
-      "users.email ILIKE #{(sanitized_fuzzy_param_value)}"
+      "users.email = LOWER(TRIM(#{(sanitized_param_value)}))"
     when 'user_flag'
       "#{(sanitized_param_value)} = ANY (users.flags::text[])"
     when 'user_ip'
