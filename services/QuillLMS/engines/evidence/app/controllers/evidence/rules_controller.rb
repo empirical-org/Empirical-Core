@@ -73,7 +73,7 @@ module Evidence
          plagiarism_text_attributes: [:id, :text],
          regex_rules_attributes: [:id, :regex_text, :case_sensitive, :sequence_type],
          label_attributes: [:id, :name, :state],
-         feedbacks_attributes: [:id, :text, :description, :order, highlights_attributes: [:id, :text, :highlight_type, :starting_index]]
+         feedbacks_attributes: [:id, :text, :description, :order, highlights_attributes: [:id, :text, :highlight_type, :starting_index, :_destroy]]
       )
     end
 
