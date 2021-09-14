@@ -410,11 +410,10 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const { selectedStudentIds, } = this.state
 
     const rows = classroom.students.map(student => {
-      const { name, username, id, google_id, clever_id, } = student
+      const { name, username, id, } = student
       const checked = !!selectedStudentIds.includes(id)
-      let synced = ''
-      if (google_id) { synced = 'Google Classroom'}
-      if (clever_id) { synced = 'Clever' }
+      const synced = student.synced ? 'Yes' : 'No'
+
       return {
         synced,
         name,
