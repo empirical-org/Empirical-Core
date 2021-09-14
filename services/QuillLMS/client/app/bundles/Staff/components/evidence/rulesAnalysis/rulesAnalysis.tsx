@@ -53,6 +53,8 @@ const MoreInfo = (row) => {
   </div>)
 }
 
+
+
 const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
   const { params } = match;
   const { activityId, promptConjunction, } = params;
@@ -80,8 +82,17 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
   const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
   const [formattedRows, setFormattedRows] = React.useState<any[]>(null);
+  const [incrementer, setIncrementer] = React.useState(0)
 
   const selectedConjunction = selectedPrompt ? selectedPrompt.conjunction : promptConjunction
+
+  // function handleSetSelectedRuleType(thing) {
+  //   console.log("here", thing)
+  //   setSelectedRuleType(thing)
+
+  //   setIncrementer(incrementer + 1)
+  // }
+
   // cache rules data for updates
   const { data: ruleFeedbackHistory } = useQuery({
     queryKey: [`rule-feedback-history-by-conjunction-${selectedConjunction}-and-activity-${activityId}`, activityId, selectedConjunction, startDateForQuery, endDateForQuery, turkSessionIDForQuery],
@@ -115,7 +126,6 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     if (selectedPrompt) {
       url += `/${selectedPrompt.conjunction}`
     }
-
     if (selectedRuleType) {
       url += `?selected_rule_type=${selectedRuleType.value}`
     }
@@ -139,6 +149,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
   React.useEffect(() => {
     if(selectedPrompt && ruleFeedbackHistory && ruleFeedbackHistory.ruleFeedbackHistories && ruleFeedbackHistory.ruleFeedbackHistories) {
+      console.log("about to filter rows with selectedRuleType: ", selectedRuleType)
       const formattedRows = ruleFeedbackHistory.ruleFeedbackHistories.filter(rule => {
         return selectedRuleType.value === DEFAULT_RULE_TYPE || rule.api_name === selectedRuleType.value
       }).map(rule => {
@@ -166,7 +177,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
       setFormattedRows(formattedRows);
     }
-  }, [ruleFeedbackHistory])
+  }, [ruleFeedbackHistory, selectedRuleType])
 
   function handleSetTurkSessionID(e: InputEvent){ setTurkSessionID(e.target.value) };
 
