@@ -162,7 +162,7 @@ func TestFirstResponseErrorLaterNonOptimal(t *testing.T) {
 }
 
 func TestAutoMLIndex(t *testing.T) {
-	if "https://www.quill.org/api/v1/comprehension/feedback/automl.json" != AssembleUrls()[automl_index] {
+	if "https://www.quill.org/api/v1/evidence/feedback/automl.json" != AssembleUrls()[automl_index] {
 		t.Errorf("automl_index does not match automl_api")
 	}
 }
