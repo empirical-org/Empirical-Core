@@ -62,12 +62,12 @@ func AssembleUrls() ([api_count]string) {
 	opinion_domain := GetOpinionDomain()
 
 	var (
-		automl_api = fmt.Sprintf("%s/api/v1/comprehension/feedback/automl.json", lms_domain)
-		plagiarism_api = fmt.Sprintf("%s/api/v1/comprehension/feedback/plagiarism.json", lms_domain)
-		sentence_structure_regex_api = fmt.Sprintf("%s/api/v1/comprehension/feedback/regex/rules-based-1.json", lms_domain)
-		post_topic_regex_api         = fmt.Sprintf("%s/api/v1/comprehension/feedback/regex/rules-based-2.json", lms_domain)
-		typo_regex_api               = fmt.Sprintf("%s/api/v1/comprehension/feedback/regex/rules-based-3.json", lms_domain)
-		spell_check_bing             = fmt.Sprintf("%s/api/v1/comprehension/feedback/spelling.json", lms_domain)
+		automl_api = fmt.Sprintf("%s/api/v1/evidence/feedback/automl.json", lms_domain)
+		plagiarism_api = fmt.Sprintf("%s/api/v1/evidence/feedback/plagiarism.json", lms_domain)
+		sentence_structure_regex_api = fmt.Sprintf("%s/api/v1/evidence/feedback/regex/rules-based-1.json", lms_domain)
+		post_topic_regex_api         = fmt.Sprintf("%s/api/v1/evidence/feedback/regex/rules-based-2.json", lms_domain)
+		typo_regex_api               = fmt.Sprintf("%s/api/v1/evidence/feedback/regex/rules-based-3.json", lms_domain)
+		spell_check_bing             = fmt.Sprintf("%s/api/v1/evidence/feedback/spelling.json", lms_domain)
 
 		grammar_check_api = "https://quill.spell.services/Quill/grammar/predict"
 		opinion_check_api = fmt.Sprintf("%s/", opinion_domain)
