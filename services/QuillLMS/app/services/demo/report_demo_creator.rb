@@ -63,9 +63,7 @@ module Demo::ReportDemoCreator
     units = []
     ACTIVITY_PACKS.each do |ap|
       unit = Unit.create({name: ap[:name], user: teacher})
-      ap[:activity_ids].each do |act_id|
-        UnitActivity.create({activity_id: act_id, unit: unit})
-      end
+      ap[:activity_ids].each { |act_id| UnitActivity.create({activity_id: act_id, unit: unit}) }
       units.push(unit)
     end
     units
