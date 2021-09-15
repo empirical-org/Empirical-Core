@@ -184,7 +184,6 @@ module Demo::ReportDemoCreator
         765 => 9962415
       },
 
-
       {
         1663 => 9706465,
         437 => 409030,
@@ -211,7 +210,6 @@ module Demo::ReportDemoCreator
         765 => 9706466
       },
 
-
       {
         1663 => 9706463,
         437 => 446637,
@@ -237,7 +235,6 @@ module Demo::ReportDemoCreator
         751 => 9706464,
         765 => 9706464
       },
-
 
       {
         1663 => 9962415,
