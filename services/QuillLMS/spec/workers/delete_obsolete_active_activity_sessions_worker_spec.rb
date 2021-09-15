@@ -16,7 +16,7 @@ describe DeleteObsoleteActiveActivitySessionsWorker, type: :worker do
     )
   end
 
-  it 'should delete obsolete sessiosn' do
+  it 'should delete obsolete sessions' do
     active_id = active_session.id
     obsolete1_id = obsolete_session1.id
     obsolete2_id = obsolete_session2.id
