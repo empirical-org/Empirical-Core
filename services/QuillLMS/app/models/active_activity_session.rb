@@ -20,7 +20,7 @@ class ActiveActivitySession < ApplicationRecord
   belongs_to :activity_session, -> { unscope(where: :visible) }, foreign_key: :uid, primary_key: :uid
 
   # Pulls sessions that are finished or their classroom unit are archived
-  # These sessiosn can be deleted
+  # These sessions can be deleted
   # Should use with a .limit()
   scope :obsolete, -> {
     joins(:activity_session)
