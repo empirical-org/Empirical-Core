@@ -2,7 +2,7 @@ module Demo::ReportDemoCreator
 
   REPLAYED_ACTIVITY_ID = 434
   REPLAYED_SAMPLE_USER_ID = 312664
-  ACTIVITY_PACKS = [
+  ACTIVITY_PACKS_TEMPLATES = [
     {
       name: "Quill Activity Pack",
       activity_ids: [1663, 437, 434, 215, 41, 386, 289, 295, 418],
@@ -225,7 +225,7 @@ module Demo::ReportDemoCreator
 
   def self.create_units(teacher)
     units = []
-    ACTIVITY_PACKS.each do |ap|
+    ACTIVITY_PACKS_TEMPLATES.each do |ap|
       unit = Unit.create({name: ap[:name], user: teacher})
       ap[:activity_ids].each { |act_id| UnitActivity.create({activity_id: act_id, unit: unit}) }
       units.push(unit)
@@ -320,7 +320,7 @@ module Demo::ReportDemoCreator
   def self.create_activity_sessions(students, classroom)
 
     students.each_with_index do |student, num|
-      ACTIVITY_PACKS.each do |activity_pack|
+      ACTIVITY_PACKS_TEMPLATES.each do |activity_pack|
         unit = Unit.find_by(name: activity_pack[:name])
         act_sessions = activity_pack[:activity_sessions]
         act_sessions[num].each do |act_id, user_id|
