@@ -1585,6 +1585,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
           </React.Fragment>,
         ]
       }
+      helperClass="sortable-classroom"
       sortCallback={[Function]}
       useDragHandle={true}
     />
