@@ -1,8 +1,10 @@
 <div class='container'>
   <article class='simple-rounded-box cms-container'>
     <div style="margin-bottom:20px">
-      <h1 style="margin-bottom:20px">School Directory</h1>
-      <%= link_to 'Add New School', new_cms_school_path, class: 'btn button-green'  %>
+      <h1 style="margin-bottom:20px">
+        School Search
+        <%= link_to 'Add New School', new_cms_school_path, class: 'btn button-green float-right'  %>
+      </h1>
     </div>
     <div class='cms-container-meta'>
       <%= react_component('CmsSchoolIndexApp', props: {queryResults: @school_search_query_results, query: @school_search_query, schoolPremiumTypes: @school_premium_types}) %>
