@@ -161,7 +161,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
           note,
           firstLayerFeedback: first_feedback,
           secondLayerFeedback: second_feedback,
-          handleClick: () => window.open(`/cms/evidence/activities/${activityId}/rules-analysis/${selectedPrompt.conjunction}/rule/${rule_uid}/prompt/${selectedPrompt.id}`, '_blank')
+          handleClick: () => window.open(`/cms/evidence#/activities/${activityId}/rules-analysis/${selectedPrompt.conjunction}/rule/${rule_uid}/prompt/${selectedPrompt.id}`, '_blank')
         }
       }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
       setFormattedRows(formattedRows);
