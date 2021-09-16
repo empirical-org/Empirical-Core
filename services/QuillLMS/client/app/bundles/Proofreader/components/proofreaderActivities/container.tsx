@@ -470,7 +470,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     handleNextClick = () => {
-      this.setState({ showWelcomePage: false })
+      this.setState({ showWelcomePage: false }, () => window.scrollTo(0, 0))
     }
 
     handleResetClick = () => {
@@ -633,7 +633,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           {this.renderPassage()}
         </div>
         <div className="bottom-section">
-          <div className="button-container">
+          <div id="button-container" tabIndex={-1}>
             {this.renderResetButton()}
             {this.renderCheckWorkButton()}
           </div>
