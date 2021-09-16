@@ -55,6 +55,17 @@ RSpec.describe Demo::ReportDemoCreator do
     end
   end
 
+  it 'creates replayed activity session' do
+    student = create(:student)
+    classroom = create(:classroom)
+    create(:students_classrooms, student: student, classroom: classroom)
+    classroom_unit = create(:classroom_unit, assign_on_join: true, classroom: classroom)
+    user = build(:user, id: Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID)
+    user.save
+    sample_session = create(:activity_session, activity_id: Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID, user_id: Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID, is_final_score: true)
+    expect {Demo::ReportDemoCreator.create_replayed_activity_session(student, classroom_unit)}.to change {ActivitySession.count}.by(1)
+  end
+
   it 'creates activity sessions' do
     Demo::ReportDemoCreator::ACTIVITY_PACKS.each do |ap|
       ap[:activity_sessions][0].each do |act_id, user_id|
