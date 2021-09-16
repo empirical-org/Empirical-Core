@@ -5,6 +5,15 @@
     .no-rules-section {
       padding-top: 20px;
     }
+    #add-rule-button, #add-model-button {
+      a {
+        color: white;
+        text-decoration: none;
+      }
+    }
+    #add-model-button {
+      margin-top: 5px;
+    }
     .regex-text-container {
       display: flex;
       flex-wrap: wrap;
@@ -56,15 +65,50 @@
   }
   .rules-table {
     overflow: unset !important;
-    .data-table-row {
-      .quill-tooltip-trigger {
-        .data-table-row-section {
-          button {
-            background-color: transparent;
-            border: none;
+    max-width: 100%;
+    .data-table-body {
+      .data-table-row {
+        height: auto;
+        padding: 12px;
+        span {
+          text-align: left !important;
+          span {
+            a {
+              color: #00c2a2;
+            }
+            .a:hover {
+              cursor: pointer;
+              color: #29d8bc
+            }
+          }
+        }
+        .quill-tooltip-trigger {
+          .quill-tooltip {
+            display: none;
+          }
+          .data-table-row-section {
+            button {
+              background-color: transparent;
+              border: none;
+            }
           }
         }
       }
+    }
+  }
+  .regex-index-table {
+    .data-table-row-section {
+      word-wrap: break-word;
+      white-space: normal;
+    }
+  }
+  .plagiarism-index-table {
+    .data-table-headers {
+      display: none;
+    }
+    .data-table-row-section {
+      word-wrap: break-word;
+      white-space: normal;
     }
   }
 }

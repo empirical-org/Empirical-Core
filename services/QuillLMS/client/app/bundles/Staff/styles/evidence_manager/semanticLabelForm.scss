@@ -1,64 +1,51 @@
 .rule-form-container {
-  .rule-form {
-    padding: 0px 30px 0px 30px;
-    .title-input, .course-input, .flag-input, .reading-level-input,
-    .reading-score-input, .because-input, .but-input, .name-input, .highlight-prompt-input,
-    .scored-reading-level-input, .target-reading-level-input, .image-link-input {
-      margin-top: 20px;
+  .semantic-rule-form-header {
+    display: flex;
+    justify-content: space-between;
+    a {
+      color: #00c2a2
     }
-    .image-attribution-text-area {
-      margin-top: 16px;
-      width: 100%;
-      min-height: 112px;
+    a:hover {
+      color: #29d8bc;
     }
-    #image-attribution-label {
-      margin-bottom: 8px;
+  }
+  .semantic-rule-form {
+    margin-top: 20px;
+    padding: 0px;
+    .label-name-input {
+      margin-top: 15px;
     }
-    .so-input {
-      margin: 20px 0px 20px 0px;
+    .label-explanation {
+      font-style: italic;
     }
-    .error-message {
-      font-size: 12px;
-      font-weight: 600;
-      line-height: 1.33;
-      color: #ff0000;
-      margin-top: 20px;
-    }
-    .text-editor-label {
-      color: #7f7f7f;
-      font-size: 16px;
-      margin: 10px 0px -10px 0px;
-      font-weight: normal;
+    .label-status-container {
       display: flex;
       align-items: center;
-      &.has-text {
+      margin-top: 20px;
+      #label-status-label {
+        margin-right: 10px;
         font-size: 12px;
         font-weight: 600;
+        color: #7f7f7f;
       }
-      .quill-button {
-        margin-left: 8px;
+      #label-status {
+        font-weight: bold;
+        font-size: 16px;
       }
     }
-    .text-editor-label:nth-of-type(2) {
+    .card {
+      max-width: 1000px !important;
+      padding: 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
       margin-top: 20px;
     }
-    .hide-highlights {
-      span {
-        background-color: white !important;
-      }
-    }
-    #max-attempt-feedback {
-      &.focus {
-        .has-text {
-          color: red;
-        }
-      }
-    }
-    .prompt-section {
-      .plagiarism-section {
-        margin-left: 10px;
-        .primary-feedback-input, .secondary-feedback-input {
-          margin-top: 15px;
+    .submit-button-container {
+      #rule-cancel-button {
+        margin-left: 20px;
+        a {
+          color: white;
+          text-decoration: none;
         }
       }
     }

@@ -1,5 +1,5 @@
 .main-admin-container {
-  .rule-container, .turk-sessions-container, .model-container {
+  .turk-sessions-container, .model-container {
     width: 80vw;
     .activate-model-container {
       .activate-model-section {
@@ -63,45 +63,13 @@
         margin-top: 15px;
       }
     }
-    // .header-container {
-    //   margin-bottom: 20px;
-    //   width: 900px;
-    //   p {
-    //     font-size: 20px;
-    //     font-weight: bold;
-    //   }
-    //   a:not(.quill-button) {
-    //     color: #00c2a2;
-    //     &:hover {
-    //       color: #29d8bc;
-    //     }
-    //   }
-    //   h5 {
-    //     margin: 5px 0px 5px 0px;
-    //     display: flex;
-    //     p {
-    //       margin-left: 5px;
-    //       font-size: 14px;
-    //       font-weight: bold;
-    //     }
-    //   }
-    // }
-    #add-rule-button, #add-model-button {
-      a {
-        color: white;
-        text-decoration: none;
-      }
-    }
-    #add-model-button {
-      margin-top: 5px;
-    }
     .tabs-container {
       .tab-option {
         width: 200px;
         text-align: center;
       }
     }
-    .rules-table, .rule-table, .turk-sessions-table, .models-table {
+    .turk-sessions-table, .models-table {
       max-width: 100%;
       overflow: scroll;
       .data-table-body{
@@ -135,50 +103,15 @@
         // font-weight: bold;
       }
     }
-    .rule-table {
-      border: 1px solid lightgray;
-      border-radius: 6px;
-      .data-table-headers {
-        display: none;
-      }
-      .data-table-row-section {
-        white-space: pre-wrap;
-        overflow: visible;
-      }
-      .data-table-row {
-        height: min-content;
-        padding-top: 8px;
-        padding-bottom: 8px;
-      }
-      .data-table-row:nth-of-type(1) {
-        height: 80px;
-        overflow-y: auto;
-      }
-      .data-table-row:nth-of-type(2) {
-        height: 100px;
-        overflow-y: auto;
-      }
-    }
-    .button-container {
-      display: flex;
-      justify-content: flex-end;
-      padding: 20px 10px 20px 0px;
-      width: 900px;
-      #edit-rule-button, #delete-rule-button {
-        margin-right: 10px;
-      }
-    }
-    .regex-index-table {
-      .data-table-row-section {
-        word-wrap: break-word;
-        white-space: normal;
-      }
-    }
-    .plagiarism-index-table {
-      .data-table-headers {
-        display: none;
-      }
-    }
+    // .button-container {
+    //   display: flex;
+    //   justify-content: flex-end;
+    //   padding: 20px 10px 20px 0px;
+    //   width: 900px;
+    //   #edit-rule-button, #delete-rule-button {
+    //     margin-right: 10px;
+    //   }
+    // }
   }
 
   .models-container {
@@ -196,157 +129,6 @@
     .model-form {
       .text-editor-label, .card {
         margin-left: 16px;
-      }
-    }
-  }
-
-  .rule-container {
-    .delete-rule-container {
-      .delete-rule-text {
-        padding: 20px;
-      }
-      .delete-rule-button-container {
-        display: flex;
-        justify-content: flex-end;
-        padding: 10px;
-        #delete-rule-button {
-          margin-right: 10px;
-        }
-      }
-    }
-    .invalid-rule-text {
-      margin: 22px 0px;
-      color: red;
-    }
-  }
-  .rule-form-container {
-    .delete-rule-container {
-      .delete-rule-text {
-        padding: 20px;
-      }
-      .delete-rule-button-container {
-        display: flex;
-        justify-content: flex-end;
-        padding: 10px;
-        #delete-rule-button {
-          margin-right: 10px;
-        }
-      }
-    }
-    .rule-form, .semantic-rule-form {
-      .rule-type-input {
-        &.disabled {
-          .dropdown {
-            .dropdown__control {
-              .dropdown__value-container {
-                .dropdown__single-value {
-                  color: #7f7f7f;
-                }
-              }
-            }
-          }
-        }
-      }
-      .rule-type-input:hover {
-        &.disabled {
-          cursor:not-allowed;
-        }
-      }
-      .form-subsection-label {
-        font-size: 12px;
-        font-weight: 600;
-        color: #7f7f7f;
-        margin-top: 15px;
-      }
-      #regex-rules-label {
-        margin-bottom: 0px;
-      }
-      .checkboxes-container {
-        display: flex;
-        .checkbox-container {
-          margin-right: 30px;
-          #stem-label-1, #stem-label-2, #stem-label-3 {
-            margin-right: 5px;
-          }
-        }
-      }
-      .regex-rules-container {
-        .regex-rule-container {
-          display: flex;
-          align-items: center;
-          .regex-input-container {
-            width: 100%;
-            margin-right: 30px;
-            .checkbox-container {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              .case-sensitive-label {
-                margin-right: 10px;
-              }
-            }
-          }
-          .delete-regex-button {
-            margin: 10px 10px 0px 0px;
-            min-width: 20px;
-            padding: 0px 12px 5px 12px;
-          }
-        }
-      }
-      .add-regex-button {
-        margin: 30px 10px 0px 0px;
-        min-width: 20px;
-        padding: 0px 7px 5px 7px;
-      }
-      .rule-highlight-section {
-        margin-left: 10px;
-      }
-      .add-highlight, .add-feedback-layer, .remove-highlight, .remove-feedback-layer {
-        margin-top: 15px;
-      }
-      .remove-highlight, .remove-feedback-layer {
-        color: red;
-      }
-    }
-    .semantic-rule-form {
-      margin-top: 20px;
-      padding: 0px;
-      .label-name-input {
-        margin-top: 15px;
-      }
-      .label-explanation {
-        font-style: italic;
-      }
-      .label-status-container {
-        display: flex;
-        align-items: center;
-        margin-top: 20px;
-        #label-status-label {
-          margin-right: 10px;
-          font-size: 12px;
-          font-weight: 600;
-          color: #7f7f7f;
-        }
-        #label-status {
-          font-weight: bold;
-          font-size: 16px;
-        }
-      }
-      .card {
-        max-width: 1000px !important;
-        padding: 10px;
-        border: 1px solid #e0e0e0;
-        border-radius: 6px;
-        margin-top: 20px;
-      }
-      .submit-button-container {
-        #rule-cancel-button {
-          margin-left: 20px;
-          a {
-            color: white;
-            text-decoration: none;
-          }
-        }
       }
     }
   }
