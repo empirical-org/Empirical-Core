@@ -43,12 +43,39 @@ RSpec.describe Demo::ReportDemoCreator do
   end
 
   it 'create classroom units' do
+    student = create(:student)
+    students = [student]
     units = Demo::ReportDemoCreator.create_units(teacher)
     classroom = create(:classroom)
+    create(:students_classrooms, student: student, classroom: classroom)
     create(:classrooms_teacher, classroom: classroom, user: teacher)
     Demo::ReportDemoCreator.create_classroom_units(classroom, units)
     units.each do |unit|
-      expect(ClassroomUnit.find_by(classroom_id: classroom.id, unit_id: unit.id, assign_on_join: true)).to be
+      expect(ClassroomUnit.find_by(classroom_id: classroom.id, unit_id: unit.id, assign_on_join: true, assigned_student_ids: [student.id])).to be
     end
+  end
+
+  it 'creates activity sessions' do
+    Demo::ReportDemoCreator::ACTIVITY_PACKS.each do |ap|
+      ap[:activity_sessions][0].each do |act_id, user_id|
+        user = build(:user, id: user_id)
+        user.save
+        create(:activity_session, state:'finished', activity_id: act_id, user_id: user_id, is_final_score: true)
+      end
+    end
+
+    temp = ActivitySession.last
+    student = create(:student)
+    classroom = create(:classroom)
+    create(:students_classrooms, student: student, classroom: classroom)
+    units = Demo::ReportDemoCreator.create_units(teacher)
+
+    Demo::ReportDemoCreator.create_classroom_units(classroom, units)
+    expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom)}.to change {ActivitySession.count}.by(23)
+    act_sesh = ActivitySession.last
+    expect(act_sesh.activity_id).to eq(765)
+    expect(act_sesh.user_id).to eq(student.id)
+    expect(act_sesh.state).to eq('finished')
+    expect(act_sesh.percentage).to eq(temp.percentage)
   end
 end
