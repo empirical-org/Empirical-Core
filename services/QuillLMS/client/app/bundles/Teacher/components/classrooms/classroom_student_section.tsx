@@ -15,20 +15,55 @@ const cleverSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instr
 const googleSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/google_setup_instructions.pdf`
 
 function activeHeaders(providerClassroom: string) {
-  const name = { width: '190px', name: 'Name', attribute: 'name' }
-  const usernameWidth = providerClassroom ? '362px' : '486px'
-  const username = { width: usernameWidth, name: 'Username', attribute: 'username' }
-  const synced = { width: '124px', name: 'Synced', attribute: 'synced', noTooltip: true }
-  const actions =  { name: 'Actions', attribute: 'actions', isActions: true }
+  const name = {
+    width: '190px',
+    name: 'Name',
+    attribute: 'name'
+  }
+
+  const username = {
+    width: providerClassroom ? '362px' : '486px',
+    name: 'Username',
+    attribute: 'username'
+  }
+
+  const synced = {
+    width: '124px',
+    name: 'Synced',
+    attribute: 'synced',
+    noTooltip: true,
+    rowSectionClassName: 'show-overflow'
+  }
+
+  const actions =  {
+    name: 'Actions',
+    attribute: 'actions',
+    isActions: true
+  }
 
   return providerClassroom ? [name, username, synced, actions] : [name, username, actions]
 }
 
 function archivedHeaders(providerClassroom: string) {
-  const name = { width: '235px', name: 'Name', attribute: 'name' }
-  const usernameWidth = providerClassroom ? '407px' : '531px'
-  const username = { width: usernameWidth, name: 'Username', attribute: 'username' }
-  const synced = { width: '124px', name: 'Synced', attribute: 'synced', noTooltip: true }
+  const name = {
+    width: '235px',
+    name: 'Name',
+    attribute: 'name'
+  }
+
+  const username = {
+    width: providerClassroom ? '407px' : '531px',
+    name: 'Username',
+    attribute: 'username'
+  }
+
+  const synced = {
+    width: '124px',
+    name: 'Synced',
+    attribute: 'synced',
+    noTooltip: true,
+    rowSectionClassName: 'show-overflow'
+  }
 
   return providerClassroom ? [name, username, synced] : [name, username]
 }
@@ -139,7 +174,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   }
 
   actionsForIndividualStudent = (student) => {
-    const { google_id, clever_id, } = student
+    const { google_id, clever_id, synced } = student
     const { classrooms, isOwnedByCurrentUser, } = this.props
     const {
       editAccount,
@@ -149,8 +184,10 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       moveClass,
       removeFromClass
     } = this.individualStudentActions()
-    if (google_id || clever_id) {
-      return [ viewAsStudent, removeFromClass ]
+    if (google_id) {
+      return synced ? [viewAsStudent] : [viewAsStudent, moveClass, removeFromClass]
+    } else if (clever_id) {
+      return [viewAsStudent, removeFromClass]
     } else if (classrooms.length > 1 && isOwnedByCurrentUser) {
       return [ editAccount, resetPassword, viewAsStudent, mergeAccounts, moveClass, removeFromClass ]
     } else if (isOwnedByCurrentUser) {
