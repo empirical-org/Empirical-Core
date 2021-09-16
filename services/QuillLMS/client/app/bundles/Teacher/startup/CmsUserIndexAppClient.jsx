@@ -13,7 +13,8 @@ export default class CmsUserIndex extends React.Component {
       columns: this.getColumns(),
       data: props.queryResults,
       query: props.query,
-      loading: false
+      loading: false,
+      showAdvanced: false,
     }
   }
 
@@ -98,6 +99,8 @@ export default class CmsUserIndex extends React.Component {
       this.setState(newState, this.search)
     }
   };
+
+  toggleAdvanced = () => { this.setState(prevState => ({ showAdvanced: !prevState.showAdvanced }))};
 
   search = (e) => {
     e ? e.preventDefault() : null;
@@ -199,7 +202,7 @@ export default class CmsUserIndex extends React.Component {
           {this.renderPageSelector()}
         </div>
       </div>)
-    } else {
+    } else if (this.state.numberOfPages === 0) {
       return <p>No records found.</p>
     }
 
@@ -220,24 +223,38 @@ export default class CmsUserIndex extends React.Component {
   }
 
   render() {
+    const showAdvanced = this.state.showAdvanced;
     return (
       <div>
         <form acceptCharset="UTF-8" onSubmit={this.search} >
           <div className='cms-form'>
             <div className='cms-meta-middle'>
               <div className='cms-form-row'>
-                <label>Name</label>
-                <input id='user_name' name='user_name' onChange={e => this.updateField(e, 'user_name')} value={this.state.query.user_name} />
+                <label>Email (Exact match)</label>
+                <input id='user_email_exact' name='user_email_exact' onChange={e => this.updateField(e, 'user_email_exact')} value={this.state.query.user_email_exact} />
               </div>
-
               <div className='cms-form-row'>
                 <label>Username</label>
                 <input id='user_username' name='user_username' onChange={e => this.updateField(e, 'user_username')} value={this.state.query.user_username} />
               </div>
+            </div>
 
+            <div className='cms-meta-right'>
               <div className='cms-form-row'>
-                <label>Email</label>
-                <input id='user_email' name='user_email' onChange={e => this.updateField(e, 'user_email')} value={this.state.query.user_email} />
+                <label>Name</label>
+                <input id='user_name' name='user_name' onChange={e => this.updateField(e, 'user_name')} value={this.state.query.user_name} />
+              </div>
+              <div className='cms-form-row'>
+                <label>Class Code</label>
+                <input id='class_code' name='class_code' onChange={e => this.updateField(e, 'class_code')} value={this.state.query.class_code} />
+              </div>
+            </div>
+          </div>
+          <div className={showAdvanced ? 'cms-form' : 'hide'}>
+            <div className='cms-meta-middle'>
+              <div className='cms-form-row'>
+                <label>School Name</label>
+                <input id='school_name' name='school_name' onChange={e => this.updateField(e, 'school_name')} value={this.state.query.school_name} />
               </div>
 
               <div className='cms-form-row'>
@@ -246,32 +263,30 @@ export default class CmsUserIndex extends React.Component {
               </div>
 
               <div className='cms-form-row'>
-                <label>School Name</label>
-                <input id='school_name' name='school_name' onChange={e => this.updateField(e, 'school_name')} value={this.state.query.school_name} />
+                <label>Flags Contain</label>
+                {this.renderUserFlagSelect()}
               </div>
-
-              <div className='cms-form-row'>
-                <label>Class Code</label>
-                <input id='class_code' name='class_code' onChange={e => this.updateField(e, 'class_code')} value={this.state.query.class_code} />
-              </div>
-            </div>
-
-            <div className='cms-meta-right'>
-              <div className='cms-form-row'>
-                <label>Premium Status</label>
-                {this.renderPremiumStatusSelect()}
-              </div>
-
               <div className='cms-form-row'>
                 <label>Role</label>
                 {this.renderUserRoleSelect()}
               </div>
-
+            </div>
+            <div className='cms-meta-right'>
               <div className='cms-form-row'>
-                <label>Flags Contain</label>
-                {this.renderUserFlagSelect()}
+                <label>Email (Partial match)</label>
+                <input id='user_email' name='user_email' onChange={e => this.updateField(e, 'user_email')} value={this.state.query.user_email} />
               </div>
-
+              <div className='cms-form-row'>
+                <label>Premium Status</label>
+                {this.renderPremiumStatusSelect()}
+              </div>
+            </div>
+          </div>
+          <div className='cms-form'>
+            <div className='cms-meta-middle'>
+              <p>
+                <a className="link-green" onClick={this.toggleAdvanced}>{showAdvanced ? 'Hide' : 'Show'} Advanced Search</a>
+              </p>
               <div className='cms-submit-row'>
                 <input type="submit" value="Submit" />
               </div>

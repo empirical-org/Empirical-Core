@@ -234,6 +234,8 @@ class Cms::UsersController < Cms::CmsController
       "users.role = #{(sanitized_param_value)}"
     when 'user_username'
       "users.username ILIKE #{(sanitized_fuzzy_param_value)}"
+    when 'user_email_exact'
+      "users.email = LOWER(TRIM(#{(sanitized_param_value)}))"
     when 'user_email'
       "users.email ILIKE #{(sanitized_fuzzy_param_value)}"
     when 'user_flag'
@@ -279,7 +281,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   protected def set_search_inputs
-    @text_search_inputs = ['user_name', 'user_username', 'user_email', 'user_ip', 'school_name', 'class_code']
+    @text_search_inputs = ['user_name', 'user_username', 'user_email', 'user_email_exact', 'user_ip', 'school_name', 'class_code']
     @school_premium_types = Subscription.account_types
     @user_role_types = User::ROLES
     @all_search_inputs = @text_search_inputs + ['user_premium_status', 'user_role', 'page', 'user_flag']
