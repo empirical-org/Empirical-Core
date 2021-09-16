@@ -257,10 +257,25 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const headerWidthNumber = Number(header.width.slice(0, -2))
     const dataTableRowSectionClassName = `data-table-row-section ${header.rowSectionClassName}`
     const key = `${header.attribute}-${row.id || sectionText}`
+
+    if (header.noTooltip && sectionText && sectionText.type === Tooltip && sectionText.props.tooltipText && sectionText.props.tooltipTriggerText) {
+      return (
+        <Tooltip
+          key={key}
+          tooltipText={sectionText.props.tooltipText}
+          tooltipTriggerStyle={style}
+          tooltipTriggerText={sectionText.props.tooltipTriggerText}
+          tooltipTriggerTextClass={dataTableRowSectionClassName}
+          tooltipTriggerTextStyle={style}
+        />
+      )
+    }
+
     let linkDisplayText
     if (sectionText && sectionText.type === 'a' && sectionText.props.children && sectionText.props.children[1] && sectionText.props.children[1].props) {
       linkDisplayText = sectionText.props.children[1].props.children
     }
+
     const rowDisplayText = linkDisplayText || sectionText
     if (!header.noTooltip && (String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
       return (<Tooltip

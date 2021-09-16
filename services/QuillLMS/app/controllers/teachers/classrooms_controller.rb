@@ -192,6 +192,7 @@ class Teachers::ClassroomsController < ApplicationController
 
     classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
+      classroom_obj[:providerClassroom] = classroom.provider_classroom if classroom.provider_classroom?
       classroom_obj[:students] = format_students_for_classroom(classroom, activity_counts_by_student)
       classroom_teachers = format_teachers_for_classroom(classroom)
       pending_coteachers = format_pending_coteachers_for_classroom(classroom)
