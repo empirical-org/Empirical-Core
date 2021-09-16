@@ -23,8 +23,7 @@ import { PromptInterface, ActivityInterface, DropdownObjectInterface } from '../
 
 const quillCheckmark = `/images/green_check.svg`;
 const quillX = '/images/red_x.svg';
-// const mainApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
-const mainApiBaseUrl = `https://www.quill.org/api/v1/`;
+const mainApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
 const evidenceBaseUrl = `${mainApiBaseUrl}evidence/`;
 const fetchDefaults = require("fetch-defaults");
 

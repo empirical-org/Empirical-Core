@@ -90,4 +90,36 @@
       }
     }
   }
+  .tabs-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    background-color: #f8f8f8;
+    margin-top: 8px;
+    a {
+      color: black;
+    }
+    .tab-option {
+      margin-top: 5px;
+      padding: 10px;
+    }
+    .is-active {
+      color: #19a08a;
+      text-decoration: none;
+      .tab-option {
+        border-top: 1px solid lightgray;
+        border-right: 1px solid lightgray;
+        border-left: 1px solid lightgray;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        background-color: white;
+      }
+    }
+  }
+  .return-link, .data-link {
+    color: #00c2a2;
+  }
+  .return-link:hover, .data-link:hover {
+    color: #29d8bc;
+  }
 }
