@@ -22,7 +22,7 @@ class ActiveActivitySession < ApplicationRecord
   # Pulls sessions that are finished or their classroom unit are archived
   # These sessions can be deleted
   # Should use with a .limit()
-  scope :obsolete, -> {
+  scope :obsolete, lambda {
     joins(:activity_session)
     .merge(ActivitySession.unscoped.joins(:classroom_unit))
     .where("classroom_units.visible = false OR activity_sessions.completed_at IS NOT NULL")
