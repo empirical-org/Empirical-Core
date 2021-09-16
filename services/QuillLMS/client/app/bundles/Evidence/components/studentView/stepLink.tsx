@@ -1,8 +1,10 @@
 import * as React from 'react'
 
 interface StepLinkProps {
-  index: number;
+  activeStep: number;
   clickStepLink: Function;
+  completedSteps: Array<number>;
+  index: number;
   renderStepNumber: Function;
 }
 
@@ -23,8 +25,8 @@ export default class StepLink extends React.Component<StepLinkProps> {
   }
 
   render() {
-    const { renderStepNumber, index, } = this.props
+    const { renderStepNumber, index, activeStep, completedSteps } = this.props
 
-    return <button className="step-link" onClick={this.handleStepLinkClick} onKeyPress={this.handleStepLinkEnter} type="button">{renderStepNumber(index)}</button>
+    return <button className="step-link" onClick={this.handleStepLinkClick} onKeyPress={this.handleStepLinkEnter} type="button">{renderStepNumber(index, activeStep, completedSteps)}</button>
   }
 }
