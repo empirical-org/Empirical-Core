@@ -100,7 +100,7 @@ export default class CmsUserIndex extends React.Component {
     }
   };
 
-  toggleAdvanced = () => { this.setState({showAdvanced: !this.state.showAdvanced})};
+  toggleAdvanced = () => { this.setState(prevState => ({ showAdvanced: !prevState.showAdvanced }))};
 
   search = (e) => {
     e ? e.preventDefault() : null;
