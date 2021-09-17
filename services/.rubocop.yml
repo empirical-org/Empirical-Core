@@ -42,6 +42,10 @@ Lint/DuplicateCaseCondition:
 Lint/DuplicateHashKey:
   Enabled: true
 
+Lint/PercentStringArray:
+  Exclude:
+    - "QuillLMS/config/initializers/secure_headers.rb"
+
 Lint/InterpolationCheck:
   Enabled: true
 
