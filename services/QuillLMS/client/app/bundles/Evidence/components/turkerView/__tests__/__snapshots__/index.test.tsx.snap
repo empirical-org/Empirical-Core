@@ -4,7 +4,7 @@ exports[`TurkerView Component should match snapshot 1`] = `
 <div
   className="turker-view-container"
 >
-  <Component
+  <TurkLanding
     handleStartActivity={[Function]}
   />
 </div>

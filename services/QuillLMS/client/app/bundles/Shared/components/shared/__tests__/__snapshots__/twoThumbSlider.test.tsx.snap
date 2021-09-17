@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TwoThumbSlider component should render 1`] = `
-<Component
+<TwoThumbSlider
   handleChange={[Function]}
   lowerValue={1}
   markLabels={
@@ -435,5 +435,5 @@ exports[`TwoThumbSlider component should render 1`] = `
       </Track>
     </Range>
   </div>
-</Component>
+</TwoThumbSlider>
 `;

@@ -28,7 +28,7 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
         11
          Grade Level
       </label>
-      <Component
+      <TwoThumbSlider
         handleChange={[Function]}
         id="ccss-grade-level-slider"
         lowerValue={1}
@@ -891,7 +891,7 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
             </Track>
           </Range>
         </div>
-      </Component>
+      </TwoThumbSlider>
     </div>
   </section>
 </CCSSGradeLevelFilters>
