@@ -34,6 +34,7 @@
     "bulma": "^0.8.0",
     "compression-webpack-plugin": "^5.0.2",
     "css-loader": "^3.2.0",
+    "decorate-component-with-props": "^1.1.0",
     "diff": "^3.5.0",
     "draft-convert": "^2.1.10",
     "draft-js": "^0.11.7",
