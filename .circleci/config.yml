@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   lms_rails_build:
     working_directory: ~/Empirical-Core
@@ -337,7 +337,6 @@ jobs:
           command: |
             flake8
 workflows:
-  version: 2.1
   build-test:
     filters:
       branches:
