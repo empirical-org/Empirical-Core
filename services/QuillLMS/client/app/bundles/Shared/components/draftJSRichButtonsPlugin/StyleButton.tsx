@@ -12,13 +12,6 @@ const wrapPrevent = (callback) => {
 
 class StyleButton extends Component {
 
-  static propTypes = {
-    store: PropTypes.object,
-    bindToState: PropTypes.func,
-    label: PropTypes.string,
-    inlineStyle: PropTypes.string
-  };
-
   constructor(props) {
     super(props);
     this.componentWillMount = this.componentWillMount.bind(this);
@@ -68,8 +61,8 @@ class StyleButton extends Component {
 
     return (
       <span
-        onMouseDown={ preventDefault }
         onClick={ wrapPrevent(toggleInlineStyle) }
+        onMouseDown={ preventDefault }
         style={spanStyle}
       >
         { label }

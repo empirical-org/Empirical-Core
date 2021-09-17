@@ -3,13 +3,6 @@ import PropTypes from 'prop-types';
 
 class BlockButton extends Component {
 
-  static propTypes = {
-    store: PropTypes.object,
-    bindToState: PropTypes.func,
-    label: PropTypes.string,
-    blockType: PropTypes.string
-  };
-
   constructor(props) {
     super(props);
     this.componentWillMount = this.componentWillMount.bind(this);
