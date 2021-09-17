@@ -40,6 +40,8 @@ export {
   UploadOptimalResponses
 } from './components/shared/index'
 
+export { richButtonsPlugin, } from './components/draftJSRichButtonsPlugin/index'
+
 export {
   Modal
 } from './components/modal/modal'
