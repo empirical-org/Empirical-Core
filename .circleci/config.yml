@@ -337,12 +337,11 @@ jobs:
           command: |
             flake8
 workflows:
-  version: 2
+  version: 2.1
   build-test:
     filters:
       branches:
-        ignore:
-          - /^deploy-.*/
+        ignore: /^deploy-.*/
     jobs:
       - lms_rails_build
       - lms_integration_build
