@@ -358,6 +358,9 @@ workflows:
           <<: *default_filter
   lint-code:
     jobs:
-      - node_lint
-      - rubocop_lint
-      - flake8_lint
+      - node_lint:
+          <<: *default_filter
+      - rubocop_lint:
+          <<: *default_filter
+      - flake8_lint:
+          <<: *default_filter
