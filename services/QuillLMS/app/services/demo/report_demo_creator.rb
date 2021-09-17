@@ -2,14 +2,31 @@ module Demo::ReportDemoCreator
 
   REPLAYED_ACTIVITY_ID = 434
   REPLAYED_SAMPLE_USER_ID = 312664
+  ACTIVITY_PACKS = [
+    {
+      name: "Quill Activity Pack",
+      activity_ids: [1663, 437, 434, 215, 41, 386, 289, 295, 418]
+    },
+    {
+      name: "Paragraph Transitions",
+      activity_ids: [851, 863, 861, 985, 986, 1446]
+    },
+    {
+      name: "Social Studies: Maya, Aztec, and Inca Sentence Combining Practice",
+      activity_ids: [627, 628, 629, 535, 523]
+    },
+    {
+      name: "Subject-Verb Agreement Practice",
+      activity_ids: [742, 751, 765]
+    }
+  ]
 
   def self.create_demo(name)
     teacher = create_teacher(name)
     classroom = create_classroom(teacher)
     students = create_students(classroom)
-    unit = create_unit(teacher)
-    classroom_units = create_classroom_units(classroom, unit)
-    unit_activities = create_unit_activities(unit)
+    units = create_units(teacher)
+    classroom_units = create_classroom_units(classroom, units)
     activity_sessions = create_activity_sessions(students)
     subscription = create_subscription(teacher)
 
@@ -42,12 +59,14 @@ module Demo::ReportDemoCreator
     classroom = Classroom.create_with_join(values, teacher.id)
   end
 
-  def self.create_unit(teacher)
-    values = {
-      name: "Quill Activity Pack",
-      user: teacher,
-    }
-    unit = Unit.create(values)
+  def self.create_units(teacher)
+    units = []
+    ACTIVITY_PACKS.each do |ap|
+      unit = Unit.create({name: ap[:name], user: teacher})
+      ap[:activity_ids].each { |act_id| UnitActivity.create({activity_id: act_id, unit: unit}) }
+      units.push(unit)
+    end
+    units
   end
 
   def self.create_subscription(teacher)
@@ -110,25 +129,13 @@ module Demo::ReportDemoCreator
     students
   end
 
-  def self.create_unit_activities(unit)
-    activities = [1663, 437, 434, 215, 41, 386, 289, 295, 418]
-    unit_activities = []
-    activities.each do |act_id|
-      values = {
-        activity_id: act_id,
-        unit: unit,
-      }
-      ua = UnitActivity.create(values)
-      unit_activities.push(ua)
-    end
-    unit_activities
-  end
-
-  def self.create_classroom_units(classroom, unit)
-    ClassroomUnit.create(
+  def self.create_classroom_units(classroom, units)
+    units.each do |unit|
+      ClassroomUnit.create(
         classroom: classroom,
         unit: unit,
         assign_on_join: true)
+    end
   end
 
   def self.create_replayed_activity_session(student)
@@ -149,58 +156,135 @@ module Demo::ReportDemoCreator
 
   def self.create_activity_sessions(students)
     templates = [
-      {1663 => 9706466,
-      437 => 313241,
-      434 => 446637,
-      215 => 369874,
-       41 => 438155,
-      386 => 387966,
-      289 => 442653,
-      295 => 442645,
-      418 => 662204},
+      {
+        1663 => 9706466,
+        437 => 313241,
+        434 => 446637,
+        215 => 369874,
+        41 => 438155,
+        386 => 387966,
+        289 => 442653,
+        295 => 442645,
+        418 => 662204,
+        851 => 9962415,
+        863 => 9962415,
+        861 => 9962415,
+        985 => 9962415,
+        986 => 9962415,
+        1446 => 9962415,
+        627 => 9962415,
+        628 =>  9962415,
+        629 => 9962415,
+        535 => 9962415,
+        523 => 9962415,
+        742 => 9962415,
+        751 => 9962415,
+        765 => 9962415
+      },
 
+      {
+        1663 => 9706465,
+        437 => 409030,
+        434 => 313319,
+        215 => 370995,
+        41 => 459240,
+        386 => 387956,
+        289 => 442649,
+        295 => 442649,
+        418 => 662204,
+        851 => 9706466,
+        863 => 9706466,
+        861 => 9706466,
+        985 => 9706466,
+        986 => 9706466,
+        1446 => 9706466,
+        627 => 9706466,
+        628 =>  9706466,
+        629 => 9706466,
+        535 => 9706466,
+        523 => 9706466,
+        742 => 9706466,
+        751 => 9706466,
+        765 => 9706466
+      },
 
-      {1663 => 9706465,
-      437 => 409030,
-      434 => 313319,
-      215 => 370995,
-       41 => 459240,
-      386 => 387956,
-      289 => 442649,
-      295 => 442649,
-      418 => 662204},
+      {
+        1663 => 9706463,
+        437 => 446637,
+        434 => 312664,
+        215 => 369875,
+        41 => 438144,
+        386 => 387967,
+        289 => 442670,
+        295 => 442638,
+        418 => 662204,
+        851 => 9706464,
+        863 => 9706464,
+        861 => 9706464,
+        985 => 9706464,
+        986 => 9706464,
+        1446 => 9706464,
+        627 => 9706464,
+        628 =>  9706464,
+        629 => 9706464,
+        535 => 9706464,
+        523 => 9706464,
+        742 => 9706464,
+        751 => 9706464,
+        765 => 9706464
+      },
 
+      {
+        1663 => 9962415,
+        437 => 312664,
+        434 => 313241,
+        215 => 369883,
+        41 => 438171,
+        386 => 387954,
+        289 => 442645,
+        295 => 442653,
+        418 => 662204,
+        851 => 9706465,
+        863 => 9706465,
+        861 => 9706465,
+        985 => 9706465,
+        986 => 9706465,
+        1446 => 9706465,
+        627 => 9706465,
+        628 =>  9706465,
+        629 => 9706465,
+        535 => 9706465,
+        523 => 9706465,
+        742 => 9706465,
+        751 => 9706465,
+        765 => 9706465
+      },
 
-      {1663 => 9706463,
-      437 => 446637,
-      434 => 312664,
-      215 => 369875,
-       41 => 438144,
-      386 => 387967,
-      289 => 442670,
-      295 => 442638,
-      418 => 662204},
-
-
-      {1663 => 9962415,
-      437 => 312664,
-      434 => 313241,
-      215 => 369883,
-       41 => 438171,
-      386 => 387954,
-      289 => 442645,
-      295 => 442653,
-      418 => 662204},
-
-      {1663 => 9962377,
-      437 => 446641,
-      434 => 446641,
-      215 => 369872,
-       41 => 438152,
-      386 => 387948,
-      289 => 442656,
-      295 => 442643,
-      418 => 662204}
+      {
+        1663 => 9962377,
+        437 => 446641,
+        434 => 446641,
+        215 => 369872,
+        41 => 438152,
+        386 => 387948,
+        289 => 442656,
+        295 => 442643,
+        418 => 662204,
+        851 => 9962377,
+        863 => 9962377,
+        861 => 9962377,
+        985 => 9962377,
+        986 => 9962377,
+        1446 => 9962377,
+        627 => 9962377,
+        628 =>  9962377,
+        629 => 9962377,
+        535 => 9962377,
+        523 => 9962377,
+        742 => 9962377,
+        751 => 9962377,
+        765 => 9962377
+      }
     ]
 
     students.each_with_index do |student, num|

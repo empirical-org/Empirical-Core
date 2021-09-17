@@ -82,6 +82,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [formattedRows, setFormattedRows] = React.useState<any[]>(null);
 
   const selectedConjunction = selectedPrompt ? selectedPrompt.conjunction : promptConjunction
+
   // cache rules data for updates
   const { data: ruleFeedbackHistory } = useQuery({
     queryKey: [`rule-feedback-history-by-conjunction-${selectedConjunction}-and-activity-${activityId}`, activityId, selectedConjunction, startDateForQuery, endDateForQuery, turkSessionIDForQuery],
@@ -115,7 +116,6 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     if (selectedPrompt) {
       url += `/${selectedPrompt.conjunction}`
     }
-
     if (selectedRuleType) {
       url += `?selected_rule_type=${selectedRuleType.value}`
     }
@@ -161,12 +161,12 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
           note,
           firstLayerFeedback: first_feedback,
           secondLayerFeedback: second_feedback,
-          handleClick: () => window.open(`/cms/evidence/activities/${activityId}/rules-analysis/${selectedPrompt.conjunction}/rule/${rule_uid}/prompt/${selectedPrompt.id}`, '_blank')
+          handleClick: () => window.open(`/cms/evidence#/activities/${activityId}/rules-analysis/${selectedPrompt.conjunction}/rule/${rule_uid}/prompt/${selectedPrompt.id}`, '_blank')
         }
       }).sort(firstBy('apiOrder').thenBy('ruleOrder'));
       setFormattedRows(formattedRows);
     }
-  }, [ruleFeedbackHistory])
+  }, [ruleFeedbackHistory, selectedRuleType])
 
   function handleSetTurkSessionID(e: InputEvent){ setTurkSessionID(e.target.value) };
 
