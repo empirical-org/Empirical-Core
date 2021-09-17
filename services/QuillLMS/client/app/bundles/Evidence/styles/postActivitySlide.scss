@@ -117,3 +117,10 @@
     }
   }
 }
+
+@media (max-height: 670px) {
+  .post-activity-slide-container {
+    height: min-content;
+    padding-top: 16px;
+  }
+}

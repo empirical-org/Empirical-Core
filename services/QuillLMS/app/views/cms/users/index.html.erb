@@ -1,8 +1,9 @@
 <div class='container'>
   <article class='simple-rounded-box cms-container'>
     <div style="margin-bottom:20px">
-      <h1 style="margin-bottom:20px">User Directory</h1>
-      <%= link_to 'Add New User', new_cms_user_path, class: 'btn button-green'  %>
+      <h1 style="margin-bottom:20px">User Search
+        <%= link_to 'Add New User', new_cms_user_path, class: 'btn button-green float-right'  %>
+      </h1>
     </div>
     <div class='cms-container-meta'>
       <%= react_component('CmsUserIndexApp', props: {queryResults: @user_search_query_results, userFlags: @user_flags, query: @user_search_query, userRoleTypes: @user_role_types, schoolPremiumTypes: @school_premium_types}) %>

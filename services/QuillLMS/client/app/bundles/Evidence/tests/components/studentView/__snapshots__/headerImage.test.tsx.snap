@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Activity Form component should render Activities 1`] = `
+exports[`Header Image component should render Header Image 1`] = `
 <Fragment>
   <section
     className="header-image-container"

@@ -60,6 +60,7 @@ class ActivitySession < ApplicationRecord
   has_many :concept_results
   has_many :teachers, through: :classroom
   has_many :concepts, -> { distinct }, through: :concept_results
+  has_one :active_activity_session, foreign_key: :uid, primary_key: :uid
 
   validate :correctly_assigned, :on => :create
 
