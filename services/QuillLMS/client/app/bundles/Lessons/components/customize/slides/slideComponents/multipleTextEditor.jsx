@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { EditorState, ContentState, convertToRaw } from 'draft-js';
-import Editor from 'draft-js-plugins-editor';
+import Editor from '@draft-js-plugins/editor';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 const {convertFromHTML, convertToHTML} = require('draft-convert')
 
@@ -10,11 +10,11 @@ class MultipleTextEditor extends React.Component {
   constructor(props) {
     super(props);
 
-    const richButtonsPlugin = richButtonsPlugin();
+    const rbp = richButtonsPlugin();
     const {
       // inline buttons
       ItalicButton, BoldButton, UnderlineButton, BlockquoteButton
-    } = richButtonsPlugin;
+    } = rbp;
 
     const InlineButton = ({className, toggleInlineStyle, isActive, label, inlineStyle, onMouseDown, title}) =>
       (<a onClick={toggleInlineStyle} onMouseDown={onMouseDown}>
@@ -39,7 +39,7 @@ class MultipleTextEditor extends React.Component {
     this.state = {
       text: EditorState.createWithContent(convertFromHTML(this.props.text || '')),
       components: { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, InlineButton, BlockButton },
-      plugins: [richButtonsPlugin],
+      plugins: [rbp],
       hasFocus: false
     };
     this.handleTextChange = this.handleTextChange.bind(this);

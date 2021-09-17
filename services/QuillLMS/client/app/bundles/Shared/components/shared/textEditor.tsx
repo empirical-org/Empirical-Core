@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as Draft from 'draft-js';
-import Editor from 'draft-js-plugins-editor'
+import Editor from '@draft-js-plugins/editor'
 import { convertFromHTML, convertToHTML } from 'draft-convert'
 import * as Immutable from 'immutable'
 

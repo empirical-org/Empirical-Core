@@ -2,7 +2,7 @@ declare function require(name:string);
 
 import * as React from 'react';
 const { EditorState, ContentState, convertToRaw } = require('draft-js')
-const Editor = require('draft-js-plugins-editor').default
+const Editor = require('@draft-js-plugins/editor').default
 const {convertFromHTML, convertToHTML} = require('draft-convert')
 const DraftPasteProcessor = require('draft-js/lib/DraftPasteProcessor').default
 
@@ -11,7 +11,7 @@ import { richButtonsPlugin, } from '../../../../Shared/index'
 class MultipleTextEditor extends React.Component<any, any> {
   constructor(props) {
     super(props);
-    const richButtonsPlugin = richButtonsPlugin();
+    const rbp = richButtonsPlugin();
     const InlineButton = ({className, toggleInlineStyle, isActive, label, inlineStyle, onMouseDown, title}) =>
       (<a onClick={toggleInlineStyle} onMouseDown={onMouseDown}>
         <span
@@ -24,11 +24,11 @@ class MultipleTextEditor extends React.Component<any, any> {
     const {
       ItalicButton, BoldButton, UnderlineButton,
       BlockquoteButton, OLButton, ULButton, H4Button, MonospaceButton
-    } = richButtonsPlugin;
+    } = rbp;
     this.state = {
       text: EditorState.createWithContent(convertFromHTML(this.props.text || '')),
       components: { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, OLButton, ULButton, H4Button, MonospaceButton, InlineButton},
-      plugins: [richButtonsPlugin],
+      plugins: [rbp],
       hasFocus: false,
     };
     this.handleTextChange = this.handleTextChange.bind(this);

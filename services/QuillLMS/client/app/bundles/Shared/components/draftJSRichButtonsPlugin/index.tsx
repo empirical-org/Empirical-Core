@@ -74,8 +74,8 @@ const richButtonsPlugin = () => {
       return newState
     },
 
-    onTab: (event, editorState) => {
-      return RichUtils.onTab(event, editorState, MAX_LIST_DEPTH);
+    onTab: (event, editor) => {
+      return RichUtils.onTab(event, editor.getEditorState(), MAX_LIST_DEPTH);
     },
 
     onChange: (newState) => store.onChange(newState)
