@@ -60,11 +60,11 @@ class StyleButton extends React.Component {
 
     return (
       <span
-        onClick={ wrapPrevent(toggleInlineStyle) }
-        onMouseDown={ preventDefault }
+        onClick={wrapPrevent(toggleInlineStyle)}
+        onMouseDown={preventDefault}
         style={spanStyle}
       >
-        { label }
+        {label}
       </span>
     );
   }

@@ -54,8 +54,8 @@ class BlockButton extends React.Component {
     }
 
     return (
-      <span onClick={ toggleBlockType } style={spanStyle}>
-        { label }
+      <span onClick={toggleBlockType} style={spanStyle}>
+        {label}
       </span>
     );
   }
