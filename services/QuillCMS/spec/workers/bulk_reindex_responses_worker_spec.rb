@@ -9,38 +9,15 @@ describe BulkReindexResponsesWorker do
   let!(:response5) { create(:response, question_uid: 'blah', parent_id: response.id, count: 1, first_attempt_count: 1) }
 
   describe '#perform' do
-    it "should send a bulk payload to Elasticsearch" do
-      client = double(Response.__elasticsearch__.client, bulk: nil)
-      expected_payload = {
-        index: "responses",
-        type: "response",
-        body: [
-          {index: { _id: response.id, data: response.as_indexed_json}},
-          {index: { _id: response2.id, data: response2.as_indexed_json}},
-          {index: { _id: response3.id, data: response3.as_indexed_json}},
-          {index: { _id: response4.id, data: response4.as_indexed_json}},
-          {index: { _id: response5.id, data: response5.as_indexed_json}}
-        ]
-      }
-      expect(Response.__elasticsearch__.client).to receive(:bulk).with(expected_payload)
-
+    it 'should fire batch reindex responses worker' do
+      expect(BatchReindexResponsesWorker).to receive(:perform_async).with(response.id, response5.id)
       worker.perform(response.id, response5.id, 5)
     end
 
-    it "should limit payload to start and end index" do
-      client = double(Response.__elasticsearch__.client, bulk: nil)
-      expected_payload = {
-        index: "responses",
-        type: "response",
-        body: [
-          {index: { _id: response2.id, data: response2.as_indexed_json}},
-          {index: { _id: response3.id, data: response3.as_indexed_json}},
-          {index: { _id: response4.id, data: response4.as_indexed_json}}
-        ]
-      }
-      expect(Response.__elasticsearch__.client).to receive(:bulk).with(expected_payload)
-
-      worker.perform(response2.id, response4.id, 5)
+    it 'should fire multiple instances of batch reindex responses worker if batch size is less than response count' do
+      expect(BatchReindexResponsesWorker).to receive(:perform_async).with(response.id, response2.id)
+      expect(BatchReindexResponsesWorker).to receive(:perform_async).with(response3.id, response4.id)
+      worker.perform(response.id, response4.id, 2)
     end
   end
 

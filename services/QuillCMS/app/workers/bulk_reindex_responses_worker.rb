@@ -6,11 +6,7 @@ class BulkReindexResponsesWorker
 
   def perform(starting_index, end_index, batch_size)
     Response.find_in_batches(start: starting_index, finish: end_index, batch_size: batch_size) do |batch|
-      Response.__elasticsearch__.client.bulk(
-        index: "responses",
-        type: "response",
-        body: batch.map { |r| {index: {_id: r.id, data: r.as_indexed_json}}}
-      )
+      BatchReindexResponsesWorker.perform_async(batch.first.id, batch.last.id)
     end
   end
 
