@@ -23,7 +23,7 @@ class Api::V1::ConceptsController < Api::ApiController
   end
 
   def level_zero_concepts_with_lineage
-    concepts = Concept.level_zero_only.map { |c| { name: c.lineage, uid: c.uid } }.sort_by { |c| c[:name] }
+    concepts = Concept.level_zero_only.filter { |c| c.visible == true }.map { |c| { name: c.lineage, uid: c.uid } }.sort_by { |c| c[:name] }
     render json: { concepts: concepts }.to_json
   end
 

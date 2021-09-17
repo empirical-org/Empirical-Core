@@ -41,7 +41,7 @@ module Evidence
     has_many :regex_rules, inverse_of: :rule, dependent: :destroy
 
     accepts_nested_attributes_for :plagiarism_text
-    accepts_nested_attributes_for :feedbacks
+    accepts_nested_attributes_for :feedbacks, allow_destroy: true
     accepts_nested_attributes_for :label
     accepts_nested_attributes_for :regex_rules
 

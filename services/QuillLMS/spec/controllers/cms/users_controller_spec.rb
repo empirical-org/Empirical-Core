@@ -33,6 +33,36 @@ describe Cms::UsersController do
       expect(ChangeLog.last.explanation).to include('auditor')
     end
 
+    context 'email search' do
+      let!(:search_user) {create(:user, email: 'test@testerson.com')}
+
+      it 'should exact search a lower, trimmed version of email exact' do
+        post :search, params: { user_email_exact: '  Test@teStErson.CoM  '}, as: :json
+
+        json = JSON.parse(response.body)
+
+        expect(json['userSearchQueryResults'].count).to be 1
+        expect(json['userSearchQueryResults'].first['id']).to eq(search_user.id)
+      end
+
+      it 'should NOT return results for partial email exact search' do
+        post :search, params: { user_email_exact: '@testerson.com' }, as: :json
+
+        json = JSON.parse(response.body)
+
+        expect(json['userSearchQueryResults']).to be_empty
+      end
+
+      it 'should return results for partial email non-exact search' do
+        post :search, params: { user_email: '@testerson.com' }, as: :json
+
+        json = JSON.parse(response.body)
+
+        expect(json['userSearchQueryResults'].count).to be 1
+        expect(json['userSearchQueryResults'].first['id']).to eq(search_user.id)
+      end
+    end
+
     it 'should search for the users' do
       teacher = create(:teacher_with_one_classroom, email: 'test@t.org')
       classroom = teacher.classrooms_i_teach.first

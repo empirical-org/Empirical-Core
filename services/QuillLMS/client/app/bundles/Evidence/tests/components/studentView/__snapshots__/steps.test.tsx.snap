@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Steps component should render Steps 1`] = `
+<div
+  className="steps-outer-container"
+  onScroll={[MockFunction]}
+>
+  <div
+    className="steps-inner-container"
+    onScroll={[MockFunction]}
+  >
+    <div
+      className="read-passage-step-container"
+    >
+      <h2>
+        Read the text.
+      </h2>
+      <button
+        className="quill-button large primary contained done-reading-button"
+        onClick={[MockFunction]}
+        type="button"
+      >
+        Done reading
+      </button>
+    </div>
+  </div>
+</div>
+`;

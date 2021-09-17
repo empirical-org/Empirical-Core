@@ -111,9 +111,20 @@
   &.unit-template-profile-activities .rt-table {
     margin-top: 20px;
     border-radius: 6px;
+    overflow: visible;
+
     .activity-icon {
       width: 40px;
     }
+
+    .rt-thead {
+      overflow: visible;
+    }
+
+    .rt-tbody {
+      overflow: visible;
+    }
+
     .rt-th {
       border-right: none;
       padding-left: 10px;

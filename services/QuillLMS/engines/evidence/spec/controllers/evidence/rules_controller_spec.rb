@@ -339,6 +339,51 @@ module Evidence
         expect([new_prompt.id]).to(eq(rule.reload.prompt_ids))
       end
 
+      it 'should delete a nested highlight record if indicated' do
+        feedback = create(:evidence_feedback, rule_id: rule.id)
+        highlight_one = create(:evidence_highlight, feedback_id: feedback.id)
+        highlight_two = create(:evidence_highlight, feedback_id: feedback.id)
+
+        patch :update,
+          params: {
+            id: rule.id,
+            rule: {
+              concept_uid: rule.concept_uid,
+              note: rule.note,
+              name: rule.name,
+              optimal: rule.optimal,
+              state: rule.state,
+              suborder: rule.suborder,
+              rule_type: rule.rule_type,
+              universal: rule.universal,
+              prompt_ids: rule.prompt_ids,
+              feedbacks_attributes: {
+                id: feedback.id,
+                order: feedback.order,
+                text: feedback.text,
+                description: feedback.description,
+                highlights_attributes: [
+                  {
+                    id: highlight_one.id,
+                    highlight_type: highlight_one.highlight_type,
+                    text: highlight_one.text,
+                    starting_index: highlight_one.starting_index
+                  },
+                  {
+                    id: highlight_two.id,
+                    text: highlight_two.text,
+                    _destroy: true
+                  }
+                ]
+              }
+            }
+          }
+
+        expect(response.body).to(eq(""))
+        expect(response.code.to_i).to(eq(204))
+        expect(Highlight.find_by(id: highlight_two.id)).to eq(nil)
+      end
+
       it "create a change log record after updating a universal rule" do
         universal_rule = create(:evidence_rule, prompt_ids: [prompt.id], universal: true, rule_type: 'spelling')
         old_name = universal_rule.name

@@ -3,13 +3,13 @@ module Evidence
     self.table_name = 'comprehension_feedbacks'
 
     include Evidence::ChangeLog
-    MIN_FEEDBACK_LENGTH = 10 
+    MIN_FEEDBACK_LENGTH = 10
     MAX_FEEDBACK_LENGTH = 500
 
     belongs_to :rule, inverse_of: :feedbacks
     has_many :highlights, inverse_of: :feedback, dependent: :destroy
 
-    accepts_nested_attributes_for :highlights
+    accepts_nested_attributes_for :highlights, allow_destroy: true
 
     validates_presence_of :rule
     validates :text, presence: true, length: {minimum: MIN_FEEDBACK_LENGTH, maximum: MAX_FEEDBACK_LENGTH}

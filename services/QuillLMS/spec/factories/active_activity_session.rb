@@ -3,7 +3,7 @@ FactoryBot.define do
     foo: 'bar'
   }
   factory :active_activity_session do
-    uid                   SecureRandom.uuid
-    data                  data
+    uid   {SecureRandom.uuid}
+    data  data
   end
 end
