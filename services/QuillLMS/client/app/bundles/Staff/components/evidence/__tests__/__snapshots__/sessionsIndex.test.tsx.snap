@@ -32,7 +32,7 @@ exports[`SessionsIndex component should render SessionsIndex 1`] = `
     <p
       className="link-info-blurb"
     >
-      If you want to look up an individual activity session, plug the activity session ID into this url and it will load: https://www.quill.org/cms/comprehension#/activities/
+      If you want to look up an individual activity session, plug the activity session ID into this url and it will load: https://www.quill.org/cms/evidence#/activities/
       <strong>
         activityID
       </strong>

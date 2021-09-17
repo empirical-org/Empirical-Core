@@ -17,6 +17,17 @@ class ActiveActivitySession < ApplicationRecord
   validates :uid, presence: true, uniqueness: true
   validate :data_must_be_hash
 
+  belongs_to :activity_session, -> { unscope(where: :visible) }, foreign_key: :uid, primary_key: :uid
+
+  # Pulls sessions that are finished or their classroom unit are archived
+  # These sessions can be deleted
+  # Should use with a .limit()
+  scope :obsolete, lambda {
+    joins(:activity_session)
+    .merge(ActivitySession.unscoped.joins(:classroom_unit))
+    .where("classroom_units.visible = false OR activity_sessions.completed_at IS NOT NULL")
+  }
+
   def as_json(options=nil)
     data
   end

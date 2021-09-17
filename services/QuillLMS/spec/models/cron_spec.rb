@@ -58,5 +58,10 @@ describe "Cron", type: :model do
       expect(PopulateAllActivityHealthsWorker).to receive(:perform_async)
       Cron.run_saturday
     end
+
+    it 'enqueues DeleteObsoleteActiveActivitySessionsWorker' do
+      expect(DeleteObsoleteActiveActivitySessionsWorker).to receive(:perform_async)
+      Cron.run_saturday
+    end
   end
 end
