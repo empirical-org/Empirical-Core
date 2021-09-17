@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 jobs:
   lms_rails_build:
     working_directory: ~/Empirical-Core
@@ -337,18 +337,37 @@ jobs:
           command: |
             flake8
 workflows:
+  version: 2
   build-test:
-    filters:
-      branches:
-        ignore: /^deploy-.*/
     jobs:
-      - lms_rails_build
-      - lms_integration_build
-      - lms_node_build
-      - marking_logic_node_build
-      - cms_rails_build
-      - comprehension_go_build
-      - evidence_rails_build
+      - lms_rails_build:
+          filters:
+            branches:
+              ignore: /^deploy-.*/
+      - lms_integration_build:
+          filters:
+            branches:
+              ignore: /^deploy-.*/
+      - lms_node_build:
+          filters:
+            branches:
+              ignore: /^deploy-.*/
+      - marking_logic_node_build:
+          filters:
+            branches:
+              ignore: /^deploy-.*/
+      - cms_rails_build:
+          filters:
+            branches:
+              ignore: /^deploy-.*/
+      - comprehension_go_build:
+          filters:
+            branches:
+              ignore: /^deploy-.*/
+      - evidence_rails_build:
+          filters:
+            branches:
+              ignore: /^deploy-.*/
   lint-code:
     jobs:
       - node_lint
