@@ -1,7 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
-const ManifestPlugin = require('webpack-manifest-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 
 const devBuild = process.env.RAILS_ENV === 'development';
 const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV
@@ -40,11 +41,12 @@ const basePlugins = [
       ],
     },
   }),
-  new ManifestPlugin({
+  new WebpackManifestPlugin({
     publicPath: output.publicPath,
     writeToFileEmit: true,
   }),
-  new CompressionPlugin()
+  new CompressionPlugin(),
+  new NodePolyfillPlugin()
 ];
 
 module.exports = {
@@ -112,6 +114,11 @@ module.exports = {
       'react-dom': path.resolve('./node_modules/react-dom')
     },
     symlinks: false,
+    fallback: {
+      net: false,
+      tls: false,
+      fs: false
+    }
   },
   plugins: basePlugins,
   module: {
@@ -167,11 +174,5 @@ module.exports = {
         },
       }
     ],
-  },
-  node: {
-    console: true,
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-  },
+  }
 };
