@@ -52,6 +52,7 @@
     "history": "^2.0.1",
     "i18next": "^20.4.0",
     "immutable": "^3.8.2",
+    "isomorphic-fetch": "^3.0.0",
     "jquery": "^3.5.1",
     "jwt-decode": "^2.2.0",
     "lazysizes": "^5.2.2",
