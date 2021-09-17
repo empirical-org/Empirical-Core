@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
 const preventDefault = (event) => event.preventDefault();
 
@@ -10,7 +9,7 @@ const wrapPrevent = (callback) => {
   }
 }
 
-class StyleButton extends Component {
+class StyleButton extends React.Component {
 
   constructor(props) {
     super(props);

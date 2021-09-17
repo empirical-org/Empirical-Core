@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
-class BlockButton extends Component {
+class BlockButton extends React.Component {
 
   constructor(props) {
     super(props);
