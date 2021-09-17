@@ -2,12 +2,13 @@ import * as React from 'react';
 import {EditorState, ContentState, convertToRaw} from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import {convertFromHTML, convertToHTML} from 'draft-convert'
-import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
+
+import { richButtonsPlugin, } from '../../../../Shared/index'
 
 class MultipleTextEditor extends React.Component<any, any> {
   constructor(props) {
     super(props);
-    const richButtonsPlugin = createRichButtonsPlugin();
+    const richButtonsPlugin = richButtonsPlugin();
     const {
       // inline buttons
       ItalicButton, BoldButton, UnderlineButton,

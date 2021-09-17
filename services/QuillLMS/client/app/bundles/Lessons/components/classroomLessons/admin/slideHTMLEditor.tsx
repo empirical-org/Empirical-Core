@@ -5,12 +5,13 @@ const { EditorState, ContentState, convertToRaw } = require('draft-js')
 const Editor = require('draft-js-plugins-editor').default
 const {convertFromHTML, convertToHTML} = require('draft-convert')
 const DraftPasteProcessor = require('draft-js/lib/DraftPasteProcessor').default
-const createRichButtonsPlugin = require('draft-js-richbuttons-plugin').default
+
+import { richButtonsPlugin, } from '../../../../Shared/index'
 
 class MultipleTextEditor extends React.Component<any, any> {
   constructor(props) {
     super(props);
-    const richButtonsPlugin = createRichButtonsPlugin();
+    const richButtonsPlugin = richButtonsPlugin();
     const InlineButton = ({className, toggleInlineStyle, isActive, label, inlineStyle, onMouseDown, title}) =>
       (<a onClick={toggleInlineStyle} onMouseDown={onMouseDown}>
         <span

@@ -2,14 +2,15 @@ import React, {Component} from 'react'
 import { EditorState, ContentState, convertToRaw } from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
-import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
 const {convertFromHTML, convertToHTML} = require('draft-convert')
+
+import { richButtonsPlugin, } from '../../../../../Shared/index'
 
 class MultipleTextEditor extends React.Component {
   constructor(props) {
     super(props);
 
-    const richButtonsPlugin = createRichButtonsPlugin();
+    const richButtonsPlugin = richButtonsPlugin();
     const {
       // inline buttons
       ItalicButton, BoldButton, UnderlineButton, BlockquoteButton
