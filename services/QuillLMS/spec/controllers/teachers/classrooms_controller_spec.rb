@@ -276,8 +276,8 @@ describe Teachers::ClassroomsController, type: :controller do
         it 'reports which students are no longer in provider classroom' do
           get :index, as: :json
           parsed_response = JSON.parse(response.body)
-          expect(parsed_response["classrooms"][0]["students"][0]["deleted_on_provider"]).to eq false
-          expect(parsed_response["classrooms"][0]["students"][1]["deleted_on_provider"]).to eq true
+          expect(parsed_response["classrooms"][0]["students"][0]["synced"]).to eq true
+          expect(parsed_response["classrooms"][0]["students"][1]["synced"]).to eq false
         end
       end
     end
