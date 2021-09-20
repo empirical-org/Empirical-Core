@@ -1,12 +1,2 @@
 default:
   open_positions:
-    - category: 'Curriculum'
-      title: 'Social Studies Curriculum Developer (Culturally Responsive Pedagogy)'
-      url: 'https://angel.co/company/quill-org/jobs/1528309-quill-org-social-studies-curriculum-developer-culturally-responsive-pedagogyn'
-    - category: 'Curriculum'
-      title: 'AP Social Studies Curriculum Developer (Remote or NYC)'
-      url: 'https://angel.co/company/quill-org/jobs/1528310-ap-social-studies-curriculum-developer-remote-or-nyc'
-    - category: 'Curriculum'
-      title: 'Curriculum Associate'
-      url: 'https://angel.co/company/quill-org/jobs/1528311-quill-org-curriculum-associate'
-
