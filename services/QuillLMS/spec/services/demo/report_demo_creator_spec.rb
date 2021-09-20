@@ -29,7 +29,7 @@ RSpec.describe Demo::ReportDemoCreator do
 
   it 'creates units' do
     Demo::ReportDemoCreator.create_units(teacher)
-    Demo::ReportDemoCreator::ACTIVITY_PACKS.each do |unit_obj|
+    Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.each do |unit_obj|
       unit = Unit.find_by(name: unit_obj[:name])
       expect(unit).to be
       expect(UnitActivity.find_by(unit_id: unit.id, activity_id: unit_obj[:activity_ids][0])).to be
