@@ -217,7 +217,7 @@ But how can democracies have representative governments unless all or most of th
         >
           Should Voting be Required?
         </h1>
-        <Component
+        <HeaderImage
           passage={
             Object {
               "highlight_prompt": "As you read, highlight two sentences that explain why some people think voting should be required.",
@@ -240,7 +240,7 @@ But how can democracies have representative governments unless all or most of th
               className="header-image-information"
             />
           </section>
-        </Component>
+        </HeaderImage>
         <div
           className="passage"
         >

@@ -84,7 +84,7 @@ exports[`WelcomeSlide Component should match snapshot 1`] = `
       </div>
     </section>
   </section>
-  <Component
+  <Footer
     buttonText="Next"
     onHandleClick={[MockFunction]}
     step={1}
