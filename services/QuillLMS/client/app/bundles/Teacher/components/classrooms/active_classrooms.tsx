@@ -235,7 +235,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   renderClassroomRows(ownActiveClassrooms) {
     const classroomCards = this.renderClassroomCards(ownActiveClassrooms)
     const rows = this.getClassroomCardsWithHandle(classroomCards)
-    return <SortableList data={rows} sortCallback={this.sortClassrooms} useDragHandle={true} />
+    return <SortableList data={rows} helperClass="sortable-classroom" sortCallback={this.sortClassrooms} useDragHandle={true} />
   }
 
   renderClassroomCards(ownActiveClassrooms) {
