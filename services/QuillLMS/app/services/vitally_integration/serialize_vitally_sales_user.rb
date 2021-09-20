@@ -3,7 +3,8 @@ class SerializeVitallySalesUser
 
   BASE_USER_URL = "https://www.quill.org/cms/users"
   # TODO: This should not be hard coded.
-  DIAGNOSTIC_ID = 4
+  DIAGNOSTIC_ID = ActivityClassification.diagnostic.id
+  EVIDENCE_ID = ActivityClassification.evidence.id
 
   def initialize(user)
     @user = user
@@ -23,6 +24,8 @@ class SerializeVitallySalesUser
     diagnostics_assigned_this_year = diagnostics_assigned_in_year_count(@user, school_year_start, school_year_end)
     diagnostics_finished = diagnostics_finished(@user).count
     diagnostics_finished_this_year = diagnostics_finished(@user).where("activity_sessions.completed_at >=?", school_year_start).count
+    evidence_assigned = evidence_assigned_count(@user)
+    evidence_finished = evidence_finished_count(@user)
     {
       accountId: @user.school&.id&.to_s,
       userId: @user.id.to_s,
@@ -76,7 +79,10 @@ class SerializeVitallySalesUser
         diagnostics_finished_this_year: diagnostics_finished_this_year,
         diagnostics_finished_last_year: get_from_cache("diagnostics_finished"),
         percent_completed_diagnostics_this_year: diagnostics_assigned_this_year > 0 ? (diagnostics_finished_this_year.to_f / diagnostics_assigned_this_year).round(2) : 'N/A',
-        percent_completed_diagnostics_last_year: get_from_cache("percent_completed_diagnostics")
+        percent_completed_diagnostics_last_year: get_from_cache("percent_completed_diagnostics"),
+        evidence_activities_assigned: ,
+        evidence_activities_completed: ,
+        date_of_last_completed_evidence_activity:
       }.merge(account_data_params)
     }
   end
@@ -137,6 +143,19 @@ class SerializeVitallySalesUser
 
   private def diagnostics_assigned_count(user)
     sum_students(filter_diagnostics(activities_assigned_query(user)))
+  end
+
+  def filter_evidence(activities)
+    evidence_ids = Activity.where(activity_classification_id: EVIDENCE_ID).pluck(:id)
+    activities.select {|r| evidence_ids.include?(r.id) }
+  end
+
+  private def evidence_assigned_count(user)
+    sum_students(filter_evidence(activities_assigned_query(user)))
+  end
+
+  private def evidence_finished(user)
+    activities_finished_query(user).where("activities.activity_classification_id=?", EVIDENCE_ID)
   end
 
   private def premium_status
