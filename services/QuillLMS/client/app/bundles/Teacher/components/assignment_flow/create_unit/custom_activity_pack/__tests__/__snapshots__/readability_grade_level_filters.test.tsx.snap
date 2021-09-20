@@ -28,7 +28,7 @@ exports[`readabilityGradeLevelFilters component should render 1`] = `
         12
          Grade Level
       </label>
-      <Component
+      <TwoThumbSlider
         handleChange={[Function]}
         id="readability-grade-level-slider"
         lowerValue={0}
@@ -519,7 +519,7 @@ exports[`readabilityGradeLevelFilters component should render 1`] = `
             </Track>
           </Range>
         </div>
-      </Component>
+      </TwoThumbSlider>
     </div>
   </section>
 </ReadabilityGradeLevelFilters>

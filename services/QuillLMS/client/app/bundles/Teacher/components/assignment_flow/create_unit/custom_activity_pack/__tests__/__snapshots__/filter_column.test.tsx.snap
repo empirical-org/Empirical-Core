@@ -26670,7 +26670,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             12
              Grade Level
           </label>
-          <Component
+          <TwoThumbSlider
             handleChange={[Function]}
             id="readability-grade-level-slider"
             lowerValue={0}
@@ -27161,7 +27161,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </Track>
               </Range>
             </div>
-          </Component>
+          </TwoThumbSlider>
         </div>
       </section>
     </ReadabilityGradeLevelFilters>
@@ -27192,7 +27192,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             11
              Grade Level
           </label>
-          <Component
+          <TwoThumbSlider
             handleChange={[Function]}
             id="ccss-grade-level-slider"
             lowerValue={1}
@@ -28055,7 +28055,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </Track>
               </Range>
             </div>
-          </Component>
+          </TwoThumbSlider>
         </div>
       </section>
     </CCSSGradeLevelFilters>

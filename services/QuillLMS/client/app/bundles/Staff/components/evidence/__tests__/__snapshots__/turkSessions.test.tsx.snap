@@ -1352,18 +1352,18 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
       rows={
         Array [
           Object {
-            "copy": <Unknown
+            "copy": <TurkSessionButton
               clickHandler={[Function]}
               id={1}
               label="copy"
               value="undefined/evidence/#/turk?uid=17&id=1"
             />,
-            "delete": <Unknown
+            "delete": <TurkSessionButton
               clickHandler={[Function]}
               id={1}
               label="delete"
             />,
-            "edit": <Unknown
+            "edit": <TurkSessionButton
               clickHandler={[Function]}
               id={1}
               label="edit"
@@ -1495,7 +1495,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
             <Tooltip
               key="copy-17-1"
               tooltipText={
-                <Unknown
+                <TurkSessionButton
                   clickHandler={[Function]}
                   id={1}
                   label="copy"
@@ -1510,7 +1510,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 }
               }
               tooltipTriggerText={
-                <Unknown
+                <TurkSessionButton
                   clickHandler={[Function]}
                   id={1}
                   label="copy"
@@ -1549,7 +1549,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                   }
                   tabIndex={null}
                 >
-                  <Component
+                  <TurkSessionButton
                     clickHandler={[Function]}
                     id={1}
                     label="copy"
@@ -1564,7 +1564,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                     >
                       copy
                     </button>
-                  </Component>
+                  </TurkSessionButton>
                 </span>
                 <span
                   className="quill-tooltip-wrapper"
@@ -1578,7 +1578,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
             <Tooltip
               key="edit-17-1"
               tooltipText={
-                <Unknown
+                <TurkSessionButton
                   clickHandler={[Function]}
                   id={1}
                   label="edit"
@@ -1593,7 +1593,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 }
               }
               tooltipTriggerText={
-                <Unknown
+                <TurkSessionButton
                   clickHandler={[Function]}
                   id={1}
                   label="edit"
@@ -1632,7 +1632,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                   }
                   tabIndex={null}
                 >
-                  <Component
+                  <TurkSessionButton
                     clickHandler={[Function]}
                     id={1}
                     label="edit"
@@ -1647,7 +1647,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                     >
                       edit
                     </button>
-                  </Component>
+                  </TurkSessionButton>
                 </span>
                 <span
                   className="quill-tooltip-wrapper"
@@ -1661,7 +1661,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
             <Tooltip
               key="delete-17-1"
               tooltipText={
-                <Unknown
+                <TurkSessionButton
                   clickHandler={[Function]}
                   id={1}
                   label="delete"
@@ -1675,7 +1675,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 }
               }
               tooltipTriggerText={
-                <Unknown
+                <TurkSessionButton
                   clickHandler={[Function]}
                   id={1}
                   label="delete"
@@ -1713,7 +1713,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                   }
                   tabIndex={null}
                 >
-                  <Component
+                  <TurkSessionButton
                     clickHandler={[Function]}
                     id={1}
                     label="delete"
@@ -1726,7 +1726,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                     >
                       delete
                     </button>
-                  </Component>
+                  </TurkSessionButton>
                 </span>
                 <span
                   className="quill-tooltip-wrapper"
@@ -1744,7 +1744,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
         </div>
       </div>
     </DataTable>
-    <Component
+    <Snackbar
       text="Copied!"
       visible={false}
     >
@@ -1753,7 +1753,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
       >
         Copied!
       </div>
-    </Component>
+    </Snackbar>
   </div>
 </TurkSessions>
 `;
