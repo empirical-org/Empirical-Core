@@ -340,15 +340,27 @@ workflows:
   version: 2
   build-test:
     jobs:
-      - lms_rails_build
-      - lms_integration_build
-      - lms_node_build
-      - marking_logic_node_build
-      - cms_rails_build
-      - comprehension_go_build
-      - evidence_rails_build
+      - lms_rails_build: &default_filter
+          filters:
+            branches:
+              ignore: /^deploy-.*/
+      - lms_integration_build:
+          <<: *default_filter
+      - lms_node_build:
+          <<: *default_filter
+      - marking_logic_node_build:
+          <<: *default_filter
+      - cms_rails_build:
+          <<: *default_filter
+      - comprehension_go_build:
+          <<: *default_filter
+      - evidence_rails_build:
+          <<: *default_filter
   lint-code:
     jobs:
-      - node_lint
-      - rubocop_lint
-      - flake8_lint
+      - node_lint:
+          <<: *default_filter
+      - rubocop_lint:
+          <<: *default_filter
+      - flake8_lint:
+          <<: *default_filter
