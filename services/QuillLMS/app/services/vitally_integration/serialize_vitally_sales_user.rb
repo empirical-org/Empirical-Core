@@ -26,6 +26,7 @@ class SerializeVitallySalesUser
     diagnostics_finished_this_year = diagnostics_finished(@user).where("activity_sessions.completed_at >=?", school_year_start).count
     evidence_assigned = evidence_assigned_count(@user)
     evidence_finished = evidence_finished_count(@user)
+    date_of_last_completed_evidence_activity = activities_finished_query(@user)
     {
       accountId: @user.school&.id&.to_s,
       userId: @user.id.to_s,
@@ -80,8 +81,8 @@ class SerializeVitallySalesUser
         diagnostics_finished_last_year: get_from_cache("diagnostics_finished"),
         percent_completed_diagnostics_this_year: diagnostics_assigned_this_year > 0 ? (diagnostics_finished_this_year.to_f / diagnostics_assigned_this_year).round(2) : 'N/A',
         percent_completed_diagnostics_last_year: get_from_cache("percent_completed_diagnostics"),
-        evidence_activities_assigned: ,
-        evidence_activities_completed: ,
+        evidence_activities_assigned: evidence_assigned,
+        evidence_activities_completed: evidence_finished,
         date_of_last_completed_evidence_activity:
       }.merge(account_data_params)
     }
