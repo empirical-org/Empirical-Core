@@ -18,6 +18,9 @@ describe 'SerializeVitallySalesUser' do
   let!(:old_student) { create(:user, role: 'student') }
 
   before do
+    create(:activity_classification, key: 'diagnostic')
+    create(:activity_classification, key: 'evidence')
+
     previous_year_data = {
       total_students: 3,
       active_students: 2,
@@ -258,6 +261,50 @@ describe 'SerializeVitallySalesUser' do
       diagnostics_finished_this_year: 1,
       percent_completed_diagnostics: 0.67,
       percent_completed_diagnostics_this_year: 0.5
+    )
+  end
+
+  it 'presents evidence data' do
+    new_student = create(:user, role: 'student')
+    create(:classrooms_teacher, user: teacher, classroom: classroom)
+    create(:classrooms_teacher, user: teacher, classroom: old_classroom)
+    create(:students_classrooms, student: student, classroom: classroom)
+    create(:students_classrooms, student: old_student, classroom: old_classroom)
+    create(:students_classrooms, student: new_student, classroom: classroom)
+    classroom_unit.assigned_student_ids << new_student.id
+    classroom_unit.save!
+
+    evidence_unit_activity = create(:unit_activity, :evidence_unit_activity, unit: unit)
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      activity: evidence_unit_activity.activity,
+      user: student,
+      state: 'finished',
+      completed_at: Time.now - 3.days
+    )
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      activity: evidence_unit_activity.activity,
+      user: student,
+      state: 'finished',
+      completed_at: Time.now - 10.days
+    )
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      activity: evidence_unit_activity.activity,
+      user: new_student,
+      state: 'started',
+      created_at: Time.now - 1.year,
+      completed_at: Time.now - 1.year
+    )
+
+    teacher_data = SerializeVitallySalesUser.new(teacher).data
+
+    binding.pry
+
+    expect(teacher_data[:traits]).to include(
+      evidence_activities_assigned: 2,
+      evidence_activities_completed: 1,
     )
   end
 

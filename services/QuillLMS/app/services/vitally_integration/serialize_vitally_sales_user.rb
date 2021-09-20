@@ -2,9 +2,6 @@ class SerializeVitallySalesUser
   include VitallyTeacherStats
 
   BASE_USER_URL = "https://www.quill.org/cms/users"
-  # TODO: This should not be hard coded.
-  DIAGNOSTIC_ID = ActivityClassification.diagnostic.id
-  EVIDENCE_ID = ActivityClassification.evidence.id
 
   def initialize(user)
     @user = user
@@ -25,8 +22,8 @@ class SerializeVitallySalesUser
     diagnostics_finished = diagnostics_finished(@user).count
     diagnostics_finished_this_year = diagnostics_finished(@user).where("activity_sessions.completed_at >=?", school_year_start).count
     evidence_assigned = evidence_assigned_count(@user)
-    evidence_finished = evidence_finished_count(@user)
-    date_of_last_completed_evidence_activity = activities_finished_query(@user)
+    evidence_finished = evidence_finished(@user).count
+    date_of_last_completed_evidence_activity = evidence_finished(@user).select("activity_sessions.completed_at")[1].completed_at
     {
       accountId: @user.school&.id&.to_s,
       userId: @user.id.to_s,
@@ -83,9 +80,13 @@ class SerializeVitallySalesUser
         percent_completed_diagnostics_last_year: get_from_cache("percent_completed_diagnostics"),
         evidence_activities_assigned: evidence_assigned,
         evidence_activities_completed: evidence_finished,
-        date_of_last_completed_evidence_activity:
+        date_of_last_completed_evidence_activity: date_of_last_completed_evidence_activity
       }.merge(account_data_params)
     }
+  end
+
+  def evidence_id
+    ActivityClassification.evidence.id
   end
 
   def account_data
@@ -147,7 +148,7 @@ class SerializeVitallySalesUser
   end
 
   def filter_evidence(activities)
-    evidence_ids = Activity.where(activity_classification_id: EVIDENCE_ID).pluck(:id)
+    evidence_ids = Activity.where(activity_classification_id: evidence_id).pluck(:id)
     activities.select {|r| evidence_ids.include?(r.id) }
   end
 
@@ -156,7 +157,7 @@ class SerializeVitallySalesUser
   end
 
   private def evidence_finished(user)
-    activities_finished_query(user).where("activities.activity_classification_id=?", EVIDENCE_ID)
+    activities_finished_query(user).where("activities.activity_classification_id=?", evidence_id)
   end
 
   private def premium_status
