@@ -72,7 +72,7 @@ gem 'rack-test', '~> 0.6.3'
 gem 'secure_headers', '5.2.0'
 
 # Engines
-gem 'comprehension', path: 'engines/comprehension'
+gem 'evidence', path: 'engines/evidence'
 
 # WEBSOCKETS
 gem 'pusher'

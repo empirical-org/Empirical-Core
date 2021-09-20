@@ -42,7 +42,8 @@ const RuleAttributesSection = ({
     });
   }
 
-  function onHandleRemoveHighlight(e: ClickEvent) {
+  function onHandleRemoveHighlight(e: ClickEvent, feedbackIndex) {
+    const highlightIndex = universalFeedback[feedbackIndex].highlights_attributes.filter(h => !h._destroy).length - 1
     const { target } = e;
     const { value } = (target as HTMLButtonElement);
     if (window.confirm('Are you sure you want to delete this highlight?')) {
@@ -52,7 +53,7 @@ const RuleAttributesSection = ({
         setFeedback: setUniversalFeedback,
         updateType: HIGHLIGHT_REMOVAL,
         feedbackIndex: parseInt(value),
-        highlightIndex: null
+        highlightIndex: highlightIndex
       });
     }
   }
@@ -99,7 +100,7 @@ const RuleAttributesSection = ({
           {feedback.highlights_attributes && renderHighlights(feedback.highlights_attributes, i, onHandleSetUniversalFeedback)}
           <div className="button-wrapper">
             <button className={`add-highlight quill-button small primary outlined ${disabledStatus}`} disabled={!!disabledStatus} onClick={onHandleAddHighlight} type="button" value={`${i}`}>Add Highlight</button>
-            {feedback.highlights_attributes && feedback.highlights_attributes.length ? <button className="remove-highlight quill-button small secondary outlined" onClick={onHandleRemoveHighlight} type="button" value={`${i}`}>Remove Highlight</button> : null}
+            {feedback.highlights_attributes && feedback.highlights_attributes.filter(h => !h._destroy) && feedback.highlights_attributes.filter(h => !h._destroy).length ? <button className="remove-highlight quill-button small secondary outlined" onClick={(e) => onHandleRemoveHighlight(e, i)} type="button" value={`${i}`}>Remove Highlight</button> : null}
           </div>
         </React.Fragment>
       );

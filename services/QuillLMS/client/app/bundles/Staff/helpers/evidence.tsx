@@ -24,7 +24,7 @@ import { PromptInterface, ActivityInterface, DropdownObjectInterface } from '../
 const quillCheckmark = `/images/green_check.svg`;
 const quillX = '/images/red_x.svg';
 const mainApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
-const comprehensionBaseUrl = `${mainApiBaseUrl}comprehension/`;
+const evidenceBaseUrl = `${mainApiBaseUrl}evidence/`;
 const fetchDefaults = require("fetch-defaults");
 
 const headerHash = {
@@ -34,7 +34,7 @@ const headerHash = {
   }
 }
 
-export const apiFetch = fetchDefaults(fetch, comprehensionBaseUrl, headerHash)
+export const apiFetch = fetchDefaults(fetch, evidenceBaseUrl, headerHash)
 
 export const mainApiFetch = fetchDefaults(fetch, mainApiBaseUrl, headerHash)
 

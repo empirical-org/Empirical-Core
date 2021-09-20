@@ -28,6 +28,7 @@ class Cron
     SetImpactMetricsWorker.perform_async
     UploadLeapReportWorker.perform_async(29087)
     PopulateAllActivityHealthsWorker.perform_async
+    DeleteObsoleteActiveActivitySessionsWorker.perform_async
   end
 
   def self.now

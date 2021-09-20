@@ -46,7 +46,8 @@ const RulePlagiarismAttributes = ({
     });
   }
 
-  function onHandleRemoveFeedbackHighlight(e: ClickEvent) {
+  function onHandleRemoveFeedbackHighlight(e: ClickEvent, plagiarismFeedbackIndex) {
+    const highlightIndex = plagiarismFeedbacks[plagiarismFeedbackIndex].highlights_attributes.filter(h => !h._destroy).length - 1
     const { target } = e;
     const { value } = (target as HTMLButtonElement);
     if (window.confirm('Are you sure you want to delete this highlight?')) {
@@ -56,7 +57,7 @@ const RulePlagiarismAttributes = ({
         setFeedback: setPlagiarismFeedbacks,
         updateType: HIGHLIGHT_REMOVAL,
         feedbackIndex: parseInt(value),
-        highlightIndex: null
+        highlightIndex: highlightIndex
       });
     }
   }
@@ -86,7 +87,7 @@ const RulePlagiarismAttributes = ({
         {plagiarismFeedbacks[0] && plagiarismFeedbacks[0].highlights_attributes && renderHighlights(plagiarismFeedbacks[0].highlights_attributes, 0, onHandleSetPlagiarismFeedback)}
         {plagiarismFeedbacks[0] && (<div className="button-wrapper">
           <button className="add-highlight quill-button small primary outlined" onClick={onHandleAddFeedbackHighlight} type="button" value="0">Add Highlight</button>
-          {plagiarismFeedbacks[0].highlights_attributes && plagiarismFeedbacks[0].highlights_attributes.length ? <button className="remove-highlight quill-button small secondary outlined" onClick={onHandleRemoveFeedbackHighlight} type="button" value="0">Remove Highlight</button> : null}
+          {plagiarismFeedbacks[0].highlights_attributes && plagiarismFeedbacks[0].highlights_attributes.filter(h => !h._destroy) && plagiarismFeedbacks[0].highlights_attributes.filter(h => !h._destroy).length ? <button className="remove-highlight quill-button small secondary outlined" onClick={(e) => onHandleRemoveFeedbackHighlight(e, 0)} type="button" value="0">Remove Highlight</button> : null}
         </div>)}
         {errors['First Plagiarism Feedback'] && <p className="error-message">{errors['First Plagiarism Feedback']}</p>}
         <p className="form-subsection-label">Second Feedback</p>
@@ -101,7 +102,7 @@ const RulePlagiarismAttributes = ({
         {plagiarismFeedbacks[1] && plagiarismFeedbacks[1].highlights_attributes && renderHighlights(plagiarismFeedbacks[1].highlights_attributes, 1, onHandleSetPlagiarismFeedback)}
         {plagiarismFeedbacks[1] && (<div className="button-wrapper">
           <button className="add-highlight quill-button small primary outlined" onClick={onHandleAddFeedbackHighlight} type="button" value="1">Add Highlight</button>
-          {plagiarismFeedbacks[1].highlights_attributes && plagiarismFeedbacks[1].highlights_attributes.length ? <button className="remove-highlight quill-button small secondary outlined" onClick={onHandleRemoveFeedbackHighlight} type="button" value="1">Remove Highlight</button> : null}
+          {plagiarismFeedbacks[1].highlights_attributes && plagiarismFeedbacks[1].highlights_attributes.filter(h => !h._destroy) && plagiarismFeedbacks[1].highlights_attributes.filter(h => !h._destroy).length ? <button className="remove-highlight quill-button small secondary outlined" onClick={(e) => onHandleRemoveFeedbackHighlight(e, 1)} type="button" value="1">Remove Highlight</button> : null}
         </div>)}
         {errors['Second Plagiarism Feedback'] && <p className="error-message">{errors['Second Plagiarism Feedback']}</p>}
       </React.Fragment>

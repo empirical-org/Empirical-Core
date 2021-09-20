@@ -240,39 +240,39 @@ jobs:
           command: |
             cd services/comprehension/feedback-api-main/src/endpoint
             go test
-  comprehension_rails_build:
+  evidence_rails_build:
     working_directory: ~/Empirical-Core
     parallelism: 4
     docker:
       - image: circleci/ruby:2.6.6
         environment:
-          PG_DB: quill_comprehension_test_db
+          PG_DB: quill_evidence_test_db
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
       - image: postgres:10.5-alpine
         environment:
           POSTGRES_USER: ubuntu
-          POSTGRES_DB: quill_comprehension_test_db
+          POSTGRES_DB: quill_evidence_test_db
           POSTGRES_PASSWORD: ""
       - image: circleci/redis:6.0.9
     steps:
       - checkout
       - restore_cache:
           keys:
-            - bundle-cache-comprehension-v1-{{ checksum "services/QuillLMS/engines/comprehension/Gemfile.lock" }}
-            - bundle-cache-comprehension-v1
+            - bundle-cache-evidence-v2-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
+            - bundle-cache-evidence-v2
       - run:
           name: Bundle Install if cache isn't present.
           command: |
-            cd services/QuillLMS/engines/comprehension
+            cd services/QuillLMS/engines/evidence
             # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
             bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
             bundle check || bundle install --path vendor/bundle
       - save_cache:
-          key: bundle-cache-comprehension-v2-{{ checksum "services/QuillLMS/engines/comprehension/Gemfile.lock" }}
+          key: bundle-cache-evidence-v2-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
           paths:
-            - services/QuillLMS/engines/comprehension/vendor/bundle
+            - services/QuillLMS/engines/evidence/vendor/bundle
       - run:
           name: Install postgres dependencies
           command: |
@@ -282,20 +282,20 @@ jobs:
       - run:
           name: Copy Config files
           command: |
-            cd services/QuillLMS/engines/comprehension/spec/dummy
+            cd services/QuillLMS/engines/evidence/spec/dummy
             cp config/database.yml.circle config/database.yml
       - run:
           name: Set up DB
           command: |
-            cd services/QuillLMS/engines/comprehension
+            cd services/QuillLMS/engines/evidence
             bundle exec rake db:create
             bundle exec rake db:migrate
           environment:
-            DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_comprehension_test_db"
+            DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_evidence_test_db"
       - run:
           name: Run tests
           command: |
-            cd services/QuillLMS/engines/comprehension
+            cd services/QuillLMS/engines/evidence
             bundle exec rspec
   node_lint:
     working_directory: ~/Empirical-Core
@@ -340,15 +340,27 @@ workflows:
   version: 2
   build-test:
     jobs:
-      - lms_rails_build
-      - lms_integration_build
-      - lms_node_build
-      - marking_logic_node_build
-      - cms_rails_build
-      - comprehension_go_build
-      - comprehension_rails_build
+      - lms_rails_build: &default_filter
+          filters:
+            branches:
+              ignore: /^deploy-.*/
+      - lms_integration_build:
+          <<: *default_filter
+      - lms_node_build:
+          <<: *default_filter
+      - marking_logic_node_build:
+          <<: *default_filter
+      - cms_rails_build:
+          <<: *default_filter
+      - comprehension_go_build:
+          <<: *default_filter
+      - evidence_rails_build:
+          <<: *default_filter
   lint-code:
     jobs:
-      - node_lint
-      - rubocop_lint
-      - flake8_lint
+      - node_lint:
+          <<: *default_filter
+      - rubocop_lint:
+          <<: *default_filter
+      - flake8_lint:
+          <<: *default_filter

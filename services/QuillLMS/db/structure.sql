@@ -1167,7 +1167,7 @@ CREATE TABLE public.classrooms_teachers (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     "order" integer,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
 );
 
 
@@ -1513,8 +1513,8 @@ ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.compreh
 
 CREATE TABLE public.comprehension_regex_rules (
     id integer NOT NULL,
-    regex_text character varying(200) NOT NULL,
-    case_sensitive boolean NOT NULL,
+    regex_text character varying(200),
+    case_sensitive boolean,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_id integer,
@@ -1555,10 +1555,9 @@ CREATE TABLE public.comprehension_rules (
     rule_type character varying NOT NULL,
     optimal boolean NOT NULL,
     suborder integer,
-    concept_uid character varying NOT NULL,
+    concept_uid character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    sequence_type character varying,
     state character varying NOT NULL
 );
 
@@ -5711,6 +5710,13 @@ CREATE INDEX index_classrooms_on_code ON public.classrooms USING btree (code);
 
 
 --
+-- Name: index_classrooms_on_google_classroom_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classrooms_on_google_classroom_id ON public.classrooms USING btree (google_classroom_id);
+
+
+--
 -- Name: index_classrooms_on_grade; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7452,6 +7458,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210803163028'),
 ('20210811130155'),
 ('20210816195838'),
-('20210824114552');
+('20210824114552'),
+('20210913181519');
 
 

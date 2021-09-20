@@ -173,7 +173,7 @@ const SessionsIndex = ({ match }) => {
       {renderHeader(activityData, 'View Sessions')}
       <section>
         <p className="link-info-blurb">Use <a href={metabaseLink}><strong>this Metabase</strong></a> query to display feedback sessions on a single page.</p>
-        <p className="link-info-blurb">If you want to look up an individual activity session, plug the activity session ID into this url and it will load: https://www.quill.org/cms/comprehension#/activities/<strong>activityID</strong>/<strong>sessionID</strong></p>
+        <p className="link-info-blurb">If you want to look up an individual activity session, plug the activity session ID into this url and it will load: https://www.quill.org/cms/evidence#/activities/<strong>activityID</strong>/<strong>sessionID</strong></p>
         <section className="top-section">
           <section className="total-container">
             <p className="total-label">Total</p>

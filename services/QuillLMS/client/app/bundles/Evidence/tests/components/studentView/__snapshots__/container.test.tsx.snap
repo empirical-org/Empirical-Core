@@ -82,7 +82,13 @@ But how can democracies have representative governments unless all or most of th
           className="step-links"
         >
           <StepLink
+            activeStep={2}
             clickStepLink={[Function]}
+            completedSteps={
+              Array [
+                1,
+              ]
+            }
             index={2}
             renderStepNumber={[Function]}
           >
@@ -101,7 +107,13 @@ But how can democracies have representative governments unless all or most of th
             </button>
           </StepLink>
           <StepLink
+            activeStep={2}
             clickStepLink={[Function]}
+            completedSteps={
+              Array [
+                1,
+              ]
+            }
             index={3}
             renderStepNumber={[Function]}
           >
@@ -120,7 +132,13 @@ But how can democracies have representative governments unless all or most of th
             </button>
           </StepLink>
           <StepLink
+            activeStep={2}
             clickStepLink={[Function]}
+            completedSteps={
+              Array [
+                1,
+              ]
+            }
             index={4}
             renderStepNumber={[Function]}
           >
@@ -149,6 +167,7 @@ But how can democracies have representative governments unless all or most of th
       </div>
       <DirectionsSectionAndModal
         activeStep={2}
+        className=""
         closeReadTheDirectionsModal={[Function]}
         inReflection={false}
         passage={
@@ -167,7 +186,9 @@ But how can democracies have representative governments unless all or most of th
         }
         showReadTheDirectionsModal={false}
       >
-        <div>
+        <div
+          className=""
+        >
           <section
             className="directions-section"
           >
@@ -196,7 +217,7 @@ But how can democracies have representative governments unless all or most of th
         >
           Should Voting be Required?
         </h1>
-        <Component
+        <HeaderImage
           passage={
             Object {
               "highlight_prompt": "As you read, highlight two sentences that explain why some people think voting should be required.",
@@ -219,7 +240,7 @@ But how can democracies have representative governments unless all or most of th
               className="header-image-information"
             />
           </section>
-        </Component>
+        </HeaderImage>
         <div
           className="passage"
         >
@@ -227,23 +248,14 @@ But how can democracies have representative governments unless all or most of th
         </div>
       </div>
     </div>
-    <div
-      className="steps-outer-container"
-      onScroll={[Function]}
-    >
-      <div
-        className="steps-inner-container"
-        onScroll={[Function]}
-      >
-        <div
-          className="prompt-steps"
-        >
-          <DirectionsSectionAndModal
-            activeStep={2}
-            className="hide-on-mobile"
-            closeReadTheDirectionsModal={[Function]}
-            inReflection={false}
-            passage={
+    <RightPanel
+      activateStep={[Function]}
+      activeStep={2}
+      activities={
+        Object {
+          "currentActivity": Object {
+            "activity_id": 1,
+            "passages": Array [
               Object {
                 "highlight_prompt": "As you read, highlight two sentences that explain why some people think voting should be required.",
                 "text": "Crispin Morales is a poor Bolivian factory worker who works 12-hour days. He works every day but Sunday. The last presidential election fell on a Saturday. Although he was given the day off as the law required, Crispin was unable to get to a polling station to vote. After failing to vote, Crispin was not allowed to withdraw his salary from his bank for over two months. This is because those who do not vote are punished in Bolivia given that voting there is compulsory, a civic duty required by law. Not all countries with compulsory voting enforce this law.
@@ -255,38 +267,9 @@ Low voter turnout is a common problem in countries without compulsory voting. Th
 Mandatory voting may seem like a great way to encourage voter participation, but governments can sometimes misuse it. For example, in some dictatorships, citizens are forced to vote, but the same person is elected every time because the government does not allow political competition. In March 2014 in North Korea, 99% of the country cast votes for Kim Jong Un, the only candidate listed on the ballot.
 
 But how can democracies have representative governments unless all or most of their citizens vote? Some say that compulsory voting ensures that the elected government represents the majority of the population. But those against compulsory voting say that it is a violation of personal liberties and choices. Others say that voting should be seen as a civic right and not a civic duty.",
-              }
-            }
-            showReadTheDirectionsModal={false}
-          >
-            <div
-              className="hide-on-mobile"
-            >
-              <section
-                className="directions-section"
-              >
-                <h3>
-                  Directions
-                </h3>
-                <p>
-                  Use information from the text to finish the sentence. 
-                  <u>
-                    Remember to put the response in your own words.
-                  </u>
-                </p>
-              </section>
-            </div>
-          </DirectionsSectionAndModal>
-          <PromptStep
-            activateStep={[Function]}
-            active={true}
-            canBeClicked={true}
-            className="step clickable active"
-            completeStep={[Function]}
-            everyOtherStepCompleted={false}
-            key="2"
-            passedRef={[Function]}
-            prompt={
+              },
+            ],
+            "prompts": Array [
               Object {
                 "conjunction": "because",
                 "max_attempts": 5,
@@ -295,108 +278,274 @@ But how can democracies have representative governments unless all or most of th
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
                 "text": "Governments should make voting compulsory because",
-              }
-            }
-            stepNumber={2}
-            stepNumberComponent={
-              <div
-                className="step-number active"
-              >
-                1
-              </div>
-            }
-            submitResponse={[Function]}
-            submittedResponses={Array []}
+              },
+              Object {
+                "conjunction": "but",
+                "max_attempts": 5,
+                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory, but with exceptions for people who have good reasons for not being able to vote.",
+                "prompt_id": 2,
+                "text": "Governments should make voting compulsory, but",
+              },
+              Object {
+                "conjunction": "so",
+                "max_attempts": 5,
+                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory so that the elected government represents the majority of the population.",
+                "prompt_id": 3,
+                "text": "Governments should make voting compulsory so",
+              },
+            ],
+            "title": "Should Voting be Required?",
+          },
+          "hasReceivedData": true,
+        }
+      }
+      closeReadTheDirectionsModal={[Function]}
+      completeStep={[Function]}
+      completedSteps={
+        Array [
+          1,
+        ]
+      }
+      doneHighlighting={false}
+      handleClickDoneHighlighting={[Function]}
+      handleDoneReadingClick={[Function]}
+      hasStartedPromptSteps={true}
+      hasStartedReadPassageStep={true}
+      onStartPromptSteps={[Function]}
+      onStartReadPassage={[Function]}
+      resetTimers={[Function]}
+      scrolledToEndOfPassage={false}
+      session={
+        Object {
+          "hasReceivedData": true,
+          "sessionID": "MockSessionID",
+          "submittedResponses": Array [],
+        }
+      }
+      showReadTheDirectionsModal={false}
+      stepsHash={
+        Object {
+          "step1": Object {
+            "current": null,
+          },
+          "step2": <div
+            class="step clickable active"
+            role="button"
+            tabindex="0"
           >
             <div
-              className="step clickable active"
-              onClick={[Function]}
-              onKeyDown={[Function]}
+              class="step-content"
+            >
+              <div>
+                <div
+                  class="step-header"
+                >
+                  <div
+                    class="step-number active"
+                  >
+                    1
+                  </div>
+                  <p
+                    class="directions"
+                  >
+                    Use information from the text to finish the sentence:
+                  </p>
+                </div>
+                <div
+                  class="active-content-container"
+                >
+                  <div
+                    class="editor-container"
+                  >
+                    <div
+                      class="editor"
+                      contenteditable="true"
+                      data-gramm="false"
+                      spellcheck="false"
+                    >
+                      <p>
+                        Governments should make voting compulsory 
+                        <u>
+                          because
+                        </u>
+                         
+                      </p>
+                    </div>
+                    <button
+                      class="disabled clear-button"
+                      type="button"
+                    >
+                      <img
+                        alt="circle with an x in it"
+                        class="clear"
+                        src="undefined/images/icons/clear-disabled.svg"
+                      />
+                      Clear response
+                    </button>
+                  </div>
+                  <button
+                    class="quill-button focus-on-light disabled"
+                    type="button"
+                  >
+                    <span>
+                      Get feedback
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>,
+          "step3": Object {
+            "current": null,
+          },
+          "step4": Object {
+            "current": null,
+          },
+        }
+      }
+      studentHighlights={Array []}
+      submitResponse={[Function]}
+      toggleStudentHighlight={[Function]}
+    >
+      <Steps
+        activateStep={[Function]}
+        activeStep={2}
+        activities={
+          Object {
+            "currentActivity": Object {
+              "activity_id": 1,
+              "passages": Array [
+                Object {
+                  "highlight_prompt": "As you read, highlight two sentences that explain why some people think voting should be required.",
+                  "text": "Crispin Morales is a poor Bolivian factory worker who works 12-hour days. He works every day but Sunday. The last presidential election fell on a Saturday. Although he was given the day off as the law required, Crispin was unable to get to a polling station to vote. After failing to vote, Crispin was not allowed to withdraw his salary from his bank for over two months. This is because those who do not vote are punished in Bolivia given that voting there is compulsory, a civic duty required by law. Not all countries with compulsory voting enforce this law.
+
+If a citizen of Australia or Brazil provides a good reason for not voting (e.g. being in a hospital) it is accepted. In fact, many nations have dropped mandatory voting altogether. However, this can have a negative effect. When Venezuela, for example, discontinued mandatory voting in 1993, it saw a 30% decline in attendance at the polls.
+
+Low voter turnout is a common problem in countries without compulsory voting. This problem might be explained by voter apathy or lack of enthusiasm around elections. Of 222 million eligible voters, only 125 million cast their votes in the 2012 U.S. presidential election. By contrast, over 750 million votes were cast during season 10 of American Idol. Some people find it discouraging that voting for American Idol seems to generate more enthusiasm than voting in national elections. While it's important to note that American Idol viewers as young as 13 years old can vote multiple times during multiple episodes, these numbers may indicate that some citizens feel that their vote counts more in television contests than in political contests. Or perhaps they’re just not interested in politics.
+
+Mandatory voting may seem like a great way to encourage voter participation, but governments can sometimes misuse it. For example, in some dictatorships, citizens are forced to vote, but the same person is elected every time because the government does not allow political competition. In March 2014 in North Korea, 99% of the country cast votes for Kim Jong Un, the only candidate listed on the ballot.
+
+But how can democracies have representative governments unless all or most of their citizens vote? Some say that compulsory voting ensures that the elected government represents the majority of the population. But those against compulsory voting say that it is a violation of personal liberties and choices. Others say that voting should be seen as a civic right and not a civic duty.",
+                },
+              ],
+              "prompts": Array [
+                Object {
+                  "conjunction": "because",
+                  "max_attempts": 5,
+                  "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory because otherwise not everyone will vote.",
+                  "prompt_id": 1,
+                  "text": "Governments should make voting compulsory because",
+                },
+                Object {
+                  "conjunction": "but",
+                  "max_attempts": 5,
+                  "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory, but with exceptions for people who have good reasons for not being able to vote.",
+                  "prompt_id": 2,
+                  "text": "Governments should make voting compulsory, but",
+                },
+                Object {
+                  "conjunction": "so",
+                  "max_attempts": 5,
+                  "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory so that the elected government represents the majority of the population.",
+                  "prompt_id": 3,
+                  "text": "Governments should make voting compulsory so",
+                },
+              ],
+              "title": "Should Voting be Required?",
+            },
+            "hasReceivedData": true,
+          }
+        }
+        closeReadTheDirectionsModal={[Function]}
+        completeStep={[Function]}
+        completedSteps={
+          Array [
+            1,
+          ]
+        }
+        doneHighlighting={false}
+        handleDoneReadingClick={[Function]}
+        resetTimers={[Function]}
+        session={
+          Object {
+            "hasReceivedData": true,
+            "sessionID": "MockSessionID",
+            "submittedResponses": Array [],
+          }
+        }
+        showReadTheDirectionsModal={false}
+        stepsHash={
+          Object {
+            "step1": Object {
+              "current": null,
+            },
+            "step2": <div
+              class="step clickable active"
               role="button"
-              tabIndex={0}
+              tabindex="0"
             >
               <div
-                className="step-content"
+                class="step-content"
               >
                 <div>
                   <div
-                    className="step-header"
+                    class="step-header"
                   >
                     <div
-                      className="step-number active"
-                      key="2"
+                      class="step-number active"
                     >
                       1
                     </div>
                     <p
-                      className="directions"
+                      class="directions"
                     >
                       Use information from the text to finish the sentence:
                     </p>
                   </div>
                   <div
-                    className="active-content-container"
+                    class="active-content-container"
                   >
-                    <EditorContainer
-                      className="editor"
-                      disabled={false}
-                      handleFocus={[Function]}
-                      handleTextChange={[Function]}
-                      html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
-                      innerRef={[Function]}
-                      isResettable={false}
-                      promptText="Governments should make voting compulsory because"
-                      resetText={[Function]}
-                      stripHtml={[Function]}
+                    <div
+                      class="editor-container"
                     >
                       <div
-                        className="editor-container"
+                        class="editor"
+                        contenteditable="true"
+                        data-gramm="false"
+                        spellcheck="false"
                       >
-                        <ContentEditable
-                          className="editor"
-                          data-gramm={false}
-                          disabled={false}
-                          html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
-                          innerRef={[Function]}
-                          onChange={[Function]}
-                          onFocus={[Function]}
-                          spellCheck={false}
-                        >
-                          <div
-                            className="editor"
-                            contentEditable={true}
-                            dangerouslySetInnerHTML={
-                              Object {
-                                "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>",
-                              }
-                            }
-                            data-gramm={false}
-                            disabled={false}
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            onFocus={[Function]}
-                            onInput={[Function]}
-                            onKeyDown={[Function]}
-                            onKeyUp={[Function]}
-                            spellCheck={false}
-                          />
-                        </ContentEditable>
-                        <button
-                          className="disabled clear-button"
-                          type="button"
-                        >
-                          <img
-                            alt="circle with an x in it"
-                            className="clear"
-                            src="undefined/images/icons/clear-disabled.svg"
-                          />
-                          Clear response
-                        </button>
+                        <p>
+                          Governments should make voting compulsory 
+                          <u>
+                            because
+                          </u>
+                           
+                        </p>
                       </div>
-                    </EditorContainer>
+                      <button
+                        class="disabled clear-button"
+                        type="button"
+                      >
+                        <img
+                          alt="circle with an x in it"
+                          class="clear"
+                          src="undefined/images/icons/clear-disabled.svg"
+                        />
+                        Clear response
+                      </button>
+                    </div>
                     <button
-                      className="quill-button focus-on-light disabled"
-                      onClick={[Function]}
+                      class="quill-button focus-on-light disabled"
                       type="button"
                     >
                       <span>
@@ -406,133 +555,325 @@ But how can democracies have representative governments unless all or most of th
                   </div>
                 </div>
               </div>
-            </div>
-          </PromptStep>
-          <PromptStep
-            activateStep={[Function]}
-            active={false}
-            canBeClicked={false}
-            className="step  "
-            completeStep={[Function]}
-            everyOtherStepCompleted={false}
-            key="3"
-            passedRef={[Function]}
-            prompt={
-              Object {
-                "conjunction": "but",
-                "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+            </div>,
+            "step3": Object {
+              "current": null,
+            },
+            "step4": Object {
+              "current": null,
+            },
+          }
+        }
+        submitResponse={[Function]}
+      >
+        <div
+          className="steps-outer-container"
+          onScroll={[Function]}
+        >
+          <div
+            className="steps-inner-container"
+            onScroll={[Function]}
+          >
+            <div
+              className="prompt-steps"
+            >
+              <DirectionsSectionAndModal
+                activeStep={2}
+                className="hide-on-mobile"
+                closeReadTheDirectionsModal={[Function]}
+                inReflection={false}
+                passage={
+                  Object {
+                    "highlight_prompt": "As you read, highlight two sentences that explain why some people think voting should be required.",
+                    "text": "Crispin Morales is a poor Bolivian factory worker who works 12-hour days. He works every day but Sunday. The last presidential election fell on a Saturday. Although he was given the day off as the law required, Crispin was unable to get to a polling station to vote. After failing to vote, Crispin was not allowed to withdraw his salary from his bank for over two months. This is because those who do not vote are punished in Bolivia given that voting there is compulsory, a civic duty required by law. Not all countries with compulsory voting enforce this law.
+
+If a citizen of Australia or Brazil provides a good reason for not voting (e.g. being in a hospital) it is accepted. In fact, many nations have dropped mandatory voting altogether. However, this can have a negative effect. When Venezuela, for example, discontinued mandatory voting in 1993, it saw a 30% decline in attendance at the polls.
+
+Low voter turnout is a common problem in countries without compulsory voting. This problem might be explained by voter apathy or lack of enthusiasm around elections. Of 222 million eligible voters, only 125 million cast their votes in the 2012 U.S. presidential election. By contrast, over 750 million votes were cast during season 10 of American Idol. Some people find it discouraging that voting for American Idol seems to generate more enthusiasm than voting in national elections. While it's important to note that American Idol viewers as young as 13 years old can vote multiple times during multiple episodes, these numbers may indicate that some citizens feel that their vote counts more in television contests than in political contests. Or perhaps they’re just not interested in politics.
+
+Mandatory voting may seem like a great way to encourage voter participation, but governments can sometimes misuse it. For example, in some dictatorships, citizens are forced to vote, but the same person is elected every time because the government does not allow political competition. In March 2014 in North Korea, 99% of the country cast votes for Kim Jong Un, the only candidate listed on the ballot.
+
+But how can democracies have representative governments unless all or most of their citizens vote? Some say that compulsory voting ensures that the elected government represents the majority of the population. But those against compulsory voting say that it is a violation of personal liberties and choices. Others say that voting should be seen as a civic right and not a civic duty.",
+                  }
+                }
+                showReadTheDirectionsModal={false}
+              >
+                <div
+                  className="hide-on-mobile"
+                >
+                  <section
+                    className="directions-section"
+                  >
+                    <h3>
+                      Directions
+                    </h3>
+                    <p>
+                      Use information from the text to finish the sentence. 
+                      <u>
+                        Remember to put the response in your own words.
+                      </u>
+                    </p>
+                  </section>
+                </div>
+              </DirectionsSectionAndModal>
+              <PromptStep
+                activateStep={[Function]}
+                active={true}
+                canBeClicked={true}
+                className="step clickable active"
+                completeStep={[Function]}
+                everyOtherStepCompleted={false}
+                key="2"
+                passedRef={[Function]}
+                prompt={
+                  Object {
+                    "conjunction": "because",
+                    "max_attempts": 5,
+                    "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory because otherwise not everyone will vote.",
+                    "prompt_id": 1,
+                    "text": "Governments should make voting compulsory because",
+                  }
+                }
+                stepNumber={2}
+                stepNumberComponent={
+                  <div
+                    className="step-number active"
+                  >
+                    1
+                  </div>
+                }
+                submitResponse={[Function]}
+                submittedResponses={Array []}
+              >
+                <div
+                  className="step clickable active"
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <div
+                    className="step-content"
+                  >
+                    <div>
+                      <div
+                        className="step-header"
+                      >
+                        <div
+                          className="step-number active"
+                          key="2"
+                        >
+                          1
+                        </div>
+                        <p
+                          className="directions"
+                        >
+                          Use information from the text to finish the sentence:
+                        </p>
+                      </div>
+                      <div
+                        className="active-content-container"
+                      >
+                        <EditorContainer
+                          className="editor"
+                          disabled={false}
+                          handleFocus={[Function]}
+                          handleTextChange={[Function]}
+                          html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
+                          innerRef={[Function]}
+                          isResettable={false}
+                          promptText="Governments should make voting compulsory because"
+                          resetText={[Function]}
+                          stripHtml={[Function]}
+                        >
+                          <div
+                            className="editor-container"
+                          >
+                            <ContentEditable
+                              className="editor"
+                              data-gramm={false}
+                              disabled={false}
+                              html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
+                              innerRef={[Function]}
+                              onChange={[Function]}
+                              onFocus={[Function]}
+                              spellCheck={false}
+                            >
+                              <div
+                                className="editor"
+                                contentEditable={true}
+                                dangerouslySetInnerHTML={
+                                  Object {
+                                    "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>",
+                                  }
+                                }
+                                data-gramm={false}
+                                disabled={false}
+                                onBlur={[Function]}
+                                onChange={[Function]}
+                                onFocus={[Function]}
+                                onInput={[Function]}
+                                onKeyDown={[Function]}
+                                onKeyUp={[Function]}
+                                spellCheck={false}
+                              />
+                            </ContentEditable>
+                            <button
+                              className="disabled clear-button"
+                              type="button"
+                            >
+                              <img
+                                alt="circle with an x in it"
+                                className="clear"
+                                src="undefined/images/icons/clear-disabled.svg"
+                              />
+                              Clear response
+                            </button>
+                          </div>
+                        </EditorContainer>
+                        <button
+                          className="quill-button focus-on-light disabled"
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          <span>
+                            Get feedback
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </PromptStep>
+              <PromptStep
+                activateStep={[Function]}
+                active={false}
+                canBeClicked={false}
+                className="step  "
+                completeStep={[Function]}
+                everyOtherStepCompleted={false}
+                key="3"
+                passedRef={[Function]}
+                prompt={
+                  Object {
+                    "conjunction": "but",
+                    "max_attempts": 5,
+                    "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory, but with exceptions for people who have good reasons for not being able to vote.",
-                "prompt_id": 2,
-                "text": "Governments should make voting compulsory, but",
-              }
-            }
-            stepNumber={3}
-            stepNumberComponent={
-              <div
-                className="step-number "
-              >
-                2
-              </div>
-            }
-            submitResponse={[Function]}
-            submittedResponses={Array []}
-          >
-            <div
-              className="step  "
-            >
-              <div
-                className="step-content"
-              >
-                <div>
+                    "prompt_id": 2,
+                    "text": "Governments should make voting compulsory, but",
+                  }
+                }
+                stepNumber={3}
+                stepNumberComponent={
                   <div
-                    className="step-header"
+                    className="step-number "
                   >
-                    <div
-                      className="step-number "
-                      key="3"
-                    >
-                      2
+                    2
+                  </div>
+                }
+                submitResponse={[Function]}
+                submittedResponses={Array []}
+              >
+                <div
+                  className="step  "
+                >
+                  <div
+                    className="step-content"
+                  >
+                    <div>
+                      <div
+                        className="step-header"
+                      >
+                        <div
+                          className="step-number "
+                          key="3"
+                        >
+                          2
+                        </div>
+                        <p
+                          className="prompt-text"
+                        >
+                          Governments should make voting compulsory,
+                           
+                          <span>
+                            but
+                          </span>
+                        </p>
+                      </div>
                     </div>
-                    <p
-                      className="prompt-text"
-                    >
-                      Governments should make voting compulsory,
-                       
-                      <span>
-                        but
-                      </span>
-                    </p>
                   </div>
                 </div>
-              </div>
-            </div>
-          </PromptStep>
-          <PromptStep
-            activateStep={[Function]}
-            active={false}
-            canBeClicked={false}
-            className="step  "
-            completeStep={[Function]}
-            everyOtherStepCompleted={false}
-            key="4"
-            passedRef={[Function]}
-            prompt={
-              Object {
-                "conjunction": "so",
-                "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+              </PromptStep>
+              <PromptStep
+                activateStep={[Function]}
+                active={false}
+                canBeClicked={false}
+                className="step  "
+                completeStep={[Function]}
+                everyOtherStepCompleted={false}
+                key="4"
+                passedRef={[Function]}
+                prompt={
+                  Object {
+                    "conjunction": "so",
+                    "max_attempts": 5,
+                    "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory so that the elected government represents the majority of the population.",
-                "prompt_id": 3,
-                "text": "Governments should make voting compulsory so",
-              }
-            }
-            stepNumber={4}
-            stepNumberComponent={
-              <div
-                className="step-number "
-              >
-                3
-              </div>
-            }
-            submitResponse={[Function]}
-            submittedResponses={Array []}
-          >
-            <div
-              className="step  "
-            >
-              <div
-                className="step-content"
-              >
-                <div>
+                    "prompt_id": 3,
+                    "text": "Governments should make voting compulsory so",
+                  }
+                }
+                stepNumber={4}
+                stepNumberComponent={
                   <div
-                    className="step-header"
+                    className="step-number "
                   >
-                    <div
-                      className="step-number "
-                      key="4"
-                    >
-                      3
+                    3
+                  </div>
+                }
+                submitResponse={[Function]}
+                submittedResponses={Array []}
+              >
+                <div
+                  className="step  "
+                >
+                  <div
+                    className="step-content"
+                  >
+                    <div>
+                      <div
+                        className="step-header"
+                      >
+                        <div
+                          className="step-number "
+                          key="4"
+                        >
+                          3
+                        </div>
+                        <p
+                          className="prompt-text"
+                        >
+                          Governments should make voting compulsory
+                           
+                          <span>
+                            so
+                          </span>
+                        </p>
+                      </div>
                     </div>
-                    <p
-                      className="prompt-text"
-                    >
-                      Governments should make voting compulsory
-                       
-                      <span>
-                        so
-                      </span>
-                    </p>
                   </div>
                 </div>
-              </div>
+              </PromptStep>
             </div>
-          </PromptStep>
+          </div>
         </div>
-      </div>
-    </div>
+      </Steps>
+    </RightPanel>
   </div>
 </StudentViewContainer>
 `;

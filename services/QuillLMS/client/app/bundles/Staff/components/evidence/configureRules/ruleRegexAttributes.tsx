@@ -75,6 +75,7 @@ const RuleRegexAttributes = ({
   }
 
   function onHandleRemoveFeedbackHighlight(e: ClickEvent) {
+    const highlightIndex = regexFeedback[0].highlights_attributes.filter(h => !h._destroy).length - 1
     const { target } = e;
     const { value } = (target as HTMLButtonElement);
     if (window.confirm('Are you sure you want to delete this highlight?')) {
@@ -84,7 +85,7 @@ const RuleRegexAttributes = ({
         setFeedback: setRegexFeedback,
         updateType: HIGHLIGHT_REMOVAL,
         feedbackIndex: parseInt(value),
-        highlightIndex: null
+        highlightIndex: highlightIndex
       });
     }
   }
@@ -105,7 +106,7 @@ const RuleRegexAttributes = ({
       {regexFeedback[0] && regexFeedback[0].highlights_attributes && renderHighlights(regexFeedback[0].highlights_attributes, 0, onHandleSetRegexFeedback)}
       {regexFeedback[0] && (<div className="button-wrapper">
         <button className="add-highlight quill-button small primary outlined" onClick={onHandleAddFeedbackHighlight} type="button" value="0">Add Highlight</button>
-        {regexFeedback[0].highlights_attributes && regexFeedback[0].highlights_attributes.length ? <button className="remove-highlight quill-button small secondary outlined" onClick={onHandleRemoveFeedbackHighlight} type="button" value="0">Remove Highlight</button> : null}
+        {regexFeedback[0].highlights_attributes && regexFeedback[0].highlights_attributes.filter(h => !h._destroy) && regexFeedback[0].highlights_attributes.filter(h => !h._destroy).length ? <button className="remove-highlight quill-button small secondary outlined" onClick={onHandleRemoveFeedbackHighlight} type="button" value="0">Remove Highlight</button> : null}
       </div>)}
       {errors['Regex Feedback'] && <p className="error-message">{errors['Regex Feedback']}</p>}
       <p className="form-subsection-label" id="regex-rules-label">Regex Rules</p>

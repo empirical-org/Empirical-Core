@@ -54,12 +54,13 @@ describe Api::V1::ConceptsController, type: :controller do
   end
 
   context 'GET #level_zero_concepts_with_lineage' do
-    let!(:concept1) { create(:concept, name: 'Articles') }
+    let!(:concept1) { create(:concept, name: 'Articles', visible: true) }
     let!(:concept2) { create(:concept, name: 'The', parent: concept1) }
     let!(:concept3) { create(:concept, name: 'Something', parent: concept2)}
-    let!(:concept4) { create(:concept, name: 'Different') }
+    let!(:concept4) { create(:concept, name: 'Different', visible: true) }
     let!(:concept5) { create(:concept, name: 'Name', parent: concept4) }
     let!(:concept6) { create(:concept, name: 'Other', parent: concept5)}
+    let!(:concept7) { create(:concept, name: 'Different', visible: false) }
     let(:parsed_body) { JSON.parse(response.body) }
 
     def subject
@@ -68,7 +69,7 @@ describe Api::V1::ConceptsController, type: :controller do
 
     before { subject }
 
-    it 'returns a row for each level 0 concept' do
+    it 'returns a row for each level 0 concept that has visible set to true' do
       expect(parsed_body['concepts'].length).to eq(2)
     end
 

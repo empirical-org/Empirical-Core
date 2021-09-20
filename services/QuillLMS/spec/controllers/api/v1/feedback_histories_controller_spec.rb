@@ -90,9 +90,9 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       expect(parsed_response['metadata']['highlight'].first.keys).to eq metadata['highlight'].first.keys
     end
 
-    it "should set prompt_type to Comprehension::Prompt if prompt_id is provided" do
-      activity = Comprehension::Activity.create(target_level: 1, title: 'Test Activity Title')
-      prompt = Comprehension::Prompt.create(activity: activity, text: 'Test prompt text', conjunction: 'but')
+    it "should set prompt_type to Evidence::Prompt if prompt_id is provided" do
+      activity = Evidence::Activity.create(target_level: 1, title: 'Test Activity Title')
+      prompt = Evidence::Prompt.create(activity: activity, text: 'Test prompt text', conjunction: 'but')
       post :create,
         params: {
           feedback_history: {
@@ -116,7 +116,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
       expect(201).to eq(response.code.to_i)
       expect(1).to eq(FeedbackHistory.count)
-      expect("Comprehension::Prompt").to eq(FeedbackHistory.find(parsed_response['id']).prompt_type)
+      expect("Evidence::Prompt").to eq(FeedbackHistory.find(parsed_response['id']).prompt_type)
     end
 
     it "should not create an invalid record and return errors as json" do
@@ -233,8 +233,8 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
     end
 
     it "should attach include prompt model if attached" do
-      activity = Comprehension::Activity.create(target_level: 1, title: 'Test Activity Title')
-      prompt = Comprehension::Prompt.create(activity: activity, text: 'Test prompt text', conjunction: 'but')
+      activity = Evidence::Activity.create(target_level: 1, title: 'Test Activity Title')
+      prompt = Evidence::Prompt.create(activity: activity, text: 'Test prompt text', conjunction: 'but')
       feedback_history = build(:feedback_history)
       feedback_history.prompt = prompt
       feedback_history.save

@@ -18,10 +18,10 @@ const mockProps = {
   }
 };
 
-describe('Activity Form component', () => {
+describe('Header Image component', () => {
   const container = shallow(<HeaderImage {...mockProps} />);
 
-  it('should render Activities', () => {
+  it('should render Header Image', () => {
     expect(container).toMatchSnapshot();
   });
 });

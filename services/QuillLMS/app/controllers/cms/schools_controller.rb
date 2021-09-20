@@ -45,7 +45,8 @@ class Cms::SchoolsController < Cms::CmsController
       'District' => @school.leanm,
       'Free and Reduced Price Lunch' => "#{@school.free_lunches}%",
       'NCES ID' => @school.nces_id,
-      'PPIN' => @school.ppin
+      'PPIN' => @school.ppin,
+      'Clever ID' => @school.clever_id
     }
     @teacher_data = teacher_search_query_for_school(params[:id])
     @admins = SchoolsAdmins.includes(:user).where(school_id: params[:id].to_i).map do |admin|
@@ -332,7 +333,8 @@ class Cms::SchoolsController < Cms::CmsController
       'School ZIP' => :zipcode,
       'District Name' => :leanm,
       'FRP Lunch' => :free_lunches,
-      'NCES ID' => :nces_id
+      'NCES ID' => :nces_id,
+      'Clever ID' => :clever_id
     }
   end
 
