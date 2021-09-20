@@ -292,21 +292,33 @@ RSpec.describe Question, type: :model do
   describe '#refresh_cache' do
     let!(:question) {create(:question, uid: '1234', data: {'foo' => 'initial_value'})}
 
-    it 'should refresh cache for all questions on update' do
+    it 'should queue a cache refresh job on update' do
+      expect(RefreshQuestionCacheWorker).to receive(:perform_async).with(question.question_type, question.uid)
+
+      question.update(data: {'foo' => 'new_value'})
+    end
+  end
+
+  describe 'question cache methods' do
+    let!(:question) {create(:question, uid: '1234', data: {'foo' => 'initial_value'})}
+
+    it 'should refresh cache for all questions, when refresh: true is passed' do
       json = JSON.parse(Question.all_questions_json_cached(question.question_type))
       expect(json['1234']['foo']).to eq('initial_value')
 
       question.update(data: {'foo' => 'new_value'})
+      Question.all_questions_json_cached(question.question_type, refresh: true)
 
       new_json = JSON.parse(Question.all_questions_json_cached(question.question_type))
       expect(new_json['1234']['foo']).to eq('new_value')
     end
 
-    it 'should refresh cache for individual questions on update' do
+    it 'should refresh cache for individual questions, when refresh: true is passed' do
       json = JSON.parse(Question.question_json_cached(question.uid))
       expect(json['foo']).to eq('initial_value')
 
       question.update(data: {'foo' => 'new_value'})
+      Question.question_json_cached(question.uid, refresh: true)
 
       new_json = JSON.parse(Question.question_json_cached(question.uid))
       expect(new_json['foo']).to eq('new_value')

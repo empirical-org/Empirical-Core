@@ -34,7 +34,7 @@ class Question < ApplicationRecord
   LIVE_FLAGS = [FLAG_PRODUCTION, FLAG_ALPHA, FLAG_BETA]
 
   CACHE_KEY_ALL = 'ALL_QUESTIONS_'
-  CACHE_EXPIRY = 8.hours
+  CACHE_EXPIRY = 24.hours
   CACHE_KEY_QUESTION = 'QUESTION_'
 
   # mapping extracted from Grammar,Connect,Diagnostic rematching.ts
@@ -154,8 +154,7 @@ class Question < ApplicationRecord
   end
 
   private def refresh_caches
-    Question.all_questions_json_cached(question_type, refresh: true)
-    Question.question_json_cached(uid, refresh: true)
+    RefreshQuestionCacheWorker.perform_async(question_type, uid)
   end
 
   private def new_uuid
