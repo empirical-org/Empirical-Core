@@ -294,7 +294,7 @@ module Demo::ReportDemoCreator
   end
 
   def self.create_classroom_units(classroom, units)
-    units.each do |unit|
+    units.map do |unit|
       ClassroomUnit.create(
         classroom: classroom,
         unit: unit,

@@ -59,10 +59,11 @@ RSpec.describe Demo::ReportDemoCreator do
     student = create(:student)
     classroom = create(:classroom)
     create(:students_classrooms, student: student, classroom: classroom)
-    classroom_unit = create(:classroom_unit, assign_on_join: true, classroom: classroom)
     user = build(:user, id: Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID)
     user.save
     sample_session = create(:activity_session, activity_id: Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID, user_id: Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID, is_final_score: true)
+    units = Demo::ReportDemoCreator.create_units(teacher)
+    classroom_unit = Demo::ReportDemoCreator.create_classroom_units(classroom, units).first
     expect {Demo::ReportDemoCreator.create_replayed_activity_session(student, classroom_unit)}.to change {ActivitySession.count}.by(1)
   end
 
