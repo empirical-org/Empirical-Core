@@ -55,7 +55,7 @@ exports[`OnboardingChecklist component should render 1`] = `
             <img
               alt="Green check icon"
               className="big-check checked"
-              src="undefined/images/icons/icons-check-big.svg"
+              src="undefined/images/pages/dashboard/icons-check-big.svg"
             />
             <span>
               Be inspired by a teacher growing up, and become one yourself
@@ -75,7 +75,7 @@ exports[`OnboardingChecklist component should render 1`] = `
             <img
               alt="Green check icon"
               className="big-check checked"
-              src="undefined/images/icons/icons-check-big.svg"
+              src="undefined/images/pages/dashboard/icons-check-big.svg"
             />
             <span>
               Create a class
@@ -113,7 +113,7 @@ exports[`OnboardingChecklist component should render 1`] = `
             <img
               alt="Green check icon"
               className="big-check checked"
-              src="undefined/images/icons/icons-check-big.svg"
+              src="undefined/images/pages/dashboard/icons-check-big.svg"
             />
             <span>
               Explore our library
@@ -133,7 +133,7 @@ exports[`OnboardingChecklist component should render 1`] = `
             <img
               alt="Green check icon"
               className="big-check checked"
-              src="undefined/images/icons/icons-check-big.svg"
+              src="undefined/images/pages/dashboard/icons-check-big.svg"
             />
             <span>
               Explore our diagnostics
