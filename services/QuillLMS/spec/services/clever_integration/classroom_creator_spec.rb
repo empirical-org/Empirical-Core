@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CleverIntegration::Classrooms::Creator do
+RSpec.describe CleverIntegration::ClassroomCreator do
   let(:data) do
     {
       clever_id: clever_id,

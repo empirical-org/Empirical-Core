@@ -494,15 +494,10 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#update_google_classrooms' do
     let(:teacher) { create(:teacher) }
-    let(:google_classroom_id_1) { 123 }
-    let(:google_classroom_id_2) { 456 }
+    let(:google_classroom_id1) { 123 }
+    let(:google_classroom_id2) { 456 }
 
-    let(:selected_classrooms) do
-      [
-        { id: google_classroom_id_1 },
-        { id: google_classroom_id_2 }
-      ]
-    end
+    let(:selected_classrooms) { [{ id: google_classroom_id1 }, { id: google_classroom_id2 }] }
 
     before { allow(controller).to receive(:current_user) { teacher } }
 
@@ -511,9 +506,8 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
       classrooms = JSON.parse(response.body).deep_symbolize_keys.fetch(:classrooms)
 
-      expect(classrooms.count).to eq 2
-      expect(classrooms.first[:google_classroom_id]).to eq google_classroom_id_1
-      expect(classrooms.second[:google_classroom_id]).to eq google_classroom_id_2
+      google_classroom_ids = classrooms.map { |classroom| classroom[:google_classroom_id] }.sort
+      expect(google_classroom_ids).to eq [google_classroom_id1, google_classroom_id2]
    end
   end
 

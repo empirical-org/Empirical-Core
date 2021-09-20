@@ -1,5 +1,4 @@
 module CleverIntegration::Importers::CleverDistrict
-
   def self.run(district_id:)
     oclient = CleverLibrary::Api::Oauth.new()
     district_oauth_token = nil

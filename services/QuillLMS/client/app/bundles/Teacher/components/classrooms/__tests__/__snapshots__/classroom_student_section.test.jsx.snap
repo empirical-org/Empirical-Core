@@ -101,6 +101,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
     averageFontWidth={7}
     checkAllRows={[Function]}
     checkRow={[Function]}
+    className="show-overflow"
     headers={
       Array [
         Object {

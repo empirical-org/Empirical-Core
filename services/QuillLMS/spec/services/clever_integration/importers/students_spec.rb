@@ -1,52 +1,52 @@
 require 'rails_helper'
 
-describe 'CleverIntegration::Importers::Students' do
-
-  let!(:classroom) {
-    create(:classroom, name: 'class1', code: 'nice-great', clever_id: 'blah')
-  }
-
-  let!(:classrooms) {
-    [classroom]
-  }
-
+describe CleverIntegration::Importers::Students do
+  let!(:classroom) { create(:classroom, name: 'class1', code: 'nice-great', clever_id: 'blah') }
+  let!(:classrooms) { [classroom] }
   let!(:district_token) { '1' }
 
-  def subject
-    CleverIntegration::Importers::Students.run(classrooms, district_token)
-    User.find_by(email: 'fake@example.net')
-  end
+  let(:clever_student_email) { 'fake@example.net' }
+  let(:clever_student_credentials) { Clever::Credentials.new(district_username: 'username') }
+  let(:clever_student_name) { Clever::Name.new(first: 'Fake', last: 'Student') }
 
-  before do
-    clever_student = Clever::Student.new({
+  let(:clever_student) do
+    Clever::Student.new(
       id: "53ea7d6b2187a9bc1e188be0",
       created: "2014-08-12T20:47:39.084Z",
-      email: 'fake@example.net',
-      credentials: Clever::Credentials.new({
-        district_username: 'username'
-      }),
-      name: Clever::Name.new({
-        first: 'Fake',
-        last: 'Student'
-      }),
-      location:
-        {
-          address: "350 5th Avenue",
-          city: "New York",
-          state: "NY",
-          zip: 10001
-        }
-    })
+      email: clever_student_email,
+      credentials: clever_student_credentials,
+      name: clever_student_name,
+      location: {
+        address: "350 5th Avenue",
+        city: "New York",
+        state: "NY",
+        zip: 10001
+      }
+    )
+  end
 
-    clever_student_response = Clever::StudentResponse.new({ data: clever_student })
-    allow_any_instance_of(Clever::DataApi).to receive(:get_students_for_section).and_return(Clever::StudentsResponse.new({ data: [clever_student_response] }))
+  let(:clever_student_response) { Clever::StudentResponse.new(data: clever_student) }
+  let(:clever_students_response) { Clever::StudentsResponse.new(data: [clever_student_response]) }
+
+  let(:student) { User.find_by(email: clever_student_email) }
+
+  before { allow_any_instance_of(Clever::DataApi).to receive(:get_students_for_section).and_return(clever_students_response) }
+
+  def import_students
+    CleverIntegration::Importers::Students.run(classrooms, district_token)
   end
 
   it 'creates a student' do
-    expect(subject).to_not be_nil
+    import_students
+    expect(student).to_not be_nil
   end
 
   it 'associates student to classroom' do
-    expect(subject.classrooms).to include(classroom)
+    import_students
+    expect(student.classrooms).to include(classroom)
+  end
+
+  it 'creates CleverClassroom user records' do
+    expect { import_students }.to change(CleverClassroomUser, :count).from(0).to(1)
   end
 end

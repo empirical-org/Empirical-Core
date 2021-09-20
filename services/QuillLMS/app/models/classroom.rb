@@ -187,6 +187,7 @@ class Classroom < ApplicationRecord
 
   def provider_classroom
     return 'Google Classroom' if google_classroom?
+    return 'Clever' if clever_classroom?
   end
 
   # Clever integration
