@@ -321,7 +321,7 @@ module Demo::ReportDemoCreator
 
     students.each_with_index do |student, num|
       ACTIVITY_PACKS_TEMPLATES.each do |activity_pack|
-        unit = Unit.find_by(name: activity_pack[:name])
+        unit = Unit.where(name: activity_pack[:name]).last
         act_sessions = activity_pack[:activity_sessions]
         act_sessions[num].each do |act_id, user_id|
           temp = ActivitySession.unscoped.where({activity_id: act_id, user_id: user_id, is_final_score: true}).first
