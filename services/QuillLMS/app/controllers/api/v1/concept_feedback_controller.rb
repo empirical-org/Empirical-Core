@@ -2,6 +2,7 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
   before_action :activity_type
   before_action :concept_feedback_by_uid, except: [:index, :create, :update]
 
+  # TODO: Cache this once routes are fixed
   def index
     all_concept_feedbacks = ConceptFeedback.where(activity_type: @activity_type).all.reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
     render(json: all_concept_feedbacks)
