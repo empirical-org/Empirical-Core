@@ -1,5 +1,24 @@
+csp_types = %w(default_src script_src font_src img_src style_src connect_src)
+permissive_config = csp_types.each_with_object({}) do |n, memo|
+  memo[n.to_sym] = [
+    "*" # wildcard directive must not be quoted
+  ]
+  memo
+end
+permissive_config[:script_src] = permissive_config[:script_src].concat(
+  [
+    "'unsafe-inline'",
+    "'unsafe-eval'"    
+  ]
+)
+permissive_config[:style_src] = permissive_config[:style_src].concat(
+  [
+    "'unsafe-inline'"
+  ]
+)
+
 SecureHeaders::Configuration.default do |config|
-  config.csp = {
+  default_config = {
     default_src: [
       "'self'", 
       "https://*.quill.org",
@@ -9,6 +28,7 @@ SecureHeaders::Configuration.default do |config|
     object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>
 
     script_src: [
+      "'self'",
       "https://*.quill.org",  
       "'unsafe-inline'",
       "'unsafe-eval'",                                            # allows use of eval()
@@ -47,6 +67,7 @@ SecureHeaders::Configuration.default do |config|
     base_uri: %w('self'),                                         # used for relative URLs
 
     style_src: [
+      "'self'",
       "https://*.quill.org",  
       "'unsafe-inline'",
       "https://*.fontawesome.com",
@@ -72,6 +93,10 @@ SecureHeaders::Configuration.default do |config|
       "https://*.sentry.io"
     ]
   }
+
+  
+  config.csp_report_only = default_config
+  config.csp             = permissive_config # the order of these two declarations matters.
 
   config.cookies = {
     secure: true, 
