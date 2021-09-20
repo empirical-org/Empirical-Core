@@ -4,7 +4,7 @@ RSpec.describe Demo::ReportDemoCreator do
   let!(:teacher) {create(:teacher)}
 
   before do
-    Demo::ReportDemoCreator::ACTIVITY_PACKS.each do |ap|
+    Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.each do |ap|
       ap[:activity_ids].each {|id| create(:activity, id: id)}
     end
   end
@@ -71,7 +71,7 @@ RSpec.describe Demo::ReportDemoCreator do
       ap[:activity_sessions][0].each do |act_id, user_id|
         user = build(:user, id: user_id)
         user.save
-        create(:activity_session, state:'finished', activity_id: act_id, user_id: user_id, is_final_score: true)
+        create(:activity_session, state: 'finished', activity_id: act_id, user_id: user_id, is_final_score: true)
       end
     end
 
