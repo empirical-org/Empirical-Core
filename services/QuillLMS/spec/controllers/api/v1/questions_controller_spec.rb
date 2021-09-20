@@ -5,18 +5,21 @@ describe Api::V1::QuestionsController, type: :controller do
   let!(:question) { create(:question) }
 
   describe "#index" do
+    before(:each) do
+      Rails.cache.clear
+    end
     it "should return a list of Questions" do
       get :index, params: { question_type: 'connect_sentence_combining' }, as: :json
-      expect(JSON.parse(response.body).keys.length).to eq(1)
-    end
 
-    it "should include the response from the db" do
-      get :index, params: { question_type: 'connect_sentence_combining' }, as: :json
+      expect(JSON.parse(response.body).keys.length).to eq(1)
       expect(JSON.parse(response.body).keys.first).to eq(question.uid)
     end
   end
 
   describe "#show" do
+    before(:each) do
+      Rails.cache.clear
+    end
     it "should return the specified question" do
       get :show, params: { id: question.uid }, as: :json
       expect(JSON.parse(response.body)).to eq(question.data)
