@@ -23,7 +23,7 @@ class SerializeVitallySalesUser
     diagnostics_finished_this_year = diagnostics_finished(@user).where("activity_sessions.completed_at >=?", school_year_start).count
     evidence_assigned = evidence_assigned_count(@user)
     evidence_finished = evidence_finished(@user).count
-    date_of_last_completed_evidence_activity = evidence_finished(@user).select("activity_sessions.completed_at")[1].completed_at
+    date_of_last_completed_evidence_activity = evidence_finished(@user).order("activity_sessions.completed_at ASC").select("activity_sessions.completed_at").last&.completed_at || 'N/A'
     {
       accountId: @user.school&.id&.to_s,
       userId: @user.id.to_s,

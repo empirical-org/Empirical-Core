@@ -280,14 +280,14 @@ describe 'SerializeVitallySalesUser' do
       activity: evidence_unit_activity.activity,
       user: student,
       state: 'finished',
-      completed_at: Time.now - 3.days
+      completed_at: Time.now - 10.days
     )
     create(:activity_session,
       classroom_unit: classroom_unit,
       activity: evidence_unit_activity.activity,
       user: student,
       state: 'finished',
-      completed_at: Time.now - 10.days
+      completed_at: Time.now - 3.days
     )
     create(:activity_session,
       classroom_unit: classroom_unit,
@@ -300,11 +300,10 @@ describe 'SerializeVitallySalesUser' do
 
     teacher_data = SerializeVitallySalesUser.new(teacher).data
 
-    binding.pry
-
     expect(teacher_data[:traits]).to include(
       evidence_activities_assigned: 2,
-      evidence_activities_completed: 1,
+      evidence_activities_completed: 2,
+      date_of_last_completed_evidence_activity: Time.now - 3.days
     )
   end
 
