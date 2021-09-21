@@ -511,10 +511,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { submittedResponses, sessionID, } = session;
     const { showFocusState, activeStep, activityIsComplete, explanationSlidesCompleted, explanationSlideStep, hasStartedPromptSteps, hasStartedReadPassageStep, doneHighlighting, showReadTheDirectionsModal, completedSteps, scrolledToEndOfPassage, studentHighlights } = this.state
     const stepsHash = {
-      'step1': this.step1,
-      'step2': this.step2,
-      'step3': this.step3,
-      'step4': this.step4,
+      'step1': (node: JSX.Element) => this.step1 = node,
+      'step2': (node: JSX.Element) => this.step2 = node,
+      'step3': (node: JSX.Element) => this.step3 = node,
+      'step4': (node: JSX.Element) => this.step4 = node,
     }
 
     if (!activities.hasReceivedData) { return <LoadingSpinner /> }

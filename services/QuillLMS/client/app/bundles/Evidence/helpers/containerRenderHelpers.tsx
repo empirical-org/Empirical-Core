@@ -117,7 +117,7 @@ export const renderPromptSteps = ({
       completeStep={completeStep}
       everyOtherStepCompleted={everyOtherStepCompleted(stepNumber, completedSteps)}
       key={stepNumber}
-      passedRef={(node: JSX.Element) => stepsHash[`step${stepNumber}`] = node} // eslint-disable-line react/jsx-no-bind
+      passedRef={stepsHash[`step${stepNumber}`]} // eslint-disable-line react/jsx-no-bind
       prompt={prompt}
       stepNumber={stepNumber}
       stepNumberComponent={renderStepNumber(stepNumber, activeStep, completedSteps)}

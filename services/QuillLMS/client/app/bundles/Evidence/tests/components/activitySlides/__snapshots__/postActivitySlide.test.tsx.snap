@@ -58,10 +58,9 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
   >
     <button
       className="quill-button large secondary outlined focus-on-dark"
-      onClick={[Function]}
-      type="submit"
+      type="button"
     >
-      Save and exit
+      Next
     </button>
   </section>
 </div>

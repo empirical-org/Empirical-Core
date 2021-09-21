@@ -55,13 +55,18 @@
     margin-bottom: 16px;
     .quill-checkbox {
       margin: 13px 0px;
+      &.selected {
+        border: none;
+      }
     }
     .text-container {
-      padding: 13px 16px 14px;
+      padding: 11px 16px 12px;
       margin-left: 16px;
       border-left: 1px solid #005341;
       height: 100%;
       display: flex;
+      font-size: 16px;
+      font-weight: 600;
     }
     &:focus, &:hover, &.selected {
       border: solid 2px #e1f3f1;

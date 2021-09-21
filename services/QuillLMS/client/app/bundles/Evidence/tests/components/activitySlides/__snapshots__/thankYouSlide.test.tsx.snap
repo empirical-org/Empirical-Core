@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ThankYouSlide Component should match snapshot 1`] = `
+<ThankYouSlide>
+  <div
+    className="activity-follow-up-container thank-you-slide-container"
+  >
+    <div
+      className="thank-you-content"
+    >
+      <section>
+        <p>
+          Your feedback was sent
+        </p>
+        <h1>
+          Thanks for sharing your feedback! 
+        </h1>
+      </section>
+      <img
+        alt="Two hands clapping together"
+        src="undefined/images/pages/evidence/applauding.svg"
+      />
+    </div>
+    <div
+      className="button-section"
+    >
+      <a
+        className="quill-button large secondary outlined focus-on-dark"
+      >
+        Back to my dashboard
+      </a>
+    </div>
+  </div>
+</ThankYouSlide>
+`;
