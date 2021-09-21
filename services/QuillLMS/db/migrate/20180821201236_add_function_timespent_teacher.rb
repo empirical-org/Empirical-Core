@@ -1,4 +1,4 @@
-class AddFunctionTimespentTeacher < ActiveRecord::Migration
+class AddFunctionTimespentTeacher < ActiveRecord::Migration[4.2]
   def up
     connection.execute(%q{
       CREATE OR REPLACE FUNCTION timespent_teacher(teacher int) RETURNS bigint AS $$

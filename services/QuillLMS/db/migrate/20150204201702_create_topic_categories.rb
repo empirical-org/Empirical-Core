@@ -1,4 +1,4 @@
-class CreateTopicCategories < ActiveRecord::Migration
+class CreateTopicCategories < ActiveRecord::Migration[4.2]
   def change
     create_table :topic_categories do |t|
     	t.string :name

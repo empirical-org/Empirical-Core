@@ -1,4 +1,4 @@
-class ChangesToActivitySession < ActiveRecord::Migration
+class ChangesToActivitySession < ActiveRecord::Migration[4.2]
   def change
 
     change_column :activity_sessions, :temporary, :boolean, default: 'f'

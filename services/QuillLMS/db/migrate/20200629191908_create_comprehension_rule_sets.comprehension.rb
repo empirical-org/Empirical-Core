@@ -1,5 +1,5 @@
 # This migration comes from comprehension (originally 20200625222938)
-class CreateComprehensionRuleSets < ActiveRecord::Migration
+class CreateComprehensionRuleSets < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_rule_sets do |t|
       t.integer :activity_id

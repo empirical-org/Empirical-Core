@@ -1,4 +1,4 @@
-class AddStoryInputToStories < ActiveRecord::Migration
+class AddStoryInputToStories < ActiveRecord::Migration[4.2]
   def change
     add_column    :scores, :story_step_input, :text
     rename_column :scores, :practice_lesson_input, :practice_step_input

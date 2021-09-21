@@ -1,4 +1,4 @@
-class DropActivitySessionLogs < ActiveRecord::Migration
+class DropActivitySessionLogs < ActiveRecord::Migration[4.2]
   def up
     connection.execute(
       <<~SQL.squish

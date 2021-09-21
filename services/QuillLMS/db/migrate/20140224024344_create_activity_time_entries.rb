@@ -1,4 +1,4 @@
-class CreateActivityTimeEntries < ActiveRecord::Migration
+class CreateActivityTimeEntries < ActiveRecord::Migration[4.2]
   def change
     execute 'DROP TABLE IF EXISTS activity_time_entries'
     create_table :activity_time_entries do |t|

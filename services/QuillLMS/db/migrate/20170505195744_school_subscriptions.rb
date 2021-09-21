@@ -1,4 +1,4 @@
-class SchoolSubscriptions < ActiveRecord::Migration
+class SchoolSubscriptions < ActiveRecord::Migration[4.2]
   def change
     create_table :school_subscriptions do |t|
       t.integer :school_id

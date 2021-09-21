@@ -1,4 +1,4 @@
-class AddFunctionTimespentQuestion < ActiveRecord::Migration
+class AddFunctionTimespentQuestion < ActiveRecord::Migration[4.2]
   # backward compatibility function. hardcoded timestamp should be the datetime
   # of the migration.
   def up

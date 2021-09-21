@@ -1,4 +1,4 @@
-class AddStatusColumnToInvitations < ActiveRecord::Migration
+class AddStatusColumnToInvitations < ActiveRecord::Migration[4.2]
   def self.up
     add_column :invitations, :status, :string, default: 'pending'
     execute "ALTER TABLE invitations ADD CONSTRAINT check_status_is_valid CHECK (status IN ('pending', 'accepted', 'rejected') AND status IS NOT null)"

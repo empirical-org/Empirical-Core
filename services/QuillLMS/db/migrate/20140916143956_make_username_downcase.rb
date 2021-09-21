@@ -1,4 +1,4 @@
-class MakeUsernameDowncase < ActiveRecord::Migration
+class MakeUsernameDowncase < ActiveRecord::Migration[4.2]
   def change
 
     User.all.each { |u| 
