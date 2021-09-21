@@ -1,4 +1,4 @@
-class AddContactEmailAndStartDateToSubscriptions < ActiveRecord::Migration
+class AddContactEmailAndStartDateToSubscriptions < ActiveRecord::Migration[4.2]
   def change
     add_column :subscriptions, :contact_email, :string
     add_column :subscriptions, :start_date, :datetime

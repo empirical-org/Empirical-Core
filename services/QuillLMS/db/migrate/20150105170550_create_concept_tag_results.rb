@@ -1,4 +1,4 @@
-class CreateConceptTagResults < ActiveRecord::Migration
+class CreateConceptTagResults < ActiveRecord::Migration[4.2]
   def change
     create_table :concept_tag_results do |t|
       t.belongs_to :activity_session

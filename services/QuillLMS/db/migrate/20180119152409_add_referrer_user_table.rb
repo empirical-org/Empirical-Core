@@ -1,4 +1,4 @@
-class AddReferrerUserTable < ActiveRecord::Migration
+class AddReferrerUserTable < ActiveRecord::Migration[4.2]
   def change
     create_table :referrer_users do |t|
       t.integer :user_id, null: false

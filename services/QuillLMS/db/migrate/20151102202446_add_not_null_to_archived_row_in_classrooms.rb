@@ -1,4 +1,4 @@
-class AddNotNullToArchivedRowInClassrooms < ActiveRecord::Migration
+class AddNotNullToArchivedRowInClassrooms < ActiveRecord::Migration[4.2]
   def self.up
     change_table :classrooms do |t|
       t.change :archived, :boolean, null: false, default: false

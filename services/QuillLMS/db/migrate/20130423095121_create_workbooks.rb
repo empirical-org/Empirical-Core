@@ -1,4 +1,4 @@
-class CreateWorkbooks < ActiveRecord::Migration
+class CreateWorkbooks < ActiveRecord::Migration[4.2]
   def change
     create_table :workbooks do |t|
       t.string :title

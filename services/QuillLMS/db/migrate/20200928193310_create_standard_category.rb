@@ -1,4 +1,4 @@
-class CreateStandardCategory < ActiveRecord::Migration
+class CreateStandardCategory < ActiveRecord::Migration[4.2]
   def change
     create_table :standard_categories do |t|
       t.string :name

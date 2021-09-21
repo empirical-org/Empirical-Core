@@ -1,4 +1,4 @@
-class CreateActivityHealths < ActiveRecord::Migration
+class CreateActivityHealths < ActiveRecord::Migration[4.2]
   def change
     create_table :activity_healths do |t|
       t.string               :name

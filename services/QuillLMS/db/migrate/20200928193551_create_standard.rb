@@ -1,4 +1,4 @@
-class CreateStandard < ActiveRecord::Migration
+class CreateStandard < ActiveRecord::Migration[4.2]
   def change
     create_table :standards do |t|
       t.string :name
