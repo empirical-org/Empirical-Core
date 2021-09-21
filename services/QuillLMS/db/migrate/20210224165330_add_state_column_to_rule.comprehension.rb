@@ -1,5 +1,5 @@
 # This migration comes from comprehension (originally 20210218195536)
-class AddStateColumnToRule < ActiveRecord::Migration
+class AddStateColumnToRule < ActiveRecord::Migration[4.2]
   def change
     add_column :comprehension_rules, :state, :string
     Comprehension::Rule.update_all(state: 'active')
