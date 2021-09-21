@@ -1,0 +1,25 @@
+.activities-container, .loading-spinner-container, .error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70vw;
+  padding-top: 20px;
+  .activities-table, .tabs-container {
+    align-self: flex-start;
+    .data-table-body{
+      max-height: 70vh;
+      overflow: auto;
+      .data-table-row {
+        span {
+          a {
+            color: #00c2a2;
+          }
+          .a:hover {
+            cursor: pointer;
+            color: #19a08a;
+          }
+        }
+      }
+    }
+  }
+}

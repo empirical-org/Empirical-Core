@@ -1,0 +1,131 @@
+.activity-form-container {
+  width: 100%;
+  .card {
+    max-width: unset !important;
+  }
+  .error-message-container {
+    width: 100%;
+    .all-errors-message {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: normal;
+      color: #ff0000;
+      display: flex;
+      text-align: left;
+    }
+  }
+  .comprehension-activity-form {
+    .label-status-container {
+      min-height: 58px;
+      margin-top: 8px;
+      #label-status-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #7f7f7f;
+      }
+      #label-status {
+        font-size: 16px;
+        color: #7f7f7f;
+        margin: 0;
+      }
+    }
+  }
+  .comprehension-activity-form {
+    max-width: none !important;
+    padding: 0px 30px 0px 30px;
+    .title-input, .course-input, .flag-input, .reading-level-input,
+    .reading-score-input, .because-input, .but-input, .name-input, .highlight-prompt-input,
+    .scored-reading-level-input, .target-reading-level-input, .image-link-input {
+      margin-top: 20px;
+    }
+    .image-attribution-text-area {
+      margin-top: 16px;
+      width: 100%;
+      min-height: 112px;
+    }
+    #image-attribution-label {
+      margin-bottom: 8px;
+    }
+    .so-input {
+      margin: 20px 0px 20px 0px;
+    }
+    .error-message {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.33;
+      color: #ff0000;
+      margin-top: 20px;
+    }
+    .text-editor-label {
+      color: #7f7f7f;
+      font-size: 16px;
+      margin: 10px 0px -10px 0px;
+      font-weight: normal;
+      display: flex;
+      align-items: center;
+      &.has-text {
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .quill-button {
+        margin-left: 8px;
+      }
+    }
+    .text-editor-label:nth-of-type(2) {
+      margin-top: 20px;
+    }
+    .hide-highlights {
+      span {
+        background-color: white !important;
+      }
+    }
+    #max-attempt-feedback {
+      &.focus {
+        .has-text {
+          color: red;
+        }
+      }
+    }
+    .prompt-section {
+      .plagiarism-section {
+        margin-left: 10px;
+        .primary-feedback-input, .secondary-feedback-input {
+          margin-top: 15px;
+        }
+      }
+    }
+  }
+  .close-button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 700px;
+    #activity-close-button {
+      margin: 10px 10px 0px 0px;
+      height: auto;
+      min-width: 20px;
+      padding: 5px 7px 5px 7px;
+    }
+  }
+  .submit-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    #activity-submit-button {
+      margin-bottom: 20px;
+    }
+    #activity-cancel-button {
+      margin-left: 10px;
+    }
+    .error-message-container {
+      width: 100%;
+      .all-errors-message {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: normal;
+        color: #ff0000;
+        display: flex;
+        text-align: left;
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+.activity-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: calc(100vw - 200px);
+  padding: 0px 20px;
+  .tabs-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    background-color: #f8f8f8;
+    a {
+      color: black;
+    }
+    .tab-option {
+      margin-top: 5px;
+      padding: 10px;
+    }
+    .is-active {
+      color: #19a08a;
+      text-decoration: none;
+      .tab-option {
+        border-top: 1px solid lightgray;
+        border-right: 1px solid lightgray;
+        border-left: 1px solid lightgray;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        background-color: white;
+      }
+    }
+  }
+}
