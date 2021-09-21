@@ -126,7 +126,7 @@ const ActivitySurvey = ({ sessionID, saveActivitySurveyResponse, setSubmittedAct
       {multipleChoiceSection}
     </div>
     <div className="button-section">
-      <a className="focus-on-dark" href="/">Skip</a>
+      <a className="focus-on-dark" href={process.env.DEFAULT_URL}>Skip</a>
       <button className={sendButtonClassName} onClick={handleSend} type="button">Send</button>
     </div>
   </div>)
