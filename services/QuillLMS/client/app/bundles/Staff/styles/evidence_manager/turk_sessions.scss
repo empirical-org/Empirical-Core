@@ -1,0 +1,116 @@
+.turk-sessions-container {
+  width: 80vw;
+  .turk-sessions-table {
+    max-width: 100%;
+    overflow: scroll;
+    .data-table-body{
+      .data-table-row {
+        height: auto;
+        padding: 12px;
+        span {
+          text-align: left !important;
+          span {
+            a {
+              color: #00c2a2;
+            }
+            .a:hover {
+              cursor: pointer;
+              color: #29d8bc
+            }
+          }
+        }
+      }
+      .quill-tooltip-trigger {
+        .quill-tooltip {
+          display: none;
+        }
+      }
+    }
+  }
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 10px 20px 0px;
+    width: 900px;
+    #edit-rule-button, #delete-rule-button {
+      margin-right: 10px;
+    }
+  }
+  .add-session-container, .edit-turk-session-container {
+    .date-picker-container {
+      display: flex;
+      align-items: center;
+      margin-right: 30px;
+      .datepicker-label {
+        margin: 0px 10px 0px 0px;
+        font-weight: 100;
+      }
+      .SingleDatePicker {
+        z-index: 100;
+        .DateInput {
+          .DateInput_input {
+            padding: 3px;
+            font-size: 14px;
+            line-height: 0;
+          }
+        }
+      }
+      .DateInput_input:hover {
+        cursor: pointer;
+      }
+    }
+    .error {
+      margin: 0px 0px 0px 10px;
+      color: red;
+    }
+  }
+  .add-session-container {
+    display: flex;
+    align-items: center;
+    align-self: flex-start;
+    margin-left: 15px;
+    padding: 10px 0px 10px 0px;
+  }
+  .edit-turk-session-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .date-picker-container {
+      justify-content: center;
+      margin-right: 0px;
+      padding: 20px;
+      .SingleDatePicker {
+        div {
+          .SingleDatePickerInput {
+            .SingleDatePicker_picker {
+              position: fixed;
+              left: 45% !important;
+              top: 45% !important;
+            }
+          }
+        }
+      }
+    }
+    .submit-button-container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      #edit-turk-submit-button, #delete-turk-submit-button {
+        margin-right: 10px;
+      }
+      #edit-turk-submit-button {
+        margin-bottom: 10px;
+      }
+      .edit-error-message {
+        margin: 0px 10px 0px 0px;
+        color: red;
+      }
+      #delete-turk-submit-button {
+        margin-bottom: 20px;
+      }
+    }
+    .delete-message {
+      margin: 15px;
+    }
+  }
+}
