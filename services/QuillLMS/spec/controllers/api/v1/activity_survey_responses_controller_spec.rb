@@ -11,7 +11,7 @@ describe Api::V1::ActivitySurveyResponsesController, type: :controller do
         multiple_choice_selections: ['This activity was the worst', 'This activity was the best'],
         survey_question: 'What did you think of this activity?'
       }
-      put :post, params: { activity_session_uid: activity_session.uid, activity_survey_response: data }, as: :json
+      post :create, params: { activity_session_uid: activity_session.uid, activity_survey_response: data }, as: :json
       new_activity_survey_response = ActivitySurveyResponse.find_by(activity_session_id: activity_session.id)
       expect(new_activity_survey_response).to be
       expect(new_activity_survey_response.emoji_selection).to eq(data[:emoji_selection])
