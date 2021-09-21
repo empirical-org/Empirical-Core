@@ -301,9 +301,9 @@ describe 'SerializeVitallySalesUser' do
     teacher_data = SerializeVitallySalesUser.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
-      evidence_activities_assigned: 2,
-      evidence_activities_completed: 2,
-      date_of_last_completed_evidence_activity: Time.now - 3.days
+      evidence_activities_assigned_this_year: 2,
+      evidence_activities_completed_this_year: 2,
+      date_of_last_completed_evidence_activity: (Time.now - 3.days).strftime("%F")
     )
   end
 

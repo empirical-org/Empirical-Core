@@ -21,9 +21,9 @@ class SerializeVitallySalesUser
     diagnostics_assigned_this_year = diagnostics_assigned_in_year_count(@user, school_year_start, school_year_end)
     diagnostics_finished = diagnostics_finished(@user).count
     diagnostics_finished_this_year = diagnostics_finished(@user).where("activity_sessions.completed_at >=?", school_year_start).count
-    evidence_assigned = evidence_assigned_count(@user)
-    evidence_finished = evidence_finished(@user).count
-    date_of_last_completed_evidence_activity = evidence_finished(@user).order("activity_sessions.completed_at ASC").select("activity_sessions.completed_at").last&.completed_at || 'N/A'
+    evidence_assigned_this_year = evidence_assigned_in_year_count(@user, school_year_start, school_year_end)
+    evidence_finished_this_year = evidence_finished(@user).where("activity_sessions.completed_at >=?", school_year_start).count
+    date_of_last_completed_evidence_activity = evidence_finished(@user).order("activity_sessions.completed_at ASC").select("activity_sessions.completed_at").last&.completed_at&.strftime("%F") || 'N/A'
     {
       accountId: @user.school&.id&.to_s,
       userId: @user.id.to_s,
@@ -78,8 +78,8 @@ class SerializeVitallySalesUser
         diagnostics_finished_last_year: get_from_cache("diagnostics_finished"),
         percent_completed_diagnostics_this_year: diagnostics_assigned_this_year > 0 ? (diagnostics_finished_this_year.to_f / diagnostics_assigned_this_year).round(2) : 'N/A',
         percent_completed_diagnostics_last_year: get_from_cache("percent_completed_diagnostics"),
-        evidence_activities_assigned: evidence_assigned,
-        evidence_activities_completed: evidence_finished,
+        evidence_activities_assigned_this_year: evidence_assigned_this_year,
+        evidence_activities_completed_this_year: evidence_finished_this_year,
         date_of_last_completed_evidence_activity: date_of_last_completed_evidence_activity
       }.merge(account_data_params)
     }
@@ -150,6 +150,10 @@ class SerializeVitallySalesUser
   def filter_evidence(activities)
     evidence_ids = Activity.where(activity_classification_id: evidence_id).pluck(:id)
     activities.select {|r| evidence_ids.include?(r.id) }
+  end
+
+  def evidence_assigned_in_year_count(user, school_year_start, school_year_end)
+    sum_students(filter_evidence(in_school_year(activities_assigned_query(user), school_year_start, school_year_end)))
   end
 
   private def evidence_assigned_count(user)
