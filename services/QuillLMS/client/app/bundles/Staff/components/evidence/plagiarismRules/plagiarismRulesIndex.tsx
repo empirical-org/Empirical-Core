@@ -155,7 +155,7 @@ const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = 
   // Header labels are redundant so passing empty strings and hiding header display
   const dataTableFields = [
     { name: "", attribute:"field", width: "200px" },
-    { name: "", attribute:"value", width: "400px" }
+    { name: "", attribute:"value", width: "800px" }
   ];
   const becauseRuleLink = getAddRuleLink(BECAUSE);
   const butRuleLink = getAddRuleLink(BUT);

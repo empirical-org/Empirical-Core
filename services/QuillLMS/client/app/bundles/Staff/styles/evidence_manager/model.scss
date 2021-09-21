@@ -1,0 +1,82 @@
+.models-container {
+  padding: 20px 0px 20px 0px;
+  .header-container {
+    h2 {
+      font-weight: 600;
+    }
+  }
+}
+
+.model-form-container {
+  .model-id {
+    width: 320px;
+    margin-bottom: 24px;
+  }
+  #add-model-button {
+    margin-top: 20px;
+  }
+  .form-subsection-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #7f7f7f;
+    margin-top: 15px;
+  }
+}
+
+.model-container {
+  width: 80vw;
+  .model-form {
+    .text-editor-label, .card {
+      margin-left: 16px;
+    }
+  }
+  .tabs-container {
+    .tab-option {
+      width: 200px;
+      text-align: center;
+    }
+  }
+  .turk-sessions-table, .models-table {
+    max-width: 100%;
+    overflow: scroll;
+    .data-table-body{
+      .data-table-row {
+        height: auto;
+        padding: 12px;
+        span {
+          text-align: left !important;
+          span {
+            a {
+              color: #00c2a2;
+            }
+            .a:hover {
+              cursor: pointer;
+              color: #29d8bc
+            }
+          }
+        }
+      }
+      .quill-tooltip-trigger {
+        .quill-tooltip {
+          display: none;
+        }
+      }
+    }
+  }
+  .models-table {
+    margin-bottom: 8px;
+    .active-row {
+      background-color: #e7fee8;
+      // font-weight: bold;
+    }
+  }
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 10px 20px 0px;
+    width: 900px;
+    #edit-rule-button, #delete-rule-button {
+      margin-right: 10px;
+    }
+  }
+}
