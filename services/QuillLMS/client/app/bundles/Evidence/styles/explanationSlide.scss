@@ -4,7 +4,7 @@
   align-items: center;
   text-align: center;
   background-color: #005341;
-  height: calc(100% - 60px);
+  min-height: calc(100% - 60px);
   .subtext {
     font-size: 20px;
     font-weight: 600;

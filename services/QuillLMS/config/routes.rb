@@ -390,8 +390,8 @@ EmpiricalGrammar::Application.routes.draw do
       end
 
       resources :users, only: [:index]
-      resources :app_settings, only: [:index, :show], param: :name do 
-          member do 
+      resources :app_settings, only: [:index, :show], param: :name do
+          member do
             get :admin_show
           end
       end
@@ -447,6 +447,7 @@ EmpiricalGrammar::Application.routes.draw do
         end
       end
       resources :active_activity_sessions, only: [:show, :update, :destroy]
+      resources :activity_survey_responses, only: [:create]
 
       mount Evidence::Engine => "/evidence", as: :evidence
     end
