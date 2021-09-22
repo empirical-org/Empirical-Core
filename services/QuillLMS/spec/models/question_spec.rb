@@ -289,21 +289,39 @@ RSpec.describe Question, type: :model do
     end
   end
 
-  describe '#after_save' do
-    it 'should execute invalidate_all_questions_cache to invalidate the ALL_QUESTIONS cache' do
-      key = Api::V1::QuestionsController::ALL_QUESTIONS_CACHE_KEY + "_#{question.question_type}"
-      $redis.set(key, 'Dummy data')
-      question.data = {foo: "bar"}
-      question.save
-      expect($redis.get(key)).to be_nil
+  describe '#refresh_cache' do
+    let!(:question) {create(:question, uid: '1234', data: {'foo' => 'initial_value'})}
+
+    it 'should queue a cache refresh job on update' do
+      expect(RefreshQuestionCacheWorker).to receive(:perform_async).with(question.question_type, question.uid)
+
+      question.update(data: {'foo' => 'new_value'})
+    end
+  end
+
+  describe 'question cache methods' do
+    let!(:question) {create(:question, uid: '1234', data: {'foo' => 'initial_value'})}
+
+    it 'should refresh cache for all questions, when refresh: true is passed' do
+      json = JSON.parse(Question.all_questions_json_cached(question.question_type))
+      expect(json['1234']['foo']).to eq('initial_value')
+
+      question.update(data: {'foo' => 'new_value'})
+      Question.all_questions_json_cached(question.question_type, refresh: true)
+
+      new_json = JSON.parse(Question.all_questions_json_cached(question.question_type))
+      expect(new_json['1234']['foo']).to eq('new_value')
     end
 
-    it 'should execute invalidate_all_questions_cache to invalidate the specific QUESTION_* cache' do
-      key = Api::V1::QuestionsController::QUESTION_CACHE_KEY_PREFIX + "_#{question.uid}"
-      $redis.set(key, 'Dummy data')
-      question.data = {foo: "bar"}
-      question.save
-      expect($redis.get(key)).to be_nil
+    it 'should refresh cache for individual questions, when refresh: true is passed' do
+      json = JSON.parse(Question.question_json_cached(question.uid))
+      expect(json['foo']).to eq('initial_value')
+
+      question.update(data: {'foo' => 'new_value'})
+      Question.question_json_cached(question.uid, refresh: true)
+
+      new_json = JSON.parse(Question.question_json_cached(question.uid))
+      expect(new_json['foo']).to eq('new_value')
     end
   end
 
