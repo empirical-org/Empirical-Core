@@ -55,12 +55,16 @@ module VitallyTeacherStats
   end
 
   def filter_diagnostics(activities)
-    diagnostic_ids = Activity.where(activity_classification_id: DIAGNOSTIC_ID).pluck(:id)
+    diagnostic_ids = Activity.where(activity_classification_id: diagnostic_id).pluck(:id)
     activities.select {|r| diagnostic_ids.include?(r.id) }
   end
 
   def diagnostics_finished(user)
-    activities_finished_query(user).where("activities.activity_classification_id=?", DIAGNOSTIC_ID)
+    activities_finished_query(user).where("activities.activity_classification_id=?", diagnostic_id)
+  end
+
+  def diagnostic_id
+    ActivityClassification.diagnostic.id
   end
 
 end
