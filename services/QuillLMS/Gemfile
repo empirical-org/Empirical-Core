@@ -92,6 +92,7 @@ gem 'redis', '3.3.5'
 gem 'redis-namespace'
 gem 'redis-rails'
 gem 'redis-rack-cache'
+gem 'actionpack-action_caching'
 
 # JS/APP/UI
 gem 'turbolinks'

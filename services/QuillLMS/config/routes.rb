@@ -390,8 +390,8 @@ EmpiricalGrammar::Application.routes.draw do
       end
 
       resources :users, only: [:index]
-      resources :app_settings, only: [:index, :show], param: :name do 
-          member do 
+      resources :app_settings, only: [:index, :show], param: :name do
+          member do
             get :admin_show
           end
       end
@@ -433,7 +433,10 @@ EmpiricalGrammar::Application.routes.draw do
         end
       end
       resources :shared_cache, only: [:show, :update, :destroy]
-      resources :concept_feedback
+      scope 'activity_type/:activity_type' do
+        resources :concept_feedback, shallow: true
+      end
+
       resources :questions, except: [:destroy] do
         resources :focus_points do
           put :update_all, on: :collection
