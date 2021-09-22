@@ -4,7 +4,7 @@ import { EditorState, ContentState } from 'draft-js';
 
 import EditGenerator from './editGenerator';
 
-import TextEditor from '../shared/textEditor';
+import { TextEditor, } from '../../../Shared/index';
 import { ConceptReducerState } from '../../reducers/conceptsReducer';
 
 interface LessonFormState {
