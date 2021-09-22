@@ -49,7 +49,8 @@ module Evidence
       options ||= {}
       super(options.reverse_merge(
         only: [:id, :parent_activity_id, :title, :notes, :target_level, :scored_level],
-        include: [:passages, :prompts]
+        include: [:passages, :prompts],
+        methods: [:invalid_highlights]
       ))
     end
 
@@ -63,6 +64,17 @@ module Evidence
 
     private def update_parent_activity_name
       parent_activity&.update(name: title)
+    end
+
+    def invalid_highlights
+      related_higlights = prompts.map(&:rules).flatten.map(&:feedbacks).flatten.map(&:highlights).flatten
+      invalid_highlights = related_higlights.select {|h| h.invalid_activity_ids&.include?(id)}
+      invalid_highlights.map do |highlight|
+        {
+          rule_id: highlight.feedback.rule_id,
+          rule_type: highlight.feedback.rule.rule_type 
+        }
+      end
     end
 
     private def expire_turking_rounds
