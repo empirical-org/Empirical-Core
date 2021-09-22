@@ -3,21 +3,25 @@ require 'rails_helper'
 describe 'SerializeVitallySalesUser' do
   before { Timecop.freeze }
   after { Timecop.return }
+  let!(:current_time) { Time.now }
   let!(:school) { create(:school) }
   let!(:teacher) { create(:user, role: 'teacher', school: school)}
   let!(:classroom) { create(:classroom) }
-  let!(:old_classroom) { create(:classroom, created_at: Time.now - 1.year) }
+  let!(:old_classroom) { create(:classroom, created_at: current_time - 1.year) }
   let!(:unit) { create(:unit, user_id: teacher.id) }
-  let!(:old_unit) { create(:unit, user_id: teacher.id, created_at: Time.now - 1.year) }
+  let!(:old_unit) { create(:unit, user_id: teacher.id, created_at: current_time - 1.year) }
   let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [student.id]) }
-  let!(:old_classroom_unit) { create(:classroom_unit, classroom: old_classroom, unit: old_unit, created_at: Time.now - 1.year, assigned_student_ids: [old_student.id]) }
+  let!(:old_classroom_unit) { create(:classroom_unit, classroom: old_classroom, unit: old_unit, created_at: current_time - 1.year, assigned_student_ids: [old_student.id]) }
   let!(:unit_activity) { create(:unit_activity, unit: unit) }
   let!(:diagnostic_unit_activity) { create(:unit_activity, :diagnostic_unit_activity, unit: unit) }
-  let!(:old_unit_activity) { create(:unit_activity, unit: old_unit, created_at: Time.now - 1.year) }
+  let!(:old_unit_activity) { create(:unit_activity, unit: old_unit, created_at: current_time - 1.year) }
   let!(:student) { create(:user, role: 'student') }
   let!(:old_student) { create(:user, role: 'student') }
 
   before do
+    create(:activity_classification, key: 'diagnostic')
+    create(:activity_classification, key: 'evidence')
+
     previous_year_data = {
       total_students: 3,
       active_students: 2,
@@ -81,7 +85,7 @@ describe 'SerializeVitallySalesUser' do
     teacher_data = SerializeVitallySalesUser.new(teacher).data
 
     expect(teacher_data[:traits][:basic_subscription])
-      .to be_within(1.second).of(Time.now)
+      .to be_within(1.second).of(current_time)
   end
 
   it 'does not present account data if not available' do
@@ -100,7 +104,7 @@ describe 'SerializeVitallySalesUser' do
       type: 'account'
     )
     expect(account_data[:traits][:basic_subscription]).to be_within(1.second)
-      .of(Time.now)
+      .of(current_time)
   end
 
   it 'presents admin status' do
@@ -152,7 +156,7 @@ describe 'SerializeVitallySalesUser' do
 
   it 'presents student data' do
     classroom = create(:classroom)
-    old_classroom = create(:classroom, created_at: Time.now - 1.year)
+    old_classroom = create(:classroom, created_at: current_time - 1.year)
     student = create(:user, role: 'student')
     old_student = create(:user, role: 'student')
     create(:classrooms_teacher, user: teacher, classroom: classroom)
@@ -202,8 +206,8 @@ describe 'SerializeVitallySalesUser' do
       activity: old_unit_activity.activity,
       user: old_student,
       state: 'finished',
-      created_at: Time.now - 1.year,
-      completed_at: Time.now - 1.year
+      created_at: current_time - 1.year,
+      completed_at: current_time - 1.year
     )
     create(:activity_session,
       classroom_unit: classroom_unit,
@@ -233,7 +237,7 @@ describe 'SerializeVitallySalesUser' do
     classroom_unit.assigned_student_ids << new_student.id
     classroom_unit.save!
 
-    old_diagnostic_unit_activity = create(:unit_activity, :diagnostic_unit_activity, unit: old_unit, created_at: Time.now - 1.year)
+    old_diagnostic_unit_activity = create(:unit_activity, :diagnostic_unit_activity, unit: old_unit, created_at: current_time - 1.year)
     create(:activity_session,
       classroom_unit: classroom_unit,
       activity: diagnostic_unit_activity.activity,
@@ -245,8 +249,8 @@ describe 'SerializeVitallySalesUser' do
       activity: old_diagnostic_unit_activity.activity,
       user: old_student,
       state: 'finished',
-      created_at: Time.now - 1.year,
-      completed_at: Time.now - 1.year
+      created_at: current_time - 1.year,
+      completed_at: current_time - 1.year
     )
 
     teacher_data = SerializeVitallySalesUser.new(teacher).data
@@ -258,6 +262,49 @@ describe 'SerializeVitallySalesUser' do
       diagnostics_finished_this_year: 1,
       percent_completed_diagnostics: 0.67,
       percent_completed_diagnostics_this_year: 0.5
+    )
+  end
+
+  it 'presents evidence data' do
+    new_student = create(:user, role: 'student')
+    create(:classrooms_teacher, user: teacher, classroom: classroom)
+    create(:classrooms_teacher, user: teacher, classroom: old_classroom)
+    create(:students_classrooms, student: student, classroom: classroom)
+    create(:students_classrooms, student: old_student, classroom: old_classroom)
+    create(:students_classrooms, student: new_student, classroom: classroom)
+    classroom_unit.assigned_student_ids << new_student.id
+    classroom_unit.save!
+
+    evidence_unit_activity = create(:unit_activity, :evidence_unit_activity, unit: unit)
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      activity: evidence_unit_activity.activity,
+      user: student,
+      state: 'finished',
+      completed_at: current_time - 10.days
+    )
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      activity: evidence_unit_activity.activity,
+      user: student,
+      state: 'finished',
+      completed_at: current_time - 3.days
+    )
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      activity: evidence_unit_activity.activity,
+      user: new_student,
+      state: 'started',
+      created_at: current_time - 1.year,
+      completed_at: current_time - 1.year
+    )
+
+    teacher_data = SerializeVitallySalesUser.new(teacher).data
+
+    expect(teacher_data[:traits]).to include(
+      evidence_activities_assigned_this_year: 2,
+      evidence_activities_completed_this_year: 2,
+      date_of_last_completed_evidence_activity: (current_time - 3.days).strftime("%F")
     )
   end
 
