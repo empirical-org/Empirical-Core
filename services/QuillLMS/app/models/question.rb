@@ -33,9 +33,9 @@ class Question < ApplicationRecord
   ]
   LIVE_FLAGS = [FLAG_PRODUCTION, FLAG_ALPHA, FLAG_BETA]
 
-  CACHE_KEY_ALL = 'ALL_QUESTIONS_'
+  CACHE_KEY_ALL = 'ALL_QUESTIONS_v1_'
   CACHE_EXPIRY = 24.hours
-  CACHE_KEY_QUESTION = 'QUESTION_'
+  CACHE_KEY_QUESTION = 'QUESTION_v1_'
 
   # mapping extracted from Grammar,Connect,Diagnostic rematching.ts
   REMATCH_TYPE_MAPPING = {
