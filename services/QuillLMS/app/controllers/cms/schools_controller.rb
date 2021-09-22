@@ -154,35 +154,39 @@ class Cms::SchoolsController < Cms::CmsController
 
   def upload_teachers_and_students
     begin
-      school = School.find(params[:school_id])
+      school = School.find_by(id: params[:school_id])
       if school.blank?
         flash[:error] = "School not found. Check that the ID is correct and try again."
       else
         ActiveRecord::Base.transaction do
-          params[:teachers].each do |teacher|
-            raise "Teacher with email #{teacher[:email]} already exists." if User.find_by(email: teacher[:email]).present?
-            raise "Please provide a last name or password for teacher #{teacher[:name]}, otherwise this account will have no password." if !teacher[:password] && !teacher[:name].split[1]
-            password = teacher[:password].present? ? teacher[:password] : teacher[:name].split[1]
-            teacher = User.create!(name: teacher[:name], email: teacher[:email], password: password, password_confirmation: password, role: 'teacher')
+          params[:teachers]&.each do |t|
+            raise "Teacher with email #{t[:email]} already exists." if User.find_by(email: t[:email]).present?
+            raise "Please provide a last name or password for teacher #{t[:name]}, otherwise this account will have no password." if t[:password].blank? && t[:name].split[1].blank?
+            password = t[:password].present? ? t[:password] : t[:name].split[1]
+            teacher = User.create!(name: t[:name], email: t[:email], password: password, password_confirmation: password, role: 'teacher')
             SchoolsUsers.create!(school: school, user: teacher)
           end
 
-          params[:students].each do |student|
-            raise "Student with email #{student[:email]} already exists." if User.find_by(email: student[:email]).present?
-            raise "Teacher with email #{student[:teacher_email]} does not exist." if !User.find_by(email: student[:teacher_email])
-            raise "Please provide a last name or password for student #{student[:name]}, otherwise this account will have no password." if !student[:password] && !student[:name].split[1]
-            password = student[:password].present? ? student[:password] : student[:name].split[1]
-            student = User.create!(name: student[:name], email: student[:email], password: password, password_confirmation: password, role: 'student')
-            teacher = User.find_by(email: student[:teacher_email])
-            classroom = Classroom.find_or_create_by(name: student[:classroom])
-            # what if there are multiple classrooms under this name
-            # TODO: write a joins query here
+          params[:students]&.each do |s|
+            raise "Student with email #{s[:email]} already exists." if User.find_by(email: s[:email]).present?
+            raise "Teacher with email #{s[:teacher_email]} does not exist." if !User.find_by(email: s[:teacher_email])
+            raise "Please provide a last name or password for student #{s[:name]}, otherwise this account will have no password." if s[:password].blank? && s[:name].split[1].blank?
+            password = s[:password].present? ? s[:password] : s[:name].split[1]
+            student = User.create!(name: s[:name], email: s[:email], password: password, password_confirmation: password, role: 'student')
+            teacher = User.find_by(email: s[:teacher_email])
+            classroom = Classroom.joins(:classrooms_teachers).where("classrooms_teachers.user_id = ?", teacher.id).where(name: s[:classroom]).first
+            if !classroom
+              classroom = Classroom.create!(name: s[:classroom])
+              ClassroomsTeacher.create!(user: teacher, classroom: classroom, role: 'owner')
+            end
+
             StudentsClassrooms.create!(student: student, classroom: classroom)
           end
         end
+        flash[:success] = 'Teachers and Students rostered successfully!'
       end
-    rescue e
-      flash[:error] = e
+    rescue StandardError => e
+      flash[:error] = e.message
     end
   end
 
