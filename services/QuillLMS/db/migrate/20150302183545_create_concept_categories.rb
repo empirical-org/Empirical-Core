@@ -1,4 +1,4 @@
-class CreateConceptCategories < ActiveRecord::Migration
+class CreateConceptCategories < ActiveRecord::Migration[4.2]
   def change
     create_table :concept_categories do |t|
       t.string :name

@@ -1,4 +1,4 @@
-class RestoreChapterLevels < ActiveRecord::Migration
+class RestoreChapterLevels < ActiveRecord::Migration[4.2]
   def change
     create_table :chapter_levels, force: true do |t|
       t.string   :name

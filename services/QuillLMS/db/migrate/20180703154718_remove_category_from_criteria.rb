@@ -1,4 +1,4 @@
-class RemoveCategoryFromCriteria < ActiveRecord::Migration
+class RemoveCategoryFromCriteria < ActiveRecord::Migration[4.2]
   def up
     remove_column :criteria, :category
   end

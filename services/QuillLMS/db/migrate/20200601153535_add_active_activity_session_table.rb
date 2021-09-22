@@ -1,4 +1,4 @@
-class AddActiveActivitySessionTable < ActiveRecord::Migration
+class AddActiveActivitySessionTable < ActiveRecord::Migration[4.2]
   def change
     create_table :active_activity_sessions do |t|
       t.string :uid

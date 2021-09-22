@@ -1,4 +1,4 @@
-class AddLessonsTable < ActiveRecord::Migration
+class AddLessonsTable < ActiveRecord::Migration[4.2]
   def change
     create_table :lessons do |t|
       t.string :uid

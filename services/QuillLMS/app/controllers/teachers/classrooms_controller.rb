@@ -192,6 +192,7 @@ class Teachers::ClassroomsController < ApplicationController
 
     classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
+      classroom_obj[:providerClassroom] = classroom.provider_classroom if classroom.provider_classroom?
       classroom_obj[:students] = format_students_for_classroom(classroom, activity_counts_by_student)
       classroom_teachers = format_teachers_for_classroom(classroom)
       pending_coteachers = format_pending_coteachers_for_classroom(classroom)
@@ -203,9 +204,14 @@ class Teachers::ClassroomsController < ApplicationController
   private def format_students_for_classroom(classroom, activity_counts)
     sorted_students = classroom.students.sort_by(&:last_name)
 
-    sorted_students.map do |s|
-      s.attributes.merge(number_of_completed_activities: activity_counts[s.id] || 0)
+    students = sorted_students.map do |student|
+      student.attributes.merge(number_of_completed_activities: activity_counts[student.id] || 0)
     end
+
+    return students unless classroom.google_classroom?
+
+    provider_classroom = ProviderClassroom.new(classroom)
+    students.map { |student| student.merge(synced: provider_classroom.active_student?(student)) }
   end
 
   private def format_pending_coteachers_for_classroom(classroom)

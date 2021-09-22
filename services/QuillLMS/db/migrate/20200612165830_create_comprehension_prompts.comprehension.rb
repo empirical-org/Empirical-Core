@@ -1,5 +1,5 @@
 # This migration comes from comprehension (originally 20200609005839)
-class CreateComprehensionPrompts < ActiveRecord::Migration
+class CreateComprehensionPrompts < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_prompts do |t|
       t.integer :activity_id

@@ -1,4 +1,4 @@
-class FixRulesModel < ActiveRecord::Migration
+class FixRulesModel < ActiveRecord::Migration[4.2]
   def change
   	add_column :rules, :category_id, :integer
   	add_column :rules, :workbook_id, :integer, default: 1

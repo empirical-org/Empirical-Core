@@ -1,12 +1,13 @@
 import * as React from 'react';
 import * as _ from 'underscore';
 import * as jsDiff from 'diff'
-import * as questionActions from '../../actions/questions';
-import TextEditor from '../shared/textEditor'
 import { EditorState, ContentState } from 'draft-js'
+
 import ResponseList from './responseList';
 import ConceptResults from './conceptResults'
 import getBoilerplateFeedback from './boilerplateFeedback';
+
+import * as questionActions from '../../actions/questions';
 import * as massEdit from '../../actions/massEdit';
 import {
   deleteResponse,
@@ -17,6 +18,7 @@ import { ActionTypes } from '../../actions/actionTypes';
 import {
   hashToCollection,
   Modal,
+  TextEditor,
 } from '../../../Shared/index'
 
 interface ResponseState {

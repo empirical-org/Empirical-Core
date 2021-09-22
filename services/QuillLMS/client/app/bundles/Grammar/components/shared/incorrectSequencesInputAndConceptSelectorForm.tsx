@@ -5,8 +5,9 @@ import * as request from 'request'
 import { EditorState, ContentState } from 'draft-js'
 
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox';
-import TextEditor from './textEditor';
 import ResponseComponent from '../questions/responseComponent'
+
+import { TextEditor, } from '../../../Shared/index'
 
 export default class IncorrectSequencesInputAndConceptSelectorForm extends React.Component {
   constructor(props) {

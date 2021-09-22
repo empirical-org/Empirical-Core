@@ -1,4 +1,4 @@
-class AddDescriptionToRules < ActiveRecord::Migration
+class AddDescriptionToRules < ActiveRecord::Migration[4.2]
   def up
   	add_column :rules, :description, :text
   end

@@ -1,4 +1,4 @@
-class AddTypeToTitleCard < ActiveRecord::Migration
+class AddTypeToTitleCard < ActiveRecord::Migration[4.2]
   def up
     add_column :title_cards, :title_card_type, :string
     add_index :title_cards, :title_card_type

@@ -29,7 +29,7 @@ const WelcomePage = ({onNextClick}) => {
         <img alt="Follow-up example showing a correct revision" src={practiceExampleSrc} />
       </div>
     </div>
-    <div className="button-section">
+    <div id="button-container" tabIndex={-1}>
       <button className="quill-button large contained primary focus-on-light" onClick={onNextClick} type="button">Next</button>
     </div>
   </div>)

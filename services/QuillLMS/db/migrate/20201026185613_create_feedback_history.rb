@@ -1,4 +1,4 @@
-class CreateFeedbackHistory < ActiveRecord::Migration
+class CreateFeedbackHistory < ActiveRecord::Migration[4.2]
   def change
     create_table :feedback_histories do |t|
       t.text :activity_session_uid

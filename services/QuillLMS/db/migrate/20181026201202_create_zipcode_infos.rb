@@ -1,4 +1,4 @@
-class CreateZipcodeInfos < ActiveRecord::Migration
+class CreateZipcodeInfos < ActiveRecord::Migration[4.2]
   def change
     create_table :zipcode_infos do |t|
       t.text :zipcode, index: { unique: true }

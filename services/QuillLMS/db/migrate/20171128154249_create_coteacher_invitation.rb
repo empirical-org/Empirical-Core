@@ -1,4 +1,4 @@
-class CreateCoteacherInvitation < ActiveRecord::Migration
+class CreateCoteacherInvitation < ActiveRecord::Migration[4.2]
   def change
     create_table :coteacher_invitations do |t|
       t.string :invitee_email, null: false, index: true

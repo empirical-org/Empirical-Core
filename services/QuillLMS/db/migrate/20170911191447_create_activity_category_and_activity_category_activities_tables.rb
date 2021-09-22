@@ -1,4 +1,4 @@
-class CreateActivityCategoryAndActivityCategoryActivitiesTables < ActiveRecord::Migration
+class CreateActivityCategoryAndActivityCategoryActivitiesTables < ActiveRecord::Migration[4.2]
   def change
     create_table :activity_categories do |t|
       t.string :name

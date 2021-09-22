@@ -1,4 +1,4 @@
-class CreateRuleExamples < ActiveRecord::Migration
+class CreateRuleExamples < ActiveRecord::Migration[4.2]
   def change
     create_table :rule_examples do |t|
       t.text :title
