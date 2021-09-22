@@ -1,4 +1,4 @@
-class ConvertActivitySessionDataColumnFromHstoreToJsonb < ActiveRecord::Migration
+class ConvertActivitySessionDataColumnFromHstoreToJsonb < ActiveRecord::Migration[4.2]
   def up
     change_column :activity_sessions, :data, :jsonb, using: 'data::jsonb'
   end

@@ -1,4 +1,4 @@
-class CreateIpLocations < ActiveRecord::Migration
+class CreateIpLocations < ActiveRecord::Migration[4.2]
   def change
     create_table :ip_locations do |t|
       t.string :country

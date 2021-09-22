@@ -1,4 +1,4 @@
-class CreateAdminAccountsAdmins < ActiveRecord::Migration
+class CreateAdminAccountsAdmins < ActiveRecord::Migration[4.2]
   def change
     create_table :admin_accounts_admins do |t|
       t.integer :admin_account_id

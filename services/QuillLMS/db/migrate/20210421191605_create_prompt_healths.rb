@@ -1,4 +1,4 @@
-class CreatePromptHealths < ActiveRecord::Migration
+class CreatePromptHealths < ActiveRecord::Migration[4.2]
   def change
     create_table :prompt_healths do |t|
       t.string      :text

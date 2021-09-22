@@ -1,4 +1,4 @@
-class AddPartnerContent < ActiveRecord::Migration
+class AddPartnerContent < ActiveRecord::Migration[4.2]
   def change
     create_table :partner_contents do |t|
       t.string :partner, limit: 50

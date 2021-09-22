@@ -1,4 +1,4 @@
-class CreateBlogPostUserRatings < ActiveRecord::Migration
+class CreateBlogPostUserRatings < ActiveRecord::Migration[4.2]
   def change
     create_table :blog_post_user_ratings do |t|
       t.integer :blog_post_id

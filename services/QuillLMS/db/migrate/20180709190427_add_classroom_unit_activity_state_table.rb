@@ -1,4 +1,4 @@
-class AddClassroomUnitActivityStateTable < ActiveRecord::Migration
+class AddClassroomUnitActivityStateTable < ActiveRecord::Migration[4.2]
   def change
     create_table :classroom_unit_activity_states do |t|
       t.references :classroom_unit, index: true, foreign_key: true, null: false

@@ -1,4 +1,4 @@
-class DropSalesAccountsTable < ActiveRecord::Migration
+class DropSalesAccountsTable < ActiveRecord::Migration[4.2]
   def up
     drop_table :sales_accounts
   end

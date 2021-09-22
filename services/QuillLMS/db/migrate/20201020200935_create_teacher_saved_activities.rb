@@ -1,4 +1,4 @@
-class CreateTeacherSavedActivities < ActiveRecord::Migration
+class CreateTeacherSavedActivities < ActiveRecord::Migration[4.2]
   def change
     create_table :teacher_saved_activities do |t|
       t.integer :teacher_id, null: false

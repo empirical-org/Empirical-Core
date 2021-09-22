@@ -73,7 +73,8 @@ exports[`<WelcomePage /> should render 1`] = `
     </div>
   </div>
   <div
-    className="button-section"
+    id="button-container"
+    tabIndex={-1}
   >
     <button
       className="quill-button large contained primary focus-on-light"

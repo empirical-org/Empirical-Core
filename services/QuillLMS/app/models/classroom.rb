@@ -173,6 +173,22 @@ class Classroom < ApplicationRecord
     -1
   end
 
+  def provider_classroom?
+    google_classroom? || clever_classroom?
+  end
+
+  def clever_classroom?
+    clever_id.present?
+  end
+
+  def google_classroom?
+    google_classroom_id.present?
+  end
+
+  def provider_classroom
+    return 'Google Classroom' if google_classroom?
+  end
+
   # Clever integration
   private def clever_classroom
     Clever::Section.retrieve(clever_id, teacher.districts.first.token)

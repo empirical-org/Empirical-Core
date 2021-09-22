@@ -1,5 +1,5 @@
 # This migration comes from comprehension (originally 20200605133641)
-class CreateComprehensionActivities < ActiveRecord::Migration
+class CreateComprehensionActivities < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_activities do |t|
       t.string :title, limit: 100
