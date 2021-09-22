@@ -35,6 +35,13 @@ export default class PageLayout extends React.Component<any, { showFocusState: b
     element.scrollIntoView()
   }
 
+  handleSkipToPassageButtonsClick = () => {
+    const element = document.getElementById("button-container")
+    if (!element) { return }
+    element.focus()
+    element.scrollIntoView(false)
+  }
+
   render() {
     const { showFocusState, } = this.state
     let className = "ant-layout activity-container "
@@ -44,6 +51,7 @@ export default class PageLayout extends React.Component<any, { showFocusState: b
       <div className={className}>
         <div className="page-content">
           <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
+          <button className="skip-main" onClick={this.handleSkipToPassageButtonsClick} type="button">Skip to passage buttons</button>
           {header}
           <div id="main-content" tabIndex={-1}>{renderRoutes(routes)}</div>
         </div>
