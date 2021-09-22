@@ -1,9 +1,11 @@
 module CleverIntegration
   class ClassroomCreator
-    attr_reader :data
+    attr_reader :clever_id, :grade, :name
 
     def initialize(data)
-      @data = data
+      @clever_id = data[:clever_id]
+      @grade = data[:grade]
+      @name = data[:name]
     end
 
     def run
@@ -13,19 +15,6 @@ module CleverIntegration
         name: name,
         synced_name: synced_name
       )
-    end
-
-
-    private def clever_id
-      data[:clever_id]
-    end
-
-    private def grade
-      data[:grade]
-    end
-
-    private def name
-      data[:name]
     end
 
     private def synced_name
