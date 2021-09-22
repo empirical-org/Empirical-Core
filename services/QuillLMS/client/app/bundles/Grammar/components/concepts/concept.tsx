@@ -1,15 +1,15 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import TextEditor from '../shared/textEditor'
+import { Link } from 'react-router-dom';
+import { EditorState, ContentState } from 'draft-js'
+import _ from 'underscore'
+
 import * as questionActions from '../../actions/questions'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { QuestionsReducerState } from '../../reducers/questionsReducer'
 import { Match } from '../../interfaces/match'
 import { Question } from '../../interfaces/questions'
-import { hashToCollection, FlagDropdown, } from '../../../Shared/index'
-import { Link } from 'react-router-dom';
-import { EditorState, ContentState } from 'draft-js'
-import _ from 'underscore'
+import { hashToCollection, FlagDropdown, TextEditor, } from '../../../Shared/index'
 
 interface ConceptState {
   prompt: string;

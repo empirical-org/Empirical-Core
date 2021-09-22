@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as Draft from 'draft-js';
-import Editor from 'draft-js-plugins-editor'
+import Editor from '@draft-js-plugins/editor'
 import { convertFromHTML, convertToHTML } from 'draft-convert'
-import createRichButtonsPlugin from 'draft-js-richbuttons-plugin'
 import * as Immutable from 'immutable'
+
+import { richButtonsPlugin, } from '../../index'
 
 const HIGHLIGHT = 'highlight'
 const HIGHLIGHTABLE = 'HIGHLIGHTABLE'
@@ -34,7 +35,7 @@ class TextEditor extends React.Component <any, any> {
 
     this.state = {
       text: props.EditorState.createWithContent(this.contentState(props.text || '')),
-      richButtonsPlugin: createRichButtonsPlugin()
+      richButtonsPlugin: richButtonsPlugin()
     }
   }
 
