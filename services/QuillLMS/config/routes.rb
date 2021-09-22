@@ -390,8 +390,8 @@ EmpiricalGrammar::Application.routes.draw do
       end
 
       resources :users, only: [:index]
-      resources :app_settings, only: [:index, :show], param: :name do 
-          member do 
+      resources :app_settings, only: [:index, :show], param: :name do
+          member do
             get :admin_show
           end
       end
@@ -553,6 +553,7 @@ EmpiricalGrammar::Application.routes.draw do
       collection do
         post :search
         get :search, to: 'schools#index'
+        post :upload_teachers_and_students
       end
       member do
         get :edit_subscription

@@ -152,6 +152,40 @@ class Cms::SchoolsController < Cms::CmsController
     end
   end
 
+  def upload_teachers_and_students
+    begin
+      school = School.find(params[:school_id])
+      if school.blank?
+        flash[:error] = "School not found. Check that the ID is correct and try again."
+      else
+        ActiveRecord::Base.transaction do
+          params[:teachers].each do |teacher|
+            raise "Teacher with email #{teacher[:email]} already exists." if User.find_by(email: teacher[:email]).present?
+            raise "Please provide a last name or password for teacher #{teacher[:name]}, otherwise this account will have no password." if !teacher[:password] && !teacher[:name].split[1]
+            password = teacher[:password].present? ? teacher[:password] : teacher[:name].split[1]
+            teacher = User.create!(name: teacher[:name], email: teacher[:email], password: password, password_confirmation: password, role: 'teacher')
+            SchoolsUsers.create!(school: school, user: teacher)
+          end
+
+          params[:students].each do |student|
+            raise "Student with email #{student[:email]} already exists." if User.find_by(email: student[:email]).present?
+            raise "Teacher with email #{student[:teacher_email]} does not exist." if !User.find_by(email: student[:teacher_email])
+            raise "Please provide a last name or password for student #{student[:name]}, otherwise this account will have no password." if !student[:password] && !student[:name].split[1]
+            password = student[:password].present? ? student[:password] : student[:name].split[1]
+            student = User.create!(name: student[:name], email: student[:email], password: password, password_confirmation: password, role: 'student')
+            teacher = User.find_by(email: student[:teacher_email])
+            classroom = Classroom.find_or_create_by(name: student[:classroom])
+            # what if there are multiple classrooms under this name
+            # TODO: write a joins query here
+            StudentsClassrooms.create!(student: student, classroom: classroom)
+          end
+        end
+      end
+    rescue e
+      flash[:error] = e
+    end
+  end
+
   private def set_school
     @school = School.find params[:id]
   end

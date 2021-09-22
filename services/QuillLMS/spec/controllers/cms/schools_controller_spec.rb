@@ -208,4 +208,36 @@ describe Cms::SchoolsController do
       expect(another_user.reload.school).to eq nil
     end
   end
+
+  describe '#upload_teachers_and_students' do
+    let!(:school) { create(:school)}
+
+    it 'should create teachers and students based on the data provided' do
+      teacher_email = "email@test.org"
+      student_email = "studentemail@test.org"
+      post :upload_teachers_and_students, params: {
+        school_id: school.id,
+        teachers: [
+          {
+            name: "Test Teacher",
+            email: teacher_email,
+            password: nil
+          }
+        ],
+        students: [
+          {
+            name: "Test Student",
+            email: student_email,
+            teacher_name: "Test Teacher",
+            teacher_email: "email@test.org",
+            classroom: "Class A",
+            password: "password"
+          }
+        ]
+      }
+
+      expect(User.find_by(email: teacher_email)).to be
+      expect(User.find_by(email: student_email)).to be
+    end
+  end
 end
