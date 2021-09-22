@@ -59,7 +59,7 @@ module Evidence
 
     def invalid_activity_ids
       return unless highlight_type == 'passage'
-      related_passages = feedback.rule.prompts.map(&:activity).map(&:passages).flatten
+      related_passages = feedback.rule.prompts.map(&:activity).uniq.map(&:passages).flatten
       invalid_ids = related_passages.select {|p| !p.text.include?(text)}.map {|p| p.activity.id}
       return unless invalid_ids.length > 0
       invalid_ids

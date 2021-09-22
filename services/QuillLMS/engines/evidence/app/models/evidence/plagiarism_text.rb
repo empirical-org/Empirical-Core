@@ -12,7 +12,8 @@ module Evidence
     def serializable_hash(options = nil)
       options ||= {}
       super(options.reverse_merge(
-        only: [:id, :rule_id, :text]
+        only: [:id, :rule_id, :text],
+        methods: [:invalid_activity_ids]
       ))
     end
 
@@ -30,6 +31,13 @@ module Evidence
 
     def conjunctions
       rule.prompts.map(&:conjunction)
+    end
+
+    def invalid_activity_ids
+      related_passages = rule.prompts.map(&:activity).uniq.map(&:passages).flatten
+      invalid_ids = related_passages.select {|p| !p.text.include?(text)}.map {|p| p.activity.id}
+      return unless invalid_ids.length > 0
+      invalid_ids
     end
   end
 end

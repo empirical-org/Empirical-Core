@@ -67,12 +67,27 @@ module Evidence
     end
 
     def invalid_highlights
+      invalid_feedback_highlights + invalid_plagiarism_text
+    end
+
+    def invalid_feedback_highlights
       related_higlights = prompts.map(&:rules).flatten.map(&:feedbacks).flatten.map(&:highlights).flatten
       invalid_highlights = related_higlights.select {|h| h.invalid_activity_ids&.include?(id)}
       invalid_highlights.map do |highlight|
         {
           rule_id: highlight.feedback.rule_id,
           rule_type: highlight.feedback.rule.rule_type 
+        }
+      end
+    end
+
+    def invalid_plagiarism_text
+      related_plagiarism = prompts.map { |p| p.rules.where(rule_type: Rule::TYPE_PLAGIARISM) }.flatten.map(&:plagiarism_text)
+      invalid_plagiarism = related_plagiarism.select {|p| p.invalid_activity_ids&.include?(id)}
+      invalid_plagiarism.map do |plagiarism|
+        {
+          rule_id: plagiarism.rule_id,
+          rule_type: plagiarism.rule.rule_type 
         }
       end
     end
