@@ -192,6 +192,7 @@ export function renderHighlights(highlights, i, changeHandler) {
       const { highlight_type } = highlight;
       highlightTypeValue = highlight_type;
     }
+    const passageMismatch = (highlight.highlight_type == 'passage' && !highlight.valid_in_all_targets)
     return(
       <section className="rule-highlight-section" key={j}>
         <p className="form-subsection-label">{`${numericalWordOptions[i]} Revision - ${numericalWordOptions[j]} Highlight`}</p>
@@ -204,6 +205,7 @@ export function renderHighlights(highlights, i, changeHandler) {
           options={ruleHighlightOptions}
           value={highlightTypeValue}
         />
+        {passageMismatch && <p className="all-errors-message">The text of this highlight does not perfectly match with an associated Passage.  This means that it will not highlight the inteneded text.</p>}
         <TextEditor
           ContentState={ContentState}
           EditorState={EditorState}
@@ -246,12 +248,13 @@ export const formatInitialFeedbacks = (feedbacks) => {
       highlights_attributes: null
     };
     const formattedHighlights = highlights && highlights.map(highlight => {
-      const { id, text,  highlight_type, starting_index} = highlight;
+      const { id, text,  highlight_type, starting_index, valid_in_all_targets } = highlight;
       return {
         id,
         text,
         highlight_type,
-        starting_index
+        starting_index,
+        valid_in_all_targets
       };
     });
     formattedFeedback.highlights_attributes = formattedHighlights || [];

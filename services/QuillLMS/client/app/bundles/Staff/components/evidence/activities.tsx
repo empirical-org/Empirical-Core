@@ -8,7 +8,7 @@ import { ActivityInterface } from '../../interfaces/evidenceInterfaces';
 import { fetchActivities } from '../../utils/evidence/activityAPIs';
 import { DataTable, Error, Spinner } from '../../../Shared/index';
 import { handleHasAppSetting } from "../../../Shared/utils/appSettingAPIs";
-import { renderErrorsContainer } from "../../helpers/evidence";
+import { getCheckIcon, renderErrorsContainer } from "../../helpers/evidence";
 
 const Activities = ({ location, match }) => {
 
@@ -19,11 +19,13 @@ const Activities = ({ location, match }) => {
   handleHasAppSetting({appSettingSetter: setHasAppSetting, errorSetter: setErrors, key: 'foo', })
 
   const formattedRows = activitiesData && activitiesData.activities && activitiesData.activities.map((activity: ActivityInterface) => {
-    const { id, title} = activity;
+    const { id, title, invalid_highlights } = activity;
     const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
+    const highlightLabel = getCheckIcon(!(invalid_highlights && invalid_highlights.length))
     return {
       id,
-      title: activityLink
+      title: activityLink,
+      valid_highlights: highlightLabel
     }
   });
 
@@ -47,7 +49,8 @@ const Activities = ({ location, match }) => {
   }
 
   const dataTableFields = [
-    { name: "Title", attribute:"title", width: "900px" }
+    { name: "Title", attribute:"title", width: "800px" },
+    { name: "Highlights Valid", attribute:"valid_highlights", width: "100px" }
   ];
 
   return(<React.Fragment>
