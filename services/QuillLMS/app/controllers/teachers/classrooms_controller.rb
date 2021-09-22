@@ -208,7 +208,7 @@ class Teachers::ClassroomsController < ApplicationController
       student.attributes.merge(number_of_completed_activities: activity_counts[student.id] || 0)
     end
 
-    return students unless classroom.google_classroom?
+    return students unless classroom.provider_classroom?
 
     provider_classroom = ProviderClassroom.new(classroom)
     students.map { |student| student.merge(synced: provider_classroom.active_student?(student)) }
