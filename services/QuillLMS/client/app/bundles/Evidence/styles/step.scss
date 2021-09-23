@@ -123,6 +123,9 @@
           margin-bottom: 10px;
           font-size: 16px;
           line-height: 1.38;
+          &:hover {
+            background-color: #F5F5F5;
+          }
         }
       }
     }

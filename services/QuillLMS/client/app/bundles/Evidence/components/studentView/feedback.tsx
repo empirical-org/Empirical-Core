@@ -35,6 +35,18 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
   const [reportAProblemExpanded, setReportAProblemExpanded] = React.useState(false)
   const [reportSubmitted, setReportSubmitted] = React.useState(false)
 
+  React.useEffect(() => {
+    setReportAProblemExpanded(false)
+    setReportSubmitted(false)
+  }, [lastSubmittedResponse])
+
+  React.useEffect(() => {
+    if (reportAProblemExpanded) {
+      const el = document.getElementsByClassName("report-a-problem-section")[0]
+      el.scrollIntoView(false)
+    }
+  }, [reportAProblemExpanded])
+
   function toggleReportAProblemExpanded() { setReportAProblemExpanded(!reportAProblemExpanded) }
 
   function handleSelectProblem(report) {
