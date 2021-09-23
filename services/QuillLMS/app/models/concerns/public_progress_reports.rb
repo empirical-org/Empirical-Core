@@ -80,13 +80,13 @@ module PublicProgressReports
       if unit
         class_ids = current_user.classrooms_i_teach.map(&:id)
         #without definining class ids, it may default to a classroom activity from a non-existant classroom
-        class_units = unit.classroom_units.where(classroom_id: class_ids)
+        class_units = unit.classroom_units.where(classroom_id: class_ids).includes(completed_activity_sessions: :user)
         unit_activity = UnitActivity.find_by(activity_id: activity_id, unit: unit)
 
         class_units.each do |cu|
           cuas = ClassroomUnitActivityState.find_by(unit_activity: unit_activity, classroom_unit: cu)
           classroom = cu.classroom.attributes
-          activity_sessions = cu.activity_sessions.completed
+          activity_sessions = cu.completed_activity_sessions
           if activity_sessions.present? || cuas&.completed || Activity.diagnostic_activity_ids.include?(activity_id.to_i)
             class_id = classroom['id']
             h[class_id] ||= classroom

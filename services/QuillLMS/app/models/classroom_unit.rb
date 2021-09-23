@@ -29,6 +29,7 @@ class ClassroomUnit < ApplicationRecord
   belongs_to :unit #, touch: true
   belongs_to :classroom
   has_many :activity_sessions
+  has_many :completed_activity_sessions, -> {completed}, class_name: 'ActivitySession'
   has_many :classroom_unit_activity_states
 
   validates :unit, uniqueness: { scope: :classroom }
