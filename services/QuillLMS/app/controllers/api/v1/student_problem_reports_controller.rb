@@ -3,7 +3,7 @@ class Api::V1::StudentProblemReportsController < Api::ApiController
 
   def create
     student_problem_report = StudentProblemReport.new({report: student_problem_report_params[:report]})
-    student_problem_report.feedback_history_id = @feedback_history.id
+    student_problem_report.feedback_history_id = @feedback_history&.id
     student_problem_report.save
     render json: student_problem_report.as_json
   end
