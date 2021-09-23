@@ -211,7 +211,7 @@ class Teachers::ClassroomsController < ApplicationController
     return students unless classroom.provider_classroom?
 
     provider_classroom = ProviderClassroom.new(classroom)
-    students.map { |student| student.merge(synced: provider_classroom.active_student?(student)) }
+    students.map { |student| student.merge(synced: provider_classroom.synced_status(student)) }
   end
 
   private def format_pending_coteachers_for_classroom(classroom)

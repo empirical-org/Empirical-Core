@@ -426,7 +426,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   syncedStatus(student: any, providerClassroom: string) {
     const { synced } = student
 
-    if (synced === undefined) { return "" }
+    if (synced === undefined || synced === null) { return '' }
     if (synced) { return 'Yes' }
 
     return (
