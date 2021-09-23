@@ -98,6 +98,8 @@ SecureHeaders::Configuration.default do |config|
   config.csp_report_only = default_config
   config.csp             = permissive_config # the order of these two declarations matters.
 
+  config.x_frame_options = SecureHeaders::OPT_OUT
+  
   config.cookies = {
     secure: true, 
     httponly: true, 
