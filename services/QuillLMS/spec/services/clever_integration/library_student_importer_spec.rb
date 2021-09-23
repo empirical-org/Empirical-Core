@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CleverIntegration::LibaryStudentImporter do
+RSpec.describe CleverIntegration::LibraryStudentImporter do
   let(:classroom1) { create(:classroom, :from_clever) }
   let(:classroom2) { create(:classroom) }
   let(:classroom_ids) { [classroom1.id, classroom2.id] }

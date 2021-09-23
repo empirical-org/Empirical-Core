@@ -5,6 +5,6 @@ class CleverLibraryStudentImporterWorker
   def perform(classroom_ids, token)
     client = CleverLibrary::Api::Client.new(token)
 
-    CleverIntegration::LibaryStudentImporter.new(classroom_ids, client).run
+    CleverIntegration::LibraryStudentImporter.new(classroom_ids, client).run
   end
 end

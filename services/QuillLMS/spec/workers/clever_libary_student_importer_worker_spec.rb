@@ -10,7 +10,7 @@ describe CleverLibraryStudentImporterWorker do
     before { allow(CleverLibrary::Api::Client).to receive(:new).with(token).and_return(client) }
 
     it 'should run importing with valid teacher id and no selected_classroom_ids' do
-      expect(CleverIntegration::LibaryStudentImporter).to receive(:new).with(classroom_ids, client).and_return(importer)
+      expect(CleverIntegration::LibraryStudentImporter).to receive(:new).with(classroom_ids, client).and_return(importer)
 
       subject.perform(classroom_ids, token)
     end

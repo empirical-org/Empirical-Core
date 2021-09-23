@@ -1,5 +1,5 @@
 module CleverIntegration
-  class LibaryStudentImporter
+  class LibraryStudentImporter
     attr_reader :classroom_ids, :client
 
     def initialize(classroom_ids, client)
