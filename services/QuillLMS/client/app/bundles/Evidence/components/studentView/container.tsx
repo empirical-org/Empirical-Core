@@ -18,7 +18,7 @@ import { generateConceptResults, } from '../../libs/conceptResults'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
-import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted } from '../../helpers/containerActionHelpers';
+import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted, getStrippedPassageHighlights } from '../../helpers/containerActionHelpers';
 import { renderStepLinksAndDirections, renderReadPassageContainer } from '../../helpers/containerRenderHelpers';
 import { postTurkSession } from '../../utils/turkAPI';
 import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE } from '../../../Shared/index'
@@ -485,13 +485,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   transformMarkTags = (node) => {
     const { activities, session } = this.props;
     const { studentHighlights, showReadTheDirectionsModal, doneHighlighting, hasStartedReadPassageStep, activeStep } = this.state
-    const { currentActivity } = activities;
-    const promptIndex = activeStep - 2
-    const activePromptId = currentActivity.prompts[promptIndex] && currentActivity.prompts[promptIndex].id
-    const submittedResponsesForActivePrompt = session.submittedResponses[activePromptId]
-    const lastSubmittedResponse = submittedResponsesForActivePrompt && submittedResponsesForActivePrompt[submittedResponsesForActivePrompt.length - 1]
-    const passageHighlights = lastSubmittedResponse && lastSubmittedResponse.highlight && lastSubmittedResponse.highlight.filter(hl => hl.type === "passage")
-    const strippedPassageHighlights = passageHighlights && passageHighlights.map(highlight => stripHtml(highlight.text));
+    const strippedPassageHighlights = getStrippedPassageHighlights({ activities, session, activeStep });
 
     if (node.name === 'mark') {
       const shouldBeHighlightable = !doneHighlighting && !showReadTheDirectionsModal && hasStartedReadPassageStep
