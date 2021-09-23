@@ -13,7 +13,7 @@ import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession, saveActivitySurveyResponse, } from '../../actions/session'
+import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession, saveActivitySurveyResponse, reportAProblem, } from '../../actions/session'
 import { generateConceptResults, } from '../../libs/conceptResults'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
@@ -392,6 +392,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   onStartPromptSteps = () => this.setState({ hasStartedPromptSteps: true, })
 
+  reportAProblem = (args) => {
+    const { session, } = this.props
+    const { sessionID, } = session
+    reportAProblem({...args, sessionID})
+  }
+
   handleClickDoneHighlighting = () => {
     this.setState({ doneHighlighting: true}, () => {
       if (onMobile()) { window.scrollTo(0, 0) }
@@ -574,6 +580,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
           hasStartedReadPassageStep={hasStartedReadPassageStep}
           onStartPromptSteps={this.onStartPromptSteps}
           onStartReadPassage={this.onStartReadPassage}
+          reportAProblem={this.reportAProblem}
           resetTimers={this.resetTimers}
           scrolledToEndOfPassage={scrolledToEndOfPassage}
           session={session}

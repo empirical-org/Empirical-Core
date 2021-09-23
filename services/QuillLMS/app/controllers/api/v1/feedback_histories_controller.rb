@@ -34,8 +34,24 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
     end
   end
 
+  def store_student_report
+    feedback_session = FeedbackSession.find_by_activity_session_uid(student_report_params[:activity_session_uid])
+    feedback_history = FeedbackHistory.find_by(entry: student_report_params[:entry], feedback_session_uid: feedback_session.uid)
+    new_feedback_history_metadata = feedback_history.metadata
+    new_feedback_history_metadata['student_report'] = student_report_params[:student_report]
+    feedback_history.update(metadata: new_feedback_history_metadata)
+  end
+
   private def set_feedback_history
     @feedback_history = FeedbackHistory.find_by!(id: params[:id])
+  end
+
+  private def student_report_params
+    params.permit(
+      :activity_session_uid,
+      :entry,
+      :student_report
+    )
   end
 
   private def feedback_history_params
@@ -58,7 +74,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
           :category,
           :character
         ]
-      ] 
+      ]
     )
   end
 
@@ -84,7 +100,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
             :category,
             :character
           ]
-        ] 
+        ]
       ]
     )[:feedback_histories]
   end

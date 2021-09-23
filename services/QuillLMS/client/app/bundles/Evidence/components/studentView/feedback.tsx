@@ -3,6 +3,19 @@ import ReactCSSTransitionReplace from 'react-css-transition-replace'
 
 const loopSrc = `${process.env.CDN_URL}/images/icons/loop.svg`
 const smallCheckCircleSrc = `${process.env.CDN_URL}/images/icons/check-circle-small.svg`
+const closeIconSrc = `${process.env.CDN_URL}/images/icons/clear-enabled.svg`
+
+const reportAProblemOptions = [
+  "I don't think this feedback applies to what I wrote",
+  "I don't understand this feedback",
+  "I think my answer is correct"
+]
+
+const ReportAProblemOption = ({ option, handleSelectProblem, }) => {
+  function handleClick() { handleSelectProblem(option) }
+
+  return <button className="report-a-problem-option focus-on-light" onClick={handleClick} type="button">{option}</button>
+}
 
 const feedbackToShow = (lastSubmittedResponse, submittedResponses, prompt, customFeedback) => {
 
@@ -18,7 +31,19 @@ const feedbackForInnerHTML = (feedback) => {
   return {__html: feedback}
 }
 
-const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses, customFeedback, customFeedbackKey }: any) => {
+const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses, customFeedback, customFeedbackKey, reportAProblem, }: any) => {
+  const [reportAProblemExpanded, setReportAProblemExpanded] = React.useState(false)
+  const [reportSubmitted, setReportSubmitted] = React.useState(false)
+
+  function toggleReportAProblemExpanded() { setReportAProblemExpanded(!reportAProblemExpanded) }
+
+  function handleSelectProblem(report) {
+    const { entry, } = lastSubmittedResponse
+    const callback = () => setReportSubmitted(true)
+
+    reportAProblem({ report, entry, callback, })
+  }
+
   let className = 'feedback'
   let imageSrc = loopSrc
   let imageAlt = 'Arrows pointing in opposite directions, making a loop'
@@ -31,8 +56,28 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
   const key = customFeedbackKey || submittedResponses.length
   const feedback = feedbackToShow(lastSubmittedResponse, submittedResponses, prompt, customFeedback)
 
+  let reportAProblemSection = <button className="report-a-problem-button" onClick={toggleReportAProblemExpanded} type="button">Report a problem</button>
+
+  if (reportAProblemExpanded) {
+    const reportAProblemOptionElements = reportSubmitted ? null : <div className="options">{reportAProblemOptions.map(opt => <ReportAProblemOption handleSelectProblem={handleSelectProblem} key={opt} option={opt} />)}</div>
+    const label = reportSubmitted ? 'Thank you for your feedback!' : 'Report a problem'
+    const text = reportSubmitted ? 'For now, please try your best to revise and improve your sentence.' : 'What did you notice?'
+
+    reportAProblemSection = (<section className="report-a-problem-section">
+      <div className="report-a-problem-section-header">
+        <span className="label">{label}</span>
+        <button className="interactive-wrapper focus-on-light" onClick={toggleReportAProblemExpanded} type="button">
+          <img alt="Close" src={closeIconSrc} />
+          <span>Close</span>
+        </button>
+      </div>
+      <span className="text">{text}</span>
+      {reportAProblemOptionElements}
+    </section>)
+  }
+
   return (
-    <div className="feedback-section">
+    <div className={`feedback-section ${reportAProblemExpanded ? 'expanded' : ''}`}>
       <p className="feedback-section-header">
         Feedback<span>{submittedResponses.length} of {prompt.max_attempts} attempts</span>
       </p>
@@ -41,10 +86,13 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
         transitionLeaveTimeout={400}
         transitionName="fade"
       >
-        <div className={className} key={key}>
-          <img alt={imageAlt} src={imageSrc} />
-          <p className="feedback-text" dangerouslySetInnerHTML={feedbackForInnerHTML(feedback)} role="status" />
-        </div>
+        <React.Fragment>
+          <div className={className} key={key}>
+            <img alt={imageAlt} src={imageSrc} />
+            <p className="feedback-text" dangerouslySetInnerHTML={feedbackForInnerHTML(feedback)} role="status" />
+          </div>
+          {reportAProblemSection}
+        </React.Fragment>
       </ReactCSSTransitionReplace>
     </div>
   )
