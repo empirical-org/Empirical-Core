@@ -22,6 +22,7 @@ SecureHeaders::Configuration.default do |config|
     default_src: [
       "'self'", 
       "https://*.quill.org",
+      "https://quill.org",
       "'unsafe-inline'"                                           # TODO: remove once nonce strategy is in place
     ],                                                            # fallback for more specific directives
 
@@ -29,7 +30,8 @@ SecureHeaders::Configuration.default do |config|
 
     script_src: [
       "'self'",
-      "https://*.quill.org",  
+      "https://*.quill.org", 
+      "https://quill.org", 
       "'unsafe-inline'",
       "'unsafe-eval'",                                            # allows use of eval()
       "https://*.clever.com",
@@ -62,13 +64,20 @@ SecureHeaders::Configuration.default do |config|
 
     ], 
 
-    img_src: %w(https://*.quill.org https://*.typekit.net),
+    img_src: [
+      "https://*.quill.org",
+      "https://quill.org",
+      "https://*.typekit.net",
+      "https://*.google.com",
+      "https://*.inspectlet.com"
+    ],
 
     base_uri: %w('self'),                                         # used for relative URLs
 
     style_src: [
       "'self'",
-      "https://*.quill.org",  
+      "https://*.quill.org",
+      "https://quill.org",  
       "'unsafe-inline'",
       "https://*.fontawesome.com",
       "https://*.googleapis.com",
@@ -78,6 +87,7 @@ SecureHeaders::Configuration.default do |config|
     connect_src: [                                                # for XHR, etc
       "'self'",  
       "https://*.quill.org",
+      "https://quill.org",
       "https://*.segment.com",
       "https://*.segment.io",
       "https://*.nr-data.net",
@@ -88,6 +98,7 @@ SecureHeaders::Configuration.default do |config|
       "https://*.pusherapp.com",
       "https://*.pusher.com",
       "wss://*.pusherapp.com",
+      "wss://*.inspectlet.com",
       "https://*.intercom.io",
       "https://*.coview.com",
       "https://*.sentry.io"
