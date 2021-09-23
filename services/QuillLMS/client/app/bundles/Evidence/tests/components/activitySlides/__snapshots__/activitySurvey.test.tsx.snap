@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivitySurvey Component should match snapshot 1`] = `
+<ActivitySurvey
+  saveActivitySurveyResponse={[Function]}
+  sessionID=""
+  setSubmittedActivitySurvey={[Function]}
+>
+  <div
+    className="activity-follow-up-container activity-survey-container"
+  >
+    <div
+      className="activity-survey-content"
+    >
+      <section>
+        <p>
+          We need your help
+        </p>
+        <h1>
+          What did you think of this activity?
+        </h1>
+      </section>
+      <div
+        className="emoji-buttons"
+      >
+        <EmojiButton
+          alt="Angry face"
+          emojiNumber={1}
+          key="Angry face"
+          selectedEmoji={null}
+          setSelectedEmoji={[Function]}
+          src="undefined/images/pages/evidence/angry-face.svg"
+        >
+          <button
+            className="emoji-button "
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Angry face"
+              src="undefined/images/pages/evidence/angry-face.svg"
+            />
+          </button>
+        </EmojiButton>
+        <EmojiButton
+          alt="Frowning face"
+          emojiNumber={2}
+          key="Frowning face"
+          selectedEmoji={null}
+          setSelectedEmoji={[Function]}
+          src="undefined/images/pages/evidence/frowning-face.svg"
+        >
+          <button
+            className="emoji-button "
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Frowning face"
+              src="undefined/images/pages/evidence/frowning-face.svg"
+            />
+          </button>
+        </EmojiButton>
+        <EmojiButton
+          alt="Neutral face"
+          emojiNumber={3}
+          key="Neutral face"
+          selectedEmoji={null}
+          setSelectedEmoji={[Function]}
+          src="undefined/images/pages/evidence/neutral-face.svg"
+        >
+          <button
+            className="emoji-button "
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Neutral face"
+              src="undefined/images/pages/evidence/neutral-face.svg"
+            />
+          </button>
+        </EmojiButton>
+        <EmojiButton
+          alt="Smiling face"
+          emojiNumber={4}
+          key="Smiling face"
+          selectedEmoji={null}
+          setSelectedEmoji={[Function]}
+          src="undefined/images/pages/evidence/smiling-face.svg"
+        >
+          <button
+            className="emoji-button "
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Smiling face"
+              src="undefined/images/pages/evidence/smiling-face.svg"
+            />
+          </button>
+        </EmojiButton>
+        <EmojiButton
+          alt="Excited face"
+          emojiNumber={5}
+          key="Excited face"
+          selectedEmoji={null}
+          setSelectedEmoji={[Function]}
+          src="undefined/images/pages/evidence/excited-face.svg"
+        >
+          <button
+            className="emoji-button "
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Excited face"
+              src="undefined/images/pages/evidence/excited-face.svg"
+            />
+          </button>
+        </EmojiButton>
+      </div>
+    </div>
+    <div
+      className="button-section"
+    >
+      <a
+        className="focus-on-dark"
+      >
+        Skip
+      </a>
+      <button
+        className="quill-button large disabled contained focus-on-dark"
+        onClick={[Function]}
+        type="button"
+      >
+        Send
+      </button>
+    </div>
+  </div>
+</ActivitySurvey>
+`;

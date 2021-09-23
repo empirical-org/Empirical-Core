@@ -1,10 +1,6 @@
 import * as React from "react";
 
-export const PostActivitySlide = ({ responses, user }) => {
-
-  function handleClick() {
-    window.location.href = "/"
-  }
+export const PostActivitySlide = ({ responses, user, handleClick, }) => {
 
   function getRevisionCopy() {
     let count = 0;
@@ -39,7 +35,7 @@ export const PostActivitySlide = ({ responses, user }) => {
         <p className="slide-sub-text" id="second-sub-text">Revising is a sign of being a thoughtful writer. Be proud of the work you did today and celebrate your success!</p>
       </section>
       <section id="button-container">
-        <button className="quill-button large secondary outlined focus-on-dark" onClick={handleClick} type="submit">Save and exit</button>
+        <button className="quill-button large secondary outlined focus-on-dark" onClick={handleClick} type="button">Next</button>
       </section>
     </div>
   );
