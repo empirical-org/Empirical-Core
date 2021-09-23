@@ -1,5 +1,5 @@
 # This migration comes from comprehension (originally 20210122165328)
-class CreateComprehensionHighlights < ActiveRecord::Migration
+class CreateComprehensionHighlights < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_highlights do |t|
       t.references :feedback, null: false

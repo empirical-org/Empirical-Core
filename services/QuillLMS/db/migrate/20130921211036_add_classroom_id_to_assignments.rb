@@ -1,4 +1,4 @@
-class AddClassroomIdToAssignments < ActiveRecord::Migration
+class AddClassroomIdToAssignments < ActiveRecord::Migration[4.2]
   def change
     add_column :assignments, :classroom_id, :integer
     remove_column :assignments, :user_id, :integer

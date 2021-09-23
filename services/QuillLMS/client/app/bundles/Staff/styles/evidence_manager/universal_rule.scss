@@ -1,0 +1,84 @@
+.universal-rule-container {
+  padding: 20px;
+  width: 80vw;
+  .top-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 30px 0px 0px 3px;
+    .rule-type-input {
+      margin-right: 20px;
+    }
+  }
+  .header-container {
+    a {
+      color: #00c2a2
+    }
+    a:hover {
+      color: #29d8bc;
+    }
+  }
+  .sortable-instructions {
+    margin: 10px 0px 10px 3px;
+    font-style: italic;
+  }
+  .universal-rule-table {
+    .universal-rule-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid lightgray;
+      border-radius: 6px;
+      p {
+        margin: 0px
+      }
+    }
+    .data-table-body{
+      max-height: 500px;
+      overflow: auto;
+      .data-table-row {
+        span {
+          span {
+            a {
+              color: #00c2a2;
+            }
+            .a:hover {
+              cursor: pointer;
+              color: #29d8bc
+            }
+          }
+        }
+      }
+      .quill-tooltip-trigger {
+        .quill-tooltip {
+          display: none;
+        }
+      }
+    }
+  }
+  .universal-rules-table {
+    height: 100%;
+  }
+  .button-container {
+    display: flex;
+    justify-content: flex-start;
+    width: 690px;
+    padding: 20px 10px 20px 0px;
+    #edit-rule-button {
+      margin-right: 30px;
+    }
+  }
+  .delete-rule-container {
+    .delete-rule-text {
+      padding: 20px;
+    }
+    .delete-rule-button-container {
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px;
+      #delete-rule-button {
+        margin-right: 10px;
+      }
+    }
+  }
+}

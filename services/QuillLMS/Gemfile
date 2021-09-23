@@ -69,7 +69,7 @@ gem 'intercom', '~> 3.5.23'
 gem 'haversine'
 gem 'configs'
 gem 'rack-test', '~> 0.6.3'
-gem 'secure_headers', '5.2.0'
+gem 'secure_headers', '6.3.2'
 
 # Engines
 gem 'evidence', path: 'engines/evidence'
@@ -92,6 +92,7 @@ gem 'redis', '3.3.5'
 gem 'redis-namespace'
 gem 'redis-rails'
 gem 'redis-rack-cache'
+gem 'actionpack-action_caching'
 
 # JS/APP/UI
 gem 'turbolinks'

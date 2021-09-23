@@ -1,4 +1,4 @@
-class ArchiveStandardLevels < ActiveRecord::Migration
+class ArchiveStandardLevels < ActiveRecord::Migration[4.2]
 
   TO_ARCHIVE = ["Diagnostic", "Quill Tutorial Lesson"]
 

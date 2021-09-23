@@ -1,4 +1,4 @@
-class ChangeAvgCompletionTimeColumn < ActiveRecord::Migration
+class ChangeAvgCompletionTimeColumn < ActiveRecord::Migration[4.2]
   def change
     remove_column :activity_healths, :avg_completion_time, :time
     remove_column :activity_healths, :activity_packs, :string

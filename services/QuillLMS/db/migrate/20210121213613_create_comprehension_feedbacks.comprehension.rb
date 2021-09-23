@@ -1,5 +1,5 @@
 # This migration comes from comprehension (originally 20210121200031)
-class CreateComprehensionFeedbacks < ActiveRecord::Migration
+class CreateComprehensionFeedbacks < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_feedbacks do |t|
       t.references :rule, null: false

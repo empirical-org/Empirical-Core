@@ -1,4 +1,4 @@
-class AddTimespentToActivitySession < ActiveRecord::Migration
+class AddTimespentToActivitySession < ActiveRecord::Migration[4.2]
   def change
     add_column :activity_sessions, :timespent, :integer
   end

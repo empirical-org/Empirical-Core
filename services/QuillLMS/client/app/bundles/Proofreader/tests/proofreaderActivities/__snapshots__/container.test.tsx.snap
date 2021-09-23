@@ -135,7 +135,8 @@ Over the years, Coney Island has expanded to have a few parks with rides. There 
         </div>
       </div>
       <div
-        className="button-section"
+        id="button-container"
+        tabIndex={-1}
       >
         <button
           className="quill-button large contained primary focus-on-light"

@@ -1,5 +1,5 @@
 # This migration comes from comprehension (originally 20200630161345)
-class CreateComprehensionTurkingRounds < ActiveRecord::Migration
+class CreateComprehensionTurkingRounds < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_turking_rounds do |t|
       t.integer :activity_id

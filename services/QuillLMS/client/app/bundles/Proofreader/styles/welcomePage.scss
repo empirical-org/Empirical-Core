@@ -5,11 +5,14 @@
       font-size: 28px;
     }
   }
-  .button-section {
+  #button-container {
     padding: 40px 0 96px;
     background-color: #ededed;
+    &:focus {
+      outline: none;
+    }
   }
-  .header-section, .button-section {
+  .header-section, #button-container {
     max-width: 800px;
     margin: auto;
   }
@@ -54,7 +57,7 @@
     }
   }
   @media (max-width: 832px) {
-    .header-section, .button-section {
+    .header-section, #button-container {
       padding-left: 16px;
       padding-right: 16px;
     }

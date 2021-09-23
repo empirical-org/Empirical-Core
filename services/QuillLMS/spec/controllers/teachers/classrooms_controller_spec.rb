@@ -157,94 +157,127 @@ describe Teachers::ClassroomsController, type: :controller do
 
   describe '#index' do
     let!(:teacher) { create(:teacher) }
-    let!(:classroom1) { create(:classroom)}
-    let!(:classroom2) { create(:classroom)}
-    let!(:classroom3) { create(:classroom)}
-    let!(:classrooms_teacher1) { create(:classrooms_teacher, classroom: classroom1, user: teacher )}
-    let!(:classrooms_teacher2) { create(:classrooms_teacher, classroom: classroom2, user: teacher )}
-    let!(:classrooms_teacher3) { create(:classrooms_teacher, classroom: classroom3, user: teacher )}
 
-    before do
-      allow(controller).to receive(:current_user) { teacher }
-    end
+    before { allow(controller).to receive(:current_user) { teacher } }
 
-    context 'when current user has classrooms i teach' do
+    context 'plain classrooms' do
+      let!(:classroom1) { create(:classroom)}
+      let!(:classroom2) { create(:classroom)}
+      let!(:classroom3) { create(:classroom)}
+      let!(:classrooms_teacher1) { create(:classrooms_teacher, classroom: classroom1, user: teacher )}
+      let!(:classrooms_teacher2) { create(:classrooms_teacher, classroom: classroom2, user: teacher )}
+      let!(:classrooms_teacher3) { create(:classrooms_teacher, classroom: classroom3, user: teacher )}
 
-      it 'should return classrooms in order of creation date' do
-        get :index, as: :json
+      before { allow(controller).to receive(:current_user) { teacher } }
 
-        parsed_response = JSON.parse(response.body)
+      context 'when current user has classrooms i teach' do
 
-        expect(parsed_response["classrooms"][0]["id"]).to eq(classroom3.id)
-        expect(parsed_response["classrooms"][1]["id"]).to eq(classroom2.id)
-        expect(parsed_response["classrooms"][2]["id"]).to eq(classroom1.id)
-      end
-
-      it 'should assign the classrooms and classroom and no students' do
-        get :index
-        expect(assigns(:classrooms)[0]['id']).to eq classroom3.id
-        expect(assigns(:classrooms)[1]['id']).to eq classroom2.id
-        expect(assigns(:classrooms)[2]['id']).to eq classroom1.id
-        expect(assigns(:classrooms)[0][:students]).to be_empty
-        expect(assigns(:classrooms)[1][:students]).to be_empty
-        expect(assigns(:classrooms)[2][:students]).to be_empty
-      end
-
-      context "with activity sesions" do
-        let!(:activity) { create(:activity) }
-        let!(:student) { create(:user, classcode: classroom3.code) }
-        let!(:cu) { create(:classroom_unit, classroom: classroom3, assigned_student_ids: [student.id])}
-        let!(:ua) { create(:unit_activity, unit: cu.unit, activity: activity)}
-        let!(:activity_session) { create(:activity_session, user: student, activity: activity, classroom_unit: cu, state: 'finished') }
-
-        it 'should assign students and number_of_completed_activities' do
-          get :index
-          expect(assigns(:classrooms)[0]['id']).to eq classroom3.id
-          expect(assigns(:classrooms)[0][:students][0][:number_of_completed_activities]).to eq 1
-        end
-      end
-
-      context "with order property" do
-        before do
-          # remove classroom_teacher entries from earlier tests
-          ids = [classrooms_teacher1.id, classrooms_teacher2.id, classrooms_teacher3.id]
-          ClassroomsTeacher.all.each do |classroom_teacher|
-            if !ids.include?(classroom_teacher.id)
-              classroom_teacher.destroy!
-            end
-          end
-        end
-
-        it 'should return classrooms in order of creation date if only some classrooms_teacher entries have order property' do
-          ct1 = ClassroomsTeacher.where(classroom_id: classroom1.id).first
-          ct1.order = 1
-          ct1.save!
-
+        it 'should return classrooms in order of creation date' do
           get :index, as: :json
 
           parsed_response = JSON.parse(response.body)
+
           expect(parsed_response["classrooms"][0]["id"]).to eq(classroom3.id)
           expect(parsed_response["classrooms"][1]["id"]).to eq(classroom2.id)
           expect(parsed_response["classrooms"][2]["id"]).to eq(classroom1.id)
         end
 
-        it 'should return classrooms ordered by order properity if all classrooms_teacher entries have order property' do
-          ct1 = ClassroomsTeacher.where(classroom_id: classroom1.id).first
-          ct1.order = 1
-          ct1.save!
-          ct2 = ClassroomsTeacher.where(classroom_id: classroom2.id).first
-          ct2.order = 0
-          ct2.save!
-          ct3 = ClassroomsTeacher.where(classroom_id: classroom3.id).first
-          ct3.order = 2
-          ct3.save!
+        it 'should assign the classrooms and classroom and no students' do
+          get :index
+          expect(assigns(:classrooms)[0]['id']).to eq classroom3.id
+          expect(assigns(:classrooms)[1]['id']).to eq classroom2.id
+          expect(assigns(:classrooms)[2]['id']).to eq classroom1.id
+          expect(assigns(:classrooms)[0][:students]).to be_empty
+          expect(assigns(:classrooms)[1][:students]).to be_empty
+          expect(assigns(:classrooms)[2][:students]).to be_empty
+        end
 
+        context "with activity sesions" do
+          let!(:activity) { create(:activity) }
+          let!(:student) { create(:user, classcode: classroom3.code) }
+          let!(:cu) { create(:classroom_unit, classroom: classroom3, assigned_student_ids: [student.id])}
+          let!(:ua) { create(:unit_activity, unit: cu.unit, activity: activity)}
+          let!(:activity_session) { create(:activity_session, user: student, activity: activity, classroom_unit: cu, state: 'finished') }
+
+          it 'should assign students and number_of_completed_activities' do
+            get :index
+            expect(assigns(:classrooms)[0]['id']).to eq classroom3.id
+            expect(assigns(:classrooms)[0][:students][0][:number_of_completed_activities]).to eq 1
+          end
+        end
+
+        context "with order property" do
+          before do
+            # remove classroom_teacher entries from earlier tests
+            ids = [classrooms_teacher1.id, classrooms_teacher2.id, classrooms_teacher3.id]
+            ClassroomsTeacher.all.each do |classroom_teacher|
+              if !ids.include?(classroom_teacher.id)
+                classroom_teacher.destroy!
+              end
+            end
+          end
+
+          it 'should return classrooms in order of creation date if only some classrooms_teacher entries have order property' do
+            ct1 = ClassroomsTeacher.where(classroom_id: classroom1.id).first
+            ct1.order = 1
+            ct1.save!
+
+            get :index, as: :json
+
+            parsed_response = JSON.parse(response.body)
+            expect(parsed_response["classrooms"][0]["id"]).to eq(classroom3.id)
+            expect(parsed_response["classrooms"][1]["id"]).to eq(classroom2.id)
+            expect(parsed_response["classrooms"][2]["id"]).to eq(classroom1.id)
+          end
+
+          it 'should return classrooms ordered by order properity if all classrooms_teacher entries have order property' do
+            ct1 = ClassroomsTeacher.where(classroom_id: classroom1.id).first
+            ct1.order = 1
+            ct1.save!
+            ct2 = ClassroomsTeacher.where(classroom_id: classroom2.id).first
+            ct2.order = 0
+            ct2.save!
+            ct3 = ClassroomsTeacher.where(classroom_id: classroom3.id).first
+            ct3.order = 2
+            ct3.save!
+
+            get :index, as: :json
+
+            parsed_response = JSON.parse(response.body)
+            expect(parsed_response["classrooms"][0]["id"]).to eq(classroom2.id)
+            expect(parsed_response["classrooms"][1]["id"]).to eq(classroom1.id)
+            expect(parsed_response["classrooms"][2]["id"]).to eq(classroom3.id)
+          end
+        end
+      end
+    end
+
+    context 'provider-based classrooms' do
+      context 'google classroom' do
+        let(:classroom) { create(:classroom_with_a_couple_students, :from_google, students: [student1, student2]) }
+        let(:student1) { create(:student, :signed_up_with_google) }
+        let(:student2) { create(:student, :signed_up_with_google) }
+        let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher )}
+
+        before do
+          create(:google_classroom_user,
+            :active,
+            provider_classroom_id: classroom.google_classroom_id,
+            provider_user_id: student1.google_id
+          )
+
+          create(:google_classroom_user,
+            :deleted,
+            provider_classroom_id: classroom.google_classroom_id,
+            provider_user_id: student2.google_id
+          )
+        end
+
+        it 'reports which students are no longer in provider classroom' do
           get :index, as: :json
-
           parsed_response = JSON.parse(response.body)
-          expect(parsed_response["classrooms"][0]["id"]).to eq(classroom2.id)
-          expect(parsed_response["classrooms"][1]["id"]).to eq(classroom1.id)
-          expect(parsed_response["classrooms"][2]["id"]).to eq(classroom3.id)
+          expect(parsed_response["classrooms"][0]["students"][0]["synced"]).to eq true
+          expect(parsed_response["classrooms"][0]["students"][1]["synced"]).to eq false
         end
       end
     end

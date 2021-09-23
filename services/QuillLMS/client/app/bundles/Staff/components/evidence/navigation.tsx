@@ -1,47 +1,20 @@
 import * as React from "react";
 import { NavLink, } from 'react-router-dom';
-import { queryCache } from 'react-query';
 
 import SubmissionModal from './shared/submissionModal';
-import ActivityForm from './configureSettings/activityForm';
-
-import { ActivityInterface } from '../../interfaces/evidenceInterfaces';
-import { createActivity } from '../../utils/evidence/activityAPIs';
 
 const Navigation = ({ location, match }) => {
   const { pathname } = location
   const { params, } = match
   const { activityId, } = params
-  const [showCreateActivityModal, setShowCreateActivityModal] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
-  const [errors, setErrors] = React.useState<string[]>([]);
 
   function checkOverviewActive() {
     if(!location) return false;
-    return pathname === '/activities' && !showCreateActivityModal;
+    return pathname === '/activities';
   }
-
-  function toggleCreateActivityModal() {
-    setShowCreateActivityModal(!showCreateActivityModal);
-  }
-
   function toggleSubmissionModal() {
     setShowSubmissionModal(!showSubmissionModal);
-  }
-
-  function submitActivity(activity: ActivityInterface) {
-    createActivity(activity).then((response) => {
-      const { errors } = response;
-      if(errors && errors.length) {
-        setErrors(errors);
-      } else {
-        // update activities cache to display newly created activity
-        queryCache.refetchQueries('activities');
-        setErrors([]);
-        setShowCreateActivityModal(false);
-        setShowSubmissionModal(true);
-      }
-    });
   }
 
   function renderSubmissionModal () {

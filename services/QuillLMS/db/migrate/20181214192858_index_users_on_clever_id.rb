@@ -1,4 +1,4 @@
-class IndexUsersOnCleverId < ActiveRecord::Migration
+class IndexUsersOnCleverId < ActiveRecord::Migration[4.2]
   def change
     add_index :users, :clever_id
   end

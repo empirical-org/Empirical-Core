@@ -1,4 +1,4 @@
-class DropUnusedLargeIndexes < ActiveRecord::Migration
+class DropUnusedLargeIndexes < ActiveRecord::Migration[4.2]
   def change
     remove_index_if_exists :concept_results, :index_concept_results_on_question_type
     remove_index_if_exists :concept_results, :index_concept_results_on_activity_classification_id

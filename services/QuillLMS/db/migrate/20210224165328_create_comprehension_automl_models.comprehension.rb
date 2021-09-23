@@ -1,5 +1,5 @@
 # This migration comes from comprehension (originally 20210209200555)
-class CreateComprehensionAutomlModels < ActiveRecord::Migration
+class CreateComprehensionAutomlModels < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_automl_models do |t|
       t.string :automl_model_id, null: false, unique: true

@@ -1,5 +1,5 @@
 # This migration comes from comprehension (originally 20200608233222)
-class CreateComprehensionPassages < ActiveRecord::Migration
+class CreateComprehensionPassages < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_passages do |t|
       t.integer :activity_id

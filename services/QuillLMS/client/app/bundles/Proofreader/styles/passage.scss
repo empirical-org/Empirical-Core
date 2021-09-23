@@ -155,12 +155,15 @@
     padding: 40px 16px;
     background-color: #ededed;
     min-height: 100vh;
-    .button-container {
+    #button-container {
       max-width: 800px;
       margin: auto;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+      &:focus {
+        outline: none;
+      }
     }
     @media (max-width: 800px) {
       padding-top: 24px;

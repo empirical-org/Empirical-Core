@@ -1,4 +1,4 @@
-class AddIndicesToForeignKeys < ActiveRecord::Migration
+class AddIndicesToForeignKeys < ActiveRecord::Migration[4.2]
   def change
     add_index :teacher_saved_activities, :activity_id
     add_index :teacher_saved_activities, :teacher_id

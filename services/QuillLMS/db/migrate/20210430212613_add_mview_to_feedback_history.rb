@@ -1,4 +1,4 @@
-class AddMviewToFeedbackHistory < ActiveRecord::Migration
+class AddMviewToFeedbackHistory < ActiveRecord::Migration[4.2]
   def up
     sql = <<~SQL 
       CREATE MATERIALIZED VIEW feedback_histories_grouped_by_rule_uid AS
