@@ -17,5 +17,8 @@
 #  fk_rails_...  (feedback_history_id => feedback_histories.id)
 #
 describe StudentProblemReport, type: :model do
-  it { should belong_to(:feedback_history) }
+  context 'validations' do
+    it { should belong_to(:feedback_history) }
+    it { should validate_presence_of(:feedback_history_id) }
+  end
 end
