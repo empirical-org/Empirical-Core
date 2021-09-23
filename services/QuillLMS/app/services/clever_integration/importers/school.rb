@@ -12,5 +12,4 @@ module CleverIntegration::Importers::School
     end
   end
 
-
 end
