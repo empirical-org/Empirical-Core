@@ -14,7 +14,7 @@ class Api::V1::StudentProblemReportsController < Api::ApiController
 
   private def find_feedback_history
     feedback_session = FeedbackSession.find_by_activity_session_uid(student_problem_report_params[:activity_session_uid])
-    @feedback_history = FeedbackHistory.find_by(entry: student_problem_report_params[:entry], feedback_session_uid: feedback_session.uid)
+    @feedback_history = FeedbackHistory.find_by(entry: student_problem_report_params[:entry], feedback_session_uid: feedback_session&.uid)
   end
 
 end
