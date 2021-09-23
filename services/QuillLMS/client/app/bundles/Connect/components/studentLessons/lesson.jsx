@@ -277,13 +277,13 @@ export class Lesson extends React.Component {
   }
 
   nextQuestion = () => {
-    const { dispatch, previewMode, onHandleToggleQuestion } = this.props;
+    const { dispatch, previewMode, handleToggleQuestion } = this.props;
     this.resetTimers()
     if(previewMode) {
       const questionObject = this.getNextPreviewQuestion();
       if(questionObject && questionObject.question) {
         const { question } = questionObject
-        onHandleToggleQuestion(question)
+        handleToggleQuestion(question)
         const action = setCurrentQuestion(question);
         dispatch(action);
       } else {
@@ -432,7 +432,7 @@ export class Lesson extends React.Component {
 
   render() {
     const { sessionInitialized, error, sessionID, saved, session, isLastQuestion } = this.state
-    const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode, onHandleToggleQuestion, questionToPreview, handleTogglePreview, isOnMobile } = this.props
+    const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode, handleToggleQuestion, questionToPreview, handleTogglePreview, isOnMobile } = this.props
     const { data, hasreceiveddata, } = lessons
     const { params } = match
     const { lessonID, } = params;
@@ -456,7 +456,7 @@ export class Lesson extends React.Component {
             markIdentify={this.markIdentify}
             marking="diagnostic"
             nextQuestion={this.nextQuestion}
-            onHandleToggleQuestion={onHandleToggleQuestion}
+            onHandleToggleQuestion={handleToggleQuestion}
             previewMode={previewMode}
             question={question}
             questionToPreview={questionToPreview}
@@ -471,7 +471,7 @@ export class Lesson extends React.Component {
             isLastQuestion={isLastQuestion}
             key={question.key}
             nextQuestion={this.nextQuestion}
-            onHandleToggleQuestion={onHandleToggleQuestion}
+            onHandleToggleQuestion={handleToggleQuestion}
             prefill={this.getLesson().prefill}
             previewMode={previewMode}
             question={question}
@@ -496,7 +496,7 @@ export class Lesson extends React.Component {
             isLastQuestion={isLastQuestion}
             key={question.key}
             nextQuestion={this.nextQuestion}
-            onHandleToggleQuestion={onHandleToggleQuestion}
+            onHandleToggleQuestion={handleToggleQuestion}
             prefill={this.getLesson().prefill}
             previewMode={previewMode}
             question={question}
