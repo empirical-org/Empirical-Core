@@ -5,9 +5,10 @@ RSpec.describe ProviderClassroom do
 
   describe '#active_student?' do
     context 'google classroom' do
-      let(:classroom) { create(:classroom_with_a_couple_students, :from_google, students: [student1, student2]) }
+      let(:classroom) { create(:classroom, :from_google, students: [student1, student2, student3]) }
       let(:student1) { create(:student, :signed_up_with_google) }
       let(:student2) { create(:student, :signed_up_with_google) }
+      let(:student3) { create(:student) }
 
       before do
         create(:google_classroom_user,
@@ -23,14 +24,16 @@ RSpec.describe ProviderClassroom do
         )
       end
 
-      it { expect(subject.active_student?(student1.attributes)).to eq true }
-      it { expect(subject.active_student?(student2.attributes)).to eq false }
+      it { expect(subject.synced_status(student1.attributes)).to eq true }
+      it { expect(subject.synced_status(student2.attributes)).to eq false }
+      it { expect(subject.synced_status(student3.attributes)).to eq nil }
     end
 
     context 'clever classroom' do
-      let(:classroom) { create(:classroom_with_a_couple_students, :from_clever, students: [student1, student2]) }
+      let(:classroom) { create(:classroom, :from_clever, students: [student1, student2, student3]) }
       let(:student1) { create(:student, :signed_up_with_clever) }
       let(:student2) { create(:student, :signed_up_with_clever) }
+      let(:student3) { create(:student) }
 
       before do
         create(:clever_classroom_user,
@@ -46,8 +49,9 @@ RSpec.describe ProviderClassroom do
         )
       end
 
-      it { expect(subject.active_student?(student1.attributes)).to eq false }
-      it { expect(subject.active_student?(student2.attributes)).to eq true }
+      it { expect(subject.synced_status(student1.attributes)).to eq false }
+      it { expect(subject.synced_status(student2.attributes)).to eq true }
+      it { expect(subject.synced_status(student3.attributes)).to eq nil }
     end
   end
 end

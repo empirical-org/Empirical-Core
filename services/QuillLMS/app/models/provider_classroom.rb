@@ -1,12 +1,22 @@
 class ProviderClassroom < SimpleDelegator
-  def active_student?(student_attrs)
-    provider_active_user_ids.include?(provider_user_id(student_attrs))
+  def synced_status(student_attrs)
+    return true if provider_active_user_ids.include?(provider_user_id(student_attrs))
+    return false if provider_deleted_user_ids.include?(provider_user_id(student_attrs))
+    return nil
   end
 
   private def provider_active_user_ids
     @provider_active_user_ids ||=
       provider_classroom_user_class
         .active
+        .where(provider_classroom_id: provider_classroom_id)
+        .pluck(:provider_user_id)
+  end
+
+  private def provider_deleted_user_ids
+    @provider_deleted_user_ids ||=
+      provider_classroom_user_class
+        .deleted
         .where(provider_classroom_id: provider_classroom_id)
         .pluck(:provider_user_id)
   end
