@@ -5,11 +5,11 @@ const loopSrc = `${process.env.CDN_URL}/images/icons/loop.svg`
 const smallCheckCircleSrc = `${process.env.CDN_URL}/images/icons/check-circle-small.svg`
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/clear-enabled.svg`
 
-const reportAProblemOptions = [
+const reportAProblemOptions = (optimal) => ([
   "I don't think this feedback applies to what I wrote",
   "I don't understand this feedback",
-  "I think my answer is correct"
-]
+  optimal ? "I think my answer still has an error" : "I think my answer is correct"
+])
 
 const ReportAProblemOption = ({ option, handleSelectProblem, }) => {
   function handleClick() { handleSelectProblem(option) }
@@ -73,7 +73,7 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
   let reportAProblemSection = <button className="report-a-problem-button" onClick={toggleReportAProblemExpanded} type="button">Report a problem</button>
 
   if (reportAProblemExpanded) {
-    const reportAProblemOptionElements = reportSubmitted ? null : <div className="options">{reportAProblemOptions.map(opt => <ReportAProblemOption handleSelectProblem={handleSelectProblem} key={opt} option={opt} />)}</div>
+    const reportAProblemOptionElements = reportSubmitted ? null : <div className="options">{reportAProblemOptions(lastSubmittedResponse.optimal).map(opt => <ReportAProblemOption handleSelectProblem={handleSelectProblem} key={opt} option={opt} />)}</div>
     const label = reportSubmitted ? 'Thank you for your feedback!' : 'Report a problem'
     const text = reportSubmitted ? 'For now, please try your best to revise and improve your sentence.' : 'What did you notice?'
 
