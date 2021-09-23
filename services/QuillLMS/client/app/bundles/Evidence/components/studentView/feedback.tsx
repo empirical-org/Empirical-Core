@@ -39,9 +39,11 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
 
   function handleSelectProblem(report) {
     const { entry, } = lastSubmittedResponse
+    const { text, } = prompt
+    const entryWithoutStem = entry.replace(text, '').trim()
     const callback = () => setReportSubmitted(true)
 
-    reportAProblem({ report, entry, callback, })
+    reportAProblem({ report, callback, entry: entryWithoutStem, })
   }
 
   let className = 'feedback'
