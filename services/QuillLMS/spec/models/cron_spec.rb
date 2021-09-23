@@ -41,6 +41,11 @@ describe "Cron", type: :model do
       expect(RematchUpdatedQuestionsWorker).to receive(:perform_async)
       Cron.interval_1_day
     end
+
+    it "enqueues RefreshQuestionCacheWorker" do
+      expect(RefreshQuestionCacheWorker).to receive(:perform_async).exactly(7).times
+      Cron.interval_1_day
+    end
   end
 
   describe "#run_saturday" do

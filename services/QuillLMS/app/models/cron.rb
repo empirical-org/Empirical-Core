@@ -22,6 +22,8 @@ class Cron
     SyncVitallyWorker.perform_async
     MaterializedViewRefreshWorker.perform_async
     RematchUpdatedQuestionsWorker.perform_async(date.beginning_of_day, date.end_of_day)
+
+    Question::TYPES.each {|type| RefreshQuestionCacheWorker.perform_async(type) }
   end
 
   def self.run_saturday

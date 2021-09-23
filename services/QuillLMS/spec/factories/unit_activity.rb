@@ -26,5 +26,9 @@ FactoryBot.define do
     trait :lesson_unit_activity do
       activity { create(:lesson_activity, :production, :with_follow_up) }
     end
+
+    trait :evidence_unit_activity do
+      activity { create(:evidence_activity, :production) }
+    end
   end
 end
