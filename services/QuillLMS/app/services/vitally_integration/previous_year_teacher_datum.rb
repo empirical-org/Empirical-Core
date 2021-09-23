@@ -1,8 +1,6 @@
 class PreviousYearTeacherDatum
   include VitallyTeacherStats
 
-  DIAGNOSTIC_ID = 4
-
   def initialize(user, year)
     @year = year
     @user = user

@@ -433,7 +433,10 @@ EmpiricalGrammar::Application.routes.draw do
         end
       end
       resources :shared_cache, only: [:show, :update, :destroy]
-      resources :concept_feedback
+      scope 'activity_type/:activity_type' do
+        resources :concept_feedback, shallow: true
+      end
+
       resources :questions, except: [:destroy] do
         resources :focus_points do
           put :update_all, on: :collection
