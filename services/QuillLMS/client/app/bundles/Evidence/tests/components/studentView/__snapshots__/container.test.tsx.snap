@@ -329,82 +329,10 @@ But how can democracies have representative governments unless all or most of th
       showReadTheDirectionsModal={false}
       stepsHash={
         Object {
-          "step1": Object {
-            "current": null,
-          },
-          "step2": <div
-            class="step clickable active"
-            role="button"
-            tabindex="0"
-          >
-            <div
-              class="step-content"
-            >
-              <div>
-                <div
-                  class="step-header"
-                >
-                  <div
-                    class="step-number active"
-                  >
-                    1
-                  </div>
-                  <p
-                    class="directions"
-                  >
-                    Use information from the text to finish the sentence:
-                  </p>
-                </div>
-                <div
-                  class="active-content-container"
-                >
-                  <div
-                    class="editor-container"
-                  >
-                    <div
-                      class="editor"
-                      contenteditable="true"
-                      data-gramm="false"
-                      spellcheck="false"
-                    >
-                      <p>
-                        Governments should make voting compulsory 
-                        <u>
-                          because
-                        </u>
-                         
-                      </p>
-                    </div>
-                    <button
-                      class="disabled clear-button"
-                      type="button"
-                    >
-                      <img
-                        alt="circle with an x in it"
-                        class="clear"
-                        src="undefined/images/icons/clear-disabled.svg"
-                      />
-                      Clear response
-                    </button>
-                  </div>
-                  <button
-                    class="quill-button focus-on-light disabled"
-                    type="button"
-                  >
-                    <span>
-                      Get feedback
-                    </span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>,
-          "step3": Object {
-            "current": null,
-          },
-          "step4": Object {
-            "current": null,
-          },
+          "step1": [Function],
+          "step2": [Function],
+          "step3": [Function],
+          "step4": [Function],
         }
       }
       studentHighlights={Array []}
@@ -486,82 +414,10 @@ But how can democracies have representative governments unless all or most of th
         showReadTheDirectionsModal={false}
         stepsHash={
           Object {
-            "step1": Object {
-              "current": null,
-            },
-            "step2": <div
-              class="step clickable active"
-              role="button"
-              tabindex="0"
-            >
-              <div
-                class="step-content"
-              >
-                <div>
-                  <div
-                    class="step-header"
-                  >
-                    <div
-                      class="step-number active"
-                    >
-                      1
-                    </div>
-                    <p
-                      class="directions"
-                    >
-                      Use information from the text to finish the sentence:
-                    </p>
-                  </div>
-                  <div
-                    class="active-content-container"
-                  >
-                    <div
-                      class="editor-container"
-                    >
-                      <div
-                        class="editor"
-                        contenteditable="true"
-                        data-gramm="false"
-                        spellcheck="false"
-                      >
-                        <p>
-                          Governments should make voting compulsory 
-                          <u>
-                            because
-                          </u>
-                           
-                        </p>
-                      </div>
-                      <button
-                        class="disabled clear-button"
-                        type="button"
-                      >
-                        <img
-                          alt="circle with an x in it"
-                          class="clear"
-                          src="undefined/images/icons/clear-disabled.svg"
-                        />
-                        Clear response
-                      </button>
-                    </div>
-                    <button
-                      class="quill-button focus-on-light disabled"
-                      type="button"
-                    >
-                      <span>
-                        Get feedback
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>,
-            "step3": Object {
-              "current": null,
-            },
-            "step4": Object {
-              "current": null,
-            },
+            "step1": [Function],
+            "step2": [Function],
+            "step3": [Function],
+            "step4": [Function],
           }
         }
         submitResponse={[Function]}
