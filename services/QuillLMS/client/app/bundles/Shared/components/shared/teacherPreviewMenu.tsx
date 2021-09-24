@@ -3,8 +3,6 @@ import * as Redux from "redux";
 import { connect } from "react-redux";
 import stripHtml from "string-strip-html";
 
-import { getActivity } from "../../../Grammar/actions/grammarActivities";
-import getParameterByName from "../../../Grammar/helpers/getParameterByName";
 import { Question } from '../../../Grammar/interfaces/questions';
 import * as diagnosticActions from '../../../Diagnostic/actions/diagnostics.js';
 import * as connectActions from '../../../Connect/actions';
@@ -225,14 +223,6 @@ const TeacherPreviewMenuComponent = ({
   showPreview,
   titleCards
 }: TeacherPreviewMenuProps) => {
-
-  React.useEffect(() => {
-    // we need to fetch grammar activities here
-    const activityUID = getParameterByName('uid', window.location.href);
-    if (activityUID) {
-      dispatch(getActivity(activityUID))
-    }
-  }, [session]);
 
   const handleToggleMenu = () => {
     onTogglePreview();
