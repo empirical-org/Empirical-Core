@@ -513,6 +513,7 @@ EmpiricalGrammar::Application.routes.draw do
     get '/concepts/concepts_in_use', to: 'concepts#concepts_in_use', only: [:csv], defaults: { format: 'csv' }
     resources :concepts
     resources :evidence, only: [:index]
+    resources :rosters, only: [:index]
     resources :standard_levels, only: [:index, :create, :update]
     resources :standards, only: [:index, :create, :update]
     resources :content_partners, only: [:index, :create, :update]

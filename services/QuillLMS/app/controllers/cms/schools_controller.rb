@@ -156,7 +156,7 @@ class Cms::SchoolsController < Cms::CmsController
     begin
       school = School.find_by(id: params[:school_id])
       if school.blank?
-        flash[:error] = "School not found. Check that the ID is correct and try again."
+        raise "School not found. Check that the ID is correct and try again."
       else
         ActiveRecord::Base.transaction do
           params[:teachers]&.each do |t|
@@ -169,7 +169,7 @@ class Cms::SchoolsController < Cms::CmsController
 
           params[:students]&.each do |s|
             raise "Student with email #{s[:email]} already exists." if User.find_by(email: s[:email]).present?
-            raise "Teacher with email #{s[:teacher_email]} does not exist." if !User.find_by(email: s[:teacher_email])
+            raise "Teacher with email #{s[:teacher_email]} does not exist." if User.find_by(email: s[:teacher_email]).blank?
             raise "Please provide a last name or password for student #{s[:name]}, otherwise this account will have no password." if s[:password].blank? && s[:name].split[1].blank?
             password = s[:password].present? ? s[:password] : s[:name].split[1]
             student = User.create!(name: s[:name], email: s[:email], password: password, password_confirmation: password, role: 'student')
@@ -183,10 +183,10 @@ class Cms::SchoolsController < Cms::CmsController
             StudentsClassrooms.create!(student: student, classroom: classroom)
           end
         end
-        flash[:success] = 'Teachers and Students rostered successfully!'
+        render json: {}
       end
     rescue StandardError => e
-      flash[:error] = e.message
+      render json: {errors: e.message}, status: 422
     end
   end
 

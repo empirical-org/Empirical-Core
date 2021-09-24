@@ -38,6 +38,7 @@ import QuestionsAndAnswersSection from './QuestionsAndAnswersClient';
 import PreAp from './PreApAppClient';
 import Ap from './ApAppClient';
 import SpringBoard from './SpringBoardAppClient.tsx';
+import UploadRostersApp from './UploadRostersAppClient';
 
 import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClient'
 import StudentFeedbackModal from '../../Student/startup/StudentFeedbackModalAppClient'
@@ -83,5 +84,6 @@ ReactOnRails.register({ TeacherGuideApp,
   PreAp,
   Ap,
   SpringBoard,
-  StudentFeedbackModal
+  StudentFeedbackModal,
+  UploadRostersApp
 });
