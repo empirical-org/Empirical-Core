@@ -132,7 +132,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
       json = JSON.parse(response.body)
 
       expect(json.count).to eq 1
-      expect(json.first.has_key?('students')).to be false
+      expect(json.first.key?('students')).to be false
     end
 
     context 'with activity_sessions' do
