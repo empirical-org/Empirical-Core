@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CleverIntegration::Classrooms::Updater do
+RSpec.describe CleverIntegration::ClassroomUpdater do
   let(:clever_id) { '123_456' }
 
   let!(:classroom) do

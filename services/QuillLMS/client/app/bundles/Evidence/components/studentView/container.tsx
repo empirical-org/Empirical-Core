@@ -8,12 +8,12 @@ import RightPanel from './rightPanel'
 import { explanationData } from "../activitySlides/explanationData";
 import ExplanationSlide from "../activitySlides/explanationSlide";
 import WelcomeSlide from "../activitySlides/welcomeSlide";
-import PostActivitySlide from '../activitySlides/postActivitySlide';
+import ActivityFollowUp from './activityFollowUp';
 import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession } from '../../actions/session'
+import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession, saveActivitySurveyResponse, } from '../../actions/session'
 import { generateConceptResults, } from '../../libs/conceptResults'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
@@ -508,13 +508,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   render = () => {
     const { activities, session, user } = this.props
-    const { submittedResponses } = session;
+    const { submittedResponses, sessionID, } = session;
     const { showFocusState, activeStep, activityIsComplete, explanationSlidesCompleted, explanationSlideStep, hasStartedPromptSteps, hasStartedReadPassageStep, doneHighlighting, showReadTheDirectionsModal, completedSteps, scrolledToEndOfPassage, studentHighlights } = this.state
     const stepsHash = {
-      'step1': this.step1,
-      'step2': this.step2,
-      'step3': this.step3,
-      'step4': this.step4,
+      'step1': (node: JSX.Element) => this.step1 = node,
+      'step2': (node: JSX.Element) => this.step2 = node,
+      'step3': (node: JSX.Element) => this.step3 = node,
+      'step4': (node: JSX.Element) => this.step4 = node,
     }
 
     if (!activities.hasReceivedData) { return <LoadingSpinner /> }
@@ -531,7 +531,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     }
     if(activityIsComplete && !window.location.href.includes('turk')) {
       return(
-        <PostActivitySlide responses={submittedResponses} user={user} />
+        <ActivityFollowUp responses={submittedResponses} saveActivitySurveyResponse={saveActivitySurveyResponse} sessionID={sessionID} user={user} />
       );
     }
     return (
