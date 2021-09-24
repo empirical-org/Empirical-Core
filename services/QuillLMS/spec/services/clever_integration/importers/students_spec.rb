@@ -5,13 +5,14 @@ describe CleverIntegration::Importers::Students do
   let!(:classrooms) { [classroom] }
   let!(:district_token) { '1' }
 
+  let(:clever_student_id) { '53ea7d6b2187a9bc1e188be0' }
   let(:clever_student_email) { 'fake@example.net' }
   let(:clever_student_credentials) { Clever::Credentials.new(district_username: 'username') }
   let(:clever_student_name) { Clever::Name.new(first: 'Fake', last: 'Student') }
 
   let(:clever_student) do
     Clever::Student.new(
-      id: "53ea7d6b2187a9bc1e188be0",
+      id: clever_student_id,
       created: "2014-08-12T20:47:39.084Z",
       email: clever_student_email,
       credentials: clever_student_credentials,
@@ -48,5 +49,12 @@ describe CleverIntegration::Importers::Students do
 
   it 'creates CleverClassroom user records' do
     expect { import_students }.to change(CleverClassroomUser, :count).from(0).to(1)
+  end
+
+  context 'email and clever_id pairing are split among two users in database' do
+    let!(:user) { create(:user, email: clever_student_email, clever_id: nil) }
+    let!(:clever_user) { create(:user, email: nil, clever_id: clever_student_id) }
+
+    it { expect { import_students }.not_to change(CleverClassroomUser, :count) }
   end
 end

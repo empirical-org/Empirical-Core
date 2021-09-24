@@ -15,7 +15,7 @@ module CleverIntegration::Importers::Students
     parsed_students_response = parse_students_response(students_response)
     students = create_students(parsed_students_response)
     updated_students = associate_students_to_classroom(students, classroom)
-    update_provider_classroom_users(classroom.clever_id, students.map(&:clever_id))
+    update_provider_classroom_users(classroom.clever_id, students.map(&:clever_id).compact)
     updated_students
   end
 
