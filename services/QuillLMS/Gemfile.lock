@@ -28,6 +28,8 @@ GEM
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    actionpack-action_caching (1.2.2)
+      actionpack (>= 4.0.0)
     actionview (5.1.7)
       activesupport (= 5.1.7)
       builder (~> 3.1)
@@ -659,8 +661,7 @@ GEM
       sprockets-rails
       tilt
     scout_apm (2.4.21)
-    secure_headers (5.2.0)
-      useragent (>= 0.15.0)
+    secure_headers (6.3.2)
     select2-rails (4.0.3)
       thor (~> 0.14)
     selenium-webdriver (3.142.7)
@@ -757,7 +758,6 @@ GEM
       execjs (>= 0.3.0, < 3)
     unicode_utils (1.4.0)
     uniform_notifier (1.12.1)
-    useragent (0.16.10)
     validates_email_format_of (1.6.3)
       i18n
     vcr (4.0.0)
@@ -779,6 +779,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actionpack-action_caching
   active_link_to
   active_model_serializers (~> 0.9.0)
   addressable
@@ -892,7 +893,7 @@ DEPENDENCIES
   sass-rails
   sassc-rails (>= 2.1.0)
   scout_apm
-  secure_headers (= 5.2.0)
+  secure_headers (= 6.3.2)
   select2-rails
   selenium-webdriver
   sentry-raven (>= 0.12.2)
