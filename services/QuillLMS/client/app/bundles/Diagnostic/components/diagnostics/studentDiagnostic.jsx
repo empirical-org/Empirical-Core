@@ -412,6 +412,8 @@ export class StudentDiagnostic extends React.Component {
     const progressPercent = getProgressPercent(playDiagnostic);
     const totalQuestionCount = questionCount(playDiagnostic);
 
+    const studentSession = getParameterByName('student', window.location.href);
+
     return (<ProgressBar
       answeredQuestionCount={displayedAnsweredQuestionCount > totalQuestionCount ? totalQuestionCount : displayedAnsweredQuestionCount}
       label='questions'
@@ -505,7 +507,7 @@ export class StudentDiagnostic extends React.Component {
     return (
       <div>
         <section className="section is-fullheight minus-nav student">
-          {isOnMobile && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreview} />}
+          {isOnMobile && !studentSession && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreview} />}
           {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             <CarouselAnimation>
