@@ -12,7 +12,7 @@ if $4; then status='FINISHED'; else status='STARTED'; fi
 message=":ship: *$1 $2 Deploy* \`$status\`. branch: *_$3_*, deployed by: $username"
 
 if printf '%s\n' "${personal_apps[@]}" | grep "^$2$"; then
-  webhook=https://hooks.slack.com/services/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
+  webhook=$(heroku config:get SLACK_API_WEBHOOK_PERSONAL --app empirical-grammar)
 else 
   webhook=$(heroku config:get SLACK_API_WEBHOOK --app empirical-grammar)
 fi
