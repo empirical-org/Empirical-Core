@@ -42,6 +42,7 @@ import {
 } from '../../../Shared/index'
 
 interface PlayGrammarContainerState {
+  activityFetched: boolean;
   showTurkCode: boolean;
   saved: boolean;
   error: boolean;
@@ -71,6 +72,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       super(props);
 
       this.state = {
+        activityFetched: false,
         showTurkCode: false,
         saving: false,
         saved: false,
@@ -149,7 +151,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     }
 
     componentDidUpdate(prevProps) {
-      const { timeTracking, } = this.state
+      const { timeTracking, activityFetched } = this.state
       const { grammarActivities, dispatch, session, } = this.props
       const { hasreceiveddata } = grammarActivities
 
@@ -159,8 +161,10 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         document.title = `Quill.org | ${grammarActivities.currentActivity.title}`
       }
 
-      if (!hasreceiveddata && activityUID) {
-        dispatch(getActivity(activityUID))
+      if (!hasreceiveddata && activityUID && !activityFetched) {
+        this.setState({ activityFetched: true }, () => {
+          dispatch(getActivity(activityUID))
+        });
       }
 
       if (!_.isEqual(prevProps.session.timeTracking, session.timeTracking)) {
