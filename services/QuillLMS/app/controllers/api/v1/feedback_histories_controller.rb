@@ -58,7 +58,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
           :category,
           :character
         ]
-      ] 
+      ]
     )
   end
 
@@ -84,7 +84,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
             :category,
             :character
           ]
-        ] 
+        ]
       ]
     )[:feedback_histories]
   end

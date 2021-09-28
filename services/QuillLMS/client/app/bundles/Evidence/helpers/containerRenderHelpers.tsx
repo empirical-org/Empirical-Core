@@ -1,7 +1,7 @@
 import * as React from "react"
 import ReactHtmlParser from 'react-html-parser'
 
-import { onMobile, orderedSteps, everyOtherStepCompleted, formatHtmlForPassage, READ_PASSAGE_STEP, ALL_STEPS } from './containerActionHelpers'
+import { onMobile, orderedSteps, everyOtherStepCompleted, addPTagsToPassages, READ_PASSAGE_STEP, ALL_STEPS } from './containerActionHelpers'
 
 import DirectionsSectionAndModal from '../components/studentView/directionsSectionAndModal'
 import StepLink from '../components/studentView/stepLink'
@@ -97,7 +97,8 @@ export const renderPromptSteps = ({
   completedSteps,
   doneHighlighting,
   showReadTheDirectionsModal,
-  stepsHash
+  stepsHash,
+  reportAProblem,
 }) => {
   const { currentActivity, } = activities
   const { submittedResponses, hasReceivedData, } = session
@@ -119,6 +120,7 @@ export const renderPromptSteps = ({
       key={stepNumber}
       passedRef={stepsHash[`step${stepNumber}`]} // eslint-disable-line react/jsx-no-bind
       prompt={prompt}
+      reportAProblem={reportAProblem}
       stepNumber={stepNumber}
       stepNumberComponent={renderStepNumber(stepNumber, activeStep, completedSteps)}
       submitResponse={submitResponse}
@@ -139,9 +141,7 @@ export const renderReadPassageContainer = ({
   hasStartedPromptSteps,
   hasStartedReadPassageStep,
   scrolledToEndOfPassage,
-  session,
   showReadTheDirectionsModal,
-  studentHighlights,
   transformMarkTags
  }) => {
   const { currentActivity, } = activities
@@ -155,12 +155,13 @@ export const renderReadPassageContainer = ({
   if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && onMobile()) {
     return
   }
-
+  const formattedPassages = addPTagsToPassages(passages, scrolledToEndOfPassage)
+  const formattedPassage = formattedPassages ? formattedPassages[0] : '';
   return (<div className="read-passage-container" onScroll={handleReadPassageContainerScroll}>
     <div className={innerContainerClassName}>
       <h1 className="title">{title}</h1>
       <HeaderImage headerImage={headerImage} passage={passages[0]} />
-      <div className="passage">{ReactHtmlParser(formatHtmlForPassage({ activeStep, studentHighlights, scrolledToEndOfPassage, activities, session}), { transform: transformMarkTags })}</div>
+      <div className="passage">{ReactHtmlParser(formattedPassage, { transform: transformMarkTags })}</div>
     </div>
   </div>)
 }
