@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CleverIntegration::Classrooms::Importer do
+RSpec.describe CleverIntegration::ClassroomImporter do
   let(:name) { 'clever classroom' }
 
   let(:data) do
