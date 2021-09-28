@@ -352,6 +352,53 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
+
+  describe '#teacher_dashboard_metrics' do
+    let!(:teacher) { create(:teacher) }
+
+    before do
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    it 'should return the summary with no data for no activity' do
+      get :teacher_dashboard_metrics, as: :json
+
+      expect(response.status).to eq(200)
+
+      expect(response.body).to eq({
+        weekly_assigned_activities_count:  0,
+        yearly_assigned_activities_count:  0,
+        weekly_completed_activities_count: 0,
+        yearly_completed_activities_count: 0
+      }.to_json)
+    end
+
+    context 'with data' do
+      let!(:classrooms_teacher) {create(:classrooms_teacher, user_id: teacher.id)}
+      let!(:students) {create_list(:student, 2)}
+      let!(:classroom_unit) {create(:classroom_unit, classroom: classrooms_teacher.classroom, assigned_student_ids: students.map { |s| s[:id]})}
+
+      before do
+        students.map { |s| create(:students_classrooms, student: s, classroom: classrooms_teacher.classroom) }
+
+        create(:activity_session, :finished, user: students.first, classroom_unit: classroom_unit )
+      end
+
+      it 'should return the summary json' do
+        get :teacher_dashboard_metrics, as: :json
+
+        expect(response.status).to eq(200)
+
+        expect(response.body).to eq({
+          weekly_assigned_activities_count:  2,
+          yearly_assigned_activities_count:  2,
+          weekly_completed_activities_count: 1,
+          yearly_completed_activities_count: 1
+        }.to_json)
+      end
+    end
+  end
+
   describe '#premium' do
     let(:teacher) { create(:teacher) }
 
@@ -494,15 +541,10 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#update_google_classrooms' do
     let(:teacher) { create(:teacher) }
-    let(:google_classroom_id_1) { 123 }
-    let(:google_classroom_id_2) { 456 }
+    let(:google_classroom_id1) { 123 }
+    let(:google_classroom_id2) { 456 }
 
-    let(:selected_classrooms) do
-      [
-        { id: google_classroom_id_1 },
-        { id: google_classroom_id_2 }
-      ]
-    end
+    let(:selected_classrooms) { [{ id: google_classroom_id1 }, { id: google_classroom_id2 }] }
 
     before { allow(controller).to receive(:current_user) { teacher } }
 
@@ -511,9 +553,8 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
       classrooms = JSON.parse(response.body).deep_symbolize_keys.fetch(:classrooms)
 
-      expect(classrooms.count).to eq 2
-      expect(classrooms.first[:google_classroom_id]).to eq google_classroom_id_1
-      expect(classrooms.second[:google_classroom_id]).to eq google_classroom_id_2
+      google_classroom_ids = classrooms.map { |classroom| classroom[:google_classroom_id] }.sort
+      expect(google_classroom_ids).to eq [google_classroom_id1, google_classroom_id2]
    end
   end
 

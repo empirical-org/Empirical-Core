@@ -1,4 +1,4 @@
-module GoogleIntegration
+module CleverIntegration
   class ClassroomImporter
     attr_reader :data
 
@@ -11,19 +11,15 @@ module GoogleIntegration
     end
 
     private def classroom
-      ::Classroom.unscoped.find_by(google_classroom_id: google_classroom_id, teacher_id: teacher_id)
+      ::Classroom.unscoped.find_by(clever_id: clever_id)
     end
 
-    private def google_classroom_id
-      data[:google_classroom_id]
+    private def clever_id
+      data[:clever_id]
     end
 
     private def importer_class
       classroom.present? ? ClassroomUpdater : ClassroomCreator
-    end
-
-    private def teacher_id
-      data[:teacher_id]
     end
   end
 end
