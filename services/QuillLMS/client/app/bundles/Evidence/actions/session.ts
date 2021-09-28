@@ -132,6 +132,24 @@ export const saveActivitySurveyResponse = ({ sessionID, activitySurveyResponse, 
   })
 }
 
+export const reportAProblem = ({ sessionID, entry, report, callback, }) => {
+  const reportAProblemUrl = `${process.env.DEFAULT_URL}/api/v1/student_problem_reports`
+
+  const requestObject = {
+    url: reportAProblemUrl,
+    body: {
+      entry,
+      report,
+      activity_session_uid: sessionID
+    },
+    json: true,
+  }
+
+  request.post(requestObject, (e, r, body) => {
+    if (callback) callback()
+  })
+}
+
 export const getFeedback = (args: GetFeedbackArguments) => {
   const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, } = args
   return (dispatch: Function) => {

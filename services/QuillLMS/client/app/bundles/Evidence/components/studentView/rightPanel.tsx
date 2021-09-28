@@ -21,6 +21,7 @@ const RightPanel = ({
   hasStartedReadPassageStep,
   onStartPromptSteps,
   onStartReadPassage,
+  reportAProblem,
   resetTimers,
   scrolledToEndOfPassage,
   session,
@@ -92,6 +93,7 @@ const RightPanel = ({
       completeStep={completeStep}
       doneHighlighting={doneHighlighting}
       handleDoneReadingClick={handleDoneReadingClick}
+      reportAProblem={reportAProblem}
       resetTimers={resetTimers}
       session={session}
       showReadTheDirectionsModal={showReadTheDirectionsModal}

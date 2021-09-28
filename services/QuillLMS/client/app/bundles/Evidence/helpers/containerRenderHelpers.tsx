@@ -97,7 +97,8 @@ export const renderPromptSteps = ({
   completedSteps,
   doneHighlighting,
   showReadTheDirectionsModal,
-  stepsHash
+  stepsHash,
+  reportAProblem,
 }) => {
   const { currentActivity, } = activities
   const { submittedResponses, hasReceivedData, } = session
@@ -119,6 +120,7 @@ export const renderPromptSteps = ({
       key={stepNumber}
       passedRef={stepsHash[`step${stepNumber}`]} // eslint-disable-line react/jsx-no-bind
       prompt={prompt}
+      reportAProblem={reportAProblem}
       stepNumber={stepNumber}
       stepNumberComponent={renderStepNumber(stepNumber, activeStep, completedSteps)}
       submitResponse={submitResponse}

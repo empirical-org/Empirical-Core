@@ -317,6 +317,7 @@ But how can democracies have representative governments unless all or most of th
       hasStartedReadPassageStep={true}
       onStartPromptSteps={[Function]}
       onStartReadPassage={[Function]}
+      reportAProblem={[Function]}
       resetTimers={[Function]}
       scrolledToEndOfPassage={false}
       session={
@@ -403,6 +404,7 @@ But how can democracies have representative governments unless all or most of th
         }
         doneHighlighting={false}
         handleDoneReadingClick={[Function]}
+        reportAProblem={[Function]}
         resetTimers={[Function]}
         session={
           Object {
@@ -492,6 +494,7 @@ But how can democracies have representative governments unless all or most of th
                     "text": "Governments should make voting compulsory because",
                   }
                 }
+                reportAProblem={[Function]}
                 stepNumber={2}
                 stepNumberComponent={
                   <div
@@ -623,6 +626,7 @@ But how can democracies have representative governments unless all or most of th
                     "text": "Governments should make voting compulsory, but",
                   }
                 }
+                reportAProblem={[Function]}
                 stepNumber={3}
                 stepNumberComponent={
                   <div
@@ -684,6 +688,7 @@ But how can democracies have representative governments unless all or most of th
                     "text": "Governments should make voting compulsory so",
                   }
                 }
+                reportAProblem={[Function]}
                 stepNumber={4}
                 stepNumberComponent={
                   <div
