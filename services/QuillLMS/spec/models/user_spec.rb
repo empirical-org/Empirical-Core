@@ -741,9 +741,11 @@ describe User, type: :model do
   end
 
   describe '#clear_data' do
+    let(:user) { create(:user) }
+
     it 'calls the ClearUserDataWorker with the user id' do
-      let(:user) { create(:user) }
       expect(ClearUserDataWorker).to receive(:perform_async).with(user.id)
+      user.clear_data
     end
   end
 
@@ -1262,7 +1264,7 @@ describe User, type: :model do
     it 'returns all deleted users' do
       expect(User.count).to eq 2
 
-      expect { to_be_deleted_user.clear_data }.to change { User.deleted_users.count }.from(0).to(1)
+      expect { ClearUserDataWorker.new.perform(to_be_deleted_user.id) }.to change { User.deleted_users.count }.from(0).to(1)
     end
   end
 
