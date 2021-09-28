@@ -38,14 +38,6 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
     @feedback_history = FeedbackHistory.find_by!(id: params[:id])
   end
 
-  private def student_report_params
-    params.permit(
-      :activity_session_uid,
-      :entry,
-      :student_report
-    )
-  end
-
   private def feedback_history_params
     params.require(:feedback_history).permit(
       :feedback_session_uid,
