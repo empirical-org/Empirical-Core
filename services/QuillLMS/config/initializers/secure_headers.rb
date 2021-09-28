@@ -40,6 +40,8 @@ SecureHeaders::Configuration.default do |config|
 
     font_src: [
       "'self'",
+      "https://intercomcdn.com",
+      "https://*.intercomcdn.com",
       "https://quill.org",
       "https://*.quill.org",
       "https://*.typekit.net",
@@ -49,11 +51,16 @@ SecureHeaders::Configuration.default do |config|
     ], 
 
     img_src: [
+      "https://heapanalytics.com",
+      "https://*.heapanalytics.com",
+      "https://intercomassets.com",
+      "https://*.intercomassets.com",
       "https://*.quill.org",
       "https://quill.org",
       "https://*.typekit.net",
       "https://*.google.com",
-      "https://*.inspectlet.com"
+      "https://*.inspectlet.com",
+      "https://*.amazonaws.com"
     ],
 
     base_uri: %w('self'),                                         # used for relative URLs
