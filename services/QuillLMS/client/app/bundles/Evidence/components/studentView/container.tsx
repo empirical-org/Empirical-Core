@@ -13,12 +13,12 @@ import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession, saveActivitySurveyResponse, } from '../../actions/session'
+import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession, saveActivitySurveyResponse, reportAProblem, } from '../../actions/session'
 import { generateConceptResults, } from '../../libs/conceptResults'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
-import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted } from '../../helpers/containerActionHelpers';
+import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted, getStrippedPassageHighlights } from '../../helpers/containerActionHelpers';
 import { renderStepLinksAndDirections, renderReadPassageContainer } from '../../helpers/containerRenderHelpers';
 import { postTurkSession } from '../../utils/turkAPI';
 import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE } from '../../../Shared/index'
@@ -392,6 +392,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   onStartPromptSteps = () => this.setState({ hasStartedPromptSteps: true, })
 
+  reportAProblem = (args) => {
+    const { session, } = this.props
+    const { sessionID, } = session
+    reportAProblem({...args, sessionID})
+  }
+
   handleClickDoneHighlighting = () => {
     this.setState({ doneHighlighting: true}, () => {
       if (onMobile()) { window.scrollTo(0, 0) }
@@ -483,7 +489,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   transformMarkTags = (node) => {
-    const { studentHighlights, showReadTheDirectionsModal, doneHighlighting, hasStartedReadPassageStep, } = this.state
+    const { activities, session } = this.props;
+    const { studentHighlights, showReadTheDirectionsModal, doneHighlighting, hasStartedReadPassageStep, activeStep } = this.state
+    const strippedPassageHighlights = getStrippedPassageHighlights({ activities, session, activeStep });
+
     if (node.name === 'mark') {
       const shouldBeHighlightable = !doneHighlighting && !showReadTheDirectionsModal && hasStartedReadPassageStep
       const innerElements = node.children.map((n, i) => convertNodeToElement(n, i, this.transformMarkTags))
@@ -493,6 +502,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       className += shouldBeHighlightable  ? ' highlightable' : ''
       if (!shouldBeHighlightable) { return <mark className={className}>{innerElements}</mark>}
       return <mark className={className} onClick={this.handleHighlightClick} onKeyDown={this.handleHighlightKeyDown} role="button" tabIndex={0}>{innerElements}</mark>
+    }
+    if(node.name === 'p' && activeStep > 1 && strippedPassageHighlights) {
+      const stringifiedInnerElements = node.children.map(n => n.data ? n.data : n.children[0].data).join('')
+      if(stringifiedInnerElements && strippedPassageHighlights.includes(stringifiedInnerElements)) {
+        return <p><span className="passage-highlight">{stringifiedInnerElements}</span></p>
+      }
     }
   }
 
@@ -555,9 +570,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
           hasStartedPromptSteps,
           hasStartedReadPassageStep,
           scrolledToEndOfPassage,
-          session,
           showReadTheDirectionsModal,
-          studentHighlights,
           transformMarkTags: this.transformMarkTags
         })}
         <RightPanel
@@ -574,6 +587,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
           hasStartedReadPassageStep={hasStartedReadPassageStep}
           onStartPromptSteps={this.onStartPromptSteps}
           onStartReadPassage={this.onStartReadPassage}
+          reportAProblem={this.reportAProblem}
           resetTimers={this.resetTimers}
           scrolledToEndOfPassage={scrolledToEndOfPassage}
           session={session}

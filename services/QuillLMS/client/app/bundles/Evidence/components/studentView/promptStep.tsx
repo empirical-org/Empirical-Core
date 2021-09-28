@@ -17,6 +17,7 @@ interface PromptStepProps {
   stepNumberComponent: JSX.Element,
   stepNumber: number;
   activateStep: (event: any) => void;
+  reportAProblem: ({}) => void;
   prompt: any,
   passedRef: any,
   submittedResponses: Array<any>,
@@ -287,7 +288,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
   renderFeedbackSection = () => {
     const { customFeedback, customFeedbackKey, } = this.state
-    const { submittedResponses, prompt, } = this.props
+    const { submittedResponses, prompt, reportAProblem, } = this.props
     if (submittedResponses.length === 0 && !(customFeedback && customFeedbackKey)) { return }
 
     return (<Feedback
@@ -295,6 +296,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       customFeedbackKey={customFeedbackKey}
       lastSubmittedResponse={this.lastSubmittedResponse()}
       prompt={prompt}
+      reportAProblem={reportAProblem}
       submittedResponses={submittedResponses}
     />)
   }

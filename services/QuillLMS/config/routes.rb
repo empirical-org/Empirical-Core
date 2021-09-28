@@ -451,6 +451,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
       resources :active_activity_sessions, only: [:show, :update, :destroy]
       resources :activity_survey_responses, only: [:create]
+      resources :student_problem_reports, only: [:create]
 
       mount Evidence::Engine => "/evidence", as: :evidence
     end
