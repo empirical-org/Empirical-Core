@@ -20,4 +20,5 @@ class StudentProblemReport < ApplicationRecord
   belongs_to :feedback_history
 
   validates_presence_of :feedback_history_id
+  validates_presences_of :report
 end
