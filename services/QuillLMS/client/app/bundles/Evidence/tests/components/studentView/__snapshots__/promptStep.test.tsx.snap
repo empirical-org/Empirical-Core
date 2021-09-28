@@ -243,7 +243,7 @@ exports[`PromptStep component active state when a profane response has been subm
             submittedResponses={Array []}
           >
             <div
-              className="feedback-section"
+              className="feedback-section "
             >
               <p
                 className="feedback-section-header"
@@ -302,6 +302,13 @@ exports[`PromptStep component active state when a profane response has been subm
                           role="status"
                         />
                       </div>
+                      <button
+                        className="report-a-problem-button"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        Report a problem
+                      </button>
                     </CSSTransitionGroupChild>
                   </span>
                 </div>
@@ -442,7 +449,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
             submittedResponses={Array []}
           >
             <div
-              className="feedback-section"
+              className="feedback-section "
             >
               <p
                 className="feedback-section-header"
@@ -501,6 +508,13 @@ exports[`PromptStep component active state when a response with multiple sentenc
                           role="status"
                         />
                       </div>
+                      <button
+                        className="report-a-problem-button"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        Report a problem
+                      </button>
                     </CSSTransitionGroupChild>
                   </span>
                 </div>
@@ -670,7 +684,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
             }
           >
             <div
-              className="feedback-section"
+              className="feedback-section "
             >
               <p
                 className="feedback-section-header"
@@ -729,6 +743,13 @@ exports[`PromptStep component active state when a suboptimal response has been s
                           role="status"
                         />
                       </div>
+                      <button
+                        className="report-a-problem-button"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        Report a problem
+                      </button>
                     </CSSTransitionGroupChild>
                   </span>
                 </div>
@@ -869,7 +890,7 @@ exports[`PromptStep component active state when a too-long response has been sub
             submittedResponses={Array []}
           >
             <div
-              className="feedback-section"
+              className="feedback-section "
             >
               <p
                 className="feedback-section-header"
@@ -928,6 +949,13 @@ exports[`PromptStep component active state when a too-long response has been sub
                           role="status"
                         />
                       </div>
+                      <button
+                        className="report-a-problem-button"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        Report a problem
+                      </button>
                     </CSSTransitionGroupChild>
                   </span>
                 </div>
@@ -1068,7 +1096,7 @@ exports[`PromptStep component active state when a too-short response has been su
             submittedResponses={Array []}
           >
             <div
-              className="feedback-section"
+              className="feedback-section "
             >
               <p
                 className="feedback-section-header"
@@ -1127,6 +1155,13 @@ exports[`PromptStep component active state when a too-short response has been su
                           role="status"
                         />
                       </div>
+                      <button
+                        className="report-a-problem-button"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        Report a problem
+                      </button>
                     </CSSTransitionGroupChild>
                   </span>
                 </div>
@@ -1284,7 +1319,7 @@ exports[`PromptStep component active state when an optimal response has been sub
             }
           >
             <div
-              className="feedback-section"
+              className="feedback-section "
             >
               <p
                 className="feedback-section-header"
@@ -1343,6 +1378,13 @@ exports[`PromptStep component active state when an optimal response has been sub
                           role="status"
                         />
                       </div>
+                      <button
+                        className="report-a-problem-button"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        Report a problem
+                      </button>
                     </CSSTransitionGroupChild>
                   </span>
                 </div>
@@ -1556,7 +1598,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             }
           >
             <div
-              className="feedback-section"
+              className="feedback-section "
             >
               <p
                 className="feedback-section-header"
@@ -1617,6 +1659,13 @@ exports[`PromptStep component active state when the max attempts have been reach
                           role="status"
                         />
                       </div>
+                      <button
+                        className="report-a-problem-button"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        Report a problem
+                      </button>
                     </CSSTransitionGroupChild>
                   </span>
                 </div>
@@ -1774,7 +1823,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             }
           >
             <div
-              className="feedback-section"
+              className="feedback-section "
             >
               <p
                 className="feedback-section-header"
@@ -1833,6 +1882,13 @@ exports[`PromptStep component active state when the max attempts have been reach
                           role="status"
                         />
                       </div>
+                      <button
+                        className="report-a-problem-button"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        Report a problem
+                      </button>
                     </CSSTransitionGroupChild>
                   </span>
                 </div>

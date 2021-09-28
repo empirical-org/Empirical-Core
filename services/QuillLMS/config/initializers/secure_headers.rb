@@ -34,7 +34,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.intercom.io",
       "https://*.intercomcdn.com",
       "https://*.coview.com",
-      "https://*.sentry.io"
+      "https://*.sentry.io",
+      "https://*.heapanalytics.com"
     ],                                                            
 
     font_src: [
@@ -84,6 +85,7 @@ SecureHeaders::Configuration.default do |config|
       "wss://*.pusherapp.com",
       "wss://*.inspectlet.com",
       "https://*.intercom.io",
+      "wss://*.intercom.io",
       "https://*.coview.com",
       "https://*.sentry.io"
     ]

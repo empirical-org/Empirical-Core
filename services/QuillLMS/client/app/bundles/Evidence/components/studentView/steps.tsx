@@ -15,7 +15,8 @@ const Steps = ({
   doneHighlighting,
   resetTimers,
   showReadTheDirectionsModal,
-  stepsHash
+  stepsHash,
+  reportAProblem,
 }) => {
   return(
     <div className="steps-outer-container" onScroll={resetTimers}>
@@ -32,7 +33,8 @@ const Steps = ({
           completedSteps,
           doneHighlighting,
           showReadTheDirectionsModal,
-          stepsHash
+          stepsHash,
+          reportAProblem,
         })}
       </div>
     </div>
