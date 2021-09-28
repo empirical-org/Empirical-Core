@@ -8,6 +8,7 @@ import EvidenceIndex from './EvidenceIndex.tsx';
 import BackpackIndex from '../containers/BackpackIndex.tsx'
 import AttributesManagerIndex from './AttributesManagerIndex'
 import ActivityFormIndex from './ActivityFormIndex'
+import UploadRostersAppClient from './UploadRostersAppClient'
 
 ReactOnRails.register({
   ConceptsIndex,
@@ -15,4 +16,5 @@ ReactOnRails.register({
   EvidenceIndex,
   AttributesManagerIndex,
   ActivityFormIndex,
+  UploadRostersAppClient
 });

@@ -2,14 +2,16 @@ import * as React from "react";
 import XLSX from 'xlsx'
 import request from 'request'
 
-import getAuthToken from '../components/modules/get_auth_token'
-
 
 export const UploadRosters = () => {
 
   const [schoolId, setSchoolId] = React.useState<Number>();
   const [teachers, setTeachers] = React.useState<Array<any>>([]);
   const [students, setStudents] = React.useState<Array<any>>([])
+
+  function getAuthToken() {
+    return document.getElementsByName('csrf-token')[0] ? document.getElementsByName('csrf-token')[0].content : 0;
+  }
 
   function handleSchoolIdChange(e) {
     setSchoolId(e.target.value)
@@ -22,14 +24,14 @@ export const UploadRosters = () => {
       const workbook = XLSX.read(data, { type: 'array', });
 
       const sheet1 = workbook.Sheets[workbook.SheetNames[0]]
-      const sheet1_array = XLSX.utils.sheet_to_json(sheet1, {header:1})
-      const teachers = sheet1_array.slice(1).map((row: Array<String>) => {
+      const sheet1Array = XLSX.utils.sheet_to_json(sheet1, {header:1})
+      const teachers = sheet1Array.slice(1).map((row: Array<String>) => {
         return { "name": row[0], "email": row[1], "password": row[2]}
       });
 
       const sheet2 = workbook.Sheets[workbook.SheetNames[1]]
-      const sheet2_array = XLSX.utils.sheet_to_json(sheet2, {header:1})
-      const students = sheet2_array.slice(1).map((row: Array<String>) => {
+      const sheet2Array = XLSX.utils.sheet_to_json(sheet2, {header:1})
+      const students = sheet2Array.slice(1).map((row: Array<String>) => {
         return { "name": row[0], "email": row[1], "password": row[2], classroom: row[3], teacher_name: row[4], teacher_email: row[5]}
       });
       setTeachers(teachers)
