@@ -94,7 +94,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.intercom.io",
       "wss://*.intercom.io",
       "https://*.coview.com",
-      "https://*.sentry.io"
+      "https://*.sentry.io",
+      "wss://*.quill.org"
     ]
   }
 
