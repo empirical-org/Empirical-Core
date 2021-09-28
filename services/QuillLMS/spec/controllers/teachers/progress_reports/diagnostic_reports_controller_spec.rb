@@ -119,6 +119,44 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     end
   end
 
+  context '#classrooms_with_students' do
+    let!(:student1) { create(:user, classcode: classroom.code) }
+    let!(:student2) { create(:user, classcode: classroom.code) }
+    let!(:student3) { create(:user, classcode: classroom.code) }
+    let!(:cu) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [student1.id, student2.id, student3.id])}
+    let!(:ua) { create(:unit_activity, unit: unit, activity: activity)}
+
+    it 'should return empty arrays when there are no activity_sessions' do
+      get :classrooms_with_students, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
+
+      json = JSON.parse(response.body)
+
+      expect(json.count).to eq 1
+      expect(json.first.key?('students')).to be false
+    end
+
+    context 'with activity_sessions' do
+      before do
+        create(:activity_session, :finished, user: student1, activity: activity, classroom_unit: cu)
+        create(:activity_session, :finished, user: student2, activity: activity, classroom_unit: cu)
+        # the started student is not returned
+        create(:activity_session, :started, user: student3, activity: activity, classroom_unit: cu)
+      end
+
+      it 'should return report data for completed student sessions' do
+        Rails.logger.info "\n\n\nStart"
+        get :classrooms_with_students, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
+
+        expect(response).to be_success
+
+        json = JSON.parse(response.body)
+
+        expect(json.count).to eq 1
+        expect(json.first['students'].count).to eq 2
+      end
+    end
+  end
+
   context 'lesson_recommendations_for_classroom' do
     before do
       # stub complicated query that returns activities

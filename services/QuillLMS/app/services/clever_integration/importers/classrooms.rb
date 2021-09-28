@@ -1,5 +1,4 @@
 module CleverIntegration::Importers::Classrooms
-
   def self.run(teacher, district_token)
     sections = fetch_clever_teacher(teacher.clever_id, district_token)
     sections_response = sections.data
@@ -18,7 +17,7 @@ module CleverIntegration::Importers::Classrooms
   end
 
   def self.create_classrooms(sections_data)
-    sections_data.map { |section_data| CleverIntegration::Classrooms::Importer.new(section_data).run }
+    sections_data.map { |section_data| CleverIntegration::ClassroomImporter.new(section_data).run }
   end
 
   def self.associate_classrooms_to_teacher(classrooms, teacher)

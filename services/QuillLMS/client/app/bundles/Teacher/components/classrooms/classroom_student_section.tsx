@@ -14,7 +14,7 @@ const bulbSrc = `${process.env.CDN_URL}/images/illustrations/bulb.svg`
 const cleverSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/clever_setup_instructions.pdf`
 const googleSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/google_setup_instructions.pdf`
 
-function activeHeaders(providerClassroom: string) {
+function activeHeaders(hasProviderClassroom: boolean) {
   const name = {
     width: '190px',
     name: 'Name',
@@ -22,7 +22,7 @@ function activeHeaders(providerClassroom: string) {
   }
 
   const username = {
-    width: providerClassroom ? '362px' : '486px',
+    width: hasProviderClassroom ? '362px' : '486px',
     name: 'Username',
     attribute: 'username'
   }
@@ -41,10 +41,10 @@ function activeHeaders(providerClassroom: string) {
     isActions: true
   }
 
-  return providerClassroom ? [name, username, synced, actions] : [name, username, actions]
+  return hasProviderClassroom ? [name, username, synced, actions] : [name, username, actions]
 }
 
-function archivedHeaders(providerClassroom: string) {
+function archivedHeaders(hasProviderClassroom: boolean) {
   const name = {
     width: '235px',
     name: 'Name',
@@ -52,7 +52,7 @@ function archivedHeaders(providerClassroom: string) {
   }
 
   const username = {
-    width: providerClassroom ? '407px' : '531px',
+    width: hasProviderClassroom ? '407px' : '531px',
     name: 'Username',
     attribute: 'username'
   }
@@ -65,7 +65,7 @@ function archivedHeaders(providerClassroom: string) {
     rowSectionClassName: 'show-overflow'
   }
 
-  return providerClassroom ? [name, username, synced] : [name, username]
+  return hasProviderClassroom ? [name, username, synced] : [name, username]
 }
 
 enum modalNames {
@@ -184,10 +184,8 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       moveClass,
       removeFromClass
     } = this.individualStudentActions()
-    if (google_id) {
+    if (google_id || clever_id) {
       return synced ? [viewAsStudent] : [viewAsStudent, moveClass, removeFromClass]
-    } else if (clever_id) {
-      return [viewAsStudent, removeFromClass]
     } else if (classrooms.length > 1 && isOwnedByCurrentUser) {
       return [ editAccount, resetPassword, viewAsStudent, mergeAccounts, moveClass, removeFromClass ]
     } else if (isOwnedByCurrentUser) {
@@ -428,7 +426,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   syncedStatus(student: any, providerClassroom: string) {
     const { synced } = student
 
-    if (synced === undefined) { return "" }
+    if (synced === undefined || synced === null) { return '' }
     if (synced) { return 'Yes' }
 
     return (
@@ -452,6 +450,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const { classroom, } = this.props
     const { selectedStudentIds, } = this.state
     const { providerClassroom } = classroom
+    const hasProviderClassroom = providerClassroom !== undefined
 
     const rows = classroom.students.map(student => {
       const { name, username, id, } = student
@@ -470,7 +469,8 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     return (<DataTable
       checkAllRows={this.checkAllRows}
       checkRow={this.checkRow}
-      headers={classroom.visible ? activeHeaders(providerClassroom) : archivedHeaders(providerClassroom)}
+      className={'show-overflow'}
+      headers={classroom.visible ? activeHeaders(hasProviderClassroom) : archivedHeaders(hasProviderClassroom)}
       rows={rows}
       showActions={classroom.visible}
       showCheckboxes={classroom.visible}
