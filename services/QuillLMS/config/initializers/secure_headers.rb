@@ -9,6 +9,10 @@ SecureHeaders::Configuration.default do |config|
 
     object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>
 
+    media_src: [
+      "*"
+    ],
+
     script_src: [
       "'self'",
       "https://*.quill.org", 
