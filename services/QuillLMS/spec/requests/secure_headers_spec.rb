@@ -32,6 +32,5 @@ describe DummyController, type: :request do
   it 'should have a content security policy, both real and report-only' do 
     get '/dummy'
     expect(response.header['Content-Security-Policy']).to_not be nil 
-    expect(response.header['Content-Security-Policy-Report-Only']).to_not be nil
   end
 end
