@@ -103,7 +103,7 @@ SecureHeaders::Configuration.default do |config|
     ]
   }
 
-  config.csp = SecureHeaders::OPT_OUT
+  config.csp = default_config 
 
   config.x_frame_options = SecureHeaders::OPT_OUT
   
