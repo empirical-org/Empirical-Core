@@ -10,7 +10,9 @@ SecureHeaders::Configuration.default do |config|
     object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>
 
     media_src: [
-      "*"
+      "*",
+      "data:",
+      "blob:"
     ],
 
     script_src: [
