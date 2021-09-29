@@ -4,11 +4,11 @@ import stripHtml from "string-strip-html";
 import { convertNodeToElement } from 'react-html-parser'
 
 import RightPanel from './rightPanel'
+import ActivityFollowUp from './activityFollowUp';
 
 import { explanationData } from "../activitySlides/explanationData";
 import ExplanationSlide from "../activitySlides/explanationSlide";
 import WelcomeSlide from "../activitySlides/welcomeSlide";
-import ActivityFollowUp from './activityFollowUp';
 import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
@@ -84,7 +84,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   const [hasStartedPromptSteps, setHasStartedPromptsSteps] = React.useState(shouldSkipToPrompts)
   const [doneHighlighting, setDoneHighlighting] = React.useState(shouldSkipToPrompts)
   const [showReadTheDirectionsModal, setShowReadTheDirectionsModal] = React.useState(false)
-  const [touchMovePosition, setTouchMovePosition] = React.useState(0);
   const [timeTracking, setTimeTracking] = React.useState({
     [ONBOARDING]: 0,
     1: 0,
@@ -92,6 +91,13 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     3: 0,
     4: 0
   })
+
+  React.useEffect(() => {
+    const el = document.getElementById('end-of-passage')
+    const observer = new IntersectionObserver(([entry]) => { entry.isIntersecting ? setScrolledToEndOfPassage(entry.isIntersecting) : null; });
+
+    el && observer.observe(el);
+  }, [hasStartedReadPassageStep]);
 
   React.useEffect(() => {
     const activityUID = getUrlParam('uid', location, isTurk)
@@ -121,7 +127,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     window.addEventListener(CLICK, handleClick)
     window.addEventListener(KEYPRESS, resetTimers)
     window.addEventListener(VISIBILITYCHANGE, setIdle)
-    window.addEventListener(TOUCHMOVE, handleTouchMove, { passive: true });
 
     return function cleanup() {
       window.removeEventListener(KEYDOWN, handleKeyDown)
@@ -130,7 +135,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       window.removeEventListener(CLICK, handleClick)
       window.removeEventListener(KEYPRESS, resetTimers)
       window.removeEventListener(VISIBILITYCHANGE, setIdle)
-      window.removeEventListener(TOUCHMOVE, handleTouchMove);
     }
   }, [])
 
@@ -163,9 +167,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       // // don't activate nextSteps before Done reading button has been clicked
       if (nextStep && nextStep > 1 && !completedSteps.includes(READ_PASSAGE_STEP)) return
 
-      console.log('activeStep', activeStep)
-      console.log('nextStep', nextStep)
-
       setActiveStep(nextStep)
       setStartTime(Date.now())
       trackCurrentPromptStartedEvent()
@@ -178,27 +179,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     activeStep !== READ_PASSAGE_STEP ? scrollToStep(`step${activeStep}`) : null
   }, [activeStep])
 
-  const handleTouchMove = () => {
-    const position = window.pageYOffset;
-    setTouchMovePosition(position);
-  };
-
-  React.useEffect(() => {
-    handleReadPassageContainerScroll()
-  }, [touchMovePosition])
-
   function handleReadPassageContainerScroll(e=null) {
-    const el = document.getElementById('end-of-passage')
-    if (!el) { return }
-    const rect = el.getBoundingClientRect();
-    const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-    console.log('viewHeight', viewHeight)
-    console.log('rect', rect)
-    console.log('rect.bottom', rect.bottom)
-    console.log('rect.top', rect.top)
-    if (!(rect.bottom < 100 || rect.top - viewHeight >= 100)) {
-      setScrolledToEndOfPassage(true)
-    }
     if (e) { resetTimers(e) }
   }
 
@@ -382,16 +363,12 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
 
   function scrollToStep(ref: string) {
-    console.log('onMobile()', onMobile())
     if (onMobile()) {
       scrollToStepOnMobile(ref)
     } else {
-      console.log('ref', ref)
       const scrollContainer = document.getElementsByClassName("steps-outer-container")[0]
       const el = refs[ref]
 
-      console.log('scrollContainer', scrollContainer)
-      console.log('el', el)
       if (scrollContainer) {
         scrollContainer.scrollTo(0, el.offsetTop - 34)
       }
@@ -544,7 +521,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       {renderReadPassageContainer({
         activities,
         activeStep,
-        handleReadPassageContainerScroll: handleReadPassageContainerScroll,
+        handleReadPassageContainerScroll,
         hasStartedPromptSteps,
         hasStartedReadPassageStep,
         scrolledToEndOfPassage,
