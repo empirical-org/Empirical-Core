@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UploadRosters from '../containers/UploadRosters';
+import UploadRosters from '../components/UploadRosters'
 
 const UploadRostersAppClient = (props) => (
   <UploadRosters {...props} />
