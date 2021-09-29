@@ -49,6 +49,8 @@ const wrapper = mount(<StudentViewContainer
 
 // TODO: update tests to fix activity and prompt IDs for mockTrackAnalyticsEvent calls
 
+// TODO: add tests for transformMarkTags function
+
 describe('StudentViewContainer component', () => {
   describe('when the activity has loaded', () => {
 
