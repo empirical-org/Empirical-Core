@@ -15,7 +15,7 @@ module TeacherCenterHelper
     premium_tab = {
       id: PREMIUM,
       name: PREMIUM,
-      url: PREMIUM
+      url: 'premium'
     }
     tabs = [
       {

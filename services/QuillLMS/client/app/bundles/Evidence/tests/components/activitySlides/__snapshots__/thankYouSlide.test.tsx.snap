@@ -26,6 +26,7 @@ exports[`ThankYouSlide Component should match snapshot 1`] = `
     >
       <a
         className="quill-button large secondary outlined focus-on-dark"
+        onClick={[Function]}
       >
         Back to my dashboard
       </a>

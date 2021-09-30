@@ -436,6 +436,7 @@ export class Lesson extends React.Component {
     const { data, hasreceiveddata, } = lessons
     const { params } = match
     const { lessonID, } = params;
+    const studentSession = getParameterByName('student', window.location.href);
     let component;
 
     if (!this.dataHasLoaded()) {
@@ -531,7 +532,7 @@ export class Lesson extends React.Component {
     return (
       <div>
         <section className="section is-fullheight minus-nav student">
-          {isOnMobile && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreview} />}
+          {isOnMobile && !studentSession && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreview} />}
           {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             {component}

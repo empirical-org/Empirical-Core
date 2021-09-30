@@ -29,7 +29,7 @@ describe DummyController, type: :request do
     expect(response.header['Pragma']).to match('no-cache')
   end
 
-  it 'should have a content security policy, both real and report-only' do 
+  xit 'should have a content security policy, both real and report-only' do 
     get '/dummy'
     expect(response.header['Content-Security-Policy']).to_not be nil 
   end
