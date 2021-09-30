@@ -62,10 +62,10 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   const defaultCompletedSteps = shouldSkipToPrompts ? [READ_PASSAGE_STEP] : []
 
   const refs = {
-    step1: React.createRef(),
-    step2: React.createRef(),
-    step3: React.createRef(),
-    step4: React.createRef()
+    step1: React.useRef(),
+    step2: React.useRef(),
+    step3: React.useRef(),
+    step4: React.useRef()
   }
 
   const [explanationSlideStep, setExplanationSlideStep] = React.useState(0)
@@ -412,14 +412,13 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
 
   function scrollToStepOnMobile(ref: string) {
-    refs[ref].current ? refs[ref].scrollIntoView(false) : null
+    refs[ref].current ? refs[ref].current.scrollIntoView(false) : null
   }
 
   function scrollToQuestionSectionOnMobile() { scrollToStepOnMobile('step2')}
 
   function clickStepLink(stepNumber: number) {
     setActiveStep(stepNumber)
-    scrollToStepOnMobile(`step${stepNumber}`)
   }
 
   function handleHighlightKeyDown(e) {
@@ -480,12 +479,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
 
   const { submittedResponses, sessionID, } = session;
-  const stepsHash = {
-    'step1': (node: JSX.Element) => refs.step1 = node,
-    'step2': (node: JSX.Element) => refs.step2 = node,
-    'step3': (node: JSX.Element) => refs.step3 = node,
-    'step4': (node: JSX.Element) => refs.step4 = node,
-  }
 
   if (!activities.hasReceivedData) { return <LoadingSpinner /> }
 
@@ -547,7 +540,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         scrolledToEndOfPassage={scrolledToEndOfPassage}
         session={session}
         showReadTheDirectionsModal={showReadTheDirectionsModal}
-        stepsHash={stepsHash}
+        stepsHash={refs}
         studentHighlights={studentHighlights}
         submitResponse={submitResponse}
         toggleStudentHighlight={toggleStudentHighlight}
