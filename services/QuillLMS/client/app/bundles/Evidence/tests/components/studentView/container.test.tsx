@@ -72,13 +72,13 @@ const wrapper = mount(<StudentViewContainer
 
 // TODO: update tests to fix activity and prompt IDs for mockTrackAnalyticsEvent calls
 
-// describe('StudentViewContainer component', () => {
+describe('StudentViewContainer component', () => {
 //   describe('when the activity has loaded', () => {
 //     wrapper.instance().setExplanationSlidesCompleted(true)
 //
-//     it('renders', () => {
-//       expect(toJson(wrapper)).toMatchSnapshot()
-//     })
+    it('renders', () => {
+      expect(toJson(wrapper)).toMatchSnapshot()
+    })
 //
 //     it('should track a COMPREHENSION_ACTIVITY_STARTED event', () => {
 //       expect(mockGetActivity).toHaveBeenCalledWith(sessionReducer.sessionID, activityOne.activity_id)
@@ -209,4 +209,4 @@ const wrapper = mount(<StudentViewContainer
 //     })
 //   })
 //
-// })
+})
