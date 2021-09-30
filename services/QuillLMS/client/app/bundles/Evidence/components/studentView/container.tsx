@@ -458,6 +458,9 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       let className = ''
       className += studentHighlights.includes(stringifiedInnerElements) ? ' highlighted' : ''
       className += shouldBeHighlightable  ? ' highlightable' : ''
+      if(stringifiedInnerElements && strippedPassageHighlights && strippedPassageHighlights.includes(stringifiedInnerElements)) {
+        return <p><span className="passage-highlight">{stringifiedInnerElements}</span></p>
+      }
       if (!shouldBeHighlightable) { return <mark className={className}>{innerElements}</mark>}
       return <mark className={className} onClick={handleHighlightClick} onKeyDown={handleHighlightKeyDown} role="button" tabIndex={0}>{innerElements}</mark>
     }
