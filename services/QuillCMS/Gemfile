@@ -25,7 +25,7 @@ gem 'connection_pool'
 gem 'dalli'
 gem 'redis'
 gem 'redis-namespace'
-gem 'sidekiq-pro', '5.0.0', source: 'https://gems.contribsys.com/'
+gem 'sidekiq-pro', '5.0.0', path: 'vendor/cache/' 
 gem 'sidekiq', '~> 5.2.9'
 gem 'sinatra', require: false # Used for the web-based queue management interface
 
