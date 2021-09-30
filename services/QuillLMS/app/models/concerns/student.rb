@@ -189,7 +189,7 @@ module Student
 
     if teacher_id
       classroom_ids = classroom_ids.select do |classroom_id_hash|
-        Classroom.find(classroom_id_hash['classroom_id']).owner.id == teacher_id
+        Classroom.unscoped.find(classroom_id_hash['classroom_id']).owner.id == teacher_id
       end
     end
 
