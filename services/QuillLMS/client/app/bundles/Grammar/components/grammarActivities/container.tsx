@@ -110,8 +110,6 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       window.addEventListener(VISIBILITYCHANGE, this.setIdle)
     }
 
-    //TODO: refactor into componentDidUpdate
-
     componentDidUpdate(prevProps) {
       const { timeTracking, introSkipped, } = this.state
       const { previewMode, questions, questionToPreview, grammarActivities, session, skippedToQuestionFromIntro, dispatch, handleToggleQuestion, } = this.props;
