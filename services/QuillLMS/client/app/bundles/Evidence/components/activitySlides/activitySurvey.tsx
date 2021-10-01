@@ -80,6 +80,7 @@ const ActivitySurvey = ({ sessionID, saveActivitySurveyResponse, setSubmittedAct
   React.useEffect(() => { setSelectedMultipleChoiceOptions([]) }, [selectedEmoji])
 
   function handleSend() {
+    if (!selectedMultipleChoiceOptions.length) { return }
     const activitySurveyResponse = {
       emoji_selection: selectedEmoji,
       multiple_choice_selections: selectedMultipleChoiceOptions,
