@@ -76,7 +76,8 @@ module Evidence
       invalid_highlights.map do |highlight|
         {
           rule_id: highlight.feedback.rule_id,
-          rule_type: highlight.feedback.rule.rule_type 
+          rule_type: highlight.feedback.rule.rule_type,
+          prompt_id: highlight.feedback.rule.prompts.where(activity_id: id).first.id 
         }
       end
     end
@@ -87,7 +88,8 @@ module Evidence
       invalid_plagiarism.map do |plagiarism|
         {
           rule_id: plagiarism.rule_id,
-          rule_type: plagiarism.rule.rule_type 
+          rule_type: plagiarism.rule.rule_type,
+          prompt_id: plagiarism.rule.prompts.where(activity_id: id).first.id 
         }
       end
     end

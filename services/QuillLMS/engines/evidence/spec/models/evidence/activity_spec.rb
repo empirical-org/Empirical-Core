@@ -177,11 +177,13 @@ module Evidence
         expect(activity.invalid_highlights.length).to be(2)
         expect(activity.invalid_highlights).to include({
           rule_id: rule.id,
-          rule_type: rule.rule_type
+          rule_type: rule.rule_type,
+          prompt_id: rule.prompts.first.id
         })
         expect(activity.invalid_highlights).to include({
           rule_id: plagiarism_rule.id,
-          rule_type: plagiarism_rule.rule_type
+          rule_type: plagiarism_rule.rule_type,
+          prompt_id: rule.prompts.first.id
         })
       end
     end
