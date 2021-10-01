@@ -412,8 +412,6 @@ export class StudentDiagnostic extends React.Component {
     const progressPercent = getProgressPercent(playDiagnostic);
     const totalQuestionCount = questionCount(playDiagnostic);
 
-    const studentSession = getParameterByName('student', window.location.href);
-
     return (<ProgressBar
       answeredQuestionCount={displayedAnsweredQuestionCount > totalQuestionCount ? totalQuestionCount : displayedAnsweredQuestionCount}
       label='questions'
@@ -428,6 +426,7 @@ export class StudentDiagnostic extends React.Component {
     let component;
 
     const isLastQuestion = playDiagnostic.unansweredQuestions.length === 0
+    const studentSession = getParameterByName('student', window.location.href);
 
     if (!playDiagnostic.questionSet) {
       return (
