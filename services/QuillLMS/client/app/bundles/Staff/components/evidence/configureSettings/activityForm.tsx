@@ -36,7 +36,8 @@ interface ActivityFormProps {
 
 interface InvalidHighlightProps {
   rule_id: number,
-  rule_type: string
+  rule_type: string,
+  prompt_id: number
 }
 
 const RULE_TYPE_TO_ROUTE_PART = {
@@ -168,10 +169,11 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
 
   function renderInvalidHighlightLinks(invalidHighlights){
     const formattedRows = invalidHighlights && invalidHighlights.length && invalidHighlights.map((highlight: InvalidHighlightProps) => {
-      const { rule_id, rule_type  } = highlight;
+      const { rule_id, rule_type, prompt_id  } = highlight;
       const ruleTypePart = RULE_TYPE_TO_ROUTE_PART[rule_type]
       const ruleName = RULE_TYPE_TO_NAME[rule_type]
-      const invalidHighlightLink = (<Link to={`/activities/${id}/${ruleTypePart}/${rule_id}`}>{ruleName} Rule #{rule_id}</Link>);
+      const idPart = (rule_type == 'autoML') ? '${prompt_id}/${rule_id}' : rule_id
+      const invalidHighlightLink = (<Link to={`/activities/${id}/${ruleTypePart}/${idPart}`}>{ruleName} Rule #{rule_id}</Link>);
       return {
         id: rule_id,
         link: invalidHighlightLink

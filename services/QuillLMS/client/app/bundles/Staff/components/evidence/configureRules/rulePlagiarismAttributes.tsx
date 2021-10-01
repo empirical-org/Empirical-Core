@@ -75,6 +75,7 @@ const RulePlagiarismAttributes = ({
           text={plagiarismText.text}
         />}
         {errors['Plagiarism Text'] && <p className="error-message">{errors['Plagiarism Text']}</p>}
+        {plagiarismText && plagiarismText.invalid_activity_ids.length > 0 && <p className="all-errors-message">The text of this highlight does not match with the associated activity text. This means that it will not highlight the text as intended. Please update the text above.</p>}
         <p className="form-subsection-label">First Feedback</p>
         {plagiarismFeedbacks[0] && <TextEditor
           ContentState={ContentState}

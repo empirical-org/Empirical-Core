@@ -21,7 +21,7 @@ const Activities = ({ location, match }) => {
   const formattedRows = activitiesData && activitiesData.activities && activitiesData.activities.map((activity: ActivityInterface) => {
     const { id, title, invalid_highlights } = activity;
     const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
-    const highlightLabel = getCheckIcon(!(invalid_highlights && invalid_highlights.length))
+    const highlightLabel = (<Link to={`/activities/${id}`}>{getCheckIcon(!(invalid_highlights && invalid_highlights.length))}</Link>);
     return {
       id,
       title: activityLink,
@@ -50,7 +50,7 @@ const Activities = ({ location, match }) => {
 
   const dataTableFields = [
     { name: "Title", attribute:"title", width: "800px" },
-    { name: "Highlights Valid", attribute:"valid_highlights", width: "100px" }
+    { name: "Highlight Validation", attribute:"valid_highlights", width: "100px" }
   ];
 
   return(<React.Fragment>

@@ -205,7 +205,6 @@ export function renderHighlights(highlights, i, changeHandler) {
           options={ruleHighlightOptions}
           value={highlightTypeValue}
         />
-        {passageMismatch && <p className="all-errors-message">The text of this highlight does not perfectly match with an associated Passage.  This means that it will not highlight the inteneded text.</p>}
         <TextEditor
           ContentState={ContentState}
           EditorState={EditorState}
@@ -214,6 +213,7 @@ export function renderHighlights(highlights, i, changeHandler) {
           key="universal-feedback-highlight"
           text={highlight.text}
         />
+        {passageMismatch && <p className="all-errors-message">The text of this highlight does not match with the associated activity text. This means that it will not highlight the text as intended. Please update the text above.</p>}
       </section>
     );
   });
