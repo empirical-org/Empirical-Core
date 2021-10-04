@@ -1,12 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe UniversalRuleLoader do
-  let(:csv1) do 
-    <<~EOS
-      Rule UID,Rule,Concept UID,Feedback - Revised
-      1d66a,ExtantRule,4d5e3,the feedback
-    EOS
-  end
 
   def rule_factory(&hash_block)
     Evidence::Rule.create!(
@@ -37,9 +31,30 @@ RSpec.describe UniversalRuleLoader do
   describe '#update_from_csv' do 
     context 'grammar rules' do 
       let(:rule_type) { 'grammar' }
+      let(:csv1) do 
+        <<~EOS
+          Rule UID,Rule,Concept UID,Feedback - Revised,Activity,Module
+          1d66a,ExtantRule,4d5e3,the feedback,Universal,Grammar API
+        EOS
+      end
+
+      let(:csv2) do 
+        <<~EOS
+          Rule UID,Rule,Concept UID,Feedback - Revised,Activity,Module
+          abc6a,invalidRule1,9999,the feedback,,Grammar API
+          Dbc6a,invalidRule2,9999,the feedback,Universal,Opinion API
+        EOS
+      end
+
+      it 'should ignore rules that are not universal or grammar' do 
+        expect do 
+          UniversalRuleLoader.update_from_csv(type: rule_type, iostream: csv2)
+        end.to change { Evidence::Rule.count }.by(0)
+        .and change { Evidence::Feedback.count }.by(0)
+      end
 
       it 'should update existing rule and update feedback' do 
-        rule = rule_factory { { uid: '1d66a', rule_type: rule_type } }
+        rule = rule_factory { { uid: '1d66a', rule_type: rule_type, universal: true } }
         feedback_factory { { rule: rule, order: 0 } }
 
         expect do 

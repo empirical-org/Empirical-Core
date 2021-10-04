@@ -2,19 +2,28 @@
 # https://www.notion.so/quill/860620e6d04f448784182a878be45b50?v=6e07319b3db14e42b850a27bac37ca73
 
 class UniversalRuleLoader 
+  REQUIRED_HEADERS = ['Rule UID', 'Module', 'Rule', 'Concept UID', 'Feedback - Revised', 'Activity']
+
+  # Keys: the name of a type as undestood by Evidence
+  # Values: the working names of types used by humans
+  TYPE_LOOKUP = {
+    grammar: 'Grammar API'
+  }
+
   def self.update_from_csv(type:, iostream:)
     if !Evidence::Rule::TYPES.include?(type)
       puts "Invalid rule type #{type}"
       return
     end
 
-    
-    if (CSV.parse(iostream, headers: true).headers & ['Rule UID', 'Rule', 'Concept UID', 'Feedback - Revised']).count != 4
+    if (CSV.parse(iostream, headers: true).headers & REQUIRED_HEADERS).count != REQUIRED_HEADERS.length 
       puts 'Invalid headers. Exiting.'
       return
     end 
 
     CSV.parse(iostream, headers: true) do |row|
+      next unless row['Module'] == TYPE_LOOKUP[type.to_sym] && row['Activity'] == 'Universal'
+
       rule = Evidence::Rule.find_by_uid(row['Rule UID'])
       if rule.nil? || !rule.universal || rule.rule_type != type
         puts "Cannot find universal #{type} Rule with UID #{row['Rule UID']}. Creating new rule."
@@ -45,7 +54,6 @@ class UniversalRuleLoader
         puts "Created or updated feedback with id #{rule_feedback.id}"
       end
     end
-
   end # update_from_csv
 end
 
