@@ -26,7 +26,7 @@ class UniversalRuleLoader
 
       rule = Evidence::Rule.find_by_uid(row['Rule UID'])
       if rule.nil? || !rule.universal || rule.rule_type != type
-        puts "Cannot find universal #{type} Rule with UID #{row['Rule UID']}. Creating new rule."
+        puts "\nCannot find universal #{type} Rule with UID #{row['Rule UID']}. Creating new rule."
         rule = Evidence::Rule.new(
           uid: row['Rule UID'],
           name: row['Rule'],
@@ -38,47 +38,21 @@ class UniversalRuleLoader
         )
       end 
 
-      puts "\nRule: #{rule.name}"
+      puts "Rule: #{rule.name}"
 
-      if row['Concept UID'].respond_to?(:length) && row['Concept UID'].length > 0
+      if row['Concept UID'].respond_to?(:length) && !row['Concept UID'].empty?
         puts "concept_uid #{rule.concept_uid} -> #{row['Concept UID']}"
         rule.concept_uid = row['Concept UID'] 
       end
 
       rule.save!
 
-      if row['Feedback - Revised'].respond_to?(:length) && row['Feedback - Revised'].length > 0
+      if row['Feedback - Revised'].respond_to?(:length) && !row['Feedback - Revised'].empty?
         rule_feedback = Evidence::Feedback.find_or_create_by(rule_id: rule.id, order: 0)
         rule_feedback.text = row['Feedback - Revised']
         rule_feedback.save!
         puts "Created or updated feedback with id #{rule_feedback.id}"
       end
     end
-  end # update_from_csv
+  end 
 end
-
-# CREATE TABLE public.comprehension_feedbacks (
-#     id integer NOT NULL,
-#     rule_id integer NOT NULL,
-#     text character varying NOT NULL,
-#     description character varying,
-#     "order" integer NOT NULL,
-#     created_at timestamp without time zone NOT NULL,
-#     updated_at timestamp without time zone NOT NULL
-# );
-
-
-# CREATE TABLE public.comprehension_rules (
-#     id integer NOT NULL,
-#     uid character varying NOT NULL,
-#     name character varying NOT NULL,
-#     note character varying,
-#     universal boolean NOT NULL,
-#     rule_type character varying NOT NULL,
-#     optimal boolean NOT NULL,
-#     suborder integer,
-#     concept_uid character varying,
-#     created_at timestamp without time zone NOT NULL,
-#     updated_at timestamp without time zone NOT NULL,
-#     state character varying NOT NULL
-# );

@@ -32,18 +32,18 @@ RSpec.describe UniversalRuleLoader do
     context 'grammar rules' do 
       let(:rule_type) { 'grammar' }
       let(:csv1) do 
-        <<~EOS
+        <<~HEREDOC
           Rule UID,Rule,Concept UID,Feedback - Revised,Activity,Module
           1d66a,ExtantRule,4d5e3,the feedback,Universal,Grammar API
-        EOS
+        HEREDOC
       end
 
       let(:csv2) do 
-        <<~EOS
+        <<~HEREDOC
           Rule UID,Rule,Concept UID,Feedback - Revised,Activity,Module
           abc6a,invalidRule1,9999,the feedback,,Grammar API
           Dbc6a,invalidRule2,9999,the feedback,Universal,Opinion API
-        EOS
+        HEREDOC
       end
 
       it 'should ignore rules that are not universal or grammar' do 
