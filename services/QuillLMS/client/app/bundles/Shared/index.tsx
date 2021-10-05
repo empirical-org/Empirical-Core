@@ -124,4 +124,5 @@ export {
   KEYPRESS,
   VISIBILITYCHANGE,
   SCROLL,
+  TOUCHMOVE,
 } from './utils/eventNames'

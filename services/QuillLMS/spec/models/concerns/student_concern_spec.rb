@@ -137,6 +137,10 @@ describe 'Student Concern', type: :model do
       expect(new_ca.classroom).to eq(classroom2)
       expect(new_ca.assigned_student_ids).to include(student1.id)
     end
+
+    it 'should create the necessary UnitActivity records for the new classroom' do
+      expect { student1.move_activity_sessions(classroom, classroom2) }.to change(UnitActivity, :count).by(6)
+    end
   end
 
   describe "#merge_student_account" do

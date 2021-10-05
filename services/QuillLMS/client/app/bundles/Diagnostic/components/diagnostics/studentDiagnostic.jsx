@@ -426,6 +426,7 @@ export class StudentDiagnostic extends React.Component {
     let component;
 
     const isLastQuestion = playDiagnostic.unansweredQuestions.length === 0
+    const studentSession = getParameterByName('student', window.location.href);
 
     if (!playDiagnostic.questionSet) {
       return (
@@ -505,7 +506,7 @@ export class StudentDiagnostic extends React.Component {
     return (
       <div>
         <section className="section is-fullheight minus-nav student">
-          {isOnMobile && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreview} />}
+          {isOnMobile && !studentSession && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreview} />}
           {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             <CarouselAnimation>

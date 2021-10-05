@@ -8,6 +8,7 @@ import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import * as responseActions from '../../actions/responses'
 import { setCurrentQuestion } from '../../actions/session'
+import { getParameterByName } from '../../../Connect/libs/getParameterByName';
 import {
   hashToCollection,
   ProgressBar,
@@ -327,8 +328,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     const { activity, isOnMobile, handleTogglePreviewMenu } = this.props;
     const counts = this.getQuestionCounts();
     const meterWidth = counts['answeredQuestionCount'] / counts['totalQuestionCount'] * 100
+    const studentSession = getParameterByName('student', window.location.href);
     return (<div className="top-section">
-      {isOnMobile && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreviewMenu} />}
+      {isOnMobile && !studentSession && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreviewMenu} />}
       <ProgressBar
         answeredQuestionCount={counts['answeredQuestionCount']}
         label="questions"

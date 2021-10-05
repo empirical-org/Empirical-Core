@@ -93,10 +93,11 @@ module Student
 
         classroom_units.each do |cu|
           activity_sessions = ActivitySession.where(classroom_unit_id: cu.id, user_id: user_id)
-          activity_sessions.update_all(classroom_unit_id: new_cu.id)
 
-          activity_ids = activity_sessions.pluck(:activity_id) - unit.unit_activities.pluck(:activity_id)
-          activity_ids.each { |activity_id| UnitActivity.create(unit_id: unit.id, activity_id: activity_id) }
+          activity_ids = (activity_sessions.pluck(:activity_id) - unit.unit_activities.pluck(:activity_id)).uniq
+          activity_ids.each { |activity_id| UnitActivity.find_or_create_by(unit_id: unit.id, activity_id: activity_id) }
+
+          activity_sessions.update_all(classroom_unit_id: new_cu.id)
 
           hide_extra_activity_sessions(cu.id)
         end
@@ -188,7 +189,7 @@ module Student
 
     if teacher_id
       classroom_ids = classroom_ids.select do |classroom_id_hash|
-        Classroom.find(classroom_id_hash['classroom_id']).owner.id == teacher_id
+        Classroom.unscoped.find(classroom_id_hash['classroom_id']).owner.id == teacher_id
       end
     end
 
