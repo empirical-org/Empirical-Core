@@ -421,23 +421,7 @@ class User < ApplicationRecord
   end
 
   def clear_data
-    ActiveRecord::Base.transaction do
-      update!(
-        name:      "Deleted User_#{id}",
-        email:     "deleted_user_#{id}@example.com",
-        username:  "deleted_user_#{id}",
-        google_id: nil,
-        clever_id: nil,
-        ip_address: nil,
-        send_newsletter: false
-      )
-      StudentsClassrooms.where(student_id: id).destroy_all
-      auth_credential.destroy! if auth_credential.present?
-      ip_location.destroy! if ip_location.present?
-      SchoolsUsers.where(user_id: id).destroy_all
-      ClassroomUnit.where("? = ANY (assigned_student_ids)", id).each {|cu| cu.update(assigned_student_ids: cu.assigned_student_ids - [id])}
-      ActivitySession.where(user_id: id).update_all(user_id: nil, classroom_unit_id: nil)
-    end
+    ClearUserDataWorker.perform_async(id)
   end
 
   def last_name= last_name

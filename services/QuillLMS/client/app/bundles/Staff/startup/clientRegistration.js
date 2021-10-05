@@ -14,5 +14,5 @@ ReactOnRails.register({
   BackpackIndex,
   EvidenceIndex,
   AttributesManagerIndex,
-  ActivityFormIndex,
+  ActivityFormIndex
 });
