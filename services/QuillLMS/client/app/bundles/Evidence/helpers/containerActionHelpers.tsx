@@ -77,7 +77,7 @@ export const everyOtherStepCompleted = (stepNumber, completedSteps) => {
 export const getStrippedPassageHighlights = ({ activities, session, activeStep }) => {
   const { currentActivity } = activities;
   const promptIndex = activeStep - 2
-  const activePromptId = currentActivity.prompts[promptIndex] && currentActivity.prompts[promptIndex].id
+  const activePromptId = currentActivity && currentActivity.prompts[promptIndex] && currentActivity.prompts[promptIndex].id
   const submittedResponsesForActivePrompt = session.submittedResponses[activePromptId]
   const lastSubmittedResponse = submittedResponsesForActivePrompt && submittedResponsesForActivePrompt[submittedResponsesForActivePrompt.length - 1]
   const passageHighlights = lastSubmittedResponse && lastSubmittedResponse.highlight && lastSubmittedResponse.highlight.filter(hl => hl.type === "passage")
