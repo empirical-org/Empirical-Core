@@ -22,4 +22,7 @@ require 'rails_helper'
 
 describe ActivitySurveyResponse, type: :model do
   it { should belong_to(:activity_session) }
+  it { should validate_presence_of(:emoji_selection) }
+  it { should validate_presence_of(:multiple_choice_selections) }
+  it { should validate_presence_of(:survey_question) }
 end
