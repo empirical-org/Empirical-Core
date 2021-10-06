@@ -2,7 +2,6 @@ declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash'
-import WakeLock from 'react-wakelock-react16'
 
 import NavBar from '../../navbar/navbar';
 import {
@@ -162,7 +161,6 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     : {'height': 'calc(100vh - 60px)'}
     let component = (
       <div className="teach-lesson-container" style={teachLessonContainerStyle}>
-        <WakeLock />
         <Sidebar classroomSessionId={classroomSessionId} match={match} />
         <MainContentContainer match={match} />
       </div>

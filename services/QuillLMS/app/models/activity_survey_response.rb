@@ -20,4 +20,8 @@
 #
 class ActivitySurveyResponse < ApplicationRecord
   belongs_to :activity_session
+
+  validates_presence_of :emoji_selection
+  validates_presence_of :multiple_choice_selections
+  validates_presence_of :survey_question
 end
