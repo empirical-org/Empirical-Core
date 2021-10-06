@@ -90,19 +90,21 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     return text.replace(regex, '')
   }
 
-  // formatPrompt = (str: string) => {
-  //   const { prompt, submittedResponses, } = this.props
-  //   const lastSubmittedResponse = this.lastSubmittedResponse()
+  highlightsAddedPrompt = (str: string) => {
+    const { prompt, submittedResponses, } = this.props
+    const lastSubmittedResponse = this.lastSubmittedResponse()
 
-  //   if (!lastSubmittedResponse || !lastSubmittedResponse.highlight || !lastSubmittedResponse.entry || submittedResponses.length === prompt.max_attempts) { return str }
+    if (!lastSubmittedResponse || !lastSubmittedResponse.highlight || !lastSubmittedResponse.entry || submittedResponses.length === prompt.max_attempts) { return str }
 
-  //   const thereArePromptHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === PROMPT).length
-  //   if (!thereArePromptHighlights) {
-  //     return str
-  //   }
+    const thereArePromptHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === PROMPT).length
+    if (!thereArePromptHighlights) {
+      return str
+    }
 
-  //   let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === PROMPT).map(hl => this.stripHtml(hl.text))
-  // }
+    let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === PROMPT).map(hl => this.stripHtml(hl.text))
+    wordsToFormat = wordsToFormat.length === 1 ? wordsToFormat[0] : wordsToFormat
+    return highlightSpellingGrammar(str, wordsToFormat)
+  }
 
   formatStudentResponse = (str: string) => {
     const { prompt, submittedResponses, } = this.props
@@ -130,8 +132,6 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     let boldedString = `<b>${wordsToFormat}</b>`
     return str.replace(wordsToFormat, boldedString)
   }
-
-
 
   htmlStrippedPrompt = (escapeRegexCharacters=false) => {
     const strippedPrompt = this.formattedStem().replace(/<p>|<\/p>|<br>/g, '')
@@ -276,7 +276,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     const textWithoutStem = text.replace(prompt.text, '').trim()
     const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
     return {
-      htmlWithBolding: active ? `<p>${this.htmlStrippedPrompt()}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`,
+      htmlWithBolding: active ? `<p>${this.highlightsAddedPrompt(this.htmlStrippedPrompt())}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`,
       rawTextWithoutStem: textWithoutStem
     }
   }
