@@ -32,6 +32,7 @@ interface PromptStepState {
 }
 
 const RESPONSE = 'response'
+const PROMPT = 'prompt'
 export const DIRECTIONS = 'Use information from the text to finish the sentence:'
 
 export class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
@@ -89,6 +90,20 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     return text.replace(regex, '')
   }
 
+  // formatPrompt = (str: string) => {
+  //   const { prompt, submittedResponses, } = this.props
+  //   const lastSubmittedResponse = this.lastSubmittedResponse()
+
+  //   if (!lastSubmittedResponse || !lastSubmittedResponse.highlight || !lastSubmittedResponse.entry || submittedResponses.length === prompt.max_attempts) { return str }
+
+  //   const thereArePromptHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === PROMPT).length
+  //   if (!thereArePromptHighlights) {
+  //     return str
+  //   }
+
+  //   let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === PROMPT).map(hl => this.stripHtml(hl.text))
+  // }
+
   formatStudentResponse = (str: string) => {
     const { prompt, submittedResponses, } = this.props
     const lastSubmittedResponse = this.lastSubmittedResponse()
@@ -102,7 +117,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       return str
     }
 
-    let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).map(hl => hl.text)
+    let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).map(hl => this.stripHtml(hl.text))
     wordsToFormat = wordsToFormat.length === 1 ? wordsToFormat[0] : wordsToFormat
     if (lastSubmittedResponse.feedback_type == 'plagiarism') {
       return this.formatPlagiarismHighlight(str, wordsToFormat)
