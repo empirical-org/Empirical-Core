@@ -136,6 +136,7 @@ describe TeacherFixes do
 
       expect(started_activity_session.reload.visible).to be false
       expect(finished_activity_session.reload.visible).to be true
+      expect(finished_activity_session.reload.classroom_unit).to eq classroom_unit_with_activity_sessions_2
     end
 
     it 'preserves the most recent activity session when it is in the TO classroom unit' do

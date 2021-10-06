@@ -48,10 +48,10 @@ module TeacherFixes
       act_sesh2 = ActivitySession.find_by(classroom_unit: cu2, activity: act_sesh1.activity, user: act_sesh1.user)
       if act_sesh2.blank?
         act_sesh1.update!(classroom_unit_id: cu2.id)
-      elsif act_sesh2.state == ActivitySession::STATE_STARTED && act_sesh1.state == ActivitySession::STATE_FINISHED
+      elsif act_sesh2.started? && act_sesh1.finished?
         act_sesh2.update!(visible: false)
         act_sesh1.update!(classroom_unit_id: cu2.id)
-      elsif act_sesh1.state == ActivitySession::STATE_STARTED && act_sesh2.state == ActivitySession::STATE_FINISHED
+      elsif act_sesh1.started? && act_sesh2.finished?
         act_sesh1.update!(visible: false)
       elsif act_sesh1.updated_at < act_sesh2.updated_at
         act_sesh1.update!(visible: false)
