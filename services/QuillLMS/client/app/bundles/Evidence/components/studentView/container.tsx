@@ -153,7 +153,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }, [doneHighlighting])
 
   React.useEffect(() => {
-    if (completedSteps.length === defaultCompletedSteps.length ) { return }
+    if (completedSteps.length === defaultCompletedSteps.length || !activities.currentActivity ) { return }
 
     const uniqueCompletedSteps = Array.from(new Set(completedSteps))
     let nextStep: number|undefined = activeStep + 1
@@ -173,7 +173,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     } else {
       trackActivityCompletedEvent(); // If there is no next step, the activity is done
     }
-  }, [completedSteps])
+  }, [completedSteps, activities.currentActivity])
 
   React.useEffect(() => {
     activeStep !== READ_PASSAGE_STEP ? scrollToStep(`step${activeStep}`) : null
