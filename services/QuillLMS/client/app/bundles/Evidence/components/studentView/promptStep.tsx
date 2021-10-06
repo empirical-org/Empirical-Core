@@ -277,7 +277,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     let className = 'quill-button focus-on-light'
     let onClick = () => this.handleGetFeedbackClick(entry, id, text)
     if (submittedResponses.length === max_attempts || this.lastSubmittedResponse().optimal) {
-      onClick = everyOtherStepCompleted ? () => window.location.href = "/" : this.completeStep
+      onClick = this.completeStep
       buttonCopy = everyOtherStepCompleted ? 'Done' : 'Start next sentence'
     } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback) {
       className += ' disabled'
