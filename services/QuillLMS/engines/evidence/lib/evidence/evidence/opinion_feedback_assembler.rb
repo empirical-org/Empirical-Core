@@ -9,14 +9,11 @@ module Evidence
       error = @oapi_response['oapi_error']
       rule_uid = OAPI_ERROR_TO_RULE_UID[error]
       @rule = Evidence::Rule.where(uid: rule_uid).includes(:feedbacks).first
-      @top_feedback = nil 
-      if @rule&.feedbacks 
-        @top_feedback = @rule&.feedbacks.min_by { |e| e.order }
-      end
-      
+      feedbacks = @rule&.feedbacks
+      @top_feedback = feedbacks.empty? ? nil : feedbacks.min_by { |e| e.order }      
     end
 
-    def to_json 
+    def to_payload 
       {
         'concept_uid': @rule&.concept_uid,
         'feedback': @top_feedback&.text,

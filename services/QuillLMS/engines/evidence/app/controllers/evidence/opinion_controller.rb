@@ -1,9 +1,8 @@
-
 module Evidence
   class OpinionController < ApiController
     API_TIMEOUT = 5
     def fetch
-      oapi_response = Timeout::timeout(API_TIMEOUT) do 
+      oapi_response = Timeout.timeout(API_TIMEOUT) do 
         HTTParty.post(
           ENV['OPINION_API_DOMAIN'], 
           headers:  {'Content-Type': 'application/json'},
@@ -15,7 +14,7 @@ module Evidence
       end
 
       assembler = OpinionFeedbackAssembler.new(oapi_response)
-      render json: assembler.to_json
+      render json: assembler.to_payload
     end
   end
 end
