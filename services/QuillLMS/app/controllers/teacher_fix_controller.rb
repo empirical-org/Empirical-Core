@@ -86,7 +86,7 @@ class TeacherFixController < ApplicationController
         if primary_account.merge_student_account(secondary_account)
           render json: {}, status: 200
         else
-          render json: {error: "These students are not in the same classrooms."}
+          render json: {error: "#{params['account_2_identifier']} is in at least one class that #{params['account_1_identifier']} is not in, so we can't merge them."}
         end
       else
         nonstudent_account_identifier = primary_account.role == 'student' ? params['account_2_identifier'] : params['account_1_identifier']
