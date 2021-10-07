@@ -82,6 +82,63 @@ describe TeacherFixes do
       expect(new_cu2_activity_session_ids).to match_array(old_cu2_activity_session_ids + old_cu1_activity_session_ids)
     end
 
+    it 'preserves the finished activity session if the FROM session is started and the TO session is finished' do
+      started_activity_session =
+        create(:activity_session,
+          classroom_unit: classroom_unit_with_activity_sessions_1,
+          activity: activity,
+          user: student1,
+          updated_at: a_year_ago,
+          state: 'started'
+        )
+
+      finished_activity_session =
+        create(:activity_session,
+          classroom_unit: classroom_unit_with_activity_sessions_2,
+          activity: activity,
+          user: student1,
+          updated_at: today,
+          state: 'finished'
+        )
+
+      TeacherFixes::merge_activity_sessions_between_two_classroom_units(
+        classroom_unit_with_activity_sessions_1.reload,
+        classroom_unit_with_activity_sessions_2.reload
+      )
+
+      expect(started_activity_session.reload.visible).to be false
+      expect(finished_activity_session.reload.visible).to be true
+    end
+
+    it 'preserves the finished activity session if the TO session is started and the FROM session is finished' do
+      finished_activity_session =
+        create(:activity_session,
+          classroom_unit: classroom_unit_with_activity_sessions_1,
+          activity: activity,
+          user: student1,
+          updated_at: a_year_ago,
+          state: 'finished'
+        )
+
+      started_activity_session =
+        create(:activity_session,
+          classroom_unit: classroom_unit_with_activity_sessions_2,
+          activity: activity,
+          user: student1,
+          updated_at: today,
+          state: 'started'
+        )
+
+      TeacherFixes::merge_activity_sessions_between_two_classroom_units(
+        classroom_unit_with_activity_sessions_1.reload,
+        classroom_unit_with_activity_sessions_2.reload
+      )
+
+      expect(started_activity_session.reload.visible).to be false
+      expect(finished_activity_session.reload.visible).to be true
+      expect(finished_activity_session.reload.classroom_unit).to eq classroom_unit_with_activity_sessions_2
+    end
+
     it 'preserves the most recent activity session when it is in the TO classroom unit' do
       older_activity_session =
         create(:activity_session,

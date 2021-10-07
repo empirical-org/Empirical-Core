@@ -46,7 +46,7 @@ export const getCurrentStepDataForEventTracking = (activeStep, activities, sessi
   const activityID = getUrlParam('uid', location, isTurk)
   const promptIndex = activeStep - 2 // have to subtract 2 because the prompts array index starts at 0 but the prompt numbers in the state are 2..4
 
-  if (promptIndex < 0 || !currentActivity.prompts[promptIndex]) return; // If we're on a step earlier than a prompt, or there's no prompt for this step then there's nothing to track
+  if (promptIndex < 0 || !currentActivity || !currentActivity.prompts[promptIndex]) return; // If we're on a step earlier than a prompt, or there's no prompt for this step then there's nothing to track
 
   const promptID = currentActivity.prompts[promptIndex].id
 
@@ -77,7 +77,7 @@ export const everyOtherStepCompleted = (stepNumber, completedSteps) => {
 export const getStrippedPassageHighlights = ({ activities, session, activeStep }) => {
   const { currentActivity } = activities;
   const promptIndex = activeStep - 2
-  const activePromptId = currentActivity.prompts[promptIndex] && currentActivity.prompts[promptIndex].id
+  const activePromptId = currentActivity && currentActivity.prompts[promptIndex] && currentActivity.prompts[promptIndex].id
   const submittedResponsesForActivePrompt = session.submittedResponses[activePromptId]
   const lastSubmittedResponse = submittedResponsesForActivePrompt && submittedResponsesForActivePrompt[submittedResponsesForActivePrompt.length - 1]
   const passageHighlights = lastSubmittedResponse && lastSubmittedResponse.highlight && lastSubmittedResponse.highlight.filter(hl => hl.type === "passage")

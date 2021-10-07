@@ -90,7 +90,7 @@ describe PublicProgressReports, type: :model do
           expect(classrooms[c1_index][:classroom_unit_id]).to eq(classroom_unit_1.id)
           expect(classrooms[c2_index][:classroom_unit_id]).to eq(classroom_unit_2.id)
 
-      
+
         end
       end
     end
@@ -121,6 +121,40 @@ describe PublicProgressReports, type: :model do
       expect(recommendations[:students].find { |s| s[:id] == student_3.id}).not_to be
       expect(recommendations[:students].find { |s| s[:id] == student_not_in_class.id}).not_to be
     end
+  end
+
+  describe '#get_previously_assigned_recommendations_by_classroom' do
+    let!(:unit_template1) { create(:unit_template) }
+    let!(:unit_template2) { create(:unit_template)}
+    let!(:teacher) { create(:teacher) }
+    let!(:unit1) { create(:unit, unit_template_id: unit_template1.id, user: teacher) }
+    let!(:unit2) { create(:unit, unit_template_id: unit_template2.id, user: teacher) }
+    let!(:classroom) { create(:classroom) }
+    let!(:classroom2) { create(:classroom) }
+    let!(:diagnostic) { create(:diagnostic) }
+    let!(:diagnostic_activity) { create(:diagnostic_activity) }
+    let!(:recommendation) { create(:recommendation, activity: diagnostic_activity, unit_template: unit_template1, category: 1)}
+    let!(:recommendation2) { create(:recommendation, activity: diagnostic_activity, unit_template: unit_template2, category: 1)}
+    let!(:unit_activity) { create(:unit_activity, activity: diagnostic_activity, unit: unit1)}
+    let!(:student_not_in_class) { create(:student) }
+    let!(:student_1) { create(:student) }
+    let!(:student_2) { create(:student) }
+    let!(:student_3) { create(:student) }
+    let!(:students_classrooms_1) { create(:students_classrooms, classroom: classroom, student: student_1)}
+    let!(:students_classrooms_2) { create(:students_classrooms, classroom: classroom, student: student_2)}
+    let!(:students_classrooms_3) { create(:students_classrooms, classroom: classroom, student: student_3)}
+    let!(:classroom_unit_1) { create(:classroom_unit, classroom: classroom, unit: unit1, assigned_student_ids: [student_1.id, student_2.id] )}
+    let!(:classroom_unit_2) { create(:classroom_unit, classroom: classroom2, unit: unit2, assigned_student_ids: [] )}
+
+    it 'will return previously assigned lesson recommendation only if that classroom has been assigned the lesson' do
+      create(:classrooms_teacher, classroom: classroom, user: teacher)
+      expected_response = {
+        previouslyAssignedRecommendations: [],
+        previouslyAssignedLessonsRecommendations: [unit_template1.id]
+      }
+      expect(FakeReports.new.get_previously_assigned_recommendations_by_classroom(classroom.id, diagnostic_activity.id).to_json).to eq(expected_response.to_json)
+    end
+
   end
 
   describe '#generic_questions_for_report' do

@@ -111,7 +111,6 @@
     "react-textarea-autosize": "^4.3.2",
     "react-tooltip": "^4.1.2",
     "react-visibility-sensor": "^5.1.1",
-    "react-wakelock-react16": "0.0.7",
     "redux": "^3.3.1",
     "redux-devtools": "^3.5.0",
     "redux-devtools-extension": "^2.13.8",
