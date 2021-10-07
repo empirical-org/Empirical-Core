@@ -202,7 +202,7 @@ describe TeacherFixController do
 
           it 'should return that students are not in the same classroom' do
             post :merge_student_accounts, params: { account_1_identifier: student.email, account_2_identifier: student1.email }
-            expect(response.body).to eq({error: "These students are not in the same classrooms."}.to_json)
+            expect(response.body).to eq({error: "#{student1.email} is in at least one class that #{student.email} is not in, so we can't merge them."}.to_json)
           end
         end
       end
