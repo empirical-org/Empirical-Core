@@ -4,7 +4,6 @@ module Evidence
       'test' => 'test'
     }
 
-
     def initialize(oapi_response)
       @oapi_response = oapi_response
       error = @oapi_response['oapi_error']
@@ -32,6 +31,3 @@ module Evidence
 
   end
 end
-
-
-
