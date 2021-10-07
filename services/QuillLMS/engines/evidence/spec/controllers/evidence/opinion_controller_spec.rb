@@ -5,8 +5,8 @@ module Evidence
     before { @routes = Engine.routes }
 
     describe '#fetch' do 
-      let(:exampleError) { 'exampleError' }
-      let(:exampleRuleUID) { 123 }
+      let(:example_error) { 'example_error' }
+      let(:example_rule_uid) { 123 }
       let(:incoming_payload) do 
         { 
           'entry' => 'eat junk food at home.', 
@@ -16,7 +16,7 @@ module Evidence
 
       let(:oapi_response) do 
         {
-          'oapi_error' => exampleError,
+          'oapi_error' => example_error,
           'highlight' => [{
             'type': 'response',
             'text': 'someText',
@@ -26,7 +26,7 @@ module Evidence
       end
 
       let!(:rule) do 
-        create(:evidence_rule, uid: exampleRuleUID)
+        create(:evidence_rule, uid: example_rule_uid)
       end
 
       before do 
@@ -34,7 +34,7 @@ module Evidence
         # the answers are here: https://github.com/rspec/rspec-mocks/issues/1079
         OpinionFeedbackAssembler && stub_const(
           'Evidence::OpinionFeedbackAssembler::OAPI_ERROR_TO_RULE_UID', 
-          { exampleError => exampleRuleUID }
+          { example_error => example_rule_uid }
         )
         allow(::HTTParty).to receive(:post).and_return(oapi_response)
       end
@@ -52,7 +52,7 @@ module Evidence
             { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
           ],
           'labels' => '',
-          'rule_uid' => exampleRuleUID.to_s
+          'rule_uid' => example_rule_uid.to_s
         })
       end
 
@@ -73,7 +73,7 @@ module Evidence
               { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
             ],
             'labels' => '',
-            'rule_uid' => exampleRuleUID.to_s
+            'rule_uid' => example_rule_uid.to_s
           })
         end
       end
