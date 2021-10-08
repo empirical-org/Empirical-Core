@@ -3,6 +3,8 @@ import React from 'react';
 import Stage1 from './select_activities_container';
 import Stage2 from './stage2/Stage2';
 import UnitAssignmentFollowup from './unit_assignment_followup.tsx';
+import ShareToGoogleClassroom from './google_classroom/shareToGoogleClassroom';
+
 import {
   CLASSROOMS,
   UNIT_NAME,
@@ -289,10 +291,36 @@ export default class CreateUnit extends React.Component {
     />);
   }
 
+  moveToStage4 = () => {
+    this.setStage(4);
+  }
+
   stage3specificComponents = () => {
+    console.log('props', this.props)
+    console.log('state', this.state)
+    const { assignSuccess, name, selectedActivities, classrooms } = this.state;
+    if (assignSuccess) {
+      const activityPackData = {
+        name: name,
+        activityCount: selectedActivities && selectedActivities.length,
+
+      }
+      const assignedClassrooms = classrooms.filter(c => c.classroom.emptyClassroomSelected || c.students.find(s => s.isSelected))
+      return <ShareToGoogleClassroom
+        activityPackData={activityPackData}
+        assignedClassrooms={assignedClassrooms}
+        classrooms={classrooms}
+        moveToStage4={this.moveToStage4}
+        state={this.state}
+        props={this.props}
+      />
+    }
+  }
+
+  stage4specificComponents = () => {
     const { referralCode, location, history, } = this.props
-    const { classrooms, selectedActivities, name, } = this.state
-    if ((this.state.assignSuccess)) {
+    const { classrooms, selectedActivities, name, assignSuccess } = this.state
+    if ((assignSuccess)) {
       return (<UnitAssignmentFollowup
         classrooms={classrooms}
         history={history}
@@ -304,7 +332,7 @@ export default class CreateUnit extends React.Component {
       />);
     }
 
-    if(_.map(this.state.selectedActivities, activity => { return activity.activity_classification.id }).includes(6)) {
+    if (_.map(this.state.selectedActivities, activity => { return activity.activity_classification.id }).includes(6)) {
       // There is a lesson here, so we should send the teacher to the Lessons page.
       window.location.href = `/teachers/classrooms/activity_planner/lessons#${this.state.newUnitId}`;
     } else {
@@ -327,7 +355,7 @@ export default class CreateUnit extends React.Component {
   setSelectedActivities = (newActivityArray) => {
     const newActivityArrayIds = newActivityArray.map(a => a.id).join(',')
     this.setState({ selectedActivities: newActivityArray, }, () => {
-      window.localStorage.setItem(ACTIVITY_IDS_ARRAY,  newActivityArrayIds)
+      window.localStorage.setItem(ACTIVITY_IDS_ARRAY, newActivityArrayIds)
     })
   }
 
@@ -389,14 +417,17 @@ export default class CreateUnit extends React.Component {
   }
 
   render = () => {
+    const { stage } = this.state;
     let stageSpecificComponents;
 
-    if (this.getStage() === 1) {
+    if (stage === 1) {
       stageSpecificComponents = this.stage1SpecificComponents();
-    } else if (this.getStage() === 2) {
+    } else if (stage === 2) {
       stageSpecificComponents = this.stage2SpecificComponents();
-    } else if (this.getStage() === 3) {
+    } else if (stage === 3) {
       stageSpecificComponents = this.stage3specificComponents();
+    } else if (stage === 4) {
+      stageSpecificComponents = this.stage4specificComponents();
     }
     return (
       <span>

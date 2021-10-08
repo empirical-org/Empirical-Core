@@ -67,7 +67,7 @@
 }
 
 .assignment-flow-container {
-  .learning-process, .diagnostic-page, .activity-type {
+  .learning-process, .diagnostic-page, .activity-type, .google-classroom {
     display: flex;
     padding: 54px;
     flex-direction: column;
@@ -83,6 +83,29 @@
       .graduation-cap {
         margin-left: -8px;
         margin-right: 32px;
+      }
+    }
+  }
+  .google-classroom {
+    .activity-pack-information-container {
+      display: flex;
+      width: 100%;
+      justify-content: space-around;
+      .pack-sub-container {
+        .activity-pack-label {
+          color: #5c5c5c;
+          font-size: 12px;
+          line-height: 1.33;
+        }
+        .activity-pack-data {
+          line-height: 1.43;
+        }
+      }
+      #activity-pack {
+        flex: 5;
+      }
+      #activities, #classes, #students {
+        flex: 1;
       }
     }
   }
