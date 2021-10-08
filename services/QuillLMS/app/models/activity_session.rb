@@ -148,6 +148,10 @@ class ActivitySession < ApplicationRecord
     end
   end
 
+  def started?
+    state == STATE_STARTED
+  end
+
   def finished?
     state == FINISHED_STATE
   end
