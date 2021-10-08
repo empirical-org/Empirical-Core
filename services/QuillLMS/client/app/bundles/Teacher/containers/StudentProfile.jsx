@@ -10,7 +10,6 @@ import StudentProfileClassworkTabs from '../components/student_profile/student_p
 import SelectAClassroom from '../../Student/components/selectAClassroom'
 import LoadingIndicator from '../components/shared/loading_indicator'
 import {
-  fetchNotifications,
   fetchStudentProfile,
   fetchStudentsClassrooms,
   handleClassroomClick,
@@ -21,7 +20,6 @@ import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../constants/stud
 class StudentProfile extends React.Component {
   componentDidMount() {
     const {
-      fetchNotifications,
       fetchStudentProfile,
       fetchStudentsClassrooms,
       classroomId,
@@ -36,11 +34,6 @@ class StudentProfile extends React.Component {
       fetchStudentsClassrooms();
     }
 
-    // Remove following conditional when student notifications are ready to display
-    const displayFeature = false;
-    if (displayFeature) {
-      fetchNotifications();
-    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -160,7 +153,6 @@ class StudentProfile extends React.Component {
 
 const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
-  fetchNotifications: () => dispatch(fetchNotifications()),
   fetchStudentProfile: classroomId => dispatch(fetchStudentProfile(classroomId)),
   fetchStudentsClassrooms: () => dispatch(fetchStudentsClassrooms()),
   handleClassroomClick: classroomId => dispatch(handleClassroomClick(classroomId)),
