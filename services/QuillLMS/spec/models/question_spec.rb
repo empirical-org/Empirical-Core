@@ -293,6 +293,8 @@ RSpec.describe Question, type: :model do
     let!(:question) {create(:question, uid: '1234', data: {'foo' => 'initial_value'})}
 
     it 'should queue a cache refresh job on update' do
+      expect(Rails.cache).to receive(:delete).with(Question::CACHE_KEY_QUESTION + question.uid)
+      expect(Rails.cache).to receive(:delete).with(Question::CACHE_KEY_ALL + question.question_type)
       expect(RefreshQuestionCacheWorker).to receive(:perform_async).with(question.question_type, question.uid)
 
       question.update(data: {'foo' => 'new_value'})

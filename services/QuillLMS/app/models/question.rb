@@ -76,7 +76,7 @@ class Question < ApplicationRecord
   end
 
   def self.question_json_cached(uid, refresh: false)
-    C do
+    Rails.cache.fetch(CACHE_KEY_QUESTION + uid.to_s, expires_in: CACHE_EXPIRY, force: refresh) do
       find_by!(uid: uid).to_json
     end
   end
