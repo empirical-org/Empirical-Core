@@ -76,7 +76,7 @@ class Question < ApplicationRecord
   end
 
   def self.question_json_cached(uid, refresh: false)
-    Rails.cache.fetch(CACHE_KEY_QUESTION + uid.to_s, expires_in: CACHE_EXPIRY, force: refresh) do
+    C do
       find_by!(uid: uid).to_json
     end
   end
@@ -155,6 +155,7 @@ class Question < ApplicationRecord
 
   private def refresh_caches
     Rails.cache.delete(CACHE_KEY_QUESTION + uid.to_s)
+    Rails.cache.delete(CACHE_KEY_ALL + question_type)
     RefreshQuestionCacheWorker.perform_async(question_type, uid)
   end
 
