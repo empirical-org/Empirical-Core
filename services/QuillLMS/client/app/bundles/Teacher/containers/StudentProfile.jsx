@@ -3,7 +3,6 @@ import Pusher from 'pusher-js';
 import { connect } from 'react-redux';
 import qs from 'qs'
 
-import NotificationFeed  from '../components/student_profile/notification_feed';
 import StudentProfileUnits from '../components/student_profile/student_profile_units.jsx';
 import StudentProfileHeader from '../components/student_profile/student_profile_header';
 import StudentProfileClassworkTabs from '../components/student_profile/student_profile_classwork_tabs';
