@@ -212,11 +212,6 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     const { showNextOptions, leaving, } = this.state
     if (leaving) return
     if (!showNextOptions) {
-      // if (this.allAssignedClassroomsAreEmpty()) {
-      //   return this.renderInviteStudents()
-      // } else {
-      //   return this.renderReferral()
-      // }
       return this.renderReferral()
     }
     return this.renderNextOptions()

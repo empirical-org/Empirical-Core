@@ -87,25 +87,35 @@
     }
   }
   .google-classroom {
-    .activity-pack-information-container {
-      display: flex;
-      width: 100%;
-      justify-content: space-around;
-      .pack-sub-container {
-        .activity-pack-label {
-          color: #5c5c5c;
-          font-size: 12px;
-          line-height: 1.33;
+    .inner-container {
+      .activity-pack-information-container {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        margin-bottom: 40px;
+        .pack-sub-container {
+          .activity-pack-label {
+            color: #5c5c5c;
+            font-size: 12px;
+            line-height: 1.33;
+          }
+          .activity-pack-data {
+            overflow: hidden;
+            max-width: 312px;
+            white-space: nowrap;
+            line-height: 1.43;
+            text-overflow: ellipsis;
+          }
         }
-        .activity-pack-data {
-          line-height: 1.43;
+        #activity-pack {
+          flex: 5;
         }
-      }
-      #activity-pack {
-        flex: 5;
-      }
-      #activities, #classes, #students {
-        flex: 1;
+        #activities, #classes, #students {
+          flex: 1;
+        }
+        #activity-pack, #activities, #classes {
+          margin-right: 24px;
+        }
       }
     }
   }

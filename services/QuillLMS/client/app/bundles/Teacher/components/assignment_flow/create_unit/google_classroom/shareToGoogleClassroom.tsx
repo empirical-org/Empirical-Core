@@ -6,7 +6,6 @@ import AssignmentFlowNavigation from '../../assignment_flow_navigation'
 import AssignmentCard from '../assignment_card'
 import ScrollToTop from '../../../shared/scroll_to_top'
 import { Card } from '../../../../../Shared/index'
-
 import {
   UNIT_TEMPLATE_NAME,
   UNIT_TEMPLATE_ID,
@@ -23,13 +22,11 @@ const selectCard = (history, link) => {
 }
 
 const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classrooms, moveToStage4, state, props }) => {
+console.log("🚀 ~ file: ShareToGoogleClassroom.tsx ~ line 26 ~ ShareToGoogleClassroom ~ assignedClassrooms", assignedClassrooms)
   const [leaving, setLeaving] = React.useState<boolean>(false);
-  // console.log('props', props)
-  // console.log('state', state)
 
   React.useEffect(() => {
     if (leaving) {
-      console.log('...removing')
       window.localStorage.removeItem(UNIT_TEMPLATE_ID);
       window.localStorage.removeItem(UNIT_TEMPLATE_NAME);
       window.localStorage.removeItem(UNIT_NAME);
@@ -49,7 +46,7 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classroo
   }
 
   function renderInviteStudents() {
-    const emptyClassrooms = classrooms.filter(c => !c.students.length)
+    const emptyClassrooms = assignedClassrooms.filter(c => !c.students.length)
     const numberOfClassroomsFirstText = `${emptyClassrooms.length} ${emptyClassrooms.length === 1 ? 'class' : 'classes'}`
     const numberOfClassroomsSecondText = `${emptyClassrooms.length === 1 ? 'has' : 'have'}`
     return (<Card
@@ -68,8 +65,11 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classroo
       <AssignmentFlowNavigation button={button} />
       <div className="google-classroom container">
         <h1>Assigned!</h1>
-        <ActivityPackInformation activityPackData={activityPackData} />
-        {allClassroomsAreEmpty && renderInviteStudents()}
+        <div className="inner-container">
+          <ActivityPackInformation activityPackData={activityPackData} />
+          {allClassroomsAreEmpty && renderInviteStudents()}
+          {!allClassroomsAreEmpty && 'invite students to google classroom'}
+        </div>
       </div>
     </div>
   );

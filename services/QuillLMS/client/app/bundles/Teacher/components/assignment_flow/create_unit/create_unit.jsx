@@ -296,8 +296,8 @@ export default class CreateUnit extends React.Component {
   }
 
   stage3specificComponents = () => {
-    console.log('props', this.props)
-    console.log('state', this.state)
+    // console.log('props', this.props)
+    // console.log('state', this.state)
     const { assignSuccess, name, selectedActivities, classrooms } = this.state;
     if (assignSuccess) {
       const activityPackData = {
@@ -417,7 +417,7 @@ export default class CreateUnit extends React.Component {
   }
 
   render = () => {
-    const { stage } = this.state;
+    const { stage, classrooms } = this.state;
     let stageSpecificComponents;
 
     if (stage === 1) {
