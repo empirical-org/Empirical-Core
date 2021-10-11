@@ -85,6 +85,11 @@ class Activity < ApplicationRecord
   # the other two, Proofreader and Lesson, contain passages and other data, not questions
   ACTIVITY_TYPES_WITH_QUESTIONS = [2,4,5]
 
+  STARTER_DIAGNOSTIC_ACTIVITY_ID = 1663
+  INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID = 1668
+  ADVANCED_DIAGNOSTIC_ACTIVITY_ID = 1678
+  PRE_TEST_DIAGNOSTIC_IDS = [STARTER_DIAGNOSTIC_ACTIVITY_ID, INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID, ADVANCED_DIAGNOSTIC_ACTIVITY_ID]
+
   def self.diagnostic_activity_ids
     ActivityClassification.find_by_key('diagnostic')&.activities&.pluck(:id) || []
   end

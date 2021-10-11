@@ -132,9 +132,9 @@ export default class AssignStudents extends React.Component {
   }
 
   renderClassroom(c) {
-    const { toggleClassroomSelection, toggleStudentSelection } = this.props
+    const { toggleClassroomSelection, toggleStudentSelection, lockedClassroomIds, lockedMessage, } = this.props
     const { classroom, students, } = c
-    return <ClassroomCard classroom={classroom} students={students} toggleClassroomSelection={toggleClassroomSelection} toggleStudentSelection={toggleStudentSelection} />
+    return <ClassroomCard classroom={classroom} lockedClassroomIds={lockedClassroomIds} lockedMessage={lockedMessage} students={students} toggleClassroomSelection={toggleClassroomSelection} toggleStudentSelection={toggleStudentSelection} />
   }
 
   renderClassroomList() {

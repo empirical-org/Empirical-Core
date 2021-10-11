@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { DropdownInput } from '../../../../../Shared/index'
+import { DropdownInput, Tooltip, lockedIcon, } from '../../../../../Shared/index'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
@@ -9,6 +9,8 @@ interface ClassroomCardProps {
   students: Array<any>;
   toggleClassroomSelection: (any) => void;
   toggleStudentSelection: (studentIds, classroomId) => void;
+  lockedClassroomIds: Array<string|number>;
+  lockedMessage: string;
 }
 
 interface ClassroomCardState {
@@ -27,11 +29,11 @@ export default class ClassroomCard extends React.Component<ClassroomCardProps, C
     }
   }
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     document.addEventListener('mousedown', this.handleClick, false)
   }
 
-  componentWillUnmount() {
+  componentDidUnmount() {
     document.removeEventListener('mousedown', this.handleClick, false)
   }
 
@@ -49,8 +51,12 @@ export default class ClassroomCard extends React.Component<ClassroomCardProps, C
   }
 
   renderClassroomCheckbox() {
-    const { classroom, students, toggleClassroomSelection } = this.props
+    const { classroom, students, toggleClassroomSelection, lockedClassroomIds, lockedMessage, } = this.props
     const { emptyClassroomSelected, } = classroom
+
+    if (lockedClassroomIds.includes(classroom.id)) {
+      return <Tooltip tooltipText={lockedMessage} tooltipTriggerText={<img alt={lockedIcon.alt} src={lockedIcon.src} />} />
+    }
 
     let checkbox = <span className="quill-checkbox unselected" onClick={() => toggleClassroomSelection(classroom)} />
     const selectedStudents = students && students.length ? students.filter(s => s.isSelected) : []
@@ -66,8 +72,10 @@ export default class ClassroomCard extends React.Component<ClassroomCardProps, C
 
   renderStudentSection() {
     const { isActive, } = this.state
-    const { classroom, students, } = this.props
+    const { classroom, students, lockedClassroomIds, } = this.props
     const { id, emptyClassroomSelected, } = classroom
+
+    if (lockedClassroomIds.includes(id)) { return null }
 
     const options = students ? students.map((s) => {
       return { value: s.id, label: s.name, isSelected: s.isSelected, }

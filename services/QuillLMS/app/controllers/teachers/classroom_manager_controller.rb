@@ -20,12 +20,9 @@ class Teachers::ClassroomManagerController < ApplicationController
   def assign
     session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
     set_classroom_variables
+    set_banner_variables
+    set_diagnostic_variables
     @number_of_activities_assigned = current_user.units.map(&:unit_activities).flatten.map(&:activity_id).uniq.size
-    acknowledge_diagnostic_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_diagnostic_banner])
-    acknowledge_lessons_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_lessons_banner])
-    diagnostic_ids = Activity.diagnostic_activity_ids
-    @show_diagnostic_banner = !UserMilestone.find_by(milestone_id: acknowledge_diagnostic_banner_milestone&.id, user_id: current_user&.id) && current_user&.unit_activities&.where(activity_id: diagnostic_ids)&.none?
-    @show_lessons_banner = !UserMilestone.find_by(milestone_id: acknowledge_lessons_banner_milestone&.id, user_id: current_user&.id) && current_user&.classroom_unit_activity_states&.where(completed: true)&.none?
     find_or_create_checkbox(Objective::EXPLORE_OUR_LIBRARY, current_user)
     if params[:tab] == 'diagnostic'
       find_or_create_checkbox(Objective::EXPLORE_OUR_DIAGNOSTICS, current_user)
@@ -253,6 +250,25 @@ class Teachers::ClassroomManagerController < ApplicationController
     @last_classroom_id = last_classroom.id
   end
 
+  private def set_banner_variables
+    acknowledge_diagnostic_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_diagnostic_banner])
+    acknowledge_lessons_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_lessons_banner])
+    diagnostic_ids = Activity.diagnostic_activity_ids
+    @show_diagnostic_banner = !UserMilestone.find_by(milestone_id: acknowledge_diagnostic_banner_milestone&.id, user_id: current_user&.id) && current_user&.unit_activities&.where(activity_id: diagnostic_ids)&.none?
+    @show_lessons_banner = !UserMilestone.find_by(milestone_id: acknowledge_lessons_banner_milestone&.id, user_id: current_user&.id) && current_user&.classroom_unit_activity_states&.where(completed: true)&.none?
+  end
+
+  def set_diagnostic_variables
+    @assigned_pre_tests = Activity.where(id: Activity::PRE_TEST_DIAGNOSTIC_IDS).map do |act|
+      pre_test_diagnostic_unit_ids = @current_user&.unit_activities&.where(activity_id: act.id)&.map(&:unit_id) || []
+      assigned_classroom_ids = ClassroomUnit.where(unit_id: pre_test_diagnostic_unit_ids)&.map(&:classroom_id) || []
+      {
+        id: act.id,
+        post_test_id: act.follow_up_activity_id,
+        assigned_classroom_ids: assigned_classroom_ids
+      }
+    end
+  end
 
   private def classroom_with_students_json(classrooms)
     { classrooms_and_their_students: classrooms.map { |classroom| classroom_json(classroom) } }

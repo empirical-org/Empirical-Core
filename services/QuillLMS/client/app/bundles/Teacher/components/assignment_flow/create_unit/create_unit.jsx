@@ -10,6 +10,7 @@ import {
   UNIT_TEMPLATE_ID,
   ACTIVITY_IDS_ARRAY,
   UNIT_ID,
+  postTestClassAssignmentLockedMessages,
 } from '../assignmentFlowConstants.ts'
 import parsedQueryParams from '../parsedQueryParams'
 import { requestGet, requestPost, } from '../../../../../modules/request';
@@ -261,22 +262,46 @@ export default class CreateUnit extends React.Component {
     />);
   }
 
+  restrictedActivityBeingAssigned = () => {
+    const { assignedPreTests, } = this.props
+    const { selectedActivities, } = this.state
+
+    const restrictedActivityIds = assignedPreTests.map(pretest => pretest.post_test_id)
+    return selectedActivities && selectedActivities.find(act => restrictedActivityIds.includes(act.id))
+  }
+
+  lockedClassroomIds = () => {
+    const { assignedPreTests, } = this.props
+    const { classrooms, } = this.state
+    let lockedClassroomIds = []
+
+    const restrictedActivity = this.restrictedActivityBeingAssigned()
+
+    if (restrictedActivity) {
+      const relevantPretest = assignedPreTests.find(pretest => pretest.post_test_id === restrictedActivity.id)
+      lockedClassroomIds = classrooms.filter(c => !relevantPretest.assigned_classroom_ids.includes(c.classroom.id)).map(c => c.classroom.id)
+    }
+
+    return lockedClassroomIds
+  }
+
   stage2SpecificComponents = () => {
-    const { user, } = this.props
+    const { user, assignedPreTests, } = this.props
+
+    const restrictedActivity = this.restrictedActivityBeingAssigned()
+
     return (<Stage2
       areAnyStudentsSelected={this.areAnyStudentsSelected()}
-      areAnyStudentsSelected={this.areAnyStudentsSelected()}
-      assignActivityDueDate={this.assignActivityDueDate}
       assignActivityDueDate={this.assignActivityDueDate}
       classrooms={this.getClassrooms()}
       data={this.assignSuccess}
       dueDates={this.state.model.dueDates}
       errorMessage={this.determineStage2ErrorMessage()}
-      errorMessage={this.determineStage2ErrorMessage()}
-      fetchClassrooms={this.fetchClassrooms}
       fetchClassrooms={this.fetchClassrooms}
       finish={this.finish}
       isFromDiagnosticPath={!!parsedQueryParams().diagnostic_unit_template_id}
+      lockedClassroomIds={this.lockedClassroomIds()}
+      lockedMessage={restrictedActivity ? postTestClassAssignmentLockedMessages[restrictedActivity.id] : ''}
       selectedActivities={this.getSelectedActivities()}
       toggleActivitySelection={this.toggleActivitySelection}
       toggleClassroomSelection={this.toggleClassroomSelection}
@@ -337,7 +362,10 @@ export default class CreateUnit extends React.Component {
     if (!classrooms) {
       return;
     }
+
+    const lockedClassroomIds = this.lockedClassroomIds()
     const updated = classrooms.map((c) => {
+      if (lockedClassroomIds.includes(c.classroom.id)) { return c }
       const classroomGettingUpdated = c
       if (!classroom || classroomGettingUpdated.classroom.id === classroom.id) {
         const { students, } = classroomGettingUpdated
