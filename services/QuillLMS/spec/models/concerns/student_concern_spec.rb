@@ -13,7 +13,7 @@ describe 'Student Concern', type: :model do
   let!(:unit) { create(:unit, user_id: classroom.owner.id)}
 
   let!(:classroom_unit1) do
-     create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student1.id, student2.id])
+    create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student1.id, student2.id])
   end
 
   let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student1.id]) }
@@ -22,7 +22,7 @@ describe 'Student Concern', type: :model do
   let!(:classroom_unit5) { create(:classroom_unit, classroom: classroom2, assigned_student_ids: [student2.id]) }
 
   let!(:final_score) do
-     create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit1.id, is_final_score: true)
+    create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit1.id, is_final_score: true)
   end
 
   let!(:not_final_score) { create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit1.id)}
@@ -31,35 +31,35 @@ describe 'Student Concern', type: :model do
   end
 
   let!(:higher_percentage) do
-     create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit2.id, percentage: 0.8)
+    create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit2.id, percentage: 0.8)
   end
 
   let!(:started) do
-     create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit3.id, started_at: Time.now)
+    create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit3.id, started_at: Time.now)
   end
 
   let!(:completed_earlier) do
-     create(
-       :activity_session,
-       user_id: student1.id,
-       classroom_unit_id: classroom_unit4.id,
-       completed_at: Time.now - 5,
-       state: 'finished',
-       percentage: 0.7,
-       activity: activity
+    create(
+      :activity_session,
+      user_id: student1.id,
+      classroom_unit_id: classroom_unit4.id,
+      completed_at: Time.now - 5,
+      state: 'finished',
+      percentage: 0.7,
+      activity: activity
     )
   end
 
   let!(:completed_later) do
-     create(
-       :activity_session,
-       user_id: student1.id,
-       classroom_unit_id: classroom_unit4.id,
-       completed_at: Time.now,
-       state: 'finished',
-       percentage: 0.7,
-       activity: activity
-     )
+    create(
+      :activity_session,
+      user_id: student1.id,
+      classroom_unit_id: classroom_unit4.id,
+      completed_at: Time.now,
+      state: 'finished',
+      percentage: 0.7,
+      activity: activity
+    )
   end
 
   let!(:activity_session_for_second_student_1) do
@@ -67,7 +67,7 @@ describe 'Student Concern', type: :model do
   end
 
   let!(:activity_session_for_second_student_2) do
-     create(:activity_session, user_id: student2.id, classroom_unit_id: classroom_unit5.id)
+    create(:activity_session, user_id: student2.id, classroom_unit_id: classroom_unit5.id)
   end
 
   describe "#student_average_score" do
@@ -217,6 +217,70 @@ describe 'Student Concern', type: :model do
 
     it 'returns true if the students are in the same classroom' do
       expect(student2.same_classrooms_as_other_student(student3.id)).to be true
+    end
+  end
+
+  describe '#classrooms_shared_with_other_student' do
+    let!(:classroom3) { create(:classroom, :with_no_teacher) }
+    before { create(:classrooms_teacher, classroom: classroom3, user: classroom2.owner) }
+
+    let!(:classroom4) { create(:classroom, :archived) }
+    let!(:classroom5) { create(:classroom, :with_no_teacher) }
+
+    let!(:student4) { create(:student, classrooms: [classroom, classroom2, classroom3, classroom4, classroom5]) }
+    let!(:student5) { create(:student, classrooms: [classroom4, classroom5]) }
+
+    subject { student.classrooms_shared_with_other_student(other_student.id, teacher_id) }
+
+    context 'no teacher id given' do
+      let(:teacher_id) { nil }
+
+      context 'students share no classes' do
+        let(:student) { student1 }
+        let(:other_student) { student5 }
+
+        it { expect(subject).to eq [] }
+      end
+
+      context 'students share one class' do
+        let(:student) { student4 }
+        let(:other_student) { student5 }
+
+        it { expect(subject).to eq [{"classroom_id" => classroom5.id}] }
+      end
+
+      context 'students share multiple classes' do
+        let(:student) { student2 }
+        let(:other_student) { student3 }
+
+        it { expect(subject).to match_array [{"classroom_id" => classroom.id}, {"classroom_id" => classroom2.id}] }
+      end
+    end
+
+    context 'teacher_id given' do
+      context 'students share no classes' do
+        let(:teacher_id) { classroom3.owner.id }
+        let(:student) { student3 }
+        let(:other_student) { student5 }
+
+        it { expect(subject).to eq [] }
+      end
+
+      context 'students share one class' do
+        let(:teacher_id) { classroom2.owner.id }
+        let(:student) { student2 }
+        let(:other_student) { student3 }
+
+        it { expect(subject).to match_array [{"classroom_id" => classroom2.id}] }
+      end
+
+      context 'classes with no owners does not break filtering' do
+        let(:teacher_id) { classroom3.owner.id }
+        let(:student) { student4 }
+        let(:other_student) { student5 }
+
+        it { expect(subject).to eq [] }
+      end
     end
   end
 end
