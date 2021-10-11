@@ -1,0 +1,14 @@
+<svg width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" fill-rule="evenodd">
+        <path d="M0 0h64v64H0z"/>
+        <path stroke="#212121" stroke-width="2" stroke-linecap="square" d="M8 2h40v52H8z"/>
+        <path d="M16 3h24v24H16z"/>
+        <path d="M19.9 15c0-1.71 1.39-3.1 3.1-3.1h4V10h-4a5 5 0 1 0 0 10h4v-1.9h-4c-1.71 0-3.1-1.39-3.1-3.1m4.1 1h8v-2h-8v2m9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1 0 1.71-1.39 3.1-3.1 3.1h-4V20h4a5 5 0 0 0 0-10z" fill="#000" fill-rule="nonzero"/>
+        <path d="M16 25h24v24H16z"/>
+        <path d="M39 27H17a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h22a1 1 0 0 0 1-1V28a1 1 0 0 0-1-1m-1 18h-2v-1h-5v1H18V29h20v16M26.29 34.71a1.71 1.71 0 0 1 3.42 0c0 .95-.76 1.72-1.71 1.72s-1.71-.77-1.71-1.72m-4.58 1.58a1.29 1.29 0 1 1 2.58 0c0 .71-.58 1.28-1.29 1.28-.71 0-1.29-.57-1.29-1.28m10 0a1.29 1.29 0 0 1 2.58 0c0 .71-.58 1.28-1.29 1.28-.71 0-1.29-.57-1.29-1.28M36 40.14V41H20v-.86c0-.94 1.55-1.71 3-1.71.55 0 1.11.11 1.6.3.75-.69 2.1-1.16 3.4-1.16 1.3 0 2.65.47 3.4 1.16.49-.19 1.05-.3 1.6-.3 1.45 0 3 .77 3 1.71z" fill="#000" fill-rule="nonzero"/>
+        <path stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 58h40"/>
+        <path stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="bevel" d="M52 2v56"/>
+        <path stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M16 62h40"/>
+        <path stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="bevel" d="M56 6v56"/>
+    </g>
+</svg>
