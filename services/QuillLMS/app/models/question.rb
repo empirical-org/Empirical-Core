@@ -154,6 +154,8 @@ class Question < ApplicationRecord
   end
 
   private def refresh_caches
+    Rails.cache.delete(CACHE_KEY_QUESTION + uid.to_s)
+    Rails.cache.delete(CACHE_KEY_ALL + question_type)
     RefreshQuestionCacheWorker.perform_async(question_type, uid)
   end
 
