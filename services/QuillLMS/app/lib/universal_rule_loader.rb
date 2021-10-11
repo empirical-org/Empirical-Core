@@ -25,7 +25,13 @@ class UniversalRuleLoader
       next unless row['Module'] == TYPE_LOOKUP[type.to_sym] && row['Activity'] == 'Universal'
 
       rule = Evidence::Rule.find_by_uid(row['Rule UID'])
-      if rule.nil? || !rule.universal || rule.rule_type != type
+
+      if rule 
+        if !rule.universal? || rule.rule_type != type
+          puts "\nExisting Rule with UID #{row['Rule UID']} is of incorrect type or not universal. Skipping."
+          next 
+        end
+      else 
         puts "\nCannot find universal #{type} Rule with UID #{row['Rule UID']}. Creating new rule."
         rule = Evidence::Rule.new(
           uid: row['Rule UID'],
@@ -36,7 +42,7 @@ class UniversalRuleLoader
           optimal: true, # Hardcoded, b/c the input file does not currently include an 'optimal' column
           state: Evidence::Rule::STATES.first # same as above
         )
-      end 
+      end
 
       puts "Rule: #{rule.name}"
 
