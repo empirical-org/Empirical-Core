@@ -22,6 +22,7 @@ export {
   ProgressBar,
   DropdownInput,
   Error,
+  ExpandableCard,
   FlagDropdown,
   Input,
   Passthrough,
