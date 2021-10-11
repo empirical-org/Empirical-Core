@@ -46,12 +46,28 @@ RSpec.describe UniversalRuleLoader do
         HEREDOC
       end
 
+      let(:csv3) do 
+        <<~HEREDOC
+          Rule UID,Rule,Concept UID,Feedback - Revised,Activity,Module
+          abc6a,invalidRule1,9999,the feedback,Universal,Grammar API
+        HEREDOC
+      end
+
       it 'should ignore rules that are not universal or grammar' do 
         expect do 
           UniversalRuleLoader.update_from_csv(type: rule_type, iostream: csv2)
         end.to change { Evidence::Rule.count }.by(0)
         .and change { Evidence::Feedback.count }.by(0)
       end
+
+      it 'should not create a rule when a rule exists that is not universal or grammar' do 
+        rule = rule_factory { { uid: 'abc6a', rule_type: rule_type, universal: false } }
+        expect do 
+          UniversalRuleLoader.update_from_csv(type: rule_type, iostream: csv3)
+        end.to change { Evidence::Rule.count }.by(0)
+        .and change { Evidence::Feedback.count }.by(0)
+      end
+
 
       it 'should update existing rule and update feedback' do 
         rule = rule_factory { { uid: '1d66a', rule_type: rule_type, universal: true } }
