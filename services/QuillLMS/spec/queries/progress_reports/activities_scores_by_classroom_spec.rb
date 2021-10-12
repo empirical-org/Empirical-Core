@@ -3,7 +3,9 @@ require 'rails_helper'
 describe 'ActivitiesScoresByClassroom' do
   let(:classroom) {create(:classroom_with_classroom_units)}
 
-  it "returns a row for each student that completed an activity session" do
+  it "returns a row for each student that completed a visible activity session" do
+    activity_sessions = classroom.classroom_units.first.activity_sessions
+    ActivitySession.unscoped.each {|as| as.update(visible: true)}
     expect(ProgressReports::ActivitiesScoresByClassroom.results(classroom.owner.classrooms_i_teach.map(&:id)).length)
       .to eq(classroom.students.length)
   end
@@ -24,6 +26,16 @@ describe 'ActivitiesScoresByClassroom' do
 
       expect(res['average_score']).to eq average_score
     end
+  end
+
+  it 'does not return archived activity sessions' do
+    new_student = create(:student)
+    create(:students_classrooms, student: new_student, classroom: classroom)
+    classroom_unit = classroom.classroom_units.first
+    classroom_unit.assigned_student_ids << new_student.id
+    create(:activity_session, user: classroom.students.first, classroom_unit: classroom_unit, visible: false)
+    results = ProgressReports::ActivitiesScoresByClassroom.results(classroom.owner.classrooms_i_teach.map(&:id))
+    expect(results.pluck("name")).not_to include(new_student.name)
   end
 
   describe '#transform_timestamps' do
