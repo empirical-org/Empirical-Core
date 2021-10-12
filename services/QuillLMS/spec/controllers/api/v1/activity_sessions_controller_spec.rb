@@ -10,17 +10,6 @@ describe Api::V1::ActivitySessionsController, type: :controller do
 
     before { allow(controller).to receive(:doorkeeper_token) { token } }
 
-    it 'passes activity session and user to notifier service' do
-      service_instance = double(:service_instance)
-
-      expect(NotifyOfCompletedActivity).to receive(:new)
-        .with(activity_session)
-        .and_return(service_instance)
-      expect(service_instance).to receive(:call)
-
-      put :update, params: { id: activity_session.uid, state: 'finished' }, as: :json
-    end
-
     context 'default behavior' do
       include_context "calling the api"
 
