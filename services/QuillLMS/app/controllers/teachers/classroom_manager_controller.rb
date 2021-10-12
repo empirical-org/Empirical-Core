@@ -260,7 +260,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def set_diagnostic_variables
     @assigned_pre_tests = Activity.where(id: Activity::PRE_TEST_DIAGNOSTIC_IDS).map do |act|
-      pre_test_diagnostic_unit_ids = @current_user&.unit_activities&.where(activity_id: act.id)&.map(&:unit_id) || []
+      pre_test_diagnostic_unit_ids = current_user&.unit_activities&.where(activity_id: act.id)&.map(&:unit_id) || []
       assigned_classroom_ids = ClassroomUnit.where(unit_id: pre_test_diagnostic_unit_ids)&.map(&:classroom_id) || []
       {
         id: act.id,

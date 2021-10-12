@@ -114,6 +114,39 @@ describe Teachers::ClassroomManagerController, type: :controller do
         end
       end
 
+      describe 'assigned_pre_tests' do
+        let!(:starter_post_test) { create(:diagnostic_activity) }
+        let!(:intermediate_post_test) { create(:diagnostic_activity) }
+        let!(:advanced_post_test) { create(:diagnostic_activity) }
+        let!(:starter_pre_test) { create(:diagnostic_activity, id: Activity::STARTER_DIAGNOSTIC_ACTIVITY_ID, follow_up_activity_id: starter_post_test.id) }
+        let!(:intermediate_pre_test) { create(:diagnostic_activity, id: Activity::INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID, follow_up_activity_id: intermediate_post_test.id) }
+        let!(:advanced_pre_test) { create(:diagnostic_activity, id: Activity::ADVANCED_DIAGNOSTIC_ACTIVITY_ID, follow_up_activity_id: advanced_post_test.id) }
+        let!(:unit) { create(:unit, user: user) }
+        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: starter_pre_test) }
+        let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: user.classrooms_i_teach.last) }
+
+        it 'should be a an array with objects containing the activity id, post test id, and assigned classroom ids' do
+          get :assign
+          expect(assigns(:assigned_pre_tests)).to eq ([
+            {
+              id: starter_pre_test.id,
+              post_test_id: starter_post_test.id,
+              assigned_classroom_ids: [user.classrooms_i_teach.last.id]
+            },
+            {
+              id: intermediate_pre_test.id,
+              post_test_id: intermediate_post_test.id,
+              assigned_classroom_ids: []
+            },
+            {
+              id: advanced_pre_test.id,
+              post_test_id: advanced_post_test.id,
+              assigned_classroom_ids: []
+            }
+          ])
+        end
+      end
+
       describe 'checkboxes' do
         let!(:explore_our_library) { create(:explore_our_library) }
         let!(:explore_our_diagnostics) { create(:explore_our_diagnostics) }
