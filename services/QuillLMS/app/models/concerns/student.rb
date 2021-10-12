@@ -187,12 +187,10 @@ module Student
       SQL
     ).to_a
 
-    if teacher_id
-      classroom_ids = classroom_ids.select do |classroom_id_hash|
-        Classroom.unscoped.find(classroom_id_hash['classroom_id']).owner.id == teacher_id
-      end
-    end
+    classroom_ids = classroom_ids.select { |data| Classroom.exists?(data['classroom_id']) }
 
-    classroom_ids
+    return classroom_ids if teacher_id.nil?
+
+    classroom_ids.select { |data| Classroom.find(data['classroom_id'])&.owner&.id == teacher_id }
   end
 end
