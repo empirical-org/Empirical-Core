@@ -10,31 +10,27 @@ module CleverIntegration
     end
 
     def run
-      import_student
+      importer.run
     end
 
-    private def import_student
-      importer_class.new(data).run
+    private def importer
+      student ? StudentUpdater.new(student, data) : StudentCreator.new(data)
     end
 
-    private def importer_class
-      existing_student? ? StudentUpdater : StudentCreator
+    private def student
+      student_with_email || student_with_clever_id || student_with_username
     end
 
-    private def existing_student?
-      student_with_email? || student_with_clever_id? || student_with_username?
+    private def student_with_email
+      ::User.find_by(email: email.downcase) if email.present?
     end
 
-    private def student_with_email?
-      email.present? && ::User.exists?(email: email.downcase)
+    private def student_with_clever_id
+      ::User.find_by(clever_id: clever_id) if clever_id.present?
     end
 
-    private def student_with_clever_id?
-      clever_id.present? && ::User.exists?(clever_id: clever_id)
-    end
-
-    private def student_with_username?
-      username.present? && ::User.exists?(username: username)
+    private def student_with_username
+      ::User.find_by(username: username) if username.present?
     end
   end
 end
