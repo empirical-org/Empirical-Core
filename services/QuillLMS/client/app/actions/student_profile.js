@@ -5,18 +5,6 @@ export const receiveStudentProfile = data => ({
   data
 })
 
-export const fetchNotifications = () => {
-  return (dispatch) => {
-    request.get({
-      url: `${process.env.DEFAULT_URL}/notifications`
-    },
-    (e, r, body) => {
-      const parsedBody = JSON.parse(body)
-      dispatch(receiveNotifications(parsedBody))
-    });
-  }
-}
-
 export const fetchStudentProfile = (classroomId) => {
   return (dispatch) => {
     request.get({
@@ -28,13 +16,6 @@ export const fetchStudentProfile = (classroomId) => {
       dispatch(receiveStudentProfile(parsedBody))
     });
   };
-};
-
-export const receiveNotifications = (notifications) => {
-  return {
-    type: 'RECEIVE_NOTIFICATIONS',
-    notifications,
-  }
 };
 
 export const receiveStudentsClassrooms = (classrooms) => {
