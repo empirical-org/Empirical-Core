@@ -16,12 +16,17 @@
 #  index_students_classrooms_on_student_id_and_classroom_id  (student_id,classroom_id) UNIQUE
 #
 class StudentsClassrooms < ApplicationRecord
+  include Archivable
   include CheckboxCallback
   belongs_to :student, class_name: "User"
   belongs_to :classroom, class_name: "Classroom"
   # validates uniqueness of student/classroom on db
   after_save :checkbox, :run_associator
-  after_save :archive_student_associations_for_classroom, if: proc { |sc| !sc.visible && sc.student && sc.classroom }, unless: :skip_archive_student_associations
+
+  after_save :archive_student_associations_for_classroom,
+    if: proc { |sc| sc.archived? && sc.student && sc.classroom },
+    unless: :skip_archive_student_associations
+
   after_commit :invalidate_classroom_minis
 
   default_scope { where(visible: true)}
