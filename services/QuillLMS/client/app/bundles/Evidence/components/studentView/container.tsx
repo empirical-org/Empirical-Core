@@ -491,9 +491,8 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   if(activityCompletionCount) {
     activityCompletionCount = parseInt(activityCompletionCount)
   }
-  console.log("🚀 ~ file: container.tsx ~ line 493 ~ StudentViewContainer ~ activityCompletionCount", activityCompletionCount)
 
-  if(!explanationSlidesCompleted || (activityCompletionCount && activityCompletionCount > 3)) {
+  if(!explanationSlidesCompleted || (activityCompletionCount && activityCompletionCount < 4)) {
     if (explanationSlideStep === 0) {
       return <WelcomeSlide onHandleClick={handleExplanationSlideClick} user={user} />
     }
