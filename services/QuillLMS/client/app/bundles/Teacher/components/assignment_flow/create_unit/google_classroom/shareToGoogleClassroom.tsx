@@ -18,6 +18,7 @@ const addStudentsSrc = `${process.env.CDN_URL}/images/illustrations/add-students
 const addShareActivityPackSrc = `${process.env.CDN_URL}/images/icons/icons-share-activity-pack.svg`
 
 const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classrooms, moveToStage4, state, props }) => {
+console.log("🚀 ~ file: ShareToGoogleClassroom.tsx ~ line 21 ~ ShareToGoogleClassroom ~ activityPackData", activityPackData)
 
   const [leaving, setLeaving] = React.useState<boolean>(false);
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
@@ -51,6 +52,19 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classroo
     setModalOpen(!isExpanded);
   }
 
+  function getRows(activityPackData) {
+    if(!activityPackData) { return [] }
+    const { activities } = activityPackData;
+    if(!activities || !activities.length) { return }
+    return activities.map(activity => {
+      const { id, name } = activity;
+      return {
+        name,
+        id
+      }
+    });
+  }
+
   function renderInviteStudents() {
     const emptyClassrooms = assignedClassrooms.filter(c => !c.students.length)
     const numberOfClassroomsFirstText = `${emptyClassrooms.length} ${emptyClassrooms.length === 1 ? 'class' : 'classes'}`
@@ -65,6 +79,7 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classroo
   }
 
   function renderShareActivityPackCards() {
+    const activities = getRows(activityPackData);
     return (
       <section className="share-activity-pack-cards-section">
         <Card
@@ -80,7 +95,7 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classroo
           imgSrc={addShareActivityPackSrc}
           isExpanded={isExpanded}
           onClick={handleExpandCard}
-          rows={[]}
+          rows={activities}
           text="Share a link or share with Google Classroom."
         />
       </section>

@@ -6,12 +6,22 @@ export const ExpandableCard = ({ imgSrc, imgAlt, isExpanded, onClick, header, te
 
   function handleKeyDownOnCard(e) {
     if (e.key !== 'Enter') { return }
+    if (e.target.value === 'row-button') { return }
     onClick(e);
   }
   function renderExpandedSection() {
+    if(!rows) { return }
     return(
       <section className="expanded-section">
-        open.
+        {rows.map((row, i) => {
+          const { name } = row;
+          return(
+            <section className="row-section" key={`${name}-${i}`}>
+              <p className="row-name">{name}</p>
+              <button className="row-button focus-on-light" type="button" value="row-button">x</button>
+            </section>
+          )
+        })}
       </section>
     );
   }
@@ -20,14 +30,16 @@ export const ExpandableCard = ({ imgSrc, imgAlt, isExpanded, onClick, header, te
   const cardClass = `expandable-quill-card ${isExpanded ? 'open' : ''}`;
 
   return (
-    <div className={cardClass} onClick={onClick} onKeyDown={handleKeyDownOnCard} role="button" tabIndex={0}>
+    <div className={cardClass} onKeyDown={handleKeyDownOnCard} role="button" tabIndex={0}>
       <section className="upper-content-section">
         {img}
         <div className="text">
           <h3>{header}</h3>
           <p>{text}</p>
         </div>
-        <img alt="arrow" className="expand-arrow" src={expandSrc} />
+        <button className="expand-button focus-on-light" onClick={onClick} type="button">
+          <img alt="arrow" className="expand-arrow" src={expandSrc} />
+        </button>
       </section>
       {isExpanded && renderExpandedSection()}
     </div>

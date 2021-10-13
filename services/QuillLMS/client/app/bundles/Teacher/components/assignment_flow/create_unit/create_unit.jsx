@@ -296,14 +296,12 @@ export default class CreateUnit extends React.Component {
   }
 
   stage3specificComponents = () => {
-    // console.log('props', this.props)
-    // console.log('state', this.state)
     const { assignSuccess, name, selectedActivities, classrooms } = this.state;
     if (assignSuccess) {
       const activityPackData = {
         name: name,
         activityCount: selectedActivities && selectedActivities.length,
-
+        activities: selectedActivities
       }
       const assignedClassrooms = classrooms.filter(c => c.classroom.emptyClassroomSelected || c.students.find(s => s.isSelected))
       return <ShareToGoogleClassroom

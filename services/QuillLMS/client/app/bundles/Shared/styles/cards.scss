@@ -39,21 +39,40 @@
     .expandable-card-icon {
       margin-right: 32px;
     }
-    .expand-arrow {
+    .expand-button {
+      background-color: white;
       margin-left: 32px;
     }
   }
   &.open {
     .upper-content-section {
       padding-bottom: 40px;
-      .expand-arrow {
-        transform: rotate(180deg);
+      .expand-button {
+        .expand-arrow {
+          transform: rotate(180deg);
+        }
       }
     }
   }
   .expanded-section {
-    padding: 0px 32px 0px 32px;
+    padding: 16px 16px 0px 16px;
     width: 100%;
     border-top: 1px solid #e0e0e0;
+    .row-section {
+      border-bottom: 1px solid #e0e0e0 !important;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      .row-name {
+        max-width: 424px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin-right: 24px;
+      }
+    }
+    .row-section:last-of-type {
+      border-bottom: none !important;
+    }
   }
 }
