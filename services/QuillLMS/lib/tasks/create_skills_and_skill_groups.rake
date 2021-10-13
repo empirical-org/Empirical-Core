@@ -94,7 +94,7 @@ namespace :skills_and_skill_groups do
             concepts: [
               { uid: '4wQ6Y5gMxIPPz4zxyBbJ3g' }
             ]
-          },
+          }
         ]
       },
       {
@@ -148,7 +148,7 @@ namespace :skills_and_skill_groups do
             concepts: [
               { uid: 'asfdGCdbTy6l8xTe-_p6Qg' }
             ]
-          },
+          }
         ]
       },
       {
@@ -280,7 +280,7 @@ namespace :skills_and_skill_groups do
             name: 'Pronouns in Compound Subjects and Objects',
             concepts: [
               { uid: '1RGKsB6bPviCtNi0Y7rL9A' },
-              { uid: 'z8rrV2Rz9EE6al0qW3Ni2g' },
+              { uid: 'z8rrV2Rz9EE6al0qW3Ni2g' }
             ]
           }
         ]
@@ -408,7 +408,7 @@ namespace :skills_and_skill_groups do
             name: 'Pronouns in Compound Subjects and Objects',
             concepts: [
               { uid: '1RGKsB6bPviCtNi0Y7rL9A' },
-              { uid: 'z8rrV2Rz9EE6al0qW3Ni2g' },
+              { uid: 'z8rrV2Rz9EE6al0qW3Ni2g' }
             ]
           }
         ]
