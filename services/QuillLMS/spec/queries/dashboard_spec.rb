@@ -8,7 +8,7 @@ describe Dashboard, redis: true do
 
   before(:each) do
     stub_const("Dashboard::SUFFICIENT_DATA_AMOUNT", 3)
-    stub_const("Dashboard::RESULT_LIMITS", 2)
+    stub_const("Dashboard::RESULT_LIMITS", 3)
     $redis.redis.flushdb
   end
 
