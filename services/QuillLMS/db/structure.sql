@@ -70,6 +70,18 @@ CREATE FUNCTION public.blog_posts_search_trigger() RETURNS trigger
 
 
 --
+-- Name: my_jsonb_to_hstore(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.my_jsonb_to_hstore(jsonb) RETURNS public.hstore
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$
+            SELECT hstore(array_agg(key), array_agg(value))
+            FROM   jsonb_each_text($1)
+          $_$;
+
+
+--
 -- Name: old_timespent_teacher(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -1547,8 +1559,8 @@ ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.compreh
 
 CREATE TABLE public.comprehension_regex_rules (
     id integer NOT NULL,
-    regex_text character varying(200),
-    case_sensitive boolean,
+    regex_text character varying(200) NOT NULL,
+    case_sensitive boolean NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_id integer,
@@ -2392,40 +2404,6 @@ CREATE SEQUENCE public.milestones_id_seq
 --
 
 ALTER SEQUENCE public.milestones_id_seq OWNED BY public.milestones.id;
-
-
---
--- Name: notifications; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.notifications (
-    id integer NOT NULL,
-    text text NOT NULL,
-    user_id integer NOT NULL,
-    meta jsonb DEFAULT '{}'::jsonb NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.notifications_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.notifications_id_seq OWNED BY public.notifications.id;
 
 
 --
@@ -4449,13 +4427,6 @@ ALTER TABLE ONLY public.milestones ALTER COLUMN id SET DEFAULT nextval('public.m
 
 
 --
--- Name: notifications id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.notifications ALTER COLUMN id SET DEFAULT nextval('public.notifications_id_seq'::regclass);
-
-
---
 -- Name: oauth_access_grants id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5256,14 +5227,6 @@ ALTER TABLE ONLY public.ip_locations
 
 ALTER TABLE ONLY public.milestones
     ADD CONSTRAINT milestones_pkey PRIMARY KEY (id);
-
-
---
--- Name: notifications notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.notifications
-    ADD CONSTRAINT notifications_pkey PRIMARY KEY (id);
 
 
 --
@@ -6320,13 +6283,6 @@ CREATE INDEX index_milestones_on_name ON public.milestones USING btree (name);
 
 
 --
--- Name: index_notifications_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_notifications_on_user_id ON public.notifications USING btree (user_id);
-
-
---
 -- Name: index_oauth_access_grants_on_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7280,14 +7236,6 @@ ALTER TABLE ONLY public.criteria
 
 
 --
--- Name: notifications fk_rails_b080fb4855; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.notifications
-    ADD CONSTRAINT fk_rails_b080fb4855 FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
 -- Name: unit_activities fk_rails_b921d87b04; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7859,6 +7807,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211013151215'),
 ('20211013151333'),
 ('20211013155832'),
-('20211019143514');
+('20211019143514'),
+('20211012212229');
 
 
