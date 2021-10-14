@@ -3,7 +3,7 @@ class PremiumAnalyticsWorker
   sidekiq_options queue: SidekiqQueue::LOW
 
   def perform(id, account_type)
-    @user = User.find(id)
+    @user = User.find_by_id(id)
     return unless @user
     analytics = Analyzer.new
     if Subscription::OFFICIAL_FREE_TYPES.include?(account_type)
