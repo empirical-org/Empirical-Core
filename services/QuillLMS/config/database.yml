@@ -18,11 +18,7 @@ test_env: &test_env
 # here are intended to simplify later decision to use followers
 # as well as disambiguate similarly-named ENV variables.
 leader_db_env: &leader_db_env
-  database: <%= ENV['LEADER_DB_NAME'] %>
-  username: <%= ENV['LEADER_DB_USERNAME'] %>
-  password: <%= ENV['LEADER_DB_PASSWORD'] %>
-  host: <%= ENV['LEADER_DB_HOSTNAME'] %>
-  port: <%= ENV['LEADER_DB_PORT'] %>
+  url: <%= ENV['DATABASE_CONNECTION_POOL_URL'] || ENV['DATABASE_URL'] %>
 
 
 development: &development
