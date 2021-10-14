@@ -13,11 +13,11 @@ class UniversalRuleLoader
 
   def self.update_from_csv(type:, iostream:)
     if !Evidence::Rule::TYPES.include?(type) || TYPE_LOOKUP[type.to_sym].nil?
-      raise ArgumentError.new("Invalid rule type: #{type}")
+      raise ArgumentError, "Invalid rule type: #{type}"
     end
 
     if (CSV.parse(iostream, headers: true).headers & REQUIRED_HEADERS).count != REQUIRED_HEADERS.length 
-      raise ArgumentError.new("Invalid CSV headers.")
+      raise ArgumentError, "Invalid CSV headers."
     end 
 
     CSV.parse(iostream, headers: true) do |row|
