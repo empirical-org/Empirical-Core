@@ -7,6 +7,12 @@ SecureHeaders::Configuration.default do |config|
       "'unsafe-inline'"                                           # TODO: remove once nonce strategy is in place
     ],                                                            # fallback for more specific directives
 
+    frame_src: [
+      "'self'",
+      "https://stripe.com",
+      "https://*.stripe.com"
+    ],
+
     object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>
 
     media_src: [
@@ -34,6 +40,7 @@ SecureHeaders::Configuration.default do |config|
       "https://*.google-analytics.com",
       "https://*.inspectlet.com",
       "https://*.satismeter.com",
+      "https://stripe.com",
       "https://*.stripe.com",
       "https://*.amplitude.com",
       "https://*.doubleclick.net",
@@ -66,6 +73,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.typekit.net",
       "https://*.google.com",
       "https://*.inspectlet.com",
+      "https://stripe.com",
+      "https://*.stripe.com",
       "https://*.amazonaws.com"
     ],
 
