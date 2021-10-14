@@ -57,11 +57,16 @@ export default class Stage2 extends React.Component {
       toggleStudentSelection,
       user,
       classrooms,
-      fetchClassrooms
+      fetchClassrooms,
+      lockedClassroomIds,
+      lockedMessage,
     } = this.props
+
     return (<AssignStudents
       classrooms={classrooms}
       fetchClassrooms={fetchClassrooms}
+      lockedClassroomIds={lockedClassroomIds}
+      lockedMessage={lockedMessage}
       toggleClassroomSelection={toggleClassroomSelection}
       toggleStudentSelection={toggleStudentSelection}
       user={user}
