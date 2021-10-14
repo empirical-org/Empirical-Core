@@ -64,6 +64,8 @@ SecureHeaders::Configuration.default do |config|
     ], 
 
     img_src: [
+      "https://coview.com",
+      "https://*.coview.com",
       "https://heapanalytics.com",
       "https://*.heapanalytics.com",
       "https://intercomassets.com",
@@ -85,6 +87,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.quill.org",
       "https://quill.org",  
       "'unsafe-inline'",
+      "https://coview.com",
+      "https://*.coview.com",
       "https://*.fontawesome.com",
       "https://*.googleapis.com",
       "https://*.gstatic.com"      
