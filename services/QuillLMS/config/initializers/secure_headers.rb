@@ -9,6 +9,8 @@ SecureHeaders::Configuration.default do |config|
 
     frame_src: [
       "'self'",
+      "https://coview.com",
+      "https://*.coview.com",
       "https://stripe.com",
       "https://*.stripe.com"
     ],
@@ -66,6 +68,7 @@ SecureHeaders::Configuration.default do |config|
     ], 
 
     img_src: [
+      "data:image/png",
       "https://coview.com",
       "https://*.coview.com",
       "https://heapanalytics.com",
