@@ -9,6 +9,7 @@ SecureHeaders::Configuration.default do |config|
 
     frame_src: [
       "'self'",
+      "https://stripe.com",
       "https://*.stripe.com"
     ],
 
@@ -39,6 +40,7 @@ SecureHeaders::Configuration.default do |config|
       "https://*.google-analytics.com",
       "https://*.inspectlet.com",
       "https://*.satismeter.com",
+      "https://stripe.com",
       "https://*.stripe.com",
       "https://*.amplitude.com",
       "https://*.doubleclick.net",
@@ -71,6 +73,7 @@ SecureHeaders::Configuration.default do |config|
       "https://*.typekit.net",
       "https://*.google.com",
       "https://*.inspectlet.com",
+      "https://stripe.com",
       "https://*.stripe.com",
       "https://*.amazonaws.com"
     ],
