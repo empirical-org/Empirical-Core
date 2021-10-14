@@ -53,6 +53,8 @@ SecureHeaders::Configuration.default do |config|
 
     font_src: [
       "'self'",
+      "https://coview.com",
+      "https://*.coview.com",
       "https://intercomcdn.com",
       "https://*.intercomcdn.com",
       "https://quill.org",
@@ -108,6 +110,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.doubleclick.net",
       "https://*.pusherapp.com",
       "https://*.pusher.com",
+      "wss://coview.com",
+      "wss://*.coview.com",
       "wss://*.pusherapp.com",
       "wss://*.inspectlet.com",
       "https://*.intercom.io",
