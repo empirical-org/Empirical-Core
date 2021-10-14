@@ -4,6 +4,7 @@ class PremiumAnalyticsWorker
 
   def perform(id, account_type)
     @user = User.find(id)
+    return unless @user
     analytics = Analyzer.new
     if Subscription::OFFICIAL_FREE_TYPES.include?(account_type)
       event = SegmentIo::BackgroundEvents::BEGAN_PREMIUM_TRIAL
