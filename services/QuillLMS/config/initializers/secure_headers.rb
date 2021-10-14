@@ -9,6 +9,12 @@ SecureHeaders::Configuration.default do |config|
 
     object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>
 
+    media_src: [
+      "*",
+      "data:",
+      "blob:"
+    ],
+
     script_src: [
       "'self'",
       "https://*.quill.org", 
@@ -94,11 +100,12 @@ SecureHeaders::Configuration.default do |config|
       "https://*.intercom.io",
       "wss://*.intercom.io",
       "https://*.coview.com",
-      "https://*.sentry.io"
+      "https://*.sentry.io",
+      "wss://*.quill.org"
     ]
   }
 
-  config.csp = SecureHeaders::OPT_OUT
+  config.csp = default_config 
 
   config.x_frame_options = SecureHeaders::OPT_OUT
   

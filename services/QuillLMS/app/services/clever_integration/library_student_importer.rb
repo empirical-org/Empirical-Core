@@ -10,7 +10,7 @@ module CleverIntegration
     def run
       clever_classrooms.each do |classroom|
         students_data = client.get_section_students(section_id: classroom.clever_id)
-        CleverIntegration::ClassroomStudentsImporter.new(classroom, students_data).run
+        ClassroomStudentsImporter.new(classroom, students_data).run
       end
     end
 

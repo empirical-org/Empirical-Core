@@ -40,10 +40,10 @@ FactoryBot.define do
     end
 
     factory :classroom_with_lesson_classroom_units do
-       after(:create) do |classroom|
-         create_list(:lesson_classroom_unit_with_activity_sessions, 2, classroom: classroom)
-       end
-     end
+      after(:create) do |classroom|
+        create_list(:lesson_classroom_unit_with_activity_sessions, 2, classroom: classroom)
+      end
+    end
 
     trait :with_no_teacher do
       after(:create) do |classroom|
