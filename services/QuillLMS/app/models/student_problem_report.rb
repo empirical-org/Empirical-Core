@@ -6,7 +6,7 @@
 #  report              :string           not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
-#  feedback_history_id :bigint
+#  feedback_history_id :bigint           not null
 #
 # Indexes
 #
