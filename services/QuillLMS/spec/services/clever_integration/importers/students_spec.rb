@@ -55,6 +55,6 @@ describe CleverIntegration::Importers::Students do
     let!(:user) { create(:user, email: clever_student_email, clever_id: nil) }
     let!(:clever_user) { create(:user, email: nil, clever_id: clever_student_id) }
 
-    it { expect { import_students }.not_to change(CleverClassroomUser, :count) }
+    it { expect { import_students }.to change(CleverClassroomUser, :count).from(0).to(1) }
   end
 end

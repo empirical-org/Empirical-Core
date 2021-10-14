@@ -55,7 +55,6 @@ module CleverIntegration::SignUp::Teacher
   end
 
   def self.import_students(classrooms, district_token)
-    classroom_ids = classrooms.collect {|c| c.id}
-    CleverStudentImporterWorker.perform_async(classroom_ids, district_token)
+    CleverStudentImporterWorker.perform_async(classrooms.map(&:id), district_token)
   end
 end
