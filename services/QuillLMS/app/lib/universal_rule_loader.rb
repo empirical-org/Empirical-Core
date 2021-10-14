@@ -7,18 +7,17 @@ class UniversalRuleLoader
   # Keys: the name of a type as undestood by Evidence
   # Values: the working names of types used by humans
   TYPE_LOOKUP = {
-    grammar: 'Grammar API'
+    grammar: 'Grammar API',
+    opinion: 'Opinion API'
   }
 
   def self.update_from_csv(type:, iostream:)
-    if !Evidence::Rule::TYPES.include?(type)
-      puts "Invalid rule type #{type}"
-      return
+    if !Evidence::Rule::TYPES.include?(type) || TYPE_LOOKUP[type.to_sym].nil?
+      raise ArgumentError.new("Invalid rule type: #{type}")
     end
 
     if (CSV.parse(iostream, headers: true).headers & REQUIRED_HEADERS).count != REQUIRED_HEADERS.length 
-      puts 'Invalid headers. Exiting.'
-      return
+      raise ArgumentError.new("Invalid CSV headers.")
     end 
 
     CSV.parse(iostream, headers: true) do |row|
