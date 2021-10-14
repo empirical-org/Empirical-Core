@@ -7,6 +7,11 @@ SecureHeaders::Configuration.default do |config|
       "'unsafe-inline'"                                           # TODO: remove once nonce strategy is in place
     ],                                                            # fallback for more specific directives
 
+    frame_src: [
+      "'self'",
+      "https://*.stripe.com"
+    ],
+
     object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>
 
     media_src: [
