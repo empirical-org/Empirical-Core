@@ -71,6 +71,7 @@ SecureHeaders::Configuration.default do |config|
       "https://*.typekit.net",
       "https://*.google.com",
       "https://*.inspectlet.com",
+      "https://*.stripe.com",
       "https://*.amazonaws.com"
     ],
 
