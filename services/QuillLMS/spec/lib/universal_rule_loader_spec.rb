@@ -53,6 +53,12 @@ RSpec.describe UniversalRuleLoader do
         HEREDOC
       end
 
+      it 'should raise exception if type is invalid' do 
+        expect do 
+          UniversalRuleLoader.update_from_csv(type: 'badType', iostream: csv2)
+        end.to raise_error(ArgumentError) 
+      end 
+
       it 'should ignore rules that are not universal or grammar' do 
         expect do 
           UniversalRuleLoader.update_from_csv(type: rule_type, iostream: csv2)

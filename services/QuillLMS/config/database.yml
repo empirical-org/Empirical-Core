@@ -1,5 +1,6 @@
 default: &default
   pool: <%= ENV.fetch("MAX_THREADS") { 5 } %>
+  prepared_statements: false
   timeout: 5000
 
 development_env: &development_env
