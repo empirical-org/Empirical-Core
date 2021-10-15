@@ -13,6 +13,7 @@ class Cms::RostersController < Cms::CmsController
       else
         ActiveRecord::Base.transaction do
           params[:teachers]&.each do |t|
+            next unless t[:email]
             raise "Teacher with email #{t[:email]} already exists." if User.find_by(email: t[:email]).present?
             raise "Please provide a last name or password for teacher #{t[:name]}, otherwise this account will have no password." if t[:password].blank? && t[:name].split[1].blank?
             password = t[:password].present? ? t[:password] : t[:name].split[1]
