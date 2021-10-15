@@ -9,6 +9,8 @@ SecureHeaders::Configuration.default do |config|
 
     frame_src: [
       "'self'",
+      "https://coview.com",
+      "https://*.coview.com",
       "https://stripe.com",
       "https://*.stripe.com"
     ],
@@ -53,6 +55,8 @@ SecureHeaders::Configuration.default do |config|
 
     font_src: [
       "'self'",
+      "https://coview.com",
+      "https://*.coview.com",
       "https://intercomcdn.com",
       "https://*.intercomcdn.com",
       "https://quill.org",
@@ -64,6 +68,9 @@ SecureHeaders::Configuration.default do |config|
     ], 
 
     img_src: [
+      "data:",
+      "https://coview.com",
+      "https://*.coview.com",
       "https://heapanalytics.com",
       "https://*.heapanalytics.com",
       "https://intercomassets.com",
@@ -85,6 +92,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.quill.org",
       "https://quill.org",  
       "'unsafe-inline'",
+      "https://coview.com",
+      "https://*.coview.com",
       "https://*.fontawesome.com",
       "https://*.googleapis.com",
       "https://*.gstatic.com"      
@@ -104,6 +113,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.doubleclick.net",
       "https://*.pusherapp.com",
       "https://*.pusher.com",
+      "wss://coview.com",
+      "wss://*.coview.com",
       "wss://*.pusherapp.com",
       "wss://*.inspectlet.com",
       "https://*.intercom.io",
