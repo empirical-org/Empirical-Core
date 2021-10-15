@@ -68,7 +68,7 @@ SecureHeaders::Configuration.default do |config|
     ], 
 
     img_src: [
-      "data:image/png",
+      "data:",
       "https://coview.com",
       "https://*.coview.com",
       "https://heapanalytics.com",
