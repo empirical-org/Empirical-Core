@@ -24,7 +24,7 @@ var default_api_response = APIResponse{
 }
 
 // TODO: This is a temporary replacement `http` that allows us to bypass SSL security checks
-var client = &http.Client {
+var base_client = &http.Client {
 	Transport: &http.Transport {
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	},
@@ -109,7 +109,7 @@ func Endpoint(context *gin.Context) {
 	var returnable_result APIResponse
 
 	for index, url := range urls {
-		results[index] = getAPIResponse(url, index, request_body, client)
+		results[index] = getAPIResponse(url, index, request_body, base_client)
 		return_index, finished := processResults(results, len(urls))
 
 		if finished {
@@ -135,7 +135,7 @@ func Endpoint(context *gin.Context) {
 		return
 	}
 
-	recordFeedback(request_object, returnable_result, GetFeedbackHistoryUrl(), client)
+	recordFeedback(request_object, returnable_result, GetFeedbackHistoryUrl(), base_client)
 
 	context.Header("Access-Control-Allow-Origin", "*")
 	context.Header("Content-Type", "application/json")
