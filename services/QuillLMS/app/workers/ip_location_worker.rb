@@ -1,16 +1,34 @@
 class IpLocationWorker
   include Sidekiq::Worker
+  API_KEY = ENV["POINTPIN_KEY"]
+  BASE_URL = 'https://geo.pointp.in'
+
+  class PinpointAPIError < StandardError; end
 
   def perform(id, ip_address, blacklist = [])
-    @user = User.find(id)
-    location = Pointpin.locate(ip_address)
-    postcode = location ? location["postcode"] : nil
-    country_name = location ? location["country_name"] : nil
-    region_name = location ? location["region_name"] : nil
-    city_name = location ? location["city_name"] : nil
-    unless blacklist.include?(postcode)
-      new_ip_location = IpLocation.new
-      IpLocation.create(country: country_name, state: region_name, city: city_name, zip: postcode.to_i, user_id: @user.id)
+    user = User.find(id)
+    response = HTTParty.get(pinpoint_url(ip_address))
+
+    if !response.success?
+      raise PinpointAPIError.new("#{response.code}: #{response}")
     end
+
+    postcode = response["postcode"]
+
+    return if blacklist.include?(postcode)
+
+    IpLocation.create(
+      country: response["country_name"],
+      state: response["region_name"],
+      city: response["city_name"],
+      # TODO: We should convert the zip DB field to a string
+      # postcodes can be non-numbers internationally, and we want leading zeros
+      zip: postcode.to_i,
+      user_id: user.id
+    )
+  end
+
+  private def pinpoint_url(ip_address)
+    "#{BASE_URL}/#{API_KEY}/json/#{ip_address}"
   end
 end
