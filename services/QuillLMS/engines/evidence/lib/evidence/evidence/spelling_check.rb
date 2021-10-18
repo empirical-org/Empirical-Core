@@ -2,6 +2,7 @@ module Evidence
   class SpellingCheck
     class BingRateLimitException < StandardError; end
 
+    API_TIMEOUT = 5
     ALL_CORRECT_FEEDBACK = 'Correct spelling!'
     FALLBACK_INCORRECT_FEEDBACK = 'Update the spelling of the bolded word(s).'
     FEEDBACK_TYPE = Rule::TYPE_SPELLING
@@ -61,13 +62,16 @@ module Evidence
         query: {
           text: @entry,
           mode: "proof"
-        }
+        },
+        timeout: API_TIMEOUT
       )
       # The rest of this code basically swallows any errors, but we want
       # to avoid swallowing errors around rate limiting, so raise those here
       raise BingRateLimitException if @response.code == 429
 
       JSON.parse(@response.body)
+    rescue Net::OpenTimeout
+      {}
     end
   end
 end

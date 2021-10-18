@@ -46,6 +46,19 @@ module Evidence
         expect(feedback[:concept_uid]).to(be_truthy)
       end
 
+      it 'should return appropriate feedback attributes if there the API request times out on the client side' do
+        stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=there%20is%20no%20spelling%20error%20here").to_timeout
+        entry = "there is no spelling error here"
+        spelling_check = Evidence::SpellingCheck.new(entry)
+        feedback = spelling_check.feedback_object
+        expect(feedback[:feedback]).to(be_truthy)
+        expect(feedback[:feedback_type]).to(be_truthy)
+        expect(feedback[:optimal]).to(be_truthy)
+        expect(feedback[:entry]).to(be_truthy)
+        expect(feedback[:rule_uid]).to(be_truthy)
+        expect(feedback[:concept_uid]).to(be_truthy)
+      end
+
       it 'should return appropriate error if the endpoint returns an error' do
         stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=there%20is%20no%20spelling%20error%20here").to_return(:status => 200, :body => { :error => ({ :message => "There's a problem here" }) }.to_json, :headers => ({}))
         entry = "there is no spelling error here"
