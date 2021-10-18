@@ -10,7 +10,7 @@ class IpLocationWorker
     response = HTTParty.get(pinpoint_url(ip_address))
 
     if !response.success?
-      raise PinpointAPIError.new("#{response.code}: #{response}")
+      raise PinpointAPIError, "#{response.code}: #{response}"
     end
 
     postcode = response["postcode"]
