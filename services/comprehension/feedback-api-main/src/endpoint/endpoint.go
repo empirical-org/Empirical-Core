@@ -28,6 +28,7 @@ var client = &http.Client {
 	Transport: &http.Transport {
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	},
+	Timeout: time.Millisecond * 5000,
 }
 
 func GetFeedbackHistoryUrl() (string) {
@@ -108,7 +109,7 @@ func Endpoint(context *gin.Context) {
 	var returnable_result APIResponse
 
 	for index, url := range urls {
-		results[index] = getAPIResponse(url, index, request_body)
+		results[index] = getAPIResponse(url, index, request_body, client)
 		return_index, finished := processResults(results, len(urls))
 
 		if finished {
@@ -134,7 +135,7 @@ func Endpoint(context *gin.Context) {
 		return
 	}
 
-	recordFeedback(request_object, returnable_result, GetFeedbackHistoryUrl())
+	recordFeedback(request_object, returnable_result, GetFeedbackHistoryUrl(), client)
 
 	context.Header("Access-Control-Allow-Origin", "*")
 	context.Header("Content-Type", "application/json")
@@ -159,7 +160,7 @@ func processResults(results map[int]InternalAPIResponse, length int) (int, bool)
 	return automl_index, all_correct
 }
 
-func getAPIResponse(url string, priority int, json_params [] byte) InternalAPIResponse {
+func getAPIResponse(url string, priority int, json_params [] byte, client *http.Client) InternalAPIResponse {
 
 	// response_json, err := http.Post(url, "application/json", bytes.NewReader(json_params))
 
@@ -222,7 +223,7 @@ func buildFeedbackHistory(request_object APIRequest, feedback APIResponse, used 
 	}
 }
 
-func recordFeedback(incoming_params APIRequest, feedback APIResponse, feedback_history_url string) {
+func recordFeedback(incoming_params APIRequest, feedback APIResponse, feedback_history_url string, client *http.Client) {
 
 
 	history := buildFeedbackHistory(incoming_params, feedback, true, time.Now())
