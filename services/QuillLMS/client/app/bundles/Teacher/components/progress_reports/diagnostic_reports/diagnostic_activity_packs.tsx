@@ -1,38 +1,155 @@
 import * as React from 'react'
 import * as $ from 'jquery'
+import * as moment from 'moment'
 
-import { requestGet } from '../../../../../modules/request/index';
-
-import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.jsx'
-import Diagnostic from './diagnostic'
 
-interface Assignment {
-  classroom_name: string,
-  activity_name: string,
+import * as assignmentFlowConstants from '../../assignment_flow/assignmentFlowConstants'
+import LoadingSpinner from '../../shared/loading_indicator.jsx'
+import { requestGet } from '../../../../../modules/request/index';
+import { DropdownInput, } from '../../../../Shared/index'
+
+const baseImageSrc = `${process.env.CDN_URL}/images/pages/diagnostic_reports`
+
+const barGraphIncreasingIcon = <img alt="Bar chart growth icon" src={`${baseImageSrc}/icons-bar-graph-increasing.svg`} />
+const multipleCardsIcon = <img alt="Activity pack icon" src={`${baseImageSrc}/icons-card-multiple.svg`} />
+const multipleUsersIcon = <img alt="Multiple user icon" src={`${baseImageSrc}/icons-user-multiple.svg`} />
+const calendarDateIcon = <img alt="Calendar icon" src={`${baseImageSrc}/icons-calendar-date.svg`} />
+const triangleUpIcon = <img alt="Triangle up icon" src={`${baseImageSrc}/icons-triangle-up-green.svg`} />
+const wrenchIcon = <img alt="Wrench icon" src={`${baseImageSrc}/icons-wrench.svg`} />
+
+interface Activity {
   activity_id: number,
+  activity_name: string,
+  assigned_count: number,
+  assigned_date: string,
+  classroom_id: number,
+  classroom_name: string,
+  classroom_unit_id: number,
+  completed_count: number,
+  post_test_id: number|null,
+  skills_count: number,
   unit_id: number,
   unit_name: string,
-  classroom_id: number,
-  completed_count: number,
-  assigned_count: number,
-  assigned_date: string
 }
 
-export interface Diagnostic {
+interface Diagnostic {
+  name: string,
+  pre: Activity,
+  post?: Activity
+}
+
+export interface Classroom {
   name: string;
   id: string;
-  individual_assignments: Array<Assignment>;
-  classes_count: number;
-  total_assigned: number;
-  total_completed: number;
-  last_assigned: string
+  diagnostics: Array<Diagnostic>;
 }
 
+const ALL = 'ALL'
+const ALL_OPTION = { label: 'All classes', value: ALL }
 
-const DiagnosticActivityPacks = ({passedDiagnostics}) => {
-  const [loading, setLoading] = React.useState<boolean>(!passedDiagnostics);
-  const [diagnostics, setDiagnostics] = React.useState<Array<Diagnostic>>(passedDiagnostics || []);
+const AssignedSection = ({ activity, sectionTitle, }) => {
+  const { assigned_date, unit_name, completed_count, assigned_count, activity_id, classroom_id } = activity
+  return (<section className="pre">
+    <div>
+      <h4>{sectionTitle}</h4>
+      <p>{calendarDateIcon}<span>Assigned: {moment(assigned_date).format('MMM D, YYYY')}</span></p>
+      <p>{multipleCardsIcon}<span>Activity pack: {unit_name}</span></p>
+      <p>{multipleUsersIcon}<span>Completed: {completed_count} of {assigned_count}</span></p>
+    </div>
+    <div>
+      <a className="focus-on-light" href={`/teachers/progress_reports/diagnostic_reports/#/diagnostics/${activity_id}/classroom/${classroom_id}/results`}>View results and recommendations</a>
+    </div>
+  </section>)
+}
+
+const GrowthSummary = ({ showGrowthSummary, skillsGrowth, name, growthSummaryLink, }) => {
+  if (showGrowthSummary) {
+    const growth = skillsGrowth > 0 ? <span className="growth">{triangleUpIcon}{skillsGrowth}</span> : <span className="no-growth">No growth yet</span>
+    return (<section className="growth-summary">
+      <div>
+        <h4>Growth summary</h4>
+        <p>{barGraphIncreasingIcon}<span>Skills growth: {growth}</span></p>
+      </div>
+      <div>
+        <a className="focus-on-light" href={growthSummaryLink}>View growth</a>
+      </div>
+    </section>)
+  }
+
+  return (<section className="growth-summary">
+    <div>
+      <h4>Growth summary</h4>
+      <p>{barGraphIncreasingIcon}<span>To see how your students have grown, first assign the {name} (Post)</span></p>
+    </div>
+  </section>)
+
+}
+
+const PostInProgress = ({ name, }) => {
+  return (<section className="post-in-progress">
+    <div>
+      <h4>Post</h4>
+      <p>{wrenchIcon}<span>We’re working on building the {name} (Post). We’ll let you know when it’s available.</span></p>
+    </div>
+  </section>)
+}
+
+const PostSection = ({ post, activityId, unitTemplateId, name, }) => {
+  function goToAssign() {
+    const unitTemplateIdString = unitTemplateId.toString();
+    window.localStorage.setItem(assignmentFlowConstants.UNIT_TEMPLATE_NAME, `${name} (Post)`)
+    window.localStorage.setItem(assignmentFlowConstants.UNIT_NAME, `${name} (Post)`)
+    window.localStorage.setItem(assignmentFlowConstants.ACTIVITY_IDS_ARRAY, [activityId])
+    window.localStorage.setItem(assignmentFlowConstants.UNIT_TEMPLATE_ID, unitTemplateIdString)
+    window.location.href = `/assign/select-classes?diagnostic_unit_template_id=${unitTemplateIdString}`
+  }
+
+  if (post) {
+    return <AssignedSection activity={post} sectionTitle="Post" />
+  }
+
+  return (<section className="post">
+    <div>
+      <h4>Post</h4>
+      <p>{calendarDateIcon}<span>Not assigned</span></p>
+    </div>
+    <div>
+      <a className="focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activityId}`} rel="noopener noreferrer" target="_blank">Preview</a>
+      <button className="focus-on-light fake-link" onClick={goToAssign} type="button">Assign</button>
+    </div>
+  </section>)
+}
+
+const Diagnostic = ({ diagnostic, }) => {
+  const { name, pre, post, } = diagnostic
+  let postAndGrowth = <PostInProgress name={name} />
+  if (pre.post_test_id) {
+    const growthSummaryLink = `/teachers/progress_reports/diagnostic_reports/#/diagnostics/${pre.post_test_id}/classroom/${pre.classroom_id}/results`
+    postAndGrowth = post.activity_id ? <React.Fragment><PostSection post={post} /><GrowthSummary growthSummaryLink={growthSummaryLink} showGrowthSummary={true} skillsGrowth={post.skills_count - pre.skills_count} /></React.Fragment> : <React.Fragment><PostSection activityId={pre.post_test_id} name={name} unitTemplateId={post.unit_template_id} /><GrowthSummary name={name} /></React.Fragment>
+  }
+
+  return (<section className="diagnostic">
+    <div className="name"><h3>{name}</h3></div>
+    <div className="pre-and-post-wrapper">
+      <AssignedSection activity={pre} sectionTitle="Pre" />
+      {postAndGrowth}
+    </div>
+  </section>)
+}
+
+const Classroom = ({ classroom, }) => {
+  const diagnostics = classroom.diagnostics.map(d => <Diagnostic diagnostic={d} key={d.pre.id} />)
+  return (<section className="classroom-section">
+    <h2>{classroom.name}</h2>
+    {diagnostics}
+  </section>)
+}
+
+const DiagnosticActivityPacks = ({passedClassrooms}) => {
+  const [loading, setLoading] = React.useState<boolean>(!passedClassrooms);
+  const [classrooms, setClassrooms] = React.useState<Array<Classroom>>(passedClassrooms || []);
+  const [selectedClassroomId, setSelectedClassroomId] = React.useState(ALL)
 
   React.useEffect(() => {
     getDiagnostics();
@@ -43,19 +160,34 @@ const DiagnosticActivityPacks = ({passedDiagnostics}) => {
   const getDiagnostics = () => {
     requestGet('/teachers/diagnostic_units',
       (data) => {
-        setDiagnostics(data);
+        setClassrooms(data);
         setLoading(false)
       }
     )
   }
 
+  function onClassesDropdownChange(e) {
+    setSelectedClassroomId(e.value)
+  }
+
   if (loading) { return <LoadingSpinner /> }
-  if (!loading && !diagnostics.length) { return <EmptyDiagnosticProgressReport /> }
+  if (!loading && !classrooms.length) { return <EmptyDiagnosticProgressReport /> }
+
+  const dropdownOptions = [ALL_OPTION].concat(classrooms.map(c => ({ value: c.id, label: c.name, })))
+  const classroomElements = selectedClassroomId === ALL ? classrooms.map(c => <Classroom classroom={c} key={c.id} />) : <Classroom classroom={classrooms.find(c => c.id === selectedClassroomId)} />
 
   return (
-    <div className="container diagnostic-activity-packs">
-      <h1>Diagnostic Reports</h1>
-      {diagnostics && diagnostics.map(d => <Diagnostic diagnostic={d} key={d.id} />)}
+    <div className="diagnostic-activity-packs-container">
+      <div className="container diagnostic-activity-packs">
+        <h1>Diagnostic Reports</h1>
+        <DropdownInput
+          handleChange={onClassesDropdownChange}
+          isSearchable={false}
+          options={dropdownOptions}
+          value={dropdownOptions.find(opt => opt.value === selectedClassroomId)}
+        />
+        {classroomElements}
+      </div>
     </div>
   )
 }

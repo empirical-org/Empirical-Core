@@ -33,6 +33,12 @@
 require 'rails_helper'
 
 describe Activity, type: :model, redis: true do
+  has_many :skill_group_activities
+  has_many :activities, through: :skill_group_activities
+
+  it { should have_many(:skill_group_activities) }
+  it { should have_many(:skill_groups).through(:skill_group_activities) }
+
   it { should have_and_belong_to_many(:unit_templates) }
   it { should belong_to(:classification).class_name("ActivityClassification") }
   it { should belong_to(:standard) }
