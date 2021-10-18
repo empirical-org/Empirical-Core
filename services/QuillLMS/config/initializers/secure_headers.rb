@@ -68,21 +68,9 @@ SecureHeaders::Configuration.default do |config|
     ], 
 
     img_src: [
+      "*",
       "data:",
-      "https://coview.com",
-      "https://*.coview.com",
-      "https://heapanalytics.com",
-      "https://*.heapanalytics.com",
-      "https://intercomassets.com",
-      "https://*.intercomassets.com",
-      "https://*.quill.org",
-      "https://quill.org",
-      "https://*.typekit.net",
-      "https://*.google.com",
-      "https://*.inspectlet.com",
-      "https://stripe.com",
-      "https://*.stripe.com",
-      "https://*.amazonaws.com"
+      "blob:"
     ],
 
     base_uri: %w('self'),                                         # used for relative URLs
