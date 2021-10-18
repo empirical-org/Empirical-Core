@@ -1,7 +1,7 @@
 class GenerateUsername
   MAX_LOOPS = 1_000
 
-  def initialize(first_name, last_name, classcode)
+  def initialize(first_name, last_name, classcode = nil)
     @first_name = first_name
     @last_name = last_name
     @classcode = classcode
