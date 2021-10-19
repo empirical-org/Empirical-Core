@@ -1,6 +1,6 @@
 module CleverIntegration
   class StudentUpdater
-    attr_reader :clever_id, :data, :email, :student, :username
+    attr_reader :clever_id, :data, :student, :username
 
     ACCOUNT_TYPE = ::User::CLEVER_ACCOUNT
     ROLE = ::User::STUDENT
@@ -9,8 +9,7 @@ module CleverIntegration
       @student = student
       @data = data
       @clever_id = data[:clever_id]
-      @email = data[:email]
-      @username = data[:username]
+      @username = data[:username]&.downcase
     end
 
     def run
@@ -33,7 +32,7 @@ module CleverIntegration
     end
 
     private def fix_username_conflict
-      data[:username] = nil if username_conflict?
+      data.delete(:username) if username_conflict?
     end
 
     private def student_attrs
