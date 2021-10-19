@@ -32,8 +32,8 @@ module Evidence
       before do 
         # If you are unsure of the motivation behind the following line,
         # the answers are here: https://github.com/rspec/rspec-mocks/issues/1079
-        OpinionFeedbackAssembler && stub_const(
-          'Evidence::OpinionFeedbackAssembler::OAPI_ERROR_TO_RULE_UID', 
+        Opinion::FeedbackAssembler && stub_const(
+          'Evidence::Opinion::FeedbackAssembler::OAPI_ERROR_TO_RULE_UID', 
           { example_error => example_rule_uid }
         )
         allow(::HTTParty).to receive(:post).and_return(oapi_response)
