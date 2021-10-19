@@ -109,24 +109,6 @@ class Teachers::UnitsController < ApplicationController
 
   def diagnostic_units
     render json: diagnostics_organized_by_classroom.to_json
-    # activities_with_calculated_data = diagnostic_assignments.map do |act|
-    #   sorted_individual_assignments = act['individual_assignments'].sort_by { |a| a['assigned_date'] }
-    #   act['individual_assignments'] = sorted_individual_assignments
-    #   act['last_assigned'] = sorted_individual_assignments[-1]['assigned_date']
-    #   all_class_ids = []
-    #   total_assigned = 0
-    #   total_completed = 0
-    #   act['individual_assignments'].each do |assignment|
-    #     all_class_ids.push(assignment['classroom_id'])
-    #     total_assigned += assignment['assigned_count']
-    #     total_completed += assignment['completed_count']
-    #   end
-    #   act['classes_count'] = all_class_ids.uniq.count
-    #   act['total_assigned'] = total_assigned
-    #   act['total_completed'] = total_completed
-    #   act
-    # end
-    # render json: activities_with_calculated_data.to_json
   end
 
   # Get all Units containing lessons, and only retrieve the classroom activities for lessons.
@@ -338,8 +320,7 @@ class Teachers::UnitsController < ApplicationController
       classroom_units.unit_id AS unit_id,
       units.name AS unit_name,
       classrooms.id AS classroom_id,
-      activity_sessions.count AS completed_count,
-      array_length(classroom_units.assigned_student_ids, 1) AS assigned_count,
+      classroom_units.assigned_student_ids AS assigned_student_ids,
       greatest(unit_activities.created_at, classroom_units.created_at) AS assigned_date,
       activities.follow_up_activity_id AS post_test_id,
       classroom_units.id AS classroom_unit_id
@@ -349,13 +330,11 @@ class Teachers::UnitsController < ApplicationController
     .joins("JOIN units ON classroom_units.unit_id = units.id AND units.visible")
     .joins("JOIN unit_activities ON unit_activities.unit_id = classroom_units.unit_id AND unit_activities.activity_id IN (#{diagnostic_activity_ids.join(',')}) AND unit_activities.visible")
     .joins("JOIN activities ON unit_activities.activity_id = activities.id")
-    .joins("LEFT JOIN activity_sessions ON activity_sessions.activity_id = unit_activities.activity_id AND activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.visible AND activity_sessions.is_final_score")
     .group("classrooms.name, activities.name, activities.id, classroom_units.unit_id, classroom_units.id, units.name, classrooms.id, classroom_units.assigned_student_ids, unit_activities.created_at, classroom_units.created_at")
     .order("classrooms.name, greatest(classroom_units.created_at, unit_activities.created_at) DESC")
     records.map do |r|
       {
-        "assigned_count" => r['assigned_count'] || 0,
-        "completed_count" => r['completed_count'],
+        "assigned_student_ids" => r['assigned_student_ids'] || [],
         "classroom_name" => r['classroom_name'],
         "activity_name" => r['activity_name'],
         "activity_id" => r['activity_id'],
@@ -371,31 +350,53 @@ class Teachers::UnitsController < ApplicationController
 
   private def diagnostics_organized_by_classroom
     classrooms = []
-    post_test_ids = diagnostic_unit_records.map { |r| r['post_test_id'] }.compact
-    diagnostic_unit_records.each do |r|
-      next if post_test_ids.include?(r['activity_id'])
+    diagnostic_records = diagnostic_unit_records
+    post_test_ids = diagnostic_records.map { |r| r['post_test_id'] }.compact
+    diagnostic_records.each do |record|
+      next if post_test_ids.include?(record['activity_id'])
 
-      index_of_extant_classroom = classrooms.find_index { |c| c['id'] == r['classroom_id'] }
+      index_of_extant_classroom = classrooms.find_index { |c| c['id'] == record['classroom_id'] }
+      name = grouped_name(record)
+
+      next if record['post_test_id'] && index_of_extant_classroom && classrooms[index_of_extant_classroom]['diagnostics'].find { |diagnostic| diagnostic['name'] == name }
+
       grouped_record = {
-        name: grouped_name(r),
-        pre: diagnostic_unit_record_with_calculated_skill_count(r)
+        name: name,
+        pre: record
       }
-      if r['post_test_id']
-        post_test = diagnostic_unit_records.find { |diagnostic_unit_record| diagnostic_unit_record['activity_id'] == r['post_test_id'] && diagnostic_unit_record['classroom_id'] == r['classroom_id']}
-        grouped_record['post'] = post_test ? diagnostic_unit_record_with_calculated_skill_count(post_test) : { unit_template_id: ActivitiesUnitTemplate.find_by_activity_id(r['post_test_id'])&.unit_template_id }
+
+      if record['post_test_id']
+        grouped_record['pre'] = record_with_aggregated_activity_sessions_and_skill_count(diagnostic_records, record['activity_id'], record['classroom_id'])
+        post_test = record_with_aggregated_activity_sessions_and_skill_count(diagnostic_records, record['post_test_id'], record['classroom_id'])
+        grouped_record['post'] = post_test ? post_test : { unit_template_id: ActivitiesUnitTemplate.find_by_activity_id(record['post_test_id'])&.unit_template_id }
+      else
+        grouped_record[:pre]['completed_count'] = ActivitySession.where(activity_id: record['activity_id'], classroom_unit_id: record['classroom_unit_id'], state: 'finished').size
+        grouped_record[:pre]['assigned_count'] = record['assigned_student_ids'].size
       end
       if index_of_extant_classroom
         classrooms[index_of_extant_classroom]['diagnostics'].push(grouped_record)
         next
       end
       classroom = {
-        "name" => r['classroom_name'],
-        "id" => r['classroom_id'],
+        "name" => record['classroom_name'],
+        "id" => record['classroom_id'],
         "diagnostics" => [grouped_record]
       }
       classrooms.push(classroom)
     end
     classrooms
+  end
+
+  private def record_with_aggregated_activity_sessions_and_skill_count(diagnostic_records, activity_id, classroom_id)
+    records = diagnostic_records.select { |record| record['activity_id'] == activity_id && record['classroom_id'] == classroom_id }
+    classroom_unit_ids = records.map { |record| record['classroom_unit_id'] }
+    activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_unit_ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
+    record = records[0]
+    return if !record
+    record['completed_count'] = activity_sessions.size
+    record['assigned_count'] = records.map { |r| r['assigned_student_ids'] }.flatten.uniq.size
+    record['skills_count'] = activity_sessions.reduce(0) { |sum, as| sum + as.correct_skill_count }
+    record.except('unit_id', 'unit_name', 'classroom_unit_id', 'assigned_student_ids')
   end
 
   private def grouped_name(r)
@@ -409,33 +410,6 @@ class Teachers::UnitsController < ApplicationController
     else
       r['activity_name']
     end
-  end
-
-  private def diagnostic_unit_record_with_calculated_skill_count(r)
-    activity = Activity.find(r['activity_id'])
-    if activity.skill_groups.any?
-      activity_sessions = ActivitySession.where(activity_id: r['activity_id'], classroom_unit_id: r['classroom_unit_id'])
-      r['skills_count'] = activity_sessions.reduce(0) { |sum, as| sum + as.correct_skill_count }
-    end
-    r
-  end
-
-  private def diagnostic_assignments
-    assignments = []
-    diagnostic_unit_records.each do |r|
-      index_of_extant_activity = assignments.find_index { |a| a['id'] == r['activity_id'] }
-      if index_of_extant_activity
-        assignments[index_of_extant_activity]['individual_assignments'].push(r)
-        next
-      end
-      activity = {
-        "name" => r['activity_name'],
-        "id" => r["activity_id"],
-        "individual_assignments" => [r]
-      }
-      assignments.push(activity)
-    end
-    assignments
   end
 
 end

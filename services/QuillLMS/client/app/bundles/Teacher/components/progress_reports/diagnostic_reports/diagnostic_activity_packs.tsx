@@ -48,17 +48,22 @@ export interface Classroom {
 const ALL = 'ALL'
 const ALL_OPTION = { label: 'All classes', value: ALL }
 
+function resultsLink(activityId, classroomId, unitId) {
+  const baseResultsLink = `/teachers/progress_reports/diagnostic_reports/#/diagnostics/${activityId}/classroom/${classroomId}/results`
+  return unitId ? `${baseResultsLink}?unit=${unitId}` : baseResultsLink
+}
+
 const AssignedSection = ({ activity, sectionTitle, }) => {
-  const { assigned_date, unit_name, completed_count, assigned_count, activity_id, classroom_id } = activity
+  const { assigned_date, unit_name, completed_count, assigned_count, activity_id, classroom_id, unit_id, } = activity
   return (<section className="pre">
     <div>
       <h4>{sectionTitle}</h4>
       <p>{calendarDateIcon}<span>Assigned: {moment(assigned_date).format('MMM D, YYYY')}</span></p>
-      <p>{multipleCardsIcon}<span>Activity pack: {unit_name}</span></p>
+      {unit_name && <p>{multipleCardsIcon}<span>Activity pack: {unit_name}</span></p>}
       <p>{multipleUsersIcon}<span>Completed: {completed_count} of {assigned_count}</span></p>
     </div>
     <div>
-      <a className="focus-on-light" href={`/teachers/progress_reports/diagnostic_reports/#/diagnostics/${activity_id}/classroom/${classroom_id}/results`}>View results and recommendations</a>
+      <a className="focus-on-light" href={resultsLink(activity_id, classroom_id, unit_id)}>View results and recommendations</a>
     </div>
   </section>)
 }
@@ -125,7 +130,7 @@ const Diagnostic = ({ diagnostic, }) => {
   const { name, pre, post, } = diagnostic
   let postAndGrowth = <PostInProgress name={name} />
   if (pre.post_test_id) {
-    const growthSummaryLink = `/teachers/progress_reports/diagnostic_reports/#/diagnostics/${pre.post_test_id}/classroom/${pre.classroom_id}/results`
+    const growthSummaryLink = resultsLink(pre.post_test_id, pre.classroom_id, pre.unit_id)
     postAndGrowth = post.activity_id ? <React.Fragment><PostSection post={post} /><GrowthSummary growthSummaryLink={growthSummaryLink} showGrowthSummary={true} skillsGrowth={post.skills_count - pre.skills_count} /></React.Fragment> : <React.Fragment><PostSection activityId={pre.post_test_id} name={name} unitTemplateId={post.unit_template_id} /><GrowthSummary name={name} /></React.Fragment>
   }
 
