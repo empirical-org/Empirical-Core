@@ -10,8 +10,8 @@ describe CleverIntegration::StudentCreator do
     }
   end
 
-  let(:email) { 'student@gmail.com' }
-  let(:username) { 'username' }
+  let(:email) { 'Student@gmail.com' }
+  let(:username) { 'Username' }
 
   subject { described_class.new(data) }
 
@@ -20,12 +20,13 @@ describe CleverIntegration::StudentCreator do
   end
 
   context 'username already exists' do
-    before { create(:student) { create(:student, username: username)} }
+    before { create(:student, username: username) }
 
     it 'will create a new student with an updated username' do
       subject.run
+      new_student = ::User.find_by(email: email.downcase)
 
-      expect(User.find_by(email: email).username).not_to eq username
+      expect(new_student.username).not_to eq username
     end
   end
 end

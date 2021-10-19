@@ -11,9 +11,9 @@ describe CleverIntegration::StudentUpdater do
   end
 
   let(:clever_id) { '1' }
-  let(:email) { 'student@gmail.com' }
+  let(:email) { 'Student@gmail.com' }
   let(:name) { 'Student Name' }
-  let(:username) { 'student.username' }
+  let(:username) { 'Student.username' }
 
   subject { described_class.new(student, data) }
 
@@ -86,9 +86,9 @@ describe CleverIntegration::StudentUpdater do
 
     student.reload
     expect(student.clever_id).to eq clever_id
-    expect(student.email).to eq email
+    expect(student.email).to eq email&.downcase
     expect(student.name).to eq name
-    expect(student.username).to eq username
+    expect(student.username).to eq username&.downcase
   end
 
   def updates_student_with_data_except_username
@@ -96,8 +96,8 @@ describe CleverIntegration::StudentUpdater do
 
     student.reload
     expect(student.clever_id).to eq clever_id
-    expect(student.email).to eq email
+    expect(student.email).to eq email&.downcase
     expect(student.name).to eq name
-    expect(student.username).not_to eq username
+    expect(student.username).not_to eq username&.downcase
   end
 end

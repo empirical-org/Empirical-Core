@@ -8,7 +8,7 @@ module CleverIntegration
     def initialize(data)
       @data = data
       @name = data[:name]
-      @username = data[:username]
+      @username = data[:username]&.downcase
     end
 
     def run
@@ -25,7 +25,7 @@ module CleverIntegration
     end
 
     private def fix_username_conflict
-      return unless ::User.exists?(username: username)
+      return unless username.present? && ::User.exists?(username: username)
 
       data[:username] = UsernameGenerator.new(name).run
     end
