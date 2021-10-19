@@ -7,7 +7,7 @@ import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.js
 import * as assignmentFlowConstants from '../../assignment_flow/assignmentFlowConstants'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../modules/request/index';
-import { DropdownInput, } from '../../../../Shared/index'
+import { DropdownInput, Tooltip, } from '../../../../Shared/index'
 
 const baseImageSrc = `${process.env.CDN_URL}/images/pages/diagnostic_reports`
 
@@ -17,6 +17,10 @@ const multipleUsersIcon = <img alt="Multiple user icon" src={`${baseImageSrc}/ic
 const calendarDateIcon = <img alt="Calendar icon" src={`${baseImageSrc}/icons-calendar-date.svg`} />
 const triangleUpIcon = <img alt="Triangle up icon" src={`${baseImageSrc}/icons-triangle-up-green.svg`} />
 const wrenchIcon = <img alt="Wrench icon" src={`${baseImageSrc}/icons-wrench.svg`} />
+
+const MOBILE_WIDTH = 990
+const AVERAGE_FONT_WIDTH = 6
+const ACTIVITY_PACK_TEXT_MAX_WIDTH = 264
 
 interface Activity {
   activity_id: number,
@@ -55,11 +59,16 @@ function resultsLink(activityId, classroomId, unitId) {
 
 const AssignedSection = ({ activity, sectionTitle, }) => {
   const { assigned_date, unit_name, completed_count, assigned_count, activity_id, classroom_id, unit_id, } = activity
+  const activityPackText = `Activity pack: ${unit_name}`
+  let activityPackElement = <span>{activityPackText}</span>
+  if (window.innerWidth > MOBILE_WIDTH && ((activityPackText.length * AVERAGE_FONT_WIDTH) > ACTIVITY_PACK_TEXT_MAX_WIDTH)) {
+    activityPackElement = <Tooltip tooltipText={activityPackText} tooltipTriggerText={`${activityPackText.substring(0, ACTIVITY_PACK_TEXT_MAX_WIDTH/AVERAGE_FONT_WIDTH)}...`} />
+  }
   return (<section className="pre">
     <div>
       <h4>{sectionTitle}</h4>
       <p>{calendarDateIcon}<span>Assigned: {moment(assigned_date).format('MMM D, YYYY')}</span></p>
-      {unit_name && <p>{multipleCardsIcon}<span>Activity pack: {unit_name}</span></p>}
+      {unit_name && <p>{multipleCardsIcon}{activityPackElement}</p>}
       <p>{multipleUsersIcon}<span>Completed: {completed_count} of {assigned_count}</span></p>
     </div>
     <div>

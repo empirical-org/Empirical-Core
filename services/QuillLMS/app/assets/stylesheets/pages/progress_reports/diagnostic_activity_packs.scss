@@ -109,6 +109,14 @@
               overflow: hidden;
               text-overflow: ellipsis;
             }
+            .quill-tooltip-trigger, .quill-tooltip-wrapper, .quill-tooltip-wrapper span {
+              white-space: normal;
+              overflow: visible;
+              text-overflow: initial;
+            }
+            .quill-tooltip-wrapper, .quill-tooltip-wrapper span {
+              padding-top: 8px;
+            }
           }
           &:not(:last-of-type) {
             border-right: 1px solid #e0e0e0;
