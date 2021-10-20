@@ -71,5 +71,19 @@
       </table>
     </article>
 
+    <article class="simple-rounded-box">
+      <table class="table">
+      <thead><tr><th>Content Management System</th></tr></thead>
+      <tbody>
+        <tr><td><%= link_to 'Connect CMS', "#{ENV['DEFAULT_URL']}/connect#/admin/lessons" %></td></tr>
+        <tr><td><%= link_to 'Diagnostic CMS', "#{ENV['DEFAULT_URL']}/diagnostic#/admin/lessons" %></td></tr>
+        <tr><td><%= link_to 'Evidence CMS', cms_evidence_index_path %></td></tr>
+        <tr><td><%= link_to 'Grammar CMS', "#{ENV['DEFAULT_URL']}/grammar#/admin/lessons" %></td></tr>
+        <tr><td><%= link_to 'Lessons CMS', "#{ENV['DEFAULT_URL']}/lessons#/admin/classroom-lessons" %></td></tr>
+        <tr><td><%= link_to 'Proofreader CMS', "#{ENV['DEFAULT_URL']}/proofreader#/admin/lessons" %></td></tr>
+      </tbody>
+      </table>
+    </article>
+
   </div>
 </div>
