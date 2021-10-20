@@ -3,18 +3,14 @@ import * as moment from 'moment';
 import { Link } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import { firstBy } from 'thenby';
-import stripHtml from "string-strip-html";
 
-import { EditorState, ContentState } from 'draft-js'
 import { titleCase } from '../../../helpers/evidence';
 import { fetchModels } from '../../../utils/evidence/modelAPIs';
-import { DataTable, Input, Spinner, TextEditor } from '../../../../Shared/index';
-import * as request from 'request';
-import { render } from "react-dom";
+import { DataTable, Spinner } from '../../../../Shared/index';
 
-const renderUnsafeHtml = (html) => { 
+const renderUnsafeHtml = (html) => {
   return(
-    <div dangerouslySetInnerHTML={{__html: html}} />
+    <p className="word-wrap" dangerouslySetInnerHTML={{__html: html}} />
   )
 }
 
@@ -63,14 +59,14 @@ const ModelsTable = ({ activityId, prompt }) => {
   }
 
   const dataTableFields = [
-    { name: "Created At", attribute:"created_at", width: "100px" },
-    { name: "Version", attribute:"version", width: "70px" },
-    { name: "Model Name", attribute:"name", width: "300px" },
-    { name: "Model Notes", attribute:"notes", width: "150px" },
-    { name: "Label Count", attribute:"label_count", width: "70px" },
-    { name: "Status", attribute:"status", width: "70px" },
-    { name: "", attribute:"view", width: "100px" },
-    { name: "", attribute:"activate", width: "150px" }
+    { name: "Created At", attribute:"created_at", width: "100px", noTooltip: true },
+    { name: "Version", attribute:"version", width: "50px", noTooltip: true },
+    { name: "Model Name", attribute:"name", width: "150px" },
+    { name: "Model Notes", attribute:"notes", width: "350px" },
+    { name: "Label Count", attribute:"label_count", width: "70px", noTooltip: true },
+    { name: "Status", attribute:"status", width: "70px", noTooltip: true },
+    { name: "", attribute:"view", width: "50px", noTooltip: true },
+    { name: "", attribute:"activate", width: "70px", noTooltip: true }
   ];
 
   const addModelLink = <Link className="quill-button fun primary contained" to={{ pathname: `/activities/${activityId}/semantic-labels/${prompt.id}/add-model`, state: { conjunction: prompt.conjunction }}}>Add Model</Link>;
