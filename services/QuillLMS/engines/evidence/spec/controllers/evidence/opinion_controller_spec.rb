@@ -14,7 +14,7 @@ module Evidence
         }
       end
 
-      let(:oapi_response) do 
+      let(:client_response) do 
         {
           'oapi_error' => example_error,
           'highlight' => [{
@@ -26,7 +26,7 @@ module Evidence
       end
 
       let!(:rule) do 
-        create(:evidence_rule, uid: example_rule_uid)
+        create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz')
       end
 
       before do 
@@ -36,14 +36,14 @@ module Evidence
           'Evidence::Opinion::FeedbackAssembler::OAPI_ERROR_TO_RULE_UID', 
           { example_error => example_rule_uid }
         )
-        allow(::HTTParty).to receive(:post).and_return(oapi_response)
+        allow_any_instance_of(Opinion::Client).to receive(:post).and_return(client_response)
       end
 
       it 'should return a valid json response' do 
         post :fetch, params: incoming_payload, as: :json
 
         expect(JSON.parse(response.body)).to eq({
-          'concept_uid' => 'ConceptUID',
+          'concept_uid' => 'xyz',
           'feedback' => nil,
           'feedback_type' => 'opinion',
           'optimal' => false,
@@ -64,7 +64,7 @@ module Evidence
           post :fetch, params: incoming_payload, as: :json
 
           expect(JSON.parse(response.body)).to eq({
-            'concept_uid' => 'ConceptUID',
+            'concept_uid' => 'xyz',
             'feedback' => 'lorem ipsum',
             'feedback_type' => 'opinion',
             'optimal' => false,

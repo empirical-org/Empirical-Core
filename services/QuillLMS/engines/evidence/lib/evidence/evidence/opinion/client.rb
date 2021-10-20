@@ -1,8 +1,8 @@
 module Evidence
   module Opinion 
     class Client
-      API_TIMEOUT = 5
-      ALLOWED_PAYLOAD_KEYS = ['rule_uid', 'highlight']
+      API_TIMEOUT = 500
+      ALLOWED_PAYLOAD_KEYS = ['oapi_error', 'highlight']
 
       def initialize(entry:, prompt_text:)
         @entry = entry
@@ -11,7 +11,7 @@ module Evidence
 
       def post
         Timeout.timeout(API_TIMEOUT) do 
-          HTTParty.post(
+          response = HTTParty.post(
             ENV['OPINION_API_DOMAIN'], 
             headers:  {'Content-Type': 'application/json'},
             body:     {
@@ -19,7 +19,10 @@ module Evidence
               prompt_text: @prompt_text
             }.to_json
           )
-          .filter { |k,v| ALLOWED_PAYLOAD_KEYS.include?(k) }
+          if !response.success? 
+            raise RuntimeError, "Encountered upstream error: #{response}"
+          end
+          response.filter { |k,v| ALLOWED_PAYLOAD_KEYS.include?(k) }
         end
       end
     end
