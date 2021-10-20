@@ -67,11 +67,3 @@ module Evidence
   end
 
 end
-
-
-
-
-
-
-
-
