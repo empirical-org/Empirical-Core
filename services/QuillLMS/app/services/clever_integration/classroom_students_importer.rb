@@ -34,12 +34,8 @@ module CleverIntegration
       }
     end
 
-    private def import_students
-      students
-    end
-
     private def students
-      @students ||= CleverIntegration::Creators::Students.run(parsed_students_data)
+      @students ||= parsed_students_data.map { |data| CleverIntegration::StudentImporter.new(data).run }
     end
   end
 end

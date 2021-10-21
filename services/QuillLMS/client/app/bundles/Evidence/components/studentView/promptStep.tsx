@@ -113,11 +113,8 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     if (!lastSubmittedResponse || !lastSubmittedResponse.highlight || !lastSubmittedResponse.entry || submittedResponses.length === prompt.max_attempts) { return str }
 
     const thereAreResponseHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).length
-    const lastSubmittedResponseWithoutStem = lastSubmittedResponse.entry.replace(prompt.text, '').trim()
 
-    if (lastSubmittedResponseWithoutStem !== str || !thereAreResponseHighlights) {
-      return str
-    }
+    if (!thereAreResponseHighlights) { return str }
 
     let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).map(hl => this.stripHtml(hl.text))
     wordsToFormat = wordsToFormat.length === 1 ? wordsToFormat[0] : wordsToFormat
