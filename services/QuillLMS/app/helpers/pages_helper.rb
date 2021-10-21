@@ -110,7 +110,7 @@ module PagesHelper
           },
           {
             name: 'Devin Kawailani Barricklow',
-            title: 'Curriculum Associate',
+            title: 'Curriculum Developer',
             img: 'team-devin-barricklow@2x.png'
           },
           {

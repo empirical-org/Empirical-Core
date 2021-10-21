@@ -10,7 +10,7 @@ describe Cms::RostersController do
   describe '#upload_teachers_and_students' do
     let!(:school) { create(:school)}
 
-    it 'should create teachers and students based on the data provided' do
+    it 'should create teachers and students based on the data provided, and it should ignore empty items in payload arrays' do
       teacher_email = "email@test.org"
       student_email = "studentemail@test.org"
       another_student_email = "anotheremail@test.org"
@@ -22,7 +22,8 @@ describe Cms::RostersController do
             name: "Test Teacher",
             email: teacher_email,
             password: nil
-          }
+          },
+          {} # Intentionally empty hash to test error handling
         ],
         students: [
           {
@@ -40,7 +41,8 @@ describe Cms::RostersController do
             teacher_email: teacher_email,
             classroom: classroom_name,
             password: nil
-          }
+          },
+          {} # Intentionally empty hash to test error handling
         ]
       }
 

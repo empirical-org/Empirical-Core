@@ -7,6 +7,14 @@ SecureHeaders::Configuration.default do |config|
       "'unsafe-inline'"                                           # TODO: remove once nonce strategy is in place
     ],                                                            # fallback for more specific directives
 
+    frame_src: [
+      "'self'",
+      "https://coview.com",
+      "https://*.coview.com",
+      "https://stripe.com",
+      "https://*.stripe.com"
+    ],
+
     object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>
 
     media_src: [
@@ -34,6 +42,7 @@ SecureHeaders::Configuration.default do |config|
       "https://*.google-analytics.com",
       "https://*.inspectlet.com",
       "https://*.satismeter.com",
+      "https://stripe.com",
       "https://*.stripe.com",
       "https://*.amplitude.com",
       "https://*.doubleclick.net",
@@ -46,6 +55,8 @@ SecureHeaders::Configuration.default do |config|
 
     font_src: [
       "'self'",
+      "https://coview.com",
+      "https://*.coview.com",
       "https://intercomcdn.com",
       "https://*.intercomcdn.com",
       "https://quill.org",
@@ -57,16 +68,9 @@ SecureHeaders::Configuration.default do |config|
     ], 
 
     img_src: [
-      "https://heapanalytics.com",
-      "https://*.heapanalytics.com",
-      "https://intercomassets.com",
-      "https://*.intercomassets.com",
-      "https://*.quill.org",
-      "https://quill.org",
-      "https://*.typekit.net",
-      "https://*.google.com",
-      "https://*.inspectlet.com",
-      "https://*.amazonaws.com"
+      "*",
+      "data:",
+      "blob:"
     ],
 
     base_uri: %w('self'),                                         # used for relative URLs
@@ -76,6 +80,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.quill.org",
       "https://quill.org",  
       "'unsafe-inline'",
+      "https://coview.com",
+      "https://*.coview.com",
       "https://*.fontawesome.com",
       "https://*.googleapis.com",
       "https://*.gstatic.com"      
@@ -95,6 +101,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.doubleclick.net",
       "https://*.pusherapp.com",
       "https://*.pusher.com",
+      "wss://coview.com",
+      "wss://*.coview.com",
       "wss://*.pusherapp.com",
       "wss://*.inspectlet.com",
       "https://*.intercom.io",

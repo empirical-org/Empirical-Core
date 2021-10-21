@@ -20,42 +20,48 @@ exports[`LabelsTable component should render ModelsTable 1`] = `
         Object {
           "attribute": "created_at",
           "name": "Created At",
+          "noTooltip": true,
           "width": "100px",
         },
         Object {
           "attribute": "version",
           "name": "Version",
-          "width": "70px",
+          "noTooltip": true,
+          "width": "50px",
         },
         Object {
           "attribute": "name",
           "name": "Model Name",
-          "width": "300px",
+          "width": "150px",
         },
         Object {
           "attribute": "notes",
           "name": "Model Notes",
-          "width": "150px",
+          "width": "350px",
         },
         Object {
           "attribute": "label_count",
           "name": "Label Count",
+          "noTooltip": true,
           "width": "70px",
         },
         Object {
           "attribute": "status",
           "name": "Status",
+          "noTooltip": true,
           "width": "70px",
         },
         Object {
           "attribute": "view",
           "name": "",
-          "width": "100px",
+          "noTooltip": true,
+          "width": "50px",
         },
         Object {
           "attribute": "activate",
           "name": "",
-          "width": "150px",
+          "noTooltip": true,
+          "width": "70px",
         },
       ]
     }

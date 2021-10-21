@@ -31,5 +31,13 @@ describe PremiumAnalyticsWorker do
         subject.perform(user.id, Subscription::OFFICIAL_FREE_TYPES[0])
       end
     end
+
+    context 'when passed an id for a non-existent user' do
+      it 'should return without doing anything' do
+        bad_user_id = user.id * 9
+        expect(analyzer).not_to receive(:track)
+        subject.perform(bad_user_id, Subscription::OFFICIAL_FREE_TYPES[0])
+      end
+    end
   end
 end
