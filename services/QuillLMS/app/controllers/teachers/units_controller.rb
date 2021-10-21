@@ -389,6 +389,7 @@ class Teachers::UnitsController < ApplicationController
 
   private def record_with_aggregated_activity_sessions_and_skill_count(diagnostic_records, activity_id, classroom_id)
     records = diagnostic_records.select { |record| record['activity_id'] == activity_id && record['classroom_id'] == classroom_id }
+    return if records.empty?
     classroom_unit_ids = records.map { |record| record['classroom_unit_id'] }
     activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_unit_ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
     record = records[0]
