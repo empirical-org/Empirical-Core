@@ -103,7 +103,7 @@ export default class PremiumPricingMinisRow extends React.Component {
           <h2>Choose the plan that&apos;s right for you</h2>
           <p>As a nonprofit dedicated to helping students, Quill will always provide 100% of our activities for free.</p>
         </div>
-        <div className={`pricing-minis-container ${isScrolled ? 'scrolled' : ''}`}>
+        <div className="pricing-minis-container">
           <div className="pricing-minis">
             <BasicPricingMini
               premiumFeatureData={premiumFeatureData}
