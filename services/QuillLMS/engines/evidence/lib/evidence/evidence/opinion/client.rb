@@ -4,6 +4,8 @@ module Evidence
       API_TIMEOUT = 500
       ALLOWED_PAYLOAD_KEYS = ['oapi_error', 'highlight']
 
+      class OAPIError < StandardError; end
+
       def initialize(entry:, prompt_text:)
         @entry = entry
         @prompt_text = prompt_text
@@ -20,7 +22,7 @@ module Evidence
             }.to_json
           )
           if !response.success? 
-            raise "Encountered upstream error: #{response}"
+            raise OAPIError, "Encountered upstream error: #{response}"
           end
           response.filter { |k,v| ALLOWED_PAYLOAD_KEYS.include?(k) }
         end
