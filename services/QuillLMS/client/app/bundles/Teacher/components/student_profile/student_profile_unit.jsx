@@ -182,7 +182,6 @@ export default class StudentProfileUnit extends React.Component {
     })
 
     return (<div className="activities-container completed-activities">
-      <h3>Completed activities</h3>
       <DataTable
         headers={completeHeaders}
         rows={rows}
@@ -206,7 +205,6 @@ export default class StudentProfileUnit extends React.Component {
     })
 
     return (<div className="activities-container incomplete-activities">
-      <h3>To-do activities</h3>
       <DataTable
         headers={incompleteHeaders}
         rows={rows}
