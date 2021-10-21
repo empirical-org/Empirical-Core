@@ -5,6 +5,26 @@
       font-weight: 600;
     }
   }
+  .models-table {
+    margin-bottom: 8px;
+    .active-row {
+      background-color: #e7fee8;
+    }
+    .data-table-body {
+      .data-table-row {
+        height: auto !important;
+        .data-table-row-section {
+          padding: 8px 0px 8px 0px;
+        }
+        .data-table-row-section:nth-of-type(2) {
+          text-align: left !important;
+        }
+        .data-table-row-section:nth-of-type(7) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
 }
 
 .model-form-container {
@@ -67,7 +87,6 @@
     margin-bottom: 8px;
     .active-row {
       background-color: #e7fee8;
-      // font-weight: bold;
     }
   }
   .button-container {
