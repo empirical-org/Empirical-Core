@@ -54,7 +54,7 @@ export default class RemoveUnsyncedStudents extends React.Component {
       <div className="input-row">
         <label>Teacher Email Or Username:</label>
         <input onChange={this.updateTeacherIdentifier} type="text" value={this.state.teacherIdentifier} />
-        <button onClick={this.listUnsyncedStudentsByClassroom}>List Students</button>
+        <button onClick={this.listUnsyncedStudentsByClassroom}>View Unsynced Students</button>
       </div>
     )
   }
@@ -66,6 +66,7 @@ export default class RemoveUnsyncedStudents extends React.Component {
   }
 
   renderInstructions() {
+
     return (
       <React.Fragment>
         <p>
@@ -82,6 +83,10 @@ export default class RemoveUnsyncedStudents extends React.Component {
           Please exercise caution when using this teacher fix, as removing a student from a class also removes their
           progress. Some teachers like to retain student progress in one class so they have the option of moving that
           student (and their progress) to another class in the future.
+        </p>
+        <p>
+          Clicking "View unsynced students" below will show you a list of all unsynced students by class. It only
+          includes classes that the teacher owns (i.e. it does not include classes that the teacher co-teaches).
         </p>
       </React.Fragment>
     )
