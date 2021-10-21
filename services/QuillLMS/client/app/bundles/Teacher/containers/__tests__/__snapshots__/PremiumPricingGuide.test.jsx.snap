@@ -8,16 +8,6 @@ exports[`PremiumPricingGuide container should render 1`] = `
     <div
       className="overview text-center"
     >
-      <div
-        className="header"
-      >
-        <h1>
-          Compare plan features
-        </h1>
-        <p>
-          Pick a plan that suits your needs.
-        </p>
-      </div>
       <PremiumPricingMinisRow
         diagnosticActivityCount={9}
         independentPracticeActivityCount={400}
