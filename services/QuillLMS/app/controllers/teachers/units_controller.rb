@@ -368,7 +368,7 @@ class Teachers::UnitsController < ApplicationController
       if record['post_test_id']
         grouped_record['pre'] = record_with_aggregated_activity_sessions_and_skill_count(diagnostic_records, record['activity_id'], record['classroom_id'])
         post_test = record_with_aggregated_activity_sessions_and_skill_count(diagnostic_records, record['post_test_id'], record['classroom_id'])
-        grouped_record['post'] = post_test ? post_test : { unit_template_id: ActivitiesUnitTemplate.find_by_activity_id(record['post_test_id'])&.unit_template_id }
+        grouped_record['post'] = post_test || { unit_template_id: ActivitiesUnitTemplate.find_by_activity_id(record['post_test_id'])&.unit_template_id }
       else
         grouped_record[:pre]['completed_count'] = ActivitySession.where(activity_id: record['activity_id'], classroom_unit_id: record['classroom_unit_id'], state: 'finished').size
         grouped_record[:pre]['assigned_count'] = record['assigned_student_ids'].size
@@ -399,8 +399,8 @@ class Teachers::UnitsController < ApplicationController
     record.except('unit_id', 'unit_name', 'classroom_unit_id', 'assigned_student_ids')
   end
 
-  private def grouped_name(r)
-    case r['activity_id']
+  private def grouped_name(record)
+    case record['activity_id']
     when Activity::STARTER_DIAGNOSTIC_ACTIVITY_ID
       'Starter Diagnostic'
     when Activity::INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID
@@ -408,7 +408,7 @@ class Teachers::UnitsController < ApplicationController
     when Activity::ADVANCED_DIAGNOSTIC_ACTIVITY_ID
       'Advanced Diagnostic'
     else
-      r['activity_name']
+      record['activity_name']
     end
   end
 

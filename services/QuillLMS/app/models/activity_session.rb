@@ -506,7 +506,7 @@ class ActivitySession < ApplicationRecord
   end
 
   def correct_skill_count
-    skills = activity&.skill_groups.map(&:skills)&.flatten&.uniq
+    skills = activity&.skill_groups&.map(&:skills)&.flatten&.uniq
     skills.reduce(0) do |sum, skill|
       concept_results = ConceptResult.where(activity_session_id: id, concept_id: [skill.concept_ids])
       sum += concept_results.length && concept_results.all? { |cr| cr.metadata['correct'] > 0 } ? 1 : 0
