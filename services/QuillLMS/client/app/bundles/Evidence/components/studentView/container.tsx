@@ -58,7 +58,8 @@ const ALL_STEPS = [READ_PASSAGE_STEP, 2, 3, 4]
 const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
 
 export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user, }: StudentViewContainerProps) => {
-  const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
+  const activityCompletionCount: number = parseInt(getParameterByName('activities', window.location.href, '0'));
+  const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts') || activityCompletionCount > 3
   const defaultCompletedSteps = shouldSkipToPrompts ? [READ_PASSAGE_STEP] : []
 
   const refs = {
@@ -496,12 +497,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP ? 'on-read-passage' : ''}`
 
-  let activityCompletionCount: string | number = getParameterByName('activities', window.location.href);
-  if(activityCompletionCount) {
-    activityCompletionCount = parseInt(activityCompletionCount)
-  }
-
-  if(!explanationSlidesCompleted || (activityCompletionCount && activityCompletionCount < 4)) {
+  if(!explanationSlidesCompleted) {
     if (explanationSlideStep === 0) {
       return <WelcomeSlide onHandleClick={handleExplanationSlideClick} user={user} />
     }
