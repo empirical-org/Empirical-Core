@@ -20,9 +20,10 @@ const chartGrowthIllustration = <img alt="Chart showing growth illustration" src
 const eyeIcon = <img alt="Preview icon" src={`${process.env.CDN_URL}/images/icons/icons-visibility-on.svg`} />
 const closeIcon = <img alt="Close icon" src={`${process.env.CDN_URL}/images/icons/close.svg`} />
 
-const DiagnosticSection = ({ activity, isPostDiagnostic, isDisabled, }) => {
+const DiagnosticSection = ({ activity, isPostDiagnostic, isDisabled, search, }) => {
   const { activity_name, activity_id, classroom_id, } = activity
   const baseLinkPath = `/diagnostics/${activity_id}/classroom/${classroom_id}`
+  const queryString = search ? search : ''
 
   const resultLinkContent = <React.Fragment>{isPostDiagnostic ? barChartGrowthIcon : barChartIcon}<span>{isPostDiagnostic ? 'Growth results summary' : 'Results summary'}</span></React.Fragment>
   const recommendationsLinkContent = <React.Fragment>{multipleCheckboxIcon}<span>Practice recommendations</span></React.Fragment>
@@ -31,16 +32,17 @@ const DiagnosticSection = ({ activity, isPostDiagnostic, isDisabled, }) => {
 
   return (<section className={`diagnostic-section ${isDisabled ? 'disabled' : ''}`}>
     <h6><span>{activity_name}</span> <a className="focus-on-light preview-link" href={`/activity_sessions/anonymous?activity_id=${activity_id}`} rel="noopener noreferrer" target="_blank">{eyeIcon}</a></h6>
-    {isDisabled ? <span className='disabled-link'>{resultLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/results`}>{resultLinkContent}</NavLink>}
-    {isDisabled ? <span className='disabled-link'>{recommendationsLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/recommendations`}>{recommendationsLinkContent}</NavLink>}
-    {isDisabled ? <span className='disabled-link'>{responsesLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/responses`}>{responsesLinkContent}</NavLink>}
-    {isDisabled ? <span className='disabled-link'>{questionsLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/questions`}>{questionsLinkContent}</NavLink>}
+    {isDisabled ? <span className='disabled-link'>{resultLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/results${queryString}`}>{resultLinkContent}</NavLink>}
+    {isDisabled ? <span className='disabled-link'>{recommendationsLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/recommendations${queryString}`}>{recommendationsLinkContent}</NavLink>}
+    {isDisabled ? <span className='disabled-link'>{responsesLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/responses${queryString}`}>{responsesLinkContent}</NavLink>}
+    {isDisabled ? <span className='disabled-link'>{questionsLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/questions${queryString}`}>{questionsLinkContent}</NavLink>}
   </section>)
 }
 
-const mobileLinkOptions = (diagnostic) => {
+const mobileLinkOptions = (diagnostic, search) => {
   const baseLinkPathPre = `/diagnostics/${diagnostic.pre.activity_id}/classroom/${diagnostic.pre.classroom_id}`
-  const baseLinkPathPost = `/diagnostics/${diagnostic.post.activity_id}/classroom/${diagnostic.post.classroom_id}`
+  const baseLinkPathPost = diagnostic.post && `/diagnostics/${diagnostic.post.activity_id}/classroom/${diagnostic.post.classroom_id}`
+  const queryString = search ? search : ''
 
   function pathsArray(isPostDiagnostic) {
     const prefix = isPostDiagnostic ? 'Post' : 'Pre'
@@ -49,19 +51,19 @@ const mobileLinkOptions = (diagnostic) => {
     return [
       {
         name: `${prefix} - ${resultsSummaryName}`,
-        value: `${baseLink}/results`
+        value: `${baseLink}/results${queryString}`
       },
       {
         name: `${prefix} - Practice recommendations`,
-        value: `${baseLink}/recommendations`
+        value: `${baseLink}/recommendations${queryString}`
       },
       {
         name: `${prefix} - Student responses`,
-        value: `${baseLink}/responses`
+        value: `${baseLink}/responses${queryString}`
       },
       {
         name: `${prefix} - Questions analysis`,
-        value: `${baseLink}/questions`
+        value: `${baseLink}/questions${queryString}`
       }
     ]
   }
@@ -141,7 +143,7 @@ const IndividualPack = ({ classrooms, history, match, location, }) => {
     value={classroomDropdownOptions.find(opt => String(opt.value) === match.params.classroomId)}
   />)
 
-  const linkDropdownOptions = mobileLinkOptions(activeDiagnostic)
+  const linkDropdownOptions = mobileLinkOptions(activeDiagnostic, location.search)
 
   const linkDropdown = (<DropdownInput
     handleChange={onClassesDropdownChange}
@@ -158,7 +160,7 @@ const IndividualPack = ({ classrooms, history, match, location, }) => {
   return (<div className="diagnostic-individual-pack">
     <nav className="diagnostic-report-navigation hide-on-mobile">
       {classroomDropdown}
-      <DiagnosticSection activity={activeDiagnostic.pre} />
+      <DiagnosticSection activity={activeDiagnostic.pre} search={location.search} />
       {postDiagnosticContent}
     </nav>
     <Switch>
