@@ -5,8 +5,8 @@ module CleverIntegration
     def initialize(data)
       @data = data
       @clever_id = data[:clever_id]
-      @email = data[:email]
-      @username = data[:username]
+      @email = data[:email]&.downcase
+      @username = data[:username]&.downcase
     end
 
     def run
@@ -22,7 +22,7 @@ module CleverIntegration
     end
 
     private def student_with_email
-      ::User.find_by(email: email.downcase) if email.present?
+      ::User.find_by(email: email) if email.present?
     end
 
     private def student_with_clever_id

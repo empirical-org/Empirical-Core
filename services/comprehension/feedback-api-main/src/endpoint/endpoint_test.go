@@ -83,6 +83,33 @@ func TestDefaultFeedbackFallback(t *testing.T) {
 	}
 }
 
+func TestTimeoutBehavior(t *testing.T) {
+	// We want to confirm that even if the timeout is a client-side one we still generate the
+	// InternalAPIResponse object from a server-side error so that we can guarantee that the
+	// overall function con construct appropriate feedback for a user.
+	handlerFunc := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		time.Sleep(time.Millisecond * 10000)
+	})
+
+	backend := httptest.NewServer(http.TimeoutHandler(handlerFunc, time.Millisecond * 5000, "server timeout"))
+
+	testClient := &http.Client {
+		Timeout: time.Millisecond * 1,
+	}
+
+	url := backend.URL
+
+	r := getAPIResponse(url, 1, nil, testClient)
+
+	if !r.Error {
+		t.Errorf("Error attribute on response was not true")
+	}
+
+	if r.APIResponse.Optimal {
+		t.Errorf("Optimal attribute on response was not false")
+	}
+}
+
 func TestAllOptimal(t *testing.T) {
 	responseOptimal := InternalAPIResponse{
 		APIResponse: APIResponse{Optimal: true},

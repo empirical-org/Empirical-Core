@@ -391,9 +391,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
         <div
           className="activities-container incomplete-activities"
         >
-          <h3>
-            To-do activities
-          </h3>
           <DataTable
             averageFontWidth={7}
             headers={
@@ -922,9 +919,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
         <div
           className="activities-container incomplete-activities"
         >
-          <h3>
-            To-do activities
-          </h3>
           <DataTable
             averageFontWidth={7}
             headers={
@@ -2032,9 +2026,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
         <div
           className="activities-container incomplete-activities"
         >
-          <h3>
-            To-do activities
-          </h3>
           <DataTable
             averageFontWidth={7}
             headers={
@@ -2563,9 +2554,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
         <div
           className="activities-container incomplete-activities"
         >
-          <h3>
-            To-do activities
-          </h3>
           <DataTable
             averageFontWidth={7}
             headers={
@@ -3745,9 +3733,6 @@ exports[`StudentProfileUnits component should render only completed activities i
         <div
           className="activities-container completed-activities"
         >
-          <h3>
-            Completed activities
-          </h3>
           <DataTable
             averageFontWidth={7}
             headers={
@@ -4607,9 +4592,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
         <div
           className="activities-container incomplete-activities"
         >
-          <h3>
-            To-do activities
-          </h3>
           <DataTable
             averageFontWidth={7}
             headers={
@@ -5211,9 +5193,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
         <div
           className="activities-container incomplete-activities"
         >
-          <h3>
-            To-do activities
-          </h3>
           <DataTable
             averageFontWidth={7}
             headers={
@@ -6437,9 +6416,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
         <div
           className="activities-container incomplete-activities"
         >
-          <h3>
-            To-do activities
-          </h3>
           <DataTable
             averageFontWidth={7}
             headers={
@@ -7041,9 +7017,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
         <div
           className="activities-container incomplete-activities"
         >
-          <h3>
-            To-do activities
-          </h3>
           <DataTable
             averageFontWidth={7}
             headers={
@@ -8267,9 +8240,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
         <div
           className="activities-container incomplete-activities"
         >
-          <h3>
-            To-do activities
-          </h3>
           <DataTable
             averageFontWidth={7}
             headers={
@@ -8871,9 +8841,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
         <div
           className="activities-container incomplete-activities"
         >
-          <h3>
-            To-do activities
-          </h3>
           <DataTable
             averageFontWidth={7}
             headers={

@@ -471,9 +471,12 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       const innerElements = node.children.map((n, i) => convertNodeToElement(n, i, transformMarkTags))
       const stringifiedInnerElements = node.children.map(n => n.data ? n.data : n.children[0].data).join('')
       let className = ''
-      className += studentHighlights.includes(stringifiedInnerElements) ? ' highlighted' : ''
+      if(activeStep === 1) {
+        className += studentHighlights.includes(stringifiedInnerElements) ? ' highlighted' : ''
+      }
       className += shouldBeHighlightable  ? ' highlightable' : ''
       if (!shouldBeHighlightable) { return <mark className={className}>{innerElements}</mark>}
+      /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
       return <mark className={className} onClick={handleHighlightClick} onKeyDown={handleHighlightKeyDown} role="button" tabIndex={0}>{innerElements}</mark>
     }
   }
@@ -493,7 +496,12 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP ? 'on-read-passage' : ''}`
 
-  if(!explanationSlidesCompleted) {
+  let activityCompletionCount: string | number = getParameterByName('activities', window.location.href);
+  if(activityCompletionCount) {
+    activityCompletionCount = parseInt(activityCompletionCount)
+  }
+
+  if(!explanationSlidesCompleted || (activityCompletionCount && activityCompletionCount < 4)) {
     if (explanationSlideStep === 0) {
       return <WelcomeSlide onHandleClick={handleExplanationSlideClick} user={user} />
     }

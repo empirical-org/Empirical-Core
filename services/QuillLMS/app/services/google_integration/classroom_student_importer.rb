@@ -2,49 +2,52 @@ module GoogleIntegration
   class ClassroomStudentImporter
     ROLE = ::User::STUDENT
 
-    attr_reader :data
+    attr_reader :data, :classroom, :email
 
     def initialize(data)
       @data = data
+      @classroom = data[:classroom]
+      @email = data[:email]&.downcase
     end
 
     def run
-      return if invalid_email?
+      return unless email.present?
 
-      update_existing_student_with_google_id_and_different_email
-      import_student
-      assign_classroom
+      update_student_with_google_id_and_different_email
+
+      if student_is_active_teacher?
+        log_skipped_import
+      else
+        import_student
+        assign_classroom
+      end
     end
 
     private def assign_classroom
       Associators::StudentsToClassrooms.run(student, classroom)
     end
 
-    private def classroom
-      data[:classroom]
-    end
-
-    private def email
-      data[:email]&.downcase
-    end
-
     private def import_student
-      importer_class.new(data).run
+      student ? ClassroomStudentUpdater.new(student, data).run : ClassroomStudentCreator.new(data).run
     end
 
-    private def importer_class
-      student.present? ? ClassroomStudentUpdater : ClassroomStudentCreator
-    end
-
-    private def invalid_email?
-      email.nil?
+    private def log_skipped_import
+      ChangeLog.find_or_create_by(
+        changed_record: student,
+        action: ChangeLog::USER_ACTIONS[:skipped_import],
+        explanation: caller_locations[0].to_s
+      )
     end
 
     private def student
-      @student ||= ::User.find_by(email: email, role: ROLE)
+      @student ||= ::User.find_by(email: email)
     end
 
-    private def update_existing_student_with_google_id_and_different_email
+    private def student_is_active_teacher?
+      student&.teacher? && ::ClassroomsTeacher.exists?(user: student)
+    end
+
+    private def update_student_with_google_id_and_different_email
       StudentEmailUpdater.new(data).run
     end
   end

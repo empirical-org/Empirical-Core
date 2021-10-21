@@ -444,10 +444,6 @@ GEM
       ruby-rc4
       ttfunk
     pg (0.18.4)
-    pointpin (1.0.1)
-      faraday
-      hashie
-      multi_json
     prawn (2.2.2)
       pdf-core (~> 0.7.0)
       ttfunk (~> 1.5)
@@ -849,7 +845,6 @@ DEPENDENCIES
   pdf-core
   pdf-inspector
   pg (= 0.18.4)
-  pointpin (~> 1.0.0)
   prawn
   prawn-table
   premailer-rails
