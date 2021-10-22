@@ -16,25 +16,33 @@ module Evidence
         'starts_with_a_verb' => '4f4ed261-16f8-44ae-905c-0ad7c6449af4'
       }
 
-      def initialize(client_response)
-        @client_response = client_response
-        error = @client_response['oapi_error']
+      def self.run(client_response)
+        error = client_response['oapi_error']
+        return default_payload if error.empty?
+
         rule_uid = OAPI_ERROR_TO_RULE_UID.fetch(error)
-        @rule = Evidence::Rule.where(uid: rule_uid).includes(:feedbacks).first
-        @top_feedback = @rule&.feedbacks&.min_by(&:order)
-        @optimal = @rule&.optimal.nil? ? true : @rule&.optimal 
+        rule = Evidence::Rule.where(uid: rule_uid).includes(:feedbacks).first
+        top_feedback = rule&.feedbacks&.min_by(&:order)
+
+        default_payload.merge({
+          'concept_uid': rule&.concept_uid,
+          'feedback': top_feedback&.text,
+          'optimal': rule&.optimal.nil? ? true : rule&.optimal,
+          'highlight': client_response['highlight'],
+          'rule_uid': rule&.uid
+        })
       end
 
-      def to_payload 
+      def self.default_payload
         {
-          'concept_uid': @rule&.concept_uid,
-          'feedback': @top_feedback&.text,
           'feedback_type': 'opinion',
-          'optimal': @optimal,
           'response_id': '0', # not currently used, but part of Evidence payload spec
-          'highlight': @client_response['highlight'],
           'labels': '',       # not currently used, but part of Evidence payload spec
-          'rule_uid': @rule&.uid
+          'concept_uid': '',
+          'feedback': '',
+          'optimal': true,
+          'highlight': '',
+          'rule_uid': ''
         }  
       end
     end
