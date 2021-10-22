@@ -10,9 +10,10 @@
 
 body, button, input, select, textarea, {
   font-family: adelle-sans,Arial,sans-serif;
-  -moz-font-feature-settings: "ss04";
-  -webkit-font-feature-settings: "ss04";
-  font-feature-settings: "ss04";
+  -moz-font-feature-settings: "ss04", "tnum";
+  -webkit-font-feature-settings: "ss04", "tnum";
+  font-feature-settings: "ss04", "tnum";
+  font-variant-numeric: tabular-nums;
 }
 
 .ant-layout {

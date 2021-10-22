@@ -97,7 +97,8 @@ class ChangeLog < ApplicationRecord
     sign_in: 'Impersonated User',
     show: 'Visited User Admin Page',
     edit: 'Visited User Edit Page',
-    update: 'Edited User'
+    update: 'Edited User',
+    skipped_import: 'Skipped User import'
   }
   GENERIC_USER_ACTIONS = [
     'Visited User Directory',

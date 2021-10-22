@@ -80,7 +80,6 @@ class User < ApplicationRecord
   has_many :user_subscriptions
   has_many :subscriptions, through: :user_subscriptions
   has_many :activity_sessions
-  has_many :notifications, dependent: :delete_all
   has_one :schools_users
   has_one :sales_contact
   has_one :school, through: :schools_users
@@ -160,6 +159,7 @@ class User < ApplicationRecord
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
   GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
+  CLEVER_ACCOUNT = 'Clever'
 
   scope :teacher, -> { where(role: TEACHER) }
   scope :student, -> { where(role: STUDENT) }

@@ -58,7 +58,8 @@ const ALL_STEPS = [READ_PASSAGE_STEP, 2, 3, 4]
 const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
 
 export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user, }: StudentViewContainerProps) => {
-  const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
+  const activityCompletionCount: number = parseInt(getParameterByName('activities', window.location.href, '0'));
+  const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts') || activityCompletionCount > 3
   const defaultCompletedSteps = shouldSkipToPrompts ? [READ_PASSAGE_STEP] : []
 
   const refs = {
@@ -451,24 +452,33 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   function transformMarkTags(node) {
     const strippedPassageHighlights = getStrippedPassageHighlights({ activities, session, activeStep });
 
+    if (['p'].includes(node.name) && activeStep > 1 && strippedPassageHighlights && strippedPassageHighlights.length) {
+      const stringifiedInnerElements = node.children.map(n => n.data ? n.data : n.children[0].data).join('')
+      if (!stringifiedInnerElements) { return }
+      const highlightIncludesElement = strippedPassageHighlights.find(ph => ph.includes(stringifiedInnerElements)) // handles case where passage highlight spans more than one paragraph
+      const elementIncludesHighlight = strippedPassageHighlights.find(ph => stringifiedInnerElements.includes(ph)) // handles case where passage highlight is only part of paragraph
+      if (highlightIncludesElement) {
+        return <p><span className="passage-highlight">{stringifiedInnerElements}</span></p>
+      }
+      if (elementIncludesHighlight) {
+        let newStringifiedInnerElements = stringifiedInnerElements
+        strippedPassageHighlights.forEach(ph => newStringifiedInnerElements = newStringifiedInnerElements.replace(ph, `<span class="passage-highlight">${ph}</span>`))
+        return <p dangerouslySetInnerHTML={{ __html: newStringifiedInnerElements }} />
+      }
+    }
+
     if (node.name === 'mark') {
       const shouldBeHighlightable = !doneHighlighting && !showReadTheDirectionsModal && hasStartedReadPassageStep
       const innerElements = node.children.map((n, i) => convertNodeToElement(n, i, transformMarkTags))
       const stringifiedInnerElements = node.children.map(n => n.data ? n.data : n.children[0].data).join('')
       let className = ''
-      className += studentHighlights.includes(stringifiedInnerElements) ? ' highlighted' : ''
+      if(activeStep === 1) {
+        className += studentHighlights.includes(stringifiedInnerElements) ? ' highlighted' : ''
+      }
       className += shouldBeHighlightable  ? ' highlightable' : ''
-      if(stringifiedInnerElements && strippedPassageHighlights && strippedPassageHighlights.includes(stringifiedInnerElements)) {
-        return <p><span className="passage-highlight">{stringifiedInnerElements}</span></p>
-      }
       if (!shouldBeHighlightable) { return <mark className={className}>{innerElements}</mark>}
+      /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
       return <mark className={className} onClick={handleHighlightClick} onKeyDown={handleHighlightKeyDown} role="button" tabIndex={0}>{innerElements}</mark>
-    }
-    if(node.name === 'p' && activeStep > 1 && strippedPassageHighlights) {
-      const stringifiedInnerElements = node.children.map(n => n.data ? n.data : n.children[0].data).join('')
-      if(stringifiedInnerElements && strippedPassageHighlights.includes(stringifiedInnerElements)) {
-        return <p><span className="passage-highlight">{stringifiedInnerElements}</span></p>
-      }
     }
   }
 

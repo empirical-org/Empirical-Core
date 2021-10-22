@@ -51,6 +51,7 @@ class ProgressReports::ActivitiesScoresByClassroom
         ON activities.activity_classification_id = activity_classifications.id
       WHERE classroom_units.classroom_id IN (#{classroom_ids})
       AND activity_sessions.is_final_score = TRUE
+      AND activity_sessions.visible = true
       AND classroom_units.visible = true
       GROUP BY
         classrooms.name,
