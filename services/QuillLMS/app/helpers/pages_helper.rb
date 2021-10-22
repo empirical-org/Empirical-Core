@@ -195,7 +195,7 @@ module PagesHelper
           },
           {
             name: 'Emma Volk',
-            title: 'Lead Curriculum Developer',
+            title: 'Curriculum & Product Manager',
             img: 'team-emma-volk@2x.png'
           },
           {
