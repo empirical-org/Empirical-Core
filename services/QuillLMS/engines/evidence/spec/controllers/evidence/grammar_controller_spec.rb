@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Evidence
-  RSpec.describe(OpinionController, :type => :controller) do
+  RSpec.describe(GrammarController, :type => :controller) do
     before { @routes = Engine.routes }
 
     describe '#fetch' do 
@@ -30,10 +30,10 @@ module Evidence
       end
 
       before do 
-        allow(Opinion::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
+        allow(Grammar::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
           { example_error => example_rule_uid } 
         )
-        allow_any_instance_of(Opinion::Client).to receive(:post).and_return(client_response)
+        allow_any_instance_of(Grammar::Client).to receive(:post).and_return(client_response)
       end
 
       it 'should return a valid json response' do 
@@ -42,7 +42,7 @@ module Evidence
         expect(JSON.parse(response.body)).to eq({
           'concept_uid' => 'xyz',
           'feedback' => nil,
-          'feedback_type' => 'opinion',
+          'feedback_type' => 'grammar',
           'optimal' => false,
           'response_id' => '0',
           'highlight' => [
@@ -63,7 +63,7 @@ module Evidence
           expect(JSON.parse(response.body)).to eq({
             'concept_uid' => 'xyz',
             'feedback' => 'lorem ipsum',
-            'feedback_type' => 'opinion',
+            'feedback_type' => 'grammar',
             'optimal' => false,
             'response_id' => '0',
             'highlight' => [
