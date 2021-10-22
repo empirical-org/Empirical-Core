@@ -15,11 +15,11 @@ const SchoolPricingMini = ({ premiumFeatureData, showBadges }) => (
       <div className="premium-button-container">
         <a className="quill-button contained medium primary focus-on-light" href="https://quillpremium.wufoo.com/forms/quill-premium-quote/">Contact us</a>
       </div>
-      {showBadges ? <div className="school-premium-badge-container">
+      {showBadges && <div className="school-premium-badge-container">
         <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> 2 PD sessions</div>
         <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> 3 coaching sessions</div>
         <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> Custom reports</div>
-      </div> : ''}
+      </div>}
     </section>
     <IndividualFeaturesTable premiumFeatureData={premiumFeatureData} type="school" />
   </div>
