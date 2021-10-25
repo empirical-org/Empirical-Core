@@ -516,6 +516,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     );
   }
   if(activityIsComplete && !window.location.href.includes('turk')) {
+    console.log("\nACTIVITY COMPLETE\n")
     return(
       <ActivityFollowUp responses={submittedResponses} saveActivitySurveyResponse={saveActivitySurveyResponse} sessionID={sessionID} user={user} />
     );
