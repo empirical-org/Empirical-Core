@@ -85,10 +85,8 @@ module Evidence
     end
 
     def grade_sequences_conditionally(entry)
-      if !all_incorrect_sequences_passing?(entry)
-        return at_least_one_required_sequence_passing?(entry)
-      end
-      return true
+      return true if all_incorrect_sequences_passing?(entry)
+      return at_least_one_required_sequence_passing?(entry)
     end
 
     def display_name
