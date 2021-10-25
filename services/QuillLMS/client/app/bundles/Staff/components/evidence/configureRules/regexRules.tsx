@@ -88,7 +88,7 @@ const RegexRules = ({ errors, handleAddRegexInput, handleDeleteRegexRule, handle
         onClick={handleAddRegexInput}
         type="button"
       >
-        Add Regex Rule +
+        Add Sequence +
       </button>
     </div>
   )
