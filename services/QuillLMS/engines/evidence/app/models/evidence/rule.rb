@@ -73,7 +73,7 @@ module Evidence
 
     def regex_is_passing?(entry)
       return true if regex_rules.empty?
-      if regex_rules.first.conditional?
+      if conditional
         grade_sequences_conditionally(entry)
       else
         grade_sequences_separately(entry)
