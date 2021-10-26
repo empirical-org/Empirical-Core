@@ -154,6 +154,11 @@ module PagesHelper
             img: 'team-sherry-lewkowicz@2x.png'
           },
           {
+            name: 'Stephanee McCadney',
+            title: 'Curriculum Developer	',
+            img: 'team-stephanee-mccadney@2x.png'
+          },
+          {
             name: 'Scarlet Melo',
             title: 'Partnerships Associate',
             img: 'team-scarlet-melo@2x.png'
@@ -162,6 +167,11 @@ module PagesHelper
             name: 'Robert Morgan',
             title: 'Partnerships Associate',
             img: 'team-robert-morgan@2x.png'
+          },
+          {
+            name: 'Katie Moylan',
+            title: 'Curriculum Developer',
+            img: 'team-katie-moylan@2x.png'
           },
           {
             name: 'Lindsey Murphy',
@@ -197,6 +207,11 @@ module PagesHelper
             name: 'Emma Volk',
             title: 'Curriculum & Product Manager',
             img: 'team-emma-volk@2x.png'
+          },
+          {
+            name: 'Anna Waterman',
+            title: 'Curriculum Developer',
+            img: 'team-anna-waterman@2x.png'
           },
           {
             name: 'Cissy Yu',
