@@ -164,7 +164,7 @@ const IndividualPack = ({ classrooms, history, match, location, }) => {
       {postDiagnosticContent}
     </nav>
     <Switch>
-      <Route path='/results' render={() => <Results {...sharedProps} />} />
+      <Route path='/diagnostics/:activityId/classroom/:classroomId/results' render={() => <Results {...sharedProps} />} />
     </Switch>
   </div>)
 }
