@@ -121,7 +121,9 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         isTurk && handlePostTurkSession(sessionID);
       }
     }
+  }, [])
 
+  React.useEffect(() => {
     window.addEventListener(KEYDOWN, handleKeyDown)
     window.addEventListener(MOUSEMOVE, resetTimers)
     window.addEventListener(MOUSEDOWN, resetTimers)
@@ -137,7 +139,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       window.removeEventListener(KEYPRESS, resetTimers)
       window.removeEventListener(VISIBILITYCHANGE, setIdle)
     }
-  }, [])
+  }, [session, activities, hasStartedPromptSteps, inactivityTimer, explanationSlidesCompleted, activeStep])
 
   React.useEffect(() => { activities.currentActivity ? document.title = `Quill.org | ${activities.currentActivity.title}` : null }, [activities.currentActivity])
 
