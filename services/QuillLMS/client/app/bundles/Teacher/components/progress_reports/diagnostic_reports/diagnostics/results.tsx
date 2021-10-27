@@ -1,6 +1,6 @@
 import * as React from 'react'
 import qs from 'qs'
-import { withRouter, } from 'react-router-dom';
+import { withRouter, Link, } from 'react-router-dom';
 
 import {
   baseDiagnosticImageSrc,
@@ -15,6 +15,7 @@ import { requestGet } from '../../../../../../modules/request/index';
 import {
   helpIcon,
   Tooltip,
+  KEYDOWN,
 } from '../../../../../Shared/index'
 
 const fileDocumentIcon = <img alt="File document icon" src={`${baseDiagnosticImageSrc}/icons-file-document.svg`} />
@@ -25,6 +26,8 @@ const noProficiencyIcon = <img alt="Outlined circle" src={`${baseDiagnosticImage
 const PROFICIENCY = 'Proficiency'
 const PARTIAL_PROFICIENCY = 'Partial proficiency'
 const NO_PROFICIENCY = 'No proficiency'
+
+const FULLY_CORRECT = 'Fully correct'
 
 const proficiencyTag = <div className="proficiency-tag proficiency">{proficiencyIcon}<span>{PROFICIENCY}</span></div>
 const partialProficiencyTag = <div className="proficiency-tag partial-proficiency">{partialProficiencyIcon}<span>{PARTIAL_PROFICIENCY}</span></div>
@@ -51,8 +54,60 @@ const proficiencyTextToTag = {
   [NO_PROFICIENCY]: noProficiencyTag
 }
 
-const StudentRow = ({ studentResult, skillGroupSummaries, }) => {
-  const { name, skill_groups, } = studentResult
+const Popover = ({ studentResult, skillGroup, closePopover, responsesLink, }) => {
+  const skillRows = skillGroup.skills.map(skill => (
+    <tr key={skill.skill}>
+      <td>{skill.skill}</td>
+      <td>{skill.number_correct}</td>
+      <td>{skill.number_incorrect}</td>
+      <td className={skill.summary === FULLY_CORRECT ? 'fully-correct' : ''}>{skill.summary}</td>
+    </tr>)
+  )
+  return (<section className="student-results-popover">
+    <header>
+      <h3>{skillGroup.name}</h3>
+      <button className="interactive-wrapper focus-on-light" onClick={closePopover} type="button">{closeIcon}</button>
+    </header>
+    <p>We were looking for etiam porta sem malesuada magna mollis euismod. Lorem ipsum dolor sit amet, consectetr adipiscing elit.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th>Correct</th>
+          <th>Incorrect</th>
+          <th>Summary</th>
+        </tr>
+      </thead>
+      <tbody>{skillRows}</tbody>
+    </table>
+    <Link to={responsesLink(studentResult.id)}>{accountCommentIcon}<span>View {studentResult.name}&#39;s responses</span></Link>
+  </section>)
+}
+
+const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopover, responsesLink, }) => {
+  const { proficiency_text, number_of_correct_skills_text, id, name, } = skillGroup
+  function showPopover() {
+    setOpenPopover({
+      studentId: studentResult.id,
+      skillGroupId: id,
+    })
+  }
+
+  function closePopover() {
+    setOpenPopover({})
+  }
+
+  return (<td className="student-result-cell">
+    <button className="interactive-wrapper" onClick={showPopover} type="button">
+      {proficiencyTextToTag[proficiency_text]}
+      <span className="number-of-correct-skills-text">{number_of_correct_skills_text}</span>
+    </button>
+    {openPopover.studentId === studentResult.id && openPopover.skillGroupId === id && <Popover closePopover={closePopover} responsesLink={responsesLink} studentResult={studentResult} />}
+  </td>)
+}
+
+const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPopover, responsesLink, }) => {
+  const { name, skill_groups, is, } = studentResult
   const diagnosticNotCompletedMessage = skill_groups ? null : <span className="diagnostic-not-completed">Diagnostic not completed</span>
   const firstCell = (<th className="name-cell">
     <div>
@@ -61,26 +116,23 @@ const StudentRow = ({ studentResult, skillGroupSummaries, }) => {
     </div>
   </th>)
 
-  function showPopover() {
-
-  }
-
   let skillGroupCells = skillGroupSummaries.map(skillGroupSummary => (<td key={skillGroupSummary.name} />))
   if (skill_groups) {
-    skillGroupCells = skill_groups.map(skillGroup => {
-      const { proficiency_text, number_of_correct_skills_text, name, } = skillGroup
-      return (<td className="student-result-cell" key={`${studentResult.id}-${name}`}>
-        <button className="interactive-wrapper" onClick={showPopover} type="button">
-          {proficiencyTextToTag[proficiency_text]}
-          <span className="number-of-correct-skills-text">{number_of_correct_skills_text}</span>
-        </button>
-      </td>)
-    })
+    skillGroupCells = skill_groups.map(skillGroup => (
+      <StudentResultCell
+        key={`${is}-${skillGroup.name}`}
+        openPopover={openPopover}
+        responsesLink={responsesLink}
+        setOpenPopover={setOpenPopover}
+        skillGroup={skillGroup}
+        studentResult={studentResult}
+      />)
+    )
   }
   return <tr key={name}>{firstCell}{skillGroupCells}</tr>
 }
 
-const StudentResultsTable = ({ skillGroupSummaries, studentResults, }) => {
+const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover, setOpenPopover, responsesLink, }) => {
   const tableHeaders = skillGroupSummaries.map(skillGroupSummary => {
     const { name, description, } = skillGroupSummary
     return (<th className="skill-group-header" key={name}>
@@ -92,7 +144,16 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, }) => {
     </th>)
   })
 
-  const studentRows = studentResults.map(studentResult => <StudentRow key={studentResult.name} skillGroupSummaries={skillGroupSummaries} studentResult={studentResult} />)
+  const studentRows = studentResults.map(studentResult => (
+    <StudentRow
+      key={studentResult.name}
+      openPopover={openPopover}
+      responsesLink={responsesLink}
+      setOpenPopover={setOpenPopover}
+      skillGroupSummaries={skillGroupSummaries}
+      studentResult={studentResult}
+    />)
+  )
 
   const completedStudentResults = studentResults.filter(sr => sr.skill_groups)
   const incompleteStudentResults = studentResults.filter(sr => !sr.skill_groups)
@@ -170,14 +231,21 @@ const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobil
   const [loading, setLoading] = React.useState<boolean>(!passedStudentResults);
   const [studentResults, setStudentResults] = React.useState(passedStudentResults || []);
   const [skillGroupSummaries, setSkillGroupSummaries] = React.useState(passedSkillGroupSummaries || []);
+  const [openPopover, setOpenPopover] = React.useState({})
 
-  React.useEffect(() => getResults(), [])
+  const { activityId, classroomId, } = match.params
+  const unitId = qs.parse(location.search.replace('?', '')).unit
+  const unitQueryString = unitId ? `&unit_id=${unitId}` : ''
+
+  React.useEffect(() => {
+    getResults()
+    window.addEventListener(KEYDOWN, closePopover)
+    return function cleanup() {
+      window.removeEventListener(KEYDOWN, closePopover)
+    }
+  }, [])
 
   const getResults = () => {
-    const { activityId, classroomId, } = match.params
-    const unitId = qs.parse(location.search.replace('?', '')).unit
-
-    const unitQueryString = unitId ? `&unit_id=${unitId}` : ''
     requestGet(`/teachers/progress_reports/diagnostic_results_summary?activity_id=${activityId}&classroom_id=${classroomId}${unitQueryString}`,
       (data) => {
         setStudentResults(data.student_results);
@@ -185,6 +253,13 @@ const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobil
         setLoading(false)
       }
     )
+  }
+
+  const responsesLink = (studentId) => `diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}${unitQueryString}`
+
+  function closePopover(e) {
+    debugger;
+    setOpenPopover(null)
   }
 
   if (loading) { return <LoadingSpinner /> }
@@ -202,7 +277,7 @@ const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobil
     <section className="skill-group-summary-cards">{skillGroupSummaryCards}</section>
     <section className="student-results">
       <h2>Student results</h2>
-      <StudentResultsTable skillGroupSummaries={skillGroupSummaries} studentResults={studentResults} />
+      <StudentResultsTable openPopover={openPopover} responsesLink={responsesLink} setOpenPopover={setOpenPopover} skillGroupSummaries={skillGroupSummaries} studentResults={studentResults} />
     </section>
   </main>
   )

@@ -95,7 +95,8 @@ module ResultsSummary
         skill_group: skill_group.name,
         skills: skills,
         number_of_correct_skills_text: "#{correct_skill_number} of #{present_skill_number} skills correct",
-        proficiency_text: proficiency_text
+        proficiency_text: proficiency_text,
+        id: skill_group.id
       }
     end
   end
