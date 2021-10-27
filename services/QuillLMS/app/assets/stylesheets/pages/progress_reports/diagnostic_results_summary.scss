@@ -61,6 +61,42 @@
       color: #5c5c5c;
     }
   }
+  .proficiency-tag {
+    padding: 8px;
+    border-radius: 8px;
+    text-align: left;
+    width: min-content;
+    white-space: nowrap;
+    img {
+      margin-right: 4px;
+    }
+    span {
+      font-size: 12px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1;
+      letter-spacing: normal;
+    }
+    &.proficiency {
+      background-color: #b8db99;
+      span {
+        color: #2a5900;
+      }
+    }
+    &.partial-proficiency {
+      background-color: #ffd999;
+      span {
+        color: #995f00;
+      }
+    }
+    &.no-proficiency {
+      background-color: #fff3e0;
+      span {
+        color: #995f00;
+      }
+    }
+  }
   .student-results-table-container {
     margin-top: 16px;
     overflow: scroll;
@@ -118,7 +154,7 @@
     thead {
       position: sticky;
       top: 0;
-      z-index: 1;
+      z-index: 2;
       height: 65px;
     }
     thead th {
@@ -165,8 +201,31 @@
       border-radius: 8px 0px 0px;
       position: sticky;
       left: 0;
-      z-index: 3;
+      z-index: 2;
       border-left: 1px solid #e0e0e0;
+    }
+    .student-result-cell {
+      height: 92px;
+      padding: 0px;
+      vertical-align: top;
+      .interactive-wrapper {
+        padding: 16px 8px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        justify-content: space-between;
+        &:focus, &:hover {
+          border-radius: 8px;
+          box-shadow: 0 1px 8px 0 #0003, 0 3px 3px -2px #0000001e, 0 3px 4px 0 #0000000f;
+        }
+      }
+      .number-of-correct-skills-text {
+        font-size: 12px;
+        line-height: 1.33;
+        color: #5c5c5c;
+        border-bottom: 1px dotted #5c5c5c;
+      }
     }
     thead th:last-of-type {
       border-radius: 0px 8px 0px 0px;

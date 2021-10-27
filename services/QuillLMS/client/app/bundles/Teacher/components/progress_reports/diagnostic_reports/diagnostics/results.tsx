@@ -22,6 +22,14 @@ const proficiencyIcon = <img alt="Filled in circle" src={`${baseDiagnosticImageS
 const partialProficiencyIcon = <img alt="Half filled in circle" src={`${baseDiagnosticImageSrc}/components-proficiency-circle-color-partial-proficiency.svg`} />
 const noProficiencyIcon = <img alt="Outlined circle" src={`${baseDiagnosticImageSrc}/components-proficiency-circle-color-no-proficient.svg`} />
 
+const PROFICIENCY = 'Proficiency'
+const PARTIAL_PROFICIENCY = 'Partial proficiency'
+const NO_PROFICIENCY = 'No proficiency'
+
+const proficiencyTag = <div className="proficiency-tag proficiency">{proficiencyIcon}<span>{PROFICIENCY}</span></div>
+const partialProficiencyTag = <div className="proficiency-tag partial-proficiency">{partialProficiencyIcon}<span>{PARTIAL_PROFICIENCY}</span></div>
+const noProficiencyTag = <div className="proficiency-tag no-proficiency">{noProficiencyIcon}<span>{NO_PROFICIENCY}</span></div>
+
 interface SkillGroupSummary {
   name: string;
   description?: string;
@@ -37,6 +45,40 @@ const noDataYet = (<div className="no-data-yet">
   <p>Data will appear in this report shortly after your students complete the diagnostic.</p>
 </div>)
 
+const proficiencyTextToTag = {
+  [PROFICIENCY]: proficiencyTag,
+  [PARTIAL_PROFICIENCY]: partialProficiencyTag,
+  [NO_PROFICIENCY]: noProficiencyTag
+}
+
+const StudentRow = ({ studentResult, skillGroupSummaries, }) => {
+  const { name, skill_groups, } = studentResult
+  const diagnosticNotCompletedMessage = skill_groups ? null : <span className="diagnostic-not-completed">Diagnostic not completed</span>
+  const firstCell = (<th className="name-cell">
+    <div>
+      <span>{name}</span>
+      {diagnosticNotCompletedMessage}
+    </div>
+  </th>)
+
+  function showPopover() {
+
+  }
+
+  let skillGroupCells = skillGroupSummaries.map(skillGroupSummary => (<td key={skillGroupSummary.name} />))
+  if (skill_groups) {
+    skillGroupCells = skill_groups.map(skillGroup => {
+      const { proficiency_text, number_of_correct_skills_text, name, } = skillGroup
+      return (<td className="student-result-cell" key={`${studentResult.id}-${name}`}>
+        <button className="interactive-wrapper" onClick={showPopover} type="button">
+          {proficiencyTextToTag[proficiency_text]}
+          <span className="number-of-correct-skills-text">{number_of_correct_skills_text}</span>
+        </button>
+      </td>)
+    })
+  }
+  return <tr key={name}>{firstCell}{skillGroupCells}</tr>
+}
 
 const StudentResultsTable = ({ skillGroupSummaries, studentResults, }) => {
   const tableHeaders = skillGroupSummaries.map(skillGroupSummary => {
@@ -50,22 +92,13 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, }) => {
     </th>)
   })
 
-  const studentRows = studentResults.map(studentResult => {
-    const { name, skill_groups, } = studentResult
-    const diagnosticNotCompletedMessage = skill_groups ? null : <span className="diagnostic-not-completed">Diagnostic not completed</span>
-    const firstCell = (<th className="name-cell">
-      <div>
-        <span>{name}</span>
-        {diagnosticNotCompletedMessage}
-      </div>
-    </th>)
-    let skillGroupCells = skillGroupSummaries.map(skillGroupSummary => (<td key={skillGroupSummary.name} />))
-    return <tr key={name}>{firstCell}{skillGroupCells}</tr>
-  })
+  const studentRows = studentResults.map(studentResult => <StudentRow key={studentResult.name} skillGroupSummaries={skillGroupSummaries} studentResult={studentResult} />)
 
-  const tableHasContent = studentResults.find(sr => sr.skill_groups)
+  const completedStudentResults = studentResults.filter(sr => sr.skill_groups)
+  const incompleteStudentResults = studentResults.filter(sr => !sr.skill_groups)
+  const tableHasContent = completedStudentResults.length
 
-  const tableHeight = 65 + (74 * studentResults.length)
+  const tableHeight = 65 + (74 * incompleteStudentResults.length) + (92 * completedStudentResults.length)
   const containerStyle = { height: `${tableHeight + 16}px` }
   const tableStyle = { height: `${tableHeight}px` }
   const tableClassName = tableHasContent ? '' : 'empty'
@@ -118,7 +151,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => 
         borderWidth={8}
         color="#4ea500"
         innerColor="#ffffff"
-        percent={Math.round(percentage)}
+        percent={100 - Math.round(percentage)}
         radius={52}
       />
       {needPracticeElement}
