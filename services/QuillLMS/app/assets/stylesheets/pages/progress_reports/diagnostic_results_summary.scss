@@ -1,0 +1,183 @@
+.results-summary-container {
+  .skill-group-summary-cards {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 24px 0px;
+    max-width: 1000px;
+  }
+  .skill-group-summary-card {
+    width: 306px;
+    height: 252px;
+    padding: 16px;
+    border-radius: 8px;
+    border: solid 1px #e0e0e0;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      line-height: 1.43;
+      color: #262626;
+    }
+    .no-data-yet {
+      margin-top: 80px;
+    }
+  }
+  .no-data-yet {
+    text-align: center;
+    h5 {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.38;
+      color: #262626;
+    }
+    p {
+      color: #5c5c5c;
+    }
+  }
+  .student-results-table-container {
+    margin-top: 16px;
+    overflow: scroll;
+    width: calc(100vw - 260px);
+    position: relative;
+    .no-data-yet {
+      position: absolute;
+      top: 81px;
+      left: 45%;
+      width: 274px;
+    }
+    table {
+      font-size: 12px;
+      color: #5c5c5c;
+      width: max-content;
+      margin: 0;
+      border: none;
+      border-collapse: separate;
+      border-spacing: 0;
+      table-layout: fixed;
+      overflow: scroll;
+      &.empty {
+        border-right: 1px solid #e0e0e0;
+        border-bottom: 1px solid #e0e0e0;
+        border-radius: 8px;
+        empty-cells: hide;
+        thead th:last-of-type {
+          border-right: none;
+        }
+        tbody tr td:last-of-type {
+          border-right: none;
+        }
+        tbody tr:last-of-type {
+          td, th {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+    td, th {
+      padding: 8px 16px;
+      width: 180px;
+      border-bottom: 1px solid #e0e0e0;
+      border-right: 1px solid #e0e0e0;
+      background-color: white;
+    }
+    th {
+      text-align: left;
+      color: #5c5c5c;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.33;
+    }
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      height: 65px;
+    }
+    thead th {
+      border-top: 1px solid #e0e0e0;
+    }
+    tbody th {
+      position: sticky;
+      left: 0;
+      background: white;
+      z-index: 1;
+      border-left: 1px solid #e0e0e0;
+    }
+    .name-cell {
+      width: 216px;
+      div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 57px;
+        span:first-of-type {
+          font-size: 14px;
+          font-weight: normal;
+          line-height: 1.43;
+          color: #262626;
+        }
+        .diagnostic-not-completed {
+          font-weight: normal;
+          color: #808080;
+        }
+      }
+    }
+    .name-and-tooltip {
+      display: flex;
+      justify-content: space-between;
+      .quill-tooltip-trigger {
+        margin-left: 16px;
+      }
+      .quill-tooltip {
+        z-index: 10;
+      }
+    }
+    .corner-header {
+      vertical-align: bottom;
+      border-radius: 8px 0px 0px;
+      position: sticky;
+      left: 0;
+      z-index: 3;
+      border-left: 1px solid #e0e0e0;
+    }
+    thead th:last-of-type {
+      border-radius: 0px 8px 0px 0px;
+    }
+    tbody tr:last-of-type {
+      th {
+        border-radius: 0px 0px 0px 8px;
+      }
+      td:last-of-type {
+        border-radius: 0px 0px 8px 0px;
+      }
+    }
+    .skill-group-header {
+      vertical-align: top;
+      padding: 8px;
+      .label {
+        font-size: 12px;
+        font-weight: normal;
+        line-height: 1.33;
+        color: #808080;
+        padding: 0px;
+        margin-bottom: 2px;
+        display: block;
+        text-align: left;
+      }
+    }
+  }
+  @media (max-width: 930px) {
+    padding: 40px 0px !important;
+    header, .mobile-navigation, .skill-group-summary-cards, .student-results h2 {
+      padding: 0px 32px;
+    }
+    .student-results-table-container {
+      width: 100%;
+    }
+    .skill-group-summary-card {
+      margin-right: 0px;
+    }
+  }
+}

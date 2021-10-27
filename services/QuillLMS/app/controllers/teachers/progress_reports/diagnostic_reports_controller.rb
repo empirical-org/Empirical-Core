@@ -1,6 +1,7 @@
 class Teachers::ProgressReports::DiagnosticReportsController < Teachers::ProgressReportsController
     include PublicProgressReports
     include LessonsRecommendations
+    include ResultsSummary
     require 'pusher'
 
     before_action :authorize_teacher!, only: [:question_view, :students_by_classroom, :recommendations_for_classroom, :lesson_recommendations_for_classroom, :previously_assigned_recommendations]
@@ -127,7 +128,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       render json: {diagnosticStatus: diagnostic_status}
     end
 
-    def results_summary
+    def diagnostic_results_summary
       render json: results_summary(results_summary_params[:activity_id], results_summary_params[:classroom_id], results_summary_params[:unit_id])
     end
 

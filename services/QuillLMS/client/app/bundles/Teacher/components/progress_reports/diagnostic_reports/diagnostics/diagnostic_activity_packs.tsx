@@ -3,18 +3,15 @@ import * as moment from 'moment'
 
 import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.jsx'
 import { Classroom, Activity, Diagnostic, } from './interfaces'
-import { goToAssign, } from './shared'
+import { goToAssign, baseDiagnosticImageSrc, triangleUpIcon, } from './shared'
 
 import { DropdownInput, Tooltip, } from '../../../../../Shared/index'
 
-const baseImageSrc = `${process.env.CDN_URL}/images/pages/diagnostic_reports`
-
-const barGraphIncreasingIcon = <img alt="Bar chart growth icon" src={`${baseImageSrc}/icons-bar-graph-increasing.svg`} />
-const multipleCardsIcon = <img alt="Activity pack icon" src={`${baseImageSrc}/icons-card-multiple.svg`} />
-const multipleUsersIcon = <img alt="Multiple user icon" src={`${baseImageSrc}/icons-user-multiple.svg`} />
-const calendarDateIcon = <img alt="Calendar icon" src={`${baseImageSrc}/icons-calendar-date.svg`} />
-const triangleUpIcon = <img alt="Triangle up icon" src={`${baseImageSrc}/icons-triangle-up-green.svg`} />
-const wrenchIcon = <img alt="Wrench icon" src={`${baseImageSrc}/icons-wrench.svg`} />
+const barGraphIncreasingIcon = <img alt="Bar chart growth icon" src={`${baseDiagnosticImageSrc}/icons-bar-graph-increasing.svg`} />
+const multipleCardsIcon = <img alt="Activity pack icon" src={`${baseDiagnosticImageSrc}/icons-card-multiple.svg`} />
+const multipleUsersIcon = <img alt="Multiple user icon" src={`${baseDiagnosticImageSrc}/icons-user-multiple.svg`} />
+const calendarDateIcon = <img alt="Calendar icon" src={`${baseDiagnosticImageSrc}/icons-calendar-date.svg`} />
+const wrenchIcon = <img alt="Wrench icon" src={`${baseDiagnosticImageSrc}/icons-wrench.svg`} />
 
 const MOBILE_WIDTH = 990
 const AVERAGE_FONT_WIDTH = 6

@@ -5,20 +5,17 @@ import qs from 'qs'
 
 import Results from './results'
 import { Classroom, Activity, Diagnostic, } from './interfaces'
-import { goToAssign, } from './shared'
+import { goToAssign, baseDiagnosticImageSrc, accountCommentIcon, closeIcon, } from './shared'
 
 import { DropdownInput, } from '../../../../../Shared/index'
 
-const baseDiagnosticImageSrc = `${process.env.CDN_URL}/images/pages/diagnostic_reports`
 const barChartIcon = <img alt="Bar chart icon" src={`${baseDiagnosticImageSrc}/icons-bar-chart.svg`} />
 const barChartGrowthIcon = <img alt="Chart showing growth icon" src={`${baseDiagnosticImageSrc}/icons-bar-chart-growth.svg`} />
 const multipleCheckboxIcon = <img alt="Multiple checkboxes icon" src={`${baseDiagnosticImageSrc}/icons-checkbox-multiple.svg`} />
-const accountCommentIcon = <img alt="Person messaging icon" src={`${baseDiagnosticImageSrc}/icons-comment-account.svg`} />
 const cardTextIcon = <img alt="Message icon" src={`${baseDiagnosticImageSrc}/icons-card-text.svg`} />
 const chartGrowthIllustration = <img alt="Chart showing growth illustration" src={`${baseDiagnosticImageSrc}/chart-growth-illustration.svg`} />
 
 const eyeIcon = <img alt="Preview icon" src={`${process.env.CDN_URL}/images/icons/icons-visibility-on.svg`} />
-const closeIcon = <img alt="Close icon" src={`${process.env.CDN_URL}/images/icons/close.svg`} />
 
 const DiagnosticSection = ({ activity, isPostDiagnostic, isDisabled, search, }) => {
   const { activity_name, activity_id, classroom_id, } = activity
@@ -46,27 +43,28 @@ const mobileLinkOptions = (diagnostic, search) => {
 
   function pathsArray(isPostDiagnostic) {
     const prefix = isPostDiagnostic ? 'Post' : 'Pre'
-    const baseLink = isPostDiagnostic ? baseLinkPathPre : baseLinkPathPost
+    const baseLink = isPostDiagnostic ? baseLinkPathPost : baseLinkPathPre
     const resultsSummaryName = isPostDiagnostic ? 'Growth results summary' : 'Results summary'
     return [
       {
-        name: `${prefix} - ${resultsSummaryName}`,
+        label: `${prefix} - ${resultsSummaryName}`,
         value: `${baseLink}/results${queryString}`
       },
       {
-        name: `${prefix} - Practice recommendations`,
+        label: `${prefix} - Practice recommendations`,
         value: `${baseLink}/recommendations${queryString}`
       },
       {
-        name: `${prefix} - Student responses`,
+        label: `${prefix} - Student responses`,
         value: `${baseLink}/responses${queryString}`
       },
       {
-        name: `${prefix} - Questions analysis`,
+        label: `${prefix} - Questions analysis`,
         value: `${baseLink}/questions${queryString}`
       }
     ]
   }
+
 
   return diagnostic.post && diagnostic.post.assigned_count ? pathsArray(false).concat(pathsArray(true)) : pathsArray(false)
 }
