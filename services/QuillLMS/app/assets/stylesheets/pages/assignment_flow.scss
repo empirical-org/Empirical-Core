@@ -124,4 +124,16 @@
       }
     }
   }
+  .google-classroom--modal-container {
+    .google-classroom-share-activity-modal {
+      .title-row {
+        display: flex;
+        .close-button {
+          display: flex;
+          background-color: white;
+          padding: 0;
+        }
+      }
+    }
+  }
 }

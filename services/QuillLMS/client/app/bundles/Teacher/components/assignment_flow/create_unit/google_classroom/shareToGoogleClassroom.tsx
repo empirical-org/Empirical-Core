@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import ActivityPackInformation from './activityPackInformation';
+import ShareActivityPackModal from './shareActivityPackModal';
 
 import AssignmentFlowNavigation from '../../assignment_flow_navigation'
 import ScrollToTop from '../../../shared/scroll_to_top'
@@ -18,7 +19,6 @@ const addStudentsSrc = `${process.env.CDN_URL}/images/illustrations/add-students
 const addShareActivityPackSrc = `${process.env.CDN_URL}/images/icons/icons-share-activity-pack.svg`
 
 const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classrooms, moveToStage4, state, props }) => {
-console.log("🚀 ~ file: ShareToGoogleClassroom.tsx ~ line 21 ~ ShareToGoogleClassroom ~ activityPackData", activityPackData)
 
   const [leaving, setLeaving] = React.useState<boolean>(false);
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
@@ -49,7 +49,7 @@ console.log("🚀 ~ file: ShareToGoogleClassroom.tsx ~ line 21 ~ ShareToGoogleCl
   }
 
   function handleToggleShareModal() {
-    setModalOpen(!isExpanded);
+    setModalOpen(!modalOpen);
   }
 
   function getRows(activityPackData) {
@@ -107,6 +107,10 @@ console.log("🚀 ~ file: ShareToGoogleClassroom.tsx ~ line 21 ~ ShareToGoogleCl
   const button = <button className="quill-button medium contained primary" onClick={handleClick} type="button">Next</button>
   return (
     <div className="assignment-flow-container">
+      {modalOpen &&
+      <ShareActivityPackModal
+        closeModal={handleToggleShareModal}
+      />}
       <ScrollToTop />
       <AssignmentFlowNavigation button={button} />
       <div className="google-classroom container">
