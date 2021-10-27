@@ -19,6 +19,31 @@
       font-size: 14px;
       line-height: 1.43;
       color: #262626;
+      .skill-group-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-right: 12px;
+      }
+    }
+    .percentage-circle-label {
+      text-align: center;
+      margin: 24px auto 8px;
+      font-size: 12px;
+      display: block;
+      line-height: 1.33;
+      color: #5c5c5c;
+    }
+    .percentage-circle {
+      margin: 0px auto 28px;
+    }
+    .need-practice-element {
+      font-size: 12px;
+      line-height: 1.33;
+      color: #5c5c5c;
+      &:not(.no-practice-needed) {
+        border-bottom: #5c5c5c dotted 1px;
+      }
     }
     .no-data-yet {
       margin-top: 80px;
@@ -41,6 +66,7 @@
     overflow: scroll;
     width: calc(100vw - 260px);
     position: relative;
+    max-height: 100vh;
     .no-data-yet {
       position: absolute;
       top: 81px;
@@ -56,7 +82,7 @@
       border-collapse: separate;
       border-spacing: 0;
       table-layout: fixed;
-      overflow: scroll;
+      max-height: 100vh;
       &.empty {
         border-right: 1px solid #e0e0e0;
         border-bottom: 1px solid #e0e0e0;

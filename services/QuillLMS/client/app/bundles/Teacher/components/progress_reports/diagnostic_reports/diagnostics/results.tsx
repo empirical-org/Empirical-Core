@@ -8,6 +8,7 @@ import {
   triangleUpIcon,
   closeIcon,
 } from './shared'
+import PercentageCircle from './percentageCircle'
 
 import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../../modules/request/index';
@@ -96,11 +97,36 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => 
   const { name, description, not_yet_proficient_student_names, } = skillGroupSummary
   let cardContent = noDataYet
   if (completedStudentCount) {
-    cardContent = <span />
+    const numberOfStudentsNeedingPractice = not_yet_proficient_student_names.length
+    const percentage = (numberOfStudentsNeedingPractice/completedStudentCount) * 100
+    let needPracticeElement = <span className="need-practice-element no-practice-needed">No practice needed</span>
+
+    if (numberOfStudentsNeedingPractice) {
+      const tooltipText = `<p>${not_yet_proficient_student_names.join('<br>')}</p>`
+      const tooltipTriggerText = numberOfStudentsNeedingPractice === 1 ? "1 student needs practice" : `${numberOfStudentsNeedingPractice} students need practice`
+      needPracticeElement = (<Tooltip
+        tooltipText={tooltipText}
+        tooltipTriggerText={tooltipTriggerText}
+        tooltipTriggerTextClass="need-practice-element"
+      />)
+    }
+
+    cardContent = (<React.Fragment>
+      <span className="percentage-circle-label">Proficient</span>
+      <PercentageCircle
+        bgcolor="#ebebeb"
+        borderWidth={8}
+        color="#4ea500"
+        innerColor="#ffffff"
+        percent={Math.round(percentage)}
+        radius={52}
+      />
+      {needPracticeElement}
+    </React.Fragment>)
   }
   return (<section className="skill-group-summary-card">
     <div className="card-header">
-      <span>{name}</span>
+      <span className="skill-group-name">{name}</span>
       <SkillGroupTooltip description={description} name={name} />
     </div>
     {cardContent}
