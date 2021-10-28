@@ -1,7 +1,6 @@
 class Teachers::ProgressReports::DiagnosticReportsController < Teachers::ProgressReportsController
     include PublicProgressReports
     include LessonsRecommendations
-    include ResultsSummary
     require 'pusher'
 
     before_action :authorize_teacher!, only: [:question_view, :students_by_classroom, :recommendations_for_classroom, :lesson_recommendations_for_classroom, :previously_assigned_recommendations]
@@ -129,7 +128,13 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def diagnostic_results_summary
-      render json: results_summary(results_summary_params[:activity_id], results_summary_params[:classroom_id], results_summary_params[:unit_id])
+      pre_test = Activity.find_by(follow_up_activity_id: results_summary_params[:activity_id])
+      puts 'PRE_TEST', pre_test
+      if pre_test
+        render json: GrowthResultsSummary.growth_results_summary(current_user, pre_test.id, results_summary_params[:activity_id], results_summary_params[:classroom_id])
+      else
+        render json: ResultsSummary.results_summary(current_user, results_summary_params[:activity_id], results_summary_params[:classroom_id], results_summary_params[:unit_id])
+      end
     end
 
     private def create_or_update_selected_packs

@@ -10,7 +10,10 @@ module ResultsSummary
   PARTIAL_PROFICIENCY = 'Partial proficiency'
   PROFICIENCY = 'Proficiency'
 
-  def results_summary(activity_id, classroom_id, unit_id)
+  extend self
+
+  def results_summary(current_user, activity_id, classroom_id, unit_id)
+    @current_user = current_user
     activity = Activity.find(activity_id)
     @skill_groups = activity.skill_groups
     set_activity_sessions_and_assigned_students(activity_id, classroom_id, unit_id)
@@ -34,7 +37,7 @@ module ResultsSummary
       @assigned_students = User.where(id: classroom_unit.assigned_student_ids).sort_by { |u| u.last_name }
       @activity_sessions = ActivitySession.where(classroom_unit: classroom_unit, state: 'finished')
     else
-      unit_ids = current_user.units.joins("JOIN unit_activities ON unit_activities.activity_id = #{activity_id}")
+      unit_ids = @current_user.units.joins("JOIN unit_activities ON unit_activities.activity_id = #{activity_id}")
       classroom_units = ClassroomUnit.where(unit_id: unit_ids, classroom_id: classroom_id)
       assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
       @assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }

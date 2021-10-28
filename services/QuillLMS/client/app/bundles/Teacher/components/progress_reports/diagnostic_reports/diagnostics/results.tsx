@@ -266,9 +266,9 @@ const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobil
     if (!openPopover.studentId) { return }
 
     const popoverElements = document.getElementsByClassName('student-results-popover')
-    console.log('e.target', e.target)
+    console.log('e.target.classNames', e.target.classNames)
     console.log('e.currentTarget', e.currentTarget)
-    if (popoverElements && !popoverElements[0].contains(e.target)) {
+    if (popoverElements && (!popoverElements[0].contains(e.target))) {
       setOpenPopover({})
     }
   }
