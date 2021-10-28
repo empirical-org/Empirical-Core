@@ -109,9 +109,9 @@ exports[`ActivityStats component should render ActivityStats 1`] = `
           "width": 160,
         },
         Object {
-          "Header": "Average Attempts to Optimal",
-          "accessor": "averageAttemptsToOptimal",
-          "key": "averageAttemptsToOptimal",
+          "Header": "Average Attempts",
+          "accessor": "averageAttempts",
+          "key": "averageAttempts",
           "width": 120,
         },
         Object {
@@ -137,7 +137,7 @@ exports[`ActivityStats component should render ActivityStats 1`] = `
     data={
       Array [
         Object {
-          "averageAttemptsToOptimal": 2.69,
+          "averageAttempts": NaN,
           "finalAttemptData": "100% (224) | 0% (0)",
           "firstAttemptData": "80.36% (180) | 19.64% (44)",
           "promptText": "A surge barrier in New York City could harm the local ecosystem because",
@@ -147,7 +147,7 @@ exports[`ActivityStats component should render ActivityStats 1`] = `
           "totalResponses": 4720,
         },
         Object {
-          "averageAttemptsToOptimal": 2.61,
+          "averageAttempts": NaN,
           "finalAttemptData": "100% (155) | 0% (0)",
           "firstAttemptData": "87.1% (135) | 12.9% (20)",
           "promptText": "A surge barrier in New York City could harm the local ecosystem, but",
@@ -157,7 +157,7 @@ exports[`ActivityStats component should render ActivityStats 1`] = `
           "totalResponses": 3176,
         },
         Object {
-          "averageAttemptsToOptimal": 2.22,
+          "averageAttempts": NaN,
           "finalAttemptData": "100% (195) | 0% (0)",
           "firstAttemptData": "82.56% (161) | 17.44% (34)",
           "promptText": "A surge barrier in New York City could harm the local ecosystem, so",
