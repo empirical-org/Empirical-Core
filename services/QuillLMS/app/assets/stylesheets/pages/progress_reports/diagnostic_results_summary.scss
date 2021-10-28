@@ -109,7 +109,7 @@
       left: 45%;
       width: 274px;
     }
-    table {
+    > table {
       font-size: 12px;
       color: #5c5c5c;
       width: max-content;
@@ -208,7 +208,8 @@
       height: 92px;
       padding: 0px;
       vertical-align: top;
-      .interactive-wrapper {
+      position: relative;
+      > .interactive-wrapper {
         padding: 16px 8px;
         display: flex;
         flex-direction: column;
@@ -225,6 +226,92 @@
         line-height: 1.33;
         color: #5c5c5c;
         border-bottom: 1px dotted #5c5c5c;
+      }
+      .student-results-popover {
+        width: 512px;
+        padding: 16px 0px 0px;
+        border-radius: 10px;
+        box-shadow: 0 1px 8px 0 #0003, 0 3px 3px -2px #0000001e, 0 3px 4px 0 #00000023;
+        background-color: #fff;
+        position: absolute;
+        top: 0px;
+        left: 188px;
+        z-index: 1;
+        header {
+          padding: 0px 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          h3 {
+            font-size: 16px;
+            line-height: 1.38;
+            color: #262626;
+          }
+        }
+        p {
+          font-size: 14px;
+          line-height: 1.43;
+          color: #5c5c5c;
+          margin: 16px 20px 24px;
+        }
+        table {
+          margin: 0px 20px;
+          border-radius: 8px;
+          border: solid 1px #e0e0e0;
+          border-collapse: separate;
+          thead, tr, th {
+            position: unset;
+            padding: 8px;
+            height: auto;
+            border-radius: 8px;
+          }
+          th {
+            border: none;
+          }
+          th, td {
+            padding: 0px 6px;
+            width: min-content;
+            background-color: transparent;
+          }
+          td {
+            font-size: 12px;
+            line-height: 1.33;
+            color: #262626;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: none;
+            border-right: none;
+            border-radius: 0px !important;
+          }
+          .skill-column-header {
+            width: 250px;
+          }
+          .summary-header {
+            width: 105px;
+          }
+          .center-align {
+            text-align: center;
+          }
+          .fully-correct {
+            color: #428c00;
+            font-weight: 600;
+            background-color: #e9f4e0;
+          }
+        }
+        a {
+          padding: 16px 20px;
+          margin-top: 24px;
+          display: block;
+          border-top: 1px solid #e0e0e0;
+          span {
+            font-size: 14px;
+            color: #262626;
+            margin-left: 8px;
+          }
+          &:hover, &:focus {
+            text-decoration: none;
+            background-color: #f5f5f5;
+          }
+        }
       }
     }
     thead th:last-of-type {

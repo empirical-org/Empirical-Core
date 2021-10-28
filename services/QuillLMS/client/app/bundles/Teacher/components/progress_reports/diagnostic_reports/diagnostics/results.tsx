@@ -15,7 +15,7 @@ import { requestGet } from '../../../../../../modules/request/index';
 import {
   helpIcon,
   Tooltip,
-  KEYDOWN,
+  CLICK,
 } from '../../../../../Shared/index'
 
 const fileDocumentIcon = <img alt="File document icon" src={`${baseDiagnosticImageSrc}/icons-file-document.svg`} />
@@ -58,24 +58,24 @@ const Popover = ({ studentResult, skillGroup, closePopover, responsesLink, }) =>
   const skillRows = skillGroup.skills.map(skill => (
     <tr key={skill.skill}>
       <td>{skill.skill}</td>
-      <td>{skill.number_correct}</td>
-      <td>{skill.number_incorrect}</td>
+      <td className="center-align">{skill.number_correct}</td>
+      <td className="center-align">{skill.number_incorrect}</td>
       <td className={skill.summary === FULLY_CORRECT ? 'fully-correct' : ''}>{skill.summary}</td>
     </tr>)
   )
   return (<section className="student-results-popover">
     <header>
-      <h3>{skillGroup.name}</h3>
+      <h3>{skillGroup.skill_group}</h3>
       <button className="interactive-wrapper focus-on-light" onClick={closePopover} type="button">{closeIcon}</button>
     </header>
     <p>We were looking for etiam porta sem malesuada magna mollis euismod. Lorem ipsum dolor sit amet, consectetr adipiscing elit.</p>
     <table>
       <thead>
         <tr>
-          <th>Skill</th>
+          <th className="skill-column-header">Skill</th>
           <th>Correct</th>
           <th>Incorrect</th>
-          <th>Summary</th>
+          <th className="summary-header">Summary</th>
         </tr>
       </thead>
       <tbody>{skillRows}</tbody>
@@ -85,7 +85,7 @@ const Popover = ({ studentResult, skillGroup, closePopover, responsesLink, }) =>
 }
 
 const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopover, responsesLink, }) => {
-  const { proficiency_text, number_of_correct_skills_text, id, name, } = skillGroup
+  const { proficiency_text, number_of_correct_skills_text, id, } = skillGroup
   function showPopover() {
     setOpenPopover({
       studentId: studentResult.id,
@@ -102,12 +102,12 @@ const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopo
       {proficiencyTextToTag[proficiency_text]}
       <span className="number-of-correct-skills-text">{number_of_correct_skills_text}</span>
     </button>
-    {openPopover.studentId === studentResult.id && openPopover.skillGroupId === id && <Popover closePopover={closePopover} responsesLink={responsesLink} studentResult={studentResult} />}
+    {openPopover.studentId === studentResult.id && openPopover.skillGroupId === id && <Popover closePopover={closePopover} responsesLink={responsesLink} skillGroup={skillGroup} studentResult={studentResult} />}
   </td>)
 }
 
 const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPopover, responsesLink, }) => {
-  const { name, skill_groups, is, } = studentResult
+  const { name, skill_groups, id, } = studentResult
   const diagnosticNotCompletedMessage = skill_groups ? null : <span className="diagnostic-not-completed">Diagnostic not completed</span>
   const firstCell = (<th className="name-cell">
     <div>
@@ -120,7 +120,7 @@ const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPo
   if (skill_groups) {
     skillGroupCells = skill_groups.map(skillGroup => (
       <StudentResultCell
-        key={`${is}-${skillGroup.name}`}
+        key={`${id}-${skillGroup.skill_group}`}
         openPopover={openPopover}
         responsesLink={responsesLink}
         setOpenPopover={setOpenPopover}
@@ -239,11 +239,14 @@ const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobil
 
   React.useEffect(() => {
     getResults()
-    window.addEventListener(KEYDOWN, closePopover)
-    return function cleanup() {
-      window.removeEventListener(KEYDOWN, closePopover)
-    }
   }, [])
+
+  React.useEffect(() => {
+    window.addEventListener(CLICK, closePopoverOnOutsideClick)
+    return function cleanup() {
+      window.removeEventListener(CLICK, closePopoverOnOutsideClick)
+    }
+  }, [openPopover])
 
   const getResults = () => {
     requestGet(`/teachers/progress_reports/diagnostic_results_summary?activity_id=${activityId}&classroom_id=${classroomId}${unitQueryString}`,
@@ -257,9 +260,13 @@ const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobil
 
   const responsesLink = (studentId) => `diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}${unitQueryString}`
 
-  function closePopover(e) {
-    debugger;
-    setOpenPopover(null)
+  function closePopoverOnOutsideClick(e) {
+    if (!openPopover.studentId) { return }
+
+    const popoverElements = document.getElementsByClassName('student-results-popover')
+    if (popoverElements && popoverElements[0].contains(e.target)) {
+      setOpenPopover({})
+    }
   }
 
   if (loading) { return <LoadingSpinner /> }
