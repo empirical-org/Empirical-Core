@@ -63,25 +63,27 @@ const Popover = ({ studentResult, skillGroup, closePopover, responsesLink, }) =>
       <td className={skill.summary === FULLY_CORRECT ? 'fully-correct' : ''}>{skill.summary}</td>
     </tr>)
   )
-  return (<section className="student-results-popover">
-    <header>
-      <h3>{skillGroup.skill_group}</h3>
-      <button className="interactive-wrapper focus-on-light" onClick={closePopover} type="button">{closeIcon}</button>
-    </header>
-    <p>We were looking for etiam porta sem malesuada magna mollis euismod. Lorem ipsum dolor sit amet, consectetr adipiscing elit.</p>
-    <table>
-      <thead>
-        <tr>
-          <th className="skill-column-header">Skill</th>
-          <th>Correct</th>
-          <th>Incorrect</th>
-          <th className="summary-header">Summary</th>
-        </tr>
-      </thead>
-      <tbody>{skillRows}</tbody>
-    </table>
-    <Link to={responsesLink(studentResult.id)}>{accountCommentIcon}<span>View {studentResult.name}&#39;s responses</span></Link>
-  </section>)
+  return (<div className="student-results-popover-container hide-on-mobile">
+    <section className="student-results-popover">
+      <header>
+        <h3>{skillGroup.skill_group}</h3>
+        <button className="interactive-wrapper focus-on-light" onClick={closePopover} type="button">{closeIcon}</button>
+      </header>
+      <p>We were looking for etiam porta sem malesuada magna mollis euismod. Lorem ipsum dolor sit amet, consectetr adipiscing elit.</p>
+      <table>
+        <thead>
+          <tr>
+            <th className="skill-column-header">Skill</th>
+            <th>Correct</th>
+            <th>Incorrect</th>
+            <th className="summary-header">Summary</th>
+          </tr>
+        </thead>
+        <tbody>{skillRows}</tbody>
+      </table>
+      <Link to={responsesLink(studentResult.id)}>{accountCommentIcon}<span>View {studentResult.name}&#39;s responses</span></Link>
+    </section>
+  </div>)
 }
 
 const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopover, responsesLink, }) => {
