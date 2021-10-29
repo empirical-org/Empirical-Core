@@ -44,9 +44,9 @@ namespace :plagiarized_responses do
   task :test, [:input_csv_path] => :environment do |t, args|
 
     # Levenshtein implementation lifted from https://stackoverflow.com/questions/16323571/measure-the-distance-between-two-strings-with-ruby
-    def levenshtein_distance(s, t, max = nil)
-      m = s.length
-      n = t.length
+    def levenshtein_distance(src, target, max = nil)
+      m = src.length
+      n = target.length
       return m if n == 0
       return n if m == 0
       d = Array.new(m+1) {Array.new(n+1)}
@@ -55,16 +55,17 @@ namespace :plagiarized_responses do
       (0..n).each {|j| d[0][j] = j}
       (1..n).each do |j|
         (1..m).each do |i|
-          d[i][j] = if s[i-1] == t[j-1]  # adjust index into string
+          d[i][j] = if src[i-1] == target[j-1]  # adjust index into string
                       d[i-1][j-1]       # no operation required
                     else
-                      [ d[i-1][j]+1,    # deletion
+                      [
+                        d[i-1][j]+1,    # deletion
                         d[i][j-1]+1,    # insertion
-                        d[i-1][j-1]+1,  # substitution
+                        d[i-1][j-1]+1  # substitution
                       ].min
                     end
         end
-        return d[[j,m].min][j] if max and d[[j,m].min][j] >= max
+        return d[[j,m].min][j] if max && d[[j,m].min][j] >= max
       end
       d[m][n]
     end
