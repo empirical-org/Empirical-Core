@@ -73,7 +73,7 @@ module GrowthResultsSummary
   private def data_for_skill_by_activity_session(activity_session_id, skill)
     concept_results = ConceptResult.where(activity_session_id: activity_session_id, concept_id: [skill.concept_ids])
     number_correct = concept_results.select(&:correct?).length
-    number_incorrect = concept_results.select { |cr| !cr.correct? }.length
+    number_incorrect = concept_results.reject { |cr| cr.correct? }.length
     {
       id: skill.id,
       skill: skill.name,
