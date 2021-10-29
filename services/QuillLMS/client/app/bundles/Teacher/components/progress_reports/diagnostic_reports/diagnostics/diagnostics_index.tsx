@@ -19,7 +19,7 @@ const DiagnosticsIndex = ({ passedClassrooms, history, match, }) => {
     $('.activity-analysis-tab').removeClass('active');
   }, []);
 
-  const getDiagnostics = () => {
+  function getDiagnostics() {
     requestGet('/teachers/diagnostic_units',
       (data) => {
         setClassrooms(data);

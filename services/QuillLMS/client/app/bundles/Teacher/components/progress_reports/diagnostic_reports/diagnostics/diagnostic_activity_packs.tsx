@@ -83,7 +83,7 @@ const PostSection = ({ post, activityId, unitTemplateId, name, }) => {
     return <AssignedSection activity={post} isPostDiagnostic={true} sectionTitle="Post" />
   }
 
-  const handleAssignClick = () => {
+  function handleAssignClick() {
     goToAssign(unitTemplateId, name, activityId)
   }
 

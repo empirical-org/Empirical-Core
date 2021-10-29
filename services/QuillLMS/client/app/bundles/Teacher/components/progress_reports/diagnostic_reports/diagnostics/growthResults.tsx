@@ -115,7 +115,7 @@ const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries, match,
     }
   }, [openPopover])
 
-  const getResults = () => {
+  function getResults() {
     requestGet(`/teachers/progress_reports/diagnostic_growth_results_summary?activity_id=${activityId}&classroom_id=${classroomId}`,
       (data) => {
         setStudentResults(data.student_results);

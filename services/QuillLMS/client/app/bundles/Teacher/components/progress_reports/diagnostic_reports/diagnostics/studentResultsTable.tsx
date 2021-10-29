@@ -177,12 +177,9 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
 
   }, [isSticky]);
 
-  const handleTableScroll = () => { handleScroll(tableRef.current.getBoundingClientRect()) }
+  const onScroll = () => handleScroll(tableRef.current.getBoundingClientRect());
 
   React.useEffect(() => {
-    const onScroll = () => {
-      handleScroll(tableRef.current.getBoundingClientRect());
-    };
     window.addEventListener("scroll", onScroll);
 
     return () => {
@@ -213,12 +210,8 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
   )
 
   const completedStudentResults = studentResults.filter(sr => sr.skill_groups)
-  const incompleteStudentResults = studentResults.filter(sr => !sr.skill_groups)
   const tableHasContent = completedStudentResults.length
 
-  const tableHeight = 65 + (74 * incompleteStudentResults.length) + (92 * completedStudentResults.length)
-  const containerStyle = { height: `${tableHeight + 16}px` }
-  const tableStyle = { height: `${tableHeight}px` }
   const tableClassName = tableHasContent ? 'student-results-table' : 'empty student-results-table'
 
   const renderHeader = () => {
@@ -230,7 +223,7 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
     </thead>)
   }
 
-  return (<div className="student-results-table-container" onScroll={handleTableScroll}>
+  return (<div className="student-results-table-container" onScroll={handleScroll}>
     {tableHasContent ? null : noDataYet}
     {isSticky && (
       <table
