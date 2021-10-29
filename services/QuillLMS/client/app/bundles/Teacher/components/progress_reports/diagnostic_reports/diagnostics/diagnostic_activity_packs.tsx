@@ -1,13 +1,11 @@
 import * as React from 'react'
-import * as $ from 'jquery'
 import * as moment from 'moment'
 
 import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.jsx'
+import { Classroom, Activity, Diagnostic, } from './interfaces'
+import { goToAssign, } from './shared'
 
-import * as assignmentFlowConstants from '../../assignment_flow/assignmentFlowConstants'
-import LoadingSpinner from '../../shared/loading_indicator.jsx'
-import { requestGet } from '../../../../../modules/request/index';
-import { DropdownInput, Tooltip, } from '../../../../Shared/index'
+import { DropdownInput, Tooltip, } from '../../../../../Shared/index'
 
 const baseImageSrc = `${process.env.CDN_URL}/images/pages/diagnostic_reports`
 
@@ -21,33 +19,6 @@ const wrenchIcon = <img alt="Wrench icon" src={`${baseImageSrc}/icons-wrench.svg
 const MOBILE_WIDTH = 990
 const AVERAGE_FONT_WIDTH = 6
 const ACTIVITY_PACK_TEXT_MAX_WIDTH = 264
-
-interface Activity {
-  activity_id: number,
-  activity_name: string,
-  assigned_count: number,
-  assigned_date: string,
-  classroom_id: number,
-  classroom_name: string,
-  classroom_unit_id: number,
-  completed_count: number,
-  post_test_id: number|null,
-  skills_count: number,
-  unit_id: number,
-  unit_name: string,
-}
-
-interface Diagnostic {
-  name: string,
-  pre: Activity,
-  post?: Activity
-}
-
-export interface Classroom {
-  name: string;
-  id: string;
-  diagnostics: Array<Diagnostic>;
-}
 
 const ALL = 'ALL'
 const ALL_OPTION = { label: 'All classes', value: ALL }
@@ -110,17 +81,12 @@ const PostInProgress = ({ name, }) => {
 }
 
 const PostSection = ({ post, activityId, unitTemplateId, name, }) => {
-  function goToAssign() {
-    const unitTemplateIdString = unitTemplateId.toString();
-    window.localStorage.setItem(assignmentFlowConstants.UNIT_TEMPLATE_NAME, `${name} (Post)`)
-    window.localStorage.setItem(assignmentFlowConstants.UNIT_NAME, `${name} (Post)`)
-    window.localStorage.setItem(assignmentFlowConstants.ACTIVITY_IDS_ARRAY, [activityId])
-    window.localStorage.setItem(assignmentFlowConstants.UNIT_TEMPLATE_ID, unitTemplateIdString)
-    window.location.href = `/assign/select-classes?diagnostic_unit_template_id=${unitTemplateIdString}`
-  }
-
   if (post) {
     return <AssignedSection activity={post} sectionTitle="Post" />
+  }
+
+  function handleAssignClick() {
+    goToAssign(unitTemplateId, name, activityId)
   }
 
   return (<section className="post">
@@ -130,7 +96,7 @@ const PostSection = ({ post, activityId, unitTemplateId, name, }) => {
     </div>
     <div>
       <a className="focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activityId}`} rel="noopener noreferrer" target="_blank">Preview</a>
-      <button className="focus-on-light fake-link" onClick={goToAssign} type="button">Assign</button>
+      <button className="focus-on-light fake-link" onClick={handleAssignClick} type="button">Assign</button>
     </div>
   </section>)
 }
@@ -140,7 +106,7 @@ const Diagnostic = ({ diagnostic, }) => {
   let postAndGrowth = <PostInProgress name={name} />
   if (pre.post_test_id) {
     const growthSummaryLink = resultsLink(pre.post_test_id, pre.classroom_id, pre.unit_id)
-    postAndGrowth = post.activity_id ? <React.Fragment><PostSection post={post} /><GrowthSummary growthSummaryLink={growthSummaryLink} showGrowthSummary={true} skillsGrowth={post.skills_count - pre.skills_count} /></React.Fragment> : <React.Fragment><PostSection activityId={pre.post_test_id} name={name} unitTemplateId={post.unit_template_id} /><GrowthSummary name={name} /></React.Fragment>
+    postAndGrowth = post.assigned_count ? <React.Fragment><PostSection post={post} /><GrowthSummary growthSummaryLink={growthSummaryLink} showGrowthSummary={true} skillsGrowth={post.skills_count - pre.skills_count} /></React.Fragment> : <React.Fragment><PostSection activityId={pre.post_test_id} name={name} unitTemplateId={post.unit_template_id} /><GrowthSummary name={name} /></React.Fragment>
   }
 
   return (<section className="diagnostic">
@@ -160,32 +126,14 @@ const Classroom = ({ classroom, }) => {
   </section>)
 }
 
-const DiagnosticActivityPacks = ({passedClassrooms}) => {
-  const [loading, setLoading] = React.useState<boolean>(!passedClassrooms);
-  const [classrooms, setClassrooms] = React.useState<Array<Classroom>>(passedClassrooms || []);
+const DiagnosticActivityPacks = ({ classrooms, }) => {
   const [selectedClassroomId, setSelectedClassroomId] = React.useState(ALL)
-
-  React.useEffect(() => {
-    getDiagnostics();
-    $('.diagnostic-tab').addClass('active');
-    $('.activity-analysis-tab').removeClass('active');
-  }, []);
-
-  const getDiagnostics = () => {
-    requestGet('/teachers/diagnostic_units',
-      (data) => {
-        setClassrooms(data);
-        setLoading(false)
-      }
-    )
-  }
 
   function onClassesDropdownChange(e) {
     setSelectedClassroomId(e.value)
   }
 
-  if (loading) { return <LoadingSpinner /> }
-  if (!loading && !classrooms.length) { return <EmptyDiagnosticProgressReport /> }
+  if (!classrooms.length) { return <EmptyDiagnosticProgressReport /> }
 
   const dropdownOptions = [ALL_OPTION].concat(classrooms.map(c => ({ value: c.id, label: c.name, })))
   const classroomElements = selectedClassroomId === ALL ? classrooms.map(c => <Classroom classroom={c} key={c.id} />) : <Classroom classroom={classrooms.find(c => c.id === selectedClassroomId)} />

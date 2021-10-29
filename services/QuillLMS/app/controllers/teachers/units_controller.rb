@@ -368,7 +368,7 @@ class Teachers::UnitsController < ApplicationController
       if record['post_test_id']
         grouped_record['pre'] = record_with_aggregated_activity_sessions_and_skill_count(diagnostic_records, record['activity_id'], record['classroom_id'])
         post_test = record_with_aggregated_activity_sessions_and_skill_count(diagnostic_records, record['post_test_id'], record['classroom_id'])
-        grouped_record['post'] = post_test || { unit_template_id: ActivitiesUnitTemplate.find_by_activity_id(record['post_test_id'])&.unit_template_id }
+        grouped_record['post'] = post_test || { activity_name: Activity.find_by_id(record['post_test_id'])&.name, unit_template_id: ActivitiesUnitTemplate.find_by_activity_id(record['post_test_id'])&.unit_template_id }
       else
         grouped_record[:pre]['completed_count'] = ActivitySession.where(activity_id: record['activity_id'], classroom_unit_id: record['classroom_unit_id'], state: 'finished').size
         grouped_record[:pre]['assigned_count'] = record['assigned_student_ids'].size
