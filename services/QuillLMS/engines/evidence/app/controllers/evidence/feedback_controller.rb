@@ -2,7 +2,13 @@ module Evidence
   require 'json'
 
   class FeedbackController < ApiController
-    before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling]
+    before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling, :prefilter]
+
+    def prefilter 
+      prefilter_check = Evidence::PrefilterCheck.new(@entry, @prompt)
+      return render :body => nil, :status => 404 if prefilter_check.feedback_object[:error]
+      render json: prefilter_check.feedback_object
+    end
 
     def plagiarism
       rule = @prompt.rules&.find_by(rule_type: Evidence::Rule::TYPE_PLAGIARISM)

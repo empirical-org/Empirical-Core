@@ -9,18 +9,19 @@ module Evidence
     MAX_NAME_LENGTH = 250
     ALLOWED_BOOLEANS = [true, false]
     STATES = [
-      STATE_ACTIVE = 'active',
-      STATE_INACTIVE = 'inactive'
+      STATE_ACTIVE      = 'active',
+      STATE_INACTIVE    = 'inactive'
     ]
-    TYPES= [
-      TYPE_AUTOML = 'autoML',
-      TYPE_GRAMMAR = 'grammar',
-      TYPE_OPINION = 'opinion',
-      TYPE_PLAGIARISM = 'plagiarism',
-      TYPE_REGEX_ONE = 'rules-based-1',
-      TYPE_REGEX_TWO = 'rules-based-2',
-      TYPE_REGEX_THREE = 'rules-based-3',
-      TYPE_SPELLING = 'spelling'
+    TYPES = [
+      TYPE_AUTOML       = 'autoML',
+      TYPE_GRAMMAR      = 'grammar',
+      TYPE_OPINION      = 'opinion',
+      TYPE_PLAGIARISM   = 'plagiarism',
+      TYPE_REGEX_ONE    = 'rules-based-1',
+      TYPE_REGEX_TWO    = 'rules-based-2',
+      TYPE_REGEX_THREE  = 'rules-based-3',
+      TYPE_SPELLING     = 'spelling',
+      TYPE_PREFILTER    = 'prefilter'
     ]
     DISPLAY_NAMES = {
       'rules-based-1': 'Sentence Structure Regex',
