@@ -506,7 +506,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP ? 'on-read-passage' : ''}`
 
-  if(!explanationSlidesCompleted && (activityCompletionCount && activityCompletionCount < 4)) {
+  if(!explanationSlidesCompleted && (!activityCompletionCount || (activityCompletionCount && activityCompletionCount < 4))) {
     if (explanationSlideStep === 0) {
       return <WelcomeSlide onHandleClick={handleExplanationSlideClick} user={user} />
     }
