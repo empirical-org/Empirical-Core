@@ -210,7 +210,7 @@ module PagesHelper
           },
           {
             name: 'Anna Waterman',
-            title: 'Curriculum Developer',
+            title: 'Curriculum Associate',
             img: 'team-anna-waterman@2x.png'
           },
           {
