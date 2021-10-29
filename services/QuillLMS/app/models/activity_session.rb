@@ -505,6 +505,14 @@ class ActivitySession < ApplicationRecord
     ((completed_at - started_at)/60).round
   end
 
+  def correct_skill_count
+    skills = activity.skills.distinct
+    skills.reduce(0) do |sum, skill|
+      concept_results = ConceptResult.where(activity_session_id: id, concept_id: [skill.concept_ids])
+      sum += concept_results.length && concept_results.all?(&:correct?) ? 1 : 0
+    end
+  end
+
   private def correctly_assigned
     if classroom_unit && (classroom_unit.validate_assigned_student(user_id) == false)
       begin

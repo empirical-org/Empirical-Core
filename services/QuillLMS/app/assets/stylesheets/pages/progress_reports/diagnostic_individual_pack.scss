@@ -1,0 +1,93 @@
+.diagnostic-individual-pack {
+  height: min-content;
+  section {
+    border-bottom: none;
+  }
+  .diagnostic-report-navigation {
+    max-width: 260px;
+    background-color: #fff;
+    border-right: 1px solid #e0e0e0;
+    height: 100%;
+    padding: 40px 0px;
+    .dropdown-container {
+      padding: 0px 16px;
+      min-height: 58px;
+      justify-content: flex-start;
+      margin-bottom: -18px;
+    }
+    .post-diagnostic-card {
+      background-color: #f5f5f5;
+      padding: 16px 16px 24px;
+      border-radius: 4px;
+      margin: 0px 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      .close-button {
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        img {
+          height: 16px;
+        }
+      }
+      p {
+        text-align: center;
+        color: #5c5c5c;
+        margin: 8px 0px 24px;
+      }
+      a, .fake-link {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.43;
+        text-align: center;
+        background-color: transparent;
+        margin: 0px 8px;
+        color: #5c5c5c;
+        text-decoration: underline;
+      }
+    }
+    .diagnostic-section {
+      padding: 0px;
+      margin: 32px 0px;
+      h6 {
+        padding: 0px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #5c5c5c;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.33;
+        img {
+          height: 16px;
+        }
+      }
+      .disabled-link {
+        cursor: not-allowed;
+      }
+      a:not(.preview-link), .disabled-link {
+        margin: 4px 8px;
+        padding: 4px 8px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        img {
+          margin-right: 4px;
+        }
+        &.selected {
+          background-color: #e1f3f1;
+          text-decoration: none;
+        }
+        &:not(.selected):hover, &:not(.selected):focus {
+          background-color: #f5f5f5;
+          text-decoration: none;
+        }
+      }
+      &.disabled {
+        opacity: 50%;
+      }
+    }
+  }
+}

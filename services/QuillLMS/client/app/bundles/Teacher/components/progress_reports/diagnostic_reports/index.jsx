@@ -134,7 +134,7 @@ class DiagnosticReports extends React.Component {
   render() {
     const params = this.parseParams(this.props.location.pathname);
 		// we don't want to render a navbar for the activity packs, not_completed, or diagnostics
-		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) !== -1) {
+		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) !== -1 || this.props.location.pathname.includes('/diagnostics')) {
 			return (
   <div>{this.props.children}</div>
 			)

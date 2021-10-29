@@ -36,7 +36,12 @@ class Activity < ApplicationRecord
 
   validate :data_must_be_hash
 
+  has_many :skill_group_activities
+  has_many :skill_groups, through: :skill_group_activities
+  has_many :skills, through: :skill_groups
+
   has_and_belongs_to_many :unit_templates
+
   belongs_to :classification, class_name: 'ActivityClassification', foreign_key: 'activity_classification_id'
   belongs_to :standard
   belongs_to :raw_score
