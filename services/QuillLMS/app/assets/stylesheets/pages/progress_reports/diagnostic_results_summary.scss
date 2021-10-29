@@ -68,6 +68,8 @@
     text-align: left;
     width: min-content;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
     img {
       margin-right: 4px;
     }
@@ -91,6 +93,12 @@
         color: #995f00;
       }
     }
+    &.maintained-proficiency {
+      background-color: #e9f4e0;
+      span {
+        color: #367300;
+      }
+    }
     &.no-proficiency {
       background-color: #fff3e0;
       span {
@@ -100,10 +108,11 @@
   }
   .student-results-table-container {
     margin-top: 16px;
-    overflow: scroll;
+    overflow-x: scroll;
     width: calc(100vw - 300px);
     position: relative;
-    max-height: 100vh;
+    margin-bottom: -400px;
+    padding-bottom: 400px;
     .no-data-yet {
       position: absolute;
       top: 81px;
@@ -119,7 +128,6 @@
       border-collapse: separate;
       border-spacing: 0;
       table-layout: fixed;
-      max-height: 100vh;
       &.empty {
         border-right: 1px solid #e0e0e0;
         border-bottom: 1px solid #e0e0e0;
@@ -170,11 +178,13 @@
     }
     .name-cell {
       width: 216px;
-      div {
+      height: 92px;
+      padding: 16px;
+      > div {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        height: 57px;
+        height: 100%;
         span:first-of-type {
           font-size: 14px;
           font-weight: normal;
@@ -200,13 +210,10 @@
     .corner-header {
       vertical-align: bottom;
       border-radius: 8px 0px 0px;
-      position: sticky;
-      left: 0;
-      z-index: 2;
       border-left: 1px solid #e0e0e0;
+      width: 216px;
     }
     .student-result-cell {
-      height: 92px;
       padding: 0px;
       vertical-align: top;
       position: relative;
@@ -215,6 +222,7 @@
         display: flex;
         flex-direction: column;
         height: 100%;
+        min-height: 92px;
         width: 100%;
         justify-content: space-between;
         &:focus, &:hover {
@@ -241,6 +249,8 @@
         border-radius: 10px;
         box-shadow: 0 1px 8px 0 #0003, 0 3px 3px -2px #0000001e, 0 3px 4px 0 #00000023;
         background-color: #fff;
+        max-height: 100vh;
+        overflow: scroll;
         header {
           padding: 0px 20px;
           display: flex;
@@ -286,12 +296,6 @@
             border-right: none;
             border-radius: 0px !important;
           }
-          .skill-column-header {
-            width: 250px;
-          }
-          .summary-header {
-            width: 107px;
-          }
           .center-align {
             text-align: center;
           }
@@ -299,6 +303,14 @@
             color: #428c00;
             font-weight: 600;
             background-color: #e9f4e0;
+          }
+          &.skills-table {
+            .skill-column-header {
+              width: 250px;
+            }
+            .summary-header {
+              width: 107px;
+            }
           }
         }
         a {
@@ -354,6 +366,9 @@
     }
     .skill-group-summary-card {
       margin-right: 0px;
+    }
+    .skill-group-summary-cards {
+      flex-direction: column;
     }
     .card-header {
       .quill-tooltip-wrapper {

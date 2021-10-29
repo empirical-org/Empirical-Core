@@ -20,12 +20,13 @@ const ACTIVITY_PACK_TEXT_MAX_WIDTH = 264
 const ALL = 'ALL'
 const ALL_OPTION = { label: 'All classes', value: ALL }
 
-function resultsLink(activityId, classroomId, unitId) {
-  const baseResultsLink = `/teachers/progress_reports/diagnostic_reports/#/diagnostics/${activityId}/classroom/${classroomId}/results`
+function resultsLink(isPostDiagnostic, activityId, classroomId, unitId) {
+  const resultsPath = isPostDiagnostic ? 'growth_results' : 'results'
+  const baseResultsLink = `/teachers/progress_reports/diagnostic_reports/#/diagnostics/${activityId}/classroom/${classroomId}/${resultsPath}`
   return unitId ? `${baseResultsLink}?unit=${unitId}` : baseResultsLink
 }
 
-const AssignedSection = ({ activity, sectionTitle, }) => {
+const AssignedSection = ({ activity, sectionTitle, isPostDiagnostic, }) => {
   const { assigned_date, unit_name, completed_count, assigned_count, activity_id, classroom_id, unit_id, } = activity
   const activityPackText = `Activity pack: ${unit_name}`
   let activityPackElement = <span>{activityPackText}</span>
@@ -40,7 +41,7 @@ const AssignedSection = ({ activity, sectionTitle, }) => {
       <p>{multipleUsersIcon}<span>Completed: {completed_count} of {assigned_count}</span></p>
     </div>
     <div>
-      <a className="focus-on-light" href={resultsLink(activity_id, classroom_id, unit_id)}>View results and recommendations</a>
+      <a className="focus-on-light" href={resultsLink(isPostDiagnostic, activity_id, classroom_id, unit_id)}>View results and recommendations</a>
     </div>
   </section>)
 }
@@ -79,7 +80,7 @@ const PostInProgress = ({ name, }) => {
 
 const PostSection = ({ post, activityId, unitTemplateId, name, }) => {
   if (post) {
-    return <AssignedSection activity={post} sectionTitle="Post" />
+    return <AssignedSection activity={post} isPostDiagnostic={true} sectionTitle="Post" />
   }
 
   const handleAssignClick = () => {
@@ -102,14 +103,14 @@ const Diagnostic = ({ diagnostic, }) => {
   const { name, pre, post, } = diagnostic
   let postAndGrowth = <PostInProgress name={name} />
   if (pre.post_test_id) {
-    const growthSummaryLink = resultsLink(pre.post_test_id, pre.classroom_id, pre.unit_id)
+    const growthSummaryLink = resultsLink(true, pre.post_test_id, pre.classroom_id, pre.unit_id)
     postAndGrowth = post.assigned_count ? <React.Fragment><PostSection post={post} /><GrowthSummary growthSummaryLink={growthSummaryLink} showGrowthSummary={true} skillsGrowth={post.skills_count - pre.skills_count} /></React.Fragment> : <React.Fragment><PostSection activityId={pre.post_test_id} name={name} unitTemplateId={post.unit_template_id} /><GrowthSummary name={name} /></React.Fragment>
   }
 
   return (<section className="diagnostic">
     <div className="name"><h3>{name}</h3></div>
     <div className="pre-and-post-wrapper">
-      <AssignedSection activity={pre} sectionTitle="Pre" />
+      <AssignedSection activity={pre} isPostDiagnostic={false} sectionTitle="Pre" />
       {postAndGrowth}
     </div>
   </section>)

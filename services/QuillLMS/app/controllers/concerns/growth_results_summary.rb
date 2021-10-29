@@ -115,9 +115,6 @@ module GrowthResultsSummary
       skill_group_summary_index = @skill_group_summaries.find_index { |sg| sg[:name] == skill_group.name }
       @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].push(student_name) unless post_test_proficiency == PROFICIENCY
       @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_pre_test_student_names].push(student_name) unless pre_test_proficiency == PROFICIENCY
-      skills_delta = correct_skill_number - pre_correct_skill_number
-      puts 'post_correct_skills', post_correct_skills
-      puts 'pre_correct_skills', pre_correct_skills
       {
         skill_group: skill_group.name,
         skills: skills,
@@ -125,7 +122,6 @@ module GrowthResultsSummary
         proficiency_text: proficiency_text,
         pre_test_proficiency: pre_test_proficiency,
         post_test_proficiency: post_test_proficiency,
-        skills_delta: skills_delta > 0 ? skills_delta : 0,
         id: skill_group.id,
         acquired_skill_ids: post_correct_skills.map { |s| s[:post][:id] } - pre_correct_skills.map { |s| s[:pre][:id] }
       }

@@ -241,6 +241,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'diagnostic_status' => 'diagnostic_reports#diagnostic_status'
       get 'diagnostic_report' => 'diagnostic_reports#default_diagnostic_report'
       get 'diagnostic_results_summary' => 'diagnostic_reports#diagnostic_results_summary'
+      get 'diagnostic_growth_results_summary' => 'diagnostic_reports#diagnostic_growth_results_summary'
       get 'question_view/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#question_view'
       get 'classrooms_with_students/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#classrooms_with_students'
       get 'students_by_classroom/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#students_by_classroom'

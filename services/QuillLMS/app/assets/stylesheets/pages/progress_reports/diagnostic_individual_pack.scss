@@ -12,6 +12,8 @@
     border-right: 1px solid #e0e0e0;
     min-height: min-content;
     padding: 40px 0px;
+    z-index: 4;
+    position: relative;
     .dropdown-container {
       padding: 0px 16px;
       min-height: 58px;
@@ -91,6 +93,14 @@
       &.disabled {
         opacity: 50%;
       }
+    }
+    &:after {
+      content: '';
+      width: 33px;
+      background-color: white;
+      height: 100%;
+      position: absolute;
+      right: -34px;
     }
   }
   main {

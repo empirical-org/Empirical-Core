@@ -1,9 +1,9 @@
 import * as React from 'react'
-import qs from 'qs'
 import { withRouter, Link, } from 'react-router-dom';
 
 import {
   baseDiagnosticImageSrc,
+  triangleUpIcon,
   noDataYet,
 } from './shared'
 import PercentageCircle from './percentageCircle'
@@ -13,7 +13,6 @@ import StudentResultsTable from './studentResultsTable'
 import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../../modules/request/index';
 import {
-  helpIcon,
   Tooltip,
   CLICK,
 } from '../../../../../Shared/index'
@@ -23,7 +22,7 @@ const fileDocumentIcon = <img alt="File document icon" src={`${baseDiagnosticIma
 interface SkillGroupSummary {
   name: string;
   description?: string;
-  not_yet_proficient_student_names: string[];
+  not_yet_proficient_in_post_test_student_names: string[];
 }
 
 interface StudentResult {
@@ -31,16 +30,24 @@ interface StudentResult {
 }
 
 const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => {
-  const { name, description, not_yet_proficient_student_names, } = skillGroupSummary
+  const { name, description, not_yet_proficient_in_post_test_student_names, not_yet_proficient_in_pre_test_student_names, } = skillGroupSummary
   let cardContent = noDataYet
-  if (completedStudentCount) {
-    const numberOfStudentsNeedingPractice = not_yet_proficient_student_names.length
-    const percentage = (numberOfStudentsNeedingPractice/completedStudentCount) * 100
-    let needPracticeElement = <span className="need-practice-element no-practice-needed">No practice needed</span>
 
-    if (numberOfStudentsNeedingPractice) {
-      const tooltipText = `<p>${not_yet_proficient_student_names.join('<br>')}</p>`
-      const tooltipTriggerText = numberOfStudentsNeedingPractice === 1 ? "1 student needs practice" : `${numberOfStudentsNeedingPractice} students need practice`
+  if (completedStudentCount) {
+    const numberOfStudentsNeedingPracticeInPost = not_yet_proficient_in_post_test_student_names.length
+    const postPercentageNotProficient = (numberOfStudentsNeedingPracticeInPost/completedStudentCount) * 100
+    const postPercentageProficient = 100 - Math.round(postPercentageNotProficient)
+    const numberOfStudentsNeedingPracticeInPre = not_yet_proficient_in_pre_test_student_names.length
+    const prePercentageNotProficient = (numberOfStudentsNeedingPracticeInPre/completedStudentCount) * 100
+    const prePercentageProficient = 100 - Math.round(prePercentageNotProficient)
+    const delta = prePercentageProficient ? ((postPercentageProficient - prePercentageProficient) / prePercentageProficient) * 100 : postPercentageProficient
+
+    let needPracticeElement = <span className="need-practice-element no-practice-needed">No practice needed</span>
+    let growthElement = delta > 0 ? <span className="growth-element">{triangleUpIcon}<span>{delta}% growth</span></span> : <span className="growth-element no-growth">No growth</span>
+
+    if (numberOfStudentsNeedingPracticeInPost) {
+      const tooltipText = `<p>${not_yet_proficient_in_post_test_student_names.join('<br>')}</p>`
+      const tooltipTriggerText = numberOfStudentsNeedingPracticeInPost === 1 ? "1 student needs practice" : `${numberOfStudentsNeedingPracticeInPost} students need practice`
       needPracticeElement = (<Tooltip
         tooltipText={tooltipText}
         tooltipTriggerText={tooltipTriggerText}
@@ -49,18 +56,37 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => 
     }
 
     cardContent = (<React.Fragment>
-      <span className="percentage-circle-label">Proficient</span>
-      <PercentageCircle
-        bgcolor="#ebebeb"
-        borderWidth={8}
-        color="#4ea500"
-        innerColor="#ffffff"
-        percent={100 - Math.round(percentage)}
-        radius={52}
-      />
-      {needPracticeElement}
+      <div className="percentage-circles">
+        <div>
+          <span className="percentage-circle-label">Pre proficient</span>
+          <PercentageCircle
+            bgcolor="#ebebeb"
+            borderWidth={8}
+            color="#9e9e9e"
+            innerColor="#ffffff"
+            percent={prePercentageProficient}
+            radius={52}
+          />
+        </div>
+        <div>
+          <span className="percentage-circle-label">Post proficient</span>
+          <PercentageCircle
+            bgcolor="#ebebeb"
+            borderWidth={8}
+            color="#4ea500"
+            innerColor="#ffffff"
+            percent={postPercentageProficient}
+            radius={52}
+          />
+        </div>
+      </div>
+      <div className="card-footer">
+        {needPracticeElement}
+        {growthElement}
+      </div>
     </React.Fragment>)
   }
+
   return (<section className="skill-group-summary-card">
     <div className="card-header">
       <span className="skill-group-name">{name}</span>
@@ -70,15 +96,13 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => 
   </section>)
 }
 
-const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {
+const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudentResults);
   const [studentResults, setStudentResults] = React.useState(passedStudentResults || []);
   const [skillGroupSummaries, setSkillGroupSummaries] = React.useState(passedSkillGroupSummaries || []);
   const [openPopover, setOpenPopover] = React.useState({})
 
   const { activityId, classroomId, } = match.params
-  const unitId = qs.parse(location.search.replace('?', '')).unit
-  const unitQueryString = unitId ? `&unit_id=${unitId}` : ''
 
   React.useEffect(() => {
     getResults()
@@ -92,7 +116,7 @@ const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobil
   }, [openPopover])
 
   const getResults = () => {
-    requestGet(`/teachers/progress_reports/diagnostic_results_summary?activity_id=${activityId}&classroom_id=${classroomId}${unitQueryString}`,
+    requestGet(`/teachers/progress_reports/diagnostic_growth_results_summary?activity_id=${activityId}&classroom_id=${classroomId}`,
       (data) => {
         setStudentResults(data.student_results);
         setSkillGroupSummaries(data.skill_group_summaries);
@@ -101,13 +125,13 @@ const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobil
     )
   }
 
-  const responsesLink = (studentId) => `diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}${unitQueryString}`
+  const responsesLink = (studentId) => `diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}`
 
   function closePopoverOnOutsideClick(e) {
     if (!openPopover.studentId) { return }
 
     const popoverElements = document.getElementsByClassName('student-results-popover')
-    if (popoverElements && (!popoverElements[0].contains(e.target) || e.target.classList.includes('interactive-wrapper'))) {
+    if (popoverElements && !popoverElements[0].contains(e.target)) {
       setOpenPopover({})
     }
   }
@@ -118,9 +142,9 @@ const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobil
 
   const skillGroupSummaryCards = skillGroupSummaries.map(skillGroupSummary => <SkillGroupSummaryCard completedStudentCount={completedStudentCount} key={skillGroupSummary.name} skillGroupSummary={skillGroupSummary} />)
 
-  return (<main className="results-summary-container">
+  return (<main className="results-summary-container growth-results-summary-container">
     <header>
-      <h1>Results summary</h1>
+      <h1>Growth results summary</h1>
       <a className="focus-on-light" href="/">{fileDocumentIcon}<span>Guide</span></a>
     </header>
     {mobileNavigation}
@@ -133,4 +157,4 @@ const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobil
   )
 }
 
-export default withRouter(Results)
+export default withRouter(GrowthResults)

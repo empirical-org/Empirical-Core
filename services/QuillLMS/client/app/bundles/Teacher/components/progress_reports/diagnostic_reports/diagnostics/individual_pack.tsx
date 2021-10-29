@@ -3,6 +3,7 @@ import * as React from 'react'
 import { Switch, Route, withRouter, NavLink, } from 'react-router-dom';
 import qs from 'qs'
 
+import GrowthResults from './growthResults'
 import Results from './results'
 import { Classroom, Activity, Diagnostic, } from './interfaces'
 import { goToAssign, baseDiagnosticImageSrc, accountCommentIcon, closeIcon, } from './shared'
@@ -27,9 +28,11 @@ const DiagnosticSection = ({ activity, isPostDiagnostic, isDisabled, search, }) 
   const responsesLinkContent = <React.Fragment>{accountCommentIcon}<span>Student responses</span></React.Fragment>
   const questionsLinkContent = <React.Fragment>{cardTextIcon}<span>Questions analysis</span></React.Fragment>
 
+  const resultsPath = isPostDiagnostic ? 'growth_results' : 'results'
+
   return (<section className={`diagnostic-section ${isDisabled ? 'disabled' : ''}`}>
     <h6><span>{activity_name}</span> <a className="focus-on-light preview-link" href={`/activity_sessions/anonymous?activity_id=${activity_id}`} rel="noopener noreferrer" target="_blank">{eyeIcon}</a></h6>
-    {isDisabled ? <span className='disabled-link'>{resultLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/results${queryString}`}>{resultLinkContent}</NavLink>}
+    {isDisabled ? <span className='disabled-link'>{resultLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/${resultsPath}${queryString}`}>{resultLinkContent}</NavLink>}
     {isDisabled ? <span className='disabled-link'>{recommendationsLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/recommendations${queryString}`}>{recommendationsLinkContent}</NavLink>}
     {isDisabled ? <span className='disabled-link'>{responsesLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/responses${queryString}`}>{responsesLinkContent}</NavLink>}
     {isDisabled ? <span className='disabled-link'>{questionsLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/questions${queryString}`}>{questionsLinkContent}</NavLink>}
@@ -45,10 +48,11 @@ const mobileLinkOptions = (diagnostic, search) => {
     const prefix = isPostDiagnostic ? 'Post' : 'Pre'
     const baseLink = isPostDiagnostic ? baseLinkPathPost : baseLinkPathPre
     const resultsSummaryName = isPostDiagnostic ? 'Growth results summary' : 'Results summary'
+    const resultsPath = isPostDiagnostic ? 'growth_results' : 'results'
     return [
       {
         label: `${prefix} - ${resultsSummaryName}`,
-        value: `${baseLink}/results${queryString}`
+        value: `${baseLink}/${resultsPath}${queryString}`
       },
       {
         label: `${prefix} - Practice recommendations`,
@@ -162,6 +166,7 @@ const IndividualPack = ({ classrooms, history, match, location, }) => {
       {postDiagnosticContent}
     </nav>
     <Switch>
+      <Route path='/diagnostics/:activityId/classroom/:classroomId/growth_results' render={() => <GrowthResults {...sharedProps} />} />
       <Route path='/diagnostics/:activityId/classroom/:classroomId/results' render={() => <Results {...sharedProps} />} />
     </Switch>
   </div>)
