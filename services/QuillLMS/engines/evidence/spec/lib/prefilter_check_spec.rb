@@ -1,73 +1,58 @@
 require 'rails_helper'
 
 module Evidence
-  RSpec.describe(RegexCheck, :type => :model) do
-    let!(:prompt) { create(:evidence_prompt) }
-    let!(:rule) { create(:evidence_rule, :rule_type => "rules-based-1", :prompts => ([prompt]), :suborder => 0) }
-    let!(:regex_rule) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "^Test") }
-    let!(:feedback) { create(:evidence_feedback, :rule => (rule), :text => "This string begins with the word Test!") }
+  RSpec.describe(PrefilterCheck) do
+    let(:rule_factory_overrides) { {rule_type: 'prefilter', universal: true, optimal: false} }
 
-    context 'should #initialize' do
-
-      it 'should should have working accessor methods for all initialized fields' do
-        regex_check = Evidence::RegexCheck.new("entry", prompt, rule.rule_type)
-        expect("entry").to(eq(regex_check.entry))
-        expect(prompt).to(eq(regex_check.prompt))
+    describe '#initialize' do
+      it 'should retrieve associated Rules' do
+        rule = create(:evidence_rule, rule_type: 'prefilter')
+        prefilter_check = Evidence::PrefilterCheck.new("entry")
+        expect(prefilter_check.prefilter_rules.first).to eq(rule)
       end
     end
 
-    context 'should #feedback_object' do
-
-      it 'should return optimal blank feedback when there is no regex match' do
-        $redis.redis.flushdb
-        optimal_rule = create(:evidence_rule, :rule_type => "rules-based-1", :optimal => true)
-        entry = "this is not a good regex match"
-        regex_check = Evidence::RegexCheck.new(entry, prompt, optimal_rule.rule_type)
-        feedback = regex_check.feedback_object
-        expect(Evidence::RegexCheck::ALL_CORRECT_FEEDBACK).to(eq(feedback[:feedback]))
-        expect(optimal_rule.rule_type).to(eq(feedback[:feedback_type]))
-        expect(feedback[:optimal]).to(be_truthy)
-        expect(entry).to(eq(feedback[:entry]))
-        expect("").to(eq(feedback[:concept_uid]))
-        expect(optimal_rule.uid).to(eq(feedback[:rule_uid]))
+    describe '#feedback_object' do
+      let!(:prefilter_rule1) do 
+        create(:evidence_rule, **rule_factory_overrides, uid: '123')
       end
 
-      it 'should be false when there is a regex match' do
-        entry = "Test this is a good regex match"
-        regex_check = Evidence::RegexCheck.new(entry, prompt, rule.rule_type)
-        local_feedback = regex_check.feedback_object
-        expect(feedback.text).to(eq(local_feedback[:feedback]))
-        expect(rule.rule_type).to(eq(local_feedback[:feedback_type]))
-        expect(local_feedback[:optimal]).to(be_falsey)
-        expect(entry).to(eq(local_feedback[:entry]))
-        expect(rule.concept_uid).to(eq(local_feedback[:concept_uid]))
-        expect(rule.uid).to(eq(local_feedback[:rule_uid]))
+      let(:non_prefilter_rule) { create(:evidence_rule, **rule_factory_overrides, rule_type: 'notPrefilter') }
+
+      context 'PREFILTERS query hit' do 
+        before do 
+          Evidence::PrefilterCheck && stub_const('Evidence::PrefilterCheck::PREFILTERS', {
+            '123' => lambda { |x| false }
+          })
+        end
+
+        it 'returns a valid payload' do
+          prefilter_check = Evidence::PrefilterCheck.new('example entry')
+          response = prefilter_check.feedback_object
+          expect(response[:rule_uid]).to eq '123'
+          expect(response[:optimal]).to eq false
+        end
+
+        it 'returns a valid payload with feedback' do
+          feedback = create(:evidence_feedback, text: 'lorem ipsum', rule_id: prefilter_rule1.id)
+          prefilter_check = Evidence::PrefilterCheck.new('example entry')
+          response = prefilter_check.feedback_object
+          expect(response[:feedback]).to eq feedback.text
+        end
       end
 
-      it 'should return the highest priority feedback when two feedbacks exist' do
-        new_rule = create(:evidence_rule, :rule_type => "rules-based-1", :prompts => ([prompt]), :suborder => 1)
-        new_regex_rule = create(:evidence_regex_rule, :rule => new_rule, :regex_text => "^Testing")
-        entry = "Test this is a good regex match"
-        regex_check = Evidence::RegexCheck.new(entry, prompt, rule.rule_type)
-        feedback = regex_check.feedback_object
-        expect(rule.uid).to(eq(feedback[:rule_uid]))
-      end
+      context 'PREFILTERS query miss' do 
+        before do 
+          PrefilterCheck && stub_const('PrefilterCheck::PREFILTERS', {})
+        end
 
-      it 'should include any highlights that are attached to the feedback it returns' do
-        highlight = create(:evidence_highlight, feedback: feedback)
-        entry = "Test this is a good regex match"
-        regex_check = Evidence::RegexCheck.new(entry, prompt, rule.rule_type)
-        local_feedback = regex_check.feedback_object
-        expect(feedback.text).to(eq(local_feedback[:feedback]))
-        expect(rule.rule_type).to(eq(local_feedback[:feedback_type]))
-        expect(local_feedback[:optimal]).to(be_falsey)
-        expect(entry).to(eq(local_feedback[:entry]))
-        expect(rule.concept_uid).to(eq(local_feedback[:concept_uid]))
-        expect(rule.uid).to(eq(local_feedback[:rule_uid]))
-        expect(local_feedback[:highlight].length).to eq(1)
-        expect(local_feedback[:highlight].first[:text]).to eq(highlight.text)
-        expect(local_feedback[:highlight].first[:type]).to eq(highlight.highlight_type)
+        it 'should return default_response' do 
+          prefilter_check = Evidence::PrefilterCheck.new('example entry')
+          result = prefilter_check.feedback_object
+          expect(result).to eq(prefilter_check.default_response)
+        end
       end
     end
+
   end
 end

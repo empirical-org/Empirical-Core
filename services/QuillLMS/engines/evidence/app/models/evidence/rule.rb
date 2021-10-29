@@ -12,16 +12,27 @@ module Evidence
       STATE_ACTIVE      = 'active',
       STATE_INACTIVE    = 'inactive'
     ]
+
+    TYPE_AUTOML       = 'autoML'
+    TYPE_GRAMMAR      = 'grammar'
+    TYPE_OPINION      = 'opinion'
+    TYPE_PLAGIARISM   = 'plagiarism'
+    TYPE_REGEX_ONE    = 'rules-based-1'
+    TYPE_REGEX_TWO    = 'rules-based-2'
+    TYPE_REGEX_THREE  = 'rules-based-3'
+    TYPE_SPELLING     = 'spelling'
+    TYPE_PREFILTER    = 'prefilter'
+
     TYPES = [
-      TYPE_AUTOML       = 'autoML',
-      TYPE_GRAMMAR      = 'grammar',
-      TYPE_OPINION      = 'opinion',
-      TYPE_PLAGIARISM   = 'plagiarism',
-      TYPE_REGEX_ONE    = 'rules-based-1',
-      TYPE_REGEX_TWO    = 'rules-based-2',
-      TYPE_REGEX_THREE  = 'rules-based-3',
-      TYPE_SPELLING     = 'spelling',
-      TYPE_PREFILTER    = 'prefilter'
+      TYPE_AUTOML,
+      TYPE_GRAMMAR,
+      TYPE_OPINION,
+      TYPE_PLAGIARISM,
+      TYPE_REGEX_ONE,
+      TYPE_REGEX_TWO,
+      TYPE_REGEX_THREE,
+      TYPE_SPELLING,
+      TYPE_PREFILTER
     ]
     DISPLAY_NAMES = {
       'rules-based-1': 'Sentence Structure Regex',

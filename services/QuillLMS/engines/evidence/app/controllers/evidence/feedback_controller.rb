@@ -2,11 +2,10 @@ module Evidence
   require 'json'
 
   class FeedbackController < ApiController
-    before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling, :prefilter]
+    before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling]
 
     def prefilter 
-      prefilter_check = Evidence::PrefilterCheck.new(@entry, @prompt)
-      return render :body => nil, :status => 404 if prefilter_check.feedback_object[:error]
+      prefilter_check = Evidence::PrefilterCheck.new(prefilter_params)
       render json: prefilter_check.feedback_object
     end
 
@@ -39,6 +38,10 @@ module Evidence
       return render :body => {:error => spelling_check.error }.to_json, :status => 500 if spelling_check.error.present?
       render json: spelling_check.feedback_object
     end
+
+    private def prefilter_params
+      params.require(:entry)
+    end 
 
     private def set_params
       @entry = params[:entry]

@@ -1,26 +1,23 @@
 module Evidence
   class PrefilterCheck
+    attr_accessor :prefilter_rules
     MINIMUM_WORD_COUNT = 3
     OPTIMAL_RULE_UID = '' # TODO: populate
 
-    PREFILTERS = [
-      'this is a rule uid for TOO_LONG' => lambda do |text|
-        PrefilterCheck.to_word_array.length >= MINIMUM_WORD_COUNT
-      end,
-      'this is another rule uid' => lambda do |text| 
-      end
-    ]
+    PREFILTERS = {
+      # TODO: populate
+    }
 
-    def initialize(entry, prompt)
+    def initialize(entry)
       @entry = entry
-      @prompt = prompt
-      @prefilter_rules = Evidence::Rule.where(rule_type: Evidence::Rule::TYPES[TYPE_PREFILTER]).include(:feedbacks)
+      @prefilter_rules = Evidence::Rule.where(rule_type: Evidence::Rule::TYPE_PREFILTER).includes(:feedbacks)
+      
     end
 
     def default_response
       {
         feedback: '',
-        feedback_type: Evidence::Rule::TYPES[TYPE_PREFILTER],
+        feedback_type: Evidence::Rule::TYPE_PREFILTER,
         optimal: true,
         response_id: '',
         entry: @entry,
@@ -33,9 +30,8 @@ module Evidence
     def feedback_object
       violated_rule = @prefilter_rules.find do |rule| 
         next unless PREFILTERS[rule.uid]
-        !PREFILTERS[rule.uid](text) 
+        !PREFILTERS[rule.uid].call(@entry) 
       end
-
       return default_response unless violated_rule
 
       feedback = violated_rule.feedbacks.first
@@ -44,7 +40,7 @@ module Evidence
         {
           feedback: feedback&.text,
           optimal: false,
-          rule:uid: violated_rule.uid
+          rule_uid: violated_rule.uid
         }
       )
     end
