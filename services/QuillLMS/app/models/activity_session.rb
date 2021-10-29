@@ -509,7 +509,7 @@ class ActivitySession < ApplicationRecord
     skills = activity.skills.distinct
     skills.reduce(0) do |sum, skill|
       concept_results = ConceptResult.where(activity_session_id: id, concept_id: [skill.concept_ids])
-      sum += concept_results.length && concept_results.all? { |cr| cr.correct? } ? 1 : 0
+      sum += concept_results.length && concept_results.all?(&:correct?) ? 1 : 0
     end
   end
 
