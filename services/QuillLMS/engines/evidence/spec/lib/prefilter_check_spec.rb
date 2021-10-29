@@ -22,7 +22,7 @@ module Evidence
       context 'PREFILTERS query hit' do 
         before do 
           Evidence::PrefilterCheck && stub_const('Evidence::PrefilterCheck::PREFILTERS', {
-            '123' => lambda { |x| false }
+            '123' => ->(x) { false }
           })
         end
 

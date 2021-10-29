@@ -18,7 +18,7 @@ module Evidence
     let!(:first_feedback) { create(:evidence_feedback, :text => "here is our first feedback", :rule => (rule), :order => 0) }
     let!(:second_feedback) { create(:evidence_feedback, :text => "here is our second feedback", :rule => (rule), :order => 1) }
     
-    context '#prefilter' do 
+    describe '#prefilter' do 
       it 'should return successfully' do 
         post "prefilter", :params => ({ 
           :entry => "lorem ipsum", 
