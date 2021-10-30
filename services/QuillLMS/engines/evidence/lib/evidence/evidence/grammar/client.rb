@@ -4,7 +4,7 @@ module Evidence
       API_TIMEOUT = 500
       ALLOWED_PAYLOAD_KEYS = ['oapi_error', 'highlight']
 
-      class GAPIError < StandardError; end
+      class GrammarApiError < StandardError; end
 
       def initialize(entry:, prompt_text:)
         @entry = entry
@@ -22,7 +22,7 @@ module Evidence
             }.to_json
           )
           if !response.success? 
-            raise GAPIError, "Encountered upstream error: #{response}"
+            raise GrammarApiError, "Encountered upstream error: #{response}"
           end
           response.filter { |k,v| ALLOWED_PAYLOAD_KEYS.include?(k) }
         end
