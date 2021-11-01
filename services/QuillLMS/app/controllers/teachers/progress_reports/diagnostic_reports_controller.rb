@@ -21,6 +21,49 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         render json: results_for_classroom(params[:unit_id], params[:activity_id], params[:classroom_id])
     end
 
+    def diagnostic_student_responses_index
+      activity_id = results_summary_params[:activity_id]
+      classroom_id = results_summary_params[:classroom_id]
+      unit_id = results_summary_params[:unit_id]
+
+      if unit_id
+        classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
+        assigned_students = User.where(id: classroom_unit.assigned_student_ids).sort_by { |u| u.last_name }
+        activity_sessions = ActivitySession.where(classroom_unit: classroom_unit, state: 'finished')
+      else
+        unit_ids = current_user.units.joins("JOIN unit_activities ON unit_activities.activity_id = #{activity_id}")
+        classroom_units = ClassroomUnit.where(unit_id: unit_ids, classroom_id: classroom_id)
+        assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
+        assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
+        activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
+      end
+
+      students = assigned_students.map do |student|
+        activity_session = activity_sessions.find { |as| as.user_id == student.id }
+
+        if activity_session
+          formatted_concept_results = format_concept_results(activity_session.concept_results)
+          score = get_average_score(formatted_concept_results)
+          if score >= (ProficiencyEvaluator.proficiency_cutoff * 100)
+            proficiency = ActivitySession::PROFICIENT
+          elsif score >= (ProficiencyEvaluator.nearly_proficient_cutoff * 100)
+            proficiency = ActivitySession::NEARLY_PROFICIENT
+          else
+            proficiency = ActivitySession::NOT_YET_PROFICIENT
+          end
+          {
+            name: student.name,
+            id: student.id,
+            score: score,
+            proficiency: proficiency
+          }
+        else
+          { name: student.name }
+        end
+      end
+      render json: { students: students }
+    end
+
     def classrooms_with_students
       classrooms = classrooms_with_students_for_report(params[:unit_id], params[:activity_id])
       render json: classrooms.to_json

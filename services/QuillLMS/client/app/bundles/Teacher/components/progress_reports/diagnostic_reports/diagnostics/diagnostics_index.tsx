@@ -3,7 +3,7 @@ import * as $ from 'jquery'
 import { Switch, Route, withRouter } from 'react-router-dom';
 
 import DiagnosticActivityPacks from './diagnostic_activity_packs'
-import IndividualPack from './individual_pack'
+import IndividualPack from './individualPack'
 import { Classroom, Activity, Diagnostic, } from './interfaces'
 
 import LoadingSpinner from '../../../shared/loading_indicator.jsx'

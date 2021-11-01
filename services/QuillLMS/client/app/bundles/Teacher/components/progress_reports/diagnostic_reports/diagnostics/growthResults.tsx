@@ -2,9 +2,9 @@ import * as React from 'react'
 import { withRouter, Link, } from 'react-router-dom';
 
 import {
-  baseDiagnosticImageSrc,
   triangleUpIcon,
   noDataYet,
+  fileDocumentIcon,
 } from './shared'
 import PercentageCircle from './percentageCircle'
 import SkillGroupTooltip from './skillGroupTooltip'
@@ -16,8 +16,6 @@ import {
   Tooltip,
   CLICK,
 } from '../../../../../Shared/index'
-
-const fileDocumentIcon = <img alt="File document icon" src={`${baseDiagnosticImageSrc}/icons-file-document.svg`} />
 
 interface SkillGroupSummary {
   name: string;

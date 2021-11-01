@@ -3,8 +3,8 @@ import qs from 'qs'
 import { withRouter, Link, } from 'react-router-dom';
 
 import {
-  baseDiagnosticImageSrc,
   noDataYet,
+  fileDocumentIcon,
 } from './shared'
 import PercentageCircle from './percentageCircle'
 import SkillGroupTooltip from './skillGroupTooltip'
@@ -17,8 +17,6 @@ import {
   Tooltip,
   CLICK,
 } from '../../../../../Shared/index'
-
-const fileDocumentIcon = <img alt="File document icon" src={`${baseDiagnosticImageSrc}/icons-file-document.svg`} />
 
 interface SkillGroupSummary {
   name: string;

@@ -7,6 +7,7 @@ export const accountCommentIcon = <img alt="Person messaging icon" src={`${baseD
 export const triangleUpIcon = <img alt="Triangle up icon" src={`${baseDiagnosticImageSrc}/icons-triangle-up-green.svg`} />
 export const lightGreenTriangleUpIcon = <img alt="Triangle up icon" src={`${baseDiagnosticImageSrc}/icons-triangle-up-light-green.svg`} />
 export const closeIcon = <img alt="Close icon" src={`${process.env.CDN_URL}/images/icons/close.svg`} />
+export const fileDocumentIcon = <img alt="File document icon" src={`${baseDiagnosticImageSrc}/icons-file-document.svg`} />
 
 export function goToAssign(unitTemplateId, name, activityId) {
   const unitTemplateIdString = unitTemplateId.toString();
@@ -57,3 +58,7 @@ export const proficiencyTextToGrayIcon = {
   [PARTIAL_PROFICIENCY]: grayPartialProficiencyIcon,
   [NO_PROFICIENCY]: grayNoProficiencyIcon
 }
+
+export const PROFICIENT = 'Proficient'
+export const NEARLY_PROFICIENT = 'Nearly proficient'
+export const NOT_YET_PROFICIENT = 'Not yet proficient'

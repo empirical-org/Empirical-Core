@@ -96,11 +96,12 @@
     }
     &:after {
       content: '';
-      width: 33px;
+      width: 32px;
       background-color: white;
       height: 100%;
       position: absolute;
-      right: -34px;
+      right: -33px;
+      top: 0px;
     }
   }
   main {
