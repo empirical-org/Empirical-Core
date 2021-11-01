@@ -56,9 +56,10 @@ const ONBOARDING = 'onboarding'
 const READ_PASSAGE_STEP = 1
 const ALL_STEPS = [READ_PASSAGE_STEP, 2, 3, 4]
 const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
+const ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING = 3
 
 export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user, }: StudentViewContainerProps) => {
-  const activityCompletionCount: number = parseInt(getParameterByName('activities', window.location.href, '0'));
+  const activityCompletionCount: number = parseInt(getParameterByName('activities', window.location.href)) || 0;
   const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
   const defaultCompletedSteps = shouldSkipToPrompts ? [READ_PASSAGE_STEP] : []
 
@@ -506,7 +507,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP ? 'on-read-passage' : ''}`
 
-  if(!explanationSlidesCompleted && (!activityCompletionCount || (activityCompletionCount && activityCompletionCount < 4))) {
+  if((!explanationSlidesCompleted && activityCompletionCount <= ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING)) {
     if (explanationSlideStep === 0) {
       return <WelcomeSlide onHandleClick={handleExplanationSlideClick} user={user} />
     }
