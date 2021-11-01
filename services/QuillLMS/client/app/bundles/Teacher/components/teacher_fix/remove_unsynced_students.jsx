@@ -1,25 +1,21 @@
 import React from 'react'
 import request from 'request'
+
 import getAuthToken from '../modules/get_auth_token'
 
 export default class RemoveUnsyncedStudents extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      teacherIdentifier: '',
-      unsyncedStudentsByClassroom: null,
-      error: null
-    }
-
-    this.listUnsyncedStudentsByClassroom = this.listUnsyncedStudentsByClassroom.bind(this)
-    this.removeUnsyncedStudents = this.removeUnsyncedStudents.bind(this)
+  state = {
+    teacherIdentifier: '',
+    unsyncedStudentsByClassroom: null,
+    error: null
   }
 
-  listUnsyncedStudentsByClassroom() {
+  handleUnsyncedStudentsByClassroomListing = () => {
+    const { teacherIdentifier } = this.state
+
     request.get({
       url: `${process.env.DEFAULT_URL}/teacher_fix/list_unsynced_students_by_classroom`,
-      qs: {teacher_identifier: this.state.teacherIdentifier }
+      qs: {teacher_identifier: teacherIdentifier }
     },
     (_error, _response, body) => {
       const parsedResponse = JSON.parse(body)
@@ -32,10 +28,12 @@ export default class RemoveUnsyncedStudents extends React.Component {
     });
   }
 
-  removeUnsyncedStudents() {
+  handleUnsyncedStudentsRemoval = () => {
+    const { teacherIdentifier } = this.state
+
     request.post({
       url: `${process.env.DEFAULT_URL}/teacher_fix/remove_unsynced_students`,
-      json: {teacher_identifier: this.state.teacherIdentifier, authenticity_token: getAuthToken()}
+      json: {teacher_identifier: teacherIdentifier, authenticity_token: getAuthToken()}
     },
     (_error, response, _body) => {
       if (response.statusCode === 200) {
@@ -45,39 +43,49 @@ export default class RemoveUnsyncedStudents extends React.Component {
     })
   }
 
-  updateTeacherIdentifier = (e) => {
+  handleTeacherIdentifierUpdate = (e) => {
     this.setState({teacherIdentifier: e.target.value})
   };
 
   renderTeacherIdentifierForm() {
+    const { teacherIdentifier } = this.state
+
     return (
       <div className="input-row">
-        <label>Teacher Email Or Username:</label>
-        <input onChange={this.updateTeacherIdentifier} type="text" value={this.state.teacherIdentifier} />
-        <button onClick={this.listUnsyncedStudentsByClassroom}>View Unsynced Students</button>
+        <label>
+          Teacher Email Or Username:
+          <input
+            aria-label="Teacher Email Or Username"
+            onChange={this.handleTeacherIdentifierUpdate}
+            type="text"
+            value={teacherIdentifier}
+          />
+        </label>
+        <button onClick={this.handleUnsyncedStudentsByClassroomListing} type="button" >View Unsynced Students</button>
       </div>
     )
   }
 
   renderError() {
-    if(this.state.error) {
-      return <p className="error">{this.state.error}</p>
+    const { error } = this.state
+
+    if(error) {
+      return <p className="error">{error}</p>
     }
   }
 
   renderInstructions() {
-
     return (
       <React.Fragment>
         <p>
           This allows you to remove all students from Quill classes that were previously synced from Google Classroom
           or Clever, but are no longer synced because they were removed from the class in Google Classroom or Clever.
-          To identify students in this state, go to a class synced from Google Classroom or Clever and look for "No"
-          in the "Synced" column.
+          To identify students in this state, go to a class synced from Google Classroom or Clever and look for
+          &quot;No&quot; in the &quot;Synced&quot; column.
         </p>
         <p>
-          If there are only a few students that need to be removed it is probably easier to use the "Remove from class"
-          action, which is available in the teacher dashboard, rather than this teacher fix.
+          If there are only a few students that need to be removed it is probably easier to use the &quot;Remove from
+          class&quot; action, which is available in the teacher dashboard, rather than this teacher fix.
         </p>
         <p>
           Please exercise caution when using this teacher fix, as removing a student from a class also removes their
@@ -85,18 +93,19 @@ export default class RemoveUnsyncedStudents extends React.Component {
           student (and their progress) to another class in the future.
         </p>
         <p>
-          Clicking "View unsynced students" below will show you a list of all unsynced students by class. It only
-          includes classes that the teacher owns (i.e. it does not include classes that the teacher co-teaches).
+          Clicking &quot;View unsynced students&quot; below will show you a list of all unsynced students by class. It
+          only includes classes that the teacher owns (i.e. it does not include classes that the teacher co-teaches).
         </p>
       </React.Fragment>
     )
   }
 
   renderUnsyncedStudentsByClassroom() {
-    if (this.state.unsyncedStudentsByClassroom === null) return null;
+    const { unsyncedStudentsByClassroom } = this.state
+    if (unsyncedStudentsByClassroom === null) return null;
 
-    if (this.state.unsyncedStudentsByClassroom.length > 0) {
-      const unsyncedStudentsByClassroomList = this.state.unsyncedStudentsByClassroom.map(classroom => {
+    if (unsyncedStudentsByClassroom.length > 0) {
+      const unsyncedStudentsByClassroomList = unsyncedStudentsByClassroom.map(classroom => {
         return (
           <div key={classroom.id}>
             <span>{classroom.name} ({classroom.code})</span>
@@ -115,7 +124,7 @@ export default class RemoveUnsyncedStudents extends React.Component {
       return (
         <div>
           {unsyncedStudentsByClassroomList}
-          <button onClick={this.removeUnsyncedStudents}>Remove Unsynced Students</button>
+          <button onClick={this.handleUnsyncedStudentsRemoval} type="button">Remove Unsynced Students</button>
         </div>
       )
     } else {
