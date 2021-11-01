@@ -243,6 +243,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'diagnostic_results_summary' => 'diagnostic_reports#diagnostic_results_summary'
       get 'diagnostic_growth_results_summary' => 'diagnostic_reports#diagnostic_growth_results_summary'
       get 'diagnostic_student_responses_index' => 'diagnostic_reports#diagnostic_student_responses_index'
+      get 'individual_student_diagnostic_responses/:student_id' => 'diagnostic_reports#individual_student_diagnostic_responses'
       get 'question_view/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#question_view'
       get 'classrooms_with_students/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#classrooms_with_students'
       get 'students_by_classroom/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#students_by_classroom'

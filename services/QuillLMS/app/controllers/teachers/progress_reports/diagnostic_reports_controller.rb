@@ -1,6 +1,7 @@
 class Teachers::ProgressReports::DiagnosticReportsController < Teachers::ProgressReportsController
     include PublicProgressReports
     include LessonsRecommendations
+    include SharedResultsSummary
     require 'pusher'
 
     before_action :authorize_teacher!, only: [:question_view, :students_by_classroom, :recommendations_for_classroom, :lesson_recommendations_for_classroom, :previously_assigned_recommendations]
@@ -62,6 +63,47 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         end
       end
       render json: { students: students }
+    end
+
+    def individual_student_diagnostic_responses
+      activity_id = individual_student_diagnostic_responses_params[:activity_id]
+      classroom_id = individual_student_diagnostic_responses_params[:classroom_id]
+      unit_id = individual_student_diagnostic_responses_params[:unit_id]
+      student_id = individual_student_diagnostic_responses_params[:student_id]
+      activity_session = find_activity_session_for_student_activity_and_classroom(student_id, activity_id, classroom_id, unit_id)
+      student = User.find_by_id(student_id)
+      skills = Activity.find(activity_id).skills.distinct
+      pre_test = Activity.find_by_follow_up_activity_id(activity_id)
+
+      if pre_test
+        pre_test_activity_session = find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, unit_id)
+        concept_results = {
+          pre: format_concept_results(pre_test_activity_session.concept_results),
+          post: format_concept_results(activity_session.concept_results)
+        }
+        formatted_skills = skills.map do |skill|
+          {
+            pre: data_for_skill_by_activity_session(pre_test_activity_session.id, skill),
+            post: data_for_skill_by_activity_session(activity_session.id, skill)
+          }
+        end
+        skill_results = { skills: formatted_skills }
+      else
+        concept_results = format_concept_results(activity_session.concept_results)
+        skill_results = { skills: skills.map { |skill| data_for_skill_by_activity_session(activity_session.id, skill) } }
+      end
+      render json: { concept_results: concept_results, skill_results: skill_results, name: student.name }
+    end
+
+    private def find_activity_session_for_student_activity_and_classroom(student_id, activity_id, classroom_id, unit_id)
+      if unit_id
+        classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
+        activity_session = ActivitySession.find_by(classroom_unit: classroom_unit, state: 'finished', user_id: student_id)
+      else
+        unit_ids = current_user.units.joins("JOIN unit_activities ON unit_activities.activity_id = #{activity_id}")
+        classroom_units = ClassroomUnit.where(unit_id: unit_ids, classroom_id: classroom_id)
+        activity_session = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished', user_id: student_id).order(completed_at: :desc).first
+      end
     end
 
     def classrooms_with_students
@@ -215,6 +257,10 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
     private def results_summary_params
       params.permit(:classroom_id, :activity_id, :unit_id)
+    end
+
+    private def individual_student_diagnostic_responses_params
+      params.permit(:student_id, :classroom_id, :activity_id, :unit_id)
     end
 
 end

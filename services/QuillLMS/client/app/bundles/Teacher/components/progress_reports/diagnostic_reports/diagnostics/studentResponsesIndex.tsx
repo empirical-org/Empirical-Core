@@ -97,7 +97,7 @@ const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => 
     )
   }
 
-  const responsesLink = (studentId) => `diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}${unitQueryString}`
+  const responsesLink = (studentId) => `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}${unitQueryString}`
 
   if (loading) { return <LoadingSpinner /> }
 
@@ -152,9 +152,7 @@ const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => 
       headers={mobileHeaders(worthSorting)}
       rows={mobileRows}
     />
-
-  </main>
-  )
+  </main>)
 }
 
 export default withRouter(StudentResponsesIndex)
