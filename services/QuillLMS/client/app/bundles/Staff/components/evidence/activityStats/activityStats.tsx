@@ -56,7 +56,7 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       display_name,
       num_final_attempt_optimal,
       num_final_attempt_not_optimal,
-      avg_attempts_to_optimal,
+      avg_attempts,
       num_sessions_with_consecutive_repeated_rule,
       num_sessions_with_non_consecutive_repeated_rule,
       num_first_attempt_optimal,
@@ -79,7 +79,7 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       finalAttemptData: `${percentageOptimalFinalAttempt}% (${num_final_attempt_optimal}) | ${percentageNotOptimalFinalAttempt}% (${num_final_attempt_not_optimal})`,
       ruleRepeatedConsecutiveData: `${percentageConsecutiveRepeatedRule}% (${num_sessions_with_consecutive_repeated_rule})`,
       ruleRepeatedNotConsecutiveData:  `${percentageNotConsecutiveRepeatedRule}% (${num_sessions_with_non_consecutive_repeated_rule})`,
-      averageAttemptsToOptimal: _.round(avg_attempts_to_optimal, 2),
+      averageAttempts: _.round(avg_attempts, 2),
       firstAttemptData: `${percentageOptimalFirstAttempt}% (${num_first_attempt_optimal}) | ${percentageNotOptimalFirstAttempt}% (${num_first_attempt_not_optimal})`,
     }
   })
@@ -110,9 +110,9 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       width: 160,
     },
     {
-      Header: 'Average Attempts to Optimal',
-      accessor: "averageAttemptsToOptimal",
-      key: "averageAttemptsToOptimal",
+      Header: 'Average Attempts',
+      accessor: "averageAttempts",
+      key: "averageAttempts",
       width: 120,
     },
     {
