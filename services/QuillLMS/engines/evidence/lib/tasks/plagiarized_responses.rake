@@ -73,6 +73,7 @@ namespace :plagiarized_responses do
     # Derived from lib/evidence/evidence/plagiarism_check.rb 'match_entry_on_passage'
     def minimum_edit_distance_per_slice(entry, plagiarism_text)
       match_minimum = 10
+      shortest_distance_we_care_about = 5
 
       entry_arr = entry.gsub(/[[:punct:]]/, '').downcase.split
       plagiarism_arr = plagiarism_text.gsub(/[[:punct:]]/, '').downcase.split
@@ -83,7 +84,7 @@ namespace :plagiarized_responses do
       slices.each do |slice|
         plagiarism_slices.each do |pslice|
           min_distance = levenshtein_distance(slice, pslice, 21)
-          return min_distance if min_distance <= 5
+          return min_distance if min_distance <= shortest_distance_we_care_about
         end
       end
       min_distance
