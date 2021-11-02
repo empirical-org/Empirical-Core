@@ -73,11 +73,7 @@ module Evidence
 
     def regex_is_passing?(entry)
       return true if regex_rules.empty?
-      if conditional
-        grade_sequences_conditionally(entry)
-      else
-        grade_sequences_separately(entry)
-      end
+      grade_sequences(entry)
     end
 
     def grade_sequences_separately(entry)
@@ -86,7 +82,12 @@ module Evidence
 
     def grade_sequences_conditionally(entry)
       return true if all_incorrect_sequences_passing?(entry)
-      return at_least_one_required_sequence_passing?(entry)
+      at_least_one_required_sequence_passing?(entry)
+    end
+
+    def grade_sequences(entry)
+      return true if all_incorrect_sequences_passing?(entry) && one_non_conditional_required_sequences_passing?(entry)
+      at_least_one_conditional_required_sequence_passing?(entry)
     end
 
     def display_name
@@ -165,6 +166,20 @@ module Evidence
     private def at_least_one_required_sequence_passing?(entry)
       return true if required_sequences.empty?
       required_sequences.any? do |regex_rule|
+        !regex_rule.entry_failing?(entry)
+      end
+    end
+
+    private def at_least_one_conditional_required_sequence_passing?(entry)
+      return false if required_sequences.where(conditional: true).empty?
+      required_sequences.where(conditional: true).any? do |regex_rule|
+        !regex_rule.entry_failing?(entry)
+      end
+    end
+
+    private def one_non_conditional_required_sequences_passing?(entry)
+      return true if required_sequences.where(conditional: false).empty?
+      required_sequences.where(conditional: false).any? do |regex_rule|
         !regex_rule.entry_failing?(entry)
       end
     end

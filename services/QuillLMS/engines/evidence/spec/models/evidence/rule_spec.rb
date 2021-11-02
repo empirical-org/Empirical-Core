@@ -190,7 +190,7 @@ module Evidence
       context 'when the regex rules are conditional' do
         let!(:rule) { create(:evidence_rule) }
         let!(:regex_rule) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "^Conditional-start", :sequence_type => "incorrect", :conditional => true) }
-        let!(:regex_rule_two) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "required-end.$", :sequence_type => "required", :conditional => false) }
+        let!(:regex_rule_two) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "required-end.$", :sequence_type => "required", :conditional => true) }
 
         it 'should require the required sequence if the incorrect sequence is present' do
           expect(rule.regex_is_passing?("Conditional-start that does not contain the right end.")).to(eq(false))
