@@ -12,6 +12,7 @@ Evidence::Engine.routes.draw do
     end
   end
   namespace :feedback do
+    post :prefilter
     post :automl
     post :plagiarism
     post 'regex/:rule_type' => :regex
