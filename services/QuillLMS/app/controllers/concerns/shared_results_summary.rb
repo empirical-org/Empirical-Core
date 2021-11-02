@@ -12,8 +12,6 @@ module SharedResultsSummary
   GAINED_PROFICIENCY = 'Gained proficiency'
   MAINTAINED_PROFICIENCY = 'Maintained proficiency'
 
-  extend self
-
   def data_for_skill_by_activity_session(activity_session_id, skill)
     concept_results = ConceptResult.where(activity_session_id: activity_session_id, concept_id: [skill.concept_ids])
     number_correct = concept_results.select(&:correct?).length
