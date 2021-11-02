@@ -5,11 +5,14 @@ import {
   expandIcon,
   triangleUpIcon,
 } from './shared'
+import {
+  SkillGroup
+} from './interfaces'
 
 const DEFAULT_ROW_COUNT = 3
 
-const GrowthSkillsTable = ({ skillGroup, isExpandable, }) => {
-  const [isExpanded, setIsExpanded] = React.useState(skillGroup.skills.length < DEFAULT_ROW_COUNT)
+const GrowthSkillsTable = ({ skillGroup, isExpandable, }: { skillGroup: SkillGroup, isExpandable?: boolean }) => {
+  const [isExpanded, setIsExpanded] = React.useState<boolean>(skillGroup.skills.length < DEFAULT_ROW_COUNT)
 
   function expandRows() { setIsExpanded(true) }
 

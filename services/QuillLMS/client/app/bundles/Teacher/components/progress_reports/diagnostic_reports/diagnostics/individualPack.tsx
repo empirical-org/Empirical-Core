@@ -150,7 +150,7 @@ const IndividualPack = ({ classrooms, history, match, location, }) => {
   const linkDropdownOptions = mobileLinkOptions(activeDiagnostic, location.search)
 
   const linkDropdown = (<DropdownInput
-    handleChange={onClassesDropdownChange}
+    handleChange={onLinkDropdownChange}
     isSearchable={false}
     options={linkDropdownOptions}
     value={linkDropdownOptions.find(opt => window.location.href.includes(opt.value))}

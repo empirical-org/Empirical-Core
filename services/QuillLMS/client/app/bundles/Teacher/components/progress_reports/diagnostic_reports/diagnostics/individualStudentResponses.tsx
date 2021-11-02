@@ -8,6 +8,10 @@ import {
   baseDiagnosticImageSrc,
   fileDocumentIcon,
 } from './shared'
+import {
+  SkillResults,
+  ConceptResults,
+} from './interfaces'
 
 import { DataTable, } from '../../../../../Shared/index'
 import LoadingSpinner from '../../../shared/loading_indicator.jsx'
@@ -91,10 +95,10 @@ const Tab = ({ activeTab, label, setPreOrPost, value, }) => {
 
 const IndividualStudentResponses = ({ match, passedConceptResults, passedSkillResults, mobileNavigation, }) => {
   const [loading, setLoading] = React.useState<boolean>(!(passedConceptResults && passedSkillResults));
-  const [name, setName] = React.useState('')
-  const [conceptResults, setConceptResults] = React.useState(passedConceptResults || []);
-  const [skillResults, setSkillResults] = React.useState(passedSkillResults || []);
-  const [preOrPost, setPreOrPost] = React.useState(PRE)
+  const [name, setName] = React.useState<string>('')
+  const [conceptResults, setConceptResults] = React.useState<ConceptResults>(passedConceptResults || []);
+  const [skillResults, setSkillResults] = React.useState<SkillResults>(passedSkillResults || []);
+  const [preOrPost, setPreOrPost] = React.useState<string>(PRE)
 
   const { activityId, classroomId, studentId, } = match.params
   const unitId = qs.parse(location.search.replace('?', '')).unit

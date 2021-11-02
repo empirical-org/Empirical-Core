@@ -6,21 +6,48 @@ import SkillsTable from './skillsTable'
 import GrowthSkillsTable from './growthSkillsTable'
 import {
   noDataYet,
-  FULLY_CORRECT,
   closeIcon,
   accountCommentIcon,
   proficiencyTextToTag,
   proficiencyTextToGrayIcon,
   lightGreenTriangleUpIcon,
-  triangleUpIcon,
 } from './shared'
+import {
+  SkillGroupSummary,
+  OpenPopover,
+  StudentResult,
+  SkillGroup,
+} from './interfaces'
 
 import {
   helpIcon,
   Tooltip,
 } from '../../../../../Shared/index'
 
-const Popover = ({ studentResult, skillGroup, closePopover, responsesLink, }) => {
+interface StudentResultsTableProps {
+  skillGroupSummaries: SkillGroupSummary[];
+  studentResults: StudentResult[];
+  openPopover: OpenPopover;
+  setOpenPopover: (popover: OpenPopover) => void;
+  responsesLink: (id: number) => string;
+}
+
+interface PopoverProps {
+  studentResult: StudentResult;
+  skillGroup: SkillGroup;
+  closePopover: () => void;
+  responsesLink: (id: number) => string;
+}
+
+interface StudentResultCellProps {
+  studentResult: StudentResult;
+  skillGroup: SkillGroup;
+  setOpenPopover: (popover: OpenPopover) => void;
+  openPopover: OpenPopover;
+  responsesLink: (id: number) => string;
+}
+
+const Popover = ({ studentResult, skillGroup, closePopover, responsesLink, }: PopoverProps) => {
   return (<div className="student-results-popover-container hide-on-mobile">
     <section className="student-results-popover">
       <header>
@@ -34,7 +61,7 @@ const Popover = ({ studentResult, skillGroup, closePopover, responsesLink, }) =>
   </div>)
 }
 
-const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopover, responsesLink, }) => {
+const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopover, responsesLink, }: StudentResultCellProps) => {
   const { proficiency_text, number_of_correct_skills_text, id, pre_test_proficiency, post_test_proficiency, acquired_skill_ids, } = skillGroup
   function showPopover() {
     setOpenPopover({
@@ -80,9 +107,9 @@ const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPo
     </div>
   </th>)
 
-  let skillGroupCells = skillGroupSummaries.map(skillGroupSummary => (<td key={skillGroupSummary.name} />))
+  let skillGroupCells = skillGroupSummaries.map((skillGroupSummary: SkillGroupSummary) => (<td key={skillGroupSummary.name} />))
   if (skill_groups) {
-    skillGroupCells = skill_groups.map(skillGroup => (
+    skillGroupCells = skill_groups.map((skillGroup: SkillGroup) => (
       <StudentResultCell
         key={`${id}-${skillGroup.skill_group}`}
         openPopover={openPopover}
@@ -96,7 +123,7 @@ const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPo
   return <tr key={name}>{firstCell}{skillGroupCells}</tr>
 }
 
-const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover, setOpenPopover, responsesLink, }) => {
+const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover, setOpenPopover, responsesLink, }: StudentResultsTableProps) => {
   const [isSticky, setIsSticky] = React.useState(false);
   const tableRef = React.useRef(null);
   const [stickyTableStyle, setStickyTableStyle] = React.useState({

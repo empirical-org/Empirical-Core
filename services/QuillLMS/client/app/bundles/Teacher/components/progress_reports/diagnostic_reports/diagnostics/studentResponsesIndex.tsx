@@ -15,6 +15,13 @@ import {
   DataTable,
 } from '../../../../../Shared/index'
 
+interface Student {
+  name: string;
+  score: number;
+  proficiency: string;
+  id: number;
+}
+
 const desktopHeaders = (isSortable) => ([
   {
     name: 'Name',
@@ -77,7 +84,7 @@ const ProficiencyKey = ({ className, studentCount, range, title, }) => {
 
 const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudents);
-  const [students, setStudents] = React.useState(passedStudents || []);
+  const [students, setStudents] = React.useState<Student[]>(passedStudents || []);
 
   const { activityId, classroomId, } = match.params
   const unitId = qs.parse(location.search.replace('?', '')).unit
@@ -97,7 +104,7 @@ const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => 
     )
   }
 
-  const responsesLink = (studentId) => `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}${unitQueryString}`
+  const responsesLink = (studentId: number) => `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}${unitQueryString}`
 
   if (loading) { return <LoadingSpinner /> }
 
@@ -110,6 +117,7 @@ const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => 
   const desktopRows = students.map(student => {
     const { name, score, proficiency, id, } = student
     return {
+      id,
       name,
       score,
       scoreElement: score ? <span className={proficiencyToClassName[proficiency]}>{score}%</span> : null,
@@ -121,6 +129,7 @@ const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => 
     const { name, score, proficiency, id, } = student
     const nameElement = score ? <Link to={responsesLink(id)}>{name}</Link> : <React.Fragment><span>{name}</span><span className="diagnostic-not-completed">Diagnostic not completed</span></React.Fragment>
     return {
+      id,
       name: nameElement,
       score,
       scoreElement: score ? <span className={proficiencyToClassName[proficiency]}>{score}%</span> : null,

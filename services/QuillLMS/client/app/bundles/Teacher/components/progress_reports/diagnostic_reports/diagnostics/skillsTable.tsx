@@ -4,11 +4,14 @@ import {
   FULLY_CORRECT,
   expandIcon
 } from './shared'
+import {
+  SkillGroup
+} from './interfaces'
 
 const DEFAULT_ROW_COUNT = 3
 
-const SkillsTable = ({ skillGroup, isExpandable, }) => {
-  const [isExpanded, setIsExpanded] = React.useState(skillGroup.skills.length < DEFAULT_ROW_COUNT)
+const SkillsTable = ({ skillGroup, isExpandable, }: { skillGroup: SkillGroup, isExpandable?: boolean }) => {
+  const [isExpanded, setIsExpanded] = React.useState<boolean>(skillGroup.skills.length < DEFAULT_ROW_COUNT)
 
   function expandRows() { setIsExpanded(true) }
 

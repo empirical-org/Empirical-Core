@@ -24,3 +24,70 @@ export interface Classroom {
   id: string;
   diagnostics: Array<Diagnostic>;
 }
+
+export interface ConceptResults {
+  pre?: ConceptResults;
+  post?: ConceptResults;
+  questions?: Question[]
+}
+
+interface Question {
+  directions: string;
+  prompt: string;
+  answer: string;
+  concepts: ConceptResult;
+  question_number: string;
+}
+
+interface ConceptResult {
+  id: number;
+  name: string;
+  correct: boolean;
+  lastFeedback: string;
+  attempt: number;
+  answer: string;
+  directions: string;
+}
+
+export interface SkillResults {
+  skills: Array<Skill>
+}
+
+export interface SkillGroup {
+  skills: Array<Skill>;
+  acquired_skill_ids: number[];
+  id: number;
+  number_of_correct_skills_text: string;
+  post_test_proficiency: string;
+  pre_test_proficiency: string;
+  proficiency_text: string;
+  skill_group: string;
+}
+
+export interface Skill {
+  pre?: Skill;
+  post?: Skill;
+  skill?: string;
+  number_correct: number;
+  number_incorrect: number;
+  summary: string;
+}
+
+export interface SkillGroupSummary {
+  name: string;
+  description?: string;
+  not_yet_proficient_in_post_test_student_names?: string[];
+  not_yet_proficient_in_pre_test_student_names?: string[];
+}
+
+export interface StudentResult {
+  name: string;
+  id?: number;
+  skill_groups?: SkillGroup[];
+  total_acquired_skills_count?: number;
+}
+
+export interface OpenPopover {
+  studentId?: number;
+  skillGroupId?: number;
+}
