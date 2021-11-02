@@ -123,7 +123,7 @@ const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries, match,
     )
   }
 
-  const responsesLink = (studentId) => `diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}`
+  const responsesLink = (studentId) => `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}`
 
   function closePopoverOnOutsideClick(e) {
     if (!openPopover.studentId) { return }

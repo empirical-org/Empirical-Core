@@ -100,7 +100,7 @@ const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobil
     )
   }
 
-  const responsesLink = (studentId) => `diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}${unitQueryString}`
+  const responsesLink = (studentId) => `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}${unitQueryString}`
 
   function closePopoverOnOutsideClick(e) {
     if (!openPopover.studentId) { return }

@@ -114,10 +114,6 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
     } else {
       isSticky && setIsSticky(false);
     }
-
-    const element = document.getElementsByClassName('student-results-table')[0]
-    const containerElement = document.getElementsByClassName('student-results-table-container')[0]
-
   }, [isSticky]);
 
   const onScroll = () => handleScroll(tableRef.current.getBoundingClientRect());
