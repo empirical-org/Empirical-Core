@@ -135,7 +135,7 @@ module PagesHelper
           },
           {
             name: 'Daniel Giovanniello',
-            title: 'Partnerships Associate',
+            title: 'Partnerships Specialist',
             img: 'team-daniel-giovanniello@2x.png'
           },
           {
