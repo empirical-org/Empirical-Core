@@ -1,5 +1,5 @@
 module GrowthResultsSummary
-  include CommonResultsSummary
+  include SharedResultsSummary
   extend ActiveSupport::Concern
 
   extend self

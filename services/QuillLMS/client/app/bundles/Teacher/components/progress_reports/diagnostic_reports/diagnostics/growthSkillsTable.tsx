@@ -2,10 +2,17 @@ import * as React from 'react'
 
 import {
   FULLY_CORRECT,
+  expandIcon,
   triangleUpIcon,
 } from './shared'
 
-const GrowthSkillsTable = ({ skillGroup, }) => {
+const DEFAULT_ROW_COUNT = 3
+
+const GrowthSkillsTable = ({ skillGroup, isExpandable, }) => {
+  const [isExpanded, setIsExpanded] = React.useState(skillGroup.skills.length < DEFAULT_ROW_COUNT)
+
+  function expandRows() { setIsExpanded(true) }
+
   const skillGainedTag = <span className="skill-gained-tag">{triangleUpIcon}<span>Skill gained</span></span>
   const skillRows = skillGroup.skills.map(skill => {
     const { pre, post, } = skill
@@ -26,18 +33,27 @@ const GrowthSkillsTable = ({ skillGroup, }) => {
       </td>
     </tr>)
   })
-  return (<table className="growth-skills-table">
-    <thead>
-      <tr>
-        <th className="skill-column-header">Skill</th>
-        <th />
-        <th>Correct</th>
-        <th>Incorrect</th>
-        <th className="summary-header">Summary</th>
-      </tr>
-    </thead>
-    <tbody>{skillRows}</tbody>
-  </table>)
+
+  const displayedRows = isExpandable && !isExpanded ? skillRows.splice(0, DEFAULT_ROW_COUNT) : skillRows
+  const showMoreButton = isExpandable && !isExpanded ? <button className="show-more-button" onClick={expandRows} type="button"><span>Show more</span>{expandIcon}</button>: null
+
+  const tableClassName = isExpandable && !isExpanded ? 'contracted' : ''
+
+  return (<div className="skills-table-container">
+    <table className={`growth-skills-table ${tableClassName}`}>
+      <thead>
+        <tr>
+          <th className="skill-column-header">Skill</th>
+          <th />
+          <th>Correct</th>
+          <th>Incorrect</th>
+          <th className="summary-header">Summary</th>
+        </tr>
+      </thead>
+      <tbody>{displayedRows}</tbody>
+    </table>
+    {showMoreButton}
+  </div>)
 }
 
 export default GrowthSkillsTable

@@ -88,7 +88,16 @@
       margin-right: 16px;
     }
   }
-  
+
+  .growth-skills-table {
+    .skill-column-header {
+      width: 128px;
+    }
+    .summary-header {
+      width: 176px;
+    }
+  }
+
   @media (max-width: 930px) {
     .skill-group-summary-card {
       .percentage-circles {

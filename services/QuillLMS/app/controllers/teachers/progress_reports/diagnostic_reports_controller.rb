@@ -78,8 +78,8 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       if pre_test
         pre_test_activity_session = find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, unit_id)
         concept_results = {
-          pre: format_concept_results(pre_test_activity_session.concept_results),
-          post: format_concept_results(activity_session.concept_results)
+          pre: { questions: format_concept_results(pre_test_activity_session.concept_results.order("(metadata->>'questionNumber')::int")) },
+          post: { questions: format_concept_results(activity_session.concept_results.order("(metadata->>'questionNumber')::int")) }
         }
         formatted_skills = skills.map do |skill|
           {
@@ -89,7 +89,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         end
         skill_results = { skills: formatted_skills }
       else
-        concept_results = format_concept_results(activity_session.concept_results)
+        concept_results = { questions: format_concept_results(activity_session.concept_results.order("(metadata->>'questionNumber')::int")) }
         skill_results = { skills: skills.map { |skill| data_for_skill_by_activity_session(activity_session.id, skill) } }
       end
       render json: { concept_results: concept_results, skill_results: skill_results, name: student.name }

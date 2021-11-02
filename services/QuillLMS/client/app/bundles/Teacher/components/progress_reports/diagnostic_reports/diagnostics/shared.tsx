@@ -2,12 +2,15 @@ import * as React from 'react'
 
 import * as assignmentFlowConstants from '../../../assignment_flow/assignmentFlowConstants'
 
-export const baseDiagnosticImageSrc = `${process.env.CDN_URL}/images/pages/diagnostic_reports`
+export const baseImageSrc = `${process.env.CDN_URL}/images`
+export const baseDiagnosticImageSrc = `${baseImageSrc}/pages/diagnostic_reports`
 export const accountCommentIcon = <img alt="Person messaging icon" src={`${baseDiagnosticImageSrc}/icons-comment-account.svg`} />
 export const triangleUpIcon = <img alt="Triangle up icon" src={`${baseDiagnosticImageSrc}/icons-triangle-up-green.svg`} />
 export const lightGreenTriangleUpIcon = <img alt="Triangle up icon" src={`${baseDiagnosticImageSrc}/icons-triangle-up-light-green.svg`} />
-export const closeIcon = <img alt="Close icon" src={`${process.env.CDN_URL}/images/icons/close.svg`} />
+export const closeIcon = <img alt="Close icon" src={`${baseImageSrc}/icons/close.svg`} />
 export const fileDocumentIcon = <img alt="File document icon" src={`${baseDiagnosticImageSrc}/icons-file-document.svg`} />
+export const expandIcon = <img alt="Expand icon" src={`${baseImageSrc}/icons/expand.svg`} />
+
 
 export function goToAssign(unitTemplateId, name, activityId) {
   const unitTemplateIdString = unitTemplateId.toString();
