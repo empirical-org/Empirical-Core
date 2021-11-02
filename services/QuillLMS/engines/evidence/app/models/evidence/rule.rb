@@ -76,15 +76,6 @@ module Evidence
       grade_sequences(entry)
     end
 
-    def grade_sequences_separately(entry)
-      all_incorrect_sequences_passing?(entry) && at_least_one_required_sequence_passing?(entry)
-    end
-
-    def grade_sequences_conditionally(entry)
-      return true if all_incorrect_sequences_passing?(entry)
-      at_least_one_required_sequence_passing?(entry)
-    end
-
     def grade_sequences(entry)
       return true if all_incorrect_sequences_passing?(entry) && one_non_conditional_required_sequences_passing?(entry)
       at_least_one_conditional_required_sequence_passing?(entry)
@@ -153,20 +144,13 @@ module Evidence
 
     def conditional
       return nil if !regex? || regex_rules.empty?
-      return regex_rules.first.conditional?
+      return regex_rules.all? { |r| r.conditional? }
     end
 
     private def all_incorrect_sequences_passing?(entry)
       return true if incorrect_sequences.empty?
       incorrect_sequences.none? do |regex_rule|
         regex_rule.entry_failing?(entry)
-      end
-    end
-
-    private def at_least_one_required_sequence_passing?(entry)
-      return true if required_sequences.empty?
-      required_sequences.any? do |regex_rule|
-        !regex_rule.entry_failing?(entry)
       end
     end
 

@@ -114,6 +114,7 @@ module Evidence
         expect(required_rule.conditional).to(eq(true))
 
         regex_rule_three.update(conditional: false)
+        required_rule.regex_rules.reload
         expect(required_rule.conditional).to eq(false)
       end
 
