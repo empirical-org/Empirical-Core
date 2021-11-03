@@ -41,9 +41,9 @@ module Evidence
         "subject_verb_agreement_with_simple_noun_singular_noun_with_singular_to_have_verb_optimal_and_error_is_plural_to_have_verb" => '3feb708d-b789-42dc-8b7a-7288a0945fff',
         "than_versus_then_than_optimal" => '4aa3f48b-7be9-414b-91e0-ffa92c85f323',
         "than_versus_then_then_optimal" => 'ad97bd7a-1215-4c52-91ec-8973d646a381',
-        "their_vs._there_vs._they_re_they_optimal" => 'e4cf078b-a838-445e-a873-c795da9f7ed8',
-        "their_vs._there_vs.they_re_their_optimal" => '6ca8f080-c4a2-470e-8171-0fa72f0b18da',
-        "their_vs._there_vs.they_re_there_optimal" => 'f257a25f-8bc3-46ce-b811-82cbd98fad2a',
+        "their_vs_there_vs_they_re_they_optimal" => 'e4cf078b-a838-445e-a873-c795da9f7ed8',
+        "their_vs_there_vs_they_re_their_optimal" => '6ca8f080-c4a2-470e-8171-0fa72f0b18da',
+        "their_vs_there_vs_they_re_there_optimal" => 'f257a25f-8bc3-46ce-b811-82cbd98fad2a',
         "through_vs_threw_vs_thru" => '1f3cff3f-47ef-4e92-b7d5-9867cb4f3dff',
         "to_vs_too_vs_two" => '1522516d-4bdb-4cd1-8f90-30f4f4be3f30',
         "who_s_vs_whose" => 'b4d8997f-736b-41fc-92c5-b410981b43cb'
