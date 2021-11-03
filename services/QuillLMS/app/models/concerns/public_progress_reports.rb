@@ -1,5 +1,6 @@
 module PublicProgressReports
     extend ActiveSupport::Concern
+    include DiagnosticReports
 
     def last_completed_diagnostic
       diagnostic_activity_ids = Activity.diagnostic_activity_ids
@@ -247,15 +248,12 @@ module PublicProgressReports
       end
     end
 
-    def generate_recommendations_for_classroom(unit_id, classroom_id, activity_id)
-      classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
-      classroom = Classroom.find(classroom_id)
+    def generate_recommendations_for_classroom(current_user, unit_id, classroom_id, activity_id)
+      set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id)
       diagnostic = Activity.find(activity_id)
-      activity_sessions = ActivitySession.includes(concept_results: :concept)
-                      .where(classroom_unit_id: classroom_unit.id, is_final_score: true, activity: activity_id)
+      activity_sessions = @activity_sessions.includes(concept_results: :concept)
       activity_sessions_counted = activity_sessions_with_counted_concepts(activity_sessions)
-      students = classroom.students.map do |s|
-        next unless classroom_unit.assigned_student_ids.include?(s&.id)
+      students = @assigned_students.map do |s|
         completed = activity_sessions.any? { |session| session.user_id == s&.id }
         {id: s&.id, name: s&.name || "Unknown Student", completed: completed }
       end

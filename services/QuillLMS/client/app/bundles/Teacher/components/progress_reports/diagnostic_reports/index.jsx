@@ -23,7 +23,7 @@ class DiagnosticReports extends React.Component {
   componentDidMount() {
     const params = this.parseParams(this.props.location.pathname);
 		// /activity_packs, /not_completed, and /diagnostics are the only report that doesn't require the classroom, unit, etc...
-    if (this.onPageThatHandlesItsOwnRendering()) {
+    if (!this.onPageThatHandlesItsOwnRendering()) {
 			this.getStudentAndActivityData();
 		}
 		if (params.studentId) {
@@ -36,13 +36,14 @@ class DiagnosticReports extends React.Component {
 		if (nextParams && nextParams.studentId) {
 			this.setStudentId(nextParams.studentId);
 		}
-    if (this.onPageThatHandlesItsOwnRendering()) {
+    if (!this.onPageThatHandlesItsOwnRendering()) {
 			this.getStudentAndActivityData(nextParams);
 		}
 	};
 
   onPageThatHandlesItsOwnRendering = () => {
     const { location, } = this.props
+    console.log('do you think I am here', ['/activity_packs', '/not_completed', '/diagnostics'].indexOf(location.pathname) !== -1 || location.pathname.includes('/diagnostics'))
     return ['/activity_packs', '/not_completed', '/diagnostics'].indexOf(location.pathname) !== -1 || location.pathname.includes('/diagnostics')
   }
 
@@ -75,6 +76,7 @@ class DiagnosticReports extends React.Component {
 		let ajax = this.ajax;
     const that = this
     const p = params || this.parseParams(this.props.location.pathname);
+    console.log('is this getting called')
 		ajax.getClassroomsWithStudents = $.get(`/teachers/progress_reports/classrooms_with_students/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`, function(data) {
 			that.setState({
 				classrooms: data,

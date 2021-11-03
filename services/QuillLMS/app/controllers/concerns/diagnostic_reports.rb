@@ -1,4 +1,4 @@
-module SharedResultsSummary
+module DiagnosticReports
   extend ActiveSupport::Concern
 
   NOT_PRESENT = 'Not present'
@@ -35,4 +35,19 @@ module SharedResultsSummary
       PARTIALLY_CORRECT
     end
   end
+
+  private def set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id)
+    if unit_id
+      classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
+      @assigned_students = User.where(id: classroom_unit.assigned_student_ids).sort_by { |u| u.last_name }
+      @activity_sessions = ActivitySession.where(classroom_unit: classroom_unit, state: 'finished')
+    else
+      unit_ids = current_user.units.joins("JOIN unit_activities ON unit_activities.activity_id = #{activity_id}")
+      classroom_units = ClassroomUnit.where(unit_id: unit_ids, classroom_id: classroom_id)
+      assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
+      @assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
+      @activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
+    end
+  end
+
 end

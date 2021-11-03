@@ -1,7 +1,7 @@
 class Teachers::ProgressReports::DiagnosticReportsController < Teachers::ProgressReportsController
     include PublicProgressReports
     include LessonsRecommendations
-    include SharedResultsSummary
+    include DiagnosticReports
     require 'pusher'
 
     before_action :authorize_teacher!, only: [:question_view, :students_by_classroom, :recommendations_for_classroom, :lesson_recommendations_for_classroom, :previously_assigned_recommendations]
@@ -26,7 +26,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       activity_id = results_summary_params[:activity_id]
       classroom_id = results_summary_params[:classroom_id]
       unit_id = results_summary_params[:unit_id]
-      set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id)
+      set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id)
 
       render json: { students: diagnostic_student_responses }
     end
@@ -67,11 +67,11 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def recommendations_for_classroom
-        render json: generate_recommendations_for_classroom(params[:unit_id], params[:classroom_id], params[:activity_id])
+        render json: generate_recommendations_for_classroom(current_user, params[:unit_id], params[:classroom_id], params[:activity_id])
     end
 
     def lesson_recommendations_for_classroom
-      render json: {lessonsRecommendations: get_recommended_lessons(params[:unit_id], params[:classroom_id], params[:activity_id])}
+      render json: {lessonsRecommendations: get_recommended_lessons(current_user, params[:unit_id], params[:classroom_id], params[:activity_id])}
     end
 
     def diagnostic_activity_ids
@@ -226,20 +226,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         unit_ids = current_user.units.joins("JOIN unit_activities ON unit_activities.activity_id = #{activity_id}")
         classroom_units = ClassroomUnit.where(unit_id: unit_ids, classroom_id: classroom_id)
         activity_session = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished', user_id: student_id).order(completed_at: :desc).first
-      end
-    end
-
-    private def set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id)
-      if unit_id
-        classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
-        @assigned_students = User.where(id: classroom_unit.assigned_student_ids).sort_by { |u| u.last_name }
-        @activity_sessions = ActivitySession.where(classroom_unit: classroom_unit, state: 'finished')
-      else
-        unit_ids = current_user.units.joins("JOIN unit_activities ON unit_activities.activity_id = #{activity_id}")
-        classroom_units = ClassroomUnit.where(unit_id: unit_ids, classroom_id: classroom_id)
-        assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
-        @assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
-        @activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
       end
     end
 

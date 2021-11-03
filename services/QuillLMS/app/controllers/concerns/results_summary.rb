@@ -1,5 +1,5 @@
 module ResultsSummary
-  include SharedResultsSummary
+  include DiagnosticReports
   extend ActiveSupport::Concern
 
   extend self
@@ -8,7 +8,7 @@ module ResultsSummary
     @current_user = current_user
     activity = Activity.find(activity_id)
     @skill_groups = activity.skill_groups
-    set_activity_sessions_and_assigned_students(activity_id, classroom_id, unit_id)
+    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id)
     @skill_group_summaries = @skill_groups.map do |skill_group|
       {
         name: skill_group.name,
@@ -21,20 +21,6 @@ module ResultsSummary
       student_results: student_results,
       skill_group_summaries: @skill_group_summaries
     }
-  end
-
-  private def set_activity_sessions_and_assigned_students(activity_id, classroom_id, unit_id)
-    if unit_id
-      classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
-      @assigned_students = User.where(id: classroom_unit.assigned_student_ids).sort_by { |u| u.last_name }
-      @activity_sessions = ActivitySession.where(classroom_unit: classroom_unit, state: 'finished')
-    else
-      unit_ids = @current_user.units.joins("JOIN unit_activities ON unit_activities.activity_id = #{activity_id}")
-      classroom_units = ClassroomUnit.where(unit_id: unit_ids, classroom_id: classroom_id)
-      assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
-      @assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
-      @activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
-    end
   end
 
   private def student_results
