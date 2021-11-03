@@ -180,7 +180,10 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       if params[:whole_class]
         $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.now)
         return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
-        UnitTemplate.assign_to_whole_class(params[:classroom_id], params[:unit_template_id])
+        params[:unit_template_ids].each_with_index do |unit_template_id, index|
+          last = (params[:unit_template_ids].length - 1 == index)
+          UnitTemplate.assign_to_whole_class(params[:classroom_id], unit_template_id, last)
+        end
       else
         selections_with_students = params[:selections].select do |ut|
           ut[:classrooms][0][:student_ids]&.compact&.any?

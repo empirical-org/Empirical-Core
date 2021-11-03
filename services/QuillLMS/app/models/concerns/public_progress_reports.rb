@@ -251,10 +251,9 @@ module PublicProgressReports
     def generate_recommendations_for_classroom(current_user, unit_id, classroom_id, activity_id)
       set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id)
       diagnostic = Activity.find(activity_id)
-      activity_sessions = @activity_sessions.includes(concept_results: :concept)
-      activity_sessions_counted = activity_sessions_with_counted_concepts(activity_sessions)
+      activity_sessions_counted = activity_sessions_with_counted_concepts(@activity_sessions)
       students = @assigned_students.map do |s|
-        completed = activity_sessions.any? { |session| session.user_id == s&.id }
+        completed = @activity_sessions.any? { |session| session.user_id == s&.id }
         {id: s&.id, name: s&.name || "Unknown Student", completed: completed }
       end
 
@@ -284,6 +283,7 @@ module PublicProgressReports
 
     def return_value_for_recommendation(students, activity_pack_recommendation)
       {
+        activity_count: activity_pack_recommendation[:activityCount],
         activity_pack_id: activity_pack_recommendation[:activityPackId],
         name: activity_pack_recommendation[:recommendation],
         students: students
@@ -315,7 +315,7 @@ module PublicProgressReports
         .where("classroom_units.classroom_id=?", classroom_id)
         .pluck(:unit_template_id)
       {
-        previouslyAssignedRecommendations: assigned_recommendations,
+        previouslyAssignedIndependentRecommendations: assigned_recommendations,
         previouslyAssignedLessonsRecommendations: assigned_lesson_ids
       }
     end

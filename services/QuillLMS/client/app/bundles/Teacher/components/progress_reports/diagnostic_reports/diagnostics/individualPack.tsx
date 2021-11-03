@@ -7,6 +7,7 @@ import GrowthResults from './growthResults'
 import Results from './results'
 import StudentResponsesIndex from './studentResponsesIndex'
 import IndividualStudentResponses from './individualStudentResponses'
+import Recommendations from './recommendations'
 import { Classroom, Activity, Diagnostic, } from './interfaces'
 import { goToAssign, baseDiagnosticImageSrc, accountCommentIcon, closeIcon, } from './shared'
 
@@ -170,6 +171,7 @@ const IndividualPack = ({ classrooms, history, match, location, }) => {
     <Switch>
       <Route path='/diagnostics/:activityId/classroom/:classroomId/growth_results' render={() => <GrowthResults {...sharedProps} />} />
       <Route path='/diagnostics/:activityId/classroom/:classroomId/results' render={() => <Results {...sharedProps} />} />
+      <Route path='/diagnostics/:activityId/classroom/:classroomId/recommendations' render={() => <Recommendations {...sharedProps} />} />
       <Route path='/diagnostics/:activityId/classroom/:classroomId/responses/:studentId' render={() => <IndividualStudentResponses {...sharedProps} />} />
       <Route path='/diagnostics/:activityId/classroom/:classroomId/responses' render={() => <StudentResponsesIndex {...sharedProps} />} />
     </Switch>

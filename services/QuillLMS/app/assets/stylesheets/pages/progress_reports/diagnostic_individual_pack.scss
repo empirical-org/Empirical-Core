@@ -135,6 +135,20 @@
       color: #262626;
     }
   }
+
+  .no-data-yet {
+    text-align: center;
+    h5 {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.38;
+      color: #262626;
+    }
+    p {
+      color: #5c5c5c;
+    }
+  }
+  
   @media (max-width: 930px) {
     main {
       width: 100%;
