@@ -114,7 +114,7 @@ class UnitActivity < ApplicationRecord
           ua.id AS ua_id,
           unit.created_at AS unit_created_at,
           unit.name AS unit_name,
-          cu.id AS ca_id,
+          cu.id AS classroom_unit_id,
           COALESCE(cuas.completed, false) AS marked_complete,
           ua.activity_id,
           MAX(acts.updated_at) AS act_sesh_updated_at,
