@@ -105,6 +105,7 @@ export interface LessonRecommendation {
   name: string;
   percentage_needing_instruction: number;
   previously_assigned: boolean;
+  students_needing_instruction: string[];
 }
 
 export interface LessonsActivity {

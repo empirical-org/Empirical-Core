@@ -8,11 +8,7 @@ class LessonRecommendationsQuery
   end
 
   def activity_recommendations
-    if classroom_id
-      mark_previously_assigned(recommendations, classroom_id)
-    else
-      recommendations
-    end
+    recommendations
   end
 
   private def activity
@@ -50,26 +46,6 @@ class LessonRecommendationsQuery
       url = "/activity_sessions/anonymous?activity_id=#{act['id']}"
       { name: act['name'], url: url }
     end
-  end
-
-  private def previous_unit_names(classroom_id)
-    RawSqlRunner.execute(
-      <<-SQL
-        SELECT DISTINCT unit.name
-        FROM units unit
-        LEFT JOIN classroom_units AS cu
-          ON cu.unit_id = unit.id
-        WHERE cu.classroom_id = #{classroom_id}
-          AND cu.visible = true
-          AND unit.visible = true
-      SQL
-    ).values.flatten
-  end
-
-  private def mark_previously_assigned(recs, classroom_id)
-    prev_names = previous_unit_names(classroom_id)
-    recs.each { |r| r[:previously_assigned] = prev_names.include?(r[:recommendation]) }
-    recs
   end
 
   private def serialized_recommendations

@@ -7,6 +7,9 @@ import * as _ from 'lodash'
 import {
   fileDocumentIcon,
   asteriskIcon,
+  correctImage,
+  informationIcon,
+  expandIcon,
 } from './shared'
 import RecommendationsTable from './recommendationsTable'
 import {
@@ -22,8 +25,82 @@ import {
   Tooltip,
   Snackbar,
   defaultSnackbarTimeout,
+  smallWhiteCheckIcon,
+  previewIcon,
 } from '../../../../../Shared/index'
 import useSnackbarMonitor from '../../../../../Shared/hooks/useSnackbarMonitor'
+
+const LESSONS_RECOMMENDATION_THRESHOLD = 50
+
+const LessonRecommendation = ({ previouslyAssignedRecommendations, selections, setSelections, recommendation, }) => {
+  const [isExpanded, setIsExpanded] = React.useState(false)
+
+  const { activity_pack_id, name, students_needing_instruction, activities, percentage_needing_instruction, } = recommendation
+
+  function toggleExpansion() {
+    setIsExpanded(!isExpanded)
+  }
+
+  function toggleSelection() {
+    if (selections.includes(activity_pack_id)) {
+      setSelections(selections.filter(selection => selection !== activity_pack_id))
+    } else {
+      setSelections(selections.concat([activity_pack_id]))
+    }
+  }
+
+  const isAssigned = previouslyAssignedRecommendations.includes(activity_pack_id)
+  const isSelected = selections.find(s => s === activity_pack_id)
+  const isRecommended = percentage_needing_instruction >= LESSONS_RECOMMENDATION_THRESHOLD
+
+  let checkbox = <button aria-label="Unchecked checkbox" className="quill-checkbox unselected" onClick={toggleSelection} type="button" />
+  const assigned = <div className="assigned">{correctImage}<span>Assigned</span></div>
+  if (isSelected) {
+    checkbox = (<button aria-label="Checked checkbox" className="quill-checkbox selected" onClick={toggleSelection} type="button" >
+      <img alt={smallWhiteCheckIcon.alt} src={smallWhiteCheckIcon.src} />
+    </button>)
+  }
+  const studentNames = students_needing_instruction.join('<br/>')
+  const activityRows = activities.map(activity => {
+    return (<div className="activity-row" key={activity.name}>
+      <span>{activity.name}</span>
+      <a className="interactive-wrapper focus-on-light" href={activity.url} rel="noopener noreferrer" target="_blank">
+        <img alt={previewIcon.alt} src={previewIcon.src} />
+        <span>Preview</span>
+      </a>
+    </div>)
+  })
+
+  let topRowConditionalContent = (<div>
+    <Tooltip
+      tooltipText={studentNames}
+      tooltipTriggerText={informationIcon}
+    />
+    <span>{students_needing_instruction.length} student{students_needing_instruction.length === 1 ? '' : 's'} need{students_needing_instruction.length === 1 ? 's' : ''} instruction</span>
+    <span className="activities-count">{activities.length} lesson{activities.length === 1 ? '' : 's'}</span>
+    <button className="interactive-wrapper" onClick={toggleExpansion} type="button">{expandIcon}</button>
+  </div>)
+
+  if (isAssigned) {
+    topRowConditionalContent = assigned
+  }
+
+  return (<section className={`lessons-recommendation ${isExpanded? 'is-expanded' : ''}`}>
+    <div className="top-row">
+      <div>
+        {isRecommended ? asteriskIcon : <span className="asterisk-placeholder" />}
+        {isAssigned ? <span className="checkbox-placeholder" /> : checkbox}
+        <h3>{name}</h3>
+      </div>
+      {topRowConditionalContent}
+    </div>
+    {isExpanded && activityRows}
+  </section>)
+}
+
+const LessonsRecommendations = ({ previouslyAssignedRecommendations, recommendations, selections, setSelections, }) => {
+  return recommendations.map(recommendation => <LessonRecommendation key={recommendation.activity_pack_id} previouslyAssignedRecommendations={previouslyAssignedRecommendations} recommendation={recommendation} selections={selections} setSelections={setSelections} />)
+}
 
 const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActivityPacks, deselectAll, selectAll, selectAllRecommended}) => {
   let assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assign activity packs</button>
@@ -94,11 +171,7 @@ const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonsActivit
     setLessonsSelections([])
   }
 
-  function assignActivityPacks() {
-    lessonsSelections.forEach(selection => assignLessonsActivityPacks(selection))
-  }
-
-  return <RecommendationsButtons assignActivityPacks={assignActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={lessonsSelections.length} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
+  return <RecommendationsButtons assignActivityPacks={assignLessonsActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={lessonsSelections.length} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
 }
 
 const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedRecommendations, passedLessonRecommendations, match, mobileNavigation, }) => {
@@ -225,9 +298,9 @@ const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPrevio
     setShowSnackbar(true)
   }
 
-  function assignLessonsActivityPacks(unitTemplateIds) {
+  function assignLessonsActivityPacks() {
     initializePusher(true)
-    requestPost('/teachers/progress_reports/assign_selected_packs/', { whole_class: true, unit_template_ids: unitTemplateIds, classroom_id: params.classroomId }, (data) => {}, (data) => {
+    requestPost('/teachers/progress_reports/assign_selected_packs/', { whole_class: true, unit_template_ids: lessonsSelections, classroom_id: params.classroomId }, (data) => {}, (data) => {
       alert('We had trouble processing your request. Please check your network connection and try again.');
     })
   }
@@ -268,6 +341,23 @@ const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPrevio
     <span>Recommended</span>
   </div>)
 
+  let wholeClassInstructionSection
+
+  if (lessonsRecommendations) {
+    wholeClassInstructionSection = (<section className="whole-class-instruction">
+      <div className="section-header">
+        <h2>Whole class instruction</h2>
+        <Tooltip
+          tooltipText="Quill recommends a Quill Lessons activity when at least 50% of the students in your class need instruction on a particular skill. Quill Lessons are teacher-led lessons that include a full lesson plan, suggested slides, real-time paired practice, and whole-class discussion time. Each lesson is focused on a specific grammar skill."
+          tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+        />
+        {recommendedKey}
+      </div>
+      <LessonsRecommendationsButtons assigned={lessonsAssigned} assigning={lessonsAssigning} assignLessonsActivityPacks={assignLessonsActivityPacks} lessonsRecommendations={lessonsRecommendations} lessonsSelections={lessonsSelections} setLessonsSelections={setLessonsSelections} students={students} />
+      <LessonsRecommendations previouslyAssignedRecommendations={previouslyAssignedLessonsRecommendations} recommendations={lessonsRecommendations} selections={lessonsSelections} setSelections={setLessonsSelections} />
+    </section>)
+  }
+
   return (<main className="diagnostic-recommendations-container">
     <Snackbar text={snackbarText} visible={showSnackbar} />
     <header>
@@ -281,17 +371,7 @@ const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPrevio
       <IndependentRecommendationsButtons assignActivityPacks={assignIndependentActivityPacks} assigned={independentAssigned} assigning={independentAssigning} independentSelections={independentSelections} recommendations={independentRecommendations} setIndependentSelections={setIndependentSelections} students={students} />
       <RecommendationsTable previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} selections={independentSelections} setSelections={setIndependentSelections} students={students} />
     </section>
-    <section className="whole-class-instruction">
-      <div className="section-header">
-        <h2>Whole class instruction</h2>
-        <Tooltip
-          tooltipText="Quill recommends a Quill Lessons activity when at least 50% of the students in your class need instruction on a particular skill. Quill Lessons are teacher-led lessons that include a full lesson plan, suggested slides, real-time paired practice, and whole-class discussion time. Each lesson is focused on a specific grammar skill."
-          tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
-        />
-        {recommendedKey}
-      </div>
-      <LessonsRecommendationsButtons assigned={lessonsAssigned} assigning={lessonsAssigning} assignLessonsActivityPacks={assignLessonsActivityPacks} lessonsRecommendations={lessonsRecommendations} lessonsSelections={independentSelections} setLessonsSelections={setLessonsSelections} students={students} />
-    </section>
+    {wholeClassInstructionSection}
   </main>
   )
 }

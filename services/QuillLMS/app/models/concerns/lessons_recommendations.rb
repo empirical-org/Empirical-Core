@@ -22,29 +22,33 @@ module LessonsRecommendations
         @classroom_id
       ).activity_recommendations.map do |lessons_rec|
         fail_count = 0
+        students_needing_instruction = []
         @activity_sessions_with_counted_concepts.each do |activity_session|
           lessons_rec[:requirements]&.each do |req|
             if req[:noIncorrect] && activity_session[:concept_scores][req[:concept_id]]["total"] > activity_session[:concept_scores][req[:concept_id]]["correct"]
               fail_count += 1
+              students_needing_instruction.push(activity_session[:user_name])
               break
             end
             if activity_session[:concept_scores][req[:concept_id]]["correct"] < req[:count]
               fail_count += 1
+              students_needing_instruction.push(activity_session[:user_name])
               break
             end
           end
         end
-        return_value_for_lesson_recommendation(lessons_rec, fail_count)
+        students_needing_instruction = students_needing_instruction.sort_by { |name| name.split(' ')[-1] }
+        return_value_for_lesson_recommendation(lessons_rec, fail_count, students_needing_instruction)
       end
     end
 
-    def return_value_for_lesson_recommendation(lessons_rec, fail_count)
+    def return_value_for_lesson_recommendation(lessons_rec, fail_count, students_needing_instruction)
       {
         activity_pack_id: lessons_rec[:activityPackId],
         name: lessons_rec[:recommendation],
+        students_needing_instruction: students_needing_instruction,
         percentage_needing_instruction: percentage_needing_instruction(fail_count),
         activities: lessons_rec[:activities],
-        previously_assigned: lessons_rec[:previously_assigned]
       }
     end
 

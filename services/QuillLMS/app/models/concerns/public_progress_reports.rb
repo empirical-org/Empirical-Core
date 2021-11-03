@@ -324,6 +324,7 @@ module PublicProgressReports
       activity_sessions.map do |activity_session|
         {
           user_id: activity_session.user_id,
+          user_name: activity_session.user.name,
           concept_scores: concept_results_by_count(activity_session)
         }
       end

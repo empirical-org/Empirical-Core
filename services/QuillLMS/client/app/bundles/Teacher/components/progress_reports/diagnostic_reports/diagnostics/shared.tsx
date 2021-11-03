@@ -9,9 +9,10 @@ export const triangleUpIcon = <img alt="Triangle up icon" src={`${baseDiagnostic
 export const lightGreenTriangleUpIcon = <img alt="Triangle up icon" src={`${baseDiagnosticImageSrc}/icons-triangle-up-light-green.svg`} />
 export const closeIcon = <img alt="Close icon" src={`${baseImageSrc}/icons/close.svg`} />
 export const fileDocumentIcon = <img alt="File document icon" src={`${baseDiagnosticImageSrc}/icons-file-document.svg`} />
-export const expandIcon = <img alt="Expand icon" src={`${baseImageSrc}/icons/expand.svg`} />
+export const expandIcon = <img alt="Expand icon" className="expand-icon" src={`${baseImageSrc}/icons/expand.svg`} />
 export const asteriskIcon = <img alt="Recommended asterisk icon" src={`${baseDiagnosticImageSrc}/icons-asterisk.svg`} />
 export const correctImage = <img alt="Correct check icon" src={`${baseDiagnosticImageSrc}/icons-check-small-green.svg`} />
+export const informationIcon = <img alt="Information icon" src={`${baseImageSrc}/icons/information.svg`} />
 
 export function goToAssign(unitTemplateId, name, activityId) {
   const unitTemplateIdString = unitTemplateId.toString();

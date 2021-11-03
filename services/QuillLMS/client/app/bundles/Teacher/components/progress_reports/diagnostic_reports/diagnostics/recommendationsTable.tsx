@@ -1,20 +1,12 @@
 import * as React from 'react'
-import { Link, } from 'react-router-dom'
 
-import SkillGroupTooltip from './skillGroupTooltip'
 import {
   noDataYet,
   asteriskIcon,
   correctImage,
 } from './shared'
 import {
-  SkillGroupSummary,
-  OpenPopover,
-  StudentResult,
-  SkillGroup,
   Recommendation,
-  LessonRecommendation,
-  LessonsActivity,
   Student,
 } from './interfaces'
 

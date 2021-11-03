@@ -25,6 +25,11 @@
       }
     }
   }
+  .assigned {
+    img {
+      margin-right: 4px;
+    }
+  }
   .recommendations-buttons {
     padding: 16px 24px;
     border-radius: 8px;
@@ -33,6 +38,8 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 16px;
+    max-width: 950px;
+    width: 100%;
     div {
       display: flex;
       align-items: center;
@@ -52,8 +59,6 @@
     overflow-x: scroll;
     width: calc(100vw - 300px);
     position: relative;
-    margin-bottom: -400px;
-    padding-bottom: 400px;
     .no-data-yet {
       position: absolute;
       top: 81px;
@@ -189,11 +194,6 @@
         }
       }
     }
-    .assigned {
-      img {
-        margin-right: 4px;
-      }
-    }
     .recommendation-header {
       vertical-align: bottom;
       padding: 8px;
@@ -211,6 +211,74 @@
   }
   .whole-class-instruction {
     margin-top: 48px;
+    .lessons-recommendation {
+      border-radius: 8px;
+      border: solid 1px #e0e0e0;
+      max-width: 950px;
+      width: 100%;
+      margin-top: 16px;
+      .top-row {
+        padding: 24px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        text-align: left;
+        justify-content: space-between;
+        > div {
+          display: flex;
+          align-items: center;
+          &:first-of-type {
+            img, span, .quill-checkbox {
+              margin-right: 16px;
+            }
+            .asterisk-placeholder {
+              width: 12px;
+            }
+            .checkbox-placeholder {
+              width: 16px;
+            }
+          }
+        }
+        h3 {
+          font-size: 16px;
+          line-height: 1.38;
+          color: #262626;
+        }
+        > span, .students-needing-instruction-wrapper > span {
+          color: #5c5c5c;
+        }
+        .activities-count {
+          margin-left: 40px;
+          margin-right: 16px;
+        }
+        .quill-tooltip-trigger img {
+          width: 16px;
+          height: 16px;
+          margin-right: 4px;
+        }
+      }
+      &.is-expanded {
+        .expand-icon {
+          transform: rotate(180deg);
+        }
+        .top-row {
+          border-bottom: solid 1px #e0e0e0;
+        }
+        .activity-row {
+          margin: 0px 24px;
+          display: flex;
+          justify-content: space-between;
+          padding: 12px 0px;
+          border-bottom: 1px solid #e0e0e0;
+          img {
+            margin-right: 4px;
+          }
+          &:last-of-type {
+            border-bottom: none;
+          }
+        }
+      }
+    }
   }
   @media (max-width: 930px) {
     padding: 40px 0px !important;
