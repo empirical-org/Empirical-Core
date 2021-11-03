@@ -58,6 +58,10 @@ module Evidence
       def self.default_payload
         super.merge({'feedback_type' => 'grammar'})
       end
+
+      def self.error_name 
+        'gapi_error'
+      end
     end
     
   end
