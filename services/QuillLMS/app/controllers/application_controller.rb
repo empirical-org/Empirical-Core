@@ -22,7 +22,6 @@ class ApplicationController < ActionController::Base
   before_action :set_default_cache_security_headers
 
   def admin!
-    binding.pry
     return if current_user.try(:admin?)
     auth_failed
   end
@@ -120,7 +119,6 @@ class ApplicationController < ActionController::Base
   end
 
   protected def set_raven_context
-    binding.pry
     Raven.user_context(id: session[:current_user_id])
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
