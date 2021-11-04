@@ -40,13 +40,13 @@ module DiagnosticReports
     if unit_id
       classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
       @assigned_students = User.where(id: classroom_unit.assigned_student_ids).sort_by { |u| u.last_name }
-      @activity_sessions = ActivitySession.where(classroom_unit: classroom_unit, state: 'finished')
+      @activity_sessions = ActivitySession.where(classroom_unit: classroom_unit, is_final_score: true)
     else
       unit_ids = current_user.units.joins("JOIN unit_activities ON unit_activities.activity_id = #{activity_id}")
       classroom_units = ClassroomUnit.where(unit_id: unit_ids, classroom_id: classroom_id)
       assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
       @assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
-      @activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
+      @activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, is_final_score: true).order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
     end
   end
 
