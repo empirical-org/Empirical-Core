@@ -9,6 +9,7 @@ import {
   Recommendation,
   Student,
 } from './interfaces'
+import StudentNameOrTooltip from './studentNameOrTooltip'
 
 import {
   helpIcon,
@@ -65,7 +66,7 @@ const StudentRow = ({ student, selections, recommendations, previouslyAssignedRe
   const diagnosticNotCompletedMessage = completed ? null : <span className="diagnostic-not-completed">Diagnostic not completed</span>
   const firstCell = (<th className="name-cell">
     <div>
-      <span>{name}</span>
+      <StudentNameOrTooltip name={name} />
       {diagnosticNotCompletedMessage}
     </div>
   </th>)
