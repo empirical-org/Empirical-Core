@@ -115,7 +115,7 @@ describe PublicProgressReports, type: :model do
 
     it 'will only return students who are in the class and have their ids in the assigned array' do
       instance = FakeReports.new
-      recommendations = instance.generate_recommendations_for_classroom(unit1.owner, unit1.id, classroom.id, diagnostic_activity.id)
+      recommendations = instance.generate_recommendations_for_classroom(unit1.user, unit1.id, classroom.id, diagnostic_activity.id)
       expect(recommendations[:students].find { |s| s[:id] == student_1.id}).to be
       expect(recommendations[:students].find { |s| s[:id] == student_2.id}).to be
       expect(recommendations[:students].find { |s| s[:id] == student_3.id}).not_to be
