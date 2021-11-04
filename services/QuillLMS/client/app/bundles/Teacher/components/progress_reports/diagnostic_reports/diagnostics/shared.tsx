@@ -10,7 +10,7 @@ export const lightGreenTriangleUpIcon = <img alt="Triangle up icon" src={`${base
 export const closeIcon = <img alt="Close icon" src={`${baseImageSrc}/icons/close.svg`} />
 export const fileDocumentIcon = <img alt="File document icon" src={`${baseDiagnosticImageSrc}/icons-file-document.svg`} />
 export const expandIcon = <img alt="Expand icon" className="expand-icon" src={`${baseImageSrc}/icons/expand.svg`} />
-export const asteriskIcon = <img alt="Recommended asterisk icon" src={`${baseDiagnosticImageSrc}/icons-asterisk.svg`} />
+export const asteriskIcon = <img alt="Recommended asterisk icon" className="asterisk-icon" src={`${baseDiagnosticImageSrc}/icons-asterisk.svg`} />
 export const correctImage = <img alt="Correct check icon" src={`${baseDiagnosticImageSrc}/icons-check-small-green.svg`} />
 export const informationIcon = <img alt="Information icon" src={`${baseImageSrc}/icons/information.svg`} />
 

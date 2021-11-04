@@ -71,35 +71,30 @@ const LessonRecommendation = ({ previouslyAssignedRecommendations, selections, s
     </div>)
   })
 
-  let topRowConditionalContent = (<div>
-    <Tooltip
-      tooltipText={studentNames}
-      tooltipTriggerText={informationIcon}
-    />
-    <span>{students_needing_instruction.length} student{students_needing_instruction.length === 1 ? '' : 's'} need{students_needing_instruction.length === 1 ? 's' : ''} instruction</span>
-    <span className="activities-count">{activities.length} lesson{activities.length === 1 ? '' : 's'}</span>
-    <button className="interactive-wrapper" onClick={toggleExpansion} type="button">{expandIcon}</button>
-  </div>)
-
-  if (isAssigned) {
-    topRowConditionalContent = assigned
-  }
-
-  return (<section className={`lessons-recommendation ${isExpanded? 'is-expanded' : ''}`}>
+  return (<section className={`lessons-recommendation ${isExpanded? 'is-expanded' : ''} ${isRecommended && !isAssigned ? 'is-recommended-and-not-assigned' : ''}`}>
     <div className="top-row">
       <div>
         {isRecommended ? asteriskIcon : <span className="asterisk-placeholder" />}
         {isAssigned ? <span className="checkbox-placeholder" /> : checkbox}
         <h3>{name}</h3>
       </div>
-      {topRowConditionalContent}
+      <div>
+        {isAssigned && assigned}
+        <Tooltip
+          tooltipText={studentNames}
+          tooltipTriggerText={informationIcon}
+        />
+        <span>{students_needing_instruction.length} student{students_needing_instruction.length === 1 ? '' : 's'} need{students_needing_instruction.length === 1 ? 's' : ''} instruction</span>
+        <span className="activities-count">{activities.length} lesson{activities.length === 1 ? '' : 's'}</span>
+        <button className="interactive-wrapper" onClick={toggleExpansion} type="button">{expandIcon}</button>
+      </div>
     </div>
     {isExpanded && activityRows}
   </section>)
 }
 
 const LessonsRecommendations = ({ previouslyAssignedRecommendations, recommendations, selections, setSelections, }) => {
-  return recommendations.map(recommendation => <LessonRecommendation key={recommendation.activity_pack_id} previouslyAssignedRecommendations={previouslyAssignedRecommendations} recommendation={recommendation} selections={selections} setSelections={setSelections} />)
+  return recommendations.map(recommendation => <LessonRecommendation key={recommendation.activity_pack_id} previouslyAssignedRecommendations={[73, 49]} recommendation={recommendation} selections={selections} setSelections={setSelections} />)
 }
 
 const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActivityPacks, deselectAll, selectAll, selectAllRecommended}) => {
@@ -343,7 +338,7 @@ const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPrevio
 
   let wholeClassInstructionSection
 
-  if (lessonsRecommendations) {
+  if (lessonsRecommendations.length) {
     wholeClassInstructionSection = (<section className="whole-class-instruction">
       <div className="section-header">
         <h2>Whole class instruction</h2>

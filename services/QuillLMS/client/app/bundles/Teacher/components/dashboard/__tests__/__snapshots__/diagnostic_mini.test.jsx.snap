@@ -873,7 +873,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
     >
       Show more 
       <img
-        alt=""
+        alt="Expand icon"
         src="undefined/images/icons/expand.svg"
       />
     </button>
@@ -1311,7 +1311,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
     >
       Show more 
       <img
-        alt=""
+        alt="Expand icon"
         src="undefined/images/icons/expand.svg"
       />
     </button>
