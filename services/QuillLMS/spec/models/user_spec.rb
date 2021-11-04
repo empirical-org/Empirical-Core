@@ -1267,6 +1267,13 @@ describe User, type: :model do
     end
   end
 
+  describe '.valid_email?' do
+    it { expect { User.valid_email?('').to be_false } }
+    it { expect { User.valid_email?(nil).to be_false } }
+    it { expect { User.valid_email?('1').to be_false } }
+    it { expect { User.valid_email?('a@b.c').to be_true } }
+  end
+
   describe '#google_authorized?' do
     context 'user without auth_credentials is unauthorized' do
       it { expect(user.google_authorized?).to be false }
