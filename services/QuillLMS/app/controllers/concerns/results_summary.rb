@@ -43,7 +43,7 @@ module ResultsSummary
       skills = skill_group.skills.map { |skill| data_for_skill_by_activity_session(activity_session_id, skill) }
       present_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:summary] == NOT_PRESENT ? 0 : 1 }
       correct_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:summary] == FULLY_CORRECT ? 1 : 0 }
-      proficiency_text = summarize_student_proficiency(present_skill_number, correct_skill_number)
+      proficiency_text = summarize_student_proficiency_for_skill_per_activity(present_skill_number, correct_skill_number)
       unless proficiency_text == PROFICIENCY
         skill_group_summary_index = @skill_group_summaries.find_index { |sg| sg[:name] == skill_group.name }
         @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_student_names].push(student_name)
@@ -55,16 +55,6 @@ module ResultsSummary
         proficiency_text: proficiency_text,
         id: skill_group.id
       }
-    end
-  end
-
-  private def summarize_student_proficiency(present_skill_number, correct_skill_number)
-    if correct_skill_number == 0
-      NO_PROFICIENCY
-    elsif present_skill_number == correct_skill_number
-      PROFICIENCY
-    else
-      PARTIAL_PROFICIENCY
     end
   end
 

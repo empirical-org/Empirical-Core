@@ -17,6 +17,7 @@ module DiagnosticReports
     number_correct = concept_results.select(&:correct?).length
     number_incorrect = concept_results.reject { |cr| cr.correct? }.length
     {
+      id: skill.id,
       skill: skill.name,
       number_correct: number_correct,
       number_incorrect: number_incorrect,
@@ -42,11 +43,21 @@ module DiagnosticReports
       @assigned_students = User.where(id: classroom_unit.assigned_student_ids).sort_by { |u| u.last_name }
       @activity_sessions = ActivitySession.where(classroom_unit: classroom_unit, state: 'finished')
     else
-      unit_ids = current_user.units.joins("JOIN unit_activities ON unit_activities.activity_id = #{activity_id}")
-      classroom_units = ClassroomUnit.where(unit_id: unit_ids, classroom_id: classroom_id)
+      units = current_user.units.joins("JOIN unit_activities ON unit_activities.activity_id = #{activity_id}")
+      classroom_units = ClassroomUnit.where(unit_id: units, classroom_id: classroom_id)
       assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
       @assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
       @activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
+    end
+  end
+
+  private def summarize_student_proficiency_for_skill_per_activity(present_skill_number, correct_skill_number)
+    if correct_skill_number == 0
+      NO_PROFICIENCY
+    elsif present_skill_number == correct_skill_number
+      PROFICIENCY
+    else
+      PARTIAL_PROFICIENCY
     end
   end
 
