@@ -12,8 +12,6 @@
     }
     .recommended-key {
       margin-left: 16px;
-      display: flex;
-      align-items: center;
       .recommended-image {
         background-color: #eef8f7;
         padding: 6px;
@@ -23,6 +21,10 @@
       span {
         color: #5c5c5c;
       }
+    }
+    > div {
+      display: flex;
+      align-items: center;
     }
   }
   .assigned {

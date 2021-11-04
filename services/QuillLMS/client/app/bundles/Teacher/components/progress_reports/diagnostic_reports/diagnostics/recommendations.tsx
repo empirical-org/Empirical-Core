@@ -341,11 +341,13 @@ const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPrevio
   if (lessonsRecommendations.length) {
     wholeClassInstructionSection = (<section className="whole-class-instruction">
       <div className="section-header">
-        <h2>Whole class instruction</h2>
-        <Tooltip
-          tooltipText="Quill recommends a Quill Lessons activity when at least 50% of the students in your class need instruction on a particular skill. Quill Lessons are teacher-led lessons that include a full lesson plan, suggested slides, real-time paired practice, and whole-class discussion time. Each lesson is focused on a specific grammar skill."
-          tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
-        />
+        <div>
+          <h2>Whole class instruction</h2>
+          <Tooltip
+            tooltipText="Quill recommends a Quill Lessons activity when at least 50% of the students in your class need instruction on a particular skill. Quill Lessons are teacher-led lessons that include a full lesson plan, suggested slides, real-time paired practice, and whole-class discussion time. Each lesson is focused on a specific grammar skill."
+            tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+          />
+        </div>
         {recommendedKey}
       </div>
       <LessonsRecommendationsButtons assigned={lessonsAssigned} assigning={lessonsAssigning} assignLessonsActivityPacks={assignLessonsActivityPacks} lessonsRecommendations={lessonsRecommendations} lessonsSelections={lessonsSelections} setLessonsSelections={setLessonsSelections} students={students} />

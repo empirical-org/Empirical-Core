@@ -114,6 +114,7 @@ describe Teachers::UnitsController, type: :controller do
               classroom_name: classroom.name,
               activity_name: diagnostic_activity.name,
               activity_id: diagnostic_activity.id,
+              unit_id: unit.id,
               unit_name: unit.name,
               classroom_id: classroom.id,
               assigned_date: unit_activity.created_at,
