@@ -2,7 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 import * as $ from 'jquery'
 
-import { diagnostics} from './test_data'
+import { diagnostics} from '../__tests__/test_data'
 
 import DiagnosticActivityPacks from '../diagnostic_activity_packs'
 import EmptyDiagnosticProgressReport from '../empty_diagnostic_progress_report'
