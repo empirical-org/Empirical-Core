@@ -43,33 +43,6 @@ namespace :plagiarized_responses do
 
   task :test, [:input_csv_path] => :environment do |t, args|
 
-    # Levenshtein implementation lifted from https://stackoverflow.com/questions/16323571/measure-the-distance-between-two-strings-with-ruby
-    def levenshtein_distance(src, target, max = nil)
-      m = src.length
-      n = target.length
-      return m if n == 0
-      return n if m == 0
-      d = Array.new(m+1) {Array.new(n+1)}
-    
-      (0..m).each {|i| d[i][0] = i}
-      (0..n).each {|j| d[0][j] = j}
-      (1..n).each do |j|
-        (1..m).each do |i|
-          d[i][j] = if src[i-1] == target[j-1]  # adjust index into string
-                      d[i-1][j-1]       # no operation required
-                    else
-                      [
-                        d[i-1][j]+1,    # deletion
-                        d[i][j-1]+1,    # insertion
-                        d[i-1][j-1]+1  # substitution
-                      ].min
-                    end
-        end
-        return d[[j,m].min][j] if max && d[[j,m].min][j] >= max
-      end
-      d[m][n]
-    end
-
     # Derived from lib/evidence/evidence/plagiarism_check.rb 'match_entry_on_passage'
     def minimum_edit_distance_per_slice(entry, plagiarism_text)
       match_minimum = 10
@@ -83,7 +56,7 @@ namespace :plagiarized_responses do
       min_distance = nil
       slices.each do |slice|
         plagiarism_slices.each do |pslice|
-          min_distance = levenshtein_distance(slice, pslice, 21)
+          min_distance = DidYouMean::Levenshtein.distance(slice, pslice)
           return min_distance if min_distance <= shortest_distance_we_care_about
         end
       end
