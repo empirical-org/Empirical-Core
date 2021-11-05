@@ -9,7 +9,7 @@ module CleverIntegration
       @student = student
       @data = data
       @clever_id = data[:clever_id]
-      @username = data[:username]&.downcase
+      @username = data[:username]
     end
 
     def run
