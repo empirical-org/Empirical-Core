@@ -216,7 +216,7 @@ jobs:
   marking_logic_node_build:
     working_directory: ~/Empirical-Core
     docker:
-      - image: circleci/node:latest-browsers
+      - image: cimg/node:14.18-browsers
     steps:
       - checkout
       - run:
