@@ -104,8 +104,13 @@ EmpiricalGrammar::Application.routes.draw do
     get :play, on: :member
     put :play, on: :member
   end
+
+
   # 3rd party apps depend on the below, do not change :
-  get 'activity_sessions/classroom_units/:classroom_unit_id/activities/:activity_id' => 'activity_sessions#activity_session_from_classroom_unit_and_activity'
+  get 'activity_sessions/classroom_units/:classroom_unit_id/activities/:activity_id' => 'activity_sessions#activity_session_from_classroom_unit_and_activity',
+    as: :activity_session_from_classroom_unit_and_activity
+
+  get 'classroom_units/:classroom_unit_id/activities/:id' => 'activities#activity_session'
   get 'activity_sessions/:uid' => 'activity_sessions#result'
 
   get 'students_classrooms_json' => 'profiles#students_classrooms_json'
