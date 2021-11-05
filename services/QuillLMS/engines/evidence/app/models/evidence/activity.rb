@@ -67,7 +67,7 @@ module Evidence
     end
 
     def invalid_highlights
-      invalid_feedback_highlights + invalid_plagiarism_text
+      invalid_feedback_highlights
     end
 
     def invalid_feedback_highlights
@@ -78,18 +78,6 @@ module Evidence
           rule_id: highlight.feedback.rule_id,
           rule_type: highlight.feedback.rule.rule_type,
           prompt_id: highlight.feedback.rule.prompts.where(activity_id: id).first.id 
-        }
-      end
-    end
-
-    def invalid_plagiarism_text
-      related_plagiarism = prompts.map { |p| p.rules.where(rule_type: Rule::TYPE_PLAGIARISM) }.flatten.map(&:plagiarism_text)
-      invalid_plagiarism = related_plagiarism.select {|p| p.invalid_activity_ids&.include?(id)}
-      invalid_plagiarism.map do |plagiarism|
-        {
-          rule_id: plagiarism.rule_id,
-          rule_type: plagiarism.rule.rule_type,
-          prompt_id: plagiarism.rule.prompts.where(activity_id: id).first.id 
         }
       end
     end
