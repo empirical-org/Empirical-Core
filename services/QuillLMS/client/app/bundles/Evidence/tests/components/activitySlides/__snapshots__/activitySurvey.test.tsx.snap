@@ -125,6 +125,7 @@ exports[`ActivitySurvey Component should match snapshot 1`] = `
     >
       <a
         className="focus-on-dark"
+        onClick={[Function]}
       >
         Skip
       </a>

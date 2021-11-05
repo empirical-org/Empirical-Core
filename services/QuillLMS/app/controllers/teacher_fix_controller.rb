@@ -225,6 +225,28 @@ class TeacherFixController < ApplicationController
     render json: {}, status: 200
   end
 
+  def list_unsynced_students_by_classroom
+    if teacher
+      render json: { unsynced_students_by_classroom: unsynced_students_by_classroom }, status: 200
+    else
+      render json: { error: 'No such teacher' }, status: 404
+    end
+  end
+
+  def remove_unsynced_students
+    if teacher
+      provider_classrooms_with_unsynced_students.each do |provider_classroom|
+        StudentsClassrooms
+          .where(classroom_id: provider_classroom.id, student_id: provider_classroom.unsynced_students.pluck(:id))
+          .archive_all
+      end
+
+      render json: {}, status: 200
+    else
+      render json: { error: 'No such teacher' }, status: 404
+    end
+  end
+
   private def set_user
     @user = User.find_by_username_or_email(params['teacher_identifier'])
   end
@@ -235,5 +257,20 @@ class TeacherFixController < ApplicationController
       unit['shared_name'] = Unit.find_by(user_id: unit['user_id'], name: unit['name']).present?
       unit
     end
+  end
+
+  private def unsynced_students_by_classroom
+    ActiveModel::ArraySerializer.new(
+      provider_classrooms_with_unsynced_students,
+      each_serializer: ProviderClassroomWithUnsyncedStudentsSerializer
+    )
+  end
+
+  private def provider_classrooms_with_unsynced_students
+    ProviderClassroomsWithUnsyncedStudentsFinder.new(teacher.id).run
+  end
+
+  private def teacher
+    @teacher ||= User.find_by_username_or_email(params['teacher_identifier'])
   end
 end

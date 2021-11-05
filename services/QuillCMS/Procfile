@@ -1,2 +1,3 @@
-web: bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM} || bundle exec puma -C ./config/puma.rb
-log: tail -f log/development.log
+web: bundle exec puma -C ./config/puma.rb
+
+worker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q critical -q default -q low

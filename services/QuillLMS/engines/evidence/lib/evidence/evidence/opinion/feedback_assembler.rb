@@ -1,7 +1,7 @@
 module Evidence 
   module Opinion
-    class FeedbackAssembler
-      OAPI_ERROR_TO_RULE_UID = {
+    class FeedbackAssembler < Evidence::FeedbackAssembler
+      RULE_MAPPING = {
         'using_must' => '5545d756-9ba5-44d5-829a-0479cbbe941e',
         'using_out' => '938dcafb-7b03-4fce-bacb-0ec690eccec0',
         'using_should' => 'aa5884e6-2646-4f4b-b0ed-938a2eab0507',
@@ -16,27 +16,14 @@ module Evidence
         'starts_with_a_verb' => '4f4ed261-16f8-44ae-905c-0ad7c6449af4'
       }
 
-      def initialize(client_response)
-        @client_response = client_response
-        error = @client_response['oapi_error']
-        rule_uid = OAPI_ERROR_TO_RULE_UID.fetch(error)
-        @rule = Evidence::Rule.where(uid: rule_uid).includes(:feedbacks).first
-        @top_feedback = @rule&.feedbacks&.min_by(&:order)
-        @optimal = @rule&.optimal.nil? ? true : @rule&.optimal 
+      def self.error_to_rule_uid 
+        RULE_MAPPING
       end
 
-      def to_payload 
-        {
-          'concept_uid': @rule&.concept_uid,
-          'feedback': @top_feedback&.text,
-          'feedback_type': 'opinion',
-          'optimal': @optimal,
-          'response_id': '0', # not currently used, but part of Evidence payload spec
-          'highlight': @client_response['highlight'],
-          'labels': '',       # not currently used, but part of Evidence payload spec
-          'rule_uid': @rule&.uid
-        }  
+      def self.default_payload
+        super.merge({'feedback_type' => 'opinion'})
       end
+
     end
     
   end

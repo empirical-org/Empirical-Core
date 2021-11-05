@@ -56,6 +56,7 @@
           margin-left: 24px;
           font-size: 14px;
           color: #808080;
+          text-align: right;
           .image-attribution-tooltip {
             border-bottom: dashed 1px #808080;
           }
@@ -64,6 +65,7 @@
             outline-offset: 4px;
           }
           .quill-tooltip-wrapper {
+            position: relative;
             .quill-tooltip {
               a {
                 color: white;
@@ -260,7 +262,8 @@
     }
 
     .read-passage-container {
-      overflow: scroll;
+      overflow-y: scroll;
+      overflow-x: hidden;
       margin-right: 4px;
     }
 
