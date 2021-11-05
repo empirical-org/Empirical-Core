@@ -80,7 +80,6 @@ class User < ApplicationRecord
   has_many :user_subscriptions
   has_many :subscriptions, through: :user_subscriptions
   has_many :activity_sessions
-  has_many :notifications, dependent: :delete_all
   has_one :schools_users
   has_one :sales_contact
   has_one :school, through: :schools_users
@@ -135,8 +134,6 @@ class User < ApplicationRecord
   # gem validates_email_format_of
   validates_email_format_of :email, if: :email_required_or_present?, message: :invalid
 
-
-
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { allow_blank: true, message: :taken },
                                     format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username? }
@@ -160,6 +157,7 @@ class User < ApplicationRecord
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
   GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
+  CLEVER_ACCOUNT = 'Clever'
 
   scope :teacher, -> { where(role: TEACHER) }
   scope :student, -> { where(role: STUDENT) }
@@ -174,6 +172,10 @@ class User < ApplicationRecord
           AND username LIKE 'deleted_user_%'
       SQL
     )
+  end
+
+  def self.valid_email?(email)
+    ValidatesEmailFormatOf.validate_email_format(email).nil?
   end
 
   def testing_flag
@@ -421,23 +423,7 @@ class User < ApplicationRecord
   end
 
   def clear_data
-    ActiveRecord::Base.transaction do
-      update!(
-        name:      "Deleted User_#{id}",
-        email:     "deleted_user_#{id}@example.com",
-        username:  "deleted_user_#{id}",
-        google_id: nil,
-        clever_id: nil,
-        ip_address: nil,
-        send_newsletter: false
-      )
-      StudentsClassrooms.where(student_id: id).destroy_all
-      auth_credential.destroy! if auth_credential.present?
-      ip_location.destroy! if ip_location.present?
-      SchoolsUsers.where(user_id: id).destroy_all
-      ClassroomUnit.where("? = ANY (assigned_student_ids)", id).each {|cu| cu.update(assigned_student_ids: cu.assigned_student_ids - [id])}
-      ActivitySession.where(user_id: id).update_all(user_id: nil, classroom_unit_id: nil)
-    end
+    ClearUserDataWorker.perform_async(id)
   end
 
   def last_name= last_name

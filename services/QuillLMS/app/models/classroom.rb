@@ -17,6 +17,7 @@
 #
 # Indexes
 #
+#  index_classrooms_on_clever_id            (clever_id)
 #  index_classrooms_on_code                 (code)
 #  index_classrooms_on_google_classroom_id  (google_classroom_id)
 #  index_classrooms_on_grade                (grade)
@@ -187,6 +188,7 @@ class Classroom < ApplicationRecord
 
   def provider_classroom
     return 'Google Classroom' if google_classroom?
+    return 'Clever' if clever_classroom?
   end
 
   # Clever integration

@@ -70,6 +70,18 @@ CREATE FUNCTION public.blog_posts_search_trigger() RETURNS trigger
 
 
 --
+-- Name: my_jsonb_to_hstore(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.my_jsonb_to_hstore(jsonb) RETURNS public.hstore
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$
+            SELECT hstore(array_agg(key), array_agg(value))
+            FROM   jsonb_each_text($1)
+          $_$;
+
+
+--
 -- Name: old_timespent_teacher(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -532,6 +544,40 @@ CREATE SEQUENCE public.activity_sessions_id_seq
 --
 
 ALTER SEQUENCE public.activity_sessions_id_seq OWNED BY public.activity_sessions.id;
+
+
+--
+-- Name: activity_survey_responses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.activity_survey_responses (
+    id bigint NOT NULL,
+    activity_session_id bigint,
+    emoji_selection integer NOT NULL,
+    multiple_choice_selections character varying[] NOT NULL,
+    survey_question character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: activity_survey_responses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.activity_survey_responses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_survey_responses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.activity_survey_responses_id_seq OWNED BY public.activity_survey_responses.id;
 
 
 --
@@ -1167,7 +1213,7 @@ CREATE TABLE public.classrooms_teachers (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     "order" integer,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
 );
 
 
@@ -1513,8 +1559,8 @@ ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.compreh
 
 CREATE TABLE public.comprehension_regex_rules (
     id integer NOT NULL,
-    regex_text character varying(200),
-    case_sensitive boolean,
+    regex_text character varying(200) NOT NULL,
+    case_sensitive boolean NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_id integer,
@@ -2361,40 +2407,6 @@ ALTER SEQUENCE public.milestones_id_seq OWNED BY public.milestones.id;
 
 
 --
--- Name: notifications; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.notifications (
-    id integer NOT NULL,
-    text text NOT NULL,
-    user_id integer NOT NULL,
-    meta jsonb DEFAULT '{}'::jsonb NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.notifications_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.notifications_id_seq OWNED BY public.notifications.id;
-
-
---
 -- Name: oauth_access_grants; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3120,6 +3132,131 @@ ALTER SEQUENCE public.schools_users_id_seq OWNED BY public.schools_users.id;
 
 
 --
+-- Name: skill_concepts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.skill_concepts (
+    id bigint NOT NULL,
+    skill_id bigint NOT NULL,
+    concept_id bigint NOT NULL
+);
+
+
+--
+-- Name: skill_concepts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.skill_concepts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: skill_concepts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.skill_concepts_id_seq OWNED BY public.skill_concepts.id;
+
+
+--
+-- Name: skill_group_activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.skill_group_activities (
+    id bigint NOT NULL,
+    activity_id bigint NOT NULL,
+    skill_group_id bigint NOT NULL
+);
+
+
+--
+-- Name: skill_group_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.skill_group_activities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: skill_group_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.skill_group_activities_id_seq OWNED BY public.skill_group_activities.id;
+
+
+--
+-- Name: skill_groups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.skill_groups (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    description text,
+    order_number integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: skill_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.skill_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: skill_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.skill_groups_id_seq OWNED BY public.skill_groups.id;
+
+
+--
+-- Name: skills; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.skills (
+    id bigint NOT NULL,
+    skill_group_id bigint NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: skills_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.skills_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: skills_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.skills_id_seq OWNED BY public.skills.id;
+
+
+--
 -- Name: standard_categories; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3256,6 +3393,38 @@ CREATE SEQUENCE public.student_feedback_responses_id_seq
 --
 
 ALTER SEQUENCE public.student_feedback_responses_id_seq OWNED BY public.student_feedback_responses.id;
+
+
+--
+-- Name: student_problem_reports; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.student_problem_reports (
+    id bigint NOT NULL,
+    feedback_history_id bigint NOT NULL,
+    report character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: student_problem_reports_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.student_problem_reports_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: student_problem_reports_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.student_problem_reports_id_seq OWNED BY public.student_problem_reports.id;
 
 
 --
@@ -3894,6 +4063,13 @@ ALTER TABLE ONLY public.activity_sessions ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
+-- Name: activity_survey_responses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_survey_responses ALTER COLUMN id SET DEFAULT nextval('public.activity_survey_responses_id_seq'::regclass);
+
+
+--
 -- Name: activity_topics id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4251,13 +4427,6 @@ ALTER TABLE ONLY public.milestones ALTER COLUMN id SET DEFAULT nextval('public.m
 
 
 --
--- Name: notifications id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.notifications ALTER COLUMN id SET DEFAULT nextval('public.notifications_id_seq'::regclass);
-
-
---
 -- Name: oauth_access_grants id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4398,6 +4567,34 @@ ALTER TABLE ONLY public.schools_users ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: skill_concepts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_concepts ALTER COLUMN id SET DEFAULT nextval('public.skill_concepts_id_seq'::regclass);
+
+
+--
+-- Name: skill_group_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_group_activities ALTER COLUMN id SET DEFAULT nextval('public.skill_group_activities_id_seq'::regclass);
+
+
+--
+-- Name: skill_groups id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_groups ALTER COLUMN id SET DEFAULT nextval('public.skill_groups_id_seq'::regclass);
+
+
+--
+-- Name: skills id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skills ALTER COLUMN id SET DEFAULT nextval('public.skills_id_seq'::regclass);
+
+
+--
 -- Name: standard_categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4423,6 +4620,13 @@ ALTER TABLE ONLY public.standards ALTER COLUMN id SET DEFAULT nextval('public.st
 --
 
 ALTER TABLE ONLY public.student_feedback_responses ALTER COLUMN id SET DEFAULT nextval('public.student_feedback_responses_id_seq'::regclass);
+
+
+--
+-- Name: student_problem_reports id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_problem_reports ALTER COLUMN id SET DEFAULT nextval('public.student_problem_reports_id_seq'::regclass);
 
 
 --
@@ -4599,6 +4803,14 @@ ALTER TABLE ONLY public.activity_healths
 
 ALTER TABLE ONLY public.activity_sessions
     ADD CONSTRAINT activity_sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_survey_responses activity_survey_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_survey_responses
+    ADD CONSTRAINT activity_survey_responses_pkey PRIMARY KEY (id);
 
 
 --
@@ -5018,14 +5230,6 @@ ALTER TABLE ONLY public.milestones
 
 
 --
--- Name: notifications notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.notifications
-    ADD CONSTRAINT notifications_pkey PRIMARY KEY (id);
-
-
---
 -- Name: oauth_access_grants oauth_access_grants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5186,6 +5390,38 @@ ALTER TABLE ONLY public.schools_users
 
 
 --
+-- Name: skill_concepts skill_concepts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_concepts
+    ADD CONSTRAINT skill_concepts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: skill_group_activities skill_group_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_group_activities
+    ADD CONSTRAINT skill_group_activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: skill_groups skill_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_groups
+    ADD CONSTRAINT skill_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: skills skills_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skills
+    ADD CONSTRAINT skills_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: standard_categories standard_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5215,6 +5451,14 @@ ALTER TABLE ONLY public.standards
 
 ALTER TABLE ONLY public.student_feedback_responses
     ADD CONSTRAINT student_feedback_responses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: student_problem_reports student_problem_reports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_problem_reports
+    ADD CONSTRAINT student_problem_reports_pkey PRIMARY KEY (id);
 
 
 --
@@ -5500,6 +5744,13 @@ CREATE INDEX index_activity_sessions_on_user_id ON public.activity_sessions USIN
 
 
 --
+-- Name: index_activity_survey_responses_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_survey_responses_on_activity_session_id ON public.activity_survey_responses USING btree (activity_session_id);
+
+
+--
 -- Name: index_activity_topics_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5700,6 +5951,13 @@ CREATE INDEX index_classroom_units_on_unit_id ON public.classroom_units USING bt
 --
 
 CREATE UNIQUE INDEX index_classroom_units_on_unit_id_and_classroom_id ON public.classroom_units USING btree (unit_id, classroom_id);
+
+
+--
+-- Name: index_classrooms_on_clever_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classrooms_on_clever_id ON public.classrooms USING btree (clever_id);
 
 
 --
@@ -6025,13 +6283,6 @@ CREATE INDEX index_milestones_on_name ON public.milestones USING btree (name);
 
 
 --
--- Name: index_notifications_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_notifications_on_user_id ON public.notifications USING btree (user_id);
-
-
---
 -- Name: index_oauth_access_grants_on_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6274,6 +6525,48 @@ CREATE INDEX index_schools_users_on_school_id_and_user_id ON public.schools_user
 --
 
 CREATE UNIQUE INDEX index_schools_users_on_user_id ON public.schools_users USING btree (user_id);
+
+
+--
+-- Name: index_skill_concepts_on_concept_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_skill_concepts_on_concept_id ON public.skill_concepts USING btree (concept_id);
+
+
+--
+-- Name: index_skill_concepts_on_skill_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_skill_concepts_on_skill_id ON public.skill_concepts USING btree (skill_id);
+
+
+--
+-- Name: index_skill_group_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_skill_group_activities_on_activity_id ON public.skill_group_activities USING btree (activity_id);
+
+
+--
+-- Name: index_skill_group_activities_on_skill_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_skill_group_activities_on_skill_group_id ON public.skill_group_activities USING btree (skill_group_id);
+
+
+--
+-- Name: index_skills_on_skill_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_skills_on_skill_group_id ON public.skills USING btree (skill_group_id);
+
+
+--
+-- Name: index_student_problem_reports_on_feedback_history_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_student_problem_reports_on_feedback_history_id ON public.student_problem_reports USING btree (feedback_history_id);
 
 
 --
@@ -6711,11 +7004,27 @@ CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.blog_posts FOR E
 
 
 --
+-- Name: skills fk_rails_026350ab95; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skills
+    ADD CONSTRAINT fk_rails_026350ab95 FOREIGN KEY (skill_group_id) REFERENCES public.skill_groups(id);
+
+
+--
 -- Name: teacher_saved_activities fk_rails_08453fa16b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.teacher_saved_activities
     ADD CONSTRAINT fk_rails_08453fa16b FOREIGN KEY (teacher_id) REFERENCES public.users(id);
+
+
+--
+-- Name: skill_group_activities fk_rails_08a611be08; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_group_activities
+    ADD CONSTRAINT fk_rails_08a611be08 FOREIGN KEY (activity_id) REFERENCES public.activities(id);
 
 
 --
@@ -6796,6 +7105,14 @@ ALTER TABLE ONLY public.unit_activities
 
 ALTER TABLE ONLY public.activity_topics
     ADD CONSTRAINT fk_rails_4c47083518 FOREIGN KEY (topic_id) REFERENCES public.topics(id);
+
+
+--
+-- Name: skill_concepts fk_rails_51a05a5948; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_concepts
+    ADD CONSTRAINT fk_rails_51a05a5948 FOREIGN KEY (concept_id) REFERENCES public.concepts(id);
 
 
 --
@@ -6887,6 +7204,14 @@ ALTER TABLE ONLY public.classroom_units
 
 
 --
+-- Name: skill_concepts fk_rails_a4122c3785; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_concepts
+    ADD CONSTRAINT fk_rails_a4122c3785 FOREIGN KEY (skill_id) REFERENCES public.skills(id);
+
+
+--
 -- Name: sales_stages fk_rails_a8025d2621; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6908,14 +7233,6 @@ ALTER TABLE ONLY public.third_party_user_ids
 
 ALTER TABLE ONLY public.criteria
     ADD CONSTRAINT fk_rails_ada79930c6 FOREIGN KEY (concept_id) REFERENCES public.concepts(id);
-
-
---
--- Name: notifications fk_rails_b080fb4855; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.notifications
-    ADD CONSTRAINT fk_rails_b080fb4855 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -6967,6 +7284,14 @@ ALTER TABLE ONLY public.teacher_saved_activities
 
 
 --
+-- Name: skill_group_activities fk_rails_d286b719ca; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.skill_group_activities
+    ADD CONSTRAINT fk_rails_d286b719ca FOREIGN KEY (skill_group_id) REFERENCES public.skill_groups(id);
+
+
+--
 -- Name: content_partner_activities fk_rails_d292764f4f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6991,6 +7316,14 @@ ALTER TABLE ONLY public.sales_contacts
 
 
 --
+-- Name: student_problem_reports fk_rails_d7543aef9e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_problem_reports
+    ADD CONSTRAINT fk_rails_d7543aef9e FOREIGN KEY (feedback_history_id) REFERENCES public.feedback_histories(id);
+
+
+--
 -- Name: recommendations fk_rails_dc326309ed; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7012,6 +7345,14 @@ ALTER TABLE ONLY public.comprehension_regex_rules
 
 ALTER TABLE ONLY public.sales_stages
     ADD CONSTRAINT fk_rails_e5da9d6c2d FOREIGN KEY (sales_stage_type_id) REFERENCES public.sales_stage_types(id);
+
+
+--
+-- Name: activity_survey_responses fk_rails_e65c2d2818; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_survey_responses
+    ADD CONSTRAINT fk_rails_e65c2d2818 FOREIGN KEY (activity_session_id) REFERENCES public.activity_sessions(id);
 
 
 --
@@ -7459,6 +7800,14 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210811130155'),
 ('20210816195838'),
 ('20210824114552'),
-('20210913181519');
+('20210913181519'),
+('20210920131932'),
+('20210922150456'),
+('20211013150441'),
+('20211013151215'),
+('20211013151333'),
+('20211013155832'),
+('20211019143514'),
+('20211012212229');
 
 

@@ -33,6 +33,10 @@ class Question < ApplicationRecord
   ]
   LIVE_FLAGS = [FLAG_PRODUCTION, FLAG_ALPHA, FLAG_BETA]
 
+  CACHE_KEY_ALL = 'ALL_QUESTIONS_v1_'
+  CACHE_EXPIRY = 24.hours
+  CACHE_KEY_QUESTION = 'QUESTION_v1_'
+
   # mapping extracted from Grammar,Connect,Diagnostic rematching.ts
   REMATCH_TYPE_MAPPING = {
     TYPE_CONNECT_SENTENCE_COMBINING => 'questions',
@@ -50,13 +54,31 @@ class Question < ApplicationRecord
   validate :data_must_be_hash
   validate :validate_sequences
 
-  after_save :expire_all_questions_cache
+  after_save :refresh_caches
 
   scope :live, -> {where("data->>'flag' IN (?)", LIVE_FLAGS)}
   scope :production, -> {where("data->>'flag' = ?", FLAG_PRODUCTION)}
 
   def as_json(options=nil)
     data
+  end
+
+  def self.all_questions_json(question_type)
+    where(question_type: question_type)
+      .reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
+      .to_json
+  end
+
+  def self.all_questions_json_cached(question_type, refresh: false)
+    Rails.cache.fetch(CACHE_KEY_ALL + question_type, expires_in: CACHE_EXPIRY, force: refresh) do
+      all_questions_json(question_type)
+    end
+  end
+
+  def self.question_json_cached(uid, refresh: false)
+    Rails.cache.fetch(CACHE_KEY_QUESTION + uid.to_s, expires_in: CACHE_EXPIRY, force: refresh) do
+      find_by!(uid: uid).to_json
+    end
   end
 
   def add_focus_point(new_data)
@@ -131,11 +153,10 @@ class Question < ApplicationRecord
     REMATCH_TYPE_MAPPING.fetch(question_type)
   end
 
-  private def expire_all_questions_cache
-    cache_key = Api::V1::QuestionsController::ALL_QUESTIONS_CACHE_KEY + "_#{question_type}"
-    $redis.del(cache_key)
-    cache_key = "#{Api::V1::QuestionsController::QUESTION_CACHE_KEY_PREFIX}_#{uid}"
-    $redis.del(cache_key)
+  private def refresh_caches
+    Rails.cache.delete(CACHE_KEY_QUESTION + uid.to_s)
+    Rails.cache.delete(CACHE_KEY_ALL + question_type)
+    RefreshQuestionCacheWorker.perform_async(question_type, uid)
   end
 
   private def new_uuid

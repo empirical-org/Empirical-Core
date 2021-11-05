@@ -5,56 +5,40 @@ describe Api::V1::QuestionsController, type: :controller do
   let!(:question) { create(:question) }
 
   describe "#index" do
+    before(:each) do
+      Rails.cache.clear
+    end
     it "should return a list of Questions" do
-      expect($redis).to receive(:get).and_return(nil)
       get :index, params: { question_type: 'connect_sentence_combining' }, as: :json
+
       expect(JSON.parse(response.body).keys.length).to eq(1)
-    end
-
-    it "should set cache if it is empty" do
-      expect($redis).to receive(:get).and_return(nil)
-      expect($redis).to receive(:set)
-      get :index, params: { question_type: 'connect_sentence_combining' }, as: :json
-    end
-
-    it "should not set cache if there is a cache hit" do
-      mock_cached_data = {"foo" => "bar"}
-      expect($redis).to receive(:get).and_return(JSON.dump(mock_cached_data))
-      expect($redis).not_to receive(:set)
-      get :index, params: { question_type: 'connect_sentence_combining' }, as: :json
-      expect(JSON.parse(response.body)).to eq(mock_cached_data)
-    end
-
-    it "should include the response from the db" do
-      get :index, params: { question_type: 'connect_sentence_combining' }, as: :json
       expect(JSON.parse(response.body).keys.first).to eq(question.uid)
     end
   end
 
   describe "#show" do
+    before(:each) do
+      Rails.cache.clear
+    end
     it "should return the specified question" do
       get :show, params: { id: question.uid }, as: :json
       expect(JSON.parse(response.body)).to eq(question.data)
-    end
-
-    it "should set cache if it is empty" do
-      expect($redis).to receive(:get).and_return(nil)
-      expect($redis).to receive(:set)
-      get :show, params: { id: question.uid }, as: :json
-    end
-
-    it "should not set cache if there is a cache hit" do
-      mock_cached_data = {"foo" => "bar"}
-      expect($redis).to receive(:get).and_return(JSON.dump(mock_cached_data))
-      expect($redis).not_to receive(:set)
-      get :show, params: { id: question.uid }, as: :json
-      expect(JSON.parse(response.body)).to eq(mock_cached_data)
     end
 
     it "should return a 404 if the requested Question is not found" do
       get :show, params: { id: 'doesnotexist' }, as: :json
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
+    end
+
+    it "should return a 404 when not found, but 200 once created" do
+      some_id = 'some_id'
+      get :show, params: { id: some_id }, as: :json
+      expect(response.status).to eq(404)
+
+      create(:question, uid: some_id)
+      get :show, params: { id: some_id }, as: :json
+      expect(response.status).to eq(200)
     end
   end
 

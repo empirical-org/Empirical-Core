@@ -4,24 +4,24 @@ import stripHtml from "string-strip-html";
 import { convertNodeToElement } from 'react-html-parser'
 
 import RightPanel from './rightPanel'
+import ActivityFollowUp from './activityFollowUp';
 
 import { explanationData } from "../activitySlides/explanationData";
 import ExplanationSlide from "../activitySlides/explanationSlide";
 import WelcomeSlide from "../activitySlides/welcomeSlide";
-import PostActivitySlide from '../activitySlides/postActivitySlide';
 import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession } from '../../actions/session'
+import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession, saveActivitySurveyResponse, reportAProblem, } from '../../actions/session'
 import { generateConceptResults, } from '../../libs/conceptResults'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
-import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted } from '../../helpers/containerActionHelpers';
+import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted, getStrippedPassageHighlights } from '../../helpers/containerActionHelpers';
 import { renderStepLinksAndDirections, renderReadPassageContainer } from '../../helpers/containerRenderHelpers';
 import { postTurkSession } from '../../utils/turkAPI';
-import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE } from '../../../Shared/index'
+import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE, TOUCHMOVE, } from '../../../Shared/index'
 
 interface StudentViewContainerProps {
   dispatch: Function;
@@ -56,58 +56,60 @@ const ONBOARDING = 'onboarding'
 const READ_PASSAGE_STEP = 1
 const ALL_STEPS = [READ_PASSAGE_STEP, 2, 3, 4]
 const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
+const ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING = 3
 
-export class StudentViewContainer extends React.Component<StudentViewContainerProps, StudentViewContainerState> {
-  private step1: any // eslint-disable-line react/sort-comp
-  private step2: any // eslint-disable-line react/sort-comp
-  private step3: any // eslint-disable-line react/sort-comp
-  private step4: any // eslint-disable-line react/sort-comp
+export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user, }: StudentViewContainerProps) => {
+  const activityCompletionCount: number = parseInt(getParameterByName('activities', window.location.href)) || 0;
+  const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
+  const defaultCompletedSteps = shouldSkipToPrompts ? [READ_PASSAGE_STEP] : []
 
-  constructor(props: StudentViewContainerProps) {
-    super(props)
-
-    const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
-
-    this.state = {
-      activeStep: shouldSkipToPrompts ? READ_PASSAGE_STEP + 1: READ_PASSAGE_STEP,
-      activityIsComplete: false,
-      activityIsReadyForSubmission: false,
-      explanationSlidesCompleted: shouldSkipToPrompts,
-      explanationSlideStep: 0,
-      completedSteps: shouldSkipToPrompts ? [READ_PASSAGE_STEP] : [],
-      showFocusState: false,
-      startTime: Date.now(),
-      isIdle: false,
-      studentHighlights: [],
-      scrolledToEndOfPassage: shouldSkipToPrompts,
-      showReadTheDirectionsModal: false,
-      hasStartedReadPassageStep: shouldSkipToPrompts,
-      hasStartedPromptSteps: shouldSkipToPrompts,
-      doneHighlighting: shouldSkipToPrompts,
-      timeTracking: {
-        [ONBOARDING]: 0,
-        1: 0,
-        2: 0,
-        3: 0,
-        4: 0
-      }
-    }
-
-    this.step1 = React.createRef()
-    this.step2 = React.createRef()
-    this.step3 = React.createRef()
-    this.step4 = React.createRef()
+  const refs = {
+    step1: React.useRef(),
+    step2: React.useRef(),
+    step3: React.useRef(),
+    step4: React.useRef()
   }
 
-  componentDidMount() {
-    const { dispatch, session, isTurk, location } = this.props
+  const inactivityTimer = React.useRef(null)
+
+  const [explanationSlideStep, setExplanationSlideStep] = React.useState(0)
+  const [explanationSlidesCompleted, setExplanationSlidesCompleted] = React.useState(shouldSkipToPrompts)
+  const [activeStep, setActiveStep] = React.useState(shouldSkipToPrompts ? READ_PASSAGE_STEP + 1: READ_PASSAGE_STEP)
+  const [activityIsComplete, setActivityIsComplete] = React.useState(false)
+  const [activityIsReadyForSubmission, setActivityIsReadyForSubmission] = React.useState(false)
+  const [completedSteps, setCompletedSteps] = React.useState(defaultCompletedSteps)
+  const [showFocusState, setShowFocusState] = React.useState(false)
+  const [startTime, setStartTime] = React.useState(Date.now())
+  const [isIdle, setIsIdle] = React.useState(false)
+  const [studentHighlights, setStudentHighlights] = React.useState([])
+  const [scrolledToEndOfPassage, setScrolledToEndOfPassage] = React.useState(shouldSkipToPrompts)
+  const [hasStartedReadPassageStep, setHasStartedReadPassageStep] = React.useState(shouldSkipToPrompts)
+  const [hasStartedPromptSteps, setHasStartedPromptsSteps] = React.useState(shouldSkipToPrompts)
+  const [doneHighlighting, setDoneHighlighting] = React.useState(shouldSkipToPrompts)
+  const [showReadTheDirectionsModal, setShowReadTheDirectionsModal] = React.useState(false)
+  const [timeTracking, setTimeTracking] = React.useState({
+    [ONBOARDING]: 0,
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0
+  })
+
+  React.useEffect(() => {
+    const el = document.getElementById('end-of-passage')
+    const observer = new IntersectionObserver(([entry]) => { entry.isIntersecting ? setScrolledToEndOfPassage(entry.isIntersecting) : null; });
+
+    el && observer.observe(el);
+  }, [hasStartedReadPassageStep]);
+
+  React.useEffect(() => {
     const activityUID = getUrlParam('uid', location, isTurk)
     const sessionFromUrl = getUrlParam('session', location, isTurk)
     if (sessionFromUrl) {
       const fetchActiveActivitySessionArgs = {
         sessionID: sessionFromUrl,
         activityUID: activityUID,
-        callback: this.loadPreviousSession
+        callback: loadPreviousSession
       }
       dispatch(getActivity(sessionFromUrl, activityUID))
         .then(() => {
@@ -118,89 +120,110 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         const { sessionID, } = session
         dispatch(getActivity(sessionID, activityUID))
         dispatch(processUnfetchableSession(sessionID));
-        isTurk && this.handlePostTurkSession(sessionID);
+        isTurk && handlePostTurkSession(sessionID);
       }
     }
+  }, [])
 
-    window.addEventListener(KEYDOWN, this.handleKeyDown)
-    window.addEventListener(MOUSEMOVE, this.resetTimers)
-    window.addEventListener(MOUSEDOWN, this.resetTimers)
-    window.addEventListener(CLICK, this.handleClick)
-    window.addEventListener(KEYPRESS, this.resetTimers)
-    window.addEventListener(VISIBILITYCHANGE, this.setIdle)
-  }
+  React.useEffect(() => {
+    window.addEventListener(KEYDOWN, handleKeyDown)
+    window.addEventListener(MOUSEMOVE, resetTimers)
+    window.addEventListener(MOUSEDOWN, resetTimers)
+    window.addEventListener(CLICK, handleClick)
+    window.addEventListener(KEYPRESS, resetTimers)
+    window.addEventListener(VISIBILITYCHANGE, setIdle)
 
-  componentWillUnmount() {
-    window.removeEventListener(KEYDOWN, this.handleKeyDown)
-    window.removeEventListener(MOUSEMOVE, this.resetTimers)
-    window.removeEventListener(MOUSEDOWN, this.resetTimers)
-    window.removeEventListener(CLICK, this.handleClick)
-    window.removeEventListener(KEYPRESS, this.resetTimers)
-    window.removeEventListener(VISIBILITYCHANGE, this.setIdle)
-  }
+    return function cleanup() {
+      window.removeEventListener(KEYDOWN, handleKeyDown)
+      window.removeEventListener(MOUSEMOVE, resetTimers)
+      window.removeEventListener(MOUSEDOWN, resetTimers)
+      window.removeEventListener(CLICK, handleClick)
+      window.removeEventListener(KEYPRESS, resetTimers)
+      window.removeEventListener(VISIBILITYCHANGE, setIdle)
+    }
+  }, [session, activities, hasStartedPromptSteps, inactivityTimer, explanationSlidesCompleted, activeStep, isIdle])
 
-  componentDidUpdate(prevProps, prevState) {
-    const { activeStep, completedSteps} = this.state
-    const { session, activities, } = this.props
-    const { submittedResponses, } = session
+  React.useEffect(() => { activities.currentActivity ? document.title = `Quill.org | ${activities.currentActivity.title}` : null }, [activities.currentActivity])
 
-    if (activities.currentActivity) { document.title = `Quill.org | ${activities.currentActivity.title}`}
-
-    if (submittedResponses === prevProps.session.submittedResponses) { return }
-
+  React.useEffect(() => {
     if (!outOfAttemptsForActivePrompt(activeStep, session, activities)) { return }
 
     if (!everyOtherStepCompleted(activeStep, completedSteps)) { return }
 
-    this.completeStep(activeStep)
-  }
+    completeStep(activeStep)
+  }, [session.submittedResponses])
 
-  handleReadPassageContainerTouchMoveEnd = (e) => {
-    setTimeout(() => this.handleReadPassageContainerScroll(e), 300)
-  }
+  React.useEffect(() => {
+    if (onMobile()) { window.scrollTo(0, 0) }
+  }, [doneHighlighting])
 
-  handleReadPassageContainerScroll = (e=null) => {
-    const el = document.getElementById('end-of-passage')
-    if (!el) { return }
-    const rect = el.getBoundingClientRect();
-    const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-    if (!(rect.bottom < 100 || rect.top - viewHeight >= 100)) {
-      this.setState({ scrolledToEndOfPassage: true, })
+  React.useEffect(() => {
+    if (completedSteps.length === defaultCompletedSteps.length || !activities.currentActivity ) { return }
+
+    const uniqueCompletedSteps = Array.from(new Set(completedSteps))
+    let nextStep: number|undefined = activeStep + 1
+    if (nextStep > ALL_STEPS.length || uniqueCompletedSteps.includes(nextStep)) {
+      nextStep = ALL_STEPS.find(s => !uniqueCompletedSteps.includes(s))
     }
-    if (e) { this.resetTimers(e) }
+
+    if (nextStep) {
+      // don't activate a step if it's already active
+      if (activeStep == nextStep) return
+      // // don't activate nextSteps before Done reading button has been clicked
+      if (nextStep && nextStep > 1 && !completedSteps.includes(READ_PASSAGE_STEP)) return
+
+      setActiveStep(nextStep)
+      setStartTime(Date.now())
+      trackCurrentPromptStartedEvent()
+    } else {
+      trackActivityCompletedEvent(); // If there is no next step, the activity is done
+    }
+  }, [completedSteps, activities.currentActivity])
+
+  React.useEffect(() => {
+    activeStep !== READ_PASSAGE_STEP ? scrollToStep(`step${activeStep}`) : null
+  }, [activeStep])
+
+  function handleReadPassageContainerScroll(e=null) {
+    if (e) { resetTimers(e) }
   }
 
-  closeReadTheDirectionsModal = () => this.setState({ showReadTheDirectionsModal: false, })
+  function closeReadTheDirectionsModal() { setShowReadTheDirectionsModal(false) }
 
-  resetTimers = (e=null) => {
+  function resetTimers(e=null) {
     const now = Date.now()
-    this.setState((prevState, props) => {
-      const { session, activities } = props;
-      const { activeStep, startTime, timeTracking, isIdle, inactivityTimer, completedSteps, explanationSlidesCompleted, hasStartedPromptSteps, } = prevState
-      if (completedSteps.includes(activeStep)) { return } // don't want to add time if a user is revisiting a previously completed step
-      if (outOfAttemptsForActivePrompt(activeStep, session, activities)) { return } // or if they are finished submitting responses for the current active step
-      if (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps) { return } // or if they are between the read passage step and starting the prompts
+    if (completedSteps.includes(activeStep)) { return } // don't want to add time if a user is revisiting a previously completed step
+    if (outOfAttemptsForActivePrompt(activeStep, session, activities)) { return } // or if they are finished submitting responses for the current active step
+    if (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps) { return } // or if they are between the read passage step and starting the prompts
 
-      if (inactivityTimer) { clearTimeout(inactivityTimer) }
+    let elapsedTime = now - startTime
+    if (isIdle) {
+      elapsedTime = 0
+    }
 
-      let elapsedTime = now - startTime
-      if (isIdle) {
-        elapsedTime = 0
-      }
+    const activeStepKey = explanationSlidesCompleted ? activeStep : ONBOARDING
+    const newTimeTracking = {...timeTracking, [activeStepKey]: timeTracking[activeStepKey] + elapsedTime}
 
-      const activeStepKey = explanationSlidesCompleted ? activeStep : ONBOARDING
-      const newTimeTracking = {...timeTracking, [activeStepKey]: timeTracking[activeStepKey] + elapsedTime}
-      const newInactivityTimer = setTimeout(this.setIdle, 30000);  // time is in milliseconds (1000 is 1 second)
-
-      return { timeTracking: newTimeTracking, isIdle: false, inactivityTimer: newInactivityTimer, startTime: now, }
-    })
+    setTimeTracking(newTimeTracking)
+    setIsIdle(false)
+    setStartTime(now)
+    inactivityTimerReset()
 
     return Promise.resolve(true);
   }
 
-  setIdle = () => { this.resetTimers().then(() => this.setState({ isIdle: true })) }
+  function inactivityTimerReset() {
+    if (inactivityTimer.current) { clearTimeout(inactivityTimer.current) }
+    inactivityTimer.current = setTimeout(setIdle, 30000) // time is in milliseconds (1000 is 1 second)
+  }
 
-  handlePostTurkSession = (activitySessionId: string) => {
+  function setIdle() {
+    setIsIdle(true)
+    setStartTime(Date.now())
+    inactivityTimerReset()
+  }
+
+  function handlePostTurkSession(activitySessionId: string) {
     const turkingRoundID = getParameterByName('id', window.location.href);
     postTurkSession(turkingRoundID, activitySessionId).then(response => {
       const { error } = response;
@@ -210,9 +233,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     });
   }
 
-  defaultHandleFinishActivity = () => {
-    const { timeTracking, studentHighlights, } = this.state
-    const { activities, dispatch, session, handleFinishActivity, } = this.props
+  function defaultHandleFinishActivity() {
     const { sessionID, submittedResponses, } = session
     const { currentActivity, } = activities
     const percentage = null // We always set percentages to "null"
@@ -231,37 +252,23 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     dispatch(completeActivitySession(sessionID, currentActivity.parent_activity_id, percentage, conceptResults, data, callback))
   }
 
-  loadPreviousSession = (data: object) => {
-    const {
-      activeStep,
-      completedSteps,
-      timeTracking,
-      studentHighlights,
-    } = this.state
-
+  function loadPreviousSession(data) {
     const highlights = data.studentHighlights || studentHighlights
     // if the student hasn't gotten to the highlighting stage yet,
     // we don't want them to skip seeing the directions modal and reading the passage again
     const studentHasAtLeastStartedHighlighting = highlights && highlights.length
-
-    const newState = {
-      activeStep: data.activeStep || activeStep,
-      completedSteps: data.completedSteps || completedSteps,
-      timeTracking: data.timeTracking || timeTracking,
-      studentHighlights: highlights,
-      hasStartedReadPassageStep: studentHasAtLeastStartedHighlighting,
-      scrolledToEndOfPassage: studentHasAtLeastStartedHighlighting,
-      doneHighlighting: studentHasAtLeastStartedHighlighting && highlights.length >= MINIMUM_STUDENT_HIGHLIGHT_COUNT
-    }
-
-    this.setState(newState, () => {
-      const { activeStep, } = this.state
-      this.activateStep(activeStep, null, true)
-    })
+    setActiveStep(data.activeStep || activeStep)
+    setCompletedSteps(data.completedSteps || completedSteps)
+    setTimeTracking(data.timeTracking || timeTracking)
+    setStudentHighlights(highlights)
+    setHasStartedReadPassageStep(studentHasAtLeastStartedHighlighting)
+    setScrolledToEndOfPassage(studentHasAtLeastStartedHighlighting)
+    setDoneHighlighting(studentHasAtLeastStartedHighlighting && highlights.length >= MINIMUM_STUDENT_HIGHLIGHT_COUNT)
   }
 
-  submitResponse = (entry: string, promptID: string, promptText: string, attempt: number) => {
-    const { dispatch, session, isTurk, location } = this.props
+  function activateStep(step) { setActiveStep(step) }
+
+  function submitResponse(entry: string, promptID: string, promptText: string, attempt: number) {
     const { sessionID, } = session
     const activityUID = getUrlParam('uid', location, isTurk)
     const previousFeedback = session.submittedResponses[promptID] || [];
@@ -276,15 +283,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         promptText,
         attempt,
         previousFeedback,
-        callback: this.submitResponseCallback
+        callback: submitResponseCallback
       }
       dispatch(getFeedback(args))
     }
   }
 
-  trackPassageReadEvent = () => {
-    const { dispatch, isTurk, location } = this.props
-    const { session, } = this.props
+  function trackPassageReadEvent() {
     const { sessionID, } = session
     const activityUID = getUrlParam('uid', location, isTurk)
 
@@ -294,9 +299,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     }));
   }
 
-  trackCurrentPromptStartedEvent = () => {
-    const { activeStep } = this.state
-    const { dispatch, activities, session, isTurk } = this.props
+  function trackCurrentPromptStartedEvent() {
 
     const trackingParams = getCurrentStepDataForEventTracking(activeStep, activities, session, isTurk)
     if (!trackingParams) return; // Bail if there's no data to track
@@ -304,9 +307,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PROMPT_STARTED, trackingParams))
   }
 
-  trackCurrentPromptCompletedEvent = () => {
-    const { activeStep } = this.state
-    const { dispatch, activities, session, isTurk } = this.props
+  function trackCurrentPromptCompletedEvent() {
 
     const trackingParams = getCurrentStepDataForEventTracking(activeStep, activities, session, isTurk)
     if (!trackingParams) return; // Bail if there's no data to track
@@ -314,9 +315,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PROMPT_COMPLETED, trackingParams))
   }
 
-  trackActivityCompletedEvent = () => {
-    const { dispatch, isTurk, location } = this.props
-    const { session, } = this.props
+  function trackActivityCompletedEvent() {
     const { sessionID, } = session
     const activityID = getUrlParam('uid', location, isTurk)
 
@@ -325,91 +324,69 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       sessionID,
     }));
 
-    this.setState({ activityIsComplete: true });
-    this.defaultHandleFinishActivity()
+    setActivityIsComplete(true);
+    defaultHandleFinishActivity()
   }
 
-  activateStep = (step?: number, callback?: Function, skipTracking?: boolean) => {
-    const { activeStep, completedSteps, } = this.state
-    // don't activate a step if it's already active
-    if (activeStep == step) return
-    // don't activate steps before Done reading button has been clicked
-    if (step && step > 1 && !completedSteps.includes(READ_PASSAGE_STEP)) return
-
-    this.setState({ activeStep: step, startTime: Date.now(), }, () => {
-      if (!skipTracking) this.trackCurrentPromptStartedEvent()
-      if (callback) { callback() }
-    })
-  }
-
-  completeStep = (stepNumber: number) => {
-    const { completedSteps, } = this.state
+  function completeStep(stepNumber: number) {
     const newCompletedSteps = completedSteps.concat(stepNumber)
     const uniqueCompletedSteps = Array.from(new Set(newCompletedSteps))
-    this.trackCurrentPromptCompletedEvent()
-    this.setState({ completedSteps: uniqueCompletedSteps }, () => {
-      let nextStep: number|undefined = stepNumber + 1
-      if (nextStep > ALL_STEPS.length || uniqueCompletedSteps.includes(nextStep)) {
-        nextStep = ALL_STEPS.find(s => !uniqueCompletedSteps.includes(s))
-      }
-
-      if (nextStep) {
-        this.activateStep(nextStep, () => stepNumber !== READ_PASSAGE_STEP ? this.scrollToStep(`step${nextStep}`) : null)
-      } else {
-        this.trackActivityCompletedEvent(); // If there is no next step, the activity is done
-      }
-    })
+    trackCurrentPromptCompletedEvent()
+    setCompletedSteps(uniqueCompletedSteps)
   }
 
-  handleClick = (e) => {
-    const { showReadTheDirectionsModal, } = this.state
+  function handleClick(e) {
     if (showReadTheDirectionsModal && e.target.className.indexOf('read-the-directions-modal') === -1) {
-      this.closeReadTheDirectionsModal()
+      closeReadTheDirectionsModal()
     }
 
-    this.resetTimers(e)
+    resetTimers(e)
   }
 
-  handleKeyDown = (e) => {
-    const { showFocusState, } = this.state
-
+  function handleKeyDown(e) {
     if (e.key !== 'Tab' || showFocusState) { return }
 
-    this.setState({ showFocusState: true })
+    setShowFocusState(true)
   }
 
-  handleDoneReadingClick = () => {
-    this.completeStep(READ_PASSAGE_STEP)
+  function handleDoneReadingClick() {
+    completeStep(READ_PASSAGE_STEP)
     const scrollContainer = document.getElementsByClassName("read-passage-container")[0]
     scrollContainer.scrollTo(0, 0)
-    this.trackPassageReadEvent();
+    trackPassageReadEvent();
   }
 
-  onStartReadPassage = (e) => {
+  function onStartReadPassage(e) {
     e.stopPropagation()
-    this.setState({ hasStartedReadPassageStep: true, showReadTheDirectionsModal: true, })
+    setHasStartedReadPassageStep(true)
+    setShowReadTheDirectionsModal(true)
   }
 
-  onStartPromptSteps = () => this.setState({ hasStartedPromptSteps: true, })
+  function onStartPromptSteps() { setHasStartedPromptsSteps(true) }
 
-  handleClickDoneHighlighting = () => {
-    this.setState({ doneHighlighting: true}, () => {
-      if (onMobile()) { window.scrollTo(0, 0) }
-    })
+  function submitProblemReport(args) {
+    const { sessionID, } = session
+    reportAProblem({...args, sessionID})
   }
 
-  scrollToStep = (ref: string) => {
+  function handleClickDoneHighlighting() {
+    setDoneHighlighting(true)
+  }
+
+  function scrollToStep(ref: string) {
     if (onMobile()) {
-      this.scrollToStepOnMobile(ref)
+      scrollToStepOnMobile(ref)
     } else {
       const scrollContainer = document.getElementsByClassName("steps-outer-container")[0]
-      const el = this[ref]
+      const el = refs[ref]
 
-      scrollContainer.scrollTo(0, el.offsetTop - 34)
+      if (scrollContainer) {
+        scrollContainer.scrollTo(0, el.offsetTop - 34)
+      }
     }
   }
 
-  scrollToHighlight = () => {
+  function scrollToHighlight() {
     const passageHighlights = document.getElementsByClassName('passage-highlight')
     if (!passageHighlights.length) { return }
 
@@ -427,10 +404,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     }
   }
 
-  saveActiveActivitySession = () => {
-    const { dispatch, session, } = this.props
+  function callSaveActiveActivitySession() {
     const { sessionID, submittedResponses, } = session
-    const { activeStep, completedSteps, timeTracking, studentHighlights, } = this.state
     const args = {
       sessionID,
       submittedResponses,
@@ -442,32 +417,31 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     dispatch(saveActiveActivitySession(args))
   }
 
-  submitResponseCallback = () => {
-    this.saveActiveActivitySession()
-    this.scrollToHighlight()
+  function submitResponseCallback() {
+    callSaveActiveActivitySession()
+    scrollToHighlight()
   }
 
-  scrollToStepOnMobile = (ref: string) => {
-    this[ref].scrollIntoView(false)
+  function scrollToStepOnMobile(ref: string) {
+    refs[ref].current ? refs[ref].current.scrollIntoView(false) : null
   }
 
-  scrollToQuestionSectionOnMobile = () => this.scrollToStepOnMobile('step2')
+  function scrollToQuestionSectionOnMobile() { scrollToStepOnMobile('step2')}
 
-  clickStepLink = (stepNumber: number) => {
-    this.activateStep(stepNumber)
-    this.scrollToStepOnMobile(`step${stepNumber}`)
+  function clickStepLink(stepNumber: number) {
+    setActiveStep(stepNumber)
   }
 
-  handleHighlightKeyDown = (e) => {
+  function handleHighlightKeyDown(e) {
     if (e.key !== 'Enter') { return }
-    this.toggleStudentHighlight(e.target.textContent)
+    toggleStudentHighlight(e.target.textContent)
   }
 
-  handleHighlightClick = (e) => this.toggleStudentHighlight(e.target.textContent, () => document.activeElement.blur())
+  function handleHighlightClick(e) {
+    toggleStudentHighlight(e.target.textContent, () => document.activeElement.blur())
+  }
 
-  toggleStudentHighlight = (text, callback=null) => {
-    const { studentHighlights, } = this.state
-
+  function toggleStudentHighlight(text, callback=null) {
     let newHighlights = []
 
     if (studentHighlights.includes(text)) {
@@ -476,116 +450,127 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       newHighlights = studentHighlights.concat(text)
     }
 
-    this.setState({ studentHighlights: newHighlights, }, () => {
-      callback && callback()
-      this.saveActiveActivitySession()
-    })
+    setStudentHighlights(newHighlights)
+    callback && callback()
   }
 
-  transformMarkTags = (node) => {
-    const { studentHighlights, showReadTheDirectionsModal, doneHighlighting, hasStartedReadPassageStep, } = this.state
+  React.useEffect(() => {
+    if (studentHighlights.length === 0 ) { return }
+    callSaveActiveActivitySession()
+  }, [studentHighlights])
+
+  function transformMarkTags(node) {
+    const strippedPassageHighlights = getStrippedPassageHighlights({ activities, session, activeStep });
+
+    if (['p'].includes(node.name) && activeStep > 1 && strippedPassageHighlights && strippedPassageHighlights.length) {
+      const stringifiedInnerElements = node.children.map(n => n.data ? n.data : n.children[0].data).join('')
+      if (!stringifiedInnerElements) { return }
+      const highlightIncludesElement = strippedPassageHighlights.find(ph => ph.includes(stringifiedInnerElements)) // handles case where passage highlight spans more than one paragraph
+      const elementIncludesHighlight = strippedPassageHighlights.find(ph => stringifiedInnerElements.includes(ph)) // handles case where passage highlight is only part of paragraph
+      if (highlightIncludesElement) {
+        return <p><span className="passage-highlight">{stringifiedInnerElements}</span></p>
+      }
+      if (elementIncludesHighlight) {
+        let newStringifiedInnerElements = stringifiedInnerElements
+        strippedPassageHighlights.forEach(ph => newStringifiedInnerElements = newStringifiedInnerElements.replace(ph, `<span class="passage-highlight">${ph}</span>`))
+        return <p dangerouslySetInnerHTML={{ __html: newStringifiedInnerElements }} />
+      }
+    }
+
     if (node.name === 'mark') {
       const shouldBeHighlightable = !doneHighlighting && !showReadTheDirectionsModal && hasStartedReadPassageStep
-      const innerElements = node.children.map((n, i) => convertNodeToElement(n, i, this.transformMarkTags))
+      const innerElements = node.children.map((n, i) => convertNodeToElement(n, i, transformMarkTags))
       const stringifiedInnerElements = node.children.map(n => n.data ? n.data : n.children[0].data).join('')
       let className = ''
-      className += studentHighlights.includes(stringifiedInnerElements) ? ' highlighted' : ''
+      if(activeStep === 1) {
+        className += studentHighlights.includes(stringifiedInnerElements) ? ' highlighted' : ''
+      }
       className += shouldBeHighlightable  ? ' highlightable' : ''
       if (!shouldBeHighlightable) { return <mark className={className}>{innerElements}</mark>}
-      return <mark className={className} onClick={this.handleHighlightClick} onKeyDown={this.handleHighlightKeyDown} role="button" tabIndex={0}>{innerElements}</mark>
+      /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
+      return <mark className={className} onClick={handleHighlightClick} onKeyDown={handleHighlightKeyDown} role="button" tabIndex={0}>{innerElements}</mark>
     }
   }
 
-  handleExplanationSlideClick = () => {
-    const { explanationSlideStep } = this.state;
+  function handleExplanationSlideClick() {
     const nextStep = explanationSlideStep + 1;
-    if(nextStep > 3) {
-      this.setState({ explanationSlidesCompleted: true });
+    if (nextStep > 3) {
+      setExplanationSlidesCompleted(true)
     } else {
-      this.setState({  explanationSlideStep: nextStep });
+      setExplanationSlideStep(nextStep)
     }
   }
 
-  render = () => {
-    const { activities, session, user } = this.props
-    const { submittedResponses } = session;
-    const { showFocusState, activeStep, activityIsComplete, explanationSlidesCompleted, explanationSlideStep, hasStartedPromptSteps, hasStartedReadPassageStep, doneHighlighting, showReadTheDirectionsModal, completedSteps, scrolledToEndOfPassage, studentHighlights } = this.state
-    const stepsHash = {
-      'step1': this.step1,
-      'step2': this.step2,
-      'step3': this.step3,
-      'step4': this.step4,
-    }
+  const { submittedResponses, sessionID, } = session;
 
-    if (!activities.hasReceivedData) { return <LoadingSpinner /> }
+  if (!activities.hasReceivedData) { return <LoadingSpinner /> }
 
-    const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP ? 'on-read-passage' : ''}`
+  const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP ? 'on-read-passage' : ''}`
 
-    if(!explanationSlidesCompleted) {
-      if(explanationSlideStep === 0) {
-        return <WelcomeSlide onHandleClick={this.handleExplanationSlideClick} user={user} />
-      }
-      return(
-        <ExplanationSlide onHandleClick={this.handleExplanationSlideClick} slideData={explanationData[explanationSlideStep]} />
-      );
+  if((!explanationSlidesCompleted && activityCompletionCount <= ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING)) {
+    if (explanationSlideStep === 0) {
+      return <WelcomeSlide onHandleClick={handleExplanationSlideClick} user={user} />
     }
-    if(activityIsComplete && !window.location.href.includes('turk')) {
-      return(
-        <PostActivitySlide responses={submittedResponses} user={user} />
-      );
-    }
-    return (
-      <div className={className} onTouchEnd={this.handleReadPassageContainerTouchMoveEnd}>
-        {renderStepLinksAndDirections({
-          activeStep,
-          hasStartedReadPassageStep,
-          hasStartedPromptSteps,
-          doneHighlighting,
-          showReadTheDirectionsModal,
-          completedSteps,
-          activities,
-          clickStepLink: this.clickStepLink,
-          scrollToQuestionSectionOnMobile: this.scrollToQuestionSectionOnMobile,
-          closeReadTheDirectionsModal: this.closeReadTheDirectionsModal
-        })}
-        {renderReadPassageContainer({
-          activities,
-          activeStep,
-          handleReadPassageContainerScroll: this.handleReadPassageContainerScroll,
-          hasStartedPromptSteps,
-          hasStartedReadPassageStep,
-          scrolledToEndOfPassage,
-          session,
-          showReadTheDirectionsModal,
-          studentHighlights,
-          transformMarkTags: this.transformMarkTags
-        })}
-        <RightPanel
-          activateStep={this.activateStep}
-          activeStep={activeStep}
-          activities={activities}
-          closeReadTheDirectionsModal={this.closeReadTheDirectionsModal}
-          completedSteps={completedSteps}
-          completeStep={this.completeStep}
-          doneHighlighting={doneHighlighting}
-          handleClickDoneHighlighting={this.handleClickDoneHighlighting}
-          handleDoneReadingClick={this.handleDoneReadingClick}
-          hasStartedPromptSteps={hasStartedPromptSteps}
-          hasStartedReadPassageStep={hasStartedReadPassageStep}
-          onStartPromptSteps={this.onStartPromptSteps}
-          onStartReadPassage={this.onStartReadPassage}
-          resetTimers={this.resetTimers}
-          scrolledToEndOfPassage={scrolledToEndOfPassage}
-          session={session}
-          showReadTheDirectionsModal={showReadTheDirectionsModal}
-          stepsHash={stepsHash}
-          studentHighlights={studentHighlights}
-          submitResponse={this.submitResponse}
-          toggleStudentHighlight={this.toggleStudentHighlight}
-        />
-      </div>
-    )
+    return(
+      <ExplanationSlide onHandleClick={handleExplanationSlideClick} slideData={explanationData[explanationSlideStep]} />
+    );
   }
+  if(activityIsComplete && !window.location.href.includes('turk')) {
+    return(
+      <ActivityFollowUp responses={submittedResponses} saveActivitySurveyResponse={saveActivitySurveyResponse} sessionID={sessionID} user={user} />
+    );
+  }
+  return (
+    <div className={className}>
+      {renderStepLinksAndDirections({
+        activeStep,
+        hasStartedReadPassageStep,
+        hasStartedPromptSteps,
+        doneHighlighting,
+        showReadTheDirectionsModal,
+        completedSteps,
+        activities,
+        clickStepLink: clickStepLink,
+        scrollToQuestionSectionOnMobile: scrollToQuestionSectionOnMobile,
+        closeReadTheDirectionsModal: closeReadTheDirectionsModal
+      })}
+      {renderReadPassageContainer({
+        activities,
+        activeStep,
+        handleReadPassageContainerScroll,
+        hasStartedPromptSteps,
+        hasStartedReadPassageStep,
+        scrolledToEndOfPassage,
+        showReadTheDirectionsModal,
+        transformMarkTags: transformMarkTags
+      })}
+      <RightPanel
+        activateStep={activateStep}
+        activeStep={activeStep}
+        activities={activities}
+        closeReadTheDirectionsModal={closeReadTheDirectionsModal}
+        completedSteps={completedSteps}
+        completeStep={completeStep}
+        doneHighlighting={doneHighlighting}
+        handleClickDoneHighlighting={handleClickDoneHighlighting}
+        handleDoneReadingClick={handleDoneReadingClick}
+        hasStartedPromptSteps={hasStartedPromptSteps}
+        hasStartedReadPassageStep={hasStartedReadPassageStep}
+        onStartPromptSteps={onStartPromptSteps}
+        onStartReadPassage={onStartReadPassage}
+        reportAProblem={submitProblemReport}
+        resetTimers={resetTimers}
+        scrolledToEndOfPassage={scrolledToEndOfPassage}
+        session={session}
+        showReadTheDirectionsModal={showReadTheDirectionsModal}
+        stepsHash={refs}
+        studentHighlights={studentHighlights}
+        submitResponse={submitResponse}
+        toggleStudentHighlight={toggleStudentHighlight}
+      />
+    </div>
+  )
+
 }
 
 const mapStateToProps = (state: any) => {

@@ -17,6 +17,7 @@ interface PromptStepProps {
   stepNumberComponent: JSX.Element,
   stepNumber: number;
   activateStep: (event: any) => void;
+  reportAProblem: ({}) => void;
   prompt: any,
   passedRef: any,
   submittedResponses: Array<any>,
@@ -31,6 +32,7 @@ interface PromptStepState {
 }
 
 const RESPONSE = 'response'
+const PROMPT = 'prompt'
 export const DIRECTIONS = 'Use information from the text to finish the sentence:'
 
 export class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
@@ -88,6 +90,22 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     return text.replace(regex, '')
   }
 
+  highlightsAddedPrompt = (str: string) => {
+    const { prompt, submittedResponses, } = this.props
+    const lastSubmittedResponse = this.lastSubmittedResponse()
+
+    if (!lastSubmittedResponse || !lastSubmittedResponse.highlight || !lastSubmittedResponse.entry || submittedResponses.length === prompt.max_attempts) { return str }
+
+    const thereArePromptHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === PROMPT).length
+    if (!thereArePromptHighlights) {
+      return str
+    }
+
+    let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === PROMPT).map(hl => this.stripHtml(hl.text))
+    wordsToFormat = wordsToFormat.length === 1 ? wordsToFormat[0] : wordsToFormat
+    return highlightSpellingGrammar(str, wordsToFormat)
+  }
+
   formatStudentResponse = (str: string) => {
     const { prompt, submittedResponses, } = this.props
     const lastSubmittedResponse = this.lastSubmittedResponse()
@@ -95,13 +113,10 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     if (!lastSubmittedResponse || !lastSubmittedResponse.highlight || !lastSubmittedResponse.entry || submittedResponses.length === prompt.max_attempts) { return str }
 
     const thereAreResponseHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).length
-    const lastSubmittedResponseWithoutStem = lastSubmittedResponse.entry.replace(prompt.text, '').trim()
 
-    if (lastSubmittedResponseWithoutStem !== str || !thereAreResponseHighlights) {
-      return str
-    }
+    if (!thereAreResponseHighlights) { return str }
 
-    let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).map(hl => hl.text)
+    let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).map(hl => this.stripHtml(hl.text))
     wordsToFormat = wordsToFormat.length === 1 ? wordsToFormat[0] : wordsToFormat
     if (lastSubmittedResponse.feedback_type == 'plagiarism') {
       return this.formatPlagiarismHighlight(str, wordsToFormat)
@@ -114,8 +129,6 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     let boldedString = `<b>${wordsToFormat}</b>`
     return str.replace(wordsToFormat, boldedString)
   }
-
-
 
   htmlStrippedPrompt = (escapeRegexCharacters=false) => {
     const strippedPrompt = this.formattedStem().replace(/<p>|<\/p>|<br>/g, '')
@@ -260,7 +273,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     const textWithoutStem = text.replace(prompt.text, '').trim()
     const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
     return {
-      htmlWithBolding: active ? `<p>${this.htmlStrippedPrompt()}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`,
+      htmlWithBolding: active ? `<p>${this.highlightsAddedPrompt(this.htmlStrippedPrompt())}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`,
       rawTextWithoutStem: textWithoutStem
     }
   }
@@ -276,7 +289,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     let className = 'quill-button focus-on-light'
     let onClick = () => this.handleGetFeedbackClick(entry, id, text)
     if (submittedResponses.length === max_attempts || this.lastSubmittedResponse().optimal) {
-      onClick = everyOtherStepCompleted ? () => window.location.href = "/" : this.completeStep
+      onClick = this.completeStep
       buttonCopy = everyOtherStepCompleted ? 'Done' : 'Start next sentence'
     } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback) {
       className += ' disabled'
@@ -287,7 +300,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
   renderFeedbackSection = () => {
     const { customFeedback, customFeedbackKey, } = this.state
-    const { submittedResponses, prompt, } = this.props
+    const { submittedResponses, prompt, reportAProblem, } = this.props
     if (submittedResponses.length === 0 && !(customFeedback && customFeedbackKey)) { return }
 
     return (<Feedback
@@ -295,6 +308,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       customFeedbackKey={customFeedbackKey}
       lastSubmittedResponse={this.lastSubmittedResponse()}
       prompt={prompt}
+      reportAProblem={reportAProblem}
       submittedResponses={submittedResponses}
     />)
   }

@@ -18,7 +18,6 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     elsif @activity_session.update(activity_session_params)
       status = :ok
       message = "Activity Session Updated"
-      NotifyOfCompletedActivity.new(@activity_session).call if @activity_session.classroom_unit_id
       handle_concept_results
     else
       status = :unprocessable_entity

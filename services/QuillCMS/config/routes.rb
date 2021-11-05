@@ -43,9 +43,6 @@ Rails.application.routes.draw do
   post 'fragments/is_sentence' => 'fragments#is_sentence'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  # cron controller runs a job in the last hour of the day
-  post 'cron' => 'cron#new'
-
   # catch-all 404
   # DO NOT PLACE ROUTES BELOW THIS ONE, this catch-all must be last
   get '*path', to: 'application#routing_error'

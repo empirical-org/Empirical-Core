@@ -99,12 +99,11 @@ export default class PremiumPricingMinisRow extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="our-commitment">
-          <img alt="Illustration of a handshake in a heart shape" src={handshakeHeartSrc} />
-          <h3>Our commitment</h3>
+        <div className="choose-plan">
+          <h2>Choose the plan that&apos;s right for you</h2>
           <p>As a nonprofit dedicated to helping students, Quill will always provide 100% of our activities for free.</p>
         </div>
-        <div className={`pricing-minis-container ${isScrolled ? 'show-shadow': ''}`}>
+        <div className="pricing-minis-container">
           <div className="pricing-minis">
             <BasicPricingMini
               premiumFeatureData={premiumFeatureData}
@@ -119,6 +118,7 @@ export default class PremiumPricingMinisRow extends React.Component {
             />
             <SchoolPricingMini
               premiumFeatureData={premiumFeatureData}
+              showBadges={!isScrolled}
             />
           </div>
         </div>

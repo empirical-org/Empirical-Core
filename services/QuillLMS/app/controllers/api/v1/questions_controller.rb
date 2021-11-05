@@ -2,29 +2,12 @@ class Api::V1::QuestionsController < Api::ApiController
   before_action :get_question_type, only: [:index, :create]
   before_action :get_question_by_uid, except: [:index, :create, :show]
 
-  ALL_QUESTIONS_CACHE_KEY = 'ALL_QUESTIONS'
-  ALL_QUESTIONS_CACHE_EXPIRY = 600
-  QUESTION_CACHE_KEY_PREFIX = 'QUESTION'
-  QUESTION_CACHE_KEY_EXPIRY = 600
-
   def index
-    cache_key = ALL_QUESTIONS_CACHE_KEY + "_#{@question_type}"
-    all_questions = $redis.get(cache_key)
-
-    if !all_questions
-      all_questions = Question.where(question_type: @question_type.to_s).reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
-      $redis.set(cache_key, all_questions.to_json, {ex: ALL_QUESTIONS_CACHE_EXPIRY})
-    end
-    render(json: all_questions)
+    render json: Question.all_questions_json_cached(@question_type)
   end
 
   def show
-    @question = $redis.get(get_question_cache_key(params[:id]))
-    if !@question
-      @question = Question.find_by!(uid: params[:id]).to_json
-      $redis.set(get_question_cache_key(params[:id]), @question, {ex: QUESTION_CACHE_KEY_EXPIRY})
-    end
-    render(json: @question)
+    render json: Question.question_json_cached(params[:id])
   end
 
   def create

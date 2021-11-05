@@ -80,13 +80,13 @@ module PublicProgressReports
       if unit
         class_ids = current_user.classrooms_i_teach.map(&:id)
         #without definining class ids, it may default to a classroom activity from a non-existant classroom
-        class_units = unit.classroom_units.where(classroom_id: class_ids)
+        class_units = unit.classroom_units.where(classroom_id: class_ids).includes(completed_activity_sessions: :user)
         unit_activity = UnitActivity.find_by(activity_id: activity_id, unit: unit)
 
         class_units.each do |cu|
           cuas = ClassroomUnitActivityState.find_by(unit_activity: unit_activity, classroom_unit: cu)
           classroom = cu.classroom.attributes
-          activity_sessions = cu.activity_sessions.completed
+          activity_sessions = cu.completed_activity_sessions
           if activity_sessions.present? || cuas&.completed || Activity.diagnostic_activity_ids.include?(activity_id.to_i)
             class_id = classroom['id']
             h[class_id] ||= classroom
@@ -121,7 +121,7 @@ module PublicProgressReports
         classroom_unit: classroom_unit
       )
       classroom = Classroom.find(classroom_id)
-      cu_id = classroom_unit.id
+
       scores = {
         id: classroom.id,
         name: classroom.name,
@@ -312,7 +312,10 @@ module PublicProgressReports
         .activity_recommendations
         .map { |r| r[:activityPackId] }
       associated_teacher_ids = ClassroomsTeacher.where(classroom_id: classroom_id).pluck(:user_id)
-      assigned_lesson_ids = Unit.where(unit_template_id: recommended_lesson_activity_ids, user_id: associated_teacher_ids).pluck(:unit_template_id)
+      assigned_lesson_ids = Unit.where(unit_template_id: recommended_lesson_activity_ids, user_id: associated_teacher_ids)
+        .joins(:classroom_units)
+        .where("classroom_units.classroom_id=?", classroom_id)
+        .pluck(:unit_template_id)
       {
         previouslyAssignedRecommendations: assigned_recommendations,
         previouslyAssignedLessonsRecommendations: assigned_lesson_ids

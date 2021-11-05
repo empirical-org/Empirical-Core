@@ -28,4 +28,9 @@ describe DummyController, type: :request do
     expect(response.header['Cache-Control']).to match('no-cache, no-store, max-age=0, must-revalidate')
     expect(response.header['Pragma']).to match('no-cache')
   end
+
+  xit 'should have a content security policy, both real and report-only' do 
+    get '/dummy'
+    expect(response.header['Content-Security-Policy']).to_not be nil 
+  end
 end

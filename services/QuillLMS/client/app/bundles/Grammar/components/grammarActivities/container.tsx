@@ -87,6 +87,8 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       const sessionIdentifier = getParameterByName('student', window.location.href) || proofreaderSessionId
+      const activityUID = getParameterByName('uid', window.location.href)
+      dispatch(getActivity(activityUID))
 
       if (sessionIdentifier && !previewMode) {
         dispatch(startListeningToQuestions(sessionIdentifier));
@@ -108,13 +110,42 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       window.addEventListener(VISIBILITYCHANGE, this.setIdle)
     }
 
-    //TODO: refactor into componentDidUpdate
+    componentDidUpdate(prevProps) {
+      const { timeTracking, introSkipped, } = this.state
+      const { previewMode, questions, questionToPreview, grammarActivities, session, skippedToQuestionFromIntro, dispatch, handleToggleQuestion, } = this.props;
+      const { hasreceiveddata } = grammarActivities
 
-    UNSAFE_componentWillReceiveProps(nextProps: PlayGrammarContainerProps) {
-      const { previewMode, questions, questionToPreview, grammarActivities, session, skippedToQuestionFromIntro } = nextProps;
-      const { dispatch, handleToggleQuestion } = this.props;
-      const { introSkipped, timeTracking, } = this.state;
-      if (grammarActivities.hasreceiveddata && grammarActivities.currentActivity && !session.hasreceiveddata && !session.pending && !session.error) {
+      const activityUID = getParameterByName('uid', window.location.href)
+
+      if (prevProps.grammarActivities.hasreceiveddata != hasreceiveddata && hasreceiveddata) {
+        document.title = `Quill.org | ${grammarActivities.currentActivity.title}`
+      }
+
+      if (!hasreceiveddata && activityUID) {
+        dispatch(getActivity(activityUID))
+      }
+
+      if (!_.isEqual(prevProps.session.timeTracking, session.timeTracking)) {
+        this.setState({ timeTracking: session.timeTracking || timeTracking })
+      }
+
+      if (hasreceiveddata && grammarActivities.currentActivity && !session.hasreceiveddata && !session.pending && !session.error) {
+        const { questions, concepts, flag } = grammarActivities.currentActivity
+        if (questions && questions.length) {
+          dispatch(getQuestions(questions, flag))
+        } else {
+          dispatch(getQuestionsForConcepts(concepts, flag))
+        }
+      }
+
+      if (session.hasreceiveddata && !session.currentQuestion && session.unansweredQuestions.length === 0 && session.answeredQuestions.length > 0) {
+        this.saveToLMS(session)
+        // handles case where proofreader has no follow-up questions
+      } else if (session.hasreceiveddata && !session.currentQuestion && session.unansweredQuestions.length === 0 && session.proofreaderSession) {
+        this.saveToLMS(session)
+      }
+
+      if (hasreceiveddata && grammarActivities.currentActivity && !session.hasreceiveddata && !session.pending && !session.error) {
         const { questions, concepts, flag } = grammarActivities.currentActivity
         if (questions && questions.length) {
           dispatch(getQuestions(questions, flag))
@@ -134,7 +165,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       const sessionIdentifier = sessionID || proofreaderSessionId
       // eslint-disable-next-line react/destructuring-assignment
-      if (sessionIdentifier && !_.isEqual(session, this.props.session) && !session.pending && session.hasreceiveddata) {
+      if (sessionIdentifier && !_.isEqual(session, prevProps.session) && !session.pending && session.hasreceiveddata) {
         updateSession(sessionIdentifier, {...session, timeTracking, })
       }
       if(previewMode && questions && session.currentQuestion && !questionToPreview) {
@@ -146,26 +177,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         this.setState({ introSkipped: true });
         this.goToNextQuestion();
       }
-    }
 
-    componentDidUpdate(prevProps) {
-      const { timeTracking, } = this.state
-      const { grammarActivities, dispatch, session, } = this.props
-      const { hasreceiveddata } = grammarActivities
-
-      const activityUID = getParameterByName('uid', window.location.href)
-
-      if (prevProps.grammarActivities.hasreceiveddata != hasreceiveddata && hasreceiveddata) {
-        document.title = `Quill.org | ${grammarActivities.currentActivity.title}`
-      }
-
-      if (!hasreceiveddata && activityUID) {
-        dispatch(getActivity(activityUID))
-      }
-
-      if (!_.isEqual(prevProps.session.timeTracking, session.timeTracking)) {
-        this.setState({ timeTracking: session.timeTracking || timeTracking })
-      }
     }
 
     componentWillUnmount() {

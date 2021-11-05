@@ -65,7 +65,6 @@ describe User, type: :model do
   #TODO: the validation uses a proc, figure out how to stub that
   #it { is_expected.to callback(:update_invitiee_email_address).after(:save).if(proc) }
 
-  it { should have_many(:notifications) }
   it { should have_many(:checkboxes) }
   it { should have_many(:invitations).with_foreign_key('inviter_id') }
   it { should have_many(:objectives).through(:checkboxes) }
@@ -741,65 +740,15 @@ describe User, type: :model do
   end
 
   describe '#clear_data' do
-    let!(:ip_location) { create(:ip_location) }
-    let(:user) { create(:student_in_two_classrooms_with_many_activities, google_id: 'sergey_and_larry_were_here', send_newsletter: true, ip_location: ip_location) }
-    let!(:auth_credential) { create(:auth_credential, user: user) }
-    let!(:activity_sessions) { user.activity_sessions }
-    let!(:classroom_units) { ClassroomUnit.where("? = ANY (assigned_student_ids)", user.id) }
-    before(:each) { user.clear_data }
+    let(:user) { create(:user) }
 
-    it "changes the user's email to one that is not personally identiable" do
-      expect(user.email).to eq("deleted_user_#{user.id}@example.com")
-    end
-
-    it "changes the user's username to one that is not personally identiable" do
-      expect(user.username).to eq("deleted_user_#{user.id}")
-    end
-
-    it "changes the user's name to one that is not personally identiable" do
-      expect(user.name).to eq("Deleted User_#{user.id}")
-    end
-
-    it "removes the google id" do
-      expect(user.google_id).to be nil
-    end
-
-    it "destroys associated auth credentials if present" do
-      expect(user.reload.auth_credential).to be nil
-    end
-    it "destroys associated schools_users if present" do
-      expect(user.reload.schools_users).to be nil
-    end
-
-    it "destroys associated students_classrooms if present" do
-      expect(StudentsClassrooms.where(student_id: user.id).count).to eq(0)
-    end
-
-    it "removes the ip address" do
-      expect(user.ip_address).to be nil
-    end
-
-    it "sets send_newsletter to be false" do
-      expect(user.send_newsletter).to be false
-    end
-
-    it "removes ip_location" do
-      expect(user.reload.ip_location).to be nil
-    end
-
-    it "removes student from related classroom_units" do
-      classroom_units.each {|cu| expect(cu.assigned_student_ids).not_to include(user.id)}
-    end
-
-    it "removes student from related activity_sessions" do
-      expect(user.activity_sessions.count).to eq(0)
-      activity_sessions.each {|as| expect(as.classroom_unit_id).to be nil}
-      activity_sessions.each {|as| expect(as.user_id).to be nil}
+    it 'calls the ClearUserDataWorker with the user id' do
+      expect(ClearUserDataWorker).to receive(:perform_async).with(user.id)
+      user.clear_data
     end
   end
 
   describe '#safe_role_assignment' do
-    let(:user) { build(:user) }
 
     it "must assign 'user' role by default" do
       expect(user.safe_role_assignment('nil')).to eq('user')
@@ -1314,8 +1263,15 @@ describe User, type: :model do
     it 'returns all deleted users' do
       expect(User.count).to eq 2
 
-      expect { to_be_deleted_user.clear_data }.to change { User.deleted_users.count }.from(0).to(1)
+      expect { ClearUserDataWorker.new.perform(to_be_deleted_user.id) }.to change { User.deleted_users.count }.from(0).to(1)
     end
+  end
+
+  describe '.valid_email?' do
+    it { expect { User.valid_email?('').to be_false } }
+    it { expect { User.valid_email?(nil).to be_false } }
+    it { expect { User.valid_email?('1').to be_false } }
+    it { expect { User.valid_email?('a@b.c').to be_true } }
   end
 
   describe '#google_authorized?' do

@@ -32,15 +32,30 @@ RSpec.describe GoogleIntegration::ClassroomStudentImporter do
       expect { subject.run }.to change(StudentsClassrooms, :count).from(0).to(1)
     end
 
-    context 'student exists with email' do
-      before { create(:student, email: email) }
+    context 'user exists with email' do
+      context 'with role student' do
+        before { create(:student, email: email) }
 
-      it 'runs student updater' do
-        expect { subject.run }.to_not change(User.student, :count)
+        it { expect { subject.run }.to_not change(User.student, :count) }
+      end
+
+      context 'role is teacher' do
+        let!(:student) { create(:teacher, email: email) }
+
+        context 'teacher has classrooms' do
+          before { create(:classrooms_teacher, user: student) }
+
+          it { expect { subject.run }.to_not change(User.student, :count) }
+          it { expect { subject.run }.to change(ChangeLog, :count).by(1) }
+        end
+
+        context 'teacher has no classrooms' do
+          it { expect { subject.run }.to change(User.student, :count).by(1) }
+        end
       end
     end
 
-    context 'student does not exist with email' do
+    context 'no user exists with email' do
       context 'student exists with google_id' do
         let(:another_email) { 'another_' + email }
 
