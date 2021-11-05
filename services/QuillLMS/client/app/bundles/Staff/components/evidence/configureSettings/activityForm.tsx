@@ -166,6 +166,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   const passageLabelStyle = activityPassages[0].text.length  && activityPassages[0].text !== '<br/>' ? 'has-text' : '';
   const maxAttemptStyle = activityMaxFeedback.length && activityMaxFeedback !== '<br/>' ? 'has-text' : '';
   const imageAttributionGuideLink = 'https://www.notion.so/quill/Activity-Images-9bc3993400da46a6af445a8a0d2d9d3f#11e9a01b071e41bc954e1182d56e93e8';
+  const invalidHighlightsPresent = (invalid_highlights && invalid_highlights.length > 0)
 
   function renderInvalidHighlightLinks(invalidHighlights){
     const formattedRows = invalidHighlights && invalidHighlights.length && invalidHighlights.map((highlight: InvalidHighlightProps) => {
@@ -181,7 +182,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
     });
 
     const dataTableFields = [
-      { name: "Invalid Highlights", attribute:"link", width: "100%" }
+      { name: "Invalid Highlights", attribute:"link", width: "100%", noTooltip: true }
     ];
 
     return (<DataTable
@@ -299,7 +300,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
           handleSetPrompt={handleSetPrompt}
         />
       </form>
-      {invalid_highlights && invalid_highlights.length > 0 && renderInvalidHighlightLinks(invalid_highlights)}
+      {invalidHighlightsPresent && renderInvalidHighlightLinks(invalid_highlights)}
     </div>
   )
 }
