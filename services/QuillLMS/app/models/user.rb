@@ -134,8 +134,6 @@ class User < ApplicationRecord
   # gem validates_email_format_of
   validates_email_format_of :email, if: :email_required_or_present?, message: :invalid
 
-
-
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { allow_blank: true, message: :taken },
                                     format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username? }
@@ -174,6 +172,10 @@ class User < ApplicationRecord
           AND username LIKE 'deleted_user_%'
       SQL
     )
+  end
+
+  def self.valid_email?(email)
+    ValidatesEmailFormatOf.validate_email_format(email).nil?
   end
 
   def testing_flag

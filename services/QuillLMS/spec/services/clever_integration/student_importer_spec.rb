@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe CleverIntegration::StudentImporter do
-  let(:existing_email) { 'Existing_student@gmail.com' }
-  let(:existing_username) { 'Existing.student' }
+  let(:existing_email) { 'existing_student@gmail.com' }
+  let(:existing_username) { 'existing.student' }
   let(:existing_clever_id) { '2323abasd32' }
 
   let!(:existing_student1) { create(:student, email: existing_email) }
