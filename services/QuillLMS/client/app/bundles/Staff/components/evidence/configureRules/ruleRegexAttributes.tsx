@@ -19,6 +19,7 @@ import { InputEvent, ClickEvent, DropdownObjectInterface } from '../../../interf
 
 const RuleRegexAttributes = ({
   errors,
+  ruleConditional,
   regexFeedback,
   regexRules,
   rulesToUpdate,
@@ -29,6 +30,7 @@ const RuleRegexAttributes = ({
   setRulesToUpdate,
   setRulesToCreate,
   setRegexFeedback,
+  setRuleConditional
 }) => {
 
   function onHandleSetRegexRule(e: InputEvent) {
@@ -90,6 +92,10 @@ const RuleRegexAttributes = ({
     }
   }
 
+  function onHandleToggleConditional() {
+    setRuleConditional(!ruleConditional)
+  }
+
   // TODO: break out Regex feedback into separate component
 
   return(
@@ -109,7 +115,18 @@ const RuleRegexAttributes = ({
         {regexFeedback[0].highlights_attributes && regexFeedback[0].highlights_attributes.filter(h => !h._destroy) && regexFeedback[0].highlights_attributes.filter(h => !h._destroy).length ? <button className="remove-highlight quill-button small secondary outlined" onClick={onHandleRemoveFeedbackHighlight} type="button" value="0">Remove Highlight</button> : null}
       </div>)}
       {errors['Regex Feedback'] && <p className="error-message">{errors['Regex Feedback']}</p>}
-      <p className="form-subsection-label" id="regex-rules-label">Regex Rules</p>
+      <label aria-label="conditional-sequence-label" className="conditional-label" htmlFor="conditional-label">
+        Conditional Sequences?
+      </label>
+      <input
+        aria-label="conditional-checkbox"
+        checked={ruleConditional}
+        id="conditional-checkbox"
+        onChange={onHandleToggleConditional}
+        type="checkbox"
+        value="conditional-checkbox"
+      />
+      <p className="form-subsection-label" id="regex-rules-label">Sequences</p>
       <RegexRules
         errors={errors}
         handleAddRegexInput={onHandleAddRegexInput}
