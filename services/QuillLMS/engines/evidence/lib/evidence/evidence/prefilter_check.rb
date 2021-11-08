@@ -1,3 +1,5 @@
+require 'pragmatic_segmenter'
+
 module Evidence
   class PrefilterCheck
     attr_accessor :prefilter_rules
@@ -6,10 +8,10 @@ module Evidence
 
     # When a prefilter identifies a violation, it returns true
     PREFILTERS = {
-      'f576dadc-7eec-4e27-8c95-7763e6550141' =>  ->(entry) { !!entry.match(/\?$/) },
-      '66779e2a-74ed-4099-8704-11983121fee5' => 'multiple sentences',
+      'f576dadc-7eec-4e27-8c95-7763e6550141' => ->(entry) { !!entry.match(/\?$/) },
+      '66779e2a-74ed-4099-8704-11983121fee5' => ->(entry) { self.sentence_count(entry) > 1 },
       'fdee458a-f017-4f9a-a7d4-a72d1143abeb' => 'profanity',
-      '408d4544-5492-46e7-a6b7-3b1ffdd632af' => 'too short'
+      '408d4544-5492-46e7-a6b7-3b1ffdd632af' => ->(entry) { self.word_count(entry) < MINIMUM_WORD_COUNT}
     }
 
     def initialize(entry)
@@ -48,12 +50,12 @@ module Evidence
       )
     end
 
-    def self.to_word_array(entry)
-      entry.split(' ')
+    def self.word_count(entry)
+      entry.split(' ').filter{ |s| s.length > 0 }.count
     end
 
     def self.sentence_count(entry)
-      entry.match
+      PragmaticSegmenter::Segmenter.new(text: entry).segment.count
     end
 
   end
