@@ -325,22 +325,23 @@ module Teacher
   def update_teacher params
     return if !teacher?
     params[:role] = 'teacher' if params[:role] != 'student'
-    params.permit(:id,
-                  :name,
-                  :role,
-                  :username,
-                  :authenticity_token,
-                  :email,
-                  :time_zone,
-                  :password,
-                  :school_options_do_not_apply,
-                  :school_id,
-                  :send_newsletter,
-                  :original_selected_school_id,
-                  :google_id,
-                  :clever_id,
-                  :signed_up_with_google,
-                  :post_google_classroom_assignments)
+    params.permit(
+      :id,
+      :name,
+      :role,
+      :username,
+      :authenticity_token,
+      :email,
+      :time_zone,
+      :password,
+      :school_options_do_not_apply,
+      :school_id,
+      :send_newsletter,
+      :original_selected_school_id,
+      :google_id,
+      :clever_id,
+      :signed_up_with_google
+    )
 
     self.validate_username = true
 
@@ -355,18 +356,18 @@ module Teacher
       end
     end
     if !are_there_school_related_errors
-      if update_attributes(username: params.key?(:username) ? params[:username] : username,
-                                        email: params.key?(:email) ? params[:email] : email,
-                                        name: params.key?(:name) ? params[:name] : name,
-                                        time_zone: params.key?(:time_zone) ? params[:time_zone] : time_zone,
-                                        password: params.key?(:password) ? params[:password] : password,
-                                        role: params.key?(:role) ? params[:role] : role,
-                                        send_newsletter: params.key?(:send_newsletter) ? params[:send_newsletter] : send_newsletter,
-                                        google_id: params.key?(:google_id) ? params[:google_id] : google_id,
-                                        clever_id: params.key?(:clever_id) ? params[:clever_id] : clever_id,
-                                        signed_up_with_google: params.key?(:signed_up_with_google) ? params[:signed_up_with_google] : signed_up_with_google,
-                                        post_google_classroom_assignments: params.key?(:post_google_classroom_assignments) ? params[:post_google_classroom_assignments] : post_google_classroom_assignments
-                                )
+      if update_attributes(
+        username: params.key?(:username) ? params[:username] : username,
+        email: params.key?(:email) ? params[:email] : email,
+        name: params.key?(:name) ? params[:name] : name,
+        time_zone: params.key?(:time_zone) ? params[:time_zone] : time_zone,
+        password: params.key?(:password) ? params[:password] : password,
+        role: params.key?(:role) ? params[:role] : role,
+        send_newsletter: params.key?(:send_newsletter) ? params[:send_newsletter] : send_newsletter,
+        google_id: params.key?(:google_id) ? params[:google_id] : google_id,
+        clever_id: params.key?(:clever_id) ? params[:clever_id] : clever_id,
+        signed_up_with_google: params.key?(:signed_up_with_google) ? params[:signed_up_with_google] : signed_up_with_google
+      )
         are_there_non_school_related_errors = false
       else
         are_there_non_school_related_errors = true

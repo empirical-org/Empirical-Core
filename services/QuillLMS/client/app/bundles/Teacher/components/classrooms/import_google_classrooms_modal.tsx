@@ -2,14 +2,11 @@ import * as React from 'react'
 import * as moment from 'moment'
 import Pusher from 'pusher-js';
 
-import { DropdownInput, DataTable } from '../../../Shared/index'
-
 import GradeOptions from './grade_options'
 
+import { DropdownInput, DataTable } from '../../../Shared/index'
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
-import { requestPost, requestPut, requestGet } from '../../../../modules/request/index.js';
-
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+import { requestPost, requestPut } from '../../../../modules/request/index.js';
 
 interface ImportGoogleClassroomsModalProps {
   close: (event) => void;
@@ -20,7 +17,6 @@ interface ImportGoogleClassroomsModalProps {
 
 interface ImportGoogleClassroomsModalState {
   classrooms: Array<any>;
-  postAssignments: boolean;
   waiting: boolean;
   timesSubmitted: number;
 }
@@ -52,7 +48,6 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
 
     this.state = {
       classrooms: props.classrooms,
-      postAssignments: !!props.user.post_google_classroom_assignments,
       waiting: false,
       timesSubmitted: 0
     }
@@ -66,10 +61,6 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
       buttonClass += ' disabled';
     }
     return buttonClass;
-  }
-
-  handleClickPostAssignmentsCheckbox = () => {
-    this.setState(prevState => ({ postAssignments: !prevState.postAssignments }))
   }
 
   toggleRowCheck = (id) => {
@@ -104,14 +95,6 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
     this.setState({ classrooms })
   }
 
-  renderCheckbox() {
-    const { postAssignments } = this.state
-    if (postAssignments) {
-      return <button className="quill-checkbox selected" onClick={this.handleClickPostAssignmentsCheckbox} type="button"><img alt="check" src={smallWhiteCheckSrc} /></button>
-    }
-    return <button aria-label="Unselected checkbox" className="quill-checkbox unselected" onClick={this.handleClickPostAssignmentsCheckbox} type="button" />
-  }
-
   initializePusherForGoogleStudentImport(id) {
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
@@ -127,7 +110,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
   }
 
   handleClickImportClasses = () => {
-    const { classrooms, postAssignments, } = this.state
+    const { classrooms } = this.state
     const classroomsCheckedWithNoGrade = classrooms.filter(classroom => classroom.checked && !classroom.grade)
 
     if (classroomsCheckedWithNoGrade.length) {
@@ -143,12 +126,6 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
 
     this.setState({ waiting: true })
     const selectedClassrooms = classrooms.filter(classroom => classroom.checked)
-    const dataForUserUpdate = {
-      post_google_classroom_assignments: postAssignments,
-      school_options_do_not_apply: true
-    };
-
-    requestPut('/teachers/update_my_account', dataForUserUpdate)
 
     requestPost('/teachers/classrooms/update_google_classrooms', { selected_classrooms: selectedClassrooms, }, (body) => {
       const newClassrooms = body.classrooms.filter(classroom => selectedClassrooms.find(sc => sc.id === classroom.google_classroom_id))
@@ -224,10 +201,6 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
         </div>
 
         <div className="import-google-classrooms-modal-footer">
-          <div className="checkbox-row">
-            {this.renderCheckbox()}
-            <span>Post assignments as announcements in Google Classroom</span>
-          </div>
           <div className="buttons">
             <button className="quill-button outlined secondary medium" onClick={close} type="button">Cancel</button>
             {this.renderImportButton()}
