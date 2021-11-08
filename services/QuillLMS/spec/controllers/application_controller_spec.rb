@@ -71,5 +71,15 @@ describe ApplicationController, type: :controller do
       expect(controller.confirm_valid_session).to be(nil)
       expect(session[:user_id]).to eq(nil)
     end
+
+    it 'when user has a google ID and their auth credential has no expiration date' do
+      user = create(:user, google_id: 123)
+      session[:user_id] = user.id
+      auth_credential = create(:auth_credential, provider: 'google', user: user, refresh_token: 'refresh', expires_at: nil)
+      allow(controller).to receive(:current_user) { user }
+
+      expect(controller.confirm_valid_session).to be(nil)
+      expect(session[:user_id]).to eq(nil)
+    end
   end
 end
