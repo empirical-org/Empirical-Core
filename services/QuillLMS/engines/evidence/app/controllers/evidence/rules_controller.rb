@@ -71,7 +71,7 @@ module Evidence
       params.require(:rule).permit(:name, :note, :universal, :rule_type, :optimal, :state, :suborder, :concept_uid,
          prompt_ids: [],
          plagiarism_text_attributes: [:id, :text],
-         regex_rules_attributes: [:id, :regex_text, :case_sensitive, :sequence_type],
+         regex_rules_attributes: [:id, :regex_text, :case_sensitive, :sequence_type, :conditional],
          label_attributes: [:id, :name, :state],
          feedbacks_attributes: [:id, :text, :description, :order, highlights_attributes: [:id, :text, :highlight_type, :starting_index, :_destroy]]
       )
