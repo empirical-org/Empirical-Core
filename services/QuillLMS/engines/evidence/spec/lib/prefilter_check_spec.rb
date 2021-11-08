@@ -13,35 +13,24 @@ module Evidence
     end
 
     describe '#feedback_object' do
-      let!(:prefilter_rule1) do 
-        create(:evidence_rule, **rule_factory_overrides, uid: '123')
-      end
-
-      let(:non_prefilter_rule) { create(:evidence_rule, **rule_factory_overrides, rule_type: 'notPrefilter') }
-
-      context 'PREFILTERS query hit' do 
-        before do 
-          Evidence::PrefilterCheck && stub_const('Evidence::PrefilterCheck::PREFILTERS', {
-            '123' => ->(x) { false }
-          })
+      context 'question mark violation' do 
+        let!(:question_mark_rule) do 
+          create(:evidence_rule, **rule_factory_overrides, uid: 'f576dadc-7eec-4e27-8c95-7763e6550141')
+        end
+        let!(:question_mark_feedback) do 
+          create(:evidence_feedback, text: 'question mark feedback', rule_id: question_mark_rule.id)
         end
 
-        it 'returns a valid payload' do
-          prefilter_check = Evidence::PrefilterCheck.new('example entry')
+        it 'returns a valid response' do
+          prefilter_check = Evidence::PrefilterCheck.new('A question?')
           response = prefilter_check.feedback_object
-          expect(response[:rule_uid]).to eq '123'
+          expect(response[:rule_uid]).to eq 'f576dadc-7eec-4e27-8c95-7763e6550141'
           expect(response[:optimal]).to eq false
-        end
-
-        it 'returns a valid payload with feedback' do
-          feedback = create(:evidence_feedback, text: 'lorem ipsum', rule_id: prefilter_rule1.id)
-          prefilter_check = Evidence::PrefilterCheck.new('example entry')
-          response = prefilter_check.feedback_object
-          expect(response[:feedback]).to eq feedback.text
+          expect(response[:feedback]).to eq question_mark_feedback.text
         end
       end
 
-      context 'PREFILTERS query miss' do 
+      context 'no violation' do 
         before do 
           PrefilterCheck && stub_const('PrefilterCheck::PREFILTERS', {})
         end
