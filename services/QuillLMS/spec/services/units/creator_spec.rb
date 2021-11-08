@@ -32,22 +32,4 @@ describe Units::Creator do
     )
     expect(Unit.last.user).to eq(teacher)
   end
-
-  it 'posts assignment announcements to google classroom' do
-    classroom         = create(:classroom)
-    teacher           = classroom.owner
-    activity          = create(:activity)
-    unit_anmouncement = double('unit_anmouncement')
-
-    allow(GoogleIntegration::UnitAnnouncement).to receive(:new)
-      .and_return(unit_anmouncement)
-    expect(unit_anmouncement).to receive(:post)
-
-    Units::Creator.run(
-      teacher,
-      'Something Really Cool',
-      [{id: activity.id}],
-      [{id: classroom.id, student_ids: []}]
-    )
-  end
 end
