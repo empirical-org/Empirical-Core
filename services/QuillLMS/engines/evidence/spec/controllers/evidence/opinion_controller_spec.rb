@@ -30,11 +30,8 @@ module Evidence
       end
 
       before do 
-        # If you are unsure of the motivation behind the following line,
-        # the answers are here: https://github.com/rspec/rspec-mocks/issues/1079
-        Opinion::FeedbackAssembler && stub_const(
-          'Evidence::Opinion::FeedbackAssembler::OAPI_ERROR_TO_RULE_UID', 
-          { example_error => example_rule_uid }
+        allow(Opinion::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
+          { example_error => example_rule_uid } 
         )
         allow_any_instance_of(Opinion::Client).to receive(:post).and_return(client_response)
       end

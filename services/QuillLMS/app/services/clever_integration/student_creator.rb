@@ -8,7 +8,7 @@ module CleverIntegration
     def initialize(data)
       @data = data
       @name = data[:name]
-      @username = data[:username]&.downcase
+      @username = data[:username]
     end
 
     def run

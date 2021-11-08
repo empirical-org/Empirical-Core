@@ -202,7 +202,7 @@ export default createReactClass({
       newScores.has(s.user_id) || newScores.set(s.user_id, { name: s.name, scores: [], });
       const scores = newScores.get(s.user_id).scores;
       scores.push({
-        cuId: s.cu_id,
+        cuId: s.classroom_unit_id,
         // activitySessionId: s.id,
         activityId: s.activity_id,
         userId: s.user_id,

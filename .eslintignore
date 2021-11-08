@@ -5,7 +5,7 @@ services/comprehension/frontend/dist/**
 services/QuillLMS/app/assets/javascripts/test_file_application.js
 services/QuillLMS/app/assets/javascripts/test_file_application_non_webpack.js
 services/QuillLMS/app/assets/javascripts/test_file_application_static.js
-services/QuillLMS/coverage/assets/0.10.2/application.js
+services/QuillLMS/coverage/**
 services/QuillLMS/client/server-rails-hot.js
 services/QuillLMS/client/webpack.client.rails.hot.config.js
 services/QuillLMS/public/**

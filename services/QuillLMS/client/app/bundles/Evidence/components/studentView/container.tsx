@@ -56,10 +56,11 @@ const ONBOARDING = 'onboarding'
 const READ_PASSAGE_STEP = 1
 const ALL_STEPS = [READ_PASSAGE_STEP, 2, 3, 4]
 const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
+const ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING = 3
 
 export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user, }: StudentViewContainerProps) => {
-  const activityCompletionCount: number = parseInt(getParameterByName('activities', window.location.href, '0'));
-  const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts') || activityCompletionCount > 3
+  const activityCompletionCount: number = parseInt(getParameterByName('activities', window.location.href)) || 0;
+  const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
   const defaultCompletedSteps = shouldSkipToPrompts ? [READ_PASSAGE_STEP] : []
 
   const refs = {
@@ -68,6 +69,8 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     step3: React.useRef(),
     step4: React.useRef()
   }
+
+  const inactivityTimer = React.useRef(null)
 
   const [explanationSlideStep, setExplanationSlideStep] = React.useState(0)
   const [explanationSlidesCompleted, setExplanationSlidesCompleted] = React.useState(shouldSkipToPrompts)
@@ -78,7 +81,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   const [showFocusState, setShowFocusState] = React.useState(false)
   const [startTime, setStartTime] = React.useState(Date.now())
   const [isIdle, setIsIdle] = React.useState(false)
-  const [inactivityTimer, setInactivityTimer] = React.useState(null)
   const [studentHighlights, setStudentHighlights] = React.useState([])
   const [scrolledToEndOfPassage, setScrolledToEndOfPassage] = React.useState(shouldSkipToPrompts)
   const [hasStartedReadPassageStep, setHasStartedReadPassageStep] = React.useState(shouldSkipToPrompts)
@@ -121,7 +123,9 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         isTurk && handlePostTurkSession(sessionID);
       }
     }
+  }, [])
 
+  React.useEffect(() => {
     window.addEventListener(KEYDOWN, handleKeyDown)
     window.addEventListener(MOUSEMOVE, resetTimers)
     window.addEventListener(MOUSEDOWN, resetTimers)
@@ -137,7 +141,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       window.removeEventListener(KEYPRESS, resetTimers)
       window.removeEventListener(VISIBILITYCHANGE, setIdle)
     }
-  }, [])
+  }, [session, activities, hasStartedPromptSteps, inactivityTimer, explanationSlidesCompleted, activeStep, isIdle])
 
   React.useEffect(() => { activities.currentActivity ? document.title = `Quill.org | ${activities.currentActivity.title}` : null }, [activities.currentActivity])
 
@@ -192,8 +196,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     if (outOfAttemptsForActivePrompt(activeStep, session, activities)) { return } // or if they are finished submitting responses for the current active step
     if (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps) { return } // or if they are between the read passage step and starting the prompts
 
-    if (inactivityTimer) { clearTimeout(inactivityTimer) }
-
     let elapsedTime = now - startTime
     if (isIdle) {
       elapsedTime = 0
@@ -201,17 +203,25 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
     const activeStepKey = explanationSlidesCompleted ? activeStep : ONBOARDING
     const newTimeTracking = {...timeTracking, [activeStepKey]: timeTracking[activeStepKey] + elapsedTime}
-    const newInactivityTimer = setTimeout(setIdle, 30000);  // time is in milliseconds (1000 is 1 second)
 
     setTimeTracking(newTimeTracking)
     setIsIdle(false)
-    setInactivityTimer(newInactivityTimer)
     setStartTime(now)
+    inactivityTimerReset()
 
     return Promise.resolve(true);
   }
 
-  function setIdle() { resetTimers().then(() => setIsIdle(true)) }
+  function inactivityTimerReset() {
+    if (inactivityTimer.current) { clearTimeout(inactivityTimer.current) }
+    inactivityTimer.current = setTimeout(setIdle, 30000) // time is in milliseconds (1000 is 1 second)
+  }
+
+  function setIdle() {
+    setIsIdle(true)
+    setStartTime(Date.now())
+    inactivityTimerReset()
+  }
 
   function handlePostTurkSession(activitySessionId: string) {
     const turkingRoundID = getParameterByName('id', window.location.href);
@@ -497,7 +507,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP ? 'on-read-passage' : ''}`
 
-  if(!explanationSlidesCompleted) {
+  if((!explanationSlidesCompleted && activityCompletionCount <= ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING)) {
     if (explanationSlideStep === 0) {
       return <WelcomeSlide onHandleClick={handleExplanationSlideClick} user={user} />
     }

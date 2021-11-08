@@ -222,7 +222,7 @@ describe ProfilesController, type: :controller do
                 'order_number' => unit_activity.order_number,
                 'unit_created_at' => unit.created_at,
                 'unit_name' => unit.name,
-                'ca_id' => classroom_unit.id,
+                'classroom_unit_id' => classroom_unit.id,
                 'marked_complete' => false,
                 'activity_id' => activity.id,
                 'act_sesh_updated_at' => activity_session&.updated_at,
