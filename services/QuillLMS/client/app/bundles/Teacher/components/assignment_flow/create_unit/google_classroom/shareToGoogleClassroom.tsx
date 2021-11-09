@@ -109,6 +109,8 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classroo
     <div className="assignment-flow-container">
       {modalOpen &&
       <ShareActivityPackModal
+        activityPackData={activityPackData}
+        classrooms={[classrooms[0]]}
         closeModal={handleToggleShareModal}
       />}
       <ScrollToTop />

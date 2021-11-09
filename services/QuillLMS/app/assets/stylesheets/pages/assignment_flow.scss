@@ -132,6 +132,18 @@
           display: flex;
           background-color: white;
           padding: 0;
+          align-self: flex-start;
+        }
+      }
+      .activity-pack-data-container {
+        .link-label {
+          margin: 0px 0px 4px 0px;
+          font-size: 12px;
+          font-weight: 600;
+        }
+        .activity-pack-link {
+          font-size: 16px;
+          color: #000000;
         }
       }
     }
