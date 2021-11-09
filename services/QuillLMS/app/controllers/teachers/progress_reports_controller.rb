@@ -10,7 +10,6 @@ class Teachers::ProgressReportsController < ApplicationController
   end
 
   def staff_demo
-    binding.pry
     set_staff_user
     switch_current_user(@staff_user)
     redirect_to demo_redirect_path
@@ -45,7 +44,6 @@ class Teachers::ProgressReportsController < ApplicationController
   end
 
   private def authorize!
-    binding.pry
     return if current_user.try(:teacher?)
     auth_failed
   end
