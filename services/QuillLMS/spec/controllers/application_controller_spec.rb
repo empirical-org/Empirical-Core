@@ -56,20 +56,4 @@ describe ApplicationController, type: :controller do
     end
 
   end
-
-  describe '#confirm_valid_session' do
-    before(:each) do
-      ApplicationController.send(:public, *ApplicationController.protected_instance_methods)
-    end
-
-    it 'when user has a google ID and their auth credential is expired' do
-      user = create(:user, google_id: 123)
-      session[:user_id] = user.id
-      auth_credential = create(:auth_credential, provider: 'google', user: user, refresh_token: 'refresh', expires_at: Time.now - 1.day)
-      allow(controller).to receive(:current_user) { user }
-
-      expect(controller.confirm_valid_session).to be(nil)
-      expect(session[:user_id]).to eq(nil)
-    end
-  end
 end
