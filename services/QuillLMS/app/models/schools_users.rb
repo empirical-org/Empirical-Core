@@ -4,7 +4,7 @@
 #
 # Table name: schools_users
 #
-#  id        :integer          not null, primary key
+#  id        :bigint           not null, primary key
 #  school_id :integer
 #  user_id   :integer
 #
