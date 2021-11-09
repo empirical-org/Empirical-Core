@@ -38,6 +38,11 @@ module Evidence
           entry: 'Yes.', 
           rule_uid: '408d4544-5492-46e7-a6b7-3b1ffdd632af'
         },
+        { 
+          name: 'profane', 
+          entry: 'Nero was an ahole', 
+          rule_uid: 'fdee458a-f017-4f9a-a7d4-a72d1143abeb'
+        },
       ]
 
       violations.each do |violation| 
@@ -60,12 +65,8 @@ module Evidence
       end
 
       context 'no violation' do 
-        before do 
-          PrefilterCheck && stub_const('PrefilterCheck::PREFILTERS', {})
-        end
-
         it 'should return default_response' do 
-          prefilter_check = Evidence::PrefilterCheck.new('example entry')
+          prefilter_check = Evidence::PrefilterCheck.new('they descided on cheeseburgers.')
           result = prefilter_check.feedback_object
           expect(result).to eq(prefilter_check.default_response)
         end
