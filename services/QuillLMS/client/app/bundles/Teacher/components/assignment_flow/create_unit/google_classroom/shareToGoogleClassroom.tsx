@@ -17,6 +17,7 @@ import {
 
 const addStudentsSrc = `${process.env.CDN_URL}/images/illustrations/add-students.svg`
 const addShareActivityPackSrc = `${process.env.CDN_URL}/images/icons/icons-share-activity-pack.svg`
+const shareActivitySrc = `${process.env.CDN_URL}/images/icons/icons-share.svg`
 
 const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classrooms, moveToStage4, state, props }) => {
 
@@ -60,7 +61,9 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classroo
       const { id, name } = activity;
       return {
         name,
-        id
+        id,
+        imgAlt: 'share-arrow',
+        imgSrc: shareActivitySrc
       }
     });
   }

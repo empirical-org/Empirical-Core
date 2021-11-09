@@ -14,11 +14,13 @@ export const ExpandableCard = ({ imgSrc, imgAlt, isExpanded, onClick, header, te
     return(
       <section className="expanded-section">
         {rows.map((row, i) => {
-          const { name } = row;
+          const { name, imgSrc, imgAlt } = row;
           return(
             <section className="row-section" key={`${name}-${i}`}>
               <p className="row-name">{name}</p>
-              <button className="row-button focus-on-light" type="button" value="row-button">x</button>
+              <button className="row-button focus-on-light" type="button" value="row-button">
+                <img alt={imgAlt} src={imgSrc} />
+              </button>
             </section>
           )
         })}

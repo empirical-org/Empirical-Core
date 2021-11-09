@@ -44,6 +44,13 @@
       margin-left: 32px;
     }
   }
+  .expanded-section {
+    .row-section {
+      .row-button {
+        background-color: white;
+      }
+    }
+  }
   &.open {
     .upper-content-section {
       padding-bottom: 40px;
