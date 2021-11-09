@@ -37,6 +37,7 @@ module Evidence
         next unless PREFILTERS[rule.uid]
         PREFILTERS[rule.uid].call(@entry) 
       end
+      
       return default_response unless violated_rule
 
       feedback = violated_rule.feedbacks.first

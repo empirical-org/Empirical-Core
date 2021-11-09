@@ -2,7 +2,7 @@ module Evidence
   class Profanity 
     def self.profane?(word)
       return false unless word.respond_to?(:length) && word.length > 1
-      word.downcase! 
+      word = word.downcase.gsub(/[.!?]/, '')
 
       BAD_WORDS.find do |badword|
         stripped_badword = badword.gsub('*', '')

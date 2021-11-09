@@ -28,6 +28,11 @@ module Evidence
         expect(Profanity.profane?('orangepumpkins')).to be true
       end
 
+      it 'should return true given a profane word with ending punctuation' do 
+        stub_const("Evidence::BAD_WORDS", ['pumpkin']) 
+        expect(Profanity.profane?('pumpkin.')).to be true
+      end
+
       it 'should return false given a normal word' do 
         expect(Profanity.profane?('bird')).to be false
       end
