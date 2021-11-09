@@ -203,6 +203,13 @@ class Teachers::ClassroomManagerController < ApplicationController
     render json: { id: current_user.id }
   end
 
+  def view_demo
+    demo = User.find_by_email('hello+demoteacher@quill.org')
+    # create the demo if it does not exist
+    self.demo_id = demo.id
+    redirect_to '/profile'
+  end
+
   def preview_as_student
     student = User.find_by_id(params[:student_id])
     if student && (student&.classrooms&.to_a & current_user&.classrooms_i_teach)&.any?
