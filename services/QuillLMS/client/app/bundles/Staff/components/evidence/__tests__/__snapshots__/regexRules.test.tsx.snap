@@ -232,7 +232,7 @@ exports[`RegexRules component should render RegexRules 1`] = `
     onClick={[MockFunction]}
     type="button"
   >
-    Add Regex Rule +
+    Add Sequence +
   </button>
 </div>
 `;

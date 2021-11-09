@@ -3,15 +3,16 @@ require 'rails_helper'
 describe CleverIntegration::StudentCreator do
   let(:data) do
     {
-      clever_id: '1',
+      clever_id: clever_id,
       email: email,
       name: 'John Smith',
       username: username
     }
   end
 
-  let(:email) { 'Student@gmail.com' }
-  let(:username) { 'Username' }
+  let(:clever_id) { '1' }
+  let(:email) { 'student@gmail.com' }
+  let(:username) { 'username' }
 
   subject { described_class.new(data) }
 
@@ -24,7 +25,7 @@ describe CleverIntegration::StudentCreator do
 
     it 'will create a new student with an updated username' do
       subject.run
-      new_student = ::User.find_by(email: email.downcase)
+      new_student = ::User.find_by(email: email)
 
       expect(new_student.username).not_to eq username
     end

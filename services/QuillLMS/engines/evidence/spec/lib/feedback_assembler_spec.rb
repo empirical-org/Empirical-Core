@@ -18,16 +18,15 @@ module Evidence
       end
 
       before do 
-        Opinion::FeedbackAssembler && stub_const(
-          'Evidence::Opinion::FeedbackAssembler::OAPI_ERROR_TO_RULE_UID', 
-          { example_error => example_rule_uid }
+        allow(FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
+          { example_error => example_rule_uid } 
         )
       end
 
       context 'OAPI detects no opinion' do 
         it 'should return optimal=true' do 
           expect(
-            Opinion::FeedbackAssembler.run(
+            FeedbackAssembler.run(
               client_response.merge({'oapi_error' => ''})
             )[:optimal]
           ).to eq true
@@ -41,11 +40,11 @@ module Evidence
 
         it 'should lookup a rule and format it' do 
           expect(
-            Opinion::FeedbackAssembler.run(client_response)
+            FeedbackAssembler.run(client_response)
           ).to eq({
             concept_uid: 'xyz',
             feedback: nil,
-            feedback_type: 'opinion',
+            feedback_type: '',
             optimal: false,
             response_id: '0',
             highlight: [
@@ -59,14 +58,14 @@ module Evidence
 
       context 'Rule not found' do 
         it 'should return optimal: true' do 
-          expect(Opinion::FeedbackAssembler.run(client_response)[:optimal]).to be true 
+          expect(FeedbackAssembler.run(client_response)[:optimal]).to be true 
         end
       end
 
       context 'key does not exist in lookup table' do 
         it 'should raise KeyError' do 
           expect do 
-           Opinion::FeedbackAssembler.run({
+           FeedbackAssembler.run({
               'oapi_error' => 'unknown'
             })
           end.to raise_error(KeyError)

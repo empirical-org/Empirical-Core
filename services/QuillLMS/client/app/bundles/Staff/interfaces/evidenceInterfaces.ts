@@ -31,7 +31,8 @@ export interface RegexRuleInterface {
   rule_id?: number,
   regex_text: string,
   case_sensitive: boolean,
-  sequence_type: string
+  sequence_type: string,
+  conditional: boolean,
 }
 
 export interface FlagInterface {
@@ -73,6 +74,7 @@ export interface RuleInterface {
   concept_uid: string,
   prompt_ids?: number[],
   state: string,
+  conditional?: boolean,
   label?: {
     id: number,
     name: string
@@ -136,7 +138,7 @@ export interface PromptHealthInterface {
   display_name: number,
   num_final_attempt_optimal: number,
   num_final_attempt_not_optimal: number,
-  avg_attempts_to_optimal: number,
+  avg_attempts: number,
   num_sessions_with_consecutive_repeated_rule: number,
   num_sessions_with_non_consecutive_repeated_rule: number,
   num_first_attempt_optimal: number,
