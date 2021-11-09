@@ -42,7 +42,7 @@ module Evidence
           name: 'profane', 
           entry: 'Nero was an ahole', 
           rule_uid: 'fdee458a-f017-4f9a-a7d4-a72d1143abeb'
-        },
+        }
       ]
 
       violations.each do |violation| 

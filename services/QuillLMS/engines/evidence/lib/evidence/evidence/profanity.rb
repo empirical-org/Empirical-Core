@@ -1,6 +1,6 @@
 module Evidence 
   class Profanity 
-    def self.is_profane(word)
+    def self.profane?(word)
       return false unless word.respond_to?(:length) && word.length > 1
       word.downcase! 
 
