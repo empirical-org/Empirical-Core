@@ -4,7 +4,7 @@ PATH
     evidence (0.0.3)
       google-cloud-automl (~> 1.0.2)
       google-cloud-automl-v1 (~> 0.3.0)
-      pragmatic_segmenter
+      pragmatic_segmenter (~> 0.3.23)
       rails (= 5.1.7)
 
 GEM
