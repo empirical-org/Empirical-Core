@@ -88,6 +88,8 @@ export const renderStepLinksAndDirections = ({
 
 export const renderPromptSteps = ({
   activateStep,
+  activityIsComplete,
+  completeButtonCallback,
   completeStep,
   submitResponse,
   closeReadTheDirectionsModal,
@@ -103,6 +105,16 @@ export const renderPromptSteps = ({
   const { currentActivity, } = activities
   const { submittedResponses, hasReceivedData, } = session
   if (!currentActivity || !hasReceivedData) return
+
+  function renderCompletionButton() {
+    let className = 'quill-button focus-on-light'
+    let containerClassName = 'step clickable active'
+    return(
+      <div className={containerClassName}>
+        <button className={className} onClick={completeButtonCallback} type="button"><span>'Complete Activity'</span></button>
+      </div>
+    )
+  }
 
   // sort by conjunctions in alphabetical order: because, but, so
   const steps =  orderedSteps(activities).map((prompt, i) => {
@@ -131,6 +143,7 @@ export const renderPromptSteps = ({
   return (<div className="prompt-steps">
     {renderDirectionsSectionAndModal({ className: 'hide-on-mobile', closeReadTheDirectionsModal, activeStep, doneHighlighting, showReadTheDirectionsModal, activities })}
     {steps}
+    {activityIsComplete && renderCompletionButton()}
   </div>)
 }
 
