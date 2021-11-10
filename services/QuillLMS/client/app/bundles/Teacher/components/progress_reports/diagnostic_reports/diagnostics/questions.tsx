@@ -133,9 +133,9 @@ const Questions = ({ passedQuestions, match, mobileNavigation, }) => {
     return {
       id: question_id,
       questionNumber: question_id,
-      directionsAndPrompt: <DirectionsAndPrompt directions={instructions} prompt={prompt} onMobile={false} />,
+      directionsAndPrompt: <DirectionsAndPrompt directions={instructions} onMobile={false} prompt={prompt} />,
       score,
-      scoreElement: score ? <span className={scoreToClassName(score)}>{score}%</span> : null
+      scoreElement: score || score === 0 ? <span className={scoreToClassName(score)}>{score}%</span> : null
     }
   })
 
@@ -144,9 +144,9 @@ const Questions = ({ passedQuestions, match, mobileNavigation, }) => {
     return {
       id: question_id,
       questionNumber: question_id,
-      directionsAndPrompt: <DirectionsAndPrompt directions={instructions} prompt={prompt} onMobile={true} />,
+      directionsAndPrompt: <DirectionsAndPrompt directions={instructions} onMobile={true} prompt={prompt} />,
       score,
-      scoreElement: score ? <span className={scoreToClassName(score)}>{score}%</span> : null
+      scoreElement: score || score === 0 ? <span className={scoreToClassName(score)}>{score}%</span> : null
     }
   })
 
