@@ -30,7 +30,7 @@ module GrowthResultsSummary
     classroom_units = ClassroomUnit.where(unit_id: unit_ids, classroom_id: classroom_id)
     assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
     @pre_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
-    @pre_test_activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
+    @pre_test_activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }.map { |session| [session.user_id, session] }.to_h
   end
 
   private def set_post_test_activity_sessions_and_assigned_students(activity_id, classroom_id)
@@ -38,13 +38,13 @@ module GrowthResultsSummary
     classroom_units = ClassroomUnit.where(unit_id: unit_ids, classroom_id: classroom_id)
     assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
     @post_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
-    @post_test_activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
+    @post_test_activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }.map { |session| [session.user_id, session] }.to_h
   end
 
   private def student_results
     @post_test_assigned_students.map do |assigned_student|
-      post_test_activity_session = @post_test_activity_sessions.find { |as| as.user_id == assigned_student.id }
-      pre_test_activity_session = @pre_test_activity_sessions.find { |as| as.user_id == assigned_student.id }
+      post_test_activity_session = @post_test_activity_sessions[assigned_student.id]
+      pre_test_activity_session = @pre_test_activity_sessions[assigned_student.id]
       if post_test_activity_session
         skill_groups = skill_groups_for_session(@skill_groups, post_test_activity_session.id, pre_test_activity_session.id, assigned_student.name)
         total_acquired_skills_count = skill_groups.map { |sg| sg[:acquired_skill_ids] }.flatten.uniq.count
