@@ -128,12 +128,16 @@
     .google-classroom-share-activity-modal {
       .title-row {
         display: flex;
+        justify-content: space-between;
         .close-button {
           display: flex;
           background-color: white;
           padding: 0;
           align-self: flex-start;
         }
+      }
+      .disclaimer-text {
+        margin-top: 24px;
       }
       .activity-pack-data-container {
         .link-label {
@@ -144,6 +148,18 @@
         .activity-pack-link {
           font-size: 16px;
           color: #000000;
+        }
+      }
+      .form-buttons {
+        .quill-button {
+          .button-text-container {
+            display: flex;
+            align-items: flex-start;
+            .button-text {
+              margin: 0px 0px 0px 8px;
+              color: #000000;
+            }
+          }
         }
       }
     }

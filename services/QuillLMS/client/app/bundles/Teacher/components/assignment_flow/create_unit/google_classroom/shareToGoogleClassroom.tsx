@@ -24,6 +24,9 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classroo
   const [leaving, setLeaving] = React.useState<boolean>(false);
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
   const [modalOpen, setModalOpen] = React.useState<boolean>(false);
+  const [activityPack, setActivityPack] = React.useState<any>(activityPackData)
+  const [singleActivity, setSingleActivity] = React.useState<any>(null)
+  console.log("🚀 ~ file: shareToGoogleClassroom.tsx ~ line 29 ~ ShareToGoogleClassroom ~ singleActivity", singleActivity)
 
   React.useEffect(() => {
     if (leaving) {
@@ -36,6 +39,10 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classroo
       window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`;
     }
   }, [leaving]);
+
+  React.useEffect(() => {
+    setActivityPack(activityPackData);
+  }, [activityPackData]);
 
   function handleClick() {
     moveToStage4();
@@ -53,6 +60,21 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classroo
     setModalOpen(!modalOpen);
   }
 
+  function handleShareActivityPackClick() {
+    // clear data in case user clicked share single activity and closed out modal
+    setSingleActivity(null);
+    handleToggleShareModal();
+  }
+
+  function handleShareActivityClick(id) {
+    if(activityPack && activityPack.activities) {
+      const { activities } = activityPack;
+      const activity = activities.filter(activity => activity.id === id)[0];
+      setSingleActivity(activity);
+      handleToggleShareModal();
+    }
+  }
+
   function getRows(activityPackData) {
     if(!activityPackData) { return [] }
     const { activities } = activityPackData;
@@ -63,7 +85,8 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classroo
         name,
         id,
         imgAlt: 'share-arrow',
-        imgSrc: shareActivitySrc
+        imgSrc: shareActivitySrc,
+        onClick: () => handleShareActivityClick(id)
       }
     });
   }
@@ -89,7 +112,7 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classroo
           header="Share the activity pack with your students"
           imgAlt="stack of paper assignments"
           imgSrc={addShareActivityPackSrc}
-          onClick={handleToggleShareModal}
+          onClick={handleShareActivityPackClick}
           text="Share a link or share with Google Classroom."
         />
         <ExpandableCard
@@ -112,9 +135,10 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classroo
     <div className="assignment-flow-container">
       {modalOpen &&
       <ShareActivityPackModal
-        activityPackData={activityPackData}
+        activityPackData={activityPack}
         classrooms={[classrooms[0]]}
         closeModal={handleToggleShareModal}
+        singleActivity={singleActivity}
       />}
       <ScrollToTop />
       <AssignmentFlowNavigation button={button} />
