@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-include DiagnosticReports
-
 describe DiagnosticReports do
+  include DiagnosticReports
+
   describe '#data_for_skill_by_activity_session' do
     let!(:activity_session) { create(:activity_session) }
     let!(:concept) { create(:concept) }
