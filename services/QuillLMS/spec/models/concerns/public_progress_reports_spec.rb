@@ -115,7 +115,7 @@ describe PublicProgressReports, type: :model do
 
     it 'will only return students who are in the class and have their ids in the assigned array' do
       instance = FakeReports.new
-      recommendations = instance.generate_recommendations_for_classroom(unit1.id, classroom.id, diagnostic_activity.id)
+      recommendations = instance.generate_recommendations_for_classroom(unit1.user, unit1.id, classroom.id, diagnostic_activity.id)
       expect(recommendations[:students].find { |s| s[:id] == student_1.id}).to be
       expect(recommendations[:students].find { |s| s[:id] == student_2.id}).to be
       expect(recommendations[:students].find { |s| s[:id] == student_3.id}).not_to be
@@ -149,7 +149,7 @@ describe PublicProgressReports, type: :model do
     it 'will return previously assigned lesson recommendation only if that classroom has been assigned the lesson' do
       create(:classrooms_teacher, classroom: classroom, user: teacher)
       expected_response = {
-        previouslyAssignedRecommendations: [],
+        previouslyAssignedIndependentRecommendations: [],
         previouslyAssignedLessonsRecommendations: [unit_template1.id]
       }
       expect(FakeReports.new.get_previously_assigned_recommendations_by_classroom(classroom.id, diagnostic_activity.id).to_json).to eq(expected_response.to_json)

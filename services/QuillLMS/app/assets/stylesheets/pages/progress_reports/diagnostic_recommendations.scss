@@ -12,8 +12,6 @@
     }
     .recommended-key {
       margin-left: 16px;
-      display: flex;
-      align-items: center;
       .recommended-image {
         background-color: #eef8f7;
         padding: 6px;
@@ -23,6 +21,10 @@
       span {
         color: #5c5c5c;
       }
+    }
+    > div {
+      display: flex;
+      align-items: center;
     }
   }
   .assigned {
@@ -227,6 +229,7 @@
       max-width: 950px;
       width: 100%;
       margin-top: 16px;
+      overflow: hidden;
       .top-row {
         padding: 24px;
         display: flex;
@@ -238,7 +241,7 @@
           display: flex;
           align-items: center;
           &:first-of-type {
-            img, span, .quill-checkbox {
+            .asterisk-icon, span, .quill-checkbox {
               margin-right: 16px;
             }
             .asterisk-placeholder {
@@ -265,6 +268,14 @@
           width: 16px;
           height: 16px;
           margin-right: 4px;
+        }
+        .assigned {
+          margin-right: 16px;
+        }
+      }
+      &.is-recommended-and-not-assigned {
+        .top-row {
+          background-color: #eef8f7;
         }
       }
       &.is-expanded {
@@ -329,8 +340,32 @@
       .lessons-recommendation {
         margin: 16px 16px 0px;
         max-width: calc(100vw - 32px);
+        .top-row {
+          padding: 24px 16px;
+          > div:last-of-type {
+            .quill-tooltip-trigger {
+              display: none;
+            }
+            > span {
+              display: none;
+            }
+            .assigned {
+              span {
+                display: none;
+              }
+            }
+          }
+          > div:first-of-type {
+              .asterisk-icon, span, .quill-checkbox {
+                margin-right: 8px;
+              }
+            }
+          }
+          .activity-row {
+            flex-direction: column;
+          }
+        }
       }
-    }
     .recommendations-table-container {
       width: 100%;
     }
