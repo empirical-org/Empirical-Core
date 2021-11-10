@@ -111,7 +111,7 @@ export const renderPromptSteps = ({
     let containerClassName = 'step clickable active'
     return(
       <div className={containerClassName}>
-        <button className={className} onClick={completeButtonCallback} type="button"><span>'Complete Activity'</span></button>
+        <button className={className} onClick={completeButtonCallback} type="button"><span>Complete Activity</span></button>
       </div>
     )
   }
