@@ -27,7 +27,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     activity_id = results_summary_params[:activity_id]
     classroom_id = results_summary_params[:classroom_id]
     unit_id = results_summary_params[:unit_id]
-    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id, hashify_activity_sessions)
+    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id, true)
 
     render json: { students: diagnostic_student_responses }
   end

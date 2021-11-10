@@ -91,9 +91,9 @@ describe GrowthResultsSummary do
       ]
       @skill_groups = [pre_test_skill_group_activity.skill_group]
       @pre_test_assigned_students = [student1, student2]
-      @pre_test_activity_sessions = [pre_test_activity_session]
+      @pre_test_activity_sessions = [pre_test_activity_session].map { |session| [session.user_id, session] }.to_h
       @post_test_assigned_students = [student1, student2]
-      @post_test_activity_sessions = [post_test_activity_session]
+      @post_test_activity_sessions = [post_test_activity_session].map { |session| [session.user_id, session] }.to_h
       expect(student_results).to eq(
         [
           {
