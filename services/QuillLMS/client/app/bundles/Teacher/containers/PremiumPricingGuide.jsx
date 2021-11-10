@@ -2,6 +2,7 @@ import React from 'react';
 
 import QuestionsAndAnswers from './QuestionsAndAnswers.tsx'
 
+import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder.jsx'
 import PremiumPricingMinisRow from '../components/premium/premium_pricing_minis_row.jsx';
 import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
 import SchoolPremium from '../components/premium/school_premium.jsx';
@@ -34,6 +35,7 @@ const PremiumPricingGuide = (props) => {
   return (
     <div>
       <div className="container premium-page">
+        <PremiumBannerBuilder />
         <div className="overview text-center">
           <PremiumPricingMinisRow {...props} />
           <PremiumFeaturesTable

@@ -11,6 +11,11 @@ export default class FreeTrialBanner extends React.Component {
   }
 
   beginTrial = () => {
+    const { signedIn } = this.props
+    if (!signedIn) {
+      alert("You must be logged in to activate Premium.")
+      return;
+    }
     requestPost('/subscriptions', { subscription: { account_type: 'Teacher Trial', }, }, () => {
       this.setState({ trialStarted: true, })
     })
