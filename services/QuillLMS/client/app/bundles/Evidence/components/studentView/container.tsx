@@ -73,7 +73,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   const inactivityTimer = React.useRef(null)
 
   const [explanationSlideStep, setExplanationSlideStep] = React.useState(0)
-  const [explanationSlidesCompleted, setExplanationSlidesCompleted] = React.useState(shouldSkipToPrompts)
+  const [explanationSlidesCompleted, setExplanationSlidesCompleted] = React.useState(shouldSkipToPrompts || (activityCompletionCount > ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING))
   const [activeStep, setActiveStep] = React.useState(shouldSkipToPrompts ? READ_PASSAGE_STEP + 1: READ_PASSAGE_STEP)
   const [activityIsComplete, setActivityIsComplete] = React.useState(false)
   const [activityIsReadyForSubmission, setActivityIsReadyForSubmission] = React.useState(false)
@@ -507,7 +507,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP ? 'on-read-passage' : ''}`
 
-  if((!explanationSlidesCompleted && activityCompletionCount <= ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING)) {
+  if(!explanationSlidesCompleted) {
     if (explanationSlideStep === 0) {
       return <WelcomeSlide onHandleClick={handleExplanationSlideClick} user={user} />
     }
