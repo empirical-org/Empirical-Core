@@ -36,7 +36,6 @@ interface StudentViewContainerProps {
 interface StudentViewContainerState {
   activeStep?: number;
   activityIsComplete: boolean;
-  activityIsReadyForSubmission: boolean;
   explanationSlidesCompleted: boolean;
   explanationSlideStep:  number;
   completedSteps: Array<number>;
@@ -76,7 +75,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   const [explanationSlidesCompleted, setExplanationSlidesCompleted] = React.useState(shouldSkipToPrompts || (activityCompletionCount > ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING))
   const [activeStep, setActiveStep] = React.useState(shouldSkipToPrompts ? READ_PASSAGE_STEP + 1: READ_PASSAGE_STEP)
   const [activityIsComplete, setActivityIsComplete] = React.useState(false)
-  const [activityIsReadyForSubmission, setActivityIsReadyForSubmission] = React.useState(false)
   const [completeButtonClicked, setCompleteButtonClicked] = React.useState(false)
   const [completedSteps, setCompletedSteps] = React.useState(defaultCompletedSteps)
   const [showFocusState, setShowFocusState] = React.useState(false)

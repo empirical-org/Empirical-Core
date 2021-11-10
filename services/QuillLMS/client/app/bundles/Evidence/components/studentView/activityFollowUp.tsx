@@ -13,6 +13,7 @@ const ActivityFollowUp = ({ responses, user, sessionID, saveActivitySurveyRespon
   if (submittedActivitySurvey) {
     return <ThankYouSlide />
   }
+
   if (showActivitySurvey) {
     return (<ActivitySurvey
       saveActivitySurveyResponse={saveActivitySurveyResponse}
