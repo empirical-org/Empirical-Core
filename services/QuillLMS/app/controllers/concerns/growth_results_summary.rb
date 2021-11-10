@@ -26,16 +26,16 @@ module GrowthResultsSummary
   end
 
   private def set_pre_test_activity_sessions_and_assigned_students(activity_id, classroom_id)
-    unit_ids = @current_user.units.joins("JOIN unit_activities ON unit_activities.activity_id = #{activity_id}")
-    classroom_units = ClassroomUnit.where(unit_id: unit_ids, classroom_id: classroom_id)
+    units = @current_user.units.joins(:unit_activities).where(units: {unit_activities: {activity_id: activity_id}})
+    classroom_units = ClassroomUnit.where(unit: units, classroom_id: classroom_id)
     assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
     @pre_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
     @pre_test_activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }.map { |session| [session.user_id, session] }.to_h
   end
 
   private def set_post_test_activity_sessions_and_assigned_students(activity_id, classroom_id)
-    unit_ids = @current_user.units.joins("JOIN unit_activities ON unit_activities.activity_id = #{activity_id}")
-    classroom_units = ClassroomUnit.where(unit_id: unit_ids, classroom_id: classroom_id)
+    units = @current_user.units.joins(:unit_activities).where(units: {unit_activities: {activity_id: activity_id}})
+    classroom_units = ClassroomUnit.where(unit: units, classroom_id: classroom_id)
     assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
     @post_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
     @post_test_activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }.map { |session| [session.user_id, session] }.to_h

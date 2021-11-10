@@ -27,7 +27,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     activity_id = results_summary_params[:activity_id]
     classroom_id = results_summary_params[:classroom_id]
     unit_id = results_summary_params[:unit_id]
-    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id)
+    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id, hashify_activity_sessions)
 
     render json: { students: diagnostic_student_responses }
   end
@@ -235,7 +235,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
   private def diagnostic_student_responses
     @assigned_students.map do |student|
-      activity_session = @activity_sessions.find { |as| as.user_id == student.id }
+      activity_session = @activity_sessions[student.id]
 
       if activity_session
         formatted_concept_results = format_concept_results(activity_session.concept_results)

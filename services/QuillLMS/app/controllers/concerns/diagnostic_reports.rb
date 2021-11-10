@@ -36,17 +36,21 @@ module DiagnosticReports
     end
   end
 
-  private def set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id)
+  private def set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id, hashify_activity_sessions=false)
     if unit_id
       classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
       @assigned_students = User.where(id: classroom_unit.assigned_student_ids).sort_by { |u| u.last_name }
       @activity_sessions = ActivitySession.where(classroom_unit: classroom_unit, is_final_score: true)
     else
-      unit_ids = current_user.units.joins("JOIN unit_activities ON unit_activities.activity_id = #{activity_id}")
-      classroom_units = ClassroomUnit.where(unit_id: unit_ids, classroom_id: classroom_id)
+      units = current_user.units.joins(:unit_activities).where(units: {unit_activities: {activity_id: activity_id}})
+      classroom_units = ClassroomUnit.where(unit: units, classroom_id: classroom_id)
       assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
       @assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
       @activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, is_final_score: true).order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
+    end
+
+    if hashify_activity_sessions
+      @activity_sessions = @activity_sessions.map { |session| [session.user_id, session] }.to_h
     end
   end
 
