@@ -77,6 +77,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   const [activeStep, setActiveStep] = React.useState(shouldSkipToPrompts ? READ_PASSAGE_STEP + 1: READ_PASSAGE_STEP)
   const [activityIsComplete, setActivityIsComplete] = React.useState(false)
   const [activityIsReadyForSubmission, setActivityIsReadyForSubmission] = React.useState(false)
+  const [completeButtonClicked, setCompleteButtonClicked] = React.useState(false)
   const [completedSteps, setCompletedSteps] = React.useState(defaultCompletedSteps)
   const [showFocusState, setShowFocusState] = React.useState(false)
   const [startTime, setStartTime] = React.useState(Date.now())
@@ -515,17 +516,15 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       <ExplanationSlide onHandleClick={handleExplanationSlideClick} slideData={explanationData[explanationSlideStep]} />
     );
   }
-  if(activityIsComplete && !window.location.href.includes('turk')) {
-    console.log("\nACTIVITY COMPLETE\n")
-
-
-  }
-
-  const renderActivityFollowup = () => {
-    console.log("renderActivityFollowup.........")
+  if(completeButtonClicked && !window.location.href.includes('turk')) {
     return(
       <ActivityFollowUp responses={submittedResponses} saveActivitySurveyResponse={saveActivitySurveyResponse} sessionID={sessionID} user={user} />
     );
+
+  }
+
+  const completeButtonCallback = () => {
+    setCompleteButtonClicked(true)
   }
 
   return (
@@ -558,6 +557,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         activities={activities}
         activityIsComplete={activityIsComplete}
         closeReadTheDirectionsModal={closeReadTheDirectionsModal}
+        completeButtonCallback={completeButtonCallback}
         completedSteps={completedSteps}
         completeStep={completeStep}
         doneHighlighting={doneHighlighting}
@@ -567,7 +567,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         hasStartedReadPassageStep={hasStartedReadPassageStep}
         onStartPromptSteps={onStartPromptSteps}
         onStartReadPassage={onStartReadPassage}
-        renderActivityFollowup={renderActivityFollowup}
         reportAProblem={submitProblemReport}
         resetTimers={resetTimers}
         scrolledToEndOfPassage={scrolledToEndOfPassage}

@@ -8,13 +8,13 @@ const Steps = ({
   activities,
   activityIsComplete,
   handleDoneReadingClick,
+  completeButtonCallback={completeButtonCallback},
   completeStep,
   submitResponse,
   closeReadTheDirectionsModal,
   session,
   completedSteps,
   doneHighlighting,
-  renderActivityFollowup,
   resetTimers,
   showReadTheDirectionsModal,
   stepsHash,
@@ -23,7 +23,7 @@ const Steps = ({
   function renderCompletionButton() {
     let className = 'quill-button focus-on-light'
     return(
-      <button className={className} onClick={renderActivityFollowup} type="button"><span>{'Complete'}</span></button>
+      <button className={className} onClick={completeButtonCallback} type="button"><span>{'Complete'}</span></button>
     )
   }
 
