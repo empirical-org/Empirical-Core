@@ -26,22 +26,22 @@ module Evidence
         { 
           name: 'question_mark', 
           entry: 'A question?', 
-          rule_uid: 'f576dadc-7eec-4e27-8c95-7763e6550141'
+          rule_uid: PrefilterCheck::QUESTION_MARK_RULE_UID
         },
         { 
           name: 'multiple_sentences', 
           entry: 'Yes. No. Maybe.', 
-          rule_uid: '66779e2a-74ed-4099-8704-11983121fee5'
+          rule_uid: PrefilterCheck::MULTIPLE_SENTENCE_RULE_UID
         },
         { 
           name: 'too_short', 
           entry: 'Yes.', 
-          rule_uid: '408d4544-5492-46e7-a6b7-3b1ffdd632af'
+          rule_uid: PrefilterCheck::MINIMUM_WORD_RULE_UID
         },
         { 
           name: 'profane', 
           entry: 'Nero was an ahole', 
-          rule_uid: 'fdee458a-f017-4f9a-a7d4-a72d1143abeb'
+          rule_uid: PrefilterCheck::PROFANITY_RULE_UID
         }
       ]
 

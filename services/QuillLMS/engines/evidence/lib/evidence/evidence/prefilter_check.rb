@@ -2,16 +2,21 @@ require 'pragmatic_segmenter'
 
 module Evidence
   class PrefilterCheck
-    attr_accessor :prefilter_rules
+    attr_reader :prefilter_rules, :entry
     MINIMUM_WORD_COUNT = 3
-    OPTIMAL_RULE_UID = 'a7410335-5dae-4fc7-832a-ce9cf8d5dffb'
+
+    OPTIMAL_RULE_UID            = 'a7410335-5dae-4fc7-832a-ce9cf8d5dffb'
+    QUESTION_MARK_RULE_UID      = 'f576dadc-7eec-4e27-8c95-7763e6550141'
+    MULTIPLE_SENTENCE_RULE_UID  = '66779e2a-74ed-4099-8704-11983121fee5'
+    PROFANITY_RULE_UID          = 'fdee458a-f017-4f9a-a7d4-a72d1143abeb' 
+    MINIMUM_WORD_RULE_UID       = '408d4544-5492-46e7-a6b7-3b1ffdd632af'
 
     # When a prefilter lambda identifies a violation, it returns true
     PREFILTERS = {
-      'f576dadc-7eec-4e27-8c95-7763e6550141' => ->(entry) { entry.match?(/\?$/) },
-      '66779e2a-74ed-4099-8704-11983121fee5' => ->(entry) { sentence_count(entry) > 1 },
-      'fdee458a-f017-4f9a-a7d4-a72d1143abeb' => ->(entry) { words(entry).find{ |w| Profanity.profane?(w)} },
-      '408d4544-5492-46e7-a6b7-3b1ffdd632af' => ->(entry) { word_count(entry) < MINIMUM_WORD_COUNT}
+      QUESTION_MARK_RULE_UID      => ->(entry) { entry.match?(/\?$/) },
+      MULTIPLE_SENTENCE_RULE_UID  => ->(entry) { sentence_count(entry) > 1 },
+      PROFANITY_RULE_UID          => ->(entry) { words(entry).find{ |w| Profanity.profane?(w)} },
+      MINIMUM_WORD_RULE_UID       => ->(entry) { word_count(entry) < MINIMUM_WORD_COUNT}
     }
 
     def initialize(entry)
@@ -25,7 +30,7 @@ module Evidence
         feedback_type: Evidence::Rule::TYPE_PREFILTER,
         optimal: true,
         response_id: '',
-        entry: @entry,
+        entry: entry,
         concept_uid: '',
         rule_uid: OPTIMAL_RULE_UID,
         highlight: []
@@ -33,9 +38,9 @@ module Evidence
     end
 
     def feedback_object
-      violated_rule = @prefilter_rules.find do |rule| 
+      violated_rule = prefilter_rules.find do |rule| 
         next unless PREFILTERS[rule.uid]
-        PREFILTERS[rule.uid].call(@entry) 
+        PREFILTERS[rule.uid].call(entry) 
       end
       
       return default_response unless violated_rule
