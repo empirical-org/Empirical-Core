@@ -17,6 +17,7 @@ module DiagnosticReports
     number_correct = concept_results.select(&:correct?).length
     number_incorrect = concept_resultsreject(&:correct?).length
     {
+      id: skill.id,
       skill: skill.name,
       number_correct: number_correct,
       number_incorrect: number_incorrect,
@@ -51,6 +52,16 @@ module DiagnosticReports
 
     if hashify_activity_sessions
       @activity_sessions = @activity_sessions.map { |session| [session.user_id, session] }.to_h
+    end
+  end
+
+  private def summarize_student_proficiency_for_skill_per_activity(present_skill_number, correct_skill_number)
+    if correct_skill_number == 0
+      NO_PROFICIENCY
+    elsif present_skill_number == correct_skill_number
+      PROFICIENCY
+    else
+      PARTIAL_PROFICIENCY
     end
   end
 

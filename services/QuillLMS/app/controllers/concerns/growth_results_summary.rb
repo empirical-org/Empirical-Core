@@ -20,8 +20,8 @@ module GrowthResultsSummary
     end
 
     {
-      student_results: student_results,
-      skill_group_summaries: @skill_group_summaries
+      skill_group_summaries: @skill_group_summaries,
+      student_results: student_results
     }
   end
 
@@ -98,16 +98,6 @@ module GrowthResultsSummary
       NO_PROFICIENCY
     elsif present_skill_number == correct_skill_number
       correct_skill_number > pre_correct_skill_number ? GAINED_PROFICIENCY : MAINTAINED_PROFICIENCY
-    else
-      PARTIAL_PROFICIENCY
-    end
-  end
-
-  private def summarize_student_proficiency_for_skill_per_activity(present_skill_number, correct_skill_number)
-    if correct_skill_number == 0
-      NO_PROFICIENCY
-    elsif present_skill_number == correct_skill_number
-      PROFICIENCY
     else
       PARTIAL_PROFICIENCY
     end
