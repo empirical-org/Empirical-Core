@@ -390,7 +390,7 @@ namespace :skills_and_skill_groups_part_two do
             ]
           }
         ]
-      },
+      }
     ]
   end
 
@@ -417,14 +417,14 @@ namespace :skills_and_skill_groups_part_two do
             concepts: [
               { uid: 'PzMesGC_8yILSHMlu5GnFA' },
               { uid: 'Using A & An Before a Noun' },
-              { uid: '1wVRalQ9nSFCbJH58Jab_g' },
+              { uid: '1wVRalQ9nSFCbJH58Jab_g' }
             ]
           },
           {
             name: 'Adjectives',
             concepts: [
               { uid: 'Simple Adjective Sentences' },
-              { uid: 'o1yvrCpaYu0r-jqogv7PBw' },
+              { uid: 'o1yvrCpaYu0r-jqogv7PBw' }
             ]
           }
         ]
@@ -436,7 +436,7 @@ namespace :skills_and_skill_groups_part_two do
           {
             name: 'Conjugating To Have',
             concepts: [
-              { uid: '1IBl9Gea7bfxreyKCaRUsg', },
+              { uid: '1IBl9Gea7bfxreyKCaRUsg' }
             ]
           }
         ]
@@ -448,7 +448,7 @@ namespace :skills_and_skill_groups_part_two do
           {
             name: 'Conjugating To Want',
             concepts: [
-              { uid: 'rrUdGcMNlK3A0yploAj-Yg', },
+              { uid: 'rrUdGcMNlK3A0yploAj-Yg' }
             ]
           }
         ]
@@ -460,19 +460,19 @@ namespace :skills_and_skill_groups_part_two do
           {
             name: 'Compound Objects',
             concepts: [
-              { uid: 'QNkNRs8zbCXU7nLBeo4mgA', },
+              { uid: 'QNkNRs8zbCXU7nLBeo4mgA' }
             ]
           },
           {
             name: 'Listing Objects',
             concepts: [
-              { uid: 'CoGBwDItjaRB0sxdpom9ww', },
+              { uid: 'CoGBwDItjaRB0sxdpom9ww' }
             ]
           },
           {
             name: 'Coordinate Adjectives',
             concepts: [
-              { uid: 'YTqU-93WN2w8cU6WdSDy4w', },
+              { uid: 'YTqU-93WN2w8cU6WdSDy4w' }
             ]
           },
         ]
@@ -484,11 +484,11 @@ namespace :skills_and_skill_groups_part_two do
           {
             name: 'Yes or No Questions',
             concepts: [
-              { uid: 'QU-OAJfxDUzRnlpIl9mKRA', },
+              { uid: 'QU-OAJfxDUzRnlpIl9mKRA' }
             ]
           }
         ]
-      },
+      }
     ]
   end
 
@@ -584,7 +584,7 @@ namespace :skills_and_skill_groups_part_two do
           {
             name: 'Future Tense',
             concepts: [
-              { uid: 'RPNqOZuka_n8RESKbBF8OQ', }
+              { uid: 'RPNqOZuka_n8RESKbBF8OQ' }
             ]
           }
         ]
@@ -595,7 +595,7 @@ namespace :skills_and_skill_groups_part_two do
           {
             name: 'A, An, and The',
             concepts: [
-              { uid: 'fJXVAoYCC8S9kByua0kXXA', }
+              { uid: 'fJXVAoYCC8S9kByua0kXXA' }
             ]
           }
         ]
@@ -606,25 +606,25 @@ namespace :skills_and_skill_groups_part_two do
           {
             name: 'Questions With Who',
             concepts: [
-              { uid: 'mYIxpj1zn8cbg8eXLA', }
+              { uid: 'mYIxpj1zn8cbg8eXLA' }
             ]
           },
           {
             name: 'Questions With Where',
             concepts: [
-              { uid: 'D7j-ZW4maL243aHIKoNp6Q', }
+              { uid: 'D7j-ZW4maL243aHIKoNp6Q' }
             ]
           },
           {
             name: 'Questions With What',
             concepts: [
-              { uid: 'wjeafaJMBZuCep0ypZrm_Q', }
+              { uid: 'wjeafaJMBZuCep0ypZrm_Q' }
             ]
           },
           {
             name: 'Questions With Can',
             concepts: [
-              { uid: 'GOvX5kYq96vpQa39BHy8ow', }
+              { uid: 'GOvX5kYq96vpQa39BHy8ow' }
             ]
           },
         ]
@@ -641,19 +641,19 @@ namespace :skills_and_skill_groups_part_two do
           {
             name: 'Past Tense Verbs',
             concepts: [
-              { uid: 'SRqIUoMz4hlWeu-Ip4CyCw', }
+              { uid: 'SRqIUoMz4hlWeu-Ip4CyCw' }
             ]
           },
           {
             name: 'Past Tense Verbs Ending in Y',
             concepts: [
-              { uid: 'Km0ooHwuyrvSJ1hN4Rse7w', }
+              { uid: 'Km0ooHwuyrvSJ1hN4Rse7w' }
             ]
           },
           {
             name: 'Past Tense with Double Consonants',
             concepts: [
-              { uid: 'WxkPgfLvkJuStQMEK-8kag', }
+              { uid: 'WxkPgfLvkJuStQMEK-8kag' }
             ]
           },
         ]
@@ -665,43 +665,43 @@ namespace :skills_and_skill_groups_part_two do
           {
             name: 'To Be',
             concepts: [
-              { uid: 'vnis5YBzm7mM_TYl3DqhTw', }
+              { uid: 'vnis5YBzm7mM_TYl3DqhTw' }
             ]
           },
           {
             name: 'Thought',
             concepts: [
-              { uid: 'pBzbX6kVGDeH10w0-cfMYA', }
+              { uid: 'pBzbX6kVGDeH10w0-cfMYA' }
             ]
           },
           {
             name: 'Did',
             concepts: [
-              { uid: 'cxWLOrXgWsAa170V_KpZWA', }
+              { uid: 'cxWLOrXgWsAa170V_KpZWA' }
             ]
           },
           {
             name: 'Said',
             concepts: [
-              { uid: '6U5JokUpWIjHVOn5Zt2lmw', }
+              { uid: '6U5JokUpWIjHVOn5Zt2lmw' }
             ]
           },
           {
             name: 'Ate',
             concepts: [
-              { uid: 'q_KB-ppr6rFvTwrSMClssA', }
+              { uid: 'q_KB-ppr6rFvTwrSMClssA' }
             ]
           },
           {
             name: 'Took',
             concepts: [
-              { uid: 'Z3p7YViQ0lR_h0GSLJ2KWA', }
+              { uid: 'Z3p7YViQ0lR_h0GSLJ2KWA' }
             ]
           },
           {
             name: 'Went',
             concepts: [
-              { uid: 'ciSBEpZ8TZyo7NOei5tWqw', }
+              { uid: 'ciSBEpZ8TZyo7NOei5tWqw' }
             ]
           },
         ]
