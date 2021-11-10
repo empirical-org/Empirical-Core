@@ -517,10 +517,17 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
   if(activityIsComplete && !window.location.href.includes('turk')) {
     console.log("\nACTIVITY COMPLETE\n")
+
+
+  }
+
+  const renderActivityFollowup = () => {
+    console.log("renderActivityFollowup.........")
     return(
       <ActivityFollowUp responses={submittedResponses} saveActivitySurveyResponse={saveActivitySurveyResponse} sessionID={sessionID} user={user} />
     );
   }
+
   return (
     <div className={className}>
       {renderStepLinksAndDirections({
@@ -549,6 +556,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         activateStep={activateStep}
         activeStep={activeStep}
         activities={activities}
+        activityIsComplete={activityIsComplete}
         closeReadTheDirectionsModal={closeReadTheDirectionsModal}
         completedSteps={completedSteps}
         completeStep={completeStep}
@@ -559,6 +567,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         hasStartedReadPassageStep={hasStartedReadPassageStep}
         onStartPromptSteps={onStartPromptSteps}
         onStartReadPassage={onStartReadPassage}
+        renderActivityFollowup={renderActivityFollowup}
         reportAProblem={submitProblemReport}
         resetTimers={resetTimers}
         scrolledToEndOfPassage={scrolledToEndOfPassage}

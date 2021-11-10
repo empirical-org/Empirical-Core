@@ -11,6 +11,7 @@ const RightPanel = ({
   activities,
   activateStep,
   activeStep,
+  activityIsComplete,
   closeReadTheDirectionsModal,
   completeStep,
   completedSteps,
@@ -21,6 +22,7 @@ const RightPanel = ({
   hasStartedReadPassageStep,
   onStartPromptSteps,
   onStartReadPassage,
+  renderActivityFollowup,
   reportAProblem,
   resetTimers,
   scrolledToEndOfPassage,
@@ -88,11 +90,13 @@ const RightPanel = ({
       activateStep={activateStep}
       activeStep={activeStep}
       activities={activities}
+      activityIsComplete={activityIsComplete}
       closeReadTheDirectionsModal={closeReadTheDirectionsModal}
       completedSteps={completedSteps}
       completeStep={completeStep}
       doneHighlighting={doneHighlighting}
       handleDoneReadingClick={handleDoneReadingClick}
+      renderActivityFollowup={renderActivityFollowup}
       reportAProblem={reportAProblem}
       resetTimers={resetTimers}
       session={session}

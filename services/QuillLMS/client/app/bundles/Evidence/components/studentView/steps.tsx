@@ -6,6 +6,7 @@ const Steps = ({
   activeStep,
   activateStep,
   activities,
+  activityIsComplete,
   handleDoneReadingClick,
   completeStep,
   submitResponse,
@@ -13,11 +14,19 @@ const Steps = ({
   session,
   completedSteps,
   doneHighlighting,
+  renderActivityFollowup,
   resetTimers,
   showReadTheDirectionsModal,
   stepsHash,
   reportAProblem,
 }) => {
+  function renderCompletionButton() {
+    let className = 'quill-button focus-on-light'
+    return(
+      <button className={className} onClick={renderActivityFollowup} type="button"><span>{'Complete'}</span></button>
+    )
+  }
+
   return(
     <div className="steps-outer-container" onScroll={resetTimers}>
       <div className="steps-inner-container" onScroll={resetTimers}>
@@ -36,6 +45,7 @@ const Steps = ({
           stepsHash,
           reportAProblem,
         })}
+        {activityIsComplete && renderCompletionButton()}
       </div>
     </div>
   )
