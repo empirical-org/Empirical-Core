@@ -35,6 +35,14 @@ interface RecommendationCellProps {
   selectionIndex: number;
 }
 
+interface StickyTableStyle {
+  position: string,
+  top: number,
+  left: number,
+  right: number,
+  zIndex: number
+}
+
 const RecommendationCell = ({ student, isAssigned, isRecommended, isSelected, setSelections, selections, selectionIndex, }: RecommendationCellProps) => {
   function toggleSelection() {
     const newSelections = [...selections];
@@ -95,7 +103,7 @@ const StudentRow = ({ student, selections, recommendations, previouslyAssignedRe
 const RecommendationsTable = ({ recommendations, students, selections, previouslyAssignedRecommendations, setSelections, }: RecommendationsTableProps) => {
   const [isSticky, setIsSticky] = React.useState(false);
   const tableRef = React.useRef(null);
-  const [stickyTableStyle, setStickyTableStyle] = React.useState({
+  const [stickyTableStyle, setStickyTableStyle] = React.useState<StickyTableStyle>({
     position: "fixed",
     top: 0,
     left: 0,
@@ -104,6 +112,7 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
   })
 
   const handleScroll = React.useCallback(({ top, bottom, left, right, }) => {
+    // values are based on intersection with the `.recommendations-table` - 0 is just intersecting with the top and 92 is the height of each row, so once we get below that we don't want to continue dragging the header down
     if (top <= 0 && bottom > 92) {
       setStickyTableStyle(oldStickyTableStyle => ({ ...oldStickyTableStyle, left }))
       !isSticky && setIsSticky(true);
