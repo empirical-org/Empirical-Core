@@ -19,14 +19,14 @@ const addStudentsSrc = `${process.env.CDN_URL}/images/illustrations/add-students
 const addShareActivityPackSrc = `${process.env.CDN_URL}/images/icons/icons-share-activity-pack.svg`
 const shareActivitySrc = `${process.env.CDN_URL}/images/icons/icons-share.svg`
 
-const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classrooms, moveToStage4, state, props }) => {
+const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, moveToStage4 }) => {
 
   const [leaving, setLeaving] = React.useState<boolean>(false);
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
   const [modalOpen, setModalOpen] = React.useState<boolean>(false);
-  const [activityPack, setActivityPack] = React.useState<any>(activityPackData)
-  const [singleActivity, setSingleActivity] = React.useState<any>(null)
-  console.log("🚀 ~ file: shareToGoogleClassroom.tsx ~ line 29 ~ ShareToGoogleClassroom ~ singleActivity", singleActivity)
+  const [activityPack, setActivityPack] = React.useState<any>(activityPackData);
+  const [singleActivity, setSingleActivity] = React.useState<any>(null);
+  const [classrooms, setClassrooms] = React.useState<any>(assignedClassrooms)
 
   React.useEffect(() => {
     if (leaving) {
@@ -92,7 +92,7 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classroo
   }
 
   function renderInviteStudents() {
-    const emptyClassrooms = assignedClassrooms.filter(c => !c.students.length)
+    const emptyClassrooms = classrooms.filter(c => !c.students.length)
     const numberOfClassroomsFirstText = `${emptyClassrooms.length} ${emptyClassrooms.length === 1 ? 'class' : 'classes'}`
     const numberOfClassroomsSecondText = `${emptyClassrooms.length === 1 ? 'has' : 'have'}`
     return (<Card
@@ -128,15 +128,14 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classroo
     )
   }
 
-  // const allClassroomsAreEmpty = assignedClassrooms.every(c => c.classroom.emptyClassroomSelected);
-  const allClassroomsAreEmpty = false;
+  const allClassroomsAreEmpty = classrooms.every(c => c.classroom.emptyClassroomSelected);
   const button = <button className="quill-button medium contained primary" onClick={handleClick} type="button">Next</button>
   return (
     <div className="assignment-flow-container">
       {modalOpen &&
       <ShareActivityPackModal
         activityPackData={activityPack}
-        classrooms={[classrooms[0]]}
+        classrooms={classrooms}
         closeModal={handleToggleShareModal}
         singleActivity={singleActivity}
       />}
@@ -145,7 +144,7 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, classroo
       <div className="google-classroom container">
         <h1>Assigned!</h1>
         <div className="inner-container">
-          <ActivityPackInformation activityPackData={activityPackData} />
+          <ActivityPackInformation activityPackData={activityPack} classroomData={classrooms} />
           {allClassroomsAreEmpty && renderInviteStudents()}
           {!allClassroomsAreEmpty && renderShareActivityPackCards()}
         </div>

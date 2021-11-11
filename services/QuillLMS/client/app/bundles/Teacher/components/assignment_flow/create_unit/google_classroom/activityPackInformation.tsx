@@ -1,6 +1,18 @@
 import * as React from 'react'
 
-const ActivityPackInformation = ({ activityPackData }) => {
+const ActivityPackInformation = ({ activityPackData, classroomData }) => {
+
+  function getStudentCount() {
+    let count = 0;
+    classroomData.map(classroom => {
+      const { students } = classroom;
+      if(students && students.length) {
+        count += students.length;
+      }
+    });
+    return count;
+  }
+
   return (
     <div className="activity-pack-information-container">
       <div className="pack-sub-container" id="activity-pack">
@@ -13,11 +25,11 @@ const ActivityPackInformation = ({ activityPackData }) => {
       </div>
       <div className="pack-sub-container" id="classes">
         <p className="activity-pack-label">Classes</p>
-        <p className="activity-pack-data"></p>
+        <p className="activity-pack-data">{classroomData && classroomData.length}</p>
       </div>
       <div className="pack-sub-container" id="students">
         <p className="activity-pack-label">Students</p>
-        <p className="activity-pack-data"></p>
+        <p className="activity-pack-data">{classroomData && classroomData.length && getStudentCount()}</p>
       </div>
     </div>
   );
