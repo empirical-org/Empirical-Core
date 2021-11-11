@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'CleverIntegration::Associators::ClassroomsToTeacher' do
-
   let!(:classroom1) { create(:classroom, :with_no_teacher) }
   let!(:classroom2) { create(:classroom, :with_no_teacher) }
   let!(:teacher1) { create(:teacher) }
@@ -26,6 +25,15 @@ describe 'CleverIntegration::Associators::ClassroomsToTeacher' do
     it 'creates a classroom owner record' do
       CleverIntegration::Associators::ClassroomsToTeacher.run([classroom2], teacher2)
       expect(ClassroomsTeacher.find_by(classroom_id: classroom2.id, user_id: teacher2.id, role: 'coteacher')).to be
+    end
+  end
+
+  context 'when classroom has two owners' do
+    let!(:classrooms_teacher2) { create(:classrooms_teacher, user: teacher2, classroom: classroom2) }
+
+    it 'gracefully handles the each case of two owners' do
+      CleverIntegration::Associators::ClassroomsToTeacher.run([classroom2], teacher1)
+      expect(ClassroomsTeacher.find_by(classroom_id: classroom2.id, user_id: teacher1.id, role: 'owner')).to be
     end
   end
 end
