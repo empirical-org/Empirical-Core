@@ -61,7 +61,7 @@ module Evidence
     end
 
     def self.word_count(entry)
-      words(entry).filter{ |s| !s.empty? }.count
+       words(entry).reject(&:empty?).count
     end
 
     def self.sentence_count(entry)

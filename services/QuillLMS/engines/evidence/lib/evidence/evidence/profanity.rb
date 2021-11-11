@@ -12,13 +12,13 @@ module Evidence
 
     def self.match?(badword:, word:)
       stripped_badword = badword.gsub('*', '')
-      if badword[0] == '*' && badword[-1] == '*'
+      if badword.start_with?('*') && badword.end_with?('*')
         regex = ::Regexp.new(stripped_badword)
          word.match?(regex)
-      elsif badword[0] == '*'
+      elsif badword.start_with?('*')
         regex = ::Regexp.new("#{stripped_badword}$")
          word.match?(regex) 
-      elsif badword[-1] == '*'
+      elsif badword.end_with?('*')
         regex = ::Regexp.new("^#{stripped_badword}")
          word.match?(regex) 
       else 
