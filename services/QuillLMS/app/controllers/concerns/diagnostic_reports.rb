@@ -56,7 +56,7 @@ module DiagnosticReports
   end
 
   private def set_pre_test_activity_sessions_and_assigned_students(current_user, activity_id, classroom_id, hashify_activity_sessions=false)
-    units = @current_user.units.joins(:unit_activities).where(units: {unit_activities: {activity_id: activity_id}})
+    units = current_user.units.joins(:unit_activities).where(units: {unit_activities: {activity_id: activity_id}})
     classroom_units = ClassroomUnit.where(unit: units, classroom_id: classroom_id)
     assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
     @pre_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
@@ -69,7 +69,7 @@ module DiagnosticReports
   end
 
   private def set_post_test_activity_sessions_and_assigned_students(current_user, activity_id, classroom_id, hashify_activity_sessions=false)
-    units = @current_user.units.joins(:unit_activities).where(units: {unit_activities: {activity_id: activity_id}})
+    units = current_user.units.joins(:unit_activities).where(units: {unit_activities: {activity_id: activity_id}})
     classroom_units = ClassroomUnit.where(unit: units, classroom_id: classroom_id)
     assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
     @post_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
