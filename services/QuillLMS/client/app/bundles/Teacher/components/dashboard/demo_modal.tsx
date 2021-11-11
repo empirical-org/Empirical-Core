@@ -13,10 +13,11 @@ const DemoModal = ({ close, size }) => {
   return (<div className="modal-container welcome-modal-container">
     <div className="modal-background" />
     <div className="quill-modal">
+      <img alt="exit-popup" className="exit" onClick={close} src="https://assets.quill.org/images/icons/CloseIcon.svg" />
       <div className="modal-body">
         <h1>Explore Demo!</h1>
         <div className="modal-text">
-          <p>Our mission as a non-profit is to help students become strong writers, so all our content is completely free to use with an unlimited number of students.</p>
+          <p>You are about to enter a Demo Account. All data is for demo purposes only - you can exit the Demo and re-enter your own account at any time.</p>
         </div>
         <button className="quill-button contained primary medium" onClick={goToDemo} type="button">Let&apos;s go!</button>
       </div>

@@ -2,9 +2,9 @@ class Teachers::ClassroomManagerController < ApplicationController
   include CheckboxCallback
 
   respond_to :json, :html
-  before_action :teacher_or_public_activity_packs, except: [:unset_preview_as_student]
+  before_action :teacher_or_public_activity_packs, except: [:unset_preview_as_student, :unset_view_demo]
   # WARNING: these filter methods check against classroom_id, not id.
-  before_action :authorize_owner!, except: [:scores, :scorebook, :lesson_planner, :preview_as_student, :unset_preview_as_student, :activity_feed]
+  before_action :authorize_owner!, except: [:scores, :scorebook, :lesson_planner, :preview_as_student, :unset_preview_as_student, :view_demo, :unset_view_demo, :activity_feed]
   before_action :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
   before_action :set_alternative_schools, only: [:my_account, :update_my_account, :update_my_password]
   include ScorebookHelper
@@ -205,8 +205,14 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def view_demo
     demo = User.find_by_email('hello+demoteacher@quill.org')
-    # create the demo if it does not exist
+    return render json: {errors: "Demo Account does not exist"}, status: 422 if demo.nil?
     self.demo_id = demo.id
+    redirect_to '/profile'
+  end
+
+  def unset_view_demo
+    self.demo_id = nil
+    return redirect_to params[:redirect] if params[:redirect]
     redirect_to '/profile'
   end
 

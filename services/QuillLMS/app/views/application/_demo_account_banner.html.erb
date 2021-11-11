@@ -1,0 +1,11 @@
+<% current_path = request.env['PATH_INFO'] %>
+
+<% if viewing_demo_account? %>
+  <div class="preview-student-banner">
+    <div class="content-container">
+      <span>You are in a demo account so that you can explore sample student data and results. Feel free to poke around! Any changes or edits will not be permanently saved.</span>
+      <a class="quill-button primary contained medium focus-on-light" href="/teachers/unset_view_demo">Return to My Account</a>
+    </div>
+  </div>
+
+<% end %>
