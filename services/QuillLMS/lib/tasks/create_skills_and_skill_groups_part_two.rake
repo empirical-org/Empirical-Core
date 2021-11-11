@@ -4,21 +4,23 @@ namespace :skills_and_skill_groups_part_two do
   end
 
   def create_skills_and_skill_groups
-    pre_ap1 = Activity.find(1229)
-    pre_ap2 = Activity.find(1230)
-    springboard = Activity.find(1432)
-    ap = Activity.find(992)
-    ell_starter = Activity.find(1161)
-    ell_intermediate = Activity.find(1568)
-    ell_advanced = Activity.find(1590)
+    ActiveRecord::Base.transaction do
+      pre_ap1 = Activity.find(1229)
+      pre_ap2 = Activity.find(1230)
+      springboard = Activity.find(1432)
+      ap = Activity.find(992)
+      ell_starter = Activity.find(1161)
+      ell_intermediate = Activity.find(1568)
+      ell_advanced = Activity.find(1590)
 
-    create_data(pre_ap1_skill_groups, [pre_ap1.id])
-    create_data(pre_ap2_skill_groups, [pre_ap2.id])
-    create_data(springboard_skill_groups, [springboard.id])
-    create_data(ap_skill_groups, [ap.id])
-    create_data(ell_starter_skill_groups, [ell_starter.id])
-    create_data(ell_intermediate_skill_groups, [ell_intermediate.id])
-    create_data(ell_advanced_skill_groups, [ell_advanced.id])
+      create_data(pre_ap1_skill_groups, [pre_ap1.id])
+      create_data(pre_ap2_skill_groups, [pre_ap2.id])
+      create_data(springboard_skill_groups, [springboard.id])
+      create_data(ap_skill_groups, [ap.id])
+      create_data(ell_starter_skill_groups, [ell_starter.id])
+      create_data(ell_intermediate_skill_groups, [ell_intermediate.id])
+      create_data(ell_advanced_skill_groups, [ell_advanced.id])
+    end
   end
 
   def create_data(skill_group_data, activity_ids)
