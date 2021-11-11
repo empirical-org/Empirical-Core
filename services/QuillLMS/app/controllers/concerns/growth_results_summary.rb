@@ -8,8 +8,8 @@ module GrowthResultsSummary
     @current_user = current_user
     pre_test = Activity.find(pre_test_activity_id)
     @skill_groups = pre_test.skill_groups
-    set_pre_test_activity_sessions_and_assigned_students(pre_test_activity_id, classroom_id)
-    set_post_test_activity_sessions_and_assigned_students(post_test_activity_id, classroom_id)
+    set_pre_test_activity_sessions_and_assigned_students(@current_user, pre_test_activity_id, classroom_id, true)
+    set_post_test_activity_sessions_and_assigned_students(@current_user, post_test_activity_id, classroom_id, true)
     @skill_group_summaries = @skill_groups.map do |skill_group|
       {
         name: skill_group.name,
@@ -23,22 +23,6 @@ module GrowthResultsSummary
       skill_group_summaries: @skill_group_summaries,
       student_results: student_results
     }
-  end
-
-  private def set_pre_test_activity_sessions_and_assigned_students(activity_id, classroom_id)
-    units = @current_user.units.joins(:unit_activities).where(units: {unit_activities: {activity_id: activity_id}})
-    classroom_units = ClassroomUnit.where(unit: units, classroom_id: classroom_id)
-    assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
-    @pre_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
-    @pre_test_activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }.map { |session| [session.user_id, session] }.to_h
-  end
-
-  private def set_post_test_activity_sessions_and_assigned_students(activity_id, classroom_id)
-    units = @current_user.units.joins(:unit_activities).where(units: {unit_activities: {activity_id: activity_id}})
-    classroom_units = ClassroomUnit.where(unit: units, classroom_id: classroom_id)
-    assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
-    @post_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
-    @post_test_activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }.map { |session| [session.user_id, session] }.to_h
   end
 
   private def student_results
