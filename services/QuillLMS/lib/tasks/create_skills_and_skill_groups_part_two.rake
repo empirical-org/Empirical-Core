@@ -22,7 +22,7 @@ namespace :skills_and_skill_groups_part_two do
   end
 
   def create_data(skill_group_data, activity_ids)
-    skill_group_data.map do |sg|
+    skill_group_data.each do |sg|
       skill_group = SkillGroup.create({ name: sg[:name], order_number: sg[:order_number] })
       activity_ids.each do |id|
         SkillGroupActivity.create(activity_id: id, skill_group: skill_group)
@@ -196,7 +196,7 @@ namespace :skills_and_skill_groups_part_two do
             concepts: [
               { uid: 'Tlhrx6Igxn6cR_SD1U5efA' }
             ]
-          },
+          }
         ]
       },
       {
@@ -352,7 +352,7 @@ namespace :skills_and_skill_groups_part_two do
               { uid: 'GLjAExmqZShBTZ7DQGvVLw' },
               { uid: 'OVXt5ljhdLSvdpszm4JEAg' }
             ]
-          },
+          }
         ]
       },
       {
@@ -474,7 +474,7 @@ namespace :skills_and_skill_groups_part_two do
             concepts: [
               { uid: 'YTqU-93WN2w8cU6WdSDy4w' }
             ]
-          },
+          }
         ]
       },
       {
@@ -575,7 +575,7 @@ namespace :skills_and_skill_groups_part_two do
             concepts: [
               { uid: 'iY2_MBNxcVgzH3xmnyeEJA'}
             ]
-          },
+          }
         ]
       },
       {
@@ -626,7 +626,7 @@ namespace :skills_and_skill_groups_part_two do
             concepts: [
               { uid: 'GOvX5kYq96vpQa39BHy8ow' }
             ]
-          },
+          }
         ]
       }
     ]
@@ -655,7 +655,7 @@ namespace :skills_and_skill_groups_part_two do
             concepts: [
               { uid: 'WxkPgfLvkJuStQMEK-8kag' }
             ]
-          },
+          }
         ]
       },
       {
@@ -703,7 +703,7 @@ namespace :skills_and_skill_groups_part_two do
             concepts: [
               { uid: 'ciSBEpZ8TZyo7NOei5tWqw' }
             ]
-          },
+          }
         ]
       },
       {
@@ -727,7 +727,7 @@ namespace :skills_and_skill_groups_part_two do
             concepts: [
               { uid: '9ZPpieSHhlMYQkEvrhQP1w' }
             ]
-          },
+          }
         ]
       },
       {
