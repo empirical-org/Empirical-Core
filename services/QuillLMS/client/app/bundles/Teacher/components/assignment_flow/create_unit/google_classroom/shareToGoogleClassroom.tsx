@@ -13,6 +13,8 @@ import {
   ACTIVITY_IDS_ARRAY,
   CLASSROOMS,
   UNIT_ID,
+  CLASSROOM_UNITS,
+  ASSIGNED_CLASSROOMS
 } from '../../assignmentFlowConstants'
 
 const addStudentsSrc = `${process.env.CDN_URL}/images/illustrations/add-students.svg`
@@ -21,12 +23,15 @@ const shareActivitySrc = `${process.env.CDN_URL}/images/icons/icons-share.svg`
 
 const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, moveToStage4 }) => {
 
+  const unitId = window.localStorage.getItem(UNIT_ID);
+  const classroomUnits = JSON.parse(window.localStorage.getItem(CLASSROOM_UNITS));
+  const classrooms = JSON.parse(window.localStorage.getItem(ASSIGNED_CLASSROOMS));
+
   const [leaving, setLeaving] = React.useState<boolean>(false);
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
   const [modalOpen, setModalOpen] = React.useState<boolean>(false);
   const [activityPack, setActivityPack] = React.useState<any>(activityPackData);
   const [singleActivity, setSingleActivity] = React.useState<any>(null);
-  const [classrooms, setClassrooms] = React.useState<any>(assignedClassrooms)
 
   React.useEffect(() => {
     if (leaving) {
@@ -36,6 +41,7 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, moveToSt
       window.localStorage.removeItem(ACTIVITY_IDS_ARRAY);
       window.localStorage.removeItem(CLASSROOMS);
       window.localStorage.removeItem(UNIT_ID);
+      window.localStorage.removeItem(CLASSROOM_UNITS);
       window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`;
     }
   }, [leaving]);
@@ -110,14 +116,14 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, moveToSt
       <section className="share-activity-pack-cards-section">
         <Card
           header="Share the activity pack with your students"
-          imgAlt="stack of paper assignments"
+          imgAlt="A group of documents with a url link and a google classroom icon"
           imgSrc={addShareActivityPackSrc}
           onClick={handleShareActivityPackClick}
           text="Share a link or share with Google Classroom."
         />
         <ExpandableCard
           header="Share an activity with your students"
-          imgAlt="stack of paper assignments"
+          imgAlt="A single document with a url link and a google classroom icon"
           imgSrc={addShareActivityPackSrc}
           isExpanded={isExpanded}
           onClick={handleExpandCard}
@@ -136,8 +142,10 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, moveToSt
       <ShareActivityPackModal
         activityPackData={activityPack}
         classrooms={classrooms}
+        classroomUnits={classroomUnits}
         closeModal={handleToggleShareModal}
         singleActivity={singleActivity}
+        unitId={unitId}
       />}
       <ScrollToTop />
       <AssignmentFlowNavigation button={button} />

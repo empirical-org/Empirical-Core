@@ -12,6 +12,8 @@ import {
   UNIT_TEMPLATE_ID,
   ACTIVITY_IDS_ARRAY,
   UNIT_ID,
+  CLASSROOM_UNITS,
+  ASSIGNED_CLASSROOMS
 } from '../assignmentFlowConstants.ts'
 import parsedQueryParams from '../parsedQueryParams'
 import { requestGet, requestPost, } from '../../../../../modules/request';
@@ -63,6 +65,8 @@ export default class CreateUnit extends React.Component {
       window.localStorage.removeItem(UNIT_NAME)
       window.localStorage.removeItem(ACTIVITY_IDS_ARRAY)
       window.localStorage.removeItem(CLASSROOMS)
+      window.localStorage.removeItem(ASSIGNED_CLASSROOMS)
+      window.localStorage.removeItem(CLASSROOM_UNITS)
     }
 
     if (stage === 2 || window.localStorage.getItem(ACTIVITY_IDS_ARRAY)) {
@@ -72,10 +76,13 @@ export default class CreateUnit extends React.Component {
 
   onCreateSuccess = (response) => {
     const { classrooms, name, } = this.state
-    this.setState({ newUnitId: response.id, assignSuccess: true, }, () => {
-      window.localStorage.setItem(UNIT_NAME, name)
-      window.localStorage.setItem(UNIT_ID, response.id)
+    const { id, classroom_units } = response;
+    this.setState({ newUnitId: id, classroomUnits: classroom_units, assignSuccess: true, }, () => {
       const assignedClassrooms = classrooms.filter(c => c.classroom.emptyClassroomSelected || c.students.find(s => s.isSelected))
+      window.localStorage.setItem(UNIT_NAME, name)
+      window.localStorage.setItem(UNIT_ID, id)
+      window.localStorage.setItem(ASSIGNED_CLASSROOMS, JSON.stringify(assignedClassrooms))
+      window.localStorage.setItem(CLASSROOM_UNITS, JSON.stringify(classroom_units))
       if (assignedClassrooms.every(c => c.classroom.emptyClassroomSelected)) {
         this.props.history.push('/assign/add-students')
       } else {
@@ -303,14 +310,9 @@ export default class CreateUnit extends React.Component {
         activityCount: selectedActivities && selectedActivities.length,
         activities: selectedActivities
       }
-      const assignedClassrooms = classrooms.filter(c => c.classroom.emptyClassroomSelected || c.students.find(s => s.isSelected))
       return <ShareToGoogleClassroom
         activityPackData={activityPackData}
-        assignedClassrooms={assignedClassrooms}
-        classrooms={classrooms}
         moveToStage4={this.moveToStage4}
-        state={this.state}
-        props={this.props}
       />
     }
   }
@@ -415,7 +417,7 @@ export default class CreateUnit extends React.Component {
   }
 
   render = () => {
-    const { stage, classrooms } = this.state;
+    const { stage } = this.state;
     let stageSpecificComponents;
 
     if (stage === 1) {

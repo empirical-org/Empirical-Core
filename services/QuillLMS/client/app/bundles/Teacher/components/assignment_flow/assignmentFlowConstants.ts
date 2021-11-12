@@ -9,6 +9,8 @@ export const UNIT_NAME = 'unitName'
 export const ACTIVITY_IDS_ARRAY = 'activityIdsArray'
 export const CLASSROOMS = 'classrooms'
 export const UNIT_ID = 'unitId'
+export const CLASSROOM_UNITS = 'classroomUnits'
+export const ASSIGNED_CLASSROOMS = 'assignedClassrooms'
 
 export const STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID = 99
 export const INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID = 100
