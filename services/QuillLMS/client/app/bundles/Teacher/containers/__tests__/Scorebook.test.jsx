@@ -18,7 +18,7 @@ const resolvedScores = new Map();
 resolvedScores.set('441555', { name: 'blah blah', scores: [{ cuId: '341930', userId: '441555', updated: '2016-09-16 15:39:00.775325', name: 'America Used to be a Different Place', percentage: '1', activity_classification_id: '1', completed_attempts: 0, started_at: '2016-09-16 15:39:00.775325', marked_complete: 'false', activityId: '1', started: 0}], }, );
 const classrooms = [{ name: 'A', id: 1, }, { name: 'B', id: 2, }, { name: 'C', id: 3, }];
 const units = [{ name: 'Something', id: 4, }, { name: 'Someone', id: 5, }, { name: 'Somewhere', id: 6, }];
-const rawScores = [{ marked_complete: 'false', user_id: '441555', cu_id: '341930', name: 'blah blah', activity_classification_id: '1', activity_id: '1', activity_name: 'America Used to be a Different Place', started_at: '2016-09-16 15:39:00.775325', updated_at: '2016-09-16 15:39:00.775325', percentage: '1', id: '5951806', }];
+const rawScores = [{ marked_complete: 'false', user_id: '441555', classroom_unit_id: '341930', name: 'blah blah', activity_classification_id: '1', activity_id: '1', activity_name: 'America Used to be a Different Place', started_at: '2016-09-16 15:39:00.775325', updated_at: '2016-09-16 15:39:00.775325', percentage: '1', id: '5951806', }];
 
 const data = {
   teacher: { premium_state: 'trial', },

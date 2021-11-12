@@ -5,9 +5,7 @@ describe TeacherFixController do
 
   let(:staff) { create(:staff) }
 
-  before do
-    allow(controller).to receive(:current_user) { staff }
-  end
+  before { allow(controller).to receive(:current_user) { staff } }
 
   describe '#archived_units' do
     context 'when user does not exist' do
@@ -489,6 +487,71 @@ describe TeacherFixController do
         expect(TeacherFixes).to receive(:delete_last_activity_session).with(user.id, activity.id)
         post :delete_last_activity_session, params: { student_identifier: user.email, activity_name: activity.name }
         expect(response.code).to eq "200"
+      end
+    end
+  end
+
+  describe '#list_unsynced_students_by_classroom' do
+    let(:teacher) { create(:teacher) }
+
+    context 'with a teacher identifier that does not exist' do
+      it 'should return an error' do
+        get :list_unsynced_students_by_classroom, params: { teacher_identifier: 'not-a-legit-teacher-indentifier' }
+        expect(response.code).to eq '404'
+      end
+    end
+
+    context 'with a teacher identifier that does exist' do
+      it 'should return successfully' do
+        get :list_unsynced_students_by_classroom, params: { teacher_identifier: teacher.email }
+        expect(response.code).to eq '200'
+      end
+    end
+  end
+
+  describe '#remove_unsynced_students' do
+    let(:teacher) { create(:teacher) }
+
+    context 'with a teacher identifier that does not exist' do
+      it 'should return an error' do
+        post :remove_unsynced_students, params: { teacher_identifier: 'not-a-legit-teacher-indentifier' }
+        expect(response.code).to eq '404'
+      end
+    end
+
+    context 'with a teacher identifier that does exist' do
+      it 'should return successfully' do
+        post :remove_unsynced_students, params: { teacher_identifier: teacher.email }
+        expect(response.code).to eq '200'
+      end
+
+      context 'with an unsynced student' do
+        let(:classroom) { create(:google_classroom_with_a_couple_google_students, :with_no_teacher) }
+        let(:unsynced_student) { classroom.students.second }
+        let(:synced_student) { classroom.students.first }
+
+        before do
+          create(:classrooms_teacher, user: teacher, classroom: classroom)
+
+          create(
+            :google_classroom_user,
+            provider_user_id: synced_student.google_id,
+            provider_classroom_id: classroom.google_classroom_id
+          )
+
+          create(
+            :google_classroom_user,
+            :deleted,
+            provider_user_id: unsynced_student.google_id,
+            provider_classroom_id: classroom.google_classroom_id
+          )
+        end
+
+        it 'should remove the unsynced student' do
+          expect {
+            post :remove_unsynced_students, params: { teacher_identifier: teacher.email }
+          }.to change(StudentsClassrooms, :count).from(2).to(1)
+        end
       end
     end
   end
