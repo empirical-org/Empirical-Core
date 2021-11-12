@@ -3,32 +3,24 @@ import qs from 'qs'
 import { withRouter, Link, } from 'react-router-dom';
 
 import {
-  baseDiagnosticImageSrc,
   noDataYet,
+  fileDocumentIcon,
 } from './shared'
 import PercentageCircle from './percentageCircle'
 import SkillGroupTooltip from './skillGroupTooltip'
 import StudentResultsTable from './studentResultsTable'
+import {
+  SkillGroupSummary,
+  StudentResult,
+  OpenPopover
+} from './interfaces'
 
 import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../../modules/request/index';
 import {
-  helpIcon,
   Tooltip,
   CLICK,
 } from '../../../../../Shared/index'
-
-const fileDocumentIcon = <img alt="File document icon" src={`${baseDiagnosticImageSrc}/icons-file-document.svg`} />
-
-interface SkillGroupSummary {
-  name: string;
-  description?: string;
-  not_yet_proficient_student_names: string[];
-}
-
-interface StudentResult {
-  name: string;
-}
 
 const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => {
   const { name, description, not_yet_proficient_student_names, } = skillGroupSummary
@@ -72,9 +64,9 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => 
 
 const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudentResults);
-  const [studentResults, setStudentResults] = React.useState(passedStudentResults || []);
-  const [skillGroupSummaries, setSkillGroupSummaries] = React.useState(passedSkillGroupSummaries || []);
-  const [openPopover, setOpenPopover] = React.useState({})
+  const [studentResults, setStudentResults] = React.useState<StudentResult[]>(passedStudentResults || []);
+  const [skillGroupSummaries, setSkillGroupSummaries] = React.useState<SkillGroupSummary[]>(passedSkillGroupSummaries || []);
+  const [openPopover, setOpenPopover] = React.useState<OpenPopover>({})
 
   const { activityId, classroomId, } = match.params
   const unitId = qs.parse(location.search.replace('?', '')).unit
@@ -102,7 +94,7 @@ const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobil
     )
   }
 
-  const responsesLink = (studentId) => `diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}${unitQueryString}`
+  const responsesLink = (studentId) => `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}${unitQueryString}`
 
   function closePopoverOnOutsideClick(e) {
     if (!openPopover.studentId) { return }

@@ -1,6 +1,7 @@
 .diagnostic-individual-pack {
   height: min-content;
   display: flex;
+  background-color: white;
   section {
     border-bottom: none;
     padding: 0px;
@@ -96,16 +97,17 @@
     }
     &:after {
       content: '';
-      width: 33px;
+      width: 32px;
       background-color: white;
       height: 100%;
       position: absolute;
-      right: -34px;
+      right: -33px;
+      top: 0px;
     }
   }
   main {
     padding: 40px 32px;
-    width: 100%;
+    width: calc(100vw - 260px);
     background-color: white;
     header {
       display: flex;
@@ -131,6 +133,33 @@
       font-size: 20px;
       line-height: 1.3;
       color: #262626;
+    }
+  }
+
+  .no-data-yet {
+    text-align: center;
+    h5 {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.38;
+      color: #262626;
+    }
+    p {
+      color: #5c5c5c;
+    }
+  }
+  
+  @media (max-width: 930px) {
+    main {
+      width: 100%;
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        h1 {
+          margin-bottom: 8px;
+          margin-right: 0px;
+        }
+      }
     }
   }
 }

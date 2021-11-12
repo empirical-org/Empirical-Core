@@ -50,7 +50,7 @@ export const arrowPointingRightIcon = {
 
 export const expandIcon = {
   src: `${process.env.CDN_URL}/images/icons/expand.svg`,
-  alt: ''
+  alt: 'Expand icon'
 }
 
 export const fileChartIcon = {

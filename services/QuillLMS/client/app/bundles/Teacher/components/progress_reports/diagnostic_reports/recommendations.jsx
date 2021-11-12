@@ -54,14 +54,14 @@ export default class Recommendations extends React.Component {
   getRecommendationData = (classroomId, activityId) => {
     const { params, } = this.props
     const that = this;
-    requestGet(`/teachers/progress_reports/recommendations_for_classroom/${params.unitId}/${classroomId}/activity/${activityId}`, (data) => {
+    requestGet(`/teachers/progress_reports/recommendations_for_classroom/${classroomId}/activity/${activityId}`, (data) => {
       that.setState({
         recommendations: JSON.parse(JSON.stringify(data.recommendations)),
         students: data.students,
         loading: false,
       }, that.getPreviouslyAssignedRecommendationData(classroomId, activityId, false));
     });
-    requestGet(`/teachers/progress_reports/lesson_recommendations_for_classroom/u/${params.unitId}/c/${classroomId}/a/${activityId}`, (data) => {
+    requestGet(`/teachers/progress_reports/lesson_recommendations_for_classroom/c/${classroomId}/a/${activityId}`, (data) => {
       that.setState({ lessonsRecommendations: data.lessonsRecommendations, });
     });
   }

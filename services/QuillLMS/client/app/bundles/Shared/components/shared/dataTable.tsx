@@ -17,7 +17,7 @@ const indeterminateSrc = 'https://assets.quill.org/images/icons/indeterminate.sv
 const removeSrc = 'https://assets.quill.org/images/icons/remove.svg'
 const moreHorizontalSrc = 'https://assets.quill.org/images/icons/more-horizontal.svg'
 const smallWhiteCheckSrc = 'https://assets.quill.org/images/shared/check-small-white.svg'
-const arrowSrc = 'https://assets.quill.org/images/shared/arrow.svg'
+const arrowSrc = 'https://assets.quill.org/images/icons/icons-arrow.svg'
 const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
 
 interface DataTableRow {
@@ -102,7 +102,13 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const { sortAttribute, sortAscending, } = this.state
     const { rows } = this.props
     if (sortAttribute) {
-      return sortAscending ? rows.sort((a, b) => a[sortAttribute] - b[sortAttribute]) : rows.sort((a, b) => b[sortAttribute] - a[sortAttribute])
+      return rows.sort((a, b) => {
+        if (a[sortAttribute] === b[sortAttribute]) { return 0; }
+        if (a[sortAttribute] === null || a[sortAttribute] === undefined) { return 1; }
+        if (b[sortAttribute] === null || b[sortAttribute] === undefined) { return -1; }
+        if (sortAscending) { return a[sortAttribute] < b[sortAttribute] ? -1 : 1 }
+        return a[sortAttribute] < b[sortAttribute] ? 1 : -1
+      })
     }
 
     return rows
@@ -238,8 +244,8 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
       tabIndex={tabIndex}
       type="button"
     >
-      {sortArrow}
       {header.name}
+      {sortArrow}
     </button>)
   }
 

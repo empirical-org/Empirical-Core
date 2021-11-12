@@ -23,7 +23,7 @@ class DiagnosticReports extends React.Component {
   componentDidMount() {
     const params = this.parseParams(this.props.location.pathname);
 		// /activity_packs, /not_completed, and /diagnostics are the only report that doesn't require the classroom, unit, etc...
-		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) === -1) {
+    if (!this.onPageThatHandlesItsOwnRendering()) {
 			this.getStudentAndActivityData();
 		}
 		if (params.studentId) {
@@ -36,10 +36,15 @@ class DiagnosticReports extends React.Component {
 		if (nextParams && nextParams.studentId) {
 			this.setStudentId(nextParams.studentId);
 		}
-		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) === -1) {
+    if (!this.onPageThatHandlesItsOwnRendering()) {
 			this.getStudentAndActivityData(nextParams);
 		}
 	};
+
+  onPageThatHandlesItsOwnRendering = () => {
+    const { location, } = this.props
+    return ['/activity_packs', '/not_completed', '/diagnostics'].indexOf(location.pathname) !== -1 || location.pathname.includes('/diagnostics')
+  }
 
   parseParams = (pathname) => {
     const activityIdChunk = (pathname.match(/\/a\/[^\/]*/) || [])[0]
@@ -134,7 +139,7 @@ class DiagnosticReports extends React.Component {
   render() {
     const params = this.parseParams(this.props.location.pathname);
 		// we don't want to render a navbar for the activity packs, not_completed, or diagnostics
-		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) !== -1 || this.props.location.pathname.includes('/diagnostics')) {
+		if (this.onPageThatHandlesItsOwnRendering()) {
 			return (
   <div>{this.props.children}</div>
 			)

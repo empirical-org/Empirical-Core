@@ -123,7 +123,10 @@ describe Teachers::ClassroomManagerController, type: :controller do
         let!(:advanced_pre_test) { create(:diagnostic_activity, id: Activity::ADVANCED_DIAGNOSTIC_ACTIVITY_ID, follow_up_activity_id: advanced_post_test.id) }
         let!(:unit) { create(:unit, user: user) }
         let!(:unit_activity) { create(:unit_activity, unit: unit, activity: starter_pre_test) }
-        let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: user.classrooms_i_teach.last) }
+        let!(:students_classrooms) { create(:students_classrooms, classroom: user.classrooms_i_teach.last) }
+        let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: user.classrooms_i_teach.last, assigned_student_ids: [students_classrooms.student.id]) }
+        let!(:activity_session) { create(:activity_session, user: students_classrooms.student, activity: starter_pre_test, classroom_unit: classroom_unit) }
+
 
         it 'should be a an array with objects containing the activity id, post test id, and assigned classroom ids' do
           get :assign
@@ -131,17 +134,38 @@ describe Teachers::ClassroomManagerController, type: :controller do
             {
               id: starter_pre_test.id,
               post_test_id: starter_post_test.id,
-              assigned_classroom_ids: [user.classrooms_i_teach.last.id]
+              assigned_classroom_ids: [user.classrooms_i_teach.last.id],
+              all_classrooms: [
+                {
+                  id: user.classrooms_i_teach.last.id,
+                  completed_pre_test_student_ids: [students_classrooms.student.id],
+                  completed_post_test_student_ids: []
+                }
+              ]
             },
             {
               id: intermediate_pre_test.id,
               post_test_id: intermediate_post_test.id,
-              assigned_classroom_ids: []
+              assigned_classroom_ids: [],
+              all_classrooms: [
+                {
+                  id: user.classrooms_i_teach.last.id,
+                  completed_pre_test_student_ids: [],
+                  completed_post_test_student_ids: []
+                }
+              ]
             },
             {
               id: advanced_pre_test.id,
               post_test_id: advanced_post_test.id,
-              assigned_classroom_ids: []
+              assigned_classroom_ids: [],
+              all_classrooms: [
+                {
+                  id: user.classrooms_i_teach.last.id,
+                  completed_pre_test_student_ids: [],
+                  completed_post_test_student_ids: []
+                }
+              ]
             }
           ])
         end
