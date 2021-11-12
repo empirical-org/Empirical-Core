@@ -40,6 +40,7 @@ export default class PremiumBannerBuilder extends React.Component {
     //   return <EC.LoadingIndicator/>;
     // }
     const { has_premium, first_day_of_premium_or_trial, trial_days_remaining } = this.state
+    const { originPage } = this.props
     if (has_premium == 'none'){
       return(<FreeTrialBanner status={has_premium}/>);
     }
@@ -49,7 +50,7 @@ export default class PremiumBannerBuilder extends React.Component {
     else if ((has_premium == 'trial') || (has_premium == 'locked')){
       return(
       <span>
-        <FreeTrialStatus data={trial_days_remaining} status={has_premium} upgradeNow={this.handleClickUpgradeNow}/>
+        <FreeTrialStatus data={trial_days_remaining} originPage={originPage} status={has_premium} upgradeNow={this.handleClickUpgradeNow}/>
       </span>
       );
     }

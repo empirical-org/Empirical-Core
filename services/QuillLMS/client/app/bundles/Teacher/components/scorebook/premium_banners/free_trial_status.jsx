@@ -14,7 +14,7 @@ export default class extends React.Component {
   };
 
   render() {
-    const premiumButton = this.props.status == 'trial' ?
+    const premiumButton = this.props.originPage == 'premium' ?
     (
       <button className='btn-orange' type='button' onClick={this.props.upgradeNow}>Upgrade to Premium Now</button>
     ) :

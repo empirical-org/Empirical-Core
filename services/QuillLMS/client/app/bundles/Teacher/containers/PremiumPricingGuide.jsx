@@ -100,7 +100,7 @@ export default class PremiumPricingGuide extends React.Component {
     return (
       <div>
         <div className="container premium-page">
-          {userIsSignedIn ? <PremiumBannerBuilder showPurchaseModal={this.showPurchaseModal} /> : ''}
+          {userIsSignedIn ? <PremiumBannerBuilder originPage="premium" showPurchaseModal={this.showPurchaseModal} /> : ''}
           <div className="overview text-center">
             <PremiumPricingMinisRow {...this.props} showPurchaseModal={this.showPurchaseModal} />
             <PremiumFeaturesTable
