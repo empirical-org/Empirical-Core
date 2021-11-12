@@ -3,6 +3,7 @@ import React from 'react';
 import QuestionsAndAnswers from './QuestionsAndAnswers.tsx'
 
 import PurchaseModal from './PurchaseModal';
+import PremiumConfirmationModal from '../components/subscriptions/premium_confirmation_modal';
 import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder.jsx'
 import PremiumPricingMinisRow from '../components/premium/premium_pricing_minis_row.jsx';
 import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
@@ -97,30 +98,30 @@ export default class PremiumPricingGuide extends React.Component {
     const { diagnosticActivityCount, independentPracticeActivityCount, lessonsActivityCount } = this.props
     const { userIsSignedIn } = this.state
     return (
-    <div>
-      <div className="container premium-page">
-        <PremiumBannerBuilder showPurchaseModal={this.showPurchaseModal} userIsSignedIn={userIsSignedIn}/>
-        <div className="overview text-center">
-          <PremiumPricingMinisRow {...this.props} showPurchaseModal={this.showPurchaseModal} />
-          <PremiumFeaturesTable
-            diagnosticActivityCount={diagnosticActivityCount}
-            independentPracticeActivityCount={independentPracticeActivityCount}
-            lessonsActivityCount={lessonsActivityCount}
+      <div>
+        <div className="container premium-page">
+          {userIsSignedIn ? <PremiumBannerBuilder showPurchaseModal={this.showPurchaseModal} /> : ''}
+          <div className="overview text-center">
+            <PremiumPricingMinisRow {...this.props} showPurchaseModal={this.showPurchaseModal} />
+            <PremiumFeaturesTable
+              diagnosticActivityCount={diagnosticActivityCount}
+              independentPracticeActivityCount={independentPracticeActivityCount}
+              lessonsActivityCount={lessonsActivityCount}
+            />
+          </div>
+
+          <div className="features text-center">
+            <SchoolPremium />
+            <SubscriberLogos subscribers={subscribers} />
+          </div>
+          <QuestionsAndAnswers
+            questionsAndAnswersFile="premium"
+            supportLink="https://support.quill.org/quill-premium"
           />
         </div>
-
-        <div className="features text-center">
-          <SchoolPremium />
-          <SubscriberLogos subscribers={subscribers} />
-        </div>
-        <QuestionsAndAnswers
-          questionsAndAnswersFile="premium"
-          supportLink="https://support.quill.org/quill-premium"
-        />
+        {this.renderPremiumConfirmationModal()}
+        {this.renderPurchaseModal()}
       </div>
-      {this.renderPremiumConfirmationModal()}
-      {this.renderPurchaseModal()}
-    </div>
     )
   }
 }
