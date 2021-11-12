@@ -138,7 +138,7 @@ describe UnitTemplate, redis: true, type: :model do
   describe 'assign_to_whole_class' do
     it 'should set off background job to populate the student ids' do
       expect(AssignRecommendationsWorker.jobs.size).to eq 0
-      UnitTemplate.assign_to_whole_class(1 ,2)
+      UnitTemplate.assign_to_whole_class(1 ,2, true)
       expect(AssignRecommendationsWorker.jobs.size).to eq 1
     end
   end

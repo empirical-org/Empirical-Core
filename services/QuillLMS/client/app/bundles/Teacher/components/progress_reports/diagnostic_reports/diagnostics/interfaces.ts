@@ -91,3 +91,30 @@ export interface OpenPopover {
   studentId?: number;
   skillGroupId?: number;
 }
+
+export interface Recommendation {
+  activity_pack_id: number;
+  name: string;
+  activity_count: number;
+  students: number[];
+}
+
+export interface LessonRecommendation {
+  activities: LessonsActivity[];
+  activity_pack_id: number;
+  name: string;
+  percentage_needing_instruction: number;
+  previously_assigned: boolean;
+  students_needing_instruction: string[];
+}
+
+export interface LessonsActivity {
+  name: string;
+  url: string;
+}
+
+export interface Student {
+  id: number;
+  name: string;
+  completed: boolean;
+}

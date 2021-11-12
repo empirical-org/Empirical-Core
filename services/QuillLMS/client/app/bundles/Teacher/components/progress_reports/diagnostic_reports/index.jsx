@@ -23,7 +23,7 @@ class DiagnosticReports extends React.Component {
   componentDidMount() {
     const params = this.parseParams(this.props.location.pathname);
 		// /activity_packs, /not_completed, and /diagnostics are the only report that doesn't require the classroom, unit, etc...
-    if (this.onPageThatHandlesItsOwnRendering()) {
+    if (!this.onPageThatHandlesItsOwnRendering()) {
 			this.getStudentAndActivityData();
 		}
 		if (params.studentId) {
@@ -36,7 +36,7 @@ class DiagnosticReports extends React.Component {
 		if (nextParams && nextParams.studentId) {
 			this.setStudentId(nextParams.studentId);
 		}
-    if (this.onPageThatHandlesItsOwnRendering()) {
+    if (!this.onPageThatHandlesItsOwnRendering()) {
 			this.getStudentAndActivityData(nextParams);
 		}
 	};

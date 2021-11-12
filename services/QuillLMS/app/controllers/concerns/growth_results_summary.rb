@@ -1,5 +1,5 @@
 module GrowthResultsSummary
-  include SharedResultsSummary
+  include DiagnosticReports
   extend ActiveSupport::Concern
 
   extend self
@@ -8,8 +8,8 @@ module GrowthResultsSummary
     @current_user = current_user
     pre_test = Activity.find(pre_test_activity_id)
     @skill_groups = pre_test.skill_groups
-    set_pre_test_activity_sessions_and_assigned_students(pre_test_activity_id, classroom_id)
-    set_post_test_activity_sessions_and_assigned_students(post_test_activity_id, classroom_id)
+    set_pre_test_activity_sessions_and_assigned_students(@current_user, pre_test_activity_id, classroom_id, true)
+    set_post_test_activity_sessions_and_assigned_students(@current_user, post_test_activity_id, classroom_id, true)
     @skill_group_summaries = @skill_groups.map do |skill_group|
       {
         name: skill_group.name,
@@ -20,31 +20,15 @@ module GrowthResultsSummary
     end
 
     {
-      student_results: student_results,
-      skill_group_summaries: @skill_group_summaries
+      skill_group_summaries: @skill_group_summaries,
+      student_results: student_results
     }
-  end
-
-  private def set_pre_test_activity_sessions_and_assigned_students(activity_id, classroom_id)
-    unit_ids = @current_user.units.joins("JOIN unit_activities ON unit_activities.activity_id = #{activity_id}")
-    classroom_units = ClassroomUnit.where(unit_id: unit_ids, classroom_id: classroom_id)
-    assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
-    @pre_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
-    @pre_test_activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
-  end
-
-  private def set_post_test_activity_sessions_and_assigned_students(activity_id, classroom_id)
-    unit_ids = @current_user.units.joins("JOIN unit_activities ON unit_activities.activity_id = #{activity_id}")
-    classroom_units = ClassroomUnit.where(unit_id: unit_ids, classroom_id: classroom_id)
-    assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
-    @post_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
-    @post_test_activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
   end
 
   private def student_results
     @post_test_assigned_students.map do |assigned_student|
-      post_test_activity_session = @post_test_activity_sessions.find { |as| as.user_id == assigned_student.id }
-      pre_test_activity_session = @pre_test_activity_sessions.find { |as| as.user_id == assigned_student.id }
+      post_test_activity_session = @post_test_activity_sessions[assigned_student.id]
+      pre_test_activity_session = @pre_test_activity_sessions[assigned_student.id]
       if post_test_activity_session
         skill_groups = skill_groups_for_session(@skill_groups, post_test_activity_session.id, pre_test_activity_session.id, assigned_student.name)
         total_acquired_skills_count = skill_groups.map { |sg| sg[:acquired_skill_ids] }.flatten.uniq.count
@@ -98,16 +82,6 @@ module GrowthResultsSummary
       NO_PROFICIENCY
     elsif present_skill_number == correct_skill_number
       correct_skill_number > pre_correct_skill_number ? GAINED_PROFICIENCY : MAINTAINED_PROFICIENCY
-    else
-      PARTIAL_PROFICIENCY
-    end
-  end
-
-  private def summarize_student_proficiency_for_skill_per_activity(present_skill_number, correct_skill_number)
-    if correct_skill_number == 0
-      NO_PROFICIENCY
-    elsif present_skill_number == correct_skill_number
-      PROFICIENCY
     else
       PARTIAL_PROFICIENCY
     end

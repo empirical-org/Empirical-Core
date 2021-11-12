@@ -218,6 +218,14 @@
           color: #808080;
         }
       }
+      .quill-tooltip-wrapper {
+        left: 0px;
+        transform: inherit;
+        .quill-tooltip {
+          font-size: 12px;
+          color: white;
+        }
+      }
     }
     .name-and-tooltip {
       display: flex;

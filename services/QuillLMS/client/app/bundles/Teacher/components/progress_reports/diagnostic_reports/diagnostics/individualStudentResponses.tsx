@@ -7,6 +7,7 @@ import GrowthSkillsTable from './growthSkillsTable'
 import {
   baseDiagnosticImageSrc,
   fileDocumentIcon,
+  correctImage,
 } from './shared'
 import {
   SkillResults,
@@ -18,7 +19,6 @@ import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../../modules/request/index';
 
 const incorrectImage = <img alt="Incorrect check icon" src={`${baseDiagnosticImageSrc}/icons-incorrect-small.svg`} />
-const correctImage = <img alt="Correct check icon" src={`${baseDiagnosticImageSrc}/icons-check-small-green.svg`} />
 
 const correctTag = <div className="concept-tag correct-tag">{correctImage}<span>Correct</span></div>
 const incorrectTag = <div className="concept-tag incorrect-tag">{incorrectImage}<span>Incorrect</span></div>

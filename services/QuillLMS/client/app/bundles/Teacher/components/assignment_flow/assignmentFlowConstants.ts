@@ -29,3 +29,9 @@ export const postTestClassAssignmentLockedMessages = {
   1669: "You can't assign the Intermediate Growth Diagnostic to this class until you've assigned them the Intermediate Baseline Diagnostic.",
   1680: "You can't assign the Advanced Growth Diagnostic to this class until you've assigned them the Advanced Baseline Diagnostic."
 }
+
+export const postTestWarningModalPreNameCorrespondence = {
+  1664: "Starter Baseline Diagnostic (Pre)",
+  1669: "Intermediate Baseline Diagnostic (Pre)",
+  1680: "Advanced Baseline Diagnostic (Pre)"
+}

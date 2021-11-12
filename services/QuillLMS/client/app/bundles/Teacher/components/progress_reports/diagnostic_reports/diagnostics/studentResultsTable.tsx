@@ -4,6 +4,7 @@ import { Link, } from 'react-router-dom'
 import SkillGroupTooltip from './skillGroupTooltip'
 import SkillsTable from './skillsTable'
 import GrowthSkillsTable from './growthSkillsTable'
+import StudentNameOrTooltip from './studentNameOrTooltip'
 import {
   noDataYet,
   closeIcon,
@@ -101,7 +102,7 @@ const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPo
   </div>) : null
   const firstCell = (<th className="name-cell">
     <div>
-      <span>{name}</span>
+      <StudentNameOrTooltip name={name} />
       {diagnosticNotCompletedMessage}
       {skillsDelta}
     </div>

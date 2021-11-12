@@ -1138,7 +1138,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
     >
       Show more 
       <img
-        alt=""
+        alt="Expand icon"
         src="undefined/images/icons/expand.svg"
       />
     </button>
@@ -1886,7 +1886,7 @@ exports[`LessonsMini component on mobile should render when there are lessons 1`
     >
       Show more 
       <img
-        alt=""
+        alt="Expand icon"
         src="undefined/images/icons/expand.svg"
       />
     </button>

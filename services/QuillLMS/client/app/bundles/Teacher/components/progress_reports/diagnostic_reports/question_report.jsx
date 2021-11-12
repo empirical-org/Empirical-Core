@@ -63,7 +63,7 @@ export default class QuestionReport extends React.Component {
 
   render() {
     const p = this.props.match.params;
-    const unitActivityClassroom = `/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`;
+    const unitActivityClassroom = `/classroom/${p.classroomId}/activity/${p.activityId}/unit/${p.unitId}`;
     return (
       <div id='individual-activity-classroom-view'>
         <ProgressReport

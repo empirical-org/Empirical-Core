@@ -431,13 +431,7 @@ class ActivitySession < ApplicationRecord
     end
   end
 
-  def self.activity_session_metadata(classroom_unit_id, activity_id)
-    activity = Activity.find_by_id_or_uid(activity_id)
-    activity_sessions = ActivitySession.where(
-      classroom_unit_id: classroom_unit_id,
-      activity: activity,
-      is_final_score: true
-    ).includes(concept_results: :concept)
+  def self.activity_session_metadata(activity_sessions)
     activity_sessions.map do |activity_session|
       activity_session.concept_results.map do |concept_result|
         concept_result.metadata
