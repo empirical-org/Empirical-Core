@@ -85,6 +85,10 @@
         }
       }
     }
+    .complete-baseline {
+      white-space: pre-wrap;
+      text-align: right;
+    }
 
     @media (max-width: 991px) {
       .tool-icon-section, .completed-due-date-section {
