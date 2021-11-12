@@ -126,7 +126,7 @@ module PublicProgressReports
         classroom_unit: classroom_unit
       )
       classroom = Classroom.find(classroom_id)
-      cu_id = classroom_unit.id
+
       scores = {
         id: classroom.id,
         name: classroom.name,

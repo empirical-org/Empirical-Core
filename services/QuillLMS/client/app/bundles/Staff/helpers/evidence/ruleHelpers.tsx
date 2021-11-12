@@ -295,6 +295,7 @@ export const buildRule = ({
   rulePromptIds,
   ruleType,
   ruleFeedbacks,
+  ruleConditional,
   universalRulesCount
 }) => {
   const { suborder, universal, state } =  rule;
@@ -326,6 +327,7 @@ export const buildRule = ({
     rules = rules.map(rule => {
       // choose default Incorrect option for case where user doesn't change dropdown option
       rule.sequence_type = rule.sequence_type && rule.sequence_type.value ? rule.sequence_type.value : regexRuleSequenceOptions[0].value;
+      rule.conditional = ruleConditional;
       return rule;
     });
     newOrUpdatedRule.regex_rules_attributes = rules;
@@ -358,6 +360,7 @@ export async function handleSubmitRule({
   rulePrompts,
   rulePromptIds,
   rulesCount,
+  ruleConditional,
   ruleType,
   setErrors,
   submitRule,
@@ -378,7 +381,8 @@ export async function handleSubmitRule({
     rulesCount,
     ruleType,
     ruleFeedbacks,
-    universalRulesCount
+    universalRulesCount,
+    ruleConditional
   });
   const { universal } = rule;
   let keys: string[] = ['Name', 'Concept UID'];

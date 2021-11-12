@@ -32,6 +32,7 @@ gem 'sinatra', require: false # Used for the web-based queue management interfac
 # MIDDLEWARE
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-attack'
+gem 'rails_autoscale_agent'
 
 # API
 gem 'active_model_serializers'

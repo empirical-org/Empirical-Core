@@ -19,14 +19,6 @@ export default class TeacherPricingMini extends React.Component {
     }
   };
 
-  beginTrialButton = () => {
-    const { userIsEligibleForTrial, userIsSignedIn, } = this.props
-
-    if (userIsEligibleForTrial || !userIsSignedIn) {
-      return <button className="quill-button medium secondary outlined focus-on-light" onClick={this.handleClickStartTrial} type="button">Start free trial</button>;
-    }
-  };
-
   handleClickStartTrial = () => {
     const { userIsSignedIn, } = this.props
     if (!userIsSignedIn) {
@@ -59,10 +51,9 @@ export default class TeacherPricingMini extends React.Component {
           <h2>Teacher Premium</h2>
           <div className="premium-rates">
             <h3>$80</h3>
-            <p>Per year</p>
+            <p>Per teacher, per year</p>
           </div>
           <div className="premium-button-container">
-            {this.beginTrialButton()}
             {this.purchaseButton()}
           </div>
         </section>

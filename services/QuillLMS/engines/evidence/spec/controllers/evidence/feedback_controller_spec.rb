@@ -18,9 +18,20 @@ module Evidence
     let!(:first_feedback) { create(:evidence_feedback, :text => "here is our first feedback", :rule => (rule), :order => 0) }
     let!(:second_feedback) { create(:evidence_feedback, :text => "here is our second feedback", :rule => (rule), :order => 1) }
     
+    describe '#prefilter' do 
+      it 'should return successfully' do 
+        post "prefilter", :params => ({ 
+          :entry => "lorem ipsum", 
+          :prompt_id => prompt.id, 
+          :session_id => 1, 
+          :previous_feedback => ([]) 
+        }), :as => :json
+
+        expect(response.status).to eq 200
+      end
+    end
 
     context 'should plagiarism' do
-
       it 'should return successfully' do
         post("plagiarism", :params => ({ :entry => "No plagiarism here.", :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
