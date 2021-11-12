@@ -23,14 +23,15 @@ module CleverIntegration
     end
 
     private def parsed_students_data
-      students_data.map { |student_data| parsed_student_data(student_data['id'], student_data['name']) }
+      students_data.map { |data| parsed_student_data(data['id'], data['name'], data['email']) }
     end
 
-    private def parsed_student_data(id, name)
+    private def parsed_student_data(id, name, email)
       {
         clever_id: id,
+        email: ::User.valid_email?(email) ? email.downcase : nil,
         name: "#{name['first']} #{name['middle']} #{name['last']}".squish,
-        username: id
+        username: id.downcase
       }
     end
 

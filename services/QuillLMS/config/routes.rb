@@ -104,8 +104,13 @@ EmpiricalGrammar::Application.routes.draw do
     get :play, on: :member
     put :play, on: :member
   end
+
+
   # 3rd party apps depend on the below, do not change :
-  get 'activity_sessions/classroom_units/:classroom_unit_id/activities/:activity_id' => 'activity_sessions#activity_session_from_classroom_unit_and_activity'
+  get 'activity_sessions/classroom_units/:classroom_unit_id/activities/:activity_id' => 'activity_sessions#activity_session_from_classroom_unit_and_activity',
+    as: :activity_session_from_classroom_unit_and_activity
+
+  get 'classroom_units/:classroom_unit_id/activities/:id' => 'activities#activity_session'
   get 'activity_sessions/:uid' => 'activity_sessions#result'
 
   get 'students_classrooms_json' => 'profiles#students_classrooms_json'
@@ -671,6 +676,8 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix/merge_two_classrooms' => 'teacher_fix#index'
   get 'teacher_fix/merge_activity_packs' => 'teacher_fix#index'
   get 'teacher_fix/delete_last_activity_session' => 'teacher_fix#index'
+  get 'teacher_fix/remove_unsynced_students' => 'teacher_fix#index'
+  get 'teacher_fix/list_unsynced_students_by_classroom'
   get 'teacher_fix/archived_units' => 'teacher_fix#archived_units'
   post 'teacher_fix/recover_classroom_units' => 'teacher_fix#recover_classroom_units'
   post 'teacher_fix/recover_unit_activities' => 'teacher_fix#recover_unit_activities'
@@ -684,6 +691,7 @@ EmpiricalGrammar::Application.routes.draw do
   post 'teacher_fix/merge_two_classrooms' => 'teacher_fix#merge_two_classrooms'
   post 'teacher_fix/merge_activity_packs' => 'teacher_fix#merge_activity_packs'
   post 'teacher_fix/delete_last_activity_session' => 'teacher_fix#delete_last_activity_session'
+  post 'teacher_fix/remove_unsynced_students' => 'teacher_fix#remove_unsynced_students'
 
   get 'activities/section/:section_id', to: redirect('activities/standard_level/%{section_id}')
   get 'activities/standard_level/:standard_level_id' => 'pages#activities', as: "activities_section"
