@@ -6,14 +6,11 @@ import TeacherPricingMini from './premium_minis/teacher_pricing_mini.jsx';
 import SchoolPricingMini from './premium_minis/school_pricing_mini.jsx';
 
 import PremiumConfirmationModal from '../subscriptions/premium_confirmation_modal';
-import PurchaseModal from '../../containers/PurchaseModal';
 
 const handshakeHeartSrc = `${process.env.CDN_URL}/images/icons/handshake-heart.svg`
 
 export default class PremiumPricingMinisRow extends React.Component {
   state = {
-    showPremiumConfirmationModal: false,
-    showPurchaseModal: false,
     subscriptionType: null,
     subscriptionStatus: null,
     userIsSignedIn: !!Number(document.getElementById('current-user-id').getAttribute('content')),
@@ -33,65 +30,11 @@ export default class PremiumPricingMinisRow extends React.Component {
     }
   }
 
-  hidePremiumConfirmationModal = () => {
-    this.setState({ showPremiumConfirmationModal: false, });
-  };
-
-  hidePurchaseModal = () => {
-    this.setState({ showPurchaseModal: false, subscriptionType: null, });
-  };
-
-  showPremiumConfirmationModal = () => {
-    this.setState({ showPremiumConfirmationModal: true, });
-  };
-
-  showPurchaseModal = () => {
-    this.setState({ showPurchaseModal: true, });
-  };
-
-  showPurchaseModalForSchoolPurchase = () => {
-    this.setState({ subscriptionType: 'School', }, () => this.setState({ showPurchaseModal: true, }));
-  };
-
-  updateSubscriptionStatus = subscription => {
-    this.setState({ subscriptionStatus: subscription,
-      showPremiumConfirmationModal: true,
-      showPurchaseModal: false, });
-  };
-
-  renderPremiumConfirmationModal() {
-    const { showPremiumConfirmationModal, subscriptionStatus, } = this.state
-    if (!showPremiumConfirmationModal) { return }
-    return (<PremiumConfirmationModal
-      hideModal={this.hidePremiumConfirmationModal}
-      show={showPremiumConfirmationModal}
-      subscription={subscriptionStatus}
-    />)
-  }
-
-  renderPurchaseModal() {
-    const {
-      showPurchaseModal,
-      subscriptionType
-    } = this.state
-    const { lastFour, } = this.props
-    if (!showPurchaseModal) { return }
-    return (<PurchaseModal
-      hideModal={this.hidePurchaseModal}
-      lastFour={lastFour}
-      show={showPurchaseModal}
-      subscriptionType={subscriptionType}
-      updateSubscriptionStatus={this.updateSubscriptionStatus}
-    />)
-  }
-
   render() {
-    const { lastFour, diagnosticActivityCount, lessonsActivityCount, independentPracticeActivityCount, } = this.props
+    const { diagnosticActivityCount, lessonsActivityCount, independentPracticeActivityCount, } = this.props
 
     const {
       userIsSignedIn,
-      subscriptionStatus,
-      subscriptionType,
       isScrolled,
     } = this.state
 
@@ -113,7 +56,6 @@ export default class PremiumPricingMinisRow extends React.Component {
               {...this.props}
               hidePurchaseModal={this.hidePurchaseModal}
               premiumFeatureData={premiumFeatureData}
-              showPurchaseModal={this.showPurchaseModal}
               userIsSignedIn={userIsSignedIn}
             />
             <SchoolPricingMini
@@ -122,8 +64,6 @@ export default class PremiumPricingMinisRow extends React.Component {
             />
           </div>
         </div>
-        {this.renderPremiumConfirmationModal()}
-        {this.renderPurchaseModal()}
       </React.Fragment>
     );
   }

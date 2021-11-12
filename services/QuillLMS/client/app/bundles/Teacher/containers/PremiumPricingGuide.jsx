@@ -2,6 +2,7 @@ import React from 'react';
 
 import QuestionsAndAnswers from './QuestionsAndAnswers.tsx'
 
+import PurchaseModal from './PurchaseModal';
 import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder.jsx'
 import PremiumPricingMinisRow from '../components/premium/premium_pricing_minis_row.jsx';
 import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
@@ -27,17 +28,80 @@ const subscribers = [
    { name: 'Princeton Public Schools logo', source: '/images/subscribers/16_princeton.png', id: 'princeton'}
  ]
 
-const PremiumPricingGuide = (props) => {
+export default class PremiumPricingGuide extends React.Component {
   // const size = useWindowSize();
   // const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
   //
-  const { diagnosticActivityCount, lessonsActivityCount, independentPracticeActivityCount, } = props
-  return (
+  state = {
+    showPremiumConfirmationModal: false,
+    showPurchaseModal: false,
+    subscriptionType: null,
+    subscriptionStatus: null,
+    userIsSignedIn: !!Number(document.getElementById('current-user-id').getAttribute('content')),
+    isScrolled: false
+  };
+
+  hidePremiumConfirmationModal = () => {
+    this.setState({ showPremiumConfirmationModal: false, });
+  };
+
+  hidePurchaseModal = () => {
+    this.setState({ showPurchaseModal: false, subscriptionType: null, });
+  };
+
+  showPremiumConfirmationModal = () => {
+    this.setState({ showPremiumConfirmationModal: true, });
+  };
+
+  showPurchaseModal = () => {
+    this.setState({ showPurchaseModal: true, });
+  };
+
+  showPurchaseModalForSchoolPurchase = () => {
+    this.setState({ subscriptionType: 'School', }, () => this.setState({ showPurchaseModal: true, }));
+  };
+
+  updateSubscriptionStatus = subscription => {
+    this.setState({ subscriptionStatus: subscription,
+      showPremiumConfirmationModal: true,
+      showPurchaseModal: false, });
+  };
+
+  renderPremiumConfirmationModal = () => {
+    const { showPremiumConfirmationModal, subscriptionStatus, } = this.state
+    if (!showPremiumConfirmationModal) { return }
+    return (<PremiumConfirmationModal
+      hideModal={this.hidePremiumConfirmationModal}
+      show={showPremiumConfirmationModal}
+      subscription={subscriptionStatus}
+    />)
+  }
+
+  renderPurchaseModal = () => {
+    const {
+      showPurchaseModal,
+      subscriptionType
+    } = this.state
+    const { lastFour, } = this.props
+    if (!showPurchaseModal) { return }
+    return (<PurchaseModal
+      hideModal={this.hidePurchaseModal}
+      lastFour={lastFour}
+      show={showPurchaseModal}
+      subscriptionType={subscriptionType}
+      updateSubscriptionStatus={this.updateSubscriptionStatus}
+    />)
+  }
+
+  render() {
+    const { diagnosticActivityCount, independentPracticeActivityCount, lessonsActivityCount } = this.props
+    const { userIsSignedIn } = this.state
+    return (
     <div>
       <div className="container premium-page">
-        <PremiumBannerBuilder />
+        <PremiumBannerBuilder showPurchaseModal={this.showPurchaseModal} userIsSignedIn={userIsSignedIn}/>
         <div className="overview text-center">
-          <PremiumPricingMinisRow {...props} />
+          <PremiumPricingMinisRow {...this.props} showPurchaseModal={this.showPurchaseModal} />
           <PremiumFeaturesTable
             diagnosticActivityCount={diagnosticActivityCount}
             independentPracticeActivityCount={independentPracticeActivityCount}
@@ -54,8 +118,9 @@ const PremiumPricingGuide = (props) => {
           supportLink="https://support.quill.org/quill-premium"
         />
       </div>
+      {this.renderPremiumConfirmationModal()}
+      {this.renderPurchaseModal()}
     </div>
-  );
+    )
+  }
 }
-
-export default PremiumPricingGuide

@@ -14,6 +14,15 @@ export default class extends React.Component {
   };
 
   render() {
+    const premiumButton = this.props.status == 'trial' ?
+    (
+      <button className='btn-orange' type='button' onClick={this.props.upgradeNow}>Upgrade to Premium Now</button>
+    ) :
+    (
+      <a href='/premium'>
+        <button className='btn-orange' type='button'>Upgrade to Premium Now</button>
+      </a>
+    )
     return (
       <div className='row'>
         <div className='col-md-9 col-xs-12 pull-left'>
@@ -22,9 +31,7 @@ export default class extends React.Component {
         </div>
         <div className='col-md-3 col-xs-12 pull-right'>
           <div className='premium-button-box text-center'>
-            <a href='/premium'>
-              <button className='btn-orange' type='button'>Upgrade to Premium Now</button>
-            </a>
+          {premiumButton}
           </div>
         </div>
       </div>

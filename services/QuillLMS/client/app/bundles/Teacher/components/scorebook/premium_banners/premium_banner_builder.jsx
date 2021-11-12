@@ -20,13 +20,20 @@ export default class PremiumBannerBuilder extends React.Component {
   }
 
   fetchData = () => {
-    var that = this;
-    $.get('/teachers/classrooms/premium')
-    .done(function(data) {
-      that.setState({
-        has_premium: data['hasPremium'],
-        trial_days_remaining: data['trial_days_remaining'],
-        first_day_of_premium_or_trial: data['first_day_of_premium_or_trial']});});
+    const { userIsSignedIn } = this.props
+    if (userIsSignedIn) {
+      var that = this;
+      $.get('/teachers/classrooms/premium')
+      .done(function(data) {
+        that.setState({
+          has_premium: data['hasPremium'],
+          trial_days_remaining: data['trial_days_remaining'],
+          first_day_of_premium_or_trial: data['first_day_of_premium_or_trial']});});
+    }
+  };
+
+  handleClickUpgradeNow = () => {
+    this.props.showPurchaseModal()
   };
 
   stateSpecificComponents = () => {
@@ -34,6 +41,8 @@ export default class PremiumBannerBuilder extends React.Component {
     // if (this.state.has_premium === null){
     //   return <EC.LoadingIndicator/>;
     // }
+    console.log('here')
+    console.log(has_premium)
     const { has_premium, first_day_of_premium_or_trial, trial_days_remaining } = this.state
     if (has_premium == 'none'){
       return(<FreeTrialBanner status={has_premium} signedIn={true}/>);
@@ -42,11 +51,13 @@ export default class PremiumBannerBuilder extends React.Component {
       return(<NewSignUpBanner status={has_premium} />);
     }
     else if ((has_premium == 'trial') || (has_premium == 'locked')){
-      return(<span>
-        <FreeTrialStatus data={trial_days_remaining} status={has_premium} />
-      </span>);
+      return(
+      <span>
+        <FreeTrialStatus data={trial_days_remaining} status={has_premium} upgradeNow={this.handleClickUpgradeNow}/>
+      </span>
+      );
     }
-    else if (has_premium === undefined) {
+    else if (has_premium === undefined || has_premium === null) {
       return(<FreeTrialBanner status={has_premium} signedIn={false} />);
     }
     else if ((has_premium === 'school') || ((has_premium === 'paid') && (first_day_of_premium_or_trial === false))) {
