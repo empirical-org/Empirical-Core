@@ -13,11 +13,16 @@ module PublicProgressReports
     end
 
     def activity_session_report(classroom_unit_id, user_id, activity_id)
-      act_sesh = ActivitySession.where(is_final_score: true, user_id: user_id, classroom_unit_id: classroom_unit_id, activity_id: activity_id).first
       classroom_unit = ClassroomUnit.find(classroom_unit_id)
       unit_id = classroom_unit.unit_id
       classroom_id = classroom_unit.classroom_id
-      if unit_id && activity_id && classroom_id
+      if Activity.diagnostic_activity_ids.include?(activity_id.to_i)
+        activity = Activity.find(activity_id)
+        activity_is_a_post_test = Activity.find_by(follow_up_activity_id: activity_id).present?
+        activity_is_a_pre_test = activity.follow_up_activity_id.present?
+        unit_query_string = activity_is_a_pre_test || activity_is_a_post_test ? '' : "?unit=#{unit_id}"
+        { url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity_id}/classroom/#{classroom_id}/responses/#{user_id}#{unit_query_string}" }
+      elsif unit_id && activity_id && classroom_id
         {url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/student_report/#{user_id}"}
       end
     end

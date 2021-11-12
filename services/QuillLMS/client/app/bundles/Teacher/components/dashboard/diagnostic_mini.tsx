@@ -25,7 +25,7 @@ const headers = [
   {
     name: 'Diagnostic',
     attribute: 'diagnostic',
-    width: '275px'
+    width: '300px'
   },
   {
     name: 'Class',
@@ -41,7 +41,7 @@ const headers = [
   {
     name: 'Results',
     attribute: 'results',
-    width: '80px',
+    width: '62px',
     noTooltip: true,
     rowSectionClassName: "last-row-section",
     headerClassName: 'last-header'
@@ -79,8 +79,12 @@ const DiagnosticMini = ({diagnostics, onMobile, }) => {
       classroom_id,
       completed_count,
       assigned_count,
+      pre_test_id,
+      post_test_id
     } = diagnostic
-    const resultsHref = `/teachers/progress_reports/diagnostic_reports#/u/${unit_id}/a/${activity_id}/c/${classroom_id}/results`
+    const unitQueryString = pre_test_id || post_test_id ? '' : `?unit=${unit_id}` // for pre-tests that have post-tests and post-tests, we aggregate all the results for a classroom rather than breaking it down by unit
+    const resultsOrGrowthResults = pre_test_id ? 'growth_results' : 'results'
+    const resultsHref = `/teachers/progress_reports/diagnostic_reports#diagnostics/${activity_id}/classroom/${classroom_id}/${resultsOrGrowthResults}${unitQueryString}`
     return {
       id: `${activity_id}-${classroom_id}-${unit_id}`,
       classroom: classroom_name,
