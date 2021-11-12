@@ -35,7 +35,6 @@ namespace :skills_and_skill_groups_part_two do
           SkillConcept.create({skill: skill, concept: Concept.find_by_uid(concept[:uid])})
         end
       end
-      skill_group
     end
   end
 
