@@ -93,10 +93,10 @@ const completeHeaders = [
 export default class StudentProfileUnit extends React.Component {
   actionButton = (act, nextActivitySession) => {
     const { isBeingPreviewed, onShowPreviewModal, } = this.props
-    const { repeatable, locked, marked_complete, resume_link, classroom_unit_id, activity_id, finished, pre_activity_id, completed_pre_activity_session, } = act
+    const { repeatable, locked, marked_complete, resume_link, classroom_unit_id, activity_id, finished, pre_activity_id, completed_pre_activity_session, activity_classification_key, } = act
     let linkText = 'Start'
 
-    if (pre_activity_id && !completed_pre_activity_session) { return <span className="complete-baseline">Complete Baseline first</span>}
+    if (activity_classification_key === DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY && pre_activity_id && !completed_pre_activity_session) { return <span className="complete-baseline">Complete Baseline first</span>}
 
     if (!repeatable && finished) { return <span /> }
 
