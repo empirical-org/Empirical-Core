@@ -74,11 +74,6 @@ class OneOffBanner < WebinarBanner
       link_display_text: "Click here to register and join.",
       link: "#{ZOOM_URL}/WN_dI4RRV1qQE-R5s68hXuSDQ"
     },
-    '1-3-16' => {
-      title: "<strong>Webinar: Quill 101</strong> is live now!",
-      link_display_text: "Click here to register and join.",
-      link: "#{ZOOM_URL}/WN_dI4RRV1qQE-R5s68hXuSDQ"
-    },
     '1-5-19' => {
       title: "<strong>Webinar: Using Quill with Google Classroom</strong> is live now!",
       link_display_text: "Click here to register and join.",
@@ -88,11 +83,6 @@ class OneOffBanner < WebinarBanner
       title: "<strong>Webinar: Using Quill with Google Classroom</strong> is live now!",
       link_display_text: "Click here to register and join.",
       link: "#{ZOOM_URL}/WN_NJgbT-yJQLim1bdJ_J8g_w"
-    },
-    '1-10-16' => {
-      title: "<strong>Webinar: Quill 101</strong> is live now!",
-      link_display_text: "Click here to register and join.",
-      link: "#{ZOOM_URL}/WN_dI4RRV1qQE-R5s68hXuSDQ"
     },
     '1-12-19' => {
       title: "<strong>Webinar: Quill Diagnostics & Recommendations</strong> is live now!",
@@ -113,16 +103,6 @@ class OneOffBanner < WebinarBanner
       title: "<strong>Webinar: Exploring the Activity Library</strong> is live now!",
       link_display_text: "Click here to register and join.",
       link: "#{ZOOM_URL}/WN_-U9oIN30Q_y9JPtzYKrZfg"
-    },
-    '1-24-16' => {
-      title: "<strong>Webinar: Quill 101</strong> is live now!",
-      link_display_text: "Click here to register and join.",
-      link: "#{ZOOM_URL}/WN_dI4RRV1qQE-R5s68hXuSDQ"
-    },
-    '1-31-16' => {
-      title: "<strong>Webinar: Quill 101</strong> is live now!",
-      link_display_text: "Click here to register and join.",
-      link: "#{ZOOM_URL}/WN_dI4RRV1qQE-R5s68hXuSDQ"
     }
   }
 
