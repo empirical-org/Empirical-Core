@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-include ResultsSummary
-
 describe ResultsSummary do
+  include ResultsSummary
+
   let!(:unit) { create(:unit) }
   let!(:classroom) { create(:classroom) }
   let!(:student1) { create(:student, name: 'Alphabetical A')}
@@ -61,8 +61,16 @@ describe ResultsSummary do
 
   describe '#student_results' do
     it 'should return an array with a hash for each student' do
+      @skill_group_summaries = [
+        {
+          name: skill_group_activity.skill_group.name,
+          description: skill_group_activity.skill_group.description,
+          not_yet_proficient_student_names: []
+        }
+      ]
+      @skill_groups = [skill_group_activity.skill_group]
       @assigned_students = [student1, student2]
-      @activity_sessions = [activity_session]
+      @activity_sessions = [activity_session].map { |session| [session.user_id, session] }.to_h
       expect(student_results).to eq(
         [
           {
@@ -96,7 +104,14 @@ describe ResultsSummary do
 
   describe '#skill_groups_for_session' do
     it 'should return an array with a hash for each skill group' do
-      expect(skill_groups_for_session([skill_group_activity.skill_group], activity_session.id, student1.name)).to eq ([
+      @skill_group_summaries = [
+        {
+          name: skill_group_activity.skill_group.name,
+          description: skill_group_activity.skill_group.description,
+          not_yet_proficient_student_names: []
+        }
+      ]
+      expect(skill_groups_for_session([skill_group_activity.skill_group], activity_session.id, student1.name)).to eq [
         {
           skill_group: skill_group_activity.skill_group.name,
           skills: [
@@ -112,7 +127,7 @@ describe ResultsSummary do
           proficiency_text: NO_PROFICIENCY,
           id: skill_group_activity.skill_group.id
         }
-      ])
+      ]
     end
 
     it 'should add the students name to the not_yet_proficient_student_names array for any skill group they are not proficient in' do
@@ -124,7 +139,7 @@ describe ResultsSummary do
         }
       ]
       skill_groups_for_session([skill_group_activity.skill_group], activity_session.id, student1.name)
-      expect(@skill_group_summaries[0][:not_yet_proficient_student_names]).to eq ([student1.name])
+      expect(@skill_group_summaries[0][:not_yet_proficient_student_names]).to eq [student1.name]
     end
 
   end

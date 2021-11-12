@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-include GrowthResultsSummary
-
 describe GrowthResultsSummary do
+  include GrowthResultsSummary
+
   let!(:pre_test_unit) { create(:unit) }
   let!(:post_test_unit) { create(:unit, user: pre_test_unit.user) }
   let!(:classroom) { create(:classroom) }
@@ -91,9 +91,9 @@ describe GrowthResultsSummary do
       ]
       @skill_groups = [pre_test_skill_group_activity.skill_group]
       @pre_test_assigned_students = [student1, student2]
-      @pre_test_activity_sessions = [pre_test_activity_session]
+      @pre_test_activity_sessions = [pre_test_activity_session].map { |session| [session.user_id, session] }.to_h
       @post_test_assigned_students = [student1, student2]
-      @post_test_activity_sessions = [post_test_activity_session]
+      @post_test_activity_sessions = [post_test_activity_session].map { |session| [session.user_id, session] }.to_h
       expect(student_results).to eq(
         [
           {
@@ -148,7 +148,7 @@ describe GrowthResultsSummary do
           not_yet_proficient_in_post_test_student_names: [],
         }
       ]
-      expect(skill_groups_for_session([pre_test_skill_group_activity.skill_group], post_test_activity_session.id, pre_test_activity_session.id, student1.name)).to eq ([
+      expect(skill_groups_for_session([pre_test_skill_group_activity.skill_group], post_test_activity_session.id, pre_test_activity_session.id, student1.name)).to eq [
         {
           skill_group: pre_test_skill_group_activity.skill_group.name,
           skills: [
@@ -176,7 +176,7 @@ describe GrowthResultsSummary do
           id: pre_test_skill_group_activity.skill_group.id,
           acquired_skill_ids: [skill.id]
         }
-      ])
+      ]
     end
 
     it 'should add the students name to the not_yet_proficient arrays for any skill group they are not proficient in' do
@@ -189,8 +189,8 @@ describe GrowthResultsSummary do
         }
       ]
       skill_groups_for_session([pre_test_skill_group_activity.skill_group], post_test_activity_session.id, pre_test_activity_session.id, student1.name)
-      expect(@skill_group_summaries[0][:not_yet_proficient_in_pre_test_student_names]).to eq ([student1.name])
-      expect(@skill_group_summaries[0][:not_yet_proficient_in_post_test_student_names]).to eq ([])
+      expect(@skill_group_summaries[0][:not_yet_proficient_in_pre_test_student_names]).to eq [student1.name]
+      expect(@skill_group_summaries[0][:not_yet_proficient_in_post_test_student_names]).to eq []
     end
 
   end

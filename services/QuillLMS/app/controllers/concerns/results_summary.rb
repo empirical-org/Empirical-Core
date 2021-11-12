@@ -8,7 +8,7 @@ module ResultsSummary
     @current_user = current_user
     activity = Activity.find(activity_id)
     @skill_groups = activity.skill_groups
-    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id)
+    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id, true)
     @skill_group_summaries = @skill_groups.map do |skill_group|
       {
         name: skill_group.name,
@@ -25,7 +25,7 @@ module ResultsSummary
 
   private def student_results
     @assigned_students.map do |assigned_student|
-      activity_session = @activity_sessions.find { |as| as.user_id == assigned_student.id }
+      activity_session = @activity_sessions[assigned_student.id]
       if activity_session
         {
           name: assigned_student.name,

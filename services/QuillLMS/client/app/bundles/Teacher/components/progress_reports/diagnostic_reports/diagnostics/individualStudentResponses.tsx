@@ -142,7 +142,7 @@ const IndividualStudentResponses = ({ match, passedConceptResults, passedSkillRe
       <a className="focus-on-light" href="/">{fileDocumentIcon}<span>Guide</span></a>
     </header>
     {mobileNavigation}
-    {skillResults.skills[0].pre ? <GrowthSkillsTable isExpandable={true} skillGroup={skillResults} /> : <SkillsTable isExpandable={true} skillGroup={skillResults} />}
+    {skillResults.skills[0] && skillResults.skills[0].pre ? <GrowthSkillsTable isExpandable={true} skillGroup={skillResults} /> : <SkillsTable isExpandable={true} skillGroup={skillResults} />}
     <section className="concept-results-container">{conceptResultElements}</section>
   </main>)
 

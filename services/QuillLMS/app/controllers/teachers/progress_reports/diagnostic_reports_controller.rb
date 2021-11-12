@@ -7,8 +7,8 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   before_action :authorize_teacher!, only: [:question_view, :students_by_classroom, :recommendations_for_classroom, :lesson_recommendations_for_classroom, :previously_assigned_recommendations]
 
   def show
-      @classroom_id = current_user.classrooms_i_teach&.last&.id || nil
-      @report = params[:report] || 'question'
+    @classroom_id = current_user.classrooms_i_teach&.last&.id || nil
+    @report = params[:report] || 'question'
   end
 
   def question_view
@@ -27,7 +27,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     activity_id = results_summary_params[:activity_id]
     classroom_id = results_summary_params[:classroom_id]
     unit_id = results_summary_params[:unit_id]
-    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id)
+    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id, true)
 
     render json: { students: diagnostic_student_responses }
   end
@@ -96,8 +96,16 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     classroom_id = last_activity_session&.classroom_unit&.classroom_id
     if !classroom_id
       return render json: {}, status: 404
+    elsif Activity.diagnostic_activity_ids.include?(activity_id.to_i)
+      activity = Activity.find(activity_id)
+      activity_is_a_post_test = Activity.find_by(follow_up_activity_id: activity_id).present?
+      activity_is_a_pre_test = activity.follow_up_activity_id.present?
+      results_or_growth_results = activity_is_a_post_test ? 'growth_results' : 'results'
+      unit_query_string = activity_is_a_pre_test || activity_is_a_post_test ? '' : "?unit=#{unit_id}"
+      render json: { url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity_id}/classroom/#{classroom_id}/#{results_or_growth_results}#{unit_query_string}" }
+    else
+      render json: { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students" }
     end
-    render json: { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students" }
   end
 
   def assign_selected_packs
@@ -235,7 +243,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
   private def diagnostic_student_responses
     @assigned_students.map do |student|
-      activity_session = @activity_sessions.find { |as| as.user_id == student.id }
+      activity_session = @activity_sessions[student.id]
 
       if activity_session
         formatted_concept_results = format_concept_results(activity_session.concept_results)
