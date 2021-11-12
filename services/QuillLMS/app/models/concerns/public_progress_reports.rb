@@ -41,11 +41,10 @@ module PublicProgressReports
       end
     end
 
-    def results_by_question(params)
-      classroom_unit = ClassroomUnit.find_by(classroom_id: params[:classroom_id], unit_id: params[:unit_id])
-      activity = Activity.includes(:classification).find(params[:activity_id])
+    def results_by_question(activity_id)
+      activity = Activity.includes(:classification).find(activity_id)
       questions = Hash.new{|h,k| h[k]={} }
-      all_answers = ActivitySession.activity_session_metadata(classroom_unit.id, params[:activity_id])
+      all_answers = ActivitySession.activity_session_metadata(@activity_sessions)
       all_answers.each do |answer|
         curr_quest = questions[answer["questionNumber"]]
         curr_quest[:correct] ||= 0

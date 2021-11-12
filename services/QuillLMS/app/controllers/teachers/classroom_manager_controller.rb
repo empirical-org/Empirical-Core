@@ -1,5 +1,6 @@
 class Teachers::ClassroomManagerController < ApplicationController
   include CheckboxCallback
+  include DiagnosticReports
 
   respond_to :json, :html
   before_action :teacher_or_public_activity_packs, except: [:unset_preview_as_student]
@@ -262,10 +263,20 @@ class Teachers::ClassroomManagerController < ApplicationController
     @assigned_pre_tests = Activity.where(id: Activity::PRE_TEST_DIAGNOSTIC_IDS).map do |act|
       pre_test_diagnostic_unit_ids = current_user&.unit_activities&.where(activity_id: act.id)&.map(&:unit_id) || []
       assigned_classroom_ids = ClassroomUnit.where(unit_id: pre_test_diagnostic_unit_ids)&.map(&:classroom_id) || []
+      all_classrooms = current_user.classrooms_i_teach.map do |classroom|
+        set_pre_test_activity_sessions_and_assigned_students(current_user, act.id, classroom.id)
+        set_post_test_activity_sessions_and_assigned_students(current_user, act.follow_up_activity_id, classroom.id)
+        {
+          id: classroom.id,
+          completed_pre_test_student_ids: @pre_test_activity_sessions.map(&:user_id),
+          completed_post_test_student_ids: @post_test_activity_sessions.map(&:user_id)
+        }
+      end
       {
         id: act.id,
         post_test_id: act.follow_up_activity_id,
-        assigned_classroom_ids: assigned_classroom_ids
+        assigned_classroom_ids: assigned_classroom_ids,
+        all_classrooms: all_classrooms
       }
     end
   end
