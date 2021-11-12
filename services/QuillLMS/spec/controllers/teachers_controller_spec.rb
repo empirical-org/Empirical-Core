@@ -227,7 +227,7 @@ describe TeachersController, type: :controller do
               classroom_id: classroom.id
             }
           ]
-          expect(response.body).to eq ({units: expected_response}.to_json)
+          expect(response.body).to eq({units: expected_response}.to_json)
         end
       end
 
@@ -267,7 +267,7 @@ describe TeachersController, type: :controller do
               classroom_id: classroom.id
             }
           ]
-          expect(response.body).to eq ({units: expected_response}.to_json)
+          expect(response.body).to eq({units: expected_response}.to_json)
         end
       end
 
