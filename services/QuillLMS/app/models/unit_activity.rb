@@ -120,10 +120,12 @@ class UnitActivity < ApplicationRecord
           MAX(acts.updated_at) AS act_sesh_updated_at,
           ua.order_number,
           ua.due_date,
+          pre_activity.id AS pre_activity_id,
           cu.created_at AS unit_activity_created_at,
           COALESCE(cuas.locked, false) AS locked,
           COALESCE(cuas.pinned, false) AS pinned,
           MAX(acts.percentage) AS max_percentage,
+          SUM(CASE WHEN pre_activity_sessions.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS completed_pre_activity_session,
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS finished,
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) AS resume_link
         FROM unit_activities AS ua
@@ -138,6 +140,12 @@ class UnitActivity < ApplicationRecord
           AND acts.user_id = #{user_id.to_i}
         JOIN activities AS activity
           ON activity.id = ua.activity_id
+        LEFT JOIN activities AS pre_activity
+          ON pre_activity.follow_up_activity_id = ua.activity_id
+        LEFT JOIN activity_sessions AS pre_activity_sessions
+          ON pre_activity_sessions.activity_id = pre_activity.id
+          AND pre_activity_sessions.visible = true
+          and pre_activity_sessions.user_id = #{user_id.to_i}
         JOIN activity_classifications
           ON activity.activity_classification_id = activity_classifications.id
         LEFT JOIN classroom_unit_activity_states AS cuas
@@ -165,7 +173,8 @@ class UnitActivity < ApplicationRecord
           cuas.locked,
           cuas.pinned,
           ua.id,
-          activity_classifications.key
+          activity_classifications.key,
+          pre_activity.id
         ORDER BY
           pinned DESC,
           locked ASC,
