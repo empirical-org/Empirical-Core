@@ -83,6 +83,7 @@ FactoryBot.define do
           create(:classrooms_teacher, user_id: teacher.id)
         end
       end
+
       factory :teacher_with_school do
         after(:create) do |teacher|
           school = create(:school)

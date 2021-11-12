@@ -7,21 +7,21 @@ export const premiumFeatures = ({ independentPracticeActivityCount, diagnosticAc
         label: `${independentPracticeActivityCount} independent practice activities`,
         school: true,
         teacher: true,
-        tooltipText: "Researched-backed, 10-15 minute writing and grammar practice"
+        tooltipText: "Research-backed, 10-15 minute independent practice activities covering a variety of concepts"
       },
       {
         basic: true,
         label: `${diagnosticActivityCount} diagnostic assessments`,
         school: true,
         teacher: true,
-        tooltipText: "Baseline assessments that build custom writing practice pathways"
+        tooltipText: "Baseline assessments that generate weeks of recommended follow-up practice"
       },
       {
         basic: true,
         label: `${lessonsActivityCount} collaborative full-class lessons`,
         school: true,
         teacher: true,
-        tooltipText: "Interactive, teacher-led learning experiences"
+        tooltipText: "Teacher-led learning activities for whole class instruction, with built-in customizable slides and lesson plans"
       },
     ]
   },
@@ -33,60 +33,60 @@ export const premiumFeatures = ({ independentPracticeActivityCount, diagnosticAc
         label: "Activity summary report",
         school: true,
         teacher: true,
-        tooltipText: "Visual overview of activity completion and performance",
+        tooltipText: "Provides a visual overview of student's proficiency range, percentage score, and activity completion",
       },
       {
         basic: true,
         label: "Activity analysis report",
         school: true,
         teacher: true,
-        tooltipText: "In-depth look at a student's performance on individual activities",
+        tooltipText: "Follow a student's thought pattern by reviewing any activity's prompts, student's responses, and feedback received",
       },
       {
         basic: true,
         label: "Diagnostics report",
         school: true,
         teacher: true,
-        tooltipText: "Diagnostic data breakdowns and personalized writing practice plans based on student performance",
+        tooltipText: "Assign personalized learning plans according to student's diagnostic results and review student's responses and score",
       },
       {
         label: "Activity scores report",
         school: true,
         teacher: true,
-        tooltipText: "Comprehensive Quill report card that outlines proficiency over time",
+        tooltipText: "Easily access each student's activity scores, in a downloadable PDF or CSV format",
       },
       {
         label: "Concepts report",
         school: true,
         teacher: true,
-        tooltipText: "In-depth breakdown of each student's proficiency by grammar concept",
+        tooltipText: "Analyze each student's proficiency in a range of grammar concepts",
       },
       {
         label: "Standards report",
         school: true,
         teacher: true,
-        tooltipText: "Common Core standard proficiency at the individual level and full-class level",
+        tooltipText: "See which Common Core standards your Quill activities have covered and the proficiency status of each student",
       },
       {
         label: "Data export capabilities",
         school: true,
         teacher: true,
-        tooltipText: "Export student data as a CSV or PDF",
+        tooltipText: "Download student data according to your specific needs, in PDF or CSV format",
       },
       {
         label: "Custom reporting",
         school: true,
-        tooltipText: "Student data breakdowns tailored to your specific requests",
+        tooltipText: "Manage your student scores and customize the reports to fit your grading needs",
       },
       {
         label: "Monthly usage reports",
         school: true,
-        tooltipText: "Automated reports sent right to your inbox",
+        tooltipText: "Email updates delivered monthly to your inbox, providing you an easy overview of student Quill usage",
       },
       {
         label: "Administrator dashboard",
         school: true,
-        tooltipText: "Provides administrators with access to school-wide data and usage information",
+        tooltipText: "Provides administrators with school-wide data and full access to teachers' dashboards",
       },
     ]
   },
@@ -98,31 +98,31 @@ export const premiumFeatures = ({ independentPracticeActivityCount, diagnosticAc
         label: "Manual rostering",
         school: true,
         teacher: true,
-        tooltipText: "Lets you and your students create your own login credentials for Quill",
+        tooltipText: "Have full control over your students' log in credentials and how students sign up for your class.",
       },
       {
         basic: true,
         label: "Google Classroom sync",
         school: true,
         teacher: true,
-        tooltipText: "Lets teachers import class rosters from Google Classroom, allows users to log into Quill with Google credentials",
+        tooltipText: "Sync your rosters with Google Classroom sections to allow students to log into Quill with Google credentials and send announcements when you post assignments.",
       },
       {
         basic: true,
         label: "Clever Library sync",
         school: true,
         teacher: true,
-        tooltipText: "Lets teachers import class rosters from Clever Library, allows users to log into Quill with Clever Library credentials",
+        tooltipText: "A single sign on option where teachers can add the Quill app to students' Clever dashboards and sync their rosters.",
       },
       {
         label: "Clever Secure sync at the school or district level",
         school: true,
-        tooltipText: "Lets entire schools or districts import class rosters, allows users to log into Quill with Clever credentials",
+        tooltipText: "A single sign on option that lets schools or districts automatically sync teacher's Clever rosters with their Quill classes.",
       },
       {
         label: "Unlimited number of teacher licenses",
         school: true,
-        tooltipText: "Provides all teachers in a school or district with access to Premium features",
+        tooltipText: "All teachers in the school or district receive premium access for consistent implementation in writing courses.",
       },
     ]
   },
@@ -134,39 +134,39 @@ export const premiumFeatures = ({ independentPracticeActivityCount, diagnosticAc
         label: "Spotlight webinars",
         school: true,
         teacher: true,
-        tooltipText: "30 - 60 minute webinars to help teachers utilize Quill's tools with their students in meaningful and impactful ways",
+        tooltipText: "30 - 60 minute webinars to take a deep-dive into Quill features to help teachers leverage all features of Quill successfully.",
       },
       {
         basic: true,
         label: "Teacher Center best practice resources",
         school: true,
         teacher: true,
-        tooltipText: "Comprehensive overviews of Quill's best practices and implementation tips provided by Quill's instructional experts.",
+        tooltipText: "Access 160+ best practices and implementation articles as needed to improve your understanding and implementation of Quill.",
       },
       {
         label: "Getting started training",
         school: true,
-        tooltipText: "Live, hour-long virtual training to help teachers get set up for success on Quill",
+        tooltipText: "Work with your assigned Senior Instructional Coach for a live, hour-long virtual training to get teachers set up for success on Quill.",
       },
       {
         label: "Guided onboarding",
         school: true,
-        tooltipText: "Work with a Quill Partnerships Specialist to get everyone set up quickly",
+        tooltipText: "Work with your assigned Senior Instructional Coach to get all users on your license set up quickly.",
       },
       {
         label: "Two professional development sessions",
         school: true,
-        tooltipText: "Comprehensive workshop-style PDs tailored to the needs of teachers",
+        tooltipText: "Assigned Senior Instructional Coach delivers PDs tailored to the needs of teachers.",
       },
       {
         label: "Three one-on-one coaching sessions per teacher",
         school: true,
-        tooltipText: "Check ins with Quill coaches to help teachers meet their writing instruction goals",
+        tooltipText: "Assigned Senior Instructional Coach provides individualized support on Quill implementation and best practices.",
       },
       {
         label: "Priority technical support",
         school: true,
-        tooltipText: "Access to a direct support representative to help resolve tech issues swiftly",
+        tooltipText: "Support tickets identified with priority user status to resolve tech issues swiftly.",
       },
     ]
   }

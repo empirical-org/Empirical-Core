@@ -92,8 +92,8 @@ class Teachers::UnitsController < ApplicationController
     activity_id = params[:activity_id].to_i
     classroom_units = lessons_with_current_user_and_activity
     if classroom_units.length == 1
-      cu_id = classroom_units.first["id"]
-      redirect_to "/teachers/classroom_units/#{cu_id}/launch_lesson/#{lesson_uid}"
+      classroom_unit_id = classroom_units.first["id"]
+      redirect_to "/teachers/classroom_units/#{classroom_unit_id}/launch_lesson/#{lesson_uid}"
     else
       redirect_to "/teachers/classrooms/activity_planner/lessons_for_activity/#{activity_id}"
     end
