@@ -4,13 +4,15 @@ namespace :skills_and_skill_groups do
   end
 
   def create_skills_and_skill_groups
-    starter_diagnostic = Activity.find(1663)
-    intermediate_diagnostic = Activity.find(1668)
-    advanced_diagnostic = Activity.find(1678)
+    ActiveRecord::Base.transaction do
+      starter_diagnostic = Activity.find(1663)
+      intermediate_diagnostic = Activity.find(1668)
+      advanced_diagnostic = Activity.find(1678)
 
-    create_data(starter_diagnostic_skill_groups, [starter_diagnostic.id, starter_diagnostic.follow_up_activity_id])
-    create_data(intermediate_diagnostic_skill_groups, [intermediate_diagnostic.id, intermediate_diagnostic.follow_up_activity_id])
-    create_data(advanced_diagnostic_skill_groups, [advanced_diagnostic.id, advanced_diagnostic.follow_up_activity_id])
+      create_data(starter_diagnostic_skill_groups, [starter_diagnostic.id, starter_diagnostic.follow_up_activity_id])
+      create_data(intermediate_diagnostic_skill_groups, [intermediate_diagnostic.id, intermediate_diagnostic.follow_up_activity_id])
+      create_data(advanced_diagnostic_skill_groups, [advanced_diagnostic.id, advanced_diagnostic.follow_up_activity_id])
+    end
   end
 
   def create_data(skill_group_data, activity_ids)

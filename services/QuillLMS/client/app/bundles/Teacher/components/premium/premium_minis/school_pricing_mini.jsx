@@ -2,17 +2,24 @@ import React from 'react';
 
 import IndividualFeaturesTable from './individual_features_table'
 
-const SchoolPricingMini = ({ premiumFeatureData, }) => (
+const greenCheckSrc = `${process.env.CDN_URL}/images/icons/icons-check-green.svg`
+
+const SchoolPricingMini = ({ premiumFeatureData, showBadges }) => (
   <div className="pricing-mini">
     <section className="pricing-info">
       <h2>School and District Premium</h2>
       <div className="premium-rates">
-        <h3>Let&#39;s talk</h3>
+        <h3>$1,800</h3>
+        <p>Per school, per year</p>
       </div>
       <div className="premium-button-container">
-        <a className="quill-button outlined medium secondary focus-on-light" href="https://quill-partnerships.youcanbook.me">Schedule a demo</a>
-        <a className="quill-button contained medium primary focus-on-light" href="https://quillpremium.wufoo.com/forms/quill-premium-quote/">Request a quote</a>
+        <a className="quill-button contained medium primary focus-on-light" href="https://quillpremium.wufoo.com/forms/quill-premium-quote/">Contact us</a>
       </div>
+      {showBadges && <div className="school-premium-badge-container">
+        <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> 2 PD sessions</div>
+        <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> 3 coaching sessions</div>
+        <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> Custom reports</div>
+      </div>}
     </section>
     <IndividualFeaturesTable premiumFeatureData={premiumFeatureData} type="school" />
   </div>

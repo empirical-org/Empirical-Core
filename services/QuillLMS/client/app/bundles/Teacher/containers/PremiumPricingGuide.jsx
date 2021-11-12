@@ -35,10 +35,6 @@ const PremiumPricingGuide = (props) => {
     <div>
       <div className="container premium-page">
         <div className="overview text-center">
-          <div className="header">
-            <h1>Compare plan features</h1>
-            <p>Pick a plan that suits your needs.</p>
-          </div>
           <PremiumPricingMinisRow {...props} />
           <PremiumFeaturesTable
             diagnosticActivityCount={diagnosticActivityCount}

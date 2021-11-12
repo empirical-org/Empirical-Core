@@ -26,11 +26,25 @@ exports[`RuleRegexAttributes component should render RuleRegexAttributes 1`] = `
       Add Highlight
     </button>
   </div>
+  <label
+    aria-label="conditional-sequence-label"
+    className="conditional-label"
+    htmlFor="conditional-label"
+  >
+    Conditional Sequences?
+  </label>
+  <input
+    aria-label="conditional-checkbox"
+    id="conditional-checkbox"
+    onChange={[Function]}
+    type="checkbox"
+    value="conditional-checkbox"
+  />
   <p
     className="form-subsection-label"
     id="regex-rules-label"
   >
-    Regex Rules
+    Sequences
   </p>
   <RegexRules
     errors={Object {}}

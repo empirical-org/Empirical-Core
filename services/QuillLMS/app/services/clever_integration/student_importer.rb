@@ -5,8 +5,8 @@ module CleverIntegration
     def initialize(data)
       @data = data
       @clever_id = data[:clever_id]
-      @email = data[:email]&.downcase
-      @username = data[:username]&.downcase
+      @email = data[:email]
+      @username = data[:username]
     end
 
     def run

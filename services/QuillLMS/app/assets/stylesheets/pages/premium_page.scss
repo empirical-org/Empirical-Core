@@ -87,7 +87,7 @@ li.premium-tab > a:hover {
 }
 
 .premium-page {
-  padding: 64 0 0 0px;
+  padding: 0px;
   background-color: white;
   width: 100%;
   text-align: center;
@@ -116,25 +116,50 @@ li.premium-tab > a:hover {
     }
   }
 
-  .our-commitment {
+  .choose-plan {
+    margin-right: 17px;
+    top: 75px;
+    left: 0px;
+    position: relative;
+    z-index: 4;
     max-width: 360px;
-    padding: 0px 16px;
-    display: inline-flex;
+    padding-right: 8px;
+    display: inline-block;
     border-radius: 8px;
     justify-content: center;
     flex-direction: column;
     text-align: left;
-    background-color: #eef8f7;
-    align-items: flex-start;
-    img {
-      height: 24px;
+    h2 {
+      font-weight: bold;
+      line-height: 38px;
     }
-    h3 {
-      margin: 8px 0 16px;
+    p {
       font-size: 16px;
-      font-weight: 600;
-      line-height: 1.38;
-      color: #262626;
+      line-height: 22px;
+      margin-top: 8px;
+    }
+  }
+  .school-premium-badge-container {
+    margin-top: 24px;
+    text-align: left;
+  }
+  .school-premium-badge {
+    height: 28px;
+    margin-top: 4px;
+    padding: 6px;
+    border-radius: 146.5px;
+    background-color: #eef8f7;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    color: #026f5d;
+    text-align: left;
+    display: inline-block;
+    img {
+      height: 16px;
+      width: 16px;
     }
   }
   .pricing-minis {
@@ -146,6 +171,7 @@ li.premium-tab > a:hover {
   .pricing-mini {
     background-color: white;
     border-radius: 8px;
+    border-bottom: 1px solid #e0e0e0;
     .premium-button-container {
       display: flex;
       flex-direction: column;
@@ -190,6 +216,9 @@ li.premium-tab > a:hover {
     }
     .pricing-info {
       padding: 24px 16px;
+      h2 {
+        font-size: 16px;
+      }
       .semibold {
         font-weight: 600;
       }
@@ -197,7 +226,7 @@ li.premium-tab > a:hover {
         min-height: 90px;
         h3 {
           margin: 24px 0 8px;
-          font-size: 30px;
+          font-size: 24px;
           line-height: 1.27;
           color: #262626;
         }
@@ -501,21 +530,17 @@ li.premium-tab > a:hover {
       position: sticky;
       top: -7px;
       flex-direction: column;
+      height: 375px;
       width: 572px;
       align-items: flex-end;
-      &::after, &:after, &::before, &:before {
+      z-index: 4;
+      &::after, &:after {
         content: '';
-        width: 950px;
+        width: 572px;
         height: 16px;
         margin: 0px 0px -16px;
         border-radius: 8px 0px;
         z-index: 4;
-      }
-      &::before, &:before {
-        border-top: 1px solid #e0e0e0;
-        border-left: 1px solid #e0e0e0;
-        position: absolute;
-        bottom: 0px;
       }
       &.show-shadow {
         &::after, &:after {
@@ -523,24 +548,13 @@ li.premium-tab > a:hover {
           background-image: linear-gradient(to bottom, #000000, #00000000 99%);
         }
       }
-    }
-
-    .pricing-minis {
-      &::before, &:before {
-        content: '';
-        background-color: white;
-        position: absolute;
-        width: 378px;
-        left: -378px;
-        top: 0px;
-        height: calc(100% + 6px);
-        z-index: 3;
+      @media (max-width: 600px) {
+        top: 100px;
       }
     }
 
     .pricing-mini {
       width: 190px;
-      height: 310px;
       h2, .premium-rates {
         text-align: left;
       }
@@ -586,14 +600,15 @@ li.premium-tab > a:hover {
       margin-bottom: 80px;
     }
 
-    .our-commitment {
-      height: 178px;
-      margin-bottom: 32px;
+    .choose-plan {
+      text-align: center;
+      width: 290px;
+      margin: 0 auto;
     }
 
     .pricing-minis-container {
       width: 100%;
-      margin: auto;
+      margin-top: 125px;
     }
 
     .pricing-minis {

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210816195955) do
+ActiveRecord::Schema.define(version: 20211022145011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(version: 20210816195955) do
     t.datetime "updated_at", null: false
     t.integer "rule_id"
     t.text "sequence_type", default: "incorrect", null: false
+    t.boolean "conditional", default: false
     t.index ["rule_id"], name: "index_comprehension_regex_rules_on_rule_id"
   end
 
@@ -182,4 +183,5 @@ ActiveRecord::Schema.define(version: 20210816195955) do
   add_foreign_key "comprehension_labels", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "comprehension_plagiarism_texts", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "comprehension_regex_rules", "comprehension_rules", column: "rule_id", on_delete: :cascade
+  add_foreign_key "evidence_sequences", "evidence_sequence_groups", column: "sequence_group_id", on_delete: :cascade
 end
