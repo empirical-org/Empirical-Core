@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+
 import {
   startListeningToSessionForTeacher,
   finishActivity,
@@ -37,11 +38,12 @@ class MarkingLessonAsCompleted extends React.Component<any, MarkingLessonsAsComp
   }
 
   componentDidMount() {
+    const { dispatch, match, } = this.props
     const { classroomUnitId, classroomSessionId } = this.state
-    const activityId: string = this.props.match.params.lessonID;
+    const activityId: string = match.params.lessonID;
     if (classroomUnitId && classroomSessionId) {
-      this.props.dispatch(getClassLesson(activityId));
-      this.props.dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId, classroomSessionId));
+      dispatch(getClassLesson(activityId));
+      dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId, classroomSessionId));
     }
   }
 
@@ -54,10 +56,11 @@ class MarkingLessonAsCompleted extends React.Component<any, MarkingLessonsAsComp
   }
 
   finishLesson(nextProps) {
-    const questions = nextProps.classroomLesson.data.questions;
-    const submissions = nextProps.classroomSessions.data.submissions;
-    const activityId = this.props.match.params.lessonID;
-    const classroomUnitId:ClassroomUnitId|null = this.state.classroomUnitId;
+    const { match, } = this.props
+    const { classroomUnitId, } = this.state
+    const { questions, } = nextProps.customize.editionQuestions;
+    const { submissions, } = nextProps.classroomSessions.data;
+    const activityId = match.params.lessonID;
     const conceptResults = generate(questions, submissions);
 
     if (classroomUnitId) {
