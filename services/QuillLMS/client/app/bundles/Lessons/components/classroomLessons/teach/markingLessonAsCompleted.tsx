@@ -59,7 +59,7 @@ class MarkingLessonAsCompleted extends React.Component<any, MarkingLessonsAsComp
       dispatch(getEditionQuestions(classroomSessions.data.edition_id))
     }
 
-    if (classroomSessions.hasreceiveddata && customize && customize.editionQuestions) {
+    if (classroomSessions.hasreceiveddata && Object.keys(customize.editionQuestions).length) {
       console.log('what about this')
       this.finishLesson(this.props)
     }
