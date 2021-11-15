@@ -96,6 +96,7 @@ function select(props) {
   return {
     classroomSessions: props.classroomSessions,
     classroomLesson: props.classroomLesson,
+    customize: props.customize
   };
 }
 
