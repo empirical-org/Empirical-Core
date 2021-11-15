@@ -8,9 +8,11 @@ import {
 import {
   getClassLesson
 } from '../../../actions/classroomLesson';
+import {
+  getEditionQuestions,
+} from '../../../actions/customize'
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
-  ClassroomLessonSessions,
   ClassroomLessonSession,
   ClassroomUnitId,
   ClassroomSessionId
@@ -42,17 +44,21 @@ class MarkingLessonAsCompleted extends React.Component<any, MarkingLessonsAsComp
     const { classroomUnitId, classroomSessionId } = this.state
     const activityId: string = match.params.lessonID;
     if (classroomUnitId && classroomSessionId) {
-      dispatch(getClassLesson(activityId));
       dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId, classroomSessionId));
     }
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.classroomSessions.hasreceiveddata && nextProps.classroomLesson.hasreceiveddata) {
-      const data: ClassroomLessonSession = nextProps.classroomSessions.data;
-      const lessonData: ClassroomLesson = nextProps.classroomLesson.data;
-      this.finishLesson(nextProps)
+  componentDidUpdate(prevProps) {
+    const { classroomSessions, customize, dispatch, } = this.props
+
+    if (classroomSessions.hasreceiveddata && classroomSessions.data.edition_id) {
+      dispatch(getEditionQuestions(classroomSessions.data.edition_id))
     }
+
+    if (classroomSessions.hasreceiveddata && Object.keys(customize.editionQuestions).length) {
+      this.finishLesson(this.props)
+    }
+
   }
 
   finishLesson(nextProps) {
@@ -85,6 +91,7 @@ function select(props) {
   return {
     classroomSessions: props.classroomSessions,
     classroomLesson: props.classroomLesson,
+    customize: props.customize
   };
 }
 
