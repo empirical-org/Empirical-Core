@@ -2,13 +2,15 @@ module Evidence
   class Profanity
 
     def self.profane?(entry)
-      flagged_words = BadWords::ALL.select do |word|
-        entry.include?(word.gsub('*',''))
+      # find the badword substrings that exist in the entry
+      found_bad_words = BadWords::ALL.select do |word|
+        entry.downcase.include?(word.gsub('*',''))
       end
 
-      return false if flagged_words.empty?
+      return false if found_bad_words.empty?
 
-      entry.split(' ').any? { |word| profane_word_check?(word, flagged_words)}
+      # do a more rigorous word-by-word check for found bad words
+      entry.split(' ').any? { |word| profane_word_check?(word, found_bad_words)}
     end
 
     # keeping this for now for comparison and benchmarking
