@@ -12,7 +12,7 @@ exports[`PromptStep component active state before any responses have been submit
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -66,7 +66,7 @@ exports[`PromptStep component active state before any responses have been submit
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor"
@@ -84,7 +84,7 @@ exports[`PromptStep component active state before any responses have been submit
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
               <button
@@ -128,7 +128,7 @@ exports[`PromptStep component active state when a profane response has been subm
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -182,7 +182,7 @@ exports[`PromptStep component active state when a profane response has been subm
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor"
@@ -200,7 +200,7 @@ exports[`PromptStep component active state when a profane response has been subm
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
               <button
@@ -233,7 +233,7 @@ exports[`PromptStep component active state when a profane response has been subm
               Object {
                 "conjunction": "because",
                 "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
@@ -251,7 +251,7 @@ exports[`PromptStep component active state when a profane response has been subm
                 Feedback
                 <span>
                   0
-                   of 
+                   of
                   5
                    attempts
                 </span>
@@ -334,7 +334,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -388,7 +388,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor"
@@ -406,7 +406,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
               <button
@@ -439,7 +439,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
               Object {
                 "conjunction": "because",
                 "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
@@ -457,7 +457,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
                 Feedback
                 <span>
                   0
-                   of 
+                   of
                   5
                    attempts
                 </span>
@@ -540,7 +540,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -604,7 +604,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor suboptimal"
@@ -622,7 +622,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
               <button
@@ -664,7 +664,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
               Object {
                 "conjunction": "because",
                 "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
@@ -692,7 +692,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
                 Feedback
                 <span>
                   1
-                   of 
+                   of
                   5
                    attempts
                 </span>
@@ -775,7 +775,7 @@ exports[`PromptStep component active state when a too-long response has been sub
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -829,7 +829,7 @@ exports[`PromptStep component active state when a too-long response has been sub
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor"
@@ -847,7 +847,7 @@ exports[`PromptStep component active state when a too-long response has been sub
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
               <button
@@ -880,7 +880,7 @@ exports[`PromptStep component active state when a too-long response has been sub
               Object {
                 "conjunction": "because",
                 "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
@@ -898,7 +898,7 @@ exports[`PromptStep component active state when a too-long response has been sub
                 Feedback
                 <span>
                   0
-                   of 
+                   of
                   5
                    attempts
                 </span>
@@ -981,7 +981,7 @@ exports[`PromptStep component active state when a too-short response has been su
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -1035,7 +1035,7 @@ exports[`PromptStep component active state when a too-short response has been su
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor"
@@ -1053,7 +1053,7 @@ exports[`PromptStep component active state when a too-short response has been su
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
               <button
@@ -1086,7 +1086,7 @@ exports[`PromptStep component active state when a too-short response has been su
               Object {
                 "conjunction": "because",
                 "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
@@ -1104,7 +1104,7 @@ exports[`PromptStep component active state when a too-short response has been su
                 Feedback
                 <span>
                   0
-                   of 
+                   of
                   5
                    attempts
                 </span>
@@ -1187,7 +1187,7 @@ exports[`PromptStep component active state when an optimal response has been sub
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -1251,7 +1251,7 @@ exports[`PromptStep component active state when an optimal response has been sub
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor optimal disabled"
@@ -1269,7 +1269,7 @@ exports[`PromptStep component active state when an optimal response has been sub
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
             </div>
@@ -1299,7 +1299,7 @@ exports[`PromptStep component active state when an optimal response has been sub
               Object {
                 "conjunction": "because",
                 "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
@@ -1327,7 +1327,7 @@ exports[`PromptStep component active state when an optimal response has been sub
                 Feedback
                 <span>
                   1
-                   of 
+                   of
                   5
                    attempts
                 </span>
@@ -1410,7 +1410,7 @@ exports[`PromptStep component active state when the max attempts have been reach
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -1502,7 +1502,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor suboptimal disabled"
@@ -1520,7 +1520,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
             </div>
@@ -1550,7 +1550,7 @@ exports[`PromptStep component active state when the max attempts have been reach
               Object {
                 "conjunction": "because",
                 "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
@@ -1606,7 +1606,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 Feedback
                 <span>
                   5
-                   of 
+                   of
                   5
                    attempts
                 </span>
@@ -1651,7 +1651,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                           className="feedback-text"
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+                              "__html": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                             }
@@ -1691,7 +1691,7 @@ exports[`PromptStep component active state when the max attempts have been reach
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -1755,7 +1755,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor optimal disabled"
@@ -1773,7 +1773,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
             </div>
@@ -1803,7 +1803,7 @@ exports[`PromptStep component active state when the max attempts have been reach
               Object {
                 "conjunction": "because",
                 "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                 "prompt_id": 1,
@@ -1831,7 +1831,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 Feedback
                 <span>
                   1
-                   of 
+                   of
                   5
                    attempts
                 </span>
@@ -1914,7 +1914,7 @@ exports[`PromptStep component inactive state renders 1`] = `
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -1940,7 +1940,7 @@ exports[`PromptStep component inactive state renders 1`] = `
             className="prompt-text"
           >
             Governments should make voting compulsory
-             
+
             <span>
               because
             </span>
