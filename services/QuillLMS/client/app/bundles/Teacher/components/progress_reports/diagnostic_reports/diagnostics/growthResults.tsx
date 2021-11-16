@@ -102,6 +102,11 @@ const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries, match,
   }, [])
 
   React.useEffect(() => {
+    setLoading(true)
+    getResults()
+  }, [activityId, classroomId])
+
+  React.useEffect(() => {
     window.addEventListener(CLICK, closePopoverOnOutsideClick)
     return function cleanup() {
       window.removeEventListener(CLICK, closePopoverOnOutsideClick)

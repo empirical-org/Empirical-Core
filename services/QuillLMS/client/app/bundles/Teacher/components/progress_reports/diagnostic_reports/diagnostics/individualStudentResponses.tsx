@@ -108,8 +108,12 @@ const IndividualStudentResponses = ({ match, passedConceptResults, passedSkillRe
     getData()
   }, [])
 
-  function getData() {
+  React.useEffect(() => {
+    setLoading(true)
+    getData()
+  }, [activityId, classroomId, unitId, studentId])
 
+  function getData() {
     requestGet(`/teachers/progress_reports/individual_student_diagnostic_responses/${studentId}?activity_id=${activityId}&classroom_id=${classroomId}${unitQueryString}`,
       (data) => {
         setConceptResults(data.concept_results);

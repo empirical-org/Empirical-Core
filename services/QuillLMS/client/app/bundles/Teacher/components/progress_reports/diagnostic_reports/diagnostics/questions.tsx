@@ -114,8 +114,12 @@ const Questions = ({ passedQuestions, match, mobileNavigation, }) => {
     getQuestions()
   }, [])
 
-  function getQuestions() {
+  React.useEffect(() => {
+    setLoading(true)
+    getQuestions()
+  }, [activityId, classroomId, unitId])
 
+  function getQuestions() {
     requestGet(`/teachers/progress_reports/question_view/classroom/${classroomId}/activity/${activityId}${unitQueryString}`,
       (data) => {
         setQuestions(data.data);

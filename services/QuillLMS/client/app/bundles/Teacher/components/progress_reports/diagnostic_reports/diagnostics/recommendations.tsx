@@ -207,7 +207,7 @@ const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPrevio
     setPreviouslyAssignedLessonsRecommendations(null)
     getRecommendations()
     getPreviouslyAssignedRecommendationData()
-  }, [activityId, classroomId])
+  }, [activityId, classroomId, unitId])
 
   React.useEffect(() => {
     if (loading) { return }

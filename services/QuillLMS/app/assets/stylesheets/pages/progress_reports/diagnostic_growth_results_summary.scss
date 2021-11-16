@@ -1,5 +1,8 @@
 .results-summary-container.growth-results-summary-container {
   .skill-group-summary-card {
+    &:nth-of-type(3n+3) {
+      margin-right: 0px;
+    }
     .percentage-circles {
       display: flex;
       justify-content: space-between;

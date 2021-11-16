@@ -94,6 +94,11 @@ const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => 
     getStudents()
   }, [])
 
+  React.useEffect(() => {
+    setLoading(true)
+    getStudents()
+  }, [activityId, classroomId, unitId])
+
   function getStudents() {
 
     requestGet(`/teachers/progress_reports/diagnostic_student_responses_index?activity_id=${activityId}&classroom_id=${classroomId}${unitQueryString}`,

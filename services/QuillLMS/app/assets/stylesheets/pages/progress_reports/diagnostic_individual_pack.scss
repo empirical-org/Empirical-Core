@@ -68,6 +68,7 @@
         line-height: 1.33;
         img {
           height: 16px;
+          margin-left: 16px;
         }
       }
       .disabled-link {
@@ -109,6 +110,14 @@
     padding: 40px 32px;
     width: calc(100vw - 260px);
     background-color: white;
+    header,
+    .skill-group-summary-cards,
+    .student-results h2 {
+      max-width: 1014px;
+      margin-left: calc(50% + -100px);
+      transform: translateX(-50%);
+      width: calc(100vw - 260px);
+    }
     header {
       display: flex;
       h1 {
@@ -148,7 +157,7 @@
       color: #5c5c5c;
     }
   }
-  
+
   @media (max-width: 930px) {
     main {
       width: 100%;
