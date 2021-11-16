@@ -89,7 +89,7 @@ export const renderStepLinksAndDirections = ({
 export const renderPromptSteps = ({
   activateStep,
   activityIsComplete,
-  completeButtonCallback,
+  completionButtonCallback,
   completeStep,
   submitResponse,
   closeReadTheDirectionsModal,
@@ -106,16 +106,6 @@ export const renderPromptSteps = ({
   const { submittedResponses, hasReceivedData, } = session
   if (!currentActivity || !hasReceivedData) return
 
-  function renderCompletionButton() {
-    let className = 'quill-button focus-on-light'
-    let containerClassName = 'step clickable active'
-    return(
-      <div className={containerClassName}>
-        <button className={className} onClick={completeButtonCallback} type="button"><span>Complete Activity</span></button>
-      </div>
-    )
-  }
-
   // sort by conjunctions in alphabetical order: because, but, so
   const steps =  orderedSteps(activities).map((prompt, i) => {
     // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
@@ -125,9 +115,11 @@ export const renderPromptSteps = ({
     return (<PromptStep
       activateStep={activateStep}
       active={stepNumber === activeStep}
+      activityIsComplete={activityIsComplete}
       canBeClicked={canBeClicked}
       className={`step ${canBeClicked ? 'clickable' : ''} ${activeStep === stepNumber ? 'active' : ''}`}
       completeStep={completeStep}
+      completionButtonCallback={completionButtonCallback}
       everyOtherStepCompleted={everyOtherStepCompleted(stepNumber, completedSteps)}
       key={stepNumber}
       passedRef={stepsHash[`step${stepNumber}`]} // eslint-disable-line react/jsx-no-bind
@@ -143,7 +135,6 @@ export const renderPromptSteps = ({
   return (<div className="prompt-steps">
     {renderDirectionsSectionAndModal({ className: 'hide-on-mobile', closeReadTheDirectionsModal, activeStep, doneHighlighting, showReadTheDirectionsModal, activities })}
     {steps}
-    {activityIsComplete && renderCompletionButton()}
   </div>)
 }
 

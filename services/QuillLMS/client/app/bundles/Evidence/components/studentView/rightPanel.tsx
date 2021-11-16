@@ -14,8 +14,8 @@ const RightPanel = ({
   activityIsComplete,
   closeReadTheDirectionsModal,
   completeStep,
-  completeButtonCallback,
   completedSteps,
+  completionButtonCallback,
   doneHighlighting,
   handleClickDoneHighlighting,
   handleDoneReadingClick,
@@ -92,9 +92,9 @@ const RightPanel = ({
       activities={activities}
       activityIsComplete={activityIsComplete}
       closeReadTheDirectionsModal={closeReadTheDirectionsModal}
-      completeButtonCallback={completeButtonCallback}
       completedSteps={completedSteps}
       completeStep={completeStep}
+      completionButtonCallback={completionButtonCallback}
       doneHighlighting={doneHighlighting}
       handleDoneReadingClick={handleDoneReadingClick}
       reportAProblem={reportAProblem}

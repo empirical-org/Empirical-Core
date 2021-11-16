@@ -521,7 +521,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   }
 
-  const completeButtonCallback = () => {
+  const completionButtonCallback = () => {
     setCompleteButtonClicked(true)
   }
 
@@ -555,9 +555,9 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         activities={activities}
         activityIsComplete={activityIsComplete}
         closeReadTheDirectionsModal={closeReadTheDirectionsModal}
-        completeButtonCallback={completeButtonCallback}
         completedSteps={completedSteps}
         completeStep={completeStep}
+        completionButtonCallback={completionButtonCallback}
         doneHighlighting={doneHighlighting}
         handleClickDoneHighlighting={handleClickDoneHighlighting}
         handleDoneReadingClick={handleDoneReadingClick}

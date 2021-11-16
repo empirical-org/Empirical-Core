@@ -8,7 +8,7 @@ const Steps = ({
   activities,
   activityIsComplete,
   handleDoneReadingClick,
-  completeButtonCallback,
+  completionButtonCallback,
   completeStep,
   submitResponse,
   closeReadTheDirectionsModal,
@@ -27,7 +27,7 @@ const Steps = ({
         {renderPromptSteps({
           activateStep,
           activityIsComplete,
-          completeButtonCallback,
+          completionButtonCallback,
           completeStep,
           submitResponse,
           closeReadTheDirectionsModal,
