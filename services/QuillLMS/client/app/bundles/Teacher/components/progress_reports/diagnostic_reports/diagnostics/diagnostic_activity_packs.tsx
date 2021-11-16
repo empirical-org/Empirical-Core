@@ -14,7 +14,7 @@ const calendarDateIcon = <img alt="Calendar icon" src={`${baseDiagnosticImageSrc
 const wrenchIcon = <img alt="Wrench icon" src={`${baseDiagnosticImageSrc}/icons-wrench.svg`} />
 
 const MOBILE_WIDTH = 990
-const AVERAGE_FONT_WIDTH = 6
+const AVERAGE_FONT_WIDTH = 5
 const ACTIVITY_PACK_TEXT_MAX_WIDTH = 264
 
 const ALL = 'ALL'
