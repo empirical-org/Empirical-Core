@@ -3,29 +3,18 @@
 
 require File.expand_path('../config/application', __FILE__)
 require 'dotenv/tasks'
+require 'tasks/modules/slack_tasks'
 
 EmpiricalGrammar::Application.load_tasks
 
 task default: [:spec]
 
 task after_hook: :dotenv do
+  include SlackTasks
+
   post_slack_rake_task
 end
 
-Rake.application.tasks.reject do |task|
-  next if [Rake::Task['environment'], Rake::Task['dotenv'], Rake::Task['after_hook']].include?(task)
-
-  task.enhance([:after_hook])
-end
-
-def post_slack_rake_task
-  return unless ENV.fetch('RAILS_ENV', '') == 'production'
-
-  webhook_url = ENV.fetch('SLACK_API_WEBHOOK', '')
-
-  return unless webhook_url.present?
-
-  message = ":rake: rake #{ARGV.join(' ')}"
-
-  sh %(curl -X POST -H 'Content-type: application/json' --data "{'text':'#{message}'}" #{webhook_url})
+Rake.application.tasks.each do |task|
+  task.enhance([:after_hook]) unless %w[after_hook dotenv environment].include?(task.name)
 end
