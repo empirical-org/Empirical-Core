@@ -30,7 +30,6 @@ export default class PremiumPricingMinisRow extends React.Component {
 
   render() {
     const { diagnosticActivityCount, lessonsActivityCount, independentPracticeActivityCount, } = this.props
-
     const {
       userIsSignedIn,
       isScrolled,

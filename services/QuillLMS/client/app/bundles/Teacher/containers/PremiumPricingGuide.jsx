@@ -29,7 +29,7 @@ const subscribers = [
    { name: 'Princeton Public Schools logo', source: '/images/subscribers/16_princeton.png', id: 'princeton'}
  ]
 
-export const PremiumPricingGuide = ({ lastFour, diagnosticActivityCount, independentPracticeActivityCount, lessonsActivityCount }) => {
+export const PremiumPricingGuide = ({ lastFour, diagnosticActivityCount, independentPracticeActivityCount, lessonsActivityCount, userIsEligibleForNewSubscription }) => {
   // const size = useWindowSize();
   // const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
   //
@@ -59,11 +59,6 @@ export const PremiumPricingGuide = ({ lastFour, diagnosticActivityCount, indepen
     setShouldShowPurchaseModal(true)
   };
 
-  const showPurchaseModalForSchoolPurchase = () => {
-
-    // this.setState({ subscriptionType: 'School', }, () => this.setState({ showPurchaseModal: true, }));
-  };
-
   const updateSubscriptionStatus = subscription => {
     setSubscriptionType(subscription)
     setShouldShowPremiumConfirmationModal(true)
@@ -74,7 +69,7 @@ export const PremiumPricingGuide = ({ lastFour, diagnosticActivityCount, indepen
     if (!shouldShowPremiumConfirmationModal) { return }
     return (<PremiumConfirmationModal
       hideModal={hidePremiumConfirmationModal}
-      show={showPremiumConfirmationModal}
+      show={shouldShowPremiumConfirmationModal}
       subscription={subscriptionStatus}
     />)
   }
@@ -95,7 +90,7 @@ export const PremiumPricingGuide = ({ lastFour, diagnosticActivityCount, indepen
       <div className="container premium-page">
         {userIsSignedIn() && <PremiumBannerBuilder originPage="premium" showPurchaseModal={showPurchaseModal} />}
         <div className="overview text-center">
-          <PremiumPricingMinisRow diagnosticActivityCount={diagnosticActivityCount} independentPracticeActivityCount={independentPracticeActivityCount} lastFour={lastFour} lessonsActivityCount={lessonsActivityCount} showPurchaseModal={showPurchaseModal} />
+          <PremiumPricingMinisRow diagnosticActivityCount={diagnosticActivityCount} independentPracticeActivityCount={independentPracticeActivityCount} lastFour={lastFour} lessonsActivityCount={lessonsActivityCount} showPurchaseModal={showPurchaseModal} userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}/>
           <PremiumFeaturesTable
             diagnosticActivityCount={diagnosticActivityCount}
             independentPracticeActivityCount={independentPracticeActivityCount}
