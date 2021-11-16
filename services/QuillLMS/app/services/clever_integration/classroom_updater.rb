@@ -1,20 +1,31 @@
 module CleverIntegration
-  class ClassroomUpdater
-    attr_reader :clever_id, :grade, :synced_name
+  class ClassroomUpdater < ApplicationService
+    OWNER = ClassroomsTeacher::ROLE_TYPES[:owner].freeze
+    COTEACHER = ClassroomsTeacher::ROLE_TYPES[:coteacher].freeze
 
-    def initialize(data)
-      @clever_id = data[:clever_id]
+    attr_reader :classroom, :grade, :synced_name, :teacher_id
+
+    def initialize(classroom, data)
+      @classroom = classroom
       @grade = data[:grade]
       @synced_name = data[:name]
+      @teacher_id = data[:teacher_id]
     end
 
     def run
       update
-      classroom
+      associate_teacher_and_classroom
+      classroom.reload
     end
 
-    private def classroom
-      @classroom ||= Classroom.unscoped.find_by!(clever_id: clever_id)
+    private def associate_teacher_and_classroom
+      return if ClassroomsTeacher.exists?(classroom: classroom, user_id: teacher_id)
+
+      ClassroomsTeacher.create!(
+        classroom: classroom,
+        user_id: teacher_id,
+        role: classroom.owner ? COTEACHER : OWNER
+      )
     end
 
     private def custom_name?
