@@ -36,7 +36,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
     const delta = prePercentageProficient ? ((postPercentageProficient - prePercentageProficient) / prePercentageProficient) * 100 : postPercentageProficient
 
     let needPracticeElement = <span className="need-practice-element no-practice-needed">No practice needed</span>
-    let growthElement = delta > 0 ? <span className="growth-element">{triangleUpIcon}<span>{delta}% growth</span></span> : <span className="growth-element no-growth">No growth</span>
+    let growthElement = delta > 0 ? <span className="growth-element">{triangleUpIcon}<span>{Math.round(delta)}% growth</span></span> : <span className="growth-element no-growth">No growth</span>
 
     if (numberOfStudentsNeedingPracticeInPost) {
       const tooltipText = `<p>${not_yet_proficient_in_post_test_student_names.join('<br>')}</p>`

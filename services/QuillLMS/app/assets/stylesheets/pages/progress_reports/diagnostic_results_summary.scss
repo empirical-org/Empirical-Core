@@ -3,7 +3,8 @@
     display: flex;
     flex-wrap: wrap;
     margin: 24px 0px;
-    max-width: 1000px;
+    position: relative;
+    z-index: 1;
   }
   .skill-group-summary-card {
     max-width: 306px;
@@ -45,6 +46,9 @@
       &:not(.no-practice-needed) {
         border-bottom: #5c5c5c dotted 1px;
       }
+    }
+    .quill-tooltip, .quill-tooltip-wrapper {
+      z-index: 5;
     }
     .no-data-yet {
       margin-top: 80px;
@@ -128,6 +132,8 @@
       border-collapse: separate;
       border-spacing: 0;
       table-layout: fixed;
+      margin-left: calc(50% + 207px);
+      transform: translateX(-50%);
       &.empty {
         border-right: 1px solid #e0e0e0;
         border-bottom: 1px solid #e0e0e0;
@@ -202,6 +208,12 @@
       width: 216px;
       height: 92px;
       padding: 16px;
+      .student-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 182px;
+        display: inline-block;
+      }
       > div {
         display: flex;
         flex-direction: column;

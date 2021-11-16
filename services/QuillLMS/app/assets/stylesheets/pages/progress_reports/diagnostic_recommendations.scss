@@ -141,6 +141,12 @@
       width: 216px;
       height: 53px;
       padding: 16px;
+      .student-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 182px;
+        display: inline-block;
+      }
       > div {
         display: flex;
         flex-direction: column;

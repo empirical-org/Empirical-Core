@@ -117,6 +117,11 @@
             .quill-tooltip-wrapper, .quill-tooltip-wrapper span {
               padding-top: 8px;
             }
+            .activity-pack-name {
+              max-width: 286px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
           }
           &:not(:last-of-type) {
             border-right: 1px solid #e0e0e0;

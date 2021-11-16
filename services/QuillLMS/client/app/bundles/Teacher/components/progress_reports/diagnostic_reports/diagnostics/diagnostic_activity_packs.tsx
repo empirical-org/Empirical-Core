@@ -31,7 +31,7 @@ const AssignedSection = ({ activity, sectionTitle, isPostDiagnostic, }) => {
   const activityPackText = `Activity pack: ${unit_name}`
   let activityPackElement = <span>{activityPackText}</span>
   if (window.innerWidth > MOBILE_WIDTH && ((activityPackText.length * AVERAGE_FONT_WIDTH) > ACTIVITY_PACK_TEXT_MAX_WIDTH)) {
-    activityPackElement = <Tooltip tooltipText={activityPackText} tooltipTriggerText={`${activityPackText.substring(0, ACTIVITY_PACK_TEXT_MAX_WIDTH/AVERAGE_FONT_WIDTH)}...`} />
+    activityPackElement = <Tooltip tooltipText={activityPackText} tooltipTriggerText={activityPackText} tooltipTriggerTextClass="activity-pack-name" />
   }
   return (<section className="pre">
     <div>

@@ -26,11 +26,18 @@
           .quill-tooltip-trigger {
             margin-right: 0px;
           }
+          .directions-or-prompt {
+            max-width: 673px;
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
         }
       }
     }
     .score-header {
       margin-right: 32px;
+      text-align: right !important;
     }
     .score-section {
       margin-right: 32px;

@@ -39,9 +39,10 @@
   .name-cell {
     &:hover {
       background-color: #f5f5f5;
+      z-index: 2;
     }
     &:not(:hover) {
-      .quill-tooltip-trigger {
+      .skills-delta .quill-tooltip-trigger {
         display: none;
       }
     }

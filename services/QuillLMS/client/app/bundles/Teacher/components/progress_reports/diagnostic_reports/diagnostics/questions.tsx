@@ -21,8 +21,8 @@ interface Question {
   question_id: number;
 }
 
-const AVERAGE_FONT_WIDTH = 7
-const ALLOTTED_WIDTH = 675
+const AVERAGE_FONT_WIDTH = 6.5
+const ALLOTTED_WIDTH = 673
 
 const desktopHeaders = (isSortable) => ([
   {
@@ -30,10 +30,12 @@ const desktopHeaders = (isSortable) => ([
     attribute: 'questionNumber',
     width: '51px',
     rowSectionClassName: 'question-number-section',
+    isSortable: true
   },
   {
     name: 'Average score',
     attribute: 'scoreElement',
+    sortAttribute: 'score',
     width: '52px',
     noTooltip: true,
     rowSectionClassName: 'score-section',
@@ -55,11 +57,13 @@ const mobileHeaders = (isSortable) => ([
     name: '',
     attribute: 'directionsAndPrompt',
     width: '188px',
-    rowSectionClassName: 'directions-and-prompt-section'
+    rowSectionClassName: 'directions-and-prompt-section',
+    isSortable: true
   },
   {
     name: 'Avg. score',
     attribute: 'scoreElement',
+    sortAttribute: 'score',
     width: '52px',
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
@@ -83,7 +87,8 @@ const DirectionsAndPrompt = ({ directions, prompt, onMobile, }) => {
     if ((stripHtml(text).length * AVERAGE_FONT_WIDTH) >= ALLOTTED_WIDTH) {
       return (<Tooltip
         tooltipText={text}
-        tooltipTriggerText={`${stripHtml(text).slice(0, (ALLOTTED_WIDTH/AVERAGE_FONT_WIDTH))}...`}
+        tooltipTriggerText={stripHtml(text)}
+        tooltipTriggerTextClass="directions-or-prompt"
       />)
     }
 
