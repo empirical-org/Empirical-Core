@@ -29,99 +29,94 @@ const subscribers = [
    { name: 'Princeton Public Schools logo', source: '/images/subscribers/16_princeton.png', id: 'princeton'}
  ]
 
-export default class PremiumPricingGuide extends React.Component {
+export const PremiumPricingGuide = ({ lastFour, diagnosticActivityCount, independentPracticeActivityCount, lessonsActivityCount }) => {
   // const size = useWindowSize();
   // const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
   //
-  state = {
-    showPremiumConfirmationModal: false,
-    showPurchaseModal: false,
-    subscriptionType: null,
-    subscriptionStatus: null,
-    userIsSignedIn: !!Number(document.getElementById('current-user-id').getAttribute('content')),
-    isScrolled: false
+  const [shouldShowPremiumConfirmationModal, setShouldShowPremiumConfirmationModal] = React.useState(false)
+  const [shouldShowPurchaseModal, setShouldShowPurchaseModal] = React.useState(false)
+  const [subscriptionType, setSubscriptionType] = React.useState(null)
+  const [subscriptionStatus, setSubscriptionStatus] = React.useState(null)
+  const [isScrolled, setIsScrolled] = React.useState(false)
+
+  const userIsSignedIn = () => {
+    return !!Number(document.getElementById('current-user-id').getAttribute('content'))
+  }
+  const hidePremiumConfirmationModal = () => {
+    setShouldShowPremiumConfirmationModal(false)
   };
 
-  hidePremiumConfirmationModal = () => {
-    this.setState({ showPremiumConfirmationModal: false, });
+  const hidePurchaseModal = () => {
+    setShouldShowPurchaseModal(false)
+    setSubscriptionType(null)
   };
 
-  hidePurchaseModal = () => {
-    this.setState({ showPurchaseModal: false, subscriptionType: null, });
+  const showPremiumConfirmationModal = () => {
+    setShouldShowPremiumConfirmationModal(true)
   };
 
-  showPremiumConfirmationModal = () => {
-    this.setState({ showPremiumConfirmationModal: true, });
+  const showPurchaseModal = () => {
+    setShouldShowPurchaseModal(true)
   };
 
-  showPurchaseModal = () => {
-    this.setState({ showPurchaseModal: true, });
+  const showPurchaseModalForSchoolPurchase = () => {
+
+    // this.setState({ subscriptionType: 'School', }, () => this.setState({ showPurchaseModal: true, }));
   };
 
-  showPurchaseModalForSchoolPurchase = () => {
-    this.setState({ subscriptionType: 'School', }, () => this.setState({ showPurchaseModal: true, }));
+  const updateSubscriptionStatus = subscription => {
+    setSubscriptionType(subscription)
+    setShouldShowPremiumConfirmationModal(true)
+    setShouldShowPurchaseModal(false)
   };
 
-  updateSubscriptionStatus = subscription => {
-    this.setState({ subscriptionStatus: subscription,
-      showPremiumConfirmationModal: true,
-      showPurchaseModal: false, });
-  };
-
-  renderPremiumConfirmationModal = () => {
-    const { showPremiumConfirmationModal, subscriptionStatus, } = this.state
-    if (!showPremiumConfirmationModal) { return }
+  const renderPremiumConfirmationModal = () => {
+    if (!shouldShowPremiumConfirmationModal) { return }
     return (<PremiumConfirmationModal
-      hideModal={this.hidePremiumConfirmationModal}
+      hideModal={hidePremiumConfirmationModal}
       show={showPremiumConfirmationModal}
       subscription={subscriptionStatus}
     />)
   }
 
-  renderPurchaseModal = () => {
-    const {
-      showPurchaseModal,
-      subscriptionType
-    } = this.state
-    const { lastFour, } = this.props
-    if (!showPurchaseModal) { return }
+  const renderPurchaseModal = () => {
+    if (!shouldShowPurchaseModal) { return }
     return (<PurchaseModal
-      hideModal={this.hidePurchaseModal}
+      hideModal={hidePurchaseModal}
       lastFour={lastFour}
       show={showPurchaseModal}
       subscriptionType={subscriptionType}
-      updateSubscriptionStatus={this.updateSubscriptionStatus}
+      updateSubscriptionStatus={updateSubscriptionStatus}
     />)
   }
 
-  render() {
-    const { diagnosticActivityCount, independentPracticeActivityCount, lessonsActivityCount } = this.props
-    const { userIsSignedIn } = this.state
-    return (
-      <div>
-        <div className="container premium-page">
-          {userIsSignedIn ? <PremiumBannerBuilder originPage="premium" showPurchaseModal={this.showPurchaseModal} /> : ''}
-          <div className="overview text-center">
-            <PremiumPricingMinisRow {...this.props} showPurchaseModal={this.showPurchaseModal} />
-            <PremiumFeaturesTable
-              diagnosticActivityCount={diagnosticActivityCount}
-              independentPracticeActivityCount={independentPracticeActivityCount}
-              lessonsActivityCount={lessonsActivityCount}
-            />
-          </div>
-
-          <div className="features text-center">
-            <SchoolPremium />
-            <SubscriberLogos subscribers={subscribers} />
-          </div>
-          <QuestionsAndAnswers
-            questionsAndAnswersFile="premium"
-            supportLink="https://support.quill.org/quill-premium"
+  return (
+    <div>
+      <div className="container premium-page">
+        {userIsSignedIn() && <PremiumBannerBuilder originPage="premium" showPurchaseModal={showPurchaseModal} />}
+        <div className="overview text-center">
+          <PremiumPricingMinisRow lastFour={lastFour} diagnosticActivityCount={diagnosticActivityCount} independentPracticeActivityCount={independentPracticeActivityCount} lessonsActivityCount={lessonsActivityCount} showPurchaseModal={showPurchaseModal} />
+          <PremiumFeaturesTable
+            diagnosticActivityCount={diagnosticActivityCount}
+            independentPracticeActivityCount={independentPracticeActivityCount}
+            lessonsActivityCount={lessonsActivityCount}
           />
         </div>
-        {this.renderPremiumConfirmationModal()}
-        {this.renderPurchaseModal()}
+
+        <div className="features text-center">
+          <SchoolPremium />
+          <SubscriberLogos subscribers={subscribers} />
+        </div>
+        <QuestionsAndAnswers
+          questionsAndAnswersFile="premium"
+          supportLink="https://support.quill.org/quill-premium"
+        />
       </div>
-    )
-  }
+      {renderPremiumConfirmationModal()}
+      {renderPurchaseModal()}
+    </div>
+  )
+
 }
+
+export default PremiumPricingGuide

@@ -14,9 +14,10 @@ export default class extends React.Component {
   };
 
   render() {
-    const premiumButton = this.props.originPage == 'premium' ?
+    const { originPage, upgradeNow } = this.props
+    const premiumButton = originPage == 'premium' ?
     (
-      <button className='btn-orange' onClick={this.props.upgradeNow} type='button'>Upgrade to Premium Now</button>
+      <button className='btn-orange' onClick={upgradeNow} type='button'>Upgrade to Premium Now</button>
     ) :
     (
       <a href='/premium'>
