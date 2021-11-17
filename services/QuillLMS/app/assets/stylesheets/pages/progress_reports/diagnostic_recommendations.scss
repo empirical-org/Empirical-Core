@@ -66,7 +66,7 @@
     padding-left: 364px;
     .no-data-yet {
       position: absolute;
-      top: 81px;
+      top: 100px;
       left: 45%;
       width: 274px;
     }
@@ -84,6 +84,8 @@
         border-bottom: 1px solid #e0e0e0;
         border-radius: 8px;
         empty-cells: hide;
+        position: relative;
+        min-height: 160px;
         thead th:last-of-type {
           border-right: none;
         }

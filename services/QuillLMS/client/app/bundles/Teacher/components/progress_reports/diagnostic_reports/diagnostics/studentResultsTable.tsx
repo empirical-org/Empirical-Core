@@ -206,8 +206,7 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
   if (window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH && paddingLeft() === DEFAULT_LEFT_PADDING) { return <span /> }
 
   return (<div className="student-results-table-container" onScroll={handleScroll}>
-    {tableHasContent ? null : noDataYet}
-    {isSticky && (
+    {isSticky && tableHasContent && (
     <table
       className={`${tableClassName} sticky`}
       style={stickyTableStyle}
@@ -215,8 +214,9 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
       {renderHeader(true)}
     </table>
     )}
-    <table className={tableClassName} ref={tableRef} style={{ paddingLeft: paddingLeft(), }}>
+    <table className={tableClassName} ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
       {renderHeader(false)}
+      {tableHasContent ? null : noDataYet}
       <tbody>
         {studentRows}
       </tbody>

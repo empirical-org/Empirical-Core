@@ -182,8 +182,7 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
   }
 
   return (<div className="recommendations-table-container" onScroll={handleScroll}>
-    {tableHasContent ? null : noDataYet}
-    {isSticky && (
+    {isSticky && tableHasContent && (
       <table
         className={`${tableClassName} sticky`}
         style={stickyTableStyle}
@@ -191,8 +190,9 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
         {renderHeader(true)}
       </table>
     )}
-    <table className={tableClassName} ref={tableRef} style={{ paddingLeft: paddingLeft(), }}>
+    <table className={tableClassName} ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
       {renderHeader(false)}
+      {tableHasContent ? null : noDataYet}
       <tbody>
         {studentRows}
       </tbody>
