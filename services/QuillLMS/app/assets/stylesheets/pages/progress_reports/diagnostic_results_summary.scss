@@ -113,10 +113,11 @@
   .student-results-table-container {
     margin-top: 16px;
     overflow-x: scroll;
-    width: calc(100vw - 300px);
     position: relative;
+    margin-left: -365px;
     margin-bottom: -400px;
     padding-bottom: 400px;
+    padding-left: 364px;
     .no-data-yet {
       position: absolute;
       top: 81px;
@@ -132,8 +133,6 @@
       border-collapse: separate;
       border-spacing: 0;
       table-layout: fixed;
-      margin-left: calc(50% + 207px);
-      transform: translateX(-50%);
       &.empty {
         border-right: 1px solid #e0e0e0;
         border-bottom: 1px solid #e0e0e0;
@@ -352,6 +351,9 @@
         margin-bottom: 2px;
         display: block;
         text-align: left;
+      }
+      &:last-of-type {
+        border-radius: 0px 8px 0px 0px;
       }
     }
   }

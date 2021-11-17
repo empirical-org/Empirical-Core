@@ -96,15 +96,15 @@
         opacity: 50%;
       }
     }
-    &:after {
-      content: '';
-      width: 32px;
-      background-color: white;
-      height: 100%;
-      position: absolute;
-      right: -33px;
-      top: 0px;
-    }
+    // &:after {
+    //   content: '';
+    //   width: 32px;
+    //   background-color: white;
+    //   height: 100%;
+    //   position: absolute;
+    //   right: -33px;
+    //   top: 0px;
+    // }
   }
   main {
     padding: 40px 32px;
@@ -152,10 +152,11 @@
 
   @media (min-width: 1540px) {
     main {
-      header,
+      padding: 40px 0px;
+      > header,
       .skill-group-summary-cards,
       .student-results h2 {
-        max-width: 1014px;
+        max-width: 982px;
         margin-left: calc(50% + -100px);
         transform: translateX(-50%);
         width: calc(100vw - 260px);

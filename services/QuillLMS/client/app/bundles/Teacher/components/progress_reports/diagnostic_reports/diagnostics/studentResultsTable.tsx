@@ -24,6 +24,10 @@ import {
   helpIcon,
   Tooltip,
 } from '../../../../../Shared/index'
+import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
+
+const WIDE_SCREEN_MINIMUM_WIDTH = 1540 // this is also tied to media queries
+const LEFT_OFFSET = 260 // width of the left-hand navigation
 
 interface StudentResultsTableProps {
   skillGroupSummaries: SkillGroupSummary[];
@@ -125,6 +129,7 @@ const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPo
 }
 
 const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover, setOpenPopover, responsesLink, }: StudentResultsTableProps) => {
+  const size = useWindowSize();
   const [isSticky, setIsSticky] = React.useState(false);
   const tableRef = React.useRef(null);
   const [stickyTableStyle, setStickyTableStyle] = React.useState({
@@ -136,6 +141,10 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
   })
 
   const handleScroll = React.useCallback(({ top, bottom, left, right, }) => {
+    console.log('left', left)
+    console.log('right', right)
+    console.log('top', top)
+    console.log('bottom', bottom)
     if (top <= 0 && bottom > 92) {
       setStickyTableStyle(oldStickyTableStyle => ({ ...oldStickyTableStyle, left }))
       !isSticky && setIsSticky(true);
@@ -190,17 +199,15 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
     </thead>)
   }
 
+  const skillGroupSummaryCards = document.getElementsByClassName('skill-group-summary-cards')[0]
+
+  if (!skillGroupSummaryCards && window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH) { return <span /> }
+
+  const paddingLeft = window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH ? skillGroupSummaryCards.getBoundingClientRect().left - LEFT_OFFSET : 0
+
   return (<div className="student-results-table-container" onScroll={handleScroll}>
     {tableHasContent ? null : noDataYet}
-    {isSticky && (
-      <table
-        className={`${tableClassName} sticky`}
-        style={stickyTableStyle}
-      >
-        {renderHeader()}
-      </table>
-    )}
-    <table className={tableClassName} ref={tableRef}>
+    <table className={tableClassName} ref={tableRef} style={{ paddingLeft, }}>
       {renderHeader()}
       <tbody>
         {studentRows}
