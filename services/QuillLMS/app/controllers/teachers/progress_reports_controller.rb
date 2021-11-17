@@ -5,8 +5,8 @@ class Teachers::ProgressReportsController < ApplicationController
 
   def demo
     set_user
-    switch_current_user(@user)
-    redirect_to demo_redirect_path
+    self.demo_id = @user.id
+    redirect_to '/profile'
   end
 
   def staff_demo
