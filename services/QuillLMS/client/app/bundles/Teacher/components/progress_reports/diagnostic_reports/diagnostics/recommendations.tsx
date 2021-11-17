@@ -108,7 +108,6 @@ const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActi
     assignButton = <button className="quill-button primary contained small focus-on-light" onClick={assignActivityPacks} type="button">Assign activity packs</button>
   }
 
-  const numberSelectedElement = numberSelected ? <span className="number-selected">{numberSelected} activity pack{numberSelected === 1 ? '' : 's'} selected</span> : null
   return (<div className="recommendations-buttons">
     <div>
       <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAll} type="button">Select all</button>
@@ -116,13 +115,12 @@ const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActi
       <button className="quill-button fun secondary outlined focus-on-light" onClick={deselectAll} type="button">Deselect all</button>
     </div>
     <div>
-      {numberSelectedElement}
       {assignButton}
     </div>
   </div>)
 }
 
-const IndependentRecommendationsButtons = ({ assignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, }) => {
+const IndependentRecommendationsButtons = ({ assignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, }) => {
   function handleSelectAllClick() {
     const newSelections = independentSelections.map((selection, index) => {
       selection.students = students.filter(s => s.completed).map(s => s.id)
@@ -147,7 +145,11 @@ const IndependentRecommendationsButtons = ({ assignActivityPacks, independentSel
     setIndependentSelections(newSelections)
   }
 
-  const numberSelected = independentSelections.filter(selection => selection.students.length).length
+  const numberSelected = independentSelections.reduce((previousValue, selection) => {
+    const previouslyAssignedActivity = previouslyAssignedRecommendations.find(r => r.activity_pack_id === selection.activity_pack_id)
+    const selectedStudents = selection.students.filter(id => !previouslyAssignedActivity.students.includes(id))
+    return previousValue += selectedStudents.length
+  }, 0)
   return <RecommendationsButtons assignActivityPacks={assignActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={numberSelected} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
 }
 
@@ -365,7 +367,7 @@ const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPrevio
     <p className="explanation">Based on the results of the diagnostic, we created a personalized learning plan for each student. Customize your learning plan by selecting the activity packs you would like to assign.</p>
     <section className="independent-practice">
       <div className="section-header"><h2>Independent practice</h2>{recommendedKey}</div>
-      <IndependentRecommendationsButtons assignActivityPacks={assignIndependentActivityPacks} assigned={independentAssigned} assigning={independentAssigning} independentSelections={independentSelections} recommendations={independentRecommendations} setIndependentSelections={setIndependentSelections} students={students} />
+      <IndependentRecommendationsButtons assignActivityPacks={assignIndependentActivityPacks} assigned={independentAssigned} assigning={independentAssigning} independentSelections={independentSelections} previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} setIndependentSelections={setIndependentSelections} students={students} />
       <RecommendationsTable previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} selections={independentSelections} setSelections={setIndependentSelections} students={students} />
     </section>
     {wholeClassInstructionSection}

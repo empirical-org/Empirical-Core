@@ -102,8 +102,17 @@
       }
     }
     .data-table {
+      .data-table-headers, .data-table-row {
+        padding-right: 0px;
+      }
       .data-table-row {
         height: min-content;
+      }
+      .score-section, .score-header {
+        margin-right: 0px;
+      }
+      .name-section, .name-header {
+        width: 100% !important;
       }
       .name-section {
         display: flex;

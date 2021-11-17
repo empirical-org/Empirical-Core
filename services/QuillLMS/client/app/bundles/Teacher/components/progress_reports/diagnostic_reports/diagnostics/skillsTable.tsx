@@ -15,7 +15,7 @@ const SkillsTable = ({ skillGroup, isExpandable, }: { skillGroup: SkillGroup, is
 
   function expandRows() { setIsExpanded(true) }
 
-  const skillRows = skillGroup.skills.map(skill => (
+  const skillRows = skillGroup.skills.sort((a, b) => a.skill.localeCompare(b.skill)).map(skill => (
     <tr key={skill.skill}>
       <td>{skill.skill}</td>
       <td className="center-align">{skill.number_correct}</td>

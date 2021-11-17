@@ -26,12 +26,15 @@ const desktopHeaders = (isSortable) => ([
   {
     name: 'Name',
     attribute: 'name',
-    width: '442px'
+    width: '432px',
+    sortAttribute: 'alphabeticalName',
+    isSortable: true
   },
   {
     name: 'Score',
     attribute: 'scoreElement',
-    width: '52px',
+    sortAttribute: 'score',
+    width: '62px',
     noTooltip: true,
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
@@ -52,11 +55,15 @@ const mobileHeaders = (isSortable) => ([
     name: 'Name',
     attribute: 'name',
     width: '196px',
-    rowSectionClassName: 'name-section'
+    rowSectionClassName: 'name-section',
+    headerClassName: 'name-header',
+    sortAttribute: 'alphabeticalName',
+    isSortable: true
   },
   {
     name: 'Score',
     attribute: 'scoreElement',
+    sortAttribute: 'score',
     width: '52px',
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
@@ -67,7 +74,7 @@ const mobileHeaders = (isSortable) => ([
 
 const proficiencyToClassName = {
   [PROFICIENT]: 'proficient',
-  [NEARLY_PROFICIENT]: 'nearly-proficent',
+  [NEARLY_PROFICIENT]: 'nearly-proficient',
   [NOT_YET_PROFICIENT]: 'not-yet-proficient'
 }
 
@@ -119,11 +126,18 @@ const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => 
 
   const worthSorting = students.filter(s => s.score).length
 
+  function alphabeticalName(name) {
+    const nameArray = name.split(' ')
+    const lastName = nameArray[nameArray.length - 1]
+    return `${lastName} ${nameArray.join(' ')}`
+  }
+
   const desktopRows = students.map(student => {
     const { name, score, proficiency, id, } = student
     return {
-      id,
+      id: id || name,
       name,
+      alphabeticalName: alphabeticalName(name),
       score,
       scoreElement: score ? <span className={proficiencyToClassName[proficiency]}>{score}%</span> : null,
       individualResponsesLink: score ? <Link className="quill-button fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link> : <span className="diagnostic-not-completed">Diagnostic not completed</span>
@@ -134,8 +148,9 @@ const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => 
     const { name, score, proficiency, id, } = student
     const nameElement = score ? <Link to={responsesLink(id)}>{name}</Link> : <React.Fragment><span>{name}</span><span className="diagnostic-not-completed">Diagnostic not completed</span></React.Fragment>
     return {
-      id,
+      id: id || name,
       name: nameElement,
+      alphabeticalName: alphabeticalName(name),
       score,
       scoreElement: score ? <span className={proficiencyToClassName[proficiency]}>{score}%</span> : null,
     }

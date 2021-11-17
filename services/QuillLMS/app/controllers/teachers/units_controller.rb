@@ -392,7 +392,7 @@ class Teachers::UnitsController < ApplicationController
     return if records.empty?
     classroom_unit_ids = records.map { |record| record['classroom_unit_id'] }
     activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_unit_ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
-    activity_sessions_for_skills_count = student_ids_for_skills_count ? activity_sessions.where(user_id: student_ids_for_skills_count) : activity_sessions
+    activity_sessions_for_skills_count = student_ids_for_skills_count ? activity_sessions.select { |as| student_ids_for_skills_count.include?(as.user_id) } : activity_sessions
     record = records[0]
     return if !record
     record['completed_count'] = activity_sessions.size

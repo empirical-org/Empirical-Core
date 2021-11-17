@@ -98,7 +98,7 @@ const IndividualStudentResponses = ({ match, passedConceptResults, passedSkillRe
   const [name, setName] = React.useState<string>('')
   const [conceptResults, setConceptResults] = React.useState<ConceptResults>(passedConceptResults || []);
   const [skillResults, setSkillResults] = React.useState<SkillResults>(passedSkillResults || []);
-  const [preOrPost, setPreOrPost] = React.useState<string>(PRE)
+  const [preOrPost, setPreOrPost] = React.useState<string>(POST)
 
   const { activityId, classroomId, studentId, } = match.params
   const unitId = qs.parse(location.search.replace('?', '')).unit
