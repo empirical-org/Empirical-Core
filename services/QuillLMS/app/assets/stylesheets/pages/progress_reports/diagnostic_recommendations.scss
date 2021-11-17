@@ -59,10 +59,11 @@
   .recommendations-table-container {
     margin-top: 16px;
     overflow-x: scroll;
-    width: calc(100vw - 300px);
     position: relative;
     margin-bottom: -40px;
     padding-bottom: 40px;
+    margin-left: -365px;
+    padding-left: 364px;
     .no-data-yet {
       position: absolute;
       top: 81px;
@@ -188,6 +189,9 @@
       border-radius: 8px 0px 0px;
       border-left: 1px solid #e0e0e0;
       width: 216px;
+      position: sticky;
+      left: 0px;
+      z-index: 1;
     }
     .corner-header, .recommendation-header {
       border-top: 1px solid #e0e0e0;

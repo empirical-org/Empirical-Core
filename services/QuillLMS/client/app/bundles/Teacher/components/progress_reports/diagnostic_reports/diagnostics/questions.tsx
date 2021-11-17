@@ -45,7 +45,7 @@ const desktopHeaders = (isSortable) => ([
   {
     name: '',
     attribute: 'directionsAndPrompt',
-    width: '730px',
+    width: '757px',
     noTooltip: true,
     rowSectionClassName: 'directions-and-prompt-section',
     headerClassName: 'directions-and-prompt-header'
@@ -165,20 +165,22 @@ const Questions = ({ passedQuestions, match, mobileNavigation, }) => {
       <a className="focus-on-light" href="/">{fileDocumentIcon}<span>Guide</span></a>
     </header>
     {mobileNavigation}
-    <DataTable
-      className="hide-on-mobile"
-      defaultSortAttribute={worthSorting && 'score'}
-      defaultSortDirection='asc'
-      headers={desktopHeaders(worthSorting)}
-      rows={desktopRows}
-    />
-    <DataTable
-      className="hide-on-desktop"
-      defaultSortAttribute={worthSorting && 'score'}
-      defaultSortDirection='asc'
-      headers={mobileHeaders(worthSorting)}
-      rows={mobileRows}
-    />
+    <div className="data-table-container">
+      <DataTable
+        className="hide-on-mobile"
+        defaultSortAttribute={worthSorting && 'score'}
+        defaultSortDirection='asc'
+        headers={desktopHeaders(worthSorting)}
+        rows={desktopRows}
+      />
+      <DataTable
+        className="hide-on-desktop"
+        defaultSortAttribute={worthSorting && 'score'}
+        defaultSortDirection='asc'
+        headers={mobileHeaders(worthSorting)}
+        rows={mobileRows}
+      />
+    </div>
   </main>)
 }
 

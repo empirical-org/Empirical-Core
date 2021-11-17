@@ -139,20 +139,20 @@ const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => 
       name,
       alphabeticalName: alphabeticalName(name),
       score,
-      scoreElement: score !== null? <span className={proficiencyToClassName[proficiency]}>{score}%</span> : null,
-      individualResponsesLink: score !== null ? <Link className="quill-button fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link> : <span className="diagnostic-not-completed">Diagnostic not completed</span>
+      scoreElement: score !== undefined ? <span className={proficiencyToClassName[proficiency]}>{score}%</span> : null,
+      individualResponsesLink: score !== undefined ? <Link className="quill-button fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link> : <span className="diagnostic-not-completed">Diagnostic not completed</span>
     }
   })
 
   const mobileRows = students.map(student => {
     const { name, score, proficiency, id, } = student
-    const nameElement = score !== null ? <Link to={responsesLink(id)}>{name}</Link> : <React.Fragment><span>{name}</span><span className="diagnostic-not-completed">Diagnostic not completed</span></React.Fragment>
+    const nameElement = score !== undefined ? <Link to={responsesLink(id)}>{name}</Link> : <React.Fragment><span>{name}</span><span className="diagnostic-not-completed">Diagnostic not completed</span></React.Fragment>
     return {
       id: id || name,
       name: nameElement,
       alphabeticalName: alphabeticalName(name),
       score,
-      scoreElement: score !== null ? <span className={proficiencyToClassName[proficiency]}>{score}%</span> : null,
+      scoreElement: score !== undefined ? <span className={proficiencyToClassName[proficiency]}>{score}%</span> : null,
     }
   })
 
@@ -167,20 +167,22 @@ const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => 
       <ProficiencyKey className="nearly-proficient" range="60-79%" studentCount={nearlyProficientStudents.length} title={NEARLY_PROFICIENT} />
       <ProficiencyKey className="proficient" range="80-100%" studentCount={proficientStudents.length} title={PROFICIENT} />
     </section>
-    <DataTable
-      className="hide-on-mobile"
-      defaultSortAttribute={worthSorting && 'score'}
-      defaultSortDirection='asc'
-      headers={desktopHeaders(worthSorting)}
-      rows={desktopRows}
-    />
-    <DataTable
-      className="hide-on-desktop"
-      defaultSortAttribute={worthSorting && 'score'}
-      defaultSortDirection='asc'
-      headers={mobileHeaders(worthSorting)}
-      rows={mobileRows}
-    />
+    <div className="data-table-container">
+      <DataTable
+        className="hide-on-mobile"
+        defaultSortAttribute={worthSorting && 'score'}
+        defaultSortDirection='asc'
+        headers={desktopHeaders(worthSorting)}
+        rows={desktopRows}
+      />
+      <DataTable
+        className="hide-on-desktop"
+        defaultSortAttribute={worthSorting && 'score'}
+        defaultSortDirection='asc'
+        headers={mobileHeaders(worthSorting)}
+        rows={mobileRows}
+      />
+    </div>
   </main>)
 }
 

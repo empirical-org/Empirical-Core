@@ -94,7 +94,7 @@ const LessonRecommendation = ({ previouslyAssignedRecommendations, selections, s
 }
 
 const LessonsRecommendations = ({ previouslyAssignedRecommendations, recommendations, selections, setSelections, }) => {
-  return recommendations.map(recommendation => <LessonRecommendation key={recommendation.activity_pack_id} previouslyAssignedRecommendations={[73, 49]} recommendation={recommendation} selections={selections} setSelections={setSelections} />)
+  return <div className="lessons-recommendations">{recommendations.map(recommendation => <LessonRecommendation key={recommendation.activity_pack_id} previouslyAssignedRecommendations={[73, 49]} recommendation={recommendation} selections={selections} setSelections={setSelections} />)}</div>
 }
 
 const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActivityPacks, deselectAll, selectAll, selectAllRecommended}) => {
@@ -108,14 +108,16 @@ const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActi
     assignButton = <button className="quill-button primary contained small focus-on-light" onClick={assignActivityPacks} type="button">Assign activity packs</button>
   }
 
-  return (<div className="recommendations-buttons">
-    <div>
-      <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAll} type="button">Select all</button>
-      <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAllRecommended} type="button">Select all recommended</button>
-      <button className="quill-button fun secondary outlined focus-on-light" onClick={deselectAll} type="button">Deselect all</button>
-    </div>
-    <div>
-      {assignButton}
+  return (<div className="recommendations-buttons-container">
+    <div className="recommendations-buttons">
+      <div>
+        <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAll} type="button">Select all</button>
+        <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAllRecommended} type="button">Select all recommended</button>
+        <button className="quill-button fun secondary outlined focus-on-light" onClick={deselectAll} type="button">Deselect all</button>
+      </div>
+      <div>
+        {assignButton}
+      </div>
     </div>
   </div>)
 }

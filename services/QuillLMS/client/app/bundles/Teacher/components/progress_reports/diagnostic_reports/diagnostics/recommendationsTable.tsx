@@ -4,6 +4,9 @@ import {
   noDataYet,
   asteriskIcon,
   correctImage,
+  WIDE_SCREEN_MINIMUM_WIDTH,
+  LEFT_OFFSET,
+  DEFAULT_LEFT_PADDING,
 } from './shared'
 import {
   Recommendation,
@@ -16,6 +19,7 @@ import {
   Tooltip,
   smallWhiteCheckIcon,
 } from '../../../../../Shared/index'
+import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 
 interface RecommendationsTableProps {
   recommendations: Recommendation[];
@@ -101,6 +105,8 @@ const StudentRow = ({ student, selections, recommendations, previouslyAssignedRe
 }
 
 const RecommendationsTable = ({ recommendations, students, selections, previouslyAssignedRecommendations, setSelections, }: RecommendationsTableProps) => {
+  const size = useWindowSize();
+
   const [isSticky, setIsSticky] = React.useState(false);
   const tableRef = React.useRef(null);
   const [stickyTableStyle, setStickyTableStyle] = React.useState<StickyTableStyle>({
@@ -111,10 +117,14 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
     zIndex: 3
   })
 
+  function paddingLeft() {
+    const explanation = document.getElementsByClassName('explanation')[0]
+    return explanation && window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH ? explanation.getBoundingClientRect().left - LEFT_OFFSET : DEFAULT_LEFT_PADDING
+  }
+
   const handleScroll = React.useCallback(({ top, bottom, left, right, }) => {
-    // values are based on intersection with the `.recommendations-table` - 0 is just intersecting with the top and 92 is the height of each row, so once we get below that we don't want to continue dragging the header down
     if (top <= 0 && bottom > 92) {
-      setStickyTableStyle(oldStickyTableStyle => ({ ...oldStickyTableStyle, left }))
+      setStickyTableStyle(oldStickyTableStyle => ({ ...oldStickyTableStyle, left: left + paddingLeft() }))
       !isSticky && setIsSticky(true);
     } else {
       isSticky && setIsSticky(false);
@@ -161,10 +171,11 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
 
   const tableClassName = tableHasContent ? 'recommendations-table' : 'empty recommendations-table'
 
-  const renderHeader = () => {
+  const renderHeader = (sticky) => {
+    const calculatedLeftValue = LEFT_OFFSET > stickyTableStyle.left ? -(LEFT_OFFSET - (stickyTableStyle.left - paddingLeft())) : (LEFT_OFFSET - (stickyTableStyle.left - paddingLeft()))
     return (<thead>
       <tr>
-        <th className="corner-header">Name</th>
+        <th className="corner-header" style={sticky ? { left: calculatedLeftValue + 1, } : {}}>Name</th>
         {tableHeaders}
       </tr>
     </thead>)
@@ -177,11 +188,11 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
         className={`${tableClassName} sticky`}
         style={stickyTableStyle}
       >
-        {renderHeader()}
+        {renderHeader(true)}
       </table>
     )}
-    <table className={tableClassName} ref={tableRef}>
-      {renderHeader()}
+    <table className={tableClassName} ref={tableRef} style={{ paddingLeft: paddingLeft(), }}>
+      {renderHeader(false)}
       <tbody>
         {studentRows}
       </tbody>

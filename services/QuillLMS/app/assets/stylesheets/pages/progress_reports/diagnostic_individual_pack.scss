@@ -107,7 +107,7 @@
     // }
   }
   main {
-    padding: 40px 32px;
+    padding: 40px 0px;
     width: calc(100vw - 260px);
     background-color: white;
     header {
@@ -152,16 +152,45 @@
 
   @media (min-width: 1540px) {
     main {
-      padding: 40px 0px;
       > header,
       .skill-group-summary-cards,
-      .student-results h2 {
+      .student-results h2,
+      .proficiency-keys,
+      &.student-responses-index-container .data-table-container,
+      &.individual-student-responses-container .skills-table-container-wrapper,
+      &.individual-student-responses-container .concept-results-container,
+      &.questions-index-container .data-table-container,
+      &.diagnostic-recommendations-container .explanation,
+      &.diagnostic-recommendations-container .recommendations-buttons-container,
+      &.diagnostic-recommendations-container .lessons-recommendations,
+      &.diagnostic-recommendations-container .section-header {
         max-width: 982px;
         margin-left: calc(50% + -100px);
         transform: translateX(-50%);
         width: calc(100vw - 260px);
       }
     }
+  }
+
+  @media (max-width: 1539px) {
+    main {
+      > header,
+      .skill-group-summary-cards,
+      .student-results h2,
+      .proficiency-keys,
+      &.student-responses-index-container .data-table-container,
+      &.individual-student-responses-container .skills-table-container-wrapper,
+      &.individual-student-responses-container .concept-results-container,
+      &.questions-index-container .data-table-container,
+      &.diagnostic-recommendations-container .explanation,
+      &.diagnostic-recommendations-container .recommendations-buttons-container,
+      &.diagnostic-recommendations-container .lessons-recommendations,
+      &.diagnostic-recommendations-container .section-header {
+        padding-left: 32px;
+        padding-right: 32px;
+      }
+    }
+
   }
 
   @media (max-width: 930px) {

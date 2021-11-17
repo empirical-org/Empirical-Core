@@ -12,6 +12,9 @@ import {
   proficiencyTextToTag,
   proficiencyTextToGrayIcon,
   lightGreenTriangleUpIcon,
+  WIDE_SCREEN_MINIMUM_WIDTH,
+  LEFT_OFFSET,
+  DEFAULT_LEFT_PADDING,
 } from './shared'
 import {
   SkillGroupSummary,
@@ -26,8 +29,6 @@ import {
 } from '../../../../../Shared/index'
 import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 
-const WIDE_SCREEN_MINIMUM_WIDTH = 1540 // this is also tied to media queries
-const LEFT_OFFSET = 260 // width of the left-hand navigation
 
 interface StudentResultsTableProps {
   skillGroupSummaries: SkillGroupSummary[];
@@ -132,6 +133,7 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
   const size = useWindowSize();
   const [isSticky, setIsSticky] = React.useState(false);
   const tableRef = React.useRef(null);
+
   const [stickyTableStyle, setStickyTableStyle] = React.useState({
     position: "fixed",
     top: 0,
@@ -140,13 +142,14 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
     zIndex: 3
   })
 
+  function paddingLeft() {
+    const skillGroupSummaryCards = document.getElementsByClassName('skill-group-summary-cards')[0]
+    return skillGroupSummaryCards && window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH ? skillGroupSummaryCards.getBoundingClientRect().left - LEFT_OFFSET : DEFAULT_LEFT_PADDING
+  }
+
   const handleScroll = React.useCallback(({ top, bottom, left, right, }) => {
-    console.log('left', left)
-    console.log('right', right)
-    console.log('top', top)
-    console.log('bottom', bottom)
     if (top <= 0 && bottom > 92) {
-      setStickyTableStyle(oldStickyTableStyle => ({ ...oldStickyTableStyle, left }))
+      setStickyTableStyle(oldStickyTableStyle => ({ ...oldStickyTableStyle, left: left + paddingLeft() }))
       !isSticky && setIsSticky(true);
     } else {
       isSticky && setIsSticky(false);
@@ -190,25 +193,30 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
 
   const tableClassName = tableHasContent ? 'student-results-table' : 'empty student-results-table'
 
-  const renderHeader = () => {
+  const renderHeader = (sticky) => {
+    const calculatedLeftValue = LEFT_OFFSET > stickyTableStyle.left ? -(LEFT_OFFSET - (stickyTableStyle.left - paddingLeft())) : (LEFT_OFFSET - (stickyTableStyle.left - paddingLeft()))
     return (<thead>
       <tr>
-        <th className="corner-header">Name</th>
+        <th className="corner-header" style={sticky ? { left: calculatedLeftValue + 1, } : {}}>Name</th>
         {tableHeaders}
       </tr>
     </thead>)
   }
 
-  const skillGroupSummaryCards = document.getElementsByClassName('skill-group-summary-cards')[0]
-
-  if (!skillGroupSummaryCards && window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH) { return <span /> }
-
-  const paddingLeft = window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH ? skillGroupSummaryCards.getBoundingClientRect().left - LEFT_OFFSET : 0
+  if (window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH && paddingLeft() === DEFAULT_LEFT_PADDING) { return <span /> }
 
   return (<div className="student-results-table-container" onScroll={handleScroll}>
     {tableHasContent ? null : noDataYet}
-    <table className={tableClassName} ref={tableRef} style={{ paddingLeft, }}>
-      {renderHeader()}
+    {isSticky && (
+    <table
+      className={`${tableClassName} sticky`}
+      style={stickyTableStyle}
+    >
+      {renderHeader(true)}
+    </table>
+    )}
+    <table className={tableClassName} ref={tableRef} style={{ paddingLeft: paddingLeft(), }}>
+      {renderHeader(false)}
       <tbody>
         {studentRows}
       </tbody>
