@@ -90,7 +90,7 @@ export const PremiumPricingGuide = ({ lastFour, diagnosticActivityCount, indepen
       <div className="container premium-page">
         {userIsSignedIn() && <PremiumBannerBuilder originPage="premium" showPurchaseModal={showPurchaseModal} />}
         <div className="overview text-center">
-          <PremiumPricingMinisRow diagnosticActivityCount={diagnosticActivityCount} independentPracticeActivityCount={independentPracticeActivityCount} lastFour={lastFour} lessonsActivityCount={lessonsActivityCount} showPurchaseModal={showPurchaseModal} userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}/>
+          <PremiumPricingMinisRow diagnosticActivityCount={diagnosticActivityCount} independentPracticeActivityCount={independentPracticeActivityCount} lastFour={lastFour} lessonsActivityCount={lessonsActivityCount} showPurchaseModal={showPurchaseModal} userIsEligibleForNewSubscription={userIsEligibleForNewSubscription} />
           <PremiumFeaturesTable
             diagnosticActivityCount={diagnosticActivityCount}
             independentPracticeActivityCount={independentPracticeActivityCount}
