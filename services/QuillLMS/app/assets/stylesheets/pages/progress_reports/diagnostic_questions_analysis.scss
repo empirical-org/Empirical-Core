@@ -1,11 +1,12 @@
 .diagnostic-individual-pack main.questions-index-container {
   .data-table {
-    overflow: hidden;
+    overflow: visible;
     border-radius: 8px;
     border: solid 1px #e0e0e0;
     margin-top: 24px;
     .data-table-headers {
       height: 48px;
+      border-radius: 8px 8px 0px 0px;
     }
     &.hide-on-mobile {
       width: 950px;

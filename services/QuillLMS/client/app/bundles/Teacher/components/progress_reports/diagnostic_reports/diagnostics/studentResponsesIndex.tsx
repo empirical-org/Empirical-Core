@@ -139,20 +139,20 @@ const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => 
       name,
       alphabeticalName: alphabeticalName(name),
       score,
-      scoreElement: score ? <span className={proficiencyToClassName[proficiency]}>{score}%</span> : null,
-      individualResponsesLink: score ? <Link className="quill-button fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link> : <span className="diagnostic-not-completed">Diagnostic not completed</span>
+      scoreElement: score !== null? <span className={proficiencyToClassName[proficiency]}>{score}%</span> : null,
+      individualResponsesLink: score !== null ? <Link className="quill-button fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link> : <span className="diagnostic-not-completed">Diagnostic not completed</span>
     }
   })
 
   const mobileRows = students.map(student => {
     const { name, score, proficiency, id, } = student
-    const nameElement = score ? <Link to={responsesLink(id)}>{name}</Link> : <React.Fragment><span>{name}</span><span className="diagnostic-not-completed">Diagnostic not completed</span></React.Fragment>
+    const nameElement = score !== null ? <Link to={responsesLink(id)}>{name}</Link> : <React.Fragment><span>{name}</span><span className="diagnostic-not-completed">Diagnostic not completed</span></React.Fragment>
     return {
       id: id || name,
       name: nameElement,
       alphabeticalName: alphabeticalName(name),
       score,
-      scoreElement: score ? <span className={proficiencyToClassName[proficiency]}>{score}%</span> : null,
+      scoreElement: score !== null ? <span className={proficiencyToClassName[proficiency]}>{score}%</span> : null,
     }
   })
 

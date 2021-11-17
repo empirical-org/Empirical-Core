@@ -209,10 +209,16 @@
       height: 92px;
       padding: 16px;
       .student-name {
-        overflow: hidden;
         text-overflow: ellipsis;
         max-width: 182px;
         display: inline-block;
+        -ms-flex-negative: 1;
+        white-space: initial;
+        line-height: normal;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
       }
       > div {
         display: flex;
@@ -224,6 +230,7 @@
           font-weight: normal;
           line-height: 1.43;
           color: #262626;
+          width: 100%;
         }
         .diagnostic-not-completed {
           font-weight: normal;

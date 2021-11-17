@@ -49,6 +49,9 @@
         height: 100%;
         padding: 12px;
         margin-left: -12px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
         width: 100%;
         text-align: right;
         &.proficient {

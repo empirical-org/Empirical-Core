@@ -63,7 +63,9 @@ module GrowthResultsSummary
       pre_test_proficiency = summarize_student_proficiency_for_skill_per_activity(pre_present_skill_number, pre_correct_skill_number)
       skill_group_summary_index = @skill_group_summaries.find_index { |sg| sg[:name] == skill_group.name }
       @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].push(student_name) unless post_test_proficiency == PROFICIENCY
+      @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names] =   @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].uniq
       @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_pre_test_student_names].push(student_name) unless pre_test_proficiency == PROFICIENCY
+      @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_pre_test_student_names] = @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_pre_test_student_names].uniq
       {
         skill_group: skill_group.name,
         skills: skills,

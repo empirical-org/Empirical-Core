@@ -45,7 +45,7 @@ const desktopHeaders = (isSortable) => ([
   {
     name: '',
     attribute: 'directionsAndPrompt',
-    width: '757px',
+    width: '730px',
     noTooltip: true,
     rowSectionClassName: 'directions-and-prompt-section',
     headerClassName: 'directions-and-prompt-header'
