@@ -75,7 +75,6 @@ class ActivitiesController < ApplicationController
   end
 
   def activity_link(classroom_unit_id: nil)
-    classroom_unit_id = params["classroom_unit_id"]
     classroom_unit = classroom_unit_id && ClassroomUnit.find(classroom_unit_id)
     if current_user && current_user.role == "student"
       if classroom_unit && !classroom_unit.assigned_student_ids.include?(current_user.id)

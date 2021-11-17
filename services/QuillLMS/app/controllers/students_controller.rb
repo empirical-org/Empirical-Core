@@ -121,6 +121,8 @@ class StudentsController < ApplicationController
 
     unless classroom_unit && classroom_unit.assigned_student_ids.include?(current_user.id)
       flash[:error] = 'Sorry, you do not have access to this activity pack because it has not been assigned to you. Please contact your teacher.'
+      flash.keep(:error)
+      redirect_to classes_path
     end
   end
 

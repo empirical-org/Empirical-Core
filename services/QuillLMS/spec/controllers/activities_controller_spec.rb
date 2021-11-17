@@ -91,7 +91,8 @@ describe ActivitiesController, type: :controller, redis: true do
     context 'student is not assigned to classroom_unit' do
       it '' do
         get :activity_session, params: { id: activity.id, classroom_unit_id: classroom_unit.id }
-        expect(response).to redirect_to profile_path
+        expect(response).to redirect_to classes_path
+        expect(flash[:error]).to match(/Sorry, you do not have access to this activity because it has not been assigned to you. Please contact your teacher.*/)
       end
     end
 
@@ -100,7 +101,7 @@ describe ActivitiesController, type: :controller, redis: true do
 
       it '' do
         get :activity_session, params: { id: another_activity.id, classroom_unit_id: classroom_unit.id }
-        expect(response).to redirect_to profile_path
+        expect(response).to redirect_to classes_path
       end
     end
   end
