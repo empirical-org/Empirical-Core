@@ -13,11 +13,22 @@ module CleverIntegration::SignUp::Teacher
     end
   end
 
+  def self.log_import(action, auth_hash)
+    changed_record = User.find(ENV['CLEVER_IMPORT_LOG_USER_ID'])
+    changed_attr = auth_hash.dig(:info, :user_type)
+
+    return if ChangeLog.exists?(changed_record: user, changed_attr: changed_attr, action: action, user: user)
+
+    ChangeLog.create(explanation: auth_hash.to_json, changed_record: user, changed_attr: changed_attr, action: action, user: user)
+  end
+
   def self.library_integration(auth_hash)
+    log_import(:district_integration, auth_hash)
     CleverIntegration::Importers::Library.run(auth_hash)
   end
 
   def self.district_integration(auth_hash, district)
+    log_import(:library_integration, auth_hash)
     teacher = create_teacher(auth_hash)
     if teacher.present?
       associate_teacher_to_district(teacher, district)
