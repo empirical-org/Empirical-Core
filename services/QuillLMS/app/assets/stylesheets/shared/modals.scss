@@ -1102,3 +1102,22 @@
     }
   }
 }
+
+.explore-demo-modal {
+  bottom: auto;
+  width: 500px;
+  h1 {
+    font-weight: bold;
+  }
+  .explore-demo-modal-text {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+.close-demo-modal {
+  float: right;
+  z-index: 99;
+  position: relative;
+  cursor: pointer;
+}
