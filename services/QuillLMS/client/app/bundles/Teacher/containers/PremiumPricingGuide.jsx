@@ -60,7 +60,7 @@ export const PremiumPricingGuide = ({ lastFour, diagnosticActivityCount, indepen
   };
 
   const updateSubscriptionStatus = subscription => {
-    setSubscriptionType(subscription)
+    setSubscriptionStatus(subscription)
     setShouldShowPremiumConfirmationModal(true)
     setShouldShowPurchaseModal(false)
   };
