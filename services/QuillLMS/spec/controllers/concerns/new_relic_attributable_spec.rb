@@ -9,7 +9,7 @@ describe NewRelicAttributable, type: :controller do
     end
   end
 
-  let (:user) { create(:user) }
+  let(:user) { create(:user) }
 
   before do
     routes.draw { get :index, to: "anonymous#index" }
