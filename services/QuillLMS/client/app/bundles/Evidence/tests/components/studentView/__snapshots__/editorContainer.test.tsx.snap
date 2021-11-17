@@ -21,7 +21,7 @@ exports[`EditorContainer component when the activity has loaded renders 1`] = `
       html="Here is some text <u>because</u> "
       innerRef={[Function]}
       onChange={[Function]}
-      spellCheck={false}
+      spellCheck={true}
     >
       <div
         className="step"
@@ -38,7 +38,7 @@ exports[`EditorContainer component when the activity has loaded renders 1`] = `
         onInput={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        spellCheck={false}
+        spellCheck={true}
       />
     </ContentEditable>
     <button
