@@ -66,7 +66,7 @@ exports[`PromptStep component active state before any responses have been submit
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor"
@@ -84,7 +84,7 @@ exports[`PromptStep component active state before any responses have been submit
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
               <button
@@ -182,7 +182,7 @@ exports[`PromptStep component active state when a profane response has been subm
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor"
@@ -200,7 +200,7 @@ exports[`PromptStep component active state when a profane response has been subm
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
               <button
@@ -388,7 +388,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor"
@@ -406,7 +406,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
               <button
@@ -604,7 +604,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor suboptimal"
@@ -622,7 +622,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
               <button
@@ -829,7 +829,7 @@ exports[`PromptStep component active state when a too-long response has been sub
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor"
@@ -847,7 +847,7 @@ exports[`PromptStep component active state when a too-long response has been sub
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
               <button
@@ -1035,7 +1035,7 @@ exports[`PromptStep component active state when a too-short response has been su
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor"
@@ -1053,7 +1053,7 @@ exports[`PromptStep component active state when a too-short response has been su
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
               <button
@@ -1251,7 +1251,7 @@ exports[`PromptStep component active state when an optimal response has been sub
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor optimal disabled"
@@ -1269,7 +1269,7 @@ exports[`PromptStep component active state when an optimal response has been sub
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
             </div>
@@ -1502,7 +1502,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor suboptimal disabled"
@@ -1520,7 +1520,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
             </div>
@@ -1755,7 +1755,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor optimal disabled"
@@ -1773,7 +1773,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
             </div>
