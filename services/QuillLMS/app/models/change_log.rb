@@ -100,6 +100,7 @@ class ChangeLog < ApplicationRecord
     update: 'Edited User',
     skipped_import: 'Skipped User import'
   }
+  # TODO remove temporary CLEVER_IMPORT_ACTIONS
   CLEVER_IMPORT_ACTIONS = %i[
     library_integration
     district_integration
@@ -108,6 +109,7 @@ class ChangeLog < ApplicationRecord
     'Visited User Directory',
     'Searched Users'
   ]
+  # TODO remove temporary CLEVER_IMPORT_ACTIONS
   ALL_ACTIONS = USER_ACTIONS.values + CONCEPT_ACTIONS + TOPIC_ACTIONS + STANDARD_ACTIONS + STANDARD_CATEGORY_ACTIONS + STANDARD_LEVEL_ACTIONS + EVIDENCE_ACTIONS.values + CLEVER_IMPORT_ACTIONS
 
   belongs_to :changed_record, polymorphic: true

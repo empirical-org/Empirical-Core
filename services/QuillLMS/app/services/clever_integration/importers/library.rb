@@ -3,10 +3,6 @@ module CleverIntegration::Importers::Library
     client = CleverLibrary::Api::Client.new(auth_hash.credentials.token)
     user = import_teacher(client)
 
-    unless ChangeLog.exists?(changed_record: user, attr: user_type, action: :clever_library_import)
-      ChangeLog.create(changed_record: user, attr: user_type, action: :clever_library_import, explanation: auth_hash.to_json)
-    end
-
     if auth_hash[:info][:user_type] == 'teacher'
       classrooms = import_classrooms(client, user)
       CleverLibraryStudentImporterWorker.perform_async(classrooms.map(&:id), auth_hash.credentials.token)
@@ -21,7 +17,6 @@ module CleverIntegration::Importers::Library
   def self.import_teacher(client)
     teacher_id = client.user()['id']
     teacher_data = client.get_teacher(teacher_id: teacher_id)
-
     CleverIntegration::Creators::Teacher.run(
       email: teacher_data['email'],
       name: "#{teacher_data['name']['first']} #{teacher_data['name']['middle']} #{teacher_data['name']['last']}".squish,
