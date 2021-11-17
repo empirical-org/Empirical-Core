@@ -8,8 +8,8 @@ class TeacherDashboardMetrics
    {
       weekly_assigned_activities_count: count_of_assigned_activities(last_sunday),
       yearly_assigned_activities_count: count_of_assigned_activities(last_july_first),
-      weekly_completed_activities_count: count_of_completed_activities(last_sunday),
-      yearly_completed_activities_count: count_of_completed_activities(last_july_first)
+      weekly_completed_activities_count: completed_at_array.count {|date| date >= last_sunday},
+      yearly_completed_activities_count: completed_at_array.count {|date| date >= last_july_first}
     }
   end
 
@@ -30,9 +30,16 @@ class TeacherDashboardMetrics
     end
   end
 
-  def count_of_completed_activities(start_date)
-    classroom_units = ClassroomUnit.where(classroom_id: classroom_ids)
-    ActivitySession.where(classroom_unit_id: classroom_units.ids).where("completed_at >= ?", start_date).count
+  def completed_at_array
+    @completed_at_array ||= begin
+      classroom_unit_ids = ClassroomUnit.where(classroom_id: classroom_ids).pluck(:id)
+
+      ActivitySession
+        .unscoped
+        .where(classroom_unit_id: classroom_unit_ids, visible: true)
+        .where.not(completed_at: nil)
+        .pluck(:completed_at)
+    end
   end
 
   private def classroom_ids
