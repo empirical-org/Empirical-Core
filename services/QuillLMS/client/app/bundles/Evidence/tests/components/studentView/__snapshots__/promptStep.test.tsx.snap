@@ -3,6 +3,7 @@
 exports[`PromptStep component active state before any responses have been submitted matches snapshot 1`] = `
 <PromptStep
   active={true}
+  activityIsComplete={false}
   className="step active"
   completeStep={[Function]}
   everyOtherStepCompleted={false}
@@ -119,6 +120,7 @@ exports[`PromptStep component active state before any responses have been submit
 exports[`PromptStep component active state when a profane response has been submitted matches snapshot 1`] = `
 <PromptStep
   active={true}
+  activityIsComplete={false}
   className="step active"
   completeStep={[Function]}
   everyOtherStepCompleted={false}
@@ -325,6 +327,7 @@ exports[`PromptStep component active state when a profane response has been subm
 exports[`PromptStep component active state when a response with multiple sentences has been submitted matches snapshot 1`] = `
 <PromptStep
   active={true}
+  activityIsComplete={false}
   className="step active"
   completeStep={[Function]}
   everyOtherStepCompleted={false}
@@ -531,6 +534,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
 exports[`PromptStep component active state when a suboptimal response has been submitted matches snapshot 1`] = `
 <PromptStep
   active={true}
+  activityIsComplete={false}
   className="step active"
   completeStep={[Function]}
   everyOtherStepCompleted={false}
@@ -766,6 +770,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
 exports[`PromptStep component active state when a too-long response has been submitted matches snapshot 1`] = `
 <PromptStep
   active={true}
+  activityIsComplete={false}
   className="step active"
   completeStep={[Function]}
   everyOtherStepCompleted={false}
@@ -972,6 +977,7 @@ exports[`PromptStep component active state when a too-long response has been sub
 exports[`PromptStep component active state when a too-short response has been submitted matches snapshot 1`] = `
 <PromptStep
   active={true}
+  activityIsComplete={false}
   className="step active"
   completeStep={[Function]}
   everyOtherStepCompleted={false}
@@ -1178,6 +1184,7 @@ exports[`PromptStep component active state when a too-short response has been su
 exports[`PromptStep component active state when an optimal response has been submitted matches snapshot 1`] = `
 <PromptStep
   active={true}
+  activityIsComplete={false}
   className="step active"
   completeStep={[Function]}
   everyOtherStepCompleted={false}
@@ -1401,6 +1408,7 @@ exports[`PromptStep component active state when an optimal response has been sub
 exports[`PromptStep component active state when the max attempts have been reached matches snapshot 1`] = `
 <PromptStep
   active={true}
+  activityIsComplete={false}
   className="step active"
   completeStep={[Function]}
   everyOtherStepCompleted={false}
@@ -1682,6 +1690,7 @@ exports[`PromptStep component active state when the max attempts have been reach
 exports[`PromptStep component active state when the max attempts have been reached or the last answer is optimal and every other question has been completed matches snapshot 1`] = `
 <PromptStep
   active={true}
+  activityIsComplete={true}
   className="step active"
   completeStep={[Function]}
   everyOtherStepCompleted={true}
@@ -1780,7 +1789,6 @@ exports[`PromptStep component active state when the max attempts have been reach
           </EditorContainer>
           <button
             className="quill-button focus-on-light"
-            onClick={[Function]}
             type="button"
           >
             <span>
@@ -1905,6 +1913,7 @@ exports[`PromptStep component active state when the max attempts have been reach
 exports[`PromptStep component inactive state renders 1`] = `
 <PromptStep
   active={false}
+  activityIsComplete={false}
   className="step"
   completeStep={[Function]}
   everyOtherStepCompleted={false}
