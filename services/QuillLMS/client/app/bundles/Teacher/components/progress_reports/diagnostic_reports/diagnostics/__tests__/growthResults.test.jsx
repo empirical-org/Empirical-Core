@@ -14,7 +14,7 @@ import GrowthResults from '../growth_results'
 describe('GrowthResults component', () => {
   it('should render when there are results', () => {
     const wrapper = mount(<GrowthResults
-      match={}
+      match={{}}
       mobileNavigation={<span />}
       passedSkillGroupSummaries={growthSummarySkillGroupSummaries}
       passedStudentResults={growthSummaryStudentResults}
@@ -24,7 +24,7 @@ describe('GrowthResults component', () => {
 
   it('should render when there are no results', () => {
     const wrapper = mount(<GrowthResults
-      match={}
+      match={{}}
       mobileNavigation={<span />}
       passedSkillGroupSummaries={growthSummarySkillGroupSummariesNoData}
       passedStudentResults={growthSummaryStudentResultsNoData}

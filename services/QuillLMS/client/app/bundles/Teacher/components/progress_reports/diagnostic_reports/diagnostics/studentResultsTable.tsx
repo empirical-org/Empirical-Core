@@ -164,7 +164,11 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
   }, [isSticky]);
 
 
-  const onScroll = () => handleScroll(tableRef.current.getBoundingClientRect());
+  const onScroll = () => {
+    if (tableRef && tableRef.current) {
+      handleScroll(tableRef.current.getBoundingClientRect());
+    }
+  }
 
   React.useEffect(() => {
     window.addEventListener("scroll", onScroll);

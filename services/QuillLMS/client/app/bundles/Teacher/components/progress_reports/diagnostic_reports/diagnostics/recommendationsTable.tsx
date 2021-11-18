@@ -134,7 +134,11 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
     }
   }, [isSticky]);
 
-  const onScroll = () => handleScroll(tableRef.current.getBoundingClientRect());
+  const onScroll = () => {
+    if (tableRef && tableRef.current) {
+      handleScroll(tableRef.current.getBoundingClientRect());
+    }
+  }
 
   React.useEffect(() => {
     onScroll()
