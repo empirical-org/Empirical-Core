@@ -62,7 +62,7 @@ const Popover = ({ studentResult, skillGroup, closePopover, responsesLink, }: Po
         <h3>{skillGroup.skill_group}</h3>
         <button className="interactive-wrapper focus-on-light" onClick={closePopover} type="button">{closeIcon}</button>
       </header>
-      <p>We were looking for etiam porta sem malesuada magna mollis euismod. Lorem ipsum dolor sit amet, consectetr adipiscing elit.</p>
+      <p dangerouslySetInnerHTML={{ __html: skillGroup.description }} />
       {skillGroup.skills[0].pre ? <GrowthSkillsTable skillGroup={skillGroup} /> : <SkillsTable skillGroup={skillGroup} />}
       <Link to={responsesLink(studentResult.id)}>{accountCommentIcon}<span>View {studentResult.name}&#39;s responses</span></Link>
     </section>

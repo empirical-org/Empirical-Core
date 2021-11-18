@@ -68,6 +68,7 @@ module GrowthResultsSummary
       @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_pre_test_student_names] = @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_pre_test_student_names].uniq
       {
         skill_group: skill_group.name,
+        description: skill_group.description,
         skills: skills,
         number_of_correct_skills_text: "#{correct_skill_number} of #{present_skill_number} skills correct",
         proficiency_text: proficiency_text,
