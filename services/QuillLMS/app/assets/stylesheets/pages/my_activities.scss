@@ -56,6 +56,14 @@
       display: flex;
       flex-direction: row-reverse;
     }
+    .share-activity-button {
+      background-color: #ffffff;
+    }
+    .data-table-row:hover {
+      .share-activity-button {
+        background-color: #f2f2f2;
+      }
+    }
     .left-side {
       flex: 1;
     }
@@ -65,12 +73,13 @@
       button {
         display: flex;
         align-items: center;
+        margin-bottom: 16px;
         img {
           margin-right: 4px;
           width: 24px;
         }
-        &:first-of-type {
-          margin-bottom: 16px;
+        &:last-of-type {
+          margin-bottom: 0px;
         }
       }
     }

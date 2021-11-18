@@ -18,6 +18,7 @@ const lockSrc = `${process.env.CDN_URL}/images/icons/icons-lock.svg`
 
 const RENAME = 'rename'
 const ARCHIVE = 'archive'
+const SHARE = 'share'
 
 const ActivityPack = ({
   data,
@@ -26,7 +27,7 @@ const ActivityPack = ({
   const [showIndividualClassroomInfo, setShowIndividualClassroomInfo] = React.useState(false)
   const [showSnackbar, setShowSnackbar] = React.useState(false)
   const [snackbarText, setSnackbarText] = React.useState('')
-  const [showModal, setShowModal] = React.useState(false)
+  const [showModal, setShowModal] = React.useState('')
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
@@ -36,7 +37,9 @@ const ActivityPack = ({
 
   function handleClickShowRemove() { setShowModal(ARCHIVE) }
 
-  function closeModal() { setShowModal(false) }
+  function handleClickShareActivityPack() { setShowModal(SHARE) }
+
+  function closeModal() { setShowModal('') }
 
   function onSuccess(snackbarCopy) {
     getUnits()
@@ -76,7 +79,7 @@ const ActivityPack = ({
     />}
     <div className="top-section">
       <div className="top-section-header">
-        {isOwner && <ActivityPackUpdateButtons handleClickShowRemove={handleClickShowRemove} handleClickShowRename={handleClickShowRename} />}
+        {isOwner && <ActivityPackUpdateButtons handleClickShareActivityPack={handleClickShareActivityPack} handleClickShowRemove={handleClickShowRemove} handleClickShowRename={handleClickShowRename} />}
         <div className="left-side">
           <h2>{data.unitName}</h2>
           {!isOwner && (<div className="coteacher-explanation">
