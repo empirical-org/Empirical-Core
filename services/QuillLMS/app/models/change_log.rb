@@ -101,7 +101,7 @@ class ChangeLog < ApplicationRecord
     skipped_import: 'Skipped User import'
   }
   # TODO remove temporary CLEVER_IMPORT_ACTIONS
-  CLEVER_IMPORT_ACTIONS = %i[
+  CLEVER_IMPORT_ACTIONS = %w[
     library_integration
     district_integration
   ]

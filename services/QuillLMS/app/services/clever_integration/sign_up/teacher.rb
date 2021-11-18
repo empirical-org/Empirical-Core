@@ -13,14 +13,14 @@ module CleverIntegration::SignUp::Teacher
     end
   end
 
-  #TODO remove this temporary method
+  #TODO remove this method
   def self.log_import(action, auth_hash)
-    changed_record = User.find(ENV['CLEVER_IMPORT_LOG_USER_ID'])
+    user = User.find(ENV['CLEVER_IMPORT_LOG_USER_ID'])
     changed_attr = auth_hash.dig(:info, :user_type)
 
-    return if ChangeLog.exists?(changed_record: user, changed_attr: changed_attr, action: action, user: user)
+    return if ChangeLog.exists?(changed_record: user, changed_attribute: changed_attr, action: action, user: user)
 
-    ChangeLog.create(explanation: auth_hash.to_json, changed_record: user, changed_attr: changed_attr, action: action, user: user)
+    ChangeLog.create!(explanation: auth_hash.to_json, changed_record: user, changed_attribute: changed_attr, action: action, user: user)
   end
 
   def self.library_integration(auth_hash)
