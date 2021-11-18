@@ -561,9 +561,11 @@ describe Teachers::ClassroomManagerController, type: :controller do
   describe '#view_demo' do
     let!(:teacher) { create(:teacher) }
     let!(:demo_teacher) { create(:teacher, email: 'hello+demoteacher@quill.org')}
+    let!(:analyzer) { double(:analyzer, track: true) }
 
     before do
       allow(controller).to receive(:current_user) { teacher }
+      allow(Analyzer).to receive(:new) { analyzer }
     end
 
     it 'will call demo_id= if the demo account exists' do
@@ -581,6 +583,11 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(controller).not_to receive(:demo_id=)
       get :view_demo
       expect(JSON.parse(response.body)["errors"]).to eq("Demo Account does not exist")
+    end
+
+    it 'will track event' do
+      expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::VIEWED_DEMO)
+      get :view_demo
     end
   end
 
