@@ -73,4 +73,4 @@ export const WIDE_SCREEN_MINIMUM_WIDTH = 1540 // this is also tied to media quer
 export const LEFT_OFFSET = 260 // width of the left-hand navigation
 export const DEFAULT_LEFT_PADDING = 32
 export const MOBILE_WIDTH = 930
-export const DEFAULT_LEFT_PADDING_FOR_MOBILE = 16
+export const DEFAULT_LEFT_PADDING_FOR_MOBILE = 0
