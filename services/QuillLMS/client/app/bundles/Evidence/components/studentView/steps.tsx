@@ -6,7 +6,9 @@ const Steps = ({
   activeStep,
   activateStep,
   activities,
+  activityIsComplete,
   handleDoneReadingClick,
+  completionButtonCallback,
   completeStep,
   submitResponse,
   closeReadTheDirectionsModal,
@@ -24,6 +26,8 @@ const Steps = ({
         {renderReadPassageStep(activeStep, activities, handleDoneReadingClick)}
         {renderPromptSteps({
           activateStep,
+          activityIsComplete,
+          completionButtonCallback,
           completeStep,
           submitResponse,
           closeReadTheDirectionsModal,
