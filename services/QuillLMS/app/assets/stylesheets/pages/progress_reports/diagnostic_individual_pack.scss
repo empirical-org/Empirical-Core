@@ -172,7 +172,7 @@
     }
   }
 
-  @media (max-width: 1539px) {
+  @media (max-width: 1539px) and (min-width: 931px) {
     main {
       > header,
       .skill-group-summary-cards,
