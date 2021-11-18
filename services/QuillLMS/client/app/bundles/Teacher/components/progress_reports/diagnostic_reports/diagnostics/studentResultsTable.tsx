@@ -15,6 +15,8 @@ import {
   WIDE_SCREEN_MINIMUM_WIDTH,
   LEFT_OFFSET,
   DEFAULT_LEFT_PADDING,
+  MOBILE_WIDTH,
+  DEFAULT_LEFT_PADDING_FOR_MOBILE
 } from './shared'
 import {
   SkillGroupSummary,
@@ -143,9 +145,14 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
   })
 
   function paddingLeft() {
+    if (MOBILE_WIDTH >= window.innerWidth) { return DEFAULT_LEFT_PADDING_FOR_MOBILE }
     const skillGroupSummaryCards = document.getElementsByClassName('skill-group-summary-cards')[0]
     return skillGroupSummaryCards && window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH ? skillGroupSummaryCards.getBoundingClientRect().left - LEFT_OFFSET : DEFAULT_LEFT_PADDING
   }
+
+  React.useEffect(() => {
+    onScroll()
+  }, [size])
 
   const handleScroll = React.useCallback(({ top, bottom, left, right, }) => {
     if (top <= 0 && bottom > 92) {
@@ -155,6 +162,7 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
       isSticky && setIsSticky(false);
     }
   }, [isSticky]);
+
 
   const onScroll = () => handleScroll(tableRef.current.getBoundingClientRect());
 
@@ -194,7 +202,12 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
   const tableClassName = tableHasContent ? 'student-results-table' : 'empty student-results-table'
 
   const renderHeader = (sticky) => {
-    const style = LEFT_OFFSET > stickyTableStyle.left ? { left: -(LEFT_OFFSET - (stickyTableStyle.left - paddingLeft())) + 1 } : { position: 'inherit' }
+    let style = { position: 'inherit' }
+    if (window.innerWidth <= MOBILE_WIDTH) {
+      style = { left: stickyTableStyle.left - paddingLeft() }
+    } else if (LEFT_OFFSET > stickyTableStyle.left) {
+      style = { left: -(LEFT_OFFSET - (stickyTableStyle.left - paddingLeft())) + 1 }
+    }
 
     return (<thead>
       <tr>

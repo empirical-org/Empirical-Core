@@ -7,6 +7,8 @@ import {
   WIDE_SCREEN_MINIMUM_WIDTH,
   LEFT_OFFSET,
   DEFAULT_LEFT_PADDING,
+  MOBILE_WIDTH,
+  DEFAULT_LEFT_PADDING_FOR_MOBILE
 } from './shared'
 import {
   Recommendation,
@@ -118,6 +120,7 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
   })
 
   function paddingLeft() {
+    if (MOBILE_WIDTH >= window.innerWidth) { return DEFAULT_LEFT_PADDING_FOR_MOBILE }
     const explanation = document.getElementsByClassName('explanation')[0]
     return explanation && window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH ? explanation.getBoundingClientRect().left - LEFT_OFFSET : DEFAULT_LEFT_PADDING
   }
@@ -132,6 +135,10 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
   }, [isSticky]);
 
   const onScroll = () => handleScroll(tableRef.current.getBoundingClientRect());
+
+  React.useEffect(() => {
+    onScroll()
+  }, [size])
 
   React.useEffect(() => {
     window.addEventListener("scroll", onScroll);
@@ -172,7 +179,13 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
   const tableClassName = tableHasContent ? 'recommendations-table' : 'empty recommendations-table'
 
   const renderHeader = (sticky) => {
-    const style = LEFT_OFFSET > stickyTableStyle.left ? { left: -(LEFT_OFFSET - (stickyTableStyle.left - paddingLeft())) + 1 } : { position: 'inherit' }
+    let style = { position: 'inherit' }
+    if (window.innerWidth <= MOBILE_WIDTH) {
+      style = { left: stickyTableStyle.left - paddingLeft() }
+    } else if (LEFT_OFFSET > stickyTableStyle.left) {
+      style = { left: -(LEFT_OFFSET - (stickyTableStyle.left - paddingLeft())) + 1 }
+    }
+
     return (<thead>
       <tr>
         <th className="corner-header" style={sticky ? style : {}}>Name</th>
