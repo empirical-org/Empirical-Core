@@ -11,6 +11,8 @@ import {
   defaultSnackbarTimeout,
 } from '../../../../Shared/index'
 import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor'
+import ShareActivityPackModal from '../create_unit/google_classroom/shareActivityPackModal';
+import { requestGet } from '../../../../../modules/request';
 
 const multipleAccountSrc = `${process.env.CDN_URL}/images/icons/icons-account-multiple-check.svg`
 const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`
@@ -23,11 +25,21 @@ const SHARE = 'share'
 const ActivityPack = ({
   data,
   getUnits,
+  selectedClassroomId
 }) => {
   const [showIndividualClassroomInfo, setShowIndividualClassroomInfo] = React.useState(false)
   const [showSnackbar, setShowSnackbar] = React.useState(false)
   const [snackbarText, setSnackbarText] = React.useState('')
   const [showModal, setShowModal] = React.useState('')
+  const [classrooms, setClassrooms] = React.useState([]);
+
+  React.useEffect(() => {
+    if(!classrooms.length) {
+      requestGet('/teachers/classrooms/retrieve_classrooms_i_teach_for_custom_assigning_activities', (body) => {
+        setClassrooms(body.classrooms_and_their_students)
+      })
+    }
+  }, [])
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
@@ -48,6 +60,19 @@ const ActivityPack = ({
       setSnackbarText(snackbarCopy)
       setShowSnackbar(true)
     }
+  }
+
+  function getActivityPackData() {
+    const { unitName, classroomActivities } = data
+    return {
+      name: unitName,
+      activityCount: classroomActivities && classroomActivities.length,
+      activities: []
+    }
+  }
+
+  function getClassrooms() {
+    return classrooms
   }
 
   let totalStudents = 0
@@ -77,6 +102,15 @@ const ActivityPack = ({
       unitId={data.unitId}
       unitName={data.unitName}
     />}
+    {showModal === SHARE &&
+      <ShareActivityPackModal
+        activityPackData={data && getActivityPackData()}
+        classrooms={getClassrooms()}
+        classroomUnits={[]}
+        closeModal={closeModal}
+        singleActivity={null}
+        unitId={data && data.unitId}
+      />}
     <div className="top-section">
       <div className="top-section-header">
         {isOwner && <ActivityPackUpdateButtons handleClickShareActivityPack={handleClickShareActivityPack} handleClickShowRemove={handleClickShowRemove} handleClickShowRename={handleClickShowRename} />}
@@ -104,6 +138,7 @@ const ActivityPack = ({
     </div>
     <ActivityTable
       data={data}
+      handleToggleModal={handleClickShareActivityPack}
       isOwner={isOwner}
       onSuccess={onSuccess}
     />

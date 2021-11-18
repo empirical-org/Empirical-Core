@@ -74,7 +74,7 @@ const tableHeaders = (isOwner) => ([
   }
 ])
 
-const ActivityTable = ({ data, onSuccess, isOwner, }) => {
+const ActivityTable = ({ data, onSuccess, isOwner, handleToggleModal }) => {
   const classroomActivityArray = Array.from(data.classroomActivities).map(ca => ca[1])
 
   const [focusedHash, setFocusedHash] = React.useState({})
@@ -115,6 +115,10 @@ const ActivityTable = ({ data, onSuccess, isOwner, }) => {
     api.changeActivityPackOrder(data.unitId, newActivityOrder, () => onSuccess(null), null)
   }
 
+  function handleShareActivityClick() {
+    handleToggleModal()
+  }
+
   const activityRows = activityOrder.map(activityId => {
     const activity = classroomActivityArray.find(act => act.activityId === activityId)
     if (!activity) { return }
@@ -145,7 +149,7 @@ const ActivityTable = ({ data, onSuccess, isOwner, }) => {
       placeholder={placeholderText}
     />) : placeholderText
     activity.shareActivity = (
-      <button className="share-activity-button focus-on-light" onClick={() => console.log('woo')} type="button" value="row-button">
+      <button className="share-activity-button focus-on-light" onClick={handleShareActivityClick} type="button" value="row-button">
         <img alt='share-arrow' src={shareActivitySrc} />
       </button>
     )
