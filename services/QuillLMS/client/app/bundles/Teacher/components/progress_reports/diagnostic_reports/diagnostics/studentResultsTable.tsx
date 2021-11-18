@@ -194,10 +194,11 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
   const tableClassName = tableHasContent ? 'student-results-table' : 'empty student-results-table'
 
   const renderHeader = (sticky) => {
-    const calculatedLeftValue = LEFT_OFFSET > stickyTableStyle.left ? -(LEFT_OFFSET - (stickyTableStyle.left - paddingLeft())) : (LEFT_OFFSET - (stickyTableStyle.left - paddingLeft()))
+    const style = LEFT_OFFSET > stickyTableStyle.left ? { left: -(LEFT_OFFSET - (stickyTableStyle.left - paddingLeft())) + 1 } : { position: 'inherit' }
+
     return (<thead>
       <tr>
-        <th className="corner-header" style={sticky ? { left: calculatedLeftValue + 1, } : {}}>Name</th>
+        <th className="corner-header" style={sticky ? style : {}}>Name</th>
         {tableHeaders}
       </tr>
     </thead>)
