@@ -37,7 +37,7 @@ module CleverIntegration::SignUp::SchoolAdmin
 
     return if ChangeLog.exists?(changed_record: user, changed_attribute: changed_attr, action: action, user: user)
 
-    ChangeLog.create!(explanation: auth_hash.to_json, changed_record: user, changed_attribute: changed_attr, action: action, user: user)
+    ChangeLog.create(explanation: auth_hash.to_json, changed_record: user, changed_attribute: changed_attr, action: action, user: user)
   end
 
   def self.parse_data(auth_hash)
