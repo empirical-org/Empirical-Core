@@ -2,15 +2,27 @@ import * as React from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { defaultSnackbarTimeout, Snackbar, DropdownInput } from '../../../../../Shared/index'
+import { requestGet } from '../../../../../../modules/request';
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`;
 const shareToGoogleIconSrc = `${process.env.CDN_URL}/images/icons/icons-google-classroom-color.svg`;
 
-export const ShareActivityPackModal = ({ activityPackData, classrooms, classroomUnits, closeModal, singleActivity, unitId }) => {
+export const ShareActivityPackModal = ({ activityPackData, closeModal, singleActivity, unitId }) => {
 
-  const [link, setLink] = React.useState<string>(classrooms && getDefaultLink());
   const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
   const [selectedClass, setSelectedClass] = React.useState<any>({});
+  const [classrooms, setClassrooms] = React.useState<any[]>([])
+  const [classroomUnits, setClassroomUnits] = React.useState<any[]>([])
+  const [link, setLink] = React.useState<string>(classrooms && classrooms.length && getDefaultLink());
+
+  React.useEffect(() => {
+    if(!classrooms.length || (!classroomUnits.length && unitId)) {
+      requestGet(`/teachers/classrooms/classrooms_and_classroom_units_for_activity_share/${unitId}`, (body) => {
+        setClassrooms(body.classrooms && body.classrooms.classrooms_and_their_students)
+        setClassroomUnits(body.classroom_units)
+      })
+    }
+  }, [])
 
   function getDefaultLink() {
     if(classrooms.length !== 1) {

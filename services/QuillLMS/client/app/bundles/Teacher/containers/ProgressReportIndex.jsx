@@ -52,7 +52,7 @@ export default class ProgressReportIndex extends React.Component {
     });
 
     return (<div>
-      {shouldHaveBanner ? <PremiumBannerBuilder /> : null}
+      {shouldHaveBanner && <PremiumBannerBuilder originPage="report" />}
       {component}
     </div>)
   };
