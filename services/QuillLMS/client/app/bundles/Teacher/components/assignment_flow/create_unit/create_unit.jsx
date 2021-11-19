@@ -12,7 +12,6 @@ import {
   UNIT_TEMPLATE_ID,
   ACTIVITY_IDS_ARRAY,
   UNIT_ID,
-  CLASSROOM_UNITS,
   ASSIGNED_CLASSROOMS
 } from '../assignmentFlowConstants.ts'
 import parsedQueryParams from '../parsedQueryParams'
@@ -66,7 +65,6 @@ export default class CreateUnit extends React.Component {
       window.localStorage.removeItem(ACTIVITY_IDS_ARRAY)
       window.localStorage.removeItem(CLASSROOMS)
       window.localStorage.removeItem(ASSIGNED_CLASSROOMS)
-      window.localStorage.removeItem(CLASSROOM_UNITS)
     }
 
     if (stage === 2 || window.localStorage.getItem(ACTIVITY_IDS_ARRAY)) {
@@ -76,13 +74,12 @@ export default class CreateUnit extends React.Component {
 
   onCreateSuccess = (response) => {
     const { classrooms, name, } = this.state
-    const { id, classroom_units } = response;
-    this.setState({ newUnitId: id, classroomUnits: classroom_units, assignSuccess: true, }, () => {
+    const { id } = response;
+    this.setState({ newUnitId: id, assignSuccess: true, }, () => {
       const assignedClassrooms = classrooms.filter(c => c.classroom.emptyClassroomSelected || c.students.find(s => s.isSelected))
       window.localStorage.setItem(UNIT_NAME, name)
       window.localStorage.setItem(UNIT_ID, id)
       window.localStorage.setItem(ASSIGNED_CLASSROOMS, JSON.stringify(assignedClassrooms))
-      window.localStorage.setItem(CLASSROOM_UNITS, JSON.stringify(classroom_units))
       if (assignedClassrooms.every(c => c.classroom.emptyClassroomSelected)) {
         this.props.history.push('/assign/add-students')
       } else {
@@ -303,7 +300,7 @@ export default class CreateUnit extends React.Component {
   }
 
   stage3specificComponents = () => {
-    const { assignSuccess, name, selectedActivities, classrooms } = this.state;
+    const { assignSuccess, name, selectedActivities } = this.state;
     if (assignSuccess) {
       const activityPackData = {
         name: name,

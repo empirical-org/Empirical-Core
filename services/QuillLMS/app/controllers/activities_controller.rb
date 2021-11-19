@@ -2,7 +2,7 @@ class ActivitiesController < ApplicationController
   before_action :activity, only: [:update]
   before_action :set_activity_by_lesson_id, only: [:preview_lesson]
   before_action :set_activity, only: [:supporting_info, :customize_lesson, :name_and_id, :last_unit_template]
-  before_action :student!, only: :activity_session
+  before_action :signed_in!, only: [:activity_session]
 
   DIAGNOSTIC = 'diagnostic'
 
@@ -64,7 +64,7 @@ class ActivitiesController < ApplicationController
       classroom_unit_id = params["classroom_unit_id"]
       if authorized_activity_access?
         redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)
-      elsif current_user && current_user.role == "student" && classroom_unit_id
+      elsif classroom_unit_id
         activity_link(classroom_unit_id: classroom_unit_id)
       else
         redirect_to classes_path
@@ -76,18 +76,15 @@ class ActivitiesController < ApplicationController
 
   def activity_link(classroom_unit_id: nil)
     classroom_unit = classroom_unit_id && ClassroomUnit.find(classroom_unit_id)
-    if current_user && current_user.role == "student"
-      if classroom_unit && !classroom_unit.assigned_student_ids.include?(current_user.id)
-        flash[:error] = 'Sorry, you do not have access to this activity because it has not been assigned to you. Please contact your teacher.'
-        flash.keep(:error)
-        redirect_to classes_path
-      end
-    else
-      redirect_to profile_path
+    if classroom_unit && !classroom_unit.assigned_student_ids.include?(current_user.id)
+      flash[:error] = 'Sorry, you do not have access to this activity because it has not been assigned to you. Please contact your teacher.'
+      flash.keep(:error)
+      redirect_to classes_path
     end
   end
 
   private def authorized_activity_access?
+    current_user.student? &&
     activity &&
     classroom_unit&.assigned_student_ids&.include?(current_user.id) &&
     UnitActivity.exists?(unit: classroom_unit.unit, activity: activity)

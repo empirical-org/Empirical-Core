@@ -21,8 +21,7 @@ class Teachers::UnitsController < ApplicationController
     if includes_ell_starter_diagnostic
       ELLStarterDiagnosticEmailJob.perform_async(current_user.first_name, current_user.email)
     end
-    unit_id = Unit.where(user: current_user).last.id
-    render json: {id: unit_id, classroom_units: ClassroomUnit.where(unit_id: unit_id)}
+    render json: {id: Unit.where(user: current_user).last.id}
   end
 
   def prohibited_unit_names
