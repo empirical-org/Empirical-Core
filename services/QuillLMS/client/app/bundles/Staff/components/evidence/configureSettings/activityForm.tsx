@@ -41,6 +41,7 @@ interface InvalidHighlightProps {
 }
 
 const RULE_TYPE_TO_ROUTE_PART = {
+  autoML: 'semantic-labels',
   plagiarism: 'plagiarism-rules',
   'rules-based-1': 'regex-rules',
   'rules-based-2': 'regex-rules',
@@ -48,6 +49,7 @@ const RULE_TYPE_TO_ROUTE_PART = {
 }
 
 const RULE_TYPE_TO_NAME = {
+  autoML: 'Semantic',
   plagiarism: 'Plagiarism',
   'rules-based-1': 'Sentence Structure Regex',
   'rules-based-2': 'Post-topic Regex',
@@ -173,7 +175,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
       const { rule_id, rule_type, prompt_id  } = highlight;
       const ruleTypePart = RULE_TYPE_TO_ROUTE_PART[rule_type]
       const ruleName = RULE_TYPE_TO_NAME[rule_type]
-      const idPart = (rule_type == 'autoML') ? '${prompt_id}/${rule_id}' : rule_id
+      const idPart = (rule_type == 'autoML') ? `${prompt_id}/${rule_id}` : rule_id
       const invalidHighlightLink = (<Link to={`/activities/${id}/${ruleTypePart}/${idPart}`}>{ruleName} Rule #{rule_id}</Link>);
       return {
         id: rule_id,
