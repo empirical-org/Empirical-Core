@@ -119,7 +119,7 @@ const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobil
   return (<main className="results-summary-container">
     <header>
       <h1>Results summary</h1>
-      <a className="focus-on-light" href="/">{fileDocumentIcon}<span>Guide</span></a>
+      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698112-how-do-i-read-the-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
     </header>
     {mobileNavigation}
     <section className="skill-group-summary-cards">{skillGroupSummaryCards}</section>

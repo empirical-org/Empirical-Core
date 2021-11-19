@@ -143,7 +143,7 @@ const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries, match,
   return (<main className="results-summary-container growth-results-summary-container">
     <header>
       <h1>Growth results summary</h1>
-      <a className="focus-on-light" href="/">{fileDocumentIcon}<span>Guide</span></a>
+      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698227-how-do-i-read-the-growth-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
     </header>
     {mobileNavigation}
     <section className="skill-group-summary-cards">{skillGroupSummaryCards}</section>

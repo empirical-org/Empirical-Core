@@ -162,7 +162,7 @@ const Questions = ({ passedQuestions, match, mobileNavigation, }) => {
   return (<main className="questions-index-container">
     <header>
       <h1>Questions analysis</h1>
-      <a className="focus-on-light" href="/">{fileDocumentIcon}<span>Guide</span></a>
+      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698219-how-do-i-read-the-questions-analysis-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
     </header>
     {mobileNavigation}
     <div className="data-table-container">

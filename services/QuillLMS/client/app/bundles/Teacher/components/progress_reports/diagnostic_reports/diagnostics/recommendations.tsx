@@ -363,7 +363,7 @@ const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPrevio
     <Snackbar text={snackbarText} visible={showSnackbar} />
     <header>
       <h1>Practice recommendations</h1>
-      <a className="focus-on-light" href="/">{fileDocumentIcon}<span>Guide</span></a>
+      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698147-how-do-i-read-the-practice-recommendations-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
     </header>
     {mobileNavigation}
     <p className="explanation">Based on the results of the diagnostic, we created a personalized learning plan for each student. Customize your learning plan by selecting the activity packs you would like to assign.</p>

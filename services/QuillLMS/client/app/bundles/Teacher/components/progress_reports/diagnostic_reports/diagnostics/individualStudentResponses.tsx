@@ -143,7 +143,7 @@ const IndividualStudentResponses = ({ match, passedConceptResults, passedSkillRe
   return (<main className="individual-student-responses-container">
     <header>
       <h1>{name}&#39;s responses</h1>
-      <a className="focus-on-light" href="/">{fileDocumentIcon}<span>Guide</span></a>
+      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698167-how-do-i-read-the-student-responses-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
     </header>
     {mobileNavigation}
     <div className="skills-table-container-wrapper">{skillResults.skills[0] && skillResults.skills[0].pre ? <GrowthSkillsTable isExpandable={true} skillGroup={skillResults} /> : <SkillsTable isExpandable={true} skillGroup={skillResults} />}</div>
