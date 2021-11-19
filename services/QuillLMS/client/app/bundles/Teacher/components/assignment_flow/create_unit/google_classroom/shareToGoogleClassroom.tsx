@@ -13,7 +13,6 @@ import {
   ACTIVITY_IDS_ARRAY,
   CLASSROOMS,
   UNIT_ID,
-  CLASSROOM_UNITS,
   ASSIGNED_CLASSROOMS
 } from '../../assignmentFlowConstants'
 
@@ -21,10 +20,9 @@ const addStudentsSrc = `${process.env.CDN_URL}/images/illustrations/add-students
 const addShareActivityPackSrc = `${process.env.CDN_URL}/images/icons/icons-share-activity-pack.svg`
 const shareActivitySrc = `${process.env.CDN_URL}/images/icons/icons-share.svg`
 
-const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, moveToStage4 }) => {
+const ShareToGoogleClassroom = ({ activityPackData, moveToStage4 }) => {
 
   const unitId = window.localStorage.getItem(UNIT_ID);
-  const classroomUnits = JSON.parse(window.localStorage.getItem(CLASSROOM_UNITS));
   const classrooms = JSON.parse(window.localStorage.getItem(ASSIGNED_CLASSROOMS));
 
   const [leaving, setLeaving] = React.useState<boolean>(false);
@@ -39,9 +37,9 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, moveToSt
       window.localStorage.removeItem(UNIT_TEMPLATE_NAME);
       window.localStorage.removeItem(UNIT_NAME);
       window.localStorage.removeItem(ACTIVITY_IDS_ARRAY);
+      window.localStorage.removeItem(ASSIGNED_CLASSROOMS);
       window.localStorage.removeItem(CLASSROOMS);
       window.localStorage.removeItem(UNIT_ID);
-      window.localStorage.removeItem(CLASSROOM_UNITS);
       window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`;
     }
   }, [leaving]);
@@ -141,8 +139,6 @@ const ShareToGoogleClassroom = ({ activityPackData, assignedClassrooms, moveToSt
       {modalOpen &&
       <ShareActivityPackModal
         activityPackData={activityPack}
-        classrooms={classrooms}
-        classroomUnits={classroomUnits}
         closeModal={handleToggleShareModal}
         singleActivity={singleActivity}
         unitId={unitId}
