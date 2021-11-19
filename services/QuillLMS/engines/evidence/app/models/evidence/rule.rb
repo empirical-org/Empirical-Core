@@ -60,7 +60,7 @@ module Evidence
       super(options.reverse_merge(
         only: [:id, :uid, :name, :note, :universal, :rule_type, :optimal, :state, :suborder, :concept_uid, :prompt_ids],
         include: [:plagiarism_text, :feedbacks, :label, :regex_rules],
-        methods: [:prompt_ids, :display_name]
+        methods: [:prompt_ids, :display_name, :conditional]
       ))
     end
 
@@ -74,11 +74,12 @@ module Evidence
 
     def regex_is_passing?(entry)
       return true if regex_rules.empty?
-      if regex_rules.first.incorrect_sequence?
-        all_regex_rules_passing?(entry)
-      else
-        at_least_one_regex_rule_passing?(entry)
-      end
+      grade_sequences(entry)
+    end
+
+    def grade_sequences(entry)
+      return true if all_incorrect_sequences_passing?(entry) && one_non_conditional_required_sequences_passing?(entry)
+      at_least_one_conditional_required_sequence_passing?(entry)
     end
 
     def display_name
@@ -142,16 +143,38 @@ module Evidence
       prompts.map(&:conjunction)
     end
 
-    private def all_regex_rules_passing?(entry)
-      regex_rules.none? do |regex_rule|
+    def conditional
+      return nil if !regex? || regex_rules.empty?
+      return regex_rules.all? { |r| r.conditional? }
+    end
+
+    private def all_incorrect_sequences_passing?(entry)
+      return true if incorrect_sequences.empty?
+      incorrect_sequences.none? do |regex_rule|
         regex_rule.entry_failing?(entry)
       end
     end
 
-    private def at_least_one_regex_rule_passing?(entry)
-      regex_rules.any? do |regex_rule|
+    private def at_least_one_conditional_required_sequence_passing?(entry)
+      return false if required_sequences.where(conditional: true).empty?
+      required_sequences.where(conditional: true).any? do |regex_rule|
         !regex_rule.entry_failing?(entry)
       end
+    end
+
+    private def one_non_conditional_required_sequences_passing?(entry)
+      return true if required_sequences.where(conditional: false).empty?
+      required_sequences.where(conditional: false).any? do |regex_rule|
+        !regex_rule.entry_failing?(entry)
+      end
+    end
+
+    private def incorrect_sequences
+      regex_rules.where(sequence_type: RegexRule::TYPE_INCORRECT)
+    end
+
+    private def required_sequences
+      regex_rules.where(sequence_type: RegexRule::TYPE_REQUIRED)
     end
 
     private def assign_uid_if_missing

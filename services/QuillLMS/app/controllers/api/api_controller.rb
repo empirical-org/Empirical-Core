@@ -4,6 +4,8 @@ class Api::ApiController < ActionController::Base
 
   before_action :add_platform_doc_header
 
+  include NewRelicAttributable
+
   rescue_from ActiveRecord::RecordNotFound do |e|
     not_found
   end

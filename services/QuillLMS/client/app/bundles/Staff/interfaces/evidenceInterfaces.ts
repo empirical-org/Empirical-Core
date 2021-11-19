@@ -37,7 +37,8 @@ export interface RegexRuleInterface {
   rule_id?: number,
   regex_text: string,
   case_sensitive: boolean,
-  sequence_type: string
+  sequence_type: string,
+  conditional: boolean,
 }
 
 export interface FlagInterface {
@@ -79,6 +80,7 @@ export interface RuleInterface {
   concept_uid: string,
   prompt_ids?: number[],
   state: string,
+  conditional?: boolean,
   label?: {
     id: number,
     name: string
