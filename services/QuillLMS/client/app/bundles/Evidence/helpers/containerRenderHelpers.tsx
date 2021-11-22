@@ -88,6 +88,8 @@ export const renderStepLinksAndDirections = ({
 
 export const renderPromptSteps = ({
   activateStep,
+  activityIsComplete,
+  completionButtonCallback,
   completeStep,
   submitResponse,
   closeReadTheDirectionsModal,
@@ -113,9 +115,11 @@ export const renderPromptSteps = ({
     return (<PromptStep
       activateStep={activateStep}
       active={stepNumber === activeStep}
+      activityIsComplete={activityIsComplete}
       canBeClicked={canBeClicked}
       className={`step ${canBeClicked ? 'clickable' : ''} ${activeStep === stepNumber ? 'active' : ''}`}
       completeStep={completeStep}
+      completionButtonCallback={completionButtonCallback}
       everyOtherStepCompleted={everyOtherStepCompleted(stepNumber, completedSteps)}
       key={stepNumber}
       passedRef={stepsHash[`step${stepNumber}`]} // eslint-disable-line react/jsx-no-bind

@@ -103,6 +103,7 @@ class TextEditor extends React.Component <any, any> {
 }
 
   render() {
+    const { shouldCheckSpelling } = this.props;
     const { richButtonsPlugin, text, } = this.state
     const {
       // inline buttons
@@ -142,6 +143,7 @@ class TextEditor extends React.Component <any, any> {
               keyBindingFn={this.keyBindingFn}
               onChange={this.handleTextChange}
               plugins={[richButtonsPlugin]}
+              spellCheck={!!shouldCheckSpelling}
             />
           </div>
         </div>

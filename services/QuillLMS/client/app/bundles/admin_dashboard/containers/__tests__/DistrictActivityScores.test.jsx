@@ -55,15 +55,19 @@ describe('DistrictActivityScores', () => {
         'Classroom Name',
         'Student Name',
         'School Name',
+        'Teacher Name',
         'Average Score',
-        'Activity Count'
+        'Activity Count',
+        'Last Active'
       ],
       [
         'Learnin',
         'Lil Jimmy',
         'School',
+        'Mr Rodney',
         '100%',
-        '3'
+        '3',
+        undefined
       ]
     ]);
   });
