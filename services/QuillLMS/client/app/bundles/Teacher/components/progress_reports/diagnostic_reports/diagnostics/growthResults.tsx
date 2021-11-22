@@ -89,7 +89,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
   </section>)
 }
 
-const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {
+export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudentResults);
   const [studentResults, setStudentResults] = React.useState<StudentResult[]>(passedStudentResults || []);
   const [skillGroupSummaries, setSkillGroupSummaries] = React.useState<SkillGroupSummary[]>(passedSkillGroupSummaries || []);

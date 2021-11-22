@@ -152,7 +152,7 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
     };
   }, [handleScroll]);
 
-  const tableHeaders = recommendations.map(recommendation => {
+  const tableHeaders = recommendations && recommendations.map(recommendation => {
     const { activity_pack_id, name, activity_count, students, } = recommendation
     return (<th className="recommendation-header" key={name}>
       <div className="name-and-tooltip">

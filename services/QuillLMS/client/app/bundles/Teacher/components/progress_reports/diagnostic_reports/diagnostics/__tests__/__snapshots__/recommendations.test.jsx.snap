@@ -1,0 +1,2137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Recommendations component should render when there is no student data 1`] = `
+<Recommendations
+  location={
+    Object {
+      "search": "",
+    }
+  }
+  match={
+    Object {
+      "params": Object {
+        "activityId": 0,
+        "classroomId": 6,
+      },
+    }
+  }
+  mobileNavigation={<span />}
+  passedIndependentRecommendations={
+    Array [
+      Object {
+        "activity_count": 4,
+        "activity_pack_id": 320,
+        "name": "Compound-Complex Sentences",
+        "students": Array [],
+      },
+      Object {
+        "activity_count": 5,
+        "activity_pack_id": 322,
+        "name": "Appositive Phrases",
+        "students": Array [],
+      },
+      Object {
+        "activity_count": 6,
+        "activity_pack_id": 324,
+        "name": "Relative Clauses",
+        "students": Array [],
+      },
+      Object {
+        "activity_count": 5,
+        "activity_pack_id": 327,
+        "name": "Participial Phrases",
+        "students": Array [],
+      },
+      Object {
+        "activity_count": 3,
+        "activity_pack_id": 329,
+        "name": "Parallel Structure",
+        "students": Array [],
+      },
+      Object {
+        "activity_count": 5,
+        "activity_pack_id": 331,
+        "name": "Advanced Combining",
+        "students": Array [],
+      },
+    ]
+  }
+  passedLessonRecommendations={
+    Array [
+      Object {
+        "activities": Array [
+          Object {
+            "name": "Lesson 1: Appositive Phrases",
+            "url": "/activity_sessions/anonymous?activity_id=567",
+          },
+          Object {
+            "name": "Lesson 2: Appositive Phrases Review",
+            "url": "/activity_sessions/anonymous?activity_id=572",
+          },
+        ],
+        "activity_pack_id": 44,
+        "name": "Appositive Phrases Lesson Pack",
+        "percentage_needing_instruction": 0,
+        "students_needing_instruction": Array [],
+      },
+      Object {
+        "activities": Array [
+          Object {
+            "name": "Lesson 1: Participial Phrases ",
+            "url": "/activity_sessions/anonymous?activity_id=570",
+          },
+          Object {
+            "name": "Lesson 2: Participial Phrases Review",
+            "url": "/activity_sessions/anonymous?activity_id=577",
+          },
+        ],
+        "activity_pack_id": 45,
+        "name": "Participial Phrases Lesson Pack",
+        "percentage_needing_instruction": 0,
+        "students_needing_instruction": Array [],
+      },
+      Object {
+        "activities": Array [
+          Object {
+            "name": "Lesson 1: Parallel Structure",
+            "url": "/activity_sessions/anonymous?activity_id=571",
+          },
+        ],
+        "activity_pack_id": 46,
+        "name": "Parallel Structure Lesson Pack",
+        "percentage_needing_instruction": 0,
+        "students_needing_instruction": Array [],
+      },
+    ]
+  }
+  passedPreviouslyAssignedLessonRecommendations={Array []}
+  passedPreviouslyAssignedRecommendation={
+    Array [
+      Object {
+        "activity_count": 4,
+        "activity_pack_id": 320,
+        "name": "Compound-Complex Sentences",
+        "students": Array [],
+      },
+      Object {
+        "activity_count": 5,
+        "activity_pack_id": 322,
+        "name": "Appositive Phrases",
+        "students": Array [],
+      },
+      Object {
+        "activity_count": 6,
+        "activity_pack_id": 324,
+        "name": "Relative Clauses",
+        "students": Array [],
+      },
+      Object {
+        "activity_count": 5,
+        "activity_pack_id": 327,
+        "name": "Participial Phrases",
+        "students": Array [],
+      },
+      Object {
+        "activity_count": 3,
+        "activity_pack_id": 329,
+        "name": "Parallel Structure",
+        "students": Array [],
+      },
+      Object {
+        "activity_count": 5,
+        "activity_pack_id": 331,
+        "name": "Advanced Combining",
+        "students": Array [],
+      },
+    ]
+  }
+>
+  <main
+    className="diagnostic-recommendations-container"
+  >
+    <Snackbar
+      text=""
+      visible={false}
+    >
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
+    <header>
+      <h1>
+        Practice recommendations
+      </h1>
+      <a
+        className="focus-on-light"
+        href="https://support.quill.org/en/articles/5698147-how-do-i-read-the-practice-recommendations-report"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="File document icon"
+          src="undefined/images/pages/diagnostic_reports/icons-file-document.svg"
+        />
+        <span>
+          Guide
+        </span>
+      </a>
+    </header>
+    <span />
+    <p
+      className="explanation"
+    >
+      Based on the results of the diagnostic, we created a personalized learning plan for each student. Customize your learning plan by selecting the activity packs you would like to assign.
+    </p>
+    <section
+      className="independent-practice"
+    >
+      <div
+        className="section-header"
+      >
+        <h2>
+          Independent practice
+        </h2>
+        <div
+          className="recommended-key"
+        >
+          <div
+            className="recommended-image"
+          >
+            <img
+              alt="Recommended asterisk icon"
+              className="asterisk-icon"
+              src="undefined/images/pages/diagnostic_reports/icons-asterisk.svg"
+            />
+          </div>
+          <span>
+            Recommended
+          </span>
+        </div>
+      </div>
+      <IndependentRecommendationsButtons
+        assignActivityPacks={[Function]}
+        assigned={false}
+        assigning={false}
+        independentSelections={
+          Array [
+            Object {
+              "activity_count": 4,
+              "activity_pack_id": 320,
+              "name": "Compound-Complex Sentences",
+              "students": Array [],
+            },
+            Object {
+              "activity_count": 5,
+              "activity_pack_id": 322,
+              "name": "Appositive Phrases",
+              "students": Array [],
+            },
+            Object {
+              "activity_count": 6,
+              "activity_pack_id": 324,
+              "name": "Relative Clauses",
+              "students": Array [],
+            },
+            Object {
+              "activity_count": 5,
+              "activity_pack_id": 327,
+              "name": "Participial Phrases",
+              "students": Array [],
+            },
+            Object {
+              "activity_count": 3,
+              "activity_pack_id": 329,
+              "name": "Parallel Structure",
+              "students": Array [],
+            },
+            Object {
+              "activity_count": 5,
+              "activity_pack_id": 331,
+              "name": "Advanced Combining",
+              "students": Array [],
+            },
+          ]
+        }
+        previouslyAssignedRecommendations={Array []}
+        recommendations={Array []}
+        setIndependentSelections={[Function]}
+        students={Array []}
+      >
+        <RecommendationsButtons
+          assignActivityPacks={[Function]}
+          assigned={false}
+          assigning={false}
+          deselectAll={[Function]}
+          numberSelected={0}
+          selectAll={[Function]}
+          selectAllRecommended={[Function]}
+        >
+          <div
+            className="recommendations-buttons-container"
+          >
+            <div
+              className="recommendations-buttons"
+            >
+              <div>
+                <button
+                  className="quill-button fun secondary outlined focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Select all
+                </button>
+                <button
+                  className="quill-button fun secondary outlined focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Select all recommended
+                </button>
+                <button
+                  className="quill-button fun secondary outlined focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Deselect all
+                </button>
+              </div>
+              <div>
+                <button
+                  className="quill-button primary contained small disabled focus-on-light"
+                  type="button"
+                >
+                  Assign activity packs
+                </button>
+              </div>
+            </div>
+          </div>
+        </RecommendationsButtons>
+      </IndependentRecommendationsButtons>
+      <RecommendationsTable
+        previouslyAssignedRecommendations={Array []}
+        recommendations={Array []}
+        selections={
+          Array [
+            Object {
+              "activity_count": 4,
+              "activity_pack_id": 320,
+              "name": "Compound-Complex Sentences",
+              "students": Array [],
+            },
+            Object {
+              "activity_count": 5,
+              "activity_pack_id": 322,
+              "name": "Appositive Phrases",
+              "students": Array [],
+            },
+            Object {
+              "activity_count": 6,
+              "activity_pack_id": 324,
+              "name": "Relative Clauses",
+              "students": Array [],
+            },
+            Object {
+              "activity_count": 5,
+              "activity_pack_id": 327,
+              "name": "Participial Phrases",
+              "students": Array [],
+            },
+            Object {
+              "activity_count": 3,
+              "activity_pack_id": 329,
+              "name": "Parallel Structure",
+              "students": Array [],
+            },
+            Object {
+              "activity_count": 5,
+              "activity_pack_id": 331,
+              "name": "Advanced Combining",
+              "students": Array [],
+            },
+          ]
+        }
+        setSelections={[Function]}
+        students={Array []}
+      >
+        <div
+          className="recommendations-table-container"
+          onScroll={[Function]}
+        >
+          <table
+            className="empty recommendations-table"
+            style={
+              Object {
+                "marginLeft": 32,
+              }
+            }
+          >
+            <thead>
+              <tr>
+                <th
+                  className="corner-header"
+                  style={Object {}}
+                >
+                  Name
+                </th>
+              </tr>
+            </thead>
+            <div
+              className="no-data-yet"
+            >
+              <h5>
+                No data yet
+              </h5>
+              <p>
+                Data will appear in this report shortly after your students complete the diagnostic.
+              </p>
+            </div>
+            <tbody />
+          </table>
+        </div>
+      </RecommendationsTable>
+    </section>
+    <section
+      className="whole-class-instruction"
+    >
+      <div
+        className="section-header"
+      >
+        <div>
+          <h2>
+            Whole class instruction
+          </h2>
+          <Tooltip
+            tooltipText="Quill recommends a Quill Lessons activity when at least 50% of the students in your class need instruction on a particular skill. Quill Lessons are teacher-led lessons that include a full lesson plan, suggested slides, real-time paired practice, and whole-class discussion time. Each lesson is focused on a specific grammar skill."
+            tooltipTriggerText={
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            }
+          >
+            <span
+              className="quill-tooltip-trigger"
+            >
+              <span
+                className="undefined"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                tabIndex={null}
+              >
+                <img
+                  alt="Question mark icon"
+                  src="undefined/images/icons/icons-help.svg"
+                />
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
+        </div>
+        <div
+          className="recommended-key"
+        >
+          <div
+            className="recommended-image"
+          >
+            <img
+              alt="Recommended asterisk icon"
+              className="asterisk-icon"
+              src="undefined/images/pages/diagnostic_reports/icons-asterisk.svg"
+            />
+          </div>
+          <span>
+            Recommended
+          </span>
+        </div>
+      </div>
+      <LessonsRecommendationsButtons
+        assignLessonsActivityPacks={[Function]}
+        assigned={false}
+        assigning={false}
+        lessonsRecommendations={
+          Array [
+            Object {
+              "activities": Array [
+                Object {
+                  "name": "Lesson 1: Appositive Phrases",
+                  "url": "/activity_sessions/anonymous?activity_id=567",
+                },
+                Object {
+                  "name": "Lesson 2: Appositive Phrases Review",
+                  "url": "/activity_sessions/anonymous?activity_id=572",
+                },
+              ],
+              "activity_pack_id": 44,
+              "name": "Appositive Phrases Lesson Pack",
+              "percentage_needing_instruction": 0,
+              "students_needing_instruction": Array [],
+            },
+            Object {
+              "activities": Array [
+                Object {
+                  "name": "Lesson 1: Participial Phrases ",
+                  "url": "/activity_sessions/anonymous?activity_id=570",
+                },
+                Object {
+                  "name": "Lesson 2: Participial Phrases Review",
+                  "url": "/activity_sessions/anonymous?activity_id=577",
+                },
+              ],
+              "activity_pack_id": 45,
+              "name": "Participial Phrases Lesson Pack",
+              "percentage_needing_instruction": 0,
+              "students_needing_instruction": Array [],
+            },
+            Object {
+              "activities": Array [
+                Object {
+                  "name": "Lesson 1: Parallel Structure",
+                  "url": "/activity_sessions/anonymous?activity_id=571",
+                },
+              ],
+              "activity_pack_id": 46,
+              "name": "Parallel Structure Lesson Pack",
+              "percentage_needing_instruction": 0,
+              "students_needing_instruction": Array [],
+            },
+          ]
+        }
+        lessonsSelections={Array []}
+        setLessonsSelections={[Function]}
+        students={Array []}
+      >
+        <RecommendationsButtons
+          assignActivityPacks={[Function]}
+          assigned={false}
+          assigning={false}
+          deselectAll={[Function]}
+          numberSelected={0}
+          selectAll={[Function]}
+          selectAllRecommended={[Function]}
+        >
+          <div
+            className="recommendations-buttons-container"
+          >
+            <div
+              className="recommendations-buttons"
+            >
+              <div>
+                <button
+                  className="quill-button fun secondary outlined focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Select all
+                </button>
+                <button
+                  className="quill-button fun secondary outlined focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Select all recommended
+                </button>
+                <button
+                  className="quill-button fun secondary outlined focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Deselect all
+                </button>
+              </div>
+              <div>
+                <button
+                  className="quill-button primary contained small disabled focus-on-light"
+                  type="button"
+                >
+                  Assign activity packs
+                </button>
+              </div>
+            </div>
+          </div>
+        </RecommendationsButtons>
+      </LessonsRecommendationsButtons>
+      <LessonsRecommendations
+        previouslyAssignedRecommendations={Array []}
+        recommendations={
+          Array [
+            Object {
+              "activities": Array [
+                Object {
+                  "name": "Lesson 1: Appositive Phrases",
+                  "url": "/activity_sessions/anonymous?activity_id=567",
+                },
+                Object {
+                  "name": "Lesson 2: Appositive Phrases Review",
+                  "url": "/activity_sessions/anonymous?activity_id=572",
+                },
+              ],
+              "activity_pack_id": 44,
+              "name": "Appositive Phrases Lesson Pack",
+              "percentage_needing_instruction": 0,
+              "students_needing_instruction": Array [],
+            },
+            Object {
+              "activities": Array [
+                Object {
+                  "name": "Lesson 1: Participial Phrases ",
+                  "url": "/activity_sessions/anonymous?activity_id=570",
+                },
+                Object {
+                  "name": "Lesson 2: Participial Phrases Review",
+                  "url": "/activity_sessions/anonymous?activity_id=577",
+                },
+              ],
+              "activity_pack_id": 45,
+              "name": "Participial Phrases Lesson Pack",
+              "percentage_needing_instruction": 0,
+              "students_needing_instruction": Array [],
+            },
+            Object {
+              "activities": Array [
+                Object {
+                  "name": "Lesson 1: Parallel Structure",
+                  "url": "/activity_sessions/anonymous?activity_id=571",
+                },
+              ],
+              "activity_pack_id": 46,
+              "name": "Parallel Structure Lesson Pack",
+              "percentage_needing_instruction": 0,
+              "students_needing_instruction": Array [],
+            },
+          ]
+        }
+        selections={Array []}
+        setSelections={[Function]}
+      >
+        <div
+          className="lessons-recommendations"
+        >
+          <LessonRecommendation
+            key="44"
+            previouslyAssignedRecommendations={Array []}
+            recommendation={
+              Object {
+                "activities": Array [
+                  Object {
+                    "name": "Lesson 1: Appositive Phrases",
+                    "url": "/activity_sessions/anonymous?activity_id=567",
+                  },
+                  Object {
+                    "name": "Lesson 2: Appositive Phrases Review",
+                    "url": "/activity_sessions/anonymous?activity_id=572",
+                  },
+                ],
+                "activity_pack_id": 44,
+                "name": "Appositive Phrases Lesson Pack",
+                "percentage_needing_instruction": 0,
+                "students_needing_instruction": Array [],
+              }
+            }
+            selections={Array []}
+            setSelections={[Function]}
+          >
+            <section
+              className="lessons-recommendation  "
+            >
+              <div
+                className="top-row"
+              >
+                <div>
+                  <span
+                    className="asterisk-placeholder"
+                  />
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                  <h3>
+                    Appositive Phrases Lesson Pack
+                  </h3>
+                </div>
+                <div>
+                  <Tooltip
+                    tooltipText=""
+                    tooltipTriggerText={
+                      <img
+                        alt="Information icon"
+                        src="undefined/images/icons/information.svg"
+                      />
+                    }
+                  >
+                    <span
+                      className="quill-tooltip-trigger"
+                    >
+                      <span
+                        className="undefined"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        tabIndex={null}
+                      >
+                        <img
+                          alt="Information icon"
+                          src="undefined/images/icons/information.svg"
+                        />
+                      </span>
+                      <span
+                        className="quill-tooltip-wrapper"
+                      >
+                        <span
+                          className="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </Tooltip>
+                  <span>
+                    0
+                     student
+                    s
+                     need
+                     instruction
+                  </span>
+                  <span
+                    className="activities-count"
+                  >
+                    2
+                     lesson
+                    s
+                  </span>
+                  <button
+                    className="interactive-wrapper"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <img
+                      alt="Expand icon"
+                      className="expand-icon"
+                      src="undefined/images/icons/expand.svg"
+                    />
+                  </button>
+                </div>
+              </div>
+            </section>
+          </LessonRecommendation>
+          <LessonRecommendation
+            key="45"
+            previouslyAssignedRecommendations={Array []}
+            recommendation={
+              Object {
+                "activities": Array [
+                  Object {
+                    "name": "Lesson 1: Participial Phrases ",
+                    "url": "/activity_sessions/anonymous?activity_id=570",
+                  },
+                  Object {
+                    "name": "Lesson 2: Participial Phrases Review",
+                    "url": "/activity_sessions/anonymous?activity_id=577",
+                  },
+                ],
+                "activity_pack_id": 45,
+                "name": "Participial Phrases Lesson Pack",
+                "percentage_needing_instruction": 0,
+                "students_needing_instruction": Array [],
+              }
+            }
+            selections={Array []}
+            setSelections={[Function]}
+          >
+            <section
+              className="lessons-recommendation  "
+            >
+              <div
+                className="top-row"
+              >
+                <div>
+                  <span
+                    className="asterisk-placeholder"
+                  />
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                  <h3>
+                    Participial Phrases Lesson Pack
+                  </h3>
+                </div>
+                <div>
+                  <Tooltip
+                    tooltipText=""
+                    tooltipTriggerText={
+                      <img
+                        alt="Information icon"
+                        src="undefined/images/icons/information.svg"
+                      />
+                    }
+                  >
+                    <span
+                      className="quill-tooltip-trigger"
+                    >
+                      <span
+                        className="undefined"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        tabIndex={null}
+                      >
+                        <img
+                          alt="Information icon"
+                          src="undefined/images/icons/information.svg"
+                        />
+                      </span>
+                      <span
+                        className="quill-tooltip-wrapper"
+                      >
+                        <span
+                          className="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </Tooltip>
+                  <span>
+                    0
+                     student
+                    s
+                     need
+                     instruction
+                  </span>
+                  <span
+                    className="activities-count"
+                  >
+                    2
+                     lesson
+                    s
+                  </span>
+                  <button
+                    className="interactive-wrapper"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <img
+                      alt="Expand icon"
+                      className="expand-icon"
+                      src="undefined/images/icons/expand.svg"
+                    />
+                  </button>
+                </div>
+              </div>
+            </section>
+          </LessonRecommendation>
+          <LessonRecommendation
+            key="46"
+            previouslyAssignedRecommendations={Array []}
+            recommendation={
+              Object {
+                "activities": Array [
+                  Object {
+                    "name": "Lesson 1: Parallel Structure",
+                    "url": "/activity_sessions/anonymous?activity_id=571",
+                  },
+                ],
+                "activity_pack_id": 46,
+                "name": "Parallel Structure Lesson Pack",
+                "percentage_needing_instruction": 0,
+                "students_needing_instruction": Array [],
+              }
+            }
+            selections={Array []}
+            setSelections={[Function]}
+          >
+            <section
+              className="lessons-recommendation  "
+            >
+              <div
+                className="top-row"
+              >
+                <div>
+                  <span
+                    className="asterisk-placeholder"
+                  />
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                  <h3>
+                    Parallel Structure Lesson Pack
+                  </h3>
+                </div>
+                <div>
+                  <Tooltip
+                    tooltipText=""
+                    tooltipTriggerText={
+                      <img
+                        alt="Information icon"
+                        src="undefined/images/icons/information.svg"
+                      />
+                    }
+                  >
+                    <span
+                      className="quill-tooltip-trigger"
+                    >
+                      <span
+                        className="undefined"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        tabIndex={null}
+                      >
+                        <img
+                          alt="Information icon"
+                          src="undefined/images/icons/information.svg"
+                        />
+                      </span>
+                      <span
+                        className="quill-tooltip-wrapper"
+                      >
+                        <span
+                          className="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </Tooltip>
+                  <span>
+                    0
+                     student
+                    s
+                     need
+                     instruction
+                  </span>
+                  <span
+                    className="activities-count"
+                  >
+                    1
+                     lesson
+                  </span>
+                  <button
+                    className="interactive-wrapper"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <img
+                      alt="Expand icon"
+                      className="expand-icon"
+                      src="undefined/images/icons/expand.svg"
+                    />
+                  </button>
+                </div>
+              </div>
+            </section>
+          </LessonRecommendation>
+        </div>
+      </LessonsRecommendations>
+    </section>
+  </main>
+</Recommendations>
+`;
+
+exports[`Recommendations component should render when there is student data 1`] = `
+<Recommendations
+  location={
+    Object {
+      "search": "",
+    }
+  }
+  match={
+    Object {
+      "params": Object {
+        "activityId": 0,
+        "classroomId": 6,
+      },
+    }
+  }
+  mobileNavigation={<span />}
+  passedIndependentRecommendations={
+    Array [
+      Object {
+        "activity_count": 7,
+        "activity_pack_id": 308,
+        "name": "Capitalization",
+        "students": Array [
+          11115784,
+          11115786,
+          11115796,
+          11115769,
+          11115787,
+        ],
+      },
+      Object {
+        "activity_count": 5,
+        "activity_pack_id": 310,
+        "name": "Plural and Possessive Nouns",
+        "students": Array [
+          11115784,
+          11115782,
+          11115796,
+          11115769,
+          11115787,
+          11115797,
+        ],
+      },
+      Object {
+        "activity_count": 12,
+        "activity_pack_id": 312,
+        "name": "Adjectives and Adverbs",
+        "students": Array [
+          11115791,
+          11115784,
+          11115786,
+          11115782,
+          11115796,
+          11115769,
+          11115774,
+          11115787,
+          11115797,
+          11115764,
+        ],
+      },
+      Object {
+        "activity_count": 5,
+        "activity_pack_id": 314,
+        "name": "Prepositional Phrases",
+        "students": Array [
+          11115784,
+          11115786,
+          11115782,
+          11115796,
+          11115769,
+          11115787,
+          11115797,
+          11115764,
+        ],
+      },
+      Object {
+        "activity_count": 7,
+        "activity_pack_id": 316,
+        "name": "Compound Subjects, Objects, and Predicates",
+        "students": Array [
+          11115784,
+          11115786,
+          11115782,
+          11115796,
+          11115769,
+          11115774,
+          11115787,
+          11115797,
+        ],
+      },
+      Object {
+        "activity_count": 4,
+        "activity_pack_id": 318,
+        "name": "Commonly Confused Words",
+        "students": Array [
+          11115784,
+          11115782,
+          11115796,
+          11115769,
+          11115774,
+          11115787,
+          11115797,
+        ],
+      },
+    ]
+  }
+  passedLessonRecommendations={
+    Array [
+      Object {
+        "activities": Array [
+          Object {
+            "name": "Lesson 1: Single Adjectives",
+            "url": "/activity_sessions/anonymous?activity_id=564",
+          },
+          Object {
+            "name": "Lesson 2: Single Adjectives Review ",
+            "url": "/activity_sessions/anonymous?activity_id=573",
+          },
+        ],
+        "activity_pack_id": 39,
+        "name": "Adjectives Lesson Pack",
+        "percentage_needing_instruction": 55,
+        "students_needing_instruction": Array [
+          "Ja'shonda Abbott",
+          "Paulo Azevedo",
+          "Kaylesh Chaganlal",
+          "Vishal Dewan",
+          "Grace Hatton",
+          "Rudyard Kipling",
+        ],
+      },
+      Object {
+        "activities": Array [
+          Object {
+            "name": "Lesson 1: Using In, At, and On to Show Time",
+            "url": "/activity_sessions/anonymous?activity_id=654",
+          },
+          Object {
+            "name": "Lesson 2: Using In, At, and On to Show Location",
+            "url": "/activity_sessions/anonymous?activity_id=655",
+          },
+        ],
+        "activity_pack_id": 73,
+        "name": "Prepositions Lesson Pack",
+        "percentage_needing_instruction": 64,
+        "students_needing_instruction": Array [
+          "Ja'shonda Abbott",
+          "Paulo Azevedo",
+          "Kaylesh Chaganlal",
+          "Victoria De",
+          "Vishal Dewan",
+          "Grace Hatton",
+          "Rudyard Kipling",
+        ],
+      },
+      Object {
+        "activities": Array [
+          Object {
+            "name": "Lesson 1: Adverbs ",
+            "url": "/activity_sessions/anonymous?activity_id=565",
+          },
+          Object {
+            "name": "Lesson 2: Adverbs Review",
+            "url": "/activity_sessions/anonymous?activity_id=574",
+          },
+        ],
+        "activity_pack_id": 41,
+        "name": "Adverbs Lesson Pack",
+        "percentage_needing_instruction": 36,
+        "students_needing_instruction": Array [
+          "Kaylesh Chaganlal",
+          "Vishal Dewan",
+          "John Donne",
+          "Grace Hatton",
+        ],
+      },
+    ]
+  }
+  passedPreviouslyAssignedLessonRecommendations={
+    Array [
+      39,
+    ]
+  }
+  passedPreviouslyAssignedRecommendations={
+    Array [
+      Object {
+        "activity_count": 7,
+        "activity_pack_id": 308,
+        "name": "Capitalization",
+        "students": Array [],
+      },
+      Object {
+        "activity_count": 5,
+        "activity_pack_id": 310,
+        "name": "Plural and Possessive Nouns",
+        "students": Array [
+          11115774,
+        ],
+      },
+      Object {
+        "activity_count": 12,
+        "activity_pack_id": 312,
+        "name": "Adjectives and Adverbs",
+        "students": Array [
+          11115787,
+        ],
+      },
+      Object {
+        "activity_count": 5,
+        "activity_pack_id": 314,
+        "name": "Prepositional Phrases",
+        "students": Array [
+          11115774,
+        ],
+      },
+      Object {
+        "activity_count": 7,
+        "activity_pack_id": 316,
+        "name": "Compound Subjects, Objects, and Predicates",
+        "students": Array [
+          11115774,
+          11115787,
+        ],
+      },
+      Object {
+        "activity_count": 4,
+        "activity_pack_id": 318,
+        "name": "Commonly Confused Words",
+        "students": Array [
+          11115791,
+        ],
+      },
+    ]
+  }
+>
+  <main
+    className="diagnostic-recommendations-container"
+  >
+    <Snackbar
+      text=""
+      visible={false}
+    >
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
+    <header>
+      <h1>
+        Practice recommendations
+      </h1>
+      <a
+        className="focus-on-light"
+        href="https://support.quill.org/en/articles/5698147-how-do-i-read-the-practice-recommendations-report"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="File document icon"
+          src="undefined/images/pages/diagnostic_reports/icons-file-document.svg"
+        />
+        <span>
+          Guide
+        </span>
+      </a>
+    </header>
+    <span />
+    <p
+      className="explanation"
+    >
+      Based on the results of the diagnostic, we created a personalized learning plan for each student. Customize your learning plan by selecting the activity packs you would like to assign.
+    </p>
+    <section
+      className="independent-practice"
+    >
+      <div
+        className="section-header"
+      >
+        <h2>
+          Independent practice
+        </h2>
+        <div
+          className="recommended-key"
+        >
+          <div
+            className="recommended-image"
+          >
+            <img
+              alt="Recommended asterisk icon"
+              className="asterisk-icon"
+              src="undefined/images/pages/diagnostic_reports/icons-asterisk.svg"
+            />
+          </div>
+          <span>
+            Recommended
+          </span>
+        </div>
+      </div>
+      <IndependentRecommendationsButtons
+        assignActivityPacks={[Function]}
+        assigned={false}
+        assigning={false}
+        independentSelections={
+          Array [
+            Object {
+              "activity_count": 7,
+              "activity_pack_id": 308,
+              "name": "Capitalization",
+              "students": Array [
+                11115784,
+                11115786,
+                11115796,
+                11115769,
+                11115787,
+              ],
+            },
+            Object {
+              "activity_count": 5,
+              "activity_pack_id": 310,
+              "name": "Plural and Possessive Nouns",
+              "students": Array [
+                11115784,
+                11115782,
+                11115796,
+                11115769,
+                11115787,
+                11115797,
+              ],
+            },
+            Object {
+              "activity_count": 12,
+              "activity_pack_id": 312,
+              "name": "Adjectives and Adverbs",
+              "students": Array [
+                11115791,
+                11115784,
+                11115786,
+                11115782,
+                11115796,
+                11115769,
+                11115774,
+                11115787,
+                11115797,
+                11115764,
+              ],
+            },
+            Object {
+              "activity_count": 5,
+              "activity_pack_id": 314,
+              "name": "Prepositional Phrases",
+              "students": Array [
+                11115784,
+                11115786,
+                11115782,
+                11115796,
+                11115769,
+                11115787,
+                11115797,
+                11115764,
+              ],
+            },
+            Object {
+              "activity_count": 7,
+              "activity_pack_id": 316,
+              "name": "Compound Subjects, Objects, and Predicates",
+              "students": Array [
+                11115784,
+                11115786,
+                11115782,
+                11115796,
+                11115769,
+                11115774,
+                11115787,
+                11115797,
+              ],
+            },
+            Object {
+              "activity_count": 4,
+              "activity_pack_id": 318,
+              "name": "Commonly Confused Words",
+              "students": Array [
+                11115784,
+                11115782,
+                11115796,
+                11115769,
+                11115774,
+                11115787,
+                11115797,
+              ],
+            },
+          ]
+        }
+        previouslyAssignedRecommendations={Array []}
+        recommendations={Array []}
+        setIndependentSelections={[Function]}
+        students={Array []}
+      >
+        <RecommendationsButtons
+          assignActivityPacks={[Function]}
+          assigned={false}
+          assigning={false}
+          deselectAll={[Function]}
+          numberSelected={0}
+          selectAll={[Function]}
+          selectAllRecommended={[Function]}
+        >
+          <div
+            className="recommendations-buttons-container"
+          >
+            <div
+              className="recommendations-buttons"
+            >
+              <div>
+                <button
+                  className="quill-button fun secondary outlined focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Select all
+                </button>
+                <button
+                  className="quill-button fun secondary outlined focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Select all recommended
+                </button>
+                <button
+                  className="quill-button fun secondary outlined focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Deselect all
+                </button>
+              </div>
+              <div>
+                <button
+                  className="quill-button primary contained small disabled focus-on-light"
+                  type="button"
+                >
+                  Assign activity packs
+                </button>
+              </div>
+            </div>
+          </div>
+        </RecommendationsButtons>
+      </IndependentRecommendationsButtons>
+      <RecommendationsTable
+        previouslyAssignedRecommendations={Array []}
+        recommendations={Array []}
+        selections={
+          Array [
+            Object {
+              "activity_count": 7,
+              "activity_pack_id": 308,
+              "name": "Capitalization",
+              "students": Array [
+                11115784,
+                11115786,
+                11115796,
+                11115769,
+                11115787,
+              ],
+            },
+            Object {
+              "activity_count": 5,
+              "activity_pack_id": 310,
+              "name": "Plural and Possessive Nouns",
+              "students": Array [
+                11115784,
+                11115782,
+                11115796,
+                11115769,
+                11115787,
+                11115797,
+              ],
+            },
+            Object {
+              "activity_count": 12,
+              "activity_pack_id": 312,
+              "name": "Adjectives and Adverbs",
+              "students": Array [
+                11115791,
+                11115784,
+                11115786,
+                11115782,
+                11115796,
+                11115769,
+                11115774,
+                11115787,
+                11115797,
+                11115764,
+              ],
+            },
+            Object {
+              "activity_count": 5,
+              "activity_pack_id": 314,
+              "name": "Prepositional Phrases",
+              "students": Array [
+                11115784,
+                11115786,
+                11115782,
+                11115796,
+                11115769,
+                11115787,
+                11115797,
+                11115764,
+              ],
+            },
+            Object {
+              "activity_count": 7,
+              "activity_pack_id": 316,
+              "name": "Compound Subjects, Objects, and Predicates",
+              "students": Array [
+                11115784,
+                11115786,
+                11115782,
+                11115796,
+                11115769,
+                11115774,
+                11115787,
+                11115797,
+              ],
+            },
+            Object {
+              "activity_count": 4,
+              "activity_pack_id": 318,
+              "name": "Commonly Confused Words",
+              "students": Array [
+                11115784,
+                11115782,
+                11115796,
+                11115769,
+                11115774,
+                11115787,
+                11115797,
+              ],
+            },
+          ]
+        }
+        setSelections={[Function]}
+        students={Array []}
+      >
+        <div
+          className="recommendations-table-container"
+          onScroll={[Function]}
+        >
+          <table
+            className="empty recommendations-table"
+            style={
+              Object {
+                "marginLeft": 32,
+              }
+            }
+          >
+            <thead>
+              <tr>
+                <th
+                  className="corner-header"
+                  style={Object {}}
+                >
+                  Name
+                </th>
+              </tr>
+            </thead>
+            <div
+              className="no-data-yet"
+            >
+              <h5>
+                No data yet
+              </h5>
+              <p>
+                Data will appear in this report shortly after your students complete the diagnostic.
+              </p>
+            </div>
+            <tbody />
+          </table>
+        </div>
+      </RecommendationsTable>
+    </section>
+    <section
+      className="whole-class-instruction"
+    >
+      <div
+        className="section-header"
+      >
+        <div>
+          <h2>
+            Whole class instruction
+          </h2>
+          <Tooltip
+            tooltipText="Quill recommends a Quill Lessons activity when at least 50% of the students in your class need instruction on a particular skill. Quill Lessons are teacher-led lessons that include a full lesson plan, suggested slides, real-time paired practice, and whole-class discussion time. Each lesson is focused on a specific grammar skill."
+            tooltipTriggerText={
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            }
+          >
+            <span
+              className="quill-tooltip-trigger"
+            >
+              <span
+                className="undefined"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                tabIndex={null}
+              >
+                <img
+                  alt="Question mark icon"
+                  src="undefined/images/icons/icons-help.svg"
+                />
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
+        </div>
+        <div
+          className="recommended-key"
+        >
+          <div
+            className="recommended-image"
+          >
+            <img
+              alt="Recommended asterisk icon"
+              className="asterisk-icon"
+              src="undefined/images/pages/diagnostic_reports/icons-asterisk.svg"
+            />
+          </div>
+          <span>
+            Recommended
+          </span>
+        </div>
+      </div>
+      <LessonsRecommendationsButtons
+        assignLessonsActivityPacks={[Function]}
+        assigned={false}
+        assigning={false}
+        lessonsRecommendations={
+          Array [
+            Object {
+              "activities": Array [
+                Object {
+                  "name": "Lesson 1: Single Adjectives",
+                  "url": "/activity_sessions/anonymous?activity_id=564",
+                },
+                Object {
+                  "name": "Lesson 2: Single Adjectives Review ",
+                  "url": "/activity_sessions/anonymous?activity_id=573",
+                },
+              ],
+              "activity_pack_id": 39,
+              "name": "Adjectives Lesson Pack",
+              "percentage_needing_instruction": 55,
+              "previously_assigned": true,
+              "status": "assigned",
+              "students_needing_instruction": Array [
+                "Ja'shonda Abbott",
+                "Paulo Azevedo",
+                "Kaylesh Chaganlal",
+                "Vishal Dewan",
+                "Grace Hatton",
+                "Rudyard Kipling",
+              ],
+            },
+            Object {
+              "activities": Array [
+                Object {
+                  "name": "Lesson 1: Using In, At, and On to Show Time",
+                  "url": "/activity_sessions/anonymous?activity_id=654",
+                },
+                Object {
+                  "name": "Lesson 2: Using In, At, and On to Show Location",
+                  "url": "/activity_sessions/anonymous?activity_id=655",
+                },
+              ],
+              "activity_pack_id": 73,
+              "name": "Prepositions Lesson Pack",
+              "percentage_needing_instruction": 64,
+              "students_needing_instruction": Array [
+                "Ja'shonda Abbott",
+                "Paulo Azevedo",
+                "Kaylesh Chaganlal",
+                "Victoria De",
+                "Vishal Dewan",
+                "Grace Hatton",
+                "Rudyard Kipling",
+              ],
+            },
+            Object {
+              "activities": Array [
+                Object {
+                  "name": "Lesson 1: Adverbs ",
+                  "url": "/activity_sessions/anonymous?activity_id=565",
+                },
+                Object {
+                  "name": "Lesson 2: Adverbs Review",
+                  "url": "/activity_sessions/anonymous?activity_id=574",
+                },
+              ],
+              "activity_pack_id": 41,
+              "name": "Adverbs Lesson Pack",
+              "percentage_needing_instruction": 36,
+              "students_needing_instruction": Array [
+                "Kaylesh Chaganlal",
+                "Vishal Dewan",
+                "John Donne",
+                "Grace Hatton",
+              ],
+            },
+          ]
+        }
+        lessonsSelections={Array []}
+        setLessonsSelections={[Function]}
+        students={Array []}
+      >
+        <RecommendationsButtons
+          assignActivityPacks={[Function]}
+          assigned={false}
+          assigning={false}
+          deselectAll={[Function]}
+          numberSelected={0}
+          selectAll={[Function]}
+          selectAllRecommended={[Function]}
+        >
+          <div
+            className="recommendations-buttons-container"
+          >
+            <div
+              className="recommendations-buttons"
+            >
+              <div>
+                <button
+                  className="quill-button fun secondary outlined focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Select all
+                </button>
+                <button
+                  className="quill-button fun secondary outlined focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Select all recommended
+                </button>
+                <button
+                  className="quill-button fun secondary outlined focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Deselect all
+                </button>
+              </div>
+              <div>
+                <button
+                  className="quill-button primary contained small disabled focus-on-light"
+                  type="button"
+                >
+                  Assign activity packs
+                </button>
+              </div>
+            </div>
+          </div>
+        </RecommendationsButtons>
+      </LessonsRecommendationsButtons>
+      <LessonsRecommendations
+        previouslyAssignedRecommendations={Array []}
+        recommendations={
+          Array [
+            Object {
+              "activities": Array [
+                Object {
+                  "name": "Lesson 1: Single Adjectives",
+                  "url": "/activity_sessions/anonymous?activity_id=564",
+                },
+                Object {
+                  "name": "Lesson 2: Single Adjectives Review ",
+                  "url": "/activity_sessions/anonymous?activity_id=573",
+                },
+              ],
+              "activity_pack_id": 39,
+              "name": "Adjectives Lesson Pack",
+              "percentage_needing_instruction": 55,
+              "previously_assigned": true,
+              "status": "assigned",
+              "students_needing_instruction": Array [
+                "Ja'shonda Abbott",
+                "Paulo Azevedo",
+                "Kaylesh Chaganlal",
+                "Vishal Dewan",
+                "Grace Hatton",
+                "Rudyard Kipling",
+              ],
+            },
+            Object {
+              "activities": Array [
+                Object {
+                  "name": "Lesson 1: Using In, At, and On to Show Time",
+                  "url": "/activity_sessions/anonymous?activity_id=654",
+                },
+                Object {
+                  "name": "Lesson 2: Using In, At, and On to Show Location",
+                  "url": "/activity_sessions/anonymous?activity_id=655",
+                },
+              ],
+              "activity_pack_id": 73,
+              "name": "Prepositions Lesson Pack",
+              "percentage_needing_instruction": 64,
+              "students_needing_instruction": Array [
+                "Ja'shonda Abbott",
+                "Paulo Azevedo",
+                "Kaylesh Chaganlal",
+                "Victoria De",
+                "Vishal Dewan",
+                "Grace Hatton",
+                "Rudyard Kipling",
+              ],
+            },
+            Object {
+              "activities": Array [
+                Object {
+                  "name": "Lesson 1: Adverbs ",
+                  "url": "/activity_sessions/anonymous?activity_id=565",
+                },
+                Object {
+                  "name": "Lesson 2: Adverbs Review",
+                  "url": "/activity_sessions/anonymous?activity_id=574",
+                },
+              ],
+              "activity_pack_id": 41,
+              "name": "Adverbs Lesson Pack",
+              "percentage_needing_instruction": 36,
+              "students_needing_instruction": Array [
+                "Kaylesh Chaganlal",
+                "Vishal Dewan",
+                "John Donne",
+                "Grace Hatton",
+              ],
+            },
+          ]
+        }
+        selections={Array []}
+        setSelections={[Function]}
+      >
+        <div
+          className="lessons-recommendations"
+        >
+          <LessonRecommendation
+            key="39"
+            previouslyAssignedRecommendations={Array []}
+            recommendation={
+              Object {
+                "activities": Array [
+                  Object {
+                    "name": "Lesson 1: Single Adjectives",
+                    "url": "/activity_sessions/anonymous?activity_id=564",
+                  },
+                  Object {
+                    "name": "Lesson 2: Single Adjectives Review ",
+                    "url": "/activity_sessions/anonymous?activity_id=573",
+                  },
+                ],
+                "activity_pack_id": 39,
+                "name": "Adjectives Lesson Pack",
+                "percentage_needing_instruction": 55,
+                "previously_assigned": true,
+                "status": "assigned",
+                "students_needing_instruction": Array [
+                  "Ja'shonda Abbott",
+                  "Paulo Azevedo",
+                  "Kaylesh Chaganlal",
+                  "Vishal Dewan",
+                  "Grace Hatton",
+                  "Rudyard Kipling",
+                ],
+              }
+            }
+            selections={Array []}
+            setSelections={[Function]}
+          >
+            <section
+              className="lessons-recommendation  is-recommended-and-not-assigned"
+            >
+              <div
+                className="top-row"
+              >
+                <div>
+                  <img
+                    alt="Recommended asterisk icon"
+                    className="asterisk-icon"
+                    src="undefined/images/pages/diagnostic_reports/icons-asterisk.svg"
+                  />
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                  <h3>
+                    Adjectives Lesson Pack
+                  </h3>
+                </div>
+                <div>
+                  <Tooltip
+                    tooltipText="Ja'shonda Abbott<br/>Paulo Azevedo<br/>Kaylesh Chaganlal<br/>Vishal Dewan<br/>Grace Hatton<br/>Rudyard Kipling"
+                    tooltipTriggerText={
+                      <img
+                        alt="Information icon"
+                        src="undefined/images/icons/information.svg"
+                      />
+                    }
+                  >
+                    <span
+                      className="quill-tooltip-trigger"
+                    >
+                      <span
+                        className="undefined"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        tabIndex={null}
+                      >
+                        <img
+                          alt="Information icon"
+                          src="undefined/images/icons/information.svg"
+                        />
+                      </span>
+                      <span
+                        className="quill-tooltip-wrapper"
+                      >
+                        <span
+                          className="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </Tooltip>
+                  <span>
+                    6
+                     student
+                    s
+                     need
+                     instruction
+                  </span>
+                  <span
+                    className="activities-count"
+                  >
+                    2
+                     lesson
+                    s
+                  </span>
+                  <button
+                    className="interactive-wrapper"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <img
+                      alt="Expand icon"
+                      className="expand-icon"
+                      src="undefined/images/icons/expand.svg"
+                    />
+                  </button>
+                </div>
+              </div>
+            </section>
+          </LessonRecommendation>
+          <LessonRecommendation
+            key="73"
+            previouslyAssignedRecommendations={Array []}
+            recommendation={
+              Object {
+                "activities": Array [
+                  Object {
+                    "name": "Lesson 1: Using In, At, and On to Show Time",
+                    "url": "/activity_sessions/anonymous?activity_id=654",
+                  },
+                  Object {
+                    "name": "Lesson 2: Using In, At, and On to Show Location",
+                    "url": "/activity_sessions/anonymous?activity_id=655",
+                  },
+                ],
+                "activity_pack_id": 73,
+                "name": "Prepositions Lesson Pack",
+                "percentage_needing_instruction": 64,
+                "students_needing_instruction": Array [
+                  "Ja'shonda Abbott",
+                  "Paulo Azevedo",
+                  "Kaylesh Chaganlal",
+                  "Victoria De",
+                  "Vishal Dewan",
+                  "Grace Hatton",
+                  "Rudyard Kipling",
+                ],
+              }
+            }
+            selections={Array []}
+            setSelections={[Function]}
+          >
+            <section
+              className="lessons-recommendation  is-recommended-and-not-assigned"
+            >
+              <div
+                className="top-row"
+              >
+                <div>
+                  <img
+                    alt="Recommended asterisk icon"
+                    className="asterisk-icon"
+                    src="undefined/images/pages/diagnostic_reports/icons-asterisk.svg"
+                  />
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                  <h3>
+                    Prepositions Lesson Pack
+                  </h3>
+                </div>
+                <div>
+                  <Tooltip
+                    tooltipText="Ja'shonda Abbott<br/>Paulo Azevedo<br/>Kaylesh Chaganlal<br/>Victoria De<br/>Vishal Dewan<br/>Grace Hatton<br/>Rudyard Kipling"
+                    tooltipTriggerText={
+                      <img
+                        alt="Information icon"
+                        src="undefined/images/icons/information.svg"
+                      />
+                    }
+                  >
+                    <span
+                      className="quill-tooltip-trigger"
+                    >
+                      <span
+                        className="undefined"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        tabIndex={null}
+                      >
+                        <img
+                          alt="Information icon"
+                          src="undefined/images/icons/information.svg"
+                        />
+                      </span>
+                      <span
+                        className="quill-tooltip-wrapper"
+                      >
+                        <span
+                          className="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </Tooltip>
+                  <span>
+                    7
+                     student
+                    s
+                     need
+                     instruction
+                  </span>
+                  <span
+                    className="activities-count"
+                  >
+                    2
+                     lesson
+                    s
+                  </span>
+                  <button
+                    className="interactive-wrapper"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <img
+                      alt="Expand icon"
+                      className="expand-icon"
+                      src="undefined/images/icons/expand.svg"
+                    />
+                  </button>
+                </div>
+              </div>
+            </section>
+          </LessonRecommendation>
+          <LessonRecommendation
+            key="41"
+            previouslyAssignedRecommendations={Array []}
+            recommendation={
+              Object {
+                "activities": Array [
+                  Object {
+                    "name": "Lesson 1: Adverbs ",
+                    "url": "/activity_sessions/anonymous?activity_id=565",
+                  },
+                  Object {
+                    "name": "Lesson 2: Adverbs Review",
+                    "url": "/activity_sessions/anonymous?activity_id=574",
+                  },
+                ],
+                "activity_pack_id": 41,
+                "name": "Adverbs Lesson Pack",
+                "percentage_needing_instruction": 36,
+                "students_needing_instruction": Array [
+                  "Kaylesh Chaganlal",
+                  "Vishal Dewan",
+                  "John Donne",
+                  "Grace Hatton",
+                ],
+              }
+            }
+            selections={Array []}
+            setSelections={[Function]}
+          >
+            <section
+              className="lessons-recommendation  "
+            >
+              <div
+                className="top-row"
+              >
+                <div>
+                  <span
+                    className="asterisk-placeholder"
+                  />
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                  <h3>
+                    Adverbs Lesson Pack
+                  </h3>
+                </div>
+                <div>
+                  <Tooltip
+                    tooltipText="Kaylesh Chaganlal<br/>Vishal Dewan<br/>John Donne<br/>Grace Hatton"
+                    tooltipTriggerText={
+                      <img
+                        alt="Information icon"
+                        src="undefined/images/icons/information.svg"
+                      />
+                    }
+                  >
+                    <span
+                      className="quill-tooltip-trigger"
+                    >
+                      <span
+                        className="undefined"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        tabIndex={null}
+                      >
+                        <img
+                          alt="Information icon"
+                          src="undefined/images/icons/information.svg"
+                        />
+                      </span>
+                      <span
+                        className="quill-tooltip-wrapper"
+                      >
+                        <span
+                          className="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </Tooltip>
+                  <span>
+                    4
+                     student
+                    s
+                     need
+                     instruction
+                  </span>
+                  <span
+                    className="activities-count"
+                  >
+                    2
+                     lesson
+                    s
+                  </span>
+                  <button
+                    className="interactive-wrapper"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <img
+                      alt="Expand icon"
+                      className="expand-icon"
+                      src="undefined/images/icons/expand.svg"
+                    />
+                  </button>
+                </div>
+              </div>
+            </section>
+          </LessonRecommendation>
+        </div>
+      </LessonsRecommendations>
+    </section>
+  </main>
+</Recommendations>
+`;

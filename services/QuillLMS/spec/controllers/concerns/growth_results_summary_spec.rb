@@ -43,6 +43,7 @@ describe GrowthResultsSummary do
             skill_groups: [
               {
                 skill_group: pre_test_skill_group_activity.skill_group.name,
+                description: pre_test_skill_group_activity.skill_group.description,
                 skills: [
                   {
                     pre: {
@@ -102,6 +103,7 @@ describe GrowthResultsSummary do
             skill_groups: [
               {
                 skill_group: pre_test_skill_group_activity.skill_group.name,
+                description: pre_test_skill_group_activity.skill_group.description,
                 skills: [
                   {
                     pre: {
@@ -151,6 +153,7 @@ describe GrowthResultsSummary do
       expect(skill_groups_for_session([pre_test_skill_group_activity.skill_group], post_test_activity_session.id, pre_test_activity_session.id, student1.name)).to eq [
         {
           skill_group: pre_test_skill_group_activity.skill_group.name,
+          description: pre_test_skill_group_activity.skill_group.description,
           skills: [
             {
               pre: {

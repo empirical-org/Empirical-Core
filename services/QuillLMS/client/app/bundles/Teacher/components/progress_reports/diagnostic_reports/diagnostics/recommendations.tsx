@@ -94,7 +94,7 @@ const LessonRecommendation = ({ previouslyAssignedRecommendations, selections, s
 }
 
 const LessonsRecommendations = ({ previouslyAssignedRecommendations, recommendations, selections, setSelections, }) => {
-  return <div className="lessons-recommendations">{recommendations.map(recommendation => <LessonRecommendation key={recommendation.activity_pack_id} previouslyAssignedRecommendations={[73, 49]} recommendation={recommendation} selections={selections} setSelections={setSelections} />)}</div>
+  return <div className="lessons-recommendations">{recommendations.map(recommendation => <LessonRecommendation key={recommendation.activity_pack_id} previouslyAssignedRecommendations={previouslyAssignedRecommendations} recommendation={recommendation} selections={selections} setSelections={setSelections} />)}</div>
 }
 
 const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActivityPacks, deselectAll, selectAll, selectAllRecommended}) => {
@@ -149,7 +149,7 @@ const IndependentRecommendationsButtons = ({ assignActivityPacks, independentSel
 
   const numberSelected = independentSelections.reduce((previousValue, selection) => {
     const previouslyAssignedActivity = previouslyAssignedRecommendations.find(r => r.activity_pack_id === selection.activity_pack_id)
-    const selectedStudents = selection.students.filter(id => !previouslyAssignedActivity.students.includes(id))
+    const selectedStudents = selection.students.filter(id => previouslyAssignedActivity && !previouslyAssignedActivity.students.includes(id))
     return previousValue += selectedStudents.length
   }, 0)
   return <RecommendationsButtons assignActivityPacks={assignActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={numberSelected} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
@@ -173,12 +173,12 @@ const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonsActivit
   return <RecommendationsButtons assignActivityPacks={assignLessonsActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={lessonsSelections.length} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
 }
 
-const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedRecommendations, passedLessonRecommendations, match, mobileNavigation, }) => {
-  const [loading, setLoading] = React.useState<boolean>(!passedPreviouslyAssignedRecommendations && !passedRecommendations && !passedLessonRecommendations);
-  const [previouslyAssignedIndependentRecommendations, setPreviouslyAssignedIndependentRecommendations] = React.useState<Recommendation[]>(passedPreviouslyAssignedRecommendations);
-  const [previouslyAssignedLessonsRecommendations, setPreviouslyAssignedLessonsRecommendations] = React.useState<LessonRecommendation[]>(passedPreviouslyAssignedLessonRecommendations);
-  const [independentRecommendations, setIndependentRecommendations] = React.useState<Recommendation[]>(passedRecommendations);
-  const [lessonsRecommendations, setLessonsRecommendations] = React.useState<LessonRecommendation[]>(passedLessonRecommendations);
+export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, }) => {
+  const [loading, setLoading] = React.useState<boolean>(!passedPreviouslyAssignedRecommendations && !passedIndependentRecommendations && !passedLessonRecommendations);
+  const [previouslyAssignedIndependentRecommendations, setPreviouslyAssignedIndependentRecommendations] = React.useState<Recommendation[]>(passedPreviouslyAssignedRecommendations || []);
+  const [previouslyAssignedLessonsRecommendations, setPreviouslyAssignedLessonsRecommendations] = React.useState<LessonRecommendation[]>(passedPreviouslyAssignedLessonRecommendations || []);
+  const [independentRecommendations, setIndependentRecommendations] = React.useState<Recommendation[]>(passedIndependentRecommendations || []);
+  const [lessonsRecommendations, setLessonsRecommendations] = React.useState<LessonRecommendation[]>(passedLessonRecommendations || []);
   const [independentSelections, setIndependentSelections] = React.useState<Recommendation[]>([]);
   const [lessonsSelections, setLessonsSelections] = React.useState<number[]>([]);
   const [students, setStudents] = React.useState<Student[]>([]);
@@ -205,10 +205,10 @@ const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPrevio
     setLoading(true)
     setIndependentSelections([])
     setLessonsSelections([])
-    setIndependentRecommendations(null)
-    setLessonsRecommendations(null)
-    setPreviouslyAssignedIndependentRecommendations(null)
-    setPreviouslyAssignedLessonsRecommendations(null)
+    setIndependentRecommendations([])
+    setLessonsRecommendations([])
+    setPreviouslyAssignedIndependentRecommendations([])
+    setPreviouslyAssignedLessonsRecommendations([])
     getRecommendations()
     getPreviouslyAssignedRecommendationData()
   }, [activityId, classroomId, unitId])

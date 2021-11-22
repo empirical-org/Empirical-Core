@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SkillGroupTooltip component should render 1`] = `
+<SkillGroupTooltip
+  description="Students who show proficiency in this skill will use capitalization at the beginning of a sentence and correct capitalization of names, dates, holidays, geographic locations, and the pronoun \\"I.\\""
+  name="Capitalization"
+>
+  <Tooltip
+    tooltipText="<p>Capitalization<br/><br/>Students who show proficiency in this skill will use capitalization at the beginning of a sentence and correct capitalization of names, dates, holidays, geographic locations, and the pronoun \\"I.\\"</p>"
+    tooltipTriggerText={
+      <img
+        alt="Question mark icon"
+        src="undefined/images/icons/icons-help.svg"
+      />
+    }
+  >
+    <span
+      className="quill-tooltip-trigger"
+    >
+      <span
+        className="undefined"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        tabIndex={null}
+      >
+        <img
+          alt="Question mark icon"
+          src="undefined/images/icons/icons-help.svg"
+        />
+      </span>
+      <span
+        className="quill-tooltip-wrapper"
+      >
+        <span
+          className="quill-tooltip"
+        />
+      </span>
+    </span>
+  </Tooltip>
+</SkillGroupTooltip>
+`;

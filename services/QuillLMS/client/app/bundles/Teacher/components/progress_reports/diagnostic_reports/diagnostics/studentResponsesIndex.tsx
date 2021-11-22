@@ -89,7 +89,7 @@ const ProficiencyKey = ({ className, studentCount, range, title, }) => {
 }
 
 
-const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => {
+export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudents);
   const [students, setStudents] = React.useState<Student[]>(passedStudents || []);
 

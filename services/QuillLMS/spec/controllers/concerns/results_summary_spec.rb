@@ -36,6 +36,7 @@ describe ResultsSummary do
             skill_groups: [
               {
                 skill_group: skill_group_activity.skill_group.name,
+                description: skill_group_activity.skill_group.description,
                 skills: [
                   {
                     id: skill.id,
@@ -79,6 +80,7 @@ describe ResultsSummary do
             skill_groups: [
               {
                 skill_group: skill_group_activity.skill_group.name,
+                description: skill_group_activity.skill_group.description,
                 skills: [
                   {
                     id: skill.id,
@@ -114,6 +116,7 @@ describe ResultsSummary do
       expect(skill_groups_for_session([skill_group_activity.skill_group], activity_session.id, student1.name)).to eq [
         {
           skill_group: skill_group_activity.skill_group.name,
+          description: skill_group_activity.skill_group.description,
           skills: [
             {
               id: skill.id,

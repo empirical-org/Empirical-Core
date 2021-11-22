@@ -93,7 +93,7 @@ const Tab = ({ activeTab, label, setPreOrPost, value, }) => {
   return (<button className={`${activeTab === value ? 'active' : ''} focus-on-light tab`} onClick={handleClick} type="button">{label}</button>)
 }
 
-const IndividualStudentResponses = ({ match, passedConceptResults, passedSkillResults, mobileNavigation, }) => {
+export const IndividualStudentResponses = ({ match, passedConceptResults, passedSkillResults, mobileNavigation, }) => {
   const [loading, setLoading] = React.useState<boolean>(!(passedConceptResults && passedSkillResults));
   const [name, setName] = React.useState<string>('')
   const [conceptResults, setConceptResults] = React.useState<ConceptResults>(passedConceptResults || []);
