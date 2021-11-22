@@ -3,7 +3,6 @@ class StudentsController < ApplicationController
 
   before_action :authorize!, except: [:student_demo, :demo_ap, :join_classroom]
   before_action :redirect_to_profile, only: [:index]
-  before_action :flash_missing_unit_error, only: [:index]
 
   def index
     @current_user = current_user
@@ -102,16 +101,14 @@ class StudentsController < ApplicationController
     classroom_id = params["classroom"]
     unit_id = params["unit_id"]
 
-    if current_user && current_user.role === "student"
-      if classroom_id && unit_id
-        flash_missing_unit_error
-      elsif classroom_id && (Classroom.find_by(id: classroom_id).nil? || StudentsClassrooms.find_by(student_id: @current_user.id, classroom_id: classroom_id).nil?)
-        flash[:error] = 'Oops! You do not belong to that classroom. Your teacher may have archived the class or removed you.'
-        flash.keep(:error)
-        redirect_to classes_path
-      end
-    else
-      redirect_to profile_path
+    return redirect_to profile_path if current_user && !current_user.student?
+
+    if classroom_id && unit_id
+      flash_missing_unit_error
+    elsif classroom_id && (Classroom.find_by(id: classroom_id).nil? || StudentsClassrooms.find_by(student_id: @current_user.id, classroom_id: classroom_id).nil?)
+      flash[:error] = 'Oops! You do not belong to that classroom. Your teacher may have archived the class or removed you.'
+      flash.keep(:error)
+      redirect_to classes_path
     end
   end
 
@@ -119,12 +116,10 @@ class StudentsController < ApplicationController
     classroom_id = params["classroom"]
     unit_id = params["unit_id"]
 
-    return unless classroom_id && unit_id
-
     classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
 
     unless classroom_unit && classroom_unit.assigned_student_ids.include?(current_user.id)
-      flash[:error] = 'Sorry, you do not have access to this activity pack because it has not been assigned to you. Please contact your teacher.'
+      flash[:error] = t('activity_link.errors.activity_pack_not_assigned')
       flash.keep(:error)
       redirect_to classes_path
     end

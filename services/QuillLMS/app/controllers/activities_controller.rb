@@ -60,31 +60,18 @@ class ActivitiesController < ApplicationController
   end
 
   def activity_session
-    if current_user && current_user.role == "student"
-      classroom_unit_id = params["classroom_unit_id"]
-      if authorized_activity_access?
-        redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)
-      elsif classroom_unit_id
-        activity_link(classroom_unit_id: classroom_unit_id)
-      else
-        redirect_to classes_path
-      end
-    else
-      redirect_to profile_path
-    end
-  end
+    return redirect_to profile_path if !current_user.student?
 
-  def activity_link(classroom_unit_id: nil)
-    classroom_unit = classroom_unit_id && ClassroomUnit.find(classroom_unit_id)
-    if classroom_unit && !classroom_unit.assigned_student_ids.include?(current_user.id)
-      flash[:error] = 'Sorry, you do not have access to this activity because it has not been assigned to you. Please contact your teacher.'
+    if authorized_activity_access?
+      redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)
+    else
+      flash[:error] = t('activity_link.errors.activity_not_assigned')
       flash.keep(:error)
       redirect_to classes_path
     end
   end
 
   private def authorized_activity_access?
-    current_user.student? &&
     activity &&
     classroom_unit&.assigned_student_ids&.include?(current_user.id) &&
     UnitActivity.exists?(unit: classroom_unit.unit, activity: activity)
