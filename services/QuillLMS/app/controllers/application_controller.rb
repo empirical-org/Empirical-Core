@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   #helper CMS::Helper
   helper SegmentioHelper
 
+  include NewRelicAttributable
   before_action :set_raven_context
   before_action :confirm_valid_session
   before_action :set_default_cache_security_headers

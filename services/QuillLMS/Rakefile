@@ -2,7 +2,19 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require File.expand_path('../config/application', __FILE__)
+require 'dotenv/tasks'
+require 'tasks/modules/slack_tasks'
 
 EmpiricalGrammar::Application.load_tasks
 
 task default: [:spec]
+
+task after_hook: :dotenv do
+  include SlackTasks
+
+  post_slack_rake_task
+end
+
+Rake.application.tasks.each do |task|
+  task.enhance([:after_hook]) unless %w[after_hook dotenv environment].include?(task.name)
+end
