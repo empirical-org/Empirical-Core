@@ -14,6 +14,7 @@ const prompt = activityOne.prompts[2]
 
 const defaultProps = {
   active: false,
+  activityIsComplete: false,
   className: 'step',
   everyOtherStepCompleted: false,
   submitResponse: () => {},
@@ -339,6 +340,7 @@ describe('PromptStep component', () => {
       const wrapper = mount(<PromptStep
         {...defaultProps}
         active
+        activityIsComplete
         className="step active"
         everyOtherStepCompleted
         submittedResponses={submittedResponses}

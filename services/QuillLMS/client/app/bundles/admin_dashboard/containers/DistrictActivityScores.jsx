@@ -49,15 +49,19 @@ function formatDataForCSV(data) {
     'Classroom Name',
     'Student Name',
     'School Name',
+    'Teacher Name',
     'Average Score',
-    'Activity Count'
+    'Activity Count',
+    'Last Active'
   ];
   const csvRow = row => [
     row.classroom_name,
     row.students_name,
     row.schools_name,
+    row.teachers_name,
     `${(row.average_score * 100).toString()}%`,
-    row.activity_count
+    row.activity_count,
+    row.last_active
   ];
 
   csvData.push(csvHeader);
