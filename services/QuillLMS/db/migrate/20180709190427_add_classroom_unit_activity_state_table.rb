@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddClassroomUnitActivityStateTable < ActiveRecord::Migration[4.2]
   def change
     create_table :classroom_unit_activity_states do |t|

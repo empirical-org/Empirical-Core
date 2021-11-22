@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateFeedbackHistoryRatings < ActiveRecord::Migration[4.2]
   def change
     create_table :feedback_history_ratings do |t|

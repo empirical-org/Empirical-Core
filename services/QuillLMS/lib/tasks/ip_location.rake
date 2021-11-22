@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :ip_location do
   desc 'give every teacher with an ip address but no school a location'
   task :location_of_schoolless_teachers => :environment do

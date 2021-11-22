@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module VitallySchoolStats
   extend ActiveSupport::Concern
 

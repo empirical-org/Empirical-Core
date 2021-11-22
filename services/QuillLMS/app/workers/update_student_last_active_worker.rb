@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UpdateStudentLastActiveWorker
   include Sidekiq::Worker
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GoogleIntegration::User
   attr_reader :profile
 

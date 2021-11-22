@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProgressReports::Concepts::StudentSerializer  < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 

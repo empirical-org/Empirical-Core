@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Demo::CreateAdminReport
 
   def initialize(name, email_safe_school_name, teacher_email)

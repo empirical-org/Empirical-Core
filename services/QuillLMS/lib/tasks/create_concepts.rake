@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :concepts do
   desc 'import concepts from Google Spreadsheet csv'
   task :import_from_csv => :environment do

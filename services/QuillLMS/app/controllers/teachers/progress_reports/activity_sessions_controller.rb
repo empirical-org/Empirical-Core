@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'csv'
 
 class Teachers::ProgressReports::ActivitySessionsController < Teachers::ProgressReportsController

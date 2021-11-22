@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddPreviousValueToChangeLogs < ActiveRecord::Migration[4.2]
   def change
     add_column :change_logs, :changed_attribute, :string, after: :action

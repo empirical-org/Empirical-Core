@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration::Associators::StudentsToClassroom
 
   def self.run(students, classroom)

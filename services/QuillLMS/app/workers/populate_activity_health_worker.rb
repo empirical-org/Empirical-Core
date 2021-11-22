@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PopulateActivityHealthWorker
   include Sidekiq::Worker
   sidekiq_options retry: 1

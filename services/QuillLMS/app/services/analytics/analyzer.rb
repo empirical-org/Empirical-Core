@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Analyzer
   attr_accessor :analytics
 

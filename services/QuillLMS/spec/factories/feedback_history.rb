@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :feedback_history, class: 'FeedbackHistory' do
     feedback_session_uid { SecureRandom.uuid }

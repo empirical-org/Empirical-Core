@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PusherLessonLaunched
 
   def self.run(classroom)

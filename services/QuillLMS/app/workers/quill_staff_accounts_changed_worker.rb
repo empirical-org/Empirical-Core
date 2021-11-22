@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class QuillStaffAccountsChangedWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW

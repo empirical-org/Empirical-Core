@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AuthorizedTeacherForActivity
   def initialize(current_user, activity_session)
     @current_user = current_user

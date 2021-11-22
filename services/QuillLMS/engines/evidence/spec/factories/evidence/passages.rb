@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :evidence_passage, class: 'Evidence::Passage' do
     association :activity, factory: :evidence_activity

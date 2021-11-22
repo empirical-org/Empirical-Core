@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CleverController < ApplicationController
 
   def auth_url_details

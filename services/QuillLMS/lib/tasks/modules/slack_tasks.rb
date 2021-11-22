@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SlackTasks
   IGNORED_RAKE_TASKS = %w[
     assets:clean

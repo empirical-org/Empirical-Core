@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # require_relative '../quill_scaffold_controller'
 module Evidence
   class Engine < ::Rails::Engine

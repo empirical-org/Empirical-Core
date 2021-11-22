@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MockDataHelper
   # This method can be called in any of our backend tests to generate mockdata
   # for use in our frontend tests. Simply call the method with the response object

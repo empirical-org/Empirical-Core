@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration
   class ClassroomUpdater < ApplicationService
     OWNER = ClassroomsTeacher::ROLE_TYPES[:owner].freeze

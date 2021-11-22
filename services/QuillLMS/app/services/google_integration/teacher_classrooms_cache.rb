@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GoogleIntegration
   class TeacherClassroomsCache
     SERIALIZED_GOOGLE_CLASSROOMS_FOR_ = 'SERIALIZED_GOOGLE_CLASSROOMS_FOR_'.freeze

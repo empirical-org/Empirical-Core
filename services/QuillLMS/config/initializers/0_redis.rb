@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if Rails.env.test?
   namespace = 'test'
   ENV["REDISCLOUD_URL"] = 'redis://localhost:6378/0'

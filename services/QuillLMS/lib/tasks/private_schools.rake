@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # require 'zip'
 # require 'csv'
 # require 'open-uri'

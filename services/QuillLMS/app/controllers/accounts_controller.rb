@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AccountsController < ApplicationController
   before_action :signed_in!, only: [:edit, :update]
   before_action :set_user, only: [:create]

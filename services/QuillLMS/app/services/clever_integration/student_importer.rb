@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration
   class StudentImporter
     attr_reader :data, :clever_id, :email, :username

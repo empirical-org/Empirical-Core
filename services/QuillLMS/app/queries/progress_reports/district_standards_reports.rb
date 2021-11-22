@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProgressReports::DistrictStandardsReports
   attr_reader :admin_id
 

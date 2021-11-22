@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::ActivityCategoriesController < Cms::CmsController
   def index
     render json: { activity_categories: format_activity_categories }

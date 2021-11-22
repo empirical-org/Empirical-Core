@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::StudentProblemReportsController < Api::ApiController
   before_action :find_feedback_history, only: [:create]
 

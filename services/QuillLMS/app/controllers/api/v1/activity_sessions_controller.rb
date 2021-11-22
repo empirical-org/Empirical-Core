@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::ActivitySessionsController < Api::ApiController
 
   before_action :doorkeeper_authorize!, only: [:destroy]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_context :when_signed_in_as_a_student do
   let(:vinnie) { create :student }
 

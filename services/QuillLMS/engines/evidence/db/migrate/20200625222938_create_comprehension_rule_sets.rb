@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateComprehensionRuleSets < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_rule_sets do |t|

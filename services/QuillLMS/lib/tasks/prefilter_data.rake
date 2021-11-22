@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :data do
   desc 'Add prefilter rules and feedbacks'
   task :prefilter => :environment do |t, args|

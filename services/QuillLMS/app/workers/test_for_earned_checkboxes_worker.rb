@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TestForEarnedCheckboxesWorker
   include Sidekiq::Worker
   include CheckboxCallback

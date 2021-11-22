@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::IncorrectSequencesController < Api::ApiController
   before_action :get_question_by_uid
 

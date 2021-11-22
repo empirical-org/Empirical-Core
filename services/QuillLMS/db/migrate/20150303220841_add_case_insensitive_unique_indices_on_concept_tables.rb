@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddCaseInsensitiveUniqueIndicesOnConceptTables < ActiveRecord::Migration[4.2]
   def up
     remove_index :concept_tags, :name

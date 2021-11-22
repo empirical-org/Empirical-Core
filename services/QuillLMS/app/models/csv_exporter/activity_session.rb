@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CsvExporter
   class ActivitySession
     PAGE_TITLE = 'Data Export'

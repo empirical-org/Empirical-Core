@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration::Creators::Teacher
 
   def self.run(hash)

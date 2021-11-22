@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserLoginWorker
   include Sidekiq::Worker
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   data = {
     description: "<p>Put a describing phrase in the middle, right after the word it describes. Put a comma before and after the phrase.&nbsp;</p>",

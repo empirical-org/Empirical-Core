@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::UnitTemplateCategoriesController < Cms::CmsController
   before_action :set_unit_template_category, only: [:edit, :update, :destroy]
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence
   class RegexRule < ApplicationRecord
     self.table_name = 'comprehension_regex_rules'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GoogleIntegration::Classroom::Student
 
   def self.run(user, google_classroom_ids)

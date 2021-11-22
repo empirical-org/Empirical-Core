@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangesToActivitySession < ActiveRecord::Migration[4.2]
   def change
 

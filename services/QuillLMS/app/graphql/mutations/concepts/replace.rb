@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Mutations::Concepts::Replace < Mutations::BaseMutation
   def self.authorized?(value, context)
     if !context[:current_user].staff?

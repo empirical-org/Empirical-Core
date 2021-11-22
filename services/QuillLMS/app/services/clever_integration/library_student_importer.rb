@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration
   class LibraryStudentImporter
     attr_reader :classroom_ids, :client

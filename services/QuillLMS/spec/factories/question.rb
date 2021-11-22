@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   data = {
     'conceptID' => 'Jl4ByYtUfo4VhIKpMt23yA',

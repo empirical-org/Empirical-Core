@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec::ROUTING_URL_HELPERS = "routing url helpers".freeze
 
 RSpec.shared_context RSpec::ROUTING_URL_HELPERS do
