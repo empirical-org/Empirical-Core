@@ -7,7 +7,7 @@ module GoogleIntegration
       Client::AccessTokenError
     ].freeze
 
-    UNAUTHENTICATED_RESPONSE = 'UNAUTHENTICATED'.freeze
+    UNAUTHENTICATED_RESPONSE = 'UNAUTHENTICATED'
 
     attr_reader :user_id
 

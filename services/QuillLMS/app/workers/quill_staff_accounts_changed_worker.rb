@@ -32,7 +32,7 @@ class QuillStaffAccountsChangedWorker
   end
 
   def notify_staff(current_staff_accounts, previous_staff_accounts)
-    body = ''
+    body = ''.dup
 
     current_ids = current_staff_accounts.map { |account| account['id'] }
     previous_ids = previous_staff_accounts.map { |account| account['id'] }

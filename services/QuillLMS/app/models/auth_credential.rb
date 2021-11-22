@@ -27,7 +27,7 @@
 class AuthCredential < ApplicationRecord
   belongs_to :user
 
-  GOOGLE_PROVIDER = 'google'.freeze
+  GOOGLE_PROVIDER = 'google'
   EXPIRATION_DURATION = 6.months
 
   def google_authorized?

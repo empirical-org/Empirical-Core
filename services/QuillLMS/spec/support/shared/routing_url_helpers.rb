@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec::ROUTING_URL_HELPERS = "routing url helpers".freeze
+RSpec::ROUTING_URL_HELPERS = "routing url helpers"
 
 RSpec.shared_context RSpec::ROUTING_URL_HELPERS do
   include Rails.application.routes.url_helpers
