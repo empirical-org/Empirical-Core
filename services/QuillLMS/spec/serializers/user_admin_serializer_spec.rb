@@ -32,4 +32,12 @@ describe UserAdminSerializer do
       expect(UserAdminSerializer.new(record_instance, root: false).teachers.length).to be 0
     end
   end
+
+  describe 'when schools_users is nil' do
+    let!(:record_instance) { create(:teacher)}
+
+    it 'the #teachers method returns an empty array' do
+      expect(UserAdminSerializer.new(record_instance, root: false).teachers.length).to be 0
+    end
+  end
 end
