@@ -5,7 +5,6 @@ import Feedback from './feedback'
 
 import EditCaretPositioning from '../../helpers/EditCaretPositioning'
 import ButtonLoadingSpinner from '../shared/buttonLoadingSpinner'
-import preFilters from '../../modules/prefilters'
 import { highlightSpellingGrammar } from '../../libs/stringFormatting'
 
 interface PromptStepProps {
@@ -238,18 +237,10 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   handleGetFeedbackClick = (entry: string, promptId: string, promptText: string) => {
     const { submitResponse, } = this.props
 
-    const textWithoutStem = entry.replace(promptText, '')
-
-    const prefilter = preFilters(textWithoutStem)
-
-    if (prefilter) {
-      this.setState({ customFeedback: prefilter.feedback, customFeedbackKey: prefilter.feedbackKey, })
-    } else {
-      this.setState(prevState => ({numberOfSubmissions: prevState.numberOfSubmissions + 1}), () => {
-        const { numberOfSubmissions, } = this.state
-        submitResponse(entry, promptId, promptText, numberOfSubmissions)
-      })
-    }
+    this.setState(prevState => ({numberOfSubmissions: prevState.numberOfSubmissions + 1}), () => {
+      const { numberOfSubmissions, } = this.state
+      submitResponse(entry, promptId, promptText, numberOfSubmissions)
+    })
   }
 
   handleStepInteraction = (e) => {
