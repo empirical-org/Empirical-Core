@@ -136,7 +136,8 @@ class User < ApplicationRecord
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { allow_blank: true, message: :taken },
-                                    format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username? }
+                                    format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username? },
+                                    length:       { maximum: 255}
 
   validate :validate_flags
 
