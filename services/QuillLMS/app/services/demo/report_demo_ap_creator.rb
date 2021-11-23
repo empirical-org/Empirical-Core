@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Demo::ReportDemoAPCreator
 
   def self.create_demo(name)

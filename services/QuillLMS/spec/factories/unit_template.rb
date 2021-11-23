@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :simple_unit_template, class: 'UnitTemplate' do; end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :simple_activity_session, class: 'ActivitySession' do; end
 

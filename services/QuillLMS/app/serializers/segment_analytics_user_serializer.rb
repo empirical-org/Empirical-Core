@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SegmentAnalyticsUserSerializer < UserSerializer
   attributes :email, :created_at
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # this script could be updated to distinguish between connect and diagnostic questions, and to get recommendations programatically now that they live in the database
 
 require "rubygems"

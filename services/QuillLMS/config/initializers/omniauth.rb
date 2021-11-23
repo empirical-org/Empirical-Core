@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 OMNI_AUTH_OPTIONS = { provider_ignores_state: true }.freeze
 
 CLEVER_OMNI_AUTH_OPTIONS = {}.merge(OMNI_AUTH_OPTIONS).freeze

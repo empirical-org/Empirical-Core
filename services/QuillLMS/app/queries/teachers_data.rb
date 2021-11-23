@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TeachersData
   # AVERAGE_TIME_SPENT was gathered from below query on 1/4/2016
   # https://dataclips.heroku.com/tympuxntqzshpmngbnbivaectbqm-average-time-per-activity_session?autosave=true

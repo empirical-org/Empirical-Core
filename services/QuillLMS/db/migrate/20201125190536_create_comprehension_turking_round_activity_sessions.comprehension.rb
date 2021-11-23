@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from comprehension (originally 20201125161727)
 class CreateComprehensionTurkingRoundActivitySessions < ActiveRecord::Migration[4.2]
   def change

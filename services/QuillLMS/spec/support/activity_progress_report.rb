@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_context 'Activity Progress Report' do
   let(:teacher) { create :teacher_with_a_couple_classrooms_with_one_student_each }
   let(:classroom_one) { teacher.classrooms_i_teach.first }

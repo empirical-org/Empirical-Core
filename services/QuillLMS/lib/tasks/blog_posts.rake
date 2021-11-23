@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :blog_posts do
   desc 'Bulk clean up Blog Post data'
   task :secure_assets => :environment do

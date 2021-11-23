@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :quillwriter do
 
   desc "create initial activities for writer"

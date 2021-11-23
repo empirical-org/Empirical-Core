@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :feedback_history_flag, class: 'FeedbackHistoryFlag' do
     association :feedback_history, factory: :feedback_history

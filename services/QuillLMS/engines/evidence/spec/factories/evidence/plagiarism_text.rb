@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :evidence_plagiarism_text, class: 'Evidence::PlagiarismText' do
     association :rule, factory: :evidence_rule

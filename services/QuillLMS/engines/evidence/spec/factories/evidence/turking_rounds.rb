@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :evidence_turking_round, class: 'Evidence::TurkingRound' do
     association :activity, factory: :evidence_activity

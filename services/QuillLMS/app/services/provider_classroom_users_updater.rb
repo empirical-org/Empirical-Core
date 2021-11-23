@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProviderClassroomUsersUpdater
   attr_reader :provider_classroom_id, :provider_user_ids, :provider_classroom_user_class
 

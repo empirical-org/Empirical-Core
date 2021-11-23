@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :evidence_regex_rule, class: 'Evidence::RegexRule' do
     association :rule, factory: :evidence_rule

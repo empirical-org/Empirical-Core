@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence
   class PromptsRule < ApplicationRecord
     self.table_name = 'comprehension_prompts_rules'

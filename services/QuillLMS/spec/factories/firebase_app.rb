@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :firebase_app do
     sequence(:name) { |i| "Firebase App #{i}" }

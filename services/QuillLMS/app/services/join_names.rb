@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JoinNames
 
   def initialize(first_name, last_name)

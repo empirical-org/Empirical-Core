@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::RecommendationsController < Cms::CmsController
   before_action :set_activity_classification
   before_action :set_activity

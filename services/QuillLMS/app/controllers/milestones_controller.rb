@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MilestonesController < ApplicationController
 
   def complete_view_lesson_tutorial

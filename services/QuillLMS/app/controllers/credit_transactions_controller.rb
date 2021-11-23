@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreditTransactionsController < ApplicationController
   before_action :signed_in!
 

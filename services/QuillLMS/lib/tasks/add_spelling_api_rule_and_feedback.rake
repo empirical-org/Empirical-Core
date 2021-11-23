@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :add_spelling_api_rule_and_feedback do
   task :run => :environment do
     ActiveRecord::Base.transaction do

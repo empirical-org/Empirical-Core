@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TeacherFixes
   extend ActiveSupport::Concern
   include AtomicArrays

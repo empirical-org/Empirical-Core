@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OneOffBanner < WebinarBanner
 
   # ONE-OFFS have the key format Month-Day-Hour

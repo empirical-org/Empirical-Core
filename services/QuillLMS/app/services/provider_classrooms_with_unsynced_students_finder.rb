@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProviderClassroomsWithUnsyncedStudentsFinder
   attr_reader :teacher_id
 

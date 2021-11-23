@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :activities do
   desc 'Strip name prefixes like Sentence Writing: and Passage Proofreading: '
   task :strip_name_prefixes => :environment do

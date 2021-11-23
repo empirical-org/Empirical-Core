@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GoogleStudentImporterWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL

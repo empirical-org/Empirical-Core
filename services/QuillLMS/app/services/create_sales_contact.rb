@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSalesContact
   def initialize(user_id, stage_types_factory = nil)
     @user                = User.find(user_id)

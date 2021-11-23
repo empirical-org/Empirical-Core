@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateComprehensionAutomlModels < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_automl_models do |t|

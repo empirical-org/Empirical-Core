@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Types::ActivityScoreType < Types::BaseObject
   graphql_name 'ActivityScore'
 

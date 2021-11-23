@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :fullnames do
   desc 'generate uids'
   task :generate => :environment do

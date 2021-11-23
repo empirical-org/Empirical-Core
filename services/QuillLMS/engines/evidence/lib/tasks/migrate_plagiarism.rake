@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :plagiarism do
 
   desc "Migrates old plagiarism from fields on Prompt to new models PlagiarismText and Feedback"

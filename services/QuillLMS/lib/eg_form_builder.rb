@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EgFormBuilder < CMS::FormBuilder
   def radio name, *args
     args = _apply_field_defaults(args)

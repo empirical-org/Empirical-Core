@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VitallyApi
   VITALLY_API_BASE_URL = 'https://api.vitally.io/analytics/v1/'
 

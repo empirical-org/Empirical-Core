@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence
   class TurkingRoundActivitySession < ApplicationRecord
     self.table_name = 'comprehension_turking_round_activity_sessions'

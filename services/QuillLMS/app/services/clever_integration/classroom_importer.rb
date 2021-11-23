@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration
   class ClassroomImporter < ApplicationService
     attr_reader :data, :clever_id

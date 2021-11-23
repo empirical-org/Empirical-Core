@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateRuleExamples < ActiveRecord::Migration[4.2]
   def change
     create_table :rule_examples do |t|

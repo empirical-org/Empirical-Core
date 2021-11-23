@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from comprehension (originally 20210212194127)
 class CreateComprehensionLabels < ActiveRecord::Migration[4.2]
   def change

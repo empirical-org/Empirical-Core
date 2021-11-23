@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :unit_templates do
   desc 'Convert unit template problem, summary, and review into activity_info markdown'
   task :convert_to_markdown => :environment do

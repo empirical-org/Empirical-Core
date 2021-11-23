@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Units::Creator
   def self.run(teacher, name, activities_data, classrooms_data, unit_template_id=nil, current_user_id=nil)
     create_helper(teacher, name, activities_data, classrooms_data, unit_template_id, current_user_id)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -342,7 +344,7 @@ class User < ApplicationRecord
   end
 
   def self.find_by_username_or_email(login_name)
-    login_name.downcase!
+    login_name = login_name.downcase
     User.where("email = ? OR username = ?", login_name, login_name).first
   end
 

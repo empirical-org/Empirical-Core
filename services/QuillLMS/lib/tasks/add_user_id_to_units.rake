@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :add_user_id_to_units do
   desc 'assign existing units the correct user_id'
   task :update => :environment do

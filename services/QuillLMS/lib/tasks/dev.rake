@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :dev do
 
   desc "easy tool to make this work locally with oauth apps"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 return unless ENV.fetch('SUPER_DIFF', false)
 
 require 'super_diff/rspec-rails'

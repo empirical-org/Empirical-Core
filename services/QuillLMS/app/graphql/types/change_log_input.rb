@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Types::ChangeLogInput < Types::BaseInputObject
   argument :action, String, required: true
   argument :explanation, String, required: true

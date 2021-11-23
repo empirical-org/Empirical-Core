@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :partner_content do
     partner PartnerContent::AMPLIFY

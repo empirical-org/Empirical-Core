@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddDeActivatedDateToSubscriptions < ActiveRecord::Migration[4.2]
   def change
     add_column :subscriptions, :de_activated_date, :datetime, default: nil

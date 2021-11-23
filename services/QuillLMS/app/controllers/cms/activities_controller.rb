@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::ActivitiesController < Cms::CmsController
   before_action :find_classification
   before_action :set_activity, only: [:update, :destroy, :edit]

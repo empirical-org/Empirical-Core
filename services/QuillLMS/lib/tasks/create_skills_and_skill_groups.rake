@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :skills_and_skill_groups do
   task :create => :environment do
     create_skills_and_skill_groups

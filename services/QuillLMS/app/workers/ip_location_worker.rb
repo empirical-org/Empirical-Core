@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class IpLocationWorker
   include Sidekiq::Worker
   API_KEY = ENV["POINTPIN_KEY"]

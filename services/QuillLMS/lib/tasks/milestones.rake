@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :milestones do
   desc 'create milestones'
   task :create => :environment do

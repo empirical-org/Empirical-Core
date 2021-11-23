@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Usage: TeacherActivityFeed.add(teacher_id, activity_session_id)
 # Usage: TeacherActivityFeed.get(teacher_id)
 class TeacherActivityFeed < RedisFeed

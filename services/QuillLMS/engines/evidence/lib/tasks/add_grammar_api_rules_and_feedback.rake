@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :grammar_api_rules_and_feedback do
     desc 'data migration for grammar-api specific rules and feedback'
     task :insert => :environment do

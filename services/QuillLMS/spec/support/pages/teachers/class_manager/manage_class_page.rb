@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative './class_manager_page'
 
 module Teachers

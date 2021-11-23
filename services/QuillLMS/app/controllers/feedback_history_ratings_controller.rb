@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FeedbackHistoryRatingsController < ApplicationController
   before_action :set_feedback_history_rating, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token

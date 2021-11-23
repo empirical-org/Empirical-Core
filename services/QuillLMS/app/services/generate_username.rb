@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GenerateUsername
   MAX_LOOPS = 1_000
 
