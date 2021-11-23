@@ -2,8 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import UnitAssignmentFollowup from '../unit_assignment_followup'
-
-import { classroomProps, activities } from '../stage2/__tests__/test_data/test_data'
+import { classroomProps } from '../stage2/__tests__/test_data/test_data'
 
 
 describe('Unit assignment followup component', () => {
@@ -70,8 +69,8 @@ describe('Unit assignment followup component', () => {
       expect(wrapper).toMatchSnapshot()
     })
 
-    it('should render the invite students card', () => {
-      expect(wrapper.find('.invite-students').exists()).toBe(true)
+    it('should render a referral section', () => {
+      expect(wrapper.find('.referral-link-container').exists()).toBe(true)
     })
   })
 
