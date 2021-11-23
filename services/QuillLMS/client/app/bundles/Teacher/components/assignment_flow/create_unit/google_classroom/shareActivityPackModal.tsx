@@ -8,7 +8,7 @@ const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`;
 const shareToGoogleIconSrc = `${process.env.CDN_URL}/images/icons/icons-google-classroom-color.svg`;
 const ALL_CLASSES = 'All Classes';
 
-export const ShareActivityPackModal = ({ activityPackData, closeModal, selectedClassroomId, singleActivity, unitId }) => {
+export const ShareActivityPackModal = ({ activityPackData, closeModal, selectedClassroomId, selectedClassroomName, singleActivity, unitId }) => {
 
   const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
   const [selectedClass, setSelectedClass] = React.useState<any>({});
@@ -38,10 +38,12 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectedC
       const filteredClassrooms = filterClassrooms(classrooms);
       setClassrooms(filteredClassrooms);
     }
-  }, [selectedClassroomId]);
+  }, [selectedClassroomId, selectedClassroomName]);
 
   function filterClassrooms(classrooms) {
-    if(selectedClassroomId === ALL_CLASSES) {
+    if(selectedClassroomName) {
+      return classrooms.filter(classroomObject => classroomObject.classroom.name === selectedClassroomName);
+    } else if(selectedClassroomId === ALL_CLASSES) {
       return classrooms
     }
     const id = parseInt(selectedClassroomId);
@@ -60,8 +62,9 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectedC
         const { id } = classroom;
         return `${process.env.DEFAULT_URL}/classrooms/${id}?unit_id=${unitId}`
       } else {
-        const { id } = classroomUnitObject;
-        return `${process.env.DEFAULT_URL}/classroom_units/${id}/activities/${singleActivity.id}`;
+        const classroomUnitId = classroomUnitObject && classroomUnitObject.id || singleActivity.cuId;
+        const activityId = singleActivity.activityId || singleActivity.id;
+        return `${process.env.DEFAULT_URL}/classroom_units/${classroomUnitId}/activities/${activityId}`;
       }
     }
     return '';
@@ -155,10 +158,7 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectedC
   }
 
   function getDisclaimer() {
-    let name = activityPackData.name;
-    if(singleActivity) {
-      name = singleActivity.name;
-    }
+    const name = singleActivity && singleActivity.name || activityPackData.name;
     return `Only students who were assigned "${name}" will be able to open the link.`
   }
 

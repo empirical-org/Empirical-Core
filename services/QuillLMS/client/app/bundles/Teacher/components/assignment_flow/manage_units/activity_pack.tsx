@@ -32,6 +32,7 @@ const ActivityPack = ({
   const [snackbarText, setSnackbarText] = React.useState('')
   const [showModal, setShowModal] = React.useState('')
   const [classrooms, setClassrooms] = React.useState([]);
+  const [activityClicked, setActivityClicked] = React.useState(null);
 
   React.useEffect(() => {
     if(!classrooms.length) {
@@ -49,7 +50,17 @@ const ActivityPack = ({
 
   function handleClickShowRemove() { setShowModal(ARCHIVE) }
 
-  function handleClickShareActivityPack() { setShowModal(SHARE) }
+  function handleClickShareActivity() { setShowModal(SHARE) }
+
+  function handleClickShareActivityPack() {
+    // clear single selected activity if there was one previously clicked
+    setActivityClicked(null)
+    setShowModal(SHARE)
+  }
+
+  function handleActivityClicked(activity) {
+    setActivityClicked(activity);
+  }
 
   function closeModal() { setShowModal('') }
 
@@ -71,8 +82,11 @@ const ActivityPack = ({
     }
   }
 
-  function getClassrooms() {
-    return classrooms
+  function getSelectedClassroomName() {
+    const { classrooms } = data;
+    if(classrooms && classrooms.length === 1) {
+      return classrooms[0].name;
+    }
   }
 
   let totalStudents = 0
@@ -107,7 +121,8 @@ const ActivityPack = ({
         activityPackData={data && getActivityPackData()}
         closeModal={closeModal}
         selectedClassroomId={selectedClassroomId}
-        singleActivity={null}
+        selectedClassroomName={data && getSelectedClassroomName()}
+        singleActivity={activityClicked}
         unitId={data && data.unitId}
       />}
     <div className="top-section">
@@ -137,7 +152,8 @@ const ActivityPack = ({
     </div>
     <ActivityTable
       data={data}
-      handleToggleModal={handleClickShareActivityPack}
+      handleActivityClicked={handleActivityClicked}
+      handleToggleModal={handleClickShareActivity}
       isOwner={isOwner}
       onSuccess={onSuccess}
     />
