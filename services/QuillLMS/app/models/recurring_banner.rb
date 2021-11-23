@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RecurringBanner < WebinarBanner
 
   OFFICE_HOURS_TITLE = "Quill Office Hours are live now!"

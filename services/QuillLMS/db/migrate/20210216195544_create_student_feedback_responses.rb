@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateStudentFeedbackResponses < ActiveRecord::Migration[4.2]
   def change
     create_table :student_feedback_responses do |t|

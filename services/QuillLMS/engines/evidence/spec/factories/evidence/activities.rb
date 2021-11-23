@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :evidence_activity, class: 'Evidence::Activity' do
     sequence(:title) {|n| "MyString #{n}" }

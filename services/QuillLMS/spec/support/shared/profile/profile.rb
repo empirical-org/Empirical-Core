@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_context 'profile' do
   let(:teacher1) { create(:user, role: 'teacher', name: 'Teacher 1') }
   let(:teacher2) { create(:user, role: 'teacher', name: 'Teacher 2') }

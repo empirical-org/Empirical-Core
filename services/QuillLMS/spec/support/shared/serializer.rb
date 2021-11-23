@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples_for 'serializer' do
   # Relies on an 'expected_serialized_keys' value
   # Relies on a 'record_instance' value

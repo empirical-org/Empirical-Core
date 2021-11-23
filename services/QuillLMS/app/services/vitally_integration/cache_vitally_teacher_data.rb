@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CacheVitallyTeacherData
 
   def self.cache_key(teacher_id, year)

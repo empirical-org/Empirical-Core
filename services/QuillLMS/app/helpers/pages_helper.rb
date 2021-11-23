@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PagesHelper
 
 	def pages_tab_class tabname

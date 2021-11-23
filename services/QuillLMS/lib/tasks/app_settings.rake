@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :app_settings do
   desc 'Creates a new AppSetting.'
   # Example usage: rake 'app_settings:create[theName,true,true,50,[]]'

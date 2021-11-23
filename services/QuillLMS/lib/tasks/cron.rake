@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :cron do
   desc "Process Cron's 10 minute interval logic"
   task interval_10_minutes: :environment do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FixRulesModel < ActiveRecord::Migration[4.2]
   def change
   	add_column :rules, :category_id, :integer

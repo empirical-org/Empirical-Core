@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_context 'Standard Progress Report' do
   # Stats should come out like this:
   # name,     student_count,    proficient_count,   not_proficient_count,

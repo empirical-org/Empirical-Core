@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from evidence (originally 20211022145011)
 class AddDualFieldToRegexRule < ActiveRecord::Migration[5.1]
   def change

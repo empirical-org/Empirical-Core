@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Dashboard
   SUFFICIENT_DATA_AMOUNT = 30
   RESULT_LIMITS = 5

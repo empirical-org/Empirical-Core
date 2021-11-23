@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pragmatic_segmenter'
 
 module Evidence

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Units::Updater
   # in this file, 'unit' refers to a unit object, 'activities_data' to an array of objects
   # with activity ids and due_dates, and 'classrooms_data' to an array of objects with an id

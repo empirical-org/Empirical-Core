@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GoogleIntegration
   class TeacherClassroomsRetriever
     ACCESS_TOKEN_ERRORS = [
@@ -5,7 +7,7 @@ module GoogleIntegration
       Client::AccessTokenError
     ].freeze
 
-    UNAUTHENTICATED_RESPONSE = 'UNAUTHENTICATED'.freeze
+    UNAUTHENTICATED_RESPONSE = 'UNAUTHENTICATED'
 
     attr_reader :user_id
 

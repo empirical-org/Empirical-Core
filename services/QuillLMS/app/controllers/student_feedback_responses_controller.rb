@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StudentFeedbackResponsesController < ApplicationController
 
   def create

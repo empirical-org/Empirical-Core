@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::AppSettingsController < ApplicationController
   before_action :staff!, only: [:admin_show]
 

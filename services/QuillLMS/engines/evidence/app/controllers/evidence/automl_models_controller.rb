@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence
   class AutomlModelsController < ApiController
     before_action :set_automl_model, only: [:create, :show, :update, :activate, :destroy]

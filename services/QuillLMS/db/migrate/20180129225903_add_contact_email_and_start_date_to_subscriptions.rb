@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddContactEmailAndStartDateToSubscriptions < ActiveRecord::Migration[4.2]
   def change
     add_column :subscriptions, :contact_email, :string

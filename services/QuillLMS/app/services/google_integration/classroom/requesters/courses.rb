@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GoogleIntegration::Classroom::Requesters::Courses
 
   def self.run(client, user)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :merge_duplicates do
   task :google_students => :environment do
     include MergeHelpers

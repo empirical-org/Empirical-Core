@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProviderClassroom < SimpleDelegator
   def synced_status(student_attrs)
     return true if provider_active_user_ids.include?(provider_user_id(student_attrs))

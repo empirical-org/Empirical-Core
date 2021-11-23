@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :classroom_units do
   desc 'find archived units and archive their classroom units and sessions'
 

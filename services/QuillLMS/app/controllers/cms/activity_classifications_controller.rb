@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::ActivityClassificationsController < Cms::CmsController
   def index
     respond_to do |format|

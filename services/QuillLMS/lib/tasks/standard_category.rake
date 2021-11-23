@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :standard_category do
 	desc 'create standard category'
 	task :seed => :environment do

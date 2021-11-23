@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddUnitActivitiesTable < ActiveRecord::Migration[4.2]
   def change
     create_table :unit_activities do |t|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :referrers do
   desc 'generate referral codes'
   task generate_codes: :environment do

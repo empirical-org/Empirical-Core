@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration
   class StudentUpdater
     attr_reader :clever_id, :data, :student, :username

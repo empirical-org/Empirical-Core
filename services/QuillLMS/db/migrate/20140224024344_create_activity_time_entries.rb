@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateActivityTimeEntries < ActiveRecord::Migration[4.2]
   def change
     execute 'DROP TABLE IF EXISTS activity_time_entries'

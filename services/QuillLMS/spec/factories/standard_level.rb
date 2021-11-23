@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :standard_level do
     uid                 { SecureRandom.urlsafe_base64 } # mock a uid

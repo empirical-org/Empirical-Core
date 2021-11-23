@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UnitTemplatePseudoSerializer
   # attributes :id, :name, :time, :grades, :order_number, :number_of_standards, :activity_info, :author, :unit_template_category, :activities, :standards
 

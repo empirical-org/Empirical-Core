@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class QuestionHealthDashboard
   MAX_SESSIONS_VIEWED = 500
   Y_INTERCEPT = 5

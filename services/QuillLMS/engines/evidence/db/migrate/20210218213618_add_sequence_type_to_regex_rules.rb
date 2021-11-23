@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddSequenceTypeToRegexRules < ActiveRecord::Migration[4.2]
   def change
     add_column :comprehension_regex_rules, :sequence_type, :text, null: false, default: "incorrect"

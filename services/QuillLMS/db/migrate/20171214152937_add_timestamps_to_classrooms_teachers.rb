@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddTimestampsToClassroomsTeachers < ActiveRecord::Migration[4.2]
   def change
     add_column :classrooms_teachers, :created_at, :datetime

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddGinIndexToUsers < ActiveRecord::Migration[4.2]
   # An index can be created concurrently only outside of a transaction.
   disable_ddl_transaction!

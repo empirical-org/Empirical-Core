@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddLessonInputToScores < ActiveRecord::Migration[4.2]
   def change
     add_column :scores, :practice_lesson_input, :text

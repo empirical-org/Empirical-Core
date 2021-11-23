@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MobileHelper
   def render_dash(is_mobile)
     if !is_mobile

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence
   class RulesController < ApiController
     before_action :set_rule, only: [:create, :show, :update, :destroy]
