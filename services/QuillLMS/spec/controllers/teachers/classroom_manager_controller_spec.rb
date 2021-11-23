@@ -218,8 +218,8 @@ describe Teachers::ClassroomManagerController, type: :controller do
     let(:classroom2) { create(:classroom) }
     let(:unit1) { create(:unit) }
     let(:unit2) { create(:unit) }
-    let(:classroom_unit1) { create(:classroom_unit, unit_id: unit1.id, visible: true) }
-    let(:classroom_unit2) { create(:classroom_unit, unit_id: unit2.id, visible: true) }
+    let!(:classroom_unit1) { create(:classroom_unit, unit_id: unit1.id, visible: true) }
+    let!(:classroom_unit2) { create(:classroom_unit, unit_id: unit2.id, visible: true) }
     let(:classrooms_json) {
       teacher.classrooms_i_teach.map { |classroom|
         {
