@@ -116,17 +116,14 @@ class User < ApplicationRecord
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 
   validates :name,                  presence: true,
-                                    format:       {without: /\t/, message: 'cannot contain tabs'},
-                                    length:       { maximum: 255}
+                                    format:       {without: /\t/, message: 'cannot contain tabs'}
 
   validates_with ::FullnameValidator
 
-  validates :password,              presence:     { if: :requires_password? },
-                                    length:       { maximum: 255}
+  validates :password,              presence:     { if: :requires_password? }
 
   validates :email,                 presence:     { if: :email_required? },
-                                    uniqueness:   { message: :taken, if: :email_required_or_present?},
-                                    length:       { maximum: 255}
+                                    uniqueness:   { message: :taken, if: :email_required_or_present?}
 
   validate :username_cannot_be_an_email
 
@@ -139,8 +136,7 @@ class User < ApplicationRecord
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { allow_blank: true, message: :taken },
-                                    format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username? },
-                                    length:       { maximum: 255}
+                                    format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username? }
 
   validate :validate_flags
 
