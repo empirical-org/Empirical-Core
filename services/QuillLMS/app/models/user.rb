@@ -63,6 +63,8 @@ class User < ApplicationRecord
   attr_accessor :validate_username,
                 :require_password_confirmation_when_password_present
 
+  CHAR_FIELD_MAX_LENGTH = 255
+
   before_validation :generate_student_username_if_absent
   before_validation :prep_authentication_terms
   before_save :capitalize_name
@@ -118,14 +120,17 @@ class User < ApplicationRecord
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 
   validates :name,                  presence: true,
-                                    format:       {without: /\t/, message: 'cannot contain tabs'}
+                                    format:       {without: /\t/, message: 'cannot contain tabs'},
+                                    length:       { maximum:  CHAR_FIELD_MAX_LENGTH}
 
   validates_with ::FullnameValidator
 
-  validates :password,              presence:     { if: :requires_password? }
+  validates :password,              presence:     { if: :requires_password? },
+                                    length:       { maximum: CHAR_FIELD_MAX_LENGTH}
 
   validates :email,                 presence:     { if: :email_required? },
-                                    uniqueness:   { message: :taken, if: :email_required_or_present?}
+                                    uniqueness:   { message: :taken, if: :email_required_or_present?},
+                                    length:       { maximum: CHAR_FIELD_MAX_LENGTH}
 
   validate :username_cannot_be_an_email
 
@@ -138,7 +143,8 @@ class User < ApplicationRecord
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { allow_blank: true, message: :taken },
-                                    format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username? }
+                                    format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username? },
+                                    length:       { maximum: CHAR_FIELD_MAX_LENGTH}
 
   validate :validate_flags
 
