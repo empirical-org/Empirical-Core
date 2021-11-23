@@ -3,7 +3,7 @@ class UserAdminSerializer < ActiveModel::Serializer
 
   def teachers
     teacher_ids = User.find(object.id).admins_teachers
-    if teacher_ids&.any?
+    if teacher_ids.any?
       teachers_data = TeachersData.run(teacher_ids)
       teachers_data.map{|t| Admin::TeacherSerializer.new(t, root: false) }
     else
