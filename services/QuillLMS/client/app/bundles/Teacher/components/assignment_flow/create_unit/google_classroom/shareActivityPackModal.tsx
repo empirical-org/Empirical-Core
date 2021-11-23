@@ -5,10 +5,8 @@ import { defaultSnackbarTimeout, Snackbar, DropdownInput } from '../../../../../
 import { requestGet } from '../../../../../../modules/request';
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`;
-const shareToGoogleIconSrc = `${process.env.CDN_URL}/images/icons/icons-google-classroom-color.svg`;
 
 export const ShareActivityPackModal = ({ activityPackData, closeModal, singleActivity, unitId }) => {
-
   const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
   const [selectedClass, setSelectedClass] = React.useState<any>({});
   const [classrooms, setClassrooms] = React.useState<any[]>([])
@@ -23,6 +21,24 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
       })
     }
   }, [])
+
+  React.useEffect(() => {
+    if(activityPackData && activityPackData.name && (window as any).gapi) {
+      const title = singleActivity && singleActivity.name || activityPackData.name;
+      (window as any).gapi.sharetoclassroom.render('share-to-google-classroom', {
+        url: link,
+        title: title,
+        body: `Work on ${title}`,
+        size: '32',
+        onsharestart: () => {
+          console.log('share started')
+        },
+        onsharecomplete: () => {
+          console.log('share complete')
+        }
+      });
+    }
+  }, [activityPackData])
 
   function getDefaultLink() {
     if(classrooms.length !== 1) {
@@ -150,12 +166,7 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
           <CopyToClipboard onCopy={handleCopyLink} text={link}>
             <button className="quill-button outlined secondary medium focus-on-light" type="button">Copy link</button>
           </CopyToClipboard>
-          <button className="quill-button outlined secondary medium focus-on-light" onClick={() => console.log('clicked!')} type="button">
-            <div className="button-text-container">
-              <img alt="close-icon" src={shareToGoogleIconSrc} />
-              <p className="button-text">Share to Google Classroom</p>
-            </div>
-          </button>
+          <div id="share-to-google-classroom" />
         </div>
         {renderSnackbar()}
       </div>
