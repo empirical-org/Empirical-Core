@@ -51,21 +51,21 @@ describe GrowthResultsSummary do
                       skill: skill.name,
                       number_correct: 1,
                       number_incorrect: 1,
-                      summary: PARTIALLY_CORRECT,
+                      summary: GrowthResultsSummary::PARTIALLY_CORRECT,
                     },
                     post: {
                       id: skill.id,
                       skill: skill.name,
                       number_correct: 1,
                       number_incorrect: 0,
-                      summary: FULLY_CORRECT,
+                      summary: GrowthResultsSummary::FULLY_CORRECT,
                     }
                   }
                 ],
                 number_of_correct_skills_text: "1 of 1 skills correct",
-                proficiency_text: GAINED_PROFICIENCY,
-                pre_test_proficiency: NO_PROFICIENCY,
-                post_test_proficiency: PROFICIENCY,
+                proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
+                pre_test_proficiency: GrowthResultsSummary::NO_PROFICIENCY,
+                post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
                 id: pre_test_skill_group_activity.skill_group.id,
                 acquired_skill_ids: [skill.id]
               }
@@ -111,21 +111,21 @@ describe GrowthResultsSummary do
                       skill: skill.name,
                       number_correct: 1,
                       number_incorrect: 1,
-                      summary: PARTIALLY_CORRECT,
+                      summary: GrowthResultsSummary::PARTIALLY_CORRECT,
                     },
                     post: {
                       id: skill.id,
                       skill: skill.name,
                       number_correct: 1,
                       number_incorrect: 0,
-                      summary: FULLY_CORRECT,
+                      summary: GrowthResultsSummary::FULLY_CORRECT,
                     }
                   }
                 ],
                 number_of_correct_skills_text: "1 of 1 skills correct",
-                proficiency_text: GAINED_PROFICIENCY,
-                pre_test_proficiency: NO_PROFICIENCY,
-                post_test_proficiency: PROFICIENCY,
+                proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
+                pre_test_proficiency: GrowthResultsSummary::NO_PROFICIENCY,
+                post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
                 id: pre_test_skill_group_activity.skill_group.id,
                 acquired_skill_ids: [skill.id]
               }
@@ -161,21 +161,21 @@ describe GrowthResultsSummary do
                 skill: skill.name,
                 number_correct: 1,
                 number_incorrect: 1,
-                summary: PARTIALLY_CORRECT,
+                summary: GrowthResultsSummary::PARTIALLY_CORRECT,
               },
               post: {
                 id: skill.id,
                 skill: skill.name,
                 number_correct: 1,
                 number_incorrect: 0,
-                summary: FULLY_CORRECT,
+                summary: GrowthResultsSummary::FULLY_CORRECT,
               }
             }
           ],
           number_of_correct_skills_text: "1 of 1 skills correct",
-          proficiency_text: GAINED_PROFICIENCY,
-          pre_test_proficiency: NO_PROFICIENCY,
-          post_test_proficiency: PROFICIENCY,
+          proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
+          pre_test_proficiency: GrowthResultsSummary::NO_PROFICIENCY,
+          post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
           id: pre_test_skill_group_activity.skill_group.id,
           acquired_skill_ids: [skill.id]
         }
