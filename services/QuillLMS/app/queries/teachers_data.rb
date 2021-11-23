@@ -13,6 +13,8 @@ module TeachersData
   # will have no classrooms, etc.
 
   def self.run(teacher_ids)
+    return [] if teacher_ids.blank?
+
     teacher_ids_str = teacher_ids.join(', ')
     User.find_by_sql("SELECT
       users.id,
