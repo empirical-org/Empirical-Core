@@ -35,8 +35,8 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
     return (<div className="dashboard">
       {showWelcomeModal && <WelcomeModal close={closeWelcomeModal} size={size} />}
       {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
-      <ExploreDemoButton handleExploreDemoClick={handleExploreDemoClick} />
       <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
+      <p>Or explore a teacher demo account to get the big picture</p>
     </div>)
   }
 

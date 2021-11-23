@@ -3,9 +3,9 @@
 <% if viewing_demo_account? %>
   <div class="preview-student-banner">
     <div class="content-container">
-      <span>You are in a demo account so that you can explore sample student data and results. Feel free to poke around! Any changes or edits will not be permanently saved.</span>
+      <span>Viewing a demo account. Changes you make will not be saved.</span>
       <% if signed_in_outside_demo? %>
-        <a class="quill-button primary contained medium focus-on-light" href="/teachers/unset_view_demo">Return to My Account</a>
+        <a class="quill-button primary contained medium focus-on-light" href="/teachers/unset_view_demo">Back to My Dashboard</a>
       <% else %>
         <a class="quill-button primary contained medium focus-on-light" href="/session">Exit Demo Account</a>
       <% end %>
