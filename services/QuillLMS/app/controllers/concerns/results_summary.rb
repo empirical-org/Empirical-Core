@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ResultsSummary
   include DiagnosticReports
   extend ActiveSupport::Concern
