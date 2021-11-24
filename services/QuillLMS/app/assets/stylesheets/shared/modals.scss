@@ -514,6 +514,82 @@
   }
 }
 
+.google-classroom-share-activity-modal {
+  bottom: 0;
+  margin-bottom: 0;
+  height: min-content;
+  .title-row {
+    display: flex;
+    justify-content: space-between;
+    .close-button {
+      display: flex;
+      background-color: white;
+      padding: 0;
+      align-self: flex-start;
+    }
+  }
+  .disclaimer-text {
+    margin-top: 24px;
+  }
+  .activity-pack-data-container {
+    .link-label {
+      margin: 0px 0px 4px 0px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .activity-pack-link {
+      font-size: 16px;
+      color: #000000;
+    }
+  }
+  .class-and-activity-data-container {
+    .first-step-container, .second-step-container {
+      display: flex;
+      .left-container {
+        margin-right: 16px;
+        .step-number-circle {
+          width: 32px;
+          height: 32px;
+          text-align: center;
+          border: 1px solid #9e9e9e;
+          border-radius: 20px;
+          font-size: 16px;
+          p {
+            font-size: 16px;
+            margin: 1.5px 0px 0px 0px;
+          }
+        }
+      }
+      .right-container {
+        .header {
+          margin-bottom: 4px;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 1.38;
+          color: #262626;
+        }
+        .secondary-text {
+          margin: 0px 0px 16px 0px;
+          font-size: 14px;
+          line-height: 1.43;
+        }
+      }
+    }
+  }
+  .form-buttons {
+    .quill-button {
+      .button-text-container {
+        display: flex;
+        align-items: flex-start;
+        .button-text {
+          margin: 0px 0px 0px 8px;
+          color: #000000;
+        }
+      }
+    }
+  }
+}
+
 .rename-class-modal, .rename-activity-pack-modal {
   min-height: 273px;
   height: min-content;
