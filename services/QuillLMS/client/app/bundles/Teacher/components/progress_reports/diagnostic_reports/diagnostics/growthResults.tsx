@@ -36,7 +36,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
     const delta = prePercentageProficient ? ((postPercentageProficient - prePercentageProficient) / prePercentageProficient) * 100 : postPercentageProficient
 
     let needPracticeElement = <span className="need-practice-element no-practice-needed">No practice needed</span>
-    let growthElement = delta > 0 ? <span className="growth-element">{triangleUpIcon}<span>{delta}% growth</span></span> : <span className="growth-element no-growth">No growth</span>
+    let growthElement = delta > 0 ? <span className="growth-element">{triangleUpIcon}<span>{Math.round(delta)}% growth</span></span> : <span className="growth-element no-growth">No growth</span>
 
     if (numberOfStudentsNeedingPracticeInPost) {
       const tooltipText = `<p>${not_yet_proficient_in_post_test_student_names.join('<br>')}</p>`
@@ -89,7 +89,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
   </section>)
 }
 
-const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {
+export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudentResults);
   const [studentResults, setStudentResults] = React.useState<StudentResult[]>(passedStudentResults || []);
   const [skillGroupSummaries, setSkillGroupSummaries] = React.useState<SkillGroupSummary[]>(passedSkillGroupSummaries || []);
@@ -100,6 +100,11 @@ const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries, match,
   React.useEffect(() => {
     getResults()
   }, [])
+
+  React.useEffect(() => {
+    setLoading(true)
+    getResults()
+  }, [activityId, classroomId])
 
   React.useEffect(() => {
     window.addEventListener(CLICK, closePopoverOnOutsideClick)
@@ -138,7 +143,7 @@ const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries, match,
   return (<main className="results-summary-container growth-results-summary-container">
     <header>
       <h1>Growth results summary</h1>
-      <a className="focus-on-light" href="/">{fileDocumentIcon}<span>Guide</span></a>
+      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698227-how-do-i-read-the-growth-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
     </header>
     {mobileNavigation}
     <section className="skill-group-summary-cards">{skillGroupSummaryCards}</section>

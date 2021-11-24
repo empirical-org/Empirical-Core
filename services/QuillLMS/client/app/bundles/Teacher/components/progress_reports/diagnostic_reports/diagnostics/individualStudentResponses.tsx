@@ -93,12 +93,12 @@ const Tab = ({ activeTab, label, setPreOrPost, value, }) => {
   return (<button className={`${activeTab === value ? 'active' : ''} focus-on-light tab`} onClick={handleClick} type="button">{label}</button>)
 }
 
-const IndividualStudentResponses = ({ match, passedConceptResults, passedSkillResults, mobileNavigation, }) => {
+export const IndividualStudentResponses = ({ match, passedConceptResults, passedSkillResults, mobileNavigation, }) => {
   const [loading, setLoading] = React.useState<boolean>(!(passedConceptResults && passedSkillResults));
   const [name, setName] = React.useState<string>('')
   const [conceptResults, setConceptResults] = React.useState<ConceptResults>(passedConceptResults || []);
   const [skillResults, setSkillResults] = React.useState<SkillResults>(passedSkillResults || []);
-  const [preOrPost, setPreOrPost] = React.useState<string>(PRE)
+  const [preOrPost, setPreOrPost] = React.useState<string>(POST)
 
   const { activityId, classroomId, studentId, } = match.params
   const unitId = qs.parse(location.search.replace('?', '')).unit
@@ -108,8 +108,12 @@ const IndividualStudentResponses = ({ match, passedConceptResults, passedSkillRe
     getData()
   }, [])
 
-  function getData() {
+  React.useEffect(() => {
+    setLoading(true)
+    getData()
+  }, [activityId, classroomId, unitId, studentId])
 
+  function getData() {
     requestGet(`/teachers/progress_reports/individual_student_diagnostic_responses/${studentId}?activity_id=${activityId}&classroom_id=${classroomId}${unitQueryString}`,
       (data) => {
         setConceptResults(data.concept_results);
@@ -139,10 +143,10 @@ const IndividualStudentResponses = ({ match, passedConceptResults, passedSkillRe
   return (<main className="individual-student-responses-container">
     <header>
       <h1>{name}&#39;s responses</h1>
-      <a className="focus-on-light" href="/">{fileDocumentIcon}<span>Guide</span></a>
+      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698167-how-do-i-read-the-student-responses-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
     </header>
     {mobileNavigation}
-    {skillResults.skills[0] && skillResults.skills[0].pre ? <GrowthSkillsTable isExpandable={true} skillGroup={skillResults} /> : <SkillsTable isExpandable={true} skillGroup={skillResults} />}
+    <div className="skills-table-container-wrapper">{skillResults.skills[0] && skillResults.skills[0].pre ? <GrowthSkillsTable isExpandable={true} skillGroup={skillResults} /> : <SkillsTable isExpandable={true} skillGroup={skillResults} />}</div>
     <section className="concept-results-container">{conceptResultElements}</section>
   </main>)
 

@@ -14,7 +14,7 @@ const calendarDateIcon = <img alt="Calendar icon" src={`${baseDiagnosticImageSrc
 const wrenchIcon = <img alt="Wrench icon" src={`${baseDiagnosticImageSrc}/icons-wrench.svg`} />
 
 const MOBILE_WIDTH = 990
-const AVERAGE_FONT_WIDTH = 6
+const AVERAGE_FONT_WIDTH = 5
 const ACTIVITY_PACK_TEXT_MAX_WIDTH = 264
 
 const ALL = 'ALL'
@@ -31,7 +31,7 @@ const AssignedSection = ({ activity, sectionTitle, isPostDiagnostic, }) => {
   const activityPackText = `Activity pack: ${unit_name}`
   let activityPackElement = <span>{activityPackText}</span>
   if (window.innerWidth > MOBILE_WIDTH && ((activityPackText.length * AVERAGE_FONT_WIDTH) > ACTIVITY_PACK_TEXT_MAX_WIDTH)) {
-    activityPackElement = <Tooltip tooltipText={activityPackText} tooltipTriggerText={`${activityPackText.substring(0, ACTIVITY_PACK_TEXT_MAX_WIDTH/AVERAGE_FONT_WIDTH)}...`} />
+    activityPackElement = <Tooltip tooltipText={activityPackText} tooltipTriggerText={activityPackText} tooltipTriggerTextClass="activity-pack-name" />
   }
   return (<section className="pre">
     <div>

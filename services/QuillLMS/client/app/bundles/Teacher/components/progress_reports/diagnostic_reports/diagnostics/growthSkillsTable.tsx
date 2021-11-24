@@ -17,7 +17,7 @@ const GrowthSkillsTable = ({ skillGroup, isExpandable, }: { skillGroup: SkillGro
   function expandRows() { setIsExpanded(true) }
 
   const skillGainedTag = <span className="skill-gained-tag">{triangleUpIcon}<span>Skill gained</span></span>
-  const skillRows = skillGroup.skills.map(skill => {
+  const skillRows = skillGroup.skills.sort((a, b) => a.pre.skill.localeCompare(b.pre.skill)).map(skill => {
     const { pre, post, } = skill
     const showSkillGainedTag = pre.summary !== FULLY_CORRECT && post.summary === FULLY_CORRECT ? skillGainedTag : null
     const preSummaryClassName = pre.summary === FULLY_CORRECT ? 'fully-correct' : ''

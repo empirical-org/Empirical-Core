@@ -62,7 +62,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => 
   </section>)
 }
 
-const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {
+export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudentResults);
   const [studentResults, setStudentResults] = React.useState<StudentResult[]>(passedStudentResults || []);
   const [skillGroupSummaries, setSkillGroupSummaries] = React.useState<SkillGroupSummary[]>(passedSkillGroupSummaries || []);
@@ -75,6 +75,11 @@ const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobil
   React.useEffect(() => {
     getResults()
   }, [])
+
+  React.useEffect(() => {
+    setLoading(true)
+    getResults()
+  }, [activityId, classroomId, unitId])
 
   React.useEffect(() => {
     window.addEventListener(CLICK, closePopoverOnOutsideClick)
@@ -114,7 +119,7 @@ const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobil
   return (<main className="results-summary-container">
     <header>
       <h1>Results summary</h1>
-      <a className="focus-on-light" href="/">{fileDocumentIcon}<span>Guide</span></a>
+      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698112-how-do-i-read-the-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
     </header>
     {mobileNavigation}
     <section className="skill-group-summary-cards">{skillGroupSummaryCards}</section>

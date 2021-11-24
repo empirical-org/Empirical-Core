@@ -3,24 +3,27 @@
     margin: 24px 0px;
     width: min-content;
     max-width: 100%;
-  }
-  .skills-table, .growth-skills-table {
-    width: 950px;
-    max-width: 100%;
-    &.skills-table {
-      .skill-column-header {
-        width: 664px;
+    .skills-table, .growth-skills-table {
+      width: 950px;
+      max-width: 100%;
+      td {
+        font-size: 14px;
       }
-      .summary-header {
-        width: 128px;
+      &.skills-table {
+        .skill-column-header {
+          width: 664px;
+        }
+        .summary-header {
+          width: 128px;
+        }
       }
-    }
-    &.growth-skills-table {
-      .skill-column-header {
-        width: 546px;
-      }
-      .summary-header {
-        width: 201px;
+      &.growth-skills-table {
+        .skill-column-header {
+          width: 546px;
+        }
+        .summary-header {
+          width: 201px;
+        }
       }
     }
   }
@@ -29,18 +32,22 @@
     border-radius: 8px;
     font-size: 12px;
     font-weight: 600;
-    width: 83px;
+    width: min-content;
     line-height: 1;
+    display: flex;
+    align-items: center;
     img {
       margin-right: 4px;
     }
     &.incorrect-tag {
       color: #995f00;
       background-color: #fff3e0;
+      width: 83px;
     }
     &.correct-tag {
       background-color: #e9f4e0;
       color: #367300;
+      width: 75px;
     }
   }
   .tabs {

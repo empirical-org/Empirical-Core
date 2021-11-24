@@ -47,9 +47,11 @@ module ResultsSummary
       unless proficiency_text == PROFICIENCY
         skill_group_summary_index = @skill_group_summaries.find_index { |sg| sg[:name] == skill_group.name }
         @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_student_names].push(student_name)
+        @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_student_names] = @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_student_names].uniq
       end
       {
         skill_group: skill_group.name,
+        description: skill_group.description,
         skills: skills,
         number_of_correct_skills_text: "#{correct_skill_number} of #{present_skill_number} skills correct",
         proficiency_text: proficiency_text,

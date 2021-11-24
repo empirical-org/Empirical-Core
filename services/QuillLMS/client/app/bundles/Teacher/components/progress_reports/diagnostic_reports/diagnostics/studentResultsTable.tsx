@@ -12,6 +12,11 @@ import {
   proficiencyTextToTag,
   proficiencyTextToGrayIcon,
   lightGreenTriangleUpIcon,
+  WIDE_SCREEN_MINIMUM_WIDTH,
+  LEFT_OFFSET,
+  DEFAULT_LEFT_PADDING,
+  MOBILE_WIDTH,
+  DEFAULT_LEFT_PADDING_FOR_MOBILE
 } from './shared'
 import {
   SkillGroupSummary,
@@ -24,6 +29,8 @@ import {
   helpIcon,
   Tooltip,
 } from '../../../../../Shared/index'
+import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
+
 
 interface StudentResultsTableProps {
   skillGroupSummaries: SkillGroupSummary[];
@@ -55,7 +62,7 @@ const Popover = ({ studentResult, skillGroup, closePopover, responsesLink, }: Po
         <h3>{skillGroup.skill_group}</h3>
         <button className="interactive-wrapper focus-on-light" onClick={closePopover} type="button">{closeIcon}</button>
       </header>
-      <p>We were looking for etiam porta sem malesuada magna mollis euismod. Lorem ipsum dolor sit amet, consectetr adipiscing elit.</p>
+      <p dangerouslySetInnerHTML={{ __html: skillGroup.description }} />
       {skillGroup.skills[0].pre ? <GrowthSkillsTable skillGroup={skillGroup} /> : <SkillsTable skillGroup={skillGroup} />}
       <Link to={responsesLink(studentResult.id)}>{accountCommentIcon}<span>View {studentResult.name}&#39;s responses</span></Link>
     </section>
@@ -125,8 +132,10 @@ const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPo
 }
 
 const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover, setOpenPopover, responsesLink, }: StudentResultsTableProps) => {
+  const size = useWindowSize();
   const [isSticky, setIsSticky] = React.useState(false);
   const tableRef = React.useRef(null);
+
   const [stickyTableStyle, setStickyTableStyle] = React.useState({
     position: "fixed",
     top: 0,
@@ -135,16 +144,31 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
     zIndex: 3
   })
 
+  function paddingLeft() {
+    if (MOBILE_WIDTH >= window.innerWidth) { return DEFAULT_LEFT_PADDING_FOR_MOBILE }
+    const skillGroupSummaryCards = document.getElementsByClassName('skill-group-summary-cards')[0]
+    return skillGroupSummaryCards && window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH ? skillGroupSummaryCards.getBoundingClientRect().left - LEFT_OFFSET : DEFAULT_LEFT_PADDING
+  }
+
+  React.useEffect(() => {
+    onScroll()
+  }, [size])
+
   const handleScroll = React.useCallback(({ top, bottom, left, right, }) => {
     if (top <= 0 && bottom > 92) {
-      setStickyTableStyle(oldStickyTableStyle => ({ ...oldStickyTableStyle, left }))
+      setStickyTableStyle(oldStickyTableStyle => ({ ...oldStickyTableStyle, left: left + paddingLeft() }))
       !isSticky && setIsSticky(true);
     } else {
       isSticky && setIsSticky(false);
     }
   }, [isSticky]);
 
-  const onScroll = () => handleScroll(tableRef.current.getBoundingClientRect());
+
+  const onScroll = () => {
+    if (tableRef && tableRef.current) {
+      handleScroll(tableRef.current.getBoundingClientRect());
+    }
+  }
 
   React.useEffect(() => {
     window.addEventListener("scroll", onScroll);
@@ -181,27 +205,36 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
 
   const tableClassName = tableHasContent ? 'student-results-table' : 'empty student-results-table'
 
-  const renderHeader = () => {
+  const renderHeader = (sticky) => {
+    let style = { position: 'inherit' }
+    if (window.innerWidth <= MOBILE_WIDTH) {
+      style = { left: stickyTableStyle.left - paddingLeft() }
+    } else if (LEFT_OFFSET > stickyTableStyle.left) {
+      style = { left: -(LEFT_OFFSET - (stickyTableStyle.left - paddingLeft())) + 1 }
+    }
+
     return (<thead>
       <tr>
-        <th className="corner-header">Name</th>
+        <th className="corner-header" style={sticky ? style : {}}>Name</th>
         {tableHeaders}
       </tr>
     </thead>)
   }
 
+  if (window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH && paddingLeft() === DEFAULT_LEFT_PADDING) { return <span /> }
+
   return (<div className="student-results-table-container" onScroll={handleScroll}>
-    {tableHasContent ? null : noDataYet}
-    {isSticky && (
-      <table
-        className={`${tableClassName} sticky`}
-        style={stickyTableStyle}
-      >
-        {renderHeader()}
-      </table>
+    {isSticky && tableHasContent && (
+    <table
+      className={`${tableClassName} sticky`}
+      style={stickyTableStyle}
+    >
+      {renderHeader(true)}
+    </table>
     )}
-    <table className={tableClassName} ref={tableRef}>
-      {renderHeader()}
+    <table className={tableClassName} ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
+      {renderHeader(false)}
+      {tableHasContent ? null : noDataYet}
       <tbody>
         {studentRows}
       </tbody>

@@ -26,12 +26,15 @@ const desktopHeaders = (isSortable) => ([
   {
     name: 'Name',
     attribute: 'name',
-    width: '442px'
+    width: '432px',
+    sortAttribute: 'alphabeticalName',
+    isSortable: true
   },
   {
     name: 'Score',
     attribute: 'scoreElement',
-    width: '52px',
+    sortAttribute: 'score',
+    width: '62px',
     noTooltip: true,
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
@@ -52,11 +55,15 @@ const mobileHeaders = (isSortable) => ([
     name: 'Name',
     attribute: 'name',
     width: '196px',
-    rowSectionClassName: 'name-section'
+    rowSectionClassName: 'name-section',
+    headerClassName: 'name-header',
+    sortAttribute: 'alphabeticalName',
+    isSortable: true
   },
   {
     name: 'Score',
     attribute: 'scoreElement',
+    sortAttribute: 'score',
     width: '52px',
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
@@ -67,7 +74,7 @@ const mobileHeaders = (isSortable) => ([
 
 const proficiencyToClassName = {
   [PROFICIENT]: 'proficient',
-  [NEARLY_PROFICIENT]: 'nearly-proficent',
+  [NEARLY_PROFICIENT]: 'nearly-proficient',
   [NOT_YET_PROFICIENT]: 'not-yet-proficient'
 }
 
@@ -82,7 +89,7 @@ const ProficiencyKey = ({ className, studentCount, range, title, }) => {
 }
 
 
-const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => {
+export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudents);
   const [students, setStudents] = React.useState<Student[]>(passedStudents || []);
 
@@ -93,6 +100,11 @@ const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => 
   React.useEffect(() => {
     getStudents()
   }, [])
+
+  React.useEffect(() => {
+    setLoading(true)
+    getStudents()
+  }, [activityId, classroomId, unitId])
 
   function getStudents() {
 
@@ -114,32 +126,40 @@ const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => 
 
   const worthSorting = students.filter(s => s.score).length
 
+  function alphabeticalName(name) {
+    const nameArray = name.split(' ')
+    const lastName = nameArray[nameArray.length - 1]
+    return `${lastName} ${nameArray.join(' ')}`
+  }
+
   const desktopRows = students.map(student => {
     const { name, score, proficiency, id, } = student
     return {
-      id,
+      id: id || name,
       name,
+      alphabeticalName: alphabeticalName(name),
       score,
-      scoreElement: score ? <span className={proficiencyToClassName[proficiency]}>{score}%</span> : null,
-      individualResponsesLink: score ? <Link className="quill-button fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link> : <span className="diagnostic-not-completed">Diagnostic not completed</span>
+      scoreElement: score !== undefined ? <span className={proficiencyToClassName[proficiency]}>{score}%</span> : null,
+      individualResponsesLink: score !== undefined ? <Link className="quill-button fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link> : <span className="diagnostic-not-completed">Diagnostic not completed</span>
     }
   })
 
   const mobileRows = students.map(student => {
     const { name, score, proficiency, id, } = student
-    const nameElement = score ? <Link to={responsesLink(id)}>{name}</Link> : <React.Fragment><span>{name}</span><span className="diagnostic-not-completed">Diagnostic not completed</span></React.Fragment>
+    const nameElement = score !== undefined ? <Link to={responsesLink(id)}>{name}</Link> : <React.Fragment><span>{name}</span><span className="diagnostic-not-completed">Diagnostic not completed</span></React.Fragment>
     return {
-      id,
+      id: id || name,
       name: nameElement,
+      alphabeticalName: alphabeticalName(name),
       score,
-      scoreElement: score ? <span className={proficiencyToClassName[proficiency]}>{score}%</span> : null,
+      scoreElement: score !== undefined ? <span className={proficiencyToClassName[proficiency]}>{score}%</span> : null,
     }
   })
 
   return (<main className="student-responses-index-container">
     <header>
       <h1>Student responses</h1>
-      <a className="focus-on-light" href="/">{fileDocumentIcon}<span>Guide</span></a>
+      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698167-how-do-i-read-the-student-responses-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
     </header>
     {mobileNavigation}
     <section className="proficiency-keys">
@@ -147,20 +167,22 @@ const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => 
       <ProficiencyKey className="nearly-proficient" range="60-79%" studentCount={nearlyProficientStudents.length} title={NEARLY_PROFICIENT} />
       <ProficiencyKey className="proficient" range="80-100%" studentCount={proficientStudents.length} title={PROFICIENT} />
     </section>
-    <DataTable
-      className="hide-on-mobile"
-      defaultSortAttribute={worthSorting && 'score'}
-      defaultSortDirection='asc'
-      headers={desktopHeaders(worthSorting)}
-      rows={desktopRows}
-    />
-    <DataTable
-      className="hide-on-desktop"
-      defaultSortAttribute={worthSorting && 'score'}
-      defaultSortDirection='asc'
-      headers={mobileHeaders(worthSorting)}
-      rows={mobileRows}
-    />
+    <div className="data-table-container">
+      <DataTable
+        className="hide-on-mobile"
+        defaultSortAttribute={worthSorting && 'score'}
+        defaultSortDirection='asc'
+        headers={desktopHeaders(worthSorting)}
+        rows={desktopRows}
+      />
+      <DataTable
+        className="hide-on-desktop"
+        defaultSortAttribute={worthSorting && 'score'}
+        defaultSortDirection='asc'
+        headers={mobileHeaders(worthSorting)}
+        rows={mobileRows}
+      />
+    </div>
   </main>)
 }
 

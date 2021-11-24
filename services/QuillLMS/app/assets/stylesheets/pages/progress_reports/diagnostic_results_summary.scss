@@ -3,7 +3,8 @@
     display: flex;
     flex-wrap: wrap;
     margin: 24px 0px;
-    max-width: 1000px;
+    position: relative;
+    z-index: 3;
   }
   .skill-group-summary-card {
     max-width: 306px;
@@ -45,6 +46,9 @@
       &:not(.no-practice-needed) {
         border-bottom: #5c5c5c dotted 1px;
       }
+    }
+    .quill-tooltip, .quill-tooltip-wrapper {
+      z-index: 5;
     }
     .no-data-yet {
       margin-top: 80px;
@@ -109,10 +113,11 @@
   .student-results-table-container {
     margin-top: 16px;
     overflow-x: scroll;
-    width: calc(100vw - 300px);
     position: relative;
+    margin-left: -365px;
     margin-bottom: -400px;
     padding-bottom: 400px;
+    padding-left: 364px;
     .no-data-yet {
       position: absolute;
       top: 81px;
@@ -133,6 +138,7 @@
         border-bottom: 1px solid #e0e0e0;
         border-radius: 8px;
         empty-cells: hide;
+        position: relative;
         thead th:last-of-type {
           border-right: none;
         }
@@ -199,9 +205,30 @@
       }
     }
     .name-cell {
+      &:hover {
+        background-color: #f5f5f5;
+        z-index: 2;
+      }
+      &:not(:hover) {
+        .quill-tooltip {
+          display: none;
+        }
+      }
       width: 216px;
       height: 92px;
       padding: 16px;
+      .student-name {
+        text-overflow: ellipsis;
+        max-width: 182px;
+        display: inline-block;
+        -ms-flex-negative: 1;
+        white-space: initial;
+        line-height: normal;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+      }
       > div {
         display: flex;
         flex-direction: column;
@@ -212,6 +239,7 @@
           font-weight: normal;
           line-height: 1.43;
           color: #262626;
+          width: 100%;
         }
         .diagnostic-not-completed {
           font-weight: normal;
@@ -242,6 +270,9 @@
       border-radius: 8px 0px 0px;
       border-left: 1px solid #e0e0e0;
       width: 216px;
+      left: 0;
+      z-index: 2;
+      position: sticky;
     }
     .corner-header, .skill-group-header {
       border-top: 1px solid #e0e0e0;
@@ -331,6 +362,9 @@
         display: block;
         text-align: left;
       }
+      &:last-of-type {
+        border-radius: 0px 8px 0px 0px;
+      }
     }
   }
   @media (max-width: 930px) {
@@ -339,6 +373,8 @@
       padding: 0px 32px;
     }
     .student-results-table-container {
+      margin-left: 0px;
+      padding-left: 0px;
       width: 100%;
     }
     .skill-group-summary-card {

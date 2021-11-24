@@ -507,6 +507,16 @@ class ActivitySession < ApplicationRecord
     end
   end
 
+  def correct_skill_ids
+    skills = activity.skills.distinct
+    correct_skill_ids = []
+    skills.each do |skill|
+      concept_results = ConceptResult.where(activity_session_id: id, concept_id: [skill.concept_ids])
+      correct_skill_ids.push(skill.id) if concept_results.length && concept_results.all?(&:correct?)
+    end
+    correct_skill_ids
+  end
+
   private def correctly_assigned
     if classroom_unit && (classroom_unit.validate_assigned_student(user_id) == false)
       begin

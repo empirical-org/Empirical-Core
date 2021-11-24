@@ -94,7 +94,7 @@ const LessonRecommendation = ({ previouslyAssignedRecommendations, selections, s
 }
 
 const LessonsRecommendations = ({ previouslyAssignedRecommendations, recommendations, selections, setSelections, }) => {
-  return recommendations.map(recommendation => <LessonRecommendation key={recommendation.activity_pack_id} previouslyAssignedRecommendations={[73, 49]} recommendation={recommendation} selections={selections} setSelections={setSelections} />)
+  return <div className="lessons-recommendations">{recommendations.map(recommendation => <LessonRecommendation key={recommendation.activity_pack_id} previouslyAssignedRecommendations={previouslyAssignedRecommendations} recommendation={recommendation} selections={selections} setSelections={setSelections} />)}</div>
 }
 
 const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActivityPacks, deselectAll, selectAll, selectAllRecommended}) => {
@@ -108,21 +108,21 @@ const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActi
     assignButton = <button className="quill-button primary contained small focus-on-light" onClick={assignActivityPacks} type="button">Assign activity packs</button>
   }
 
-  const numberSelectedElement = numberSelected ? <span className="number-selected">{numberSelected} activity pack{numberSelected === 1 ? '' : 's'} selected</span> : null
-  return (<div className="recommendations-buttons">
-    <div>
-      <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAll} type="button">Select all</button>
-      <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAllRecommended} type="button">Select all recommended</button>
-      <button className="quill-button fun secondary outlined focus-on-light" onClick={deselectAll} type="button">Deselect all</button>
-    </div>
-    <div>
-      {numberSelectedElement}
-      {assignButton}
+  return (<div className="recommendations-buttons-container">
+    <div className="recommendations-buttons">
+      <div>
+        <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAll} type="button">Select all</button>
+        <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAllRecommended} type="button">Select all recommended</button>
+        <button className="quill-button fun secondary outlined focus-on-light" onClick={deselectAll} type="button">Deselect all</button>
+      </div>
+      <div>
+        {assignButton}
+      </div>
     </div>
   </div>)
 }
 
-const IndependentRecommendationsButtons = ({ assignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, }) => {
+const IndependentRecommendationsButtons = ({ assignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, }) => {
   function handleSelectAllClick() {
     const newSelections = independentSelections.map((selection, index) => {
       selection.students = students.filter(s => s.completed).map(s => s.id)
@@ -147,7 +147,11 @@ const IndependentRecommendationsButtons = ({ assignActivityPacks, independentSel
     setIndependentSelections(newSelections)
   }
 
-  const numberSelected = independentSelections.filter(selection => selection.students.length).length
+  const numberSelected = independentSelections.reduce((previousValue, selection) => {
+    const previouslyAssignedActivity = previouslyAssignedRecommendations.find(r => r.activity_pack_id === selection.activity_pack_id)
+    const selectedStudents = selection.students.filter(id => !previouslyAssignedActivity.students.includes(id))
+    return previousValue += selectedStudents.length
+  }, 0)
   return <RecommendationsButtons assignActivityPacks={assignActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={numberSelected} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
 }
 
@@ -169,11 +173,11 @@ const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonsActivit
   return <RecommendationsButtons assignActivityPacks={assignLessonsActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={lessonsSelections.length} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
 }
 
-const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedRecommendations, passedLessonRecommendations, match, mobileNavigation, }) => {
-  const [loading, setLoading] = React.useState<boolean>(!passedPreviouslyAssignedRecommendations && !passedRecommendations && !passedLessonRecommendations);
+export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, }) => {
+  const [loading, setLoading] = React.useState<boolean>(!passedPreviouslyAssignedRecommendations && !passedIndependentRecommendations && !passedLessonRecommendations);
   const [previouslyAssignedIndependentRecommendations, setPreviouslyAssignedIndependentRecommendations] = React.useState<Recommendation[]>(passedPreviouslyAssignedRecommendations);
   const [previouslyAssignedLessonsRecommendations, setPreviouslyAssignedLessonsRecommendations] = React.useState<LessonRecommendation[]>(passedPreviouslyAssignedLessonRecommendations);
-  const [independentRecommendations, setIndependentRecommendations] = React.useState<Recommendation[]>(passedRecommendations);
+  const [independentRecommendations, setIndependentRecommendations] = React.useState<Recommendation[]>(passedIndependentRecommendations);
   const [lessonsRecommendations, setLessonsRecommendations] = React.useState<LessonRecommendation[]>(passedLessonRecommendations);
   const [independentSelections, setIndependentSelections] = React.useState<Recommendation[]>([]);
   const [lessonsSelections, setLessonsSelections] = React.useState<number[]>([]);
@@ -207,7 +211,7 @@ const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPrevio
     setPreviouslyAssignedLessonsRecommendations(null)
     getRecommendations()
     getPreviouslyAssignedRecommendationData()
-  }, [activityId, classroomId])
+  }, [activityId, classroomId, unitId])
 
   React.useEffect(() => {
     if (loading) { return }
@@ -359,13 +363,13 @@ const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPrevio
     <Snackbar text={snackbarText} visible={showSnackbar} />
     <header>
       <h1>Practice recommendations</h1>
-      <a className="focus-on-light" href="/">{fileDocumentIcon}<span>Guide</span></a>
+      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698147-how-do-i-read-the-practice-recommendations-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
     </header>
     {mobileNavigation}
     <p className="explanation">Based on the results of the diagnostic, we created a personalized learning plan for each student. Customize your learning plan by selecting the activity packs you would like to assign.</p>
     <section className="independent-practice">
       <div className="section-header"><h2>Independent practice</h2>{recommendedKey}</div>
-      <IndependentRecommendationsButtons assignActivityPacks={assignIndependentActivityPacks} assigned={independentAssigned} assigning={independentAssigning} independentSelections={independentSelections} recommendations={independentRecommendations} setIndependentSelections={setIndependentSelections} students={students} />
+      <IndependentRecommendationsButtons assignActivityPacks={assignIndependentActivityPacks} assigned={independentAssigned} assigning={independentAssigning} independentSelections={independentSelections} previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} setIndependentSelections={setIndependentSelections} students={students} />
       <RecommendationsTable previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} selections={independentSelections} setSelections={setIndependentSelections} students={students} />
     </section>
     {wholeClassInstructionSection}

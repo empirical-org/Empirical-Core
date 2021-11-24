@@ -1,7 +1,8 @@
 .diagnostic-individual-pack main.student-responses-index-container {
   .proficiency-keys {
     display: flex;
-    margin: 24px 0px;
+    margin-top: 24px;
+    margin-bottom: 24px;
     .proficiency-key {
       min-width: 145px;
       padding: 16px;
@@ -49,6 +50,9 @@
         height: 100%;
         padding: 12px;
         margin-left: -12px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
         width: 100%;
         text-align: right;
         &.proficient {
@@ -102,8 +106,17 @@
       }
     }
     .data-table {
+      .data-table-headers, .data-table-row {
+        padding-right: 0px;
+      }
       .data-table-row {
         height: min-content;
+      }
+      .score-section, .score-header {
+        margin-right: 0px;
+      }
+      .name-section, .name-header {
+        width: 100% !important;
       }
       .name-section {
         display: flex;

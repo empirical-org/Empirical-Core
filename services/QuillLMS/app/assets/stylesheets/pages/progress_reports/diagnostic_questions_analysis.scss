@@ -1,11 +1,12 @@
 .diagnostic-individual-pack main.questions-index-container {
   .data-table {
-    overflow: hidden;
+    overflow: visible;
     border-radius: 8px;
     border: solid 1px #e0e0e0;
     margin-top: 24px;
     .data-table-headers {
       height: 48px;
+      border-radius: 8px 8px 0px 0px;
     }
     &.hide-on-mobile {
       width: 950px;
@@ -26,11 +27,18 @@
           .quill-tooltip-trigger {
             margin-right: 0px;
           }
+          .directions-or-prompt {
+            max-width: 673px;
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
         }
       }
     }
     .score-header {
       margin-right: 32px;
+      text-align: right !important;
     }
     .score-section {
       margin-right: 32px;
@@ -55,6 +63,10 @@
     }
     .directions-and-prompt-section {
       overflow: visible;
+      margin-right: 0px;
+    }
+    .directions-and-prompt-header {
+      margin-right: 0px;
     }
     .directions-and-prompt {
       div {

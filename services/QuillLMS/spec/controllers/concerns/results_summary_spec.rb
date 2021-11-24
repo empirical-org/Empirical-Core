@@ -36,17 +36,18 @@ describe ResultsSummary do
             skill_groups: [
               {
                 skill_group: skill_group_activity.skill_group.name,
+                description: skill_group_activity.skill_group.description,
                 skills: [
                   {
                     id: skill.id,
                     skill: skill.name,
                     number_correct: 1,
                     number_incorrect: 1,
-                    summary: PARTIALLY_CORRECT,
+                    summary: ResultsSummary::PARTIALLY_CORRECT,
                   }
                 ],
                 number_of_correct_skills_text: "0 of 1 skills correct",
-                proficiency_text: NO_PROFICIENCY,
+                proficiency_text: ResultsSummary::NO_PROFICIENCY,
                 id: skill_group_activity.skill_group.id
               }
             ],
@@ -79,17 +80,18 @@ describe ResultsSummary do
             skill_groups: [
               {
                 skill_group: skill_group_activity.skill_group.name,
+                description: skill_group_activity.skill_group.description,
                 skills: [
                   {
                     id: skill.id,
                     skill: skill.name,
                     number_correct: 1,
                     number_incorrect: 1,
-                    summary: PARTIALLY_CORRECT,
+                    summary: ResultsSummary::PARTIALLY_CORRECT,
                   }
                 ],
                 number_of_correct_skills_text: "0 of 1 skills correct",
-                proficiency_text: NO_PROFICIENCY,
+                proficiency_text: ResultsSummary::NO_PROFICIENCY,
                 id: skill_group_activity.skill_group.id
               }
             ],
@@ -114,17 +116,18 @@ describe ResultsSummary do
       expect(skill_groups_for_session([skill_group_activity.skill_group], activity_session.id, student1.name)).to eq [
         {
           skill_group: skill_group_activity.skill_group.name,
+          description: skill_group_activity.skill_group.description,
           skills: [
             {
               id: skill.id,
               skill: skill.name,
               number_correct: 1,
               number_incorrect: 1,
-              summary: PARTIALLY_CORRECT,
+              summary: ResultsSummary::PARTIALLY_CORRECT,
             }
           ],
           number_of_correct_skills_text: "0 of 1 skills correct",
-          proficiency_text: NO_PROFICIENCY,
+          proficiency_text: ResultsSummary::NO_PROFICIENCY,
           id: skill_group_activity.skill_group.id
         }
       ]

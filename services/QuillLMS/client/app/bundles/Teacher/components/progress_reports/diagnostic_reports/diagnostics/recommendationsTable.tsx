@@ -4,6 +4,11 @@ import {
   noDataYet,
   asteriskIcon,
   correctImage,
+  WIDE_SCREEN_MINIMUM_WIDTH,
+  LEFT_OFFSET,
+  DEFAULT_LEFT_PADDING,
+  MOBILE_WIDTH,
+  DEFAULT_LEFT_PADDING_FOR_MOBILE
 } from './shared'
 import {
   Recommendation,
@@ -16,6 +21,7 @@ import {
   Tooltip,
   smallWhiteCheckIcon,
 } from '../../../../../Shared/index'
+import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 
 interface RecommendationsTableProps {
   recommendations: Recommendation[];
@@ -101,6 +107,8 @@ const StudentRow = ({ student, selections, recommendations, previouslyAssignedRe
 }
 
 const RecommendationsTable = ({ recommendations, students, selections, previouslyAssignedRecommendations, setSelections, }: RecommendationsTableProps) => {
+  const size = useWindowSize();
+
   const [isSticky, setIsSticky] = React.useState(false);
   const tableRef = React.useRef(null);
   const [stickyTableStyle, setStickyTableStyle] = React.useState<StickyTableStyle>({
@@ -111,17 +119,30 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
     zIndex: 3
   })
 
+  function paddingLeft() {
+    if (MOBILE_WIDTH >= window.innerWidth) { return DEFAULT_LEFT_PADDING_FOR_MOBILE }
+    const explanation = document.getElementsByClassName('explanation')[0]
+    return explanation && window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH ? explanation.getBoundingClientRect().left - LEFT_OFFSET : DEFAULT_LEFT_PADDING
+  }
+
   const handleScroll = React.useCallback(({ top, bottom, left, right, }) => {
-    // values are based on intersection with the `.recommendations-table` - 0 is just intersecting with the top and 92 is the height of each row, so once we get below that we don't want to continue dragging the header down
     if (top <= 0 && bottom > 92) {
-      setStickyTableStyle(oldStickyTableStyle => ({ ...oldStickyTableStyle, left }))
+      setStickyTableStyle(oldStickyTableStyle => ({ ...oldStickyTableStyle, left: left + paddingLeft() }))
       !isSticky && setIsSticky(true);
     } else {
       isSticky && setIsSticky(false);
     }
   }, [isSticky]);
 
-  const onScroll = () => handleScroll(tableRef.current.getBoundingClientRect());
+  const onScroll = () => {
+    if (tableRef && tableRef.current) {
+      handleScroll(tableRef.current.getBoundingClientRect());
+    }
+  }
+
+  React.useEffect(() => {
+    onScroll()
+  }, [size])
 
   React.useEffect(() => {
     window.addEventListener("scroll", onScroll);
@@ -131,7 +152,7 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
     };
   }, [handleScroll]);
 
-  const tableHeaders = recommendations.map(recommendation => {
+  const tableHeaders = recommendations && recommendations.map(recommendation => {
     const { activity_pack_id, name, activity_count, students, } = recommendation
     return (<th className="recommendation-header" key={name}>
       <div className="name-and-tooltip">
@@ -161,27 +182,34 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
 
   const tableClassName = tableHasContent ? 'recommendations-table' : 'empty recommendations-table'
 
-  const renderHeader = () => {
+  const renderHeader = (sticky) => {
+    let style = { position: 'inherit' }
+    if (window.innerWidth <= MOBILE_WIDTH) {
+      style = { left: stickyTableStyle.left - paddingLeft() }
+    } else if (LEFT_OFFSET > stickyTableStyle.left) {
+      style = { left: -(LEFT_OFFSET - (stickyTableStyle.left - paddingLeft())) + 1 }
+    }
+
     return (<thead>
       <tr>
-        <th className="corner-header">Name</th>
+        <th className="corner-header" style={sticky ? style : {}}>Name</th>
         {tableHeaders}
       </tr>
     </thead>)
   }
 
   return (<div className="recommendations-table-container" onScroll={handleScroll}>
-    {tableHasContent ? null : noDataYet}
-    {isSticky && (
+    {isSticky && tableHasContent && (
       <table
         className={`${tableClassName} sticky`}
         style={stickyTableStyle}
       >
-        {renderHeader()}
+        {renderHeader(true)}
       </table>
     )}
-    <table className={tableClassName} ref={tableRef}>
-      {renderHeader()}
+    <table className={tableClassName} ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
+      {renderHeader(false)}
+      {tableHasContent ? null : noDataYet}
       <tbody>
         {studentRows}
       </tbody>

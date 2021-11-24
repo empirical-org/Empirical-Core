@@ -1,5 +1,8 @@
 .results-summary-container.growth-results-summary-container {
   .skill-group-summary-card {
+    &:nth-of-type(3n+3) {
+      margin-right: 0px;
+    }
     .percentage-circles {
       display: flex;
       justify-content: space-between;
@@ -36,9 +39,13 @@
   .name-cell {
     &:hover {
       background-color: #f5f5f5;
+      z-index: 2;
     }
     &:not(:hover) {
-      .quill-tooltip-trigger {
+      .skills-delta .quill-tooltip-trigger {
+        display: none;
+      }
+      .quill-tooltip {
         display: none;
       }
     }

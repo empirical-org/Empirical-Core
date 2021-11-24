@@ -21,8 +21,8 @@ interface Question {
   question_id: number;
 }
 
-const AVERAGE_FONT_WIDTH = 7
-const ALLOTTED_WIDTH = 675
+const AVERAGE_FONT_WIDTH = 6.5
+const ALLOTTED_WIDTH = 673
 
 const desktopHeaders = (isSortable) => ([
   {
@@ -30,10 +30,12 @@ const desktopHeaders = (isSortable) => ([
     attribute: 'questionNumber',
     width: '51px',
     rowSectionClassName: 'question-number-section',
+    isSortable: true
   },
   {
     name: 'Average score',
     attribute: 'scoreElement',
+    sortAttribute: 'score',
     width: '52px',
     noTooltip: true,
     rowSectionClassName: 'score-section',
@@ -55,11 +57,13 @@ const mobileHeaders = (isSortable) => ([
     name: '',
     attribute: 'directionsAndPrompt',
     width: '188px',
-    rowSectionClassName: 'directions-and-prompt-section'
+    rowSectionClassName: 'directions-and-prompt-section',
+    isSortable: true
   },
   {
     name: 'Avg. score',
     attribute: 'scoreElement',
+    sortAttribute: 'score',
     width: '52px',
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
@@ -83,7 +87,8 @@ const DirectionsAndPrompt = ({ directions, prompt, onMobile, }) => {
     if ((stripHtml(text).length * AVERAGE_FONT_WIDTH) >= ALLOTTED_WIDTH) {
       return (<Tooltip
         tooltipText={text}
-        tooltipTriggerText={`${stripHtml(text).slice(0, (ALLOTTED_WIDTH/AVERAGE_FONT_WIDTH))}...`}
+        tooltipTriggerText={stripHtml(text)}
+        tooltipTriggerTextClass="directions-or-prompt"
       />)
     }
 
@@ -102,7 +107,7 @@ const DirectionsAndPrompt = ({ directions, prompt, onMobile, }) => {
   </div>)
 }
 
-const Questions = ({ passedQuestions, match, mobileNavigation, }) => {
+export const Questions = ({ passedQuestions, match, mobileNavigation, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedQuestions);
   const [questions, setQuestions] = React.useState<Question[]>(passedQuestions || []);
 
@@ -114,8 +119,12 @@ const Questions = ({ passedQuestions, match, mobileNavigation, }) => {
     getQuestions()
   }, [])
 
-  function getQuestions() {
+  React.useEffect(() => {
+    setLoading(true)
+    getQuestions()
+  }, [activityId, classroomId, unitId])
 
+  function getQuestions() {
     requestGet(`/teachers/progress_reports/question_view/classroom/${classroomId}/activity/${activityId}${unitQueryString}`,
       (data) => {
         setQuestions(data.data);
@@ -153,23 +162,25 @@ const Questions = ({ passedQuestions, match, mobileNavigation, }) => {
   return (<main className="questions-index-container">
     <header>
       <h1>Questions analysis</h1>
-      <a className="focus-on-light" href="/">{fileDocumentIcon}<span>Guide</span></a>
+      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698219-how-do-i-read-the-questions-analysis-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
     </header>
     {mobileNavigation}
-    <DataTable
-      className="hide-on-mobile"
-      defaultSortAttribute={worthSorting && 'score'}
-      defaultSortDirection='asc'
-      headers={desktopHeaders(worthSorting)}
-      rows={desktopRows}
-    />
-    <DataTable
-      className="hide-on-desktop"
-      defaultSortAttribute={worthSorting && 'score'}
-      defaultSortDirection='asc'
-      headers={mobileHeaders(worthSorting)}
-      rows={mobileRows}
-    />
+    <div className="data-table-container">
+      <DataTable
+        className="hide-on-mobile"
+        defaultSortAttribute={worthSorting && 'score'}
+        defaultSortDirection='asc'
+        headers={desktopHeaders(worthSorting)}
+        rows={desktopRows}
+      />
+      <DataTable
+        className="hide-on-desktop"
+        defaultSortAttribute={worthSorting && 'score'}
+        defaultSortDirection='asc'
+        headers={mobileHeaders(worthSorting)}
+        rows={mobileRows}
+      />
+    </div>
   </main>)
 }
 
