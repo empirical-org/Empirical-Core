@@ -1,5 +1,6 @@
 module PublicProgressReports
     extend ActiveSupport::Concern
+    include DiagnosticReports
 
     def last_completed_diagnostic
       diagnostic_activity_ids = Activity.diagnostic_activity_ids
@@ -12,11 +13,16 @@ module PublicProgressReports
     end
 
     def activity_session_report(classroom_unit_id, user_id, activity_id)
-      act_sesh = ActivitySession.where(is_final_score: true, user_id: user_id, classroom_unit_id: classroom_unit_id, activity_id: activity_id).first
       classroom_unit = ClassroomUnit.find(classroom_unit_id)
       unit_id = classroom_unit.unit_id
       classroom_id = classroom_unit.classroom_id
-      if unit_id && activity_id && classroom_id
+      if Activity.diagnostic_activity_ids.include?(activity_id.to_i)
+        activity = Activity.find(activity_id)
+        activity_is_a_post_test = Activity.find_by(follow_up_activity_id: activity_id).present?
+        activity_is_a_pre_test = activity.follow_up_activity_id.present?
+        unit_query_string = activity_is_a_pre_test || activity_is_a_post_test ? '' : "?unit=#{unit_id}"
+        { url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity_id}/classroom/#{classroom_id}/responses/#{user_id}#{unit_query_string}" }
+      elsif unit_id && activity_id && classroom_id
         {url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/student_report/#{user_id}"}
       end
     end
@@ -40,11 +46,10 @@ module PublicProgressReports
       end
     end
 
-    def results_by_question(params)
-      classroom_unit = ClassroomUnit.find_by(classroom_id: params[:classroom_id], unit_id: params[:unit_id])
-      activity = Activity.includes(:classification).find(params[:activity_id])
+    def results_by_question(activity_id)
+      activity = Activity.includes(:classification).find(activity_id)
       questions = Hash.new{|h,k| h[k]={} }
-      all_answers = ActivitySession.activity_session_metadata(classroom_unit.id, params[:activity_id])
+      all_answers = ActivitySession.activity_session_metadata(@activity_sessions)
       all_answers.each do |answer|
         curr_quest = questions[answer["questionNumber"]]
         curr_quest[:correct] ||= 0
@@ -247,16 +252,12 @@ module PublicProgressReports
       end
     end
 
-    def generate_recommendations_for_classroom(unit_id, classroom_id, activity_id)
-      classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
-      classroom = Classroom.find(classroom_id)
+    def generate_recommendations_for_classroom(current_user, unit_id, classroom_id, activity_id)
+      set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id)
       diagnostic = Activity.find(activity_id)
-      activity_sessions = ActivitySession.includes(concept_results: :concept)
-                      .where(classroom_unit_id: classroom_unit.id, is_final_score: true, activity: activity_id)
-      activity_sessions_counted = activity_sessions_with_counted_concepts(activity_sessions)
-      students = classroom.students.map do |s|
-        next unless classroom_unit.assigned_student_ids.include?(s&.id)
-        completed = activity_sessions.any? { |session| session.user_id == s&.id }
+      activity_sessions_counted = activity_sessions_with_counted_concepts(@activity_sessions)
+      students = @assigned_students.map do |s|
+        completed = @activity_sessions.any? { |session| session.user_id == s&.id }
         {id: s&.id, name: s&.name || "Unknown Student", completed: completed }
       end
 
@@ -286,6 +287,7 @@ module PublicProgressReports
 
     def return_value_for_recommendation(students, activity_pack_recommendation)
       {
+        activity_count: activity_pack_recommendation[:activityCount],
         activity_pack_id: activity_pack_recommendation[:activityPackId],
         name: activity_pack_recommendation[:recommendation],
         students: students
@@ -317,7 +319,7 @@ module PublicProgressReports
         .where("classroom_units.classroom_id=?", classroom_id)
         .pluck(:unit_template_id)
       {
-        previouslyAssignedRecommendations: assigned_recommendations,
+        previouslyAssignedIndependentRecommendations: assigned_recommendations,
         previouslyAssignedLessonsRecommendations: assigned_lesson_ids
       }
     end
@@ -326,6 +328,7 @@ module PublicProgressReports
       activity_sessions.map do |activity_session|
         {
           user_id: activity_session.user_id,
+          user_name: activity_session.user.name,
           concept_scores: concept_results_by_count(activity_session)
         }
       end

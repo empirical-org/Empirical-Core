@@ -3,22 +3,24 @@ import * as React from 'react'
 import { Switch, Route, withRouter, NavLink, } from 'react-router-dom';
 import qs from 'qs'
 
+import GrowthResults from './growthResults'
 import Results from './results'
+import StudentResponsesIndex from './studentResponsesIndex'
+import IndividualStudentResponses from './individualStudentResponses'
+import Recommendations from './recommendations'
+import Questions from './questions'
 import { Classroom, Activity, Diagnostic, } from './interfaces'
-import { goToAssign, } from './shared'
+import { goToAssign, baseDiagnosticImageSrc, accountCommentIcon, closeIcon, } from './shared'
 
 import { DropdownInput, } from '../../../../../Shared/index'
 
-const baseDiagnosticImageSrc = `${process.env.CDN_URL}/images/pages/diagnostic_reports`
 const barChartIcon = <img alt="Bar chart icon" src={`${baseDiagnosticImageSrc}/icons-bar-chart.svg`} />
 const barChartGrowthIcon = <img alt="Chart showing growth icon" src={`${baseDiagnosticImageSrc}/icons-bar-chart-growth.svg`} />
 const multipleCheckboxIcon = <img alt="Multiple checkboxes icon" src={`${baseDiagnosticImageSrc}/icons-checkbox-multiple.svg`} />
-const accountCommentIcon = <img alt="Person messaging icon" src={`${baseDiagnosticImageSrc}/icons-comment-account.svg`} />
 const cardTextIcon = <img alt="Message icon" src={`${baseDiagnosticImageSrc}/icons-card-text.svg`} />
 const chartGrowthIllustration = <img alt="Chart showing growth illustration" src={`${baseDiagnosticImageSrc}/chart-growth-illustration.svg`} />
 
 const eyeIcon = <img alt="Preview icon" src={`${process.env.CDN_URL}/images/icons/icons-visibility-on.svg`} />
-const closeIcon = <img alt="Close icon" src={`${process.env.CDN_URL}/images/icons/close.svg`} />
 
 const DiagnosticSection = ({ activity, isPostDiagnostic, isDisabled, search, }) => {
   const { activity_name, activity_id, classroom_id, } = activity
@@ -30,9 +32,11 @@ const DiagnosticSection = ({ activity, isPostDiagnostic, isDisabled, search, }) 
   const responsesLinkContent = <React.Fragment>{accountCommentIcon}<span>Student responses</span></React.Fragment>
   const questionsLinkContent = <React.Fragment>{cardTextIcon}<span>Questions analysis</span></React.Fragment>
 
+  const resultsPath = isPostDiagnostic ? 'growth_results' : 'results'
+
   return (<section className={`diagnostic-section ${isDisabled ? 'disabled' : ''}`}>
     <h6><span>{activity_name}</span> <a className="focus-on-light preview-link" href={`/activity_sessions/anonymous?activity_id=${activity_id}`} rel="noopener noreferrer" target="_blank">{eyeIcon}</a></h6>
-    {isDisabled ? <span className='disabled-link'>{resultLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/results${queryString}`}>{resultLinkContent}</NavLink>}
+    {isDisabled ? <span className='disabled-link'>{resultLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/${resultsPath}${queryString}`}>{resultLinkContent}</NavLink>}
     {isDisabled ? <span className='disabled-link'>{recommendationsLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/recommendations${queryString}`}>{recommendationsLinkContent}</NavLink>}
     {isDisabled ? <span className='disabled-link'>{responsesLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/responses${queryString}`}>{responsesLinkContent}</NavLink>}
     {isDisabled ? <span className='disabled-link'>{questionsLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/questions${queryString}`}>{questionsLinkContent}</NavLink>}
@@ -46,27 +50,29 @@ const mobileLinkOptions = (diagnostic, search) => {
 
   function pathsArray(isPostDiagnostic) {
     const prefix = isPostDiagnostic ? 'Post' : 'Pre'
-    const baseLink = isPostDiagnostic ? baseLinkPathPre : baseLinkPathPost
+    const baseLink = isPostDiagnostic ? baseLinkPathPost : baseLinkPathPre
     const resultsSummaryName = isPostDiagnostic ? 'Growth results summary' : 'Results summary'
+    const resultsPath = isPostDiagnostic ? 'growth_results' : 'results'
     return [
       {
-        name: `${prefix} - ${resultsSummaryName}`,
-        value: `${baseLink}/results${queryString}`
+        label: `${prefix} - ${resultsSummaryName}`,
+        value: `${baseLink}/${resultsPath}${queryString}`
       },
       {
-        name: `${prefix} - Practice recommendations`,
+        label: `${prefix} - Practice recommendations`,
         value: `${baseLink}/recommendations${queryString}`
       },
       {
-        name: `${prefix} - Student responses`,
+        label: `${prefix} - Student responses`,
         value: `${baseLink}/responses${queryString}`
       },
       {
-        name: `${prefix} - Questions analysis`,
+        label: `${prefix} - Questions analysis`,
         value: `${baseLink}/questions${queryString}`
       }
     ]
   }
+
 
   return diagnostic.post && diagnostic.post.assigned_count ? pathsArray(false).concat(pathsArray(true)) : pathsArray(false)
 }
@@ -146,7 +152,7 @@ const IndividualPack = ({ classrooms, history, match, location, }) => {
   const linkDropdownOptions = mobileLinkOptions(activeDiagnostic, location.search)
 
   const linkDropdown = (<DropdownInput
-    handleChange={onClassesDropdownChange}
+    handleChange={onLinkDropdownChange}
     isSearchable={false}
     options={linkDropdownOptions}
     value={linkDropdownOptions.find(opt => window.location.href.includes(opt.value))}
@@ -164,7 +170,12 @@ const IndividualPack = ({ classrooms, history, match, location, }) => {
       {postDiagnosticContent}
     </nav>
     <Switch>
-      <Route path='/results' render={() => <Results {...sharedProps} />} />
+      <Route path='/diagnostics/:activityId/classroom/:classroomId/growth_results' render={() => <GrowthResults {...sharedProps} />} />
+      <Route path='/diagnostics/:activityId/classroom/:classroomId/results' render={() => <Results {...sharedProps} />} />
+      <Route path='/diagnostics/:activityId/classroom/:classroomId/recommendations' render={() => <Recommendations {...sharedProps} />} />
+      <Route path='/diagnostics/:activityId/classroom/:classroomId/questions' render={() => <Questions {...sharedProps} />} />
+      <Route path='/diagnostics/:activityId/classroom/:classroomId/responses/:studentId' render={() => <IndividualStudentResponses {...sharedProps} />} />
+      <Route path='/diagnostics/:activityId/classroom/:classroomId/responses' render={() => <StudentResponsesIndex {...sharedProps} />} />
     </Switch>
   </div>)
 }

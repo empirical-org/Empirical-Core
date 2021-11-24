@@ -1,0 +1,134 @@
+.diagnostic-individual-pack main.student-responses-index-container {
+  .proficiency-keys {
+    display: flex;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    .proficiency-key {
+      min-width: 145px;
+      padding: 16px;
+      border-radius: 8px;
+      margin-right: 16px;
+      p {
+        margin-bottom: 2px;
+        font-size: 14px;
+        color: #5c5c5c;
+        &.proficiency-key-title {
+          font-weight: 600;
+          color: #262626;
+        }
+      }
+      &.not-yet-proficient {
+        background-color: #fff0f2;
+      }
+      &.nearly-proficient {
+        background-color: #fff5e5;
+      }
+      &.proficient {
+        background-color: #f1f8eb;
+      }
+    }
+  }
+  .data-table {
+    overflow: hidden;
+    border-radius: 8px;
+    border: solid 1px #e0e0e0;
+    .data-table-headers {
+      height: 32px;
+    }
+    &.hide-on-mobile {
+      width: 650px;
+    }
+    .score-header {
+      margin-right: 12px;
+    }
+    .score-section {
+      margin-right: 12px;
+      display: flex;
+      overflow: visible;
+      height: 100%;
+      span {
+        height: 100%;
+        padding: 12px;
+        margin-left: -12px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+        text-align: right;
+        &.proficient {
+          background-color: #f1f8eb;
+        }
+        &.nearly-proficient {
+          background-color: #fff5e5;
+        }
+        &.not-yet-proficient {
+          background-color: #fff0f2;
+        }
+      }
+    }
+    .individual-responses-header {
+      margin-right: 0px;
+    }
+    .individual-responses-link {
+      text-overflow: unset;
+      overflow: visible;
+      position: relative;
+      margin-right: 0px;
+      height: 100%;
+      a {
+        margin: 8px 0px;
+      }
+      .diagnostic-not-completed {
+        position: absolute;
+        top: 36%;
+        right: 0px;
+      }
+    }
+    .diagnostic-not-completed {
+      font-size: 12px;
+      line-height: 1.33;
+      color: #808080;
+    }
+  }
+
+  @media (max-width: 930px) {
+    padding: 40px 16px;
+    .proficiency-keys {
+      flex-direction: column;
+      .proficiency-key {
+        margin-right: 0px;
+        margin-bottom: 16px;
+        div {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+    }
+    .data-table {
+      .data-table-headers, .data-table-row {
+        padding-right: 0px;
+      }
+      .data-table-row {
+        height: min-content;
+      }
+      .score-section, .score-header {
+        margin-right: 0px;
+      }
+      .name-section, .name-header {
+        width: 100% !important;
+      }
+      .name-section {
+        display: flex;
+        flex-direction: column;
+        padding: 12px 0px;
+        .diagnostic-not-completed {
+          margin-top: 4px;
+        }
+      }
+      .score-section span {
+        margin-left: 0px;
+      }
+    }
+  }
+}

@@ -8,7 +8,7 @@ describe PusherRecommendationCompleted do
     before do
       allow(Pusher::Client).to receive(:new) { client }
     end
-   
+
     context 'when lesson is given' do
       it 'should send the unit template assigned event' do
         expect(Pusher::Client).to receive(:new).with(
@@ -19,8 +19,8 @@ describe PusherRecommendationCompleted do
         )
         expect(client).to receive(:trigger).with(
           "some_id",
-          "1-lesson-assigned",
-          message: "Unit Template 1 assigned to some_name."
+          "lessons-recommendations-assigned",
+          message: "Lessons recommendations assigned to some_name."
         )
         described_class.run(classroom, 1, "some lesson")
       end

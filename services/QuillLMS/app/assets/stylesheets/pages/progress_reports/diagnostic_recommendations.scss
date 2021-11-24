@@ -1,0 +1,405 @@
+.diagnostic-recommendations-container {
+  .explanation {
+    color: #808080;
+    max-width: 610px;
+    margin: 8px 0px 48px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    .quill-tooltip-trigger {
+      margin-left: 4px;
+    }
+    .recommended-key {
+      margin-left: 16px;
+      .recommended-image {
+        background-color: #eef8f7;
+        padding: 6px;
+        border-radius: 4px;
+        margin-right: 8px;
+      }
+      span {
+        color: #5c5c5c;
+      }
+    }
+    > div {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .assigned {
+    img {
+      margin-right: 4px;
+    }
+  }
+  .recommendations-buttons {
+    padding: 16px 24px;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+    max-width: 950px;
+    width: 100%;
+    div {
+      display: flex;
+      align-items: center;
+    }
+    .number-selected {
+      color: #262626;
+      margin-right: 24px;
+    }
+    div:first-of-type {
+      .quill-button {
+        margin-right: 8px;
+      }
+    }
+  }
+  .recommendations-table-container {
+    margin-top: 16px;
+    overflow-x: scroll;
+    position: relative;
+    margin-bottom: -40px;
+    padding-bottom: 40px;
+    margin-left: -365px;
+    padding-left: 364px;
+    .no-data-yet {
+      position: absolute;
+      top: 100px;
+      left: 45%;
+      width: 274px;
+    }
+    > table {
+      font-size: 12px;
+      color: #5c5c5c;
+      width: max-content;
+      margin: 0;
+      border: none;
+      border-collapse: separate;
+      border-spacing: 0;
+      table-layout: fixed;
+      &.empty {
+        border-right: 1px solid #e0e0e0;
+        border-bottom: 1px solid #e0e0e0;
+        border-radius: 8px;
+        empty-cells: hide;
+        position: relative;
+        min-height: 160px;
+        thead th:last-of-type {
+          border-right: none;
+        }
+        tbody tr td:last-of-type {
+          border-right: none;
+        }
+        tbody tr:last-of-type {
+          td, th {
+            border-bottom: none;
+          }
+        }
+      }
+      > thead > th:last-of-type {
+        border-radius: 0px 8px 0px 0px;
+      }
+      > tbody > tr:last-of-type {
+        > th {
+          border-radius: 0px 0px 0px 8px;
+        }
+        > td:last-of-type, > td:last-of-type button {
+          border-radius: 0px 0px 8px 0px;
+        }
+      }
+      > tbody > tr > td, > tbody > tr > th, > thead > tr > th {
+        padding: 8px 16px;
+        width: 144px;
+        border-bottom: 1px solid #e0e0e0;
+        border-right: 1px solid #e0e0e0;
+        background-color: white;
+      }
+      th {
+        text-align: left;
+        color: #5c5c5c;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.33;
+      }
+      > thead {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        height: 65px;
+        > th {
+          border-top: 1px solid #e0e0e0;
+        }
+      }
+      > tbody > tr > th {
+        position: sticky;
+        left: 0;
+        background: white;
+        z-index: 1;
+        border-left: 1px solid #e0e0e0;
+      }
+    }
+    .name-cell {
+      &:hover {
+        background-color: #f5f5f5;
+        z-index: 2;
+      }
+      &:not(:hover) {
+        .quill-tooltip {
+          display: none;
+        }
+      }
+      width: 216px;
+      height: 48px;
+      padding: 0px 16px;
+      .student-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 182px;
+        display: inline-block;
+      }
+      > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        span:first-of-type {
+          font-size: 14px;
+          font-weight: normal;
+          line-height: 1.43;
+          color: #262626;
+        }
+        .diagnostic-not-completed {
+          font-weight: normal;
+          color: #808080;
+        }
+      }
+      .quill-tooltip-wrapper {
+        left: 0px;
+        transform: inherit;
+        .quill-tooltip {
+          font-size: 12px;
+          color: white;
+        }
+      }
+    }
+    .name-and-tooltip {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      .quill-tooltip-trigger {
+        margin-left: 16px;
+      }
+      .quill-tooltip {
+        z-index: 10;
+      }
+    }
+    .corner-header {
+      vertical-align: bottom;
+      border-radius: 8px 0px 0px;
+      border-left: 1px solid #e0e0e0;
+      width: 216px;
+      position: sticky;
+      left: 0px;
+      height: 65px;
+      z-index: 1;
+    }
+    .corner-header, .recommendation-header {
+      border-top: 1px solid #e0e0e0;
+    }
+    .recommendation-cell {
+      padding: 0px;
+      vertical-align: top;
+      position: relative;
+      > .interactive-wrapper {
+        padding: 16px 8px;
+        align-items: center;
+        display: flex;
+        height: 100%;
+        min-height: 48px;
+        width: 100%;
+        justify-content: center;
+        .asterisk-icon {
+          position: absolute;
+          left: 8px;
+        }
+        &.recommended-and-selected {
+          background-color: #eef8f7;
+        }
+        &:focus, &:hover {
+          background-color: #f5f5f5;
+        }
+      }
+    }
+    .recommendation-header {
+      vertical-align: bottom;
+      padding: 8px;
+      .activity-count {
+        font-weight: normal;
+        color: #808080;
+        margin-top: 4px;
+        display: inline-block;
+      }
+      .quill-tooltip a {
+        color: white;
+        text-decoration: underline;
+      }
+      &:last-of-type {
+        border-radius: 0px 8px 0px 0px;
+      }
+    }
+  }
+  .whole-class-instruction {
+    margin-top: 48px;
+    .lessons-recommendation {
+      border-radius: 8px;
+      border: solid 1px #e0e0e0;
+      max-width: 950px;
+      width: 100%;
+      margin-top: 16px;
+      .top-row {
+        padding: 24px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        text-align: left;
+        justify-content: space-between;
+        border-radius: 8px;
+        > div {
+          display: flex;
+          align-items: center;
+          &:first-of-type {
+            .asterisk-icon, span, .quill-checkbox {
+              margin-right: 16px;
+            }
+            .asterisk-placeholder {
+              width: 12px;
+            }
+            .checkbox-placeholder {
+              width: 16px;
+            }
+          }
+        }
+        h3 {
+          font-size: 16px;
+          line-height: 1.38;
+          color: #262626;
+        }
+        > span, .students-needing-instruction-wrapper > span {
+          color: #5c5c5c;
+        }
+        .activities-count {
+          margin-left: 40px;
+          margin-right: 16px;
+        }
+        .quill-tooltip-trigger img {
+          width: 16px;
+          height: 16px;
+          margin-right: 4px;
+        }
+        .assigned {
+          margin-right: 16px;
+        }
+      }
+      &.is-recommended-and-not-assigned {
+        .top-row {
+          background-color: #eef8f7;
+        }
+      }
+      &.is-expanded {
+        .expand-icon {
+          transform: rotate(180deg);
+        }
+        .top-row {
+          border-bottom: solid 1px #e0e0e0;
+          border-radius: 8px 8px 0px 0px
+        }
+        .activity-row {
+          margin: 0px 24px;
+          display: flex;
+          justify-content: space-between;
+          padding: 12px 0px;
+          border-bottom: 1px solid #e0e0e0;
+          img {
+            margin-right: 4px;
+          }
+          &:last-of-type {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 930px) {
+    padding: 40px 0px !important;
+    header, .mobile-navigation, .explanation, .section-header {
+      padding: 0px 16px;
+    }
+    .section-header {
+      flex-direction: column;
+      align-items: flex-start;
+      .recommended-key {
+        margin-left: 0px;
+        margin-top: 8px;
+      }
+    }
+    .recommendations-buttons {
+      padding: 16px;
+      margin: 16px 16px 0px;
+      flex-direction: column;
+      max-width: calc(100vw - 32px);
+      div {
+        flex-direction: column;
+        &:first-of-type {
+          .quill-button {
+            margin-top: 8px;
+            margin-right: 0px;
+          }
+        }
+        &:last-of-type {
+          margin-top: 24px;
+          .number-selected {
+            margin-right: 0px;
+            margin-bottom: 8px;
+          }
+        }
+      }
+    }
+    .whole-class-instruction {
+      .lessons-recommendation {
+        margin: 16px 16px 0px;
+        max-width: calc(100vw - 32px);
+        .top-row {
+          padding: 24px 16px;
+          > div:last-of-type {
+            .quill-tooltip-trigger {
+              display: none;
+            }
+            > span {
+              display: none;
+            }
+            .assigned {
+              span {
+                display: none;
+              }
+            }
+          }
+          > div:first-of-type {
+              .asterisk-icon, span, .quill-checkbox {
+                margin-right: 8px;
+              }
+            }
+          }
+          .activity-row {
+            flex-direction: column;
+          }
+        }
+      }
+    .recommendations-table-container {
+      width: 100%;
+      padding-left: 0px;
+      margin-left: 0px;
+    }
+  }
+}

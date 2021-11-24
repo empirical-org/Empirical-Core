@@ -285,12 +285,76 @@ export default class CreateUnit extends React.Component {
     return lockedClassroomIds
   }
 
+  notYetCompletedPreTestStudentNames = () => {
+    const { assignedPreTests, } = this.props
+    const { classrooms, } = this.state
+
+    const restrictedActivity = this.restrictedActivityBeingAssigned()
+    if (!restrictedActivity) { return [] }
+
+    const relevantPretest = assignedPreTests.find(pretest => pretest.post_test_id === restrictedActivity.id)
+    const studentsBeingAssignedWhoDidNotCompletePreTest = []
+    classrooms.forEach(c => {
+      const studentsBeingAssigned = c.students.filter(s => s.isSelected)
+      const relevantPreTestClassroom = relevantPretest.all_classrooms.find(ac => ac.id === c.classroom.id)
+      studentsBeingAssigned.forEach(s => {
+        if (!relevantPreTestClassroom.completed_pre_test_student_ids.includes(s.id)) {
+          studentsBeingAssignedWhoDidNotCompletePreTest.push(s.name)
+        }
+      })
+    })
+    return studentsBeingAssignedWhoDidNotCompletePreTest
+  }
+
+  alreadyCompletedDiagnosticStudentNames = () => {
+    const { assignedPreTests, } = this.props
+    const { selectedActivities, classrooms, } = this.state
+
+    const preTestActivityIds = assignedPreTests.map(pretest => pretest.id)
+    const postTestActivityIds = assignedPreTests.map(pretest => pretest.post_test_id)
+
+    const preTestBeingAssigned = selectedActivities && selectedActivities.find(act => preTestActivityIds.includes(act.id))
+    const postTestBeingAssigned = selectedActivities && selectedActivities.find(act => postTestActivityIds.includes(act.id))
+    let students = []
+
+    if (preTestBeingAssigned) {
+      const relevantPretest = assignedPreTests.find(pretest => pretest.id === preTestBeingAssigned.id)
+      students = relevantPretest.all_classrooms.map(classroom => {
+        const classroomFromState = classrooms.find(classroomFromState => classroomFromState.classroom.id === classroom.id)
+        const studentNamesWhoCouldBeOverwritten = []
+        classroom.completed_pre_test_student_ids.forEach(id => {
+          const studentFromState = classroomFromState.students.find(student => student.id === id)
+          if (studentFromState.isSelected) {
+            studentNamesWhoCouldBeOverwritten.push(studentFromState.name)
+          }
+        })
+        return studentNamesWhoCouldBeOverwritten
+      })
+    } else if (postTestBeingAssigned) {
+      const relevantPretest = assignedPreTests.find(pretest => pretest.post_test_id === postTestBeingAssigned.id)
+      students = relevantPretest.all_classrooms.map(classroom => {
+        const classroomFromState = classrooms.find(classroomFromState => classroomFromState.classroom.id === classroom.id)
+        const studentNamesWhoCouldBeOverwritten = []
+        classroom.completed_post_test_student_ids.forEach(id => {
+          const studentFromState = classroomFromState.students.find(student => student.id === id)
+          if (studentFromState.isSelected) {
+            studentNamesWhoCouldBeOverwritten.push(studentFromState.name)
+          }
+        })
+        return studentNamesWhoCouldBeOverwritten
+      })
+    }
+
+    return [... new Set(students.flat())]
+  }
+
   stage2SpecificComponents = () => {
     const { user, assignedPreTests, } = this.props
 
     const restrictedActivity = this.restrictedActivityBeingAssigned()
 
     return (<Stage2
+      alreadyCompletedDiagnosticStudentNames={this.alreadyCompletedDiagnosticStudentNames()}
       areAnyStudentsSelected={this.areAnyStudentsSelected()}
       assignActivityDueDate={this.assignActivityDueDate}
       classrooms={this.getClassrooms()}
@@ -301,7 +365,8 @@ export default class CreateUnit extends React.Component {
       finish={this.finish}
       isFromDiagnosticPath={!!parsedQueryParams().diagnostic_unit_template_id}
       lockedClassroomIds={this.lockedClassroomIds()}
-      lockedMessage={restrictedActivity ? postTestClassAssignmentLockedMessages[restrictedActivity.id] : ''}
+      notYetCompletedPreTestStudentNames={this.notYetCompletedPreTestStudentNames()}
+      restrictedActivity={restrictedActivity}
       selectedActivities={this.getSelectedActivities()}
       toggleActivitySelection={this.toggleActivitySelection}
       toggleClassroomSelection={this.toggleClassroomSelection}
