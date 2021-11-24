@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProgressReports::ActivitiesScoresByClassroom
   # params:
   # => timezone: string | nil.

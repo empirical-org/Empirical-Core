@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GoogleIntegration
   class ClassroomStudentCreator
     ACCOUNT_TYPE = ::User::GOOGLE_CLASSROOM_ACCOUNT

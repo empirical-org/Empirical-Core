@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateActivityHealths < ActiveRecord::Migration[4.2]
   def change
     create_table :activity_healths do |t|

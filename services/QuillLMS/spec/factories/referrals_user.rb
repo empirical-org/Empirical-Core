@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :referrals_user do
     user_id           { create(:teacher).id }

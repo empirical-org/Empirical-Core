@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence
   class Label < ApplicationRecord
     self.table_name = 'comprehension_labels'

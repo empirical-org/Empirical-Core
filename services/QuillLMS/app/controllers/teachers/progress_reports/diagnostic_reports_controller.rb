@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Teachers::ProgressReports::DiagnosticReportsController < Teachers::ProgressReportsController
   include PublicProgressReports
   include LessonsRecommendations

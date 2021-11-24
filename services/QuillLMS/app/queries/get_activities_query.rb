@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GetActivitiesQuery
   def initialize(activity_category_id)
     @activity_category_id = activity_category_id

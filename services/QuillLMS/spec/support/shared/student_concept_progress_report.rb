@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_context 'Student Concept Progress Report' do
   # Create 3 students
   # Create 2 concept tag, one displayed, the other not

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ActivitiesController < ApplicationController
   before_action :activity, only: [:update]
   before_action :set_activity_by_lesson_id, only: [:preview_lesson]

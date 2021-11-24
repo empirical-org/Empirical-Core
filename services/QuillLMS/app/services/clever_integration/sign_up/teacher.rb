@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration::SignUp::Teacher
 
   def self.run(auth_hash)

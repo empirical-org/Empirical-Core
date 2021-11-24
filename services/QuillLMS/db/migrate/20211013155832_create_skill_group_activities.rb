@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSkillGroupActivities < ActiveRecord::Migration[5.1]
   def change
     create_table :skill_group_activities do |t|

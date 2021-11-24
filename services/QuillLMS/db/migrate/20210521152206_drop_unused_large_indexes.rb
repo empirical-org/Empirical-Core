@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DropUnusedLargeIndexes < ActiveRecord::Migration[4.2]
   def change
     remove_index_if_exists :concept_results, :index_concept_results_on_question_type

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::ClassroomUnitsController < Api::ApiController
   include QuillAuthentication
   before_action :authorize!

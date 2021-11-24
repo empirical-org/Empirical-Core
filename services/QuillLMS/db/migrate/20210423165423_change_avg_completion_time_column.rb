@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeAvgCompletionTimeColumn < ActiveRecord::Migration[4.2]
   def change
     remove_column :activity_healths, :avg_completion_time, :time

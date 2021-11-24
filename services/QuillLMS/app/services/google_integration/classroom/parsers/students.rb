@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GoogleIntegration::Classroom::Parsers::Students
 
   # example result of JSON.parse(response.body) :

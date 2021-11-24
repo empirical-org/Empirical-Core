@@ -6,9 +6,6 @@ import { activityOne, optimalSubmittedResponse, suboptimalSubmittedResponse, } f
 
 import PromptStep from '../../../components/studentView/promptStep'
 import EditorContainer from '../../../components/studentView/editorContainer'
-import { TOO_LONG_FEEDBACK, TOO_SHORT_FEEDBACK, MULTIPLE_SENTENCES_FEEDBACK, PROFANITY_FEEDBACK } from '../../../modules/prefilters'
-
-
 
 const prompt = activityOne.prompts[2]
 
@@ -115,26 +112,6 @@ describe('PromptStep component', () => {
       // })
 
       describe('#handleGetFeedbackClick', () => {
-        describe('when a profane response is submitted', () => {
-          it('should set the state to have the profanity feedback', () => {
-            const entry = "Governments should make voting compulsory because of some shit"
-            wrapper.setState({ customFeedback: null, customFeedbackKey: null, })
-            wrapper.instance().handleGetFeedbackClick(entry, prompt.prompt_id, prompt.text)
-            expect(wrapper.state('customFeedback')).toBe(PROFANITY_FEEDBACK)
-            expect(wrapper.state('customFeedbackKey')).toBe('profanity')
-          })
-        })
-
-        describe('when a prompt with multiple sentences is submitted', () => {
-          it('should set the state to have the multiple sentences feedback', () => {
-            const entry = "Governments should make voting compulsory because I want them to. I think politicans I like will get elected if everyone votes."
-            wrapper.setState({ customFeedback: null, customFeedbackKey: null, })
-            wrapper.instance().handleGetFeedbackClick(entry, prompt.prompt_id, prompt.text)
-            expect(wrapper.state('customFeedback')).toBe(MULTIPLE_SENTENCES_FEEDBACK)
-            expect(wrapper.state('customFeedbackKey')).toBe('multiple-sentences')
-          })
-        })
-
         describe('when a prompt with only one sentence, but containing a known abbreviation is submitted', () => {
           it('should not set custom feedback or a custom feedback key', () => {
             const entry = "Governments should make voting compulsory because the U.S.A. is a democracy."
@@ -165,98 +142,6 @@ describe('PromptStep component', () => {
       it('has a button with a disabled class and the text "Get feedback"', () => {
         expect(wrapper.find('.quill-button.disabled')).toHaveLength(1)
         expect(wrapper.find('.quill-button.disabled').text()).toEqual("Get feedback")
-      })
-
-    })
-
-    describe('when a too-short response has been submitted', () => {
-      const wrapper = mount(<PromptStep
-        {...defaultProps}
-        active
-        className="step active"
-      />)
-
-      wrapper.setState({ customFeedback: TOO_SHORT_FEEDBACK, customFeedbackKey: 'too-short' })
-
-      it('matches snapshot', () => {
-        expect(toJson(wrapper)).toMatchSnapshot()
-      })
-
-      it('renders an EditorContainer', () => {
-        expect(wrapper.find(EditorContainer)).toHaveLength(1)
-      })
-
-      it('has feedback with the too-short response text text"', () => {
-        expect(wrapper.find('.feedback-text').text()).toEqual(TOO_SHORT_FEEDBACK)
-      })
-
-    })
-
-    describe('when a profane response has been submitted', () => {
-      const wrapper = mount(<PromptStep
-        {...defaultProps}
-        active
-        className="step active"
-      />)
-
-      wrapper.setState({ customFeedback: PROFANITY_FEEDBACK, customFeedbackKey: 'profanity' })
-
-      it('matches snapshot', () => {
-        expect(toJson(wrapper)).toMatchSnapshot()
-      })
-
-      it('renders an EditorContainer', () => {
-        expect(wrapper.find(EditorContainer)).toHaveLength(1)
-      })
-
-      it('has feedback with the too-short response text text"', () => {
-        expect(wrapper.find('.feedback-text').text()).toEqual(PROFANITY_FEEDBACK)
-      })
-
-    })
-
-    describe('when a response with multiple sentences has been submitted', () => {
-      const wrapper = mount(<PromptStep
-        {...defaultProps}
-        active
-        className="step active"
-      />)
-
-      wrapper.setState({ customFeedback: MULTIPLE_SENTENCES_FEEDBACK, customFeedbackKey: 'multiple-sentences' })
-
-      it('matches snapshot', () => {
-        expect(toJson(wrapper)).toMatchSnapshot()
-      })
-
-      it('renders an EditorContainer', () => {
-        expect(wrapper.find(EditorContainer)).toHaveLength(1)
-      })
-
-      it('has feedback with the too-short response text text"', () => {
-        expect(wrapper.find('.feedback-text').text()).toEqual(MULTIPLE_SENTENCES_FEEDBACK)
-      })
-
-    })
-
-    describe('when a too-long response has been submitted', () => {
-      const wrapper = mount(<PromptStep
-        {...defaultProps}
-        active
-        className="step active"
-      />)
-
-      wrapper.setState({ customFeedback: TOO_LONG_FEEDBACK, customFeedbackKey: 'too-long' })
-
-      it('matches snapshot', () => {
-        expect(toJson(wrapper)).toMatchSnapshot()
-      })
-
-      it('renders an EditorContainer', () => {
-        expect(wrapper.find(EditorContainer)).toHaveLength(1)
-      })
-
-      it('has feedback with the too-long response text text"', () => {
-        expect(wrapper.find('.feedback-text').text()).toEqual(TOO_LONG_FEEDBACK)
       })
 
     })

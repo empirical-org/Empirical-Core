@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChargesController < ApplicationController
 
   def create_customer_with_card

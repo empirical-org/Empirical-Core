@@ -1,7 +1,12 @@
+# frozen_string_literal: true
+
 class ValidateFullName
 
   def initialize(names)
-    @names = names
+    @names = {
+      first_name: names[:first_name].dup,
+      last_name: names[:last_name].dup
+    }
   end
 
   def call

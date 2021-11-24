@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Teachers::UnitsController < ApplicationController
   include Units
   include UnitQueries

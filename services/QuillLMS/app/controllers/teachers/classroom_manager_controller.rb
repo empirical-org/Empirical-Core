@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Teachers::ClassroomManagerController < ApplicationController
   include CheckboxCallback
   include DiagnosticReports

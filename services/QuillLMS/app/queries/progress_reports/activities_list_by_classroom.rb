@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProgressReports::ActivitiesListByClassroom
   def self.results(classroom_id)
     RawSqlRunner.execute(

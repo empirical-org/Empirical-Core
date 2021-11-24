@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CsvExporter::Standards
   class StandardStudent
     def header_row

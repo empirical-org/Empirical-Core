@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LoginPdf < Prawn::Document
   include Prawn::Table::Interface
 

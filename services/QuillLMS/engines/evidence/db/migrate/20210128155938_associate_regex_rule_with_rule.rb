@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AssociateRegexRuleWithRule < ActiveRecord::Migration[4.2]
   def change
     add_reference :comprehension_regex_rules, :rule, index: true

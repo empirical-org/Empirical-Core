@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TeacherFixController < ApplicationController
   include TeacherFixes
   before_action :staff!

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateConceptTagCategories < ActiveRecord::Migration[4.2]
   def change
     create_table :concept_tag_categories do |t|

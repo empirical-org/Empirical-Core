@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_support/inflector'
 
 shared_context "calling the api" do

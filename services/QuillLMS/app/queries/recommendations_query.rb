@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RecommendationsQuery
   attr_reader :relation, :activity_id
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::UsersController < Cms::CmsController
   before_action :signed_in!
   before_action :set_flags

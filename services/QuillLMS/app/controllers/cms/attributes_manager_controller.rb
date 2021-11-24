@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::AttributesManagerController < Cms::CmsController
 
   def index

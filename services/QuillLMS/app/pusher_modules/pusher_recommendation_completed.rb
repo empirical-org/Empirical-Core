@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PusherRecommendationCompleted
 
   def self.run(classroom, unit_template_id, lesson)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateStandardCategory < ActiveRecord::Migration[4.2]
   def change
     create_table :standard_categories do |t|

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module GoogleIntegration
   class TeacherClassroomsCache
-    SERIALIZED_GOOGLE_CLASSROOMS_FOR_ = 'SERIALIZED_GOOGLE_CLASSROOMS_FOR_'.freeze
+    SERIALIZED_GOOGLE_CLASSROOMS_FOR_ = 'SERIALIZED_GOOGLE_CLASSROOMS_FOR_'
     SERIALIZED_GOOGLE_CLASSROOMS_CACHE_LIFE = 300
 
     def self.cache_key(teacher_id)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SplitName
 
   def initialize(name)

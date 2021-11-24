@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RefreshQuestionCacheWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL

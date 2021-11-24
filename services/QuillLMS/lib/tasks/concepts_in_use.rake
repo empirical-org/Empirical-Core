@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :concepts_in_use do
   task get: :environment do
     last_set = $redis.get("NUMBER_OF_CONCEPTS_IN_USE_LAST_SET")

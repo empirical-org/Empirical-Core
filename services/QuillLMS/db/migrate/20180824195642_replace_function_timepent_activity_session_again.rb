@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReplaceFunctionTimepentActivitySessionAgain < ActiveRecord::Migration[4.2]
   def up
     connection.execute(%q{

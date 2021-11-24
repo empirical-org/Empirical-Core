@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProgressReports::Concepts::Concept
   def self.results(teacher, filters)
     filtered_correct_results_query = ::ProgressReports::Concepts::ConceptResult.results(teacher, filters).to_sql
