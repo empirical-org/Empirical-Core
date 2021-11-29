@@ -418,6 +418,12 @@ class Teachers::UnitsController < ApplicationController
       'Intermediate Diagnostic'
     when Activity::ADVANCED_DIAGNOSTIC_ACTIVITY_ID
       'Advanced Diagnostic'
+    when Activity::ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID
+      'ELL Starter Diagnostic'
+    when Activity::ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID
+      'ELL Intermediate Diagnostic'
+    when Activity::ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID
+      'ELL Advanced Diagnostic'
     else
       record['activity_name']
     end
