@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :intercom do
   INACTIVE_SEGMENT_ID = '5a6f53b894948854ff51a165'
   desc 'deletes users from Intercom if they are in the above segment'

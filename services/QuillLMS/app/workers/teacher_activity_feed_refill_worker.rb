@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This worker clears the content of the TeacherActivityFeed
 # and refills it will the teacher's most recent 40 activity sessions
 class TeacherActivityFeedRefillWorker

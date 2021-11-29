@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddActivityTypeToConceptFeedback < ActiveRecord::Migration[4.2]
   def up
     add_column :concept_feedbacks, :activity_type, :string

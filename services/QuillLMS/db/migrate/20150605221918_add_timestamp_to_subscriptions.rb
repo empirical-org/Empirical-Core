@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddTimestampToSubscriptions < ActiveRecord::Migration[4.2]
   def change
     add_column :subscriptions, :created_at, :datetime

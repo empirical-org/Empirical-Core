@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :activity_session_timetracking_data do
   desc 'updates data that had formerly been saved as json in hstore to be parsable in jsonb'
   task :convert => :environment do

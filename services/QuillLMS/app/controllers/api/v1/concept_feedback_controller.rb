@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::ConceptFeedbackController < Api::ApiController
   before_action :activity_type, except: [:index]
   before_action :concept_feedback_by_uid, except: [:index, :create, :update]

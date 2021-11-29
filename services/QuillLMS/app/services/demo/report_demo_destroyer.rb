@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Demo::ReportDemoDestroyer
   def self.destroy_demo(name)
     email = name ? "hello+#{name}@quill.org" : "hello+demoteacher@quill.org"

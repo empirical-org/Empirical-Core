@@ -1,38 +1,37 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe CleverIntegration::ClassroomCreator do
+  let(:teacher) { create(:teacher) }
+  let(:clever_id) { '123_456'}
+  let(:grade) { '1' }
+
   let(:data) do
     {
       clever_id: clever_id,
+      grade: grade,
       name: name,
-      grade: grade
+      teacher_id: teacher.id
     }
   end
 
-  subject { described_class.new(data) }
-
-  let(:classroom) { subject.run }
+  subject { described_class.run(data) }
 
   context 'valid params' do
-    let(:clever_id) { '123_456' }
     let(:name) { 'clever classroom' }
-    let(:grade) { '1' }
 
-    it 'creates a new classroom object with synced_name attr initially set to name' do
-      expect(classroom.clever_id).to eq clever_id
-      expect(classroom.grade).to eq grade
-      expect(classroom.name).to eq name
-      expect(classroom.synced_name).to eq name
-    end
+    it { expect(subject.clever_id).to eq clever_id }
+    it { expect(subject.grade).to eq grade }
+    it { expect(subject.name).to eq name }
+    it { expect(subject.synced_name).to eq name }
+
+    it { expect { subject }.to change(ClassroomsTeacher, :count).from(0).to(1) }
   end
 
   context 'invalid params' do
-    let(:clever_id) { '123_456'}
     let(:name) { '' }
-    let(:grade) { '1' }
 
-    it 'raises an error with an invalid data param' do
-      expect { classroom }.to raise_error(ActiveRecord::RecordInvalid)
-    end
+    it { expect { subject }.to raise_error(ActiveRecord::RecordInvalid) }
   end
 end

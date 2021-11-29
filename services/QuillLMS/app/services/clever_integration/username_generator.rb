@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration
   class UsernameGenerator
     attr_reader :first_name, :last_name

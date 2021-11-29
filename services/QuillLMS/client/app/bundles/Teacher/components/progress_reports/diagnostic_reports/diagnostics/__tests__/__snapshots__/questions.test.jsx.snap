@@ -1,0 +1,285 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Questions component should render when there is no student data 1`] = `
+<Questions
+  location={
+    Object {
+      "search": "",
+    }
+  }
+  match={
+    Object {
+      "params": Object {
+        "activityId": 0,
+        "classroomId": 6,
+      },
+    }
+  }
+  mobileNavigation={<span />}
+  passedQuestions={
+    Array [
+      Object {
+        "instructions": "Combine the sentences into one sentence. Do not change any words or add any new words.",
+        "prompt": "<p>Katherine Johnson helped launch the first American astronaut into orbit. <br/>She was one of the most trusted NASA mathematicians.</p>",
+        "question_id": 1,
+        "score": null,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence. Do not change any words or add any new words.",
+        "prompt": "<p>CNSA made history in 2019 by landing a rover on the far side of the moon.  </p><p>CNSA is China&#x27;s space agency.</p>",
+        "question_id": 2,
+        "score": null,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence. Do not change any words or add any new words.",
+        "prompt": "<p>The first successful airplane was invented in 1903. </p><p>The first successful airplane stayed in flight for a few seconds.</p>",
+        "question_id": 3,
+        "score": null,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence. Do not change any words or add any new words.",
+        "prompt": "<p>The wind lifted entire houses off the ground. </p><p>The wind was blowing with incredible speed and force.</p>",
+        "question_id": 4,
+        "score": null,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence. Use one of the joining words.",
+        "prompt": "<p>The light bulb was an invention. </p><p>It brought electricity into homes.</p>",
+        "question_id": 5,
+        "score": null,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence. Use one of the joining words.",
+        "prompt": "<p>The pressurized deep sea diving suit was invented in 1932. </p><p>It led to the exploration of unknown parts of the ocean.</p>",
+        "question_id": 6,
+        "score": null,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence that includes a list. You may change the form of the action words and remove unnecessary words.",
+        "prompt": "<p>The sun provides energy for plants. </p><p>Oceans are warmed by the sun. </p><p>Impacting weather patterns is also a thing the sun does.</p>",
+        "question_id": 7,
+        "score": null,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence that includes a list. You may change the form of the action words and remove unnecessary words.",
+        "prompt": "<p>Alpha wolves track the prey. </p><p>The prey is also hunted by alpha wolves. </p><p>Alpha wolves decide where to build the pack&#x27;s den. </p><p>Producing pups for the pack is also something alpha wolves do.</p>",
+        "question_id": 8,
+        "score": null,
+      },
+      Object {
+        "instructions": "Combine the sentences. Use both joining words.",
+        "prompt": "<p>Guppies can live with other peaceful fish in aquariums.</p><p>Piranhas should only be kept in tanks with other piranhas.</p><p>Piranhas typically eat other fish.</p>",
+        "question_id": 9,
+        "score": null,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence. Use both joining words.",
+        "prompt": "<p>Thousands of meteors hit the earth each day. </p><p>Our planet is covered by more water than land. </p><p>Most meteors fall in the water.</p>",
+        "question_id": 10,
+        "score": null,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence. Use the joining word.",
+        "prompt": "<p>The clouds turned stormy gray. </p><p>The clouds were slowly moving across the sky. </p><p>I knew it was time to head indoors.</p>",
+        "question_id": 11,
+        "score": null,
+      },
+      Object {
+        "instructions": "Combine the sentences. You may remove unnecessary words, but do not add any new words.",
+        "prompt": "<p>Melipona bees produce a small amount of honey each year. </p><p>Melipona bees are a type of stingless bee.  </p><p>They are native to the Americas.</p>",
+        "question_id": 12,
+        "score": null,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence.",
+        "prompt": "<p>Hummus is a dip made from chickpeas. </p><p>Hummus is a healthy dip. </p><p>Hummus can be made at home.</p><p>It can be made easily. </p><p>Hummus has become a popular food in many countries.</p>",
+        "question_id": 13,
+        "score": null,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence.",
+        "prompt": "<p>The telephone was an exciting invention. </p><p>It revolutionized communication. </p><p>The telephone instantly connected people across the country for the first time. </p><p>People were concerned there would be negative consequences.</p>",
+        "question_id": 14,
+        "score": null,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence.",
+        "prompt": "<p>The earth and the moon have both been hit by asteroids. </p><p>They&#x27;ve been hit throughout history. </p><p>There are no craters on the earth&#x27;s surface. </p><p>Weather, water, and plants work together to erase craters from the earth&#x27;s surface.</p>",
+        "question_id": 15,
+        "score": null,
+      },
+    ]
+  }
+>
+  <_default>
+    <div
+      className="spinner-container"
+    >
+      <img
+        className="spinner"
+        src="/images/loader_still.svg"
+      />
+    </div>
+  </_default>
+</Questions>
+`;
+
+exports[`Questions component should render when there is student data 1`] = `
+<Questions
+  location={
+    Object {
+      "search": "",
+    }
+  }
+  match={
+    Object {
+      "params": Object {
+        "activityId": 0,
+        "classroomId": 6,
+      },
+    }
+  }
+  mobileNavigation={<span />}
+  passedQuestions={
+    Array [
+      Object {
+        "instructions": "Combine the sentences into one sentence.",
+        "prompt": "Pho is a soup made with herbs. Pho is a soup made with bone broth. Pho is a soup made with noodles.",
+        "question_id": 21,
+        "score": 45,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence.",
+        "prompt": "The cat is sleeping. The dog is sleeping.",
+        "question_id": 20,
+        "score": 45,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence.",
+        "prompt": "Bees collect pollen. Bees carry it back to the hive.",
+        "question_id": 19,
+        "score": 36,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence.",
+        "prompt": "The bear stands on the ice.The bear is white.It is a polar bear.",
+        "question_id": 18,
+        "score": 55,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence. Do not add any new words.",
+        "prompt": "It is another cold day in Seattle. It is another windy day in Seattle.",
+        "question_id": 17,
+        "score": 18,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence.",
+        "prompt": "He is going on vacation. He is going to a beach. The beach is beautiful. The beach is in San Diego. ",
+        "question_id": 16,
+        "score": 36,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence. Do not add any new words.",
+        "prompt": "A tree fell and blocked traffic. It fell onto the road.",
+        "question_id": 15,
+        "score": 45,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence. Do not add any new words.",
+        "prompt": "The stream floods during rainstorms. The stream is muddy. The stream floods easily.",
+        "question_id": 14,
+        "score": 55,
+      },
+      Object {
+        "instructions": " Combine the sentences into one sentence.",
+        "prompt": "Rico writes a letter and mails it. He writes quickly.",
+        "question_id": 13,
+        "score": 64,
+      },
+      Object {
+        "instructions": "Combine the sentences into one sentence. Do not add any new words.",
+        "prompt": "Scorpions thrive in the desert. The desert is dry. ",
+        "question_id": 12,
+        "score": 64,
+      },
+      Object {
+        "instructions": "Rewrite the sentence with the correct capitalization.",
+        "prompt": "in january, i went to montana.",
+        "question_id": 11,
+        "score": 73,
+      },
+      Object {
+        "instructions": "Rewrite the sentence with the correct capitalization.",
+        "prompt": "xavier was born in pittsburgh on halloween.",
+        "question_id": 10,
+        "score": 55,
+      },
+      Object {
+        "instructions": "Rewrite the sentence. Correct each bold word.",
+        "prompt": "The athlete goal is to win medal at all of her competition this season.",
+        "question_id": 9,
+        "score": 64,
+      },
+      Object {
+        "instructions": "Rewrite the sentence. Correct each bold word.",
+        "prompt": "The family big house was built a hundred year ago.",
+        "question_id": 8,
+        "score": 45,
+      },
+      Object {
+        "instructions": "Fill in the blank with the correct word or words. (More brighter, More bright, Brightest, Brighter)",
+        "prompt": "Stars look ___ in the country than in the city.",
+        "question_id": 7,
+        "score": 55,
+      },
+      Object {
+        "instructions": "Fill in the blank with the correct word or words. (More easier, More easy, Easiest, Easier)",
+        "prompt": "Traveling is ___ with a guide than without one.",
+        "question_id": 6,
+        "score": 64,
+      },
+      Object {
+        "instructions": "Choose which word fits best in each blank. You may use the same word twice. (They’re, There, Their)",
+        "prompt": "Runners stretch ___ legs while ___ waiting for the race to start.",
+        "question_id": 5,
+        "score": 55,
+      },
+      Object {
+        "instructions": "Choose which word fits best in each blank. You may use the same word twice. (You're, Your)",
+        "prompt": "I’ll watch a movie at ___ house while ___ studying.",
+        "question_id": 4,
+        "score": 36,
+      },
+      Object {
+        "instructions": "Fill in the blank with the action word that matches the rest of the sentence. (Are, Is)",
+        "prompt": "The streets of Tokyo ___ bright.",
+        "question_id": 3,
+        "score": 55,
+      },
+      Object {
+        "instructions": "Fill in the blank with the action word that matches the rest of the sentence. (Kicks, Kick)",
+        "prompt": "The players on the field ___ the ball.",
+        "question_id": 2,
+        "score": 64,
+      },
+      Object {
+        "instructions": "Fill in the blank with the action word that matches the rest of the sentence. (Doesn't, Don't)",
+        "prompt": "He ___ like to wake up early.",
+        "question_id": 1,
+        "score": 45,
+      },
+    ]
+  }
+>
+  <_default>
+    <div
+      className="spinner-container"
+    >
+      <img
+        className="spinner"
+        src="/images/loader_still.svg"
+      />
+    </div>
+  </_default>
+</Questions>
+`;

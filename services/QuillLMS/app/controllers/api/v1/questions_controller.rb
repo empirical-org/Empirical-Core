@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::QuestionsController < Api::ApiController
   before_action :get_question_type, only: [:index, :create]
   before_action :get_question_by_uid, except: [:index, :create, :show]

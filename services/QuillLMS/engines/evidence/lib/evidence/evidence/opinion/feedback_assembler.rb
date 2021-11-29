@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence 
   module Opinion
     class FeedbackAssembler < Evidence::FeedbackAssembler

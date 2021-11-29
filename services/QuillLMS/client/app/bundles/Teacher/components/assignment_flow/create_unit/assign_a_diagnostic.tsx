@@ -6,18 +6,12 @@ import AssignmentFlowNavigation from '../assignment_flow_navigation'
 import * as constants from '../assignmentFlowConstants'
 import ScrollToTop from '../../shared/scroll_to_top'
 
-const starterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-starter.svg`
-const intermediateDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-intermediate.svg`
-const advancedDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-advanced.svg`
-const ellDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/icons-diagnostics-ell-intermediate.svg`
-const ellStarterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/icons-diagnostics-ell-starter.svg`
-const preApWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/icons-diagnostics-preap.svg`
-const apWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/icons-diagnostics-ap.svg`
-const springBoardWritingSkillsSrc = `${process.env.CDN_URL}/images/college_board/icons-diagnostics-springboard.svg`
-
-const STARTER_DIAGNOSTIC = 'Starter Diagnostic'
-const INTERMEDIATE_DIAGNOSTIC = 'Intermediate Diagnostic'
-const ADVANCED_DIAGNOSTIC = 'Advanced Diagnostic'
+const STARTER_DIAGNOSTIC = 'Starter Baseline Diagnostic (Pre)'
+const STARTER_DIAGNOSTIC_POST = 'Starter Growth Diagnostic (Post)'
+const INTERMEDIATE_DIAGNOSTIC = 'Intermediate Baseline Diagnostic (Pre)'
+const INTERMEDIATE_DIAGNOSTIC_POST = 'Intermediate Growth Diagnostic (Post)'
+const ADVANCED_DIAGNOSTIC = 'Advanced Baseline Diagnostic (Pre)'
+const ADVANCED_DIAGNOSTIC_POST = 'Advanced Growth Diagnostic (Post)'
 const ELL_STARTER_DIAGNOSTIC = 'ELL Starter Diagnostic'
 const ELL_INTERMEDIATE_DIAGNOSTIC = 'ELL Intermediate Diagnostic'
 const ELL_ADVANCED_DIAGNOSTIC = 'ELL Advanced Diagnostic'
@@ -27,8 +21,11 @@ const AP_WRITINGS_SKILLS = 'AP Writing Skills Survey'
 const SPRING_BOARD_WRITINGS_SKILLS = 'SpringBoard Writing Skills Survey'
 
 const STARTER_DIAGNOSTIC_ACTIVITY_ID = 1663
+const STARTER_DIAGNOSTIC_POST_ACTIVITY_ID = 1664
 const INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID = 1668
+const INTERMEDIATE_DIAGNOSTIC_POST_ACTIVITY_ID = 1669
 const ADVANCED_DIAGNOSTIC_ACTIVITY_ID = 1678
+const ADVANCED_DIAGNOSTIC_POST_ACTIVITY_ID = 1680
 const ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID = 1161
 const ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID = 1568
 const ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID = 1590
@@ -36,6 +33,15 @@ const PRE_AP_WRITINGS_SKILLS_1_ACTIVITY_ID = 1229
 const PRE_AP_WRITINGS_SKILLS_2_ACTIVITY_ID = 1230
 const AP_WRITINGS_SKILLS_ACTIVITY_ID = 992
 const SPRING_BOARD_SKILLS_ACTIVITY_ID = 1432
+
+const ALL = 'All'
+const GENERAL = 'General'
+const ELL = 'ELL'
+const COLLEGEBOARD = 'CollegeBoard'
+
+const STARTER_POST_TEST_LOCKED_TEXT = "This is locked because you haven't assigned the Starter Baseline Diagnostic yet. Assign it to unlock the Starter Growth Diagnostic."
+const INTERMEDIATE_POST_TEST_LOCKED_TEXT = "This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic."
+const ADVANCED_POST_TEST_LOCKED_TEXT = "This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic."
 
 const selectCard = (history: any, unitTemplateName: string, activityIdsArray: string, unitTemplateId: number) => {
   const unitTemplateIdString = unitTemplateId.toString();
@@ -46,43 +52,89 @@ const selectCard = (history: any, unitTemplateName: string, activityIdsArray: st
   history.push(`/assign/select-classes?diagnostic_unit_template_id=${unitTemplateIdString}`)
 }
 
-const minis = ({ history }) => [
-  (<AssignmentCard
-    bodyArray={[
-      { key: 'What', text: 'Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words', },
-      { key: 'When', text: 'Your students are working on basic grammar concepts.', }
-    ]}
-    buttonLink={`/activity_sessions/anonymous?activity_id=${STARTER_DIAGNOSTIC_ACTIVITY_ID}`}
-    buttonText="Preview"
-    header={STARTER_DIAGNOSTIC}
-    imgAlt="page with a little writing"
-    imgSrc={starterDiagnosticSrc}
-    selectCard={() => selectCard(history, STARTER_DIAGNOSTIC, encodeURIComponent([STARTER_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
-  />),
-  (<AssignmentCard
-    bodyArray={[
-      { key: 'What', text: 'Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization', },
-      { key: 'When', text: 'Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.', }
-    ]}
-    buttonLink={`/activity_sessions/anonymous?activity_id=${INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID}`}
-    buttonText="Preview"
-    header={INTERMEDIATE_DIAGNOSTIC}
-    imgAlt="page with a medium amount of writing"
-    imgSrc={intermediateDiagnosticSrc}
-    selectCard={() => selectCard(history, INTERMEDIATE_DIAGNOSTIC, encodeURIComponent([INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
-  />),
-  (<AssignmentCard
-    bodyArray={[
-      { key: 'What', text: 'Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure', },
-      { key: 'When', text: 'Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.', }
-    ]}
-    buttonLink={`/activity_sessions/anonymous?activity_id=${ADVANCED_DIAGNOSTIC_ACTIVITY_ID}`}
-    buttonText="Preview"
-    header={ADVANCED_DIAGNOSTIC}
-    imgAlt="page with a large amount of writing"
-    imgSrc={advancedDiagnosticSrc}
-    selectCard={() => selectCard(history, ADVANCED_DIAGNOSTIC, encodeURIComponent([ADVANCED_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
-  />),
+const generalDiagnosticMinis = ({ history, assignedPreTests, }) => {
+  function isLocked(postTestActivityId) {
+    const assignedPreTest = assignedPreTests.find(pretest => pretest.post_test_id === postTestActivityId)
+    return assignedPreTest && !assignedPreTest.assigned_classroom_ids.length
+  }
+
+  return [
+    (<div className="grouped-minis" key="starter">
+      <AssignmentCard
+        bodyArray={[
+          { key: 'What', text: 'Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words', },
+          { key: 'When', text: 'Your students are working on basic grammar concepts.', }
+        ]}
+        buttonLink={`/activity_sessions/anonymous?activity_id=${STARTER_DIAGNOSTIC_ACTIVITY_ID}`}
+        buttonText="Preview"
+        header={STARTER_DIAGNOSTIC}
+        selectCard={() => selectCard(history, STARTER_DIAGNOSTIC, encodeURIComponent([STARTER_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
+      />
+      <AssignmentCard
+        bodyArray={[
+          { key: 'What', text: 'The Starter Growth Diagnostic has different questions but covers the same skills as the Starter Baseline Diagnostic', },
+          { key: 'When', text: "Your students have completed the Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.", }
+        ]}
+        buttonLink={`/activity_sessions/anonymous?activity_id=${STARTER_DIAGNOSTIC_POST_ACTIVITY_ID}`}
+        buttonText="Preview"
+        header={STARTER_DIAGNOSTIC_POST}
+        lockedText={isLocked(STARTER_DIAGNOSTIC_POST_ACTIVITY_ID) && STARTER_POST_TEST_LOCKED_TEXT}
+        selectCard={() => selectCard(history, STARTER_DIAGNOSTIC_POST, encodeURIComponent([STARTER_DIAGNOSTIC_POST_ACTIVITY_ID].toString()), constants.STARTER_DIAGNOSTIC_POST_UNIT_TEMPLATE_ID)}
+        showNewTag={true}
+      />
+    </div>),
+    (<div className="grouped-minis" key="intermediate">
+      <AssignmentCard
+        bodyArray={[
+          { key: 'What', text: 'Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization', },
+          { key: 'When', text: 'Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.', }
+        ]}
+        buttonLink={`/activity_sessions/anonymous?activity_id=${INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID}`}
+        buttonText="Preview"
+        header={INTERMEDIATE_DIAGNOSTIC}
+        selectCard={() => selectCard(history, INTERMEDIATE_DIAGNOSTIC, encodeURIComponent([INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
+      />
+      <AssignmentCard
+        bodyArray={[
+          { key: 'What', text: 'Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization', },
+          { key: 'When', text: 'Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.', }
+        ]}
+        buttonLink={`/activity_sessions/anonymous?activity_id=${INTERMEDIATE_DIAGNOSTIC_POST_ACTIVITY_ID}`}
+        buttonText="Preview"
+        header={INTERMEDIATE_DIAGNOSTIC_POST}
+        lockedText={isLocked(INTERMEDIATE_DIAGNOSTIC_POST_ACTIVITY_ID) && INTERMEDIATE_POST_TEST_LOCKED_TEXT}
+        selectCard={() => selectCard(history, INTERMEDIATE_DIAGNOSTIC_POST, encodeURIComponent([INTERMEDIATE_DIAGNOSTIC_POST_ACTIVITY_ID].toString()), constants.INTERMEDIATE_DIAGNOSTIC_POST_UNIT_TEMPLATE_ID)}
+        showNewTag={true}
+      />
+    </div>),
+    (<div className="grouped-minis" key="advanced">
+      <AssignmentCard
+        bodyArray={[
+          { key: 'What', text: 'Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure', },
+          { key: 'When', text: 'Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.', }
+        ]}
+        buttonLink={`/activity_sessions/anonymous?activity_id=${ADVANCED_DIAGNOSTIC_ACTIVITY_ID}`}
+        buttonText="Preview"
+        header={ADVANCED_DIAGNOSTIC}
+        selectCard={() => selectCard(history, ADVANCED_DIAGNOSTIC, encodeURIComponent([ADVANCED_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
+      />
+      <AssignmentCard
+        bodyArray={[
+          { key: 'What', text: 'Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure', },
+          { key: 'When', text: 'Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.', }
+        ]}
+        buttonLink={`/activity_sessions/anonymous?activity_id=${ADVANCED_DIAGNOSTIC_ACTIVITY_ID}`}
+        buttonText="Preview"
+        header={ADVANCED_DIAGNOSTIC_POST}
+        lockedText={isLocked(ADVANCED_DIAGNOSTIC_POST_ACTIVITY_ID) && ADVANCED_POST_TEST_LOCKED_TEXT}
+        selectCard={() => selectCard(history, ADVANCED_DIAGNOSTIC_POST, encodeURIComponent([ADVANCED_DIAGNOSTIC_POST_ACTIVITY_ID].toString()), constants.ADVANCED_DIAGNOSTIC_POST_UNIT_TEMPLATE_ID)}
+        showNewTag={true}
+      />
+    </div>)
+  ]
+}
+
+const ellDiagnosticMinis = ({ history, }) => [
   (<AssignmentCard
     bodyArray={[
       { key: 'What', text: 'Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement', },
@@ -91,8 +143,6 @@ const minis = ({ history }) => [
     buttonLink={`/activity_sessions/anonymous?activity_id=${ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID}`}
     buttonText="Preview"
     header={ELL_STARTER_DIAGNOSTIC}
-    imgAlt="page with less writing that says ELL in the corner"
-    imgSrc={ellStarterDiagnosticSrc}
     selectCard={() => selectCard(history, ELL_STARTER_DIAGNOSTIC, encodeURIComponent([ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
@@ -103,8 +153,6 @@ const minis = ({ history }) => [
     buttonLink={`/activity_sessions/anonymous?activity_id=${ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID}`}
     buttonText="Preview"
     header={ELL_INTERMEDIATE_DIAGNOSTIC}
-    imgAlt="page with writing that says ELL in the corner"
-    imgSrc={ellDiagnosticSrc}
     selectCard={() => selectCard(history, ELL_INTERMEDIATE_DIAGNOSTIC, encodeURIComponent([ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
@@ -115,10 +163,11 @@ const minis = ({ history }) => [
     buttonLink={`/activity_sessions/anonymous?activity_id=${ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID}`}
     buttonText="Preview"
     header={ELL_ADVANCED_DIAGNOSTIC}
-    imgAlt="page with writing that says ELL in the corner"
-    imgSrc={ellDiagnosticSrc}
     selectCard={() => selectCard(history, ELL_ADVANCED_DIAGNOSTIC, encodeURIComponent([ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID].toString()), constants.ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID)}
-  />),
+  />)
+]
+
+const collegeBoardDiagnosticMinis = ({ history }) => [
   (<AssignmentCard
     bodyArray={[
       { key: 'What', text: 'Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure', },
@@ -127,8 +176,6 @@ const minis = ({ history }) => [
     buttonLink={`/activity_sessions/anonymous?activity_id=${AP_WRITINGS_SKILLS_ACTIVITY_ID}`}
     buttonText="Preview"
     header={AP_WRITINGS_SKILLS}
-    imgAlt="page with writing that says AP in corner"
-    imgSrc={apWritingSkillsSrc}
     selectCard={() => selectCard(history, AP_WRITINGS_SKILLS, encodeURIComponent([AP_WRITINGS_SKILLS_ACTIVITY_ID].toString()), constants.AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
@@ -139,8 +186,6 @@ const minis = ({ history }) => [
     buttonLink={`/activity_sessions/anonymous?activity_id=${PRE_AP_WRITINGS_SKILLS_1_ACTIVITY_ID}`}
     buttonText="Preview"
     header={PRE_AP_WRITINGS_SKILLS_1}
-    imgAlt="page with writing that says Pre-AP on bottom"
-    imgSrc={preApWritingSkillsSrc}
     selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_1, encodeURIComponent([PRE_AP_WRITINGS_SKILLS_1_ACTIVITY_ID].toString()), constants.PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
@@ -151,8 +196,6 @@ const minis = ({ history }) => [
     buttonLink={`/activity_sessions/anonymous?activity_id=${PRE_AP_WRITINGS_SKILLS_2_ACTIVITY_ID}`}
     buttonText="Preview"
     header={PRE_AP_WRITINGS_SKILLS_2}
-    imgAlt="page with writing that says Pre-AP on bottom"
-    imgSrc={preApWritingSkillsSrc}
     selectCard={() => selectCard(history, PRE_AP_WRITINGS_SKILLS_2, encodeURIComponent([PRE_AP_WRITINGS_SKILLS_2_ACTIVITY_ID].toString()), constants.PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID)}
   />),
   (<AssignmentCard
@@ -163,21 +206,50 @@ const minis = ({ history }) => [
     buttonLink={`/activity_sessions/anonymous?activity_id=${SPRING_BOARD_SKILLS_ACTIVITY_ID}`}
     buttonText="Preview"
     header={SPRING_BOARD_WRITINGS_SKILLS}
-    imgAlt="page with writing that says SpringBoard on bottom"
-    imgSrc={springBoardWritingSkillsSrc}
     selectCard={() => selectCard(history, SPRING_BOARD_WRITINGS_SKILLS, encodeURIComponent([SPRING_BOARD_SKILLS_ACTIVITY_ID].toString()), constants.SPRING_BOARD_SKILLS_UNIT_TEMPLATE_ID)}
   />)
 ];
 
-const AssignADiagnostic = (props: any) => (
-  <div className="assignment-flow-container">
+const FilterTab = ({ activeFilter, filter, setFilter, number, }) => {
+  function handleClick() { setFilter(filter) }
+  const className = activeFilter === filter ? 'active filter-tab focus-on-light' : 'filter-tab focus-on-light'
+  return <button className={className} onClick={handleClick} type="button">{filter} ({number})</button>
+}
+
+const AssignADiagnostic = ({ history, assignedPreTests, }) => {
+  const [filter, setFilter] = React.useState(ALL)
+
+  const general = generalDiagnosticMinis({ history, assignedPreTests, })
+  const ell = ellDiagnosticMinis({ history, })
+  const collegeBoard = collegeBoardDiagnosticMinis({ history, })
+  const all = [general, ell, collegeBoard].flat()
+  let minis = all
+  switch(filter) {
+    case GENERAL:
+      minis = general;
+      break;
+    case ELL:
+      minis = ell;
+      break;
+    case COLLEGEBOARD:
+      minis = collegeBoard;
+      break;
+  }
+
+  return (<div className="assignment-flow-container">
     <AssignmentFlowNavigation />
     <ScrollToTop />
     <div className="diagnostic-page container">
       <h1>Which diagnostic covers the skills you want to assess?</h1>
-      <div className="minis">{minis(props)}</div>
+      <section className="filter-tabs">
+        <FilterTab activeFilter={filter} filter={ALL} number={13} setFilter={setFilter} />
+        <FilterTab activeFilter={filter} filter={GENERAL} number={6} setFilter={setFilter} />
+        <FilterTab activeFilter={filter} filter={ELL} number={3} setFilter={setFilter} />
+        <FilterTab activeFilter={filter} filter={COLLEGEBOARD} number={4} setFilter={setFilter} />
+      </section>
+      <div className="minis">{minis}</div>
     </div>
-  </div>
-);
+  </div>)
+};
 
 export default AssignADiagnostic

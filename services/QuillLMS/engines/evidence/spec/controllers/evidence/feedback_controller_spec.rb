@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 require("webmock/minitest")
@@ -19,15 +21,38 @@ module Evidence
     let!(:second_feedback) { create(:evidence_feedback, :text => "here is our second feedback", :rule => (rule), :order => 1) }
     
     describe '#prefilter' do 
-      it 'should return successfully' do 
-        post "prefilter", :params => ({ 
-          :entry => "lorem ipsum", 
-          :prompt_id => prompt.id, 
-          :session_id => 1, 
-          :previous_feedback => ([]) 
-        }), :as => :json
+      let!(:profanity_rule) do 
+        create(:evidence_rule, rule_type: 'prefilter', uid: 'fdee458a-f017-4f9a-a7d4-a72d1143abeb')
+      end 
 
-        expect(response.status).to eq 200
+      context 'profanity violation' do 
+        it 'should return correct rule uid' do 
+          post "prefilter", :params => ({ 
+            :entry => "nero was an ahole", 
+            :prompt_id => prompt.id, 
+            :session_id => 1, 
+            :previous_feedback => ([]) 
+          }), :as => :json
+          expect(response.status).to eq 200
+          parsed_response = JSON.parse(response.body)
+          expect(parsed_response['optimal']).to be false
+          expect(parsed_response['rule_uid']).to eq profanity_rule.uid
+        end
+      end
+
+      context 'no violation' do 
+        it 'should return successfully' do 
+          post "prefilter", :params => ({ 
+            :entry => "the quick brown fox", 
+            :prompt_id => prompt.id, 
+            :session_id => 1, 
+            :previous_feedback => ([]) 
+          }), :as => :json
+          expect(response.status).to eq 200
+          parsed_response = JSON.parse(response.body)
+          expect(parsed_response['optimal']).to be true
+          expect(parsed_response['rule_uid']).to eq PrefilterCheck::OPTIMAL_RULE_UID
+        end
       end
     end
 

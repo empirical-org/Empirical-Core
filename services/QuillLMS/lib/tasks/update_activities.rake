@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :activities do
   desc 'Update activity descriptions and instructions'
   task :update => :environment do

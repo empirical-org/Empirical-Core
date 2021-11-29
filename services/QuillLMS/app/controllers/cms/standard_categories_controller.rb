@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::StandardCategoriesController < Cms::CmsController
   def index
     change_logs = []

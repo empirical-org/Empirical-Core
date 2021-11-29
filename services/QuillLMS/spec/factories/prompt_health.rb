@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :prompt_health do
     text                          "this is some test prompt text"

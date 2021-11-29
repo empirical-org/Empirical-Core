@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Associators::StudentsToClassrooms
 
   def self.run(student, classroom)

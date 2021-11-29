@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PremiumAnalyticsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW

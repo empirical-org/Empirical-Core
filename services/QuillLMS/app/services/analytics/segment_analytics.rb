@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SegmentAnalytics
   # The actual backend that this uses to talk with segment.io.
   # This will be a fake backend under test and a real object

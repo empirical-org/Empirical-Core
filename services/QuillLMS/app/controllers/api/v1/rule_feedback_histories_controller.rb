@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::RuleFeedbackHistoriesController < Api::ApiController
   def by_conjunction
     raise ArgumentError unless params.include?('activity_id') && params.include?('conjunction')

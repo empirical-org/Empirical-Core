@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GenerateConceptsInUseArrayWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW

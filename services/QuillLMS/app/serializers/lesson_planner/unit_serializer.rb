@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LessonPlanner::UnitSerializer < ActiveModel::Serializer
   attributes :id, :name, :selectedActivities, :classrooms, :dueDates
 

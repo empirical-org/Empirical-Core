@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::SharedCacheController < Api::ApiController
   before_action :set_custom_cache_key
 

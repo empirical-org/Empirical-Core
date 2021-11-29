@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Profile::Query
 
   def query(student, batch_size, offset, classroom_id)

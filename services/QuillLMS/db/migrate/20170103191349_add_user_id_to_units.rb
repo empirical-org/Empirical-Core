@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddUserIdToUnits < ActiveRecord::Migration[4.2]
   def change
     add_column :units, :user_id, :integer

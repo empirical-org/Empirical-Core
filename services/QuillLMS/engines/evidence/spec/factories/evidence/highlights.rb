@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :evidence_highlight, class: 'Evidence::Highlight' do
     association :feedback, factory: :evidence_feedback

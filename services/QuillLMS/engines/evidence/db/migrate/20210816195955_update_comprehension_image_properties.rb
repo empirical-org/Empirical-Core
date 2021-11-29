@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UpdateComprehensionImageProperties < ActiveRecord::Migration[5.1]
   def change
     add_column :comprehension_passages, :image_attribution, :text, default: ''

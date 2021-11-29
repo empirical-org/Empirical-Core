@@ -1,25 +1,20 @@
+# frozen_string_literal: true
+
 module CleverIntegration
-  class ClassroomImporter
-    attr_reader :data
+  class ClassroomImporter < ApplicationService
+    attr_reader :data, :clever_id
 
     def initialize(data)
       @data = data
+      @clever_id = data[:clever_id]
     end
 
     def run
-      importer_class.new(data).run
+      classroom ? ClassroomUpdater.run(classroom, data) : ClassroomCreator.run(data)
     end
 
     private def classroom
-      ::Classroom.unscoped.find_by(clever_id: clever_id)
-    end
-
-    private def clever_id
-      data[:clever_id]
-    end
-
-    private def importer_class
-      classroom.present? ? ClassroomUpdater : ClassroomCreator
+      @classroom ||= ::Classroom.unscoped.find_by(clever_id: clever_id)
     end
   end
 end

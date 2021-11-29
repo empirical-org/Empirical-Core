@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Teachers::ProgressReports::Standards::StudentStandardsController < Teachers::ProgressReportsController
   def index
     respond_to do |format|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::ConceptsController < Api::ApiController
   before_action :doorkeeper_authorize!, only: [:create]
 

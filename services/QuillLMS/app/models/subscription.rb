@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: subscriptions
@@ -344,7 +346,7 @@ class Subscription < ApplicationRecord
   end
 
   def self.create_with_school_or_user_join school_or_user_id, type, attributes
-    type.capitalize!
+    type = type.capitalize
     # since we're constantizing the type, need to make sure it is capitalized if not already
     school_or_user = type.constantize.find school_or_user_id
     # get school or user object

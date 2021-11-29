@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GoogleIntegration
   class RefreshAccessToken
     class RefreshAccessTokenError < StandardError; end

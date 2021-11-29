@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 PERMITTED_TYPES = ["questions","sentenceFragments","fillInBlank","titleCards"]
 
 Lesson.all.each do |lesson|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RawSqlRunner
   CODERS = [
     PG::TextDecoder::Boolean.new(oid: 16),

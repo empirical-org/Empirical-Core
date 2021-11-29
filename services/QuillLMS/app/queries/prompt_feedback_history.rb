@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PromptFeedbackHistory
     def self.run(activity_id:, start_date: nil, end_date: nil, turk_session_id: nil)
       serialize_results prompt_health_query(activity_id: activity_id, start_date: start_date, end_date: end_date, turk_session_id: turk_session_id)

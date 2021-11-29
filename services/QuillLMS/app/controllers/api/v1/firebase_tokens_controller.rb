@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::FirebaseTokensController < Api::ApiController
   def create
     app = FirebaseApp.find_by_name!(params[:app])

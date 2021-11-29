@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ActivitySessionsController < ApplicationController
   include HTTParty
   layout :determine_layout
