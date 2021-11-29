@@ -40,6 +40,11 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     unit_id = individual_student_diagnostic_responses_params[:unit_id]
     student_id = individual_student_diagnostic_responses_params[:student_id]
     activity_session = find_activity_session_for_student_activity_and_classroom(student_id, activity_id, classroom_id, unit_id)
+
+    if !activity_session
+      return render json: {}, status: 404
+    end
+
     student = User.find_by_id(student_id)
     skills = Activity.find(activity_id).skills.distinct
     pre_test = Activity.find_by_follow_up_activity_id(activity_id)
