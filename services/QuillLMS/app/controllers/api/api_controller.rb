@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::ApiController < ActionController::Base
 
   class AccessForbidden < StandardError; end

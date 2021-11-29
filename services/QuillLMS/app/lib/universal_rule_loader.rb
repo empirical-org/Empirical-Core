@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This loader assumes a specific CSV shape. The canonical copy is here:
 # https://www.notion.so/quill/860620e6d04f448784182a878be45b50?v=6e07319b3db14e42b850a27bac37ca73
 

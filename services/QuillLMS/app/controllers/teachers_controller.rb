@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TeachersController < ApplicationController
   before_action :require_user, only: [:classrooms_i_teach_with_students, :classrooms_i_own_with_students]
 
@@ -155,13 +157,14 @@ class TeachersController < ApplicationController
       units = []
     else
       diagnostic_activity_ids = ActivityClassification.diagnostic.activity_ids
-      records = ClassroomsTeacher.select("classrooms.name AS classroom_name, activities.name AS activity_name, activities.id AS activity_id, classroom_units.unit_id AS unit_id, classrooms.id AS classroom_id, activity_sessions.count AS completed_count, array_length(classroom_units.assigned_student_ids, 1) AS assigned_count")
+      records = ClassroomsTeacher.select("classrooms.name AS classroom_name, activities.name AS activity_name, activities.id AS activity_id, activities.follow_up_activity_id AS post_test_id, pre_test.id AS pre_test_id, classroom_units.unit_id AS unit_id, classrooms.id AS classroom_id, activity_sessions.count AS completed_count, array_length(classroom_units.assigned_student_ids, 1) AS assigned_count")
       .joins("JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = TRUE AND classrooms_teachers.user_id = #{current_user.id}")
       .joins("JOIN classroom_units ON classroom_units.classroom_id = classrooms.id AND classroom_units.visible")
       .joins("JOIN unit_activities ON unit_activities.unit_id = classroom_units.unit_id AND unit_activities.activity_id IN (#{diagnostic_activity_ids.join(',')}) AND unit_activities.visible")
       .joins("JOIN activities ON unit_activities.activity_id = activities.id")
+      .joins("LEFT JOIN activities AS pre_test ON pre_test.follow_up_activity_id = activities.id")
       .joins("LEFT JOIN activity_sessions ON activity_sessions.activity_id = unit_activities.activity_id AND activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.visible AND activity_sessions.is_final_score")
-      .group("classrooms.name, activities.name, activities.id, classroom_units.unit_id, classrooms.id, classroom_units.assigned_student_ids, classroom_units.created_at, unit_activities.created_at")
+      .group("classrooms.name, activities.name, activities.id, activities.follow_up_activity_id, pre_test.id, classroom_units.unit_id, classrooms.id, classroom_units.assigned_student_ids, classroom_units.created_at, unit_activities.created_at")
       .order("greatest(classroom_units.created_at, unit_activities.created_at) DESC")
       units = records.map do |r|
         {
@@ -170,6 +173,8 @@ class TeachersController < ApplicationController
           classroom_name: r['classroom_name'],
           activity_name: r['activity_name'],
           activity_id: r['activity_id'],
+          post_test_id: r['post_test_id'],
+          pre_test_id: r['pre_test_id'],
           unit_id: r['unit_id'],
           classroom_id: r['classroom_id']
         }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :unit_templates do
   task :create => :environment do
     create_unit_templates

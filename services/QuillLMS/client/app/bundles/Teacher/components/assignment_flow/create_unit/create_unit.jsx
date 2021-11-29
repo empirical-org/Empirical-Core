@@ -3,7 +3,7 @@ import React from 'react';
 import Stage1 from './select_activities_container';
 import Stage2 from './stage2/Stage2';
 import UnitAssignmentFollowup from './unit_assignment_followup.tsx';
-import ShareToGoogleClassroom from './google_classroom/shareToGoogleClassroom';
+import ShareToStudents from './share_activity_pack/shareToStudents';
 
 import {
   CLASSROOMS,
@@ -12,7 +12,8 @@ import {
   UNIT_TEMPLATE_ID,
   ACTIVITY_IDS_ARRAY,
   UNIT_ID,
-  ASSIGNED_CLASSROOMS
+  ASSIGNED_CLASSROOMS,
+  postTestClassAssignmentLockedMessages,
 } from '../assignmentFlowConstants.ts'
 import parsedQueryParams from '../parsedQueryParams'
 import { requestGet, requestPost, } from '../../../../../modules/request';
@@ -267,22 +268,111 @@ export default class CreateUnit extends React.Component {
     />);
   }
 
+  restrictedActivityBeingAssigned = () => {
+    const { assignedPreTests, } = this.props
+    const { selectedActivities, } = this.state
+
+    const restrictedActivityIds = assignedPreTests.map(pretest => pretest.post_test_id)
+    return selectedActivities && selectedActivities.find(act => restrictedActivityIds.includes(act.id))
+  }
+
+  lockedClassroomIds = () => {
+    const { assignedPreTests, } = this.props
+    const { classrooms, } = this.state
+    let lockedClassroomIds = []
+
+    const restrictedActivity = this.restrictedActivityBeingAssigned()
+
+    if (restrictedActivity) {
+      const relevantPretest = assignedPreTests.find(pretest => pretest.post_test_id === restrictedActivity.id)
+      lockedClassroomIds = classrooms.filter(c => !relevantPretest.assigned_classroom_ids.includes(c.classroom.id)).map(c => c.classroom.id)
+    }
+
+    return lockedClassroomIds
+  }
+
+  notYetCompletedPreTestStudentNames = () => {
+    const { assignedPreTests, } = this.props
+    const { classrooms, } = this.state
+
+    const restrictedActivity = this.restrictedActivityBeingAssigned()
+    if (!restrictedActivity) { return [] }
+
+    const relevantPretest = assignedPreTests.find(pretest => pretest.post_test_id === restrictedActivity.id)
+    const studentsBeingAssignedWhoDidNotCompletePreTest = []
+    classrooms.forEach(c => {
+      const studentsBeingAssigned = c.students.filter(s => s.isSelected)
+      const relevantPreTestClassroom = relevantPretest.all_classrooms.find(ac => ac.id === c.classroom.id)
+      studentsBeingAssigned.forEach(s => {
+        if (!relevantPreTestClassroom.completed_pre_test_student_ids.includes(s.id)) {
+          studentsBeingAssignedWhoDidNotCompletePreTest.push(s.name)
+        }
+      })
+    })
+    return studentsBeingAssignedWhoDidNotCompletePreTest
+  }
+
+  alreadyCompletedDiagnosticStudentNames = () => {
+    const { assignedPreTests, } = this.props
+    const { selectedActivities, classrooms, } = this.state
+
+    const preTestActivityIds = assignedPreTests.map(pretest => pretest.id)
+    const postTestActivityIds = assignedPreTests.map(pretest => pretest.post_test_id)
+
+    const preTestBeingAssigned = selectedActivities && selectedActivities.find(act => preTestActivityIds.includes(act.id))
+    const postTestBeingAssigned = selectedActivities && selectedActivities.find(act => postTestActivityIds.includes(act.id))
+    let students = []
+
+    if (preTestBeingAssigned) {
+      const relevantPretest = assignedPreTests.find(pretest => pretest.id === preTestBeingAssigned.id)
+      students = relevantPretest.all_classrooms.map(classroom => {
+        const classroomFromState = classrooms.find(classroomFromState => classroomFromState.classroom.id === classroom.id)
+        const studentNamesWhoCouldBeOverwritten = []
+        classroom.completed_pre_test_student_ids.forEach(id => {
+          const studentFromState = classroomFromState.students.find(student => student.id === id)
+          if (studentFromState.isSelected) {
+            studentNamesWhoCouldBeOverwritten.push(studentFromState.name)
+          }
+        })
+        return studentNamesWhoCouldBeOverwritten
+      })
+    } else if (postTestBeingAssigned) {
+      const relevantPretest = assignedPreTests.find(pretest => pretest.post_test_id === postTestBeingAssigned.id)
+      students = relevantPretest.all_classrooms.map(classroom => {
+        const classroomFromState = classrooms.find(classroomFromState => classroomFromState.classroom.id === classroom.id)
+        const studentNamesWhoCouldBeOverwritten = []
+        classroom.completed_post_test_student_ids.forEach(id => {
+          const studentFromState = classroomFromState.students.find(student => student.id === id)
+          if (studentFromState.isSelected) {
+            studentNamesWhoCouldBeOverwritten.push(studentFromState.name)
+          }
+        })
+        return studentNamesWhoCouldBeOverwritten
+      })
+    }
+
+    return [... new Set(students.flat())]
+  }
+
   stage2SpecificComponents = () => {
-    const { user, } = this.props
+    const { user, assignedPreTests, } = this.props
+
+    const restrictedActivity = this.restrictedActivityBeingAssigned()
+
     return (<Stage2
+      alreadyCompletedDiagnosticStudentNames={this.alreadyCompletedDiagnosticStudentNames()}
       areAnyStudentsSelected={this.areAnyStudentsSelected()}
-      areAnyStudentsSelected={this.areAnyStudentsSelected()}
-      assignActivityDueDate={this.assignActivityDueDate}
       assignActivityDueDate={this.assignActivityDueDate}
       classrooms={this.getClassrooms()}
       data={this.assignSuccess}
       dueDates={this.state.model.dueDates}
       errorMessage={this.determineStage2ErrorMessage()}
-      errorMessage={this.determineStage2ErrorMessage()}
-      fetchClassrooms={this.fetchClassrooms}
       fetchClassrooms={this.fetchClassrooms}
       finish={this.finish}
       isFromDiagnosticPath={!!parsedQueryParams().diagnostic_unit_template_id}
+      lockedClassroomIds={this.lockedClassroomIds()}
+      notYetCompletedPreTestStudentNames={this.notYetCompletedPreTestStudentNames()}
+      restrictedActivity={restrictedActivity}
       selectedActivities={this.getSelectedActivities()}
       toggleActivitySelection={this.toggleActivitySelection}
       toggleClassroomSelection={this.toggleClassroomSelection}
@@ -307,7 +397,7 @@ export default class CreateUnit extends React.Component {
         activityCount: selectedActivities && selectedActivities.length,
         activities: selectedActivities
       }
-      return <ShareToGoogleClassroom
+      return <ShareToStudents
         activityPackData={activityPackData}
         moveToStage4={this.moveToStage4}
       />
@@ -362,7 +452,10 @@ export default class CreateUnit extends React.Component {
     if (!classrooms) {
       return;
     }
+
+    const lockedClassroomIds = this.lockedClassroomIds()
     const updated = classrooms.map((c) => {
+      if (lockedClassroomIds.includes(c.classroom.id)) { return c }
       const classroomGettingUpdated = c
       if (!classroom || classroomGettingUpdated.classroom.id === classroom.id) {
         const { students, } = classroomGettingUpdated

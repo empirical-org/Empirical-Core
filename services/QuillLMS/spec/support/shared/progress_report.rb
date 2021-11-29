@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples_for "Progress Report" do
 
   let(:default_filters) { {} }

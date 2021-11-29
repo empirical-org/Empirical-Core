@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddCoordinatorAndAuthorizerToSchool < ActiveRecord::Migration[4.2]
   def change
     add_column :schools, :authorizer_id, :integer, index: true

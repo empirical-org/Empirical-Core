@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Bugfix for Rails- Hitting an issue with tests at the DB level:
 # ActiveRecord::StatementInvalid: PG::UndefinedColumn: ERROR:  column "increment_by" does not exist
 # LINE 1: ...mpts_id_seq"', (SELECT COALESCE(MAX("id")+(SELECT increment_...

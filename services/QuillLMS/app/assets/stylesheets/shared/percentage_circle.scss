@@ -1,0 +1,46 @@
+// adapted from https://github.com/JackPu/reactjs-percentage-circle/blob/master/src/style.css
+
+.percentage-circle{
+  overflow: hidden;
+  position: relative;
+  background-color:#e3e3e3;
+  .left-wrap{
+    overflow: hidden;
+    position: absolute;
+    top:0;
+  }
+  .right-wrap {
+    overflow: hidden;
+    position: absolute;
+    top:0;
+  }
+
+  .loader{
+    position:absolute;
+    left:0;
+    top:0;
+    border-radius: 1000;
+    transform-origin: 0 50%;
+  }
+  .loader2{
+    position:absolute;
+    left:0;
+    top:0;
+    border-radius:1000;
+    transform-origin: 100% 50%;
+  }
+
+  .inner-circle {
+    position: relative;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .text {
+    font-size: 14px;
+    color: #5c5c5c;
+  }
+
+}

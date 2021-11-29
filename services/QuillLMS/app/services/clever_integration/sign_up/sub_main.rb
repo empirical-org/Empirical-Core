@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration::SignUp::SubMain
 
   # we have to send district_success, district_failure, user_success, user_failure back to controller

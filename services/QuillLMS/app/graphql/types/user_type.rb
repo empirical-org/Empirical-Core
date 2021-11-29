@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Types::UserType < Types::BaseObject
   graphql_name 'User'
 

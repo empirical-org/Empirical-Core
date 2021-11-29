@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :quill_scaffold do
 
   desc "Generate a scaffold resource, uses syntax following rails scaffold generator passed in as the arg, e.g.o: bundle exec rake quill_scaffold:generate['FakeModel name:string level:integer activity:references']"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration::Importers::Classrooms
   def self.run(teacher, district_token)
     sections = fetch_clever_teacher(teacher.clever_id, district_token)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: activity_sessions
@@ -431,13 +433,7 @@ class ActivitySession < ApplicationRecord
     end
   end
 
-  def self.activity_session_metadata(classroom_unit_id, activity_id)
-    activity = Activity.find_by_id_or_uid(activity_id)
-    activity_sessions = ActivitySession.where(
-      classroom_unit_id: classroom_unit_id,
-      activity: activity,
-      is_final_score: true
-    ).includes(concept_results: :concept)
+  def self.activity_session_metadata(activity_sessions)
     activity_sessions.map do |activity_session|
       activity_session.concept_results.map do |concept_result|
         concept_result.metadata
@@ -503,6 +499,24 @@ class ActivitySession < ApplicationRecord
   def minutes_to_complete
     return nil unless completed_at && started_at
     ((completed_at - started_at)/60).round
+  end
+
+  def correct_skill_count
+    skills = activity.skills.distinct
+    skills.reduce(0) do |sum, skill|
+      concept_results = ConceptResult.where(activity_session_id: id, concept_id: [skill.concept_ids])
+      sum += concept_results.length && concept_results.all?(&:correct?) ? 1 : 0
+    end
+  end
+
+  def correct_skill_ids
+    skills = activity.skills.distinct
+    correct_skill_ids = []
+    skills.each do |skill|
+      concept_results = ConceptResult.where(activity_session_id: id, concept_id: [skill.concept_ids])
+      correct_skill_ids.push(skill.id) if concept_results.length && concept_results.all?(&:correct?)
+    end
+    correct_skill_ids
   end
 
   private def correctly_assigned

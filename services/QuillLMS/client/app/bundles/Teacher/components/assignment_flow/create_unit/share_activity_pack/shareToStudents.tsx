@@ -15,12 +15,13 @@ import {
   UNIT_ID,
   ASSIGNED_CLASSROOMS
 } from '../../assignmentFlowConstants'
+import { Activity, ActivityPack } from '../../../../../../interfaces/activityPack';
 
 const addStudentsSrc = `${process.env.CDN_URL}/images/illustrations/add-students.svg`
 const addShareActivityPackSrc = `${process.env.CDN_URL}/images/icons/icons-share-activity-pack.svg`
 const shareActivitySrc = `${process.env.CDN_URL}/images/icons/icons-share.svg`
 
-const ShareToGoogleClassroom = ({ activityPackData, moveToStage4 }) => {
+const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
 
   const unitId = window.localStorage.getItem(UNIT_ID);
   const classrooms = JSON.parse(window.localStorage.getItem(ASSIGNED_CLASSROOMS));
@@ -28,25 +29,35 @@ const ShareToGoogleClassroom = ({ activityPackData, moveToStage4 }) => {
   const [leaving, setLeaving] = React.useState<boolean>(false);
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
   const [modalOpen, setModalOpen] = React.useState<boolean>(false);
-  const [activityPack, setActivityPack] = React.useState<any>(activityPackData);
-  const [singleActivity, setSingleActivity] = React.useState<any>(null);
-
-  React.useEffect(() => {
-    if (leaving) {
-      window.localStorage.removeItem(UNIT_TEMPLATE_ID);
-      window.localStorage.removeItem(UNIT_TEMPLATE_NAME);
-      window.localStorage.removeItem(UNIT_NAME);
-      window.localStorage.removeItem(ACTIVITY_IDS_ARRAY);
-      window.localStorage.removeItem(ASSIGNED_CLASSROOMS);
-      window.localStorage.removeItem(CLASSROOMS);
-      window.localStorage.removeItem(UNIT_ID);
-      window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`;
-    }
-  }, [leaving]);
+  const [activityPack, setActivityPack] = React.useState<ActivityPack>(activityPackData);
+  const [singleActivity, setSingleActivity] = React.useState<Activity>(null);
 
   React.useEffect(() => {
     setActivityPack(activityPackData);
   }, [activityPackData]);
+
+  React.useEffect(() => {
+    if (leaving) {
+      handleUnmount()
+    }
+  }, [leaving]);
+
+  React.useEffect(() => {
+    return () => {
+      handleUnmount()
+    }
+  }, []);
+
+  function handleUnmount() {
+    window.localStorage.removeItem(UNIT_TEMPLATE_ID);
+    window.localStorage.removeItem(UNIT_TEMPLATE_NAME);
+    window.localStorage.removeItem(UNIT_NAME);
+    window.localStorage.removeItem(ACTIVITY_IDS_ARRAY);
+    window.localStorage.removeItem(ASSIGNED_CLASSROOMS);
+    window.localStorage.removeItem(CLASSROOMS);
+    window.localStorage.removeItem(UNIT_ID);
+    window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`;
+  }
 
   function handleClick() {
     moveToStage4();
@@ -157,4 +168,4 @@ const ShareToGoogleClassroom = ({ activityPackData, moveToStage4 }) => {
   );
 }
 
-export default ShareToGoogleClassroom
+export default ShareToStudents

@@ -3,15 +3,16 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { defaultSnackbarTimeout, Snackbar, DropdownInput } from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request';
+import { Classroom, ClassroomUnit, DropdownObject } from '../../../../../../interfaces/activityPack';
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`;
 const shareToGoogleIconSrc = `${process.env.CDN_URL}/images/icons/icons-google-classroom-color.svg`;
 
 export const ShareActivityPackModal = ({ activityPackData, closeModal, singleActivity, unitId }) => {
   const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
-  const [selectedClass, setSelectedClass] = React.useState<any>({});
-  const [classrooms, setClassrooms] = React.useState<any[]>([])
-  const [classroomUnits, setClassroomUnits] = React.useState<any[]>([])
+  const [selectedClass, setSelectedClass] = React.useState<DropdownObject>({ label: '', value: '' });
+  const [classrooms, setClassrooms] = React.useState<Classroom[]>([]);
+  const [classroomUnits, setClassroomUnits] = React.useState<ClassroomUnit[]>([]);
   const [link, setLink] = React.useState<string>(classrooms && classrooms.length && getDefaultLink());
 
   React.useEffect(() => {
@@ -51,7 +52,7 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
   }
 
   function getCourseId() {
-    const selectedClassroom = selectedClass && classrooms.filter(classroomObject => classroomObject.classroom.id === selectedClass.value)[0];
+    const selectedClassroom = selectedClass && classrooms.filter(classroomObject => classroomObject.classroom.id === parseInt(selectedClass.value))[0];
     return selectedClassroom && selectedClassroom.classroom.google_classroom_id;
   }
 
@@ -92,20 +93,20 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
     }
   }
 
-  function returnActivityLinkComponent() {
+  function returnActivityLinkComponent(showActivityLink: boolean) {
+    const showContainerStyle = !showActivityLink ? 'hide-modal-element' : '';
     return(
-      <div className="activity-pack-data-container">
+      <div className={`activity-pack-data-container ${showContainerStyle}`}>
         <p className="link-label">Activity pack link</p>
         <p className="activity-pack-link">{link}</p>
       </div>
     )
   }
 
-  function renderActivityAndClassData() {
+  function renderActivityAndClassData(showActivityLink) {
     if(classrooms.length === 1) {
-      returnActivityLinkComponent()
+      returnActivityLinkComponent(showActivityLink)
     }
-    const showActivityLink = selectedClass && selectedClass.value;
     return(
       <div className="class-and-activity-data-container">
         <div className="first-step-container">
@@ -118,7 +119,7 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
             <DropdownInput
               className="page-number-dropdown"
               handleChange={handleClassChange}
-              isSearchable={false}
+              isSearchable={true}
               label="Choose a class"
               options={getClassroomOptions()}
               value={selectedClass}
@@ -131,7 +132,7 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
           </div>
           <div className="right-container">
             <p className="header">Share with your class</p>
-            {showActivityLink && returnActivityLinkComponent()}
+            {returnActivityLinkComponent(showActivityLink)}
           </div>
         </div>
       </div>
@@ -155,6 +156,9 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
     return `Only students who were assigned "${name}" will be able to open the link.`
   }
 
+  const showActivityLink = selectedClass && selectedClass.value;
+  const showContainerStyle = !showActivityLink ? 'hide-modal-element' : '';
+
   return(
     <div className="modal-container google-classroom-modal-container">
       <div className="modal-background" />
@@ -166,8 +170,8 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
           </button>
         </div>
         <p className="disclaimer-text">{getDisclaimer()}</p>
-        {classrooms && renderActivityAndClassData()}
-        <div className="form-buttons">
+        {classrooms && renderActivityAndClassData(showActivityLink)}
+        <div className={`form-buttons ${showContainerStyle}`}>
           <CopyToClipboard onCopy={handleCopyLink} text={link}>
             <button className="quill-button outlined secondary medium focus-on-light" type="button">Copy link</button>
           </CopyToClipboard>

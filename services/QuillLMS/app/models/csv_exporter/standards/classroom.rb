@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CsvExporter::Standards
   class Classroom
     PAGE_TITLE = 'Standards: All Classrooms'

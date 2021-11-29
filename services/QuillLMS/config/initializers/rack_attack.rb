@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Rack::Attack
   # Use redis for caching
   Rack::Attack.cache.store = Rack::Attack::StoreProxy::RedisStoreProxy.new($redis.redis)

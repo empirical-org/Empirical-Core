@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence
   class SpellingCheck
     class BingRateLimitException < StandardError; end

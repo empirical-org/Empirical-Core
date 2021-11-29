@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddStateColumnToRule < ActiveRecord::Migration[4.2]
   def change
     add_column :comprehension_rules, :state, :string

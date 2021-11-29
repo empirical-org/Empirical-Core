@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ActionController::Responder
   def to_html
     default_render

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GradesController < ApplicationController
 
   before_action :authorize!, only: [:tooltip]

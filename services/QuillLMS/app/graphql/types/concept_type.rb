@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Types::ConceptType < Types::BaseObject
   graphql_name 'Concept'
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ActivitySearch
   # filters = hash of model_name/model_id pairs
   # sort = hash with 'field' and 'asc_or_desc' (?) as keys

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration::Importers::Students
 
   def self.run(classrooms, district_token)

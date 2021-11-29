@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Units::Hiders::Unit
 
   def self.run(id)

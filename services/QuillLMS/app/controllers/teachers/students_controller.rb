@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Teachers::StudentsController < ApplicationController
   before_action :teacher!
   before_action :authorize!

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'csv'
 
 class PopulateContentPartners < ActiveRecord::Migration[4.2]

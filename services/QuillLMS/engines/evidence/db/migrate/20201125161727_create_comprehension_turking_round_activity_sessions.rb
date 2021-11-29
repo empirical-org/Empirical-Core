@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateComprehensionTurkingRoundActivitySessions < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_turking_round_activity_sessions do |t|

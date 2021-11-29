@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Test to verify engine mounted properly
 require 'rails_helper'
 

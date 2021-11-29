@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_context 'clever' do
   let!(:teacher_response) do
     response = Struct.new(:sections, :school)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InvitationsController < ApplicationController
   before_action :verify_current_user_owns_classrooms, only: :create_coteacher_invitation
   before_action :set_classroom_ids_and_inviteee_email, only: :create_coteacher_invitation

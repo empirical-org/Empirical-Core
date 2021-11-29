@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Profile::ActivitySessionSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 

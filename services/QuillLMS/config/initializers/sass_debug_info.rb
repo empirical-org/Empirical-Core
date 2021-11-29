@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # https://github.com/rails/sass-rails/issues/157
 if Rails.env.development?
   require 'sass'

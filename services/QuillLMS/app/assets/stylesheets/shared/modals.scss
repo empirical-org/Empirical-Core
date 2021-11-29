@@ -541,12 +541,16 @@
       font-size: 16px;
       color: #000000;
     }
+    &.hide-modal-element {
+      visibility: hidden;
+    }
   }
   .class-and-activity-data-container {
     .first-step-container, .second-step-container {
       display: flex;
       .left-container {
         margin-right: 16px;
+        min-height: 32px;
         .step-number-circle {
           width: 32px;
           height: 32px;
@@ -587,8 +591,51 @@
         }
       }
     }
+    &.hide-modal-element {
+      visibility: hidden;
+    }
   }
 }
+
+.override-warning-modal,
+.skip-recommendations-warning-modal {
+  overflow: visible;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed !important;
+  text-align: left;
+  width: 560px;
+  padding: 32px;
+  border-radius: 6px;
+  background-color: #fff;
+  min-height: min-content;
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.33;
+    color: #000;
+  }
+  .modal-body {
+    padding: 0px;
+    margin-top: 24px;
+    margin-bottom: 48px;
+    p {
+      line-height: 1.57;
+      color: #646464;
+      .quill-tooltip-trigger span:first-of-type {
+        border-bottom: 1px dotted #646464;
+      }
+    }
+  }
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+    .quill-button {
+      margin-left: 16px;
+    }
+  }
+}
+
 
 .rename-class-modal, .rename-activity-pack-modal {
   min-height: 273px;

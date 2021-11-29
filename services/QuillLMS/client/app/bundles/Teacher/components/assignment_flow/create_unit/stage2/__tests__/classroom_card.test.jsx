@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 
 import ClassroomCard from '../classroom_card.tsx'
 import { classroom, students } from './test_data/test_data'
-import { DropdownInput } from '../../../../../../Shared/index'
+import { DropdownInput, Tooltip, } from '../../../../../../Shared/index'
 
 describe('Classroom card component', () => {
 
@@ -11,6 +11,7 @@ describe('Classroom card component', () => {
     const wrapper = shallow(
       <ClassroomCard
         classroom={classroom}
+        lockedClassroomIds={[]}
         students={students}
         toggleClassroomSelection={() => {}}
         toggleStudentSelection={() => {}}
@@ -28,6 +29,7 @@ describe('Classroom card component', () => {
     const wrapper = shallow(
       <ClassroomCard
         classroom={classroom}
+        lockedClassroomIds={[]}
         students={selectedStudents}
         toggleClassroomSelection={() => {}}
         toggleStudentSelection={() => {}}
@@ -49,6 +51,7 @@ describe('Classroom card component', () => {
     const wrapper = shallow(
       <ClassroomCard
         classroom={classroom}
+        lockedClassroomIds={[]}
         students={[]}
         toggleClassroomSelection={() => {}}
         toggleStudentSelection={() => {}}
@@ -74,6 +77,7 @@ describe('Classroom card component', () => {
     const wrapper = shallow(
       <ClassroomCard
         classroom={classroom}
+        lockedClassroomIds={[]}
         students={selectedStudents}
         toggleClassroomSelection={() => {}}
         toggleStudentSelection={() => {}}
@@ -86,6 +90,27 @@ describe('Classroom card component', () => {
 
     it('should not render a checked checkbox', () => {
       expect(wrapper.find('.quill-checkbox.unselected').exists()).toBe(true)
+    })
+
+  })
+
+  describe('if the classroom is locked', () => {
+    const wrapper = shallow(
+      <ClassroomCard
+        classroom={classroom}
+        lockedClassroomIds={[classroom.id]}
+        students={students}
+        toggleClassroomSelection={() => {}}
+        toggleStudentSelection={() => {}}
+      />
+    )
+
+    it('should not render a dropdown', () => {
+      expect(wrapper.find(DropdownInput).exists()).toBe(false)
+    })
+
+    it('should render a Tooltip', () => {
+      expect(wrapper.find(Tooltip).exists()).toBe(true)
     })
 
   })

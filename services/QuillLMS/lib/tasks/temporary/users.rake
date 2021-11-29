@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :users do
   task :update_email_domain, [:old_domain, :new_domain] => [:environment] do |task, args|
     old_domain = "@#{args[:old_domain].downcase}"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FastAssignWorker
   include Sidekiq::Worker
   include Units

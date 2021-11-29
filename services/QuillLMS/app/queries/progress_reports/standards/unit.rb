@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProgressReports::Standards::Unit
   def initialize(teacher)
     @teacher = teacher

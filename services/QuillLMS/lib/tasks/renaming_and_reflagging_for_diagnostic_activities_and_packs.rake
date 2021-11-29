@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :diagnostic_activities_and_packs do
   desc 'Update diagnostic and diagnostic activity pack names and flags'
   task :rename_and_reflag => :environment do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PusherAdminUsersCompleted
 
   def self.run(admin_id)

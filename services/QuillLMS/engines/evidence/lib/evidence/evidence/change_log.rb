@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Include this module in any Evidence classes that need to implement change logging behavior.
 
 # Including this module allows a class to:

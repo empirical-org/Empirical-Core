@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Demo::ReportDemoCreator
 
   REPLAYED_ACTIVITY_ID = 434

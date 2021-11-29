@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :migrate_backfill_user_activity_classifications do
   desc 'Establish initial values for UserActivityClassification counts'
   task :run => :environment do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GoogleIntegration
   class ClassroomCreator
     OWNER = ClassroomsTeacher::ROLE_TYPES[:owner].freeze

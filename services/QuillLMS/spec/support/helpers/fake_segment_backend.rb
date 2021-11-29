@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FakeSegmentBackend
   attr_accessor :identify_calls, :track_calls
 

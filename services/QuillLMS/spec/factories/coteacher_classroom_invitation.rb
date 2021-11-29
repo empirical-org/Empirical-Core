@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :coteacher_classroom_invitation do
     classroom_id { create(:classroom).id }

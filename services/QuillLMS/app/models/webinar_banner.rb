@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WebinarBanner
   attr_reader :time
   ZOOM_URL = "https://quill-org.zoom.us/webinar/register"

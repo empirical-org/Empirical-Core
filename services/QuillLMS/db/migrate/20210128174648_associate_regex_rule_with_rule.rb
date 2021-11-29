@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from comprehension (originally 20210128155938)
 class AssociateRegexRuleWithRule < ActiveRecord::Migration[4.2]
   def change

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddPartnerContent < ActiveRecord::Migration[4.2]
   def change
     create_table :partner_contents do |t|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CoteacherClassroomInvitations < ActiveRecord::Migration[4.2]
   def change
     create_table :coteacher_classroom_invitations do |t|
