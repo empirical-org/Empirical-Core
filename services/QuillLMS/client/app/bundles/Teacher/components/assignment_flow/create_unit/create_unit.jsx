@@ -397,10 +397,12 @@ export default class CreateUnit extends React.Component {
         activityCount: selectedActivities && selectedActivities.length,
         activities: selectedActivities
       }
-      return <ShareToStudents
-        activityPackData={activityPackData}
-        moveToStage4={this.moveToStage4}
-      />
+      return(
+        <ShareToStudents
+          activityPackData={activityPackData}
+          moveToStage4={this.moveToStage4}
+        />
+      );
     }
   }
 
