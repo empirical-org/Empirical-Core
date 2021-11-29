@@ -1,0 +1,2241 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Results component should render when there are no results 1`] = `
+<Results
+  location={
+    Object {
+      "search": "",
+    }
+  }
+  match={
+    Object {
+      "params": Object {
+        "activityId": 0,
+        "classroomId": 6,
+      },
+    }
+  }
+  mobileNavigation={<span />}
+  passedSkillGroupSummaries={
+    Array [
+      Object {
+        "description": "Students who show proficiency in this skill will correctly use and place both a coordinating and subordinating conjunction. Students will choose conjunctions that demonstrate a correct logical relationship between ideas, with ideas in the correct order. Both the subordinating and coordinating conjunctions must be correctly punctuated based on their placement.",
+        "name": "Compound-Complex Sentences",
+        "not_yet_proficient_student_names": Array [],
+      },
+      Object {
+        "description": "Students who show proficiency in this skill will choose the correct phrase to add description to a noun. Students will place the appositive phrase correctly, in the middle of the sentence, and punctuate it correctly by adding commas before and after the appositive phrase.",
+        "name": "Appositive Phrases",
+        "not_yet_proficient_student_names": Array [],
+      },
+      Object {
+        "description": "Students who show proficiency in this skill will choose the correct relative pronoun to add description to a noun. Students will place the relative clause correctly so that it adds necessary description to the noun it is describing. They will also punctuate it correctly.",
+        "name": "Relative Clauses",
+        "not_yet_proficient_student_names": Array [],
+      },
+      Object {
+        "description": "Students who show proficiency in this skill will form a participial phrase from a kernel sentence and add it as description to a noun. Students will place it in the correct place—either at the beginning, middle, or end of the sentence—and punctuate it correctly based on its placement.",
+        "name": "Participal Phrases",
+        "not_yet_proficient_student_names": Array [],
+      },
+      Object {
+        "description": "Students who show proficiency in this skill will write a sentence in which all of the verbs are in the same form. Students can use words like and or also as long as all of the verbs in the sentence are in the same form.",
+        "name": "Parallel Structure",
+        "not_yet_proficient_student_names": Array [],
+      },
+      Object {
+        "description": "There are many ways for students to show proficiency in this skill. Depending on the prompt, students can form a compound, complex, or compound-complex sentence. When appropriate, they can use semicolons, relative clauses, appositives phrases, conjunctive adverbs, participial phrases, prepositional phrases, and compound predicates. Correct punctuation is required for all of these structures.",
+        "name": "Advanced Combining",
+        "not_yet_proficient_student_names": Array [],
+      },
+    ]
+  }
+  passedStudentResults={
+    Array [
+      Object {
+        "name": "Ja'shonda Abbott",
+      },
+      Object {
+        "name": "Paulo Azevedo",
+      },
+      Object {
+        "name": "Charlotte Bronte",
+      },
+      Object {
+        "name": "Edgar Burroughs",
+      },
+      Object {
+        "name": "Kaylesh Chaganlal",
+      },
+      Object {
+        "name": "Justin Cole",
+      },
+      Object {
+        "name": "Victoria De",
+      },
+      Object {
+        "name": "Vishal Dewan",
+      },
+      Object {
+        "name": "Joan Didion",
+      },
+      Object {
+        "name": "John Donne",
+      },
+      Object {
+        "name": "Loise Erdrich",
+      },
+      Object {
+        "name": "Gabriel De La Concordia Garcia",
+      },
+      Object {
+        "name": "Rual Guzman",
+      },
+      Object {
+        "name": "Jacob De Haas",
+      },
+      Object {
+        "name": "Grace Hatton",
+      },
+      Object {
+        "name": "Tymon Jabłoński",
+      },
+      Object {
+        "name": "Dehab Lee Kassis-washington",
+      },
+      Object {
+        "name": "Rudyard Kipling",
+      },
+      Object {
+        "name": "Leone Lafontaine",
+      },
+      Object {
+        "name": "Henry Wadsworth Longfellow",
+      },
+      Object {
+        "name": "Hilary Mantel",
+      },
+      Object {
+        "name": "Mary Masters",
+      },
+      Object {
+        "name": "Daphne Maurier",
+      },
+      Object {
+        "name": "Stephanie Montgomery",
+      },
+      Object {
+        "name": "George Nichols",
+      },
+      Object {
+        "name": "Joyce Oates",
+      },
+      Object {
+        "name": "Banjo Paterson",
+      },
+      Object {
+        "name": "Sarah Pennington",
+      },
+      Object {
+        "name": "Annie Proulx",
+      },
+      Object {
+        "name": "Sarah Scott",
+      },
+      Object {
+        "name": "Zadie Smith",
+      },
+      Object {
+        "name": "Rabindranath Tagore",
+      },
+      Object {
+        "name": "Judy Heier-hammond Name Keeps Going For A Long Long Tim",
+      },
+      Object {
+        "name": "Virginia Walker",
+      },
+    ]
+  }
+>
+  <_default>
+    <div
+      className="spinner-container"
+    >
+      <img
+        className="spinner"
+        src="/images/loader_still.svg"
+      />
+    </div>
+  </_default>
+</Results>
+`;
+
+exports[`Results component should render when there are results 1`] = `
+<Results
+  location={
+    Object {
+      "search": "",
+    }
+  }
+  match={
+    Object {
+      "params": Object {
+        "activityId": 0,
+        "classroomId": 6,
+      },
+    }
+  }
+  mobileNavigation={<span />}
+  passedSkillGroupSummaries={
+    Array [
+      Object {
+        "description": "Students who show proficiency in this skill will use capitalization at the beginning of a sentence and correct capitalization of names, dates, holidays, geographic locations, and the pronoun \\"I.\\"",
+        "name": "Capitalization",
+        "not_yet_proficient_student_names": Array [
+          "Kaylesh Chaganlal",
+          "Victoria De",
+          "Vishal Dewan",
+          "John Donne",
+          "Grace Hatton",
+        ],
+      },
+      Object {
+        "description": "Students who show proficiency in this skill will make the correct choice between a plural and possessive noun. For possessive nouns, we require correct apostrophe placement.",
+        "name": "Plural and Possessive Nouns",
+        "not_yet_proficient_student_names": Array [
+          "Paulo Azevedo",
+          "Kaylesh Chaganlal",
+          "Victoria De",
+          "John Donne",
+          "Grace Hatton",
+          "Rudyard Kipling",
+        ],
+      },
+      Object {
+        "description": "Students who show proficiency in this skill will correctly place single adjectives, adverbs, cumulative adjectives, coordinate adjectives, and adjectives and adverbs together. Students will also make the correct choice between a comparative and superlative adjective and correctly order cumulative adjectives. Students will correctly punctuate by placing a comma between two coordinate adjectives.",
+        "name": "Adjectives and Adverbs",
+        "not_yet_proficient_student_names": Array [
+          "Ja'shonda Abbott",
+          "Paulo Azevedo",
+          "Edgar Burroughs",
+          "Kaylesh Chaganlal",
+          "Justin Cole",
+          "Victoria De",
+          "Vishal Dewan",
+          "John Donne",
+          "Grace Hatton",
+          "Rudyard Kipling",
+        ],
+      },
+      Object {
+        "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
+        "name": "Prepositional Phrases",
+        "not_yet_proficient_student_names": Array [
+          "Ja'shonda Abbott",
+          "Paulo Azevedo",
+          "Kaylesh Chaganlal",
+          "Victoria De",
+          "Vishal Dewan",
+          "John Donne",
+          "Grace Hatton",
+          "Rudyard Kipling",
+        ],
+      },
+      Object {
+        "description": "Students who show proficiency in this skill will correctly form compound subjects and objects, agree the subject to the verb with a compound subject, and use correct punctuation when listing objects.",
+        "name": "Compound Subjects, Objects, and Predicates",
+        "not_yet_proficient_student_names": Array [
+          "Paulo Azevedo",
+          "Edgar Burroughs",
+          "Kaylesh Chaganlal",
+          "Victoria De",
+          "Vishal Dewan",
+          "John Donne",
+          "Grace Hatton",
+          "Rudyard Kipling",
+        ],
+      },
+      Object {
+        "description": "Students who show proficiency in this skill will make the correct choice between the commonly confused words <i>your</i> and <i>you're</i>, and <i>their</i>, <i>they're</i>, and <i>there</i>.",
+        "name": "Commonly Confused Words",
+        "not_yet_proficient_student_names": Array [
+          "Paulo Azevedo",
+          "Edgar Burroughs",
+          "Kaylesh Chaganlal",
+          "Victoria De",
+          "John Donne",
+          "Grace Hatton",
+          "Rudyard Kipling",
+        ],
+      },
+    ]
+  }
+  passedStudentResults={
+    Array [
+      Object {
+        "id": 11115764,
+        "name": "Ja'shonda Abbott",
+        "skill_groups": Array [
+          Object {
+            "description": "Students who show proficiency in this skill will use capitalization at the beginning of a sentence and correct capitalization of names, dates, holidays, geographic locations, and the pronoun \\"I.\\"",
+            "id": 63,
+            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Capitalization",
+            "skills": Array [
+              Object {
+                "id": 118,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Capitalization",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between a plural and possessive noun. For possessive nouns, we require correct apostrophe placement.",
+            "id": 64,
+            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Plural and Possessive Nouns",
+            "skills": Array [
+              Object {
+                "id": 119,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Plural vs. Possessive Nouns",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place single adjectives, adverbs, cumulative adjectives, coordinate adjectives, and adjectives and adverbs together. Students will also make the correct choice between a comparative and superlative adjective and correctly order cumulative adjectives. Students will correctly punctuate by placing a comma between two coordinate adjectives.",
+            "id": 65,
+            "number_of_correct_skills_text": "4 of 6 skills correct",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Adjectives and Adverbs",
+            "skills": Array [
+              Object {
+                "id": 120,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Adverbs of Manner",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 121,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Single Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 122,
+                "number_correct": 1,
+                "number_incorrect": 1,
+                "skill": "Comparative Adjectives",
+                "summary": "Partially correct",
+              },
+              Object {
+                "id": 123,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Coordinate Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 124,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Cumulative Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 125,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Adjectives and Adverbs",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
+            "id": 66,
+            "number_of_correct_skills_text": "1 of 3 skills correct",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Prepositional Phrases",
+            "skills": Array [
+              Object {
+                "id": 126,
+                "number_correct": 3,
+                "number_incorrect": 0,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 127,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Prepositional Phrases",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 128,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Adjectives, Adverbs, & Prepositional Phrases",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly form compound subjects and objects, agree the subject to the verb with a compound subject, and use correct punctuation when listing objects.",
+            "id": 67,
+            "number_of_correct_skills_text": "4 of 4 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Compound Subjects, Objects, and Predicates",
+            "skills": Array [
+              Object {
+                "id": 129,
+                "number_correct": 3,
+                "number_incorrect": 0,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 130,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Listing Objects",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 131,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Compound Subjects",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 132,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Compound Predicates",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between the commonly confused words <i>your</i> and <i>you're</i>, and <i>their</i>, <i>they're</i>, and <i>there</i>.",
+            "id": 68,
+            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Commonly Confused Words",
+            "skills": Array [
+              Object {
+                "id": 133,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Commonly Confused Words",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+        ],
+      },
+      Object {
+        "id": 11115797,
+        "name": "Paulo Azevedo",
+        "skill_groups": Array [
+          Object {
+            "description": "Students who show proficiency in this skill will use capitalization at the beginning of a sentence and correct capitalization of names, dates, holidays, geographic locations, and the pronoun \\"I.\\"",
+            "id": 63,
+            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Capitalization",
+            "skills": Array [
+              Object {
+                "id": 118,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Capitalization",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between a plural and possessive noun. For possessive nouns, we require correct apostrophe placement.",
+            "id": 64,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Plural and Possessive Nouns",
+            "skills": Array [
+              Object {
+                "id": 119,
+                "number_correct": 0,
+                "number_incorrect": 2,
+                "skill": "Plural vs. Possessive Nouns",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place single adjectives, adverbs, cumulative adjectives, coordinate adjectives, and adjectives and adverbs together. Students will also make the correct choice between a comparative and superlative adjective and correctly order cumulative adjectives. Students will correctly punctuate by placing a comma between two coordinate adjectives.",
+            "id": 65,
+            "number_of_correct_skills_text": "1 of 6 skills correct",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Adjectives and Adverbs",
+            "skills": Array [
+              Object {
+                "id": 120,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Adverbs of Manner",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 121,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Single Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 122,
+                "number_correct": 0,
+                "number_incorrect": 2,
+                "skill": "Comparative Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 123,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Coordinate Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 124,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Cumulative Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 125,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Adjectives and Adverbs",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
+            "id": 66,
+            "number_of_correct_skills_text": "0 of 3 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Prepositional Phrases",
+            "skills": Array [
+              Object {
+                "id": 126,
+                "number_correct": 0,
+                "number_incorrect": 3,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 127,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Prepositional Phrases",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 128,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Adjectives, Adverbs, & Prepositional Phrases",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly form compound subjects and objects, agree the subject to the verb with a compound subject, and use correct punctuation when listing objects.",
+            "id": 67,
+            "number_of_correct_skills_text": "0 of 4 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Compound Subjects, Objects, and Predicates",
+            "skills": Array [
+              Object {
+                "id": 129,
+                "number_correct": 0,
+                "number_incorrect": 3,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 130,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Listing Objects",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 131,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Compound Subjects",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 132,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Compound Predicates",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between the commonly confused words <i>your</i> and <i>you're</i>, and <i>their</i>, <i>they're</i>, and <i>there</i>.",
+            "id": 68,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Commonly Confused Words",
+            "skills": Array [
+              Object {
+                "id": 133,
+                "number_correct": 0,
+                "number_incorrect": 2,
+                "skill": "Commonly Confused Words",
+                "summary": "Not correct",
+              },
+            ],
+          },
+        ],
+      },
+      Object {
+        "id": 11115765,
+        "name": "Charlotte Bronte",
+        "skill_groups": Array [
+          Object {
+            "description": "Students who show proficiency in this skill will use capitalization at the beginning of a sentence and correct capitalization of names, dates, holidays, geographic locations, and the pronoun \\"I.\\"",
+            "id": 63,
+            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Capitalization",
+            "skills": Array [
+              Object {
+                "id": 118,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Capitalization",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between a plural and possessive noun. For possessive nouns, we require correct apostrophe placement.",
+            "id": 64,
+            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Plural and Possessive Nouns",
+            "skills": Array [
+              Object {
+                "id": 119,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Plural vs. Possessive Nouns",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place single adjectives, adverbs, cumulative adjectives, coordinate adjectives, and adjectives and adverbs together. Students will also make the correct choice between a comparative and superlative adjective and correctly order cumulative adjectives. Students will correctly punctuate by placing a comma between two coordinate adjectives.",
+            "id": 65,
+            "number_of_correct_skills_text": "6 of 6 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Adjectives and Adverbs",
+            "skills": Array [
+              Object {
+                "id": 120,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Adverbs of Manner",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 121,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Single Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 122,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Comparative Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 123,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Coordinate Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 124,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Cumulative Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 125,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Adjectives and Adverbs",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
+            "id": 66,
+            "number_of_correct_skills_text": "3 of 3 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Prepositional Phrases",
+            "skills": Array [
+              Object {
+                "id": 126,
+                "number_correct": 3,
+                "number_incorrect": 0,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 127,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Prepositional Phrases",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 128,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Adjectives, Adverbs, & Prepositional Phrases",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly form compound subjects and objects, agree the subject to the verb with a compound subject, and use correct punctuation when listing objects.",
+            "id": 67,
+            "number_of_correct_skills_text": "4 of 4 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Compound Subjects, Objects, and Predicates",
+            "skills": Array [
+              Object {
+                "id": 129,
+                "number_correct": 3,
+                "number_incorrect": 0,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 130,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Listing Objects",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 131,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Compound Subjects",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 132,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Compound Predicates",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between the commonly confused words <i>your</i> and <i>you're</i>, and <i>their</i>, <i>they're</i>, and <i>there</i>.",
+            "id": 68,
+            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Commonly Confused Words",
+            "skills": Array [
+              Object {
+                "id": 133,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Commonly Confused Words",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+        ],
+      },
+      Object {
+        "id": 11115774,
+        "name": "Edgar Burroughs",
+        "skill_groups": Array [
+          Object {
+            "description": "Students who show proficiency in this skill will use capitalization at the beginning of a sentence and correct capitalization of names, dates, holidays, geographic locations, and the pronoun \\"I.\\"",
+            "id": 63,
+            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Capitalization",
+            "skills": Array [
+              Object {
+                "id": 118,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Capitalization",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between a plural and possessive noun. For possessive nouns, we require correct apostrophe placement.",
+            "id": 64,
+            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Plural and Possessive Nouns",
+            "skills": Array [
+              Object {
+                "id": 119,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Plural vs. Possessive Nouns",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place single adjectives, adverbs, cumulative adjectives, coordinate adjectives, and adjectives and adverbs together. Students will also make the correct choice between a comparative and superlative adjective and correctly order cumulative adjectives. Students will correctly punctuate by placing a comma between two coordinate adjectives.",
+            "id": 65,
+            "number_of_correct_skills_text": "5 of 6 skills correct",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Adjectives and Adverbs",
+            "skills": Array [
+              Object {
+                "id": 120,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Adverbs of Manner",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 121,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Single Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 122,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Comparative Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 123,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Coordinate Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 124,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Cumulative Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 125,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Adjectives and Adverbs",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
+            "id": 66,
+            "number_of_correct_skills_text": "3 of 3 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Prepositional Phrases",
+            "skills": Array [
+              Object {
+                "id": 126,
+                "number_correct": 3,
+                "number_incorrect": 0,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 127,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Prepositional Phrases",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 128,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Adjectives, Adverbs, & Prepositional Phrases",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly form compound subjects and objects, agree the subject to the verb with a compound subject, and use correct punctuation when listing objects.",
+            "id": 67,
+            "number_of_correct_skills_text": "3 of 4 skills correct",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Compound Subjects, Objects, and Predicates",
+            "skills": Array [
+              Object {
+                "id": 129,
+                "number_correct": 3,
+                "number_incorrect": 0,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 130,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Listing Objects",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 131,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Compound Subjects",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 132,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Compound Predicates",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between the commonly confused words <i>your</i> and <i>you're</i>, and <i>their</i>, <i>they're</i>, and <i>there</i>.",
+            "id": 68,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Commonly Confused Words",
+            "skills": Array [
+              Object {
+                "id": 133,
+                "number_correct": 1,
+                "number_incorrect": 1,
+                "skill": "Commonly Confused Words",
+                "summary": "Partially correct",
+              },
+            ],
+          },
+        ],
+      },
+      Object {
+        "id": 11115787,
+        "name": "Kaylesh Chaganlal",
+        "skill_groups": Array [
+          Object {
+            "description": "Students who show proficiency in this skill will use capitalization at the beginning of a sentence and correct capitalization of names, dates, holidays, geographic locations, and the pronoun \\"I.\\"",
+            "id": 63,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Capitalization",
+            "skills": Array [
+              Object {
+                "id": 118,
+                "number_correct": 0,
+                "number_incorrect": 2,
+                "skill": "Capitalization",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between a plural and possessive noun. For possessive nouns, we require correct apostrophe placement.",
+            "id": 64,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Plural and Possessive Nouns",
+            "skills": Array [
+              Object {
+                "id": 119,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Plural vs. Possessive Nouns",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place single adjectives, adverbs, cumulative adjectives, coordinate adjectives, and adjectives and adverbs together. Students will also make the correct choice between a comparative and superlative adjective and correctly order cumulative adjectives. Students will correctly punctuate by placing a comma between two coordinate adjectives.",
+            "id": 65,
+            "number_of_correct_skills_text": "0 of 6 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Adjectives and Adverbs",
+            "skills": Array [
+              Object {
+                "id": 120,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Adverbs of Manner",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 121,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Single Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 122,
+                "number_correct": 0,
+                "number_incorrect": 2,
+                "skill": "Comparative Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 123,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Coordinate Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 124,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Cumulative Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 125,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Adjectives and Adverbs",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
+            "id": 66,
+            "number_of_correct_skills_text": "0 of 3 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Prepositional Phrases",
+            "skills": Array [
+              Object {
+                "id": 126,
+                "number_correct": 0,
+                "number_incorrect": 3,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 127,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Prepositional Phrases",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 128,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Adjectives, Adverbs, & Prepositional Phrases",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly form compound subjects and objects, agree the subject to the verb with a compound subject, and use correct punctuation when listing objects.",
+            "id": 67,
+            "number_of_correct_skills_text": "0 of 4 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Compound Subjects, Objects, and Predicates",
+            "skills": Array [
+              Object {
+                "id": 129,
+                "number_correct": 0,
+                "number_incorrect": 3,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 130,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Listing Objects",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 131,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Compound Subjects",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 132,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Compound Predicates",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between the commonly confused words <i>your</i> and <i>you're</i>, and <i>their</i>, <i>they're</i>, and <i>there</i>.",
+            "id": 68,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Commonly Confused Words",
+            "skills": Array [
+              Object {
+                "id": 133,
+                "number_correct": 0,
+                "number_incorrect": 2,
+                "skill": "Commonly Confused Words",
+                "summary": "Not correct",
+              },
+            ],
+          },
+        ],
+      },
+      Object {
+        "id": 11115791,
+        "name": "Justin Cole",
+        "skill_groups": Array [
+          Object {
+            "description": "Students who show proficiency in this skill will use capitalization at the beginning of a sentence and correct capitalization of names, dates, holidays, geographic locations, and the pronoun \\"I.\\"",
+            "id": 63,
+            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Capitalization",
+            "skills": Array [
+              Object {
+                "id": 118,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Capitalization",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between a plural and possessive noun. For possessive nouns, we require correct apostrophe placement.",
+            "id": 64,
+            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Plural and Possessive Nouns",
+            "skills": Array [
+              Object {
+                "id": 119,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Plural vs. Possessive Nouns",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place single adjectives, adverbs, cumulative adjectives, coordinate adjectives, and adjectives and adverbs together. Students will also make the correct choice between a comparative and superlative adjective and correctly order cumulative adjectives. Students will correctly punctuate by placing a comma between two coordinate adjectives.",
+            "id": 65,
+            "number_of_correct_skills_text": "5 of 6 skills correct",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Adjectives and Adverbs",
+            "skills": Array [
+              Object {
+                "id": 120,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Adverbs of Manner",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 121,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Single Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 122,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Comparative Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 123,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Coordinate Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 124,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Cumulative Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 125,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Adjectives and Adverbs",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
+            "id": 66,
+            "number_of_correct_skills_text": "3 of 3 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Prepositional Phrases",
+            "skills": Array [
+              Object {
+                "id": 126,
+                "number_correct": 3,
+                "number_incorrect": 0,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 127,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Prepositional Phrases",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 128,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Adjectives, Adverbs, & Prepositional Phrases",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly form compound subjects and objects, agree the subject to the verb with a compound subject, and use correct punctuation when listing objects.",
+            "id": 67,
+            "number_of_correct_skills_text": "4 of 4 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Compound Subjects, Objects, and Predicates",
+            "skills": Array [
+              Object {
+                "id": 129,
+                "number_correct": 3,
+                "number_incorrect": 0,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 130,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Listing Objects",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 131,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Compound Subjects",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 132,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Compound Predicates",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between the commonly confused words <i>your</i> and <i>you're</i>, and <i>their</i>, <i>they're</i>, and <i>there</i>.",
+            "id": 68,
+            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Commonly Confused Words",
+            "skills": Array [
+              Object {
+                "id": 133,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Commonly Confused Words",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+        ],
+      },
+      Object {
+        "id": 11115784,
+        "name": "Victoria De",
+        "skill_groups": Array [
+          Object {
+            "description": "Students who show proficiency in this skill will use capitalization at the beginning of a sentence and correct capitalization of names, dates, holidays, geographic locations, and the pronoun \\"I.\\"",
+            "id": 63,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Capitalization",
+            "skills": Array [
+              Object {
+                "id": 118,
+                "number_correct": 1,
+                "number_incorrect": 1,
+                "skill": "Capitalization",
+                "summary": "Partially correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between a plural and possessive noun. For possessive nouns, we require correct apostrophe placement.",
+            "id": 64,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Plural and Possessive Nouns",
+            "skills": Array [
+              Object {
+                "id": 119,
+                "number_correct": 1,
+                "number_incorrect": 1,
+                "skill": "Plural vs. Possessive Nouns",
+                "summary": "Partially correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place single adjectives, adverbs, cumulative adjectives, coordinate adjectives, and adjectives and adverbs together. Students will also make the correct choice between a comparative and superlative adjective and correctly order cumulative adjectives. Students will correctly punctuate by placing a comma between two coordinate adjectives.",
+            "id": 65,
+            "number_of_correct_skills_text": "4 of 6 skills correct",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Adjectives and Adverbs",
+            "skills": Array [
+              Object {
+                "id": 120,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Adverbs of Manner",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 121,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Single Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 122,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Comparative Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 123,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Coordinate Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 124,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Cumulative Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 125,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Adjectives and Adverbs",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
+            "id": 66,
+            "number_of_correct_skills_text": "0 of 3 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Prepositional Phrases",
+            "skills": Array [
+              Object {
+                "id": 126,
+                "number_correct": 1,
+                "number_incorrect": 2,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Partially correct",
+              },
+              Object {
+                "id": 127,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Prepositional Phrases",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 128,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Adjectives, Adverbs, & Prepositional Phrases",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly form compound subjects and objects, agree the subject to the verb with a compound subject, and use correct punctuation when listing objects.",
+            "id": 67,
+            "number_of_correct_skills_text": "0 of 4 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Compound Subjects, Objects, and Predicates",
+            "skills": Array [
+              Object {
+                "id": 129,
+                "number_correct": 1,
+                "number_incorrect": 2,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Partially correct",
+              },
+              Object {
+                "id": 130,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Listing Objects",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 131,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Compound Subjects",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 132,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Compound Predicates",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between the commonly confused words <i>your</i> and <i>you're</i>, and <i>their</i>, <i>they're</i>, and <i>there</i>.",
+            "id": 68,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Commonly Confused Words",
+            "skills": Array [
+              Object {
+                "id": 133,
+                "number_correct": 0,
+                "number_incorrect": 2,
+                "skill": "Commonly Confused Words",
+                "summary": "Not correct",
+              },
+            ],
+          },
+        ],
+      },
+      Object {
+        "id": 11115786,
+        "name": "Vishal Dewan",
+        "skill_groups": Array [
+          Object {
+            "description": "Students who show proficiency in this skill will use capitalization at the beginning of a sentence and correct capitalization of names, dates, holidays, geographic locations, and the pronoun \\"I.\\"",
+            "id": 63,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Capitalization",
+            "skills": Array [
+              Object {
+                "id": 118,
+                "number_correct": 0,
+                "number_incorrect": 2,
+                "skill": "Capitalization",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between a plural and possessive noun. For possessive nouns, we require correct apostrophe placement.",
+            "id": 64,
+            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Plural and Possessive Nouns",
+            "skills": Array [
+              Object {
+                "id": 119,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Plural vs. Possessive Nouns",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place single adjectives, adverbs, cumulative adjectives, coordinate adjectives, and adjectives and adverbs together. Students will also make the correct choice between a comparative and superlative adjective and correctly order cumulative adjectives. Students will correctly punctuate by placing a comma between two coordinate adjectives.",
+            "id": 65,
+            "number_of_correct_skills_text": "1 of 6 skills correct",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Adjectives and Adverbs",
+            "skills": Array [
+              Object {
+                "id": 120,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Adverbs of Manner",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 121,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Single Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 122,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Comparative Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 123,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Coordinate Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 124,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Cumulative Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 125,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Adjectives and Adverbs",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
+            "id": 66,
+            "number_of_correct_skills_text": "1 of 3 skills correct",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Prepositional Phrases",
+            "skills": Array [
+              Object {
+                "id": 126,
+                "number_correct": 3,
+                "number_incorrect": 0,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 127,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Prepositional Phrases",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 128,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Adjectives, Adverbs, & Prepositional Phrases",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly form compound subjects and objects, agree the subject to the verb with a compound subject, and use correct punctuation when listing objects.",
+            "id": 67,
+            "number_of_correct_skills_text": "1 of 4 skills correct",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Compound Subjects, Objects, and Predicates",
+            "skills": Array [
+              Object {
+                "id": 129,
+                "number_correct": 3,
+                "number_incorrect": 0,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 130,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Listing Objects",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 131,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Compound Subjects",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 132,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Compound Predicates",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between the commonly confused words <i>your</i> and <i>you're</i>, and <i>their</i>, <i>they're</i>, and <i>there</i>.",
+            "id": 68,
+            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Commonly Confused Words",
+            "skills": Array [
+              Object {
+                "id": 133,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Commonly Confused Words",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+        ],
+      },
+      Object {
+        "name": "Joan Didion",
+      },
+      Object {
+        "id": 11115769,
+        "name": "John Donne",
+        "skill_groups": Array [
+          Object {
+            "description": "Students who show proficiency in this skill will use capitalization at the beginning of a sentence and correct capitalization of names, dates, holidays, geographic locations, and the pronoun \\"I.\\"",
+            "id": 63,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Capitalization",
+            "skills": Array [
+              Object {
+                "id": 118,
+                "number_correct": 1,
+                "number_incorrect": 1,
+                "skill": "Capitalization",
+                "summary": "Partially correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between a plural and possessive noun. For possessive nouns, we require correct apostrophe placement.",
+            "id": 64,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Plural and Possessive Nouns",
+            "skills": Array [
+              Object {
+                "id": 119,
+                "number_correct": 1,
+                "number_incorrect": 1,
+                "skill": "Plural vs. Possessive Nouns",
+                "summary": "Partially correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place single adjectives, adverbs, cumulative adjectives, coordinate adjectives, and adjectives and adverbs together. Students will also make the correct choice between a comparative and superlative adjective and correctly order cumulative adjectives. Students will correctly punctuate by placing a comma between two coordinate adjectives.",
+            "id": 65,
+            "number_of_correct_skills_text": "5 of 6 skills correct",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Adjectives and Adverbs",
+            "skills": Array [
+              Object {
+                "id": 120,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Adverbs of Manner",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 121,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Single Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 122,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Comparative Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 123,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Coordinate Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 124,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Cumulative Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 125,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Adjectives and Adverbs",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
+            "id": 66,
+            "number_of_correct_skills_text": "2 of 3 skills correct",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Prepositional Phrases",
+            "skills": Array [
+              Object {
+                "id": 126,
+                "number_correct": 2,
+                "number_incorrect": 1,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Partially correct",
+              },
+              Object {
+                "id": 127,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Prepositional Phrases",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 128,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Adjectives, Adverbs, & Prepositional Phrases",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly form compound subjects and objects, agree the subject to the verb with a compound subject, and use correct punctuation when listing objects.",
+            "id": 67,
+            "number_of_correct_skills_text": "1 of 4 skills correct",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Compound Subjects, Objects, and Predicates",
+            "skills": Array [
+              Object {
+                "id": 129,
+                "number_correct": 2,
+                "number_incorrect": 1,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Partially correct",
+              },
+              Object {
+                "id": 130,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Listing Objects",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 131,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Compound Subjects",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 132,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Compound Predicates",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between the commonly confused words <i>your</i> and <i>you're</i>, and <i>their</i>, <i>they're</i>, and <i>there</i>.",
+            "id": 68,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Commonly Confused Words",
+            "skills": Array [
+              Object {
+                "id": 133,
+                "number_correct": 1,
+                "number_incorrect": 1,
+                "skill": "Commonly Confused Words",
+                "summary": "Partially correct",
+              },
+            ],
+          },
+        ],
+      },
+      Object {
+        "name": "Gabriel De La Concordia Garcia",
+      },
+      Object {
+        "name": "Jacob De Haas",
+      },
+      Object {
+        "id": 11115796,
+        "name": "Grace Hatton",
+        "skill_groups": Array [
+          Object {
+            "description": "Students who show proficiency in this skill will use capitalization at the beginning of a sentence and correct capitalization of names, dates, holidays, geographic locations, and the pronoun \\"I.\\"",
+            "id": 63,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Capitalization",
+            "skills": Array [
+              Object {
+                "id": 118,
+                "number_correct": 0,
+                "number_incorrect": 2,
+                "skill": "Capitalization",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between a plural and possessive noun. For possessive nouns, we require correct apostrophe placement.",
+            "id": 64,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Plural and Possessive Nouns",
+            "skills": Array [
+              Object {
+                "id": 119,
+                "number_correct": 0,
+                "number_incorrect": 2,
+                "skill": "Plural vs. Possessive Nouns",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place single adjectives, adverbs, cumulative adjectives, coordinate adjectives, and adjectives and adverbs together. Students will also make the correct choice between a comparative and superlative adjective and correctly order cumulative adjectives. Students will correctly punctuate by placing a comma between two coordinate adjectives.",
+            "id": 65,
+            "number_of_correct_skills_text": "0 of 6 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Adjectives and Adverbs",
+            "skills": Array [
+              Object {
+                "id": 120,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Adverbs of Manner",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 121,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Single Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 122,
+                "number_correct": 0,
+                "number_incorrect": 2,
+                "skill": "Comparative Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 123,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Coordinate Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 124,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Cumulative Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 125,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Adjectives and Adverbs",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
+            "id": 66,
+            "number_of_correct_skills_text": "0 of 3 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Prepositional Phrases",
+            "skills": Array [
+              Object {
+                "id": 126,
+                "number_correct": 0,
+                "number_incorrect": 3,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 127,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Prepositional Phrases",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 128,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Adjectives, Adverbs, & Prepositional Phrases",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly form compound subjects and objects, agree the subject to the verb with a compound subject, and use correct punctuation when listing objects.",
+            "id": 67,
+            "number_of_correct_skills_text": "0 of 4 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Compound Subjects, Objects, and Predicates",
+            "skills": Array [
+              Object {
+                "id": 129,
+                "number_correct": 0,
+                "number_incorrect": 3,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 130,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Listing Objects",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 131,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Compound Subjects",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 132,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Compound Predicates",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between the commonly confused words <i>your</i> and <i>you're</i>, and <i>their</i>, <i>they're</i>, and <i>there</i>.",
+            "id": 68,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Commonly Confused Words",
+            "skills": Array [
+              Object {
+                "id": 133,
+                "number_correct": 0,
+                "number_incorrect": 2,
+                "skill": "Commonly Confused Words",
+                "summary": "Not correct",
+              },
+            ],
+          },
+        ],
+      },
+      Object {
+        "name": "Tymon Jabłoński",
+      },
+      Object {
+        "name": "Dehab Lee Kassis-washington",
+      },
+      Object {
+        "id": 11115782,
+        "name": "Rudyard Kipling",
+        "skill_groups": Array [
+          Object {
+            "description": "Students who show proficiency in this skill will use capitalization at the beginning of a sentence and correct capitalization of names, dates, holidays, geographic locations, and the pronoun \\"I.\\"",
+            "id": 63,
+            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "proficiency_text": "Proficiency",
+            "skill_group": "Capitalization",
+            "skills": Array [
+              Object {
+                "id": 118,
+                "number_correct": 2,
+                "number_incorrect": 0,
+                "skill": "Capitalization",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between a plural and possessive noun. For possessive nouns, we require correct apostrophe placement.",
+            "id": 64,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Plural and Possessive Nouns",
+            "skills": Array [
+              Object {
+                "id": 119,
+                "number_correct": 0,
+                "number_incorrect": 2,
+                "skill": "Plural vs. Possessive Nouns",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place single adjectives, adverbs, cumulative adjectives, coordinate adjectives, and adjectives and adverbs together. Students will also make the correct choice between a comparative and superlative adjective and correctly order cumulative adjectives. Students will correctly punctuate by placing a comma between two coordinate adjectives.",
+            "id": 65,
+            "number_of_correct_skills_text": "3 of 6 skills correct",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Adjectives and Adverbs",
+            "skills": Array [
+              Object {
+                "id": 120,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Adverbs of Manner",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 121,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Single Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 122,
+                "number_correct": 0,
+                "number_incorrect": 2,
+                "skill": "Comparative Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 123,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Coordinate Adjectives",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 124,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Cumulative Adjectives",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 125,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Adjectives and Adverbs",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
+            "id": 66,
+            "number_of_correct_skills_text": "1 of 3 skills correct",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Prepositional Phrases",
+            "skills": Array [
+              Object {
+                "id": 126,
+                "number_correct": 0,
+                "number_incorrect": 3,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 127,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Prepositional Phrases",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 128,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Adjectives, Adverbs, & Prepositional Phrases",
+                "summary": "Not correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will correctly form compound subjects and objects, agree the subject to the verb with a compound subject, and use correct punctuation when listing objects.",
+            "id": 67,
+            "number_of_correct_skills_text": "2 of 4 skills correct",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Compound Subjects, Objects, and Predicates",
+            "skills": Array [
+              Object {
+                "id": 129,
+                "number_correct": 0,
+                "number_incorrect": 3,
+                "skill": "Subject-Verb Agreement",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 130,
+                "number_correct": 0,
+                "number_incorrect": 1,
+                "skill": "Listing Objects",
+                "summary": "Not correct",
+              },
+              Object {
+                "id": 131,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Compound Subjects",
+                "summary": "Fully correct",
+              },
+              Object {
+                "id": 132,
+                "number_correct": 1,
+                "number_incorrect": 0,
+                "skill": "Compound Predicates",
+                "summary": "Fully correct",
+              },
+            ],
+          },
+          Object {
+            "description": "Students who show proficiency in this skill will make the correct choice between the commonly confused words <i>your</i> and <i>you're</i>, and <i>their</i>, <i>they're</i>, and <i>there</i>.",
+            "id": 68,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Commonly Confused Words",
+            "skills": Array [
+              Object {
+                "id": 133,
+                "number_correct": 0,
+                "number_incorrect": 2,
+                "skill": "Commonly Confused Words",
+                "summary": "Not correct",
+              },
+            ],
+          },
+        ],
+      },
+      Object {
+        "name": "Leone Lafontaine",
+      },
+      Object {
+        "name": "Henry Wadsworth Longfellow",
+      },
+      Object {
+        "name": "Hilary Mantel",
+      },
+      Object {
+        "name": "Daphne Maurier",
+      },
+      Object {
+        "name": "Stephanie Montgomery",
+      },
+      Object {
+        "name": "George Nichols",
+      },
+      Object {
+        "name": "Joyce Oates",
+      },
+      Object {
+        "name": "Banjo Paterson",
+      },
+      Object {
+        "name": "Sarah Pennington",
+      },
+      Object {
+        "name": "Annie Proulx",
+      },
+      Object {
+        "name": "Sarah Scott",
+      },
+      Object {
+        "name": "Zadie Smith",
+      },
+      Object {
+        "name": "Rabindranath Tagore",
+      },
+      Object {
+        "name": "Judy Heier-hammond Name Keeps Going For A Long Long Tim",
+      },
+      Object {
+        "name": "Virginia Walker",
+      },
+    ]
+  }
+>
+  <_default>
+    <div
+      className="spinner-container"
+    >
+      <img
+        className="spinner"
+        src="/images/loader_still.svg"
+      />
+    </div>
+  </_default>
+</Results>
+`;

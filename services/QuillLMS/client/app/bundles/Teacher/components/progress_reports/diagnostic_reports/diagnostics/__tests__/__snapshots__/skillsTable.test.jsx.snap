@@ -1,0 +1,285 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SkillsTable component should render when it is expandable 1`] = `
+<SkillsTable
+  isExpandable={true}
+  skillGroup={
+    Object {
+      "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
+      "id": 66,
+      "number_of_correct_skills_text": "2 of 3 skills correct",
+      "proficiency_text": "Partial proficiency",
+      "skill_group": "Prepositional Phrases",
+      "skills": Array [
+        Object {
+          "id": 128,
+          "number_correct": 1,
+          "number_incorrect": 0,
+          "skill": "Adjectives, Adverbs, & Prepositional Phrases",
+          "summary": "Fully correct",
+        },
+        Object {
+          "id": 127,
+          "number_correct": 1,
+          "number_incorrect": 0,
+          "skill": "Prepositional Phrases",
+          "summary": "Fully correct",
+        },
+        Object {
+          "id": 126,
+          "number_correct": 2,
+          "number_incorrect": 1,
+          "skill": "Subject-Verb Agreement",
+          "summary": "Partially correct",
+        },
+      ],
+    }
+  }
+>
+  <div
+    className="skills-table-container"
+  >
+    <table
+      className="skills-table contracted"
+    >
+      <thead>
+        <tr>
+          <th
+            className="skill-column-header"
+          >
+            Skill
+          </th>
+          <th>
+            Correct
+          </th>
+          <th>
+            Incorrect
+          </th>
+          <th
+            className="summary-header"
+          >
+            Summary
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          key="Adjectives, Adverbs, & Prepositional Phrases"
+        >
+          <td>
+            Adjectives, Adverbs, & Prepositional Phrases
+          </td>
+          <td
+            className="center-align"
+          >
+            1
+          </td>
+          <td
+            className="center-align"
+          >
+            0
+          </td>
+          <td
+            className="fully-correct"
+          >
+            Fully correct
+          </td>
+        </tr>
+        <tr
+          key="Prepositional Phrases"
+        >
+          <td>
+            Prepositional Phrases
+          </td>
+          <td
+            className="center-align"
+          >
+            1
+          </td>
+          <td
+            className="center-align"
+          >
+            0
+          </td>
+          <td
+            className="fully-correct"
+          >
+            Fully correct
+          </td>
+        </tr>
+        <tr
+          key="Subject-Verb Agreement"
+        >
+          <td>
+            Subject-Verb Agreement
+          </td>
+          <td
+            className="center-align"
+          >
+            2
+          </td>
+          <td
+            className="center-align"
+          >
+            1
+          </td>
+          <td
+            className=""
+          >
+            Partially correct
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button
+      className="show-more-button"
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Show more
+      </span>
+      <img
+        alt="Expand icon"
+        className="expand-icon"
+        src="undefined/images/icons/expand.svg"
+      />
+    </button>
+  </div>
+</SkillsTable>
+`;
+
+exports[`SkillsTable component should render when it is not expandable 1`] = `
+<SkillsTable
+  isExpandable={false}
+  skillGroup={
+    Object {
+      "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
+      "id": 66,
+      "number_of_correct_skills_text": "2 of 3 skills correct",
+      "proficiency_text": "Partial proficiency",
+      "skill_group": "Prepositional Phrases",
+      "skills": Array [
+        Object {
+          "id": 128,
+          "number_correct": 1,
+          "number_incorrect": 0,
+          "skill": "Adjectives, Adverbs, & Prepositional Phrases",
+          "summary": "Fully correct",
+        },
+        Object {
+          "id": 127,
+          "number_correct": 1,
+          "number_incorrect": 0,
+          "skill": "Prepositional Phrases",
+          "summary": "Fully correct",
+        },
+        Object {
+          "id": 126,
+          "number_correct": 2,
+          "number_incorrect": 1,
+          "skill": "Subject-Verb Agreement",
+          "summary": "Partially correct",
+        },
+      ],
+    }
+  }
+>
+  <div
+    className="skills-table-container"
+  >
+    <table
+      className="skills-table "
+    >
+      <thead>
+        <tr>
+          <th
+            className="skill-column-header"
+          >
+            Skill
+          </th>
+          <th>
+            Correct
+          </th>
+          <th>
+            Incorrect
+          </th>
+          <th
+            className="summary-header"
+          >
+            Summary
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          key="Adjectives, Adverbs, & Prepositional Phrases"
+        >
+          <td>
+            Adjectives, Adverbs, & Prepositional Phrases
+          </td>
+          <td
+            className="center-align"
+          >
+            1
+          </td>
+          <td
+            className="center-align"
+          >
+            0
+          </td>
+          <td
+            className="fully-correct"
+          >
+            Fully correct
+          </td>
+        </tr>
+        <tr
+          key="Prepositional Phrases"
+        >
+          <td>
+            Prepositional Phrases
+          </td>
+          <td
+            className="center-align"
+          >
+            1
+          </td>
+          <td
+            className="center-align"
+          >
+            0
+          </td>
+          <td
+            className="fully-correct"
+          >
+            Fully correct
+          </td>
+        </tr>
+        <tr
+          key="Subject-Verb Agreement"
+        >
+          <td>
+            Subject-Verb Agreement
+          </td>
+          <td
+            className="center-align"
+          >
+            2
+          </td>
+          <td
+            className="center-align"
+          >
+            1
+          </td>
+          <td
+            className=""
+          >
+            Partially correct
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</SkillsTable>
+`;

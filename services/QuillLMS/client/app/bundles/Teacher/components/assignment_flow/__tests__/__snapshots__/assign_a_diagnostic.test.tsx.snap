@@ -12,69 +12,166 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
     <h1>
       Which diagnostic covers the skills you want to assess?
     </h1>
+    <section
+      className="filter-tabs"
+    >
+      <FilterTab
+        activeFilter="All"
+        filter="All"
+        number={13}
+        setFilter={[Function]}
+      />
+      <FilterTab
+        activeFilter="All"
+        filter="General"
+        number={6}
+        setFilter={[Function]}
+      />
+      <FilterTab
+        activeFilter="All"
+        filter="ELL"
+        number={3}
+        setFilter={[Function]}
+      />
+      <FilterTab
+        activeFilter="All"
+        filter="CollegeBoard"
+        number={4}
+        setFilter={[Function]}
+      />
+    </section>
     <div
       className="minis"
     >
-      <AssignmentCard
-        bodyArray={
-          Array [
-            Object {
-              "key": "What",
-              "text": "Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words",
-            },
-            Object {
-              "key": "When",
-              "text": "Your students are working on basic grammar concepts.",
-            },
-          ]
-        }
-        buttonLink="/activity_sessions/anonymous?activity_id=1663"
-        buttonText="Preview"
-        header="Starter Diagnostic"
-        imgAlt="page with a little writing"
-        imgSrc="undefined/images/illustrations/diagnostics-starter.svg"
-        selectCard={[Function]}
-      />
-      <AssignmentCard
-        bodyArray={
-          Array [
-            Object {
-              "key": "What",
-              "text": "Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization",
-            },
-            Object {
-              "key": "When",
-              "text": "Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.",
-            },
-          ]
-        }
-        buttonLink="/activity_sessions/anonymous?activity_id=1668"
-        buttonText="Preview"
-        header="Intermediate Diagnostic"
-        imgAlt="page with a medium amount of writing"
-        imgSrc="undefined/images/illustrations/diagnostics-intermediate.svg"
-        selectCard={[Function]}
-      />
-      <AssignmentCard
-        bodyArray={
-          Array [
-            Object {
-              "key": "What",
-              "text": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
-            },
-            Object {
-              "key": "When",
-              "text": "Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.",
-            },
-          ]
-        }
-        buttonLink="/activity_sessions/anonymous?activity_id=1678"
-        buttonText="Preview"
-        header="Advanced Diagnostic"
-        imgAlt="page with a large amount of writing"
-        imgSrc="undefined/images/illustrations/diagnostics-advanced.svg"
-        selectCard={[Function]}
-      />
+      <div
+        className="grouped-minis"
+        key="starter"
+      >
+        <AssignmentCard
+          bodyArray={
+            Array [
+              Object {
+                "key": "What",
+                "text": "Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words",
+              },
+              Object {
+                "key": "When",
+                "text": "Your students are working on basic grammar concepts.",
+              },
+            ]
+          }
+          buttonLink="/activity_sessions/anonymous?activity_id=1663"
+          buttonText="Preview"
+          header="Starter Baseline Diagnostic (Pre)"
+          selectCard={[Function]}
+        />
+        <AssignmentCard
+          bodyArray={
+            Array [
+              Object {
+                "key": "What",
+                "text": "The Starter Growth Diagnostic has different questions but covers the same skills as the Starter Baseline Diagnostic",
+              },
+              Object {
+                "key": "When",
+                "text": "Your students have completed the Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
+              },
+            ]
+          }
+          buttonLink="/activity_sessions/anonymous?activity_id=1664"
+          buttonText="Preview"
+          header="Starter Growth Diagnostic (Post)"
+          lockedText={false}
+          selectCard={[Function]}
+          showNewTag={true}
+        />
+      </div>
+      <div
+        className="grouped-minis"
+        key="intermediate"
+      >
+        <AssignmentCard
+          bodyArray={
+            Array [
+              Object {
+                "key": "What",
+                "text": "Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization",
+              },
+              Object {
+                "key": "When",
+                "text": "Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.",
+              },
+            ]
+          }
+          buttonLink="/activity_sessions/anonymous?activity_id=1668"
+          buttonText="Preview"
+          header="Intermediate Baseline Diagnostic (Pre)"
+          selectCard={[Function]}
+        />
+        <AssignmentCard
+          bodyArray={
+            Array [
+              Object {
+                "key": "What",
+                "text": "Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization",
+              },
+              Object {
+                "key": "When",
+                "text": "Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.",
+              },
+            ]
+          }
+          buttonLink="/activity_sessions/anonymous?activity_id=1669"
+          buttonText="Preview"
+          header="Intermediate Growth Diagnostic (Post)"
+          lockedText="This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic."
+          selectCard={[Function]}
+          showNewTag={true}
+        />
+      </div>
+      <div
+        className="grouped-minis"
+        key="advanced"
+      >
+        <AssignmentCard
+          bodyArray={
+            Array [
+              Object {
+                "key": "What",
+                "text": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
+              },
+              Object {
+                "key": "When",
+                "text": "Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.",
+              },
+            ]
+          }
+          buttonLink="/activity_sessions/anonymous?activity_id=1678"
+          buttonText="Preview"
+          header="Advanced Baseline Diagnostic (Pre)"
+          selectCard={[Function]}
+        />
+        <AssignmentCard
+          bodyArray={
+            Array [
+              Object {
+                "key": "What",
+                "text": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
+              },
+              Object {
+                "key": "When",
+                "text": "Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.",
+              },
+            ]
+          }
+          buttonLink="/activity_sessions/anonymous?activity_id=1678"
+          buttonText="Preview"
+          header="Advanced Growth Diagnostic (Post)"
+          lockedText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic."
+          selectCard={[Function]}
+          showNewTag={true}
+        />
+      </div>
       <AssignmentCard
         bodyArray={
           Array [
@@ -91,8 +188,6 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
         buttonLink="/activity_sessions/anonymous?activity_id=1161"
         buttonText="Preview"
         header="ELL Starter Diagnostic"
-        imgAlt="page with less writing that says ELL in the corner"
-        imgSrc="undefined/images/illustrations/icons-diagnostics-ell-starter.svg"
         selectCard={[Function]}
       />
       <AssignmentCard
@@ -111,8 +206,6 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
         buttonLink="/activity_sessions/anonymous?activity_id=1568"
         buttonText="Preview"
         header="ELL Intermediate Diagnostic"
-        imgAlt="page with writing that says ELL in the corner"
-        imgSrc="undefined/images/illustrations/icons-diagnostics-ell-intermediate.svg"
         selectCard={[Function]}
       />
       <AssignmentCard
@@ -131,8 +224,6 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
         buttonLink="/activity_sessions/anonymous?activity_id=1590"
         buttonText="Preview"
         header="ELL Advanced Diagnostic"
-        imgAlt="page with writing that says ELL in the corner"
-        imgSrc="undefined/images/illustrations/icons-diagnostics-ell-intermediate.svg"
         selectCard={[Function]}
       />
       <AssignmentCard
@@ -151,8 +242,6 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
         buttonLink="/activity_sessions/anonymous?activity_id=992"
         buttonText="Preview"
         header="AP Writing Skills Survey"
-        imgAlt="page with writing that says AP in corner"
-        imgSrc="undefined/images/college_board/icons-diagnostics-ap.svg"
         selectCard={[Function]}
       />
       <AssignmentCard
@@ -171,8 +260,6 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
         buttonLink="/activity_sessions/anonymous?activity_id=1229"
         buttonText="Preview"
         header="Pre-AP Writing Skills Survey 1"
-        imgAlt="page with writing that says Pre-AP on bottom"
-        imgSrc="undefined/images/college_board/icons-diagnostics-preap.svg"
         selectCard={[Function]}
       />
       <AssignmentCard
@@ -191,8 +278,6 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
         buttonLink="/activity_sessions/anonymous?activity_id=1230"
         buttonText="Preview"
         header="Pre-AP Writing Skills Survey 2"
-        imgAlt="page with writing that says Pre-AP on bottom"
-        imgSrc="undefined/images/college_board/icons-diagnostics-preap.svg"
         selectCard={[Function]}
       />
       <AssignmentCard
@@ -211,8 +296,6 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
         buttonLink="/activity_sessions/anonymous?activity_id=1432"
         buttonText="Preview"
         header="SpringBoard Writing Skills Survey"
-        imgAlt="page with writing that says SpringBoard on bottom"
-        imgSrc="undefined/images/college_board/icons-diagnostics-springboard.svg"
         selectCard={[Function]}
       />
     </div>
