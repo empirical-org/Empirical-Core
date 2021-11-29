@@ -91,7 +91,7 @@ const PostDiagnosticCard = ({ activityId, activityName, unitTemplateId, }) => {
   return (<section className="post-diagnostic-card">
     <button className="interactive-wrapper close-button focus-on-dark" onClick={closeCard} type="button">{closeIcon}</button>
     {chartGrowthIllustration}
-    <p>Measure growth by assigning a Starter Growth Diagnostic (Post)</p>
+    <p>Measure growth by assigning a {activityName}</p>
     <div>
       <a className="focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activityId}`} rel="noopener noreferrer" target="_blank">Preview</a>
       <button className="focus-on-light fake-link" onClick={handleAssignClick} type="button">Assign</button>
