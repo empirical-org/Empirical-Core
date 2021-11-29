@@ -360,7 +360,7 @@ class Teachers::UnitsController < ApplicationController
       index_of_extant_classroom = classrooms.find_index { |c| c['id'] == record['classroom_id'] }
       name = grouped_name(record)
 
-      next if record['post_test_id'] && index_of_extant_classroom && classrooms[index_of_extant_classroom]['diagnostics'].find { |diagnostic| diagnostic['name'] == name }
+      next if record['post_test_id'] && index_of_extant_classroom && classrooms[index_of_extant_classroom]['diagnostics'].find { |diagnostic| diagnostic[:name] == name }
 
       grouped_record = {
         name: name,
