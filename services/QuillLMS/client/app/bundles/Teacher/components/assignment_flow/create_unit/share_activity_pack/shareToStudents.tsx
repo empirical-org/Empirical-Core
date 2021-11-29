@@ -21,7 +21,7 @@ const addStudentsSrc = `${process.env.CDN_URL}/images/illustrations/add-students
 const addShareActivityPackSrc = `${process.env.CDN_URL}/images/icons/icons-share-activity-pack.svg`
 const shareActivitySrc = `${process.env.CDN_URL}/images/icons/icons-share.svg`
 
-const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
+export const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
 
   const unitId = window.localStorage.getItem(UNIT_ID);
   const classrooms = JSON.parse(window.localStorage.getItem(ASSIGNED_CLASSROOMS));

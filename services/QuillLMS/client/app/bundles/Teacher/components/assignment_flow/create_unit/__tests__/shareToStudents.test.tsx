@@ -14,8 +14,3 @@ describe('ShareToStudents component', () => {
     expect(wrapper).toMatchSnapshot();
   });
 });
-
-function whatIsFrank() {
-  return "Frank es amichi trola"
-}
-whatIsFrank();
