@@ -50,7 +50,7 @@ export const arrowPointingRightIcon = {
 
 export const expandIcon = {
   src: `${process.env.CDN_URL}/images/icons/expand.svg`,
-  alt: ''
+  alt: 'Expand icon'
 }
 
 export const fileChartIcon = {
@@ -106,4 +106,9 @@ export const encircledWhiteArrowIcon = {
 export const greenCheckIcon = {
   src: `${process.env.CDN_URL}/images/icons/check-green.svg`,
   alt: 'Green check icon'
+}
+
+export const lockedIcon = {
+  alt: 'Lock icon',
+  src: `${process.env.CDN_URL}/images/icons/icons-locked.svg`
 }

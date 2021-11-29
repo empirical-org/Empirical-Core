@@ -107,25 +107,25 @@ describe Teachers::UnitsController, type: :controller do
 
       expected_response = [
         {
-          "name" => diagnostic_activity.name,
-          "id" => diagnostic_activity.id,
-          "individual_assignments" => [
-            {
-              "assigned_count" => 1,
-              "completed_count" => 1,
-              "classroom_name" =>  classroom.name,
-              "activity_name" =>  diagnostic_activity.name,
-              "activity_id" => diagnostic_activity.id,
-              "unit_id" => unit.id,
-              "unit_name" => unit.name,
-              "classroom_id" => classroom.id,
-              "assigned_date" =>  unit_activity.created_at
+          name: classroom.name,
+          id: classroom.id,
+          diagnostics: [
+            name: diagnostic_activity.name,
+            pre: {
+              assigned_student_ids: classroom_unit.assigned_student_ids,
+              classroom_name: classroom.name,
+              activity_name: diagnostic_activity.name,
+              activity_id: diagnostic_activity.id,
+              unit_id: unit.id,
+              unit_name: unit.name,
+              classroom_id: classroom.id,
+              assigned_date: unit_activity.created_at,
+              post_test_id: diagnostic_activity.follow_up_activity_id,
+              classroom_unit_id: classroom_unit.id,
+              completed_count: 1,
+              assigned_count: 1
             }
-          ],
-          "last_assigned" =>  unit_activity.created_at,
-          "classes_count" => 1,
-          "total_assigned" => 1,
-          "total_completed" => 1
+          ]
         }
       ]
       expect(response.body).to eq(expected_response.to_json)

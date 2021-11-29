@@ -1,0 +1,548 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GrowthResults component should render when there are no results 1`] = `
+<GrowthResults
+  location={
+    Object {
+      "search": "",
+    }
+  }
+  match={
+    Object {
+      "params": Object {
+        "activityId": 0,
+        "classroomId": 6,
+      },
+    }
+  }
+  mobileNavigation={<span />}
+  passedSkillGroupSummaries={
+    Array [
+      Object {
+        "description": null,
+        "name": "Compound-Complex Sentences",
+        "not_yet_proficient_in_post_test_student_names": Array [],
+        "not_yet_proficient_in_pre_test_student_names": Array [],
+      },
+      Object {
+        "description": null,
+        "name": "Appositive Phrases",
+        "not_yet_proficient_in_post_test_student_names": Array [],
+        "not_yet_proficient_in_pre_test_student_names": Array [],
+      },
+      Object {
+        "description": null,
+        "name": "Relative Clauses",
+        "not_yet_proficient_in_post_test_student_names": Array [],
+        "not_yet_proficient_in_pre_test_student_names": Array [],
+      },
+      Object {
+        "description": null,
+        "name": "Participal Phrases",
+        "not_yet_proficient_in_post_test_student_names": Array [],
+        "not_yet_proficient_in_pre_test_student_names": Array [],
+      },
+      Object {
+        "description": null,
+        "name": "Parallel Structure",
+        "not_yet_proficient_in_post_test_student_names": Array [],
+        "not_yet_proficient_in_pre_test_student_names": Array [],
+      },
+      Object {
+        "description": null,
+        "name": "Advanced Combining",
+        "not_yet_proficient_in_post_test_student_names": Array [],
+        "not_yet_proficient_in_pre_test_student_names": Array [],
+      },
+      Object {
+        "description": null,
+        "name": "Subject-Verb Agreement",
+        "not_yet_proficient_in_post_test_student_names": Array [],
+        "not_yet_proficient_in_pre_test_student_names": Array [],
+      },
+      Object {
+        "description": null,
+        "name": "Nouns, Pronouns, and Verbs",
+        "not_yet_proficient_in_post_test_student_names": Array [],
+        "not_yet_proficient_in_pre_test_student_names": Array [],
+      },
+    ]
+  }
+  passedStudentResults={
+    Array [
+      Object {
+        "name": "Ken Liu",
+      },
+      Object {
+        "name": "Tahereh Mafi",
+      },
+      Object {
+        "name": "Jason Reynolds",
+      },
+      Object {
+        "name": "Nic Stone",
+      },
+      Object {
+        "name": "Angie Thomas",
+      },
+    ]
+  }
+>
+  <_default>
+    <div
+      className="spinner-container"
+    >
+      <img
+        className="spinner"
+        src="/images/loader_still.svg"
+      />
+    </div>
+  </_default>
+</GrowthResults>
+`;
+
+exports[`GrowthResults component should render when there are results 1`] = `
+<GrowthResults
+  location={
+    Object {
+      "search": "",
+    }
+  }
+  match={
+    Object {
+      "params": Object {
+        "activityId": 0,
+        "classroomId": 6,
+      },
+    }
+  }
+  mobileNavigation={<span />}
+  passedSkillGroupSummaries={
+    Array [
+      Object {
+        "description": null,
+        "name": "Capitalization",
+        "not_yet_proficient_in_post_test_student_names": Array [],
+        "not_yet_proficient_in_pre_test_student_names": Array [
+          "Angie Thomas",
+        ],
+      },
+      Object {
+        "description": null,
+        "name": "Plural and Possessive Nouns",
+        "not_yet_proficient_in_post_test_student_names": Array [
+          "Angie Thomas",
+        ],
+        "not_yet_proficient_in_pre_test_student_names": Array [
+          "Angie Thomas",
+        ],
+      },
+      Object {
+        "description": null,
+        "name": "Adjectives and Adverbs",
+        "not_yet_proficient_in_post_test_student_names": Array [
+          "Angie Thomas",
+        ],
+        "not_yet_proficient_in_pre_test_student_names": Array [
+          "Angie Thomas",
+        ],
+      },
+      Object {
+        "description": null,
+        "name": "Prepositional Phrases",
+        "not_yet_proficient_in_post_test_student_names": Array [
+          "Angie Thomas",
+        ],
+        "not_yet_proficient_in_pre_test_student_names": Array [
+          "Angie Thomas",
+        ],
+      },
+      Object {
+        "description": null,
+        "name": "Compound Subjects, Objects, and Predicates",
+        "not_yet_proficient_in_post_test_student_names": Array [],
+        "not_yet_proficient_in_pre_test_student_names": Array [
+          "Angie Thomas",
+        ],
+      },
+      Object {
+        "description": null,
+        "name": "Commonly Confused Words",
+        "not_yet_proficient_in_post_test_student_names": Array [],
+        "not_yet_proficient_in_pre_test_student_names": Array [
+          "Angie Thomas",
+        ],
+      },
+    ]
+  }
+  passedStudentResults={
+    Array [
+      Object {
+        "name": "Ken Liu",
+      },
+      Object {
+        "name": "Tahereh Mafi",
+      },
+      Object {
+        "name": "Jason Reynolds",
+      },
+      Object {
+        "name": "Nic Stone",
+      },
+      Object {
+        "id": 7,
+        "name": "Angie Thomas",
+        "skill_groups": Array [
+          Object {
+            "acquired_skill_ids": Array [
+              1,
+            ],
+            "id": 3,
+            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "post_test_proficiency": "Proficiency",
+            "pre_test_proficiency": "No proficiency",
+            "proficiency_text": "Gained proficiency",
+            "skill_group": "Capitalization",
+            "skills": Array [
+              Object {
+                "post": Object {
+                  "id": 1,
+                  "number_correct": 2,
+                  "number_incorrect": 0,
+                  "skill": "Capitalization",
+                  "summary": "Fully correct",
+                },
+                "pre": Object {
+                  "id": 1,
+                  "number_correct": 1,
+                  "number_incorrect": 1,
+                  "skill": "Capitalization",
+                  "summary": "Partially correct",
+                },
+              },
+            ],
+          },
+          Object {
+            "acquired_skill_ids": Array [],
+            "id": 4,
+            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "post_test_proficiency": "No proficiency",
+            "pre_test_proficiency": "No proficiency",
+            "proficiency_text": "No proficiency",
+            "skill_group": "Plural and Possessive Nouns",
+            "skills": Array [
+              Object {
+                "post": Object {
+                  "id": 2,
+                  "number_correct": 0,
+                  "number_incorrect": 2,
+                  "skill": "Plural vs. Possessive Nouns",
+                  "summary": "Not correct",
+                },
+                "pre": Object {
+                  "id": 2,
+                  "number_correct": 0,
+                  "number_incorrect": 2,
+                  "skill": "Plural vs. Possessive Nouns",
+                  "summary": "Not correct",
+                },
+              },
+            ],
+          },
+          Object {
+            "acquired_skill_ids": Array [
+              3,
+              5,
+              7,
+              8,
+            ],
+            "id": 5,
+            "number_of_correct_skills_text": "5 of 6 skills correct",
+            "post_test_proficiency": "Partial proficiency",
+            "pre_test_proficiency": "Partial proficiency",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Adjectives and Adverbs",
+            "skills": Array [
+              Object {
+                "post": Object {
+                  "id": 3,
+                  "number_correct": 1,
+                  "number_incorrect": 0,
+                  "skill": "Adverbs of Manner",
+                  "summary": "Fully correct",
+                },
+                "pre": Object {
+                  "id": 3,
+                  "number_correct": 0,
+                  "number_incorrect": 1,
+                  "skill": "Adverbs of Manner",
+                  "summary": "Not correct",
+                },
+              },
+              Object {
+                "post": Object {
+                  "id": 4,
+                  "number_correct": 1,
+                  "number_incorrect": 0,
+                  "skill": "Single Adjectives",
+                  "summary": "Fully correct",
+                },
+                "pre": Object {
+                  "id": 4,
+                  "number_correct": 1,
+                  "number_incorrect": 0,
+                  "skill": "Single Adjectives",
+                  "summary": "Fully correct",
+                },
+              },
+              Object {
+                "post": Object {
+                  "id": 5,
+                  "number_correct": 2,
+                  "number_incorrect": 0,
+                  "skill": "Comparative Adjectives",
+                  "summary": "Fully correct",
+                },
+                "pre": Object {
+                  "id": 5,
+                  "number_correct": 1,
+                  "number_incorrect": 1,
+                  "skill": "Comparative Adjectives",
+                  "summary": "Partially correct",
+                },
+              },
+              Object {
+                "post": Object {
+                  "id": 6,
+                  "number_correct": 0,
+                  "number_incorrect": 1,
+                  "skill": "Coordinate Adjectives",
+                  "summary": "Not correct",
+                },
+                "pre": Object {
+                  "id": 6,
+                  "number_correct": 0,
+                  "number_incorrect": 1,
+                  "skill": "Coordinate Adjectives",
+                  "summary": "Not correct",
+                },
+              },
+              Object {
+                "post": Object {
+                  "id": 7,
+                  "number_correct": 1,
+                  "number_incorrect": 0,
+                  "skill": "Cumulative Adjectives",
+                  "summary": "Fully correct",
+                },
+                "pre": Object {
+                  "id": 7,
+                  "number_correct": 0,
+                  "number_incorrect": 1,
+                  "skill": "Cumulative Adjectives",
+                  "summary": "Not correct",
+                },
+              },
+              Object {
+                "post": Object {
+                  "id": 8,
+                  "number_correct": 1,
+                  "number_incorrect": 0,
+                  "skill": "Adjectives and Adverbs",
+                  "summary": "Fully correct",
+                },
+                "pre": Object {
+                  "id": 8,
+                  "number_correct": 0,
+                  "number_incorrect": 1,
+                  "skill": "Adjectives and Adverbs",
+                  "summary": "Not correct",
+                },
+              },
+            ],
+          },
+          Object {
+            "acquired_skill_ids": Array [
+              9,
+            ],
+            "id": 6,
+            "number_of_correct_skills_text": "2 of 3 skills correct",
+            "post_test_proficiency": "Partial proficiency",
+            "pre_test_proficiency": "Partial proficiency",
+            "proficiency_text": "Partial proficiency",
+            "skill_group": "Prepositional Phrases",
+            "skills": Array [
+              Object {
+                "post": Object {
+                  "id": 9,
+                  "number_correct": 3,
+                  "number_incorrect": 0,
+                  "skill": "Subject-Verb Agreement",
+                  "summary": "Fully correct",
+                },
+                "pre": Object {
+                  "id": 9,
+                  "number_correct": 1,
+                  "number_incorrect": 2,
+                  "skill": "Subject-Verb Agreement",
+                  "summary": "Partially correct",
+                },
+              },
+              Object {
+                "post": Object {
+                  "id": 10,
+                  "number_correct": 1,
+                  "number_incorrect": 0,
+                  "skill": "Prepositional Phrases",
+                  "summary": "Fully correct",
+                },
+                "pre": Object {
+                  "id": 10,
+                  "number_correct": 1,
+                  "number_incorrect": 0,
+                  "skill": "Prepositional Phrases",
+                  "summary": "Fully correct",
+                },
+              },
+              Object {
+                "post": Object {
+                  "id": 11,
+                  "number_correct": 0,
+                  "number_incorrect": 1,
+                  "skill": "Adjectives, Adverbs, & Prepositional Phrases",
+                  "summary": "Not correct",
+                },
+                "pre": Object {
+                  "id": 11,
+                  "number_correct": 1,
+                  "number_incorrect": 0,
+                  "skill": "Adjectives, Adverbs, & Prepositional Phrases",
+                  "summary": "Fully correct",
+                },
+              },
+            ],
+          },
+          Object {
+            "acquired_skill_ids": Array [
+              12,
+            ],
+            "id": 7,
+            "number_of_correct_skills_text": "4 of 4 skills correct",
+            "post_test_proficiency": "Proficiency",
+            "pre_test_proficiency": "Partial proficiency",
+            "proficiency_text": "Gained proficiency",
+            "skill_group": "Compound Subjects, Objects, and Predicates",
+            "skills": Array [
+              Object {
+                "post": Object {
+                  "id": 12,
+                  "number_correct": 3,
+                  "number_incorrect": 0,
+                  "skill": "Subject-Verb Agreement",
+                  "summary": "Fully correct",
+                },
+                "pre": Object {
+                  "id": 12,
+                  "number_correct": 1,
+                  "number_incorrect": 2,
+                  "skill": "Subject-Verb Agreement",
+                  "summary": "Partially correct",
+                },
+              },
+              Object {
+                "post": Object {
+                  "id": 13,
+                  "number_correct": 1,
+                  "number_incorrect": 0,
+                  "skill": "Listing Objects",
+                  "summary": "Fully correct",
+                },
+                "pre": Object {
+                  "id": 13,
+                  "number_correct": 1,
+                  "number_incorrect": 0,
+                  "skill": "Listing Objects",
+                  "summary": "Fully correct",
+                },
+              },
+              Object {
+                "post": Object {
+                  "id": 14,
+                  "number_correct": 1,
+                  "number_incorrect": 0,
+                  "skill": "Compound Subjects",
+                  "summary": "Fully correct",
+                },
+                "pre": Object {
+                  "id": 14,
+                  "number_correct": 1,
+                  "number_incorrect": 0,
+                  "skill": "Compound Subjects",
+                  "summary": "Fully correct",
+                },
+              },
+              Object {
+                "post": Object {
+                  "id": 15,
+                  "number_correct": 1,
+                  "number_incorrect": 0,
+                  "skill": "Compound Predicates",
+                  "summary": "Fully correct",
+                },
+                "pre": Object {
+                  "id": 15,
+                  "number_correct": 1,
+                  "number_incorrect": 0,
+                  "skill": "Compound Predicates",
+                  "summary": "Fully correct",
+                },
+              },
+            ],
+          },
+          Object {
+            "acquired_skill_ids": Array [
+              16,
+            ],
+            "id": 8,
+            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "post_test_proficiency": "Proficiency",
+            "pre_test_proficiency": "No proficiency",
+            "proficiency_text": "Gained proficiency",
+            "skill_group": "Commonly Confused Words",
+            "skills": Array [
+              Object {
+                "post": Object {
+                  "id": 16,
+                  "number_correct": 2,
+                  "number_incorrect": 0,
+                  "skill": "Commonly Confused Words",
+                  "summary": "Fully correct",
+                },
+                "pre": Object {
+                  "id": 16,
+                  "number_correct": 1,
+                  "number_incorrect": 1,
+                  "skill": "Commonly Confused Words",
+                  "summary": "Partially correct",
+                },
+              },
+            ],
+          },
+        ],
+        "total_acquired_skills_count": 8,
+      },
+    ]
+  }
+>
+  <_default>
+    <div
+      className="spinner-container"
+    >
+      <img
+        className="spinner"
+        src="/images/loader_still.svg"
+      />
+    </div>
+  </_default>
+</GrowthResults>
+`;

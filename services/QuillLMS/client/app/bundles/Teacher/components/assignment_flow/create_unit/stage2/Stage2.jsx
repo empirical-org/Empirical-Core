@@ -3,10 +3,13 @@ import React from 'react';
 import NameTheUnit from './name_the_unit';
 import ReviewActivities from './review_activities'
 import AssignStudents from './assign_students'
+import SkipRecommendationsWarningModal from './skipRecommendationsWarningModal'
+import OverrideWarningModal from './overrideWarningModal'
 
 import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 import AssignmentFlowNavigation from '../../assignment_flow_navigation.tsx'
 import ScrollToTop from '../../../shared/scroll_to_top'
+import { postTestClassAssignmentLockedMessages } from '../../assignmentFlowConstants'
 
 export default class Stage2 extends React.Component {
   constructor(props) {
@@ -42,8 +45,12 @@ export default class Stage2 extends React.Component {
 
   handleClickAssign = () => {
     const { timesSubmitted, } = this.state
-    const { errorMessage, finish, } = this.props
-    if (this.buttonEnabled() && !errorMessage) {
+    const { errorMessage, finish, alreadyCompletedDiagnosticStudentNames, notYetCompletedPreTestStudentNames, } = this.props
+    if (alreadyCompletedDiagnosticStudentNames.length) {
+      this.setState({ showOverrideWarningModal: true })
+    } else if (notYetCompletedPreTestStudentNames.length) {
+      this.setState({ showSkipRecommendationsWarningModal: true, })
+    } else if (this.buttonEnabled() && !errorMessage) {
       this.setState({ loading: true, });
       finish();
     } else {
@@ -51,17 +58,64 @@ export default class Stage2 extends React.Component {
     }
   };
 
+  onAssignDespiteWarning = () => {
+    const { finish, } = this.props
+    this.setState({ loading: true, });
+    finish();
+  }
+
+  closeSkipRecommendationsWarningModal = () => {
+    this.setState({ showSkipRecommendationsWarningModal: false, })
+  }
+
+  closeOverrideWarningModal = () => {
+    this.setState({ showOverrideWarningModal: false, })
+  }
+
+  renderOverrideWarningModal() {
+    const { showOverrideWarningModal, } = this.state
+    const { alreadyCompletedDiagnosticStudentNames, unitTemplateName, } = this.props
+
+    if (!showOverrideWarningModal) { return }
+
+    return (<OverrideWarningModal
+      activityName={unitTemplateName}
+      handleClickAssign={this.onAssignDespiteWarning}
+      handleCloseModal={this.closeOverrideWarningModal}
+      studentNames={alreadyCompletedDiagnosticStudentNames}
+    />)
+  }
+
+  renderSkipRecommendationsWarningModal() {
+    const { showSkipRecommendationsWarningModal, } = this.state
+    const { notYetCompletedPreTestStudentNames, restrictedActivity, } = this.props
+
+    if (!showSkipRecommendationsWarningModal) { return }
+
+    return (<SkipRecommendationsWarningModal
+      handleClickAssign={this.onAssignDespiteWarning}
+      handleCloseModal={this.closeSkipRecommendationsWarningModal}
+      restrictedActivityId={restrictedActivity.id}
+      studentNames={notYetCompletedPreTestStudentNames}
+    />)
+  }
+
   renderAssignStudentsSection() {
     const {
       toggleClassroomSelection,
       toggleStudentSelection,
       user,
       classrooms,
-      fetchClassrooms
+      fetchClassrooms,
+      lockedClassroomIds,
+      restrictedActivity,
     } = this.props
+
     return (<AssignStudents
       classrooms={classrooms}
       fetchClassrooms={fetchClassrooms}
+      lockedClassroomIds={lockedClassroomIds}
+      lockedMessage={restrictedActivity ? postTestClassAssignmentLockedMessages[restrictedActivity.id] : ''}
       toggleClassroomSelection={toggleClassroomSelection}
       toggleStudentSelection={toggleStudentSelection}
       user={user}
@@ -98,6 +152,8 @@ export default class Stage2 extends React.Component {
     const { unitTemplateName, unitTemplateId, selectedActivities, isFromDiagnosticPath, } = this.props
     return (
       <div>
+        {this.renderOverrideWarningModal()}
+        {this.renderSkipRecommendationsWarningModal()}
         <ScrollToTop />
         <AssignmentFlowNavigation
           button={this.assignButton()}

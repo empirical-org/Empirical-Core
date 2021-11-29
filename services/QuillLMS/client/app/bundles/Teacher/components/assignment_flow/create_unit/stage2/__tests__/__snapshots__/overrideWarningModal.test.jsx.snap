@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OverrideWarningModal component should render 1`] = `
+<OverrideWarningModal
+  activityName="Activity Name"
+  handleClickAssign={[Function]}
+  handleCloseModal={[Function]}
+  studentNames={
+    Array [
+      "Student Name",
+    ]
+  }
+>
+  <div
+    className="modal-container override-warning-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="override-warning-modal quill-modal"
+    >
+      <div
+        className="override-warning-modal-header"
+      >
+        <h3
+          className="title"
+        >
+          Are you sure you want to assign this diagnostic?
+        </h3>
+      </div>
+      <div
+        className="override-warning-modal-body modal-body"
+      >
+        <p>
+          <Tooltip
+            tooltipText="Student Name"
+            tooltipTriggerText="1 student"
+          >
+            <span
+              className="quill-tooltip-trigger"
+            >
+              <span
+                className="undefined"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                tabIndex={null}
+              >
+                1 student
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
+           
+          has
+           already completed the 
+          Activity Name
+          . If you assign the diagnostic to them, they can take it again, but it will override their scores.
+        </p>
+      </div>
+      <div
+        className="override-warning-modal-footer"
+      >
+        <div
+          className="buttons"
+        >
+          <button
+            className="quill-button outlined secondary medium focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            className="quill-button contained primary medium focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            Yes, assign
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</OverrideWarningModal>
+`;

@@ -12,8 +12,8 @@ module PusherRecommendationCompleted
     if lesson
       pusher_client.trigger(
         classroom.id.to_s,
-       "#{unit_template_id}-lesson-assigned",
-       message: "Unit Template #{unit_template_id} assigned to #{classroom.name}."
+       "lessons-recommendations-assigned",
+       message: "Lessons recommendations assigned to #{classroom.name}."
      )
     else
       pusher_client.trigger(

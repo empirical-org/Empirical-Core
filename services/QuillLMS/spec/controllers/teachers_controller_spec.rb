@@ -186,7 +186,7 @@ describe TeachersController, type: :controller do
     describe '#diagnostic_info_for_dashboard_mini' do
       let!(:diagnostic) { create(:diagnostic) }
       let!(:diagnostic_activity1) { create(:diagnostic_activity) }
-      let!(:diagnostic_activity2) { create(:diagnostic_activity) }
+      let!(:diagnostic_activity2) { create(:diagnostic_activity, follow_up_activity_id: diagnostic_activity1.id) }
 
       context 'the teacher has not assigned any diagnostics' do
         it 'returns an empty array' do
@@ -212,6 +212,8 @@ describe TeachersController, type: :controller do
               classroom_name: classroom.name,
               activity_name: diagnostic_activity2.name,
               activity_id: diagnostic_activity2.id,
+              post_test_id: diagnostic_activity2.follow_up_activity_id,
+              pre_test_id: nil,
               unit_id: unit.id,
               classroom_id: classroom.id
             },
@@ -221,6 +223,8 @@ describe TeachersController, type: :controller do
               classroom_name: classroom.name,
               activity_name: diagnostic_activity1.name,
               activity_id: diagnostic_activity1.id,
+              post_test_id: nil,
+              pre_test_id: diagnostic_activity2.id,
               unit_id: unit.id,
               classroom_id: classroom.id
             }
@@ -248,6 +252,8 @@ describe TeachersController, type: :controller do
               classroom_name: classroom.name,
               activity_name: diagnostic_activity2.name,
               activity_id: diagnostic_activity2.id,
+              post_test_id: diagnostic_activity2.follow_up_activity_id,
+              pre_test_id: nil,
               unit_id: unit.id,
               classroom_id: classroom.id
             },
@@ -257,6 +263,8 @@ describe TeachersController, type: :controller do
               classroom_name: classroom.name,
               activity_name: diagnostic_activity1.name,
               activity_id: diagnostic_activity1.id,
+              post_test_id: nil,
+              pre_test_id: diagnostic_activity2.id,
               unit_id: unit.id,
               classroom_id: classroom.id
             }
