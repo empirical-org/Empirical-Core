@@ -343,7 +343,7 @@ namespace :skills_and_skill_groups do
           {
             name: 'Compound-Complex Sentences',
             concepts: [
-              { uid: 'asfdGCdbTy6l8xTe-_p6Qg' }
+              { uid: 'bUXGBv_hTPeUlibp6-Ao3w' }
             ]
           }
         ]
@@ -356,13 +356,13 @@ namespace :skills_and_skill_groups do
           {
             name: 'Appositive Phrases',
             concepts: [
-              { uid: '8Bzwt0RLr4-IG1L4YxsGZA' }
+              { uid: 'md7xqmz2vjs8sh-3Pumqwg' }
             ]
           },
           {
             name: 'Modifying Phrases',
             concepts: [
-              { uid: '8Bzwt0RLr4-IG1L4YxsGZA' }
+              { uid: 'IhH8D2hPELl4AZP7Ec42sQ' }
             ]
           }
         ]
@@ -375,26 +375,31 @@ namespace :skills_and_skill_groups do
           {
             name: 'Relative Clausess',
             concepts: [
-              { uid: 'bZmNou1vg97xYkCKG6sfTg' }
+              { uid: '-ZkbO776nFPW06xL5UQMNA' }
             ]
           }
         ]
       },
       {
-        name: 'Participal Phrases',
+        name: 'Participial Phrases',
         order_number: 3,
         description: 'Students who show proficiency in this skill will form a participial phrase from a kernel sentence and add it as description to a noun. Students will place it in the correct place—either at the beginning, middle, or end of the sentence—and punctuate it correctly based on its placement.',
         skills: [
           {
             name: 'Participial Phrases',
             concepts: [
-              { uid: 'OVXt5ljhdLSvdpszm4JEAg' }
+              { uid: 'cmU9O9n6QYdxq3XfPmbOQQ' },
+              { uid: 'cq-tMtMyIGhwOsmdkfrjWQ' },
+              { uid: 'My0PBSzHRgjtXMfgeGPZ4w' },
+              { uid: '-0kcxL-eAP89oLWwMVlUUA' },
+              { uid: 'GLjAExmqZShBTZ7DQGvVLw' },
+              { uid: 'lgyXHH7g8NXE25o5fPerSw' }
             ]
           },
           {
             name: 'Modifying Phrases',
             concepts: [
-              { uid: 'OVXt5ljhdLSvdpszm4JEAg' }
+              { uid: 'IhH8D2hPELl4AZP7Ec42sQ' }
             ]
           }
         ]
@@ -420,7 +425,7 @@ namespace :skills_and_skill_groups do
           {
             name: 'Advanced Sentence Combining',
             concepts: [
-              { uid: '66upe3S5uvqxuHoHOt4PcQ' }
+              { uid: 'V9ytDF4ljU-AsisRCF7qdw' }
             ]
           }
         ]
@@ -527,7 +532,7 @@ namespace :skills_and_skill_groups do
           {
             name: 'Appositive Phrases',
             concepts: [
-              { uid: '8Bzwt0RLr4-IG1L4YxsGZA' }
+              { uid: 'md7xqmz2vjs8sh-3Pumqwg' }
             ]
           }
         ]
@@ -540,20 +545,20 @@ namespace :skills_and_skill_groups do
           {
             name: 'Relative Clausess',
             concepts: [
-              { uid: 'bZmNou1vg97xYkCKG6sfTg' }
+              { uid: '-ZkbO776nFPW06xL5UQMNA' }
             ]
           }
         ]
       },
       {
-        name: 'Participal Phrases',
+        name: 'Participial Phrases',
         order_number: 3,
         description: 'Students who show proficiency in this skill will form a participial phrase from a kernel sentence and add it as description to a noun. Students will place it in the correct place—either at the beginning, middle, or end of the sentence—and punctuate it correctly based on its placement.',
         skills: [
           {
             name: 'Participial Phrases',
             concepts: [
-              { uid: 'OVXt5ljhdLSvdpszm4JEAg' }
+              { uid: 'lgyXHH7g8NXE25o5fPerSw' }
             ]
           }
         ]
@@ -578,7 +583,7 @@ namespace :skills_and_skill_groups do
     [
       {
         name: 'Compound Subjects, Objects, and Predicates',
-        order_number: 4,
+        order_number: 0,
         description: 'Students who show proficiency in this skill group will correctly form compound subjects, objects, and predicates, and will use correct punctuation when forming these structures. Students will also use correct subject-verb agreement when combining two singular subjects into a compound subject.',
         skills: [
           {
@@ -694,7 +699,7 @@ namespace :skills_and_skill_groups do
       },
       {
         name: 'Commonly Confused Words',
-        order_number: 5,
+        order_number: 6,
         description: 'Students who show proficiency in this skill will make the correct choice between the commonly confused words <i>your</i> and <i>you\'re</i>, and <i>their</i>, <i>they\'re</i>, and <i>there</i>.',
         skills: [
           {
@@ -744,13 +749,13 @@ namespace :skills_and_skill_groups do
           {
             name: 'Appositive Phrases',
             concepts: [
-              { uid: '8Bzwt0RLr4-IG1L4YxsGZA' }
+              { uid: 'md7xqmz2vjs8sh-3Pumqwg' }
             ]
           }
         ]
       },
       {
-        name: 'Participal Phrases',
+        name: 'Participial Phrases',
         order_number: 2,
         description: 'Students who show proficiency in this skill will form a participial phrase from a kernel sentence and add it as description to a noun. Students will place it in the correct place—either at the beginning, middle, or end of the sentence—and punctuate it correctly based on its placement.',
         skills: [
@@ -762,7 +767,7 @@ namespace :skills_and_skill_groups do
               { uid: 'My0PBSzHRgjtXMfgeGPZ4w' },
               { uid: '-0kcxL-eAP89oLWwMVlUUA' },
               { uid: 'GLjAExmqZShBTZ7DQGvVLw' },
-              { uid: 'OVXt5ljhdLSvdpszm4JEAg' }
+              { uid: 'lgyXHH7g8NXE25o5fPerSw' }
             ]
           }
         ]
@@ -788,7 +793,7 @@ namespace :skills_and_skill_groups do
           {
             name: 'Compound-Complex Sentences',
             concepts: [
-              { uid: 'asfdGCdbTy6l8xTe-_p6Qg' }
+              { uid: 'bUXGBv_hTPeUlibp6-Ao3w' }
             ]
           }
         ]
@@ -801,7 +806,7 @@ namespace :skills_and_skill_groups do
           {
             name: 'Advanced Sentence Combining',
             concepts: [
-              { uid: '66upe3S5uvqxuHoHOt4PcQ' }
+              { uid: 'V9ytDF4ljU-AsisRCF7qdw' }
             ]
           }
         ]
@@ -1035,7 +1040,7 @@ namespace :skills_and_skill_groups do
           {
             name: 'Questions With Who',
             concepts: [
-              { uid: 'mYIxpj1zn8cbg8eXLA' }
+              { uid: 'nFK-mYIxpj1zn8cbg8eXLA' }
             ]
           },
           {
@@ -1214,7 +1219,7 @@ namespace :skills_and_skill_groups do
           {
             name: 'After',
             concepts: [
-              { uid: 'kg4OpNz9IoUPqx7rIxYN8g' }
+              { uid: 'w0-ACLZ4Y-A_VBz4tU7SFw' }
             ]
           }
         ]

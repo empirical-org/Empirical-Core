@@ -16,12 +16,6 @@
       document.body.insertBefore(skipLinks, document.body.firstChild);
     }
   </script>
-  <script>
-    window.___gcfg = {
-      parsetags: 'explicit'
-    };
-  </script>
-  <script src="https://apis.google.com/js/platform.js"></script>
   <body class="hide-focus-outline" id="body" onkeydown="handleTabNavigation(event)">
     <% flash.each do |key, value| %>
       <%= content_tag(:div, "<p>#{value}</p><i class='fas fa-times-circle' aria-hidden='true'></i>".html_safe, {class: "flash #{key}", onClick: "$(this).slideUp(300)"}) %>

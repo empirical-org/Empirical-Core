@@ -4,6 +4,11 @@ export interface ActivityRouteProps {
   promptConjunction?: string
 }
 
+export interface InvalidHighlight {
+  rule_id: number,
+  rule_type: string
+}
+
 export interface ActivityInterface {
   id?: string,
   parent_activity_id?: string,
@@ -15,7 +20,8 @@ export interface ActivityInterface {
   passages?: PassagesInterface[],
   prompts?: PromptInterface[],
   passage_attributes?: PassagesInterface[],
-  prompt_attributes?: PromptInterface[]
+  prompt_attributes?: PromptInterface[],
+  invalid_highlights: InvalidHighlight[]
 }
 
 export interface PromptInterface {

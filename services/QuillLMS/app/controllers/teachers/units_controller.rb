@@ -401,9 +401,9 @@ class Teachers::UnitsController < ApplicationController
     record['skills_count'] = 0
     if pre_test_activity_id
       record['skills_count'] = activity_sessions.reduce(0) do |sum, as|
-        post_correct_skill_ids = as.correct_skill_ids
-        pre_correct_skill_ids = ActivitySession.where(user_id: as.user_id, activity_id: pre_test_activity_id).order(completed_at: :desc).first.correct_skill_ids
-        total_acquired_skills_count = (post_correct_skill_ids - pre_correct_skill_ids).length
+        post_correct_skill_ids = as&.correct_skill_ids
+        pre_correct_skill_ids = ActivitySession.where(user_id: as.user_id, activity_id: pre_test_activity_id).order(completed_at: :desc).first&.correct_skill_ids
+        total_acquired_skills_count = post_correct_skill_ids && pre_correct_skill_ids ? (post_correct_skill_ids - pre_correct_skill_ids).length : 0
         sum += total_acquired_skills_count > 0 ? total_acquired_skills_count : 0
       end
     end

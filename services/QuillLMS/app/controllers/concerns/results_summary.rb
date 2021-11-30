@@ -6,11 +6,10 @@ module ResultsSummary
 
   extend self
 
-  def results_summary(current_user, activity_id, classroom_id, unit_id)
-    @current_user = current_user
+  def results_summary(activity_id, classroom_id, unit_id)
     activity = Activity.find(activity_id)
     @skill_groups = activity.skill_groups
-    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id, true)
+    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id, true)
     @skill_group_summaries = @skill_groups.map do |skill_group|
       {
         name: skill_group.name,
