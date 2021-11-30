@@ -141,7 +141,7 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
       shareUrl += `url=${link}&`;
       shareUrl += `title=${title}&`;
       shareUrl += `body=${body}`;
-      if(courseId) { shareUrl += `&courseid=` }
+      if(courseId) { shareUrl += `&courseid=${courseId}` }
       window.open(
         shareUrl,
         '_blank'
