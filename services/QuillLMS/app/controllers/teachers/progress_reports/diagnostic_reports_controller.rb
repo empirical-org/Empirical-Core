@@ -6,7 +6,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   include DiagnosticReports
   require 'pusher'
 
-  before_action :authorize_teacher!, only: [:question_view, :students_by_classroom, :recommendations_for_classroom, :lesson_recommendations_for_classroom, :previously_assigned_recommendations]
+  before_action :authorize_teacher!, only: [:question_view, :students_by_classroom, :recommendations_for_classroom, :lesson_recommendations_for_classroom, :previously_assigned_recommendations, :growth_results_summary, :results_summary]
 
   def show
     @classroom_id = current_user.classrooms_i_teach&.last&.id || nil
