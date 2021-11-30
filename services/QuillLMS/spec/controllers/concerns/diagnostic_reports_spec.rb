@@ -57,7 +57,7 @@ describe DiagnosticReports do
       let!(:activity_session2) { create(:activity_session, :finished, user: student2, classroom_unit: classroom_unit, activity: unit_activity.activity) }
 
       it 'should set the variables for all the final score activity sessions for that activity, classroom, and unit' do
-        set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(unit.user, unit_activity.activity_id, classroom.id, unit.id)
+        set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(unit_activity.activity_id, classroom.id, unit.id)
         expect(@assigned_students).to eq([student1, student2, student3])
         expect(@activity_sessions).to eq([activity_session1, activity_session2])
       end
@@ -82,7 +82,7 @@ describe DiagnosticReports do
       let!(:activity_session3) { create(:activity_session, :finished, user: student2, classroom_unit: classroom_unit2, activity: unit_activity1.activity) }
 
       it 'should set the variables for all the final score activity sessions for that activity, classroom, and unit, with only one per student' do
-        set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(unit1.user, unit_activity1.activity_id, classroom.id, nil)
+        set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(unit_activity1.activity_id, classroom.id, nil)
         expect(@assigned_students).to eq([student1, student2, student3])
         expect(@activity_sessions).to eq([activity_session3, activity_session1])
       end

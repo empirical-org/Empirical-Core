@@ -6,7 +6,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   include DiagnosticReports
   require 'pusher'
 
-  before_action :authorize_teacher!, only: [:question_view, :students_by_classroom, :recommendations_for_classroom, :lesson_recommendations_for_classroom, :previously_assigned_recommendations]
+  before_action :authorize_teacher!, only: [:question_view, :students_by_classroom, :recommendations_for_classroom, :lesson_recommendations_for_classroom, :previously_assigned_recommendations, :growth_results_summary, :results_summary]
 
   def show
     @classroom_id = current_user.classrooms_i_teach&.last&.id || nil
@@ -14,7 +14,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def question_view
-      set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, params[:activity_id], params[:classroom_id], params[:unit_id])
+      set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(params[:activity_id], params[:classroom_id], params[:unit_id])
       activity = Activity.includes(:classification)
                          .find(params[:activity_id])
       render json: { data: results_by_question(params[:activity_id]),
@@ -29,7 +29,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     activity_id = results_summary_params[:activity_id]
     classroom_id = results_summary_params[:classroom_id]
     unit_id = results_summary_params[:unit_id]
-    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id, true)
+    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id, true)
 
     render json: { students: diagnostic_student_responses }
   end
@@ -48,9 +48,9 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     student = User.find_by_id(student_id)
     skills = Activity.find(activity_id).skills.distinct
     pre_test = Activity.find_by_follow_up_activity_id(activity_id)
+    pre_test_activity_session = pre_test && find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, unit_id)
 
-    if pre_test
-      pre_test_activity_session = find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, unit_id)
+    if pre_test && pre_test_activity_session
       concept_results = {
         pre: { questions: format_concept_results(pre_test_activity_session.concept_results.order("(metadata->>'questionNumber')::int")) },
         post: { questions: format_concept_results(activity_session.concept_results.order("(metadata->>'questionNumber')::int")) }
@@ -184,12 +184,12 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def diagnostic_results_summary
-    render json: ResultsSummary.results_summary(current_user, results_summary_params[:activity_id], results_summary_params[:classroom_id], results_summary_params[:unit_id])
+    render json: ResultsSummary.results_summary(results_summary_params[:activity_id], results_summary_params[:classroom_id], results_summary_params[:unit_id])
   end
 
   def diagnostic_growth_results_summary
     pre_test = Activity.find_by(follow_up_activity_id: results_summary_params[:activity_id])
-    render json: GrowthResultsSummary.growth_results_summary(current_user, pre_test.id, results_summary_params[:activity_id], results_summary_params[:classroom_id])
+    render json: GrowthResultsSummary.growth_results_summary(pre_test.id, results_summary_params[:activity_id], results_summary_params[:classroom_id])
   end
 
   private def create_or_update_selected_packs
