@@ -38,7 +38,8 @@ export const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
 
   React.useEffect(() => {
     if (leaving) {
-      handleUnmount()
+      handleUnmount();
+      window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`;
     }
   }, [leaving]);
 
@@ -56,7 +57,6 @@ export const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
     window.localStorage.removeItem(ASSIGNED_CLASSROOMS);
     window.localStorage.removeItem(CLASSROOMS);
     window.localStorage.removeItem(UNIT_ID);
-    window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`;
   }
 
   function handleClick() {
