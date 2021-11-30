@@ -2,10 +2,8 @@ import React from 'react';
 
 import { requestGet } from '../../../modules/request';
 import WelcomeModal from '../components/dashboard/welcome_modal'
-import DemoModal from '../components/dashboard/demo_modal'
 import OnboardingChecklist from '../components/dashboard/onboarding_checklist'
 import DiagnosticMini from '../components/dashboard/diagnostic_mini'
-import ExploreDemoButton from '../components/dashboard/explore_demo_button'
 import LessonsMini from '../components/dashboard/lessons_mini'
 import ActivityFeed from '../components/dashboard/activity_feed'
 import HandyActions from '../components/dashboard/handy_actions'
@@ -23,20 +21,13 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
   const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
 
   const [showWelcomeModal, setShowWelcomeModal] = React.useState(mustSeeModal)
-  const [showDemoModal, setShowDemoModal] = React.useState(false)
 
   function closeWelcomeModal() { setShowWelcomeModal(false) }
-  function closeDemoModal() { setShowDemoModal(false) }
-  function handleExploreDemoClick() {
-    setShowDemoModal(true)
-  }
 
   if (!onboardingChecklist.every(obj => obj.checked)) {
     return (<div className="dashboard">
       {showWelcomeModal && <WelcomeModal close={closeWelcomeModal} size={size} />}
-      {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
       <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
-      <p>Or explore a teacher demo account to get the big picture</p>
     </div>)
   }
 
