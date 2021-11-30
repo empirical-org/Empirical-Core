@@ -106,6 +106,14 @@ export const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
     });
   }
 
+  function getSelectedClassroomId() {
+    if(classrooms && classrooms.length === 1) {
+      const classroomObject = classrooms[0];
+      const { classroom } = classroomObject;
+      return classroom.id;
+    }
+  }
+
   function renderInviteStudents() {
     const emptyClassrooms = classrooms.filter(c => !c.students.length)
     const numberOfClassroomsFirstText = `${emptyClassrooms.length} ${emptyClassrooms.length === 1 ? 'class' : 'classes'}`
@@ -151,6 +159,7 @@ export const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
       <ShareActivityPackModal
         activityPackData={activityPack}
         closeModal={handleToggleShareModal}
+        selectedClassroomId={getSelectedClassroomId()}
         singleActivity={singleActivity}
         unitId={unitId}
       />}
