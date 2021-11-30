@@ -184,12 +184,12 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def diagnostic_results_summary
-    render json: ResultsSummary.results_summary(current_user, results_summary_params[:activity_id], results_summary_params[:classroom_id], results_summary_params[:unit_id])
+    render json: ResultsSummary.results_summary(results_summary_params[:activity_id], results_summary_params[:classroom_id], results_summary_params[:unit_id])
   end
 
   def diagnostic_growth_results_summary
     pre_test = Activity.find_by(follow_up_activity_id: results_summary_params[:activity_id])
-    render json: GrowthResultsSummary.growth_results_summary(current_user, pre_test.id, results_summary_params[:activity_id], results_summary_params[:classroom_id])
+    render json: GrowthResultsSummary.growth_results_summary(pre_test.id, results_summary_params[:activity_id], results_summary_params[:classroom_id])
   end
 
   private def create_or_update_selected_packs

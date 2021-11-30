@@ -30,7 +30,7 @@ describe GrowthResultsSummary do
 
   describe '#growth_results_summary' do
     it 'should return data with the student results and skill group summaries' do
-      expect(growth_results_summary(pre_test_unit.user, pre_test_unit_activity.activity_id, post_test_unit_activity.activity_id, classroom.id)).to eq({
+      expect(growth_results_summary(pre_test_unit_activity.activity_id, post_test_unit_activity.activity_id, classroom.id)).to eq({
         skill_group_summaries: [
           {
             name: pre_test_skill_group_activity.skill_group.name,
