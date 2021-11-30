@@ -10,7 +10,6 @@ exports[`ShareActivityPackModal component should render 1`] = `
   <div
     className="google-classroom-share-activity-modal quill-modal modal-body"
   >
-    0
     <Spinner />
   </div>
 </div>
