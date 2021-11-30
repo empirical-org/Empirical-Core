@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CleverLibraryStudentImporterWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL

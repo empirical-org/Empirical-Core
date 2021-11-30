@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProgressReports::Concepts::User
   def self.results(teacher, filters)
     last_name = "substring(users.name, '(?=\s).*')"

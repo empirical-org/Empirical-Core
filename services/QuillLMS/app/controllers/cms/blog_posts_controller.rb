@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::BlogPostsController < Cms::CmsController
   before_action :set_blog_post, only: [:update, :destroy, :edit, :show, :unpublish]
   before_action :authors, :topics, only: [:index, :edit, :new]

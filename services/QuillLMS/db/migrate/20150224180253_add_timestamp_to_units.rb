@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddTimestampToUnits < ActiveRecord::Migration[4.2]
   def change
     add_column :units, :created_at, :datetime

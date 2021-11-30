@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateHomepageNewsSlides < ActiveRecord::Migration[4.2]
   def change
     create_table :homepage_news_slides do |t|

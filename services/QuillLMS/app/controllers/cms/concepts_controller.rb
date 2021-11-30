@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::ConceptsController < Cms::CmsController
   def index
     @js_file = 'staff'

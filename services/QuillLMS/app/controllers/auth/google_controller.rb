@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Auth::GoogleController < ApplicationController
   before_action :set_profile, only: [:authorization_and_authentication, :authentication]
   before_action :verify_authorization_for_offline_access, only: :authentication

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ConceptHelper
   def all_concept_stats(activity_session)
     return '' unless activity_session.present?

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserMailer < ActionMailer::Base
   include EmailApiHelper
   include ActionView::Helpers::NumberHelper

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::RostersController < Cms::CmsController
   before_action :signed_in!
 

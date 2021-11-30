@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Teacher
   extend ActiveSupport::Concern
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :rewrite_classroom_activities do
   desc 'create unit activities and classroom units from classroom activities'
 

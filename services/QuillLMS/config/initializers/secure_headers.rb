@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 SecureHeaders::Configuration.default do |config|
   default_config = {
     default_src: [

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::ActivitySurveyResponsesController < Api::ApiController
   before_action :activity_session_by_uid, only: [:create]
 

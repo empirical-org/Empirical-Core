@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :activity_classification, aliases: [:classification] do
     sequence(:id)  { |n| 100 + n } # prevent id collisions by starting ids at 100

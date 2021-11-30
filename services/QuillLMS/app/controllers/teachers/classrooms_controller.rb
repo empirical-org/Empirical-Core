@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Teachers::ClassroomsController < ApplicationController
   respond_to :json, :html, :pdf
   before_action :teacher!

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Profile::ActivitySerializer < ActiveModel::Serializer
   attributes :name, :description, :repeatable
   has_one :standard

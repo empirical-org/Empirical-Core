@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TeacherCenterHelper
   FAQ = 'FAQ'
   PREMIUM = 'Premium'

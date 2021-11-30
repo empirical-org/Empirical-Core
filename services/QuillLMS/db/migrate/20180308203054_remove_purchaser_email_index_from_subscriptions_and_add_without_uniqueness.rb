@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RemovePurchaserEmailIndexFromSubscriptionsAndAddWithoutUniqueness < ActiveRecord::Migration[4.2]
   def change
     # this was unique before, which we do not wantF

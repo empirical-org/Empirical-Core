@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Setup
   class CreateConcepts
     class_attribute :concepts

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration::Importers::Library
   def self.run(auth_hash)
     client = CleverLibrary::Api::Client.new(auth_hash.credentials.token)

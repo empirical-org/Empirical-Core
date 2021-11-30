@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :objectives do
   desc 'create objectives'
   task :create => :environment do

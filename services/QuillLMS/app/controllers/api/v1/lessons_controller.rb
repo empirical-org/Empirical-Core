@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::LessonsController < Api::ApiController
   before_action :staff_only, only: [:destroy]
   before_action :lesson_type, only: [:index, :create]

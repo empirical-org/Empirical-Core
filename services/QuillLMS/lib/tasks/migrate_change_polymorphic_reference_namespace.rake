@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :migrate_change_polymorphic_reference_namespace do
   desc 'Update all polymorphic relationship references to use the new Evidence:: namespace'
   task :run => :environment do

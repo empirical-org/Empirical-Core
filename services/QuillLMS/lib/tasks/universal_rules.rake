@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :universal_rules do
   desc 'Add or update universal rules from CSV file'
   # Example usage: rake 'universal_rules:update_from_csv[grammar, rules.csv]'

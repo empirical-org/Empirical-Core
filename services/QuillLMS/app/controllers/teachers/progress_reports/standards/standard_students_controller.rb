@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Teachers::ProgressReports::Standards::StandardStudentsController < Teachers::ProgressReportsController
   def index
     classroom_id = params[:classroom_id].to_i

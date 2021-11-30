@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TeachersData
   # AVERAGE_TIME_SPENT was gathered from below query on 1/4/2016
   # https://dataclips.heroku.com/tympuxntqzshpmngbnbivaectbqm-average-time-per-activity_session?autosave=true
@@ -11,6 +13,8 @@ module TeachersData
   # will have no classrooms, etc.
 
   def self.run(teacher_ids)
+    return [] if teacher_ids.blank?
+
     teacher_ids_str = teacher_ids.join(', ')
     User.find_by_sql("SELECT
       users.id,

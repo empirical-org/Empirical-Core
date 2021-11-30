@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Fog.mock!
 Fog.credentials = {
   provider:              'AWS',

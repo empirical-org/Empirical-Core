@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration::SignUp::Student
   # teacher must have signed up first (importing associated students)
   def self.run(auth_hash)

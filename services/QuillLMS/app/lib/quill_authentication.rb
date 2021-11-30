@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module QuillAuthentication
   extend ActiveSupport::Concern
   include ActionController::Helpers

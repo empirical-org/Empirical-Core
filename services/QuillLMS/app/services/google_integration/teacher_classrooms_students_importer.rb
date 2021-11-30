@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GoogleIntegration
   class TeacherClassroomsStudentsImporter
     attr_reader :teacher, :selected_classroom_ids

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddIndicesToIpLocationsTable < ActiveRecord::Migration[4.2]
   def change
     add_index :ip_locations, :user_id

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateComprehensionHighlights < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_highlights do |t|

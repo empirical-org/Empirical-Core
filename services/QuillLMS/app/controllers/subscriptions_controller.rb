@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SubscriptionsController < ApplicationController
   before_action :set_subscription, except: [:index, :create]
   before_action :require_user, only: [:index]

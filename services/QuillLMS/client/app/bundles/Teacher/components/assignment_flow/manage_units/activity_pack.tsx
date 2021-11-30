@@ -11,7 +11,7 @@ import {
   defaultSnackbarTimeout,
 } from '../../../../Shared/index'
 import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor'
-import ShareActivityPackModal from '../create_unit/google_classroom/shareActivityPackModal';
+import ShareActivityPackModal from '../create_unit/share_activity_pack/shareActivityPackModal';
 import { requestGet } from '../../../../../modules/request';
 
 const multipleAccountSrc = `${process.env.CDN_URL}/images/icons/icons-account-multiple-check.svg`
@@ -89,6 +89,11 @@ const ActivityPack = ({
     }
   }
 
+  function getSelectableClassrooms() {
+    const { classrooms } = data;
+    return classrooms.map(classroom => classroom.name);
+  }
+
   let totalStudents = 0
   data.classrooms.forEach(classroom => totalStudents += Number(classroom.assignedStudentCount))
   const totalClassroomInfoCopy = `Assigned: ${data.classrooms.length} class${data.classrooms.length === 1 ? '' : 'es'}, ${totalStudents} student${totalStudents === 1 ? '' : 's'}`
@@ -122,6 +127,7 @@ const ActivityPack = ({
         closeModal={closeModal}
         selectedClassroomId={selectedClassroomId}
         selectedClassroomName={data && getSelectedClassroomName()}
+        selectableClassrooms={data && getSelectableClassrooms()}
         singleActivity={activityClicked}
         unitId={data && data.unitId}
       />}

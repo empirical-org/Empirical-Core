@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence
   class TurkingRoundsController < ApiController
     before_action :set_turking_round, only: [:show, :update, :destroy]

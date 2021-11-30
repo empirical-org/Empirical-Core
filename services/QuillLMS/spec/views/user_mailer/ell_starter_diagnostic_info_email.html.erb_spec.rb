@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe "user_mailer/ell_starter_diagnostic_info_email.html.erb", type: :view do

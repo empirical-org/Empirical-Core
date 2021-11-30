@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS act_id
 class Scorebook::Query
   SCORES_PER_PAGE = 10000

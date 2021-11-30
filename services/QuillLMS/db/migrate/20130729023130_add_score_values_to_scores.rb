@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddScoreValuesToScores < ActiveRecord::Migration[4.2]
   def change
     add_column :scores, :score_values, :text

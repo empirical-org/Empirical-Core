@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class QuestionHealthObj
   QUESTION_TYPE_TO_URL = {
     :connect_sentence_combining => 'questions',

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_context 'Concept Progress Report' do
   # Stats should come out like this:
   # name,         result_count,     correct_count,      incorrect_count,

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::CriteriaController < Cms::CmsController
   before_action :set_activity
   before_action :set_recommendation

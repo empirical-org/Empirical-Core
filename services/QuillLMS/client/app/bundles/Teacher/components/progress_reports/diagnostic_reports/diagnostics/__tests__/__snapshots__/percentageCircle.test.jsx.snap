@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PercentageCircle component should render 1`] = `
+<PercentageCircle
+  bgcolor="#ebebeb"
+  borderWidth={8}
+  color="#4ea500"
+  innerColor="#ffffff"
+  percent={55}
+  radius={52}
+>
+  <div
+    className="percentage-circle"
+    style={
+      Object {
+        "backgroundColor": "#ebebeb",
+        "borderRadius": 52,
+        "height": 104,
+        "width": 104,
+      }
+    }
+  >
+    <div
+      className="left-wrap"
+      style={
+        Object {
+          "height": 104,
+          "left": 0,
+          "width": 52,
+        }
+      }
+    >
+      <div
+        className="loader"
+        id="id1"
+        style={
+          Object {
+            "backgroundColor": "#4ea500",
+            "borderBottomLeftRadius": 0,
+            "borderTopLeftRadius": 0,
+            "height": 104,
+            "left": 52,
+            "transform": "rotate(18deg)",
+            "width": 52,
+          }
+        }
+      />
+    </div>
+    <div
+      className="right-wrap"
+      style={
+        Object {
+          "height": 104,
+          "left": 52,
+          "width": 52,
+        }
+      }
+    >
+      <div
+        className="loader2"
+        id="id2"
+        style={
+          Object {
+            "backgroundColor": "#4ea500",
+            "borderBottomRightRadius": 0,
+            "borderTopRightRadius": 0,
+            "height": 104,
+            "left": -52,
+            "transform": "rotate(180deg)",
+            "width": 52,
+          }
+        }
+      />
+    </div>
+    <div
+      className="inner-circle"
+      style={
+        Object {
+          "backgroundColor": "#ffffff",
+          "borderRadius": 44,
+          "height": 88,
+          "left": 8,
+          "top": 8,
+          "width": 88,
+        }
+      }
+    >
+      <span
+        className="text undefined"
+      >
+        55
+        %
+      </span>
+    </div>
+  </div>
+</PercentageCircle>
+`;

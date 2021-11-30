@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 gem 'google-api-client'
 gem 'launchy'
 gem 'activesupport'
