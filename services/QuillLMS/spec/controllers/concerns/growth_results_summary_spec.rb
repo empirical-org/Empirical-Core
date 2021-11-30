@@ -20,6 +20,7 @@ describe GrowthResultsSummary do
   let!(:post_test_skill_group_activity) { create(:skill_group_activity, activity: post_test_unit_activity.activity, skill_group: pre_test_skill_group_activity.skill_group)}
   let!(:pre_test_activity_session) { create(:activity_session, :finished, user: student1, classroom_unit: pre_test_classroom_unit, activity: pre_test_unit_activity.activity) }
   let!(:post_test_activity_session) { create(:activity_session, :finished, user: student1, classroom_unit: post_test_classroom_unit, activity: post_test_unit_activity.activity) }
+  let!(:post_test_activity_session_with_no_pre_test) { create(:activity_session, :finished, user: student2, classroom_unit: post_test_classroom_unit, activity: post_test_unit_activity.activity) }
   let!(:concept) { create(:concept) }
   let!(:skill) { create(:skill, skill_group: pre_test_skill_group_activity.skill_group) }
   let!(:skill_concept) { create(:skill_concept, concept: concept, skill: skill) }
@@ -140,6 +141,88 @@ describe GrowthResultsSummary do
         ]
       )
     end
+
+    it 'should return an array with a hash for each student' do
+      @skill_group_summaries = [
+        {
+          name: pre_test_skill_group_activity.skill_group.name,
+          description: pre_test_skill_group_activity.skill_group.description,
+          not_yet_proficient_in_pre_test_student_names: [],
+          not_yet_proficient_in_post_test_student_names: [],
+        }
+      ]
+      @skill_groups = [pre_test_skill_group_activity.skill_group]
+      @pre_test_assigned_students = [student1, student2]
+      @pre_test_activity_sessions = [pre_test_activity_session].map { |session| [session.user_id, session] }.to_h
+      @post_test_assigned_students = [student1, student2]
+      @post_test_activity_sessions = [post_test_activity_session].map { |session| [session.user_id, session] }.to_h
+      expect(student_results).to eq(
+        [
+          {
+            name: student1.name,
+            id: student1.id,
+            skill_groups: [
+              {
+                skill_group: pre_test_skill_group_activity.skill_group.name,
+                description: pre_test_skill_group_activity.skill_group.description,
+                skills: [
+                  {
+                    pre: {
+                      id: skill.id,
+                      skill: skill.name,
+                      number_correct: 1,
+                      number_incorrect: 1,
+                      summary: GrowthResultsSummary::PARTIALLY_CORRECT,
+                    },
+                    post: {
+                      id: skill.id,
+                      skill: skill.name,
+                      number_correct: 1,
+                      number_incorrect: 0,
+                      summary: GrowthResultsSummary::FULLY_CORRECT,
+                    }
+                  }
+                ],
+                number_of_correct_skills_text: "1 of 1 skills correct",
+                proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
+                pre_test_proficiency: GrowthResultsSummary::NO_PROFICIENCY,
+                post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
+                id: pre_test_skill_group_activity.skill_group.id,
+                acquired_skill_ids: [skill.id]
+              }
+            ],
+            total_acquired_skills_count: 1
+          },
+          {
+            name: student2.name
+          }
+        ]
+      )
+    end
+
+    it 'should not include results if the student has completed a post test but not a pre test' do
+      @skill_group_summaries = [
+        {
+          name: pre_test_skill_group_activity.skill_group.name,
+          description: pre_test_skill_group_activity.skill_group.description,
+          not_yet_proficient_in_pre_test_student_names: [],
+          not_yet_proficient_in_post_test_student_names: [],
+        }
+      ]
+      @skill_groups = [pre_test_skill_group_activity.skill_group]
+      @pre_test_assigned_students = [student2]
+      @pre_test_activity_sessions = []
+      @post_test_assigned_students = [student2]
+      @post_test_activity_sessions = [post_test_activity_session_with_no_pre_test].map { |session| [session.user_id, session] }.to_h
+      expect(student_results).to eq(
+        [
+          {
+            name: student2.name
+          }
+        ]
+      )
+    end
+
   end
 
   describe '#skill_groups_for_session' do
