@@ -125,9 +125,9 @@ const ActivityPack = ({
       <ShareActivityPackModal
         activityPackData={data && getActivityPackData()}
         closeModal={closeModal}
+        selectableClassrooms={data && getSelectableClassrooms()}
         selectedClassroomId={selectedClassroomId}
         selectedClassroomName={data && getSelectedClassroomName()}
-        selectableClassrooms={data && getSelectableClassrooms()}
         singleActivity={activityClicked}
         unitId={data && data.unitId}
       />}
