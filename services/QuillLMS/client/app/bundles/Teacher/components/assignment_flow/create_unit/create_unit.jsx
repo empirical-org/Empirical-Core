@@ -308,7 +308,7 @@ export default class CreateUnit extends React.Component {
 
   alreadyCompletedDiagnosticStudentNames = () => {
     const { assignedPreTests, } = this.props
-    const { selectedActivities, classrooms, } = this.state
+    const { selectedActivities, } = this.state
 
     const preTestActivityIds = assignedPreTests.map(pretest => pretest.id)
     const postTestActivityIds = assignedPreTests.map(pretest => pretest.post_test_id)
@@ -319,33 +319,28 @@ export default class CreateUnit extends React.Component {
 
     if (preTestBeingAssigned) {
       const relevantPretest = assignedPreTests.find(pretest => pretest.id === preTestBeingAssigned.id)
-      students = relevantPretest.all_classrooms.map(classroom => {
-        const classroomFromState = classrooms.find(classroomFromState => classroomFromState.classroom.id === classroom.id)
-        const studentNamesWhoCouldBeOverwritten = []
-        classroom.completed_pre_test_student_ids.forEach(id => {
-          const studentFromState = classroomFromState.students.find(student => student.id === id)
-          if (studentFromState && studentFromState.isSelected) {
-            studentNamesWhoCouldBeOverwritten.push(studentFromState.name)
-          }
-        })
-        return studentNamesWhoCouldBeOverwritten
-      })
+      students = this.potentiallyOverwrittenStudentNames(relevantPretest, 'completed_pre_test_student_ids')
     } else if (postTestBeingAssigned) {
       const relevantPretest = assignedPreTests.find(pretest => pretest.post_test_id === postTestBeingAssigned.id)
-      students = relevantPretest.all_classrooms.map(classroom => {
-        const classroomFromState = classrooms.find(classroomFromState => classroomFromState.classroom.id === classroom.id)
-        const studentNamesWhoCouldBeOverwritten = []
-        classroom.completed_post_test_student_ids.forEach(id => {
-          const studentFromState = classroomFromState.students.find(student => student.id === id)
-          if (studentFromState && studentFromState.isSelected) {
-            studentNamesWhoCouldBeOverwritten.push(studentFromState.name)
-          }
-        })
-        return studentNamesWhoCouldBeOverwritten
-      })
+      students = this.potentiallyOverwrittenStudentNames(relevantPretest, 'completed_post_test_student_ids')
     }
-
     return [... new Set(students.flat())]
+  }
+
+  potentiallyOverwrittenStudentNames = (relevantPretest, relevantStudentIdKey) => {
+    const { classrooms, } = this.state
+    return relevantPretest.all_classrooms.map(classroom => {
+      const classroomFromState = classrooms.find(classroomFromState => classroomFromState.classroom.id === classroom.id)
+      const studentNamesWhoCouldBeOverwritten = []
+      classroom[relevantStudentIdKey].forEach(id => {
+        const studentFromState = classroomFromState.students.find(student => student.id === id)
+        const isOverwriteCandidate = studentFromState && studentFromState.isSelected // student is both still in classroom and selected to be assigned
+        if (isOverwriteCandidate) {
+          studentNamesWhoCouldBeOverwritten.push(studentFromState.name)
+        }
+      })
+      return studentNamesWhoCouldBeOverwritten
+    })
   }
 
   stage2SpecificComponents = () => {
