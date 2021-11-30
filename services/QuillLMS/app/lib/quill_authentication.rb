@@ -84,6 +84,8 @@ module QuillAuthentication
     session[:preview_student_id] = student_id
     if student_id
       @current_user = User.find(session[:preview_student_id])
+    elsif session[:demo_id].present?
+      @current_user = User.find(session[:demo_id])
     else
       @current_user = User.find(session[:user_id])
     end
