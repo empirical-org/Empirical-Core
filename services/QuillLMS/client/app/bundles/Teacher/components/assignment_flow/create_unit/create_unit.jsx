@@ -324,7 +324,7 @@ export default class CreateUnit extends React.Component {
         const studentNamesWhoCouldBeOverwritten = []
         classroom.completed_pre_test_student_ids.forEach(id => {
           const studentFromState = classroomFromState.students.find(student => student.id === id)
-          if (studentFromState.isSelected) {
+          if (studentFromState && studentFromState.isSelected) {
             studentNamesWhoCouldBeOverwritten.push(studentFromState.name)
           }
         })
@@ -337,7 +337,7 @@ export default class CreateUnit extends React.Component {
         const studentNamesWhoCouldBeOverwritten = []
         classroom.completed_post_test_student_ids.forEach(id => {
           const studentFromState = classroomFromState.students.find(student => student.id === id)
-          if (studentFromState.isSelected) {
+          if (studentFromState && studentFromState.isSelected) {
             studentNamesWhoCouldBeOverwritten.push(studentFromState.name)
           }
         })
