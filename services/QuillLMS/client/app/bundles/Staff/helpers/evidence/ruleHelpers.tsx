@@ -192,6 +192,7 @@ export function renderHighlights(highlights, i, changeHandler) {
       const { highlight_type } = highlight;
       highlightTypeValue = highlight_type;
     }
+    const passageMismatch = (highlight.highlight_type == 'passage' && !highlight.valid_in_all_targets)
     return(
       <section className="rule-highlight-section" key={j}>
         <p className="form-subsection-label">{`${numericalWordOptions[i]} Revision - ${numericalWordOptions[j]} Highlight`}</p>
@@ -212,6 +213,7 @@ export function renderHighlights(highlights, i, changeHandler) {
           key="universal-feedback-highlight"
           text={highlight.text}
         />
+        {passageMismatch && <p className="all-errors-message">The text of this highlight does not match with the associated activity text. This means that it will not highlight the text as intended. Please update the text above.</p>}
       </section>
     );
   });
@@ -246,12 +248,13 @@ export const formatInitialFeedbacks = (feedbacks) => {
       highlights_attributes: null
     };
     const formattedHighlights = highlights && highlights.map(highlight => {
-      const { id, text,  highlight_type, starting_index} = highlight;
+      const { id, text,  highlight_type, starting_index, valid_in_all_targets } = highlight;
       return {
         id,
         text,
         highlight_type,
-        starting_index
+        starting_index,
+        valid_in_all_targets
       };
     });
     formattedFeedback.highlights_attributes = formattedHighlights || [];
