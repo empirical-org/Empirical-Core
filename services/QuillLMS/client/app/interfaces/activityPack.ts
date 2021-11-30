@@ -94,22 +94,8 @@ export interface Activity {
 
 // activity object from DataTable
 export interface ActivityElement extends Activity {
-  // activityClassificationId: number,
   activityId?: number,
-  // classroomId: number,
-  // createdAt: string,
-  // created_at: number,
-  cuId?: number,
-  // dueDate: string
-  // dueDatePicker: JSX.Element,
-  // id: number,
-  // name: string,
-  // ownedByCurrentUser: true
-  // ownerName: string,
-  // removable: true
-  // shareActivity: JSX.Element,
-  // toolAndNameSection: JSX.Element,
-  // uaId: number
+  cuId?: number
 }
 
 export interface ActivityPack {

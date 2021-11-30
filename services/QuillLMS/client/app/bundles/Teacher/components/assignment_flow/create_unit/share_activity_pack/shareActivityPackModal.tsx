@@ -4,6 +4,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { defaultSnackbarTimeout, Snackbar, DropdownInput, Spinner } from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request';
 import { Classroom, ClassroomUnit, DropdownObject, ActivityPack, ActivityElement } from '../../../../../../interfaces/activityPack';
+import { DropdownObjectInterface } from '../../../../../Staff/interfaces/evidenceInterfaces';
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`;
 const shareToGoogleIconSrc = `${process.env.CDN_URL}/images/icons/icons-google-classroom-color.svg`;
@@ -27,7 +28,7 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
   const [link, setLink] = React.useState<string>(classrooms && classrooms.length && getDefaultLink());
 
   React.useEffect(() => {
-    if(!classrooms.length || (!classroomUnits.length && unitId)) {
+    if(!classroomUnits.length && unitId) {
       requestGet(`/teachers/classrooms/classrooms_and_classroom_units_for_activity_share/${unitId}`, (body) => {
         const classrooms = body.classrooms && filterClassrooms(body.classrooms.classrooms_and_their_students)
         setClassrooms(classrooms)
@@ -57,15 +58,17 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
       return classrooms.filter(classroomObject => classroomObject.classroom.name === selectedClassroomName);
     } else if(selectedClassroomId === ALL_CLASSES) {
       return classrooms.filter(classroomObject => selectableClassrooms.includes(classroomObject.classroom.name))
+    } else if(selectedClassroomId) {
+      const id = parseInt(selectedClassroomId);
+      return classrooms.filter(classroomObject => classroomObject.classroom.id === id);
     }
-    const id = parseInt(selectedClassroomId);
-    return classrooms.filter(classroomObject => classroomObject.classroom.id === id);
+    return classrooms;
   }
 
-  function getSelectedClass(filterClassrooms) {
+  function getSelectedClass(filteredClassrooms) {
     // we want set selectedClass and return only the link without dropdown if only one class remains after filtering
-    if(filterClassrooms && filterClassrooms.length === 1) {
-      const classroomObject = filterClassrooms[0];
+    if(filteredClassrooms && filteredClassrooms.length === 1) {
+      const classroomObject = filteredClassrooms[0];
       const { classroom } = classroomObject;
       const { id, name } = classroom;
       const dropdownOption = {
@@ -121,13 +124,13 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
     setTimeout(() => setShowSnackbar(false), defaultSnackbarTimeout);
   }
 
-  function handleClassChange(classOption) {
+  function handleClassChange(classOption: DropdownObjectInterface) {
     const { value } = classOption;
     setSelectedClass(classOption);
     if(!singleActivity) {
       setLink(`${process.env.DEFAULT_URL}/classrooms/${value}?unit_id=${unitId}`)
     } else {
-      const classroomUnit = classroomUnits.filter(unit => unit.classroom_id === value)[0];
+      const classroomUnit = classroomUnits.filter(unit => unit.classroom_id === parseInt(value))[0];
       setLink(`${process.env.DEFAULT_URL}/classroom_units/${classroomUnit.id}/activities/${singleActivity.id}`)
     }
   }
@@ -210,7 +213,37 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
     return `Only students who were assigned "${name}" will be able to open the link.`;
   }
 
-  const renderData = classrooms && classrooms.length;
+  function renderContent(dataReady: boolean) {
+    if(!dataReady) {
+      return <Spinner />;
+    }
+    return(
+      <React.Fragment>
+        <div className="title-row">
+          <h3 className="title">{getTitle()}</h3>
+          <button className='close-button focus-on-light' onClick={handleCloseModal} type="button">
+            <img alt="close-icon" src={closeIconSrc} />
+          </button>
+        </div>
+        <p className="disclaimer-text">{getDisclaimer()}</p>
+        {renderActivityAndClassData(showActivityLink)}
+        <div className={`form-buttons ${showContainerStyle}`}>
+          <CopyToClipboard onCopy={handleCopyLink} text={link}>
+            <button className="quill-button outlined secondary medium focus-on-light" type="button">Copy link</button>
+          </CopyToClipboard>
+          <button className="quill-button outlined secondary medium focus-on-light" onClick={handleShareToGoogleClassroomClick} type="button">
+            <div className="button-text-container">
+              <img alt="close-icon" src={shareToGoogleIconSrc} />
+              <p className="button-text">Share to Google Classroom</p>
+            </div>
+          </button>
+        </div>
+        {renderSnackbar()}
+      </React.Fragment>
+    );
+  }
+
+  const dataReady = !!(classrooms && classrooms.length);
   const showActivityLink = selectedClass && selectedClass.value;
   const showContainerStyle = !showActivityLink ? 'hide-modal-element' : '';
 
@@ -218,29 +251,7 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
     <div className="modal-container google-classroom-modal-container">
       <div className="modal-background" />
       <div className="google-classroom-share-activity-modal quill-modal modal-body">
-        {renderData && <React.Fragment>
-          <div className="title-row">
-            <h3 className="title">{getTitle()}</h3>
-            <button className='close-button focus-on-light' onClick={handleCloseModal} type="button">
-              <img alt="close-icon" src={closeIconSrc} />
-            </button>
-          </div>
-          <p className="disclaimer-text">{getDisclaimer()}</p>
-          {renderActivityAndClassData(showActivityLink)}
-          <div className={`form-buttons ${showContainerStyle}`}>
-            <CopyToClipboard onCopy={handleCopyLink} text={link}>
-              <button className="quill-button outlined secondary medium focus-on-light" type="button">Copy link</button>
-            </CopyToClipboard>
-            <button className="quill-button outlined secondary medium focus-on-light" onClick={handleShareToGoogleClassroomClick} type="button">
-              <div className="button-text-container">
-                <img alt="close-icon" src={shareToGoogleIconSrc} />
-                <p className="button-text">Share to Google Classroom</p>
-              </div>
-            </button>
-          </div>
-          {renderSnackbar()}
-        </React.Fragment>}
-        {!renderData && <Spinner />}
+        {renderContent(dataReady)}
       </div>
     </div>
   );
