@@ -48,9 +48,9 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     student = User.find_by_id(student_id)
     skills = Activity.find(activity_id).skills.distinct
     pre_test = Activity.find_by_follow_up_activity_id(activity_id)
+    pre_test_activity_session = pre_test && find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, unit_id)
 
-    if pre_test
-      pre_test_activity_session = find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, unit_id)
+    if pre_test && pre_test_activity_session
       concept_results = {
         pre: { questions: format_concept_results(pre_test_activity_session.concept_results.order("(metadata->>'questionNumber')::int")) },
         post: { questions: format_concept_results(activity_session.concept_results.order("(metadata->>'questionNumber')::int")) }
