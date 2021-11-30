@@ -1,8 +1,23 @@
 import * as React from 'react'
 
-const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`
+const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`;
 
-export const ExpandableCard = ({ imgSrc, imgAlt, isExpanded, onClick, header, text, rows }) => {
+interface ExpandableCardProps {
+  imgSrc: string,
+  imgAlt: string,
+  isExpanded: boolean,
+  onClick: (event: React.SyntheticEvent<HTMLButtonElement>) => void,
+  header: string,
+  text:string,
+  rows: {
+    imgAlt: string,
+    imgSrc: string,
+    name: string,
+    onClick: (event: React.SyntheticEvent<HTMLButtonElement>) => void
+  }[]
+}
+
+export const ExpandableCard = ({ imgSrc, imgAlt, isExpanded, onClick, header, text, rows }: ExpandableCardProps) => {
 
   function handleKeyDownOnCard(e) {
     if (e.key !== 'Enter') { return }

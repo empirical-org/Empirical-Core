@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TeacherPreviewMenu component should match snapshot 1`] = `
+<div
+  className="expandable-quill-card "
+  onKeyDown={[Function]}
+  role="button"
+  tabIndex={0}
+>
+  <section
+    className="upper-content-section"
+  >
+    <img
+      alt="test-alt"
+      className="expandable-card-icon"
+      src="test-src"
+    />
+    <div
+      className="text"
+    >
+      <h3>
+        test header
+      </h3>
+      <p>
+        test textdsef
+      </p>
+    </div>
+    <button
+      className="expand-button focus-on-light"
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <img
+        alt="arrow"
+        className="expand-arrow"
+        src="undefined/images/icons/expand.svg"
+      />
+    </button>
+  </section>
+</div>
+`;
