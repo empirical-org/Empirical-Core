@@ -14,7 +14,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def question_view
-      set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, params[:activity_id], params[:classroom_id], params[:unit_id])
+      set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(params[:activity_id], params[:classroom_id], params[:unit_id])
       activity = Activity.includes(:classification)
                          .find(params[:activity_id])
       render json: { data: results_by_question(params[:activity_id]),
@@ -29,7 +29,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     activity_id = results_summary_params[:activity_id]
     classroom_id = results_summary_params[:classroom_id]
     unit_id = results_summary_params[:unit_id]
-    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id, true)
+    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id, true)
 
     render json: { students: diagnostic_student_responses }
   end
