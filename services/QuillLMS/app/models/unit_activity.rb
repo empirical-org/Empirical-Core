@@ -127,7 +127,7 @@ class UnitActivity < ApplicationRecord
           COALESCE(cuas.locked, false) AS locked,
           COALESCE(cuas.pinned, false) AS pinned,
           MAX(acts.percentage) AS max_percentage,
-          SUM(CASE WHEN pre_activity_sessions.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS completed_pre_activity_session,
+          SUM(CASE WHEN pre_activity_sessions_classroom_units.id > 0 AND pre_activity_sessions.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS completed_pre_activity_session,
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS finished,
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) AS resume_link
         FROM unit_activities AS ua
@@ -147,8 +147,10 @@ class UnitActivity < ApplicationRecord
         LEFT JOIN activity_sessions AS pre_activity_sessions
           ON pre_activity_sessions.activity_id = pre_activity.id
           AND pre_activity_sessions.visible = true
-          AND pre_activity_sessions.classroom_unit_id = cu.id
           AND pre_activity_sessions.user_id = #{user_id.to_i}
+        LEFT JOIN classroom_units AS pre_activity_sessions_classroom_units
+          ON pre_activity_sessions_classroom_units.id = pre_activity_sessions.classroom_unit_id
+          AND pre_activity_sessions_classroom_units.classroom_id = #{classroom_id.to_i}
         JOIN activity_classifications
           ON activity.activity_classification_id = activity_classifications.id
         LEFT JOIN classroom_unit_activity_states AS cuas
