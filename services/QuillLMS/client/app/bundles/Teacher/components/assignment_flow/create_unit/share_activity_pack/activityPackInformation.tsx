@@ -3,14 +3,10 @@ import * as React from 'react'
 const ActivityPackInformation = ({ activityPackData, classroomData }) => {
 
   function getStudentCount() {
-    let count = 0;
-    classroomData.map(classroom => {
-      const { students } = classroom;
-      if(students && students.length) {
-        count += students.length;
-      }
-    });
-    return count;
+    return classroomData.reduce((previousValue, classroom) => {
+      const { students, } = classroom
+      return students && students.length ? previousValue += students.length : previousValue
+    }, 0)
   }
 
   return (

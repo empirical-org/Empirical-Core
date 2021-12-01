@@ -16,27 +16,23 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
   const [link, setLink] = React.useState<string>(classrooms && classrooms.length && getDefaultLink());
 
   React.useEffect(() => {
-    if(!classrooms.length || (!classroomUnits.length && unitId)) {
-      requestGet(`/teachers/classrooms/classrooms_and_classroom_units_for_activity_share/${unitId}`, (body) => {
-        setClassrooms(body.classrooms && body.classrooms.classrooms_and_their_students)
-        setClassroomUnits(body.classroom_units)
-      })
-    }
-  }, [])
+    requestGet(`/teachers/classrooms/classrooms_and_classroom_units_for_activity_share/${unitId}`, (body) => {
+      setClassrooms(body.classrooms && body.classrooms.classrooms_and_their_students)
+      setClassroomUnits(body.classroom_units)
+    });
+  }, []);
 
   function getDefaultLink() {
-    if(classrooms.length !== 1) {
-      return ''
-    }
+    if(classrooms.length !== 1) { return '' }
     const classroomObject = classrooms[0];
     const classroomUnitObject = classroomUnits[0];
     const { classroom } = classroomObject;
-    if(!singleActivity) {
-      const { id } = classroom;
-      return `${process.env.DEFAULT_URL}/classrooms/${id}?unit_id=${unitId}`
-    } else {
+    if(singleActivity) {
       const { id } = classroomUnitObject;
       return `${process.env.DEFAULT_URL}/classroom_units/${id}/activities/${singleActivity.id}`;
+    } else {
+      const { id } = classroom;
+      return `${process.env.DEFAULT_URL}/classrooms/${id}?unit_id=${unitId}`
     }
   }
 
@@ -68,11 +64,11 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
   function handleClassChange(classOption) {
     const { value } = classOption;
     setSelectedClass(classOption);
-    if(!singleActivity) {
-      setLink(`${process.env.DEFAULT_URL}/classrooms/${value}?unit_id=${unitId}`)
-    } else {
+    if(singleActivity) {
       const classroomUnit = classroomUnits.filter(unit => unit.classroom_id === value)[0];
       setLink(`${process.env.DEFAULT_URL}/classroom_units/${classroomUnit.id}/activities/${singleActivity.id}`)
+    } else {
+      setLink(`${process.env.DEFAULT_URL}/classrooms/${value}?unit_id=${unitId}`)
     }
   }
 

@@ -404,7 +404,7 @@ export default class CreateUnit extends React.Component {
   stage4specificComponents = () => {
     const { referralCode, location, history, } = this.props
     const { classrooms, selectedActivities, name, assignSuccess } = this.state
-    if ((assignSuccess)) {
+    if (assignSuccess) {
       return (<UnitAssignmentFollowup
         classrooms={classrooms}
         history={history}

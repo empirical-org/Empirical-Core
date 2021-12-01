@@ -3,6 +3,7 @@
 exports[`TeacherPreviewMenu component should match snapshot 1`] = `
 <div
   className="expandable-quill-card "
+  onClick={[MockFunction]}
   onKeyDown={[Function]}
   role="button"
   tabIndex={0}
@@ -25,17 +26,11 @@ exports[`TeacherPreviewMenu component should match snapshot 1`] = `
         test textdsef
       </p>
     </div>
-    <button
-      className="expand-button focus-on-light"
-      onClick={[MockFunction]}
-      type="button"
-    >
-      <img
-        alt="arrow"
-        className="expand-arrow"
-        src="undefined/images/icons/expand.svg"
-      />
-    </button>
+    <img
+      alt="arrow"
+      className="expand-arrow"
+      src="undefined/images/icons/expand.svg"
+    />
   </section>
 </div>
 `;
