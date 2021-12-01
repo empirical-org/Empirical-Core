@@ -255,7 +255,7 @@ module PublicProgressReports
     end
 
     def generate_recommendations_for_classroom(current_user, unit_id, classroom_id, activity_id)
-      set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(current_user, activity_id, classroom_id, unit_id)
+      set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id)
       diagnostic = Activity.find(activity_id)
       activity_sessions_counted = activity_sessions_with_counted_concepts(@activity_sessions)
       students = @assigned_students.map do |s|

@@ -86,7 +86,7 @@ class Api::V1::ActivitiesController < Api::ApiController
   end
 
   def activities_health
-    render json: {activities_health: ActivityHealth.all.as_json}
+    render json: {activities_health: ActivityHealth.all.includes(:prompt_healths).as_json}
   end
 
   def question_health
