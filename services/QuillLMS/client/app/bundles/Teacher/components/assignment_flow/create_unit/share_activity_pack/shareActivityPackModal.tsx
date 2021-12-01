@@ -25,26 +25,25 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
   const [selectedClass, setSelectedClass] = React.useState<DropdownObject>({ label: '', value: '' });
   const [classrooms, setClassrooms] = React.useState<Classroom[]>([]);
   const [classroomUnits, setClassroomUnits] = React.useState<ClassroomUnit[]>([]);
-  const [link, setLink] = React.useState<string>(classrooms && classrooms.length && getDefaultLink());
+  const [link, setLink] = React.useState<string>(getDefaultLink());
+
 
   React.useEffect(() => {
-    if(!classroomUnits.length && unitId) {
-      requestGet(`/teachers/classrooms/classrooms_and_classroom_units_for_activity_share/${unitId}`, (body) => {
-        const classrooms = body.classrooms && filterClassrooms(body.classrooms.classrooms_and_their_students)
-        setClassrooms(classrooms)
-        setClassroomUnits(body.classroom_units)
-      })
-    }
+    requestGet(`/teachers/classrooms/classrooms_and_classroom_units_for_activity_share/${unitId}`, (body) => {
+      const classrooms = body.classrooms && filterClassrooms(body.classrooms.classrooms_and_their_students)
+      setClassrooms(classrooms)
+      setClassroomUnits(body.classroom_units)
+    });
   }, []);
 
   React.useEffect(() => {
-    if(classrooms && classrooms.length) {
+    if(classrooms.length && classroomUnits.length) {
       const newLink = getDefaultLink();
       const filteredClassrooms = filterClassrooms(classrooms);
       getSelectedClass(filteredClassrooms);
       newLink && setLink(newLink);
     }
-  }, [classrooms]);
+  }, [classrooms, classroomUnits]);
 
   React.useEffect(() => {
     if(classrooms && classrooms.length) {
@@ -56,9 +55,11 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
   function filterClassrooms(classrooms) {
     if(selectedClassroomName) {
       return classrooms.filter(classroomObject => classroomObject.classroom.name === selectedClassroomName);
-    } else if(selectedClassroomId === ALL_CLASSES) {
+    }
+    if(selectedClassroomId === ALL_CLASSES) {
       return classrooms.filter(classroomObject => selectableClassrooms.includes(classroomObject.classroom.name))
-    } else if(selectedClassroomId) {
+    }
+    if(selectedClassroomId) {
       const id = parseInt(selectedClassroomId);
       return classrooms.filter(classroomObject => classroomObject.classroom.id === id);
     }
@@ -80,23 +81,20 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
   }
 
   function getDefaultLink() {
-    if(classrooms && classrooms.length) {
-      if(classrooms.length !== 1) {
-        return ''
-      }
-      const classroomObject = classrooms[0];
-      const classroomUnitObject = classroomUnits[0];
-      const { classroom } = classroomObject;
-      if(!singleActivity) {
-        const { id } = classroom;
-        return `${process.env.DEFAULT_URL}/classrooms/${id}?unit_id=${unitId}`
-      } else {
-        const classroomUnitId = classroomUnitObject && classroomUnitObject.id || singleActivity.cuId;
-        const activityId = singleActivity.activityId || singleActivity.id;
-        return `${process.env.DEFAULT_URL}/classroom_units/${classroomUnitId}/activities/${activityId}`;
-      }
+    if(!(classrooms.length)) { return '' }
+    if(!(classroomUnits.length)) { return '' }
+    if(classrooms.length !== 1) { return '' }
+    const classroomObject = classrooms[0];
+    const classroomUnitObject = classroomUnits[0];
+    const { classroom } = classroomObject;
+    if(singleActivity) {
+      const { id } = classroomUnitObject;
+      return `${process.env.DEFAULT_URL}/classroom_units/${id}/activities/${singleActivity.id}`;
     }
-    return '';
+    if(!singleActivity) {
+      const { id } = classroom;
+      return `${process.env.DEFAULT_URL}/classrooms/${id}?unit_id=${unitId}`
+    }
   }
 
   function getClassroomOptions() {
@@ -127,11 +125,11 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
   function handleClassChange(classOption: DropdownObjectInterface) {
     const { value } = classOption;
     setSelectedClass(classOption);
-    if(!singleActivity) {
-      setLink(`${process.env.DEFAULT_URL}/classrooms/${value}?unit_id=${unitId}`)
-    } else {
+    if(singleActivity) {
       const classroomUnit = classroomUnits.filter(unit => unit.classroom_id === parseInt(value))[0];
-      setLink(`${process.env.DEFAULT_URL}/classroom_units/${classroomUnit.id}/activities/${singleActivity.id}`)
+      setLink(`${process.env.DEFAULT_URL}/classroom_units/${classroomUnit.id}/activities/${singleActivity.id}`);
+    } else {
+      setLink(`${process.env.DEFAULT_URL}/classrooms/${value}?unit_id=${unitId}`);
     }
   }
 
@@ -164,39 +162,38 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
 
   function renderActivityAndClassData(showActivityLink) {
     if(classrooms.length === 1) {
-      return returnActivityLinkComponent(showActivityLink)
-    } else {
-      return(
-        <div className="class-and-activity-data-container">
-          <div className="first-step-container">
-            <div className="left-container">
-              <div className="step-number-circle"><p>1</p></div>
-            </div>
-            <div className="right-container">
-              <p className="header">Choose a class</p>
-              <p className="secondary-text">Since you assigned this activity pack to more than one class you need to select a class to view the share link.</p>
-              <DropdownInput
-                className="page-number-dropdown"
-                handleChange={handleClassChange}
-                isSearchable={true}
-                label="Choose a class"
-                options={getClassroomOptions()}
-                value={selectedClass}
-              />
-            </div>
+      return returnActivityLinkComponent(showActivityLink);
+    }
+    return(
+      <div className="class-and-activity-data-container">
+        <div className="first-step-container">
+          <div className="left-container">
+            <div className="step-number-circle"><p>1</p></div>
           </div>
-          <div className="second-step-container">
-            <div className="left-container">
-              <div className="step-number-circle"><p>2</p></div>
-            </div>
-            <div className="right-container">
-              <p className="header">Share with your class</p>
-              {returnActivityLinkComponent(showActivityLink)}
-            </div>
+          <div className="right-container">
+            <p className="header">Choose a class</p>
+            <p className="secondary-text">Since you assigned this activity pack to more than one class you need to select a class to view the share link.</p>
+            <DropdownInput
+              className="page-number-dropdown"
+              handleChange={handleClassChange}
+              isSearchable={true}
+              label="Choose a class"
+              options={getClassroomOptions()}
+              value={selectedClass}
+            />
           </div>
         </div>
-      )
-    }
+        <div className="second-step-container">
+          <div className="left-container">
+            <div className="step-number-circle"><p>2</p></div>
+          </div>
+          <div className="right-container">
+            <p className="header">Share with your class</p>
+            {returnActivityLinkComponent(showActivityLink)}
+          </div>
+        </div>
+      </div>
+    );
   }
 
   function renderSnackbar() {
@@ -238,7 +235,6 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
             </div>
           </button>
         </div>
-        {renderSnackbar()}
       </React.Fragment>
     );
   }
@@ -248,11 +244,12 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
   const showContainerStyle = !showActivityLink ? 'hide-modal-element' : '';
 
   return(
-    <div className="modal-container google-classroom-modal-container">
+    <div className="modal-container share-activity-pack-modal-container">
       <div className="modal-background" />
-      <div className="google-classroom-share-activity-modal quill-modal modal-body">
+      <div className="share-activity-pack-modal quill-modal modal-body">
         {renderContent(dataReady)}
       </div>
+      {renderSnackbar()}
     </div>
   );
 }

@@ -67,7 +67,7 @@
 }
 
 .assignment-flow-container {
-  .learning-process, .diagnostic-page, .activity-type, .google-classroom {
+  .learning-process, .diagnostic-page, .activity-type, .share-activity-pack {
     display: flex;
     padding: 54px;
     flex-direction: column;
@@ -147,7 +147,7 @@
       }
     }
   }
-  .google-classroom {
+  .share-activity-pack {
     .inner-container {
       .activity-pack-information-container {
         display: flex;
@@ -183,6 +183,11 @@
           margin-top: 24px;
         }
       }
+    }
+  }
+  .share-activity-pack-modal-container {
+    .quill-snackbar {
+      z-index: 3;
     }
   }
 }

@@ -39,13 +39,15 @@
     .expandable-card-icon {
       margin-right: 32px;
     }
-    .expand-button {
-      background-color: white;
+    .expand-arrow {
       margin-left: 32px;
     }
   }
   .expanded-section {
     .row-section {
+      .row-name {
+        color: #545454;
+      }
       .row-button {
         background-color: white;
       }
@@ -54,10 +56,8 @@
   &.open {
     .upper-content-section {
       padding-bottom: 40px;
-      .expand-button {
-        .expand-arrow {
-          transform: rotate(180deg);
-        }
+      .expand-arrow {
+        transform: rotate(180deg);
       }
     }
   }
