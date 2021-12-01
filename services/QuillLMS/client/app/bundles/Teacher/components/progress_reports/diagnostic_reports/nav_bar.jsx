@@ -4,14 +4,6 @@ import $ from 'jquery';
 import { DropdownInput } from '../../../../Shared/index';
 import { requestGet } from '../../../../../modules/request/index';
 
-const recommendationsButton = ({ isDiagnostic, buttonGroupCallback, }) => {
-  const identifier = 'recommendations'
-  if (!isDiagnostic) { return }
-  const className = window.location.href.includes(identifier) && 'active'
-  const handleClick = () => buttonGroupCallback(identifier)
-  return <button className={className} onClick={handleClick} type="button">Recommendations</button>
-}
-
 const studentsButton = ({ buttonGroupCallback, }) => {
   const identifier = 'students'
   const className = (window.location.href.includes(identifier) || window.location.href.includes('student_report')) && 'active'
@@ -65,7 +57,6 @@ const Navbar = ({ params, selectedActivity, classrooms, buttonGroupCallback, dro
         <DropdownInput handleChange={onDropdownChange} options={classroomOptions} value={classroomOptions.find(opt => String(opt.value) === params.classroomId)} />
       </div>
       <nav>
-        {recommendationsButton({ isDiagnostic, buttonGroupCallback, })}
         {studentsButton({ buttonGroupCallback, })}
         {questionsButton({ buttonGroupCallback, })}
       </nav>

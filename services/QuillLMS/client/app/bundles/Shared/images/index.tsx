@@ -112,3 +112,8 @@ export const lockedIcon = {
   alt: 'Lock icon',
   src: `${process.env.CDN_URL}/images/icons/icons-locked.svg`
 }
+
+export const closeIcon = {
+  alt: 'Close icon',
+  src: `${process.env.CDN_URL}/images/icons/close.svg`
+}

@@ -75,6 +75,8 @@ class Teachers::ClassroomManagerController < ApplicationController
     @objective_checklist = generate_onboarding_checklist
     @first_name = current_user.first_name
 
+    growth_diagnostic_promotion_card_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_growth_diagnostic_promotion_card])
+    @show_diagnostic_promotion_card = !UserMilestone.find_by(milestone_id: growth_diagnostic_promotion_card_milestone&.id, user_id: current_user&.id) && (current_user.created_at < "2021-11-29".to_date || current_user&.unit_activities&.where(activity_id: diagnostic_ids)&.any?)
   end
 
   def students_list

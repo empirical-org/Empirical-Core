@@ -1,4 +1,20 @@
 .diagnostic-recommendations-container {
+  .recommendations-empty-state {
+    img {
+      margin-top: 56px;
+      margin-bottom: 16px;
+    }
+    h2 {
+      font-weight: bold;
+      color: #000;
+    }
+    p {
+      font-size: 16px;
+      color: #262626;
+      margin-top: 8px;
+      max-width: 460px;
+    }
+  }
   .explanation {
     color: #808080;
     max-width: 610px;

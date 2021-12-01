@@ -70,17 +70,6 @@ export default class ClassroomActivity extends React.Component {
     return `${process.env.DEFAULT_URL}/activity_sessions/anonymous?activity_id=${this.activityId()}`;
   }
 
-  buttonForRecommendations = () => {
-    const { activityWithRecommendationIds } = this.props
-    if (activityWithRecommendationIds && activityWithRecommendationIds.includes(this.activityId()) && window.location.pathname.includes('diagnostic_reports')) {
-      return (
-        <div className="recommendations-button" onClick={this.handleRecommendationsLinkClick}>
-          Recommendations
-        </div>
-      );
-    }
-  }
-
   calculateAverageScore = () => {
     const { data, } = this.props
     const averageScore = data.cumulativeScore / data.completedCount;
@@ -179,11 +168,6 @@ export default class ClassroomActivity extends React.Component {
 
   handleMouseActionOnSupportingInfo = () => {
     this.setState(prevState => ({ showLessonPlanTooltip: !prevState.showLessonPlanTooltip }));
-  }
-
-  handleRecommendationsLinkClick = () => {
-    const link = `/teachers/progress_reports/diagnostic_reports#/u/${this.unitId()}/a/${this.activityId()}/c/${this.classroomId()}/recommendations`;
-    window.location = link;
   }
 
   handleReportLinkClick = () => {

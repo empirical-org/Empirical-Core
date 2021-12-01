@@ -5,6 +5,7 @@ import Pusher from 'pusher-js';
 import * as _ from 'lodash'
 
 import {
+  baseDiagnosticImageSrc,
   fileDocumentIcon,
   asteriskIcon,
   correctImage,
@@ -29,6 +30,8 @@ import {
   previewIcon,
 } from '../../../../../Shared/index'
 import useSnackbarMonitor from '../../../../../Shared/hooks/useSnackbarMonitor'
+
+const craneIllustration = <img alt="Grayscale construction crane" src={`${baseDiagnosticImageSrc}/crane-grayscale.svg`} />
 
 const LESSONS_RECOMMENDATION_THRESHOLD = 50
 
@@ -173,7 +176,7 @@ const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonsActivit
   return <RecommendationsButtons assignActivityPacks={assignLessonsActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={lessonsSelections.length} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
 }
 
-export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, }) => {
+export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, activityName, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedPreviouslyAssignedRecommendations && !passedIndependentRecommendations && !passedLessonRecommendations);
   const [previouslyAssignedIndependentRecommendations, setPreviouslyAssignedIndependentRecommendations] = React.useState<Recommendation[]>(passedPreviouslyAssignedRecommendations);
   const [previouslyAssignedLessonsRecommendations, setPreviouslyAssignedLessonsRecommendations] = React.useState<LessonRecommendation[]>(passedPreviouslyAssignedLessonRecommendations);
@@ -340,6 +343,19 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     <span>Recommended</span>
   </div>)
 
+  let independentRecommendationsSection
+
+  if (independentRecommendations.length) {
+    independentRecommendationsSection = (<React.Fragment>
+      <p className="explanation">Based on the results of the diagnostic, we created a personalized learning plan for each student. Customize your learning plan by selecting the activity packs you would like to assign.</p>
+      <section className="independent-practice">
+        <div className="section-header"><h2>Independent practice</h2>{recommendedKey}</div>
+        <IndependentRecommendationsButtons assignActivityPacks={assignIndependentActivityPacks} assigned={independentAssigned} assigning={independentAssigning} independentSelections={independentSelections} previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} setIndependentSelections={setIndependentSelections} students={students} />
+        <RecommendationsTable previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} selections={independentSelections} setSelections={setIndependentSelections} students={students} />
+      </section>
+    </React.Fragment>)
+  }
+
   let wholeClassInstructionSection
 
   if (lessonsRecommendations.length) {
@@ -359,19 +375,25 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     </section>)
   }
 
+  let emptyState
+
+  if (!(independentRecommendations.length || lessonsRecommendations.length)) {
+    emptyState = (<section className="recommendations-empty-state">
+      {craneIllustration}
+      <h2>We&#39;re working on it!</h2>
+      <p>We just launched the growth diagnostics, so we don&#39;t have practice recommendations ready for the {activityName} yet. In the meantime, you can always assign the original recommendations again or explore our full library of activities to find additional practice for your students.</p>
+    </section>)
+  }
+
   return (<main className="diagnostic-recommendations-container">
     <Snackbar text={snackbarText} visible={showSnackbar} />
     <header>
       <h1>Practice recommendations</h1>
-      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698147-how-do-i-read-the-practice-recommendations-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
+      {!emptyState && <a className="focus-on-light" href="https://support.quill.org/en/articles/5698147-how-do-i-read-the-practice-recommendations-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>}
     </header>
     {mobileNavigation}
-    <p className="explanation">Based on the results of the diagnostic, we created a personalized learning plan for each student. Customize your learning plan by selecting the activity packs you would like to assign.</p>
-    <section className="independent-practice">
-      <div className="section-header"><h2>Independent practice</h2>{recommendedKey}</div>
-      <IndependentRecommendationsButtons assignActivityPacks={assignIndependentActivityPacks} assigned={independentAssigned} assigning={independentAssigning} independentSelections={independentSelections} previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} setIndependentSelections={setIndependentSelections} students={students} />
-      <RecommendationsTable previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} selections={independentSelections} setSelections={setIndependentSelections} students={students} />
-    </section>
+    {emptyState}
+    {independentRecommendationsSection}
     {wholeClassInstructionSection}
   </main>
   )
