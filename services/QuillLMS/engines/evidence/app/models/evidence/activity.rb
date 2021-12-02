@@ -46,8 +46,8 @@ module Evidence
         self.parent_activity = Evidence.parent_activity_class.find_or_create_by(
           name: title,
           activity_classification_id: Evidence.parent_activity_classification_class.evidence&.id
-        ) do |activity|
-          activity.flags = [LMS_ACTIVITY_DEFAULT_FLAG]
+        ) do |parent_activity|
+          parent_activity.flags = [LMS_ACTIVITY_DEFAULT_FLAG]
         end
       end
     end
