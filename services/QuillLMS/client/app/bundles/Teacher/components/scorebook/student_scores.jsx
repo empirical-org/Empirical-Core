@@ -1,4 +1,5 @@
 import React from 'react';
+
 import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip';
 import shouldCountForScoring from '../../../../modules/activity_classifications.js';
 
@@ -17,7 +18,7 @@ export default class StudentScores extends React.Component {
     });
     const averageScore = totalScore / relevantScores;
     if(averageScore) {
-      return `${Math.round(averageScore * 100)}% Avg. Score`;
+      return `${Math.round(averageScore * 100)}% Avg. score`;
     }
   }
 

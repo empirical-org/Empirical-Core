@@ -23,7 +23,8 @@ class Scorebook::Query
           MAX(acts.percentage) AS percentage,
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) AS completed_attempts,
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) AS started,
-          SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS id
+          SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS id,
+          acts.timespent AS timespent
         FROM classroom_units AS cu
         LEFT JOIN students_classrooms AS sc
           ON cu.classroom_id = sc.classroom_id
@@ -56,6 +57,7 @@ class Scorebook::Query
           activity.name,
           activity.description,
           cuas.completed,
+          acts.timespent,
           activity.id
         ORDER BY split_part( students.name, ' ' , 2),
           CASE WHEN SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,

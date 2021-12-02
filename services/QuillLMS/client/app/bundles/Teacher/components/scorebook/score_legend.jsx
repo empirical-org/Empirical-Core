@@ -1,9 +1,10 @@
 'use strict';
 import React from 'react'
-import {proficiencyCutoffsAsPercentage} from '../../../../modules/proficiency_cutoffs.js'
+
+import { proficiencyCutoffsAsPercentage } from '../../../../modules/proficiency_cutoffs.js'
 import { Tooltip } from '../../../Shared/index'
 
-export default class extends React.Component {
+export default class ScoreLegend extends React.Component {
   render() {
       const cutOff = proficiencyCutoffsAsPercentage();
       return (
@@ -31,7 +32,7 @@ export default class extends React.Component {
               </div>
             </div>
             <Tooltip
-              tooltipText={`This type of activity is not graded.`}
+              tooltipText='This type of activity is not graded.'
               tooltipTriggerText={
                 <div className="icon">
                   <div className="icon-wrapper icon-blue" />
@@ -44,17 +45,17 @@ export default class extends React.Component {
             />
             <div className="icon">
               <div className="icon-wrapper icon-progress">
-                <img className="in-progress-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-sliced.svg" />
+                <img alt="in progress symbol" className="in-progress-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-sliced.svg" />
               </div>
               <div className="icons-description-wrapper">
-                <p className="title">In Progress</p>
-                <p className="explanation">Not Finished</p>
+                <p className="title">In progress</p>
+                <p className="explanation">Not finished</p>
               </div>
             </div>
             <div className="icon">
               <div className="icon-wrapper icon-unstarted" />
               <div className="icons-description-wrapper">
-                <p className="title">Not Started</p>
+                <p className="title">Not started</p>
                 <p className="explanation">Assigned</p>
               </div>
             </div>

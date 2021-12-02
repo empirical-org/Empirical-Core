@@ -23,7 +23,7 @@ export default createReactClass({
       scrollify: new Scrollify(),
     };
     const allActivityPacksUnit = {
-      name: 'All Activity Packs',
+      name: 'All activity packs',
       value: '',
     };
     return {
@@ -209,6 +209,7 @@ export default createReactClass({
         updated: s.updated_at,
         name: s.activity_name,
         percentage: s.percentage,
+        timespent: s.timespent,
         started: s.started ? Number(s.started) : 0,
         started_at: s.started_at,
         completed_attempts: s.completed_attempts ? Number(s.completed_attempts) : 0,
