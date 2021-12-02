@@ -207,7 +207,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               },
             ]
           }
-          buttonLink="/activity_sessions/anonymous?activity_id=1664"
+          buttonLink="/activity_sessions/anonymous?activity_id=1774"
           buttonText="Preview"
           header="ELL Starter Growth Diagnostic (Post)"
           selectCard={[Function]}
@@ -249,7 +249,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               },
             ]
           }
-          buttonLink="/activity_sessions/anonymous?activity_id=1669"
+          buttonLink="/activity_sessions/anonymous?activity_id=1814"
           buttonText="Preview"
           header="ELL Intermediate Growth Diagnostic (Post)"
           selectCard={[Function]}

@@ -167,7 +167,7 @@ const ellDiagnosticMinis = ({ history, assignedPreTests, }) => {
           { key: 'What', text: 'The ELL Starter Growth Diagnostic has different questions but covers the same skills as the ELL Starter Baseline Diagnostic.', },
           { key: 'When', text: "Your students have completed the ELL Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.", }
         ]}
-        buttonLink={`/activity_sessions/anonymous?activity_id=${STARTER_DIAGNOSTIC_POST_ACTIVITY_ID}`}
+        buttonLink={`/activity_sessions/anonymous?activity_id=${ELL_STARTER_DIAGNOSTIC_POST_ACTIVITY_ID}`}
         buttonText="Preview"
         header={ELL_STARTER_DIAGNOSTIC_POST}
         lockedText={isLocked(ELL_STARTER_DIAGNOSTIC_POST_ACTIVITY_ID) && ELL_STARTER_POST_TEST_LOCKED_TEXT}
@@ -191,7 +191,7 @@ const ellDiagnosticMinis = ({ history, assignedPreTests, }) => {
           { key: 'What', text: 'The ELL Intermediate Growth Diagnostic has different questions but covers the same skills as the ELL Intermediate Baseline Diagnostic.', },
           { key: 'When', text: 'Your students have completed the ELL Intermediate Baseline Diagnostic, you\'ve assigned the recommended practice, and now you\'re ready to measure their growth.', }
         ]}
-        buttonLink={`/activity_sessions/anonymous?activity_id=${INTERMEDIATE_DIAGNOSTIC_POST_ACTIVITY_ID}`}
+        buttonLink={`/activity_sessions/anonymous?activity_id=${ELL_INTERMEDIATE_DIAGNOSTIC_POST_ACTIVITY_ID}`}
         buttonText="Preview"
         header={ELL_INTERMEDIATE_DIAGNOSTIC_POST}
         lockedText={isLocked(ELL_INTERMEDIATE_DIAGNOSTIC_POST_ACTIVITY_ID) && ELL_INTERMEDIATE_POST_TEST_LOCKED_TEXT}
