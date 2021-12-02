@@ -335,7 +335,6 @@ export default class ClassroomActivity extends React.Component {
           <div className="cell" id="activity-analysis-activity-name">
             {link}
             {this.renderCustomizedEditionsTag()}
-            {this.buttonForRecommendations()}
           </div>
         </div>
         {this.renderModal()}

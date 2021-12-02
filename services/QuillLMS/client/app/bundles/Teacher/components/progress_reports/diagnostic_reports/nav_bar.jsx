@@ -22,26 +22,9 @@ const Navbar = ({ params, selectedActivity, classrooms, buttonGroupCallback, dro
   const [isDiagnostic, setIsDiagnostic] = React.useState(false);
 
   React.useEffect(() => {
-    getDiagnosticActivityIds();
+    $('.diagnostic-tab').removeClass('active');
+    $('.activity-analysis-tab').addClass('active');
   }, []);
-
-  const getDiagnosticActivityIds = () => {
-    requestGet('/teachers/progress_reports/diagnostic_activity_ids',
-      (data) => {
-        const { diagnosticActivityIds, } = data
-        const { activityId, } = params
-        const isDiagnosticActivity = diagnosticActivityIds.includes(Number(activityId))
-        setIsDiagnostic(isDiagnosticActivity)
-        if (isDiagnosticActivity) {
-          $('.activity-analysis-tab').removeClass('active');
-          $('.diagnostic-tab').addClass('active');
-        } else {
-          $('.diagnostic-tab').removeClass('active');
-          $('.activity-analysis-tab').addClass('active');
-        }
-      }
-    )
-  }
 
   const classroomOptions = classrooms.map(classroom => ({ value: classroom.id, label: classroom.name, }))
 
