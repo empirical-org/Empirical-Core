@@ -6,7 +6,6 @@ import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import StudentReport from './student_report.tsx'
 import ClassReport from './class_report.jsx'
 import QuestionReport from './question_report.jsx'
-import Recommendations from './recommendations.jsx'
 
 class DiagnosticReports extends React.Component {
   constructor(props) {
@@ -161,7 +160,6 @@ class DiagnosticReports extends React.Component {
     {this.props.children}
     <Switch>
       <Route component={routerProps => <StudentReport params={params} studentDropdownCallback={this.changeStudent} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId' />
-      <Route component={routerProps => <Recommendations params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/recommendations' />
       <Route component={routerProps => <QuestionReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/questions' />
       <Route component={routerProps => <ClassReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/students' />
     </Switch>
