@@ -25,53 +25,6 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     end
   end
 
-  describe '#redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit' do
-    describe 'when the activity is a diagnostic' do
-      describe 'pre-test' do
-        let(:unit) {create(:unit)}
-        let(:post_test) { create(:diagnostic_activity)}
-        let(:activity) { create(:diagnostic_activity, follow_up_activity_id: post_test.id)}
-        let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
-        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
-        let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
-
-        it 'responds with a results link that does not have a unit query param' do
-          get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: ({unit_id: unit.id, activity_id: activity.id})
-          expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/results"}.to_json)
-        end
-      end
-
-      describe 'post-test' do
-        let(:unit) {create(:unit)}
-        let(:activity) { create(:diagnostic_activity)}
-        let!(:pre_test) { create(:diagnostic_activity, follow_up_activity_id: activity.id)}
-        let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
-        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
-        let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
-
-        it 'responds with a growth_results link that does not have a unit query param' do
-          get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: ({unit_id: unit.id, activity_id: activity.id})
-          expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/growth_results"}.to_json)
-        end
-      end
-
-      describe 'neither pre-test nor post-test' do
-        let(:unit) {create(:unit)}
-        let(:activity) { create(:diagnostic_activity)}
-        let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
-        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
-        let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
-
-        it 'responds with a results link that has a unit query param' do
-          get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: ({unit_id: unit.id, activity_id: activity.id})
-          expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/results?unit=#{unit.id}"}.to_json)
-        end
-
-      end
-
-    end
-  end
-
   context '#students_by_classroom' do
     let!(:student1) { create(:user, classcode: classroom.code) }
     let!(:student2) { create(:user, classcode: classroom.code) }
