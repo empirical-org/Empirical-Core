@@ -62,7 +62,7 @@ class ActivitiesController < ApplicationController
   end
 
   def activity_session
-    return redirect_to profile_path if !current_user.student?
+    return redirect_to profile_path unless current_user.student?
 
     if authorized_activity_access?
       redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)

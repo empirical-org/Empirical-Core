@@ -103,7 +103,7 @@ class StudentsController < ApplicationController
     classroom_id = params["classroom"]
     unit_id = params["unit_id"]
 
-    return redirect_to profile_path if current_user && !current_user.student?
+    return redirect_to profile_path unless current_user&.student?
 
     if classroom_id && unit_id
       flash_missing_unit_error

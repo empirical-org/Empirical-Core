@@ -50,7 +50,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     unit_id = params["unit_id"]
     render json: {
       classrooms: classroom_with_students_json(current_user.classrooms_i_teach),
-      classroom_units: unit_id ? ClassroomUnit.where(unit_id: unit_id) : []
+      classroom_units: ClassroomUnit.where(unit_id: unit_id)
     }
   end
 
