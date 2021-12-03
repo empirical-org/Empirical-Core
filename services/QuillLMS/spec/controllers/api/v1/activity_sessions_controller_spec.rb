@@ -133,8 +133,8 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         expect(activity_session.data['time_tracking']).to include(data['time_tracking'])
       end
 
-      describe 'the total time tracking value is larger than the maximum 4-bit integer size' do
-        it 'saves timespent with the maximum 4-bit integer size' do
+      describe 'the total time tracking value is larger than the maximum 4-byte integer size' do
+        it 'saves timespent with the maximum 4-byte integer size' do
           data = {
             'time_tracking' => {
               'so' => 2147483648
