@@ -7,6 +7,8 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   before_action :find_activity_session, only: [:show, :update, :destroy]
   before_action :strip_access_token_from_request
 
+  MAX_4_BIT_INTEGER_SIZE = 2147483647
+
   def show
     render json: @activity_session, meta: {status: 'success', message: nil, errors: nil}, serializer: ActivitySessionSerializer
   end
@@ -103,7 +105,6 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     data = params.delete(:data)&.permit!
     time_tracking = data && data['time_tracking']
     timespent = @activity_session&.timespent || ActivitySession.calculate_timespent(time_tracking)
-    max_4_bit_integer_size = 2147483647
 
     if timespent && timespent > 3600
       begin
@@ -117,7 +118,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       .permit(activity_session_permitted_params)
       .merge(data: data)
       .reject { |_, v| v.nil? }
-      .merge(timespent: max_4_bit_integer_size > (timespent || 0) ? timespent : max_4_bit_integer_size)
+      .merge(timespent: timespent && [timespent, MAX_4_BIT_INTEGER_SIZE].min)
   end
 
   private def transform_incoming_request
