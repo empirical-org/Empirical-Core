@@ -2,12 +2,10 @@ import React from 'react';
 
 import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip';
 import shouldCountForScoring from '../../../../modules/activity_classifications.js';
+import { getTimeSpent } from '../../helpers/studentReports';
 
-export default class StudentScores extends React.Component {
-
-  calculateAverageScore() {
-    const { data, } = this.props
-
+export const StudentScores = ({ data, premium_state }) => {
+  function calculateAverageScore() {
     let totalScore = 0;
     let relevantScores = 0;
     data.scores.forEach(score => {
@@ -22,27 +20,36 @@ export default class StudentScores extends React.Component {
     }
   }
 
-  handleScores() {
-    const { data, premium_state, } = this.props
-    return data.scores.map((score, index) => <ActivityIconWithTooltip context='scorebook' data={score} key={`${data.name} ${index} ${score.cuId}`} premium_state={premium_state} />);
+  function calculateTotalTimeSpent() {
+    const { scores } = data;
+    const totalTimeSpent = scores.reduce((previousValue, score) => {
+      return score.timespent ? previousValue += score.timespent : previousValue;
+    }, 0);
+    if(totalTimeSpent) {
+      return <p className="time-spent">{`Total time spent: ${getTimeSpent(totalTimeSpent)}`}</p>
+    }
+    return '';
   }
 
-  render() {
-    const { data, } = this.props
-    /* eslint-disable react/jsx-no-target-blank */
-    const activityScoresLink = <a className="activity-scores-link" href={`/teachers/progress_reports/student_overview?student_id=${data.userId}&classroom_id=${data.classroomId}`} target="_blank">View Activity Scores <i className="fas fa-star" /></a>
-    /* eslint-enable react/jsx-no-target-blank */
-    return (
-      <section className="overview-section">
-        <header className="student-header">
-          <h3 className="student-name">{data.name}</h3>
-          <p className="average-score">{this.calculateAverageScore()}</p>
-          {activityScoresLink}
-        </header>
-        <div className="flex-row vertically-centered">
-          {this.handleScores()}
-        </div>
-      </section>
-    );
+  function handleScores() {
+    return data.scores.map((score, index) => <ActivityIconWithTooltip context='scorebook' data={score} key={`${data.name} ${index} ${score.cuId}`} premium_state={premium_state} />);
   }
+  /* eslint-disable react/jsx-no-target-blank */
+  const activityScoresLink = <a className="activity-scores-link" href={`/teachers/progress_reports/student_overview?student_id=${data.userId}&classroom_id=${data.classroomId}`} target="_blank">View Activity Scores <i className="fas fa-star" /></a>
+  /* eslint-enable react/jsx-no-target-blank */
+  return (
+    <section className="overview-section">
+      <header className="student-header">
+        <h3 className="student-name">{data.name}</h3>
+        {calculateTotalTimeSpent()}
+        <p className="average-score">{calculateAverageScore()}</p>
+        {activityScoresLink}
+      </header>
+      <div className="flex-row vertically-centered">
+        {handleScores()}
+      </div>
+    </section>
+  );
 }
+
+export default StudentScores

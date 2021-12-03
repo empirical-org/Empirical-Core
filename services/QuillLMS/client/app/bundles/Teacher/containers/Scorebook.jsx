@@ -163,7 +163,7 @@ export default createReactClass({
           missing: this.checkMissing(this.state.scores),
         });
       } else {
-        const selectedUnit = { name: 'All Activity Packs', value: '', };
+        const selectedUnit = { name: 'All activity packs', value: '', };
         that.setState({
           unitFilters: [selectedUnit].concat(units),
           selectedUnit,
