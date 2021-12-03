@@ -24,12 +24,12 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
 
   function closeWelcomeModal() { setShowWelcomeModal(false) }
 
-  if (!onboardingChecklist.every(obj => obj.checked)) {
-    return (<div className="dashboard">
-      {showWelcomeModal && <WelcomeModal close={closeWelcomeModal} size={size} />}
-      <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
-    </div>)
-  }
+  // if (!onboardingChecklist.every(obj => obj.checked)) {
+  //   return (<div className="dashboard">
+  //     {showWelcomeModal && <WelcomeModal close={closeWelcomeModal} size={size} />}
+  //     <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
+  //   </div>)
+  // }
 
   const [metrics, setMetrics] = React.useState(null)
   const [diagnostics, setDiagnostics] = React.useState(null);
