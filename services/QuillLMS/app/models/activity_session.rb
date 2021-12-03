@@ -509,10 +509,12 @@ class ActivitySession < ApplicationRecord
     correct_skills.map(&:id)
   end
 
+  # when using this method, you should eager load ass
+  # e.g. .includes(:concept_results, activity: {skills: :concepts})
   def correct_skills
     @correct_skills ||= begin
       skills.select do |skill|
-        results = concept_results.where(concept_id: skill.concept_ids)
+        results = concept_results.select {|cr| cr.concept_id.in?(skill.concept_ids)}
 
         results.length && results.all?(&:correct?)
       end
