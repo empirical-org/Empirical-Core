@@ -502,7 +502,7 @@ class ActivitySession < ApplicationRecord
   end
 
   def skills
-    @skills ||= activity.skills.distinct
+    @skills ||= activity.skills.uniq
   end
 
   def correct_skill_ids
