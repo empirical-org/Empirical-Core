@@ -48,6 +48,7 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
   React.useEffect(() => {
     if(classrooms && classrooms.length) {
       const filteredClassrooms = filterClassrooms(classrooms);
+      getSelectedClass(filteredClassrooms);
       setClassrooms(filteredClassrooms);
     }
   }, [selectedClassroomId, selectedClassroomName, selectableClassrooms]);
