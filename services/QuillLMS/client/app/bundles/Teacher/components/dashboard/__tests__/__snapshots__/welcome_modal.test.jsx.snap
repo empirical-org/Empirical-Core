@@ -39,30 +39,30 @@ exports[`WelcomeModal component should render WelcomeModal 1`] = `
           >
             Want to see Quill's full potential?
           </p>
-            <p>
-              Play around with a demo account to see sample student data and reports.
-            </p>
-          </div>
-          <br />
-          <div
-            className="welcome-modal-buttons"
+          <p>
+            Play around with a demo account to see sample student data and reports.
+          </p>
+        </div>
+        <br />
+        <div
+          className="welcome-modal-buttons"
+        >
+          <button
+            className="quill-button contained secondary medium outlined welcome-modal-demo"
+            onClick={[Function]}
+            type="button"
           >
-            <button
-              className="quill-button contained secondary medium outlined welcome-modal-demo"
-              onClick={[Function]}
-              type="button"
-            >
-              Explore demo
-            </button>
-            <button
-              className="quill-button contained primary medium welcome-modal-skip"
-              type="button"
-            >
-              Maybe later, skip
-            </button>
-          </div>
+            Explore demo
+          </button>
+          <button
+            className="quill-button contained primary medium welcome-modal-skip"
+            type="button"
+          >
+            Maybe later, skip
+          </button>
         </div>
       </div>
+    </div>
   </div>
 </div>
 `;
