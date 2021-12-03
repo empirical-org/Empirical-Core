@@ -19,27 +19,50 @@ exports[`WelcomeModal component should render WelcomeModal 1`] = `
     <div
       className="modal-body"
     >
-      <h1>
-        Welcome to Quill!
-      </h1>
       <div
-        className="welcome-modal-text"
+        className="welcome-modal-image-box"
       >
-        <p>
-          Our mission as a non-profit is to help students become strong writers, so all our content is completely free to use with an unlimited number of students.
-        </p>
+        <h1>
+          Welcome to Quill!
+        </h1>
+        <img
+          alt="Teacher at projector in classroom"
+          src="https://assets.quill.org/images/pages/dashboard/illustrations-classroom-activities-2.svg"
+        />
       </div>
-      <button
-        className="quill-button contained primary medium"
-        type="button"
-      >
-        Let's go!
-      </button>
-    </div>
-    <img
-      alt="Teacher at projector in classroom"
-      src="undefined/images/pages/dashboard/illustrations-classroom-activities.svg"
-    />
+      <div>
+        <div
+          className="welcome-modal-text"
+        >
+          <p
+            className="welcome-modal-header"
+          >
+            Want to see Quill's full potential?
+          </p>
+            <p>
+              Play around with a demo account to see sample student data and reports.
+            </p>
+          </div>
+          <br />
+          <div
+            className="welcome-modal-buttons"
+          >
+            <button
+              className="quill-button contained secondary medium outlined welcome-modal-demo"
+              onClick={[Function]}
+              type="button"
+            >
+              Explore demo
+            </button>
+            <button
+              className="quill-button contained primary medium welcome-modal-skip"
+              type="button"
+            >
+              Maybe later, skip
+            </button>
+          </div>
+        </div>
+      </div>
   </div>
 </div>
 `;
