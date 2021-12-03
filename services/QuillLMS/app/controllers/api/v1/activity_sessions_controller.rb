@@ -103,12 +103,13 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     data = params.delete(:data)&.permit!
     time_tracking = data && data['time_tracking']
     timespent = @activity_session&.timespent || ActivitySession.calculate_timespent(time_tracking)
+    max_4_bit_integer_size = 2147483647
 
     params
       .permit(activity_session_permitted_params)
       .merge(data: data)
       .reject { |_, v| v.nil? }
-      .merge(timespent: timespent)
+      .merge(timespent: max_4_bit_integer_size > (timespent || 0) ? timespent : max_4_bit_integer_size)
   end
 
   private def transform_incoming_request

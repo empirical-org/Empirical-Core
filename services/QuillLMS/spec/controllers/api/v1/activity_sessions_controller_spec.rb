@@ -116,23 +116,36 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     end
 
     context 'data time_tracking is included ' do
-      let(:data) do
-        {
+
+      it 'updates timespent on activity session' do
+        data = {
           'time_tracking' => {
             'so' => 1,
             'but' => 2,
             'because' => 3
           }
         }
-      end
 
-      before { put :update, params: { id: activity_session.uid, data: data }, as: :json }
-
-      it 'updates timespent on activity session' do
+        put :update, params: { id: activity_session.uid, data: data }, as: :json
         activity_session.reload
 
         expect(activity_session.timespent).to eq 6
         expect(activity_session.data['time_tracking']).to include(data['time_tracking'])
+      end
+
+      describe 'the total time tracking value is larger than the maximum 4-bit integer size' do
+        it 'saves timespent with the maximum 4-bit integer size' do
+          data = {
+            'time_tracking' => {
+              'so' => 2147483648
+            }
+          }
+
+          put :update, params: { id: activity_session.uid, data: data }, as: :json
+          activity_session.reload
+
+          expect(activity_session.timespent).to eq 2147483647
+        end
       end
     end
   end
