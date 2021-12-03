@@ -14,8 +14,8 @@ module DiagnosticReports
   GAINED_PROFICIENCY = 'Gained proficiency'
   MAINTAINED_PROFICIENCY = 'Maintained proficiency'
 
-  def data_for_skill_by_activity_session(activity_session_id, skill)
-    concept_results = ConceptResult.where(activity_session_id: activity_session_id, concept_id: [skill.concept_ids])
+  def data_for_skill_by_activity_session(all_concept_results, skill)
+    concept_results = all_concept_results.where(concept_id: skill.concept_ids)
     number_correct = concept_results.select(&:correct?).length
     number_incorrect = concept_results.reject(&:correct?).length
     {
@@ -43,12 +43,18 @@ module DiagnosticReports
     if unit_id
       classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
       @assigned_students = User.where(id: classroom_unit.assigned_student_ids).sort_by { |u| u.last_name }
-      @activity_sessions = ActivitySession.where(classroom_unit: classroom_unit, is_final_score: true)
+      @activity_sessions = ActivitySession
+        .includes(:concept_results, activity: :skills)
+        .where(classroom_unit: classroom_unit, is_final_score: true)
     else
       classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
       assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
       @assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
-      @activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, is_final_score: true).order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
+      @activity_sessions = ActivitySession
+        .includes(:concept_results, activity: :skills)
+        .where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, is_final_score: true)
+        .order(completed_at: :desc)
+        .uniq { |activity_session| activity_session.user_id }
     end
 
     if hashify_activity_sessions
@@ -60,7 +66,11 @@ module DiagnosticReports
     classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
     assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
     @pre_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
-    @pre_test_activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
+    @pre_test_activity_sessions = ActivitySession
+      .includes(:concept_results, activity: :skills)
+      .where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished')
+      .order(completed_at: :desc)
+      .uniq { |activity_session| activity_session.user_id }
 
     if hashify_activity_sessions
       @pre_test_activity_sessions = @pre_test_activity_sessions.map { |session| [session.user_id, session] }.to_h
@@ -72,7 +82,11 @@ module DiagnosticReports
     classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
     assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
     @post_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
-    @post_test_activity_sessions = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished').order(completed_at: :desc).uniq { |activity_session| activity_session.user_id }
+    @post_test_activity_sessions = ActivitySession
+      .includes(:concept_results, activity: :skills)
+      .where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished')
+      .order(completed_at: :desc)
+      .uniq { |activity_session| activity_session.user_id }
 
     if hashify_activity_sessions
       @post_test_activity_sessions = @post_test_activity_sessions.map { |session| [session.user_id, session] }.to_h

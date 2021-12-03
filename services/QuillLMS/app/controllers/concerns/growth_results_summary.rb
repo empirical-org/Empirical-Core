@@ -31,7 +31,7 @@ module GrowthResultsSummary
       post_test_activity_session = @post_test_activity_sessions[assigned_student.id]
       pre_test_activity_session = @pre_test_activity_sessions[assigned_student.id]
       if post_test_activity_session && pre_test_activity_session
-        skill_groups = skill_groups_for_session(@skill_groups, post_test_activity_session.id, pre_test_activity_session.id, assigned_student.name)
+        skill_groups = skill_groups_for_session(@skill_groups, post_test_activity_session, pre_test_activity_session, assigned_student.name)
         total_acquired_skills_count = skill_groups.map { |sg| sg[:acquired_skill_ids] }.flatten.uniq.count
         {
           name: assigned_student.name,
@@ -45,12 +45,12 @@ module GrowthResultsSummary
     end
   end
 
-  private def skill_groups_for_session(skill_groups, post_test_activity_session_id, pre_test_activity_session_id, student_name)
+  private def skill_groups_for_session(skill_groups, post_test_activity_session, pre_test_activity_session, student_name)
     skill_groups.map do |skill_group|
       skills = skill_group.skills.map do |skill|
         {
-          pre: data_for_skill_by_activity_session(pre_test_activity_session_id, skill),
-          post: data_for_skill_by_activity_session(post_test_activity_session_id, skill)
+          pre: data_for_skill_by_activity_session(pre_test_activity_session.concept_results, skill),
+          post: data_for_skill_by_activity_session(post_test_activity_session.concept_results, skill)
         }
       end
       pre_correct_skills = skills.select { |skill| skill[:pre][:summary] == FULLY_CORRECT }
