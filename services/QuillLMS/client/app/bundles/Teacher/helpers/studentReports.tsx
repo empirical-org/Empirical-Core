@@ -1,4 +1,7 @@
 export function getTimeSpent(seconds: number) {
+  if(!seconds) {
+    return '';
+  }
   if(seconds < 60) {
     return `${seconds} seconds`;
   }
@@ -13,9 +16,10 @@ export function getTimeSpent(seconds: number) {
   }
   const hours = Math.floor(seconds / 60 / 60);
   const minutes = Math.floor((seconds % 3600) / 60)
+  const hoursText = hours > 1 ? 'hrs' : 'hr';
   if(minutes) {
     const minuteText = minutes > 1 ? 'mins' : 'min';
-    return `${hours} hr ${minutes} ${minuteText}`;
+    return `${hours} ${hoursText} ${minutes} ${minuteText}`;
   }
-  return `${hours} hr`;
+  return `${hours} ${hoursText}`;
 }
