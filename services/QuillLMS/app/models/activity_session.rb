@@ -510,7 +510,7 @@ class ActivitySession < ApplicationRecord
   end
 
   # when using this method, you should eager load ass
-  # e.g. includes(:concept_results, activity: :skills)
+  # e.g. .includes(:concept_results, activity: {skills: :concepts})
   def correct_skills
     @correct_skills ||= begin
       skills.select do |skill|
