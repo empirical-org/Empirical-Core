@@ -394,7 +394,7 @@ class Teachers::UnitsController < ApplicationController
     return if records.empty?
     classroom_unit_ids = records.map { |record| record['classroom_unit_id'] }
     activity_sessions = ActivitySession
-      .includes(:concept_results, activity: :skills)
+      .includes(:concept_results, activity: {skills: :concepts})
       .where(activity_id: activity_id, classroom_unit_id: classroom_unit_ids, state: 'finished')
       .order(completed_at: :desc)
       .uniq { |activity_session| activity_session.user_id }
@@ -407,7 +407,7 @@ class Teachers::UnitsController < ApplicationController
       record['skills_count'] = activity_sessions.reduce(0) do |sum, as|
         post_correct_skill_ids = as&.correct_skill_ids
         pre_correct_skill_ids = ActivitySession
-          .includes(:concept_results, activity: :skills)
+          .includes(:concept_results, activity: {skills: :concepts})
           .where(user_id: as.user_id, activity_id: pre_test_activity_id)
           .order(completed_at: :desc)
           .first
