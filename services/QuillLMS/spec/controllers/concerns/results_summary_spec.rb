@@ -115,7 +115,7 @@ describe ResultsSummary do
           not_yet_proficient_student_names: []
         }
       ]
-      expect(skill_groups_for_session([skill_group_activity.skill_group], activity_session.id, student1.name)).to eq [
+      expect(skill_groups_for_session([skill_group_activity.skill_group], activity_session, student1.name)).to eq [
         {
           skill_group: skill_group_activity.skill_group.name,
           description: skill_group_activity.skill_group.description,
@@ -143,7 +143,7 @@ describe ResultsSummary do
           not_yet_proficient_student_names: []
         }
       ]
-      skill_groups_for_session([skill_group_activity.skill_group], activity_session.id, student1.name)
+      skill_groups_for_session([skill_group_activity.skill_group], activity_session, student1.name)
       expect(@skill_group_summaries[0][:not_yet_proficient_student_names]).to eq [student1.name]
     end
 
