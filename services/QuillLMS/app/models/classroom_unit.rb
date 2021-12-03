@@ -29,7 +29,7 @@ class ClassroomUnit < ApplicationRecord
   include AtomicArrays
 
   belongs_to :unit #, touch: true
-  belongs_to :classroom
+  belongs_to :classroom, touch: true
   has_many :activity_sessions
   has_many :unit_activities, through: :unit
   has_many :completed_activity_sessions, -> {completed}, class_name: 'ActivitySession'
