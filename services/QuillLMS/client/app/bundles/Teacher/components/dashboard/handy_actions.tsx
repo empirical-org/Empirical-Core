@@ -18,14 +18,21 @@ const HandyAction = ({ icon, text, link, }) => (
   </a>
 )
 
-const HandyActions = ({ linkedToClever, }) => (
+const ExploreDemoAction = ({setShowDemoModal}) => (
+  <a className="handy-action focus-on-light" onClick={() => setShowDemoModal(true)}>
+    <img alt={demoViewIcon.alt} src={demoViewIcon.src} />
+    <span>Explore a demo teacher account</span>
+  </a>
+)
+
+const HandyActions = ({ linkedToClever, setShowDemoModal}) => (
   <section className="handy-actions">
     <h2>Handy actions</h2>
     <HandyAction icon={searchMapIcon} link="/assign/activity-library" text="Explore activity library" />
     <HandyAction icon={clipboardCheckIcon} link="/assign/diagnostic" text="Assign a diagnostic" />
     <HandyAction icon={tableCheckIcon} link="/teachers/classrooms/scorebook" text="View activity summary report" />
     <HandyAction icon={accountViewIcon} link="/teachers/classrooms?modal=view-as-student" text="View as a student" />
-    <HandyAction icon={demoViewIcon} link="/demo" text="Explore a demo teacher account" />
+    <ExploreDemoAction setShowDemoModal={setShowDemoModal} />
     <HandyAction icon={giftIcon} link="/referrals" text="Refer a teacher" />
     <HandyAction icon={groupAccountIcon} link="/teachers/classrooms/new" text="Add a class" />
     {!linkedToClever && <HandyAction icon={googleClassroomIcon} link="/teachers/classrooms?modal=google-classroom" text="Import classes from Google" />}

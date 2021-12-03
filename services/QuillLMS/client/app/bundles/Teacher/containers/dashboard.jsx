@@ -2,6 +2,7 @@ import React from 'react';
 
 import { requestGet } from '../../../modules/request';
 import WelcomeModal from '../components/dashboard/welcome_modal'
+import DemoModal from '../components/dashboard/demo_modal'
 import OnboardingChecklist from '../components/dashboard/onboarding_checklist'
 import DiagnosticMini from '../components/dashboard/diagnostic_mini'
 import LessonsMini from '../components/dashboard/lessons_mini'
@@ -21,15 +22,18 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
   const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
 
   const [showWelcomeModal, setShowWelcomeModal] = React.useState(mustSeeModal)
+  const [showDemoModal, setShowDemoModal] = React.useState(false)
 
   function closeWelcomeModal() { setShowWelcomeModal(false) }
+  function closeDemoModal() { setShowDemoModal(false) }
 
-  // if (!onboardingChecklist.every(obj => obj.checked)) {
-  //   return (<div className="dashboard">
-  //     {showWelcomeModal && <WelcomeModal close={closeWelcomeModal} size={size} />}
-  //     <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
-  //   </div>)
-  // }
+  if (!onboardingChecklist.every(obj => obj.checked)) {
+    return (<div className="dashboard">
+      {showWelcomeModal && <WelcomeModal close={closeWelcomeModal} size={size} />}
+      {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
+      <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
+    </div>)
+  }
 
   const [metrics, setMetrics] = React.useState(null)
   const [diagnostics, setDiagnostics] = React.useState(null);
@@ -92,6 +96,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
 
   return (<div className="dashboard">
     <div className="post-checklist-container">
+      {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
       <main>
         <KeyMetrics firstName={firstName} metrics={metrics} />
         <DiagnosticMini diagnostics={diagnostics} onMobile={onMobile()} />
@@ -99,7 +104,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
         <ActivityFeed activityFeed={activityFeed} onMobile={onMobile()} />
       </main>
       <aside>
-        <HandyActions linkedToClever={linkedToClever} />
+        <HandyActions linkedToClever={linkedToClever} setShowDemoModal={setShowDemoModal} />
         <DailyTinyTip />
         <TeacherCenterHighlights featuredBlogPosts={featuredBlogPosts} />
         <CollegeBoard />

@@ -1158,9 +1158,20 @@
   h1 {
     font-weight: bold;
   }
+  p {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
   .explore-demo-modal-text {
     padding-top: 20px;
     padding-bottom: 20px;
+  }
+  button {
+    float: right;
+  }
+  .cancel-button {
+    border: 1px solid #bdbdbd;
+    margin-right: 20px;
   }
 }
 
