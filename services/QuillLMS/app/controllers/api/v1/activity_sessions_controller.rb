@@ -109,7 +109,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       begin
         raise "#{timespent} seconds for user #{@activity_session.user_id} and activity session #{@activity_session.id}"
       rescue => e
-        Sentry.capture_exception(e)
+        Raven.capture_exception(e)
       end
     end
 
