@@ -105,6 +105,14 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     timespent = @activity_session&.timespent || ActivitySession.calculate_timespent(time_tracking)
     max_4_bit_integer_size = 2147483647
 
+    if timespent > 3600
+      begin
+        raise "#{timespent} seconds for user #{@activity_session.user_id} and activity session #{@activity_session.id}"
+      rescue => e
+        Sentry.capture_exception(e)
+      end
+    end
+
     params
       .permit(activity_session_permitted_params)
       .merge(data: data)
