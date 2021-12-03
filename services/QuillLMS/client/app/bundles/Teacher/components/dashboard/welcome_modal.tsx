@@ -22,23 +22,20 @@ const WelcomeModal = ({ close, size }) => {
     />
     <div className="welcome-modal quill-modal">
       <div className="modal-body">
-        <h1>Welcome to Quill!</h1>
-        <div className="welcome-modal-text">
-          <p>Our mission as a non-profit is to help students become strong writers, so all our content is completely free to use with an unlimited number of students.</p>
+        <div className="welcome-modal-image-box">
+          <h1>Welcome to Quill!</h1>
+          <img alt="Teacher at projector in classroom" src="https://assets.quill.org/images/pages/dashboard/illustrations-classroom-activities-2.svg" />
         </div>
         <div>
-        <div className="welcome-modal-demo welcome-modal-card">
-          <img alt="Teacher at projector in classroom" src="https://assets.quill.org/images/pages/dashboard/illustrations-classroom-activities.svg" />
-          <h4>Try a Demo</h4>
-          <p>Play around with a fully loaded demo to see sample student data and reports.</p>
-          <button className="quill-button contained primary medium" onClick={goToDemo}>Start exploring</button>
-        </div>
-        <div className="welcome-modal-card welcome-modal-go">
-          <img alt="Teacher at projector in classroom" src="https://assets.quill.org/images/pages/dashboard/illustrations-classroom-activities.svg" />
-          <h4>Start setting up</h4>
-          <p>Ready to set up your own classes? Jump right into your account.</p>
-          <button className="quill-button contained primary medium" onClick={close} type="button">Let&apos;s go!</button>
-        </div>
+          <div className="welcome-modal-text">
+            <p className="welcome-modal-header">Want to see Quill&apos;s full potential?</p>
+            <p>Play around with a demo account to see sample student data and reports.</p>
+          </div>
+          <br />
+          <div className="welcome-modal-buttons">
+            <button className="quill-button contained secondary medium outlined welcome-modal-demo" onClick={goToDemo} type="button">Explore demo</button>
+            <button className="quill-button contained primary medium welcome-modal-skip" onClick={close} type="button">Maybe later, skip</button>
+          </div>
         </div>
       </div>
     </div>

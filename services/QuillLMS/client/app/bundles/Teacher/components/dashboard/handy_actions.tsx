@@ -5,6 +5,7 @@ import {
   clipboardCheckIcon,
   tableCheckIcon,
   accountViewIcon,
+  demoViewIcon,
   giftIcon,
   groupAccountIcon,
   googleClassroomIcon,
@@ -24,7 +25,7 @@ const HandyActions = ({ linkedToClever, }) => (
     <HandyAction icon={clipboardCheckIcon} link="/assign/diagnostic" text="Assign a diagnostic" />
     <HandyAction icon={tableCheckIcon} link="/teachers/classrooms/scorebook" text="View activity summary report" />
     <HandyAction icon={accountViewIcon} link="/teachers/classrooms?modal=view-as-student" text="View as a student" />
-    <HandyAction icon={accountViewIcon} link="/demo" text="Explore demo" />
+    <HandyAction icon={demoViewIcon} link="/demo" text="Explore a demo teacher account" />
     <HandyAction icon={giftIcon} link="/referrals" text="Refer a teacher" />
     <HandyAction icon={groupAccountIcon} link="/teachers/classrooms/new" text="Add a class" />
     {!linkedToClever && <HandyAction icon={googleClassroomIcon} link="/teachers/classrooms?modal=google-classroom" text="Import classes from Google" />}
