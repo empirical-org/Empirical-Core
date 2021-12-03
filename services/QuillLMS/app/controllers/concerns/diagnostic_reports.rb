@@ -15,7 +15,7 @@ module DiagnosticReports
   MAINTAINED_PROFICIENCY = 'Maintained proficiency'
 
   def data_for_skill_by_activity_session(all_concept_results, skill)
-    concept_results = all_concept_results.where(concept_id: skill.concept_ids)
+    concept_results = all_concept_results.select {|cr| cr.concept_id.in?(skill.concept_ids)}
     number_correct = concept_results.select(&:correct?).length
     number_incorrect = concept_results.reject(&:correct?).length
     {
