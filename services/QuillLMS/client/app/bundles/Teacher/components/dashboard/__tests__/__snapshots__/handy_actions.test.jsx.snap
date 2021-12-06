@@ -103,9 +103,10 @@ exports[`HandyActions component should render when the user is linked to Clever 
       </a>
     </HandyAction>
     <ExploreDemoAction>
-      <a
-        className="handy-action focus-on-light"
+      <button
+        className="handy-action handy-action-button focus-on-light"
         onClick={[Function]}
+        type="button"
       >
         <img
           alt="Teacher preview icon"
@@ -114,7 +115,7 @@ exports[`HandyActions component should render when the user is linked to Clever 
         <span>
           Explore a demo teacher account
         </span>
-      </a>
+      </button>
     </ExploreDemoAction>
     <HandyAction
       icon={
@@ -269,9 +270,10 @@ exports[`HandyActions component should render when the user is not linked to Cle
       </a>
     </HandyAction>
     <ExploreDemoAction>
-      <a
-        className="handy-action focus-on-light"
+      <button
+        className="handy-action handy-action-button focus-on-light"
         onClick={[Function]}
+        type="button"
       >
         <img
           alt="Teacher preview icon"
@@ -280,7 +282,7 @@ exports[`HandyActions component should render when the user is not linked to Cle
         <span>
           Explore a demo teacher account
         </span>
-      </a>
+      </button>
     </ExploreDemoAction>
     <HandyAction
       icon={

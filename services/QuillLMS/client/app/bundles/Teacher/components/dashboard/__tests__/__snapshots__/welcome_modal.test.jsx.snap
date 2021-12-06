@@ -27,7 +27,7 @@ exports[`WelcomeModal component should render WelcomeModal 1`] = `
         </h1>
         <img
           alt="Teacher at projector in classroom"
-          src="https://assets.quill.org/images/pages/dashboard/illustrations-classroom-activities-2.svg"
+          src="undefined/images/pages/dashboard/illustrations-classroom-activities-2.svg"
         />
       </div>
       <div>
@@ -47,13 +47,12 @@ exports[`WelcomeModal component should render WelcomeModal 1`] = `
         <div
           className="welcome-modal-buttons"
         >
-          <button
+          <a
             className="quill-button contained secondary medium outlined welcome-modal-demo"
-            onClick={[Function]}
-            type="button"
+            href="undefined/teachers/view_demo"
           >
             Explore demo
-          </button>
+          </a>
           <button
             className="quill-button contained primary medium welcome-modal-skip"
             type="button"
