@@ -93,6 +93,9 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    &.underlined {
+      text-decoration: underline;
+    }
   }
 }
 

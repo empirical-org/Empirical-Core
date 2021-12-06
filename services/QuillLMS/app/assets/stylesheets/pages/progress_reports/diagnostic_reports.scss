@@ -119,12 +119,18 @@ $lightgray: #cecece;
       }
     }
   }
-  .activity-view-header {
-    margin-bottom: 30px;
-    padding-left: 20px;
-  }
-  .activity-view-score {
-    padding-left: 20px;
+  .left-side-container {
+    .activity-view-header {
+      margin-bottom: 12px;
+    }
+    .score-time-spent-container {
+      display: flex;
+      .activity-view-score {
+        margin-right: 16px;
+      }
+      .activity-time-spent {
+      }
+    }
   }
 }
 .student-report-box {

@@ -1,21 +1,34 @@
 import * as React from 'react';
-import LoadingSpinner from '../../shared/loading_indicator.jsx'
-import StudentReportBox from './student_report_box'
-import ConnectStudentReportBox from './connect_student_report_box.jsx'
-import _ from 'underscore'
 import { RouteComponentProps } from 'react-router-dom';
-import Student from '../../../../interfaces/student';
-import QuestionData from '../../../../interfaces/questionData';
+import _ from 'underscore'
+
+import ConnectStudentReportBox from './connect_student_report_box.jsx'
+import StudentReportBox from './student_report_box'
+
+import LoadingSpinner from '../../shared/loading_indicator.jsx'
+import { Student } from '../../../../../interfaces/student';
+import { QuestionData } from '../../../../../interfaces/questionData';
 import { DropdownInput } from '../../../../Shared/index'
 import { requestGet } from '../../../../../modules/request/index.js';
 import { GRAMMAR_KEY, CONNECT_KEY, EVIDENCE_KEY, } from '../constants';
+import { getTimeSpent } from '../../../helpers/studentReports';
 
 export interface StudentReportState {
   loading: boolean,
   students: Student[],
 }
 
-export class StudentReport extends React.Component<RouteComponentProps, StudentReportState> {
+interface StudentReportProps extends RouteComponentProps {
+  params: {
+    activityId: string,
+    classroomId: string,
+    studentId: string,
+    unitId: string
+  },
+  studentDropdownCallback: () => void
+}
+
+export class StudentReport extends React.Component<StudentReportProps, StudentReportState> {
 
   state = {
     loading: true,
@@ -27,7 +40,7 @@ export class StudentReport extends React.Component<RouteComponentProps, StudentR
     this.getStudentData(params);
   }
 
-  componentWillReceiveProps(nextProps: RouteComponentProps) {
+  componentWillReceiveProps(nextProps: StudentReportProps) {
     const { params } = nextProps;
     this.setState({ loading: true });
     this.getStudentData(params);
@@ -39,7 +52,7 @@ export class StudentReport extends React.Component<RouteComponentProps, StudentR
       return studentId ? students.find((student: Student) => student.id === parseInt(studentId)) : students[0];
   }
 
-  getStudentData = (params: RouteComponentProps['params']) => {
+  getStudentData = (params: StudentReportProps['params']) => {
     requestGet(`/teachers/progress_reports/students_by_classroom/u/${params.unitId}/a/${params.activityId}/c/${params.classroomId}`, (data: { students: Student[] }) => {
       const { students } = data;
       this.setState({ students, loading: false });
@@ -62,14 +75,21 @@ export class StudentReport extends React.Component<RouteComponentProps, StudentR
     const { loading, students, } = this.state;
     if (loading) { return <LoadingSpinner /> }
     const student = this.selectedStudent(students);
-    const { name, score, id } = student;
+    const { name, score, id, time } = student;
     const displayScore = score ? `${score}%` : ''
+    const displayTimeSpent = time ? getTimeSpent(time) : ''
     const options = students.map(s => ({ value: s.id, label: s.name, }))
     const value = options.find(s => id === s.value)
     return (
       <div className='individual-student-activity-view'>
         <header className="activity-view-header-container">
-          <h3 className='activity-view-header'>{name}  <strong className='activity-view-score'>{displayScore}</strong></h3>
+          <div className="left-side-container">
+            <h3 className='activity-view-header'>{name}</h3>
+            <div className="score-time-spent-container">
+              <p className='activity-view-score'>{`Score: ${displayScore}`}</p>
+              <p className='activity-time-spent'>{`Time spent: ${displayTimeSpent}`}</p>
+            </div>
+          </div>
           <DropdownInput handleChange={studentDropdownCallback} options={options} value={value} />
         </header>
         {this.studentBoxes(students)}
