@@ -118,6 +118,20 @@ const IndividualPack = ({ classrooms, history, match, location, }) => {
     })
   }
 
+  function diagnosticActivityName() {
+    if (!activeDiagnostic) { return '' }
+
+    if (activeDiagnostic.pre.activity_id === activityId) {
+      return activeDiagnostic.pre.activity_name
+    }
+
+    if (activeDiagnostic.post && activeDiagnostic.post.activity_id === activityId) {
+      return activeDiagnostic.post.activity_name
+    }
+
+    return ''
+  }
+
   function onClassesDropdownChange(e) {
     const newClassroom = classrooms.find(c => c.id === e.value)
     const parallelDiagnostic = diagnosticForClassroom(newClassroom)
@@ -159,6 +173,7 @@ const IndividualPack = ({ classrooms, history, match, location, }) => {
   />)
 
   const sharedProps = {
+    activityName: diagnosticActivityName(),
     classrooms,
     mobileNavigation: (<section className="mobile-navigation hide-on-desktop">{classroomDropdown}{linkDropdown}</section>)
   }
