@@ -85,7 +85,7 @@ RSpec.describe Demo::ReportDemoCreator do
     units = Demo::ReportDemoCreator.create_units(teacher)
 
     Demo::ReportDemoCreator.create_classroom_units(classroom, units)
-    expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom)}.to change {ActivitySession.count}.by(23)
+    expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom)}.to change {ActivitySession.count}.by(24)
     act_sesh = ActivitySession.last
     expect(act_sesh.activity_id).to eq(765)
     expect(act_sesh.user_id).to eq(student.id)
