@@ -11,12 +11,13 @@ import DailyTinyTip from '../components/dashboard/daily_tiny_tip'
 import TeacherCenterHighlights from '../components/dashboard/teacher_center_highlights'
 import CollegeBoard from '../components/dashboard/college_board'
 import KeyMetrics from '../components/dashboard/key_metrics'
+import GrowthDiagnosticsPromotionCard from '../components/dashboard/growth_diagnostics_promotion_card'
 import useWindowSize from '../../Shared/hooks/useWindowSize'
 import { Spinner, } from '../../Shared/index'
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 1103
 
-const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToClever, featuredBlogPosts, }) => {
+const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToClever, featuredBlogPosts, showDiagnosticPromotionCard, }) => {
   const size = useWindowSize();
   const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
 
@@ -93,6 +94,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
   return (<div className="dashboard">
     <div className="post-checklist-container">
       <main>
+        {showDiagnosticPromotionCard && <GrowthDiagnosticsPromotionCard />}
         <KeyMetrics firstName={firstName} metrics={metrics} />
         <DiagnosticMini diagnostics={diagnostics} onMobile={onMobile()} />
         <LessonsMini lessons={lessons} onMobile={onMobile()} />

@@ -420,16 +420,17 @@ class Teachers::UnitsController < ApplicationController
   end
 
   private def grouped_name(record)
-    case record['activity_id']
-    when Activity::STARTER_DIAGNOSTIC_ACTIVITY_ID
-      'Starter Diagnostic'
-    when Activity::INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID
-      'Intermediate Diagnostic'
-    when Activity::ADVANCED_DIAGNOSTIC_ACTIVITY_ID
-      'Advanced Diagnostic'
-    else
-      record['activity_name']
-    end
+    activity_ids_to_names = {
+      Activity::STARTER_DIAGNOSTIC_ACTIVITY_ID => 'Starter Diagnostic',
+      Activity::INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID => 'Intermediate Diagnostic',
+      Activity::ADVANCED_DIAGNOSTIC_ACTIVITY_ID => 'Advanced Diagnostic',
+      Activity::ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID => 'ELL Starter Diagnostic',
+      Activity::ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID => 'ELL Intermediate Diagnostic',
+      Activity::ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID => 'ELL Advanced Diagnostic'
+    }
+
+    activity_id = record['activity_id']
+    activity_ids_to_names[activity_id] || record['activity_name']
   end
 
 end

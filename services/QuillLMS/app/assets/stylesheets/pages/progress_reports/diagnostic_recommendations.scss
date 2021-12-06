@@ -1,4 +1,20 @@
 .diagnostic-recommendations-container {
+  .recommendations-empty-state {
+    img {
+      margin-top: 56px;
+      margin-bottom: 16px;
+    }
+    h2 {
+      font-weight: bold;
+      color: #000;
+    }
+    p {
+      font-size: 16px;
+      color: #262626;
+      margin-top: 8px;
+      max-width: 460px;
+    }
+  }
   .explanation {
     color: #808080;
     max-width: 610px;
@@ -333,7 +349,7 @@
   }
   @media (max-width: 930px) {
     padding: 40px 0px !important;
-    header, .mobile-navigation, .explanation, .section-header {
+    header, .mobile-navigation, .explanation, .section-header, .recommendations-empty-state {
       padding: 0px 16px;
     }
     .section-header {
