@@ -372,7 +372,7 @@ class Teachers::UnitsController < ApplicationController
         grouped_record[:post] = post_test || { activity_name: Activity.find_by_id(record['post_test_id'])&.name, unit_template_id: ActivitiesUnitTemplate.find_by_activity_id(record['post_test_id'])&.unit_template_id }
         grouped_record[:pre] = record_with_aggregated_activity_sessions_and_skill_count(diagnostic_records, record['activity_id'], record['classroom_id'], nil)
       else
-        grouped_record[:pre]['completed_count'] = ActivitySession.where(activity_id: record['activity_id'], classroom_unit_id: record['classroom_unit_id'], state: 'finished').size
+        grouped_record[:pre]['completed_count'] = ActivitySession.where(activity_id: record['activity_id'], classroom_unit_id: record['classroom_unit_id'], state: 'finished', user_id: record['assigned_student_ids']).size
         grouped_record[:pre]['assigned_count'] = record['assigned_student_ids'].size
       end
       if index_of_extant_classroom
@@ -393,15 +393,16 @@ class Teachers::UnitsController < ApplicationController
     records = diagnostic_records.select { |record| record['activity_id'] == activity_id && record['classroom_id'] == classroom_id }
     return if records.empty?
     classroom_unit_ids = records.map { |record| record['classroom_unit_id'] }
+    assigned_student_ids = records.map { |r| r['assigned_student_ids'] }.flatten.uniq
     activity_sessions = ActivitySession
       .includes(:concept_results, activity: {skills: :concepts})
-      .where(activity_id: activity_id, classroom_unit_id: classroom_unit_ids, state: 'finished')
+      .where(activity_id: activity_id, classroom_unit_id: classroom_unit_ids, state: 'finished', user_id: assigned_student_ids)
       .order(completed_at: :desc)
       .uniq { |activity_session| activity_session.user_id }
     record = records[0]
     return if !record
     record['completed_count'] = activity_sessions.size
-    record['assigned_count'] = records.map { |r| r['assigned_student_ids'] }.flatten.uniq.size
+    record['assigned_count'] = assigned_student_ids.size
     record['skills_count'] = 0
     if pre_test_activity_id
       record['skills_count'] = activity_sessions.reduce(0) do |sum, as|
