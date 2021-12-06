@@ -9,7 +9,7 @@ RSpec.describe 'User login' do
     fill_in 'email-or-username', with: user.email
     fill_in 'password', with: user.password
     click_on 'log-in'
-    click_button "Let's go!"
+    click_button "Maybe later, skip"
     expect(current_path).to eq '/teachers/classrooms/dashboard'
   end
 end
