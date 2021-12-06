@@ -19,10 +19,10 @@ const HandyAction = ({ icon, text, link, }) => (
 )
 
 const ExploreDemoAction = ({setShowDemoModal}) => (
-  <a className="handy-action focus-on-light" onClick={() => setShowDemoModal(true)}>
+  <button className="handy-action handy-action-button focus-on-light" onClick={() => setShowDemoModal(true)} type="button">
     <img alt={demoViewIcon.alt} src={demoViewIcon.src} />
     <span>Explore a demo teacher account</span>
-  </a>
+  </button>
 )
 
 const HandyActions = ({ linkedToClever, setShowDemoModal}) => (
