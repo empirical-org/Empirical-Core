@@ -45,14 +45,14 @@ module DiagnosticReports
       @assigned_students = User.where(id: classroom_unit.assigned_student_ids).sort_by { |u| u.last_name }
       @activity_sessions = ActivitySession
         .includes(:concept_results, activity: {skills: :concepts})
-        .where(classroom_unit: classroom_unit, is_final_score: true)
+        .where(classroom_unit: classroom_unit, is_final_score: true, user_id: classroom_unit.assigned_student_ids)
     else
       classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
       assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
       @assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
       @activity_sessions = ActivitySession
         .includes(:concept_results, activity: {skills: :concepts})
-        .where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, is_final_score: true)
+        .where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, is_final_score: true, user_id: assigned_student_ids)
         .order(completed_at: :desc)
         .uniq { |activity_session| activity_session.user_id }
     end
@@ -68,7 +68,7 @@ module DiagnosticReports
     @pre_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
     @pre_test_activity_sessions = ActivitySession
       .includes(:concept_results, activity: {skills: :concepts})
-      .where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished')
+      .where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished', user_id: assigned_student_ids)
       .order(completed_at: :desc)
       .uniq { |activity_session| activity_session.user_id }
 
@@ -84,7 +84,7 @@ module DiagnosticReports
     @post_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
     @post_test_activity_sessions = ActivitySession
       .includes(:concept_results, activity: :skills)
-      .where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished')
+      .where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished', user_id: assigned_student_ids)
       .order(completed_at: :desc)
       .uniq { |activity_session| activity_session.user_id }
 
