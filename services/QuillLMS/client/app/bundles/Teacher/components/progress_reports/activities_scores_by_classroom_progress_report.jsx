@@ -124,12 +124,11 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
 
   formatDataForCSV(data) {
     const csvData = [
-      ['Classroom Name', 'Student Name', 'Average Score', 'Activity Count']
+      ['Classroom Name', 'Student Name', 'Average Score', 'Time Spent', 'Activity Count']
     ]
     data.forEach((row) => {
       csvData.push([
-        row['classroom_name'], row['name'], (row['average_score'] * 100).toString() + '%',
-        row['activity_count']
+        row['classroom_name'], row['name'], (row['average_score'] * 100).toString() + '%', getTimeSpent(row['timespent']), row['activity_count']
       ])
     })
     return csvData

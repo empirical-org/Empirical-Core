@@ -95,11 +95,11 @@ export default class IndividualStandardsReport extends React.Component {
 
   formatDataForCSV(data) {
     const csvData = [
-      ['Student', 'Activities', 'Average', 'Proficiency Status']
+      ['Student', 'Activities', 'Time Spent', 'Average', 'Proficiency Status']
     ]
     data.forEach((row) => {
       csvData.push([
-        row['name'], row['total_activity_count'], `${row['average_score']}%`, row['mastery_status']
+        row['name'], row['total_activity_count'], getTimeSpent(row['timespent']), `${row['average_score']}%`, row['mastery_status']
       ])
     })
     return csvData

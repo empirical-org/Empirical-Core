@@ -113,6 +113,10 @@ export default class extends React.Component {
         }, {
           old: 'percentage',
           new: 'Score',
+        },
+        {
+          old: 'timespent',
+          new: 'Time Spent'
         }
       ];
       const csvReportData = [];
@@ -124,6 +128,9 @@ export default class extends React.Component {
           newRow.percentage = 'Completed';
         } else {
           newRow.percentage = 'Not Completed';
+        }
+        if(row.timespent){
+          newRow.timespent = getTimeSpent(row.timespent);
         }
         headers.forEach((oldNew) => {
           newRow[oldNew.new] = newRow[oldNew.old];

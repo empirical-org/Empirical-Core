@@ -168,11 +168,11 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
   formatDataForCSV() {
     const { standardsData } = this.state;
     const csvData = [
-      ['Standard Level', 'Standard Name', 'Students', 'Proficient', 'Activities']
+      ['Standard Level', 'Standard Name', 'Students', 'Proficient', 'Activities', 'Time Spent']
     ]
     standardsData.forEach((row) => {
       csvData.push([
-        row['standard_level_name'], row['name'], row['total_student_count'], `${row['proficient_count']} of ${row['total_student_count']}`, row['total_activity_count']
+        row['standard_level_name'], row['name'], row['total_student_count'], `${row['proficient_count']} of ${row['total_student_count']}`, row['total_activity_count'], getTimeSpent(row['timespent'])
       ])
     })
     return csvData
