@@ -145,7 +145,7 @@ export default class CSVDownloadForProgressReports extends React.Component {
       }
       return (
         <div className='download-button-wrapper'>
-          <button className={this.props.className || 'btn button-green'} onClick={this.toggleDropdown} style={style}>{this.props.buttonCopy || "Download Report"}</button>
+          <button className="quill-button medium primary contained focus-on-light" onClick={this.toggleDropdown} style={style}>{this.props.buttonCopy || "Download Report"}</button>
           {dropdown}
         </div>
       )

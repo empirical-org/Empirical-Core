@@ -13,7 +13,8 @@ class ProgressReports::StudentOverview
           activities.activity_classification_id,
           cuas.completed AS is_a_completed_lesson,
           activities.id AS activity_id,
-          classroom_units.id AS classroom_unit_id
+          classroom_units.id AS classroom_unit_id,
+          activity_sessions.timespent AS timespent
         FROM classroom_units
         LEFT JOIN activity_sessions
           ON classroom_units.id = activity_sessions.classroom_unit_id
