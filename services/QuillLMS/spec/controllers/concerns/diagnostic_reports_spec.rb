@@ -61,6 +61,14 @@ describe DiagnosticReports do
         expect(@assigned_students).to eq([student1, student2, student3])
         expect(@activity_sessions).to eq([activity_session1, activity_session2])
       end
+
+      it 'should not include a student or their activity session if they are no longer in the assigned student ids array' do
+        classroom_unit.remove_assigned_student(student1.id)
+        classroom_unit.reload
+        set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(unit_activity.activity_id, classroom.id, unit.id)
+        expect(@assigned_students).to eq([student2, student3])
+        expect(@activity_sessions).to eq([activity_session2])
+      end
     end
 
     describe 'if there is no unit_id' do
@@ -86,6 +94,15 @@ describe DiagnosticReports do
         expect(@assigned_students).to eq([student1, student2, student3])
         expect(@activity_sessions).to eq([activity_session3, activity_session1])
       end
+
+      it 'should not include a student or their activity session if they are no longer in the assigned student ids array' do
+        classroom_unit1.remove_assigned_student(student1.id)
+        classroom_unit1.reload
+        set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(unit_activity1.activity_id, classroom.id, nil)
+        expect(@assigned_students).to eq([student2, student3])
+        expect(@activity_sessions).to eq([activity_session3])
+      end
+
     end
   end
 

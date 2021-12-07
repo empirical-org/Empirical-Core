@@ -183,6 +183,27 @@ module Demo::ReportDemoCreator
           765 => 9962377
         }
       ]
+    },
+    {
+      name: "Starter Growth Diagnostic (Post)",
+      activity_ids: [1664],
+      activity_sessions: [
+        {
+          1664 => 9962415
+        },
+        {
+          1664 => 9706466
+        },
+        {
+          1664 => 9706464
+        },
+        {
+          1664 => 9706465
+        },
+        {
+          1664 => 9962377
+        }
+      ]
     }
   ]
 

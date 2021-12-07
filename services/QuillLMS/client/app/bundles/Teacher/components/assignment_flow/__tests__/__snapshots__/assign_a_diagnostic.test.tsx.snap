@@ -164,7 +164,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               },
             ]
           }
-          buttonLink="/activity_sessions/anonymous?activity_id=1678"
+          buttonLink="/activity_sessions/anonymous?activity_id=1680"
           buttonText="Preview"
           header="Advanced Growth Diagnostic (Post)"
           lockedText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic."
@@ -291,7 +291,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               },
             ]
           }
-          buttonLink="/activity_sessions/anonymous?activity_id=1590"
+          buttonLink="/activity_sessions/anonymous?activity_id=1818"
           buttonText="Preview"
           header="ELL Advanced Growth Diagnostic (Post)"
           selectCard={[Function]}

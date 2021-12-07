@@ -133,7 +133,7 @@ const generalDiagnosticMinis = ({ history, assignedPreTests, }) => {
           { key: 'What', text: 'The Advanced Growth Diagnostic has different questions but covers the same skills as the Advanced Baseline Diagnostic.', },
           { key: 'When', text: 'Your students have completed the Advanced Baseline Diagnostic, you\'ve assigned the recommended practice, and now you\'re ready to measure their growth.', }
         ]}
-        buttonLink={`/activity_sessions/anonymous?activity_id=${ADVANCED_DIAGNOSTIC_ACTIVITY_ID}`}
+        buttonLink={`/activity_sessions/anonymous?activity_id=${ADVANCED_DIAGNOSTIC_POST_ACTIVITY_ID}`}
         buttonText="Preview"
         header={ADVANCED_DIAGNOSTIC_POST}
         lockedText={isLocked(ADVANCED_DIAGNOSTIC_POST_ACTIVITY_ID) && ADVANCED_POST_TEST_LOCKED_TEXT}
@@ -215,7 +215,7 @@ const ellDiagnosticMinis = ({ history, assignedPreTests, }) => {
           { key: 'What', text: 'The ELL Advanced Growth Diagnostic has different questions but covers the same skills as the ELL Advanced Baseline Diagnostic.', },
           { key: 'When', text: 'Your students have completed the ELL Advanced Baseline Diagnostic, you\'ve assigned the recommended practice, and now you\'re ready to measure their growth.', }
         ]}
-        buttonLink={`/activity_sessions/anonymous?activity_id=${ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID}`}
+        buttonLink={`/activity_sessions/anonymous?activity_id=${ELL_ADVANCED_DIAGNOSTIC_POST_ACTIVITY_ID}`}
         buttonText="Preview"
         header={ELL_ADVANCED_DIAGNOSTIC_POST}
         lockedText={isLocked(ELL_ADVANCED_DIAGNOSTIC_POST_ACTIVITY_ID) && ELL_ADVANCED_POST_TEST_LOCKED_TEXT}
