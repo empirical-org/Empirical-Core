@@ -19,6 +19,7 @@ module CsvExporter::Standards
         json_hash[:standard_level_name],
         json_hash[:name],
         json_hash[:total_activity_count],
+        json_hash[:totalspent],
         json_hash[:mastery_status]
       ]
     end

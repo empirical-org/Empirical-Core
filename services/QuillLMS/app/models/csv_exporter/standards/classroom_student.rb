@@ -11,9 +11,9 @@ module CsvExporter
           'Proficient Standards',
           'Not Yet Proficient Standards',
           'Activities',
+          'Time Spent',
           'Average',
           'Overall Mastery Status',
-          'Time Spent'
         ]
       end
 
@@ -26,9 +26,9 @@ module CsvExporter
           json_hash[:proficient_standard_count],
           json_hash[:not_proficient_standard_count],
           json_hash[:total_activity_count],
+          json_hash[:timespent],
           json_hash[:average_score],
-          json_hash[:mastery_status],
-          json_hash[:timespent]
+          json_hash[:mastery_status]
         ]
       end
 

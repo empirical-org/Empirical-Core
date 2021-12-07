@@ -59,7 +59,7 @@ export default class IndividualStandardsReport extends React.Component {
         resizable: false,
         sortMethod: sortByLastName,
         Cell: row => (
-          <a href={row.original['concepts_href']}><span className='row-link-disguise underlined'>{row.original['name']}</span></a>
+          <a href={row.original['student_standards_href']}><span className='row-link-disguise underlined'>{row.original['name']}</span></a>
         )
       }, {
         Header: 'Activities',
