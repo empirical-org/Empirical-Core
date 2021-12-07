@@ -104,7 +104,13 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def teacher_dashboard_metrics
-    render json: TeacherDashboardMetrics.new(current_user).run
+    cache_key = CacheKey.all_classrooms(current_user, name: 'teacher_dashboard_metrics')
+
+    json = Rails.cache.fetch(cache_key) do
+      TeacherDashboardMetrics.new(current_user).run
+    end
+
+    render json: json
   end
 
   def teacher_guide
@@ -120,10 +126,16 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scores
-    classroom = Classroom.find(params[:classroom_id])
-    classroom_unit = classroom.classroom_units.find_by(unit_id: params[:unit_id])
-
-    cache_key = ['scores', classroom, classroom_unit, params[:current_page], params[:begin_date], params[:end_date], current_user.utc_offset]
+    cache_key = CacheKey.all_classrooms(current_user,
+      name: 'scores',
+      groups: [
+        params[:unit_id],
+        params[:current_page],
+        params[:begin_date],
+        params[:end_date],
+        current_user.utc_offset
+      ]
+    )
 
     scores = Rails.cache.fetch(cache_key) do
       Scorebook::Query.run(params[:classroom_id], params[:current_page], params[:unit_id], params[:begin_date], params[:end_date], current_user.utc_offset)
