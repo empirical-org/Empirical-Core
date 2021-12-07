@@ -4,7 +4,7 @@ module CacheKey
   def self.all_classrooms(user, name:, groups: [])
     classroom = user.classrooms_i_teach.maximum('classrooms.updated_at')
 
-    model_key(classroom, name: name, groups: groups)]
+    model_key(classroom, name: name, groups: groups)
   end
 
   def self.classroom(classroom, name:, groups: [])
@@ -15,7 +15,7 @@ module CacheKey
     model_key(classroom_unit, name: name, groups: groups)
   end
 
-  def self.classroom_unit_by_ids(classroom_id:, unit_id:, activity_id:, name:, groups: []])
+  def self.classroom_unit_by_ids(classroom_id:, unit_id:, activity_id:, name:, groups: [])
     classroom_unit = if unit_id
       ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
     else
@@ -29,8 +29,7 @@ module CacheKey
     model_key(classroom_unit, name: name, groups: groups)
   end
 
-  private self.model_key(object, name:, groups: [])
+  def self.model_key(object, name:, groups: [])
     [name, *groups, object]
   end
-
 end
