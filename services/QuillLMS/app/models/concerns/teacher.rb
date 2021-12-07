@@ -32,10 +32,6 @@ module Teacher
     classrooms_i_teach.any? && !classrooms_i_teach.all?(&:new_record?)
   end
 
-  def classrooms_i_teach
-    Classroom.find_by_sql(base_sql_for_teacher_classrooms)
-  end
-
   def classrooms_i_own
     Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND ct.role = 'owner'")
   end
