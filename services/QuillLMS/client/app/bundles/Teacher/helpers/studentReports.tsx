@@ -3,7 +3,7 @@ export function getTimeSpent(seconds: number) {
     return '';
   }
   if(seconds < 60) {
-    return `${seconds} seconds`;
+    return `<1 min`;
   }
   if(seconds >= 60 && seconds < 120) {
     return '1 min';

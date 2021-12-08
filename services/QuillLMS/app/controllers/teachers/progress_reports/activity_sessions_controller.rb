@@ -154,7 +154,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
 
   private def calculate_timespent(seconds)
     return "" unless seconds
-    return "#{seconds} seconds" if seconds < 60
+    return "<1 min" if seconds < 60
     return "1 min" if seconds >= 60 && seconds < 120
     return "#{((seconds % 3600) / 60).floor} min" if seconds >= 120 && seconds < 3600
     return "1 hr" if seconds >= 3600 && seconds < 3660
