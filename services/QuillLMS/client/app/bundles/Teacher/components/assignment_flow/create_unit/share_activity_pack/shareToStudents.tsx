@@ -36,12 +36,15 @@ export const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
     setActivityPack(activityPackData);
   }, [activityPackData]);
 
+  // this hook is for the case when a user opts to click Return to Dashboard in the assignment flow
   React.useEffect(() => {
     if (leaving) {
-      handleUnmount()
+      handleUnmount();
+      window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`;
     }
   }, [leaving]);
 
+  // this hook is for the case when a user opts to click Next in the assignment flow
   React.useEffect(() => {
     return () => {
       handleUnmount()
@@ -56,7 +59,6 @@ export const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
     window.localStorage.removeItem(ASSIGNED_CLASSROOMS);
     window.localStorage.removeItem(CLASSROOMS);
     window.localStorage.removeItem(UNIT_ID);
-    window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`;
   }
 
   function handleClick() {
@@ -81,7 +83,8 @@ export const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
     handleToggleShareModal();
   }
 
-  function handleShareActivityClick(id) {
+  function handleShareActivityClick(e, id) {
+    e.stopPropagation();
     if(activityPack && activityPack.activities) {
       const { activities } = activityPack;
       const activity = activities.filter(activity => activity.id === id)[0];
@@ -101,9 +104,17 @@ export const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
         id,
         imgAlt: 'share-arrow',
         imgSrc: shareActivitySrc,
-        onClick: () => handleShareActivityClick(id)
+        onClick: (e) => handleShareActivityClick(e, id)
       }
     });
+  }
+
+  function getSelectedClassroomId() {
+    if(classrooms && classrooms.length === 1) {
+      const classroomObject = classrooms[0];
+      const { classroom } = classroomObject;
+      return classroom.id;
+    }
   }
 
   function renderInviteStudents() {
@@ -151,12 +162,13 @@ export const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
       <ShareActivityPackModal
         activityPackData={activityPack}
         closeModal={handleToggleShareModal}
+        selectedClassroomId={getSelectedClassroomId()}
         singleActivity={singleActivity}
         unitId={unitId}
       />}
       <ScrollToTop />
       <AssignmentFlowNavigation button={button} />
-      <div className="google-classroom container">
+      <div className="share-activity-pack container">
         <h1>Assigned!</h1>
         <div className="inner-container">
           <ActivityPackInformation activityPackData={activityPack} classroomData={classrooms} />

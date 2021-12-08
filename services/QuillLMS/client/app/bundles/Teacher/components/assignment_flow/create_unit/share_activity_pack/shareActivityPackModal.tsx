@@ -1,28 +1,89 @@
 import * as React from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { defaultSnackbarTimeout, Snackbar, DropdownInput } from '../../../../../Shared/index'
+import { defaultSnackbarTimeout, Snackbar, DropdownInput, Spinner } from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request';
-import { Classroom, ClassroomUnit, DropdownObject } from '../../../../../../interfaces/activityPack';
+import { Classroom, ClassroomUnit, DropdownObject, ActivityPack, ActivityElement } from '../../../../../../interfaces/activityPack';
+import { DropdownObjectInterface } from '../../../../../Staff/interfaces/evidenceInterfaces';
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`;
 const shareToGoogleIconSrc = `${process.env.CDN_URL}/images/icons/icons-google-classroom-color.svg`;
+const ALL_CLASSES = 'All Classes';
 
-export const ShareActivityPackModal = ({ activityPackData, closeModal, singleActivity, unitId }) => {
+interface ShareActivityPackModalPropsInterface {
+  activityPackData: ActivityPack;
+  closeModal: () => void;
+  selectableClassrooms?: string[];
+  selectedClassroomId?: string;
+  selectedClassroomName?: string;
+  singleActivity: ActivityElement;
+  unitId: string;
+}
+
+export const ShareActivityPackModal = ({ activityPackData, closeModal, selectableClassrooms, selectedClassroomId, selectedClassroomName, singleActivity, unitId }: ShareActivityPackModalPropsInterface) => {
   const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
   const [selectedClass, setSelectedClass] = React.useState<DropdownObject>({ label: '', value: '' });
   const [classrooms, setClassrooms] = React.useState<Classroom[]>([]);
   const [classroomUnits, setClassroomUnits] = React.useState<ClassroomUnit[]>([]);
-  const [link, setLink] = React.useState<string>(classrooms && classrooms.length && getDefaultLink());
+  const [link, setLink] = React.useState<string>(getDefaultLink());
+
 
   React.useEffect(() => {
     requestGet(`/teachers/classrooms/classrooms_and_classroom_units_for_activity_share/${unitId}`, (body) => {
-      setClassrooms(body.classrooms && body.classrooms.classrooms_and_their_students)
+      const classrooms = body.classrooms && filterClassrooms(body.classrooms.classrooms_and_their_students)
+      setClassrooms(classrooms)
       setClassroomUnits(body.classroom_units)
     });
   }, []);
 
+  React.useEffect(() => {
+    if(classrooms.length && classroomUnits.length) {
+      const newLink = getDefaultLink();
+      const filteredClassrooms = filterClassrooms(classrooms);
+      getSelectedClass(filteredClassrooms);
+      newLink && setLink(newLink);
+    }
+  }, [classrooms, classroomUnits]);
+
+  React.useEffect(() => {
+    if(classrooms && classrooms.length) {
+      const filteredClassrooms = filterClassrooms(classrooms);
+      getSelectedClass(filteredClassrooms);
+      setClassrooms(filteredClassrooms);
+    }
+  }, [selectedClassroomId, selectedClassroomName, selectableClassrooms]);
+
+  function filterClassrooms(classrooms) {
+    if(selectedClassroomName) {
+      return classrooms.filter(classroomObject => classroomObject.classroom.name === selectedClassroomName);
+    }
+    if(selectedClassroomId === ALL_CLASSES) {
+      return classrooms.filter(classroomObject => selectableClassrooms.includes(classroomObject.classroom.name))
+    }
+    if(selectedClassroomId) {
+      const id = parseInt(selectedClassroomId);
+      return classrooms.filter(classroomObject => classroomObject.classroom.id === id);
+    }
+    return classrooms;
+  }
+
+  function getSelectedClass(filteredClassrooms) {
+    // we want set selectedClass and return only the link without dropdown if only one class remains after filtering
+    if(filteredClassrooms && filteredClassrooms.length === 1) {
+      const classroomObject = filteredClassrooms[0];
+      const { classroom } = classroomObject;
+      const { id, name } = classroom;
+      const dropdownOption = {
+        value: id,
+        label: name
+      }
+      setSelectedClass(dropdownOption);
+    }
+  }
+
   function getDefaultLink() {
+    if(!(classrooms.length)) { return '' }
+    if(!(classroomUnits.length)) { return '' }
     if(classrooms.length !== 1) { return '' }
     const classroomObject = classrooms[0];
     const classroomUnitObject = classroomUnits[0];
@@ -30,7 +91,8 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
     if(singleActivity) {
       const { id } = classroomUnitObject;
       return `${process.env.DEFAULT_URL}/classroom_units/${id}/activities/${singleActivity.id}`;
-    } else {
+    }
+    if(!singleActivity) {
       const { id } = classroom;
       return `${process.env.DEFAULT_URL}/classrooms/${id}?unit_id=${unitId}`
     }
@@ -61,14 +123,14 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
     setTimeout(() => setShowSnackbar(false), defaultSnackbarTimeout);
   }
 
-  function handleClassChange(classOption) {
+  function handleClassChange(classOption: DropdownObjectInterface) {
     const { value } = classOption;
     setSelectedClass(classOption);
     if(singleActivity) {
-      const classroomUnit = classroomUnits.filter(unit => unit.classroom_id === value)[0];
-      setLink(`${process.env.DEFAULT_URL}/classroom_units/${classroomUnit.id}/activities/${singleActivity.id}`)
+      const classroomUnit = classroomUnits.filter(unit => unit.classroom_id === parseInt(value))[0];
+      setLink(`${process.env.DEFAULT_URL}/classroom_units/${classroomUnit.id}/activities/${singleActivity.id}`);
     } else {
-      setLink(`${process.env.DEFAULT_URL}/classrooms/${value}?unit_id=${unitId}`)
+      setLink(`${process.env.DEFAULT_URL}/classrooms/${value}?unit_id=${unitId}`);
     }
   }
 
@@ -81,7 +143,7 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
       shareUrl += `url=${link}&`;
       shareUrl += `title=${title}&`;
       shareUrl += `body=${body}`;
-      if(courseId) { shareUrl += `&courseid=` }
+      if(courseId) { shareUrl += `&courseid=${courseId}` }
       window.open(
         shareUrl,
         '_blank'
@@ -101,7 +163,7 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
 
   function renderActivityAndClassData(showActivityLink) {
     if(classrooms.length === 1) {
-      returnActivityLinkComponent(showActivityLink)
+      return returnActivityLinkComponent(showActivityLink);
     }
     return(
       <div className="class-and-activity-data-container">
@@ -132,7 +194,7 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   function renderSnackbar() {
@@ -145,20 +207,16 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
   }
 
   function getDisclaimer() {
-    let name = activityPackData.name;
-    if(singleActivity) {
-      name = singleActivity.name;
-    }
-    return `Only students who were assigned "${name}" will be able to open the link.`
+    const name = singleActivity && singleActivity.name || activityPackData.name;
+    return `Only students who were assigned "${name}" will be able to open the link.`;
   }
 
-  const showActivityLink = selectedClass && selectedClass.value;
-  const showContainerStyle = !showActivityLink ? 'hide-modal-element' : '';
-
-  return(
-    <div className="modal-container google-classroom-modal-container">
-      <div className="modal-background" />
-      <div className="google-classroom-share-activity-modal quill-modal modal-body">
+  function renderContent(dataReady: boolean) {
+    if(!dataReady) {
+      return <Spinner />;
+    }
+    return(
+      <React.Fragment>
         <div className="title-row">
           <h3 className="title">{getTitle()}</h3>
           <button className='close-button focus-on-light' onClick={handleCloseModal} type="button">
@@ -166,7 +224,7 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
           </button>
         </div>
         <p className="disclaimer-text">{getDisclaimer()}</p>
-        {classrooms && renderActivityAndClassData(showActivityLink)}
+        {renderActivityAndClassData(showActivityLink)}
         <div className={`form-buttons ${showContainerStyle}`}>
           <CopyToClipboard onCopy={handleCopyLink} text={link}>
             <button className="quill-button outlined secondary medium focus-on-light" type="button">Copy link</button>
@@ -178,8 +236,21 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, singleAct
             </div>
           </button>
         </div>
-        {renderSnackbar()}
+      </React.Fragment>
+    );
+  }
+
+  const dataReady = !!(classrooms && classrooms.length);
+  const showActivityLink = selectedClass && selectedClass.value;
+  const showContainerStyle = !showActivityLink ? 'hide-modal-element' : '';
+
+  return(
+    <div className="modal-container share-activity-pack-modal-container">
+      <div className="modal-background" />
+      <div className="share-activity-pack-modal quill-modal modal-body">
+        {renderContent(dataReady)}
       </div>
+      {renderSnackbar()}
     </div>
   );
 }

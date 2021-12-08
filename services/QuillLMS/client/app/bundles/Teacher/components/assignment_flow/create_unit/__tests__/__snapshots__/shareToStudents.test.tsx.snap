@@ -17,7 +17,7 @@ exports[`ShareToStudents component should render 1`] = `
     }
   />
   <div
-    className="google-classroom container"
+    className="share-activity-pack container"
   >
     <h1>
       Assigned!

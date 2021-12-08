@@ -92,7 +92,7 @@ export default class CreateUnit extends React.Component {
 
   getActivities = () => {
     const { stage, } = this.state
-    const privateFlag = stage === 2 ? "?flag=private" : ''
+    const privateFlag = [2, 3].includes(stage) ? "?flag=private" : ''
     requestGet(`/activities/search${privateFlag}`, (body) => {
       const { activities, } = body
       const activityIdsArray = this.props.match.params.activityIdsArray || window.localStorage.getItem(ACTIVITY_IDS_ARRAY)

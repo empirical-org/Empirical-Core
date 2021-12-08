@@ -45,6 +45,15 @@
   }
   .expanded-section {
     .row-section {
+      .row-name-button {
+        background-color: white;
+        .row-name-label {
+          color: #545454;
+        }
+        .row-name-label:hover {
+          text-decoration: underline;
+        }
+      }
       .row-button {
         background-color: white;
       }
@@ -67,12 +76,14 @@
       padding: 16px;
       display: flex;
       justify-content: space-between;
-      .row-name {
+      .row-name-button {
         max-width: 424px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
         margin-right: 24px;
+        .row-name-label {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
       }
     }
     .row-section:last-of-type {

@@ -10,6 +10,7 @@ describe('ShareActivityPackModal component', () => {
     singleActivity: {},
     unitId: '3'
   }
+  // @ts-ignore
   const wrapper = shallow(<ShareActivityPackModal {...mockProps} />)
   it('should render', () => {
     expect(wrapper).toMatchSnapshot();

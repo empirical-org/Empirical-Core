@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface DropdownObject {
   value: string,
   label: string
@@ -88,6 +90,12 @@ export interface Activity {
     parent_id: number
   }[],
   uid: string
+}
+
+// activity object from DataTable
+export interface ActivityElement extends Activity {
+  activityId?: number,
+  cuId?: number
 }
 
 export interface ActivityPack {
