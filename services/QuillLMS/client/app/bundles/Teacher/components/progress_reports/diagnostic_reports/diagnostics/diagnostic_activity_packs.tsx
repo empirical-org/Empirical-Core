@@ -1,14 +1,14 @@
 import * as React from 'react'
 import * as moment from 'moment'
 
+import GrowthSummary from './growthSummary'
 import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.jsx'
 import { Classroom, Activity, Diagnostic, } from './interfaces'
-import { goToAssign, baseDiagnosticImageSrc, triangleUpIcon, } from './shared'
+import { goToAssign, baseDiagnosticImageSrc, } from './shared'
 
 import { DropdownInput, Tooltip, } from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request/index';
 
-const barGraphIncreasingIcon = <img alt="Bar chart growth icon" src={`${baseDiagnosticImageSrc}/icons-bar-graph-increasing.svg`} />
 const multipleCardsIcon = <img alt="Activity pack icon" src={`${baseDiagnosticImageSrc}/icons-card-multiple.svg`} />
 const multipleUsersIcon = <img alt="Multiple user icon" src={`${baseDiagnosticImageSrc}/icons-user-multiple.svg`} />
 const calendarDateIcon = <img alt="Calendar icon" src={`${baseDiagnosticImageSrc}/icons-calendar-date.svg`} />
@@ -45,29 +45,6 @@ const AssignedSection = ({ activity, sectionTitle, isPostDiagnostic, }) => {
       <a className="focus-on-light" href={resultsLink(isPostDiagnostic, activity_id, classroom_id, unit_id)}>View results and recommendations</a>
     </div>
   </section>)
-}
-
-const GrowthSummary = ({ showGrowthSummary, skillsGrowth, name, growthSummaryLink, }) => {
-  if (showGrowthSummary) {
-    const growth = skillsGrowth > 0 ? <span className="growth">{triangleUpIcon}{skillsGrowth}</span> : <span className="no-growth">No growth yet</span>
-    return (<section className="growth-summary">
-      <div>
-        <h4>Growth summary</h4>
-        {skillsGrowth !== null && <p>{barGraphIncreasingIcon}<span>Skills growth: {growth}</span></p>}
-      </div>
-      <div>
-        <a className="focus-on-light" href={growthSummaryLink}>View growth</a>
-      </div>
-    </section>)
-  }
-
-  return (<section className="growth-summary">
-    <div>
-      <h4>Growth summary</h4>
-      <p>{barGraphIncreasingIcon}<span>To see how your students have grown, first assign the {name} (Post)</span></p>
-    </div>
-  </section>)
-
 }
 
 const PostInProgress = ({ name, }) => {

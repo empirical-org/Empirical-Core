@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GrowthSummary component should render showGrowthSummary is false 1`] = `
+<GrowthSummary
+  name="Diagnostic"
+  showGrowthSummary={false}
+>
+  <section
+    className="growth-summary"
+  >
+    <div>
+      <h4>
+        Growth summary
+      </h4>
+      <p>
+        <img
+          alt="Bar chart growth icon"
+          src="undefined/images/pages/diagnostic_reports/icons-bar-graph-increasing.svg"
+        />
+        <span>
+          To see how your students have grown, first assign the 
+          Diagnostic
+           (Post)
+        </span>
+      </p>
+    </div>
+  </section>
+</GrowthSummary>
+`;
+
+exports[`GrowthSummary component should render showGrowthSummary is true and skillsGrowth is 0 1`] = `
+<GrowthSummary
+  growthSummaryLink=""
+  name="Diagnostic"
+  showGrowthSummary={true}
+  skillsGrowth={0}
+>
+  <section
+    className="growth-summary"
+  >
+    <div>
+      <h4>
+        Growth summary
+      </h4>
+      <p>
+        <img
+          alt="Bar chart growth icon"
+          src="undefined/images/pages/diagnostic_reports/icons-bar-graph-increasing.svg"
+        />
+        <span>
+          Skills growth: 
+          <span
+            className="no-growth"
+          >
+            No growth yet
+          </span>
+        </span>
+      </p>
+    </div>
+    <div>
+      <a
+        className="focus-on-light"
+        href=""
+      >
+        View growth
+      </a>
+    </div>
+  </section>
+</GrowthSummary>
+`;
+
+exports[`GrowthSummary component should render showGrowthSummary is true and skillsGrowth is larger than 0 1`] = `
+<GrowthSummary
+  growthSummaryLink=""
+  name="Diagnostic"
+  showGrowthSummary={true}
+  skillsGrowth={18}
+>
+  <section
+    className="growth-summary"
+  >
+    <div>
+      <h4>
+        Growth summary
+      </h4>
+      <p>
+        <img
+          alt="Bar chart growth icon"
+          src="undefined/images/pages/diagnostic_reports/icons-bar-graph-increasing.svg"
+        />
+        <span>
+          Skills growth: 
+          <span
+            className="growth"
+          >
+            <img
+              alt="Triangle up icon"
+              src="undefined/images/pages/diagnostic_reports/icons-triangle-up-green.svg"
+            />
+            18
+          </span>
+        </span>
+      </p>
+    </div>
+    <div>
+      <a
+        className="focus-on-light"
+        href=""
+      >
+        View growth
+      </a>
+    </div>
+  </section>
+</GrowthSummary>
+`;
+
+exports[`GrowthSummary component should render showGrowthSummary is true and skillsGrowth is null 1`] = `
+<GrowthSummary
+  growthSummaryLink=""
+  name="Diagnostic"
+  showGrowthSummary={true}
+  skillsGrowth={null}
+>
+  <section
+    className="growth-summary"
+  >
+    <div>
+      <h4>
+        Growth summary
+      </h4>
+    </div>
+    <div>
+      <a
+        className="focus-on-light"
+        href=""
+      >
+        View growth
+      </a>
+    </div>
+  </section>
+</GrowthSummary>
+`;
