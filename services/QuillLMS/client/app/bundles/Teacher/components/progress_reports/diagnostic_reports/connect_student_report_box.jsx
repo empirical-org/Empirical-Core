@@ -48,6 +48,8 @@ export default createReactClass({
 				if (typeof feedback === 'string') {
 					feedback = this.feedbackOrDirections(feedback, 'Feedback')
 				}
+			} else if (currAttempt[0].feedback) {
+				feedback = currAttempt[0].feedback
 			}
 			let score = 0;
 			let concepts = currAttempt.map((concept)=>{
