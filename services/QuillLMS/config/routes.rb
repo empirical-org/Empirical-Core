@@ -258,6 +258,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'students_by_classroom/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#students_by_classroom'
       get 'recommendations_for_classroom/:classroom_id/activity/:activity_id' => 'diagnostic_reports#recommendations_for_classroom'
       get 'lesson_recommendations_for_classroom/:classroom_id/activity/:activity_id' => 'diagnostic_reports#lesson_recommendations_for_classroom'
+      get 'skills_growth/:classroom_id/post_test_activity_id/:post_test_activity_id/pre_test_activity_id/:pre_test_activity_id' => 'diagnostic_reports#skills_growth'
       get 'diagnostic_activity_ids' => 'diagnostic_reports#diagnostic_activity_ids'
       get 'activity_with_recommendations_ids' => 'diagnostic_reports#activity_with_recommendations_ids'
       get 'previously_assigned_recommendations/:classroom_id/activity/:activity_id' => 'diagnostic_reports#previously_assigned_recommendations'

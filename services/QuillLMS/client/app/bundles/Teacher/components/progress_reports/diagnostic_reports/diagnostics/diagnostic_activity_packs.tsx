@@ -6,6 +6,7 @@ import { Classroom, Activity, Diagnostic, } from './interfaces'
 import { goToAssign, baseDiagnosticImageSrc, triangleUpIcon, } from './shared'
 
 import { DropdownInput, Tooltip, } from '../../../../../Shared/index'
+import { requestGet } from '../../../../../../modules/request/index';
 
 const barGraphIncreasingIcon = <img alt="Bar chart growth icon" src={`${baseDiagnosticImageSrc}/icons-bar-graph-increasing.svg`} />
 const multipleCardsIcon = <img alt="Activity pack icon" src={`${baseDiagnosticImageSrc}/icons-card-multiple.svg`} />
@@ -52,7 +53,7 @@ const GrowthSummary = ({ showGrowthSummary, skillsGrowth, name, growthSummaryLin
     return (<section className="growth-summary">
       <div>
         <h4>Growth summary</h4>
-        <p>{barGraphIncreasingIcon}<span>Skills growth: {growth}</span></p>
+        {showGrowthSummary !== null && <p>{barGraphIncreasingIcon}<span>Skills growth: {growth}</span></p>}
       </div>
       <div>
         <a className="focus-on-light" href={growthSummaryLink}>View growth</a>
@@ -100,11 +101,28 @@ const PostSection = ({ post, activityId, unitTemplateId, name, }) => {
 }
 
 const Diagnostic = ({ diagnostic, }) => {
+  const [skillsGrowth, setSkillsGrowth] = React.useState(null)
   const { name, pre, post, } = diagnostic
+
+  React.useEffect(() => {
+    if (post && post.assigned_count) {
+      getSkillsGrowth()
+    }
+  }, [])
+
+  function getSkillsGrowth() {
+
+    requestGet(`/teachers/progress_reports/skills_growth/${pre.classroom_id}/post_test_activity_id/${post.activity_id}/pre_test_activity_id/${pre.activity_id}`,
+      (data) => {
+        setSkillsGrowth(data.skills_growth)
+      }
+    )
+  }
+
   let postAndGrowth = <PostInProgress name={name} />
   if (pre.post_test_id) {
     const growthSummaryLink = resultsLink(true, pre.post_test_id, pre.classroom_id, pre.unit_id)
-    postAndGrowth = post.assigned_count ? <React.Fragment><PostSection post={post} /><GrowthSummary growthSummaryLink={growthSummaryLink} showGrowthSummary={true} skillsGrowth={post.skills_count - pre.skills_count} /></React.Fragment> : <React.Fragment><PostSection activityId={pre.post_test_id} name={name} unitTemplateId={post.unit_template_id} /><GrowthSummary name={name} /></React.Fragment>
+    postAndGrowth = post.assigned_count ? <React.Fragment><PostSection post={post} /><GrowthSummary growthSummaryLink={growthSummaryLink} showGrowthSummary={true} skillsGrowth={skillsGrowth} /></React.Fragment> : <React.Fragment><PostSection activityId={pre.post_test_id} name={name} unitTemplateId={post.unit_template_id} /><GrowthSummary name={name} /></React.Fragment>
   }
 
   return (<section className="diagnostic">

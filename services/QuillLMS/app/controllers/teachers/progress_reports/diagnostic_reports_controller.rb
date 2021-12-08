@@ -94,6 +94,10 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: get_previously_assigned_recommendations_by_classroom(params[:classroom_id], params[:activity_id])
   end
 
+  def skills_growth
+    render json: { skills_growth: skills_growth_by_classroom_for_post_tests(params[:classroom_id], params[:post_test_activity_id], params[:pre_test_activity_id]) }
+  end
+
   def redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit
     params.permit(:unit_id, :activity_id)
     unit_id = params[:unit_id]
@@ -264,6 +268,22 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       else
         { name: student.name }
       end
+    end
+  end
+
+  private def skills_growth_by_classroom_for_post_tests(classroom_id, post_test_activity_id, pre_test_activity_id)
+    set_post_test_activity_sessions_and_assigned_students(post_test_activity_id, classroom_id)
+
+    @post_test_activity_sessions.reduce(0) do |sum, as|
+      post_correct_skill_ids = as&.correct_skill_ids
+      pre_correct_skill_ids = ActivitySession
+        .includes(:concept_results, activity: {skills: :concepts})
+        .where(user_id: as.user_id, activity_id: pre_test_activity_id)
+        .order(completed_at: :desc)
+        .first
+        &.correct_skill_ids
+      total_acquired_skills_count = post_correct_skill_ids && pre_correct_skill_ids ? (post_correct_skill_ids - pre_correct_skill_ids).length : 0
+      sum += total_acquired_skills_count > 0 ? total_acquired_skills_count : 0
     end
   end
 
