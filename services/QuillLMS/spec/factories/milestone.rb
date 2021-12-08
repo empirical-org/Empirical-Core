@@ -35,5 +35,9 @@ FactoryBot.define do
     factory :acknowledge_diagnostic_banner do
       name { 'Acknowledge Diagnostic Banner' }
     end
+
+    factory :acknowledge_growth_diagnostic_promotion_card do
+      name { 'Acknowledge Growth Diagnostic Promotion Card' }
+    end
   end
 end

@@ -10,6 +10,10 @@ class MilestonesController < ApplicationController
     complete_milestone(Milestone::TYPES[:acknowledge_diagnostic_banner])
   end
 
+  def complete_acknowledge_growth_diagnostic_promotion_card
+    complete_milestone(Milestone::TYPES[:acknowledge_growth_diagnostic_promotion_card])
+  end
+
   def complete_acknowledge_lessons_banner
     complete_milestone(Milestone::TYPES[:acknowledge_lessons_banner])
   end

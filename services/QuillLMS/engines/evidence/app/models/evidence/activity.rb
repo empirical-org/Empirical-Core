@@ -12,6 +12,10 @@ module Evidence
     MAX_TITLE_LENGTH = 100
     MAX_SCORED_LEVEL_LENGTH = 100
 
+    # See activity.rb in the enclosing app for the ur-constant,
+    # which is not accessible from here
+    LMS_ACTIVITY_DEFAULT_FLAG = 'alpha'
+
     before_destroy :expire_turking_rounds
     before_validation :set_parent_activity, on: :create
     after_save :update_parent_activity_name, if: :saved_change_to_title?
@@ -42,7 +46,9 @@ module Evidence
         self.parent_activity = Evidence.parent_activity_class.find_or_create_by(
           name: title,
           activity_classification_id: Evidence.parent_activity_classification_class.evidence&.id
-        )
+        ) do |parent_activity|
+          parent_activity.flags = [LMS_ACTIVITY_DEFAULT_FLAG]
+        end
       end
     end
 

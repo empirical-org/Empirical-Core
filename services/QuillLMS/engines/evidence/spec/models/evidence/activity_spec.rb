@@ -86,6 +86,11 @@ module Evidence
         activity = create(:evidence_activity, :parent_activity_id => nil) 
         expect(activity.parent_activity.id).to(be_truthy)
       end
+
+      it 'should set new parent activity flags to [alpha]' do
+        activity = create(:evidence_activity, :parent_activity_id => nil) 
+        expect(activity.parent_activity.flags).to eq([Activity::LMS_ACTIVITY_DEFAULT_FLAG])
+      end
     end
 
     context '#update_parent_activity_name' do

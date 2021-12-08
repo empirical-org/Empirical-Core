@@ -235,7 +235,7 @@ describe GrowthResultsSummary do
           not_yet_proficient_in_post_test_student_names: [],
         }
       ]
-      expect(skill_groups_for_session([pre_test_skill_group_activity.skill_group], post_test_activity_session.id, pre_test_activity_session.id, student1.name)).to eq [
+      expect(skill_groups_for_session([pre_test_skill_group_activity.skill_group], post_test_activity_session, pre_test_activity_session, student1.name)).to eq [
         {
           skill_group: pre_test_skill_group_activity.skill_group.name,
           description: pre_test_skill_group_activity.skill_group.description,
@@ -276,7 +276,7 @@ describe GrowthResultsSummary do
           not_yet_proficient_in_post_test_student_names: [],
         }
       ]
-      skill_groups_for_session([pre_test_skill_group_activity.skill_group], post_test_activity_session.id, pre_test_activity_session.id, student1.name)
+      skill_groups_for_session([pre_test_skill_group_activity.skill_group], post_test_activity_session, pre_test_activity_session, student1.name)
       expect(@skill_group_summaries[0][:not_yet_proficient_in_pre_test_student_names]).to eq [student1.name]
       expect(@skill_group_summaries[0][:not_yet_proficient_in_post_test_student_names]).to eq []
     end

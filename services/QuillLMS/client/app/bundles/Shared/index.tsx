@@ -116,6 +116,7 @@ export {
   encircledWhiteArrowIcon,
   greenCheckIcon,
   lockedIcon,
+  closeIcon,
 } from './images/index'
 
 export {
