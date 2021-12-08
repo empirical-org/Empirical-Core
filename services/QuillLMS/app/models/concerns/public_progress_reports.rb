@@ -172,7 +172,7 @@ module PublicProgressReports
     end
 
     def formatted_score_obj(final_activity_session, classification_key, student, average_score_on_quill)
-      formatted_concept_results = format_concept_results(final_activity_session.concept_results, final_activity_session)
+      formatted_concept_results = format_concept_results(final_activity_session)
       if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification_key)
         score = get_average_score(formatted_concept_results)
       elsif [ActivityClassification::EVIDENCE_KEY].include?(classification_key)
@@ -200,8 +200,8 @@ module PublicProgressReports
       time > 60 ? '> 60' : time
     end
 
-    def format_concept_results(concept_results, activity_session)
-      concept_results.group_by{|cr| cr[:metadata]["questionNumber"]}.map { |key, cr|
+    def format_concept_results(activity_session)
+      activity_session.concept_results.group_by{|cr| cr[:metadata]["questionNumber"]}.map { |key, cr|
         # if we don't sort them, we can't rely on the first result being the first attemptNum
         # however, it would be more efficient to make them a hash with attempt numbers as keys
         cr.sort!{|x,y| (x[:metadata]['attemptNumber'] || 0) <=> (y[:metadata]['attemptNumber'] || 0)}
@@ -255,10 +255,10 @@ module PublicProgressReports
       feedback_histories = activity_session.feedback_histories
       return "" if feedback_histories.empty? || prompt_text.blank? || attempt_number.blank?
 
-      prompt_ids = activity_sessions.activity.child_activity.prompt_ids
-      prompt = Evidence::Prompt.where(id: prompt_ids, text: prompt_text)
-      feedback_history = feedback_histories.select {|fh| fh.attempt == attempt_number.to_i && fh.prompt_id == prompt.id }
-      feedback_history.feedback_text
+      prompt_ids = activity_session.activity.child_activity.prompt_ids
+      prompt = Evidence::Prompt.where(id: prompt_ids, text: prompt_text)&.first
+      feedback_history = feedback_histories.select {|fh| fh.attempt == attempt_number.to_i && fh.prompt_id == prompt&.id }&.first
+      feedback_history&.feedback_text
     end
 
     def generate_recommendations_for_classroom(current_user, unit_id, classroom_id, activity_id)
