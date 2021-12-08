@@ -53,7 +53,7 @@ const GrowthSummary = ({ showGrowthSummary, skillsGrowth, name, growthSummaryLin
     return (<section className="growth-summary">
       <div>
         <h4>Growth summary</h4>
-        {showGrowthSummary !== null && <p>{barGraphIncreasingIcon}<span>Skills growth: {growth}</span></p>}
+        {skillsGrowth !== null && <p>{barGraphIncreasingIcon}<span>Skills growth: {growth}</span></p>}
       </div>
       <div>
         <a className="focus-on-light" href={growthSummaryLink}>View growth</a>
