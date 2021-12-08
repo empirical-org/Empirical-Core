@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'User login' do
@@ -9,7 +11,7 @@ RSpec.describe 'User login' do
     fill_in 'email-or-username', with: user.email
     fill_in 'password', with: user.password
     click_on 'log-in'
-    click_button "Maybe later, skip"
+    click_button "Let's go!"
     expect(current_path).to eq '/teachers/classrooms/dashboard'
   end
 end
