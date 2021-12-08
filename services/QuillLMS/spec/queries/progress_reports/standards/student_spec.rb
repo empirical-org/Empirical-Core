@@ -21,7 +21,6 @@ describe ProgressReports::Standards::Student do
         expect(user.proficient_standard_count).to be_present
         expect(user.not_proficient_standard_count).to be_present
         expect(user.total_activity_count).to be_present
-        expect(user.timespent).to be_present
         expect(user.average_score).to be_present
       end
     end

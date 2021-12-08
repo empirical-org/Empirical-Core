@@ -34,11 +34,13 @@ shared_context 'Student Concept Progress Report' do
                                       classroom_unit: classroom_unit,
                                       user: alice,
                                       activity: activity,
+                                      timespent: 320,
                                       percentage: 0.75) }
 
   let(:fred_session) { create(:activity_session,
                                       classroom_unit: classroom_unit,
                                       user: fred,
+                                      timespent: 320,
                                       activity: activity,
                                       percentage: 0.75) }
 
@@ -47,6 +49,7 @@ shared_context 'Student Concept Progress Report' do
   let(:zojirushi_session) { create(:activity_session,
                                       classroom_unit: classroom_unit,
                                       user: zojirushi,
+                                      timespent: 320,
                                       activity: activity,
                                       percentage: 0.75) }
 

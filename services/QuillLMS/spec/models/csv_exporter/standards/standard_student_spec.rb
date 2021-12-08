@@ -27,6 +27,7 @@ describe CsvExporter::Standards::StandardStudent do
         model_instance.name,
         model_instance.total_activity_count,
         model_instance.average_score,
+        model_instance.timespent,
         'Proficient'
       ]
     }
