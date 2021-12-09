@@ -41,22 +41,19 @@ describe 'TeachersData' do
   let!(:concept_result2) { create(:concept_result, concept: concept2, activity_session: activity_session2) }
 
   before :each do
-    @result = teachers_data_module.run(teacher_ids).first
+    @result = teachers_data_module.run(teacher_ids)
   end
 
   it 'number_of_students works' do
-    expect(@result.number_of_students).to eq(2)
+    expect(@result.first.number_of_students).to eq(2)
   end
 
   it 'number_of_questions_completed works' do
-    expect(@result.number_of_questions_completed).to eq(4)
-  end
-
-  it 'testing' do
+    expect(@result.first.number_of_questions_completed).to eq(4)
   end
 
   it 'time_spent works' do
-    expect(@result.time_spent).to eq(2*(time2 - time1))
+    expect(@result.first.time_spent).to eq(2*(time2 - time1))
   end
 
   context 'time spent on activities is less than 1 minute' do
@@ -64,7 +61,7 @@ describe 'TeachersData' do
     let!(:time1) { time2 - 2.seconds }
 
     it 'uses default_time_spent instead' do
-      expect(@result.time_spent).to eq(2*default_time_spent)
+      expect(@result.first.time_spent).to eq(2*default_time_spent)
     end
   end
 
@@ -73,7 +70,7 @@ describe 'TeachersData' do
     let!(:time1) { time2 - 2.days}
 
     it 'uses default_time_spent instead' do
-      expect(@result.time_spent).to eq(2*default_time_spent)
+      expect(@result.first.time_spent).to eq(2*default_time_spent)
     end
   end
 

@@ -18,7 +18,7 @@ module TeachersData
     return [] if teacher_ids.blank?
 
     teacher_ids_str = teacher_ids.join(', ')
-    number_of_students = User.find_by_sql(
+    number_of_students_query = User.find_by_sql(
       "SELECT
         users.id,
         users.name,
@@ -31,7 +31,8 @@ module TeachersData
       WHERE users.id IN (#{teacher_ids_str})
       GROUP BY users.id"
     )
-    number_of_questions_completed = User.find_by_sql(
+
+    question_count_query = User.find_by_sql(
       "SELECT 
         users.id,
         COUNT(DISTINCT concept_results.id) AS number_of_questions_completed
@@ -44,6 +45,7 @@ module TeachersData
       AND activity_sessions.state = 'finished'
       GROUP BY users.id"
     )
+
     time_spent_query = User.find_by_sql(
       "SELECT 
         users.id,
@@ -58,7 +60,7 @@ module TeachersData
     )
 
     combiner = {}
-    number_of_students.each do |row|
+    number_of_students_query.each do |row|
       combiner[row.id] = {
         name: row.name,
         email: row.email, 
@@ -66,14 +68,14 @@ module TeachersData
       }
     end
 
-    number_of_questions_completed.each do |row|
+    question_count_query.each do |row|
       combiner[row.id][:number_of_questions_completed] = row.number_of_questions_completed
     end
 
     time_spent_query.each do |row|
       combiner[row.id][:time_spent] = row.time_spent
     end
-    
+
     result = combiner.keys.map do |key|
       hash_value = combiner[key]
       UserStruct.new(
@@ -88,18 +90,6 @@ module TeachersData
 
   end
 
-  # def self.combine(ar_rows, property_symbol, combiner = {})
-  #   ar_rows.each do |row|
-  #     if !combiner[row.id]
-  #       combiner[row.id] = {}
-  #     end 
-
-  #     combiner[row.id][property_symbol] = row.send(:property_symbol)
-
-  #   end
-  # end
-
-  # why would timespent be null?
   def self.time_spent
     "SUM (
       CASE
