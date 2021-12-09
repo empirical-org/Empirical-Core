@@ -126,7 +126,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scores
-    cache_key = CacheKey.all_classrooms(current_user,
+    cache_key = CacheGroupKey.all_classrooms(current_user,
       name: 'scores',
       groups: [
         params[:unit_id],
