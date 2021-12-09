@@ -89,8 +89,6 @@ export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match
   }, [openPopover])
 
   function getResults() {
-    debugger;
-
     requestGet(`/teachers/progress_reports/diagnostic_results_summary?activity_id=${activityId}&classroom_id=${classroomId}${unitQueryString}`,
       (data) => {
         setStudentResults(data.student_results);
@@ -100,7 +98,7 @@ export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match
     )
   }
 
-  const responsesLink = (studentId) => `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}${unitQueryString}`
+  const responsesLink = (studentId: number) => unitId ? `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}?unit=${unitId}` : `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}`
 
   function closePopoverOnOutsideClick(e) {
     if (!openPopover.studentId) { return }

@@ -116,7 +116,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
     )
   }
 
-  const responsesLink = (studentId: number) => `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}${unitQueryString}`
+  const responsesLink = (studentId: number) => unitId ? `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}?unit=${unitId}` : `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}`
 
   if (loading) { return <LoadingSpinner /> }
 
