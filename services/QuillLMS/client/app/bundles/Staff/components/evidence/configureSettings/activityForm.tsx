@@ -274,6 +274,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
             EditorState={EditorState}
             handleTextChange={handleSetPassageText}
             key="passage-description"
+            shouldCheckSpelling={true}
             text={activityPassages[0].text}
           />
         </div>
@@ -284,6 +285,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
           EditorState={EditorState}
           handleTextChange={handleSetActivityMaxFeedback}
           key="max-attempt-feedback"
+          shouldCheckSpelling={true}
           text={activityMaxFeedback}
         />
         <Input
