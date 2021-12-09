@@ -19,11 +19,7 @@ RSpec.describe CleverIntegration::AuthCredentialSaver do
       let!(:previous_credential) { create(:clever_library_auth_credential, user: teacher) }
 
       it { expects_new_credentials_are_saved }
-
-      it 'removes previous credentials' do
-        subject
-        expect(AuthCredential.find_by(id: previous_credential.id)).to eq nil
-      end
+      it { removes_previous_credentials }
     end
   end
 
@@ -37,17 +33,11 @@ RSpec.describe CleverIntegration::AuthCredentialSaver do
       let!(:previous_credential) { create(:clever_district_auth_credential, user: teacher) }
 
       it { expects_new_credentials_are_saved }
-
-      it 'removes previous credentials' do
-        subject
-        expect(AuthCredential.find_by(id: previous_credential.id)).to eq nil
-      end
+      it { removes_previous_credentials }
     end
   end
 
   def expects_new_credentials_are_saved
-    expect(PurgeExpiredAuthCredentialWorker).to receive(:perform_in)
-
     subject
     expect(teacher.auth_credential.provider).to eq provider
     expect(teacher.auth_credential.access_token).to eq access_token
@@ -62,5 +52,10 @@ RSpec.describe CleverIntegration::AuthCredentialSaver do
 
       Timecop.travel(expires_at) { expect(teacher.auth_credential).to be_nil }
     end
+  end
+
+  def removes_previous_credentials
+    subject
+    expect(AuthCredential.find_by(id: previous_credential.id)).to eq nil
   end
 end
