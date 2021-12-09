@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ShareActivityPackModal component should render 1`] = `
+<div
+  className="modal-container share-activity-pack-modal-container"
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="share-activity-pack-modal quill-modal modal-body"
+  >
+    <Spinner />
+  </div>
+  <Snackbar
+    text="Link copied"
+    visible={false}
+  />
+</div>
+`;
