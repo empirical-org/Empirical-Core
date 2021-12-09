@@ -2108,7 +2108,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                 <GrowthSummary
                   growthSummaryLink="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1680/classroom/1/growth_results"
                   showGrowthSummary={true}
-                  skillsGrowth={0}
+                  skillsGrowth={null}
                 >
                   <section
                     className="growth-summary"
@@ -2117,20 +2117,6 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       <h4>
                         Growth summary
                       </h4>
-                      <p>
-                        <img
-                          alt="Bar chart growth icon"
-                          src="undefined/images/pages/diagnostic_reports/icons-bar-graph-increasing.svg"
-                        />
-                        <span>
-                          Skills growth: 
-                          <span
-                            className="no-growth"
-                          >
-                            No growth yet
-                          </span>
-                        </span>
-                      </p>
                     </div>
                     <div>
                       <a
@@ -2320,7 +2306,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                 <GrowthSummary
                   growthSummaryLink="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1669/classroom/1/growth_results"
                   showGrowthSummary={true}
-                  skillsGrowth={4}
+                  skillsGrowth={null}
                 >
                   <section
                     className="growth-summary"
@@ -2329,24 +2315,6 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       <h4>
                         Growth summary
                       </h4>
-                      <p>
-                        <img
-                          alt="Bar chart growth icon"
-                          src="undefined/images/pages/diagnostic_reports/icons-bar-graph-increasing.svg"
-                        />
-                        <span>
-                          Skills growth: 
-                          <span
-                            className="growth"
-                          >
-                            <img
-                              alt="Triangle up icon"
-                              src="undefined/images/pages/diagnostic_reports/icons-triangle-up-green.svg"
-                            />
-                            4
-                          </span>
-                        </span>
-                      </p>
                     </div>
                     <div>
                       <a
@@ -2536,7 +2504,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                 <GrowthSummary
                   growthSummaryLink="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1664/classroom/1/growth_results"
                   showGrowthSummary={true}
-                  skillsGrowth={7}
+                  skillsGrowth={null}
                 >
                   <section
                     className="growth-summary"
@@ -2545,24 +2513,6 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       <h4>
                         Growth summary
                       </h4>
-                      <p>
-                        <img
-                          alt="Bar chart growth icon"
-                          src="undefined/images/pages/diagnostic_reports/icons-bar-graph-increasing.svg"
-                        />
-                        <span>
-                          Skills growth: 
-                          <span
-                            className="growth"
-                          >
-                            <img
-                              alt="Triangle up icon"
-                              src="undefined/images/pages/diagnostic_reports/icons-triangle-up-green.svg"
-                            />
-                            7
-                          </span>
-                        </span>
-                      </p>
                     </div>
                     <div>
                       <a
