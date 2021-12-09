@@ -44,12 +44,12 @@ export default createReactClass({
 					feedback = nextAttempt[index].lastFeedback || nextAttempt[index].directions
 					index += 1;
 				}
-				// sometimes feedback is coming through as a react variable, I've been unable to find the source of it
-				if (typeof feedback === 'string') {
-					feedback = this.feedbackOrDirections(feedback, 'Feedback')
-				}
 			} else if (currAttempt[0].feedback) {
 				feedback = currAttempt[0].feedback
+			}
+			// sometimes feedback is coming through as a react variable, I've been unable to find the source of it
+			if (feedback && typeof feedback === 'string') {
+				feedback = this.feedbackOrDirections(feedback, 'Feedback')
 			}
 			let score = 0;
 			let concepts = currAttempt.map((concept)=>{
