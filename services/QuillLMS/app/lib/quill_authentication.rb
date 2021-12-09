@@ -70,7 +70,7 @@ module QuillAuthentication
     @current_user = user
   end
 
-  def demo_id=(demo_id)
+  def current_user_demo_id=(demo_id)
     session[:demo_id] = demo_id
     if demo_id
       Analyzer.new.track(current_user, SegmentIo::BackgroundEvents::VIEWED_DEMO)

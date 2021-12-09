@@ -206,12 +206,12 @@ class Teachers::ClassroomManagerController < ApplicationController
   def view_demo
     demo = User.find_by_email('hello+demoteacher@quill.org')
     return render json: {errors: "Demo Account does not exist"}, status: 422 if demo.nil?
-    self.demo_id = demo.id
+    self.current_user_demo_id = demo.id
     redirect_to '/profile'
   end
 
   def unset_view_demo
-    self.demo_id = nil
+    self.current_user_demo_id = nil
     return redirect_to params[:redirect] if params[:redirect]
     redirect_to '/profile'
   end
