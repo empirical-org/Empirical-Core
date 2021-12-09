@@ -152,7 +152,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
     end
   end
 
-  private def calculate_timespent(seconds)
+  private def timespent_string(seconds)
     return "" unless seconds
     return "<1 min" if seconds < 60
     return "1 min" if seconds >= 60 && seconds < 120
@@ -177,7 +177,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
           session['visual_date'],
           session['activity_name'],
           score(session['percentage']),
-          calculate_timespent(session['timespent']),
+          timespent_string(session['timespent']),
           session['standard'],
           session['activity_classification_name']
         ]
