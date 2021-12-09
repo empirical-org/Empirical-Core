@@ -104,7 +104,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def teacher_dashboard_metrics
-    cache_key = CacheKey.all_classrooms(current_user, name: 'teacher_dashboard_metrics')
+    cache_key = CacheGroupKey.all_classrooms(current_user, name: 'teacher_dashboard_metrics')
 
     json = Rails.cache.fetch(cache_key) do
       TeacherDashboardMetrics.new(current_user).run

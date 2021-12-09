@@ -30,7 +30,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     classroom_id = results_summary_params[:classroom_id]
     unit_id = results_summary_params[:unit_id]
 
-    cache_key = CacheKey.classroom_unit_by_ids(
+    cache_key = CacheGroupKey.classroom_unit_by_ids(
       classroom_id: classroom_id,
       unit_id: unit_id,
       activity_id: activity_id,
@@ -92,7 +92,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   def lesson_recommendations_for_classroom
     classroom = current_user.classrooms_i_teach.find(params[:classroom_id])
 
-    cache_key = CacheKey.classroom_unit_by_ids(
+    cache_key = CacheGroupKey.classroom_unit_by_ids(
       classroom_id: classroom_id,
       unit_id: unit_id,
       activity_id: activity_id,

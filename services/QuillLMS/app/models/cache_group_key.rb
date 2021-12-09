@@ -1,5 +1,5 @@
 # Used to define common cache_keys in the app and force a common pattern
-module CacheKey
+module CacheGroupKey
 
   def self.all_classrooms(user, name:, groups: [])
     classroom = user.classrooms_i_teach.maximum('classrooms.updated_at')
