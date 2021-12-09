@@ -12,6 +12,7 @@ exports[`RuleRegexAttributes component should render RuleRegexAttributes 1`] = `
     EditorState={[Function]}
     handleTextChange={[Function]}
     key="regex-feedback"
+    shouldCheckSpelling={true}
     text="test regex feedback"
   />
   <div
