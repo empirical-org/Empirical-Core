@@ -46,6 +46,14 @@ class Teachers::ClassroomManagerController < ApplicationController
     render json: classroom_with_students_json(current_user.classrooms_i_teach)
   end
 
+  def classrooms_and_classroom_units_for_activity_share
+    unit_id = params["unit_id"]
+    render json: {
+      classrooms: classroom_with_students_json(current_user.classrooms_i_teach),
+      classroom_units: ClassroomUnit.where(unit_id: unit_id)
+    }
+  end
+
   def invite_students
     redirect_to teachers_classrooms_path
   end
@@ -75,6 +83,8 @@ class Teachers::ClassroomManagerController < ApplicationController
     @objective_checklist = generate_onboarding_checklist
     @first_name = current_user.first_name
 
+    growth_diagnostic_promotion_card_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_growth_diagnostic_promotion_card])
+    @show_diagnostic_promotion_card = !UserMilestone.find_by(milestone_id: growth_diagnostic_promotion_card_milestone&.id, user_id: current_user&.id) && (current_user.created_at < "2021-11-29".to_date || current_user&.unit_activities&.where(activity_id: Activity.diagnostic_activity_ids)&.any?)
   end
 
   def students_list

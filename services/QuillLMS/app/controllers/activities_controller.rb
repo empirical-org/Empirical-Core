@@ -62,15 +62,18 @@ class ActivitiesController < ApplicationController
   end
 
   def activity_session
+    return redirect_to profile_path unless current_user.student?
+
     if authorized_activity_access?
       redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)
     else
-      redirect_to profile_path
+      flash[:error] = t('activity_link.errors.activity_not_assigned')
+      flash.keep(:error)
+      redirect_to classes_path
     end
   end
 
   private def authorized_activity_access?
-    current_user.student? &&
     activity &&
     classroom_unit&.assigned_student_ids&.include?(current_user.id) &&
     UnitActivity.exists?(unit: classroom_unit.unit, activity: activity)

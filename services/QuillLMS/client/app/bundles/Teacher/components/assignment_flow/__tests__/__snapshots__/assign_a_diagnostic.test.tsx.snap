@@ -18,7 +18,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
       <FilterTab
         activeFilter="All"
         filter="All"
-        number={13}
+        number={16}
         setFilter={[Function]}
       />
       <FilterTab
@@ -30,7 +30,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
       <FilterTab
         activeFilter="All"
         filter="ELL"
-        number={3}
+        number={6}
         setFilter={[Function]}
       />
       <FilterTab
@@ -70,7 +70,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             Array [
               Object {
                 "key": "What",
-                "text": "The Starter Growth Diagnostic has different questions but covers the same skills as the Starter Baseline Diagnostic",
+                "text": "The Starter Growth Diagnostic has different questions but covers the same skills as the Starter Baseline Diagnostic.",
               },
               Object {
                 "key": "When",
@@ -113,11 +113,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             Array [
               Object {
                 "key": "What",
-                "text": "Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization",
+                "text": "The Intermediate Growth Diagnostic has different questions but covers the same skills as the Intermediate Baseline Diagnostic.",
               },
               Object {
                 "key": "When",
-                "text": "Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.",
+                "text": "Your students have completed the Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
               },
             ]
           }
@@ -156,15 +156,15 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             Array [
               Object {
                 "key": "What",
-                "text": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
+                "text": "The Advanced Growth Diagnostic has different questions but covers the same skills as the Advanced Baseline Diagnostic.",
               },
               Object {
                 "key": "When",
-                "text": "Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.",
+                "text": "Your students have completed the Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
               },
             ]
           }
-          buttonLink="/activity_sessions/anonymous?activity_id=1678"
+          buttonLink="/activity_sessions/anonymous?activity_id=1680"
           buttonText="Preview"
           header="Advanced Growth Diagnostic (Post)"
           lockedText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic."
@@ -172,60 +172,132 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
           showNewTag={true}
         />
       </div>
-      <AssignmentCard
-        bodyArray={
-          Array [
-            Object {
-              "key": "What",
-              "text": "Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement",
-            },
-            Object {
-              "key": "When",
-              "text": "Your students are beginning English language learners who are working on foundational grammar skills.",
-            },
-          ]
-        }
-        buttonLink="/activity_sessions/anonymous?activity_id=1161"
-        buttonText="Preview"
-        header="ELL Starter Diagnostic"
-        selectCard={[Function]}
-      />
-      <AssignmentCard
-        bodyArray={
-          Array [
-            Object {
-              "key": "What",
-              "text": "Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions",
-            },
-            Object {
-              "key": "When",
-              "text": "Your students are English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.",
-            },
-          ]
-        }
-        buttonLink="/activity_sessions/anonymous?activity_id=1568"
-        buttonText="Preview"
-        header="ELL Intermediate Diagnostic"
-        selectCard={[Function]}
-      />
-      <AssignmentCard
-        bodyArray={
-          Array [
-            Object {
-              "key": "What",
-              "text": "Regular and irregular past tense, progressive tenses, phrasal verbs, choosing between prepositions, responding to questions, and commonly confused words",
-            },
-            Object {
-              "key": "When",
-              "text": "Your students are English language learners who need practice with more difficult ELL skills before moving on to the Starter Diagnostic.",
-            },
-          ]
-        }
-        buttonLink="/activity_sessions/anonymous?activity_id=1590"
-        buttonText="Preview"
-        header="ELL Advanced Diagnostic"
-        selectCard={[Function]}
-      />
+      <div
+        className="grouped-minis"
+        key="ell-starter"
+      >
+        <AssignmentCard
+          bodyArray={
+            Array [
+              Object {
+                "key": "What",
+                "text": "Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement",
+              },
+              Object {
+                "key": "When",
+                "text": "Your students are beginning English language learners who are working on foundational grammar skills.",
+              },
+            ]
+          }
+          buttonLink="/activity_sessions/anonymous?activity_id=1161"
+          buttonText="Preview"
+          header="ELL Starter Baseline Diagnostic (Pre)"
+          selectCard={[Function]}
+        />
+        <AssignmentCard
+          bodyArray={
+            Array [
+              Object {
+                "key": "What",
+                "text": "The ELL Starter Growth Diagnostic has different questions but covers the same skills as the ELL Starter Baseline Diagnostic.",
+              },
+              Object {
+                "key": "When",
+                "text": "Your students have completed the ELL Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
+              },
+            ]
+          }
+          buttonLink="/activity_sessions/anonymous?activity_id=1774"
+          buttonText="Preview"
+          header="ELL Starter Growth Diagnostic (Post)"
+          selectCard={[Function]}
+          showNewTag={true}
+        />
+      </div>
+      <div
+        className="grouped-minis"
+        key="ell-intermediate"
+      >
+        <AssignmentCard
+          bodyArray={
+            Array [
+              Object {
+                "key": "What",
+                "text": "Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions",
+              },
+              Object {
+                "key": "When",
+                "text": "Your students are English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.",
+              },
+            ]
+          }
+          buttonLink="/activity_sessions/anonymous?activity_id=1568"
+          buttonText="Preview"
+          header="ELL Intermediate Baseline Diagnostic (Pre)"
+          selectCard={[Function]}
+        />
+        <AssignmentCard
+          bodyArray={
+            Array [
+              Object {
+                "key": "What",
+                "text": "The ELL Intermediate Growth Diagnostic has different questions but covers the same skills as the ELL Intermediate Baseline Diagnostic.",
+              },
+              Object {
+                "key": "When",
+                "text": "Your students have completed the ELL Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
+              },
+            ]
+          }
+          buttonLink="/activity_sessions/anonymous?activity_id=1814"
+          buttonText="Preview"
+          header="ELL Intermediate Growth Diagnostic (Post)"
+          selectCard={[Function]}
+          showNewTag={true}
+        />
+      </div>
+      <div
+        className="grouped-minis"
+        key="ell-advanced"
+      >
+        <AssignmentCard
+          bodyArray={
+            Array [
+              Object {
+                "key": "What",
+                "text": "Regular and irregular past tense, progressive tenses, phrasal verbs, choosing between prepositions, responding to questions, and commonly confused words",
+              },
+              Object {
+                "key": "When",
+                "text": "Your students are English language learners who need practice with more difficult ELL skills before moving on to the Starter Diagnostic.",
+              },
+            ]
+          }
+          buttonLink="/activity_sessions/anonymous?activity_id=1590"
+          buttonText="Preview"
+          header="ELL Advanced Baseline Diagnostic (Pre)"
+          selectCard={[Function]}
+        />
+        <AssignmentCard
+          bodyArray={
+            Array [
+              Object {
+                "key": "What",
+                "text": "The ELL Advanced Growth Diagnostic has different questions but covers the same skills as the ELL Advanced Baseline Diagnostic.",
+              },
+              Object {
+                "key": "When",
+                "text": "Your students have completed the ELL Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
+              },
+            ]
+          }
+          buttonLink="/activity_sessions/anonymous?activity_id=1818"
+          buttonText="Preview"
+          header="ELL Advanced Growth Diagnostic (Post)"
+          selectCard={[Function]}
+          showNewTag={true}
+        />
+      </div>
       <AssignmentCard
         bodyArray={
           Array [

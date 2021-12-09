@@ -57,14 +57,14 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       }
       formatted_skills = skills.map do |skill|
         {
-          pre: data_for_skill_by_activity_session(pre_test_activity_session.id, skill),
-          post: data_for_skill_by_activity_session(activity_session.id, skill)
+          pre: data_for_skill_by_activity_session(pre_test_activity_session.concept_results, skill),
+          post: data_for_skill_by_activity_session(activity_session.concept_results, skill)
         }
       end
       skill_results = { skills: formatted_skills.uniq { |formatted_skill| formatted_skill[:pre][:skill] } }
     else
       concept_results = { questions: format_concept_results(activity_session.concept_results.order("(metadata->>'questionNumber')::int")) }
-      skill_results = { skills: skills.map { |skill| data_for_skill_by_activity_session(activity_session.id, skill) }.uniq { |formatted_skill| formatted_skill[:skill] } }
+      skill_results = { skills: skills.map { |skill| data_for_skill_by_activity_session(activity_session.concept_results, skill) }.uniq { |formatted_skill| formatted_skill[:skill] } }
     end
     render json: { concept_results: concept_results, skill_results: skill_results, name: student.name }
   end
@@ -103,13 +103,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     classroom_id = last_activity_session&.classroom_unit&.classroom_id
     if !classroom_id
       return render json: {}, status: 404
-    elsif Activity.diagnostic_activity_ids.include?(activity_id.to_i)
-      activity = Activity.find(activity_id)
-      activity_is_a_post_test = Activity.find_by(follow_up_activity_id: activity_id).present?
-      activity_is_a_pre_test = activity.follow_up_activity_id.present?
-      results_or_growth_results = activity_is_a_post_test ? 'growth_results' : 'results'
-      unit_query_string = activity_is_a_pre_test || activity_is_a_post_test ? '' : "?unit=#{unit_id}"
-      render json: { url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity_id}/classroom/#{classroom_id}/#{results_or_growth_results}#{unit_query_string}" }
     else
       render json: { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students" }
     end

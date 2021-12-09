@@ -501,22 +501,24 @@ class ActivitySession < ApplicationRecord
     ((completed_at - started_at)/60).round
   end
 
-  def correct_skill_count
-    skills = activity.skills.distinct
-    skills.reduce(0) do |sum, skill|
-      concept_results = ConceptResult.where(activity_session_id: id, concept_id: [skill.concept_ids])
-      sum += concept_results.length && concept_results.all?(&:correct?) ? 1 : 0
-    end
+  def skills
+    @skills ||= activity.skills.uniq
   end
 
   def correct_skill_ids
-    skills = activity.skills.distinct
-    correct_skill_ids = []
-    skills.each do |skill|
-      concept_results = ConceptResult.where(activity_session_id: id, concept_id: [skill.concept_ids])
-      correct_skill_ids.push(skill.id) if concept_results.length && concept_results.all?(&:correct?)
+    correct_skills.map(&:id)
+  end
+
+  # when using this method, you should eager load ass
+  # e.g. .includes(:concept_results, activity: {skills: :concepts})
+  def correct_skills
+    @correct_skills ||= begin
+      skills.select do |skill|
+        results = concept_results.select {|cr| cr.concept_id.in?(skill.concept_ids)}
+
+        results.length && results.all?(&:correct?)
+      end
     end
-    correct_skill_ids
   end
 
   private def correctly_assigned

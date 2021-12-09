@@ -13,31 +13,31 @@ describe DiagnosticReports do
     let!(:incorrect_concept_result) { create(:concept_result_with_incorrect_answer, concept: concept, activity_session: activity_session) }
 
     it 'should return data with the name of the skill, number of correct concept results, number of incorrect concept results, and a summary' do
-      expect(data_for_skill_by_activity_session(activity_session.id, skill_concept.skill)).to eq({
+      expect(data_for_skill_by_activity_session(activity_session.concept_results, skill_concept.skill)).to eq({
         id: skill_concept.skill.id,
         skill: skill_concept.skill.name,
         number_correct: 1,
         number_incorrect: 1,
-        summary: PARTIALLY_CORRECT
+        summary: DiagnosticReports::PARTIALLY_CORRECT
       })
     end
   end
 
   describe '#summarize_correct_skills' do
     it 'should return NOT_PRESENT if both number_correct and number_incorrect are 0' do
-      expect(summarize_correct_skills(0, 0)).to eq(NOT_PRESENT)
+      expect(summarize_correct_skills(0, 0)).to eq(DiagnosticReports::NOT_PRESENT)
     end
 
     it 'should return NOT_CORRECT if number_correct is 0 and number_incorrect is not 0' do
-      expect(summarize_correct_skills(0, 1)).to eq(NOT_CORRECT)
+      expect(summarize_correct_skills(0, 1)).to eq(DiagnosticReports::NOT_CORRECT)
     end
 
     it 'should return FULLY_CORRECT if number_correct is 0 and number_incorrect is not 0' do
-      expect(summarize_correct_skills(1, 0)).to eq(FULLY_CORRECT)
+      expect(summarize_correct_skills(1, 0)).to eq(DiagnosticReports::FULLY_CORRECT)
     end
 
     it 'should return PARTIALLY_CORRECT if neither number_correct nor number_incorrect is 0' do
-      expect(summarize_correct_skills(1, 1)).to eq(PARTIALLY_CORRECT)
+      expect(summarize_correct_skills(1, 1)).to eq(DiagnosticReports::PARTIALLY_CORRECT)
     end
   end
 
@@ -60,6 +60,14 @@ describe DiagnosticReports do
         set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(unit_activity.activity_id, classroom.id, unit.id)
         expect(@assigned_students).to eq([student1, student2, student3])
         expect(@activity_sessions).to eq([activity_session1, activity_session2])
+      end
+
+      it 'should not include a student or their activity session if they are no longer in the assigned student ids array' do
+        classroom_unit.remove_assigned_student(student1.id)
+        classroom_unit.reload
+        set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(unit_activity.activity_id, classroom.id, unit.id)
+        expect(@assigned_students).to eq([student2, student3])
+        expect(@activity_sessions).to eq([activity_session2])
       end
     end
 
@@ -86,20 +94,29 @@ describe DiagnosticReports do
         expect(@assigned_students).to eq([student1, student2, student3])
         expect(@activity_sessions).to eq([activity_session3, activity_session1])
       end
+
+      it 'should not include a student or their activity session if they are no longer in the assigned student ids array' do
+        classroom_unit1.remove_assigned_student(student1.id)
+        classroom_unit1.reload
+        set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(unit_activity1.activity_id, classroom.id, nil)
+        expect(@assigned_students).to eq([student2, student3])
+        expect(@activity_sessions).to eq([activity_session3])
+      end
+
     end
   end
 
   describe '#summarize_student_proficiency_for_skill_per_activity' do
     it 'should return NO_PROFICIENCY if the correct skill number is 0' do
-      expect(summarize_student_proficiency_for_skill_per_activity(1, 0)).to eq(NO_PROFICIENCY)
+      expect(summarize_student_proficiency_for_skill_per_activity(1, 0)).to eq(DiagnosticReports::NO_PROFICIENCY)
     end
 
     it 'should return PROFICIENCY if the correct skill number equals the present skill number' do
-      expect(summarize_student_proficiency_for_skill_per_activity(1, 1)).to eq(PROFICIENCY)
+      expect(summarize_student_proficiency_for_skill_per_activity(1, 1)).to eq(DiagnosticReports::PROFICIENCY)
     end
 
     it 'should return PARTIAL_PROFICIENCY if the correct skill number is between 0 and the present skill number' do
-      expect(summarize_student_proficiency_for_skill_per_activity(2, 1)).to eq(PARTIAL_PROFICIENCY)
+      expect(summarize_student_proficiency_for_skill_per_activity(2, 1)).to eq(DiagnosticReports::PARTIAL_PROFICIENCY)
     end
   end
 

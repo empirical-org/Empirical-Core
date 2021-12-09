@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ShareToStudents component should render 1`] = `
+<div
+  className="assignment-flow-container"
+>
+  <ScrollToTop />
+  <AssignmentFlowNavigation
+    button={
+      <button
+        className="quill-button medium contained primary"
+        onClick={[Function]}
+        type="button"
+      >
+        Next
+      </button>
+    }
+  />
+  <div
+    className="share-activity-pack container"
+  >
+    <h1>
+      Assigned!
+    </h1>
+    <div
+      className="inner-container"
+    >
+      <ActivityPackInformation
+        activityPackData={Object {}}
+        classroomData={
+          Array [
+            Object {
+              "classroom": "{}",
+            },
+          ]
+        }
+      />
+      <section
+        className="share-activity-pack-cards-section"
+      >
+        <Card
+          header="Share the activity pack with your students"
+          imgAlt="A group of documents with a url link and a google classroom icon"
+          imgSrc="undefined/images/icons/icons-share-activity-pack.svg"
+          onClick={[Function]}
+          text="Share a link or share with Google Classroom."
+        />
+        <ExpandableCard
+          header="Share an activity with your students"
+          imgAlt="A single document with a url link and a google classroom icon"
+          imgSrc="undefined/images/icons/icons-share-activity-pack.svg"
+          isExpanded={false}
+          onClick={[Function]}
+          text="Share a link or share with Google Classroom."
+        />
+      </section>
+    </div>
+  </div>
+</div>
+`;

@@ -190,6 +190,7 @@ export default class ManageUnits extends React.Component {
         data={unit}
         getUnits={this.getUnits}
         key={unit.unitId}
+        selectedClassroomId={selectedClassroomId}
       />
     ))
 
