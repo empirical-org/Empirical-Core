@@ -62,7 +62,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => 
   </section>)
 }
 
-export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {
+export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, location, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudentResults);
   const [studentResults, setStudentResults] = React.useState<StudentResult[]>(passedStudentResults || []);
   const [skillGroupSummaries, setSkillGroupSummaries] = React.useState<SkillGroupSummary[]>(passedSkillGroupSummaries || []);
@@ -89,6 +89,7 @@ export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match
   }, [openPopover])
 
   function getResults() {
+    debugger;
 
     requestGet(`/teachers/progress_reports/diagnostic_results_summary?activity_id=${activityId}&classroom_id=${classroomId}${unitQueryString}`,
       (data) => {

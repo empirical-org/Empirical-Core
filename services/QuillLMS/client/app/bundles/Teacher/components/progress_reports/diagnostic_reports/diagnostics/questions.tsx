@@ -107,7 +107,7 @@ const DirectionsAndPrompt = ({ directions, prompt, onMobile, }) => {
   </div>)
 }
 
-export const Questions = ({ passedQuestions, match, mobileNavigation, }) => {
+export const Questions = ({ passedQuestions, match, mobileNavigation, location, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedQuestions);
   const [questions, setQuestions] = React.useState<Question[]>(passedQuestions || []);
 
