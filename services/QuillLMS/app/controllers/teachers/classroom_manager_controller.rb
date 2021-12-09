@@ -46,6 +46,14 @@ class Teachers::ClassroomManagerController < ApplicationController
     render json: classroom_with_students_json(current_user.classrooms_i_teach)
   end
 
+  def classrooms_and_classroom_units_for_activity_share
+    unit_id = params["unit_id"]
+    render json: {
+      classrooms: classroom_with_students_json(current_user.classrooms_i_teach),
+      classroom_units: ClassroomUnit.where(unit_id: unit_id)
+    }
+  end
+
   def invite_students
     redirect_to teachers_classrooms_path
   end
