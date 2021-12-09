@@ -28,7 +28,11 @@ class AuthCredential < ApplicationRecord
   belongs_to :user
 
   GOOGLE_PROVIDER = 'google'
-  EXPIRATION_DURATION = 6.months
+  GOOGLE_EXPIRATION_DURATION = 6.months
+
+  CLEVER_DISTRICT_PROVIDER = 'clever_district'
+  CLEVER_LIBRARY_PROVIDER = 'clever_library'
+  CLEVER_EXPIRATION_DURATION = 24.hours
 
   def google_authorized?
     provider == GOOGLE_PROVIDER && refresh_token_valid?
@@ -41,6 +45,6 @@ class AuthCredential < ApplicationRecord
   end
 
   def refresh_token_expires_at
-    expires_at + EXPIRATION_DURATION
+    expires_at + GOOGLE_EXPIRATION_DURATION
   end
 end

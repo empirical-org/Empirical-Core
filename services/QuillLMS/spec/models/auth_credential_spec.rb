@@ -51,7 +51,7 @@ describe AuthCredential, type: :model do
     end
 
     context 'expired refresh token' do
-      let(:expires_at) { Time.now - AuthCredential::EXPIRATION_DURATION - 1.month }
+      let(:expires_at) { Time.now - AuthCredential::GOOGLE_EXPIRATION_DURATION - 1.month }
 
       before { auth_credential.update(expires_at: expires_at) }
 
