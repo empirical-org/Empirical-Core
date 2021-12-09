@@ -28,6 +28,7 @@ export default createReactClass({
 	},
 
     conceptsByAttempt: function() {
+		const maxAttemptsIncorrectFeedback = 'Nice effort! You worked hard to make your sentence stronger.'
 		const conceptsByAttempt = this.groupByAttempt();
 		let attemptNum = 1;
 		let results = [];
@@ -45,7 +46,9 @@ export default createReactClass({
 					index += 1;
 				}
 			} else if (currAttempt[0].feedback) {
-				feedback = currAttempt[0].feedback
+				// this is the last attempt, so if it was incorrect then we return the default max attempts feedback
+				// that the student saw
+				feedback = currAttempt[0].correct ? currAttempt[0].feedback : maxAttemptsIncorrectFeedback
 			}
 			// sometimes feedback is coming through as a react variable, I've been unable to find the source of it
 			if (feedback && typeof feedback === 'string') {
