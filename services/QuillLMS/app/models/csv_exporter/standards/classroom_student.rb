@@ -13,7 +13,7 @@ module CsvExporter
           'Activities',
           'Time Spent',
           'Average',
-          'Overall Mastery Status',
+          'Overall Mastery Status'
         ]
       end
 

@@ -8,6 +8,7 @@ module CsvExporter::Standards
         'Student Name',
         'Activities',
         'Average',
+        'Time Spent',
         'Mastery Status'
       ]
     end

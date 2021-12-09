@@ -11,6 +11,7 @@ describe CsvExporter::Standards::StandardStudent do
         'Student Name',
         'Activities',
         'Average',
+        'Time Spent',
         'Mastery Status'
       ]
     }

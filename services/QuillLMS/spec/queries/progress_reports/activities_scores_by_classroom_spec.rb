@@ -25,8 +25,10 @@ describe 'ActivitiesScoresByClassroom' do
           .pluck(:percentage)
 
       average_score = activity_session_percentage.reduce(:+).to_f / activity_session_percentage.length
-
       expect(res['average_score']).to eq average_score
+
+      timespent = ActivitySession.unscoped.where(user_id: res['student_id']).timespent
+      expect(res['timespent']).to eq timespent
     end
   end
 

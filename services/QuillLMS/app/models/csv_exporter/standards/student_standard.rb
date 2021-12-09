@@ -8,6 +8,7 @@ module CsvExporter::Standards
         'Standard Level',
         'Standard Name',
         'Activities',
+        'Time Spent',
         'Average Mastery Status'
       ]
     end
@@ -19,7 +20,7 @@ module CsvExporter::Standards
         json_hash[:standard_level_name],
         json_hash[:name],
         json_hash[:total_activity_count],
-        json_hash[:totalspent],
+        json_hash[:timespent],
         json_hash[:mastery_status]
       ]
     end
