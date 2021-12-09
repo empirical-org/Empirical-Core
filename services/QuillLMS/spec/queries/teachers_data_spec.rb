@@ -52,6 +52,9 @@ describe 'TeachersData' do
     expect(@result.number_of_questions_completed).to eq(4)
   end
 
+  it 'testing' do
+  end
+
   it 'time_spent works' do
     expect(@result.time_spent).to eq(2*(time2 - time1))
   end
