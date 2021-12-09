@@ -6,7 +6,7 @@ require 'rails_helper'
 describe StudentsController do
   it { should use_before_action :authorize! }
 
-  let(:user) { create(:user) }
+  let(:user) { create(:student) }
 
   before do
     allow(controller).to receive(:current_user) { user }

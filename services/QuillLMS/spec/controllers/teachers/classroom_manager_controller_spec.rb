@@ -271,6 +271,46 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
+  describe '#classrooms_and_classroom_units_for_activity_share' do
+    let(:teacher) { create(:teacher) }
+    let(:classroom1) { create(:classroom) }
+    let(:classroom2) { create(:classroom) }
+    let(:unit1) { create(:unit) }
+    let(:unit2) { create(:unit) }
+    let!(:classroom_unit1) { create(:classroom_unit, unit_id: unit1.id, visible: true) }
+    let!(:classroom_unit2) { create(:classroom_unit, unit_id: unit2.id, visible: true) }
+    let(:classrooms_json) {
+      teacher.classrooms_i_teach.map { |classroom|
+        {
+            classroom: classroom,
+            students: classroom.students.sort_by(&:sorting_name)
+        }
+      }
+    }
+    let(:classrooms) { { classrooms_and_their_students: classrooms_json } }
+
+    before do
+      allow(teacher).to receive(:classrooms_i_teach) { [classroom1, classroom2] }
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    it 'should render the expected json with first unit id' do
+      get :classrooms_and_classroom_units_for_activity_share, params: { unit_id: unit1.id }
+      expect(response.body).to eq ({
+          classrooms: classrooms,
+          classroom_units: [classroom_unit1]
+      }).to_json
+    end
+
+    it 'should render the expected json with first second id' do
+      get :classrooms_and_classroom_units_for_activity_share, params: { unit_id: unit2.id }
+      expect(response.body).to eq ({
+          classrooms: classrooms,
+          classroom_units: [classroom_unit2]
+      }).to_json
+    end
+  end
+
   describe '#invite_students' do
     let(:teacher) { create(:teacher) }
     let(:classroom) { create(:classroom) }

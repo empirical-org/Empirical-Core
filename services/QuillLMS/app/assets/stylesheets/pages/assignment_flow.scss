@@ -67,7 +67,7 @@
 }
 
 .assignment-flow-container {
-  .learning-process, .diagnostic-page, .activity-type {
+  .learning-process, .diagnostic-page, .activity-type, .share-activity-pack {
     display: flex;
     padding: 54px;
     flex-direction: column;
@@ -145,6 +145,49 @@
           border-bottom: 2px solid #06806b;
         }
       }
+    }
+  }
+  .share-activity-pack {
+    .inner-container {
+      .activity-pack-information-container {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        margin-bottom: 40px;
+        .pack-sub-container {
+          .activity-pack-label {
+            color: #5c5c5c;
+            font-size: 12px;
+            line-height: 1.33;
+          }
+          .activity-pack-data {
+            overflow: hidden;
+            max-width: 312px;
+            white-space: nowrap;
+            line-height: 1.43;
+            text-overflow: ellipsis;
+          }
+        }
+        #activity-pack {
+          flex: 5;
+        }
+        #activities, #classes, #students {
+          flex: 1;
+        }
+        #activity-pack, #activities, #classes {
+          margin-right: 24px;
+        }
+      }
+      .share-activity-pack-cards-section {
+        .expandable-quill-card {
+          margin-top: 24px;
+        }
+      }
+    }
+  }
+  .share-activity-pack-modal-container {
+    .quill-snackbar {
+      z-index: 3;
     }
   }
 }

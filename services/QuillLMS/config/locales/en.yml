@@ -26,6 +26,11 @@ en:
     student: My Class
     teacher: My Lessons
     staff: Profile
+
+  activity_link:
+    errors:
+      activity_not_assigned: 'Sorry, you do not have access to this activity because it has not been assigned to you. Please contact your teacher.'
+      activity_pack_not_assigned: 'Sorry, you do not have access to this activity pack because it has not been assigned to you. Please contact your teacher.'
   activerecord:
     errors:
       models:
