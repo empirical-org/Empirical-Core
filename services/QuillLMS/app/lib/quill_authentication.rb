@@ -96,11 +96,11 @@ module QuillAuthentication
   end
 
   def viewing_demo_account?
-    !session[:demo_id].nil?
+    session[:demo_id].present?
   end
 
   def signed_in_outside_demo?
-    !session[:user_id].nil?
+    session[:user_id].present?
   end
 
   def sign_out

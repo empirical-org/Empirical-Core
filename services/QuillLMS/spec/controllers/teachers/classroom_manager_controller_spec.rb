@@ -568,8 +568,8 @@ describe Teachers::ClassroomManagerController, type: :controller do
       allow(Analyzer).to receive(:new) { analyzer }
     end
 
-    it 'will call demo_id= if the demo account exists' do
-      expect(controller).to receive(:demo_id=).with(demo_teacher.id)
+    it 'will call current_user_demo_id= if the demo account exists' do
+      expect(controller).to receive(:current_user_demo_id=).with(demo_teacher.id)
       get :view_demo
     end
 
@@ -578,9 +578,9 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(response).to redirect_to profile_path
     end
 
-    it 'will not call demo_id= and raise error if demo account does not exist' do
+    it 'will not call current_user_demo_id= and raise error if demo account does not exist' do
       demo_teacher.destroy
-      expect(controller).not_to receive(:demo_id=)
+      expect(controller).not_to receive(:current_user_demo_id=)
       get :view_demo
       expect(JSON.parse(response.body)["errors"]).to eq("Demo Account does not exist")
     end
@@ -610,8 +610,8 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(response).to redirect_to profile_path
     end
 
-    it 'will call demo_id=' do
-      expect(controller).to receive(:demo_id=).with(nil)
+    it 'will call current_user_demo_id=' do
+      expect(controller).to receive(:current_user_demo_id=).with(nil)
       get :unset_view_demo
     end
   end
