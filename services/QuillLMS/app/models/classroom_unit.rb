@@ -28,7 +28,7 @@ class ClassroomUnit < ApplicationRecord
   include ::NewRelic::Agent
   include AtomicArrays
 
-  belongs_to :unit #, touch: true
+  belongs_to :unit
   belongs_to :classroom, touch: true
   has_many :activity_sessions
   has_many :unit_activities, through: :unit

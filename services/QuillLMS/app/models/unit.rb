@@ -46,6 +46,7 @@ class Unit < ApplicationRecord
   belongs_to :unit_template
   after_save :hide_classroom_units_and_unit_activities_if_visible_false, :create_any_new_classroom_unit_activity_states
   after_touch :save
+  after_save :touch_classroom_units
 
   def hide_if_no_visible_unit_activities
     if !unit_activities.where(visible: true).exists?
@@ -95,4 +96,7 @@ class Unit < ApplicationRecord
     end
   end
 
+  private def touch_classroom_units
+    classroom_units.each(&:touch)
+  end
 end

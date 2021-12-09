@@ -90,7 +90,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def lesson_recommendations_for_classroom
-    classroom = current_user.classrooms.find(params[:classroom_id])
+    classroom = current_user.classrooms_i_teach.find(params[:classroom_id])
 
     cache_key = CacheKey.classroom_unit_by_ids(
       classroom_id: classroom_id,
