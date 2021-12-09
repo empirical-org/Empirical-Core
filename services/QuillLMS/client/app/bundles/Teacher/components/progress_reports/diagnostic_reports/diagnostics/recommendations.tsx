@@ -197,7 +197,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
   const { params, } = match
   const { activityId, classroomId, } = params
   const unitId = qs.parse(location.search.replace('?', '')).unit
-  const unitQueryString = unitId ? `&unit_id=${unitId}` : ''
+  const unitQueryString = unitId ? `?unit_id=${unitId}` : ''
 
   React.useEffect(() => {
     getRecommendations()
