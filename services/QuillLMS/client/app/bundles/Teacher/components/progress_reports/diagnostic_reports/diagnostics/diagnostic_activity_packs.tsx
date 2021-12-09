@@ -99,7 +99,19 @@ const Diagnostic = ({ diagnostic, }) => {
   let postAndGrowth = <PostInProgress name={name} />
   if (pre.post_test_id) {
     const growthSummaryLink = resultsLink(true, pre.post_test_id, pre.classroom_id, pre.unit_id)
-    postAndGrowth = post.assigned_count ? <React.Fragment><PostSection post={post} /><GrowthSummary growthSummaryLink={growthSummaryLink} showGrowthSummary={true} skillsGrowth={skillsGrowth} /></React.Fragment> : <React.Fragment><PostSection activityId={pre.post_test_id} name={name} unitTemplateId={post.unit_template_id} /><GrowthSummary name={name} /></React.Fragment>
+
+    if (post.assigned_count) {
+      postAndGrowth = (<React.Fragment>
+        <PostSection post={post} />
+        <GrowthSummary growthSummaryLink={growthSummaryLink} showGrowthSummary={true} skillsGrowth={skillsGrowth} />
+      </React.Fragment>)
+    } else {
+      postAndGrowth = (<React.Fragment>
+        <PostSection activityId={pre.post_test_id} name={name} unitTemplateId={post.unit_template_id} />
+        <GrowthSummary name={name} />
+      </React.Fragment>
+      )
+    }
   }
 
   return (<section className="diagnostic">

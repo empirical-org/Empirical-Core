@@ -4,7 +4,14 @@ import { baseDiagnosticImageSrc, triangleUpIcon, } from './shared'
 
 const barGraphIncreasingIcon = <img alt="Bar chart growth icon" src={`${baseDiagnosticImageSrc}/icons-bar-graph-increasing.svg`} />
 
-const GrowthSummary = ({ showGrowthSummary, skillsGrowth, name, growthSummaryLink, }) => {
+interface GrowthSummaryProps {
+  showGrowthSummary?: boolean;
+  skillsGrowth?: number;
+  name?: string;
+  growthSummaryLink?: string;
+}
+
+const GrowthSummary = ({ showGrowthSummary, skillsGrowth, name, growthSummaryLink, }: GrowthSummaryProps) => {
   if (showGrowthSummary) {
     const growth = skillsGrowth > 0 ? <span className="growth">{triangleUpIcon}{skillsGrowth}</span> : <span className="no-growth">No growth yet</span>
     return (<section className="growth-summary">
