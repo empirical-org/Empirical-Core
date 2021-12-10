@@ -23,7 +23,7 @@ module CleverIntegration::SignUp::Teacher
     teacher = create_teacher(auth_hash)
 
     if teacher.present?
-      AuthCredentialSaver.run(teacher, district.token, AuthCredential::CLEVER_DISTRICT_PROVIDER)
+      CleverIntegration::AuthCredentialSaver.run(teacher, district.token, ::AuthCredential::CLEVER_DISTRICT_PROVIDER)
       associate_teacher_to_district(teacher, district)
       school = import_school(teacher, district.token)
       classrooms = import_classrooms(teacher, district.token)
