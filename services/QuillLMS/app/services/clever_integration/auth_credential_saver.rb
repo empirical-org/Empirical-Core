@@ -29,7 +29,7 @@ module CleverIntegration
     end
 
     private def initiate_expiration_worker
-      PurgeExpiredAuthCredentialWorker.perform_in(expires_at - 1.hour, new_auth_credential.id)
+      PurgeExpiredAuthCredentialWorker.perform_in(expires_at, new_auth_credential.id)
     end
 
     private def new_auth_credential
