@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: auth_credentials
@@ -25,20 +27,30 @@
 class AuthCredential < ApplicationRecord
   belongs_to :user
 
-  GOOGLE_PROVIDER = 'google'.freeze
-  EXPIRATION_DURATION = 6.months
+  GOOGLE_PROVIDER = 'google'
+  GOOGLE_EXPIRATION_DURATION = 6.months
+
+  CLEVER_DISTRICT_PROVIDER = 'clever_district'
+  CLEVER_LIBRARY_PROVIDER = 'clever_library'
+  CLEVER_EXPIRATION_DURATION = 23.hours
 
   def google_authorized?
-    provider == GOOGLE_PROVIDER && refresh_token_valid?
+    google_provider? && refresh_token_valid?
+  end
+
+  def google_provider?
+    provider == GOOGLE_PROVIDER
   end
 
   def refresh_token_valid?
-    return false if expires_at.nil? || refresh_token.nil?
+    return false if !google_provider? || expires_at.nil? || refresh_token.nil?
 
     Time.now < refresh_token_expires_at
   end
 
   def refresh_token_expires_at
-    expires_at + EXPIRATION_DURATION
+    return nil if !google_provider?
+
+    expires_at + GOOGLE_EXPIRATION_DURATION
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Profile::Mobile::ActivitySessionsByUnit
   def query(student, classroom_id)
     all_act_seshes = student_profile_data_sql(classroom_id, student.id)

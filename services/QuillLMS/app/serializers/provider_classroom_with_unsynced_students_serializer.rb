@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProviderClassroomWithUnsyncedStudentsSerializer < ActiveModel::Serializer
   attributes :id, :name, :code, :unsynced_students
   self.root = false

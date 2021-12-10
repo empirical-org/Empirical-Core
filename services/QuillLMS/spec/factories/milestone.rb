@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :milestone do
     sequence(:name) { |n| "Example Milestone #{n}" }
@@ -32,6 +34,10 @@ FactoryBot.define do
 
     factory :acknowledge_diagnostic_banner do
       name { 'Acknowledge Diagnostic Banner' }
+    end
+
+    factory :acknowledge_growth_diagnostic_promotion_card do
+      name { 'Acknowledge Growth Diagnostic Promotion Card' }
     end
   end
 end

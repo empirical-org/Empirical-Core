@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from comprehension (originally 20200626181312)
 class CreateComprehensionPromptsRuleSetsTable < ActiveRecord::Migration[4.2]
   def change

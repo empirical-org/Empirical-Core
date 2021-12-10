@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ErrorAnalytics
   attr_accessor :analytics
 

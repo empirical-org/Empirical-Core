@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :redis do
   task :delete_keys => :environment do
     $redis.keys.each do |k|

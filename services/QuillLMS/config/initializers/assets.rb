@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.config.assets.version = "1.1"
 Rails.application.config.assets.paths << Rails.root.join('public', 'webpack')
 

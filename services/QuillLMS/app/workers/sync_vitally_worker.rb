@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SyncVitallyWorker
   include Sidekiq::Worker
 

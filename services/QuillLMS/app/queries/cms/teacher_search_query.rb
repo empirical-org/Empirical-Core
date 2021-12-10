@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::TeacherSearchQuery
   def initialize(school_id)
     @school_id = school_id

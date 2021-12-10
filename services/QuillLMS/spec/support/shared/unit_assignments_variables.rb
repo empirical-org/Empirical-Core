@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_context 'Unit Assignments Variables' do
   let!(:author) { create(:author) }
   let!(:classroom) { create(:classroom)  }

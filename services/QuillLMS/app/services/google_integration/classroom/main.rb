@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GoogleIntegration::Classroom::Main
 
   def self.join_existing_google_classrooms(student)

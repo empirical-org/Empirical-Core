@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :evidence_prompt, class: 'Evidence::Prompt' do
     association :activity, factory: :evidence_activity

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddConstraintToClassroomsTeachers < ActiveRecord::Migration[4.2]
   def self.up
     execute "ALTER TABLE classrooms_teachers ADD CONSTRAINT check_role_is_valid CHECK (role IN ('owner', 'coteacher') AND role IS NOT null)"

@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   # catch-all 404
-  # DO NOT PLACE ROUTES BELOW THIS ONE, this catch-all must be last
+  # DO NOT PLACE ROUTES BELOW THESE, these catch-alls must be last
   get '*path', to: 'application#routing_error'
   post '/', to: 'application#routing_error'
   post '*path', to: 'application#routing_error'

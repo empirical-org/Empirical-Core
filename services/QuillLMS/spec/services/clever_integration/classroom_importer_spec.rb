@@ -1,17 +1,21 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe CleverIntegration::ClassroomImporter do
   let(:name) { 'clever classroom' }
+  let(:teacher) { create(:teacher) }
 
   let(:data) do
     {
       clever_id: clever_id,
       name: name,
-      grade: '1'
+      grade: '1',
+      teacher_id: teacher.id
     }
   end
 
-  subject { described_class.new(data) }
+  subject { described_class.run(data) }
 
   context 'classroom exists with clever_id' do
     let(:clever_id) { '123_abc' }
@@ -19,16 +23,13 @@ RSpec.describe CleverIntegration::ClassroomImporter do
 
     let!(:classroom) { create(:classroom, synced_name: synced_name, clever_id: clever_id) }
 
-    it 'runs classroom updater' do
-      expect { subject.run }.to(change { classroom.reload.synced_name }.from(synced_name).to(name))
-    end
+    it { expect { subject }.to(change { classroom.reload.synced_name }.from(synced_name).to(name)) }
   end
 
   context 'classroom does not exist with clever_id' do
     let(:clever_id) { 'non_existent_id' }
 
-    it 'creates a new classroom' do
-      expect { subject.run }.to change(Classroom, :count).from(0).to(1)
-    end
+    it { expect { subject }.to change(Classroom, :count).from(0).to(1) }
+    it { expect { subject }.to change(ClassroomsTeacher, :count).from(0).to(1) }
   end
 end

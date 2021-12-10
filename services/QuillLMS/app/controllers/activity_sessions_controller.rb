@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ActivitySessionsController < ApplicationController
   include HTTParty
   layout :determine_layout
@@ -8,6 +10,7 @@ class ActivitySessionsController < ApplicationController
   before_action :activity_session_authorize!, only: [:play, :result]
   before_action :activity_session_authorize_teacher!, only: [:concept_results]
   before_action :authorize_student_belongs_to_classroom_unit!, only: [:activity_session_from_classroom_unit_and_activity]
+  before_action :redirect_if_student_has_not_completed_pre_test, only: [:play]
   after_action  :update_student_last_active, only: [:play, :result]
 
   def play
@@ -96,6 +99,20 @@ class ActivitySessionsController < ApplicationController
     unless AuthorizedTeacherForActivity.new(current_user, @activity_session).call
       render_error(404)
     end
+  end
+
+  private def redirect_if_student_has_not_completed_pre_test
+    pre_test = Activity.find_by(follow_up_activity_id: @activity.id, classification: ActivityClassification.diagnostic)
+    return unless pre_test
+
+    classroom_units_for_classroom = @activity_session.classroom_unit.classroom.classroom_units
+    completed_pre_test_activity_session = ActivitySession.find_by(user: current_user, state: 'finished', classroom_unit: classroom_units_for_classroom)
+
+    return if completed_pre_test_activity_session
+
+    flash[:error] = "You need to complete the Baseline diagnostic before you can complete the Growth diagnostic."
+    flash.keep(:error)
+    redirect_to profile_path
   end
 
   private def update_student_last_active

@@ -1,0 +1,115 @@
+.results-summary-container.growth-results-summary-container {
+  .skill-group-summary-card {
+    &:nth-of-type(3n+3) {
+      margin-right: 0px;
+    }
+    .percentage-circles {
+      display: flex;
+      justify-content: space-between;
+      padding: 0px 24px;
+      .percentage-circle {
+        margin-bottom: 24px;
+      }
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .growth-element {
+        padding: 8px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1;
+        img {
+          margin-right: 4px;
+        }
+        &.no-growth {
+          color: #5c5c5c;
+          background-color: #ebebeb;
+        }
+        &:not(.no-growth) {
+          color: #2a5900;
+          background-color: #b8db99;
+        }
+      }
+    }
+  }
+
+  .name-cell {
+    &:hover {
+      background-color: #f5f5f5;
+      z-index: 2;
+    }
+    &:not(:hover) {
+      .skills-delta .quill-tooltip-trigger {
+        display: none;
+      }
+      .quill-tooltip {
+        display: none;
+      }
+    }
+    .skills-delta {
+      .quill-tooltip-trigger {
+        margin-left: 8px;
+      }
+      .quill-tooltip-wrapper {
+        left: 0px;
+        transform: inherit;
+      }
+      .quill-tooltip {
+        font-size: 12px;
+        font-weight: 600;
+        color: white;
+      }
+    }
+  }
+  .skills-delta {
+    display: flex;
+    align-items: center;
+    .skill-count {
+      color: #367300 !important;
+      font-size: 12px !important;
+      font-weight: 600 !important;
+    }
+  }
+  .correct-skills-and-delta-wrapper {
+    display: flex;
+    .number-of-correct-skills-text {
+      margin-right: 4px;
+    }
+  }
+  .pre-and-post-test-icons {
+    margin: 16px 0px;
+    line-height: 1.33;
+    display: flex;
+    align-items: center;
+    > span {
+      display: flex;
+      align-items: center;
+    }
+    img {
+      margin-left: 4px;
+    }
+    .pre {
+      margin-right: 16px;
+    }
+  }
+
+  .growth-skills-table {
+    .skill-column-header {
+      width: 128px;
+    }
+    .summary-header {
+      width: 176px;
+    }
+  }
+
+  @media (max-width: 930px) {
+    .skill-group-summary-card {
+      .percentage-circles {
+        padding: 0px;
+      }
+    }
+  }
+}

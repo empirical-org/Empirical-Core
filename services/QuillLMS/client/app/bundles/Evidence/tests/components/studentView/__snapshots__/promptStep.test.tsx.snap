@@ -3,6 +3,7 @@
 exports[`PromptStep component active state before any responses have been submitted matches snapshot 1`] = `
 <PromptStep
   active={true}
+  activityIsComplete={false}
   className="step active"
   completeStep={[Function]}
   everyOtherStepCompleted={false}
@@ -66,7 +67,7 @@ exports[`PromptStep component active state before any responses have been submit
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor"
@@ -84,7 +85,7 @@ exports[`PromptStep component active state before any responses have been submit
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
               <button
@@ -109,418 +110,6 @@ exports[`PromptStep component active state before any responses have been submit
               Get feedback
             </span>
           </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</PromptStep>
-`;
-
-exports[`PromptStep component active state when a profane response has been submitted matches snapshot 1`] = `
-<PromptStep
-  active={true}
-  className="step active"
-  completeStep={[Function]}
-  everyOtherStepCompleted={false}
-  onClick={[Function]}
-  passedRef={[Function]}
-  prompt={
-    Object {
-      "conjunction": "because",
-      "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
-
- Governments should make voting compulsory because otherwise not everyone will vote.",
-      "prompt_id": 1,
-      "text": "Governments should make voting compulsory because",
-    }
-  }
-  stepNumberComponent={<span />}
-  submitResponse={[Function]}
-  submittedResponses={Array []}
->
-  <div
-    className="step active"
-  >
-    <div
-      className="step-content"
-    >
-      <div>
-        <div
-          className="step-header"
-        >
-          <span />
-          <p
-            className="directions"
-          >
-            Use information from the text to finish the sentence:
-          </p>
-        </div>
-        <div
-          className="active-content-container"
-        >
-          <EditorContainer
-            className="editor"
-            disabled={false}
-            handleFocus={[Function]}
-            handleTextChange={[Function]}
-            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
-            innerRef={[Function]}
-            isResettable={false}
-            promptText="Governments should make voting compulsory because"
-            resetText={[Function]}
-            stripHtml={[Function]}
-          >
-            <div
-              className="editor-container"
-            >
-              <ContentEditable
-                className="editor"
-                data-gramm={false}
-                disabled={false}
-                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
-                innerRef={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                spellCheck={false}
-              >
-                <div
-                  className="editor"
-                  contentEditable={true}
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>",
-                    }
-                  }
-                  data-gramm={false}
-                  disabled={false}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  onInput={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyUp={[Function]}
-                  spellCheck={false}
-                />
-              </ContentEditable>
-              <button
-                className="disabled clear-button"
-                type="button"
-              >
-                <img
-                  alt="circle with an x in it"
-                  className="clear"
-                  src="undefined/images/icons/clear-disabled.svg"
-                />
-                Clear response
-              </button>
-            </div>
-          </EditorContainer>
-          <button
-            className="quill-button focus-on-light disabled"
-            onClick={[Function]}
-            type="button"
-          >
-            <span>
-              Get feedback
-            </span>
-          </button>
-          <Feedback
-            customFeedback="Revise your work. When writing your response, make sure to use appropriate language."
-            customFeedbackKey="profanity"
-            lastSubmittedResponse={Object {}}
-            prompt={
-              Object {
-                "conjunction": "because",
-                "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
-
- Governments should make voting compulsory because otherwise not everyone will vote.",
-                "prompt_id": 1,
-                "text": "Governments should make voting compulsory because",
-              }
-            }
-            submittedResponses={Array []}
-          >
-            <div
-              className="feedback-section "
-            >
-              <p
-                className="feedback-section-header"
-              >
-                Feedback
-                <span>
-                  0
-                   of 
-                  5
-                   attempts
-                </span>
-              </p>
-              <ReactCSSTransitionReplace
-                changeWidth={false}
-                childComponent="span"
-                component="div"
-                notifyLeaving={false}
-                overflowHidden={true}
-                transitionAppear={false}
-                transitionEnter={true}
-                transitionEnterTimeout={1000}
-                transitionLeave={true}
-                transitionLeaveTimeout={400}
-                transitionName="fade"
-              >
-                <div
-                  style={Object {}}
-                >
-                  <span
-                    key="1"
-                    style={null}
-                  >
-                    <CSSTransitionGroupChild
-                      appear={false}
-                      enter={true}
-                      enterTimeout={1000}
-                      leave={true}
-                      leaveTimeout={400}
-                      name="fade"
-                    >
-                      <div
-                        className="feedback"
-                        key="profanity"
-                      >
-                        <img
-                          alt="Arrows pointing in opposite directions, making a loop"
-                          src="undefined/images/icons/loop.svg"
-                        />
-                        <p
-                          className="feedback-text"
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "Revise your work. When writing your response, make sure to use appropriate language.",
-                            }
-                          }
-                          role="status"
-                        />
-                      </div>
-                      <button
-                        className="report-a-problem-button"
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        Report a problem
-                      </button>
-                    </CSSTransitionGroupChild>
-                  </span>
-                </div>
-              </ReactCSSTransitionReplace>
-            </div>
-          </Feedback>
-        </div>
-      </div>
-    </div>
-  </div>
-</PromptStep>
-`;
-
-exports[`PromptStep component active state when a response with multiple sentences has been submitted matches snapshot 1`] = `
-<PromptStep
-  active={true}
-  className="step active"
-  completeStep={[Function]}
-  everyOtherStepCompleted={false}
-  onClick={[Function]}
-  passedRef={[Function]}
-  prompt={
-    Object {
-      "conjunction": "because",
-      "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
-
- Governments should make voting compulsory because otherwise not everyone will vote.",
-      "prompt_id": 1,
-      "text": "Governments should make voting compulsory because",
-    }
-  }
-  stepNumberComponent={<span />}
-  submitResponse={[Function]}
-  submittedResponses={Array []}
->
-  <div
-    className="step active"
-  >
-    <div
-      className="step-content"
-    >
-      <div>
-        <div
-          className="step-header"
-        >
-          <span />
-          <p
-            className="directions"
-          >
-            Use information from the text to finish the sentence:
-          </p>
-        </div>
-        <div
-          className="active-content-container"
-        >
-          <EditorContainer
-            className="editor"
-            disabled={false}
-            handleFocus={[Function]}
-            handleTextChange={[Function]}
-            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
-            innerRef={[Function]}
-            isResettable={false}
-            promptText="Governments should make voting compulsory because"
-            resetText={[Function]}
-            stripHtml={[Function]}
-          >
-            <div
-              className="editor-container"
-            >
-              <ContentEditable
-                className="editor"
-                data-gramm={false}
-                disabled={false}
-                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
-                innerRef={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                spellCheck={false}
-              >
-                <div
-                  className="editor"
-                  contentEditable={true}
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>",
-                    }
-                  }
-                  data-gramm={false}
-                  disabled={false}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  onInput={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyUp={[Function]}
-                  spellCheck={false}
-                />
-              </ContentEditable>
-              <button
-                className="disabled clear-button"
-                type="button"
-              >
-                <img
-                  alt="circle with an x in it"
-                  className="clear"
-                  src="undefined/images/icons/clear-disabled.svg"
-                />
-                Clear response
-              </button>
-            </div>
-          </EditorContainer>
-          <button
-            className="quill-button focus-on-light disabled"
-            onClick={[Function]}
-            type="button"
-          >
-            <span>
-              Get feedback
-            </span>
-          </button>
-          <Feedback
-            customFeedback="Revise your work. Your response should be only one sentence long."
-            customFeedbackKey="multiple-sentences"
-            lastSubmittedResponse={Object {}}
-            prompt={
-              Object {
-                "conjunction": "because",
-                "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
-
- Governments should make voting compulsory because otherwise not everyone will vote.",
-                "prompt_id": 1,
-                "text": "Governments should make voting compulsory because",
-              }
-            }
-            submittedResponses={Array []}
-          >
-            <div
-              className="feedback-section "
-            >
-              <p
-                className="feedback-section-header"
-              >
-                Feedback
-                <span>
-                  0
-                   of 
-                  5
-                   attempts
-                </span>
-              </p>
-              <ReactCSSTransitionReplace
-                changeWidth={false}
-                childComponent="span"
-                component="div"
-                notifyLeaving={false}
-                overflowHidden={true}
-                transitionAppear={false}
-                transitionEnter={true}
-                transitionEnterTimeout={1000}
-                transitionLeave={true}
-                transitionLeaveTimeout={400}
-                transitionName="fade"
-              >
-                <div
-                  style={Object {}}
-                >
-                  <span
-                    key="1"
-                    style={null}
-                  >
-                    <CSSTransitionGroupChild
-                      appear={false}
-                      enter={true}
-                      enterTimeout={1000}
-                      leave={true}
-                      leaveTimeout={400}
-                      name="fade"
-                    >
-                      <div
-                        className="feedback"
-                        key="multiple-sentences"
-                      >
-                        <img
-                          alt="Arrows pointing in opposite directions, making a loop"
-                          src="undefined/images/icons/loop.svg"
-                        />
-                        <p
-                          className="feedback-text"
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "Revise your work. Your response should be only one sentence long.",
-                            }
-                          }
-                          role="status"
-                        />
-                      </div>
-                      <button
-                        className="report-a-problem-button"
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        Report a problem
-                      </button>
-                    </CSSTransitionGroupChild>
-                  </span>
-                </div>
-              </ReactCSSTransitionReplace>
-            </div>
-          </Feedback>
         </div>
       </div>
     </div>
@@ -531,6 +120,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
 exports[`PromptStep component active state when a suboptimal response has been submitted matches snapshot 1`] = `
 <PromptStep
   active={true}
+  activityIsComplete={false}
   className="step active"
   completeStep={[Function]}
   everyOtherStepCompleted={false}
@@ -604,7 +194,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor suboptimal"
@@ -622,7 +212,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
               <button
@@ -763,421 +353,10 @@ exports[`PromptStep component active state when a suboptimal response has been s
 </PromptStep>
 `;
 
-exports[`PromptStep component active state when a too-long response has been submitted matches snapshot 1`] = `
-<PromptStep
-  active={true}
-  className="step active"
-  completeStep={[Function]}
-  everyOtherStepCompleted={false}
-  onClick={[Function]}
-  passedRef={[Function]}
-  prompt={
-    Object {
-      "conjunction": "because",
-      "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
-
- Governments should make voting compulsory because otherwise not everyone will vote.",
-      "prompt_id": 1,
-      "text": "Governments should make voting compulsory because",
-    }
-  }
-  stepNumberComponent={<span />}
-  submitResponse={[Function]}
-  submittedResponses={Array []}
->
-  <div
-    className="step active"
-  >
-    <div
-      className="step-content"
-    >
-      <div>
-        <div
-          className="step-header"
-        >
-          <span />
-          <p
-            className="directions"
-          >
-            Use information from the text to finish the sentence:
-          </p>
-        </div>
-        <div
-          className="active-content-container"
-        >
-          <EditorContainer
-            className="editor"
-            disabled={false}
-            handleFocus={[Function]}
-            handleTextChange={[Function]}
-            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
-            innerRef={[Function]}
-            isResettable={false}
-            promptText="Governments should make voting compulsory because"
-            resetText={[Function]}
-            stripHtml={[Function]}
-          >
-            <div
-              className="editor-container"
-            >
-              <ContentEditable
-                className="editor"
-                data-gramm={false}
-                disabled={false}
-                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
-                innerRef={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                spellCheck={false}
-              >
-                <div
-                  className="editor"
-                  contentEditable={true}
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>",
-                    }
-                  }
-                  data-gramm={false}
-                  disabled={false}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  onInput={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyUp={[Function]}
-                  spellCheck={false}
-                />
-              </ContentEditable>
-              <button
-                className="disabled clear-button"
-                type="button"
-              >
-                <img
-                  alt="circle with an x in it"
-                  className="clear"
-                  src="undefined/images/icons/clear-disabled.svg"
-                />
-                Clear response
-              </button>
-            </div>
-          </EditorContainer>
-          <button
-            className="quill-button focus-on-light disabled"
-            onClick={[Function]}
-            type="button"
-          >
-            <span>
-              Get feedback
-            </span>
-          </button>
-          <Feedback
-            customFeedback="Revise your work so it is shorter and more concise."
-            customFeedbackKey="too-long"
-            lastSubmittedResponse={Object {}}
-            prompt={
-              Object {
-                "conjunction": "because",
-                "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
-
- Governments should make voting compulsory because otherwise not everyone will vote.",
-                "prompt_id": 1,
-                "text": "Governments should make voting compulsory because",
-              }
-            }
-            submittedResponses={Array []}
-          >
-            <div
-              className="feedback-section "
-            >
-              <p
-                className="feedback-section-header"
-              >
-                Feedback
-                <span>
-                  0
-                   of 
-                  5
-                   attempts
-                </span>
-              </p>
-              <ReactCSSTransitionReplace
-                changeWidth={false}
-                childComponent="span"
-                component="div"
-                notifyLeaving={false}
-                overflowHidden={true}
-                transitionAppear={false}
-                transitionEnter={true}
-                transitionEnterTimeout={1000}
-                transitionLeave={true}
-                transitionLeaveTimeout={400}
-                transitionName="fade"
-              >
-                <div
-                  style={Object {}}
-                >
-                  <span
-                    key="1"
-                    style={null}
-                  >
-                    <CSSTransitionGroupChild
-                      appear={false}
-                      enter={true}
-                      enterTimeout={1000}
-                      leave={true}
-                      leaveTimeout={400}
-                      name="fade"
-                    >
-                      <div
-                        className="feedback"
-                        key="too-long"
-                      >
-                        <img
-                          alt="Arrows pointing in opposite directions, making a loop"
-                          src="undefined/images/icons/loop.svg"
-                        />
-                        <p
-                          className="feedback-text"
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "Revise your work so it is shorter and more concise.",
-                            }
-                          }
-                          role="status"
-                        />
-                      </div>
-                      <button
-                        className="report-a-problem-button"
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        Report a problem
-                      </button>
-                    </CSSTransitionGroupChild>
-                  </span>
-                </div>
-              </ReactCSSTransitionReplace>
-            </div>
-          </Feedback>
-        </div>
-      </div>
-    </div>
-  </div>
-</PromptStep>
-`;
-
-exports[`PromptStep component active state when a too-short response has been submitted matches snapshot 1`] = `
-<PromptStep
-  active={true}
-  className="step active"
-  completeStep={[Function]}
-  everyOtherStepCompleted={false}
-  onClick={[Function]}
-  passedRef={[Function]}
-  prompt={
-    Object {
-      "conjunction": "because",
-      "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
-
- Governments should make voting compulsory because otherwise not everyone will vote.",
-      "prompt_id": 1,
-      "text": "Governments should make voting compulsory because",
-    }
-  }
-  stepNumberComponent={<span />}
-  submitResponse={[Function]}
-  submittedResponses={Array []}
->
-  <div
-    className="step active"
-  >
-    <div
-      className="step-content"
-    >
-      <div>
-        <div
-          className="step-header"
-        >
-          <span />
-          <p
-            className="directions"
-          >
-            Use information from the text to finish the sentence:
-          </p>
-        </div>
-        <div
-          className="active-content-container"
-        >
-          <EditorContainer
-            className="editor"
-            disabled={false}
-            handleFocus={[Function]}
-            handleTextChange={[Function]}
-            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
-            innerRef={[Function]}
-            isResettable={false}
-            promptText="Governments should make voting compulsory because"
-            resetText={[Function]}
-            stripHtml={[Function]}
-          >
-            <div
-              className="editor-container"
-            >
-              <ContentEditable
-                className="editor"
-                data-gramm={false}
-                disabled={false}
-                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
-                innerRef={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                spellCheck={false}
-              >
-                <div
-                  className="editor"
-                  contentEditable={true}
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>",
-                    }
-                  }
-                  data-gramm={false}
-                  disabled={false}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  onInput={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyUp={[Function]}
-                  spellCheck={false}
-                />
-              </ContentEditable>
-              <button
-                className="disabled clear-button"
-                type="button"
-              >
-                <img
-                  alt="circle with an x in it"
-                  className="clear"
-                  src="undefined/images/icons/clear-disabled.svg"
-                />
-                Clear response
-              </button>
-            </div>
-          </EditorContainer>
-          <button
-            className="quill-button focus-on-light disabled"
-            onClick={[Function]}
-            type="button"
-          >
-            <span>
-              Get feedback
-            </span>
-          </button>
-          <Feedback
-            customFeedback="Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided."
-            customFeedbackKey="too-short"
-            lastSubmittedResponse={Object {}}
-            prompt={
-              Object {
-                "conjunction": "because",
-                "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
-
- Governments should make voting compulsory because otherwise not everyone will vote.",
-                "prompt_id": 1,
-                "text": "Governments should make voting compulsory because",
-              }
-            }
-            submittedResponses={Array []}
-          >
-            <div
-              className="feedback-section "
-            >
-              <p
-                className="feedback-section-header"
-              >
-                Feedback
-                <span>
-                  0
-                   of 
-                  5
-                   attempts
-                </span>
-              </p>
-              <ReactCSSTransitionReplace
-                changeWidth={false}
-                childComponent="span"
-                component="div"
-                notifyLeaving={false}
-                overflowHidden={true}
-                transitionAppear={false}
-                transitionEnter={true}
-                transitionEnterTimeout={1000}
-                transitionLeave={true}
-                transitionLeaveTimeout={400}
-                transitionName="fade"
-              >
-                <div
-                  style={Object {}}
-                >
-                  <span
-                    key="1"
-                    style={null}
-                  >
-                    <CSSTransitionGroupChild
-                      appear={false}
-                      enter={true}
-                      enterTimeout={1000}
-                      leave={true}
-                      leaveTimeout={400}
-                      name="fade"
-                    >
-                      <div
-                        className="feedback"
-                        key="too-short"
-                      >
-                        <img
-                          alt="Arrows pointing in opposite directions, making a loop"
-                          src="undefined/images/icons/loop.svg"
-                        />
-                        <p
-                          className="feedback-text"
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided.",
-                            }
-                          }
-                          role="status"
-                        />
-                      </div>
-                      <button
-                        className="report-a-problem-button"
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        Report a problem
-                      </button>
-                    </CSSTransitionGroupChild>
-                  </span>
-                </div>
-              </ReactCSSTransitionReplace>
-            </div>
-          </Feedback>
-        </div>
-      </div>
-    </div>
-  </div>
-</PromptStep>
-`;
-
 exports[`PromptStep component active state when an optimal response has been submitted matches snapshot 1`] = `
 <PromptStep
   active={true}
+  activityIsComplete={false}
   className="step active"
   completeStep={[Function]}
   everyOtherStepCompleted={false}
@@ -1251,7 +430,7 @@ exports[`PromptStep component active state when an optimal response has been sub
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor optimal disabled"
@@ -1269,7 +448,7 @@ exports[`PromptStep component active state when an optimal response has been sub
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
             </div>
@@ -1401,6 +580,7 @@ exports[`PromptStep component active state when an optimal response has been sub
 exports[`PromptStep component active state when the max attempts have been reached matches snapshot 1`] = `
 <PromptStep
   active={true}
+  activityIsComplete={false}
   className="step active"
   completeStep={[Function]}
   everyOtherStepCompleted={false}
@@ -1502,7 +682,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor suboptimal disabled"
@@ -1520,7 +700,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
             </div>
@@ -1682,6 +862,7 @@ exports[`PromptStep component active state when the max attempts have been reach
 exports[`PromptStep component active state when the max attempts have been reached or the last answer is optimal and every other question has been completed matches snapshot 1`] = `
 <PromptStep
   active={true}
+  activityIsComplete={true}
   className="step active"
   completeStep={[Function]}
   everyOtherStepCompleted={true}
@@ -1755,7 +936,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
-                spellCheck={false}
+                spellCheck={true}
               >
                 <div
                   className="editor optimal disabled"
@@ -1773,14 +954,13 @@ exports[`PromptStep component active state when the max attempts have been reach
                   onInput={[Function]}
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
-                  spellCheck={false}
+                  spellCheck={true}
                 />
               </ContentEditable>
             </div>
           </EditorContainer>
           <button
             className="quill-button focus-on-light"
-            onClick={[Function]}
             type="button"
           >
             <span>
@@ -1905,6 +1085,7 @@ exports[`PromptStep component active state when the max attempts have been reach
 exports[`PromptStep component inactive state renders 1`] = `
 <PromptStep
   active={false}
+  activityIsComplete={false}
   className="step"
   completeStep={[Function]}
   everyOtherStepCompleted={false}

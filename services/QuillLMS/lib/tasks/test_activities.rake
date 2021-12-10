@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :test do
   desc 'create test activities A1, A2, A3'
   task :activities => :environment do

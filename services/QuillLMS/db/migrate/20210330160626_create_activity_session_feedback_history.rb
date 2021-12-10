@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateActivitySessionFeedbackHistory < ActiveRecord::Migration[4.2]
   def change
     create_table :feedback_sessions do |t|

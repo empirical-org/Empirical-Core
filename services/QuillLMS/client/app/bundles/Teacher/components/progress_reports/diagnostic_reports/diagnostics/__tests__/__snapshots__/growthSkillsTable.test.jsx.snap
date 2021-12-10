@@ -1,0 +1,824 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GrowthSkillsTable component should render when it is expandable 1`] = `
+<GrowthSkillsTable
+  isExpandable={true}
+  skillGroup={
+    Object {
+      "acquired_skill_ids": Array [],
+      "description": "Students who show proficiency in this skill will correctly place single adjectives, adverbs, cumulative adjectives, coordinate adjectives, and adjectives and adverbs together. Students will also make the correct choice between a comparative and superlative adjective and correctly order cumulative adjectives. Students will correctly punctuate by placing a comma between two coordinate adjectives.",
+      "id": 65,
+      "number_of_correct_skills_text": "4 of 6 skills correct",
+      "post_test_proficiency": "Partial proficiency",
+      "pre_test_proficiency": "Partial proficiency",
+      "proficiency_text": "Partial proficiency",
+      "skill_group": "Adjectives and Adverbs",
+      "skills": Array [
+        Object {
+          "post": Object {
+            "id": 125,
+            "number_correct": 1,
+            "number_incorrect": 0,
+            "skill": "Adjectives and Adverbs",
+            "summary": "Fully correct",
+          },
+          "pre": Object {
+            "id": 125,
+            "number_correct": 1,
+            "number_incorrect": 0,
+            "skill": "Adjectives and Adverbs",
+            "summary": "Fully correct",
+          },
+        },
+        Object {
+          "post": Object {
+            "id": 120,
+            "number_correct": 0,
+            "number_incorrect": 1,
+            "skill": "Adverbs of Manner",
+            "summary": "Not correct",
+          },
+          "pre": Object {
+            "id": 120,
+            "number_correct": 0,
+            "number_incorrect": 1,
+            "skill": "Adverbs of Manner",
+            "summary": "Not correct",
+          },
+        },
+        Object {
+          "post": Object {
+            "id": 122,
+            "number_correct": 2,
+            "number_incorrect": 0,
+            "skill": "Comparative Adjectives",
+            "summary": "Fully correct",
+          },
+          "pre": Object {
+            "id": 122,
+            "number_correct": 2,
+            "number_incorrect": 0,
+            "skill": "Comparative Adjectives",
+            "summary": "Fully correct",
+          },
+        },
+        Object {
+          "post": Object {
+            "id": 123,
+            "number_correct": 1,
+            "number_incorrect": 0,
+            "skill": "Coordinate Adjectives",
+            "summary": "Fully correct",
+          },
+          "pre": Object {
+            "id": 123,
+            "number_correct": 1,
+            "number_incorrect": 0,
+            "skill": "Coordinate Adjectives",
+            "summary": "Fully correct",
+          },
+        },
+        Object {
+          "post": Object {
+            "id": 124,
+            "number_correct": 0,
+            "number_incorrect": 1,
+            "skill": "Cumulative Adjectives",
+            "summary": "Not correct",
+          },
+          "pre": Object {
+            "id": 124,
+            "number_correct": 1,
+            "number_incorrect": 0,
+            "skill": "Cumulative Adjectives",
+            "summary": "Fully correct",
+          },
+        },
+        Object {
+          "post": Object {
+            "id": 121,
+            "number_correct": 1,
+            "number_incorrect": 0,
+            "skill": "Single Adjectives",
+            "summary": "Fully correct",
+          },
+          "pre": Object {
+            "id": 121,
+            "number_correct": 1,
+            "number_incorrect": 0,
+            "skill": "Single Adjectives",
+            "summary": "Fully correct",
+          },
+        },
+      ],
+    }
+  }
+>
+  <div
+    className="skills-table-container"
+  >
+    <table
+      className="growth-skills-table contracted"
+    >
+      <thead>
+        <tr>
+          <th
+            className="skill-column-header"
+          >
+            Skill
+          </th>
+          <th />
+          <th>
+            Correct
+          </th>
+          <th>
+            Incorrect
+          </th>
+          <th
+            className="summary-header"
+          >
+            Summary
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          key="Adjectives and Adverbs"
+        >
+          <td>
+            Adjectives and Adverbs
+          </td>
+          <td>
+            <div
+              className="no-left-padding"
+            >
+              <span>
+                Pre
+              </span>
+              <span>
+                Post
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                1
+              </span>
+              <span>
+                1
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                0
+              </span>
+              <span>
+                0
+              </span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <span
+                className="fully-correct"
+              >
+                Fully correct
+              </span>
+              <span
+                className="fully-correct"
+              >
+                Fully correct
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr
+          key="Adverbs of Manner"
+        >
+          <td>
+            Adverbs of Manner
+          </td>
+          <td>
+            <div
+              className="no-left-padding"
+            >
+              <span>
+                Pre
+              </span>
+              <span>
+                Post
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                0
+              </span>
+              <span>
+                0
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                1
+              </span>
+              <span>
+                1
+              </span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <span
+                className=""
+              >
+                Not correct
+              </span>
+              <span
+                className=""
+              >
+                Not correct
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr
+          key="Comparative Adjectives"
+        >
+          <td>
+            Comparative Adjectives
+          </td>
+          <td>
+            <div
+              className="no-left-padding"
+            >
+              <span>
+                Pre
+              </span>
+              <span>
+                Post
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                2
+              </span>
+              <span>
+                2
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                0
+              </span>
+              <span>
+                0
+              </span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <span
+                className="fully-correct"
+              >
+                Fully correct
+              </span>
+              <span
+                className="fully-correct"
+              >
+                Fully correct
+              </span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button
+      className="show-more-button"
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Show more
+      </span>
+      <img
+        alt="Expand icon"
+        className="expand-icon"
+        src="undefined/images/icons/expand.svg"
+      />
+    </button>
+  </div>
+</GrowthSkillsTable>
+`;
+
+exports[`GrowthSkillsTable component should render when it is not expandable 1`] = `
+<GrowthSkillsTable
+  isExpandable={false}
+  skillGroup={
+    Object {
+      "acquired_skill_ids": Array [],
+      "description": "Students who show proficiency in this skill will correctly place single adjectives, adverbs, cumulative adjectives, coordinate adjectives, and adjectives and adverbs together. Students will also make the correct choice between a comparative and superlative adjective and correctly order cumulative adjectives. Students will correctly punctuate by placing a comma between two coordinate adjectives.",
+      "id": 65,
+      "number_of_correct_skills_text": "4 of 6 skills correct",
+      "post_test_proficiency": "Partial proficiency",
+      "pre_test_proficiency": "Partial proficiency",
+      "proficiency_text": "Partial proficiency",
+      "skill_group": "Adjectives and Adverbs",
+      "skills": Array [
+        Object {
+          "post": Object {
+            "id": 125,
+            "number_correct": 1,
+            "number_incorrect": 0,
+            "skill": "Adjectives and Adverbs",
+            "summary": "Fully correct",
+          },
+          "pre": Object {
+            "id": 125,
+            "number_correct": 1,
+            "number_incorrect": 0,
+            "skill": "Adjectives and Adverbs",
+            "summary": "Fully correct",
+          },
+        },
+        Object {
+          "post": Object {
+            "id": 120,
+            "number_correct": 0,
+            "number_incorrect": 1,
+            "skill": "Adverbs of Manner",
+            "summary": "Not correct",
+          },
+          "pre": Object {
+            "id": 120,
+            "number_correct": 0,
+            "number_incorrect": 1,
+            "skill": "Adverbs of Manner",
+            "summary": "Not correct",
+          },
+        },
+        Object {
+          "post": Object {
+            "id": 122,
+            "number_correct": 2,
+            "number_incorrect": 0,
+            "skill": "Comparative Adjectives",
+            "summary": "Fully correct",
+          },
+          "pre": Object {
+            "id": 122,
+            "number_correct": 2,
+            "number_incorrect": 0,
+            "skill": "Comparative Adjectives",
+            "summary": "Fully correct",
+          },
+        },
+        Object {
+          "post": Object {
+            "id": 123,
+            "number_correct": 1,
+            "number_incorrect": 0,
+            "skill": "Coordinate Adjectives",
+            "summary": "Fully correct",
+          },
+          "pre": Object {
+            "id": 123,
+            "number_correct": 1,
+            "number_incorrect": 0,
+            "skill": "Coordinate Adjectives",
+            "summary": "Fully correct",
+          },
+        },
+        Object {
+          "post": Object {
+            "id": 124,
+            "number_correct": 0,
+            "number_incorrect": 1,
+            "skill": "Cumulative Adjectives",
+            "summary": "Not correct",
+          },
+          "pre": Object {
+            "id": 124,
+            "number_correct": 1,
+            "number_incorrect": 0,
+            "skill": "Cumulative Adjectives",
+            "summary": "Fully correct",
+          },
+        },
+        Object {
+          "post": Object {
+            "id": 121,
+            "number_correct": 1,
+            "number_incorrect": 0,
+            "skill": "Single Adjectives",
+            "summary": "Fully correct",
+          },
+          "pre": Object {
+            "id": 121,
+            "number_correct": 1,
+            "number_incorrect": 0,
+            "skill": "Single Adjectives",
+            "summary": "Fully correct",
+          },
+        },
+      ],
+    }
+  }
+>
+  <div
+    className="skills-table-container"
+  >
+    <table
+      className="growth-skills-table "
+    >
+      <thead>
+        <tr>
+          <th
+            className="skill-column-header"
+          >
+            Skill
+          </th>
+          <th />
+          <th>
+            Correct
+          </th>
+          <th>
+            Incorrect
+          </th>
+          <th
+            className="summary-header"
+          >
+            Summary
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          key="Adjectives and Adverbs"
+        >
+          <td>
+            Adjectives and Adverbs
+          </td>
+          <td>
+            <div
+              className="no-left-padding"
+            >
+              <span>
+                Pre
+              </span>
+              <span>
+                Post
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                1
+              </span>
+              <span>
+                1
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                0
+              </span>
+              <span>
+                0
+              </span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <span
+                className="fully-correct"
+              >
+                Fully correct
+              </span>
+              <span
+                className="fully-correct"
+              >
+                Fully correct
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr
+          key="Adverbs of Manner"
+        >
+          <td>
+            Adverbs of Manner
+          </td>
+          <td>
+            <div
+              className="no-left-padding"
+            >
+              <span>
+                Pre
+              </span>
+              <span>
+                Post
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                0
+              </span>
+              <span>
+                0
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                1
+              </span>
+              <span>
+                1
+              </span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <span
+                className=""
+              >
+                Not correct
+              </span>
+              <span
+                className=""
+              >
+                Not correct
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr
+          key="Comparative Adjectives"
+        >
+          <td>
+            Comparative Adjectives
+          </td>
+          <td>
+            <div
+              className="no-left-padding"
+            >
+              <span>
+                Pre
+              </span>
+              <span>
+                Post
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                2
+              </span>
+              <span>
+                2
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                0
+              </span>
+              <span>
+                0
+              </span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <span
+                className="fully-correct"
+              >
+                Fully correct
+              </span>
+              <span
+                className="fully-correct"
+              >
+                Fully correct
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr
+          key="Coordinate Adjectives"
+        >
+          <td>
+            Coordinate Adjectives
+          </td>
+          <td>
+            <div
+              className="no-left-padding"
+            >
+              <span>
+                Pre
+              </span>
+              <span>
+                Post
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                1
+              </span>
+              <span>
+                1
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                0
+              </span>
+              <span>
+                0
+              </span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <span
+                className="fully-correct"
+              >
+                Fully correct
+              </span>
+              <span
+                className="fully-correct"
+              >
+                Fully correct
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr
+          key="Cumulative Adjectives"
+        >
+          <td>
+            Cumulative Adjectives
+          </td>
+          <td>
+            <div
+              className="no-left-padding"
+            >
+              <span>
+                Pre
+              </span>
+              <span>
+                Post
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                1
+              </span>
+              <span>
+                0
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                0
+              </span>
+              <span>
+                1
+              </span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <span
+                className="fully-correct"
+              >
+                Fully correct
+              </span>
+              <span
+                className=""
+              >
+                Not correct
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr
+          key="Single Adjectives"
+        >
+          <td>
+            Single Adjectives
+          </td>
+          <td>
+            <div
+              className="no-left-padding"
+            >
+              <span>
+                Pre
+              </span>
+              <span>
+                Post
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                1
+              </span>
+              <span>
+                1
+              </span>
+            </div>
+          </td>
+          <td
+            className="center-align"
+          >
+            <div>
+              <span>
+                0
+              </span>
+              <span>
+                0
+              </span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <span
+                className="fully-correct"
+              >
+                Fully correct
+              </span>
+              <span
+                className="fully-correct"
+              >
+                Fully correct
+              </span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</GrowthSkillsTable>
+`;

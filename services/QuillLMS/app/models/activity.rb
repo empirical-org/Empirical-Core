@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: activities
@@ -36,7 +38,12 @@ class Activity < ApplicationRecord
 
   validate :data_must_be_hash
 
+  has_many :skill_group_activities
+  has_many :skill_groups, through: :skill_group_activities
+  has_many :skills, through: :skill_groups
+
   has_and_belongs_to_many :unit_templates
+
   belongs_to :classification, class_name: 'ActivityClassification', foreign_key: 'activity_classification_id'
   belongs_to :standard
   belongs_to :raw_score
@@ -84,6 +91,14 @@ class Activity < ApplicationRecord
   # only Grammar (2), Connect (5), and Diagnostic (4) Activities contain questions
   # the other two, Proofreader and Lesson, contain passages and other data, not questions
   ACTIVITY_TYPES_WITH_QUESTIONS = [2,4,5]
+
+  STARTER_DIAGNOSTIC_ACTIVITY_ID = 1663
+  INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID = 1668
+  ADVANCED_DIAGNOSTIC_ACTIVITY_ID = 1678
+  ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID = 1161
+  ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID = 1568
+  ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID = 1590
+  PRE_TEST_DIAGNOSTIC_IDS = [STARTER_DIAGNOSTIC_ACTIVITY_ID, INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID, ADVANCED_DIAGNOSTIC_ACTIVITY_ID, ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID, ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID, ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID]
 
   def self.diagnostic_activity_ids
     ActivityClassification.find_by_key('diagnostic')&.activities&.pluck(:id) || []

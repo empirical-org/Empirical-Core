@@ -21,7 +21,6 @@ const ActivityFollowUp = ({ responses, user, sessionID, saveActivitySurveyRespon
       setSubmittedActivitySurvey={setSubmittedActivitySurvey}
     />)
   }
-
   return <PostActivitySlide handleClick={onClickNext} responses={responses} user={user} />
 }
 

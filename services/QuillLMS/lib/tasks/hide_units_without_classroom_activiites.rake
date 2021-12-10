@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :hide_units_without_classroom_activities do
   desc 'hides units that do not have a classroom activity'
   task :run => :environment do

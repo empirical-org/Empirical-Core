@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :school do
     sequence(:nces_id, 100000000000)

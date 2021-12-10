@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 SecureHeaders::Configuration.default do |config|
   default_config = {
     default_src: [
@@ -109,19 +111,20 @@ SecureHeaders::Configuration.default do |config|
       "wss://*.intercom.io",
       "https://*.coview.com",
       "https://*.sentry.io",
-      "wss://*.quill.org"
+      "wss://*.quill.org",
+      "https://*.satismeter.com"
     ]
   }
 
-  config.csp = default_config 
+  config.csp = default_config
 
   config.x_frame_options = SecureHeaders::OPT_OUT
-  
+
   config.cookies = {
-    secure: true, 
-    httponly: true, 
+    secure: true,
+    httponly: true,
     samesite: {
-      lax: true 
+      lax: true
     }
   }
 end

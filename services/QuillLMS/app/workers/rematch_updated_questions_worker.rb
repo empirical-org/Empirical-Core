@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RematchUpdatedQuestionsWorker
   include Sidekiq::Worker
   # Marking as critical, since this unblocks 1MM+ jobs in the CMS.

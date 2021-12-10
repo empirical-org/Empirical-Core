@@ -1,0 +1,121 @@
+.diagnostic-individual-pack main.questions-index-container {
+  .data-table {
+    overflow: visible;
+    border-radius: 8px;
+    border: solid 1px #e0e0e0;
+    margin-top: 24px;
+    .data-table-headers {
+      height: 48px;
+      border-radius: 8px 8px 0px 0px;
+    }
+    &.hide-on-mobile {
+      width: 950px;
+      .directions {
+        border-bottom: 1px solid #e0e0e0;
+      }
+      .data-table-row {
+        height: 73px;
+      }
+      .question-number-section {
+        height: 100%;
+        padding-top: 8px;
+      }
+      .directions-and-prompt {
+        div {
+          display: flex;
+          padding: 8px 0px;
+          .quill-tooltip-trigger {
+            margin-right: 0px;
+          }
+          .directions-or-prompt {
+            max-width: 673px;
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+    .score-header {
+      margin-right: 32px;
+      text-align: right !important;
+    }
+    .score-section {
+      margin-right: 32px;
+      display: flex;
+      overflow: visible;
+      height: 100%;
+      span {
+        height: 100%;
+        padding: 8px 6px 12px 0px;
+        width: 100%;
+        text-align: right;
+        &.proficient {
+          background-color: #f1f8eb;
+        }
+        &.nearly-proficient {
+          background-color: #fff5e5;
+        }
+        &.not-yet-proficient {
+          background-color: #fff0f2;
+        }
+      }
+    }
+    .directions-and-prompt-section {
+      overflow: visible;
+      margin-right: 0px;
+    }
+    .directions-and-prompt-header {
+      margin-right: 0px;
+    }
+    .directions-and-prompt {
+      div {
+        > span:not(.quill-tooltip-trigger) {
+          font-size: 14px;
+          line-height: 1.43;
+          color: #5c5c5c;
+          width: 80px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 930px) {
+    padding: 40px 16px;
+    .data-table {
+      .data-table-headers {
+        height: 32px;
+      }
+      .data-table-row {
+        height: min-content;
+        position: relative;
+      }
+      .directions-and-prompt {
+        white-space: normal;
+        padding: 12px 0px;
+        .directions {
+          margin-bottom: 12px;
+        }
+      }
+      .score-section {
+        margin-right: 0px;
+        position: absolute;
+        right: 0px;
+        span {
+          margin-left: 0px;
+        }
+      }
+      .score-header {
+        white-space: nowrap;
+        margin-right: 0px;
+        right: 8px;
+        top: 8px;
+        position: absolute;
+        width: min-content !important;
+        .sort-arrow {
+          margin-right: 0px;
+        }
+      }
+    }
+  }
+}

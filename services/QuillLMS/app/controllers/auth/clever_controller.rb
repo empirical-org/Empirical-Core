@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Auth::CleverController < ApplicationController
 
   # Theres an issue here - if a student belongs to multiple clever classrooms, then the student

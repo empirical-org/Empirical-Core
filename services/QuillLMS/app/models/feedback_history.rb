@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: feedback_histories
@@ -44,7 +46,8 @@ class FeedbackHistory < ApplicationRecord
     RULES_BASED_THREE = "rules-based-3",
     AUTO_ML = "autoML",
     SPELLING = "spelling",
-    OPINION = "opinion"
+    OPINION = "opinion",
+    PREFILTER = "prefilter"
   ]
   FILTER_TYPES = [
     FILTER_ALL = "all",

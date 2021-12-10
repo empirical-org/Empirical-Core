@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AboutUsHelper
   def about_us_tabs(large: true)
     [

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from comprehension (originally 20200625222938)
 class CreateComprehensionRuleSets < ActiveRecord::Migration[4.2]
   def change

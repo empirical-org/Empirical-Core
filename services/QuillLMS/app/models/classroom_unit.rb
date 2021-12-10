@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: classroom_units
@@ -29,6 +31,7 @@ class ClassroomUnit < ApplicationRecord
   belongs_to :unit #, touch: true
   belongs_to :classroom
   has_many :activity_sessions
+  has_many :unit_activities, through: :unit
   has_many :completed_activity_sessions, -> {completed}, class_name: 'ActivitySession'
   has_many :classroom_unit_activity_states
 
@@ -39,14 +42,6 @@ class ClassroomUnit < ApplicationRecord
   # this method does not seem to be getting used, but leaving it in for the tests for now
   def assigned_students
     User.where(id: assigned_student_ids)
-  end
-
-  def is_valid_for_google_announcement_with_specific_user?(user)
-    !!classroom.google_classroom_id && !!user.google_id && !!user.post_google_classroom_assignments
-  end
-
-  def is_valid_for_google_announcement_with_owner?
-    !!classroom.google_classroom_id && !!classroom.owner.google_id && !!classroom.owner.post_google_classroom_assignments
   end
 
   def validate_assigned_student(student_id)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe ActivitiesController, type: :controller, redis: true do
@@ -68,12 +70,23 @@ describe ActivitiesController, type: :controller, redis: true do
     let!(:classroom_unit) { create(:classroom_unit_with_activity_sessions).reload }
     let!(:activity) { classroom_unit.unit.unit_activities.first.activity }
 
-    context 'no student is logged in' do
+    subject { get :activity_session, params: { id: activity.id, classroom_unit_id: classroom_unit.id } }
+
+    context 'no user is logged in' do
       before { session.delete(:user_id) }
 
       it 'redirects to login path' do
-        get :activity_session, params: { id: activity.id, classroom_unit_id: classroom_unit.id }
+        subject
         expect(response).to redirect_to new_session_path
+      end
+    end
+
+    context 'user is not a student' do
+      before { session[:user_id] = create(:teacher).id }
+
+      it 'redirects to profile_path' do
+        subject
+        expect(response).to redirect_to profile_path
       end
     end
 
@@ -81,8 +94,7 @@ describe ActivitiesController, type: :controller, redis: true do
       before { classroom_unit.update(assigned_student_ids: [student.id]) }
 
       it '' do
-        get :activity_session, params: { id: activity.id, classroom_unit_id: classroom_unit.id }
-
+        subject
         expect(response)
           .to redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)
       end
@@ -90,7 +102,16 @@ describe ActivitiesController, type: :controller, redis: true do
 
     context 'student is not assigned to classroom_unit' do
       it '' do
-        get :activity_session, params: { id: activity.id, classroom_unit_id: classroom_unit.id }
+        subject
+        expect(response).to redirect_to classes_path
+        expect(flash[:error]).to match I18n.t('activity_link.errors.activity_not_assigned')
+      end
+    end
+
+    context 'non-student user attempts to access link' do
+      before { session[:user_id] = create(:teacher).id }
+      it '' do
+        subject
         expect(response).to redirect_to profile_path
       end
     end
@@ -100,7 +121,7 @@ describe ActivitiesController, type: :controller, redis: true do
 
       it '' do
         get :activity_session, params: { id: another_activity.id, classroom_unit_id: classroom_unit.id }
-        expect(response).to redirect_to profile_path
+        expect(response).to redirect_to classes_path
       end
     end
   end

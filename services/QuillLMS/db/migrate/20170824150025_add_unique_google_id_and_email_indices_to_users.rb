@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddUniqueGoogleIdAndEmailIndicesToUsers < ActiveRecord::Migration[4.2]
   def change
     add_index :users, :email, unique: true, name: 'unique_index_users_on_email', where: "id > 1641954 AND email IS NOT null AND email <>  '' "

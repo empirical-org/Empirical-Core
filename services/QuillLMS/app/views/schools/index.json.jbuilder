@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.ignore_nil!
 
 json.data do

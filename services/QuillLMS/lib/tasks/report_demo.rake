@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # require 'report_demo_destroyer'
 # require 'report_demo_creator'
 #

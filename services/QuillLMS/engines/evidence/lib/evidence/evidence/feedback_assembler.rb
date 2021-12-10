@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence 
   class FeedbackAssembler
     def self.error_to_rule_uid 

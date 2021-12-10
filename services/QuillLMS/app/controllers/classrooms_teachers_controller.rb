@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ClassroomsTeachersController < ApplicationController
   before_action :signed_in!
   before_action :multi_classroom_auth, only: :update_coteachers

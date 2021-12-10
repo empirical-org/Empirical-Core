@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'analytics/segment_io'
 
 if !Rails.env.test?

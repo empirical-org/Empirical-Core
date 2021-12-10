@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ConvertStartDateAndDeActivatedDatesFromDateTime < ActiveRecord::Migration[4.2]
   def change
     change_column :subscriptions, :start_date, :date

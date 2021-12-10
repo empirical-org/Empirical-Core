@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Teachers::ProgressReportsController < ApplicationController
   before_action :authorize!, except: [:demo, :admin_demo, :coach_demo, :staff_demo]
   before_action :set_vary_header, if: -> { request.xhr? || request.format == :json }

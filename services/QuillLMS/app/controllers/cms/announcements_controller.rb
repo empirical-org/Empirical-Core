@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::AnnouncementsController < Cms::CmsController
   before_action :signed_in!
 

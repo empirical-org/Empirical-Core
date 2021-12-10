@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Teachers::ProgressReports::DiagnosticReportsController, type: :controller do
@@ -203,5 +205,39 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
       expect(unit_templates_have_a_corresponding_unit?(unit_template_ids)).to eq(true)
       expect(units_have_corresponding_unit_activities?(unit_template_ids)).to eq(false)
     end
+  end
+
+  describe 'skills_growth' do
+    let!(:pre_test_unit) { create(:unit) }
+    let!(:post_test_unit) { create(:unit, user: pre_test_unit.user) }
+    let!(:classroom) { create(:classroom) }
+    let!(:student1) { create(:student, name: 'Alphabetical A')}
+    let!(:students_classroom1) { create(:students_classrooms, classroom: classroom, student: student1)}
+    let!(:student2) { create(:student, name: 'Alphabetical B')}
+    let!(:students_classroom2) { create(:students_classrooms, classroom: classroom, student: student2)}
+    let!(:pre_test_classroom_unit) { create(:classroom_unit, unit: pre_test_unit, classroom: classroom, assigned_student_ids: [student1.id, student2.id]) }
+    let!(:pre_test_unit_activity) { create(:unit_activity, unit: pre_test_unit) }
+    let!(:post_test_classroom_unit) { create(:classroom_unit, unit: post_test_unit, classroom: classroom, assigned_student_ids: [student1.id, student2.id]) }
+    let!(:post_test_unit_activity) { create(:unit_activity, unit: post_test_unit) }
+    let!(:pre_test_skill_group_activity) { create(:skill_group_activity, activity: pre_test_unit_activity.activity)}
+    let!(:post_test_skill_group_activity) { create(:skill_group_activity, activity: post_test_unit_activity.activity, skill_group: pre_test_skill_group_activity.skill_group)}
+    let!(:pre_test_activity_session) { create(:activity_session, :finished, user: student1, classroom_unit: pre_test_classroom_unit, activity: pre_test_unit_activity.activity) }
+    let!(:post_test_activity_session) { create(:activity_session, :finished, user: student1, classroom_unit: post_test_classroom_unit, activity: post_test_unit_activity.activity) }
+    let!(:post_test_activity_session_with_no_pre_test) { create(:activity_session, :finished, user: student2, classroom_unit: post_test_classroom_unit, activity: post_test_unit_activity.activity) }
+    let!(:concept) { create(:concept) }
+    let!(:skill) { create(:skill, skill_group: pre_test_skill_group_activity.skill_group) }
+    let!(:skill_concept) { create(:skill_concept, concept: concept, skill: skill) }
+    let!(:pre_test_correct_concept_result) { create(:concept_result_with_correct_answer, concept: concept, activity_session: pre_test_activity_session) }
+    let!(:post_test_correct_concept_result) { create(:concept_result_with_correct_answer, concept: concept, activity_session: post_test_activity_session) }
+    let!(:pre_test_incorrect_concept_result) { create(:concept_result_with_incorrect_answer, concept: concept, activity_session: pre_test_activity_session) }
+
+    it 'should return the total number of acquired skills' do
+      get :skills_growth, params: ({classroom_id: classroom.id, post_test_activity_id: post_test_unit_activity.activity_id, pre_test_activity_id: pre_test_unit_activity.activity_id})
+
+      expect(response).to be_success
+      json = JSON.parse(response.body)
+      expect(json['skills_growth']).to eq 1
+    end
+
   end
 end

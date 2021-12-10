@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AuthorizedUserForActivity
 
   def initialize(current_user, activity_session)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Demo::ConceptResults
 
   def self.create_from_classrooms(classrooms)

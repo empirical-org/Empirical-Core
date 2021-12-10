@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SchoolsController < ApplicationController
   before_action :require_user, only: [:select_school]
 

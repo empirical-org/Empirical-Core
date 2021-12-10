@@ -1,0 +1,260 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StudentResponsesIndex component should render when there is no student data 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <StudentResponsesIndex
+      location={
+        Object {
+          "search": "",
+        }
+      }
+      match={
+        Object {
+          "params": Object {
+            "activityId": 0,
+            "classroomId": 6,
+          },
+        }
+      }
+      mobileNavigation={<span />}
+      passedStudents={
+        Array [
+          Object {
+            "name": "Paulo Azevedo",
+          },
+          Object {
+            "name": "Rual Guzman",
+          },
+          Object {
+            "name": "Jacob De Haas",
+          },
+          Object {
+            "name": "Grace Hatton",
+          },
+          Object {
+            "name": "Mary Masters",
+          },
+        ]
+      }
+    >
+      <_default>
+        <div
+          className="spinner-container"
+        >
+          <img
+            className="spinner"
+            src="/images/loader_still.svg"
+          />
+        </div>
+      </_default>
+    </StudentResponsesIndex>
+  </Router>
+</BrowserRouter>
+`;
+
+exports[`StudentResponsesIndex component should render when there is student data 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <StudentResponsesIndex
+      location={
+        Object {
+          "search": "",
+        }
+      }
+      match={
+        Object {
+          "params": Object {
+            "activityId": 0,
+            "classroomId": 6,
+          },
+        }
+      }
+      mobileNavigation={<span />}
+      passedStudents={
+        Array [
+          Object {
+            "id": 11115764,
+            "name": "Ja'shonda Abbott",
+            "proficiency": "Proficient",
+            "score": 80,
+          },
+          Object {
+            "id": 11115797,
+            "name": "Paulo Azevedo",
+            "proficiency": "Not yet proficient",
+            "score": 14,
+          },
+          Object {
+            "id": 11115765,
+            "name": "Charlotte Bronte",
+            "proficiency": "Proficient",
+            "score": 100,
+          },
+          Object {
+            "id": 11115774,
+            "name": "Edgar Burroughs",
+            "proficiency": "Proficient",
+            "score": 85,
+          },
+          Object {
+            "id": 11115787,
+            "name": "Kaylesh Chaganlal",
+            "proficiency": "Not yet proficient",
+            "score": 0,
+          },
+          Object {
+            "id": 11115791,
+            "name": "Justin Cole",
+            "proficiency": "Proficient",
+            "score": 95,
+          },
+          Object {
+            "id": 11115784,
+            "name": "Victoria De",
+            "proficiency": "Not yet proficient",
+            "score": 38,
+          },
+          Object {
+            "id": 11115786,
+            "name": "Vishal Dewan",
+            "proficiency": "Not yet proficient",
+            "score": 42,
+          },
+          Object {
+            "name": "Joan Didion",
+          },
+          Object {
+            "id": 11115769,
+            "name": "John Donne",
+            "proficiency": "Nearly proficient",
+            "score": 66,
+          },
+          Object {
+            "name": "Gabriel De La Concordia Garcia",
+          },
+          Object {
+            "name": "Jacob De Haas",
+          },
+          Object {
+            "id": 11115796,
+            "name": "Grace Hatton",
+            "proficiency": "Not yet proficient",
+            "score": 0,
+          },
+          Object {
+            "name": "Tymon Jabłoński",
+          },
+          Object {
+            "name": "Dehab Lee Kassis-washington",
+          },
+          Object {
+            "id": 11115782,
+            "name": "Rudyard Kipling",
+            "proficiency": "Not yet proficient",
+            "score": 38,
+          },
+          Object {
+            "name": "Leone Lafontaine",
+          },
+          Object {
+            "name": "Henry Wadsworth Longfellow",
+          },
+          Object {
+            "name": "Hilary Mantel",
+          },
+          Object {
+            "name": "Daphne Maurier",
+          },
+          Object {
+            "name": "Stephanie Montgomery",
+          },
+          Object {
+            "name": "George Nichols",
+          },
+          Object {
+            "name": "Joyce Oates",
+          },
+          Object {
+            "name": "Banjo Paterson",
+          },
+          Object {
+            "name": "Sarah Pennington",
+          },
+          Object {
+            "name": "Annie Proulx",
+          },
+          Object {
+            "name": "Sarah Scott",
+          },
+          Object {
+            "name": "Zadie Smith",
+          },
+          Object {
+            "name": "Rabindranath Tagore",
+          },
+          Object {
+            "name": "Judy Heier-hammond Name Keeps Going For A Long Long Tim",
+          },
+          Object {
+            "name": "Virginia Walker",
+          },
+        ]
+      }
+    >
+      <_default>
+        <div
+          className="spinner-container"
+        >
+          <img
+            className="spinner"
+            src="/images/loader_still.svg"
+          />
+        </div>
+      </_default>
+    </StudentResponsesIndex>
+  </Router>
+</BrowserRouter>
+`;

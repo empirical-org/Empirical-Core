@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe ActivitySessionsController, type: :controller do
@@ -7,6 +9,7 @@ describe ActivitySessionsController, type: :controller do
   it { should use_before_action :activity }
   it { should use_before_action :activity_session_authorize! }
   it { should use_before_action :activity_session_authorize_teacher! }
+  it { should use_before_action :redirect_if_student_has_not_completed_pre_test }
   it { should use_after_action :update_student_last_active }
 
   let!(:activity) { create(:activity) }
@@ -93,6 +96,61 @@ describe ActivitySessionsController, type: :controller do
     it 'should redirect to the correct activity session url' do
       get :activity_session_from_classroom_unit_and_activity, params: { classroom_unit_id: cu.id, activity_id: activity.id }
       expect(response).to redirect_to activity_session_url
+    end
+  end
+
+  describe "#redirect_if_student_has_not_completed_pre_test" do
+    let!(:student) { create(:student)}
+    let!(:activity) { create(:diagnostic_activity) }
+
+    before do
+      @activity = create(:diagnostic_activity)
+      @controller = ActivitySessionsController.new
+
+      allow(@controller).to receive(:current_user) { student }
+      @controller.instance_variable_set(:@activity, @activity)
+    end
+
+    it 'should return if there is no activity with the @activity id as a follow_up_activity_id' do
+      @activity_session = create(:activity_session, user: student, state: 'started', activity: @activity)
+
+      get :play, params: { id: @activity_session.id }
+      expect(response).not_to redirect_to(profile_path)
+    end
+
+    it 'should return if there is an activity with the @activity id as a follow_up_activity_id but that activity is not a diagnostic' do
+      create(:lesson_activity, follow_up_activity_id: @activity.id)
+      @activity_session = create(:activity_session, user: student, state: 'started', activity: @activity)
+
+      get :play, params: { id: @activity_session.id }
+      expect(response).not_to redirect_to(profile_path)
+    end
+
+    it 'should return if there is an activity with the @activity id as a follow_up_activity_id and it is a diagnostic but the student has already completed that activity in this classroom' do
+      pre_test_activity = create(:diagnostic_activity, follow_up_activity_id: @activity.id)
+
+      classroom = create(:classroom)
+      pre_test_classroom_unit = create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])
+      post_test_classroom_unit = create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])
+      pre_test_activity_session = create(:activity_session, user: student, state: 'finished', classroom_unit: pre_test_classroom_unit, activity: pre_test_activity)
+      @activity_session = create(:activity_session, user: student, state: 'started', classroom_unit: post_test_classroom_unit, activity: @activity)
+
+      @controller.instance_variable_set(:@activity_session, @activity_session)
+      get :play, params: { id: @activity_session.id }
+      expect(response).not_to redirect_to(profile_path)
+    end
+
+    it 'should redirect to profile path if there is an activity with the @activity id as a follow_up_activity_id and it is a diagnostic and the student has not yet completed that activity in this classroom' do
+      pre_test_activity = create(:diagnostic_activity, follow_up_activity_id: @activity.id)
+
+      classroom = create(:classroom)
+      pre_test_classroom_unit = create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])
+      post_test_classroom_unit = create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])
+      @activity_session = create(:activity_session, user: student, state: 'started', classroom_unit: post_test_classroom_unit, activity: @activity)
+
+      @controller.instance_variable_set(:@activity_session, @activity_session)
+      get :play, params: { id: @activity_session.id }
+      expect(response).to redirect_to(profile_path)
     end
   end
 

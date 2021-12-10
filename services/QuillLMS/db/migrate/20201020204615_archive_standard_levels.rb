@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ArchiveStandardLevels < ActiveRecord::Migration[4.2]
 
   TO_ARCHIVE = ["Diagnostic", "Quill Tutorial Lesson"]

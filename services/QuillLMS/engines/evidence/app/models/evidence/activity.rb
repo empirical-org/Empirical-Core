@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence
 
   class Activity < ApplicationRecord
@@ -9,6 +11,10 @@ module Evidence
     MIN_TITLE_LENGTH = 5
     MAX_TITLE_LENGTH = 100
     MAX_SCORED_LEVEL_LENGTH = 100
+
+    # See activity.rb in the enclosing app for the ur-constant,
+    # which is not accessible from here
+    LMS_ACTIVITY_DEFAULT_FLAG = 'alpha'
 
     before_destroy :expire_turking_rounds
     before_validation :set_parent_activity, on: :create
@@ -40,7 +46,9 @@ module Evidence
         self.parent_activity = Evidence.parent_activity_class.find_or_create_by(
           name: title,
           activity_classification_id: Evidence.parent_activity_classification_class.evidence&.id
-        )
+        ) do |parent_activity|
+          parent_activity.flags = [LMS_ACTIVITY_DEFAULT_FLAG]
+        end
       end
     end
 
@@ -49,7 +57,8 @@ module Evidence
       options ||= {}
       super(options.reverse_merge(
         only: [:id, :parent_activity_id, :title, :notes, :target_level, :scored_level],
-        include: [:passages, :prompts]
+        include: [:passages, :prompts],
+        methods: [:invalid_highlights]
       ))
     end
 
@@ -63,6 +72,22 @@ module Evidence
 
     private def update_parent_activity_name
       parent_activity&.update(name: title)
+    end
+
+    def invalid_highlights
+      invalid_feedback_highlights
+    end
+
+    def invalid_feedback_highlights
+      related_higlights = prompts.map(&:rules).flatten.map(&:feedbacks).flatten.map(&:highlights).flatten
+      invalid_highlights = related_higlights.select {|h| h.invalid_activity_ids&.include?(id)}
+      invalid_highlights.map do |highlight|
+        {
+          rule_id: highlight.feedback.rule_id,
+          rule_type: highlight.feedback.rule.rule_type,
+          prompt_id: highlight.feedback.rule.prompts.where(activity_id: id).first.id 
+        }
+      end
     end
 
     private def expire_turking_rounds

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Usage: TeacherActivityFeed.add(teacher_id, activity_session_id)
 # Usage: TeacherActivityFeed.get(teacher_id)
 class TeacherActivityFeed < RedisFeed
@@ -19,6 +21,7 @@ class TeacherActivityFeed < RedisFeed
       .includes(:user, :classification, :classroom_unit)
       .where(id: ids)
       .where.not(user_id: nil)
+      .where.not(completed_at: nil)
       .select(:id, :user_id, :classroom_unit_id, :activity_id, :percentage, :completed_at)
 
     # purposely avoiding the SQL sort on the large activity_sessions table

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::TitleCardsController < Api::ApiController
   wrap_parameters format: [:json]
   before_action :retrieve_title_card_type, only: [:index, :create]

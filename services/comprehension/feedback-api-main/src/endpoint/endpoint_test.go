@@ -226,6 +226,7 @@ func TestIdentifyUsedFeedbackIndex(t *testing.T) {
 	feedbacks[1] = optimal_response
 	feedbacks[2] = usable_used_response
 	feedbacks[3] = usable_unused_response
+	feedbacks[4] = usable_unused_response
 
 	result = identifyUsedFeedbackIndex(feedbacks)
 	if result != 2 {
