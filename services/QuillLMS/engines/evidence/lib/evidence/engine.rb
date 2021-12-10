@@ -20,5 +20,11 @@ module Evidence
 
       g.fallbacks[:shoulda] = :test_unit
     end
+
+    config.after_initialize do 
+      if self.const_defined? (:NewRelicAttributable) 
+        ApplicationController.module_eval { include NewRelicAttributable }
+      end
+    end
   end
 end
