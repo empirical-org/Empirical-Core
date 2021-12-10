@@ -6,7 +6,7 @@ module CleverIntegration::Importers::Library
     user = import_teacher(client)
 
     if auth_hash[:info][:user_type] == 'teacher'
-      AuthCredentialSaver.run(user, auth_hash.credentials.token, AuthCredential::CLEVER_LIBRARY_PROVIDER)
+      CleverIntegration::AuthCredentialSaver.run(user, auth_hash.credentials.token, ::AuthCredential::CLEVER_LIBRARY_PROVIDER)
       classrooms = import_classrooms(client, user)
       CleverLibraryStudentImporterWorker.perform_async(classrooms.map(&:id), auth_hash.credentials.token)
     elsif auth_hash[:info][:user_type] == 'school_admin'
