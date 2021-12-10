@@ -16,6 +16,7 @@ describe('HandyActions component', () => {
   });
 
   it('should render when the user is linked to Clever', () => {
+    handleHasAppSetting.mockImplementation((args) => args.appSettingSetter(true));
     const wrapper = mount(<HandyActions linkedToClever={true} />);
     expect(wrapper).toMatchSnapshot()
   });
