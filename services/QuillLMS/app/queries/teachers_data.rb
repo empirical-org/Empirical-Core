@@ -12,12 +12,11 @@ module TeachersData
   # use Outer Joins to account for the fact that some of the teachers shown in the admin dashboard
   # will have no classrooms, etc.
 
-  UserStruct = Struct.new(:id, :name, :email, :number_of_students, :number_of_questions_completed, :time_spent) 
-
   def self.run(teacher_ids)
     return [] if teacher_ids.blank?
 
     teacher_ids_str = teacher_ids.join(', ')
+
     number_of_students_query = User.find_by_sql(
       "SELECT
         users.id,
@@ -78,14 +77,19 @@ module TeachersData
 
     result = combiner.keys.map do |key|
       hash_value = combiner[key]
-      UserStruct.new(
-        key,
-        hash_value[:name],
-        hash_value[:email],
-        hash_value[:number_of_students],
-        hash_value[:number_of_questions_completed],
-        hash_value[:time_spent]
+      user = User.new(
+        id: key,
+        name: hash_value[:name],
+        email: hash_value[:email]
       )
+      user.define_singleton_method(:number_of_students) do 
+        hash_value[:number_of_students] 
+      end
+      user.define_singleton_method(:number_of_questions_completed) do 
+        hash_value[:number_of_questions_completed] 
+      end
+      user.define_singleton_method(:time_spent) { hash_value[:time_spent] }
+      user
     end
 
   end
