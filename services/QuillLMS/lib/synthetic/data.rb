@@ -5,6 +5,8 @@ require "google/cloud/translate"
 module Synthetic
   class Data
 
+    class NotEnoughData < StandardError; end;
+
     Result = Struct.new(:text, :label, :translations, :type, keyword_init: true)
     TrainRow = Struct.new(:text, :label, :synthetic, :type, keyword_init: true) do
       def to_a
@@ -95,6 +97,14 @@ module Synthetic
 
       assigned_tests = MIN_TEST_PER_LABEL * labels.size
       assigned_train = MIN_TRAIN_PER_LABEL * labels.size
+
+      if assigned_tests > test_count
+        raise NotEnoughData, "Test Needed: #{assigned_tests}, allocated: #{test_count}"
+      end
+
+      if assigned_train > train_count
+        raise NotEnoughData, "Train Needed: #{assigned_train}, allocated: #{train_count}"
+      end
 
       remaining_types = [
         Array.new(test_count - assigned_tests, TYPE_TEST),
