@@ -13,7 +13,7 @@ describe PublicProgressReports, type: :model do
 
   describe '#results_for_classroom' do
     let!(:classroom) { create(:classroom) }
-    let!(:activity) { create(:activity) }
+    let!(:activity) { create(:evidence_activity) }
     let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, assign_on_join: true) }
     let!(:students_classrooms1) { create(:students_classrooms, classroom: classroom)}
     let!(:students_classrooms2) { create(:students_classrooms, classroom: classroom)}
@@ -44,6 +44,27 @@ describe PublicProgressReports, type: :model do
       expect(concept_results.count).to eq 2
       expect(concept_results[1][:directions]).to eq(directions)
       expect(concept_results[1][:lastFeedback]).to eq(last_feedback)
+    end
+
+    it 'populates feedback for an evidence activity' do
+      activity_session_two = create(:activity_session_without_concept_results, classroom_unit_id: classroom_unit.id, activity_id: activity.id, user: students_classrooms1.student)
+      prompt = Evidence::Prompt.create(text: "prompt text", conjunction: "but")
+      feedback = "This is the current feedback the student is receiving."
+      evidence_child_activity = Evidence::Activity.create(parent_activity_id: activity.id, prompts: [prompt], target_level: 1, title: "test activity", notes: "note")
+      feedback_history = create(:feedback_history, feedback_session_uid: activity_session_two.uid, attempt: 2, prompt: prompt, feedback_text: feedback)
+
+      last_feedback = "This is the last feedback the student received."
+      directions = "Combine the sentences."
+      create(:concept_result, activity_session: activity_session_two, metadata: { "attemptNumber": 1, "answer": 'Arbitrary sample incorrect answer.', "correct": 0, "directions": directions, "prompt": "prompt text", "questionNumber": 1, "questionScore": 0.75})
+      create(:concept_result, activity_session: activity_session_two, metadata: { "attemptNumber": 2, "answer": 'Arbitrary sample correct answer.', "correct": 1, "lastFeedback": last_feedback, "directions": directions, "prompt": "prompt text", "questionNumber": 1, "questionScore": 0.75})
+      report = FakeReports.new.results_for_classroom(classroom_unit.unit_id, activity.id, classroom.id)
+
+      expect(report[:students].count).to eq 1
+      concept_results = report[:students][0][:concept_results][0][:concepts]
+      expect(concept_results.count).to eq 2
+      expect(concept_results[1][:directions]).to eq(directions)
+      expect(concept_results[1][:lastFeedback]).to eq(last_feedback)
+      expect(concept_results[1][:feedback]).to eq(feedback)
     end
 
     describe "completed activities" do
