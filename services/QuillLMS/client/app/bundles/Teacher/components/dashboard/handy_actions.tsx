@@ -10,6 +10,7 @@ import {
   groupAccountIcon,
   googleClassroomIcon,
 } from '../../../Shared/index'
+import { handleHasAppSetting } from "../../../Shared/utils/appSettingAPIs";
 
 const HandyAction = ({ icon, text, link, }) => (
   <a className="handy-action focus-on-light" href={link}>
@@ -25,18 +26,22 @@ const ExploreDemoAction = ({setShowDemoModal}) => (
   </button>
 )
 
-const HandyActions = ({ linkedToClever, setShowDemoModal}) => (
-  <section className="handy-actions">
+const HandyActions = ({ linkedToClever, setShowDemoModal}) => {
+  const [errors, setErrors] = React.useState<string[]>([])
+  const [hasAppSetting, setHasAppSetting] = React.useState<boolean>(false);
+  if (!hasAppSetting) { handleHasAppSetting({appSettingSetter: setHasAppSetting, errorSetter: setErrors, key: 'demo', }) }
+
+  return(<section className="handy-actions">
     <h2>Handy actions</h2>
     <HandyAction icon={searchMapIcon} link="/assign/activity-library" text="Explore activity library" />
     <HandyAction icon={clipboardCheckIcon} link="/assign/diagnostic" text="Assign a diagnostic" />
     <HandyAction icon={tableCheckIcon} link="/teachers/classrooms/scorebook" text="View activity summary report" />
     <HandyAction icon={accountViewIcon} link="/teachers/classrooms?modal=view-as-student" text="View as a student" />
-    <ExploreDemoAction setShowDemoModal={setShowDemoModal} />
+    {hasAppSetting && <ExploreDemoAction setShowDemoModal={setShowDemoModal} />}
     <HandyAction icon={giftIcon} link="/referrals" text="Refer a teacher" />
     <HandyAction icon={groupAccountIcon} link="/teachers/classrooms/new" text="Add a class" />
     {!linkedToClever && <HandyAction icon={googleClassroomIcon} link="/teachers/classrooms?modal=google-classroom" text="Import classes from Google" />}
-  </section>
-)
+  </section>)
+}
 
 export default HandyActions
