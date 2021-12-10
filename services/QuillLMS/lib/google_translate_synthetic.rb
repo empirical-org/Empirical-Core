@@ -25,7 +25,7 @@ class GoogleTranslateSynthetic
   # NB, there is a V3, but that throws errors with our current Google Integration
   TRANSLATOR = Google::Cloud::Translate.new(version: :v2)
   # Use this https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-  DEFAULT_LANGUAGES = {
+  LANGUAGES = {
     es: 'spanish',
     ja:  'japanese',
     pt:  'portugese',
@@ -37,7 +37,7 @@ class GoogleTranslateSynthetic
     he:  'hebrew',
     ko:  'korean',
   }
-  TRAIN_LANGUAGES = DEFAULT_LANGUAGES.slice(:ko, :he, :ar, :zh, :da)
+  TRAIN_LANGUAGES = LANGUAGES.slice(:ko, :he, :ar, :zh, :da)
 
   ENGLISH = :en
   # the API with throw an error if you send too many text strings at a time.
@@ -138,7 +138,7 @@ class GoogleTranslateSynthetic
 
   # input file is a csv with two columns and no header: text, label
   # pass in file paths, e.g. /Users/yourname/Desktop/
-  def self.generate_from_file(input_file_path, output_file_path, languages: DEFAULT_LANGUAGES.keys)
+  def self.generate_from_file(input_file_path, output_file_path, languages: LANGUAGES.keys)
     texts_and_labels = CSV.open(input_file_path).to_a
 
     synthetics = GoogleTranslateSynthetic.new(texts_and_labels, languages: languages)
@@ -191,7 +191,7 @@ class GoogleTranslateSynthetic
       results.each do |result|
           csv << [result.text, result.label,'','', 'original', result.type]
         result.translations.each do |language, new_text|
-          csv << [new_text, result.label, result.text, new_text == result.text ? 'no_change' : '', DEFAULT_LANGUAGES[language] || language, result.type]
+          csv << [new_text, result.label, result.text, new_text == result.text ? 'no_change' : '', LANGUAGES[language] || language, result.type]
         end
       end
     end
