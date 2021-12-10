@@ -7,7 +7,7 @@ module Synthetic
 
     class NotEnoughData < StandardError; end;
 
-    Result = Struct.new(:text, :label, :translations, :mispellings, :type, keyword_init: true)
+    Result = Struct.new(:text, :label, :translations, :misspellings, :type, keyword_init: true)
     TrainRow = Struct.new(:text, :label, :synthetic, :type, keyword_init: true) do
       def to_a
         [type, text, label]
@@ -74,9 +74,11 @@ module Synthetic
           text: text_and_label.first,
           label: text_and_label.last,
           translations: {},
-          mispellings: {}
+          misspellings: {}
         )
       end
+
+      fetch_synthetic_spelling_errors
 
       # assign TEST and VALIDATION types to each label to ensure minimum per label
       labels.each do |label|
@@ -139,7 +141,7 @@ module Synthetic
           next unless result.text.match?(padded_key)
 
           text_with_mispell = result.text.gsub(Regexp.new(padded_key), SPELLING_SUBSTITUTES[key])
-          result.mispellings[key] = text_with_mispell
+          result.misspellings[key] = text_with_mispell
         end
       end
 
@@ -173,7 +175,7 @@ module Synthetic
 
       synthetics = Synthetic::Data.new(texts_and_labels, languages: languages)
 
-      synthetics.fetch_results
+      synthetics.fetch_synthetic_translations
 
       synthetics.results_to_csv(output_file_path)
     end
@@ -190,8 +192,10 @@ module Synthetic
 
       synthetics = Synthetic::Data.new(texts_and_labels, languages: languages, test_percent: test_percent)
 
-      raise unless synthetics.language_count_and_percent_valid?
-      raise unless synthetics.label_minimums_valid?
+
+      synthetics.validate_minimum_per_label!
+      synthetics.validate_language_count_and_percent!
+
 
       synthetics
 
@@ -208,6 +212,9 @@ module Synthetic
         result.translations.each do |_, new_text|
           data << TrainRow.new(text: new_text, label: result.label, synthetic: true, type: result.type)
         end
+        result.misspellings.each do |_, new_text|
+          data << TrainRow.new(text: new_text, label: result.label, synthetic: true, type: result.type)
+        end
       end
 
       CSV.open(file_path, "w") do |csv|
@@ -217,32 +224,44 @@ module Synthetic
 
     def results_to_csv(file_path)
       CSV.open(file_path, "w") do |csv|
-        csv << ['Text', 'Label', 'Original', 'Changed?', 'Language', 'Type']
+        csv << ['Text', 'Label', 'Original', 'Changed?', 'Language/Spelling', 'Type']
         results.each do |result|
             csv << [result.text, result.label,'','', 'original', result.type]
           result.translations.each do |language, new_text|
             csv << [new_text, result.label, result.text, new_text == result.text ? 'no_change' : '', LANGUAGES[language] || language, result.type]
+          end
+
+          result.misspellings.each do |misspelled_word, new_text|
+            csv << [new_text, result.label, result.text, new_text == result.text ? 'no_change' : '', misspelled_word || language, result.type]
           end
         end
       end
     end
 
     # We need the test and validation sets to be above 5%
-    def language_count_and_percent_valid?
+    def validate_language_count_and_percent!
       training_percent = 1 - (test_percent * 2)
-      training_size = training_percent * (languages.count + 1)
 
-      total_size = (test_percent * 2) + training_size
+      training_size = (training_percent * (languages.count + 1)) * results.size
+      test_size = test_percent * results.size
 
-      (test_percent / total_size) >= MIN_AUTOML_TEST_PERCENT
+      total_size = (test_size * 2) + training_size
+
+      return if (test_size / total_size) >= MIN_AUTOML_TEST_PERCENT
+
+      raise NotEnoughData, "Training Size: #{training_size}, Total Size: #{total_size}, Test Percent #{(test_percent / total_size)}, Misspell Size: #{misspelling_size}"
     end
 
-    def label_minimums_valid?
-      labels.all? do |label|
+    def validate_minimum_per_label!
+      invalid_labels = labels.select do |label|
         results.count {|r| r.label == label && r.type == TYPE_VALIDATION } >= MIN_TEST_PER_LABEL &&
         results.count {|r| r.label == label && r.type == TYPE_TEST } >= MIN_TEST_PER_LABEL &&
         results.count {|r| r.label == label && r.type == TYPE_TRAIN } >= MIN_TRAIN_PER_LABEL
       end
+
+      return if invalid_labels.empty?
+
+      raise NotEnoughData, "There is not enough data for labels: #{invalid_labels.join(',')}"
     end
   end
 end
