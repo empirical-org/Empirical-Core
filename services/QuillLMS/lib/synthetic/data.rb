@@ -134,15 +134,13 @@ module Synthetic
       spelling_keys = SPELLING_SUBSTITUTES.keys
 
       results.each do |result|
-        spelling_keys
-          .map {|key| WORD_BOUNDARY + key + WORD_BOUNDARY}
-          .select { |padded_key| result.text.match?(padded_key) }
-          .each {|padded_key|
-            key = padded_key.gsub(WORD_BOUNDARY, "")
-            replacement = SPELLING_SUBSTITUTES[key]
-            text_with_mispell = result.text.gsub(Regexp.new(padded_key), replacement)
-            result.mispellings[key] = text_with_mispell
-          }
+        spelling_keys.each do |key|
+          padded_key = WORD_BOUNDARY + key + WORD_BOUNDARY
+          next unless result.text.match?(padded_key)
+
+          text_with_mispell = result.text.gsub(Regexp.new(padded_key), SPELLING_SUBSTITUTES[key])
+          result.mispellings[key] = text_with_mispell
+        end
       end
 
       results
@@ -195,10 +193,12 @@ module Synthetic
       raise unless synthetics.language_count_and_percent_valid?
       raise unless synthetics.label_minimums_valid?
 
-      synthetics.fetch_results
+      synthetics
 
-      synthetics.results_to_csv(output_csv)
-      synthetics.results_to_training_csv(output_training_csv)
+      # synthetics.fetch_results
+
+      # synthetics.results_to_csv(output_csv)
+      # synthetics.results_to_training_csv(output_training_csv)
     end
 
     def results_to_training_csv(file_path)
