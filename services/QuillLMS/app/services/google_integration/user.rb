@@ -24,7 +24,6 @@ class GoogleIntegration::User
     @user_params ||= begin
       params = {
         signed_up_with_google:      true,
-        post_google_classroom_assignments: user.new_record? ? true : user.post_google_classroom_assignments,
         auth_credential_attributes: auth_credential_attributes(user),
       }
 

@@ -1,6 +1,6 @@
 import React from 'react';
+
 import UnlinkModal from './unlink_modal'
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
 export default class TeacherLinkedAccounts extends React.Component {
   constructor(props) {
@@ -30,21 +30,6 @@ export default class TeacherLinkedAccounts extends React.Component {
     this.setState({ showGoogleModal: true, })
   }
 
-  handleKeyDownOnPostGoogleClassroomAssignments = (e) => {
-    if (e.key !== 'Enter') { return }
-
-    this.handleToggleGoogleClassroomAssignments()
-  }
-
-  handleToggleGoogleClassroomAssignments = () => {
-    const { updateUser, postGoogleClassroomAssignments, } = this.props
-    const data = {
-      post_google_classroom_assignments: !postGoogleClassroomAssignments,
-      school_options_do_not_apply: true
-    };
-    updateUser(data, '/teachers/update_my_account', 'Settings saved')
-  }
-
   hideCleverModal = () => {
     this.setState({ showCleverModal: false, })
   }
@@ -61,15 +46,6 @@ export default class TeacherLinkedAccounts extends React.Component {
   isLinkedToGoogle = () => {
     const { googleId } = this.props
     return googleId && googleId.length
-  }
-
-  renderCheckbox = () => {
-    const { postGoogleClassroomAssignments, } = this.props
-    if (postGoogleClassroomAssignments) {
-      return <div aria-checked={true} className="quill-checkbox selected" onClick={this.handleToggleGoogleClassroomAssignments} onKeyDown={this.handleKeyDownOnPostGoogleClassroomAssignments} role="checkbox" tabIndex={0} ><img alt="check" src={smallWhiteCheckSrc} /></div>
-    } else {
-      return <div aria-checked={false} aria-label="Unchecked checkbox" className="quill-checkbox unselected" onClick={this.handleToggleGoogleClassroomAssignments} onKeyDown={this.handleKeyDownOnPostGoogleClassroomAssignments} role="checkbox" tabIndex={0} />
-    }
   }
 
   renderCleverSection = () => {
@@ -103,11 +79,6 @@ export default class TeacherLinkedAccounts extends React.Component {
     } else {
       copy = 'Google account is linked'
       actionElement = <button className="google-or-clever-action" onClick={this.handleClickUnlinkGoogle} type="button">Unlink</button>
-      checkboxRow = (<div className="checkbox-row post-assignments">
-        {this.renderCheckbox()}
-        <span>Post assignments as announcements in Google Classroom</span>
-      </div>)
-
     }
     return (
       <div>
@@ -118,7 +89,6 @@ export default class TeacherLinkedAccounts extends React.Component {
           </div>
           {actionElement}
         </div>
-        {checkboxRow}
       </div>);
   }
 
