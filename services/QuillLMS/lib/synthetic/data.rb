@@ -7,7 +7,7 @@ module Synthetic
 
     class NotEnoughData < StandardError; end;
 
-    Result = Struct.new(:text, :label, :translations, :type, keyword_init: true)
+    Result = Struct.new(:text, :label, :translations, :mispellings, :type, keyword_init: true)
     TrainRow = Struct.new(:text, :label, :synthetic, :type, keyword_init: true) do
       def to_a
         [type, text, label]
@@ -16,6 +16,9 @@ module Synthetic
     TYPE_TRAIN = 'TRAIN'
     TYPE_VALIDATION = 'VALIDATION'
     TYPE_TEST = 'TEST'
+
+    SPELLING_SUBSTITUTES = Configs[:spelling_substitutes]
+    WORD_BOUNDARY = '\b'
 
     CSV_END_MATCH = /\.csv\z/
     SYNTHETIC_CSV = '_with_synthetic_detail.csv'
@@ -53,7 +56,7 @@ module Synthetic
     # languages: [:es, :ja, ...]
     # test_percent: float. What percent should be used for both the test and validation set
     # Passing 0.2 will use 20% for testing, 20% for validation and 60% for training
-    def initialize(texts_and_labels, languages: TRAIN_LANGUAGES.keys, test_percent: 0.2)
+    def initialize(texts_and_labels, languages: TRAIN_LANGUAGES.keys, spelling: true, test_percent: 0.2)
       @languages = languages
       @test_percent = test_percent
 
@@ -70,27 +73,28 @@ module Synthetic
         Result.new(
           text: text_and_label.first,
           label: text_and_label.last,
-          translations: {}
+          translations: {},
+          mispellings: {}
         )
       end
 
       # assign TEST and VALIDATION types to each label to ensure minimum per label
       labels.each do |label|
-        results_sample = @results
+        testing_sample = @results
           .select {|r| r.label == label }
           .sample(MIN_TEST_PER_LABEL * 2)
 
         # ensure minimum-sized TEST and VALIDATION sets per label
-        results_sample.each.with_index do |result, index|
+        testing_sample.each.with_index do |result, index|
           result.type = index.odd? ? TYPE_TEST : TYPE_VALIDATION
         end
 
-        results_sample = @results
+        training_sample = @results
           .select {|r| r.label == label && r.type.nil? }
           .sample(MIN_TRAIN_PER_LABEL)
 
         # ensure minimum-sized TRAIN set per label
-        results_sample.each do |result|
+        training_sample.each do |result|
           result.type = TYPE_TRAIN
         end
       end
@@ -118,16 +122,34 @@ module Synthetic
       end
     end
 
-    def fetch_results
+    def fetch_synthetic_translations
       languages.each do |language|
-        fetch_results_for(language: language)
+        fetch_synthetic_translations_for(language: language)
+      end
+
+      results
+    end
+
+    def fetch_synthetic_spelling_errors
+      spelling_keys = SPELLING_SUBSTITUTES.keys
+
+      results.each do |result|
+        spelling_keys
+          .map {|key| WORD_BOUNDARY + key + WORD_BOUNDARY}
+          .select { |padded_key| result.text.match?(padded_key) }
+          .each {|padded_key|
+            key = padded_key.gsub(WORD_BOUNDARY, "")
+            replacement = SPELLING_SUBSTITUTES[key]
+            text_with_mispell = result.text.gsub(Regexp.new(padded_key), replacement)
+            result.mispellings[key] = text_with_mispell
+          }
       end
 
       results
     end
 
     # only fetch results for items with type 'TRAIN'
-    def fetch_results_for(language: )
+    def fetch_synthetic_translations_for(language: )
       results.select {|r| r.type == TYPE_TRAIN}.each_slice(BATCH_SIZE).each do |results_slice|
         translations = TRANSLATOR.translate(results_slice.map(&:text), from: ENGLISH, to: language)
         english_texts = TRANSLATOR.translate(translations.map(&:text), from: language, to: ENGLISH)
