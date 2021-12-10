@@ -90,7 +90,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
       "last_sign_in": "2019-07-19T13:10:19.172Z",
       "name": "Demo Teacher",
       "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-      "post_google_classroom_assignments": null,
       "role": "teacher",
       "send_newsletter": false,
       "signed_up_with_google": false,
@@ -2053,19 +2052,6 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
         className="import-google-classrooms-modal-footer"
       >
         <div
-          className="checkbox-row"
-        >
-          <button
-            aria-label="Unselected checkbox"
-            className="quill-checkbox unselected"
-            onClick={[Function]}
-            type="button"
-          />
-          <span>
-            Post assignments as announcements in Google Classroom
-          </span>
-        </div>
-        <div
           className="buttons"
         >
           <button
@@ -2178,7 +2164,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
       "last_sign_in": "2019-07-19T13:10:19.172Z",
       "name": "Demo Teacher",
       "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-      "post_google_classroom_assignments": null,
       "role": "teacher",
       "send_newsletter": false,
       "signed_up_with_google": false,
@@ -2772,19 +2757,6 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
       <div
         className="import-google-classrooms-modal-footer"
       >
-        <div
-          className="checkbox-row"
-        >
-          <button
-            aria-label="Unselected checkbox"
-            className="quill-checkbox unselected"
-            onClick={[Function]}
-            type="button"
-          />
-          <span>
-            Post assignments as announcements in Google Classroom
-          </span>
-        </div>
         <div
           className="buttons"
         >

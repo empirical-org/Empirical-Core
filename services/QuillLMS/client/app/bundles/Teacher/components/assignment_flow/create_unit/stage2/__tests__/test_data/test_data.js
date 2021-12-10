@@ -37,7 +37,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -64,7 +63,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -91,7 +89,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -118,7 +115,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -145,7 +141,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -172,7 +167,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -199,7 +193,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -226,7 +219,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -253,7 +245,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -280,7 +271,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -307,7 +297,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -334,7 +323,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -361,7 +349,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -388,7 +375,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -415,7 +401,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -442,7 +427,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -469,7 +453,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -496,7 +479,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -523,7 +505,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -550,7 +531,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -577,7 +557,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -604,7 +583,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -631,7 +609,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
   {
@@ -658,7 +635,6 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
     isSelected: true,
   },
 ]
@@ -702,7 +678,6 @@ export const user = {
   title: null,
   time_zone: "Pacific/Tahiti",
   account_type: "unknown",
-  post_google_classroom_assignments: false,
 }
 
 export const activities = [
