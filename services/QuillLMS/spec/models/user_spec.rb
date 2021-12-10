@@ -1286,7 +1286,7 @@ describe User, type: :model do
     end
 
     context 'user with auth credentials has valid authorization' do
-      let(:google_user) { create(:auth_credential, provider: 'google').user }
+      let(:google_user) { create(:google_auth_credential).user }
 
       it { expect(google_user.google_authorized?).to be true }
     end
