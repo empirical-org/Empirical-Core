@@ -52,24 +52,27 @@
           font-size: 14px;
           color: #5c5c5c;
         }
-        .quill-tooltip-trigger {
-          margin-left: 24px;
-          font-size: 14px;
-          color: #808080;
-          text-align: right;
-          .image-attribution-tooltip {
-            border-bottom: dashed 1px #808080;
-          }
-          .image-attribution-tooltip:focus {
-            outline: dashed 2px #06806b;
-            outline-offset: 4px;
-          }
-          .quill-tooltip-wrapper {
-            position: relative;
-            .quill-tooltip {
-              a {
-                color: white;
-                text-decoration: underline;
+        .tooltip-container {
+          text-align: end;
+          .quill-tooltip-trigger {
+            margin-left: 24px;
+            font-size: 14px;
+            color: #808080;
+            text-align: right;
+            .image-attribution-tooltip {
+              border-bottom: dashed 1px #808080;
+            }
+            .image-attribution-tooltip:focus {
+              outline: dashed 2px #06806b;
+              outline-offset: 4px;
+            }
+            .quill-tooltip-wrapper {
+              position: relative;
+              .quill-tooltip {
+                a {
+                  color: white;
+                  text-decoration: underline;
+                }
               }
             }
           }
@@ -310,11 +313,6 @@
       padding: 24px 16px 0px;
       .passage {
         max-width: 100%;
-      }
-      .header-image-container {
-        .header-image-information {
-          overflow-x: hidden;
-        }
       }
     }
     .prompt-steps {
