@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # look at Admin::Serializer - it passes the result of TeachersData into this serializer, not just an ActiveRecord::Relation of teachers
 class Admin::TeacherSerializer < ActiveModel::Serializer
   attributes :id, :name, :email, :school,

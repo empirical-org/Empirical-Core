@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence
   class TurkingRoundActivitySessionsController < ApiController
     ARCHIVED_FLAG = :archived

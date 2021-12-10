@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :local do
   desc 'Update seed / prod dump\'d ActivityClassifications so that redirects point to localhost'
   task :localize_classification_module_urls => :environment do

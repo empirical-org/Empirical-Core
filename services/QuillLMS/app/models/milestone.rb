@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: milestones
@@ -20,6 +22,7 @@ class Milestone < ApplicationRecord
     invite_a_coteacher: 'Invite a Co-Teacher',
     see_welcome_modal: 'See Welcome Modal',
     acknowledge_diagnostic_banner: 'Acknowledge Diagnostic Banner',
-    acknowledge_lessons_banner: 'Acknowledge Lessons Banner'
+    acknowledge_lessons_banner: 'Acknowledge Lessons Banner',
+    acknowledge_growth_diagnostic_promotion_card: 'Acknowledge Growth Diagnostic Promotion Card'
   }
 end

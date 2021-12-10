@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative './progress_bar'
 
 namespace :users do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ScorebookHelper
 
   def percentage_color(score)

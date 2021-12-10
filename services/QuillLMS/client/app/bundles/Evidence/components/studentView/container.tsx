@@ -36,7 +36,6 @@ interface StudentViewContainerProps {
 interface StudentViewContainerState {
   activeStep?: number;
   activityIsComplete: boolean;
-  activityIsReadyForSubmission: boolean;
   explanationSlidesCompleted: boolean;
   explanationSlideStep:  number;
   completedSteps: Array<number>;
@@ -56,10 +55,11 @@ const ONBOARDING = 'onboarding'
 const READ_PASSAGE_STEP = 1
 const ALL_STEPS = [READ_PASSAGE_STEP, 2, 3, 4]
 const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
+const ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING = 3
 
 export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user, }: StudentViewContainerProps) => {
-  const activityCompletionCount: number = parseInt(getParameterByName('activities', window.location.href, '0'));
-  const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts') || activityCompletionCount > 3
+  const activityCompletionCount: number = parseInt(getParameterByName('activities', window.location.href)) || 0;
+  const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
   const defaultCompletedSteps = shouldSkipToPrompts ? [READ_PASSAGE_STEP] : []
 
   const refs = {
@@ -72,10 +72,10 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   const inactivityTimer = React.useRef(null)
 
   const [explanationSlideStep, setExplanationSlideStep] = React.useState(0)
-  const [explanationSlidesCompleted, setExplanationSlidesCompleted] = React.useState(shouldSkipToPrompts)
+  const [explanationSlidesCompleted, setExplanationSlidesCompleted] = React.useState(shouldSkipToPrompts || (activityCompletionCount > ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING))
   const [activeStep, setActiveStep] = React.useState(shouldSkipToPrompts ? READ_PASSAGE_STEP + 1: READ_PASSAGE_STEP)
   const [activityIsComplete, setActivityIsComplete] = React.useState(false)
-  const [activityIsReadyForSubmission, setActivityIsReadyForSubmission] = React.useState(false)
+  const [completeButtonClicked, setCompleteButtonClicked] = React.useState(false)
   const [completedSteps, setCompletedSteps] = React.useState(defaultCompletedSteps)
   const [showFocusState, setShowFocusState] = React.useState(false)
   const [startTime, setStartTime] = React.useState(Date.now())
@@ -514,11 +514,17 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       <ExplanationSlide onHandleClick={handleExplanationSlideClick} slideData={explanationData[explanationSlideStep]} />
     );
   }
-  if(activityIsComplete && !window.location.href.includes('turk')) {
+  if(completeButtonClicked && !window.location.href.includes('turk')) {
     return(
       <ActivityFollowUp responses={submittedResponses} saveActivitySurveyResponse={saveActivitySurveyResponse} sessionID={sessionID} user={user} />
     );
+
   }
+
+  const completionButtonCallback = () => {
+    setCompleteButtonClicked(true)
+  }
+
   return (
     <div className={className}>
       {renderStepLinksAndDirections({
@@ -547,9 +553,11 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         activateStep={activateStep}
         activeStep={activeStep}
         activities={activities}
+        activityIsComplete={activityIsComplete}
         closeReadTheDirectionsModal={closeReadTheDirectionsModal}
         completedSteps={completedSteps}
         completeStep={completeStep}
+        completionButtonCallback={completionButtonCallback}
         doneHighlighting={doneHighlighting}
         handleClickDoneHighlighting={handleClickDoneHighlighting}
         handleDoneReadingClick={handleDoneReadingClick}

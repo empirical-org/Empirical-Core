@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cms::UsersHelper
   def format_date(date)
     if date.nil?

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration::Requesters
 
   def self.teacher(clever_id, district_token=nil)

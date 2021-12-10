@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module CleverIntegration::Importers::Library
   def self.run(auth_hash)
     client = CleverLibrary::Api::Client.new(auth_hash.credentials.token)
     user = import_teacher(client)
 
     if auth_hash[:info][:user_type] == 'teacher'
-      classrooms = import_classrooms(client, user.clever_id)
-      CleverIntegration::Associators::ClassroomsToTeacher.run(classrooms, user)
+      CleverIntegration::AuthCredentialSaver.run(user, auth_hash.credentials.token, ::AuthCredential::CLEVER_LIBRARY_PROVIDER)
+      classrooms = import_classrooms(client, user)
       CleverLibraryStudentImporterWorker.perform_async(classrooms.map(&:id), auth_hash.credentials.token)
     elsif auth_hash[:info][:user_type] == 'school_admin'
       import_schools(client, user.clever_id)
@@ -25,11 +27,11 @@ module CleverIntegration::Importers::Library
     )
   end
 
-  def self.import_classrooms(client, teacher_id)
+  def self.import_classrooms(client, teacher)
     client
-      .get_teacher_sections(teacher_id: teacher_id)
-      .map { |section| { clever_id: section['id'], name: section['name'], grade: section['grade'] } }
-      .map { |section_data| CleverIntegration::ClassroomImporter.new(section_data).run }
+      .get_teacher_sections(teacher_id: teacher.clever_id)
+      .map { |section| { teacher_id: teacher.id, clever_id: section['id'], name: section['name'], grade: section['grade'] } }
+      .map { |section_data| CleverIntegration::ClassroomImporter.run(section_data) }
   end
 
   def self.import_schools(client, user_id)

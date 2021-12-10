@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CleverLibrary::Api::Oauth
   include HTTParty
   base_uri 'https://clever.com'

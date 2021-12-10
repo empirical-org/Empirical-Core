@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :standard_category do
     sequence(:name) { |i| "Standard Category #{i}" }

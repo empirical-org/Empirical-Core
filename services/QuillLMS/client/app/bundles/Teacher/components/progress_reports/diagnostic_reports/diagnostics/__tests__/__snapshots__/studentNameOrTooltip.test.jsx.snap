@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StudentNameOrTooltip component should render if the name is long enough to warrant a tooltip 1`] = `
+<StudentNameOrTooltip
+  name="Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia"
+>
+  <Tooltip
+    tooltipText="Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia"
+    tooltipTriggerText="Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia"
+    tooltipTriggerTextClass="student-name"
+  >
+    <span
+      className="quill-tooltip-trigger"
+    >
+      <span
+        className="student-name"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        tabIndex={null}
+      >
+        Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia
+      </span>
+      <span
+        className="quill-tooltip-wrapper"
+      >
+        <span
+          className="quill-tooltip"
+        />
+      </span>
+    </span>
+  </Tooltip>
+</StudentNameOrTooltip>
+`;
+
+exports[`StudentNameOrTooltip component should render if the name is not long enough to warrant a tooltip 1`] = `
+<StudentNameOrTooltip
+  name="Short Name"
+>
+  <span
+    className="student-name"
+  >
+    Short Name
+  </span>
+</StudentNameOrTooltip>
+`;

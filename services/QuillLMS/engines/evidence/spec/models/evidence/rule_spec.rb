@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 module Evidence
@@ -107,56 +109,102 @@ module Evidence
       end
     end
 
+    describe '#conditional' do
+      it 'should return conditional state of first regex rule' do
+        required_rule = create(:evidence_rule)
+        regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :conditional => true)
+        expect(required_rule.conditional).to(eq(true))
+
+        regex_rule_three.update(conditional: false)
+        required_rule.regex_rules.reload
+        expect(required_rule.conditional).to eq(false)
+      end
+
+      it 'should return nil if rule is not regex type' do
+        required_rule = create(:evidence_rule, rule_type: Rule::TYPE_PLAGIARISM)
+        expect(required_rule.conditional).to eq(nil)
+      end
+    end
+
     context 'should regex_is_passing?' do
-      let!(:rule) { create(:evidence_rule) }
-      let!(:regex_rule) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "^Hello", :sequence_type => "incorrect") }
-      let!(:regex_rule_two) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "^Something", :sequence_type => "incorrect") }
 
-      it 'should be true if entry does not match the regex text' do
-        expect(rule.regex_is_passing?("Nope, I dont start with hello.")).to(eq(true))
+      context 'when the regex rules are not conditional' do
+        let!(:rule) { create(:evidence_rule) }
+        let!(:regex_rule) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "^Hello", :sequence_type => "incorrect", :conditional => false) }
+        let!(:regex_rule_two) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "^Something", :sequence_type => "incorrect", :conditional => false) }
+
+        it 'should be true if entry does not match the regex text' do
+          expect(rule.regex_is_passing?("Nope, I dont start with hello.")).to(eq(true))
+        end
+
+        it 'should be true if sequence_type is incorrect and entry does not match the regex text' do
+          expect(rule.regex_is_passing?("Nope, I dont start with hello.")).to(eq(true))
+        end
+
+        it 'should be false if sequence_type is incorrect and entry matches the regex text and there are more than one sequences' do
+          expect(rule.regex_is_passing?("Something is wrong here.")).to(eq(false))
+        end
+
+        it 'should be false if sequence_type is incorrect and entry matches regex text' do
+          expect((!rule.regex_is_passing?("Hello!!!"))).to(be_truthy)
+        end
+
+        it 'should be false if sequence_type is required and entry does not match regex text' do
+          required_rule = create(:evidence_rule)
+          regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required")
+          expect((!required_rule.regex_is_passing?("I do not have the right sequence"))).to(be_truthy)
+        end
+
+        it 'should be true if sequence_type is required and entry matches regex text' do
+          required_rule = create(:evidence_rule)
+          regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required")
+          expect(required_rule.regex_is_passing?("you need this sequence and I do have it")).to(eq(true))
+        end
+
+        it 'should be true if sequence_type is required and entry matches regex text and there are multiple required sequences' do
+          required_rule = create(:evidence_rule)
+          regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required")
+          regex_rule_four = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "or you need this one", :sequence_type => "required")
+          expect(required_rule.regex_is_passing?("you need this sequence and I do have it")).to(eq(true))
+        end
+
+        it 'should be true if rule is NOT case sensitive and entry matches regardless of casing' do
+          required_rule = create(:evidence_rule)
+          regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => false)
+          expect(required_rule.regex_is_passing?("YOU NEED THIS SEQUENCE AND I DO HAVE IT")).to(eq(true))
+        end
+
+        it 'should be false if rule IS case sensitive and entry does not match casing' do
+          required_rule = create(:evidence_rule)
+          regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => true)
+          expect((!required_rule.regex_is_passing?("YOU NEED THIS SEQUENCE AND I do not HAVE IT in the right casing"))).to(be_truthy)
+        end
+
+        it 'should grade both incorrect sequence and required sequence in the same rule' do
+          dual_rule = create(:evidence_rule)
+          regex_rule_three = create(:evidence_regex_rule, :rule => dual_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => false)
+          regex_rule_four = create(:evidence_regex_rule, :rule => dual_rule, :regex_text => "but not this one", :sequence_type => "incorrect", :case_sensitive => false)
+          expect((dual_rule.regex_is_passing?("you need this sequence but not this one"))).to(eq(false))
+          expect((dual_rule.regex_is_passing?("you need this sequence and this should pass"))).to(eq(true))
+          expect((dual_rule.regex_is_passing?("this fails because you don't have the needed sequence"))).to(eq(false))
+        end
       end
 
-      it 'should be true if sequence_type is incorrect and entry does not match the regex text' do
-        expect(rule.regex_is_passing?("Nope, I dont start with hello.")).to(eq(true))
-      end
+      context 'when the regex rules are conditional' do
+        let!(:rule) { create(:evidence_rule) }
+        let!(:regex_rule) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "^Conditional-start", :sequence_type => "incorrect", :conditional => true) }
+        let!(:regex_rule_two) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "required-end.$", :sequence_type => "required", :conditional => true) }
 
-      it 'should be false if sequence_type is incorrect and entry matches the regex text and there are more than one sequences' do
-        expect(rule.regex_is_passing?("Something is wrong here.")).to(eq(false))
-      end
+        it 'should require the required sequence if the incorrect sequence is present' do
+          expect(rule.regex_is_passing?("Conditional-start that does not contain the right end.")).to(eq(false))
+          expect(rule.regex_is_passing?("Conditional-start that does contain the required-end.")).to(eq(true))
+        end
 
-      it 'should be false if sequence_type is incorrect and entry matches regex text' do
-        expect((!rule.regex_is_passing?("Hello!!!"))).to(be_truthy)
-      end
+        it 'should NOT require the required sequence if the incorrect sequence is NOT present' do
+          expect(rule.regex_is_passing?("Non-conditional start that does not contain the right end.")).to(eq(true))
+          expect(rule.regex_is_passing?("Conditional-start that does contain the required-end.")).to(eq(true))
+        end
 
-      it 'should be false if sequence_type is required and entry does not match regex text' do
-        required_rule = create(:evidence_rule)
-        regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required") 
-        expect((!required_rule.regex_is_passing?("I do not have the right sequence"))).to(be_truthy)
-      end
-
-      it 'should be true if sequence_type is required and entry matches regex text' do
-        required_rule = create(:evidence_rule)
-        regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required") 
-        expect(required_rule.regex_is_passing?("you need this sequence and I do have it")).to(eq(true))
-      end
-
-      it 'should be true if sequence_type is required and entry matches regex text and there are multiple required sequences' do
-        required_rule = create(:evidence_rule)
-        regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required") 
-        regex_rule_four = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "or you need this one", :sequence_type => "required") 
-        expect(required_rule.regex_is_passing?("you need this sequence and I do have it")).to(eq(true))
-      end
-
-      it 'should be true if rule is NOT case sensitive and entry matches regardless of casing' do
-        required_rule = create(:evidence_rule)
-        regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => false) 
-        expect(required_rule.regex_is_passing?("YOU NEED THIS SEQUENCE AND I DO HAVE IT")).to(eq(true))
-      end
-
-      it 'should be false if rule IS case sensitive and entry does not match casing' do
-        required_rule = create(:evidence_rule)
-        regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => true) 
-        expect((!required_rule.regex_is_passing?("YOU NEED THIS SEQUENCE AND I do not HAVE IT in the right casing"))).to(be_truthy)
       end
     end
 

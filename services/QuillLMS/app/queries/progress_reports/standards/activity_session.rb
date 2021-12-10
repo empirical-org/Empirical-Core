@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProgressReports::Standards::ActivitySession
   def initialize(teacher)
     @teacher = teacher

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeClassCodeToString < ActiveRecord::Migration[4.2]
   def up
     change_column :users,       :classcode, :string

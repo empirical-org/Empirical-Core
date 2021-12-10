@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from 'react-router-dom';
 import { EditorState, ContentState } from 'draft-js';
 
 import PromptsForm from './promptsForm';
@@ -23,7 +24,7 @@ import {
   HIGHLIGHT_PROMPT
 } from '../../../../../constants/evidence';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent, ClickEvent,  TextAreaEvent } from '../../../interfaces/evidenceInterfaces';
-import { Input, TextEditor, } from '../../../../Shared/index'
+import { DataTable, Input, TextEditor, } from '../../../../Shared/index'
 import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../../Shared/utils/constants'
 
 interface ActivityFormProps {
@@ -33,8 +34,30 @@ interface ActivityFormProps {
   submitActivity: (activity: object) => void
 }
 
+interface InvalidHighlightProps {
+  rule_id: number,
+  rule_type: string,
+  prompt_id: number
+}
+
+const RULE_TYPE_TO_ROUTE_PART = {
+  autoML: 'semantic-labels',
+  plagiarism: 'plagiarism-rules',
+  'rules-based-1': 'regex-rules',
+  'rules-based-2': 'regex-rules',
+  'rules-based-3': 'regex-rules'
+}
+
+const RULE_TYPE_TO_NAME = {
+  autoML: 'Semantic',
+  plagiarism: 'Plagiarism',
+  'rules-based-1': 'Sentence Structure Regex',
+  'rules-based-2': 'Post-topic Regex',
+  'rules-based-3': 'Typo Regex'
+}
+
 const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, submitActivity }: ActivityFormProps) => {
-  const { parent_activity_id, passages, prompts, scored_level, target_level, title, notes, } = activity;
+  const { id, parent_activity_id, invalid_highlights, passages, prompts, scored_level, target_level, title, notes, } = activity;
   const formattedScoredLevel = scored_level || '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
   const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT }];
@@ -145,6 +168,32 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   const passageLabelStyle = activityPassages[0].text.length  && activityPassages[0].text !== '<br/>' ? 'has-text' : '';
   const maxAttemptStyle = activityMaxFeedback.length && activityMaxFeedback !== '<br/>' ? 'has-text' : '';
   const imageAttributionGuideLink = 'https://www.notion.so/quill/Activity-Images-9bc3993400da46a6af445a8a0d2d9d3f#11e9a01b071e41bc954e1182d56e93e8';
+  const invalidHighlightsPresent = (invalid_highlights && invalid_highlights.length > 0)
+
+  function renderInvalidHighlightLinks(invalidHighlights){
+    const formattedRows = invalidHighlights && invalidHighlights.length && invalidHighlights.map((highlight: InvalidHighlightProps) => {
+      const { rule_id, rule_type, prompt_id  } = highlight;
+      const ruleTypePart = RULE_TYPE_TO_ROUTE_PART[rule_type]
+      const ruleName = RULE_TYPE_TO_NAME[rule_type]
+      const idPart = (rule_type == 'autoML') ? `${prompt_id}/${rule_id}` : rule_id
+      const invalidHighlightLink = (<Link to={`/activities/${id}/${ruleTypePart}/${idPart}`}>{ruleName} Rule #{rule_id}</Link>);
+      return {
+        id: rule_id,
+        link: invalidHighlightLink
+      }
+    });
+
+    const dataTableFields = [
+      { name: "Invalid Highlights", attribute:"link", width: "100%", noTooltip: true }
+    ];
+
+    return (<DataTable
+      className="activities-table"
+      defaultSortAttribute="name"
+      headers={dataTableFields}
+      rows={formattedRows ? formattedRows : []}
+    />)
+  }
 
   return(
     <div className="activity-form-container">
@@ -253,6 +302,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
           handleSetPrompt={handleSetPrompt}
         />
       </form>
+      {invalidHighlightsPresent && renderInvalidHighlightLinks(invalid_highlights)}
     </div>
   )
 }

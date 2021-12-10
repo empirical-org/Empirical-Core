@@ -328,5 +328,9 @@ export default {
     "Fill in the blank with the correct pronoun.",
     "Fill in the blank with the correct action word.",
     "Fill in the blank with the correct set of words."
-  ]
+  ],
+  
+  // flags
+  PRODUCTION: 'production'
+
 };

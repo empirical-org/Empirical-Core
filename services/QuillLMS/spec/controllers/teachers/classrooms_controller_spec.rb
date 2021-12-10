@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Teachers::ClassroomsController, type: :controller do
@@ -17,6 +19,32 @@ describe Teachers::ClassroomsController, type: :controller do
       get :new
       expect(response).to redirect_to(teachers_classrooms_path(modal: 'create-a-class'))
     end
+  end
+
+  describe 'remove students' do
+    let(:teacher) { create(:teacher) }
+    let(:classroom) { create(:classroom) }
+    let!(:classrooms_teacher) do
+      create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
+    end
+    let(:students_classroom) { create(:students_classrooms, classroom: classroom)}
+
+    before do
+      session[:user_id] = teacher.id
+    end
+
+    it 'archives the students_classrooms record and calls the ArchiveStudentAssociationsForClassroomWorker' do
+      expect(ArchiveStudentAssociationsForClassroomWorker).to receive(:perform_async).with(students_classroom.student_id, classroom.id)
+      post :remove_students,
+        params: {
+          classroom_id: classroom.id,
+          student_ids: [students_classroom.student_id],
+        },
+        as: :json
+      students_classroom.reload
+      expect(students_classroom.visible).to be(false)
+    end
+
   end
 
   describe 'create students' do
@@ -80,6 +108,22 @@ describe Teachers::ClassroomsController, type: :controller do
       end
     end
   end
+
+  describe '#remove_students' do
+    let!(:classroom) { create(:classroom) }
+    let(:teacher) { classroom.owner }
+
+    before do
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    it 'should unhide the classroom' do
+      classroom.update(visible: false)
+      post :unhide, params: { class_id: classroom.id }
+      expect(classroom.reload.visible).to eq true
+    end
+  end
+
 
   describe 'creating a login pdf' do
     let(:teacher) { create(:teacher) }

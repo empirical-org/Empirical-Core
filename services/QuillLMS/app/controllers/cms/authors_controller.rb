@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::AuthorsController < Cms::CmsController
   def index
     @authors = Author.all

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddHintToRuleQuestions < ActiveRecord::Migration[4.2]
   def change
     add_column :rule_questions, :instructions, :text

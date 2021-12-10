@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :upgrade do
   task :set_upgrade_vars, [:app_name, :start_time, :end_time] => [:environment] do |t, args|
     app_name = args[:app_name].downcase.gsub(/"/,'')

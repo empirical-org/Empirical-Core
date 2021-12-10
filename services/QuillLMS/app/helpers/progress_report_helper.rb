@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ProgressReportHelper
   def tab_symbol
     case current_user.premium_state

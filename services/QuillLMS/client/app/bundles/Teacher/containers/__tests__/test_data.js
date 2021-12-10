@@ -28,7 +28,6 @@ export const classroomsWithStudentsContainerData = {
       time_zone: "Pacific/Tahiti",
       title: null,
       account_type: "unknown",
-      post_google_classroom_assignments: null
     },
     history: {
       length: 2,

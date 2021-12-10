@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddComprehensionPassageImageProperties < ActiveRecord::Migration[5.1]
   def change
     add_column :comprehension_passages, :image_caption, :string, default: ''

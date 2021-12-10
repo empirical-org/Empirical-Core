@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BlogPostUserRatingsController < ApplicationController
   def create
     if current_user && BlogPostUserRating::ACCEPTABLE_RATINGS.include?(params[:rating].to_i)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TeacherSavedActivitiesController < ApplicationController
 
   def saved_activity_ids_for_current_user

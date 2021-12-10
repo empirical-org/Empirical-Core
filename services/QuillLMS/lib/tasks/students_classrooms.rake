@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :students_classrooms do
   desc 'give every existing user a classroom based off of the classcode column'
 

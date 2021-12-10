@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 module Evidence
@@ -19,6 +21,33 @@ module Evidence
     context 'should relationships' do
 
       it { should belong_to(:feedback) }
+    end
+
+    context '#invalid_activity_ids' do
+      let(:activity) { create(:evidence_activity, :with_prompt_and_passage) }
+      let(:rule) { create(:evidence_rule, prompts: [activity.prompts.first]) }
+      let(:feedback) { create(:evidence_feedback, rule: rule) }
+      let(:highlight) { create(:evidence_highlight, feedback: feedback,  highlight_type: 'passage', text: activity.passages.first.text) }
+
+      it 'should return nil if the highlight_type is not "passage"' do
+        highlight.update(highlight_type: 'prompt')
+        expect(highlight.invalid_activity_ids).to be_nil
+      end
+
+      it 'should return an nil if highlight_type is "passage" but all passages contain the highlight' do
+        expect(highlight.invalid_activity_ids).to be_nil
+      end
+
+      it 'should return an array of activity_ids for activities that have unmatched passages' do
+        highlight.update(text: 'text that definitely is not in the passage')
+        expect(highlight.invalid_activity_ids).to include(activity.id)
+      end
+
+      it 'should not include activity_ids for activities with matched passages' do
+        highlight.update(text: 'text that definitely is not in the passage')
+        unmatched_activity = create(:evidence_activity, :with_prompt_and_passage)
+        expect(highlight.invalid_activity_ids).not_to include(unmatched_activity.id)
+      end
     end
   end
 end

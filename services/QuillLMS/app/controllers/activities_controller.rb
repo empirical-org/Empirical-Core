@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 class ActivitiesController < ApplicationController
   before_action :activity, only: [:update]
   before_action :set_activity_by_lesson_id, only: [:preview_lesson]
   before_action :set_activity, only: [:supporting_info, :customize_lesson, :name_and_id, :last_unit_template]
+  before_action :signed_in!, only: [:activity_session]
 
   DIAGNOSTIC = 'diagnostic'
 
@@ -56,6 +59,28 @@ class ActivitiesController < ApplicationController
 
   def customize_lesson
     redirect_to "#{@activity.classification_form_url}customize/#{@activity.uid}"
+  end
+
+  def activity_session
+    return redirect_to profile_path unless current_user.student?
+
+    if authorized_activity_access?
+      redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)
+    else
+      flash[:error] = t('activity_link.errors.activity_not_assigned')
+      flash.keep(:error)
+      redirect_to classes_path
+    end
+  end
+
+  private def authorized_activity_access?
+    activity &&
+    classroom_unit&.assigned_student_ids&.include?(current_user.id) &&
+    UnitActivity.exists?(unit: classroom_unit.unit, activity: activity)
+  end
+
+  private def classroom_unit
+    @classroom_unit ||= ClassroomUnit.find(params[:classroom_unit_id])
   end
 
   protected def set_activity

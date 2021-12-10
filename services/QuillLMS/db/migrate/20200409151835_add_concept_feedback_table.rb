@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddConceptFeedbackTable < ActiveRecord::Migration[4.2]
   def change
     create_table :concept_feedbacks do |t|

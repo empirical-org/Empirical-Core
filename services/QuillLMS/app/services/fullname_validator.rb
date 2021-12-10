@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FullnameValidator < ActiveModel::Validator
 
   def validate(record)

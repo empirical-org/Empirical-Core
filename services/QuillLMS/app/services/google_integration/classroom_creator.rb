@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 module GoogleIntegration
   class ClassroomCreator
+    OWNER = ClassroomsTeacher::ROLE_TYPES[:owner].freeze
+
     attr_reader :data, :google_classroom_id, :teacher_id
 
     def initialize(data)
@@ -36,7 +40,7 @@ module GoogleIntegration
     end
 
     private def role
-      'owner'
+      OWNER
     end
 
     private def teacher

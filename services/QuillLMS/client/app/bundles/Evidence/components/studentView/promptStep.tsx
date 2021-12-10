@@ -5,12 +5,13 @@ import Feedback from './feedback'
 
 import EditCaretPositioning from '../../helpers/EditCaretPositioning'
 import ButtonLoadingSpinner from '../shared/buttonLoadingSpinner'
-import preFilters from '../../modules/prefilters'
 import { highlightSpellingGrammar } from '../../libs/stringFormatting'
 
 interface PromptStepProps {
   active: Boolean;
+  activityIsComplete: Boolean;
   className: string,
+  completionButtonCallback: () => void; 
   everyOtherStepCompleted: boolean;
   submitResponse: Function;
   completeStep: (event: any) => void;
@@ -236,18 +237,10 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   handleGetFeedbackClick = (entry: string, promptId: string, promptText: string) => {
     const { submitResponse, } = this.props
 
-    const textWithoutStem = entry.replace(promptText, '')
-
-    const prefilter = preFilters(textWithoutStem)
-
-    if (prefilter) {
-      this.setState({ customFeedback: prefilter.feedback, customFeedbackKey: prefilter.feedbackKey, })
-    } else {
-      this.setState(prevState => ({numberOfSubmissions: prevState.numberOfSubmissions + 1}), () => {
-        const { numberOfSubmissions, } = this.state
-        submitResponse(entry, promptId, promptText, numberOfSubmissions)
-      })
-    }
+    this.setState(prevState => ({numberOfSubmissions: prevState.numberOfSubmissions + 1}), () => {
+      const { numberOfSubmissions, } = this.state
+      submitResponse(entry, promptId, promptText, numberOfSubmissions)
+    })
   }
 
   handleStepInteraction = (e) => {
@@ -279,7 +272,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   }
 
   renderButton = () => {
-    const { prompt, submittedResponses, everyOtherStepCompleted, } = this.props
+    const { prompt, submittedResponses, everyOtherStepCompleted, completionButtonCallback, activityIsComplete} = this.props
     const { id, text, max_attempts } = prompt
     const { html, numberOfSubmissions, } = this.state
     const entry = this.stripHtml(html).trim()
@@ -288,13 +281,17 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     let buttonCopy = submittedResponses.length ? 'Get new feedback' : 'Get feedback'
     let className = 'quill-button focus-on-light'
     let onClick = () => this.handleGetFeedbackClick(entry, id, text)
-    if (submittedResponses.length === max_attempts || this.lastSubmittedResponse().optimal) {
+   
+    if (activityIsComplete) {
+      onClick = completionButtonCallback
+      buttonCopy = 'Done'
+    } else if (submittedResponses.length === max_attempts || this.lastSubmittedResponse().optimal) {
       onClick = this.completeStep
-      buttonCopy = everyOtherStepCompleted ? 'Done' : 'Start next sentence'
+      buttonCopy = 'Start next sentence'
     } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback) {
       className += ' disabled'
       onClick = () => {}
-    }
+    } 
     return <button className={className} onClick={onClick} type="button">{buttonLoadingSpinner}<span>{buttonCopy}</span></button>
   }
 

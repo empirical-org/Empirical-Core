@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :remove_order_number_duplicates do
   desc 'remove duplicate activity records with differing order numbers'
   task :run => :environment do

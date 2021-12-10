@@ -11,6 +11,10 @@ export {
 } from './card'
 
 export {
+  ExpandableCard
+} from './expandableCard'
+
+export {
   CarouselAnimation
 } from './carouselAnimation'
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BlogPostsController < ApplicationController
   before_action :redirect_legacy_topic_urls, only: [:show_topic]
   before_action :redirect_invalid_topics, only: [:show_topic]

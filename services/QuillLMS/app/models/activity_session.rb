@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: activity_sessions
@@ -431,13 +433,7 @@ class ActivitySession < ApplicationRecord
     end
   end
 
-  def self.activity_session_metadata(classroom_unit_id, activity_id)
-    activity = Activity.find_by_id_or_uid(activity_id)
-    activity_sessions = ActivitySession.where(
-      classroom_unit_id: classroom_unit_id,
-      activity: activity,
-      is_final_score: true
-    ).includes(concept_results: :concept)
+  def self.activity_session_metadata(activity_sessions)
     activity_sessions.map do |activity_session|
       activity_session.concept_results.map do |concept_result|
         concept_result.metadata
@@ -503,6 +499,26 @@ class ActivitySession < ApplicationRecord
   def minutes_to_complete
     return nil unless completed_at && started_at
     ((completed_at - started_at)/60).round
+  end
+
+  def skills
+    @skills ||= activity.skills.uniq
+  end
+
+  def correct_skill_ids
+    correct_skills.map(&:id)
+  end
+
+  # when using this method, you should eager load ass
+  # e.g. .includes(:concept_results, activity: {skills: :concepts})
+  def correct_skills
+    @correct_skills ||= begin
+      skills.select do |skill|
+        results = concept_results.select {|cr| cr.concept_id.in?(skill.concept_ids)}
+
+        results.length && results.all?(&:correct?)
+      end
+    end
   end
 
   private def correctly_assigned

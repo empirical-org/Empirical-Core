@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RecommendationsQuery
   attr_reader :relation, :activity_id
 
@@ -28,6 +30,7 @@ class RecommendationsQuery
       json.array! activity.recommendations.independent_practice do |recommendation|
         json.recommendation recommendation.name
         json.activityPackId recommendation.unit_template.id
+        json.activityCount  recommendation.unit_template.activities.count
 
         if recommendation.criteria.present?
           json.requirements recommendation.criteria do |criterion|

@@ -3,6 +3,8 @@ import React from 'react';
 import Stage1 from './select_activities_container';
 import Stage2 from './stage2/Stage2';
 import UnitAssignmentFollowup from './unit_assignment_followup.tsx';
+import ShareToStudents from './share_activity_pack/shareToStudents';
+
 import {
   CLASSROOMS,
   UNIT_NAME,
@@ -10,6 +12,8 @@ import {
   UNIT_TEMPLATE_ID,
   ACTIVITY_IDS_ARRAY,
   UNIT_ID,
+  ASSIGNED_CLASSROOMS,
+  postTestClassAssignmentLockedMessages,
 } from '../assignmentFlowConstants.ts'
 import parsedQueryParams from '../parsedQueryParams'
 import { requestGet, requestPost, } from '../../../../../modules/request';
@@ -61,6 +65,7 @@ export default class CreateUnit extends React.Component {
       window.localStorage.removeItem(UNIT_NAME)
       window.localStorage.removeItem(ACTIVITY_IDS_ARRAY)
       window.localStorage.removeItem(CLASSROOMS)
+      window.localStorage.removeItem(ASSIGNED_CLASSROOMS)
     }
 
     if (stage === 2 || window.localStorage.getItem(ACTIVITY_IDS_ARRAY)) {
@@ -70,10 +75,12 @@ export default class CreateUnit extends React.Component {
 
   onCreateSuccess = (response) => {
     const { classrooms, name, } = this.state
-    this.setState({ newUnitId: response.id, assignSuccess: true, }, () => {
-      window.localStorage.setItem(UNIT_NAME, name)
-      window.localStorage.setItem(UNIT_ID, response.id)
+    const { id } = response;
+    this.setState({ newUnitId: id, assignSuccess: true, }, () => {
       const assignedClassrooms = classrooms.filter(c => c.classroom.emptyClassroomSelected || c.students.find(s => s.isSelected))
+      window.localStorage.setItem(UNIT_NAME, name)
+      window.localStorage.setItem(UNIT_ID, id)
+      window.localStorage.setItem(ASSIGNED_CLASSROOMS, JSON.stringify(assignedClassrooms))
       if (assignedClassrooms.every(c => c.classroom.emptyClassroomSelected)) {
         this.props.history.push('/assign/add-students')
       } else {
@@ -85,7 +92,7 @@ export default class CreateUnit extends React.Component {
 
   getActivities = () => {
     const { stage, } = this.state
-    const privateFlag = stage === 2 ? "?flag=private" : ''
+    const privateFlag = [2, 3].includes(stage) ? "?flag=private" : ''
     requestGet(`/activities/search${privateFlag}`, (body) => {
       const { activities, } = body
       const activityIdsArray = this.props.match.params.activityIdsArray || window.localStorage.getItem(ACTIVITY_IDS_ARRAY)
@@ -261,22 +268,106 @@ export default class CreateUnit extends React.Component {
     />);
   }
 
+  restrictedActivityBeingAssigned = () => {
+    const { assignedPreTests, } = this.props
+    const { selectedActivities, } = this.state
+
+    const restrictedActivityIds = assignedPreTests.map(pretest => pretest.post_test_id)
+    return selectedActivities && selectedActivities.find(act => restrictedActivityIds.includes(act.id))
+  }
+
+  lockedClassroomIds = () => {
+    const { assignedPreTests, } = this.props
+    const { classrooms, } = this.state
+    let lockedClassroomIds = []
+
+    const restrictedActivity = this.restrictedActivityBeingAssigned()
+
+    if (restrictedActivity) {
+      const relevantPretest = assignedPreTests.find(pretest => pretest.post_test_id === restrictedActivity.id)
+      lockedClassroomIds = classrooms.filter(c => !relevantPretest.assigned_classroom_ids.includes(c.classroom.id)).map(c => c.classroom.id)
+    }
+
+    return lockedClassroomIds
+  }
+
+  notYetCompletedPreTestStudentNames = () => {
+    const { assignedPreTests, } = this.props
+    const { classrooms, } = this.state
+
+    const restrictedActivity = this.restrictedActivityBeingAssigned()
+    if (!restrictedActivity) { return [] }
+
+    const relevantPretest = assignedPreTests.find(pretest => pretest.post_test_id === restrictedActivity.id)
+    const studentsBeingAssignedWhoDidNotCompletePreTest = []
+    classrooms.forEach(c => {
+      const studentsBeingAssigned = c.students.filter(s => s.isSelected)
+      const relevantPreTestClassroom = relevantPretest.all_classrooms.find(ac => ac.id === c.classroom.id)
+      studentsBeingAssigned.forEach(s => {
+        if (!relevantPreTestClassroom.completed_pre_test_student_ids.includes(s.id)) {
+          studentsBeingAssignedWhoDidNotCompletePreTest.push(s.name)
+        }
+      })
+    })
+    return studentsBeingAssignedWhoDidNotCompletePreTest
+  }
+
+  alreadyCompletedDiagnosticStudentNames = () => {
+    const { assignedPreTests, } = this.props
+    const { selectedActivities, } = this.state
+
+    const preTestActivityIds = assignedPreTests.map(pretest => pretest.id)
+    const postTestActivityIds = assignedPreTests.map(pretest => pretest.post_test_id)
+
+    const preTestBeingAssigned = selectedActivities && selectedActivities.find(act => preTestActivityIds.includes(act.id))
+    const postTestBeingAssigned = selectedActivities && selectedActivities.find(act => postTestActivityIds.includes(act.id))
+    let students = []
+
+    if (preTestBeingAssigned) {
+      const relevantPretest = assignedPreTests.find(pretest => pretest.id === preTestBeingAssigned.id)
+      students = this.potentiallyOverwrittenStudentNames(relevantPretest, 'completed_pre_test_student_ids')
+    } else if (postTestBeingAssigned) {
+      const relevantPretest = assignedPreTests.find(pretest => pretest.post_test_id === postTestBeingAssigned.id)
+      students = this.potentiallyOverwrittenStudentNames(relevantPretest, 'completed_post_test_student_ids')
+    }
+    return [... new Set(students.flat())]
+  }
+
+  potentiallyOverwrittenStudentNames = (relevantPretest, relevantStudentIdKey) => {
+    const { classrooms, } = this.state
+    return relevantPretest.all_classrooms.map(classroom => {
+      const classroomFromState = classrooms.find(classroomFromState => classroomFromState.classroom.id === classroom.id)
+      const studentNamesWhoCouldBeOverwritten = []
+      classroom[relevantStudentIdKey].forEach(id => {
+        const studentFromState = classroomFromState.students.find(student => student.id === id)
+        const isOverwriteCandidate = studentFromState && studentFromState.isSelected // student is both still in classroom and selected to be assigned
+        if (isOverwriteCandidate) {
+          studentNamesWhoCouldBeOverwritten.push(studentFromState.name)
+        }
+      })
+      return studentNamesWhoCouldBeOverwritten
+    })
+  }
+
   stage2SpecificComponents = () => {
-    const { user, } = this.props
+    const { user, assignedPreTests, } = this.props
+
+    const restrictedActivity = this.restrictedActivityBeingAssigned()
+
     return (<Stage2
+      alreadyCompletedDiagnosticStudentNames={this.alreadyCompletedDiagnosticStudentNames()}
       areAnyStudentsSelected={this.areAnyStudentsSelected()}
-      areAnyStudentsSelected={this.areAnyStudentsSelected()}
-      assignActivityDueDate={this.assignActivityDueDate}
       assignActivityDueDate={this.assignActivityDueDate}
       classrooms={this.getClassrooms()}
       data={this.assignSuccess}
       dueDates={this.state.model.dueDates}
       errorMessage={this.determineStage2ErrorMessage()}
-      errorMessage={this.determineStage2ErrorMessage()}
-      fetchClassrooms={this.fetchClassrooms}
       fetchClassrooms={this.fetchClassrooms}
       finish={this.finish}
       isFromDiagnosticPath={!!parsedQueryParams().diagnostic_unit_template_id}
+      lockedClassroomIds={this.lockedClassroomIds()}
+      notYetCompletedPreTestStudentNames={this.notYetCompletedPreTestStudentNames()}
+      restrictedActivity={restrictedActivity}
       selectedActivities={this.getSelectedActivities()}
       toggleActivitySelection={this.toggleActivitySelection}
       toggleClassroomSelection={this.toggleClassroomSelection}
@@ -289,10 +380,31 @@ export default class CreateUnit extends React.Component {
     />);
   }
 
+  moveToStage4 = () => {
+    this.setStage(4);
+  }
+
   stage3specificComponents = () => {
+    const { assignSuccess, name, selectedActivities } = this.state;
+    if (assignSuccess) {
+      const activityPackData = {
+        name: name,
+        activityCount: selectedActivities && selectedActivities.length,
+        activities: selectedActivities
+      }
+      return(
+        <ShareToStudents
+          activityPackData={activityPackData}
+          moveToStage4={this.moveToStage4}
+        />
+      );
+    }
+  }
+
+  stage4specificComponents = () => {
     const { referralCode, location, history, } = this.props
-    const { classrooms, selectedActivities, name, } = this.state
-    if ((this.state.assignSuccess)) {
+    const { classrooms, selectedActivities, name, assignSuccess } = this.state
+    if (assignSuccess) {
       return (<UnitAssignmentFollowup
         classrooms={classrooms}
         history={history}
@@ -304,7 +416,7 @@ export default class CreateUnit extends React.Component {
       />);
     }
 
-    if(_.map(this.state.selectedActivities, activity => { return activity.activity_classification.id }).includes(6)) {
+    if (_.map(this.state.selectedActivities, activity => { return activity.activity_classification.id }).includes(6)) {
       // There is a lesson here, so we should send the teacher to the Lessons page.
       window.location.href = `/teachers/classrooms/activity_planner/lessons#${this.state.newUnitId}`;
     } else {
@@ -327,7 +439,7 @@ export default class CreateUnit extends React.Component {
   setSelectedActivities = (newActivityArray) => {
     const newActivityArrayIds = newActivityArray.map(a => a.id).join(',')
     this.setState({ selectedActivities: newActivityArray, }, () => {
-      window.localStorage.setItem(ACTIVITY_IDS_ARRAY,  newActivityArrayIds)
+      window.localStorage.setItem(ACTIVITY_IDS_ARRAY, newActivityArrayIds)
     })
   }
 
@@ -337,7 +449,10 @@ export default class CreateUnit extends React.Component {
     if (!classrooms) {
       return;
     }
+
+    const lockedClassroomIds = this.lockedClassroomIds()
     const updated = classrooms.map((c) => {
+      if (lockedClassroomIds.includes(c.classroom.id)) { return c }
       const classroomGettingUpdated = c
       if (!classroom || classroomGettingUpdated.classroom.id === classroom.id) {
         const { students, } = classroomGettingUpdated
@@ -389,14 +504,17 @@ export default class CreateUnit extends React.Component {
   }
 
   render = () => {
+    const { stage } = this.state;
     let stageSpecificComponents;
 
-    if (this.getStage() === 1) {
+    if (stage === 1) {
       stageSpecificComponents = this.stage1SpecificComponents();
-    } else if (this.getStage() === 2) {
+    } else if (stage === 2) {
       stageSpecificComponents = this.stage2SpecificComponents();
-    } else if (this.getStage() === 3) {
+    } else if (stage === 3) {
       stageSpecificComponents = this.stage3specificComponents();
+    } else if (stage === 4) {
+      stageSpecificComponents = this.stage4specificComponents();
     }
     return (
       <span>

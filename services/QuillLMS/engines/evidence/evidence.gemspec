@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 $:.push File.expand_path('../lib', __FILE__)
 
 # Maintain your gem's version:
@@ -19,6 +21,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'google-cloud-automl', '~> 1.0.2'
   s.add_dependency 'google-cloud-automl-v1', '~> 0.3.0'
+  s.add_dependency 'pragmatic_segmenter', '~> 0.3.23'
   s.add_dependency 'rails', '5.1.7'
 
   # Gems needed for the test environment

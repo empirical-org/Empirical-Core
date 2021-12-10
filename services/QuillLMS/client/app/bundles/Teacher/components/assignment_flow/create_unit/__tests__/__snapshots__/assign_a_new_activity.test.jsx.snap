@@ -34,7 +34,7 @@ exports[`AssignANewActivity component default should render 1`] = `
           selectCard={[Function]}
         >
           <div
-            className="assignment-card quill-card"
+            className=" assignment-card quill-card"
             onClick={[Function]}
           >
             <div
@@ -112,7 +112,7 @@ exports[`AssignANewActivity component default should render 1`] = `
           selectCard={[Function]}
         >
           <div
-            className="assignment-card quill-card"
+            className=" assignment-card quill-card"
             onClick={[Function]}
           >
             <div
@@ -190,7 +190,7 @@ exports[`AssignANewActivity component default should render 1`] = `
           selectCard={[Function]}
         >
           <div
-            className="assignment-card quill-card"
+            className=" assignment-card quill-card"
             onClick={[Function]}
           >
             <div
@@ -269,7 +269,7 @@ exports[`AssignANewActivity component default should render 1`] = `
           selectCard={[Function]}
         >
           <div
-            className="assignment-card quill-card"
+            className=" assignment-card quill-card"
             onClick={[Function]}
           >
             <div

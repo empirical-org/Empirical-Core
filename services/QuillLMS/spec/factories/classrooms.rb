@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: classrooms
@@ -69,6 +71,16 @@ FactoryBot.define do
       after(:create) do |classroom|
         create_list(:lesson_classroom_unit_with_activity_sessions, 2, classroom: classroom)
       end
+    end
+
+    factory :google_classroom_with_a_couple_google_students do
+      from_google
+      students { create_pair(:student, :signed_up_with_google)}
+    end
+
+    factory :clever_classroom_with_a_couple_clever_students do
+      from_clever
+      students { create_pair(:student, :signed_up_with_clever)}
     end
 
     trait :with_no_teacher do

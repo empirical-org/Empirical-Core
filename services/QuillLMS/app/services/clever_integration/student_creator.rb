@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration
   class StudentCreator
     ACCOUNT_TYPE = ::User::CLEVER_ACCOUNT
@@ -8,7 +10,7 @@ module CleverIntegration
     def initialize(data)
       @data = data
       @name = data[:name]
-      @username = data[:username]&.downcase
+      @username = data[:username]
     end
 
     def run

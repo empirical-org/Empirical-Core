@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe PromptFeedbackHistory, type: :model do
@@ -79,23 +81,13 @@ RSpec.describe PromptFeedbackHistory, type: :model do
       expect(result.all[0].num_final_attempt_not_optimal).to eq(1)
     end
 
-    it 'should calculate the average number of attempts required to get optimal feedback as avg_attempts_to_optimal' do
+    it 'should calculate the average number of attempts as avg_attempts' do
       generate_feedback_history(@prompt1.id, attempts: 1)
       generate_feedback_history(@prompt1.id, attempts: 2)
 
       result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id)
 
-      expect(result.all[0].avg_attempts_to_optimal).to eq(1.5)
-    end
-
-    it 'should not use sessions that did not end optimally to calculate avg_attempts_to_optimal' do
-      generate_feedback_history(@prompt1.id, attempts: 1)
-      generate_feedback_history(@prompt1.id, attempts: 2)
-      generate_feedback_history(@prompt1.id, attempts: 3, ends_optimally: false)
-
-      result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id)
-
-      expect(result.all[0].avg_attempts_to_optimal).to eq(1.5)
+      expect(result.all[0].avg_attempts).to eq(1.5)
     end
 
     it 'should count the number of sessions with at least one consecutive-repeated flag as num_sessions_consecutive_repeated' do
@@ -202,7 +194,7 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           display_name: @prompt1.text,
           num_final_attempt_optimal: 1,
           num_final_attempt_not_optimal: 0,
-          avg_attempts_to_optimal: 2.0,
+          avg_attempts: 2,
           num_sessions_with_consecutive_repeated_rule: 0.0,
           num_sessions_with_non_consecutive_repeated_rule: 0.0,
           num_first_attempt_optimal: 0,
@@ -215,7 +207,7 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           display_name: @prompt2.text,
           num_final_attempt_optimal: 1,
           num_final_attempt_not_optimal: 0,
-          avg_attempts_to_optimal: 1.0,
+          avg_attempts: 1,
           num_sessions_with_consecutive_repeated_rule: 0.0,
           num_sessions_with_non_consecutive_repeated_rule: 0.0,
           num_first_attempt_optimal: 1,

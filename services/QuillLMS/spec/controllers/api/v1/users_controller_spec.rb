@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Api::V1::UsersController do
@@ -9,12 +11,7 @@ describe Api::V1::UsersController do
     it 'should return the correct json' do
       get :index, as: :json
 
-      expect(response.body).to eq({
-        user: user,
-        text: "Hi",
-        has_refresh_token: false,
-        refresh_token_expires_at: nil
-      }.to_json)
+      expect(response.body).to eq({ user: user }.to_json)
     end
   end
 

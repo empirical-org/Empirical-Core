@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Profile::Mobile::ActivitySessionsByUnit
   def query(student, classroom_id)
     all_act_seshes = student_profile_data_sql(classroom_id, student.id)
@@ -20,7 +22,7 @@ class Profile::Mobile::ActivitySessionsByUnit
           ua.id AS ua_id,
           unit.created_at AS unit_created_at,
           unit.name AS unit_name,
-          cu.id AS ca_id,
+          cu.id AS classroom_unit_id,
           COALESCE(cuas.completed, false) AS marked_complete,
           ua.activity_id,
           MAX(acts.updated_at) AS act_sesh_updated_at,
@@ -87,7 +89,7 @@ class Profile::Mobile::ActivitySessionsByUnit
           uid: activity_session["uid"],
           name: activity_session["name"],
           percentage: activity_session["max_percentage"],
-          classroom_unit_id: activity_session["cu_id"],
+          classroom_unit_id: activity_session["classroom_unit_id"],
           activity_classification_id: activity_session["activity_classification_id"]
         }
       end

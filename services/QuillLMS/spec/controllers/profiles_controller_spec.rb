@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe ProfilesController, type: :controller do
@@ -16,12 +18,13 @@ describe ProfilesController, type: :controller do
         create(:unit)
       ]
     end
+    let!(:post_test) { create(:activity) }
     let!(:activities) do [
         create(:activity),
+        create(:activity, follow_up_activity_id: post_test.id),
         create(:activity),
         create(:activity),
-        create(:activity),
-        create(:activity)
+        post_test
       ]
     end
     let!(:unit_activities) do [
@@ -210,6 +213,8 @@ describe ProfilesController, type: :controller do
                 classroom_unit: classroom_unit,
                 unit_activity: unit_activity
               )
+              pre_test = Activity.find_by(follow_up_activity_id: activity.id)
+              pre_test_completed_session = ActivitySession.find_by(state: 'finished', activity: pre_test, user: student)
 
               scores_array << {
                 'name' => activity.name,
@@ -219,18 +224,20 @@ describe ProfilesController, type: :controller do
                 'activity_classification_key' => activity.classification.key,
                 'unit_id' => unit.id,
                 'ua_id' => unit_activity.id,
-                'order_number' => unit_activity.order_number,
                 'unit_created_at' => unit.created_at,
                 'unit_name' => unit.name,
-                'ca_id' => classroom_unit.id,
+                'classroom_unit_id' => classroom_unit.id,
                 'marked_complete' => false,
                 'activity_id' => activity.id,
                 'act_sesh_updated_at' => activity_session&.updated_at,
+                'order_number' => unit_activity.order_number,
                 'due_date' => unit_activity.due_date,
+                'pre_activity_id' => pre_test&.id,
                 'unit_activity_created_at' => classroom_unit.created_at,
                 'locked' => unit_activity.classroom_unit_activity_states[0].locked,
                 'pinned' => unit_activity.classroom_unit_activity_states[0].pinned,
                 'max_percentage' => activity_session&.percentage,
+                'completed_pre_activity_session' => pre_test_completed_session.present?,
                 'finished' => activity_session&.percentage ? true : false,
                 'resume_link' => activity_session&.state == 'started' ? 1 : 0
               }

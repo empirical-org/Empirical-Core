@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence
   class RegexRule < ApplicationRecord
     self.table_name = 'comprehension_regex_rules'
@@ -26,7 +28,7 @@ module Evidence
       options ||= {}
 
       super(options.reverse_merge(
-        only: [:id, :rule_id, :regex_text, :case_sensitive, :sequence_type]
+        only: [:id, :rule_id, :regex_text, :case_sensitive, :sequence_type, :conditional]
       ))
     end
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import request from 'request';
-import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
 
+import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
 import TeacherGeneralAccountInfo from '../components/accounts/edit/teacher_general'
 import TeacherPasswordAccountInfo from '../components/accounts/edit/update_password'
 import TeacherLinkedAccounts from '../components/accounts/edit/teacher_linked_accounts'
@@ -22,7 +22,6 @@ export default class TeacherAccount extends React.Component {
       school,
       school_type,
       send_newsletter,
-      post_google_classroom_assignments,
     } = props.accountInfo
     this.state = {
       activeSection: null,
@@ -34,7 +33,6 @@ export default class TeacherAccount extends React.Component {
       googleId: google_id,
       cleverId: clever_id,
       sendNewsletter: send_newsletter,
-      postGoogleClassroomAssignments: post_google_classroom_assignments,
       snackbarCopy: '',
       showSnackbar: false,
       errors: {},
@@ -61,13 +59,16 @@ export default class TeacherAccount extends React.Component {
   };
 
   deactivateSection = section => {
-    if (this.state.activeSection === section) {
+    const { activeSection } = this.state
+    if (activeSection === section) {
       this.setState({ activeSection: null, errors: {}, })
     }
   };
 
   deleteAccount = () => {
-    const { id, } = this.props.accountInfo
+    const { accountInfo } = this.props
+    const { id, } = accountInfo
+
     request.post({
       url: `${process.env.DEFAULT_URL}/teachers/clear_data/${id}`,
       json: { authenticity_token: getAuthToken(), },
@@ -98,7 +99,6 @@ export default class TeacherAccount extends React.Component {
           school,
           school_type,
           send_newsletter,
-          post_google_classroom_assignments,
         } = body
         this.setState({
           name,
@@ -109,7 +109,6 @@ export default class TeacherAccount extends React.Component {
           googleId: google_id,
           cleverId: clever_id,
           sendNewsletter: send_newsletter,
-          postGoogleClassroomAssignments: post_google_classroom_assignments,
           snackbarCopy,
           errors: {}
         }, () => {

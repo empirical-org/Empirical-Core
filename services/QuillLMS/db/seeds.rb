@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'factory_bot_rails'
 include FactoryBot::Syntax::Methods
 
@@ -31,6 +33,7 @@ create(:publish_customized_lesson_milestone)
 create(:complete_customized_lesson_milestone)
 create(:acknowledge_lessons_banner)
 create(:acknowledge_diagnostic_banner)
+create(:acknowledge_growth_diagnostic_promotion_card)
 
 # Path to SQL seeds files
 dir_path = File.dirname(__FILE__) + '/seeds/'

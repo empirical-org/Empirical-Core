@@ -22,6 +22,7 @@ export {
   ProgressBar,
   DropdownInput,
   Error,
+  ExpandableCard,
   FlagDropdown,
   Input,
   Passthrough,
@@ -114,6 +115,8 @@ export {
   removeIcon,
   encircledWhiteArrowIcon,
   greenCheckIcon,
+  lockedIcon,
+  closeIcon,
 } from './images/index'
 
 export {

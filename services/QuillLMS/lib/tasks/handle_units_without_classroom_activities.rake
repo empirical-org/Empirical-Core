@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :handle_units_without_classroom_activities do
   desc 'destroy units with no teacher or classroom activities, hide otherwise'
   task :update => :environment do

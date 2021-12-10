@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Teachers::ProgressReports::Standards::ClassroomStandardsController < Teachers::ProgressReportsController
   include UnitsWithCompletedActivities
 

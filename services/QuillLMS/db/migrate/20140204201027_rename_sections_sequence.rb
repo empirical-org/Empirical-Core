@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RenameSectionsSequence < ActiveRecord::Migration[4.2]
   def up
     # execute 'DROP SEQUENCE IF EXISTS sections_id_seq'

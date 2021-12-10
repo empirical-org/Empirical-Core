@@ -67,7 +67,7 @@
 }
 
 .assignment-flow-container {
-  .learning-process, .diagnostic-page, .activity-type {
+  .learning-process, .diagnostic-page, .activity-type, .share-activity-pack {
     display: flex;
     padding: 54px;
     flex-direction: column;
@@ -78,12 +78,116 @@
       line-height: 1.33;
       margin-bottom: 40px;
     }
+    .grouped-minis .assignment-card {
+      &:first-of-type {
+        margin-bottom: 0px;
+        border-radius: 6px 6px 0px 0px;
+      }
+      &:last-of-type {
+        border-radius: 0px 0px 6px 6px;
+      }
+    }
     .assignment-card {
       margin-bottom: 24px;
+      .button-container {
+        align-items: center;
+        .interactive-wrapper {
+          display: flex;
+          align-items: center;
+          img {
+            margin-right: 4px;
+          }
+        }
+        .quill-tooltip-trigger img {
+          margin-right: 4px;
+        }
+      }
       .graduation-cap {
         margin-left: -8px;
         margin-right: 32px;
       }
+      .body-element:last-of-type {
+        margin-bottom: 0px;
+      }
+      &.show-new-tag {
+        padding-top: 16px;
+      }
+      &:hover, &:focus {
+        z-index: 1;
+        position: relative;
+      }
+    }
+  }
+  .diagnostic-page {
+    .filter-tabs {
+      border-bottom: 1px solid #e0e0e0;
+      max-width: 582px;
+      width: 100%;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: center;
+      padding: 0px;
+      .filter-tab {
+        font-size: 14px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: center;
+        background-color: transparent;
+        padding: 16px 14px;
+        color: #5c5c5c;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+        &.active {
+          color: #06806b;
+          border-bottom: 2px solid #06806b;
+        }
+      }
+    }
+  }
+  .share-activity-pack {
+    .inner-container {
+      .activity-pack-information-container {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        margin-bottom: 40px;
+        .pack-sub-container {
+          .activity-pack-label {
+            color: #5c5c5c;
+            font-size: 12px;
+            line-height: 1.33;
+          }
+          .activity-pack-data {
+            overflow: hidden;
+            max-width: 312px;
+            white-space: nowrap;
+            line-height: 1.43;
+            text-overflow: ellipsis;
+          }
+        }
+        #activity-pack {
+          flex: 5;
+        }
+        #activities, #classes, #students {
+          flex: 1;
+        }
+        #activity-pack, #activities, #classes {
+          margin-right: 24px;
+        }
+      }
+      .share-activity-pack-cards-section {
+        .expandable-quill-card {
+          margin-top: 24px;
+        }
+      }
+    }
+  }
+  .share-activity-pack-modal-container {
+    .quill-snackbar {
+      z-index: 3;
     }
   }
 }

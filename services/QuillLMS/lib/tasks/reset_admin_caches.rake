@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :admin_caches do
   desc 'reset caches for district admin reports'
   task :reset => :environment do

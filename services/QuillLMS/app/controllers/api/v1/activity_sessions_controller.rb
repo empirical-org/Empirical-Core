@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 class Api::V1::ActivitySessionsController < Api::ApiController
 
   before_action :doorkeeper_authorize!, only: [:destroy]
   before_action :transform_incoming_request, only: [:update, :create]
   before_action :find_activity_session, only: [:show, :update, :destroy]
   before_action :strip_access_token_from_request
+
+  MAX_4_BYTE_INTEGER_SIZE = 2147483647
 
   def show
     render json: @activity_session, meta: {status: 'success', message: nil, errors: nil}, serializer: ActivitySessionSerializer
@@ -102,11 +106,19 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     time_tracking = data && data['time_tracking']
     timespent = @activity_session&.timespent || ActivitySession.calculate_timespent(time_tracking)
 
+    if timespent && timespent > 3600
+      begin
+        raise "#{timespent} seconds for user #{@activity_session.user_id} and activity session #{@activity_session.id}"
+      rescue => e
+        Raven.capture_exception(e)
+      end
+    end
+
     params
       .permit(activity_session_permitted_params)
       .merge(data: data)
       .reject { |_, v| v.nil? }
-      .merge(timespent: timespent)
+      .merge(timespent: timespent && [timespent, MAX_4_BYTE_INTEGER_SIZE].min)
   end
 
   private def transform_incoming_request

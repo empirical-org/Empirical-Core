@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivityPackInformation component should render 1`] = `
+<div
+  className="activity-pack-information-container"
+>
+  <div
+    className="pack-sub-container"
+    id="activity-pack"
+  >
+    <p
+      className="activity-pack-label"
+    >
+      Activity Pack
+    </p>
+    <p
+      className="activity-pack-data"
+    />
+  </div>
+  <div
+    className="pack-sub-container"
+    id="activities"
+  >
+    <p
+      className="activity-pack-label"
+    >
+      Activities
+    </p>
+    <p
+      className="activity-pack-data"
+    />
+  </div>
+  <div
+    className="pack-sub-container"
+    id="classes"
+  >
+    <p
+      className="activity-pack-label"
+    >
+      Classes
+    </p>
+    <p
+      className="activity-pack-data"
+    />
+  </div>
+  <div
+    className="pack-sub-container"
+    id="students"
+  >
+    <p
+      className="activity-pack-label"
+    >
+      Students
+    </p>
+    <p
+      className="activity-pack-data"
+    />
+  </div>
+</div>
+`;

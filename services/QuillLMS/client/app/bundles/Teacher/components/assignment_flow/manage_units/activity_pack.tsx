@@ -11,6 +11,8 @@ import {
   defaultSnackbarTimeout,
 } from '../../../../Shared/index'
 import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor'
+import ShareActivityPackModal from '../create_unit/share_activity_pack/shareActivityPackModal';
+import { requestGet } from '../../../../../modules/request';
 
 const multipleAccountSrc = `${process.env.CDN_URL}/images/icons/icons-account-multiple-check.svg`
 const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`
@@ -18,15 +20,27 @@ const lockSrc = `${process.env.CDN_URL}/images/icons/icons-lock.svg`
 
 const RENAME = 'rename'
 const ARCHIVE = 'archive'
+const SHARE = 'share'
 
 const ActivityPack = ({
   data,
   getUnits,
+  selectedClassroomId
 }) => {
   const [showIndividualClassroomInfo, setShowIndividualClassroomInfo] = React.useState(false)
   const [showSnackbar, setShowSnackbar] = React.useState(false)
   const [snackbarText, setSnackbarText] = React.useState('')
-  const [showModal, setShowModal] = React.useState(false)
+  const [showModal, setShowModal] = React.useState('')
+  const [classrooms, setClassrooms] = React.useState([]);
+  const [activityClicked, setActivityClicked] = React.useState(null);
+
+  React.useEffect(() => {
+    if(!classrooms.length) {
+      requestGet('/teachers/classrooms/retrieve_classrooms_i_teach_for_custom_assigning_activities', (body) => {
+        setClassrooms(body.classrooms_and_their_students)
+      })
+    }
+  }, [])
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
@@ -36,7 +50,19 @@ const ActivityPack = ({
 
   function handleClickShowRemove() { setShowModal(ARCHIVE) }
 
-  function closeModal() { setShowModal(false) }
+  function handleClickShareActivity() { setShowModal(SHARE) }
+
+  function handleClickShareActivityPack() {
+    // clear single selected activity if there was one previously clicked
+    setActivityClicked(null)
+    setShowModal(SHARE)
+  }
+
+  function handleActivityClicked(activity) {
+    setActivityClicked(activity);
+  }
+
+  function closeModal() { setShowModal('') }
 
   function onSuccess(snackbarCopy) {
     getUnits()
@@ -45,6 +71,27 @@ const ActivityPack = ({
       setSnackbarText(snackbarCopy)
       setShowSnackbar(true)
     }
+  }
+
+  function getActivityPackData() {
+    const { unitName, classroomActivities } = data
+    return {
+      name: unitName,
+      activityCount: classroomActivities && classroomActivities.length,
+      activities: []
+    }
+  }
+
+  function getSelectedClassroomName() {
+    const { classrooms } = data;
+    if(classrooms && classrooms.length === 1) {
+      return classrooms[0].name;
+    }
+  }
+
+  function getSelectableClassrooms() {
+    const { classrooms } = data;
+    return classrooms.map(classroom => classroom.name);
   }
 
   let totalStudents = 0
@@ -74,9 +121,19 @@ const ActivityPack = ({
       unitId={data.unitId}
       unitName={data.unitName}
     />}
+    {showModal === SHARE &&
+      <ShareActivityPackModal
+        activityPackData={data && getActivityPackData()}
+        closeModal={closeModal}
+        selectableClassrooms={data && getSelectableClassrooms()}
+        selectedClassroomId={selectedClassroomId}
+        selectedClassroomName={data && getSelectedClassroomName()}
+        singleActivity={activityClicked}
+        unitId={data && data.unitId}
+      />}
     <div className="top-section">
       <div className="top-section-header">
-        {isOwner && <ActivityPackUpdateButtons handleClickShowRemove={handleClickShowRemove} handleClickShowRename={handleClickShowRename} />}
+        {isOwner && <ActivityPackUpdateButtons handleClickShareActivityPack={handleClickShareActivityPack} handleClickShowRemove={handleClickShowRemove} handleClickShowRename={handleClickShowRename} />}
         <div className="left-side">
           <h2>{data.unitName}</h2>
           {!isOwner && (<div className="coteacher-explanation">
@@ -101,6 +158,8 @@ const ActivityPack = ({
     </div>
     <ActivityTable
       data={data}
+      handleActivityClicked={handleActivityClicked}
+      handleToggleModal={handleClickShareActivity}
       isOwner={isOwner}
       onSuccess={onSuccess}
     />

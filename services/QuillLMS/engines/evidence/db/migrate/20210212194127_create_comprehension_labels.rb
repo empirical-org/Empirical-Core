@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateComprehensionLabels < ActiveRecord::Migration[4.2]
   def change
     create_table :comprehension_labels do |t|

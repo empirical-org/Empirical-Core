@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :classroom_unit_activity_state do
     unit_activity            { create(:unit_activity) }

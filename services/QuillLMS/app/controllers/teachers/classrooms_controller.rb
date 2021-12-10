@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Teachers::ClassroomsController < ApplicationController
   respond_to :json, :html, :pdf
   before_action :teacher!
@@ -56,10 +58,9 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def remove_students
-    students_classrooms = StudentsClassrooms.where(student_id: params[:student_ids], classroom_id: params[:classroom_id])
-    students_classrooms.each do |sc|
-      sc.update(visible: false)
-    end
+    StudentsClassrooms
+      .where(student_id: params[:student_ids], classroom_id: params[:classroom_id])
+      .each { |sc| sc.archive }
     render json: {}
   end
 

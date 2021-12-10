@@ -1,0 +1,151 @@
+.diagnostic-individual-pack main.individual-student-responses-container {
+  .skills-table-container {
+    margin: 24px 0px;
+    width: min-content;
+    max-width: 100%;
+    .skills-table, .growth-skills-table {
+      width: 950px;
+      max-width: 100%;
+      td {
+        font-size: 14px;
+      }
+      &.skills-table {
+        .skill-column-header {
+          width: 664px;
+        }
+        .summary-header {
+          width: 128px;
+        }
+      }
+      &.growth-skills-table {
+        .skill-column-header {
+          width: 546px;
+        }
+        .summary-header {
+          width: 201px;
+        }
+      }
+    }
+  }
+  .concept-tag {
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    width: min-content;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    img {
+      margin-right: 4px;
+    }
+    &.incorrect-tag {
+      color: #995f00;
+      background-color: #fff3e0;
+      width: 83px;
+    }
+    &.correct-tag {
+      background-color: #e9f4e0;
+      color: #367300;
+      width: 75px;
+    }
+  }
+  .tabs {
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 24px;
+    max-width: 950px;
+  }
+
+  .tab {
+    font-size: 14px;
+    font-weight: 600;
+    color: #5c5c5c;
+    width: 156px;
+    max-width: 50%;
+    padding: 16px 14px;
+    margin-bottom: -1px;
+    border-bottom: 2px solid transparent;
+    background-color: transparent;
+    &.active {
+      color: #06806b;
+      border-bottom: 2px solid #06806b;
+    }
+  }
+  .data-table {
+    max-width: 950px;
+    border-radius: 8px;
+    border: solid 1px #e0e0e0;
+    overflow: visible;
+    margin-bottom: 24px;
+    .data-table-headers {
+      border-radius: 8px 8px 0px 0px;
+      height: 32px;
+    }
+    .data-table-header {
+      overflow: visible;
+      white-space: nowrap;
+    }
+    .data-table-header, .data-table-row-section {
+      margin-right: 16px;
+      &:last-of-type {
+        margin-right: 0px;
+      }
+    }
+    .data-table-row {
+      height: 48px;
+      padding: 0px;
+      margin: 0px 16px;
+      .quill-tooltip-trigger {
+        margin-right: 16px;
+      }
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+
+  .mobile-data-table {
+    display: none;
+  }
+
+  @media (max-width: 1250px) {
+    .skills-table, .growth-skills-table {
+      .summary-header, tr td:last-of-type {
+        display: none;
+      }
+    }
+    .data-table {
+      display: none;
+    }
+    .mobile-data-table {
+      display: block;
+      border-radius: 8px;
+      border: solid 1px #e0e0e0;
+      margin-bottom: 16px;
+      .header {
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.33;
+        color: #5c5c5c;
+        padding: 8px 16px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      .mobile-data-table-row {
+        display: flex;
+        flex-direction: column;
+        margin: 0px 16px;
+        padding: 16px 0px 12px;
+        border-bottom: 1px solid #e0e0e0;
+        > span {
+          margin-bottom: 4px;
+        }
+        &:last-of-type {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+  @media (max-width: 930px) {
+    padding: 40px 16px;
+  }
+}

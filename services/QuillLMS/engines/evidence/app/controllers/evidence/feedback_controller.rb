@@ -1,8 +1,15 @@
+# frozen_string_literal: true
+
 module Evidence
   require 'json'
 
   class FeedbackController < ApiController
     before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling]
+
+    def prefilter 
+      prefilter_check = Evidence::PrefilterCheck.new(prefilter_params)
+      render json: prefilter_check.feedback_object
+    end
 
     def plagiarism
       rule = @prompt.rules&.find_by(rule_type: Evidence::Rule::TYPE_PLAGIARISM)
@@ -33,6 +40,10 @@ module Evidence
       return render :body => {:error => spelling_check.error }.to_json, :status => 500 if spelling_check.error.present?
       render json: spelling_check.feedback_object
     end
+
+    private def prefilter_params
+      params.require(:entry)
+    end 
 
     private def set_params
       @entry = params[:entry]

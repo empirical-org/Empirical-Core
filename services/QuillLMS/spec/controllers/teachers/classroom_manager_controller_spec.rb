@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Teachers::ClassroomManagerController, type: :controller do
@@ -114,6 +116,63 @@ describe Teachers::ClassroomManagerController, type: :controller do
         end
       end
 
+      describe 'assigned_pre_tests' do
+        let!(:starter_post_test) { create(:diagnostic_activity) }
+        let!(:intermediate_post_test) { create(:diagnostic_activity) }
+        let!(:advanced_post_test) { create(:diagnostic_activity) }
+        let!(:starter_pre_test) { create(:diagnostic_activity, id: Activity::STARTER_DIAGNOSTIC_ACTIVITY_ID, follow_up_activity_id: starter_post_test.id) }
+        let!(:intermediate_pre_test) { create(:diagnostic_activity, id: Activity::INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID, follow_up_activity_id: intermediate_post_test.id) }
+        let!(:advanced_pre_test) { create(:diagnostic_activity, id: Activity::ADVANCED_DIAGNOSTIC_ACTIVITY_ID, follow_up_activity_id: advanced_post_test.id) }
+        let!(:unit) { create(:unit, user: user) }
+        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: starter_pre_test) }
+        let!(:students_classrooms) { create(:students_classrooms, classroom: user.classrooms_i_teach.last) }
+        let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: user.classrooms_i_teach.last, assigned_student_ids: [students_classrooms.student.id]) }
+        let!(:activity_session) { create(:activity_session, user: students_classrooms.student, activity: starter_pre_test, classroom_unit: classroom_unit) }
+
+
+        it 'should be a an array with objects containing the activity id, post test id, and assigned classroom ids' do
+          get :assign
+          expect(assigns(:assigned_pre_tests)).to eq ([
+            {
+              id: starter_pre_test.id,
+              post_test_id: starter_post_test.id,
+              assigned_classroom_ids: [user.classrooms_i_teach.last.id],
+              all_classrooms: [
+                {
+                  id: user.classrooms_i_teach.last.id,
+                  completed_pre_test_student_ids: [students_classrooms.student.id],
+                  completed_post_test_student_ids: []
+                }
+              ]
+            },
+            {
+              id: intermediate_pre_test.id,
+              post_test_id: intermediate_post_test.id,
+              assigned_classroom_ids: [],
+              all_classrooms: [
+                {
+                  id: user.classrooms_i_teach.last.id,
+                  completed_pre_test_student_ids: [],
+                  completed_post_test_student_ids: []
+                }
+              ]
+            },
+            {
+              id: advanced_pre_test.id,
+              post_test_id: advanced_post_test.id,
+              assigned_classroom_ids: [],
+              all_classrooms: [
+                {
+                  id: user.classrooms_i_teach.last.id,
+                  completed_pre_test_student_ids: [],
+                  completed_post_test_student_ids: []
+                }
+              ]
+            }
+          ])
+        end
+      end
+
       describe 'checkboxes' do
         let!(:explore_our_library) { create(:explore_our_library) }
         let!(:explore_our_diagnostics) { create(:explore_our_diagnostics) }
@@ -208,6 +267,46 @@ describe Teachers::ClassroomManagerController, type: :controller do
       get :retrieve_classrooms_i_teach_for_custom_assigning_activities, as: :json
       expect(response.body).to eq ({
           classrooms_and_their_students: json
+      }).to_json
+    end
+  end
+
+  describe '#classrooms_and_classroom_units_for_activity_share' do
+    let(:teacher) { create(:teacher) }
+    let(:classroom1) { create(:classroom) }
+    let(:classroom2) { create(:classroom) }
+    let(:unit1) { create(:unit) }
+    let(:unit2) { create(:unit) }
+    let!(:classroom_unit1) { create(:classroom_unit, unit_id: unit1.id, visible: true) }
+    let!(:classroom_unit2) { create(:classroom_unit, unit_id: unit2.id, visible: true) }
+    let(:classrooms_json) {
+      teacher.classrooms_i_teach.map { |classroom|
+        {
+            classroom: classroom,
+            students: classroom.students.sort_by(&:sorting_name)
+        }
+      }
+    }
+    let(:classrooms) { { classrooms_and_their_students: classrooms_json } }
+
+    before do
+      allow(teacher).to receive(:classrooms_i_teach) { [classroom1, classroom2] }
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    it 'should render the expected json with first unit id' do
+      get :classrooms_and_classroom_units_for_activity_share, params: { unit_id: unit1.id }
+      expect(response.body).to eq ({
+          classrooms: classrooms,
+          classroom_units: [classroom_unit1]
+      }).to_json
+    end
+
+    it 'should render the expected json with first second id' do
+      get :classrooms_and_classroom_units_for_activity_share, params: { unit_id: unit2.id }
+      expect(response.body).to eq ({
+          classrooms: classrooms,
+          classroom_units: [classroom_unit2]
       }).to_json
     end
   end
@@ -505,7 +604,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'should kick off the importer' do
-      create(:auth_credential, user: teacher)
+      create(:google_auth_credential, user: teacher)
 
       expect(GoogleStudentImporterWorker).to receive(:perform_async)
       put :import_google_students, params: { selected_classroom_ids: [1,2], as: :json }

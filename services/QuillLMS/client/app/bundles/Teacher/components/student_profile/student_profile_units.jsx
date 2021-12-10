@@ -7,7 +7,6 @@ import PreviewActivityModal from './preview_activity_modal'
 import PinnedActivityBar from './pinned_activity_bar'
 
 import LoadingIndicator from '../shared/loading_indicator'
-import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../constants/student_profile'
 
 const clipboardSrc = `${process.env.CDN_URL}/images/illustrations/clipboard.svg`
@@ -127,11 +126,11 @@ export default class StudentProfileUnits extends React.Component {
     const pinnedActivity = data.find(act => act.pinned)
     if (!pinnedActivity) { return }
 
-    const { name, ca_id, activity_id, } = pinnedActivity
+    const { name, classroom_unit_id, activity_id, } = pinnedActivity
 
     return (<PinnedActivityBar
       activityId={activity_id}
-      classroomUnitId={ca_id}
+      classroomUnitId={classroom_unit_id}
       isBeingPreviewed={isBeingPreviewed}
       name={name}
       onShowPreviewModal={this.handleShowPreviewModal}
@@ -155,10 +154,10 @@ export default class StudentProfileUnits extends React.Component {
     const pinnedActivity = data.find(act => act.pinned)
     if (isBeingPreviewed || !pinnedActivity || closedPinnedActivityModal) { return }
 
-    const { name, ca_id, activity_id, } = pinnedActivity
+    const { name, classroom_unit_id, activity_id, } = pinnedActivity
     return (<PinnedActivityModal
       activityId={activity_id}
-      classroomUnitId={ca_id}
+      classroomUnitId={classroom_unit_id}
       name={name}
       onClosePinnedActivityModalClick={this.handleClosePinnedActivityModalClick}
       teacherName={teacherName}

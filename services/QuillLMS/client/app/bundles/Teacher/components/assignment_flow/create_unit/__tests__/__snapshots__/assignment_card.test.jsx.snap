@@ -2,7 +2,7 @@
 
 exports[`AssignmentCard component should render 1`] = `
 <div
-  className="assignment-card quill-card"
+  className=" assignment-card quill-card"
   onClick={[Function]}
 >
   <div
@@ -27,18 +27,25 @@ exports[`AssignmentCard component should render 1`] = `
       className="button-container"
     >
       <a
-        className="quill-button fun outlined secondary"
+        className="interactive-wrapper focus-on-light"
         href="https://quill.org/diagnostic/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
+        onClick={[Function]}
         target="_blank"
       >
-        Preview
+        <img
+          alt="Eye icon"
+          src="undefined/images/icons/icons-preview.svg"
+        />
+        <span>
+          Preview
+        </span>
       </a>
-      <a
-        className="quill-button fun contained primary"
-        target="_blank"
+      <button
+        className="quill-button fun contained primary focus-on-light"
+        type="button"
       >
         Select
-      </a>
+      </button>
     </div>
   </div>
   <div

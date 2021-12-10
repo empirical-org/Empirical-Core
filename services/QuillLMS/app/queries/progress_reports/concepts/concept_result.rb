@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProgressReports::Concepts::ConceptResult
 
   def self.results(teacher, filters)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Units::Updater
   # in this file, 'unit' refers to a unit object, 'activities_data' to an array of objects
   # with activity ids and due_dates, and 'classrooms_data' to an array of objects with an id
@@ -31,9 +33,7 @@ module Units::Updater
         hidden_cus_ids.push(matching_cu.id)
       elsif (matching_cu.assigned_student_ids != classroom[:student_ids]) || matching_cu.assign_on_join != classroom[:assign_on_join]
         # then something changed and we should update
-        google_unit_announcement = GoogleIntegration::UnitAnnouncement.new(matching_cu)
         new_recipients = classroom[:student_ids] - matching_cu.assigned_student_ids
-        google_unit_announcement.update_recipients(new_recipients)
         new_student_ids = concatenate_extant_student_ids ? matching_cu.assigned_student_ids.concat(classroom[:student_ids]).uniq : classroom[:student_ids]
         matching_cu.update!(assign_on_join: classroom[:assign_on_join], assigned_student_ids: new_student_ids, visible: true)
       elsif !matching_cu.visible
@@ -81,10 +81,8 @@ module Units::Updater
     end
     new_cus = new_cus.uniq { |cu| cu['classroom_id'] || cu[:classroom_id] }
     new_uas = new_uas.uniq { |ua| ua['activity_id'] || ua[:activity_id] }
-    new_cus.each do |cu|
-      classroom_unit = ClassroomUnit.create(cu)
-      GoogleIntegration::UnitAnnouncement.new(classroom_unit).post
-    end
+    new_cus.each { |cu| ClassroomUnit.create(cu) }
+
     ClassroomUnit.where(id: hidden_cus_ids).update_all(visible: false)
     UnitActivity.create(new_uas)
     UnitActivity.where(id: hidden_ua_ids).update_all(visible: false)

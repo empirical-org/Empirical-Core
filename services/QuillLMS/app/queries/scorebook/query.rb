@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS act_id
 class Scorebook::Query
   SCORES_PER_PAGE = 10000
@@ -9,7 +11,7 @@ class Scorebook::Query
       <<-SQL
         SELECT
           students.id AS user_id,
-          cu.id AS cu_id,
+          cu.id AS classroom_unit_id,
           cuas.completed AS marked_complete,
           students.name AS name,
           activity.activity_classification_id,

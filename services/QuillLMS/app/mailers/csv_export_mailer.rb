@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CsvExportMailer < ActionMailer::Base
   default from: 'hello@quill.org'
 

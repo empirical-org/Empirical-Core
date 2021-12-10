@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration::Parsers::Sections
 
   def self.run(sections_response)

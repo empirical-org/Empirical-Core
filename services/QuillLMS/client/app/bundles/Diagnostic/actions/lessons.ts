@@ -97,7 +97,7 @@ import * as titleCardActions from './titleCards.ts';
 
   const updateQuestions = (content, qids) => {
     return (dispatch) => {
-      if (content.flag) {
+      if (content.flag && content.flag === C.PRODUCTION) {
         qids.forEach(qid => {
           dispatch(questionActions.updateFlag(qid, content.flag))
         })

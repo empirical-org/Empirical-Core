@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe OneOffBanner, type: :model do
@@ -15,11 +17,11 @@ describe OneOffBanner, type: :model do
     expect(banner.title).to eq(nil)
   end
 
-  # it "does return true for show? when the key does have an associated webinar" do
-  #   time =  DateTime.new(2021,4,7,16,1,0)
-  #   banner = OneOffBanner.new(time)
-  #   expect(banner.show?).to eq(true)
-  # end
+  it "does return true for show? when the key does have an associated webinar" do
+    time =  DateTime.new(2021,11,4,16,1,0)
+    banner = OneOffBanner.new(time)
+    expect(banner.show?).to eq(true)
+  end
 
   it "does not return true for show? when the key falls on a skipped day" do
     time =  DateTime.new(2021,1,18,16,1,0)
@@ -27,11 +29,11 @@ describe OneOffBanner, type: :model do
     expect(banner.show?).to eq(false)
   end
 
-  # it "does return correct link and title when the key does have an associated recurring webinar" do
-  #   time =  DateTime.new(2021,4,7,16,1,0)
-  #   banner = OneOffBanner.new(time)
-  #   expect(banner.title).to eq("Quill's Activity Library Deep Dive is live now!")
-  #   expect(banner.link).to eq("https://quill-org.zoom.us/webinar/register/WN_tZvfRYTmSxaGvnUHIb4JOw")
-  # end
+  it "does return correct link and title when the key does have an associated recurring webinar" do
+    time =  DateTime.new(2021,11,4,16,1,0)
+    banner = OneOffBanner.new(time)
+    expect(banner.title).to eq("<strong>Webinar: Supporting ELLs with Quill</strong> is live now!")
+    expect(banner.link).to eq("https://quill-org.zoom.us/webinar/register/WN_Yu6rY35bRTGfHOte0ciD0A")
+  end
 
 end

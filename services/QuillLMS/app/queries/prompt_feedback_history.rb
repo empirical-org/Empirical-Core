@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PromptFeedbackHistory
     def self.run(activity_id:, start_date: nil, end_date: nil, turk_session_id: nil)
       serialize_results prompt_health_query(activity_id: activity_id, start_date: start_date, end_date: end_date, turk_session_id: turk_session_id)
@@ -11,7 +13,7 @@ class PromptFeedbackHistory
         comprehension_prompts.text AS display_name,
         COUNT(DISTINCT CASE WHEN optimal = true THEN feedback_histories.feedback_session_uid END) AS num_final_attempt_optimal,
         COUNT(DISTINCT CASE WHEN attempt = 5 AND optimal = false THEN feedback_histories.feedback_session_uid END) AS num_final_attempt_not_optimal,
-        1.0 * SUM(CASE WHEN optimal = true THEN feedback_histories.attempt END) / COUNT(DISTINCT CASE WHEN optimal = true THEN feedback_histories.feedback_session_uid END) AS avg_attempts_to_optimal,
+        1.0 * COUNT(feedback_histories.attempt) / COUNT(DISTINCT feedback_histories.feedback_session_uid) AS avg_attempts,
         COUNT(DISTINCT CASE WHEN flag = 'repeated-consecutive' THEN feedback_histories.feedback_session_uid END) AS num_sessions_consecutive_repeated,
         COUNT(DISTINCT CASE WHEN flag = 'repeated-non-consecutive' THEN feedback_histories.feedback_session_uid END) AS num_sessions_non_consecutive_repeated,
         COUNT(DISTINCT CASE WHEN attempt = 1 AND optimal = true THEN feedback_histories.feedback_session_uid END) AS num_first_attempt_optimal,
@@ -36,12 +38,12 @@ class PromptFeedbackHistory
     def self.serialize_results(results)
       serialized_rows = results.map do |result|
         payload = result.serializable_hash(
-          only: [:prompt_id, :total_responses, :session_count, :display_name, :num_final_attempt_optimal, :num_final_attempt_not_optimal, :avg_attempts_to_optimal, :num_first_attempt_optimal, :num_first_attempt_not_optimal],
+          only: [:prompt_id, :total_responses, :session_count, :display_name, :num_final_attempt_optimal, :num_final_attempt_not_optimal, :avg_attempts, :num_first_attempt_optimal, :num_first_attempt_not_optimal],
           include: []
         )
         payload['num_sessions_with_consecutive_repeated_rule'] = result.num_sessions_consecutive_repeated
         payload['num_sessions_with_non_consecutive_repeated_rule'] = result.num_sessions_non_consecutive_repeated
-        payload['avg_attempts_to_optimal'] = payload['avg_attempts_to_optimal']&.round(2) || 0
+        payload['avg_attempts'] = payload['avg_attempts']&.round(2)&.to_f || 0
         payload
       end
       serialized_rows.map{ |row| [row['prompt_id'], row] }.to_h

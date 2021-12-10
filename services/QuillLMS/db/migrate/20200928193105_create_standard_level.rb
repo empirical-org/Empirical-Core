@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateStandardLevel < ActiveRecord::Migration[4.2]
   def change
     create_table :standard_levels do |t|

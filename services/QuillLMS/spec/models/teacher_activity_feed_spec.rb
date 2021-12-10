@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe TeacherActivityFeed, type: :model do
@@ -57,6 +59,18 @@ describe TeacherActivityFeed, type: :model do
     describe '#data_for_activity_feed' do
       it "has all activity sessions completed for that teacher's classroom, in reverse chronological order" do
         activity_session
+
+        data = TeacherActivityFeed.get(teacher.id)
+        expect(data.length).to eq(3)
+        expect(data[0][:id]).to eq(activity_session.id)
+        expect(data[1][:id]).to eq(activity_session1.id)
+        expect(data[2][:id]).to eq(activity_session2.id)
+      end
+
+      it "ignores activity sessions that have no completed_at value" do
+        activity_session
+        activity_session3 = create(:activity_session, classroom_unit_id: classroom_unit1.id, activity_id: activity.id, user_id: student2.id, completed_at: nil)
+        activity_session3.update(state: 'started', completed_at: nil)
 
         data = TeacherActivityFeed.get(teacher.id)
         expect(data.length).to eq(3)

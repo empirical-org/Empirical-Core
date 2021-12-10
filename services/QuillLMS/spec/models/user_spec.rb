@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -96,6 +98,10 @@ describe User, type: :model do
   #it { should validate_uniqueness_of(:username).on(:create) }
 
   it { should validate_presence_of(:username).on(:create) }
+  it { should validate_length_of(:username).is_at_most(User::CHAR_FIELD_MAX_LENGTH) }
+  it { should validate_length_of(:name).is_at_most(User::CHAR_FIELD_MAX_LENGTH) }
+  it { should validate_length_of(:email).is_at_most(User::CHAR_FIELD_MAX_LENGTH) }
+  it { should validate_length_of(:password).is_at_most(User::CHAR_FIELD_MAX_LENGTH) }
 
   it { should have_secure_password }
 
@@ -1267,13 +1273,20 @@ describe User, type: :model do
     end
   end
 
+  describe '.valid_email?' do
+    it { expect { User.valid_email?('').to be_false } }
+    it { expect { User.valid_email?(nil).to be_false } }
+    it { expect { User.valid_email?('1').to be_false } }
+    it { expect { User.valid_email?('a@b.c').to be_true } }
+  end
+
   describe '#google_authorized?' do
     context 'user without auth_credentials is unauthorized' do
       it { expect(user.google_authorized?).to be false }
     end
 
     context 'user with auth credentials has valid authorization' do
-      let(:google_user) { create(:auth_credential, provider: 'google').user }
+      let(:google_user) { create(:google_auth_credential).user }
 
       it { expect(google_user.google_authorized?).to be true }
     end

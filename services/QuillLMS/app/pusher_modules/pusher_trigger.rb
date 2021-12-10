@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PusherTrigger
 
   def self.run(id, channel, message)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Units::Creator
   def self.run(teacher, name, activities_data, classrooms_data, unit_template_id=nil, current_user_id=nil)
     create_helper(teacher, name, activities_data, classrooms_data, unit_template_id, current_user_id)
@@ -67,10 +69,8 @@ module Units::Creator
         unit_id: unit.id
       }
     end
-    classrm_units = ClassroomUnit.create(class_data)
-    classrm_units.each do |classroom_unit|
-      GoogleIntegration::UnitAnnouncement.new(classroom_unit).post
-    end
+    ClassroomUnit.create(class_data)
+
     unit.reload
     unit.save
     unit.email_lesson_plan

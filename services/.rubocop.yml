@@ -12,6 +12,11 @@ AllCops:
 Style/ZeroLengthPredicate:
   Enabled: true
 
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  Include:
+    - "QuillLMS/**/*"
+
 Layout/EmptyLineAfterMagicComment:
   Enabled: true
 

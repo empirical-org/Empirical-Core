@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Flags
   extend ActiveSupport::Concern
   FLAGS = %w(production archive alpha beta gamma private)

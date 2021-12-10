@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateActivitySessionInteractionLogs < ActiveRecord::Migration[4.2]
   def change
     create_table :activity_session_interaction_logs do |t|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RenameConceptTagCategories < ActiveRecord::Migration[4.2]
   def change
     rename_table :concept_tag_categories, :concept_classes

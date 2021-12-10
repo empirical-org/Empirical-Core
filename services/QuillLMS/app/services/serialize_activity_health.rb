@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SerializeActivityHealth
   CLASSIFICATION_TO_TOOL = {
     connect: "connect",

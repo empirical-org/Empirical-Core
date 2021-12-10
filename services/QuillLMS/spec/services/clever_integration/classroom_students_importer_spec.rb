@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe CleverIntegration::ClassroomStudentsImporter do
@@ -26,10 +28,26 @@ RSpec.describe CleverIntegration::ClassroomStudentsImporter do
   end
 
   context 'students_data has two students' do
+    let(:valid_email) { 'a@b.com' }
+    let(:invalid_email) { 'not-an-email' }
+
     let(:students_data) { [student_data1, student_data2] }
 
-    let(:student_data1) { { 'id' => '123', 'name' => { 'first' => 'Al', 'middle' => 'Ty', 'last' => 'Oz'} } }
-    let(:student_data2) { { 'id' => '456', 'name' => { 'first' => 'Ky', 'middle' => 'Jo', 'last' => 'Su'} } }
+    let(:student_data1) do
+      {
+        'id' => '123',
+        'email' => valid_email,
+        'name' => { 'first' => 'Al', 'middle' => 'Ty', 'last' => 'Oz' }
+      }
+    end
+
+    let(:student_data2) do
+      {
+        'id' => '456',
+        'email' => invalid_email,
+        'name' => { 'first' => 'Ky', 'middle' => 'Jo', 'last' => 'Su' }
+      }
+    end
 
     it { expect { subject.run }.to change(User.student, :count).from(0).to(2) }
     it { expect { subject.run }.to change(StudentsClassrooms, :count).from(0).to(2) }

@@ -153,6 +153,19 @@
       align-items: flex-start;
       font-size: 16px;
       line-height: normal;
+      animation: revisepulse 0.8s 1;
+
+      @keyframes revisepulse {
+        0%  {
+          background-color: #fff6e4;
+        }
+        50% {
+          background-color: #FF9F00;
+        }
+        100% {
+          background-color: #fff6e4;
+        }
+      }
       p {
         white-space: pre-wrap;
         margin-top: -3px;
@@ -166,6 +179,19 @@
       &.optimal {
         border: solid 1px #55a200;
         background-color: #f4ffe8;
+        animation: optimalpulse 0.8s 1;
+
+        @keyframes optimalpulse {
+          0%  {
+            background-color: #fff6e4;
+          }
+          50% {
+            background-color: #55a200;
+          }
+          100% {
+            background-color: #fff6e4;
+          }
+        }
       }
     }
   }

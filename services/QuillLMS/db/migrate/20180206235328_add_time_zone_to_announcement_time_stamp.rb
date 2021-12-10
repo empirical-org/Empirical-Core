@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddTimeZoneToAnnouncementTimeStamp < ActiveRecord::Migration[4.2]
   def change
     change_column :announcements, :start, 'timestamp with time zone'

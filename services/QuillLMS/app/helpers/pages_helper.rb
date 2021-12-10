@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PagesHelper
 
 	def pages_tab_class tabname
@@ -135,7 +137,7 @@ module PagesHelper
           },
           {
             name: 'Daniel Giovanniello',
-            title: 'Partnerships Associate',
+            title: 'Partnerships Specialist',
             img: 'team-daniel-giovanniello@2x.png'
           },
           {
@@ -210,12 +212,12 @@ module PagesHelper
           },
           {
             name: 'Anna Waterman',
-            title: 'Curriculum Developer',
+            title: 'Curriculum Associate',
             img: 'team-anna-waterman@2x.png'
           },
           {
             name: 'Cissy Yu',
-            title: 'Software Developer',
+            title: 'Junior Software Developer',
             img: 'team-cissy-yu@2x.png'
           }
         ]

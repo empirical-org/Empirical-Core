@@ -118,6 +118,17 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           "ownedByCurrentUser": true,
           "ownerName": "Emilia F",
           "removable": true,
+          "shareActivity": <button
+            className="share-activity-button focus-on-light"
+            onClick={[Function]}
+            type="button"
+            value="row-button"
+          >
+            <img
+              alt="share-arrow"
+              src="undefined/images/icons/icons-share.svg"
+            />
+          </button>,
           "toolAndNameSection": <a
             className="interactive-wrapper focus-on-light"
             href="/activity_sessions/anonymous?activity_id=438"
@@ -253,6 +264,17 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           "ownedByCurrentUser": true,
           "ownerName": "Emilia F",
           "removable": true,
+          "shareActivity": <button
+            className="share-activity-button focus-on-light"
+            onClick={[Function]}
+            type="button"
+            value="row-button"
+          >
+            <img
+              alt="share-arrow"
+              src="undefined/images/icons/icons-share.svg"
+            />
+          </button>,
           "toolAndNameSection": <a
             className="interactive-wrapper focus-on-light"
             href="/activity_sessions/anonymous?activity_id=441"
@@ -388,6 +410,17 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           "ownedByCurrentUser": true,
           "ownerName": "Emilia F",
           "removable": true,
+          "shareActivity": <button
+            className="share-activity-button focus-on-light"
+            onClick={[Function]}
+            type="button"
+            value="row-button"
+          >
+            <img
+              alt="share-arrow"
+              src="undefined/images/icons/icons-share.svg"
+            />
+          </button>,
           "toolAndNameSection": <a
             className="interactive-wrapper focus-on-light"
             href="/activity_sessions/anonymous?activity_id=775"
@@ -523,6 +556,17 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           "ownedByCurrentUser": true,
           "ownerName": "Emilia F",
           "removable": true,
+          "shareActivity": <button
+            className="share-activity-button focus-on-light"
+            onClick={[Function]}
+            type="button"
+            value="row-button"
+          >
+            <img
+              alt="share-arrow"
+              src="undefined/images/icons/icons-share.svg"
+            />
+          </button>,
           "toolAndNameSection": <a
             className="interactive-wrapper focus-on-light"
             href="/activity_sessions/anonymous?activity_id=844"
@@ -658,6 +702,17 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           "ownedByCurrentUser": true,
           "ownerName": "Emilia F",
           "removable": true,
+          "shareActivity": <button
+            className="share-activity-button focus-on-light"
+            onClick={[Function]}
+            type="button"
+            value="row-button"
+          >
+            <img
+              alt="share-arrow"
+              src="undefined/images/icons/icons-share.svg"
+            />
+          </button>,
           "toolAndNameSection": <a
             className="interactive-wrapper focus-on-light"
             href="/activity_sessions/anonymous?activity_id=846"
@@ -723,12 +778,26 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
         className="top-section-header"
       >
         <ActivityPackUpdateButtons
+          handleClickShareActivityPack={[Function]}
           handleClickShowRemove={[Function]}
           handleClickShowRename={[Function]}
         >
           <div
             className="right-side"
           >
+            <button
+              className="interactive-wrapper focus-on-light"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Share icon"
+                src="undefined/images/icons/icons-share.svg"
+              />
+              <span>
+                Share activity pack
+              </span>
+            </button>
             <button
               className="interactive-wrapper focus-on-light"
               onClick={[Function]}
@@ -916,6 +985,17 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=438"
@@ -1051,6 +1131,17 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=441"
@@ -1186,6 +1277,17 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=775"
@@ -1321,6 +1423,17 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=844"
@@ -1456,6 +1569,17 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=846"
@@ -1501,6 +1625,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           "unitName": "Adverbs of Manner Practice",
         }
       }
+      handleActivityClicked={[Function]}
+      handleToggleModal={[Function]}
       isOwner={true}
       onSuccess={[Function]}
     >
@@ -1521,7 +1647,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                 </span>
               </span>,
               "rowSectionClassName": "tool-and-name-section",
-              "width": "637px",
+              "width": "607px",
             },
             Object {
               "attribute": "dueDatePicker",
@@ -1536,6 +1662,12 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               </span>,
               "rowSectionClassName": "due-date-picker",
               "width": "120px",
+            },
+            Object {
+              "attribute": "shareActivity",
+              "name": "",
+              "noTooltip": true,
+              "width": "30px",
             },
           ]
         }
@@ -1657,6 +1789,17 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=438"
@@ -1792,6 +1935,17 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=441"
@@ -1927,6 +2081,17 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=775"
@@ -2062,6 +2227,17 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=844"
@@ -2197,6 +2373,17 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "ownedByCurrentUser": true,
               "ownerName": "Emilia F",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=846"
@@ -2238,9 +2425,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               className="data-table-header undefined"
               style={
                 Object {
-                  "minWidth": "637px",
+                  "minWidth": "607px",
                   "textAlign": "left",
-                  "width": "637px",
+                  "width": "607px",
                 }
               }
               tabIndex={-1}
@@ -2278,6 +2465,18 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                 </span>
               </span>
             </button>
+            <button
+              className="data-table-header undefined"
+              style={
+                Object {
+                  "minWidth": "30px",
+                  "textAlign": "left",
+                  "width": "30px",
+                }
+              }
+              tabIndex={-1}
+              type="button"
+            />
             <span
               className="data-table-header"
             />
@@ -2301,9 +2500,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
-                            "minWidth": "637px",
+                            "minWidth": "607px",
                             "textAlign": "left",
-                            "width": "637px",
+                            "width": "607px",
                           }
                         }
                       >
@@ -2440,6 +2639,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           withPortal={false}
                         />
                       </span>
+                      <span
+                        className="data-table-row-section undefined"
+                        style={
+                          Object {
+                            "minWidth": "30px",
+                            "textAlign": "left",
+                            "width": "30px",
+                          }
+                        }
+                      >
+                        <button
+                          className="share-activity-button focus-on-light"
+                          onClick={[Function]}
+                          type="button"
+                          value="row-button"
+                        >
+                          <img
+                            alt="share-arrow"
+                            src="undefined/images/icons/icons-share.svg"
+                          />
+                        </button>
+                      </span>
                       <button
                         className="removable data-table-row-section focus-on-light"
                         id="remove-button-7543552"
@@ -2466,9 +2687,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
-                            "minWidth": "637px",
+                            "minWidth": "607px",
                             "textAlign": "left",
-                            "width": "637px",
+                            "width": "607px",
                           }
                         }
                       >
@@ -2605,6 +2826,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           withPortal={false}
                         />
                       </span>
+                      <span
+                        className="data-table-row-section undefined"
+                        style={
+                          Object {
+                            "minWidth": "30px",
+                            "textAlign": "left",
+                            "width": "30px",
+                          }
+                        }
+                      >
+                        <button
+                          className="share-activity-button focus-on-light"
+                          onClick={[Function]}
+                          type="button"
+                          value="row-button"
+                        >
+                          <img
+                            alt="share-arrow"
+                            src="undefined/images/icons/icons-share.svg"
+                          />
+                        </button>
+                      </span>
                       <button
                         className="removable data-table-row-section focus-on-light"
                         id="remove-button-7543553"
@@ -2631,9 +2874,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
-                            "minWidth": "637px",
+                            "minWidth": "607px",
                             "textAlign": "left",
-                            "width": "637px",
+                            "width": "607px",
                           }
                         }
                       >
@@ -2770,6 +3013,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           withPortal={false}
                         />
                       </span>
+                      <span
+                        className="data-table-row-section undefined"
+                        style={
+                          Object {
+                            "minWidth": "30px",
+                            "textAlign": "left",
+                            "width": "30px",
+                          }
+                        }
+                      >
+                        <button
+                          className="share-activity-button focus-on-light"
+                          onClick={[Function]}
+                          type="button"
+                          value="row-button"
+                        >
+                          <img
+                            alt="share-arrow"
+                            src="undefined/images/icons/icons-share.svg"
+                          />
+                        </button>
+                      </span>
                       <button
                         className="removable data-table-row-section focus-on-light"
                         id="remove-button-7543554"
@@ -2796,9 +3061,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
-                            "minWidth": "637px",
+                            "minWidth": "607px",
                             "textAlign": "left",
-                            "width": "637px",
+                            "width": "607px",
                           }
                         }
                       >
@@ -2935,6 +3200,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           withPortal={false}
                         />
                       </span>
+                      <span
+                        className="data-table-row-section undefined"
+                        style={
+                          Object {
+                            "minWidth": "30px",
+                            "textAlign": "left",
+                            "width": "30px",
+                          }
+                        }
+                      >
+                        <button
+                          className="share-activity-button focus-on-light"
+                          onClick={[Function]}
+                          type="button"
+                          value="row-button"
+                        >
+                          <img
+                            alt="share-arrow"
+                            src="undefined/images/icons/icons-share.svg"
+                          />
+                        </button>
+                      </span>
                       <button
                         className="removable data-table-row-section focus-on-light"
                         id="remove-button-7543555"
@@ -2961,9 +3248,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
-                            "minWidth": "637px",
+                            "minWidth": "607px",
                             "textAlign": "left",
-                            "width": "637px",
+                            "width": "607px",
                           }
                         }
                       >
@@ -3100,6 +3387,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           withPortal={false}
                         />
                       </span>
+                      <span
+                        className="data-table-row-section undefined"
+                        style={
+                          Object {
+                            "minWidth": "30px",
+                            "textAlign": "left",
+                            "width": "30px",
+                          }
+                        }
+                      >
+                        <button
+                          className="share-activity-button focus-on-light"
+                          onClick={[Function]}
+                          type="button"
+                          value="row-button"
+                        >
+                          <img
+                            alt="share-arrow"
+                            src="undefined/images/icons/icons-share.svg"
+                          />
+                        </button>
+                      </span>
                       <button
                         className="removable data-table-row-section focus-on-light"
                         id="remove-button-7543556"
@@ -3141,9 +3450,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
-                              "minWidth": "637px",
+                              "minWidth": "607px",
                               "textAlign": "left",
-                              "width": "637px",
+                              "width": "607px",
                             }
                           }
                         >
@@ -3280,6 +3589,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             withPortal={false}
                           />
                         </span>
+                        <span
+                          className="data-table-row-section undefined"
+                          style={
+                            Object {
+                              "minWidth": "30px",
+                              "textAlign": "left",
+                              "width": "30px",
+                            }
+                          }
+                        >
+                          <button
+                            className="share-activity-button focus-on-light"
+                            onClick={[Function]}
+                            type="button"
+                            value="row-button"
+                          >
+                            <img
+                              alt="share-arrow"
+                              src="undefined/images/icons/icons-share.svg"
+                            />
+                          </button>
+                        </span>
                         <button
                           className="removable data-table-row-section focus-on-light"
                           id="remove-button-7543552"
@@ -3306,9 +3637,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
-                              "minWidth": "637px",
+                              "minWidth": "607px",
                               "textAlign": "left",
-                              "width": "637px",
+                              "width": "607px",
                             }
                           }
                         >
@@ -3445,6 +3776,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             withPortal={false}
                           />
                         </span>
+                        <span
+                          className="data-table-row-section undefined"
+                          style={
+                            Object {
+                              "minWidth": "30px",
+                              "textAlign": "left",
+                              "width": "30px",
+                            }
+                          }
+                        >
+                          <button
+                            className="share-activity-button focus-on-light"
+                            onClick={[Function]}
+                            type="button"
+                            value="row-button"
+                          >
+                            <img
+                              alt="share-arrow"
+                              src="undefined/images/icons/icons-share.svg"
+                            />
+                          </button>
+                        </span>
                         <button
                           className="removable data-table-row-section focus-on-light"
                           id="remove-button-7543553"
@@ -3471,9 +3824,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
-                              "minWidth": "637px",
+                              "minWidth": "607px",
                               "textAlign": "left",
-                              "width": "637px",
+                              "width": "607px",
                             }
                           }
                         >
@@ -3610,6 +3963,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             withPortal={false}
                           />
                         </span>
+                        <span
+                          className="data-table-row-section undefined"
+                          style={
+                            Object {
+                              "minWidth": "30px",
+                              "textAlign": "left",
+                              "width": "30px",
+                            }
+                          }
+                        >
+                          <button
+                            className="share-activity-button focus-on-light"
+                            onClick={[Function]}
+                            type="button"
+                            value="row-button"
+                          >
+                            <img
+                              alt="share-arrow"
+                              src="undefined/images/icons/icons-share.svg"
+                            />
+                          </button>
+                        </span>
                         <button
                           className="removable data-table-row-section focus-on-light"
                           id="remove-button-7543554"
@@ -3636,9 +4011,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
-                              "minWidth": "637px",
+                              "minWidth": "607px",
                               "textAlign": "left",
-                              "width": "637px",
+                              "width": "607px",
                             }
                           }
                         >
@@ -3775,6 +4150,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             withPortal={false}
                           />
                         </span>
+                        <span
+                          className="data-table-row-section undefined"
+                          style={
+                            Object {
+                              "minWidth": "30px",
+                              "textAlign": "left",
+                              "width": "30px",
+                            }
+                          }
+                        >
+                          <button
+                            className="share-activity-button focus-on-light"
+                            onClick={[Function]}
+                            type="button"
+                            value="row-button"
+                          >
+                            <img
+                              alt="share-arrow"
+                              src="undefined/images/icons/icons-share.svg"
+                            />
+                          </button>
+                        </span>
                         <button
                           className="removable data-table-row-section focus-on-light"
                           id="remove-button-7543555"
@@ -3801,9 +4198,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
-                              "minWidth": "637px",
+                              "minWidth": "607px",
                               "textAlign": "left",
-                              "width": "637px",
+                              "width": "607px",
                             }
                           }
                         >
@@ -3940,6 +4337,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             withPortal={false}
                           />
                         </span>
+                        <span
+                          className="data-table-row-section undefined"
+                          style={
+                            Object {
+                              "minWidth": "30px",
+                              "textAlign": "left",
+                              "width": "30px",
+                            }
+                          }
+                        >
+                          <button
+                            className="share-activity-button focus-on-light"
+                            onClick={[Function]}
+                            type="button"
+                            value="row-button"
+                          >
+                            <img
+                              alt="share-arrow"
+                              src="undefined/images/icons/icons-share.svg"
+                            />
+                          </button>
+                        </span>
                         <button
                           className="removable data-table-row-section focus-on-light"
                           id="remove-button-7543556"
@@ -4003,9 +4422,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
-                                "minWidth": "637px",
+                                "minWidth": "607px",
                                 "textAlign": "left",
-                                "width": "637px",
+                                "width": "607px",
                               }
                             }
                           >
@@ -4142,6 +4561,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               withPortal={false}
                             />
                           </span>
+                          <span
+                            className="data-table-row-section undefined"
+                            style={
+                              Object {
+                                "minWidth": "30px",
+                                "textAlign": "left",
+                                "width": "30px",
+                              }
+                            }
+                          >
+                            <button
+                              className="share-activity-button focus-on-light"
+                              onClick={[Function]}
+                              type="button"
+                              value="row-button"
+                            >
+                              <img
+                                alt="share-arrow"
+                                src="undefined/images/icons/icons-share.svg"
+                              />
+                            </button>
+                          </span>
                           <button
                             className="removable data-table-row-section focus-on-light"
                             id="remove-button-7543552"
@@ -4168,9 +4609,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
-                                "minWidth": "637px",
+                                "minWidth": "607px",
                                 "textAlign": "left",
-                                "width": "637px",
+                                "width": "607px",
                               }
                             }
                           >
@@ -4307,6 +4748,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               withPortal={false}
                             />
                           </span>
+                          <span
+                            className="data-table-row-section undefined"
+                            style={
+                              Object {
+                                "minWidth": "30px",
+                                "textAlign": "left",
+                                "width": "30px",
+                              }
+                            }
+                          >
+                            <button
+                              className="share-activity-button focus-on-light"
+                              onClick={[Function]}
+                              type="button"
+                              value="row-button"
+                            >
+                              <img
+                                alt="share-arrow"
+                                src="undefined/images/icons/icons-share.svg"
+                              />
+                            </button>
+                          </span>
                           <button
                             className="removable data-table-row-section focus-on-light"
                             id="remove-button-7543553"
@@ -4333,9 +4796,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
-                                "minWidth": "637px",
+                                "minWidth": "607px",
                                 "textAlign": "left",
-                                "width": "637px",
+                                "width": "607px",
                               }
                             }
                           >
@@ -4472,6 +4935,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               withPortal={false}
                             />
                           </span>
+                          <span
+                            className="data-table-row-section undefined"
+                            style={
+                              Object {
+                                "minWidth": "30px",
+                                "textAlign": "left",
+                                "width": "30px",
+                              }
+                            }
+                          >
+                            <button
+                              className="share-activity-button focus-on-light"
+                              onClick={[Function]}
+                              type="button"
+                              value="row-button"
+                            >
+                              <img
+                                alt="share-arrow"
+                                src="undefined/images/icons/icons-share.svg"
+                              />
+                            </button>
+                          </span>
                           <button
                             className="removable data-table-row-section focus-on-light"
                             id="remove-button-7543554"
@@ -4498,9 +4983,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
-                                "minWidth": "637px",
+                                "minWidth": "607px",
                                 "textAlign": "left",
-                                "width": "637px",
+                                "width": "607px",
                               }
                             }
                           >
@@ -4637,6 +5122,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               withPortal={false}
                             />
                           </span>
+                          <span
+                            className="data-table-row-section undefined"
+                            style={
+                              Object {
+                                "minWidth": "30px",
+                                "textAlign": "left",
+                                "width": "30px",
+                              }
+                            }
+                          >
+                            <button
+                              className="share-activity-button focus-on-light"
+                              onClick={[Function]}
+                              type="button"
+                              value="row-button"
+                            >
+                              <img
+                                alt="share-arrow"
+                                src="undefined/images/icons/icons-share.svg"
+                              />
+                            </button>
+                          </span>
                           <button
                             className="removable data-table-row-section focus-on-light"
                             id="remove-button-7543555"
@@ -4663,9 +5170,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
-                                "minWidth": "637px",
+                                "minWidth": "607px",
                                 "textAlign": "left",
-                                "width": "637px",
+                                "width": "607px",
                               }
                             }
                           >
@@ -4802,6 +5309,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               withPortal={false}
                             />
                           </span>
+                          <span
+                            className="data-table-row-section undefined"
+                            style={
+                              Object {
+                                "minWidth": "30px",
+                                "textAlign": "left",
+                                "width": "30px",
+                              }
+                            }
+                          >
+                            <button
+                              className="share-activity-button focus-on-light"
+                              onClick={[Function]}
+                              type="button"
+                              value="row-button"
+                            >
+                              <img
+                                alt="share-arrow"
+                                src="undefined/images/icons/icons-share.svg"
+                              />
+                            </button>
+                          </span>
                           <button
                             className="removable data-table-row-section focus-on-light"
                             id="remove-button-7543556"
@@ -4839,9 +5368,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               className="data-table-row-section tool-and-name-section"
                               style={
                                 Object {
-                                  "minWidth": "637px",
+                                  "minWidth": "607px",
                                   "textAlign": "left",
-                                  "width": "637px",
+                                  "width": "607px",
                                 }
                               }
                             >
@@ -4978,6 +5507,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 withPortal={false}
                               />
                             </span>
+                            <span
+                              className="data-table-row-section undefined"
+                              style={
+                                Object {
+                                  "minWidth": "30px",
+                                  "textAlign": "left",
+                                  "width": "30px",
+                                }
+                              }
+                            >
+                              <button
+                                className="share-activity-button focus-on-light"
+                                onClick={[Function]}
+                                type="button"
+                                value="row-button"
+                              >
+                                <img
+                                  alt="share-arrow"
+                                  src="undefined/images/icons/icons-share.svg"
+                                />
+                              </button>
+                            </span>
                             <button
                               className="removable data-table-row-section focus-on-light"
                               id="remove-button-7543552"
@@ -5008,9 +5559,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 className="data-table-row-section tool-and-name-section"
                                 style={
                                   Object {
-                                    "minWidth": "637px",
+                                    "minWidth": "607px",
                                     "textAlign": "left",
-                                    "width": "637px",
+                                    "width": "607px",
                                   }
                                 }
                               >
@@ -5147,6 +5698,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   withPortal={false}
                                 />
                               </span>
+                              <span
+                                className="data-table-row-section undefined"
+                                style={
+                                  Object {
+                                    "minWidth": "30px",
+                                    "textAlign": "left",
+                                    "width": "30px",
+                                  }
+                                }
+                              >
+                                <button
+                                  className="share-activity-button focus-on-light"
+                                  onClick={[Function]}
+                                  type="button"
+                                  value="row-button"
+                                >
+                                  <img
+                                    alt="share-arrow"
+                                    src="undefined/images/icons/icons-share.svg"
+                                  />
+                                </button>
+                              </span>
                               <button
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543552"
@@ -5188,9 +5761,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               key="toolAndNameSection-7543552"
                               style={
                                 Object {
-                                  "minWidth": "637px",
+                                  "minWidth": "607px",
                                   "textAlign": "left",
-                                  "width": "637px",
+                                  "width": "607px",
                                 }
                               }
                             >
@@ -6530,6 +7103,29 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 </WithStyles>
                               </withStyles(SingleDatePicker)>
                             </span>
+                            <span
+                              className="data-table-row-section undefined"
+                              key="shareActivity-7543552"
+                              style={
+                                Object {
+                                  "minWidth": "30px",
+                                  "textAlign": "left",
+                                  "width": "30px",
+                                }
+                              }
+                            >
+                              <button
+                                className="share-activity-button focus-on-light"
+                                onClick={[Function]}
+                                type="button"
+                                value="row-button"
+                              >
+                                <img
+                                  alt="share-arrow"
+                                  src="undefined/images/icons/icons-share.svg"
+                                />
+                              </button>
+                            </span>
                             <button
                               className="removable data-table-row-section focus-on-light"
                               id="remove-button-7543552"
@@ -6563,9 +7159,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               className="data-table-row-section tool-and-name-section"
                               style={
                                 Object {
-                                  "minWidth": "637px",
+                                  "minWidth": "607px",
                                   "textAlign": "left",
-                                  "width": "637px",
+                                  "width": "607px",
                                 }
                               }
                             >
@@ -6702,6 +7298,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 withPortal={false}
                               />
                             </span>
+                            <span
+                              className="data-table-row-section undefined"
+                              style={
+                                Object {
+                                  "minWidth": "30px",
+                                  "textAlign": "left",
+                                  "width": "30px",
+                                }
+                              }
+                            >
+                              <button
+                                className="share-activity-button focus-on-light"
+                                onClick={[Function]}
+                                type="button"
+                                value="row-button"
+                              >
+                                <img
+                                  alt="share-arrow"
+                                  src="undefined/images/icons/icons-share.svg"
+                                />
+                              </button>
+                            </span>
                             <button
                               className="removable data-table-row-section focus-on-light"
                               id="remove-button-7543553"
@@ -6732,9 +7350,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 className="data-table-row-section tool-and-name-section"
                                 style={
                                   Object {
-                                    "minWidth": "637px",
+                                    "minWidth": "607px",
                                     "textAlign": "left",
-                                    "width": "637px",
+                                    "width": "607px",
                                   }
                                 }
                               >
@@ -6871,6 +7489,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   withPortal={false}
                                 />
                               </span>
+                              <span
+                                className="data-table-row-section undefined"
+                                style={
+                                  Object {
+                                    "minWidth": "30px",
+                                    "textAlign": "left",
+                                    "width": "30px",
+                                  }
+                                }
+                              >
+                                <button
+                                  className="share-activity-button focus-on-light"
+                                  onClick={[Function]}
+                                  type="button"
+                                  value="row-button"
+                                >
+                                  <img
+                                    alt="share-arrow"
+                                    src="undefined/images/icons/icons-share.svg"
+                                  />
+                                </button>
+                              </span>
                               <button
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543553"
@@ -6912,9 +7552,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               key="toolAndNameSection-7543553"
                               style={
                                 Object {
-                                  "minWidth": "637px",
+                                  "minWidth": "607px",
                                   "textAlign": "left",
-                                  "width": "637px",
+                                  "width": "607px",
                                 }
                               }
                             >
@@ -8254,6 +8894,29 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 </WithStyles>
                               </withStyles(SingleDatePicker)>
                             </span>
+                            <span
+                              className="data-table-row-section undefined"
+                              key="shareActivity-7543553"
+                              style={
+                                Object {
+                                  "minWidth": "30px",
+                                  "textAlign": "left",
+                                  "width": "30px",
+                                }
+                              }
+                            >
+                              <button
+                                className="share-activity-button focus-on-light"
+                                onClick={[Function]}
+                                type="button"
+                                value="row-button"
+                              >
+                                <img
+                                  alt="share-arrow"
+                                  src="undefined/images/icons/icons-share.svg"
+                                />
+                              </button>
+                            </span>
                             <button
                               className="removable data-table-row-section focus-on-light"
                               id="remove-button-7543553"
@@ -8287,9 +8950,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               className="data-table-row-section tool-and-name-section"
                               style={
                                 Object {
-                                  "minWidth": "637px",
+                                  "minWidth": "607px",
                                   "textAlign": "left",
-                                  "width": "637px",
+                                  "width": "607px",
                                 }
                               }
                             >
@@ -8426,6 +9089,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 withPortal={false}
                               />
                             </span>
+                            <span
+                              className="data-table-row-section undefined"
+                              style={
+                                Object {
+                                  "minWidth": "30px",
+                                  "textAlign": "left",
+                                  "width": "30px",
+                                }
+                              }
+                            >
+                              <button
+                                className="share-activity-button focus-on-light"
+                                onClick={[Function]}
+                                type="button"
+                                value="row-button"
+                              >
+                                <img
+                                  alt="share-arrow"
+                                  src="undefined/images/icons/icons-share.svg"
+                                />
+                              </button>
+                            </span>
                             <button
                               className="removable data-table-row-section focus-on-light"
                               id="remove-button-7543554"
@@ -8456,9 +9141,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 className="data-table-row-section tool-and-name-section"
                                 style={
                                   Object {
-                                    "minWidth": "637px",
+                                    "minWidth": "607px",
                                     "textAlign": "left",
-                                    "width": "637px",
+                                    "width": "607px",
                                   }
                                 }
                               >
@@ -8595,6 +9280,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   withPortal={false}
                                 />
                               </span>
+                              <span
+                                className="data-table-row-section undefined"
+                                style={
+                                  Object {
+                                    "minWidth": "30px",
+                                    "textAlign": "left",
+                                    "width": "30px",
+                                  }
+                                }
+                              >
+                                <button
+                                  className="share-activity-button focus-on-light"
+                                  onClick={[Function]}
+                                  type="button"
+                                  value="row-button"
+                                >
+                                  <img
+                                    alt="share-arrow"
+                                    src="undefined/images/icons/icons-share.svg"
+                                  />
+                                </button>
+                              </span>
                               <button
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543554"
@@ -8636,9 +9343,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               key="toolAndNameSection-7543554"
                               style={
                                 Object {
-                                  "minWidth": "637px",
+                                  "minWidth": "607px",
                                   "textAlign": "left",
-                                  "width": "637px",
+                                  "width": "607px",
                                 }
                               }
                             >
@@ -9978,6 +10685,29 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 </WithStyles>
                               </withStyles(SingleDatePicker)>
                             </span>
+                            <span
+                              className="data-table-row-section undefined"
+                              key="shareActivity-7543554"
+                              style={
+                                Object {
+                                  "minWidth": "30px",
+                                  "textAlign": "left",
+                                  "width": "30px",
+                                }
+                              }
+                            >
+                              <button
+                                className="share-activity-button focus-on-light"
+                                onClick={[Function]}
+                                type="button"
+                                value="row-button"
+                              >
+                                <img
+                                  alt="share-arrow"
+                                  src="undefined/images/icons/icons-share.svg"
+                                />
+                              </button>
+                            </span>
                             <button
                               className="removable data-table-row-section focus-on-light"
                               id="remove-button-7543554"
@@ -10011,9 +10741,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               className="data-table-row-section tool-and-name-section"
                               style={
                                 Object {
-                                  "minWidth": "637px",
+                                  "minWidth": "607px",
                                   "textAlign": "left",
-                                  "width": "637px",
+                                  "width": "607px",
                                 }
                               }
                             >
@@ -10150,6 +10880,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 withPortal={false}
                               />
                             </span>
+                            <span
+                              className="data-table-row-section undefined"
+                              style={
+                                Object {
+                                  "minWidth": "30px",
+                                  "textAlign": "left",
+                                  "width": "30px",
+                                }
+                              }
+                            >
+                              <button
+                                className="share-activity-button focus-on-light"
+                                onClick={[Function]}
+                                type="button"
+                                value="row-button"
+                              >
+                                <img
+                                  alt="share-arrow"
+                                  src="undefined/images/icons/icons-share.svg"
+                                />
+                              </button>
+                            </span>
                             <button
                               className="removable data-table-row-section focus-on-light"
                               id="remove-button-7543555"
@@ -10180,9 +10932,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 className="data-table-row-section tool-and-name-section"
                                 style={
                                   Object {
-                                    "minWidth": "637px",
+                                    "minWidth": "607px",
                                     "textAlign": "left",
-                                    "width": "637px",
+                                    "width": "607px",
                                   }
                                 }
                               >
@@ -10319,6 +11071,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   withPortal={false}
                                 />
                               </span>
+                              <span
+                                className="data-table-row-section undefined"
+                                style={
+                                  Object {
+                                    "minWidth": "30px",
+                                    "textAlign": "left",
+                                    "width": "30px",
+                                  }
+                                }
+                              >
+                                <button
+                                  className="share-activity-button focus-on-light"
+                                  onClick={[Function]}
+                                  type="button"
+                                  value="row-button"
+                                >
+                                  <img
+                                    alt="share-arrow"
+                                    src="undefined/images/icons/icons-share.svg"
+                                  />
+                                </button>
+                              </span>
                               <button
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543555"
@@ -10360,9 +11134,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               key="toolAndNameSection-7543555"
                               style={
                                 Object {
-                                  "minWidth": "637px",
+                                  "minWidth": "607px",
                                   "textAlign": "left",
-                                  "width": "637px",
+                                  "width": "607px",
                                 }
                               }
                             >
@@ -11702,6 +12476,29 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 </WithStyles>
                               </withStyles(SingleDatePicker)>
                             </span>
+                            <span
+                              className="data-table-row-section undefined"
+                              key="shareActivity-7543555"
+                              style={
+                                Object {
+                                  "minWidth": "30px",
+                                  "textAlign": "left",
+                                  "width": "30px",
+                                }
+                              }
+                            >
+                              <button
+                                className="share-activity-button focus-on-light"
+                                onClick={[Function]}
+                                type="button"
+                                value="row-button"
+                              >
+                                <img
+                                  alt="share-arrow"
+                                  src="undefined/images/icons/icons-share.svg"
+                                />
+                              </button>
+                            </span>
                             <button
                               className="removable data-table-row-section focus-on-light"
                               id="remove-button-7543555"
@@ -11735,9 +12532,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               className="data-table-row-section tool-and-name-section"
                               style={
                                 Object {
-                                  "minWidth": "637px",
+                                  "minWidth": "607px",
                                   "textAlign": "left",
-                                  "width": "637px",
+                                  "width": "607px",
                                 }
                               }
                             >
@@ -11874,6 +12671,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 withPortal={false}
                               />
                             </span>
+                            <span
+                              className="data-table-row-section undefined"
+                              style={
+                                Object {
+                                  "minWidth": "30px",
+                                  "textAlign": "left",
+                                  "width": "30px",
+                                }
+                              }
+                            >
+                              <button
+                                className="share-activity-button focus-on-light"
+                                onClick={[Function]}
+                                type="button"
+                                value="row-button"
+                              >
+                                <img
+                                  alt="share-arrow"
+                                  src="undefined/images/icons/icons-share.svg"
+                                />
+                              </button>
+                            </span>
                             <button
                               className="removable data-table-row-section focus-on-light"
                               id="remove-button-7543556"
@@ -11904,9 +12723,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 className="data-table-row-section tool-and-name-section"
                                 style={
                                   Object {
-                                    "minWidth": "637px",
+                                    "minWidth": "607px",
                                     "textAlign": "left",
-                                    "width": "637px",
+                                    "width": "607px",
                                   }
                                 }
                               >
@@ -12043,6 +12862,28 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   withPortal={false}
                                 />
                               </span>
+                              <span
+                                className="data-table-row-section undefined"
+                                style={
+                                  Object {
+                                    "minWidth": "30px",
+                                    "textAlign": "left",
+                                    "width": "30px",
+                                  }
+                                }
+                              >
+                                <button
+                                  className="share-activity-button focus-on-light"
+                                  onClick={[Function]}
+                                  type="button"
+                                  value="row-button"
+                                >
+                                  <img
+                                    alt="share-arrow"
+                                    src="undefined/images/icons/icons-share.svg"
+                                  />
+                                </button>
+                              </span>
                               <button
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543556"
@@ -12084,9 +12925,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               key="toolAndNameSection-7543556"
                               style={
                                 Object {
-                                  "minWidth": "637px",
+                                  "minWidth": "607px",
                                   "textAlign": "left",
-                                  "width": "637px",
+                                  "width": "607px",
                                 }
                               }
                             >
@@ -13426,6 +14267,29 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 </WithStyles>
                               </withStyles(SingleDatePicker)>
                             </span>
+                            <span
+                              className="data-table-row-section undefined"
+                              key="shareActivity-7543556"
+                              style={
+                                Object {
+                                  "minWidth": "30px",
+                                  "textAlign": "left",
+                                  "width": "30px",
+                                }
+                              }
+                            >
+                              <button
+                                className="share-activity-button focus-on-light"
+                                onClick={[Function]}
+                                type="button"
+                                value="row-button"
+                              >
+                                <img
+                                  alt="share-arrow"
+                                  src="undefined/images/icons/icons-share.svg"
+                                />
+                              </button>
+                            </span>
                             <button
                               className="removable data-table-row-section focus-on-light"
                               id="remove-button-7543556"
@@ -13477,6 +14341,17 @@ exports[`ActivityPack component renders if the current user did not create the u
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
           "removable": true,
+          "shareActivity": <button
+            className="share-activity-button focus-on-light"
+            onClick={[Function]}
+            type="button"
+            value="row-button"
+          >
+            <img
+              alt="share-arrow"
+              src="undefined/images/icons/icons-share.svg"
+            />
+          </button>,
           "toolAndNameSection": <a
             className="interactive-wrapper focus-on-light"
             href="/activity_sessions/anonymous?activity_id=41"
@@ -13512,6 +14387,17 @@ exports[`ActivityPack component renders if the current user did not create the u
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
           "removable": true,
+          "shareActivity": <button
+            className="share-activity-button focus-on-light"
+            onClick={[Function]}
+            type="button"
+            value="row-button"
+          >
+            <img
+              alt="share-arrow"
+              src="undefined/images/icons/icons-share.svg"
+            />
+          </button>,
           "toolAndNameSection": <a
             className="interactive-wrapper focus-on-light"
             href="/activity_sessions/anonymous?activity_id=215"
@@ -13547,6 +14433,17 @@ exports[`ActivityPack component renders if the current user did not create the u
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
           "removable": true,
+          "shareActivity": <button
+            className="share-activity-button focus-on-light"
+            onClick={[Function]}
+            type="button"
+            value="row-button"
+          >
+            <img
+              alt="share-arrow"
+              src="undefined/images/icons/icons-share.svg"
+            />
+          </button>,
           "toolAndNameSection": <a
             className="interactive-wrapper focus-on-light"
             href="/activity_sessions/anonymous?activity_id=289"
@@ -13582,6 +14479,17 @@ exports[`ActivityPack component renders if the current user did not create the u
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
           "removable": true,
+          "shareActivity": <button
+            className="share-activity-button focus-on-light"
+            onClick={[Function]}
+            type="button"
+            value="row-button"
+          >
+            <img
+              alt="share-arrow"
+              src="undefined/images/icons/icons-share.svg"
+            />
+          </button>,
           "toolAndNameSection": <a
             className="interactive-wrapper focus-on-light"
             href="/activity_sessions/anonymous?activity_id=295"
@@ -13617,6 +14525,17 @@ exports[`ActivityPack component renders if the current user did not create the u
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
           "removable": true,
+          "shareActivity": <button
+            className="share-activity-button focus-on-light"
+            onClick={[Function]}
+            type="button"
+            value="row-button"
+          >
+            <img
+              alt="share-arrow"
+              src="undefined/images/icons/icons-share.svg"
+            />
+          </button>,
           "toolAndNameSection": <a
             className="interactive-wrapper focus-on-light"
             href="/activity_sessions/anonymous?activity_id=386"
@@ -13652,6 +14571,17 @@ exports[`ActivityPack component renders if the current user did not create the u
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
           "removable": true,
+          "shareActivity": <button
+            className="share-activity-button focus-on-light"
+            onClick={[Function]}
+            type="button"
+            value="row-button"
+          >
+            <img
+              alt="share-arrow"
+              src="undefined/images/icons/icons-share.svg"
+            />
+          </button>,
           "toolAndNameSection": <a
             className="interactive-wrapper focus-on-light"
             href="/activity_sessions/anonymous?activity_id=418"
@@ -13687,6 +14617,17 @@ exports[`ActivityPack component renders if the current user did not create the u
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
           "removable": true,
+          "shareActivity": <button
+            className="share-activity-button focus-on-light"
+            onClick={[Function]}
+            type="button"
+            value="row-button"
+          >
+            <img
+              alt="share-arrow"
+              src="undefined/images/icons/icons-share.svg"
+            />
+          </button>,
           "toolAndNameSection": <a
             className="interactive-wrapper focus-on-light"
             href="/activity_sessions/anonymous?activity_id=434"
@@ -13722,6 +14663,17 @@ exports[`ActivityPack component renders if the current user did not create the u
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
           "removable": true,
+          "shareActivity": <button
+            className="share-activity-button focus-on-light"
+            onClick={[Function]}
+            type="button"
+            value="row-button"
+          >
+            <img
+              alt="share-arrow"
+              src="undefined/images/icons/icons-share.svg"
+            />
+          </button>,
           "toolAndNameSection": <a
             className="interactive-wrapper focus-on-light"
             href="/activity_sessions/anonymous?activity_id=437"
@@ -13757,6 +14709,17 @@ exports[`ActivityPack component renders if the current user did not create the u
           "ownedByCurrentUser": false,
           "ownerName": "Demo Teacher",
           "removable": true,
+          "shareActivity": <button
+            className="share-activity-button focus-on-light"
+            onClick={[Function]}
+            type="button"
+            value="row-button"
+          >
+            <img
+              alt="share-arrow"
+              src="undefined/images/icons/icons-share.svg"
+            />
+          </button>,
           "toolAndNameSection": <a
             className="interactive-wrapper focus-on-light"
             href="/activity_sessions/anonymous?activity_id=849"
@@ -13881,6 +14844,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=41"
@@ -13916,6 +14890,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=215"
@@ -13951,6 +14936,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=289"
@@ -13986,6 +14982,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=295"
@@ -14021,6 +15028,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=386"
@@ -14056,6 +15074,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=418"
@@ -14091,6 +15120,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=434"
@@ -14126,6 +15166,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=437"
@@ -14161,6 +15212,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=849"
@@ -14196,6 +15258,8 @@ exports[`ActivityPack component renders if the current user did not create the u
           "unitName": "Quill Activity Pack",
         }
       }
+      handleActivityClicked={[Function]}
+      handleToggleModal={[Function]}
       isOwner={false}
       onSuccess={[Function]}
     >
@@ -14216,7 +15280,7 @@ exports[`ActivityPack component renders if the current user did not create the u
                 </span>
               </span>,
               "rowSectionClassName": "tool-and-name-section",
-              "width": "754px",
+              "width": "724px",
             },
             Object {
               "attribute": "dueDatePicker",
@@ -14231,6 +15295,12 @@ exports[`ActivityPack component renders if the current user did not create the u
               </span>,
               "rowSectionClassName": "due-date-picker no-right-margin",
               "width": "110px",
+            },
+            Object {
+              "attribute": "shareActivity",
+              "name": "",
+              "noTooltip": true,
+              "width": "30px",
             },
           ]
         }
@@ -14252,6 +15322,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=41"
@@ -14287,6 +15368,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=215"
@@ -14322,6 +15414,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=289"
@@ -14357,6 +15460,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=295"
@@ -14392,6 +15506,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=386"
@@ -14427,6 +15552,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=418"
@@ -14462,6 +15598,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=434"
@@ -14497,6 +15644,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=437"
@@ -14532,6 +15690,17 @@ exports[`ActivityPack component renders if the current user did not create the u
               "ownedByCurrentUser": false,
               "ownerName": "Demo Teacher",
               "removable": true,
+              "shareActivity": <button
+                className="share-activity-button focus-on-light"
+                onClick={[Function]}
+                type="button"
+                value="row-button"
+              >
+                <img
+                  alt="share-arrow"
+                  src="undefined/images/icons/icons-share.svg"
+                />
+              </button>,
               "toolAndNameSection": <a
                 className="interactive-wrapper focus-on-light"
                 href="/activity_sessions/anonymous?activity_id=849"
@@ -14568,9 +15737,9 @@ exports[`ActivityPack component renders if the current user did not create the u
               className="data-table-header undefined"
               style={
                 Object {
-                  "minWidth": "754px",
+                  "minWidth": "724px",
                   "textAlign": "left",
-                  "width": "754px",
+                  "width": "724px",
                 }
               }
               tabIndex={-1}
@@ -14608,6 +15777,18 @@ exports[`ActivityPack component renders if the current user did not create the u
                 </span>
               </span>
             </button>
+            <button
+              className="data-table-header undefined"
+              style={
+                Object {
+                  "minWidth": "30px",
+                  "textAlign": "left",
+                  "width": "30px",
+                }
+              }
+              tabIndex={-1}
+              type="button"
+            />
           </div>
           <div
             className="data-table-body"
@@ -14621,9 +15802,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543506"
                 style={
                   Object {
-                    "minWidth": "754px",
+                    "minWidth": "724px",
                     "textAlign": "left",
-                    "width": "754px",
+                    "width": "724px",
                   }
                 }
               >
@@ -14662,6 +15843,29 @@ exports[`ActivityPack component renders if the current user did not create the u
                 No due date
               </span>
               <span
+                className="data-table-row-section undefined"
+                key="shareActivity-7543506"
+                style={
+                  Object {
+                    "minWidth": "30px",
+                    "textAlign": "left",
+                    "width": "30px",
+                  }
+                }
+              >
+                <button
+                  className="share-activity-button focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                  value="row-button"
+                >
+                  <img
+                    alt="share-arrow"
+                    src="undefined/images/icons/icons-share.svg"
+                  />
+                </button>
+              </span>
+              <span
                 className="removable data-table-row-section"
               />
             </div>
@@ -14674,9 +15878,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543505"
                 style={
                   Object {
-                    "minWidth": "754px",
+                    "minWidth": "724px",
                     "textAlign": "left",
-                    "width": "754px",
+                    "width": "724px",
                   }
                 }
               >
@@ -14715,6 +15919,29 @@ exports[`ActivityPack component renders if the current user did not create the u
                 No due date
               </span>
               <span
+                className="data-table-row-section undefined"
+                key="shareActivity-7543505"
+                style={
+                  Object {
+                    "minWidth": "30px",
+                    "textAlign": "left",
+                    "width": "30px",
+                  }
+                }
+              >
+                <button
+                  className="share-activity-button focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                  value="row-button"
+                >
+                  <img
+                    alt="share-arrow"
+                    src="undefined/images/icons/icons-share.svg"
+                  />
+                </button>
+              </span>
+              <span
                 className="removable data-table-row-section"
               />
             </div>
@@ -14727,9 +15954,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543508"
                 style={
                   Object {
-                    "minWidth": "754px",
+                    "minWidth": "724px",
                     "textAlign": "left",
-                    "width": "754px",
+                    "width": "724px",
                   }
                 }
               >
@@ -14768,6 +15995,29 @@ exports[`ActivityPack component renders if the current user did not create the u
                 No due date
               </span>
               <span
+                className="data-table-row-section undefined"
+                key="shareActivity-7543508"
+                style={
+                  Object {
+                    "minWidth": "30px",
+                    "textAlign": "left",
+                    "width": "30px",
+                  }
+                }
+              >
+                <button
+                  className="share-activity-button focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                  value="row-button"
+                >
+                  <img
+                    alt="share-arrow"
+                    src="undefined/images/icons/icons-share.svg"
+                  />
+                </button>
+              </span>
+              <span
                 className="removable data-table-row-section"
               />
             </div>
@@ -14780,9 +16030,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543509"
                 style={
                   Object {
-                    "minWidth": "754px",
+                    "minWidth": "724px",
                     "textAlign": "left",
-                    "width": "754px",
+                    "width": "724px",
                   }
                 }
               >
@@ -14821,6 +16071,29 @@ exports[`ActivityPack component renders if the current user did not create the u
                 No due date
               </span>
               <span
+                className="data-table-row-section undefined"
+                key="shareActivity-7543509"
+                style={
+                  Object {
+                    "minWidth": "30px",
+                    "textAlign": "left",
+                    "width": "30px",
+                  }
+                }
+              >
+                <button
+                  className="share-activity-button focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                  value="row-button"
+                >
+                  <img
+                    alt="share-arrow"
+                    src="undefined/images/icons/icons-share.svg"
+                  />
+                </button>
+              </span>
+              <span
                 className="removable data-table-row-section"
               />
             </div>
@@ -14833,9 +16106,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543507"
                 style={
                   Object {
-                    "minWidth": "754px",
+                    "minWidth": "724px",
                     "textAlign": "left",
-                    "width": "754px",
+                    "width": "724px",
                   }
                 }
               >
@@ -14874,6 +16147,29 @@ exports[`ActivityPack component renders if the current user did not create the u
                 No due date
               </span>
               <span
+                className="data-table-row-section undefined"
+                key="shareActivity-7543507"
+                style={
+                  Object {
+                    "minWidth": "30px",
+                    "textAlign": "left",
+                    "width": "30px",
+                  }
+                }
+              >
+                <button
+                  className="share-activity-button focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                  value="row-button"
+                >
+                  <img
+                    alt="share-arrow"
+                    src="undefined/images/icons/icons-share.svg"
+                  />
+                </button>
+              </span>
+              <span
                 className="removable data-table-row-section"
               />
             </div>
@@ -14886,9 +16182,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543510"
                 style={
                   Object {
-                    "minWidth": "754px",
+                    "minWidth": "724px",
                     "textAlign": "left",
-                    "width": "754px",
+                    "width": "724px",
                   }
                 }
               >
@@ -14927,6 +16223,29 @@ exports[`ActivityPack component renders if the current user did not create the u
                 No due date
               </span>
               <span
+                className="data-table-row-section undefined"
+                key="shareActivity-7543510"
+                style={
+                  Object {
+                    "minWidth": "30px",
+                    "textAlign": "left",
+                    "width": "30px",
+                  }
+                }
+              >
+                <button
+                  className="share-activity-button focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                  value="row-button"
+                >
+                  <img
+                    alt="share-arrow"
+                    src="undefined/images/icons/icons-share.svg"
+                  />
+                </button>
+              </span>
+              <span
                 className="removable data-table-row-section"
               />
             </div>
@@ -14939,9 +16258,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543504"
                 style={
                   Object {
-                    "minWidth": "754px",
+                    "minWidth": "724px",
                     "textAlign": "left",
-                    "width": "754px",
+                    "width": "724px",
                   }
                 }
               >
@@ -14980,6 +16299,29 @@ exports[`ActivityPack component renders if the current user did not create the u
                 No due date
               </span>
               <span
+                className="data-table-row-section undefined"
+                key="shareActivity-7543504"
+                style={
+                  Object {
+                    "minWidth": "30px",
+                    "textAlign": "left",
+                    "width": "30px",
+                  }
+                }
+              >
+                <button
+                  className="share-activity-button focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                  value="row-button"
+                >
+                  <img
+                    alt="share-arrow"
+                    src="undefined/images/icons/icons-share.svg"
+                  />
+                </button>
+              </span>
+              <span
                 className="removable data-table-row-section"
               />
             </div>
@@ -14992,9 +16334,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543503"
                 style={
                   Object {
-                    "minWidth": "754px",
+                    "minWidth": "724px",
                     "textAlign": "left",
-                    "width": "754px",
+                    "width": "724px",
                   }
                 }
               >
@@ -15033,6 +16375,29 @@ exports[`ActivityPack component renders if the current user did not create the u
                 No due date
               </span>
               <span
+                className="data-table-row-section undefined"
+                key="shareActivity-7543503"
+                style={
+                  Object {
+                    "minWidth": "30px",
+                    "textAlign": "left",
+                    "width": "30px",
+                  }
+                }
+              >
+                <button
+                  className="share-activity-button focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                  value="row-button"
+                >
+                  <img
+                    alt="share-arrow"
+                    src="undefined/images/icons/icons-share.svg"
+                  />
+                </button>
+              </span>
+              <span
                 className="removable data-table-row-section"
               />
             </div>
@@ -15045,9 +16410,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543502"
                 style={
                   Object {
-                    "minWidth": "754px",
+                    "minWidth": "724px",
                     "textAlign": "left",
-                    "width": "754px",
+                    "width": "724px",
                   }
                 }
               >
@@ -15084,6 +16449,29 @@ exports[`ActivityPack component renders if the current user did not create the u
                 }
               >
                 Invalid date
+              </span>
+              <span
+                className="data-table-row-section undefined"
+                key="shareActivity-7543502"
+                style={
+                  Object {
+                    "minWidth": "30px",
+                    "textAlign": "left",
+                    "width": "30px",
+                  }
+                }
+              >
+                <button
+                  className="share-activity-button focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                  value="row-button"
+                >
+                  <img
+                    alt="share-arrow"
+                    src="undefined/images/icons/icons-share.svg"
+                  />
+                </button>
               </span>
               <span
                 className="removable data-table-row-section"

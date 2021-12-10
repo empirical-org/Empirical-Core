@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::SubscriptionsController < Cms::CmsController
   before_action :set_subscription, except: [:index, :create]
   before_action :subscription_data, only: [:edit]

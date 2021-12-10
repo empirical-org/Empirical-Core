@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Intended to be subclassed.
 # RedisFeed allows an limited array of ids to be stored in redis
 # And those ids to be retrieved and converted to objects via a hydrate method

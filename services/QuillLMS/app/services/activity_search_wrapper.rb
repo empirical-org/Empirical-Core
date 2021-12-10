@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ActivitySearchWrapper
   RESULTS_PER_PAGE = 12
 

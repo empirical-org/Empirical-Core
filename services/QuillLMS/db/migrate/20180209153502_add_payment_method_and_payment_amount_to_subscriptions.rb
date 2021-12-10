@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddPaymentMethodAndPaymentAmountToSubscriptions < ActiveRecord::Migration[4.2]
   def change
     add_column :subscriptions, :payment_method, :string, index: true

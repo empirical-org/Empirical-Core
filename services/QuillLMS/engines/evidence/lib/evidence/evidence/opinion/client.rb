@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Evidence
   module Opinion 
     class Client
       API_TIMEOUT = 500
       ALLOWED_PAYLOAD_KEYS = ['oapi_error', 'highlight']
 
-      class OAPIError < StandardError; end
+      class OpinionAPIError < StandardError; end
 
       def initialize(entry:, prompt_text:)
         @entry = entry
@@ -22,7 +24,7 @@ module Evidence
             }.to_json
           )
           if !response.success? 
-            raise OAPIError, "Encountered upstream error: #{response}"
+            raise OpinionAPIError, "Encountered upstream error: #{response}"
           end
           response.filter { |k,v| ALLOWED_PAYLOAD_KEYS.include?(k) }
         end

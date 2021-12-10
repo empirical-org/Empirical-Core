@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration::SignUp::Teacher
 
   def self.run(auth_hash)
@@ -19,7 +21,9 @@ module CleverIntegration::SignUp::Teacher
 
   def self.district_integration(auth_hash, district)
     teacher = create_teacher(auth_hash)
+
     if teacher.present?
+      CleverIntegration::AuthCredentialSaver.run(teacher, district.token, ::AuthCredential::CLEVER_DISTRICT_PROVIDER)
       associate_teacher_to_district(teacher, district)
       school = import_school(teacher, district.token)
       classrooms = import_classrooms(teacher, district.token)

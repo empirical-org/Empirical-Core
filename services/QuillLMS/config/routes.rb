@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sidekiq/web'
 require 'staff_constraint'
 
@@ -104,8 +106,13 @@ EmpiricalGrammar::Application.routes.draw do
     get :play, on: :member
     put :play, on: :member
   end
+
+
   # 3rd party apps depend on the below, do not change :
-  get 'activity_sessions/classroom_units/:classroom_unit_id/activities/:activity_id' => 'activity_sessions#activity_session_from_classroom_unit_and_activity'
+  get 'activity_sessions/classroom_units/:classroom_unit_id/activities/:activity_id' => 'activity_sessions#activity_session_from_classroom_unit_and_activity',
+    as: :activity_session_from_classroom_unit_and_activity
+
+  get 'classroom_units/:classroom_unit_id/activities/:id' => 'activities#activity_session'
   get 'activity_sessions/:uid' => 'activity_sessions#result'
 
   get 'students_classrooms_json' => 'profiles#students_classrooms_json'
@@ -122,6 +129,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :complete_view_lesson_tutorial, on: :collection
     post :complete_acknowledge_lessons_banner, on: :collection
     post :complete_acknowledge_diagnostic_banner, on: :collection
+    post :complete_acknowledge_growth_diagnostic_promotion_card, on: :collection
   end
 
   resources :grades, only: [:index]
@@ -240,11 +248,17 @@ EmpiricalGrammar::Application.routes.draw do
       get 'diagnostic_reports' => 'diagnostic_reports#show'
       get 'diagnostic_status' => 'diagnostic_reports#diagnostic_status'
       get 'diagnostic_report' => 'diagnostic_reports#default_diagnostic_report'
-      get 'question_view/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#question_view'
+      get 'diagnostic_results_summary' => 'diagnostic_reports#diagnostic_results_summary'
+      get 'diagnostic_growth_results_summary' => 'diagnostic_reports#diagnostic_growth_results_summary'
+      get 'diagnostic_student_responses_index' => 'diagnostic_reports#diagnostic_student_responses_index'
+      get 'individual_student_diagnostic_responses/:student_id' => 'diagnostic_reports#individual_student_diagnostic_responses'
+      get 'question_view/classroom/:classroom_id/activity/:activity_id/unit/:unit_id' => 'diagnostic_reports#question_view'
+      get 'question_view/classroom/:classroom_id/activity/:activity_id' => 'diagnostic_reports#question_view'
       get 'classrooms_with_students/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#classrooms_with_students'
       get 'students_by_classroom/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#students_by_classroom'
-      get 'recommendations_for_classroom/:unit_id/:classroom_id/activity/:activity_id' => 'diagnostic_reports#recommendations_for_classroom'
-      get 'lesson_recommendations_for_classroom/u/:unit_id/c/:classroom_id/a/:activity_id' => 'diagnostic_reports#lesson_recommendations_for_classroom'
+      get 'recommendations_for_classroom/:classroom_id/activity/:activity_id' => 'diagnostic_reports#recommendations_for_classroom'
+      get 'lesson_recommendations_for_classroom/:classroom_id/activity/:activity_id' => 'diagnostic_reports#lesson_recommendations_for_classroom'
+      get 'skills_growth/:classroom_id/post_test_activity_id/:post_test_activity_id/pre_test_activity_id/:pre_test_activity_id' => 'diagnostic_reports#skills_growth'
       get 'diagnostic_activity_ids' => 'diagnostic_reports#diagnostic_activity_ids'
       get 'activity_with_recommendations_ids' => 'diagnostic_reports#activity_with_recommendations_ids'
       get 'previously_assigned_recommendations/:classroom_id/activity/:activity_id' => 'diagnostic_reports#previously_assigned_recommendations'
@@ -292,6 +306,7 @@ EmpiricalGrammar::Application.routes.draw do
         get :dashboard, controller: 'classroom_manager', action: 'dashboard'
         get :retrieve_classrooms_for_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_for_assigning_activities'
         get :retrieve_classrooms_i_teach_for_custom_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_i_teach_for_custom_assigning_activities'
+        get 'classrooms_and_classroom_units_for_activity_share/:unit_id' => 'classroom_manager#classrooms_and_classroom_units_for_activity_share'
         get :invite_students, controller: 'classroom_manager', action: 'invite_students'
         get :google_sync, controller: 'classroom_manager', action: 'google_sync'
         get :retrieve_google_classrooms, controller: 'classroom_manager', action: 'retrieve_google_classrooms'
@@ -666,6 +681,8 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix/merge_two_classrooms' => 'teacher_fix#index'
   get 'teacher_fix/merge_activity_packs' => 'teacher_fix#index'
   get 'teacher_fix/delete_last_activity_session' => 'teacher_fix#index'
+  get 'teacher_fix/remove_unsynced_students' => 'teacher_fix#index'
+  get 'teacher_fix/list_unsynced_students_by_classroom'
   get 'teacher_fix/archived_units' => 'teacher_fix#archived_units'
   post 'teacher_fix/recover_classroom_units' => 'teacher_fix#recover_classroom_units'
   post 'teacher_fix/recover_unit_activities' => 'teacher_fix#recover_unit_activities'
@@ -679,6 +696,7 @@ EmpiricalGrammar::Application.routes.draw do
   post 'teacher_fix/merge_two_classrooms' => 'teacher_fix#merge_two_classrooms'
   post 'teacher_fix/merge_activity_packs' => 'teacher_fix#merge_activity_packs'
   post 'teacher_fix/delete_last_activity_session' => 'teacher_fix#delete_last_activity_session'
+  post 'teacher_fix/remove_unsynced_students' => 'teacher_fix#remove_unsynced_students'
 
   get 'activities/section/:section_id', to: redirect('activities/standard_level/%{section_id}')
   get 'activities/standard_level/:standard_level_id' => 'pages#activities', as: "activities_section"
