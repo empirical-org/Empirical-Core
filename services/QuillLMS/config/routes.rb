@@ -226,6 +226,8 @@ EmpiricalGrammar::Application.routes.draw do
     get 'activity_feed', to: 'classroom_manager#activity_feed'
     get 'unset_preview_as_student', to: 'classroom_manager#unset_preview_as_student'
     get 'preview_as_student/:student_id', to: 'classroom_manager#preview_as_student'
+    get 'view_demo', to: 'classroom_manager#view_demo'
+    get 'unset_view_demo', to: 'classroom_manager#unset_view_demo'
     get 'getting_started' => 'classroom_manager#getting_started'
     get 'add_students' => 'classroom_manager#generic_add_students'
     get 'teacher_guide' => 'classroom_manager#teacher_guide'
@@ -764,6 +766,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   get 'demo' => 'teachers/progress_reports#demo'
+  get 'quill_staff_demo' => 'teachers/progress_reports#staff_demo'
   get 'coach_demo' => 'teachers/progress_reports#coach_demo'
   get 'student_demo' => 'students#student_demo'
   get 'student_demo_ap' => 'students#demo_ap'

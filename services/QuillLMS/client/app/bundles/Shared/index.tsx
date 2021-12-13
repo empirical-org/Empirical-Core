@@ -98,6 +98,7 @@ export {
   clipboardCheckIcon,
   tableCheckIcon,
   accountViewIcon,
+  demoViewIcon,
   giftIcon,
   groupAccountIcon,
   googleClassroomIcon,

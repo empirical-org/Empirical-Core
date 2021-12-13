@@ -9,7 +9,7 @@ module QuillAuthentication
   GOOGLE_OR_CLEVER_JUST_SET = :google_or_clever_just_set
 
   included do
-    helper_method :current_user, :signed_in?, :sign_out?, :admin?, :staff?, :previewing_student_dashboard?
+    helper_method :current_user, :signed_in?, :sign_out?, :admin?, :staff?, :previewing_student_dashboard?, :viewing_demo_account?, :signed_in_outside_demo?
   end
 
   def require_user
@@ -20,6 +20,8 @@ module QuillAuthentication
     begin
       if session[:preview_student_id]
         @current_user ||= User.find(session[:preview_student_id])
+      elsif session[:demo_id]
+        @current_user ||= User.find(session[:demo_id])
       elsif session[:user_id]
         @current_user ||= User.find(session[:user_id])
       elsif doorkeeper_token
@@ -70,10 +72,22 @@ module QuillAuthentication
     @current_user = user
   end
 
+  def current_user_demo_id=(demo_id)
+    session[:demo_id] = demo_id
+    if demo_id
+      Analyzer.new.track(current_user, SegmentIo::BackgroundEvents::VIEWED_DEMO)
+      @current_user = User.find(session[:demo_id])
+    else
+      @current_user = User.find(session[:user_id])
+    end
+  end
+
   def preview_student_id=(student_id)
     session[:preview_student_id] = student_id
     if student_id
       @current_user = User.find(session[:preview_student_id])
+    elsif session[:demo_id].present?
+      @current_user = User.find(session[:demo_id])
     else
       @current_user = User.find(session[:user_id])
     end
@@ -81,6 +95,14 @@ module QuillAuthentication
 
   def previewing_student_dashboard?
     !session[:preview_student_id].nil?
+  end
+
+  def viewing_demo_account?
+    session[:demo_id].present?
+  end
+
+  def signed_in_outside_demo?
+    session[:user_id].present?
   end
 
   def sign_out
