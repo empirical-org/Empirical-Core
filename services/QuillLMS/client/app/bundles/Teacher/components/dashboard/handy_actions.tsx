@@ -29,7 +29,9 @@ const ExploreDemoAction = ({setShowDemoModal}) => (
 const HandyActions = ({ linkedToClever, setShowDemoModal}) => {
   const [errors, setErrors] = React.useState<string[]>([])
   const [hasAppSetting, setHasAppSetting] = React.useState<boolean>(false);
-  if (!hasAppSetting) { handleHasAppSetting({appSettingSetter: setHasAppSetting, errorSetter: setErrors, key: 'demo', }) }
+  React.useEffect(() => {
+    handleHasAppSetting({appSettingSetter: setHasAppSetting, errorSetter: setErrors, key: 'demo', })
+  });
 
   return(<section className="handy-actions">
     <h2>Handy actions</h2>
