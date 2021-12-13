@@ -323,3 +323,37 @@
     }
   }
 }
+
+@media (min-width: 1099px) and (max-width: 1190px) {
+  .read-passage-container {
+    .header-image-container {
+      .header-image-information {
+        .tooltip-container {
+          width: 50%;
+          .quill-tooltip-trigger {
+            .quill-tooltip-wrapper {
+              left: 30%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1191px) and (max-width: 1300px) {
+  .read-passage-container {
+    .header-image-container {
+      .header-image-information {
+        .tooltip-container {
+          width: 50%;
+          .quill-tooltip-trigger {
+            .quill-tooltip-wrapper {
+              left: 40%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
