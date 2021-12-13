@@ -136,6 +136,30 @@ describe Teachers::ProgressReportsController do
     end
   end
 
+  describe '#staff_demo' do
+    context 'when demo account exists' do
+      it 'sets the user and redirects to scorebook teachers classrooms path when user exists' do
+        staff_user = create(:user, email: "hello+demoteacher+staff@quill.org")
+        get :staff_demo
+        expect(assigns(:staff_user)).to eq staff_user
+        expect(response).to redirect_to scorebook_teachers_classrooms_path
+      end
+    end
+
+    context 'when demo account does not exist' do
+      before do
+        allow(Demo::ReportDemoCreator).to receive(:create_demo) {|name| create(:user, email: "hello+#{name}@quill.org") }
+      end
+
+      it 'sets the user, redirects to scorebook teachers classrooms path when user doesnt exist' do
+        expect(Demo::ReportDemoCreator).to receive(:create_demo).with("demoteacher+staff")
+
+        get :staff_demo
+        expect(response).to redirect_to scorebook_teachers_classrooms_path
+      end
+    end
+  end
+
   describe '#coach_demo' do
 
     context 'when demo account exists' do
