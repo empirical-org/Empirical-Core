@@ -42,6 +42,41 @@ exports[`Activity Form component should render Activities 1`] = `
   <form
     className="comprehension-activity-form"
   >
+    <DropdownInput
+      className="flag-input"
+      handleChange={[Function]}
+      label="Activity Flag"
+      options={
+        Array [
+          Object {
+            "label": "alpha",
+            "value": "alpha",
+          },
+          Object {
+            "label": "beta",
+            "value": "beta",
+          },
+          Object {
+            "label": "gamma",
+            "value": "gamma",
+          },
+          Object {
+            "label": "production",
+            "value": "production",
+          },
+          Object {
+            "label": "archived",
+            "value": "archived",
+          },
+        ]
+      }
+      value={
+        Object {
+          "label": "alpha",
+          "value": "alpha",
+        }
+      }
+    />
     <Input
       autoComplete="on"
       className="title-input"
