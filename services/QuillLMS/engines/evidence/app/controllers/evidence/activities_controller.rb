@@ -9,7 +9,7 @@ module Evidence
 
     # GET /activities.json
     def index
-      @activities = Evidence::Activity.joins("LEFT JOIN activities ON comprehension_activities.parent_activity_id = activities.id").where("parent_activity_id IS NULL OR NOT 'archived' = ANY(activities.flags)").order(:title)
+      @activities = Evidence::Activity.order(:title)
 
       render json: @activities
     end
@@ -72,6 +72,7 @@ module Evidence
         :parent_activity_id,
         :target_level,
         :scored_level,
+        :flag,
         passages_attributes: [:id, :text, :image_link, :image_alt_text, :image_caption, :image_attribution, :highlight_prompt],
         prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback]
       )
