@@ -1629,6 +1629,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               "when": "Your students are developing their advanced sentence-level writing skills to prepare for writing in an AP® classroom.",
             }
           }
+          key="ap"
         >
           <AssignmentCard
             bodyArray={
@@ -1739,6 +1740,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               "when": "Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.",
             }
           }
+          key="pre-ap-1"
         >
           <AssignmentCard
             bodyArray={
@@ -1849,6 +1851,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               "when": "Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.",
             }
           }
+          key="pre-ap-2"
         >
           <AssignmentCard
             bodyArray={
@@ -1959,6 +1962,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               "when": "Your students are working on basic sentence patterns and the grammar skills covered in the SpringBoard grades 6-8 materials.",
             }
           }
+          key="springboard"
         >
           <AssignmentCard
             bodyArray={
