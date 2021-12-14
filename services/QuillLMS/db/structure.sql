@@ -70,18 +70,6 @@ CREATE FUNCTION public.blog_posts_search_trigger() RETURNS trigger
 
 
 --
--- Name: my_jsonb_to_hstore(jsonb); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.my_jsonb_to_hstore(jsonb) RETURNS public.hstore
-    LANGUAGE sql IMMUTABLE STRICT
-    AS $_$
-            SELECT hstore(array_agg(key), array_agg(value))
-            FROM   jsonb_each_text($1)
-          $_$;
-
-
---
 -- Name: old_timespent_teacher(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -324,7 +312,7 @@ ALTER SEQUENCE public.activities_id_seq OWNED BY public.activities.id;
 CREATE TABLE public.activities_unit_templates (
     unit_template_id integer NOT NULL,
     activity_id integer NOT NULL,
-    id integer NOT NULL,
+    id bigint NOT NULL,
     order_number integer
 );
 
@@ -334,7 +322,6 @@ CREATE TABLE public.activities_unit_templates (
 --
 
 CREATE SEQUENCE public.activities_unit_templates_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -982,8 +969,8 @@ CREATE TABLE public.change_logs (
     id integer NOT NULL,
     explanation text,
     action character varying NOT NULL,
-    changed_record_id integer,
     changed_record_type character varying NOT NULL,
+    changed_record_id integer,
     user_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -1213,7 +1200,7 @@ CREATE TABLE public.classrooms_teachers (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     "order" integer,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
 );
 
 
@@ -1909,8 +1896,8 @@ CREATE TABLE public.credit_transactions (
     id integer NOT NULL,
     amount integer NOT NULL,
     user_id integer NOT NULL,
-    source_id integer,
     source_type character varying,
+    source_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -2056,8 +2043,8 @@ CREATE TABLE public.districts_users (
 CREATE TABLE public.feedback_histories (
     id integer NOT NULL,
     feedback_session_uid text,
-    prompt_id integer,
     prompt_type character varying,
+    prompt_id integer,
     concept_uid text,
     attempt integer NOT NULL,
     entry text NOT NULL,
@@ -3107,7 +3094,7 @@ ALTER SEQUENCE public.schools_id_seq OWNED BY public.schools.id;
 CREATE TABLE public.schools_users (
     school_id integer,
     user_id integer,
-    id integer NOT NULL
+    id bigint NOT NULL
 );
 
 
@@ -3116,7 +3103,6 @@ CREATE TABLE public.schools_users (
 --
 
 CREATE SEQUENCE public.schools_users_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3940,8 +3926,7 @@ CREATE TABLE public.users (
     flags character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     time_zone character varying,
     title character varying,
-    account_type character varying DEFAULT 'unknown'::character varying,
-    post_google_classroom_assignments boolean
+    account_type character varying DEFAULT 'unknown'::character varying
 );
 
 
@@ -5355,6 +5340,14 @@ ALTER TABLE ONLY public.sales_stage_types
 
 ALTER TABLE ONLY public.sales_stages
     ADD CONSTRAINT sales_stages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
 --
@@ -6927,13 +6920,6 @@ CREATE UNIQUE INDEX unique_index_users_on_username ON public.users USING btree (
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
-
-
---
 -- Name: user_activity_classification_unique_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7803,11 +7789,12 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210913181519'),
 ('20210920131932'),
 ('20210922150456'),
+('20211012212229'),
 ('20211013150441'),
 ('20211013151215'),
 ('20211013151333'),
 ('20211013155832'),
 ('20211019143514'),
-('20211012212229');
+('20211108171529');
 
 

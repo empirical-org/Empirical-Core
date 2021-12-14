@@ -604,7 +604,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'should kick off the importer' do
-      create(:auth_credential, user: teacher)
+      create(:google_auth_credential, user: teacher)
 
       expect(GoogleStudentImporterWorker).to receive(:perform_async)
       put :import_google_students, params: { selected_classroom_ids: [1,2], as: :json }
@@ -655,6 +655,64 @@ describe Teachers::ClassroomManagerController, type: :controller do
       google_classroom_ids = classrooms.map { |classroom| classroom[:google_classroom_id] }.sort
       expect(google_classroom_ids).to eq [google_classroom_id1, google_classroom_id2]
    end
+  end
+
+  describe '#view_demo' do
+    let!(:teacher) { create(:teacher) }
+    let!(:demo_teacher) { create(:teacher, email: 'hello+demoteacher@quill.org')}
+    let!(:analyzer) { double(:analyzer, track: true) }
+
+    before do
+      allow(controller).to receive(:current_user) { teacher }
+      allow(Analyzer).to receive(:new) { analyzer }
+    end
+
+    it 'will call current_user_demo_id= if the demo account exists' do
+      expect(controller).to receive(:current_user_demo_id=).with(demo_teacher.id)
+      get :view_demo
+    end
+
+    it 'will redirect to the profile path' do
+      get :view_demo
+      expect(response).to redirect_to profile_path
+    end
+
+    it 'will not call current_user_demo_id= and raise error if demo account does not exist' do
+      demo_teacher.destroy
+      expect(controller).not_to receive(:current_user_demo_id=)
+      get :view_demo
+      expect(JSON.parse(response.body)["errors"]).to eq("Demo Account does not exist")
+    end
+
+    it 'will track event' do
+      expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::VIEWED_DEMO)
+      get :view_demo
+    end
+  end
+
+  describe '#unset_view_demo' do
+    let!(:teacher) { create(:teacher) }
+    let!(:demo_teacher) { create(:teacher, email: 'hello+demoteacher@quill.org')}
+
+    before do
+      controller.sign_in(teacher)
+    end
+
+    it 'will redirect to the redirect param if it exists' do
+      redirect = '/teachers/classes'
+      get :unset_view_demo, params: { redirect: redirect }
+      expect(response).to redirect_to redirect
+    end
+
+    it 'will redirect to the profile path if there is no redirect param' do
+      get :unset_view_demo
+      expect(response).to redirect_to profile_path
+    end
+
+    it 'will call current_user_demo_id=' do
+      expect(controller).to receive(:current_user_demo_id=).with(nil)
+      get :unset_view_demo
+    end
   end
 
   describe '#preview_as_student' do

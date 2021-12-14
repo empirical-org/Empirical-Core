@@ -1231,3 +1231,33 @@
     }
   }
 }
+
+.explore-demo-modal {
+  bottom: auto;
+  width: 500px;
+  h1 {
+    font-weight: bold;
+  }
+  p {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  .explore-demo-modal-text {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  button {
+    float: right;
+  }
+  .cancel-button {
+    border: 1px solid #bdbdbd;
+    margin-right: 20px;
+  }
+}
+
+.close-demo-modal {
+  float: right;
+  z-index: 99;
+  position: relative;
+  cursor: pointer;
+}

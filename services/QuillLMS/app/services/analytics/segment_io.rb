@@ -44,6 +44,7 @@ module SegmentIo
     COTEACHER_ACCEPTANCE ||= 'Teacher accepted coteacher invitation'
     TRANSFER_OWNERSHIP ||= 'Teacher transferred ownership of a classroom'
     VIEWED_AS_STUDENT ||= 'Teacher viewed Quill as a student'
+    VIEWED_DEMO ||= 'User logged into Demo account'
     PREVIEWED_ACTIVITY ||= 'Teacher previewed an activity'
     TEACHER_COMPLETED_ONBOARDING_CHECKLIST ||= 'Teacher completed onboarding checklist'
   end

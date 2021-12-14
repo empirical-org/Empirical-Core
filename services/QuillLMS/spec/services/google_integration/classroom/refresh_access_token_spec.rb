@@ -9,7 +9,7 @@ describe GoogleIntegration::RefreshAccessToken do
 
   it 'returns the new credentials if token is expired' do
     user = create(:user)
-    expired_auth_credentials = create(:auth_credential,
+    expired_auth_credentials = create(:google_auth_credential,
       user: user,
       access_token: 'mr',
       expires_at: current_time - 1.day,
@@ -27,8 +27,7 @@ describe GoogleIntegration::RefreshAccessToken do
 
     expect(http_client).to receive(:post).and_return(response)
 
-    credentials = GoogleIntegration::RefreshAccessToken.new(user, http_client)
-      .refresh
+    credentials = GoogleIntegration::RefreshAccessToken.new(user, http_client).refresh
 
     expect(credentials).to have_attributes(
       access_token: 'what',
@@ -39,7 +38,7 @@ describe GoogleIntegration::RefreshAccessToken do
 
   it 'updates the user credentials if token is expired' do
     user = create(:user)
-    expired_auth_credentials = create(:auth_credential,
+    expired_auth_credentials = create(:google_auth_credential,
       user: user,
       access_token: 'mr',
       expires_at: current_time - 1.day,
@@ -68,7 +67,7 @@ describe GoogleIntegration::RefreshAccessToken do
 
   it 'does not attempt to refresh if current token is not expired' do
     user = create(:user)
-    auth_credentials = create(:auth_credential,
+    auth_credentials = create(:google_auth_credential,
       user: user,
       access_token: 'mr',
       expires_at: current_time + 1.day,
@@ -83,7 +82,7 @@ describe GoogleIntegration::RefreshAccessToken do
 
   it 'returns the current credentials if not expired' do
     user = create(:user)
-    auth_credentials = create(:auth_credential,
+    auth_credentials = create(:google_auth_credential,
       user: user,
       access_token: 'mr',
       expires_at: current_time + 1.day,

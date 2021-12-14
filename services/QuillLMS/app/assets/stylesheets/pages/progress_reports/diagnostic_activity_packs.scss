@@ -121,6 +121,7 @@
               max-width: 286px;
               overflow: hidden;
               text-overflow: ellipsis;
+              display: inline-block;
             }
           }
           &:not(:last-of-type) {
