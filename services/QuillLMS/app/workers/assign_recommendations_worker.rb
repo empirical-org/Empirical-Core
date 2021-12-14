@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AssignRecommendationsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL
@@ -37,7 +39,7 @@ class AssignRecommendationsWorker
   def assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher_id)
     if unit.present?
       show_classroom_units(unit.id, classroom_id)
-      Units::Updater.assign_unit_template_to_one_class(unit.id, classroom_data, unit_template_id, teacher_id)
+      Units::Updater.assign_unit_template_to_one_class(unit.id, classroom_data, unit_template_id, teacher_id, true)
     else
       #  TODO: use a find or create for the unit var above.
       #  This way, we can just pass the units creator a unit argument.
@@ -48,8 +50,8 @@ class AssignRecommendationsWorker
   end
 
   def show_classroom_units(unit_id, classroom_id)
-    ClassroomUnit.unscoped.where(unit_id: unit_id, classroom_id: classroom_id).each do |classroom_unit|
-      classroom_unit.update(visible: true)
+    ClassroomUnit.unscoped.where(unit_id: unit_id, classroom_id: classroom_id, visible: false).each do |classroom_unit|
+      classroom_unit.update(visible: true, assigned_student_ids: [])
     end
   end
 

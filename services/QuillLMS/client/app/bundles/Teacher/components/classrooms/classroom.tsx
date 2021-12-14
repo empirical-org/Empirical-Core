@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as moment from 'moment'
 
-import { Tooltip } from '../../../Shared/index'
+import { Tooltip, helpIcon, } from '../../../Shared/index'
 
 import ClassroomStudentSection from './classroom_student_section'
 import ClassroomTeacherSection from './classroom_teacher_section'
@@ -26,6 +26,7 @@ interface ClassroomProps {
   unarchiveClass?: (event) => void;
   inviteStudents?: (event) => void;
   importGoogleClassroomStudents?: (event) => void;
+  viewAsStudent?: (event) => void;
   onSuccess: (event) => void;
 }
 
@@ -56,30 +57,43 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
 
   renderClassType() {
     const { classroom } = this.props
-    if (!classroom.google_classroom_id && !classroom.clever_id) { return }
+    const { name, synced_name } = classroom
 
     const text = classroom.google_classroom_id ? 'Google Classroom' : 'Clever Classroom'
 
-    return (<React.Fragment>
-      <span className="item">{text}</span>
-      <span className="bullet item">•</span>
-    </React.Fragment>)
+    if (synced_name === null || synced_name === name) {  return text }
+
+    return (
+      <Tooltip
+        tooltipText={`Source: ${synced_name}`}
+        tooltipTriggerText={
+          <div className="text-and-icon-wrapper">
+            <span>{text}&nbsp;</span>
+            <img
+              alt={helpIcon.alt}
+              src={helpIcon.src}
+            />
+          </div>
+        }
+      />
+    )
   }
+
 
   renderClassCode() {
     const { classroom } = this.props
     const { code, google_classroom_id, clever_id, } = classroom
     if (google_classroom_id) {
       return (<Tooltip
-        tooltipText={`Add students by syncing with Google Classroom. Experiencing sync issues? You can add students with the class code '${code}'`}
-        tooltipTriggerText="Class code: N/A"
+        tooltipText={`Class code: <b>${code}</b><br/><br/>The easiest way for your students to join your class is through Google Classroom. However, if your students are not syncing, try the class code.`}
+        tooltipTriggerText={<div className="text-and-icon-wrapper"><span>Class code:&nbsp;</span><img alt={helpIcon.alt} src={helpIcon.src} /></div>}
       />)
     }
 
     if (clever_id) {
       return (<Tooltip
-        tooltipText={`Add students through Clever. Experiencing sync issues? You can add students with the class code '${code}'`}
-        tooltipTriggerText="Class code: N/A"
+        tooltipText={`Class code: <b>${code}</b><br/><br/>The easiest way for your students to join your class is through Clever. However, if your students are not syncing, try the class code.`}
+        tooltipTriggerText={<div className="text-and-icon-wrapper"><span>Class code:&nbsp;</span><img alt={helpIcon.alt} src={helpIcon.src} /></div>}
       />)
     }
 
@@ -97,18 +111,20 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
 
   renderClassroomData() {
     const { classroom } = this.props
+    const { clever_id, google_classroom_id } = classroom
     const numberOfStudents = classroom.students.length
     const numberOfTeachers = classroom.teachers.length
     const createdAt = moment(classroom.created_at).format('MMM D, YYYY')
     const updatedAt = moment(classroom.updated_at).format('MMM D, YYYY')
     const archivedDate = classroom.visible ? null : [<span className="bullet item">•</span>, <span className="item">Archived {updatedAt}</span>]
     const coteachers = numberOfTeachers > 1 ? [<span className="item">{numberOfTeachers - 1} {numberOfTeachers === 2 ? 'co-teacher' : 'co-teachers'}</span>, <span className="bullet item">•</span>] : null
+    const classType = (google_classroom_id || clever_id) ? [<span className="item">{this.renderClassType()}</span>, <span className="bullet item">•</span>] : null
 
     return (<div className="classroom-data">
       <span className="item">{numberOfStudents} {numberOfStudents === 1 ? 'student' : 'students'}</span>
       <span className="bullet item">•</span>
       {coteachers}
-      {this.renderClassType()}
+      {classType}
       <span className="item">{this.renderClassCode()}</span>
       <span className="bullet item">•</span>
       <span className="item">{this.renderGrade()}</span>
@@ -174,6 +190,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
       classrooms,
       isOwnedByCurrentUser,
       importGoogleClassroomStudents,
+      viewAsStudent,
     } = this.props
     const sharedProps = {
       user,
@@ -188,6 +205,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
         {...sharedProps}
         importGoogleClassroomStudents={importGoogleClassroomStudents}
         inviteStudents={inviteStudents}
+        viewAsStudent={viewAsStudent}
       />
       <ClassroomTeacherSection
         {...sharedProps}

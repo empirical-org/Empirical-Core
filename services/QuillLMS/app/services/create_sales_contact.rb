@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSalesContact
   def initialize(user_id, stage_types_factory = nil)
     @user                = User.find(user_id)
@@ -15,21 +17,19 @@ class CreateSalesContact
     end
   end
 
-  private
-
-  def can_create_sales_contact?
+  private def can_create_sales_contact?
     @user.teacher?
   end
 
-  def sales_contact
+  private def sales_contact
     @sales_contact ||= SalesContact.find_or_create_by!(user: @user)
   end
 
-  def stage_types
+  private def stage_types
     @stage_types ||= @stage_types_factory.new.build
   end
 
-  def create_stages
+  private def create_stages
     stage_types.each do |stage_type|
       SalesStage.find_or_create_by!(
         sales_stage_type: stage_type,

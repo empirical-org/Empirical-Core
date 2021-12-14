@@ -10,6 +10,7 @@ exports[`Prompt component should match snapshot 1`] = `
         "__html": "<em>Ele</em> <strong>gosta</strong>",
       }
     }
+    key="0"
     style={Object {}}
   />
   <input
@@ -22,6 +23,7 @@ exports[`Prompt component should match snapshot 1`] = `
         "__html": "bater <u>papo.</u>",
       }
     }
+    key="2"
     style={Object {}}
   />
 </div>

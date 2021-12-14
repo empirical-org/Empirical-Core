@@ -1,4 +1,6 @@
-class AddTopicCategoryToTopics < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddTopicCategoryToTopics < ActiveRecord::Migration[4.2]
   def change
     add_reference :topics, :topic_category, index: true
   end

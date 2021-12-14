@@ -27,6 +27,7 @@ module.exports = merge(config, {
   mode: devBuild ? 'development' : 'production',
 
   output: {
+    crossOriginLoading: 'anonymous',
     filename: '[name]-bundle-[chunkhash].js',
     publicPath: output.publicPath,
     path: output.path,
@@ -51,6 +52,7 @@ module.exports = merge(config, {
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
+          'postcss-loader'
         ],
       },
       {
@@ -58,7 +60,8 @@ module.exports = merge(config, {
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          'sass-loader'
+          'sass-loader',
+          'postcss-loader'
         ],
       }
     ],

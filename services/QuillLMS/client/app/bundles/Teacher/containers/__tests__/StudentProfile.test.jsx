@@ -1,9 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Provider } from 'react-redux';
+import { createMockStore } from 'redux-test-utils';
+import $ from 'jquery'
 
 import StudentProfile from '../StudentProfile.jsx';
 
-import $ from 'jquery'
 import StudentProfileUnits from '../../components/student_profile/student_profile_units.jsx'
 
 jest.mock('jquery', () => {
@@ -18,7 +20,11 @@ const student = {
 }
 
 describe.skip('StudentProfile container', () => {
-  const wrapper = shallow(<StudentProfile />);
+  const wrapper = shallow(
+    <Provider store={createMockStore({})}>
+      <StudentProfile />
+    </Provider>
+  );
   wrapper.setState({
     student,
     nextActivitySession: {

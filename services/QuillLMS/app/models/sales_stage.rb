@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: sales_stages
@@ -22,7 +24,7 @@
 #  fk_rails_...  (sales_stage_type_id => sales_stage_types.id)
 #  fk_rails_...  (user_id => users.id)
 #
-class SalesStage < ActiveRecord::Base
+class SalesStage < ApplicationRecord
   validates :sales_stage_type, uniqueness: { scope: :sales_contact }
   validates :sales_stage_type, presence: true
   validates :sales_contact, presence: true

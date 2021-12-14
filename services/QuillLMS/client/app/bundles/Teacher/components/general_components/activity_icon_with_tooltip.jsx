@@ -4,6 +4,7 @@ import ScorebookTooltip from '../modules/componentGenerators/tooltip_title/score
 import $ from 'jquery';
 import request from 'request';
 import gradeColor from '../modules/grade_color.js';
+import { nonRelevantActivityClassificationIds, } from '../../../../modules/activity_classifications'
 import activityFromClassificationId from '../modules/activity_from_classification_id.js';
 
 export default class ActivityIconWithTooltip extends React.Component {
@@ -30,7 +31,7 @@ export default class ActivityIconWithTooltip extends React.Component {
   getConceptResultInfo() {
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/grades/tooltip/classroom_unit_id/${this.props.data.cuId}/user_id/${this.props.data.userId}/activity_id/${this.activityId()}/completed/${!!this.props.data.percentage}`,
+      url: `${process.env.DEFAULT_URL}/grades/tooltip/classroom_unit_id/${this.props.data.cuId}/user_id/${this.props.data.userId}/activity_id/${this.activityId()}/completed/${!!this.props.data.completed_attempts}`,
     }, (error, httpStatus, body) => {
       const parsedBody = JSON.parse(body);
       that.loadTooltipTitle(parsedBody);
@@ -45,7 +46,7 @@ export default class ActivityIconWithTooltip extends React.Component {
 
 
   checkForStudentReport = () => {
-    if (this.props.data.percentage) {
+    if (this.props.data.completed_attempts) {
       this.goToReport();
     } else {
       alert('This activity has not been completed, so there is no report yet.');
@@ -62,7 +63,7 @@ export default class ActivityIconWithTooltip extends React.Component {
 
   iconClass() {
     if (this.props.data.completed_attempts > 0 || this.props.data.percentage) {
-      if (this.props.context === 'scorebook' && (Number(this.props.data.activity_classification_id) === 4 || Number(this.props.data.activity_classification_id) === 6)) {
+      if (this.props.context === 'scorebook' && nonRelevantActivityClassificationIds.includes(Number(this.props.data.activity_classification_id))) {
         return  `icon-blue icon-${activityFromClassificationId(this.getActClassId())}`
       } else {
         return `icon-${gradeColor(parseFloat(this.props.data.percentage))} icon-${activityFromClassificationId(this.getActClassId())}`
@@ -91,7 +92,7 @@ export default class ActivityIconWithTooltip extends React.Component {
 
   missedIndicator() {
     const {marked_complete, completed_attempts} = this.props.data
-    if (marked_complete === 't' && completed_attempts === 0) {
+    if (marked_complete && completed_attempts === 0) {
       return <img className="missed-indicator" src={`${process.env.CDN_URL}/images/scorebook/missed-lessons-cross.svg`} />
     }
   }

@@ -10,7 +10,7 @@
 
 QuillLMS is the Learning Management System that powers Quill.org, a free writing tool. QuillLMS is part of Empirical-Core, our web app for managing students, assigning activities, and viewing results
 
-**Fork and Clone this repository to submit a Pull Request**.
+**Fork and Clone this repository to submit a Pull Request**
 
 ## Install QuillLMS
 

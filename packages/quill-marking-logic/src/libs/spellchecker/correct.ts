@@ -4,7 +4,7 @@ import {max} from './max';
 import {countKeys} from './countKeys'
 
 export function correct(dictionary: Dictionary, potentialWord: string): string {
-  if (dictionary.hasOwnProperty(potentialWord.toLowerCase())) {
+  if (dictionary.hasOwnProperty(potentialWord.toLowerCase()) || dictionary.hasOwnProperty(potentialWord)) {
       return potentialWord
   }
   const candidates = {}

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :recommendations do
   desc 'create from hardcode'
   task :create_ind => :environment do

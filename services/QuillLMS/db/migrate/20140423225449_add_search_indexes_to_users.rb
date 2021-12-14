@@ -1,4 +1,6 @@
-class AddSearchIndexesToUsers < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddSearchIndexesToUsers < ActiveRecord::Migration[4.2]
   def up
     execute "
       create index on users using gin(to_tsvector('english', name));

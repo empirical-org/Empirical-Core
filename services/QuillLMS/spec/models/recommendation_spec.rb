@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: recommendations
@@ -40,7 +42,7 @@ RSpec.describe Recommendation, type: :model do
 
   describe 'enum' do
     it do
-      should define_enum_for(:category).with([
+      should define_enum_for(:category).with_values([
         :independent_practice,
         :group_lesson
       ])

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: activity_topics
@@ -16,7 +18,7 @@
 #  fk_rails_...  (activity_id => activities.id)
 #  fk_rails_...  (topic_id => topics.id)
 #
-class ActivityTopic < ActiveRecord::Base
+class ActivityTopic < ApplicationRecord
   belongs_to :activity
   belongs_to :topic
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_context 'StandardLevel Progress Report' do
   let(:standard_levels) { [] }
   let(:units) { [] }

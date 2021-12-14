@@ -287,7 +287,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           />
           {this.renderArchivedOrLive(concept)}
         </div>
-        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} />
+        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
       </div>)
     } else if (this.props.levelNumber === 0) {
       return (<div>
@@ -310,7 +310,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           />
           {this.renderArchivedOrLive(concept)}
         </div>
-        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} />
+        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
       </div>)
     }
   }

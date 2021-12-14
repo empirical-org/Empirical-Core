@@ -6,7 +6,7 @@ import { NavBar } from './navbar/navbar';
 
 import { routes } from "../routes";
 import { getParameterByName } from '../libs/getParameterByName';
-import { TeacherPreviewMenu } from '../../Shared/index';
+import { TeacherPreviewMenu, TeacherPreviewMenuButton } from '../../Shared/index';
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
 
@@ -60,9 +60,10 @@ export const Home = () => {
   let className = "ant-layout "
   className = showFocusState ? '' : 'hide-focus-outline'
   const showPreview = previewShowing && isTeacherOrAdmin && isPlaying;
+  const isOnMobile = window.innerWidth < 1100;
   let header;
   if(isTeacherOrAdmin && isPlaying) {
-    header = <NavBar isTeacher={isTeacherOrAdmin} onTogglePreview={handleTogglePreviewMenu} previewShowing={previewShowing} />;
+    header = <NavBar isOnMobile={isOnMobile} isTeacher={isTeacherOrAdmin} onTogglePreview={handleTogglePreviewMenu} previewShowing={previewShowing} />;
   } else if (!isTeacherOrAdmin && isPlaying) {
     header = <NavBar />;
   }
@@ -74,6 +75,7 @@ export const Home = () => {
           style={{ height: '100vh', overflowY: 'auto', width: '360px' }}
         >
           <TeacherPreviewMenu
+            isOnMobile={isOnMobile}
             onHandleSkipToQuestionFromIntro={handleSkipToQuestionFromIntro}
             onTogglePreview={handleTogglePreviewMenu}
             onToggleQuestion={handleToggleQuestion}
@@ -85,8 +87,10 @@ export const Home = () => {
           <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>
           {header}
           <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
+            isOnMobile: isOnMobile,
             switchedBackToPreview: switchedBackToPreview,
             handleToggleQuestion: handleToggleQuestion,
+            handleTogglePreview: handleTogglePreviewMenu,
             previewMode: showPreview,
             questionToPreview: questionToPreview,
             skippedToQuestionFromIntro: skippedToQuestionFromIntro

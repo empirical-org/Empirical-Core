@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import WakeLock from 'react-wakelock-react16'
 import {
   startListeningToSession,
   registerPresence,
@@ -8,7 +7,9 @@ import {
   easyJoinLessonAddName,
   goToNextSlide,
   goToPreviousSlide,
-  saveStudentSubmission
+  saveStudentSubmission,
+  fetchActiveActivitySession,
+  saveActiveActivitySession,
 } from '../../../actions/classroomSessions';
 import CLAbsentTeacher from './absentTeacher';
 import CLStudentLobby from './lobby';
@@ -38,7 +39,16 @@ import { ClassroomLesson } from '../../../interfaces/classroomLessons';
 import * as CustomizeIntf from '../../../interfaces/customize';
 import { scriptTagStrip } from '../shared/scriptTagStrip';
 
-import { Spinner } from '../../../../Shared/index';
+import {
+  Spinner,
+  KEYDOWN,
+  MOUSEMOVE,
+  MOUSEDOWN,
+  CLICK,
+  KEYPRESS,
+  VISIBILITYCHANGE,
+  SCROLL,
+} from '../../../../Shared/index';
 
 const arrowSrc = `${process.env.CDN_URL}/images/icons/chevron-arrow-filled.svg`
 
@@ -53,18 +63,21 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     this.state = {
       easyDemoName: '',
       classroomUnitId,
-      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null,
+      startTime: Date.now(),
+      isIdle: false,
+      timeTracking: {}
     }
 
     if (getParameterByName('projector')) {
-      document.addEventListener("keydown", this.handleKeyDown.bind(this));
+      document.addEventListener(KEYDOWN, this.handleKeyDown.bind(this));
     }
 
     if (!activityUid) {
       const classroom_unit_id = getParameterByName('classroom_unit_id');
+      const student = getParameterByName('student');
       const lessonID = getParameterByName('uid');
       document.title = 'Quill Lessons';
-      const student = getParameterByName('student');
       if (lessonID) {
         document.location.href = `${document.location.origin + document.location.pathname}#/play/class-lessons/${lessonID}?student=${student}&classroom_unit_id=${classroom_unit_id}`;
       }
@@ -74,9 +87,15 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   componentDidMount() {
     const { dispatch, } = this.props
     const { classroomSessionId, } = this.state
+
     if (classroomSessionId) {
       dispatch(startListeningToSession(classroomSessionId));
     }
+
+    const student = getParameterByName('student');
+
+    fetchActiveActivitySession({ sessionID: student, callback: this.loadPreviousSessionFromLMS })
+
     document.getElementsByTagName("html")[0].style.backgroundColor = "white";
     this.setInitialData(this.props)
 
@@ -84,6 +103,14 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       e.preventDefault()
       return false
     }, true);
+
+    window.addEventListener(KEYDOWN, this.resetTimers)
+    window.addEventListener(MOUSEMOVE, this.resetTimers)
+    window.addEventListener(MOUSEDOWN, this.resetTimers)
+    window.addEventListener(CLICK, this.resetTimers)
+    window.addEventListener(KEYPRESS, this.resetTimers)
+    window.addEventListener(SCROLL, this.resetTimers)
+    window.addEventListener(VISIBILITYCHANGE, this.setIdle)
   }
 
   UNSAFE_componentWillReceiveProps(nextProps, nextState) {
@@ -91,16 +118,29 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   }
 
   componentDidUpdate(prevProps) {
-    const { classroomLesson } = this.props
+    const { timeTracking, } = this.state
+    const { classroomLesson, classroomSessions, } = this.props
     const { hasreceiveddata } = classroomLesson
     if (classroomLesson.hasreceiveddata != prevProps.hasreceiveddata && hasreceiveddata) {
       document.title = `Quill.org | ${classroomLesson.data.title}`
+    }
+
+    if (classroomSessions.data.current_slide !== prevProps.classroomSessions.data.current_slide) {
+      const student = getParameterByName('student');
+      saveActiveActivitySession({ sessionID: student, timeTracking, })
     }
   }
 
   componentWillUnmount() {
     document.getElementsByTagName("html")[0].style.backgroundColor = "whitesmoke";
-    document.removeEventListener("keydown", this.handleKeyDown.bind(this));
+    document.removeEventListener(KEYDOWN, this.handleKeyDown.bind(this));
+    window.removeEventListener(KEYDOWN, this.resetTimers)
+    window.removeEventListener(MOUSEMOVE, this.resetTimers)
+    window.removeEventListener(MOUSEDOWN, this.resetTimers)
+    window.removeEventListener(CLICK, this.resetTimers)
+    window.removeEventListener(KEYPRESS, this.resetTimers)
+    window.removeEventListener(SCROLL, this.resetTimers)
+    window.removeEventListener(VISIBILITYCHANGE, this.setIdle)
   }
 
   setInitialData = (props) => {
@@ -145,6 +185,38 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       }
     }
   }
+
+  loadPreviousSessionFromLMS = (data: object) => {
+    const {timeTracking, } = this.state
+    const newState = {
+      timeTracking: data.timeTracking || timeTracking
+    }
+
+    this.setState(newState)
+  }
+
+  resetTimers = (e=null) => {
+    const now = Date.now()
+    this.setState((prevState, props) => {
+      const { startTime, isIdle, inactivityTimer, timeTracking, } = prevState
+
+      if (inactivityTimer) { clearTimeout(inactivityTimer) }
+
+      let elapsedTime = now - startTime
+
+      if (isIdle) {
+        elapsedTime = 0
+      }
+      const newTimeTracking = {...timeTracking, 'total': (timeTracking['total'] || 0) + elapsedTime}
+      const newInactivityTimer = setTimeout(this.setIdle, 30000);  // time is in milliseconds (1000 is 1 second)
+
+      return { timeTracking: newTimeTracking, isIdle: false, inactivityTimer: newInactivityTimer, startTime: now, }
+    })
+
+    return Promise.resolve(true);
+  }
+
+  setIdle = () => { this.resetTimers().then(() => this.setState({ isIdle: true })) }
 
   handleClickRightButton = () => {
     const { classroomSessionId, } = this.state
@@ -367,7 +439,6 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
          if (component) {
            mainContent = (
              <div>
-               <WakeLock />
                {absentTeacher || watchTeacher}
                {this.renderLeftButton()}
                <div className="play-lesson-container">

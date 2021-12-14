@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::AuthorsController < Cms::CmsController
   def index
     @authors = Author.all
@@ -41,8 +43,7 @@ class Cms::AuthorsController < Cms::CmsController
     end
   end
 
-  private
-  def author_params
+  private def author_params
     params.require(:author).permit(:id, :name, :avatar, default_params)
   end
 end

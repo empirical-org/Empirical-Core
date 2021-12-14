@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: blog_posts
@@ -33,7 +35,7 @@
 #  index_blog_posts_on_topic       (topic)
 #  tsv_idx                         (tsv) USING gin
 #
-class BlogPost < ActiveRecord::Base
+class BlogPost < ApplicationRecord
   GETTING_STARTED = "Getting started"
   TEACHER_STORIES = "Teacher stories"
   WRITING_INSTRUCTION_RESEARCH = "Writing instruction research"
@@ -47,6 +49,7 @@ class BlogPost < ActiveRecord::Base
   TWITTER_LOVE = "Twitter love"
   VIDEO_TUTORIALS = "Video tutorials"
   WHATS_NEW = "What's new?"
+  USING_QUILL_FOR_READING_COMPREHENSION = "Using quill for reading comprehension"
 
   STUDENT_GETTING_STARTED = 'Student getting started'
   STUDENT_HOW_TO = 'Student how to'
@@ -56,6 +59,7 @@ class BlogPost < ActiveRecord::Base
 
   TOPICS = [
     WHATS_NEW,
+    USING_QUILL_FOR_READING_COMPREHENSION,
     GETTING_STARTED,
     BEST_PRACTICES,
     WEBINARS,
@@ -73,12 +77,18 @@ class BlogPost < ActiveRecord::Base
   TEACHER_TOPICS = TOPICS.reject { |t| [PRESS_RELEASES, IN_THE_NEWS].include?(t) }
 
   STUDENT_TOPICS = [STUDENT_GETTING_STARTED, STUDENT_HOW_TO]
+  MOST_RECENT_LIMIT = 3
 
   before_create :generate_slug, :set_order_number
 
   belongs_to :author
   has_many :blog_post_user_ratings
   after_save :add_published_at
+
+  scope :live, -> { where(draft: false) }
+  scope :most_recent, -> { live.order('updated_at DESC').limit(MOST_RECENT_LIMIT)}
+
+  scope :for_topics, ->(topic) { live.order('order_number ASC').where(topic: topic) }
 
   def set_order_number
     if order_number.nil?
@@ -129,14 +139,19 @@ class BlogPost < ActiveRecord::Base
     end
   end
 
-  private
-  def generate_slug
+  private def generate_slug
     title = self.title
     slug = title.gsub(/[^a-zA-Z\d\s]/, '').gsub(' ', '-').downcase
-
     # This looks for slugs that look like #{current-slug}-2 so we
     # can change our slug for this post to increment the end digit.
-    existing_posts_with_incremented_slug = ActiveRecord::Base.connection.execute("SELECT slug FROM blog_posts WHERE slug ~* CONCAT(#{ActiveRecord::Base.sanitize(slug)}, '-\\d$');").to_a.map{ |h| h['slug'] }
+    existing_posts_with_incremented_slug = RawSqlRunner.execute(
+      <<-SQL
+        SELECT slug
+        FROM blog_posts
+        WHERE slug ~* CONCAT(#{ActiveRecord::Base.connection.quote(slug)}, '-\\d$')
+      SQL
+    ).values.flatten
+
     if existing_posts_with_incremented_slug.any?
       incremented_values = existing_posts_with_incremented_slug.map do |incremented_slug|
         incremented_slug.gsub("#{slug}-", '').to_i

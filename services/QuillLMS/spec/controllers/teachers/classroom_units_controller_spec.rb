@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Teachers::ClassroomUnitsController, type: :controller do
-  it { should use_before_filter :authorize! }
-  it { should use_before_filter :teacher! }
+  it { should use_before_action :authorize! }
+  it { should use_before_action :teacher! }
 
   let(:classroom) { create(:classroom)}
   let(:teacher) { classroom.owner }
@@ -38,19 +40,19 @@ describe Teachers::ClassroomUnitsController, type: :controller do
           let(:teach_class_url) { "#{activity.classification_form_url}teach/class-lessons/#{activity.uid}?&classroom_unit_id=#{classroom_unit.id}" }
 
           it 'should redirect to teach class lessons url' do
-            get :launch_lesson, id: classroom_unit.id, lesson_uid: activity.uid
+            get :launch_lesson, params: { id: classroom_unit.id, lesson_uid: activity.uid }
             expect(response).to redirect_to teach_class_url
           end
         end
 
         it 'should redirect_to customize lesson url' do
-          get :launch_lesson, id: classroom_unit.id, lesson_uid: activity.uid
+          get :launch_lesson, params: { id: classroom_unit.id, lesson_uid: activity.uid }
           expect(response).to redirect_to customize_lesson_url
         end
 
         it 'should kick of the pusher lesson worker and update the classroom unit activity state' do
           expect(PusherLessonLaunched).to receive(:run).with(classroom_unit.classroom)
-          get :launch_lesson, id: classroom_unit.id, lesson_uid: activity.uid
+          get :launch_lesson, params: { id: classroom_unit.id, lesson_uid: activity.uid }
           expect(cuas.reload.locked).to eq false
           expect(cuas.reload.pinned).to eq true
         end
@@ -59,44 +61,31 @@ describe Teachers::ClassroomUnitsController, type: :controller do
       context 'when milestone exists and activity could not get updated' do
         let!(:user_milestone) { create(:user_milestone, milestone: milestone, user: teacher) }
 
-        before do
-          allow_any_instance_of(ClassroomUnit).to receive(:update) { false }
-        end
+        before { allow_any_instance_of(ClassroomUnit).to receive(:update) { false } }
 
         it 'should redirect back to the referrer' do
           request.env["HTTP_REFERER"] = '/'
-          get :launch_lesson, id: classroom_unit.id, lesson_uid: activity.uid
+          get :launch_lesson, params: { id: classroom_unit.id, lesson_uid: activity.uid }
           expect(response).to redirect_to '/'
         end
       end
-
-      # setting flash value without redirecting is throwing a missing partial error
-      # context 'when milestone does not exist' do
-        # it 'should set flash error' do
-        #   get :launch_lesson, id: classroom_unit.id, lesson_uid: activity.uid, format: :json
-        #   expect(flash[:error]).to eq "We cannot launch this lesson. If the problem persists, please contact support."
-        # end
-      # end
     end
+
     describe '#lessons_activities_cache' do
-      before do
-        allow(teacher).to receive(:set_and_return_lessons_cache_data) { {id: "not 10"} }
-      end
+      before { allow(teacher).to receive(:set_and_return_lessons_cache_data) { { id: "not 10" } } }
 
       context 'when value is present in the cache' do
-        before do
-          $redis.set("user_id:#{teacher.id}_lessons_array", {id: 10}.to_json)
-        end
+        before { $redis.set("user_id:#{teacher.id}_lessons_array", { id: 10 }.to_json) }
 
         it 'should render the redis cache' do
-          get :lessons_activities_cache, format: :json
-          expect(response.body).to eq({data: {id: 10}}.to_json)
+          get :lessons_activities_cache, as: :json
+          expect(response.body).to eq({data: { id: 10 } }.to_json)
         end
       end
 
       it 'should render the current users lesson cache data' do
-        get :lessons_activities_cache, format: :json
-        expect(response.body).to eq({data: { id: "not 10"}}.to_json)
+        get :lessons_activities_cache, as: :json
+        expect(response.body).to eq({data: { id: "not 10" }}.to_json)
       end
     end
 
@@ -116,26 +105,23 @@ describe Teachers::ClassroomUnitsController, type: :controller do
   end
 
   context "without user" do
-
-    before(:each) do
-      allow(controller).to receive(:current_user) { nil }
-    end
+    before { allow(controller).to receive(:current_user) { nil } }
 
     describe '#launch_lesson' do
 
       it 'should redirect to login' do
-        get :launch_lesson, id: classroom_unit.id, lesson_uid: activity.uid
+        get :launch_lesson, params: { id: classroom_unit.id, lesson_uid: activity.uid }
 
-        response.should redirect_to '/session/new'
+        expect(response).to redirect_to('/session/new')
       end
     end
 
     describe '#mark_lesson_as_completed' do
 
       it 'should redirect to login' do
-        get :mark_lesson_as_completed, id: classroom_unit.id, lesson_uid: activity.uid
+        get :mark_lesson_as_completed, params: { id: classroom_unit.id, lesson_uid: activity.uid }
 
-        response.should redirect_to '/session/new'
+        expect(response).to redirect_to('/session/new')
       end
     end
   end

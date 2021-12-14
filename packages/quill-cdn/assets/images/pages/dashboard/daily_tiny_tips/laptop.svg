@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>laptop</title>
+    <g id="------↳-Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-355.000000, -223.000000)">
+            <g id="laptop" transform="translate(355.000000, 223.000000)">
+                <rect id="Rectangle" fill="#E1F3F1" x="0" y="0" width="72" height="72" rx="8"></rect>
+                <g id="pc-play-media" transform="translate(12.000000, 18.000000)" fill-rule="nonzero">
+                    <rect id="Rectangle" fill="#06806B" x="5" y="3" width="38" height="29"></rect>
+                    <path d="M40,0 L8,0 C5.790861,0 4,1.790861 4,4 L4,29 L44,29 L44,4 C44,1.790861 42.209139,0 40,0 Z M6,26 L6,4 L42,4 L42,26 L6,26 Z" id="Shape" fill="#444444"></path>
+                    <path d="M31,28 L31,31 L17,31 L17,28 L0,28 C0,32.418278 3.581722,36 8,36 L40,36 C44.418278,36 48,32.418278 48,28 L31,28 Z" id="Path" fill="#CBCBCB"></path>
+                    <path d="M16,28 L32,28 L32,30 C32,30.5522847 31.5522847,31 31,31 L17,31 C16.4477153,31 16,30.5522847 16,30 L16,28 Z" id="Path" fill="#A1A1A1"></path>
+                    <path d="M21,20 C20.4477153,20 20,19.5522847 20,19 L20,12 C20.0007225,11.6430963 20.1916068,11.3136315 20.5008757,11.1354926 C20.8101447,10.9573537 21.1909121,10.957547 21.5,11.136 L27.5,14.636 C27.8074318,14.8151544 27.9965082,15.1441762 27.9965082,15.5 C27.9965082,15.8558238 27.8074318,16.1848456 27.5,16.364 L21.5,19.864 C21.3480679,19.9522149 21.1756828,19.9991037 21,20 L21,20 Z" id="Path" fill="#FFFFFF"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

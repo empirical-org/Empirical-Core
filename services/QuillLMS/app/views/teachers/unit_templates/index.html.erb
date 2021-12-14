@@ -1,5 +1,5 @@
 <!-- this is the public facing index, for signed-in-teacher facing index, see lesson planner -->
-<% @active_tab = 'Featured Activities' %>
+<% @active_tab = device == 'mobile' ? 'Featured' : 'Featured Activities' %>
 <%= render partial: 'pages/shared/explore_curriculum_navbar', active_tab: @active_tab %>
 
 <div class="tab-pane" id="public-activity-packs" data-authenticated=<%=@is_teacher%>>

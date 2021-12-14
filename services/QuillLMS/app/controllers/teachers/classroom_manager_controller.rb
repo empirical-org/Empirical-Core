@@ -1,17 +1,20 @@
+# frozen_string_literal: true
+
 class Teachers::ClassroomManagerController < ApplicationController
+  include CheckboxCallback
+  include DiagnosticReports
 
   respond_to :json, :html
-  before_filter :teacher_or_public_activity_packs, except: [:unset_preview_as_student]
+  before_action :teacher_or_public_activity_packs, except: [:unset_preview_as_student, :unset_view_demo]
   # WARNING: these filter methods check against classroom_id, not id.
-  before_filter :authorize_owner!, except: [:scores, :scorebook, :lesson_planner, :preview_as_student, :unset_preview_as_student]
-  before_filter :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
-  before_filter :set_alternative_schools, only: [:my_account, :update_my_account, :update_my_password]
+  before_action :authorize_owner!, except: [:scores, :scorebook, :lesson_planner, :preview_as_student, :unset_preview_as_student, :view_demo, :unset_view_demo, :activity_feed]
+  before_action :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
+  before_action :set_alternative_schools, only: [:my_account, :update_my_account, :update_my_password]
   include ScorebookHelper
   include QuillAuthentication
 
   MY_ACCOUNT = 'my_account'
   ASSIGN = 'assign'
-  SERIALIZED_GOOGLE_CLASSROOMS_FOR_ = 'SERIALIZED_GOOGLE_CLASSROOMS_FOR_'
 
   def lesson_planner
     set_classroom_variables
@@ -20,12 +23,13 @@ class Teachers::ClassroomManagerController < ApplicationController
   def assign
     session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
     set_classroom_variables
+    set_banner_variables
+    set_diagnostic_variables
     @number_of_activities_assigned = current_user.units.map(&:unit_activities).flatten.map(&:activity_id).uniq.size
-    acknowledge_diagnostic_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_diagnostic_banner])
-    acknowledge_lessons_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_lessons_banner])
-    diagnostic_ids = Activity.diagnostic_activity_ids
-    @show_diagnostic_banner = !UserMilestone.find_by(milestone_id: acknowledge_diagnostic_banner_milestone&.id, user_id: current_user&.id) && current_user&.unit_activities&.where(activity_id: diagnostic_ids)&.none?
-    @show_lessons_banner = !UserMilestone.find_by(milestone_id: acknowledge_lessons_banner_milestone&.id, user_id: current_user&.id) && current_user&.classroom_unit_activity_states&.where(completed: true)&.none?
+    find_or_create_checkbox(Objective::EXPLORE_OUR_LIBRARY, current_user)
+    if params[:tab] == 'diagnostic'
+      find_or_create_checkbox(Objective::EXPLORE_OUR_DIAGNOSTICS, current_user)
+    end
   end
 
   def generic_add_students
@@ -40,6 +44,14 @@ class Teachers::ClassroomManagerController < ApplicationController
   # in response to ajax request
   def retrieve_classrooms_i_teach_for_custom_assigning_activities
     render json: classroom_with_students_json(current_user.classrooms_i_teach)
+  end
+
+  def classrooms_and_classroom_units_for_activity_share
+    unit_id = params["unit_id"]
+    render json: {
+      classrooms: classroom_with_students_json(current_user.classrooms_i_teach),
+      classroom_units: ClassroomUnit.where(unit_id: unit_id)
+    }
   end
 
   def invite_students
@@ -61,12 +73,18 @@ class Teachers::ClassroomManagerController < ApplicationController
         redirect_to teachers_admin_dashboard_path
       end
     end
-    explore_activities_milestone = Milestone.find_by_name(Milestone::TYPES[:see_explore_activities_modal])
-    @must_see_modal = !UserMilestone.find_by(milestone_id: explore_activities_milestone&.id, user_id: current_user&.id) && Unit.unscoped.find_by_user_id(current_user&.id).nil?
+    welcome_milestone = Milestone.find_by_name(Milestone::TYPES[:see_welcome_modal])
+    @must_see_modal = !UserMilestone.find_by(milestone_id: welcome_milestone&.id, user_id: current_user&.id) && Unit.unscoped.find_by_user_id(current_user&.id).nil?
     @featured_blog_posts = BlogPost.where.not(featured_order_number: nil).order(:featured_order_number)
-    if @must_see_modal && current_user && explore_activities_milestone
-      UserMilestone.find_or_create_by(user_id: current_user.id, milestone_id: explore_activities_milestone.id)
+    if @must_see_modal && current_user && welcome_milestone
+      UserMilestone.find_or_create_by(user_id: current_user.id, milestone_id: welcome_milestone.id)
     end
+
+    @objective_checklist = generate_onboarding_checklist
+    @first_name = current_user.first_name
+
+    growth_diagnostic_promotion_card_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_growth_diagnostic_promotion_card])
+    @show_diagnostic_promotion_card = !UserMilestone.find_by(milestone_id: growth_diagnostic_promotion_card_milestone&.id, user_id: current_user&.id) && (current_user.created_at < "2021-11-29".to_date || current_user&.unit_activities&.where(activity_id: Activity.diagnostic_activity_ids)&.any?)
   end
 
   def students_list
@@ -93,6 +111,10 @@ class Teachers::ClassroomManagerController < ApplicationController
     render json: {
       performanceQuery: @query_results
     }
+  end
+
+  def teacher_dashboard_metrics
+    render json: TeacherDashboardMetrics.new(current_user).run
   end
 
   def teacher_guide
@@ -159,7 +181,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def retrieve_google_classrooms
-    serialized_google_classrooms = $redis.get("#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{current_user.id}")
+    serialized_google_classrooms = GoogleIntegration::TeacherClassroomsCache.get(current_user.id)
     if serialized_google_classrooms
       render json: JSON.parse(serialized_google_classrooms)
     else
@@ -169,20 +191,39 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def update_google_classrooms
-    GoogleIntegration::Classroom::Creators::Classrooms.run(current_user, params[:selected_classrooms])
-    $redis.del("#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{current_user.id}")
+    serialized_classrooms_data = { classrooms: params[:selected_classrooms] }.to_json
+
+    GoogleIntegration::TeacherClassroomsData
+      .new(current_user, serialized_classrooms_data)
+      .each { |classroom_data| GoogleIntegration::ClassroomImporter.new(classroom_data).run }
+
+    GoogleIntegration::TeacherClassroomsCache.del(current_user.id)
+    RetrieveGoogleClassroomsWorker.perform_async(current_user.id)
     render json: { classrooms: current_user.google_classrooms }.to_json
   end
 
   def import_google_students
     selected_classroom_ids = Classroom.where(id: params[:classroom_id] || params[:selected_classroom_ids]).ids
-    $redis.del("#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{current_user.id}")
+    GoogleIntegration::TeacherClassroomsCache.del(current_user.id)
     GoogleStudentImporterWorker.perform_async(
       current_user.id,
       'Teachers::ClassroomManagerController',
       selected_classroom_ids
     )
     render json: { id: current_user.id }
+  end
+
+  def view_demo
+    demo = User.find_by_email('hello+demoteacher@quill.org')
+    return render json: {errors: "Demo Account does not exist"}, status: 422 if demo.nil?
+    self.current_user_demo_id = demo.id
+    redirect_to '/profile'
+  end
+
+  def unset_view_demo
+    self.current_user_demo_id = nil
+    return redirect_to params[:redirect] if params[:redirect]
+    redirect_to '/profile'
   end
 
   def preview_as_student
@@ -200,9 +241,29 @@ class Teachers::ClassroomManagerController < ApplicationController
     redirect_to '/profile'
   end
 
-  private
+  def activity_feed
+    render json: { data: TeacherActivityFeed.get(current_user.id) }
+  end
 
-  def set_classroom_variables
+  private def generate_onboarding_checklist
+    Objective::ONBOARDING_CHECKLIST_NAMES.map do |name|
+      objective = Objective.find_by_name(name)
+      checkbox = Checkbox.find_by(objective: objective, user: current_user)
+
+      # handles case where user has been using Quill since before we introduced the new objectives
+      if objective && !checkbox && [Objective::EXPLORE_OUR_LIBRARY, Objective::EXPLORE_OUR_DIAGNOSTICS].include?(name) && current_user.units&.any?
+        checkbox = Checkbox.create(objective: objective, user: current_user)
+      end
+
+      {
+        name: name,
+        checked: checkbox.present?,
+        link: objective&.action_url
+      }
+    end
+  end
+
+  private def set_classroom_variables
     @tab = params[:tab]
     @grade = params[:grade]
     @students = current_user.students.any?
@@ -215,67 +276,74 @@ class Teachers::ClassroomManagerController < ApplicationController
     @last_classroom_id = last_classroom.id
   end
 
+  private def set_banner_variables
+    acknowledge_diagnostic_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_diagnostic_banner])
+    acknowledge_lessons_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_lessons_banner])
+    diagnostic_ids = Activity.diagnostic_activity_ids
+    @show_diagnostic_banner = !UserMilestone.find_by(milestone_id: acknowledge_diagnostic_banner_milestone&.id, user_id: current_user&.id) && current_user&.unit_activities&.where(activity_id: diagnostic_ids)&.none?
+    @show_lessons_banner = !UserMilestone.find_by(milestone_id: acknowledge_lessons_banner_milestone&.id, user_id: current_user&.id) && current_user&.classroom_unit_activity_states&.where(completed: true)&.none?
+  end
 
-  def classroom_with_students_json(classrooms)
-    {
-        classrooms_and_their_students: classrooms.map { |classroom|
-          classroom_json(classroom)
+  def set_diagnostic_variables
+    @assigned_pre_tests = Activity.where(id: Activity::PRE_TEST_DIAGNOSTIC_IDS).map do |act|
+      pre_test_diagnostic_unit_ids = current_user&.unit_activities&.where(activity_id: act.id)&.map(&:unit_id) || []
+      assigned_classroom_ids = ClassroomUnit.where(unit_id: pre_test_diagnostic_unit_ids)&.map(&:classroom_id) || []
+      all_classrooms = current_user.classrooms_i_teach.map do |classroom|
+        set_pre_test_activity_sessions_and_assigned_students(act.id, classroom.id)
+        set_post_test_activity_sessions_and_assigned_students(act.follow_up_activity_id, classroom.id)
+        {
+          id: classroom.id,
+          completed_pre_test_student_ids: @pre_test_activity_sessions.map(&:user_id),
+          completed_post_test_student_ids: @post_test_activity_sessions.map(&:user_id)
         }
-    }
-  end
-
-  def classroom_json(classroom)
-    {  classroom: classroom, students: classroom.students.sort_by(&:sorting_name)}
-  end
-
-  def invited_classrooms
-    ActiveRecord::Base.connection.execute("
-        SELECT coteacher_classroom_invitations.id AS classroom_invitation_id, users.name AS inviter_name, classrooms.name AS classroom_name, TRUE AS invitation
-        FROM invitations
-        JOIN coteacher_classroom_invitations ON coteacher_classroom_invitations.invitation_id = invitations.id
-        JOIN users ON users.id = invitations.inviter_id
-        JOIN classrooms ON classrooms.id = coteacher_classroom_invitations.classroom_id
-        WHERE invitations.invitee_email = #{ActiveRecord::Base.sanitize(current_user.email)} AND invitations.archived = false;
-      ").to_a
-  end
-
-  def active_and_inactive_classrooms_hash
-    classrooms = {}
-    classrooms[:active] = invited_classrooms
-    classrooms[:inactive] = []
-    ClassroomsTeacher.where(user_id: current_user.id).each do |classrooms_teacher|
-      classroom = Classroom.unscoped.find(classrooms_teacher.classroom_id)
-      if classroom.visible
-        classrooms[:active] << classroom.archived_classrooms_manager
-      else
-        classrooms[:inactive] << classroom.archived_classrooms_manager
       end
+      {
+        id: act.id,
+        post_test_id: act.follow_up_activity_id,
+        assigned_classroom_ids: assigned_classroom_ids,
+        all_classrooms: all_classrooms
+      }
     end
-    classrooms
   end
 
-  def classrooms_with_data
-    ActiveRecord::Base.connection.execute(
-      "SELECT classrooms.id, classrooms.id AS value, classrooms.name from classrooms_teachers AS ct
-      JOIN classrooms ON ct.classroom_id = classrooms.id AND classrooms.visible = TRUE
-      WHERE ct.user_id = #{current_user.id}"
+  private def classroom_with_students_json(classrooms)
+    { classrooms_and_their_students: classrooms.map { |classroom| classroom_json(classroom) } }
+  end
+
+  private def classroom_json(classroom)
+    { classroom: classroom, students: classroom.students.sort_by(&:sorting_name) }
+  end
+
+
+  private def classrooms_with_data
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+          classrooms.id,
+          classrooms.id AS value,
+          classrooms.name
+        FROM classrooms_teachers AS ct
+        JOIN classrooms
+          ON ct.classroom_id = classrooms.id
+          AND classrooms.visible = true
+        WHERE ct.user_id = #{current_user.id}
+      SQL
     ).to_a
   end
 
-
-  def authorize_owner!
+  private def authorize_owner!
     if params[:classroom_id]
       classroom_owner!(params[:classroom_id])
     end
   end
 
-  def authorize_teacher!
+  private def authorize_teacher!
     if params[:classroom_id]
       classroom_teacher!(params[:classroom_id])
     end
   end
 
-  def teacher_or_public_activity_packs
+  private def teacher_or_public_activity_packs
     if !current_user && request.path.include?('featured-activity-packs')
       if params[:category]
         redirect_to "/activities/packs?category=#{params[:category]}"
@@ -291,7 +359,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
   end
 
-  def set_alternative_schools
+  private def set_alternative_schools
     @alternative_schools = School.where(name: School::ALTERNATIVE_SCHOOL_NAMES)
     @alternative_schools_name_map = School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP
   end

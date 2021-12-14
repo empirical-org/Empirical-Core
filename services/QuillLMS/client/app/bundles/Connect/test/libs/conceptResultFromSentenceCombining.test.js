@@ -17,12 +17,12 @@ describe("Getting concept results from an answered SC object", () => {
   it("should have the correct score and concept uids", () => {
     const expected = [{
       concept_uid: '7H2IMZvq0VJ4Uvftyrw7Eg',
-      metadata: metadata,
+      metadata: {...metadata, attemptNumber: 1},
       question_type: 'sentence-combining'
     },
     {
       concept_uid: 'nb0JW1r5pRB5ouwAzTgMbQ',
-      metadata: metadata,
+      metadata: {...metadata, attemptNumber: 2},
       question_type: 'sentence-combining'
     }]
     const generated = getConceptResultsForSentenceCombining(question)

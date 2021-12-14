@@ -1,5 +1,6 @@
 import React from 'react'
 import ProgressReport from '../progress_report.jsx'
+import { EVIDENCE_KEY, } from '../constants'
 
 export default class QuestionReport extends React.Component {
   constructor(props) {
@@ -10,13 +11,14 @@ export default class QuestionReport extends React.Component {
     };
   }
 
-  columnDefinitions = () => {
+  columnDefinitions = (activityClassification) => {
     return [
       {
         name: 'Score',
         field: 'score',
         sortByField: 'score',
         customCell: function(row) {
+          if (activityClassification === EVIDENCE_KEY) return 'N/A'
           return row['score'] === null ? 'Not Completed' : row['score'] + '%';
         }
       },
@@ -61,7 +63,7 @@ export default class QuestionReport extends React.Component {
 
   render() {
     const p = this.props.match.params;
-    const unitActivityClassroom = `/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`;
+    const unitActivityClassroom = `/classroom/${p.classroomId}/activity/${p.activityId}/unit/${p.unitId}`;
     return (
       <div id='individual-activity-classroom-view'>
         <ProgressReport

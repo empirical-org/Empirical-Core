@@ -1,4 +1,6 @@
-class AddStateToScore < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddStateToScore < ActiveRecord::Migration[4.2]
   def change
     add_column :scores, :state, :string, null: false, default: 'unstarted'
   end

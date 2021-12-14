@@ -29,23 +29,32 @@ export default class PremiumBannerBuilder extends React.Component {
         first_day_of_premium_or_trial: data['first_day_of_premium_or_trial']});});
   };
 
+  handleClickUpgradeNow = () => {
+    const { showPurchaseModal } = this.props
+    showPurchaseModal()
+  };
+
   stateSpecificComponents = () => {
     // //////  if loading this banner becomes slow, uncomment this.
     // if (this.state.has_premium === null){
     //   return <EC.LoadingIndicator/>;
     // }
-    if (this.state.has_premium == 'none'){
-      return(<FreeTrialBanner status={this.state.has_premium} />);
+    const { has_premium, first_day_of_premium_or_trial, trial_days_remaining } = this.state
+    const { originPage } = this.props
+    if (has_premium === 'none'){
+      return(<FreeTrialBanner status={has_premium} />);
     }
-    else if (this.state.first_day_of_premium_or_trial ){
-      return(<NewSignUpBanner status={this.state.has_premium} />);
+    else if (first_day_of_premium_or_trial ){
+      return(<NewSignUpBanner status={has_premium} />);
     }
-    else if ((this.state.has_premium == 'trial') || (this.state.has_premium == 'locked')){
-      return(<span>
-        <FreeTrialStatus data={this.state.trial_days_remaining} status={this.state.has_premium} />
-      </span>);
+    else if ((has_premium === 'trial') || (has_premium === 'locked')){
+      return(
+        <span>
+          <FreeTrialStatus data={trial_days_remaining} originPage={originPage} status={has_premium} upgradeNow={this.handleClickUpgradeNow} />
+        </span>
+      );
     }
-    else if ((this.state.has_premium === 'school') || ((this.state.has_premium === 'paid') && (this.state.first_day_of_premium_or_trial === false))) {
+    else if ((has_premium === 'school') || ((has_premium === 'paid') && (first_day_of_premium_or_trial === false))) {
         return (<span />);
       }
   };

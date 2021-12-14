@@ -1,4 +1,6 @@
-class DropAdminRelationshipsTable < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class DropAdminRelationshipsTable < ActiveRecord::Migration[4.2]
   def change
     drop_table :admin_relationships
   end

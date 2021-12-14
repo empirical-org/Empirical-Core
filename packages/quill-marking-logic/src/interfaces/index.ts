@@ -30,6 +30,7 @@ export interface PartialResponse {
   first_attempt_count?: number|null,
   child_count?: number|null,
   concept_results?: Array<ConceptResult>|null,
+  conceptResults?: Array<ConceptResult>|null,
   created_at?: string,
   id?: number,
   key?: string,
@@ -60,7 +61,8 @@ export interface FocusPoint {
   concept_uid?: string,
   concept_results?: Array<ConceptResult>,
   conceptResults?: Array<ConceptResult>,
-  key?: string
+  key?: string,
+  name?: string
 }
 
 export interface IncorrectSequence {
@@ -68,7 +70,8 @@ export interface IncorrectSequence {
   feedback: string,
   concept_results?: Array<ConceptResult>,
   conceptResults?: Array<ConceptResult>,
-  caseInsensitive?: boolean|null
+  caseInsensitive?: boolean|null,
+  name?: string
 }
 
 export interface FeedbackObject {

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: activities
@@ -33,6 +35,9 @@
 require 'rails_helper'
 
 describe Activity, type: :model, redis: true do
+  it { should have_many(:skill_group_activities) }
+  it { should have_many(:skill_groups).through(:skill_group_activities) }
+
   it { should have_and_belong_to_many(:unit_templates) }
   it { should belong_to(:classification).class_name("ActivityClassification") }
   it { should belong_to(:standard) }
@@ -164,6 +169,29 @@ describe Activity, type: :model, redis: true do
       expect(activity.module_url(student.activity_sessions.build()).to_s).to include "student"
     end
 
+    it "must add 'activities' param if the student has completed previous sessions of this activity classification" do
+      classification = create(:activity_classification, key: 'connect')
+      classified_activity = create(:activity, classification: classification)
+      student = create(:student)
+      activity_count = 2
+      activity_count.times do
+        create(:activity_session, :finished, activity: classified_activity, user: student)
+      end
+
+      activity_session = student.activity_sessions.last
+
+      expect(activity_session.user_activity_classifications.find_by(user_id: student.id).count).to eq(activity_count)
+      expect(classified_activity.module_url(activity_session).to_s).to include("activities=#{activity_count}")
+    end
+
+    it "must not add 'activities' param if the student has not completed any other activities of this classification" do
+      classification = create(:activity_classification, key: 'connect')
+      classified_activity = create(:activity, classification: classification)
+      activity_session = create(:activity_session, :started, activity: classified_activity)
+
+      expect(classified_activity.module_url(activity_session).to_s).to_not include("activities")
+    end
+
     it "must use the connect_url_helper when the classification.key is 'connect'" do
       classification = build(:activity_classification, key: 'connect')
       classified_activity = build(:activity, classification: classification)
@@ -180,6 +208,19 @@ describe Activity, type: :model, redis: true do
       expect(classified_activity).to receive(:connect_url_helper).with({student: activity_session.uid}).and_call_original
       result = classified_activity.module_url(activity_session)
       expect(result.to_s).to eq("#{classification.module_url}#{classified_activity.uid}?student=#{activity_session.uid}")
+    end
+
+    it "must use the evidence_url_helper when the classification.key is 'evidence'" do
+      classification = build(:activity_classification, key: 'evidence')
+      classified_activity = create(:activity, classification: classification)
+      activity_session = build(:activity_session)
+      comp_activity = Evidence::Activity.create!(parent_activity_id: classified_activity.id,
+        target_level: 12,
+        title: 'Test Evidence Activity',
+        notes: 'Test Evidence Activity')
+      expect(classified_activity).to receive(:evidence_url_helper).with({student: activity_session.uid}).and_call_original
+      result = classified_activity.module_url(activity_session)
+      expect(result.to_s).to eq("#{classification.module_url}?session=#{activity_session.uid}&uid=#{comp_activity.id}")
     end
 
   end
@@ -203,6 +244,18 @@ describe Activity, type: :model, redis: true do
       expect(classified_activity).to receive(:connect_url_helper).with({anonymous: true}).and_call_original
       result = classified_activity.anonymous_module_url
       expect(result.to_s).to eq("#{classification.module_url}#{classified_activity.uid}?anonymous=true")
+    end
+
+    it "must use the evidence_url_helper when the classification.key is 'evidence'" do
+      classification = build(:activity_classification, key: 'evidence')
+      classified_activity = create(:activity, classification: classification)
+      comp_activity = Evidence::Activity.create!(parent_activity_id: classified_activity.id,
+        target_level: 12,
+        title: 'Test Evidence Activity',
+        notes: 'Test Evidence Activity')
+      expect(classified_activity).to receive(:evidence_url_helper).with({anonymous: true}).and_call_original
+      result = classified_activity.anonymous_module_url
+      expect(result.to_s).to eq("#{classification.module_url}?anonymous=true&uid=#{comp_activity.id}")
     end
   end
 
@@ -229,10 +282,11 @@ describe Activity, type: :model, redis: true do
 
   describe 'scope results' do
     let!(:production_activity){ create(:activity, flag: 'production') }
+    let!(:gamma_activity){ create(:activity, flag: 'gamma') }
     let!(:beta_activity){ create(:activity, flag: 'beta') }
     let!(:alpha_activity){ create(:activity, flag: 'alpha') }
     let!(:archived_activity){ create(:activity, flag: 'archived') }
-    let!(:all_types){[production_activity, beta_activity, alpha_activity, archived_activity]}
+    let!(:all_types){[production_activity, gamma_activity, beta_activity, alpha_activity, archived_activity]}
 
     context 'the default scope' do
       it 'must show all types of flagged activities when default scope' do
@@ -242,7 +296,7 @@ describe Activity, type: :model, redis: true do
 
     context 'the production scope' do
       it 'must show only production flagged activities' do
-        expect(all_types - Activity.production.all).to eq [beta_activity, alpha_activity, archived_activity]
+        expect(all_types - Activity.production.all).to eq [gamma_activity, beta_activity, alpha_activity, archived_activity]
       end
 
       it 'must return the same thing as Activity.user_scope(nil)' do
@@ -250,8 +304,18 @@ describe Activity, type: :model, redis: true do
       end
     end
 
+    context 'the gamma scope' do
+      it 'must show only production and gamma flagged activities' do
+        expect(all_types - Activity.gamma_user).to eq [beta_activity, alpha_activity, archived_activity]
+      end
+
+      it 'must return the same thing as Activity.user_scope(gamma)' do
+        expect(Activity.gamma_user).to eq (Activity.user_scope('gamma'))
+      end
+    end
+
     context 'the beta scope' do
-      it 'must show only production and beta flagged activities' do
+      it 'must show only production, beta, and gamma flagged activities' do
         expect(all_types - Activity.beta_user).to eq [alpha_activity, archived_activity]
       end
 
@@ -376,9 +440,12 @@ describe Activity, type: :model, redis: true do
       old_length = activity.data["questions"].length
       question_obj = {"key": question.uid, "questionType": "questions"}
       activity.add_question(question_obj)
-      expect(activity.data["questions"].length).to eq(old_length+1)
-      expect(activity.data["questions"][-1][:key]).to eq(question.uid)
-      expect(activity.data["questions"][-1][:questionType]).to eq("questions")
+      questions = activity.data["questions"]
+      last_question = questions.last.symbolize_keys
+
+      expect(questions.length).to eq(old_length + 1)
+      expect(last_question[:key]).to eq(question.uid)
+      expect(last_question[:questionType]).to eq("questions")
     end
 
     it 'should throw error if the question does not exist' do
@@ -434,6 +501,101 @@ describe Activity, type: :model, redis: true do
     it 'should return false when activity is not diagnostic' do
       connect_activity = create(:connect_activity)
       refute connect_activity.is_diagnostic?
+    end
+  end
+
+  describe '#update_evidence_title?' do
+    let(:evidence) { create(:evidence) }
+    let(:activity) { create(:activity, classification: evidence) }
+
+    it 'should return true if both is_evidence? and name_changed?' do
+      activity.name = 'New Name'
+
+      expect(activity.send(:update_evidence_title?)).to eq(true)
+    end
+
+    it 'should return false if activity is not an evidence activity' do
+      activity.classification = create(:connect)
+      activity.name = 'New Name'
+
+      expect(activity.send(:update_evidence_title?)).to eq(false)
+    end
+
+    it 'should return false if name has not been changed on activity' do
+      activity.update(supporting_info: 'Name not changed')
+      expect(activity.send(:update_evidence_title?)).to eq(false)
+    end
+  end
+
+  describe '#after_save' do
+    let(:evidence) { create(:evidence) }
+    let(:activity) { create(:activity, classification: evidence) }
+
+    it 'should call update_evidence_child_title if update_evidence_title? is true' do
+      expect(activity).to receive(:update_evidence_child_title)
+      activity.update(name: 'New name')
+    end
+
+    it 'should not call update_evidence_child_title if update_evidence_title? is false' do
+      expect(activity).to receive(:update_evidence_title?).and_return(false)
+      activity.update(supporting_info: 'No name change')
+    end
+  end
+
+  describe '#child_activity' do
+    let(:evidence) { create(:evidence) }
+    let(:activity) { create(:activity, classification: evidence) }
+
+    it 'should do nothing if is_evidence? is false' do
+      activity.classification = create(:connect)
+      expect(Evidence::Activity).not_to receive(:find_by)
+      activity.update(supporting_info: 'No name change')
+    end
+
+    it 'should call Evidence::Activity.find_by if is_evidence? is true' do
+      expect(Evidence::Activity).to receive(:find_by).with(parent_activity_id: activity.id)
+      activity.update(name: 'New name')
+    end
+
+    it 'should return nil if there is no child activity' do
+      expect(activity.child_activity).to be_nil
+    end
+
+    it 'should return a Evidence::Activity if one has the LMS Activity.id as its parent_activity_id' do
+      comp_activity = Evidence::Activity.create!(title: 'Old Title', notes: 'Some notes', target_level: 1, parent_activity_id: activity.id)
+      expect(activity.child_activity).to eq(comp_activity)
+    end
+  end
+
+  describe '#update_evidence_child_title' do
+    let(:evidence) { create(:evidence) }
+    let(:activity) { create(:activity, classification: evidence) }
+
+    it 'should update the child activity title to the name value' do
+      new_name = 'A new name'
+      comp_activity = Evidence::Activity.create!(title: 'Old Title', notes: 'Some notes', target_level: 1, parent_activity_id: activity.id)
+      activity.update(name: new_name)
+      comp_activity.reload
+      expect(comp_activity.title).to eq(new_name)
+    end
+
+    it 'should not error if there is no child activity' do
+      expect { activity.update(name: 'New name') }.not_to raise_error
+    end
+  end
+
+  context 'a test that belongs in Comprehension that we need here because the engine stubs the LMS Activity model, and we need them both to behave as if real' do
+    describe '#Evidence::Activity.update_parent_activity_name' do
+      let(:activity) { create(:activity) }
+      let(:comp_activity) { Evidence::Activity.create!(title: 'Old Title', notes: 'Some notes', target_level: 1, parent_activity_id: activity.id) }
+
+      it 'should update the parent_activity.name when the comprehension activity.title is updated' do
+        new_title = 'New Title'
+        expect(activity.name).not_to eq(new_title)
+        comp_activity.update(title: new_title)
+        activity.reload
+        expect(activity.name).to eq(new_title)
+      end
     end
   end
 end

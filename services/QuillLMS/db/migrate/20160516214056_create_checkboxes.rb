@@ -1,4 +1,6 @@
-class CreateCheckboxes < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateCheckboxes < ActiveRecord::Migration[4.2]
   def change
     create_table :checkboxes do |t|
       t.integer :user_id

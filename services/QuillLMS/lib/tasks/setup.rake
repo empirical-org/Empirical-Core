@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :empirical do
   task :setup do
     puts "\n✏️  Let's get your development environment set up, shall we?"

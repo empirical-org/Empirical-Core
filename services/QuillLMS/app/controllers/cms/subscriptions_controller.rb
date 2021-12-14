@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::SubscriptionsController < Cms::CmsController
   before_action :set_subscription, except: [:index, :create]
   before_action :subscription_data, only: [:edit]
@@ -29,14 +31,11 @@ class Cms::SubscriptionsController < Cms::CmsController
   def destroy
   end
 
-
-  private
-
-  def set_subscription
+  private def set_subscription
     @subscription = Subscription.find(params[:id])
   end
 
-  def subscription_params
+  private def subscription_params
     params.require(:subscription).permit([
      :id,
      :expiration,
@@ -51,7 +50,7 @@ class Cms::SubscriptionsController < Cms::CmsController
      :de_activated_date,
      :payment_method,
      :payment_amount
-]
-   )
+    ]
+  )
   end
 end

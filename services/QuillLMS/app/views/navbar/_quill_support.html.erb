@@ -3,6 +3,15 @@
   <div class="navbar-tooltip">
     <i class="fas fa-caret-up"></i>
     <%= render 'navbar/tooltip_link',
+      text: 'Getting Started',
+      subtext: 'Everything you need to get started with Quill',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-gettingstarted-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-gettingstarted-gradient.svg',
+      image_id: 'gettingstarted-img',
+      link: 'https://support.quill.org/en/collections/64373-getting-started-for-teachers',
+      new_tab: true
+    %>
+    <%= render 'navbar/tooltip_link',
       text: 'General Questions',
       subtext: 'The most common questions teachers ask about Quill',
       hover_image_src: 'https://assets.quill.org/images/navbar/navbar-generalquestion-solid.svg',

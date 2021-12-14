@@ -23,7 +23,7 @@ export default createReactClass({
       scrollify: new Scrollify(),
     };
     const allActivityPacksUnit = {
-      name: 'All Activity Packs',
+      name: 'All activity packs',
       value: '',
     };
     return {
@@ -163,7 +163,7 @@ export default createReactClass({
           missing: this.checkMissing(this.state.scores),
         });
       } else {
-        const selectedUnit = { name: 'All Activity Packs', value: '', };
+        const selectedUnit = { name: 'All activity packs', value: '', };
         that.setState({
           unitFilters: [selectedUnit].concat(units),
           selectedUnit,
@@ -202,13 +202,14 @@ export default createReactClass({
       newScores.has(s.user_id) || newScores.set(s.user_id, { name: s.name, scores: [], });
       const scores = newScores.get(s.user_id).scores;
       scores.push({
-        cuId: s.cu_id,
+        cuId: s.classroom_unit_id,
         // activitySessionId: s.id,
         activityId: s.activity_id,
         userId: s.user_id,
         updated: s.updated_at,
         name: s.activity_name,
         percentage: s.percentage,
+        timespent: s.timespent,
         started: s.started ? Number(s.started) : 0,
         started_at: s.started_at,
         completed_attempts: s.completed_attempts ? Number(s.completed_attempts) : 0,

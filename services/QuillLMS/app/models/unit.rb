@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: units
@@ -30,7 +32,7 @@ class UniqueNameWhenVisible < ActiveModel::Validator
 end
 
 
-class Unit < ActiveRecord::Base
+class Unit < ApplicationRecord
   include ActiveModel::Validations
   validates_with UniqueNameWhenVisible
   belongs_to :user
@@ -73,9 +75,17 @@ class Unit < ActiveRecord::Base
     end
   end
 
-  private
+  def self.create_with_incremented_name(user_id:, name: )
+    unit = Unit.create(user_id: user_id, name: name)
+    return unit if unit.persisted?
+    (2..20).each do |counter|
+      unit = Unit.create(user_id: user_id, name: "#{name} #{counter}")
+      return unit if unit.persisted?
+    end
+    false
+  end
 
-  def create_any_new_classroom_unit_activity_states
+  private def create_any_new_classroom_unit_activity_states
     lesson_unit_activities = unit_activities.select { |ua| ua.activity.is_lesson? }
     lesson_unit_activities.each do |ua|
       classroom_units.each do |cu|

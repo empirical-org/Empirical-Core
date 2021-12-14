@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Teachers::ClassroomsController, type: :controller do
-  it { should use_before_filter :teacher! }
-  it { should use_before_filter :authorize_owner! }
-  it { should use_before_filter :authorize_teacher! }
+  it { should use_before_action :teacher! }
+  it { should use_before_action :authorize_owner! }
+  it { should use_before_action :authorize_teacher! }
 
   describe 'new' do
     let(:teacher) { create(:teacher) }
@@ -19,9 +21,38 @@ describe Teachers::ClassroomsController, type: :controller do
     end
   end
 
+  describe 'remove students' do
+    let(:teacher) { create(:teacher) }
+    let(:classroom) { create(:classroom) }
+    let!(:classrooms_teacher) do
+      create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
+    end
+    let(:students_classroom) { create(:students_classrooms, classroom: classroom)}
+
+    before do
+      session[:user_id] = teacher.id
+    end
+
+    it 'archives the students_classrooms record and calls the ArchiveStudentAssociationsForClassroomWorker' do
+      expect(ArchiveStudentAssociationsForClassroomWorker).to receive(:perform_async).with(students_classroom.student_id, classroom.id)
+      post :remove_students,
+        params: {
+          classroom_id: classroom.id,
+          student_ids: [students_classroom.student_id],
+        },
+        as: :json
+      students_classroom.reload
+      expect(students_classroom.visible).to be(false)
+    end
+
+  end
+
   describe 'create students' do
     let(:teacher) { create(:teacher) }
     let(:classroom) { create(:classroom) }
+    let!(:classrooms_teacher) do
+      create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
+    end
 
     before do
       session[:user_id] = teacher.id
@@ -36,7 +67,13 @@ describe Teachers::ClassroomsController, type: :controller do
       student2_with_account_type[:account_type] = 'Teacher Created Account'
       expect(Creators::StudentCreator).to receive(:create_student).with(student1_with_account_type, classroom.id)
       expect(Creators::StudentCreator).to receive(:create_student).with(student2_with_account_type, classroom.id)
-      post :create_students, classroom_id: classroom.id, students: [student1, student2], classroom: {}
+      post :create_students,
+        params: {
+          classroom_id: classroom.id,
+          students: [student1, student2],
+          classroom: {}
+        },
+        as: :json
     end
 
     it 'student creator catches duplicate usernames' do
@@ -46,58 +83,101 @@ describe Teachers::ClassroomsController, type: :controller do
       student1_with_account_type[:account_type] = 'Teacher Created Account'
       student2_with_account_type = student2.dup
       student2_with_account_type[:account_type] = 'Teacher Created Account'
-      post :create_students, classroom_id: classroom.id, students: [student1, student2], classroom: {}
+
+      post :create_students,
+        params: {
+          classroom_id: classroom.id,
+          students: [student1, student2],
+          classroom: {}
+        },
+        as: :json
+
       expect(User.find_by_username_or_email("good.kid@#{classroom.code}")).to be
       expect(User.find_by_username_or_email("good.kid1@#{classroom.code}")).to be
     end
 
+    context 'current_user is not the classroom owner' do
+      it 'should not allow a teacher to modify a classroom' do
+        unauthorized_teacher = create(:teacher)
+        unauthorized_student = { name: 'Fake Kid', password: 'Kid', username: "fake.kid@aol.com"}
+        allow(controller).to receive(:current_user) { unauthorized_teacher }
+        post :create_students, params: { classroom_id: classroom.id, students: [unauthorized_student], classroom: {} }
 
+        expect(response).to redirect_to(new_session_path)
+        expect(User.find_by(name: 'Fake Kid')).to be nil
+      end
+    end
   end
 
-  describe 'creating a login pdf' do
+  describe '#remove_students' do
+    let!(:classroom) { create(:classroom) }
+    let(:teacher) { classroom.owner }
 
+    before do
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    it 'should unhide the classroom' do
+      classroom.update(visible: false)
+      post :unhide, params: { class_id: classroom.id }
+      expect(classroom.reload.visible).to eq true
+    end
+  end
+
+
+  describe 'creating a login pdf' do
     let(:teacher) { create(:teacher) }
     let(:different_classroom) { create(:classroom) }
     let(:different_teacher) { different_classroom.owner }
 
-    before do
-      session[:user_id] = teacher.id
-    end
+    before { session[:user_id] = teacher.id }
 
     it 'does not allow teacher unauthorized access to other PDFs' do
-      get :generate_login_pdf, id: different_classroom.id
-      # expected result is a redirect away from the download page
-      # because the teacher in question should not be able to access
-      # student login information of a class that is not theirs
+      get :generate_login_pdf, params: { id: different_classroom.id, format: :pdf, only: [:pdf] }
+
       expect(response.status).to eq(303)
     end
   end
 
   describe '#transfer_ownership' do
-    let!(:classroom)         { create(:classroom) }
-    let!(:owner)             { classroom.owner }
-    let!(:valid_coteacher)   { create(:coteacher_classrooms_teacher, classroom: classroom).user }
+    let!(:current_owner) { create(:teacher, name: 'joe smith') }
+    let!(:subsequent_owner) { create(:teacher, name: 'betty jones') }
+    let!(:classroom) { Classroom.create(name: 'a_class') }
+    # Why not use a factory above? Because the classroom factory has a callback that creates
+    # associations which break these specs
+    let!(:classrooms_teacher) do
+      create(:classrooms_teacher,
+              user_id: current_owner.id,
+              classroom: classroom,
+              role: ClassroomsTeacher::ROLE_TYPES[:owner])
+      create(:classrooms_teacher,
+              user_id: subsequent_owner.id,
+              classroom: classroom,
+              role: ClassroomsTeacher::ROLE_TYPES[:coteacher])
+    end
+
     let!(:unaffiliated_user) { create(:teacher) }
 
     it 'does not allow transferring a classroom not owned by current user' do
       session[:user_id] = unaffiliated_user.id
-      post :transfer_ownership, id: classroom.id, requested_new_owner_id: valid_coteacher.id
+      post :transfer_ownership, params: { id: classroom.id, requested_new_owner_id: subsequent_owner.id }
       expect(response.status).to eq(303)
-      expect(classroom.owner).to eq(owner)
+      expect(classroom.owner).to eq(current_owner)
     end
 
     it 'does not allow transferring a classroom to a teacher who is not already a coteacher' do
-      session[:user_id] = owner.id
-      post :transfer_ownership, id: classroom.id, requested_new_owner_id: unaffiliated_user.id
-      expect(classroom.owner).to eq(owner)
+      session[:user_id] = current_owner.id
+      post :transfer_ownership, params: { id: classroom.id, requested_new_owner_id: unaffiliated_user.id }
+      expect(classroom.owner).to eq(current_owner)
     end
 
     it 'transfers ownership to a coteacher' do
-      session[:user_id] = owner.id
-      post :transfer_ownership, id: classroom.id, requested_new_owner_id: valid_coteacher.id
-      expect(classroom.owner).to eq(valid_coteacher)
+      session[:user_id] = current_owner.id
+      post :transfer_ownership, params: { id: classroom.id, requested_new_owner_id: subsequent_owner.id }
+
+      expect(classroom.owner).to eq(subsequent_owner)
       expect(classroom.coteachers.length).to eq(1)
-      expect(classroom.coteachers.first).to eq(owner)
+      expect(classroom.coteachers.first).to eq(current_owner)
     end
 
     context 'segment IO tracking' do
@@ -109,44 +189,139 @@ describe Teachers::ClassroomsController, type: :controller do
 
       it 'should track the ownership transfer' do
         expect(analyzer).to receive(:track_with_attributes).with(
-          owner,
+          current_owner,
           SegmentIo::BackgroundEvents::TRANSFER_OWNERSHIP,
-          { properties: { new_owner_id: valid_coteacher.id.to_s } }
+          { properties: { new_owner_id: subsequent_owner.id.to_s } }
         )
-        session[:user_id] = owner.id
-        post :transfer_ownership, id: classroom.id, requested_new_owner_id: valid_coteacher.id
+        session[:user_id] = current_owner.id
+        post :transfer_ownership, params: { id: classroom.id, requested_new_owner_id: subsequent_owner.id }
       end
     end
   end
 
   describe '#index' do
     let!(:teacher) { create(:teacher) }
-    let!(:classroom) { create(:classroom)}
-    let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher )}
 
-    before do
-      allow(controller).to receive(:current_user) { teacher }
+    before { allow(controller).to receive(:current_user) { teacher } }
+
+    context 'plain classrooms' do
+      let!(:classroom1) { create(:classroom)}
+      let!(:classroom2) { create(:classroom)}
+      let!(:classroom3) { create(:classroom)}
+      let!(:classrooms_teacher1) { create(:classrooms_teacher, classroom: classroom1, user: teacher )}
+      let!(:classrooms_teacher2) { create(:classrooms_teacher, classroom: classroom2, user: teacher )}
+      let!(:classrooms_teacher3) { create(:classrooms_teacher, classroom: classroom3, user: teacher )}
+
+      before { allow(controller).to receive(:current_user) { teacher } }
+
+      context 'when current user has classrooms i teach' do
+
+        it 'should return classrooms in order of creation date' do
+          get :index, as: :json
+
+          parsed_response = JSON.parse(response.body)
+
+          expect(parsed_response["classrooms"][0]["id"]).to eq(classroom3.id)
+          expect(parsed_response["classrooms"][1]["id"]).to eq(classroom2.id)
+          expect(parsed_response["classrooms"][2]["id"]).to eq(classroom1.id)
+        end
+
+        it 'should assign the classrooms and classroom and no students' do
+          get :index
+          expect(assigns(:classrooms)[0]['id']).to eq classroom3.id
+          expect(assigns(:classrooms)[1]['id']).to eq classroom2.id
+          expect(assigns(:classrooms)[2]['id']).to eq classroom1.id
+          expect(assigns(:classrooms)[0][:students]).to be_empty
+          expect(assigns(:classrooms)[1][:students]).to be_empty
+          expect(assigns(:classrooms)[2][:students]).to be_empty
+        end
+
+        context "with activity sesions" do
+          let!(:activity) { create(:activity) }
+          let!(:student) { create(:user, classcode: classroom3.code) }
+          let!(:cu) { create(:classroom_unit, classroom: classroom3, assigned_student_ids: [student.id])}
+          let!(:ua) { create(:unit_activity, unit: cu.unit, activity: activity)}
+          let!(:activity_session) { create(:activity_session, user: student, activity: activity, classroom_unit: cu, state: 'finished') }
+
+          it 'should assign students and number_of_completed_activities' do
+            get :index
+            expect(assigns(:classrooms)[0]['id']).to eq classroom3.id
+            expect(assigns(:classrooms)[0][:students][0][:number_of_completed_activities]).to eq 1
+          end
+        end
+
+        context "with order property" do
+          before do
+            # remove classroom_teacher entries from earlier tests
+            ids = [classrooms_teacher1.id, classrooms_teacher2.id, classrooms_teacher3.id]
+            ClassroomsTeacher.all.each do |classroom_teacher|
+              if !ids.include?(classroom_teacher.id)
+                classroom_teacher.destroy!
+              end
+            end
+          end
+
+          it 'should return classrooms in order of creation date if only some classrooms_teacher entries have order property' do
+            ct1 = ClassroomsTeacher.where(classroom_id: classroom1.id).first
+            ct1.order = 1
+            ct1.save!
+
+            get :index, as: :json
+
+            parsed_response = JSON.parse(response.body)
+            expect(parsed_response["classrooms"][0]["id"]).to eq(classroom3.id)
+            expect(parsed_response["classrooms"][1]["id"]).to eq(classroom2.id)
+            expect(parsed_response["classrooms"][2]["id"]).to eq(classroom1.id)
+          end
+
+          it 'should return classrooms ordered by order properity if all classrooms_teacher entries have order property' do
+            ct1 = ClassroomsTeacher.where(classroom_id: classroom1.id).first
+            ct1.order = 1
+            ct1.save!
+            ct2 = ClassroomsTeacher.where(classroom_id: classroom2.id).first
+            ct2.order = 0
+            ct2.save!
+            ct3 = ClassroomsTeacher.where(classroom_id: classroom3.id).first
+            ct3.order = 2
+            ct3.save!
+
+            get :index, as: :json
+
+            parsed_response = JSON.parse(response.body)
+            expect(parsed_response["classrooms"][0]["id"]).to eq(classroom2.id)
+            expect(parsed_response["classrooms"][1]["id"]).to eq(classroom1.id)
+            expect(parsed_response["classrooms"][2]["id"]).to eq(classroom3.id)
+          end
+        end
+      end
     end
 
-    context 'when current user has classrooms i teach' do
+    context 'provider-based classrooms' do
+      context 'google classroom' do
+        let(:classroom) { create(:classroom_with_a_couple_students, :from_google, students: [student1, student2]) }
+        let(:student1) { create(:student, :signed_up_with_google) }
+        let(:student2) { create(:student, :signed_up_with_google) }
+        let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher )}
 
-      it 'should assign the classrooms and classroom and no students' do
-        get :index
-        expect(assigns(:classrooms)[0]['id']).to eq classroom.id
-        expect(assigns(:classrooms)[0][:students]).to be_empty
-      end
+        before do
+          create(:google_classroom_user,
+            :active,
+            provider_classroom_id: classroom.google_classroom_id,
+            provider_user_id: student1.google_id
+          )
 
-      context "with activity sesions" do
-        let!(:activity) { create(:activity) }
-        let!(:student) { create(:user, classcode: classroom.code) }
-        let!(:cu) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
-        let!(:ua) { create(:unit_activity, unit: cu.unit, activity: activity)}
-        let!(:activity_session) { create(:activity_session, user: student, activity: activity, classroom_unit: cu, state: 'finished') }
+          create(:google_classroom_user,
+            :deleted,
+            provider_classroom_id: classroom.google_classroom_id,
+            provider_user_id: student2.google_id
+          )
+        end
 
-        it 'should assign students and number_of_completed_activities' do
-          get :index
-          expect(assigns(:classrooms)[0]['id']).to eq classroom.id
-          expect(assigns(:classrooms)[0][:students][0][:number_of_completed_activities]).to eq 1
+        it 'reports which students are no longer in provider classroom' do
+          get :index, as: :json
+          parsed_response = JSON.parse(response.body)
+          expect(parsed_response["classrooms"][0]["students"][0]["synced"]).to eq true
+          expect(parsed_response["classrooms"][0]["students"][1]["synced"]).to eq false
         end
       end
     end
@@ -182,30 +357,37 @@ describe Teachers::ClassroomsController, type: :controller do
   end
 
   describe '#update' do
-    let!(:classroom) { create(:classroom) }
-    let(:teacher) { classroom.owner }
+    let(:teacher) { create(:teacher) }
+    let(:classroom) { create(:classroom) }
+    let!(:classrooms_teacher) do
+      create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
+    end
 
     before do
       allow(controller).to receive(:current_user) { teacher }
     end
 
     it 'should update the given classroom' do
-      post :update, id: classroom.id, classroom: { name: "new name" }
+      post :update, params: { id: classroom.id, classroom: { name: "new name" } }
       expect(classroom.reload.name).to eq "new name"
       expect(response).to redirect_to teachers_classroom_students_path(classroom.id)
     end
   end
 
   describe '#destroy' do
-    let!(:classroom) { create(:classroom) }
-    let(:teacher) { classroom.owner }
+    let(:teacher) { create(:teacher) }
+    let(:classroom) { create(:classroom) }
+    let!(:classrooms_teacher) do
+      create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
+    end
 
     before do
       allow(controller).to receive(:current_user) { teacher }
     end
 
     it 'should destroy the given classroom' do
-      delete :destroy, id: classroom.id
+
+      delete :destroy, params: { id: classroom.id }
       expect{Classroom.find classroom.id}.to raise_exception ActiveRecord::RecordNotFound
       expect(response).to redirect_to teachers_classrooms_path
     end
@@ -220,7 +402,7 @@ describe Teachers::ClassroomsController, type: :controller do
     end
 
     it 'should hide the classroom' do
-      put :hide, id: classroom.id
+      put :hide, params: { id: classroom.id }
       expect(classroom.reload.visible).to eq false
       expect(response).to redirect_to teachers_classrooms_path
     end
@@ -239,7 +421,7 @@ describe Teachers::ClassroomsController, type: :controller do
     end
 
     it 'should hide the classrooms that are owned by the teacher and not hide the one that is not' do
-      put :bulk_archive, ids: [owned_classroom_1.id, owned_classroom_2.id, unowned_classroom.id]
+      put :bulk_archive, params: { ids: [owned_classroom_1.id, owned_classroom_2.id, unowned_classroom.id] }
       expect(owned_classroom_1.reload.visible).to eq false
       expect(owned_classroom_2.reload.visible).to eq false
       expect(unowned_classroom.reload.visible).to eq true
@@ -256,7 +438,7 @@ describe Teachers::ClassroomsController, type: :controller do
 
     it 'should unhide the classroom' do
       classroom.update(visible: false)
-      post :unhide, class_id: classroom.id
+      post :unhide, params: { class_id: classroom.id }
       expect(classroom.reload.visible).to eq true
     end
   end
@@ -271,7 +453,7 @@ describe Teachers::ClassroomsController, type: :controller do
     end
 
     it 'should give the correct json' do
-      get :units, id: classroom.id
+      get :units, params: { id: classroom.id }
       expect(response.body).to eq({units: "units"}.to_json)
     end
   end

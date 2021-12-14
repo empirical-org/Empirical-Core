@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :activity_sessions do
   desc 'Identify which activity sessions represent the final score for each student, classroom_activity'
   task :is_final_score => :environment do

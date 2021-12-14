@@ -7,6 +7,10 @@ export function sortByLastName(fullName1, fullName2){
   return sort(lastName1, lastName2);
 }
 
+export function sortList(list1, list2) {
+  return sort(list1.sort()[0], list2.sort()[0])
+}
+
 export function sortFromSQLTimeStamp(timeStamp1, timeStamp2) {
   const epoch1 = timeStamp1 ? moment(timeStamp1).unix() : 0;
   const epoch2 = timeStamp2 ? moment(timeStamp2).unix() : 0;

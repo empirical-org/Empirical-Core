@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CsvExporter::Standards
   class Classroom
     PAGE_TITLE = 'Standards: All Classrooms'
@@ -27,7 +29,7 @@ module CsvExporter::Standards
 
     def model_data(teacher, filters)
       ::ProgressReports::Standards::Classroom.new(teacher)
-        .results(HashWithIndifferentAccess.new(filters) || {})
+        .results(ActiveSupport::HashWithIndifferentAccess.new(filters) || {})
     end
   end
 end

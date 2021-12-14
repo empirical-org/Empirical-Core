@@ -1,12 +1,13 @@
 import React from 'react';
 import _ from 'underscore';
+
 import StudentProfileUnit from './student_profile_unit.jsx';
 import PinnedActivityModal from './pinned_activity_modal'
 import PreviewActivityModal from './preview_activity_modal'
 import PinnedActivityBar from './pinned_activity_bar'
+
 import LoadingIndicator from '../shared/loading_indicator'
-import activityLaunchLink from '../modules/generate_activity_launch_link.js';
-import { ALL_ACTIVITIES, TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../constants/student_profile'
+import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../constants/student_profile'
 
 const clipboardSrc = `${process.env.CDN_URL}/images/illustrations/clipboard.svg`
 
@@ -35,7 +36,6 @@ export default class StudentProfileUnits extends React.Component {
       case COMPLETED_ACTIVITIES:
         const unitsWithCompletedActivities = groupedUnits.filter(u => u.complete && u.complete.length)
         return unitsWithCompletedActivities.map(u => ({ complete: u.complete }))
-      case ALL_ACTIVITIES:
       default:
         return groupedUnits
     }
@@ -49,7 +49,6 @@ export default class StudentProfileUnits extends React.Component {
         return this.groupUnits().length ? 'Write on! You’re all finished with your activities.' : 'Nothing to see here yet! Once your teacher assigns activities they will show up here.'
       case COMPLETED_ACTIVITIES:
         return 'Nothing to see here yet! Once you complete an activity it will show up here.'
-      case ALL_ACTIVITIES:
       default:
         return 'Nothing to see here yet! Once your teacher assigns activities they will show up here.'
     }
@@ -60,7 +59,7 @@ export default class StudentProfileUnits extends React.Component {
     const groupedUnits = _.groupBy(data, 'unit_id');
     const unitsWithGroupedActivities = {};
     for (const unit in groupedUnits) {
-      const partitionedActivities = _.partition(groupedUnits[unit], activity => (activity.max_percentage != null));
+      const partitionedActivities = _.partition(groupedUnits[unit], activity => (activity.finished));
       unitsWithGroupedActivities[unit] = {};
       if (partitionedActivities[0].length) {
         unitsWithGroupedActivities[unit].complete = _.sortBy(partitionedActivities[0], 'unit_activity_created_at');
@@ -95,14 +94,16 @@ export default class StudentProfileUnits extends React.Component {
   }
 
   renderContent = () => {
-    const { loading, nextActivitySession, isBeingPreviewed, } = this.props
+    const { loading, nextActivitySession, isBeingPreviewed, selectedUnitId, } = this.props
     if (loading) { return <LoadingIndicator /> }
 
     const content = this.displayedUnits().map(unit => {
       const { unit_id, unit_name, } = unit[Object.keys(unit)[0]][0]
       return (<StudentProfileUnit
         data={unit}
+        id={unit_id}
         isBeingPreviewed={isBeingPreviewed}
+        isSelectedUnit={String(unit_id) === selectedUnitId}
         key={unit_id}
         nextActivitySession={nextActivitySession}
         onShowPreviewModal={this.handleShowPreviewModal}
@@ -122,14 +123,14 @@ export default class StudentProfileUnits extends React.Component {
 
   renderPinnedActivityBar = () => {
     const { data, isBeingPreviewed, } = this.props
-    const pinnedActivity = data.find(act => act.pinned === 't')
+    const pinnedActivity = data.find(act => act.pinned)
     if (!pinnedActivity) { return }
 
-    const { name, ca_id, activity_id, } = pinnedActivity
+    const { name, classroom_unit_id, activity_id, } = pinnedActivity
 
     return (<PinnedActivityBar
       activityId={activity_id}
-      classroomUnitId={ca_id}
+      classroomUnitId={classroom_unit_id}
       isBeingPreviewed={isBeingPreviewed}
       name={name}
       onShowPreviewModal={this.handleShowPreviewModal}
@@ -150,13 +151,13 @@ export default class StudentProfileUnits extends React.Component {
   renderPinnedActivityModal = () => {
     const { data, teacherName, isBeingPreviewed, } = this.props
     const { closedPinnedActivityModal, } = this.state
-    const pinnedActivity = data.find(act => act.pinned === 't')
+    const pinnedActivity = data.find(act => act.pinned)
     if (isBeingPreviewed || !pinnedActivity || closedPinnedActivityModal) { return }
 
-    const { name, ca_id, activity_id, } = pinnedActivity
+    const { name, classroom_unit_id, activity_id, } = pinnedActivity
     return (<PinnedActivityModal
       activityId={activity_id}
-      classroomUnitId={ca_id}
+      classroomUnitId={classroom_unit_id}
       name={name}
       onClosePinnedActivityModalClick={this.handleClosePinnedActivityModalClick}
       teacherName={teacherName}

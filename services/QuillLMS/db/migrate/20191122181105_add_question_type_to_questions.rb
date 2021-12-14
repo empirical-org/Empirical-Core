@@ -1,4 +1,6 @@
-class AddQuestionTypeToQuestions < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddQuestionTypeToQuestions < ActiveRecord::Migration[4.2]
   def up
     add_column :questions, :question_type, :string
     add_index :questions, :question_type

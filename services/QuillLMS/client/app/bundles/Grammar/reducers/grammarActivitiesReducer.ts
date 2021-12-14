@@ -54,7 +54,7 @@ export default (
             newstate.states[action.cid] = ActionTypes.SUBMITTING_LESSON;
             return newstate;
         case ActionTypes.START_NEW_ACTIVITY:
-            return Object.assign({}, currentState, { currentActivity: null, })
+            return Object.assign({}, currentState, { currentActivity: null, hasreceiveddata: false })
         default:
             return currentState;
     }

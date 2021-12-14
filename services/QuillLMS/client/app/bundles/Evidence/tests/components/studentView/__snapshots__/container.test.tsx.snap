@@ -1,0 +1,194 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StudentViewContainer component renders 1`] = `
+<StudentViewContainer
+  activities={
+    Object {
+      "currentActivity": Object {
+        "activity_id": 1,
+        "passages": Array [
+          Object {
+            "highlight_prompt": "As you read, highlight two sentences that explain why some people think voting should be required.",
+            "text": "Crispin Morales is a poor Bolivian factory worker who works 12-hour days. He works every day but Sunday. The last presidential election fell on a Saturday. Although he was given the day off as the law required, Crispin was unable to get to a polling station to vote. After failing to vote, Crispin was not allowed to withdraw his salary from his bank for over two months. This is because those who do not vote are punished in Bolivia given that voting there is compulsory, a civic duty required by law. Not all countries with compulsory voting enforce this law.
+
+If a citizen of Australia or Brazil provides a good reason for not voting (e.g. being in a hospital) it is accepted. In fact, many nations have dropped mandatory voting altogether. However, this can have a negative effect. When Venezuela, for example, discontinued mandatory voting in 1993, it saw a 30% decline in attendance at the polls.
+
+Low voter turnout is a common problem in countries without compulsory voting. This problem might be explained by voter apathy or lack of enthusiasm around elections. Of 222 million eligible voters, only 125 million cast their votes in the 2012 U.S. presidential election. By contrast, over 750 million votes were cast during season 10 of American Idol. Some people find it discouraging that voting for American Idol seems to generate more enthusiasm than voting in national elections. While it's important to note that American Idol viewers as young as 13 years old can vote multiple times during multiple episodes, these numbers may indicate that some citizens feel that their vote counts more in television contests than in political contests. Or perhaps they’re just not interested in politics.
+
+Mandatory voting may seem like a great way to encourage voter participation, but governments can sometimes misuse it. For example, in some dictatorships, citizens are forced to vote, but the same person is elected every time because the government does not allow political competition. In March 2014 in North Korea, 99% of the country cast votes for Kim Jong Un, the only candidate listed on the ballot.
+
+But how can democracies have representative governments unless all or most of their citizens vote? Some say that compulsory voting ensures that the elected government represents the majority of the population. But those against compulsory voting say that it is a violation of personal liberties and choices. Others say that voting should be seen as a civic right and not a civic duty.",
+          },
+        ],
+        "prompts": Array [
+          Object {
+            "conjunction": "because",
+            "max_attempts": 5,
+            "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory because otherwise not everyone will vote.",
+            "prompt_id": 1,
+            "text": "Governments should make voting compulsory because",
+          },
+          Object {
+            "conjunction": "but",
+            "max_attempts": 5,
+            "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory, but with exceptions for people who have good reasons for not being able to vote.",
+            "prompt_id": 2,
+            "text": "Governments should make voting compulsory, but",
+          },
+          Object {
+            "conjunction": "so",
+            "max_attempts": 5,
+            "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory so that the elected government represents the majority of the population.",
+            "prompt_id": 3,
+            "text": "Governments should make voting compulsory so",
+          },
+        ],
+        "title": "Should Voting be Required?",
+      },
+      "hasReceivedData": true,
+    }
+  }
+  dispatch={[Function]}
+  location={
+    Object {
+      "search": "?uid=1",
+    }
+  }
+  session={
+    Object {
+      "hasReceivedData": true,
+      "sessionID": "MockSessionID",
+      "submittedResponses": Array [],
+    }
+  }
+>
+  <WelcomeSlide
+    onHandleClick={[Function]}
+  >
+    <div
+      className="explanation-slide-container"
+      id="welcome-slide-container"
+    >
+      <section
+        id="information-section"
+      >
+        <p
+          className="subtext"
+        >
+          Hi there!
+        </p>
+        <section
+          id="header-container"
+        >
+          <p
+            id="header"
+          >
+            Welcome to Quill Evidence
+          </p>
+        </section>
+        <section
+          id="instructions-container"
+        >
+          <div
+            className="instruction-container"
+          >
+            <div
+              className="step-number"
+            >
+              1
+            </div>
+            <p
+              className="step-text"
+            >
+              Read and highlight text
+            </p>
+            <img
+              alt="A sample article about volcanoes showing a sentence highlighted with the cursor over the highlighted sentence"
+              className="step-image"
+              src="undefined/images/comprehension/article-highlighted.svg"
+            />
+          </div>
+          <div
+            className="instruction-container"
+          >
+            <div
+              className="step-number"
+            >
+              2
+            </div>
+            <p
+              className="step-text"
+            >
+              Write sentences using what you read
+            </p>
+            <img
+              alt="A sample question asking a student to fill in the rest of a sentence"
+              className="step-image"
+              src="undefined/images/comprehension/sentence-prompt.svg"
+            />
+          </div>
+          <div
+            className="instruction-container"
+          >
+            <div
+              className="step-number"
+            >
+              3
+            </div>
+            <p
+              className="step-text"
+            >
+              Revise based on feedback
+            </p>
+            <img
+              alt="A sample feedback asking a student to add more detail to their sentence"
+              className="step-image"
+              src="undefined/images/comprehension/sentence-feedback.svg"
+            />
+          </div>
+        </section>
+      </section>
+      <Footer
+        buttonText="Next"
+        onHandleClick={[Function]}
+        step={1}
+      >
+        <section
+          id="button-container"
+        >
+          <span />
+          <button
+            className="quill-button large secondary outlined focus-on-dark"
+            onClick={[Function]}
+            type="submit"
+          >
+            Next
+          </button>
+          <div
+            id="step-indictator-container"
+          >
+            <div
+              className="step-indicator active"
+            />
+            <div
+              className="step-indicator "
+            />
+            <div
+              className="step-indicator "
+            />
+            <div
+              className="step-indicator "
+            />
+          </div>
+        </section>
+      </Footer>
+    </div>
+  </WelcomeSlide>
+</StudentViewContainer>
+`;

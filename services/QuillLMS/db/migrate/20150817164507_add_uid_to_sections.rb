@@ -1,4 +1,6 @@
-class AddUidToSections < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddUidToSections < ActiveRecord::Migration[4.2]
   def change
     add_column :sections, :uid, :string
   end

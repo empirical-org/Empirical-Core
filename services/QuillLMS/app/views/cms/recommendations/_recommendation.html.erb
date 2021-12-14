@@ -12,14 +12,15 @@
     %>
   </td>
   <td>
-    <%= link_to 'Delete',
+    <%= button_to 'Delete',
       cms_activity_classification_activity_recommendation_path(
         @activity_classification,
         @activity,
         recommendation
       ),
       method: :delete,
-      data: { confirm: 'Are you sure?' }
+      data: { confirm: 'Are you sure?' },
+      class: 'interactive-wrapper'
     %>
   </td>
 <% end -%>

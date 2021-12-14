@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sidekiq/web'
 require 'staff_constraint'
 
@@ -81,7 +83,6 @@ EmpiricalGrammar::Application.routes.draw do
   end
   resources :assessments
   resources :assignments
-  resources :notifications, only: :index, format: :json
   resource :profile
   resources :password_reset
   resources :schools, only: [:index], format: 'json'
@@ -105,15 +106,18 @@ EmpiricalGrammar::Application.routes.draw do
     get :play, on: :member
     put :play, on: :member
   end
-  # 3rd party apps depend on the below, do not change :
-  get 'activity_sessions/classroom_units/:classroom_unit_id/activities/:activity_id' => 'activity_sessions#activity_session_from_classroom_unit_and_activity'
-  get 'activity_sessions/:uid' => 'activity_sessions#result'
 
+
+  # 3rd party apps depend on the below, do not change :
+  get 'activity_sessions/classroom_units/:classroom_unit_id/activities/:activity_id' => 'activity_sessions#activity_session_from_classroom_unit_and_activity',
+    as: :activity_session_from_classroom_unit_and_activity
+
+  get 'classroom_units/:classroom_unit_id/activities/:id' => 'activities#activity_session'
+  get 'activity_sessions/:uid' => 'activity_sessions#result'
 
   get 'students_classrooms_json' => 'profiles#students_classrooms_json'
   get 'student_profile_data' => 'profiles#student_profile_data'
   get 'student_mobile_profile_data/:current_classroom_id' => 'profiles#mobile_profile_data'
-
 
   resources :activities, only: [] do
     post :retry, on: :member
@@ -125,6 +129,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :complete_view_lesson_tutorial, on: :collection
     post :complete_acknowledge_lessons_banner, on: :collection
     post :complete_acknowledge_diagnostic_banner, on: :collection
+    post :complete_acknowledge_growth_diagnostic_promotion_card, on: :collection
   end
 
   resources :grades, only: [:index]
@@ -148,16 +153,20 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/admin_dashboard/district_activity_scores/student_overview' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_concept_reports' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_standards_reports' => 'teachers#admin_dashboard'
+  post 'teachers/unlink/:teacher_id' => 'teachers#unlink'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
+  post 'teachers/unlink/:teacher_id' => 'teachers#unlink'
   get 'teachers/:id/schools/:school_id' => 'teachers#add_school'
   get 'teachers/completed_diagnostic_unit_info' => 'teachers#completed_diagnostic_unit_info'
   get 'teachers/diagnostic_info_for_dashboard_mini' => 'teachers#diagnostic_info_for_dashboard_mini'
+  get 'teachers/lessons_info_for_dashboard_mini' => 'teachers#lessons_info_for_dashboard_mini'
   get 'teachers/classrooms_i_teach_with_students' => 'teachers#classrooms_i_teach_with_students'
   get 'teachers/classrooms_i_own_with_students' => 'teachers#classrooms_i_own_with_students'
   get 'teachers/classrooms_i_teach_with_lessons' => 'teachers#classrooms_i_teach_with_lessons'
   post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
   post 'teachers/classrooms/bulk_archive', controller: 'teachers/classrooms', action: 'bulk_archive'
   get 'teachers/classrooms/:id/student_logins', only: [:pdf], controller: 'teachers/classrooms', action: 'generate_login_pdf', as: :generate_login_pdf, defaults: { format: 'pdf' }
+  get :teacher_dashboard_metrics, controller: 'teachers/classroom_manager', action: 'teacher_dashboard_metrics'
 
   namespace :teachers do
 
@@ -214,8 +223,11 @@ EmpiricalGrammar::Application.routes.draw do
       end
     end
 
+    get 'activity_feed', to: 'classroom_manager#activity_feed'
     get 'unset_preview_as_student', to: 'classroom_manager#unset_preview_as_student'
     get 'preview_as_student/:student_id', to: 'classroom_manager#preview_as_student'
+    get 'view_demo', to: 'classroom_manager#view_demo'
+    get 'unset_view_demo', to: 'classroom_manager#unset_view_demo'
     get 'getting_started' => 'classroom_manager#getting_started'
     get 'add_students' => 'classroom_manager#generic_add_students'
     get 'teacher_guide' => 'classroom_manager#teacher_guide'
@@ -238,11 +250,17 @@ EmpiricalGrammar::Application.routes.draw do
       get 'diagnostic_reports' => 'diagnostic_reports#show'
       get 'diagnostic_status' => 'diagnostic_reports#diagnostic_status'
       get 'diagnostic_report' => 'diagnostic_reports#default_diagnostic_report'
-      get 'question_view/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#question_view'
+      get 'diagnostic_results_summary' => 'diagnostic_reports#diagnostic_results_summary'
+      get 'diagnostic_growth_results_summary' => 'diagnostic_reports#diagnostic_growth_results_summary'
+      get 'diagnostic_student_responses_index' => 'diagnostic_reports#diagnostic_student_responses_index'
+      get 'individual_student_diagnostic_responses/:student_id' => 'diagnostic_reports#individual_student_diagnostic_responses'
+      get 'question_view/classroom/:classroom_id/activity/:activity_id/unit/:unit_id' => 'diagnostic_reports#question_view'
+      get 'question_view/classroom/:classroom_id/activity/:activity_id' => 'diagnostic_reports#question_view'
       get 'classrooms_with_students/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#classrooms_with_students'
       get 'students_by_classroom/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#students_by_classroom'
-      get 'recommendations_for_classroom/:unit_id/:classroom_id/activity/:activity_id' => 'diagnostic_reports#recommendations_for_classroom'
-      get 'lesson_recommendations_for_classroom/u/:unit_id/c/:classroom_id/a/:activity_id' => 'diagnostic_reports#lesson_recommendations_for_classroom'
+      get 'recommendations_for_classroom/:classroom_id/activity/:activity_id' => 'diagnostic_reports#recommendations_for_classroom'
+      get 'lesson_recommendations_for_classroom/:classroom_id/activity/:activity_id' => 'diagnostic_reports#lesson_recommendations_for_classroom'
+      get 'skills_growth/:classroom_id/post_test_activity_id/:post_test_activity_id/pre_test_activity_id/:pre_test_activity_id' => 'diagnostic_reports#skills_growth'
       get 'diagnostic_activity_ids' => 'diagnostic_reports#diagnostic_activity_ids'
       get 'activity_with_recommendations_ids' => 'diagnostic_reports#activity_with_recommendations_ids'
       get 'previously_assigned_recommendations/:classroom_id/activity/:activity_id' => 'diagnostic_reports#previously_assigned_recommendations'
@@ -271,7 +289,9 @@ EmpiricalGrammar::Application.routes.draw do
     resources :classrooms, only: [:index, :new, :create, :update, :destroy] do
       post :create_students
       post :remove_students
+
       put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
+
       collection do
         get :archived, action: 'index', as: :archived
         get :classrooms_i_teach
@@ -288,6 +308,7 @@ EmpiricalGrammar::Application.routes.draw do
         get :dashboard, controller: 'classroom_manager', action: 'dashboard'
         get :retrieve_classrooms_for_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_for_assigning_activities'
         get :retrieve_classrooms_i_teach_for_custom_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_i_teach_for_custom_assigning_activities'
+        get 'classrooms_and_classroom_units_for_activity_share/:unit_id' => 'classroom_manager#classrooms_and_classroom_units_for_activity_share'
         get :invite_students, controller: 'classroom_manager', action: 'invite_students'
         get :google_sync, controller: 'classroom_manager', action: 'google_sync'
         get :retrieve_google_classrooms, controller: 'classroom_manager', action: 'retrieve_google_classrooms'
@@ -341,9 +362,11 @@ EmpiricalGrammar::Application.routes.draw do
     post :remove_coteacher
   end
   get '/classrooms_teachers/specific_coteacher_info/:coteacher_id', to: 'classrooms_teachers#specific_coteacher_info'
+  put '/classrooms_teachers/update_order' => 'classrooms_teachers#update_order'
   delete '/classrooms_teachers/destroy/:classroom_id', to: 'classrooms_teachers#destroy'
 
-
+  put 'feedback_history_rating' => 'feedback_history_ratings#create_or_update'
+  put 'feedback_history_rating/mass_mark' => 'feedback_history_ratings#mass_mark'
 
   resources :coteacher_classroom_invitations, only: [:destroy] do
     collection do
@@ -358,20 +381,37 @@ EmpiricalGrammar::Application.routes.draw do
   # API routes
   namespace :api do
     namespace :v1 do
-
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
+      get 'activities/activities_health' => 'activities#activities_health'
+      get 'rule_feedback_histories' => 'rule_feedback_histories#by_conjunction'
+      get 'rule_feedback_history/:rule_uid' => 'rule_feedback_histories#rule_detail'
+      get 'prompt_health' => 'rule_feedback_histories#prompt_health'
+
+
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
       resources :activity_sessions,       except: [:index, :new, :edit]
-      resources :feedback_histories,      only: [:index, :show, :create, :update, :destroy] do
+      resources :feedback_histories,      only: [:index, :show, :create] do
         post :batch, on: :collection
       end
       resources :lessons_tokens,          only: [:create]
+      resources :session_feedback_histories, only: [:index, :show]
       resources :standard_levels,                only: [:index]
       resources :standards,                  only: [:index]
       resources :standard_categories,        only: [:index]
-      resources :concepts,                only: [:index, :create]
-      resources :users,                   only: [:index]
+      resources :concepts,                only: [:index, :create] do
+        collection do
+          get 'level_zero_concepts_with_lineage'
+        end
+      end
+
+      resources :users, only: [:index]
+      resources :app_settings, only: [:index, :show], param: :name do
+          member do
+            get :admin_show
+          end
+      end
+
       resources :classroom_units,         only: [] do
         collection do
           get 'student_names'
@@ -388,6 +428,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :title_cards,             except: [:destroy]
       get 'activities/:id/follow_up_activity_name_and_supporting_info' => 'activities#follow_up_activity_name_and_supporting_info'
       get 'activities/:id/supporting_info' => 'activities#supporting_info'
+      get 'activities/:id/question_health' => 'activities#question_health'
       get 'classroom_activities/student_names' => 'classroom_units#student_names'
       put 'classroom_activities/finish_lesson' => 'classroom_units#finish_lesson'
       put 'classroom_activities/unpin_and_lock_activity' => 'classroom_units#unpin_and_lock_activity'
@@ -408,7 +449,10 @@ EmpiricalGrammar::Application.routes.draw do
         end
       end
       resources :shared_cache, only: [:show, :update, :destroy]
-      resources :concept_feedback
+      scope 'activity_type/:activity_type' do
+        resources :concept_feedback
+      end
+
       resources :questions, except: [:destroy] do
         resources :focus_points do
           put :update_all, on: :collection
@@ -422,8 +466,10 @@ EmpiricalGrammar::Application.routes.draw do
         end
       end
       resources :active_activity_sessions, only: [:show, :update, :destroy]
+      resources :activity_survey_responses, only: [:create]
+      resources :student_problem_reports, only: [:create]
 
-      mount Comprehension::Engine => "/comprehension", as: :comprehension
+      mount Evidence::Engine => "/evidence", as: :evidence
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
@@ -456,7 +502,8 @@ EmpiricalGrammar::Application.routes.draw do
   get '/sign-up/add-non-k12', to: 'accounts#new'
 
   namespace :auth do
-    get "/google_oauth2/callback" => 'google#google'
+    get '/google_oauth2/callback' => 'google#authorization_and_authentication'
+    get '/google_oauth2_authentication_only/callback' => 'google#authentication'
     get '/clever/callback', to: 'clever#clever'
   end
 
@@ -486,7 +533,10 @@ EmpiricalGrammar::Application.routes.draw do
     resources :categories
     get '/concepts/concepts_in_use', to: 'concepts#concepts_in_use', only: [:csv], defaults: { format: 'csv' }
     resources :concepts
-    resources :comprehension, only: [:index]
+    resources :evidence, only: [:index]
+    resources :rosters, only: [:index] do
+      post :upload_teachers_and_students, on: :collection
+    end
     resources :standard_levels, only: [:index, :create, :update]
     resources :standards, only: [:index, :create, :update]
     resources :content_partners, only: [:index, :create, :update]
@@ -494,8 +544,8 @@ EmpiricalGrammar::Application.routes.draw do
     resources :standard_categories, only: [:index, :create, :update]
     resources :authors, only: [:index, :create, :edit, :update, :new]
     put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
-    resources :unit_templates, only: [:index, :create, :update, :destroy]
-    resources :unit_template_categories, only: [:index, :create, :update, :destroy]
+    resources :unit_templates, only: [:index, :create, :edit, :update, :destroy]
+    resources :unit_template_categories, only: [:index, :edit, :create, :update, :destroy]
     put '/blog_posts/update_order_numbers', to: 'blog_posts#update_order_numbers'
     put '/blog_posts/update_featured_order_numbers', to: 'blog_posts#update_featured_order_numbers'
     resources :blog_posts
@@ -532,7 +582,10 @@ EmpiricalGrammar::Application.routes.draw do
         get :edit_subscription
         get :new_subscription
         get :new_admin
+        get :add_existing_user
         post :add_admin_by_email
+        post :add_existing_user_by_email
+        post :unlink
       end
     end
 
@@ -566,6 +619,7 @@ EmpiricalGrammar::Application.routes.draw do
     privacy
     activities
     impact
+    pathways
     stats
     team
     premium
@@ -579,13 +633,15 @@ EmpiricalGrammar::Application.routes.draw do
     announcements
     backpack
     careers
-    comprehension
+    evidence
     proofreader
     grammar
     lessons
     diagnostic
     connect
     preap_units
+    springboard_units
+    administrator
   )
 
   all_pages = other_pages
@@ -594,6 +650,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   # These are legacy routes that we are redirecting for posterity.
+  get 'comprehension', to: redirect('evidence')
   get 'blog_posts', to: redirect('/news')
   get 'supporters', to: redirect('https://community.quill.org/')
   get 'story', to: redirect('/mission')
@@ -624,7 +681,10 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix/google_unsync' => 'teacher_fix#index'
   get 'teacher_fix/merge_two_schools' => 'teacher_fix#index'
   get 'teacher_fix/merge_two_classrooms' => 'teacher_fix#index'
+  get 'teacher_fix/merge_activity_packs' => 'teacher_fix#index'
   get 'teacher_fix/delete_last_activity_session' => 'teacher_fix#index'
+  get 'teacher_fix/remove_unsynced_students' => 'teacher_fix#index'
+  get 'teacher_fix/list_unsynced_students_by_classroom'
   get 'teacher_fix/archived_units' => 'teacher_fix#archived_units'
   post 'teacher_fix/recover_classroom_units' => 'teacher_fix#recover_classroom_units'
   post 'teacher_fix/recover_unit_activities' => 'teacher_fix#recover_unit_activities'
@@ -636,7 +696,9 @@ EmpiricalGrammar::Application.routes.draw do
   put 'teacher_fix/google_unsync_account' => 'teacher_fix#google_unsync_account'
   post 'teacher_fix/merge_two_schools' => 'teacher_fix#merge_two_schools'
   post 'teacher_fix/merge_two_classrooms' => 'teacher_fix#merge_two_classrooms'
+  post 'teacher_fix/merge_activity_packs' => 'teacher_fix#merge_activity_packs'
   post 'teacher_fix/delete_last_activity_session' => 'teacher_fix#delete_last_activity_session'
+  post 'teacher_fix/remove_unsynced_students' => 'teacher_fix#remove_unsynced_students'
 
   get 'activities/section/:section_id', to: redirect('activities/standard_level/%{section_id}')
   get 'activities/standard_level/:standard_level_id' => 'pages#activities', as: "activities_section"
@@ -704,7 +766,8 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   get 'demo' => 'teachers/progress_reports#demo'
-  get 'demo_ap' => 'teachers/progress_reports#demo_ap'
+  get 'quill_staff_demo' => 'teachers/progress_reports#staff_demo'
+  get 'coach_demo' => 'teachers/progress_reports#coach_demo'
   get 'student_demo' => 'students#student_demo'
   get 'student_demo_ap' => 'students#demo_ap'
   get 'admin_demo', to: 'teachers/progress_reports#admin_demo'

@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe ErrorsController do
   describe '#error_404' do
     it 'should set not found path' do
-      get :error_404, not_found: "www.test.com"
+      get :error_404, params: { not_found: "www.test.com" }
+      expect(response).to have_http_status(404)
       assert_response :not_found
     end
   end

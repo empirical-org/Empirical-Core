@@ -1,4 +1,6 @@
-class AddFunctionOldTimespentTeacher < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddFunctionOldTimespentTeacher < ActiveRecord::Migration[4.2]
   # backward compatibility function. hardcoded timestamp should be the datetime
   # of the migration.
   def up

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
@@ -13,13 +13,21 @@ import Footer from './footer'
 
 import {
   CarouselAnimation,
-  ProgressBar
+  ProgressBar,
+  TeacherPreviewMenuButton,
+  roundValuesToSeconds,
+  KEYDOWN,
+  MOUSEMOVE,
+  MOUSEDOWN,
+  CLICK,
+  KEYPRESS,
+  VISIBILITYCHANGE,
+  SCROLL,
 } from '../../../Shared/index';
 import {
   clearData,
   loadData,
   nextQuestion,
-  nextQuestionWithoutSaving,
   submitResponse,
   updateCurrentQuestion,
   resumePreviousDiagnosticSession,
@@ -41,6 +49,7 @@ import i18n from '../../i18n';
 import { ENGLISH } from '../../modules/translation/languagePageInfo';
 
 const request = require('request');
+const TITLE_CARD_TYPE = "TL"
 
 export class ELLStudentDiagnostic extends React.Component {
   constructor(props) {
@@ -50,6 +59,9 @@ export class ELLStudentDiagnostic extends React.Component {
       saved: false,
       sessionID: this.getSessionId(),
       hasOrIsGettingResponses: false,
+      startTime: Date.now(),
+      isIdle: false,
+      timeTracking: {}
     }
   }
 
@@ -64,25 +76,84 @@ export class ELLStudentDiagnostic extends React.Component {
     dispatch(clearData());
     dispatch(setDiagnosticID({ diagnosticID: match.params.diagnosticID, }))
     if (sessionID) {
+      const { timeTracking, } = this.state
       SessionActions.get(sessionID, (data) => {
-        this.setState({ session: data, });
+        if (data) {
+          this.setState({ session: data, timeTracking: data.timeTracking || timeTracking });
+        }
       });
     }
     const data = this.getFetchedData()
     const action = loadData(data);
     dispatch(action);
+
+    window.addEventListener(KEYDOWN, this.resetTimers)
+    window.addEventListener(MOUSEMOVE, this.resetTimers)
+    window.addEventListener(MOUSEDOWN, this.resetTimers)
+    window.addEventListener(CLICK, this.resetTimers)
+    window.addEventListener(KEYPRESS, this.resetTimers)
+    window.addEventListener(SCROLL, this.resetTimers)
+    window.addEventListener(VISIBILITYCHANGE, this.setIdle)
   }
 
   componentDidUpdate(prevProps) {
+    const { timeTracking, } = this.state
+
     const { previewMode, skippedToQuestionFromIntro, questionToPreview, playDiagnostic, } = this.props;
 
     if(prevProps.skippedToQuestionFromIntro !== skippedToQuestionFromIntro && previewMode && questionToPreview) {
       this.startActivity();
     }
     if (prevProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
-      this.saveSessionData(playDiagnostic);
+      this.saveSessionData({ ...playDiagnostic, timeTracking, });
     }
   }
+
+  componentWillUnmount() {
+    window.removeEventListener(KEYDOWN, this.resetTimers)
+    window.removeEventListener(MOUSEMOVE, this.resetTimers)
+    window.removeEventListener(MOUSEDOWN, this.resetTimers)
+    window.removeEventListener(CLICK, this.resetTimers)
+    window.removeEventListener(KEYPRESS, this.resetTimers)
+    window.removeEventListener(SCROLL, this.resetTimers)
+    window.removeEventListener(VISIBILITYCHANGE, this.setIdle)
+  }
+
+  determineActiveStepForTimeTracking(playDiagnostic) {
+    const { currentQuestion, answeredQuestions, } = playDiagnostic
+
+    if (!currentQuestion) { return 'landing' }
+
+    const finishedTitleCards = answeredQuestions.filter(q => q.type === TITLE_CARD_TYPE)
+    const finishedQuestions = answeredQuestions.filter(q => q.type !== TITLE_CARD_TYPE)
+
+    if (currentQuestion.type === TITLE_CARD_TYPE) { return `title_card_${finishedTitleCards.length + 1}`}
+    if (currentQuestion.type !== TITLE_CARD_TYPE) { return `prompt_${finishedQuestions.length + 1}`}
+  }
+
+  resetTimers = (e=null) => {
+    const now = Date.now()
+    this.setState((prevState, props) => {
+      const { startTime, timeTracking, isIdle, inactivityTimer, completedSteps, } = prevState
+      const { playDiagnostic, } = props
+      const activeStep = this.determineActiveStepForTimeTracking(playDiagnostic)
+
+      if (inactivityTimer) { clearTimeout(inactivityTimer) }
+
+      let elapsedTime = now - startTime
+      if (isIdle || !playDiagnostic.questionSet) {
+        elapsedTime = 0
+      }
+      const newTimeTracking = {...timeTracking, [activeStep]: (timeTracking[activeStep] || 0) + elapsedTime}
+      const newInactivityTimer = setTimeout(this.setIdle, 30000);  // time is in milliseconds (1000 is 1 second)
+
+      return { timeTracking: newTimeTracking, isIdle: false, inactivityTimer: newInactivityTimer, startTime: now, }
+    })
+
+    return Promise.resolve(true);
+  }
+
+  setIdle = () => { this.resetTimers().then(() => this.setState({ isIdle: true })) }
 
   getPreviousSessionData = () => {
     const { session, } = this.state
@@ -117,19 +188,21 @@ export class ELLStudentDiagnostic extends React.Component {
     const { params } = match;
     const { diagnosticID } = params;
 
-    const { sessionID, } = this.state
+    const { sessionID, timeTracking, } = this.state
 
     this.setState({ error: false, });
-    const results = getConceptResultsForAllQuestions(playDiagnostic.answeredQuestions);
+    const relevantAnsweredQuestions = playDiagnostic.answeredQuestions.filter(q => q.questionType !== TITLE_CARD_TYPE)
+    const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
+    const data = { time_tracking: roundValuesToSeconds(timeTracking), }
 
     if (sessionID) {
-      this.finishActivitySession(sessionID, results, 1);
+      this.finishActivitySession(sessionID, results, 1, data);
     } else {
-      this.createAnonActivitySession(diagnosticID, results, 1);
+      this.createAnonActivitySession(diagnosticID, results, 1, data);
     }
   }
 
-  finishActivitySession = (sessionID, results, score) => {
+  finishActivitySession = (sessionID, results, score, data) => {
     request(
       { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
@@ -138,6 +211,7 @@ export class ELLStudentDiagnostic extends React.Component {
           state: 'finished',
           concept_results: results,
           percentage: score,
+          data
         },
       }, (err, httpResponse, body) => {
         if (httpResponse && httpResponse.statusCode === 200) {
@@ -155,7 +229,7 @@ export class ELLStudentDiagnostic extends React.Component {
     );
   }
 
-  createAnonActivitySession = (diagnosticID, results, score) => {
+  createAnonActivitySession = (diagnosticID, results, score, data) => {
     request(
       { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
         method: 'POST',
@@ -165,6 +239,7 @@ export class ELLStudentDiagnostic extends React.Component {
           activity_uid: diagnosticID,
           concept_results: results,
           percentage: score,
+          data,
         },
       }, (err, httpResponse, body) => {
         if (httpResponse && httpResponse.statusCode === 200) {
@@ -217,14 +292,13 @@ export class ELLStudentDiagnostic extends React.Component {
         question={playDiagnostic.currentQuestion.data}
         updateAttempts={this.submitResponse}
       />);
-    } else if (playDiagnostic.currentQuestion.type === 'TL') {
+    } else if (playDiagnostic.currentQuestion.type === TITLE_CARD_TYPE) {
       component = (
         <PlayTitleCard
           currentKey={playDiagnostic.currentQuestion.data.key}
           data={playDiagnostic.currentQuestion.data}
-          diagnosticID={diagnosticID}
           dispatch={dispatch}
-          handleContinueClick={this.nextQuestionWithoutSaving}
+          handleContinueClick={this.nextQuestion}
           isLastQuestion={isLastQuestion}
           key={playDiagnostic.currentQuestion.data.key}
           language={this.language()}
@@ -272,6 +346,8 @@ export class ELLStudentDiagnostic extends React.Component {
   nextQuestion = () => {
     const { dispatch, playDiagnostic, previewMode } = this.props;
     const { unansweredQuestions } = playDiagnostic;
+
+    this.resetTimers()
     // we set the current question here; otherwise, the attempts will be reset if the next question has already been answered
     if(previewMode) {
       const question = unansweredQuestions[0].data;
@@ -279,20 +355,6 @@ export class ELLStudentDiagnostic extends React.Component {
       dispatch(action);
     } else {
       const next = nextQuestion();
-      dispatch(next);
-    }
-  }
-
-  nextQuestionWithoutSaving = () => {
-    const { dispatch, playDiagnostic, previewMode } = this.props;
-    const { unansweredQuestions } = playDiagnostic;
-    // we set the current question here; otherwise, the attempts will be reset if the next question has already been answered
-    if(previewMode) {
-      const question = unansweredQuestions[0].data;
-      const action = setCurrentQuestion(question);
-      dispatch(action);
-    } else {
-      const next = nextQuestionWithoutSaving();
       dispatch(next);
     }
   }
@@ -334,7 +396,7 @@ export class ELLStudentDiagnostic extends React.Component {
           type = 'FB'
           break
           case 'titleCards':
-          type = 'TL'
+          type = TITLE_CARD_TYPE
           break
           case 'sentenceFragments':
           default:
@@ -372,13 +434,9 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   renderFooter = () => {
-    const { match } = this.props;
-    const { params } = match;
-    const { diagnosticID } = params;
     if (!this.language()) { return }
 
     return (<Footer
-      diagnosticID={diagnosticID}
       handleClickOpenMobileLanguageMenu={this.onClickOpenMobileLanguageMenu}
       language={this.language()}
       updateLanguage={this.updateLanguage}
@@ -391,13 +449,15 @@ export class ELLStudentDiagnostic extends React.Component {
 
     const calculatedAnsweredQuestionCount = answeredQuestionCount(playDiagnostic)
 
-    const currentQuestionIsTitleCard = playDiagnostic.currentQuestion.type === 'TL'
+    const currentQuestionIsTitleCard = playDiagnostic.currentQuestion.type === TITLE_CARD_TYPE
     const currentQuestionIsNotFirstQuestion = calculatedAnsweredQuestionCount !== 0
 
     const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
 
     const progressPercent = getProgressPercent(playDiagnostic);
     const totalQuestionCount = questionCount(playDiagnostic);
+
+
 
     return (<ProgressBar
       answeredQuestionCount={displayedAnsweredQuestionCount > totalQuestionCount ? totalQuestionCount : displayedAnsweredQuestionCount}
@@ -409,9 +469,11 @@ export class ELLStudentDiagnostic extends React.Component {
 
   render() {
     const { error, saved, } = this.state
-    const { dispatch, match, playDiagnostic, t, previewMode } = this.props;
+    const { dispatch, match, playDiagnostic, t, previewMode, isOnMobile, handleTogglePreview } = this.props;
     const { params } = match;
     const { diagnosticID } = params;
+
+    const studentSession = getParameterByName('student', window.location.href);
 
     let component;
     const minusHowMuch = this.language() ? 'minus-nav-and-footer' : 'minus-nav'
@@ -429,6 +491,7 @@ export class ELLStudentDiagnostic extends React.Component {
     } else if (playDiagnostic.language && !previewMode) {
       component = (<LandingPage
         begin={this.startActivity}
+        diagnosticID={diagnosticID}
         landingPageHtml={this.landingPageHtml()}
         language={this.language()}
         resumeActivity={this.resumeSession}
@@ -439,15 +502,16 @@ export class ELLStudentDiagnostic extends React.Component {
     } else {
       component = (<LanguagePage
         begin={this.startActivity}
-        diagnosticID={diagnosticID}
         dispatch={dispatch}
         previewMode={previewMode}
+        questionCount={playDiagnostic.questionSet && playDiagnostic.questionSet.length}
         setLanguage={this.updateLanguage}
       />);
     }
     return (
       <div className="ell-diagnostic-container">
         <section className={`section is-fullheight student ${minusHowMuch}`}>
+          {isOnMobile && !studentSession && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreview} />}
           {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             <CarouselAnimation>
@@ -473,4 +537,4 @@ function select(state) {
     titleCards: state.titleCards
   };
 }
-export default withNamespaces()(connect(select)(ELLStudentDiagnostic));
+export default withTranslation()(connect(select)(ELLStudentDiagnostic));

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PusherDistrictConceptReportsCompleted
 
   def self.run(admin_id)

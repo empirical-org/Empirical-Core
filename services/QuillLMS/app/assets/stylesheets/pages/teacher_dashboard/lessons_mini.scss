@@ -1,0 +1,26 @@
+.lessons-mini {
+  .data-table {
+    .actions-button {
+      min-width: min-content;
+      width: min-content;
+      padding: 0px;
+      border: none;
+      background-color: transparent;
+      margin-left: 4px;
+    }
+    .actions-section, .actions-header {
+      margin-right: 24px !important;
+      width: 29px;
+    }
+    .actions-menu {
+      width: 236px;
+      left: 0px;
+      .action {
+        width: 100%;
+      }
+      img {
+        margin-right: 16px;
+      }
+    }
+  }
+}

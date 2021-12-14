@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class Cms::UnitTemplatesController < Cms::CmsController
-  before_action :set_unit_template, only: [:update, :destroy]
+  skip_before_action :verify_authenticity_token
+  before_action :set_unit_template, only: [:edit, :update, :destroy]
 
   def index
     respond_to do |format|
@@ -8,6 +11,10 @@ class Cms::UnitTemplatesController < Cms::CmsController
         render json: UnitTemplate.order(order_number: :asc).map{|u| Cms::UnitTemplateSerializer.new(u).as_json(root: false)}
       end
     end
+  end
+
+  def edit
+    @unit_template = Cms::UnitTemplateSerializer.new(@unit_template).as_json(root: false)
   end
 
   def create
@@ -46,13 +53,11 @@ class Cms::UnitTemplatesController < Cms::CmsController
     render json: {}
   end
 
-  private
-
-  def set_unit_template
+  private def set_unit_template
     @unit_template = UnitTemplate.find(params[:id])
   end
 
-  def unit_template_params
+  private def unit_template_params
     params.require(:unit_template)
             .permit(:id,
                     :authenticity_token,

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: third_party_user_ids
@@ -17,7 +19,7 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class ThirdPartyUserId < ActiveRecord::Base
+class ThirdPartyUserId < ApplicationRecord
 
   module SOURCES
     LEAP ||= "LEAP"

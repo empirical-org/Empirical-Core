@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: classroom_units
@@ -22,13 +24,15 @@
 #  fk_rails_...  (classroom_id => classrooms.id)
 #  fk_rails_...  (unit_id => units.id)
 #
-class ClassroomUnit < ActiveRecord::Base
+class ClassroomUnit < ApplicationRecord
   include ::NewRelic::Agent
   include AtomicArrays
 
   belongs_to :unit #, touch: true
   belongs_to :classroom
   has_many :activity_sessions
+  has_many :unit_activities, through: :unit
+  has_many :completed_activity_sessions, -> {completed}, class_name: 'ActivitySession'
   has_many :classroom_unit_activity_states
 
   validates :unit, uniqueness: { scope: :classroom }
@@ -38,14 +42,6 @@ class ClassroomUnit < ActiveRecord::Base
   # this method does not seem to be getting used, but leaving it in for the tests for now
   def assigned_students
     User.where(id: assigned_student_ids)
-  end
-
-  def is_valid_for_google_announcement_with_specific_user?(user)
-    !!classroom.google_classroom_id && !!user.google_id && !!user.post_google_classroom_assignments
-  end
-
-  def is_valid_for_google_announcement_with_owner?
-    !!classroom.google_classroom_id && !!classroom.owner.google_id && !!classroom.owner.post_google_classroom_assignments
   end
 
   def validate_assigned_student(student_id)
@@ -74,9 +70,8 @@ class ClassroomUnit < ActiveRecord::Base
     update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false)
   end
 
-  private
 
-  def hide_unassigned_activity_sessions
+  private def hide_unassigned_activity_sessions
     #validate or hides any other related activity sessions
     if activity_sessions.present?
       activity_sessions.each do |as|
@@ -92,11 +87,11 @@ class ClassroomUnit < ActiveRecord::Base
     end
   end
 
-  def hide_all_activity_sessions
+  private def hide_all_activity_sessions
     activity_sessions.update_all(visible: false)
   end
 
-  def hide_appropriate_activity_sessions
+  private def hide_appropriate_activity_sessions
     # on save callback that checks if archived
     if visible == false
       hide_all_activity_sessions
@@ -105,7 +100,7 @@ class ClassroomUnit < ActiveRecord::Base
     hide_unassigned_activity_sessions
   end
 
-  def check_for_assign_on_join_and_update_students_array_if_true
+  private def check_for_assign_on_join_and_update_students_array_if_true
     student_ids = StudentsClassrooms.where(classroom_id: classroom_id).pluck(:student_id)
     if assigned_student_ids&.any? && !assign_on_join && assigned_student_ids.length >= student_ids.length
       # then maybe it should be assign on join, so we do a more thorough check

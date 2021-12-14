@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class PasswordResetController < ApplicationController
 
-  before_filter :set_title
+  before_action :set_title
 
   def index
     @user = User.new

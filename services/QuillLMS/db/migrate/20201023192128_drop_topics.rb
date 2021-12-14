@@ -1,4 +1,6 @@
-class DropTopics < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class DropTopics < ActiveRecord::Migration[4.2]
   def change
     drop_table :topics
     drop_table :topic_categories

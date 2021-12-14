@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :topics_to_standards do
   task :migrate_data => :environment do
     Section.all.each do |s|

@@ -1,4 +1,6 @@
-class RestoreChapterLevels < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class RestoreChapterLevels < ActiveRecord::Migration[4.2]
   def change
     create_table :chapter_levels, force: true do |t|
       t.string   :name

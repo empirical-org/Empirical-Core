@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ProficiencyEvaluator
   extend ActiveSupport::Concern
 
@@ -35,13 +37,7 @@ module ProficiencyEvaluator
     end
   end
 
-
-  private
-
   def self.cutoffs_hash
     JSON.parse(File.read(Rails.root.join('lib', 'proficiency_cutoffs.json')))
   end
-
-
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserLoginWorker
   include Sidekiq::Worker
 
@@ -10,6 +12,7 @@ class UserLoginWorker
 
       analytics = Analyzer.new
       if @user.role == 'teacher'
+        TeacherActivityFeedRefillWorker.perform_async(@user.id)
         analytics.track(@user, SegmentIo::BackgroundEvents::TEACHER_SIGNIN)
       elsif @user.role == 'student'
         # keep these in the following order so the student is the last one identified

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :zipcode do
   desc "TODO"
   task populate: :environment do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProgressReports::Standards::StandardSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
@@ -10,6 +12,7 @@ class ProgressReports::Standards::StandardSerializer < ActiveModel::Serializer
              :proficient_student_count,
              :not_proficient_student_count,
              :total_activity_count,
+             :timespent,
              :average_score,
              :standard_students_href,
              :mastery_status

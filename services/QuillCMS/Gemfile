@@ -8,8 +8,8 @@ git_source(:github) do |repo_name|
 end
 
 # CORE
-gem 'puma', '~> 3.12.6'
-gem 'rails', '~> 6.1'
+gem 'puma', '~> 4.3.8'
+gem 'rails', '~> 6.1.3.2'
 
 # EARLY TO APPLY TO OTHER GEMS
 gem 'dotenv-rails', '~> 2.7'
@@ -18,17 +18,21 @@ gem 'dotenv-rails', '~> 2.7'
 gem 'activerecord-import'
 gem 'bulk_insert'
 gem 'pg', '~> 1.2'
+gem 'scenic', '~> 1.5.4'
 
 # QUEUE/CACHING
 gem 'connection_pool'
 gem 'dalli'
 gem 'redis'
 gem 'redis-namespace'
-gem 'sidekiq-pro', '>= 5.0.0', source: 'https://gems.contribsys.com/'
+#gem 'sidekiq-pro', '5.0.0', source: 'http://gems.contribsys.com/'
+gem 'sidekiq', '~> 5.2.9'
 gem 'sinatra', require: false # Used for the web-based queue management interface
 
 # MIDDLEWARE
 gem 'rack-cors', require: 'rack/cors'
+gem 'rack-attack'
+gem 'rails_autoscale_agent'
 
 # API
 gem 'active_model_serializers'
@@ -39,11 +43,12 @@ gem 'elasticsearch-rails', '~> 5.1'
 gem 'kaminari'
 
 # OTHER
+
 gem 'newrelic_rpm'
 gem 'rubyzip'
 
 # WEBSOCKETS
-gem 'pusher'
+gem 'pusher', '~> 1.4.3'
 
 # HTTP
 gem 'httparty'
@@ -57,7 +62,7 @@ end
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails', '~> 4.8.2'
-  gem 'pry'
+  gem 'pry', '~> 0.10.4'
   gem 'rb-readline'
   gem 'rspec-rails', '~> 4.0'
   gem 'webmock'

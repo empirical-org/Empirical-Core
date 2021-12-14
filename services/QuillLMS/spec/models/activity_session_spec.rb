@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: activity_sessions
 #
 #  id                    :integer          not null, primary key
 #  completed_at          :datetime
-#  data                  :hstore
+#  data                  :jsonb
 #  is_final_score        :boolean          default(FALSE)
 #  is_retry              :boolean          default(FALSE)
 #  percentage            :float
@@ -41,6 +43,10 @@ describe ActivitySession, type: :model, redis: true do
 
   it { should belong_to(:classroom_unit) }
   it { should belong_to(:activity) }
+  it { should have_one(:classification).through(:activity) }
+  it { should have_many(:user_activity_classifications).through(:classification) }
+  it { should have_many(:feedback_sessions) }
+  it { should have_many(:feedback_histories).through(:feedback_sessions) }
   it { should have_one(:classroom).through(:classroom_unit) }
   it { should have_one(:unit).through(:classroom_unit) }
   it { should have_many(:concepts).through(:concept_results) }
@@ -50,9 +56,9 @@ describe ActivitySession, type: :model, redis: true do
   it { is_expected.to callback(:set_state).before(:create) }
   it { is_expected.to callback(:set_completed_at).before(:save) }
   it { is_expected.to callback(:set_activity_id).before(:save) }
-  it { is_expected.to callback(:set_score_from_feedback_history).before(:save) }
   it { is_expected.to callback(:determine_if_final_score).after(:save) }
   it { is_expected.to callback(:update_milestones).after(:save) }
+  it { is_expected.to callback(:increment_counts).after(:save) }
   it { is_expected.to callback(:invalidate_activity_session_count_if_completed).after(:commit) }
   it { is_expected.to callback(:trigger_events).around(:save) }
 
@@ -152,6 +158,41 @@ describe ActivitySession, type: :model, redis: true do
         expect(follow_up_unit_activity.id).to eq(unit_activity.id)
         expect(follow_up_unit_activity.visible).to eq(true)
         expect(unit_activity.classroom_unit_activity_states.first).to be
+      end
+    end
+  end
+
+  describe "self.average_scores_by_student" do
+    let(:student) { create(:student) }
+
+    it 'should return empty hash for no sessions' do
+      averages = ActivitySession.average_scores_by_student(student.id)
+      expect(averages).to be_empty
+      expect(averages.class).to be Hash
+    end
+
+    context 'with non-graded sessions' do
+      before do
+        create(:diagnostic_activity_session, :finished, user: student)
+      end
+
+      it 'should return empty hash for non-graded sessions' do
+        averages = ActivitySession.average_scores_by_student(student.id)
+        expect(averages).to be_empty
+        expect(averages.class).to be Hash
+      end
+    end
+
+    context 'with graded sessions' do
+      before do
+        create(:grammar_activity_session, :finished, user: student, percentage: 0.60)
+        create(:grammar_activity_session, :finished, user: student, percentage: 0.50)
+      end
+
+      it 'should return average of scores' do
+        averages = ActivitySession.average_scores_by_student(student.id)
+
+        expect(averages[student.id]).to eq(55)
       end
     end
   end
@@ -735,6 +776,32 @@ end
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
 
+    it 'updates when new activity session has equal percentage ' do
+      previous_final_score
+      new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
+      new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: previous_final_score.percentage
+      expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
+    end
+
+    it 'updates when new and old session percentages are nil' do
+      previous_final_score
+      previous_final_score.update(percentage: nil)
+      new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
+      new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: nil
+      expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
+    end
+
+    it 'updates when the ActivityClassification.key is "evidence" even if the percentage is nil' do
+      classification = create(:activity_classification, key: 'evidence')
+      activity
+      activity.update(classification: classification)
+      previous_final_score
+      previous_final_score.update(percentage: nil)
+      new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
+      new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: nil
+      expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
+    end
+
     it 'doesnt update when new activity session has lower percentage' do
       previous_final_score
       new_activity_session =  create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.5, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
@@ -744,6 +811,33 @@ end
     it 'mark finished anonymous sessions as final' do
       new_activity_session =  create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.5, is_final_score: false, user: nil, classroom_unit: nil, activity: activity)
       expect(new_activity_session.is_final_score).to eq(true)
+    end
+  end
+
+  describe "#increment_counts" do
+    let(:student) { create(:student) }
+
+    context "finished activities" do
+      before do
+        create(:diagnostic_activity_session, :finished, user: student)
+        create(:diagnostic_activity_session, :finished, user: student)
+        create(:proofreader_activity_session, :finished, user: student)
+      end
+
+      it 'should increment counts' do
+        expect(student.completed_activity_count).to be 3
+      end
+    end
+
+    context "unfinished activities" do
+      before do
+        create(:diagnostic_activity_session, :started, user: student)
+        create(:evidence_activity_session, :started, user: student)
+      end
+
+      it 'should NOT increment counts' do
+        expect(student.completed_activity_count).to be 0
+      end
     end
   end
 
@@ -768,24 +862,24 @@ end
     let!(:unit_activity) { create(:unit_activity, activity: activity, unit: unit) }
     let!(:classroom_unit) { create(:classroom_unit, unit: unit, assigned_student_ids: [student.id]) }
     let(:activity_session) { create(:activity_session, classroom_unit_id: classroom_unit.id, user_id: student.id, activity: activity) }
+    let(:metadata) { { correct: 1 } }
+
     let(:concept_results) do
       [{
         activity_session_uid: activity_session.uid,
         concept_id: concept.id,
-        metadata: {},
+        metadata: metadata,
         question_type: 'lessons-slide'
       }]
     end
 
-    before do
-      activity_session.update_attributes(visible: true)
-    end
+    before { activity_session.update_attributes(visible: true) }
 
     it 'should create a concept result with the hash given' do
       expect(ConceptResult).to receive(:create).with({
         activity_session_id: activity_session.id,
         concept_id: concept.id,
-        metadata: '{}',
+        metadata: metadata,
         question_type: 'lessons-slide'
       })
       ActivitySession.save_concept_results(classroom_unit.id, unit_activity.activity_id, concept_results)
@@ -803,6 +897,28 @@ end
       expect{ ActivitySession.delete_activity_sessions_with_no_concept_results(classroom_unit.id, activity.id) }.to change(ActivitySession, :count).by(-1)
     end
   end
+
+  describe '#save_timetracking_data_from_active_activity_session' do
+    let!(:activity) { create(:activity)}
+    let(:classroom_unit) { create(:classroom_unit) }
+    let!(:activity_session) { create(:activity_session, activity: activity, classroom_unit: classroom_unit) }
+    let!(:active_activity_session) { create(:active_activity_session, uid: activity_session.uid, data: { 'timeTracking': { 'total': 64691 }})}
+
+    it 'should save the timetracking hash to the data field on the activity session and the total time to the timespent field' do
+      ActivitySession.save_timetracking_data_from_active_activity_session(classroom_unit.id, activity.id)
+      activity_session.reload
+      expect(activity_session.data).to eq({'time_tracking' => { 'total' => 64 }})
+      expect(activity_session.timespent).to eq(64)
+    end
+  end
+
+  describe '#calculate_timespent' do
+    it 'should save timetracking data even if one of the values is nil' do
+      time_tracking = {"1"=>188484, "2"=>94405, "3"=>89076, "4"=>120504, "onboarding"=>nil}
+      expect(ActivitySession.calculate_timespent(time_tracking)).to eq(492469)
+    end
+  end
+
   describe '#has_a_completed_session?' do
     context 'when session exists' do
       let(:activity_session) { create(:activity_session, state: "finished") }
@@ -855,7 +971,7 @@ end
 
     it 'returns a url including the default url' do
       expect(ActivitySession.generate_activity_url(classroom_unit.id, activity.id))
-        .to include('http://cooolsville.edu')
+        .to include(ENV["DEFAULT_URL"])
     end
 
     it 'returns a url including the classroom unit id' do
@@ -930,67 +1046,45 @@ end
   end
 
   describe "#timespent" do
-    it "should be nil for unfinished sessions" do
-      activity_session = build(:activity_session, state: 'started')
+    it "should be nil for sessions with no timetracking data" do
+      activity_session = build(:activity_session)
       expect(activity_session.timespent).to be_nil
     end
 
-    it "should be nil for finished sessions without data" do
-      activity_session = build(:activity_session, state: 'finished', started_at: nil, completed_at: nil)
-      expect(activity_session.timespent).to be_nil
-    end
-
-    it "should calculate time using started and completed" do
-      time = Time.zone.now
-      interval = 76.seconds
-      activity_session = build(:activity_session, state: 'finished', started_at: time - interval, completed_at: time)
-      expect(activity_session.timespent).to eq(76)
+    it "should calculate time using the values of the keys in the data['time_tracking'] hash" do
+      activity_session = build(:activity_session, data: {"time_tracking"=>{"so"=>9, "but"=>2, "because"=>9, "reading"=>1}})
+      expect(activity_session.timespent).to eq(21)
     end
 
     it "should have calculation overridden by DB value" do
-      time = Time.zone.now
-      interval = 76.seconds
-      activity_session = build(:activity_session, state: 'finished', started_at: time - interval, completed_at: time, timespent: 99)
+      activity_session = build(:activity_session, state: 'finished', data: {"time_tracking"=>{"so"=>9, "but"=>2, "because"=>9, "reading"=>1}}, timespent: 99)
       expect(activity_session.timespent).to eq(99)
     end
   end
 
-  describe "#set_comprehension_session_score" do
-    setup do
-      @activity = create(:comprehension_activity)
-      @prompt = Comprehension::Prompt.create(text: 'Test test test text', activity: @activity, conjunction: "but")
-      @prompt_two = Comprehension::Prompt.create(text: 'Test test test text', activity: @activity, conjunction: "because")
-    end
 
-    it 'should calculate score' do
-      activity_session = create(:activity_session, state: 'finished', activity_id: @activity.id)
-      feedback_history = create(:feedback_history, attempt: 4, prompt: @prompt, activity_session_uid: activity_session.uid)
-      activity_session.save
-      expect(activity_session.percentage).to eq(0.25)
-    end
+  describe "#teacher_activity_feed" do
+    let(:activity_session) { create(:activity_session, :unstarted) }
+    let(:teacher) {activity_session.teachers.first}
 
-    it 'should only factor in the feedback history with maximum attempts' do
-      activity_session = create(:activity_session, state: 'finished', activity_id: @activity.id)
-      feedback_history = create(:feedback_history, attempt: 4, prompt: @prompt, activity_session_uid: activity_session.uid)
-      feedback_history_max = create(:feedback_history, attempt: 5, prompt: @prompt, activity_session_uid: activity_session.uid)
-      activity_session.save
-      expect(activity_session.percentage).to eq(0)
-    end
+    it "should create a teacher_activity_feed item only ONCE on completed." do
+      teacher_feed = TeacherActivityFeed.get(teacher.id)
 
-    it 'should average scores for more than one prompt' do
-      activity_session = create(:activity_session, state: 'finished', activity_id: @activity.id)
-      feedback_history_prompt_one = create(:feedback_history, attempt: 1, prompt: @prompt, activity_session_uid: activity_session.uid)
-      feedback_history_prompt_two = create(:feedback_history, attempt: 3, prompt: @prompt_two, activity_session_uid: activity_session.uid)
-      activity_session.save
-      expect(activity_session.percentage).to eq(0.75)
-    end
+      expect(teacher_feed.size).to eq(0)
 
-    it 'should ignore unused feedback histories' do
-      activity_session = create(:activity_session, state: 'finished', activity_id: @activity.id)
-      feedback_history = create(:feedback_history, attempt: 2, prompt: @prompt, activity_session_uid: activity_session.uid)
-      feedback_history = create(:feedback_history, attempt: 4, prompt: @prompt, activity_session_uid: activity_session.uid, used: false)
-      activity_session.save
-      expect(activity_session.percentage).to eq(0.75)
+      activity_session.update(completed_at: Time.now)
+
+      teacher_feed = TeacherActivityFeed.get(teacher.id)
+
+      expect(teacher_feed.size).to eq(1)
+      expect(teacher_feed.first[:id]).to eq(activity_session.id)
+
+      activity_session.update(percentage: 0.88)
+
+      teacher_feed = TeacherActivityFeed.get(teacher.id)
+
+      # another update shouldn't add another record
+      expect(teacher_feed.size).to eq(1)
     end
   end
 end

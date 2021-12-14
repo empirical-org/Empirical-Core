@@ -1,4 +1,6 @@
-class PopulateTopics < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class PopulateTopics < ActiveRecord::Migration[4.2]
   def change
     table = CSV.parse(File.read("lib/data/topics_by_activity.csv"), headers: true)
     table.each do |row|

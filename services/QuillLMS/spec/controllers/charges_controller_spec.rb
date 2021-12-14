@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe ChargesController, type: :controller do
@@ -20,7 +22,7 @@ RSpec.describe ChargesController, type: :controller do
         email: teacher.email,
         metadata: { name: teacher.name, school: teacher.reload.school.name }
       )
-      post :create_customer_with_card, source: { id: 1 }
+      post :create_customer_with_card, params: { source: { id: 1 } }
       expect(teacher.reload.stripe_customer_id).to eq "42"
     end
   end
@@ -38,7 +40,7 @@ RSpec.describe ChargesController, type: :controller do
       expect(sources).to receive(:create).with(source: "29")
       expect(customer).to receive("default_source=".to_sym).with(108)
       expect(customer).to receive(:save)
-      post :update_card, source: { id: 29 }
+      post :update_card, params: { source: { id: 29 } }
     end
   end
 

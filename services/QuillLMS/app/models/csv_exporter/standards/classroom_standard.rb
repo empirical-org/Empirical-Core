@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CsvExporter::Standards
   class ClassroomStandard
     def header_row
@@ -27,12 +29,10 @@ module CsvExporter::Standards
 
     def model_data(teacher, filters)
       ::ProgressReports::Standards::Standard.new(teacher)
-        .results(HashWithIndifferentAccess.new(filters) || {})
+        .results(ActiveSupport::HashWithIndifferentAccess.new(filters) || {})
     end
 
-    private
-
-    def page_title(filters)
+    private def page_title(filters)
       classroom = ::Classroom.find(filters[:classroom_id])
       "Standards by Class: #{classroom.name}"
     end

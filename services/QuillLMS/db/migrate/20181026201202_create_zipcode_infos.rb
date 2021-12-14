@@ -1,4 +1,6 @@
-class CreateZipcodeInfos < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateZipcodeInfos < ActiveRecord::Migration[4.2]
   def change
     create_table :zipcode_infos do |t|
       t.text :zipcode, index: { unique: true }

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g>
+                    <path d="M0 0H96V96H0z" transform="translate(-429 -834) translate(309 834) translate(120)"/>
+                    <g fill-rule="nonzero">
+                        <path fill="#E6E6E6" d="M74 0H2C.896 0 0 .896 0 2v88c0 1.104.896 2 2 2h72c1.104 0 2-.896 2-2V2c0-1.104-.896-2-2-2z" transform="translate(-429 -834) translate(309 834) translate(120) translate(10 2)"/>
+                        <path fill="#737373" d="M60 56H30c-1.104 0-2-.896-2-2s.896-2 2-2h30c1.104 0 2 .896 2 2s-.896 2-2 2z" transform="translate(-429 -834) translate(309 834) translate(120) translate(10 2)"/>
+                        <path fill="#B3B3B3" d="M48 72H30c-1.104 0-2-.896-2-2s.896-2 2-2h18c1.104 0 2 .896 2 2s-.896 2-2 2zM52 40H30c-1.104 0-2-.896-2-2s.896-2 2-2h22c1.104 0 2 .896 2 2s-.896 2-2 2z" transform="translate(-429 -834) translate(309 834) translate(120) translate(10 2)"/>
+                        <path fill="#737373" d="M60 24H30c-1.104 0-2-.896-2-2s.896-2 2-2h30c1.104 0 2 .896 2 2s-.896 2-2 2z" transform="translate(-429 -834) translate(309 834) translate(120) translate(10 2)"/>
+                        <path fill="#B3B3B3" d="M18 42c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4z" transform="translate(-429 -834) translate(309 834) translate(120) translate(10 2)"/>
+                        <path fill="#737373" d="M18 58c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4z" transform="translate(-429 -834) translate(309 834) translate(120) translate(10 2)"/>
+                        <path fill="#B3B3B3" d="M18 74c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4z" transform="translate(-429 -834) translate(309 834) translate(120) translate(10 2)"/>
+                        <path fill="#737373" d="M18 26c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4z" transform="translate(-429 -834) translate(309 834) translate(120) translate(10 2)"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

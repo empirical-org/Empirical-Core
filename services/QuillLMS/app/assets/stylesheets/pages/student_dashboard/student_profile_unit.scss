@@ -3,6 +3,21 @@
   border: solid 1px #e0e0e0;
   background-color: #ffffff;
   margin-bottom: 24px;
+  &.selected-unit {
+    .unit-name {
+      animation: highlight 5s 1;
+
+      @keyframes highlight {
+        0%  {
+          background-color: #fff3e0;
+        }
+        100% {
+          background-color: #ffffff;
+        }
+      }
+
+    }
+  }
   .unit-name {
     padding: 24px;
     h2 {
@@ -56,7 +71,7 @@
         height: 24px;
         border-radius: 2px;
         margin-right: 8px;
-        &.unscored {
+        &.completed {
           background-color: #358fdf;
         }
         &.proficient {
@@ -69,6 +84,10 @@
           background-color: #e73030;
         }
       }
+    }
+    .complete-baseline {
+      white-space: pre-wrap;
+      text-align: right;
     }
 
     @media (max-width: 991px) {

@@ -1,20 +1,23 @@
 import React from 'react'
 import request from 'request'
-import {CSVDownload, CSVLink} from 'react-csv'
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
+import _ from 'underscore'
+import queryString from 'query-string';
+import ReactTooltip from 'react-tooltip';
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
+import moment from 'moment'
+
+import EmptyStateForReport from './empty_state_for_report'
+import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
+
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import {sortByLastName, sortFromSQLTimeStamp} from '../../../../modules/sortingMethods.js'
-import moment from 'moment'
-import EmptyStateForReport from './empty_state_for_report'
+import { getTimeSpent } from '../../helpers/studentReports';
 
-import _ from 'underscore'
+const showAllClassroomKey = 'All classes'
 
-const showAllClassroomKey = 'All Classrooms'
-
-export default class extends React.Component {
+export class ActivitiesScoresByClassroomProgressReport extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -25,7 +28,6 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    const that = this;
     request.get({
       url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/activities_scores_by_classroom_data`
     }, (e, r, body) => {
@@ -34,7 +36,15 @@ export default class extends React.Component {
       // gets unique classroom names
       const classroomNames = Array.from(new Set(classroomsData.map(row => row.classroom_name)))
       classroomNames.unshift(showAllClassroomKey)
-      that.setState({loading: false, errors: body.errors, classroomsData, classroomNames});
+
+      const newState = {loading: false, errors: body.errors, classroomsData, classroomNames}
+      const selectedClassroomId = queryString.parse(window.location.search).classroom_id
+
+      if (selectedClassroomId) {
+        const selectedClassroom = classroomsData.find(c => Number(c.classroom_id) === Number(selectedClassroomId))
+        newState.selectedClassroom = selectedClassroom.classroom_name || showAllClassroomKey
+      }
+      this.setState(newState);
     });
   }
 
@@ -45,30 +55,43 @@ export default class extends React.Component {
         accessor: 'name',
         resizable: false,
         sortMethod: sortByLastName,
-        Cell: row => (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`} style={{color: '#00c2a2'}}>
+        Cell: row => (<a className='row-link-disguise underlined' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
           {row.original.name}
         </a>),
       }, {
-        Header: "Activities Completed",
+        Header: "Activities completed",
         accessor: 'activity_count',
         resizable: false,
-        minWidth: 120,
+        minWidth: 110,
         Cell: row => (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
           {Number(row.original.activity_count)}
         </a>),
       }, {
-        Header: "Overall Score",
+        Header: "Overall score",
         accessor: 'average_score',
         resizable: false,
-        minWidth: 90,
+        minWidth: 80,
         Cell: row => {
           const value = Math.round(parseFloat(row.original.average_score) * 100);
           return (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
             {isNaN(value) ? '--' : value + '%'}
           </a>)
         }
-      }, {
-				Header: "Last Active",
+      },
+      {
+        Header: "Time spent",
+        accessor: 'timespent',
+        resizable: false,
+        minWidth: 80,
+        Cell: row => {
+          const value = row.original.timespent;
+          return (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
+            {getTimeSpent(value)}
+          </a>)
+        }
+      },
+      {
+				Header: "Last active",
 				accessor: 'last_active',
 				resizable: false,
         minWidth: 90,
@@ -81,45 +104,44 @@ export default class extends React.Component {
         Header: "Class",
         accessor: 'classroom_name',
         resizable: false,
-        Cell: row => (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
-          {row.original.classroom_name}
-        </a>)
-      }, {
-        Header: "",
-        accessor: 'green_arrow',
-        resizable: false,
-        sortable: false,
-        width: 80,
         Cell: row => (
-          <a className='green-arrow' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
-            <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
-          </a>
+          <div className="activate-tooltip" data-for="classroom-tooltip" data-tip={`<p>${row.original.classroom_name}</p>`}>
+            <ReactTooltip className="react-tooltip-custom" effect="solid" html id="classroom-tooltip" multiline type="light" />
+            <a className="tooltip-trigger row-link-disguise" href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`} rel='noreferrer noopener' target="_blank">{row.original.classroom_name}</a>
+          </div>
         )
       }
     ])
   }
 
   filteredClassroomsData() {
-    if (this.state.selectedClassroom === showAllClassroomKey) {
-      return this.state.classroomsData
+    const { classroomsData, selectedClassroom } = this.state;
+    if (selectedClassroom === showAllClassroomKey) {
+      return classroomsData
     }
-    return this.state.classroomsData.filter((row) => row.classroom_name === this.state.selectedClassroom)
+    return classroomsData.filter((row) => row.classroom_name === selectedClassroom)
   }
 
   formatDataForCSV(data) {
     const csvData = [
-      ['Classroom Name', 'Student Name', 'Average Score', 'Activity Count']
+      ['Classroom Name', 'Student Name', 'Average Score', 'Time Spent', 'Activity Count']
     ]
     data.forEach((row) => {
       csvData.push([
-        row['classroom_name'], row['name'], (row['average_score'] * 100).toString() + '%',
-        row['activity_count']
+        row['classroom_name'], row['name'], (row['average_score'] * 100).toString() + '%', getTimeSpent(row['timespent']), row['activity_count']
       ])
     })
     return csvData
   }
 
   switchClassrooms = classroom => {
+    const { classroomsData, } = this.state
+    const classroomRecord = classroomsData.find(c => c.classroom_name === classroom)
+    if (classroomRecord) {
+      window.history.pushState({}, '', `${window.location.pathname}?classroom_id=${classroomRecord.classroom_id}`);
+    } else {
+      window.history.pushState({}, '', window.location.pathname);
+    }
     this.setState({selectedClassroom: classroom})
   };
 
@@ -127,7 +149,7 @@ export default class extends React.Component {
     if (filteredClassroomsData.length) {
       return (<div key={`${filteredClassroomsData.length}-length-for-activities-scores-by-classroom`}>
         <ReactTable
-          className='progress-report has-green-arrow'
+          className='progress-report'
           columns={this.columns()}
           data={filteredClassroomsData}
           defaultPageSize={filteredClassroomsData.length}
@@ -144,11 +166,11 @@ export default class extends React.Component {
   }
 
   render() {
-    let errors
-    if (this.state.errors) {
-      errors = <div className='errors'>{this.state.errors}</div>
+    const { errors, loading, selectedClassroom, classroomNames } = this.state;
+    if (errors) {
+      return <div className='errors'>{errors}</div>
     }
-    if (this.state.loading) {
+    if (loading) {
       return <LoadingSpinner />
     }
     const filteredClassroomsData = this.filteredClassroomsData()
@@ -160,15 +182,17 @@ export default class extends React.Component {
             <p>View the overall average score for each student in an active classroom. Click on a student’s name to see a report of each individual activity and print it as a PDF. You can print this report by downloading a PDF file or export this data by downloading a CSV file.</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.formatDataForCSV(filteredClassroomsData)} key={`${this.state.selectedClassroom} report button`} />
+            <CSVDownloadForProgressReport data={this.formatDataForCSV(filteredClassroomsData)} key={`${selectedClassroom} report button`} />
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
           </div>
         </div>
         <div className='dropdown-container'>
-          <ItemDropdown callback={this.switchClassrooms} items={this.state.classroomNames} selectedItem={this.state.selectedClassroom} />
+          <ItemDropdown callback={this.switchClassrooms} items={classroomNames} selectedItem={selectedClassroom} />
         </div>
         {this.tableOrEmptyMessage(filteredClassroomsData)}
       </div>
     )
   }
 }
+
+export default ActivitiesScoresByClassroomProgressReport

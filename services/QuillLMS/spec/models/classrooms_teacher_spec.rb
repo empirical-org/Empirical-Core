@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: classrooms_teachers
 #
 #  id           :integer          not null, primary key
+#  order        :integer
 #  role         :string           not null
 #  created_at   :datetime
 #  updated_at   :datetime

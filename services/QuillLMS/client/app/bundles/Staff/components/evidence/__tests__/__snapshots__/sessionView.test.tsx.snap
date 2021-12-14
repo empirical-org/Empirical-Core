@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SessionView component should render SessionView 1`] = `
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
+`;

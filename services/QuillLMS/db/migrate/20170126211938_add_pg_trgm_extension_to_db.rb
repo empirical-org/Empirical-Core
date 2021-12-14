@@ -1,4 +1,6 @@
-class AddPgTrgmExtensionToDb < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddPgTrgmExtensionToDb < ActiveRecord::Migration[4.2]
   def change
     execute "create extension pg_trgm;"
   end

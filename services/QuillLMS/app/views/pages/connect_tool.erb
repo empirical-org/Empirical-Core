@@ -6,14 +6,19 @@
 </section>
 <div class="tool-container connect-tool-page">
 
-    <section class='bg-connect-yellow tool-hero text-center'>
+    <section class='bg-connect-yellow tool-hero text-center tool-section'>
       <h1 class="q-h1">
           <img class="tool-page-icon lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/shared/quill_connect_white.svg"%>>Quill Connect
       </h1>
       <p class='description'>
         Help your students advance from fragmented and run-on sentences to complex and well-structured sentences with Quill Connect. Using the evidence-based strategy of sentence combining, students combine multiple ideas into a single sentence. They then receive instant feedback designed to help them improve the clarity and precision of their sentences.
       </p>
-      <a href=<%= "#{ENV['QUILL_CONNECT_URL']}/#/play/lesson/-KnoWhUWhtxvet4_bi4r" %> target="_blank" class="q-button cta-button bg-white text-connect-yellow">Try Quill Connect Now</a>
+      <section class="tool-ctas connect-tool">
+        <a href=<%= "#{ENV['QUILL_CONNECT_URL']}/#/play/lesson/-KnoWhUWhtxvet4_bi4r" %> target="_blank" class="q-button cta-button bg-white text-connect-yellow">Try a sample activity</a>
+        <% if current_user&.teacher? %>
+          <a href='/assign/activity-library?activityClassificationFilters[]=connect' class="q-button text-white learn-more-button">Assign</a>
+        <% end %>
+      </section>
     </section>
 
     <section class="tool-animation-section " id="overview">

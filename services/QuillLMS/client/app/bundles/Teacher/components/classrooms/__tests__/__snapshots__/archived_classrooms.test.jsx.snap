@@ -4,7 +4,7 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
 <div
   className="archived-classrooms classrooms-page"
 >
-  <Component
+  <Snackbar
     visible={false}
   />
   <div
@@ -51,7 +51,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
               "last_sign_in": "2019-07-19T13: 10: 19.172Z",
               "name": "Demo Teacher",
               "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-              "post_google_classroom_assignments": null,
               "role": "teacher",
               "send_newsletter": false,
               "signed_up_with_google": false,
@@ -116,7 +115,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
                 "last_sign_in": "2019-07-19T13: 10: 19.172Z",
                 "name": "Demo Teacher",
                 "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                "post_google_classroom_assignments": null,
                 "role": "teacher",
                 "send_newsletter": false,
                 "signed_up_with_google": false,
@@ -178,7 +176,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
                 "last_sign_in": "2019-07-19T13: 10: 19.172Z",
                 "name": "Demo Teacher",
                 "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                "post_google_classroom_assignments": null,
                 "role": "teacher",
                 "send_newsletter": false,
                 "signed_up_with_google": false,
@@ -237,7 +234,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
                 "last_sign_in": "2019-05-29T19: 56: 16.394Z",
                 "name": "Maya Angelou",
                 "password_digest": "$2a$10$8lVZ3JEY9ghzQi9AYvDjDe7gQ1REsA3BmQS.p.1Qc57lE9VJfDbiO",
-                "post_google_classroom_assignments": null,
                 "role": "student",
                 "send_newsletter": false,
                 "signed_up_with_google": false,
@@ -263,7 +259,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
                 "last_sign_in": null,
                 "name": "William Shakespeare",
                 "password_digest": "$2a$10$0AxIDK0EyTqkvv0ygC.nGuatwd8EKenwNxElVuOP6FlaZL3KmhKZe",
-                "post_google_classroom_assignments": null,
                 "role": "student",
                 "send_newsletter": false,
                 "signed_up_with_google": false,
@@ -297,7 +292,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
                 "last_sign_in": "2019-07-19T13: 10: 19.172Z",
                 "name": "Demo Teacher",
                 "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                "post_google_classroom_assignments": null,
                 "role": "teacher",
                 "send_newsletter": false,
                 "signed_up_with_google": false,
@@ -354,7 +348,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
           "last_sign_in": "2019-07-19T13:10:19.172Z",
           "name": "Demo Teacher",
           "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-          "post_google_classroom_assignments": null,
           "role": "teacher",
           "send_newsletter": false,
           "signed_up_with_google": false,
@@ -401,7 +394,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
               "last_sign_in": "2019-07-19T13: 10: 19.172Z",
               "name": "Demo Teacher",
               "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-              "post_google_classroom_assignments": null,
               "role": "teacher",
               "send_newsletter": false,
               "signed_up_with_google": false,
@@ -466,7 +458,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
                 "last_sign_in": "2019-07-19T13: 10: 19.172Z",
                 "name": "Demo Teacher",
                 "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                "post_google_classroom_assignments": null,
                 "role": "teacher",
                 "send_newsletter": false,
                 "signed_up_with_google": false,
@@ -528,7 +519,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
                 "last_sign_in": "2019-07-19T13: 10: 19.172Z",
                 "name": "Demo Teacher",
                 "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                "post_google_classroom_assignments": null,
                 "role": "teacher",
                 "send_newsletter": false,
                 "signed_up_with_google": false,
@@ -587,7 +577,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
                 "last_sign_in": "2019-05-29T19: 56: 16.394Z",
                 "name": "Maya Angelou",
                 "password_digest": "$2a$10$8lVZ3JEY9ghzQi9AYvDjDe7gQ1REsA3BmQS.p.1Qc57lE9VJfDbiO",
-                "post_google_classroom_assignments": null,
                 "role": "student",
                 "send_newsletter": false,
                 "signed_up_with_google": false,
@@ -613,7 +602,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
                 "last_sign_in": null,
                 "name": "William Shakespeare",
                 "password_digest": "$2a$10$0AxIDK0EyTqkvv0ygC.nGuatwd8EKenwNxElVuOP6FlaZL3KmhKZe",
-                "post_google_classroom_assignments": null,
                 "role": "student",
                 "send_newsletter": false,
                 "signed_up_with_google": false,
@@ -647,7 +635,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
                 "last_sign_in": "2019-07-19T13: 10: 19.172Z",
                 "name": "Demo Teacher",
                 "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                "post_google_classroom_assignments": null,
                 "role": "teacher",
                 "send_newsletter": false,
                 "signed_up_with_google": false,
@@ -704,7 +691,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
           "last_sign_in": "2019-07-19T13:10:19.172Z",
           "name": "Demo Teacher",
           "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-          "post_google_classroom_assignments": null,
           "role": "teacher",
           "send_newsletter": false,
           "signed_up_with_google": false,
@@ -748,7 +734,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
               "last_sign_in": "2019-05-29T19: 56: 16.394Z",
               "name": "Maya Angelou",
               "password_digest": "$2a$10$8lVZ3JEY9ghzQi9AYvDjDe7gQ1REsA3BmQS.p.1Qc57lE9VJfDbiO",
-              "post_google_classroom_assignments": null,
               "role": "student",
               "send_newsletter": false,
               "signed_up_with_google": false,
@@ -774,7 +759,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
               "last_sign_in": null,
               "name": "William Shakespeare",
               "password_digest": "$2a$10$0AxIDK0EyTqkvv0ygC.nGuatwd8EKenwNxElVuOP6FlaZL3KmhKZe",
-              "post_google_classroom_assignments": null,
               "role": "student",
               "send_newsletter": false,
               "signed_up_with_google": false,
@@ -808,7 +792,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
               "last_sign_in": "2019-07-19T13: 10: 19.172Z",
               "name": "Demo Teacher",
               "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-              "post_google_classroom_assignments": null,
               "role": "teacher",
               "send_newsletter": false,
               "signed_up_with_google": false,
@@ -873,7 +856,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
                 "last_sign_in": "2019-07-19T13: 10: 19.172Z",
                 "name": "Demo Teacher",
                 "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                "post_google_classroom_assignments": null,
                 "role": "teacher",
                 "send_newsletter": false,
                 "signed_up_with_google": false,
@@ -935,7 +917,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
                 "last_sign_in": "2019-07-19T13: 10: 19.172Z",
                 "name": "Demo Teacher",
                 "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                "post_google_classroom_assignments": null,
                 "role": "teacher",
                 "send_newsletter": false,
                 "signed_up_with_google": false,
@@ -994,7 +975,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
                 "last_sign_in": "2019-05-29T19: 56: 16.394Z",
                 "name": "Maya Angelou",
                 "password_digest": "$2a$10$8lVZ3JEY9ghzQi9AYvDjDe7gQ1REsA3BmQS.p.1Qc57lE9VJfDbiO",
-                "post_google_classroom_assignments": null,
                 "role": "student",
                 "send_newsletter": false,
                 "signed_up_with_google": false,
@@ -1020,7 +1000,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
                 "last_sign_in": null,
                 "name": "William Shakespeare",
                 "password_digest": "$2a$10$0AxIDK0EyTqkvv0ygC.nGuatwd8EKenwNxElVuOP6FlaZL3KmhKZe",
-                "post_google_classroom_assignments": null,
                 "role": "student",
                 "send_newsletter": false,
                 "signed_up_with_google": false,
@@ -1054,7 +1033,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
                 "last_sign_in": "2019-07-19T13: 10: 19.172Z",
                 "name": "Demo Teacher",
                 "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                "post_google_classroom_assignments": null,
                 "role": "teacher",
                 "send_newsletter": false,
                 "signed_up_with_google": false,
@@ -1111,7 +1089,6 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
           "last_sign_in": "2019-07-19T13:10:19.172Z",
           "name": "Demo Teacher",
           "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-          "post_google_classroom_assignments": null,
           "role": "teacher",
           "send_newsletter": false,
           "signed_up_with_google": false,
@@ -1132,7 +1109,7 @@ exports[`ArchivedClassrooms component with no classrooms should render with no c
 <div
   className="archived-classrooms classrooms-page"
 >
-  <Component
+  <Snackbar
     visible={false}
   />
   <div

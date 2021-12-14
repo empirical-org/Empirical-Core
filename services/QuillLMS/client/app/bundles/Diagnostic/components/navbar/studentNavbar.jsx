@@ -31,7 +31,7 @@ const Links = ({ playDiagnostic, dispatch, }) => {
       </button>
       <div className="mobile-student-language-menu">
         <h2>Choose a directions language</h2>
-        <LanguageOptions diagnosticID={diagnosticID} dispatch={dispatch} />
+        <LanguageOptions dispatch={dispatch} />
       </div>
     </div>
   );

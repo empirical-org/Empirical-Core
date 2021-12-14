@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: activity_categories
@@ -8,7 +10,7 @@
 #  created_at   :datetime
 #  updated_at   :datetime
 #
-class ActivityCategory < ActiveRecord::Base
+class ActivityCategory < ApplicationRecord
   has_many :activity_category_activities, dependent: :destroy
   has_many :activities, through: :activity_category_activities
 

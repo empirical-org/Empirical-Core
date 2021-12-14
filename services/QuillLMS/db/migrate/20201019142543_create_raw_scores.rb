@@ -1,4 +1,6 @@
-class CreateRawScores < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateRawScores < ActiveRecord::Migration[4.2]
   def change
     create_table :raw_scores do |t|
       t.string :name, null: false

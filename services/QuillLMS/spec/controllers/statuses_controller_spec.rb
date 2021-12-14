@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe StatusesController, type: :controller do
@@ -13,10 +15,13 @@ describe StatusesController, type: :controller do
 
     context 'upstream 2xx response' do 
       it 'should render OK with status 201' do 
-        VCR.use_cassette('new_relic_deployment_notification') do 
-          post :deployment_notification, **params
-        end
-        expect(response.status).to eq 201
+        resp = double
+        allow(resp).to receive(:status) { 200 }
+        allow(Faraday).to receive(:post).and_return(resp)
+
+        post :deployment_notification, params: {  }
+
+        expect(response.status).to eq 200
         expect(response.body).to eq 'OK'
       end
     end
@@ -26,7 +31,7 @@ describe StatusesController, type: :controller do
         allow(Faraday).to receive(:post).and_raise('Faraday exception')
 
         expect {
-          post :deployment_notification, **params
+          post :deployment_notification, params: {  }
         }.to raise_error(RuntimeError, 'Faraday exception')
       end
     end
@@ -38,7 +43,7 @@ describe StatusesController, type: :controller do
         allow(Faraday).to receive(:post).and_return(resp)
 
         expect {
-          post :deployment_notification, **params
+          post :deployment_notification, params: {  }
         }.to_not raise_error
 
         expect(response.status).to eq 400

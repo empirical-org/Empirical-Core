@@ -1,12 +1,22 @@
+# frozen_string_literal: true
+
 module Student
   extend ActiveSupport::Concern
 
   included do
     #TODO: move these relationships into the users model
 
-    has_many :students_classrooms, foreign_key: 'student_id', dependent: :destroy, class_name: "StudentsClassrooms"
+    has_many :students_classrooms,
+      foreign_key: 'student_id',
+      dependent: :destroy,
+      class_name: "StudentsClassrooms"
 
-    has_many :classrooms, through: :students_classrooms, source: :classroom, inverse_of: :students, class_name: "Classroom"
+    has_many :classrooms,
+      through: :students_classrooms,
+      source: :classroom,
+      inverse_of: :students,
+      class_name: "Classroom"
+
     has_many :activity_sessions, dependent: :destroy
     has_many :assigned_activities, through: :classrooms, source: :activities
     has_many :started_activities, through: :activity_sessions, source: :activity
@@ -24,14 +34,22 @@ module Student
     protected :classroom_unit_score_join
 
     def student_average_score
-      avg_str = ActiveRecord::Base.connection.execute(
-       "select avg(percentage) from activity_sessions
-        join users on activity_sessions.user_id = users.id
-        join activities on activity_sessions.activity_id = activities.id
-        where activities.activity_classification_id != 6
-        and activities.activity_classification_id != 4
-        and users.id = #{id}").to_a[0]['avg']
-      (avg_str.to_f * 100).to_i
+      avg = RawSqlRunner.execute(
+        <<-SQL
+          SELECT AVG(percentage)
+          FROM activity_sessions
+          JOIN users
+            ON activity_sessions.user_id = users.id
+          JOIN activities
+            ON activity_sessions.activity_id = activities.id
+          JOIN activity_classifications
+            ON activities.activity_classification_id = activity_classifications.id
+          WHERE activity_classifications.key not in ('diagnostic', 'lessons', '#{ActivityClassification::EVIDENCE_KEY}')
+            AND users.id = #{id}
+        SQL
+      ).to_a.first['avg']
+
+      (avg.to_f * 100).to_i
     end
 
     def move_student_from_one_class_to_another(old_classroom, new_classroom)
@@ -57,29 +75,36 @@ module Student
       if old_classroom.owner.id == new_classroom.owner.id
         classroom_units.each do |cu|
           sibling_cu = ClassroomUnit.find_or_create_by(unit_id: cu.unit_id, classroom_id: new_classroom_id)
-          ActivitySession.where(classroom_unit_id: cu.id, user_id: user_id).each do |as|
-            as.update(classroom_unit_id: sibling_cu.id)
-            sibling_cu.assigned_student_ids.push(user_id)
-            sibling_cu.save
-          end
+          sibling_cu.assigned_student_ids.push(user_id)
+          sibling_cu.save
+
+          ActivitySession
+            .where(classroom_unit_id: cu.id, user_id: user_id)
+            .update_all(classroom_unit_id: sibling_cu.id)
+
           hide_extra_activity_sessions(cu.id)
         end
       else
         new_unit_name = "#{name}'s Activities from #{old_classroom.name}"
-        unit = Unit.create(user_id: new_classroom.owner.id, name: new_unit_name)
-        classroom_units.each do |cu|
-          new_cu = ClassroomUnit.find_or_create_by(unit_id: unit.id, classroom_id: new_classroom_id, assigned_student_ids: [user_id])
+        unit = Unit.create_with_incremented_name(user_id: new_classroom.owner.id, name: new_unit_name)
+        new_cu = ClassroomUnit.find_or_create_by(
+          unit_id: unit.id,
+          classroom_id: new_classroom_id,
+          assigned_student_ids: "{#{user_id}}"
+        )
 
-          ActivitySession.where(classroom_unit_id: cu.id, user_id: user_id).each do |as|
-            as.update(classroom_unit_id: new_cu.id)
-            UnitActivity.find_or_create_by(unit_id: unit.id, activity_id: as.activity_id)
-          end
+        classroom_units.each do |cu|
+          activity_sessions = ActivitySession.where(classroom_unit_id: cu.id, user_id: user_id)
+
+          activity_ids = (activity_sessions.pluck(:activity_id) - unit.unit_activities.pluck(:activity_id)).uniq
+          activity_ids.each { |activity_id| UnitActivity.find_or_create_by(unit_id: unit.id, activity_id: activity_id) }
+
+          activity_sessions.update_all(classroom_unit_id: new_cu.id)
 
           hide_extra_activity_sessions(cu.id)
         end
       end
     end
-
   end
 
   def hide_extra_activity_sessions(classroom_unit_id)
@@ -121,13 +146,13 @@ module Student
     primary_account_grouped_activity_sessions = primary_account_activity_sessions.group_by { |as| as.classroom_unit_id }
     secondary_account_grouped_activity_sessions = secondary_account_activity_sessions.group_by { |as| as.classroom_unit_id }
 
-    secondary_account_grouped_activity_sessions.each do |cu_id, activity_sessions|
-      if cu_id
+    secondary_account_grouped_activity_sessions.each do |classroom_unit_id, activity_sessions|
+      if classroom_unit_id
         activity_sessions.each {|as| as.update_columns(user_id: id) }
-        if primary_account_grouped_activity_sessions[cu_id]
-          hide_extra_activity_sessions(cu_id)
+        if primary_account_grouped_activity_sessions[classroom_unit_id]
+          hide_extra_activity_sessions(classroom_unit_id)
         else
-          cu = ClassroomUnit.find_by(id: cu_id)
+          cu = ClassroomUnit.find_by(id: classroom_unit_id)
           cu.update(assigned_student_ids: cu.assigned_student_ids.push(id))
         end
       end
@@ -152,15 +177,22 @@ module Student
   end
 
   def classrooms_shared_with_other_student(other_student_id, teacher_id=nil)
-    classroom_ids = ActiveRecord::Base.connection.execute("SELECT A.classroom_id
-      FROM students_classrooms A, students_classrooms B
-      WHERE A.student_id = #{ActiveRecord::Base.sanitize(id)}
-      AND B.student_id = #{ActiveRecord::Base.sanitize(other_student_id)}
-      AND A.classroom_id = B.classroom_id").to_a
-    if teacher_id
-      classroom_ids = classroom_ids.select { |classroom_id_hash| Classroom.find(classroom_id_hash['classroom_id']).owner.id == teacher_id}
-    end
-    classroom_ids
-  end
+    classroom_ids = RawSqlRunner.execute(
+      <<-SQL
+        SELECT A.classroom_id
+        FROM
+          students_classrooms A,
+          students_classrooms B
+        WHERE A.student_id = #{ActiveRecord::Base.connection.quote(id)}
+          AND B.student_id = #{ActiveRecord::Base.connection.quote(other_student_id)}
+          AND A.classroom_id = B.classroom_id
+      SQL
+    ).to_a
 
+    classroom_ids = classroom_ids.select { |data| Classroom.exists?(data['classroom_id']) }
+
+    return classroom_ids if teacher_id.nil?
+
+    classroom_ids.select { |data| Classroom.find(data['classroom_id'])&.owner&.id == teacher_id }
+  end
 end

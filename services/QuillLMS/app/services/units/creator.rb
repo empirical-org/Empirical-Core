@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Units::Creator
   def self.run(teacher, name, activities_data, classrooms_data, unit_template_id=nil, current_user_id=nil)
     create_helper(teacher, name, activities_data, classrooms_data, unit_template_id, current_user_id)
@@ -7,11 +9,16 @@ module Units::Creator
     unit_template = UnitTemplate.find(unit_template_id)
     # unit fix: pass whole teacher object
     teacher = User.find(teacher_id)
-    activities_data = ActiveRecord::Base.connection.execute("
-      SELECT activities.id FROM activities JOIN activities_unit_templates ON
-      activities.id = activity_id WHERE unit_template_id = #{unit_template_id}
-      ORDER BY activities_unit_templates.id;
-    ").map { |a| {id: a["id"].to_i, due_date: nil}}
+    activities_data = RawSqlRunner.execute(
+      <<-SQL
+        SELECT activities.id
+        FROM activities
+        JOIN activities_unit_templates
+          ON activities.id = activity_id
+        WHERE unit_template_id = #{unit_template_id}
+        ORDER BY activities_unit_templates.id;
+      SQL
+    ).map { |a| { id: a["id"], due_date: nil } }
 
     # unit fix: may be able to better optimize this one, but possibly not
     classrooms_data = teacher.classrooms_i_teach.map{ |c| {id: c.id, student_ids: [], assign_on_join: true} }
@@ -24,15 +31,18 @@ module Units::Creator
     # converted to array so we can map in helper function as we would otherwise
     # unit fix: pass whole teacher object
     teacher = User.find(teacher_id)
-    activities_data = ActiveRecord::Base.connection.execute("
-      SELECT activities.id FROM activities JOIN activities_unit_templates ON
-      activities.id = activity_id WHERE unit_template_id = #{unit_template_id}
-      ORDER BY activities_unit_templates.id;
-    ").map { |a| {id: a["id"].to_i, due_date: nil}}
+    activities_data = RawSqlRunner.execute(
+      <<-SQL
+        SELECT activities.id
+        FROM activities
+        JOIN activities_unit_templates
+          ON activities.id = activity_id
+        WHERE unit_template_id = #{unit_template_id}
+        ORDER BY activities_unit_templates.id;
+      SQL
+    ).map { |a| {id: a["id"], due_date: nil}}
     create_helper(teacher, unit_template.name, activities_data, classroom_array, unit_template_id, current_user_id)
   end
-
-  private
 
   def self.create_helper(teacher, name, activities_data, classrooms, unit_template_id=nil, current_user_id)
     unit = Unit.create!(
@@ -59,10 +69,8 @@ module Units::Creator
         unit_id: unit.id
       }
     end
-    classrm_units = ClassroomUnit.create(class_data)
-    classrm_units.each do |classroom_unit|
-      GoogleIntegration::UnitAnnouncement.new(classroom_unit).post
-    end
+    ClassroomUnit.create(class_data)
+
     unit.reload
     unit.save
     unit.email_lesson_plan

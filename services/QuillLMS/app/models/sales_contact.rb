@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: sales_contacts
@@ -15,7 +17,7 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class SalesContact < ActiveRecord::Base
+class SalesContact < ApplicationRecord
   belongs_to :user
   has_many :stages, class_name: "SalesStage", dependent: :destroy
 end

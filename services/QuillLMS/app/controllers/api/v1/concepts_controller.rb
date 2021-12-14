@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::ConceptsController < Api::ApiController
   before_action :doorkeeper_authorize!, only: [:create]
 
@@ -9,6 +11,8 @@ class Api::V1::ConceptsController < Api::ApiController
       render json: concept.errors, status: 422
     end
   end
+
+  caches_action :index, format: 'json', expires_in: 1.hour
 
   def index
     # Returns all the concepts, sorted by level
@@ -22,9 +26,12 @@ class Api::V1::ConceptsController < Api::ApiController
     render json: {concepts: Concept.all_with_level}.to_json
   end
 
-  private
+  def level_zero_concepts_with_lineage
+    concepts = Concept.level_zero_only.filter { |c| c.visible == true }.map { |c| { name: c.lineage, uid: c.uid } }.sort_by { |c| c[:name] }
+    render json: { concepts: concepts }.to_json
+  end
 
-  def concept_params
+  private def concept_params
     params.require(:concept).permit(:name, :parent_uid)
   end
 end

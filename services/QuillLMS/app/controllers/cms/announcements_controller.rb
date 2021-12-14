@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Cms::AnnouncementsController < Cms::CmsController
-  before_filter :signed_in!
+  before_action :signed_in!
 
   def index
     @announcements = Announcement.all
@@ -11,7 +13,7 @@ class Cms::AnnouncementsController < Cms::CmsController
       redirect_to cms_announcements_path
     else
       flash[:error] = 'Rut roh. Something has gone awry! 😭'
-      redirect_to :back
+      redirect_back(fallback_location: new_cms_announcement_path)
     end
   end
 
@@ -30,8 +32,7 @@ class Cms::AnnouncementsController < Cms::CmsController
     redirect_to cms_announcements_path
   end
 
-  private
-  def announcement_params
+  private def announcement_params
     params.require(:announcement).permit(:announcement_type, :link, :text, :start, :end)
   end
 end

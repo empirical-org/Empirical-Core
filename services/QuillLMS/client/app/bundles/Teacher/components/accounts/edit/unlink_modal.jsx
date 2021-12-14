@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Input, } from '../../../../Shared/index'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
@@ -7,7 +8,7 @@ export default class UnlinkModal extends React.Component {
   constructor(props) {
     super(props)
 
-    const { email, googleOrClever, } = this.props
+    const { email } = this.props
 
     this.state = {
       email,
@@ -34,7 +35,6 @@ export default class UnlinkModal extends React.Component {
     if (googleOrClever === 'Google') {
       data.google_id = null
       data.signed_up_with_google = false
-      data.post_google_classroom_assignments = false
     } else {
       data.clever_id = null
     }
@@ -71,8 +71,7 @@ export default class UnlinkModal extends React.Component {
       return (<div className="checkboxes">
         <div className="checkbox-row">
           {this.renderCheckbox('checkboxOne')}
-          <span>I understand that I will no longer be able to sync classes with
-          or post assignments to Google Classroom.</span>
+          <span>I understand that I will no longer be able to sync classes with Google Classroom.</span>
         </div>
       </div>)
     } else {
@@ -94,7 +93,7 @@ export default class UnlinkModal extends React.Component {
   }
 
   render() {
-    const { googleOrClever, updateUser, cancel, timesSubmitted, errors, } = this.props
+    const { googleOrClever, cancel, timesSubmitted, errors, } = this.props
     const { email, password, } = this.state
     return (
       <div>
@@ -126,7 +125,13 @@ export default class UnlinkModal extends React.Component {
           {this.renderCheckboxes()}
           <div className="button-section">
             <div className="quill-button outlined secondary medium" id="cancel" onClick={cancel}>Cancel</div>
-            <input className={this.submitClass()} name="commit" onClick={this.handleSubmit} type="submit" value={`Unlink ${googleOrClever}`} />
+            <input
+              className={this.submitClass()}
+              name="commit"
+              onClick={this.handleSubmit}
+              type="submit"
+              value={`Unlink ${googleOrClever}`}
+            />
           </div>
         </div>
       </div>)

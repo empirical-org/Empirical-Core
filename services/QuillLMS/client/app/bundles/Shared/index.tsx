@@ -15,12 +15,14 @@ export {
 
 export {
   ArchivedButton,
+  ButtonLoadingSpinner,
   Card,
   CarouselAnimation,
   DataTable,
   ProgressBar,
   DropdownInput,
   Error,
+  ExpandableCard,
   FlagDropdown,
   Input,
   Passthrough,
@@ -31,12 +33,15 @@ export {
   Spinner,
   SortableList,
   TeacherPreviewMenu,
+  TeacherPreviewMenuButton,
   TextEditor,
   TextArea,
   Tooltip,
   TwoThumbSlider,
   UploadOptimalResponses
 } from './components/shared/index'
+
+export { richButtonsPlugin, } from './components/draftJSRichButtonsPlugin/index'
 
 export {
   Modal
@@ -82,5 +87,46 @@ export {
   getQuestionsWithAttempts,
   getFilteredQuestions,
   getDisplayedText,
-  renderPreviewFeedback
+  renderPreviewFeedback,
+  roundValuesToSeconds,
+  roundMillisecondsToSeconds
 } from './libs/index'
+
+export {
+  bigCheckIcon,
+  searchMapIcon,
+  clipboardCheckIcon,
+  tableCheckIcon,
+  accountViewIcon,
+  demoViewIcon,
+  giftIcon,
+  groupAccountIcon,
+  googleClassroomIcon,
+  helpIcon,
+  arrowPointingRightIcon,
+  expandIcon,
+  fileChartIcon,
+  fileDownloadIcon,
+  horizontalDotsIcon,
+  playBoxIcon,
+  previewIcon,
+  smallWhiteCheckIcon,
+  cursorClick,
+  cursorPointingHand,
+  removeIcon,
+  encircledWhiteArrowIcon,
+  greenCheckIcon,
+  lockedIcon,
+  closeIcon,
+} from './images/index'
+
+export {
+  KEYDOWN,
+  MOUSEMOVE,
+  MOUSEDOWN,
+  CLICK,
+  KEYPRESS,
+  VISIBILITYCHANGE,
+  SCROLL,
+  TOUCHMOVE,
+} from './utils/eventNames'

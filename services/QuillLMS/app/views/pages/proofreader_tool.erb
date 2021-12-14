@@ -6,14 +6,19 @@
 </section>
 <div class="tool-container proofreader-tool-page">
 
-    <section class='bg-quillblue tool-hero text-center'>
+    <section class='bg-quillblue tool-hero text-center tool-section'>
       <h1 class="q-h1">
           <img class="tool-page-icon lazyload" data-src='/images/quill_proofreader_white.svg'>Quill Proofreader
       </h1>
       <p class='description'>
         Proofreader teaches your students editing skills by having them proofread passages. Students edit passages and receive personalized exercises based on their results. With over 100 expository passages, Proofreader gives students the practice they need to spot common grammatical errors.
       </p>
-      <a href='/activity_sessions/anonymous?activity_id=244' target="_blank" class="q-button cta-button text-quillblue bg-white">Try Quill Proofreader Now</a>
+      <section class="tool-ctas proofreader-tool">
+        <a href='/activity_sessions/anonymous?activity_id=244' target="_blank" class="q-button cta-button text-quillblue bg-white">Try a sample activity</a>
+        <% if current_user&.teacher? %>
+          <a href='/assign/activity-library?activityClassificationFilters[]=passage' class="q-button text-white learn-more-button">Assign</a>
+        <% end %>
+      </section>
     </section>
 
     <section class="tool-animation-section " id="overview">

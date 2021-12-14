@@ -89,9 +89,12 @@
 		margin-bottom: 26px;
 
 		.average-score {
-			color: #666666;
-
+      margin-left: 16px;
 		}
+
+    .average-score, .time-spent {
+      color: #666666;
+    }
 
 		a.activity-scores-link {
 			border: solid 1px $orange;

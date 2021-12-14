@@ -1,4 +1,6 @@
-class CreateObjectives < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateObjectives < ActiveRecord::Migration[4.2]
   def change
     create_table :objectives do |t|
       t.string :name

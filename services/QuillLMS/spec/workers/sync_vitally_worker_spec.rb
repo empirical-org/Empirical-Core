@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe SyncVitallyWorker, type: :worker do
@@ -12,6 +14,24 @@ describe SyncVitallyWorker, type: :worker do
       expect(worker).to receive(:users_to_sync).and_return([user])
       expect(SyncVitallyAccountsWorker).to receive(:perform_async).with([school.id])
       expect(SyncVitallyUsersWorker).to receive(:perform_async).with([user.id])
+      worker.perform
+    end
+
+    it "#will kick off the PopulateAnnualVitallyWorker if it is July 1" do
+      allow(Date).to receive(:today).and_return Date.new(2020,7,1)
+      ENV['SYNC_TO_VITALLY'] = 'true'
+      school = create(:school)
+      user = create(:user)
+      expect(PopulateAnnualVitallyWorker).to receive(:perform_async)
+      worker.perform
+    end
+
+    it "#will NOT kick off the PopulateAnnualVitallyWorker if it is NOT July 1" do
+      allow(Date).to receive(:today).and_return Date.new(2020,7,2)
+      ENV['SYNC_TO_VITALLY'] = 'true'
+      school = create(:school)
+      user = create(:user)
+      expect(PopulateAnnualVitallyWorker).not_to receive(:perform_async)
       worker.perform
     end
   end

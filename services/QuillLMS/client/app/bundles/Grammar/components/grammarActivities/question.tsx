@@ -8,12 +8,14 @@ import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import * as responseActions from '../../actions/responses'
 import { setCurrentQuestion } from '../../actions/session'
+import { getParameterByName } from '../../../Connect/libs/getParameterByName';
 import {
   hashToCollection,
   ProgressBar,
   ConceptExplanation,
   Feedback,
-  getLatestAttempt
+  getLatestAttempt,
+  TeacherPreviewMenuButton
 } from '../../../Shared/index'
 
 const ALLOWED_ATTEMPTS = 5
@@ -36,6 +38,8 @@ interface QuestionProps {
   questions: Question[];
   questionSet: Question[];
   handleToggleQuestion: (question: Question) => void;
+  isOnMobile: boolean;
+  handleTogglePreviewMenu: () => void;
 }
 
 interface QuestionState {
@@ -203,6 +207,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       goToNextQuestion();
       this.setState({ response: '', questionStatus: UNANSWERED, responses: {} })
     }
+    const element = document.getElementById("main-content")
+    if (!element) { return }
+    element.focus()
   }
 
   handleExampleButtonClick = () => this.setState(prevState => ({ showExample: !prevState.showExample }))
@@ -240,6 +247,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       }
     }
   }
+
+  handleDrop = (e) => e.preventDefault()
 
   example = (): JSX.Element | string | void => {
     if (this.currentQuestion().rule_description && this.currentQuestion().rule_description.length && this.currentQuestion().rule_description !== "<br/>") {
@@ -316,10 +325,12 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   renderTopSection(): JSX.Element {
-    const { activity } = this.props;
+    const { activity, isOnMobile, handleTogglePreviewMenu } = this.props;
     const counts = this.getQuestionCounts();
     const meterWidth = counts['answeredQuestionCount'] / counts['totalQuestionCount'] * 100
+    const studentSession = getParameterByName('student', window.location.href);
     return (<div className="top-section">
+      {isOnMobile && !studentSession && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreviewMenu} />}
       <ProgressBar
         answeredQuestionCount={counts['answeredQuestionCount']}
         label="questions"
@@ -345,6 +356,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         disabled={!!disabled}
         html={response}
         onChange={this.handleResponseChange}
+        onDrop={this.handleDrop}
         onKeyDown={this.handleKeyDown}
         placeholder="Type your answer here."
         spellCheck={false}

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: activity_category_activities
@@ -13,7 +15,7 @@
 #
 #  index_act_category_acts_on_act_id_and_act_cat_id  (activity_id,activity_category_id)
 #
-class ActivityCategoryActivity < ActiveRecord::Base
+class ActivityCategoryActivity < ApplicationRecord
   belongs_to :activity_category
   belongs_to :activity
 

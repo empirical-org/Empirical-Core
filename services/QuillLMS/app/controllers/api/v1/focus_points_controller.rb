@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Api::V1::FocusPointsController < Api::ApiController
-  before_filter :get_question_by_uid
+  before_action :get_question_by_uid
 
   def index
     render_all_focus_points
@@ -16,8 +18,11 @@ class Api::V1::FocusPointsController < Api::ApiController
 
   def update
     return not_found unless @question.data.dig("focusPoints", params[:id])
-    @question.set_focus_point(params[:id], valid_params)
-    render_focus_point
+    if @question.set_focus_point(params[:id], valid_params)
+      render_focus_point
+    else
+      render json: @question.errors, status: 422
+    end
   end
 
   def update_all
@@ -35,7 +40,12 @@ class Api::V1::FocusPointsController < Api::ApiController
   end
 
   private def valid_params
-    params.require(:focus_point).except(:uid)
+    filtered_params = params.require(:focus_point)
+    if filtered_params.is_a?(Array)
+      filtered_params.map {|x| x.except(:uid).permit!.to_h }
+    else
+      filtered_params.except(:uid).permit!.to_h
+    end
   end
 
   private def render_focus_point

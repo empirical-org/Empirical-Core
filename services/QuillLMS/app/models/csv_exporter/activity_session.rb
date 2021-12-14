@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CsvExporter
   class ActivitySession
     PAGE_TITLE = 'Data Export'
@@ -33,7 +35,7 @@ module CsvExporter
 
     def model_data(teacher, filters)
       ::ProgressReports::ActivitySession.new(teacher)
-        .results(HashWithIndifferentAccess.new(filters) || {})
+        .results(ActiveSupport::HashWithIndifferentAccess.new(filters) || {})
     end
   end
 end

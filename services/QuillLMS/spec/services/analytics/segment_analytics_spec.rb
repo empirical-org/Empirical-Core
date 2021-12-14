@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'SegmentAnalytics' do
@@ -5,13 +7,12 @@ describe 'SegmentAnalytics' do
   # TODO : arent tests of these behaviours duplicated in the tests of the Workers?
 
   let(:analytics) { SegmentAnalytics.new }
-
   let(:track_calls) { analytics.backend.track_calls }
   let(:identify_calls) { analytics.backend.identify_calls }
 
-
   context 'tracking classroom creation' do
     let(:classroom) { create(:classroom) }
+    let(:classroom_with_no_teacher) { create(:classroom, :with_no_teacher) }
 
     it 'sends two events' do
       analytics.track_classroom_creation(classroom)
@@ -23,6 +24,12 @@ describe 'SegmentAnalytics' do
       expect(track_calls[1][:user_id]).to eq(classroom.owner.id)
       expect(track_calls[1][:properties][:classroom_type]).to eq(classroom.classroom_type_for_segment)
       expect(track_calls[1][:properties][:classroom_grade]).to eq(classroom.grade_as_integer)
+    end
+
+    it 'should not send event if there is no owner' do
+      analytics.track_classroom_creation(classroom_with_no_teacher)
+      expect(identify_calls.size).to eq(0)
+      expect(track_calls.size).to eq(0)
     end
   end
 
@@ -133,7 +140,7 @@ describe 'SegmentAnalytics' do
     let(:student) { create(:student) }
 
     it 'sends events to Intercom when the user is a teacher' do
-      analytics.track(teacher, {})
+      analytics.track({user_id: teacher.id})
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:integrations]).to eq({
@@ -143,7 +150,17 @@ describe 'SegmentAnalytics' do
     end
 
     it 'does not send events to Intercom when user is not a teacher' do
-      analytics.track(student, {})
+      analytics.track({user_id: student.id})
+      expect(identify_calls.size).to eq(0)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:integrations]).to eq({
+        all: true,
+        Intercom: false
+      })
+    end
+
+    it 'does not send events to Intercom when user_id is not present' do
+      analytics.track({})
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:integrations]).to eq({

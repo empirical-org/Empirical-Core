@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe PremiumAnalyticsWorker do
@@ -29,6 +31,14 @@ describe PremiumAnalyticsWorker do
       it 'should track began trial premium' do
         expect(analyzer).to receive(:track).with(user, SegmentIo::BackgroundEvents::BEGAN_PREMIUM_TRIAL)
         subject.perform(user.id, Subscription::OFFICIAL_FREE_TYPES[0])
+      end
+    end
+
+    context 'when passed an id for a non-existent user' do
+      it 'should return without doing anything' do
+        bad_user_id = user.id * 9
+        expect(analyzer).not_to receive(:track)
+        subject.perform(bad_user_id, Subscription::OFFICIAL_FREE_TYPES[0])
       end
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_context :ms_sorter_and_sort_fodder do
   let(:ms_sorter) do
     create :teacher, name: 'Sally Sorter',

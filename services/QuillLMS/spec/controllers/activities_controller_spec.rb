@@ -1,36 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe ActivitiesController, type: :controller, redis: true do
   let(:student) { create(:student) }
 
-  before do
-    session[:user_id] = student.id
-  end
-
-  describe 'GET #search' do
-    let(:activity) { create(:activity) }
-    let(:activity_session) { create(:activity_session,
-                                    activity: activity,
-                                    state: 'unstarted',
-                                    user: student) }
-    let!(:activity1) { create(:activity, flags: ['production']) }
-    let!(:activity2) { create(:activity, flags: ['production']) }
-    let(:parsed_body) { JSON.parse(response.body) }
-
-    # This feature is currently being overhauled, and this test will become
-    # obsolete anyway. Not going to waste dev time fixing it at this point.
-    skip 'returns activities' do
-      get :search, ( {"search"=>
-              {"search_query"=>"",
-               "filters"=>
-                {"0"=>{"field"=>"standard_level", "selected"=>""},
-                 "1"=>{"field"=>"activity_category", "selected"=>""},
-                 "2"=>{"field"=>"activity_classification", "selected"=>""}}},
-             "controller"=>"activities",
-             "action"=>"search"})
-      expect(parsed_body['activities'].length).to eq(2)
-    end
-  end
+  before { session[:user_id] = student.id }
 
   describe '#count' do
     let!(:activity) { create(:activity, flags: [:production]) }
@@ -54,7 +29,7 @@ describe ActivitiesController, type: :controller, redis: true do
         let!(:milestone) { create(:milestone, name: "View Lessons Tutorial", users: [student]) }
 
         it 'should redirect to the preview url' do
-          get :preview_lesson, lesson_id: activity.id
+          get :preview_lesson, params: { lesson_id: activity.id }
           expect(response).to redirect_to preview_url
         end
       end
@@ -63,7 +38,7 @@ describe ActivitiesController, type: :controller, redis: true do
         let!(:milestone) { create(:milestone, name: "View Lessons Tutorial", users: []) }
 
         it 'should redirect to the tutorials/lessons/preview url' do
-          get :preview_lesson, lesson_id: activity.id
+          get :preview_lesson, params: { lesson_id: activity.id }
           expect(response).to redirect_to tutorial_lesson_preview_url
         end
       end
@@ -76,28 +51,78 @@ describe ActivitiesController, type: :controller, redis: true do
       end
 
       it 'should redirect to preview url' do
-        get :preview_lesson, lesson_id: activity.id
+        get :preview_lesson, params: { lesson_id: activity.id }
         expect(response).to redirect_to preview_url
       end
     end
   end
 
-  # this throws missing template supporting_info error dont know whyg
-  # describe '#supporting_info' do
-  #   let!(:activity) { create(:activity) }
-  #
-  #   it 'should redirect to the supporting info' do
-  #     get :supporting_info, id: activity.id, format: :pdf
-  #     expect(response).to redirect_to activity.supporting_info
-  #   end
-  # end
-
   describe '#customize_lesson' do
     let!(:activity) { create(:activity) }
 
     it 'should redirect to the correct url' do
-      get :customize_lesson, id: activity.id
+      get :customize_lesson, params: { id: activity.id }
       expect(response).to redirect_to "#{activity.classification_form_url}customize/#{activity.uid}"
+    end
+  end
+
+  describe '#activity_session' do
+    let!(:classroom_unit) { create(:classroom_unit_with_activity_sessions).reload }
+    let!(:activity) { classroom_unit.unit.unit_activities.first.activity }
+
+    subject { get :activity_session, params: { id: activity.id, classroom_unit_id: classroom_unit.id } }
+
+    context 'no user is logged in' do
+      before { session.delete(:user_id) }
+
+      it 'redirects to login path' do
+        subject
+        expect(response).to redirect_to new_session_path
+      end
+    end
+
+    context 'user is not a student' do
+      before { session[:user_id] = create(:teacher).id }
+
+      it 'redirects to profile_path' do
+        subject
+        expect(response).to redirect_to profile_path
+      end
+    end
+
+    context 'student is assigned to classroom_unit' do
+      before { classroom_unit.update(assigned_student_ids: [student.id]) }
+
+      it '' do
+        subject
+        expect(response)
+          .to redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)
+      end
+    end
+
+    context 'student is not assigned to classroom_unit' do
+      it '' do
+        subject
+        expect(response).to redirect_to classes_path
+        expect(flash[:error]).to match I18n.t('activity_link.errors.activity_not_assigned')
+      end
+    end
+
+    context 'non-student user attempts to access link' do
+      before { session[:user_id] = create(:teacher).id }
+      it '' do
+        subject
+        expect(response).to redirect_to profile_path
+      end
+    end
+
+    context 'unit activity does not exist' do
+      let(:another_activity) { create(:activity) }
+
+      it '' do
+        get :activity_session, params: { id: another_activity.id, classroom_unit_id: classroom_unit.id }
+        expect(response).to redirect_to classes_path
+      end
     end
   end
 end

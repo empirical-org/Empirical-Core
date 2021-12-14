@@ -1,5 +1,6 @@
 <% @active_tab = 'Team' %>
-<%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab %>
+<% @title = 'Team' %>
+<%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab, title: @title %>
 
 <% base_image_url = "#{ENV['CDN_URL']}/images/team/" %>
 
@@ -27,10 +28,12 @@
       </section>
     <% end %>
 
-    <div class="hiring-blurb">
-      <h3>We're hiring. Join the team!</h3>
-      <a href="/careers" class="quill-button medium outlined secondary">See careers</a>
-    </div>
+    <% if @open_positions%>
+      <div class="hiring-blurb">
+        <h3>We're hiring. Join the team!</h3>
+        <a href="/careers" class="quill-button medium outlined secondary">See careers</a>
+      </div>
+    <% end %>
 
     <% board_and_advisors_info.each do |team_type| %>
       <section>

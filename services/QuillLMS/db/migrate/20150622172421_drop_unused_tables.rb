@@ -1,4 +1,6 @@
-class DropUnusedTables < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class DropUnusedTables < ActiveRecord::Migration[4.2]
   def change
     drop_table :chapters
     drop_table :chapter_levels

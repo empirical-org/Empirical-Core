@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: recommendations
@@ -19,7 +21,7 @@
 #  fk_rails_...  (activity_id => activities.id)
 #  fk_rails_...  (unit_template_id => unit_templates.id)
 #
-class Recommendation < ActiveRecord::Base
+class Recommendation < ApplicationRecord
   belongs_to :activity
   belongs_to :unit_template
   has_many :criteria, dependent: :destroy

@@ -64,11 +64,10 @@
     }
 
     .activity-image {
-      max-width: 50px;
       div {
         background-position: center;
         background-size: 70%;
-        height: 30px;
+        height: 40px;
         // width: 30px;
         margin-right: 15px;
         border-radius: 3px;
@@ -152,7 +151,7 @@
     .student-name {
       font-size: 30px;
       font-weight: 800;
-      border-radius: 6px 0px 0px 0px; 
+      border-radius: 6px 0px 0px 0px;
     }
     .yellow-text {
         font-size: 18px;
@@ -170,6 +169,9 @@
       background-color: #fff;
       td {
         border-radius: 0px 0px 6px 6px;
+      }
+      .class-column {
+        max-width: 304px;
       }
     }
   }

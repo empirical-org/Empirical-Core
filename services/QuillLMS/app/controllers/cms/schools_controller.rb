@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Cms::SchoolsController < Cms::CmsController
-  before_filter :signed_in!
+  before_action :signed_in!
 
   before_action :text_search_inputs, only: [:index, :search]
   before_action :set_school, only: [
@@ -17,7 +19,7 @@ class Cms::SchoolsController < Cms::CmsController
     @school_search_query = {
       'search_schools_with_zero_teachers' => true
     }
-    @school_search_query_results = school_query(school_query_params)
+    @school_search_query_results = []
     @number_of_pages = 0
   end
 
@@ -45,7 +47,8 @@ class Cms::SchoolsController < Cms::CmsController
       'District' => @school.leanm,
       'Free and Reduced Price Lunch' => "#{@school.free_lunches}%",
       'NCES ID' => @school.nces_id,
-      'PPIN' => @school.ppin
+      'PPIN' => @school.ppin,
+      'Clever ID' => @school.clever_id
     }
     @teacher_data = teacher_search_query_for_school(params[:id])
     @admins = SchoolsAdmins.includes(:user).where(school_id: params[:id].to_i).map do |admin|
@@ -77,7 +80,7 @@ class Cms::SchoolsController < Cms::CmsController
   end
 
   def new_subscription
-    @subscription = Subscription.new(start_date: Subscription.redemption_start_date(@school), expiration: Subscription.redemption_start_date(@school) + 1.year)
+    @subscription = Subscription.new(start_date: Subscription.redemption_start_date(@school), expiration: Subscription.default_expiration_date(@school))
   end
 
   # This allows staff members to create a new school.
@@ -99,6 +102,10 @@ class Cms::SchoolsController < Cms::CmsController
     @school = School.find(params[:id])
   end
 
+  def add_existing_user
+    @school = School.find(params[:id])
+  end
+
   def add_admin_by_email
     begin
       user = User.find_by(email: params[:email_address])
@@ -107,32 +114,65 @@ class Cms::SchoolsController < Cms::CmsController
       flash[:success] = "Yay! It worked! 🎉"
       redirect_to cms_school_path(params[:id])
     rescue
-      flash[:error] = "It did't work! 😭😭😭"
-      redirect_to :back
+      flash[:error] = "It didn't work! 😭😭😭"
+      redirect_back(fallback_location: fallback_location)
     end
   end
 
-  private
+  def add_existing_user_by_email
+    begin
+      user = User.find_by!(email: params[:email_address])
+      raise ArgumentError if user.role != 'teacher'
+      school = School.find_by!(id: params[:id])
+      SchoolsUsers.where(user: user).destroy_all
+      SchoolsUsers.create!(user_id: user.id, school_id: school.id)
+      flash[:success] = "Yay! It worked! 🎉"
+      redirect_to cms_school_path(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = "It didn't work! Make sure the email you typed is correct."
+      redirect_back(fallback_location: fallback_location)
+    rescue ArgumentError
+      flash[:error] = "It didn't work! Make sure the account you entered belogs to a teacher, not staff or student."
+      redirect_back(fallback_location: fallback_location)
+    rescue
+      flash[:error] = "It didn't work. See a developer about this issue."
+      redirect_back(fallback_location: fallback_location)
+    end
+  end
 
-  def set_school
+  def unlink
+    begin
+      teacher = User.find(params[:teacher_id])
+      if teacher.unlink
+        flash[:success] = "Yay! It worked! 🎉"
+      else
+        flash[:error] = "It didn't work. See a developer about this issue."
+      end
+      redirect_back(fallback_location: fallback_location)
+    rescue
+      flash[:error] = "It didn't work. Make sure the teacher still exists and belongs to this school."
+    end
+  end
+
+  private def set_school
     @school = School.find params[:id]
   end
 
-  def text_search_inputs
+  private def text_search_inputs
     # These are the text input fields, but they are not all of the fields in the form.
     @text_search_inputs = ['school_name', 'school_city', 'school_state', 'school_zip', 'district_name']
     @school_premium_types = Subscription.account_types
   end
 
-  def all_search_inputs
+  private def all_search_inputs
     @text_search_inputs.map(&:to_sym) + [:sort, :sort_direction, :page, :search_schools_with_zero_teachers, :premium_status]
   end
 
-  def school_query_params
+  private def school_query_params
     params.permit(default_params + all_search_inputs)
   end
 
-  def school_query(params)
+  private def school_query(params)
     # This should return an array of hashes that look like this:
     # [
     #   {
@@ -151,38 +191,46 @@ class Cms::SchoolsController < Cms::CmsController
 
     # NOTE: IF YOU CHANGE THIS QUERY'S CONDITIONS, PLEASE BE SURE TO
     # ADJUST THE PAGINATION QUERY STRING AS WELL.
-    ActiveRecord::Base.connection.execute("
-      SELECT
-        schools.name AS school_name,
-        schools.leanm AS district_name,
-        COALESCE(schools.city, schools.mail_city) AS school_city,
-        COALESCE(schools.state, schools.mail_state) AS school_state,
-        COALESCE(schools.zipcode, schools.mail_zipcode) AS school_zip,
-        schools.free_lunches AS frl,
-        COUNT(DISTINCT schools_users.id) AS number_teachers,
-        subscriptions.account_type AS premium_status,
-        COUNT(DISTINCT schools_admins.id) AS number_admins,
-        schools.id AS id
-      FROM schools
-      LEFT JOIN schools_users ON schools_users.school_id = schools.id
-      LEFT JOIN schools_admins ON schools_admins.school_id = schools.id
-      LEFT JOIN school_subscriptions ON school_subscriptions.school_id = schools.id
-      LEFT JOIN subscriptions ON subscriptions.id = school_subscriptions.subscription_id
-      #{where_query_string_builder}
-      GROUP BY schools.name, schools.leanm, schools.city, schools.state, schools.zipcode, schools.free_lunches, subscriptions.account_type, schools.id
-      #{having_string}
-      #{order_by_query_string}
-      #{pagination_query_string}
-    ").to_a.map do |school|
-      school['school_zip'] = school['school_zip'].to_i
-      school['number_teachers'] = school['number_teachers'].to_i
-      school['number_admins'] = school['number_admins'].to_i
-      school['frl'] = school['frl'].to_i
-      school
-    end
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+          schools.name AS school_name,
+          schools.leanm AS district_name,
+          COALESCE(schools.city, schools.mail_city) AS school_city,
+          COALESCE(schools.state, schools.mail_state) AS school_state,
+          COALESCE(schools.zipcode, schools.mail_zipcode) AS school_zip,
+          schools.free_lunches AS frl,
+          COUNT(DISTINCT schools_users.id) AS number_teachers,
+          subscriptions.account_type AS premium_status,
+          COUNT(DISTINCT schools_admins.id) AS number_admins,
+          schools.id AS id
+        FROM schools
+        LEFT JOIN schools_users
+          ON schools_users.school_id = schools.id
+        LEFT JOIN schools_admins
+          ON schools_admins.school_id = schools.id
+        LEFT JOIN school_subscriptions
+          ON school_subscriptions.school_id = schools.id
+        LEFT JOIN subscriptions
+          ON subscriptions.id = school_subscriptions.subscription_id
+        #{where_query_string_builder}
+        GROUP BY
+          schools.name,
+          schools.leanm,
+          schools.city,
+          schools.state,
+          schools.zipcode,
+          schools.free_lunches,
+          subscriptions.account_type,
+          schools.id
+        #{having_string}
+        #{order_by_query_string}
+        #{pagination_query_string}
+      SQL
+    ).to_a
   end
 
-  def having_string
+  private def having_string
     # We have to use HAVING here instead of including this in the WHERE query
     # builder because we're doing an aggregation here. This will merely filter
     # the results at the end.
@@ -191,7 +239,7 @@ class Cms::SchoolsController < Cms::CmsController
     end
   end
 
-  def where_query_string_builder
+  private def where_query_string_builder
     conditions = []
     # This converts all of the search inputs into strings so we can iterate
     # over them and grab the value from params. The weird ternary here is in
@@ -206,7 +254,7 @@ class Cms::SchoolsController < Cms::CmsController
     "WHERE #{conditions.join(' AND ')}" unless conditions.empty?
   end
 
-  def where_query_string_clause_for(param, param_value)
+  private def where_query_string_clause_for(param, param_value)
     # Potential params by which to search:
     # School name: schools.name
     # School city: schools.city or schools.mail_city
@@ -214,14 +262,14 @@ class Cms::SchoolsController < Cms::CmsController
     # School zip: schools.zipcode or schools.mail_zipcode
     # District name: schools.leanm
     # Premium status: subscriptions.account_type
-    sanitized_fuzzy_param_value = ActiveRecord::Base.sanitize('%' + param_value + '%')
-    sanitized_param_value = ActiveRecord::Base.sanitize(param_value)
+    sanitized_fuzzy_param_value = ActiveRecord::Base.connection.quote('%' + param_value + '%')
+    sanitized_param_value = ActiveRecord::Base.connection.quote(param_value)
 
     case param
     when 'school_name'
       "schools.name ILIKE #{sanitized_fuzzy_param_value}"
     when 'school_city'
-      "(schools.city ILIKE #{sanitized_fuzzy_param_value} OR schools.mail_city ILIKE #{sanitized_fuzzy_param_value}"
+      "schools.city ILIKE #{sanitized_fuzzy_param_value} OR schools.mail_city ILIKE #{sanitized_fuzzy_param_value}"
     when 'school_state'
       "(UPPER(schools.state) = UPPER(#{sanitized_param_value}) OR UPPER(schools.mail_state) = UPPER(#{sanitized_param_value}))"
     when 'school_zip'
@@ -235,28 +283,37 @@ class Cms::SchoolsController < Cms::CmsController
     end
   end
 
-  def pagination_query_string
+  private def pagination_query_string
     page = [school_query_params[:page].to_i - 1, 0].max
     "LIMIT #{SCHOOLS_PER_PAGE} OFFSET #{SCHOOLS_PER_PAGE * page}"
   end
 
-  def number_of_schools_matched
-    ActiveRecord::Base.connection.execute("
-      SELECT count(*) as count FROM
-        (SELECT
-        	COUNT(schools.id) AS count
-        FROM schools
-        LEFT JOIN schools_users ON schools_users.school_id = schools.id
-        LEFT JOIN schools_admins ON schools_admins.school_id = schools.id
-        LEFT JOIN school_subscriptions ON school_subscriptions.school_id = schools.id
-        LEFT JOIN subscriptions ON subscriptions.id = school_subscriptions.subscription_id
-        #{where_query_string_builder}
-        GROUP BY schools.id
-        #{having_string}) as subquery
-    ").to_a[0]['count'].to_i
+  private def number_of_schools_matched
+    result = RawSqlRunner.execute(
+      <<-SQL
+        SELECT COUNT(*) as count
+        FROM (
+          SELECT COUNT(schools.id) AS count
+          FROM schools
+          LEFT JOIN schools_users
+            ON schools_users.school_id = schools.id
+          LEFT JOIN schools_admins
+            ON schools_admins.school_id = schools.id
+          LEFT JOIN school_subscriptions
+            ON school_subscriptions.school_id = schools.id
+          LEFT JOIN subscriptions
+            ON subscriptions.id = school_subscriptions.subscription_id
+          #{where_query_string_builder}
+          GROUP BY schools.id
+          #{having_string}
+        ) AS subquery
+      SQL
+    )
+
+    result.to_a[0]['count'].to_i
   end
 
-  def order_by_query_string
+  private def order_by_query_string
     sort = school_query_params[:sort]
     sort_direction = school_query_params[:sort_direction]
     if sort && sort_direction && sort != 'undefined' && sort_direction != 'undefined'
@@ -266,11 +323,11 @@ class Cms::SchoolsController < Cms::CmsController
     end
   end
 
-  def edit_or_add_school_params
+  private def edit_or_add_school_params
     params.require(:school).permit(:id, editable_school_attributes.values)
   end
 
-  def editable_school_attributes
+  private def editable_school_attributes
     {
       'School Name' => :name,
       'School City' => :city,
@@ -278,15 +335,20 @@ class Cms::SchoolsController < Cms::CmsController
       'School ZIP' => :zipcode,
       'District Name' => :leanm,
       'FRP Lunch' => :free_lunches,
-      'NCES ID' => :nces_id
+      'NCES ID' => :nces_id,
+      'Clever ID' => :clever_id
     }
   end
 
-  def subscription_params
+  private def subscription_params
     params.permit([:id, :premium_status, :expiration_date => [:day, :month, :year]] + default_params)
   end
 
-  def teacher_search_query_for_school(school_id)
+  private def teacher_search_query_for_school(school_id)
     Cms::TeacherSearchQuery.new(school_id).run
+  end
+
+  def fallback_location
+    cms_school_path(params[:id].to_i)
   end
 end

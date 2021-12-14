@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::DataController < Cms::ActivitiesController
   def show
     params[:activity_id]

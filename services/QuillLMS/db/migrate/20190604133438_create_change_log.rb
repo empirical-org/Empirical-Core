@@ -1,4 +1,6 @@
-class CreateChangeLog < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateChangeLog < ActiveRecord::Migration[4.2]
   def change
     create_table :change_logs do |t|
       t.text :explanation, null: false

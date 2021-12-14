@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: standards
@@ -16,7 +18,7 @@
 #  fk_rails_...  (standard_category_id => standard_categories.id)
 #  fk_rails_...  (standard_level_id => standard_levels.id)
 #
-class Standard < ActiveRecord::Base
+class Standard < ApplicationRecord
   include Uid
 
   belongs_to :standard_level
@@ -32,7 +34,7 @@ class Standard < ActiveRecord::Base
 
   accepts_nested_attributes_for :change_logs
 
-  after_commit 'Activity.clear_activity_search_cache'
+  after_commit { Activity.clear_activity_search_cache }
 
   def name_prefix
     name.split(' ').first

@@ -70,27 +70,32 @@ exports[`ScoreLegend component should render 1`] = `
         </p>
       </div>
     </div>
-    <div
-      className="icon"
-    >
-      <div
-        className="icon-wrapper icon-blue"
-      />
-      <div
-        className="icons-description-wrapper"
-      >
-        <p
-          className="title"
+    <Tooltip
+      tooltipText="This type of activity is not graded."
+      tooltipTriggerText={
+        <div
+          className="icon"
         >
-          Completed
-        </p>
-        <p
-          className="explanation"
-        >
-          Not Scored
-        </p>
-      </div>
-    </div>
+          <div
+            className="icon-wrapper icon-blue"
+          />
+          <div
+            className="icons-description-wrapper"
+          >
+            <p
+              className="title"
+            >
+              Completed
+            </p>
+            <p
+              className="explanation"
+            >
+              <br />
+            </p>
+          </div>
+        </div>
+      }
+    />
     <div
       className="icon"
     >
@@ -98,6 +103,7 @@ exports[`ScoreLegend component should render 1`] = `
         className="icon-wrapper icon-progress"
       >
         <img
+          alt="in progress symbol"
           className="in-progress-symbol"
           src="https://assets.quill.org/images/scorebook/blue-circle-sliced.svg"
         />
@@ -108,12 +114,12 @@ exports[`ScoreLegend component should render 1`] = `
         <p
           className="title"
         >
-          In Progress
+          In progress
         </p>
         <p
           className="explanation"
         >
-          Not Finished
+          Not finished
         </p>
       </div>
     </div>
@@ -129,7 +135,7 @@ exports[`ScoreLegend component should render 1`] = `
         <p
           className="title"
         >
-          Not Started
+          Not started
         </p>
         <p
           className="explanation"

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Cms::UsersController do
-  it { should use_before_filter :signed_in! }
+  it { should use_before_action :signed_in! }
   it { should use_before_action :set_flags }
   it { should use_before_action :set_user }
   it { should use_before_action :set_search_inputs }
@@ -10,14 +12,10 @@ describe Cms::UsersController do
 
   let!(:user) { create(:staff) }
 
-  before do
-    allow(controller).to receive(:current_user) { user }
-  end
+  before { allow(controller).to receive(:current_user) { user } }
 
   describe '#index' do
-    before do
-      allow(ActiveRecord::Base.connection).to receive(:execute) { ["results"] }
-    end
+    before { allow(RawSqlRunner).to receive(:execute) { ["results"] } }
 
     it 'should assign the search query, the results, user flags and number of spaces' do
       get :index
@@ -29,15 +27,82 @@ describe Cms::UsersController do
   end
 
   describe '#search' do
-    before do
-      allow(ActiveRecord::Base.connection).to receive(:execute).and_return(["results"])
+
+    it 'should search for the users' do
+      get :search, params: { user_flag: "auditor" }
+      expect(response.body).to eq({numberOfPages: 0, userSearchQueryResults: [], userSearchQuery: {user_flag: "auditor"}}.to_json)
+      expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
+      expect(ChangeLog.last.explanation).to include('auditor')
+    end
+
+    context 'email search' do
+      let!(:search_user) {create(:user, email: 'test@testerson.com')}
+
+      it 'should exact search a lower, trimmed version of email exact' do
+        post :search, params: { user_email_exact: '  Test@teStErson.CoM  '}, as: :json
+
+        json = JSON.parse(response.body)
+
+        expect(json['userSearchQueryResults'].count).to be 1
+        expect(json['userSearchQueryResults'].first['id']).to eq(search_user.id)
+      end
+
+      it 'should NOT return results for partial email exact search' do
+        post :search, params: { user_email_exact: '@testerson.com' }, as: :json
+
+        json = JSON.parse(response.body)
+
+        expect(json['userSearchQueryResults']).to be_empty
+      end
+
+      it 'should return results for partial email non-exact search' do
+        post :search, params: { user_email: '@testerson.com' }, as: :json
+
+        json = JSON.parse(response.body)
+
+        expect(json['userSearchQueryResults'].count).to be 1
+        expect(json['userSearchQueryResults'].first['id']).to eq(search_user.id)
+      end
     end
 
     it 'should search for the users' do
-      get :search, user_flag: "auditor"
-      expect(response.body).to eq({numberOfPages: 0, userSearchQueryResults: ["results"], userSearchQuery: {user_flag: "auditor"}}.to_json)
+      teacher = create(:teacher_with_one_classroom, email: 'test@t.org')
+      classroom = teacher.classrooms_i_teach.first
+      classroom.teachers = [teacher]
+      student = create(:student, classrooms: [classroom])
+      class_code = classroom.code
+      get :search, params: { class_code: class_code }
+      expect(JSON.parse(response.body)).to eq(
+        {
+          "numberOfPages"=> 1,
+          "userSearchQueryResults"=> [
+            {
+              "name"=> teacher.name,
+              "email"=> teacher.email,
+              "role"=> teacher.role,
+              "subscription"=> nil,
+              "last_sign_in"=> nil,
+              "school"=> nil,
+              "school_id"=> nil,
+              "id"=> teacher.id
+            },
+            {
+              "name" => student.name,
+              "email" => student.email,
+              "role" => student.role,
+              "subscription" => nil,
+              "last_sign_in" => nil,
+              "school" => nil,
+              "school_id" => nil,
+              "id" => student.id
+            }
+          ],
+          "userSearchQuery"=> {
+            "class_code"=> class_code
+          }
+        })
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
-      expect(ChangeLog.last.explanation).to include('auditor')
+      expect(ChangeLog.last.explanation).to include('class_code')
     end
   end
 
@@ -46,27 +111,17 @@ describe Cms::UsersController do
     let!(:school) { create(:school) }
 
     it 'should create the school users and kick of the syn sales contact worker' do
-      post :create_with_school, user: new_user.attributes.merge({password: "test123"}), school_id: school.id
+      post :create_with_school, params: { user: new_user.attributes.merge({password: "test123"}), school_id: school.id }
       expect(SchoolsUsers.last.school_id).to eq school.id
       expect(response).to redirect_to cms_school_path(school.id)
     end
   end
 
-  # there is no route for this action, not sure if its used
-  # describe '#show_json' do
-  #   let!(:another_user) { create(:user) }
-  #
-  #   it 'should give the correct json' do
-  #     get :show_json, format: :json
-  #     expect(JSON.parse(response.body)).to eq(another_user.generate_teacher_account_info)
-  #   end
-  # end
-
   describe 'show' do
     let(:another_user) { create(:user) }
 
     it 'should log when an admin visit the user admin page' do
-      get :show, id: another_user.id
+      get :show, params: { id: another_user.id }
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:show])
       expect(ChangeLog.last.changed_record_id).to eq(another_user.id)
     end
@@ -76,7 +131,7 @@ describe Cms::UsersController do
     let(:new_user) { build(:user) }
 
     it 'should create the user with the given params' do
-      post :create, user: new_user.attributes.merge({password: "test123"})
+      post :create, params: { user: new_user.attributes.merge({password: "test123"}) }
       expect(response).to redirect_to cms_users_path
       expect(User.last.email).to eq new_user.email
       expect(User.last.role).to eq new_user.role
@@ -87,7 +142,7 @@ describe Cms::UsersController do
     let(:another_user) { create(:user) }
 
     it 'should set the user id in session' do
-      put :sign_in, id: another_user.id
+      put :sign_in, params: { id: another_user.id }
       expect(session[:staff_id]).to eq user.id
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:sign_in])
       expect(ChangeLog.last.changed_record_id).to eq(another_user.id)
@@ -103,7 +158,7 @@ describe Cms::UsersController do
     end
 
     it 'should create a new schoolsadmin for the user given' do
-      put :make_admin, school_id: school.id, user_id: non_admin.id
+      put :make_admin, params: { school_id: school.id, user_id: non_admin.id }
       expect(SchoolsAdmins.last.school_id).to eq school.id
       expect(SchoolsAdmins.last.user_id).to eq non_admin.id
       expect(response).to redirect_to 'http://example.com'
@@ -120,7 +175,7 @@ describe Cms::UsersController do
     end
 
     it 'should destroy the schoolsadmins' do
-      put :remove_admin, user_id: admin.id, school_id: school.id
+      put :remove_admin, params: { user_id: admin.id, school_id: school.id }
       expect{SchoolsAdmins.find(schools_admin.id)}.to raise_exception ActiveRecord::RecordNotFound
       expect(response).to redirect_to "http://example.com"
     end
@@ -129,7 +184,7 @@ describe Cms::UsersController do
   describe '#edit' do
     let!(:another_user) { create(:user) }
     it 'should log when admin visits the edit page' do
-      get :edit, id: another_user.id
+      get :edit, params: { id: another_user.id }
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:edit])
       expect(ChangeLog.last.changed_record_id).to eq(another_user.id)
     end
@@ -139,20 +194,31 @@ describe Cms::UsersController do
     let!(:another_user) { create(:user) }
 
     it 'should assign the subscription' do
-      get :edit_subscription, id: another_user.id
+      get :edit_subscription, params: { id: another_user.id }
       expect(assigns(:subscription)).to eq another_user.subscription
     end
   end
 
   describe '#new_subscription' do
     let!(:another_user) { create(:user) }
+    let!(:user_with_no_subscription) { create(:user) }
     let!(:subscription) { create(:subscription)}
     let!(:user_subscription) { create(:user_subscription, user: another_user, subscription: subscription) }
 
-    it 'should create a new subscription with starting after the current subscription ends' do
-      get :new_subscription, id: another_user.id
-      expect(assigns(:subscription).start_date).to eq subscription.expiration
-      expect(assigns(:subscription).expiration).to eq subscription.expiration + 1.year
+    describe 'when there is no existing subscription' do
+      it 'should create a new subscription that starts today and ends at the promotional expiration date' do
+        get :new_subscription, params: { id: user_with_no_subscription.id }
+        expect(assigns(:subscription).start_date).to eq Date.today
+        expect(assigns(:subscription).expiration).to eq Subscription.promotional_dates[:expiration]
+      end
+    end
+
+    describe 'when there is an existing subscription' do
+      it 'should create a new subscription with starting after the current subscription ends' do
+        get :new_subscription, params: { id: another_user.id }
+        expect(assigns(:subscription).start_date).to eq subscription.expiration
+        expect(assigns(:subscription).expiration).to eq subscription.expiration + 1.year
+      end
     end
   end
 
@@ -160,7 +226,7 @@ describe Cms::UsersController do
     let!(:another_user) { create(:user) }
 
     it 'should update the attributes for the given user and update change_log' do
-      post :update, id: another_user.id, user: { email: "new@test.com", flags: ["purchaser"] }
+      post :update, params: { id: another_user.id, user: { email: "new@test.com", flags: ["purchaser"] } }
       expect(another_user.reload.email).to eq "new@test.com"
       expect(response).to redirect_to cms_users_path
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:update])
@@ -174,7 +240,7 @@ describe Cms::UsersController do
 
     it 'should clear the data' do
       expect_any_instance_of(User).to receive(:clear_data)
-      put :clear_data, id: another_user.id
+      put :clear_data, params: { id: another_user.id }
       expect(response).to redirect_to cms_users_path
     end
   end
@@ -200,7 +266,7 @@ describe Cms::UsersController do
     it 'should create the sales contact updater' do
       expect(UpdateSalesContact).to receive(:new).with(another_user.id, "2", user)
       expect(updater).to receive(:call)
-      post :complete_sales_stage, id: another_user.id, stage_number: 2
+      post :complete_sales_stage, params: { id: another_user.id, stage_number: 2 }
       expect(flash[:success]).to eq "Stage marked completed"
       expect(response).to redirect_to cms_user_path(another_user.id)
     end

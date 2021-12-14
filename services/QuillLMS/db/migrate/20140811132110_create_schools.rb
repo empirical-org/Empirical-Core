@@ -1,4 +1,6 @@
-class CreateSchools < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateSchools < ActiveRecord::Migration[4.2]
   def change
     create_table :schools do |t|
       t.string  :nces_id, :lea_id, :leanm, :name, :phone, :mail_street, :mail_city,

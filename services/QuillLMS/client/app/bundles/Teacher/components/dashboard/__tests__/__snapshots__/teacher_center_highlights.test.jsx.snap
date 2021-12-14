@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TeacherCenterHighlights component should render 1`] = `
+<TeacherCenterHighlights
+  featuredBlogPosts={
+    Array [
+      Object {
+        "external_link": "",
+        "id": 415,
+        "slug": "getting-started-navigating-the-student-dashboard",
+        "title": "Navigating the student dashboard",
+        "topic": "Getting started",
+      },
+      Object {
+        "external_link": "",
+        "id": 451,
+        "slug": "best-practices-how-to-use-quill-when-you-dont-have-time-for-the-diagnostic",
+        "title": "How to use Quill when you don't have time for the diagnostic",
+        "topic": "Best Practices",
+      },
+      Object {
+        "external_link": "http://s3.amazonaws.com/quill-image-uploads/uploads/files/Using_Quill_with_Google_Classroom.mp4",
+        "id": 411,
+        "slug": "using-quill-with-google-classroom",
+        "title": "Using Quill with Google Classroom",
+        "topic": "Getting started",
+      },
+    ]
+  }
+>
+  <section
+    className="teacher-center-highlights"
+  >
+    <h2>
+      Teacher center highlights
+    </h2>
+    <Highlight
+      blogPost={
+        Object {
+          "external_link": "",
+          "id": 415,
+          "slug": "getting-started-navigating-the-student-dashboard",
+          "title": "Navigating the student dashboard",
+          "topic": "Getting started",
+        }
+      }
+      key="415"
+    >
+      <a
+        className="highlight focus-on-light"
+        href="/teacher-center/getting-started-navigating-the-student-dashboard"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <h3>
+          Navigating the student dashboard
+        </h3>
+        <span>
+          Getting started
+        </span>
+      </a>
+    </Highlight>
+    <Highlight
+      blogPost={
+        Object {
+          "external_link": "",
+          "id": 451,
+          "slug": "best-practices-how-to-use-quill-when-you-dont-have-time-for-the-diagnostic",
+          "title": "How to use Quill when you don't have time for the diagnostic",
+          "topic": "Best Practices",
+        }
+      }
+      key="451"
+    >
+      <a
+        className="highlight focus-on-light"
+        href="/teacher-center/best-practices-how-to-use-quill-when-you-dont-have-time-for-the-diagnostic"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <h3>
+          How to use Quill when you don't have time for the diagnostic
+        </h3>
+        <span>
+          Best Practices
+        </span>
+      </a>
+    </Highlight>
+    <Highlight
+      blogPost={
+        Object {
+          "external_link": "http://s3.amazonaws.com/quill-image-uploads/uploads/files/Using_Quill_with_Google_Classroom.mp4",
+          "id": 411,
+          "slug": "using-quill-with-google-classroom",
+          "title": "Using Quill with Google Classroom",
+          "topic": "Getting started",
+        }
+      }
+      key="411"
+    >
+      <a
+        className="highlight focus-on-light"
+        href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Using_Quill_with_Google_Classroom.mp4"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <h3>
+          Using Quill with Google Classroom
+        </h3>
+        <span>
+          Getting started
+        </span>
+      </a>
+    </Highlight>
+    <a
+      className="see-all-resources focus-on-light"
+      href="/teacher-center"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      See all resources
+    </a>
+  </section>
+</TeacherCenterHighlights>
+`;

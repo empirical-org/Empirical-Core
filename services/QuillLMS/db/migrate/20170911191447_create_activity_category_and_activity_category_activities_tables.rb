@@ -1,4 +1,6 @@
-class CreateActivityCategoryAndActivityCategoryActivitiesTables < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateActivityCategoryAndActivityCategoryActivitiesTables < ActiveRecord::Migration[4.2]
   def change
     create_table :activity_categories do |t|
       t.string :name

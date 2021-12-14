@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { DropdownInput } from '../../../Shared/index';
 import useWindowSize from '../../../Shared/hooks/useWindowSize'
-import { languages, languagesV2, languageData, languageDataV2 } from '../../modules/translation/languagePageInfo';
+import { languages, languageData } from '../../modules/translation/languagePageInfo';
 
 interface FooterProps {
   diagnosticID: string,
@@ -15,16 +15,14 @@ const languageIconSrc = `${process.env.CDN_URL}/images/icons/language.svg`
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 895
 
-const options = (diagnosticID: string): Array<{value: string, label: string}> => {
-  const langs = diagnosticID === 'ell' ? languages : languagesV2;
-  const langData = diagnosticID === 'ell' ? languageData : languageDataV2;
-  return langs.map(language => ({
+const options = (): Array<{value: string, label: string}> => {
+  return languages.map(language => ({
     value: language,
-    label: (`<p><img alt={${langData[language].label} flag} src=${langData[language].flag} /><span>${langData[language].label}</span></p>`)
+    label: (`<p><img alt={${languageData[language].label} flag} src=${languageData[language].flag} /><span>${languageData[language].label}</span></p>`)
   }))
 }
 
-const Footer = ({ diagnosticID, language, handleClickOpenMobileLanguageMenu, updateLanguage, }: FooterProps) => {
+const Footer = ({ language, handleClickOpenMobileLanguageMenu, updateLanguage, }: FooterProps) => {
   const size = useWindowSize();
   const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
 
@@ -33,7 +31,7 @@ const Footer = ({ diagnosticID, language, handleClickOpenMobileLanguageMenu, upd
     updateLanguage(language)
   }
 
-  const value = options(diagnosticID).find(opt => language === opt.value)
+  const value = options().find(opt => language === opt.value)
   if (onMobile()) {
     return (
       <div className="ell-footer mobile">
@@ -52,7 +50,7 @@ const Footer = ({ diagnosticID, language, handleClickOpenMobileLanguageMenu, upd
           className="ell-language-selector"
           handleChange={onChange}
           label="Directions language"
-          options={options(diagnosticID)}
+          options={options()}
           usesCustomOption
           value={value}
         />

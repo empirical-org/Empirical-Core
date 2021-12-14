@@ -14,6 +14,8 @@ const diagnosticSrc = `${process.env.CDN_URL}/images/icons/diagnostic-forest-gre
 const lessonsSrc = `${process.env.CDN_URL}/images/icons/lessons-forest-green.svg`
 const proofreaderSrc = `${process.env.CDN_URL}/images/icons/proofreader-forest-green.svg`
 const grammarSrc = `${process.env.CDN_URL}/images/icons/grammar-forest-green.svg`
+const comprehensionSrc = `${process.env.CDN_URL}/images/icons/tool-comprehension.svg`
+const shareActivitySrc = `${process.env.CDN_URL}/images/icons/icons-share.svg`
 
 export const AVERAGE_FONT_WIDTH = 7
 
@@ -41,6 +43,10 @@ const imageTagForClassification = (activityClassificationId: string): JSX.Elemen
       imgAlt = "Flag representing Quill Proofreader"
       imgSrc = proofreaderSrc
       break
+    case 9:
+      imgAlt = "Book representing Quill Evidence"
+      imgSrc = comprehensionSrc
+      break
   }
 
   return <img alt={imgAlt} src={imgSrc} />
@@ -50,7 +56,7 @@ const tableHeaders = (isOwner) => ([
   {
     name: <span className="tool-and-name-header"><span>Tool</span><span>Activity</span></span>,
     attribute: 'toolAndNameSection',
-    width: isOwner ? '637px' : '754px',
+    width: isOwner ? '607px' : '724px',
     rowSectionClassName: 'tool-and-name-section'
   },
   {
@@ -59,10 +65,16 @@ const tableHeaders = (isOwner) => ([
     width: isOwner ? '120px' : '110px',
     headerClassName: isOwner ? 'due-date-header-container' : 'due-date-header-container no-right-margin',
     rowSectionClassName: isOwner ? 'due-date-picker' : 'due-date-picker no-right-margin'
+  },
+  {
+    name: '',
+    attribute: 'shareActivity',
+    width: '30px',
+    noTooltip: true
   }
 ])
 
-const ActivityTable = ({ data, onSuccess, isOwner, }) => {
+const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handleToggleModal }) => {
   const classroomActivityArray = Array.from(data.classroomActivities).map(ca => ca[1])
 
   const [focusedHash, setFocusedHash] = React.useState({})
@@ -103,6 +115,11 @@ const ActivityTable = ({ data, onSuccess, isOwner, }) => {
     api.changeActivityPackOrder(data.unitId, newActivityOrder, () => onSuccess(null), null)
   }
 
+  function handleShareActivityClick(activity) {
+    handleActivityClicked(activity)
+    handleToggleModal()
+  }
+
   const activityRows = activityOrder.map(activityId => {
     const activity = classroomActivityArray.find(act => act.activityId === activityId)
     if (!activity) { return }
@@ -118,7 +135,7 @@ const ActivityTable = ({ data, onSuccess, isOwner, }) => {
     const dropdownIconStyle = focused ? { transform: 'rotate(180deg)', } : null;
 
     const placeholderText = startDate ? startDate.format('MM/DD/YYYY') : 'No due date'
-
+    /* eslint-disable react/jsx-no-bind */
     activity.dueDatePicker = isOwner ? (<SingleDatePicker
       customInputIcon={<img alt="dropdown indicator" src="https://assets.quill.org/images/icons/dropdown.svg" style={dropdownIconStyle} />}
       date={startDate}
@@ -132,6 +149,11 @@ const ActivityTable = ({ data, onSuccess, isOwner, }) => {
       onFocusChange={({ focused }) => updateFocused(activity.uaId, focused)}
       placeholder={placeholderText}
     />) : placeholderText
+    activity.shareActivity = (
+      <button className="share-activity-button focus-on-light" onClick={() => handleShareActivityClick(activity)} type="button" value="row-button">
+        <img alt='share-arrow' src={shareActivitySrc} />
+      </button>
+    )
     activity.removable = true
     activity.id = activity.uaId
     return activity

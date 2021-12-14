@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: units
@@ -43,6 +45,26 @@ describe Unit, type: :model do
   describe 'user_id field' do
     it 'should not raise an error' do
       expect{ unit.user_id }.not_to raise_error
+    end
+  end
+
+  describe '#create_with_incremented_name' do 
+    context 'collision occurs' do 
+      it 'should create a Unit with an incremented name' do 
+        Unit.create!(user_id: teacher.id, name: 'used name')
+        expect do 
+          Unit.create_with_incremented_name(user_id: teacher.id, name: 'used name')
+        end.to change { Unit.count }.by 1
+        expect(Unit.find_by(user_id: teacher.id, name: 'used name 2').present?).to be true
+      end
+    end
+
+    context 'normal path - no collision' do 
+      it 'should create a well-formed Unit' do 
+        expect do 
+          Unit.create_with_incremented_name(user_id: teacher.id, name: 'unique name')
+        end.to change { Unit.count }.by 1
+      end
     end
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: questions
@@ -14,7 +16,7 @@
 #  index_questions_on_question_type  (question_type)
 #  index_questions_on_uid            (uid) UNIQUE
 #
-class Question < ActiveRecord::Base
+class Question < ApplicationRecord
   TYPES = [
     TYPE_CONNECT_SENTENCE_COMBINING = 'connect_sentence_combining',
     TYPE_CONNECT_SENTENCE_FRAGMENTS = 'connect_sentence_fragments',
@@ -24,26 +26,72 @@ class Question < ActiveRecord::Base
     TYPE_DIAGNOSTIC_FILL_IN_BLANKS = 'diagnostic_fill_in_blanks',
     TYPE_GRAMMAR_QUESTION = 'grammar'
   ]
+
+  FLAGS = [
+    FLAG_PRODUCTION = 'production',
+    FLAG_ALPHA = 'alpha',
+    FLAG_BETA = 'beta',
+    FLAG_ARCHIVED = 'archived'
+  ]
+  LIVE_FLAGS = [FLAG_PRODUCTION, FLAG_ALPHA, FLAG_BETA]
+
+  CACHE_KEY_ALL = 'ALL_QUESTIONS_v1_'
+  CACHE_EXPIRY = 24.hours
+  CACHE_KEY_QUESTION = 'QUESTION_v1_'
+
+  # mapping extracted from Grammar,Connect,Diagnostic rematching.ts
+  REMATCH_TYPE_MAPPING = {
+    TYPE_CONNECT_SENTENCE_COMBINING => 'questions',
+    TYPE_CONNECT_SENTENCE_FRAGMENTS => 'sentenceFragments',
+    TYPE_CONNECT_FILL_IN_BLANKS => 'fillInBlankQuestions',
+    TYPE_DIAGNOSTIC_SENTENCE_COMBINING => 'diagnostic_questions',
+    TYPE_DIAGNOSTIC_SENTENCE_FRAGMENTS => 'diagnostic_sentenceFragments',
+    TYPE_DIAGNOSTIC_FILL_IN_BLANKS => 'diagnostic_fillInBlankQuestions',
+    TYPE_GRAMMAR_QUESTION => 'grammar_questions',
+  }
+
   validates :data, presence: true
   validates :question_type, presence: true, inclusion: {in: TYPES}
   validates :uid, presence: true, uniqueness: true
   validate :data_must_be_hash
+  validate :validate_sequences
 
-  after_save :expire_all_questions_cache
+  after_save :refresh_caches
+
+  scope :live, -> {where("data->>'flag' IN (?)", LIVE_FLAGS)}
+  scope :production, -> {where("data->>'flag' = ?", FLAG_PRODUCTION)}
 
   def as_json(options=nil)
     data
   end
 
+  def self.all_questions_json(question_type)
+    where(question_type: question_type)
+      .reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
+      .to_json
+  end
+
+  def self.all_questions_json_cached(question_type, refresh: false)
+    Rails.cache.fetch(CACHE_KEY_ALL + question_type, expires_in: CACHE_EXPIRY, force: refresh) do
+      all_questions_json(question_type)
+    end
+  end
+
+  def self.question_json_cached(uid, refresh: false)
+    Rails.cache.fetch(CACHE_KEY_QUESTION + uid.to_s, expires_in: CACHE_EXPIRY, force: refresh) do
+      find_by!(uid: uid).to_json
+    end
+  end
+
   def add_focus_point(new_data)
-    set_focus_point(new_uuid, new_data)
+    new_uid = new_uuid
+    return new_uid if set_focus_point(new_uid, new_data)
   end
 
   def set_focus_point(focus_point_id, new_data)
     data['focusPoints'] ||= {}
     data['focusPoints'][focus_point_id] = new_data
     save
-    focus_point_id
   end
 
   def update_focus_points(new_data)
@@ -68,25 +116,24 @@ class Question < ActiveRecord::Base
 
   def get_incorrect_sequence(incorrect_sequence_id)
     return nil if !data['incorrectSequences']
-    incorrect_sequence_id = incorrect_sequence_id.to_i if stored_as_array('incorrectSequences')
+    incorrect_sequence_id = incorrect_sequence_id.to_i if stored_as_array?('incorrectSequences')
     return data['incorrectSequences'][incorrect_sequence_id]
   end
 
   def add_incorrect_sequence(new_data)
-    if stored_as_array('incorrectSequences')
+    if stored_as_array?('incorrectSequences')
       new_id = data['incorrectSequences'].length
     else
       new_id = new_uuid
     end
-    set_incorrect_sequence(new_id, new_data)
+    return new_id if set_incorrect_sequence(new_id, new_data)
   end
 
   def set_incorrect_sequence(incorrect_sequence_id, new_data)
     data['incorrectSequences'] ||= {}
-    incorrect_sequence_id = incorrect_sequence_id.to_i if stored_as_array('incorrectSequences')
+    incorrect_sequence_id = incorrect_sequence_id.to_i if stored_as_array?('incorrectSequences')
     data['incorrectSequences'][incorrect_sequence_id] = new_data
     save
-    incorrect_sequence_id
   end
 
   def update_incorrect_sequences(new_data)
@@ -95,7 +142,7 @@ class Question < ActiveRecord::Base
   end
 
   def delete_incorrect_sequence(incorrect_sequence_id)
-    if stored_as_array('incorrectSequences')
+    if stored_as_array?('incorrectSequences')
       data['incorrectSequences'].delete_at(incorrect_sequence_id.to_i)
     else
       data['incorrectSequences'].delete(incorrect_sequence_id)
@@ -103,11 +150,15 @@ class Question < ActiveRecord::Base
     save
   end
 
-  private def expire_all_questions_cache
-    cache_key = Api::V1::QuestionsController::ALL_QUESTIONS_CACHE_KEY + "_#{question_type}"
-    $redis.del(cache_key)
-    cache_key = "#{Api::V1::QuestionsController::QUESTION_CACHE_KEY_PREFIX}_#{uid}"
-    $redis.del(cache_key)
+  # this attribute is used by the CMS's Rematch All process
+  def rematch_type
+    REMATCH_TYPE_MAPPING.fetch(question_type)
+  end
+
+  private def refresh_caches
+    Rails.cache.delete(CACHE_KEY_QUESTION + uid.to_s)
+    Rails.cache.delete(CACHE_KEY_ALL + question_type)
+    RefreshQuestionCacheWorker.perform_async(question_type, uid)
   end
 
   private def new_uuid
@@ -118,7 +169,39 @@ class Question < ActiveRecord::Base
     errors.add(:data, "must be a hash") unless data.is_a?(Hash)
   end
 
-  private def stored_as_array(key)
+  private def stored_as_array?(key)
     data[key].class == Array
+  end
+
+  private def validate_sequences
+    return if data.blank? || !data.is_a?(Hash)
+
+    parse_and_validate(data['incorrectSequences'])
+    parse_and_validate(data['focusPoints'])
+  end
+
+  private def parse_and_validate(sequences)
+    return if sequences.blank?
+
+    if sequences.is_a?(Hash)
+      sequences.each { |key, value| validate_text_and_feedback(value) }
+    elsif sequences.is_a?(Array)
+      sequences.each { |value| validate_text_and_feedback(value) }
+    end
+  end
+
+  private def validate_text_and_feedback(value)
+    if value['text'].nil? || value['feedback'].nil?
+      errors.add(:data, "Focus Points and Incorrect Sequences must have text and feedback.")
+      return
+    end
+
+    value['text'].split('|||').each { |regex| validate_regex(regex) }
+  end
+
+  private def validate_regex(regex)
+    Regexp.new(regex)
+  rescue RegexpError => e
+    errors.add(:data, "There is incorrectly formatted regex: #{regex}")
   end
 end

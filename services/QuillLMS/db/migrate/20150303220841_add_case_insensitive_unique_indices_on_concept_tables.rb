@@ -1,4 +1,6 @@
-class AddCaseInsensitiveUniqueIndicesOnConceptTables < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddCaseInsensitiveUniqueIndicesOnConceptTables < ActiveRecord::Migration[4.2]
   def up
     remove_index :concept_tags, :name
     execute "CREATE UNIQUE INDEX index_concept_tags_on_lowercase_name

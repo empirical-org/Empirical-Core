@@ -3,7 +3,9 @@
 See http://empirical-core.readme.io/v1.0 for documentation.
 
 1.  Check our [Github issue queue](https://github.com/empirical-org/Compass/issues?state=open) for ideas on how to help.
-2.  Make sure your code follows [Ruby](https://github.com/styleguide/ruby) and project conventions.
+2.  Make sure your code follows our style guides, where applicable:
+    - [javascript style guide](https://github.com/empirical-org/javascript)
+    - [ruby style guide](https://github.com/empirical-org/ruby)
 3.  Make sure you don't have any IDE / platform specific files committed. e.g.
     `.DS_Store`, `.idea`, `.project` (consider adding these to a [global gitignore](https://help.github.com/articles/ignoring-files#global-gitignore)).
 4.  Before commiting, run `rake`, make sure all tests pass.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Profile::Query
 
   def query(student, batch_size, offset, classroom_id)
@@ -14,9 +16,7 @@ class Profile::Query
            .order("classroom_units.created_at")
   end
 
-  private
-
-  def unfinished_first
+  private def unfinished_first
     "(state = 'finished')" # false will occur first since default ordering is ASC
   end
 

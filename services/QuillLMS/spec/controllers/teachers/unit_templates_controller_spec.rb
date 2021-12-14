@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Teachers::UnitTemplatesController, type: :controller do
@@ -12,9 +14,9 @@ describe Teachers::UnitTemplatesController, type: :controller do
 
   let(:parsed_body) { JSON.parse(response.body) }
 
-  describe '#index, format: :json' do
+  describe '#index, as: :json' do
     it 'responds with list of unit_templates' do
-      get :index, format: :json
+      get :index, as: :json
       expect(parsed_body['unit_templates'].length).to eq(4)
     end
   end
@@ -24,7 +26,7 @@ describe Teachers::UnitTemplatesController, type: :controller do
       it "can create new units and classroom activities" do
         data = {"id": unit_template1.id}
         current_jobs = FastAssignWorker.jobs.size
-        post "fast_assign", (data)
+        post "fast_assign", params: (data)
         expect(FastAssignWorker.jobs.size).to eq(current_jobs + 1)
       end
     end
@@ -32,7 +34,7 @@ describe Teachers::UnitTemplatesController, type: :controller do
 
   describe '#count' do
     it 'should set the count' do
-      get :count, format: :json
+      get :count, as: :json
       expect(assigns(:count)).to eq UnitTemplate.count
       expect(response.body).to eq({count: UnitTemplate.count}.to_json)
     end
@@ -44,7 +46,7 @@ describe Teachers::UnitTemplatesController, type: :controller do
     end
 
     it 'should render the correct json' do
-      get :profile_info, id: unit_template1.id
+      get :profile_info, params: { id: unit_template1.id }
       expect(response.body).to eq({
         data: {
           non_authenticated: false,
@@ -57,7 +59,7 @@ describe Teachers::UnitTemplatesController, type: :controller do
 
   describe '#assigned_info' do
     it 'should render the correct json' do
-      get :assigned_info , id: unit_template1.id, format: :json
+      get :assigned_info, params: { id: unit_template1.id }, as: :json
       expect(response.body).to eq({
         name: unit_template1.name,
         last_classroom_name: teacher.classrooms_i_teach.last.name,

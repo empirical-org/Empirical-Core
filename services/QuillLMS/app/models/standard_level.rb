@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: standard_levels
@@ -10,7 +12,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class StandardLevel < ActiveRecord::Base
+class StandardLevel < ApplicationRecord
   include Uid
   include RankedModel
   include ArchiveAssociatedStandards
@@ -23,7 +25,7 @@ class StandardLevel < ActiveRecord::Base
 
   validates :name, presence: true
 
-  after_commit 'Activity.clear_activity_search_cache'
+  after_commit { Activity.clear_activity_search_cache }
 
   accepts_nested_attributes_for :change_logs
 end

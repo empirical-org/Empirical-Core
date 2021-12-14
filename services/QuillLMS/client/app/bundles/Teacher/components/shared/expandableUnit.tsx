@@ -17,9 +17,10 @@ export interface ExpandableUnitProps {
   }[]
   isPartOfAssignmentFlow: boolean;
   slug: string;
+  tag?: JSX.Element;
 }
 
-const ExpandableUnit = ({ title, isFirst, learningCycles, isPartOfAssignmentFlow, slug }: ExpandableUnitProps) => {
+const ExpandableUnit = ({ title, isFirst, learningCycles, isPartOfAssignmentFlow, slug, tag, }: ExpandableUnitProps) => {
   // per CollegeBoard specs, first section will be expanded when visting the page
   const [expanded, setExpanded] = React.useState<boolean>(isFirst);
   const [focusedSectionExpanded, setFocusedSectionExpanded] = React.useState<boolean>(false);
@@ -73,7 +74,10 @@ const ExpandableUnit = ({ title, isFirst, learningCycles, isPartOfAssignmentFlow
     <div className="activity-container expandable">
       <div className={`top-section ${topSectionStyle}`}>
         <div className="unit-header-container">
-          <p className="unit-title">{title}</p>
+          <p className="unit-title">
+            <span>{title}</span>
+            {tag}
+          </p>
           <div className="unit-sub-header-container">
             <p>{learningCycles.length} Learning Cycles</p>
             <p className="bullet">•</p>

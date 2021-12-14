@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: activity_sessions
 #
 #  id                    :integer          not null, primary key
 #  completed_at          :datetime
-#  data                  :hstore
+#  data                  :jsonb
 #  is_final_score        :boolean          default(FALSE)
 #  is_retry              :boolean          default(FALSE)
 #  percentage            :float
@@ -37,21 +39,31 @@
 require 'newrelic_rpm'
 require 'new_relic/agent'
 
-class ActivitySession < ActiveRecord::Base
+class ActivitySession < ApplicationRecord
 
   include ::NewRelic::Agent
 
   include Uid
   include Concepts
 
+  STATE_UNSTARTED = 'unstarted'
+  STATE_STARTED = 'started'
+  STATE_FINISHED = 'finished'
+
   default_scope { where(visible: true)}
+  has_many :feedback_sessions, foreign_key: :activity_session_uid, primary_key: :uid
+  has_many :feedback_histories, through: :feedback_sessions
   belongs_to :classroom_unit
   belongs_to :activity
+  has_one :classification, through: :activity
+  has_many :user_activity_classifications, through: :classification
   has_one :classroom, through: :classroom_unit
   has_one :unit, through: :classroom_unit
   has_many :concept_results
   has_many :teachers, through: :classroom
-  has_many :concepts, -> { uniq }, through: :concept_results
+  has_many :concepts, -> { distinct }, through: :concept_results
+  has_one :active_activity_session, foreign_key: :uid, primary_key: :uid
+  has_one :activity_survey_response
 
   validate :correctly_assigned, :on => :create
 
@@ -61,9 +73,9 @@ class ActivitySession < ActiveRecord::Base
 
   before_create :set_state
   before_save   :set_completed_at, :set_activity_id
-  before_save   :set_score_from_feedback_history, if: [:finished?, :uses_feedback_history?]
 
-  after_save    :determine_if_final_score, :update_milestones
+  after_save    :determine_if_final_score, :update_milestones, :increment_counts
+  after_save :record_teacher_activity_feed, if: [:saved_change_to_completed_at?, :completed?]
 
   after_commit :invalidate_activity_session_count_if_completed
 
@@ -74,11 +86,21 @@ class ActivitySession < ActiveRecord::Base
 
   scope :completed,  -> { where.not(completed_at: nil) }
   scope :incomplete, -> { where(completed_at: nil, is_retry: false) }
+  # this is a default scope, adding this for unscoped use.
+  scope :visible,  -> { where(visible: true) }
 
   scope :for_teacher, lambda { |teacher_id|
     joins(classroom_unit: {classroom: :teachers})
     .where(users: { id: teacher_id})
   }
+  scope :averages_for_user_ids, lambda {|user_ids|
+    select('user_id, AVG(percentage) as avg')
+    .joins(activity: :classification)
+    .where.not(activity_classifications: {key: ActivityClassification::UNSCORED_KEYS})
+    .where(user_id: user_ids)
+    .group(:user_id)
+  }
+
   # scope :started_or_better, -> { where("state != 'unstarted'") }
   #
   # scope :current_session, -> {
@@ -99,6 +121,7 @@ class ActivitySession < ActiveRecord::Base
   PROFICIENT = 'Proficient'
   NEARLY_PROFICIENT = 'Nearly proficient'
   NOT_YET_PROFICIENT = 'Not yet proficient'
+  COMPLETED = 'Completed'
   FINISHED_STATE = 'finished'
 
   def self.paginate(current_page, per_page)
@@ -110,22 +133,33 @@ class ActivitySession < ActiveRecord::Base
     where(is_final_score: true)
   end
 
+  # returns {user_id: average}
+  def self.average_scores_by_student(user_ids)
+    averages_for_user_ids(user_ids)
+    .map{|as| [as['user_id'], (as['avg'].to_f * 100).to_i]}
+    .to_h
+  end
+
   def timespent
     if read_attribute(:timespent).present?
       read_attribute(:timespent)
+    elsif data.nil?
+      nil
     else
-      calculate_timespent
+      self.class.calculate_timespent(data['time_tracking'])
     end
+  end
+
+  def started?
+    state == STATE_STARTED
   end
 
   def finished?
     state == FINISHED_STATE
   end
 
-  def calculate_timespent
-    return nil if !finished? || started_at.nil? || completed_at.nil?
-
-    completed_at - started_at
+  def self.calculate_timespent(time_tracking)
+    time_tracking&.values&.compact&.sum
   end
 
   def eligible_for_tracking?
@@ -186,7 +220,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def determine_if_final_score
-    return if percentage.nil? || state != 'finished'
+    return if state != 'finished' || (percentage.nil? && !activity.is_evidence?)
 
     # mark all finished anonymous sessions as final score.
     if user.nil?
@@ -198,7 +232,7 @@ class ActivitySession < ActiveRecord::Base
                        .where.not(id: id).first
     if a.nil?
       update_columns is_final_score: true
-    elsif percentage > a.percentage
+    elsif a.percentage.nil? || percentage >= a.percentage
       update_columns is_final_score: true
       a.update_columns is_final_score: false
     end
@@ -248,20 +282,6 @@ class ActivitySession < ActiveRecord::Base
 
   def uses_feedback_history?
     activity&.uses_feedback_history?
-  end
-
-  def set_score_from_feedback_history
-    max_attempts_per_prompt = FeedbackHistory.used.where(activity_session_uid: uid).group(:prompt_id).maximum(:attempt)
-    return if max_attempts_per_prompt.empty?
-
-    # the math here expresses the score chart translating number of attempts to score:
-    # 1 attempt => 1
-    # 2 attempts => 0.75
-    # 3 attempts => 0.5
-    # 4 attempts => 0.25
-    # 5 attempts => 0
-    calculated_score = max_attempts_per_prompt.sum { |m| 1.25 - 0.25 * m[1] }
-    self.percentage = ((calculated_score / max_attempts_per_prompt.size) * 100).round / 100.0
   end
 
   def start
@@ -353,7 +373,7 @@ class ActivitySession < ActiveRecord::Base
         end
       end&.id
       concept = Concept.find_by_id_or_uid(concept_result[:concept_id])
-      concept_result[:metadata] = concept_result[:metadata].to_json
+      concept_result[:metadata] = concept_result[:metadata]
       concept_result[:concept_id] = concept.id
       concept_result[:activity_session_id] = activity_session_id
       concept_result.delete(:activity_session_uid)
@@ -384,6 +404,22 @@ class ActivitySession < ActiveRecord::Base
     ActivitySession.where(id: incomplete_activity_session_ids).destroy_all
   end
 
+  # this function is only for use by Lesson activities, which are not individually saved when the activity ends
+  # other activity types make a call directly to the api/v1/activity_sessions controller with timetracking data included
+  def self.save_timetracking_data_from_active_activity_session(classroom_unit_id, activity_id)
+    activity = Activity.find_by_id_or_uid(activity_id)
+    activity_sessions = ActivitySession.where(
+      classroom_unit_id: classroom_unit_id,
+      activity: activity
+    )
+    activity_sessions.each do |as|
+      time_tracking = ActiveActivitySession.find_by_uid(as.uid)&.data&.fetch("timeTracking")
+      as.data['time_tracking'] = time_tracking&.map{ |k, milliseconds| [k, (milliseconds / 1000).round] }.to_h # timetracking is stored in milliseconds for active activity sessions, but seconds on the activity session
+      as.timespent = as.timespent
+      as.save
+    end
+  end
+
   def self.mark_all_activity_sessions_complete(classroom_unit_id, activity_id, data={})
     activity = Activity.find_by_id_or_uid(activity_id)
     ActivitySession.unscoped.where(classroom_unit_id: classroom_unit_id, activity: activity).each do |as|
@@ -397,13 +433,7 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
-  def self.activity_session_metadata(classroom_unit_id, activity_id)
-    activity = Activity.find_by_id_or_uid(activity_id)
-    activity_sessions = ActivitySession.where(
-      classroom_unit_id: classroom_unit_id,
-      activity: activity,
-      is_final_score: true
-    ).includes(concept_results: :concept)
+  def self.activity_session_metadata(activity_sessions)
     activity_sessions.map do |activity_session|
       activity_session.concept_results.map do |concept_result|
         concept_result.metadata
@@ -471,9 +501,27 @@ class ActivitySession < ActiveRecord::Base
     ((completed_at - started_at)/60).round
   end
 
-  private
+  def skills
+    @skills ||= activity.skills.uniq
+  end
 
-  def correctly_assigned
+  def correct_skill_ids
+    correct_skills.map(&:id)
+  end
+
+  # when using this method, you should eager load ass
+  # e.g. .includes(:concept_results, activity: {skills: :concepts})
+  def correct_skills
+    @correct_skills ||= begin
+      skills.select do |skill|
+        results = concept_results.select {|cr| cr.concept_id.in?(skill.concept_ids)}
+
+        results.length && results.all?(&:correct?)
+      end
+    end
+  end
+
+  private def correctly_assigned
     if classroom_unit && (classroom_unit.validate_assigned_student(user_id) == false)
       begin
         raise 'Student was not assigned this activity'
@@ -520,33 +568,32 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
-  def trigger_events
-    should_async = state_changed?
-
+  private def trigger_events
     yield # http://stackoverflow.com/questions/4998553/rails-around-callbacks
 
-    return unless should_async
+    return unless saved_change_to_state?
 
     if state == 'finished'
       FinishActivityWorker.perform_async(uid)
     end
   end
 
-  def set_state
+  private def set_state
     self.state ||= 'unstarted'
     self.data ||= {}
   end
 
-  def set_activity_id
+  private def set_activity_id
     self.activity_id = unit_activity.try(:activity_id) if activity_id.nil?
   end
 
-  def set_completed_at
-    return true if state != 'finished'
+  private def set_completed_at
+    return unless state == 'finished'
+
     self.completed_at ||= Time.current
   end
 
-  def update_milestones
+  private def update_milestones
     # we check to see if it is finished because the only milestone we're checking for is the copleted idagnostic.
     # at a later date, we might have to update this check in case we want a milestone for sessions being assigned
     # or started.
@@ -555,11 +602,22 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
+  private def increment_counts
+    return unless finished?
+    return unless saved_change_to_completed_at?
+
+    UserActivityClassification.count_for(user, classification)
+  end
+
   def self.has_a_completed_session?(activity_id_or_ids, classroom_unit_id_or_ids)
     !!ActivitySession.find_by(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: "finished")
   end
 
   def self.has_a_started_session?(activity_id_or_ids, classroom_unit_id_or_ids)
     !!ActivitySession.find_by(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: "started")
+  end
+
+  private def record_teacher_activity_feed
+    teachers.each { |teacher| TeacherActivityFeed.add(teacher.id, id) }
   end
 end

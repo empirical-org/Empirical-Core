@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
 class PagesController < ApplicationController
   include HTTParty
   include PagesHelper
-  before_filter :determine_js_file, :determine_flag
+  before_action :determine_js_file, :determine_flag
+  before_action :set_root_url
+
   layout :determine_layout
 
   NUMBER_OF_SENTENCES = "NUMBER_OF_SENTENCES"
@@ -85,7 +89,11 @@ class PagesController < ApplicationController
           },
           {
             question: "How does Quill work?",
-            answer: "<p>Quill provides 10-15 minute exercises that help students build sentence construction skills. Quill automatically grades the writing and provides feedback and hints to help students improve it. The immediate feedback enables students to quickly build their skills, and it saves teachers dozens of hours spent on grading.</p>"
+            answer: "
+            <p>Quill provides 10-15 minute exercises that help students build sentence construction skills. Quill automatically grades the writing and provides feedback and hints to help students improve it. The immediate feedback enables students to quickly build their skills, and it saves teachers dozens of hours spent on grading.</p>
+            <br />
+            <p>Quill also offers whole-class or small-group collaborative lessons led by the teacher, lasting about 20-30 minutes. Teachers control interactive slides that contain writing prompts, and students respond to each prompt. Each Quill Lesson provides a lesson plan, writing prompts, discussion topics, and follow-up independent practice activities.</p>
+            "
           },
           {
             question: "What are Quill's tools?",
@@ -99,7 +107,7 @@ class PagesController < ApplicationController
           },
           {
             question: "Who is using Quill?",
-            answer: "<p>As of June 2019, over 36,000 teachers and 1,710,000 students have used Quill. These students complete approximately 30,000 activities each day. From Rhode Island to Russia, and the Bay Area to Great Britain, these students live all over the world.</p>"
+            answer: "<p>As of July 2021, over 87,000 teachers and 4,200,000 students have used Quill. These students complete approximately 30,000 activities each day. From Rhode Island to Russia, and the Bay Area to Great Britain, these students live all over the world.</p>"
           },
           {
             question: "How can I integrate Quill into my classroom?",
@@ -122,11 +130,11 @@ class PagesController < ApplicationController
           },
           {
             question: "How many activities are on Quill?",
-            answer: "<p>As of June 2019, we have created over 500 activities with 5,000 practice questions, covering Common Core topics for grades K-12. Each activity is approximately 10-15 minutes in length.</p>"
+            answer: "<p>As of July 2021, we have created over 700 activities with 5,000 practice questions, covering Common Core topics for grades K-12 and Pre-AP/AP content. Each activity is approximately 10-20 minutes in length.</p>"
           },
           {
             question: "I am a parent. Can I use Quill for my child?",
-            answer: "<p>Yes. However, we do not currently offer parent accounts. You will need to sign up for a teacher account, create a classroom, and then add your child to it as a student.</p>"
+            answer: "<p>Yes! If you are a homeschooling parent or just assigning extra practice to your child, you will need to sign up for a teacher account, create a classroom, and then add your child to it as a student. <a href='https://www.quill.org/teacher-center/using-quill-as-a-homeschool-educator'>More info</a></p>"
           }
         ]
       },
@@ -135,7 +143,7 @@ class PagesController < ApplicationController
         faqs: [
           {
             question: "I just signed up for Quill. Now what?",
-            answer: "<p>We have a getting started guide <a href='http://community.quill.org/wp-content/uploads/2015/11/Quill-Getting-Started-Guide-for-Teachers.pdf'>here.</a></p>"
+            answer: "<p>We have a getting started guide <a href='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_Guide_for_Teachers_Updated_03_20_2020.pdf'>here.</a></p>"
           },
           {
             question: "How much time should my students spend on Quill?",
@@ -179,7 +187,7 @@ class PagesController < ApplicationController
           },
           {
             question: "How does Quill provide personalized instruction and opportunities for differentiation?",
-            answer: "<p>Quill offers four diagnostics, each covering different sentence construction skills. Once your students complete a diagnostic, we'll create a set of recommended activities tailored for each student based on their diagnostic results. As the teacher, you can review these recommendations and assign them all or pick and choose the ones you'd like students to complete based on your own evaluation of their needs.</p>
+            answer: "<p>Quill offers six diagnostics and four writing skills surveys, each covering different sentence construction skills. Once your students complete a diagnostic or survey, we'll create a set of recommended activities tailored for each student based on their diagnostic results. As the teacher, you can review these recommendations and assign them all or pick and choose the ones you'd like students to complete based on your own evaluation of their needs.</p>
               <br />
               <p>You can also personalize instruction for your students by building your own activity packs. Search our entire library of content and build custom packs that can be assigned to your whole class, small groups, or individual students, giving you the freedom to assign activities that are specific to your students.</p>"
           },
@@ -228,11 +236,16 @@ class PagesController < ApplicationController
           },
           {
             question: "How does Quill address learning for English Language Learners?",
-            answer: "<p>Quill provides two diagnostics specifically for ELL students. The ELL Starter Diagnostic covers the basics of sentence writing in English, including how to use \"to be,\" \"to have,\" and \"to want\" in simple sentences and questions. It is most appropriate for students who are still building their English vocabulary and beginning to work on sentence structure and verb conjugation.</p>
+            answer: "<p>Quill provides three diagnostics specifically for ELL students. Directions for each diagnostic are available in Spanish, French, German, Chinese (Simplified), Japanese, Korean, Urdu, Tagalog (Filipino), Vietnamese, Russian, Thai, Ukrainian, Portuguese, Dari (Eastern Farsi), Arabic, and Hindi.</p>
           <br />
-          <p>The ELL Diagnostic covers a wider range of skills and includes more advanced vocabulary and skills than the starter diagnostic.</p>
-          <br />
-          <p>Both diagnostics for ELL students include the option to see instructions in a language other than English.</p>"
+          <ul>
+            <li>The ELL Starter Diagnostic covers the basics of sentence writing in English, including how to use \"to be,\" \"to have,\" and \"to want\" in simple sentences and questions. It is most appropriate for students who are still building their English vocabulary and beginning to work on sentence structure and verb conjugation.</li>
+            <br />
+            <li>The ELL Intermediate Diagnostic is recommended for students who already have a foundation in English. It includes topics such as subject-verb agreement, prepositions, and question words.</li>
+            <br />
+            <li>The ELL Advanced Diagnostic covers skills that tend to be particularly challenging for English Language Learners, including regular and irregular past tense, phrasal verbs, and commonly confused words.</li>
+          </ul>
+          "
           },
           {
             question: "Does Quill comply with accessibility standards, and how can Quill be used with tools for accessibility?",
@@ -264,21 +277,7 @@ class PagesController < ApplicationController
         faqs: [
           {
             question: "Why aren't activities loading?",
-            answer: "<p>If you’re having trouble accessing Quill’s activities, your school is likely encountering some firewall issues when trying to access activities on Quill.org.</p>
-                    <br />
-                  <p>Firewall issues will generally need to be dealt with by your IT Department. We've written a brief text you can send them below. If it does not resolve your issues, please let us know.</p>
-                  <br />
-                  <blockquote>
-                    <p>Hello,</p>
-                    <br />
-                    <p>Quill uses various subdomains, and Firebase to store data, so please whitelist *.quill.org as well as *.firebaseio.com.As of August 2016, Google has issued a new SSL certificate for all apps hosted by Firebase, causing issues with firewalls like FortiGate. AwesomeTable discovered this issue, and we've copied their explanation and solution below:The issue appears to be linked to the number of SANs in the certificate, which is almost a thousand. We don't know if Google is going to change something here.If you are a Fortinet user, you can enable/check \"Inspect All Ports\" in Policy & Objects > Policy > SSL/SSH Inspection > [your policy]. Explanation: when \"Inspect All Ports\" is DISABLED (you're scanning specific ports), the FortiGate's proxyworker process is doing the SSL Inspection. The proxyworker isn't able to handle all of those SANs. However, if \"Inspect All Ports\" is ENABLED, SSL Inspection gets offloaded to the IPS Module, which is able to handle that number of SANs just fine.Another solution is to write firewall rules to allow traffic with no certificate inspection for cdn.firebase.com (151.101.44.249), firebase.com and quill.org.You can test Firebase access here https://www.firebase.com/test.html</p>
-                    <br />
-                    <p>Thank you,</p>
-                    <br />
-                    <p>The Quill Engineering Team</p>
-                  </blockquote>
-                  <br />
-                  <p>Credit to AwesomeTable for discovering the source of this complication.</p>
+            answer: "<p>You can troubleshoot loading issues by following <a href='https://support.quill.org/en/articles/3873047-how-can-i-troubleshoot-loading-issues'>these steps</a>. If you’re having trouble accessing Quill’s activities, your school is likely encountering some firewall issues when trying to access activities on <a href='https://www.quill.org/'>Quill.org. </a></p>
             "
           },
           {
@@ -361,6 +360,7 @@ class PagesController < ApplicationController
   end
 
   def team
+    @open_positions = OPEN_POSITIONS
   end
 
   def tos
@@ -417,6 +417,28 @@ class PagesController < ApplicationController
     @user_belongs_to_school_that_has_paid = current_user&.school ? Subscription.school_or_user_has_ever_paid?(current_user&.school) : false
     @last_four = current_user&.last_four
 
+    @diagnostic_activity_count =
+      Activity.where(
+        flags: '{production}',
+        classification: ActivityClassification.diagnostic
+      ).count
+
+    @lessons_activity_count =
+      Activity.where(
+        flags: '{production}',
+        classification: ActivityClassification.lessons
+      ).count
+
+    @independent_practice_activity_count =
+      Activity.where(
+        flags: '{production}',
+        classification: [
+          ActivityClassification.connect,
+          ActivityClassification.grammar,
+          ActivityClassification.proofreader
+        ]
+      ).count
+
     @title = 'Premium'
   end
 
@@ -436,16 +458,20 @@ class PagesController < ApplicationController
   end
 
   def preap_units
-    render json: { units: preap_content }
+    render json: { units: preap_and_springboard_content }
+  end
+
+  def springboard_units
+    render json: { units: preap_and_springboard_content }
   end
 
   def backpack
     @style_file = 'staff'
   end
 
-  def comprehension
+  def evidence
     allow_iframe
-    @style_file = ApplicationController::COMPREHENSION
+    @style_file = ApplicationController::EVIDENCE
   end
 
   def proofreader
@@ -473,20 +499,22 @@ class PagesController < ApplicationController
     @style_file = ApplicationController::DIAGNOSTIC
   end
 
-  private
+  def administrator
+    @title = 'Administrator'
+  end
 
-  def determine_layout
+  private def determine_layout
     case action_name
     when 'home'
       'home'
     when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
       'twenty_seventeen_home'
-    when ApplicationController::COMPREHENSION, ApplicationController::PROOFREADER, ApplicationController::GRAMMAR, ApplicationController::LESSONS, ApplicationController::DIAGNOSTIC, ApplicationController::CONNECT
+    when ApplicationController::EVIDENCE, ApplicationController::PROOFREADER, ApplicationController::GRAMMAR, ApplicationController::LESSONS, ApplicationController::DIAGNOSTIC, ApplicationController::CONNECT
       'activity'
     end
   end
 
-  def determine_js_file
+  private def determine_js_file
     case action_name
     when 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'faq', 'privacy', 'map', 'teacher-center', 'news', 'stats', 'activities'
       @js_file = 'public'
@@ -494,8 +522,8 @@ class PagesController < ApplicationController
       @js_file = 'tools'
     when 'backpack'
       @js_file = 'staff'
-    when ApplicationController::COMPREHENSION
-      @js_file = ApplicationController::COMPREHENSION
+    when ApplicationController::EVIDENCE
+      @js_file = ApplicationController::EVIDENCE
     when ApplicationController::PROOFREADER
       @js_file = ApplicationController::PROOFREADER
     when ApplicationController::GRAMMAR
@@ -509,29 +537,32 @@ class PagesController < ApplicationController
     end
   end
 
-  def determine_flag
+  private def determine_flag
     case action_name
     when 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool'
       @beta_flag = current_user && current_user&.testing_flag == 'beta'
     end
   end
 
-  def add_cards(list_response)
+  private def add_cards(list_response)
     list_response.each{|list| list["cards"] = HTTParty.get("https://api.trello.com/1/lists/#{list['id']}/cards/?fields=name,url")}
     list_response
   end
 
-  def set_just_logged_out_flag
+  private def set_just_logged_out_flag
     session.delete(SessionsController::CLEAR_ANALYTICS_SESSION_KEY)
     @logging_user_out = true
   end
 
-  def check_should_clear_segment_identity
+  private def check_should_clear_segment_identity
     return true if session.key?(SessionsController::CLEAR_ANALYTICS_SESSION_KEY)
   end
 
-  def allow_iframe
+  private def allow_iframe
     response.headers.delete "X-Frame-Options"
   end
 
+  private def set_root_url
+    @root_url = root_url
+  end
 end

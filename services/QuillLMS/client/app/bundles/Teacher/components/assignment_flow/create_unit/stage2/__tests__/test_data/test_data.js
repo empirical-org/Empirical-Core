@@ -9,7 +9,7 @@ export const classroom = {
   grade: "9",
   visible: true,
   google_classroom_id: null,
-  grade_level: null
+  grade_level: null,
 }
 
 export const students = [
@@ -37,8 +37,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 128981,
@@ -64,8 +63,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 2851853,
@@ -91,8 +89,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 128988,
@@ -118,8 +115,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 129010,
@@ -145,8 +141,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 2851793,
@@ -172,8 +167,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 128947,
@@ -199,8 +193,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 128962,
@@ -226,8 +219,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 128994,
@@ -253,8 +245,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 2851852,
@@ -280,8 +271,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 128966,
@@ -307,8 +297,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 2851797,
@@ -334,8 +323,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 128996,
@@ -361,8 +349,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 128995,
@@ -388,8 +375,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 129006,
@@ -415,8 +401,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 2851854,
@@ -442,8 +427,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 128969,
@@ -469,8 +453,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 128951,
@@ -496,8 +479,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 128939,
@@ -523,8 +505,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 128967,
@@ -550,8 +531,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 128942,
@@ -577,8 +557,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 128948,
@@ -604,8 +583,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 2851802,
@@ -631,8 +609,7 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
+    isSelected: true,
   },
   {
     id: 128950,
@@ -658,20 +635,19 @@ export const students = [
     title: null,
     time_zone: null,
     account_type: "Clever",
-    post_google_classroom_assignments: null,
-    isSelected: true
-  }
+    isSelected: true,
+  },
 ]
 
 export const classroomProps = [
   {
     classroom,
-    students
+    students,
   },
   {
     classroom,
-    students: []
-  }
+    students: [],
+  },
 ]
 
 export const user = {
@@ -689,7 +665,7 @@ export const user = {
   ip_address: {
     family: 2,
     addr: 2130706433,
-    mask_addr: 4294967295
+    mask_addr: 4294967295,
   },
   clever_id: null,
   signed_up_with_google: false,
@@ -702,13 +678,13 @@ export const user = {
   title: null,
   time_zone: "Pacific/Tahiti",
   account_type: "unknown",
-  post_google_classroom_assignments: false
 }
 
 export const activities = [
   {
     name: "Sentence Structure Diagnostic",
-    description: "Assess students on eight areas of sentence structure. Quill then recommends up to eight weeks of instruction based on the results.",
+    description:
+      "Assess students on eight areas of sentence structure. Quill then recommends up to eight weeks of instruction based on the results.",
     flags: "{production}",
     id: 413,
     uid: "fNAwNLJDkc2T8O5lBeJQwg",
@@ -717,22 +693,23 @@ export const activities = [
       alias: "Quill Diagnostic",
       description: "Identify Learning Gaps",
       key: "diagnostic",
-      id: 4
+      id: 4,
     },
     activity_category: {
       id: 30,
-      name: "Diagnostics"
+      name: "Diagnostics",
     },
     activity_category_name: "Diagnostics",
     activity_category_id: 30,
     standard_level: {
       id: 35,
-      name: "Diagnostic"
+      name: "Diagnostic",
     },
     standard_level_name: "Diagnostic",
     standard_name: "Diagnostic",
-    selected: true
-  }, {
+    selected: true,
+  },
+  {
     name: "Lesson 1: Using In, At, and On to Show Time",
     description: "",
     flags: "{production}",
@@ -743,24 +720,24 @@ export const activities = [
       alias: "Quill Lessons",
       description: "Lead Group Lessons",
       key: "lessons",
-      id: 6
+      id: 6,
     },
     activity_category: {
       id: 9,
-      name: "Prepositions"
+      name: "Prepositions",
     },
     activity_category_name: "Prepositions",
     activity_category_id: 9,
     standard_level: {
       id: 7,
-      name: "1st Grade CCSS"
+      name: "1st Grade CCSS",
     },
     standard_level_name: "1st Grade CCSS",
     standard_name: "1.1i. Frequently Occurring Prepositions",
-    selected: true
-  }
+    selected: true,
+  },
 ]
 
 export const dueDates = {
-  413: "2019-09-25T04:00:00.000Z"
+  413: "2019-09-25T04:00:00.000Z",
 }

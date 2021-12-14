@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::ConceptsController < Cms::CmsController
   def index
     @js_file = 'staff'
@@ -31,8 +33,7 @@ class Cms::ConceptsController < Cms::CmsController
     end
   end
 
-  private
-  def concept_params
+  private def concept_params
     params.require(:concept).permit(:name, :parent_id)
   end
 end

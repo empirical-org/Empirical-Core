@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PusherCSVExportCompleted
 
   def self.run(current_user_id, csv_url)

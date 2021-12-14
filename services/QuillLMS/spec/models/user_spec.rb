@@ -1,52 +1,58 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
 #
-#  id                                :integer          not null, primary key
-#  account_type                      :string           default("unknown")
-#  active                            :boolean          default(FALSE)
-#  classcode                         :string
-#  email                             :string
-#  flags                             :string           default([]), not null, is an Array
-#  ip_address                        :inet
-#  last_active                       :datetime
-#  last_sign_in                      :datetime
-#  name                              :string
-#  password_digest                   :string
-#  post_google_classroom_assignments :boolean
-#  role                              :string           default("user")
-#  send_newsletter                   :boolean          default(FALSE)
-#  signed_up_with_google             :boolean          default(FALSE)
-#  time_zone                         :string
-#  title                             :string
-#  token                             :string
-#  username                          :string
-#  created_at                        :datetime
-#  updated_at                        :datetime
-#  clever_id                         :string
-#  google_id                         :string
-#  stripe_customer_id                :string
+#  id                    :integer          not null, primary key
+#  account_type          :string           default("unknown")
+#  active                :boolean          default(FALSE)
+#  classcode             :string
+#  email                 :string
+#  flags                 :string           default([]), not null, is an Array
+#  ip_address            :inet
+#  last_active           :datetime
+#  last_sign_in          :datetime
+#  name                  :string
+#  password_digest       :string
+#  role                  :string           default("user")
+#  send_newsletter       :boolean          default(FALSE)
+#  signed_up_with_google :boolean          default(FALSE)
+#  time_zone             :string
+#  title                 :string
+#  token                 :string
+#  username              :string
+#  created_at            :datetime
+#  updated_at            :datetime
+#  clever_id             :string
+#  google_id             :string
+#  stripe_customer_id    :string
 #
 # Indexes
 #
-#  email_idx                          (email) USING gin
+#  email_idx                          (email gin_trgm_ops) USING gin
 #  index_users_on_active              (active)
 #  index_users_on_classcode           (classcode)
 #  index_users_on_clever_id           (clever_id)
 #  index_users_on_email               (email)
-#  index_users_on_flags               (flags)
 #  index_users_on_google_id           (google_id)
 #  index_users_on_role                (role)
 #  index_users_on_stripe_customer_id  (stripe_customer_id)
 #  index_users_on_time_zone           (time_zone)
 #  index_users_on_token               (token)
 #  index_users_on_username            (username)
-#  name_idx                           (name) USING gin
+#  name_idx                           (name gin_trgm_ops) USING gin
 #  unique_index_users_on_clever_id    (clever_id) UNIQUE WHERE ((clever_id IS NOT NULL) AND ((clever_id)::text <> ''::text) AND ((id > 5593155) OR ((role)::text = 'student'::text)))
 #  unique_index_users_on_email        (email) UNIQUE WHERE ((id > 1641954) AND (email IS NOT NULL) AND ((email)::text <> ''::text))
 #  unique_index_users_on_google_id    (google_id) UNIQUE WHERE ((id > 1641954) AND (google_id IS NOT NULL) AND ((google_id)::text <> ''::text))
 #  unique_index_users_on_username     (username) UNIQUE WHERE ((id > 1641954) AND (username IS NOT NULL) AND ((username)::text <> ''::text))
-#  username_idx                       (username) USING gin
+#  username_idx                       (username gin_trgm_ops) USING gin
+#  users_to_tsvector_idx              (to_tsvector('english'::regconfig, (name)::text)) USING gin
+#  users_to_tsvector_idx1             (to_tsvector('english'::regconfig, (email)::text)) USING gin
+#  users_to_tsvector_idx2             (to_tsvector('english'::regconfig, (role)::text)) USING gin
+#  users_to_tsvector_idx3             (to_tsvector('english'::regconfig, (classcode)::text)) USING gin
+#  users_to_tsvector_idx4             (to_tsvector('english'::regconfig, (username)::text)) USING gin
+#  users_to_tsvector_idx5             (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
 #
 require 'rails_helper'
 
@@ -60,7 +66,6 @@ describe User, type: :model do
   #TODO: the validation uses a proc, figure out how to stub that
   #it { is_expected.to callback(:update_invitiee_email_address).after(:save).if(proc) }
 
-  it { should have_many(:notifications) }
   it { should have_many(:checkboxes) }
   it { should have_many(:invitations).with_foreign_key('inviter_id') }
   it { should have_many(:objectives).through(:checkboxes) }
@@ -74,6 +79,7 @@ describe User, type: :model do
   it { should have_many(:classrooms_i_teach).through(:classrooms_teachers).source(:classroom) }
   it { should have_and_belong_to_many(:districts) }
   it { should have_one(:ip_location) }
+  it { should have_many(:user_activity_classifications).dependent(:destroy) }
   it { should have_many(:user_milestones) }
   it { should have_many(:milestones).through(:user_milestones) }
 
@@ -91,6 +97,10 @@ describe User, type: :model do
   #it { should validate_uniqueness_of(:username).on(:create) }
 
   it { should validate_presence_of(:username).on(:create) }
+  it { should validate_length_of(:username).is_at_most(User::CHAR_FIELD_MAX_LENGTH) }
+  it { should validate_length_of(:name).is_at_most(User::CHAR_FIELD_MAX_LENGTH) }
+  it { should validate_length_of(:email).is_at_most(User::CHAR_FIELD_MAX_LENGTH) }
+  it { should validate_length_of(:password).is_at_most(User::CHAR_FIELD_MAX_LENGTH) }
 
   it { should have_secure_password }
 
@@ -354,20 +364,6 @@ describe User, type: :model do
       it 'returns true' do
         expect(teacher.newsletter?).to eq(true)
       end
-    end
-  end
-
-  describe '#clever_district_id' do
-    let(:user) { build_stubbed(:user) }
-    let(:district) { double(:district, id: 1) }
-    let(:clever_user) { double(:clever_user, district: district) }
-
-    before do
-      allow(user).to receive(:clever_user).and_return(clever_user)
-    end
-
-    it 'should return the distric id' do
-      expect(user.clever_district_id).to eq(district.id)
     end
   end
 
@@ -749,65 +745,15 @@ describe User, type: :model do
   end
 
   describe '#clear_data' do
-    let!(:ip_location) { create(:ip_location) }
-    let(:user) { create(:student_in_two_classrooms_with_many_activities, google_id: 'sergey_and_larry_were_here', send_newsletter: true, ip_location: ip_location) }
-    let!(:auth_credential) { create(:auth_credential, user: user) }
-    let!(:activity_sessions) { user.activity_sessions }
-    let!(:classroom_units) { ClassroomUnit.where("? = ANY (assigned_student_ids)", user.id) }
-    before(:each) { user.clear_data }
+    let(:user) { create(:user) }
 
-    it "changes the user's email to one that is not personally identiable" do
-      expect(user.email).to eq("deleted_user_#{user.id}@example.com")
-    end
-
-    it "changes the user's username to one that is not personally identiable" do
-      expect(user.username).to eq("deleted_user_#{user.id}")
-    end
-
-    it "changes the user's name to one that is not personally identiable" do
-      expect(user.name).to eq("Deleted User_#{user.id}")
-    end
-
-    it "removes the google id" do
-      expect(user.google_id).to be nil
-    end
-
-    it "destroys associated auth credentials if present" do
-      expect(user.reload.auth_credential).to be nil
-    end
-    it "destroys associated schools_users if present" do
-      expect(user.reload.schools_users).to be nil
-    end
-
-    it "destroys associated students_classrooms if present" do
-      expect(StudentsClassrooms.where(student_id: user.id).count).to eq(0)
-    end
-
-    it "removes the ip address" do
-      expect(user.ip_address).to be nil
-    end
-
-    it "sets send_newsletter to be false" do
-      expect(user.send_newsletter).to be false
-    end
-
-    it "removes ip_location" do
-      expect(user.reload.ip_location).to be nil
-    end
-
-    it "removes student from related classroom_units" do
-      classroom_units.each {|cu| expect(cu.assigned_student_ids).not_to include(user.id)}
-    end
-
-    it "removes student from related activity_sessions" do
-      expect(user.activity_sessions.count).to eq(0)
-      activity_sessions.each {|as| expect(as.classroom_unit_id).to be nil}
-      activity_sessions.each {|as| expect(as.user_id).to be nil}
+    it 'calls the ClearUserDataWorker with the user id' do
+      expect(ClearUserDataWorker).to receive(:perform_async).with(user.id)
+      user.clear_data
     end
   end
 
   describe '#safe_role_assignment' do
-    let(:user) { build(:user) }
 
     it "must assign 'user' role by default" do
       expect(user.safe_role_assignment('nil')).to eq('user')
@@ -1229,9 +1175,6 @@ describe User, type: :model do
     end
   end
 
-  it 'does not care about all the validation stuff when the user is temporary'
-  it 'disallows regular assignment of roles that are restricted'
-
   describe '#generate_referrer_id' do
     it 'creates ReferrerUser with the correct referrer code when a teacher is created' do
       referrer_users = ReferrerUser.count
@@ -1314,6 +1257,37 @@ describe User, type: :model do
       user = create(:student)
       user.google_id = 'something'
       expect(user.valid?).to be
+    end
+  end
+
+  describe '.deleted_users' do
+    before { user.save }
+
+    let!(:to_be_deleted_user) { create(:user) }
+
+    it 'returns all deleted users' do
+      expect(User.count).to eq 2
+
+      expect { ClearUserDataWorker.new.perform(to_be_deleted_user.id) }.to change { User.deleted_users.count }.from(0).to(1)
+    end
+  end
+
+  describe '.valid_email?' do
+    it { expect { User.valid_email?('').to be_false } }
+    it { expect { User.valid_email?(nil).to be_false } }
+    it { expect { User.valid_email?('1').to be_false } }
+    it { expect { User.valid_email?('a@b.c').to be_true } }
+  end
+
+  describe '#google_authorized?' do
+    context 'user without auth_credentials is unauthorized' do
+      it { expect(user.google_authorized?).to be false }
+    end
+
+    context 'user with auth credentials has valid authorization' do
+      let(:google_user) { create(:google_auth_credential).user }
+
+      it { expect(google_user.google_authorized?).to be true }
     end
   end
 end

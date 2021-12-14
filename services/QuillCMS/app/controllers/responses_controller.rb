@@ -40,6 +40,18 @@ class ResponsesController < ApplicationController
     render json: {}
   end
 
+  # POST /responses/create_or_update
+  def create_or_update
+    symbolized_vals = transformed_new_vals(params_for_create).to_h.symbolize_keys
+    response = Response.find_or_initialize_by(text: symbolized_vals[:text], question_uid: symbolized_vals[:question_uid])
+    if response.update(symbolized_vals)
+      AdminUpdates.run(response.question_uid) if !response.text.blank?
+      render json: response
+    else
+      render json: response.errors, status: :unprocessable_entity
+    end
+  end
+
   # PATCH/PUT /responses/1
   def update
     new_vals = transformed_new_vals(response_params)
@@ -56,34 +68,12 @@ class ResponsesController < ApplicationController
     @response.destroy
   end
 
-  # GET /questions/:question_uid/responses
-  def responses_for_question
-    ids = Rails.cache.fetch(Response.questions_cache_key(params[:question_uid]), expires_in: CACHE_EXPIRY) do
-      #NB, the result of this query is too large to store as objects in Memcached for some questions, so storing the ids then fetching them in a query.
-      # We might consider removing this caching entirely since the gains are less.
-      # As of 9/3/2020 The question with the most responses for this query has 6997 responses.
-      Response.where(question_uid: params[:question_uid], parent_id: nil).where.not(optimal: nil).pluck(:id)
-    end
-    @responses = Response.where(id: ids).to_a
-    render json: @responses
-  end
-
   # POST /questions/rematch_all
+  # params uid, type, delay (integer for seconds to delay job)
   def rematch_all_responses_for_question
-    RematchResponsesForQuestionWorker.perform_async(params[:uid], params[:type])
-  end
+    delay = params[:delay] || 0
 
-  def multiple_choice_options
-    multiple_choice_options = Rails.cache.fetch(Response.multiple_choice_cache_key(params[:question_uid]), expires_in: CACHE_EXPIRY) do
-      # NB, This is much faster to do the sort and limit in Ruby than Postgres
-      # The DB picks a terrible query plan for some reason
-      # 45seconds in the DB vs. 0.25 seconds in Ruby
-      optimal_responses = Response.where(question_uid: params[:question_uid], optimal: true).sort_by {|r| -r.count}.first(MULTIPLE_CHOICE_LIMIT)
-      # This, almost identical query does not have the same query issues
-      sub_optimal_responses = Response.where(question_uid: params[:question_uid], optimal: [false, nil]).order('count DESC').limit(MULTIPLE_CHOICE_LIMIT).to_a
-      optimal_responses.concat(sub_optimal_responses)
-    end
-    render json: multiple_choice_options
+    RematchResponsesForQuestionWorker.perform_in(delay, params[:uid], params[:type])
   end
 
   def health_of_question
@@ -92,6 +82,11 @@ class ResponsesController < ApplicationController
 
   def grade_breakdown
     render json: optimality_counts_of_question(params[:question_uid])
+  end
+
+  def question_dashboard
+    admin_question_dashboard = AdminQuestionDashboard.new(params[:question_uid])
+    render json: admin_question_dashboard.health
   end
 
   def incorrect_sequences
@@ -191,97 +186,96 @@ class ResponsesController < ApplicationController
     Response.__elasticsearch__.import query: -> { where("question_uid = ? AND updated_at >= ?", question_uid, Time.zone.now.beginning_of_day) }
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_response
-      @response = Response.find_by_id_or_uid(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  private def set_response
+    @response = Response.find_by_id_or_uid(params[:id])
+  end
 
-    def search_params
-      params.require(:search).permit(
-        :pageNumber,
-        :text,
-        :excludeMisspellings,
-        filters: {},
-        sort: {}
-      )
-    end
+  private def search_params
+    params.require(:search).permit(
+      :pageNumber,
+      :text,
+      :excludeMisspellings,
+      filters: {},
+      sort: {}
+    )
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def response_params
-      params.require(:response).permit(
-        :id,
-        :uid,
-        :parent_id,
-        :parent_uid,
-        :question_uid,
-        :author,
-        :text,
-        :feedback,
-        :count,
-        :first_attempt_count,
-        :is_first_attempt,
-        :child_count,
-        :optimal,
-        :weak,
-        :created_at,
-        :updated_at,
-        :search,
-        :spelling_error,
-        :concept_results,
-        concept_results: {}
-      )
-    end
+  # Only allow a trusted parameter "white list" through.
+  private def response_params
+    params.require(:response).permit(
+      :id,
+      :uid,
+      :parent_id,
+      :parent_uid,
+      :question_uid,
+      :author,
+      :text,
+      :feedback,
+      :count,
+      :first_attempt_count,
+      :is_first_attempt,
+      :child_count,
+      :optimal,
+      :weak,
+      :created_at,
+      :updated_at,
+      :search,
+      :spelling_error,
+      :concept_results,
+      concept_results: {}
+    )
+  end
 
-    def params_for_create
-      params.require(:response).permit(
-        :id,
-        :uid,
-        :parent_id,
-        :parent_uid,
-        :question_uid,
-        :author,
-        :text,
-        :feedback,
-        :count,
-        :first_attempt_count,
-        :child_count,
-        :optimal,
-        :weak,
-        :spelling_error,
-        concept_results: {}
-      )
-    end
+  private def params_for_create
+    params.require(:response).permit(
+      :id,
+      :uid,
+      :parent_id,
+      :parent_uid,
+      :question_uid,
+      :author,
+      :text,
+      :feedback,
+      :count,
+      :first_attempt_count,
+      :child_count,
+      :optimal,
+      :weak,
+      :spelling_error,
+      concept_results: {}
+    )
+  end
 
-    def params_for_count_affected_by_incorrect_sequences
-      params.require(:data).permit!
-    end
+  private def params_for_count_affected_by_incorrect_sequences
+    params.require(:data).permit!
+  end
 
-    def params_for_count_affected_by_focus_points
-      params.require(:data).permit!
-    end
+  private def params_for_count_affected_by_focus_points
+    params.require(:data).permit!
+  end
 
-    def concept_results_to_boolean(concept_results)
-      new_concept_results = {}
-      concept_results.each do |key, val|
-        if val.respond_to?(:keys)
-          new_concept_results[val['conceptUID']] = val['correct'] == 'true' || val == true
-        else
-          new_concept_results[key] = ['true', true].include?(val)
-        end
+  private def concept_results_to_boolean(concept_results)
+    new_concept_results = {}
+    concept_results.each do |key, val|
+      if val.respond_to?(:keys)
+        new_concept_results[val['conceptUID']] = val['correct'] == 'true' || val == true
+      else
+        new_concept_results[key] = ['true', true].include?(val)
       end
-      new_concept_results
     end
+    new_concept_results
+  end
 
-    def transformed_new_vals(response_params)
-      new_vals = response_params
-      if new_vals[:concept_results]
-        if new_vals[:concept_results].empty?
-          new_vals[:concept_results] = nil
-        else
-          new_vals[:concept_results] = concept_results_to_boolean(new_vals[:concept_results])
-        end
+  private def transformed_new_vals(response_params)
+    new_vals = response_params
+    if new_vals[:concept_results]
+      if new_vals[:concept_results].empty?
+        new_vals[:concept_results] = nil
+      else
+        new_vals[:concept_results] = concept_results_to_boolean(new_vals[:concept_results])
       end
-      new_vals
     end
+    new_vals
+  end
 end

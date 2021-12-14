@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SegmentioHelper
   DEFAULT_DESTINATION_SETTINGS = {all: true}
 

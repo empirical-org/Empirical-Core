@@ -1,4 +1,6 @@
-class CreateFirebaseApps < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateFirebaseApps < ActiveRecord::Migration[4.2]
   def change
     create_table :firebase_apps do |t|
       t.string :name

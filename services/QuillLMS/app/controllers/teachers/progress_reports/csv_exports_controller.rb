@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Teachers::ProgressReports::CsvExportsController < Teachers::ProgressReportsController
   require 'pusher'
 
@@ -18,9 +20,7 @@ class Teachers::ProgressReports::CsvExportsController < Teachers::ProgressReport
     end
   end
 
-  private
-
-  def export_params
+  private def export_params
     params.require(:csv_export).permit(:export_type, filters: [
       :page,
       :classroom_id,
@@ -31,7 +31,7 @@ class Teachers::ProgressReports::CsvExportsController < Teachers::ProgressReport
 ])
   end
 
-  def extra_url_params
+  private def extra_url_params
     extra = Rails.application.routes.recognize_path(params[:report_url])
     extra.delete(:controller)
     extra.delete(:action)

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # this file contains remnants of the sub_main_spec file, which was destroyed.
 # saving in case it comes in handy in the future.
 

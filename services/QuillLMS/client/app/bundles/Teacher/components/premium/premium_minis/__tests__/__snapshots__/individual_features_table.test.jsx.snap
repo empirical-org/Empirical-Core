@@ -1,0 +1,592 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IndividualFeaturesTable container should render for each type 1`] = `
+<IndividualFeaturesTable
+  premiumFeatureData={
+    Array [
+      Object {
+        "features": Array [
+          Object {
+            "basic": true,
+            "label": "400 independent practice activities",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Research-backed, 10-15 minute independent practice activities covering a variety of concepts",
+          },
+          Object {
+            "basic": true,
+            "label": "9 diagnostic assessments",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Baseline assessments that generate weeks of recommended follow-up practice",
+          },
+          Object {
+            "basic": true,
+            "label": "30 collaborative full-class lessons",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Teacher-led learning activities for whole class instruction, with built-in customizable slides and lesson plans",
+          },
+        ],
+        "header": "Writing tools",
+      },
+      Object {
+        "features": Array [
+          Object {
+            "basic": true,
+            "label": "Activity summary report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Provides a visual overview of student's proficiency range, percentage score, and activity completion",
+          },
+          Object {
+            "basic": true,
+            "label": "Activity analysis report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Follow a student's thought pattern by reviewing any activity's prompts, student's responses, and feedback received",
+          },
+          Object {
+            "basic": true,
+            "label": "Diagnostics report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Assign personalized learning plans according to student's diagnostic results and review student's responses and score",
+          },
+          Object {
+            "label": "Activity scores report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Easily access each student's activity scores, in a downloadable PDF or CSV format",
+          },
+          Object {
+            "label": "Concepts report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Analyze each student's proficiency in a range of grammar concepts",
+          },
+          Object {
+            "label": "Standards report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "See which Common Core standards your Quill activities have covered and the proficiency status of each student",
+          },
+          Object {
+            "label": "Data export capabilities",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Download student data according to your specific needs, in PDF or CSV format",
+          },
+          Object {
+            "label": "Custom reporting",
+            "school": true,
+            "tooltipText": "Manage your student scores and customize the reports to fit your grading needs",
+          },
+          Object {
+            "label": "Monthly usage reports",
+            "school": true,
+            "tooltipText": "Email updates delivered monthly to your inbox, providing you an easy overview of student Quill usage",
+          },
+          Object {
+            "label": "Administrator dashboard",
+            "school": true,
+            "tooltipText": "Provides administrators with school-wide data and full access to teachers' dashboards",
+          },
+        ],
+        "header": "Data reports",
+      },
+      Object {
+        "features": Array [
+          Object {
+            "basic": true,
+            "label": "Manual rostering",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Have full control over your students' log in credentials and how students sign up for your class.",
+          },
+          Object {
+            "basic": true,
+            "label": "Google Classroom sync",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Sync your rosters with Google Classroom sections to allow students to log into Quill with Google credentials and send announcements when you post assignments.",
+          },
+          Object {
+            "basic": true,
+            "label": "Clever Library sync",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "A single sign on option where teachers can add the Quill app to students' Clever dashboards and sync their rosters.",
+          },
+          Object {
+            "label": "Clever Secure sync at the school or district level",
+            "school": true,
+            "tooltipText": "A single sign on option that lets schools or districts automatically sync teacher's Clever rosters with their Quill classes.",
+          },
+          Object {
+            "label": "Unlimited number of teacher licenses",
+            "school": true,
+            "tooltipText": "All teachers in the school or district receive premium access for consistent implementation in writing courses.",
+          },
+        ],
+        "header": "Rostering",
+      },
+      Object {
+        "features": Array [
+          Object {
+            "basic": true,
+            "label": "Spotlight webinars",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "30 - 60 minute webinars to take a deep-dive into Quill features to help teachers leverage all features of Quill successfully.",
+          },
+          Object {
+            "basic": true,
+            "label": "Teacher Center best practice resources",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Access 160+ best practices and implementation articles as needed to improve your understanding and implementation of Quill.",
+          },
+          Object {
+            "label": "Getting started training",
+            "school": true,
+            "tooltipText": "Work with your assigned Senior Instructional Coach for a live, hour-long virtual training to get teachers set up for success on Quill.",
+          },
+          Object {
+            "label": "Guided onboarding",
+            "school": true,
+            "tooltipText": "Work with your assigned Senior Instructional Coach to get all users on your license set up quickly.",
+          },
+          Object {
+            "label": "Two professional development sessions",
+            "school": true,
+            "tooltipText": "Assigned Senior Instructional Coach delivers PDs tailored to the needs of teachers.",
+          },
+          Object {
+            "label": "Three one-on-one coaching sessions per teacher",
+            "school": true,
+            "tooltipText": "Assigned Senior Instructional Coach provides individualized support on Quill implementation and best practices.",
+          },
+          Object {
+            "label": "Priority technical support",
+            "school": true,
+            "tooltipText": "Support tickets identified with priority user status to resolve tech issues swiftly.",
+          },
+        ],
+        "header": "Professional development and support",
+      },
+    ]
+  }
+  type="basic"
+>
+  <div
+    className="individual-features-table-container"
+  >
+    <button
+      className="interactive-wrapper focus-on-light"
+      onClick={[Function]}
+      type="button"
+    >
+      Show all features 
+      <img
+        alt="Arrow pointing down"
+        src="undefined/images/icons/expand.svg"
+      />
+    </button>
+  </div>
+</IndividualFeaturesTable>
+`;
+
+exports[`IndividualFeaturesTable container should render for each type 2`] = `
+<IndividualFeaturesTable
+  premiumFeatureData={
+    Array [
+      Object {
+        "features": Array [
+          Object {
+            "basic": true,
+            "label": "400 independent practice activities",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Research-backed, 10-15 minute independent practice activities covering a variety of concepts",
+          },
+          Object {
+            "basic": true,
+            "label": "9 diagnostic assessments",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Baseline assessments that generate weeks of recommended follow-up practice",
+          },
+          Object {
+            "basic": true,
+            "label": "30 collaborative full-class lessons",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Teacher-led learning activities for whole class instruction, with built-in customizable slides and lesson plans",
+          },
+        ],
+        "header": "Writing tools",
+      },
+      Object {
+        "features": Array [
+          Object {
+            "basic": true,
+            "label": "Activity summary report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Provides a visual overview of student's proficiency range, percentage score, and activity completion",
+          },
+          Object {
+            "basic": true,
+            "label": "Activity analysis report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Follow a student's thought pattern by reviewing any activity's prompts, student's responses, and feedback received",
+          },
+          Object {
+            "basic": true,
+            "label": "Diagnostics report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Assign personalized learning plans according to student's diagnostic results and review student's responses and score",
+          },
+          Object {
+            "label": "Activity scores report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Easily access each student's activity scores, in a downloadable PDF or CSV format",
+          },
+          Object {
+            "label": "Concepts report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Analyze each student's proficiency in a range of grammar concepts",
+          },
+          Object {
+            "label": "Standards report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "See which Common Core standards your Quill activities have covered and the proficiency status of each student",
+          },
+          Object {
+            "label": "Data export capabilities",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Download student data according to your specific needs, in PDF or CSV format",
+          },
+          Object {
+            "label": "Custom reporting",
+            "school": true,
+            "tooltipText": "Manage your student scores and customize the reports to fit your grading needs",
+          },
+          Object {
+            "label": "Monthly usage reports",
+            "school": true,
+            "tooltipText": "Email updates delivered monthly to your inbox, providing you an easy overview of student Quill usage",
+          },
+          Object {
+            "label": "Administrator dashboard",
+            "school": true,
+            "tooltipText": "Provides administrators with school-wide data and full access to teachers' dashboards",
+          },
+        ],
+        "header": "Data reports",
+      },
+      Object {
+        "features": Array [
+          Object {
+            "basic": true,
+            "label": "Manual rostering",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Have full control over your students' log in credentials and how students sign up for your class.",
+          },
+          Object {
+            "basic": true,
+            "label": "Google Classroom sync",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Sync your rosters with Google Classroom sections to allow students to log into Quill with Google credentials and send announcements when you post assignments.",
+          },
+          Object {
+            "basic": true,
+            "label": "Clever Library sync",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "A single sign on option where teachers can add the Quill app to students' Clever dashboards and sync their rosters.",
+          },
+          Object {
+            "label": "Clever Secure sync at the school or district level",
+            "school": true,
+            "tooltipText": "A single sign on option that lets schools or districts automatically sync teacher's Clever rosters with their Quill classes.",
+          },
+          Object {
+            "label": "Unlimited number of teacher licenses",
+            "school": true,
+            "tooltipText": "All teachers in the school or district receive premium access for consistent implementation in writing courses.",
+          },
+        ],
+        "header": "Rostering",
+      },
+      Object {
+        "features": Array [
+          Object {
+            "basic": true,
+            "label": "Spotlight webinars",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "30 - 60 minute webinars to take a deep-dive into Quill features to help teachers leverage all features of Quill successfully.",
+          },
+          Object {
+            "basic": true,
+            "label": "Teacher Center best practice resources",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Access 160+ best practices and implementation articles as needed to improve your understanding and implementation of Quill.",
+          },
+          Object {
+            "label": "Getting started training",
+            "school": true,
+            "tooltipText": "Work with your assigned Senior Instructional Coach for a live, hour-long virtual training to get teachers set up for success on Quill.",
+          },
+          Object {
+            "label": "Guided onboarding",
+            "school": true,
+            "tooltipText": "Work with your assigned Senior Instructional Coach to get all users on your license set up quickly.",
+          },
+          Object {
+            "label": "Two professional development sessions",
+            "school": true,
+            "tooltipText": "Assigned Senior Instructional Coach delivers PDs tailored to the needs of teachers.",
+          },
+          Object {
+            "label": "Three one-on-one coaching sessions per teacher",
+            "school": true,
+            "tooltipText": "Assigned Senior Instructional Coach provides individualized support on Quill implementation and best practices.",
+          },
+          Object {
+            "label": "Priority technical support",
+            "school": true,
+            "tooltipText": "Support tickets identified with priority user status to resolve tech issues swiftly.",
+          },
+        ],
+        "header": "Professional development and support",
+      },
+    ]
+  }
+  type="teacher"
+>
+  <div
+    className="individual-features-table-container"
+  >
+    <button
+      className="interactive-wrapper focus-on-light"
+      onClick={[Function]}
+      type="button"
+    >
+      Show all features 
+      <img
+        alt="Arrow pointing down"
+        src="undefined/images/icons/expand.svg"
+      />
+    </button>
+  </div>
+</IndividualFeaturesTable>
+`;
+
+exports[`IndividualFeaturesTable container should render for each type 3`] = `
+<IndividualFeaturesTable
+  premiumFeatureData={
+    Array [
+      Object {
+        "features": Array [
+          Object {
+            "basic": true,
+            "label": "400 independent practice activities",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Research-backed, 10-15 minute independent practice activities covering a variety of concepts",
+          },
+          Object {
+            "basic": true,
+            "label": "9 diagnostic assessments",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Baseline assessments that generate weeks of recommended follow-up practice",
+          },
+          Object {
+            "basic": true,
+            "label": "30 collaborative full-class lessons",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Teacher-led learning activities for whole class instruction, with built-in customizable slides and lesson plans",
+          },
+        ],
+        "header": "Writing tools",
+      },
+      Object {
+        "features": Array [
+          Object {
+            "basic": true,
+            "label": "Activity summary report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Provides a visual overview of student's proficiency range, percentage score, and activity completion",
+          },
+          Object {
+            "basic": true,
+            "label": "Activity analysis report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Follow a student's thought pattern by reviewing any activity's prompts, student's responses, and feedback received",
+          },
+          Object {
+            "basic": true,
+            "label": "Diagnostics report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Assign personalized learning plans according to student's diagnostic results and review student's responses and score",
+          },
+          Object {
+            "label": "Activity scores report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Easily access each student's activity scores, in a downloadable PDF or CSV format",
+          },
+          Object {
+            "label": "Concepts report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Analyze each student's proficiency in a range of grammar concepts",
+          },
+          Object {
+            "label": "Standards report",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "See which Common Core standards your Quill activities have covered and the proficiency status of each student",
+          },
+          Object {
+            "label": "Data export capabilities",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Download student data according to your specific needs, in PDF or CSV format",
+          },
+          Object {
+            "label": "Custom reporting",
+            "school": true,
+            "tooltipText": "Manage your student scores and customize the reports to fit your grading needs",
+          },
+          Object {
+            "label": "Monthly usage reports",
+            "school": true,
+            "tooltipText": "Email updates delivered monthly to your inbox, providing you an easy overview of student Quill usage",
+          },
+          Object {
+            "label": "Administrator dashboard",
+            "school": true,
+            "tooltipText": "Provides administrators with school-wide data and full access to teachers' dashboards",
+          },
+        ],
+        "header": "Data reports",
+      },
+      Object {
+        "features": Array [
+          Object {
+            "basic": true,
+            "label": "Manual rostering",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Have full control over your students' log in credentials and how students sign up for your class.",
+          },
+          Object {
+            "basic": true,
+            "label": "Google Classroom sync",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Sync your rosters with Google Classroom sections to allow students to log into Quill with Google credentials and send announcements when you post assignments.",
+          },
+          Object {
+            "basic": true,
+            "label": "Clever Library sync",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "A single sign on option where teachers can add the Quill app to students' Clever dashboards and sync their rosters.",
+          },
+          Object {
+            "label": "Clever Secure sync at the school or district level",
+            "school": true,
+            "tooltipText": "A single sign on option that lets schools or districts automatically sync teacher's Clever rosters with their Quill classes.",
+          },
+          Object {
+            "label": "Unlimited number of teacher licenses",
+            "school": true,
+            "tooltipText": "All teachers in the school or district receive premium access for consistent implementation in writing courses.",
+          },
+        ],
+        "header": "Rostering",
+      },
+      Object {
+        "features": Array [
+          Object {
+            "basic": true,
+            "label": "Spotlight webinars",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "30 - 60 minute webinars to take a deep-dive into Quill features to help teachers leverage all features of Quill successfully.",
+          },
+          Object {
+            "basic": true,
+            "label": "Teacher Center best practice resources",
+            "school": true,
+            "teacher": true,
+            "tooltipText": "Access 160+ best practices and implementation articles as needed to improve your understanding and implementation of Quill.",
+          },
+          Object {
+            "label": "Getting started training",
+            "school": true,
+            "tooltipText": "Work with your assigned Senior Instructional Coach for a live, hour-long virtual training to get teachers set up for success on Quill.",
+          },
+          Object {
+            "label": "Guided onboarding",
+            "school": true,
+            "tooltipText": "Work with your assigned Senior Instructional Coach to get all users on your license set up quickly.",
+          },
+          Object {
+            "label": "Two professional development sessions",
+            "school": true,
+            "tooltipText": "Assigned Senior Instructional Coach delivers PDs tailored to the needs of teachers.",
+          },
+          Object {
+            "label": "Three one-on-one coaching sessions per teacher",
+            "school": true,
+            "tooltipText": "Assigned Senior Instructional Coach provides individualized support on Quill implementation and best practices.",
+          },
+          Object {
+            "label": "Priority technical support",
+            "school": true,
+            "tooltipText": "Support tickets identified with priority user status to resolve tech issues swiftly.",
+          },
+        ],
+        "header": "Professional development and support",
+      },
+    ]
+  }
+  type="school"
+>
+  <div
+    className="individual-features-table-container"
+  >
+    <button
+      className="interactive-wrapper focus-on-light"
+      onClick={[Function]}
+      type="button"
+    >
+      Show all features 
+      <img
+        alt="Arrow pointing down"
+        src="undefined/images/icons/expand.svg"
+      />
+    </button>
+  </div>
+</IndividualFeaturesTable>
+`;

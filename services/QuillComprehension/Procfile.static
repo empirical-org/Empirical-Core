@@ -1,3 +1,0 @@
-rails: bin/rails server -p 3200
-
-webpack: ./bin/webpack-dev-server

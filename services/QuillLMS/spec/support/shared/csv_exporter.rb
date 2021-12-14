@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples_for "CSV Exporter" do
   let(:csv_exporter) { described_class.new }
 

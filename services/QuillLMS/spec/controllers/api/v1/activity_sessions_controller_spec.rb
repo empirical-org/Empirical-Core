@@ -1,91 +1,96 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Api::V1::ActivitySessionsController, type: :controller do
-
-
   describe '#update' do
     let(:token) { double :acceptable? => true, resource_owner_id: user.id }
     let(:user) { create(:student) }
+    let(:activity_classification) { create(:activity_classification) }
+    let(:activity) { create(:activity, classification: activity_classification) }
+    let!(:activity_session) { create(:activity_session, state: 'started', user: user, completed_at: nil, activity: activity) }
 
-    before do
-      allow(controller).to receive(:doorkeeper_token) {token}
-      @activity_session = create(:activity_session, state: 'started', user: user, completed_at: nil)
-    end
-
-    it 'passes activity session and user to notifier service' do
-      service_instance = double(:service_instance)
-
-      expect(NotifyOfCompletedActivity).to receive(:new)
-        .with(@activity_session)
-        .and_return(service_instance)
-      expect(service_instance).to receive(:call)
-
-      put :update, id: @activity_session.uid, state: 'finished'
-    end
+    before { allow(controller).to receive(:doorkeeper_token) { token } }
 
     context 'default behavior' do
       include_context "calling the api"
 
-      before do
-        subject
-        @parsed_body = JSON.parse(response.body)
-      end
-
-      def subject
-        # FIXME: URL Parameter should be called uid, not id, because that is confusing
-        put :update, id: @activity_session.uid
-      end
+      before { put :update, params: { id: activity_session.uid }, as: :json }
 
       it 'responds with 200' do
         expect(response.status).to eq(200)
       end
 
       it 'responds with the updated activity session' do
-        expect(@parsed_body['activity_session']['uid']).to eq(@activity_session.uid)
+        parsed_body = JSON.parse(response.body)
+        expect(parsed_body['activity_session']['uid']).to eq(activity_session.uid)
+      end
+    end
+
+    context 'user_activity_classification counts increment when they should' do
+      it 'should count_for if the state of the session is "finished"' do
+        expect(UserActivityClassification).to receive(:count_for).with(user, activity_classification)
+        put :update, params: { id: activity_session.uid, state: 'finished' }, as: :json
       end
 
+      it 'should not count_for if the state of the session is not "finished"' do
+        expect(UserActivityClassification).not_to receive(:count_for)
+        put :update, params: { id: activity_session.uid }, as: :json
+      end
     end
 
     context 'concept results are included' do
+      let(:writing_concept) { create(:concept, name: 'Creative Writing') }
 
-      def subject
-        @writing_concept = create(:concept, name: 'Creative Writing')
-        results = [
-          create(:concept_result, metadata: {
-              foo: 'bar',
-            }, activity_session_id: @activity_session.id, concept: @writing_concept
-          ),
-          create(:concept_result, metadata: {
-              baz: 'foo',
-            }, activity_session_id: @activity_session.id
-          ),
-          create(:concept_result,
-            activity_session_id: @activity_session.id
-          )
-        ]
-        put :update, id: @activity_session.uid, concept_results:  JSON.parse(results.to_json)
+      let(:concept_result_1) do
+        create(:concept_result,
+          activity_session_id: activity_session.id,
+          concept: writing_concept,
+          metadata: { foo: 'bar' }
+        )
       end
 
+      let(:concept_result_2) do
+        create(:concept_result,
+          activity_session_id: activity_session.id,
+          metadata: { baz: 'foo' }
+        )
+      end
+
+      let(:concept_result_3) do
+        create(:concept_result,
+          activity_session_id: activity_session.id
+        )
+      end
+
+      let(:concept_results) do
+        results = JSON.parse([concept_result_1, concept_result_2, concept_result_3].to_json)
+
+        results[0] = results[0].merge('concept_uid' => concept_result_1.concept.uid)
+        results[1] = results[1].merge('concept_uid' => concept_result_2.concept.uid)
+        results[2] = results[2].merge('concept_uid' => concept_result_3.concept.uid)
+
+        results
+      end
+
+      before { put :update, params: { id: activity_session.uid, concept_results: concept_results }, as: :json }
+
       it 'succeeds' do
-        subject
         expect(response.status).to eq(200)
       end
 
       it 'stores the concept results' do
-        subject
-        @activity_session.reload
-        expect(@activity_session.concept_results.size).to eq(4)
+        activity_session.reload
+        expect(activity_session.concept_results.size).to eq 7
       end
 
       it 'saves the arbitrary metadata for the results' do
-        subject
-        @activity_session.reload
-        expect(@activity_session.concept_results.find{|x| x.metadata == {"foo"=>"bar"}}).to be
+        activity_session.reload
+        expect(activity_session.concept_results.find{|x| x.metadata == {"foo"=>"bar"}}).to be
       end
 
       it 'saves the concept tag relationship (ID) in the result' do
-        subject
-        expect(ConceptResult.where(activity_session_id: @activity_session, concept_id: @writing_concept.id).count).to eq(1)
+        expect(ConceptResult.where(activity_session_id: activity_session, concept_id: writing_concept.id).count).to eq 2
       end
     end
 
@@ -99,54 +104,49 @@ describe Api::V1::ActivitySessionsController, type: :controller do
             }
           }
         ]
-        put :update, id: @activity_session.uid, concept_results: results
+        put :update, params: { id: activity_session.uid, concept_results: results }, as: :json
       end
 
       # this is no longer the case, as results should not be saved with nonexistent concept tag
       it 'does not save the concept result' do
-        @activity_session.concept_results.destroy_all
+        activity_session.concept_results.destroy_all
         response = subject
-        expect(@activity_session.concept_results).to eq([])
+        expect(activity_session.concept_results).to eq([])
       end
     end
 
-    context 'when the activity session uses feedback history' do
-      before do
-        @activity = create(:comprehension_activity)
-        @prompt = Comprehension::Prompt.create(text: 'Test test test text', activity: @activity, conjunction: "but")
-        @activity_session = create(:activity_session, activity: @activity, state: 'started', user: user, completed_at: nil)
-        @activity_session.concept_results.destroy_all
-        @concept = create(:concept)
-        @feedback_history = create(:feedback_history, concept_uid: @concept.uid, activity_session_uid: @activity_session.uid, prompt: @prompt)
-        subject
-        @parsed_body = JSON.parse(response.body)
+    context 'data time_tracking is included ' do
+
+      it 'updates timespent on activity session' do
+        data = {
+          'time_tracking' => {
+            'so' => 1,
+            'but' => 2,
+            'because' => 3
+          }
+        }
+
+        put :update, params: { id: activity_session.uid, data: data }, as: :json
+        activity_session.reload
+
+        expect(activity_session.timespent).to eq 6
+        expect(activity_session.data['time_tracking']).to include(data['time_tracking'])
       end
 
-      def subject
-        # FIXME: URL Parameter should be called uid, not id, because that is confusing
-        put :update, id: @activity_session.uid, state: 'finished'
-      end
+      describe 'the total time tracking value is larger than the maximum 4-byte integer size' do
+        it 'saves timespent with the maximum 4-byte integer size' do
+          data = {
+            'time_tracking' => {
+              'so' => 2147483648
+            }
+          }
 
-      it 'responds with 200' do
-        expect(response.status).to eq(200)
-      end
+          put :update, params: { id: activity_session.uid, data: data }, as: :json
+          activity_session.reload
 
-      it 'responds with the updated activity session that has a set score' do
-        expect(@parsed_body['activity_session']['uid']).to eq(@activity_session.uid)
-        expect(@parsed_body['activity_session']['percentage']).to eq(1.0)
+          expect(activity_session.timespent).to eq 2147483647
+        end
       end
-
-      it 'stores the concept results' do
-        @activity_session.reload
-        expect(@activity_session.concept_results.size).to eq(1)
-      end
-
-      it 'saves the arbitrary metadata for the results' do
-        @activity_session.reload
-        concept_hash = {"correct"=>1, "answer"=>@feedback_history.entry, "feedback_type"=>@feedback_history.feedback_type}
-        expect(@activity_session.concept_results.find{|x| x.metadata == concept_hash}).to be
-      end
-
     end
   end
 
@@ -154,7 +154,8 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     let!(:session) { create(:activity_session) }
 
     it 'renders the correct json' do
-      get :show, id: session.uid
+      get :show, params: { id: session.uid }, as: :json
+
       expect(JSON.parse(response.body)["meta"]).to eq({
           "status" => "success",
           "message" => nil,
@@ -173,35 +174,44 @@ describe Api::V1::ActivitySessionsController, type: :controller do
   describe '#update' do
     let(:token) { double :acceptable? => true, resource_owner_id: user.id }
     let(:user) { create(:student) }
-
-    before do
-      allow(controller).to receive(:doorkeeper_token) {token}
-      @activity_session = create(:activity_session, state: 'finished', user: user, percentage: 1.0, completed_at: Time.now)
+    let!(:activity_session) do
+      create(:activity_session, state: 'finished', user: user, percentage: 1.0, completed_at: Time.now)
     end
 
+    before { allow(controller).to receive(:doorkeeper_token) {token} }
+
     it 'returns a 422 error if activity session is already saved' do
-      put :update, id: @activity_session.uid
-      @parsed_body = JSON.parse(response.body)
-      expect(@parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
+      put :update, params: { id: activity_session.uid }, as: :json
+      parsed_body = JSON.parse(response.body)
+      expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
+    end
+
+    it 'returns a 200 if the activity session is not already finished and can be updated' do
+      activity_session.update(completed_at: nil, state: 'started')
+      put :update, params: { id: activity_session.uid }, as: :json
+      parsed_body = JSON.parse(response.body)
+      expect(parsed_body["meta"]["message"]).to eq("Activity Session Updated")
     end
 
     it 'returns a 422 error if activity session update method fails' do
       # create a double
       activity_session = create(:activity_session, state: 'started', user: user)
-      activity_session.stub(:update) { false }
+      allow(activity_session).to receive(:update).and_return(false)
 
-      put :update, id: activity_session.uid
-      @parsed_body = JSON.parse(response.body)
-      expect(@parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
+      put :update, params: { id: activity_session.uid }, as: :json
+      parsed_body = JSON.parse(response.body)
+      expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
     end
   end
 
   describe '#create' do
     let(:classroom_unit) { create(:classroom_unit) }
-    let(:session) { create(:proofreader_activity_session, classroom_unit: classroom_unit) }
+    let(:activity_session) { create(:proofreader_activity_session, classroom_unit: classroom_unit) }
+    let(:params) { activity_session.attributes.except('id', 'classroom_unit_id') }
 
     it 'creates the activity session' do
-      put :create, params: session.attributes.except(:id, :completed_at, :user_id, :created_at, :updated_at), format: :json
+      post :create, params: params, as: :json
+
       expect(JSON.parse(response.body)["meta"]).to eq({
         "status" => "success",
         "message" => "Activity Session Created",
@@ -210,12 +220,12 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     end
   end
 
-  describe '#destoy' do
+  describe '#destroy' do
     include_context "calling the api" #bypass doorkeeper
     let!(:session) { create(:proofreader_activity_session) }
 
     it 'destroys the activity session' do
-      delete :destroy, id: session.uid, format: :json
+      delete :destroy, params: { id: session.uid }, as: :json
       expect(JSON.parse(response.body)["meta"]).to eq({
         "status" => "success",
         "message" => "Activity Session Destroy Successful",

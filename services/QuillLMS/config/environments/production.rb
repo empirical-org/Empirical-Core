@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 EmpiricalGrammar::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -21,7 +23,7 @@ EmpiricalGrammar::Application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
   # But heroku won't! so enable it.
-  config.serve_static_files = true
+  config.public_file_server.enabled = true
 
   # Compress JavaScripts and CSS.
   # config.assets.js_compressor = :uglifier
@@ -67,7 +69,6 @@ EmpiricalGrammar::Application.configure do
                                  scorebook/**/*
                                  sign_up_email.css
                                  )
-
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp

@@ -1,6 +1,7 @@
-<% @active_tab = 'SpringBoard Activities'
+<% @active_tab = device == 'mobile' ? 'SpringBoard' : 'SpringBoard Activities'
+
   @title = 'SpringBoard English Practice'
 %>
 <%= render partial: 'pages/shared/explore_curriculum_navbar', active_tab: @active_tab  %>
 
-<%= react_component('SpringBoard') %>
+<%= react_component('SpringBoard', props: { units: @units }) %>

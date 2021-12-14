@@ -1,10 +1,10 @@
 import * as _ from 'underscore';
+
 import {Response, PartialResponse, IncorrectSequence, FocusPoint, GradingObject} from '../../interfaces';
 import {correctSentenceFromSamples} from '../spellchecker/main';
 import {getOptimalResponses} from '../sharedResponseFunctions';
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {removePunctuation} from '../helpers/remove_punctuation'
-
 import {exactMatch} from '../matchers/exact_match';
 import {focusPointChecker} from '../matchers/focus_point_match';
 import {incorrectSequenceChecker} from '../matchers/incorrect_sequence_match';
@@ -22,6 +22,8 @@ import {maxLengthChecker} from '../matchers/max_length_match';
 import {caseStartChecker} from '../matchers/case_start_match';
 import {punctuationEndChecker} from '../matchers/punctuation_end_match';
 import {spellingFeedbackStrings} from '../constants/feedback_strings';
+
+const MISSING_WORD_HINT = 'Missing Word Hint'
 
 export function checkSentenceCombining(
   question_uid: string,
@@ -54,21 +56,20 @@ export function checkSentenceCombining(
   const spellingPass = checkForMatches(spellCheckedData, firstPassMatchers, true); // check for a match w the spelling corrected
   const misspelledWords = getMisspelledWords(data.response, spellCheckedData.spellCorrectedResponse)
   if (spellingPass) {
-    let foundConcepts = spellingPass.concept_results
-    //convert concept_results to an array if it's not already
+    let foundConcepts = spellingPass.conceptResults || spellingPass.concept_results
+    //convert concept results to an array if it's not already
     if (typeof foundConcepts === 'object' && foundConcepts.constructor === Object) {
-      spellingPass.concept_results =
+      spellingPass.conceptResults =
         Object.keys(foundConcepts).map((k) => foundConcepts[k])
     }
-    if (Array.isArray(spellingPass.concept_results)) {
+    if (Array.isArray(spellingPass.conceptResults)) {
+      spellingPass.conceptResults.push(conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g'));
+    } else if (Array.isArray(spellingPass.concept_results)) {
       spellingPass.concept_results.push(conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g'));
     }
     const spellingAwareFeedback = getSpellingFeedback(spellingPass);
-    const spellingFeedbackObj = {
-      text: data.response,
-      spelling_error: true,
-      misspelled_words: misspelledWords
-    }
+    const spellingFeedbackObj = getSpellingFeedbackObj(spellingPass, data, misspelledWords)
+
     return Object.assign(responseTemplate, spellingAwareFeedback, spellingFeedbackObj);
   };
 
@@ -153,4 +154,20 @@ function getMisspelledWords(text: string, spellCheckedText: string) {
   const spellCheckedTextArray: Array<string> = removePunctuation(spellCheckedText).split(' ')
   const misspelledWords = textArray.filter(word => !spellCheckedTextArray.includes(word))
   return misspelledWords
+}
+
+function getSpellingFeedbackObj(spellingPass, data, misspelledWords) {
+  // missing word hint should not return any highlighted words
+  if (spellingPass.author == MISSING_WORD_HINT) {
+    return {
+      text: data.response,
+      spelling_error: true
+    }
+  } else {
+    return {
+      text: data.response,
+      spelling_error: true,
+      misspelled_words: misspelledWords
+    }
+  }
 }

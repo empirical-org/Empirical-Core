@@ -1,6 +1,9 @@
 .cms-container-meta {
   display: flex;
 }
+.float-right {
+  float:right;
+}
 
 .cms-container-meta-left {
   max-width: 210px;
@@ -12,7 +15,7 @@
 }
 
 .cms-meta-middle {
-  padding: 0 20px 0 40px;
+  padding: 0 20px 0 0px;
   width: 50%;
 }
 
@@ -26,7 +29,7 @@
 
   label {
     margin: 0;
-    width: 110px;
+    width: 150px;
   }
 
   input, select {
@@ -285,7 +288,7 @@
       text-align: right;
     }
   }
-  
+
   .blog-dropdown-container {
     display: flex;
     .blog-dropdown {
@@ -368,4 +371,12 @@
 .warning {
   color: #c51916;
   margin: 18px;
+}
+
+.fake-button-link {
+  padding: 0;
+  border: 0px;
+  background: none;
+  border-bottom: 2px solid #eee;
+  color: black;
 }

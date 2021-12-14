@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Lesson Component should match snapshot 1`] = `
+<div
+  className="lesson-container"
+>
+  <Link
+    to="/admin/lessons"
+  >
+    Return to All Activities
+  </Link>
+  <br />
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <h4
+      className="title"
+    >
+      A Little Stranger on the Road
+    </h4>
+    <h6
+      className="subtitle"
+      style={
+        Object {
+          "color": "rgb(0, 194, 162)",
+          "paddingRight": "20px",
+        }
+      }
+    >
+      Flag: 
+      production
+    </h6>
+  </div>
+  <h6
+    className="subtitle"
+  >
+    <Link
+      to="/play/pf?anonymous=true&uid=17"
+    >
+      Play Proofreader Activity
+    </Link>
+  </h6>
+  <p
+    className="control"
+  >
+    <button
+      className="button is-info"
+      onClick={[Function]}
+      type="button"
+    >
+      Edit Activity
+    </button>
+    <button
+      className="button is-danger"
+      onClick={[Function]}
+      type="button"
+    >
+      Delete Activity
+    </button>
+  </p>
+  <p
+    style={
+      Object {
+        "marginTop": "50px",
+      }
+    }
+  >
+    Note: the activity below functions exactly like the real activity, except that you will not be directed to a results page or to a Grammar activity upon finishing the review. Instead, the activity will reset.
+  </p>
+  <div
+    style={
+      Object {
+        "border": "1px solid black",
+        "marginTop": "50px",
+        "paddingBottom": "50px",
+      }
+    }
+  >
+    <Connect(PlayProofreaderContainer)
+      activityUID="17"
+      admin={true}
+    />
+  </div>
+</div>
+`;

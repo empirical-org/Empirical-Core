@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration::Requesters
 
   def self.teacher(clever_id, district_token=nil)
@@ -31,8 +33,6 @@ module CleverIntegration::Requesters
   def self.students_for_section(clever_id, district_token=nil)
     api_instance(district_token).get_students_for_section(clever_id)
   end
-
-  private
 
   def self.api_instance(district_token=nil)
     config = Clever::Configuration.new

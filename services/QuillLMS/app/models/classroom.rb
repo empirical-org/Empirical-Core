@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: classrooms
@@ -7,6 +9,7 @@
 #  grade               :string
 #  grade_level         :integer
 #  name                :string
+#  synced_name         :string
 #  visible             :boolean          default(TRUE), not null
 #  created_at          :datetime
 #  updated_at          :datetime
@@ -16,12 +19,14 @@
 #
 # Indexes
 #
-#  index_classrooms_on_code         (code)
-#  index_classrooms_on_grade        (grade)
-#  index_classrooms_on_grade_level  (grade_level)
-#  index_classrooms_on_teacher_id   (teacher_id)
+#  index_classrooms_on_clever_id            (clever_id)
+#  index_classrooms_on_code                 (code)
+#  index_classrooms_on_google_classroom_id  (google_classroom_id)
+#  index_classrooms_on_grade                (grade)
+#  index_classrooms_on_grade_level          (grade_level)
+#  index_classrooms_on_teacher_id           (teacher_id)
 #
-class Classroom < ActiveRecord::Base
+class Classroom < ApplicationRecord
   include CheckboxCallback
 
   GRADES = %w(1 2 3 4 5 6 7 8 9 10 11 12 University)
@@ -51,6 +56,8 @@ class Classroom < ActiveRecord::Base
   has_many :teachers, through: :classrooms_teachers, source: :user
 
   before_validation :set_code, if: proc {|c| c.code.blank?}
+
+  accepts_nested_attributes_for :classrooms_teachers
 
 
   def validate_name
@@ -95,9 +102,12 @@ class Classroom < ActiveRecord::Base
 
   def unique_standard_count_array
     filters = {}
-    best_activity_sessions = ProgressReports::Standards::ActivitySession.new(owner).results(filters)
-    ActivitySession.from_cte('best_activity_sessions', best_activity_sessions)
+    best_activity_sessions_query = ProgressReports::Standards::ActivitySession.new(owner).results(filters).to_sql
+    best_activity_sessions = "( #{best_activity_sessions_query} ) AS best_activity_sessions"
+
+    ActivitySession
       .select("COUNT(DISTINCT(activities.standard_id)) as standard_count")
+      .joins("JOIN #{best_activity_sessions} ON activity_sessions.id = best_activity_sessions.id")
       .joins('JOIN activities ON activities.id = best_activity_sessions.activity_id')
       .joins('JOIN classroom_units ON classroom_units.id = best_activity_sessions.classroom_unit_id')
       .where('classroom_units.classroom_id = ?', id)
@@ -105,30 +115,9 @@ class Classroom < ActiveRecord::Base
       .order('')
   end
 
-  def self.setup_from_clever(section, teacher)
-    c = Classroom.where(clever_id: section.id).includes(:units).first_or_initialize
-    c.update_attributes(
-      name: section.name,
-      grade: section.grade
-    )
-    ClassroomsTeacher.find_or_create_by(user: teacher, role: 'owner', classroom: c)
-    c.import_students!
-    c
-  end
-
   def archived_classrooms_manager
     coteachers = !self.coteachers.empty? ? self.coteachers.map { |ct| { name: ct.name, id: ct.id, email: ct.email } } : []
     {createdDate: created_at.strftime("%m/%d/%Y"), className: name, id: id, studentCount: students.count, classcode: code, ownerName: owner.name, from_google: !!google_classroom_id, coteachers: coteachers}
-  end
-
-  def import_students!
-    clever_students = clever_classroom.students
-
-    existing_student_ids = students.pluck(&:clever_id).uniq.compact
-    students_to_add = clever_students.reject {|s| existing_student_ids.include?(s.id) }
-    new_students = students_to_add.collect {|s| User.create_from_clever({info: s}, 'student')}
-
-    students << new_students
   end
 
   def set_code
@@ -145,15 +134,14 @@ class Classroom < ActiveRecord::Base
   end
 
   def hide_appropriate_classroom_units
-    # on commit callback that checks if archived
-    if visible == false
-      hide_all_classroom_units
-    end
+    hide_all_classroom_units unless visible
   end
 
   def hide_all_classroom_units
     ActivitySession.where(classroom_unit: classroom_units).update_all(visible: false)
     classroom_units.update_all(visible: false)
+    return if owner.nil?
+
     SetTeacherLessonCache.perform_async(owner.id)
     ids = Unit.find_by_sql("
       SELECT unit.id FROM units unit
@@ -188,15 +176,30 @@ class Classroom < ActiveRecord::Base
     -1
   end
 
-  private
+  def provider_classroom?
+    google_classroom? || clever_classroom?
+  end
+
+  def clever_classroom?
+    clever_id.present?
+  end
+
+  def google_classroom?
+    google_classroom_id.present?
+  end
+
+  def provider_classroom
+    return 'Google Classroom' if google_classroom?
+    return 'Clever' if clever_classroom?
+  end
 
   # Clever integration
-  def clever_classroom
+  private def clever_classroom
     Clever::Section.retrieve(clever_id, teacher.districts.first.token)
   end
 
-  def trigger_analytics_for_classroom_creation
-    find_or_create_checkbox('Create a Classroom', owner)
+  private def trigger_analytics_for_classroom_creation
+    classrooms_teachers.each { |ct| find_or_create_checkbox(Objective::CREATE_A_CLASSROOM, ct.user) }
     ClassroomCreationWorker.perform_async(id)
   end
 

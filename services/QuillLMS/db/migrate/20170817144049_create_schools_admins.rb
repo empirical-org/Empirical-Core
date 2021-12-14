@@ -1,4 +1,6 @@
-class CreateSchoolsAdmins < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateSchoolsAdmins < ActiveRecord::Migration[4.2]
   def change
     create_table :schools_admins do |t|
       t.integer :user_id, index: true

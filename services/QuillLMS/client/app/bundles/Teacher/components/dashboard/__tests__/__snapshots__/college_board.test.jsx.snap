@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CollegeBoard component should render 1`] = `
+<CollegeBoard>
+  <section
+    className="college-board"
+  >
+    <div
+      className="top-section"
+    >
+      <a
+        className="focus-on-light help-icon"
+        href="/teacher-center/writing-skills-survey-for-ap"
+      >
+        <img
+          alt="Question mark icon"
+          src="undefined/images/icons/icons-help.svg"
+        />
+      </a>
+      <img
+        alt="College Board and Quill logos"
+        src="undefined/images/pages/dashboard/logo-quill-collegeboard.svg"
+      />
+    </div>
+    <p>
+      We partnered with the College Board to provide free activities for AP, Pre-AP, and SpringBoard courses.
+    </p>
+    <a
+      className="focus-on-light see-all-activities"
+      href="/assign/college-board"
+    >
+      <span>
+        See all activities
+      </span>
+      <img
+        alt="Arrow pointing right icon"
+        src="undefined/images/icons/icons-arrow-back.svg"
+      />
+    </a>
+  </section>
+</CollegeBoard>
+`;

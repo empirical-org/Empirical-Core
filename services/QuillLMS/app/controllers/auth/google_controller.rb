@@ -1,33 +1,57 @@
+# frozen_string_literal: true
+
 class Auth::GoogleController < ApplicationController
-  before_action :set_profile,                     only: :google
-  before_action :set_user,                        only: :google
-  before_action :save_teacher_from_google_signup, only: :google
-  before_action :save_student_from_google_signup, only: :google
-  before_action :follow_google_redirect,          only: :google
+  before_action :set_profile, only: [:authorization_and_authentication, :authentication]
+  before_action :verify_authorization_for_offline_access, only: :authentication
+  before_action :set_user,
+    :save_teacher_from_google_signup,
+    :save_student_from_google_signup,
+    :follow_google_redirect,
+    only: [:authorization_and_authentication, :authentication]
 
-  def google
-    if @user.teacher?
-      GoogleStudentImporterWorker.perform_async(@user.id, 'Auth::GoogleController')
-    end
+  # The reason for the separate 'authentication' and`authorization_and_authentication` methods lies in the
+  # before_action hook :verify_credentials.  This is only called with the authentication flow and if it fails
+  # will redirect to `google_oauth2` for reauthorization.
 
-    if @user.student?
-      GoogleStudentClassroomWorker.perform_async(@user.id)
-    end
-
+  def authorization_and_authentication
+    run_background_jobs
     sign_in(@user)
+    redirect_to_profile_or_post_auth
+  end
 
+  def authentication
+    run_background_jobs
+    sign_in(@user)
+    redirect_to_profile_or_post_auth
+  end
+
+  private def redirect_to_profile_or_post_auth
     if session[ApplicationController::POST_AUTH_REDIRECT].present?
       url = session[ApplicationController::POST_AUTH_REDIRECT]
       session.delete(ApplicationController::POST_AUTH_REDIRECT)
-      return redirect_to url
+      redirect_to url
+    else
+      redirect_to profile_path
     end
-
-    redirect_to profile_path
   end
 
-  private
+  private def verify_authorization_for_offline_access
+    user = User.where('google_id = ? OR email = ?', @profile.google_id&.to_s, @profile.email&.downcase).first
+    return if user.nil?
 
-  def follow_google_redirect
+    redirect_to GoogleIntegration::AUTHORIZATION_AND_AUTHENTICATION_PATH unless user.google_authorized?
+  end
+
+  private def run_background_jobs
+    if @user.teacher?
+      GoogleIntegration::UpdateTeacherImportedClassroomsWorker.perform_async(@user.id)
+      GoogleStudentImporterWorker.perform_async(@user.id, 'Auth::GoogleController')
+    elsif @user.student?
+      GoogleStudentClassroomWorker.perform_async(@user.id)
+    end
+  end
+
+  private def follow_google_redirect
     if session[GOOGLE_REDIRECT]
       redirect_route = session[GOOGLE_REDIRECT]
       session[GOOGLE_REDIRECT] = nil
@@ -35,11 +59,11 @@ class Auth::GoogleController < ApplicationController
     end
   end
 
-  def set_profile
+  private def set_profile
     @profile = GoogleIntegration::Profile.new(request, session)
   end
 
-  def set_user
+  private def set_user
     if non_standard_route_redirect?(session[GOOGLE_REDIRECT])
       if current_user
         user = current_user.update(email: @profile.email)
@@ -55,15 +79,26 @@ class Auth::GoogleController < ApplicationController
       end
     end
     @user = GoogleIntegration::User.new(@profile).update_or_initialize
+
     if @user.new_record? && session[:role].blank?
-      flash[:error] = "<p align='left'>We could not find your account. Is this your first time logging in? <a href='/account/new'>Sign up</a> here if so."\
-      "<br/>If you believe this is an error, please contact <strong>support@quill.org</strong> with the following info to unblock your account: <i>failed login of #{@profile.email} and googleID #{@profile.google_id} at #{Time.zone.now}</i>."
+      flash[:error] = user_not_found_error_message
       flash.keep(:error)
       redirect_to(new_session_path, status: :see_other)
     end
   end
 
-  def save_student_from_google_signup
+  private def user_not_found_error_message
+    <<-HTML
+      <p align='left'>
+        We could not find your account. Is this your first time logging in? <a href='/account/new'>Sign up</a> here if so.
+        <br/>
+        If you believe this is an error, please contact <strong>support@quill.org</strong> with the following info to unblock your account:
+        <i>failed login of #{@profile.email} and googleID #{@profile.google_id} at #{Time.zone.now}</i>.
+      </p>
+    HTML
+  end
+
+  private def save_student_from_google_signup
     return unless @user.new_record? && @user.student?
 
     unless @user.save
@@ -71,7 +106,7 @@ class Auth::GoogleController < ApplicationController
     end
   end
 
-  def save_teacher_from_google_signup
+  private def save_teacher_from_google_signup
     return unless @user.new_record? && @user.teacher?
 
     @js_file = 'session'

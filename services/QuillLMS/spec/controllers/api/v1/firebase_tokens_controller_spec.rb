@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Api::V1::FirebaseTokensController, type: :controller do
@@ -7,13 +9,7 @@ describe Api::V1::FirebaseTokensController, type: :controller do
     let!(:user) { create(:student) }
 
     context 'when accessing anonymously' do
-      before do
-        subject
-      end
-
-      def subject
-        post :create, app: 'foobar'
-      end
+      before { post :create, params: { app: 'foobar' }, as: :json }
 
       it 'responds with 200' do
         expect(response.status).to eq(200)
@@ -34,7 +30,7 @@ describe Api::V1::FirebaseTokensController, type: :controller do
       end
 
       def subject
-        post :create, app: 'foobar'
+        post :create, params: { app: 'foobar' }, as: :json
       end
 
       it 'responds with 200' do
@@ -49,9 +45,7 @@ describe Api::V1::FirebaseTokensController, type: :controller do
     end
 
     context 'when the firebase app does not exist' do
-      subject do
-        post :create, app: 'nonexistent'
-      end
+      subject { post :create, params: { app: 'nonexistent' }, as: :json }
 
       it 'responds with 404' do
         subject
@@ -70,13 +64,11 @@ describe Api::V1::FirebaseTokensController, type: :controller do
     end
 
     def subject
-      post :create_for_connect, "json" => { "app" => 'foobar' }.to_json, format: :json
+      post :create_for_connect, params: { "json" => { "app" => 'foobar' }.to_json, as: :json }
     end
 
     it 'should respond with the connect token' do
-      expect(response.body).to eq({
-        token: "connect token"
-      }.to_json)
+      expect(response.body).to eq({ token: "connect token" }.to_json)
     end
   end
 end

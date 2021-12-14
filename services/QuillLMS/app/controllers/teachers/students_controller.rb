@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class Teachers::StudentsController < ApplicationController
-  before_filter :teacher!
-  before_filter :authorize!
+  before_action :teacher!
+  before_action :authorize!
 
   def create
     valid_names = Creators::StudentCreator.check_names(params)
@@ -80,18 +82,16 @@ class Teachers::StudentsController < ApplicationController
     render json: {}
   end
 
-  protected
-
   # TODO: this is copied from Teachers::ClassroomsController#authorize!
   #       consider absracting using inheritance e.g. Teachers::BaseClassroomController
-  def authorize!
+  protected def authorize!
     @classroom = Classroom.find(params[:classroom_id])
     auth_failed unless @classroom.teachers.include?(current_user)
     params[:id] = params[:student_id] if params[:student_id].present?
     @student = @classroom.students.find(params[:id]) if params[:id].present?
   end
 
-  def user_params
+  protected def user_params
     params.require(:user).permit(:name,
                                  :first_name,
                                  :last_name,
@@ -111,7 +111,7 @@ class Teachers::StudentsController < ApplicationController
                                  :account_type)
   end
 
-  def edit_page_variables
+  protected def edit_page_variables
     # if teacher was the last user to reset the students password, we will show that password in the class manager to the teacher
     @teacher_created_student = @student.username.split('@').last == @classroom.code
     @teacher_can_edit_password = !(@student.clever_id || @student.signed_up_with_google)

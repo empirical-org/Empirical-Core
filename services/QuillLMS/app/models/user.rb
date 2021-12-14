@@ -1,54 +1,60 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
 #
-#  id                                :integer          not null, primary key
-#  account_type                      :string           default("unknown")
-#  active                            :boolean          default(FALSE)
-#  classcode                         :string
-#  email                             :string
-#  flags                             :string           default([]), not null, is an Array
-#  ip_address                        :inet
-#  last_active                       :datetime
-#  last_sign_in                      :datetime
-#  name                              :string
-#  password_digest                   :string
-#  post_google_classroom_assignments :boolean
-#  role                              :string           default("user")
-#  send_newsletter                   :boolean          default(FALSE)
-#  signed_up_with_google             :boolean          default(FALSE)
-#  time_zone                         :string
-#  title                             :string
-#  token                             :string
-#  username                          :string
-#  created_at                        :datetime
-#  updated_at                        :datetime
-#  clever_id                         :string
-#  google_id                         :string
-#  stripe_customer_id                :string
+#  id                    :integer          not null, primary key
+#  account_type          :string           default("unknown")
+#  active                :boolean          default(FALSE)
+#  classcode             :string
+#  email                 :string
+#  flags                 :string           default([]), not null, is an Array
+#  ip_address            :inet
+#  last_active           :datetime
+#  last_sign_in          :datetime
+#  name                  :string
+#  password_digest       :string
+#  role                  :string           default("user")
+#  send_newsletter       :boolean          default(FALSE)
+#  signed_up_with_google :boolean          default(FALSE)
+#  time_zone             :string
+#  title                 :string
+#  token                 :string
+#  username              :string
+#  created_at            :datetime
+#  updated_at            :datetime
+#  clever_id             :string
+#  google_id             :string
+#  stripe_customer_id    :string
 #
 # Indexes
 #
-#  email_idx                          (email) USING gin
+#  email_idx                          (email gin_trgm_ops) USING gin
 #  index_users_on_active              (active)
 #  index_users_on_classcode           (classcode)
 #  index_users_on_clever_id           (clever_id)
 #  index_users_on_email               (email)
-#  index_users_on_flags               (flags)
 #  index_users_on_google_id           (google_id)
 #  index_users_on_role                (role)
 #  index_users_on_stripe_customer_id  (stripe_customer_id)
 #  index_users_on_time_zone           (time_zone)
 #  index_users_on_token               (token)
 #  index_users_on_username            (username)
-#  name_idx                           (name) USING gin
+#  name_idx                           (name gin_trgm_ops) USING gin
 #  unique_index_users_on_clever_id    (clever_id) UNIQUE WHERE ((clever_id IS NOT NULL) AND ((clever_id)::text <> ''::text) AND ((id > 5593155) OR ((role)::text = 'student'::text)))
 #  unique_index_users_on_email        (email) UNIQUE WHERE ((id > 1641954) AND (email IS NOT NULL) AND ((email)::text <> ''::text))
 #  unique_index_users_on_google_id    (google_id) UNIQUE WHERE ((id > 1641954) AND (google_id IS NOT NULL) AND ((google_id)::text <> ''::text))
 #  unique_index_users_on_username     (username) UNIQUE WHERE ((id > 1641954) AND (username IS NOT NULL) AND ((username)::text <> ''::text))
-#  username_idx                       (username) USING gin
+#  username_idx                       (username gin_trgm_ops) USING gin
+#  users_to_tsvector_idx              (to_tsvector('english'::regconfig, (name)::text)) USING gin
+#  users_to_tsvector_idx1             (to_tsvector('english'::regconfig, (email)::text)) USING gin
+#  users_to_tsvector_idx2             (to_tsvector('english'::regconfig, (role)::text)) USING gin
+#  users_to_tsvector_idx3             (to_tsvector('english'::regconfig, (classcode)::text)) USING gin
+#  users_to_tsvector_idx4             (to_tsvector('english'::regconfig, (username)::text)) USING gin
+#  users_to_tsvector_idx5             (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
 #
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include Student
   include Teacher
   include CheckboxCallback
@@ -56,10 +62,12 @@ class User < ActiveRecord::Base
   attr_accessor :validate_username,
                 :require_password_confirmation_when_password_present
 
+  CHAR_FIELD_MAX_LENGTH = 255
+
   before_validation :generate_student_username_if_absent
   before_validation :prep_authentication_terms
   before_save :capitalize_name
-  after_save  :update_invitee_email_address, if: proc { email_changed? }
+  after_save  :update_invitee_email_address, if: proc { saved_change_to_email? }
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
 
@@ -71,10 +79,10 @@ class User < ActiveRecord::Base
   has_many :credit_transactions
   has_many :invitations, foreign_key: 'inviter_id'
   has_many :objectives, through: :checkboxes
+  has_many :user_activity_classifications, dependent: :destroy
   has_many :user_subscriptions
   has_many :subscriptions, through: :user_subscriptions
   has_many :activity_sessions
-  has_many :notifications, dependent: :delete_all
   has_one :schools_users
   has_one :sales_contact
   has_one :school, through: :schools_users
@@ -94,7 +102,6 @@ class User < ActiveRecord::Base
   has_many :unit_activities, through: :units
   has_many :classroom_unit_activity_states, through: :unit_activities
 
-  has_many :students_classrooms, class_name: 'StudentsClassrooms', foreign_key: 'student_id'
   has_many :student_in_classroom, through: :students_classrooms, source: :classroom
 
   has_and_belongs_to_many :districts
@@ -111,16 +118,18 @@ class User < ActiveRecord::Base
 
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 
-
   validates :name,                  presence: true,
-                                    format:       {without: /\t/, message: 'cannot contain tabs'}
+                                    format:       {without: /\t/, message: 'cannot contain tabs'},
+                                    length:       { maximum:  CHAR_FIELD_MAX_LENGTH}
 
   validates_with ::FullnameValidator
 
-  validates :password,              presence:     { if: :requires_password? }
+  validates :password,              presence:     { if: :requires_password? },
+                                    length:       { maximum: CHAR_FIELD_MAX_LENGTH}
 
   validates :email,                 presence:     { if: :email_required? },
-                                    uniqueness:   { message: :taken, if: :email_required_or_present?}
+                                    uniqueness:   { message: :taken, if: :email_required_or_present?},
+                                    length:       { maximum: CHAR_FIELD_MAX_LENGTH}
 
   validate :username_cannot_be_an_email
 
@@ -131,11 +140,10 @@ class User < ActiveRecord::Base
   # gem validates_email_format_of
   validates_email_format_of :email, if: :email_required_or_present?, message: :invalid
 
-
-
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { allow_blank: true, message: :taken },
-                                    format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username? }
+                                    format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username? },
+                                    length:       { maximum: CHAR_FIELD_MAX_LENGTH}
 
   validate :validate_flags
 
@@ -148,16 +156,34 @@ class User < ActiveRecord::Base
 
   ALPHA = 'alpha'
   BETA = 'beta'
+  GAMMA = 'gamma'
   PRIVATE = 'private'
   ARCHIVED = 'archived'
-  TESTING_FLAGS = [ALPHA, BETA, PRIVATE, ARCHIVED]
+  TESTING_FLAGS = [ALPHA, BETA, GAMMA, PRIVATE, ARCHIVED]
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
+
+  GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
+  CLEVER_ACCOUNT = 'Clever'
 
   scope :teacher, -> { where(role: TEACHER) }
   scope :student, -> { where(role: STUDENT) }
 
   attr_accessor :newsletter
+
+  def self.deleted_users
+    where(
+      <<-SQL
+        name LIKE 'Deleted_User_%'
+          AND email LIKE 'deleted_user_%'
+          AND username LIKE 'deleted_user_%'
+      SQL
+    )
+  end
+
+  def self.valid_email?(email)
+    ValidatesEmailFormatOf.validate_email_format(email).nil?
+  end
 
   def testing_flag
     role == STAFF ? ARCHIVED : flags.detect{|f| TESTING_FLAGS.include?(f)}
@@ -323,26 +349,8 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_username_or_email(login_name)
-    login_name.downcase!
+    login_name = login_name.downcase
     User.where("email = ? OR username = ?", login_name, login_name).first
-  end
-
-  def self.setup_from_clever(auth_hash)
-    user = User.create_from_clever(auth_hash)
-
-    d = District.find_by(clever_id: auth_hash[:info][:district])
-
-
-    return user if d.nil? #FIXME: replace with ERROR("DISTRICT NOT FOUND")
-
-    user.districts << d unless user.districts.include?(d)
-
-    if user.teacher?
-      user.create_classrooms!
-    elsif user.student?
-      user.connect_to_classrooms!
-    end
-    user
   end
 
   # replace with authority, cancan or something
@@ -422,23 +430,7 @@ class User < ActiveRecord::Base
   end
 
   def clear_data
-    ActiveRecord::Base.transaction do
-      update!(
-        name:      "Deleted User_#{id}",
-        email:     "deleted_user_#{id}@example.com",
-        username:  "deleted_user_#{id}",
-        google_id: nil,
-        clever_id: nil,
-        ip_address: nil,
-        send_newsletter: false
-      )
-      StudentsClassrooms.where(student_id: id).destroy_all
-      auth_credential.destroy! if auth_credential.present?
-      ip_location.destroy! if ip_location.present?
-      SchoolsUsers.where(user_id: id).destroy_all
-      ClassroomUnit.where("? = ANY (assigned_student_ids)", id).each {|cu| cu.update(assigned_student_ids: cu.assigned_student_ids - [id])}
-      ActivitySession.where(user_id: id).update_all(user_id: nil, classroom_unit_id: nil)
-    end
+    ClearUserDataWorker.perform_async(id)
   end
 
   def last_name= last_name
@@ -470,10 +462,6 @@ class User < ActiveRecord::Base
     self.role = 'student'
     generate_username(classroom_id)
     generate_password
-  end
-
-  def clever_district_id
-    clever_user.district.id
   end
 
   def teacher_of_student
@@ -535,12 +523,6 @@ class User < ActiveRecord::Base
     Arel::Nodes::SqlLiteral.new "date(items.created_at)"
   end
 
-  # Connect to any classrooms already created by a teacher
-  def connect_to_classrooms!
-    classrooms = Classroom.where(clever_id: clever_user.sections.collect(&:id)).all
-    classrooms.each { |c| c.students << self}
-  end
-
   # Create the user from a Clever info hash
   def self.create_from_clever(hash, role_override = nil)
     user = User.where(email: hash[:info][:email]).first_or_initialize
@@ -553,13 +535,6 @@ class User < ActiveRecord::Base
       last_name: hash[:info][:name][:last]
     )
     user
-  end
-
-  # Create all classrooms this teacher is connected to
-  def create_classrooms!
-    clever_user.sections.each do |section|
-      Classroom.setup_from_clever(section, self)
-    end
   end
 
   def generate_student_username_if_absent
@@ -621,8 +596,18 @@ class User < ActiveRecord::Base
     ).call
   end
 
-  private
-  def validate_flags
+  def google_authorized?
+    return false if auth_credential.nil?
+
+    auth_credential.google_authorized?
+  end
+
+  # Note this is an incremented count, so could be off.
+  def completed_activity_count
+    user_activity_classifications.sum(:count)
+  end
+
+  private def validate_flags
     # ensures there are no items in the flags array that are not in the VALID_FLAGS const
     invalid_flags = flags - VALID_FLAGS
     if invalid_flags.any?
@@ -630,36 +615,30 @@ class User < ActiveRecord::Base
     end
   end
 
-  def prep_authentication_terms
+  private def prep_authentication_terms
     self.email = email.downcase unless email.blank?
     self.username= username.downcase unless username.blank?
   end
 
-  def check_for_school
+  private def check_for_school
     if school
       find_or_create_checkbox('Add School', self)
     end
   end
 
-  # Clever integration
-  def clever_user
-    klass = "Clever::#{role.capitalize}".constantize
-    @clever_user ||= klass.retrieve(clever_id, districts.first.token)
-  end
-
   # validation filters
-  def email_required_or_present?
+  private def email_required_or_present?
     email_required? or email.present?
   end
 
-  def email_required?
+  private def email_required?
     return false if clever_id
     return false if role.temporary?
     return true if teacher?
     false
   end
 
-  def clever_id_present_and_has_changed?
+  private def clever_id_present_and_has_changed?
     return false if !clever_id
     return true if !id
 
@@ -667,23 +646,23 @@ class User < ActiveRecord::Base
     extant_user.clever_id != clever_id
   end
 
-  def requires_password?
+  private def requires_password?
     return false if clever_id
     return false if signed_up_with_google
     permanent? && new_record?
   end
 
   # FIXME: may not be being called anywhere
-  def password?
+  private def password?
     password.present?
   end
 
-  def get_class_code(classroom_id)
+  private def get_class_code(classroom_id)
     return 'student' if classroom_id.nil?
     Classroom.find(classroom_id).code
   end
 
-  def update_invitee_email_address
-    Invitation.where(invitee_email: email_was).update_all(invitee_email: email)
+  private def update_invitee_email_address
+    Invitation.where(invitee_email: email_before_last_save).update_all(invitee_email: email)
   end
 end

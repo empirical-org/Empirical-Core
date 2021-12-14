@@ -8,6 +8,8 @@ import AssignActivityPackBanner from '../assignActivityPackBanner'
 import getAuthToken from '../../modules/get_auth_token';
 import { Input, } from '../../../../Shared/index'
 
+const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+
 class LoginFormApp extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +19,7 @@ class LoginFormApp extends React.Component {
       password: '',
       errors: {},
       timesSubmitted: 0,
+      keepMeSignedIn: true
     };
   }
 
@@ -34,10 +37,10 @@ class LoginFormApp extends React.Component {
       mode: 'cors',
       credentials: 'include',
     }).then((response) => {
-    if (!response.ok) {
-      throw Error(response.statusText);
-    }
-    return response.json();
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
     });
   }
 
@@ -47,17 +50,8 @@ class LoginFormApp extends React.Component {
   }
 
   handleGoogleClick = (e) => {
-    this.fetchUser().then(userData => {
-        var now = new Date().toISOString();
-        if (userData.user === null || (userData.hasOwnProperty('role') && !userData.user.has_refresh_token) ||
-            now > userData.user.refresh_token_expires_at) {
-          window.location.href = '/auth/google_oauth2?prompt=consent';
-        }
-        else {
-            window.location.href = '/auth/google_oauth2';
-        }
-      }
-    );
+    const { googleLink, } = this.props
+    window.location.href = googleLink
   }
 
   handleKeyEnterOnSignUpLink = (e) => {
@@ -66,12 +60,16 @@ class LoginFormApp extends React.Component {
     this.handleSignUpClick(e)
   }
 
+  handleToggleKeepMeSignedIn = () => {
+    this.setState(prevState => ({ keepMeSignedIn: !prevState.keepMeSignedIn, }))
+  }
+
   handleSignUpClick = (e) => {
     window.location.href = '/account/new'
   }
 
   handleSubmit = (e) => {
-    const { timesSubmitted, email, password, } = this.state;
+    const { timesSubmitted, email, password, keepMeSignedIn, } = this.state;
     e.preventDefault();
     request({
       url: `${process.env.DEFAULT_URL}/session/login_through_ajax`,
@@ -81,29 +79,29 @@ class LoginFormApp extends React.Component {
           email,
           password,
         },
+        keep_me_signed_in: keepMeSignedIn,
         authenticity_token: getAuthToken(),
       },
     },
-    (err, httpResponse, body) => {
-      if (httpResponse.statusCode === 200 && body.redirect) {
-        // console.log(body);
-        window.location = body.redirect;
-      } else {
-        let state;
-        if (body.type && body.message) {
-          const errors = {};
-          errors[body.type] = body.message;
-          state = { lastUpdate: new Date(), errors, timesSubmitted: timesSubmitted + 1, };
+      (err, httpResponse, body) => {
+        if (httpResponse.statusCode === 200 && body.redirect) {
+          window.location = body.redirect;
         } else {
-          let message = 'You have entered an incorrect email/username or password.';
-          if (httpResponse.statusCode === 429) {
-            message = 'Too many failed attempts. Please wait one minute and try again.';
+          let state;
+          if (body.type && body.message) {
+            const errors = {};
+            errors[body.type] = body.message;
+            state = { lastUpdate: new Date(), errors, timesSubmitted: timesSubmitted + 1, };
+          } else {
+            let message = 'You have entered an incorrect email/username or password.';
+            if (httpResponse.statusCode === 429) {
+              message = 'Too many failed attempts. Please wait one minute and try again.';
+            }
+            state = { lastUpdate: new Date(), message: (body.message || message), };
           }
-          state = { lastUpdate: new Date(), message: (body.message || message), };
+          this.setState(state);
         }
-        this.setState(state);
-      }
-    });
+      });
   }
 
   submitClass = () => {
@@ -113,6 +111,17 @@ class LoginFormApp extends React.Component {
       buttonClass += ' disabled';
     }
     return buttonClass;
+  }
+
+  renderKeepMeSignedIn = () => {
+    const { keepMeSignedIn, } = this.state
+    let checkbox
+    if (keepMeSignedIn) {
+      checkbox = <button aria-checked={true} className="quill-checkbox selected focus-on-light" onClick={this.handleToggleKeepMeSignedIn} onKeyDown={this.handleKeyDownOnToggleNewsletter} role="checkbox" type="button"><img alt="check" src={smallWhiteCheckSrc} /></button>
+    } else {
+      checkbox = <button aria-checked={false} aria-label="Unchecked" className="quill-checkbox unselected focus-on-light" onClick={this.handleToggleKeepMeSignedIn} role="checkbox" type="button" />
+    }
+    return <div className="keep-me-signed-in-row">{checkbox} <p>Keep me signed in</p></div>
   }
 
   render() {
@@ -133,7 +142,7 @@ class LoginFormApp extends React.Component {
                 <span>Log in with Clever</span>
               </button>
             </div>
-            <div className="break"><span  />or<span  /></div>
+            <div className="break"><span />or<span /></div>
             <div className="login-form">
               <div>
                 <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
@@ -143,6 +152,7 @@ class LoginFormApp extends React.Component {
                     className="email"
                     error={errors.email}
                     handleChange={this.onEmailChange}
+                    id="email-or-username"
                     label="Email or username"
                     timesSubmitted={timesSubmitted}
                     type="text"
@@ -159,9 +169,17 @@ class LoginFormApp extends React.Component {
                     value={password}
                   />
                   <div className="forget-and-show-password">
+                    {this.renderKeepMeSignedIn()}
                     <a className="inline-link" href="/password_reset">Forgot password?</a>
                   </div>
-                  <input aria-label="Log in" className={this.submitClass()} name="commit" type="submit" value="Log in" />
+                  <input
+                    aria-label="Log in"
+                    className={this.submitClass()}
+                    id="log-in"
+                    name="commit"
+                    type="submit"
+                    value="Log in"
+                  />
                 </form>
               </div>
             </div>

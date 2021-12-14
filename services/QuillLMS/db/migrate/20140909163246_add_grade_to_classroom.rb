@@ -1,4 +1,6 @@
-class AddGradeToClassroom < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddGradeToClassroom < ActiveRecord::Migration[4.2]
   def change
     add_column :classrooms, :grade, :string
     add_index :classrooms, :grade

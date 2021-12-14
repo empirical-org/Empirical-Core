@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>calendar-plus</title>
+    <g id="------↳-Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-1696.000000, -223.000000)">
+            <g id="calendar-plus" transform="translate(1696.000000, 223.000000)">
+                <rect id="Rectangle" fill="#E1F3F1" x="0" y="0" width="72" height="72" rx="8"></rect>
+                <g id="calendar-event-create" transform="translate(13.000000, 13.000000)" fill-rule="nonzero">
+                    <path d="M0,44 C0,45.105 0.895,46 2,46 L44,46 C45.105,46 46,45.105 46,44 L46,14 L0,14 L0,44 Z" id="Path" fill="#DEDEDE"></path>
+                    <path d="M44,4 L2,4 C0.895,4 0,4.895 0,6 L0,14 L46,14 L46,6 C46,4.895 45.105,4 44,4 Z" id="Path" fill="#E86C60"></path>
+                    <path d="M9,9 L9,1 C9,0.448 9.448,0 10,0 L12,0 C12.552,0 13,0.448 13,1 L13,9 C13,9.552 12.552,10 12,10 L10,10 C9.448,10 9,9.552 9,9 Z" id="Path" fill="#444444"></path>
+                    <path d="M33,9 L33,1 C33,0.448 33.448,0 34,0 L36,0 C36.552,0 37,0.448 37,1 L37,9 C37,9.552 36.552,10 36,10 L34,10 C33.448,10 33,9.552 33,9 Z" id="Path" fill="#444444"></path>
+                    <path d="M29,28 L24,28 L24,23 C24,22.448 23.553,22 23,22 C22.447,22 22,22.448 22,23 L22,28 L17,28 C16.447,28 16,28.448 16,29 C16,29.552 16.447,30 17,30 L22,30 L22,35 C22,35.552 22.447,36 23,36 C23.553,36 24,35.552 24,35 L24,30 L29,30 C29.553,30 30,29.552 30,29 C30,28.448 29.553,28 29,28 Z" id="Path" fill="#06806B"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

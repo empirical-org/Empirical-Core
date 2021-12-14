@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: activity_sessions
 #
 #  id                    :integer          not null, primary key
 #  completed_at          :datetime
-#  data                  :hstore
+#  data                  :jsonb
 #  is_final_score        :boolean          default(FALSE)
 #  is_retry              :boolean          default(FALSE)
 #  percentage            :float

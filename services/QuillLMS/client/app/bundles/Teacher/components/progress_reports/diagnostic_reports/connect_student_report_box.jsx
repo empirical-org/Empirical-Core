@@ -28,6 +28,7 @@ export default createReactClass({
 	},
 
     conceptsByAttempt: function() {
+		const maxAttemptsIncorrectFeedback = 'Nice effort! You worked hard to make your sentence stronger.'
 		const conceptsByAttempt = this.groupByAttempt();
 		let attemptNum = 1;
 		let results = [];
@@ -39,13 +40,19 @@ export default createReactClass({
 				let index = 0;
 				// iterate until we find a next attempt with directions
 				while (!feedback && nextAttempt[index]) {
-					feedback = nextAttempt[index].directions
+					// in some legacy data, we were not storing feedback in lastFeedback, but in directions.
+					// so the second clause accounts for legacy data without lastFeedback fields.
+					feedback = nextAttempt[index].lastFeedback || nextAttempt[index].directions
 					index += 1;
 				}
-				// sometimes feedback is coming through as a react variable, I've been unable to find the source of it
-				if (typeof feedback === 'string') {
-					feedback = this.feedbackOrDirections(feedback, 'Feedback')
-				}
+			} else if (currAttempt[0].feedback) {
+				// this is the last attempt, so if it was incorrect then we return the default max attempts feedback
+				// that the student saw
+				feedback = currAttempt[0].correct ? currAttempt[0].feedback : maxAttemptsIncorrectFeedback
+			}
+			// sometimes feedback is coming through as a react variable, I've been unable to find the source of it
+			if (feedback && typeof feedback === 'string') {
+				feedback = this.feedbackOrDirections(feedback, 'Feedback')
 			}
 			let score = 0;
 			let concepts = currAttempt.map((concept)=>{
@@ -87,6 +94,7 @@ export default createReactClass({
 		// don't just do ...questionData && ...questionData.questionScore because
 		// if it questionScore is zero it will evaluate to false
 		if (typeof this.props.questionData.questionScore !== undefined) {
+      if (!this.props.showScore) return;
       let score
       if (this.props.questionData.questionScore) {
         score = this.props.questionData.questionScore * 100

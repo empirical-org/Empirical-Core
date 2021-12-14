@@ -149,6 +149,8 @@ export default class RenderTextEditor extends React.Component {
     onChange(stripHTML, this.answerBox);
   }
 
+  handleDrop = (e) => e.preventDefault()
+
   render() {
     const { hasError, disabled, value, spellCheck, placeholder, } = this.props
     const tabIndex = disabled ? -1 : 0
@@ -163,6 +165,7 @@ export default class RenderTextEditor extends React.Component {
               html={this.displayedHTML()}
               innerRef={this.setAnswerBoxRef}
               onChange={this.handleTextChange}
+              onDrop={this.handleDrop}
               onKeyDown={this.handleKeyDown}
               placeholder={placeholder}
               spellCheck={false}

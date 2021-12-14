@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdminsController < ApplicationController
   before_action :admin!
   before_action :set_teacher,
@@ -34,18 +36,16 @@ class AdminsController < ApplicationController
     redirect_to teachers_my_account_path
   end
 
-  private
-
-  def set_teacher
+  private def set_teacher
     @teacher = User.find(params[:id])
   end
 
-  def admin_of_this_teacher!
+  private def admin_of_this_teacher!
     return if SchoolsAdmins.where(user_id: current_user.id, school_id: @teacher.school.id).limit(1).exists?
     auth_failed
   end
 
-  def sign_in
+  private def sign_in
     session[:admin_id] = current_user.id
     super(@teacher)
   end

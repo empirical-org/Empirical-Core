@@ -3,8 +3,16 @@ export {
 } from './archivedButton'
 
 export {
+  ButtonLoadingSpinner
+} from './buttonLoadingSpinner'
+
+export {
   Card
 } from './card'
+
+export {
+  ExpandableCard
+} from './expandableCard'
 
 export {
   CarouselAnimation
@@ -62,6 +70,10 @@ export {
 export {
   TeacherPreviewMenu
 } from './teacherPreviewMenu'
+
+export {
+  TeacherPreviewMenuButton
+} from './teacherPreviewMenuButton'
 
 export {
   TextEditor

@@ -1,4 +1,6 @@
-class DropLessonsTable < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class DropLessonsTable < ActiveRecord::Migration[4.2]
   def up
     drop_table :lessons
   end

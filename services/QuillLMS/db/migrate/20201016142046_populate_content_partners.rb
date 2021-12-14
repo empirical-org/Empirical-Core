@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'csv'
 
-class PopulateContentPartners < ActiveRecord::Migration
+class PopulateContentPartners < ActiveRecord::Migration[4.2]
   CONTENT_PARTNERS = ["Core Knowledge", "College Board", "Word Generation"]
 
   def change

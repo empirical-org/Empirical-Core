@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GenerateFullname
 
   def initialize(name)
@@ -8,11 +10,10 @@ class GenerateFullname
     generate_fullname
   end
 
-  private
-
   attr_reader :name
+  private :name
 
-  def generate_fullname
+  private def generate_fullname
     first_name, last_name = SplitName.new(name).call
 
     if last_name.nil? && first_name.present?

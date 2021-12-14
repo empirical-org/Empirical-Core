@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Cms::BlogPostsController, type: :controller do
@@ -29,7 +31,7 @@ describe Cms::BlogPostsController, type: :controller do
     let(:bpost) { build(:blog_post) }
 
     it 'should create the blog post with the params given' do
-      post :create, blog_post: bpost.attributes
+      post :create, params: { blog_post: bpost.attributes }, as: :json
       expect(BlogPost.last.body).to eq bpost.body
       expect(BlogPost.last.title).to eq bpost.title
       expect(BlogPost.last.topic).to eq bpost.topic
@@ -44,7 +46,7 @@ describe Cms::BlogPostsController, type: :controller do
     let!(:bpost) { create(:blog_post) }
 
     it 'should update the given blog post' do
-      post :update, id: bpost.id, blog_post: { title: "new test title" }
+      post :update, params: { id: bpost.id, blog_post: { title: "new test title" } }
       expect(bpost.reload.title).to eq "new test title"
     end
   end
@@ -53,7 +55,7 @@ describe Cms::BlogPostsController, type: :controller do
     let!(:bpost) { create(:blog_post) }
 
     it 'should destroy the given blog post' do
-      delete :destroy, id: bpost.id
+      delete :destroy, params: { id: bpost.id }
       expect{BlogPost.find(bpost.id)}.to raise_exception(ActiveRecord::RecordNotFound)
     end
   end
@@ -62,7 +64,7 @@ describe Cms::BlogPostsController, type: :controller do
     let!(:bpost) { create(:blog_post) }
 
     it 'should make draft true in the given blog post' do
-      get :unpublish, id: bpost.id
+      get :unpublish, params: { id: bpost.id }
       expect(bpost.reload.draft).to eq true
       expect(flash[:success]).to eq "Blog post successfully set to draft."
       expect(response).to redirect_to cms_blog_posts_path
@@ -74,7 +76,7 @@ describe Cms::BlogPostsController, type: :controller do
     let!(:bpost1) { create(:blog_post) }
 
     it 'should update the order number for all given blog posts' do
-      get :update_order_numbers, blog_posts: [{ id: bpost.id, order_number: 2 }, { id: bpost1.id, order_number: 4 }].to_json
+      get :update_order_numbers, params: { blog_posts: [{ id: bpost.id, order_number: 2 }, { id: bpost1.id, order_number: 4 }].to_json }
       expect(bpost.reload.order_number).to eq 2
       expect(bpost1.reload.order_number).to eq 4
     end
@@ -85,7 +87,7 @@ describe Cms::BlogPostsController, type: :controller do
     let!(:bpost1) { create(:blog_post) }
 
     it 'should update the order number for all given blog posts' do
-      get :update_featured_order_numbers, blog_posts: [{ id: bpost.id, featured_order_number: 2 }, { id: bpost1.id, featured_order_number: 4 }].to_json
+      get :update_featured_order_numbers, params: { blog_posts: [{ id: bpost.id, featured_order_number: 2 }, { id: bpost1.id, featured_order_number: 4 }].to_json }
       expect(bpost.reload.featured_order_number).to eq 2
       expect(bpost1.reload.featured_order_number).to eq 4
     end

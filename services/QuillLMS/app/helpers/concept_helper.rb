@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ConceptHelper
   def all_concept_stats(activity_session)
     return '' unless activity_session.present?
@@ -9,10 +11,8 @@ module ConceptHelper
     end
   end
 
-  private
-
   # TODO: These stats should all be pre-calculated and cached
-  def stats_for_concept(concept, concept_results)
+  private def stats_for_concept(concept, concept_results)
     correct_count = 0
     incorrect_count = 0
     concept_results.each do |result|

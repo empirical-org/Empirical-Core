@@ -7,7 +7,7 @@
         <div class="gallery-item">
           <p><span>Link:</span> <a target="_blank" href="<%= i.file.url %>"><%= i.file.url %></a></p>
           <a target="_blank" href="<%= i.file.url %>"><img src="<%= i.file.url %>"></img></a>
-          <%= link_to "/cms/images/#{i.id}", method: 'delete', class: 'trash-link' do %>
+          <%= button_to "/cms/images/#{i.id}", method: 'delete', class: 'trash-link' do %>
             <i class="fas fa-icon fa-trash"></i>
           <% end %>
           </span>

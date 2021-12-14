@@ -1,9 +1,15 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe SyncVitallyUsersWorker do
   let(:subject) { described_class.new }
   let(:school) { create(:school) }
   let(:user) { create(:teacher, school: school) }
+  before do
+    create(:activity_classification, key: 'diagnostic')
+    create(:activity_classification, key: 'evidence')
+  end
 
   describe '#perform' do
     it 'build payloads from user objects and batch send them to Vitally' do

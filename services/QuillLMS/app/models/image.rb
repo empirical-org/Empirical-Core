@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: images
@@ -7,7 +9,6 @@
 #  created_at :datetime
 #  updated_at :datetime
 #
-class Image < ActiveRecord::Base
+class Image < ApplicationRecord
   mount_uploader :file, FileUploader
-
 end

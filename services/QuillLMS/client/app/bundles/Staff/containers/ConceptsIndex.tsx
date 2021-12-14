@@ -82,10 +82,11 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
     this.setState({ visible, selectedConcept: {}, searchValue: '' })
   }
 
-  filterConcepts(concepts:Array<Concept>, searchValue:string):Array<Concept>{
+  filterConcepts(concepts:Array<Concept>, searchValue: string):Array<Concept>{
+    const { fuse, } = this.state
     if (searchValue == '') {return concepts};
-    if (this.state.fuse) {
-      return this.state.fuse.search(searchValue)
+    if (fuse) {
+      return fuse.search(searchValue)
     } else {
       const options = {
         shouldSort: true,
@@ -109,8 +110,8 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
     }
   }
 
-  updateSearchValue(searchValue:string):void {
-    this.setState({searchValue})
+  updateSearchValue(e):void {
+    this.setState({searchValue: e.target.value})
   }
 
   selectConcept(conceptID, levelNumber) {

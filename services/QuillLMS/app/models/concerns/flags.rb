@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Flags
   extend ActiveSupport::Concern
-  FLAGS = %w(production archive alpha beta private)
+  FLAGS = %w(production archive alpha beta gamma private)
 
   module ClassMethods
     def flag_all flag

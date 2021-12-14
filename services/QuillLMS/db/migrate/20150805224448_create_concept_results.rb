@@ -1,4 +1,6 @@
-class CreateConceptResults < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateConceptResults < ActiveRecord::Migration[4.2]
   def change
     create_table :concept_results do |t|
       t.integer "activity_session_id"

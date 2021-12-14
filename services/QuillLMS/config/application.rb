@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path('../boot', __FILE__)
 
 # Pick the frameworks you want:
@@ -35,6 +37,7 @@ module EmpiricalGrammar
       #{config.root}/app/services
       #{config.root}/app/services/analytics
       #{config.root}/app/queries/scorebook
+      #{config.root}/app/services/vitally_integration
     )
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
@@ -69,11 +72,17 @@ module EmpiricalGrammar
     config.middleware.use Rack::Attack
     config.middleware.use Rack::Affiliates, { param: 'referral_code' }
 
-    config.middleware.insert_before 0, "Rack::Cors" do
+    config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins 'quill.org', %r{https://(.)*.quill.org}, /localhost:.*/, /127.0.0.1:.*/
         resource '/api/*', headers: :any, methods: [:get, :post, :patch, :put, :delete, :options], credentials: true
       end
     end
+
+    config.public_file_server.enabled = true
+
+    config.public_file_server.headers = {
+      'Access-Control-Allow-Origin' => '*'
+    }
   end
 end

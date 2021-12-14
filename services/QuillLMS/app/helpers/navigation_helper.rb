@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NavigationHelper
   def home_page_should_be_active?
     ['dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name) || (controller_name == 'subscriptions' && action_name == 'index') || controller_name == 'referrals'
@@ -54,7 +56,7 @@ module NavigationHelper
 
   def playing_activity?
     activity_actions = [
-        ApplicationController::COMPREHENSION,
+        ApplicationController::EVIDENCE,
         ApplicationController::PROOFREADER,
         ApplicationController::GRAMMAR,
         ApplicationController::LESSONS,

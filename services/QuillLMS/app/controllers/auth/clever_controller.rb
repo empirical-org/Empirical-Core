@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Auth::CleverController < ApplicationController
 
   # Theres an issue here - if a student belongs to multiple clever classrooms, then the student
@@ -22,15 +24,13 @@ class Auth::CleverController < ApplicationController
     send(result[:type], result[:data], result[:redirect])
   end
 
-  private
-
-  def district_success(data, redirect=nil)
+  private def district_success(data, redirect=nil)
     render status: 200, nothing: true # Don't bother rendering anything.
   end
 
   # data is a user record
   # have to put a second argument in there due to the send method
-  def user_success(data, redirect=nil)
+  private def user_success(data, redirect=nil)
     CompleteAccountCreation.new(data, request.remote_ip).call if data.previous_changes["id"]
     data.update_attributes(ip_address: request.remote_ip)
     if session[ApplicationController::CLEVER_REDIRECT]
@@ -51,7 +51,7 @@ class Auth::CleverController < ApplicationController
     end
   end
 
-  def user_failure(data, redirect)
+  private def user_failure(data, redirect)
     flash[:notice] = data || "error"
     redirect_to redirect || '/clever/no_classroom'
   end

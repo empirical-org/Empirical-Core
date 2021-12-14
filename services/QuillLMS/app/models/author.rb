@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: authors
@@ -6,7 +8,7 @@
 #  avatar :text
 #  name   :string
 #
-class Author < ActiveRecord::Base
+class Author < ApplicationRecord
   has_many :unit_templates
   after_commit :delete_relevant_caches
 
@@ -16,8 +18,7 @@ class Author < ActiveRecord::Base
     avatar.blank? ? DEFAULT_AVATAR_URL : avatar
   end
 
-  private
-  def delete_relevant_caches
+  private def delete_relevant_caches
     UnitTemplate.delete_all_caches
   end
 end

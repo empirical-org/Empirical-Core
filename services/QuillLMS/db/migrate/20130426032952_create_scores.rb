@@ -1,4 +1,6 @@
-class CreateScores < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateScores < ActiveRecord::Migration[4.2]
   def change
     create_table :scores do |t|
       t.integer :user_id

@@ -1,4 +1,6 @@
-class ChangeArchivedDefaultForClassrooms < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class ChangeArchivedDefaultForClassrooms < ActiveRecord::Migration[4.2]
   def self.up
     change_table :classrooms do |t|
       t.change :archived, :boolean, default: false

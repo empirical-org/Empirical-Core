@@ -211,10 +211,6 @@ function getMatcherFields(type, question, responses) {
   }
 }
 
-function getGradedResponses(questionID) {
-  return request(`${CMS_URL}/questions/${questionID}/responses`);
-}
-
 function formatGradedResponses(referenceResponses) {
   const bodyToObj = {};
   referenceResponses.forEach((resp) => {

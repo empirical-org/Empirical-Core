@@ -1,8 +1,0 @@
-<% # variables: @activity, @question %>
-<div class='container play_new'>
-  <h2 class='instructions'>Read the following paragraph and complete the sentence below:</h2>
-  <h1 class='title'><%= @activity.title %></h3>
-  <div class="passage"><%=raw @activity.article %></div>
-  <h2 class="instructions">Complete this thesis statement using information from the paragaph above:</h2>
-  <div id="play-form" data-target="<%= question_play_index_url(@question) %>" data-prompt="<%= @question.prompt %>"></div>
-</div>

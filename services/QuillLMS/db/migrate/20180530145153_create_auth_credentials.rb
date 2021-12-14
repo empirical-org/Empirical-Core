@@ -1,4 +1,6 @@
-class CreateAuthCredentials < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateAuthCredentials < ActiveRecord::Migration[4.2]
   def change
     create_table :auth_credentials do |t|
       t.references :user, index: true, foreign_key: true, null: false

@@ -1,4 +1,6 @@
-class CreateCriteria < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateCriteria < ActiveRecord::Migration[4.2]
   def change
     create_table :criteria do |t|
       t.references :concept, index: true, foreign_key: true, null: false

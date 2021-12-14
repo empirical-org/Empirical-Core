@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_support/inflector'
 
 shared_context "calling the api" do
@@ -16,7 +18,7 @@ shared_examples "a simple api request" do
 
   before do
     create_list(lwc_model_name.to_sym, 3)
-    get :index
+    get :index, as: :json
   end
 
   it 'sends a list' do

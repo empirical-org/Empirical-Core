@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::CriteriaController < Cms::CmsController
   before_action :set_activity
   before_action :set_recommendation
@@ -51,26 +53,24 @@ class Cms::CriteriaController < Cms::CmsController
     )
   end
 
-  private
-
-  def set_criterion
+  private def set_criterion
     @criterion = Criterion.find(params[:id])
   end
 
-  def set_activity_classification
+  private def set_activity_classification
     @activity_classification = ActivityClassification
       .find(params[:activity_classification_id])
   end
 
-  def set_activity
+  private def set_activity
     @activity = Activity.find(params[:activity_id])
   end
 
-  def set_recommendation
+  private def set_recommendation
     @recommendation = Recommendation.find(params[:recommendation_id])
   end
 
-  def criterion_params
+  private def criterion_params
     params.require(:criterion)
       .permit(:concept_id, :category, :count, :no_incorrect)
   end

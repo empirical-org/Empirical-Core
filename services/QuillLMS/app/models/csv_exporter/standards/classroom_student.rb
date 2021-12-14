@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CsvExporter
   module Standards
     class ClassroomStudent
@@ -9,6 +11,7 @@ module CsvExporter
           'Proficient Standards',
           'Not Yet Proficient Standards',
           'Activities',
+          'Time Spent',
           'Average',
           'Overall Mastery Status'
         ]
@@ -23,6 +26,7 @@ module CsvExporter
           json_hash[:proficient_standard_count],
           json_hash[:not_proficient_standard_count],
           json_hash[:total_activity_count],
+          json_hash[:timespent],
           json_hash[:average_score],
           json_hash[:mastery_status]
         ]
@@ -32,9 +36,7 @@ module CsvExporter
         ::ProgressReports::Standards::Student.new(teacher).results(filters)
       end
 
-      private
-
-      def page_title(filters)
+      private def page_title(filters)
         classroom = ::Classroom.find(filters[:classroom_id])
         "Standards by Student: #{classroom.name}"
       end

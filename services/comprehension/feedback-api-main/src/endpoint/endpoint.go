@@ -1,5 +1,4 @@
-
-package endpoint
+package main
 
 import (
 	"bytes"
@@ -8,87 +7,110 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"fmt"
-	"sync"
 	"time"
+	"os"
 	"net/http/httputil"
+	"github.com/gin-gonic/gin"
 )
 
-const (
-	automl_api = "https://comprehension-247816.appspot.com/feedback/ml"
-	//automl_api = "https://www.quill.org/comprehension/ml_feedback.json"
-	grammar_check_api = "https://grammar-api.ue.r.appspot.com"
-	opinion_check_api = "https://opinion-api.ue.r.appspot.com/"
-	plagiarism_api = "https://www.quill.org/api/v1/comprehension/feedback/plagiarism.json"
-	regex_rules_api = "https://www.quill.org/api/v1/comprehension/feedback/regex.json"
-	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
-	spell_check_bing = "https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check"
-	batch_feedback_history_url = "https://www.quill.org/api/v1/feedback_histories/batch.json"
-	automl_index = 2
-)
-
-var wg sync.WaitGroup
-
-var urls = [...]string{
-	opinion_check_api,
-	plagiarism_api,
-	automl_api,
-	regex_rules_api,
-	grammar_check_api,
-	spell_check_bing,
-}
+const automl_index = 4
+const api_count = 9
 
 // you can't use const for structs, so this is the closest thing we can get for this value
 var default_api_response = APIResponse{
 	Feedback: "Thank you for your response.",
-	Feedback_type: "semantic",
+	Feedback_type: "autoML",
 	Optimal: true,
 }
 
 // TODO: This is a temporary replacement `http` that allows us to bypass SSL security checks
-var client = &http.Client {
+var base_client = &http.Client {
 	Transport: &http.Transport {
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	},
+	Timeout: time.Millisecond * 5000,
 }
 
+func GetFeedbackHistoryUrl() (string) {
+	lms_domain := GetLMSDomain()
+	return fmt.Sprintf("%s/api/v1/feedback_histories.json", lms_domain)
+}
 
-func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
-	// need this for javascript cors requests
-	// https://cloud.google.com/functions/docs/writing/http#functions_http_cors-go
-	if request.Method == http.MethodOptions {
-		responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
-		responseWriter.Header().Set("Access-Control-Allow-Methods", "POST")
-		responseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-		responseWriter.Header().Set("Access-Control-Max-Age", "3600")
-		responseWriter.WriteHeader(http.StatusNoContent)
-		return
+func GetLMSDomain() (string) {
+	var maybe_domain = os.Getenv("lms_domain")
+
+	var lms_domain = "https://www.quill.org"
+
+	if len(maybe_domain) > 0 {
+		lms_domain = maybe_domain
+	}
+	return lms_domain
+}
+
+func GetOpinionDomain() (string) {
+	var maybe_domain = os.Getenv("opinion_domain")
+
+	var opinion_domain = "https://opinion-api.quill.org"
+
+	if len(maybe_domain) > 0 {
+		opinion_domain = maybe_domain
+	}
+	return opinion_domain
+}
+
+func AssembleUrls() ([api_count]string) {
+	lms_domain := GetLMSDomain()
+	opinion_domain := GetOpinionDomain()
+
+	var (
+		automl_api                    = fmt.Sprintf("%s/api/v1/evidence/feedback/automl.json", lms_domain)
+		plagiarism_api                = fmt.Sprintf("%s/api/v1/evidence/feedback/plagiarism.json", lms_domain)
+		prefilters_api                = fmt.Sprintf("%s/api/v1/evidence/feedback/prefilter.json", lms_domain)
+		sentence_structure_regex_api  = fmt.Sprintf("%s/api/v1/evidence/feedback/regex/rules-based-1.json", lms_domain)
+		post_topic_regex_api          = fmt.Sprintf("%s/api/v1/evidence/feedback/regex/rules-based-2.json", lms_domain)
+		typo_regex_api                = fmt.Sprintf("%s/api/v1/evidence/feedback/regex/rules-based-3.json", lms_domain)
+		spell_check_bing              = fmt.Sprintf("%s/api/v1/evidence/feedback/spelling.json", lms_domain)
+		grammar_check_api             = "https://quill.spell.services/Quill/grammar/predict"
+		opinion_check_api             = fmt.Sprintf("%s/", opinion_domain)
+	)
+
+	var urls = [...]string{
+		prefilters_api,
+		sentence_structure_regex_api,
+		opinion_check_api,
+		plagiarism_api,
+		automl_api,
+		post_topic_regex_api,
+		grammar_check_api,
+		spell_check_bing,
+		typo_regex_api,
 	}
 
-	requestDump, err := httputil.DumpRequest(request, true)
+	return urls
+}
+
+func Endpoint(context *gin.Context) {
+	urls := AssembleUrls()
+
+	requestDump, err := httputil.DumpRequest(context.Request, true)
 	if err != nil {
 		fmt.Println(err)
 	}
 	fmt.Println(string(requestDump))
 
-	request_body, err := ioutil.ReadAll(request.Body)
+	request_body, err := ioutil.ReadAll(context.Request.Body)
 	if err != nil {
 		//TODO make this response in the same format maybe?
-		http.Error(responseWriter, err.Error(), http.StatusInternalServerError)
+		context.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	results := map[int]InternalAPIResponse{}
 
-	c := make(chan InternalAPIResponse)
-
-	for priority, url := range urls {
-		go getAPIResponse(url, priority, request_body, c)
-	}
-
 	var returnable_result APIResponse
 
-	for response := range c {
-		results[response.Priority] = response
+	for index, url := range urls {
+		results[index] = getAPIResponse(url, index, request_body, base_client)
 		return_index, finished := processResults(results, len(urls))
 
 		if finished {
@@ -107,9 +129,6 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 		}
 	}
 
-	// TODO make this a purely async task instead of coroutine that waits to finish
-	wg.Add(1)
-
 	var request_object APIRequest
 	// TODO convert the 'feedback' bytes and combine with incoming_params bytes
 	// instead of transforming from bytes to object, combining, and then converting back to bytes
@@ -117,13 +136,12 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	go batchRecordFeedback(request_object, results)
+	recordFeedback(request_object, returnable_result, GetFeedbackHistoryUrl(), base_client)
 
-	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
-	responseWriter.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(responseWriter).Encode(returnable_result)
+	context.Header("Access-Control-Allow-Origin", "*")
+	context.Header("Content-Type", "application/json")
+	context.JSON(200, returnable_result)
 
-	wg.Wait()
 }
 // returns a typle of results index and that should be returned.
 func processResults(results map[int]InternalAPIResponse, length int) (int, bool) {
@@ -143,7 +161,8 @@ func processResults(results map[int]InternalAPIResponse, length int) (int, bool)
 	return automl_index, all_correct
 }
 
-func getAPIResponse(url string, priority int, json_params [] byte, c chan InternalAPIResponse) {
+func getAPIResponse(url string, priority int, json_params [] byte, client *http.Client) InternalAPIResponse {
+
 	// response_json, err := http.Post(url, "application/json", bytes.NewReader(json_params))
 
 	// TODO For now, just swallow any errors from this, but we'd want to report errors.
@@ -151,84 +170,70 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 	response_json, err := client.Post(url, "application/json",  bytes.NewReader(json_params))
 
 	if err != nil {
-		c <- InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an error hitting the API", Feedback_type: "API Error", Optimal: false}}
-		return
+		return InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an error hitting the API", Feedback_type: "API Error", Optimal: false}}
+
 	}
+	defer response_json.Body.Close()
 
 	var result APIResponse
 
 	if err := json.NewDecoder(response_json.Body).Decode(&result); err != nil {
 		// TODO might want to think about what this should be.
-		c <- InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an JSON error" + err.Error(), Feedback_type: "API Error", Labels: url, Optimal: false}}
-		return
+		return InternalAPIResponse{Priority: priority, Error: true, APIResponse: APIResponse{Feedback: "There was an JSON error" + err.Error(), Feedback_type: "API Error", Labels: url, Optimal: false}}
+
 	}
 
-	c <- InternalAPIResponse{Priority: priority, Error: false, APIResponse: result}
+	return InternalAPIResponse{Priority: priority, Error: false, APIResponse: result}
 }
 
 func identifyUsedFeedbackIndex(feedbacks map[int]InternalAPIResponse) int {
-	for key, feedback := range feedbacks {
+	for i := 0; i < len(feedbacks); i++ {
+		feedback := feedbacks[i]
 		if !feedback.Error && !feedback.APIResponse.Optimal {
-			return key
+			return i
 		}
+	}
+	// If none of the feedbacks are non-optimal, check to see if automl is feedback
+	// is not optimal and not in error.  Because if it so, that's the feedback we'll use
+	if !feedbacks[automl_index].Error && feedbacks[automl_index].APIResponse.Optimal {
+		return automl_index
 	}
 	// We use -1 as the return value if we couldn't find an index since
 	// it should correspond to no index
 	return -1
 }
 
-func buildFeedbackHistory(request_object APIRequest, feedback InternalAPIResponse, used bool, time_received time.Time) FeedbackHistory {
+func buildFeedbackHistory(request_object APIRequest, feedback APIResponse, used bool, time_received time.Time) FeedbackHistory {
 	return FeedbackHistory{
-		Activity_session_uid: request_object.Session_id,
+		Feedback_session_uid: request_object.Session_id,
 		Prompt_id: request_object.Prompt_id,
-		Concept_uid: feedback.APIResponse.Concept_uid,
+		Concept_uid: feedback.Concept_uid,
 		Attempt: request_object.Attempt,
 		Entry: request_object.Entry,
-		Feedback_text: feedback.APIResponse.Feedback,
-		Feedback_type: feedback.APIResponse.Feedback_type,
-		Optimal: feedback.APIResponse.Optimal,
+		Feedback_text: feedback.Feedback,
+		Feedback_type: feedback.Feedback_type,
+		Optimal: feedback.Optimal,
 		Used: used,
 		Time: time_received,
-		Rule_uid: feedback.APIResponse.Rule_uid,
+		Rule_uid: feedback.Rule_uid,
 		Metadata: FeedbackHistoryMetadata{
-			Highlight: feedback.APIResponse.Highlight,
-			Labels: feedback.APIResponse.Labels,
-			Response_id: feedback.APIResponse.Response_id,
+			Highlight: feedback.Highlight,
+			Labels: feedback.Labels,
+			Response_id: feedback.Response_id,
 		},
 	}
 }
 
-func buildBatchFeedbackHistories(request_object APIRequest, feedbacks map[int]InternalAPIResponse, time_received time.Time) (BatchHistoriesAPIRequest, error) {
-	feedback_histories := []FeedbackHistory{}
-	used_key := identifyUsedFeedbackIndex(feedbacks)
-	for key, feedback := range feedbacks {
-		if !feedback.Error{
-			feedback_histories = append(feedback_histories, buildFeedbackHistory(request_object, feedback, used_key == key, time_received))
-		} else if key == automl_index {
-			fallback_feedback := InternalAPIResponse{APIResponse: default_api_response}
-			feedback_histories = append(feedback_histories, buildFeedbackHistory(request_object, fallback_feedback, used_key == -1, time_received))
-		}
-	}
+func recordFeedback(incoming_params APIRequest, feedback APIResponse, feedback_history_url string, client *http.Client) {
 
-	return BatchHistoriesAPIRequest {
-		Feedback_histories: feedback_histories,
-	}, nil
-}
 
-func batchRecordFeedback(incoming_params APIRequest, feedbacks map[int]InternalAPIResponse) {
-	defer wg.Done() // mark task as done in WaitGroup on return
+	history := buildFeedbackHistory(incoming_params, feedback, true, time.Now())
 
-	histories, err := buildBatchFeedbackHistories(incoming_params, feedbacks, time.Now())
-
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	histories_json, _ := json.Marshal(histories)
+	history_json, _ := json.Marshal(history)
 
 	// TODO For now, just swallow any errors from this, but we'd want to report errors.
 	// TODO: Replace "client" with "http" when we remove the segment above
-	client.Post(batch_feedback_history_url, "application/json",  bytes.NewBuffer(histories_json))
+	client.Post(feedback_history_url, "application/json",  bytes.NewBuffer(history_json))
 }
 
 type APIRequest struct {
@@ -271,7 +276,7 @@ type FeedbackHistoryMetadata struct {
 }
 
 type FeedbackHistory struct {
-	Activity_session_uid string `json:"activity_session_uid"`
+	Feedback_session_uid string `json:"feedback_session_uid"`
 	Prompt_id int `json:"prompt_id"`
 	Concept_uid string `json:"concept_uid"`
 	Attempt int `json:"attempt"`
@@ -283,8 +288,4 @@ type FeedbackHistory struct {
 	Time time.Time `json:"time"`
 	Metadata FeedbackHistoryMetadata `json:"metadata"`
 	Rule_uid string `json:"rule_uid"`
-}
-
-type BatchHistoriesAPIRequest struct {
-	Feedback_histories []FeedbackHistory `json:"feedback_histories"`
 }

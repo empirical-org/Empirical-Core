@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: students_classrooms
@@ -44,7 +46,7 @@ describe StudentsClassrooms, type: :model, redis: true do
       let(:students_classrooms) { build(:students_classrooms) }
 
       it 'should find or create a checkbox' do
-        expect(students_classrooms).to receive(:find_or_create_checkbox).with('Add Students', students_classrooms.classroom.owner)
+        expect(students_classrooms).to receive(:find_or_create_checkbox).with(Objective::ADD_STUDENTS, students_classrooms.classroom.owner)
         students_classrooms.save
       end
     end
@@ -64,6 +66,12 @@ describe StudentsClassrooms, type: :model, redis: true do
 
       it "should call the ArchiveStudentAssociationsForClassroomWorker" do
         expect(ArchiveStudentAssociationsForClassroomWorker).to receive(:perform_async).with(student.id, student_classroom.classroom_id)
+        student_classroom.update(visible: false)
+      end
+
+      it "should not call the ArchiveStudentAssociationsForClassroomWorker if skip attribute is set to true" do
+        student_classroom.skip_archive_student_associations = true
+        expect(ArchiveStudentAssociationsForClassroomWorker).not_to receive(:perform_async).with(student.id, student_classroom.classroom_id)
         student_classroom.update(visible: false)
       end
     end

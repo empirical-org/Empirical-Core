@@ -41,6 +41,9 @@ export default {
   TOGGLE_NEW_LESSON_MODAL: 'TOGGLE_NEW_LESSON_MODAL',
   SET_LESSON_FLAG: 'SET_LESSON_FLAG',
 
+  // ACTIVITY HEALTH ACTIONS
+  SET_ACTIVITY_HEALTH_FLAG: 'SET_ACTIVITY_HEALTH_FLAG',
+
   // CLASSROOM_LESSON ACTIONS
   RECEIVE_CLASSROOM_LESSONS_DATA: 'RECEIVE_CLASSROOM_LESSONS_DATA',
   RECEIVE_CLASSROOM_LESSON_DATA: 'RECEIVE_CLASSROOM_LESSON_DATA',
@@ -325,5 +328,9 @@ export default {
     "Fill in the blank with the correct pronoun.",
     "Fill in the blank with the correct action word.",
     "Fill in the blank with the correct set of words."
-  ]
+  ],
+  
+  // flags
+  PRODUCTION: 'production'
+
 };

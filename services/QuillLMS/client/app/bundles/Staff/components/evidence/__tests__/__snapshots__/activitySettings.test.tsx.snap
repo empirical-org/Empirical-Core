@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivitySettings component should render ActivitySettings 1`] = `
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
+`;

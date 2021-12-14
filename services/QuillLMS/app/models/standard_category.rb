@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: standard_categories
@@ -9,7 +11,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class StandardCategory < ActiveRecord::Base
+class StandardCategory < ApplicationRecord
   include Uid
   include ArchiveAssociatedStandards
 
@@ -21,5 +23,5 @@ class StandardCategory < ActiveRecord::Base
 
   accepts_nested_attributes_for :change_logs
 
-  after_commit 'Activity.clear_activity_search_cache'
+  after_commit { Activity.clear_activity_search_cache }
 end

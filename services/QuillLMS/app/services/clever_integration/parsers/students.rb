@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration::Parsers::Students
 
   def self.run(students_response)
@@ -6,8 +8,6 @@ module CleverIntegration::Parsers::Students
     end
     parsed_response
   end
-
-  private
 
   def self.parse_student(student_response)
     CleverIntegration::Parsers::Student.run(student_response.data)

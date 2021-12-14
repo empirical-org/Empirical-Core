@@ -119,22 +119,24 @@ describe RematchResponseWorker do
       "spelling_error":false
     }]
   }.stringify_keys
-  reference_responses = []
-  sample_payload["referenceResponses"].each do |r|
-    reference_responses.push(Response.create_with(r).find_or_create_by(id: r[:id]))
-  end
+
 
   describe '#perform' do
     let(:response) { Response.create(sample_payload['response']) }
+    let(:reference_responses) do
+      sample_payload["referenceResponses"].map do |params|
+        create(:response, params)
+      end
+    end
+
     it 'should update the response based on the lambda payload' do
       stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/)
         .to_return(status: 200, body: sample_lambda_response.to_json, headers: {})
 
       reference_response_ids = reference_responses.map { |r| r.id }
 
-      expect(subject).to receive(:retrieve_question).with(sample_payload['question']['key']).and_return(sample_payload['question'])
       expect(subject).to receive(:rematch_response).with(response, sample_payload['type'], sample_payload['question'], reference_responses).and_call_original
-      subject.perform(response.id, sample_payload['type'], sample_payload['question']['key'], reference_response_ids)
+      subject.perform(response.id, sample_payload['type'], sample_payload['question'], reference_response_ids)
       response.reload
       expect(response.feedback).to eq(sample_lambda_response[:feedback])
     end
@@ -142,7 +144,6 @@ describe RematchResponseWorker do
     it 'should raise an Net::HTTPRetriableError on Gateway Timeout' do
       stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/)
         .to_return(status: [504, "Gateway timed out"])
-
       expect{subject.rematch_response(response, sample_payload['type'], sample_payload['question'], sample_payload['reference_responses'])}.to raise_error(Net::HTTPRetriableError)
     end
   end
@@ -170,6 +171,24 @@ describe RematchResponseWorker do
 
       result = subject.call_lambda_http_endpoint({})
       expect(result.stringify_keys).to eq(sample_lambda_response.stringify_keys)
+    end
+
+    it 'should make an HTTP request and raise LambdaHTTPError when status is 504' do
+      stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/)
+        .to_return(status: 504, body: sample_lambda_response.to_json, headers: {})
+
+      expect do 
+        subject.call_lambda_http_endpoint({})
+      end.to raise_error(Net::HTTPRetriableError)
+    end
+
+    it 'should make an HTTP request and raise LambdaHTTPError when status is not 200' do
+      stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/)
+        .to_return(status: 503, body: sample_lambda_response.to_json, headers: {})
+
+      expect do 
+        subject.call_lambda_http_endpoint({})
+      end.to raise_error(RematchResponseWorker::LambdaHTTPError)
     end
   end
 

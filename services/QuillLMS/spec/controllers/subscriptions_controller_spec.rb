@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe SubscriptionsController do
@@ -41,7 +43,7 @@ describe SubscriptionsController do
         end
 
         it 'should sign the user out' do
-          get :purchaser_name, id: user.subscriptions.first.id
+          get :purchaser_name, params: { id: user.subscriptions.first.id }
           expect(session[:attempted_path]).to eq request.fullpath
           expect(response).to redirect_to new_session_path
         end
@@ -50,7 +52,7 @@ describe SubscriptionsController do
       context 'when subscription is associated with current user' do
         it 'should render the purchaser name' do
           user.subscriptions.first.update(purchaser: user)
-          get :purchaser_name, id: user.subscriptions.first.id
+          get :purchaser_name, params: { id: user.subscriptions.first.id }
           expect(response.body).to eq({name: user.name}.to_json)
         end
       end
@@ -58,7 +60,7 @@ describe SubscriptionsController do
 
     describe '#create' do
       it 'should create the subscription' do
-        post :create, subscription: { purchaser_id: user.id, expiration: Date.today+10.days, account_type: "some_type", recurring: false }
+        post :create, params: { subscription: { purchaser_id: user.id, expiration: Date.today+10.days, account_type: "some_type", recurring: false } }
         expect(user.reload.subscriptions.last.account_type).to eq "some_type"
         expect(user.reload.subscriptions.last.recurring).to eq false
       end
@@ -66,7 +68,7 @@ describe SubscriptionsController do
 
     describe '#update' do
       it 'should update the given subscription' do
-        post :update, id: user.subscriptions.first, subscription: { account_type: "some_type" }
+        post :update, params: { id: user.subscriptions.first, subscription: { account_type: "some_type" } }
         expect(user.reload.subscriptions.first.account_type).to eq "some_type"
       end
     end
@@ -74,7 +76,7 @@ describe SubscriptionsController do
     describe '#destroy' do
       it 'should destroy the given subscription' do
         subscription = user.subscriptions.first
-        delete :destroy, id: subscription.id
+        delete :destroy, params: { id: subscription.id }
         expect{ Subscription.find(subscription.id) }.to raise_exception ActiveRecord::RecordNotFound
       end
     end
@@ -91,7 +93,7 @@ describe SubscriptionsController do
       it 'should redirect to login' do
         get :index
 
-        response.should redirect_to '/session/new'
+        expect(response).to redirect_to('/session/new')
       end
     end
 

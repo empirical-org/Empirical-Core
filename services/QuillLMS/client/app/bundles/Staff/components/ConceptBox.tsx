@@ -285,7 +285,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           />
           {this.renderRenameAndArchiveSection()}
         </div>
-        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} />
+        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
       </div>)
     } else if (levelNumber === 0) {
       return (<div>
@@ -309,7 +309,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
         </div>
         <RuleDescriptionField handleChange={this.changeDescription} ruleDescription={concept.description} />
         <ExplanationField explanation={concept.explanation} handleChange={this.changeExplanation} />
-        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} />
+        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
       </div>)
     }
   }

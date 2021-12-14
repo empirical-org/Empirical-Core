@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Types::ActivityCategoryType < Types::BaseObject
   graphql_name 'ActivityCategory'
 

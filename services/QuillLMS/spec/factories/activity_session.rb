@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :simple_activity_session, class: 'ActivitySession' do; end
 
+  # TODO: don't make all activity_sessions finished, used :finished trait
   factory :activity_session do
     activity            { create(:activity, :production) }
     uid                 { SecureRandom.urlsafe_base64 }
@@ -54,8 +57,19 @@ FactoryBot.define do
       is_final_score false
     end
 
+    trait :finished do
+      percentage {0.50}
+      state 'finished'
+      completed_at { Time.now }
+      is_final_score true
+    end
+
     factory :diagnostic_activity_session do
       activity { create(:diagnostic_activity) }
+    end
+
+    factory :evidence_activity_session do
+      activity { create(:evidence_activity) }
     end
 
     factory :proofreader_activity_session do

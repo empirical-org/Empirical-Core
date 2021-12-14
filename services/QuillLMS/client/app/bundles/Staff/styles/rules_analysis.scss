@@ -1,0 +1,58 @@
+.rules-analysis-container {
+  .dropdowns {
+    margin: 20px 0px;
+    min-height: 58px;
+    display: flex;
+  }
+
+  .dropdown-container {
+    max-width: 600px;
+    width: 100%;
+    margin-right: 40px;
+  }
+
+  .ReactTable .rt-thead .rt-resizable-header-content {
+    overflow: visible;
+    white-space: pre-wrap;
+    text-align: left;
+  }
+
+  .rt-table {
+    .rt-th {
+      border-bottom: 1px solid #eee;
+    }
+    .more-info {
+      padding: 10px;
+    }
+    .expand-cell {
+      font-size: 30px;
+      text-align: center;
+    }
+    .red {
+      color: red;
+    }
+    .orange {
+      color: orange;
+    }
+    .green {
+      color: green;
+    }
+    .gray {
+      color: gray;
+    }
+    .rt-td {
+      padding: 7px 10px;
+      border-right: none;
+      white-space: pre-wrap;
+    }
+    button {
+      height: 100%;
+      width: 100%;
+      border: none;
+      padding: 0px;
+      text-align: left;
+      background-color: white;
+    }
+  }
+
+}

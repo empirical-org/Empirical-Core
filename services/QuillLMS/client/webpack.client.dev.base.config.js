@@ -1,11 +1,12 @@
 const webpack = require('webpack');
 const path = require('path');
-const ManifestPlugin = require('webpack-manifest-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 
 const devBuild = process.env.RAILS_ENV === 'development';
 const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV
-const firebaseApiKey = process.env.FIREBASE_API_KEY;
-const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL;
+
+const goFanoutUrl = process.env.GOLANG_FANOUT_URL;
 const pusherKey = process.env.PUSHER_KEY;
 const defaultUrl = process.env.DEFAULT_URL;
 const cdnUrl = process.env.CDN_URL;
@@ -22,14 +23,13 @@ const mode = devBuild ? 'development' : 'production';
 const basePlugins = [
   new webpack.DefinePlugin({
     'process.env.RAILS_ENV': JSON.stringify(railsEnv),
-    'process.env.FIREBASE_API_KEY': JSON.stringify(firebaseApiKey),
-    'process.env.FIREBASE_DATABASE_URL': JSON.stringify(firebaseDatabaseUrl),
     'process.env.PUSHER_KEY': JSON.stringify(pusherKey),
     'process.env.DEFAULT_URL': JSON.stringify(defaultUrl),
     'process.env.CDN_URL': JSON.stringify(cdnUrl),
     'process.env.QUILL_GRAMMAR_URL': JSON.stringify(grammarUrl),
     'process.env.LESSONS_WEBSOCKETS_URL': JSON.stringify(lessonsWebsocketsUrl),
     'process.env.QUILL_CMS': JSON.stringify(quillCmsUrl),
+    'process.env.GOLANG_FANOUT_URL': JSON.stringify(goFanoutUrl),
     TRACE_TURBOLINKS: devBuild,
   }),
   new webpack.LoaderOptionsPlugin({
@@ -40,10 +40,11 @@ const basePlugins = [
       ],
     },
   }),
-  new ManifestPlugin({
+  new WebpackManifestPlugin({
     publicPath: output.publicPath,
     writeToFileEmit: true,
   }),
+  new NodePolyfillPlugin()
 ];
 
 module.exports = {
@@ -77,8 +78,8 @@ module.exports = {
     staff: [
       './app/bundles/Staff/startup/clientRegistration.js'
     ],
-    comprehension: [
-      './app/bundles/Comprehension/clientRegistration.js'
+    evidence: [
+      './app/bundles/Evidence/clientRegistration.js'
     ],
     proofreader: [
       './app/bundles/Proofreader/clientRegistration'
@@ -97,7 +98,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.mjs', '.js', '.jsx'],
     modules: [
       './node_modules',
       './app'
@@ -107,6 +108,11 @@ module.exports = {
       react: path.resolve('./node_modules/react'),
       'react-dom': path.resolve('./node_modules/react-dom'),
     },
+    fallback: {
+      net: false,
+      tls: false,
+      fs: false
+    }
   },
   plugins: basePlugins,
   module: {
@@ -162,11 +168,5 @@ module.exports = {
         },
       }
     ],
-  },
-  node: {
-    console: true,
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-  },
+  }
 };

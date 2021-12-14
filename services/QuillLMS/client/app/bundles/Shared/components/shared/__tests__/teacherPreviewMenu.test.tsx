@@ -30,7 +30,8 @@ describe('TeacherPreviewMenu component', () => {
         title: 'ghi'
       },
     },
-    showPreview: true
+    showPreview: true,
+    isOnMobile: false
   }
   const component = mount(
     <Provider store={store}>

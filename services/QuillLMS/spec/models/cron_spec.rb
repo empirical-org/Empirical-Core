@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require 'sidekiq/testing'
 
@@ -36,6 +38,16 @@ describe "Cron", type: :model do
       expect(ResetDemoAccountWorker).to receive(:perform_async)
       Cron.interval_1_day
     end
+
+    it "enqueues RematchUpdatedQuestionsWorker" do
+      expect(RematchUpdatedQuestionsWorker).to receive(:perform_async)
+      Cron.interval_1_day
+    end
+
+    it "enqueues RefreshQuestionCacheWorker" do
+      expect(RefreshQuestionCacheWorker).to receive(:perform_async).exactly(7).times
+      Cron.interval_1_day
+    end
   end
 
   describe "#run_saturday" do
@@ -46,6 +58,16 @@ describe "Cron", type: :model do
 
     it "enqueues SetImpactMetricsWorker" do
       expect(SetImpactMetricsWorker).to receive(:perform_async)
+      Cron.run_saturday
+    end
+
+    it 'enqueues PopulateAllActivityHealthsWorker' do
+      expect(PopulateAllActivityHealthsWorker).to receive(:perform_async)
+      Cron.run_saturday
+    end
+
+    it 'enqueues DeleteObsoleteActiveActivitySessionsWorker' do
+      expect(DeleteObsoleteActiveActivitySessionsWorker).to receive(:perform_async)
       Cron.run_saturday
     end
   end

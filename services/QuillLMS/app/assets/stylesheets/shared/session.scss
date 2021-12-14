@@ -10,6 +10,16 @@
   }
 }
 
+.keep-me-signed-in-row {
+  display: flex;
+  align-items: center;
+  p {
+    font-weight: normal;
+    color: #646464;
+    margin-left: 16px;
+  }
+}
+
 .inline-link {
   color: #009a80;
   font-weight: 600;

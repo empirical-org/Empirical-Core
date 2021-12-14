@@ -1,0 +1,238 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RegexRules component should render RegexRules 1`] = `
+<div
+  className="regex-rules-container"
+>
+  <div
+    className="regex-rule-container"
+    key="regex-rule-container-0"
+  >
+    <div
+      className="regex-input-container"
+    >
+      <Input
+        autoComplete="on"
+        className="regex-input"
+        handleChange={[MockFunction]}
+        id="regex-rule-0"
+        value="it contain(s)? methane gas"
+      />
+      <p
+        className="characters-remaining"
+      >
+        174
+         characters remaining
+      </p>
+      <div
+        className="checkbox-container"
+      >
+        <DropdownInput
+          className="rule-type-input"
+          handleChange={[Function]}
+          id="regex-rule-0"
+          isSearchable={true}
+          label="Sequence Type"
+          options={
+            Array [
+              Object {
+                "label": "Incorrect",
+                "value": "incorrect",
+              },
+              Object {
+                "label": "Required",
+                "value": "required",
+              },
+            ]
+          }
+          value={
+            Object {
+              "label": "Incorrect",
+              "value": "incorrect",
+            }
+          }
+        />
+        <label
+          className="case-sensitive-label"
+          htmlFor="regex-case-sensitive-0"
+        >
+          Case Sensitive?
+        </label>
+        <input
+          aria-labelledby="regex-rule-0"
+          checked={false}
+          id="regex-case-sensitive-0"
+          onChange={[MockFunction]}
+          type="checkbox"
+          value="regex-rule-0"
+        />
+      </div>
+    </div>
+    <button
+      className="quill-button fun primary outlined delete-regex-button"
+      id="remove-regex-button"
+      onClick={[MockFunction]}
+      type="button"
+      value="regex-rule-0"
+    >
+      remove
+    </button>
+  </div>
+  <div
+    className="regex-rule-container"
+    key="regex-rule-container-1"
+  >
+    <div
+      className="regex-input-container"
+    >
+      <Input
+        autoComplete="on"
+        className="regex-input"
+        handleChange={[MockFunction]}
+        id="regex-rule-1"
+        value="another reg(ex) line"
+      />
+      <p
+        className="characters-remaining"
+      >
+        180
+         characters remaining
+      </p>
+      <div
+        className="checkbox-container"
+      >
+        <DropdownInput
+          className="rule-type-input"
+          handleChange={[Function]}
+          id="regex-rule-1"
+          isSearchable={true}
+          label="Sequence Type"
+          options={
+            Array [
+              Object {
+                "label": "Incorrect",
+                "value": "incorrect",
+              },
+              Object {
+                "label": "Required",
+                "value": "required",
+              },
+            ]
+          }
+          value={
+            Object {
+              "label": "Incorrect",
+              "value": "incorrect",
+            }
+          }
+        />
+        <label
+          className="case-sensitive-label"
+          htmlFor="regex-case-sensitive-1"
+        >
+          Case Sensitive?
+        </label>
+        <input
+          aria-labelledby="regex-rule-1"
+          checked={true}
+          id="regex-case-sensitive-1"
+          onChange={[MockFunction]}
+          type="checkbox"
+          value="regex-rule-1"
+        />
+      </div>
+    </div>
+    <button
+      className="quill-button fun primary outlined delete-regex-button"
+      id="remove-regex-button"
+      onClick={[MockFunction]}
+      type="button"
+      value="regex-rule-1"
+    >
+      remove
+    </button>
+  </div>
+  <div
+    className="regex-rule-container"
+    key="regex-rule-container-2"
+  >
+    <div
+      className="regex-input-container"
+    >
+      <Input
+        autoComplete="on"
+        className="regex-input"
+        handleChange={[MockFunction]}
+        id="regex-rule-2"
+        value="some m?ore reg(ex"
+      />
+      <p
+        className="characters-remaining"
+      >
+        183
+         characters remaining
+      </p>
+      <div
+        className="checkbox-container"
+      >
+        <DropdownInput
+          className="rule-type-input"
+          handleChange={[Function]}
+          id="regex-rule-2"
+          isSearchable={true}
+          label="Sequence Type"
+          options={
+            Array [
+              Object {
+                "label": "Incorrect",
+                "value": "incorrect",
+              },
+              Object {
+                "label": "Required",
+                "value": "required",
+              },
+            ]
+          }
+          value={
+            Object {
+              "label": "Incorrect",
+              "value": "incorrect",
+            }
+          }
+        />
+        <label
+          className="case-sensitive-label"
+          htmlFor="regex-case-sensitive-2"
+        >
+          Case Sensitive?
+        </label>
+        <input
+          aria-labelledby="regex-rule-2"
+          checked={false}
+          id="regex-case-sensitive-2"
+          onChange={[MockFunction]}
+          type="checkbox"
+          value="regex-rule-2"
+        />
+      </div>
+    </div>
+    <button
+      className="quill-button fun primary outlined delete-regex-button"
+      id="remove-regex-button"
+      onClick={[MockFunction]}
+      type="button"
+      value="regex-rule-2"
+    >
+      remove
+    </button>
+  </div>
+  <button
+    className="quill-button fun primary outlined add-regex-button"
+    id="add-regex-button"
+    onClick={[MockFunction]}
+    type="button"
+  >
+    Add Sequence +
+  </button>
+</div>
+`;

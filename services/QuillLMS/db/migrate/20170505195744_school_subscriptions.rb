@@ -1,4 +1,6 @@
-class SchoolSubscriptions < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class SchoolSubscriptions < ActiveRecord::Migration[4.2]
   def change
     create_table :school_subscriptions do |t|
       t.integer :school_id

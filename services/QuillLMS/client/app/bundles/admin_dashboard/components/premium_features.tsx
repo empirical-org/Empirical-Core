@@ -21,9 +21,9 @@ const PremiumFeatures = () =>
         <div className="dividing-line" />
         <p>Quill Premium provides provides a one-hour remote PD session and priority support.</p>
         <div className="contact">
-          <img alt="maddy thumb" src="https://assets.quill.org/images/headshots/thumb-maddy-2.jpg" />
+          <img alt="jeremy thumb" src="https://assets.quill.org/images/team/team-jeremy-hertz@2x.png" />
           <div className="info">
-            <p><a className="green-link" href="mailto:maddy@quill.org">maddy@quill.org</a></p>
+            <p><a className="green-link" href="mailto:jeremy@quill.org">jeremy@quill.org</a></p>
             <p>510-671-0222</p>
           </div>
         </div>

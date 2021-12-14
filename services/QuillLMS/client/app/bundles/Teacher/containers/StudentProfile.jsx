@@ -1,27 +1,24 @@
 import React from 'react';
 import Pusher from 'pusher-js';
 import { connect } from 'react-redux';
+import qs from 'qs'
 
-import NotificationFeed  from '../components/student_profile/notification_feed';
 import StudentProfileUnits from '../components/student_profile/student_profile_units.jsx';
 import StudentProfileHeader from '../components/student_profile/student_profile_header';
 import StudentProfileClassworkTabs from '../components/student_profile/student_profile_classwork_tabs';
 import SelectAClassroom from '../../Student/components/selectAClassroom'
 import LoadingIndicator from '../components/shared/loading_indicator'
 import {
-  fetchNotifications,
   fetchStudentProfile,
   fetchStudentsClassrooms,
   handleClassroomClick,
   updateActiveClassworkTab
 } from '../../../actions/student_profile';
-import { ALL_ACTIVITIES, TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../constants/student_profile'
-
+import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../constants/student_profile'
 
 class StudentProfile extends React.Component {
   componentDidMount() {
     const {
-      fetchNotifications,
       fetchStudentProfile,
       fetchStudentsClassrooms,
       classroomId,
@@ -36,24 +33,32 @@ class StudentProfile extends React.Component {
       fetchStudentsClassrooms();
     }
 
-    // Remove following conditional when student notifications are ready to display
-    const displayFeature = false;
-    if (displayFeature) {
-      fetchNotifications();
-    }
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { selectedClassroomId, history, student, } = this.props
-    if (nextProps.selectedClassroomId && nextProps.selectedClassroomId !== selectedClassroomId) {
-      if (!window.location.href.includes(nextProps.selectedClassroomId)) {
-        history.push(`classrooms/${nextProps.selectedClassroomId}`);
+  componentDidUpdate(prevProps, prevState) {
+    const { selectedClassroomId, history, student, scores, loading, } = this.props
+
+    if (selectedClassroomId && selectedClassroomId !== prevProps.selectedClassroomId) {
+      if (!window.location.href.includes(selectedClassroomId)) {
+        history.push(`classrooms/${selectedClassroomId}`);
       }
     }
 
-    if (student !== nextProps.student) {
-      this.initializePusher(nextProps)
+    if (student !== prevProps.student) {
+      this.initializePusher(this.props)
     }
+
+    if (scores && !prevProps.scores && !loading) {
+      const focusedUnitId = this.parsedQueryParams().unit_id
+      const element = document.getElementById(focusedUnitId)
+      const elementTop = element ? element.getBoundingClientRect().top : 0
+      window.scrollTo(0, window.pageYOffset + elementTop - 70)
+    }
+  }
+
+  parsedQueryParams = () => {
+    const { history, } = this.props
+    return qs.parse(history.location.search.replace('?', ''))
   }
 
   handleClassroomTabClick = (classroomId) => {
@@ -64,7 +69,7 @@ class StudentProfile extends React.Component {
       history.push(newUrl);
       handleClassroomClick(classroomId);
       fetchStudentProfile(classroomId);
-      updateActiveClassworkTab(ALL_ACTIVITIES)
+      updateActiveClassworkTab(TO_DO_ACTIVITIES)
     }
   }
 
@@ -108,6 +113,7 @@ class StudentProfile extends React.Component {
       scores,
       activeClassworkTab,
       isBeingPreviewed,
+      history,
     } = this.props;
 
     if (loading) { return <LoadingIndicator /> }
@@ -136,6 +142,7 @@ class StudentProfile extends React.Component {
           isBeingPreviewed={isBeingPreviewed}
           loading={loading}
           nextActivitySession={nextActivitySession}
+          selectedUnitId={this.parsedQueryParams().unit_id}
           teacherName={student.classroom.teacher.name}
         />
       </div>
@@ -145,7 +152,6 @@ class StudentProfile extends React.Component {
 
 const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
-  fetchNotifications: () => dispatch(fetchNotifications()),
   fetchStudentProfile: classroomId => dispatch(fetchStudentProfile(classroomId)),
   fetchStudentsClassrooms: () => dispatch(fetchStudentsClassrooms()),
   handleClassroomClick: classroomId => dispatch(handleClassroomClick(classroomId)),

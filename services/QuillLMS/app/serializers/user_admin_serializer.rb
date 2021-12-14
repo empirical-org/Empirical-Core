@@ -1,14 +1,12 @@
+# frozen_string_literal: true
+
 class UserAdminSerializer < ActiveModel::Serializer
   attributes :id, :name, :email, :teachers, :valid_subscription, :schools
 
   def teachers
     teacher_ids = User.find(object.id).admins_teachers
-    if teacher_ids.any?
-      teachers_data = TeachersData.run(teacher_ids)
-      teachers_data.map{|t| Admin::TeacherSerializer.new(t, root: false) }
-    else
-      []
-    end
+    teachers_data = TeachersData.run(teacher_ids)
+    teachers_data.map{|t| Admin::TeacherSerializer.new(t, root: false) }
   end
 
   def valid_subscription

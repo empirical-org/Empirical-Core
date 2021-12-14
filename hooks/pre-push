@@ -1,4 +1,14 @@
 #!/bin/sh
 
+data_migration_check () {
+    git diff --stat --cached origin/`git branch --show-current` --name-only | grep "db/migrate"
+    if [ $? -eq 0 ] ; then
+        echo "This commit touches migration files. Have you performed the data migration safety checklist here?"
+        echo "https://www.notion.so/quill/Data-Deployment-Checklist-5bc331f53fda4fbc99bbba277c78998b"
+    fi
+}
+
+data_migration_check
 npm run eslint
+
 exit 0

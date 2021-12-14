@@ -35,6 +35,9 @@
   &.reorder-section {
     overflow: visible;
   }
+  &.tooltip-section {
+    overflow: visible;
+  }
 }
 
 .data-table-header, .data-table-row-section {
@@ -102,6 +105,7 @@
   .sort-arrow {
     margin-right: 8px;
     cursor: pointer;
+    margin-left: 4px;
     &.desc {
       transform: rotate(180deg);
     }

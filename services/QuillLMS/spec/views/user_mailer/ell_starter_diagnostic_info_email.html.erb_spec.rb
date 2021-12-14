@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe "user_mailer/ell_starter_diagnostic_info_email.html.erb", type: :view do
@@ -8,6 +10,6 @@ describe "user_mailer/ell_starter_diagnostic_info_email.html.erb", type: :view d
 
     render
 
-    rendered.should match("Eric")
+    expect(rendered).to match("Eric")
   end
 end

@@ -1,4 +1,6 @@
-class AddFunctionTimespentActivitySession < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddFunctionTimespentActivitySession < ActiveRecord::Migration[4.2]
   def up
     connection.execute(%q{
       CREATE OR REPLACE FUNCTION timespent_activity_session(act_sess int) RETURNS integer AS $$

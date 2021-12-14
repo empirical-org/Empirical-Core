@@ -1,4 +1,6 @@
-class DropActivitySessionLogs < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class DropActivitySessionLogs < ActiveRecord::Migration[4.2]
   def up
     connection.execute(
       <<~SQL.squish

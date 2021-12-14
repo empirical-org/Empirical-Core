@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: activities
@@ -30,13 +32,18 @@
 #  fk_rails_...  (raw_score_id => raw_scores.id)
 #  fk_rails_...  (standard_id => standards.id)
 #
-class Activity < ActiveRecord::Base
+class Activity < ApplicationRecord
   include Flags
   include Uid
 
   validate :data_must_be_hash
 
+  has_many :skill_group_activities
+  has_many :skill_groups, through: :skill_group_activities
+  has_many :skills, through: :skill_groups
+
   has_and_belongs_to_many :unit_templates
+
   belongs_to :classification, class_name: 'ActivityClassification', foreign_key: 'activity_classification_id'
   belongs_to :standard
   belongs_to :raw_score
@@ -60,6 +67,7 @@ class Activity < ActiveRecord::Base
   has_many :topics, through: :activity_topics
   before_create :flag_as_beta, unless: :flags?
   after_commit :clear_activity_search_cache
+  after_save :update_evidence_child_title, if: :update_evidence_title?
 
   delegate :form_url, to: :classification, prefix: true
 
@@ -69,14 +77,28 @@ class Activity < ActiveRecord::Base
     SQL
   }
 
-  scope :beta_user, -> { where("'beta' = ANY(activities.flags) OR 'production' = ANY(activities.flags)")}
-  scope :alpha_user, -> { where("'alpha' = ANY(activities.flags) OR 'beta' = ANY(activities.flags) OR 'production' = ANY(activities.flags)")}
+  PRODUCTION = 'production'
+  GAMMA = 'gamma'
+  BETA = 'beta'
+  ALPHA = 'alpha'
+
+  scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
+  scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
+  scope :alpha_user, -> { where("'#{ALPHA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 
   # only Grammar (2), Connect (5), and Diagnostic (4) Activities contain questions
   # the other two, Proofreader and Lesson, contain passages and other data, not questions
   ACTIVITY_TYPES_WITH_QUESTIONS = [2,4,5]
+
+  STARTER_DIAGNOSTIC_ACTIVITY_ID = 1663
+  INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID = 1668
+  ADVANCED_DIAGNOSTIC_ACTIVITY_ID = 1678
+  ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID = 1161
+  ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID = 1568
+  ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID = 1590
+  PRE_TEST_DIAGNOSTIC_IDS = [STARTER_DIAGNOSTIC_ACTIVITY_ID, INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID, ADVANCED_DIAGNOSTIC_ACTIVITY_ID, ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID, ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID, ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID]
 
   def self.diagnostic_activity_ids
     ActivityClassification.find_by_key('diagnostic')&.activities&.pluck(:id) || []
@@ -105,10 +127,12 @@ class Activity < ActiveRecord::Base
   end
 
   def self.user_scope(user_flag)
-    if user_flag == 'alpha'
+    if user_flag == ALPHA
       Activity.alpha_user
-    elsif user_flag == 'beta'
+    elsif user_flag == BETA
       Activity.beta_user
+    elsif user_flag == GAMMA
+      Activity.gamma_user
     else
       Activity.production
     end
@@ -136,7 +160,9 @@ class Activity < ActiveRecord::Base
 
   def module_url(activity_session)
     @activity_session = activity_session
+    classification_count = @activity_session&.user_activity_classifications&.find_by(user_id: @activity_session.user_id)&.count
     initial_params = {student: activity_session.uid}
+    initial_params[:activities] = classification_count if classification_count
     module_url_helper(initial_params)
   end
 
@@ -162,7 +188,7 @@ class Activity < ActiveRecord::Base
   end
 
   def self.clear_activity_search_cache
-    %w(private_ production_ beta_ alpha_ archived_).push('').each do |flag|
+    %w(private_ production_ gamma_ beta_ alpha_ archived_).push('').each do |flag|
       $redis.del("default_#{flag}activity_search")
     end
   end
@@ -176,7 +202,7 @@ class Activity < ActiveRecord::Base
   end
 
   def uses_feedback_history?
-    is_comprehension?
+    is_evidence?
   end
 
   def self.search_results(flag)
@@ -211,27 +237,58 @@ class Activity < ActiveRecord::Base
     classification&.key == ActivityClassification::DIAGNOSTIC_KEY
   end
 
-  private
+  def is_proofreader?
+    classification.key == ActivityClassification::PROOFREADER_KEY
+  end
 
-  def data_must_be_hash
+  def is_evidence?
+    classification&.key == ActivityClassification::EVIDENCE_KEY
+  end
+
+  def child_activity
+    return unless is_evidence?
+    Evidence::Activity.find_by(parent_activity_id: id)
+  end
+
+  private def update_evidence_title?
+    is_evidence? && saved_change_to_name?
+  end
+
+  private def update_evidence_child_title
+    child_activity&.update(title: name)
+  end
+
+  private def data_must_be_hash
     errors.add(:data, "must be a hash") unless data.is_a?(Hash) || data.blank?
   end
 
-  def flag_as_beta
+  private def flag_as_beta
     flag 'beta'
   end
 
-  def lesson_url_helper
-    base = classification.module_url
-    lesson = uid + '?'
-    classroom_unit_id = @activity_session.classroom_unit.id.to_s
-    student_id = @activity_session.uid
-    url = base + lesson + 'classroom_unit_id=' + classroom_unit_id + '&student=' + student_id
-    @url = Addressable::URI.parse(url)
+  private def lesson_url_helper
+    base_url = "#{classification.module_url}#{uid}"
+    initial_params = {
+      classroom_unit_id: @activity_session.classroom_unit.id.to_s,
+      student: @activity_session.uid
+    }
+    construct_redirect_url(base_url, initial_params)
   end
 
-  def connect_url_helper(initial_params)
+  private def connect_url_helper(initial_params)
     base_url = "#{classification.module_url}#{uid}"
+    construct_redirect_url(base_url, initial_params)
+  end
+
+  private def evidence_url_helper(initial_params)
+    base_url = classification.module_url.to_s
+    # Rename "student" to "session" because it's called "student" in all tools other than Evidence
+    initial_params[:session] = initial_params.delete :student if initial_params[:student]
+    initial_params[:uid] = Evidence::Activity.find_by(parent_activity_id: id).id
+    construct_redirect_url(base_url, initial_params)
+  end
+
+  private def construct_redirect_url(base_url, initial_params)
     @url = Addressable::URI.parse(base_url)
     params = (@url.query_values || {})
     params.merge!(initial_params)
@@ -239,9 +296,10 @@ class Activity < ActiveRecord::Base
     fix_angular_fragment!
   end
 
-  def module_url_helper(initial_params)
-    return connect_url_helper(initial_params) if ['diagnostic', 'connect'].include?(classification.key)
-    return lesson_url_helper if classification.key == 'lessons'
+  private def module_url_helper(initial_params)
+    return connect_url_helper(initial_params) if [ActivityClassification::DIAGNOSTIC_KEY, ActivityClassification::CONNECT_KEY].include?(classification.key)
+    return lesson_url_helper if classification.key == ActivityClassification::LESSONS_KEY
+    return evidence_url_helper(initial_params) if classification.key == ActivityClassification::EVIDENCE_KEY
 
     @url = Addressable::URI.parse(classification.module_url)
     params = (@url.query_values || {})
@@ -251,7 +309,7 @@ class Activity < ActiveRecord::Base
     fix_angular_fragment!
   end
 
-  def fix_angular_fragment!
+  private def fix_angular_fragment!
     unless @url.fragment.blank?
       path = @url.path || '/'
       @url.path = "#{@url.path}##{@url.fragment}"
@@ -261,7 +319,7 @@ class Activity < ActiveRecord::Base
     @url
   end
 
-  def validate_question(question)
+  private def validate_question(question)
     if Question.find_by_uid(question[:key]).blank? && TitleCard.find_by_uid(question[:key]).blank?
       errors.add(:question, "Question #{question[:key]} does not exist.")
       return false
@@ -271,13 +329,5 @@ class Activity < ActiveRecord::Base
       return false
     end
     return true
-  end
-
-  def is_proofreader?
-    classification.key == ActivityClassification::PROOFREADER_KEY
-  end
-
-  def is_comprehension?
-    classification&.key == ActivityClassification::COMPREHENSION_KEY
   end
 end

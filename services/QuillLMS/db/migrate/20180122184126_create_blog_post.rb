@@ -1,4 +1,6 @@
-class CreateBlogPost < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateBlogPost < ActiveRecord::Migration[4.2]
   def change
     create_table :blog_posts do |t|
       t.string :title, null: false, index: true, unique: true

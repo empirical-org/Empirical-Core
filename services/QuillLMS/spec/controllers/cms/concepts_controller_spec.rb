@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Cms::ConceptsController do
@@ -23,7 +25,7 @@ describe Cms::ConceptsController do
 
   describe '#create' do
     it 'should create the concept with the params given' do
-      post :create, concept: { name: "test name", parent_id: 42 }
+      post :create, params: { concept: { name: "test name", parent_id: 42 } }
       expect(Concept.last.name).to eq "test name"
       expect(Concept.last.parent_id).to eq 42
     end

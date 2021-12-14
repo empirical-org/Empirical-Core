@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 include AsyncHelper
 
@@ -33,6 +35,4 @@ describe FastAssignWorker, type: :worker do
       expect(unit.classroom_units.find(original_classroom_unit.id).assign_on_join).to eq(true)
     end
   end
-
-
 end

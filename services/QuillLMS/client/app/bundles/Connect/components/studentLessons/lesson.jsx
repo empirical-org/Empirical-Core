@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import _ from 'underscore';
+import _ from 'lodash';
 
 import PlayLessonQuestion from './question';
 import PlaySentenceFragment from './sentenceFragment.jsx';
@@ -13,7 +13,16 @@ import {
   PlayTitleCard,
   Spinner,
   ProgressBar,
-  Register
+  Register,
+  TeacherPreviewMenuButton,
+  roundValuesToSeconds,
+  KEYDOWN,
+  MOUSEMOVE,
+  MOUSEDOWN,
+  CLICK,
+  KEYPRESS,
+  VISIBILITYCHANGE,
+  SCROLL,
 } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion, resumePreviousSession, setCurrentQuestion } from '../../actions.js';
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../libs/conceptResults/lesson';
@@ -26,6 +35,8 @@ import {
 } from '../../libs/calculateProgress'
 
 const request = require('request');
+
+const TITLE_CARD_TYPE = "TL"
 
 //TODO: convert to TSX and add interface definitions
 
@@ -40,25 +51,37 @@ export class Lesson extends React.Component {
       sessionInitialized: false,
       introSkipped: false,
       isLastQuestion: isLastQuestion,
-      lessonLoaded: false
+      lessonLoaded: false,
+      startTime: Date.now(),
+      isIdle: false,
+      timeTracking: {}
     }
   }
 
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(clearData());
+
+    window.addEventListener(KEYDOWN, this.resetTimers)
+    window.addEventListener(MOUSEMOVE, this.resetTimers)
+    window.addEventListener(MOUSEDOWN, this.resetTimers)
+    window.addEventListener(CLICK, this.resetTimers)
+    window.addEventListener(KEYPRESS, this.resetTimers)
+    window.addEventListener(SCROLL, this.resetTimers)
+    window.addEventListener(VISIBILITYCHANGE, this.setIdle)
   }
 
   //TODO: refactor into componentDidUpdate
 
   UNSAFE_componentWillReceiveProps(nextProps) {
+    const { timeTracking, } = this.state
     const { playLesson, } = this.props
     const answeredQuestionsHasChanged = nextProps.playLesson.answeredQuestions.length !== playLesson.answeredQuestions.length
     const nextPropsAttemptsLength = nextProps.playLesson.currentQuestion && nextProps.playLesson.currentQuestion.question && nextProps.playLesson.currentQuestion.question.attempts ? nextProps.playLesson.currentQuestion.question.attempts.length : 0
     const thisPropsAttemptsLength = playLesson.currentQuestion && playLesson.currentQuestion.question &&  playLesson.currentQuestion.question.attempts ? playLesson.currentQuestion.question.attempts.length : 0
     const attemptsHasChanged = nextPropsAttemptsLength !== thisPropsAttemptsLength
     if (answeredQuestionsHasChanged || attemptsHasChanged) {
-      this.saveSessionData(nextProps.playLesson);
+      this.saveSessionData({...nextProps.playLesson, timeTracking });
     }
   }
 
@@ -83,7 +106,7 @@ export class Lesson extends React.Component {
       SessionActions.populateQuestions("SC", questions.data);
       SessionActions.populateQuestions("FB", fillInBlank.data);
       SessionActions.populateQuestions("SF", sentenceFragments.data);
-      SessionActions.populateQuestions("TL", titleCards.data);
+      SessionActions.populateQuestions(TITLE_CARD_TYPE, titleCards.data);
       // This used to be an DidMount call, but we can't safely call it
       // until the Session module has received Question data, so now
       // we check if the value has been initalized, and if not we do so now
@@ -110,6 +133,62 @@ export class Lesson extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    window.removeEventListener(KEYDOWN, this.resetTimers)
+    window.removeEventListener(MOUSEMOVE, this.resetTimers)
+    window.removeEventListener(MOUSEDOWN, this.resetTimers)
+    window.removeEventListener(CLICK, this.resetTimers)
+    window.removeEventListener(KEYPRESS, this.resetTimers)
+    window.removeEventListener(SCROLL, this.resetTimers)
+    window.removeEventListener(VISIBILITYCHANGE, this.setIdle)
+  }
+
+  dataHasLoaded() {
+    const { sessionInitialized, } = this.state
+    const { playLesson, lessons, match, } = this.props
+    const { data, hasreceiveddata, } = lessons
+    const { params } = match
+    const { lessonID, } = params;
+
+    return (sessionInitialized && hasreceiveddata && data && data[lessonID] && playLesson && playLesson.questionSet)
+  }
+
+  determineActiveStepForTimeTracking(playLesson) {
+    const { currentQuestion, answeredQuestions, } = playLesson
+
+    if (!currentQuestion) { return 'landing' }
+
+    const finishedTitleCards = answeredQuestions.filter(q => q.type === TITLE_CARD_TYPE)
+    const finishedQuestions = answeredQuestions.filter(q => q.type !== TITLE_CARD_TYPE)
+
+    if (currentQuestion.type === TITLE_CARD_TYPE) { return `title_card_${finishedTitleCards.length + 1}`}
+    if (currentQuestion.type !== TITLE_CARD_TYPE) { return `prompt_${finishedQuestions.length + 1}`}
+  }
+
+  resetTimers = (e=null) => {
+    const now = Date.now()
+    this.setState((prevState, props) => {
+      const { startTime, timeTracking, isIdle, inactivityTimer, completedSteps, } = prevState
+      const { playLesson, } = props
+      const activeStep = this.determineActiveStepForTimeTracking(playLesson)
+
+      if (inactivityTimer) { clearTimeout(inactivityTimer) }
+
+      let elapsedTime = now - startTime
+      if (isIdle || !this.dataHasLoaded()) {
+        elapsedTime = 0
+      }
+      const newTimeTracking = {...timeTracking, [activeStep]: (timeTracking[activeStep] || 0) + elapsedTime}
+      const newInactivityTimer = setTimeout(this.setIdle, 30000);  // time is in milliseconds (1000 is 1 second)
+
+      return { timeTracking: newTimeTracking, isIdle: false, inactivityTimer: newInactivityTimer, startTime: now, }
+    })
+
+    return Promise.resolve(true);
+  }
+
+  setIdle = () => { this.resetTimers().then(() => this.setState({ isIdle: true })) }
+
   toggleIsLastQuestion = () => {
     this.setState(prevState => ({ isLastQuestion: !prevState.isLastQuestion }));
   }
@@ -134,7 +213,7 @@ export class Lesson extends React.Component {
     return question;
   }
 
-  createAnonActivitySession = (lessonID, results, score) => {
+  createAnonActivitySession = (lessonID, results, score, data) => {
     request(
       { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
         method: 'POST',
@@ -144,6 +223,7 @@ export class Lesson extends React.Component {
           activity_uid: lessonID,
           concept_results: results,
           percentage: score,
+          data
         }
       },
       (err, httpResponse, body) => {
@@ -156,7 +236,8 @@ export class Lesson extends React.Component {
     );
   }
 
-  finishActivitySession = (sessionID, results, score) => {
+  finishActivitySession = (sessionID, results, score, data) => {
+    const { timeTracking, } = this.state
     request(
       { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
@@ -165,6 +246,7 @@ export class Lesson extends React.Component {
           state: 'finished',
           concept_results: results,
           percentage: score,
+          data
         }
       },
       (err, httpResponse, body) => {
@@ -195,12 +277,13 @@ export class Lesson extends React.Component {
   }
 
   nextQuestion = () => {
-    const { dispatch, previewMode, onHandleToggleQuestion } = this.props;
+    const { dispatch, previewMode, handleToggleQuestion } = this.props;
+    this.resetTimers()
     if(previewMode) {
       const questionObject = this.getNextPreviewQuestion();
       if(questionObject && questionObject.question) {
         const { question } = questionObject
-        onHandleToggleQuestion(question)
+        handleToggleQuestion(question)
         const action = setCurrentQuestion(question);
         dispatch(action);
       } else {
@@ -238,7 +321,7 @@ export class Lesson extends React.Component {
           type = 'FB'
           break
         case 'titleCards':
-          type = 'TL'
+          type = TITLE_CARD_TYPE
           break
         case 'sentenceFragments':
         default:
@@ -270,8 +353,11 @@ export class Lesson extends React.Component {
     }
     this.setState({ sessionID, sessionInitialized: true}, () => {
       if (sessionID) {
+        const { timeTracking, } = this.state
         SessionActions.get(sessionID, (data) => {
-          this.setState({ session: data, });
+          if (data) {
+            this.setState({ session: data, timeTracking: data.timeTracking || timeTracking });
+          }
         });
       }
     });
@@ -280,16 +366,17 @@ export class Lesson extends React.Component {
   saveToLMS = () => {
     const { playLesson, match, previewMode } = this.props
     const { params } = match
-    const { sessionID, } = this.state
+    const { sessionID, timeTracking, } = this.state
     const { lessonID, } = params;
     this.setState({ error: false, });
-    const relevantAnsweredQuestions = playLesson.answeredQuestions.filter(q => q.questionType !== 'TL')
+    const relevantAnsweredQuestions = playLesson.answeredQuestions.filter(q => q.questionType !== TITLE_CARD_TYPE)
     const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
     const score = calculateScoreForLesson(relevantAnsweredQuestions);
+    const data = { time_tracking: roundValuesToSeconds(timeTracking), }
     if (sessionID && !previewMode) {
-      this.finishActivitySession(sessionID, results, score);
+      this.finishActivitySession(sessionID, results, score, data);
     } else {
-      this.createAnonActivitySession(lessonID, results, score);
+      this.createAnonActivitySession(lessonID, results, score, data);
     }
   }
 
@@ -329,7 +416,7 @@ export class Lesson extends React.Component {
     if (!playLesson.currentQuestion) { return }
 
     const calculatedAnsweredQuestionCount = answeredQuestionCount(playLesson)
-    const currentQuestionIsTitleCard = playLesson.currentQuestion.type === 'TL'
+    const currentQuestionIsTitleCard = playLesson.currentQuestion.type === TITLE_CARD_TYPE
     const currentQuestionIsNotFirstQuestion = calculatedAnsweredQuestionCount !== 0
     const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
     const answeredCount = previewMode ? this.getPreviewQuestionCount() : displayedAnsweredQuestionCount;
@@ -345,13 +432,14 @@ export class Lesson extends React.Component {
 
   render() {
     const { sessionInitialized, error, sessionID, saved, session, isLastQuestion } = this.state
-    const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode, onHandleToggleQuestion, questionToPreview } = this.props
+    const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode, handleToggleQuestion, questionToPreview, handleTogglePreview, isOnMobile } = this.props
     const { data, hasreceiveddata, } = lessons
     const { params } = match
     const { lessonID, } = params;
+    const studentSession = getParameterByName('student', window.location.href);
     let component;
 
-    if (!(sessionInitialized && hasreceiveddata && data && data[lessonID] && playLesson && playLesson.questionSet)) {
+    if (!this.dataHasLoaded()) {
       return (<div className="student-container student-container-diagnostic"><Spinner /></div>);
     }
 
@@ -369,7 +457,7 @@ export class Lesson extends React.Component {
             markIdentify={this.markIdentify}
             marking="diagnostic"
             nextQuestion={this.nextQuestion}
-            onHandleToggleQuestion={onHandleToggleQuestion}
+            onHandleToggleQuestion={handleToggleQuestion}
             previewMode={previewMode}
             question={question}
             questionToPreview={questionToPreview}
@@ -384,7 +472,7 @@ export class Lesson extends React.Component {
             isLastQuestion={isLastQuestion}
             key={question.key}
             nextQuestion={this.nextQuestion}
-            onHandleToggleQuestion={onHandleToggleQuestion}
+            onHandleToggleQuestion={handleToggleQuestion}
             prefill={this.getLesson().prefill}
             previewMode={previewMode}
             question={question}
@@ -392,7 +480,7 @@ export class Lesson extends React.Component {
             submitResponse={this.submitResponse}
           />
         );
-      } else if ((!previewMode && type === 'TL') || (previewMode && question.title)){
+      } else if ((!previewMode && type === TITLE_CARD_TYPE) || (previewMode && question.title)){
         component = (
           <PlayTitleCard
             data={question}
@@ -409,7 +497,7 @@ export class Lesson extends React.Component {
             isLastQuestion={isLastQuestion}
             key={question.key}
             nextQuestion={this.nextQuestion}
-            onHandleToggleQuestion={onHandleToggleQuestion}
+            onHandleToggleQuestion={handleToggleQuestion}
             prefill={this.getLesson().prefill}
             previewMode={previewMode}
             question={question}
@@ -444,6 +532,7 @@ export class Lesson extends React.Component {
     return (
       <div>
         <section className="section is-fullheight minus-nav student">
+          {isOnMobile && !studentSession && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreview} />}
           {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             {component}

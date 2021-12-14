@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe GradesController do
   let(:teacher) { create(:teacher) }
 
-  before do
-    session[:user_id] = teacher.id
-  end
+  before { session[:user_id] = teacher.id }
 
   it { should use_before_action :authorize! }
 
@@ -17,13 +17,13 @@ describe GradesController do
   end
 
   describe '#tooltip' do
-    before do
-      allow(ActiveRecord::Base.connection).to receive(:execute) { ["query result"] }
-    end
+    let(:result) { ["query_result"] }
+
+    before { allow(RawSqlRunner).to receive(:execute) { result } }
 
     it 'should render the correct json' do
-      get :tooltip, user_id: teacher.id, completed: true, classroom_unit_id: "", activity_id: ""
-      expect(response.body).to eq({concept_results: ["query result"], scores: ["query result"]}.to_json)
+      get :tooltip, params: { user_id: teacher.id, completed: true, classroom_unit_id: "", activity_id: "" }
+      expect(response.body).to eq({concept_results: result, scores: result}.to_json)
     end
   end
 end

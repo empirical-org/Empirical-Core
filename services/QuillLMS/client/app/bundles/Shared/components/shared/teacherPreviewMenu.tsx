@@ -3,8 +3,6 @@ import * as Redux from "redux";
 import { connect } from "react-redux";
 import stripHtml from "string-strip-html";
 
-import { getActivity } from "../../../Grammar/actions/grammarActivities";
-import getParameterByName from "../../../Grammar/helpers/getParameterByName";
 import { Question } from '../../../Grammar/interfaces/questions';
 import * as diagnosticActions from '../../../Diagnostic/actions/diagnostics.js';
 import * as connectActions from '../../../Connect/actions';
@@ -193,6 +191,7 @@ interface TeacherPreviewMenuProps {
   activity: Activity;
   dispatch: Function;
   fillInBlank: any[];
+  isOnMobile: boolean;
   onHandleSkipToQuestionFromIntro: () => void;
   onTogglePreview?: () => void;
   onToggleQuestion?: (question: Question) => void;
@@ -212,6 +211,7 @@ const TeacherPreviewMenuComponent = ({
   activity,
   dispatch,
   fillInBlank,
+  isOnMobile,
   onHandleSkipToQuestionFromIntro,
   onTogglePreview,
   onToggleQuestion,
@@ -223,14 +223,6 @@ const TeacherPreviewMenuComponent = ({
   showPreview,
   titleCards
 }: TeacherPreviewMenuProps) => {
-
-  React.useEffect(() => {
-    // we need to fetch grammar activities here
-    const activityUID = getParameterByName('uid', window.location.href);
-    if (activityUID) {
-      dispatch(getActivity(activityUID))
-    }
-  }, [session]);
 
   const handleToggleMenu = () => {
     onTogglePreview();
@@ -266,6 +258,7 @@ const TeacherPreviewMenuComponent = ({
         <h1>Menu</h1>
         <button className="close-preview-button focus-on-light" onClick={handleToggleMenu} type="button">
           <img alt="close-preview-button" src={`${process.env.CDN_URL}/images/icons/close.svg`} />
+          {isOnMobile && <p className="close-text">Close</p>}
         </button>
       </section>
       <section className="preview-section">

@@ -49,7 +49,7 @@ export default class ActivityClassification extends React.Component {
 
   save = () => {
     const model = this.state.model;
-    this.modules.server.save(model, {callback: this.props.returnToIndex});
+    this.modules.server.save(model);
   };
 
   updateModelState = (key, value, context) => {
@@ -63,9 +63,8 @@ export default class ActivityClassification extends React.Component {
     inputs = this.modules.textInputGenerator.generate(this.formFields);
     return(
       <div className='edit_activity_classification cms-form'>
-        <span onClick={this.props.returnToIndex}>Back to Activity Classifications</span>
         {inputs}
-        <button className='button-green pull-right' id='continue' onClick={this.save}>Continue</button>
+        <button className='button-green pull-right' id='save' onClick={this.save}>Save</button>
       </div>
     )
   }

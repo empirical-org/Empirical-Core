@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class TeacherFixController < ApplicationController
   include TeacherFixes
-  before_filter :staff!
-  before_filter :set_user, only: :archived_units
+  before_action :staff!
+  before_action :set_user, only: :archived_units
 
   def index
   end
@@ -86,7 +88,7 @@ class TeacherFixController < ApplicationController
         if primary_account.merge_student_account(secondary_account)
           render json: {}, status: 200
         else
-          render json: {error: "These students are not in the same classrooms."}
+          render json: {error: "#{params['account_2_identifier']} is in at least one class that #{params['account_1_identifier']} is not in, so we can't merge them."}
         end
       else
         nonstudent_account_identifier = primary_account.role == 'student' ? params['account_2_identifier'] : params['account_1_identifier']
@@ -157,9 +159,9 @@ class TeacherFixController < ApplicationController
     if user
       new_email = params['new_email']
       if new_email != ''
-        user.update(email: new_email, password: params['password'], google_id: nil, signed_up_with_google: false, post_google_classroom_assignments: false)
+        user.update(email: new_email, password: params['password'], google_id: nil, signed_up_with_google: false)
       else
-        user.update(password: params['password'], google_id: nil, signed_up_with_google: false, post_google_classroom_assignments: false)
+        user.update(password: params['password'], google_id: nil, signed_up_with_google: false)
       end
       if user.errors.any?
         render json: user.errors
@@ -194,6 +196,23 @@ class TeacherFixController < ApplicationController
     render json: {}, status: 200
   end
 
+  def merge_activity_packs
+    begin
+      raise 'Please specify an activity pack ID.' if params['from_activity_pack_id'].nil? || params['to_activity_pack_id'].nil?
+      unit1 = Unit.find_by(id: params['from_activity_pack_id'])
+      unit2 = Unit.find_by(id: params['to_activity_pack_id'])
+      raise 'The first activity pack ID is invalid.' if !unit1
+      raise 'The second activity pack ID is invalid.' if !unit2
+      raise 'The two activity packs must belong to the same teacher.' if unit1.user != unit2.user
+
+      raise 'The two activity packs must be assigned to the same classroom.' if (unit1.classrooms & unit2.classrooms).empty?
+      TeacherFixes::merge_two_units(unit1, unit2)
+    rescue => e
+      return render json: { error: e.message || e }
+    end
+    render json: {}, status: 200
+  end
+
   def delete_last_activity_session
     begin
       account_identifier = params['student_identifier']
@@ -208,17 +227,52 @@ class TeacherFixController < ApplicationController
     render json: {}, status: 200
   end
 
-  private
+  def list_unsynced_students_by_classroom
+    if teacher
+      render json: { unsynced_students_by_classroom: unsynced_students_by_classroom }, status: 200
+    else
+      render json: { error: 'No such teacher' }, status: 404
+    end
+  end
 
-  def set_user
+  def remove_unsynced_students
+    if teacher
+      provider_classrooms_with_unsynced_students.each do |provider_classroom|
+        StudentsClassrooms
+          .where(classroom_id: provider_classroom.id, student_id: provider_classroom.unsynced_students.pluck(:id))
+          .archive_all
+      end
+
+      render json: {}, status: 200
+    else
+      render json: { error: 'No such teacher' }, status: 404
+    end
+  end
+
+  private def set_user
     @user = User.find_by_username_or_email(params['teacher_identifier'])
   end
 
-  def archived_units_for_user
+  private def archived_units_for_user
     @archived_units ||= Unit.unscoped.where(visible: false, user_id: @user.id).map do |unit|
       unit = unit.attributes
       unit['shared_name'] = Unit.find_by(user_id: unit['user_id'], name: unit['name']).present?
       unit
     end
+  end
+
+  private def unsynced_students_by_classroom
+    ActiveModel::ArraySerializer.new(
+      provider_classrooms_with_unsynced_students,
+      each_serializer: ProviderClassroomWithUnsyncedStudentsSerializer
+    )
+  end
+
+  private def provider_classrooms_with_unsynced_students
+    ProviderClassroomsWithUnsyncedStudentsFinder.new(teacher.id).run
+  end
+
+  private def teacher
+    @teacher ||= User.find_by_username_or_email(params['teacher_identifier'])
   end
 end

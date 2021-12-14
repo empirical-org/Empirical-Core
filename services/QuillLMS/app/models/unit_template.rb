@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: unit_templates
@@ -21,7 +23,7 @@
 #  index_unit_templates_on_author_id                  (author_id)
 #  index_unit_templates_on_unit_template_category_id  (unit_template_category_id)
 #
-class UnitTemplate < ActiveRecord::Base
+class UnitTemplate < ApplicationRecord
   belongs_to :unit_template_category
   belongs_to :author
   has_many :activities_unit_templates, -> { order('order_number ASC') }
@@ -31,14 +33,21 @@ class UnitTemplate < ActiveRecord::Base
   has_many :recommendations, dependent: :destroy
   serialize :grades, Array
 
-  validates :flag,                  inclusion: { in: %w(archived alpha beta production private),
-                                    message: "%<value>s is not a valid flag" }, :allow_nil => true
+  validates :flag,
+    inclusion: { in: %w(archived alpha beta gamma production private) },
+    allow_nil: true
 
+  PRODUCTION = 'production'
+  GAMMA = 'gamma'
+  BETA = 'beta'
+  ALPHA = 'alpha'
+  PRIVATE = 'private'
 
-  scope :production, -> {where("unit_templates.flag IN('production') OR unit_templates.flag IS null")}
-  scope :beta_user, -> { where("unit_templates.flag IN('production','beta') OR unit_templates.flag IS null")}
-  scope :alpha_user, -> { where("unit_templates.flag IN('production','beta','alpha') OR unit_templates.flag IS null")}
-  scope :private_user, -> { where("unit_templates.flag IN('private', 'production','beta','alpha') OR unit_templates.flag IS null")}
+  scope :production, -> {where("unit_templates.flag IN('#{PRODUCTION}') OR unit_templates.flag IS null")}
+  scope :gamma_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}') OR unit_templates.flag IS null")}
+  scope :beta_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}','#{BETA}') OR unit_templates.flag IS null")}
+  scope :alpha_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}','#{BETA}','#{ALPHA}') OR unit_templates.flag IS null")}
+  scope :private_user, -> { where("unit_templates.flag IN('private', '#{PRODUCTION}','#{GAMMA}','#{BETA}','#{ALPHA}') OR unit_templates.flag IS null")}
   around_save :delete_relevant_caches
 
   WHOLE_CLASS_AND_INDEPENDENT_PRACTICE = 'Whole class + Independent practice'
@@ -60,12 +69,14 @@ class UnitTemplate < ActiveRecord::Base
   end
 
   def self.user_scope(user_flag)
-    if user_flag == 'private'
+    if user_flag == PRIVATE
       UnitTemplate.private_user
-    elsif user_flag == 'alpha'
+    elsif user_flag == ALPHA
       UnitTemplate.alpha_user
-    elsif user_flag == 'beta'
+    elsif user_flag == BETA
       UnitTemplate.beta_user
+    elsif user_flag == GAMMA
+      UnitTemplate.gamma_user
     else
       UnitTemplate.production
     end
@@ -83,14 +94,14 @@ class UnitTemplate < ActiveRecord::Base
     serialized_unit_template
   end
 
-  def self.assign_to_whole_class(class_id, unit_template_id)
+  def self.assign_to_whole_class(class_id, unit_template_id, last)
     assign_on_join = true
     student_ids = [] # student ids will be populated in the classroom activity assign_on_join callback
     argument_hash = {
       unit_template_id: unit_template_id,
       classroom_id: class_id,
       student_ids: student_ids,
-      last: true,
+      last: last,
       lesson: true,
       assign_on_join: assign_on_join
     }
@@ -99,19 +110,15 @@ class UnitTemplate < ActiveRecord::Base
 
   def self.delete_all_caches
     UnitTemplate.all.each { |ut| $redis.del("unit_template_id:#{ut.id}_serialized") }
-    $redis.del('production_unit_templates')
-    $redis.del('beta_unit_templates')
-    $redis.del('alpha_unit_templates')
-    $redis.del('private_unit_templates')
+    %w(private_ production_ gamma_ beta_ alpha_).each do |flag|
+      $redis.del("#{flag}unit_templates")
+    end
   end
 
-  private
-
-  def delete_relevant_caches
+  private def delete_relevant_caches
     $redis.del("unit_template_id:#{id}_serialized", "#{flag || 'production'}_unit_templates")
     yield
     $redis.del("unit_template_id:#{id}_serialized", "#{flag || 'production'}_unit_templates")
   end
-
 
 end

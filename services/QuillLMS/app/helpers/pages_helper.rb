@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PagesHelper
 
 	def pages_tab_class tabname
@@ -81,6 +83,11 @@ module PagesHelper
             name: 'Hannah Monk',
             title: 'Curriculum Director',
             img: 'team-hannah-monk@2x.png'
+          },
+          {
+            name: 'Phil Weinberg',
+            title: 'Senior Partner',
+            img: 'team-phil-weinberg@2x.png'
           }
         ]
       },
@@ -99,8 +106,13 @@ module PagesHelper
             img: 'team-taha-adib@2x.png'
           },
           {
+            name: 'Jessica Azani',
+            title: 'Director of Research & Instruction',
+            img: 'team-jessica-azani@2x.png'
+          },
+          {
             name: 'Devin Kawailani Barricklow',
-            title: 'Curriculum Associate',
+            title: 'Curriculum Developer',
             img: 'team-devin-barricklow@2x.png'
           },
           {
@@ -119,18 +131,13 @@ module PagesHelper
             img: 'team-rachel-dantzler@2x.png'
           },
           {
-            name: 'Maximilian de Martino',
-            title: 'Curriculum Developer',
-            img: 'team-maximilian-de-martino@2x.png'
-          },
-          {
             name: 'Emilia Friedberg',
             title: 'Software Developer',
             img: 'team-emilia-friedberg@2x.png'
           },
           {
             name: 'Daniel Giovanniello',
-            title: 'Partnerships Associate',
+            title: 'Partnerships Specialist',
             img: 'team-daniel-giovanniello@2x.png'
           },
           {
@@ -149,13 +156,28 @@ module PagesHelper
             img: 'team-sherry-lewkowicz@2x.png'
           },
           {
-            name: 'Maddy Maher',
-            title: 'Partnerships Specialist',
-            img: 'team-maddy-maher@2x.png'
+            name: 'Stephanee McCadney',
+            title: 'Curriculum Developer	',
+            img: 'team-stephanee-mccadney@2x.png'
+          },
+          {
+            name: 'Scarlet Melo',
+            title: 'Partnerships Associate',
+            img: 'team-scarlet-melo@2x.png'
+          },
+          {
+            name: 'Robert Morgan',
+            title: 'Partnerships Associate',
+            img: 'team-robert-morgan@2x.png'
+          },
+          {
+            name: 'Katie Moylan',
+            title: 'Curriculum Developer',
+            img: 'team-katie-moylan@2x.png'
           },
           {
             name: 'Lindsey Murphy',
-            title: 'Lead Curriculum Developer',
+            title: 'Curriculum & Product Manager',
             img: 'team-lindsey-murphy@2x.png'
           },
           {
@@ -185,17 +207,17 @@ module PagesHelper
           },
           {
             name: 'Emma Volk',
-            title: 'Lead Curriculum Developer',
+            title: 'Curriculum & Product Manager',
             img: 'team-emma-volk@2x.png'
           },
           {
-            name: 'Rhea Wong',
-            title: 'Director of Strategic Initiatives',
-            img: 'team-rhea-wong@2x.png'
+            name: 'Anna Waterman',
+            title: 'Curriculum Associate',
+            img: 'team-anna-waterman@2x.png'
           },
           {
             name: 'Cissy Yu',
-            title: 'Software Developer',
+            title: 'Junior Software Developer',
             img: 'team-cissy-yu@2x.png'
           }
         ]
@@ -210,7 +232,7 @@ module PagesHelper
         members: [
           {
             name: 'Stephanie Cohen',
-            title: 'Chief Strategy Officer at Goldman Sachs',
+            title: 'Co-Head of Consumer Wealth Management at Goldman',
             img: 'board-stephanie-cohen@2x.png'
           },
           {
@@ -259,16 +281,6 @@ module PagesHelper
             img: 'advisor-rick-benger@2x.png'
           },
           {
-            name: 'Donald McKendrick',
-            title: 'Curriculum at Chan Zuckerberg Initiative',
-            img: 'advisor-donald-mckendrick@2x.png'
-          },
-          {
-            name: 'Jane Nevins',
-            title: 'Director of Giving at Freedom for All Americans',
-            img: 'advisor-jane-nevins@2x.png'
-          },
-          {
             name: 'Alex Redmon',
             title: 'Engineering Manager at Hearst',
             img: 'advisor-alex-redmon@2x.png'
@@ -283,7 +295,7 @@ module PagesHelper
     ]
   end
 
-  def preap_content
+  def preap_and_springboard_content
     [
       {
         title: 'Unit 1: Telling Details',

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CompleteAccountCreation
 
   def initialize(user, ip)
@@ -11,7 +13,7 @@ class CompleteAccountCreation
     true
   end
 
-  private
-
   attr_reader :user, :ip
+  private :user
+  private :ip
 end

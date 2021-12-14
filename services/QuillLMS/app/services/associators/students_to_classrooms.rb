@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Associators::StudentsToClassrooms
 
   def self.run(student, classroom)
@@ -21,8 +23,7 @@ module Associators::StudentsToClassrooms
     student
   end
 
-  private
-
+  
   def self.update_classroom_units(student_classroom)
     cus = ClassroomUnit.where(classroom_id: student_classroom.classroom_id)
     cus.each{|cu| cu.validate_assigned_student(student_classroom.student_id)}

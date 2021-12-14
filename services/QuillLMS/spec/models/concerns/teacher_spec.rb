@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe User, type: :model do
@@ -61,7 +63,14 @@ describe User, type: :model do
       it 'returns an array with classrooms, email addresses, and names if a user owns classrooms teachers' do
         ct = create(:classrooms_teacher, classroom: classroom, role: 'coteacher')
         coteacher = ct.user
-        expect(teacher.classrooms_i_own_that_have_coteachers).to eq(["name"=> ct.classroom.name, "coteacher_name"=> coteacher.name, "coteacher_email"=>coteacher.email, "coteacher_id"=>coteacher.id.to_s])
+
+        expect(teacher.classrooms_i_own_that_have_coteachers)
+          .to eq [
+            "name" => ct.classroom.name,
+            "coteacher_name" => coteacher.name,
+            "coteacher_email" => coteacher.email,
+            "coteacher_id" => coteacher.id
+          ]
       end
     end
 
@@ -77,9 +86,6 @@ describe User, type: :model do
         expect(teacher.classrooms_i_own_that_have_pending_coteacher_invitations).to eq(["name"=> coteacher_classroom_invitation.classroom.name, "coteacher_email"=>coteacher_classroom_invitation.invitation.invitee_email])
       end
     end
-
-
-
 
     describe '#classroom_ids_i_have_invited_a_specific_teacher_to_coteach' do
       it "returns an empty array if the user does not have any open invitations with the specified coteacher" do
@@ -133,13 +139,14 @@ describe User, type: :model do
 
       let!(:pending_coteacher_invitation) {create(:pending_coteacher_invitation, inviter_id: teacher.id, invitee_email: co_taught_classrooms_teacher.user.email)}
       let!(:coteacher_classroom_invitation) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation.id)}
+
       it "returns all the cotaught classrooms" do
-        cotaught_classroom_ids = Set.new(teacher.classrooms_i_coteach.map{|c| c.id.to_s})
+        cotaught_classroom_ids = Set.new(teacher.classrooms_i_coteach.map{|c| c.id })
         expect(teacher.classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.superset?(cotaught_classroom_ids)).to be
       end
 
       it "returns all pending invitation to coteach classrooms" do
-        expect(teacher.classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.member?(coteacher_classroom_invitation.classroom_id.to_s)).to be
+        expect(teacher.classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.member?(coteacher_classroom_invitation.classroom_id)).to be
       end
     end
 
@@ -273,6 +280,28 @@ describe User, type: :model do
       end
     end
 
+    describe '#unlink' do
+      let!(:bronx_teacher) { create(:teacher_with_school) }
+
+      context 'when the teacher is linked to a school' do
+        it 'unlinks the teacher' do
+          expect(bronx_teacher.reload.school).to be
+          bronx_teacher.unlink
+          expect(bronx_teacher.reload.school).not_to be
+        end
+
+        it 'unlinks the teacher from school subscriptions' do
+          subscription = create(:subscription)
+          school = bronx_teacher.reload.school
+          create(:school_subscription, subscription_id: subscription.id, school_id: school.id)
+          bronx_teacher.updated_school(school)
+          expect(bronx_teacher.reload.subscriptions).not_to be_empty
+          bronx_teacher.unlink
+          expect(bronx_teacher.reload.subscriptions).to be_empty
+        end
+      end
+    end
+
     describe '#updated_school' do
       let!(:queens_teacher_2) { create(:teacher) }
       let!(:queens_subscription) { create(:subscription) }
@@ -293,6 +322,14 @@ describe User, type: :model do
           expect(queens_teacher.subscription).to eq(teacher_subscription)
           queens_school_sub.destroy
           queens_teacher.updated_school(queens_school.id)
+          expect(queens_teacher.subscription).to eq(teacher_subscription)
+        end
+      end
+
+      context 'when the school is empty' do
+        it 'does nothing to the teachers personal subscription' do
+          expect(queens_teacher.subscription).to eq(teacher_subscription)
+          queens_teacher.updated_school(nil)
           expect(queens_teacher.subscription).to eq(teacher_subscription)
         end
       end
@@ -430,9 +467,10 @@ describe User, type: :model do
             teacher_role: ClassroomsTeacher.find_by(user_id: teacher.id, classroom_id: classroom.id).role,
             created_at: classroom.created_at,
             grade: classroom.grade
-          }
+          }.stringify_keys
         end
-        expect(teacher.classroom_minis_info).to match_array(sanitize_hash_array_for_comparison_with_redis(expected_response))
+
+        expect(teacher.classroom_minis_info).to match_array(expected_response)
       end
     end
 
@@ -450,22 +488,22 @@ describe User, type: :model do
       end
     end
 
-    describe '#affiliated_with_unit' do
+    describe '#affiliated_with_unit?' do
       let!(:unit) { create(:unit, user: teacher) }
       let!(:ca) { create(:classroom_unit, unit: unit, classroom: classroom) }
 
       it 'should return true if the teacher owns the unit' do
-        expect(teacher.affiliated_with_unit(unit.id)).to be
+        expect(teacher.affiliated_with_unit?(unit.id)).to be
       end
 
       it 'should return true if the teacher is a coteacher of the classroom with the unit' do
         coteacher = create(:classrooms_teacher, classroom: classroom, role: 'coteacher').teacher
-        expect(coteacher.affiliated_with_unit(unit.id)).to be
+        expect(coteacher.affiliated_with_unit?(unit.id)).to be
       end
 
       it 'should return false if the teacher is not affiliated with the unit' do
         random_teacher = create(:teacher)
-        expect(random_teacher.affiliated_with_unit(unit.id)).to_not be
+        expect(random_teacher.affiliated_with_unit?(unit.id)).to_not be
       end
     end
 
@@ -506,26 +544,37 @@ describe User, type: :model do
     end
   end
 
-  describe '#number_of_assigned_students_per_activity_assigned' do
-    it 'should return the correct number of students assigned' do
-      teacher = create(:teacher, :with_classrooms_students_and_activities)
-      assigned_units = teacher.assigned_students_per_activity_assigned
-      assigned_units_arr = assigned_units.to_a
-      teacher.classroom_units.each { |cu|
-        cu.unit.unit_activities.each { |ua|
-          matching_element = assigned_units.detect {|u| u.id == ua.activity_id && u.assigned_student_ids == cu.assigned_student_ids}
-          expect(matching_element).to_not be_nil
-          expect(matching_element.assigned_student_ids).to eq(cu.assigned_student_ids)
-          expect(matching_element.created_at).to eq(ua.created_at)
-          assigned_units_arr.delete_at(assigned_units_arr.index(matching_element))
-        }
-      }
-      expect(assigned_units_arr).to be_empty
+  describe '#assigned_students_per_activity_assigned' do
+    context 'assigned students' do
+      let!(:teacher) { create(:teacher, :with_classrooms_students_and_activities) }
+      let!(:assigned_units) { teacher.assigned_students_per_activity_assigned }
+
+      it 'should return only the correct students assigned' do
+        student_ids = assigned_units.pluck(:assigned_student_ids).flatten
+
+        other_teacher = create(:teacher, :with_classrooms_students_and_activities) 
+        other_assigned_activities_ids = other_teacher.assigned_students_per_activity_assigned.pluck(:id)
+        other_student_ids = other_teacher.assigned_students_per_activity_assigned
+          .pluck(:assigned_student_ids)
+          .flatten
+
+        expect(other_assigned_activities_ids & assigned_units.pluck(:id)).to be_empty
+        expect(other_student_ids & student_ids).to be_empty
+
+        teacher.classroom_units.each do |cu|
+          cu.unit.unit_activities.each do |ua|
+            matching_element = assigned_units.detect {|u| u.id == ua.activity_id && u.assigned_student_ids == cu.assigned_student_ids}
+            expect(matching_element.assigned_student_ids).to eq(cu.assigned_student_ids)
+          end
+        end
+      end
     end
 
-    it 'should return empty array if no students are assigned' do
-      teacher = create(:teacher)
-      expect(teacher.assigned_students_per_activity_assigned).to be_empty
+    context 'no assigned students' do
+      it 'should return empty array if no students are assigned' do
+        teacher = create(:teacher)
+        expect(teacher.assigned_students_per_activity_assigned).to be_empty
+      end
     end
   end
 end

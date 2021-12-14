@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g>
+                    <path d="M0 0H64V64H0z" transform="translate(-402 -1581) translate(402 1581)"/>
+                    <g stroke="#111" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                        <g transform="translate(-402 -1581) translate(402 1581) translate(12 10) translate(13)">
+                            <path d="M24.865 22.865L36 34"/>
+                            <circle cx="14" cy="14" r="14"/>
+                            <path d="M2 9L14 9M1 18L8 18"/>
+                        </g>
+                        <path d="M0 3L18 3M0 14L12 14M0 25L18 25" transform="translate(-402 -1581) translate(402 1581) translate(12 10)"/>
+                    </g>
+                </g>
+                <path fill="#000" fill-rule="nonzero" d="M3.28 62.14l.57-1.65h2.5l.57 1.65h1.6L5.84 55H4.42l-2.68 7.14h1.54zm2.68-2.88H4.23l.86-2.56.87 2.56zm4.86 2.88v-2.55h1.12c.533 0 .975-.063 1.325-.19s.63-.298.84-.515c.21-.217.357-.468.44-.755.083-.287.125-.587.125-.9 0-.293-.042-.575-.125-.845-.083-.27-.23-.507-.44-.71-.21-.203-.493-.367-.85-.49S12.447 55 11.9 55H9.35v7.14h1.47zm1.07-3.79h-1.07v-2.12h1.06c.26 0 .475.023.645.07.17.047.305.113.405.2.1.087.17.193.21.32.04.127.06.273.06.44 0 .16-.018.308-.055.445-.037.137-.105.252-.205.345-.1.093-.235.167-.405.22-.17.053-.385.08-.645.08z" transform="translate(-402 -1581) translate(402 1581)"/>
+                <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M52 18.695L52 2 2 2 2 50.114 52 50.114 52 41.099" transform="translate(-402 -1581) translate(402 1581)"/>
+            </g>
+        </g>
+    </g>
+</svg>

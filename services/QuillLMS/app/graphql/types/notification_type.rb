@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Types::NotificationType < Types::BaseObject
   graphql_name 'Notification'
 

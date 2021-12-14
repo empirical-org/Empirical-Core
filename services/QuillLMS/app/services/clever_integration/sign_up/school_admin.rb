@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration::SignUp::SchoolAdmin
 
   def self.run(auth_hash)
@@ -10,8 +12,6 @@ module CleverIntegration::SignUp::SchoolAdmin
       library_integration(auth_hash)
     end
   end
-
-  private
 
   def self.library_integration(auth_hash)
     CleverIntegration::Importers::Library.run(auth_hash)

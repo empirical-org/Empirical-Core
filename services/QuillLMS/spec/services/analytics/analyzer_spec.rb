@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Analyzer do
@@ -8,7 +10,7 @@ describe Analyzer do
   describe '#track' do
     it 'should identify the user and track the correct attributes' do
       expect(analyzer).to receive(:identify).with(user)
-      expect(analyzer).to receive(:track).with(user, {
+      expect(analyzer).to receive(:track).with({
         user_id: user.id,
         event: "event",
         context: { ip: user.ip_address }
@@ -20,7 +22,7 @@ describe Analyzer do
   describe '#track_with_attributes' do
     it 'should identify the user and track the attributes given' do
       expect(analyzer).to receive(:identify).with(user)
-      expect(analyzer).to receive(:track).with(user, {
+      expect(analyzer).to receive(:track).with({
           user_id: user.id,
           event: "event",
           key: "value"
@@ -32,12 +34,12 @@ describe Analyzer do
   describe '#track_chain' do
     it 'should identify the user and track all the events given with the correct attributes' do
       expect(analyzer).to receive(:identify).with(user)
-      expect(analyzer).to receive(:track).with(user, {
+      expect(analyzer).to receive(:track).with({
           user_id: user.id,
           event: "event",
           context: { ip: user.ip_address }
       })
-      expect(analyzer).to receive(:track).with(user, {
+      expect(analyzer).to receive(:track).with({
           user_id: user.id,
           event: "another_event",
           context: { ip: user.ip_address }

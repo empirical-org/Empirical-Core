@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
 
   def next_page
@@ -76,5 +78,9 @@ module ApplicationHelper
     "/teachers/progress_reports/diagnostic_reports#/" \
     "u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/student_report/" \
     "#{user_id}"
+  end
+
+  def device
+    request.user_agent =~ /Mobile/ ? 'mobile' : 'desktop'
   end
 end

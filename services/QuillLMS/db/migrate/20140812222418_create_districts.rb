@@ -1,4 +1,6 @@
-class CreateDistricts < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateDistricts < ActiveRecord::Migration[4.2]
   def change
     create_table :districts do |t|
       t.string :clever_id, :name, :token

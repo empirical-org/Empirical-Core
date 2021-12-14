@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'csv'
 
 class Teachers::ProgressReports::ActivitySessionsController < Teachers::ProgressReportsController
@@ -19,8 +21,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
     end
   end
 
-  private
-  def return_data(should_return_json)
+  private def return_data(should_return_json)
     classroom_units_filter = !params[:classroom_id].blank? ? "AND classroom_units.classroom_id = #{params[:classroom_id].to_i}" : ''
     student_filter = !params[:student_id].blank? ? " AND activity_sessions.user_id = #{params[:student_id].to_i}" : ''
     unit_filter = !params[:unit_id].blank? ? " AND classroom_units.unit_id = #{params[:unit_id].to_i}" : ''
@@ -46,76 +47,83 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
 
     # Note to maintainers: if you update this query, please be sure to
     # also update the page count query below if applicable.
-    activity_sessions = ActiveRecord::Base.connection.execute("
-      SELECT
-        activity_sessions.id AS activity_session_id,
-        activity_classifications.name AS activity_classification_name,
-        classrooms_teachers.classroom_id AS classroom_id,
-        EXTRACT(EPOCH FROM (activity_sessions.completed_at + INTERVAL '#{current_user.utc_offset} seconds')) AS completed_at,
-        activity_sessions.completed_at + INTERVAL '#{current_user.utc_offset} seconds' AS visual_date,
-        (CASE WHEN activity_classifications.scored THEN activity_sessions.percentage ELSE -1 END) AS percentage,
-        standards.name AS standard,
-        activity_sessions.user_id AS student_id,
-        activities.name AS activity_name,
-        users.name AS student_name,
-        substring(users.name from (position(' ' in users.name) + 1) for (char_length(users.name))) || substring(users.name from (1) for (position(' ' in users.name))) AS sorting_name
-      FROM classrooms_teachers
-      JOIN classrooms
-        ON classrooms.id = classrooms_teachers.classroom_id
-        AND classrooms.visible = TRUE
-      JOIN classroom_units
-        ON classroom_units.classroom_id = classrooms.id
-        #{classroom_units_filter}
-        #{unit_filter}
-        AND classroom_units.visible = TRUE
-      JOIN students_classrooms
-        ON students_classrooms.classroom_id = classrooms.id
-        AND students_classrooms.visible = TRUE
-      JOIN users
-        ON users.id = students_classrooms.student_id
-      JOIN activity_sessions
-        ON activity_sessions.classroom_unit_id = classroom_units.id
-        AND activity_sessions.state = 'finished'
-        AND activity_sessions.visible = TRUE
-        AND activity_sessions.user_id = users.id
-       #{student_filter}
-      JOIN activities
-        ON activities.id = activity_sessions.activity_id
-      JOIN activity_classifications
-        ON activity_classifications.id = activities.activity_classification_id
-      LEFT JOIN standards
-        ON standards.id = activities.standard_id
-      WHERE classrooms_teachers.user_id = #{current_user.id}
-      ORDER BY #{sort_field} #{sort_direction}
-      #{query_limit}
-      #{query_offset}
-    ").to_a;
-
-    if should_return_json
-      page_count = (ActiveRecord::Base.connection.execute("
-        SELECT count(activity_sessions.id) FROM classrooms_teachers
+    activity_sessions = RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+          activity_sessions.id AS activity_session_id,
+          activity_classifications.name AS activity_classification_name,
+          classrooms_teachers.classroom_id AS classroom_id,
+          EXTRACT(EPOCH FROM (activity_sessions.completed_at + INTERVAL '#{current_user.utc_offset} seconds')) AS completed_at,
+          activity_sessions.completed_at + INTERVAL '#{current_user.utc_offset} seconds' AS visual_date,
+          activity_sessions.timespent AS timespent,
+          (CASE WHEN activity_classifications.scored THEN activity_sessions.percentage ELSE -1 END) AS percentage,
+          standards.name AS standard,
+          activity_sessions.user_id AS student_id,
+          activities.name AS activity_name,
+          users.name AS student_name,
+          substring(users.name from (position(' ' in users.name) + 1) for (char_length(users.name))) || substring(users.name from (1) for (position(' ' in users.name))) AS sorting_name
+        FROM classrooms_teachers
         JOIN classrooms
           ON classrooms.id = classrooms_teachers.classroom_id
-          AND classrooms.visible = TRUE
+          AND classrooms.visible = true
         JOIN classroom_units
           ON classroom_units.classroom_id = classrooms.id
           #{classroom_units_filter}
           #{unit_filter}
-          AND classroom_units.visible = TRUE
+          AND classroom_units.visible = true
         JOIN students_classrooms
           ON students_classrooms.classroom_id = classrooms.id
-          AND students_classrooms.visible = TRUE
+          AND students_classrooms.visible = true
         JOIN users
           ON users.id = students_classrooms.student_id
         JOIN activity_sessions
           ON activity_sessions.classroom_unit_id = classroom_units.id
           AND activity_sessions.state = 'finished'
-          AND activity_sessions.visible = TRUE
+          AND activity_sessions.visible = true
           AND activity_sessions.user_id = users.id
-         #{student_filter}
+          #{student_filter}
+        JOIN activities
+          ON activities.id = activity_sessions.activity_id
+        JOIN activity_classifications
+          ON activity_classifications.id = activities.activity_classification_id
+        LEFT JOIN standards
+          ON standards.id = activities.standard_id
         WHERE classrooms_teachers.user_id = #{current_user.id}
-      ").to_a[0]['count'].to_f / PAGE_SIZE).ceil
+        ORDER BY #{sort_field} #{sort_direction}
+        #{query_limit}
+        #{query_offset}
+      SQL
+    ).to_a
 
+    if should_return_json
+      count = RawSqlRunner.execute(
+        <<-SQL
+          SELECT count(activity_sessions.id)
+          FROM classrooms_teachers
+          JOIN classrooms
+            ON classrooms.id = classrooms_teachers.classroom_id
+            AND classrooms.visible = true
+          JOIN classroom_units
+            ON classroom_units.classroom_id = classrooms.id
+            #{classroom_units_filter}
+            #{unit_filter}
+            AND classroom_units.visible = true
+          JOIN students_classrooms
+            ON students_classrooms.classroom_id = classrooms.id
+            AND students_classrooms.visible = true
+          JOIN users
+            ON users.id = students_classrooms.student_id
+          JOIN activity_sessions
+            ON activity_sessions.classroom_unit_id = classroom_units.id
+            AND activity_sessions.state = 'finished'
+            AND activity_sessions.visible = true
+            AND activity_sessions.user_id = users.id
+            #{student_filter}
+          WHERE classrooms_teachers.user_id = #{current_user.id}
+        SQL
+      ).to_a[0]['count']
+
+      page_count = (count.to_f / PAGE_SIZE).ceil
 
       if params[:without_filters]
         render json: {
@@ -132,20 +140,48 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
         }
       end
     else
-      csv_string = CSV.generate do |csv|
-        csv << ['Student', 'Date', 'Activity', 'Score', 'Standard', 'Tool']
-        activity_sessions.map do |session|
-          csv << [
-            session['student_name'],
-            session['visual_date'],
-            session['activity_name'],
-            "#{session['percentage'].to_f*100}%",
-            session['standard'],
-            session['activity_classification_name']
-          ]
-        end
+      render plain: csv_string(activity_sessions)
+    end
+  end
+
+  private def score(percentage)
+    case percentage
+    when nil then 0
+    when -1 then 'Completed'
+    else "#{percentage * 100}%"
+    end
+  end
+
+  private def timespent_string(seconds)
+    return "N/A" unless seconds
+    return "<1 min" if seconds < 60
+    return "1 min" if seconds >= 60 && seconds < 120
+    return "#{((seconds % 3600) / 60).floor} min" if seconds >= 120 && seconds < 3600
+    return "1 hr" if seconds >= 3600 && seconds < 3660
+    hours = (seconds / 60 / 60).floor
+    minutes = ((seconds % 3600) / 60).floor
+    hours_text = hours > 1 ? "hrs" : "hr"
+    if minutes
+      minutes_text = minutes > 1 ? "mins" : "min"
+      return "#{hours} #{hours_text} #{minutes} #{minutes_text}"
+    end
+    "#{hours} #{hours_text}"
+  end
+
+  private def csv_string(activity_sessions)
+    CSV.generate do |csv|
+      csv << ['Student', 'Date', 'Activity', 'Score', 'Time spent', 'Standard', 'Tool']
+      activity_sessions.map do |session|
+        csv << [
+          session['student_name'],
+          session['visual_date'],
+          session['activity_name'],
+          score(session['percentage']),
+          timespent_string(session['timespent']),
+          session['standard'],
+          session['activity_classification_name']
+        ]
       end
-      render text: csv_string
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PremiumMissingSchoolEmailWorker
   include Sidekiq::Worker
 

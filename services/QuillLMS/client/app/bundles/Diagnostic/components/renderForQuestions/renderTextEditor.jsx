@@ -116,6 +116,8 @@ export default class RenderTextEditor extends React.Component {
     onChange(e.target.value, editorIndex);
   }
 
+  handleDrop = (e) => e.preventDefault()
+
   handleKeyDown = (e) => {
     const { disabled, onSubmitResponse, } = this.props
     if (disabled || e.key !== 'Enter') { return }
@@ -134,6 +136,7 @@ export default class RenderTextEditor extends React.Component {
               autoCapitalize="off"
               autoCorrect="off"
               className="connect-text-area"
+              onDrop={this.handleDrop}
               onInput={this.handleTextChange}
               onKeyDown={this.handleKeyDown}
               placeholder={placeholder}

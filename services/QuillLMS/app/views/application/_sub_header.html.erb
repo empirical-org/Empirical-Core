@@ -11,7 +11,7 @@
 
 <% if current_path.include?('tools') %>
 	<% active_tab = 'Learning Tools' %>
-<% elsif ['announcements', 'mission', 'impact', 'press', 'team'].any? { |str| current_path.include?(str)} %>
+<% elsif ['announcements', 'mission', 'impact', 'press', 'team', 'pathways', 'careers'].any? { |str| current_path.include?(str)} %>
 	<% active_tab = 'About Us' %>
 <% elsif current_path.include?('activities') %>
 	<% active_tab = 'Explore Curriculum' %>
@@ -79,13 +79,6 @@
   					),
   						'https://support.quill.org',
   						target: "_blank"
-  					%>
-  					<%= link_to raw(
-  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-refer-gradient-1.svg'></img>
-  						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-refer-solid-1.svg'></img></span>
-  						Refer a Teacher"
-  					),
-              referrals_path
   					%>
   					<%= link_to raw(
   						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-logout-gradient-1.svg'></img>

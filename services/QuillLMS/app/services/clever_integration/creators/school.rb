@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration::Creators::School
 
   def self.run(parsed_response)

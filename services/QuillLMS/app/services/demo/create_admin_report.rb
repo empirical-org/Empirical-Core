@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Demo::CreateAdminReport
 
   def initialize(name, email_safe_school_name, teacher_email)
@@ -10,11 +12,12 @@ class Demo::CreateAdminReport
     create_demo
   end
 
-  private
-
   attr_reader :name, :email_safe_school_name, :teacher_email
+  private :name
+  private :email_safe_school_name
+  private :teacher_email
 
-  def create_demo
+  private def create_demo
     # Create the school
     school = School.create!(name: name)
 

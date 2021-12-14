@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UpdateSalesContact
 
   def initialize(user_id, stage_number, current_user = nil, notifier = nil)
@@ -18,29 +20,27 @@ class UpdateSalesContact
     end
   end
 
-  private
-
-  def update_sales_stage
+  private def update_sales_stage
     sales_stage.update(completed_at: Time.now, user: @current_user)
   end
 
-  def user
+  private def user
     @user ||= User.find(@user_id)
   end
 
-  def sales_stage_type
+  private def sales_stage_type
     @sales_stage_type ||= SalesStageType.find_by(order: @stage_number)
   end
 
-  def sales_stage
+  private def sales_stage
     user.reload.sales_contact.stages.find_by(sales_stage_type: sales_stage_type)
   end
 
-  def create_sales_contact
+  private def create_sales_contact
     CreateSalesContact.new(user.id).call if user.sales_contact.nil?
   end
 
-  def notify_cms
+  private def notify_cms
     @notifier&.perform_async(user.id, sales_stage_type.name_param)
   end
 end

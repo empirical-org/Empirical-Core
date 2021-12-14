@@ -400,6 +400,7 @@ Metrics/BlockLength:
   Max: 940
   Exclude:
     - 'QuillLMS/spec/models/user_spec.rb'
+    - 'QuillLMS/lib/tasks/create_skills_and_skill_groups.rake'
 
 # Offense count: 32
 # Configuration parameters: CountComments.
@@ -444,6 +445,7 @@ Naming/PredicateName:
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: always, conditionals
 Style/AndOr:
+  EnforcedStyle: conditionals
   Exclude:
     - 'QuillLMS/app/controllers/schools_controller.rb'
     - 'QuillLMS/app/controllers/sessions_controller.rb'

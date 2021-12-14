@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ProfilesController < ApplicationController
-  before_filter :signed_in!
+  before_action :signed_in!
 
   def show
     @user = current_user
@@ -64,12 +66,11 @@ class ProfilesController < ApplicationController
     render :staff
   end
 
-  protected
-  def user_params
+  protected def user_params
     params.require(:user).permit(:classcode, :email, :name, :username, :password)
   end
 
-  def student_data
+  protected def student_data
     {
       name: current_user&.name,
       classroom: {
@@ -82,19 +83,30 @@ class ProfilesController < ApplicationController
     }
   end
 
-  def students_classrooms_with_join_info
-    ActiveRecord::Base.connection.execute(
-    "SELECT classrooms.name AS name, teacher.name AS teacher, classrooms.id AS id FROM classrooms
-      JOIN students_classrooms AS sc ON sc.classroom_id = classrooms.id
-      JOIN classrooms_teachers ON classrooms_teachers.classroom_id = sc.classroom_id AND classrooms_teachers.role = 'owner'
-      JOIN users AS teacher ON teacher.id = classrooms_teachers.user_id
-      WHERE sc.student_id = #{current_user.id}
-      AND classrooms.visible = true
-      AND sc.visible = true
-      ORDER BY sc.created_at DESC").to_a
+  protected def students_classrooms_with_join_info
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+          classrooms.name AS name,
+          teacher.name AS teacher,
+          classrooms.id AS id
+        FROM classrooms
+        JOIN students_classrooms AS sc
+          ON sc.classroom_id = classrooms.id
+        JOIN classrooms_teachers
+          ON classrooms_teachers.classroom_id = sc.classroom_id
+          AND classrooms_teachers.role = 'owner'
+        JOIN users AS teacher
+          ON teacher.id = classrooms_teachers.user_id
+        WHERE sc.student_id = #{current_user.id}
+          AND classrooms.visible = true
+          AND sc.visible = true
+        ORDER BY sc.created_at DESC
+      SQL
+    ).to_a
   end
 
-  def student_profile_data_sql(classroom_id=nil)
+  protected def student_profile_data_sql(classroom_id=nil)
     @current_classroom = current_classroom(classroom_id)
     if @current_classroom && current_user
       @act_sesh_records = UnitActivity.get_classroom_user_profile(@current_classroom.id, current_user.id)
@@ -103,13 +115,13 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def next_activity_session
+  protected def next_activity_session
     # We only need to check the first activity session record here because of
     # the order in which the the query returns these.
     can_display_next_activity = begin
       @act_sesh_records.any? &&
-      @act_sesh_records.first['locked'] == 'f' &&
-      @act_sesh_records.first['marked_complete'] == 'f' &&
+      @act_sesh_records.first['locked'] == false &&
+      @act_sesh_records.first['marked_complete'] == false &&
       !@act_sesh_records.first['max_percentage']
     end
 
@@ -118,12 +130,12 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def get_parsed_mobile_profile_data(classroom_id)
+  protected def get_parsed_mobile_profile_data(classroom_id)
     # classroom = current_classroom(classroom_id)
     Profile::Mobile::ActivitySessionsByUnit.new.query(current_user, classroom_id)
   end
 
-  def current_classroom(classroom_id = nil)
+  protected def current_classroom(classroom_id = nil)
     if !classroom_id
        current_user.classrooms.last
     else

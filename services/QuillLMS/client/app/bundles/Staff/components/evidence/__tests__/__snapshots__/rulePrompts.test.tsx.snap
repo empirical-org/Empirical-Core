@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RulePrompts component should render RulePrompts 1`] = `
+<Fragment>
+  <p
+    className="form-subsection-label"
+  >
+    Apply To Stems
+  </p>
+  <div
+    className="checkboxes-container"
+  >
+    <div
+      className="checkbox-container"
+    >
+      <label
+        htmlFor={1}
+        id="stem-label-1"
+      >
+        Because
+      </label>
+      <input
+        aria-labelledby="stem-label-1"
+        checked={true}
+        id={1}
+        name="Because"
+        onChange={[Function]}
+        type="checkbox"
+        value="because"
+      />
+    </div>
+    <div
+      className="checkbox-container"
+    >
+      <label
+        htmlFor={2}
+        id="stem-label-2"
+      >
+        But
+      </label>
+      <input
+        aria-labelledby="stem-label-2"
+        checked={false}
+        id={2}
+        name="But"
+        onChange={[Function]}
+        type="checkbox"
+        value="but"
+      />
+    </div>
+    <div
+      className="checkbox-container"
+    >
+      <label
+        htmlFor={3}
+        id="stem-label-3"
+      >
+        So
+      </label>
+      <input
+        aria-labelledby="stem-label-3"
+        checked={true}
+        id={3}
+        name="So"
+        onChange={[Function]}
+        type="checkbox"
+        value="so"
+      />
+    </div>
+  </div>
+</Fragment>
+`;

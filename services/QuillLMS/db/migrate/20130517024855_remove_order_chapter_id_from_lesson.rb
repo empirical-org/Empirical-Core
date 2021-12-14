@@ -1,4 +1,6 @@
-class RemoveOrderChapterIdFromLesson < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class RemoveOrderChapterIdFromLesson < ActiveRecord::Migration[4.2]
   def up
   	remove_column :lessons, :order
   	remove_column :lessons, :chapter_id

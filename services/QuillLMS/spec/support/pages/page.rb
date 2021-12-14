@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # cf http://www.neo.com/2014/10/17/clean-up-after-your-capybara
 class Page
   extend Capybara::DSL
@@ -12,8 +14,6 @@ class Page
     page.visit path
     new
   end
-
-  protected
 
   def self.has_checkbutton(value_method, element_method, locator)
     # e.g.,
@@ -73,8 +73,6 @@ class Page
   def fill(field, value)
     field.set value if value.present?
   end
-
-  private
 
   def self.module_eval_str(line_no, str)
     module_eval(str, __FILE__, line_no)

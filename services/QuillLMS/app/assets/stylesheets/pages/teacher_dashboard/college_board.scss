@@ -1,0 +1,25 @@
+.post-checklist-container aside section.college-board {
+  padding: 0px;
+  .top-section {
+    background-color: #f5f5f5;
+    padding: 50px 38px;
+    position: relative;
+    .help-icon {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+    }
+  }
+  p {
+    line-height: 1.43;
+    color: #262626;
+    padding: 16px 16px 8px;
+  }
+  .see-all-activities {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+    font-weight: 600;
+    color: #5c5c5c;
+  }
+}

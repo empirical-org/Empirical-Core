@@ -19,15 +19,14 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    const that = this;
     request.get({
       url: `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`
     }, (e, r, body) => {
       const data = JSON.parse(body)
-      that.setState({ 
-        loading: false, 
-        errors: body.errors, 
-        reportData: data.concepts, 
+      this.setState({
+        loading: false,
+        errors: body.errors,
+        reportData: data.concepts,
         studentName: data.student.name
       });
     });
@@ -44,6 +43,7 @@ export default class extends React.Component {
       }, {
         Header: 'Name',
         accessor: 'concept_name',
+        className: 'show-overflow',
         resizable: false,
       }, {
         Header: 'Questions',
@@ -55,13 +55,13 @@ export default class extends React.Component {
         accessor: 'correct_result_count',
         resizable: false,
         className: blurIfNotPremium,
-        width: 120
+        width: 105
       }, {
         Header: 'Incorrect',
         accessor: 'incorrect_result_count',
         resizable: false,
         className: blurIfNotPremium,
-        width: 120
+        width: 115
       }, {
         Header: 'Percentage',
         accessor: 'percentage',
@@ -79,7 +79,6 @@ export default class extends React.Component {
     }
     return (
       <div className='progress-reports-2018 concept-student-concepts' concept-student-concepts>
-        <a className='navigate-back' href="/teachers/progress_reports/concepts/students"><img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />Back to Concept Results</a>
         <div className="meta-overview flex-row space-between">
           <div className='header-and-info flex-row vertically-centered'>
             <h1><span>Concept Results:</span> {this.state.studentName}</h1>

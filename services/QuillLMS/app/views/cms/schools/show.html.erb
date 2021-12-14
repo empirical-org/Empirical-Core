@@ -7,8 +7,8 @@
     <table class='cms-results-table'>
       <thead>
         <tr>
-          <% ['Name', 'Role', 'Title', 'Purchaser', 'School\'s Point of Contact', 'Classes', 'Students', 'Activities Completed',
-              'Last Active', 'Premium?', 'Make Admin', 'Edit Attributes', 'Sign In'].each do |td| %>
+          <% ['Name', 'Role', 'Title', 'Purchaser', 'School\'s Point of Contact', 'Classes', 'Students',
+              'Last Active', 'Premium?', 'Manage', 'Edit Attributes', 'Sign In'].each do |td| %>
             <td><%= td %></td>
           <% end %>
         </tr>
@@ -21,16 +21,17 @@
             <td><%= teacher['title'] || 'N/A' %></td>
             <td><%= teacher['flags']&.include?('purchaser') ? 'Purchaser' : '' %></td>
             <td><%= teacher['flags']&.include?('school_point_of_contact') ? 'School\'s Point of Contact' : '' %></td>
-            <% %w(number_classrooms number_students number_activities_completed last_active subscription).each do |attribute| %>
+            <% %w(number_classrooms number_students last_active subscription).each do |attribute| %>
               <td><%= teacher[attribute] || 'N/A' %></td>
             <% end %>
             <td>
               <% if !teacher['user_id'].blank? %>
                 <% if !teacher['admin_id'].blank? %>
-                  <%= button_to 'Remove Admin', cms_user_remove_admin_path(user_id: teacher['user_id'], school_id: params[:id]), method: :put %>
+                  <%= button_to 'Remove Admin', cms_user_remove_admin_url(:user_id => teacher['user_id'], :school_id => params[:id]), method: :put, class: 'fake-button-link' %>
                 <% else %>
-                  <%= button_to 'Make Admin', cms_user_make_admin_path(user_id: teacher['user_id'], school_id: params[:id]), method: :put %>
+                  <%= button_to 'Make Admin', cms_user_make_admin_url(:user_id => teacher['user_id'], :school_id => params[:id]), method: :put, class: 'fake-button-link' %>
                 <% end %>
+                <%= button_to 'Unlink from School', unlink_cms_school_path(teacher_id: teacher['user_id']), method: :post, remote: true, class: 'fake-button-link' %>
 
                 <td>
                   <%= link_to 'edit', edit_cms_user_path(teacher['user_id']) %>
@@ -44,8 +45,9 @@
         <% end %>
       </tbody>
     </table>
-    <h2>Add User</h2>
-    <%= link_to 'Add User', new_with_school_cms_users_path(params[:id]), class: 'btn button-green' %>
+    <h2>Add New User</h2>
+    <%= link_to 'Add New User', new_with_school_cms_users_path(params[:id]), class: 'btn button-green' %>
+    <%= link_to 'Add Existing User', add_existing_user_cms_school_path(params[:id]), class: 'btn button-green' %>
     <br /><br />
     <h2>School Subscription</h2>
     <br />

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CleverIntegration::Parsers::Teacher
 
   def self.run(hash)
@@ -16,8 +18,6 @@ module CleverIntegration::Parsers::Teacher
       NewRelic::Agent.notice_error(e)
     end
   end
-
-  private
 
   def self.generate_name(first_name, last_name)
     JoinNames.new(first_name, last_name).call

@@ -4,14 +4,6 @@ import $ from 'jquery';
 import { DropdownInput } from '../../../../Shared/index';
 import { requestGet } from '../../../../../modules/request/index';
 
-const recommendationsButton = ({ isDiagnostic, buttonGroupCallback, }) => {
-  const identifier = 'recommendations'
-  if (!isDiagnostic) { return }
-  const className = window.location.href.includes(identifier) && 'active'
-  const handleClick = () => buttonGroupCallback(identifier)
-  return <button className={className} onClick={handleClick} type="button">Recommendations</button>
-}
-
 const studentsButton = ({ buttonGroupCallback, }) => {
   const identifier = 'students'
   const className = (window.location.href.includes(identifier) || window.location.href.includes('student_report')) && 'active'
@@ -30,26 +22,9 @@ const Navbar = ({ params, selectedActivity, classrooms, buttonGroupCallback, dro
   const [isDiagnostic, setIsDiagnostic] = React.useState(false);
 
   React.useEffect(() => {
-    getDiagnosticActivityIds();
+    $('.diagnostic-tab').removeClass('active');
+    $('.activity-analysis-tab').addClass('active');
   }, []);
-
-  const getDiagnosticActivityIds = () => {
-    requestGet('/teachers/progress_reports/diagnostic_activity_ids',
-      (data) => {
-        const { diagnosticActivityIds, } = data
-        const { activityId, } = params
-        const isDiagnosticActivity = diagnosticActivityIds.includes(Number(activityId))
-        setIsDiagnostic(isDiagnosticActivity)
-        if (isDiagnosticActivity) {
-          $('.activity-analysis-tab').removeClass('active');
-          $('.diagnostic-tab').addClass('active');
-        } else {
-          $('.diagnostic-tab').removeClass('active');
-          $('.activity-analysis-tab').addClass('active');
-        }
-      }
-    )
-  }
 
   const classroomOptions = classrooms.map(classroom => ({ value: classroom.id, label: classroom.name, }))
 
@@ -65,7 +40,6 @@ const Navbar = ({ params, selectedActivity, classrooms, buttonGroupCallback, dro
         <DropdownInput handleChange={onDropdownChange} options={classroomOptions} value={classroomOptions.find(opt => String(opt.value) === params.classroomId)} />
       </div>
       <nav>
-        {recommendationsButton({ isDiagnostic, buttonGroupCallback, })}
         {studentsButton({ buttonGroupCallback, })}
         {questionsButton({ buttonGroupCallback, })}
       </nav>

@@ -12,10 +12,12 @@ describe CreateOrIncrementResponseWorker do
 
   describe '#perform' do
     context 'if the response already exists' do
-      it 'should increment the count of the response' do
+      it 'should increment the count of the response and set updated at timestamp' do
         original_count = response.count
+        original_updated_at = response.updated_at
         subject.perform({ text: response.text, question_uid: response.question_uid })
         expect(response.reload.count).to eq(original_count + 1)
+        expect(response.reload.updated_at).to be > original_updated_at
       end
 
       it 'should increment the child count of the parent response if there is a parent id' do
@@ -46,7 +48,9 @@ describe CreateOrIncrementResponseWorker do
 
       it 'should persist a response even if elasticsearch indexing fails' do
         text = 'Totally different text'
-        expect_any_instance_of(Response).to receive(:create_index_in_elastic_search).and_raise(Elasticsearch::Transport::Transport::Errors::BadRequest)
+        exception = Elasticsearch::Transport::Transport::Errors::BadRequest
+        expect_any_instance_of(Response).to receive(:create_index_in_elastic_search).and_raise(exception)
+
         subject.perform({ text: text })
         expect(Response.find_by(text: 'Totally different text').id).to be
       end

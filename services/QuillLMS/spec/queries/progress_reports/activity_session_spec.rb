@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe ProgressReports::ActivitySession do
@@ -54,6 +56,13 @@ describe ProgressReports::ActivitySession do
       let(:filters) { {sort: {field: 'percentage', direction: 'desc'} } }
       it 'retrieves results in the appropriate order' do
         expect(subject.first.percentage).to eq(best_score_sessions.first.percentage)
+      end
+    end
+
+    context 'timespent' do
+      let(:filters) { {sort: {field: 'timespent', direction: 'desc'} } }
+      it 'retrieves results in the appropriate order' do
+        expect(subject.first.timespent).to eq(best_score_sessions.first.timespent)
       end
     end
 

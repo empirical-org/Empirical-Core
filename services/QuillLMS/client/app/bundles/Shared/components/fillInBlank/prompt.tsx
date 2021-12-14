@@ -46,7 +46,7 @@ const getFormattedElementsArray = (elements: Element[]) => {
       formattedElements.push(<span style={style} />)
     } else if(typeof children !== 'string') {
       formattedElements.push(element);
-    } else if(children && i === elements.length - 1) {
+    } else if(typeof children === 'string' && i === elements.length - 1) {
       htmlText += children;
       const elementObject = getElementObject(htmlText, style);
       formattedElements.push(elementObject);
@@ -55,9 +55,9 @@ const getFormattedElementsArray = (elements: Element[]) => {
     }
   });
 
-  return formattedElements.map(element => {
+  return formattedElements.map((element, i) => {
     if(element.text || element.text === '') {
-      return <span dangerouslySetInnerHTML={{__html: element.text}} style={element.style} />
+      return <span dangerouslySetInnerHTML={{__html: element.text}} key={i} style={element.style} />
     }
     return element;
   });

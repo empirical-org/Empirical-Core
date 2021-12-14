@@ -1,4 +1,6 @@
-class AddLessonsTable < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddLessonsTable < ActiveRecord::Migration[4.2]
   def change
     create_table :lessons do |t|
       t.string :uid

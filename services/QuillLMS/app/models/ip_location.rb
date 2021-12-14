@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: ip_locations
@@ -16,7 +18,7 @@
 #  index_ip_locations_on_user_id  (user_id)
 #  index_ip_locations_on_zip      (zip)
 #
-class IpLocation < ActiveRecord::Base
+class IpLocation < ApplicationRecord
 
   belongs_to :user
 

@@ -1,4 +1,6 @@
-class AddReferrerUserTable < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddReferrerUserTable < ActiveRecord::Migration[4.2]
   def change
     create_table :referrer_users do |t|
       t.integer :user_id, null: false

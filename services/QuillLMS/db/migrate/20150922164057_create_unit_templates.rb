@@ -1,4 +1,6 @@
-class CreateUnitTemplates < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateUnitTemplates < ActiveRecord::Migration[4.2]
   def change
     create_table :unit_templates do |t|
       t.string :name

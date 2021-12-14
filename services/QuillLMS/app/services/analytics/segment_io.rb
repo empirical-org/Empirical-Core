@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SegmentIo
 
   class << self
@@ -18,6 +20,7 @@ module SegmentIo
     TEACHER_SIGNED_UP_FOR_NEWSLETTER ||= 'Teacher signed up for newsletter'
     TEACHERS_STUDENT_ACCOUNT_CREATION ||= "Teacher's student account created"
     TEACHER_SIGNIN ||= 'Teacher signed in'
+    TEACHER_GOOGLE_AND_CLEVER ||= 'Teacher attempted to connect to Google and Clever'
     TEACHERS_STUDENT_SIGNIN ||= "Teacher's student signed in"
     CLASSROOM_CREATION ||= 'Teacher created a classroom'
     ACTIVITY_COMPLETION ||= 'Student completed an activity'
@@ -41,7 +44,9 @@ module SegmentIo
     COTEACHER_ACCEPTANCE ||= 'Teacher accepted coteacher invitation'
     TRANSFER_OWNERSHIP ||= 'Teacher transferred ownership of a classroom'
     VIEWED_AS_STUDENT ||= 'Teacher viewed Quill as a student'
+    VIEWED_DEMO ||= 'User logged into Demo account'
     PREVIEWED_ACTIVITY ||= 'Teacher previewed an activity'
+    TEACHER_COMPLETED_ONBOARDING_CHECKLIST ||= 'Teacher completed onboarding checklist'
   end
 
   module Events

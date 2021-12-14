@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RulePlagiarismAttributes component should render RulePlagiarismAttributes 1`] = `
+<Fragment>
+  <p
+    className="form-subsection-label"
+  >
+    Plagiarism Text
+  </p>
+  <TextEditor
+    ContentState={[Function]}
+    EditorState={[Function]}
+    handleTextChange={[Function]}
+    key="plagiarism-text"
+    shouldCheckSpelling={true}
+  />
+  <p
+    className="form-subsection-label"
+  >
+    First Feedback
+  </p>
+  <TextEditor
+    ContentState={[Function]}
+    EditorState={[Function]}
+    handleTextChange={[Function]}
+    key="first-plagiarism-feedback"
+    shouldCheckSpelling={true}
+    text="do not plagiarize."
+  />
+  <div
+    className="button-wrapper"
+  >
+    <button
+      className="add-highlight quill-button small primary outlined"
+      onClick={[Function]}
+      type="button"
+      value="0"
+    >
+      Add Highlight
+    </button>
+  </div>
+  <p
+    className="form-subsection-label"
+  >
+    Second Feedback
+  </p>
+  <TextEditor
+    ContentState={[Function]}
+    EditorState={[Function]}
+    handleTextChange={[Function]}
+    key="second-plagiarism-feedback"
+    shouldCheckSpelling={true}
+    text="seriously... do not plagiarize!"
+  />
+  <div
+    className="button-wrapper"
+  >
+    <button
+      className="add-highlight quill-button small primary outlined"
+      onClick={[Function]}
+      type="button"
+      value="1"
+    >
+      Add Highlight
+    </button>
+  </div>
+</Fragment>
+`;

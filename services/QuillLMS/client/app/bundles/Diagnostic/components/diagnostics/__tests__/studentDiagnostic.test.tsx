@@ -8,7 +8,7 @@ import {
   PlayTitleCard,
   ProgressBar
 } from '../../../../Shared/index';
-import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateCurrentQuestion, resumePreviousDiagnosticSession, setCurrentQuestion } from '../../../actions/diagnostics.js';
+import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion, resumePreviousDiagnosticSession, setCurrentQuestion } from '../../../actions/diagnostics.js';
 import SessionActions from '../../../actions/sessions.js';
 import PlaySentenceFragment from '../sentenceFragment.jsx';
 import PlayDiagnosticQuestion from '../sentenceCombining.jsx';
@@ -284,21 +284,11 @@ describe('StudentDiagnostic Container functions', () => {
         container.instance().nextQuestion();
         expect(mockProps.dispatch).toHaveBeenLastCalledWith(argument);
     });
-    it("nextQuestionWithoutSaving calls dispatch() prop function passing nextQuestionWithoutSaving as an argument", () => {
-        const argument = setCurrentQuestion(mockProps.playDiagnostic.unansweredQuestions[0].data);
-        container.instance().nextQuestionWithoutSaving();
-        expect(mockProps.dispatch).toHaveBeenLastCalledWith(argument);
-    });
     it("nextQuestion calls dispatch() prop function passing nextQuestion as an argument while not in previewMode", () => {
         mockProps.previewMode = false;
         container = shallow(<StudentDiagnostic {...mockProps} />);
         const argument = nextQuestion();
         container.instance().nextQuestion();
-        expect(mockProps.dispatch).toHaveBeenLastCalledWith(argument);
-    });
-    it("nextQuestionWithoutSaving calls dispatch() prop function passing nextQuestionWithoutSaving as an argument while not in previewMode", () => {
-        const argument = nextQuestionWithoutSaving();
-        container.instance().nextQuestionWithoutSaving();
         expect(mockProps.dispatch).toHaveBeenLastCalledWith(argument);
     });
     it("getLesson returns lesson at lessons.data prop at key of [params.diagnosticID] prop ", () => {

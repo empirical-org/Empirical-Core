@@ -1,0 +1,400 @@
+import * as React from 'react'
+
+import EditorContainer from './editorContainer'
+import Feedback from './feedback'
+
+import EditCaretPositioning from '../../helpers/EditCaretPositioning'
+import ButtonLoadingSpinner from '../shared/buttonLoadingSpinner'
+import { highlightSpellingGrammar } from '../../libs/stringFormatting'
+
+interface PromptStepProps {
+  active: Boolean;
+  activityIsComplete: Boolean;
+  className: string,
+  completionButtonCallback: () => void; 
+  everyOtherStepCompleted: boolean;
+  submitResponse: Function;
+  completeStep: (event: any) => void;
+  stepNumberComponent: JSX.Element,
+  stepNumber: number;
+  activateStep: (event: any) => void;
+  reportAProblem: ({}) => void;
+  prompt: any,
+  passedRef: any,
+  submittedResponses: Array<any>,
+  canBeClicked: boolean
+}
+
+interface PromptStepState {
+  html: string;
+  numberOfSubmissions: number;
+  customFeedback: string|null;
+  customFeedbackKey: string|null;
+}
+
+const RESPONSE = 'response'
+const PROMPT = 'prompt'
+export const DIRECTIONS = 'Use information from the text to finish the sentence:'
+
+export class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
+  private editor: any // eslint-disable-line react/sort-comp
+
+  constructor(props: PromptStepProps) {
+    super(props)
+
+    const { submittedResponses, } = this.props
+
+    this.state = {
+      html: this.formattedPrompt(submittedResponses),
+      numberOfSubmissions: submittedResponses.length,
+      customFeedback: null,
+      customFeedbackKey: null
+    };
+
+    this.editor = React.createRef()
+  }
+
+  lastSubmittedResponse = () => {
+    const { submittedResponses, } = this.props
+    return submittedResponses.length ? submittedResponses[submittedResponses.length - 1] : {}
+  }
+
+  unsubmittableResponses = () => {
+    const { submittedResponses, prompt } = this.props
+    const { text } = prompt;
+    return submittedResponses.map(r => r.entry).concat(text)
+  }
+
+  stripHtml = (html: string) => html.replace(/<p>|<\/p>|<u>|<\/u>|<b>|<\/b>|<br>|<br\/>/g, '').replace(/&nbsp;/g, ' ')
+
+  formattedPrompt = (submittedResponses?: Array<string>) => {
+    if (submittedResponses && submittedResponses.length) {
+      const lastSubmission = submittedResponses[submittedResponses.length - 1]
+      const formattedText = this.formatHtmlForEditorContainer(lastSubmission.entry, true)
+      return formattedText.htmlWithBolding
+    }
+    return this.formattedStem()
+  }
+
+  formattedStem = () => {
+    const { prompt, } = this.props
+    const { text } = prompt
+    return `<p>${this.allButLastWord(text)} <u>${this.lastWord(text)}</u>&nbsp;</p>`
+  }
+
+  allButLastWord = (str: string) => str.substring(0, str.lastIndexOf(' '))
+
+  lastWord = (str: string) => str.substring(str.lastIndexOf(' ') + 1)
+
+  textWithoutStem = (text: string) => {
+    const regex = this.promptAsRegex()
+    return text.replace(regex, '')
+  }
+
+  highlightsAddedPrompt = (str: string) => {
+    const { prompt, submittedResponses, } = this.props
+    const lastSubmittedResponse = this.lastSubmittedResponse()
+
+    if (!lastSubmittedResponse || !lastSubmittedResponse.highlight || !lastSubmittedResponse.entry || submittedResponses.length === prompt.max_attempts) { return str }
+
+    const thereArePromptHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === PROMPT).length
+    if (!thereArePromptHighlights) {
+      return str
+    }
+
+    let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === PROMPT).map(hl => this.stripHtml(hl.text))
+    wordsToFormat = wordsToFormat.length === 1 ? wordsToFormat[0] : wordsToFormat
+    return highlightSpellingGrammar(str, wordsToFormat)
+  }
+
+  formatStudentResponse = (str: string) => {
+    const { prompt, submittedResponses, } = this.props
+    const lastSubmittedResponse = this.lastSubmittedResponse()
+
+    if (!lastSubmittedResponse || !lastSubmittedResponse.highlight || !lastSubmittedResponse.entry || submittedResponses.length === prompt.max_attempts) { return str }
+
+    const thereAreResponseHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).length
+
+    if (!thereAreResponseHighlights) { return str }
+
+    let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).map(hl => this.stripHtml(hl.text))
+    wordsToFormat = wordsToFormat.length === 1 ? wordsToFormat[0] : wordsToFormat
+    if (lastSubmittedResponse.feedback_type == 'plagiarism') {
+      return this.formatPlagiarismHighlight(str, wordsToFormat)
+    } else {
+      return highlightSpellingGrammar(str, wordsToFormat)
+    }
+  }
+
+  formatPlagiarismHighlight = (str: string, wordsToFormat: string) => {
+    let boldedString = `<b>${wordsToFormat}</b>`
+    return str.replace(wordsToFormat, boldedString)
+  }
+
+  htmlStrippedPrompt = (escapeRegexCharacters=false) => {
+    const strippedPrompt = this.formattedStem().replace(/<p>|<\/p>|<br>/g, '')
+    if (escapeRegexCharacters) {
+      return strippedPrompt.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+    }
+    return strippedPrompt
+  }
+
+  promptAsRegex = () => new RegExp(`^${this.htmlStrippedPrompt(true)}`)
+
+  onTextChange = (e) => {
+    const { html, } = this.state
+    const { value, } = e.target
+    const text = value.replace(/<b>|<\/b>|<p>|<\/p>|<br>/g, '')
+    const regex = this.promptAsRegex()
+    const caretPosition = EditCaretPositioning.saveSelection(this.editor)
+    if (text.match(regex)) {
+      this.setState({ html: value, }, () => EditCaretPositioning.restoreSelection(this.editor, caretPosition))
+      // if the student has deleted everything, we want to remove everything but the prompt stem
+    } else if (!text.length) {
+      this.resetText()
+    } else {
+      const htmlStrippedPrompt = this.htmlStrippedPrompt()
+      const splitSubmission = text.split('&nbsp;')
+
+      // handles case where change is only in the formatted prompt part
+      if (splitSubmission.length > 1) {
+        const newValue = `${htmlStrippedPrompt}${splitSubmission[splitSubmission.length - 1]}`
+        this.setState({ html: newValue}, () => {
+          this.editor.innerHTML = newValue
+        })
+      // student overwrote or deleted both part of their submission and the formatted prompt and the solution is much more complicated
+      } else {
+        const formattedPromptWordArray = htmlStrippedPrompt.split(' ')
+        const textWordArray = text.replace(/&nbsp;/g, ' ').split(' ')
+
+        // if the user has tried to edit part of the original prompt, we find the words in their submission that are different from the original prompt
+        const diffIndices: number[] = []
+        formattedPromptWordArray.forEach((word: string, i: number) => {
+          if ((textWordArray[i] !== word)) {
+            diffIndices.push(i)
+          }
+        })
+
+        let newTextWordArray = textWordArray.slice(0, diffIndices[0])
+        const textToAddAfterPromptText: string[] = []
+
+        // then we add each of the words from the original prompt that they modified or removed back in
+        diffIndices.forEach((originalIndex: number) => {
+          const diffWordEquivalent = formattedPromptWordArray[originalIndex]
+          newTextWordArray.push(diffWordEquivalent)
+          const diffWordWithoutHtmlLettersArray = textWordArray[originalIndex] ? this.stripHtml(textWordArray[originalIndex]).split('') : null
+          if (diffWordWithoutHtmlLettersArray) {
+            const diffWordEquivalentWithoutHtmlLettersArray = this.stripHtml(diffWordEquivalent)
+            const indexOfLettersToKeepFromDiffWord = diffWordWithoutHtmlLettersArray.findIndex((letter: string, i: number) => letter !== diffWordEquivalentWithoutHtmlLettersArray[i])
+            const partOfDiffWordToKeep = diffWordWithoutHtmlLettersArray.slice(indexOfLettersToKeepFromDiffWord).join('').replace(/(&nbsp;)|(<u>)|(<\/u>)/g, '')
+            // keeping track of what they'd modified it to be, so we don't lose those changes
+            textToAddAfterPromptText.push(partOfDiffWordToKeep)
+          }
+        })
+
+        const restOfSubmission = textWordArray.slice(diffIndices[diffIndices.length - 1] + 1)
+
+        // then we concatenate the original text, however they had changed their submission, and the rest of the submission
+        newTextWordArray = newTextWordArray.concat(textToAddAfterPromptText).concat(restOfSubmission)
+
+        const newValue = newTextWordArray.join(' ').replace(/&nbsp;\s/g, '&nbsp;')
+
+        this.setState({ html: newValue}, () => {
+          this.editor.innerHTML = newValue
+        })
+      }
+    }
+
+    this.setState({ customFeedback: null, customFeedbackKey: null })
+  }
+
+  resetText = () => {
+    const html = this.formattedStem()
+    this.setState({ html }, () => this.editor.innerHTML = html)
+  }
+
+  setEditorRef = (node: JSX.Element) => this.editor = node
+
+  onFocus = () => {
+    // following code ensures tabbing into editor always puts cursor at the end of the text
+    const el = this.editor
+    // retrieved from https://stackoverflow.com/a/4238971
+    if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      range.collapse(false);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } else if (typeof document.body.createTextRange != "undefined") {
+      const textRange = document.body.createTextRange();
+      textRange.moveToElementText(el);
+      textRange.collapse(false);
+      textRange.select();
+    }
+  }
+
+  handleGetFeedbackClick = (entry: string, promptId: string, promptText: string) => {
+    const { submitResponse, } = this.props
+
+    this.setState(prevState => ({numberOfSubmissions: prevState.numberOfSubmissions + 1}), () => {
+      const { numberOfSubmissions, } = this.state
+      submitResponse(entry, promptId, promptText, numberOfSubmissions)
+    })
+  }
+
+  handleStepInteraction = (e) => {
+    const { key, ctrlKey, metaKey, } = e
+    const { activateStep, stepNumber, } = this.props
+
+    if (key === "5" && ctrlKey && metaKey) {
+      this.completeStep()
+    } else {
+      activateStep(stepNumber)
+    }
+  }
+
+  completeStep = () => {
+    const { completeStep, stepNumber, } = this.props
+
+    completeStep(stepNumber)
+  }
+
+  formatHtmlForEditorContainer = (html: string, active: boolean) => {
+    const { prompt, } = this.props
+    const text = html.replace(/<b>|<\/b>|<p>|<\/p>|<br>|<u>|<\/u>/g, '').replace('&nbsp;', '')
+    const textWithoutStem = text.replace(prompt.text, '').trim()
+    const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
+    return {
+      htmlWithBolding: active ? `<p>${this.highlightsAddedPrompt(this.htmlStrippedPrompt())}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`,
+      rawTextWithoutStem: textWithoutStem
+    }
+  }
+
+  renderButton = () => {
+    const { prompt, submittedResponses, everyOtherStepCompleted, completionButtonCallback, activityIsComplete} = this.props
+    const { id, text, max_attempts } = prompt
+    const { html, numberOfSubmissions, } = this.state
+    const entry = this.stripHtml(html).trim()
+    const awaitingFeedback = numberOfSubmissions !== submittedResponses.length
+    const buttonLoadingSpinner = awaitingFeedback ? <ButtonLoadingSpinner /> : null
+    let buttonCopy = submittedResponses.length ? 'Get new feedback' : 'Get feedback'
+    let className = 'quill-button focus-on-light'
+    let onClick = () => this.handleGetFeedbackClick(entry, id, text)
+   
+    if (activityIsComplete) {
+      onClick = completionButtonCallback
+      buttonCopy = 'Done'
+    } else if (submittedResponses.length === max_attempts || this.lastSubmittedResponse().optimal) {
+      onClick = this.completeStep
+      buttonCopy = 'Start next sentence'
+    } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback) {
+      className += ' disabled'
+      onClick = () => {}
+    } 
+    return <button className={className} onClick={onClick} type="button">{buttonLoadingSpinner}<span>{buttonCopy}</span></button>
+  }
+
+  renderFeedbackSection = () => {
+    const { customFeedback, customFeedbackKey, } = this.state
+    const { submittedResponses, prompt, reportAProblem, } = this.props
+    if (submittedResponses.length === 0 && !(customFeedback && customFeedbackKey)) { return }
+
+    return (<Feedback
+      customFeedback={customFeedback}
+      customFeedbackKey={customFeedbackKey}
+      lastSubmittedResponse={this.lastSubmittedResponse()}
+      prompt={prompt}
+      reportAProblem={reportAProblem}
+      submittedResponses={submittedResponses}
+    />)
+  }
+
+  renderEditorContainer = () => {
+    const { html, } = this.state
+    const { submittedResponses, prompt, active, } = this.props
+    const lastSubmittedResponse = this.lastSubmittedResponse()
+    let className = 'editor'
+    let disabled = false
+    const outOfAttempts = submittedResponses.length === prompt.max_attempts
+    if (lastSubmittedResponse.optimal) {
+      className += ' optimal disabled'
+      disabled = true
+    } else if (outOfAttempts) {
+      className += ' suboptimal disabled'
+      disabled = true
+    } else if (submittedResponses.length) {
+      className += ' suboptimal'
+    }
+
+    const formattedText = this.formatHtmlForEditorContainer(html, active)
+
+    return (<EditorContainer
+      className={className}
+      disabled={disabled}
+      handleFocus={this.onFocus}
+      handleTextChange={this.onTextChange}
+      html={formattedText.htmlWithBolding}
+      innerRef={this.setEditorRef}
+      isResettable={!!formattedText.rawTextWithoutStem.length}
+      promptText={prompt.text}
+      resetText={this.resetText}
+      stripHtml={this.stripHtml}
+    />)
+  }
+
+  renderActiveContent = () => {
+    const { active, prompt, stepNumberComponent, submittedResponses, } = this.props
+    const { text } = prompt
+
+    if (!active) {
+      const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
+      const lastSubmittedResponse = this.lastSubmittedResponse()
+      const outOfAttempts = submittedResponses.length === prompt.max_attempts
+      const editor = lastSubmittedResponse.optimal || outOfAttempts ? this.renderEditorContainer() : null
+      const fadedRectangle = editor ? <div className="faded-rectangle" /> : null
+      return (
+        <div>
+          <div className="step-header">
+            {stepNumberComponent}
+            {promptTextComponent}
+          </div>
+          {editor}
+          {fadedRectangle}
+        </div>
+      )
+    }
+
+    return (<div>
+      <div className="step-header">
+        {stepNumberComponent}
+        <p className="directions">{DIRECTIONS}</p>
+      </div>
+      <div className="active-content-container">
+        {this.renderEditorContainer()}
+        {this.renderButton()}
+        {this.renderFeedbackSection()}
+      </div>
+    </div>)
+  }
+
+  render() {
+    const { className, passedRef, canBeClicked, } = this.props
+    const stepContent = (<div className="step-content">
+      {this.renderActiveContent()}
+    </div>)
+
+    if (canBeClicked) {
+      return (<div className={className} onClick={this.handleStepInteraction} onKeyDown={this.handleStepInteraction} ref={passedRef} role="button" tabIndex={0}>
+        {stepContent}
+      </div>)
+
+    }
+
+    return (<div className={className}>
+      {stepContent}
+    </div>)
+  }
+}
+
+export default PromptStep

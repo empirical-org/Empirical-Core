@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JoinNames
 
   def initialize(first_name, last_name)
@@ -12,7 +14,7 @@ class JoinNames
     "#{joined_first_name} #{joined_last_name}"
   end
 
-  private
-
   attr_accessor :first_name, :last_name
+  private :first_name
+  private :last_name
 end

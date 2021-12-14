@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PusherDistrictActivityScoresCompleted
 
   def self.run(admin_id)

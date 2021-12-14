@@ -1,5 +1,7 @@
 require 'active_support/core_ext/numeric/bytes'
 require 'active_support/core_ext/integer/time'
+require_relative 'test/multi_db/custom_resolver'
+require_relative 'test/multi_db/custom_session'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -52,4 +54,8 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  config.active_record.database_selector = { delay: 0.seconds }
+  config.active_record.database_resolver = Test::MultiDb::CustomResolver
+  config.active_record.database_resolver_context = Test::MultiDb::CustomSession
 end

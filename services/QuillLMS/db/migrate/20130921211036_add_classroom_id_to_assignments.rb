@@ -1,4 +1,6 @@
-class AddClassroomIdToAssignments < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddClassroomIdToAssignments < ActiveRecord::Migration[4.2]
   def change
     add_column :assignments, :classroom_id, :integer
     remove_column :assignments, :user_id, :integer

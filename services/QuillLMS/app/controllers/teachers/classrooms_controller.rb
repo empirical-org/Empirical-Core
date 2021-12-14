@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class Teachers::ClassroomsController < ApplicationController
   respond_to :json, :html, :pdf
-  before_filter :teacher!
+  before_action :teacher!
   # The excepted/only methods below are ones that should be accessible to coteachers.
   # TODO This authing could probably be refactored.
-  before_filter :authorize_owner!, except: [:scores, :units, :scorebook, :generate_login_pdf]
-  before_filter :authorize_teacher!, only: [:scores, :units, :scorebook, :generate_login_pdf]
+  before_action :authorize_owner!, only: [:update,  :transfer_ownership]
+  before_action :authorize_teacher!, only: [:scores, :units, :scorebook, :generate_login_pdf]
 
   INDEX = 'index'
 
@@ -43,6 +45,9 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def create_students
+    authorize_owner! { params[:classroom_id] }
+    return if performed?
+
     classroom = Classroom.find(create_students_params[:classroom_id])
     create_students_params[:students].each do |s|
       s[:account_type] = 'Teacher Created Account'
@@ -53,14 +58,14 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def remove_students
-    students_classrooms = StudentsClassrooms.where(student_id: params[:student_ids], classroom_id: params[:classroom_id])
-    students_classrooms.each do |sc|
-      sc.update(visible: false)
-    end
+    StudentsClassrooms
+      .where(student_id: params[:student_ids], classroom_id: params[:classroom_id])
+      .each { |sc| sc.archive }
     render json: {}
   end
 
   def update
+    @classroom = Classroom.find(params[:id])
     @classroom.update_attributes(classroom_params)
     # this is updated from the students tab of the scorebook, so will make sure we keep user there
     respond_to do |format|
@@ -76,8 +81,12 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def destroy
-    @classroom.destroy
-    redirect_to teachers_classrooms_path
+    authorize_owner! { params[:id] }
+    Classroom.find(params[:id]).destroy
+    # we need a performed? check here to avoid a double render, since
+    # authorize_owner can trigger a render, which is an anti-pattern
+    # more info: https://medium.com/cedarcode/abstractcontroller-doublerendererror-fix-d18881b80476
+    redirect_to teachers_classrooms_path unless performed?
   end
 
   def bulk_archive
@@ -117,7 +126,7 @@ class Teachers::ClassroomsController < ApplicationController
     @classroom = Classroom.find(params[:id])
     if @classroom.students.empty?
       flash[:info] = 'You can print a sheet with student logins once you add students.'
-      return redirect_to :back
+      redirect_back(fallback_location: dashboard_teachers_classrooms_path)
     end
     respond_to do |format|
       format.pdf do
@@ -131,6 +140,7 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def transfer_ownership
+    @classroom = Classroom.find(params[:id])
     requested_new_owner_id = params[:requested_new_owner_id]
     owner_role = ClassroomsTeacher::ROLE_TYPES[:owner]
     coteacher_role = ClassroomsTeacher::ROLE_TYPES[:coteacher]
@@ -145,17 +155,16 @@ class Teachers::ClassroomsController < ApplicationController
           SegmentIo::BackgroundEvents::TRANSFER_OWNERSHIP,
 { properties: { new_owner_id: requested_new_owner_id } }
       )
-    rescue
-      return render json: { error: 'Please ensure this teacher is a co-teacher before transferring ownership.' }, status: 401
+    rescue => e
+      return render json: { error: "Please ensure this teacher is a co-teacher before transferring ownership. #{e}" }, status: 401
     end
 
     render json: {}
   end
 
-  private
-
-  def format_coteacher_invitations_for_index
+  private def format_coteacher_invitations_for_index
     coteacher_invitations = CoteacherClassroomInvitation.includes(invitation: :inviter).joins(:invitation, :classroom).where(invitations: {invitee_email: current_user.email}, classrooms: { visible: true})
+
     coteacher_invitations.map do |coteacher_invitation|
       coteacher_invitation_obj = coteacher_invitation.attributes
       coteacher_invitation_obj[:classroom_name] = Classroom.find(coteacher_invitation.classroom_id)&.name
@@ -165,11 +174,27 @@ class Teachers::ClassroomsController < ApplicationController
     end
   end
 
-  def format_classrooms_for_index
-    classrooms = Classroom.unscoped.order(created_at: :desc).joins(:classrooms_teachers).where(classrooms_teachers: {user_id: current_user.id})
+  private def format_classrooms_for_index
+    has_classroom_order = ClassroomsTeacher.where(user_id: current_user.id).all? { |classroom| classroom.order }
+
+    classrooms = Classroom.unscoped
+      .joins(:classrooms_teachers)
+      .where(classrooms_teachers: {user_id: current_user.id})
+      .includes(
+        :students,
+        coteacher_classroom_invitations: :invitation,
+        classrooms_teachers: :user
+      )
+      .order(has_classroom_order ? 'classrooms_teachers.order' : 'created_at DESC')
+
+    student_ids = classrooms.flat_map(&:students).map(&:id)
+
+    activity_counts_by_student = UserActivityClassification.completed_activities_by_student(student_ids)
+
     classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
-      classroom_obj[:students] = format_students_for_classroom(classroom)
+      classroom_obj[:providerClassroom] = classroom.provider_classroom if classroom.provider_classroom?
+      classroom_obj[:students] = format_students_for_classroom(classroom, activity_counts_by_student)
       classroom_teachers = format_teachers_for_classroom(classroom)
       pending_coteachers = format_pending_coteachers_for_classroom(classroom)
       classroom_obj[:teachers] = classroom_teachers.concat(pending_coteachers)
@@ -177,26 +202,21 @@ class Teachers::ClassroomsController < ApplicationController
     end.compact
   end
 
-  def format_students_for_classroom(classroom)
-    sorted_students = classroom.students.sort_by { |s| s.last_name }
-    # create a hash of the form {user_id: count}
-    activity_counts_by_student = ActivitySession
-      .select(:user_id, "count(activity_sessions.id) as total")
-      .where(user_id: sorted_students.map(&:id), state: 'finished')
-      .group(:user_id)
-      .map{|r| [r.user_id, r.total]}
-      .to_h
+  private def format_students_for_classroom(classroom, activity_counts)
+    sorted_students = classroom.students.sort_by(&:last_name)
 
-    sorted_students.map do |s|
-      student = s.attributes
-      student[:number_of_completed_activities] = activity_counts_by_student[s.id] || 0
-      student
+    students = sorted_students.map do |student|
+      student.attributes.merge(number_of_completed_activities: activity_counts[student.id] || 0)
     end
+
+    return students unless classroom.provider_classroom?
+
+    provider_classroom = ProviderClassroom.new(classroom)
+    students.map { |student| student.merge(synced: provider_classroom.synced_status(student)) }
   end
 
-  def format_pending_coteachers_for_classroom(classroom)
-    coteacher_invitations = CoteacherClassroomInvitation.where(classroom_id: classroom.id)
-    coteacher_invitations.map do |cci|
+  private def format_pending_coteachers_for_classroom(classroom)
+    classroom.coteacher_classroom_invitations.map do |cci|
       {
         email: cci.invitation.invitee_email,
         classroom_relation: 'coteacher',
@@ -208,7 +228,7 @@ class Teachers::ClassroomsController < ApplicationController
     end
   end
 
-  def format_teachers_for_classroom(classroom)
+  private def format_teachers_for_classroom(classroom)
     classroom.classrooms_teachers.compact.map do |ct|
       teacher = ct.user&.attributes
       teacher[:classroom_relation] = ct.role
@@ -217,21 +237,34 @@ class Teachers::ClassroomsController < ApplicationController
     end.compact
   end
 
-  def create_students_params
-    params.permit(:classroom_id, :students => [:name, :username, :password, :account_type], :classroom => classroom_params)
+  private def create_students_params
+    params
+      .permit(
+        :classroom_id,
+        classroom: classroom_params,
+        students: [
+          :name,
+          :username,
+          :password,
+          :account_type
+        ]
+      )
+      .to_h
   end
 
-  def classroom_params
+  private def classroom_params
     params[:classroom].permit(:name, :code, :grade)
   end
 
-  def authorize_owner!
-    return unless params[:id].present?
-    @classroom = Classroom.find(params[:id])
-    classroom_owner!(@classroom.id)
+  private def authorize_owner!
+    classroom_id = block_given? ? yield : params[:id]
+    return auth_failed unless classroom_id.present?
+    classroom = Classroom.find_by(id: classroom_id)
+    return auth_failed unless classroom
+    classroom_owner!(classroom.id)
   end
 
-  def authorize_teacher!
+  private def authorize_teacher!
     return unless params[:id].present?
     classroom_teacher!(params[:id])
   end

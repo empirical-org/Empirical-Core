@@ -1,0 +1,185 @@
+.rule-form-container {
+  .rule-form {
+    padding: 0px 30px 0px 30px;
+    .title-input, .course-input, .flag-input, .reading-level-input,
+    .reading-score-input, .because-input, .but-input, .name-input, .highlight-prompt-input,
+    .scored-reading-level-input, .target-reading-level-input, .image-link-input {
+      margin-top: 20px;
+    }
+    .image-attribution-text-area {
+      margin-top: 16px;
+      width: 100%;
+      min-height: 112px;
+    }
+    #image-attribution-label {
+      margin-bottom: 8px;
+    }
+    .so-input {
+      margin: 20px 0px 20px 0px;
+    }
+    .error-message {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.33;
+      color: #ff0000;
+      margin-top: 20px;
+    }
+    .text-editor-label {
+      color: #7f7f7f;
+      font-size: 16px;
+      margin: 10px 0px -10px 0px;
+      font-weight: normal;
+      display: flex;
+      align-items: center;
+      &.has-text {
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .quill-button {
+        margin-left: 8px;
+      }
+    }
+    .text-editor-label:nth-of-type(2) {
+      margin-top: 20px;
+    }
+    .hide-highlights {
+      span {
+        background-color: white !important;
+      }
+    }
+    #max-attempt-feedback {
+      &.focus {
+        .has-text {
+          color: red;
+        }
+      }
+    }
+    .prompt-section {
+      .plagiarism-section {
+        margin-left: 10px;
+        .primary-feedback-input, .secondary-feedback-input {
+          margin-top: 15px;
+        }
+      }
+    }
+    .rule-type-input {
+      &.disabled {
+        .dropdown {
+          .dropdown__control {
+            .dropdown__value-container {
+              .dropdown__single-value {
+                color: #7f7f7f;
+              }
+            }
+          }
+        }
+      }
+    }
+    .rule-type-input:hover {
+      &.disabled {
+        cursor:not-allowed;
+      }
+    }
+    .form-subsection-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #7f7f7f;
+      margin-top: 15px;
+    }
+    #regex-rules-label {
+      margin-bottom: 0px;
+    }
+    .checkboxes-container {
+      display: flex;
+      .checkbox-container {
+        margin-right: 30px;
+        #stem-label-1, #stem-label-2, #stem-label-3 {
+          margin-right: 5px;
+        }
+      }
+    }
+    .regex-rules-container {
+      .regex-rule-container {
+        display: flex;
+        align-items: center;
+        .regex-input-container {
+          width: 100%;
+          margin-right: 30px;
+          .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .case-sensitive-label {
+              margin-right: 10px;
+            }
+          }
+        }
+        .delete-regex-button {
+          margin: 10px 10px 0px 0px;
+          min-width: 20px;
+          padding: 0px 12px 5px 12px;
+        }
+      }
+    }
+    .add-regex-button {
+      margin: 30px 10px 0px 0px;
+      min-width: 20px;
+      padding: 0px 7px 5px 7px;
+    }
+    .rule-highlight-section {
+      margin-left: 10px;
+    }
+    .add-highlight, .add-feedback-layer, .remove-highlight, .remove-feedback-layer {
+      margin-top: 15px;
+    }
+    .remove-highlight, .remove-feedback-layer {
+      color: red;
+    }
+  }
+  .close-button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 700px;
+    #activity-close-button {
+      margin: 10px 10px 0px 0px;
+      height: auto;
+      min-width: 20px;
+      padding: 5px 7px 5px 7px;
+    }
+  }
+  .submit-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    #activity-submit-button {
+      margin-bottom: 20px;
+    }
+    #activity-cancel-button {
+      margin-left: 10px;
+    }
+    .error-message-container {
+      width: 100%;
+      .all-errors-message {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: normal;
+        color: #ff0000;
+        display: flex;
+        text-align: left;
+      }
+    }
+  }
+  .delete-rule-container {
+    .delete-rule-text {
+      padding: 20px;
+    }
+    .delete-rule-button-container {
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px;
+      #delete-rule-button {
+        margin-right: 10px;
+      }
+    }
+  }
+}

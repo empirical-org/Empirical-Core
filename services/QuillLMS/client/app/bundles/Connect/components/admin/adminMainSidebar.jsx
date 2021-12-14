@@ -38,6 +38,12 @@ const AdminMainSidebar = () => {
         <ul className="menu-list">
           <TabLink activeClassName="is-active" to='/admin/title-cards'>Title Cards</TabLink>
         </ul>
+        <p className="menu-label">
+          Activity Health
+        </p>
+        <ul className="menu-list">
+          <TabLink activeClassName="is-active" to='/admin/activity-health'>Activity Health</TabLink>
+        </ul>
       </aside>
     </section>
   );

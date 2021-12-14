@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GetActivitiesQuery
   def initialize(activity_category_id)
     @activity_category_id = activity_category_id
@@ -11,6 +13,6 @@ class GetActivitiesQuery
       .order('activity_category_activities.order_number').to_a
   end
 
-  private
   attr_reader :activity_category_id
+  private :activity_category_id
 end

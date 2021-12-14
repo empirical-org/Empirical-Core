@@ -1,4 +1,6 @@
-class DropVisibilityFromUserSubscriptions < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class DropVisibilityFromUserSubscriptions < ActiveRecord::Migration[4.2]
   def change
     remove_column :user_subscriptions, :visible
   end

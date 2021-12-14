@@ -1,4 +1,6 @@
-class AddFunctionTimespentStudent < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddFunctionTimespentStudent < ActiveRecord::Migration[4.2]
   def up
     connection.execute(%q{
       CREATE OR REPLACE FUNCTION timespent_student(student int) RETURNS bigint AS $$

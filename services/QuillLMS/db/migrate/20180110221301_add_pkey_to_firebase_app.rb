@@ -1,4 +1,6 @@
-class AddPkeyToFirebaseApp < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddPkeyToFirebaseApp < ActiveRecord::Migration[4.2]
   def change
     add_column :firebase_apps, :pkey, :text
   end

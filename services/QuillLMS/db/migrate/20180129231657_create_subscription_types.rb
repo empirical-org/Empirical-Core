@@ -1,4 +1,6 @@
-class CreateSubscriptionTypes < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateSubscriptionTypes < ActiveRecord::Migration[4.2]
   def change
     create_table :subscription_types do |t|
       t.string :name, null: false, index: true

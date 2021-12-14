@@ -1,4 +1,6 @@
-class CreateConceptCategories < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateConceptCategories < ActiveRecord::Migration[4.2]
   def change
     create_table :concept_categories do |t|
       t.string :name

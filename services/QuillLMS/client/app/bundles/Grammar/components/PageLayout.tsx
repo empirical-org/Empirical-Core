@@ -60,12 +60,14 @@ export const PageLayout = () => {
     setSkippedToQuestionFromIntro(true);
   }
 
-  function renderContent (header: JSX.Element, showPreview: boolean) {
+  function renderContent (header: JSX.Element, showPreview: boolean, isOnMobile: boolean) {
     return(
       <main style={{ height: '100vh', overflow: 'auto' }}>
         <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>
         {header}
         <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
+          isOnMobile: isOnMobile,
+          handleTogglePreviewMenu: handleTogglePreviewMenu,
           switchedBackToPreview: switchedBackToPreview,
           handleToggleQuestion: handleToggleQuestion,
           previewMode: showPreview,
@@ -77,12 +79,13 @@ export const PageLayout = () => {
   }
 
   const showPreview = previewShowing && isTeacherOrAdmin && isPlaying;
+  const isOnMobile = window.innerWidth < 1100;
   let className = "ant-layout ";
   className += showFocusState ? '' : 'hide-focus-outline';
   let header;
 
   if(isPlaying && isTeacherOrAdmin) {
-    header = <Header isTeacher={!studentOrTurkOrProofreader} onTogglePreview={handleTogglePreviewMenu} previewShowing={showPreview} />;
+    header = <Header isOnMobile={isOnMobile} isTeacher={!studentOrTurkOrProofreader} onTogglePreview={handleTogglePreviewMenu} previewShowing={showPreview} />;
   } else if(isPlaying) {
     header = <Header />;
   }
@@ -95,6 +98,7 @@ export const PageLayout = () => {
           style={{ height: '100vh', overflowY: 'auto', width: '360px' }}
         >
           <TeacherPreviewMenu
+            isOnMobile={isOnMobile}
             onHandleSkipToQuestionFromIntro={handleSkipToQuestionFromIntro}
             onTogglePreview={handleTogglePreviewMenu}
             onToggleQuestion={handleToggleQuestion}
@@ -102,7 +106,7 @@ export const PageLayout = () => {
             showPreview={previewShowing}
           />
         </aside>}
-        {renderContent(header, showPreview)}
+        {renderContent(header, showPreview, isOnMobile)}
       </div>
     </div>
   );

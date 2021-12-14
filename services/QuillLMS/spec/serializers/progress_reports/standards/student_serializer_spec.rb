@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe ProgressReports::Standards::StudentSerializer, type: :serializer do
@@ -45,6 +47,7 @@ describe ProgressReports::Standards::StudentSerializer, type: :serializer do
           'proficient_standard_count',
           'not_proficient_standard_count',
           'total_activity_count',
+          'timespent',
           'average_score',
           'student_standards_href',
           'mastery_status'

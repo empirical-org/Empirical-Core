@@ -1,53 +1,59 @@
 # Setting the variables, statement_timeone based on this
 # https://github.com/ankane/the-ultimate-guide-to-ruby-timeouts#postgresql
 default: &default
+  adapter: postgresql
+  user: <%= ENV["DEV_POSTGRES_USER"] || "root" %>
+  password: <%= ENV["DEV_POSTGRES_PASSWORD"] || "password" %>
+  host: localhost
+  port: 5433
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
   variables:
     statement_timeout: <%= ENV["STATEMENT_TIMEOUT"] || "180s" %>
 
-development_env: &development_env
-  database: quill_cms_development
-  host: localhost
-  port: 5433
-  user: <%= ENV["DEV_POSTGRES_USER"] || "root" %>
-  password: <%= ENV["DEV_POSTGRES_PASSWORD"] || "password" %>
+development:
+  primary:
+    <<: *default
+    database: quill_cms_development
+  replica:
+    <<: *default
+    database: quill_cms_development
+    replica: true
 
-test_env: &test_env
-  <<: *development_env
-  database: quill_cms_test
+test:
+  primary:
+    <<: *default
+    database: quill_cms_test
+  replica:
+    <<: *default
+    database: quill_cms_test
+    replica: true
 
-# While we don't actually connect to any follower DBs, they
-# do exist within our infrastructure, so naming conventions
-# here are intended to simplify later decision to use followers
-# as well as disambiguate similarly-named ENV variables.
-elastic_beanstalk_leader_env: &elastic_beanstalk_leader_env
+elastic_beanstalk_primary_env: &elastic_beanstalk_primary_env
   database: <%= ENV['RDS_DB_NAME'] %>
   user: <%= ENV['RDS_DB_USERNAME'] %>
   password: <%= ENV['RDS_DB_PASSWORD'] %>
   host: <%= ENV['RDS_HOSTNAME'] %>
   port: <%= ENV['RDS_PORT'] %>
 
+elastic_beanstalk_replica_env: &elastic_beanstalk_replica_env
+  database: <%= ENV['RDS_REPLICA_NAME'] %>
+  user: <%= ENV['RDS_REPLICA_USERNAME'] %>
+  password: <%= ENV['RDS_REPLICA_PASSWORD'] %>
+  host: <%= ENV['RDS_REPLICA_HOSTNAME'] %>
+  port: <%= ENV['RDS_REPLICA_PORT'] %>
 
-development: &development
-  <<: *default
-  adapter: postgresql
-  <<: *development_env
+production_env: &production_env
+  primary:
+    <<: *default
+    <<: *elastic_beanstalk_primary_env
+  replica:
+    <<: *default
+    <<: *elastic_beanstalk_replica_env
+    replica: true
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
-test:
-  <<: *default
-  adapter: postgresql
-  <<: *test_env
-
-staging: &staging
-  <<: *default
-  adapter: postgresql
-  <<: *elastic_beanstalk_leader_env
+staging:
+  <<: *production_env
 
 production:
-  <<: *default
-  adapter: postgresql
-  <<: *elastic_beanstalk_leader_env
+  <<: *production_env

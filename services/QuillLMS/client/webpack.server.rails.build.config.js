@@ -21,12 +21,13 @@ module.exports = {
     // './app/bundles/comments/startup/serverRegistration',
   ],
   output: {
+    crossOriginLoading: 'anonymous',
     filename: 'server-bundle.js',
     publicPath: output.publicPath,
     path: output.path,
   },
   resolve: {
-    extensions: ['.tx', '.txs', '.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.mjs', '.js', '.jsx'],
     alias: {
       libs: path.join(process.cwd(), 'app', 'libs'),
     },
@@ -58,13 +59,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loaders: [
-          'css-loader'
-        ],
+        loader: 'css-loader'
       },
       {
         test: /\.scss$/,
-        loaders: [
+        use: [
           'css-loader',
           'sass-loader',
           'sass-resources-loader'

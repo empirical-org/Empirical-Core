@@ -29,13 +29,25 @@ import {
   updateSessionOnFirebase,
   setSessionReducerToSavedSession,
   removeSession,
-  setPassage
+  setPassage,
+  updateTimeTracking
 } from "../../actions/session";
 import determineUnnecessaryEditType, { unnecessarySpaceSplitResponse, UNNECESSARY_SPACE, } from '../../helpers/determineUnnecessaryEditType'
 import { SessionState } from '../../reducers/sessionReducer'
 import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer'
 import { ConceptResultObject, WordObject } from '../../interfaces/proofreaderActivities'
 import LoadingSpinner from '../shared/loading_spinner'
+
+import {
+  roundValuesToSeconds,
+  KEYDOWN,
+  MOUSEMOVE,
+  MOUSEDOWN,
+  CLICK,
+  KEYPRESS,
+  VISIBILITYCHANGE,
+  SCROLL,
+} from '../../../Shared/index'
 
 interface PlayProofreaderContainerProps {
   proofreaderActivities: ProofreaderActivityState;
@@ -62,6 +74,8 @@ interface PlayProofreaderContainerState {
   originalPassage?: Array<Array<WordObject>>;
   reviewablePassage?: string;
   conceptResultsObjects?: ConceptResultObject[];
+  startTime: number;
+  isIdle: boolean;
 }
 
 const FIREBASE_SAVE_INTERVAL = 30000 // 30 seconds
@@ -124,7 +138,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const initialPassageData = formatInitialPassage(passage)
       const formattedPassage = initialPassageData.passage
       let currentPassage = formattedPassage
-      if (session.passageFromFirebase && typeof session.passageFromFirebase !== 'string') {
+      if (session.passageFromFirebase && typeof session.passageFromFirebase !== 'string' && session.passageFromFirebase.length) {
         currentPassage = session.passageFromFirebase
       }
       dispatch(setPassage(currentPassage))
@@ -160,7 +174,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         numberOfResets: 0,
         loadingFirebaseSession: !!firebaseSessionID,
         firebaseSessionID,
-        currentActivity
+        currentActivity,
+        startTime: Date.now(),
+        isIdle: false,
       }
     }
 
@@ -173,6 +189,14 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       if (activityUIDToUse) {
         dispatch(getActivity(activityUIDToUse))
       }
+
+      window.addEventListener(KEYDOWN, this.resetTimers)
+      window.addEventListener(MOUSEMOVE, this.resetTimers)
+      window.addEventListener(MOUSEDOWN, this.resetTimers)
+      window.addEventListener(CLICK, this.resetTimers)
+      window.addEventListener(KEYPRESS, this.resetTimers)
+      window.addEventListener(SCROLL, this.resetTimers)
+      window.addEventListener(VISIBILITYCHANGE, this.setIdle)
     }
 
     componentDidUpdate(prevProps) {
@@ -188,20 +212,59 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       if (this.interval) {
         clearInterval(this.interval)
       }
+
+      window.removeEventListener(KEYDOWN, this.resetTimers)
+      window.removeEventListener(MOUSEMOVE, this.resetTimers)
+      window.removeEventListener(MOUSEDOWN, this.resetTimers)
+      window.removeEventListener(CLICK, this.resetTimers)
+      window.removeEventListener(KEYPRESS, this.resetTimers)
+      window.removeEventListener(SCROLL, this.resetTimers)
+      window.removeEventListener(VISIBILITYCHANGE, this.setIdle)
     }
+
+    resetTimers = (e=null) => {
+      const { session, dispatch, } = this.props
+
+      if (!session) { return }
+
+      const now = Date.now()
+      this.setState((prevState, props) => {
+        const { timeTracking, } = props.session
+
+        const { startTime, isIdle, inactivityTimer, } = prevState
+
+        if (inactivityTimer) { clearTimeout(inactivityTimer) }
+
+        let elapsedTime = now - startTime
+
+        if (isIdle) {
+          elapsedTime = 0
+        }
+        dispatch(updateTimeTracking({...timeTracking, 'proofreading_the_passage': (timeTracking && timeTracking['proofreading_the_passage'] || 0) + elapsedTime}))
+        const newInactivityTimer = setTimeout(this.setIdle, 30000);  // time is in milliseconds (1000 is 1 second)
+
+        return { isIdle: false, inactivityTimer: newInactivityTimer, startTime: now, }
+      })
+
+      return Promise.resolve(true);
+    }
+
+    setIdle = () => { this.resetTimers().then(() => this.setState({ isIdle: true })) }
 
     saveEditedSessionToFirebase = (sessionID: string) => {
       const { dispatch, session, } = this.props
-      const { passageFromFirebase, passage, } = session
+      const { passageFromFirebase, passage, timeTracking, } = session
       if (!_.isEqual(passage, passageFromFirebase)) {
-        dispatch(updateSessionOnFirebase(sessionID, passage))
+        dispatch(updateSessionOnFirebase(sessionID, { passage, timeTracking, }))
       }
     }
 
     saveCompletedSessionToFirebase = () => {
       const { firebaseSessionID, conceptResultsObjects, } = this.state
+      const { session, } = this.props
+      const { passage, timeTracking, } = session
       const activityUID = getParameterByName('uid', window.location.href)
-      const newOrSetFirebaseSessionID = updateConceptResultsOnFirebase(firebaseSessionID, activityUID, conceptResultsObjects)
+      const newOrSetFirebaseSessionID = updateConceptResultsOnFirebase(firebaseSessionID, activityUID, { conceptResults: conceptResultsObjects, timeTracking, passage, })
       this.setState({ firebaseSessionID: newOrSetFirebaseSessionID })
     }
 
@@ -211,15 +274,20 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     saveToLMS = () => {
       const { firebaseSessionID, conceptResultsObjects, } = this.state
+      const { session, } = this.props
+
       const sessionID = getParameterByName('student', window.location.href)
       const results: ConceptResultObject[]|undefined = conceptResultsObjects;
       if (results) {
         const score = this.calculateScoreForLesson();
         const activityUID = getParameterByName('uid', window.location.href)
+
+        const data = { time_tracking: roundValuesToSeconds(session.timeTracking), }
+
         if (sessionID) {
-          this.handleCheckWorkClickSession(sessionID, results, score);
+          this.handleCheckWorkClickSession(sessionID, results, score, data);
         } else if (activityUID) {
-          this.createAnonActivitySession(activityUID, results, score, firebaseSessionID);
+          this.createAnonActivitySession(activityUID, results, score, firebaseSessionID, data);
         }
       }
     }
@@ -233,7 +301,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    handleCheckWorkClickSession = (sessionID: string, results: ConceptResultObject[], score: number) => {
+    handleCheckWorkClickSession = (sessionID: string, results: ConceptResultObject[], score: number, data) => {
       request(
         { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
           method: 'PUT',
@@ -242,6 +310,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             state: 'finished',
             concept_results: results,
             percentage: score,
+            data
           },
         },
         (err, httpResponse, body) => {
@@ -253,7 +322,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       );
     }
 
-    createAnonActivitySession = (lessonID: string, results: ConceptResultObject[], score: number, sessionID: string|null) => {
+    createAnonActivitySession = (lessonID: string, results: ConceptResultObject[], score: number, sessionID: string|null, data) => {
       request(
         { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
           method: 'POST',
@@ -263,6 +332,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             activity_uid: lessonID,
             concept_results: results,
             percentage: score,
+            data
           },
         },
         (err, httpResponse, body) => {
@@ -400,7 +470,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     handleNextClick = () => {
-      this.setState({ showWelcomePage: false })
+      this.setState({ showWelcomePage: false }, () => window.scrollTo(0, 0))
     }
 
     handleResetClick = () => {
@@ -563,7 +633,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           {this.renderPassage()}
         </div>
         <div className="bottom-section">
-          <div className="button-container">
+          <div id="button-container" tabIndex={-1}>
             {this.renderResetButton()}
             {this.renderCheckWorkButton()}
           </div>

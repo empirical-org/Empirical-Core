@@ -1,8 +1,8 @@
 import * as React from 'react'
-import TextEditor from '../shared/textEditor'
 import { EditorState, ContentState } from 'draft-js'
+
 import ConceptSelector from '../shared/conceptSelector'
-import { hashToCollection, FlagDropdown, } from '../../../Shared/index'
+import { TextEditor, FlagDropdown, } from '../../../Shared/index'
 
 export default class QuestionForm extends React.Component {
   constructor(props) {

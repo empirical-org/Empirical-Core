@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'page'
 
 class SignUpPage < Page
@@ -55,8 +57,6 @@ class SignUpPage < Page
   def submit_form
     click_button('Sign Up')
   end
-
-  private
 
   def self.path
     "#{submit_target_path}/new"

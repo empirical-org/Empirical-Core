@@ -4,7 +4,8 @@ import { EditorState, ContentState } from 'draft-js'
 import {
   submitNewTitleCard,
   submitTitleCardEdit
-} from '../../actions/titleCards.ts'
+} from '../../actions/titleCards'
+import { commonText } from '../../modules/translation/commonText';
 import {
   hashToCollection,
   TextEditor
@@ -14,12 +15,14 @@ import _ from 'lodash'
 
 interface TitleCardFormState {
   title: string,
-  content: string
+  content: string,
+  titleChanged: boolean
 }
 
 export interface TitleCardFormProps {
   titleCards: any
   routing: any
+  history: any
   match: any
   dispatch(any): void
 }
@@ -32,15 +35,16 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     if (props.match.params.titleCardID && props.titleCards.hasreceiveddata) {
       const {titleCardID} = props.match.params
       const titleCard = props.titleCards.data[titleCardID]
-      const {title, content} = titleCard
       this.state = {
-        content: content ? content : '',
-        title: title ? title : ''
+        content: titleCard && titleCard.content ? titleCard.content : '',
+        title: titleCard && titleCard.title ? titleCard.title : '',
+        titleChanged: false,
       }
     } else {
       this.state = {
         title: '',
-        content: ''
+        content: '',
+        titleChanged: false,
       }
     }
   }
@@ -50,10 +54,9 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
       if (this.props.match.params.titleCardID && this.props.titleCards.hasreceiveddata) {
         const {titleCardID} = this.props.match.params
         const titleCard = this.props.titleCards.data[titleCardID]
-        const {title, content} = titleCard
         this.setState({
-          content: content ? content : this.state.content,
-          title: title ? title : this.state.title
+          content: titleCard && titleCard.content ? titleCard.content : this.state.content,
+          title: titleCard && titleCard.title ? titleCard.title : this.state.title
         })
       }
     }
@@ -63,17 +66,31 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     const { dispatch, history, match } = this.props
     const { params } = match
     const { titleCardID } = params
+    const { title, titleChanged } = this.state
     // TODO: fix add/edit title card action to show new/updated title card without refreshing
-    if (titleCardID) {
-      dispatch(submitTitleCardEdit(titleCardID, this.state))
-    } else {
-      dispatch(submitNewTitleCard(this.state))
+    if (this.warnTitleChange(title, titleChanged)) {
+      if (titleCardID) {
+        dispatch(submitTitleCardEdit(titleCardID, this.state))
+      } else {
+        dispatch(submitNewTitleCard(this.state))
+      }
+      history.push(`/admin/title-cards`)
     }
-    history.push(`/admin/title-cards`)
+  }
+
+  warnTitleChange = (title, titleChanged) => {
+    const { match } = this.props
+    const { params } = match
+    const { titleCardID } = params
+    const translationMappingMissing = commonText[title] == undefined
+    if (titleCardID && titleChanged && translationMappingMissing) {
+      return confirm(`Making this change will break the translation mapping because "${title}" does not yet exist on the mappings. Make a request on the support board to change the translation mapping before making this change. Are you sure you want to proceed?`)
+    }
+    return true
   }
 
   handleTitleChange = (e) => {
-    this.setState({title: e.target.value})
+    this.setState({title: e.target.value, titleChanged: true})
   }
 
   handleContentChange = (e) => {

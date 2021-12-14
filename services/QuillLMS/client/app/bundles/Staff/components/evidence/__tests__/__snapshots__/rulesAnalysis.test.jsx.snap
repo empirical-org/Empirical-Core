@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RulesAnalysis component should render RulesAnalysis 1`] = `
+<div
+  className="loading-spinner-container"
+>
+  <Spinner />
+</div>
+`;

@@ -1,4 +1,6 @@
-class AddTriggerToUpdateBlogPostsTsv < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddTriggerToUpdateBlogPostsTsv < ActiveRecord::Migration[4.2]
   def change
     execute("
       CREATE FUNCTION blog_posts_search_trigger() RETURNS trigger AS $$

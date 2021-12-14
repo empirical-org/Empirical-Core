@@ -1,4 +1,4 @@
-import { ALL_ACTIVITIES, } from '../constants/student_profile'
+import { TO_DO_ACTIVITIES, } from '../constants/student_profile'
 
 const initialState = {
   classrooms: [],
@@ -10,7 +10,7 @@ const initialState = {
   scores: null,
   student: null,
   nextActivitySession: null,
-  activeClassworkTab: ALL_ACTIVITIES
+  activeClassworkTab: TO_DO_ACTIVITIES
 };
 
 export default (state, action) => {
@@ -22,8 +22,6 @@ export default (state, action) => {
         loading: true,
         selectedClassroomId: action.selectedClassroomId
       });
-    case 'RECEIVE_NOTIFICATIONS':
-      return Object.assign({}, state, { notifications: action.notifications });
     case 'RECEIVE_STUDENTS_CLASSROOMS':
       return Object.assign({}, state, { classrooms: action.classrooms });
     case 'RECEIVE_STUDENT_PROFILE':

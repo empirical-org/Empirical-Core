@@ -3,11 +3,14 @@ import createReactClass from 'create-react-class';
 import request from 'request'
 import ReactTable from 'react-table'
 import moment from 'moment'
-import ProgressReportFilters from './progress_report_filters.jsx'
 import 'react-table/react-table.css'
+
+import ProgressReportFilters from './progress_report_filters.jsx'
+import EmptyStateForReport from './empty_state_for_report.jsx'
+
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin'
-import EmptyStateForReport from './empty_state_for_report.jsx'
+import { getTimeSpent } from '../../helpers/studentReports';
 
 export default createReactClass({
   displayName: 'activities_progress_report',
@@ -59,9 +62,9 @@ export default createReactClass({
 
       if(!this.state.filtersLoaded) {
         newState = Object.assign(newState, {
-          classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classes'),
-          studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
-          unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs'),
+          classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All classes'),
+          studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All students'),
+          unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All activity packs'),
           filtersLoaded: true
         });
       }
@@ -88,7 +91,8 @@ export default createReactClass({
         accessor: 'student_id',
         resizeable: false,
         Cell: props => this.state.studentFilters.find(student => student.value == props.value).name,
-        className: this.nonPremiumBlur()
+        className: this.nonPremiumBlur(),
+        maxWidth: 200
       },
       {
         Header: 'Date',
@@ -101,6 +105,7 @@ export default createReactClass({
         Header: 'Activity',
         accessor: 'activity_name',
         resizeable: false,
+        className: 'show-overflow',
         Cell: props => props.value
       },
       {
@@ -108,6 +113,14 @@ export default createReactClass({
         accessor: 'percentage',
         resizeable: false,
         Cell: props => props.value >= 0 ? `${Math.round(props.value * 100)}%` : 'Completed',
+        className: this.nonPremiumBlur(),
+        maxWidth: 90
+      },
+      {
+        Header: 'Time spent',
+        accessor: 'timespent',
+        resizeable: false,
+        Cell: props => getTimeSpent(props.value),
         className: this.nonPremiumBlur(),
         maxWidth: 90
       },
@@ -234,14 +247,14 @@ export default createReactClass({
 
   render: function() {
     return (
-      <div className='progress-reports-2018'>
+      <div className='progress-reports-2018 data-export'>
         <div className='meta-overview flex-row space-between'>
           <div className='header-and-info'>
             <h1>Data Export</h1>
             <p>You can export the data as a CSV file by filtering for the classrooms, activity packs, or students you would like to export and then pressing "Download Report."</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <button className='btn button-green' onClick={this.downloadReport} style={{display: 'block'}}>Download Report</button>
+            <button className='quill-button medium primary contained focus-on-light' onClick={this.downloadReport} style={{display: 'block'}}>Download Report</button>
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
           </div>
         </div>

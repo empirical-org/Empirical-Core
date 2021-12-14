@@ -2,6 +2,8 @@
 // along with their result counts.
 import React from 'react'
 import request from 'request'
+import queryString from 'query-string';
+
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
@@ -19,7 +21,7 @@ export default class extends React.Component {
     this.state = {
       loading: true,
       errors: false,
-      selectedClassroom: showAllClassroomKey,
+      selectedClassroomId: showAllClassroomKey,
       userIsPremium: userIsPremium()
     }
   }
@@ -33,7 +35,15 @@ export default class extends React.Component {
       const parsedClassrooms = this.parseClassrooms(data.classrooms_with_student_ids)
       const dropdownClassrooms = parsedClassrooms.dropdownClassrooms;
       const classroomsWithStudentIds = parsedClassrooms.classroomsWithStudentIds
-      that.setState({loading: false, errors: body.errors, reportData: data.students, filteredReportData: data.students, dropdownClassrooms, classroomsWithStudentIds});
+
+      const newState = {loading: false, errors: body.errors, reportData: data.students, filteredReportData: data.students, dropdownClassrooms, classroomsWithStudentIds}
+
+      const selectedClassroomId = queryString.parse(window.location.search).classroom_id
+
+      if (selectedClassroomId) {
+        newState.selectedClassroomId = selectedClassroomId
+      }
+      that.setState(newState, this.filterReportData);
     });
   }
 
@@ -96,11 +106,11 @@ export default class extends React.Component {
 
   filterReportData(){
     let filteredReportData;
-    if (this.state.selectedClassroom.id === showAllClassroomKey) {
+    if (this.state.selectedClassroomId === showAllClassroomKey) {
       // because we are showing all classrooms, we show all data
       filteredReportData = this.state.reportData;
     } else {
-      const validStudentIds = this.state.classroomsWithStudentIds[this.state.selectedClassroom.id]
+      const validStudentIds = this.state.classroomsWithStudentIds[this.state.selectedClassroomId]
       filteredReportData = this.state.reportData.filter((student)=> validStudentIds.includes(student.id))
     }
     this.setState({ filteredReportData, updatingReportData: false})
@@ -121,7 +131,14 @@ export default class extends React.Component {
   }
 
   switchClassrooms = classroom => {
-    this.setState({selectedClassroom: classroom, updatingReportData: true, }, this.filterReportData)
+    const { dropdownClassrooms, } = this.state
+    const classroomRecord = dropdownClassrooms.find(c => c.id === classroom.id)
+    if (classroomRecord && classroomRecord.id !== showAllClassroomKey) {
+      window.history.pushState({}, '', `${window.location.pathname}?classroom_id=${classroomRecord.id}`);
+    } else {
+      window.history.pushState({}, '', window.location.pathname);
+    }
+    this.setState({selectedClassroomId: classroom.id, updatingReportData: true, }, this.filterReportData)
   };
 
   tableOrEmptyMessage(){
@@ -151,10 +168,14 @@ export default class extends React.Component {
   }
 
   render() {
-    if (this.state.loading || !this.state.reportData) {
+    const { loading, reportData, dropdownClassrooms, selectedClassroomId, } = this.state
+    if (loading || !reportData) {
       return <LoadingSpinner />
     }
     const changeValues = [{key: 'percentage', function: ((num)=>num.toString() + '%')}]
+
+    const selectedClassroom = dropdownClassrooms.find(c => String(c.id) === String(selectedClassroomId))
+
     return (
       <div className='progress-reports-2018'>
         <div className="meta-overview flex-row space-between">
@@ -167,7 +188,7 @@ export default class extends React.Component {
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
           </div>
           <div className='dropdown-container'>
-            <ItemDropdown callback={this.switchClassrooms} items={this.state.dropdownClassrooms} selectedItem={this.state.selectedClassroom} />
+            <ItemDropdown callback={this.switchClassrooms} items={dropdownClassrooms} selectedItem={selectedClassroom} />
           </div>
         </div>
         {this.tableOrEmptyMessage()}

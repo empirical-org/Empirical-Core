@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: concepts
@@ -13,7 +15,7 @@
 #  parent_id      :integer
 #  replacement_id :integer
 #
-class Concept < ActiveRecord::Base
+class Concept < ApplicationRecord
   include Uid
   belongs_to :parent, class_name: 'Concept', foreign_key: :parent_id
   belongs_to :replacement, class_name: 'Concept', foreign_key: :replacement_id
@@ -86,14 +88,22 @@ class Concept < ActiveRecord::Base
   end
 
   def self.visible_level_zero_concept_ids
-    ActiveRecord::Base.connection.execute("
-      SELECT concepts.id FROM concepts
-      JOIN concepts AS parent_concepts ON concepts.parent_id = parent_concepts.id
-      JOIN concepts AS grandparent_concepts ON parent_concepts.parent_id = grandparent_concepts.id
-      WHERE parent_concepts.parent_id IS NOT NULL
-      AND concepts.parent_id IS NOT NULL
-      AND concepts.visible
-      ORDER BY grandparent_concepts.name, parent_concepts.name, concepts.name
-    ").to_a.map { |id| id['id'] }
+    RawSqlRunner.execute(
+      <<-SQL
+        SELECT concepts.id
+        FROM concepts
+        JOIN concepts AS parent_concepts
+          ON concepts.parent_id = parent_concepts.id
+        JOIN concepts AS grandparent_concepts
+          ON parent_concepts.parent_id = grandparent_concepts.id
+        WHERE parent_concepts.parent_id IS NOT NULL
+          AND concepts.parent_id IS NOT NULL
+          AND concepts.visible
+        ORDER BY
+          grandparent_concepts.name,
+          parent_concepts.name,
+          concepts.name
+      SQL
+    ).values.flatten
   end
 end

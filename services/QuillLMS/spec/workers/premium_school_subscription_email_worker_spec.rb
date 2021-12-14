@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe PremiumSchoolSubscriptionEmailWorker do
@@ -10,6 +12,12 @@ describe PremiumSchoolSubscriptionEmailWorker do
       user.reload
       expect_any_instance_of(User).to receive(:send_premium_school_subscription_email).with(user.school, user.school.schools_admins.first.try(:user))
       subject.perform(user.id)
+    end
+
+    it 'should exit gracefully if passed an invalid id' do
+      bad_user_id = user.id * 9
+      expect_any_instance_of(User).not_to receive(:send_premium_school_subscription_email)
+      subject.perform(bad_user_id)
     end
   end
 end

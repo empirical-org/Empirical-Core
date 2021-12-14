@@ -66,7 +66,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     this.prepareToLeavePage()
   }
 
-  async prepareToLeavePage = () => {
+  prepareToLeavePage = async () => {
     return new Promise((resolve) => {
       return this.setState({ leaving: true, }, () => {
         window.localStorage.removeItem(UNIT_TEMPLATE_ID)
@@ -127,11 +127,10 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   closeViewAsStudentModal = () => this.setState({ showViewAsStudentModal: false, })
 
   renderInviteStudents = () => {
-    const { assignedClassrooms, } = this.state
-    const { unitName, classrooms, } = this.props
+    const { classrooms, } = this.props
     const emptyClassrooms = classrooms.filter(c => !c.students.length)
     return (<div className="unit-assignment-followup invite-students">
-      <h1>Success! You assigned {unitName} to {this.numberOfClassroomsText(assignedClassrooms)}.</h1>
+      <h1>Assigned!</h1>
       <Card
         header="Invite students to your classes"
         imgAlt="students"
@@ -177,15 +176,13 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   )
 
   renderReferral = () => {
-    const { assignedClassrooms, } = this.state
-    const { unitName, referralCode, } = this.props
+    const { referralCode, } = this.props
     const referralLink = `${process.env.DEFAULT_URL}/?referral_code=${referralCode}`
     return (<div className="unit-assignment-followup referral">
       {this.renderSnackbar()}
-      <h1>Success! You assigned {unitName} to {this.numberOfClassroomsText(assignedClassrooms)}.</h1>
       <div className="referral-card">
         <img alt="gift" src={giftSrc} />
-        <h1>Share Quill and earn a month of free Quill Premium for Teachers.</h1>
+        <h1>Recommend Quill and earn a month of free Quill Premium for Teachers.</h1>
         <p>As a nonprofit organization that provides free activities, Quill relies on teachers to share the word.</p>
         <p>For every teacher that signs up for Quill with your referral link and completes an activity with their students, you earn a month of free Quill Premium, and they receive a one-month free trial.</p>
         <div className='share-box'>
@@ -215,11 +212,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     const { showNextOptions, leaving, } = this.state
     if (leaving) return
     if (!showNextOptions) {
-      if (this.allAssignedClassroomsAreEmpty()) {
-        return this.renderInviteStudents()
-      } else {
-        return this.renderReferral()
-      }
+      return this.renderReferral()
     }
     return this.renderNextOptions()
   }

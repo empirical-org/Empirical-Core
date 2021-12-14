@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: classroom_activities
@@ -24,7 +26,7 @@
 #  index_classroom_activities_on_unit_id                  (unit_id)
 #  index_classroom_activities_on_updated_at               (updated_at)
 #
-class ClassroomActivity < ActiveRecord::Base
+class ClassroomActivity < ApplicationRecord
   has_many :activity_sessions
   belongs_to :activity
 end

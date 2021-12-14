@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: concepts
@@ -31,9 +33,7 @@ describe Concept, type: :model do
     let!(:mid_level_concept) { create(:concept, name: 'mid', parent: root_concept)}
     let!(:leaf2) { create(:concept, name: 'leaf2', parent: mid_level_concept)}
 
-    subject do
-      Concept.leaf_nodes
-    end
+    subject { Concept.leaf_nodes }
 
     it 'finds all the concepts that are leaf nodes in the tree (no children)' do
       expect(subject.size).to eq(2)
@@ -48,9 +48,7 @@ describe Concept, type: :model do
     let!(:level_2_concept) {create(:concept, name: 'level_2_concept')}
     let!(:level_1_concept) {create(:concept, name: 'level_1_concept', parent: level_2_concept)}
 
-    subject do
-      Concept.all_with_level
-    end
+    subject { Concept.all_with_level }
 
     it 'assigns level 2 to level_2_concept' do
       cor = subject.find{ |c| c.name == "level_2_concept" }
@@ -81,5 +79,21 @@ describe Concept, type: :model do
 
       expect(result).to eq(concept)
     end
+  end
+
+  describe '.visible_level_zero_concept_ids' do
+    let!(:concept_f) { create(:concept, name: 'f') }
+    let!(:concept_g) { create(:concept, name: 'g', parent: concept_f) }
+    let!(:concept_h) { create(:concept, name: 'h', parent: concept_g) }
+
+    let!(:concept_a) { create(:concept, name: 'a') }
+    let!(:concept_b) { create(:concept, name: 'b', parent: concept_a) }
+    let!(:concept_c) { create(:concept, name: 'c', parent: concept_a) }
+    let!(:concept_d) { create(:concept, name: 'd', parent: concept_b) }
+    let!(:concept_e) { create(:concept, name: 'e', parent: concept_b, visible: false) }
+
+    subject { Concept.visible_level_zero_concept_ids }
+
+    it { expect(subject).to eq [concept_d.id, concept_h.id] }
   end
 end

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DailyTinyTip component should render 1`] = `
+<DailyTinyTip>
+  <section
+    className="daily-tiny-tip"
+  >
+    <h2>
+      Daily tiny tip
+    </h2>
+    <a
+      className="focus-on-light"
+      href="https://www.quill.org/teacher-center/tiny-tips-for-teachers-using-quill-as-a-lesson-related-launching-activity"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <span>
+        Using Quill as a Strategic Do Now
+      </span>
+      <img
+        alt="Clock illustration"
+        src="undefined/images/pages/dashboard/daily_tiny_tips/clock.svg"
+      />
+    </a>
+  </section>
+</DailyTinyTip>
+`;

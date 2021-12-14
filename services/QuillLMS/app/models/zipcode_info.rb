@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: zipcode_infos
@@ -20,7 +22,7 @@
 #
 #  index_zipcode_infos_on_zipcode  (zipcode) UNIQUE
 #
-class ZipcodeInfo < ActiveRecord::Base
+class ZipcodeInfo < ApplicationRecord
 
   
   # Takes a tuple of (lat, lng) where lng and lat are floats, and a distance in

@@ -1,14 +1,15 @@
 import { ConceptResult } from 'quill-marking-logic'
 import * as _ from 'lodash'
+
 import { Question, FormattedConceptResult, ResponseAttempt } from '../interfaces/questions'
 import { hashToCollection } from '../../Shared/index'
 
 const scoresForNAttempts: { [key:number]: number} = {
   1: 1,
-  2: 0.75,
-  3: 0.5,
-  4: 0.25,
-  5: 0,
+  2: 0.8,
+  3: 0.6,
+  4: 0.4,
+  5: 0.2,
 };
 
 export function getConceptResultsForQuestion(question: Question): FormattedConceptResult[]|undefined {
@@ -41,13 +42,28 @@ function getConceptResultsForAttempt(attempt: ResponseAttempt, question: Questio
       correct: !!attempt.optimal
     }];
   }
-  const directions = question.instructions;
+
+  let directions = question.instructions
+
+  let lastFeedback
+  if (index > 0) {
+    lastFeedback = question.attempts[index - 1].feedback;
+  }
+
   const attemptNumber = index + 1
   return conceptResults.map((conceptResult: ConceptResult) => {
     return {
       concept_uid: conceptResult.conceptUID,
       question_type: 'sentence-writing',
-      metadata: {
+      metadata: lastFeedback ? {
+        correct: conceptResult.correct ? 1 : 0,
+        directions,
+        lastFeedback,
+        prompt,
+        answer,
+        attemptNumber,
+        question_uid:  question.uid
+      } : {
         correct: conceptResult.correct ? 1 : 0,
         directions,
         prompt,
@@ -65,8 +81,12 @@ export function getNestedConceptResultsForAllQuestions(questions: Question[]) {
 export function embedQuestionNumbers(nestedConceptResultArray: FormattedConceptResult[][], startingNumber: number): FormattedConceptResult[][] {
   return nestedConceptResultArray.map((conceptResultArray, index) => {
     return conceptResultArray.map((conceptResult: FormattedConceptResult) => {
+      const lastAttempt = _.sortBy(conceptResultArray, (conceptResult) => {
+        return conceptResult.metadata.attemptNumber;
+      }).reverse()[0]
+      const maxAttemptNo = lastAttempt && lastAttempt.metadata.correct ? lastAttempt.metadata.attemptNumber : undefined;
       conceptResult.metadata.questionNumber = startingNumber + index + 1;
-      conceptResult.metadata.questionScore = conceptResult.metadata.correct ? 1 : 0
+      conceptResult.metadata.questionScore = scoresForNAttempts[maxAttemptNo] || 0
       return conceptResult;
     })
   });
@@ -79,7 +99,7 @@ export function getConceptResultsForAllQuestions(questions: Question[], starting
 }
 
 export function getScoreForQuestion(question: Question): number {
-  if (question.attempts) {
+  if (question.attempts && question.attempts.find(attempt => attempt.optimal)) {
     return scoresForNAttempts[question.attempts.length] || 0
   }
   return 0

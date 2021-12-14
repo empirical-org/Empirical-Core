@@ -1,12 +1,14 @@
 const questionPrompt: string = "Bats have wings. They can fly."
-import {responses, focusPoints, incorrectSequences} from '../../../test/data/batswings'
 import { assert } from 'chai';
+import { match } from 'react-router';
+
 import {checkSentenceCombining} from './sentence_combining';
+
+import {responses, focusPoints, incorrectSequences} from '../../../test/data/batswings'
 import {Response} from '../../interfaces';
 import { feedbackStrings, spellingFeedbackStrings } from '../constants/feedback_strings';
 import {spacingBeforePunctuation} from '../algorithms/spacingBeforePunctuation'
 import { conceptResultTemplate } from '../helpers/concept_result_template';
-import { match } from 'react-router';
 
 describe('The checking a sentence combining question', () => {
 
@@ -90,7 +92,14 @@ describe('The checking a sentence combining question', () => {
     });
 
     it('should add spelling concept result to concept results', () => {
-      const questionString = "Batss wings, so they can fly."
+      const questionString = "Batss have wi ngs, so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
+      assert.equal(matchedResponse.spelling_error, true);
+      assert.include(matchedResponse.concept_results, conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g'));
+    });
+
+    it('should add spelling concept result to concept results if there are two or more spelling errors', () => {
+      const questionString = "Batss have wi ngss, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.spelling_error, true);
       assert.include(matchedResponse.concept_results, conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g'));
@@ -154,7 +163,7 @@ describe('The checking a sentence combining question', () => {
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.feedback, spellingFeedbackStrings[matchedResponse.author]);
       assert.equal(matchedResponse.spelling_error, true);
-      assert.equal(matchedResponse.misspelled_words[0], 'zings')
+      assert.equal(matchedResponse.misspelled_words, undefined)
     });
 
     it('should be able to find a flexible change match', () => {
@@ -175,7 +184,7 @@ describe('The checking a sentence combining question', () => {
     });
 
     it('should be able to find a required words match', () => {
-      const questionString = 'Bats have wings so fly."'
+      const questionString = 'Bats have wings so.'
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.feedback, '<p>Revise your sentence to include the word <em>they</em>. You may have misspelled it.</p>');
     });

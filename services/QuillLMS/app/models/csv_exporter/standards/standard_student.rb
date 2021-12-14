@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CsvExporter::Standards
   class StandardStudent
     def header_row
@@ -6,6 +8,7 @@ module CsvExporter::Standards
         'Student Name',
         'Activities',
         'Average',
+        'Time Spent',
         'Mastery Status'
       ]
     end
@@ -17,18 +20,17 @@ module CsvExporter::Standards
         json_hash[:name],
         json_hash[:total_activity_count],
         json_hash[:average_score],
+        json_hash[:timespent],
         json_hash[:mastery_status]
       ]
     end
 
     def model_data(teacher, filters)
       ::ProgressReports::Standards::Student.new(teacher)
-        .results(HashWithIndifferentAccess.new(filters) || {})
+        .results(ActiveSupport::HashWithIndifferentAccess.new(filters) || {})
     end
 
-    private
-
-    def page_title(filters)
+    private def page_title(filters)
       standard = ::Standard.find(filters[:standard_id])
       "Standards: #{standard.name}"
     end

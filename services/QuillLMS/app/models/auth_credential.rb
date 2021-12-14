@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: auth_credentials
@@ -14,7 +16,6 @@
 #
 # Indexes
 #
-#  index_auth_credentials_on_access_token   (access_token)
 #  index_auth_credentials_on_provider       (provider)
 #  index_auth_credentials_on_refresh_token  (refresh_token)
 #  index_auth_credentials_on_user_id        (user_id)
@@ -23,6 +24,33 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class AuthCredential < ActiveRecord::Base
+class AuthCredential < ApplicationRecord
   belongs_to :user
+
+  GOOGLE_PROVIDER = 'google'
+  GOOGLE_EXPIRATION_DURATION = 6.months
+
+  CLEVER_DISTRICT_PROVIDER = 'clever_district'
+  CLEVER_LIBRARY_PROVIDER = 'clever_library'
+  CLEVER_EXPIRATION_DURATION = 23.hours
+
+  def google_authorized?
+    google_provider? && refresh_token_valid?
+  end
+
+  def google_provider?
+    provider == GOOGLE_PROVIDER
+  end
+
+  def refresh_token_valid?
+    return false if !google_provider? || expires_at.nil? || refresh_token.nil?
+
+    Time.now < refresh_token_expires_at
+  end
+
+  def refresh_token_expires_at
+    return nil if !google_provider?
+
+    expires_at + GOOGLE_EXPIRATION_DURATION
+  end
 end

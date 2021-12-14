@@ -1,4 +1,6 @@
-class CreateCms < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateCms < ActiveRecord::Migration[4.2]
   def change
     create_table :file_uploads do |t|
       t.string :name

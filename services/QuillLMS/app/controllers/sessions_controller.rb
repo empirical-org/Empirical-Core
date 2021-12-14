@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 require 'newrelic_rpm'
 require 'new_relic/agent'
 
 class SessionsController < ApplicationController
   CLEAR_ANALYTICS_SESSION_KEY = "clear_analytics_session"
 
-  before_filter :signed_in!, only: [:destroy]
-  before_filter :set_cache_buster, only: [:new]
+  before_action :signed_in!, only: [:destroy]
 
   def create
     email_or_username = params[:user][:email].downcase.strip unless params[:user][:email].nil?
@@ -48,6 +49,9 @@ class SessionsController < ApplicationController
       render json: {message: 'Did you sign up with Google? If so, please log in with Google using the link above.', type: 'email'}, status: 401
     elsif @user.authenticate(params[:user][:password])
       sign_in(@user)
+
+      session[ApplicationController::KEEP_ME_SIGNED_IN] = params[:keep_me_signed_in]
+
       if session[ApplicationController::POST_AUTH_REDIRECT].present?
         url = session[ApplicationController::POST_AUTH_REDIRECT]
         session.delete(ApplicationController::POST_AUTH_REDIRECT)
@@ -70,7 +74,8 @@ class SessionsController < ApplicationController
     admin_id = session.delete(:admin_id)
     admin = User.find_by_id(admin_id)
     staff_id = session.delete(:staff_id)
-    cookies[:webinar_banner_closed] = { expires: Time.now }
+    cookies[:webinar_banner_recurring_closed] = { expires: Time.now }
+    cookies[:webinar_banner_one_off_closed] = { expires: Time.now }
     cookies[:student_feedback_banner_1_closed] = { expires: Time.now }
     if admin.present? and (admin != current_user)
       sign_out
@@ -98,15 +103,28 @@ class SessionsController < ApplicationController
     @js_file = 'login'
     @user = User.new
     @title = 'Log In'
+    @clever_link = clever_link
+    @google_link = GoogleIntegration::AUTHENTICATION_ONLY_PATH
     session[:role] = nil
-    if params[:redirect]
-      session[ApplicationController::POST_AUTH_REDIRECT] = params[:redirect]
-    end
+    session[ApplicationController::POST_AUTH_REDIRECT] = params[:redirect] if params[:redirect]
   end
 
   def failure
     login_failure_message
     # redirect_to signed_out_path
+  end
+
+  def clever_link
+    "https://clever.com/oauth/authorize?#{clever_link_query_params}"
+  end
+
+  def clever_link_query_params
+    {
+      response_type: 'code',
+      redirect_uri: Clever::REDIRECT_URL,
+      client_id: Clever::CLIENT_ID,
+      scope: QuillClever.scope
+    }.to_param
   end
 
 
@@ -124,9 +142,7 @@ class SessionsController < ApplicationController
     redirect_to profile_path
   end
 
-  private
-
-  def report_that_route_is_still_in_use
+  private def report_that_route_is_still_in_use
     begin
       raise 'sessions/create original route still being called here'
     rescue => e

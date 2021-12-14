@@ -1,4 +1,6 @@
-class RemoveCategoryFromCriteria < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class RemoveCategoryFromCriteria < ActiveRecord::Migration[4.2]
   def up
     remove_column :criteria, :category
   end

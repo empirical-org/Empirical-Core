@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../../page'
 require_relative '../teachers'
 
@@ -38,13 +40,11 @@ module Teachers
       find('table')
     end
 
-    private
-
-    def click_filter_button(filter_class)
+    private def click_filter_button(filter_class)
       find(filter_class + ' button').click
     end
 
-    def filter_menu_dropdown_option(filter_class, option_name)
+    private def filter_menu_dropdown_option(filter_class, option_name)
       find(filter_class + ' ul.dropdown-menu li', text: option_name)
     end
   end

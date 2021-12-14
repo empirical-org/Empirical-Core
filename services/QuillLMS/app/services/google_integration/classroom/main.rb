@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GoogleIntegration::Classroom::Main
 
   def self.join_existing_google_classrooms(student)
@@ -9,8 +11,6 @@ module GoogleIntegration::Classroom::Main
     client = GoogleIntegration::Client.new(user).create
     parse_courses(user, client)
   end
-
-  private
 
   def self.parse_courses(user, client)
     raw_course_response = GoogleIntegration::Classroom::Requesters::Courses.run(client, user)

@@ -2,8 +2,10 @@ import React from 'react';
 import moment from 'moment';
 import Pluralize from 'pluralize';
 import activityFromClassificationId from '../../modules/activity_from_classification_id.js';
+import { Tooltip } from '../../../../Shared/index'
 
 import PreviewOrLaunchModal from '../../shared/preview_or_launch_modal';
+import { nonRelevantActivityClassificationIds, } from '../../../../../modules/activity_classifications'
 
 const styles = {
   row: {
@@ -68,22 +70,16 @@ export default class ClassroomActivity extends React.Component {
     return `${process.env.DEFAULT_URL}/activity_sessions/anonymous?activity_id=${this.activityId()}`;
   }
 
-  buttonForRecommendations = () => {
-    const { activityWithRecommendationIds } = this.props
-    if (activityWithRecommendationIds && activityWithRecommendationIds.includes(this.activityId()) && window.location.pathname.includes('diagnostic_reports')) {
-      return (
-        <div className="recommendations-button" onClick={this.handleRecommendationsLinkClick}>
-          Recommendations
-        </div>
-      );
-    }
-  }
-
   calculateAverageScore = () => {
     const { data, } = this.props
     const averageScore = data.cumulativeScore / data.completedCount;
     if (isNaN(averageScore)) {
       return '—';
+    } else if (nonRelevantActivityClassificationIds.includes(data.activityClassificationId)) {
+      return (<Tooltip
+        tooltipText={`This type of activity is not graded.`}
+        tooltipTriggerText="N/A"
+      />)
     } else if (Math.round(averageScore).toString().length === 2) {
       return `${averageScore.toPrecision(2)}%`;
     }
@@ -174,11 +170,6 @@ export default class ClassroomActivity extends React.Component {
     this.setState(prevState => ({ showLessonPlanTooltip: !prevState.showLessonPlanTooltip }));
   }
 
-  handleRecommendationsLinkClick = () => {
-    const link = `/teachers/progress_reports/diagnostic_reports#/u/${this.unitId()}/a/${this.activityId()}/c/${this.classroomId()}/recommendations`;
-    window.location = link;
-  }
-
   handleReportLinkClick = () => {
     $.get(`/teachers/progress_reports/report_from_unit_and_activity/u/${this.unitId()}/a/${this.activityId()}`)
       .success(data => window.location = data.url)
@@ -204,7 +195,7 @@ export default class ClassroomActivity extends React.Component {
 
   lessonCompletedOrLaunch = () => {
     const { data, } = this.props
-    if (data.completed === 't') {
+    if (data.completed) {
       /* eslint-disable react/jsx-no-target-blank */
       return <a className="report-link" href={`/teachers/progress_reports/report_from_classroom_unit_and_activity/${this.classroomUnitId()}/a/${this.activityId()}`} target="_blank">View Report</a>;
       /* eslint-enable react/jsx-no-target-blank */
@@ -286,7 +277,7 @@ export default class ClassroomActivity extends React.Component {
   renderLessonsAction = () => {
     const { data, } = this.props
     if (window.location.pathname.includes('lessons')) {
-      if (data.completed === 't') {
+      if (data.completed) {
         return <p className="lesson-completed"><i className="fas fa-icon fa-check-circle" />Lesson Complete</p>;
       } else if (data.started) {
         const href = `/teachers/classroom_units/${this.classroomUnitId()}/mark_lesson_as_completed/${this.activityId()}`;
@@ -344,7 +335,6 @@ export default class ClassroomActivity extends React.Component {
           <div className="cell" id="activity-analysis-activity-name">
             {link}
             {this.renderCustomizedEditionsTag()}
-            {this.buttonForRecommendations()}
           </div>
         </div>
         {this.renderModal()}

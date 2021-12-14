@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   data = {questionType: "questions", questions: []}
 
@@ -50,9 +52,9 @@ FactoryBot.define do
       end
     end
 
-    factory :comprehension_activity do
-      classification { ActivityClassification.find_by_key(attributes_for(:comprehension)[:key]) || create(:comprehension) }
-      activity_classification_id { ActivityClassification.find_by_key(attributes_for(:comprehension)[:key])&.id || create(:comprehension).id }
+    factory :evidence_activity do
+      classification { ActivityClassification.find_by_key(attributes_for(:evidence)[:key]) || create(:evidence) }
+      activity_classification_id { ActivityClassification.find_by_key(attributes_for(:evidence)[:key])&.id || create(:evidence).id }
     end
 
     trait :production do

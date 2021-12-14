@@ -1,4 +1,6 @@
-class AddClassroomUnitsTable < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class AddClassroomUnitsTable < ActiveRecord::Migration[4.2]
   def change
     create_table :classroom_units do |t|
       t.references :classroom, index: true, foreign_key: true, null: false

@@ -11,6 +11,7 @@ export interface ProofreaderActivity {
   standardCategory: StandardCategory;
   underlineErrorsInProofreader: boolean;
   flag?: string;
+  concepts?: Concepts
 }
 
 export interface Standard {

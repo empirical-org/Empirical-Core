@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Units::Hiders::ClassroomUnit
 
   def self.run(classroom_unit)

@@ -1,0 +1,45 @@
+# frozen_string_literal: true
+
+RSpec.configure do |config|
+  Capybara.register_driver :local_selenium_chrome_headless do |app|
+    options = Selenium::WebDriver::Chrome::Options.new(
+      args: [
+        'headless',
+        'window-size=1920x1280'
+      ]
+    )
+
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+  end
+
+  Capybara.register_driver :remote_selenium_chrome do |app|
+    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(loggingPrefs: { browser: 'ALL'} )
+
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :remote,
+      url: ENV.fetch('SELENIUM_DRIVER_URL'),
+      desired_capabilities: capabilities
+    )
+  end
+
+  Capybara.server_port = 3000
+
+  config.around(type: :system) do |example|
+    WebMock.allow_net_connect!
+    VCR.turned_off { example.run }
+    WebMock.disable_net_connect!
+  end
+
+  config.before(type: :system) { driven_by :rack_test }
+
+  config.before(type: :system, js: true) do
+    if ENV["SELENIUM_DRIVER_URL"].present?
+      driven_by :remote_selenium_chrome
+    else
+      driven_by :local_selenium_chrome_headless
+    end
+  end
+
+  config.after(type: :system) { warn(page.driver.browser.manage.logs.get(:browser)) }
+end

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class Api::V1::ClassroomUnitsController < Api::ApiController
   include QuillAuthentication
-  before_filter :authorize!
+  before_action :authorize!
 
   def student_names
     activity          = Activity.find_by(uid: params[:activity_id])
@@ -32,6 +34,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
     )
 
     data = params[:edition_id] ? { edition_id: params[:edition_id] } : {}
+
     ActivitySession.mark_all_activity_sessions_complete(
       params[:classroom_unit_id],
       params[:activity_id],
@@ -47,6 +50,11 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
     )
 
     ActivitySession.delete_activity_sessions_with_no_concept_results(
+      params[:classroom_unit_id],
+      params[:activity_id]
+    )
+
+    ActivitySession.save_timetracking_data_from_active_activity_session(
       params[:classroom_unit_id],
       params[:activity_id]
     )
@@ -108,14 +116,12 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
     render json: {teacher_ids: teacher_ids_h || {}}
   end
 
-  private
-
-  def authorize!
+  private def authorize!
     classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
     classroom_teacher!(classroom_unit&.classroom&.id)
   end
 
-  def assigned_students(activity_sessions)
+  private def assigned_students(activity_sessions)
     assigned_student_hash = {}
     assigned_student_ids_hash = {}
 

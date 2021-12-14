@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: classrooms
@@ -7,6 +9,7 @@
 #  grade               :string
 #  grade_level         :integer
 #  name                :string
+#  synced_name         :string
 #  visible             :boolean          default(TRUE), not null
 #  created_at          :datetime
 #  updated_at          :datetime
@@ -16,10 +19,12 @@
 #
 # Indexes
 #
-#  index_classrooms_on_code         (code)
-#  index_classrooms_on_grade        (grade)
-#  index_classrooms_on_grade_level  (grade_level)
-#  index_classrooms_on_teacher_id   (teacher_id)
+#  index_classrooms_on_clever_id            (clever_id)
+#  index_classrooms_on_code                 (code)
+#  index_classrooms_on_google_classroom_id  (google_classroom_id)
+#  index_classrooms_on_grade                (grade)
+#  index_classrooms_on_grade_level          (grade_level)
+#  index_classrooms_on_teacher_id           (teacher_id)
 #
 require 'rails_helper'
 
@@ -223,6 +228,7 @@ describe Classroom, type: :model do
     it 'should find or create checkbox' do
       classroom = build(:classroom)
       expect(classroom).to receive(:find_or_create_checkbox)
+      classroom.classrooms_teachers.build(user_id: teacher.id, role: 'owner')
       classroom.save
       classroom.run_callbacks(:commit)
     end

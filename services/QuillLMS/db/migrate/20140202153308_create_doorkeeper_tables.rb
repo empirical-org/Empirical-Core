@@ -1,4 +1,6 @@
-class CreateDoorkeeperTables < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateDoorkeeperTables < ActiveRecord::Migration[4.2]
   def change
     execute 'DROP TABLE IF EXISTS oauth_applications'
     execute 'DROP TABLE IF EXISTS oauth_access_grants'

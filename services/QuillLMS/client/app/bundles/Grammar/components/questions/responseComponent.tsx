@@ -46,6 +46,7 @@ class ResponseComponent extends React.Component {
       selectedResponses: [],
       health: {},
       gradeBreakdown: {},
+      enableRematchAllButton: true,
     };
 
     this.getHealth = this.getHealth.bind(this)
@@ -206,6 +207,8 @@ class ResponseComponent extends React.Component {
   }
 
   rematchAllResponses() {
+    this.setState({enableRematchAllButton: false});
+
     const pageNumber = 1;
     const callback = (done) => {
       if (done) {
@@ -337,17 +340,22 @@ class ResponseComponent extends React.Component {
   }
 
   renderStatusToggleMenu() {
+    const { filters } = this.props
+    const { visibleStatuses } = filters
+    const regexLabels = this.incorrectSequenceNames().concat(this.focusPointNames())
+
     return (
       <ResponseToggleFields
         deselectFields={this.deselectFields}
         excludeMisspellings={this.props.filters.formattedFilterData.filters.excludeMisspellings}
         labels={labels}
         qualityLabels={qualityLabels}
+        regexLabels={regexLabels}
         resetFields={this.resetFields}
         resetPageNumber={this.resetPageNumber}
         toggleExcludeMisspellings={this.toggleExcludeMisspellings}
         toggleField={this.toggleField}
-        visibleStatuses={this.props.filters.visibleStatuses}
+        visibleStatuses={visibleStatuses}
       />
     );
   }
@@ -373,6 +381,32 @@ class ResponseComponent extends React.Component {
     return true;
   }
 
+  incorrectSequenceNames = () => {
+    const { question } = this.props
+    const { incorrectSequences } = question
+
+    let incorrectSequenceNames = []
+    if (Array.isArray(incorrectSequences)) {
+      incorrectSequenceNames = incorrectSequences.map(i => i.name)
+    } else if (incorrectSequences) {
+      incorrectSequenceNames = Object.keys(incorrectSequences).map((key) => incorrectSequences[key].name)
+    }
+    return incorrectSequenceNames.filter(f => f !== undefined)
+  }
+
+  focusPointNames = () => {
+    const { question } = this.props
+    const { focusPoints } = question
+
+    let focusPointNames = []
+    if (Array.isArray(focusPoints)) {
+      focusPointNames = focusPoints.map(fp => fp.name)
+    } else if (focusPoints) {
+      focusPointNames = Object.keys(focusPoints).map((key) => focusPoints[key].name)
+    }
+    return focusPointNames.filter(f => f !== undefined)
+  }
+
   renderExpandCollapseAll() {
     let text,
       handleClick;
@@ -388,12 +422,13 @@ class ResponseComponent extends React.Component {
   }
 
   renderRematchAllButton() {
-    const { filters } = this.props
-    let disabled = filters.numberOfResponses > 1000
-    if (this.props.admin) {
-      const text = this.state.progress ? `${this.state.progress}%` : 'Rematch Responses';
+    const { filters, admin } = this.props;
+    const { progress, enableRematchAllButton } = this.state;
 
-      return (<button className="button is-outlined is-danger" disabled={disabled} onClick={this.rematchAllResponses} style={{ float: 'right', }} type="button">{text}</button>);
+    if (admin) {
+      const text = progress ? `${progress}%` : 'Rematch Responses';
+
+      return (<button className="button is-outlined is-danger" disabled={!enableRematchAllButton} onClick={this.rematchAllResponses} style={{ float: 'right', }} type="button">{text}</button>);
     }
   }
 

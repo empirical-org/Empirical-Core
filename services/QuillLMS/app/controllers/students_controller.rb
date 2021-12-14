@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class StudentsController < ApplicationController
   include QuillAuthentication
 
-  before_filter :authorize!, except: [:student_demo, :demo_ap, :join_classroom]
+  before_action :authorize!, except: [:student_demo, :demo_ap, :join_classroom]
   before_action :redirect_to_profile, only: [:index]
 
   def index
@@ -92,23 +94,40 @@ class StudentsController < ApplicationController
     end
   end
 
-  private
-
-  def authorize!
+  private def authorize!
     auth_failed unless current_user
   end
 
-  def redirect_to_profile
+  private def redirect_to_profile
     @current_user = current_user
     classroom_id = params["classroom"]
-    if classroom_id && (Classroom.find_by(id: classroom_id).nil? || StudentsClassrooms.find_by(student_id: @current_user.id, classroom_id: classroom_id).nil?)
+    unit_id = params["unit_id"]
+
+    return redirect_to profile_path unless current_user&.student?
+
+    if classroom_id && unit_id
+      flash_missing_unit_error
+    elsif classroom_id && (Classroom.find_by(id: classroom_id).nil? || StudentsClassrooms.find_by(student_id: @current_user.id, classroom_id: classroom_id).nil?)
       flash[:error] = 'Oops! You do not belong to that classroom. Your teacher may have archived the class or removed you.'
       flash.keep(:error)
       redirect_to classes_path
     end
   end
 
-  def student_params
+  private def flash_missing_unit_error
+    classroom_id = params["classroom"]
+    unit_id = params["unit_id"]
+
+    classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
+
+    unless classroom_unit && classroom_unit.assigned_student_ids.include?(current_user.id)
+      flash[:error] = t('activity_link.errors.activity_pack_not_assigned')
+      flash.keep(:error)
+      redirect_to classes_path
+    end
+  end
+
+  private def student_params
     params.permit(:name, :email, :username, :authenticity_token, student: [:name, :email, :username])
   end
 

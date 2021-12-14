@@ -101,7 +101,8 @@ export default class Cms extends React.Component {
   };
 
   edit = (resource) => {
-    this.setState({crudState: 'edit', resourceToEdit: resource});
+    const { resourceNamePlural } = this.props
+    window.open(`/cms/${resourceNamePlural}/${resource.id}/edit`)
   };
 
   delete = (resource) => {
@@ -156,7 +157,7 @@ export default class Cms extends React.Component {
   renderFlagDropdown = () => {
     const resourceName = this.props.resourceNamePlural;
     if (resourceName === 'unit_templates') {
-      const options = ['All', 'Not Archived', 'Archived', 'Alpha', 'Beta', 'Production']
+      const options = ['All', 'Not Archived', 'Archived', 'Alpha', 'Beta', 'Gamma', 'Production']
       return (<div style={{ marginLeft: '10px', display: 'inline', }}>
         <ItemDropdown
           callback={this.switchFlag}

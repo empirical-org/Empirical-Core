@@ -19,46 +19,46 @@ RSpec.describe ResponsesController, type: :controller do
     get_ids(array&.select { |r| r['parent_id'].nil?})
   end
 
-  describe "#count_affected_by_incorrect_sequences" do 
-    before(:each) do 
+  describe "#count_affected_by_incorrect_sequences" do
+    before(:each) do
       create(:response, question_uid: '123', text: "some words", optimal: nil)
       create(:response, question_uid: '123', text: "matchyword some words", optimal: nil)
       create(:response, question_uid: '123', text: "some matchyword words", optimal: nil)
     end
 
-    it 'should enumerate matching responses' do 
+    it 'should enumerate matching responses' do
       post :count_affected_by_incorrect_sequences, params: {
         "data" => {
-          "used_sequences"=>[], 
+          "used_sequences"=>[],
           "selected_sequences"=>["matchyword", ""]
-          }, 
-          "question_uid"=>'123', 
+          },
+          "question_uid"=>'123',
           "response"=>{}
       }
       matched_count = JSON.parse(response.body)["matchedCount"]
       expect(matched_count).to eq 2
     end
 
-    it 'should enumerate matching responses with && delimited input' do 
+    it 'should enumerate matching responses with && delimited input' do
       post :count_affected_by_incorrect_sequences, params: {
         "data" => {
-          "used_sequences"=>[], 
+          "used_sequences"=>[],
           "selected_sequences"=>["matchyword&&some", ""]
-          }, 
-          "question_uid"=>'123', 
+          },
+          "question_uid"=>'123',
           "response"=>{}
       }
       matched_count = JSON.parse(response.body)["matchedCount"]
       expect(matched_count).to eq 2
     end
 
-    it 'should not match when sequences are already used' do 
+    it 'should not match when sequences are already used' do
       post :count_affected_by_incorrect_sequences, params: {
         "data" => {
-          "used_sequences"=>['matchyword'], 
+          "used_sequences"=>['matchyword'],
           "selected_sequences"=>["matchy&&word", ""]
-          }, 
-          "question_uid"=>'123', 
+          },
+          "question_uid"=>'123',
           "response"=>{}
       }
       matched_count = JSON.parse(response.body)["matchedCount"]
@@ -88,38 +88,52 @@ RSpec.describe ResponsesController, type: :controller do
     end
   end
 
-  describe '#responses_for_question' do
-    let(:q_response) { create(:response, question_uid: '123456') }
+  describe '#create_or_update' do
+    let(:client) { double(:client, trigger: true) }
 
     before do
       allow_any_instance_of(Response).to receive(:create_index_in_elastic_search)
+      allow_any_instance_of(Response).to receive(:update_index_in_elastic_search)
+      ENV['PUSHER_APP_ID'] = 'pusher-app-id'
+      ENV['PUSHER_KEY'] = 'pusher-key'
+      ENV['PUSHER_SECRET'] = 'pusher-secret'
+      allow(Pusher::Client).to receive(:new) { client }
     end
 
-    it 'should return 200 for found' do
-      get :responses_for_question, params: { question_uid: q_response.question_uid}
+    it 'should create a new response if the response text does not exist' do
+      count = Response.count
+      response_payload = {question_uid: '12345', text: 'response text', optimal: true}
+
+      expect(Pusher::Client).to receive(:new).with(
+        app_id: ENV['PUSHER_APP_ID'],
+        key: ENV['PUSHER_KEY'],
+        secret: ENV['PUSHER_SECRET'],
+        encrypted: true
+      )
+      expect(client).to receive(:trigger).with("admin-12345", "new-response", message: "time to reload!")
+      post :create_or_update, params: {response: response_payload}
+
+      expect(Response.count).to eq(count+1)
+      new_response = Response.find_by(text: response_payload[:text])
+      expect(new_response.text).to eq(response_payload[:text])
+      expect(new_response.question_uid).to eq(response_payload[:question_uid])
+      expect(new_response.optimal).to eq(response_payload[:optimal])
 
       expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)['text']).to eq(response_payload[:text])
+      expect(JSON.parse(response.body)['question_uid']).to eq(response_payload[:question_uid])
+      expect(JSON.parse(response.body)['optimal']).to eq(response_payload[:optimal])
     end
 
-    it 'should return 200 for not-found' do
-      get :responses_for_question, params: { question_uid: 'adsfdsf'}
+    it 'should update an old response with new attributes if the response text exists' do
+      new_response = create(:response, question_uid: '123456', text: 'Reading is fundamental.', optimal: false, concept_results: {"12345": false})
+      response_payload = {question_uid: new_response.question_uid, text: new_response.text, optimal: true,  concept_results: {"12345": true}}
+      post :create_or_update, params: {response: response_payload}
 
-      expect(response.status).to eq(200)
-    end
-  end
+      new_response.reload
 
-  describe '#multiple_choice_options' do
-    let(:q_response) { create(:response, question_uid: '123456') }
-    let(:q_response_optimal) { create(:response, question_uid: '123456', optimal: true) }
-
-    before do
-      allow_any_instance_of(Response).to receive(:create_index_in_elastic_search)
-    end
-
-    it 'should return 200 for found' do
-      get :multiple_choice_options, params: { question_uid: q_response.question_uid}
-
-      expect(response.status).to eq(200)
+      expect(new_response.optimal).to eq(true)
+      expect(new_response.concept_results).to eq({"12345"=> true})
     end
   end
 
@@ -213,6 +227,41 @@ end
                    'correct' => 'true'}}
       output = controller.send(:concept_results_to_boolean, input)
       expect(output['mock_uid']).to eq(true)
+    end
+  end
+
+  describe 'question_dashboard_data' do
+    before do
+      allow_any_instance_of(Response).to receive(:create_index_in_elastic_search)
+    end
+
+    let!(:question_uid) { SecureRandom.uuid}
+    let!(:response_1) { create(:response, question_uid: question_uid, optimal: nil, count: 20)}
+    let!(:response_2) { create(:response, question_uid: question_uid, optimal: false, author: "Modified Word Hint", count: 20)}
+    let!(:response_3) { create(:response, question_uid: question_uid, optimal: false, author: "Required Words Hint", count: 20)}
+    let!(:response_4) { create(:response, question_uid: question_uid, optimal: false, author: "Spelling Hint", count: 20)}
+    let!(:response_5) { create(:response, question_uid: question_uid, optimal: true, count: 20)}
+
+    it 'gets question dashboard data' do
+      get :question_dashboard, params: { question_uid: question_uid}
+
+      expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)['percent_common_unmatched']).to eq(20)
+      expect(JSON.parse(response.body)['percent_specified_algos']).to eq(40)
+    end
+  end
+
+  describe 'rematch_all_responses_for_question' do
+    it 'queues a job without delay as default' do
+      expect(RematchResponsesForQuestionWorker).to receive(:perform_in).with(0, '123', 'some_type')
+
+      post :rematch_all_responses_for_question, params: { uid: '123', type: 'some_type'}
+    end
+
+    it 'queues a job with delay when delay is passed in' do
+      expect(RematchResponsesForQuestionWorker).to receive(:perform_in).with('999', '123', 'some_type')
+
+      post :rematch_all_responses_for_question, params: { uid: '123', type: 'some_type', delay: '999'}
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cms::ContentPartnersController < Cms::CmsController
   def index
     content_partners = ContentPartner.includes(content_partner_activities: :activity).all.map do |s|

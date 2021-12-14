@@ -1,0 +1,19 @@
+.daily-tiny-tip {
+  a {
+    display: flex;
+    padding: 8px 16px;
+    justify-content: space-between;
+    span {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.43;
+      color: #262626;
+      margin-right: 14px;
+      -webkit-line-clamp: 3;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      max-height: 60px;
+    }
+  }
+}

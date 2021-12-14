@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: concept_results
@@ -11,16 +13,14 @@
 #
 # Indexes
 #
-#  index_concept_results_on_activity_classification_id  (activity_classification_id)
-#  index_concept_results_on_activity_session_id         (activity_session_id)
-#  index_concept_results_on_concept_id                  (concept_id)
-#  index_concept_results_on_question_type               (question_type)
+#  index_concept_results_on_activity_session_id  (activity_session_id)
+#  index_concept_results_on_concept_id           (concept_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (activity_classification_id => activity_classifications.id)
 #
-class ConceptResult < ActiveRecord::Base
+class ConceptResult < ApplicationRecord
 
   belongs_to :concept
   belongs_to :activity_session
@@ -30,7 +30,7 @@ class ConceptResult < ActiveRecord::Base
   validates :activity_session_id, presence: true
 
 
-  validates :question_type, inclusion: { in: %w(passage-proofreader sentence-writing sentence-fragment-expansion sentence-fragment-identification sentence-combining fill-in-the-blanks lessons-slide),
+  validates :question_type, inclusion: { in: %w(passage-proofreader sentence-writing sentence-fragment-expansion sentence-fragment-identification sentence-combining fill-in-the-blanks lessons-slide comprehension),
                    message: "%<value>s is not a valid question_type" }, :allow_nil => true
 
   def correct?

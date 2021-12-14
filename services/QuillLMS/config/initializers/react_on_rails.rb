@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Shown below are the defaults for configuration
 ReactOnRails.configure do |config|
   config.generated_assets_dir = Rails.env.test? ? File.join(%w[public webpack-test]) : File.join(%w[public webpack])

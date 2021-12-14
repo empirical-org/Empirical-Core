@@ -2,12 +2,12 @@ import * as React from 'react';
 import QuestionSelector from 'react-select-search';
 import { connect } from 'react-redux';
 import { EditorState, ContentState } from 'draft-js'
-import TextEditor from '../shared/textEditor'
+
 import ConceptSelector from '../shared/conceptSelector'
 import { GrammarActivity, Concepts, Concept } from '../../interfaces/grammarActivities'
 import { Question } from '../../interfaces/questions'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
-import { hashToCollection, SortableList,  } from '../../../Shared/index'
+import { hashToCollection, SortableList, TextEditor, } from '../../../Shared/index'
 
 interface LessonFormState {
   title: string;
@@ -231,6 +231,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
             <select defaultValue={flag} onChange={this.handleFlagSelect}>
               <option value="alpha">alpha</option>
               <option value="beta">beta</option>
+              <option value="gamma">gamma</option>
               <option value="production">production</option>
               <option value="archived">archived</option>
             </select>

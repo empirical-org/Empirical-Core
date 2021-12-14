@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GoogleIntegration::Classroom::Parsers::Students
 
   # example result of JSON.parse(response.body) :
@@ -24,8 +26,6 @@ module GoogleIntegration::Classroom::Parsers::Students
       parse_hash(hash)
     end
   end
-
-  private
 
   def self.parse_hash(hash)
     profile_data = hash['profile']

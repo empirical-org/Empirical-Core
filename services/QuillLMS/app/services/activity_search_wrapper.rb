@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ActivitySearchWrapper
   RESULTS_PER_PAGE = 12
 
@@ -35,19 +37,17 @@ class ActivitySearchWrapper
     activity_search_json
   end
 
-  private
-
-  def custom_search_results
+  private def custom_search_results
     activity_search
     activity_categories_classifications_standards_and_standard_level
     formatted_search_results
   end
 
-  def activity_search
+  private def activity_search
     @activities = ActivitySearch.search(@flag)
   end
 
-  def formatted_search_results
+  private def formatted_search_results
     unique_activities_array = []
     @activities.each do |a|
       activity_id = a['activity_id'].to_i
@@ -71,7 +71,7 @@ class ActivitySearchWrapper
           id: activity_id,
           uid: a['activity_uid'],
           anonymous_path: Rails.application.routes.url_helpers.anonymous_activity_sessions_path(activity_id: activity_id),
-          activity_classification: classification_hash(classification_id),
+          activity_classification: classification_hash(a['classification_key'], classification_id),
           activity_category: {id: a['activity_category_id'].to_i, name: a['activity_category_name']},
           activity_category_name: a['activity_category_name'],
           activity_category_id: a['activity_category_id'].to_i,
@@ -88,7 +88,7 @@ class ActivitySearchWrapper
     @activities = unique_activities_array
   end
 
-  def activity_categories_classifications_standards_and_standard_level
+  private def activity_categories_classifications_standards_and_standard_level
     standard_level_ids = []
     activity_classification_ids = []
     @activities.each do |a|
@@ -101,16 +101,25 @@ class ActivitySearchWrapper
     @standard_levels = StandardLevel.where(id: standard_level_ids.uniq)
   end
 
-  def activity_classifications
+  private def activity_classifications
     if @activity_classification_ids.any?
-      activity_classifications = ActiveRecord::Base.connection.execute("SELECT ac.key, ac.id, ac.order_number FROM activity_classifications AS ac WHERE ac.id = ANY(array#{@activity_classification_ids})").to_a
+      activity_classifications = RawSqlRunner.execute(
+        <<-SQL
+          SELECT
+            ac.key,
+            ac.id,
+            ac.order_number
+          FROM activity_classifications AS ac
+          WHERE ac.id = ANY(array#{@activity_classification_ids})
+        SQL
+      ).to_a
+
       activity_classification_details = activity_classifications.map do |ac|
-        ac_id = ac['id'].to_i
         {
-          alias: classification_hash(ac_id)[:alias],
-          id: ac_id,
+          alias: classification_hash(ac['key'], ac['id'])[:alias],
+          id: ac['id'],
           key: ac['key'],
-          order: ac['order_number'].to_i
+          order: ac['order_number']
         }
       end
       activity_classification_details.sort_by { |key| key[:order] }
@@ -119,37 +128,43 @@ class ActivitySearchWrapper
     end
   end
 
-  def classification_hash(classification_id)
-    case classification_id
-    when 1
+  private def classification_hash(classification_key, classification_id)
+    case classification_key
+    when ActivityClassification::PROOFREADER_KEY
       h = {
         alias: 'Quill Proofreader',
         description: 'Fix Errors in Passages',
-        key: 'passage'
+        key: ActivityClassification::PROOFREADER_KEY
       }
-    when 2
+    when ActivityClassification::GRAMMAR_KEY
       h = {
         alias: 'Quill Grammar',
         description: 'Practice Mechanics',
-        key: 'sentence'
+        key: ActivityClassification::GRAMMAR_KEY
       }
-    when 4
+    when ActivityClassification::DIAGNOSTIC_KEY
       h = {
         alias: 'Quill Diagnostic',
         description: 'Identify Learning Gaps',
-        key: 'diagnostic'
+        key: ActivityClassification::DIAGNOSTIC_KEY
       }
-    when 5
+    when ActivityClassification::CONNECT_KEY
       h = {
         alias: 'Quill Connect',
         description: 'Combine Sentences',
-        key: 'connect'
+        key: ActivityClassification::CONNECT_KEY
       }
-    when 6
+    when ActivityClassification::LESSONS_KEY
       h = {
         alias: 'Quill Lessons',
         description: 'Lead Group Lessons',
-        key: 'lessons'
+        key: ActivityClassification::LESSONS_KEY
+      }
+    when ActivityClassification::EVIDENCE_KEY
+      h = {
+        alias: 'Quill Evidence',
+        description: '',
+        key: ActivityClassification::EVIDENCE_KEY
       }
     else
       h = {}

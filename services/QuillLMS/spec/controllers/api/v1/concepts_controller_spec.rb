@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Api::V1::ConceptsController, type: :controller do
@@ -9,7 +11,7 @@ describe Api::V1::ConceptsController, type: :controller do
     let!(:parent_concept) { create(:concept) }
 
     def subject
-      post :create, {concept: {name: concept_name, parent_uid: parent_concept.uid}}
+      post :create, params: { concept: {name: concept_name, parent_uid: parent_concept.uid} }, as: :json
     end
 
     it_behaves_like 'protected endpoint'
@@ -43,15 +45,40 @@ describe Api::V1::ConceptsController, type: :controller do
     let(:parsed_body) { JSON.parse(response.body) }
 
     def subject
-      get :index
+      get :index, as: :json
     end
 
-    before do
-      subject
-    end
+    before { subject }
 
     it 'returns all concepts' do
       expect(parsed_body['concepts'].length).to eq(2)
     end
   end
+
+  context 'GET #level_zero_concepts_with_lineage' do
+    let!(:concept1) { create(:concept, name: 'Articles', visible: true) }
+    let!(:concept2) { create(:concept, name: 'The', parent: concept1) }
+    let!(:concept3) { create(:concept, name: 'Something', parent: concept2)}
+    let!(:concept4) { create(:concept, name: 'Different', visible: true) }
+    let!(:concept5) { create(:concept, name: 'Name', parent: concept4) }
+    let!(:concept6) { create(:concept, name: 'Other', parent: concept5)}
+    let!(:concept7) { create(:concept, name: 'Different', visible: false) }
+    let(:parsed_body) { JSON.parse(response.body) }
+
+    def subject
+      get :level_zero_concepts_with_lineage
+    end
+
+    before { subject }
+
+    it 'returns a row for each level 0 concept that has visible set to true' do
+      expect(parsed_body['concepts'].length).to eq(2)
+    end
+
+    it 'returns them in alphabetical order and formats the names correctly' do
+      expect(parsed_body['concepts'][0]['name']).to eq('Articles | The | Something')
+      expect(parsed_body['concepts'][1]['name']).to eq('Different | Name | Other')
+    end
+  end
+
 end

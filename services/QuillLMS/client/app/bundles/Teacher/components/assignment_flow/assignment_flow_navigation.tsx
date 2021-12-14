@@ -57,6 +57,7 @@ const routeLinks = {
   [activityTypeSlug]: () => [slash(1), learningProcess(), slash(2), activityType()],
   [preApSlug]: () => [slash(1), learningProcess(), slash(2), collegeBoard(), slash(3), preAp()],
   [apSlug]: () => [slash(1), learningProcess(), slash(2), collegeBoard(), slash(3), ap()],
+  [springBoardSlug]: () => [slash(1), learningProcess(), slash(2), collegeBoard(), slash(3), springBoard()],
   [collegeBoardSlug]: () => [slash(1), learningProcess(), slash(2), collegeBoard()],
   [activityLibrarySlug]: () => [slash(1), learningProcess(), slash(2), createActivityPack()],
   [selectClassesSlug]: (unitTemplateId, unitTemplateName, isFromDiagnosticPath) => {

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe ProfilesController, type: :controller do
@@ -16,12 +18,13 @@ describe ProfilesController, type: :controller do
         create(:unit)
       ]
     end
+    let!(:post_test) { create(:activity) }
     let!(:activities) do [
         create(:activity),
+        create(:activity, follow_up_activity_id: post_test.id),
         create(:activity),
         create(:activity),
-        create(:activity),
-        create(:activity)
+        post_test
       ]
     end
     let!(:unit_activities) do [
@@ -72,18 +75,19 @@ describe ProfilesController, type: :controller do
         student = create(:student_in_two_classrooms_with_many_activities)
         session[:user_id] = student.id
         get :students_classrooms_json
+
         student_classrooms = []
         student.classrooms.each do |classroom|
           student_classrooms << {
-            name: classroom.name,
-            teacher: classroom.owner.name,
-            id: classroom.id
+            'name' => classroom.name,
+            'teacher' => classroom.owner.name,
+            'id' => classroom.id
           }
         end
-        expected_response = JSON.parse(response.body)['classrooms']
-        sql_response = sanitize_hash_array_for_comparison_with_sql(student_classrooms)
-        expected_response.each do |response|
-          expect(sql_response).to include(response)
+
+        actual_responses = JSON.parse(response.body)['classrooms']
+        student_classrooms.each do |student_classroom|
+          expect(actual_responses).to include(student_classroom)
         end
       end
     end
@@ -118,7 +122,7 @@ describe ProfilesController, type: :controller do
       context 'when the student is in multiple classrooms' do
         it 'returns correct student, classrooms, and teachers info based on current_classroom_id' do
           classroom = student.classrooms.first
-          get :student_profile_data, current_classroom_id: classroom.id
+          get :student_profile_data, params: { current_classroom_id: classroom.id }
           response_body = JSON.parse(response.body)
           expect(response_body['student']).to eq({
             'name' => student.name,
@@ -135,7 +139,7 @@ describe ProfilesController, type: :controller do
         it 'sorts pinned activities to the front' do
           get :student_profile_data
           scores = JSON.parse(response.body)['scores']
-          pinned_flags = scores.map { |score| score['pinned'] }
+          pinned_flags = scores.map { |score| score['pinned'].to_s }
           expect(pinned_flags).to eq(pinned_flags.sort.reverse)
         end
 
@@ -146,7 +150,7 @@ describe ProfilesController, type: :controller do
           end
           get :student_profile_data
           scores = JSON.parse(response.body)['scores']
-          locked_flags = scores.map { |score| score['locked'] }
+          locked_flags = scores.map { |score| score['locked'].to_s }
           expect(locked_flags).to eq(locked_flags.sort)
         end
 
@@ -173,11 +177,11 @@ describe ProfilesController, type: :controller do
           get :student_profile_data
           scores = JSON.parse(response.body)['scores']
           single_unit_scores = scores.select { |item| item['unit_id'] == units[0].id }
-          max_percentages = single_unit_scores.map { |score| score['max_percentage'] }
+          max_percentages = single_unit_scores.map { |score| score['max_percentage'] }.compact
           expect(max_percentages).to eq(max_percentages.sort.reverse)
         end
 
-        it 'respects assigned "order_number" when there are no pins or locks and all acticities belong to the same unit and have the same level of completion' do
+        it 'respects assigned "order_number" when there are no pins or locks and all activities belong to the same unit and have the same level of completion' do
           classroom_unit_activity_states.each do |activity_state|
             activity_state.pinned = false
             activity_state.locked = false
@@ -186,6 +190,7 @@ describe ProfilesController, type: :controller do
           get :student_profile_data
           scores = JSON.parse(response.body)['scores']
           single_unit_scores = scores.select { |item| item['unit_id'] == units[0].id }
+          single_unit_scores = scores.reject { |item| item['max_percentage'].nil? }
           order_numbers = single_unit_scores.map { |score| score['order_number'] }
           expect(order_numbers).to eq(order_numbers.sort)
         end
@@ -208,26 +213,32 @@ describe ProfilesController, type: :controller do
                 classroom_unit: classroom_unit,
                 unit_activity: unit_activity
               )
+              pre_test = Activity.find_by(follow_up_activity_id: activity.id)
+              pre_test_completed_session = ActivitySession.find_by(state: 'finished', activity: pre_test, user: student)
 
               scores_array << {
                 'name' => activity.name,
                 'description' => activity.description,
                 'repeatable' => activity.repeatable,
                 'activity_classification_id' => activity.activity_classification_id,
+                'activity_classification_key' => activity.classification.key,
                 'unit_id' => unit.id,
                 'ua_id' => unit_activity.id,
-                'order_number' => unit_activity.order_number,
                 'unit_created_at' => unit.created_at,
                 'unit_name' => unit.name,
-                'ca_id' => classroom_unit.id,
-                'marked_complete' => 'f',
+                'classroom_unit_id' => classroom_unit.id,
+                'marked_complete' => false,
                 'activity_id' => activity.id,
                 'act_sesh_updated_at' => activity_session&.updated_at,
+                'order_number' => unit_activity.order_number,
                 'due_date' => unit_activity.due_date,
+                'pre_activity_id' => pre_test&.id,
                 'unit_activity_created_at' => classroom_unit.created_at,
-                'locked' => unit_activity.classroom_unit_activity_states[0].locked ? 't' : 'f',
-                'pinned' => unit_activity.classroom_unit_activity_states[0].pinned ? 't' : 'f',
+                'locked' => unit_activity.classroom_unit_activity_states[0].locked,
+                'pinned' => unit_activity.classroom_unit_activity_states[0].pinned,
                 'max_percentage' => activity_session&.percentage,
+                'completed_pre_activity_session' => pre_test_completed_session.present?,
+                'finished' => activity_session&.percentage ? true : false,
                 'resume_link' => activity_session&.state == 'started' ? 1 : 0
               }
             end
@@ -236,12 +247,13 @@ describe ProfilesController, type: :controller do
           # This sort emulates the sort we are doing in the student_profile_data_sql method.
           sorted_scores = scores_array.sort { |a, b|
             [
-              b['pinned'], a['locked'], a['unit_created_at'], b['max_percentage'].nil? ? 1.01 : b['max_percentage'], a['order_number'], a['unit_activity_created_at']
+              b['pinned'].to_s, a['locked'].to_s, a['unit_created_at'], a['max_percentage'] || 1.01, a['order_number'], a['unit_activity_created_at']
             ] <=> [
-              a['pinned'], b['locked'], b['unit_created_at'], a['max_percentage'].nil? ? 1.01 : a['max_percentage'], b['order_number'], b['unit_activity_created_at']
+              a['pinned'].to_s, b['locked'].to_s, b['unit_created_at'], b['max_percentage'] || 1.01, b['order_number'], b['unit_activity_created_at']
             ]
           }
-          expect(scores).to eq(sanitize_hash_array_for_comparison_with_sql(sorted_scores))
+
+          expect(scores).to eq sanitize_hash_array_for_comparison_with_sql(sorted_scores)
         end
 
         it 'returns next activity session' do

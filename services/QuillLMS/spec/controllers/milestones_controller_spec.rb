@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe MilestonesController do
@@ -33,6 +35,16 @@ describe MilestonesController do
     it 'should push the milestone into users milestones' do
       expect(user.milestones).to_not include milestone
       post :complete_acknowledge_diagnostic_banner
+      expect(user.milestones).to include milestone
+    end
+  end
+
+  describe '#complete_acknowledge_growth_diagnostic_promotion_card' do
+    let!(:milestone) { create(:acknowledge_growth_diagnostic_promotion_card) }
+
+    it 'should push the milestone into users milestones' do
+      expect(user.milestones).to_not include milestone
+      post :complete_acknowledge_growth_diagnostic_promotion_card
       expect(user.milestones).to include milestone
     end
   end

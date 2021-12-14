@@ -4,7 +4,7 @@ import {Response} from '../../interfaces'
 
 describe('The rigidChangeObjectMatch function', () => {
 
-    it('Should take a response string and classify it as missing word', () => {
+    it('Should take a response string missing one word and classify it as missing word', () => {
         const responseString:string = "My took a nap.";
         const savedResponses: Array<Response> = [
           {
@@ -21,8 +21,76 @@ describe('The rigidChangeObjectMatch function', () => {
         assert.equal(matchedResponse.errorType, "MISSING_WORD");
     });
 
-    it('Should take a response string and classify it as added word', () => {
+    it('Should take a response string missing two words in order and classify it as missing word', () => {
+        const responseString:string = "My a nap.";
+        const savedResponses: Array<Response> = [
+          {
+            id: 1,
+            text: "My dog took a nap.",
+            feedback: "Good job, that's a sentence!",
+            optimal: true,
+            count: 1,
+            question_uid: "questionOne"
+          }
+        ]
+        const matchedResponse = rigidChangeObjectMatch(responseString, savedResponses);
+        assert.equal(matchedResponse.response.id, savedResponses[0].id)
+        assert.equal(matchedResponse.errorType, "MISSING_WORD");
+    });
+
+    it('Should take a response string missing two words not in order and classify it as missing word', () => {
+        const responseString:string = "My took nap.";
+        const savedResponses: Array<Response> = [
+          {
+            id: 1,
+            text: "My dog took a nap.",
+            feedback: "Good job, that's a sentence!",
+            optimal: true,
+            count: 1,
+            question_uid: "questionOne"
+          }
+        ]
+        const matchedResponse = rigidChangeObjectMatch(responseString, savedResponses);
+        assert.equal(matchedResponse.response.id, savedResponses[0].id)
+        assert.equal(matchedResponse.errorType, "MISSING_WORD");
+    });
+
+    it('Should take a response string with one extra word and classify it as added word', () => {
         const responseString:string = "My lazy dog took a nap.";
+        const savedResponses: Array<Response> = [
+          {
+            id: 1,
+            text: "My dog took a nap.",
+            feedback: "Good job, that's a sentence!",
+            optimal: true,
+            count: 1,
+            question_uid: "questionOne"
+          }
+        ]
+        const matchedResponse = rigidChangeObjectMatch(responseString, savedResponses);
+        assert.equal(matchedResponse.response.id, savedResponses[0].id)
+        assert.equal(matchedResponse.errorType, "ADDITIONAL_WORD");
+    });
+
+    it('Should take a response string with two extra words in order and classify it as added word', () => {
+        const responseString:string = "My sweet lazy dog took a nap.";
+        const savedResponses: Array<Response> = [
+          {
+            id: 1,
+            text: "My dog took a nap.",
+            feedback: "Good job, that's a sentence!",
+            optimal: true,
+            count: 1,
+            question_uid: "questionOne"
+          }
+        ]
+        const matchedResponse = rigidChangeObjectMatch(responseString, savedResponses);
+        assert.equal(matchedResponse.response.id, savedResponses[0].id)
+        assert.equal(matchedResponse.errorType, "ADDITIONAL_WORD");
+    });
+
+    it('Should take a response string with two extra words out of order and classify it as added word', () => {
+        const responseString:string = "My lazy dog took a long nap.";
         const savedResponses: Array<Response> = [
           {
             id: 1,

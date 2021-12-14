@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 class StatusesController < ApplicationController
-  skip_before_action :stick_to_leader_db, only: [:database_follower]
   protect_from_forgery with: :null_session
 
   def index

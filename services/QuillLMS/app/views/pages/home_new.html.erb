@@ -2,6 +2,8 @@
 <% flash.each do |key, value| %>
   <%= content_tag(:div, "<p>#{value}</p><i class='fas fa-times-circle' aria-hidden='true'></i>".html_safe, {class: "flash #{key}", onClick: "$(this).slideUp(300)"}) %>
 <% end %>
+<% @device = device %>
+<% @is_mobile = device == "mobile" %>
 
 <section class="q-hero bg-quillgreen flex-column space-between">
   <%= render partial: 'pages/shared/navbar' %>
@@ -14,6 +16,7 @@
     <a class="q-button cta-button cta-home  bg-white" href="/sign-up/student">Student</a>
     <a class="q-button cta-button cta-home  bg-white" href="/sign-up/teacher">Teacher</a>
     <a class="q-button cta-button cta-home  bg-white" href="/sign-up/teacher">Guardian</a>
+    <a class="q-button cta-button cta-home  bg-white" href="/administrator">Administrator</a>
   </div>
   <div class="q-hero-footer">
     <p class="text-white">
@@ -27,7 +30,8 @@
     <div class='info-section'>
       <a href="/tools/connect/"><h2 class='q-h2'><img class="icon-white lazyload" data-src='https://assets.quill.org/images/shared/quill_connect_white.svg'>Quill Connect</h2></a>
       <p class='blurb'>Help your students advance from fragmented and run-on sentences to complex and well structured ones.</p>
-        <div class="light-bar"></div>
+      <%= render_dash(@is_mobile) %>
+      <%= render_video_content(@device, 'mobile','https://assets.quill.org/videos/tools/connect.mp4') %>
       <p class='summary'>
         Using the evidence-based strategy of sentence combining, students combine multiple ideas into a single sentence. They then receive instant feedback designed to help them improve their clarity and precision.
       </p>
@@ -36,29 +40,18 @@
         <a href="/tools/connect/" target="_blank" class="q-button text-white learn-more-button">Learn more</a>
       </div>
     </div>
-    <div class='video-section'>
-      <video class="lazyload" data-src="https://assets.quill.org/videos/tools/connect.mp4" autoplay loop playsinline muted/>
-        <p>
-          Video not supported
-        </p>
-      </video>
-    </div>
+    <%= render_video_content(@device, 'desktop','https://assets.quill.org/videos/tools/connect.mp4') %>
   </div>
 </section>
 
 <section class='tool-section bg-tool-magenta'>
   <div class="tool lessons-tool">
-    <div class='video-section'>
-      <video class="lazyload" data-src="https://assets.quill.org/videos/tools/lessons.mp4" autoplay loop playsinline muted/>
-        <p>
-          Video not supported
-        </p>
-      </video>
-    </div>
+    <%= render_video_content(@device, 'desktop', 'https://assets.quill.org/videos/tools/lessons.mp4') %>
     <div class='info-section right'>
       <a href="/tools/lessons/"><h2 class='q-h2'><img class="icon-white lazyload" data-src='https://assets.quill.org/images/shared/icon_lessons_white.svg'>Quill Lessons</h2></a>
       <p class='blurb'>Quill Lessons enables teachers to lead whole-class and small group writing instruction.</p>
-      <div class="light-bar"></div>
+      <%= render_dash(@is_mobile) %>
+      <%= render_video_content(@device, 'mobile', 'https://assets.quill.org/videos/tools/lessons.mp4') %>
       <p class='summary'>
         Teachers control interactive slides that contain writing prompts, and the entire class responds to each prompt. Each Quill Lessons activity provides a lesson plan, writing prompts, discussion topics, and a follow up independent practice activity.
       </p>
@@ -77,7 +70,8 @@
       <p class='blurb'>
         Quickly determine which skills your students need to work on with our diagnostics.
       </p>
-      <div class="light-bar"></div>
+      <%= render_dash(@is_mobile) %>
+      <%= render_video_content(@device, 'mobile', 'https://assets.quill.org/videos/tools/diagnostic.mp4') %>
       <p class='summary'>
         The diagnostics cover vital sentence construction skills and generate personalized learning plans based on the student’s performance.
       </p>
@@ -86,38 +80,96 @@
         <a href="/tools/diagnostic/" target="_blank" class="q-button text-white learn-more-button">Learn more</a>
       </div>
       <div class="ell-section">
-        <div class="header">Quill's ELL Diagnostic includes translations in:</div>
+        <div class="header">Quill's ELL Diagnostics include translations in:</div>
         <div class="flags">
-          <span>
-            <img class="lazyload" data-src="https://assets.quill.org/images/flags/spain.png">Spanish
-            <img class="lazyload" data-src="https://assets.quill.org/images/flags/china.png">Mandarin
-            <img class="lazyload" data-src="https://assets.quill.org/images/flags/france.png">French
+          <span class="flags-row">
+            <span class="flag-container">
+              <img class="lazyload" data-src="https://assets.quill.org/images/flags/spain.png"/>
+              <p class="flag-label">Spanish</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" data-src="https://assets.quill.org/images/flags/china.png"/>
+              <p class="flag-label">Mandarin</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" data-src="https://assets.quill.org/images/flags/france.png"/>
+              <p class="flag-label">French</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" data-src="https://assets.quill.org/images/flags/vietnam.png"/>
+              <p class="flag-label">Vietnamese</p>
+            </span>
           </span>
-          <span>
-            <img class="lazyload" data-src="https://assets.quill.org/images/flags/vietnam.png">Vietnamese
-            <img class="lazyload" data-src="https://assets.quill.org/images/flags/egypt.png">Arabic
-            <img class="lazyload" data-src="https://assets.quill.org/images/flags/india.png">Hindi
+          <span class="flags-row">
+            <span class="flag-container">
+              <img class="lazyload" data-src="https://assets.quill.org/images/flags/egypt.png">
+              <p class="flag-label">Arabic</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" data-src="https://assets.quill.org/images/flags/india.png">
+              <p class="flag-label">Hindi</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" data-src="https://assets.quill.org/images/flags/russia.png">
+              <p class="flag-label">Russian</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" data-src="https://assets.quill.org/images/flags/ukraine.png">
+              <p class="flag-label">Ukrainian</p>
+            </span>
+          </span>
+          <span class="flags-row">
+            <span class="flag-container">
+              <img class="lazyload" data-src="https://assets.quill.org/images/flags/pakistan.png">
+              <p class="flag-label">Urdu</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" data-src="https://assets.quill.org/images/flags/germany.png">
+              <p class="flag-label">German</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" data-src="https://assets.quill.org/images/flags/philippines.png">
+              <p class="flag-label">Tagalog</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" data-src="https://assets.quill.org/images/flags/brazil.png">
+              <p class="flag-label">Portuguese</p>
+            </span>
+          </span>
+          <span class="flags-row">
+            <span class="flag-container">
+              <img class="lazyload" data-src="https://assets.quill.org/images/flags/thailand.png">
+              <p class="flag-label">Thai</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" data-src="https://assets.quill.org/images/flags/afghanistan.png">
+              <p class="flag-label">Dari</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" data-src="https://assets.quill.org/images/flags/japan.png">
+              <p class="flag-label">Japanese</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" data-src="https://assets.quill.org/images/flags/south_korea.png">
+              <p class="flag-label">Korean</p>
+            </span>
           </span>
         </div>
       </div>
     </div>
-    <div class='video-section'>
-      <video class="lazyload" data-src="https://assets.quill.org/videos/tools/diagnostic.mp4" autoplay loop playsinline muted/>
-    </div>
-
+    <%= render_video_content(@device, 'desktop', 'https://assets.quill.org/videos/tools/diagnostic.mp4') %>
   </div>
 
 </section>
 
 <section class='tool-section bg-tool-blue'>
   <div class="tool proofreader-tool">
-    <div class='video-section'>
-      <video class="lazyload" data-src="https://assets.quill.org/videos/tools/proofreader.mp4" autoplay loop playsinline muted/>
-    </div>
+    <%= render_video_content(@device, 'desktop', 'https://assets.quill.org/videos/tools/proofreader.mp4') %>
     <div class='info-section right'>
       <a href="/tools/proofreader/"><h2 class='q-h2'><img class="icon-white lazyload" data-src='https://assets.quill.org/images/shared/quill_proofreader_white.svg'>Quill Proofreader</h2></a>
       <p class='blurb'>Proofreader teaches your students editing skills by having them proofread passages.</p>
-      <div class="light-bar"></div>
+      <%= render_dash(@is_mobile) %>
+      <%= render_video_content(@device, 'mobile', 'https://assets.quill.org/videos/tools/proofreader.mp4') %>
       <p class='summary'>
         Students edit passages and receive personalized exercises based on their results. With over 100 expository passages, Proofreader gives students the practice they need to spot common grammatical errors.
       </p>
@@ -136,7 +188,8 @@
     <div class='info-section'>
       <a href="/tools/grammar/"><h2 class='q-h2'><img class="icon-white lazyload" data-src='https://assets.quill.org/images/shared/quill_grammar_white.svg'>Quill Grammar</h2></a>
       <p class='blurb'>Students practice basic grammar skills, from comma placement to parallel structure.</p>
-      <div class="light-bar"></div>
+      <%= render_dash(@is_mobile) %>
+      <%= render_video_content(@device, 'mobile', 'https://assets.quill.org/videos/tools/grammar.mp4') %>
       <p class='summary'>
 Quill Grammar has over 150 sentence writing activities to help your students. Our activities are designed to be completed in 10 minutes so you have the freedom to use them in the way that works best for your classroom.
       </p>
@@ -145,9 +198,7 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
         <a href="/tools/grammar/" target="_blank" class="q-button text-white learn-more-button">Learn more</a>
       </div>
     </div>
-    <div class='video-section'>
-      <video class="lazyload" data-src="https://assets.quill.org/videos/tools/grammar.mp4" autoplay loop playsinline muted/>
-    </div>
+    <%= render_video_content(@device, 'desktop', 'https://assets.quill.org/videos/tools/grammar.mp4') %>
   </div>
 </section>
 
@@ -272,7 +323,6 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
           "I started using Quill because it fit right into my daily curriculum."
 
           <p class="quote-author">ROXANNA BUTKUS, RANGEVIEW ELEMENTARY</p>
-          <a href="/activities/packs/2" class="q-button cta-button bg-white text-quillblue">View my story</a>
 
         </div>
       </div>
@@ -281,7 +331,6 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
           "With interesting passages and immediate feedback, my students really feel like they’re learning."
 
           <p class="quote-author">SARA ANGEL, KIPP LA</p>
-          <a href="/activities/packs/5" class="q-button cta-button bg-white text-quillblue">View my story</a>
 
         </div>
       </div>
@@ -290,7 +339,6 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
           "Using Quill has opened up more conversations between me and my students, in terms of how to write better and what the student needs to practice."
 
           <p class="quote-author">COLETTE KANG, EAST BAY INNOVATION ACADEMY</p>
-          <a href="/activities/packs/8" class="q-button cta-button bg-white text-quillblue">View my story</a>
 
         </div>
       </div>
@@ -299,7 +347,6 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
           "I've seen tremendous improvement in the proficiency of my students and the quality of their writing."
 
           <p class="quote-author">DANIEL SCIBIENSKI, PRINCETON PUBLIC SCHOOLS</p>
-          <a href="/activities/packs/6" class="q-button cta-button bg-white text-quillblue">View my story</a>
 
         </div>
       </div>

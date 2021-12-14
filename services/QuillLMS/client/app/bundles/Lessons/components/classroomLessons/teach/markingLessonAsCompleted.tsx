@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import WakeLock from 'react-wakelock-react16'
+
 import {
   startListeningToSessionForTeacher,
   finishActivity,
@@ -8,9 +8,11 @@ import {
 import {
   getClassLesson
 } from '../../../actions/classroomLesson';
+import {
+  getEditionQuestions,
+} from '../../../actions/customize'
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
-  ClassroomLessonSessions,
   ClassroomLessonSession,
   ClassroomUnitId,
   ClassroomSessionId
@@ -38,27 +40,33 @@ class MarkingLessonAsCompleted extends React.Component<any, MarkingLessonsAsComp
   }
 
   componentDidMount() {
+    const { dispatch, match, } = this.props
     const { classroomUnitId, classroomSessionId } = this.state
-    const activityId: string = this.props.match.params.lessonID;
+    const activityId: string = match.params.lessonID;
     if (classroomUnitId && classroomSessionId) {
-      this.props.dispatch(getClassLesson(activityId));
-      this.props.dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId, classroomSessionId));
+      dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId, classroomSessionId));
     }
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.classroomSessions.hasreceiveddata && nextProps.classroomLesson.hasreceiveddata) {
-      const data: ClassroomLessonSession = nextProps.classroomSessions.data;
-      const lessonData: ClassroomLesson = nextProps.classroomLesson.data;
-      this.finishLesson(nextProps)
+  componentDidUpdate(prevProps) {
+    const { classroomSessions, customize, dispatch, } = this.props
+
+    if (classroomSessions.hasreceiveddata && classroomSessions.data.edition_id) {
+      dispatch(getEditionQuestions(classroomSessions.data.edition_id))
     }
+
+    if (classroomSessions.hasreceiveddata && Object.keys(customize.editionQuestions).length) {
+      this.finishLesson(this.props)
+    }
+
   }
 
   finishLesson(nextProps) {
-    const questions = nextProps.classroomLesson.data.questions;
-    const submissions = nextProps.classroomSessions.data.submissions;
-    const activityId = this.props.match.params.lessonID;
-    const classroomUnitId:ClassroomUnitId|null = this.state.classroomUnitId;
+    const { match, } = this.props
+    const { classroomUnitId, } = this.state
+    const { questions, } = nextProps.customize.editionQuestions;
+    const { submissions, } = nextProps.classroomSessions.data;
+    const activityId = match.params.lessonID;
     const conceptResults = generate(questions, submissions);
 
     if (classroomUnitId) {
@@ -83,6 +91,7 @@ function select(props) {
   return {
     classroomSessions: props.classroomSessions,
     classroomLesson: props.classroomLesson,
+    customize: props.customize
   };
 }
 

@@ -1,4 +1,6 @@
-class CreateConceptTagResults < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateConceptTagResults < ActiveRecord::Migration[4.2]
   def change
     create_table :concept_tag_results do |t|
       t.belongs_to :activity_session
