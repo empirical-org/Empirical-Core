@@ -106,7 +106,8 @@ module Evidence
         parent_activity = ::Activity.create(:name => "test name", :flag => 'alpha')
         activity = create(:evidence_activity, :parent_activity_id => parent_activity.id)
         activity.update(flag: 'beta')
-        expect(parent_activity.flag).to be('beta')
+        parent_activity.reload
+        expect(parent_activity.flag).to be(:beta)
       end
     end
 
