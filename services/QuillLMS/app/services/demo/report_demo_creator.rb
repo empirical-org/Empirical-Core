@@ -189,7 +189,7 @@ module Demo::ReportDemoCreator
       activity_ids: [1664],
       activity_sessions: [
         {
-          1664 => 9962415
+          1664 => 11662573
         },
         {
           1664 => 9706466
