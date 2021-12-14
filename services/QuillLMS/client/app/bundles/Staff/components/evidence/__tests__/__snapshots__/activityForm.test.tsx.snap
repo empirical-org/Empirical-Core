@@ -142,6 +142,7 @@ exports[`Activity Form component should render Activities 1`] = `
         EditorState={[Function]}
         handleTextChange={[Function]}
         key="passage-description"
+        shouldCheckSpelling={true}
         text="..."
       />
     </div>
@@ -155,6 +156,7 @@ exports[`Activity Form component should render Activities 1`] = `
       EditorState={[Function]}
       handleTextChange={[Function]}
       key="max-attempt-feedback"
+      shouldCheckSpelling={true}
       text="At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul."
     />
     <Input

@@ -12,6 +12,7 @@ exports[`RulePlagiarismAttributes component should render RulePlagiarismAttribut
     EditorState={[Function]}
     handleTextChange={[Function]}
     key="plagiarism-text"
+    shouldCheckSpelling={true}
   />
   <p
     className="form-subsection-label"
@@ -23,6 +24,7 @@ exports[`RulePlagiarismAttributes component should render RulePlagiarismAttribut
     EditorState={[Function]}
     handleTextChange={[Function]}
     key="first-plagiarism-feedback"
+    shouldCheckSpelling={true}
     text="do not plagiarize."
   />
   <div
@@ -47,6 +49,7 @@ exports[`RulePlagiarismAttributes component should render RulePlagiarismAttribut
     EditorState={[Function]}
     handleTextChange={[Function]}
     key="second-plagiarism-feedback"
+    shouldCheckSpelling={true}
     text="seriously... do not plagiarize!"
   />
   <div

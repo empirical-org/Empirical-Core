@@ -103,6 +103,7 @@ exports[`RuleGenericAttributes component should render RuleGenericAttributes 1`]
     EditorState={[Function]}
     handleTextChange={[Function]}
     key="rule-note"
+    shouldCheckSpelling={true}
     text="test description"
   />
 </Fragment>

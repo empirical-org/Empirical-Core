@@ -12,6 +12,7 @@ class ProgressReports::Standards::StudentSerializer < ActiveModel::Serializer
              :proficient_standard_count,
              :not_proficient_standard_count,
              :total_activity_count,
+             :timespent,
              :average_score,
              :student_standards_href,
              :mastery_status

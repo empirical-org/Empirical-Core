@@ -1,12 +1,14 @@
 import React from 'react'
 import _ from 'underscore'
 import moment from 'moment'
+
 import gradeColor from '../modules/grade_color.js'
 import notLessonsOrDiagnostic from '../../../../modules/activity_classifications.js'
 import userIsPremium from '../modules/user_is_premium'
 import { Tooltip } from '../../../Shared/index'
+import { getTimeSpent } from '../../helpers/studentReports'
 
-export default class extends React.Component {
+export default class StudentOveriewTable extends React.Component {
 
   constructor(props) {
     super(props)
@@ -50,8 +52,9 @@ export default class extends React.Component {
   }
 
   greenArrow(row) {
+    const { studentId } = this.props;
     if (row.completed_at) {
-      return (<a href={`/teachers/progress_reports/report_from_classroom_unit_activity_and_user/cu/${row.classroom_unit_id}/user/${this.props.studentId}/a/${row.activity_id}`}>
+      return (<a href={`/teachers/progress_reports/report_from_classroom_unit_activity_and_user/cu/${row.classroom_unit_id}/user/${studentId}/a/${row.activity_id}`}>
         <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
       </a>)
     }
@@ -72,9 +75,11 @@ export default class extends React.Component {
   }
 
   tableRow(row) {
+    const { studentId } = this.props;
+    const { userIsPremium } = this.state;
     const scoreInfo = this.score(row);
-    const onClickFunction = row.completed_at ? () => window.location.href = `/teachers/progress_reports/report_from_classroom_unit_activity_and_user/cu/${row.classroom_unit_id}/user/${this.props.studentId}/a/${row.activity_id}` : () => {}
-
+    const onClickFunction = row.completed_at ? () => window.location.href = `/teachers/progress_reports/report_from_classroom_unit_activity_and_user/cu/${row.classroom_unit_id}/user/${studentId}/a/${row.activity_id}` : () => {}
+    const blurIfNotPremium = userIsPremium ?  '' : 'non-premium-blur'
     return (
       <tr className={row.completed_at ? 'clickable' : ''} onClick={onClickFunction}>
         <td className='activity-image'>{this.activityImage(row.activity_classification_id, scoreInfo.color)}</td>
@@ -82,20 +87,20 @@ export default class extends React.Component {
           <a className={scoreInfo.linkColor} href={`/activity_sessions/anonymous?activity_id=${row.activity_id}`}>{row.name}</a>
         </td>
         <td>{this.completedStatus(row)}</td>
-        {this.scoreContent(scoreInfo)}
+        {this.scoreContent(scoreInfo, blurIfNotPremium)}
+        <td className={`activity-timespent ${blurIfNotPremium}`}>{getTimeSpent(row.timespent)}</td>
         <td className='green-arrow'>{this.greenArrow(row)}</td>
       </tr>
     )
   }
 
-  scoreContent(scoreInfo) {
-    const blurIfNotPremium = this.state.userIsPremium ?  '' : 'non-premium-blur'
+  scoreContent(scoreInfo, blurIfNotPremium) {
     const activityUngraded = scoreInfo.content === 'Completed'
     if (activityUngraded) {
       return (
         <td className={`score ${blurIfNotPremium}`}>
           <Tooltip
-            tooltipText={`This type of activity is not graded.`}
+            tooltipText="This type of activity is not graded."
             tooltipTriggerText={scoreInfo.content}
           />
         </td>
@@ -108,27 +113,29 @@ export default class extends React.Component {
   }
 
   unitTable(unit) {
+    const { userIsPremium } = this.state;
     const constantData = unit[0]
     const activityTableRowsAndAverageScore = this.activityTableRowsAndAverageScore(unit)
     const averageScore = activityTableRowsAndAverageScore.averageScore
-    const blurIfNotPremium = this.state.userIsPremium ?  '' : 'non-premium-blur'
+    const blurIfNotPremium = userIsPremium ?  '' : 'non-premium-blur'
     return (
       <div className='average-score'>
         <table className='student-overview-table'>
           <tbody>
             <tr className='header-row'>
               <th className='unit-name' colSpan='2'>{constantData.unit_name}</th>
-              <th className='small-font'>Date Completed</th>
+              <th className='small-font'>Date completed</th>
               <th className='small-font'>Score</th>
+              <th className='small-font'>Time spent</th>
               <th className='average-score-container'>
                 <div className='average-score-label'>
-                  Average Score:
+                  Average score:
                 </div>
                 <div className={`${blurIfNotPremium}`}>
                   {averageScore
                     ? Math.round(averageScore * 100) + '%'
                     : <Tooltip
-                      tooltipText={`This type of activity is not graded.`}
+                      tooltipText="This type of activity is not graded."
                       tooltipTriggerText="N/A"
                     />}
                 </div>
@@ -142,7 +149,8 @@ export default class extends React.Component {
   }
 
   render() {
-    const unitTableData = _.groupBy(this.props.reportData, (row) => row['unit_name']);
+    const { reportData } = this.props;
+    const unitTableData = _.groupBy(reportData, (row) => row['unit_name']);
     const unitTables = _.map(unitTableData, (unit) => this.unitTable(unit));
     return (
       <div>

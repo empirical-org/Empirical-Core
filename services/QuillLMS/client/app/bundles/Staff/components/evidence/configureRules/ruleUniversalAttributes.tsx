@@ -94,6 +94,7 @@ const RuleAttributesSection = ({
             // eslint-disable-next-line
             handleTextChange={(text) => onHandleSetUniversalFeedback(text, i, null, FEEDBACK)}
             key="universal-feedback"
+            shouldCheckSpelling={true}
             text={universalFeedback[i].text}
           />
           {errors['Universal Feedback'] && errors['Universal Feedback'].length && <p className="error-message">{errors['Universal Feedback'][i]}</p>}
