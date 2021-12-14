@@ -88,7 +88,7 @@ export default class StudentOveriewTable extends React.Component {
         </td>
         <td>{this.completedStatus(row)}</td>
         {this.scoreContent(scoreInfo, blurIfNotPremium)}
-        <td className={`activity-timespent ${blurIfNotPremium}`}>{row.timespent ? getTimeSpent(row.timespent) : ''}</td>
+        <td className={`activity-timespent ${blurIfNotPremium}`}>{getTimeSpent(row.timespent)}</td>
         <td className='green-arrow'>{this.greenArrow(row)}</td>
       </tr>
     )

@@ -73,7 +73,7 @@ export default class StandardsProgressReport extends React.Component {
         resizable: false,
         width: 100,
         Cell: row => (
-          row.original['timespent'] ? getTimeSpent(row.original['timespent']) : ''
+          getTimeSpent(row.original['timespent'])
         )
       }, {
         Header: 'Avg. score',

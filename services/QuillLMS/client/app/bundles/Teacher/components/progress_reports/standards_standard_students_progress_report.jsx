@@ -71,7 +71,7 @@ export default class IndividualStandardsReport extends React.Component {
         className: blurIfNotPremium,
         resizable: false,
         Cell: row => (
-          row.original['timespent'] ? getTimeSpent(row.original['timespent']) : ''
+          getTimeSpent(row.original['timespent'])
         )
       }, {
         Header: 'Avg. score',

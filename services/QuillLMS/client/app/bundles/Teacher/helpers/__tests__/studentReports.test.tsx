@@ -4,7 +4,7 @@ describe('Student Reports helper functions', () => {
 
   describe('#getTimeSpent', () => {
     it('should return expected time formatting', () => {
-      expect(getTimeSpent(0)).toEqual('')
+      expect(getTimeSpent(0)).toEqual('N/A')
       expect(getTimeSpent(30)).toEqual('<1 min')
       expect(getTimeSpent(60)).toEqual('1 min')
       expect(getTimeSpent(3599)).toEqual('59 mins')

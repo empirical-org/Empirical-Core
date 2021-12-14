@@ -1,6 +1,6 @@
 export function getTimeSpent(seconds: number) {
   if(!seconds) {
-    return '';
+    return 'N/A';
   }
   if(seconds < 60) {
     return `<1 min`;

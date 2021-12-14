@@ -77,7 +77,7 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
     const student = this.selectedStudent(students);
     const { name, score, id, time } = student;
     const displayScore = score ? `${score}%` : ''
-    const displayTimeSpent = time ? getTimeSpent(time) : ''
+    const displayTimeSpent = getTimeSpent(time)
     const options = students.map(s => ({ value: s.id, label: s.name, }))
     const value = options.find(s => id === s.value)
     return (

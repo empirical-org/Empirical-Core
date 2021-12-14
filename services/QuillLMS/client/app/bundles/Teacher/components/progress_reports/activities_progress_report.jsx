@@ -120,7 +120,7 @@ export default createReactClass({
         Header: 'Time spent',
         accessor: 'timespent',
         resizeable: false,
-        Cell: props => props.value ? getTimeSpent(props.value) : '',
+        Cell: props => getTimeSpent(props.value),
         className: this.nonPremiumBlur(),
         maxWidth: 90
       },

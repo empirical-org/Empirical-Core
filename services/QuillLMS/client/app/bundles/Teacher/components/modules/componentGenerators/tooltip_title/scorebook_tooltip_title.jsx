@@ -29,9 +29,7 @@ export default class ScorebookTooltip extends React.Component {
   timeSpent = () => {
     const { data } = this.props;
     const { timespent } = data;
-    if(timespent) {
-      return <p className="tooltip-score-time-data"><strong>Time spent:</strong> <span className="percentage">{getTimeSpent(timespent)}</span></p>
-    }
+    return <p className="tooltip-score-time-data"><strong>Time spent:</strong> <span className="percentage">{getTimeSpent(timespent)}</span></p>
   }
 
   conceptResultsOrLoadingOrNotCompleted = () => {

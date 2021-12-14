@@ -86,7 +86,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         Cell: row => {
           const value = row.original.timespent;
           return (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
-            {isNaN(value) ? '--' : getTimeSpent(value)}
+            {getTimeSpent(value)}
           </a>)
         }
       },
