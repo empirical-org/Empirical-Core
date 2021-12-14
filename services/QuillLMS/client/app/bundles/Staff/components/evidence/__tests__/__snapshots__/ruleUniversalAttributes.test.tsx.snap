@@ -12,6 +12,7 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
     EditorState={[Function]}
     handleTextChange={[Function]}
     key="universal-feedback"
+    shouldCheckSpelling={true}
     text="test universal feedback"
   />
   <section
@@ -56,6 +57,7 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
       EditorState={[Function]}
       handleTextChange={[Function]}
       key="universal-feedback-highlight"
+      shouldCheckSpelling={true}
       text="prompt highlight"
     />
   </section>
@@ -101,6 +103,7 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
       EditorState={[Function]}
       handleTextChange={[Function]}
       key="universal-feedback-highlight"
+      shouldCheckSpelling={true}
       text="passage highlight"
     />
   </section>
@@ -135,6 +138,7 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
     EditorState={[Function]}
     handleTextChange={[Function]}
     key="universal-feedback"
+    shouldCheckSpelling={true}
     text="test universal feedback"
   />
   <div

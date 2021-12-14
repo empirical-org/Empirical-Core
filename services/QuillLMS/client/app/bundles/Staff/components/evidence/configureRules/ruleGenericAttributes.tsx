@@ -117,6 +117,7 @@ const RuleGenericAttributes = ({
         EditorState={EditorState}
         handleTextChange={onHandleSetRuleNote}
         key="rule-note"
+        shouldCheckSpelling={true}
         text={ruleNote}
       />
     </React.Fragment>

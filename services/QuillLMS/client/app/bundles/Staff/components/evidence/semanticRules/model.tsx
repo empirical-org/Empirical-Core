@@ -5,7 +5,6 @@ import { EditorState, ContentState } from 'draft-js';
 
 import { fetchModel, updateModel } from '../../../utils/evidence/modelAPIs';
 import { DataTable, Spinner, TextEditor } from '../../../../Shared/index';
-import * as request from 'request';
 
 const Model = ({ match }) => {
   const { params } = match;
@@ -28,7 +27,7 @@ const Model = ({ match }) => {
   function onHandleUpdateModel() {
     updateModel(modelId, modelNotes).then((response) => {
       const { error } = response;
-      
+
       if(error) {
         const updatedErrors = {};
         updatedErrors['Model Submission Error'] = error;
@@ -127,6 +126,7 @@ const Model = ({ match }) => {
           EditorState={EditorState}
           handleTextChange={handleSetModelNotes}
           key="model-notes"
+          shouldCheckSpelling={true}
           text={initialNoteValue}
         />
         <DataTable
