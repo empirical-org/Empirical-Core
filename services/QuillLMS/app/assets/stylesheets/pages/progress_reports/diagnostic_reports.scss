@@ -119,12 +119,18 @@ $lightgray: #cecece;
       }
     }
   }
-  .activity-view-header {
-    margin-bottom: 30px;
-    padding-left: 20px;
-  }
-  .activity-view-score {
-    padding-left: 20px;
+  .left-side-container {
+    .activity-view-header {
+      margin-bottom: 12px;
+    }
+    .score-time-spent-container {
+      display: flex;
+      .activity-view-score {
+        margin-right: 16px;
+      }
+      .activity-time-spent {
+      }
+    }
   }
 }
 .student-report-box {
@@ -290,24 +296,15 @@ $lightgray: #cecece;
   th, td {
     text-align: left;
     &:first-of-type {
-      width: 48%;
+      width: 45%;
     }
   }
   th:nth-of-type(4) {
-    border-right: none;
-  }
-  th:last-of-type {
     border-left: none;
+    width: 88px;
   }
   td:first-of-type {
     text-decoration: underline;
-  }
-  td:last-of-type {
-    text-align: right;
-    padding-right: 20px;
-  }
-  th:last-of-type {
-    width: 40px;
   }
 }
 

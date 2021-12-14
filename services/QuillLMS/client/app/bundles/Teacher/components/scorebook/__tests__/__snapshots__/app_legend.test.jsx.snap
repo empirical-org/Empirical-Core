@@ -27,7 +27,7 @@ exports[`AppLegend component should render 1`] = `
         <p
           className="description"
         >
-          Identify Learning Gaps
+          Identify learning gaps
         </p>
       </div>
     </a>
@@ -51,7 +51,7 @@ exports[`AppLegend component should render 1`] = `
         <p
           className="description"
         >
-          Shared Group Lessons
+          Shared group lessons
         </p>
       </div>
     </a>
@@ -75,7 +75,7 @@ exports[`AppLegend component should render 1`] = `
         <p
           className="description"
         >
-          Combine Sentences
+          Combine sentences
         </p>
       </div>
     </a>
@@ -99,7 +99,7 @@ exports[`AppLegend component should render 1`] = `
         <p
           className="description"
         >
-          Fix Errors In Passages
+          Fix errors in passages
         </p>
       </div>
     </a>
@@ -123,7 +123,7 @@ exports[`AppLegend component should render 1`] = `
         <p
           className="description"
         >
-          Practice Mechanics
+          Practice mechanics
         </p>
       </div>
     </a>

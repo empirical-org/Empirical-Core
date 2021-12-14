@@ -23,10 +23,11 @@ describe 'StudentOverview' do
       .to be >= assigned_activity_count
   end
 
-  it "returns the score for each activity the student has completed" do
+  it "returns the score and time spent for each activity the student has completed" do
     ProgressReports::StudentOverview.results(classroom.id, student.id).each do |row|
       if row['activity_sessions_id']
         expect(row['percentage']).to eq ActivitySession.find(row['activity_sessions_id']).percentage
+        expect(row['timespent']).to eq ActivitySession.find(row['activity_sessions_id']).timespent
       end
     end
   end

@@ -59,6 +59,13 @@ describe ProgressReports::ActivitySession do
       end
     end
 
+    context 'timespent' do
+      let(:filters) { {sort: {field: 'timespent', direction: 'desc'} } }
+      it 'retrieves results in the appropriate order' do
+        expect(subject.first.timespent).to eq(best_score_sessions.first.timespent)
+      end
+    end
+
     context 'by standard' do
       let(:filters) { {sort: {field: 'standard', direction: 'asc'} } }
       it 'retrieves results in the appropriate order' do

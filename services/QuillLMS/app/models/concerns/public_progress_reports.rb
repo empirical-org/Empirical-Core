@@ -184,7 +184,7 @@ module PublicProgressReports
         activity_classification: classification_key,
         id: student.id,
         name: student.name,
-        time: get_time_in_minutes(final_activity_session),
+        time: final_activity_session.timespent,
         number_of_questions: formatted_concept_results.length,
         concept_results: formatted_concept_results,
         score: score,

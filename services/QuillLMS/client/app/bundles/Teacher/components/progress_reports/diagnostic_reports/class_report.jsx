@@ -1,8 +1,11 @@
 import React from 'react'
-import ProgressReport from '../progress_report.jsx'
+import _ from 'underscore';
+
 import OverviewBoxes from './overview_boxes.jsx'
 import MissedLessonRow from './missed_lesson_row.jsx'
-import _ from 'underscore';
+
+import ProgressReport from '../progress_report.jsx'
+import { getTimeSpent } from '../../../helpers/studentReports';
 
 export default class ClassReport extends React.Component {
   constructor(props) {
@@ -35,6 +38,14 @@ export default class ClassReport extends React.Component {
         }
       },
       {
+        name: 'Time spent',
+        field: 'time',
+        sortByField: 'time',
+        customCell(row) {
+          return getTimeSpent(row['time']);
+        }
+      },
+      {
         name: 'Questions',
         field: 'number_of_questions',
         sortByField: 'number_of_questions',
@@ -43,21 +54,11 @@ export default class ClassReport extends React.Component {
         }
       },
       {
-        name: 'Avg. Score on Quill',
+        name: 'Avg. score on Quill',
         field: 'average_score_on_quill',
         sortByField: 'average_score_on_quill',
         customCell(row) {
           return row['average_score_on_quill'] + '%';
-        }
-      },
-      {
-        name: '',
-        field: '',
-        sortByField: '',
-        customCell(row) {
-          return (<a className="green-arrow" href={`/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${row.id}`}>
-            <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
-          </a>)
         }
       }
     ];

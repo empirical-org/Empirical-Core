@@ -1,18 +1,20 @@
 import * as React from 'react'
 import request from 'request'
 import queryString from 'query-string';
-
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
+import _ from 'underscore'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
+
+import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
+import EmptyStateForReport from './empty_state_for_report'
+
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import userIsPremium from '../modules/user_is_premium'
 import {sortByStandardLevel} from '../../../../modules/sortingMethods.js'
-import EmptyStateForReport from './empty_state_for_report'
 import { Tooltip } from '../../../Shared/components/shared'
+import { getTimeSpent } from '../../helpers/studentReports';
 
-import _ from 'underscore'
 
 interface StandardsAllClassroomsProgressReportProps {
 
@@ -29,8 +31,8 @@ interface StandardsAllClassroomsProgressReportState {
   userIsPremium: boolean
 }
 
-const showAllClassroomKey = 'All Classrooms'
-const showAllStudentsKey = 'All Students'
+const showAllClassroomKey = 'All classes'
+const showAllStudentsKey = 'All students'
 
 
 export default class StandardsAllClassroomsProgressReport extends React.Component<StandardsAllClassroomsProgressReportProps, StandardsAllClassroomsProgressReportState> {
@@ -75,22 +77,23 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
   }
 
   columns() {
-    const blurIfNotPremium = this.state.userIsPremium ? null : 'non-premium-blur'
+    const { userIsPremium } = this.state;
+    const blurIfNotPremium = userIsPremium ? null : 'non-premium-blur'
 
     return ([
       {
-        Header: 'Standard Level',
+        Header: 'Standard level',
         accessor: 'standard_level',
         sortMethod: sortByStandardLevel,
         resizable: false,
         width: 150,
         Cell: (row) => (
-          <a href={row.original['link']} style={{width: '100%', display: 'inline-block'}}>
+          <a className="standard-level" href={row.original['link']}>
             {row.original['standard_level_name']}
           </a>
         )
       }, {
-        Header: "Standard Name",
+        Header: "Standard name",
         accessor: 'standard_name',
         sortMethod: sortByStandardLevel,
         resizable: false,
@@ -126,13 +129,15 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
           </a>
         )
 				}, {
-        Header: "",
-        accessor: 'green_arrow',
+        Header: "Time spent",
+        accessor: 'timespent',
         resizable: false,
-        sortable: false,
-        width: 80,
-        Cell: props => props.value
-      }
+        Cell: (row) => (
+          <a className="row-link-disguise" href={row.original['link']}>
+            {getTimeSpent(row.original['timespent'])}
+          </a>
+        )
+        }
     ])
   }
 
@@ -143,7 +148,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
     let style: React.CSSProperties = { width: `300px`, minWidth: `300px` }
     const key = `${row.id}`
     const sectionClass = 'something-class'
-    const sectionText = (<a className="row-link-disguise" href={row.original['link']}>
+    const sectionText = (<a className="row-link-disguise underlined" href={row.original['link']}>
       {row.original['name']}
     </a>)
     if ((String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
@@ -161,12 +166,13 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
   }
 
   formatDataForCSV() {
+    const { standardsData } = this.state;
     const csvData = [
-      ['Standard Level', 'Standard Name', 'Students', 'Proficient', 'Activities']
+      ['Standard Level', 'Standard Name', 'Students', 'Proficient', 'Activities', 'Time Spent']
     ]
-    this.state.standardsData.forEach((row) => {
+    standardsData.forEach((row) => {
       csvData.push([
-        row['standard_level_name'], row['name'], row['total_student_count'], `${row['proficient_count']} of ${row['total_student_count']}`, row['total_activity_count']
+        row['standard_level_name'], row['name'], row['total_student_count'], `${row['proficient_count']} of ${row['total_student_count']}`, row['total_activity_count'], getTimeSpent(row['timespent'])
       ])
     })
     return csvData
@@ -192,7 +198,8 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
   }
 
   goToStudentPage = studentName => {
-    const student = this.state.students.find(s => s.name === studentName)
+    const { students } = this.state;
+    const student = students.find(s => s.name === studentName)
     if (student) {
       window.location.href = `/teachers/progress_reports/standards/classrooms/0/students/${student.id}/standards`
     }
@@ -209,30 +216,30 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
   };
 
   tableOrEmptyMessage(){
-      const data = this.state.standardsData
-      if (data.length) {
-        return (
-          <div key={`${data.length}-length-for-activities-scores-by-classroom`}>
-            <ReactTable
-              className='progress-report has-green-arrow'
-              columns={this.columns()}
-              data={data}
-              defaultPageSize={data.length}
-              defaultSorted={[{id: 'standard_level', desc: false}]}
-              showPageSizeOptions={false}
-              showPagination={false}
-              showPaginationBottom={false}
-              showPaginationTop={false}
-              style={{overflow: 'visible'}}
-            /></div>
-        )
-      } else {
-        return <EmptyStateForReport />
-      }
+    const { standardsData } = this.state;
+    if (standardsData.length) {
+      return (
+        <div key={`${standardsData.length}-length-for-activities-scores-by-classroom`}>
+          <ReactTable
+            className='progress-report has-green-arrow'
+            columns={this.columns()}
+            data={standardsData}
+            defaultPageSize={standardsData.length}
+            defaultSorted={[{id: 'standard_level', desc: false}]}
+            showPageSizeOptions={false}
+            showPagination={false}
+            showPaginationBottom={false}
+            showPaginationTop={false}
+            style={{overflow: 'visible'}}
+          /></div>
+      )
+    } else {
+      return <EmptyStateForReport />
     }
+  }
 
   render() {
-    const { classrooms, selectedClassroomId, loading, students, } = this.state
+    const { classrooms, selectedClassroomId, loading, students, updatingData } = this.state
     const selectedClassroom = classrooms.find(c => String(c.id) === String(selectedClassroomId))
 
     if (loading) {
@@ -247,13 +254,13 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
             <p>Each activity on Quill is aligned to a Common Core standard. This reports shows your students’ overall progress on each of the standards. You can filter by student on this page to see one student’s progress on all of the standards. You can click on an individual standard to see all of the student results for that standard.</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.formatDataForCSV()} key={`data is updating: ${this.state.updatingData}`} />
+            <CSVDownloadForProgressReport data={this.formatDataForCSV()} key={`data is updating: ${updatingData}`} />
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
           </div>
         </div>
-        <div className='dropdown-container' id="flexed">
-          <ItemDropdown callback={this.switchClassrooms} items={classrooms} selectedItem={selectedClassroom} />
-          <ItemDropdown callback={this.goToStudentPage} items={_.uniq(students.map(s => s.name))} />
+        <div className='standards-all-classrooms-dropdown-container' id="flexed">
+          <ItemDropdown callback={this.switchClassrooms} isSearchable={true} items={classrooms} selectedItem={selectedClassroom} />
+          <ItemDropdown callback={this.goToStudentPage} isSearchable={true} items={_.uniq(students.map(s => s.name))} />
         </div>
         {this.tableOrEmptyMessage()}
       </div>

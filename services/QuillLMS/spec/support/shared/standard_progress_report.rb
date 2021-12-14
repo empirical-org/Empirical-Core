@@ -47,27 +47,27 @@ shared_context 'Standard Progress Report' do
   # NOTE: ClassroomActivity.create does not create new activity sessions for every student in the classroom.
   # Create new sessions for them
   let!(:alice_second_grade_standard_session) do
-    session = ActivitySession.create(user_id: alice.id, activity: activity_for_second_grade_standard, classroom_unit: classroom_unit1, state: 'finished', percentage: 1, completed_at: 1.month.ago)
+    session = ActivitySession.create(user_id: alice.id, activity: activity_for_second_grade_standard, classroom_unit: classroom_unit1, state: 'finished', percentage: 1, timespent: 180, completed_at: 1.month.ago)
     session
   end
 
   let!(:fred_second_grade_standard_session) do
-    session = ActivitySession.create(user_id: fred.id, activity: activity_for_second_grade_standard, classroom_unit: classroom_unit1, state: 'finished', percentage: 1, completed_at: 1.month.ago)
+    session = ActivitySession.create(user_id: fred.id, activity: activity_for_second_grade_standard, classroom_unit: classroom_unit1, state: 'finished', percentage: 1, timespent: 180, completed_at: 1.month.ago)
     session
   end
 
   let!(:zojirushi_second_grade_standard_session) do
-    session = ActivitySession.create(user_id: zojirushi.id, activity: activity_for_second_grade_standard, classroom_unit: classroom_unit1, state: 'finished', percentage: 0.49, completed_at: 25.days.ago)
+    session = ActivitySession.create(user_id: zojirushi.id, activity: activity_for_second_grade_standard, classroom_unit: classroom_unit1, state: 'finished', percentage: 0.49, timespent: 180, completed_at: 25.days.ago)
     session
   end
 
   let!(:alice_first_grade_standard_session)  do
-    session = ActivitySession.create(user_id: alice.id, activity: activity_for_first_grade_standard, classroom_unit: classroom_unit1, state: 'finished', percentage: 0.70, completed_at: 28.days.ago)
+    session = ActivitySession.create(user_id: alice.id, activity: activity_for_first_grade_standard, classroom_unit: classroom_unit1, state: 'finished', percentage: 0.70, timespent: 180, completed_at: 28.days.ago)
     session
   end
 
   let!(:fred_first_grade_standard_session) do
-    session = ActivitySession.create(user_id: fred.id, activity: activity_for_first_grade_standard, classroom_unit: classroom_unit1, state: 'finished', percentage: 0.70, completed_at: 2.days.ago)
+    session = ActivitySession.create(user_id: fred.id, activity: activity_for_first_grade_standard, classroom_unit: classroom_unit1, state: 'finished', percentage: 0.70, timespent: 180, completed_at: 2.days.ago)
     session
   end
 

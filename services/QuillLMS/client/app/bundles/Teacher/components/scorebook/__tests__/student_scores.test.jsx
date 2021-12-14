@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import StudentScores from '../student_scores.jsx';
+import { StudentScores } from '../student_scores.jsx';
 import ActivityIconWithTooltip from '../../general_components/activity_icon_with_tooltip';
 
 const data = {
@@ -17,11 +17,11 @@ describe('StudentScores component', () => {
   const wrapper = shallow(
     <StudentScores
       data={data}
-      premium_state={'trial'}
+      premium_state='trial'
     />);
 
-  it('should as many Activity Icons as data.props.results, rounded up', () => {
-    const numberOfResults = wrapper.instance().props.data.scores.length;
+  it('should have as many Activity Icons as data.props.results, rounded up', () => {
+    const numberOfResults = wrapper.props().children.length;
     expect(wrapper.find(ActivityIconWithTooltip).length).toEqual(numberOfResults);
   });
 

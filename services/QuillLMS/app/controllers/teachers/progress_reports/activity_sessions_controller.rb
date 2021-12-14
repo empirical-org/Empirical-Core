@@ -55,6 +55,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
           classrooms_teachers.classroom_id AS classroom_id,
           EXTRACT(EPOCH FROM (activity_sessions.completed_at + INTERVAL '#{current_user.utc_offset} seconds')) AS completed_at,
           activity_sessions.completed_at + INTERVAL '#{current_user.utc_offset} seconds' AS visual_date,
+          activity_sessions.timespent AS timespent,
           (CASE WHEN activity_classifications.scored THEN activity_sessions.percentage ELSE -1 END) AS percentage,
           standards.name AS standard,
           activity_sessions.user_id AS student_id,
@@ -151,15 +152,32 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
     end
   end
 
+  private def timespent_string(seconds)
+    return "N/A" unless seconds
+    return "<1 min" if seconds < 60
+    return "1 min" if seconds >= 60 && seconds < 120
+    return "#{((seconds % 3600) / 60).floor} min" if seconds >= 120 && seconds < 3600
+    return "1 hr" if seconds >= 3600 && seconds < 3660
+    hours = (seconds / 60 / 60).floor
+    minutes = ((seconds % 3600) / 60).floor
+    hours_text = hours > 1 ? "hrs" : "hr"
+    if minutes
+      minutes_text = minutes > 1 ? "mins" : "min"
+      return "#{hours} #{hours_text} #{minutes} #{minutes_text}"
+    end
+    "#{hours} #{hours_text}"
+  end
+
   private def csv_string(activity_sessions)
     CSV.generate do |csv|
-      csv << ['Student', 'Date', 'Activity', 'Score', 'Standard', 'Tool']
+      csv << ['Student', 'Date', 'Activity', 'Score', 'Time spent', 'Standard', 'Tool']
       activity_sessions.map do |session|
         csv << [
           session['student_name'],
           session['visual_date'],
           session['activity_name'],
           score(session['percentage']),
+          timespent_string(session['timespent']),
           session['standard'],
           session['activity_classification_name']
         ]

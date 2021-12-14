@@ -46,6 +46,7 @@ describe ProgressReports::Standards::StandardSerializer, type: :serializer do
                            total_student_count
                            proficient_student_count
                            not_proficient_student_count
+                           timespent
                            total_activity_count
                            average_score
                            standard_students_href

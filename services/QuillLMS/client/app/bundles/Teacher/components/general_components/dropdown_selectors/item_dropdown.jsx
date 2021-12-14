@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { DropdownInput } from '../../../../Shared/index'
 
 export default class ItemDropdown extends React.Component {
@@ -39,7 +40,7 @@ export default class ItemDropdown extends React.Component {
     });
   };
 
-  handleSelect = (itemObject) => {
+  onHandleSelect = (itemObject) => {
     const { callback } = this.props;
     const item = this.findItemByIdOrName(itemObject);
     this.setState({ selectedItem: this.formatItem(item)});
@@ -50,11 +51,12 @@ export default class ItemDropdown extends React.Component {
 
   render() {
     const { selectedItem, } = this.state
-    const { className } = this.props;
+    const { className, isSearchable } = this.props;
     return (
       <DropdownInput
         className={className ? className : "select-item-dropdown"}
-        handleChange={this.handleSelect}
+        handleChange={this.onHandleSelect}
+        isSearchable={isSearchable}
         options={this.items()}
         value={selectedItem}
       />

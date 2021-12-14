@@ -1,14 +1,15 @@
 import React from 'react'
 import request from 'request'
-import {CSVDownload, CSVLink} from 'react-csv'
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
+import _ from 'underscore'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
+
+import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
+
 import LoadingSpinner from '../shared/loading_indicator.jsx'
-import moment from 'moment'
 import userIsPremium from '../modules/user_is_premium'
 import {sortByStandardLevel} from '../../../../modules/sortingMethods.js'
-import _ from 'underscore'
+import { getTimeSpent } from '../../helpers/studentReports'
 
 export default class StandardsProgressReport extends React.Component {
   constructor() {
@@ -25,9 +26,9 @@ export default class StandardsProgressReport extends React.Component {
   }
 
   getData() {
-    const that = this;
+    const { sourceUrl } = this.props;
     request.get({
-      url: `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`
+      url: `${process.env.DEFAULT_URL}/${sourceUrl}`
     }, (e, r, body) => {
       const parsedBody = JSON.parse(body)
       const data = parsedBody.standards
@@ -35,35 +36,47 @@ export default class StandardsProgressReport extends React.Component {
       const csvData = this.formatDataForCSV(data, student.name)
       const standardsData = this.formatStandardsData(data)
       // gets unique classroom names
-      that.setState({loading: false, errors: body.errors, standardsData, csvData, student});
+      this.setState({loading: false, errors: body.errors, standardsData, csvData, student});
     });
   }
 
   columns() {
-    const blurIfNotPremium = this.state.userIsPremium ? null : 'non-premium-blur'
+    const { userIsPremium } = this.state;
+    const blurIfNotPremium = userIsPremium ? null : 'non-premium-blur'
     return ([
       {
-        Header: 'Standard Level',
+        Header: 'Standard level',
         accessor: 'standard_level',
         sortMethod: sortByStandardLevel,
         resizable: false,
-        width: 150,
-        Cell: row => (
-          <span className='green-text'>{row.original['standard_level_name']}</span>
-        )
+        width: 150
       }, {
-        Header: "Standard Name",
+        Header: "Standard name",
         accessor: 'standard_name',
         sortMethod: sortByStandardLevel,
         minWidth: 200,
-        resizable: false
+        resizable: false,
+        Cell: row => (
+          <a className='row-link-disguise underlined' href={`/teachers/progress_reports/standards/classrooms/0/standards/${row.original['id']}/students`}>
+            {row.original['standard_name']}
+          </a>
+        )
       }, {
         Header: 'Activities',
         accessor: 'total_activity_count',
         width: 115,
         resizable: false
       }, {
-        Header: 'Average',
+        Header: 'Time spent',
+        accessor: 'average_score',
+        className: blurIfNotPremium,
+        resizable: false,
+        width: 100,
+        Cell: row => (
+          getTimeSpent(row.original['timespent'])
+        )
+      }, {
+        Header: 'Avg. score',
         accessor: 'average_score',
         className: blurIfNotPremium,
         resizable: false,
@@ -80,27 +93,22 @@ export default class StandardsProgressReport extends React.Component {
         Cell: row => (
           <span><span className={row.original['mastery_status'] === 'Proficient' ? 'proficient-indicator' : 'not-proficient-indicator'} />{row.original['mastery_status']}</span>
         )
-      }, {
-        Header: "",
-        accessor: 'green_arrow',
-        resizable: false,
-        sortable: false,
-        width: 80
       }
     ])
   }
 
   filteredData() {
-    return this.state.standardsData
+    const { standardsData } = this.state;
+    return standardsData
   }
 
   formatDataForCSV(data, studentName) {
     const csvData = [
-      ['Standard Level', 'Standard Name', 'Activities', 'Average', 'Proficiency Status', 'Student Name']
+      ['Standard Level', 'Standard Name', 'Activities', 'Time Spent', 'Average', 'Proficiency Status', 'Student Name']
     ]
     data.forEach((row) => {
       csvData.push([
-        row['standard_level_name'], row['name'], row['total_activity_count'], `${row['average_score'] * 100}%`, row['mastery_status'], studentName,
+        row['standard_level_name'], row['name'], row['total_activity_count'], getTimeSpent(row['timespent']), `${row['average_score'] * 100}%`, row['mastery_status'], studentName,
       ])
     })
     return csvData
@@ -127,11 +135,11 @@ export default class StandardsProgressReport extends React.Component {
   };
 
   render() {
-    let errors
-    if (this.state.errors) {
-      errors = <div className='errors'>{this.state.errors}</div>
+    const { errors, loading, student, csvData } = this.state;
+    if (errors) {
+      return <div className='errors'>{errors}</div>
     }
-    if (this.state.loading) {
+    if (loading) {
       return <LoadingSpinner />
     }
     const filteredData = this.filteredData()
@@ -139,10 +147,10 @@ export default class StandardsProgressReport extends React.Component {
       <div className='individual-student progress-reports-2018 '>
         <div className="meta-overview flex-row space-between">
           <div className='header-and-info'>
-            <h1><span>Standards Report:</span> {this.state.student.name}</h1>
+            <h1><span>Standards Report:</span> {student.name}</h1>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport className="button-green" data={this.state.csvData} />
+            <CSVDownloadForProgressReport className="button-green" data={csvData} />
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
           </div>
         </div>
