@@ -39,6 +39,7 @@ const ActivitySettings = ({ activity, history }: {activity: ActivityInterface, h
         setErrors(errors);
       } else {
         queryCache.refetchQueries(`activity-${id}`)
+        queryCache.removeQueries('activities')
         setErrors([]);
         // reset errorOrSuccessMessage in case of subsequent submission
         setErrorOrSuccessMessage('Activity successfully updated!');
