@@ -52,27 +52,25 @@
           font-size: 14px;
           color: #5c5c5c;
         }
-        .tooltip-container {
-          text-align: end;
-          .quill-tooltip-trigger {
-            margin-left: 24px;
-            font-size: 14px;
-            color: #808080;
-            text-align: right;
-            .image-attribution-tooltip {
-              border-bottom: dashed 1px #808080;
-            }
-            .image-attribution-tooltip:focus {
-              outline: dashed 2px #06806b;
-              outline-offset: 4px;
-            }
-            .quill-tooltip-wrapper {
-              position: relative;
-              .quill-tooltip {
-                a {
-                  color: white;
-                  text-decoration: underline;
-                }
+        .quill-tooltip-trigger {
+          margin-left: 24px;
+          font-size: 14px;
+          color: #808080;
+          .image-attribution-tooltip {
+            border-bottom: dashed 1px #808080;
+          }
+          .image-attribution-tooltip:focus {
+            outline: dashed 2px #06806b;
+            outline-offset: 4px;
+          }
+          .quill-tooltip-wrapper {
+            left: initial;
+            right: 0;
+            transform: initial;
+            .quill-tooltip {
+              a {
+                color: white;
+                text-decoration: underline;
               }
             }
           }
@@ -328,12 +326,9 @@
   .read-passage-container {
     .header-image-container {
       .header-image-information {
-        .tooltip-container {
-          width: 50%;
-          .quill-tooltip-trigger {
-            .quill-tooltip-wrapper {
-              left: 30%;
-            }
+        .quill-tooltip-trigger {
+          .quill-tooltip-wrapper {
+            left: 30%;
           }
         }
       }
@@ -345,12 +340,9 @@
   .read-passage-container {
     .header-image-container {
       .header-image-information {
-        .tooltip-container {
-          width: 50%;
-          .quill-tooltip-trigger {
-            .quill-tooltip-wrapper {
-              left: 40%;
-            }
+        .quill-tooltip-trigger {
+          .quill-tooltip-wrapper {
+            left: 40%;
           }
         }
       }
