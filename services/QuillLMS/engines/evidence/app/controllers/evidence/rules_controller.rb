@@ -8,7 +8,7 @@ module Evidence
     # GET /rules.json
     def index
       @rules = Evidence::Rule
-      @rules = @rules.joins(:prompts_rules).where(comprehension_prompts_rules: {prompt_id: params[:prompt_id].split(',')}) if params[:prompt_id]
+      @rules = @rules.includes(:prompts_rules).where(comprehension_prompts_rules: {prompt_id: params[:prompt_id].split(',')}) if params[:prompt_id]
       @rules = @rules.where(rule_type: params[:rule_type]) if params[:rule_type]
 
       # some rules will apply to multiple prompts so we only want to return them once
