@@ -120,12 +120,12 @@ class Teachers::ProgressReportsController < ApplicationController
   end
 
   private def recreate_demo
-    Demo::ReportDemoDestroyer.destroy_demo(demo_name)
-    Demo::ReportDemoCreator.create_demo(demo_name)
+    Demo::ReportDemoDestroyer.destroy_demo("hello+#{demo_name}@quill.org")
+    Demo::ReportDemoCreator.create_demo("hello+#{demo_name}@quill.org")
   end
 
   private def recreate_staff_demo
-    Demo::ReportDemoDestroyer.destroy_demo(staff_demo_name)
-    Demo::ReportDemoCreator.create_demo(staff_demo_name)
+    Demo::ReportDemoDestroyer.destroy_demo("hello+#{staff_demo_name}@quill.org")
+    Demo::ReportDemoCreator.create_demo("hello+#{staff_demo_name}@quill.org")
   end
 end

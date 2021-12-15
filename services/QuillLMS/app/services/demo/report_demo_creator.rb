@@ -207,8 +207,8 @@ module Demo::ReportDemoCreator
     }
   ]
 
-  def self.create_demo(name)
-    teacher = create_teacher(name)
+  def self.create_demo(email)
+    teacher = create_teacher(email)
     classroom = create_classroom(teacher)
     students = create_students(classroom)
     units = create_units(teacher)
@@ -220,8 +220,8 @@ module Demo::ReportDemoCreator
     TeacherActivityFeedRefillWorker.perform_async(teacher.id)
   end
 
-  def self.create_teacher(name)
-    email = name ? "hello+#{name}@quill.org" : "hello+demoteacher@quill.org"
+  def self.create_teacher(email)
+    email ||= "hello+demoteacher@quill.org"
 
     existing_teacher = User.find_by_email(email)
     existing_teacher.destroy if existing_teacher
