@@ -120,7 +120,8 @@ module Synthetic
 
       # assign rest of empty types
       @results.select {|r| r.type.nil?}.each.with_index do |result, index|
-        result.type = remaining_types[index]
+        # TODO: There's some bug with this counting logic, so default to TRAIN
+        result.type = remaining_types[index] || TYPE_TRAIN
       end
     end
 
@@ -182,8 +183,9 @@ module Synthetic
 
     # input file is a csv with two columns and no header: text, label
     # pass in file paths, e.g. /Users/yourname/Desktop/
-    # Synthetic::Data.generate_training_export('/Users/danieldrabik/Desktop/surge_barriers_v5B_but.csv')
-    def self.generate_training_export(input_file_path, languages: TRAIN_LANGUAGES.keys, test_percent: 0.2)
+    # defaults to a dry run (doesn't hit)
+    # r = Synthetic::Data.generate_training_export('/Users/danieldrabik/Documents/quill/synthetic/Responses_Translation_Nuclear_Because_Dec13.csv')
+    def self.generate_training_export(input_file_path, live: false, languages: TRAIN_LANGUAGES.keys, test_percent: 0.2)
 
       output_csv = input_file_path.gsub(CSV_END_MATCH, SYNTHETIC_CSV)
       output_training_csv = input_file_path.gsub(CSV_END_MATCH, TRAIN_CSV)
@@ -192,17 +194,16 @@ module Synthetic
 
       synthetics = Synthetic::Data.new(texts_and_labels, languages: languages, test_percent: test_percent)
 
-
       synthetics.validate_minimum_per_label!
       synthetics.validate_language_count_and_percent!
 
+      if live
+        synthetics.fetch_synthetic_translations
+      end
 
+      synthetics.results_to_csv(output_csv)
+      synthetics.results_to_training_csv(output_training_csv)
       synthetics
-
-      # synthetics.fetch_results
-
-      # synthetics.results_to_csv(output_csv)
-      # synthetics.results_to_training_csv(output_training_csv)
     end
 
     def results_to_training_csv(file_path)
@@ -232,7 +233,7 @@ module Synthetic
           end
 
           result.misspellings.each do |misspelled_word, new_text|
-            csv << [new_text, result.label, result.text, new_text == result.text ? 'no_change' : '', misspelled_word || language, result.type]
+            csv << [new_text, result.label, result.text, new_text == result.text ? 'no_change' : '', "spelling-#{misspelled_word}", result.type]
           end
         end
       end
@@ -254,9 +255,9 @@ module Synthetic
 
     def validate_minimum_per_label!
       invalid_labels = labels.select do |label|
-        results.count {|r| r.label == label && r.type == TYPE_VALIDATION } >= MIN_TEST_PER_LABEL &&
-        results.count {|r| r.label == label && r.type == TYPE_TEST } >= MIN_TEST_PER_LABEL &&
-        results.count {|r| r.label == label && r.type == TYPE_TRAIN } >= MIN_TRAIN_PER_LABEL
+        results.count {|r| r.label == label && r.type == TYPE_VALIDATION } < MIN_TEST_PER_LABEL ||
+        results.count {|r| r.label == label && r.type == TYPE_TEST } < MIN_TEST_PER_LABEL ||
+        results.count {|r| r.label == label && r.type == TYPE_TRAIN } < MIN_TRAIN_PER_LABEL
       end
 
       return if invalid_labels.empty?
