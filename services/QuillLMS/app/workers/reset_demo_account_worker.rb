@@ -3,7 +3,7 @@
 class ResetDemoAccountWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
-  STAFF_DEMO_NAME = "demoteacher+staff"
+  STAFF_DEMO_EMAIL = "hello+demoteacher+staff@quill.org"
 
   def perform
     # sending nil destroys the default /demo account
