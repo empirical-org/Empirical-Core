@@ -2,7 +2,7 @@
 
 module Demo::ReportDemoDestroyer
   def self.destroy_demo(email)
-    email = email || "hello+demoteacher@quill.org"
+    email ||= "hello+demoteacher@quill.org"
     teacher  = User.find_by_email(email)
     teacher.destroy if teacher
   end

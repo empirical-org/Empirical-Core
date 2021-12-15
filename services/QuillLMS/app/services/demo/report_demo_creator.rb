@@ -221,7 +221,7 @@ module Demo::ReportDemoCreator
   end
 
   def self.create_teacher(email)
-    email = email || "hello+demoteacher@quill.org"
+    email ||= "hello+demoteacher@quill.org"
 
     existing_teacher = User.find_by_email(email)
     existing_teacher.destroy if existing_teacher
