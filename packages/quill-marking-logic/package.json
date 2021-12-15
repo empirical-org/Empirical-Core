@@ -55,9 +55,7 @@
     "tslint": "^5.20.1",
     "typescript": "^2.9.2",
     "uglify-js": "^3.8.1",
-    "watchify": "^3.11.1",
-    "webpack": "^4.42.1",
-    "webpack-dev-server": "^3.11.0"
+    "webpack": "^4.42.1"
   },
   "dependencies": {
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
