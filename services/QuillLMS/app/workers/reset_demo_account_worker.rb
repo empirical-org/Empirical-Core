@@ -10,8 +10,8 @@ class ResetDemoAccountWorker
     Demo::ReportDemoDestroyer.destroy_demo(nil)
     Demo::ReportDemoCreator.create_demo(nil)
 
-    Demo::ReportDemoDestroyer.destroy_demo(STAFF_DEMO_NAME)
-    Demo::ReportDemoCreator.create_demo(STAFF_DEMO_NAME)
+    Demo::ReportDemoDestroyer.destroy_demo(STAFF_DEMO_EMAIL)
+    Demo::ReportDemoCreator.create_demo(STAFF_DEMO_EMAIL)
   end
 end
 
