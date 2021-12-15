@@ -13,11 +13,11 @@ RSpec.describe Demo::ReportDemoCreator do
 
 
   it 'creates a teacher with name' do
-    name = 'demoteacher'
-    Demo::ReportDemoCreator.create_teacher(name)
+    email = "hello+demoteacher@quill.org"
+    Demo::ReportDemoCreator.create_teacher(email)
     teacher = User.find_by(name: "Demo Teacher")
     expect(teacher.name).to eq("Demo Teacher")
-    expect(teacher.email).to eq("hello+#{name}@quill.org")
+    expect(teacher.email).to eq(email)
     expect(teacher.role).to eq("teacher")
   end
 
