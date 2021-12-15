@@ -17,7 +17,8 @@ import {
   IMAGE_ATTRIBUTION,
   HIGHLIGHT_PROMPT,
   PLAGIARISM,
-  ALL
+  ALL,
+  FLAG
 } from '../../../constants/evidence';
 import { PromptInterface, ActivityInterface, DropdownObjectInterface } from '../interfaces/evidenceInterfaces'
 
@@ -122,6 +123,7 @@ export const buildBlankPrompt = (conjunction: string) => {
 }
 
 export const buildActivity = ({
+  activityFlag,
   activityNotes,
   activityTitle,
   activityScoredReadingLevel,
@@ -134,7 +136,6 @@ export const buildActivity = ({
   activitySoPrompt,
   highlightPrompt,
 }) => {
-  // const { label } = activityFlag;
   const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt];
   const maxFeedback = activityMaxFeedback || 'Nice effort! You worked hard to make your sentence stronger.';
   prompts.forEach(prompt => prompt.max_attempts_feedback = maxFeedback);
@@ -143,7 +144,7 @@ export const buildActivity = ({
       notes: activityNotes,
       title: activityTitle,
       parent_activity_id: activityParentActivityId ? parseInt(activityParentActivityId) : null,
-      // flag: label,
+      flag: activityFlag,
       scored_level: activityScoredReadingLevel,
       target_level: parseInt(activityTargetReadingLevel),
       highlight_prompt: highlightPrompt,
@@ -352,6 +353,7 @@ export const validateForm = (keys: string[], state: any[], ruleType?: string) =>
       case IMAGE_CAPTION:
       case IMAGE_ATTRIBUTION:
       case HIGHLIGHT_PROMPT:
+      case FLAG:
         break;
       case TARGET_READING_LEVEL:
         const targetError = targetReadingLevelError(value);

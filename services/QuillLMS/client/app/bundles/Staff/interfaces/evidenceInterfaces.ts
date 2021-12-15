@@ -12,9 +12,9 @@ export interface InvalidHighlight {
 export interface ActivityInterface {
   id?: string,
   parent_activity_id?: string,
+  flag?: string,
   title: string,
   notes: string,
-  // flag: string,
   scored_level: string,
   target_level: number,
   passages?: PassagesInterface[],

@@ -16,28 +16,6 @@ module Evidence
         expect(parsed_response.empty?).to(eq(true))
       end
 
-      context 'should with activities where one has an archived parent' do
-        let!(:archived_activity) { Evidence.parent_activity_class.create(:name => "Archived Activity", :flags => (["archived"])) }
-        let!(:unarchived_activity) { Evidence.parent_activity_class.create(:name => "Unarchived Activity") }
-
-        before do
-          create(:evidence_activity, :parent_activity_id => archived_activity.id, :title => "First Activity", :target_level => 8)
-          create(:evidence_activity, :parent_activity_id => unarchived_activity.id, :title => "Second Activity", :target_level => 5)
-        end
-
-        it 'should return with only the unarchived activity' do
-          get(:index)
-          parsed_response = JSON.parse(response.body)
-          expect(response.status).to eq(200)
-          expect(parsed_response.class).to(eq(Array))
-          expect(parsed_response.empty?).to(eq(false))
-          expect(1).to(eq(parsed_response.length))
-          expect(parsed_response.first["title"]).to(eq("Second Activity"))
-          expect(parsed_response.first["target_level"]).to(eq(5))
-          expect(parsed_response.first["parent_activity_id"]).to(eq(unarchived_activity.id))
-        end
-      end
-
       context 'should with actitivites' do
         let!(:first_activity) { create(:evidence_activity, :title => "An Activity", :notes => "Notes 1", :target_level => 8) }
         before(:each) do
