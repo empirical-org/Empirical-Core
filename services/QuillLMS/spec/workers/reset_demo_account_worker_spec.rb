@@ -10,8 +10,8 @@ describe ResetDemoAccountWorker, type: :worker do
       expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with(nil)
       expect(Demo::ReportDemoCreator).to receive(:create_demo).with(nil)
 
-      expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with(ResetDemoAccountWorker::STAFF_DEMO_NAME)
-      expect(Demo::ReportDemoCreator).to receive(:create_demo).with(ResetDemoAccountWorker::STAFF_DEMO_NAME)
+      expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with(ResetDemoAccountWorker::STAFF_DEMO_EMAIL)
+      expect(Demo::ReportDemoCreator).to receive(:create_demo).with(ResetDemoAccountWorker::STAFF_DEMO_EMAIL)
       worker.perform
     end
   end
