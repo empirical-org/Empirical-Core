@@ -29,7 +29,7 @@ interface Diagnostic {
   lockedText?: string
 }
 
-const DiagnosticAssignmentCard = ({ diagnostic, lockedText, showNewTag, }: { diagnostic: Diagnostic, lockedText?: string, showNewTag?: boolean, }) => {
+const DiagnosticAssignmentCard = ({ history, diagnostic, lockedText, showNewTag, }: { history: any, diagnostic: Diagnostic, lockedText?: string, showNewTag?: boolean, }) => {
   function onSelectCard() { selectCard(history, diagnostic.name, encodeURIComponent([diagnostic.activityId].toString()), diagnostic.unitTemplateId) }
 
   return (
@@ -56,16 +56,16 @@ const generalDiagnosticMinis = ({ history, assignedPreTests, }) => {
 
   return [
     (<div className="grouped-minis" key="starter">
-      <DiagnosticAssignmentCard diagnostic={constants.starterPreTest} />
-      <DiagnosticAssignmentCard diagnostic={constants.starterPostTest} lockedText={isLocked(constants.starterPostTest.activityId) && constants.starterPostTest.lockedText} showNewTag={true} />
+      <DiagnosticAssignmentCard diagnostic={constants.starterPreTest} history={history} />
+      <DiagnosticAssignmentCard diagnostic={constants.starterPostTest} history={history} lockedText={isLocked(constants.starterPostTest.activityId) && constants.starterPostTest.lockedText} showNewTag={true} />
     </div>),
     (<div className="grouped-minis" key="intermediate">
-      <DiagnosticAssignmentCard diagnostic={constants.intermediatePreTest} />
-      <DiagnosticAssignmentCard diagnostic={constants.intermediatePostTest} lockedText={isLocked(constants.intermediatePostTest.activityId) && constants.intermediatePostTest.lockedText} showNewTag={true} />
+      <DiagnosticAssignmentCard diagnostic={constants.intermediatePreTest} history={history} />
+      <DiagnosticAssignmentCard diagnostic={constants.intermediatePostTest} history={history} lockedText={isLocked(constants.intermediatePostTest.activityId) && constants.intermediatePostTest.lockedText} showNewTag={true} />
     </div>),
     (<div className="grouped-minis" key="advanced">
-      <DiagnosticAssignmentCard diagnostic={constants.advancedPreTest} />
-      <DiagnosticAssignmentCard diagnostic={constants.advancedPostTest} lockedText={isLocked(constants.advancedPostTest.activityId) && constants.advancedPostTest.lockedText} showNewTag={true} />
+      <DiagnosticAssignmentCard diagnostic={constants.advancedPreTest} history={history} />
+      <DiagnosticAssignmentCard diagnostic={constants.advancedPostTest} history={history} lockedText={isLocked(constants.advancedPostTest.activityId) && constants.advancedPostTest.lockedText} showNewTag={true} />
     </div>)
   ]
 }
@@ -78,25 +78,25 @@ const ellDiagnosticMinis = ({ history, assignedPreTests, }) => {
 
   return [
     (<div className="grouped-minis" key="ell-starter">
-      <DiagnosticAssignmentCard diagnostic={constants.ellStarterPreTest} />
-      <DiagnosticAssignmentCard diagnostic={constants.ellStarterPostTest} lockedText={isLocked(constants.ellStarterPostTest.activityId) && constants.ellStarterPostTest.lockedText} showNewTag={true} />
+      <DiagnosticAssignmentCard diagnostic={constants.ellStarterPreTest} history={history} />
+      <DiagnosticAssignmentCard diagnostic={constants.ellStarterPostTest} history={history} lockedText={isLocked(constants.ellStarterPostTest.activityId) && constants.ellStarterPostTest.lockedText} showNewTag={true} />
     </div>),
     (<div className="grouped-minis" key="ell-intermediate">
-      <DiagnosticAssignmentCard diagnostic={constants.ellIntermediatePreTest} />
-      <DiagnosticAssignmentCard diagnostic={constants.ellIntermediatePostTest} lockedText={isLocked(constants.ellIntermediatePostTest.activityId) && constants.ellIntermediatePostTest.lockedText} showNewTag={true} />
+      <DiagnosticAssignmentCard diagnostic={constants.ellIntermediatePreTest} history={history} />
+      <DiagnosticAssignmentCard diagnostic={constants.ellIntermediatePostTest} history={history} lockedText={isLocked(constants.ellIntermediatePostTest.activityId) && constants.ellIntermediatePostTest.lockedText} showNewTag={true} />
     </div>),
     (<div className="grouped-minis" key="ell-advanced">
-      <DiagnosticAssignmentCard diagnostic={constants.ellAdvancedPreTest} />
-      <DiagnosticAssignmentCard diagnostic={constants.ellAdvancedPostTest} lockedText={isLocked(constants.ellAdvancedPostTest.activityId) && constants.ellAdvancedPostTest.lockedText} showNewTag={true} />
+      <DiagnosticAssignmentCard diagnostic={constants.ellAdvancedPreTest} history={history} />
+      <DiagnosticAssignmentCard diagnostic={constants.ellAdvancedPostTest} history={history} lockedText={isLocked(constants.ellAdvancedPostTest.activityId) && constants.ellAdvancedPostTest.lockedText} showNewTag={true} />
     </div>)
   ]
 }
 
 const collegeBoardDiagnosticMinis = ({ history }) => [
-  <DiagnosticAssignmentCard diagnostic={constants.apWritingSkills} key="ap" />,
-  <DiagnosticAssignmentCard diagnostic={constants.preAPWritingSkills1} key="pre-ap-1" />,
-  <DiagnosticAssignmentCard diagnostic={constants.preAPWritingSkills2} key="pre-ap-2" />,
-  <DiagnosticAssignmentCard diagnostic={constants.springboardWritingSkills} key="springboard" />
+  <DiagnosticAssignmentCard diagnostic={constants.apWritingSkills} history={history} key="ap" />,
+  <DiagnosticAssignmentCard diagnostic={constants.preAPWritingSkills1} history={history} key="pre-ap-1" />,
+  <DiagnosticAssignmentCard diagnostic={constants.preAPWritingSkills2} history={history} key="pre-ap-2" />,
+  <DiagnosticAssignmentCard diagnostic={constants.springboardWritingSkills} history={history} key="springboard" />
 ];
 
 const FilterTab = ({ activeFilter, filter, setFilter, number, }) => {
