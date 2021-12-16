@@ -1,4 +1,5 @@
 import * as React from 'react'
+import stripHtml from "string-strip-html"
 
 import EditorContainer from './editorContainer'
 import Feedback from './feedback'
@@ -11,7 +12,7 @@ interface PromptStepProps {
   active: Boolean;
   activityIsComplete: Boolean;
   className: string,
-  completionButtonCallback: () => void; 
+  completionButtonCallback: () => void;
   everyOtherStepCompleted: boolean;
   submitResponse: Function;
   completeStep: (event: any) => void;
@@ -30,11 +31,14 @@ interface PromptStepState {
   numberOfSubmissions: number;
   customFeedback: string|null;
   customFeedbackKey: string|null;
+  responseOverCharacterLimit: boolean;
 }
 
 const RESPONSE = 'response'
 const PROMPT = 'prompt'
 export const DIRECTIONS = 'Use information from the text to finish the sentence:'
+const APPROACHING_LIMIT_MESSAGE = 'Your response is getting close to the maximum length';
+const OVER_LIMIT_MESSSAGE = 'Your response is too long for our feedback bot to understand';
 
 export class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
@@ -48,7 +52,8 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       html: this.formattedPrompt(submittedResponses),
       numberOfSubmissions: submittedResponses.length,
       customFeedback: null,
-      customFeedbackKey: null
+      customFeedbackKey: null,
+      responseOverCharacterLimit: false
     };
 
     this.editor = React.createRef()
@@ -264,24 +269,26 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     const { prompt, } = this.props
     const text = html.replace(/<b>|<\/b>|<p>|<\/p>|<br>|<u>|<\/u>/g, '').replace('&nbsp;', '')
     const textWithoutStem = text.replace(prompt.text, '').trim()
+    const textForCharacterCount = stripHtml(textWithoutStem);
     const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
     return {
       htmlWithBolding: active ? `<p>${this.highlightsAddedPrompt(this.htmlStrippedPrompt())}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`,
-      rawTextWithoutStem: textWithoutStem
+      rawTextWithoutStem: textWithoutStem,
+      textForCharacterCount
     }
   }
 
   renderButton = () => {
     const { prompt, submittedResponses, everyOtherStepCompleted, completionButtonCallback, activityIsComplete} = this.props
     const { id, text, max_attempts } = prompt
-    const { html, numberOfSubmissions, } = this.state
+    const { html, numberOfSubmissions, responseOverCharacterLimit } = this.state
     const entry = this.stripHtml(html).trim()
     const awaitingFeedback = numberOfSubmissions !== submittedResponses.length
     const buttonLoadingSpinner = awaitingFeedback ? <ButtonLoadingSpinner /> : null
     let buttonCopy = submittedResponses.length ? 'Get new feedback' : 'Get feedback'
     let className = 'quill-button focus-on-light'
     let onClick = () => this.handleGetFeedbackClick(entry, id, text)
-   
+
     if (activityIsComplete) {
       onClick = completionButtonCallback
       buttonCopy = 'Done'
@@ -291,7 +298,9 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback) {
       className += ' disabled'
       onClick = () => {}
-    } 
+    } else if(responseOverCharacterLimit) {
+      className += ' disabled'
+    }
     return <button className={className} onClick={onClick} type="button">{buttonLoadingSpinner}<span>{buttonCopy}</span></button>
   }
 
@@ -310,8 +319,19 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     />)
   }
 
+  renderCharacterLimitWarning = (characterCount: number, characterCountClassName: string) => {
+    if(characterCount < 160) { return }
+    const message = characterCount < 200 ? APPROACHING_LIMIT_MESSAGE : OVER_LIMIT_MESSSAGE;
+    return(
+      <div className="character-counter-container">
+        <p className={characterCountClassName}>{message}</p>
+        <p className={characterCountClassName}>{`${characterCount}/200`}</p>
+      </div>
+    )
+  }
+
   renderEditorContainer = () => {
-    const { html, } = this.state
+    const { html, responseOverCharacterLimit } = this.state
     const { submittedResponses, prompt, active, } = this.props
     const lastSubmittedResponse = this.lastSubmittedResponse()
     let className = 'editor'
@@ -328,19 +348,40 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     }
 
     const formattedText = this.formatHtmlForEditorContainer(html, active)
+    const { htmlWithBolding, rawTextWithoutStem, textForCharacterCount } = formattedText
+    const characterCount = textForCharacterCount && textForCharacterCount.split('').length;
+    let characterCountClassName;
+    if(characterCount >= 160 && characterCount < 200) {
+      characterCountClassName = 'approaching-limit';
+    } else if (characterCount >= 200) {
+      characterCountClassName = 'over-limit';
+    }
+    if(characterCountClassName) {
+      className += ` ${characterCountClassName}`;
+    }
+    if(characterCount >= 200 && !responseOverCharacterLimit) {
+      this.setState({ responseOverCharacterLimit: true });
+    } else if(characterCount < 200 && responseOverCharacterLimit) {
+      this.setState({ responseOverCharacterLimit: false });
+    }
 
-    return (<EditorContainer
-      className={className}
-      disabled={disabled}
-      handleFocus={this.onFocus}
-      handleTextChange={this.onTextChange}
-      html={formattedText.htmlWithBolding}
-      innerRef={this.setEditorRef}
-      isResettable={!!formattedText.rawTextWithoutStem.length}
-      promptText={prompt.text}
-      resetText={this.resetText}
-      stripHtml={this.stripHtml}
-    />)
+    return (
+      <div>
+        <EditorContainer
+          className={className}
+          disabled={disabled}
+          handleFocus={this.onFocus}
+          handleTextChange={this.onTextChange}
+          html={htmlWithBolding}
+          innerRef={this.setEditorRef}
+          isResettable={!!rawTextWithoutStem.length}
+          promptText={prompt.text}
+          resetText={this.resetText}
+          stripHtml={this.stripHtml}
+        />
+        {this.renderCharacterLimitWarning(characterCount, characterCountClassName)}
+      </div>
+    );
   }
 
   renderActiveContent = () => {

@@ -29,6 +29,12 @@
         border-left: 2px solid #55a200;
       }
     }
+    &.approaching-limit {
+      border-bottom: 2px solid #ff9f00;
+    }
+    &.over-limit {
+      border-bottom: 2px solid #ff3348;
+    }
   }
   .clear-button {
     position: absolute;
