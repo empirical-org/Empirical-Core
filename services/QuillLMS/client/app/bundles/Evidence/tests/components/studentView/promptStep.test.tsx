@@ -7,6 +7,10 @@ import { activityOne, optimalSubmittedResponse, suboptimalSubmittedResponse, } f
 import PromptStep from '../../../components/studentView/promptStep'
 import EditorContainer from '../../../components/studentView/editorContainer'
 
+jest.mock('string-strip-html', () => ({
+  default: jest.fn()
+}));
+
 const prompt = activityOne.prompts[2]
 
 const defaultProps = {
