@@ -11,7 +11,7 @@ interface PromptStepProps {
   active: Boolean;
   activityIsComplete: Boolean;
   className: string,
-  completionButtonCallback: () => void; 
+  completionButtonCallback: () => void;
   everyOtherStepCompleted: boolean;
   submitResponse: Function;
   completeStep: (event: any) => void;
@@ -281,7 +281,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     let buttonCopy = submittedResponses.length ? 'Get new feedback' : 'Get feedback'
     let className = 'quill-button focus-on-light'
     let onClick = () => this.handleGetFeedbackClick(entry, id, text)
-   
+
     if (activityIsComplete) {
       onClick = completionButtonCallback
       buttonCopy = 'Done'
@@ -291,7 +291,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback) {
       className += ' disabled'
       onClick = () => {}
-    } 
+    }
     return <button className={className} onClick={onClick} type="button">{buttonLoadingSpinner}<span>{buttonCopy}</span></button>
   }
 

@@ -22,5 +22,13 @@ describe('stringFormatting', () => {
       const result = highlightSpellingGrammar("lorem shouldn't ipsum", 'should')
       expect(result).toEqual(`lorem <b>shouldn't</b> ipsum`)
     });
+    it('should highlight all of a word when a word substring is matched', () => {
+      const result = highlightSpellingGrammar("lorem shouldn't ipsum", 'should')
+      expect(result).toEqual(`lorem <b>shouldn't</b> ipsum`)
+    });
+    it('should not highlight nonbreaking space character', () => {
+      const result = highlightSpellingGrammar("&nbsp lorem ipsum shouldn't", "&nbsp")
+      expect(result).toEqual(`&nbsp lorem ipsum shouldn't`)
+    });
   });
-}); 
+});
