@@ -79,6 +79,7 @@ module Evidence
     end
 
     def flag=flag
+      set_parent_activity
       parent_activity.update(flag: flag)
     end
 
