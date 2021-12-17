@@ -39,6 +39,8 @@ const PROMPT = 'prompt'
 export const DIRECTIONS = 'Use information from the text to finish the sentence:'
 const APPROACHING_LIMIT_MESSAGE = 'Your response is getting close to the maximum length';
 const OVER_LIMIT_MESSSAGE = 'Your response is too long for our feedback bot to understand';
+const WARNING_THRESHOLD = 160;
+const LIMIT_THRESHOLD = 200;
 
 export class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
@@ -295,11 +297,9 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     } else if (submittedResponses.length === max_attempts || this.lastSubmittedResponse().optimal) {
       onClick = this.completeStep
       buttonCopy = 'Start next sentence'
-    } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback) {
+    } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback || responseOverCharacterLimit) {
       className += ' disabled'
       onClick = () => {}
-    } else if(responseOverCharacterLimit) {
-      className += ' disabled'
     }
     return <button className={className} onClick={onClick} type="button">{buttonLoadingSpinner}<span>{buttonCopy}</span></button>
   }
@@ -320,12 +320,12 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   }
 
   renderCharacterLimitWarning = (characterCount: number, characterCountClassName: string) => {
-    if(characterCount < 160) { return }
-    const message = characterCount < 200 ? APPROACHING_LIMIT_MESSAGE : OVER_LIMIT_MESSSAGE;
+    if(characterCount < WARNING_THRESHOLD) { return }
+    const message = characterCount < LIMIT_THRESHOLD ? APPROACHING_LIMIT_MESSAGE : OVER_LIMIT_MESSSAGE;
     return(
       <div className="character-counter-container">
         <p className={characterCountClassName}>{message}</p>
-        <p className={characterCountClassName}>{`${characterCount}/200`}</p>
+        <p className={characterCountClassName}>{`${characterCount}/${LIMIT_THRESHOLD}`}</p>
       </div>
     )
   }
@@ -351,17 +351,17 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     const { htmlWithBolding, rawTextWithoutStem, textForCharacterCount } = formattedText
     const characterCount = textForCharacterCount && textForCharacterCount.split('').length;
     let characterCountClassName;
-    if(characterCount >= 160 && characterCount < 200) {
+    if(characterCount >= WARNING_THRESHOLD && characterCount < LIMIT_THRESHOLD) {
       characterCountClassName = 'approaching-limit';
-    } else if (characterCount >= 200) {
+    } else if (characterCount >= LIMIT_THRESHOLD) {
       characterCountClassName = 'over-limit';
     }
     if(characterCountClassName) {
       className += ` ${characterCountClassName}`;
     }
-    if(characterCount >= 200 && !responseOverCharacterLimit) {
+    if(characterCount >= LIMIT_THRESHOLD && !responseOverCharacterLimit) {
       this.setState({ responseOverCharacterLimit: true });
-    } else if(characterCount < 200 && responseOverCharacterLimit) {
+    } else if(characterCount < LIMIT_THRESHOLD && responseOverCharacterLimit) {
       this.setState({ responseOverCharacterLimit: false });
     }
 
