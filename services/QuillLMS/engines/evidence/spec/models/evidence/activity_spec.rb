@@ -102,12 +102,23 @@ module Evidence
     end
 
     context '#flag=' do
-      it 'should update the parent activity flag' do
-        parent_activity = ::Activity.create(:name => "test name", :flag => 'alpha')
-        activity = create(:evidence_activity, :parent_activity_id => parent_activity.id)
-        activity.update(flag: 'beta')
-        parent_activity.reload
-        expect(parent_activity.flag).to be(:beta)
+      describe 'if there is already a parent activity' do
+        it 'should update the parent activity flag' do
+          parent_activity = ::Activity.create(:name => "test name", :flag => 'alpha')
+          activity = create(:evidence_activity, :parent_activity_id => parent_activity.id)
+          activity.update(flag: 'beta')
+          parent_activity.reload
+          expect(parent_activity.flag).to be(:beta)
+        end
+      end
+
+      describe 'if there is not a parent activity' do
+        it 'should create one with the correct activity flag' do
+          activity = create(:evidence_activity)
+          activity.update(flag: 'beta')
+          activity.reload
+          expect(::Activity.find(activity.parent_activity_id).flag).to be(:beta)
+        end
       end
     end
 
