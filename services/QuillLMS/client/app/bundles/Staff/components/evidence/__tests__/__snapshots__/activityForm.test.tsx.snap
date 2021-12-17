@@ -7,22 +7,6 @@ exports[`Activity Form component should render Activities 1`] = `
   <div
     className="button-container"
   >
-    <a
-      className="quill-button fun secondary outlined"
-      href="/evidence/#/play?uid=undefined&skipToPrompts=true"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      Play Test Activity
-    </a>
-    <a
-      className="quill-button fun secondary outlined"
-      href="/evidence/#/play?uid=undefined"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      Play Student Activity
-    </a>
     <button
       className="quill-button fun secondary outlined"
       onClick={[MockFunction]}
