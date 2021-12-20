@@ -88,8 +88,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def lesson_recommendations_for_classroom
-    classroom = current_user.classrooms_i_teach.find(params[:classroom_id])
-
     lesson_recs = current_user.classroom_unit_by_ids_cache(
       classroom_id: params[:classroom_id],
       unit_id: params[:unit_id],
