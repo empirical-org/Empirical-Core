@@ -8,8 +8,8 @@ RSpec.describe UserCacheable, type: :model do
 
   describe '#all_classrooms_cache' do
     context 'teachers without classrooms' do
-      let (:teacher1) { create(:teacher) }
-      let (:teacher2) { create(:teacher) }
+      let(:teacher1) { create(:teacher) }
+      let(:teacher2) { create(:teacher) }
 
       it 'should not share cache for users with no classrooms and update on user touches' do
         i = 0
@@ -35,7 +35,7 @@ RSpec.describe UserCacheable, type: :model do
     end
 
     context 'teacher with classrooms' do
-      let (:teacher) {create(:teacher_with_one_classroom) }
+      let(:teacher) {create(:teacher_with_one_classroom) }
 
       it 'should return cached value until the cache_key changes' do
         i = 0
