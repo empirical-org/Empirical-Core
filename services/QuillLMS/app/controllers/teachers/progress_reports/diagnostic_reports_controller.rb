@@ -30,14 +30,12 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     classroom_id = results_summary_params[:classroom_id]
     unit_id = results_summary_params[:unit_id]
 
-    cache_key = CacheGroupKey.classroom_unit_by_ids(
+    students_json = current_user.classroom_unit_by_ids_cache(
       classroom_id: classroom_id,
       unit_id: unit_id,
       activity_id: activity_id,
-      name: 'diagnostic_student_responses_index'
-    )
-
-    students_json = Rails.fetch(cache_key) do
+      key: 'diagnostic_reports.diagnostic_student_responses_index'
+    ) do
       set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id, true)
       diagnostic_student_responses
     end
@@ -92,16 +90,16 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   def lesson_recommendations_for_classroom
     classroom = current_user.classrooms_i_teach.find(params[:classroom_id])
 
-    cache_key = CacheGroupKey.classroom_unit_by_ids(
+    lesson_recs = current_user.classroom_unit_by_ids_cache(
       classroom_id: classroom_id,
       unit_id: unit_id,
       activity_id: activity_id,
-      name: 'lesson_recommendations_for_classroom'
-    )
-
-    lesson_recs = Rails.fetch(cache_key) do
+      key: 'diagnostic_reports.lesson_recommendations_for_classroom'
+    ) do
       get_recommended_lessons(current_user, params[:unit_id], params[:classroom_id], params[:activity_id])
     end
+
+
 
     render json: {lessonsRecommendations: lesson_recs}
   end

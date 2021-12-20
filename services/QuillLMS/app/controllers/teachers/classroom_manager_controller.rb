@@ -114,9 +114,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def teacher_dashboard_metrics
-    cache_key = CacheGroupKey.all_classrooms(current_user, name: 'teacher_dashboard_metrics')
-
-    json = Rails.cache.fetch(cache_key) do
+    json = current_user.all_classrooms_cache(key: 'classroom_manager.teacher_dashboard_metrics') do
       TeacherDashboardMetrics.new(current_user).run
     end
 
@@ -136,19 +134,16 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scores
-    cache_key = CacheGroupKey.all_classrooms(current_user,
-      name: 'scores',
-      groups: [
-        params[:unit_id],
-        params[:current_page],
-        params[:begin_date],
-        params[:end_date],
-        current_user.utc_offset
-      ]
-    )
+    cache_groups = {
+      unit: params[:unit_id],
+      page: params[:current_page],
+      begin: params[:begin_date],
+      end: params[:end_date],
+      offset: current_user.utc_offset
+    }
 
-    scores = Rails.cache.fetch(cache_key) do
-      Scorebook::Query.run(params[:classroom_id], params[:current_page], params[:unit_id], params[:begin_date], params[:end_date], current_user.utc_offset)
+    scores = current_user.all_classrooms_cache(key: 'classroom_manager.scores', groups: cache_groups) do
+       Scorebook::Query.run(params[:classroom_id], params[:current_page], params[:unit_id], params[:begin_date], params[:end_date], current_user.utc_offset)
     end
 
     last_page = scores.length < 200
