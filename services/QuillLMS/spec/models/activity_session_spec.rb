@@ -41,7 +41,7 @@ require 'rails_helper'
 
 describe ActivitySession, type: :model, redis: true do
 
-  it { should belong_to(:classroom_unit) }
+  it { should belong_to(:classroom_unit).touch(true) }
   it { should belong_to(:activity) }
   it { should have_one(:classification).through(:activity) }
   it { should have_many(:user_activity_classifications).through(:classification) }
