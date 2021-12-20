@@ -53,7 +53,7 @@ class ActivitySession < ApplicationRecord
   default_scope { where(visible: true)}
   has_many :feedback_sessions, foreign_key: :activity_session_uid, primary_key: :uid
   has_many :feedback_histories, through: :feedback_sessions
-  belongs_to :classroom_unit
+  belongs_to :classroom_unit, touch: true
   belongs_to :activity
   has_one :classification, through: :activity
   has_many :user_activity_classifications, through: :classification

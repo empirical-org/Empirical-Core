@@ -134,7 +134,10 @@ class Classroom < ApplicationRecord
   end
 
   def hide_appropriate_classroom_units
-    hide_all_classroom_units unless visible
+    return if visible
+    return unless visible_changed?
+    
+    hide_all_classroom_units
   end
 
   def hide_all_classroom_units
