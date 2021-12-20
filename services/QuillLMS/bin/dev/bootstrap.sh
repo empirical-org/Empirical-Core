@@ -37,6 +37,7 @@ brew install rbenv
 brew install ruby-build
 brew install readline
 brew install libyaml
+brew install shared-mime-info
 brew tap homebrew/services
 
 echo 'Install rbenv'
