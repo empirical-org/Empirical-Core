@@ -5,7 +5,7 @@ then
   exit 1
 fi
 
-[ ! -d '/Applications/Postgres.app' ] && echo 'Please make sure Postgres.app is installed. Exiting.' && exit 1
+[ ! -d '/Applications/Postgres.app' ] && echo 'Please make sure Postgres.app is installed. Use the version "Postgres.app with all currently supported versions" on this page: https://postgresapp.com/downloads.html so that you use Postgres 10. Exiting.' && exit 1
 
 postgres_already_running_msg="It looks like you have a non-Postgres.app version \n 
 of postgres already running. Try running \n 
@@ -35,6 +35,8 @@ echo 'Install requirements'
 brew install redis
 brew install rbenv
 brew install ruby-build
+brew install readline
+brew install libyaml
 brew tap homebrew/services
 
 echo 'Install rbenv'
