@@ -15,9 +15,7 @@ module UserCacheable
   extend ActiveSupport::Concern
 
   def all_classrooms_cache(key:, groups: {})
-    classroom = last_updated_classroom
-
-    model_cache(classroom, key: key, groups: groups) { yield }
+    model_cache(last_updated_classroom, key: key, groups: groups) { yield }
   end
 
   def classroom_cache(classroom:, key:, groups: {})
@@ -29,15 +27,7 @@ module UserCacheable
   end
 
   def classroom_unit_by_ids_cache(classroom_id:, unit_id:, activity_id:, key:, groups: {})
-    classroom_unit = if unit_id
-      ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
-    else
-      # use maximium updated_at of these classroom_units
-      ClassroomUnit.where(classroom_id: classroom_id)
-        .joins(:unit, :unit_activities)
-        .where(unit: {unit_activities: {activity_id: activity_id}})
-        .maximum('classroom_units.updated_at')
-    end
+    classroom_unit = classroom_unit_for_ids(classroom_id: classroom_id, unit_id: unit_id, activity_id: activity_id)
 
     model_cache(classroom_unit, key: key, groups: groups) { yield }
   end
@@ -62,5 +52,17 @@ module UserCacheable
       .joins(:classrooms_teachers)
       .where(classrooms_teachers: {user_id: id})
       .first
+  end
+
+  private def classroom_unit_for_ids(classroom_id:, unit_id:, activity_id:)
+    if unit_id
+      return ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
+    end
+
+    # use maximium updated_at of these classroom_units
+    ClassroomUnit.where(classroom_id: classroom_id)
+      .joins(:unit, :unit_activities)
+      .where(unit: {unit_activities: {activity_id: activity_id}})
+      .maximum('classroom_units.updated_at')
   end
 end
