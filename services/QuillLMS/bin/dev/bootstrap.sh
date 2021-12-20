@@ -94,6 +94,8 @@ echo 'Bundle install'
 echo 'If youre on Mac Mojave and hit an error with nokogiri, run:'
 echo 'cd  /Library/Developer/CommandLineTools/Packages/;'
 echo 'open macOS_SDK_headers_for_macOS_10.14.pkg'
+# TODO: There are fixes needed here v8, libv8, and therubyracer to work on M1 Macs.
+echo 'There is an open issue with therubyracer on M1 Macs, see Gemfile'
 bundle install
 
 echo "Install Node"
