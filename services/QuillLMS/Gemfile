@@ -179,7 +179,7 @@ group :test, :development do
   gem 'factory_bot_rails', '~> 4.8.2', require: false
   gem 'fuubar', '~> 2.0.0.rc1'
   gem 'timecop'
-  gem 'byebug', '8.2.1' # getting errors on mac yosemite when trying to install 8.2.2
+  gem 'byebug'
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-shell'
