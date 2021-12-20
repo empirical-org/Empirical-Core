@@ -37,7 +37,6 @@ class Unit < ApplicationRecord
   validates_with UniqueNameWhenVisible
   belongs_to :user
   has_many :unit_activities, dependent: :destroy
-  # TODO might need a touch here
   has_many :classroom_units, dependent: :destroy
   has_many :classrooms, through: :classroom_units
   has_many :activities, through: :unit_activities
