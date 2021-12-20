@@ -91,15 +91,13 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     classroom = current_user.classrooms_i_teach.find(params[:classroom_id])
 
     lesson_recs = current_user.classroom_unit_by_ids_cache(
-      classroom_id: classroom_id,
-      unit_id: unit_id,
-      activity_id: activity_id,
+      classroom_id: params[:classroom_id],
+      unit_id: params[:unit_id],
+      activity_id: params[:activity_id],
       key: 'diagnostic_reports.lesson_recommendations_for_classroom'
     ) do
       get_recommended_lessons(current_user, params[:unit_id], params[:classroom_id], params[:activity_id])
     end
-
-
 
     render json: {lessonsRecommendations: lesson_recs}
   end
