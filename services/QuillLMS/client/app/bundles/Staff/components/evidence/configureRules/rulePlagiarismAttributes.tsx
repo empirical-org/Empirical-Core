@@ -72,6 +72,7 @@ const RulePlagiarismAttributes = ({
           EditorState={EditorState}
           handleTextChange={onHandleSetPlagiarismText}
           key="plagiarism-text"
+          shouldCheckSpelling={true}
           text={plagiarismText.text}
         />}
         {errors['Plagiarism Text'] && <p className="error-message">{errors['Plagiarism Text']}</p>}
@@ -82,6 +83,7 @@ const RulePlagiarismAttributes = ({
           // eslint-disable-next-line
           handleTextChange={(text) => onHandleSetPlagiarismFeedback(text, 0, null, FEEDBACK)}
           key="first-plagiarism-feedback"
+          shouldCheckSpelling={true}
           text={plagiarismFeedbacks[0].text}
         />}
         {plagiarismFeedbacks[0] && plagiarismFeedbacks[0].highlights_attributes && renderHighlights(plagiarismFeedbacks[0].highlights_attributes, 0, onHandleSetPlagiarismFeedback)}
@@ -97,6 +99,7 @@ const RulePlagiarismAttributes = ({
           // eslint-disable-next-line
           handleTextChange={(text) => onHandleSetPlagiarismFeedback(text, 1, null, FEEDBACK)}
           key="second-plagiarism-feedback"
+          shouldCheckSpelling={true}
           text={plagiarismFeedbacks[1].text}
         />}
         {plagiarismFeedbacks[1] && plagiarismFeedbacks[1].highlights_attributes && renderHighlights(plagiarismFeedbacks[1].highlights_attributes, 1, onHandleSetPlagiarismFeedback)}

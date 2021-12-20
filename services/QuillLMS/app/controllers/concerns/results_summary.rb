@@ -31,7 +31,7 @@ module ResultsSummary
         {
           name: assigned_student.name,
           id: assigned_student.id,
-          skill_groups: skill_groups_for_session(@skill_groups, activity_session.id, assigned_student.name)
+          skill_groups: skill_groups_for_session(@skill_groups, activity_session, assigned_student.name)
         }
       else
         { name: assigned_student.name }
@@ -39,9 +39,9 @@ module ResultsSummary
     end
   end
 
-  private def skill_groups_for_session(skill_groups, activity_session_id, student_name)
+  private def skill_groups_for_session(skill_groups, activity_session, student_name)
     skill_groups.map do |skill_group|
-      skills = skill_group.skills.map { |skill| data_for_skill_by_activity_session(activity_session_id, skill) }
+      skills = skill_group.skills.map { |skill| data_for_skill_by_activity_session(activity_session.concept_results, skill) }
       present_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:summary] == NOT_PRESENT ? 0 : 1 }
       correct_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:summary] == FULLY_CORRECT ? 1 : 0 }
       proficiency_text = summarize_student_proficiency_for_skill_per_activity(present_skill_number, correct_skill_number)

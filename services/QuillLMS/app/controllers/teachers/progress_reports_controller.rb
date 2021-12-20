@@ -1,13 +1,19 @@
 # frozen_string_literal: true
 
 class Teachers::ProgressReportsController < ApplicationController
-  before_action :authorize!, except: [:demo, :admin_demo, :coach_demo]
+  before_action :authorize!, except: [:demo, :admin_demo, :coach_demo, :staff_demo]
   before_action :set_vary_header, if: -> { request.xhr? || request.format == :json }
   layout 'progress_reports'
 
   def demo
     set_user
-    switch_current_user(@user)
+    self.current_user_demo_id = @user.id
+    redirect_to demo_redirect_path
+  end
+
+  def staff_demo
+    set_staff_user
+    switch_current_user(@staff_user)
     redirect_to demo_redirect_path
   end
 
@@ -78,6 +84,14 @@ class Teachers::ProgressReportsController < ApplicationController
     end
   end
 
+  private def set_staff_user
+    @staff_user = User.find_by_email "hello+#{staff_demo_name}@quill.org"
+    if @staff_user.nil?
+      recreate_staff_demo
+      set_staff_user
+    end
+  end
+
   private def set_ap_user
     @ap_user = User.find_by_email "hello+#{demo_name}+ap@quill.org"
 
@@ -91,6 +105,10 @@ class Teachers::ProgressReportsController < ApplicationController
     params[:name].present? ? params[:name] : "demoteacher"
   end
 
+  private def staff_demo_name
+    params[:name].present? ? params[:name] : "demoteacher+staff"
+  end
+
   private def demo_redirect_path
     if params[:name] == 'demoaccount'
       teachers_progress_reports_concepts_students_path
@@ -102,7 +120,12 @@ class Teachers::ProgressReportsController < ApplicationController
   end
 
   private def recreate_demo
-    Demo::ReportDemoDestroyer.destroy_demo(demo_name)
-    Demo::ReportDemoCreator.create_demo(demo_name)
+    Demo::ReportDemoDestroyer.destroy_demo("hello+#{demo_name}@quill.org")
+    Demo::ReportDemoCreator.create_demo("hello+#{demo_name}@quill.org")
+  end
+
+  private def recreate_staff_demo
+    Demo::ReportDemoDestroyer.destroy_demo("hello+#{staff_demo_name}@quill.org")
+    Demo::ReportDemoCreator.create_demo("hello+#{staff_demo_name}@quill.org")
   end
 end

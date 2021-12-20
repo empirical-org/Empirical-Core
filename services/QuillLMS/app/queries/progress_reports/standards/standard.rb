@@ -19,6 +19,7 @@ class ProgressReports::Standards::Standard
           AVG(best_activity_sessions.percentage) AS average_score,
           COUNT(DISTINCT(best_activity_sessions.activity_id)) AS total_activity_count,
           COUNT(DISTINCT(best_activity_sessions.user_id)) AS total_student_count,
+          SUM(best_activity_sessions.timespent) AS timespent,
           COALESCE(AVG(proficient_count.user_count), 0)::integer AS proficient_student_count,
           COALESCE(AVG(not_proficient_count.user_count), 0)::integer AS not_proficient_student_count
         SQL

@@ -93,6 +93,19 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    &.underlined {
+      text-decoration: underline;
+    }
+  }
+  .standard-level {
+    display: inline-block;
+    color: black;
+    width: 100%;
+  }
+  .standards-all-classrooms-dropdown-container {
+    .dropdown-container:first-child {
+      margin-right: 8px;
+    }
   }
 }
 

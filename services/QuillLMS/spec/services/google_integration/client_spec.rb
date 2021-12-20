@@ -9,9 +9,8 @@ describe GoogleIntegration::Client do
     api_client          = double('api_client')
     api_client_instance = double('api_client_instance')
     token_refresher     = double('token_refresher')
-    auth_credential     = create(:auth_credential,
+    auth_credential     = create(:google_auth_credential,
       user: user,
-      provider: 'google',
       access_token: access_token
     )
 
@@ -38,9 +37,8 @@ describe GoogleIntegration::Client do
     access_token             = 'coolio'
     token_refresher          = double('token_refresher')
     token_refresher_instance = spy('token_refresher_instance')
-    auth_credential          = create(:auth_credential,
+    auth_credential          = create(:google_auth_credential,
       user: user,
-      provider: 'google',
       access_token: access_token
     )
 

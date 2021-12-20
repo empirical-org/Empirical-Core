@@ -107,6 +107,7 @@ const RuleRegexAttributes = ({
         // eslint-disable-next-line
         handleTextChange={(text) => onHandleSetRegexFeedback(text, 0, null, FEEDBACK)}
         key="regex-feedback"
+        shouldCheckSpelling={true}
         text={regexFeedback[0].text}
       />}
       {regexFeedback[0] && regexFeedback[0].highlights_attributes && renderHighlights(regexFeedback[0].highlights_attributes, 0, onHandleSetRegexFeedback)}

@@ -211,6 +211,7 @@ export function renderHighlights(highlights, i, changeHandler) {
           // eslint-disable-next-line
           handleTextChange={(text) => changeHandler(text, i, j, 'highlight text')}
           key="universal-feedback-highlight"
+          shouldCheckSpelling={true}
           text={highlight.text}
         />
         {passageMismatch && <p className="all-errors-message">The text of this highlight does not match with the associated activity text. This means that it will not highlight the text as intended. Please update the text above.</p>}

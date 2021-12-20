@@ -61,7 +61,7 @@ export class Header extends React.Component<any, any> {
             </a>
             <Tooltip
               isTabbable={true}
-              tooltipText="Quill Evidence is in beta, which means that it’s not perfect yet. As you complete activities, you may notice some issues—a button may not work or some feedback could be unhelpful. Please know that we’re actively working on Quill Evidence and making improvements everyday."
+              tooltipText="Quill Evidence is in beta, which means that it’s not perfect yet. As you complete activities, you may notice some issues—a button may not work or some feedback could be unhelpful. Please know that we’re actively working on Quill Evidence and making improvements every day."
               tooltipTriggerText={tooltipTrigger}
               tooltipTriggerTextClass="hide-on-mobile beta-tag focus-on-dark"
             />

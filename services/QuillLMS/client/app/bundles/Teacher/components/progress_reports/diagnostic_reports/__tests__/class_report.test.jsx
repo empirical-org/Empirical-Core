@@ -2,9 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import ClassReport from '../class_report.jsx';
-
 import ProgressReport from '../../progress_report.jsx'
 import OverviewBoxes from '../overview_boxes.jsx'
+import { getTimeSpent } from '../../../../helpers/studentReports';
 
 describe('ClassReport component', () => {
   const CLASSROOM_ID = 42;
@@ -91,6 +91,14 @@ describe('ClassReport component', () => {
           }
         },
         {
+          name: 'Time spent',
+          field: 'time',
+          sortByField: 'time',
+          customCell: function(row) {
+            return getTimeSpent(row['time']);
+          }
+        },
+        {
           name: 'Questions',
           field: 'number_of_questions',
           sortByField: 'number_of_questions',
@@ -99,21 +107,11 @@ describe('ClassReport component', () => {
           }
         },
         {
-          name: 'Avg. Score on Quill',
+          name: 'Avg. score on Quill',
           field: 'average_score_on_quill',
           sortByField: 'average_score_on_quill',
           customCell: function(row) {
             return row['average_score_on_quill'] + '%'
-          }
-        },
-        {
-          name: '',
-          field: '',
-          sortByField: '',
-          customCell: function(row) {
-            return (<a className="green-arrow" href={`/teachers/progress_reports/diagnostic_reports#/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${row.id}`}>
-              <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
-            </a>)
           }
         }
       ]));

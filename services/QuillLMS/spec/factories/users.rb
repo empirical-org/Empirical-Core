@@ -4,30 +4,29 @@
 #
 # Table name: users
 #
-#  id                                :integer          not null, primary key
-#  account_type                      :string           default("unknown")
-#  active                            :boolean          default(FALSE)
-#  classcode                         :string
-#  email                             :string
-#  flags                             :string           default([]), not null, is an Array
-#  ip_address                        :inet
-#  last_active                       :datetime
-#  last_sign_in                      :datetime
-#  name                              :string
-#  password_digest                   :string
-#  post_google_classroom_assignments :boolean
-#  role                              :string           default("user")
-#  send_newsletter                   :boolean          default(FALSE)
-#  signed_up_with_google             :boolean          default(FALSE)
-#  time_zone                         :string
-#  title                             :string
-#  token                             :string
-#  username                          :string
-#  created_at                        :datetime
-#  updated_at                        :datetime
-#  clever_id                         :string
-#  google_id                         :string
-#  stripe_customer_id                :string
+#  id                    :integer          not null, primary key
+#  account_type          :string           default("unknown")
+#  active                :boolean          default(FALSE)
+#  classcode             :string
+#  email                 :string
+#  flags                 :string           default([]), not null, is an Array
+#  ip_address            :inet
+#  last_active           :datetime
+#  last_sign_in          :datetime
+#  name                  :string
+#  password_digest       :string
+#  role                  :string           default("user")
+#  send_newsletter       :boolean          default(FALSE)
+#  signed_up_with_google :boolean          default(FALSE)
+#  time_zone             :string
+#  title                 :string
+#  token                 :string
+#  username              :string
+#  created_at            :datetime
+#  updated_at            :datetime
+#  clever_id             :string
+#  google_id             :string
+#  stripe_customer_id    :string
 #
 # Indexes
 #

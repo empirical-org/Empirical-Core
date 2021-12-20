@@ -38,9 +38,9 @@ namespace :skills_and_skill_groups do
       create_data(pre_ap2_skill_groups, [pre_ap2.id])
       create_data(springboard_skill_groups, [springboard.id])
       create_data(ap_skill_groups, [ap.id])
-      create_data(ell_starter_skill_groups, [ell_starter.id])
-      create_data(ell_intermediate_skill_groups, [ell_intermediate.id])
-      create_data(ell_advanced_skill_groups, [ell_advanced.id])
+      create_data(ell_starter_skill_groups, [ell_starter.id, ell_starter.follow_up_activity_id])
+      create_data(ell_intermediate_skill_groups, [ell_intermediate.id, ell_intermediate.follow_up_activity_id])
+      create_data(ell_advanced_skill_groups, [ell_advanced.id, ell_advanced.follow_up_activity_id])
     end
   end
 

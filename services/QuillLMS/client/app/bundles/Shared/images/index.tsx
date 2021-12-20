@@ -23,6 +23,11 @@ export const accountViewIcon = {
   alt: "Avatar with an eye next to it icon"
 }
 
+export const demoViewIcon = {
+  src: `${process.env.CDN_URL}/images/icons/icons-teacher-account-view.svg`,
+  alt: "Teacher preview icon"
+}
+
 export const giftIcon = {
   src: `${process.env.CDN_URL}/images/icons/icons-gift.svg`,
   alt: "Gift icon"
@@ -111,4 +116,9 @@ export const greenCheckIcon = {
 export const lockedIcon = {
   alt: 'Lock icon',
   src: `${process.env.CDN_URL}/images/icons/icons-locked.svg`
+}
+
+export const closeIcon = {
+  alt: 'Close icon',
+  src: `${process.env.CDN_URL}/images/icons/close.svg`
 }

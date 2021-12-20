@@ -34,12 +34,12 @@ describe Teachers::ProgressReportsController do
       context 'when demo account does not exist' do
         before do
           allow(Demo::ReportDemoDestroyer).to receive(:destroy_demo) { true }
-          allow(Demo::ReportDemoCreator).to receive(:create_demo) {|name| create(:user, email: "hello+#{name}@quill.org") }
+          allow(Demo::ReportDemoCreator).to receive(:create_demo) {|email| create(:user, email: email) }
         end
 
         it 'should destroy the current demo and create a new demo' do
-          expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with("demoteacher")
-          expect(Demo::ReportDemoCreator).to receive(:create_demo).with("demoteacher")
+          expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with("hello+demoteacher@quill.org")
+          expect(Demo::ReportDemoCreator).to receive(:create_demo).with("hello+demoteacher@quill.org")
           get :demo
         end
       end
@@ -77,12 +77,12 @@ describe Teachers::ProgressReportsController do
       context 'when demo account does not exist' do
         before do
           allow(Demo::ReportDemoDestroyer).to receive(:destroy_demo) { true }
-          allow(Demo::ReportDemoCreator).to receive(:create_demo) {|name| create(:user, email: "hello+#{name}@quill.org") }
+          allow(Demo::ReportDemoCreator).to receive(:create_demo) {|email| create(:user, email: email) }
         end
 
         it 'should destroy the current demo and create a new demo' do
-          expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with("test")
-          expect(Demo::ReportDemoCreator).to receive(:create_demo).with("test")
+          expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with("hello+test@quill.org")
+          expect(Demo::ReportDemoCreator).to receive(:create_demo).with("hello+test@quill.org")
           get :demo, params: { name: "test" }
         end
       end
@@ -132,6 +132,30 @@ describe Teachers::ProgressReportsController do
           .and_return(admin_report_service)
 
         get :admin_demo
+      end
+    end
+  end
+
+  describe '#staff_demo' do
+    context 'when demo account exists' do
+      it 'sets the user and redirects to scorebook teachers classrooms path when user exists' do
+        staff_user = create(:user, email: "hello+demoteacher+staff@quill.org")
+        get :staff_demo
+        expect(assigns(:staff_user)).to eq staff_user
+        expect(response).to redirect_to scorebook_teachers_classrooms_path
+      end
+    end
+
+    context 'when demo account does not exist' do
+      before do
+        allow(Demo::ReportDemoCreator).to receive(:create_demo) {|email| create(:user, email: email) }
+      end
+
+      it 'sets the user, redirects to scorebook teachers classrooms path when user doesnt exist' do
+        expect(Demo::ReportDemoCreator).to receive(:create_demo).with("hello+demoteacher+staff@quill.org")
+
+        get :staff_demo
+        expect(response).to redirect_to scorebook_teachers_classrooms_path
       end
     end
   end

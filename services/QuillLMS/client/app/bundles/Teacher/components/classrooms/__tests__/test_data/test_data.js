@@ -39,7 +39,6 @@ export const classroomWithStudents = {
       title: null,
       time_zone: null,
       account_type: 'unknown',
-      post_google_classroom_assignments: null
     },
     {
       id: 2851866,
@@ -65,7 +64,6 @@ export const classroomWithStudents = {
       title: null,
       time_zone: null,
       account_type: 'unknown',
-      post_google_classroom_assignments: null
     }
   ],
   teachers: [
@@ -97,7 +95,6 @@ export const classroomWithStudents = {
       title: null,
       time_zone: null,
       account_type: 'unknown',
-      post_google_classroom_assignments: null,
       classroom_relation: 'owner',
       status: 'Joined'
     },
@@ -160,7 +157,6 @@ export const classroomWithoutStudents = {
       title: null,
       time_zone: null,
       account_type: 'unknown',
-      post_google_classroom_assignments: null,
       classroom_relation: 'owner',
       status: 'Joined'
     },
@@ -226,7 +222,6 @@ export const classroomProps = [
         title: null,
         time_zone: null,
         account_type: 'unknown',
-        post_google_classroom_assignments: null,
         classroom_relation: 'owner',
         status: 'Joined'
       },
@@ -277,7 +272,6 @@ export const userProps = {
   title: null,
   time_zone: null,
   account_type: 'unknown',
-  post_google_classroom_assignments: null
 }
 
 export const googleClassrooms = [

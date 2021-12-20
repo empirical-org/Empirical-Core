@@ -44,14 +44,6 @@ class ClassroomUnit < ApplicationRecord
     User.where(id: assigned_student_ids)
   end
 
-  def is_valid_for_google_announcement_with_specific_user?(user)
-    !!classroom.google_classroom_id && !!user.google_id && !!user.post_google_classroom_assignments
-  end
-
-  def is_valid_for_google_announcement_with_owner?
-    !!classroom.google_classroom_id && !!classroom.owner.google_id && !!classroom.owner.post_google_classroom_assignments
-  end
-
   def validate_assigned_student(student_id)
     if assign_on_join
       if !assigned_student_ids || assigned_student_ids.exclude?(student_id)

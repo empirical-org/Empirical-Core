@@ -89,7 +89,7 @@ const ProficiencyKey = ({ className, studentCount, range, title, }) => {
 }
 
 
-export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, }) => {
+export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, location, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudents);
   const [students, setStudents] = React.useState<Student[]>(passedStudents || []);
 
@@ -116,7 +116,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
     )
   }
 
-  const responsesLink = (studentId: number) => `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}${unitQueryString}`
+  const responsesLink = (studentId: number) => unitId ? `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}?unit=${unitId}` : `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}`
 
   if (loading) { return <LoadingSpinner /> }
 

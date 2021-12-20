@@ -129,6 +129,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :complete_view_lesson_tutorial, on: :collection
     post :complete_acknowledge_lessons_banner, on: :collection
     post :complete_acknowledge_diagnostic_banner, on: :collection
+    post :complete_acknowledge_growth_diagnostic_promotion_card, on: :collection
   end
 
   resources :grades, only: [:index]
@@ -225,6 +226,8 @@ EmpiricalGrammar::Application.routes.draw do
     get 'activity_feed', to: 'classroom_manager#activity_feed'
     get 'unset_preview_as_student', to: 'classroom_manager#unset_preview_as_student'
     get 'preview_as_student/:student_id', to: 'classroom_manager#preview_as_student'
+    get 'view_demo', to: 'classroom_manager#view_demo'
+    get 'unset_view_demo', to: 'classroom_manager#unset_view_demo'
     get 'getting_started' => 'classroom_manager#getting_started'
     get 'add_students' => 'classroom_manager#generic_add_students'
     get 'teacher_guide' => 'classroom_manager#teacher_guide'
@@ -257,6 +260,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'students_by_classroom/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#students_by_classroom'
       get 'recommendations_for_classroom/:classroom_id/activity/:activity_id' => 'diagnostic_reports#recommendations_for_classroom'
       get 'lesson_recommendations_for_classroom/:classroom_id/activity/:activity_id' => 'diagnostic_reports#lesson_recommendations_for_classroom'
+      get 'skills_growth/:classroom_id/post_test_activity_id/:post_test_activity_id/pre_test_activity_id/:pre_test_activity_id' => 'diagnostic_reports#skills_growth'
       get 'diagnostic_activity_ids' => 'diagnostic_reports#diagnostic_activity_ids'
       get 'activity_with_recommendations_ids' => 'diagnostic_reports#activity_with_recommendations_ids'
       get 'previously_assigned_recommendations/:classroom_id/activity/:activity_id' => 'diagnostic_reports#previously_assigned_recommendations'
@@ -304,6 +308,7 @@ EmpiricalGrammar::Application.routes.draw do
         get :dashboard, controller: 'classroom_manager', action: 'dashboard'
         get :retrieve_classrooms_for_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_for_assigning_activities'
         get :retrieve_classrooms_i_teach_for_custom_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_i_teach_for_custom_assigning_activities'
+        get 'classrooms_and_classroom_units_for_activity_share/:unit_id' => 'classroom_manager#classrooms_and_classroom_units_for_activity_share'
         get :invite_students, controller: 'classroom_manager', action: 'invite_students'
         get :google_sync, controller: 'classroom_manager', action: 'google_sync'
         get :retrieve_google_classrooms, controller: 'classroom_manager', action: 'retrieve_google_classrooms'
@@ -761,6 +766,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   get 'demo' => 'teachers/progress_reports#demo'
+  get 'quill_staff_demo' => 'teachers/progress_reports#staff_demo'
   get 'coach_demo' => 'teachers/progress_reports#coach_demo'
   get 'student_demo' => 'students#student_demo'
   get 'student_demo_ap' => 'students#demo_ap'

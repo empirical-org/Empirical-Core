@@ -56,8 +56,6 @@
           margin-left: 24px;
           font-size: 14px;
           color: #808080;
-          text-align: right;
-          max-width: 88px;
           .image-attribution-tooltip {
             border-bottom: dashed 1px #808080;
           }
@@ -66,7 +64,9 @@
             outline-offset: 4px;
           }
           .quill-tooltip-wrapper {
-            position: relative;
+            left: initial;
+            right: 0;
+            transform: initial;
             .quill-tooltip {
               a {
                 color: white;
@@ -312,17 +312,40 @@
       .passage {
         max-width: 100%;
       }
-      .header-image-container {
-        .header-image-information {
-          overflow-x: hidden;
-        }
-      }
     }
     .prompt-steps {
       margin-top: 32px;
     }
     .leave-activity-warning-container {
       max-width: 380px;
+    }
+  }
+}
+
+@media (min-width: 1099px) and (max-width: 1190px) {
+  .read-passage-container {
+    .header-image-container {
+      .header-image-information {
+        .quill-tooltip-trigger {
+          .quill-tooltip-wrapper {
+            left: 30%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1191px) and (max-width: 1300px) {
+  .read-passage-container {
+    .header-image-container {
+      .header-image-information {
+        .quill-tooltip-trigger {
+          .quill-tooltip-wrapper {
+            left: 40%;
+          }
+        }
+      }
     }
   }
 }

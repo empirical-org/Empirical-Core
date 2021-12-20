@@ -7,22 +7,6 @@ exports[`Activity Form component should render Activities 1`] = `
   <div
     className="button-container"
   >
-    <a
-      className="quill-button fun secondary outlined"
-      href="/evidence/#/play?uid=undefined&skipToPrompts=true"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      Play Test Activity
-    </a>
-    <a
-      className="quill-button fun secondary outlined"
-      href="/evidence/#/play?uid=undefined"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      Play Student Activity
-    </a>
     <button
       className="quill-button fun secondary outlined"
       onClick={[MockFunction]}
@@ -42,6 +26,41 @@ exports[`Activity Form component should render Activities 1`] = `
   <form
     className="comprehension-activity-form"
   >
+    <DropdownInput
+      className="flag-input"
+      handleChange={[Function]}
+      label="Activity Flag"
+      options={
+        Array [
+          Object {
+            "label": "alpha",
+            "value": "alpha",
+          },
+          Object {
+            "label": "beta",
+            "value": "beta",
+          },
+          Object {
+            "label": "gamma",
+            "value": "gamma",
+          },
+          Object {
+            "label": "production",
+            "value": "production",
+          },
+          Object {
+            "label": "archived",
+            "value": "archived",
+          },
+        ]
+      }
+      value={
+        Object {
+          "label": "alpha",
+          "value": "alpha",
+        }
+      }
+    />
     <Input
       autoComplete="on"
       className="title-input"
@@ -142,6 +161,7 @@ exports[`Activity Form component should render Activities 1`] = `
         EditorState={[Function]}
         handleTextChange={[Function]}
         key="passage-description"
+        shouldCheckSpelling={true}
         text="..."
       />
     </div>
@@ -155,6 +175,7 @@ exports[`Activity Form component should render Activities 1`] = `
       EditorState={[Function]}
       handleTextChange={[Function]}
       key="max-attempt-feedback"
+      shouldCheckSpelling={true}
       text="At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul."
     />
     <Input

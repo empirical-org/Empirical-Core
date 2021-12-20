@@ -1,13 +1,14 @@
 import * as React from 'react'
 import * as moment from 'moment'
 
+import GrowthSummary from './growthSummary'
 import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.jsx'
 import { Classroom, Activity, Diagnostic, } from './interfaces'
-import { goToAssign, baseDiagnosticImageSrc, triangleUpIcon, } from './shared'
+import { goToAssign, baseDiagnosticImageSrc, } from './shared'
 
 import { DropdownInput, Tooltip, } from '../../../../../Shared/index'
+import { requestGet } from '../../../../../../modules/request/index';
 
-const barGraphIncreasingIcon = <img alt="Bar chart growth icon" src={`${baseDiagnosticImageSrc}/icons-bar-graph-increasing.svg`} />
 const multipleCardsIcon = <img alt="Activity pack icon" src={`${baseDiagnosticImageSrc}/icons-card-multiple.svg`} />
 const multipleUsersIcon = <img alt="Multiple user icon" src={`${baseDiagnosticImageSrc}/icons-user-multiple.svg`} />
 const calendarDateIcon = <img alt="Calendar icon" src={`${baseDiagnosticImageSrc}/icons-calendar-date.svg`} />
@@ -46,29 +47,6 @@ const AssignedSection = ({ activity, sectionTitle, isPostDiagnostic, }) => {
   </section>)
 }
 
-const GrowthSummary = ({ showGrowthSummary, skillsGrowth, name, growthSummaryLink, }) => {
-  if (showGrowthSummary) {
-    const growth = skillsGrowth > 0 ? <span className="growth">{triangleUpIcon}{skillsGrowth}</span> : <span className="no-growth">No growth yet</span>
-    return (<section className="growth-summary">
-      <div>
-        <h4>Growth summary</h4>
-        <p>{barGraphIncreasingIcon}<span>Skills growth: {growth}</span></p>
-      </div>
-      <div>
-        <a className="focus-on-light" href={growthSummaryLink}>View growth</a>
-      </div>
-    </section>)
-  }
-
-  return (<section className="growth-summary">
-    <div>
-      <h4>Growth summary</h4>
-      <p>{barGraphIncreasingIcon}<span>To see how your students have grown, first assign the {name} (Post)</span></p>
-    </div>
-  </section>)
-
-}
-
 const PostInProgress = ({ name, }) => {
   return (<section className="post-in-progress">
     <div>
@@ -100,11 +78,40 @@ const PostSection = ({ post, activityId, unitTemplateId, name, }) => {
 }
 
 const Diagnostic = ({ diagnostic, }) => {
+  const [skillsGrowth, setSkillsGrowth] = React.useState(null)
   const { name, pre, post, } = diagnostic
+
+  React.useEffect(() => {
+    if (post && post.assigned_count) {
+      getSkillsGrowth()
+    }
+  }, [])
+
+  function getSkillsGrowth() {
+
+    requestGet(`/teachers/progress_reports/skills_growth/${pre.classroom_id}/post_test_activity_id/${post.activity_id}/pre_test_activity_id/${pre.activity_id}`,
+      (data) => {
+        setSkillsGrowth(data.skills_growth)
+      }
+    )
+  }
+
   let postAndGrowth = <PostInProgress name={name} />
   if (pre.post_test_id) {
     const growthSummaryLink = resultsLink(true, pre.post_test_id, pre.classroom_id, pre.unit_id)
-    postAndGrowth = post.assigned_count ? <React.Fragment><PostSection post={post} /><GrowthSummary growthSummaryLink={growthSummaryLink} showGrowthSummary={true} skillsGrowth={post.skills_count - pre.skills_count} /></React.Fragment> : <React.Fragment><PostSection activityId={pre.post_test_id} name={name} unitTemplateId={post.unit_template_id} /><GrowthSummary name={name} /></React.Fragment>
+
+    if (post.assigned_count) {
+      postAndGrowth = (<React.Fragment>
+        <PostSection post={post} />
+        <GrowthSummary growthSummaryLink={growthSummaryLink} showGrowthSummary={true} skillsGrowth={skillsGrowth} />
+      </React.Fragment>)
+    } else {
+      postAndGrowth = (<React.Fragment>
+        <PostSection activityId={pre.post_test_id} name={name} unitTemplateId={post.unit_template_id} />
+        <GrowthSummary name={name} />
+      </React.Fragment>
+      )
+    }
   }
 
   return (<section className="diagnostic">

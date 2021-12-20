@@ -21,10 +21,11 @@ import {
   IMAGE_ATTRIBUTION,
   IMAGE_CAPTION,
   PARENT_ACTIVITY_ID,
-  HIGHLIGHT_PROMPT
+  HIGHLIGHT_PROMPT,
+  flagOptions
 } from '../../../../../constants/evidence';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent, ClickEvent,  TextAreaEvent } from '../../../interfaces/evidenceInterfaces';
-import { DataTable, Input, TextEditor, } from '../../../../Shared/index'
+import { DataTable, Input, TextEditor, DropdownInput, } from '../../../../Shared/index'
 import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../../Shared/utils/constants'
 
 interface ActivityFormProps {
@@ -57,7 +58,7 @@ const RULE_TYPE_TO_NAME = {
 }
 
 const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, submitActivity }: ActivityFormProps) => {
-  const { id, parent_activity_id, invalid_highlights, passages, prompts, scored_level, target_level, title, notes, } = activity;
+  const { id, parent_activity_id, invalid_highlights, passages, prompts, scored_level, target_level, title, notes, flag, } = activity;
   const formattedScoredLevel = scored_level || '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
   const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT }];
@@ -74,6 +75,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
 
   const [activityTitle, setActivityTitle] = React.useState<string>(title || '');
   const [activityNotes, setActivityNotes] = React.useState<string>(notes || '');
+  const [activityFlag, setActivityFlag] = React.useState<string>(flag || 'alpha');
   const [activityScoredReadingLevel, setActivityScoredReadingLevel] = React.useState<string>(formattedScoredLevel);
   const [activityTargetReadingLevel, setActivityTargetReadingLevel] = React.useState<string>(formattedTargetLevel);
   const [activityPassages, setActivityPassages] = React.useState<PassagesInterface[]>(formattedPassage);
@@ -85,6 +87,8 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   const [showHighlights, setShowHighlights] = React.useState(true)
 
   function toggleShowHighlights(e: ClickEvent) { setShowHighlights(!showHighlights)}
+
+  function handleSetActivityFlag(option: { value: string, label: string }) { setActivityFlag(option.value) };
 
   function handleSetActivityTitle(e: InputEvent){ setActivityTitle(e.target.value) };
 
@@ -125,6 +129,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
 
   function handleSubmitActivity(){
     const activityObject = buildActivity({
+      activityFlag,
       activityNotes,
       activityTitle,
       activityScoredReadingLevel,
@@ -138,6 +143,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
       highlightPrompt: activityPassages[0].highlight_prompt || DEFAULT_HIGHLIGHT_PROMPT
     });
     const state = [
+      activityFlag,
       activityTitle,
       activityNotes,
       activityScoredReadingLevel,
@@ -198,13 +204,20 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   return(
     <div className="activity-form-container">
       <div className="button-container">
-        <a className="quill-button fun secondary outlined" href={`/evidence/#/play?uid=${activity.id}&skipToPrompts=true`} rel="noopener noreferrer" target="_blank">Play Test Activity</a>
-        <a className="quill-button fun secondary outlined" href={`/evidence/#/play?uid=${activity.id}`} rel="noopener noreferrer" target="_blank">Play Student Activity</a>
+        {activity.id && <a className="quill-button fun secondary outlined" href={`/evidence/#/play?uid=${activity.id}&skipToPrompts=true`} rel="noopener noreferrer" target="_blank">Play Test Activity</a>}
+        {activity.id && <a className="quill-button fun secondary outlined" href={`/evidence/#/play?uid=${activity.id}`} rel="noopener noreferrer" target="_blank">Play Student Activity</a>}
         {activity.parent_activity_id && <button className="quill-button fun secondary outlined" onClick={handleClickArchiveActivity} type="button">Archive Activity</button>}
         <button className="quill-button fun primary contained" id="activity-submit-button" onClick={handleSubmitActivity} type="submit">Save</button>
       </div>
       {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
       <form className="comprehension-activity-form">
+        <DropdownInput
+          className="flag-input"
+          handleChange={handleSetActivityFlag}
+          label="Activity Flag"
+          options={flagOptions}
+          value={flagOptions.find(opt => opt.value === activityFlag)}
+        />
         <Input
           className="title-input"
           error={errors[TITLE]}
@@ -274,6 +287,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
             EditorState={EditorState}
             handleTextChange={handleSetPassageText}
             key="passage-description"
+            shouldCheckSpelling={true}
             text={activityPassages[0].text}
           />
         </div>
@@ -284,6 +298,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
           EditorState={EditorState}
           handleTextChange={handleSetActivityMaxFeedback}
           key="max-attempt-feedback"
+          shouldCheckSpelling={true}
           text={activityMaxFeedback}
         />
         <Input

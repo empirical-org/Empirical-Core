@@ -22,6 +22,7 @@ export {
   ProgressBar,
   DropdownInput,
   Error,
+  ExpandableCard,
   FlagDropdown,
   Input,
   Passthrough,
@@ -97,6 +98,7 @@ export {
   clipboardCheckIcon,
   tableCheckIcon,
   accountViewIcon,
+  demoViewIcon,
   giftIcon,
   groupAccountIcon,
   googleClassroomIcon,
@@ -115,6 +117,7 @@ export {
   encircledWhiteArrowIcon,
   greenCheckIcon,
   lockedIcon,
+  closeIcon,
 } from './images/index'
 
 export {

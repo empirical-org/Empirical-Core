@@ -12,6 +12,10 @@ module Evidence
     MAX_TITLE_LENGTH = 100
     MAX_SCORED_LEVEL_LENGTH = 100
 
+    # See activity.rb in the enclosing app for the ur-constant,
+    # which is not accessible from here
+    LMS_ACTIVITY_DEFAULT_FLAG = 'alpha'
+
     before_destroy :expire_turking_rounds
     before_validation :set_parent_activity, on: :create
     after_save :update_parent_activity_name, if: :saved_change_to_title?
@@ -42,7 +46,9 @@ module Evidence
         self.parent_activity = Evidence.parent_activity_class.find_or_create_by(
           name: title,
           activity_classification_id: Evidence.parent_activity_classification_class.evidence&.id
-        )
+        ) do |parent_activity|
+          parent_activity.flags = [LMS_ACTIVITY_DEFAULT_FLAG]
+        end
       end
     end
 
@@ -52,7 +58,7 @@ module Evidence
       super(options.reverse_merge(
         only: [:id, :parent_activity_id, :title, :notes, :target_level, :scored_level],
         include: [:passages, :prompts],
-        methods: [:invalid_highlights]
+        methods: [:invalid_highlights, :flag]
       ))
     end
 
@@ -68,6 +74,15 @@ module Evidence
       parent_activity&.update(name: title)
     end
 
+    def flag
+      parent_activity&.flag
+    end
+
+    def flag=flag
+      set_parent_activity
+      parent_activity.update(flag: flag)
+    end
+
     def invalid_highlights
       invalid_feedback_highlights
     end
@@ -79,7 +94,7 @@ module Evidence
         {
           rule_id: highlight.feedback.rule_id,
           rule_type: highlight.feedback.rule.rule_type,
-          prompt_id: highlight.feedback.rule.prompts.where(activity_id: id).first.id 
+          prompt_id: highlight.feedback.rule.prompts.where(activity_id: id).first.id
         }
       end
     end

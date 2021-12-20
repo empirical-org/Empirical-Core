@@ -5,9 +5,9 @@ class Teachers::ClassroomManagerController < ApplicationController
   include DiagnosticReports
 
   respond_to :json, :html
-  before_action :teacher_or_public_activity_packs, except: [:unset_preview_as_student]
+  before_action :teacher_or_public_activity_packs, except: [:unset_preview_as_student, :unset_view_demo]
   # WARNING: these filter methods check against classroom_id, not id.
-  before_action :authorize_owner!, except: [:scores, :scorebook, :lesson_planner, :preview_as_student, :unset_preview_as_student, :activity_feed]
+  before_action :authorize_owner!, except: [:scores, :scorebook, :lesson_planner, :preview_as_student, :unset_preview_as_student, :view_demo, :unset_view_demo, :activity_feed]
   before_action :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
   before_action :set_alternative_schools, only: [:my_account, :update_my_account, :update_my_password]
   include ScorebookHelper
@@ -46,6 +46,14 @@ class Teachers::ClassroomManagerController < ApplicationController
     render json: classroom_with_students_json(current_user.classrooms_i_teach)
   end
 
+  def classrooms_and_classroom_units_for_activity_share
+    unit_id = params["unit_id"]
+    render json: {
+      classrooms: classroom_with_students_json(current_user.classrooms_i_teach),
+      classroom_units: ClassroomUnit.where(unit_id: unit_id)
+    }
+  end
+
   def invite_students
     redirect_to teachers_classrooms_path
   end
@@ -75,6 +83,8 @@ class Teachers::ClassroomManagerController < ApplicationController
     @objective_checklist = generate_onboarding_checklist
     @first_name = current_user.first_name
 
+    growth_diagnostic_promotion_card_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_growth_diagnostic_promotion_card])
+    @show_diagnostic_promotion_card = !UserMilestone.find_by(milestone_id: growth_diagnostic_promotion_card_milestone&.id, user_id: current_user&.id) && (current_user.created_at < "2021-11-29".to_date || current_user&.unit_activities&.where(activity_id: Activity.diagnostic_activity_ids)&.any?)
   end
 
   def students_list
@@ -222,6 +232,19 @@ class Teachers::ClassroomManagerController < ApplicationController
       selected_classroom_ids
     )
     render json: { id: current_user.id }
+  end
+
+  def view_demo
+    demo = User.find_by_email('hello+demoteacher@quill.org')
+    return render json: {errors: "Demo Account does not exist"}, status: 422 if demo.nil?
+    self.current_user_demo_id = demo.id
+    redirect_to '/profile'
+  end
+
+  def unset_view_demo
+    self.current_user_demo_id = nil
+    return redirect_to params[:redirect] if params[:redirect]
+    redirect_to '/profile'
   end
 
   def preview_as_student

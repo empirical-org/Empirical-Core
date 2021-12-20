@@ -72,21 +72,56 @@ module Evidence
     context 'should create parent activity' do
 
       it 'should set the parent_activity_id to nil if passed in Activity does NOT exist' do
-        activity = create(:evidence_activity, :parent_activity_id => 7) 
+        activity = create(:evidence_activity, :parent_activity_id => 7)
         expect(activity.parent_activity).to(be_nil)
       end
 
       it 'should set the parent_activity_id if passed in Activity does exist' do
         parent_activity = ::Activity.create(:name => "test name")
-        activity = create(:evidence_activity, :parent_activity_id => parent_activity.id) 
+        activity = create(:evidence_activity, :parent_activity_id => parent_activity.id)
         expect(activity.parent_activity.id).to_not(be_nil)
       end
 
       it 'should create a new LMS activity if the parent_activity_id is not present' do
-        activity = create(:evidence_activity, :parent_activity_id => nil) 
+        activity = create(:evidence_activity, :parent_activity_id => nil)
         expect(activity.parent_activity.id).to(be_truthy)
       end
+
+      it 'should set new parent activity flags to [alpha]' do
+        activity = create(:evidence_activity, :parent_activity_id => nil)
+        expect(activity.parent_activity.flags).to eq([Activity::LMS_ACTIVITY_DEFAULT_FLAG])
+      end
     end
+
+    context '#flag' do
+      it 'should return the parent activity flag' do
+        parent_activity = ::Activity.create(:name => "test name", :flag => 'alpha')
+        activity = create(:evidence_activity, :parent_activity_id => parent_activity.id)
+        expect(activity.flag).to be(parent_activity.flag)
+      end
+    end
+
+    context '#flag=' do
+      describe 'if there is already a parent activity' do
+        it 'should update the parent activity flag' do
+          parent_activity = ::Activity.create(:name => "test name", :flag => 'alpha')
+          activity = create(:evidence_activity, :parent_activity_id => parent_activity.id)
+          activity.update(flag: 'beta')
+          parent_activity.reload
+          expect(parent_activity.flag).to be(:beta)
+        end
+      end
+
+      describe 'if there is not a parent activity' do
+        it 'should create one with the correct activity flag' do
+          activity = create(:evidence_activity)
+          activity.update(flag: 'beta')
+          activity.reload
+          expect(::Activity.find(activity.parent_activity_id).flag).to be(:beta)
+        end
+      end
+    end
+
 
     context '#update_parent_activity_name' do
       let(:activity) { create(:evidence_activity) }
@@ -113,15 +148,15 @@ module Evidence
     context 'should dependent destroy' do
 
       it 'should destroy dependent passages' do
-        activity = create(:evidence_activity) 
-        passage = create(:evidence_passage, :activity => (activity)) 
+        activity = create(:evidence_activity)
+        passage = create(:evidence_passage, :activity => (activity))
         activity.destroy
         expect(Passage.exists?(passage.id)).to(eq(false))
       end
 
       it 'should destroy dependent prompts' do
-        activity = create(:evidence_activity) 
-        prompt = create(:evidence_prompt, :activity => (activity)) 
+        activity = create(:evidence_activity)
+        prompt = create(:evidence_prompt, :activity => (activity))
         activity.destroy
         expect(Prompt.exists?(prompt.id)).to(eq(false))
       end
@@ -130,8 +165,8 @@ module Evidence
     context 'should before_destroy' do
 
       it 'should expire all associated Turking Rounds before destroy' do
-        activity = create(:evidence_activity) 
-        turking_round = create(:evidence_turking_round, :activity => (activity)) 
+        activity = create(:evidence_activity)
+        turking_round = create(:evidence_turking_round, :activity => (activity))
         expect(turking_round.expires_at > Time.zone.now).to be true
         activity.destroy
         turking_round.reload

@@ -13,11 +13,11 @@ RSpec.describe Demo::ReportDemoCreator do
 
 
   it 'creates a teacher with name' do
-    name = 'demoteacher'
-    Demo::ReportDemoCreator.create_teacher(name)
+    email = "hello+demoteacher@quill.org"
+    Demo::ReportDemoCreator.create_teacher(email)
     teacher = User.find_by(name: "Demo Teacher")
     expect(teacher.name).to eq("Demo Teacher")
-    expect(teacher.email).to eq("hello+#{name}@quill.org")
+    expect(teacher.email).to eq(email)
     expect(teacher.role).to eq("teacher")
   end
 
@@ -85,9 +85,9 @@ RSpec.describe Demo::ReportDemoCreator do
     units = Demo::ReportDemoCreator.create_units(teacher)
 
     Demo::ReportDemoCreator.create_classroom_units(classroom, units)
-    expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom)}.to change {ActivitySession.count}.by(23)
+    expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom)}.to change {ActivitySession.count}.by(24)
     act_sesh = ActivitySession.last
-    expect(act_sesh.activity_id).to eq(765)
+    expect(act_sesh.activity_id).to eq(1664)
     expect(act_sesh.user_id).to eq(student.id)
     expect(act_sesh.state).to eq('finished')
     expect(act_sesh.percentage).to eq(temp.percentage)

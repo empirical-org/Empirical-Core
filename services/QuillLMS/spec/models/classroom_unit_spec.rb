@@ -28,7 +28,7 @@ require 'rails_helper'
 
 describe ClassroomUnit, type: :model, redis: true do
 
-  it { should belong_to(:classroom) }
+  it { should belong_to(:classroom).touch(true) }
   it { should belong_to(:unit) }
   it { should have_many(:activity_sessions) }
   it { should have_many(:classroom_unit_activity_states) }
@@ -66,34 +66,6 @@ describe ClassroomUnit, type: :model, redis: true do
         it 'must return a list with one element' do
           expect(@new_classroom_unit.assigned_students.first).to eq(@student)
         end
-    end
-  end
-
-  describe '#is_valid_for_google_announcement_with_specific_user?' do
-    it "returns true if the classroom_unit's classroom has a google_classroom_id and the passed user has a google_id and post_google_classroom_assignments true" do
-      classroom_unit.classroom.update(google_classroom_id: '3')
-      teacher.update(google_id: 10, post_google_classroom_assignments: true)
-      expect(classroom_unit.reload.is_valid_for_google_announcement_with_specific_user?(teacher)).to be
-    end
-    it "returns false if the classroom_unit's classroom has a google_classroom_id and the passed user has a google_id and post_google_classroom_assignments false" do
-      classroom_unit.classroom.update(google_classroom_id: '3')
-      teacher.update(google_id: 10, post_google_classroom_assignments: false)
-      expect(classroom_unit.reload.is_valid_for_google_announcement_with_specific_user?(teacher)).not_to be
-    end
-    it "returns false if the classroom_unit's classroom does not a google_classroom_id and the passed user has a google_id" do
-      classroom_unit.classroom.update(google_classroom_id: nil)
-      teacher.update(google_id: 10)
-      expect(classroom_unit.reload.is_valid_for_google_announcement_with_specific_user?(teacher)).not_to be
-    end
-    it "returns false if the classroom_unit's classroom has a google_classroom_id and the user does not have a google_id" do
-      classroom_unit.classroom.update(google_classroom_id: 4)
-      teacher.update(google_id: nil)
-      expect(classroom_unit.reload.is_valid_for_google_announcement_with_specific_user?(teacher)).not_to be
-    end
-    it "returns false if the classroom_unit's classroom does not have a google_classroom_id and the user does not have a google_id" do
-      classroom_unit.classroom.update(google_classroom_id: nil)
-      teacher.update(google_id: nil)
-      expect(classroom_unit.reload.is_valid_for_google_announcement_with_specific_user?(teacher)).not_to be
     end
   end
 

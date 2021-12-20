@@ -6,8 +6,7 @@ import Navigation from './navigation';
 
 import { ActivityInterface } from '../../interfaces/evidenceInterfaces';
 import { fetchActivities } from '../../utils/evidence/activityAPIs';
-import { DataTable, Error, Spinner } from '../../../Shared/index';
-import { handleHasAppSetting } from "../../../Shared/utils/appSettingAPIs";
+import { DataTable, Error, Spinner, FlagDropdown, } from '../../../Shared/index';
 import { getCheckIcon, renderErrorsContainer } from "../../helpers/evidence";
 
 const Activities = ({ location, match }) => {
@@ -15,10 +14,11 @@ const Activities = ({ location, match }) => {
   // cache activity data for updates
   const { data: activitiesData } = useQuery("activities", fetchActivities);
   const [errors, setErrors] = React.useState<string[]>([])
-  const [hasAppSetting, setHasAppSetting] = React.useState<boolean>(false);
-  handleHasAppSetting({appSettingSetter: setHasAppSetting, errorSetter: setErrors, key: 'foo', })
+  const [flag, setFlag] = React.useState<string>('alpha')
 
-  const formattedRows = activitiesData && activitiesData.activities && activitiesData.activities.map((activity: ActivityInterface) => {
+  const filteredActivities = activitiesData && activitiesData.activities && activitiesData.activities.filter(act => flag === 'All Flags' || act.flag === flag) || []
+
+  const formattedRows = filteredActivities.map((activity: ActivityInterface) => {
     const { id, title, invalid_highlights } = activity;
     const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
     const highlightLabel = (<Link to={`/activities/${id}`}>{getCheckIcon(!(invalid_highlights && invalid_highlights.length))}</Link>);
@@ -28,6 +28,8 @@ const Activities = ({ location, match }) => {
       valid_highlights: highlightLabel
     }
   });
+
+  function onFlagChange(e) { setFlag(e.target.value) }
 
   if(!activitiesData) {
     return(
@@ -55,9 +57,9 @@ const Activities = ({ location, match }) => {
 
   return(<React.Fragment>
     <Navigation location={location} match={match} />
-    {hasAppSetting && <div>App setting is enabled.</div>}
     {errors && renderErrorsContainer(false, errors)}
     <div className="activities-container">
+      <FlagDropdown flag={flag} handleFlagChange={onFlagChange} isLessons={true} />
       <DataTable
         className="activities-table"
         defaultSortAttribute="name"

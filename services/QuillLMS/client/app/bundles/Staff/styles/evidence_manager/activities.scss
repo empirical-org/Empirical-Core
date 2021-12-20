@@ -1,9 +1,6 @@
 .activities-container, .loading-spinner-container, .error-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 70vw;
-  padding-top: 20px;
+  width: calc(100vw - 200px);
+  padding: 20px;
   .activities-table, .tabs-container {
     width: 100%;
     align-self: flex-start;

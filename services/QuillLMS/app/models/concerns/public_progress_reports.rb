@@ -172,7 +172,7 @@ module PublicProgressReports
     end
 
     def formatted_score_obj(final_activity_session, classification_key, student, average_score_on_quill)
-      formatted_concept_results = format_concept_results(final_activity_session.concept_results)
+      formatted_concept_results = format_concept_results(final_activity_session, final_activity_session.concept_results)
       if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification_key)
         score = get_average_score(formatted_concept_results)
       elsif [ActivityClassification::EVIDENCE_KEY].include?(classification_key)
@@ -184,7 +184,7 @@ module PublicProgressReports
         activity_classification: classification_key,
         id: student.id,
         name: student.name,
-        time: get_time_in_minutes(final_activity_session),
+        time: final_activity_session.timespent,
         number_of_questions: formatted_concept_results.length,
         concept_results: formatted_concept_results,
         score: score,
@@ -200,25 +200,28 @@ module PublicProgressReports
       time > 60 ? '> 60' : time
     end
 
-    def format_concept_results(concept_results)
+    def format_concept_results(activity_session, concept_results)
       concept_results.group_by{|cr| cr[:metadata]["questionNumber"]}.map { |key, cr|
         # if we don't sort them, we can't rely on the first result being the first attemptNum
         # however, it would be more efficient to make them a hash with attempt numbers as keys
         cr.sort!{|x,y| (x[:metadata]['attemptNumber'] || 0) <=> (y[:metadata]['attemptNumber'] || 0)}
         directfirst = cr.first[:metadata]["directions"] || cr.first[:metadata]["instructions"] || ""
+        prompt_text = cr.first[:metadata]["prompt"]
         hash = {
           directions: directfirst.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", ""),
-          prompt: cr.first[:metadata]["prompt"],
+          prompt: prompt_text,
           answer: cr.first[:metadata]["answer"],
           score: get_score_for_question(cr),
           concepts: cr.map { |crs|
+            attempt_number = crs[:metadata]["attemptNumber"]
             direct = crs[:metadata]["directions"] || crs[:metadata]["instructions"] || ""
             {
               id: crs.concept_id,
               name: crs.concept.name,
               correct: crs[:metadata]["correct"] == 1,
+              feedback: get_feedback_from_feedback_history(activity_session, prompt_text, attempt_number),
               lastFeedback: crs[:metadata]["lastFeedback"],
-              attempt: crs[:metadata]["attemptNumber"] || 1,
+              attempt: attempt_number || 1,
               answer: crs[:metadata]["answer"],
               directions: direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
             }
@@ -246,6 +249,16 @@ module PublicProgressReports
       else
         (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
       end
+    end
+
+    def get_feedback_from_feedback_history(activity_session, prompt_text, attempt_number)
+      feedback_histories = activity_session.feedback_histories
+      return "" if feedback_histories.empty? || prompt_text.blank? || attempt_number.blank?
+
+      prompt_ids = activity_session.activity.child_activity.prompt_ids
+      prompt = Evidence::Prompt.where(id: prompt_ids, text: prompt_text)&.first
+      feedback_history = feedback_histories.select {|fh| fh.attempt == attempt_number.to_i && fh.prompt_id == prompt&.id }&.first
+      feedback_history&.feedback_text
     end
 
     def generate_recommendations_for_classroom(current_user, unit_id, classroom_id, activity_id)

@@ -8,6 +8,7 @@ module CsvExporter::Standards
         'Student Name',
         'Activities',
         'Average',
+        'Time Spent',
         'Mastery Status'
       ]
     end
@@ -19,6 +20,7 @@ module CsvExporter::Standards
         json_hash[:name],
         json_hash[:total_activity_count],
         json_hash[:average_score],
+        json_hash[:timespent],
         json_hash[:mastery_status]
       ]
     end

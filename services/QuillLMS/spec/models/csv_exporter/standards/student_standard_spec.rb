@@ -11,6 +11,7 @@ describe CsvExporter::Standards::StudentStandard do
         'Standard Level',
         'Standard Name',
         'Activities',
+        'Time Spent',
         'Average Mastery Status'
       ]
     }
@@ -27,6 +28,7 @@ describe CsvExporter::Standards::StudentStandard do
         model_instance.standard_level_name,
         model_instance.name,
         model_instance.total_activity_count,
+        model_instance.timespent,
         'Not yet proficient'
       ]
     }

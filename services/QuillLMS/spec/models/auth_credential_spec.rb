@@ -29,37 +29,53 @@ require 'rails_helper'
 describe AuthCredential, type: :model do
   it { should belong_to(:user) }
 
-  let(:auth_credential) { create(:auth_credential, provider: 'google') }
+  let(:auth_credential) { create(factory) }
 
-  context '#google_authorized?' do
-    context 'non google provider' do
-      before { auth_credential.update(provider: 'hooli') }
+  context described_class::GOOGLE_PROVIDER do
+    let(:factory) { :google_auth_credential }
 
-      it { should_be_unauthorized_for_google }
+    context '#google_authorized?' do
+      context 'nil expires_at' do
+        before { auth_credential.update(expires_at: nil) }
+
+        it { should_not_be_google_authorized }
+      end
+
+      context 'nil refresh token' do
+        before { auth_credential.update(refresh_token: nil) }
+
+        it { should_not_be_google_authorized }
+      end
+
+      context 'expired refresh token' do
+        let(:expires_at) { Time.now - AuthCredential::GOOGLE_EXPIRATION_DURATION - 1.month }
+
+        before { auth_credential.update(expires_at: expires_at) }
+
+        it { should_not_be_google_authorized }
+      end
     end
+  end
 
-    context 'nil expires_at' do
-      before { auth_credential.update(expires_at: nil) }
+  context described_class::CLEVER_DISTRICT_PROVIDER do
+    let(:factory) { :clever_district_auth_credential }
 
-      it { should_be_unauthorized_for_google }
-    end
+    it { expect(auth_credential.refresh_token_expires_at).to eq nil }
+    it { expect(auth_credential.refresh_token_valid?).to eq false }
 
-    context 'nil refresh token' do
-      before { auth_credential.update(refresh_token: nil) }
+    it { should_not_be_google_authorized }
+  end
 
-      it { should_be_unauthorized_for_google }
-    end
+  context described_class::CLEVER_LIBRARY_PROVIDER do
+    let(:factory) { :clever_library_auth_credential }
 
-    context 'expired refresh token' do
-      let(:expires_at) { Time.now - AuthCredential::EXPIRATION_DURATION - 1.month }
+    it { expect(auth_credential.refresh_token_expires_at).to eq nil }
+    it { expect(auth_credential.refresh_token_valid?).to eq false }
 
-      before { auth_credential.update(expires_at: expires_at) }
+    it { should_not_be_google_authorized }
+  end
 
-      it { should_be_unauthorized_for_google }
-    end
-
-    def should_be_unauthorized_for_google
-      expect(auth_credential.google_authorized?).to be false
-    end
+  def should_not_be_google_authorized
+    expect(auth_credential.google_authorized?).to be false
   end
 end
