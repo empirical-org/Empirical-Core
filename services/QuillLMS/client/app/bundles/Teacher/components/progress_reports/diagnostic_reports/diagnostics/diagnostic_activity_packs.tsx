@@ -21,6 +21,10 @@ const ACTIVITY_PACK_TEXT_MAX_WIDTH = 264
 const ALL = 'ALL'
 const ALL_OPTION = { label: 'All classes', value: ALL }
 
+const STARTER_V1_ID = 849
+const INTERMEDIATE_V1_ID = 850
+const ADVANCED_V1_ID = 888
+
 function resultsLink(isPostDiagnostic, activityId, classroomId, unitId) {
   const resultsPath = isPostDiagnostic ? 'growth_results' : 'results'
   const baseResultsLink = `/teachers/progress_reports/diagnostic_reports/#/diagnostics/${activityId}/classroom/${classroomId}/${resultsPath}`
@@ -96,7 +100,8 @@ const Diagnostic = ({ diagnostic, }) => {
     )
   }
 
-  let postAndGrowth = <PostInProgress name={name} />
+  let postAndGrowth = ([STARTER_V1_ID, INTERMEDIATE_V1_ID, ADVANCED_V1_ID].includes(pre.activity_id)) ? null : <PostInProgress name={name} />
+  
   if (pre.post_test_id) {
     const growthSummaryLink = resultsLink(true, pre.post_test_id, pre.classroom_id, pre.unit_id)
 

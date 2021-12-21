@@ -61,7 +61,7 @@ const ActivityFeed = ({ onMobile, activityFeed, }) => {
       studentName: student_name,
       activityName: activity_name,
       scoreTag: <span className={`score-tag ${score.toLowerCase().split(' ').join('-')}`}>{score}</span>,
-      link: `/teachers/progress_reports/diagnostic_reports#/u/${unit_id}/a/${activity_id}/c/${classroom_id}/student_report/${user_id}`,
+      link: `/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/${classroom_id}/unit/${unit_id}/user/${user_id}/activity/${activity_id}`,
       completed,
       id,
     }
