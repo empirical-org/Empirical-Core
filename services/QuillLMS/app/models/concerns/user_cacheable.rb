@@ -18,11 +18,11 @@ module UserCacheable
     model_cache(last_updated_classroom, key: key, groups: groups) { yield }
   end
 
-  def classroom_cache(classroom:, key:, groups: {})
+  def classroom_cache(classroom, key:, groups: {})
     model_cache(classroom, key: key, groups: groups) { yield }
   end
 
-  def classroom_unit_cache(classroom_unit:, key:, groups: {})
+  def classroom_unit_cache(classroom_unit, key:, groups: {})
     model_cache(classroom_unit, key: key, groups: groups) { yield }
   end
 
@@ -35,12 +35,12 @@ module UserCacheable
   private def model_cache_key(object, key:, groups:)
     group_array = groups.to_a.sort_by(&:first).flatten
 
-    [key, *group_array, object]
+    [key, *group_array, object || self]
   end
 
   # note: object for caching defaults to the user to avoid nil cache keys shared by different people
   private def model_cache(object, key:, groups:)
-    Rails.cache.fetch(model_cache_key(object || self, key: key, groups: groups)) do
+    Rails.cache.fetch(model_cache_key(object, key: key, groups: groups)) do
       yield
     end
   end
