@@ -3,7 +3,7 @@
 SecureHeaders::Configuration.default do |config|
   default_config = {
     default_src: [
-      "'self'", 
+      "'self'",
       "https://*.quill.org",
       "https://quill.org",
       "'unsafe-inline'"                                           # TODO: remove once nonce strategy is in place
@@ -27,8 +27,8 @@ SecureHeaders::Configuration.default do |config|
 
     script_src: [
       "'self'",
-      "https://*.quill.org", 
-      "https://quill.org", 
+      "https://*.quill.org",
+      "https://quill.org",
       "'unsafe-inline'",
       "'unsafe-eval'",                                            # allows use of eval()
       "https://*.clever.com",
@@ -53,7 +53,7 @@ SecureHeaders::Configuration.default do |config|
       "https://*.coview.com",
       "https://*.sentry.io",
       "https://*.heapanalytics.com"
-    ],                                                            
+    ],
 
     font_src: [
       "'self'",
@@ -67,7 +67,7 @@ SecureHeaders::Configuration.default do |config|
       "https://*.fontawesome.com",
       "https://*.gstatic.com"
 
-    ], 
+    ],
 
     img_src: [
       "*",
@@ -80,17 +80,17 @@ SecureHeaders::Configuration.default do |config|
     style_src: [
       "'self'",
       "https://*.quill.org",
-      "https://quill.org",  
+      "https://quill.org",
       "'unsafe-inline'",
       "https://coview.com",
       "https://*.coview.com",
       "https://*.fontawesome.com",
       "https://*.googleapis.com",
-      "https://*.gstatic.com"      
+      "https://*.gstatic.com"
     ],
 
     connect_src: [                                                # for XHR, etc
-      "'self'",  
+      "'self'",
       "https://*.quill.org",
       "https://quill.org",
       "https://*.amplitude.com",
@@ -112,7 +112,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.coview.com",
       "https://*.sentry.io",
       "wss://*.quill.org",
-      "https://*.satismeter.com"
+      "https://*.satismeter.com",
+      "http://localhost:8080/"
     ]
   }
 
