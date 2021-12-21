@@ -5,7 +5,7 @@ then
   exit 1
 fi
 
-[ ! -d '/Applications/Postgres.app' ] && echo 'Please make sure Postgres.app is installed. Exiting.' && exit 1
+[ ! -d '/Applications/Postgres.app' ] && echo 'Please make sure Postgres.app is installed. Use the version "Postgres.app with all currently supported versions" on this page: https://postgresapp.com/downloads.html so that you use Postgres 10. Exiting.' && exit 1
 
 postgres_already_running_msg="It looks like you have a non-Postgres.app version \n 
 of postgres already running. Try running \n 
@@ -35,6 +35,9 @@ echo 'Install requirements'
 brew install redis
 brew install rbenv
 brew install ruby-build
+brew install readline
+brew install libyaml
+brew install shared-mime-info
 brew tap homebrew/services
 
 echo 'Install rbenv'
@@ -92,6 +95,8 @@ echo 'Bundle install'
 echo 'If youre on Mac Mojave and hit an error with nokogiri, run:'
 echo 'cd  /Library/Developer/CommandLineTools/Packages/;'
 echo 'open macOS_SDK_headers_for_macOS_10.14.pkg'
+# TODO: There are fixes needed here v8, libv8, and therubyracer to work on M1 Macs.
+echo 'There is an open issue with therubyracer on M1 Macs, see Gemfile'
 bundle install
 
 echo "Install Node"
