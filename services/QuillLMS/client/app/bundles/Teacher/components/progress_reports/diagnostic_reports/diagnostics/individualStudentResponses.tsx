@@ -96,8 +96,8 @@ const Tab = ({ activeTab, label, setPreOrPost, value, }) => {
 export const IndividualStudentResponses = ({ match, passedConceptResults, passedSkillResults, mobileNavigation, location, }) => {
   const [loading, setLoading] = React.useState<boolean>(!(passedConceptResults && passedSkillResults));
   const [name, setName] = React.useState<string>('')
-  const [conceptResults, setConceptResults] = React.useState<ConceptResults>(passedConceptResults || []);
-  const [skillResults, setSkillResults] = React.useState<SkillResults>(passedSkillResults || []);
+  const [conceptResults, setConceptResults] = React.useState<ConceptResults>(passedConceptResults || {});
+  const [skillResults, setSkillResults] = React.useState<SkillResults>(passedSkillResults || {});
   const [preOrPost, setPreOrPost] = React.useState<string>(POST)
 
   const { activityId, classroomId, studentId, } = match.params
@@ -128,6 +128,12 @@ export const IndividualStudentResponses = ({ match, passedConceptResults, passed
 
   let conceptResultElements
 
+  let skillsSection
+
+  if (skillResults.skills && skillResults.skills.length) {
+    skillsSection = <div className="skills-table-container-wrapper">{skillResults.skills[0] && skillResults.skills[0].pre ? <GrowthSkillsTable isExpandable={true} skillGroup={skillResults} /> : <SkillsTable isExpandable={true} skillGroup={skillResults} />}</div>
+  }
+
   if (conceptResults.pre) {
     conceptResultElements = (<React.Fragment>
       <div className="tabs">
@@ -146,7 +152,7 @@ export const IndividualStudentResponses = ({ match, passedConceptResults, passed
       <a className="focus-on-light" href="https://support.quill.org/en/articles/5698167-how-do-i-read-the-student-responses-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
     </header>
     {mobileNavigation}
-    <div className="skills-table-container-wrapper">{skillResults.skills[0] && skillResults.skills[0].pre ? <GrowthSkillsTable isExpandable={true} skillGroup={skillResults} /> : <SkillsTable isExpandable={true} skillGroup={skillResults} />}</div>
+    {skillsSection}
     <section className="concept-results-container">{conceptResultElements}</section>
   </main>)
 

@@ -14,11 +14,11 @@ module PublicProgressReports
                   .first
     end
 
-    def activity_session_report(classroom_unit_id, user_id, activity_id)
-      classroom_unit = ClassroomUnit.find(classroom_unit_id)
-      unit_id = classroom_unit.unit_id
-      classroom_id = classroom_unit.classroom_id
-      if unit_id && activity_id && classroom_id
+    def activity_session_report(unit_id, classroom_id, user_id, activity_id)
+      if Activity.diagnostic_activity_ids.include?(activity_id.to_i)
+        unit_query_string = "?unit=#{unit_id}"
+        { url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity_id}/classroom/#{classroom_id}/responses/#{user_id}#{unit_query_string}" }
+      elsif unit_id && activity_id && classroom_id
         {url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/student_report/#{user_id}"}
       end
     end

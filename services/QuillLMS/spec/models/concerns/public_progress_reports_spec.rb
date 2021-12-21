@@ -83,6 +83,54 @@ describe PublicProgressReports, type: :model do
     end
   end
 
+  describe '#activity_session_report' do
+    describe 'when the activity is a diagnostic' do
+      let(:classroom) {create(:classroom)}
+      let(:student) { create(:student)}
+
+      describe 'pre-test' do
+        let(:unit) {create(:unit)}
+        let(:post_test) { create(:diagnostic_activity)}
+        let(:activity) { create(:diagnostic_activity, follow_up_activity_id: post_test.id)}
+        let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
+        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
+        let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
+
+        it 'responds with a link' do
+          expect(FakeReports.new.activity_session_report(unit.id, classroom.id, student.id, activity.id)).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses/#{student.id}?unit=#{unit.id}"})
+        end
+      end
+
+      describe 'post-test' do
+        let(:unit) {create(:unit)}
+        let(:activity) { create(:diagnostic_activity)}
+        let!(:pre_test) { create(:diagnostic_activity, follow_up_activity_id: activity.id)}
+        let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
+        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
+        let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
+
+        it 'responds with a link' do
+          expect(FakeReports.new.activity_session_report(unit.id, classroom.id, student.id, activity.id)).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses/#{student.id}?unit=#{unit.id}"})
+        end
+      end
+
+      describe 'neither pre-test nor post-test' do
+        let(:unit) {create(:unit)}
+        let(:activity) { create(:diagnostic_activity)}
+        let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
+        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
+        let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
+
+        it 'responds with a link' do
+          expect(FakeReports.new.activity_session_report(unit.id, classroom.id, student.id, activity.id)).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses/#{student.id}?unit=#{unit.id}"})
+        end
+
+      end
+
+    end
+
+  end
+
   describe "#classrooms_with_students_for_report" do
     let!(:teacher) { create(:teacher) }
     let!(:unit) { create(:unit, user: teacher) }
