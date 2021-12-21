@@ -3,6 +3,7 @@ import qs from 'qs'
 import { withRouter, Link, } from 'react-router-dom';
 
 import {
+  baseDiagnosticImageSrc,
   noDataYet,
   fileDocumentIcon,
 } from './shared'
@@ -21,6 +22,8 @@ import {
   Tooltip,
   CLICK,
 } from '../../../../../Shared/index'
+
+const timeRewindIllustration = <img alt="Illustration of a clock with an arrow pointing backwards" src={`${baseDiagnosticImageSrc}/time-rewind.svg`} />
 
 const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => {
   const { name, description, not_yet_proficient_student_names, } = skillGroupSummary
@@ -111,6 +114,16 @@ export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match
 
   if (loading) { return <LoadingSpinner /> }
 
+  let emptyState
+
+  if (!skillGroupSummaries.length) {
+    emptyState = (<section className="results-empty-state">
+      {timeRewindIllustration}
+      <h2>This report is unavailable for diagnostics assigned before a certain date.</h2>
+      <p>If you have questions, please reach out to support@quill.org.</p>
+    </section>)
+  }
+
   const completedStudentCount = studentResults.filter(sr => sr.skill_groups).length
 
   const skillGroupSummaryCards = skillGroupSummaries.map(skillGroupSummary => <SkillGroupSummaryCard completedStudentCount={completedStudentCount} key={skillGroupSummary.name} skillGroupSummary={skillGroupSummary} />)
@@ -118,14 +131,15 @@ export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match
   return (<main className="results-summary-container">
     <header>
       <h1>Results summary</h1>
-      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698112-how-do-i-read-the-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
+      {!!skillGroupSummaries.length && <a className="focus-on-light" href="https://support.quill.org/en/articles/5698112-how-do-i-read-the-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>}
     </header>
     {mobileNavigation}
-    <section className="skill-group-summary-cards">{skillGroupSummaryCards}</section>
-    <section className="student-results">
+    {emptyState}
+    {!!skillGroupSummaries.length && <section className="skill-group-summary-cards">{skillGroupSummaryCards}</section>}
+    {!!skillGroupSummaries.length && (<section className="student-results">
       <h2>Student results</h2>
       <StudentResultsTable openPopover={openPopover} responsesLink={responsesLink} setOpenPopover={setOpenPopover} skillGroupSummaries={skillGroupSummaries} studentResults={studentResults} />
-    </section>
+    </section>)}
   </main>
   )
 }

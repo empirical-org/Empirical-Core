@@ -125,6 +125,11 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     classroom_id = last_activity_session&.classroom_unit&.classroom_id
     if !classroom_id
       return render json: {}, status: 404
+    elsif Activity.diagnostic_activity_ids.include?(activity_id.to_i)
+      activity_is_a_post_test = Activity.find_by(follow_up_activity_id: activity_id).present?
+      results_or_growth_results = activity_is_a_post_test ? 'growth_results' : 'results'
+      unit_query_string = "?unit=#{unit_id}"
+      render json: { url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity_id}/classroom/#{classroom_id}/#{results_or_growth_results}#{unit_query_string}" }
     else
       render json: { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students" }
     end
@@ -156,12 +161,23 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
   end
 
-  def report_from_classroom_unit_activity_and_user
-      act_sesh_report = activity_session_report(params[:classroom_unit_id].to_i, params[:user_id].to_i, params[:activity_id].to_i)
-      respond_to do |format|
-        format.html { redirect_to act_sesh_report[:url] }
-        format.json { render json: act_sesh_report.to_json }
-      end
+  def report_from_classroom_unit_and_activity_and_user
+    classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
+    unit_id = classroom_unit.unit_id
+    classroom_id = classroom_unit.classroom_id
+    act_sesh_report = activity_session_report(unit_id, classroom_id, params[:user_id].to_i, params[:activity_id].to_i)
+    respond_to do |format|
+      format.html { redirect_to act_sesh_report[:url] }
+      format.json { render json: act_sesh_report.to_json }
+    end
+  end
+
+  def report_from_classroom_and_unit_and_activity_and_user
+    act_sesh_report = activity_session_report(params[:unit_id], params[:classroom_id], params[:user_id].to_i, params[:activity_id].to_i)
+    respond_to do |format|
+      format.html { redirect_to act_sesh_report[:url] }
+      format.json { render json: act_sesh_report.to_json }
+    end
   end
 
   def diagnostic_status

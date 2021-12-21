@@ -26,6 +26,25 @@
   .step-content {
     width: 100%;
   }
+  .active-content-container {
+    .character-counter-container {
+      display: flex;
+      justify-content: space-between;
+      margin-left: 48px;
+      margin-top: 8px;
+      p {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.43;
+        &.approaching-limit {
+          color: #995f00
+        }
+        &.over-limit {
+          color: #e60017
+        }
+      }
+    }
+  }
   .passage-title {
     font-size: 16px;
     font-style: italic;
@@ -44,7 +63,7 @@
     color: white;
     width: calc(100% - 48px);
     padding: 15px 0px;
-    margin-top: 24px;
+    margin-top: 8px;
     border: none;
     display: flex;
     justify-content: center;

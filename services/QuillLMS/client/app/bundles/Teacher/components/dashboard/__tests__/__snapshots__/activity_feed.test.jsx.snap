@@ -171,7 +171,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "className": "focus-on-light",
             "completed": "Mar 5th",
             "id": 33,
-            "link": "/teachers/progress_reports/diagnostic_reports#/u/76/a/810/c/1/student_report/7",
+            "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/76/user/7/activity/810",
             "scoreTag": <span
               className="score-tag not-yet-proficient"
             >
@@ -184,7 +184,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "className": "focus-on-light",
             "completed": "Mar 5th",
             "id": 32,
-            "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/885/c/1/student_report/7",
+            "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/885",
             "scoreTag": <span
               className="score-tag proficient"
             >
@@ -197,7 +197,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "className": "focus-on-light",
             "completed": "Mar 5th",
             "id": 29,
-            "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/804/c/1/student_report/7",
+            "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/804",
             "scoreTag": <span
               className="score-tag proficient"
             >
@@ -210,7 +210,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "className": "focus-on-light",
             "completed": "Mar 5th",
             "id": 28,
-            "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/802/c/1/student_report/7",
+            "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/802",
             "scoreTag": <span
               className="score-tag nearly-proficient"
             >
@@ -223,7 +223,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "className": "focus-on-light",
             "completed": "Mar 5th",
             "id": 27,
-            "link": "/teachers/progress_reports/diagnostic_reports#/u/75/a/808/c/1/student_report/7",
+            "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/75/user/7/activity/808",
             "scoreTag": <span
               className="score-tag proficient"
             >
@@ -236,7 +236,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "className": "focus-on-light",
             "completed": "Mar 5th",
             "id": 26,
-            "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/801/c/1/student_report/7",
+            "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/801",
             "scoreTag": <span
               className="score-tag nearly-proficient"
             >
@@ -249,7 +249,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "className": "focus-on-light",
             "completed": "Mar 5th",
             "id": 25,
-            "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/181/c/1/student_report/7",
+            "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/181",
             "scoreTag": <span
               className="score-tag proficient"
             >
@@ -262,7 +262,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "className": "focus-on-light",
             "completed": "Mar 4th",
             "id": 24,
-            "link": "/teachers/progress_reports/diagnostic_reports#/u/85/a/849/c/6/student_report/7",
+            "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/6/unit/85/user/7/activity/849",
             "scoreTag": <span
               className="score-tag completed"
             >
@@ -275,7 +275,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "className": "focus-on-light",
             "completed": "Mar 3rd",
             "id": 23,
-            "link": "/teachers/progress_reports/diagnostic_reports#/u/85/a/849/c/1/student_report/7",
+            "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/85/user/7/activity/849",
             "scoreTag": <span
               className="score-tag completed"
             >
@@ -288,7 +288,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "className": "focus-on-light",
             "completed": "Dec 1st, 2020",
             "id": 3,
-            "link": "/teachers/progress_reports/diagnostic_reports#/u/4/a/849/c/1/student_report/6",
+            "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/6/activity/849",
             "scoreTag": <span
               className="score-tag completed"
             >
@@ -301,7 +301,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "className": "focus-on-light",
             "completed": "Dec 1st, 2020",
             "id": 2,
-            "link": "/teachers/progress_reports/diagnostic_reports#/u/4/a/849/c/1/student_report/7",
+            "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/7/activity/849",
             "scoreTag": <span
               className="score-tag completed"
             >
@@ -380,7 +380,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
         >
           <a
             className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#/u/76/a/810/c/1/student_report/7"
+            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/76/user/7/activity/810"
             key="33"
           >
             <span
@@ -486,7 +486,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           </a>
           <a
             className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#/u/49/a/885/c/1/student_report/7"
+            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/885"
             key="32"
           >
             <span
@@ -592,7 +592,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           </a>
           <a
             className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#/u/49/a/804/c/1/student_report/7"
+            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/804"
             key="29"
           >
             <span
@@ -657,7 +657,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           </a>
           <a
             className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#/u/49/a/802/c/1/student_report/7"
+            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/802"
             key="28"
           >
             <span
@@ -722,7 +722,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           </a>
           <a
             className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#/u/75/a/808/c/1/student_report/7"
+            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/75/user/7/activity/808"
             key="27"
           >
             <span
@@ -787,7 +787,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           </a>
           <a
             className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#/u/49/a/801/c/1/student_report/7"
+            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/801"
             key="26"
           >
             <span
@@ -852,7 +852,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           </a>
           <a
             className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#/u/49/a/181/c/1/student_report/7"
+            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/181"
             key="25"
           >
             <span
@@ -958,7 +958,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           </a>
           <a
             className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#/u/85/a/849/c/6/student_report/7"
+            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/6/unit/85/user/7/activity/849"
             key="24"
           >
             <span
@@ -1023,7 +1023,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           </a>
           <a
             className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#/u/85/a/849/c/1/student_report/7"
+            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/85/user/7/activity/849"
             key="23"
           >
             <span
@@ -1088,7 +1088,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           </a>
           <a
             className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#/u/4/a/849/c/1/student_report/6"
+            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/6/activity/849"
             key="3"
           >
             <span
@@ -1153,7 +1153,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           </a>
           <a
             className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#/u/4/a/849/c/1/student_report/7"
+            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/7/activity/849"
             key="2"
           >
             <span
@@ -1388,7 +1388,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "className": "focus-on-light",
           "completed": "Mar 5th",
           "id": 33,
-          "link": "/teachers/progress_reports/diagnostic_reports#/u/76/a/810/c/1/student_report/7",
+          "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/76/user/7/activity/810",
           "scoreTag": <span
             className="score-tag not-yet-proficient"
           >
@@ -1400,7 +1400,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
     >
       <a
         className="mobile-data-row focus-on-light"
-        href="/teachers/progress_reports/diagnostic_reports#/u/76/a/810/c/1/student_report/7"
+        href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/76/user/7/activity/810"
       >
         <div
           className="top-row"
@@ -1432,7 +1432,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "className": "focus-on-light",
           "completed": "Mar 5th",
           "id": 32,
-          "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/885/c/1/student_report/7",
+          "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/885",
           "scoreTag": <span
             className="score-tag proficient"
           >
@@ -1444,7 +1444,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
     >
       <a
         className="mobile-data-row focus-on-light"
-        href="/teachers/progress_reports/diagnostic_reports#/u/49/a/885/c/1/student_report/7"
+        href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/885"
       >
         <div
           className="top-row"
@@ -1476,7 +1476,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "className": "focus-on-light",
           "completed": "Mar 5th",
           "id": 29,
-          "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/804/c/1/student_report/7",
+          "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/804",
           "scoreTag": <span
             className="score-tag proficient"
           >
@@ -1488,7 +1488,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
     >
       <a
         className="mobile-data-row focus-on-light"
-        href="/teachers/progress_reports/diagnostic_reports#/u/49/a/804/c/1/student_report/7"
+        href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/804"
       >
         <div
           className="top-row"
@@ -1520,7 +1520,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "className": "focus-on-light",
           "completed": "Mar 5th",
           "id": 28,
-          "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/802/c/1/student_report/7",
+          "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/802",
           "scoreTag": <span
             className="score-tag nearly-proficient"
           >
@@ -1532,7 +1532,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
     >
       <a
         className="mobile-data-row focus-on-light"
-        href="/teachers/progress_reports/diagnostic_reports#/u/49/a/802/c/1/student_report/7"
+        href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/802"
       >
         <div
           className="top-row"
@@ -1564,7 +1564,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "className": "focus-on-light",
           "completed": "Mar 5th",
           "id": 27,
-          "link": "/teachers/progress_reports/diagnostic_reports#/u/75/a/808/c/1/student_report/7",
+          "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/75/user/7/activity/808",
           "scoreTag": <span
             className="score-tag proficient"
           >
@@ -1576,7 +1576,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
     >
       <a
         className="mobile-data-row focus-on-light"
-        href="/teachers/progress_reports/diagnostic_reports#/u/75/a/808/c/1/student_report/7"
+        href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/75/user/7/activity/808"
       >
         <div
           className="top-row"
@@ -1608,7 +1608,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "className": "focus-on-light",
           "completed": "Mar 5th",
           "id": 26,
-          "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/801/c/1/student_report/7",
+          "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/801",
           "scoreTag": <span
             className="score-tag nearly-proficient"
           >
@@ -1620,7 +1620,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
     >
       <a
         className="mobile-data-row focus-on-light"
-        href="/teachers/progress_reports/diagnostic_reports#/u/49/a/801/c/1/student_report/7"
+        href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/801"
       >
         <div
           className="top-row"
@@ -1652,7 +1652,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "className": "focus-on-light",
           "completed": "Mar 5th",
           "id": 25,
-          "link": "/teachers/progress_reports/diagnostic_reports#/u/49/a/181/c/1/student_report/7",
+          "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/181",
           "scoreTag": <span
             className="score-tag proficient"
           >
@@ -1664,7 +1664,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
     >
       <a
         className="mobile-data-row focus-on-light"
-        href="/teachers/progress_reports/diagnostic_reports#/u/49/a/181/c/1/student_report/7"
+        href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/181"
       >
         <div
           className="top-row"
@@ -1696,7 +1696,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "className": "focus-on-light",
           "completed": "Mar 4th",
           "id": 24,
-          "link": "/teachers/progress_reports/diagnostic_reports#/u/85/a/849/c/6/student_report/7",
+          "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/6/unit/85/user/7/activity/849",
           "scoreTag": <span
             className="score-tag completed"
           >
@@ -1708,7 +1708,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
     >
       <a
         className="mobile-data-row focus-on-light"
-        href="/teachers/progress_reports/diagnostic_reports#/u/85/a/849/c/6/student_report/7"
+        href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/6/unit/85/user/7/activity/849"
       >
         <div
           className="top-row"
@@ -1740,7 +1740,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "className": "focus-on-light",
           "completed": "Mar 3rd",
           "id": 23,
-          "link": "/teachers/progress_reports/diagnostic_reports#/u/85/a/849/c/1/student_report/7",
+          "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/85/user/7/activity/849",
           "scoreTag": <span
             className="score-tag completed"
           >
@@ -1752,7 +1752,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
     >
       <a
         className="mobile-data-row focus-on-light"
-        href="/teachers/progress_reports/diagnostic_reports#/u/85/a/849/c/1/student_report/7"
+        href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/85/user/7/activity/849"
       >
         <div
           className="top-row"
@@ -1784,7 +1784,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "className": "focus-on-light",
           "completed": "Dec 1st, 2020",
           "id": 3,
-          "link": "/teachers/progress_reports/diagnostic_reports#/u/4/a/849/c/1/student_report/6",
+          "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/6/activity/849",
           "scoreTag": <span
             className="score-tag completed"
           >
@@ -1796,7 +1796,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
     >
       <a
         className="mobile-data-row focus-on-light"
-        href="/teachers/progress_reports/diagnostic_reports#/u/4/a/849/c/1/student_report/6"
+        href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/6/activity/849"
       >
         <div
           className="top-row"
@@ -1828,7 +1828,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "className": "focus-on-light",
           "completed": "Dec 1st, 2020",
           "id": 2,
-          "link": "/teachers/progress_reports/diagnostic_reports#/u/4/a/849/c/1/student_report/7",
+          "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/7/activity/849",
           "scoreTag": <span
             className="score-tag completed"
           >
@@ -1840,7 +1840,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
     >
       <a
         className="mobile-data-row focus-on-light"
-        href="/teachers/progress_reports/diagnostic_reports#/u/4/a/849/c/1/student_report/7"
+        href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/7/activity/849"
       >
         <div
           className="top-row"

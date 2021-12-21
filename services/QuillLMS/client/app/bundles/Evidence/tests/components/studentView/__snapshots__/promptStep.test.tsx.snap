@@ -44,63 +44,75 @@ exports[`PromptStep component active state before any responses have been submit
         <div
           className="active-content-container"
         >
-          <EditorContainer
-            className="editor"
-            disabled={false}
-            handleFocus={[Function]}
-            handleTextChange={[Function]}
-            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
-            innerRef={[Function]}
-            isResettable={false}
-            promptText="Governments should make voting compulsory because"
-            resetText={[Function]}
-            stripHtml={[Function]}
-          >
-            <div
-              className="editor-container"
+          <div>
+            <EditorContainer
+              className="editor"
+              disabled={false}
+              handleFocus={[Function]}
+              handleTextChange={[Function]}
+              html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
+              innerRef={[Function]}
+              isResettable={false}
+              promptText="Governments should make voting compulsory because"
+              resetText={[Function]}
+              stripHtml={[Function]}
             >
-              <ContentEditable
-                className="editor"
-                data-gramm={false}
-                disabled={false}
-                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
-                innerRef={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                spellCheck={true}
+              <div
+                className="editor-container"
               >
-                <div
+                <ContentEditable
                   className="editor"
-                  contentEditable={true}
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>",
-                    }
-                  }
                   data-gramm={false}
                   disabled={false}
-                  onBlur={[Function]}
+                  html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
+                  innerRef={[Function]}
                   onChange={[Function]}
                   onFocus={[Function]}
-                  onInput={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyUp={[Function]}
                   spellCheck={true}
-                />
-              </ContentEditable>
-              <button
-                className="disabled clear-button"
-                type="button"
-              >
-                <img
-                  alt="circle with an x in it"
-                  className="clear"
-                  src="undefined/images/icons/clear-disabled.svg"
-                />
-                Clear response
-              </button>
+                >
+                  <div
+                    className="editor"
+                    contentEditable={true}
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>",
+                      }
+                    }
+                    data-gramm={false}
+                    disabled={false}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    onInput={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                    spellCheck={true}
+                  />
+                </ContentEditable>
+                <button
+                  className="disabled clear-button"
+                  type="button"
+                >
+                  <img
+                    alt="circle with an x in it"
+                    className="clear"
+                    src="undefined/images/icons/clear-disabled.svg"
+                  />
+                  Clear response
+                </button>
+              </div>
+            </EditorContainer>
+            <div
+              className="character-counter-container"
+            >
+              <p>
+                Your response is too long for our feedback bot to understand
+              </p>
+              <p>
+                undefined/200
+              </p>
             </div>
-          </EditorContainer>
+          </div>
           <button
             className="quill-button focus-on-light disabled"
             onClick={[Function]}
@@ -171,64 +183,76 @@ exports[`PromptStep component active state when a suboptimal response has been s
         <div
           className="active-content-container"
         >
-          <EditorContainer
-            className="editor suboptimal"
-            disabled={false}
-            handleFocus={[Function]}
-            handleTextChange={[Function]}
-            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
-            innerRef={[Function]}
-            isResettable={true}
-            promptText="Governments should make voting compulsory because"
-            resetText={[Function]}
-            stripHtml={[Function]}
-          >
-            <div
-              className="editor-container"
+          <div>
+            <EditorContainer
+              className="editor suboptimal"
+              disabled={false}
+              handleFocus={[Function]}
+              handleTextChange={[Function]}
+              html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
+              innerRef={[Function]}
+              isResettable={true}
+              promptText="Governments should make voting compulsory because"
+              resetText={[Function]}
+              stripHtml={[Function]}
             >
-              <ContentEditable
-                className="editor suboptimal"
-                data-gramm={false}
-                disabled={false}
-                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
-                innerRef={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                spellCheck={true}
+              <div
+                className="editor-container"
               >
-                <div
+                <ContentEditable
                   className="editor suboptimal"
-                  contentEditable={true}
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>",
-                    }
-                  }
                   data-gramm={false}
                   disabled={false}
-                  onBlur={[Function]}
+                  html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
+                  innerRef={[Function]}
                   onChange={[Function]}
                   onFocus={[Function]}
-                  onInput={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyUp={[Function]}
                   spellCheck={true}
-                />
-              </ContentEditable>
-              <button
-                className="clear-button"
-                onClick={[Function]}
-                type="button"
-              >
-                <img
-                  alt="circle with an x in it"
-                  className="clear"
-                  src="undefined/images/icons/clear-enabled.svg"
-                />
-                Clear response
-              </button>
+                >
+                  <div
+                    className="editor suboptimal"
+                    contentEditable={true}
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>",
+                      }
+                    }
+                    data-gramm={false}
+                    disabled={false}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    onInput={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                    spellCheck={true}
+                  />
+                </ContentEditable>
+                <button
+                  className="clear-button"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="circle with an x in it"
+                    className="clear"
+                    src="undefined/images/icons/clear-enabled.svg"
+                  />
+                  Clear response
+                </button>
+              </div>
+            </EditorContainer>
+            <div
+              className="character-counter-container"
+            >
+              <p>
+                Your response is too long for our feedback bot to understand
+              </p>
+              <p>
+                undefined/200
+              </p>
             </div>
-          </EditorContainer>
+          </div>
           <button
             className="quill-button focus-on-light disabled"
             onClick={[Function]}
@@ -407,52 +431,64 @@ exports[`PromptStep component active state when an optimal response has been sub
         <div
           className="active-content-container"
         >
-          <EditorContainer
-            className="editor optimal disabled"
-            disabled={true}
-            handleFocus={[Function]}
-            handleTextChange={[Function]}
-            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
-            innerRef={[Function]}
-            isResettable={true}
-            promptText="Governments should make voting compulsory because"
-            resetText={[Function]}
-            stripHtml={[Function]}
-          >
-            <div
-              className="editor-container"
+          <div>
+            <EditorContainer
+              className="editor optimal disabled"
+              disabled={true}
+              handleFocus={[Function]}
+              handleTextChange={[Function]}
+              html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
+              innerRef={[Function]}
+              isResettable={true}
+              promptText="Governments should make voting compulsory because"
+              resetText={[Function]}
+              stripHtml={[Function]}
             >
-              <ContentEditable
-                className="editor optimal disabled"
-                data-gramm={false}
-                disabled={true}
-                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
-                innerRef={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                spellCheck={true}
+              <div
+                className="editor-container"
               >
-                <div
+                <ContentEditable
                   className="editor optimal disabled"
-                  contentEditable={false}
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>",
-                    }
-                  }
                   data-gramm={false}
                   disabled={true}
-                  onBlur={[Function]}
+                  html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
+                  innerRef={[Function]}
                   onChange={[Function]}
                   onFocus={[Function]}
-                  onInput={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyUp={[Function]}
                   spellCheck={true}
-                />
-              </ContentEditable>
+                >
+                  <div
+                    className="editor optimal disabled"
+                    contentEditable={false}
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>",
+                      }
+                    }
+                    data-gramm={false}
+                    disabled={true}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    onInput={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                    spellCheck={true}
+                  />
+                </ContentEditable>
+              </div>
+            </EditorContainer>
+            <div
+              className="character-counter-container"
+            >
+              <p>
+                Your response is too long for our feedback bot to understand
+              </p>
+              <p>
+                undefined/200
+              </p>
             </div>
-          </EditorContainer>
+          </div>
           <button
             className="quill-button focus-on-light"
             onClick={[Function]}
@@ -659,52 +695,64 @@ exports[`PromptStep component active state when the max attempts have been reach
         <div
           className="active-content-container"
         >
-          <EditorContainer
-            className="editor suboptimal disabled"
-            disabled={true}
-            handleFocus={[Function]}
-            handleTextChange={[Function]}
-            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
-            innerRef={[Function]}
-            isResettable={true}
-            promptText="Governments should make voting compulsory because"
-            resetText={[Function]}
-            stripHtml={[Function]}
-          >
-            <div
-              className="editor-container"
+          <div>
+            <EditorContainer
+              className="editor suboptimal disabled"
+              disabled={true}
+              handleFocus={[Function]}
+              handleTextChange={[Function]}
+              html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
+              innerRef={[Function]}
+              isResettable={true}
+              promptText="Governments should make voting compulsory because"
+              resetText={[Function]}
+              stripHtml={[Function]}
             >
-              <ContentEditable
-                className="editor suboptimal disabled"
-                data-gramm={false}
-                disabled={true}
-                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
-                innerRef={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                spellCheck={true}
+              <div
+                className="editor-container"
               >
-                <div
+                <ContentEditable
                   className="editor suboptimal disabled"
-                  contentEditable={false}
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>",
-                    }
-                  }
                   data-gramm={false}
                   disabled={true}
-                  onBlur={[Function]}
+                  html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
+                  innerRef={[Function]}
                   onChange={[Function]}
                   onFocus={[Function]}
-                  onInput={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyUp={[Function]}
                   spellCheck={true}
-                />
-              </ContentEditable>
+                >
+                  <div
+                    className="editor suboptimal disabled"
+                    contentEditable={false}
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>",
+                      }
+                    }
+                    data-gramm={false}
+                    disabled={true}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    onInput={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                    spellCheck={true}
+                  />
+                </ContentEditable>
+              </div>
+            </EditorContainer>
+            <div
+              className="character-counter-container"
+            >
+              <p>
+                Your response is too long for our feedback bot to understand
+              </p>
+              <p>
+                undefined/200
+              </p>
             </div>
-          </EditorContainer>
+          </div>
           <button
             className="quill-button focus-on-light"
             onClick={[Function]}
@@ -913,52 +961,64 @@ exports[`PromptStep component active state when the max attempts have been reach
         <div
           className="active-content-container"
         >
-          <EditorContainer
-            className="editor optimal disabled"
-            disabled={true}
-            handleFocus={[Function]}
-            handleTextChange={[Function]}
-            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
-            innerRef={[Function]}
-            isResettable={true}
-            promptText="Governments should make voting compulsory because"
-            resetText={[Function]}
-            stripHtml={[Function]}
-          >
-            <div
-              className="editor-container"
+          <div>
+            <EditorContainer
+              className="editor optimal disabled"
+              disabled={true}
+              handleFocus={[Function]}
+              handleTextChange={[Function]}
+              html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
+              innerRef={[Function]}
+              isResettable={true}
+              promptText="Governments should make voting compulsory because"
+              resetText={[Function]}
+              stripHtml={[Function]}
             >
-              <ContentEditable
-                className="editor optimal disabled"
-                data-gramm={false}
-                disabled={true}
-                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
-                innerRef={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                spellCheck={true}
+              <div
+                className="editor-container"
               >
-                <div
+                <ContentEditable
                   className="editor optimal disabled"
-                  contentEditable={false}
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>",
-                    }
-                  }
                   data-gramm={false}
                   disabled={true}
-                  onBlur={[Function]}
+                  html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
+                  innerRef={[Function]}
                   onChange={[Function]}
                   onFocus={[Function]}
-                  onInput={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyUp={[Function]}
                   spellCheck={true}
-                />
-              </ContentEditable>
+                >
+                  <div
+                    className="editor optimal disabled"
+                    contentEditable={false}
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>",
+                      }
+                    }
+                    data-gramm={false}
+                    disabled={true}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    onInput={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                    spellCheck={true}
+                  />
+                </ContentEditable>
+              </div>
+            </EditorContainer>
+            <div
+              className="character-counter-container"
+            >
+              <p>
+                Your response is too long for our feedback bot to understand
+              </p>
+              <p>
+                undefined/200
+              </p>
             </div>
-          </EditorContainer>
+          </div>
           <button
             className="quill-button focus-on-light"
             type="button"
