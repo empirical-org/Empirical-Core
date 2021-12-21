@@ -133,6 +133,46 @@ RSpec.describe UserCacheable, type: :model do
     end
   end
 
+  describe '#classroom_unit_by_ids_cache' do
+    let(:teacher) {create(:teacher) }
+    let(:classrooms_teacher) {create(:classrooms_teacher, user: teacher) }
+    let(:classroom) { classrooms_teacher.classroom }
+    let(:unit_activity1) { create(:unit_activity)}
+    let(:activity) { unit_activity1.activity }
+    let(:classroom_unit1) {create(:classroom_unit, classroom: classroom, unit: unit_activity1.unit) }
+    let(:unit_activity2) { create(:unit_activity, activity: activity)}
+    let(:classroom_unit2) {create(:classroom_unit, classroom: classroom, unit: unit_activity2.unit) }
+
+    it 'should call model_cache with last updated unit if no unit_id' do
+      expect(teacher).to receive(:model_cache).with(classroom_unit2, key: 'test.key', groups: {page: 1})
+
+      teacher.classroom_unit_by_ids_cache(classroom_id: classroom.id, unit_id: nil, activity_id: activity.id, key: 'test.key', groups: {page: 1})
+    end
+
+    it 'should call model_cache with first matching unit if there is a unit_id' do
+      expect(teacher).to receive(:model_cache).with(classroom_unit1, key: 'test.key', groups: {page: 1})
+
+      teacher.classroom_unit_by_ids_cache(classroom_id: classroom.id, unit_id: unit_activity1.unit_id, activity_id: activity.id, key: 'test.key', groups: {page: 1})
+    end
+
+    it 'should yield to model_cache' do
+      expect {|b| teacher.classroom_unit_by_ids_cache(classroom_id: classroom.id, unit_id: unit_activity1.unit_id, activity_id: activity.id, key: 'test.key', groups: {page: 1}, &b) }.to yield_control.exactly(1).times
+    end
+
+    it 'should return cached value until the cache_key changes' do
+      i = 0
+      first_fetch = teacher.classroom_unit_by_ids_cache(classroom_id: classroom.id, unit_id: nil, activity_id: activity.id, key: 'test.key') { i += 1 }
+      second_fetch = teacher.classroom_unit_by_ids_cache(classroom_id: classroom.id, unit_id: nil, activity_id: activity.id, key: 'test.key') { i += 1 }
+
+      classroom_unit2.touch
+
+      post_update_fetch = teacher.classroom_unit_by_ids_cache(classroom_id: classroom.id, unit_id: nil, activity_id: activity.id, key: 'test.key') { i += 1 }
+
+      expect(first_fetch).to eq(1)
+      expect(second_fetch).to eq(1)
+      expect(post_update_fetch).to eq(2)
+    end
+  end
 
   describe '#model_cache_key' do
     let(:object) { double('fake object') }

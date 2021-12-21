@@ -60,9 +60,13 @@ module UserCacheable
     end
 
     # use maximium updated_at of these classroom_units
-    ClassroomUnit.where(classroom_id: classroom_id)
-      .joins(:unit, :unit_activities)
+    ClassroomUnit
+      .select("classroom_units.*, MAX(classroom_units.updated_at)")
+      .unscoped
+      .where(classroom_id: classroom_id)
+      .joins(:unit_activities)
       .where(unit: {unit_activities: {activity_id: activity_id}})
-      .maximum('classroom_units.updated_at')
+      .group("classroom_units.id")
+      .first
   end
 end
