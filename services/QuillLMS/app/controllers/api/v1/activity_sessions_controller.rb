@@ -156,7 +156,8 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       :activity_session_id,
       :concept_id,
       :concept_uid,
-      :question_type
+      :question_type,
+      :metadata
     ]
   end
 

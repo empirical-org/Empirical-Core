@@ -110,9 +110,11 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     }
 
     componentDidUpdate(prevProps) {
-      const { timeTracking, introSkipped, } = this.state
+      const { timeTracking, introSkipped, saved, saving, } = this.state
       const { previewMode, questions, questionToPreview, grammarActivities, session, skippedToQuestionFromIntro, dispatch, handleToggleQuestion, } = this.props;
       const { hasreceiveddata } = grammarActivities
+
+      if (saved || saving) { return }
 
       const activityUID = getParameterByName('uid', window.location.href)
 
@@ -283,8 +285,8 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         },
         (err, httpResponse, body) => {
           if (httpResponse && httpResponse.statusCode === 200) {
-            document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
             this.setState({ saved: true, });
+            document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
           } else {
             this.setState({
               saved: false,
