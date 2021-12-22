@@ -120,16 +120,4 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
     end
   end
 
-  describe "#destroy" do
-    it "should destroy the existing record" do
-      delete :destroy, params: { id: active_activity_session.uid }, as: :json
-      expect(ActiveActivitySession.where(uid: active_activity_session.uid).count).to eq(0)
-    end
-
-    it "should return a 404 if the requested activity session is not found" do
-      delete :destroy, params: { id: 'doesnotexist' }, as: :json
-      expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
-    end
-  end
 end

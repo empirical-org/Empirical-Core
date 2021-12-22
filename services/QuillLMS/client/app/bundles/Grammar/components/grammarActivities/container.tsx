@@ -19,7 +19,6 @@ import {
   checkAnswer,
   startListeningToFollowUpQuestionsForProofreaderSession,
   startNewSession,
-  removeSession
 } from "../../actions/session";
 import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback'
 import { startListeningToConcepts } from '../../actions/concepts'
@@ -270,12 +269,6 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       }
     }
 
-    removeSession = () => {
-      const sessionID = getParameterByName('student', window.location.href)
-      const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
-      removeSession(sessionID || proofreaderSessionId);
-    }
-
     finishActivitySession = (sessionID: string, results: FormattedConceptResult[], score: number, data) => {
       request(
         { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
@@ -290,7 +283,6 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         },
         (err, httpResponse, body) => {
           if (httpResponse && httpResponse.statusCode === 200) {
-            this.removeSession()
             document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
             this.setState({ saved: true, });
           } else {
@@ -320,7 +312,6 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         },
         (err, httpResponse, body) => {
           if (httpResponse && httpResponse.statusCode === 200) {
-            this.removeSession()
             if (!showTurkCode && !previewMode) {
               document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
             }

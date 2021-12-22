@@ -115,6 +115,15 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       end
     end
 
+    context 'the active activity session exists and the activity session is completed' do
+      it 'the active activity session gets deleted' do
+        active_activity_session = create(:active_activity_session, uid: activity_session.uid)
+
+        put :update, params: { id: activity_session.uid, state: 'finished' }, as: :json
+        expect(ActiveActivitySession.find_by_uid(activity_session.uid)).not_to be
+      end
+    end
+
     context 'data time_tracking is included ' do
 
       it 'updates timespent on activity session' do
