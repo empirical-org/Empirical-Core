@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GoogleIntegration
-  class TeacherClassroomDataAdapter
+  class TeacherClassroomDataAdapter < ApplicationService
     attr_reader :user, :data
 
     def initialize(user, data)
@@ -15,7 +15,7 @@ module GoogleIntegration
 
     private def clean_data
       data.tap do |cleaned_data|
-        cleaned_data[:google_classroom_id] = data.fetch(:id)
+        cleaned_data[:google_classroom_id] = data.delete(:id)
         cleaned_data[user_role_id_key] = user.id
       end
     end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GoogleIntegration
-  class TeacherClassroomsStudentsImporter
+  class TeacherClassroomsStudentsImporter < ApplicationService
     attr_reader :teacher, :selected_classroom_ids
 
     def initialize(teacher, selected_classroom_ids)
@@ -14,7 +14,7 @@ module GoogleIntegration
     end
 
     private def classroom_students_client
-      @classroom_students_client ||= Classroom::Requesters::Students.generate(teacher_client)
+      @classroom_students_client ||= GoogleIntegration::Classroom::Requesters::Students.generate(teacher_client)
     end
 
     private def classrooms
@@ -26,8 +26,7 @@ module GoogleIntegration
     end
 
     private def import_classrooms_students
-      classrooms_students_data
-        .each { |classroom_student_data| ClassroomStudentsImporter.new(classroom_student_data).run }
+      classrooms_students_data.each { |classroom_student_data| ClassroomStudentsImporter.run(classroom_student_data) }
     end
 
     private def teacher_client
