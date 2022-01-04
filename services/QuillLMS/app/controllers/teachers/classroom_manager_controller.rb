@@ -198,7 +198,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       .each { |classroom_data| GoogleIntegration::ClassroomImporter.run(classroom_data) }
 
     GoogleIntegration::TeacherClassroomsCache.del(current_user.id)
-    GoogleIntegration::RetrieveTecherClassroomsWorker.perform_async(current_user.id)
+    GoogleIntegration::RetrieveTeacherClassroomsWorker.perform_async(current_user.id)
     render json: { classrooms: current_user.google_classrooms }.to_json
   end
 
