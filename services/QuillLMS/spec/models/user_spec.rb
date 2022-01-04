@@ -1281,13 +1281,25 @@ describe User, type: :model do
 
   describe '#google_authorized?' do
     context 'user without auth_credentials is unauthorized' do
-      it { expect(user.google_authorized?).to be false }
+      it { expect(user.google_authorized?).to be_falsey }
     end
 
     context 'user with auth credentials has valid authorization' do
       let(:google_user) { create(:google_auth_credential).user }
 
       it { expect(google_user.google_authorized?).to be true }
+    end
+  end
+
+  describe '#clever_authorized?' do
+    context 'user without auth_credentials is unauthorized' do
+      it { expect(user.clever_authorized?).to be_falsey }
+    end
+
+    context 'user with auth credentials has valid authorization' do
+      let(:clever_user) { create(:clever_library_auth_credential).user }
+
+      it { expect(clever_user.clever_authorized?).to be true }
     end
   end
 end
