@@ -16,7 +16,7 @@ module GoogleIntegration
     end
 
     private def classrooms_data
-      deserialized_classrooms_data.map { |data| TeacherClassroomDataAdapter.new(user, data).run }
+      deserialized_classrooms_data.map { |data| TeacherClassroomDataAdapter.run(user, data) }
     end
 
     private def deserialized_classrooms_data
