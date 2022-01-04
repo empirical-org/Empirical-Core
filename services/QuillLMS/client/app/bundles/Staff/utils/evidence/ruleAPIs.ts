@@ -71,6 +71,7 @@ export const updateRule = async (ruleId: number, rule: RuleInterface) => {
     method: 'PUT',
     body: JSON.stringify({ rule })
   });
+
   const { status } = response;
 
   if(requestFailed(status)) {

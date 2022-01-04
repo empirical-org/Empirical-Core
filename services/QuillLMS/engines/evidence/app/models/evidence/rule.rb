@@ -37,13 +37,13 @@ module Evidence
     validate :one_plagiarism_per_prompt, on: :create, if: :plagiarism?
 
     has_many :feedbacks, inverse_of: :rule, dependent: :destroy
-    has_one :plagiarism_text, inverse_of: :rule, dependent: :destroy
+    has_many :plagiarism_texts, inverse_of: :rule, dependent: :destroy
     has_one :label, inverse_of: :rule, dependent: :destroy
     has_many :prompts_rules, inverse_of: :rule
     has_many :prompts, through: :prompts_rules, inverse_of: :rules
     has_many :regex_rules, inverse_of: :rule, dependent: :destroy
 
-    accepts_nested_attributes_for :plagiarism_text
+    accepts_nested_attributes_for :plagiarism_texts, allow_destroy: true
     accepts_nested_attributes_for :feedbacks, allow_destroy: true
     accepts_nested_attributes_for :label
     accepts_nested_attributes_for :regex_rules
@@ -61,7 +61,7 @@ module Evidence
 
       super(options.reverse_merge(
         only: [:id, :uid, :name, :note, :universal, :rule_type, :optimal, :state, :suborder, :concept_uid, :prompt_ids],
-        include: [:plagiarism_text, :feedbacks, :label, :regex_rules],
+        include: [:plagiarism_texts, :feedbacks, :label, :regex_rules],
         methods: [:prompt_ids, :display_name, :conditional]
       ))
     end

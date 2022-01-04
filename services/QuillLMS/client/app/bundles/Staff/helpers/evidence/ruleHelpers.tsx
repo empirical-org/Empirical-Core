@@ -33,10 +33,10 @@ export function handleSetRuleConceptUID(value, setRuleConceptUID) { setRuleConce
 
 export function handleSetRuleNote(text: string, setRuleNote) { setRuleNote(text) }
 
-export function handleSetPlagiarismText(text: string, plagiarismText, setPlagiarismText) {
-  const plagiarismTextObject = {...plagiarismText};
-  plagiarismTextObject.text = text;
-  setPlagiarismText(plagiarismTextObject)
+export function handleSetPlagiarismTexts(text: string, index: number, plagiarismTexts, setPlagiarismTexts) {
+  const newPlagiarismTexts = [...plagiarismTexts]
+  newPlagiarismTexts[index].text = text;
+  setPlagiarismTexts(newPlagiarismTexts)
 }
 
 export function handleRulePromptChange(e: InputEvent, rulePrompts, setRulePrompts) {
@@ -286,7 +286,7 @@ const buildFeedbacks = (feedbacks) => {
 }
 
 export const buildRule = ({
-  plagiarismText,
+  plagiarismTexts,
   regexRules,
   rule,
   rulesCount,
@@ -336,10 +336,11 @@ export const buildRule = ({
     });
     newOrUpdatedRule.regex_rules_attributes = rules;
   } else if(newOrUpdatedRule.rule_type === PLAGIARISM) {
-    newOrUpdatedRule.plagiarism_text_attributes = {
+    const rules = plagiarismTexts.map(plagiarismText => ({
       id: plagiarismText.id,
       text: stripHtml(plagiarismText.text)
-    };
+    }))
+    newOrUpdatedRule.plagiarism_texts_attributes = rules
   } else if(newOrUpdatedRule.rule_type === AUTO_ML) {
     newOrUpdatedRule.label_attributes = {
       name: ruleLabelName
@@ -352,7 +353,7 @@ export const buildRule = ({
 }
 
 export async function handleSubmitRule({
-  plagiarismText,
+  plagiarismTexts,
   regexRules,
   rule,
   ruleName,
@@ -372,7 +373,7 @@ export async function handleSubmitRule({
   universalRulesCount
 }) {
   const newOrUpdatedRule = buildRule({
-    plagiarismText,
+    plagiarismTexts,
     regexRules,
     rule,
     ruleName,
@@ -399,8 +400,12 @@ export async function handleSubmitRule({
       state.push(regexRules[key].regex_text);
     });
   } else if(ruleType.value === PLAGIARISM) {
-    keys = keys.concat(['Plagiarism Text', 'First Plagiarism Feedback', 'Second Plagiarism Feedback']);
-    state = state.concat([plagiarismText.text, ruleFeedbacks[0].text, ruleFeedbacks[1].text]);
+    plagiarismTexts.map((plagiarismText, i) => {
+      keys.push(`Plagiarism Text - Text String ${i + 1}`);
+      state.push(plagiarismText.text);
+    });
+    keys = keys.concat(['First Plagiarism Feedback', 'Second Plagiarism Feedback']);
+    state = state.concat([ruleFeedbacks[0].text, ruleFeedbacks[1].text]);
   } else if(ruleType.value === AUTO_ML) {
     keys.push('Label Name');
     state.push(ruleLabelName);

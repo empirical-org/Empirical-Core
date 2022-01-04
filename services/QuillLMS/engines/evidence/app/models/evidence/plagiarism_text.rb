@@ -6,7 +6,7 @@ module Evidence
 
     include Evidence::ChangeLog
 
-    belongs_to :rule, inverse_of: :plagiarism_text
+    belongs_to :rule, inverse_of: :plagiarism_texts
 
     validates_presence_of :rule
     validates :text, presence: true
