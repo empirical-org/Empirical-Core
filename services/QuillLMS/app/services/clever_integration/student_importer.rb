@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CleverIntegration
-  class StudentImporter
+  class StudentImporter < ApplicationService
     attr_reader :data, :clever_id, :email, :username
 
     def initialize(data)
