@@ -259,6 +259,7 @@ func TestBuildFeedbackHistory(t *testing.T) {
 		Optimal: false,
 		Response_id: "test response_id",
 		Labels: "test labels",
+		Fuzzy_plagiarism_match: false,
 		Highlight: []Highlight {
 			Highlight {
 				Type: "passage",
@@ -287,6 +288,7 @@ func TestBuildFeedbackHistory(t *testing.T) {
 			Highlight: feedback.Highlight,
 			Labels: feedback.Labels,
 			Response_id: feedback.Response_id,
+			Fuzzy_plagiarism_match: false,
 		},
 	}
 
