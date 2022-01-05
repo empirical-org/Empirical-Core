@@ -306,7 +306,17 @@ module Teacher
   end
 
   def google_classrooms
-    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND classrooms.google_classroom_id IS NOT NULL")
+    Classroom
+      .joins(:classrooms_teachers)
+      .where(classrooms_teachers: { user_id: id })
+      .where.not(google_classroom_id: nil)
+  end
+
+  def clever_classrooms
+    Classroom
+      .joins(:classrooms_teachers)
+      .where(classrooms_teachers: { user_id: id })
+      .where.not(clever_id: nil)
   end
 
   def transfer_account

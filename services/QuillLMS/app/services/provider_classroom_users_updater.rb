@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProviderClassroomUsersUpdater
+class ProviderClassroomUsersUpdater < ApplicationService
   attr_reader :provider_classroom_id, :provider_user_ids, :provider_classroom_user_class
 
   def initialize(provider_classroom_id, provider_user_ids, provider_classroom_user_class)

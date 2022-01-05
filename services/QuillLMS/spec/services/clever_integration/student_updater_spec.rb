@@ -17,7 +17,7 @@ describe CleverIntegration::StudentUpdater do
   let(:name) { 'Student Name' }
   let(:username) { 'student.username' }
 
-  subject { described_class.new(student, data) }
+  subject { described_class.run(student, data) }
 
   context 'student with email exists' do
     let!(:student) { create(:student, email: email) }
@@ -34,7 +34,7 @@ describe CleverIntegration::StudentUpdater do
       let!(:existing_student_with_clever_id) { create(:student, clever_id: clever_id) }
 
       it 'transfers clever_id to existing student' do
-        subject.run
+        subject
 
         existing_student_with_clever_id.reload
         expect(existing_student_with_clever_id.clever_id).to eq nil
@@ -84,7 +84,7 @@ describe CleverIntegration::StudentUpdater do
   end
 
   def updates_student_with_data
-    subject.run
+    subject
 
     student.reload
     expect(student.clever_id).to eq clever_id
@@ -94,7 +94,7 @@ describe CleverIntegration::StudentUpdater do
   end
 
   def updates_student_with_data_except_username
-    subject.run
+    subject
 
     student.reload
     expect(student.clever_id).to eq clever_id

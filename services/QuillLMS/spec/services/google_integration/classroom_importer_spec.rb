@@ -13,7 +13,7 @@ RSpec.describe GoogleIntegration::ClassroomImporter do
     }
   end
 
-  subject { described_class.new(data) }
+  subject { described_class.run(data) }
 
   context 'classroom exists with google_classroom_id' do
     let(:google_classroom_id) { 123456 }
@@ -21,7 +21,7 @@ RSpec.describe GoogleIntegration::ClassroomImporter do
     before { create(:classroom, google_classroom_id: google_classroom_id, teacher_id: teacher.id) }
 
     it 'runs classroom updater' do
-      expect { subject.run }.to_not change(Classroom, :count)
+      expect { subject }.to_not change(Classroom, :count)
     end
   end
 
@@ -29,7 +29,7 @@ RSpec.describe GoogleIntegration::ClassroomImporter do
     let(:google_classroom_id) { 987654 }
 
     it 'creates a new classroom' do
-      expect { subject.run }.to change(Classroom, :count).from(0).to(1)
+      expect { subject }.to change(Classroom, :count).from(0).to(1)
     end
   end
 end

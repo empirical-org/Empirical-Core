@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GoogleIntegration
-  class ClassroomImporter
+  class ClassroomImporter < ApplicationService
     attr_reader :data
 
     def initialize(data)
@@ -9,7 +9,7 @@ module GoogleIntegration
     end
 
     def run
-      importer_class.new(data).run
+      classroom.present? ? ClassroomUpdater.run(classroom, data) : ClassroomCreator.run(data)
     end
 
     private def classroom
@@ -18,10 +18,6 @@ module GoogleIntegration
 
     private def google_classroom_id
       data[:google_classroom_id]
-    end
-
-    private def importer_class
-      classroom.present? ? ClassroomUpdater : ClassroomCreator
     end
 
     private def teacher_id

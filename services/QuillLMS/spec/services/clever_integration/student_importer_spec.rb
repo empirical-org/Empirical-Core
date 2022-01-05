@@ -11,7 +11,7 @@ describe CleverIntegration::StudentImporter do
   let!(:existing_student2) { create(:student, clever_id: existing_clever_id) }
   let!(:existing_student3) { create(:student, username: existing_username) }
 
-  subject { described_class.new(data) }
+  subject { described_class.run(data) }
 
   context 'student with email exists' do
     let(:data) {
@@ -23,7 +23,7 @@ describe CleverIntegration::StudentImporter do
       }
     }
 
-    it { expect { subject.run }.not_to change(User.student, :count) }
+    it { expect { subject }.not_to change(User.student, :count) }
   end
 
   context 'student with clever_id exists' do
@@ -36,7 +36,7 @@ describe CleverIntegration::StudentImporter do
       }
     }
 
-    it { expect { subject.run }.not_to change(User.student, :count) }
+    it { expect { subject }.not_to change(User.student, :count) }
   end
 
   context 'student with username exists' do
@@ -49,7 +49,7 @@ describe CleverIntegration::StudentImporter do
       }
     }
 
-    it { expect { subject.run }.not_to change(User.student, :count) }
+    it { expect { subject }.not_to change(User.student, :count) }
   end
 
   context 'nil username is passed as data' do
@@ -62,6 +62,6 @@ describe CleverIntegration::StudentImporter do
       }
     }
 
-    it { expect { subject.run }.to change(User.student, :count).by(1) }
+    it { expect { subject }.to change(User.student, :count).by(1) }
   end
 end

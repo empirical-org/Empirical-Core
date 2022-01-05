@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 module GoogleIntegration
-  class TeacherClassroomsRetriever
+  class TeacherClassroomsRetriever < ApplicationService
     ACCESS_TOKEN_ERRORS = [
       RefreshAccessToken::RefreshAccessTokenError,
       Client::AccessTokenError
     ].freeze
 
+    PUSHER_EVENT_CHANNEL = "google-classrooms-retrieved"
     UNAUTHENTICATED_RESPONSE = 'UNAUTHENTICATED'
 
     attr_reader :user_id
@@ -20,8 +21,7 @@ module GoogleIntegration
       set_cache_expiration
       notify_pusher
     rescue *ACCESS_TOKEN_ERRORS => e
-      NewRelic::Agent.add_custom_attributes({user_id: user_id})
-      NewRelic::Agent.notice_error(e)
+      NewRelic::Agent.notice_error(e, user_id: user_id)
       e.message
     end
 
@@ -42,7 +42,7 @@ module GoogleIntegration
     end
 
     private def notify_pusher
-      PusherTrigger.run(user_id, 'google-classrooms-retrieved', "Google classrooms found for #{user_id}.")
+      PusherTrigger.run(user_id, PUSHER_EVENT_CHANNEL, "Google classrooms found for #{user_id}.")
     end
 
     private def set_cache_expiration
