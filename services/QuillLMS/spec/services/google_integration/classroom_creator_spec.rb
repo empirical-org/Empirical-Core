@@ -13,9 +13,7 @@ RSpec.describe GoogleIntegration::ClassroomCreator do
     }
   end
 
-  subject { described_class.new(data) }
-
-  let(:classroom) { subject.run }
+  subject { described_class.run(data) }
 
   let(:google_classroom_id) { 123456 }
 
@@ -24,10 +22,10 @@ RSpec.describe GoogleIntegration::ClassroomCreator do
 
     it 'creates a new classroom object with synced_name attr initially set to name' do
       expect(ClassroomsTeacher.count).to eq 0
-      expect(classroom.google_classroom_id).to eq google_classroom_id
-      expect(classroom.name).to eq name
-      expect(classroom.synced_name).to eq name
-      expect(classroom.classrooms_teachers.count).to eq 1
+      expect(subject.google_classroom_id).to eq google_classroom_id
+      expect(subject.name).to eq name
+      expect(subject.synced_name).to eq name
+      expect(subject.classrooms_teachers.count).to eq 1
     end
   end
 
@@ -35,9 +33,9 @@ RSpec.describe GoogleIntegration::ClassroomCreator do
     let(:name) { nil }
 
     it 'creates a new classroom object with synced_name attr initially set to name' do
-      expect(classroom.google_classroom_id).to eq google_classroom_id
-      expect(classroom.name).to eq "Classroom #{google_classroom_id}"
-      expect(classroom.synced_name).to eq nil
+      expect(subject.google_classroom_id).to eq google_classroom_id
+      expect(subject.name).to eq "Classroom #{google_classroom_id}"
+      expect(subject.synced_name).to eq nil
     end
   end
 
@@ -50,7 +48,7 @@ RSpec.describe GoogleIntegration::ClassroomCreator do
     before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom_1) }
 
     it 'creates a new classroom object with new name to avoid a naming collision' do
-      expect(classroom.name).to eq "#{name}_1"
+      expect(subject.name).to eq "#{name}_1"
     end
 
     context 'and another classroom as same name as a renamed collision' do
@@ -60,7 +58,7 @@ RSpec.describe GoogleIntegration::ClassroomCreator do
       before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom_2) }
 
       it 'creates a new classroom object with new name to avoid two naming collisions' do
-        expect(classroom.name).to eq "#{name}_1_1"
+        expect(subject.name).to eq "#{name}_1_1"
       end
     end
   end

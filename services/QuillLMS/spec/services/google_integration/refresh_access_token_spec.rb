@@ -28,13 +28,6 @@ describe GoogleIntegration::RefreshAccessToken do
       expect(subject).not_to receive(:make_request)
       expect { subject.refresh }.to raise_error(GoogleIntegration::RefreshAccessToken::TokenTooOldToRefreshError)
     end
-
-    it 'refreshes the token if should_refresh? and !token_too_old_to_refresh?' do
-      expect(subject).to receive(:should_refresh?).and_return(true)
-      expect(subject).to receive(:token_too_old_to_refresh?).and_return(false)
-      expect(subject).to receive(:handle_response)
-      subject.refresh
-    end
   end
 
   describe '#make_request' do

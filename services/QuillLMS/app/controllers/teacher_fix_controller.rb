@@ -240,7 +240,7 @@ class TeacherFixController < ApplicationController
       provider_classrooms_with_unsynced_students.each do |provider_classroom|
         StudentsClassrooms
           .where(classroom_id: provider_classroom.id, student_id: provider_classroom.unsynced_students.pluck(:id))
-          .archive_all
+          .each { |sc| sc.archive }
       end
 
       render json: {}, status: 200

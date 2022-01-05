@@ -1,22 +1,18 @@
 # frozen_string_literal: true
 
 module GoogleIntegration
-  class ClassroomUpdater
-    attr_reader :data, :google_classroom_id, :teacher_id
+  class ClassroomUpdater < ApplicationService
+    attr_reader :classroom, :data, :teacher_id
 
-    def initialize(data)
+    def initialize(classroom, data)
       @data = data
-      @google_classroom_id = data[:google_classroom_id]
+      @classroom = classroom
       @teacher_id = data[:teacher_id]
     end
 
     def run
       update
       classroom
-    end
-
-    private def classroom
-      @classroom ||= ::Classroom.unscoped.find_by!(google_classroom_id: google_classroom_id, teacher_id: teacher_id)
     end
 
     private def custom_name?

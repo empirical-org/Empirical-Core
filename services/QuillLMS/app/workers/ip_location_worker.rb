@@ -8,6 +8,8 @@ class IpLocationWorker
   class PinpointAPIError < StandardError; end
 
   def perform(id, ip_address, blacklist = [])
+    return if ENV.fetch('SKIP_IP_LOCATION_WORKER', 'false') == 'true'
+
     user = User.find(id)
     response = HTTParty.get(pinpoint_url(ip_address))
 

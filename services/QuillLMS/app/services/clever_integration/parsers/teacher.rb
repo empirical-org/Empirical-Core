@@ -20,6 +20,6 @@ module CleverIntegration::Parsers::Teacher
   end
 
   def self.generate_name(first_name, last_name)
-    JoinNames.new(first_name, last_name).call
+    NameBuilder.run(first_name, last_name)
   end
 end

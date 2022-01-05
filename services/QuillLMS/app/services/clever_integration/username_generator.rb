@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CleverIntegration
-  class UsernameGenerator
+  class UsernameGenerator < ApplicationService
     attr_reader :first_name, :last_name
 
     def initialize(name)
@@ -10,7 +10,7 @@ module CleverIntegration
     end
 
     def run
-      GenerateUsername.new(first_name, last_name).call
+      ::GenerateUsername.run(first_name, last_name)
     end
   end
 end
