@@ -10,5 +10,9 @@ FactoryBot.define do
     trait :five_hundred_to_six_hundred do
       name { '500-600' }
     end
+
+    trait :four_hundred_to_five_hundred do
+      name { '400-500' }
+    end
   end
 end
