@@ -26,8 +26,13 @@ module Evidence
         entry: @entry,
         concept_uid: optimal? ? optimal_rule_hash["concept_uid"] : @rule&.concept_uid,
         rule_uid: optimal? ? optimal_rule_hash["uid"] : @rule&.uid,
-        highlight: highlights
+        highlight: highlights,
+        fuzzy_plagiarism_match: fuzzy_match?
       }
+    end
+
+    private def fuzzy_match?
+      false
     end
 
     private def optimal_rule_hash
@@ -56,7 +61,7 @@ module Evidence
     private def passage_highlight
       {
         type: PASSAGE_TYPE,
-        text: get_highlight(passage, clean_passage),
+        text: get_highlight(passage, clean_passage, matched_slice_passage),
         category: ''
       }
     end
@@ -64,7 +69,7 @@ module Evidence
     private def entry_highlight
       {
         type: ENTRY_TYPE,
-        text: get_highlight(entry, clean_entry),
+        text: get_highlight(entry, clean_entry, matched_slice),
         category: ''
       }
     end
@@ -80,6 +85,11 @@ module Evidence
     private def matched_slice
       return "" if !minimum_overlap?
       @matched_slice ||= match_entry_on_passage
+    end
+
+    private def matched_slice_passage
+      return "" if !minimum_overlap?
+      @matched_slice_passage ||= match_passage_on_entry
     end
 
     private def minimum_overlap?
@@ -100,10 +110,25 @@ module Evidence
       entry_arr = clean_entry.split
 
       slices = entry_arr.each_cons(MATCH_MINIMUM).with_index.to_a.map(&:reverse).to_h
-      matched_slices = slices.select {|k,v| v.in?(passage_word_arrays) }.keys
+      matched_slices = identify_matched_slices(slices, passage_word_arrays)
       return "" if matched_slices.empty?
 
       build_longest_continuous_slice(matched_slices, slices)
+    end
+
+    private def match_passage_on_entry
+      entry_arr = clean_entry.split
+
+      slices = entry_arr.each_cons(MATCH_MINIMUM)
+      passage_slices = passage_word_arrays.each_with_index.to_a.map(&:reverse).to_h
+      matched_slices = identify_matched_slices(passage_slices, slices)
+      return "" if matched_slices.empty?
+
+      build_longest_continuous_slice(matched_slices, passage_slices)
+    end
+
+    private def identify_matched_slices(indexable_slices, reference_slices)
+      indexable_slices.select {|k,v| v.in?(reference_slices) }.keys
     end
 
     # using the indices of plagiarized slices, find the longest continuous plagiarized section
@@ -121,7 +146,7 @@ module Evidence
       @passage_word_arrays ||= clean_passage.split.each_cons(MATCH_MINIMUM).to_a
     end
 
-    private def get_highlight(text, cleaned_text)
+    private def get_highlight(text, cleaned_text, matched_slice)
       extra_space_indexes = []
       cleaned_text.each_char.with_index { |c, i| extra_space_indexes.push(i) if c == ' ' && cleaned_text[i+1] == ' ' }
 
