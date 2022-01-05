@@ -337,7 +337,7 @@ export const buildRule = ({
     newOrUpdatedRule.regex_rules_attributes = rules;
   } else if(newOrUpdatedRule.rule_type === PLAGIARISM) {
     const rules = plagiarismTexts.map(plagiarismText => ({
-      id: plagiarismText.id,
+      ...plagiarismText,
       text: stripHtml(plagiarismText.text)
     }))
     newOrUpdatedRule.plagiarism_texts_attributes = rules

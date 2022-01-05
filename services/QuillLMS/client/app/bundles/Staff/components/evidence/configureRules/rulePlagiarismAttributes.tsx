@@ -44,9 +44,11 @@ const RulePlagiarismAttributes = ({
   }
 
   function onRemovePlagiarismTextString() {
-    const newPlagiarismTexts = [...plagiarismTexts]
-    newPlagiarismTexts.pop()
-    setPlagiarismTexts(newPlagiarismTexts)
+    if (window.confirm('Are you sure you want to remove this text string?')) {
+      const newPlagiarismTexts = [...plagiarismTexts]
+      newPlagiarismTexts[plagiarismTexts.length - 1]._destroy = true
+      setPlagiarismTexts(newPlagiarismTexts)
+    }
   }
 
   function onHandleSetPlagiarismText(text: string, index: number) { handleSetPlagiarismTexts(text, index, plagiarismTexts, setPlagiarismTexts)}
@@ -94,6 +96,8 @@ const RulePlagiarismAttributes = ({
   // TODO: break out Plagiarism feedbacks into separate components
 
     const plagiarismTextEditorElements = plagiarismTexts.map((plagiarismText, i) => {
+      if (plagiarismText._destroy) { return <span /> }
+
       return (<PlagiarismTextEditor
         index={i}
         key={i}
@@ -105,9 +109,9 @@ const RulePlagiarismAttributes = ({
     return(
       <React.Fragment>
         {plagiarismTextEditorElements}
-        <div className="add-and-remove-plagiarism-buttons">
-          <button className="quill-button small primary outlined" onClick={onAddPlagiarismTextString} type="button">Add Text String</button>
-          {!!plagiarismTexts.length && <button className="quill-button small primary outlined" onClick={onRemovePlagiarismTextString} type="button">Remove Text String</button>}
+        <div className="button-wrapper">
+          <button className="add-highlight quill-button small primary outlined" onClick={onAddPlagiarismTextString} type="button">Add Text String</button>
+          {!!plagiarismTexts.length && <button className="remove-highlight quill-button small primary outlined" onClick={onRemovePlagiarismTextString} type="button">Remove Text String</button>}
         </div>
         {errors['Plagiarism Text'] && <p className="error-message">{errors['Plagiarism Text']}</p>}
         <p className="form-subsection-label">First Feedback</p>
