@@ -46,6 +46,12 @@ module Evidence
           expect(parsed_response.first["concept_uid"]).to(eq(rule.concept_uid))
           expect(parsed_response.first["display_name"]).to(eq(rule.display_name))
         end
+
+        it 'should raise exception when rule_type is not passed' do 
+          expect do 
+            get :index
+          end.to raise_error(ActionController::ParameterMissing)
+        end
       end
 
       context 'should with filter params' do

@@ -74,7 +74,7 @@ module Evidence
     end
 
     private def index_params
-      params.permit([:rule_type, :prompt_id])
+      params.tap { |p| p.require(:rule_type) }
     end
 
     private def rule_params
