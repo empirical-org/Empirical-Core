@@ -31,7 +31,10 @@ Evidence::Engine.routes.draw do
     collection { post :fetch }
   end
 
-  resources :rules, only: [:index, :show, :create, :update, :destroy]
+  resources :rules, only: [:index, :show, :create, :update, :destroy] do 
+    collection { get :universal }
+  end
+
   resources :turking_round_activity_sessions, only: [:index, :show, :create, :update, :destroy] do
     collection do
       get :validate

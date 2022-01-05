@@ -6,6 +6,17 @@ module Evidence
   RSpec.describe(RulesController, :type => :controller) do
     before { @routes = Engine.routes }
 
+    context 'universal' do 
+      let!(:nonuniversal_rule) { create(:evidence_rule, universal: false) }
+      let!(:universal_rule) { create(:evidence_rule, universal: true) }
+
+      it 'should return universal rules' do 
+        get :universal 
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response.length).to be 1
+      end
+    end
+
     context 'should index' do
 
       it 'should return successfully - no rule' do

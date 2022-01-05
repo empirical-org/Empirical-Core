@@ -17,7 +17,7 @@ export const fetchRules = async (key: string, activityId: string, promptId?: any
 }
 
 export const fetchUniversalRules = async (key: string) => {
-  const response = await apiFetch(`rules`);
+  const response = await apiFetch(`rules/universal`);
   let universalRules = await response.json();
   if(universalRules.rules && universalRules.rules.length) {
     universalRules = universalRules.rules.filter((rule: RuleInterface) => rule.universal);

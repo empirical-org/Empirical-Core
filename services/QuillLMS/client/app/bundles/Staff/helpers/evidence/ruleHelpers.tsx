@@ -418,15 +418,15 @@ export async function handleSubmitRule({
 }
 
 export function getRulesUrl(activityId: string, promptId: string, ruleType: string) {
-  const url = `activities/${activityId}/rules`;
-  if(promptId && !ruleType) {
-    return `rules?prompt_id=${promptId}`
-  } else if(!promptId && ruleType) {
+  if (activityId) {
+    return `activities/${activityId}/rules`
+  } else if (!ruleType) {
+    throw new Error('A rule type must be specified.')
+  } else if(!promptId) {
     return `rules?rule_type=${ruleType}`
-  } else if(promptId && ruleType) {
+  } else {
     return `rules?prompt_id=${promptId}&rule_type=${ruleType}`
   }
-  return url;
 }
 
 export function getReturnLinkRuleType(ruleType) {
