@@ -20,7 +20,7 @@ module Evidence
     context 'should index' do
 
       it 'should return successfully - no rule' do
-        get(:index)
+        get :index, params: { rule_type: Rule::TYPE_REGEX_ONE }
         parsed_response = JSON.parse(response.body)
         expect(response.status).to eq(200)
         expect(parsed_response.class).to(eq(Array))
@@ -31,7 +31,7 @@ module Evidence
         let!(:rule) { create(:evidence_rule) }
 
         it 'should return successfully' do
-          get(:index)
+          get :index, params: { rule_type: Rule::TYPE_REGEX_ONE }
           parsed_response = JSON.parse(response.body)
           expect(response.status).to eq(200)
           expect(parsed_response.class).to(eq(Array))
@@ -58,18 +58,18 @@ module Evidence
         let!(:rule5) { create(:evidence_rule, :prompts => ([prompt1, prompt2]), :rule_type => (Rule::TYPE_REGEX_ONE)) }
 
         it 'should only get Rules for specified prompt when provided' do
-          get(:index, :params => ({ :prompt_id => prompt1.id }))
+          get(:index, :params => ({ prompt_id: prompt1.id, rule_type: Rule::TYPE_AUTOML }))
           parsed_response = JSON.parse(response.body)
-          expect(3).to(eq(parsed_response.length))
+          expect(1).to(eq(parsed_response.length))
           parsed_response.each do |r|
             expect(r["prompt_ids"].include?(prompt1.id)).to(eq(true))
           end
         end
 
         it 'should only get unique Rules for specified prompts when provided' do
-          get(:index, :params => ({ :prompt_id => ("#{prompt1.id}, #{prompt2.id}") }))
+          get(:index, :params => ({ prompt_id: "#{prompt1.id}, #{prompt2.id}", rule_type: Rule::TYPE_AUTOML }))
           parsed_response = JSON.parse(response.body)
-          expect(5).to(eq(parsed_response.length))
+          expect(2).to(eq(parsed_response.length))
         end
 
         it 'should only get Rules for specified rule type when provided' do
