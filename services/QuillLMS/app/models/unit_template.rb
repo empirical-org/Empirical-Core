@@ -61,12 +61,10 @@ class UnitTemplate < ApplicationRecord
     lowest_raw_score_activity = activities_with_raw_scores.min_by(&:raw_score_id)
     highest_raw_score_activity = activities_with_raw_scores.max_by(&:raw_score_id)
 
-    return nil if lowest_raw_score_activity&.raw_score&.nil? || highest_raw_score_activity&.raw_score&.nil?
-
     lowest_readability_range = lowest_raw_score_activity.readability_grade_level
     highest_readability_range = highest_raw_score_activity.readability_grade_level
 
-    "#{lowest_readability_range.split("-")[0]}-#{highest_readability_range.split("-")[1]}"
+    "#{lowest_readability_range.split('-')[0]}-#{highest_readability_range.split('-')[1]}"
   end
 
   def activity_ids= activity_ids
