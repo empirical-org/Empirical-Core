@@ -3,7 +3,7 @@ import { Link, RouteComponentProps } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import stripHtml from "string-strip-html";
 
-import { titleCase } from "../../../helpers/evidence";
+import { titleCase } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { promptsByConjunction } from "../../../helpers/evidence/promptHelpers";
 import { getPromptIdString } from '../../../helpers/evidence/ruleHelpers';

@@ -4,7 +4,7 @@ import { EditorState, ContentState } from 'draft-js';
 
 import PromptsForm from './promptsForm';
 
-import { validateForm, buildActivity } from '../../../helpers/evidence';
+import { validateForm, buildActivity } from '../../../helpers/evidence/miscHelpers';
 import { renderErrorsContainer, renderIDorUID } from '../../../helpers/evidence/renderHelpers';
 import { getActivityPrompt, promptsByConjunction, buildBlankPrompt, getActivityPromptSetter } from '../../../helpers/evidence/promptHelpers';
 import {
@@ -24,7 +24,8 @@ import {
   IMAGE_CAPTION,
   PARENT_ACTIVITY_ID,
   HIGHLIGHT_PROMPT,
-  flagOptions
+  flagOptions,
+  MAX_ATTEMPTS_FEEDBACK_TEXT
 } from '../../../../../constants/evidence';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent, ClickEvent,  TextAreaEvent } from '../../../interfaces/evidenceInterfaces';
 import { DataTable, Input, TextEditor, DropdownInput, } from '../../../../Shared/index'
@@ -68,7 +69,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   if(prompts && prompts[0] && prompts[0].max_attempts_feedback) {
     formattedMaxFeedback = prompts[0].max_attempts_feedback
   } else {
-    formattedMaxFeedback = 'Nice effort! You worked hard to make your sentence stronger.';
+    formattedMaxFeedback = MAX_ATTEMPTS_FEEDBACK_TEXT;
   }
   const formattedPrompts = promptsByConjunction(prompts);
   const becausePrompt = formattedPrompts && formattedPrompts[BECAUSE] ? formattedPrompts[BECAUSE] : buildBlankPrompt(BECAUSE);

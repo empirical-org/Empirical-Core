@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { firstBy } from 'thenby';
 import DateTimePicker from 'react-datetime-picker';
 
-import { handlePageFilterClick } from "../../../helpers/evidence";
+import { handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { Error, Spinner, DropdownInput, Input } from '../../../../Shared/index';
 import { fetchActivity, fetchActivitySessions } from '../../../utils/evidence/activityAPIs';

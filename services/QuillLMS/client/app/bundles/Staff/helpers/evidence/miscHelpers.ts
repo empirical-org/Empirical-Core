@@ -11,9 +11,10 @@ import {
   IMAGE_ATTRIBUTION,
   HIGHLIGHT_PROMPT,
   PLAGIARISM,
-  FLAG
-} from '../../../constants/evidence';
-import { DropdownObjectInterface } from '../interfaces/evidenceInterfaces'
+  FLAG,
+  MAX_ATTEMPTS_FEEDBACK_TEXT
+} from '../../../../constants/evidence';
+import { DropdownObjectInterface } from '../../interfaces/evidenceInterfaces'
 
 export const buildActivity = ({
   activityFlag,
@@ -30,7 +31,7 @@ export const buildActivity = ({
   highlightPrompt,
 }) => {
   const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt];
-  const maxFeedback = activityMaxFeedback || 'Nice effort! You worked hard to make your sentence stronger.';
+  const maxFeedback = activityMaxFeedback || MAX_ATTEMPTS_FEEDBACK_TEXT;
   prompts.forEach(prompt => prompt.max_attempts_feedback = maxFeedback);
   return {
     activity: {

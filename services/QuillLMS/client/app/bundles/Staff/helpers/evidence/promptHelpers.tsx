@@ -39,38 +39,6 @@ export const buildBlankPrompt = (conjunction: string) => {
   }
 }
 
-export const buildActivity = ({
-  activityFlag,
-  activityNotes,
-  activityTitle,
-  activityScoredReadingLevel,
-  activityTargetReadingLevel,
-  activityParentActivityId,
-  activityPassages,
-  activityMaxFeedback,
-  activityBecausePrompt,
-  activityButPrompt,
-  activitySoPrompt,
-  highlightPrompt,
-}) => {
-  const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt];
-  const maxFeedback = activityMaxFeedback || MAX_ATTEMPTS_FEEDBACK_TEXT;
-  prompts.forEach(prompt => prompt.max_attempts_feedback = maxFeedback);
-  return {
-    activity: {
-      notes: activityNotes,
-      title: activityTitle,
-      parent_activity_id: activityParentActivityId ? parseInt(activityParentActivityId) : null,
-      flag: activityFlag,
-      scored_level: activityScoredReadingLevel,
-      target_level: parseInt(activityTargetReadingLevel),
-      highlight_prompt: highlightPrompt,
-      passages_attributes: activityPassages,
-      prompts_attributes: prompts
-    }
-  };
-}
-
 export const formatPrompts = ({ activityData, rule, setRulePrompts }) => {
   let checkedPrompts = {};
   let formatted = {};

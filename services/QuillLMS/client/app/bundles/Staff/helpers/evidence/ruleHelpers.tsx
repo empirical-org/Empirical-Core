@@ -2,7 +2,7 @@ import * as React from "react";
 import { EditorState, ContentState } from 'draft-js';
 import stripHtml from "string-strip-html";
 
-import { validateForm } from '../evidence';
+import { validateForm } from './miscHelpers';
 import {
   AUTO_ML,
   PLAGIARISM,
