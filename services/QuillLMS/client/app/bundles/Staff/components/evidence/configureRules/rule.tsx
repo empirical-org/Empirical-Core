@@ -5,7 +5,7 @@ import stripHtml from "string-strip-html";
 
 import RuleForm from './ruleForm';
 
-import { renderHeader } from '../../../helpers/evidence';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { getPromptsIcons } from '../../../helpers/evidence/promptHelpers';
 import { BECAUSE, BUT, SO } from '../../../../../constants/evidence';
 import { updateRule, deleteRule, fetchRule } from '../../../utils/evidence/ruleAPIs';

@@ -14,7 +14,7 @@ import { getPromptConjunction, getPromptForComponent } from '../../../helpers/ev
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { createRule, updateRule } from '../../../utils/evidence/ruleAPIs';
 import { Error, Spinner } from '../../../../Shared/index';
-import { renderHeader } from '../../../helpers/evidence';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
 
 const SemanticLabelsIndex = ({ location, history, match }) => {

@@ -11,7 +11,7 @@ import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
 import { Spinner } from '../../../../Shared/index';
 import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/evidence/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/evidence/conceptAPIs';
-import { renderErrorsContainer, renderHeader } from '../../../helpers/evidence';
+import { renderErrorsContainer, renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { formatPrompts } from '../../../helpers/evidence/promptHelpers';
 import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules, getReturnLinkRuleType, getReturnLinkLabel, renderDeleteRuleModal } from '../../../helpers/evidence/ruleHelpers';
 import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM } from '../../../../../constants/evidence';

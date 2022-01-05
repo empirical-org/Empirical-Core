@@ -9,7 +9,8 @@ import { ActivityRouteProps, PromptHealthInterface, InputEvent } from '../../../
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { fetchPromptHealth } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 import { Spinner, } from '../../../../Shared/index';
-import { renderHeader, handlePageFilterClick } from '../../../helpers/evidence';
+import { handlePageFilterClick } from '../../../helpers/evidence';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { ACTIVITY_STATS } from '../../../../../constants/evidence';
 
 const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {

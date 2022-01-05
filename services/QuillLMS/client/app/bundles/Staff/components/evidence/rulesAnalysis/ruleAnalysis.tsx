@@ -13,7 +13,8 @@ import { fetchConcepts, } from '../../../utils/evidence/conceptAPIs';
 import { createOrUpdateFeedbackHistoryRating, massCreateOrUpdateFeedbackHistoryRating, } from '../../../utils/evidence/feedbackHistoryRatingAPIs';
 import { InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { DataTable, Error, Spinner, Input, smallWhiteCheckIcon, } from '../../../../Shared/index';
-import { handlePageFilterClick, renderHeader } from "../../../helpers/evidence";
+import { handlePageFilterClick } from "../../../helpers/evidence";
+import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { ALL, SCORED, UNSCORED, STRONG, WEAK, RULE_ANALYSIS, RULES_ANALYSIS } from '../../../../../constants/evidence';
 
 const extractHighlight = (highlightObject) => {

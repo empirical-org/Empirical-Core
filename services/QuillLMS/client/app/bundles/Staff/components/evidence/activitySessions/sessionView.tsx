@@ -8,7 +8,7 @@ import SessionOverview from './sessionOverview';
 import { Error, Spinner } from '../../../../Shared/index';
 import { fetchRules, } from '../../../utils/evidence/ruleAPIs';
 import { fetchActivity, fetchActivitySession } from '../../../utils/evidence/activityAPIs';
-import { renderHeader } from "../../../helpers/evidence";
+import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { getPromptForActivitySession } from "../../../helpers/evidence/promptHelpers";
 import { BECAUSE, BUT, SO } from '../../../../../constants/evidence';
 

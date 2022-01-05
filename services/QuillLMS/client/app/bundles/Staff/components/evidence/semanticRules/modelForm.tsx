@@ -6,7 +6,7 @@ import { InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { Input, Spinner, TextArea } from '../../../../Shared/index';
 import { createModel } from '../../../utils/evidence/modelAPIs';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
-import { renderHeader } from '../../../helpers/evidence';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 
 const ModelForm = ({ location, history, match }) => {
   const { params } = match;
@@ -27,7 +27,7 @@ const ModelForm = ({ location, history, match }) => {
   }
   function handleSetModelNotes(e: InputEvent) {
     setModelNotes(e.target.value);
-  } 
+  }
 
   function submitModel() {
     if(!modelId) {
