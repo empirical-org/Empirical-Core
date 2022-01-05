@@ -28,6 +28,14 @@ export const SPELLING = 'spelling';
 export const AUTO_ML = 'autoML';
 export const ACTIVE = 'active';
 export const INACTIVE = 'inactive';
+export const FEEDBACK = 'feedback'
+export const HIGHLIGHT_TEXT = 'highlight text'
+export const HIGHLIGHT_ADDITION = 'highlight addition'
+export const HIGHLIGHT_REMOVAL = 'highlight removal'
+export const HIGHLIGHT_TYPE = 'highlight type'
+export const FEEDBACK_LAYER_ADDITION = 'feedback layer addition'
+export const FEEDBACK_LAYER_REMOVAL = 'feedback layer removal'
+export const MAX_ATTEMPTS_FEEDBACK_TEXT = 'Nice effort! You worked hard to make your sentence stronger.'
 
 export const flagOptions = [
   {
@@ -182,7 +190,6 @@ export const PROMPT_HEADER_LABELS = {
 export const blankActivity = {
   title: '',
   notes: '',
-  // flag:'',
   scored_level: '',
   target_level: null,
   passage_attributes: [{ text: '' }],
@@ -191,19 +198,19 @@ export const blankActivity = {
       conjunction: 'because',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
+      max_attempts_feedback: MAX_ATTEMPTS_FEEDBACK_TEXT
     },
     {
       conjunction: 'but',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
+      max_attempts_feedback: MAX_ATTEMPTS_FEEDBACK_TEXT
     },
     {
       conjunction: 'so',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
+      max_attempts_feedback: MAX_ATTEMPTS_FEEDBACK_TEXT
     }
   ]
 }
@@ -249,9 +256,9 @@ export const NAME = 'Name';
 export const NOTES = 'Notes';
 export const SCORED_READING_LEVEL = 'Scored reading level';
 export const TARGET_READING_LEVEL = 'Target reading level';
+export const FLAG = 'Flag';
 export const PARENT_ACTIVITY_ID = 'Parent Activity ID';
 export const HIGHLIGHT_PROMPT = 'Highlight Prompt';
-export const FLAG = 'Flag';
 export const PASSAGE = 'Passage';
 export const MAX_ATTEMPTS_FEEDBACK = 'Max attempts feedback';
 export const BECAUSE_STEM = 'Because stem';
@@ -291,14 +298,6 @@ export const numericalWordOptions = {
   3: 'Fourth',
   4: 'Fifth'
 }
-
-export const FEEDBACK = 'feedback'
-export const HIGHLIGHT_TEXT = 'highlight text'
-export const HIGHLIGHT_ADDITION = 'highlight addition'
-export const HIGHLIGHT_REMOVAL = 'highlight removal'
-export const HIGHLIGHT_TYPE = 'highlight type'
-export const FEEDBACK_LAYER_ADDITION = 'feedback layer addition'
-export const FEEDBACK_LAYER_REMOVAL = 'feedback layer removal'
 
 export const activitySessionIndexResponseHeaders = [
   {

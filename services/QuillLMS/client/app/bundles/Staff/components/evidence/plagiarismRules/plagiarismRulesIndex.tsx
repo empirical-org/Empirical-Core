@@ -3,7 +3,8 @@ import { Link, RouteComponentProps } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import stripHtml from "string-strip-html";
 
-import { promptsByConjunction, titleCase, renderHeader } from "../../../helpers/evidence";
+import { titleCase, renderHeader } from "../../../helpers/evidence";
+import { promptsByConjunction } from "../../../helpers/evidence/promptHelpers";
 import { getPromptIdString } from '../../../helpers/evidence/ruleHelpers';
 import { ActivityRouteProps, RuleInterface } from '../../../interfaces/evidenceInterfaces';
 import { BECAUSE, BUT, SO, PLAGIARISM } from '../../../../../constants/evidence';

@@ -10,7 +10,7 @@ import ActivateModelForm from './activateModelForm';
 import Model from './model';
 
 import { ALL, BECAUSE, BUT, SO } from '../../../../../constants/evidence';
-import { getPromptForComponent, getPromptConjunction } from '../../../helpers/evidence';
+import { getPromptConjunction, getPromptForComponent } from '../../../helpers/evidence/promptHelpers';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { createRule, updateRule } from '../../../utils/evidence/ruleAPIs';
 import { Error, Spinner } from '../../../../Shared/index';

@@ -4,7 +4,8 @@ import { EditorState, ContentState } from 'draft-js';
 
 import PromptsForm from './promptsForm';
 
-import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction, getActivityPrompt, getActivityPromptSetter, renderErrorsContainer, renderIDorUID } from '../../../helpers/evidence';
+import { validateForm, buildActivity, renderErrorsContainer, renderIDorUID } from '../../../helpers/evidence';
+import { getActivityPrompt, promptsByConjunction, buildBlankPrompt, getActivityPromptSetter } from '../../../helpers/evidence/promptHelpers';
 import {
   BECAUSE,
   BUT,

@@ -9,7 +9,8 @@ import RuleUniversalAttributes from './ruleUniversalAttributes';
 
 import { fetchRules, fetchUniversalRules } from '../../../utils/evidence/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/evidence/conceptAPIs';
-import { formatPrompts, renderErrorsContainer } from '../../../helpers/evidence';
+import { renderErrorsContainer } from '../../../helpers/evidence';
+import { formatPrompts } from '../../../helpers/evidence/promptHelpers';
 import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules } from '../../../helpers/evidence/ruleHelpers';
 import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM } from '../../../../../constants/evidence';
 import { ActivityInterface, RuleInterface, DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
