@@ -13,7 +13,7 @@ module GoogleIntegration
     end
 
     private def classroom_data(classroom)
-      classrooms_data.detect { |data| data[:google_classroom_id] = classroom.google_classroom_id }
+      classrooms_data.detect { |data| data[:google_classroom_id] == classroom.google_classroom_id }
     end
 
     private def classrooms_data
@@ -25,7 +25,7 @@ module GoogleIntegration
     end
 
     private def imported_classrooms
-      teacher.google_classrooms.unscoped.where(google_classroom_id: google_classroom_ids, visible: true)
+      teacher.google_classrooms.where(google_classroom_id: google_classroom_ids, visible: true)
     end
 
     private def serialized_classrooms_data
