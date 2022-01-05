@@ -508,8 +508,8 @@ module Evidence
 
       it 'should update a valid record with plagiarism_text attributes' do
         plagiarism_text = "New plagiarism text"
-        patch(:update, :params => ({ :id => rule.id, :rule => ({ :plagiarism_text_attributes => ({ :text => plagiarism_text }) }) }))
-        expect(plagiarism_text).to(eq(rule.reload.plagiarism_text.text))
+        patch(:update, :params => ({ :id => rule.id, :rule => ({ :plagiarism_texts_attributes => ([{ :text => plagiarism_text }]) }) }))
+        expect(plagiarism_text).to(eq(rule.reload.plagiarism_texts.first.text))
       end
 
       it 'should update nested feedback attributes if present' do
