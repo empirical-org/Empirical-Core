@@ -166,7 +166,7 @@ GEM
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     newrelic_rpm (7.2.0)
-    nio4r (2.5.7)
+    nio4r (2.5.8)
     nokogiri (1.11.7)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
@@ -176,7 +176,7 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     public_suffix (4.0.6)
-    puma (4.3.8)
+    puma (4.3.9)
       nio4r (~> 2.0)
     pusher (1.4.3)
       httpclient (~> 2.8)
@@ -307,7 +307,7 @@ DEPENDENCIES
   newrelic_rpm
   pg (~> 1.2)
   pry (~> 0.10.4)
-  puma (~> 4.3.8)
+  puma (~> 4.3.9)
   pusher (~> 1.4.3)
   rack-attack
   rack-cors
