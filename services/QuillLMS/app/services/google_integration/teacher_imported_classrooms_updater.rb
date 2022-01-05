@@ -17,7 +17,7 @@ module GoogleIntegration
     end
 
     private def classrooms_data
-      @classrooms_data ||= TeacherClassroomsData.new(user, serialized_classrooms_data)
+      @classrooms_data ||= TeacherClassroomsData.new(teacher, serialized_classrooms_data)
     end
 
     private def google_classroom_ids
@@ -25,7 +25,7 @@ module GoogleIntegration
     end
 
     private def imported_classrooms
-      user.google_classrooms.unscoped.where(google_classroom_id: google_classroom_ids, visible: true)
+      teacher.google_classrooms.unscoped.where(google_classroom_id: google_classroom_ids, visible: true)
     end
 
     private def serialized_classrooms_data
@@ -36,7 +36,7 @@ module GoogleIntegration
       imported_classrooms.each { |classroom| ClassroomUpdater.run(classroom, classroom_data(classroom)) }
     end
 
-    private def user
+    private def teacher
       ::User.find(teacher_id)
     end
   end

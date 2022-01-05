@@ -29,11 +29,9 @@ class UniversalRuleLoader
 
       if rule
         if !rule.universal? || rule.rule_type != type
-          # puts "\nExisting Rule with UID #{row['Rule UID']} is of incorrect type or not universal. Skipping."
           next
         end
       else
-        # puts "\nCannot find universal #{type} Rule with UID #{row['Rule UID']}. Creating new rule."
         rule = Evidence::Rule.new(
           uid: row['Rule UID'],
           name: row['Rule'],
@@ -45,10 +43,7 @@ class UniversalRuleLoader
         )
       end
 
-      # puts "Rule: #{rule.name}"
-
       if row['Concept UID'].respond_to?(:length) && !row['Concept UID'].empty?
-        # puts "concept_uid #{rule.concept_uid} -> #{row['Concept UID']}"
         rule.concept_uid = row['Concept UID']
       end
 
@@ -58,7 +53,6 @@ class UniversalRuleLoader
         rule_feedback = Evidence::Feedback.find_or_create_by(rule_id: rule.id, order: 0)
         rule_feedback.text = row['Feedback - Revised']
         rule_feedback.save!
-        # puts "Created or updated feedback with id #{rule_feedback.id}"
       end
     end
   end

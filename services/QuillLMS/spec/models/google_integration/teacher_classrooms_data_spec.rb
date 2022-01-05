@@ -16,22 +16,22 @@ RSpec.describe GoogleIntegration::TeacherClassroomsData do
   end
 
   context 'two classrooms' do
-    let(:google_classroom_id_1) { 123 }
-    let(:google_classroom_id_2) { 456 }
+    let(:google_classroom_id1) { 123 }
+    let(:google_classroom_id2) { 456 }
 
     let(:serialized_classrooms_data) do
       {
         classrooms: [
-          { id: google_classroom_id_1 },
-          { id: google_classroom_id_2 }
+          { id: google_classroom_id1 },
+          { id: google_classroom_id2 }
         ]
       }.to_json
     end
 
     let(:expected_classrooms_data) do
       [
-        { google_classroom_id: google_classroom_id_1, teacher_id: teacher.id },
-        { google_classroom_id: google_classroom_id_2, teacher_id: teacher.id }
+        { id: google_classroom_id1, google_classroom_id: google_classroom_id1, teacher_id: teacher.id },
+        { id: google_classroom_id2, google_classroom_id: google_classroom_id2, teacher_id: teacher.id }
       ]
     end
 

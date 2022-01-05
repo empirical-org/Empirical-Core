@@ -15,7 +15,7 @@ module GoogleIntegration
 
     private def clean_data
       data.tap do |cleaned_data|
-        cleaned_data[:google_classroom_id] = data.delete(:id)
+        cleaned_data[:google_classroom_id] = data.fetch(:id)
         cleaned_data[user_role_id_key] = user.id
       end
     end
