@@ -14,11 +14,14 @@ module Evidence
     def plagiarism
       rule = @prompt.rules&.find_by(rule_type: Evidence::Rule::TYPE_PLAGIARISM)
       passage = rule&.plagiarism_text&.text || ''
-      feedback = get_plagiarism_feedback_from_previous_feedback(@previous_feedback, @prompt)
+      feedback = get_plagiarism_feedback_from_previous_feedback(@previous_feedback, rule)
 
       plagiarism_check = Evidence::PlagiarismCheck.new(@entry, passage, feedback, rule)
+      fuzzy_plagiarism_check = Evidence::FuzzyPlagiarismCheck.new(@entry, passage, feedback, rule)
 
-      render json: plagiarism_check.feedback_object
+      base_feedback = plagiarism_check.feedback_object
+      return render json: base_feedback unless base_feedback[:optimal]
+      return render json: fuzzy_plagiarism_check.feedback_object
     end
 
     def regex
@@ -56,9 +59,9 @@ module Evidence
       @previous_feedback = params[:previous_feedback]
     end
 
-    private def get_plagiarism_feedback_from_previous_feedback(prev, prompt)
+    private def get_plagiarism_feedback_from_previous_feedback(prev, rule)
       previous_plagiarism = prev.select {|f| f["feedback_type"] == Evidence::Rule::TYPE_PLAGIARISM && f["optimal"] == false }
-      feedbacks = prompt.rules&.find_by(rule_type: Evidence::Rule::TYPE_PLAGIARISM)&.feedbacks
+      feedbacks = rule&.feedbacks
       previous_plagiarism.empty? ? feedbacks&.find_by(order: 0)&.text : feedbacks&.find_by(order: 1)&.text
     end
   end
