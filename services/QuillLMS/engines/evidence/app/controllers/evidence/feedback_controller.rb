@@ -20,7 +20,7 @@ module Evidence
       else
         rule.plagiarism_texts.each do |plagiarism_text|
           plagiarism_check = Evidence::PlagiarismCheck.new(@entry, plagiarism_text.text, feedback, rule)
-          break unless plagiarism_check.optimal
+          break unless plagiarism_check.feedback_object['optimal']
         end
         render json: plagiarism_check.feedback_object
       end
