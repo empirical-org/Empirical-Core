@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220104174559) do
+ActiveRecord::Schema.define(version: 20211022145011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,7 +153,6 @@ ActiveRecord::Schema.define(version: 20220104174559) do
     t.datetime "updated_at", null: false
     t.string "state", null: false
     t.index ["uid"], name: "index_comprehension_rules_on_uid", unique: true
-    t.index ["universal"], name: "index_comprehension_rules_on_universal", where: "universal"
   end
 
   create_table "comprehension_turking_round_activity_sessions", id: :serial, force: :cascade do |t|
