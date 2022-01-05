@@ -54,6 +54,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
       :time,
       :rule_uid,
       metadata: [
+        :fuzzy_plagiarism_match,
         highlight: [
           :text,
           :type,
@@ -80,6 +81,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
         :time,
         :rule_uid,
         metadata: [
+          :fuzzy_plagiarism_match,
           highlight: [
             :text,
             :type,
