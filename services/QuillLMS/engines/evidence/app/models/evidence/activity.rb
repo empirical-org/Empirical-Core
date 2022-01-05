@@ -23,6 +23,10 @@ module Evidence
     has_many :passages, inverse_of: :activity, dependent: :destroy
     has_many :prompts, inverse_of: :activity, dependent: :destroy
     has_many :turking_rounds, inverse_of: :activity
+    has_many :rules, through: :prompts
+    has_many :feedbacks, through: :rules
+    has_many :highlights, through: :feedbacks
+
     belongs_to :parent_activity, class_name: Evidence.parent_activity_classname
 
     accepts_nested_attributes_for :passages, reject_if: proc { |p| p['text'].blank? }
@@ -88,8 +92,7 @@ module Evidence
     end
 
     def invalid_feedback_highlights
-      related_higlights = prompts.map(&:rules).flatten.map(&:feedbacks).flatten.map(&:highlights).flatten
-      invalid_highlights = related_higlights.select {|h| h.invalid_activity_ids&.include?(id)}
+      invalid_highlights = highlights.select {|h| h.invalid_activity_ids&.include?(id)}
       invalid_highlights.map do |highlight|
         {
           rule_id: highlight.feedback.rule_id,
