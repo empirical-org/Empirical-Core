@@ -1,5 +1,5 @@
 import { RuleInterface } from '../../interfaces/evidenceInterfaces';
-import { handleApiError, apiFetch, handleRequestErrors, requestFailed } from '../../helpers/evidence';
+import { handleApiError, apiFetch, handleRequestErrors, requestFailed } from '../../helpers/evidence/routingHelpers';
 import { getRulesUrl } from '../../helpers/evidence/ruleHelpers';
 
 export const fetchRules = async (key: string, activityId: string, promptId?: any, ruleType?: string) => {
