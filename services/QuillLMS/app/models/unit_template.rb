@@ -55,11 +55,11 @@ class UnitTemplate < ApplicationRecord
   DIAGNOSTIC = 'Diagnostic'
 
   def readability
-    activities_with_raw_scores = activities.select {|act| act.raw_score.present? }
+    activities_with_raw_scores = activities.select {|act| act.raw_score.present? }.sort_by {|act| act.raw_score.order }
     return nil if activities_with_raw_scores.empty?
 
-    lowest_raw_score_activity = activities_with_raw_scores.min_by(&:raw_score_id)
-    highest_raw_score_activity = activities_with_raw_scores.max_by(&:raw_score_id)
+    lowest_raw_score_activity = activities_with_raw_scores.first
+    highest_raw_score_activity = activities_with_raw_scores.last
 
     lowest_readability_range = lowest_raw_score_activity.readability_grade_level
     highest_readability_range = highest_raw_score_activity.readability_grade_level
