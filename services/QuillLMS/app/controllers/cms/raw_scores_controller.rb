@@ -39,7 +39,7 @@ class Cms::RawScoresController < Cms::CmsController
   end
 
   def raw_score_params
-    params.require(:raw_score).permit(:name)
+    params.require(:raw_score).permit(:name, :order)
   end
 
 end
