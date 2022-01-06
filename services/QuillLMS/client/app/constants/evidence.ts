@@ -113,7 +113,8 @@ export const ruleTypeOptions = [
 export const universalRuleTypeOptions = [
   {"value":"grammar","label":"Grammar"},
   {"value":"opinion","label":"Opinion"},
-  {"value":"spelling","label":"Spelling"}
+  {"value":"spelling","label":"Spelling"},
+  {"value":"prefilter","label":"Prefilter"} 
 ];
 
 export const ruleHighlightOptions = [
