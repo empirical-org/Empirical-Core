@@ -30,6 +30,7 @@ describe Cms::RawScoresController do
     it 'creates a new raw score' do
       post :create, params: { raw_score: {
           name: 'New Raw Score',
+          order: 1
         } }
       parsed_response = JSON.parse(response.body)
       id = parsed_response["raw_score"]["id"]
