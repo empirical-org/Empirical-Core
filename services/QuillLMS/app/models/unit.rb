@@ -43,7 +43,8 @@ class Unit < ApplicationRecord
   has_many :standards, through: :activities
   default_scope { where(visible: true)}
   belongs_to :unit_template
-  after_save :hide_classroom_units_and_unit_activities_if_visible_false, :create_any_new_classroom_unit_activity_states
+  after_save :hide_classroom_units_and_unit_activities_if_visible_false
+  after_save :create_any_new_classroom_unit_activity_states
   after_touch :save
   after_save :touch_classroom_units
 
