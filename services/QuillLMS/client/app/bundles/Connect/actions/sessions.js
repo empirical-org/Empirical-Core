@@ -33,10 +33,6 @@ export default {
     SessionApi.update(sessionID, normalizedSession);
   },
 
-  delete(sessionID) {
-    SessionApi.remove(sessionID);
-  },
-
   populateQuestions(questionType, questions, forceRefresh) {
     if (questionsInitialized[questionType] && !forceRefresh) return;
 

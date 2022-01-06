@@ -34,7 +34,7 @@ module Evidence
 
     def log_update
       # certain callbacks cause log_update to be called on creation, so we want to return early when a record has just been created
-      return unless id_before_last_save 
+      return unless id_before_last_save
 
       if !attributes.key?('text')
         saved_changes.except("updated_at".to_sym).each do |key, value|
@@ -69,7 +69,7 @@ module Evidence
                           feedbacks:
                             [:change_logs, highlights: [:change_logs]],
                           regex_rules: [:change_logs],
-                          plagiarism_text: [:change_logs]
+                          plagiarism_texts: [:change_logs]
                         ],
                       automl_models: [:change_logs]
                       ]
@@ -104,12 +104,12 @@ module Evidence
     def rules_change_logs(prompt)
       prompt.rules.reject { |rule| rule.universal_rule_type? }.map { |rule|
         rule_logs = rule.change_logs || []
-        logs = rule_logs + feedbacks_change_logs(rule) + regex_rules_change_logs(rule) + plagiarism_text_change_logs(rule)
+        logs = rule_logs + feedbacks_change_logs(rule) + regex_rules_change_logs(rule) + plagiarism_texts_change_logs(rule)
       }.flatten! || []
     end
 
-    def plagiarism_text_change_logs(rule)
-      rule.plagiarism_text&.change_logs || []
+    def plagiarism_texts_change_logs(rule)
+      rule.plagiarism_texts.map(&:change_logs).flatten! || []
     end
 
     def feedbacks_change_logs(rule)

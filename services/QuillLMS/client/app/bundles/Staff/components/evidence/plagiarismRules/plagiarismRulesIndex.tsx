@@ -55,18 +55,14 @@ const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = 
     if(!filteredRule) {
       return [];
     }
-    const { id, plagiarism_text, feedbacks } = filteredRule;
+
+    const { id, plagiarism_texts, feedbacks } = filteredRule;
     const linkSection = {
       label: '',
       value: (<Link className="data-link" to={`/activities/${activityId}/plagiarism-rules/${id}`}>View</Link>)
     };
     const feedbacksSection = getFeedbacks(feedbacks);
-    let fields: any = [
-      {
-        label: 'Plagiarism Text',
-        value: plagiarism_text ? plagiarism_text.text : ''
-      }
-    ];
+    let fields: any = getPlagiarismTexts(plagiarism_texts)
     fields = fields.concat(feedbacksSection);
     fields.push(linkSection);
     return fields.map((field, i) => {
@@ -84,6 +80,25 @@ const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = 
       const { text } = feedback;
       return {
         label: `Feedback ${i + 1}`,
+        value: stripHtml(text)
+      }
+    })
+  }
+
+  function getPlagiarismTexts(plagiarismTexts) {
+    if (plagiarismTexts.length === 0) {
+      return [
+        {
+          label: 'Plagiarism Text - Text String 1',
+          value: ''
+        }
+      ]
+    }
+
+    return plagiarismTexts.map((plagiarismText, i) => {
+      const { text } = plagiarismText;
+      return {
+        label: `Plagiarism Text - Text String ${i + 1}`,
         value: stripHtml(text)
       }
     })

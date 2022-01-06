@@ -19,8 +19,8 @@ jest.mock("react-query", () => ({
 }));
 
 const mockRules = [
-  { id: 1, name: 'rule_1', state: 'active', plagiarism_text: { text: 'do not plagiarize!' }, label: { id: 1, name: 'label_1' }, prompt_ids: [7] },
-  { id: 2, name: 'rule_2', state: 'active', plagiarism_text: { text: 'seriously!' }, label: { id: 2, name: 'label_2' }, prompt_ids: [9] },
+  { id: 1, name: 'rule_1', state: 'active', plagiarism_texts: [{ text: 'do not plagiarize!' }], label: { id: 1, name: 'label_1' }, prompt_ids: [7] },
+  { id: 2, name: 'rule_2', state: 'active', plagiarism_texts: [{ text: 'seriously!' }], label: { id: 2, name: 'label_2' }, prompt_ids: [9] },
 ]
 const mockProps = {
   match: {
