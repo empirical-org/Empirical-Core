@@ -47,6 +47,41 @@ describe UnitTemplate, redis: true, type: :model do
     end
   end
 
+  describe '#readability' do
+
+    it 'calculates readability range across activities by merging the lowest readability grade level and highest readability grade level' do
+      raw_score_one = create(:raw_score, :four_hundred_to_five_hundred)
+      raw_score_two = create(:raw_score, :eight_hundred_to_nine_hundred)
+
+      activity_one = create(:activity, raw_score: raw_score_one)
+      activity_two = create(:activity, raw_score: raw_score_two)
+
+      unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
+
+      expect(unit_template.readability).to eq("4th-7th")
+    end
+
+    it 'calculates readability as nil if the activities do not have readability' do
+      activity_one = create(:activity, raw_score: nil)
+      activity_two = create(:activity, raw_score: nil)
+
+      unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
+
+      expect(unit_template.readability).to eq(nil)
+    end
+
+    it 'calculates readability correctly if the activities all have the same readability' do
+      raw_score_one = create(:raw_score, :four_hundred_to_five_hundred)
+
+      activity_one = create(:activity, raw_score: raw_score_one)
+      activity_two = create(:activity, raw_score: raw_score_one)
+
+      unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
+
+      expect(unit_template.readability).to eq("4th-5th")
+    end
+  end
+
   describe '#related_models' do
     let!(:unit_template1) { create(:unit_template, unit_template_category_id: unit_template.unit_template_category_id) }
     let!(:unit_template2) { create(:unit_template) }
