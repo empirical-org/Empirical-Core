@@ -12,7 +12,7 @@ import { HIGHLIGHT_ADDITION, HIGHLIGHT_REMOVAL, FEEDBACK, } from '../../../../..
 
 // TODO: add props interface
 
-const PlagiarismTextEditor = ({ text, index, setPlagiarismText, }) => {
+export const PlagiarismTextEditor = ({ text, index, setPlagiarismText, }) => {
   function onHandleSetPlagiarismText(text) {
     setPlagiarismText(text, index)
   }

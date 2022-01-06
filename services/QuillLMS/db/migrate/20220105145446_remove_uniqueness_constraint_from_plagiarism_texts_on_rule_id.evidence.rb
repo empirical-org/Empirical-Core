@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 # This migration comes from evidence (originally 20220105145314)
 class RemoveUniquenessConstraintFromPlagiarismTextsOnRuleId < ActiveRecord::Migration[5.1]
   def change
