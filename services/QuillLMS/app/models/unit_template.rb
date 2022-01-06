@@ -54,6 +54,19 @@ class UnitTemplate < ApplicationRecord
   INDEPENDENT_PRACTICE = 'Independent practice'
   DIAGNOSTIC = 'Diagnostic'
 
+  def readability
+    activities_with_raw_scores = activities.joins(:raw_score).where.not(raw_score: nil).order("raw_scores.order ASC")
+    return nil if activities_with_raw_scores.empty?
+
+    lowest_raw_score_activity = activities_with_raw_scores.first
+    highest_raw_score_activity = activities_with_raw_scores.last
+
+    lowest_readability_range = lowest_raw_score_activity.readability_grade_level
+    highest_readability_range = highest_raw_score_activity.readability_grade_level
+
+    "#{lowest_readability_range.split('-')[0]}-#{highest_readability_range.split('-')[1]}"
+  end
+
   def activity_ids= activity_ids
     # getting around rails defaulting to activities being set in order of the activity id rather than the selected order
     new_activities = activity_ids.map { |id| Activity.find(id) }
