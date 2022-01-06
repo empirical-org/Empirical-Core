@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddOrderToRawScores < ActiveRecord::Migration[5.1]
   def change
     add_column :raw_scores, :order, :integer, null: true
