@@ -7,7 +7,7 @@ import { TextEditor } from '../../../../Shared/index'
 const mockProps = {
   errors: {},
   plagiarismFeedbacks: [{ text: 'do not plagiarize.' }, { text: 'seriously... do not plagiarize!' }],
-  plagiarismTexts: ['test plagiarism text'],
+  plagiarismTexts: [{ text: 'test plagiarism text', }],
   setPlagiarismFeedbacks: jest.fn(),
   setPlagiarismTexts: jest.fn()
 };
