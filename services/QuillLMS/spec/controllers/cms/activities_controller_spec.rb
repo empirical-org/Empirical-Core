@@ -11,7 +11,7 @@ describe Cms::ActivitiesController, type: :controller do
   let(:user) { create(:staff) }
   let(:topic) { create(:topic) }
   let(:content_partner) { create(:content_partner) }
-  let(:raw_score) { create(:raw_score) }
+  let(:raw_score) { create(:raw_score, order: 1) }
   let(:activity_category) { create(:activity_category) }
   let(:standard) { create(:standard) }
 
