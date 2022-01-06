@@ -55,7 +55,7 @@ class UnitTemplate < ApplicationRecord
   DIAGNOSTIC = 'Diagnostic'
 
   def readability
-    activities_with_raw_scores = activities.select {|act| act.raw_score.present? }.sort_by {|act| act.raw_score.order }
+    activities_with_raw_scores = activities.joins(:raw_score).where.not(raw_score: nil).order("raw_scores.order ASC")
     return nil if activities_with_raw_scores.empty?
 
     lowest_raw_score_activity = activities_with_raw_scores.first
