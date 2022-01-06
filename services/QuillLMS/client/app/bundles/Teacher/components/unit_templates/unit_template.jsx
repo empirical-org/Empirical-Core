@@ -1,10 +1,13 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+import { EditorState, ContentState } from 'draft-js';
+
 import CheckBoxes from '../general_components/check_boxes/check_boxes.jsx';
 import DropdownSelector from '../general_components/dropdown_selectors/dropdown_selector.jsx';
 import CustomActivityPack from '../assignment_flow/create_unit/custom_activity_pack/index';
 import Server from '../modules/server/server.jsx';
 import Fnl from '../modules/fnl.jsx';
+import { DataTable, Input, TextEditor, DropdownInput, } from '../../../Shared/index'
 import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx';
 import IndicatorGenerator from '../modules/indicator_generator.jsx';
 import OptionLoader from '../modules/option_loader.jsx';
@@ -19,6 +22,7 @@ export default createReactClass({
     this.initializeModules();
 
     let model = {
+      id: null,
       name: null,
       activity_info: null,
       time: null,
@@ -46,11 +50,6 @@ export default createReactClass({
   formFields: [
     {
       name: 'name',
-    },
-    {
-      name: 'activity_info',
-      label: 'Activity Pack Description',
-      size: 'medium',
     }
   ],
 
@@ -159,6 +158,10 @@ export default createReactClass({
     return '';
   },
 
+  handleActivityPackDescriptionChange(text) {
+    this.updateModelState('activity_info', text)
+  },
+
   handleNewSelectedActivities(newSelectedActivities) {
     const { model, } = this.state
     const selectedActivities = newSelectedActivities.map(item => item.id);
@@ -208,11 +211,32 @@ export default createReactClass({
     />);
   },
 
+  getActivityPackDescriptionEditor() {
+    return (
+    <div class="activity-pack-description">
+      <br />
+      <span>Activity Pack Description</span>
+      <TextEditor
+        ContentState={ContentState}
+        EditorState={EditorState}
+        handleTextChange={this.handleActivityPackDescriptionChange}
+        key="activity-pack-description"
+        shouldCheckSpelling={true}
+        text={this.state.model.activity_info}
+      />
+    </div>);
+  },
+
   getErrorMessageAndButton() {
     return (<div className="error-message-and-button">
       <div className={this.determineErrorMessageClass()}>{this.determineErrorMessage()}</div>
       <button className={this.determineContinueButtonClass()} id="continue" onClick={this.save}>Save</button>
     </div>);
+  },
+
+  getPreviewLink() {
+    let url = `${process.env.DEFAULT_URL}/assign/featured-activity-packs/${this.state.model.id}`
+    return (<a href={url} target="_blank">Preview in Featured Activity Pack page</a>)
   },
 
   render() {
@@ -223,10 +247,12 @@ export default createReactClass({
         {this.getStatusFlag()}
         <span>
           {inputs}
-          {this.determineMarkdownParser()}
+          {this.getActivityPackDescriptionEditor()}
         </span>
         {this.getUnitTemplateCategorySelect()}
         {this.getTimeDropdownSelect()}
+        {this.getPreviewLink()}
+        <br /><br />
         <span>
           {this.getCustomActivityPack()}
           {this.getErrorMessageAndButton()}
