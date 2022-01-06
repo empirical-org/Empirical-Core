@@ -466,7 +466,7 @@ EmpiricalGrammar::Application.routes.draw do
           put 'update_model_concept'
         end
       end
-      resources :active_activity_sessions, only: [:show, :update, :destroy]
+      resources :active_activity_sessions, only: [:show, :update]
       resources :activity_survey_responses, only: [:create]
       resources :student_problem_reports, only: [:create]
 

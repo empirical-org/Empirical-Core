@@ -1,4 +1,4 @@
-import { requestDelete, requestGet, requestPost, requestPut } from './request';
+import { requestGet, requestPut } from './request';
 
 const sessionApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions`;
 
@@ -9,10 +9,6 @@ class SessionApi {
 
   static update(uid: string, data: object): Promise<object> {
     return requestPut(`${sessionApiBaseUrl}/${uid}.json`, {active_activity_session: data});
-  }
-
-  static remove(uid: string): Promise<string> {
-    return requestDelete(`${sessionApiBaseUrl}/${uid}.json`);
   }
 }
 

@@ -60,7 +60,3 @@ export const updateTimeTracking = (timeTracking: {[key:string]: number}) => {
     dispatch({ type: ActionTypes.SET_TIMETRACKING, timeTracking})
   }
 }
-
-export const removeSession = (sessionId: string) => {
-  SessionApi.remove(sessionId)
-}
