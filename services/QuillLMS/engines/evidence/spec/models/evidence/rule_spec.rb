@@ -29,7 +29,7 @@ module Evidence
 
       it { should have_one(:label) }
 
-      it { should have_one(:plagiarism_text) }
+      it { should have_many(:plagiarism_texts) }
 
       it { should have_many(:feedbacks) }
 

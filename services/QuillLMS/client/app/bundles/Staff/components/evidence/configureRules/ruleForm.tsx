@@ -27,15 +27,15 @@ interface RuleFormProps {
 
 const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestErrors,  rule, submitRule, universalRuleType }: RuleFormProps) => {
 
-  const { name, rule_type, id, uid, optimal, plagiarism_text, concept_uid, note, feedbacks, conditional } = rule;
+  const { name, rule_type, id, uid, optimal, plagiarism_texts, concept_uid, note, feedbacks, conditional } = rule;
   const initialRuleType = getInitialRuleType({ isUniversal, rule_type, universalRuleType});
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
-  const initialPlagiarismText = plagiarism_text || { text: '' }
+  const initialPlagiarismTexts = plagiarism_texts || [{ text: '' }]
   const initialNote = note || '';
   const initialFeedbacks = feedbacks ? formatInitialFeedbacks(feedbacks) : returnInitialFeedback(initialRuleType.value);
 
   const [errors, setErrors] = React.useState<object>({});
-  const [plagiarismText, setPlagiarismText] = React.useState<RuleInterface["plagiarism_text"]>(initialPlagiarismText);
+  const [plagiarismTexts, setPlagiarismTexts] = React.useState<RuleInterface["plagiarism_texts"]>(initialPlagiarismTexts);
   const [regexRules, setRegexRules] = React.useState<object>({});
   const [ruleConceptUID, setRuleConceptUID] = React.useState<string>(concept_uid);
   const [ruleNote, setRuleNote] = React.useState<string>(initialNote);
@@ -93,7 +93,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestEr
 
   function onHandleSubmitRule() {
     handleSubmitRule({
-      plagiarismText,
+      plagiarismTexts,
       regexRules,
       rule,
       ruleName,
@@ -144,9 +144,9 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestEr
         {ruleType && ruleType.value === PLAGIARISM && <RulePlagiarismAttributes
           errors={errors}
           plagiarismFeedbacks={ruleFeedbacks}
-          plagiarismText={plagiarismText}
+          plagiarismTexts={plagiarismTexts}
           setPlagiarismFeedbacks={setRuleFeedbacks}
-          setPlagiarismText={setPlagiarismText}
+          setPlagiarismTexts={setPlagiarismTexts}
         />}
         {ruleType && regexRuleTypes.includes(ruleType.value) && <RuleRegexAttributes
           errors={errors}

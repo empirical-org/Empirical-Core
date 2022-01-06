@@ -68,6 +68,12 @@ export interface PassagesInterface {
   highlight_prompt?: string
 }
 
+export interface PlagiarismText {
+  id?: number,
+  rule_id?: number,
+  text: string
+}
+
 export interface RuleInterface {
   id?: number,
   uid?: string,
@@ -85,11 +91,7 @@ export interface RuleInterface {
     id: number,
     name: string
   },
-  plagiarism_text?: {
-    id?: number,
-    rule_id?: number,
-    text: string
-  }
+  plagiarism_texts?: PlagiarismText[],
   regex_rules?: RegexRuleInterface[]
   regex_rules_attributes?: RegexRuleInterface[]
   feedbacks?: {
