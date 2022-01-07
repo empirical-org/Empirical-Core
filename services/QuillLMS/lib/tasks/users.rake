@@ -29,6 +29,8 @@ namespace :users do
     CSV.parse(pipe_data, headers: true) do |row|
       user = User.find(row['user_id'])
       user.updated_school(user.school.id)
+    rescue
+      puts "Failed to update for user #{row['user_id']}"
     end
   end
 end
