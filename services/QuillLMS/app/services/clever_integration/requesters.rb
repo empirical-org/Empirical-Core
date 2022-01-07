@@ -22,16 +22,8 @@ module CleverIntegration::Requesters
     api_instance(district_token).get_school(clever_id)
   end
 
-  def self.sections_for_teacher(clever_id, district_token=nil)
-    api_instance(district_token).get_sections_for_teacher(clever_id)
-  end
-
   def self.schools_for_school_admin(clever_id, district_token=nil)
     api_instance(district_token).get_schools_for_school_admin(clever_id)
-  end
-
-  def self.students_for_section(clever_id, district_token=nil)
-    api_instance(district_token).get_students_for_section(clever_id)
   end
 
   def self.api_instance(district_token=nil)
@@ -41,5 +33,4 @@ module CleverIntegration::Requesters
     api_instance.api_client.config = config
     api_instance
   end
-
 end

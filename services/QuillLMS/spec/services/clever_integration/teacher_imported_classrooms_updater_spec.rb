@@ -12,8 +12,8 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
   let(:data) do
     {
       classrooms: [
-        { id: imported_classroom.clever_id, name: updated_name },
-        { id: new_classroom_clever_id, name: 'new classroom' }
+        { clever_id: imported_classroom.clever_id, name: updated_name },
+        { clever_id: new_classroom_clever_id, name: 'new classroom' }
       ]
     }.to_json
   end
@@ -23,7 +23,7 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
   # To be utilized with frontend UI PR
   # it 'updates only previously imported classrooms that have clever_id' do
   #   expect(CleverIntegration::TeacherClassroomsCache).to receive(:get).with(teacher_id).and_return(data)
-  #   expect(CleverIntegration::ImportStudentsWorker).to receive(:perform_async).with(teacher_id, [imported_classroom.id])
+  #   expect(CleverIntegration::ImportClassroomStudentsWorker).to receive(:perform_async).with(teacher_id, [imported_classroom.id])
   #   subject
 
   #   expect(Classroom.count).to eq 1
@@ -32,7 +32,7 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
 
   it 'imports a new classroom and updates and existing one' do
     expect(CleverIntegration::TeacherClassroomsCache).to receive(:get).with(teacher_id).and_return(data)
-    expect(CleverIntegration::ImportStudentsWorker).to receive(:perform_async)
+    expect(CleverIntegration::ImportClassroomStudentsWorker).to receive(:perform_async)
     subject
 
     expect(Classroom.count).to eq 2

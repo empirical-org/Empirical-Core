@@ -20,7 +20,7 @@ module CleverIntegration
       set_cache_expiration
       notify_pusher
     rescue StandardError => e
-      NewRelic::Agent.notice_error(e)
+      NewRelic::Agent.notice_error(e, user_id: teacher.id)
     end
 
     private def cache_classrooms_data
@@ -32,7 +32,7 @@ module CleverIntegration
     end
 
     private def data
-      { classrooms: client.get_sections_for_teacher(teacher.clever_id) }
+      { classrooms: client.get_teacher_classrooms(teacher.clever_id) }
     end
 
     private def load_teacher

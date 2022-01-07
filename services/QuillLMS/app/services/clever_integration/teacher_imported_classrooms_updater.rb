@@ -38,7 +38,7 @@ module CleverIntegration
     end
 
     private def update_classrooms_students
-      ImportStudentsWorker.perform_async(teacher_id, imported_classrooms.map(&:id))
+      ImportClassroomStudentsWorker.perform_async(teacher_id, imported_classrooms.map(&:id))
     end
 
     # These will be utilized in subsequent frontend UI PR
@@ -56,7 +56,7 @@ module CleverIntegration
     # end
 
     # private def update_classrooms_students
-    #   ImportStudentsWorker.perform_async(teacher_id, imported_classrooms.map(&:id))
+    #   ImportClassroomStudentsWorker.perform_async(teacher_id, imported_classrooms.map(&:id))
     # end
   end
 end

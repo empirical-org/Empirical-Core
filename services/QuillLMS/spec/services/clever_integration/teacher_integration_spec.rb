@@ -14,7 +14,7 @@ RSpec.describe CleverIntegration::TeacherIntegration do
     let(:auth_hash) { library_auth_hash }
 
     it '' do
-      expect(CleverIntegration::TeacherDataParser).to receive(:run).with(info_hash).and_return(teacher_data)
+      expect(CleverIntegration::TeacherDataAdapter).to receive(:run).with(info_hash).and_return(teacher_data)
       expect(CleverIntegration::TeacherImporter).to receive(:run).with(teacher_data).and_return(teacher)
       expect(CleverIntegration::LibraryTeacherIntegration).to receive(:run).with(teacher, auth_hash.credentials.token)
       expect(CleverIntegration::TeacherClassroomsRetriever).to receive(:run).with(teacher.id)
@@ -25,7 +25,7 @@ RSpec.describe CleverIntegration::TeacherIntegration do
 
     context 'nil email' do
       let(:email) { nil }
-      let(:message) { CleverIntegration::TeacherDataParser::BlankEmailError::MESSAGE }
+      let(:message) { CleverIntegration::TeacherDataAdapter::BlankEmailError::MESSAGE }
 
       it { expect(subject).to eq user_failure(message) }
     end
@@ -35,7 +35,7 @@ RSpec.describe CleverIntegration::TeacherIntegration do
     let(:auth_hash) { district_auth_hash }
 
     it '' do
-      expect(CleverIntegration::TeacherDataParser).to receive(:run).with(info_hash).and_return(teacher_data)
+      expect(CleverIntegration::TeacherDataAdapter).to receive(:run).with(info_hash).and_return(teacher_data)
       expect(CleverIntegration::TeacherImporter).to receive(:run).with(teacher_data).and_return(teacher)
       expect(CleverIntegration::DistrictTeacherIntegration).to receive(:run).with(teacher, district.clever_id)
       expect(CleverIntegration::TeacherClassroomsRetriever).to receive(:run).with(teacher.id)

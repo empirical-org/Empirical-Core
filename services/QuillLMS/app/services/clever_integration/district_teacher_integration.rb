@@ -2,6 +2,10 @@
 
 module CleverIntegration
   class DistrictTeacherIntegration < ApplicationService
+    class NilDistrictError < ::CleverIntegration::Error
+      MESSAGE = 'No district was found'
+    end
+
     attr_reader :teacher, :district_id
 
     def initialize(teacher, district_id)

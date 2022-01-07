@@ -50,7 +50,7 @@ module CleverIntegration
     end
 
     private def teacher_data
-      TeacherDataParser.run(info_hash)
+      TeacherDataAdapter.run(info_hash)
     end
 
     private def update_existing_teacher_classrooms

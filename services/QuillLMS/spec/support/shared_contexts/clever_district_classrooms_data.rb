@@ -41,7 +41,7 @@ RSpec.shared_context "Clever District Classrooms Data" do
     }
   end
 
-  let(:classroom1_students_data) { Clever:StudentsResponse.new(data: [student1_data, student2_data]) }
+  let(:classroom1_students_data) { Clever::StudentsResponse.new(data: [student1_data, student2_data]) }
 
   let(:classroom2_grade) { "4" }
   let(:classroom2_clever_id) { "5b2c569c7a68e009745801ac" }
@@ -79,7 +79,7 @@ RSpec.shared_context "Clever District Classrooms Data" do
     }
   end
 
-  let(:classroom2_students_data) { Clever:StudentsResponse.new(data: [student1_data, student2_data]) }
+  let(:classroom2_students_data) { Clever::StudentsResponse.new(data: [student3_data]) }
 
   let(:classrooms_data) { Clever::SectionsResponse.new(data: [classroom1_data, classroom2_data]) }
 end

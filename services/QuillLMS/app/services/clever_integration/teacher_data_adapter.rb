@@ -1,7 +1,7 @@
-t # frozen_string_literal: true
+# frozen_string_literal: true
 
 module CleverIntegration
-  class TeacherDataParser < ApplicationService
+  class TeacherDataAdapter < ApplicationService
     class BlankEmailError < ::CleverIntegration::Error
       MESSAGE = 'Teacher import has blank email'
     end

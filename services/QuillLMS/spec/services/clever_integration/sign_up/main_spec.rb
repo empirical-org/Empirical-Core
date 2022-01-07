@@ -3,15 +3,8 @@
 require 'rails_helper'
 
 describe 'CleverIntegration::SignUp::Main' do
-
-  include_context 'clever'
-
-  let!(:district) {
-    create(:district, clever_id: 'district_id_1', token: 'token1')
-  }
-  let!(:school) {
-    create(:school, nces_id: 'fake_nces_id')
-  }
+  let!(:district) { create(:district, clever_id: 'district_id_1', token: 'token1') }
+  let!(:school) { create(:school, nces_id: 'fake_nces_id') }
 
   before do
     school_admin = Clever::SchoolAdmin.new({

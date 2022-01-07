@@ -3,33 +3,15 @@
 require 'rails_helper'
 
 describe CleverIntegration::TeacherClassroomsRetriever do
-  let(:teacher) { create(:teacher, :signed_up_with_clever) }
-
-  let(:raw_data) do
-    {
-      "data"=> [
-        {
-          "data"=> {
-            "grade"=>"2",
-            "id"=>"6b2c569c7a68e009745801ab",
-            "name"=>"Second grade - Smith - ",
-            "students"=>["6b2c569c7a68e0097457ff9a", "6b2c569c7a68e0097457ff9b"],
-            "subject"=>"english",
-            "teacher"=>"6b2c69d17306d1054bc49f38",
-            "teachers"=>["6b2c69d17306d1054bc49f38"]
-          },
-          "uri"=>"/v2.0/sections/6b2c569c7a68e009745801ab"
-        }
-      ]
-    }
-  end
-
+  let(:raw_data) { ['classroom_data', 'classroom_data'] }
   let(:data) { { classrooms: raw_data }}
 
   subject { described_class.run(teacher.id) }
 
-  context do
-    let(:client) { double(:clever_client, get_sections_for_teacher: raw_data) }
+  context 'teacher has clever auth_credential' do
+    let(:teacher) { create(:teacher, :signed_up_with_clever) }
+    let!(:auth_credential) { create(:clever_library_auth_credential, user: teacher) }
+    let(:client) { double(:clever_client, get_teacher_classrooms: raw_data) }
 
     it '' do
       expect(CleverIntegration::ClientFetcher).to receive(:run).with(teacher).and_return(client)
@@ -41,13 +23,25 @@ describe CleverIntegration::TeacherClassroomsRetriever do
     end
   end
 
-  context 'no auth_credential' do
-    it { expect { subject }.to raise_error CleverIntegration::ClientFetcher::NilAuthCredentialError }
+  context 'teacher has no auth_credential' do
+    let(:teacher) { create(:teacher) }
+
+    it 'does not cache any teacher classrooms and it reports an error' do
+      expect(CleverIntegration::TeacherClassroomsCache).not_to receive(:set)
+      expect(PusherTrigger).not_to receive(:run)
+      expect(NewRelic::Agent).to receive(:notice_error)
+      subject
+    end
   end
 
-  context 'google auth_credential' do
-    before { create(:google_auth_credential, user: teacher) }
+  context 'teacher has google auth_credential' do
+    let(:teacher) { create(:teacher, :signed_up_with_google) }
 
-    it { expect { subject }.to raise_error CleverIntegration::ClientFetcher::UnsupportedProviderError }
+    it 'does not cache any teacher classrooms and it reports an error' do
+      expect(CleverIntegration::TeacherClassroomsCache).not_to receive(:set)
+      expect(PusherTrigger).not_to receive(:run)
+      expect(NewRelic::Agent).to receive(:notice_error)
+      subject
+    end
   end
 end
