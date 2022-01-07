@@ -28,24 +28,23 @@ RSpec.describe CleverIntegration::ClassroomStudentsImporter do
   end
 
   context 'students_data has two students' do
-    let(:valid_email) { 'a@b.com' }
-    let(:invalid_email) { 'not-an-email' }
-
     let(:students_data) { [student_data1, student_data2] }
 
     let(:student_data1) do
       {
-        id: '123',
-        email: valid_email,
-        name: { first: 'Al', last: 'Oz' }
+        clever_id: '123',
+        email: 'billo@example.com',
+        name: 'Bill Oz',
+        username: 'billo'
       }
     end
 
     let(:student_data2) do
       {
-        id: '456',
-        email: invalid_email,
-        name: { first: 'Ky', last: 'Su' }
+        clever_id: '456',
+        email: 'fc@example.com',
+        name: 'Frank Clinton',
+        username: 'frank_clinton'
       }
     end
 
