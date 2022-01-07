@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe CleverIntegration::LibraryClient do
   include_context "Clever Library Classrooms Data"
 
-  let(:teacher) { create(:teacher, :signed_up_with_clever) }
+  let(:teacher) { create(:teacher, clever_id: teacher_clever_id) }
   let(:bearer_token) { 'not-a-real-bearer-token' }
   let(:options) { { headers: { "Authorization": "Bearer " + bearer_token } } }
 

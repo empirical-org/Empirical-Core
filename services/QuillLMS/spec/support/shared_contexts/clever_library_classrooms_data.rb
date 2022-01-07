@@ -3,10 +3,11 @@
 RSpec.shared_context "Clever Library Classrooms Data" do
   include_context "Clever Library Students Data"
 
+  let(:teacher_clever_id) { "5b2c69d17306d1054bc49f38" }
+
   let(:classroom1_grade) { "2" }
   let(:classroom1_clever_id) { "5b2c569c7a68e009745801ab" }
   let(:classroom1_name) { "Second grade - Price - " }
-  let(:classroom1_teacher_clever_id) { "5b2c69d17306d1054bc49f38" }
   let(:classroom1_students) { [student1_clever_id, student2_clever_id] }
 
   let(:classroom1_data) do
@@ -17,8 +18,8 @@ RSpec.shared_context "Clever Library Classrooms Data" do
         "name"=> classroom1_name,
         "students"=> classroom1_students,
         "subject"=>"english",
-        "teacher"=> classroom1_teacher_clever_id,
-        "teachers"=>[classroom1_teacher_clever_id]
+        "teacher"=> teacher_clever_id,
+        "teachers"=>[teacher_clever_id]
       }
     }
   end
@@ -46,8 +47,8 @@ RSpec.shared_context "Clever Library Classrooms Data" do
         "name"=> classroom2_name,
         "students"=> classroom2_students,
         "subject"=>"english",
-        "teacher"=> classroom2_teacher_clever_id,
-        "teachers"=>[classroom2_teacher_clever_id]
+        "teacher"=> teacher_clever_id,
+        "teachers"=>[teacher_clever_id]
       }
     }
   end
