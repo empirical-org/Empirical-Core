@@ -19,13 +19,17 @@
     }
   }
   .first-row {
-    padding-left: 12px;
-    padding-top: 16px;
+    padding: 16px;
     background-color: grey;
     color: white;
     font-weight: bold;
-    height: 200px;
     font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .name-and-label {
+      min-height: 108px;
+    }
     .unit-template-type {
       font-size: 16px;
     }
@@ -33,6 +37,45 @@
       margin-top: 18px;
       font-size: 22px;
       font-weight: 900;
+    }
+    .tool-names {
+      display: flex;
+      flex-direction: column;
+      font-size: 12px;
+      margin-top: 12px;
+      min-height: 64px;
+      p {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 4px;
+      }
+      .tool-row {
+        font-weight: 600;
+        align-items: center;
+        display: flex;
+        line-height: 12px;
+        flex: 33%;
+        white-space: nowrap;
+        margin-top: 4px;
+
+        img {
+          filter: brightness(0) invert(1);
+          margin-right: 4px;
+        }
+      }
+    }
+    .recommended-by {
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      margin-top: 12px;
+      min-height: 36px;
+      align-items: flex-start;
+      .fa-asterisk {
+        font-size: 10px;
+        margin-top: 4px;
+        margin-right: 4px;
+      }
     }
   }
   .author-picture {
@@ -42,33 +85,32 @@
   }
   .white-row {
     background-color: white;
-    color: rgb(100,100,100);
-    height: 70px;
+    color: #646464;
     font-weight: 400;
-    padding-top: 36px;
+    padding: 16px;
     border: 1px solid #929292;
     .info-row {
       line-height: 18px;
-      height: 18px;
-      width: 95%;
-      margin: auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      div {
+        display: flex;
+        align-items: center;
+      }
+      .fas {
+        margin-right: 5px;
+        margin-top: 2px;
+      }
+      .readability {
+        display: flex;
+      }
       .activities-count {
-        float: right;
-        .fa-th-list {
-          margin-right: 5px;
-        }
+        margin-right: 16px;
       }
       .time {
         .fa-clock {
           font-size: 18px;
-          float: left;
-          margin-right: 5px;
-        }
-        .time-number {
-          float: left;
         }
       }
     }

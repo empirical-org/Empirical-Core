@@ -31,6 +31,7 @@ class UnitTemplate < ApplicationRecord
   has_many :units
   has_many :partner_contents, dependent: :destroy, as: :content
   has_many :recommendations, dependent: :destroy
+  has_many :activities_recommended_by, :through => :recommendations, :source => :activity
   serialize :grades, Array
 
   validates :flag,
@@ -50,7 +51,7 @@ class UnitTemplate < ApplicationRecord
   scope :private_user, -> { where("unit_templates.flag IN('private', '#{PRODUCTION}','#{GAMMA}','#{BETA}','#{ALPHA}') OR unit_templates.flag IS null")}
   around_save :delete_relevant_caches
 
-  WHOLE_CLASS_AND_INDEPENDENT_PRACTICE = 'Whole class + Independent practice'
+  WHOLE_CLASS_LESSONS = 'Whole class lessons'
   INDEPENDENT_PRACTICE = 'Independent practice'
   DIAGNOSTIC = 'Diagnostic'
 

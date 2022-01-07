@@ -1,7 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 import UnitTemplateFirstRow from './unit_template_first_row'
 import UnitTemplateSecondRow from './unit_template_second_row'
+
 import String from '../../modules/string.jsx'
 
 export default class UnitTemplateMini extends React.Component {
@@ -17,8 +19,9 @@ export default class UnitTemplateMini extends React.Component {
   }
 
   getLink() {
+    const { data, } = this.props
     let link
-    if (this.props.data.id == 'createYourOwn') {
+    if (data.id == 'createYourOwn') {
       if (this.isSignedIn()) {
         link = '/assign/activity-library'
       } else {
@@ -26,9 +29,9 @@ export default class UnitTemplateMini extends React.Component {
       }
     } else {
       if (this.isSignedIn()) {
-        link = `/assign/featured-activity-packs/${this.props.data.id}`;
+        link = `/assign/featured-activity-packs/${data.id}`;
       } else {
-        link = `/activities/packs/${this.props.data.id}`
+        link = `/activities/packs/${data.id}`
       }
     }
     return link
@@ -42,20 +45,9 @@ export default class UnitTemplateMini extends React.Component {
     return <a href={this.getLink()}>{innerContent}</a>
   }
 
-  avatarUrl() {
-    return this.props.data.author ? this.props.data.author.avatar_url : null
-  }
-
-  displayPicture() {
-    return (
-      <div className='author-picture'>
-        <img src={this.avatarUrl()} />
-      </div>
-    );
-  }
-
   miniSpecificComponents() {
-    if (this.props.data.id == 'createYourOwn') {
+    const { data, } = this.props
+    if (data.id == 'createYourOwn') {
       return (
         <a href={this.getLink()}>
           <div className='text-center create-your-own'>
@@ -72,11 +64,10 @@ export default class UnitTemplateMini extends React.Component {
     else {
       const innerContent = (<div>
         <UnitTemplateFirstRow
-          data={this.props.data}
+          data={data}
           modules={{string: this.modules.string}}
         />
-        <UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />
-        {this.displayPicture()}
+        <UnitTemplateSecondRow data={data} modules={{string: this.modules.string}} />
       </div>)
 
       return this.renderMini(innerContent)

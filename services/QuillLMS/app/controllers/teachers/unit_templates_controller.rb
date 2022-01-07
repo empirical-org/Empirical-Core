@@ -108,7 +108,7 @@ class Teachers::UnitTemplatesController < ApplicationController
       ut_cache
     else
       uts = unit_templates_by_user_testing_flag
-      $redis.set(ut_cache_name, uts.to_json)
+      # $redis.set(ut_cache_name, uts.to_json)
       uts
     end
   end

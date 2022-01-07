@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UnitTemplatePseudoSerializer
-  # attributes :id, :name, :time, :grades, :order_number, :number_of_standards, :activity_info, :author, :unit_template_category, :activities, :standards
+  # attributes :id, :name, :time, :grades, :order_number, :number_of_standards, :activity_info, :unit_template_category, :activities, :standards
 
   def initialize(unit_template, flag=nil)
     @unit_template = unit_template
@@ -18,10 +18,11 @@ class UnitTemplatePseudoSerializer
       created_at: ut.created_at.to_i,
       number_of_standards: number_of_standards,
       activity_info: ut.activity_info,
-      author: author,
       unit_template_category: unit_template_category,
       activities: activities,
-      type: type
+      type: type,
+      readability: ut.readability,
+      activities_recommended_by: ut.activities_recommended_by
     }
   end
 
@@ -40,14 +41,6 @@ class UnitTemplatePseudoSerializer
       secondary_color: cat&.secondary_color,
       name: cat&.name,
       id: cat&.id
-    }
-  end
-
-  def author
-    author = @unit_template.author
-    {
-      name: author&.name,
-      avatar_url: author&.avatar_url
     }
   end
 
@@ -109,7 +102,8 @@ class UnitTemplatePseudoSerializer
           key: act['key'],
           id: act['activity_classification_id'],
           name: act['activity_classification_name']
-        }
+        },
+        readability: Activity.find(act['id']).readability_grade_level
       }
     end
 
@@ -120,7 +114,7 @@ class UnitTemplatePseudoSerializer
     acts = @unit_template.activities
     if acts.any? { |act| act&.classification&.key == ActivityClassification::LESSONS_KEY }
       {
-        name: UnitTemplate::WHOLE_CLASS_AND_INDEPENDENT_PRACTICE,
+        name: UnitTemplate::WHOLE_CLASS_LESSONS,
         primary_color: '#9c2bde'
       }
     elsif acts.any? { |act| act&.classification&.key == ActivityClassification::DIAGNOSTIC_KEY }
