@@ -5,15 +5,15 @@ require 'rails_helper'
 RSpec.describe CleverIntegration::ClassroomStudentsImporter do
   let(:classroom) { create(:classroom, :from_clever) }
 
-  subject { described_class.new(classroom, students_data) }
+  subject { described_class.run(classroom, students_data) }
 
   context 'students_data is nil' do
     let(:students_data) { nil }
 
     it 'skips importing' do
-      expect(subject).not_to receive(:associate_students_with_classroom)
-      expect(subject).not_to receive(:associate_students_with_provider_classroom)
-      subject.run
+      expect(CleverIntegration::Associators::StudentsToClassroom).not_to receive(:run)
+      expect(ProviderClassroomUsersUpdater).not_to receive(:run)
+      subject
     end
   end
 
@@ -21,9 +21,9 @@ RSpec.describe CleverIntegration::ClassroomStudentsImporter do
     let(:students_data) { [] }
 
     it 'skips importing' do
-      expect(subject).not_to receive(:associate_students_with_classroom)
-      expect(subject).not_to receive(:associate_students_with_provider_classroom)
-      subject.run
+      expect(CleverIntegration::Associators::StudentsToClassroom).not_to receive(:run)
+      expect(ProviderClassroomUsersUpdater).not_to receive(:run)
+      subject
     end
   end
 
@@ -35,22 +35,22 @@ RSpec.describe CleverIntegration::ClassroomStudentsImporter do
 
     let(:student_data1) do
       {
-        'id' => '123',
-        'email' => valid_email,
-        'name' => { 'first' => 'Al', 'middle' => 'Ty', 'last' => 'Oz' }
+        id: '123',
+        email: valid_email,
+        name: { first: 'Al', last: 'Oz' }
       }
     end
 
     let(:student_data2) do
       {
-        'id' => '456',
-        'email' => invalid_email,
-        'name' => { 'first' => 'Ky', 'middle' => 'Jo', 'last' => 'Su' }
+        id: '456',
+        email: invalid_email,
+        name: { first: 'Ky', last: 'Su' }
       }
     end
 
-    it { expect { subject.run }.to change(User.student, :count).from(0).to(2) }
-    it { expect { subject.run }.to change(StudentsClassrooms, :count).from(0).to(2) }
-    it { expect { subject.run }.to change(CleverClassroomUser, :count).from(0).to(2) }
+    it { expect { subject }.to change(User.student, :count).from(0).to(2) }
+    it { expect { subject }.to change(StudentsClassrooms, :count).from(0).to(2) }
+    it { expect { subject }.to change(CleverClassroomUser, :count).from(0).to(2) }
   end
 end
