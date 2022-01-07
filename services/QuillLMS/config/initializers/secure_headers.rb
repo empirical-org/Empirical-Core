@@ -13,6 +13,7 @@ SecureHeaders::Configuration.default do |config|
       "'self'",
       "https://coview.com",
       "https://*.coview.com",
+      "https://intercom-sheets.com",
       "https://stripe.com",
       "https://*.stripe.com"
     ],
