@@ -17,16 +17,14 @@ module CleverIntegration
       get_path("/teachers/#{teacher_id}")
     end
 
-    def get_sections_for_teacher(teacher_clever_id)
+    def get_teacher_classrooms(teacher_clever_id)
       get_path("/teachers/#{teacher_clever_id}/sections")
-        .map(&:deep_symbolize_keys)
-        .map { |section| section[:data] }
+        .map { |classroom_data| LibraryClassroomDataAdapter.run(classroom_data) }
     end
 
-    def get_students_for_section(section_id)
+    def get_classroom_students(section_id)
       get_path("/sections/#{section_id}/students")
-        .map(&:deep_symbolize_keys)
-        .map { |section| section[:data] }
+        .map { |student_data| LibraryStudentDataAdapter.run(student_data) }
     end
 
     private def get_path(path)
