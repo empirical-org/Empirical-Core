@@ -24,11 +24,5 @@ describe CsvExportMailer, type: :mailer do
     it 'renders the sender' do
       expect(mail.from).to eq(['hello@quill.org'])
     end
-
-    it 'contains the URL for the CSV' do
-      pending('CSV mailer works, but authenticated URL is different -- perhaps a change in AWS?')
-      skip
-      expect(mail.body.encoded).to include(h(csv_export.csv_file.file.authenticated_url))
-    end
   end
 end

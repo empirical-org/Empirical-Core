@@ -57,7 +57,7 @@ class SerializeVitallySalesAccount
   end
 
   private def get_from_cache(key)
-    last_school_year = Date.today.year - 1
+    last_school_year = School.school_year_start(Date.today - 1.year).year
     cached_data = CacheVitallySchoolData.get(@school.id, last_school_year)
     if cached_data.present?
       parsed_data = JSON.parse(cached_data)

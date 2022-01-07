@@ -28,7 +28,6 @@ import {
   updateConceptResultsOnFirebase,
   updateSessionOnFirebase,
   setSessionReducerToSavedSession,
-  removeSession,
   setPassage,
   updateTimeTracking
 } from "../../actions/session";
@@ -315,7 +314,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         },
         (err, httpResponse, body) => {
           if (httpResponse && httpResponse.statusCode === 200) {
-            removeSession(sessionID)
             document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${sessionID}`;
           }
         }
@@ -337,7 +335,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         },
         (err, httpResponse, body) => {
           if (httpResponse && httpResponse.statusCode === 200) {
-            if (sessionID) { removeSession(sessionID) }
             document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
           }
         }

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::ActiveActivitySessionsController < Api::ApiController
-  before_action :activity_session_by_uid, only: [:show, :destroy]
+  before_action :activity_session_by_uid, only: [:show]
 
   def show
     render json: @activity_session.as_json
@@ -29,14 +29,9 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
     render json: @activity_session.as_json
   end
 
-  def destroy
-    @activity_session.destroy
-    render(plain: 'OK')
-  end
-
   private def working_params
     return valid_params unless params.dig(:active_activity_session, :passage)
-    permitted_passage_object = params[:active_activity_session][:passage].map do |paragraph| 
+    permitted_passage_object = params[:active_activity_session][:passage].map do |paragraph|
       paragraph.map do |word_object|
         word_object.permit!
       end

@@ -8,11 +8,15 @@ module Evidence
     # GET /rules.json
     def index
       @rules = Evidence::Rule
-      @rules = @rules.joins(:prompts_rules).where(comprehension_prompts_rules: {prompt_id: params[:prompt_id].split(',')}) if params[:prompt_id]
-      @rules = @rules.where(rule_type: params[:rule_type]) if params[:rule_type]
+      @rules = @rules.includes(:prompts_rules).where(comprehension_prompts_rules: {prompt_id: params[:prompt_id].split(',')}) if params[:prompt_id]
+      @rules = @rules.where(rule_type: index_params['rule_type']) 
 
       # some rules will apply to multiple prompts so we only want to return them once
       render json: @rules.distinct.all
+    end
+
+    def universal
+      render json: Evidence::Rule.where(universal: true)
     end
 
     # GET /rules/1.json
@@ -69,10 +73,14 @@ module Evidence
       end
     end
 
+    private def index_params
+      params.tap { |p| p.require(:rule_type) }
+    end
+
     private def rule_params
       params.require(:rule).permit(:name, :note, :universal, :rule_type, :optimal, :state, :suborder, :concept_uid,
          prompt_ids: [],
-         plagiarism_text_attributes: [:id, :text],
+         plagiarism_texts_attributes: [:id, :text, :_destroy],
          regex_rules_attributes: [:id, :regex_text, :case_sensitive, :sequence_type, :conditional],
          label_attributes: [:id, :name, :state],
          feedbacks_attributes: [:id, :text, :description, :order, highlights_attributes: [:id, :text, :highlight_type, :starting_index, :_destroy]]

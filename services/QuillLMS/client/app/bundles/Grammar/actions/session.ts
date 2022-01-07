@@ -269,10 +269,6 @@ export const checkAnswer = (response: string, question: Question, responses: Res
   }
 }
 
-export const removeSession = (sessionId: string) => {
-  SessionApi.remove(sessionId)
-}
-
 export const goToNextQuestion = () => {
   return dispatch => {
     dispatch({ type: ActionTypes.GO_T0_NEXT_QUESTION })

@@ -2,18 +2,36 @@
 
 exports[`RulePlagiarismAttributes component should render RulePlagiarismAttributes 1`] = `
 <Fragment>
-  <p
-    className="form-subsection-label"
-  >
-    Plagiarism Text
-  </p>
-  <TextEditor
-    ContentState={[Function]}
-    EditorState={[Function]}
-    handleTextChange={[Function]}
-    key="plagiarism-text"
-    shouldCheckSpelling={true}
+  <PlagiarismTextEditor
+    index={0}
+    key="0"
+    setPlagiarismText={[Function]}
+    text="test plagiarism text"
   />
+  <PlagiarismTextEditor
+    index={1}
+    key="1"
+    setPlagiarismText={[Function]}
+    text="test another plagiarism text"
+  />
+  <div
+    className="button-wrapper"
+  >
+    <button
+      className="add-highlight quill-button small primary outlined"
+      onClick={[Function]}
+      type="button"
+    >
+      Add Text String
+    </button>
+    <button
+      className="remove-highlight quill-button small primary outlined"
+      onClick={[Function]}
+      type="button"
+    >
+      Remove Text String
+    </button>
+  </div>
   <p
     className="form-subsection-label"
   >

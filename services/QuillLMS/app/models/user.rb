@@ -590,17 +590,15 @@ class User < ApplicationRecord
   end
 
   def generate_username(classroom_id=nil)
-    self.username = GenerateUsername.new(
-      first_name,
-      last_name,
-      get_class_code(classroom_id)
-    ).call
+    self.username = GenerateUsername.run(first_name, last_name, get_class_code(classroom_id))
+  end
+
+  def clever_authorized?
+    auth_credential&.clever_authorized?
   end
 
   def google_authorized?
-    return false if auth_credential.nil?
-
-    auth_credential.google_authorized?
+    auth_credential&.google_authorized?
   end
 
   # Note this is an incremented count, so could be off.

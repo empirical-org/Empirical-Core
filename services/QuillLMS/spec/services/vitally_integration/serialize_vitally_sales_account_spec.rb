@@ -26,7 +26,7 @@ describe 'SerializeVitallySalesAccount' do
       activities_finished: 1,
       activities_per_student: 1.0
     }
-    year = Date.today.year - 1
+    year = School.school_year_start(Date.today - 1.year).year
     CacheVitallySchoolData.set(school.id, year, previous_year_data.to_json)
   end
 
