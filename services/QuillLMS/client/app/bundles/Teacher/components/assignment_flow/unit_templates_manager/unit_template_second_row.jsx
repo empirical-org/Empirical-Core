@@ -34,7 +34,7 @@ export default class UnitTemplateSecondRow extends React.Component {
 
     return (<div className="readability">
       <i className='fas fa-book-open' />
-      <span>Readability: Grades {data.readability}</span>
+      <span>Readability: {data.readability} Grades</span>
     </div>)
   }
 
