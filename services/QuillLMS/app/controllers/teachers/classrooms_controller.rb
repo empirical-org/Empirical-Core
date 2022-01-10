@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Teachers::ClassroomsController < ApplicationController
+  include CleverAuthable
+
   respond_to :json, :html, :pdf
   before_action :teacher!
   # The excepted/only methods below are ones that should be accessible to coteachers.
@@ -12,9 +14,11 @@ class Teachers::ClassroomsController < ApplicationController
 
   def index
     session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
+    session[CLEVER_REDIRECT] = request.env['PATH_INFO']
 
     @coteacher_invitations = format_coteacher_invitations_for_index
     @classrooms = format_classrooms_for_index
+    @clever_link = clever_link
 
     respond_to do |format|
       format.html
