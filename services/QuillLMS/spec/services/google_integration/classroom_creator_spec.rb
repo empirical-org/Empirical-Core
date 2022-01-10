@@ -47,7 +47,7 @@ RSpec.describe GoogleIntegration::ClassroomCreator do
 
     before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom_1) }
 
-    it 'creates a new classroom object with new name to avoid a naming collision' do
+    it "renames a classroom object with '_1' appended to new name to avoid a naming collision" do
       expect(subject.name).to eq "#{name}_1"
     end
 
@@ -57,7 +57,7 @@ RSpec.describe GoogleIntegration::ClassroomCreator do
 
       before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom_2) }
 
-      it 'creates a new classroom object with new name to avoid two naming collisions' do
+      it "renames classroom object with '_1_1' appended to new name to avoid two naming collisions" do
         expect(subject.name).to eq "#{name}_1_1"
       end
     end

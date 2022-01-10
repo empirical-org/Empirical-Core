@@ -98,4 +98,30 @@ RSpec.describe CleverIntegration::ClassroomUpdater do
       it { expect(subject.owner).to_not eq teacher }
     end
   end
+
+  context "teacher owns another classroom with same name" do
+    let(:name_1) { 'other clever_classroom classroom' }
+    let(:classroom_1) { create(:classroom, :from_clever, :with_no_teacher, name: name_1) }
+
+    let(:name) { 'clever_classroom classroom'}
+    let(:synced_name) { name }
+    let(:data_name) { name_1 }
+
+    before { create(:classrooms_teacher, user_id: teacher.id, classroom: classroom_1) }
+
+    it "renames a classroom object with '_1' appended to new name to avoid a naming collision" do
+      expect(subject.name).to eq "#{name_1}_1"
+    end
+
+    context 'and another classroom as same name as renamed collision' do
+      let(:name_2) { "#{name_1}_1"}
+      let(:classroom_2) { create(:classroom, :from_clever, :with_no_teacher, name: name_2) }
+
+      before { create(:classrooms_teacher, user_id: teacher.id, classroom: classroom_2) }
+
+      it "renames classroom object with '_1_1' appended to new name to avoid two naming collisions" do
+        expect(subject.name).to eq "#{name_2}_1"
+      end
+    end
+  end
 end
