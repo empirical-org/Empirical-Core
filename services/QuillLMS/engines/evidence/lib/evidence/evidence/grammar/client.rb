@@ -4,7 +4,7 @@ module Evidence
   module Grammar
     class Client
       API_TIMEOUT = 500
-      ALLOWED_PAYLOAD_KEYS = ['oapi_error', 'highlight']
+      ALLOWED_PAYLOAD_KEYS = ['gapi_error', 'highlight']
 
       class GrammarApiError < StandardError; end
 

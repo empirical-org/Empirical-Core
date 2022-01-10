@@ -6,7 +6,17 @@ module Evidence
   class FeedbackController < ApiController
     before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling]
 
-    def prefilter
+    def grammar 
+      grammar_client = Grammar::Client.new(entry: params['entry'], prompt_text: params['prompt_text'])
+      render json: Grammar::FeedbackAssembler.run(grammar_client.post)
+    end
+
+    def opinion 
+      oapi_client = Opinion::Client.new(entry: params['entry'], prompt_text: params['prompt_text'])
+      render json: Opinion::FeedbackAssembler.run(oapi_client.post)
+    end 
+
+    def prefilter 
       prefilter_check = Evidence::PrefilterCheck.new(prefilter_params)
       render json: prefilter_check.feedback_object
     end
