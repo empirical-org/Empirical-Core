@@ -309,7 +309,6 @@ module Teacher
 
   def google_classrooms
     Classroom
-      .unscoped
       .joins(:classrooms_teachers)
       .where(classrooms_teachers: { user_id: id })
       .where.not(google_classroom_id: nil)
@@ -317,7 +316,6 @@ module Teacher
 
   def clever_classrooms
     Classroom
-      .unscoped
       .joins(:classrooms_teachers)
       .where(classrooms_teachers: { user_id: id })
       .where.not(clever_id: nil)
