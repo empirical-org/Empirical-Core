@@ -508,6 +508,10 @@ EmpiricalGrammar::Application.routes.draw do
     get '/clever/callback', to: 'clever#clever'
   end
 
+  namespace :clever_integration do
+    post '/teachers/import_classrooms', to: 'teachers#import_classrooms'
+  end
+
   get '/clever/auth_url_details', to: 'clever#auth_url_details'
   get '/clever/no_classroom', to: 'clever#no_classroom'
   get '/auth/failure', to: 'sessions#failure'
