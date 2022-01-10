@@ -214,19 +214,22 @@ export default createReactClass({
   },
 
   getActivityPackDescriptionEditor() {
+    const { model } = this.state
+    const { activity_info } = model
     return (
-    <div class="activity-pack-description">
-      <br />
-      <span>Activity Pack Description</span>
-      <TextEditor
-        ContentState={ContentState}
-        EditorState={EditorState}
-        handleTextChange={this.handleActivityPackDescriptionChange}
-        key="activity-pack-description"
-        shouldCheckSpelling={true}
-        text={this.state.model.activity_info}
-      />
-    </div>);
+      <div className="activity-pack-description">
+        <br />
+        <span>Activity Pack Description</span>
+        <TextEditor
+          ContentState={ContentState}
+          EditorState={EditorState}
+          handleTextChange={this.handleActivityPackDescriptionChange}
+          key="activity-pack-description"
+          shouldCheckSpelling={true}
+          text={activity_info}
+        />
+      </div>
+    );
   },
 
   getErrorMessageAndButton() {
@@ -237,11 +240,13 @@ export default createReactClass({
   },
 
   getDiagnostics() {
+    const { model } = this.state
+    const { diagnostics } = model
     return (
       <div>
         <h3>Diagnostics:</h3>
-        <span>{this.state.model.diagnostics.map((diagnostic) => {
-            return (<span>{diagnostic}<br/></span>);
+        <span>{diagnostics && diagnostics.map((diagnostic) => {
+            return (<span>{diagnostic}<br /></span>);
         })}</span>
         <br /><br />
       </div>
@@ -249,15 +254,19 @@ export default createReactClass({
   },
 
   getPreviewLink() {
-    let url = `${process.env.DEFAULT_URL}/assign/featured-activity-packs/${this.state.model.id}`
-    return (<a class="link-green" href={url} target="_blank">Preview in Featured Activity Pack page</a>)
+    const { model } = this.state
+    const { id } = model
+    let url = `${process.env.DEFAULT_URL}/assign/featured-activity-packs/${id}`
+    return (<a className="link-green" href={url} rel="noopener noreferrer" target="_blank">Preview in Featured Activity Pack page</a>)
   },
 
   getReadability() {
+    const { model } = this.state
+    const { readability } = model
     return (
       <div>
         <h3>Readability:</h3>
-        <span>{`${this.state.model.readability}`}</span>
+        <span>{readability && `${readability}`}</span>
         <br /><br />
       </div>
     )
