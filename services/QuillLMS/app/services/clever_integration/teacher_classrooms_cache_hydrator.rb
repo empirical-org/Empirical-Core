@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CleverIntegration
-  class TeacherClassroomsRetriever < ApplicationService
+  class TeacherClassroomsCacheHydrator < ApplicationService
     class NilTeacherError < ::CleverIntegration::Error
       MESSAGE = 'Teacher required for clever client access'
     end
