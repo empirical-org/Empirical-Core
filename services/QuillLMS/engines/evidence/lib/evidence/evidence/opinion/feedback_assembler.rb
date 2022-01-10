@@ -26,6 +26,9 @@ module Evidence
         super.merge({'feedback_type' => 'opinion'})
       end
 
+      def self.error_name 
+        'oapi_error'
+      end
     end
     
   end
