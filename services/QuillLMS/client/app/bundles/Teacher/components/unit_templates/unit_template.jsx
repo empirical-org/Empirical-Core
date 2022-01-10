@@ -32,6 +32,8 @@ export default createReactClass({
       flag: this.props.unitTemplate.flag || null,
       author_id: null,
       order_number: this.props.unitTemplate.order_number || null,
+      readability: null,
+      diagnostics: []
     };
     model = _.extend(model, this.props.unitTemplate);
     const options = this.modules.optionsLoader.initialOptions();
@@ -234,9 +236,31 @@ export default createReactClass({
     </div>);
   },
 
+  getDiagnostics() {
+    return (
+      <div>
+        <h3>Diagnostics:</h3>
+        <span>{this.state.model.diagnostics.map((diagnostic) => {
+            return (<span>{diagnostic}<br/></span>);
+        })}</span>
+        <br /><br />
+      </div>
+    );
+  },
+
   getPreviewLink() {
     let url = `${process.env.DEFAULT_URL}/assign/featured-activity-packs/${this.state.model.id}`
-    return (<a href={url} target="_blank">Preview in Featured Activity Pack page</a>)
+    return (<a class="link-green" href={url} target="_blank">Preview in Featured Activity Pack page</a>)
+  },
+
+  getReadability() {
+    return (
+      <div>
+        <h3>Readability:</h3>
+        <span>{`${this.state.model.readability}`}</span>
+        <br /><br />
+      </div>
+    )
   },
 
   render() {
@@ -251,6 +275,8 @@ export default createReactClass({
         </span>
         {this.getUnitTemplateCategorySelect()}
         {this.getTimeDropdownSelect()}
+        {this.getDiagnostics()}
+        {this.getReadability()}
         {this.getPreviewLink()}
         <br /><br />
         <span>

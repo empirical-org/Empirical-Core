@@ -82,6 +82,19 @@ describe UnitTemplate, redis: true, type: :model do
     end
   end
 
+  describe '#diagnostics' do
+    it 'returns a list of diagnositcs attached to the activity pack' do
+      diagnostic = create(:diagnostic_activity)
+      recommendation = create(:recommendation, unit_template: unit_template, activity: diagnostic)
+
+      expect(unit_template.diagnostics).to eq([diagnostic.name])
+    end
+
+    it 'returns an empty list if there are no recommendations' do
+      expect(unit_template.diagnostics).to eq([])
+    end
+  end
+
   describe '#related_models' do
     let!(:unit_template1) { create(:unit_template, unit_template_category_id: unit_template.unit_template_category_id) }
     let!(:unit_template2) { create(:unit_template) }

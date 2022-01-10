@@ -21,6 +21,7 @@ describe Cms::UnitTemplateSerializer do
         activity_info
         image_link
         readability
+        diagnostics
       }
     end
   end
