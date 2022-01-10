@@ -59,6 +59,12 @@ class Classroom < ApplicationRecord
 
   accepts_nested_attributes_for :classrooms_teachers
 
+  def destroy 
+    classroom_units.each(&:destroy)
+    classrooms_teachers.each(&:destroy)
+    coteacher_classroom_invitations.each(&:destroy)
+    super
+  end
 
   def validate_name
     return unless name_changed?
