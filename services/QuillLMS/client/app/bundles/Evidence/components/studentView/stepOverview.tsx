@@ -1,43 +1,68 @@
 import * as React from 'react'
 
-import { greenCheckIcon, encircledWhiteArrowIcon, } from '../../../Shared/index'
+import { whiteCheckGreenBackgroundIcon } from '../../../Shared/index'
 
 const READ_PASSAGE_STEP = 1
+const BECAUSE_PASSAGE_STEP = 2
+const BUT_PASSAGE_STEP = 3
+const SO_PASSAGE_STEP = 4
 
 const steps = [
   {
-    text: 'Read a text and highlight sentences'
+    html: <p>Read a text and highlight sentences.</p>,
+    stepNumber: READ_PASSAGE_STEP
   },
   {
-    text: 'Write three sentences using evidence'
+    html: <p>Expand a sentence using <u>because</u> to provide a reason.</p>,
+    stepNumber: BECAUSE_PASSAGE_STEP
+  },
+  {
+    html: <p>Expand a sentence using <u>but</u> to provide an opposing idea.</p>,
+    stepNumber: BUT_PASSAGE_STEP
+  },
+  {
+    html: <p>Expand a sentence using <u>so</u> to provide a result.</p>,
+    stepNumber: SO_PASSAGE_STEP
   }
 ]
 
-const Step = ({ title, text, active, completed, handleClick, }) => {
+interface StepProps {
+  step: {
+    html: React.ReactElement,
+    stepNumber: number
+  },
+  active?: boolean,
+  completed?: boolean,
+  handleClick?: () => void
+}
+
+const Step = ({ active, completed, handleClick, step }: StepProps) => {
+  const { html, stepNumber } = step;
   if (active) {
     return (<section className="step-overview-step-container">
-      <img alt={encircledWhiteArrowIcon.alt} src={encircledWhiteArrowIcon.src} />
       <button className="step-overview-step active" onClick={handleClick} type="button">
-        <span>{title}</span>
-        <p>{text}</p>
+        <div className="left-side-container">
+          <div className={`step-number ${active ? 'active' : ''}`}>{stepNumber}</div>
+          {html}
+        </div>
+        <div className="now-tag">Now</div>
       </button>
     </section>)
   }
 
   if (completed) {
     return (<section className="step-overview-step-container">
-      <img alt={greenCheckIcon.alt} src={greenCheckIcon.src} />
       <div className="step-overview-step completed">
-        <span>{title}</span>
-        <p>{text}</p>
+        <img alt={whiteCheckGreenBackgroundIcon.alt} src={whiteCheckGreenBackgroundIcon.src} />
+        {html}
       </div>
     </section>)
   }
 
   return (<section className="step-overview-step-container">
     <div className="step-overview-step">
-      <span>{title}</span>
-      <p>{text}</p>
+      <div className="step-number">{stepNumber}</div>
+      {html}
     </div>
   </section>)
 }
@@ -49,12 +74,19 @@ const StepOverview = ({ activeStep, handleClick, }) => {
       <Step
         active={true}
         handleClick={handleClick}
-        text={steps[0].text}
-        title="Step 1 - Now"
+        step={steps[READ_PASSAGE_STEP - 1]}
       />
       <Step
-        text={steps[1].text}
-        title="Step 2 - After"
+        active={activeStep === BECAUSE_PASSAGE_STEP}
+        step={steps[BECAUSE_PASSAGE_STEP - 1]}
+      />
+      <Step
+        active={activeStep === BUT_PASSAGE_STEP}
+        step={steps[BUT_PASSAGE_STEP - 1]}
+      />
+      <Step
+        active={activeStep === SO_PASSAGE_STEP}
+        step={steps[SO_PASSAGE_STEP - 1]}
       />
     </div>)
   }
@@ -62,15 +94,21 @@ const StepOverview = ({ activeStep, handleClick, }) => {
   return (<div className="step-overview">
     <h1>Nice! Keep going!</h1>
     <Step
+      active={false}
       completed={true}
-      text={steps[0].text}
-      title="Step 1 - Done"
+      step={steps[READ_PASSAGE_STEP - 1]}
     />
     <Step
-      active={true}
-      handleClick={handleClick}
-      text={steps[1].text}
-      title="Step 2 - After"
+      active={activeStep === BECAUSE_PASSAGE_STEP}
+      step={steps[BECAUSE_PASSAGE_STEP - 1]}
+    />
+    <Step
+      active={activeStep === BUT_PASSAGE_STEP}
+      step={steps[BUT_PASSAGE_STEP - 1]}
+    />
+    <Step
+      active={activeStep === SO_PASSAGE_STEP}
+      step={steps[SO_PASSAGE_STEP - 1]}
     />
   </div>)
 }

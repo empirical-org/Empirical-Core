@@ -116,6 +116,7 @@ export {
   removeIcon,
   encircledWhiteArrowIcon,
   greenCheckIcon,
+  whiteCheckGreenBackgroundIcon,
   lockedIcon,
   closeIcon,
 } from './images/index'
