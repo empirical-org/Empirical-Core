@@ -1,3 +1,4 @@
+.import-from-clever-button.loading,
 .import-from-google-button.loading {
   background-color: #f5f5f5;
 }
@@ -324,7 +325,8 @@
       margin-right: 16px;
     }
   }
-  .invite-google-classroom-students, .invite-clever-students {
+  .invite-clever-classroom-students,
+  .invite-google-classroom-students {
     display: flex;
     flex-direction: column;
     span {
@@ -334,6 +336,7 @@
       font-size: 12px;
     }
   }
+  .invite-clever-classroom-students,
   .invite-google-classroom-students {
     align-items: flex-end;
     margin-bottom: 20px;
@@ -348,17 +351,6 @@
     margin-bottom: 40px;
     .quill-button {
       width: 128px;
-    }
-  }
-  .invite-clever-students {
-    margin-bottom: 38px;
-    p {
-      font-size: 14px;
-      line-height: 1.57;
-      color: #000;
-    }
-    span {
-      margin-top: 4px;
     }
   }
   .no-students {
