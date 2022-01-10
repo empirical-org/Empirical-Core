@@ -20,33 +20,6 @@ export default class UnitTemplateFirstRow extends React.Component {
     }
   }
 
-  renderRecommendedBy() {
-    const { data, } = this.props
-
-    if (data.activities_recommended_by.length === 0) { return <span className='recommended-by' /> }
-
-    const productionActivitiesRecommendedBy = data.activities_recommended_by.filter(act => act.flags.includes("production") && act.name.length)
-
-    if (productionActivitiesRecommendedBy.length === 0) { return <span className='recommended-by' /> }
-
-    const packNamesArray = productionActivitiesRecommendedBy.map(act => act.name)
-
-    let packNamesString = packNamesArray[0]
-
-    if (packNamesArray.length === 2) {
-      packNamesString = packNamesArray.join(' and ')
-    }
-
-    if (packNamesArray.length > 2) {
-      packNamesString = packNamesArray.concat(packNamesArray.splice(-2, 2).join(', and ')).join(', ');
-    }
-
-    return (<div className='recommended-by'>
-      <i className="fas fa-asterisk" />
-      <span>This pack is a recommended follow-up to {packNamesString}.</span>
-    </div>)
-  }
-
   renderToolNames() {
     const { data, } = this.props
 
@@ -90,7 +63,6 @@ export default class UnitTemplateFirstRow extends React.Component {
           </div>
         </div>
         {this.renderToolNames()}
-        {this.renderRecommendedBy()}
       </div>
     );
   }
