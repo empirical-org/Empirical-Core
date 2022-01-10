@@ -17,8 +17,30 @@ module CleverIntegration
       render json: { user_id: current_user.id }
     end
 
+    def retrieve_classrooms
+      if !current_user.clever_authorized?
+        render json: { user_id: current_user.id, reauthorization_required: true }
+      elsif serialized_classrooms_data
+        render json: {
+          classrooms_data: JSON.parse(serialized_classrooms_data),
+          existing_clever_ids: existing_clever_ids
+        }
+      else
+        hydrate_teacher_classrooms_cache
+        render json: { user_id: current_user.id, quill_retrieval_processing: true }
+      end
+    end
+
+    private def classrooms_data
+      TeacherClassroomsData.new(current_user, serialized_classrooms_data)
+    end
+
     private def delete_teacher_classrooms_cache
       TeacherClassroomsCache.delete(current_user.id)
+    end
+
+    private def existing_clever_ids
+      Classroom.where(clever_id: classrooms_data.clever_ids).pluck(:clever_id)
     end
 
     private def hydrate_teacher_classrooms_cache
@@ -41,8 +63,13 @@ module CleverIntegration
       TeacherClassroomsData.new(current_user, serialized_selected_classrooms_data)
     end
 
+    private def serialized_classrooms_data
+      TeacherClassroomsCache.read(current_user.id)
+    end
+
     private def serialized_selected_classrooms_data
       { classrooms: params[:selected_classrooms] }.to_json
     end
   end
 end
+

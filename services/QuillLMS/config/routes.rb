@@ -509,6 +509,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   namespace :clever_integration do
+    get '/teachers/retrieve_classrooms', to: 'teachers#retrieve_classrooms'
     post '/teachers/import_classrooms', to: 'teachers#import_classrooms'
     put '/teachers/import_students', to: 'teachers#import_students'
   end
