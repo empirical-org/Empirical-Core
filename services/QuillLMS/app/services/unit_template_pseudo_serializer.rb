@@ -59,7 +59,8 @@ class UnitTemplatePseudoSerializer
           standards.name AS standard_name,
           standard_levels.name AS standard_level_name,
           standard_categories.id AS standard_category_id,
-          standard_categories.name AS standard_category_name
+          standard_categories.name AS standard_category_name,
+          topics.name AS level_zero_topic_name
         FROM activities
         LEFT JOIN standards
           ON standards.id = activities.standard_id
@@ -75,12 +76,34 @@ class UnitTemplatePseudoSerializer
           ON activities.id = activity_category_activities.activity_id
         LEFT JOIN activity_categories
           ON activity_categories.id = activity_category_activities.activity_category_id
+        LEFT JOIN activity_topics
+          ON activity_topics.activity_id = activities.id
+        LEFT JOIN topics
+          ON activity_topics.topic_id = topics.id AND topics.level = 0
         WHERE activities_unit_templates.unit_template_id = #{@unit_template.id}
           AND NOT 'archived' = ANY(activities.flags)
-        ORDER BY
+        GROUP BY
+          activities.id,
+          activities.name,
+          activities.flags,
+          activities.description,
+          activity_classifications.key,
+          activity_classifications.id,
+          activity_classifications.name,
+          standards.id,
+          standards.name,
+          standard_levels.name,
+          standard_categories.id,
+          standard_categories.name,
+          topics.name,
           activities_unit_templates.order_number,
           activity_categories.order_number,
           activity_category_activities.order_number
+        ORDER BY
+          activities_unit_templates.order_number,
+          activity_categories.order_number,
+          activity_category_activities.order_number,
+          topics.name
       SQL
     ).to_a
 
@@ -103,7 +126,8 @@ class UnitTemplatePseudoSerializer
           id: act['activity_classification_id'],
           name: act['activity_classification_name']
         },
-        readability: Activity.find(act['id']).readability_grade_level
+        readability: Activity.find(act['id']).readability_grade_level,
+        level_zero_topic_name: act['level_zero_topic_name']
       }
     end
 

@@ -39,6 +39,7 @@
   }
 
   .type-options {
+    display: flex;
     a {
       line-height: 1;
       font-size: 16px;
@@ -61,6 +62,21 @@
 
 .unit-template-container {
   width: 460px;
+}
+
+@media only screen and (max-width: 991px) {
+  .unit-template-minis-container {
+    .filter-options {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .type-options {
+      margin-bottom: 40px;
+      a:last-of-type {
+        margin-right: 0px;
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 800px) {
@@ -96,9 +112,6 @@
   }
   .filter-options {
     flex-direction: column;
-    .dropdown-container {
-      width: 100% !important;
-    }
     .dropdown-container:first-of-type {
       margin-bottom: 24px;
     }
