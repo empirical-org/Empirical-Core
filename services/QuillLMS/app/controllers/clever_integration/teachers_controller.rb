@@ -10,6 +10,13 @@ module CleverIntegration
       render json: { classrooms: current_user.clever_classrooms }.to_json
     end
 
+    def import_students
+      delete_teacher_classrooms_cache
+      run_student_importer
+
+      render json: { user_id: current_user.id }
+    end
+
     private def delete_teacher_classrooms_cache
       TeacherClassroomsCache.delete(current_user.id)
     end
@@ -20,6 +27,14 @@ module CleverIntegration
 
     private def run_classroom_importer
       selected_classrooms_data.each { |data| ClassroomImporter.run(data) }
+    end
+
+    private def run_student_importer
+      ImportClassroomStudentsWorker.perform_async(current_user.id, selected_classroom_ids)
+    end
+
+    private def selected_classroom_ids
+      Classroom.where(id: params[:selected_classroom_ids]).ids
     end
 
     private def selected_classrooms_data
