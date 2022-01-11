@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should set a classroom that is checked but has no grade to have an error 1`] = `
+exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should set a classroom that is checked 1`] = `
 <ImportGoogleClassroomsModal
   classrooms={
     Array [
