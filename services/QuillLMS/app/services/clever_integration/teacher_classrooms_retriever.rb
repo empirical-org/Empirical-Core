@@ -17,14 +17,13 @@ module CleverIntegration
     def run
       load_teacher
       cache_classrooms_data
-      set_cache_expiration
       notify_pusher
     rescue StandardError => e
       NewRelic::Agent.notice_error(e, user_id: teacher.id)
     end
 
     private def cache_classrooms_data
-      TeacherClassroomsCache.set(teacher_id, data.to_json)
+      TeacherClassroomsCache.write(teacher_id, data.to_json)
     end
 
     private def client
@@ -45,10 +44,6 @@ module CleverIntegration
 
     private def pusher_message
       "Clever classrooms cached for #{teacher_id}."
-    end
-
-    private def set_cache_expiration
-      TeacherClassroomsCache.expire(teacher_id)
     end
 
     private def teacher

@@ -26,7 +26,7 @@ module CleverIntegration
     end
 
     private def serialized_classrooms_data
-      TeacherClassroomsCache.get(teacher_id)
+      TeacherClassroomsCache.read(teacher_id)
     end
 
     private def teacher

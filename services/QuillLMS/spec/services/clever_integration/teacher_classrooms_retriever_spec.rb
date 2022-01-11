@@ -15,8 +15,7 @@ describe CleverIntegration::TeacherClassroomsRetriever do
 
     it '' do
       expect(CleverIntegration::ClientFetcher).to receive(:run).with(teacher).and_return(client)
-      expect(CleverIntegration::TeacherClassroomsCache).to receive(:set).with(teacher.id, data.to_json)
-      expect(CleverIntegration::TeacherClassroomsCache).to receive(:expire).with(teacher.id)
+      expect(CleverIntegration::TeacherClassroomsCache).to receive(:write).with(teacher.id, data.to_json)
       expect(PusherTrigger).to receive(:run)
 
       subject
@@ -27,7 +26,7 @@ describe CleverIntegration::TeacherClassroomsRetriever do
     let(:teacher) { create(:teacher) }
 
     it 'does not cache any teacher classrooms and it reports an error' do
-      expect(CleverIntegration::TeacherClassroomsCache).not_to receive(:set)
+      expect(CleverIntegration::TeacherClassroomsCache).not_to receive(:write)
       expect(PusherTrigger).not_to receive(:run)
       expect(NewRelic::Agent).to receive(:notice_error)
       subject
@@ -38,7 +37,7 @@ describe CleverIntegration::TeacherClassroomsRetriever do
     let(:teacher) { create(:teacher, :signed_up_with_google) }
 
     it 'does not cache any teacher classrooms and it reports an error' do
-      expect(CleverIntegration::TeacherClassroomsCache).not_to receive(:set)
+      expect(CleverIntegration::TeacherClassroomsCache).not_to receive(:write)
       expect(PusherTrigger).not_to receive(:run)
       expect(NewRelic::Agent).to receive(:notice_error)
       subject

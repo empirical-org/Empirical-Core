@@ -22,7 +22,7 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
 
   # To be utilized with frontend UI PR
   # it 'updates only previously imported classrooms that have clever_id' do
-  #   expect(CleverIntegration::TeacherClassroomsCache).to receive(:get).with(teacher_id).and_return(data)
+  #   expect(CleverIntegration::TeacherClassroomsCache).to receive(:read).with(teacher_id).and_return(data)
   #   expect(CleverIntegration::ImportClassroomStudentsWorker).to receive(:perform_async).with(teacher_id, [imported_classroom.id])
   #   subject
 
@@ -31,7 +31,7 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
   # end
 
   it 'imports a new classroom and updates and existing one' do
-    expect(CleverIntegration::TeacherClassroomsCache).to receive(:get).with(teacher_id).and_return(data)
+    expect(CleverIntegration::TeacherClassroomsCache).to receive(:read).with(teacher_id).and_return(data)
     expect(CleverIntegration::ImportClassroomStudentsWorker).to receive(:perform_async)
     subject
 

@@ -8,30 +8,30 @@ RSpec.describe CleverIntegration::TeacherClassroomsCache do
   let(:cache) { described_class }
 
   context 'key is not cached' do
-    it 'returns OK message after caching' do
-      expect(cache.set(user_id, data)).to eq "OK"
+    it 'returns true message after caching' do
+      expect(cache.write(user_id, data)).to eq true
     end
 
     it 'nothing will retrieved from cache' do
-      expect(cache.get(user_id)).to eq nil
+      expect(cache.read(user_id)).to eq nil
     end
   end
 
   context 'key is already cached' do
-    before { cache.set(user_id, data) }
+    before { cache.write(user_id, data) }
 
     it 'allows retrieval' do
-      expect(cache.get(user_id)).to eq data
+      expect(cache.read(user_id)).to eq data
     end
 
     it 'allows for expiration' do
-      cache.expire(user_id, 0.1)
+      cache.write(user_id, data, 0.1)
       sleep 0.1
-      expect(cache.get(user_id)).to eq nil
+      expect(cache.read(user_id)).to eq nil
     end
 
     it 'deletes data' do
-      expect { cache.del(user_id) }.to change { cache.get(user_id) }.from(data).to(nil)
+      expect { cache.delete(user_id) }.to change { cache.read(user_id) }.from(data).to(nil)
     end
   end
 end

@@ -2,27 +2,19 @@
 
 module GoogleIntegration
   class TeacherClassroomsCache
-    SERIALIZED_GOOGLE_CLASSROOMS_FOR_ = 'SERIALIZED_GOOGLE_CLASSROOMS_FOR_'
-    SERIALIZED_GOOGLE_CLASSROOMS_CACHE_LIFE = 300
+    CACHE_NAMESPACE = 'SERIALIZED_GOOGLE_CLASSROOMS'
+    CACHE_LIFE = 300
 
-    def self.cache_key(teacher_id)
-      "#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{teacher_id}"
+    def self.read(teacher_id)
+      Rails.cache.read(teacher_id, namespace: CACHE_NAMESPACE)
     end
 
-    def self.get(teacher_id)
-      $redis.get(cache_key(teacher_id))
+    def self.delete(teacher_id)
+      Rails.cache.delete(teacher_id, namespace: CACHE_NAMESPACE)
     end
 
-    def self.expire(teacher_id, expires_in=SERIALIZED_GOOGLE_CLASSROOMS_CACHE_LIFE)
-      $redis.expire(cache_key(teacher_id), expires_in)
-    end
-
-    def self.del(teacher_id)
-      $redis.del(cache_key(teacher_id))
-    end
-
-    def self.set(teacher_id, data)
-      $redis.set(cache_key(teacher_id), data)
+    def self.write(teacher_id, data, expires_in=CACHE_LIFE)
+      Rails.cache.write(teacher_id, data, expires_in: expires_in, namespace: CACHE_NAMESPACE)
     end
   end
 end
