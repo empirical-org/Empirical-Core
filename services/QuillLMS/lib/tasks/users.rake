@@ -22,7 +22,7 @@ namespace :users do
       puts '  rake users:refresh_school_subscriptions < path/to/local/file.csv'
       puts ''
       puts 'If you are piping data into Heroku, you need to include the --no-tty flag:'
-      puts '  heroku run rake schools:update_clever_ids -a empirical-grammar --no-tty < path/to/local/file.csv'
+      puts '  heroku run rake users:refresh_school_subscriptions -a empirical-grammar --no-tty < path/to/local/file.csv'
       exit 1
     end
 
