@@ -1,5 +1,5 @@
 import { ActivityInterface, DropdownObjectInterface } from '../../interfaces/evidenceInterfaces';
-import { handleApiError, apiFetch, mainApiFetch, handleRequestErrors, requestFailed, getActivitySessionsUrl } from '../../helpers/evidence';
+import { handleApiError, apiFetch, mainApiFetch, handleRequestErrors, requestFailed, getActivitySessionsUrl } from '../../helpers/evidence/routingHelpers';
 
 export const fetchActivities = async () => {
   let activities: ActivityInterface[];

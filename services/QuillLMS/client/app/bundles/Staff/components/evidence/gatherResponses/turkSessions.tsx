@@ -13,7 +13,7 @@ import { ActivityRouteProps, TurkSessionInterface } from '../../../interfaces/ev
 import { createTurkSession, fetchTurkSessions } from '../../../utils/evidence/turkAPIs';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { DataTable, Error, Modal, Spinner, Snackbar, copyToClipboard } from '../../../../Shared/index';
-import { renderHeader } from '../../../helpers/evidence';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 
 const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const [newTurkSessionDate, setNewTurkSessionDate] = React.useState<any>(null);

@@ -3,7 +3,8 @@ import { Link, RouteComponentProps } from 'react-router-dom'
 import { queryCache, useQuery } from 'react-query';
 import { firstBy } from 'thenby';
 
-import { getPromptsIcons, renderHeader } from '../../../helpers/evidence';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
+import { getPromptsIcons } from '../../../helpers/evidence/promptHelpers';
 import { getPromptIdString } from '../../../helpers/evidence/ruleHelpers';
 import { ActivityRouteProps, RuleInterface, RegexRuleInterface } from '../../../interfaces/evidenceInterfaces';
 import { BECAUSE, BUT, SO, RULES_BASED_1, RULES_BASED_2, RULES_BASED_3 } from '../../../../../constants/evidence';

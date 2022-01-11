@@ -7,7 +7,7 @@ import ActivityForm from './activityForm';
 import { ActivityInterface } from '../../../interfaces/evidenceInterfaces';
 import SubmissionModal from '../shared/submissionModal';
 import { createActivity, updateActivity, archiveParentActivity } from '../../../utils/evidence/activityAPIs';
-import { renderHeader } from "../../../helpers/evidence";
+import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { Spinner } from '../../../../Shared/index';
 
 const ActivitySettings = ({ activity, history }: {activity: ActivityInterface, history: any}) => {

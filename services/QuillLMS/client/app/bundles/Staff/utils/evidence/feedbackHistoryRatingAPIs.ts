@@ -1,4 +1,4 @@
-import { handleApiError, mainFetch } from '../../helpers/evidence';
+import { handleApiError, mainFetch } from '../../helpers/evidence/routingHelpers';
 
 export const createOrUpdateFeedbackHistoryRating = async (data) => {
   const response = await mainFetch('feedback_history_rating', {
