@@ -33,7 +33,7 @@ namespace :activities do
     CSV.parse(pipe_data, headers: true) do |row|
       activity = Activity.find_by(name: row['name'])
       activity.flag = 'private'
-      activity.save
+      activity.save!
     rescue
       puts "Failed to update for activity named '#{row['name']}'"
     end
