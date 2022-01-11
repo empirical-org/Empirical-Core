@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import { firstBy } from 'thenby';
 
-import { titleCase } from '../../../helpers/evidence';
+import { titleCase } from '../../../helpers/evidence/miscHelpers';
 import { fetchModels } from '../../../utils/evidence/modelAPIs';
 import { DataTable, Spinner } from '../../../../Shared/index';
 

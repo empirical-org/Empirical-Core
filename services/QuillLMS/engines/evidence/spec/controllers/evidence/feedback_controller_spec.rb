@@ -21,9 +21,155 @@ module Evidence
     let(:plagiarized_text2) { "this is completely different text that you also should not plagiarize or else" }
     let!(:first_feedback) { create(:evidence_feedback, :text => "here is our first feedback", :rule => (rule), :order => 0) }
     let!(:second_feedback) { create(:evidence_feedback, :text => "here is our second feedback", :rule => (rule), :order => 1) }
+    
+    describe '#grammar' do 
+      let(:example_error) { 'example_error' }
+      let(:example_rule_uid) { 123 }
+      let(:incoming_payload) do 
+        { 
+          'entry' => 'eat junk food at home.', 
+          'prompt_text' => 'Schools should not allow junk food to be sold on campus, but'
+        }
+      end
 
-    describe '#prefilter' do
-      let!(:profanity_rule) do
+      let(:client_response) do 
+        {
+          'gapi_error' => example_error,
+          'highlight' => [{
+            'type': 'response',
+            'text': 'someText',
+            'character': 0  
+          }]
+        }
+      end
+
+      let!(:grammar_rule) do 
+        create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz')
+      end
+
+      before do 
+        allow(Grammar::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
+          { example_error => example_rule_uid } 
+        )
+        allow_any_instance_of(Grammar::Client).to receive(:post).and_return(client_response)
+      end
+
+      it 'should return a valid json response' do 
+        post :grammar, params: incoming_payload, as: :json
+
+        expect(JSON.parse(response.body)).to eq({
+          'concept_uid' => 'xyz',
+          'feedback' => nil,
+          'feedback_type' => 'grammar',
+          'optimal' => false,
+          'response_id' => '0',
+          'highlight' => [
+            { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
+          ],
+          'labels' => '',
+          'rule_uid' => example_rule_uid.to_s
+        })
+      end
+
+      context 'Rule.feedback exists' do 
+        before do 
+          create(:evidence_feedback, rule_id: grammar_rule.id, text: 'lorem ipsum')
+        end
+        it 'should return a valid json response' do 
+          post :grammar, params: incoming_payload, as: :json
+
+          expect(JSON.parse(response.body)).to eq({
+            'concept_uid' => 'xyz',
+            'feedback' => 'lorem ipsum',
+            'feedback_type' => 'grammar',
+            'optimal' => false,
+            'response_id' => '0',
+            'highlight' => [
+              { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
+            ],
+            'labels' => '',
+            'rule_uid' => example_rule_uid.to_s
+          })
+        end
+      end
+
+    end
+
+    describe '#opinion' do 
+      let(:example_error) { 'example_error' }
+      let(:example_rule_uid) { 123 }
+      let(:incoming_payload) do 
+        { 
+          'entry' => 'eat junk food at home.', 
+          'prompt_text' => 'Schools should not allow junk food to be sold on campus, but'
+        }
+      end
+
+      let(:client_response) do 
+        {
+          'oapi_error' => example_error,
+          'highlight' => [{
+            'type': 'response',
+            'text': 'someText',
+            'character': 0  
+          }]
+        }
+      end
+
+      let!(:opinion_rule) do 
+        create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz')
+      end
+
+      before do 
+        allow(Opinion::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
+          { example_error => example_rule_uid } 
+        )
+        allow_any_instance_of(Opinion::Client).to receive(:post).and_return(client_response)
+      end
+
+      it 'should return a valid json response' do 
+        post :opinion, params: incoming_payload, as: :json
+
+        expect(JSON.parse(response.body)).to eq({
+          'concept_uid' => 'xyz',
+          'feedback' => nil,
+          'feedback_type' => 'opinion',
+          'optimal' => false,
+          'response_id' => '0',
+          'highlight' => [
+            { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
+          ],
+          'labels' => '',
+          'rule_uid' => example_rule_uid.to_s
+        })
+      end
+
+      context 'Rule.feedback exists' do 
+        before do 
+          create(:evidence_feedback, rule_id: opinion_rule.id, text: 'lorem ipsum')
+        end
+        it 'should return a valid json response' do 
+          post :opinion, params: incoming_payload, as: :json
+
+          expect(JSON.parse(response.body)).to eq({
+            'concept_uid' => 'xyz',
+            'feedback' => 'lorem ipsum',
+            'feedback_type' => 'opinion',
+            'optimal' => false,
+            'response_id' => '0',
+            'highlight' => [
+              { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
+            ],
+            'labels' => '',
+            'rule_uid' => example_rule_uid.to_s
+          })
+        end
+      end
+
+    end
+
+    describe '#prefilter' do 
+      let!(:profanity_rule) do 
         create(:evidence_rule, rule_type: 'prefilter', uid: 'fdee458a-f017-4f9a-a7d4-a72d1143abeb')
       end
 
