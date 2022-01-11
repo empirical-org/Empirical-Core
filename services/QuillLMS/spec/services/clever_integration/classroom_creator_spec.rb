@@ -19,7 +19,6 @@ RSpec.describe CleverIntegration::ClassroomCreator do
 
   subject { described_class.run(data) }
 
-
   it { expect(subject.clever_id).to eq clever_id }
   it { expect(subject.grade).to eq grade }
   it { expect(subject.name).to eq name }
@@ -27,7 +26,7 @@ RSpec.describe CleverIntegration::ClassroomCreator do
 
   it { expect { subject }.to change(ClassroomsTeacher, :count).from(0).to(1) }
 
-  context 'teacher owns another classroom with same name' do
+  context "teacher owns another classroom with name #{name}" do
     let(:classroom1) { create(:classroom, :from_clever, :with_no_teacher, name: name, grade: grade) }
 
     before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom1) }
@@ -39,14 +38,21 @@ RSpec.describe CleverIntegration::ClassroomCreator do
 
     it { expect { subject }.to change(ClassroomsTeacher, :count).from(1).to(2) }
 
-    context "teacher owns another classroom with same name as #{name}_1" do
-      let(:name_1) { "#{name}_1" }
-      let(:classroom2) { create(:classroom, :from_clever, :with_no_teacher, name: name_1, grade: grade) }
+    context "teacher owns other classrooms with names #{name}_1, ... #{name}_max" do
+      let(:max) { ::DuplicateNameResolver::MAX_BEFORE_RANDOMIZED }
 
-      before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom2) }
+      before do
+        2.upto(max) do |n|
+          classroom = create(:classroom, :from_clever, :with_no_teacher, name: "name_#{n}", grade: grade)
+          create(:classrooms_teacher, user_id: teacher_id, classroom: classroom)
+        end
+      end
 
-      it { expect(subject.name).to eq "#{name}_1_1" }
-      it { expect { subject }.to change(ClassroomsTeacher, :count).from(2).to(3) }
+      it "stops naming duplicates at max and then starts using random values" do
+        expect(subject.name).not_to eq "#{name}_11"
+      end
+
+      it { expect { subject }.to change(ClassroomsTeacher, :count).from(max).to(11) }
     end
   end
 

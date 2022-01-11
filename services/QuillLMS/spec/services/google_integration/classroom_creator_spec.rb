@@ -39,27 +39,33 @@ RSpec.describe GoogleIntegration::ClassroomCreator do
     end
   end
 
-  context "teacher owns another classroom with same name" do
+  context "teacher owns another classroom with name #{name}" do
     let(:name) { 'google classroom name' }
-    let(:synced_name) { name }
-    let(:name_1) { name }
-    let(:classroom_1) { create(:classroom, :from_google, :with_no_teacher, name: name_1) }
+    let(:classroom1) { create(:classroom, :from_google, :with_no_teacher, name: name) }
 
-    before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom_1) }
+    before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom1) }
 
-    it "renames a classroom object with '_1' appended to new name to avoid a naming collision" do
-      expect(subject.name).to eq "#{name}_1"
-    end
+    it { expect(subject.google_classroom_id).to eq google_classroom_id }
+    it { expect(subject.name).to eq "#{name}_1" }
+    it { expect(subject.synced_name).to eq name }
 
-    context 'and another classroom as same name as a renamed collision' do
-      let(:name_2) { "#{name}_1"}
-      let(:classroom_2) { create(:classroom, :from_google, :with_no_teacher, name: name_2) }
+    it { expect { subject }.to change(ClassroomsTeacher, :count).from(1).to(2) }
 
-      before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom_2) }
+    context "teacher owns other classrooms with names #{name}_1, ... #{name}_max" do
+      let(:max) { ::DuplicateNameResolver::MAX_BEFORE_RANDOMIZED }
 
-      it "renames classroom object with '_1_1' appended to new name to avoid two naming collisions" do
-        expect(subject.name).to eq "#{name}_1_1"
+      before do
+        2.upto(max) do |n|
+          classroom = create(:classroom, :from_google, :with_no_teacher, name: "name_#{n}")
+          create(:classrooms_teacher, user_id: teacher_id, classroom: classroom)
+        end
       end
+
+      it "stops naming duplicates at max and then starts using random values" do
+        expect(subject.name).not_to eq "#{name}_11"
+      end
+
+      it { expect { subject }.to change(ClassroomsTeacher, :count).from(max).to(11) }
     end
   end
 end

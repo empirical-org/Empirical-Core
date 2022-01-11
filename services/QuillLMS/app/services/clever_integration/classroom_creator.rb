@@ -33,7 +33,7 @@ module CleverIntegration
     end
 
     private def other_owned_classroom_names
-      @other_owned_classroom_names ||= teacher.classrooms_i_own.pluck(:name)
+      teacher.classrooms_i_own.pluck(:name)
     end
 
     private def role
@@ -49,12 +49,7 @@ module CleverIntegration
     end
 
     private def valid_name
-      temp_name = data[:name]
-
-      loop do
-        return temp_name unless other_owned_classroom_names.include?(temp_name)
-        temp_name += '_1'
-      end
+      ::DuplicateNameResolver.run(data[:name], other_owned_classroom_names)
     end
   end
 end

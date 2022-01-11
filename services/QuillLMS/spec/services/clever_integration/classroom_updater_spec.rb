@@ -99,28 +99,33 @@ RSpec.describe CleverIntegration::ClassroomUpdater do
     end
   end
 
-  context "teacher owns another classroom with same name" do
-    let(:name_1) { 'other clever_classroom classroom' }
-    let(:classroom_1) { create(:classroom, :from_clever, :with_no_teacher, name: name_1) }
+  context "teacher owns another classroom with other_name" do
+    let(:other_name) { 'other clever_classroom classroom' }
+    let(:classroom_1) { create(:classroom, :from_clever, :with_no_teacher, name: other_name) }
 
     let(:name) { 'clever_classroom classroom'}
     let(:synced_name) { name }
-    let(:data_name) { name_1 }
+    let(:data_name) { other_name }
 
     before { create(:classrooms_teacher, user_id: teacher.id, classroom: classroom_1) }
 
-    it "renames a classroom object with '_1' appended to new name to avoid a naming collision" do
-      expect(subject.name).to eq "#{name_1}_1"
+    it 'renames a name with duplicate if there is a collision' do
+      expect(subject.name).to eq "#{other_name}_1"
     end
 
-    context 'and another classroom as same name as renamed collision' do
-      let(:name_2) { "#{name_1}_1"}
-      let(:classroom_2) { create(:classroom, :from_clever, :with_no_teacher, name: name_2) }
+    context 'teacher owns other classrooms with names other_name_1, ... other_name_[max]' do
+      let(:max) { ::DuplicateNameResolver::MAX_BEFORE_RANDOMIZED }
 
-      before { create(:classrooms_teacher, user_id: teacher.id, classroom: classroom_2) }
+      before do
+        2.upto(max) do |n|
+          classroom = create(:classroom, :from_clever, :with_no_teacher, name: "#{other_name}_#{n}", grade: grade)
+          create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
+        end
+      end
 
-      it "renames classroom object with '_1_1' appended to new name to avoid two naming collisions" do
-        expect(subject.name).to eq "#{name_2}_1"
+      it "stops naming duplicates at max and then starts using random values" do
+        expect(subject.name).not_to eq "#{other_name}_11"
+        expect(subject.name.starts_with?(other_name)).to be true
       end
     end
   end
