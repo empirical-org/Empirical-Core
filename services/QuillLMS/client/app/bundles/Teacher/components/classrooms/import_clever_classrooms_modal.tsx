@@ -1,0 +1,242 @@
+import * as React from 'react'
+import * as moment from 'moment'
+import Pusher from 'pusher-js';
+
+import GradeOptions from './grade_options'
+
+import { DropdownInput, DataTable } from '../../../Shared/index'
+import ButtonLoadingIndicator from '../shared/button_loading_indicator'
+import { requestPost, requestPut } from '../../../../modules/request/index.js';
+
+interface ImportCleverClassroomsModalProps {
+  close: (event) => void;
+  onSuccess: (event) => void;
+  classrooms: Array<any>;
+  user: any;
+}
+
+interface ImportCleverClassroomsModalState {
+  classrooms: Array<any>;
+  waiting: boolean;
+  timesSubmitted: number;
+}
+
+const headers = [
+  {
+    width: '510px',
+    name: 'Class',
+    attribute: 'name'
+  }, {
+    width: '110px',
+    name: 'Grade',
+    attribute: 'grade',
+    rowSectionClassName: 'show-overflow'
+  }, {
+    width: '32px',
+    name: 'Year',
+    attribute: 'year'
+  }, {
+    width: '51px',
+    name: 'Students',
+    attribute: 'students'
+  }
+]
+
+export default class ImportCleverClassroomsModal extends React.Component<ImportCleverClassroomsModalProps, ImportCleverClassroomsModalState> {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      classrooms: props.classrooms,
+      waiting: false,
+      timesSubmitted: 0
+    }
+  }
+
+  footerButtonClass() {
+    const { classrooms } = this.state
+    let buttonClass = 'quill-button contained primary medium';
+    const noClassroomsChecked = classrooms.every(classroom => !classroom.checked)
+    if (noClassroomsChecked) {
+      buttonClass += ' disabled';
+    }
+    return buttonClass;
+  }
+
+  toggleRowCheck = (id) => {
+    const { classrooms } = this.state
+    const classroom = classrooms.find(classroom => classroom.id === id)
+    classroom.checked = !classroom.checked
+    this.setState({ classrooms })
+  }
+
+  checkAllRows = () => {
+    const { classrooms } = this.state
+    const newClassrooms = classrooms.map(classroom => {
+      classroom.checked = true
+      return classroom
+    })
+    this.setState({ classrooms: newClassrooms })
+  }
+
+  uncheckAllRows = () => {
+    const { classrooms } = this.state
+    const newClassrooms = classrooms.map(classroom => {
+      classroom.checked = false
+      return classroom
+    })
+    this.setState({ classrooms: newClassrooms })
+  }
+
+  handleGradeChange = (classroomId, grade) => {
+    const { classrooms } = this.state
+    const classroom = classrooms.find(classroom => classroom.id === classroomId)
+    classroom.grade = grade.value
+    this.setState({ classrooms })
+  }
+
+  initializePusherForCleverStudentImport(id) {
+    if (process.env.RAILS_ENV === 'development') {
+      Pusher.logToConsole = true;
+    }
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channelName = String(id)
+    const channel = pusher.subscribe(channelName);
+    const that = this;
+    channel.bind('clever-classroom-students-imported', () => {
+      that.props.onSuccess('Classes imported')
+      pusher.unsubscribe(channelName)
+    });
+  }
+
+  handleClickImportClasses = () => {
+    const { classrooms } = this.state
+    const classroomsCheckedWithNoGrade = classrooms.filter(classroom => classroom.checked && !classroom.grade)
+
+    if (classroomsCheckedWithNoGrade.length) {
+      const newClassrooms = classrooms.map(c => {
+        if (classroomsCheckedWithNoGrade.find(noGradeClassroom => noGradeClassroom.id === c.id)) {
+          c.error = 'Select a grade for your class'
+        }
+        return c
+      })
+      this.setState(prevState => ({ classrooms: newClassrooms, timesSubmitted: prevState.timesSubmitted + 1, }))
+      return
+    }
+
+    this.setState({ waiting: true })
+    const selectedClassrooms = classrooms.filter(classroom => classroom.checked)
+
+    requestPost('/clever_integration/teachers/import_classrooms', { selected_classrooms: selectedClassrooms }, body => {
+      const { classrooms } = body
+      const selectedClassroomsCleverIds = selectedClassrooms.map(selectedClassroom => selectedClassroom.id)
+      const newClassrooms = classrooms.filter(classroom => selectedClassroomsCleverIds.includes(classroom.clever_id));
+      const selectedClassroomIds = newClassrooms.map(classroom => classroom.id)
+
+      requestPut('/clever_integration/teachers/import_students', { selected_classroom_ids: selectedClassroomIds }, body => {
+        this.initializePusherForCleverStudentImport(body.user_id)
+      })
+    })
+  }
+
+  renderModalContent() {
+    const { classrooms, timesSubmitted,} = this.state
+
+    if (!classrooms.length) { return }
+
+    const rows = classrooms.map(classroom => {
+      const { name, username, id, creationTime, students, checked, grade, error } = classroom
+      const year = moment(creationTime).format('YYYY')
+      const gradeValue = parseInt(grade) || grade
+      const gradeOption = GradeOptions.find(gradeOption => gradeOption.value === gradeValue)
+      const gradeSelector = (
+        <DropdownInput
+          className="grade"
+          error={error && !grade ? error : null}
+          handleChange={(g) => this.handleGradeChange(id, g)}
+          label="Select a grade"
+          options={GradeOptions}
+          timesSubmitted={timesSubmitted}
+          value={gradeOption}
+        />
+      )
+
+      return {
+        name,
+        id,
+        username,
+        checked,
+        year,
+        className: error && !grade ? 'error' : '',
+        grade: checked ? gradeSelector : null,
+        students: students.length,
+        key: id
+      }
+    })
+
+    return (
+      <DataTable
+        checkAllRows={this.checkAllRows}
+        checkRow={this.toggleRowCheck}
+        headers={headers}
+        rows={rows}
+        showCheckboxes={true}
+        uncheckAllRows={this.uncheckAllRows}
+        uncheckRow={this.toggleRowCheck}
+      />
+    )
+  }
+
+  renderImportButton() {
+    const { waiting } = this.state
+    if (waiting) {
+      return (
+        <button
+          aria-label="Loading"
+          className={this.footerButtonClass()}
+          key="loading-import-button"
+          type="button"
+        >
+          <ButtonLoadingIndicator />
+        </button>
+      )
+    } else {
+      return (
+        <button
+          className={this.footerButtonClass()}
+          key="import-button"
+          onClick={this.handleClickImportClasses}
+          type="button"
+        >
+          Import classes
+        </button>
+      )
+    }
+  }
+
+  render() {
+    const { close } = this.props
+    return (
+      <div className="modal-container import-clever-classrooms-modal-container">
+        <div className="modal-background" />
+        <div className="import-clever-classrooms-modal quill-modal">
+
+          <div className="import-clever-classrooms-modal-header">
+            <h3 className="title">Import classes from Clever Classroom</h3>
+          </div>
+
+          <div className="import-clever-classrooms-modal-body modal-body">
+            {this.renderModalContent()}
+          </div>
+
+          <div className="import-clever-classrooms-modal-footer">
+            <div className="buttons">
+              <button className="quill-button outlined secondary medium" key="cancel-button" onClick={close} type="button">Cancel</button>
+              {this.renderImportButton()}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
