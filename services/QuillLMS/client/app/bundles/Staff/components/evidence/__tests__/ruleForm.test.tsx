@@ -21,7 +21,7 @@ jest.mock('../../../helpers/evidence/ruleHelpers', () => ({
     }];
   })
 }));
-jest.mock('../../../helpers/evidence', () => ({
+jest.mock('../../../helpers/evidence/renderHelpers', () => ({
   renderErrorsContainer: jest.fn().mockImplementation(() => {
     return <strong>error!</strong>
   })

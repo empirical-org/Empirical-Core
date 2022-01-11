@@ -1,4 +1,4 @@
-import { handleApiError, apiFetch, getModelsUrl } from '../../helpers/evidence';
+import { handleApiError, apiFetch, getModelsUrl } from '../../helpers/evidence/routingHelpers';
 
 export const fetchModels = async (key: string, promptId?: any, state?: string) => {
   const url = getModelsUrl(promptId, state);

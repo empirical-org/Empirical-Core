@@ -4,7 +4,8 @@ import { useQuery } from 'react-query';
 
 import Rules from './rules';
 
-import { getPromptForComponent, renderHeader } from '../../../helpers/evidence';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
+import { getPromptForComponent } from '../../../helpers/evidence/promptHelpers';
 import { BECAUSE, BUT, SO, ALL } from '../../../../../constants/evidence';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { Error, Spinner } from '../../../../Shared/index';

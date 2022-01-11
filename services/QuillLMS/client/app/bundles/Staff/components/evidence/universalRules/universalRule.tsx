@@ -8,7 +8,7 @@ import RuleForm from '../configureRules/ruleForm';
 import { updateRule, deleteRule, fetchRule } from '../../../utils/evidence/ruleAPIs';
 import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
-import { renderErrorsContainer } from '../../../helpers/evidence';
+import { renderErrorsContainer } from '../../../helpers/evidence/renderHelpers';
 
 const UniversalRule = ({ history, location, match }) => {
   const { params } = match;
