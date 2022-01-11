@@ -58,16 +58,12 @@ module CleverIntegration
         name: name,
         synced_name: synced_name,
         grade: grade,
-        visible: visible
+        visible: true
       )
     end
 
     private def valid_name
       ::DuplicateNameResolver.run(data[:name], other_owned_classroom_names)
-    end
-
-    private def visible
-      true
     end
   end
 end
