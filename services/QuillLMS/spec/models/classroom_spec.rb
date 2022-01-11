@@ -53,7 +53,7 @@ describe Classroom, type: :model do
 
   describe '#destroy' do
     let(:teacher2) { create(:teacher)}
-    let(:classroom_to_destroy) { create(:classroom, teacher_id: teacher2.id) } 
+    let(:classroom_to_destroy) { create(:classroom) } 
     let!(:classrooms_teacher) { create(:classrooms_teacher, user_id: teacher2.id, classroom_id: classroom_to_destroy.id) }
 
     let(:unit1) { create(:unit) }
@@ -65,17 +65,16 @@ describe Classroom, type: :model do
     let!(:unrelated_students_classroom) { create(:students_classrooms) }
 
     it 'should cascade-destroy foreign key dependent records' do 
-      binding.pry
       expect do 
         classroom_to_destroy.destroy 
-      end.to change { Classroom.count }.by(-1)
+      end
+      .to change { Classroom.count }.by(-1)
       .and change { Unit.count }.by(0)
       .and change { ClassroomUnit.count }.by(-1)
-      .and change { ClassroomsTeacher.count }.by(-1)
       .and change { User.count }.by(0)
       .and change { StudentsClassrooms.count }.by(-1)
       .and change { Activity.count }.by(0) 
-
+      expect(ClassroomsTeacher.where(classroom_id: classroom_to_destroy.id).count).to eq 0
     end
   end
 

@@ -61,7 +61,7 @@ class Classroom < ApplicationRecord
 
   def destroy 
     classroom_units.each(&:destroy)
-    classrooms_teachers.each(&:destroy)
+    ClassroomsTeacher.where(classroom_id: self.id).destroy_all
     coteacher_classroom_invitations.each(&:destroy)
     super
   end
