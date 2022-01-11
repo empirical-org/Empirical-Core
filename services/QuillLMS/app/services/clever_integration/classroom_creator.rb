@@ -14,18 +14,7 @@ module CleverIntegration
     end
 
     def run
-      Classroom.create!(
-        clever_id: clever_id,
-        grade: grade,
-        name: name,
-        synced_name: synced_name,
-        classrooms_teachers_attributes: [
-          {
-            user_id: teacher_id,
-            role: role
-          }
-        ]
-      )
+      Classroom.create!(teacher_attrs)
     end
 
     private def name
@@ -46,6 +35,21 @@ module CleverIntegration
 
     private def teacher
       ::User.find(teacher_id)
+    end
+
+    private def teacher_attrs
+      {
+        clever_id: clever_id,
+        grade: grade,
+        name: name,
+        synced_name: synced_name,
+        classrooms_teachers_attributes: [
+          {
+            user_id: teacher_id,
+            role: role
+          }
+        ]
+      }
     end
 
     private def valid_name
