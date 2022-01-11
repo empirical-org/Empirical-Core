@@ -17,14 +17,9 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
       className="buttons"
     >
       <button
-        className="quill-button medium secondary outlined import-from-google-button"
-        onClick={[Function]}
-      >
-        Import from Google Classroom
-      </button>
-      <button
         className="quill-button medium primary contained create-a-class-button"
         onClick={[Function]}
+        type="button"
       >
         Create a class
       </button>
@@ -433,6 +428,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
       showSnackbar={[Function]}
     />
     <SortableList
+      axis="y"
       data={
         Array [
           <React.Fragment>
@@ -750,6 +746,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                 ]
               }
               clickClassroomHeader={[Function]}
+              importCleverClassroomStudents={[Function]}
               importGoogleClassroomStudents={[Function]}
               inviteStudents={[Function]}
               isOwnedByCurrentUser={true}
@@ -1105,6 +1102,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                 ]
               }
               clickClassroomHeader={[Function]}
+              importCleverClassroomStudents={[Function]}
               importGoogleClassroomStudents={[Function]}
               inviteStudents={[Function]}
               isOwnedByCurrentUser={true}
@@ -1515,6 +1513,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                 ]
               }
               clickClassroomHeader={[Function]}
+              importCleverClassroomStudents={[Function]}
               importGoogleClassroomStudents={[Function]}
               inviteStudents={[Function]}
               isOwnedByCurrentUser={true}
@@ -1582,14 +1581,9 @@ exports[`ActiveClassrooms component with no classrooms or coteacher invitations 
       className="buttons"
     >
       <button
-        className="quill-button medium secondary outlined import-from-google-button"
-        onClick={[Function]}
-      >
-        Import from Google Classroom
-      </button>
-      <button
         className="quill-button medium primary contained create-a-class-button"
         onClick={[Function]}
+        type="button"
       >
         Create a class
       </button>
