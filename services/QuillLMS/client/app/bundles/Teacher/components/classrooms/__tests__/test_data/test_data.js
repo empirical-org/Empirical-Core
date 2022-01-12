@@ -426,37 +426,16 @@ export const cleverClassrooms = [
   {
     classrooms: [
       {
-        course: "609996d1ac6d531299b15653",
-        created: "2021-04-29T15:21:24.185Z",
-        district: "53ea7c626e727c2e0d000018",
+        clever_id: "608aceedb9f28409c3320783",
         grade: "1",
-        last_modified: "2021-12-31T12:01:26.938Z",
         name: "Clever 101",
-        period: "2",
-        school: "608ac2d6e9c4b913787f09b8",
-        sis_id: "53ea7c626e727c2e0d000018-608acdac273a959c011eddc9",
         students: ["608aca85f0fc4ee5deb62f28", "608ad1f5b3ca107953798b8a", "60994b26e6db39222c0f87be"],
-        subject: "english/language arts",
-        teacher: "608ac9edbc63920416871ae2",
-        teachers: ["608ac9edbc63920416871ae2", "608ac6d3f0fc4ee5deb62f22"],
-        term_id: "609969da18f744041320a335",
-        id: "608aceedb9f28409c3320783"
       },
       {
-        course: "60944eff243ae50206973691",
-        created: "2021-05-06T20:18:31.777Z",
-        district: "53ea7c626e727c2e0d000018",
+        clever_id: "60944eff243ae50206973692",
         grade: "1",
-        last_modified: "2021-12-31T12:01:26.948Z",
         name: "Clever 103",
-        period: "6",
-        school: "608ac2d6e9c4b913787f09b8",
-        sis_id: "53ea7c626e727c2e0d000018-60944dbf7b72daa1fc3fc996",
         students: ["608aca85f0fc4ee5deb62f28", "60a682558d5c2d3c431e4d96"],
-        subject: "homeroom/advisory",
-        teacher: "608ac68eb3ca107953798b5c",
-        teachers: ["608ac68eb3ca107953798b5c", "608ad18cf0fc4ee5deb62f4f", "608ac9edbc63920416871ae2"],
-        id: "60944eff243ae50206973692"
       }
     ]
   }

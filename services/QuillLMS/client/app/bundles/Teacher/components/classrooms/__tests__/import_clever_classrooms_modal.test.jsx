@@ -43,9 +43,8 @@ describe('ImportCleverClassroomsModal component', () => {
     checkedCleverClassrooms[0].checked = true
     wrapper.setState({ classrooms: checkedCleverClassrooms })
 
-    it('should set a classroom that is checked but has no grade to have an error', () => {
+    it('should set a classroom that is checked', () => {
       wrapper.instance().handleClickImportClasses()
-      expect(wrapper.state().classrooms[0].error).toBe("Select a grade for your class")
       expect(wrapper).toMatchSnapshot();
     })
   })
