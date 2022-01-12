@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { cleverClassrooms, userProps } from './test_data/test_data'
+import { cleverClassroomsData, userProps } from './test_data/test_data'
 
 import ImportCleverClassroomsModal from '../import_clever_classrooms_modal'
 import { DataTable } from '../../../../Shared/index'
@@ -13,7 +13,7 @@ describe('ImportCleverClassroomsModal component', () => {
   describe('initial load', () => {
     const wrapper = mount(
       <ImportCleverClassroomsModal
-        classrooms={cleverClassrooms}
+        classrooms={cleverClassroomsData}
         close={close}
         onSuccess={onSuccess}
         user={userProps}
@@ -32,14 +32,14 @@ describe('ImportCleverClassroomsModal component', () => {
   describe('#handleClickImportClasses', () => {
     const wrapper = mount(
       <ImportCleverClassroomsModal
-        classrooms={cleverClassrooms}
+        classrooms={cleverClassroomsData}
         close={close}
         onSuccess={onSuccess}
         user={userProps}
       />
     );
 
-    const checkedCleverClassrooms = [...cleverClassrooms]
+    const checkedCleverClassrooms = [...cleverClassroomsData]
     checkedCleverClassrooms[0].checked = true
     wrapper.setState({ classrooms: checkedCleverClassrooms })
 
