@@ -10,7 +10,6 @@ export interface SessionReducerState {
   activeStep: number
 }
 
-// type SessionAction = Action & { promptID: string } & { feedbackObj: FeedbackObject } & { activeStep: number}
 type SessionAction = Action & {
   promptID: string,
   feedbackObj: FeedbackObject,
