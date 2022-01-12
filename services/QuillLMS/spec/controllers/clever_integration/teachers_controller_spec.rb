@@ -17,12 +17,10 @@ RSpec.describe CleverIntegration::TeachersController do
     it { expect { request }.to change(teacher.clever_classrooms, :count).from(0).to(2) }
 
     it 'should return an array with two classrooms' do
+      expect(CleverIntegration::ImportClassroomStudentsWorker).to receive(:perform_async)
       expect(CleverIntegration::TeacherClassroomsCache).to receive(:delete).with(teacher.id)
       expect(CleverIntegration::HydrateTeacherClassroomsCacheWorker).to receive(:perform_async).with(teacher.id)
       request
-
-      expect(response_body[:classrooms][0]).to include(classroom1_attrs.except(:students))
-      expect(response_body[:classrooms][1]).to include(classroom2_attrs.except(:students))
     end
   end
 

@@ -122,7 +122,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           } else {
             const { classrooms_data, existing_clever_ids } = body
             const { classrooms } = classrooms_data
-            const cleverClassrooms = classrooms.filter(classroom => !existing_clever_ids.includes(classroom.id))
+            const cleverClassrooms = classrooms.filter(classroom => !existing_clever_ids.includes(classroom.clever_id))
             const newStateObj: any = { cleverClassrooms, cleverClassroomsLoading: false }
 
             if (attemptedImportCleverClassrooms) {

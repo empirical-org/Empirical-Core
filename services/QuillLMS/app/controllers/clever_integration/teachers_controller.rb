@@ -3,11 +3,11 @@
 module CleverIntegration
   class TeachersController < ApplicationController
     def import_classrooms
-      run_classroom_importer
+      run_classroom_and_student_importer
       delete_teacher_classrooms_cache
       hydrate_teacher_classrooms_cache
 
-      render json: { classrooms: current_user.clever_classrooms }.to_json
+      render json: { user_id: current_user.id }
     end
 
     def import_students
@@ -40,15 +40,19 @@ module CleverIntegration
     end
 
     private def existing_clever_ids
-      Classroom.where(clever_id: classrooms_data.clever_ids).pluck(:clever_id)
+      ::Classroom.where(clever_id: classrooms_data.clever_ids).pluck(:clever_id)
     end
 
     private def hydrate_teacher_classrooms_cache
       HydrateTeacherClassroomsCacheWorker.perform_async(current_user.id)
     end
 
-    private def run_classroom_importer
-      selected_classrooms_data.each { |data| ClassroomImporter.run(data) }
+    private def imported_classrooms
+      selected_classrooms_data.map { |data| ClassroomImporter.run(data) }
+    end
+
+    private def run_classroom_and_student_importer
+      ImportClassroomStudentsWorker.perform_async(current_user.id, imported_classrooms.map(&:id))
     end
 
     private def run_student_importer
@@ -56,7 +60,7 @@ module CleverIntegration
     end
 
     private def selected_classroom_ids
-      Classroom.where(id: params[:selected_classroom_ids]).ids
+      ::Classroom.where(id: params[:selected_classroom_ids]).ids
     end
 
     private def selected_classrooms_data

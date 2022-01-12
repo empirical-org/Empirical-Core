@@ -103,6 +103,7 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
     const channelName = String(id)
     const channel = pusher.subscribe(channelName);
     const that = this;
+
     channel.bind('clever-classroom-students-imported', () => {
       that.props.onSuccess('Classes imported')
       pusher.unsubscribe(channelName)
@@ -111,31 +112,12 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
 
   handleClickImportClasses = () => {
     const { classrooms } = this.state
-    const classroomsCheckedWithNoGrade = classrooms.filter(classroom => classroom.checked && !classroom.grade)
-
-    if (classroomsCheckedWithNoGrade.length) {
-      const newClassrooms = classrooms.map(c => {
-        if (classroomsCheckedWithNoGrade.find(noGradeClassroom => noGradeClassroom.id === c.id)) {
-          c.error = 'Select a grade for your class'
-        }
-        return c
-      })
-      this.setState(prevState => ({ classrooms: newClassrooms, timesSubmitted: prevState.timesSubmitted + 1, }))
-      return
-    }
-
-    this.setState({ waiting: true })
     const selectedClassrooms = classrooms.filter(classroom => classroom.checked)
 
-    requestPost('/clever_integration/teachers/import_classrooms', { selected_classrooms: selectedClassrooms }, body => {
-      const { classrooms } = body
-      const selectedClassroomsCleverIds = selectedClassrooms.map(selectedClassroom => selectedClassroom.id)
-      const newClassrooms = classrooms.filter(classroom => selectedClassroomsCleverIds.includes(classroom.clever_id));
-      const selectedClassroomIds = newClassrooms.map(classroom => classroom.id)
+    this.setState({ waiting: true })
 
-      requestPut('/clever_integration/teachers/import_students', { selected_classroom_ids: selectedClassroomIds }, body => {
-        this.initializePusherForCleverStudentImport(body.user_id)
-      })
+    requestPost('/clever_integration/teachers/import_classrooms', { selected_classrooms: selectedClassrooms }, body => {
+      this.initializePusherForCleverStudentImport(body.user_id)
     })
   }
 
@@ -216,22 +198,29 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
 
   render() {
     const { close } = this.props
+
     return (
       <div className="modal-container import-clever-classrooms-modal-container">
         <div className="modal-background" />
         <div className="import-clever-classrooms-modal quill-modal">
-
           <div className="import-clever-classrooms-modal-header">
-            <h3 className="title">Import classes from Clever Classroom</h3>
+            <h3 className="title">
+              Import classes from Clever Classroom
+            </h3>
           </div>
-
           <div className="import-clever-classrooms-modal-body modal-body">
             {this.renderModalContent()}
           </div>
-
           <div className="import-clever-classrooms-modal-footer">
             <div className="buttons">
-              <button className="quill-button outlined secondary medium" key="cancel-button" onClick={close} type="button">Cancel</button>
+              <button
+                className="quill-button outlined secondary medium"
+                key="cancel-button"
+                onClick={close}
+                type="button"
+              >
+                Cancel
+              </button>
               {this.renderImportButton()}
             </div>
           </div>
