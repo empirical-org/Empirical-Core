@@ -27,7 +27,7 @@ module CleverIntegration
     end
 
     private def client
-      ClientFetcher.run(teacher)
+      @client ||= ClientFetcher.run(teacher)
     end
 
     private def data
