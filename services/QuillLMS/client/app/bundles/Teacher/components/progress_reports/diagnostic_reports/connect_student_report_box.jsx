@@ -1,5 +1,5 @@
 import React from 'react'
-import Diff from 'diff'
+const Diff = require('diff');
 
 import { formatString, formatStringAndAddSpacesAfterPeriods, } from './formatString'
 import ConceptResultTableRow from './concept_result_table_row.tsx'
