@@ -64,7 +64,7 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
     const concept_results = _.sortBy(studentData.concept_results, 'question_number')
     return concept_results.map((question: QuestionData, index: number) => {
       if ([GRAMMAR_KEY, CONNECT_KEY, EVIDENCE_KEY].includes(studentData.activity_classification)) {
-        return <ConnectStudentReportBox boxNumber={index + 1} key={index} questionData={question} showScore={studentData.activity_classification !== EVIDENCE_KEY} />
+        return <ConnectStudentReportBox boxNumber={index + 1} key={index} questionData={question} showDiff={studentData.activity_classification === EVIDENCE_KEY} showScore={studentData.activity_classification !== EVIDENCE_KEY} />
       }
       return <StudentReportBox boxNumber={index + 1} key={index} questionData={question} />
     })
