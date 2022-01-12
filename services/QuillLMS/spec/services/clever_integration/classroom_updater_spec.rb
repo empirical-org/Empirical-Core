@@ -98,4 +98,35 @@ RSpec.describe CleverIntegration::ClassroomUpdater do
       it { expect(subject.owner).to_not eq teacher }
     end
   end
+
+  context "teacher owns another classroom with other_name" do
+    let(:other_name) { 'other clever_classroom classroom' }
+    let(:classroom_1) { create(:classroom, :from_clever, :with_no_teacher, name: other_name) }
+
+    let(:name) { 'clever_classroom classroom'}
+    let(:synced_name) { name }
+    let(:data_name) { other_name }
+
+    before { create(:classrooms_teacher, user_id: teacher.id, classroom: classroom_1) }
+
+    it 'renames a name with duplicate if there is a collision' do
+      expect(subject.name).to eq "#{other_name}_1"
+    end
+
+    context 'teacher owns other classrooms with names other_name_1, ... other_name_[max]' do
+      let(:max) { ::DuplicateNameResolver::MAX_BEFORE_RANDOMIZED }
+
+      before do
+        2.upto(max) do |n|
+          classroom = create(:classroom, :from_clever, :with_no_teacher, name: "#{other_name}_#{n}", grade: grade)
+          create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
+        end
+      end
+
+      it "stops naming duplicates at max and then starts using random values" do
+        expect(subject.name).not_to eq "#{other_name}_11"
+        expect(subject.name.starts_with?(other_name)).to be true
+      end
+    end
+  end
 end

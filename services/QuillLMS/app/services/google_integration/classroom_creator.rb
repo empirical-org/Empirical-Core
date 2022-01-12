@@ -21,7 +21,6 @@ module GoogleIntegration
         google_classroom_id: google_classroom_id,
         name: name,
         synced_name: synced_name,
-        teacher_id: teacher_id,
         classrooms_teachers_attributes: [
           {
             user_id: teacher_id,
