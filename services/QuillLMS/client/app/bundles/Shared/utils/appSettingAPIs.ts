@@ -1,4 +1,4 @@
-import { mainApiFetch, requestFailed, handleRequestErrors } from './../../Staff/helpers/evidence';
+import { mainApiFetch, requestFailed } from './../../Staff/helpers/evidence/routingHelpers';
 
 interface HandleHasAppSettingArgs {
   appSettingSetter: (value: boolean) => void,

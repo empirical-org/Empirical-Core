@@ -49,12 +49,7 @@ module GoogleIntegration
     end
 
     private def valid_name
-      temp_name = data[:name]
-
-      loop do
-        return temp_name unless other_owned_classroom_names.include?(temp_name)
-        temp_name += '_1'
-      end
+      ::DuplicateNameResolver.run(data[:name], other_owned_classroom_names)
     end
 
     private def visible

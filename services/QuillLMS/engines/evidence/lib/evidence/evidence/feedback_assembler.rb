@@ -7,7 +7,7 @@ module Evidence
     end
 
     def self.run(client_response)
-      error = client_response['oapi_error']
+      error = client_response[error_name]
       return default_payload if error.empty?
 
       rule_uid = error_to_rule_uid.fetch(error)
@@ -35,6 +35,9 @@ module Evidence
         'rule_uid': ''
       }  
     end
-  end
-    
+
+    def self.error_name 
+      raise NotImplementedError, 'Implement in a child class.'
+    end
+  end    
 end

@@ -6,7 +6,7 @@ import { firstBy } from "thenby";
 import RuleViewForm from './ruleViewForm';
 
 import { getConceptName, getPromptIdString } from '../../../helpers/evidence/ruleHelpers';
-import { getPromptsIcons } from '../../../helpers/evidence';
+import { getPromptsIcons } from '../../../helpers/evidence/promptHelpers';
 import { RuleInterface, PromptInterface } from '../../../interfaces/evidenceInterfaces';
 import { BECAUSE, BUT, SO, blankRule, ruleApiOrder } from '../../../../../constants/evidence';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';

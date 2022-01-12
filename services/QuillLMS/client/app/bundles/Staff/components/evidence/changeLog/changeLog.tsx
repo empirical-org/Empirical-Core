@@ -9,7 +9,7 @@ import qs from 'qs';
 import * as _ from 'lodash'
 import DateTimePicker from 'react-datetime-picker';
 
-import { renderHeader } from '../../../helpers/evidence';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { sort } from '../../../../../modules/sortingMethods.js';
 import { fetchChangeLogs, fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { DropdownInput, Spinner, } from '../../../../Shared/index';

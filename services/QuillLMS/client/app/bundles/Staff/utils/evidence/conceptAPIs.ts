@@ -1,4 +1,4 @@
-import { handleApiError, mainApiFetch } from '../../helpers/evidence';
+import { handleApiError, mainApiFetch } from '../../helpers/evidence/routingHelpers';
 
 export const fetchConcepts = async (key: string) => {
   const response = await mainApiFetch(`concepts/level_zero_concepts_with_lineage`);

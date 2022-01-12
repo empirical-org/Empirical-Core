@@ -435,7 +435,20 @@ describe User, type: :model do
       end
 
       it 'should return empty if there are no google classrooms' do
-        expect(teacher.google_classrooms).to eq([])
+        expect(teacher.google_classrooms).to eq []
+      end
+    end
+
+    describe '#clever_classrooms' do
+      let(:clever_classroom) { create(:classroom, :from_clever) }
+      let(:clever_classroom_teacher) { clever_classroom.owner }
+
+      it "should return all the teacher's clever classrooms" do
+        expect(clever_classroom_teacher.clever_classrooms).to eq [clever_classroom]
+      end
+
+      it 'should return empty if there are no clever classrooms' do
+        expect(teacher.clever_classrooms).to eq []
       end
     end
 
