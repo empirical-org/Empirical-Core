@@ -1,19 +1,19 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import { EditorState, ContentState } from 'draft-js';
+import Dropzone from 'react-dropzone'
+import _ from 'underscore';
 
-import CheckBoxes from '../general_components/check_boxes/check_boxes.jsx';
 import DropdownSelector from '../general_components/dropdown_selectors/dropdown_selector.jsx';
 import CustomActivityPack from '../assignment_flow/create_unit/custom_activity_pack/index';
 import Server from '../modules/server/server.jsx';
 import Fnl from '../modules/fnl.jsx';
-import { DataTable, Input, TextEditor, DropdownInput, } from '../../../Shared/index'
+import { TextEditor } from '../../../Shared/index'
 import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx';
 import IndicatorGenerator from '../modules/indicator_generator.jsx';
 import OptionLoader from '../modules/option_loader.jsx';
 import MarkdownParser from '../shared/markdown_parser.jsx';
-import $ from 'jquery';
-import _ from 'underscore';
+import getAuthToken from '../modules/get_auth_token';
 
 export default createReactClass({
   displayName: 'unit_template',
@@ -37,8 +37,9 @@ export default createReactClass({
     };
     model = _.extend(model, this.props.unitTemplate);
     const options = this.modules.optionsLoader.initialOptions();
+    const uploadedFileLink = "";
 
-    const hash = { model, options, };
+    const hash = { model, options, uploadedFileLink };
     return hash;
   },
 
@@ -272,12 +273,43 @@ export default createReactClass({
     )
   },
 
+  handleDrop(acceptedFiles) {
+    acceptedFiles.forEach(file => {
+      const data = new FormData()
+      data.append('file', file)
+      fetch(`${process.env.DEFAULT_URL}/cms/images`, {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+          'X-CSRF-Token': getAuthToken()
+        },
+        body: data
+      })
+      .then(response => response.json()) // if the response is a JSON object
+      .then(response => this.setState({uploadedFileLink: response.url})); // Handle the success response object
+    });
+  },
+
+  getPdfUpload() {
+    const { uploadedFileLink } = this.state
+    return (
+      <div>
+        <label>Click the square below or drag a file into it to upload a file:</label>
+        <Dropzone onDrop={this.handleDrop} />
+        <label style={{marginTop: '10px'}}>Here is the link to your uploaded file:</label>
+        <input style={{marginBottom: '0px'}} value={uploadedFileLink} />
+      </div>
+    )
+  },
+
   render() {
     let inputs;
     inputs = this.modules.textInputGenerator.generate(this.formFields);
     return (
       <span id="unit-template-editor">
         {this.getStatusFlag()}
+        {this.getPreviewLink()}
         <span>
           {inputs}
           {this.getActivityPackDescriptionEditor()}
@@ -286,7 +318,7 @@ export default createReactClass({
         {this.getTimeDropdownSelect()}
         {this.getDiagnostics()}
         {this.getReadability()}
-        {this.getPreviewLink()}
+        {this.getPdfUpload()}
         <br /><br />
         <span>
           {this.getCustomActivityPack()}
