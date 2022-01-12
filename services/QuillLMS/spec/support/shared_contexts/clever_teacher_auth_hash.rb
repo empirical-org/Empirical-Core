@@ -42,7 +42,7 @@ RSpec.shared_context "Clever Teacher auth_hash" do
           "expires" => false
         },
         "info" => {
-          "district_id" => district_clever_id,
+          "district" => district_clever_id,
           "email" => email,
           "id" => teacher_clever_id,
           "name" => {

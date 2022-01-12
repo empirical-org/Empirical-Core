@@ -11,7 +11,7 @@ module CleverIntegration
     def initialize(auth_hash)
       @auth_hash = auth_hash
       @info_hash = auth_hash.info
-      @district_id = info_hash.district_id
+      @district_id = info_hash.district
     end
 
     def run
