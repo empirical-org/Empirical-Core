@@ -7,6 +7,7 @@ import '../styles/headerStyling.scss'
 
 import getParameterByName from '../helpers/getParameterByName';
 import { Tooltip, READ_PASSAGE_STEP, BECAUSE_PASSAGE_STEP, BUT_PASSAGE_STEP, SO_PASSAGE_STEP, whiteCheckGreenBackgroundIcon } from '../../Shared/index'
+import { onMobile } from '../helpers/containerActionHelpers';
 
 const logoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white.svg`
 const mobileLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-mobile.svg`
@@ -62,22 +63,25 @@ export class Header extends React.Component<any, any> {
   }
 
   renderStepCounter = () => {
-    return <div className="nav-steps-count-container">
-      <p className="step-counter-label">Steps</p>
-      {this.renderNumberOrIcon(READ_PASSAGE_STEP)}
-      {this.renderNumberOrIcon(BECAUSE_PASSAGE_STEP)}
-      {this.renderNumberOrIcon(BUT_PASSAGE_STEP)}
-      {this.renderNumberOrIcon(SO_PASSAGE_STEP)}
-    </div>
+    return(
+      <div className="nav-steps-count-container">
+        <p className="step-counter-label">Steps</p>
+        {this.renderNumberOrIcon(READ_PASSAGE_STEP)}
+        {this.renderNumberOrIcon(BECAUSE_PASSAGE_STEP)}
+        {this.renderNumberOrIcon(BUT_PASSAGE_STEP)}
+        {this.renderNumberOrIcon(SO_PASSAGE_STEP)}
+      </div>
+    );
   }
 
   render() {
     const isNotTurk = !window.location.href.includes('turk')
     const tooltipTrigger = <div><img alt="Question mark icon" src={helpIcon} /><span>Beta: <span>in development</span></span></div>
+    const mobileStyle = onMobile() ? 'mobile' : '';
     return (
       <div className="header">
-        <div className="inner-header">
-          <div className="left-side-container">
+        <div className={`inner-header ${mobileStyle}`}>
+          <div className={`left-side-container ${mobileStyle}`}>
             <div className="left-side">
               <a className="focus-on-dark" href={process.env.DEFAULT_URL}>
                 <img alt="Quill.org logo" className="hide-on-desktop" src={mobileLogoSrc} />
@@ -92,8 +96,8 @@ export class Header extends React.Component<any, any> {
               <span className="hide-on-desktop beta-tag">Beta</span>
             </div>
           </div>
-          <div className="right-side-container">
-            {this.renderStepCounter()}
+          <div className={`right-side-container ${mobileStyle}`}>
+            {!onMobile() && this.renderStepCounter()}
             {isNotTurk && <button className="save-and-exit focus-on-dark" onClick={this.handleOnClick} type="button"><span>Save and exit</span></button>}
           </div>
         </div>

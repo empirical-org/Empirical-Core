@@ -12,6 +12,9 @@
     display: flex;
     height: 100%;
     margin: auto;
+    &.mobile {
+      justify-content: flex-end;
+    }
   }
 
   .left-side-container {
@@ -22,6 +25,9 @@
     border-right: 1px solid #0b9d88;
     .left-side {
       display: flex;
+    }
+    &.mobile {
+      display: none;
     }
   }
 
@@ -83,6 +89,9 @@
       img {
         margin-right: 8px;
       }
+    }
+    &.mobile {
+      width: auto;
     }
   }
 
