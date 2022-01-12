@@ -45,17 +45,6 @@
           align-items: center;
           width: 100%;
         }
-        .step-number {
-          background-color: #005341;
-          color: #ffffff;
-          max-width: 24px;
-          height: 24px;
-          font-size: 14px;
-          &.active {
-            background-color: #ffffff;
-            color: #262626;
-          }
-        }
         .now-tag {
           color: #000000;
           background-color: #e1f3f1;

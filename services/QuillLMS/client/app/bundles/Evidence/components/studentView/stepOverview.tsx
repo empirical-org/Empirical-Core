@@ -1,11 +1,6 @@
 import * as React from 'react'
 
-import { whiteCheckGreenBackgroundIcon } from '../../../Shared/index'
-
-const READ_PASSAGE_STEP = 1
-const BECAUSE_PASSAGE_STEP = 2
-const BUT_PASSAGE_STEP = 3
-const SO_PASSAGE_STEP = 4
+import { whiteCheckGreenBackgroundIcon, READ_PASSAGE_STEP, BECAUSE_PASSAGE_STEP, BUT_PASSAGE_STEP, SO_PASSAGE_STEP } from '../../../Shared/index'
 
 const steps = [
   {
@@ -42,7 +37,7 @@ const Step = ({ active, completed, handleClick, step }: StepProps) => {
     return (<section className="step-overview-step-container">
       <button className="step-overview-step active" onClick={handleClick} type="button">
         <div className="left-side-container">
-          <div className={`step-number ${active ? 'active' : ''}`}>{stepNumber}</div>
+          <div className={`evidence-step-number-small ${active ? 'active' : ''}`}>{stepNumber}</div>
           {html}
         </div>
         <div className="now-tag">Now</div>
@@ -61,7 +56,7 @@ const Step = ({ active, completed, handleClick, step }: StepProps) => {
 
   return (<section className="step-overview-step-container">
     <div className="step-overview-step">
-      <div className="step-number">{stepNumber}</div>
+      <div className="evidence-step-number-small">{stepNumber}</div>
       {html}
     </div>
   </section>)

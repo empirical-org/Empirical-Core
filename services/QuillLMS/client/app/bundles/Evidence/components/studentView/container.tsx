@@ -13,7 +13,7 @@ import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession, saveActivitySurveyResponse, reportAProblem, } from '../../actions/session'
+import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession, saveActivitySurveyResponse, reportAProblem, setActiveStepForSession } from '../../actions/session'
 import { generateConceptResults, } from '../../libs/conceptResults'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
@@ -21,7 +21,7 @@ import getParameterByName from '../../helpers/getParameterByName';
 import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted, getStrippedPassageHighlights } from '../../helpers/containerActionHelpers';
 import { renderStepLinksAndDirections, renderReadPassageContainer } from '../../helpers/containerRenderHelpers';
 import { postTurkSession } from '../../utils/turkAPI';
-import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE, TOUCHMOVE, } from '../../../Shared/index'
+import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE } from '../../../Shared/index'
 
 interface StudentViewContainerProps {
   dispatch: Function;
@@ -93,6 +93,10 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     3: 0,
     4: 0
   })
+
+  React.useEffect(() => {
+    dispatch(setActiveStepForSession(activeStep));
+  }, [activeStep])
 
   React.useEffect(() => {
     const el = document.getElementById('end-of-passage')

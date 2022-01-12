@@ -7,16 +7,25 @@ import { FeedbackObject } from '../interfaces/feedback'
 export interface SessionReducerState {
   sessionID: string
   submittedResponses: { [key: string]: FeedbackObject[] }|{}
+  activeStep: number
 }
 
-type SessionAction = Action & { promptID: string } & { feedbackObj: FeedbackObject }
+// type SessionAction = Action & { promptID: string } & { feedbackObj: FeedbackObject } & { activeStep: number}
+type SessionAction = Action & {
+  promptID: string,
+  feedbackObj: FeedbackObject,
+  sessionID: string,
+  submittedResponses: SessionReducerState["submittedResponses"]
+  activeStep: number
+}
 
 export default (
     currentState: SessionReducerState = {
       // Currently we want to initialize a random session for each
       // page load
       sessionID: uuid4(),
-      submittedResponses: {}
+      submittedResponses: {},
+      activeStep: null
     },
     action: SessionAction
 ) => {
@@ -35,6 +44,9 @@ export default (
         submittedResponsesForPrompt.push(feedbackObj)
         const newResponses = Object.assign({}, currentState.submittedResponses, { [promptID]: submittedResponsesForPrompt })
         return Object.assign({}, currentState, { submittedResponses: newResponses });
+      case ActionTypes.SET_ACTIVE_STEP:
+        const { activeStep } = action
+        return Object.assign({}, currentState, { activeStep });
       default:
         return currentState;
     }

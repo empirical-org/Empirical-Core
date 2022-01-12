@@ -131,3 +131,14 @@ export {
   SCROLL,
   TOUCHMOVE,
 } from './utils/eventNames'
+
+export {
+  DEFAULT_HIGHLIGHT_PROMPT,
+  BECAUSE,
+  BUT,
+  SO,
+  READ_PASSAGE_STEP,
+  BECAUSE_PASSAGE_STEP,
+  BUT_PASSAGE_STEP,
+  SO_PASSAGE_STEP
+} from './utils/constants'
