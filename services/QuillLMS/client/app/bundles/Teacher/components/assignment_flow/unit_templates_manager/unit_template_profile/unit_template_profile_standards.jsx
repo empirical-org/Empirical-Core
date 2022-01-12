@@ -4,7 +4,7 @@ import _ from 'underscore';
 const UnitTemplateProfileStandards = ({ data, }) => {
   const standards = _.uniq(data.activities.map(act => act.standard && act.standard.name)).filter(Boolean)
   const concepts = _.uniq(data.activities.map(act => act.standard && act.standard.standard_category && act.standard.standard_category.name)).filter(Boolean)
-  const productionActivitiesRecommendedBy = data.activities_recommended_by.filter(act => act.flags.includes("production") && act.name.length)
+  const productionActivitiesRecommendedBy = data.diagnostics_recommended_by.filter(act => act.flags.includes("production") && act.name.length)
 
   if (!standards.length && !concepts.length && !data.readability && !productionActivitiesRecommendedBy.length) { return <span />}
 

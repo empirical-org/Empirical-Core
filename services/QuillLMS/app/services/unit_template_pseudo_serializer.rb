@@ -22,7 +22,7 @@ class UnitTemplatePseudoSerializer
       activities: activities,
       type: type,
       readability: ut.readability,
-      activities_recommended_by: ut.activities_recommended_by
+      diagnostics_recommended_by: ut.diagnostics_recommended_by
     }
   end
 

@@ -146,7 +146,7 @@ describe UnitTemplate, redis: true, type: :model do
           readability: activity.readability_grade_level,
           level_zero_topic_name: topic.name
         }],
-        activities_recommended_by: [],
+        diagnostics_recommended_by: [],
         activity_info: nil,
         created_at: unit_template1.created_at.to_i,
         grades: [],
