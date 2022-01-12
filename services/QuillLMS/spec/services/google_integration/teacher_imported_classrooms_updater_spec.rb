@@ -22,7 +22,7 @@ RSpec.describe GoogleIntegration::TeacherImportedClassroomsUpdater do
   subject { described_class.run(teacher_id) }
 
   it 'updates only previously imported classrooms that have google_classroom_id' do
-    expect(GoogleIntegration::TeacherClassroomsCache).to receive(:get).with(teacher_id).and_return(data)
+    expect(GoogleIntegration::TeacherClassroomsCache).to receive(:read).with(teacher_id).and_return(data)
 
     subject
 

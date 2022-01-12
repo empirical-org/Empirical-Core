@@ -181,7 +181,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def retrieve_google_classrooms
-    serialized_google_classrooms = GoogleIntegration::TeacherClassroomsCache.get(current_user.id)
+    serialized_google_classrooms = GoogleIntegration::TeacherClassroomsCache.read(current_user.id)
     if serialized_google_classrooms
       render json: JSON.parse(serialized_google_classrooms)
     else
@@ -197,14 +197,14 @@ class Teachers::ClassroomManagerController < ApplicationController
       .new(current_user, serialized_classrooms_data)
       .each { |classroom_data| GoogleIntegration::ClassroomImporter.run(classroom_data) }
 
-    GoogleIntegration::TeacherClassroomsCache.del(current_user.id)
+    GoogleIntegration::TeacherClassroomsCache.delete(current_user.id)
     GoogleIntegration::RetrieveTeacherClassroomsWorker.perform_async(current_user.id)
     render json: { classrooms: current_user.google_classrooms }.to_json
   end
 
   def import_google_students
     selected_classroom_ids = Classroom.where(id: params[:classroom_id] || params[:selected_classroom_ids]).ids
-    GoogleIntegration::TeacherClassroomsCache.del(current_user.id)
+    GoogleIntegration::TeacherClassroomsCache.delete(current_user.id)
     GoogleStudentImporterWorker.perform_async(
       current_user.id,
       'Teachers::ClassroomManagerController',
