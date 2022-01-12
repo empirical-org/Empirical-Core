@@ -1,12 +1,11 @@
 import * as React from 'react'
-import * as moment from 'moment'
 import Pusher from 'pusher-js';
 
 import GradeOptions from './grade_options'
 
 import { DropdownInput, DataTable } from '../../../Shared/index'
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
-import { requestPost, requestPut } from '../../../../modules/request/index.js';
+import { requestPost } from '../../../../modules/request/index.js';
 
 interface ImportCleverClassroomsModalProps {
   close: (event) => void;
@@ -63,9 +62,9 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
     return buttonClass;
   }
 
-  toggleRowCheck = (id) => {
+  toggleRowCheck = (rowId) => {
     const { classrooms } = this.state
-    const classroom = classrooms.find(classroom => classroom.id === id)
+    const classroom = classrooms.find(classroom => classroom.clever_id === rowId)
     classroom.checked = !classroom.checked
     this.setState({ classrooms })
   }
@@ -88,19 +87,19 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
     this.setState({ classrooms: newClassrooms })
   }
 
-  handleGradeChange = (classroomId, grade) => {
+  handleGradeChange = (classroomCleverId, grade) => {
     const { classrooms } = this.state
-    const classroom = classrooms.find(classroom => classroom.id === classroomId)
+    const classroom = classrooms.find(classroom => classroom.clever_id === classroomCleverId)
     classroom.grade = grade.value
     this.setState({ classrooms })
   }
 
-  initializePusherForCleverStudentImport(id) {
+  initializePusherForCleverStudentImport(user_id) {
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
-    const channelName = String(id)
+    const channelName = String(user_id)
     const channel = pusher.subscribe(channelName);
     const that = this;
 
@@ -127,15 +126,13 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
     if (!classrooms.length) { return }
 
     const rows = classrooms.map(classroom => {
-      const { name, username, id, creationTime, students, checked, grade, error } = classroom
-      const year = moment(creationTime).format('YYYY')
+      const { name, clever_id, students, checked, grade } = classroom
       const gradeValue = parseInt(grade) || grade
       const gradeOption = GradeOptions.find(gradeOption => gradeOption.value === gradeValue)
       const gradeSelector = (
         <DropdownInput
           className="grade"
-          error={error && !grade ? error : null}
-          handleChange={(g) => this.handleGradeChange(id, g)}
+          handleChange={(g) => this.handleGradeChange(clever_id, g)}
           label="Select a grade"
           options={GradeOptions}
           timesSubmitted={timesSubmitted}
@@ -145,14 +142,11 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
 
       return {
         name,
-        id,
-        username,
+        id: clever_id,
         checked,
-        year,
-        className: error && !grade ? 'error' : '',
         grade: checked ? gradeSelector : null,
         students: students.length,
-        key: id
+        key: clever_id
       }
     })
 
