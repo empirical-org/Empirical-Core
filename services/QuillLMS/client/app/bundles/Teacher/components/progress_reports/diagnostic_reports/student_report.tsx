@@ -13,7 +13,10 @@ import { requestGet } from '../../../../../modules/request/index.js';
 import { GRAMMAR_KEY, CONNECT_KEY, EVIDENCE_KEY, } from '../constants';
 import { getTimeSpent } from '../../../helpers/studentReports';
 
+const expandIcon = <img alt="Expand icon" src={`${process.env.CDN_URL}/images/icons/expand.svg`} />
+
 export interface StudentReportState {
+  boldingExplanationIsOpen: boolean,
   loading: boolean,
   students: Student[],
 }
@@ -31,6 +34,7 @@ interface StudentReportProps extends RouteComponentProps {
 export class StudentReport extends React.Component<StudentReportProps, StudentReportState> {
 
   state = {
+    boldingExplanationIsOpen: false,
     loading: true,
     students: null
   };
@@ -59,8 +63,11 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
     });
   }
 
-  studentBoxes = (students: Student[]) => {
-    const studentData = this.selectedStudent(students);
+  handleToggleBoldingExplanation = () => {
+    this.setState(prevState => ({ boldingExplanationIsOpen: !prevState.boldingExplanationIsOpen, }))
+  }
+
+  studentBoxes = (studentData: Student) => {
     const concept_results = _.sortBy(studentData.concept_results, 'question_number')
     return concept_results.map((question: QuestionData, index: number) => {
       if ([GRAMMAR_KEY, CONNECT_KEY, EVIDENCE_KEY].includes(studentData.activity_classification)) {
@@ -68,6 +75,31 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
       }
       return <StudentReportBox boxNumber={index + 1} key={index} questionData={question} />
     })
+  }
+
+  renderBoldingExplanation(studentData) {
+    const { boldingExplanationIsOpen, } = this.state
+
+    if (EVIDENCE_KEY !== studentData.activity_classification) { return }
+
+    if (boldingExplanationIsOpen) {
+      return (<button className="bolding-explanation is-open" onClick={this.handleToggleBoldingExplanation} type="button">
+        <div>
+          <h3>The bolded text helps you see the edits. It is not what the student sees.</h3>
+          <p>In each student response, we have bolded all of the text that was added or edited by the student during the previous revision so that it is easier for you to skim the student&#39;s results and quickly see what changed in their writing.</p>
+          <p>In the student experience, Quill uses bolding to provide hints for the student about what to change. In the Quill Feedback below, the feedback refers to the bolding the student sees as a hint, not the bolded text displayed in this report. </p>
+        </div>
+        {expandIcon}
+      </button>)
+    }
+
+    return (<button className="bolding-explanation is-closed" onClick={this.handleToggleBoldingExplanation} type="button">
+      <div>
+        <h3>The bolded text helps you see the edits. It is not what the student sees.</h3>
+        <p>(Expand to show more information)</p>
+      </div>
+      {expandIcon}
+    </button>)
   }
 
   render() {
@@ -92,7 +124,8 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
           </div>
           <DropdownInput handleChange={studentDropdownCallback} options={options} value={value} />
         </header>
-        {this.studentBoxes(students)}
+        {this.renderBoldingExplanation(student)}
+        {this.studentBoxes(student)}
         <div className='how-we-grade'>
           <p className="title title-not-started pull-right">
             <a href="https://support.quill.org/activities-implementation/how-does-grading-work" rel='noreferrer noopener' target="_blank" >How We Grade <i className="fas fa-long-arrow-alt-right" /></a>
