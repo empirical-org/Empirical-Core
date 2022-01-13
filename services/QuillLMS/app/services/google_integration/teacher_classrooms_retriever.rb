@@ -18,7 +18,6 @@ module GoogleIntegration
 
     def run
       cache_classrooms_data
-      set_cache_expiration
       notify_pusher
     rescue *ACCESS_TOKEN_ERRORS => e
       NewRelic::Agent.notice_error(e, user_id: user_id)
@@ -26,7 +25,7 @@ module GoogleIntegration
     end
 
     private def cache_classrooms_data
-      TeacherClassroomsCache.set(user_id, data.to_json)
+      TeacherClassroomsCache.write(user_id, data.to_json)
     end
 
     private def data
@@ -43,10 +42,6 @@ module GoogleIntegration
 
     private def notify_pusher
       PusherTrigger.run(user_id, PUSHER_EVENT_CHANNEL, "Google classrooms found for #{user_id}.")
-    end
-
-    private def set_cache_expiration
-      TeacherClassroomsCache.expire(user_id)
     end
 
     private def user

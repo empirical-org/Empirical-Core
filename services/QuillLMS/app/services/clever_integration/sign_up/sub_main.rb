@@ -23,7 +23,7 @@ module CleverIntegration::SignUp::SubMain
   end
 
   def self.teacher(auth_hash)
-    CleverIntegration::SignUp::Teacher.run(auth_hash)
+    CleverIntegration::TeacherIntegration.run(auth_hash)
   end
 
   def self.student(auth_hash)

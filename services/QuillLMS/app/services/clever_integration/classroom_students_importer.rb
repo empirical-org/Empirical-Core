@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CleverIntegration
-  class ClassroomStudentsImporter
+  class ClassroomStudentsImporter < ApplicationService
     attr_reader :classroom, :students_data
 
     def initialize(classroom, students_data)
@@ -12,6 +12,7 @@ module CleverIntegration
     def run
       return if students_data.nil? || students_data.empty?
 
+      import_students
       associate_students_with_classroom
       associate_students_with_provider_classroom
     end
@@ -21,24 +22,15 @@ module CleverIntegration
     end
 
     private def associate_students_with_provider_classroom
-      ProviderClassroomUsersUpdater.new(classroom.clever_id, students.map(&:clever_id), CleverClassroomUser).run
+      ProviderClassroomUsersUpdater.run(classroom.clever_id, students.map(&:clever_id), CleverClassroomUser)
     end
 
-    private def parsed_students_data
-      students_data.map { |data| parsed_student_data(data['id'], data['name'], data['email']) }
-    end
-
-    private def parsed_student_data(id, name, email)
-      {
-        clever_id: id,
-        email: ::User.valid_email?(email) ? email.downcase : nil,
-        name: "#{name['first']} #{name['middle']} #{name['last']}".squish,
-        username: id.downcase
-      }
+    def import_students
+      students
     end
 
     private def students
-      @students ||= parsed_students_data.map { |data| CleverIntegration::StudentImporter.new(data).run }
+      @students ||= students_data.map { |student_data| CleverIntegration::StudentImporter.run(student_data) }
     end
   end
 end
