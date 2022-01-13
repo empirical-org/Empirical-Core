@@ -64,6 +64,8 @@ describe Classroom, type: :model do
     let!(:students_classrooms) { create(:students_classrooms, student_id: student1.id, classroom_id: classroom_to_destroy.id) }
     let!(:unrelated_students_classroom) { create(:students_classrooms) }
 
+    let!(:invite) { create(:coteacher_classroom_invitation, classroom_id: classroom_to_destroy.id) }
+
     it 'should cascade-destroy foreign key dependent records' do 
       expect do 
         classroom_to_destroy.destroy 
@@ -74,6 +76,7 @@ describe Classroom, type: :model do
       .and change { User.count }.by(0)
       .and change { StudentsClassrooms.count }.by(-1)
       .and change { Activity.count }.by(0) 
+      .and change { CoteacherClassroomInvitation.count }.by(-1)
       expect(ClassroomsTeacher.where(classroom_id: classroom_to_destroy.id).count).to eq 0
     end
   end

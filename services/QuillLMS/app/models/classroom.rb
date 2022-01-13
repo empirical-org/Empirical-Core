@@ -30,7 +30,7 @@ class Classroom < ApplicationRecord
   include CheckboxCallback
 
   GRADES = %w(1 2 3 4 5 6 7 8 9 10 11 12 University)
-  UNIVERSITY= "University"
+  UNIVERSITY = "University"
   GRADE_INTEGERS = {Kindergarten: 0, University: 13, PostGraduate: 14}
 
   validates_uniqueness_of :code
@@ -41,13 +41,13 @@ class Classroom < ApplicationRecord
   after_commit :hide_appropriate_classroom_units
   after_commit :trigger_analytics_for_classroom_creation, on: :create
 
-  has_many :classroom_units
+  has_many :classroom_units, dependent: :destroy
   has_many :units, through: :classroom_units
   has_many :unit_activities, through: :units
   has_many :activities, through: :unit_activities
   has_many :activity_sessions, through: :classroom_units
   has_many :standard_levels, through: :activities
-  has_many :coteacher_classroom_invitations
+  has_many :coteacher_classroom_invitations, dependent: :destroy
 
   has_many :students_classrooms, foreign_key: 'classroom_id', dependent: :destroy, class_name: "StudentsClassrooms"
   has_many :students, through: :students_classrooms, source: :student, inverse_of: :classrooms, class_name: "User"
@@ -60,9 +60,7 @@ class Classroom < ApplicationRecord
   accepts_nested_attributes_for :classrooms_teachers
 
   def destroy 
-    classroom_units.each(&:destroy)
     ClassroomsTeacher.where(classroom_id: id).destroy_all
-    coteacher_classroom_invitations.each(&:destroy)
     super
   end
 
