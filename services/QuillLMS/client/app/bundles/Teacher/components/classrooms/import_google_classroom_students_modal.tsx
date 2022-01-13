@@ -87,7 +87,7 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
         <div className="checkbox-row">
           {this.renderCheckbox()}
           <span>
-            I understand that newly imported students have access to the activities that have already been assigned
+            I understand that newly imported students have access to the activities that have already been assigned to
             the entire class.
           </span>
         </div>

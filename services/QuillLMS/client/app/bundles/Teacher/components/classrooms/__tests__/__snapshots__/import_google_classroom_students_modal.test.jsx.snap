@@ -33,7 +33,7 @@ exports[`ImportGoogleClassroomStudentsModal component should render ImportGoogle
           onClick={[Function]}
         />
         <span>
-          I understand that newly imported students have access to the activities that have already been assigned the entire class.
+          I understand that newly imported students have access to the activities that have already been assigned to the entire class.
         </span>
       </div>
     </div>
