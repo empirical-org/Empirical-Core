@@ -80,6 +80,12 @@ export const setExplanationSlidesCompletedForSession = (explanationSlidesComplet
   }
 }
 
+export const setActivityIsCompleteForSession = (activityIsCompleteForSession: boolean) => {
+  return (dispatch: Function) => {
+    dispatch({ type: ActionTypes.SET_ACTIVITY_IS_COMPLETE_FOR_SESSION, activityIsCompleteForSession })
+  }
+}
+
 export const fetchActiveActivitySession = ({ sessionID, activityUID, callback, }: FetchActiveActivitySessionArguments) => {
   return (dispatch: Function) => {
     const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`

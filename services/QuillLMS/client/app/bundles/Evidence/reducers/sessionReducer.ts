@@ -10,7 +10,8 @@ export interface SessionReducerState {
   sessionID: string
   submittedResponses: { [key: string]: FeedbackObject[] }|{}
   activeStep: number,
-  explanationSlidesCompleted: boolean
+  explanationSlidesCompleted: boolean,
+  activityIsComplete: boolean
 }
 
 type SessionAction = Action & {
@@ -19,7 +20,8 @@ type SessionAction = Action & {
   sessionID: string,
   submittedResponses: SessionReducerState["submittedResponses"]
   activeStep: number,
-  explanationSlidesCompleted: boolean
+  explanationSlidesCompleted: boolean,
+  activityIsComplete: boolean
 }
 
 const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
@@ -33,7 +35,8 @@ export default (
       sessionID: uuid4(),
       submittedResponses: {},
       activeStep: shouldSkipToPrompts ? READ_PASSAGE_STEP_NUMBER + 1 : READ_PASSAGE_STEP_NUMBER,
-      explanationSlidesCompleted: shouldSkipToPrompts || (activityCompletionCount > ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING)
+      explanationSlidesCompleted: shouldSkipToPrompts || (activityCompletionCount > ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING),
+      activityIsComplete: false
     },
     action: SessionAction
 ) => {
@@ -58,6 +61,9 @@ export default (
       case ActionTypes.SET_EXPLANATIONS_SLIDES_COMPLETED:
         const { explanationSlidesCompleted } = action
         return Object.assign({}, currentState, { explanationSlidesCompleted });
+      case ActionTypes.SET_ACTIVITY_IS_COMPLETE_FOR_SESSION:
+        const { activityIsComplete } = action
+        return Object.assign({}, currentState, { activityIsComplete  });
       default:
         return currentState;
     }

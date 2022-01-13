@@ -13,7 +13,7 @@ import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession, saveActivitySurveyResponse, reportAProblem, setActiveStepForSession, setExplanationSlidesCompletedForSession } from '../../actions/session'
+import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession, saveActivitySurveyResponse, reportAProblem, setActiveStepForSession, setExplanationSlidesCompletedForSession, setActivityIsCompleteForSession } from '../../actions/session'
 import { generateConceptResults, } from '../../libs/conceptResults'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
@@ -34,7 +34,6 @@ interface StudentViewContainerProps {
 }
 
 interface StudentViewContainerState {
-  activityIsComplete: boolean;
   explanationSlideStep:  number;
   completedSteps: Array<number>;
   isIdle: boolean;
@@ -68,7 +67,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   const inactivityTimer = React.useRef(null)
 
   const [explanationSlideStep, setExplanationSlideStep] = React.useState(0)
-  const [activityIsComplete, setActivityIsComplete] = React.useState(false)
   const [completeButtonClicked, setCompleteButtonClicked] = React.useState(false)
   const [completedSteps, setCompletedSteps] = React.useState(defaultCompletedSteps)
   const [showFocusState, setShowFocusState] = React.useState(false)
@@ -322,7 +320,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       sessionID,
     }));
 
-    setActivityIsComplete(true);
+    dispatch(setActivityIsCompleteForSession(true));
     defaultHandleFinishActivity()
   }
 
@@ -500,7 +498,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     }
   }
 
-  const { submittedResponses, sessionID, explanationSlidesCompleted, activeStep } = session;
+  const { submittedResponses, sessionID, explanationSlidesCompleted, activeStep, activityIsComplete } = session;
 
   if (!activities.hasReceivedData) { return <LoadingSpinner /> }
 
