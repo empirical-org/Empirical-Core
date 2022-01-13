@@ -6,7 +6,7 @@ import { Events } from '../modules/analytics';
 import '../styles/headerStyling.scss'
 
 import getParameterByName from '../helpers/getParameterByName';
-import { Tooltip, READ_PASSAGE_STEP, BECAUSE_PASSAGE_STEP, BUT_PASSAGE_STEP, SO_PASSAGE_STEP, whiteCheckGreenBackgroundIcon } from '../../Shared/index'
+import { Tooltip, READ_PASSAGE_STEP_NUMBER, BECAUSE_PASSAGE_STEP_NUMBER, BUT_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER, whiteCheckGreenBackgroundIcon } from '../../Shared/index'
 import { onMobile } from '../helpers/containerActionHelpers';
 
 const logoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white.svg`
@@ -66,10 +66,10 @@ export class Header extends React.Component<any, any> {
     return(
       <div className="nav-steps-count-container">
         <p className="step-counter-label">Steps</p>
-        {this.renderNumberOrIcon(READ_PASSAGE_STEP)}
-        {this.renderNumberOrIcon(BECAUSE_PASSAGE_STEP)}
-        {this.renderNumberOrIcon(BUT_PASSAGE_STEP)}
-        {this.renderNumberOrIcon(SO_PASSAGE_STEP)}
+        {this.renderNumberOrIcon(READ_PASSAGE_STEP_NUMBER)}
+        {this.renderNumberOrIcon(BECAUSE_PASSAGE_STEP_NUMBER)}
+        {this.renderNumberOrIcon(BUT_PASSAGE_STEP_NUMBER)}
+        {this.renderNumberOrIcon(SO_PASSAGE_STEP_NUMBER)}
       </div>
     );
   }

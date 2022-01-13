@@ -1,8 +1,10 @@
 import { Action } from "redux";
 import { v4 as uuid4 } from "uuid";
-import { ActionTypes } from "../actions/actionTypes";
 
-import { FeedbackObject } from '../interfaces/feedback'
+import { ActionTypes } from "../actions/actionTypes";
+import { FeedbackObject } from '../interfaces/feedback';
+import getParameterByName from '../helpers/getParameterByName';
+import { READ_PASSAGE_STEP_NUMBER } from '../../Shared/index'
 
 export interface SessionReducerState {
   sessionID: string
@@ -20,14 +22,18 @@ type SessionAction = Action & {
   explanationSlidesCompleted: boolean
 }
 
+const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
+const activityCompletionCount = parseInt(getParameterByName('activities', window.location.href)) || 0;
+const ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING = 3;
+
 export default (
     currentState: SessionReducerState = {
       // Currently we want to initialize a random session for each
       // page load
       sessionID: uuid4(),
       submittedResponses: {},
-      activeStep: null,
-      explanationSlidesCompleted: false
+      activeStep: shouldSkipToPrompts ? READ_PASSAGE_STEP_NUMBER + 1 : READ_PASSAGE_STEP_NUMBER,
+      explanationSlidesCompleted: shouldSkipToPrompts || (activityCompletionCount > ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING)
     },
     action: SessionAction
 ) => {
@@ -51,6 +57,7 @@ export default (
         return Object.assign({}, currentState, { activeStep });
       case ActionTypes.SET_EXPLANATIONS_SLIDES_COMPLETED:
         const { explanationSlidesCompleted } = action
+        console.log("🚀 ~ file: sessionReducer.ts ~ line 60 ~ explanationSlidesCompleted", explanationSlidesCompleted)
         return Object.assign({}, currentState, { explanationSlidesCompleted });
       default:
         return currentState;

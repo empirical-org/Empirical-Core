@@ -3,6 +3,7 @@
 exports[`StudentViewContainer component when the activity has loaded renders 1`] = `
 <Header
   dispatch={[Function]}
+  session={Object {}}
 >
   <div
     className="header"

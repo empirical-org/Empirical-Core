@@ -75,7 +75,9 @@ export const setActiveStepForSession = (activeStep: number) => {
 }
 
 export const setExplanationSlidesCompletedForSession = (explanationSlidesCompleted: boolean) => {
+console.log("🚀 ~ file: session.ts ~ line 78 ~ setExplanationSlidesCompletedForSession ~ explanationSlidesCompleted", explanationSlidesCompleted)
   return (dispatch: Function) => {
+    console.log('dispatched')
     dispatch({ type: ActionTypes.SET_EXPLANATIONS_SLIDES_COMPLETED, explanationSlidesCompleted })
   }
 }
