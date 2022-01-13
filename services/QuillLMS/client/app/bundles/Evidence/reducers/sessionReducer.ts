@@ -57,7 +57,6 @@ export default (
         return Object.assign({}, currentState, { activeStep });
       case ActionTypes.SET_EXPLANATIONS_SLIDES_COMPLETED:
         const { explanationSlidesCompleted } = action
-        console.log("🚀 ~ file: sessionReducer.ts ~ line 60 ~ explanationSlidesCompleted", explanationSlidesCompleted)
         return Object.assign({}, currentState, { explanationSlidesCompleted });
       default:
         return currentState;
