@@ -109,38 +109,38 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     const { clever_id } = user
     const { attemptedImportCleverClassrooms } = this.state
 
-    if (clever_id) {
-      this.setState({ cleverClassroomsLoading: true}, () => {
-        requestGet('/clever_integration/teachers/retrieve_classrooms', body => {
-          this.setState({ attemptedImportCleverClassrooms: true })
+    if (!clever_id) { return }
 
-          if (body.reauthorization_required) {
-            this.openModal(reauthorizeCleverModal)
-          }
-          else if (body.quill_retrieval_processing) {
-            this.initializePusherForCleverClassrooms(body.user_id)
+    this.setState({ cleverClassroomsLoading: true}, () => {
+      requestGet('/clever_integration/teachers/retrieve_classrooms', body => {
+        this.setState({ attemptedImportCleverClassrooms: true })
+
+        if (body.reauthorization_required) {
+          this.openModal(reauthorizeCleverModal)
+        }
+        else if (body.quill_retrieval_processing) {
+          this.initializePusherForCleverClassrooms(body.user_id)
+        } else {
+          const { classrooms_data, existing_clever_ids } = body
+          const { classrooms } = classrooms_data
+          const cleverClassrooms = classrooms.filter(classroom => !existing_clever_ids.includes(classroom.clever_id))
+          const newStateObj: any = { cleverClassrooms, cleverClassroomsLoading: false }
+
+          if (attemptedImportCleverClassrooms) {
+            newStateObj.attemptedImportCleverClassrooms = false
+            this.setState(newStateObj, this.clickImportCleverClassrooms)
           } else {
-            const { classrooms_data, existing_clever_ids } = body
-            const { classrooms } = classrooms_data
-            const cleverClassrooms = classrooms.filter(classroom => !existing_clever_ids.includes(classroom.clever_id))
-            const newStateObj: any = { cleverClassrooms, cleverClassroomsLoading: false }
-
-            if (attemptedImportCleverClassrooms) {
-              newStateObj.attemptedImportCleverClassrooms = false
-              this.setState(newStateObj, this.clickImportCleverClassrooms)
-            } else {
-              this.setState(newStateObj)
-            }
-
-            if (cleverClassrooms.length) {
-              this.openModal(importCleverClassroomsModal)
-            } else {
-              this.openModal(cleverClassroomsEmptyModal)
-            }
+            this.setState(newStateObj)
           }
-        })
+
+          if (cleverClassrooms.length) {
+            this.openModal(importCleverClassroomsModal)
+          } else {
+            this.openModal(cleverClassroomsEmptyModal)
+          }
+        }
       })
-    }
+    })
   }
 
   getGoogleClassrooms = () => {
