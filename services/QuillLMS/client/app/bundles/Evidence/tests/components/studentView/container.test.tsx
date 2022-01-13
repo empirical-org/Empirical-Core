@@ -52,14 +52,11 @@ jest.mock('string-strip-html', () => ({
 }))
 
 import { StudentViewContainer } from '../../../components/studentView/container'
-import LoadingSpinner from '../../../components/shared/loadingSpinner'
-import PromptStep from '../../../components/studentView/promptStep'
-import { Events } from '../../../modules/analytics'
 
 const dispatch = () => {}
 
 const activitiesReducer = { hasReceivedData: true, currentActivity: activityOne}
-const sessionReducer = { submittedResponses: [], sessionID: 'MockSessionID', hasReceivedData: true }
+const sessionReducer = { submittedResponses: [], sessionID: 'MockSessionID', hasReceivedData: true, activeStep: 1, explanationSlidesCompleted: false }
 
 const wrapper = mount(<StudentViewContainer
   activities={activitiesReducer}
