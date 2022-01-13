@@ -75,9 +75,11 @@ export class Header extends React.Component<any, any> {
   }
 
   render() {
+    const { session } = this.props;
+    const { explanationSlidesCompleted } = session;
     const isNotTurk = !window.location.href.includes('turk')
     const tooltipTrigger = <div><img alt="Question mark icon" src={helpIcon} /><span>Beta: <span>in development</span></span></div>
-    const mobileStyle = onMobile() ? 'mobile' : '';
+    const mobileStyle = onMobile() || !explanationSlidesCompleted ? 'mobile' : '';
     return (
       <div className="header">
         <div className={`inner-header ${mobileStyle}`}>
@@ -97,7 +99,7 @@ export class Header extends React.Component<any, any> {
             </div>
           </div>
           <div className={`right-side-container ${mobileStyle}`}>
-            {!onMobile() && this.renderStepCounter()}
+            {explanationSlidesCompleted && !onMobile() && this.renderStepCounter()}
             {isNotTurk && <button className="save-and-exit focus-on-dark" onClick={this.handleOnClick} type="button"><span>Save and exit</span></button>}
           </div>
         </div>

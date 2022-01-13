@@ -7,7 +7,8 @@ import { FeedbackObject } from '../interfaces/feedback'
 export interface SessionReducerState {
   sessionID: string
   submittedResponses: { [key: string]: FeedbackObject[] }|{}
-  activeStep: number
+  activeStep: number,
+  explanationSlidesCompleted: boolean
 }
 
 type SessionAction = Action & {
@@ -15,7 +16,8 @@ type SessionAction = Action & {
   feedbackObj: FeedbackObject,
   sessionID: string,
   submittedResponses: SessionReducerState["submittedResponses"]
-  activeStep: number
+  activeStep: number,
+  explanationSlidesCompleted: boolean
 }
 
 export default (
@@ -24,7 +26,8 @@ export default (
       // page load
       sessionID: uuid4(),
       submittedResponses: {},
-      activeStep: null
+      activeStep: null,
+      explanationSlidesCompleted: false
     },
     action: SessionAction
 ) => {
@@ -46,6 +49,9 @@ export default (
       case ActionTypes.SET_ACTIVE_STEP:
         const { activeStep } = action
         return Object.assign({}, currentState, { activeStep });
+      case ActionTypes.SET_EXPLANATIONS_SLIDES_COMPLETED:
+        const { explanationSlidesCompleted } = action
+        return Object.assign({}, currentState, { explanationSlidesCompleted });
       default:
         return currentState;
     }

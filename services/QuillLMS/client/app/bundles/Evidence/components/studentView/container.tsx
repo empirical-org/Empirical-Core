@@ -13,7 +13,7 @@ import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession, saveActivitySurveyResponse, reportAProblem, setActiveStepForSession } from '../../actions/session'
+import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession, saveActivitySurveyResponse, reportAProblem, setActiveStepForSession, setExplanationSlidesCompletedForSession } from '../../actions/session'
 import { generateConceptResults, } from '../../libs/conceptResults'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
@@ -97,6 +97,10 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   React.useEffect(() => {
     dispatch(setActiveStepForSession(activeStep));
   }, [activeStep])
+
+  React.useEffect(() => {
+    dispatch(setExplanationSlidesCompletedForSession(explanationSlidesCompleted));
+  }, [explanationSlidesCompleted])
 
   React.useEffect(() => {
     const el = document.getElementById('end-of-passage')
