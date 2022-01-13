@@ -129,7 +129,7 @@ class School < ApplicationRecord
   end
 
   def self.school_year_start(time)
-    time.month >= 8 ? time.beginning_of_year + 7.months : time.beginning_of_year - 5.months
+    time.month >= 7 ? time.beginning_of_year + 6.months : time.beginning_of_year - 6.months
   end
 
   private def generate_leap_csv_row(student, teacher, classroom, activity_session)

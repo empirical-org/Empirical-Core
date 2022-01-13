@@ -150,14 +150,14 @@ describe School, type: :model do
   end
 
   describe('school_year_start method') do
-    it 'fetches 08-01 of this year if the date is after 08-01' do
-      time = Date.parse('2020-08-01')
+    it 'fetches 07-01 of this year if the date is after 07-01' do
+      time = Date.parse('2020-07-01')
       expect(School.school_year_start(time)).to eq(time.beginning_of_day)
     end
 
-    it 'fetches 08-01 of last year if the date is before 08-01' do
-      time = Date.parse('2020-07-01')
-      expect(School.school_year_start(time)).to eq(Date.parse('2019-08-01').beginning_of_day)
+    it 'fetches 07-01 of last year if the date is before 07-01' do
+      time = Date.parse('2020-06-01')
+      expect(School.school_year_start(time)).to eq(Date.parse('2019-07-01').beginning_of_day)
     end
   end
 end
