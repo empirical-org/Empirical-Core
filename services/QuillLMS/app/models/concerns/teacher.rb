@@ -32,6 +32,8 @@ module Teacher
     classrooms_i_teach.any? && !classrooms_i_teach.all?(&:new_record?)
   end
 
+  # TODO: classrooms_i_teach is also a defined association on User
+  # we should eliminate one of these
   def classrooms_i_teach
     Classroom.find_by_sql(base_sql_for_teacher_classrooms)
   end
@@ -306,7 +308,19 @@ module Teacher
   end
 
   def google_classrooms
-    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND classrooms.google_classroom_id IS NOT NULL")
+    Classroom
+      .unscoped
+      .joins(:classrooms_teachers)
+      .where(classrooms_teachers: { user_id: id })
+      .where.not(google_classroom_id: nil)
+  end
+
+  def clever_classrooms
+    Classroom
+      .unscoped
+      .joins(:classrooms_teachers)
+      .where(classrooms_teachers: { user_id: id })
+      .where.not(clever_id: nil)
   end
 
   def transfer_account

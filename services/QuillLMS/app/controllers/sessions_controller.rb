@@ -4,6 +4,8 @@ require 'newrelic_rpm'
 require 'new_relic/agent'
 
 class SessionsController < ApplicationController
+  include CleverAuthable
+
   CLEAR_ANALYTICS_SESSION_KEY = "clear_analytics_session"
 
   before_action :signed_in!, only: [:destroy]
@@ -113,20 +115,6 @@ class SessionsController < ApplicationController
     login_failure_message
     # redirect_to signed_out_path
   end
-
-  def clever_link
-    "https://clever.com/oauth/authorize?#{clever_link_query_params}"
-  end
-
-  def clever_link_query_params
-    {
-      response_type: 'code',
-      redirect_uri: Clever::REDIRECT_URL,
-      client_id: Clever::CLIENT_ID,
-      scope: QuillClever.scope
-    }.to_param
-  end
-
 
   def set_post_auth_redirect
     session[ApplicationController::POST_AUTH_REDIRECT] = params[ApplicationController::POST_AUTH_REDIRECT]

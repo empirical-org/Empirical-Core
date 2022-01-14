@@ -6,11 +6,13 @@
 #
 #  id         :integer          not null, primary key
 #  name       :string           not null
+#  order      :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 class RawScore < ApplicationRecord
   validates :name, presence: true
+  validates :order, presence: true
 
   def self.order_by_name
     RawScore.all.sort_by do |rs|

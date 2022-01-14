@@ -424,15 +424,47 @@ describe User, type: :model do
     end
 
     describe '#google_classrooms' do
-      let(:google_classroom) { create(:classroom, :from_google) }
+      let!(:google_classroom) { create(:classroom, :from_google) }
+      let!(:archived_google_classroom) { create(:classroom, :from_google, :with_no_teacher, :archived) }
       let(:google_classroom_teacher) { google_classroom.owner }
 
+      before { create(:classrooms_teacher, user: google_classroom_teacher, classroom: archived_google_classroom) }
+
       it "should return all the teacher's google classrooms" do
-        expect(google_classroom_teacher.google_classrooms).to eq([google_classroom])
+        expect(google_classroom_teacher.google_classrooms).to match_array [google_classroom, archived_google_classroom]
       end
 
       it 'should return empty if there are no google classrooms' do
-        expect(teacher.google_classrooms).to eq([])
+        expect(teacher.google_classrooms).to eq []
+      end
+    end
+
+    describe '#clever_classrooms' do
+      let(:clever_classroom) { create(:classroom, :from_clever) }
+      let(:clever_classroom_teacher) { clever_classroom.owner }
+
+      it "should return all the teacher's clever classrooms" do
+        expect(clever_classroom_teacher.clever_classrooms).to eq [clever_classroom]
+      end
+
+      it 'should return empty if there are no clever classrooms' do
+        expect(teacher.clever_classrooms).to eq []
+      end
+    end
+
+    describe '#clever_classrooms' do
+      let!(:clever_classroom) { create(:classroom, :from_clever) }
+      let!(:archived_clever_classroom) { create(:classroom, :from_clever, :with_no_teacher, :archived) }
+      let(:clever_classroom_teacher) { clever_classroom.owner }
+
+      before { create(:classrooms_teacher, user: clever_classroom_teacher, classroom: archived_clever_classroom) }
+
+      it "should return all the teacher's clever classrooms" do
+        expect(clever_classroom_teacher.clever_classrooms).to match_array [clever_classroom, archived_clever_classroom]
+      end
+
+      it 'should return empty if there are no clever classrooms' do
+        expect(teacher.clever_classrooms).to eq([])
       end
     end
 
@@ -478,7 +510,7 @@ describe User, type: :model do
       it 'should return classrooms and students if the teacher is a coteacher' do
         coteacher = create(:classrooms_teacher, classroom: classroom, role: 'coteacher').user
         response = coteacher.classrooms_i_am_the_coteacher_for_with_a_specific_teacher_with_students(teacher.id)
-        expect(response).to include(classroom.attributes.merge(students: classroom.students))
+        expect(response).to include(classroom.reload.attributes.merge(students: classroom.students))
       end
 
       it 'should return an empty array if user does not coteach with the teacher' do
@@ -552,7 +584,7 @@ describe User, type: :model do
       it 'should return only the correct students assigned' do
         student_ids = assigned_units.pluck(:assigned_student_ids).flatten
 
-        other_teacher = create(:teacher, :with_classrooms_students_and_activities) 
+        other_teacher = create(:teacher, :with_classrooms_students_and_activities)
         other_assigned_activities_ids = other_teacher.assigned_students_per_activity_assigned.pluck(:id)
         other_student_ids = other_teacher.assigned_students_per_activity_assigned
           .pluck(:assigned_student_ids)

@@ -48,12 +48,8 @@ export default createReactClass({
       name: 'name',
     },
     {
-      name: 'image_link',
-      label: 'Image Link for Social Media Meta Tag'
-    },
-    {
       name: 'activity_info',
-      label: 'Activity Info',
+      label: 'Activity Pack Description',
       size: 'medium',
     }
   ],
@@ -175,15 +171,6 @@ export default createReactClass({
     this.updateModelState('activities', newOrderedActivities)
   },
 
-  getGradeCheckBoxes() {
-    return (<CheckBoxes
-      items={this.state.options.grades}
-      label={'Grades'}
-      selectedItems={this.state.model.grades}
-      toggleItem={this.modules.indicatorGenerator.stateItemToggler('grades')}
-    />);
-  },
-
   getUnitTemplateCategorySelect() {
     return (<DropdownSelector
       defaultValue={this.state.model.unit_template_category_id}
@@ -200,15 +187,6 @@ export default createReactClass({
       label={'Select Flag'}
       options={this.state.options.flag}
       select={this.modules.indicatorGenerator.selector('flag')}
-    />);
-  },
-
-  getAuthorSelect() {
-    return (<DropdownSelector
-      defaultValue={this.state.model.author_id}
-      label={'Select Author'}
-      options={this.state.options.authors}
-      select={this.modules.indicatorGenerator.selector('author_id')}
     />);
   },
 
@@ -242,15 +220,13 @@ export default createReactClass({
     inputs = this.modules.textInputGenerator.generate(this.formFields);
     return (
       <span id="unit-template-editor">
+        {this.getStatusFlag()}
         <span>
           {inputs}
           {this.determineMarkdownParser()}
         </span>
-        {this.getAuthorSelect()}
         {this.getUnitTemplateCategorySelect()}
         {this.getTimeDropdownSelect()}
-        {this.getGradeCheckBoxes()}
-        {this.getStatusFlag()}
         <span>
           {this.getCustomActivityPack()}
           {this.getErrorMessageAndButton()}

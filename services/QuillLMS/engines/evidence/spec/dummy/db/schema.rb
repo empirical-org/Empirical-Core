@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20211022145011) do
+ActiveRecord::Schema.define(version: 20220105145314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 20211022145011) do
     t.string "text", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["rule_id"], name: "index_comprehension_plagiarism_texts_on_rule_id", unique: true
+    t.index ["rule_id"], name: "index_comprehension_plagiarism_texts_on_rule_id"
   end
 
   create_table "comprehension_prompts", id: :serial, force: :cascade do |t|

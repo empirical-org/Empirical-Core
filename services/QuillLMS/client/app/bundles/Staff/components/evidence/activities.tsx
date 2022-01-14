@@ -7,7 +7,7 @@ import Navigation from './navigation';
 import { ActivityInterface } from '../../interfaces/evidenceInterfaces';
 import { fetchActivities } from '../../utils/evidence/activityAPIs';
 import { DataTable, Error, Spinner, FlagDropdown, } from '../../../Shared/index';
-import { getCheckIcon, renderErrorsContainer } from "../../helpers/evidence";
+import { getCheckIcon, renderErrorsContainer } from "../../helpers/evidence/renderHelpers";
 
 const Activities = ({ location, match }) => {
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GoogleIntegration
-  class ClassroomCreator
+  class ClassroomCreator < ApplicationService
     OWNER = ClassroomsTeacher::ROLE_TYPES[:owner].freeze
 
     attr_reader :data, :google_classroom_id, :teacher_id
@@ -21,7 +21,6 @@ module GoogleIntegration
         google_classroom_id: google_classroom_id,
         name: name,
         synced_name: synced_name,
-        teacher_id: teacher_id,
         classrooms_teachers_attributes: [
           {
             user_id: teacher_id,

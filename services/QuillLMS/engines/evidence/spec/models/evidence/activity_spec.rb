@@ -11,6 +11,12 @@ module Evidence
       it { should have_many(:passages).dependent(:destroy) }
 
       it { should have_many(:prompts).dependent(:destroy) }
+
+      it { should have_many(:turking_rounds).inverse_of(:activity) }
+      it { should have_many(:rules).through(:prompts) }
+      it { should have_many(:feedbacks).through(:rules) }
+      it { should have_many(:highlights).through(:feedbacks) }
+
     end
 
 

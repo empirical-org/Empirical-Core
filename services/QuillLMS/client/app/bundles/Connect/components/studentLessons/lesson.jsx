@@ -252,7 +252,6 @@ export class Lesson extends React.Component {
       (err, httpResponse, body) => {
         if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
-          SessionActions.delete(sessionID);
           document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${sessionID}`;
           this.setState({ saved: true, });
         } else {

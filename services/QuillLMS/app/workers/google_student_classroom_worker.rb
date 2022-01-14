@@ -9,7 +9,7 @@ class GoogleStudentClassroomWorker
       student = User.find(student_id)
       GoogleIntegration::Classroom::Main.join_existing_google_classrooms(student)
     rescue StandardError => e
-      NewRelic::Agent.notice_error(e, custom_params: { context: "Auth::GoogleController" })
+      NewRelic::Agent.notice_error(e, context: "Auth::GoogleController")
     end
   end
 end

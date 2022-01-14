@@ -6,10 +6,21 @@ module Evidence
   RSpec.describe(RulesController, :type => :controller) do
     before { @routes = Engine.routes }
 
+    context 'universal' do 
+      let!(:nonuniversal_rule) { create(:evidence_rule, universal: false) }
+      let!(:universal_rule) { create(:evidence_rule, universal: true) }
+
+      it 'should return universal rules' do 
+        get :universal 
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response.length).to be 1
+      end
+    end
+
     context 'should index' do
 
       it 'should return successfully - no rule' do
-        get(:index)
+        get :index, params: { rule_type: Rule::TYPE_REGEX_ONE }
         parsed_response = JSON.parse(response.body)
         expect(response.status).to eq(200)
         expect(parsed_response.class).to(eq(Array))
@@ -20,7 +31,7 @@ module Evidence
         let!(:rule) { create(:evidence_rule) }
 
         it 'should return successfully' do
-          get(:index)
+          get :index, params: { rule_type: Rule::TYPE_REGEX_ONE }
           parsed_response = JSON.parse(response.body)
           expect(response.status).to eq(200)
           expect(parsed_response.class).to(eq(Array))
@@ -35,6 +46,12 @@ module Evidence
           expect(parsed_response.first["concept_uid"]).to(eq(rule.concept_uid))
           expect(parsed_response.first["display_name"]).to(eq(rule.display_name))
         end
+
+        it 'should raise exception when rule_type is not passed' do 
+          expect do 
+            get :index
+          end.to raise_error(ActionController::ParameterMissing)
+        end
       end
 
       context 'should with filter params' do
@@ -47,18 +64,18 @@ module Evidence
         let!(:rule5) { create(:evidence_rule, :prompts => ([prompt1, prompt2]), :rule_type => (Rule::TYPE_REGEX_ONE)) }
 
         it 'should only get Rules for specified prompt when provided' do
-          get(:index, :params => ({ :prompt_id => prompt1.id }))
+          get(:index, :params => ({ prompt_id: prompt1.id, rule_type: Rule::TYPE_AUTOML }))
           parsed_response = JSON.parse(response.body)
-          expect(3).to(eq(parsed_response.length))
+          expect(1).to(eq(parsed_response.length))
           parsed_response.each do |r|
             expect(r["prompt_ids"].include?(prompt1.id)).to(eq(true))
           end
         end
 
         it 'should only get unique Rules for specified prompts when provided' do
-          get(:index, :params => ({ :prompt_id => ("#{prompt1.id}, #{prompt2.id}") }))
+          get(:index, :params => ({ prompt_id: "#{prompt1.id}, #{prompt2.id}", rule_type: Rule::TYPE_AUTOML }))
           parsed_response = JSON.parse(response.body)
-          expect(5).to(eq(parsed_response.length))
+          expect(2).to(eq(parsed_response.length))
         end
 
         it 'should only get Rules for specified rule type when provided' do
@@ -149,9 +166,11 @@ module Evidence
             rule_type: plagiarism_rule.rule_type,
             universal: plagiarism_rule.universal,
             prompt_ids: [prompt.id],
-            plagiarism_text_attributes: {
-              text: plagiarism_text
-            },
+            plagiarism_texts_attributes: [
+              {
+                text: plagiarism_text
+              }
+            ],
             feedbacks_attributes:
             [
               {
@@ -227,10 +246,10 @@ module Evidence
 
       it 'should create a valid record with plagiarism_text attributes' do
         plagiarism_text = "Here is some text to be checked for plagiarism."
-        post(:create, :params => ({ :rule => ({ :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => rule.suborder, :rule_type => rule.rule_type, :universal => rule.universal, :plagiarism_text_attributes => ({ :text => plagiarism_text }) }) }))
+        post(:create, :params => ({ :rule => ({ :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => rule.suborder, :rule_type => rule.rule_type, :universal => rule.universal, :plagiarism_texts_attributes => ([{ :text => plagiarism_text }]) }) }))
         parsed_response = JSON.parse(response.body)
         expect(parsed_response["name"]).to(eq(rule.name))
-        expect(parsed_response["plagiarism_text"]["text"]).to(eq(plagiarism_text))
+        expect(parsed_response["plagiarism_texts"][0]["text"]).to(eq(plagiarism_text))
       end
 
       it 'should return an error if plagiarism rule already exists for prompt' do
@@ -454,7 +473,7 @@ module Evidence
       it "make a change log record after creating new plagiarism text through update call" do
         plagiarism_text = "New plagiarism text"
         rule.update(rule_type: 'plagiarism')
-        patch :update, params: {id: rule.id, rule: { plagiarism_text_attributes: {text: plagiarism_text}}}
+        patch :update, params: {id: rule.id, rule: { plagiarism_texts_attributes: [{text: plagiarism_text}]}}
 
         rule.reload
         plagiarism_text_obj = Evidence::PlagiarismText.last
@@ -506,8 +525,8 @@ module Evidence
 
       it 'should update a valid record with plagiarism_text attributes' do
         plagiarism_text = "New plagiarism text"
-        patch(:update, :params => ({ :id => rule.id, :rule => ({ :plagiarism_text_attributes => ({ :text => plagiarism_text }) }) }))
-        expect(plagiarism_text).to(eq(rule.reload.plagiarism_text.text))
+        patch(:update, :params => ({ :id => rule.id, :rule => ({ :plagiarism_texts_attributes => ([{ :text => plagiarism_text }]) }) }))
+        expect(plagiarism_text).to(eq(rule.reload.plagiarism_texts.first.text))
       end
 
       it 'should update nested feedback attributes if present' do

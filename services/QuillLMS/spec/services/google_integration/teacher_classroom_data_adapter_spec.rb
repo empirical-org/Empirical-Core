@@ -3,9 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe GoogleIntegration::TeacherClassroomDataAdapter do
-  subject { described_class.new(user, data) }
+  subject { described_class.run(user, data) }
 
-  let(:updated_data) { subject.run }
   let(:user) { create(:user, role: role) }
 
   context 'valid data' do
@@ -16,8 +15,8 @@ RSpec.describe GoogleIntegration::TeacherClassroomDataAdapter do
       let(:role) { 'teacher' }
 
       it 'correctly updates data' do
-        expect(updated_data[:google_classroom_id]).to eq google_classroom_id
-        expect(updated_data[:teacher_id]).to eq user.id
+        expect(subject[:google_classroom_id]).to eq google_classroom_id
+        expect(subject[:teacher_id]).to eq user.id
       end
     end
 
@@ -25,8 +24,8 @@ RSpec.describe GoogleIntegration::TeacherClassroomDataAdapter do
       let(:role) { 'student' }
 
       it 'correctly updates data' do
-        expect(updated_data[:google_classroom_id]).to eq google_classroom_id
-        expect(updated_data[:student_id]).to eq user.id
+        expect(subject[:google_classroom_id]).to eq google_classroom_id
+        expect(subject[:student_id]).to eq user.id
       end
     end
   end

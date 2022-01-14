@@ -5,7 +5,8 @@ import stripHtml from "string-strip-html";
 
 import RuleForm from './ruleForm';
 
-import { getPromptsIcons, renderHeader } from '../../../helpers/evidence';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
+import { getPromptsIcons } from '../../../helpers/evidence/promptHelpers';
 import { BECAUSE, BUT, SO } from '../../../../../constants/evidence';
 import { updateRule, deleteRule, fetchRule } from '../../../utils/evidence/ruleAPIs';
 import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
@@ -39,13 +40,16 @@ const Rule = ({ history, match }) => {
     setShowDeleteRuleModal(!showDeleteRuleModal);
   }
 
-  function handleAttributesFields(feedbacks, plagiarism_text) {
+  function handleAttributesFields(feedbacks, plagiarism_texts) {
     let attributesArray = [];
-    if(plagiarism_text && plagiarism_text.text) {
-      attributesArray = [{
-        label: 'Plagiarism Text',
-        value: stripHtml(plagiarism_text.text)
-      }];
+    if (plagiarism_texts && plagiarism_texts[0]) {
+      attributesArray = plagiarism_texts.map((plagiarism_text, i) => {
+        const { text } = plagiarism_text;
+        return {
+          label: `Plagiarism Text - Text String ${i + 1}`,
+          value: stripHtml(text)
+        }
+      });
     }
     const feedbacksArray = feedbacks.map((feedback, i) => {
       const { text } = feedback;
@@ -62,9 +66,9 @@ const Rule = ({ history, match }) => {
       return [];
     } else {
       // format for DataTable to display labels on left side and values on right
-      const { note, feedbacks, name, prompt_ids, rule_type, plagiarism_text } = rule;
+      const { note, feedbacks, name, prompt_ids, rule_type, plagiarism_texts } = rule;
       const promptsIcons = getPromptsIcons(activityData, prompt_ids);
-      const attributesFields = handleAttributesFields(feedbacks, plagiarism_text);
+      const attributesFields = handleAttributesFields(feedbacks, plagiarism_texts);
       const firstFields = [
         {
           label: 'Type',

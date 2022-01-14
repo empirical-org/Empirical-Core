@@ -2,7 +2,7 @@ import * as React from "react";
 import { EditorState, ContentState } from 'draft-js'
 
 import {
-  handleSetPlagiarismText,
+  handleSetPlagiarismTexts,
   renderHighlights,
   handleSetFeedback
 } from '../../../helpers/evidence/ruleHelpers';
@@ -12,15 +12,46 @@ import { HIGHLIGHT_ADDITION, HIGHLIGHT_REMOVAL, FEEDBACK, } from '../../../../..
 
 // TODO: add props interface
 
+export const PlagiarismTextEditor = ({ text, index, setPlagiarismText, }) => {
+  function onHandleSetPlagiarismText(text) {
+    setPlagiarismText(text, index)
+  }
+
+  return (<React.Fragment key={index}>
+    <p className="form-subsection-label">Plagiarism Text - Text String {index + 1}</p>
+    <TextEditor
+      ContentState={ContentState}
+      EditorState={EditorState}
+      handleTextChange={onHandleSetPlagiarismText}
+      key={`plagiarism-text-${index}`}
+      shouldCheckSpelling={true}
+      text={text}
+    />
+  </React.Fragment>)
+}
+
 const RulePlagiarismAttributes = ({
   errors,
   plagiarismFeedbacks,
-  plagiarismText,
+  plagiarismTexts,
   setPlagiarismFeedbacks,
-  setPlagiarismText
+  setPlagiarismTexts
 }) => {
 
-  function onHandleSetPlagiarismText(text: string) { handleSetPlagiarismText(text, plagiarismText, setPlagiarismText)}
+  function onAddPlagiarismTextString() {
+    const newPlagiarismTexts = [...plagiarismTexts, { text: '', }]
+    setPlagiarismTexts(newPlagiarismTexts)
+  }
+
+  function onRemovePlagiarismTextString() {
+    if (window.confirm('Are you sure you want to remove this text string?')) {
+      const newPlagiarismTexts = [...plagiarismTexts]
+      newPlagiarismTexts[plagiarismTexts.length - 1]._destroy = true
+      setPlagiarismTexts(newPlagiarismTexts)
+    }
+  }
+
+  function onHandleSetPlagiarismText(text: string, index: number) { handleSetPlagiarismTexts(text, index, plagiarismTexts, setPlagiarismTexts)}
 
   function onHandleSetPlagiarismFeedback(text: string, i: number, j: number, updateType:  string) {
     handleSetFeedback({
@@ -64,17 +95,24 @@ const RulePlagiarismAttributes = ({
 
   // TODO: break out Plagiarism feedbacks into separate components
 
+    const plagiarismTextEditorElements = plagiarismTexts.map((plagiarismText, i) => {
+      if (plagiarismText._destroy) { return <span /> }
+
+      return (<PlagiarismTextEditor
+        index={i}
+        key={i}
+        setPlagiarismText={onHandleSetPlagiarismText}
+        text={plagiarismText.text}
+      />)
+    })
+
     return(
       <React.Fragment>
-        <p className="form-subsection-label">Plagiarism Text</p>
-        {plagiarismText && <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
-          handleTextChange={onHandleSetPlagiarismText}
-          key="plagiarism-text"
-          shouldCheckSpelling={true}
-          text={plagiarismText.text}
-        />}
+        {plagiarismTextEditorElements}
+        <div className="button-wrapper">
+          <button className="add-highlight quill-button small primary outlined" onClick={onAddPlagiarismTextString} type="button">Add Text String</button>
+          {!!plagiarismTexts.length && <button className="remove-highlight quill-button small primary outlined" onClick={onRemovePlagiarismTextString} type="button">Remove Text String</button>}
+        </div>
         {errors['Plagiarism Text'] && <p className="error-message">{errors['Plagiarism Text']}</p>}
         <p className="form-subsection-label">First Feedback</p>
         {plagiarismFeedbacks[0] && <TextEditor

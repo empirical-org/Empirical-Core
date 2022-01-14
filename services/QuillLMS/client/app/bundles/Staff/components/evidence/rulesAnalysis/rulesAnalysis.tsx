@@ -7,7 +7,8 @@ import qs from 'qs';
 import _ from 'lodash';
 
 import FilterWidget from "../shared/filterWidget";
-import { handlePageFilterClick, renderHeader } from "../../../helpers/evidence";
+import { handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
+import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { calculatePercentageForResponses } from "../../../helpers/evidence/ruleHelpers";
 import { ActivityRouteProps, PromptInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';

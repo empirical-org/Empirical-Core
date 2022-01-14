@@ -6,6 +6,16 @@ module Evidence
   class FeedbackController < ApiController
     before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling]
 
+    def grammar 
+      grammar_client = Grammar::Client.new(entry: params['entry'], prompt_text: params['prompt_text'])
+      render json: Grammar::FeedbackAssembler.run(grammar_client.post)
+    end
+
+    def opinion 
+      oapi_client = Opinion::Client.new(entry: params['entry'], prompt_text: params['prompt_text'])
+      render json: Opinion::FeedbackAssembler.run(oapi_client.post)
+    end 
+
     def prefilter 
       prefilter_check = Evidence::PrefilterCheck.new(prefilter_params)
       render json: prefilter_check.feedback_object
@@ -13,15 +23,26 @@ module Evidence
 
     def plagiarism
       rule = @prompt.rules&.find_by(rule_type: Evidence::Rule::TYPE_PLAGIARISM)
-      passage = rule&.plagiarism_text&.text || ''
       feedback = get_plagiarism_feedback_from_previous_feedback(@previous_feedback, rule)
 
-      plagiarism_check = Evidence::PlagiarismCheck.new(@entry, passage, feedback, rule)
-      fuzzy_plagiarism_check = Evidence::FuzzyPlagiarismCheck.new(@entry, passage, feedback, rule)
+      if rule.plagiarism_texts.none?
+        render json: Evidence::PlagiarismCheck.new(@entry, '', feedback, rule).feedback_object
+      else
+        plagiarism_check = nil
+        rule.plagiarism_texts.each do |plagiarism_text|
+          plagiarism_check = Evidence::PlagiarismCheck.new(@entry, plagiarism_text.text, feedback, rule)
+          break unless plagiarism_check.feedback_object[:optimal]
+        end
+        base_feedback = plagiarism_check.feedback_object
+        return render json: base_feedback unless base_feedback[:optimal]
 
-      base_feedback = plagiarism_check.feedback_object
-      return render json: base_feedback unless base_feedback[:optimal]
-      return render json: fuzzy_plagiarism_check.feedback_object
+        fuzzy_plagiarism_check = nil
+        rule.plagiarism_texts.each do |plagiarism_text|
+          fuzzy_plagiarism_check = Evidence::FuzzyPlagiarismCheck.new(@entry, plagiarism_text.text, feedback, rule)
+          break unless fuzzy_plagiarism_check.feedback_object[:optimal]
+        end
+        return render json: fuzzy_plagiarism_check.feedback_object
+      end
     end
 
     def regex
@@ -46,7 +67,7 @@ module Evidence
 
     private def prefilter_params
       params.require(:entry)
-    end 
+    end
 
     private def set_params
       @entry = params[:entry]

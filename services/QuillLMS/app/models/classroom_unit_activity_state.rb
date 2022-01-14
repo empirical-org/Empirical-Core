@@ -29,7 +29,7 @@ class ClassroomUnitActivityState < ApplicationRecord
   include ::NewRelic::Agent
   include LessonsCache
 
-  belongs_to :classroom_unit
+  belongs_to :classroom_unit, touch: true
   belongs_to :unit_activity
 
   after_save :update_lessons_cache_with_data

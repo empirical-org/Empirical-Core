@@ -1,5 +1,5 @@
 import { RuleInterface } from '../../interfaces/evidenceInterfaces';
-import { handleApiError, apiFetch, handleRequestErrors, requestFailed } from '../../helpers/evidence';
+import { handleApiError, apiFetch, handleRequestErrors, requestFailed } from '../../helpers/evidence/routingHelpers';
 import { getRulesUrl } from '../../helpers/evidence/ruleHelpers';
 
 export const fetchRules = async (key: string, activityId: string, promptId?: any, ruleType?: string) => {
@@ -17,7 +17,7 @@ export const fetchRules = async (key: string, activityId: string, promptId?: any
 }
 
 export const fetchUniversalRules = async (key: string) => {
-  const response = await apiFetch(`rules`);
+  const response = await apiFetch(`rules/universal`);
   let universalRules = await response.json();
   if(universalRules.rules && universalRules.rules.length) {
     universalRules = universalRules.rules.filter((rule: RuleInterface) => rule.universal);
@@ -71,6 +71,7 @@ export const updateRule = async (ruleId: number, rule: RuleInterface) => {
     method: 'PUT',
     body: JSON.stringify({ rule })
   });
+
   const { status } = response;
 
   if(requestFailed(status)) {

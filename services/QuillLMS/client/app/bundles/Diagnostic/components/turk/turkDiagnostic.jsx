@@ -102,7 +102,6 @@ class TurkDiagnostic extends React.Component {
       (err, httpResponse, body) => {
         if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
-          SessionActions.delete(sessionID);
           this.setState({ saved: true, });
         } else {
           // to do, use Sentry to capture error

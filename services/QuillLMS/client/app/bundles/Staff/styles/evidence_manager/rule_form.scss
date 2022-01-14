@@ -1,4 +1,12 @@
 .rule-form-container {
+  .add-and-remove-plagiarism-buttons {
+    margin-top: 16px;
+    display: flex;
+    .quill-button {
+      margin-right: 16px;
+    }
+  }
+
   .rule-form {
     padding: 0px 30px 0px 30px;
     .title-input, .course-input, .flag-input, .reading-level-input,

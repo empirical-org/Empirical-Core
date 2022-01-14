@@ -23,6 +23,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       status = :ok
       message = "Activity Session Updated"
       handle_concept_results
+      ActiveActivitySession.find_by_uid(@activity_session.uid)&.destroy if @activity_session.completed_at
     else
       status = :unprocessable_entity
       message = "Activity Session Update Failed"
@@ -155,7 +156,8 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       :activity_session_id,
       :concept_id,
       :concept_uid,
-      :question_type
+      :question_type,
+      :metadata
     ]
   end
 
