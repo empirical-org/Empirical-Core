@@ -217,7 +217,6 @@ func buildFeedbackHistory(request_object APIRequest, feedback APIResponse, used 
 		Time: time_received,
 		Rule_uid: feedback.Rule_uid,
 		Metadata: FeedbackHistoryMetadata{
-			Fuzzy_plagiarism_match: feedback.Fuzzy_plagiarism_match,
 			Highlight: feedback.Highlight,
 			Labels: feedback.Labels,
 			Response_id: feedback.Response_id,
@@ -254,7 +253,6 @@ type APIResponse struct {
 	Highlight []Highlight `json:"highlight"`
 	Labels string `json:"labels,omitempty"`
 	Rule_uid string `json:"rule_uid"`
-	Fuzzy_plagiarism_match bool `json:"fuzzy_plagiarism_match"`
 }
 
 type Highlight struct {
@@ -272,7 +270,6 @@ type InternalAPIResponse struct {
 }
 
 type FeedbackHistoryMetadata struct {
-	Fuzzy_plagiarism_match bool `json:"fuzzy_plagiarism_match"`
 	Highlight []Highlight `json:"highlight"`
 	Labels string `json:"labels,omitempty"`
 	Response_id string `json:"response_id"`
