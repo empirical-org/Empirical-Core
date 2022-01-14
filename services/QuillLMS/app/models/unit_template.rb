@@ -31,6 +31,7 @@ class UnitTemplate < ApplicationRecord
   has_many :units
   has_many :partner_contents, dependent: :destroy, as: :content
   has_many :recommendations, dependent: :destroy
+  has_many :diagnostics_recommended_by, :through => :recommendations, :source => :activity
   serialize :grades, Array
 
   validates :flag,
@@ -50,12 +51,12 @@ class UnitTemplate < ApplicationRecord
   scope :private_user, -> { where("unit_templates.flag IN('private', '#{PRODUCTION}','#{GAMMA}','#{BETA}','#{ALPHA}') OR unit_templates.flag IS null")}
   around_save :delete_relevant_caches
 
-  WHOLE_CLASS_AND_INDEPENDENT_PRACTICE = 'Whole class + Independent practice'
+  WHOLE_CLASS_LESSONS = 'Whole class lessons'
   INDEPENDENT_PRACTICE = 'Independent practice'
   DIAGNOSTIC = 'Diagnostic'
 
   def readability
-    activities_with_raw_scores = activities.joins(:raw_score).where.not(raw_score: nil).order("raw_scores.order ASC")
+    activities_with_raw_scores = activities.joins(:raw_score).where.not(raw_score: nil).reorder("raw_scores.order ASC")
     return nil if activities_with_raw_scores.empty?
 
     lowest_raw_score_activity = activities_with_raw_scores.first

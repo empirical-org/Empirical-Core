@@ -5,12 +5,12 @@ require 'rails_helper'
 module Evidence 
 
   RSpec.describe 'FeedbackAssembler' do 
-    describe 'to_payload' do 
+    describe '#run' do 
       let(:example_error) { 'example_error' }
       let(:example_rule_uid) { 123 }
       let(:client_response) do 
         {
-          'oapi_error' => example_error,
+          'abstract_error' => example_error,
           'highlight' => [{
             'type': 'response',
             'text': 'someText',
@@ -23,13 +23,14 @@ module Evidence
         allow(FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
           { example_error => example_rule_uid } 
         )
+        allow(FeedbackAssembler).to receive(:error_name).and_return 'abstract_error'
       end
 
-      context 'OAPI detects no opinion' do 
+      context 'detects no opinion' do 
         it 'should return optimal=true' do 
           expect(
             FeedbackAssembler.run(
-              client_response.merge({'oapi_error' => ''})
+              client_response.merge({'abstract_error' => ''})
             )[:optimal]
           ).to eq true
         end
@@ -68,7 +69,7 @@ module Evidence
         it 'should raise KeyError' do 
           expect do 
            FeedbackAssembler.run({
-              'oapi_error' => 'unknown'
+              'abstract_error' => 'unknown'
             })
           end.to raise_error(KeyError)
         end

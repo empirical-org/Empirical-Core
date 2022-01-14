@@ -10,11 +10,11 @@ import ActivateModelForm from './activateModelForm';
 import Model from './model';
 
 import { ALL, BECAUSE, BUT, SO } from '../../../../../constants/evidence';
-import { getPromptForComponent, getPromptConjunction } from '../../../helpers/evidence';
+import { getPromptConjunction, getPromptForComponent } from '../../../helpers/evidence/promptHelpers';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { createRule, updateRule } from '../../../utils/evidence/ruleAPIs';
 import { Error, Spinner } from '../../../../Shared/index';
-import { renderHeader } from '../../../helpers/evidence';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
 
 const SemanticLabelsIndex = ({ location, history, match }) => {

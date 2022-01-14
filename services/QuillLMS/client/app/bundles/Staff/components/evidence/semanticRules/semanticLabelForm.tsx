@@ -12,7 +12,7 @@ import { Spinner, Modal } from '../../../../Shared/index';
 import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/evidence/ruleAPIs';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { fetchConcepts, } from '../../../utils/evidence/conceptAPIs';
-import { renderErrorsContainer, renderHeader } from '../../../helpers/evidence';
+import { renderErrorsContainer, renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback } from '../../../helpers/evidence/ruleHelpers';
 import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM } from '../../../../../constants/evidence';
 import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';

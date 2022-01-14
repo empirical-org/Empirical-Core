@@ -435,7 +435,20 @@ describe User, type: :model do
       end
 
       it 'should return empty if there are no google classrooms' do
-        expect(teacher.google_classrooms).to eq([])
+        expect(teacher.google_classrooms).to eq []
+      end
+    end
+
+    describe '#clever_classrooms' do
+      let(:clever_classroom) { create(:classroom, :from_clever) }
+      let(:clever_classroom_teacher) { clever_classroom.owner }
+
+      it "should return all the teacher's clever classrooms" do
+        expect(clever_classroom_teacher.clever_classrooms).to eq [clever_classroom]
+      end
+
+      it 'should return empty if there are no clever classrooms' do
+        expect(teacher.clever_classrooms).to eq []
       end
     end
 
@@ -497,7 +510,7 @@ describe User, type: :model do
       it 'should return classrooms and students if the teacher is a coteacher' do
         coteacher = create(:classrooms_teacher, classroom: classroom, role: 'coteacher').user
         response = coteacher.classrooms_i_am_the_coteacher_for_with_a_specific_teacher_with_students(teacher.id)
-        expect(response).to include(classroom.attributes.merge(students: classroom.students))
+        expect(response).to include(classroom.reload.attributes.merge(students: classroom.students))
       end
 
       it 'should return an empty array if user does not coteach with the teacher' do
