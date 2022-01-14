@@ -17,6 +17,7 @@ FactoryBot.define do
     standard                   { Standard.first || create(:standard) }
     classification          { create(:classification) }
     activity_categories     { create_pair(:activity_category) }
+    raw_score               { create(:raw_score) }
     repeatable              true
     data                    data
 

@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :raw_score do
     sequence(:name) { |i| "Raw Score #{i}" }
+    order { rand(100) }
     trait :eight_hundred_to_nine_hundred do
       name { '800-900' }
       order { 8 }
