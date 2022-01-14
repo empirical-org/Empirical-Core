@@ -33,7 +33,7 @@ export default createReactClass({
       author_id: null,
       order_number: this.props.unitTemplate.order_number || null,
       readability: null,
-      diagnostics: []
+      diagnostic_names: []
     };
     model = _.extend(model, this.props.unitTemplate);
     const options = this.modules.optionsLoader.initialOptions();
@@ -242,11 +242,11 @@ export default createReactClass({
 
   getDiagnostics() {
     const { model } = this.state
-    const { diagnostics } = model
+    const { diagnostic_names } = model
     return (
       <div>
         <h3>Diagnostics:</h3>
-        <span>{diagnostics && diagnostics.map((diagnostic) => {
+        <span>{diagnostic_names && diagnostic_names.map((diagnostic) => {
             return (<span>{diagnostic}<br /></span>);
         })}</span>
         <br /><br />

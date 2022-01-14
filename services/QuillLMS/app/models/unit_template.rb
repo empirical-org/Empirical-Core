@@ -68,8 +68,8 @@ class UnitTemplate < ApplicationRecord
     "#{lowest_readability_range.split('-')[0]}-#{highest_readability_range.split('-')[1]}"
   end
 
-  def diagnostics
-    recommendations.map {|rec| rec.activity.name }
+  def diagnostic_names
+    diagnostics_recommended_by.map {|d| d.name}
   end
 
   def activity_ids= activity_ids
