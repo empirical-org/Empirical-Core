@@ -11,8 +11,10 @@ module CleverIntegration
     def run
       {
         clever_id: data.id,
+        coteachers: data.teachers,
         grade: data.grade,
         name: data.name,
+        owner: data.teacher,
         students: data.students
       }
     end

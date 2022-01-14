@@ -42,5 +42,13 @@ RSpec.describe CleverIntegration::LibraryClient do
 
       it { expect(subject.get_classroom_students(classroom_clever_id)).to eq students_attrs }
     end
+
+    context 'classroom 3' do
+      let(:classroom_students_data) { classroom3_students_data }
+      let(:classroom_clever_id)  { classroom3_attrs[:clever_id] }
+      let(:students_attrs) { [student3_attrs] }
+
+      it { expect(subject.get_classroom_students(classroom_clever_id)).to eq students_attrs }
+    end
   end
 end

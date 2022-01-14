@@ -20,6 +20,7 @@ module CleverIntegration
     def get_teacher_classrooms(teacher_clever_id)
       get_path("/teachers/#{teacher_clever_id}/sections")
         .map { |classroom_data| LibraryClassroomDataAdapter.run(classroom_data) }
+        .select { |classroom_data| classroom_data[:owner] == teacher_clever_id }
     end
 
     def get_classroom_students(section_id)
