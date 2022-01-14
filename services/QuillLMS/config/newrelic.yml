@@ -20,7 +20,10 @@ common: &default_settings
 
   # Logging level for log/newrelic_agent.log
   log_level: info
+  sidekiq.capture_params: true
 
+  attributes.include: request.parameters.*
+  attributes.exclude: [request.parameters.password, request.parameters.password_confirmation]
 
 # Environment-specific settings are in this section.
 # RAILS_ENV or RACK_ENV (as appropriate) is used to determine the environment.
