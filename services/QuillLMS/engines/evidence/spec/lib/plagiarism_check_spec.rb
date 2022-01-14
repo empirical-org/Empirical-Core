@@ -23,7 +23,6 @@ module Evidence
         expect(feedback[:concept_uid]).to(be_truthy)
         expect(feedback[:highlight][0][:text]).to(be_truthy)
         expect(feedback[:highlight][1][:text]).to(be_truthy)
-        expect(feedback[:fuzzy_plagiarism_match]).to be(false)
       end
 
       it 'should return appropriate feedback when there is no plagiarism' do

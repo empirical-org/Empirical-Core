@@ -5,10 +5,6 @@ module Evidence
 
     FUZZY_CHARACTER_THRESHOLD = 5
 
-    private def fuzzy_match?
-      true
-    end
-
     private def minimum_overlap?
       !clean_passage.empty? && [clean_entry.split.size, clean_passage.split.size].min >= MATCH_MINIMUM
     end

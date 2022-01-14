@@ -26,13 +26,8 @@ module Evidence
         entry: @entry,
         concept_uid: optimal? ? optimal_rule_hash["concept_uid"] : @rule&.concept_uid,
         rule_uid: optimal? ? optimal_rule_hash["uid"] : @rule&.uid,
-        highlight: highlights,
-        fuzzy_plagiarism_match: fuzzy_match?
+        highlight: highlights
       }
-    end
-
-    private def fuzzy_match?
-      false
     end
 
     private def optimal_rule_hash
