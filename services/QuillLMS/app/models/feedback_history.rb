@@ -34,8 +34,6 @@ class FeedbackHistory < ApplicationRecord
   DEFAULT_PROMPT_TYPE = "Evidence::Prompt"
   MIN_ATTEMPT = 1
   MAX_ATTEMPT = 5
-  MIN_ENTRY_LENGTH = 5
-  MAX_ENTRY_LENGTH = 500
   MIN_FEEDBACK_LENGTH = 10
   MAX_FEEDBACK_LENGTH = 500
   FEEDBACK_TYPES = [
@@ -83,7 +81,7 @@ class FeedbackHistory < ApplicationRecord
       less_than_or_equal_to: MAX_ATTEMPT,
       greater_than_or_equal_to: MIN_ATTEMPT
     }
-  validates :entry, presence: true, length: {in: MIN_ENTRY_LENGTH..MAX_ENTRY_LENGTH}
+  validates :entry, presence: true
   validates :feedback_text, length: {in: MIN_FEEDBACK_LENGTH..MAX_FEEDBACK_LENGTH}
   validates :feedback_type, presence: true, inclusion: {in: FEEDBACK_TYPES}
   validates :optimal, inclusion: { in: [true, false] }

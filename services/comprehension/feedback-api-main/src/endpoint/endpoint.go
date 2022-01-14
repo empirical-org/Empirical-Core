@@ -47,20 +47,8 @@ func GetLMSDomain() (string) {
 	return lms_domain
 }
 
-func GetOpinionDomain() (string) {
-	var maybe_domain = os.Getenv("opinion_domain")
-
-	var opinion_domain = "https://opinion-api.quill.org"
-
-	if len(maybe_domain) > 0 {
-		opinion_domain = maybe_domain
-	}
-	return opinion_domain
-}
-
 func AssembleUrls() ([api_count]string) {
 	lms_domain := GetLMSDomain()
-	opinion_domain := GetOpinionDomain()
 
 	var (
 		automl_api                    = fmt.Sprintf("%s/api/v1/evidence/feedback/automl.json", lms_domain)
@@ -70,8 +58,8 @@ func AssembleUrls() ([api_count]string) {
 		post_topic_regex_api          = fmt.Sprintf("%s/api/v1/evidence/feedback/regex/rules-based-2.json", lms_domain)
 		typo_regex_api                = fmt.Sprintf("%s/api/v1/evidence/feedback/regex/rules-based-3.json", lms_domain)
 		spell_check_bing              = fmt.Sprintf("%s/api/v1/evidence/feedback/spelling.json", lms_domain)
-		grammar_check_api             = "https://quill.spell.services/Quill/grammar/predict"
-		opinion_check_api             = fmt.Sprintf("%s/", opinion_domain)
+		grammar_check_api 						= fmt.Sprintf("%s/api/v1/evidence/feedback/grammar", lms_domain)
+		opinion_check_api             = fmt.Sprintf("%s/api/v1/evidence/feedback/opinion", lms_domain)
 	)
 
 	var urls = [...]string{
