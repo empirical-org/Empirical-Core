@@ -38,44 +38,110 @@ exports[`UnitTemplateMinis component should render dropdowns when on mobile 1`] 
               }
             }
           />
-          <DropdownInput
-            options={
-              Array [
-                Object {
-                  "label": "All levels",
-                  "link": "/assign/featured-activity-packs",
-                  "value": null,
-                },
-                Object {
-                  "label": "Starter",
-                  "link": "/assign/featured-activity-packs",
-                  "value": null,
-                },
-                Object {
-                  "label": "Intermediate",
-                  "link": "/assign/featured-activity-packs",
-                  "value": null,
-                },
-                Object {
-                  "label": "Advanced",
-                  "link": "/assign/featured-activity-packs",
-                  "value": null,
-                },
-                Object {
-                  "label": "ELL",
-                  "link": "/assign/featured-activity-packs",
-                  "value": null,
-                },
-              ]
-            }
-            value={
-              Object {
-                "label": "All levels",
-                "link": "/assign/featured-activity-packs",
-                "value": null,
+          <div
+            className="dropdowns"
+          >
+            <DropdownInput
+              className="readability-dropdown"
+              label="Readability grade level"
+              options={
+                Array [
+                  Object {
+                    "label": "All",
+                    "link": "/assign/featured-activity-packs",
+                    "value": null,
+                  },
+                  Object {
+                    "label": "2nd-3rd",
+                    "link": "/assign/featured-activity-packs?readability=2nd-3rd",
+                    "value": "2nd-3rd",
+                  },
+                  Object {
+                    "label": "4th-5th",
+                    "link": "/assign/featured-activity-packs?readability=4th-5th",
+                    "value": "4th-5th",
+                  },
+                  Object {
+                    "label": "6th-7th",
+                    "link": "/assign/featured-activity-packs?readability=6th-7th",
+                    "value": "6th-7th",
+                  },
+                  Object {
+                    "label": "8th-9th",
+                    "link": "/assign/featured-activity-packs?readability=8th-9th",
+                    "value": "8th-9th",
+                  },
+                  Object {
+                    "label": "10th-12th",
+                    "link": "/assign/featured-activity-packs?readability=10th-12th",
+                    "value": "10th-12th",
+                  },
+                ]
               }
-            }
-          />
+              value={
+                Object {
+                  "label": "All",
+                  "link": "/assign/featured-activity-packs",
+                  "value": null,
+                }
+              }
+            />
+            <DropdownInput
+              className="category-dropdown"
+              label="Pack type"
+              options={
+                Array [
+                  Object {
+                    "label": "All",
+                    "link": "/assign/featured-activity-packs",
+                    "value": null,
+                  },
+                  Object {
+                    "label": "Starter",
+                    "link": "/assign/featured-activity-packs",
+                    "value": null,
+                  },
+                  Object {
+                    "label": "Intermediate",
+                    "link": "/assign/featured-activity-packs",
+                    "value": null,
+                  },
+                  Object {
+                    "label": "Advanced",
+                    "link": "/assign/featured-activity-packs",
+                    "value": null,
+                  },
+                  Object {
+                    "label": "ELL",
+                    "link": "/assign/featured-activity-packs",
+                    "value": null,
+                  },
+                  Object {
+                    "label": "Diagnostic",
+                    "link": "/assign/featured-activity-packs?category=Diagnostic",
+                    "value": 9,
+                  },
+                  Object {
+                    "label": "Themed",
+                    "link": "/assign/featured-activity-packs",
+                    "value": null,
+                  },
+                  Object {
+                    "label": "Skill Practice",
+                    "link": "/assign/featured-activity-packs",
+                    "value": null,
+                  },
+                ]
+              }
+              value={
+                Object {
+                  "label": "All",
+                  "link": "/assign/featured-activity-packs",
+                  "value": null,
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="unit-template-minis"
@@ -161,49 +227,116 @@ exports[`UnitTemplateMinis component should render without createYourOwn mini wh
             </Link>
             <Link
               className={null}
+              key="diagnostic"
               to="/activities/packs?type=diagnostic"
             >
               Diagnostic
             </Link>
           </div>
-          <DropdownInput
-            options={
-              Array [
-                Object {
-                  "label": "All levels",
-                  "link": "/activities/packs",
-                  "value": null,
-                },
-                Object {
-                  "label": "Starter",
-                  "link": "/activities/packs",
-                  "value": null,
-                },
-                Object {
-                  "label": "Intermediate",
-                  "link": "/activities/packs",
-                  "value": null,
-                },
-                Object {
-                  "label": "Advanced",
-                  "link": "/activities/packs",
-                  "value": null,
-                },
-                Object {
-                  "label": "ELL",
-                  "link": "/activities/packs",
-                  "value": null,
-                },
-              ]
-            }
-            value={
-              Object {
-                "label": "All levels",
-                "link": "/activities/packs",
-                "value": null,
+          <div
+            className="dropdowns"
+          >
+            <DropdownInput
+              className="readability-dropdown"
+              label="Readability grade level"
+              options={
+                Array [
+                  Object {
+                    "label": "All",
+                    "link": "/activities/packs",
+                    "value": null,
+                  },
+                  Object {
+                    "label": "2nd-3rd",
+                    "link": "/activities/packs?readability=2nd-3rd",
+                    "value": "2nd-3rd",
+                  },
+                  Object {
+                    "label": "4th-5th",
+                    "link": "/activities/packs?readability=4th-5th",
+                    "value": "4th-5th",
+                  },
+                  Object {
+                    "label": "6th-7th",
+                    "link": "/activities/packs?readability=6th-7th",
+                    "value": "6th-7th",
+                  },
+                  Object {
+                    "label": "8th-9th",
+                    "link": "/activities/packs?readability=8th-9th",
+                    "value": "8th-9th",
+                  },
+                  Object {
+                    "label": "10th-12th",
+                    "link": "/activities/packs?readability=10th-12th",
+                    "value": "10th-12th",
+                  },
+                ]
               }
-            }
-          />
+              value={
+                Object {
+                  "label": "All",
+                  "link": "/activities/packs",
+                  "value": null,
+                }
+              }
+            />
+            <DropdownInput
+              className="category-dropdown"
+              label="Pack type"
+              options={
+                Array [
+                  Object {
+                    "label": "All",
+                    "link": "/activities/packs",
+                    "value": null,
+                  },
+                  Object {
+                    "label": "Starter",
+                    "link": "/activities/packs",
+                    "value": null,
+                  },
+                  Object {
+                    "label": "Intermediate",
+                    "link": "/activities/packs",
+                    "value": null,
+                  },
+                  Object {
+                    "label": "Advanced",
+                    "link": "/activities/packs",
+                    "value": null,
+                  },
+                  Object {
+                    "label": "ELL",
+                    "link": "/activities/packs",
+                    "value": null,
+                  },
+                  Object {
+                    "label": "Diagnostic",
+                    "link": "/activities/packs?category=Diagnostic",
+                    "value": 9,
+                  },
+                  Object {
+                    "label": "Themed",
+                    "link": "/activities/packs",
+                    "value": null,
+                  },
+                  Object {
+                    "label": "Skill Practice",
+                    "link": "/activities/packs",
+                    "value": null,
+                  },
+                ]
+              }
+              value={
+                Object {
+                  "label": "All",
+                  "link": "/activities/packs",
+                  "value": null,
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="unit-template-minis"

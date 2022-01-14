@@ -108,7 +108,7 @@
     }
 
     .standards-and-concepts {
-      margin: 1.9em 0em;
+      margin: 1.9em 0em 0em;
       background-color: white;
 
       dl {
@@ -127,11 +127,8 @@
         }
 
         dd.concept {
-          margin-bottom: 0em;
           display: inline-block;
           padding: 0.2em 0.5em;
-          margin-right: 1em;
-          margin-top: 1em;
           border-radius: 5px;
           background-color: $verylightgray;
         }
@@ -139,6 +136,7 @@
     }
 
     .share {
+      margin-top: 1.9em;
       background-color: white;
     }
   }
