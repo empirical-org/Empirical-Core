@@ -71,7 +71,7 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
     const concept_results = _.sortBy(studentData.concept_results, 'question_number')
     return concept_results.map((question: QuestionData, index: number) => {
       if ([GRAMMAR_KEY, CONNECT_KEY, EVIDENCE_KEY].includes(studentData.activity_classification)) {
-        return <ConnectStudentReportBox boxNumber={index + 1} key={index} questionData={question} showDiff={studentData.activity_classification === EVIDENCE_KEY} showScore={studentData.activity_classification !== EVIDENCE_KEY} />
+        return <ConnectStudentReportBox boxNumber={index + 1} key={index} questionData={question} showDiff={true} showScore={studentData.activity_classification !== EVIDENCE_KEY} />
       }
       return <StudentReportBox boxNumber={index + 1} key={index} questionData={question} />
     })
@@ -80,7 +80,7 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
   renderBoldingExplanation(studentData) {
     const { boldingExplanationIsOpen, } = this.state
 
-    if (EVIDENCE_KEY !== studentData.activity_classification) { return }
+    if (![GRAMMAR_KEY, CONNECT_KEY, EVIDENCE_KEY].includes(studentData.activity_classification)) { return }
 
     if (boldingExplanationIsOpen) {
       return (<button className="bolding-explanation is-open" onClick={this.handleToggleBoldingExplanation} type="button">
