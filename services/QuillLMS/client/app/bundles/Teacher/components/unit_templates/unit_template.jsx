@@ -297,8 +297,8 @@ export default createReactClass({
       <div>
         <label>Click the square below or drag a file into it to upload a file:</label>
         <Dropzone onDrop={this.handleDrop} />
-        <label style={{marginTop: '10px'}}>Here is the link to your uploaded file:</label>
-        <input style={{marginBottom: '0px'}} value={uploadedFileLink} />
+        <label>Here is the link to your uploaded file:</label>
+        <input value={uploadedFileLink} />
       </div>
     )
   },
