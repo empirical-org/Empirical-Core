@@ -29,7 +29,8 @@ class ClassroomUnit < ApplicationRecord
   include AtomicArrays
 
   belongs_to :unit # Note, there is a touch in the unit -> classroom_unit direction, so don't add one here.
-  belongs_to :classroom, touch: true
+  # TODO: put this touch back in for caching
+  belongs_to :classroom #, touch: true
   has_many :activity_sessions
   has_many :unit_activities, through: :unit
   has_many :completed_activity_sessions, -> {completed}, class_name: 'ActivitySession'

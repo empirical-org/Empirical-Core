@@ -121,11 +121,6 @@ module PagesHelper
             img: 'team-shannon-browne@2x.png'
           },
           {
-            name: 'Tom Calabrese',
-            title: 'Lead Product Designer',
-            img: 'team-tom-calabrese@2x.png'
-          },
-          {
             name: 'Rachel Dantzler',
             title: 'Curriculum Developer',
             img: 'team-rachel-dantzler@2x.png'
