@@ -82,7 +82,10 @@ class SerializeVitallySalesUser
         percent_completed_diagnostics_last_year: get_from_cache("percent_completed_diagnostics"),
         evidence_activities_assigned_this_year: evidence_assigned_this_year,
         evidence_activities_completed_this_year: evidence_finished_this_year,
-        date_of_last_completed_evidence_activity: date_of_last_completed_evidence_activity
+        date_of_last_completed_evidence_activity: date_of_last_completed_evidence_activity,
+        premium_state: @user.premium_state,
+        premium_type: @user.subscription&.account_type,
+        auditor: @user.auditor?
       }.merge(account_data_params)
     }
   end
