@@ -69,8 +69,8 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
       ]
     end
 
-    def subject
-      LessonPlanner::UnitSerializer.new(unit, root: false).as_json
+    subject do
+      LessonPlanner::UnitSerializer.new(unit.reload, root: false).as_json
     end
 
     context 'assigned_student_ids = []' do

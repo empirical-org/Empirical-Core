@@ -73,7 +73,7 @@ class LessonPlanner::UnitSerializer < ActiveModel::Serializer
   end
 
   private def dueDates
-    object.reload.unit_activities.uniq(&:activity).each_with_object({}) do |unit_activity, acc|
+    object.unit_activities.uniq(&:activity).each_with_object({}) do |unit_activity, acc|
       acc[unit_activity.activity.id] = unit_activity.formatted_due_date
     end
   end
