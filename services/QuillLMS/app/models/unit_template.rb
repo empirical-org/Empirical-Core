@@ -69,7 +69,7 @@ class UnitTemplate < ApplicationRecord
   end
 
   def diagnostic_names
-    diagnostics_recommended_by.map {|d| d.name}
+    diagnostics_recommended_by.pluck(:name)
   end
 
   def activity_ids= activity_ids
