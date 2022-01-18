@@ -35,28 +35,26 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
 
     data = params[:edition_id] ? { edition_id: params[:edition_id] } : {}
 
+    activity_sessions = ActivitySession.unscoped.where(classroom_unit_id: params[:classroom_unit_id], activity_id: activity.id)
+
     ActivitySession.mark_all_activity_sessions_complete(
-      params[:classroom_unit_id],
-      params[:activity_id],
+      activity_sessions,
       data
     )
 
     states.update_all(locked: true, pinned: false, completed: true)
 
     ActivitySession.save_concept_results(
-      params[:classroom_unit_id],
-      activity.id,
+      activity_sessions,
       params[:concept_results]
     )
 
     ActivitySession.delete_activity_sessions_with_no_concept_results(
-      params[:classroom_unit_id],
-      params[:activity_id]
+      activity_sessions
     )
 
     ActivitySession.save_timetracking_data_from_active_activity_session(
-      params[:classroom_unit_id],
-      params[:activity_id]
+      activity_sessions
     )
 
     if params[:edition_id]

@@ -75,6 +75,9 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
   context '#finish_lesson' do
     let(:follow_up_activity) { create(:activity) }
     let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
+    # let(:student) { create(:student)}
+    # let(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id]) }
+    # let!(:activity_session) { create(:activity_session, activity: activity, classroom_unit: classroom_unit, user: student) }
 
     it 'does not authenticate a teacher who does not own the classroom activity' do
       session[:user_id] = other_teacher.id
@@ -104,6 +107,22 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
         as: :json
 
       expect(response.status).not_to eq(303)
+    end
+
+    it 'sends the appropriate methods to ActivitySession' do
+      expect(ActivitySession).to receive(:mark_all_activity_sessions_complete).with(match_array(activity_sessions), {})
+      expect(ActivitySession).to receive(:save_concept_results).with(match_array(activity_sessions), [])
+      expect(ActivitySession).to receive(:delete_activity_sessions_with_no_concept_results).with(match_array(activity_sessions))
+      expect(ActivitySession).to receive(:save_timetracking_data_from_active_activity_session).with(match_array(activity_sessions))
+      session[:user_id] = teacher.id
+      put :finish_lesson,
+        params: {
+          activity_id: activity.id,
+          classroom_unit_id: classroom_unit.id,
+          concept_results: [],
+          follow_up: true
+        },
+        as: :json
     end
 
     it 'returns JSON object with follow up url if requested' do
