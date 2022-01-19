@@ -9,7 +9,6 @@ import ButtonLoadingSpinner from '../shared/buttonLoadingSpinner'
 import { highlightSpellingGrammar } from '../../libs/stringFormatting'
 
 interface PromptStepProps {
-  active: Boolean;
   activityIsComplete: Boolean;
   className: string,
   completionButtonCallback: () => void;
@@ -21,9 +20,7 @@ interface PromptStepProps {
   activateStep: (event: any) => void;
   reportAProblem: ({}) => void;
   prompt: any,
-  passedRef: any,
   submittedResponses: Array<any>,
-  canBeClicked: boolean
 }
 
 interface PromptStepState {
@@ -267,14 +264,14 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     completeStep(stepNumber)
   }
 
-  formatHtmlForEditorContainer = (html: string, active: boolean) => {
+  formatHtmlForEditorContainer = (html: string) => {
     const { prompt, } = this.props
     const text = html.replace(/<b>|<\/b>|<p>|<\/p>|<br>|<u>|<\/u>/g, '').replace('&nbsp;', '')
     const textWithoutStem = text.replace(prompt.text, '').trim()
     const textForCharacterCount = stripHtml(textWithoutStem);
     const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
     return {
-      htmlWithBolding: active ? `<p>${this.highlightsAddedPrompt(this.htmlStrippedPrompt())}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`,
+      htmlWithBolding: `<p>${this.highlightsAddedPrompt(this.htmlStrippedPrompt())}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>`,
       rawTextWithoutStem: textWithoutStem,
       textForCharacterCount
     }
@@ -332,7 +329,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
   renderEditorContainer = () => {
     const { html, responseOverCharacterLimit } = this.state
-    const { submittedResponses, prompt, active, } = this.props
+    const { submittedResponses, prompt } = this.props
     const lastSubmittedResponse = this.lastSubmittedResponse()
     let className = 'editor'
     let disabled = false
@@ -347,7 +344,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       className += ' suboptimal'
     }
 
-    const formattedText = this.formatHtmlForEditorContainer(html, active)
+    const formattedText = this.formatHtmlForEditorContainer(html)
     const { htmlWithBolding, rawTextWithoutStem, textForCharacterCount } = formattedText
     const characterCount = textForCharacterCount && textForCharacterCount.split('').length;
     let characterCountClassName;
@@ -404,22 +401,15 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   }
 
   render() {
-    const { className, passedRef, canBeClicked } = this.props
+    const { className } = this.props
 
-    const stepContent = (<div className="step-content">
-      {this.renderActiveContent()}
-    </div>)
-
-    if (canBeClicked) {
-      return (<div className={className} onClick={this.handleStepInteraction} onKeyDown={this.handleStepInteraction} ref={passedRef} role="button" tabIndex={0}>
-        {stepContent}
-      </div>)
-
-    }
-
-    return (<div className={className}>
-      {stepContent}
-    </div>)
+    return (
+      <div className={className}>
+        <div className="step-content">
+          {this.renderActiveContent()}
+        </div>
+      </div>
+    )
   }
 }
 

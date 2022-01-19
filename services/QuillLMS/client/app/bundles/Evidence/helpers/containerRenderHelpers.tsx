@@ -99,7 +99,6 @@ export const renderPromptSteps = ({
   completedSteps,
   doneHighlighting,
   showReadTheDirectionsModal,
-  stepsHash,
   reportAProblem,
 }) => {
   const { currentActivity, } = activities
@@ -115,15 +114,12 @@ export const renderPromptSteps = ({
     {renderDirectionsSectionAndModal({ className: 'hide-on-mobile', closeReadTheDirectionsModal, activeStep, doneHighlighting, showReadTheDirectionsModal, activities })}
     <PromptStep
       activateStep={activateStep}
-      active={true}
       activityIsComplete={activityIsComplete}
-      canBeClicked={false}
       className="step active"
       completeStep={completeStep}
       completionButtonCallback={completionButtonCallback}
       everyOtherStepCompleted={everyOtherStepCompleted(activeStep, completedSteps)}
       key={activeStep}
-      passedRef={stepsHash[`step${activeStep}`]} // eslint-disable-line react/jsx-no-bind
       prompt={prompt}
       reportAProblem={reportAProblem}
       stepNumber={activeStep}

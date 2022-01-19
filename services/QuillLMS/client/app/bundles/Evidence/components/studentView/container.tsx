@@ -568,7 +568,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         scrolledToEndOfPassage={scrolledToEndOfPassage}
         session={session}
         showReadTheDirectionsModal={showReadTheDirectionsModal}
-        stepsHash={refs}
         studentHighlights={studentHighlights}
         submitResponse={submitResponse}
         toggleStudentHighlight={toggleStudentHighlight}

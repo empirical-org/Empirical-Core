@@ -17,7 +17,6 @@ const Steps = ({
   doneHighlighting,
   resetTimers,
   showReadTheDirectionsModal,
-  stepsHash,
   reportAProblem,
 }) => {
   return(
@@ -37,7 +36,6 @@ const Steps = ({
           completedSteps,
           doneHighlighting,
           showReadTheDirectionsModal,
-          stepsHash,
           reportAProblem,
         })}
       </div>
