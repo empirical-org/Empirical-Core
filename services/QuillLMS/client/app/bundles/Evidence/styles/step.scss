@@ -46,6 +46,21 @@
       align-items: center;
       justify-content: space-between;
       margin-top: 16px;
+      .attempts-container {
+        display: flex;
+        font-size: 14px;
+        color: #808080;
+        font-weight: 600;
+        .number-of-attempts {
+          width: 16px;
+          height: 20px;
+          margin: 0 4px 0 0;
+          padding: 0 4px;
+          border-radius: 4px;
+          background-color: #f1f3f4;
+          border-bottom: 1px solid #808080;
+        }
+      }
       button {
         padding: 15px 16px;
         width: auto;

@@ -385,11 +385,17 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   }
 
   renderActiveContent = () => {
+    const { prompt, submittedResponses } = this.props;
+    const attemptsCount = submittedResponses && submittedResponses.length ? submittedResponses.length : 0;
+    const maxAttemptCount = prompt && prompt.max_attempts ? prompt.max_attempts : 5;
     return(
       <div className="active-content-container">
         {this.renderEditorContainer()}
         <div className="attempts-and-button-container">
-          {/* <div>attempts</div> */}
+          <div className="attempts-container">
+            <p className="number-of-attempts">{attemptsCount}</p>
+            <p>{`of ${maxAttemptCount} attempts`}</p>
+          </div>
           {this.renderButton()}
         </div>
         {this.renderFeedbackSection()}
