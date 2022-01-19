@@ -14,7 +14,7 @@ import ActiveClassrooms, {
   importCleverClassroomStudentsModal,
   importGoogleClassroomStudentsModal,
   reauthorizeCleverModal,
-  googleClassroomEmailModal,
+  linkGoogleAccountModal,
   cleverClassroomsEmptyModal,
   googleClassroomsEmptyModal
 } from '../active_classrooms.tsx';
@@ -28,7 +28,7 @@ import ImportGoogleClassroomsModal from '../import_google_classrooms_modal'
 import ImportCleverClassroomStudentsModal from '../import_clever_classroom_students_modal'
 import ImportGoogleClassroomStudentsModal from '../import_google_classroom_students_modal'
 import ReauthorizeCleverModal from '../reauthorize_clever_modal'
-import GoogleClassroomEmailModal from '../google_classroom_email_modal'
+import LinkGoogleAccountModal from '../link_google_account_modal'
 import CleverClassroomsEmptyModal from '../clever_classrooms_empty_modal'
 import GoogleClassroomsEmptyModal from '../google_classrooms_empty_modal'
 import CoteacherInvitation from '../coteacher_invitation'
@@ -111,9 +111,9 @@ describe('ActiveClassrooms component', () => {
       expect(wrapper.find(GoogleClassroomsEmptyModal).exists()).toBe(true)
     })
 
-    it('should render the google classrooms email modal if showModal equals googleClassroomEmailModal', () => {
-      wrapper.instance().setState({ showModal: googleClassroomEmailModal, })
-      expect(wrapper.find(GoogleClassroomEmailModal).exists()).toBe(true)
+    it('should render the google classrooms email modal if showModal equals linkGoogleAccountModal', () => {
+      wrapper.instance().setState({ showModal: linkGoogleAccountModal, })
+      expect(wrapper.find(LinkGoogleAccountModal).exists()).toBe(true)
     })
 
     it('should render the import clever classrooms modal if showModal equals importCleverClassroomsModal', () => {

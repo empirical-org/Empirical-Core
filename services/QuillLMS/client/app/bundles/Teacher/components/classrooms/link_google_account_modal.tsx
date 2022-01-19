@@ -2,16 +2,18 @@ import * as React from 'react'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
-interface GoogleClassroomEmailModalProps {
+interface LinkGoogleAccountModalProps {
   close: () => void;
   user: any;
 }
 
-interface GoogleClassroomEmailModalState {
+interface LinkGoogleAccountModalState {
   checkboxOne?: boolean;
 }
 
-export default class GoogleClassroomEmailModal extends React.Component<GoogleClassroomEmailModalProps, GoogleClassroomEmailModalState> {
+export default class LinkGooleAccountModal
+  extends React.Component<LinkGoogleAccountModalProps, LinkGoogleAccountModalState> {
+
   constructor(props) {
     super(props)
 

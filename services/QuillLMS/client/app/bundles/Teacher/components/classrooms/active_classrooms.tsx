@@ -12,7 +12,7 @@ import ImportGoogleClassroomsModal from './import_google_classrooms_modal'
 import ImportCleverClassroomStudentsModal from './import_clever_classroom_students_modal'
 import ImportGoogleClassroomStudentsModal from './import_google_classroom_students_modal'
 import ReauthorizeCleverModal from './reauthorize_clever_modal'
-import GoogleClassroomEmailModal from './google_classroom_email_modal'
+import LinkGoogleAccountModal from './link_google_account_modal'
 import CleverClassroomsEmptyModal from './clever_classrooms_empty_modal'
 import GoogleClassroomsEmptyModal from './google_classrooms_empty_modal'
 import Classroom from './classroom'
@@ -24,7 +24,9 @@ import ViewAsStudentModal from '../shared/view_as_student_modal'
 import { Snackbar, defaultSnackbarTimeout, SortableList } from '../../../Shared/index'
 import { requestGet, requestPut } from '../../../../modules/request/index.js';
 
-const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
+const bookEmptySrc = `${process.env.CDN_URL}/images/illustrations/book-empty.svg`
+const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`
+const googleClassroomIconSrc = `${process.env.CDN_URL}/images/icons/google-classroom.svg`
 const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
 
 interface ActiveClassroomsProps {
@@ -58,7 +60,7 @@ export const importGoogleClassroomsModal = 'importGoogleClassroomsModal'
 export const importCleverClassroomsModal = 'importCleverClassroomsModal'
 export const importCleverClassroomStudentsModal = 'importCleverClassroomStudentsModal'
 export const importGoogleClassroomStudentsModal = 'importGoogleClassroomStudentsModal'
-export const googleClassroomEmailModal = 'googleClassroomEmailModal'
+export const linkGoogleAccountModal = 'linkGoogleAccountModal'
 export const reauthorizeCleverModal = 'reauthorizeCleverModal'
 export const cleverClassroomsEmptyModal = 'cleverClassroomsEmptyModal'
 export const googleClassroomsEmptyModal = 'googleClassroomsEmptyModal'
@@ -104,12 +106,8 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
   }
 
-  getCleverClassrooms = () => {
-    const { user } = this.props
-    const { clever_id } = user
+  importCleverClassrooms = () => {
     const { attemptedImportCleverClassrooms } = this.state
-
-    if (!clever_id) { return }
 
     this.setState({ cleverClassroomsLoading: true}, () => {
       requestGet('/clever_integration/teachers/retrieve_classrooms', body => {
@@ -128,7 +126,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
 
           if (attemptedImportCleverClassrooms) {
             newStateObj.attemptedImportCleverClassrooms = false
-            this.setState(newStateObj, this.clickImportCleverClassrooms)
+            this.setState(newStateObj, this.clickImportFromClever)
           } else {
             this.setState(newStateObj)
           }
@@ -141,6 +139,17 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
         }
       })
     })
+  }
+
+  clickImportFromClever = () => {
+    const { user } = this.props
+    const { clever_id } = user
+
+    if (!clever_id) {
+      this.openModal(linkCleverAccountModal)
+    } else {
+      this.importCleverClassrooms()
+    }
   }
 
   getGoogleClassrooms = () => {
@@ -177,7 +186,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     const that = this
 
     channel.bind('clever-classrooms-retrieved', () => {
-      that.getCleverClassrooms()
+      that.clickImportFromClever()
       pusher.unsubscribe(channelName)
    })
   }
@@ -242,15 +251,11 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     })
   }
 
-  clickImportCleverClassrooms = () => {
-    this.getCleverClassrooms()
-  }
-
   clickImportGoogleClassrooms = () => {
     const { user } = this.props
     const { googleClassrooms, googleClassroomsLoading, } = this.state
     if (!user.google_id) {
-      this.openModal(googleClassroomEmailModal)
+      this.openModal(linkGoogleAccountModal)
     } else if (googleClassroomsLoading) {
       this.setState({ attemptedImportGoogleClassrooms: true })
     } else if (googleClassrooms.length) {
@@ -365,10 +370,12 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     const { classrooms, coteacherInvitations } = this.state
     const ownActiveClassrooms = this.getOwnActiveClassrooms(classrooms)
     if (classrooms.length === 0 && coteacherInvitations.length === 0) {
+
       return (
         <div className="no-active-classes">
-          <img src={emptyClassSrc} />
-          <p>Every teacher needs a class! Please select one of the buttons on the right to get started.</p>
+          <img alt="Gray book, open and blank" src={bookEmptySrc} />
+          <h2>Add your first class</h2>
+          <p>All teachers need a class! Choose to create or import your classes. </p>
         </div>
       )
     } else {
@@ -521,9 +528,9 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   renderGoogleClassroomEmailModal() {
     const { user } = this.props
     const { showModal } = this.state
-    if (showModal === googleClassroomEmailModal) {
+    if (showModal === linkGoogleAccountModal) {
       return (
-        <GoogleClassroomEmailModal
+        <LinkGoogleAccountModal
           close={this.closeModal}
           user={user}
         />
@@ -566,14 +573,6 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
   }
 
-  renderImportClassroomsButton() {
-    const { user } = this.props
-
-    if (user.clever_id) return this.renderImportCleverClassroomsButton()
-    if (user.google_id) return this.renderImportGoogleClassroomsButton()
-    return null
-  }
-
   renderCreateAClassButton() {
     return (
       <button
@@ -586,10 +585,14 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     )
   }
 
-  renderImportCleverClassroomsButton() {
+  renderImportFromCleverButton() {
+    const { user } = this.props
+    const { clever_id, google_id } = user
     const { cleverClassroomsLoading, attemptedImportCleverClassrooms } = this.state
-    let buttonContent: string|JSX.Element = 'Import from Clever Classroom'
-    let buttonClassName = "quill-button medium secondary outlined import-from-clever-button"
+    let buttonContent: string|JSX.Element = 'Import from Clever'
+    let buttonClassName = "interactive-wrapper import-from-clever-button"
+
+    if (!clever_id && google_id) { return null }
 
     if (cleverClassroomsLoading && attemptedImportCleverClassrooms) {
       buttonContent = <ButtonLoadingIndicator />
@@ -597,16 +600,22 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
 
     return (
-      <button className={buttonClassName} onClick={this.clickImportCleverClassrooms} type="button">
+      <button className={buttonClassName} onClick={this.clickImportFromClever} type="button">
+        <img alt="Clever Icon" className='import-from-clever-button' src={cleverIconSrc} />
         {buttonContent}
       </button>
     )
   }
 
-  renderImportGoogleClassroomsButton() {
+  renderImportFromGoogleClassroomButton() {
+    const { user } = this.props
+    const { clever_id, google_id } = user
+
     const { googleClassroomsLoading, attemptedImportGoogleClassrooms } = this.state
-    let buttonContent: string|JSX.Element = 'Import from Google Classroom'
-    let buttonClassName = "quill-button medium secondary outlined import-from-google-button"
+    let buttonContent: string|JSX.Element = ' Import from Google Classroom'
+    let buttonClassName = "interactive-wrapper import-from-google-button"
+
+    if (!google_id && clever_id) { return null }
 
     if (googleClassroomsLoading && attemptedImportGoogleClassrooms) {
       buttonContent = <ButtonLoadingIndicator />
@@ -615,6 +624,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
 
     return (
       <button className={buttonClassName} onClick={this.clickImportGoogleClassrooms} type="button">
+        <img alt="Google Classroom Icon" src={googleClassroomIconSrc} />
         {buttonContent}
       </button>
     )
@@ -640,7 +650,8 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       <div className="header">
         <h1>Active Classes</h1>
         <div className="buttons">
-          {this.renderImportClassroomsButton()}
+          {this.renderImportFromCleverButton()}
+          {this.renderImportFromGoogleClassroomButton()}
           {this.renderCreateAClassButton()}
         </div>
       </div>
@@ -682,8 +693,8 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
         {this.renderGoogleClassroomsEmptyModal()}
         {this.renderViewAsStudentModal()}
         {this.renderSnackbar()}
-        {this.renderHeader()}
         {this.renderBulkArchiveClassesBanner()}
+        {this.renderHeader()}
         {this.renderPageContent()}
       </div>
     )

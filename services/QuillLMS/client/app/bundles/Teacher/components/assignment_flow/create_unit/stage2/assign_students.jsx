@@ -5,7 +5,7 @@ import CreateAClassInlineForm from './create_a_class_inline_form.tsx'
 import ClassroomCard from './classroom_card.tsx'
 import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 import ImportGoogleClassroomsModal from '../../../classrooms/import_google_classrooms_modal.tsx'
-import GoogleClassroomEmailModal from '../../../classrooms/google_classroom_email_modal.tsx'
+import LinkGoogleAccountModal from '../../../classrooms/link_google_account_modal.tsx'
 import GoogleClassroomsEmptyModal from '../../../classrooms/google_classrooms_empty_modal.tsx'
 import { Snackbar, defaultSnackbarTimeout, DropdownInput } from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request';
@@ -16,7 +16,7 @@ const indeterminateSrc = `${process.env.CDN_URL}/images/icons/indeterminate.svg`
 
 export const createAClassForm = 'createAClassForm'
 export const importGoogleClassroomsModal = 'importGoogleClassroomsModal'
-export const googleClassroomEmailModal = 'googleClassroomEmailModal'
+export const linkGoogleAccountModal = 'linkGoogleAccountModal'
 export const googleClassroomsEmptyModal = 'googleClassroomsEmptyModal'
 
 export default class AssignStudents extends React.Component {
@@ -75,9 +75,11 @@ export default class AssignStudents extends React.Component {
   }
 
   clickImportGoogleClassrooms = () => {
+    const { user } = this.props
+    const { google_id } = user
     const { googleClassrooms, googleClassroomsLoading, } = this.state
-    if (!this.props.user.google_id) {
-      this.openFormOrModal(googleClassroomEmailModal)
+    if (!google_id) {
+      this.openFormOrModal(linkGoogleAccountModal)
     } else if (googleClassroomsLoading) {
       this.setState({ attemptedImportGoogleClassrooms: true, })
     } else if (googleClassrooms.length) {
@@ -183,11 +185,13 @@ export default class AssignStudents extends React.Component {
 
   renderGoogleClassroomEmailModal() {
     const { showFormOrModal, } = this.state
-    if (showFormOrModal === googleClassroomEmailModal) {
-      return (<GoogleClassroomEmailModal
-        close={this.closeFormOrModal}
-        user={this.props.user}
-      />)
+    if (showFormOrModal === linkGoogleAccountModal) {
+      return (
+        <LinkGoogleAccountModal
+          close={this.closeFormOrModal}
+          user={this.props.user}
+        />
+      )
     }
   }
 
