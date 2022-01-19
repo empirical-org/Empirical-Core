@@ -84,12 +84,10 @@ const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopo
 
   const skillsDelta = acquired_skill_ids && acquired_skill_ids.length ? <div className="skills-delta">{lightGreenTriangleUpIcon}<span className="skill-count">{acquired_skill_ids.length}</span></div> : null
 
-  const preAndPostIcons = pre_test_proficiency && post_test_proficiency ? <div className="pre-and-post-test-icons"><span className="pre"><span>Pre</span>{proficiencyTextToGrayIcon[pre_test_proficiency]}</span><span className="post"><span>Post</span>{proficiencyTextToGrayIcon[post_test_proficiency]}</span></div>: null
 
   return (<td className="student-result-cell">
     <button className="interactive-wrapper" onClick={showPopover} type="button">
       {proficiencyTextToTag[proficiency_text]}
-      {preAndPostIcons}
       <div className="correct-skills-and-delta-wrapper"><span className="number-of-correct-skills-text">{number_of_correct_skills_text}</span>{skillsDelta}</div>
     </button>
     {openPopover.studentId === studentResult.id && openPopover.skillGroupId === id && <Popover closePopover={closePopover} responsesLink={responsesLink} skillGroup={skillGroup} studentResult={studentResult} />}
@@ -178,17 +176,6 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
     };
   }, [handleScroll]);
 
-  const tableHeaders = skillGroupSummaries.map(skillGroupSummary => {
-    const { name, description, } = skillGroupSummary
-    return (<th className="skill-group-header" key={name}>
-      <span className="label">Skill group</span>
-      <div className="name-and-tooltip">
-        <span>{name}</span>
-        <SkillGroupTooltip description={description} key={name} name={name} />
-      </div>
-    </th>)
-  })
-
   const studentRows = studentResults.map(studentResult => (
     <StudentRow
       key={studentResult.name}
@@ -201,9 +188,22 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
   )
 
   const completedStudentResults = studentResults.filter(sr => sr.skill_groups)
-  const tableHasContent = completedStudentResults.length
+  const completedStudentCount = completedStudentResults.length
 
-  const tableClassName = tableHasContent ? 'student-results-table' : 'empty student-results-table'
+  const tableClassName = completedStudentCount ? 'student-results-table' : 'empty student-results-table'
+
+  const tableHeaders = skillGroupSummaries.map(skillGroupSummary => {
+    const { name, description, not_yet_proficient_student_names, not_yet_proficient_in_post_test_student_names, } = skillGroupSummary
+    const notYetProficientStudentCount = (not_yet_proficient_student_names || not_yet_proficient_in_post_test_student_names).length
+    const proficientStudentCount = completedStudentCount - notYetProficientStudentCount
+    return (<th className="skill-group-header" key={name}>
+      <div className="name-and-tooltip">
+        <span>{name}</span>
+        <SkillGroupTooltip description={description} key={name} name={name} />
+      </div>
+      {completedStudentCount && <span className="label">{proficientStudentCount} of {completedStudentCount} student{proficientStudentCount === 1 ? '' : 's'} proficient</span>}
+    </th>)
+  })
 
   const renderHeader = (sticky) => {
     let style = { position: 'inherit' }
@@ -213,7 +213,7 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
       style = { left: -(LEFT_OFFSET - (stickyTableStyle.left - paddingLeft())) + 1 }
     }
 
-    return (<thead>
+    return (<thead className={completedStudentResults.length ? '' : 'empty'}>
       <tr>
         <th className="corner-header" style={sticky ? style : {}}>Name</th>
         {tableHeaders}
@@ -224,7 +224,7 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
   if (window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH && paddingLeft() === DEFAULT_LEFT_PADDING) { return <span /> }
 
   return (<div className="student-results-table-container" onScroll={handleScroll}>
-    {isSticky && tableHasContent && (
+    {isSticky && completedStudentCount && (
     <table
       className={`${tableClassName} sticky`}
       style={stickyTableStyle}
@@ -232,9 +232,9 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
       {renderHeader(true)}
     </table>
     )}
-    <table className={tableClassName} ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
+    <table className={tableClassName} ref={tableRef} style={completedStudentCount ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
       {renderHeader(false)}
-      {tableHasContent ? null : noDataYet}
+      {completedStudentCount ? null : noDataYet}
       <tbody>
         {studentRows}
       </tbody>
