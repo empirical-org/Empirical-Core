@@ -1,6 +1,9 @@
-.import-from-clever-button.loading,
-.import-from-google-button.loading {
-  background-color: #f5f5f5;
+.import-from-clever-button,
+.import-from-google-button {
+  margin-left: 15px;
+  .loading {
+    background-color: #f5f5f5;
+  }
 }
 
 .classrooms-page {
@@ -60,16 +63,19 @@
     }
   }
   .no-active-classes {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    img {
+      margin: 32px 0px 16px;
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: bold;
+      line-height: normal;
+    }
     p {
-      font-size: 14px;
-      line-height: 1.57;
-      text-align: center;
-      color: #646464;
-      margin-top: 24px;
-      width: 461px;
+      margin: 8px 0px 32px;
+      font-size: 16px;
+      line-height: normal;
+      max-width: 460px;
     }
   }
 
@@ -94,7 +100,6 @@
     border-radius: 6px;
     border: solid 1px #e0e0e0;
     padding: 32px;
-    background-color: #fffffff;
     margin-bottom: 24px;
     display: flex;
     flex-direction: column;
