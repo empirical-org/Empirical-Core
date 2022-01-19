@@ -80,9 +80,9 @@ export const setExplanationSlidesCompletedForSession = (explanationSlidesComplet
   }
 }
 
-export const setActivityIsCompleteForSession = (activityIsCompleteForSession: boolean) => {
+export const setActivityIsCompleteForSession = (activityIsComplete: boolean) => {
   return (dispatch: Function) => {
-    dispatch({ type: ActionTypes.SET_ACTIVITY_IS_COMPLETE_FOR_SESSION, activityIsCompleteForSession })
+    dispatch({ type: ActionTypes.SET_ACTIVITY_IS_COMPLETE_FOR_SESSION, activityIsComplete })
   }
 }
 
