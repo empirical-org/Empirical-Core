@@ -75,9 +75,6 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
   context '#finish_lesson' do
     let(:follow_up_activity) { create(:activity) }
     let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
-    # let(:student) { create(:student)}
-    # let(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id]) }
-    # let!(:activity_session) { create(:activity_session, activity: activity, classroom_unit: classroom_unit, user: student) }
 
     it 'does not authenticate a teacher who does not own the classroom activity' do
       session[:user_id] = other_teacher.id
