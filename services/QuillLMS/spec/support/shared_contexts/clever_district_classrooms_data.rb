@@ -4,7 +4,6 @@ RSpec.shared_context "Clever District Classrooms Data" do
   include_context "Clever District Students Data"
 
   let(:teacher_clever_id) { "5b2c69d17306d1054bc49f38" }
-  let(:another_teacher_clever_id) { "7b2c69d17306d1054bc49f38" }
 
   let(:classroom1_grade) { "1" }
   let(:classroom1_clever_id) { "5b2c569c7a68e009745801ab" }
@@ -36,10 +35,8 @@ RSpec.shared_context "Clever District Classrooms Data" do
   let(:classroom1_attrs) do
     {
       clever_id: classroom1_clever_id,
-      coteachers: [teacher_clever_id],
       grade: classroom1_grade,
       name: classroom1_name,
-      owner: teacher_clever_id,
       students: classroom1_students
     }
   end
@@ -47,7 +44,7 @@ RSpec.shared_context "Clever District Classrooms Data" do
   let(:classroom1_students_data) { Clever::StudentsResponse.new(data: [student1_data, student2_data]) }
 
   let(:classroom2_grade) { "4" }
-  let(:classroom2_clever_id) { "6b2c569c7a68e009745801ac" }
+  let(:classroom2_clever_id) { "5b2c569c7a68e009745801ac" }
   let(:classroom2_name) { "Fourth grade - Price - "}
   let(:classroom2_students) { [student3_clever_id] }
 
@@ -66,7 +63,7 @@ RSpec.shared_context "Clever District Classrooms Data" do
       students: classroom2_students,
       subject: "english/language arts",
       teacher: teacher_clever_id,
-      teachers: [teacher_clever_id, another_teacher_clever_id],
+      teachers: [teacher_clever_id],
       term_id: "609969da18f744041320a335"
     )
   end
@@ -76,55 +73,13 @@ RSpec.shared_context "Clever District Classrooms Data" do
   let(:classroom2_attrs) do
     {
       clever_id: classroom2_clever_id,
-      coteachers: [teacher_clever_id, another_teacher_clever_id],
       grade: classroom2_grade,
       name: classroom2_name,
-      owner: teacher_clever_id,
       students: classroom2_students
     }
   end
 
   let(:classroom2_students_data) { Clever::StudentsResponse.new(data: [student3_data]) }
-
-  let(:classroom3_grade) { "4" }
-  let(:classroom3_clever_id) { "7b2c569c7a68e009745801ac" }
-  let(:classroom3_name) { "Fourth grade - Price - "}
-  let(:classroom3_students) { [student3_clever_id] }
-
-  let(:classroom3_clever_data) do
-    Clever::Section.new(
-      course: "7099d1cd519b163",
-      created: "2021-04-29T15:21:24.185Z",
-      district: "53ea7667720000018",
-      grade: classroom3_grade,
-      id: classroom3_clever_id,
-      last_modified: "2021-12-31T12:01:26.938Z",
-      name: classroom3_name,
-      period: "8",
-      school: "68cdecb17709b8",
-      sis_id: "83e76677ed008-68ca239c1ed9",
-      students: classroom3_students,
-      subject: "english/language arts",
-      teacher: another_teacher_clever_id,
-      teachers: [another_teacher_clever_id, teacher_clever_id],
-      term_id: "709969da18f744041320a335"
-    )
-  end
-
-  let(:classroom3_data) { Clever::SectionResponse.new(data: classroom3_clever_data) }
-
-  let(:classroom3_attrs) do
-    {
-      clever_id: classroom3_clever_id,
-      coteachers: [another_teacher_clever_id, teacher_clever_id],
-      grade: classroom3_grade,
-      name: classroom3_name,
-      owner: another_teacher_clever_id,
-      students: classroom3_students
-    }
-  end
-
-  let(:classroom3_students_data) { Clever::StudentsResponse.new(data: [student3_data]) }
 
   let(:classrooms_data) { Clever::SectionsResponse.new(data: [classroom1_data, classroom2_data]) }
 end

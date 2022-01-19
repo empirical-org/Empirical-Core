@@ -13,7 +13,6 @@ module CleverIntegration
         .get_sections_for_teacher(teacher_clever_id)
         .data
         .map { |classroom_data| DistrictClassroomDataAdapter.run(classroom_data) }
-        .select { |classroom_data| classroom_data[:owner] == teacher_clever_id }
     end
 
     def get_classroom_students(classroom_clever_id)
