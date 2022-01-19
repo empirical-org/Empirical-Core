@@ -24,21 +24,29 @@ export default class UnitTemplateProfileActivityTable extends React.Component {
         accessor: a => a,
         width: 586,
         id: 'activityName',
-        Cell: props => (<a
-          className='row-link-disguise highlight-on-hover'
-          data-tip={
-            `<h1>${props.value.name}</h1>
-              <p>Tool: ${props.value.classification.name}</p>
-              <p>${props.value.standard_level_name}</p>
-              <p>${props.value.standard.name}</p>
-              <p>${props.value.description}</p>`
-          }
-          onClick={() => this.redirectToActivity(props.value.id)}
-          target="_new"
-        >
-          {props.value.name}
-          <ReactTooltip className="react-tooltip-custom" effect="solid" html multiline type="light" />
-        </a>),
+        Cell: props => {
+          const standardLevelName = props.value.standard_level_name ? `<p>${props.value.standard_level_name}</p>` : ''
+          const standardName = props.value.standard.name ? `<p>${props.value.standard.name}</p>` : ''
+          const readability = props.value.readability ? `<p>Readability: ${props.value.readability}</p>` : ''
+          const topic = props.value.level_zero_topic_name ? `<p>Topic: ${props.value.level_zero_topic_name}</p>` : ''
+          return (<a
+            className='row-link-disguise highlight-on-hover'
+            data-tip={
+              `<h1>${props.value.name}</h1>
+                <p>Tool: ${props.value.classification.name}</p>
+                ${standardLevelName}
+                ${standardName}
+                ${readability}
+                ${topic}
+                <p>${props.value.description}</p>`
+            }
+            onClick={() => this.redirectToActivity(props.value.id)}
+            target="_new"
+          >
+            {props.value.name}
+            <ReactTooltip className="react-tooltip-custom" effect="solid" html multiline type="light" />
+          </a>)
+        },
       },
       {
         Header: 'Concept',

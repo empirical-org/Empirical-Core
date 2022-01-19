@@ -10,7 +10,6 @@ interface ReadabilityGradeLevelFiltersProps {
 }
 
 const READABILITY_GRADE_LEVEL_LABELS = ['2-3', '4-5', '6-7', '8-9', '10-12']
-
 const MIN_LEVEL = 0
 const MAX_LEVEL = READABILITY_GRADE_LEVEL_LABELS.length - 1
 

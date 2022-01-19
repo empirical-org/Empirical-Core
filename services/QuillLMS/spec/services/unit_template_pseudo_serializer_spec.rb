@@ -25,9 +25,9 @@ describe UnitTemplatePseudoSerializer do
     expect(serialized_ut.type[:name]).to eq 'Diagnostic'
   end
 
-  it('will have a Whole class + Independent practice type if it includes a lessons activity') do
+  it('will have a Whole class lessons type if it includes a lessons activity') do
     serialized_ut = UnitTemplatePseudoSerializer.new(unit_template_with_lesson)
-    expect(serialized_ut.type[:name]).to eq 'Whole class + Independent practice'
+    expect(serialized_ut.type[:name]).to eq 'Whole class lessons'
   end
 
   it('will have an Independent practice type if it includes neither a diagnostic nor a lessons activity') do
