@@ -88,11 +88,11 @@ export default class AssignStudents extends React.Component {
     }
   }
 
-  initializePusherForCleverClassrooms(user_id) {
+  initializePusherForCleverClassrooms(userId) {
     if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
 
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
-    const channelName = String(user_id)
+    const channelName = String(userId)
     const channel = pusher.subscribe(channelName);
     const that = this
 
