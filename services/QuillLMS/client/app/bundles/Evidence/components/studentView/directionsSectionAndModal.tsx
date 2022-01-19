@@ -25,7 +25,10 @@ const DirectionsSectionAndModal = ({ className, closeReadTheDirectionsModal, pas
     return (<div className={className}>
       <section className="directions-section">
         <h3>Directions</h3>
-        <p>Use information from the text to finish the sentence. <u>Remember to put the response in your own words.</u></p>
+        <ul>
+          <li>Use information from the text to finish the sentence.</li>
+          <li>Put the the information in your own words.</li>
+        </ul>
       </section>
     </div>)
   }

@@ -1,12 +1,10 @@
 .editor-container {
   position: relative;
-  margin-left: 48px;
   .editor {
     min-height: 129px;
     border-radius: 4px;
     padding: 16px 16px 46px;
     background-color: #f1f3f4;
-    margin-top: 16px;
     font-size: 20px; /* TODO change back to 18px temp change for demo */
     border-bottom: 2px solid #009a80;
     cursor: text;

@@ -105,36 +105,29 @@ export const renderPromptSteps = ({
   const { currentActivity, } = activities
   const { submittedResponses, hasReceivedData, } = session
   if (!currentActivity || !hasReceivedData) return
-
-  // sort by conjunctions in alphabetical order: because, but, so
-  const steps =  orderedSteps(activities).map((prompt, i) => {
-    // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
-    const stepNumber = i + 2
-    const canBeClicked = completedSteps.includes(stepNumber - 1) || completedSteps.includes(stepNumber) // can click on completed steps or the one after the last completed
-
-    return (<PromptStep
-      activateStep={activateStep}
-      active={stepNumber === activeStep}
-      activityIsComplete={activityIsComplete}
-      canBeClicked={canBeClicked}
-      className={`step ${canBeClicked ? 'clickable' : ''} ${activeStep === stepNumber ? 'active' : ''}`}
-      completeStep={completeStep}
-      completionButtonCallback={completionButtonCallback}
-      everyOtherStepCompleted={everyOtherStepCompleted(stepNumber, completedSteps)}
-      key={stepNumber}
-      passedRef={stepsHash[`step${stepNumber}`]} // eslint-disable-line react/jsx-no-bind
-      prompt={prompt}
-      reportAProblem={reportAProblem}
-      stepNumber={stepNumber}
-      stepNumberComponent={renderStepNumber(stepNumber, activeStep, completedSteps)}
-      submitResponse={submitResponse}
-      submittedResponses={(submittedResponses && submittedResponses[prompt.id]) || []}
-    />)
-  })
+  const stepNumber = activeStep - 2;
+  const prompts = orderedSteps(activities);
 
   return (<div className="prompt-steps">
     {renderDirectionsSectionAndModal({ className: 'hide-on-mobile', closeReadTheDirectionsModal, activeStep, doneHighlighting, showReadTheDirectionsModal, activities })}
-    {steps}
+    <PromptStep
+      activateStep={activateStep}
+      active={true}
+      activityIsComplete={activityIsComplete}
+      canBeClicked={false}
+      className="step active"
+      completeStep={completeStep}
+      completionButtonCallback={completionButtonCallback}
+      everyOtherStepCompleted={everyOtherStepCompleted(activeStep, completedSteps)}
+      key={activeStep}
+      passedRef={stepsHash[`step${activeStep}`]} // eslint-disable-line react/jsx-no-bind
+      prompt={prompts[stepNumber]}
+      reportAProblem={reportAProblem}
+      stepNumber={activeStep}
+      stepNumberComponent={renderStepNumber(activeStep, activeStep, completedSteps)}
+      submitResponse={submitResponse}
+      submittedResponses={(submittedResponses && submittedResponses[prompt.id]) || []}
+    />
   </div>)
 }
 

@@ -385,38 +385,16 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   }
 
   renderActiveContent = () => {
-    const { active, prompt, stepNumberComponent, submittedResponses, } = this.props
-    const { text } = prompt
-
-    if (!active) {
-      const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
-      const lastSubmittedResponse = this.lastSubmittedResponse()
-      const outOfAttempts = submittedResponses.length === prompt.max_attempts
-      const editor = lastSubmittedResponse.optimal || outOfAttempts ? this.renderEditorContainer() : null
-      const fadedRectangle = editor ? <div className="faded-rectangle" /> : null
-      return (
-        <div>
-          <div className="step-header">
-            {stepNumberComponent}
-            {promptTextComponent}
-          </div>
-          {editor}
-          {fadedRectangle}
-        </div>
-      )
-    }
-
-    return (<div>
-      <div className="step-header">
-        {stepNumberComponent}
-        <p className="directions">{DIRECTIONS}</p>
-      </div>
+    return(
       <div className="active-content-container">
         {this.renderEditorContainer()}
-        {this.renderButton()}
+        <div className="attempts-and-button-container">
+          {/* <div>attempts</div> */}
+          {this.renderButton()}
+        </div>
         {this.renderFeedbackSection()}
       </div>
-    </div>)
+    )
   }
 
   render() {
