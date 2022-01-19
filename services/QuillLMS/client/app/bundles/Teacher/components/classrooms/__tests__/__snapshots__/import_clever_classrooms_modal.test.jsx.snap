@@ -99,11 +99,6 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                 "width": "110px",
               },
               Object {
-                "attribute": "year",
-                "name": "Year",
-                "width": "32px",
-              },
-              Object {
                 "attribute": "students",
                 "name": "Students",
                 "width": "51px",
@@ -248,20 +243,6 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                 type="button"
               >
                 Grade
-              </button>
-              <button
-                className="data-table-header undefined"
-                style={
-                  Object {
-                    "minWidth": "32px",
-                    "textAlign": "right",
-                    "width": "32px",
-                  }
-                }
-                tabIndex={-1}
-                type="button"
-              >
-                Year
               </button>
               <button
                 className="data-table-header undefined"
@@ -1662,56 +1643,6 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                     </div>
                   </DropdownInput>
                 </span>
-                <Tooltip
-                  key="year-608aceedb9f28409c3320783"
-                  tooltipTriggerStyle={
-                    Object {
-                      "minWidth": "32px",
-                      "textAlign": "right",
-                      "width": "32px",
-                    }
-                  }
-                  tooltipTriggerTextClass="data-table-row-section undefined"
-                  tooltipTriggerTextStyle={
-                    Object {
-                      "minWidth": "32px",
-                      "textAlign": "right",
-                      "width": "32px",
-                    }
-                  }
-                >
-                  <span
-                    className="quill-tooltip-trigger"
-                    style={
-                      Object {
-                        "minWidth": "32px",
-                        "textAlign": "right",
-                        "width": "32px",
-                      }
-                    }
-                  >
-                    <span
-                      className="data-table-row-section undefined"
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      style={
-                        Object {
-                          "minWidth": "32px",
-                          "textAlign": "right",
-                          "width": "32px",
-                        }
-                      }
-                      tabIndex={null}
-                    />
-                    <span
-                      className="quill-tooltip-wrapper"
-                    >
-                      <span
-                        className="quill-tooltip"
-                      />
-                    </span>
-                  </span>
-                </Tooltip>
                 <span
                   className="data-table-row-section undefined"
                   key="students-608aceedb9f28409c3320783"
@@ -1763,56 +1694,6 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                     }
                   }
                 />
-                <Tooltip
-                  key="year-60944eff243ae50206973692"
-                  tooltipTriggerStyle={
-                    Object {
-                      "minWidth": "32px",
-                      "textAlign": "right",
-                      "width": "32px",
-                    }
-                  }
-                  tooltipTriggerTextClass="data-table-row-section undefined"
-                  tooltipTriggerTextStyle={
-                    Object {
-                      "minWidth": "32px",
-                      "textAlign": "right",
-                      "width": "32px",
-                    }
-                  }
-                >
-                  <span
-                    className="quill-tooltip-trigger"
-                    style={
-                      Object {
-                        "minWidth": "32px",
-                        "textAlign": "right",
-                        "width": "32px",
-                      }
-                    }
-                  >
-                    <span
-                      className="data-table-row-section undefined"
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      style={
-                        Object {
-                          "minWidth": "32px",
-                          "textAlign": "right",
-                          "width": "32px",
-                        }
-                      }
-                      tabIndex={null}
-                    />
-                    <span
-                      className="quill-tooltip-wrapper"
-                    >
-                      <span
-                        className="quill-tooltip"
-                      />
-                    </span>
-                  </span>
-                </Tooltip>
                 <span
                   className="data-table-row-section undefined"
                   key="students-60944eff243ae50206973692"
@@ -1962,11 +1843,6 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
                 "width": "110px",
               },
               Object {
-                "attribute": "year",
-                "name": "Year",
-                "width": "32px",
-              },
-              Object {
                 "attribute": "students",
                 "name": "Students",
                 "width": "51px",
@@ -2041,20 +1917,6 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
                 className="data-table-header undefined"
                 style={
                   Object {
-                    "minWidth": "32px",
-                    "textAlign": "right",
-                    "width": "32px",
-                  }
-                }
-                tabIndex={-1}
-                type="button"
-              >
-                Year
-              </button>
-              <button
-                className="data-table-header undefined"
-                style={
-                  Object {
                     "minWidth": "51px",
                     "textAlign": "right",
                     "width": "51px",
@@ -2103,56 +1965,6 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
                     }
                   }
                 />
-                <Tooltip
-                  key="year-608aceedb9f28409c3320783"
-                  tooltipTriggerStyle={
-                    Object {
-                      "minWidth": "32px",
-                      "textAlign": "right",
-                      "width": "32px",
-                    }
-                  }
-                  tooltipTriggerTextClass="data-table-row-section undefined"
-                  tooltipTriggerTextStyle={
-                    Object {
-                      "minWidth": "32px",
-                      "textAlign": "right",
-                      "width": "32px",
-                    }
-                  }
-                >
-                  <span
-                    className="quill-tooltip-trigger"
-                    style={
-                      Object {
-                        "minWidth": "32px",
-                        "textAlign": "right",
-                        "width": "32px",
-                      }
-                    }
-                  >
-                    <span
-                      className="data-table-row-section undefined"
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      style={
-                        Object {
-                          "minWidth": "32px",
-                          "textAlign": "right",
-                          "width": "32px",
-                        }
-                      }
-                      tabIndex={null}
-                    />
-                    <span
-                      className="quill-tooltip-wrapper"
-                    >
-                      <span
-                        className="quill-tooltip"
-                      />
-                    </span>
-                  </span>
-                </Tooltip>
                 <span
                   className="data-table-row-section undefined"
                   key="students-608aceedb9f28409c3320783"
@@ -2204,56 +2016,6 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
                     }
                   }
                 />
-                <Tooltip
-                  key="year-60944eff243ae50206973692"
-                  tooltipTriggerStyle={
-                    Object {
-                      "minWidth": "32px",
-                      "textAlign": "right",
-                      "width": "32px",
-                    }
-                  }
-                  tooltipTriggerTextClass="data-table-row-section undefined"
-                  tooltipTriggerTextStyle={
-                    Object {
-                      "minWidth": "32px",
-                      "textAlign": "right",
-                      "width": "32px",
-                    }
-                  }
-                >
-                  <span
-                    className="quill-tooltip-trigger"
-                    style={
-                      Object {
-                        "minWidth": "32px",
-                        "textAlign": "right",
-                        "width": "32px",
-                      }
-                    }
-                  >
-                    <span
-                      className="data-table-row-section undefined"
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      style={
-                        Object {
-                          "minWidth": "32px",
-                          "textAlign": "right",
-                          "width": "32px",
-                        }
-                      }
-                      tabIndex={null}
-                    />
-                    <span
-                      className="quill-tooltip-wrapper"
-                    >
-                      <span
-                        className="quill-tooltip"
-                      />
-                    </span>
-                  </span>
-                </Tooltip>
                 <span
                   className="data-table-row-section undefined"
                   key="students-60944eff243ae50206973692"

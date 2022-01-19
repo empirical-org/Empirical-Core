@@ -7,24 +7,6 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
   <Snackbar
     visible={false}
   />
-  <div
-    className="header"
-  >
-    <h1>
-      Active Classes
-    </h1>
-    <div
-      className="buttons"
-    >
-      <button
-        className="quill-button medium primary contained create-a-class-button"
-        onClick={[Function]}
-        type="button"
-      >
-        Create a class
-      </button>
-    </div>
-  </div>
   <BulkArchiveClassesBanner
     classes={
       Array [
@@ -271,6 +253,47 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
     onSuccess={[Function]}
     userId={2851865}
   />
+  <div
+    className="header"
+  >
+    <h1>
+      Active Classes
+    </h1>
+    <div
+      className="buttons"
+    >
+      <button
+        className="interactive-wrapper import-from-clever-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="Clever Icon"
+          className="import-from-clever-button"
+          src="undefined/images/icons/clever.svg"
+        />
+        Import from Clever
+      </button>
+      <button
+        className="interactive-wrapper import-from-google-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="Google Classroom Icon"
+          src="undefined/images/icons/google-classroom.svg"
+        />
+         Import from Google Classroom
+      </button>
+      <button
+        className="quill-button medium primary contained create-a-class-button"
+        onClick={[Function]}
+        type="button"
+      >
+        Create a class
+      </button>
+    </div>
+  </div>
   <div
     className="active-classes"
   >
@@ -1571,6 +1594,11 @@ exports[`ActiveClassrooms component with no classrooms or coteacher invitations 
   <Snackbar
     visible={false}
   />
+  <BulkArchiveClassesBanner
+    classes={Array []}
+    onSuccess={[Function]}
+    userId={2851865}
+  />
   <div
     className="header"
   >
@@ -1581,6 +1609,29 @@ exports[`ActiveClassrooms component with no classrooms or coteacher invitations 
       className="buttons"
     >
       <button
+        className="interactive-wrapper import-from-clever-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="Clever Icon"
+          className="import-from-clever-button"
+          src="undefined/images/icons/clever.svg"
+        />
+        Import from Clever
+      </button>
+      <button
+        className="interactive-wrapper import-from-google-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="Google Classroom Icon"
+          src="undefined/images/icons/google-classroom.svg"
+        />
+         Import from Google Classroom
+      </button>
+      <button
         className="quill-button medium primary contained create-a-class-button"
         onClick={[Function]}
         type="button"
@@ -1589,19 +1640,18 @@ exports[`ActiveClassrooms component with no classrooms or coteacher invitations 
       </button>
     </div>
   </div>
-  <BulkArchiveClassesBanner
-    classes={Array []}
-    onSuccess={[Function]}
-    userId={2851865}
-  />
   <div
     className="no-active-classes"
   >
     <img
-      src="undefined/images/illustrations/empty-class.svg"
+      alt="Gray book, open and blank"
+      src="undefined/images/illustrations/book-empty.svg"
     />
+    <h2>
+      Add your first class
+    </h2>
     <p>
-      Every teacher needs a class! Please select one of the buttons on the right to get started.
+      All teachers need a class! Choose to create or import your classes. 
     </p>
   </div>
 </div>

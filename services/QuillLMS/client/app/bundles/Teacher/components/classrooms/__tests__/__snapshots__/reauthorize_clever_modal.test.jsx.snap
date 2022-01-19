@@ -2,7 +2,7 @@
 
 exports[`ReauthorizeCleverModal component should render ReauthorizeCleverModal 1`] = `
 <div
-  className="modal-container reauthorize-clever--modal-container"
+  className="modal-container reauthorize-clever-modal-container"
 >
   <div
     className="modal-background"
