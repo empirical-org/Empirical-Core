@@ -226,9 +226,9 @@ export default class ClassroomStudentSection
     this.setState({ selectedStudentIds: [] })
   }
 
-  handleClickViewAsStudentButton = (e) => {
+  handleClickViewAsStudentButton = () => {
     const { viewAsStudent } = this.props
-    viewAsStudent(e)
+    viewAsStudent()
   }
 
   onClickViewAsIndividualStudent = (id: string|number) => {

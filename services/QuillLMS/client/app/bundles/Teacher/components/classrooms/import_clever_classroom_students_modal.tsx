@@ -27,9 +27,6 @@ export default class ImportCleverClassroomStudentsModal
       checkboxOne: false,
       waiting: false
     }
-
-    this.handleToggleCheckbox = this.handleToggleCheckbox.bind(this)
-    this.handleImportStudents = this.handleImportStudents.bind(this)
   }
 
   initializePusherForCleverStudentImport(id) {
@@ -39,14 +36,15 @@ export default class ImportCleverClassroomStudentsModal
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(id)
     const channel = pusher.subscribe(channelName);
-    const that = this;
+    const { onSuccess } = this.props
+
     channel.bind('clever-classroom-students-imported', () => {
-      that.props.onSuccess('Class re-synced')
+      onSuccess('Class re-synced')
       pusher.unsubscribe(channelName)
     });
   }
 
-  handleImportStudents() {
+  handleImportStudents = () => {
     const { classroom, } = this.props
     this.setState({ waiting: true })
 
@@ -64,7 +62,7 @@ export default class ImportCleverClassroomStudentsModal
     return buttonClass;
   }
 
-  handleToggleCheckbox() {
+  handleToggleCheckbox = () => {
     const { checkboxOne } = this.state
     const newStateObj = { checkboxOne: !checkboxOne, }
     this.setState(newStateObj)

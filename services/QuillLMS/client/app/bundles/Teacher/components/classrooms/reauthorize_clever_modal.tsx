@@ -8,10 +8,9 @@ interface ReauthorizeCleverModalProps {
 export default class ReauthorizeCleverModal extends React.Component<ReauthorizeCleverModalProps, {}> {
   constructor(props) {
     super(props)
-    this.handleReauthorizeClick = this.handleReauthorizeClick.bind(this)
   }
 
-  handleReauthorizeClick() {
+  handleReauthorizeClick = () => {
     const { cleverLink } = this.props
     window.location.href = cleverLink
   }

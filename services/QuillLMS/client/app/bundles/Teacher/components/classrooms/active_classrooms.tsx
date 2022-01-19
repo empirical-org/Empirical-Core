@@ -142,11 +142,11 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
   }
 
-  initializePusherForCleverClassrooms(user_id: String) {
+  initializePusherForCleverClassrooms(userId: String) {
     if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
 
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
-    const channelName = String(user_id)
+    const channelName = String(userId)
     const channel = pusher.subscribe(channelName);
     const that = this
 
@@ -334,7 +334,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           classroom={classroom}
           classrooms={ownActiveClassrooms}
           clickClassroomHeader={this.clickClassroomHeader}
-          importCleverClassroomStudents={() => this.clickImportCleverClassroomStudents()}
+          importCleverClassroomStudents={this.clickImportCleverClassroomStudents}
           importGoogleClassroomStudents={() => this.openModal(importGoogleClassroomStudentsModal)}
           inviteStudents={() => this.openModal(inviteStudentsModal)}
           isOwnedByCurrentUser={isOwnedByCurrentUser}
@@ -493,13 +493,16 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       return (
         <ImportCleverClassroomsModal
           classrooms={cleverClassrooms}
-          close={() => this.closeModal(() => this.setState({attemptedImportCleverClassrooms: false}))}
+          close={this.closeImportCleverClassroomsModal}
           onSuccess={this.onSuccess}
           user={user}
         />
       )
     }
   }
+
+  closeImportCleverClassroomsModal = () => { this.closeModal(this.resetAttemptedImportCleverClassrooms) }
+  resetAttemptedImportCleverClassrooms = () => { this.setState({attemptedImportCleverClassrooms: false}) }
 
   renderImportGoogleClassroomsModal() {
     const { user } = this.props

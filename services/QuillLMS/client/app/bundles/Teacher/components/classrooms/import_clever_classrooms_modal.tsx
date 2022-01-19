@@ -96,10 +96,10 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(user_id)
     const channel = pusher.subscribe(channelName);
-    const that = this;
+    const { onSuccess } = this.props
 
     channel.bind('clever-classroom-students-imported', () => {
-      that.props.onSuccess('Classes imported')
+      onSuccess('Classes imported')
       pusher.unsubscribe(channelName)
     })
   }
