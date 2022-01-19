@@ -488,7 +488,8 @@
 .transfer-ownership-modal,
 .import-clever-classroom-students-modal,
 .import-google-classroom-students-modal,
-.google-classroom-email-modal,
+.link-clever-account-modal,
+.link-google-account-modal,
 .share-activity-pack-modal,
 .leave-class-modal,
 .clever-classrooms-empty-modal,
@@ -807,7 +808,8 @@
 .reauthorize-clever-modal,
 .import-clever-classroom-students-modal,
 .import-google-classroom-students-modal,
-.google-classroom-email-modal {
+.link-clever-account-modal,
+.link-google-account-modal {
   .checkboxes {
     margin-bottom: 48px;
   }
@@ -839,7 +841,8 @@
   }
 }
 
-.google-classroom-email-modal {
+.link-clever-account-modal,
+.link-google-account-modal {
   height: 328px;
   .title {
     margin-bottom: 24px;

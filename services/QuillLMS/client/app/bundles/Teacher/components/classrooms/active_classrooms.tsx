@@ -12,6 +12,7 @@ import ImportGoogleClassroomsModal from './import_google_classrooms_modal'
 import ImportCleverClassroomStudentsModal from './import_clever_classroom_students_modal'
 import ImportGoogleClassroomStudentsModal from './import_google_classroom_students_modal'
 import ReauthorizeCleverModal from './reauthorize_clever_modal'
+import LinkCleverAccountModal from './link_clever_account_modal'
 import LinkGoogleAccountModal from './link_google_account_modal'
 import CleverClassroomsEmptyModal from './clever_classrooms_empty_modal'
 import GoogleClassroomsEmptyModal from './google_classrooms_empty_modal'
@@ -43,7 +44,6 @@ interface ActiveClassroomsState {
   googleClassrooms: Array<any>;
   cleverClassrooms: Array<any>;
   showModal?: string;
-  cleverClassroomsLoading?: boolean;
   googleClassroomsLoading?: boolean;
   attemptedImportCleverClassrooms?: boolean;
   attemptedImportGoogleClassrooms?: boolean;
@@ -60,6 +60,7 @@ export const importGoogleClassroomsModal = 'importGoogleClassroomsModal'
 export const importCleverClassroomsModal = 'importCleverClassroomsModal'
 export const importCleverClassroomStudentsModal = 'importCleverClassroomStudentsModal'
 export const importGoogleClassroomStudentsModal = 'importGoogleClassroomStudentsModal'
+export const linkCleverAccountModal = 'linkCleverAccountModal'
 export const linkGoogleAccountModal = 'linkGoogleAccountModal'
 export const reauthorizeCleverModal = 'reauthorizeCleverModal'
 export const cleverClassroomsEmptyModal = 'cleverClassroomsEmptyModal'
@@ -107,37 +108,25 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   importCleverClassrooms = () => {
-    const { attemptedImportCleverClassrooms } = this.state
+    requestGet('/clever_integration/teachers/retrieve_classrooms', body => {
+      if (body.reauthorization_required) {
+        this.openModal(reauthorizeCleverModal)
+      }
+      else if (body.quill_retrieval_processing) {
+        this.initializePusherForCleverClassrooms(body.user_id)
+      } else {
+        const { classrooms_data, existing_clever_ids } = body
+        const { classrooms } = classrooms_data
+        const cleverClassrooms = classrooms.filter(classroom => !existing_clever_ids.includes(classroom.clever_id))
 
-    this.setState({ cleverClassroomsLoading: true}, () => {
-      requestGet('/clever_integration/teachers/retrieve_classrooms', body => {
-        this.setState({ attemptedImportCleverClassrooms: true })
+        this.setState({cleverClassrooms, attemptedImportCleverClassrooms: false})
 
-        if (body.reauthorization_required) {
-          this.openModal(reauthorizeCleverModal)
-        }
-        else if (body.quill_retrieval_processing) {
-          this.initializePusherForCleverClassrooms(body.user_id)
+        if (cleverClassrooms.length) {
+          this.openModal(importCleverClassroomsModal)
         } else {
-          const { classrooms_data, existing_clever_ids } = body
-          const { classrooms } = classrooms_data
-          const cleverClassrooms = classrooms.filter(classroom => !existing_clever_ids.includes(classroom.clever_id))
-          const newStateObj: any = { cleverClassrooms, cleverClassroomsLoading: false }
-
-          if (attemptedImportCleverClassrooms) {
-            newStateObj.attemptedImportCleverClassrooms = false
-            this.setState(newStateObj, this.clickImportFromClever)
-          } else {
-            this.setState(newStateObj)
-          }
-
-          if (cleverClassrooms.length) {
-            this.openModal(importCleverClassroomsModal)
-          } else {
-            this.openModal(cleverClassroomsEmptyModal)
-          }
+          this.openModal(cleverClassroomsEmptyModal)
         }
-      })
+      }
     })
   }
 
@@ -148,8 +137,23 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     if (!clever_id) {
       this.openModal(linkCleverAccountModal)
     } else {
+      this.setState({ attemptedImportCleverClassrooms: true })
       this.importCleverClassrooms()
     }
+  }
+
+  initializePusherForCleverClassrooms(user_id: String) {
+    if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
+
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channelName = String(user_id)
+    const channel = pusher.subscribe(channelName);
+    const that = this
+
+    channel.bind('clever-classrooms-retrieved', () => {
+      that.importCleverClassrooms()
+      pusher.unsubscribe(channelName)
+   })
   }
 
   getGoogleClassrooms = () => {
@@ -177,19 +181,6 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
   }
 
-  initializePusherForCleverClassrooms(user_id: String) {
-    if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
-
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
-    const channelName = String(user_id)
-    const channel = pusher.subscribe(channelName);
-    const that = this
-
-    channel.bind('clever-classrooms-retrieved', () => {
-      that.clickImportFromClever()
-      pusher.unsubscribe(channelName)
-   })
-  }
 
   initializePusherForGoogleClassrooms(id) {
     if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
@@ -525,7 +516,21 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
   }
 
-  renderGoogleClassroomEmailModal() {
+  renderLinkCleverAccountModal() {
+    const { cleverLink, user } = this.props
+    const { showModal } = this.state
+    if (showModal === linkCleverAccountModal) {
+      return (
+        <LinkCleverAccountModal
+          cleverLink={cleverLink}
+          close={this.closeModal}
+          user={user}
+        />
+      )
+    }
+  }
+
+  renderLinkGoogleAccountModal() {
     const { user } = this.props
     const { showModal } = this.state
     if (showModal === linkGoogleAccountModal) {
@@ -588,14 +593,14 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   renderImportFromCleverButton() {
     const { user } = this.props
     const { clever_id, google_id } = user
-    const { cleverClassroomsLoading, attemptedImportCleverClassrooms } = this.state
+    const { attemptedImportCleverClassrooms } = this.state
     let buttonContent: string|JSX.Element = 'Import from Clever'
     let buttonClassName = "interactive-wrapper import-from-clever-button"
 
     if (!clever_id && google_id) { return null }
 
-    if (cleverClassroomsLoading && attemptedImportCleverClassrooms) {
-      buttonContent = <ButtonLoadingIndicator />
+    if (attemptedImportCleverClassrooms) {
+      buttonContent = <React.Fragment>Import from Clever<ButtonLoadingIndicator /></React.Fragment>
       buttonClassName += ' loading'
     }
 
@@ -618,7 +623,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     if (!google_id && clever_id) { return null }
 
     if (googleClassroomsLoading && attemptedImportGoogleClassrooms) {
-      buttonContent = <ButtonLoadingIndicator />
+      buttonContent = <React.Fragment>Import from Google Classroom<ButtonLoadingIndicator /></React.Fragment>
       buttonClassName += ' loading'
     }
 
@@ -688,7 +693,8 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
         {this.renderImportCleverClassroomStudentsModal()}
         {this.renderImportGoogleClassroomStudentsModal()}
         {this.renderReauthorizeCleverModal()}
-        {this.renderGoogleClassroomEmailModal()}
+        {this.renderLinkCleverAccountModal()}
+        {this.renderLinkGoogleAccountModal()}
         {this.renderCleverClassroomsEmptyModal()}
         {this.renderGoogleClassroomsEmptyModal()}
         {this.renderViewAsStudentModal()}

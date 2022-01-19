@@ -2,17 +2,18 @@ import * as React from 'react'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
-interface LinkGoogleAccountModalProps {
+interface LinkCleverAccountModalProps {
+  cleverLink: string;
   close: () => void;
   user: any;
 }
 
-interface LinkGoogleAccountModalState {
+interface LinkCleverAccountModalState {
   checkboxOne?: boolean;
 }
 
-export default class LinkGoogleAccountModal
-  extends React.Component<LinkGoogleAccountModalProps, LinkGoogleAccountModalState> {
+export default class LinkCleverAccountModal
+  extends React.Component<LinkCleverAccountModalProps, LinkCleverAccountModalState> {
 
   constructor(props) {
     super(props)
@@ -25,10 +26,12 @@ export default class LinkGoogleAccountModal
   }
 
   renderLinkAccountButton() {
-    const { checkboxOne, } = this.state
+    const { cleverLink } = this.props
+    const { checkboxOne } = this.state
+
     let buttonClass = 'quill-button contained primary medium';
     if (checkboxOne) {
-      return <a className={buttonClass} href="/auth/google_oauth2?prompt=consent">Link account</a>
+      return <a className={buttonClass} href={cleverLink}>Link account</a>
     } else {
       buttonClass += ' disabled';
       return <button className={buttonClass} type="button">Link account</button>
@@ -42,7 +45,6 @@ export default class LinkGoogleAccountModal
 
   renderCheckbox() {
     const { checkboxOne } = this.state
-
     if (checkboxOne) {
       return (
         <div className="quill-checkbox selected" onClick={this.toggleCheckbox}>
@@ -60,7 +62,7 @@ export default class LinkGoogleAccountModal
         <div className="checkbox-row">
           {this.renderCheckbox()}
           <span>
-            I understand that I will now log in to Quill via the &ldquo;Log in with Google&rdquo; button.
+            I understand that I will now log in to Quill via the &ldquo;Log in with Clever&rdquo; button.
           </span>
         </div>
       </div>
@@ -69,27 +71,25 @@ export default class LinkGoogleAccountModal
 
   render() {
     const { user, close } = this.props
-    return (
-      <div className="modal-container link-google-account-modal-container">
-        <div className="modal-background" />
-        <div className="link-google-account-modal quill-modal modal-body">
-          <div>
-            <h3 className="title">Link your account to Google Classroom</h3>
-          </div>
-          <p>Your email, {user.email}, is not associated with a Google Classroom account.</p>
-          {this.renderCheckboxes()}
-          <div className="form-buttons">
-            <button
-              className="quill-button outlined secondary medium"
-              onClick={close}
-              type="button"
-            >
-              Cancel
-            </button>
-            {this.renderLinkAccountButton()}
-          </div>
+    return (<div className="modal-container link-clever-account-modal-container">
+      <div className="modal-background" />
+      <div className="link-clever-account-modal quill-modal modal-body">
+        <div>
+          <h3 className="title">Link your account to Clever</h3>
+        </div>
+        <p>Your email, {user.email}, is not associated with a Clever account.</p>
+        {this.renderCheckboxes()}
+        <div className="form-buttons">
+          <button
+            className="quill-button outlined secondary medium"
+            onClick={close}
+            type="button"
+          >
+            Cancel
+          </button>
+          {this.renderLinkAccountButton()}
         </div>
       </div>
-    )
+    </div>)
   }
 }

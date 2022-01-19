@@ -31,10 +31,6 @@ const headers = [
     attribute: 'grade',
     rowSectionClassName: 'show-overflow'
   }, {
-    width: '32px',
-    name: 'Year',
-    attribute: 'year'
-  }, {
     width: '51px',
     name: 'Students',
     attribute: 'students'
@@ -95,9 +91,8 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
   }
 
   initializePusherForCleverStudentImport(user_id) {
-    if (process.env.RAILS_ENV === 'development') {
-      Pusher.logToConsole = true;
-    }
+    if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
+
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(user_id)
     const channel = pusher.subscribe(channelName);
@@ -106,7 +101,7 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
     channel.bind('clever-classroom-students-imported', () => {
       that.props.onSuccess('Classes imported')
       pusher.unsubscribe(channelName)
-    });
+    })
   }
 
   handleClickImportClasses = () => {

@@ -40,7 +40,7 @@ module CleverIntegration
     end
 
     private def existing_clever_ids
-      ::Classroom.where(clever_id: classrooms_data.clever_ids).pluck(:clever_id)
+      ::Classroom.unscoped.where(clever_id: classrooms_data.clever_ids).pluck(:clever_id)
     end
 
     private def hydrate_teacher_classrooms_cache

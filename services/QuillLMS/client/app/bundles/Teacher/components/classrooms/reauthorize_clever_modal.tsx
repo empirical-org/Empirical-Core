@@ -28,7 +28,7 @@ export default class ReauthorizeCleverModal extends React.Component<ReauthorizeC
     const { close } = this.props
 
     return (
-      <div className="modal-container reauthorize-clever--modal-container">
+      <div className="modal-container reauthorize-clever-modal-container">
         <div className="modal-background" />
         <div className="reauthorize-clever-modal quill-modal modal-body">
           <div>
