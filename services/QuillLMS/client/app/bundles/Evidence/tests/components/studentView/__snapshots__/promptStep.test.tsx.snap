@@ -1134,7 +1134,7 @@ exports[`PromptStep component inactive state renders 1`] = `
             disabled={false}
             handleFocus={[Function]}
             handleTextChange={[Function]}
-            html="<p></p>"
+            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
             isResettable={false}
             promptText="Governments should make voting compulsory because"
@@ -1148,7 +1148,7 @@ exports[`PromptStep component inactive state renders 1`] = `
                 className="editor"
                 data-gramm={false}
                 disabled={false}
-                html="<p></p>"
+                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
@@ -1159,7 +1159,7 @@ exports[`PromptStep component inactive state renders 1`] = `
                   contentEditable={true}
                   dangerouslySetInnerHTML={
                     Object {
-                      "__html": "<p></p>",
+                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>",
                     }
                   }
                   data-gramm={false}
