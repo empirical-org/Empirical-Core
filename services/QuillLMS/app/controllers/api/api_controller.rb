@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Api::ApiController < ActionController::Base
+  include QuillAuthentication
 
   class AccessForbidden < StandardError; end
 
@@ -33,23 +34,6 @@ class Api::ApiController < ActionController::Base
   private def add_platform_doc_header
     response.headers['X-Platform-Spec'] = 'https://github.com/interagent/http-api-design'
     response.headers['X-API-Reference'] = 'http://docs.empirical.org/api-reference/'
-  end
-
-  private def current_user
-    begin
-      if session[:user_id]
-        @current_user ||= User.find(session[:user_id])
-      elsif doorkeeper_token
-        User.find_by_id(doorkeeper_token.resource_owner_id)
-      else
-        authenticate_with_http_basic do |username, password|
-          return @current_user ||= User.find_by_token!(username) if username.present?
-        end
-      end
-    rescue ActiveRecord::RecordNotFound
-      sign_out
-      nil
-    end
   end
 
   private def doorkeeper_token
