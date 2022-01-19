@@ -80,15 +80,6 @@ class Teachers::ClassroomsController < ApplicationController
     end
   end
 
-  def destroy
-    authorize_owner! { params[:id] }
-    Classroom.find(params[:id]).destroy
-    # we need a performed? check here to avoid a double render, since
-    # authorize_owner can trigger a render, which is an anti-pattern
-    # more info: https://medium.com/cedarcode/abstractcontroller-doublerendererror-fix-d18881b80476
-    redirect_to teachers_classrooms_path unless performed?
-  end
-
   def bulk_archive
     Classroom.where(id: params[:ids]).each do |classroom|
       next if classroom.owner != current_user
