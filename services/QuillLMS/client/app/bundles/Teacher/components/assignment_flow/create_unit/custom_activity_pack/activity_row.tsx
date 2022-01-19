@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Activity, ActivityClassification, Topic, } from './interfaces'
 import { stringifyLowerLevelTopics, AVERAGE_FONT_WIDTH, } from './shared'
 
+import { imageTagForClassification, } from '../../assignmentFlowConstants'
 import { Tooltip } from '../../../../../Shared/index'
 import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 
@@ -18,12 +19,6 @@ const previewSrc = `${process.env.CDN_URL}/images/icons/preview.svg`
 const bookmarkSrc = `${process.env.CDN_URL}/images/icons/icons-bookmark.svg`
 const outlinedBookmarkSrc = `${process.env.CDN_URL}/images/icons/icons-bookmark-outline.svg`
 const removeSrc = `${process.env.CDN_URL}/images/icons/remove-in-circle.svg`
-const connectSrc = `${process.env.CDN_URL}/images/icons/description-connect.svg`
-const diagnosticSrc = `${process.env.CDN_URL}/images/icons/description-diagnostic.svg`
-const lessonsSrc = `${process.env.CDN_URL}/images/icons/description-lessons.svg`
-const proofreaderSrc = `${process.env.CDN_URL}/images/icons/description-proofreader.svg`
-const grammarSrc = `${process.env.CDN_URL}/images/icons/description-grammar.svg`
-const comprehensionSrc = `${process.env.CDN_URL}/images/icons/description-comprehension.svg`
 
 const IMAGE_WIDTH = 18
 const MARGIN = 16
@@ -68,39 +63,6 @@ const calculateMaxAllowedLengthForTopicSection = ({
     maxAllowedLength -= standard_level_name ? (standard_level_name.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN : 0
   }
   return maxAllowedLength
-}
-
-const imageTagForClassification = (classificationKey: string): JSX.Element => {
-  let imgAlt = ""
-  let imgSrc
-  switch(classificationKey) {
-    case 'connect':
-      imgAlt = "Target representing Quill Connect"
-      imgSrc = connectSrc
-      break
-    case 'diagnostic':
-      imgAlt = "Magnifying glass representing Quill Diagnostic"
-      imgSrc = diagnosticSrc
-      break
-    case 'sentence':
-      imgAlt = "Puzzle piece representing Quill Grammar"
-      imgSrc = grammarSrc
-      break
-    case 'lessons':
-      imgAlt = "Apple representing Quill Lessons"
-      imgSrc = lessonsSrc
-      break
-    case 'passage':
-      imgAlt = "Flag representing Quill Proofreader"
-      imgSrc = proofreaderSrc
-      break
-    case 'evidence':
-      imgAlt = "Book representing Quill Evidence"
-      imgSrc = comprehensionSrc
-      break
-  }
-
-  return <img alt={imgAlt} src={imgSrc} />
 }
 
 const ActivityRowCheckbox = ({ activity, isSelected, toggleActivitySelection, }: ActivityRowCheckboxProps) => {

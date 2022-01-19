@@ -1,3 +1,5 @@
+import * as React from 'react'
+
 export const COLLEGE_BOARD_SLUG = 'college-board'
 export const PRE_AP_SLUG = 'pre-ap'
 export const AP_SLUG = 'ap'
@@ -179,4 +181,44 @@ export const postTestWarningModalPreNameCorrespondence = {
   1774: "ELL Starter Baseline Diagnostic (Pre)",
   1814: "ELL Intermediate Baseline Diagnostic (Pre)",
   1818: "ELL Advanced Baseline Diagnostic (Pre)"
+}
+
+const connectSrc = `${process.env.CDN_URL}/images/icons/description-connect.svg`
+const diagnosticSrc = `${process.env.CDN_URL}/images/icons/description-diagnostic.svg`
+const lessonsSrc = `${process.env.CDN_URL}/images/icons/description-lessons.svg`
+const proofreaderSrc = `${process.env.CDN_URL}/images/icons/description-proofreader.svg`
+const grammarSrc = `${process.env.CDN_URL}/images/icons/description-grammar.svg`
+const comprehensionSrc = `${process.env.CDN_URL}/images/icons/description-comprehension.svg`
+
+export const imageTagForClassification = (classificationKey: string): JSX.Element => {
+  let imgAlt = ""
+  let imgSrc
+  switch(classificationKey) {
+    case 'connect':
+      imgAlt = "Target representing Quill Connect"
+      imgSrc = connectSrc
+      break
+    case 'diagnostic':
+      imgAlt = "Magnifying glass representing Quill Diagnostic"
+      imgSrc = diagnosticSrc
+      break
+    case 'sentence':
+      imgAlt = "Puzzle piece representing Quill Grammar"
+      imgSrc = grammarSrc
+      break
+    case 'lessons':
+      imgAlt = "Apple representing Quill Lessons"
+      imgSrc = lessonsSrc
+      break
+    case 'passage':
+      imgAlt = "Flag representing Quill Proofreader"
+      imgSrc = proofreaderSrc
+      break
+    case 'evidence':
+      imgAlt = "Book representing Quill Evidence"
+      imgSrc = comprehensionSrc
+      break
+  }
+
+  return <img alt={imgAlt} src={imgSrc} />
 }
