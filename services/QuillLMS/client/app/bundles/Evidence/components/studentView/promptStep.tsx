@@ -398,7 +398,8 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   }
 
   render() {
-    const { className, passedRef, canBeClicked, } = this.props
+    const { className, passedRef, canBeClicked } = this.props
+
     const stepContent = (<div className="step-content">
       {this.renderActiveContent()}
     </div>)
@@ -416,4 +417,4 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   }
 }
 
-export default PromptStep
+export default PromptStep;

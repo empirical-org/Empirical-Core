@@ -113,9 +113,6 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
 
   return (
     <div className={`feedback-section ${reportAProblemExpanded ? 'expanded' : ''}`}>
-      <p className="feedback-section-header">
-        Feedback<span>{submittedResponses.length} of {prompt.max_attempts} attempts</span>
-      </p>
       <ReactCSSTransitionReplace
         transitionEnterTimeout={1000}
         transitionLeaveTimeout={400}

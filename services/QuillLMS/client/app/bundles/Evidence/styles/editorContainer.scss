@@ -15,7 +15,6 @@
       border-bottom: 2px solid #ff9f00;
     }
     &.disabled {
-      background-color: white;
       border-bottom: none;
       border-radius: 0px;
       min-height: 60px;
@@ -24,7 +23,7 @@
         border-left: 2px solid #ff9f00;
       }
       &.optimal {
-        border-left: 2px solid #55a200;
+        border-bottom: 2px solid #55a200;
       }
     }
     &.approaching-limit {

@@ -9,7 +9,7 @@
   &:focus {
     outline: none;
   }
-  .passage-title, .feedback-section {
+  .passage-title {
     margin-left: 48px;
   }
   .step-header {
@@ -85,7 +85,7 @@
     }
   }
   .feedback-section {
-    margin-top: 24px;
+    margin-top: 16px;
     .report-a-problem-button {
       margin-left: 0px;
       padding: 9px 16px;
