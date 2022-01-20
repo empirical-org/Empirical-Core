@@ -33,7 +33,7 @@ exports[`Assign students component should render 1`] = `
         >
           <img
             alt="Clever Icon"
-            className="import-from-clever-button"
+            className="import-from-clever-button-icon"
             src="undefined/images/icons/clever.svg"
           />
           Import from Clever
@@ -45,6 +45,7 @@ exports[`Assign students component should render 1`] = `
         >
           <img
             alt="Google Classroom Icon"
+            className="import-from-google-button-icon"
             src="undefined/images/icons/google-classroom.svg"
           />
            Import from Google Classroom

@@ -18,7 +18,7 @@ exports[`ImportCleverClassroomStudentsModal component should render ImportClever
       </h3>
     </div>
     <p>
-      You are about to import students from the class
+      You are about to import students from the class 
       Quill Classroom
       .
     </p>

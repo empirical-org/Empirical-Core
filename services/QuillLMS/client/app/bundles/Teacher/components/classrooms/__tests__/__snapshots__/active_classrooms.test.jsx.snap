@@ -269,7 +269,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
       >
         <img
           alt="Clever Icon"
-          className="import-from-clever-button"
+          className="import-from-clever-button-icon"
           src="undefined/images/icons/clever.svg"
         />
         Import from Clever
@@ -281,6 +281,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
       >
         <img
           alt="Google Classroom Icon"
+          className="import-from-google-button-icon"
           src="undefined/images/icons/google-classroom.svg"
         />
          Import from Google Classroom
@@ -1615,7 +1616,7 @@ exports[`ActiveClassrooms component with no classrooms or coteacher invitations 
       >
         <img
           alt="Clever Icon"
-          className="import-from-clever-button"
+          className="import-from-clever-button-icon"
           src="undefined/images/icons/clever.svg"
         />
         Import from Clever
@@ -1627,6 +1628,7 @@ exports[`ActiveClassrooms component with no classrooms or coteacher invitations 
       >
         <img
           alt="Google Classroom Icon"
+          className="import-from-google-button-icon"
           src="undefined/images/icons/google-classroom.svg"
         />
          Import from Google Classroom
