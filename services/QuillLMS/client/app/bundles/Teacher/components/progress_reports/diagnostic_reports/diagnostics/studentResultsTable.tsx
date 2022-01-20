@@ -95,8 +95,8 @@ const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopo
 }
 
 const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPopover, responsesLink, }) => {
-  const { name, skill_groups, id, total_acquired_skills_count, } = studentResult
-  const diagnosticNotCompletedMessage = skill_groups ? null : <span className="diagnostic-not-completed">Diagnostic not completed</span>
+  const { name, skill_groups, id, total_acquired_skills_count, correct_skill_text, } = studentResult
+  const diagnosticNotCompletedMessage = <span className="name-section-subheader">Diagnostic not completed</span>
   const skillsDelta = total_acquired_skills_count ? (<div className="skills-delta">
     {lightGreenTriangleUpIcon}
     <span className="skill-count">{total_acquired_skills_count}</span>
@@ -105,11 +105,12 @@ const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPo
       tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
     />
   </div>) : null
+  const subHeader = correct_skill_text ? <div className="name-section-subheader"><span className="correct-skill-text">{correct_skill_text}</span>{skillsDelta}</div> : diagnosticNotCompletedMessage
+
   const firstCell = (<th className="name-cell">
     <div>
       <StudentNameOrTooltip name={name} />
-      {diagnosticNotCompletedMessage}
-      {skillsDelta}
+      {subHeader}
     </div>
   </th>)
 

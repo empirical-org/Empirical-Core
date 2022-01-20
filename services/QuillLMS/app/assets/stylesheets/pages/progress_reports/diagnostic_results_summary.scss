@@ -262,9 +262,13 @@
           color: #262626;
           width: 100%;
         }
-        .diagnostic-not-completed {
+        .name-section-subheader, .name-section-subheader .correct-skill-text {
           font-weight: normal;
           color: #808080;
+          font-size: 12px;
+          width: inherit;
+          display: flex;
+          margin-right: 4px;
         }
       }
       .quill-tooltip-wrapper {

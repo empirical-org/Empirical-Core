@@ -4855,7 +4855,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </Tooltip>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -5029,7 +5029,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -5786,7 +5786,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -7146,7 +7146,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </Tooltip>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -7320,7 +7320,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -8077,7 +8077,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -8271,7 +8271,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </Tooltip>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -8445,7 +8445,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -8619,7 +8619,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -8793,7 +8793,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -8967,7 +8967,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -9141,7 +9141,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -9315,7 +9315,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -9489,7 +9489,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -9663,7 +9663,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -9837,7 +9837,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -10011,7 +10011,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -10185,7 +10185,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -10379,7 +10379,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </Tooltip>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -10553,7 +10553,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -18773,7 +18773,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </Tooltip>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -19058,7 +19058,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -20373,7 +20373,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -22774,7 +22774,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </Tooltip>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -23059,7 +23059,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -24383,7 +24383,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -24688,7 +24688,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </Tooltip>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -24973,7 +24973,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -25258,7 +25258,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -25543,7 +25543,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -25828,7 +25828,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -26113,7 +26113,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -26398,7 +26398,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -26683,7 +26683,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -26968,7 +26968,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -27253,7 +27253,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -27538,7 +27538,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -27823,7 +27823,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -28128,7 +28128,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </Tooltip>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -28413,7 +28413,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>

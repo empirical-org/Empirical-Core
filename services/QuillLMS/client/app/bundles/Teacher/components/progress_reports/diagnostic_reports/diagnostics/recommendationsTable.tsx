@@ -77,7 +77,7 @@ const RecommendationCell = ({ student, isAssigned, isRecommended, isSelected, se
 
 const StudentRow = ({ student, selections, recommendations, previouslyAssignedRecommendations, setSelections, }) => {
   const { name, completed, id, } = student
-  const diagnosticNotCompletedMessage = completed ? null : <span className="diagnostic-not-completed">Diagnostic not completed</span>
+  const diagnosticNotCompletedMessage = completed ? null : <span className="name-section-subheader">Diagnostic not completed</span>
   const firstCell = (<th className="name-cell">
     <div>
       <StudentNameOrTooltip name={name} />

@@ -78,13 +78,13 @@
       a {
         margin: 8px 0px;
       }
-      .diagnostic-not-completed {
+      .name-section-subheader {
         position: absolute;
         top: 36%;
         right: 0px;
       }
     }
-    .diagnostic-not-completed {
+    .name-section-subheader {
       font-size: 12px;
       line-height: 1.33;
       color: #808080;
@@ -122,7 +122,7 @@
         display: flex;
         flex-direction: column;
         padding: 12px 0px;
-        .diagnostic-not-completed {
+        .name-section-subheader {
           margin-top: 4px;
         }
       }
