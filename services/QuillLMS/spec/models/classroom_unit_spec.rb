@@ -168,7 +168,7 @@ describe ClassroomUnit, type: :model, redis: true do
       expect(classroom.reload.updated_at.to_i).not_to equal(classroom_updated_at.to_i)
     end
 
-    context "without a hidden classroom" do
+    context "with a hidden classroom" do
       let(:classroom) { create(:classroom, visible: false) }
       let(:classroom_unit) { create(:classroom_unit, classroom: classroom)}
 
