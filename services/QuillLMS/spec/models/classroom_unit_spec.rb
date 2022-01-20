@@ -167,5 +167,14 @@ describe ClassroomUnit, type: :model, redis: true do
 
       expect(classroom.reload.updated_at.to_i).not_to equal(classroom_updated_at.to_i)
     end
+
+    context "with a hidden classroom" do
+      let(:classroom) { create(:classroom, visible: false) }
+      let(:classroom_unit) { create(:classroom_unit, classroom: classroom)}
+
+      it "should not raise an error" do
+        expect {classroom_unit.save}.to_not raise_error
+      end
+    end
   end
 end
