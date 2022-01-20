@@ -33,15 +33,7 @@ module Evidence
           plagiarism_check = Evidence::PlagiarismCheck.new(@entry, plagiarism_text.text, feedback, rule)
           break unless plagiarism_check.feedback_object[:optimal]
         end
-        base_feedback = plagiarism_check.feedback_object
-        return render json: base_feedback unless base_feedback[:optimal]
-
-        fuzzy_plagiarism_check = nil
-        rule.plagiarism_texts.each do |plagiarism_text|
-          fuzzy_plagiarism_check = Evidence::FuzzyPlagiarismCheck.new(@entry, plagiarism_text.text, feedback, rule)
-          break unless fuzzy_plagiarism_check.feedback_object[:optimal]
-        end
-        return render json: fuzzy_plagiarism_check.feedback_object
+        return render json: plagiarism_check.feedback_object
       end
     end
 

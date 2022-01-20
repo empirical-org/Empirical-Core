@@ -8,6 +8,7 @@ module Evidence
     ENTRY_TYPE = 'response'
     MATCH_MINIMUM = 10
     OPTIMAL_RULE_KEY = 'optimal_plagiarism_rule_serialized'
+    FUZZY_CHARACTER_THRESHOLD = 5
     attr_reader :entry, :passage, :nonoptimal_feedback
 
     def initialize(entry, passage, feedback, rule)
@@ -88,7 +89,7 @@ module Evidence
     end
 
     private def minimum_overlap?
-      !clean_passage.empty? && (intersect_with_duplicates(clean_entry.split, clean_passage.split)).size >= MATCH_MINIMUM
+      !clean_passage.empty? && [clean_entry.split.size, clean_passage.split.size].min >= MATCH_MINIMUM
     end
 
     private def intersect_with_duplicates(arr1, arr2)
@@ -122,8 +123,12 @@ module Evidence
       build_longest_continuous_slice(matched_slices, passage_slices)
     end
 
-    private def identify_matched_slices(indexable_slices, reference_slices)
-      indexable_slices.select {|k,v| v.in?(reference_slices) }.keys
+    private def identify_matched_slices(entry_slices, passage_slices)
+      entry_slices.select do |_, slice|
+        slice_string = slice.join(' ')
+        passage_slice_strings = passage_slices.map { |s| s.join(' ') }
+        passage_slice_strings.any? { |passage_string| DidYouMean::Levenshtein.distance(slice_string, passage_string) <= FUZZY_CHARACTER_THRESHOLD }
+      end.keys
     end
 
     # using the indices of plagiarized slices, find the longest continuous plagiarized section
