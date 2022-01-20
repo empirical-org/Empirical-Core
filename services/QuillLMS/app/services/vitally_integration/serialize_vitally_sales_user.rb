@@ -84,8 +84,7 @@ class SerializeVitallySalesUser
         evidence_activities_completed_this_year: evidence_finished_this_year,
         date_of_last_completed_evidence_activity: date_of_last_completed_evidence_activity,
         premium_state: @user.premium_state,
-        premium_type: @user.subscription&.account_type,
-        auditor: @user.auditor?
+        premium_type: @user.subscription&.account_type
       }.merge(account_data_params)
     }
   end
