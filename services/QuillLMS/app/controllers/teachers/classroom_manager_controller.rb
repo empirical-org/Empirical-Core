@@ -114,7 +114,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def teacher_dashboard_metrics
-    render json: TeacherDashboardMetrics.new(current_user).run
+    json = current_user.all_classrooms_cache(key: 'classroom_manager.teacher_dashboard_metrics') do
+      TeacherDashboardMetrics.new(current_user).run
+    end
+
+    render json: json
   end
 
   def teacher_guide
@@ -130,8 +134,20 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scores
-    scores = Scorebook::Query.run(params[:classroom_id], params[:current_page], params[:unit_id], params[:begin_date], params[:end_date], current_user.utc_offset)
+    cache_groups = {
+      unit: params[:unit_id],
+      page: params[:current_page],
+      begin: params[:begin_date],
+      end: params[:end_date],
+      offset: current_user.utc_offset
+    }
+
+    scores = current_user.all_classrooms_cache(key: 'classroom_manager.scores', groups: cache_groups) do
+       Scorebook::Query.run(params[:classroom_id], params[:current_page], params[:unit_id], params[:begin_date], params[:end_date], current_user.utc_offset)
+    end
+
     last_page = scores.length < 200
+
     render json: {
       scores: scores,
       is_last_page: last_page

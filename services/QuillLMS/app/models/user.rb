@@ -58,6 +58,7 @@ class User < ApplicationRecord
   include Student
   include Teacher
   include CheckboxCallback
+  include UserCacheable
 
   attr_accessor :validate_username,
                 :require_password_confirmation_when_password_present
