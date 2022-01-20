@@ -20,10 +20,13 @@ common: &default_settings
 
   # Logging level for log/newrelic_agent.log
   log_level: info
+
+  # https://docs.newrelic.com/docs/apm/agents/ruby-agent/background-jobs/sidekiq-instrumentation/
   sidekiq.capture_params: true
 
+  # https://docs.newrelic.com/docs/apm/agents/ruby-agent/attributes/ruby-attribute-examples/
   attributes.include: request.parameters.*
-  attributes.exclude: [request.parameters.password, request.parameters.password_confirmation]
+  attributes.exclude: [request.parameters.password, request.parameters.password_confirmation, request.parameters.email, request.parameters.name]
 
 # Environment-specific settings are in this section.
 # RAILS_ENV or RACK_ENV (as appropriate) is used to determine the environment.
