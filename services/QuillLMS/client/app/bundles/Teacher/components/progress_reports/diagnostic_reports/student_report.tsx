@@ -8,12 +8,10 @@ import StudentReportBox from './student_report_box'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import { Student } from '../../../../../interfaces/student';
 import { QuestionData } from '../../../../../interfaces/questionData';
-import { DropdownInput } from '../../../../Shared/index'
+import { DropdownInput, expandIcon } from '../../../../Shared/index'
 import { requestGet } from '../../../../../modules/request/index.js';
 import { GRAMMAR_KEY, CONNECT_KEY, EVIDENCE_KEY, } from '../constants';
 import { getTimeSpent } from '../../../helpers/studentReports';
-
-const expandIcon = <img alt="Expand icon" src={`${process.env.CDN_URL}/images/icons/expand.svg`} />
 
 export interface StudentReportState {
   boldingExplanationIsOpen: boolean,
@@ -89,7 +87,7 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
           <p>In each student response, we have bolded all of the text that was added or edited by the student during the previous revision so that it is easier for you to skim the student&#39;s results and quickly see what changed in their writing.</p>
           <p>In the student experience, Quill uses bolding to provide hints for the student about what to change. In the Quill Feedback below, the feedback refers to the bolding the student sees as a hint, not the bolded text displayed in this report. </p>
         </div>
-        {expandIcon}
+        <img alt={expandIcon.alt} src={expandIcon.src} />
       </button>)
     }
 
@@ -98,7 +96,7 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
         <h3>The bolded text helps you see the edits. It is not what the student sees.</h3>
         <p>(Expand to show more information)</p>
       </div>
-      {expandIcon}
+      <img alt={expandIcon.alt} src={expandIcon.src} />
     </button>)
   }
 
