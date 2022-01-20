@@ -46,7 +46,7 @@ class Unit < ApplicationRecord
   after_save :hide_classroom_units_and_unit_activities_if_visible_false
   after_save :create_any_new_classroom_unit_activity_states
   after_touch :save
-  after_save :touch_classroom_units
+  after_save :touch_all_classrooms_and_classroom_units
 
   def hide_if_no_visible_unit_activities
     if !unit_activities.where(visible: true).exists?
@@ -96,7 +96,10 @@ class Unit < ApplicationRecord
     end
   end
 
-  private def touch_classroom_units
-    classroom_units.each(&:touch)
+  # modeled after Rails 6 touch_all
+  # https://github.com/rails/rails/pull/31513/files#diff-18a561656864ea240daf46bdb1f50faace49f9ef74b90bcf667d9bbb17fce084R395
+  private def touch_all_classrooms_and_classroom_units
+    classroom_units.update_all(updated_at: current_time_from_proper_timezone)
+    classrooms.update_all(updated_at: current_time_from_proper_timezone)
   end
 end
