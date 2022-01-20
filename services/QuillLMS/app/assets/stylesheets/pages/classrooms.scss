@@ -1,9 +1,12 @@
-.import-from-clever-button,
-.import-from-google-button {
-  margin-left: 15px;
-  .loading {
-    background-color: #f5f5f5;
-  }
+.import-from-clever-button.loading,
+.import-from-google-button.loading {
+  background-color: #f5f5f5;
+}
+
+.import-from-clever-button-icon,
+.import-from-google-button-icon {
+  margin-right: 8px;
+  margin-left: 16px;
 }
 
 .classrooms-page {

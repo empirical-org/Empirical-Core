@@ -332,7 +332,7 @@ export default class AssignStudents extends React.Component {
 
     return (
       <button className={buttonClassName} onClick={this.clickImportFromClever} type="button">
-        <img alt="Clever Icon" className='import-from-clever-button' src={cleverIconSrc} />
+        <img alt="Clever Icon" className='import-from-clever-button-icon' src={cleverIconSrc} />
         {buttonContent}
       </button>
     )
@@ -355,7 +355,7 @@ export default class AssignStudents extends React.Component {
 
     return (
       <button className={buttonClassName} onClick={this.clickImportGoogleClassrooms} type="button">
-        <img alt="Google Classroom Icon" src={googleClassroomIconSrc} />
+        <img alt="Google Classroom Icon" className='import-from-google-button-icon' src={googleClassroomIconSrc} />
         {buttonContent}
       </button>
     )
