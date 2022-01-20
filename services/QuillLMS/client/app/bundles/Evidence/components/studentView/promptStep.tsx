@@ -15,7 +15,6 @@ interface PromptStepProps {
   everyOtherStepCompleted: boolean;
   submitResponse: Function;
   completeStep: (event: any) => void;
-  stepNumberComponent: JSX.Element,
   stepNumber: number;
   activateStep: (event: any) => void;
   reportAProblem: ({}) => void;
@@ -38,6 +37,7 @@ const APPROACHING_LIMIT_MESSAGE = 'Your response is getting close to the maximum
 const OVER_LIMIT_MESSSAGE = 'Your response is too long for our feedback bot to understand';
 const WARNING_THRESHOLD = 160;
 const LIMIT_THRESHOLD = 200;
+const MAX_ATTEMPTS = 5;
 
 export class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
@@ -384,7 +384,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   renderActiveContent = () => {
     const { prompt, submittedResponses } = this.props;
     const attemptsCount = submittedResponses && submittedResponses.length ? submittedResponses.length : 0;
-    const maxAttemptCount = prompt && prompt.max_attempts ? prompt.max_attempts : 5;
+    const maxAttemptCount = prompt && prompt.max_attempts ? prompt.max_attempts : MAX_ATTEMPTS;
     return(
       <div className="active-content-container">
         {this.renderEditorContainer()}

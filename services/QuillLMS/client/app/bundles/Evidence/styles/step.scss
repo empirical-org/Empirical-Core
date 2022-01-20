@@ -45,7 +45,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 16px;
+      margin-top: 8px;
       .attempts-container {
         display: flex;
         font-size: 14px;
@@ -64,7 +64,7 @@
       button {
         padding: 15px 16px;
         width: auto;
-        margin: 0;
+        margin: 8px;
       }
     }
   }
@@ -100,7 +100,7 @@
     }
   }
   .feedback-section {
-    margin-top: 16px;
+    margin: 16px 8px 0px 0px;
     .report-a-problem-button {
       margin-left: 0px;
       padding: 9px 16px;

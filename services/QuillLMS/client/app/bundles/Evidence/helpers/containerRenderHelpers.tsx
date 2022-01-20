@@ -86,7 +86,7 @@ export const renderStepLinksAndDirections = ({
   </div>)
 }
 
-export const renderPromptSteps = ({
+export const renderPromptStep = ({
   activateStep,
   activityIsComplete,
   completionButtonCallback,
@@ -106,6 +106,7 @@ export const renderPromptSteps = ({
 
   if (!currentActivity || !hasReceivedData) return
 
+  // the first step is reading, so we will always start at 2 and therefore want to begin at the 0 index
   const stepNumber = activeStep - 2;
   const prompts = orderedSteps(activities);
   const prompt = prompts[stepNumber];
@@ -123,7 +124,6 @@ export const renderPromptSteps = ({
       prompt={prompt}
       reportAProblem={reportAProblem}
       stepNumber={activeStep}
-      stepNumberComponent={renderStepNumber(activeStep, activeStep, completedSteps)}
       submitResponse={submitResponse}
       submittedResponses={(submittedResponses && submittedResponses[prompt.id]) || []}
     />

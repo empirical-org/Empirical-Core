@@ -27,7 +27,7 @@ const DirectionsSectionAndModal = ({ className, closeReadTheDirectionsModal, pas
         <h3>Directions</h3>
         <ul>
           <li>Use information from the text to finish the sentence.</li>
-          <li>Put the the information in your own words.</li>
+          <li>Put the information in your own words.</li>
         </ul>
       </section>
     </div>)

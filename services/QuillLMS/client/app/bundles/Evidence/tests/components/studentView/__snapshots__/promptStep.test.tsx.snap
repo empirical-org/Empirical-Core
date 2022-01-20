@@ -20,7 +20,6 @@ exports[`PromptStep component active state before any responses have been submit
       "text": "Governments should make voting compulsory because",
     }
   }
-  stepNumberComponent={<span />}
   submitResponse={[Function]}
   submittedResponses={Array []}
 >
@@ -142,7 +141,6 @@ exports[`PromptStep component active state when a suboptimal response has been s
       "text": "Governments should make voting compulsory because",
     }
   }
-  stepNumberComponent={<span />}
   submitResponse={[Function]}
   submittedResponses={
     Array [
@@ -371,7 +369,6 @@ exports[`PromptStep component active state when an optimal response has been sub
       "text": "Governments should make voting compulsory because",
     }
   }
-  stepNumberComponent={<span />}
   submitResponse={[Function]}
   submittedResponses={
     Array [
@@ -600,7 +597,6 @@ exports[`PromptStep component active state when the max attempts have been reach
       "text": "Governments should make voting compulsory because",
     }
   }
-  stepNumberComponent={<span />}
   submitResponse={[Function]}
   submittedResponses={
     Array [
@@ -887,7 +883,6 @@ exports[`PromptStep component active state when the max attempts have been reach
       "text": "Governments should make voting compulsory because",
     }
   }
-  stepNumberComponent={<span />}
   submitResponse={[Function]}
   submittedResponses={
     Array [
@@ -1097,7 +1092,6 @@ exports[`PromptStep component active state when the max attempts have been reach
 
 exports[`PromptStep component inactive state renders 1`] = `
 <PromptStep
-  active={false}
   activityIsComplete={false}
   className="step"
   completeStep={[Function]}
@@ -1115,7 +1109,6 @@ exports[`PromptStep component inactive state renders 1`] = `
       "text": "Governments should make voting compulsory because",
     }
   }
-  stepNumberComponent={<span />}
   submitResponse={[Function]}
   submittedResponses={Array []}
 >
