@@ -35,10 +35,4 @@ class Api::ApiController < ActionController::Base
     response.headers['X-Platform-Spec'] = 'https://github.com/interagent/http-api-design'
     response.headers['X-API-Reference'] = 'http://docs.empirical.org/api-reference/'
   end
-
-  private def doorkeeper_token
-    return @token if instance_variable_defined?(:@token)
-    methods = Doorkeeper.configuration.access_token_methods
-    @token = Doorkeeper::OAuth::Token.authenticate(request, *methods)
-  end
 end
