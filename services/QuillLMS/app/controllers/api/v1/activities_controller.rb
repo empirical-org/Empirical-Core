@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Api::V1::ActivitiesController < Api::ApiController
-  include QuillAuthentication
-
   CLASSIFICATION_TO_TOOL = {:connect => "connect", :sentence => "grammar"}
 
   before_action :doorkeeper_authorize!, only: [:create, :update, :destroy], unless: :staff?

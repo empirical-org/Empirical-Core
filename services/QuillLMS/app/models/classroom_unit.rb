@@ -29,8 +29,7 @@ class ClassroomUnit < ApplicationRecord
   include AtomicArrays
 
   belongs_to :unit # Note, there is a touch in the unit -> classroom_unit direction, so don't add one here.
-  # TODO: put this touch back in for caching
-  belongs_to :classroom #, touch: true
+  belongs_to :classroom
   has_many :activity_sessions
   has_many :unit_activities, through: :unit
   has_many :completed_activity_sessions, -> {completed}, class_name: 'ActivitySession'
@@ -39,6 +38,7 @@ class ClassroomUnit < ApplicationRecord
   validates :unit, uniqueness: { scope: :classroom }
   before_save :check_for_assign_on_join_and_update_students_array_if_true
   after_save  :hide_appropriate_activity_sessions
+  after_save :touch_classroom_without_callbacks
 
   # this method does not seem to be getting used, but leaving it in for the tests for now
   def assigned_students
@@ -114,5 +114,9 @@ class ClassroomUnit < ApplicationRecord
       # then we ensure that it has all the student ids
       self.assigned_student_ids = student_ids
     end
+  end
+
+  private def touch_classroom_without_callbacks
+    classroom.update_columns(updated_at: current_time_from_proper_timezone)
   end
 end

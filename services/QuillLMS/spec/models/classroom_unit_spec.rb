@@ -154,5 +154,18 @@ describe ClassroomUnit, type: :model, redis: true do
     end
   end
 
+  describe '#touch_classroom_without_callbacks' do
+    let!(:classroom) { create(:classroom) }
+    let!(:classroom_unit) { create(:classroom_unit, classroom: classroom)}
+    let(:initial_time) { Time.now - 1.day}
 
+    it "should updated classrooms updated_at on classroom_unit save" do
+      classroom.update_columns(updated_at: initial_time)
+      classroom_updated_at = classroom.reload.updated_at
+
+      classroom_unit.save
+
+      expect(classroom.reload.updated_at.to_i).not_to equal(classroom_updated_at.to_i)
+    end
+  end
 end
