@@ -25,6 +25,7 @@ module Evidence
     def initialize(entry)
       @entry = entry
       @prefilter_rules = Evidence::Rule.where(rule_type: Evidence::Rule::TYPE_PREFILTER).includes(:feedbacks)
+      @violated_rule = nil
     end
 
     def default_response
@@ -41,20 +42,21 @@ module Evidence
     end
 
     def feedback_object
-      violated_rule = prefilter_rules.find do |rule|
+      @violated_rule = prefilter_rules.find do |rule|
         next unless PREFILTERS[rule.uid]
         PREFILTERS[rule.uid].call(entry)
       end
 
-      return default_response unless violated_rule
+      return default_response unless @violated_rule
 
-      feedback = violated_rule.feedbacks.first
+      feedback = @violated_rule.feedbacks.first
 
       default_response.merge(
         {
           feedback: feedback&.text,
           optimal: false,
-          rule_uid: violated_rule.uid
+          rule_uid: @violated_rule.uid,
+          highlight: highlights
         }
       )
     end
@@ -69,6 +71,16 @@ module Evidence
 
     def self.sentence_count(entry)
       PragmaticSegmenter::Segmenter.new(text: entry).segment.count
+    end
+
+    def highlights
+      return [] if optimal?
+      return [] if @violated_rule != PROFANITY_RULE_UID
+      [{
+        type: Evidence::Highlight::TYPES[RESPONSE],
+        text: get_highlight(passage, clean_passage),
+        category: ''
+      }]
     end
 
   end

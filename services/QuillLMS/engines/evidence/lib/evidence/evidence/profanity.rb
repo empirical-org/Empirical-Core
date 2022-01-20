@@ -10,38 +10,33 @@ module Evidence
       end
 
       return false if found_bad_words.empty?
-
-      # do a more rigorous word-by-word check for found bad words
-      entry.split.any? { |word| profane_word_check?(word, found_bad_words)}
+      
+      # do a more rigorous word-by-word check if bad word stems detected
+      profane_word_check?(entry)
     end
 
-    # keeping this for now for comparison and benchmarking
-    def self.profane_legacy?(entry)
-      entry.split.any? { |word| profane_word_check?(word)}
-    end
-
-    def self.profane_word_check?(word, bad_words = BadWords::ALL)
-      return false unless word.is_a?(String) && word.length > 1
-      word = word.downcase.gsub(/[.!?]/, '')
+    def self.profane_word_check?(entry, bad_words = BadWords::ALL)
+      return false unless entry.is_a?(String) && entry.length > 1
+      entry = entry.downcase.gsub(/[.!?]/, '')
 
       a_match = bad_words.any? do |badword|
-        match?(badword: badword, word: word)
+        match?(badword: badword, entry: entry)
       end
     end
 
-    def self.match?(badword:, word:)
+    def self.match?(badword:, entry:)
       stripped_badword = badword.gsub('*', '')
       if badword.start_with?('*') && badword.end_with?('*')
         regex = ::Regexp.new(stripped_badword)
-         word.match?(regex)
+        entry.match?(regex)
       elsif badword.start_with?('*')
         regex = ::Regexp.new("#{stripped_badword}$")
-         word.match?(regex)
+        entry.match?(regex)
       elsif badword.end_with?('*')
         regex = ::Regexp.new("^#{stripped_badword}")
-         word.match?(regex)
+        entry.match?(regex)
       else
-         stripped_badword == word
+         entry.match(stripped_badword)
       end
     end
 

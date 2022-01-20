@@ -15,6 +15,11 @@ module Evidence
         expect(Profanity.profane?('There is something in a pumpkin')).to be true
       end
 
+      it 'should match space delimited profanities' do 
+        stub_const("BadWords::ALL", ['pie hole'])
+        expect(Profanity.profane?('You are a pie hole.')).to be true
+      end
+
       it 'should return true given a profane word simple match case insensitive' do
         stub_const("BadWords::ALL", ['other', 'pumpkin'])
         expect(Profanity.profane?('THERE IS SOMETHING IN A PUMPKIN')).to be true

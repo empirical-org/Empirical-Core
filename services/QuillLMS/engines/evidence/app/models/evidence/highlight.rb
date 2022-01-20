@@ -8,10 +8,10 @@ module Evidence
     
     MIN_TEXT_LENGTH = 1
     MAX_TEXT_LENGTH = 5000
-    TYPES= [
-      'passage',
-      'response',
-      'prompt'
+    TYPES = [
+      PASSAGE = 'passage',
+      RESPONSE = 'response',
+      PROMPT = 'prompt'
     ]
 
     belongs_to :feedback, inverse_of: :highlights
