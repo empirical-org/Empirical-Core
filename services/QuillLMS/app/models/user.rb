@@ -593,11 +593,11 @@ class User < ApplicationRecord
   end
 
   def clever_authorized?
-    auth_credential&.clever_authorized?
+    clever_id && auth_credential&.clever_authorized?
   end
 
   def google_authorized?
-    auth_credential&.google_authorized?
+    google_id && auth_credential&.google_authorized?
   end
 
   # Note this is an incremented count, so could be off.
