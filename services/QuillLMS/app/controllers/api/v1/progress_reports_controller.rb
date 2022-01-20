@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Api::V1::ProgressReportsController < Api::ApiController
-  include QuillAuthentication
   before_action :authorize!, only: :student_overview_data
 
   def activities_scores_by_classroom_data
