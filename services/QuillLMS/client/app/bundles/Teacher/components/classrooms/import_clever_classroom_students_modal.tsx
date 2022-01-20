@@ -121,7 +121,7 @@ export default class ImportCleverClassroomStudentsModal
         <div className="import-clever-classroom-students-modal quill-modal modal-body">
           <div>
             <h3 className="title">
-              Import students from Clever Classroom
+              Import students from Clever
             </h3>
           </div>
           <p>You are about to import students from the class {classroom.name}.</p>

@@ -529,7 +529,7 @@ export default class ClassroomStudentSection
       return (
         <div className="invite-clever-classroom-students">
           <button className="quill-button primary outlined small" onClick={importCleverClassroomStudents} type="button">
-            Import Clever Classroom students
+            Import Clever classroom students
           </button>
           <span>Last imported {lastUpdatedDate}</span>
         </div>

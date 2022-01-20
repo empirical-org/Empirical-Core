@@ -14,7 +14,7 @@ exports[`CleverClassroomsEmptyModal component should render CleverClassroomsEmpt
       <h3
         className="title"
       >
-        Create classes in Clever Classroom
+        Create classes in Clever
       </h3>
     </div>
     <div
@@ -25,7 +25,7 @@ exports[`CleverClassroomsEmptyModal component should render CleverClassroomsEmpt
         src="undefined/images/illustrations/empty-class.svg"
       />
       <p>
-        No classes are available to import yet. Go to Clever Classroom and create classes to import them into Quill.
+        No classes are available to import yet. Go to Clever and create classes to import them into Quill.
       </p>
     </div>
     <div

@@ -194,7 +194,7 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
         <div className="import-clever-classrooms-modal quill-modal">
           <div className="import-clever-classrooms-modal-header">
             <h3 className="title">
-              Import classes from Clever Classroom
+              Import classes from Clever
             </h3>
           </div>
           <div className="import-clever-classrooms-modal-body modal-body">

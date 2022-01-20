@@ -101,7 +101,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     const { classroom } = this.props
     const { name, synced_name } = classroom
 
-    const text = classroom.google_classroom_id ? 'Google Classroom' : 'Clever Classroom'
+    const text = classroom.google_classroom_id ? 'Google Classroom' : 'Clever'
 
     if (synced_name === null || synced_name === name) {  return text }
 

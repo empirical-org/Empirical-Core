@@ -75,7 +75,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
         <h3
           className="title"
         >
-          Import classes from Clever Classroom
+          Import classes from Clever
         </h3>
       </div>
       <div
@@ -1819,7 +1819,7 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
         <h3
           className="title"
         >
-          Import classes from Clever Classroom
+          Import classes from Clever
         </h3>
       </div>
       <div
