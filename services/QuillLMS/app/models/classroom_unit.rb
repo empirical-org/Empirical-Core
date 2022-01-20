@@ -117,6 +117,6 @@ class ClassroomUnit < ApplicationRecord
   end
 
   private def touch_classroom_without_callbacks
-    classroom.update_columns(updated_at: current_time_from_proper_timezone)
+    classroom&.update_columns(updated_at: current_time_from_proper_timezone)
   end
 end
