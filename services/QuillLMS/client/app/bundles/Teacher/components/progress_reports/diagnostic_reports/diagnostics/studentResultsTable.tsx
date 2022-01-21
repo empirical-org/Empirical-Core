@@ -10,7 +10,6 @@ import {
   closeIcon,
   accountCommentIcon,
   proficiencyTextToTag,
-  proficiencyTextToGrayIcon,
   lightGreenTriangleUpIcon,
   WIDE_SCREEN_MINIMUM_WIDTH,
   LEFT_OFFSET,

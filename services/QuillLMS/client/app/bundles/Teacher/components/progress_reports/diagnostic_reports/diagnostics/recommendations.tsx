@@ -348,6 +348,8 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     })
   }
 
+  const responsesLink = (studentId: number) => unitId ? `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}?unit=${unitId}` : `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}`
+
   if (loading) { return <LoadingSpinner /> }
 
   const recommendedKey = (<div className="recommended-key">
@@ -363,7 +365,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
       <section className="independent-practice">
         <div className="section-header"><h2>Independent practice</h2>{recommendedKey}</div>
         <IndependentRecommendationsButtons assignActivityPacks={assignIndependentActivityPacks} assigned={independentAssigned} assigning={independentAssigning} independentSelections={independentSelections} previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} setIndependentSelections={setIndependentSelections} students={students} />
-        <RecommendationsTable previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} selections={independentSelections} setSelections={setIndependentSelections} students={students} />
+        <RecommendationsTable previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} responsesLink={responsesLink} selections={independentSelections} setSelections={setIndependentSelections} students={students} />
       </section>
     </React.Fragment>)
   }
