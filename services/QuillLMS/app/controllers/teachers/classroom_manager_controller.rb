@@ -2,6 +2,7 @@
 
 class Teachers::ClassroomManagerController < ApplicationController
   include CheckboxCallback
+  include CleverAuthable
   include DiagnosticReports
 
   respond_to :json, :html
@@ -22,9 +23,11 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def assign
     session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
+    session[CLEVER_REDIRECT] = request.env['PATH_INFO']
     set_classroom_variables
     set_banner_variables
     set_diagnostic_variables
+    @clever_link = clever_link
     @number_of_activities_assigned = current_user.units.map(&:unit_activities).flatten.map(&:activity_id).uniq.size
     find_or_create_checkbox(Objective::EXPLORE_OUR_LIBRARY, current_user)
     if params[:tab] == 'diagnostic'

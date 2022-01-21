@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ImportGoogleClassroomStudentsModal component should render ImportGoogleClassroomStudentsModal 1`] = `
+exports[`ImportCleverClassroomStudentsModal component should render ImportCleverClassroomStudentsModal 1`] = `
 <div
-  className="modal-container import-google-classroom-students-modal-container"
+  className="modal-container import-clever-classroom-students-modal-container"
 >
   <div
     className="modal-background"
   />
   <div
-    className="import-google-classroom-students-modal quill-modal modal-body"
+    className="import-clever-classroom-students-modal quill-modal modal-body"
   >
     <div>
       <h3
         className="title"
       >
-        Import students from Google Classroom
+        Import students from Clever
       </h3>
     </div>
     <p>

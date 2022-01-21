@@ -1,19 +1,19 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { googleClassrooms, userProps } from './test_data/test_data'
+import { cleverClassroomsData, userProps } from './test_data/test_data'
 
-import ImportGoogleClassroomsModal from '../import_google_classrooms_modal'
+import ImportCleverClassroomsModal from '../import_clever_classrooms_modal'
 import { DataTable } from '../../../../Shared/index'
 
-describe('ImportGoogleClassroomsModal component', () => {
+describe('ImportCleverClassroomsModal component', () => {
   const close = () => {}
   const onSuccess = () => {}
 
   describe('initial load', () => {
     const wrapper = mount(
-      <ImportGoogleClassroomsModal
-        classrooms={googleClassrooms}
+      <ImportCleverClassroomsModal
+        classrooms={cleverClassroomsData}
         close={close}
         onSuccess={onSuccess}
         user={userProps}
@@ -31,21 +31,20 @@ describe('ImportGoogleClassroomsModal component', () => {
 
   describe('#handleClickImportClasses', () => {
     const wrapper = mount(
-      <ImportGoogleClassroomsModal
-        classrooms={googleClassrooms}
+      <ImportCleverClassroomsModal
+        classrooms={cleverClassroomsData}
         close={close}
         onSuccess={onSuccess}
         user={userProps}
       />
     );
 
-    const checkedGoogleClassrooms = [...googleClassrooms]
-    checkedGoogleClassrooms[0].checked = true
-    wrapper.setState({ classrooms: checkedGoogleClassrooms, })
+    const checkedCleverClassrooms = [...cleverClassroomsData]
+    checkedCleverClassrooms[0].checked = true
+    wrapper.setState({ classrooms: checkedCleverClassrooms })
 
-    it('should set a classroom that is checked but has no grade to have an error', () => {
+    it('should set a classroom that is checked', () => {
       wrapper.instance().handleClickImportClasses()
-      expect(wrapper.state().classrooms[0].error).toBe("Select a grade for your class")
       expect(wrapper).toMatchSnapshot();
     })
   })

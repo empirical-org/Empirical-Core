@@ -10,8 +10,12 @@ import ActiveClassrooms, {
   archiveClassModal,
   inviteStudentsModal,
   importGoogleClassroomsModal,
+  importCleverClassroomsModal,
+  importCleverClassroomStudentsModal,
   importGoogleClassroomStudentsModal,
-  googleClassroomEmailModal,
+  reauthorizeCleverModal,
+  linkGoogleAccountModal,
+  cleverClassroomsEmptyModal,
   googleClassroomsEmptyModal
 } from '../active_classrooms.tsx';
 import CreateAClassModal from '../create_a_class_modal'
@@ -19,9 +23,13 @@ import RenameClassModal from '../rename_classroom_modal'
 import ChangeGradeModal from '../change_grade_modal'
 import ArchiveClassModal from '../archive_classroom_modal'
 import InviteStudentsModal from '../invite_students_modal'
+import ImportCleverClassroomsModal from '../import_clever_classrooms_modal'
 import ImportGoogleClassroomsModal from '../import_google_classrooms_modal'
+import ImportCleverClassroomStudentsModal from '../import_clever_classroom_students_modal'
 import ImportGoogleClassroomStudentsModal from '../import_google_classroom_students_modal'
-import GoogleClassroomEmailModal from '../google_classroom_email_modal'
+import ReauthorizeCleverModal from '../reauthorize_clever_modal'
+import LinkGoogleAccountModal from '../link_google_account_modal'
+import CleverClassroomsEmptyModal from '../clever_classrooms_empty_modal'
 import GoogleClassroomsEmptyModal from '../google_classrooms_empty_modal'
 import CoteacherInvitation from '../coteacher_invitation'
 import { SortableList } from '../../../../Shared/index'
@@ -93,7 +101,7 @@ describe('ActiveClassrooms component', () => {
       expect(wrapper.find(ImportGoogleClassroomsModal).exists()).toBe(true)
     })
 
-    it('should render the import google classroom students modal if showModal equals ImportGoogleClassroomStudentsModal', () => {
+    it('should render the import google classroom students modal if showModal equals importGoogleClassroomStudentsModal', () => {
       wrapper.instance().setState({ showModal: importGoogleClassroomStudentsModal, })
       expect(wrapper.find(ImportGoogleClassroomStudentsModal).exists()).toBe(true)
     })
@@ -103,9 +111,29 @@ describe('ActiveClassrooms component', () => {
       expect(wrapper.find(GoogleClassroomsEmptyModal).exists()).toBe(true)
     })
 
-    it('should render the google classrooms email modal if showModal equals googleClassroomEmailModal', () => {
-      wrapper.instance().setState({ showModal: googleClassroomEmailModal, })
-      expect(wrapper.find(GoogleClassroomEmailModal).exists()).toBe(true)
+    it('should render the google classrooms email modal if showModal equals linkGoogleAccountModal', () => {
+      wrapper.instance().setState({ showModal: linkGoogleAccountModal, })
+      expect(wrapper.find(LinkGoogleAccountModal).exists()).toBe(true)
+    })
+
+    it('should render the import clever classrooms modal if showModal equals importCleverClassroomsModal', () => {
+      wrapper.instance().setState({ showModal: importCleverClassroomsModal, })
+      expect(wrapper.find(ImportCleverClassroomsModal).exists()).toBe(true)
+    })
+
+    it('should render the import clever classroom students modal if showModal equals importCleverClassroomStudentsModal', () => {
+      wrapper.instance().setState({ showModal: importCleverClassroomStudentsModal, })
+      expect(wrapper.find(ImportCleverClassroomStudentsModal).exists()).toBe(true)
+    })
+
+    it('should render the empty clever classrooms modal if showModal equals cleverClassroomsEmptyModal', () => {
+      wrapper.instance().setState({ showModal: cleverClassroomsEmptyModal, })
+      expect(wrapper.find(CleverClassroomsEmptyModal).exists()).toBe(true)
+    })
+
+    it('should render the reauthorize clever modal if showModal equals reauthorizeCleverModal', () => {
+      wrapper.instance().setState({ showModal: reauthorizeCleverModal, })
+      expect(wrapper.find(ReauthorizeCleverModal).exists()).toBe(true)
     })
 
     it('should render the invite students modal if showModal equals inviteStudentsModal', () => {

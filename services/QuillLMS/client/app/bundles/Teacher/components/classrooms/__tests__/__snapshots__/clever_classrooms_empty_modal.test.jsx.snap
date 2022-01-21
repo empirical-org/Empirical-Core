@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`GoogleClassroomsEmptyModal component should render GoogleClassroomsEmptyModal 1`] = `
+exports[`CleverClassroomsEmptyModal component should render CleverClassroomsEmptyModal 1`] = `
 <div
-  className="modal-container google-classrooms-empty-modal-container"
+  className="modal-container clever-classrooms-empty-modal-container"
 >
   <div
     className="modal-background"
   />
   <div
-    className="google-classrooms-empty-modal quill-modal modal-body"
+    className="clever-classrooms-empty-modal quill-modal modal-body"
   >
     <div>
       <h3
         className="title"
       >
-        Create classes in Google Classroom
+        Create classes in Clever
       </h3>
     </div>
     <div
@@ -25,7 +25,7 @@ exports[`GoogleClassroomsEmptyModal component should render GoogleClassroomsEmpt
         src="undefined/images/illustrations/empty-class.svg"
       />
       <p>
-        No classes are available to import yet. Go to Google Classroom and create classes to import them into Quill.
+        No classes are available to import yet. Go to Clever and create classes to import them into Quill.
       </p>
     </div>
     <div
