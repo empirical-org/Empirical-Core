@@ -37,7 +37,7 @@ module Evidence
       context 'profanity detected' do 
         it 'should return a profane highlight' do
           prefilter_check = Evidence::PrefilterCheck.new("nero was an ahole")
-          expect(prefilter_check.feedback_object[:highlight]).to eq (
+          expect(prefilter_check.feedback_object[:highlight]).to eq(
             [
               {
                 category: "", 

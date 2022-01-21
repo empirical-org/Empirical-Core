@@ -16,19 +16,6 @@ module Evidence
       entry.split(' ').find { |word| profane_word_check(word, found_bad_words)}
     end
 
-    # When you want the actual word, not a boolean
-    # def self.get_profanity_instance(entry)
-    #   find_profane_word = lambda do |word|
-    #     return nil unless word.is_a?(String) && word.length > 1
-    #     word = word.downcase.gsub(/[.!?]/, '')
-    #     BadWords::ALL.find do |badword|
-    #       match?(badword: badword, word: word)
-    #     end
-    #   end
-
-    #   entry.split(' ').find { |word| find_profane_word.call(word)}
-    # end
-
     def self.profane_word_check(word, bad_words = BadWords::ALL)
       return nil unless word.is_a?(String) && word.length > 1
       word = word.downcase.gsub(/[.!?]/, '')
