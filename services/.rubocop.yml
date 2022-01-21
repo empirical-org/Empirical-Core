@@ -178,6 +178,10 @@ Metrics/AbcSize:
 Metrics/BlockNesting:
   Max: 4
 
+# TODO temporaily disable since it's outputting too much noise
+Metrics/MethodLength:
+  Enabled: false
+
 Metrics/ModuleLength:
   Enabled: true
   Max: 448
