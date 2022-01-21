@@ -27,6 +27,7 @@ Bundler/OrderedGems:
     - 'QuillComprehension/Gemfile'
     - 'QuillLMS/Gemfile'
 
+
 # Offense count: 200
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.
@@ -333,7 +334,7 @@ Layout/SpaceInsideParens:
 # Offense count: 687
 # Cop supports --auto-correct.
 # Configuration parameters: IndentationWidth.
-Layout/Tab:
+Layout/IndentationStyle:
   Enabled: false
 
 # Offense count: 131
@@ -468,13 +469,6 @@ Style/AndOr:
 # FunctionalMethods: let, let!, subject, watch
 # IgnoredMethods: lambda, proc, it
 Style/BlockDelimiters:
-  Enabled: false
-
-# Offense count: 184
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: braces, no_braces, context_dependent
-Style/BracesAroundHashParameters:
   Enabled: false
 
 # Offense count: 18
