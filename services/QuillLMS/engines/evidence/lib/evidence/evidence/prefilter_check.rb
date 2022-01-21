@@ -14,27 +14,30 @@ module Evidence
     PROFANITY_RULE_UID          = 'fdee458a-f017-4f9a-a7d4-a72d1143abeb'
     MINIMUM_WORD_RULE_UID       = '408d4544-5492-46e7-a6b7-3b1ffdd632af'
 
-    # When a prefilter lambda identifies a violation, it returns true
-    PREFILTERS = {
-      QUESTION_MARK_RULE_UID      => ->(entry) { entry.match?(/\?$/) },
-      MULTIPLE_SENTENCE_RULE_UID  => ->(entry) { sentence_count(entry) > 1 },
-      PROFANITY_RULE_UID          => ->(entry)  do 
-        profanity = Profanity.profane(entry)
-        if profanity.nil?
-          false 
-        else 
-          @profanity_instance = profanity
-          true
-        end
-      end,
-      MINIMUM_WORD_RULE_UID       => ->(entry) { word_count(entry) < MINIMUM_WORD_COUNT}
-    }
-
     def initialize(entry)
+      # When a prefilter lambda identifies a violation, it returns true
+      @prefilters = {
+        QUESTION_MARK_RULE_UID      => ->(entry) { entry.match?(/\?$/) },
+        MULTIPLE_SENTENCE_RULE_UID  => ->(entry) { PrefilterCheck.sentence_count(entry) > 1 },
+        PROFANITY_RULE_UID          => ->(entry) { profanity?(entry)},
+        MINIMUM_WORD_RULE_UID       => ->(entry) { PrefilterCheck.word_count(entry) < MINIMUM_WORD_COUNT}
+      }
+
       @entry = entry
       @prefilter_rules = Evidence::Rule.where(rule_type: Evidence::Rule::TYPE_PREFILTER).includes(:feedbacks)
       @violated_rule = nil
       @profanity_instance = nil
+    end
+
+    def profanity?(entry)
+      profanity = Profanity.profane(entry)
+      
+      if profanity.nil?
+        false 
+      else 
+        @profanity_instance = profanity
+        true
+      end
     end
 
     def default_response
@@ -52,10 +55,9 @@ module Evidence
 
     def feedback_object
       @violated_rule = prefilter_rules.find do |rule|
-        next unless PREFILTERS[rule.uid]
-        PREFILTERS[rule.uid].call(entry)
+        next unless @prefilters[rule.uid]
+        @prefilters[rule.uid].call(entry)
       end
-
       return default_response unless @violated_rule
 
       feedback = @violated_rule.feedbacks.first
@@ -83,9 +85,9 @@ module Evidence
     end
 
     def highlights
-      return [] if @violated_rule != PROFANITY_RULE_UID
+      return [] if @violated_rule.uid != PROFANITY_RULE_UID
       [{
-        type: Evidence::Highlight::TYPES[RESPONSE],
+        type: Evidence::Highlight::TYPE_RESPONSE,
         text: @profanity_instance,
         category: ''
       }]
