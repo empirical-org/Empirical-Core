@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Teachers::ClassroomsController < ApplicationController
+  include CleverAuthable
+
   respond_to :json, :html, :pdf
   before_action :teacher!
   # The excepted/only methods below are ones that should be accessible to coteachers.
@@ -12,9 +14,11 @@ class Teachers::ClassroomsController < ApplicationController
 
   def index
     session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
+    session[CLEVER_REDIRECT] = request.env['PATH_INFO']
 
     @coteacher_invitations = format_coteacher_invitations_for_index
     @classrooms = format_classrooms_for_index
+    @clever_link = clever_link
 
     respond_to do |format|
       format.html
@@ -78,15 +82,6 @@ class Teachers::ClassroomsController < ApplicationController
         end
       }
     end
-  end
-
-  def destroy
-    authorize_owner! { params[:id] }
-    Classroom.find(params[:id]).destroy
-    # we need a performed? check here to avoid a double render, since
-    # authorize_owner can trigger a render, which is an anti-pattern
-    # more info: https://medium.com/cedarcode/abstractcontroller-doublerendererror-fix-d18881b80476
-    redirect_to teachers_classrooms_path unless performed?
   end
 
   def bulk_archive

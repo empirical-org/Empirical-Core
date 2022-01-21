@@ -5,7 +5,7 @@ import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
 import { requestGet } from '../../../modules/request';
 import CreateAClassModal from '../components/classrooms/create_a_class_modal.tsx'
 import ImportGoogleClassroomsModal from '../components/classrooms/import_google_classrooms_modal.tsx'
-import GoogleClassroomEmailModal from '../components/classrooms/google_classroom_email_modal.tsx'
+import LinkGoogleAccountModal from '../components/classrooms/link_google_account_modal.tsx'
 import GoogleClassroomsEmptyModal from '../components/classrooms/google_classrooms_empty_modal.tsx'
 import ClassroomsWithStudents from '../components/classrooms_with_students/ClassroomsWithStudents.jsx';
 import LoadingIndicator from '../components/shared/loading_indicator.jsx';
@@ -14,7 +14,7 @@ import _ from 'underscore';
 
 export const createAClassModal = 'createAClassModal'
 export const importGoogleClassroomsModal = 'importGoogleClassroomsModal'
-export const googleClassroomEmailModal = 'googleClassroomEmailModal'
+export const linkGoogleAccountModal = 'linkGoogleAccountModal'
 export const googleClassroomsEmptyModal = 'googleClassroomsEmptyModal'
 
 export default class ClassroomsWithStudentsContainer extends React.Component {
@@ -133,7 +133,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     const { user, } = this.props
     const { googleClassrooms, googleClassroomsLoading, } = this.state
     if (!user.google_id) {
-      this.openModal(googleClassroomEmailModal)
+      this.openModal(linkGoogleAccountModal)
     } else if (googleClassroomsLoading) {
       this.setState({ attemptedImportGoogleClassrooms: true })
     } else if (googleClassrooms.length) {
@@ -333,11 +333,13 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
 
   renderGoogleClassroomEmailModal() {
     const { showModal, } = this.state
-    if (showModal === googleClassroomEmailModal) {
-      return (<GoogleClassroomEmailModal
-        close={this.closeModal}
-        user={this.props.user}
-      />)
+    if (showModal === linkGoogleAccountModal) {
+      return (
+        <LinkGoogleAccountModal
+          close={this.closeModal}
+          user={this.props.user}
+        />
+      )
     }
   }
 
