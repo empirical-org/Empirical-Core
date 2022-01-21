@@ -5,6 +5,7 @@ require 'pragmatic_segmenter'
 module Evidence
   class PrefilterCheck
     attr_reader :prefilter_rules, :entry
+
     MINIMUM_WORD_COUNT = 3
 
     OPTIMAL_RULE_UID            = 'a7410335-5dae-4fc7-832a-ce9cf8d5dffb'

@@ -7,6 +7,7 @@ describe PublicProgressReports, type: :model do
   before(:each) do
     class FakeReports
       attr_accessor :session
+
       include PublicProgressReports
     end
   end

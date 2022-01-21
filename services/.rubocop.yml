@@ -46,6 +46,9 @@ Layout/EmptyComment:
 Layout/EmptyLineAfterMagicComment:
   Enabled: true
 
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
 Layout/EmptyLinesAroundBeginBody:
   Enabled: true
 

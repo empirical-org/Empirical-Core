@@ -188,6 +188,7 @@ module Evidence
 
           class Classification
             attr_reader :score 
+
             def initialize(score)
               @score = score 
             end 
@@ -202,6 +203,7 @@ module Evidence
 
         class MockPayload
           attr_reader :payload
+
           def initialize(payload)
             @payload = payload
           end
