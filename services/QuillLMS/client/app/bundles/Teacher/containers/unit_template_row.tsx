@@ -13,14 +13,15 @@ const UnitTemplateRow = ({
   id,
   name,
   flag,
-  diagnostics,
+  diagnostic_names,
+  order_number,
 }) => {
   // const handleClickStar = () => onClickStar(id)
 
   return (<tr className="unit-template-row">
     <td>{name}</td>
     <td>{flag}</td>
-    <td>{diagnostics.map((d) => (<div key={d}>{d}</div>))}</td>
+    <td>{diagnostic_names.map((d) => (<div key={d}>{d}</div>))}</td>
     <td>{<a href={`${process.env.DEFAULT_URL}/assign/featured-activity-packs/${id}`} target="_blank">preview</a>}</td>
     <td>{<a href={`${process.env.DEFAULT_URL}/cms/unit_templates/${id}/edit`} target="_blank">edit</a>}</td>
   </tr>)
