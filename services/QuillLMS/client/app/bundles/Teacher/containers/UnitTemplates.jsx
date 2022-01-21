@@ -3,6 +3,10 @@ import request from 'request'
 import ReactTable from 'react-table'
 
 import LoadingSpinner from '../../Connect/components/shared/loading_indicator.jsx'
+import { SortableList, } from  '../../Shared/index'
+import UnitTemplateRow from './unit_template_row'
+import getAuthToken from '../components/modules/get_auth_token'
+
 import UnitTemplate from '../components/unit_templates/unit_template.jsx'
 import Cms from './Cms.jsx'
 
@@ -53,70 +57,33 @@ export default class UnitTemplates extends React.Component {
     });
   }
 
-  columnDefinitions() {
-    return [
-      {
-        Header: 'Name',
-        accessor: 'name',
-        filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["name"]}),
-        filterAll: true,
-        resizeable: true,
-        minWidth: 200,
-        Cell: (row) => (
-          <div>
-            {
-              row.original['name']
-            }
-          </div>
-        )
-      },
-      {
-        Header: 'Flag',
-        accessor: 'flags',
-        filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["flag"] }),
-        filterAll: true,
-        resizeable: true,
-        Cell: (row) => (
-          <div>
-            {
-              row.original['flag']
-            }
-          </div>
-        )
-      },
-      {
-        Header: 'Diagnostics',
-        accessor: 'diagnostic_names',
-        resizeable: true,
-        Cell: (row) => (
-          <div>
-            {
-              row.original['diagnostic_names'].map((d) => (
-                <div key={d}>{d}</div>
-              ))
-            }
-          </div>
-        )
-      },
-      {
-        Header: 'Preview',
-        Cell: (row) => (
-          <div>
-            <a href={`${process.env.DEFAULT_URL}/assign/featured-activity-packs/${row.original.id}`} target="_blank">preview</a>
-          </div>
-        )
-      },
-      {
-        Header: 'Edit',
-        Cell: (row) => (
-          <div>
-            <a href={`${process.env.DEFAULT_URL}/cms/unit_templates/${row.original.id}/edit`} target="_blank">edit</a>
-          </div>
-        )
-      }
-    ];
+  updateOrder = (unitTemplates, ) => {
+    request.put(`${process.env.DEFAULT_URL}/cms/unit_templates/update_order_numbers`, {
+      json: {
+        unit_templates: unitTemplates,
+        authenticity_token: getAuthToken()
+      }}, (e, r, response) => {
+        if (e) {
+          // to do, use Sentry to capture error
+          alert(`We could not save the updated order. Here is the error: ${e}`);
+          return;
+        } else {
+          // that.setState({[resourceName]: response[resourceName]});
+          alert('The updated order has been saved.');
+          return;
+        }
+    })
+  };
+
+  renderTableRow(blogPost) {
+
+    const { id, name, diagnostic_names, flag } = blogPost
+    return (<UnitTemplateRow
+      id={id}
+      flag={flag}
+      diagnostics={diagnostic_names}
+      name={name}
+    />)
   }
 
   tableOrEmptyMessage() {
@@ -128,28 +95,14 @@ export default class UnitTemplates extends React.Component {
       console.log("data is fetched")
       // let dataToUse = this.getFilteredData()
       let dataToUse = fetchedData
-      tableOrEmptyMessage = (<ReactTable
-        className='records-table'
-        columns={this.columnDefinitions()}
-        data={dataToUse}
-        defaultFilterMethod={(filter, row) =>
-          String(row[filter.id]) === filter.value}
-        defaultPageSize={dataToUse.length}
-        defaultSorted={[{id: 'name', desc: false}]}
-        loading={false}
-        pages={1}
-        ref={(r) => this.reactTable = r}
-        showPageSizeOptions={false}
-        showPagination={false}
-        style={{height: "600px"}}
-        // SubComponent={row => {
-        //   return (
-        //     <PromptHealth
-        //       dataResults={row.original.prompt_healths}
-        //     />
-        //   );
-        // }}
-      />)
+      const unitTemplateRows = dataToUse.map((ut) => this.renderTableRow(ut))
+      tableOrEmptyMessage = (
+      <div class="blog-post-table">
+        <table>
+          {this.renderTableHeader()}
+          <SortableList data={unitTemplateRows} sortCallback={this.updateOrder} />
+        </table>
+      </div>)
     } else {
       tableOrEmptyMessage = NO_DATA_FOUND_MESSAGE
     }
@@ -168,21 +121,25 @@ export default class UnitTemplates extends React.Component {
     return (this.tableOrEmptyMessage())
   }
 
+  renderTableHeader() {
+    return (<tr>
+      <th>Name</th>
+      <th>Flag</th>
+      <th>Diagnostics</th>
+      <th>Preview</th>
+      <th>Edit</th>
+    </tr>)
+  }
+
 
   render() {
-    console.log(this.props)
-    console.log(this.state)
+
+
     return (
       <div className="cms-unit-templates">
         <div className="standard-columns">
-          {this.renderTable()}
+          {this.tableOrEmptyMessage()}
         </div>
-
-        {/* <Cms
-          resourceComponentGenerator={this.resourceComponentGenerator}
-          resourceNamePlural='unit_templates'
-          resourceNameSingular='unit_template'
-        /> */}
       </div>
 
     )
