@@ -125,10 +125,21 @@ module Evidence
 
     private def identify_matched_slices(entry_slices, passage_slices)
       entry_slices.select do |_, slice|
+        # Check to see if there's enough similarity for it to be worth doing a Levenshtein comparison
+        next false unless confirm_minimum_overlap(slice, passage_slices)
         slice_string = slice.join(' ')
         passage_slice_strings = passage_slices.map { |s| s.join(' ') }
         passage_slice_strings.any? { |passage_string| DidYouMean::Levenshtein.distance(slice_string, passage_string) <= FUZZY_CHARACTER_THRESHOLD }
       end.keys
+    end
+
+    private def confirm_minimum_overlap(target_array, source_arrays)
+      # Since we allow character deviation that's smaller than the total number of words compared
+      # we know that there's a minimum number of words that have to be identical.  This function
+      # confirms that minimum amount of overlap to justify doing a set of Levenshtein calculations.
+      source_arrays.any? do |source_array|
+        (source_array & target_array).length >= (MATCH_MINIMUM - FUZZY_CHARACTER_THRESHOLD)
+      end
     end
 
     # using the indices of plagiarized slices, find the longest continuous plagiarized section
