@@ -9,6 +9,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   before_action :authorize_teacher!, only: [:question_view, :students_by_classroom, :recommendations_for_classroom, :lesson_recommendations_for_classroom, :previously_assigned_recommendations, :growth_results_summary, :results_summary]
 
   def show
+    set_banner_variables
     @classroom_id = current_user.classrooms_i_teach&.last&.id || nil
     @report = params[:report] || 'question'
   end
@@ -301,6 +302,11 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       total_acquired_skills_count = post_correct_skill_ids && pre_correct_skill_ids ? (post_correct_skill_ids - pre_correct_skill_ids).length : 0
       sum += total_acquired_skills_count > 0 ? total_acquired_skills_count : 0
     end
+  end
+
+  private def set_banner_variables
+    acknowledge_lessons_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_lessons_banner])
+    @show_lessons_banner = !UserMilestone.find_by(milestone_id: acknowledge_lessons_banner_milestone&.id, user_id: current_user&.id) && current_user&.classroom_unit_activity_states&.where(completed: true)&.none?
   end
 
 end

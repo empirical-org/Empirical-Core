@@ -19,6 +19,7 @@ import {
   Student,
 } from './interfaces'
 
+import AssigningLessonsBanner from '../../../shared/assigningLessonsBanner'
 import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet, requestPost, } from '../../../../../../modules/request/index';
 import {
@@ -176,7 +177,7 @@ const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonsActivit
   return <RecommendationsButtons assignActivityPacks={assignLessonsActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={lessonsSelections.length} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
 }
 
-export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, activityName, location, }) => {
+export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, activityName, location, showLessonsBanner, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedPreviouslyAssignedRecommendations && !passedIndependentRecommendations && !passedLessonRecommendations);
   const [previouslyAssignedIndependentRecommendations, setPreviouslyAssignedIndependentRecommendations] = React.useState<Recommendation[]>(passedPreviouslyAssignedRecommendations);
   const [previouslyAssignedLessonsRecommendations, setPreviouslyAssignedLessonsRecommendations] = React.useState<LessonRecommendation[]>(passedPreviouslyAssignedLessonRecommendations);
@@ -191,6 +192,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
   const [lessonsAssigned, setLessonsAssigned] = React.useState(false)
   const [showSnackbar, setShowSnackbar] = React.useState(false)
   const [snackbarText, setSnackbarText] = React.useState('')
+  const [lessonsBannerEnabled, setLessonsBannerEnabled] = React.useState(showLessonsBanner)
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
@@ -254,6 +256,11 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
       setLoading(false)
     }
   }, [independentRecommendations, lessonsRecommendations, previouslyAssignedLessonsRecommendations, previouslyAssignedIndependentRecommendations])
+
+  function closeLessonsBanner() {
+    setLessonsBannerEnabled(false)
+    requestPost('/milestones/complete_acknowledge_lessons_banner')
+  }
 
   function getRecommendations() {
     requestGet(`/teachers/progress_reports/recommendations_for_classroom/${classroomId}/activity/${activityId}${unitQueryString}`, (data) => {
@@ -340,7 +347,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
 
   const recommendedKey = (<div className="recommended-key">
     <div className="recommended-image">{asteriskIcon}</div>
-    <span>Recommended</span>
+    <span>Recommended practice - not yet proficient</span>
   </div>)
 
   let independentRecommendationsSection
@@ -395,6 +402,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     {emptyState}
     {independentRecommendationsSection}
     {wholeClassInstructionSection}
+    {lessonsSelections.length && lessonsBannerEnabled && <AssigningLessonsBanner closeLessonsBanner={closeLessonsBanner} />}
   </main>
   )
 }
