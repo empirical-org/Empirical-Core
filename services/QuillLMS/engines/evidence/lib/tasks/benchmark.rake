@@ -17,7 +17,7 @@ namespace :benchmark do
       "The 2014 pulse flow was considered successful, so 11.4 billion gallons of water was released to the river to keep it from drying out.",
       "The 2014 pulse flow was considered successful, so another 11.4 billion gallons of water was released into the river.",
       "The 2014 pulse flow was considered successful, so they decided to add more water.",
-      "The 2014 pulse flow was considered successful, so one more 11.4 billion gallons of water were delivered into the river.",
+      "The 2014 pulse flow was considered successful, so one more 11.4 billion gallons of water were delivered into the river."
     ]
     
     passage = "Due to the success of the 2014 pulse flow, another 11.4 billion gallons of water was released into the river in May 2021. Scientists think that this pulse flow will support the other conservation efforts Pronatura Noroeste and other local groups are already leading."
@@ -26,6 +26,6 @@ namespace :benchmark do
         Evidence::PlagiarismCheck.new(entry, passage, '', nil).feedback_object
       end
     end
-    puts 'Average run time for the Plagiarism algorithm was %.9f seconds' % (runtime / entries.length)
+    puts format('Average run time for the Plagiarism algorithm was %<runtime>.9f seconds', {runtime: (runtime / entries.length)})
   end
 end
