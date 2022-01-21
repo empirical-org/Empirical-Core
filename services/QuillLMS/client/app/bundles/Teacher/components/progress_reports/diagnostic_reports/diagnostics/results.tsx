@@ -5,6 +5,9 @@ import { withRouter, Link, } from 'react-router-dom';
 import {
   baseDiagnosticImageSrc,
   fileDocumentIcon,
+  proficiencyTag,
+  partialProficiencyTag,
+  noProficiencyTag
 } from './shared'
 import StudentResultsTable from './studentResultsTable'
 import {
@@ -86,7 +89,22 @@ export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match
       {!!skillGroupSummaries.length && <a className="focus-on-light" href="https://support.quill.org/en/articles/5698112-how-do-i-read-the-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>}
     </header>
     {mobileNavigation}
-    {emptyState}
+    {emptyState || (
+      <section className="proficiency-keys">
+        <div className="proficiency-key">
+          {noProficiencyTag}
+          <p>The student did not use any of the skills correctly.</p>
+        </div>
+        <div className="proficiency-key">
+          {partialProficiencyTag}
+          <p>The student’s response contained some correct responses, but not all of the responses were marked correct.</p>
+        </div>
+        <div className="proficiency-key">
+          {proficiencyTag}
+          <p>The student used each skill correctly 100% of the time.</p>
+        </div>
+      </section>
+    )}
     {!!skillGroupSummaries.length && (<section className="student-results">
       <StudentResultsTable openPopover={openPopover} responsesLink={responsesLink} setOpenPopover={setOpenPopover} skillGroupSummaries={skillGroupSummaries} studentResults={studentResults} />
     </section>)}

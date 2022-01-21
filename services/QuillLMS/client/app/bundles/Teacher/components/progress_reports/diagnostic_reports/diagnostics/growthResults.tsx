@@ -3,6 +3,10 @@ import { withRouter, Link, } from 'react-router-dom';
 
 import {
   fileDocumentIcon,
+  noProficiencyTag,
+  partialProficiencyTag,
+  gainedProficiencyTag,
+  maintainedProficiencyTag,
 } from './shared'
 import StudentResultsTable from './studentResultsTable'
 import {
@@ -70,6 +74,24 @@ export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries,
       <a className="focus-on-light" href="https://support.quill.org/en/articles/5698227-how-do-i-read-the-growth-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
     </header>
     {mobileNavigation}
+    <section className="proficiency-keys">
+      <div className="proficiency-key">
+        {noProficiencyTag}
+        <p>The student did not use any of the skills correctly.</p>
+      </div>
+      <div className="proficiency-key">
+        {partialProficiencyTag}
+        <p>The student’s response contained some correct responses, but not all of the responses were marked correct.</p>
+      </div>
+      <div className="proficiency-key">
+        {maintainedProficiencyTag}
+        <p>The student used all skills correctly 100% of the time on both the baseline diagnostic and the growth diagnostic.</p>
+      </div>
+      <div className="proficiency-key">
+        {gainedProficiencyTag}
+        <p>The student used one or more skills incorrectly on the baseline diagnostic but used all skills correctly on the growth diagnostic.</p>
+      </div>
+    </section>
     <section className="student-results">
       <StudentResultsTable openPopover={openPopover} responsesLink={responsesLink} setOpenPopover={setOpenPopover} skillGroupSummaries={skillGroupSummaries} studentResults={studentResults} />
     </section>
