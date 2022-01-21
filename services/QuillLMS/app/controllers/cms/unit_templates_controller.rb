@@ -17,6 +17,10 @@ class Cms::UnitTemplatesController < Cms::CmsController
     @unit_template = Cms::UnitTemplateSerializer.new(@unit_template).as_json(root: false)
   end
 
+  def new
+    @unit_template = UnitTemplate.new
+  end
+
   def create
     @unit_template = UnitTemplate.new(unit_template_params)
     if @unit_template.save!

@@ -545,7 +545,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :standard_categories, only: [:index, :create, :update]
     resources :authors, only: [:index, :create, :edit, :update, :new]
     put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
-    resources :unit_templates, only: [:index, :create, :edit, :update, :destroy]
+    resources :unit_templates, only: [:index, :create, :edit, :new, :update, :destroy]
     resources :unit_template_categories, only: [:index, :edit, :create, :update, :destroy]
     put '/blog_posts/update_order_numbers', to: 'blog_posts#update_order_numbers'
     put '/blog_posts/update_featured_order_numbers', to: 'blog_posts#update_featured_order_numbers'

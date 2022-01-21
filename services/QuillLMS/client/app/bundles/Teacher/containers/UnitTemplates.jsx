@@ -106,13 +106,37 @@ export default class UnitTemplates extends React.Component {
     return fetchedData.sort((bp1, bp2) => bp1.order_number - bp2.order_number)
   }
 
-  renderTableRow(blogPost) {
+  handleDelete = (id) => {
+    const link = `${process.env.DEFAULT_URL}/cms/unit_templates/${id}`
+    fetch(link, {
+      method: 'DELETE',
+      mode: 'cors',
+      credentials: 'include',
+      body: {},
+      headers: {
+        'X-CSRF-Token': getAuthToken()
+      }
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      alert(`Activity pack was deleted.`)
+      this.fetchUnitTemplatesData();
+    }).catch((error) => {
+      // to do, use Sentry to capture error
+    })
+  }
 
-    const { id, name, diagnostic_names, flag, order_number } = blogPost
+  renderTableRow(unitTemplate) {
+
+    const { id, name, diagnostic_names, flag, order_number } = unitTemplate
     return (<UnitTemplateRow
       id={id}
       flag={flag}
       diagnostic_names={diagnostic_names}
+      handleDelete={this.handleDelete}
       name={name}
       order_number={order_number}
       key={id}
@@ -171,6 +195,7 @@ export default class UnitTemplates extends React.Component {
     return (
       <div className="cms-unit-templates">
         <div className="standard-columns">
+          <button className='button-green button-top' onClick={() => {window.open(`unit_templates/new`, '_blank')}}>New</button>
           {this.tableOrEmptyMessage()}
         </div>
       </div>

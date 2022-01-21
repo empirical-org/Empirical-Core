@@ -15,8 +15,15 @@ const UnitTemplateRow = ({
   flag,
   diagnostic_names,
   order_number,
+  handleDelete
 }) => {
   // const handleClickStar = () => onClickStar(id)
+  const deleteUnitTemplate = () => {
+    var confirm = window.confirm('are you sure you want to delete ' + name + '?');
+    if (confirm) {
+      handleDelete(id);
+    }
+  }
 
   return (<tr className="unit-template-row">
     <td>{name}</td>
@@ -24,6 +31,7 @@ const UnitTemplateRow = ({
     <td>{diagnostic_names.map((d) => (<div key={d}>{d}</div>))}</td>
     <td>{<a href={`${process.env.DEFAULT_URL}/assign/featured-activity-packs/${id}`} target="_blank">preview</a>}</td>
     <td>{<a href={`${process.env.DEFAULT_URL}/cms/unit_templates/${id}/edit`} target="_blank">edit</a>}</td>
+    <td><button onClick={deleteUnitTemplate} type="button">delete</button></td>
   </tr>)
 }
 
