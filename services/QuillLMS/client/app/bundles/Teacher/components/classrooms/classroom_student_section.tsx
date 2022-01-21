@@ -83,6 +83,7 @@ interface ClassroomStudentSectionProps {
   isOwnedByCurrentUser: boolean;
   onSuccess: (event) => void;
   inviteStudents?: (event) => void;
+  importCleverClassroomStudents?: (event) => void;
   importGoogleClassroomStudents?: (event) => void;
   viewAsStudent?: (event) => void;
 }
@@ -93,7 +94,9 @@ interface ClassroomStudentSectionState {
   showModal?: modalNames.editStudentAccountModal|modalNames.resetStudentPasswordModal|modalNames.mergeStudentAccountsModal|modalNames.moveStudentsModal|modalNames.removeStudentsModal;
 }
 
-export default class ClassroomStudentSection extends React.Component<ClassroomStudentSectionProps, ClassroomStudentSectionState> {
+export default class ClassroomStudentSection
+  extends React.Component<ClassroomStudentSectionProps, ClassroomStudentSectionState> {
+
   constructor(props: ClassroomStudentSectionProps) {
     super(props)
 
@@ -223,9 +226,15 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     this.setState({ selectedStudentIds: [] })
   }
 
-  handleClickViewAsStudentButton = () => this.props.viewAsStudent()
+  handleClickViewAsStudentButton = () => {
+    const { viewAsStudent } = this.props
+    viewAsStudent()
+  }
 
-  onClickViewAsIndividualStudent = (id: string|number) => this.props.viewAsStudent(id)
+  onClickViewAsIndividualStudent = (id: string|number) => {
+    const { viewAsStudent } = this.props
+    viewAsStudent(id)
+  }
 
   selectAction = (action) => {
     action.value()
@@ -469,7 +478,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     return (<DataTable
       checkAllRows={this.checkAllRows}
       checkRow={this.checkRow}
-      className={'show-overflow'}
+      className='show-overflow'
       headers={classroom.visible ? activeHeaders(hasProviderClassroom) : archivedHeaders(hasProviderClassroom)}
       rows={rows}
       showActions={classroom.visible}
@@ -497,29 +506,55 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const loginPdfLink = <a className="quill-button secondary outlined small" download={download} href={loginPdfHref} rel="noopener noreferrer" target="_blank">Download setup instructions</a>
     /* eslint-enable react/jsx-no-target-blank */
 
-    return (<div className="students-section-header-buttons">
-      <div>
-        {loginPdfLink}
-        <button className="quill-button secondary outlined small" onClick={this.handleClickViewAsStudentButton} type="button">View as student</button>
+    return (
+      <div className="students-section-header-buttons">
+        <div>
+          {loginPdfLink}
+          <button className="quill-button secondary outlined small" onClick={this.handleClickViewAsStudentButton} type="button">
+            View as student
+          </button>
+        </div>
+        {this.renderInviteStudents()}
       </div>
-      {this.renderInviteStudents()}
-    </div>)
+    )
   }
 
   renderInviteStudents() {
-    const { classroom, inviteStudents, importGoogleClassroomStudents, } = this.props
-    if (!classroom.visible || classroom.clever_id) { return null }
+    const { classroom, inviteStudents, importCleverClassroomStudents, importGoogleClassroomStudents } = this.props
+
+    if (!classroom.visible) { return null }
+
+    if (classroom.clever_id) {
+      const lastUpdatedDate = moment(classroom.updated_at).format('MMM D, YYYY')
+      return (
+        <div className="invite-clever-classroom-students">
+          <button className="quill-button primary outlined small" onClick={importCleverClassroomStudents} type="button">
+            Import Clever classroom students
+          </button>
+          <span>Last imported {lastUpdatedDate}</span>
+        </div>
+      )
+    }
+
     if (classroom.google_classroom_id) {
       const lastUpdatedDate = moment(classroom.updated_at).format('MMM D, YYYY')
-      return (<div className="invite-google-classroom-students">
-        <button className="quill-button primary outlined small" onClick={importGoogleClassroomStudents} type="button">Import Google Classroom students</button>
-        <span>Last imported {lastUpdatedDate}</span>
-      </div>)
-    } else {
-      return (<div className="invite-quill-classroom-students">
-        <button className="quill-button primary outlined small" onClick={inviteStudents} type="button">Invite students</button>
-      </div>)
+      return (
+        <div className="invite-google-classroom-students">
+          <button className="quill-button primary outlined small" onClick={importGoogleClassroomStudents} type="button">
+            Import Google Classroom students
+          </button>
+          <span>Last imported {lastUpdatedDate}</span>
+        </div>
+      )
     }
+
+    return (
+      <div className="invite-quill-classroom-students">
+        <button className="quill-button primary outlined small" onClick={inviteStudents} type="button">
+          Invite students
+        </button>
+      </div>
+    )
   }
 
   renderStudentSection = () => {

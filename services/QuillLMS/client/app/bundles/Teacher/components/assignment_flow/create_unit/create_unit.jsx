@@ -370,34 +370,37 @@ export default class CreateUnit extends React.Component {
 
   stage2SpecificComponents = () => {
     const { model, } = this.state
-    const { user, assignedPreTests, } = this.props
+    const { cleverLink, user } = this.props
 
     const restrictedActivity = this.restrictedActivityBeingAssigned()
 
-    return (<Stage2
-      alreadyCompletedDiagnosticStudentNames={this.alreadyCompletedDiagnosticStudentNames()}
-      areAnyStudentsSelected={this.areAnyStudentsSelected()}
-      assignActivityDueDate={this.assignActivityDueDate}
-      classrooms={this.getClassrooms()}
-      data={this.assignSuccess}
-      dueDates={model.dueDates}
-      errorMessage={this.determineStage2ErrorMessage()}
-      fetchClassrooms={this.fetchClassrooms}
-      finish={this.finish}
-      isFromDiagnosticPath={!!parsedQueryParams().diagnostic_unit_template_id}
-      lockedClassroomIds={this.lockedClassroomIds()}
-      notYetCompletedPreTestStudentNames={this.notYetCompletedPreTestStudentNames()}
-      restrictedActivity={restrictedActivity}
-      selectedActivities={this.getSelectedActivities()}
-      toggleActivitySelection={this.toggleActivitySelection}
-      toggleClassroomSelection={this.toggleClassroomSelection}
-      toggleStudentSelection={this.toggleStudentSelection}
-      unitName={this.getUnitName()}
-      unitTemplateId={this.unitTemplateId()}
-      unitTemplateName={this.unitTemplateName()}
-      updateUnitName={this.updateUnitName}
-      user={user}
-    />);
+    return (
+      <Stage2
+        alreadyCompletedDiagnosticStudentNames={this.alreadyCompletedDiagnosticStudentNames()}
+        areAnyStudentsSelected={this.areAnyStudentsSelected()}
+        assignActivityDueDate={this.assignActivityDueDate}
+        classrooms={this.getClassrooms()}
+        cleverLink={cleverLink}
+        data={this.assignSuccess}
+        dueDates={model.dueDates}
+        errorMessage={this.determineStage2ErrorMessage()}
+        fetchClassrooms={this.fetchClassrooms}
+        finish={this.finish}
+        isFromDiagnosticPath={!!parsedQueryParams().diagnostic_unit_template_id}
+        lockedClassroomIds={this.lockedClassroomIds()}
+        notYetCompletedPreTestStudentNames={this.notYetCompletedPreTestStudentNames()}
+        restrictedActivity={restrictedActivity}
+        selectedActivities={this.getSelectedActivities()}
+        toggleActivitySelection={this.toggleActivitySelection}
+        toggleClassroomSelection={this.toggleClassroomSelection}
+        toggleStudentSelection={this.toggleStudentSelection}
+        unitName={this.getUnitName()}
+        unitTemplateId={this.unitTemplateId()}
+        unitTemplateName={this.unitTemplateName()}
+        updateUnitName={this.updateUnitName}
+        user={user}
+      />
+    )
   }
 
   moveToStage4 = () => {

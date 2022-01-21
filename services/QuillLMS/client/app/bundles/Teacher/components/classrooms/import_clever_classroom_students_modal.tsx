@@ -6,18 +6,20 @@ import { requestPut } from '../../../../modules/request/index.js';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
-interface ImportGoogleClassroomStudentsModalProps {
+interface ImportCleverClassroomStudentsModalProps {
   close: () => void;
   onSuccess: (snackbarCopy: string) => void;
   classroom: any;
 }
 
-interface ImportGoogleClassroomStudentsModalState {
+interface ImportCleverClassroomStudentsModalState {
   checkboxOne?: boolean;
   waiting: boolean;
 }
 
-export default class ImportGoogleClassroomStudentsModal extends React.Component<ImportGoogleClassroomStudentsModalProps, ImportGoogleClassroomStudentsModalState> {
+export default class ImportCleverClassroomStudentsModal
+  extends React.Component<ImportCleverClassroomStudentsModalProps, ImportCleverClassroomStudentsModalState> {
+
   constructor(props) {
     super(props)
 
@@ -25,30 +27,29 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
       checkboxOne: false,
       waiting: false
     }
-
-    this.handleToggleCheckbox = this.handleToggleCheckbox.bind(this)
-    this.handleImportStudents = this.handleImportStudents.bind(this)
   }
 
-  initializePusherForGoogleStudentImport(id) {
+  initializePusherForCleverStudentImport(userId) {
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
-    const channelName = String(id)
+    const channelName = String(userId)
     const channel = pusher.subscribe(channelName);
-    const that = this;
-    channel.bind('google-classroom-students-imported', () => {
-      that.props.onSuccess('Class re-synced')
+    const { onSuccess } = this.props
+
+    channel.bind('clever-classroom-students-imported', () => {
+      onSuccess('Class re-synced')
       pusher.unsubscribe(channelName)
     });
   }
 
-  handleImportStudents() {
+  handleImportStudents = () => {
     const { classroom, } = this.props
     this.setState({ waiting: true })
-    requestPut(`/teachers/classrooms/${classroom.id}/import_google_students`, {}, (body) => {
-      this.initializePusherForGoogleStudentImport(body.id)
+
+    requestPut(`/clever_integration/teachers/import_students`, { selected_classroom_ids: [classroom.id] }, body => {
+      this.initializePusherForCleverStudentImport(body.user_id)
     })
   }
 
@@ -61,9 +62,9 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
     return buttonClass;
   }
 
-  handleToggleCheckbox() {
+  handleToggleCheckbox = () => {
     const { checkboxOne } = this.state
-    const newStateObj = { checkboxOne: !checkboxOne }
+    const newStateObj = { checkboxOne: !checkboxOne, }
     this.setState(newStateObj)
   }
 
@@ -114,21 +115,25 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
 
   render() {
     const { classroom, close } = this.props
-    return (<div className="modal-container import-google-classroom-students-modal-container">
-      <div className="modal-background" />
-      <div className="import-google-classroom-students-modal quill-modal modal-body">
-        <div>
-          <h3 className="title">Import students from Google Classroom</h3>
-        </div>
-        <p>You are about to import students from the class {classroom.name}.</p>
-        {this.renderCheckboxes()}
-        <div className="form-buttons">
-          <button className="quill-button outlined secondary medium" onClick={close} type="button">
-            Cancel
-          </button>
-          {this.renderImportButton()}
+    return (
+      <div className="modal-container import-clever-classroom-students-modal-container">
+        <div className="modal-background" />
+        <div className="import-clever-classroom-students-modal quill-modal modal-body">
+          <div>
+            <h3 className="title">
+              Import students from Clever
+            </h3>
+          </div>
+          <p>You are about to import students from the class {classroom.name}.</p>
+          {this.renderCheckboxes()}
+          <div className="form-buttons">
+            <button className="quill-button outlined secondary medium" onClick={close} type="button">
+              Cancel
+            </button>
+            {this.renderImportButton()}
+          </div>
         </div>
       </div>
-    </div>)
+    )
   }
 }
