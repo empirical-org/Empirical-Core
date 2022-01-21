@@ -97,8 +97,13 @@ const LessonRecommendation = ({ previouslyAssignedRecommendations, selections, s
   </section>)
 }
 
-const LessonsRecommendations = ({ previouslyAssignedRecommendations, recommendations, selections, setSelections, }) => {
-  return <div className="lessons-recommendations">{recommendations.map(recommendation => <LessonRecommendation key={recommendation.activity_pack_id} previouslyAssignedRecommendations={previouslyAssignedRecommendations} recommendation={recommendation} selections={selections} setSelections={setSelections} />)}</div>
+const LessonsRecommendations = ({ assigningLessonsBanner, previouslyAssignedRecommendations, recommendations, selections, setSelections, }) => {
+  return (
+    <div className="lessons-recommendations">
+      {recommendations.map(recommendation => <LessonRecommendation key={recommendation.activity_pack_id} previouslyAssignedRecommendations={previouslyAssignedRecommendations} recommendation={recommendation} selections={selections} setSelections={setSelections} />)}
+      {assigningLessonsBanner}
+    </div>
+  )
 }
 
 const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActivityPacks, deselectAll, selectAll, selectAllRecommended}) => {
@@ -177,7 +182,7 @@ const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonsActivit
   return <RecommendationsButtons assignActivityPacks={assignLessonsActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={lessonsSelections.length} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
 }
 
-export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, activityName, location, showLessonsBanner, }) => {
+export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, activityName, location, lessonsBannerIsShowable, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedPreviouslyAssignedRecommendations && !passedIndependentRecommendations && !passedLessonRecommendations);
   const [previouslyAssignedIndependentRecommendations, setPreviouslyAssignedIndependentRecommendations] = React.useState<Recommendation[]>(passedPreviouslyAssignedRecommendations);
   const [previouslyAssignedLessonsRecommendations, setPreviouslyAssignedLessonsRecommendations] = React.useState<LessonRecommendation[]>(passedPreviouslyAssignedLessonRecommendations);
@@ -192,7 +197,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
   const [lessonsAssigned, setLessonsAssigned] = React.useState(false)
   const [showSnackbar, setShowSnackbar] = React.useState(false)
   const [snackbarText, setSnackbarText] = React.useState('')
-  const [lessonsBannerEnabled, setLessonsBannerEnabled] = React.useState(showLessonsBanner)
+  const [lessonsBannerEnabled, setLessonsBannerEnabled] = React.useState(lessonsBannerIsShowable)
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
@@ -363,6 +368,12 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     </React.Fragment>)
   }
 
+  let assigningLessonsBanner
+
+  if (lessonsSelections.length && lessonsBannerEnabled) {
+    assigningLessonsBanner = <AssigningLessonsBanner closeLessonsBanner={closeLessonsBanner} />
+  }
+
   let wholeClassInstructionSection
 
   if (lessonsRecommendations.length) {
@@ -378,7 +389,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
         {recommendedKey}
       </div>
       <LessonsRecommendationsButtons assigned={lessonsAssigned} assigning={lessonsAssigning} assignLessonsActivityPacks={assignLessonsActivityPacks} lessonsRecommendations={lessonsRecommendations} lessonsSelections={lessonsSelections} setLessonsSelections={setLessonsSelections} students={students} />
-      <LessonsRecommendations previouslyAssignedRecommendations={previouslyAssignedLessonsRecommendations} recommendations={lessonsRecommendations} selections={lessonsSelections} setSelections={setLessonsSelections} />
+      <LessonsRecommendations assigningLessonsBanner={assigningLessonsBanner} previouslyAssignedRecommendations={previouslyAssignedLessonsRecommendations} recommendations={lessonsRecommendations} selections={lessonsSelections} setSelections={setLessonsSelections} />
     </section>)
   }
 
@@ -402,7 +413,6 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     {emptyState}
     {independentRecommendationsSection}
     {wholeClassInstructionSection}
-    {lessonsSelections.length && lessonsBannerEnabled && <AssigningLessonsBanner closeLessonsBanner={closeLessonsBanner} />}
   </main>
   )
 }

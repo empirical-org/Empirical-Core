@@ -109,7 +109,7 @@ const PostDiagnosticCard = ({ activityId, activityName, unitTemplateId, }) => {
   </section>)
 }
 
-const IndividualPack = ({ classrooms, history, match, location, }) => {
+const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsShowable, }) => {
   const unitId = qs.parse(location.search.replace('?', '')).unit
   const activityId = Number(match.params.activityId)
   const classroomId = Number(match.params.classroomId)
@@ -186,7 +186,8 @@ const IndividualPack = ({ classrooms, history, match, location, }) => {
   const sharedProps = {
     activityName: diagnosticActivityName(),
     classrooms,
-    mobileNavigation: (<section className="mobile-navigation hide-on-desktop">{classroomDropdown}{linkDropdown}</section>)
+    mobileNavigation: (<section className="mobile-navigation hide-on-desktop">{classroomDropdown}{linkDropdown}</section>),
+    lessonsBannerIsShowable
   }
 
   return (<div className="diagnostic-individual-pack">
