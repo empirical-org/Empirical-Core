@@ -18,7 +18,15 @@ module Evidence
     PREFILTERS = {
       QUESTION_MARK_RULE_UID      => ->(entry) { entry.match?(/\?$/) },
       MULTIPLE_SENTENCE_RULE_UID  => ->(entry) { sentence_count(entry) > 1 },
-      PROFANITY_RULE_UID          => ->(entry) { Profanity.profane?(entry) },
+      PROFANITY_RULE_UID          => ->(entry)  do 
+        profanity = Profanity.profane(entry)
+        if profanity.nil?
+          false 
+        else 
+          @profanity_instance = profanity
+          true
+        end
+      end,
       MINIMUM_WORD_RULE_UID       => ->(entry) { word_count(entry) < MINIMUM_WORD_COUNT}
     }
 
@@ -26,6 +34,7 @@ module Evidence
       @entry = entry
       @prefilter_rules = Evidence::Rule.where(rule_type: Evidence::Rule::TYPE_PREFILTER).includes(:feedbacks)
       @violated_rule = nil
+      @profanity_instance = nil
     end
 
     def default_response
@@ -78,7 +87,7 @@ module Evidence
       return [] if @violated_rule != PROFANITY_RULE_UID
       [{
         type: Evidence::Highlight::TYPES[RESPONSE],
-        text: get_highlight(passage, clean_passage),
+        text: @profanity_instance,
         category: ''
       }]
     end
