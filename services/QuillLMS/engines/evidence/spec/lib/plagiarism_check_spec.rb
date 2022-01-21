@@ -127,7 +127,6 @@ module Evidence
           expect(passage).to include(feedback[:highlight][1][:text])
         end
       end
-
     end
   end
 end
