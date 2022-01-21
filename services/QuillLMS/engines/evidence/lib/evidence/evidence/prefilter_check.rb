@@ -83,7 +83,6 @@ module Evidence
     end
 
     def highlights
-      return [] if optimal?
       return [] if @violated_rule != PROFANITY_RULE_UID
       [{
         type: Evidence::Highlight::TYPES[RESPONSE],
