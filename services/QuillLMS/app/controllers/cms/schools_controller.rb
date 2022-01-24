@@ -250,7 +250,7 @@ class Cms::SchoolsController < Cms::CmsController
         conditions << where_query_string_clause_for(param, param_value)
       end
     end
-    conditions = conditions.reject(&:nil?)
+    conditions = conditions.compact
     "WHERE #{conditions.join(' AND ')}" unless conditions.empty?
   end
 
