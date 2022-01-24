@@ -304,10 +304,6 @@ Style/CommentedKeyword:
 Style/DefWithParentheses:
   Enabled: true
 
-# Too many false positivies so disabling
-Style/HashEachMethods:
-  Enabled: false
-
 Style/EachWithObject:
   Enabled: true
 
@@ -335,6 +331,10 @@ Style/FrozenStringLiteralComment:
   Enabled: true
   Include:
     - "QuillLMS/**/*"
+
+# Too many false positivies so disabling
+Style/HashEachMethods:
+  Enabled: false
 
 Style/HashTransformKeys:
   Enabled: true
