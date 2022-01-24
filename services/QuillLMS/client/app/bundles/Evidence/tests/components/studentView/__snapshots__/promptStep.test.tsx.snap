@@ -242,7 +242,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
             type="button"
           >
             <span>
-              Get new feedback
+              Get feedback
             </span>
           </button>
         </div>
@@ -470,7 +470,7 @@ exports[`PromptStep component active state when an optimal response has been sub
             type="button"
           >
             <span>
-              Start next sentence
+              Next
             </span>
           </button>
         </div>
@@ -726,7 +726,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             type="button"
           >
             <span>
-              Start next sentence
+              Next
             </span>
           </button>
         </div>
