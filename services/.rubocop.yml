@@ -436,6 +436,9 @@ Style/FrozenStringLiteralComment:
 Style/HashConversion:
   Enabled: true
 
+Style/HashExcept:
+  Enabled: true
+
 # Too many false positivies so disabling
 Style/HashEachMethods:
   Enabled: false
