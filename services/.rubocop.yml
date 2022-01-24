@@ -414,6 +414,9 @@ Style/EndlessMethod:
 Style/FileRead:
   Enabled: true
 
+Style/FileWrite:
+  Enabled: true
+
 Style/FloatDivision:
   Enabled: true
 
