@@ -45,6 +45,8 @@ module UserCacheable
   end
 
   private def model_cache(object, key:, groups:, &block)
+    raise LocalJumpError unless block_given?
+
     Rails.cache.fetch(model_cache_key(object, key: key, groups: groups), &block)
   end
 
