@@ -8,6 +8,7 @@ module Evidence
     ENTRY_TYPE = 'response'
     MATCH_MINIMUM = 10
     OPTIMAL_RULE_KEY = 'optimal_plagiarism_rule_serialized'
+    FUZZY_CHARACTER_THRESHOLD = 5
     attr_reader :entry, :passage, :nonoptimal_feedback
 
     def initialize(entry, passage, feedback, rule)
@@ -56,7 +57,7 @@ module Evidence
     private def passage_highlight
       {
         type: PASSAGE_TYPE,
-        text: get_highlight(passage, clean_passage),
+        text: get_highlight(passage, clean_passage, matched_slice_passage),
         category: ''
       }
     end
@@ -64,7 +65,7 @@ module Evidence
     private def entry_highlight
       {
         type: ENTRY_TYPE,
-        text: get_highlight(entry, clean_entry),
+        text: get_highlight(entry, clean_entry, matched_slice),
         category: ''
       }
     end
@@ -82,8 +83,13 @@ module Evidence
       @matched_slice ||= match_entry_on_passage
     end
 
+    private def matched_slice_passage
+      return "" if !minimum_overlap?
+      @matched_slice_passage ||= match_passage_on_entry
+    end
+
     private def minimum_overlap?
-      !clean_passage.empty? && (intersect_with_duplicates(clean_entry.split, clean_passage.split)).size >= MATCH_MINIMUM
+      !clean_passage.empty? && [clean_entry.split.size, clean_passage.split.size].min >= MATCH_MINIMUM
     end
 
     private def intersect_with_duplicates(arr1, arr2)
@@ -100,10 +106,40 @@ module Evidence
       entry_arr = clean_entry.split
 
       slices = entry_arr.each_cons(MATCH_MINIMUM).with_index.to_a.map(&:reverse).to_h
-      matched_slices = slices.select {|k,v| v.in?(passage_word_arrays) }.keys
+      matched_slices = identify_matched_slices(slices, passage_word_arrays)
       return "" if matched_slices.empty?
 
       build_longest_continuous_slice(matched_slices, slices)
+    end
+
+    private def match_passage_on_entry
+      entry_arr = clean_entry.split
+
+      slices = entry_arr.each_cons(MATCH_MINIMUM)
+      passage_slices = passage_word_arrays.each_with_index.to_a.map(&:reverse).to_h
+      matched_slices = identify_matched_slices(passage_slices, slices)
+      return "" if matched_slices.empty?
+
+      build_longest_continuous_slice(matched_slices, passage_slices)
+    end
+
+    private def identify_matched_slices(entry_slices, passage_slices)
+      entry_slices.select do |_, slice|
+        # Check to see if there's enough similarity for it to be worth doing a Levenshtein comparison
+        next false unless confirm_minimum_overlap?(slice, passage_slices)
+        slice_string = slice.join(' ')
+        passage_slice_strings = passage_slices.map { |s| s.join(' ') }
+        passage_slice_strings.any? { |passage_string| DidYouMean::Levenshtein.distance(slice_string, passage_string) <= FUZZY_CHARACTER_THRESHOLD }
+      end.keys
+    end
+
+    private def confirm_minimum_overlap?(target_array, source_arrays)
+      # Since we allow character deviation that's smaller than the total number of words compared
+      # we know that there's a minimum number of words that have to be identical.  This function
+      # confirms that minimum amount of overlap to justify doing a set of Levenshtein calculations.
+      source_arrays.any? do |source_array|
+        (source_array & target_array).length >= (MATCH_MINIMUM - FUZZY_CHARACTER_THRESHOLD)
+      end
     end
 
     # using the indices of plagiarized slices, find the longest continuous plagiarized section
@@ -121,7 +157,7 @@ module Evidence
       @passage_word_arrays ||= clean_passage.split.each_cons(MATCH_MINIMUM).to_a
     end
 
-    private def get_highlight(text, cleaned_text)
+    private def get_highlight(text, cleaned_text, matched_slice)
       extra_space_indexes = []
       cleaned_text.each_char.with_index { |c, i| extra_space_indexes.push(i) if c == ' ' && cleaned_text[i+1] == ' ' }
 

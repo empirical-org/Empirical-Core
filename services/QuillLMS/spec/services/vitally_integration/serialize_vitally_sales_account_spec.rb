@@ -153,10 +153,12 @@ describe 'SerializeVitallySalesAccount' do
     active_old_student = create(:user, role: 'student', last_sign_in: Date.today - 2.year)
     inactive_student = create(:user, role: 'student', last_sign_in: Date.today - 2.year)
     teacher = create(:user, role: 'teacher')
+    teacher2 = create(:user, role: 'teacher')
     classroom = create(:classroom)
     classroom_unit = create(:classroom_unit, classroom: classroom)
     old_classroom_unit = create(:classroom_unit, classroom: classroom)
     create(:classrooms_teacher, user: teacher, classroom: classroom)
+    create(:classrooms_teacher, user: teacher2, classroom: classroom, role: 'coteacher')
     create(:students_classrooms, student: active_student, classroom: classroom)
     create(:students_classrooms, student: inactive_student, classroom: classroom)
     create(:students_classrooms, student: active_old_student, classroom: classroom)
@@ -179,6 +181,7 @@ describe 'SerializeVitallySalesAccount' do
     school.users << active_student
     school.users << inactive_student
     school.users << teacher
+    school.users << teacher2
     school.users << create(:user, role: 'student')
 
     school_data = SerializeVitallySalesAccount.new(school).data

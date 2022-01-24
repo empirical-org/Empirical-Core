@@ -325,6 +325,7 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
       }
       clickClassroomHeader={[Function]}
       isOwnedByCurrentUser={true}
+      key="285401"
       onSuccess={[Function]}
       selected={false}
       unarchiveClass={[Function]}
@@ -668,6 +669,7 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
       }
       clickClassroomHeader={[Function]}
       isOwnedByCurrentUser={true}
+      key="285400"
       onSuccess={[Function]}
       selected={false}
       unarchiveClass={[Function]}
@@ -1066,6 +1068,7 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
       }
       clickClassroomHeader={[Function]}
       isOwnedByCurrentUser={true}
+      key="285383"
       onSuccess={[Function]}
       selected={false}
       unarchiveClass={[Function]}
@@ -1119,7 +1122,7 @@ exports[`ArchivedClassrooms component with no classrooms should render with no c
       No archived classes
     </h1>
     <p>
-      When you archive a class, you'll see it listed here.
+      When you archive a class, you will see it listed here.
     </p>
   </div>
 </div>

@@ -109,17 +109,21 @@ export default class Stage2 extends React.Component {
       fetchClassrooms,
       lockedClassroomIds,
       restrictedActivity,
+      cleverLink,
     } = this.props
 
-    return (<AssignStudents
-      classrooms={classrooms}
-      fetchClassrooms={fetchClassrooms}
-      lockedClassroomIds={lockedClassroomIds}
-      lockedMessage={restrictedActivity ? postTestClassAssignmentLockedMessages[restrictedActivity.id] : ''}
-      toggleClassroomSelection={toggleClassroomSelection}
-      toggleStudentSelection={toggleStudentSelection}
-      user={user}
-    />)
+    return (
+      <AssignStudents
+        classrooms={classrooms}
+        cleverLink={cleverLink}
+        fetchClassrooms={fetchClassrooms}
+        lockedClassroomIds={lockedClassroomIds}
+        lockedMessage={restrictedActivity ? postTestClassAssignmentLockedMessages[restrictedActivity.id] : ''}
+        toggleClassroomSelection={toggleClassroomSelection}
+        toggleStudentSelection={toggleStudentSelection}
+        user={user}
+      />
+    )
   }
 
   renderNameSection() {
