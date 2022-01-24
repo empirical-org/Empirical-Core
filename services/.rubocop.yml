@@ -183,6 +183,9 @@ Lint/EmptyInPattern:
 Lint/ImplicitStringConcatenation:
   Enabled: true
 
+Lint/IncompatibleIoSelectWithFiberScheduler:
+  Enabled: true
+
 Lint/InterpolationCheck:
   Enabled: true
 
