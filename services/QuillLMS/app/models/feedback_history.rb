@@ -267,15 +267,15 @@ class FeedbackHistory < ApplicationRecord
     prompt_groups = histories.group_by do |h|
       h&.prompt&.conjunction
     end
-    prompt_groups = prompt_groups.map do |conjunction, attempts|
-      [conjunction, {prompt_id: attempts.first.prompt_id, attempts: attempts}]
-    end.to_h.symbolize_keys
+    prompt_groups = prompt_groups.transform_values do |attempts|
+      {prompt_id: attempts.first.prompt_id, attempts: attempts}
+    end.symbolize_keys
 
-    attempt_groups = prompt_groups.map do |conjunction, detail|
-      [conjunction, detail[:attempts].group_by(&:attempt).map do |attempt_number, attempt|
-        [attempt_number, attempt.map(&:serialize_by_activity_session_detail)]
-      end.to_h]
-    end.to_h.symbolize_keys
+    attempt_groups = prompt_groups.transform_values do |detail|
+      detail[:attempts].group_by(&:attempt).transform_values do |attempt|
+        attempt.map(&:serialize_by_activity_session_detail)
+      end
+    end.symbolize_keys
 
     prompt_groups.each do |conjunction, _|
       prompt_groups[conjunction][:attempts] = attempt_groups[conjunction]
