@@ -18,22 +18,22 @@
 module UserCacheable
   extend ActiveSupport::Concern
 
-  def all_classrooms_cache(key:, groups: {})
-    model_cache(last_updated_classroom, key: key, groups: groups) { yield }
+  def all_classrooms_cache(key:, groups: {}, &block)
+    model_cache(last_updated_classroom, key: key, groups: groups, &block)
   end
 
-  def classroom_cache(classroom, key:, groups: {})
-    model_cache(classroom, key: key, groups: groups) { yield }
+  def classroom_cache(classroom, key:, groups: {}, &block)
+    model_cache(classroom, key: key, groups: groups, &block)
   end
 
-  def classroom_unit_cache(classroom_unit, key:, groups: {})
-    model_cache(classroom_unit, key: key, groups: groups) { yield }
+  def classroom_unit_cache(classroom_unit, key:, groups: {}, &block)
+    model_cache(classroom_unit, key: key, groups: groups, &block)
   end
 
-  def classroom_unit_by_ids_cache(classroom_id:, unit_id:, activity_id:, key:, groups: {})
+  def classroom_unit_by_ids_cache(classroom_id:, unit_id:, activity_id:, key:, groups: {}, &block)
     classroom_unit = classroom_unit_for_ids(classroom_id: classroom_id, unit_id: unit_id, activity_id: activity_id)
 
-    model_cache(classroom_unit, key: key, groups: groups) { yield }
+    model_cache(classroom_unit, key: key, groups: groups, &block)
   end
 
   # note: object for caching defaults to the 'user'
@@ -44,10 +44,8 @@ module UserCacheable
     [key, *group_array, object || self]
   end
 
-  private def model_cache(object, key:, groups:)
-    Rails.cache.fetch(model_cache_key(object, key: key, groups: groups)) do
-      yield
-    end
+  private def model_cache(object, key:, groups:, &block)
+    Rails.cache.fetch(model_cache_key(object, key: key, groups: groups), &block)
   end
 
   private def last_updated_classroom

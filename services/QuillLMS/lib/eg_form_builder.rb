@@ -151,14 +151,12 @@ class EgFormBuilder < CMS::FormBuilder
     end
   end
 
-  def field_wrapper type, name, options = {}
+  def field_wrapper type, name, options = {}, &block
     classes = "field #{type} #{name.to_s.dasherize} control-group"
     classes << options[:classes] if options[:classes]
     classes << ' error' if object.errors.include? name
     options.merge! class: classes
-    @template.content_tag :div, options do
-      yield
-    end
+    @template.content_tag :div, options, &block
   end
 
   # def _input_options options
