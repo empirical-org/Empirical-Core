@@ -421,3 +421,18 @@ export const coteacherInvitations = [
     inviter_email: "amitchell@ecslions.org"
   }
 ]
+
+export const cleverClassroomsData = [
+  {
+    clever_id: "608aceedb9f28409c3320783",
+    grade: "1",
+    name: "Clever 101",
+    students: ["608aca85f0fc4ee5deb62f28", "608ad1f5b3ca107953798b8a", "60994b26e6db39222c0f87be"],
+  },
+  {
+    clever_id: "60944eff243ae50206973692",
+    grade: "1",
+    name: "Clever 103",
+    students: ["608aca85f0fc4ee5deb62f28", "60a682558d5c2d3c431e4d96"],
+  }
+]

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe CleverIntegration::TeacherClassroomsRetriever do
+describe CleverIntegration::TeacherClassroomsCacheHydrator do
   let(:raw_data) { ['classroom_data', 'classroom_data'] }
   let(:data) { { classrooms: raw_data }}
 

@@ -68,6 +68,10 @@ class UnitTemplate < ApplicationRecord
     "#{lowest_readability_range.split('-')[0]}-#{highest_readability_range.split('-')[1]}"
   end
 
+  def diagnostic_names
+    diagnostics_recommended_by.pluck(:name)
+  end
+
   def activity_ids= activity_ids
     # getting around rails defaulting to activities being set in order of the activity id rather than the selected order
     new_activities = activity_ids.map { |id| Activity.find(id) }

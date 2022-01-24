@@ -359,13 +359,7 @@ class ActivitySession < ApplicationRecord
     end
   end
 
-  def self.save_concept_results(classroom_unit_id, activity_id, concept_results)
-    activity = Activity.find_by_id_or_uid(activity_id)
-    activity_sessions = ActivitySession.where(
-      activity: activity,
-      classroom_unit_id: classroom_unit_id
-    ).select(:id, :uid)
-
+  def self.save_concept_results(activity_sessions, concept_results)
     concept_results.each do |concept_result|
       activity_session_id = activity_sessions.find do |activity_session|
         if activity_session && concept_result
@@ -389,13 +383,8 @@ class ActivitySession < ApplicationRecord
     end
   end
 
-  def self.delete_activity_sessions_with_no_concept_results(classroom_unit_id, activity_id)
+  def self.delete_activity_sessions_with_no_concept_results(activity_sessions)
     incomplete_activity_session_ids = []
-    activity = Activity.find_by_id_or_uid(activity_id)
-    activity_sessions = ActivitySession.where(
-      classroom_unit_id: classroom_unit_id,
-      activity: activity
-    )
     activity_sessions.each do |as|
       if as.concept_result_ids.empty?
         incomplete_activity_session_ids.push(as.id)
@@ -406,12 +395,7 @@ class ActivitySession < ApplicationRecord
 
   # this function is only for use by Lesson activities, which are not individually saved when the activity ends
   # other activity types make a call directly to the api/v1/activity_sessions controller with timetracking data included
-  def self.save_timetracking_data_from_active_activity_session(classroom_unit_id, activity_id)
-    activity = Activity.find_by_id_or_uid(activity_id)
-    activity_sessions = ActivitySession.where(
-      classroom_unit_id: classroom_unit_id,
-      activity: activity
-    )
+  def self.save_timetracking_data_from_active_activity_session(activity_sessions)
     activity_sessions.each do |as|
       time_tracking = ActiveActivitySession.find_by_uid(as.uid)&.data&.fetch("timeTracking")
       as.data['time_tracking'] = time_tracking&.map{ |k, milliseconds| [k, (milliseconds / 1000).round] }.to_h # timetracking is stored in milliseconds for active activity sessions, but seconds on the activity session
@@ -420,9 +404,8 @@ class ActivitySession < ApplicationRecord
     end
   end
 
-  def self.mark_all_activity_sessions_complete(classroom_unit_id, activity_id, data={})
-    activity = Activity.find_by_id_or_uid(activity_id)
-    ActivitySession.unscoped.where(classroom_unit_id: classroom_unit_id, activity: activity).each do |as|
+  def self.mark_all_activity_sessions_complete(activity_sessions, data={})
+    activity_sessions.each do |as|
       as.update(
         state: 'finished',
         percentage: 1,

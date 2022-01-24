@@ -12,8 +12,8 @@ class SerializeVitallySalesAccount
     school_year_start = School.school_year_start(current_time)
     active_students = active_students_query(@school).count
     active_students_this_year = active_students_query(@school).where("activity_sessions.updated_at >= ?", school_year_start).count
-    activities_finished = activities_finished_query(@school).count
-    activities_finished_this_year = activities_finished_query(@school).where("activity_sessions.updated_at >= ?", school_year_start).count
+    activities_finished = activities_finished_query(@school).count("DISTINCT activity_sessions.id")
+    activities_finished_this_year = activities_finished_query(@school).where("activity_sessions.updated_at >= ?", school_year_start).count("DISTINCT activity_sessions.id")
     {
       accountId: @school.id.to_s,
       # Type is used by Vitally to determine which data type the payload contains in batches

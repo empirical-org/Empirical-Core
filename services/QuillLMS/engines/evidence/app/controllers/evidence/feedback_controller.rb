@@ -23,7 +23,7 @@ module Evidence
 
     def plagiarism
       rule = @prompt.rules&.find_by(rule_type: Evidence::Rule::TYPE_PLAGIARISM)
-      feedback = get_plagiarism_feedback_from_previous_feedback(@previous_feedback, @prompt)
+      feedback = get_plagiarism_feedback_from_previous_feedback(@previous_feedback, rule)
 
       if rule.plagiarism_texts.none?
         render json: Evidence::PlagiarismCheck.new(@entry, '', feedback, rule).feedback_object
@@ -33,7 +33,7 @@ module Evidence
           plagiarism_check = Evidence::PlagiarismCheck.new(@entry, plagiarism_text.text, feedback, rule)
           break unless plagiarism_check.feedback_object[:optimal]
         end
-        render json: plagiarism_check.feedback_object
+        return render json: plagiarism_check.feedback_object
       end
     end
 
@@ -72,9 +72,9 @@ module Evidence
       @previous_feedback = params[:previous_feedback]
     end
 
-    private def get_plagiarism_feedback_from_previous_feedback(prev, prompt)
+    private def get_plagiarism_feedback_from_previous_feedback(prev, rule)
       previous_plagiarism = prev.select {|f| f["feedback_type"] == Evidence::Rule::TYPE_PLAGIARISM && f["optimal"] == false }
-      feedbacks = prompt.rules&.find_by(rule_type: Evidence::Rule::TYPE_PLAGIARISM)&.feedbacks
+      feedbacks = rule&.feedbacks
       previous_plagiarism.empty? ? feedbacks&.find_by(order: 0)&.text : feedbacks&.find_by(order: 1)&.text
     end
   end
