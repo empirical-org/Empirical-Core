@@ -555,6 +555,10 @@ Style/PreferredHashMethods:
 Style/Proc:
   Enabled: true
 
+# TODO evaluate if this should be enabled
+Style/QuotedSymbols:
+  Enabled: false
+
 Style/RaiseArgs:
   Enabled: true
   Exclude:
