@@ -530,6 +530,9 @@ Style/NumberedParametersLimit:
 Style/NumericLiteralPrefix:
   Enabled: true
 
+Style/OpenStructUse:
+  Enabled: true
+
 Style/OrAssignment:
   Enabled: true
 
