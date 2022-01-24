@@ -150,6 +150,9 @@ Lint/ConstantDefinitionInBlock:
 Lint/DeprecatedClassMethods:
   Enabled: true
 
+Lint/DeprecatedConstants:
+  Enabled: true
+
 Lint/DuplicateCaseCondition:
   Enabled: true
 
