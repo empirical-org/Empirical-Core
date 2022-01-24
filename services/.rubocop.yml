@@ -236,6 +236,9 @@ Lint/SuppressedException:
 Lint/ToEnumArguments:
   Enabled: true
 
+Lint/TripleQuotes:
+  Enabled: true
+
 Lint/UriEscapeUnescape:
   Enabled: true
 

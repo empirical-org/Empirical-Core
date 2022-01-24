@@ -257,13 +257,13 @@ class Cms::UsersController < Cms::CmsController
     class_code = user_query_params["class_code"]
     if class_code.present?
       sanitized_class_code = ActiveRecord::Base.connection.quote(class_code)
-      query = """AND users.id IN
+      query = "AND users.id IN
         (( SELECT user_id FROM classrooms_teachers
         JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id
         WHERE classrooms.code = #{sanitized_class_code}) UNION
         ( SELECT student_id FROM students_classrooms
         JOIN classrooms ON classrooms.id = students_classrooms.classroom_id
-        WHERE classrooms.code = #{sanitized_class_code}))"""
+        WHERE classrooms.code = #{sanitized_class_code}))"
     end
   end
 
