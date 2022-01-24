@@ -377,9 +377,7 @@ class ActivitySession < ApplicationRecord
       concept_result[:concept_id] = concept.id
       concept_result[:activity_session_id] = activity_session_id
       concept_result.delete(:activity_session_uid)
-    end
 
-    concept_results.each do |concept_result|
       ConceptResult.create(
         concept_id: concept_result[:concept_id],
         question_type: concept_result[:question_type],
