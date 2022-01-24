@@ -100,7 +100,7 @@ namespace :schools do
     QUILL_ID_KEY = 'Quill ID'
     CLEVER_ID_KEY = 'Clever School ID'
 
-    pipe_data = STDIN.read unless STDIN.tty?
+    pipe_data = $stdin.read unless $stdin.tty?
 
     unless pipe_data
       puts 'No data detected on STDIN.  You must pass data to the task for it to run.  Example:'

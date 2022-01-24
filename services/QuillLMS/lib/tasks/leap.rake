@@ -8,7 +8,7 @@ namespace :leap do
     include LeapTaskHelpers
     arg_values(args)
 
-    pipe_data = STDIN.read unless STDIN.tty?
+    pipe_data = $stdin.read unless $stdin.tty?
 
     if !@email_domain || !pipe_data
       puts('You must pipe the csv data you want to process and provide the email domain to use to identify users')
