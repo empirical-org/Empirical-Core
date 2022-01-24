@@ -607,6 +607,9 @@ Style/SpecialGlobalVars:
 Style/StderrPuts:
   Enabled: true
 
+Style/StringChars:
+  Enabled: true
+
 Style/StringLiteralsInInterpolation:
   Enabled: true
 
