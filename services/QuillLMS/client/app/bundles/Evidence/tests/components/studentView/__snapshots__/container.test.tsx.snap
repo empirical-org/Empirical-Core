@@ -62,6 +62,8 @@ But how can democracies have representative governments unless all or most of th
   }
   session={
     Object {
+      "activeStep": 1,
+      "explanationSlidesCompleted": false,
       "hasReceivedData": true,
       "sessionID": "MockSessionID",
       "submittedResponses": Array [],

@@ -7,10 +7,10 @@ const disabledClearSrc =  `${process.env.CDN_URL}/images/icons/clear-disabled.sv
 
 interface EditorContainerProps {
   promptText: string;
-  stripHtml: (input: string) => input;
+  stripHtml: (input: string) => any;
   html: string;
   disabled: boolean;
-  resetText: (event: any) => void;
+  handleFocus: (event: any) => void;
   innerRef: Function;
   handleTextChange: (event: any) => void;
   className: string;
@@ -23,31 +23,6 @@ export default class EditorContainer extends React.Component<EditorContainerProp
       e.preventDefault()
       return false
     }, true);
-  }
-
-  renderClear = () => {
-    const { disabled, resetText, isResettable, } = this.props
-    if (disabled) { return }
-
-    if (isResettable) {
-      return (<button className="clear-button" onClick={resetText} type="button">
-        <img
-          alt="circle with an x in it"
-          className="clear"
-          src={enabledClearSrc}
-        />
-        Clear response
-      </button>)
-    }
-
-    return (<button className="disabled clear-button" type="button">
-      <img
-        alt="circle with an x in it"
-        className="clear"
-        src={disabledClearSrc}
-      />
-      Clear response
-    </button>)
   }
 
   render() {
@@ -63,7 +38,6 @@ export default class EditorContainer extends React.Component<EditorContainerProp
         onFocus={handleFocus}
         spellCheck={true}
       />
-      {this.renderClear()}
     </div>)
   }
 }

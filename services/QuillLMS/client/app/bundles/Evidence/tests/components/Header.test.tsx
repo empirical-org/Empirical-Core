@@ -25,6 +25,7 @@ describe('StudentViewContainer component', () => {
   describe('when the activity has loaded', () => {
     const wrapper = mount(<Header
       dispatch={dispatch}
+      session={{}}
     />)
 
     it('renders', () => {

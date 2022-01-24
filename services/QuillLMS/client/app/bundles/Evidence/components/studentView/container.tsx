@@ -13,15 +13,15 @@ import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
-import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession, saveActivitySurveyResponse, reportAProblem, } from '../../actions/session'
+import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession, saveActivitySurveyResponse, reportAProblem, setActiveStepForSession, setExplanationSlidesCompletedForSession, setActivityIsCompleteForSession } from '../../actions/session'
 import { generateConceptResults, } from '../../libs/conceptResults'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
 import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted, getStrippedPassageHighlights } from '../../helpers/containerActionHelpers';
-import { renderStepLinksAndDirections, renderReadPassageContainer } from '../../helpers/containerRenderHelpers';
+import { renderReadPassageContainer, renderDirections} from '../../helpers/containerRenderHelpers';
 import { postTurkSession } from '../../utils/turkAPI';
-import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE, TOUCHMOVE, } from '../../../Shared/index'
+import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE } from '../../../Shared/index'
 
 interface StudentViewContainerProps {
   dispatch: Function;
@@ -34,9 +34,6 @@ interface StudentViewContainerProps {
 }
 
 interface StudentViewContainerState {
-  activeStep?: number;
-  activityIsComplete: boolean;
-  explanationSlidesCompleted: boolean;
   explanationSlideStep:  number;
   completedSteps: Array<number>;
   isIdle: boolean;
@@ -55,10 +52,8 @@ const ONBOARDING = 'onboarding'
 const READ_PASSAGE_STEP = 1
 const ALL_STEPS = [READ_PASSAGE_STEP, 2, 3, 4]
 const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
-const ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING = 3
 
 export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user, }: StudentViewContainerProps) => {
-  const activityCompletionCount: number = parseInt(getParameterByName('activities', window.location.href)) || 0;
   const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
   const defaultCompletedSteps = shouldSkipToPrompts ? [READ_PASSAGE_STEP] : []
 
@@ -72,9 +67,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   const inactivityTimer = React.useRef(null)
 
   const [explanationSlideStep, setExplanationSlideStep] = React.useState(0)
-  const [explanationSlidesCompleted, setExplanationSlidesCompleted] = React.useState(shouldSkipToPrompts || (activityCompletionCount > ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING))
-  const [activeStep, setActiveStep] = React.useState(shouldSkipToPrompts ? READ_PASSAGE_STEP + 1: READ_PASSAGE_STEP)
-  const [activityIsComplete, setActivityIsComplete] = React.useState(false)
   const [completeButtonClicked, setCompleteButtonClicked] = React.useState(false)
   const [completedSteps, setCompletedSteps] = React.useState(defaultCompletedSteps)
   const [showFocusState, setShowFocusState] = React.useState(false)
@@ -140,11 +132,12 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       window.removeEventListener(KEYPRESS, resetTimers)
       window.removeEventListener(VISIBILITYCHANGE, setIdle)
     }
-  }, [session, activities, hasStartedPromptSteps, inactivityTimer, explanationSlidesCompleted, activeStep, isIdle])
+  }, [session, activities, hasStartedPromptSteps, inactivityTimer, isIdle])
 
   React.useEffect(() => { activities.currentActivity ? document.title = `Quill.org | ${activities.currentActivity.title}` : null }, [activities.currentActivity])
 
   React.useEffect(() => {
+    const { activeStep } = session;
     if (!outOfAttemptsForActivePrompt(activeStep, session, activities)) { return }
 
     if (!everyOtherStepCompleted(activeStep, completedSteps)) { return }
@@ -160,6 +153,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     if (completedSteps.length === defaultCompletedSteps.length || !activities.currentActivity ) { return }
 
     const uniqueCompletedSteps = Array.from(new Set(completedSteps))
+    const { activeStep } = session;
     let nextStep: number|undefined = activeStep + 1
     if (nextStep > ALL_STEPS.length || uniqueCompletedSteps.includes(nextStep)) {
       nextStep = ALL_STEPS.find(s => !uniqueCompletedSteps.includes(s))
@@ -171,7 +165,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       // // don't activate nextSteps before Done reading button has been clicked
       if (nextStep && nextStep > 1 && !completedSteps.includes(READ_PASSAGE_STEP)) return
 
-      setActiveStep(nextStep)
+      dispatch(setActiveStepForSession(nextStep))
       setStartTime(Date.now())
       trackCurrentPromptStartedEvent()
     } else {
@@ -180,8 +174,9 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }, [completedSteps, activities.currentActivity])
 
   React.useEffect(() => {
+    const { activeStep } = session;
     activeStep !== READ_PASSAGE_STEP ? scrollToStep(`step${activeStep}`) : null
-  }, [activeStep])
+  }, [session.activeStep])
 
   function handleReadPassageContainerScroll(e=null) {
     if (e) { resetTimers(e) }
@@ -191,6 +186,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   function resetTimers(e=null) {
     const now = Date.now()
+    const { activeStep } = session;
     if (completedSteps.includes(activeStep)) { return } // don't want to add time if a user is revisiting a previously completed step
     if (outOfAttemptsForActivePrompt(activeStep, session, activities)) { return } // or if they are finished submitting responses for the current active step
     if (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps) { return } // or if they are between the read passage step and starting the prompts
@@ -199,7 +195,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     if (isIdle) {
       elapsedTime = 0
     }
-
+    const { explanationSlidesCompleted } = session;
     const activeStepKey = explanationSlidesCompleted ? activeStep : ONBOARDING
     const newTimeTracking = {...timeTracking, [activeStepKey]: timeTracking[activeStepKey] + elapsedTime}
 
@@ -252,11 +248,12 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
 
   function loadPreviousSession(data) {
+    const { activeStep } = session;
     const highlights = data.studentHighlights || studentHighlights
     // if the student hasn't gotten to the highlighting stage yet,
     // we don't want them to skip seeing the directions modal and reading the passage again
     const studentHasAtLeastStartedHighlighting = highlights && highlights.length
-    setActiveStep(data.activeStep || activeStep)
+    dispatch(setActiveStepForSession(data.activeStep || activeStep))
     setCompletedSteps(data.completedSteps || completedSteps)
     setTimeTracking(data.timeTracking || timeTracking)
     setStudentHighlights(highlights)
@@ -265,7 +262,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     setDoneHighlighting(studentHasAtLeastStartedHighlighting && highlights.length >= MINIMUM_STUDENT_HIGHLIGHT_COUNT)
   }
 
-  function activateStep(step) { setActiveStep(step) }
+  function activateStep(step) { dispatch(setActiveStepForSession(step)) }
 
   function submitResponse(entry: string, promptID: string, promptText: string, attempt: number) {
     const { sessionID, } = session
@@ -299,7 +296,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
 
   function trackCurrentPromptStartedEvent() {
-
+    const { activeStep } = session;
     const trackingParams = getCurrentStepDataForEventTracking(activeStep, activities, session, isTurk)
     if (!trackingParams) return; // Bail if there's no data to track
 
@@ -307,7 +304,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
 
   function trackCurrentPromptCompletedEvent() {
-
+    const { activeStep } = session;
     const trackingParams = getCurrentStepDataForEventTracking(activeStep, activities, session, isTurk)
     if (!trackingParams) return; // Bail if there's no data to track
 
@@ -323,7 +320,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       sessionID,
     }));
 
-    setActivityIsComplete(true);
+    dispatch(setActivityIsCompleteForSession(true));
     defaultHandleFinishActivity()
   }
 
@@ -404,7 +401,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
 
   function callSaveActiveActivitySession() {
-    const { sessionID, submittedResponses, } = session
+    const { sessionID, submittedResponses, activeStep } = session
     const args = {
       sessionID,
       submittedResponses,
@@ -423,12 +420,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   function scrollToStepOnMobile(ref: string) {
     refs[ref].current ? refs[ref].current.scrollIntoView(false) : null
-  }
-
-  function scrollToQuestionSectionOnMobile() { scrollToStepOnMobile('step2')}
-
-  function clickStepLink(stepNumber: number) {
-    setActiveStep(stepNumber)
   }
 
   function handleHighlightKeyDown(e) {
@@ -459,6 +450,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }, [studentHighlights])
 
   function transformMarkTags(node) {
+    const { activeStep } = session;
     const strippedPassageHighlights = getStrippedPassageHighlights({ activities, session, activeStep });
 
     if (['p'].includes(node.name) && activeStep > 1 && strippedPassageHighlights && strippedPassageHighlights.length) {
@@ -494,13 +486,13 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   function handleExplanationSlideClick() {
     const nextStep = explanationSlideStep + 1;
     if (nextStep > 3) {
-      setExplanationSlidesCompleted(true)
+      dispatch(setExplanationSlidesCompletedForSession(true))
     } else {
       setExplanationSlideStep(nextStep)
     }
   }
 
-  const { submittedResponses, sessionID, } = session;
+  const { submittedResponses, sessionID, explanationSlidesCompleted, activeStep, activityIsComplete } = session;
 
   if (!activities.hasReceivedData) { return <LoadingSpinner /> }
 
@@ -527,17 +519,14 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   return (
     <div className={className}>
-      {renderStepLinksAndDirections({
+      {renderDirections({
+        closeReadTheDirectionsModal,
         activeStep,
-        hasStartedReadPassageStep,
-        hasStartedPromptSteps,
         doneHighlighting,
         showReadTheDirectionsModal,
-        completedSteps,
         activities,
-        clickStepLink: clickStepLink,
-        scrollToQuestionSectionOnMobile: scrollToQuestionSectionOnMobile,
-        closeReadTheDirectionsModal: closeReadTheDirectionsModal
+        hasStartedReadPassageStep,
+        hasStartedPromptSteps
       })}
       {renderReadPassageContainer({
         activities,
@@ -570,7 +559,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         scrolledToEndOfPassage={scrolledToEndOfPassage}
         session={session}
         showReadTheDirectionsModal={showReadTheDirectionsModal}
-        stepsHash={refs}
         studentHighlights={studentHighlights}
         submitResponse={submitResponse}
         toggleStudentHighlight={toggleStudentHighlight}

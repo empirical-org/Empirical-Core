@@ -28,7 +28,6 @@ const RightPanel = ({
   scrolledToEndOfPassage,
   session,
   showReadTheDirectionsModal,
-  stepsHash,
   studentHighlights,
   submitResponse,
   toggleStudentHighlight,
@@ -101,7 +100,6 @@ const RightPanel = ({
       resetTimers={resetTimers}
       session={session}
       showReadTheDirectionsModal={showReadTheDirectionsModal}
-      stepsHash={stepsHash}
       submitResponse={submitResponse}
     />
   )
