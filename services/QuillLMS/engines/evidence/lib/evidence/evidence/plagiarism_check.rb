@@ -138,7 +138,7 @@ module Evidence
       longest_consecutive_indices = matched_consecutive_indices.max_by(&:size)
 
       string_result = slices[longest_consecutive_indices[0]].join(' ')
-      longest_consecutive_indices.drop(1).each {|i| string_result += ' ' + slices[i].last}
+      longest_consecutive_indices.drop(1).each {|i| string_result += " #{slices[i].last}"}
       string_result
     end
 

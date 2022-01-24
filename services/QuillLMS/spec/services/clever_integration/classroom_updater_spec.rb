@@ -42,7 +42,7 @@ RSpec.describe CleverIntegration::ClassroomUpdater do
     end
 
     context 'name on Clever changed' do
-      let(:data_name) { 'Renamed on Quill' + synced_name }
+      let(:data_name) { "Renamed on Quill#{synced_name}" }
 
       it { expect(subject.name).to eq data_name }
       it { expect(subject.synced_name).to eq data_name }
@@ -50,7 +50,7 @@ RSpec.describe CleverIntegration::ClassroomUpdater do
   end
 
   context 'custom classroom name' do
-    let(:name) { 'Renamed on Quill' + synced_name }
+    let(:name) { "Renamed on Quill#{synced_name}" }
     let(:synced_name) { 'Clever Classroom' }
 
     context 'name on Clever has not changed' do
@@ -61,7 +61,7 @@ RSpec.describe CleverIntegration::ClassroomUpdater do
     end
 
     context 'name on Clever has changed' do
-      let(:data_name) { 'renamed on Clever ' + synced_name }
+      let(:data_name) { "renamed on Clever #{synced_name}" }
 
       it { expect(subject.name).to eq name }
       it { expect(subject.synced_name).to eq data_name }

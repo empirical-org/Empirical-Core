@@ -206,7 +206,7 @@ class Activity < ApplicationRecord
   end
 
   def self.search_results(flag)
-    substring = flag ? flag + "_" : ""
+    substring = flag ? "#{flag}_" : ""
     activity_search_results = $redis.get("default_#{substring}activity_search")
     activity_search_results ||= ActivitySearchWrapper.search_cache_data(flag)
     JSON.parse(activity_search_results)

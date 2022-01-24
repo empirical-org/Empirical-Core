@@ -81,7 +81,7 @@ module ResponseSearch
   end
 
   module_function def add_spelling_filter(current_string, filter)
-    filter ? current_string + " AND NOT spelling_error:(true)" : current_string
+    filter ? "#{current_string} AND NOT spelling_error:(true)" : current_string
   end
 
   module_function def key_value_to_not_string(key, value)

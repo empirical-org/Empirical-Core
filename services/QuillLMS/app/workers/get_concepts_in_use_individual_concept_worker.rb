@@ -36,8 +36,8 @@ class GetConceptsInUseIndividualConceptWorker
         index = @organized_concepts.find_index(existing_oc)
         @organized_concepts[index] = new_oc
       else
-        grandparent_name = c["grandparent_name"] ?  c["grandparent_name"] + ' | ' : ''
-        parent_name = c["parent_name"] ?  c["parent_name"] + ' | ' : ''
+        grandparent_name = c["grandparent_name"] ?  "#{c["grandparent_name"]} | " : ''
+        parent_name = c["parent_name"] ?  "#{c["parent_name"]} | " : ''
         new_oc = {
           grades_connect_activities: [],
           grades_diagnostic_activities: [],

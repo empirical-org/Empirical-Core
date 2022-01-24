@@ -49,7 +49,7 @@ RSpec.describe GoogleIntegration::ClassroomUpdater do
     end
 
     context 'name on google_classroom changed' do
-      let(:data_name) { 'Renamed on Quill' + synced_name }
+      let(:data_name) { "Renamed on Quill#{synced_name}" }
 
       it 'updates name and synced name with data_name' do
         expect(subject.name).to eq data_name
@@ -59,7 +59,7 @@ RSpec.describe GoogleIntegration::ClassroomUpdater do
   end
 
   context 'custom classroom name' do
-    let(:name) { 'Renamed on Quill' + synced_name }
+    let(:name) { "Renamed on Quill#{synced_name}" }
     let(:synced_name) { 'google_classroom Classroom' }
 
     context 'name on google_classroom has not changed' do
@@ -72,7 +72,7 @@ RSpec.describe GoogleIntegration::ClassroomUpdater do
     end
 
     context 'name on google_classroom has changed' do
-      let(:data_name) { 'renamed on google_classroom ' + synced_name }
+      let(:data_name) { "renamed on google_classroom #{synced_name}" }
 
       it 'updates synced name with data_name' do
         expect(subject.name).to eq name

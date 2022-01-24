@@ -226,7 +226,7 @@ class Cms::UsersController < Cms::CmsController
     # School name: schools.name
     # User flag: user.flags
     # Premium status: subscriptions.account_type
-    sanitized_fuzzy_param_value = ActiveRecord::Base.connection.quote('%' + param_value + '%')
+    sanitized_fuzzy_param_value = ActiveRecord::Base.connection.quote("%#{param_value}%")
     sanitized_param_value = ActiveRecord::Base.connection.quote(param_value)
 
     case param

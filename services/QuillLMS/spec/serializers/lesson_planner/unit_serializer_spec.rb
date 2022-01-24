@@ -96,8 +96,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
 
     it 'has correct dueDates' do
       hash = {}
-      hash[activity.id] = due_date.month.to_s + "-" + due_date.day.to_s +
-        "-" + due_date.year.to_s
+      hash[activity.id] = "#{due_date.month.to_s}-#{due_date.day.to_s}-#{due_date.year.to_s}"
       expect(subject[:dueDates]).to eq(hash)
     end
   end

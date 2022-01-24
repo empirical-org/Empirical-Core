@@ -87,9 +87,9 @@ module IncorrectSequenceCalculator
     words = sentence.split(" ")
     words.map.with_index do |word, i|
       if i == 0
-        word + " "
+        "#{word} "
       elsif i == words.length - 1
-        " " + word
+        " #{word}"
       else
         " #{word} "
       end
@@ -161,7 +161,7 @@ module IncorrectSequenceCalculator
         if v > 10
           correct_substrings.each do |corsub, c|
             if substring.slice(0...corsub.length) == corsub
-              new_substring = " " + substring.slice(corsub.length..-1)
+              new_substring = " #{substring.slice(corsub.length..-1)}"
             elsif substring.slice(-corsub.length..-1) == corsub
               new_substring = substring.slice(0..(substring.length - corsub.length))
             end

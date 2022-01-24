@@ -26,10 +26,10 @@ class Concept < ApplicationRecord
   def lineage
     family_tree = name
     if parent
-      family_tree = parent.name+' | '+family_tree
+      family_tree = "#{parent.name} | #{family_tree}"
     end
     if parent and parent.parent
-      family_tree = parent.parent.name+' | '+family_tree
+      family_tree = "#{parent.parent.name} | #{family_tree}"
     end
     family_tree
   end
