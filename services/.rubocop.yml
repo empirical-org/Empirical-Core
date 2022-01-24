@@ -74,6 +74,9 @@ Layout/InitialIndentation:
 Layout/LeadingEmptyLines:
   Enabled: true
 
+Layout/LineEndStringConcatenationIndentation:
+  Enabled: true
+
 Layout/MultilineArrayBraceLayout:
   Enabled: true
 
