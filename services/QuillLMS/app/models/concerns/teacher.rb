@@ -142,7 +142,7 @@ module Teacher
   end
 
   def archived_classrooms
-    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms(false)} AND ct.role = 'owner' AND classrooms.visible = false")
+    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms(only_visible_classrooms: false)} AND ct.role = 'owner' AND classrooms.visible = false")
   end
 
   def handle_negative_classrooms_from_update_coteachers(classroom_ids=nil)
@@ -671,7 +671,7 @@ module Teacher
     .select("assigned_student_ids, activities.id, unit_activities.created_at")
   end
 
-  private def base_sql_for_teacher_classrooms(only_visible_classrooms=true)
+  private def base_sql_for_teacher_classrooms(only_visible_classrooms: true)
     <<-SQL
       SELECT classrooms.*
       FROM classrooms_teachers AS ct

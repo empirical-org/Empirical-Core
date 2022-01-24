@@ -9,8 +9,8 @@ module GrowthResultsSummary
   def growth_results_summary(pre_test_activity_id, post_test_activity_id, classroom_id)
     pre_test = Activity.find(pre_test_activity_id)
     @skill_groups = pre_test.skill_groups
-    set_pre_test_activity_sessions_and_assigned_students(pre_test_activity_id, classroom_id, true)
-    set_post_test_activity_sessions_and_assigned_students(post_test_activity_id, classroom_id, true)
+    set_pre_test_activity_sessions_and_assigned_students(pre_test_activity_id, classroom_id, hashify_activity_sessions: true)
+    set_post_test_activity_sessions_and_assigned_students(post_test_activity_id, classroom_id, hashify_activity_sessions: true)
     @skill_group_summaries = @skill_groups.map do |skill_group|
       {
         name: skill_group.name,

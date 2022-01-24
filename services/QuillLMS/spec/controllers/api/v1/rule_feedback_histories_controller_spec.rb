@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
   before do
     # This is for CircleCI. Note that this refresh is NOT concurrent.
-    ActiveRecord::Base.refresh_materialized_view('feedback_histories_grouped_by_rule_uid', false)
+    ActiveRecord::Base.refresh_materialized_view('feedback_histories_grouped_by_rule_uid', concurrently: false)
   end
 
   describe '#by_conjunction' do
