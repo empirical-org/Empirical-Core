@@ -103,7 +103,16 @@ export default class UnitTemplates extends React.Component {
 
   orderedUnitTemplates = () => {
     const { fetchedData, } = this.state
-    return fetchedData.sort((bp1, bp2) => bp1.order_number - bp2.order_number)
+    return fetchedData.sort((bp1, bp2) => {
+      // Group archived activities at the bottom of the list (they automatically get a higher order number
+      // than any unarchived activity)
+      if (bp1.flag === 'archived' && bp2.flag !== 'archived') {
+        return 1
+      } else if (bp2.flag === 'archived' && bp1.flag != 'archived') {
+        return -1
+      }
+      return bp1.order_number - bp2.order_number
+    })
   }
 
   handleDelete = (id) => {
