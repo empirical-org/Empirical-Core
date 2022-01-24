@@ -116,6 +116,9 @@ Layout/SpaceInLambdaLiteral:
 # LINT
 #######################################################################################################################
 
+Lint/AmbiguousAssignment:
+  Enabled: true
+
 Lint/AmbiguousBlockAssociation:
   Enabled: true
   Exclude:
