@@ -6,22 +6,11 @@ require 'open-uri'
 # This code is taken from the Literacy Design Collaborative (ldc.org) and then modified.
 def nces_grade_level_mapping(nces_grade)
   case nces_grade
-  when 'PK'
-      0
-  when 'KG'
-      0
-  when 'M'
-      nil
-  when 'N'
-      nil
-  when 'UG'
-      nil
-  when 'AE'
-      nil
-  when '13'
-      12
+  when 'PK', 'KG' then 0
+  when 'M', 'N', 'UG', 'AE' then nil
+  when '13' then 12
   else
-      nces_grade
+    nces_grade
   end
 end
 
@@ -90,8 +79,8 @@ namespace :schools do
       school.mail_city = school.mail_city&.titleize
       school.street = school.street&.titleize
       school.city = school.street&.titleize
-      school.save! 
-    end  
+      school.save!
+    end
   end
 
   desc 'Update Clever IDs for existing schools based on a CSV file'

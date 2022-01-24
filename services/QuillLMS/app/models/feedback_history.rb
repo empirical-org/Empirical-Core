@@ -179,6 +179,7 @@ class FeedbackHistory < ApplicationRecord
     SQL
   end
 
+  # rubocop:disable Lint/DuplicateBranch
   def self.apply_activity_session_filter(query, filter_type)
     case filter_type
     when FILTER_ALL
@@ -197,6 +198,7 @@ class FeedbackHistory < ApplicationRecord
       query
     end
   end
+  # rubocop:enable Lint/DuplicateBranch
 
   def self.list_by_activity_session(activity_id: nil, page: 1, start_date: nil, end_date: nil, page_size: DEFAULT_PAGE_SIZE, turk_session_id: nil, filter_type: nil)
     query = select(

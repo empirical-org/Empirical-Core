@@ -153,6 +153,9 @@ Lint/DeprecatedClassMethods:
 Lint/DeprecatedConstants:
   Enabled: true
 
+Lint/DuplicateBranch:
+  Enabled: true
+
 Lint/DuplicateCaseCondition:
   Enabled: true
 

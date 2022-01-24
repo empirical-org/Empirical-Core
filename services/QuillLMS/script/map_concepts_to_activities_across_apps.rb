@@ -117,9 +117,7 @@ concepts.each do |c|
   if existing_oc
     new_oc = existing_oc
     case c["classification_name"]
-    when "Quill Connect"
-      new_oc["grades_connect_activities"] << (c["activity_name"])
-    when "Quill Diagnostic"
+    when "Quill Connect", "Quill Diagnostic"
       new_oc["grades_connect_activities"] << (c["activity_name"])
     when "Quill Grammar"
       new_oc["grades_grammar_activities"] << (c["activity_name"])
@@ -140,9 +138,7 @@ concepts.each do |c|
     new_oc["uid"] = uid
 
     case c["classification_name"]
-    when "Quill Connect"
-      new_oc["grades_connect_activities"] << (c["activity_name"])
-    when "Quill Diagnostic"
+    when "Quill Connect", "Quill Diagnostic"
       new_oc["grades_connect_activities"] << (c["activity_name"])
     when "Quill Grammar"
       new_oc["grades_grammar_activities"] << (c["activity_name"])
