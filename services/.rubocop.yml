@@ -239,6 +239,9 @@ Lint/ToEnumArguments:
 Lint/TripleQuotes:
   Enabled: true
 
+Lint/UnexpectedBlockArity:
+  Enabled: true
+
 Lint/UriEscapeUnescape:
   Enabled: true
 
