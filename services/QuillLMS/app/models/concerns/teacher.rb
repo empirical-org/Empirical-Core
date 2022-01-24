@@ -656,7 +656,7 @@ module Teacher
   end
 
   def generate_referrer_id
-    ReferrerUser.create(user_id: id, referral_code: "#{name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-')}-#{id.to_s}")
+    ReferrerUser.create(user_id: id, referral_code: "#{name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-')}-#{id}")
   end
 
   def assigned_students_per_activity_assigned

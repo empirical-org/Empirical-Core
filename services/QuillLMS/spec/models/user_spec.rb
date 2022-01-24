@@ -1180,7 +1180,7 @@ describe User, type: :model do
       referrer_users = ReferrerUser.count
       teacher = create(:teacher)
       expect(ReferrerUser.count).to be(referrer_users + 1)
-      expect(teacher.referral_code).to eq("#{teacher.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-')}-#{teacher.id.to_s}")
+      expect(teacher.referral_code).to eq("#{teacher.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-')}-#{teacher.id}")
     end
 
     it 'does not create a new ReferrerUser when a student is created' do

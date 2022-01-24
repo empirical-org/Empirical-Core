@@ -272,7 +272,7 @@ class ActivitySession < ApplicationRecord
     if percentage.nil?
       "no percentage"
     else
-      "#{(percentage*100).round.to_s}%"
+      "#{(percentage*100).round}%"
     end
   end
 
