@@ -29,7 +29,9 @@ exports[`ReadAndHighlightInstructions component when the student has not started
       }
       showReadTheDirectionsModal={false}
     >
-      <div>
+      <div
+        className="hide-on-mobile"
+      >
         <span />
         <section
           className="directions-section"
@@ -158,7 +160,9 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
       }
       showReadTheDirectionsModal={false}
     >
-      <div>
+      <div
+        className="hide-on-mobile"
+      >
         <span />
         <section
           className="directions-section"

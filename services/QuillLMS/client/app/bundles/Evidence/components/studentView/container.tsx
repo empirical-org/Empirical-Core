@@ -19,7 +19,7 @@ import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
 import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted, getStrippedPassageHighlights } from '../../helpers/containerActionHelpers';
-import { renderReadPassageContainer } from '../../helpers/containerRenderHelpers';
+import { renderReadPassageContainer, renderDirections} from '../../helpers/containerRenderHelpers';
 import { postTurkSession } from '../../utils/turkAPI';
 import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE } from '../../../Shared/index'
 
@@ -519,6 +519,15 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   return (
     <div className={className}>
+      {renderDirections({
+        closeReadTheDirectionsModal,
+        activeStep,
+        doneHighlighting,
+        showReadTheDirectionsModal,
+        activities,
+        hasStartedReadPassageStep,
+        hasStartedPromptSteps
+      })}
       {renderReadPassageContainer({
         activities,
         activeStep,

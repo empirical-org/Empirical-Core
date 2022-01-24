@@ -4,16 +4,16 @@ import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../Shared/utils/constants'
 
 const READ_PASSAGE_STEP = 1
 
-const ReadTheDirectionsModal = ({ closeReadTheDirectionsModal, }) => (<section className="read-the-directions-modal">
+export const ReadTheDirectionsModal = ({ closeReadTheDirectionsModal, }) => (<section className="read-the-directions-modal">
   <p>Read the directions carefully before moving onto reading and highlighting.</p>
   <button className="quill-button primary contained large focus-on-light" onClick={closeReadTheDirectionsModal} type="button">Got it</button>
 </section>)
 
 
-const DirectionsSectionAndModal = ({ closeReadTheDirectionsModal, passage, showReadTheDirectionsModal, inReflection, activeStep, }) => {
+const DirectionsSectionAndModal = ({ className, closeReadTheDirectionsModal, passage, showReadTheDirectionsModal, inReflection, activeStep, }) => {
   const uniquePartOfHighlightPrompt = passage.highlight_prompt ? passage.highlight_prompt.replace(DEFAULT_HIGHLIGHT_PROMPT, '') : ''
   if (inReflection) {
-    return (<div>
+    return (<div className={className}>
       <section className="reflection-section">
         <h3>Directions</h3>
         <p>Great! <u>Now take a moment to reflect on the sentences you highlighted.</u></p>
@@ -22,7 +22,7 @@ const DirectionsSectionAndModal = ({ closeReadTheDirectionsModal, passage, showR
   }
 
   if (activeStep > READ_PASSAGE_STEP) {
-    return (<div>
+    return (<div className={className}>
       <section className="directions-section">
         <h3>Directions</h3>
         <ul>
@@ -33,7 +33,7 @@ const DirectionsSectionAndModal = ({ closeReadTheDirectionsModal, passage, showR
     </div>)
   }
 
-  return (<div>
+  return (<div className={className}>
     {showReadTheDirectionsModal ? <ReadTheDirectionsModal closeReadTheDirectionsModal={closeReadTheDirectionsModal} /> : <span />}
     <section className="directions-section">
       <h3>Directions</h3>

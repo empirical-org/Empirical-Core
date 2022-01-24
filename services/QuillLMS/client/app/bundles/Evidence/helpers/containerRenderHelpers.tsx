@@ -1,7 +1,7 @@
 import * as React from "react"
 import ReactHtmlParser from 'react-html-parser'
 
-import { onMobile, orderedSteps, everyOtherStepCompleted, addPTagsToPassages, READ_PASSAGE_STEP, ALL_STEPS } from './containerActionHelpers'
+import { onMobile, orderedSteps, everyOtherStepCompleted, addPTagsToPassages, READ_PASSAGE_STEP } from './containerActionHelpers'
 
 import DirectionsSectionAndModal from '../components/studentView/directionsSectionAndModal'
 import PromptStep from '../components/studentView/promptStep'
@@ -9,16 +9,31 @@ import HeaderImage from '../components/studentView/headerImage'
 
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
 
-export const renderDirectionsSectionAndModal = ({ closeReadTheDirectionsModal, activeStep, doneHighlighting, showReadTheDirectionsModal, activities }) => {
+export const renderDirectionsSectionAndModal = ({ className, closeReadTheDirectionsModal, activeStep, doneHighlighting, showReadTheDirectionsModal, activities }) => {
   const { currentActivity, } = activities
 
   return  (<DirectionsSectionAndModal
     activeStep={activeStep}
+    className={className}
     closeReadTheDirectionsModal={closeReadTheDirectionsModal}
     inReflection={activeStep === READ_PASSAGE_STEP && doneHighlighting}
     passage={currentActivity.passages[0]}
     showReadTheDirectionsModal={showReadTheDirectionsModal}
   />)
+}
+
+export const renderDirections = ({ closeReadTheDirectionsModal, activeStep, doneHighlighting, showReadTheDirectionsModal, activities, hasStartedReadPassageStep, hasStartedPromptSteps }) => {
+  const { currentActivity, } = activities
+
+  const directionsSectionAndModal = renderDirectionsSectionAndModal({ className: '', closeReadTheDirectionsModal , activeStep, doneHighlighting, showReadTheDirectionsModal, activities })
+
+  if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && onMobile()) {
+    return
+  }
+
+  if (!currentActivity || activeStep === READ_PASSAGE_STEP) {
+    return (<div className="hide-on-desktop step-links-and-directions-container">{directionsSectionAndModal}</div>)
+  }
 }
 
 export const renderStepNumber = (number: number, activeStep, completedSteps) => {
@@ -67,7 +82,7 @@ export const renderPromptStep = ({
   const prompt = prompts[stepNumber];
 
   return (<div className="prompt-steps">
-    {renderDirectionsSectionAndModal({ closeReadTheDirectionsModal, activeStep, doneHighlighting, showReadTheDirectionsModal, activities })}
+    {renderDirectionsSectionAndModal({ className: '', closeReadTheDirectionsModal, activeStep, doneHighlighting, showReadTheDirectionsModal, activities })}
     <PromptStep
       activateStep={activateStep}
       activityIsComplete={activityIsComplete}
