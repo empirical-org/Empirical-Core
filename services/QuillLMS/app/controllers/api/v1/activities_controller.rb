@@ -114,7 +114,7 @@ class Api::V1::ActivitiesController < Api::ApiController
                               :uid,
                               flags: [])
                       .merge(data: @data)
-                      .compact
+                      .reject {|k,v| v.nil? }
   end
 
 end

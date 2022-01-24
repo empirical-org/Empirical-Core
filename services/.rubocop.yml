@@ -388,9 +388,6 @@ Style/ClassVars:
     - "QuillLMS/app/services/associators/students_to_classrooms.rb"
     - "QuillLMS/app/services/quill_clever.rb"
 
-Style/CollectionCompact:
-  Enabled: true
-
 Style/CommentAnnotation:
   Enabled: true
 

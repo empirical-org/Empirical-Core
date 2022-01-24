@@ -213,7 +213,7 @@ class Cms::UsersController < Cms::CmsController
         conditions << where_query_string_clause_for(param, param_value)
       end
     end
-    "WHERE #{conditions.compact.join(' AND ')}"
+    "WHERE #{conditions.reject(&:nil?).join(' AND ')}"
   end
 
   protected def where_query_string_clause_for(param, param_value)
