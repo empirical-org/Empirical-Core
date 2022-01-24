@@ -211,6 +211,9 @@ Lint/PercentStringArray:
   Exclude:
     - "QuillLMS/config/initializers/secure_headers.rb"
 
+Lint/RedundantDirGlobSort:
+  Enabled: true
+
 Lint/RescueException:
   Enabled: true
 
