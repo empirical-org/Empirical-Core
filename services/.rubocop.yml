@@ -336,6 +336,9 @@ Naming/VariableNumber:
 Security/Eval:
   Enabled: true
 
+Security/IoMethods:
+  Enabled: true
+
 Security/JSONLoad:
   Enabled: true
 
