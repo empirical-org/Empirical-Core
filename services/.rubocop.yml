@@ -524,6 +524,9 @@ Style/Not:
 Style/NumberedParameters:
   Enabled: true
 
+Style/NumberedParametersLimit:
+  Enabled: true
+
 Style/NumericLiteralPrefix:
   Enabled: true
 
