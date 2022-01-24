@@ -11,10 +11,11 @@ class UserLoginWorker
       @user.save
 
       analytics = Analyzer.new
-      if @user.role == 'teacher'
+      case @user.role
+      when 'teacher'
         TeacherActivityFeedRefillWorker.perform_async(@user.id)
         analytics.track(@user, SegmentIo::BackgroundEvents::TEACHER_SIGNIN)
-      elsif @user.role == 'student'
+      when 'student'
         # keep these in the following order so the student is the last one identified
         teacher = @user.teacher_of_student
         if teacher.present?

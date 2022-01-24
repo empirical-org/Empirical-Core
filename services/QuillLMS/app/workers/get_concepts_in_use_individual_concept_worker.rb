@@ -23,13 +23,14 @@ class GetConceptsInUseIndividualConceptWorker
 
       if existing_oc
         new_oc = existing_oc
-        if c["classification_name"] == 'Quill Connect'
+        case c["classification_name"]
+        when 'Quill Connect'
           new_oc["grades_connect_activities"] << (c["activity_name"])
-        elsif c["classification_name"] == "Quill Diagnostic"
+        when "Quill Diagnostic"
           new_oc["grades_diagnostic_activities"] << (c["activity_name"])
-        elsif c["classification_name"] == "Quill Grammar"
+        when "Quill Grammar"
           new_oc["grades_grammar_activities"] << (c["activity_name"])
-        elsif c["classification_name"] == "Quill Proofreader"
+        when "Quill Proofreader"
           new_oc["grades_proofreader_activities"] << (c["activity_name"])
         end
 
@@ -49,13 +50,14 @@ class GetConceptsInUseIndividualConceptWorker
           last_retrieved: Time.now.strftime("%m/%d/%y")
         }.stringify_keys
 
-        if c["classification_name"] == 'Quill Connect'
+        case c["classification_name"]
+        when 'Quill Connect'
           new_oc["grades_connect_activities"] << (c["activity_name"])
-        elsif c["classification_name"] == "Quill Diagnostic"
+        when "Quill Diagnostic"
           new_oc["grades_diagnostic_activities"] << (c["activity_name"])
-        elsif c["classification_name"] == "Quill Grammar"
+        when "Quill Grammar"
           new_oc["grades_grammar_activities"] << (c["activity_name"])
-        elsif c["classification_name"] == "Quill Proofreader"
+        when "Quill Proofreader"
           new_oc["grades_proofreader_activities"] << (c["activity_name"])
         end
 

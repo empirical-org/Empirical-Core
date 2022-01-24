@@ -87,13 +87,14 @@ class UnitTemplate < ApplicationRecord
   end
 
   def self.user_scope(user_flag)
-    if user_flag == PRIVATE
+    case user_flag
+    when PRIVATE
       UnitTemplate.private_user
-    elsif user_flag == ALPHA
+    when ALPHA
       UnitTemplate.alpha_user
-    elsif user_flag == BETA
+    when BETA
       UnitTemplate.beta_user
-    elsif user_flag == GAMMA
+    when GAMMA
       UnitTemplate.gamma_user
     else
       UnitTemplate.production

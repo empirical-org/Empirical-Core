@@ -127,11 +127,12 @@ class Activity < ApplicationRecord
   end
 
   def self.user_scope(user_flag)
-    if user_flag == ALPHA
+    case user_flag
+    when ALPHA
       Activity.alpha_user
-    elsif user_flag == BETA
+    when BETA
       Activity.beta_user
-    elsif user_flag == GAMMA
+    when GAMMA
       Activity.gamma_user
     else
       Activity.production

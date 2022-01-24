@@ -86,9 +86,10 @@ module IncorrectSequenceCalculator
   def self.get_padded_words_array(sentence)
     words = sentence.split(" ")
     words.map.with_index do |word, i|
-      if i == 0
+      case i
+      when 0
         "#{word} "
-      elsif i == words.length - 1
+      when words.length - 1
         " #{word}"
       else
         " #{word} "

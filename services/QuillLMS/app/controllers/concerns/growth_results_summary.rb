@@ -82,9 +82,10 @@ module GrowthResultsSummary
   end
 
   private def summarize_student_proficiency_for_skill_overall(present_skill_number, correct_skill_number, pre_correct_skill_number)
-    if correct_skill_number == 0
+    case correct_skill_number
+    when 0
       NO_PROFICIENCY
-    elsif present_skill_number == correct_skill_number
+    when present_skill_number
       correct_skill_number > pre_correct_skill_number ? GAINED_PROFICIENCY : MAINTAINED_PROFICIENCY
     else
       PARTIAL_PROFICIENCY
