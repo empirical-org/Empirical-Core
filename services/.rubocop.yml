@@ -189,6 +189,9 @@ Lint/IncompatibleIoSelectWithFiberScheduler:
 Lint/InterpolationCheck:
   Enabled: true
 
+Lint/LambdaWithoutLiteralBlock:
+  Enabled: true
+
 Lint/LiteralInInterpolation:
   Enabled: true
 
