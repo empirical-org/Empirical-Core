@@ -24,12 +24,12 @@
         justify-content: flex-end;
         align-items: center;
         padding-right: 30px;
+        position: relative;
         .skills-delta {
-          display: flex;
-          align-items: center;
           color: #367300;
-          margin-left: 8px;
-          margin-right: -38px;
+          right: -18px;
+          width: 40px;
+          position: absolute;
           img {
             margin-right: 1px;
           }
