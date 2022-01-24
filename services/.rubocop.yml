@@ -348,6 +348,9 @@ Style/InverseMethods:
 Style/Lambda:
   Enabled: true
 
+Style/HashAsLastArrayItem:
+  Enabled: false
+
 Style/LineEndConcatenation:
   Enabled: true
 
