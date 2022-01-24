@@ -16,7 +16,7 @@ export default class MergeTeacherAccounts extends React.Component {
     const that = this
     request.post({
       url: `${process.env.DEFAULT_URL}/teacher_fix/merge_teacher_accounts`,
-      json: {account_1_identifier: that.state.teacher1Identifier, account_2_identifier: that.state.teacher2Identifier, authenticity_token: getAuthToken()}
+      json: {account1_identifier: that.state.teacher1Identifier, account2_identifier: that.state.teacher2Identifier, authenticity_token: getAuthToken()}
     },
     (e, r, response) => {
       if (response.error) {
