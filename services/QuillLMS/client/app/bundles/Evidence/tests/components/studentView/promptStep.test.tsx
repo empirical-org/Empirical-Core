@@ -14,13 +14,11 @@ jest.mock('string-strip-html', () => ({
 const prompt = activityOne.prompts[2]
 
 const defaultProps = {
-  active: false,
   activityIsComplete: false,
   className: 'step',
   everyOtherStepCompleted: false,
   submitResponse: () => {},
   completeStep: () => {},
-  stepNumberComponent: <span />,
   onClick: () => {},
   prompt,
   passedRef: () => {},

@@ -155,6 +155,12 @@
         margin-bottom: 40px;
       }
     }
+    .directions-section {
+      ul {
+        list-style: disc;
+        margin: 0px 0px 24px 32px;
+      }
+    }
   }
 
   .read-passage-step-container {
@@ -304,6 +310,11 @@
         border-left: none;
         border-right: none;
         border-radius: 0px;
+      }
+    }
+    .steps-inner-container {
+      .directions-section {
+        padding-left: 16px;
       }
     }
     .read-passage-container {

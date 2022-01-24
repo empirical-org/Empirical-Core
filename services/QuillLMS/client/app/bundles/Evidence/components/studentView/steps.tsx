@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { renderReadPassageStep, renderPromptSteps } from '../../helpers/containerRenderHelpers';
+import { renderReadPassageStep, renderPromptStep } from '../../helpers/containerRenderHelpers';
 
 const Steps = ({
   activeStep,
@@ -17,14 +17,13 @@ const Steps = ({
   doneHighlighting,
   resetTimers,
   showReadTheDirectionsModal,
-  stepsHash,
   reportAProblem,
 }) => {
   return(
     <div className="steps-outer-container" onScroll={resetTimers}>
       <div className="steps-inner-container" onScroll={resetTimers}>
         {renderReadPassageStep(activeStep, activities, handleDoneReadingClick)}
-        {renderPromptSteps({
+        {renderPromptStep({
           activateStep,
           activityIsComplete,
           completionButtonCallback,
@@ -37,7 +36,6 @@ const Steps = ({
           completedSteps,
           doneHighlighting,
           showReadTheDirectionsModal,
-          stepsHash,
           reportAProblem,
         })}
       </div>

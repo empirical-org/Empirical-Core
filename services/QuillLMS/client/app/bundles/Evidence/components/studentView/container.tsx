@@ -19,7 +19,7 @@ import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
 import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted, getStrippedPassageHighlights } from '../../helpers/containerActionHelpers';
-import { renderStepLinksAndDirections, renderReadPassageContainer } from '../../helpers/containerRenderHelpers';
+import { renderReadPassageContainer, renderDirections} from '../../helpers/containerRenderHelpers';
 import { postTurkSession } from '../../utils/turkAPI';
 import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE } from '../../../Shared/index'
 
@@ -422,12 +422,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     refs[ref].current ? refs[ref].current.scrollIntoView(false) : null
   }
 
-  function scrollToQuestionSectionOnMobile() { scrollToStepOnMobile('step2')}
-
-  function clickStepLink(stepNumber: number) {
-    dispatch(setActiveStepForSession(stepNumber))
-  }
-
   function handleHighlightKeyDown(e) {
     if (e.key !== 'Enter') { return }
     toggleStudentHighlight(e.target.textContent)
@@ -525,17 +519,14 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   return (
     <div className={className}>
-      {renderStepLinksAndDirections({
+      {renderDirections({
+        closeReadTheDirectionsModal,
         activeStep,
-        hasStartedReadPassageStep,
-        hasStartedPromptSteps,
         doneHighlighting,
         showReadTheDirectionsModal,
-        completedSteps,
         activities,
-        clickStepLink: clickStepLink,
-        scrollToQuestionSectionOnMobile: scrollToQuestionSectionOnMobile,
-        closeReadTheDirectionsModal: closeReadTheDirectionsModal
+        hasStartedReadPassageStep,
+        hasStartedPromptSteps
       })}
       {renderReadPassageContainer({
         activities,
@@ -568,7 +559,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         scrolledToEndOfPassage={scrolledToEndOfPassage}
         session={session}
         showReadTheDirectionsModal={showReadTheDirectionsModal}
-        stepsHash={refs}
         studentHighlights={studentHighlights}
         submitResponse={submitResponse}
         toggleStudentHighlight={toggleStudentHighlight}
