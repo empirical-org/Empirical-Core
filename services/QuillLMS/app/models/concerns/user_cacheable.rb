@@ -36,7 +36,7 @@ module UserCacheable
     model_cache(classroom_unit, key: key, groups: groups, &block)
   end
 
-  # note: object for caching defaults to the 'user'
+  # NOTE: object for caching defaults to the 'user'
   # This avoids nil cache keys shared by different users
   private def model_cache_key(object, key:, groups:)
     group_array = groups.to_a.sort_by(&:first).flatten

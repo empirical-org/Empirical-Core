@@ -11,7 +11,7 @@ class ReferralsController < ApplicationController
   end
 
   def invite
-    # NOTE to future developers: you may be tempted to check that this user
+    # NOTE: to future developers: you may be tempted to check that this user
     # does not already exist in the database and decide not to send the email
     # if so. Do not do this as it has the potential to leak information about
     # which email addresses have accounts on Quill.org.
