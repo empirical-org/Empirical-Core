@@ -171,6 +171,9 @@ Lint/DuplicateMethods:
 Lint/DuplicateRegexpCharacterClassElement:
   Enabled: true
 
+Lint/EmptyBlock:
+  Enabled: true
+
 Lint/ImplicitStringConcatenation:
   Enabled: true
 

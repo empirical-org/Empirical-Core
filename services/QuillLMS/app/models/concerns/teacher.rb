@@ -323,10 +323,6 @@ module Teacher
       .where.not(clever_id: nil)
   end
 
-  def transfer_account
-    TransferAccountWorker.perform_async(id, new_user.id);
-  end
-
   def classroom_units(includes_value = nil)
     classroom_ids = classrooms_i_teach.map(&:id)
     if includes_value
