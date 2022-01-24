@@ -497,6 +497,9 @@ Style/MixinUsage:
 Style/MultilineIfModifier:
   Enabled: true
 
+Style/MultilineInPatternThen:
+  Enabled: true
+
 Style/MultipleComparison:
   Enabled: true
 
