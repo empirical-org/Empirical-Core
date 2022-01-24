@@ -233,8 +233,12 @@ Lint/SuppressedException:
   Enabled: true
   AllowComments: true
 
+Lint/ToEnumArguments:
+  Enabled: true
+
 Lint/UriEscapeUnescape:
   Enabled: true
+
 
 #######################################################################################################################
 # METRICS
