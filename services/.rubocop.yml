@@ -248,6 +248,8 @@ Lint/UnmodifiedReduceAccumulator:
 Lint/UriEscapeUnescape:
   Enabled: true
 
+Lint/UselessRuby2Keywords:
+  Enabled: true
 
 #######################################################################################################################
 # METRICS
