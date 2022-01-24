@@ -1,60 +1,87 @@
 import * as React from 'react'
 
-import { greenCheckIcon, encircledWhiteArrowIcon, } from '../../../Shared/index'
+import { whiteCheckGreenBackgroundIcon, READ_PASSAGE_STEP_NUMBER, BECAUSE_PASSAGE_STEP_NUMBER, BUT_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER } from '../../../Shared/index'
 
-const READ_PASSAGE_STEP = 1
-
-const steps = [
-  {
-    text: 'Read a text and highlight sentences'
+const steps = {
+  [READ_PASSAGE_STEP_NUMBER]: {
+    html: <p>Read a text and highlight sentences.</p>,
+    stepNumber: READ_PASSAGE_STEP_NUMBER
   },
-  {
-    text: 'Write three sentences using evidence'
+  [BECAUSE_PASSAGE_STEP_NUMBER]: {
+    html: <p>Expand a sentence using <u>because</u> to provide a reason.</p>,
+    stepNumber: BECAUSE_PASSAGE_STEP_NUMBER
+  },
+  [BUT_PASSAGE_STEP_NUMBER]: {
+    html: <p>Expand a sentence using <u>but</u> to provide an opposing idea.</p>,
+    stepNumber: BUT_PASSAGE_STEP_NUMBER
+  },
+  [SO_PASSAGE_STEP_NUMBER]: {
+    html: <p>Expand a sentence using <u>so</u> to provide a result.</p>,
+    stepNumber: SO_PASSAGE_STEP_NUMBER
   }
-]
+}
 
-const Step = ({ title, text, active, completed, handleClick, }) => {
+interface StepProps {
+  step: {
+    html: React.ReactElement,
+    stepNumber: number
+  },
+  active?: boolean,
+  completed?: boolean,
+  handleClick?: () => void
+}
+
+const Step = ({ active, completed, handleClick, step }: StepProps) => {
+  const { html, stepNumber } = step;
   if (active) {
     return (<section className="step-overview-step-container">
-      <img alt={encircledWhiteArrowIcon.alt} src={encircledWhiteArrowIcon.src} />
       <button className="step-overview-step active" onClick={handleClick} type="button">
-        <span>{title}</span>
-        <p>{text}</p>
+        <div className="left-side-container">
+          <div className={`evidence-step-number-small ${active ? 'active' : ''}`}>{stepNumber}</div>
+          {html}
+        </div>
+        <div className="now-tag">Now</div>
       </button>
     </section>)
   }
 
   if (completed) {
     return (<section className="step-overview-step-container">
-      <img alt={greenCheckIcon.alt} src={greenCheckIcon.src} />
       <div className="step-overview-step completed">
-        <span>{title}</span>
-        <p>{text}</p>
+        <img alt={whiteCheckGreenBackgroundIcon.alt} src={whiteCheckGreenBackgroundIcon.src} />
+        {html}
       </div>
     </section>)
   }
 
   return (<section className="step-overview-step-container">
     <div className="step-overview-step">
-      <span>{title}</span>
-      <p>{text}</p>
+      <div className="evidence-step-number-small">{stepNumber}</div>
+      {html}
     </div>
   </section>)
 }
 
 const StepOverview = ({ activeStep, handleClick, }) => {
-  if (activeStep === READ_PASSAGE_STEP) {
+  if (activeStep === READ_PASSAGE_STEP_NUMBER) {
     return (<div className="step-overview">
       <h1>Here’s what you’ll do</h1>
       <Step
         active={true}
         handleClick={handleClick}
-        text={steps[0].text}
-        title="Step 1 - Now"
+        step={steps[READ_PASSAGE_STEP_NUMBER]}
       />
       <Step
-        text={steps[1].text}
-        title="Step 2 - After"
+        active={activeStep === BECAUSE_PASSAGE_STEP_NUMBER}
+        step={steps[BECAUSE_PASSAGE_STEP_NUMBER]}
+      />
+      <Step
+        active={activeStep === BUT_PASSAGE_STEP_NUMBER}
+        step={steps[BUT_PASSAGE_STEP_NUMBER]}
+      />
+      <Step
+        active={activeStep === SO_PASSAGE_STEP_NUMBER}
+        step={steps[SO_PASSAGE_STEP_NUMBER]}
       />
     </div>)
   }
@@ -62,15 +89,21 @@ const StepOverview = ({ activeStep, handleClick, }) => {
   return (<div className="step-overview">
     <h1>Nice! Keep going!</h1>
     <Step
+      active={false}
       completed={true}
-      text={steps[0].text}
-      title="Step 1 - Done"
+      step={steps[READ_PASSAGE_STEP_NUMBER]}
     />
     <Step
-      active={true}
-      handleClick={handleClick}
-      text={steps[1].text}
-      title="Step 2 - After"
+      active={activeStep === BECAUSE_PASSAGE_STEP_NUMBER}
+      step={steps[BECAUSE_PASSAGE_STEP_NUMBER]}
+    />
+    <Step
+      active={activeStep === BUT_PASSAGE_STEP_NUMBER}
+      step={steps[BUT_PASSAGE_STEP_NUMBER]}
+    />
+    <Step
+      active={activeStep === SO_PASSAGE_STEP_NUMBER}
+      step={steps[SO_PASSAGE_STEP_NUMBER]}
     />
   </div>)
 }

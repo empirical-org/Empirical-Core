@@ -40,7 +40,6 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
   React.useEffect(() => {
     setReportAProblemExpanded(false)
     setReportSubmitted(false)
-    scrollToFeedback();
   }, [lastSubmittedResponse])
 
   React.useEffect(() => {
@@ -49,24 +48,6 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
       el.scrollIntoView(false)
     }
   }, [reportAProblemExpanded])
-
-  function scrollToFeedback() {
-    const scrollContainer = document.getElementsByClassName("steps-outer-container")[0];
-    if (scrollContainer) {
-      const { conjunction } = prompt;
-      const element: any = document.getElementsByClassName("step")[0]
-      const stepHeight = element.offsetHeight;
-      const heightsHash = {
-        // we are already viewing this prompt so we don't need to account for its height
-        [BECAUSE]: 0,
-        // we subtract 8 to show a bit of space above the container
-        [BUT]: (stepHeight * 2) - 8,
-        [SO]: (stepHeight * 3) - 8,
-      };
-      const height = heightsHash[conjunction];
-      scrollContainer.scrollTo(0, height);
-    }
-  }
 
   function toggleReportAProblemExpanded() { setReportAProblemExpanded(!reportAProblemExpanded) }
 
@@ -113,9 +94,6 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
 
   return (
     <div className={`feedback-section ${reportAProblemExpanded ? 'expanded' : ''}`}>
-      <p className="feedback-section-header">
-        Feedback<span>{submittedResponses.length} of {prompt.max_attempts} attempts</span>
-      </p>
       <ReactCSSTransitionReplace
         transitionEnterTimeout={1000}
         transitionLeaveTimeout={400}

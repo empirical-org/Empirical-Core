@@ -113,6 +113,11 @@ export const greenCheckIcon = {
   alt: 'Green check icon'
 }
 
+export const whiteCheckGreenBackgroundIcon = {
+  src: `${process.env.CDN_URL}/images/icons/icons-check-circle-dark.svg`,
+  alt: 'White check with green background icon'
+}
+
 export const lockedIcon = {
   alt: 'Lock icon',
   src: `${process.env.CDN_URL}/images/icons/icons-locked.svg`
