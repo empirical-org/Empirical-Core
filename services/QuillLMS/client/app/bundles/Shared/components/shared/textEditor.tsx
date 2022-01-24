@@ -13,6 +13,8 @@ import addLinkPluginPlugin from "../draftJSCustomPlugins/addLinkPlugin";
 
 const HIGHLIGHT = 'highlight'
 const HIGHLIGHTABLE = 'HIGHLIGHTABLE'
+const LINK = 'LINK'
+const MUTABLE = 'MUTABLE'
 
 // interface TextEditorProps {
 //   text: string;
@@ -66,7 +68,7 @@ class TextEditor extends React.Component <any, any> {
         }
       },
       entityToHTML: (entity, originalText) => {
-        if (entity.type === 'LINK') {
+        if (entity.type === LINK) {
           return <a href={entity.data.url}>{originalText}</a>;
         }
         return originalText;
@@ -86,8 +88,8 @@ class TextEditor extends React.Component <any, any> {
       htmlToEntity: (nodeName, node, createEntity) => {
         if (nodeName === 'a') {
             return createEntity(
-                'LINK',
-                'MUTABLE',
+                LINK,
+                MUTABLE,
                 {url: node.href}
             )
         }
@@ -136,7 +138,7 @@ class TextEditor extends React.Component <any, any> {
       return 'handled';
     }
     const content = editorState.getCurrentContent();
-    const contentWithEntity = content.createEntity('LINK', 'MUTABLE', { url: link });
+    const contentWithEntity = content.createEntity(LINK, MUTABLE, { url: link });
     const newEditorState = EditorState.push(editorState, contentWithEntity, 'create-entity');
     const entityKey = contentWithEntity.getLastCreatedEntityKey();
     this.handleTextChange(RichUtils.toggleLink(newEditorState, selection, entityKey))
@@ -171,7 +173,7 @@ class TextEditor extends React.Component <any, any> {
             <BlockquoteButton />
             <ULButton />
             <HighlightButton />
-            <button className="add-link" id="link_url" onClick={this.handleAddLink} type="button">
+            <button className="add-link" id="link-url" onClick={this.handleAddLink} type="button">
               <span>Link</span>
             </button>
           </div>

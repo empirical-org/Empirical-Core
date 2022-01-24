@@ -13,8 +13,7 @@ export const linkStrategy = (contentBlock, callback, contentState) => {
   );
 };
 
-export const Link = (props) => {
-  const { contentState, entityKey, children } = props;
+export const Link = ({ contentState, entityKey, children }) => {
   const { url } = contentState.getEntity(entityKey).getData();
   return (
     <a
