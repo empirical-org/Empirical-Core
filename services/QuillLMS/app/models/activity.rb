@@ -109,13 +109,9 @@ class Activity < ApplicationRecord
   end
 
   def self.find_by_id_or_uid(arg)
-    begin
-      find_by!(uid: arg)
-    rescue ActiveRecord::RecordNotFound
-      find(arg)
-    rescue ActiveRecord::RecordNotFound
-      raise ActiveRecord::RecordNotFound, "Couldn't find Activity with 'id' or 'uid'=#{arg}"
-    end
+    find_by(uid: arg)  || find(arg)
+  rescue ActiveRecord::RecordNotFound
+    raise ActiveRecord::RecordNotFound, "Couldn't find Activity with 'id' or 'uid'=#{arg}"
   end
 
   def standard_uid= uid
