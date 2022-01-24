@@ -6,22 +6,22 @@ module NavigationHelper
   end
 
   def classes_page_should_be_active?
-    (controller.instance_of?(Teachers::ClassroomsController) ||
+    (controller.class == Teachers::ClassroomsController ||
     controller_name == 'students' ||
     action_name == 'invite_students') &&
     controller.class.parent != Teachers::ProgressReports::Concepts
   end
 
   def assign_activity_page_should_be_active?
-    controller.instance_of?(Teachers::ClassroomManagerController) && action_name == 'assign'
+    controller.class == Teachers::ClassroomManagerController && action_name == 'assign'
   end
 
   def my_activities_page_should_be_active?
-    controller.instance_of?(Teachers::ClassroomManagerController) && action_name == 'lesson_planner'
+    controller.class == Teachers::ClassroomManagerController && action_name == 'lesson_planner'
   end
 
   def student_reports_page_should_be_active?
-    controller.instance_of?(Teachers::ProgressReportsController) ||
+    controller.class == Teachers::ProgressReportsController ||
     controller.class.parent == Teachers::ProgressReports ||
     controller.class.parent == Teachers::ProgressReports::Standards ||
     controller.class.parent == Teachers::ProgressReports::Concepts ||
@@ -61,7 +61,7 @@ module NavigationHelper
         ApplicationController::DIAGNOSTIC,
         ApplicationController::CONNECT
     ]
-    controller.instance_of?(PagesController) && activity_actions.include?(action_name)
+    controller.class == PagesController && activity_actions.include?(action_name)
   end
 
   def show_site_navigation?

@@ -378,6 +378,11 @@ Style/BarePercentLiterals:
 Style/BlockComments:
   Enabled: true
 
+Style/ClassEqualityComparison:
+  Enabled: true
+  Exclude:
+    - "QuillLMS/app/helpers/navigation_helper.rb"
+
 Style/ClassCheck:
   Enabled: true
 
