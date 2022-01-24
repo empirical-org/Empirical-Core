@@ -461,6 +461,9 @@ Style/IfInsideElse:
 Style/IfWithBooleanLiteralBranches:
   Enabled: true
 
+Style/InPatternThen:
+  Enabled: true
+
 Style/InverseMethods:
   Enabled: true
 
