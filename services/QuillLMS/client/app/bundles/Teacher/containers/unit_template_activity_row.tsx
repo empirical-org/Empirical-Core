@@ -8,7 +8,6 @@ import React from 'react'
 //   return <button className="interactive-wrapper" onClick={handleClickStar} type="button">{star}</button>
 // }
 
-
 const UnitTemplateActivityRow = ({
   activities
 }) => {
@@ -16,8 +15,11 @@ const UnitTemplateActivityRow = ({
   const activitiesRows = activities.map((a) =>
   <tr>
     <td>{a.name}</td>
-    <td>{a.data.flag}</td>
+    <td>{a.data && a.data.flag}</td>
     <td>{a.readability_grade_level}</td>
+    <td>{a.standard && a.standard.standard_level && a.standard.standard_level.name}</td>
+    <td>{a.activity_category && a.activity_category.name}</td>
+    <td>{a.classification.name}</td>
   </tr>
   )
 
