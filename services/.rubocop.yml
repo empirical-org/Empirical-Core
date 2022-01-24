@@ -177,6 +177,9 @@ Lint/EmptyBlock:
 Lint/EmptyClass:
   Enabled: true
 
+Lint/EmptyInPattern:
+  Enabled: true
+
 Lint/ImplicitStringConcatenation:
   Enabled: true
 
