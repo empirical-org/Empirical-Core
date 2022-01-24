@@ -200,6 +200,10 @@ Metrics/ModuleLength:
 Metrics/ParameterLists:
   Enabled: true
   Max: 7
+  Exclude:
+    - QuillLMS/app/controllers/cms/users_controller.rb
+    - QuillLMS/app/queries/scorebook/query.rb
+    - QuillLMS/app/services/google_integration/client.rb
 
 #######################################################################################################################
 # NAMING
