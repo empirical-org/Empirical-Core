@@ -1,4 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
+
+import UnitTemplateActivityRow from './unit_template_activity_row';
 
 // const featuredCellContent = ({ featuredOrderNumber, featuredBlogPostLimitReached, handleClickStar, draft, }) => {
 //   if (draft) { return 'DRAFT' }
@@ -15,8 +17,10 @@ const UnitTemplateRow = ({
   flag,
   diagnostic_names,
   order_number,
-  handleDelete
+  handleDelete,
+  activities
 }) => {
+  const [showActivities, setShowActivities] = useState(false);
   // const handleClickStar = () => onClickStar(id)
   const deleteUnitTemplate = () => {
     var confirm = window.confirm('are you sure you want to delete ' + name + '?');
@@ -25,14 +29,26 @@ const UnitTemplateRow = ({
     }
   }
 
-  return (<tr className="unit-template-row">
-    <td>{name}</td>
-    <td>{flag}</td>
-    <td>{diagnostic_names.map((d) => (<div key={d}>{d}</div>))}</td>
-    <td>{<a href={`${process.env.DEFAULT_URL}/assign/featured-activity-packs/${id}`} target="_blank">preview</a>}</td>
-    <td>{<a href={`${process.env.DEFAULT_URL}/cms/unit_templates/${id}/edit`} target="_blank">edit</a>}</td>
-    <td><button onClick={deleteUnitTemplate} type="button">delete</button></td>
-  </tr>)
+  const showHideActivitiesRow = () => {
+    setShowActivities(!showActivities)
+  }
+
+  return (
+    <div>
+      <tr className="unit-template-row" onClick={showHideActivitiesRow}>
+        <td>{name}</td>
+        <td>{flag}</td>
+        <td>{diagnostic_names.map((d) => (<div key={d}>{d}</div>))}</td>
+        <td>{<a href={`${process.env.DEFAULT_URL}/assign/featured-activity-packs/${id}`} target="_blank">preview</a>}</td>
+        <td>{<a href={`${process.env.DEFAULT_URL}/cms/unit_templates/${id}/edit`} target="_blank">edit</a>}</td>
+        <td><button onClick={deleteUnitTemplate} type="button">delete</button></td>
+      </tr>
+
+      {showActivities ? <UnitTemplateActivityRow activities={activities} /> : ''}
+
+
+    </div>
+  )
 }
 
 export default UnitTemplateRow
