@@ -158,10 +158,10 @@ class TeacherFixController < ApplicationController
     user = User.find_by_email(original_email)
     if user
       new_email = params['new_email']
-      if new_email != ''
-        user.update(email: new_email, password: params['password'], google_id: nil, signed_up_with_google: false)
-      else
+      if new_email == ''
         user.update(password: params['password'], google_id: nil, signed_up_with_google: false)
+      else
+        user.update(email: new_email, password: params['password'], google_id: nil, signed_up_with_google: false)
       end
       if user.errors.any?
         render json: user.errors

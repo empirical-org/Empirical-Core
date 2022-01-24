@@ -503,6 +503,9 @@ Style/MultilineInPatternThen:
 Style/MultipleComparison:
   Enabled: true
 
+Style/NegatedIfElseCondition:
+  Enabled: true
+
 Style/NegatedWhile:
   Enabled: true
 

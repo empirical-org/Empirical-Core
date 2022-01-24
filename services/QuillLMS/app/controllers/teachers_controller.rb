@@ -126,9 +126,7 @@ class TeachersController < ApplicationController
   end
 
   def lessons_info_for_dashboard_mini
-    if !current_user
-      units = []
-    else
+    if current_user
       lessons_activity_ids = ActivityClassification.lessons.activity_ids
       records = ClassroomsTeacher.select("classrooms.name AS classroom_name, activities.name AS activity_name, activities.supporting_info, activities.id AS activity_id, classroom_units.id AS classroom_unit_id, classrooms.id AS classroom_id")
       .joins("JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = TRUE AND classrooms_teachers.user_id = #{current_user.id}")
@@ -148,14 +146,14 @@ class TeachersController < ApplicationController
           supporting_info: r['supporting_info']
         }
       end
+    else
+      units = []
     end
     render json: { units: units }
   end
 
   def diagnostic_info_for_dashboard_mini
-    if !current_user
-      units = []
-    else
+    if current_user
       diagnostic_activity_ids = ActivityClassification.diagnostic.activity_ids
       records = ClassroomsTeacher.select("classrooms.name AS classroom_name, activities.name AS activity_name, activities.id AS activity_id, activities.follow_up_activity_id AS post_test_id, pre_test.id AS pre_test_id, classroom_units.unit_id AS unit_id, classrooms.id AS classroom_id, activity_sessions.count AS completed_count, array_length(classroom_units.assigned_student_ids, 1) AS assigned_count")
       .joins("JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = TRUE AND classrooms_teachers.user_id = #{current_user.id}")
@@ -179,6 +177,8 @@ class TeachersController < ApplicationController
           classroom_id: r['classroom_id']
         }
       end
+    else
+      units = []
     end
     render json: { units: units }
   end

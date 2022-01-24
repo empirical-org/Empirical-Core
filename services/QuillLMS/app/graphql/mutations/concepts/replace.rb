@@ -2,10 +2,10 @@
 
 class Mutations::Concepts::Replace < Mutations::BaseMutation
   def self.authorized?(value, context)
-    if !context[:current_user].staff?
-      raise GraphQL::ExecutionError, "Only staff can run this mutation"
-    else
+    if context[:current_user].staff?
       true
+    else
+      raise GraphQL::ExecutionError, "Only staff can run this mutation"
     end
   end
 

@@ -123,7 +123,7 @@ class Classroom < ApplicationRecord
   end
 
   def archived_classrooms_manager
-    coteachers = !self.coteachers.empty? ? self.coteachers.map { |ct| { name: ct.name, id: ct.id, email: ct.email } } : []
+    coteachers = self.coteachers.empty? ? [] : self.coteachers.map { |ct| { name: ct.name, id: ct.id, email: ct.email } }
     {createdDate: created_at.strftime("%m/%d/%Y"), className: name, id: id, studentCount: students.count, classcode: code, ownerName: owner.name, from_google: !!google_classroom_id, coteachers: coteachers}
   end
 

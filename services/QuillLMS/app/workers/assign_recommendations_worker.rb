@@ -68,7 +68,7 @@ class AssignRecommendationsWorker
   def find_unit(units)
     if units.length > 1
       visible_units = units.where(visible: true)
-      !visible_units.empty? ? visible_units.first : units.order('updated_at DESC').first
+      visible_units.empty? ? units.order('updated_at DESC').first : visible_units.first
     elsif units.length == 1
       units.first
     end

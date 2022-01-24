@@ -7,7 +7,9 @@ class CreateOrIncrementResponseWorker
   def perform(new_vals)
     symbolized_vals = new_vals.symbolize_keys
     response = Response.find_by(text: symbolized_vals[:text], question_uid: symbolized_vals[:question_uid])
-    if !response
+    if response
+      increment_counts(response, symbolized_vals)
+    else
       begin
         response = Response.new(symbolized_vals)
         if !response.text.blank? && response.save!
@@ -22,8 +24,6 @@ class CreateOrIncrementResponseWorker
       rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid => e
         raise CreateOrIncrementResponseWorker::RaceConditionError, symbolized_vals[:question_uid]
       end
-    else
-      increment_counts(response, symbolized_vals)
     end
   end
 
