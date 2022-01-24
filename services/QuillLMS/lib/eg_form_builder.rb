@@ -181,12 +181,12 @@ class EgFormBuilder < CMS::FormBuilder
       input_options[:placeholder] = ((placeholder = options.delete(:placeholder)) == true ? name.to_s.humanize : placeholder)
     end
 
-    unless options[:hidden].nil?
-      input_options[:class] = 'hidden' if options[:hidden] == true
+    if !options[:hidden].nil? && (options[:hidden] == true)
+      input_options[:class] = 'hidden'
     end
 
-    unless options[:required].nil?
-      input_options[:required] = 'required' if options[:required] == true
+    if !options[:required].nil? && (options[:required] == true)
+      input_options[:required] = 'required'
     end
 
     unless options[:choices].nil?

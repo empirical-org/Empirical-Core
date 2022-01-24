@@ -165,11 +165,9 @@ module IncorrectSequenceCalculator
             elsif substring.slice(-corsub.length..-1) == corsub
               new_substring = substring.slice(0..(substring.length - corsub.length))
             end
-            if new_substring && new_substring.strip != ""
-              if incorrect_substrings[new_substring] != 0
+            if new_substring && new_substring.strip != "" && (incorrect_substrings[new_substring] != 0)
                 incorrect_substrings[new_substring] += v
               end
-            end
 
           end
         end

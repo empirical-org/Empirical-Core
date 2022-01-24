@@ -62,10 +62,10 @@ module QuillAuthentication
       TestForEarnedCheckboxesWorker.perform_async(user.id)
     end
 
-    if !session[:staff_id] || session[:staff_id] == user.id
+    if (!session[:staff_id] || session[:staff_id] == user.id) && user&.id
       # only kick off login worker if there is no staff id,
       # or if the user getting logged into is staff
-      UserLoginWorker.perform_async(user.id, remote_ip) if user&.id
+      UserLoginWorker.perform_async(user.id, remote_ip)
     end
     session[:user_id] = user.id
     session[:admin_id] = user.id if user.admin?

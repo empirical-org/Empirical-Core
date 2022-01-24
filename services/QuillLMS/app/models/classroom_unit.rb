@@ -103,13 +103,14 @@ class ClassroomUnit < ApplicationRecord
 
   private def check_for_assign_on_join_and_update_students_array_if_true
     student_ids = StudentsClassrooms.where(classroom_id: classroom_id).pluck(:student_id)
-    if assigned_student_ids&.any? && !assign_on_join && assigned_student_ids.length >= student_ids.length
-      # then maybe it should be assign on join, so we do a more thorough check
-      if (assigned_student_ids - student_ids).empty?
+    if assigned_student_ids&.any? &&
+        !assign_on_join &&
+        assigned_student_ids.length >= student_ids.length &&
+        (assigned_student_ids - student_ids).empty?
+
         # then it should indeed be assigned to all
         self.assign_on_join = true
       end
-    end
     if assign_on_join
       # then we ensure that it has all the student ids
       self.assigned_student_ids = student_ids
