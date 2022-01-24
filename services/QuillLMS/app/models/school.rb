@@ -85,6 +85,9 @@ class School < ApplicationRecord
     NOT_LISTED_SCHOOL_NAME => US_K12_SCHOOL_DISPLAY_NAME
   }
 
+  SCHOOL_YEAR_START_MONTH = 7
+  HALF_A_YEAR = 6.months
+
   def subscription
    subscriptions.where("expiration > ? AND start_date <= ?", Date.today, Date.today).order(expiration: :desc).limit(1).first
   end
@@ -129,7 +132,7 @@ class School < ApplicationRecord
   end
 
   def self.school_year_start(time)
-    time.month >= 8 ? time.beginning_of_year + 7.months : time.beginning_of_year - 5.months
+    time.month >= SCHOOL_YEAR_START_MONTH ? time.beginning_of_year + HALF_A_YEAR : time.beginning_of_year - HALF_A_YEAR
   end
 
   private def generate_leap_csv_row(student, teacher, classroom, activity_session)

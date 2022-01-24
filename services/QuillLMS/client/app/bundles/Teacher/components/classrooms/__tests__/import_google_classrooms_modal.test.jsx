@@ -1,19 +1,21 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
+import { googleClassrooms, userProps } from './test_data/test_data'
+
 import ImportGoogleClassroomsModal from '../import_google_classrooms_modal'
 import { DataTable } from '../../../../Shared/index'
 
-import { googleClassrooms, userProps } from './test_data/test_data'
-
 describe('ImportGoogleClassroomsModal component', () => {
+  const close = () => {}
+  const onSuccess = () => {}
 
   describe('initial load', () => {
     const wrapper = mount(
       <ImportGoogleClassroomsModal
         classrooms={googleClassrooms}
-        close={() => {}}
-        onSuccess={() => {}}
+        close={close}
+        onSuccess={onSuccess}
         user={userProps}
       />
     );
@@ -31,8 +33,8 @@ describe('ImportGoogleClassroomsModal component', () => {
     const wrapper = mount(
       <ImportGoogleClassroomsModal
         classrooms={googleClassrooms}
-        close={() => {}}
-        onSuccess={() => {}}
+        close={close}
+        onSuccess={onSuccess}
         user={userProps}
       />
     );

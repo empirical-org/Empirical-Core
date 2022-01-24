@@ -35,16 +35,19 @@ FactoryBot.define do
     factory :google_auth_credential do
       provider AuthCredential::GOOGLE_PROVIDER
       expires_at AuthCredential::GOOGLE_EXPIRATION_DURATION.from_now
+      association :user, factory: [:teacher, :signed_up_with_google]
     end
 
     factory :clever_district_auth_credential do
       provider AuthCredential::CLEVER_DISTRICT_PROVIDER
       expires_at AuthCredential::CLEVER_EXPIRATION_DURATION.from_now
+      association :user, factory: [:teacher, :signed_up_with_clever]
     end
 
     factory :clever_library_auth_credential do
       provider AuthCredential::CLEVER_LIBRARY_PROVIDER
       expires_at AuthCredential::CLEVER_EXPIRATION_DURATION.from_now
+      association :user, factory: [:teacher, :signed_up_with_clever]
     end
   end
 end

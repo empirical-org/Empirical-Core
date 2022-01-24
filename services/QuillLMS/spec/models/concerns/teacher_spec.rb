@@ -430,8 +430,8 @@ describe User, type: :model do
 
       before { create(:classrooms_teacher, user: google_classroom_teacher, classroom: archived_google_classroom) }
 
-      it "should return all the teacher's google classrooms" do
-        expect(google_classroom_teacher.google_classrooms).to match_array [google_classroom, archived_google_classroom]
+      it "should return all the teacher's visible google classrooms" do
+        expect(google_classroom_teacher.google_classrooms).to match_array [google_classroom]
       end
 
       it 'should return empty if there are no google classrooms' do
@@ -449,22 +449,6 @@ describe User, type: :model do
 
       it 'should return empty if there are no clever classrooms' do
         expect(teacher.clever_classrooms).to eq []
-      end
-    end
-
-    describe '#clever_classrooms' do
-      let!(:clever_classroom) { create(:classroom, :from_clever) }
-      let!(:archived_clever_classroom) { create(:classroom, :from_clever, :with_no_teacher, :archived) }
-      let(:clever_classroom_teacher) { clever_classroom.owner }
-
-      before { create(:classrooms_teacher, user: clever_classroom_teacher, classroom: archived_clever_classroom) }
-
-      it "should return all the teacher's clever classrooms" do
-        expect(clever_classroom_teacher.clever_classrooms).to match_array [clever_classroom, archived_clever_classroom]
-      end
-
-      it 'should return empty if there are no clever classrooms' do
-        expect(teacher.clever_classrooms).to eq([])
       end
     end
 

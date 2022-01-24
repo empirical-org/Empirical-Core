@@ -374,25 +374,6 @@ describe Teachers::ClassroomsController, type: :controller do
     end
   end
 
-  describe '#destroy' do
-    let(:teacher) { create(:teacher) }
-    let(:classroom) { create(:classroom) }
-    let!(:classrooms_teacher) do
-      create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
-    end
-
-    before do
-      allow(controller).to receive(:current_user) { teacher }
-    end
-
-    it 'should destroy the given classroom' do
-
-      delete :destroy, params: { id: classroom.id }
-      expect{Classroom.find classroom.id}.to raise_exception ActiveRecord::RecordNotFound
-      expect(response).to redirect_to teachers_classrooms_path
-    end
-  end
-
   describe '#hide' do
     let!(:classroom) { create(:classroom) }
     let(:teacher) { classroom.owner }

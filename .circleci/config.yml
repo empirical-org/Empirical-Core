@@ -229,7 +229,7 @@ jobs:
           command: |
             cd packages/quill-marking-logic
             FORCE_COLOR=true npm run test --colors
-  comprehension_go_build:
+  evidence_go_build:
     working_directory: ~/Empirical-Core
     docker:
       - image: circleci/golang:1.13
@@ -238,7 +238,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            cd services/comprehension/feedback-api-main/src/endpoint
+            cd services/evidence/feedback-api-main/src/endpoint
             go test
   evidence_rails_build:
     working_directory: ~/Empirical-Core
@@ -352,7 +352,7 @@ workflows:
           <<: *default_filter
       - cms_rails_build:
           <<: *default_filter
-      - comprehension_go_build:
+      - evidence_go_build:
           <<: *default_filter
       - evidence_rails_build:
           <<: *default_filter
