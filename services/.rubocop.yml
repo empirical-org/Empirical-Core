@@ -242,6 +242,9 @@ Lint/TripleQuotes:
 Lint/UnexpectedBlockArity:
   Enabled: true
 
+Lint/UnmodifiedReduceAccumulator:
+  Enabled: true
+
 Lint/UriEscapeUnescape:
   Enabled: true
 
