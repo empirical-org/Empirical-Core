@@ -236,6 +236,10 @@ Lint/SuppressedException:
   Enabled: true
   AllowComments: true
 
+# TODO evaluate if this should be turned on
+Lint/SymbolConversion:
+  Enabled: false
+
 Lint/ToEnumArguments:
   Enabled: true
 
