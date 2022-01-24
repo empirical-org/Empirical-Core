@@ -5,7 +5,7 @@ class ErrorWorker
 
   def perform
     ea = ErrorAnalytics.new
-    ea.track_500
+    ea.track500
   end
 
 end

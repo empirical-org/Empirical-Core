@@ -83,19 +83,19 @@ RSpec.describe GoogleIntegration::ClassroomUpdater do
 
   context "teacher owns another classroom with other_name" do
     let(:other_name) { 'other google_classroom classroom' }
-    let(:classroom_1) { create(:classroom, :from_google, :with_no_teacher, name: other_name) }
+    let(:classroom1) { create(:classroom, :from_google, :with_no_teacher, name: other_name) }
 
     let(:name) { 'google_classroom classroom'}
     let(:synced_name) { name }
     let(:data_name) { other_name }
 
-    before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom_1) }
+    before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom1) }
 
     it 'renames a name with duplicate if there is a collision' do
-      expect(subject.name).to eq "#{other_name}_1"
+      expect(subject.name).to eq "#{other_name}1"
     end
 
-    context 'teacher owns other classrooms with names other_name_1, ... other_name_[max]' do
+    context 'teacher owns other classrooms with names other_name1, ... other_name_[max]' do
       let(:max) { ::DuplicateNameResolver::MAX_BEFORE_RANDOMIZED }
 
       before do
@@ -106,7 +106,7 @@ RSpec.describe GoogleIntegration::ClassroomUpdater do
       end
 
       it "stops naming duplicates at max and then starts using random values" do
-        expect(subject.name).not_to eq "#{other_name}_11"
+        expect(subject.name).not_to eq "#{other_name}11"
         expect(subject.name.starts_with?(other_name)).to be true
       end
     end

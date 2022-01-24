@@ -155,7 +155,7 @@ end
 group :development do
   gem 'bullet'
   gem 'better_errors'
-  gem 'binding_of_caller', platforms: [:mri_21]
+  gem 'binding_of_caller'
   gem 'foreman'
   gem 'letter_opener'
   gem 'spring'
