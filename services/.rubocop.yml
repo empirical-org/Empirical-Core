@@ -198,6 +198,9 @@ Lint/LiteralInInterpolation:
 Lint/MissingSuper:
   Enabled: false
 
+Lint/NoReturnInBeginEndBlocks:
+  Enabled: true
+
 Lint/PercentStringArray:
   Exclude:
     - "QuillLMS/config/initializers/secure_headers.rb"
