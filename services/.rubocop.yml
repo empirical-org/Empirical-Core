@@ -201,6 +201,9 @@ Lint/MissingSuper:
 Lint/NoReturnInBeginEndBlocks:
   Enabled: true
 
+Lint/NumberedParameterAssignment:
+  Enabled: true
+
 Lint/PercentStringArray:
   Exclude:
     - "QuillLMS/config/initializers/secure_headers.rb"
