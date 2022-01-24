@@ -336,6 +336,11 @@ Style/FrozenStringLiteralComment:
   Include:
     - "QuillLMS/**/*"
 
+Style/HashTransformKeys:
+  Enabled: true
+  Exclude:
+    - QuillLMS/app/helpers/segmentio_helper.rb
+
 Style/IdenticalConditionalBranches:
   Exclude:
     - "QuillLMS/app/controllers/sessions_controller.rb"
