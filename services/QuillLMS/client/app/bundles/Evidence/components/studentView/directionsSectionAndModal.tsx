@@ -10,10 +10,10 @@ const ReadTheDirectionsModal = ({ closeReadTheDirectionsModal, }) => (<section c
 </section>)
 
 
-const DirectionsSectionAndModal = ({ className, closeReadTheDirectionsModal, passage, showReadTheDirectionsModal, inReflection, activeStep, }) => {
+const DirectionsSectionAndModal = ({ closeReadTheDirectionsModal, passage, showReadTheDirectionsModal, inReflection, activeStep, }) => {
   const uniquePartOfHighlightPrompt = passage.highlight_prompt ? passage.highlight_prompt.replace(DEFAULT_HIGHLIGHT_PROMPT, '') : ''
   if (inReflection) {
-    return (<div className={className}>
+    return (<div>
       <section className="reflection-section">
         <h3>Directions</h3>
         <p>Great! <u>Now take a moment to reflect on the sentences you highlighted.</u></p>
@@ -22,7 +22,7 @@ const DirectionsSectionAndModal = ({ className, closeReadTheDirectionsModal, pas
   }
 
   if (activeStep > READ_PASSAGE_STEP) {
-    return (<div className={className}>
+    return (<div>
       <section className="directions-section">
         <h3>Directions</h3>
         <ul>
@@ -33,7 +33,7 @@ const DirectionsSectionAndModal = ({ className, closeReadTheDirectionsModal, pas
     </div>)
   }
 
-  return (<div className={className}>
+  return (<div>
     {showReadTheDirectionsModal ? <ReadTheDirectionsModal closeReadTheDirectionsModal={closeReadTheDirectionsModal} /> : <span />}
     <section className="directions-section">
       <h3>Directions</h3>

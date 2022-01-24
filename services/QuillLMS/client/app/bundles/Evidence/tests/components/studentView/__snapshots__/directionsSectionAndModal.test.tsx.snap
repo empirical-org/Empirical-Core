@@ -13,9 +13,7 @@ exports[`DirectionsSectionAndModal component when the student is in reflection r
   }
   showReadTheDirectionsModal={false}
 >
-  <div
-    className=""
-  >
+  <div>
     <section
       className="reflection-section"
     >
@@ -46,9 +44,7 @@ exports[`DirectionsSectionAndModal component when the student is on the read pas
   }
   showReadTheDirectionsModal={false}
 >
-  <div
-    className=""
-  >
+  <div>
     <span />
     <section
       className="directions-section"
@@ -78,9 +74,7 @@ exports[`DirectionsSectionAndModal component when the student is past the read p
   }
   showReadTheDirectionsModal={false}
 >
-  <div
-    className=""
-  >
+  <div>
     <section
       className="directions-section"
     >
@@ -113,9 +107,7 @@ exports[`DirectionsSectionAndModal component when the student should see the mod
   }
   showReadTheDirectionsModal={true}
 >
-  <div
-    className=""
-  >
+  <div>
     <ReadTheDirectionsModal
       closeReadTheDirectionsModal={[Function]}
     >

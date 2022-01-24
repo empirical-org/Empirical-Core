@@ -20,7 +20,7 @@
   .left-side-container {
     display: flex;
     align-items: center;
-    width: calc(100% - 634px);
+    width: calc(100% - 639px);
     height: 100%;
     border-right: 1px solid #0b9d88;
     .left-side {
@@ -101,6 +101,19 @@
     height: 48px;
     .beta-tag {
       width: 58px;
+    }
+  }
+  @media (max-width: 767px) {
+    .left-side-container {
+      width: 50%;
+    }
+    .right-side-container {
+      .nav-steps-count-container {
+        img, .evidence-step-number-small{
+          height: 20px;
+          max-width: 20px;
+        }
+      }
     }
   }
 }
