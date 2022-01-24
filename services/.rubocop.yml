@@ -521,6 +521,9 @@ Style/NonNilCheck:
 Style/Not:
   Enabled: true
 
+Style/NumberedParameters:
+  Enabled: true
+
 Style/NumericLiteralPrefix:
   Enabled: true
 
