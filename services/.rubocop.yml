@@ -512,6 +512,9 @@ Style/NegatedWhile:
 Style/NilComparison:
   Enabled: true
 
+Style/NilLambda:
+  Enabled: true
+
 Style/NonNilCheck:
   Enabled: true
 
