@@ -408,6 +408,9 @@ Style/EmptyLiteral:
 Style/Encoding:
   Enabled: true
 
+Style/EndlessMethod:
+  Enabled: true
+
 Style/FloatDivision:
   Enabled: true
 
