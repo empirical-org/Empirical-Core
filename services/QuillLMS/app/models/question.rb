@@ -170,7 +170,7 @@ class Question < ApplicationRecord
   end
 
   private def stored_as_array?(key)
-    data[key].class == Array
+    data[key].instance_of?(Array)
   end
 
   private def validate_sequences
