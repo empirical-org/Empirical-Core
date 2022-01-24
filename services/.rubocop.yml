@@ -411,6 +411,9 @@ Style/Encoding:
 Style/EndlessMethod:
   Enabled: true
 
+Style/FileRead:
+  Enabled: true
+
 Style/FloatDivision:
   Enabled: true
 
