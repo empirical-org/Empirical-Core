@@ -10,6 +10,17 @@ AllCops:
     - "QuillLMS/engines/evidence/lib/generators/**/*"
 
 #######################################################################################################################
+# GEMSPEC
+#######################################################################################################################
+
+Gemspec/DateAssignment:
+  Enabled: true
+
+# TODO enable this
+Gemspec/RequireMFA:
+  Enabled: false
+
+#######################################################################################################################
 # LAYOUT
 #######################################################################################################################
 
@@ -74,7 +85,7 @@ Layout/InitialIndentation:
 Layout/LeadingEmptyLines:
   Enabled: true
 
-Layout/LineEndStringConcatenationIndentation:
+Layout/LineEndStringConcatenationIndentation: # new in 1.18
   Enabled: true
 
 Layout/MultilineArrayBraceLayout:
