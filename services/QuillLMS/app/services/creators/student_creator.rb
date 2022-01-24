@@ -9,8 +9,8 @@ module Creators::StudentCreator
     if name_validator[:status] == 'failure'
       name_validator[:notice]
     else
-      student_attributes = name_validator
-      student_attributes
+      name_validator
+      
     end
   end
 
