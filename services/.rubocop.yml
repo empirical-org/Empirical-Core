@@ -120,6 +120,10 @@ Lint/AssignmentInCondition:
 Lint/BooleanSymbol:
   Enabled: true
 
+# TODO turn back on
+Lint/ConstantDefinitionInBlock:
+  Enabled: false
+
 Lint/DeprecatedClassMethods:
   Enabled: true
 
