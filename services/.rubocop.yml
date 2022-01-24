@@ -433,6 +433,9 @@ Style/FrozenStringLiteralComment:
   Include:
     - "QuillLMS/**/*"
 
+Style/HashAsLastArrayItem:
+  Enabled: false
+
 Style/HashConversion:
   Enabled: true
 
@@ -470,10 +473,10 @@ Style/InverseMethods:
 Style/Lambda:
   Enabled: true
 
-Style/HashAsLastArrayItem:
-  Enabled: false
-
 Style/LineEndConcatenation:
+  Enabled: true
+
+Style/MapToHash:
   Enabled: true
 
 Style/MixinGrouping:
