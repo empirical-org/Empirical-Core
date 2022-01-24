@@ -392,10 +392,10 @@ describe User, type: :model do
 
         context 'user has been on a COVID premium subscription' do
           it "returns 'trial'" do
-            subscription.update(account_type: Subscription::COVID19_SUBSCRIPTION_TYPE)
+            subscription.update(account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE)
             expect(teacher.premium_state).to eq('trial')
 
-            subscription.update(account_type: Subscription::COVID19_SCHOOL_SUBSCRIPTION_TYPE)
+            subscription.update(account_type: Subscription::COVID_19_SCHOOL_SUBSCRIPTION_TYPE)
             expect(teacher.premium_state).to eq('trial')
           end
         end
