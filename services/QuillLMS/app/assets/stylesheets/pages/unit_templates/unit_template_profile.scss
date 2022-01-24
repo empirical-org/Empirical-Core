@@ -75,6 +75,12 @@
           line-height: 1.5em;
         }
       }
+      a {
+        color: #027360;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
     }
     .assign-buttons-and-standards {
       max-width: 400px;
