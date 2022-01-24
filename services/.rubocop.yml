@@ -168,6 +168,9 @@ Lint/DuplicateMethods:
     - "QuillLMS/app/services/create_lessons_token.rb"
     - "QuillLMS/app/controllers/api/v1/incorrect_sequences_controller.rb"
 
+Lint/DuplicateRegexpCharacterClassElement:
+  Enabled: true
+
 Lint/ImplicitStringConcatenation:
   Enabled: true
 
