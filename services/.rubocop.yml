@@ -458,6 +458,9 @@ Style/IfInsideElse:
     - "QuillLMS/app/controllers/profiles_controller.rb"
     - "QuillLMS/app/models/concerns/public_progress_reports.rb"
 
+Style/IfWithBooleanLiteralBranches:
+  Enabled: true
+
 Style/InverseMethods:
   Enabled: true
 
