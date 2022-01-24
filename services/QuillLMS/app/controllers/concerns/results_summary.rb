@@ -35,6 +35,8 @@ module ResultsSummary
           name: assigned_student.name,
           id: assigned_student.id,
           skill_groups: skill_groups,
+          total_correct_skills_count: total_correct_skills_count,
+          total_possible_skills_count: total_possible_skills_count,
           correct_skill_text: "#{total_correct_skills_count} of #{total_possible_skills_count} skills correct"
         }
       else

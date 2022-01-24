@@ -143,6 +143,16 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
     return ''
   }
 
+  function activeDiagnosticIsPost() {
+    if (!activeDiagnostic) { return false }
+
+    if (activeDiagnostic.post && activeDiagnostic.post.activity_id === activityId) {
+      return true
+    }
+
+    return false
+  }
+
   function onClassesDropdownChange(e) {
     const newClassroom = classrooms.find(c => c.id === e.value)
     const parallelDiagnostic = diagnosticForClassroom(newClassroom)
@@ -187,7 +197,8 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
     activityName: diagnosticActivityName(),
     classrooms,
     mobileNavigation: (<section className="mobile-navigation hide-on-desktop">{classroomDropdown}{linkDropdown}</section>),
-    lessonsBannerIsShowable
+    lessonsBannerIsShowable,
+    isPostDiagnostic: activeDiagnosticIsPost()
   }
 
   return (<div className="diagnostic-individual-pack">
