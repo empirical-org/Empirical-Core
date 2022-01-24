@@ -553,6 +553,9 @@ Style/RaiseArgs:
   Exclude:
     - "QuillCMS/app/workers/rematch_response_worker.rb"
 
+Style/RedundantArgument:
+  Enabled: true
+
 Style/RedundantCapitalW:
   Exclude:
     - "QuillLMS/config/initializers/sentry.rb"

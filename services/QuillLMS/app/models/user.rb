@@ -438,11 +438,11 @@ class User < ApplicationRecord
   end
 
   def first_name
-    @first_name ||= name.to_s.split("\s")[0]
+    @first_name ||= name.to_s.split[0]
   end
 
   def last_name
-    @last_name ||= name.to_s.split("\s")[-1]
+    @last_name ||= name.to_s.split[-1]
   end
 
   def set_name
@@ -451,7 +451,7 @@ class User < ApplicationRecord
 
   def generate_password
     # first we need to replace any existing spaces with hyphens
-    last_name_with_spaces_replaced_by_hyphens = last_name.split(' ').join('-')
+    last_name_with_spaces_replaced_by_hyphens = last_name.split.join('-')
     # then we want to capitalize the first letter
     self.password = self.password_confirmation = last_name_with_spaces_replaced_by_hyphens.slice(0,1).capitalize + last_name_with_spaces_replaced_by_hyphens.slice(1..-1)
   end

@@ -60,7 +60,7 @@ module Evidence
     end
 
     def self.words(entry)
-      entry.split(' ')
+      entry.split
     end
 
     def self.word_count(entry)

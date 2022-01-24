@@ -40,7 +40,7 @@ class Demo::CreateAdminReport
       User.create!(
         name: teacher,
         role: 'teacher',
-        email: "hello+admindemo-#{email_safe_school_name}-#{teacher.split(' ').last.downcase}@quill.org",
+        email: "hello+admindemo-#{email_safe_school_name}-#{teacher.split.last.downcase}@quill.org",
         username: '',
         password: SecureRandom.urlsafe_base64
       )
