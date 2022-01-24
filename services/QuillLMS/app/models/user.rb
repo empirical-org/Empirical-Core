@@ -60,8 +60,7 @@ class User < ApplicationRecord
   include CheckboxCallback
   include UserCacheable
 
-  attr_accessor :validate_username,
-                :require_password_confirmation_when_password_present
+  attr_accessor :validate_username, :require_password_confirmation_when_password_present, :newsletter
 
   CHAR_FIELD_MAX_LENGTH = 255
 
@@ -169,8 +168,6 @@ class User < ApplicationRecord
 
   scope :teacher, -> { where(role: TEACHER) }
   scope :student, -> { where(role: STUDENT) }
-
-  attr_accessor :newsletter
 
   def self.deleted_users
     where(
