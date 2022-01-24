@@ -393,6 +393,9 @@ Style/CommentedKeyword:
 Style/DefWithParentheses:
   Enabled: true
 
+Style/DocumentDynamicEvalDefinition:
+  Enabled: true
+
 Style/EachWithObject:
   Enabled: true
 
