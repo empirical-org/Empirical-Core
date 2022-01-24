@@ -472,3 +472,12 @@ label.css-label {
 .sortable-list .list-item:active {
   cursor: grabbing;
 }
+
+#link-url {
+  outline: none;
+  background-color: white;
+  span {
+    background-color: white;
+    color: rgb(153, 153, 153);
+  }
+}
