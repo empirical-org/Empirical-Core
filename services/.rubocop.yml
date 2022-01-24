@@ -594,6 +594,9 @@ Style/RescueModifier:
   Exclude:
     - "QuillLMS/db/migrate/20140916143956_make_username_downcase.rb"
 
+Style/SelectByRegexp:
+  Enabled: true
+
 Style/SignalException:
   Enabled: true
 
