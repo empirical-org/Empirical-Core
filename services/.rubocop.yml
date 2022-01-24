@@ -214,6 +214,9 @@ Lint/PercentStringArray:
 Lint/RedundantDirGlobSort:
   Enabled: true
 
+Lint/RequireRelativeSelfPath:
+  Enabled: true
+
 Lint/RescueException:
   Enabled: true
 
