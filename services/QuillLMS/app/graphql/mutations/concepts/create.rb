@@ -20,7 +20,7 @@ class Mutations::Concepts::Create < Mutations::BaseMutation
   field :concept, Types::ConceptType, null: true
   field :errors, [String], null: false
 
-  def resolve(name:, parent_id: nil, description: nil, explanation: nil, change_logs:)
+  def resolve(name:, change_logs:, parent_id: nil, description: nil, explanation: nil)
     concept = Concept.new(name: name, parent_id: parent_id, description: description, explanation: explanation)
     if concept.save
       # Successful creation, return the created object with no errors
