@@ -437,6 +437,9 @@ RSpec/RepeatedDescription:
 RSpec/RepeatedIncludeExample:
   Enabled: true
 
+RSpec/SharedContext:
+  Enabled: true
+
 RSpec/Rails/AvoidSetupHook:
   Enabled: true
 
