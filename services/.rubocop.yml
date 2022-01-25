@@ -349,6 +349,9 @@ RSpec/AroundBlock:
 RSpec/ExcessiveDocstringSpacing:
   Enabled: true
 
+RSpec/FactoryBot/AttributeDefinedStatically:
+  Enabled: true
+
 RSpec/FactoryBot/SyntaxMethods:
   Enabled: true
 
