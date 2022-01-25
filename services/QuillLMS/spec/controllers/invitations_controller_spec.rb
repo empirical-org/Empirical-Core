@@ -3,9 +3,6 @@
 require 'rails_helper'
 
 describe InvitationsController, type: :controller do
-  it { should use_before_action :verify_current_user_owns_classrooms }
-  it { should use_before_action :set_classroom_ids_and_inviteee_email }
-
   let(:classroom) { create(:classroom) }
   let(:user) { classroom.owner }
 
@@ -20,6 +17,9 @@ describe InvitationsController, type: :controller do
     # rubocop:enable all
     allow(controller).to receive(:current_user) { user }
   end
+
+  it { should use_before_action :verify_current_user_owns_classrooms }
+  it { should use_before_action :set_classroom_ids_and_inviteee_email }
 
   describe '#create_coteacher_invitation' do
     it 'should set the classroom ids' do

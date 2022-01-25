@@ -397,6 +397,9 @@ RSpec/Focus:
 RSpec/HookArgument:
   Enabled: true
 
+RSpec/HooksBeforeExamples:
+  Enabled: true
+
 RSpec/IdenticalEqualityAssertion:
   Enabled: true
 

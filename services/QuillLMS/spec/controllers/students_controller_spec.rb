@@ -4,13 +4,11 @@ require 'rails_helper'
 
 
 describe StudentsController do
-  it { should use_before_action :authorize! }
-
   let(:user) { create(:student) }
 
-  before do
-    allow(controller).to receive(:current_user) { user }
-  end
+  before { allow(controller).to receive(:current_user) { user } }
+
+  it { should use_before_action :authorize! }
 
   describe '#index' do
     let!(:classroom) { create(:classroom) }
@@ -31,9 +29,7 @@ describe StudentsController do
   describe '#join_classroom' do
     let(:student) { create(:student) }
 
-    before do
-      allow(controller).to receive(:current_user) { student }
-    end
+    before { allow(controller).to receive(:current_user) { student } }
 
     it 'should redirect for an invalid class_code' do
       get :join_classroom, params: { classcode: 'nonsense_doesnt_exist' }

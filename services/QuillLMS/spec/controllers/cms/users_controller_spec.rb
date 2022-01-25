@@ -3,16 +3,16 @@
 require 'rails_helper'
 
 describe Cms::UsersController do
+  let!(:user) { create(:staff) }
+
+  before { allow(controller).to receive(:current_user) { user } }
+
   it { should use_before_action :signed_in! }
   it { should use_before_action :set_flags }
   it { should use_before_action :set_user }
   it { should use_before_action :set_search_inputs }
   it { should use_before_action :subscription_data }
   it { should use_before_action :filter_zeroes_from_checkboxes }
-
-  let!(:user) { create(:staff) }
-
-  before { allow(controller).to receive(:current_user) { user } }
 
   describe '#index' do
     before { allow(RawSqlRunner).to receive(:execute) { ["results"] } }

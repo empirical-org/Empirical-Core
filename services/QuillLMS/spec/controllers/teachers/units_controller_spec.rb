@@ -3,28 +3,37 @@
 require 'rails_helper'
 
 describe Teachers::UnitsController, type: :controller do
-  it { should use_before_action :teacher! }
-  it { should use_before_action :authorize! }
-
   let!(:student) {create(:student)}
   let!(:classroom) { create(:classroom) }
   let!(:students_classrooms) { create(:students_classrooms, classroom: classroom, student: student)}
   let!(:teacher) { classroom.owner }
   let!(:unit) {create(:unit, user: teacher)}
   let!(:unit2) {create(:unit, user: teacher)}
-  let!(:classroom_unit) { create(:classroom_unit,
-    unit: unit,
-    classroom: classroom,
-    assigned_student_ids: [student.id]
-  )}
+
+  let!(:classroom_unit) do
+     create(:classroom_unit,
+      unit: unit,
+      classroom: classroom,
+      assigned_student_ids: [student.id]
+    )
+  end
+
   let!(:diagnostic) { create(:diagnostic) }
   let!(:diagnostic_activity) { create(:diagnostic_activity)}
   let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.now )}
-  let!(:completed_activity_session) { create(:activity_session, user: student, activity: diagnostic_activity, classroom_unit: classroom_unit)}
 
-  before do
-    session[:user_id] = teacher.id
+  let!(:completed_activity_session) do
+    create(:activity_session,
+      user: student,
+      activity: diagnostic_activity,
+      classroom_unit: classroom_unit
+    )
   end
+
+  before { session[:user_id] = teacher.id }
+
+  it { should use_before_action :teacher! }
+  it { should use_before_action :authorize! }
 
   describe '#create' do
     it 'kicks off a background job' do

@@ -3,23 +3,22 @@
 require 'rails_helper'
 
 describe ClassroomsTeachersController, type: :controller do
+  before { allow(controller).to receive(:current_user) { user } }
+
   it { should use_before_action :signed_in! }
   it { should use_before_action :multi_classroom_auth }
 
   let(:user) { create(:user) }
 
-  before do
-    allow(controller).to receive(:current_user) { user }
-  end
 
   describe '#edit_coteacher_form' do
     let(:classroom) { create(:classroom) }
-    let(:edit_info_for_teacher) {
+    let(:edit_info_for_teacher) do
       {
-          is_coteacher: [classroom.id],
-          invited_to_coteach: [classroom.id]
+        is_coteacher: [classroom.id],
+        invited_to_coteach: [classroom.id]
       }
-    }
+    end
 
     before do
      allow(user).to receive(:classrooms_i_own_that_a_specific_user_coteaches_with_me) { [classroom] }
@@ -32,24 +31,7 @@ describe ClassroomsTeachersController, type: :controller do
     end
   end
 
-  # describe '#update_coteachers' do
-  #   let(:classrooms) { {negative_classroom_ids: [1,2,3], positive_classroom_ids: [4,5,6]} }
-  #
-  #   before do
-  #     allow_any_instance_of(User).to receive(:handle_negative_classrooms_from_update_coteachers) { true }
-  #     allow_any_instance_of(User).to receive(:handle_positive_classrooms_from_update_coteachers) { true }
-  #   end
-  #
-  #   it 'should set the classrooms and update the coteacher with the correct classrooms' do
-  #     expect_any_instance_of(User).to receive(:handle_negative_classrooms_from_update_coteachers).with([1,2,3])
-  #     expect_any_instance_of(User).to receive(:handle_positive_classrooms_from_update_coteachers).with([4,5,6], user.id)
-  #     post :update_coteachers, classrooms: classrooms, classroom_teacher_id: user.id
-  #     expect(assigns(:classrooms)).to eq classrooms
-  #   end
-  # end
-
   describe '#update_order' do
-
     before do
       user = create(:user, role: "teacher")
       @classrooms_teacher1 = create(:classrooms_teacher, user_id: user.id)
@@ -99,5 +81,4 @@ describe ClassroomsTeachersController, type: :controller do
       expect(response.body).to eq({message: "Deletion Succeeded!"}.to_json)
     end
   end
-
 end

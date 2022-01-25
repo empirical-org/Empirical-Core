@@ -3,14 +3,14 @@
 require 'rails_helper'
 
 describe Cms::SchoolsController do
+  let(:user) { create(:staff) }
+
+  before { allow(controller).to receive(:current_user) { user } }
+
   it { should use_before_action :signed_in! }
   it { should use_before_action :text_search_inputs }
   it { should use_before_action :set_school }
   it { should use_before_action :subscription_data }
-
-  let(:user) { create(:staff) }
-
-  before { allow(controller).to receive(:current_user) { user } }
 
   describe "SCHOOLS_PER_PAGE" do
     it 'should have the correct value' do

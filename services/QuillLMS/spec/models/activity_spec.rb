@@ -130,24 +130,25 @@ describe Activity, type: :model, redis: true do
   end
 
   describe "#classification_key" do
-  	describe "#classification_key="
-	  it "must set classification relationship" do
-  	  	activity.classification=nil
-	  	expect(activity.classification).to_not be_present
-	  	expect(activity.classification_key=ActivityClassification.first.key || create(:classification).key).to be_present
-	  end
+    describe "#classification_key=" do
+      it "must set classification relationship" do
+        activity.classification=nil
+        expect(activity.classification).to_not be_present
+        expect(activity.classification_key=ActivityClassification.first.key || create(:classification).key).to be_present
+      end
+    end
 
-  	describe "#classification_key"
-  	  before do
-  	  	activity.classification=nil
-  	  	activity.classification_key=ActivityClassification.first.key || create(:classification).key
-  	  end
+    describe "#classification_key" do
+      before do
+        activity.classification=nil
+        activity.classification_key=ActivityClassification.first.key || create(:classification).key
+      end
 
-	  it "must set classification relationship" do
-	  	expect(activity.classification_key).to be_present
-	  end
+      it "must set classification relationship" do
+        expect(activity.classification_key).to be_present
+      end
+    end
   end
-
 
   describe "#form_url" do
     it "must not include uid if hasn't been validated" do

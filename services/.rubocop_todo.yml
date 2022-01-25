@@ -462,11 +462,6 @@ RSpec/ExpectInHook:
 RSpec/FilePath:
   Enabled: false
 
-# Offense count: 23
-# Cop supports --auto-correct.
-RSpec/HooksBeforeExamples:
-  Enabled: false
-
 # Offense count: 398
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

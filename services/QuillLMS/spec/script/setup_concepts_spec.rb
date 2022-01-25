@@ -15,15 +15,16 @@ describe 'Downloading the concepts' do
     @setup = Setup::DownloadConcepts.new
   end
 
-  it "should have an attribute concepts" do
-    expect(@setup.concepts.class).to eq(Array)
-  end
-
   before do
     VCR.use_cassette('fetching concepts') do
       @response = @setup.fetch_concepts()
     end
   end
+
+  it "should have an attribute concepts" do
+    expect(@setup.concepts.class).to eq(Array)
+  end
+
 
   it "should successfully make a http request" do
     expect(@response.code).to eq("200")
