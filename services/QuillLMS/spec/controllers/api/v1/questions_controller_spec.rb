@@ -7,7 +7,7 @@ describe Api::V1::QuestionsController, type: :controller do
   let!(:question) { create(:question) }
 
   describe "#index" do
-    before(:each) do
+    before do
       Rails.cache.clear
     end
 
@@ -20,7 +20,7 @@ describe Api::V1::QuestionsController, type: :controller do
   end
 
   describe "#show" do
-    before(:each) do
+    before do
       Rails.cache.clear
     end
 

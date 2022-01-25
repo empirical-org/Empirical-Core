@@ -1106,7 +1106,7 @@ describe User, type: :model do
       let(:name) { 'SingleName' }
       let(:user) { User.new(name: name) }
 
-      before(:each) { user.name = name }
+      before { user.name = name }
 
       it 'returns "name, name"' do
         expect(sort_name).to eq "#{name}, #{name}"

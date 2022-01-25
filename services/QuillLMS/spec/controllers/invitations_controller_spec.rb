@@ -9,7 +9,7 @@ describe InvitationsController, type: :controller do
   let(:classroom) { create(:classroom) }
   let(:user) { classroom.owner }
 
-  before(:each) do
+  before do
     # It is necessary to load Invitation here explicitly.
     # Otherwise, RSpec will stub Invitation as a Module (rather than an ActiveRecord::Base descendent)
     # when stub_const is called within a spec.

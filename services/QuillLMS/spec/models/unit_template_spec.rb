@@ -181,7 +181,7 @@ describe UnitTemplate, redis: true, type: :model do
 
   describe '#around_save callback' do
 
-    before(:each) do
+    before do
       $redis.redis.flushdb
       $redis.multi{
         $redis.set('beta_unit_templates', 'a')

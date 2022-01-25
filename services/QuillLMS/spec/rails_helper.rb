@@ -72,7 +72,7 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.before(:suite) { Rails.cache.clear }
-  config.before(:each) { SegmentAnalytics.backend = FakeSegmentBackend.new }
+  config.before { SegmentAnalytics.backend = FakeSegmentBackend.new }
 
   config.infer_spec_type_from_file_location!
 

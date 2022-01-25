@@ -49,7 +49,7 @@ shared_examples_for "flagged" do
 	end
 
 	context "when methods preserve the changes" do 
-		after :each do 
+		after do 
 				expect(flagged).to be_persisted			
 		end
 

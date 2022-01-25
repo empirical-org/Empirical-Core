@@ -11,7 +11,7 @@ describe ClearUserDataWorker, type: :worker do
   let!(:activity_sessions) { user.activity_sessions }
   let!(:classroom_units) { ClassroomUnit.where("? = ANY (assigned_student_ids)", user.id) }
 
-  before(:each) { subject.perform(user.id) }
+  before { subject.perform(user.id) }
 
   it "changes the user's email to one that is not personally identiable" do
     expect(user.reload.email).to eq("deleted_user_#{user.id}@example.com")

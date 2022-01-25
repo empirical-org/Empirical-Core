@@ -186,7 +186,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'before_create: anonymize_session_uid' do
-    before(:each) do
+    before do
       @feedback_history = build(:feedback_history)
     end
 
@@ -217,7 +217,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'after_commit, on: :create' do
-    before(:each) do
+    before do
       @feedback_history = build(:feedback_history)
     end
 

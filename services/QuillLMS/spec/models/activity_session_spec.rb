@@ -335,7 +335,7 @@ describe ActivitySession, type: :model, redis: true do
     let!(:classroom_unit) { create(:classroom_unit, classroom_id: student.classrooms.first.id, assigned_student_ids: [student.id]) }
     let!(:activity_session){   create(:activity_session, classroom_unit: classroom_unit, state: 'not validated')}
 
-    before(:each) do
+    before do
       $redis.set("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
     end
 

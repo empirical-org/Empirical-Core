@@ -46,7 +46,7 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
   let!(:cua ) { create(:classroom_unit_activity_state, unit_activity: unit_activity, classroom_unit: classroom_unit)}
 
   describe '#visible' do
-    after(:each) do
+    after do
       classroom_unit.update(visible: true)
       unit_activity.update(visible: true)
     end
@@ -67,7 +67,7 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
   end
 
   describe 'caching lessons upon assignemnt' do
-    before(:each) do
+    before do
       $redis.redis.flushdb
       cua.save
     end

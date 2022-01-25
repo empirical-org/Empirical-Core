@@ -85,7 +85,7 @@ describe SubscriptionsController do
 
   context "without user" do
 
-    before(:each) do
+    before do
       allow(controller).to receive(:current_user) { nil }
     end
 
