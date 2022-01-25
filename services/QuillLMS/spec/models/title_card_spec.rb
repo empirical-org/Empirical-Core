@@ -39,6 +39,7 @@ describe "TitleCard", type: :model do
     before do
       @title_card = TitleCard.create(title_card_params)
     end
+
     it 'should remove "id" param from json object' do
       expect(@title_card.as_json).not_to have_key(:id)
     end

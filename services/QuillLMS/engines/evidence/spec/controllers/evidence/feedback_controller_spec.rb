@@ -75,6 +75,7 @@ module Evidence
         before do 
           create(:evidence_feedback, rule_id: grammar_rule.id, text: 'lorem ipsum')
         end
+
         it 'should return a valid json response' do 
           post :grammar, params: incoming_payload, as: :json
 
@@ -148,6 +149,7 @@ module Evidence
         before do 
           create(:evidence_feedback, rule_id: opinion_rule.id, text: 'lorem ipsum')
         end
+
         it 'should return a valid json response' do 
           post :opinion, params: incoming_payload, as: :json
 

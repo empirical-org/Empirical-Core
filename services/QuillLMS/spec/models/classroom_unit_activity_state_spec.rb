@@ -50,6 +50,7 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
       classroom_unit.update(visible: true)
       unit_activity.update(visible: true)
     end
+
     it "returns true if both the classroom unit and the unit activity are visible" do
       expect(cua.visible).to be
     end

@@ -18,6 +18,7 @@ shared_examples_for "flagged" do
 				flagged.flag :alpha
 				flagged.flag :betha
 			end
+
 			it "must be an array" do 
 				expect(flagged.flags).to an_instance_of Array
 			end
@@ -34,6 +35,7 @@ shared_examples_for "flagged" do
 				flagged.flag :alpha
 				flagged.flag :betha
 			end
+
 			it "must pop the passed flag as argument" do 
 				flagged.unflag :alpha
 				expect( flagged.flags ).to eq [:betha]

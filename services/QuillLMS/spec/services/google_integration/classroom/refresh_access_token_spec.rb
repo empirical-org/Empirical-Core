@@ -6,6 +6,7 @@ describe GoogleIntegration::RefreshAccessToken do
   let(:current_time) { Time.local(1990, 12, 20) }
 
   before { Timecop.freeze(current_time) }
+
   after { Timecop.return }
 
   it 'returns the new credentials if token is expired' do

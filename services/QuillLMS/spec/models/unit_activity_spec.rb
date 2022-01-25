@@ -137,6 +137,7 @@ describe UnitActivity, type: :model, redis: true do
           before do
               unit_activity.due_date_string = '03/02/2012'
           end
+
           it 'must have a getter' do
               expect(unit_activity.due_date_string).to eq('03/02/2012')
           end

@@ -128,6 +128,7 @@ module Evidence
       before(:each) do
         session[:user_id] = 1
       end
+
       let!(:activity) { create(:evidence_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade") }
       let!(:passage) { create(:evidence_passage, :activity => (activity)) }
       let!(:prompt) { create(:evidence_prompt, :activity => (activity)) }
@@ -237,6 +238,7 @@ module Evidence
       before do
         session[:user_id] = 1
       end
+
       let!(:activity) {build(:evidence_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade", notes: "First Activity - Notes")}
       let!(:prompt) {build(:evidence_prompt)}
       let!(:passage) {build(:evidence_passage)}

@@ -40,6 +40,7 @@ module Evidence
           ::ActivityClassification.create(:key => "evidence")
           create(:evidence_activity, :parent_activity_id => parent_activity.id)
         end
+
         let!(:activity_with_same_parent) { build(:evidence_activity, :parent_activity_id => parent_activity.id) }
 
         it 'should not be valid if not unique' do

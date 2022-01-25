@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe Cms::TeacherSearchQuery do
   before { Timecop.freeze }
+
   after { Timecop.return }
 
   describe '#run' do

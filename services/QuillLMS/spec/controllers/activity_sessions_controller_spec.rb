@@ -29,6 +29,7 @@ describe ActivitySessionsController, type: :controller do
       before do
         allow_any_instance_of(Activity).to receive(:activity_classification_id) { 3 }
       end
+
       it 'should redirect to module url' do
         get :play, params: { id: activity_session.id }
         expect(response).to redirect_to activity.module_url(activity_session)

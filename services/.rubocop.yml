@@ -370,6 +370,9 @@ RSpec/EmptyHook:
 RSpec/EmptyLineAfterExample:
   Enabled: true
 
+RSpec/EmptyLineAfterHook:
+  Enabled: true
+
 RSpec/ExcessiveDocstringSpacing:
   Enabled: true
 

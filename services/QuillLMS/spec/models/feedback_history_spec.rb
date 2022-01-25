@@ -493,6 +493,7 @@ RSpec.describe FeedbackHistory, type: :model do
         @user1 = create(:user)
         @user2 = create(:user)
       end
+
       it 'should return the most recent FeedbackHistoryRating rating' do
         params1 = { user_id: @user1.id, feedback_history_id: @feedback_history.id, rating: false }
         params2 = { user_id: @user2.id, feedback_history_id: @feedback_history.id, rating: true }

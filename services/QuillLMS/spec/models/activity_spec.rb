@@ -142,6 +142,7 @@ describe Activity, type: :model, redis: true do
   	  	activity.classification=nil
   	  	activity.classification_key=ActivityClassification.first.key || create(:classification).key
   	  end
+
 	  it "must set classification relationship" do
 	  	expect(activity.classification_key).to be_present
 	  end
@@ -277,6 +278,7 @@ describe Activity, type: :model, redis: true do
       before do
         activity.flag=:alpha
       end
+
       it "must return the correct value" do
         expect(activity.flag).to eq :alpha
       end

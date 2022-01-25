@@ -110,6 +110,7 @@ describe ActivitiesController, type: :controller, redis: true do
 
     context 'non-student user attempts to access link' do
       before { session[:user_id] = create(:teacher).id }
+
       it '' do
         subject
         expect(response).to redirect_to profile_path
