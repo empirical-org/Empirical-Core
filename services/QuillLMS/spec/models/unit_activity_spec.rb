@@ -127,6 +127,7 @@ describe UnitActivity, type: :model, redis: true do
           it 'must have a due date setter' do
               expect(unit_activity.due_date_string = '03/02/2012').to eq('03/02/2012')
           end
+
           it 'must throw an exception whn not valid input' do
               expect { unit_activity.due_date_string = '03-02-2012' }.to raise_error ArgumentError
           end

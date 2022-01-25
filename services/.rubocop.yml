@@ -367,6 +367,9 @@ RSpec/DescribeSymbol:
 RSpec/EmptyHook:
   Enabled: true
 
+RSpec/EmptyLineAfterExample:
+  Enabled: true
+
 RSpec/ExcessiveDocstringSpacing:
   Enabled: true
 

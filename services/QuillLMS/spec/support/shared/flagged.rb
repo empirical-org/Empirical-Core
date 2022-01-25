@@ -21,6 +21,7 @@ shared_examples_for "flagged" do
 			it "must be an array" do 
 				expect(flagged.flags).to an_instance_of Array
 			end
+
 			it "must to contains 2 elements" do 
 				expect(flagged.flags.count).to eq 2
 			end
@@ -37,6 +38,7 @@ shared_examples_for "flagged" do
 				flagged.unflag :alpha
 				expect( flagged.flags ).to eq [:betha]
 			end
+
 			it "must to contains 1 elements" do 
 				flagged.unflag :alpha
 				expect( flagged.flags.count ).to eq 1

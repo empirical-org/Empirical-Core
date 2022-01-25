@@ -62,6 +62,7 @@ describe TeachersController, type: :controller do
         get :admin_dashboard
         expect(response).to redirect_to profile_path
       end
+
       it 'render admin dashboard' do
         user = create(:user)
         user.schools_admins.create

@@ -128,9 +128,11 @@ describe User, type: :model do
         user.update(flags: [User::PERMISSIONS_FLAGS.first])
         expect(user.testing_flag).to eq(nil)
       end
+
       it "returns nil if the user does any flags" do
         expect(user.testing_flag).to eq(nil)
       end
+
       it "returns a flag from the User::TESTING_FLAGS array if the user does have one" do
         sample_testing_flag = User::TESTING_FLAGS.first
         user.update(flags: [sample_testing_flag])
@@ -923,6 +925,7 @@ describe User, type: :model do
           user = User.new(email: user_with_original_email.email)
           expect(user.save(validate: false)).to be
         end
+
         it 'cannot update its email to an existing one' do
           user = User.create(email: 'whatever@example.com', name: 'whatever whatever')
           user.save(validate: false)
@@ -943,6 +946,7 @@ describe User, type: :model do
         user2 = create(:user)
         expect(user2.update(username: user1.username)).to be(false)
       end
+
       it 'uniqueness is not enforced on non-unique usernames changing other fields' do
         user1 = create(:user, username: 'testtest.lan')
         user2 = build(:user, username: 'testtest.lan')

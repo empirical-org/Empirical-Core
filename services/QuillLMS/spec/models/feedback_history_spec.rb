@@ -46,6 +46,7 @@ RSpec.describe FeedbackHistory, type: :model do
     it { should validate_presence_of(:feedback_session_uid) }
 
     it { should validate_presence_of(:attempt) }
+
     it do
        should validate_numericality_of(:attempt)
         .only_integer

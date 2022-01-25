@@ -40,6 +40,7 @@ describe Subscription, type: :model do
         expect(subscription.is_trial?).to be
       end
     end
+
     it "returns false if the subscription is not Subscription::TRIAL_TYPES" do
       Subscription::ALL_PAID_TYPES.each do |tt|
         subscription.update(account_type: tt)

@@ -108,12 +108,14 @@ describe StudentsController do
       expect(user.reload.username).to eq "pabllo-vittar"
       expect(user.reload.name).to eq "Pabllo Vittar"
     end
+
     it 'should update only the fields that are changed' do
       put :update_account, params: { email: "pablo@quill.org", username: "rainha-do-carnaval", name: "Pabllo Vittar" }
       expect(user.reload.email).to eq "pablo@quill.org"
       expect(user.reload.username).to eq "rainha-do-carnaval"
       expect(user.reload.name).to eq "Pabllo Vittar"
     end
+
     it 'should not update the email or username if already taken' do
       put :update_account, params: { email: "harvey@quill.org", username: "pabllo-vittar", name: "Pabllo Vittar" }
       expect(user.reload.errors.messages[:email].first).to eq "That email is taken. Try another."

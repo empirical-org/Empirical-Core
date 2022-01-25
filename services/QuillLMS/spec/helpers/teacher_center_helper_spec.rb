@@ -79,6 +79,7 @@ describe TeacherCenterHelper do
     it 'should return large_tabs if large is true' do
       expect(helper.explore_curriculum_tabs(large: true)).to eq large_tabs
     end
+
     it 'should return small_tabs if large is false' do
       expect(helper.explore_curriculum_tabs(large: false)).to eq small_tabs
     end

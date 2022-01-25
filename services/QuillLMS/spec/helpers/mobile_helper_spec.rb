@@ -7,6 +7,7 @@ describe MobileHelper do
     it 'should return dash element if is_mobile is false' do
       expect(helper.render_dash(false)).to eq '<div class="light-bar"></div>'
     end
+
     it 'should return nil if is_mobile is true' do
       expect(helper.render_dash(true)).to eq nil
     end
@@ -21,6 +22,7 @@ describe MobileHelper do
         </video>
       </div>"
     end
+
     it 'should return nil if device and type arguments do not match' do
       expect(helper.render_video_content('mobile', 'desktop', 'www.test.com')).to eq nil
     end

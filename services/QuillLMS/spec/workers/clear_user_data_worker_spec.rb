@@ -31,6 +31,7 @@ describe ClearUserDataWorker, type: :worker do
   it "destroys associated auth credentials if present" do
     expect(user.reload.auth_credential).to be nil
   end
+
   it "destroys associated schools_users if present" do
     expect(user.reload.schools_users).to be nil
   end

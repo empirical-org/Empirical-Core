@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe CreditTransactionsController do
   it { should use_before_action :signed_in! }
+
   let(:user) { build_stubbed(:user) }
 
   before do
