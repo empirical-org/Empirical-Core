@@ -543,13 +543,6 @@ RSpec/NotToNot:
   Enabled: false
 
 # Offense count: 4
-RSpec/OverwritingSetup:
-  Exclude:
-    - 'QuillLMS/engines/evidence/spec/controllers/evidence/rules_controller_spec.rb'
-    - 'QuillLMS/spec/controllers/concerns/teacher_fixes_spec.rb'
-    - 'QuillLMS/spec/models/user_spec.rb'
-
-# Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: Strict, EnforcedStyle, AllowedExplicitMatchers.
 # SupportedStyles: inflected, explicit

@@ -554,7 +554,6 @@ describe User, type: :model do
 
   describe "default scope" do
     let(:user1) { create(:user) }
-    let(:user2) { create(:user) }
     let(:user2) { create(:user, role: 'temporary') }
 
     it 'must list all users but the ones with temporary role' do

@@ -425,6 +425,9 @@ RSpec/MissingExampleGroupArgument:
 RSpec/MultipleSubjects:
   Enabled: true
 
+RSpec/OverwritingSetup:
+  Enabled: true
+
 RSpec/Rails/AvoidSetupHook:
   Enabled: true
 

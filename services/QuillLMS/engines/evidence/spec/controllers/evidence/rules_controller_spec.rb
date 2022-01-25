@@ -6,12 +6,12 @@ module Evidence
   RSpec.describe(RulesController, :type => :controller) do
     before { @routes = Engine.routes }
 
-    context 'universal' do 
+    context 'universal' do
       let!(:nonuniversal_rule) { create(:evidence_rule, universal: false) }
       let!(:universal_rule) { create(:evidence_rule, universal: true) }
 
-      it 'should return universal rules' do 
-        get :universal 
+      it 'should return universal rules' do
+        get :universal
         parsed_response = JSON.parse(response.body)
         expect(parsed_response.length).to be 1
       end
@@ -47,8 +47,8 @@ module Evidence
           expect(parsed_response.first["display_name"]).to(eq(rule.display_name))
         end
 
-        it 'should raise exception when rule_type is not passed' do 
-          expect do 
+        it 'should raise exception when rule_type is not passed' do
+          expect do
             get :index
           end.to raise_error(ActionController::ParameterMissing)
         end
@@ -96,8 +96,6 @@ module Evidence
     end
 
     context 'should create' do
-      let!(:prompt) { create(:evidence_prompt) }
-      let!(:rule) { build(:evidence_rule) }
       let!(:activity) { create(:evidence_activity) }
       let!(:prompt) { create(:evidence_prompt, activity: activity) }
       let!(:rule) { build(:evidence_rule) }
