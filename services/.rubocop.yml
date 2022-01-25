@@ -346,6 +346,9 @@ RSpec/AroundBlock:
 RSpec/ExcessiveDocstringSpacing:
   Enabled: true
 
+RSpec/IdenticalEqualityAssertion:
+  Enabled: true
+
 #######################################################################################################################
 
 Security/Eval:
