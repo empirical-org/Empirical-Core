@@ -584,13 +584,6 @@ RSpec/ScatteredSetup:
     - 'QuillCMS/spec/requests/response_multi_db_request_spec.rb'
     - 'QuillLMS/spec/services/vitally_integration/serialize_vitally_sales_user_spec.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-RSpec/SharedExamples:
-  Exclude:
-    - 'QuillLMS/spec/support/feature_helper.rb'
-    - 'QuillLMS/spec/support/ms_sorter_and_sort_fodder.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 RSpec/SingleArgumentMessageChain:
