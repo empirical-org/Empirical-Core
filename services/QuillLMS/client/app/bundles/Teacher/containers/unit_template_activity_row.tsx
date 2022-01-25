@@ -9,17 +9,20 @@ import React from 'react'
 // }
 
 const UnitTemplateActivityRow = ({
-  activities
+  unit_template_id,
+  activities,
+  handleRemove
 }) => {
 
   const activitiesRows = activities.map((a) =>
-  <tr>
+  <tr key={a.id}>
     <td>{a.name}</td>
     <td>{a.data && a.data.flag}</td>
     <td>{a.readability_grade_level}</td>
     <td>{a.standard && a.standard.standard_level && a.standard.standard_level.name}</td>
     <td>{a.activity_category && a.activity_category.name}</td>
     <td>{a.classification.name}</td>
+    <td><button onClick={() => handleRemove(a.id)} type="button">remove</button></td>
   </tr>
   )
 

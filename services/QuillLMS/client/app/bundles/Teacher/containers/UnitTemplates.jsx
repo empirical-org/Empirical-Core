@@ -13,6 +13,7 @@ import UnitTemplate from '../components/unit_templates/unit_template.jsx'
 import Cms from './Cms.jsx'
 
 const UNIT_TEMPLATES_URL = `${process.env.DEFAULT_URL}/cms/unit_templates.json`
+const DIAGNOSTICS_URL = `${process.env.DEFAULT_URL}/api/v1/activities/diagnostic_activities.json`
 const NO_DATA_FOUND_MESSAGE = "Activity Packs data could not be found. Refresh to try again, or contact the engineering team."
 const ALL_FLAGS = 'All'
 
@@ -23,7 +24,9 @@ export default class UnitTemplates extends React.Component {
     flag: 'All',
     fetchedData: [],
     activitySearchInput: "",
-    dataToDownload: []
+    dataToDownload: [],
+    diagnostics: [],
+    diagnostic: 'All',
   };
 
   shouldComponentUpdate(nextProps, nextState){
@@ -32,6 +35,22 @@ export default class UnitTemplates extends React.Component {
 
   componentDidMount() {
     this.fetchUnitTemplatesData();
+    this.fetchDiagnosticsData();
+  }
+
+  fetchDiagnosticsData() {
+    request.get({
+      url: DIAGNOSTICS_URL,
+    }, (e, r, body) => {
+      let newState = {}
+      if (e || r.statusCode != 200) {
+        console.log("dont got it")
+        diagnostics = []
+      } else {
+        const data = JSON.parse(body);
+        this.setState({diagnostics: data.diagnostics})
+      }
+    });
   }
 
   fetchUnitTemplatesData() {
@@ -108,7 +127,7 @@ export default class UnitTemplates extends React.Component {
   };
 
   orderedUnitTemplates = () => {
-    const { fetchedData, activitySearchInput, flag } = this.state
+    const { fetchedData, activitySearchInput, flag, diagnostic } = this.state
     let filteredData = fetchedData
     console.log(flag)
 
@@ -125,6 +144,15 @@ export default class UnitTemplates extends React.Component {
         );
       })
     }
+
+    if (diagnostic != 'All') {
+      filteredData = filteredData.filter(value => {
+        return (
+          value.diagnostic_names && value.diagnostic_names.some(y => y.toLowerCase().includes(diagnostic.toLowerCase()))
+        );
+      })
+    }
+
     return filteredData.sort((bp1, bp2) => {
       // Group archived activities at the bottom of the list (they automatically get a higher order number
       // than any unarchived activity)
@@ -160,9 +188,41 @@ export default class UnitTemplates extends React.Component {
     })
   }
 
+  updateUnitTemplate = (unitTemplate) => {
+    console.log('new unit template')
+    console.log(unitTemplate)
+    let newUnitTemplate = unitTemplate
+    newUnitTemplate.unit_template_category_id = unitTemplate.unit_template_category.id
+    newUnitTemplate.activity_ids = unitTemplate.activity_ids || unitTemplate.activities.map((a) => a.id)
+    const link = `${process.env.DEFAULT_URL}/cms/unit_templates/${unitTemplate.id}.json`
+    // const data = new FormData();
+    // data.append( "unit_template", JSON.stringify({}) );
+    fetch(link, {
+      method: 'PUT',
+      mode: 'cors',
+      credentials: 'include',
+      body: JSON.stringify({unit_template: newUnitTemplate}),
+      dataType: 'json',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': getAuthToken()
+        }
+      }).then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      }).then((response) => {
+        alert(`Activity has been saved.`)
+      }).catch((error) => {
+        // to do, use Sentry to capture error
+      })
+  }
+
   renderTableRow(unitTemplate) {
 
-    const { id, name, diagnostic_names, flag, order_number, activities } = unitTemplate
+    const { id, name, diagnostic_names, flag, order_number, activities, unit_template_category } = unitTemplate
     return (<UnitTemplateRow
       id={id}
       flag={flag}
@@ -172,6 +232,9 @@ export default class UnitTemplates extends React.Component {
       order_number={order_number}
       key={id}
       activities={activities}
+      updateUnitTemplate={this.updateUnitTemplate}
+      unitTemplate={unitTemplate}
+      unit_template_category={unit_template_category}
     />)
   }
 
@@ -215,11 +278,27 @@ export default class UnitTemplates extends React.Component {
       <th>Name</th>
       <th>Flag</th>
       <th>Diagnostics</th>
+      <th>Unit Template Category</th>
       <th>Preview</th>
       <th>Edit</th>
     </tr>)
   }
 
+  switchDiagnostic = (diagnostic) => {
+    this.setState({ diagnostic: diagnostic })
+  }
+
+  diagnosticsDropdown = () => {
+    const { diagnostics, diagnostic } = this.state
+
+    let diagnostic_names = diagnostics.map((d) => d.name)
+    diagnostic_names.push('All')
+    return (<ItemDropdown
+      callback={this.switchDiagnostic}
+      items={diagnostic_names}
+      selectedItem={diagnostic}
+    />)
+  }
 
   handleSearchByActivity = (e) => {
     this.setState({ activitySearchInput: e.target.value })
@@ -230,11 +309,14 @@ export default class UnitTemplates extends React.Component {
   }
 
   isSortable = () => {
-    const { flag, activitySearchInput } = this.state
+    const { flag, activitySearchInput, diagnostic } = this.state
     if(flag && !['All', 'Not Archived', 'Production'].includes(flag)) { return false }
     if (activitySearchInput != '') { return false}
+    if (diagnostic != 'All') { return false}
     return true
   };
+
+
 
   render() {
     const { activitySearchInput, flag } = this.state
@@ -249,6 +331,8 @@ export default class UnitTemplates extends React.Component {
             items={options}
             selectedItem={flag}
           />
+          <label>Search by diagnostic</label>
+          {this.diagnosticsDropdown()}
 
           <input
               aria-label="Search by activity"
