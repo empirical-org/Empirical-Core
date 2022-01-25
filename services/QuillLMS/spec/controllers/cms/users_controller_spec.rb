@@ -183,6 +183,7 @@ describe Cms::UsersController do
 
   describe '#edit' do
     let!(:another_user) { create(:user) }
+
     it 'should log when admin visits the edit page' do
       get :edit, params: { id: another_user.id }
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:edit])

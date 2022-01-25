@@ -76,6 +76,7 @@ describe UserSubscription, type: :model do
     let!(:user) { create(:user, email: 'test@quill.org') }
     let!(:subscription) { create(:subscription) }
     let!(:user_subscription) { create(:user_subscription, user: user, subscription: subscription) }
+
     describe 'when the user does have the passed subscription' do
       it "does call #self.create_user_sub_from_school_sub" do
         expect(UserSubscription).not_to receive(:create_user_sub_from_school_sub)

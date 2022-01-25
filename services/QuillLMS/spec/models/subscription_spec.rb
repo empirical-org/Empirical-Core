@@ -249,6 +249,7 @@ describe Subscription, type: :model do
     let!(:subscription) { create(:subscription) }
     let!(:user) { create(:user) }
     let!(:user_subscription) { create(:user_subscription, subscription: subscription, user: user) }
+
     it "responds with true if school or user has ever had anything in the ALL_PAID_TYPES_LIST" do
       Subscription::ALL_PAID_TYPES.each do |type|
         subscription.update(account_type: type)
@@ -374,6 +375,7 @@ describe Subscription, type: :model do
     let!(:recurring_subscription_expiring_but_de_activated) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today, recurring: true, de_activated_date: Date.today) }
     let!(:recurring_subscription_expiring_tomorrow) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today + 1, recurring: true) }
     let!(:non_recurring_subscription_expiring_today) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today + 1, recurring: false) }
+
     describe 'self.update_todays_expired_recurring_subscriptions' do
 
 

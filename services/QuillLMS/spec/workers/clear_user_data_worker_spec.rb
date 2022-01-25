@@ -10,6 +10,7 @@ describe ClearUserDataWorker, type: :worker do
   let!(:auth_credential) { create(:auth_credential, user: user) }
   let!(:activity_sessions) { user.activity_sessions }
   let!(:classroom_units) { ClassroomUnit.where("? = ANY (assigned_student_ids)", user.id) }
+
   before(:each) { subject.perform(user.id) }
 
   it "changes the user's email to one that is not personally identiable" do

@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe ErrorAnalytics do
   let(:analyzer) { double(:analyzer, track: true) }
+
   subject { described_class.new(analyzer) }
 
   before do

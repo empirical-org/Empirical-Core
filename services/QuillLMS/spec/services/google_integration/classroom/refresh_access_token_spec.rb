@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe GoogleIntegration::RefreshAccessToken do
   let(:current_time) { Time.local(1990, 12, 20) }
+
   before { Timecop.freeze(current_time) }
   after { Timecop.return }
 

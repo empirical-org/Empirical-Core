@@ -126,6 +126,7 @@ describe User, type: :model do
     describe '#classrooms_i_coteach' do
       let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
       let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
+
       it 'should return all visible classrooms associated with the teacher through classrooms teacher and role coteacher' do
         expect(teacher.classrooms_i_coteach).to match_array([co_taught_classroom])
         co_taught_classroom.update(visible: false)
@@ -263,6 +264,7 @@ describe User, type: :model do
           # for some reason Rspec was setting expiration as today if I set it at Date.yesterday, so had to minus 1 from yesterday
           let!(:subscription) { create(:subscription, expiration: Date.yesterday - 1, account_type: 'Teacher Paid') }
           let!(:user_subscription) { create(:user_subscription, user_id: teacher.id, subscription: subscription) }
+
           it 'returns false' do
             expect(teacher.reload.is_premium?).to be false
           end
@@ -380,6 +382,7 @@ describe User, type: :model do
       context 'user has or had a subscription' do
         let!(:subscription) { create(:subscription, expiration: Date.today + 1, account_type: 'Teacher Trial') }
         let!(:user_subscription) { create(:user_subscription, user_id: teacher.id, subscription: subscription) }
+
         context 'user is on a valid trial' do
           it "returns 'trial'" do
             subscription.update(account_type: 'trial')
@@ -525,6 +528,7 @@ describe User, type: :model do
 
     describe '#referral_code' do
       let!(:referral_code) { teacher.referrer_user.referral_code }
+
       it 'returns the appropriate referral code' do
         expect(teacher.referral_code).to be(referral_code)
       end

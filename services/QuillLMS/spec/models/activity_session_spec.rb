@@ -941,6 +941,7 @@ end
     let(:activity) { create(:activity) }
     let(:classroom_unit) { create(:classroom_unit) }
     let(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, state: 'started') }
+
     it 'marks all of a classroom activities activity sessions finished' do
       expect(activity_session.state).not_to eq('finished')
       ActivitySession.mark_all_activity_sessions_complete([activity_session])
@@ -969,6 +970,7 @@ end
   describe '#generate_activity_url' do
     let(:classroom_unit) { create(:classroom_unit) }
     let(:activity) { create(:activity) }
+
     ENV["DEFAULT_URL"] = 'http://cooolsville.edu'
 
     it 'returns a url including the default url' do

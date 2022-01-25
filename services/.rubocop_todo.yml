@@ -423,11 +423,6 @@ RSpec/DescribeClass:
 RSpec/DescribedClass:
   Enabled: false
 
-# Offense count: 54
-# Cop supports --auto-correct.
-RSpec/EmptyLineAfterFinalLet:
-  Enabled: false
-
 # Offense count: 27
 # Cop supports --auto-correct.
 RSpec/EmptyLineAfterHook:

@@ -175,6 +175,7 @@ describe Cms::SchoolsController do
   describe '#add_existing_user_by_email' do
     let!(:another_user) { create(:user, role: 'teacher') }
     let!(:school) { create(:school) }
+
     before(:each) do
       request.env['HTTP_REFERER'] = 'quill.org'
     end
@@ -197,6 +198,7 @@ describe Cms::SchoolsController do
   describe '#unlink' do
     let!(:school) { create(:school)}
     let!(:another_user) { create(:user, school: school)}
+
     before(:each) do
       request.env['HTTP_REFERER'] = cms_school_path(school.id)
     end

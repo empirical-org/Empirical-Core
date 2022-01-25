@@ -103,6 +103,7 @@ module Evidence
       let!(:rule) { build(:evidence_rule) }
       let!(:universal_rule) { build(:evidence_rule, prompts: [prompt], universal: true, rule_type: Rule::TYPE_GRAMMAR) }
       let!(:plagiarism_rule) { build(:evidence_rule, prompts: [prompt], universal: false, rule_type: Rule::TYPE_PLAGIARISM) }
+
       before do
         session[:user_id] = 1
       end
@@ -351,6 +352,7 @@ module Evidence
     context 'should update' do
       let!(:prompt) { create(:evidence_prompt) }
       let!(:rule) { create(:evidence_rule, :prompt_ids => ([prompt.id])) }
+
       before do
         session[:user_id] = 1
       end

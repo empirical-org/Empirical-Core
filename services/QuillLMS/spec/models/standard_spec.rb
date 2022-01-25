@@ -75,6 +75,7 @@ describe Standard, type: :model do
 
 	context "retrieving standards for the progress report" do
     let(:filters) { {} }
+
 	  include_context 'Standard Progress Report'
 
 	  subject { ProgressReports::Standards::Standard.new(teacher).results(filters).to_a }

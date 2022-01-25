@@ -76,6 +76,7 @@ describe TeacherCenterHelper do
         {name: 'Standards', url: 'activities/standard_level/7'}
       ]
     }
+
     it 'should return large_tabs if large is true' do
       expect(helper.explore_curriculum_tabs(large: true)).to eq large_tabs
     end
