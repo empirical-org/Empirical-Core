@@ -349,6 +349,9 @@ RSpec/BeEql:
 RSpec/Capybara/VisibilityMatcher:
   Enabled: true
 
+RSpec/DescribeSymbol:
+  Enabled: true
+
 RSpec/ExcessiveDocstringSpacing:
   Enabled: true
 
