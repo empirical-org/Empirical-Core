@@ -187,7 +187,7 @@ describe User, type: :model do
           expect(results[:coteacher_classroom_invitations_ids]).to include(coteacher_classroom_invitation2.id)
         end
 
-        it "does not return cotaught classrooms if their classroom id is in the list" do
+        it "does not return cotaught classroom invitations if their classroom id is in the list" do
           results = teacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of([coteacher_classroom_invitation.classroom_id])
           expect(results[:coteacher_classroom_invitations_ids]).to_not include(coteacher_classroom_invitation2.id)
         end

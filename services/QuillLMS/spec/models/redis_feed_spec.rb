@@ -91,7 +91,7 @@ describe RedisFeed, type: :model do
     end
 
     context "callbacks" do
-      it 'should fire callbacks when adding one item' do
+      it 'should fire callback when adding one item' do
         expect(test_instance).to receive(:callback_on_add).with(17)
 
         test_instance.add(17)

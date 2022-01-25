@@ -552,30 +552,6 @@ RSpec/PredicateMatcher:
     - 'QuillLMS/spec/models/user_spec.rb'
     - 'QuillLMS/spec/support/shared/ownable.rb'
 
-# Offense count: 20
-RSpec/RepeatedDescription:
-  Exclude:
-    - 'QuillCMS/spec/models/response_spec.rb'
-    - 'QuillLMS/spec/controllers/api/v1/session_feedback_histories_controller_spec.rb'
-    - 'QuillLMS/spec/controllers/cms/users_controller_spec.rb'
-    - 'QuillLMS/spec/controllers/concerns/growth_results_summary_spec.rb'
-    - 'QuillLMS/spec/controllers/teachers_controller_spec.rb'
-    - 'QuillLMS/spec/models/activity_spec.rb'
-    - 'QuillLMS/spec/models/concerns/teacher_spec.rb'
-    - 'QuillLMS/spec/models/redis_feed_spec.rb'
-    - 'QuillLMS/spec/workers/google_student_importer_worker_spec.rb'
-    - 'QuillLMS/spec/workers/populate_activity_health_worker_spec.rb'
-
-# Offense count: 12
-RSpec/RepeatedExample:
-  Exclude:
-    - 'QuillLMS/engines/evidence/spec/models/evidence/rule_spec.rb'
-    - 'QuillLMS/spec/controllers/concerns/growth_results_summary_spec.rb'
-    - 'QuillLMS/spec/models/concept_result_spec.rb'
-    - 'QuillLMS/spec/models/subscription_spec.rb'
-    - 'QuillLMS/spec/pdfs/login_pdf_spec.rb'
-    - 'QuillLMS/spec/services/units/creator_spec.rb'
-
 # Offense count: 2
 RSpec/RepeatedExampleGroupBody:
   Exclude:

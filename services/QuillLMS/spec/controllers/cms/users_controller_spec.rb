@@ -28,7 +28,7 @@ describe Cms::UsersController do
 
   describe '#search' do
 
-    it 'should search for the users' do
+    it 'should search for the users with user_flag' do
       get :search, params: { user_flag: "auditor" }
       expect(response.body).to eq({numberOfPages: 0, userSearchQueryResults: [], userSearchQuery: {user_flag: "auditor"}}.to_json)
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
@@ -65,7 +65,7 @@ describe Cms::UsersController do
       end
     end
 
-    it 'should search for the users' do
+    it 'should search for the users with class_code' do
       teacher = create(:teacher_with_one_classroom, email: 'test@t.org')
       classroom = teacher.classrooms_i_teach.first
       classroom.teachers = [teacher]

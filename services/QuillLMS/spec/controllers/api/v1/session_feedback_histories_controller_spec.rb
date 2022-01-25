@@ -93,7 +93,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
           create(:feedback_history, created_at: '2021-04-09T20:43:27.698Z')
         end
 
-        it 'should retrieve only items from the specified time constraints' do
+        it 'should retrieve only items from the specified start_date' do
           get :index, params: { start_date: '2021-04-06T20:43:27.698Z' }, as: :json
 
           parsed_response = JSON.parse(response.body)
@@ -102,7 +102,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
           expect(parsed_response['activity_sessions'].length).to eq(4)
         end
 
-        it 'should retrieve only items from the specified time constraints' do
+        it 'should retrieve only items from the specified start_date and end_date' do
           get :index, params: { start_date: '2021-04-06T20:43:27.698Z', end_date: '2021-04-08T20:43:27.698Z' }, as: :json
 
           parsed_response = JSON.parse(response.body)
