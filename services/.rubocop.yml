@@ -349,24 +349,16 @@ RSpec/AroundBlock:
 RSpec/ExcessiveDocstringSpacing:
   Enabled: true
 
-RSpec/IdenticalEqualityAssertion:
-  Enabled: true
-
-RSpec/SubjectDeclaration:
-  Enabled: true
-
-#######################################################################################################################
-# RSPEC - FACTORY BOT
-#######################################################################################################################
-
 RSpec/FactoryBot/SyntaxMethods:
   Enabled: true
 
-#######################################################################################################################
-# RSPEC - RAILS
-#######################################################################################################################
+RSpec/IdenticalEqualityAssertion:
+  Enabled: true
 
 RSpec/Rails/AvoidSetupHook:
+  Enabled: true
+
+RSpec/SubjectDeclaration:
   Enabled: true
 
 #######################################################################################################################
