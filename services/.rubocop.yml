@@ -434,6 +434,9 @@ RSpec/Pending:
 RSpec/RepeatedDescription:
   Enabled: true
 
+RSpec/RepeatedIncludeExample:
+  Enabled: true
+
 RSpec/Rails/AvoidSetupHook:
   Enabled: true
 
