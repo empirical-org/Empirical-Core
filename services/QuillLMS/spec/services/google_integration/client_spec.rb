@@ -15,7 +15,7 @@ describe GoogleIntegration::Client do
     )
 
     expect(api_client)
-      .to receive_message_chain(:new).with(
+      .to receive(:new).with(
         application_name: 'quill',
         user_agent: "quill/0.0.0 google-api-ruby-client/1.2.3 Linux/4.4.0-130-generic (gzip)")
       .and_return(api_client_instance)
