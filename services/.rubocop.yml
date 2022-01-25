@@ -403,6 +403,9 @@ RSpec/HooksBeforeExamples:
 RSpec/IdenticalEqualityAssertion:
   Enabled: true
 
+RSpec/InstanceSpy:
+  Enabled: true
+
 RSpec/Rails/AvoidSetupHook:
   Enabled: true
 
