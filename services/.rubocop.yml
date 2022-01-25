@@ -409,6 +409,12 @@ RSpec/InstanceSpy:
 RSpec/ItBehavesLike:
   Enabled: true
 
+RSpec/IteratedExpectation:
+  Enabled: true
+
+RSpec/LeakyConstantDeclaration:
+  Enabled: true
+
 RSpec/Rails/AvoidSetupHook:
   Enabled: true
 
