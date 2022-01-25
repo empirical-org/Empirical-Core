@@ -423,11 +423,6 @@ RSpec/DescribeClass:
 RSpec/DescribedClass:
   Enabled: false
 
-# Offense count: 1
-RSpec/EmptyExampleGroup:
-  Exclude:
-    - 'QuillLMS/spec/models/unit_template_spec.rb'
-
 # Offense count: 28
 # Cop supports --auto-correct.
 # Configuration parameters: AllowConsecutiveOneLiners.
