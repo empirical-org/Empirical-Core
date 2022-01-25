@@ -422,6 +422,9 @@ RSpec/MessageSpies:
 RSpec/MissingExampleGroupArgument:
   Enabled: true
 
+RSpec/MultipleSubjects:
+  Enabled: true
+
 RSpec/Rails/AvoidSetupHook:
   Enabled: true
 
