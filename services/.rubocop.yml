@@ -376,6 +376,9 @@ RSpec/EmptyLineAfterHook:
 RSpec/ExcessiveDocstringSpacing:
   Enabled: true
 
+RSpec/ExpectOutput:
+  Enabled: true
+
 RSpec/FactoryBot/AttributeDefinedStatically:
   Enabled: true
 
