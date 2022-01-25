@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 describe ClearUserDataWorker, type: :worker do
-  let(:subject) { described_class.new }
+  subject { described_class.new }
+
   let!(:ip_location) { create(:ip_location) }
   let(:user) { create(:student_in_two_classrooms_with_many_activities, google_id: 'sergey_and_larry_were_here', send_newsletter: true, ip_location: ip_location) }
   let!(:auth_credential) { create(:auth_credential, user: user) }

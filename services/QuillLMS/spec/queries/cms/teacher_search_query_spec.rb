@@ -19,7 +19,8 @@ describe Cms::TeacherSearchQuery do
     let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: user, role: "owner") }
     let!(:schools_users)  { create(:schools_users, user: user, school: school) }
     let!(:schools_admins) { create(:schools_admins, user: user, school: school) }
-    let!(:subject) { described_class.new(school.id) }
+
+    subject { described_class.new(school.id) }
 
     it 'should return the correct result in the right format' do
       output = subject.run

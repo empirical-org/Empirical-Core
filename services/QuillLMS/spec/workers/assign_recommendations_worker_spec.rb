@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 describe AssignRecommendationsWorker do
-  let(:subject) { described_class.new }
+  subject { described_class.new }
+
   let(:unit_template) { create(:unit_template) }
   let(:classroom) { create(:classroom) }
   let(:teacher) { classroom.owner }

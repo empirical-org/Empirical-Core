@@ -349,6 +349,10 @@ RSpec/ExcessiveDocstringSpacing:
 RSpec/IdenticalEqualityAssertion:
   Enabled: true
 
+RSpec/SubjectDeclaration:
+  Enabled: true
+
+
 #######################################################################################################################
 
 Security/Eval:
