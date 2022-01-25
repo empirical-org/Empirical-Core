@@ -428,6 +428,9 @@ RSpec/MultipleSubjects:
 RSpec/OverwritingSetup:
   Enabled: true
 
+RSpec/Pending:
+  Enabled: true
+
 RSpec/Rails/AvoidSetupHook:
   Enabled: true
 
