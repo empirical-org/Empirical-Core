@@ -643,8 +643,8 @@ end
     before do
       # Can't figure out why the setup above creates 2 activity sessions
       ActivitySession.destroy_all
-      2.times { create(:activity_session, classroom_unit: current_teacher_classroom_unit, user: current_student) }
-      3.times { create(:activity_session, classroom_unit: other_teacher_classroom_unit, user: other_student) }
+      create_list(:activity_session, 2, classroom_unit: current_teacher_classroom_unit, user: current_student)
+      create_list(:activity_session, 3, classroom_unit: other_teacher_classroom_unit, user: other_student)
     end
 
     it "only retrieves activity sessions for the students who have that teacher" do

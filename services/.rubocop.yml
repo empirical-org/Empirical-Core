@@ -352,6 +352,9 @@ RSpec/ExcessiveDocstringSpacing:
 RSpec/FactoryBot/AttributeDefinedStatically:
   Enabled: true
 
+RSpec/FactoryBot/CreateList:
+  Enabled: true
+
 RSpec/FactoryBot/SyntaxMethods:
   Enabled: true
 

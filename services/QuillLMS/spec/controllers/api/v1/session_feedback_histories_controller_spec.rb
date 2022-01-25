@@ -34,7 +34,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
       context 'pagination' do
         before do
           stub_const('FeedbackHistory::DEFAULT_PAGE_SIZE', 2)
-          3.times { create(:feedback_history) }
+          create_list(:feedback_history, 3)
         end
 
         it "should return 2 records at a time" do
@@ -60,8 +60,8 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         before do
           @activity = Evidence::Activity.create!(notes: 'Title 1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
           @prompt = Evidence::Prompt.create!(activity: @activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-          10.times { create(:feedback_history, prompt: @prompt) }
-          10.times { create(:feedback_history) }
+          create_list(:feedback_history, 10, prompt: @prompt)
+          create_list(:feedback_history, 10)
         end
 
         it 'should retrieve only items from the specified activity' do
