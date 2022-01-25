@@ -423,15 +423,6 @@ RSpec/DescribeClass:
 RSpec/DescribedClass:
   Enabled: false
 
-# Offense count: 5
-# Cop supports --auto-correct.
-RSpec/EmptyLineAfterSubject:
-  Exclude:
-    - 'QuillLMS/spec/models/ability_spec.rb'
-    - 'QuillLMS/spec/models/user_spec.rb'
-    - 'QuillLMS/spec/serializers/progress_reports/concepts/concept_serializer_spec.rb'
-    - 'QuillLMS/spec/serializers/progress_reports/concepts/student_serializer_spec.rb'
-
 # Offense count: 576
 # Configuration parameters: CountAsOne.
 RSpec/ExampleLength:

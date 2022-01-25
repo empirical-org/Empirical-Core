@@ -1057,11 +1057,13 @@ describe User, type: :model do
 
     describe '#username' do
       subject { super().username }
+
       it { is_expected.to eq('john.doe@101') }
     end
 
     describe '#role' do
       subject { super().role }
+
       it { is_expected.to eq('student') }
     end
 
