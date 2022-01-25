@@ -419,6 +419,9 @@ RSpec/MessageSpies:
   Enabled: true
   EnforcedStyle: receive
 
+RSpec/MissingExampleGroupArgument:
+  Enabled: true
+
 RSpec/Rails/AvoidSetupHook:
   Enabled: true
 
