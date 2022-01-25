@@ -428,16 +428,6 @@ RSpec/DescribedClass:
 RSpec/ExampleLength:
   Max: 127
 
-# Offense count: 9
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: always_allow, single_line_only, disallow
-RSpec/ExampleWithoutDescription:
-  Exclude:
-    - 'QuillLMS/spec/controllers/activities_controller_spec.rb'
-    - 'QuillLMS/spec/services/clever_integration/client_fetcher_spec.rb'
-    - 'QuillLMS/spec/services/clever_integration/teacher_classrooms_cache_hydrator_spec.rb'
-    - 'QuillLMS/spec/services/clever_integration/teacher_integration_spec.rb'
-
 # Offense count: 1632
 # Cop supports --auto-correct.
 # Configuration parameters: CustomTransform, IgnoredWords.
