@@ -187,9 +187,11 @@
       }
     }
     .feedback {
-      border-radius: 6px 6px 6px 0px;
+      display: flex;
+      flex-direction: column;
+      border-radius: 6px;
       border: solid 1px #ff9f00;
-      background-color: #fff6e4;
+      background-color: #fff5e5;
       padding: 16px;
       display: flex;
       align-items: flex-start;
@@ -199,13 +201,23 @@
 
       @keyframes revisepulse {
         0%  {
-          background-color: #fff6e4;
+          background-color: #fff5e5;
         }
         50% {
           background-color: #FF9F00;
         }
         100% {
-          background-color: #fff6e4;
+          background-color: #fff5e5;
+        }
+      }
+      .feedback-label-section {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        p {
+          font-size: 14px;
+          color: #995f00;
+          font-weight: 600;
         }
       }
       p {
@@ -219,19 +231,23 @@
         margin-right: 12px;
       }
       &.optimal {
-        border: solid 1px #55a200;
-        background-color: #f4ffe8;
+        border: solid 1px #4ea500;
+        background-color: #e9f4e0;
         animation: optimalpulse 0.8s 1;
-
+        .feedback-label-section {
+          p {
+            color: #2a5900;
+          }
+        }
         @keyframes optimalpulse {
           0%  {
-            background-color: #fff6e4;
+            background-color: #e9f4e0;
           }
           50% {
-            background-color: #55a200;
+            background-color: #4ea500;
           }
           100% {
-            background-color: #fff6e4;
+            background-color: #e9f4e0;
           }
         }
       }

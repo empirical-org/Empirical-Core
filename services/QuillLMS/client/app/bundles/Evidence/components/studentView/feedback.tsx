@@ -62,11 +62,11 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
 
   let className = 'feedback'
   let imageSrc = loopSrc
-  let imageAlt = 'Arrows pointing in opposite directions, making a loop'
+  let imageAlt = 'Revise icon'
   if (lastSubmittedResponse.optimal) {
     className += ' optimal'
     imageSrc = smallCheckCircleSrc
-    imageAlt = 'Small green circle with a check in it'
+    imageAlt = 'Check icon'
   }
 
   const key = customFeedbackKey || submittedResponses.length
@@ -101,7 +101,10 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
       >
         <React.Fragment>
           <div className={className} key={key}>
-            <img alt={imageAlt} src={imageSrc} />
+            <div className="feedback-label-section">
+              <img alt={imageAlt} src={imageSrc} />
+              <p>Feedback</p>
+            </div>
             <p className="feedback-text" dangerouslySetInnerHTML={feedbackForInnerHTML(feedback)} role="status" />
           </div>
           {reportAProblemSection}
