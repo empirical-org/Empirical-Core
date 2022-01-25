@@ -552,11 +552,6 @@ RSpec/PredicateMatcher:
     - 'QuillLMS/spec/models/user_spec.rb'
     - 'QuillLMS/spec/support/shared/ownable.rb'
 
-# Offense count: 2
-RSpec/RepeatedExampleGroupBody:
-  Exclude:
-    - 'QuillLMS/spec/controllers/teachers/classrooms_controller_spec.rb'
-
 # Offense count: 8
 RSpec/RepeatedExampleGroupDescription:
   Exclude:
