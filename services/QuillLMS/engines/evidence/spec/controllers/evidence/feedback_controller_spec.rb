@@ -21,40 +21,40 @@ module Evidence
     let(:plagiarized_text2) { "this is completely different text that you also should not plagiarize or else" }
     let!(:first_feedback) { create(:evidence_feedback, :text => "here is our first feedback", :rule => (rule), :order => 0) }
     let!(:second_feedback) { create(:evidence_feedback, :text => "here is our second feedback", :rule => (rule), :order => 1) }
-    
-    describe '#grammar' do 
+
+    describe '#grammar' do
       let(:example_error) { 'example_error' }
       let(:example_rule_uid) { 123 }
-      let(:incoming_payload) do 
-        { 
-          'entry' => 'eat junk food at home.', 
+      let(:incoming_payload) do
+        {
+          'entry' => 'eat junk food at home.',
           'prompt_text' => 'Schools should not allow junk food to be sold on campus, but'
         }
       end
 
-      let(:client_response) do 
+      let(:client_response) do
         {
           'gapi_error' => example_error,
           'highlight' => [{
             'type': 'response',
             'text': 'someText',
-            'character': 0  
+            'character': 0
           }]
         }
       end
 
-      let!(:grammar_rule) do 
+      let!(:grammar_rule) do
         create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz')
       end
 
-      before do 
+      before do
         allow(Grammar::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
-          { example_error => example_rule_uid } 
+          { example_error => example_rule_uid }
         )
         allow_any_instance_of(Grammar::Client).to receive(:post).and_return(client_response)
       end
 
-      it 'should return a valid json response' do 
+      it 'should return a valid json response' do
         post :grammar, params: incoming_payload, as: :json
 
         expect(JSON.parse(response.body)).to eq({
@@ -71,12 +71,12 @@ module Evidence
         })
       end
 
-      context 'Rule.feedback exists' do 
-        before do 
+      context 'Rule.feedback exists' do
+        before do
           create(:evidence_feedback, rule_id: grammar_rule.id, text: 'lorem ipsum')
         end
 
-        it 'should return a valid json response' do 
+        it 'should return a valid json response' do
           post :grammar, params: incoming_payload, as: :json
 
           expect(JSON.parse(response.body)).to eq({
@@ -96,39 +96,39 @@ module Evidence
 
     end
 
-    describe '#opinion' do 
+    describe '#opinion' do
       let(:example_error) { 'example_error' }
       let(:example_rule_uid) { 123 }
-      let(:incoming_payload) do 
-        { 
-          'entry' => 'eat junk food at home.', 
+      let(:incoming_payload) do
+        {
+          'entry' => 'eat junk food at home.',
           'prompt_text' => 'Schools should not allow junk food to be sold on campus, but'
         }
       end
 
-      let(:client_response) do 
+      let(:client_response) do
         {
           'oapi_error' => example_error,
           'highlight' => [{
             'type': 'response',
             'text': 'someText',
-            'character': 0  
+            'character': 0
           }]
         }
       end
 
-      let!(:opinion_rule) do 
+      let!(:opinion_rule) do
         create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz')
       end
 
-      before do 
+      before do
         allow(Opinion::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
-          { example_error => example_rule_uid } 
+          { example_error => example_rule_uid }
         )
         allow_any_instance_of(Opinion::Client).to receive(:post).and_return(client_response)
       end
 
-      it 'should return a valid json response' do 
+      it 'should return a valid json response' do
         post :opinion, params: incoming_payload, as: :json
 
         expect(JSON.parse(response.body)).to eq({
@@ -145,12 +145,12 @@ module Evidence
         })
       end
 
-      context 'Rule.feedback exists' do 
-        before do 
+      context 'Rule.feedback exists' do
+        before do
           create(:evidence_feedback, rule_id: opinion_rule.id, text: 'lorem ipsum')
         end
 
-        it 'should return a valid json response' do 
+        it 'should return a valid json response' do
           post :opinion, params: incoming_payload, as: :json
 
           expect(JSON.parse(response.body)).to eq({
@@ -170,8 +170,8 @@ module Evidence
 
     end
 
-    describe '#prefilter' do 
-      let!(:profanity_rule) do 
+    describe '#prefilter' do
+      let!(:profanity_rule) do
         create(:evidence_rule, rule_type: 'prefilter', uid: 'fdee458a-f017-4f9a-a7d4-a72d1143abeb')
       end
 
@@ -210,39 +210,39 @@ module Evidence
       it 'should return successfully' do
         post("plagiarism", :params => ({ :entry => "No plagiarism here.", :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(true).to(eq(parsed_response["optimal"]))
+        expect(parsed_response["optimal"]).to(eq(true))
       end
 
       it 'should return 404 if prompt id does not exist' do
         post("plagiarism", :params => ({ :entry => "No plagiarism here.", :prompt_id => 100, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
-        expect(404).to(eq(response.status))
+        expect(response.status).to(eq(404))
       end
 
       it 'should return successfully when there is plagiarism that matches the first plagiarism text string' do
         post("plagiarism", :params => ({ :entry => ("bla bla bla #{plagiarized_text1}"), :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(false).to(eq(parsed_response["optimal"]))
+        expect(parsed_response["optimal"]).to(eq(false))
         expect(plagiarized_text1).to(eq(parsed_response["highlight"][0]["text"]))
         expect(plagiarized_text1).to(eq(parsed_response["highlight"][1]["text"]))
         expect(first_feedback.text).to(eq(parsed_response["feedback"]))
         request.env.delete("RAW_POST_DATA")
         post("plagiarism", :params => ({ :entry => ("bla bla bla #{plagiarized_text1}"), :prompt_id => prompt.id, :session_id => 5, :previous_feedback => ([parsed_response]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(false).to(eq(parsed_response["optimal"]))
+        expect(parsed_response["optimal"]).to(eq(false))
         expect(second_feedback.text).to(eq(parsed_response["feedback"]))
       end
 
       it 'should return successfully when there is plagiarism that matches the second plagiarism text string' do
         post("plagiarism", :params => ({ :entry => ("bla bla bla #{plagiarized_text2}"), :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(false).to(eq(parsed_response["optimal"]))
+        expect(parsed_response["optimal"]).to(eq(false))
         expect(plagiarized_text2).to(eq(parsed_response["highlight"][0]["text"]))
         expect(plagiarized_text2).to(eq(parsed_response["highlight"][1]["text"]))
         expect(first_feedback.text).to(eq(parsed_response["feedback"]))
         request.env.delete("RAW_POST_DATA")
         post("plagiarism", :params => ({ :entry => ("bla bla bla #{plagiarized_text2}"), :prompt_id => prompt.id, :session_id => 5, :previous_feedback => ([parsed_response]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(false).to(eq(parsed_response["optimal"]))
+        expect(parsed_response["optimal"]).to(eq(false))
         expect(second_feedback.text).to(eq(parsed_response["feedback"]))
       end
 
@@ -256,7 +256,7 @@ module Evidence
         request.env.delete("RAW_POST_DATA")
         post("plagiarism", :params => ({ :entry => ("bla bla bla #{plagiarized_text1}"), :prompt_id => prompt.id, :session_id => 5, :previous_feedback => ([parsed_response]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(false).to(eq(parsed_response["optimal"]))
+        expect(parsed_response["optimal"]).to(eq(false))
         expect(second_feedback.text).to(eq(parsed_response["feedback"]))
       end
     end
@@ -266,23 +266,23 @@ module Evidence
       it 'should return successfully' do
         post("regex", :params => ({ :rule_type => rule_regex.rule_type, :entry => "no regex problems here.", :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(true).to(eq(parsed_response["optimal"]))
+        expect(parsed_response["optimal"]).to(eq(true))
       end
 
       it 'should return 404 if prompt id does not exist' do
         post("regex", :params => ({ :rule_type => rule_regex.rule_type, :entry => "no regex problems here.", :prompt_id => 100, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
-        expect(404).to(eq(response.status))
+        expect(response.status).to(eq(404))
       end
 
       it 'should return 404 if rule_type does not exist' do
         post("regex", :params => ({ :rule_type => "not-rule-type", :entry => "no regex problems here.", :prompt_id => 100, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
-        expect(404).to(eq(response.status))
+        expect(response.status).to(eq(404))
       end
 
       it 'should return successfully when there is regex feedback' do
         post("regex", :params => ({ :rule_type => rule_regex.rule_type, :entry => "test regex response", :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(false).to(eq(parsed_response["optimal"]))
+        expect(parsed_response["optimal"]).to(eq(false))
       end
     end
 
@@ -290,12 +290,12 @@ module Evidence
 
       it 'should return 404 if prompt id does not exist' do
         post("automl", :params => ({ :entry => "some text", :prompt_id => (prompt.id + 1000), :session_id => 1, :previous_feedback => ([]) }), :as => :json)
-        expect(404).to(eq(response.status))
+        expect(response.status).to(eq(404))
       end
 
       it 'should return 404 if prompt has no associated automl_model' do
         post("automl", :params => ({ :entry => "some text", :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
-        expect(404).to(eq(response.status))
+        expect(response.status).to(eq(404))
       end
 
       it 'should return feedback payloads based on the lib matched_rule value' do
@@ -316,16 +316,16 @@ module Evidence
         stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=test%20spelin%20error").to_return(:status => 200, :body => { :flaggedTokens => ([{ :token => "spelin" }]) }.to_json, :headers => ({}))
         post("spelling", :params => ({ :entry => "test spelin error", :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(200).to(eq(response.status))
-        expect(false).to(eq(parsed_response["optimal"]))
+        expect(response.status).to(eq(200))
+        expect(parsed_response["optimal"]).to(eq(false))
       end
 
       it 'should return 500 if there is an error on the bing API' do
         stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=there%20is%20no%20spelling%20error%20here").to_return(:status => 200, :body => { :error => ({ :message => "There's a problem here" }) }.to_json, :headers => ({}))
         post("spelling", :params => ({ :entry => "there is no spelling error here", :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(500).to(eq(response.status))
-        expect("There's a problem here").to(eq(parsed_response["error"]))
+        expect(response.status).to(eq(500))
+        expect(parsed_response["error"]).to(eq("There's a problem here"))
       end
     end
   end

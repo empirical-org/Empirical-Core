@@ -434,21 +434,6 @@ RSpec/ExampleLength:
 RSpec/ExampleWording:
   Enabled: false
 
-# Offense count: 70
-# Cop supports --auto-correct.
-RSpec/ExpectActual:
-  Exclude:
-    - 'QuillLMS/engines/evidence/spec/controllers/evidence/feedback_controller_spec.rb'
-    - 'QuillLMS/engines/evidence/spec/controllers/evidence/rules_controller_spec.rb'
-    - 'QuillLMS/engines/evidence/spec/lib/automl_check_spec.rb'
-    - 'QuillLMS/engines/evidence/spec/lib/regex_check_spec.rb'
-    - 'QuillLMS/engines/evidence/spec/models/evidence/activity_spec.rb'
-    - 'QuillLMS/engines/evidence/spec/models/evidence/automl_model_spec.rb'
-    - 'QuillLMS/engines/evidence/spec/models/evidence/prompt_spec.rb'
-    - 'QuillLMS/engines/evidence/spec/models/evidence/rule_spec.rb'
-    - 'QuillLMS/spec/controllers/api/v1/feedback_histories_controller_spec.rb'
-    - 'QuillLMS/spec/controllers/api/v1/session_feedback_histories_controller_spec.rb'
-
 # Offense count: 12
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

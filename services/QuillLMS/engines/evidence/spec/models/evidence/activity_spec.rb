@@ -60,19 +60,19 @@ module Evidence
         json_hash = activity.as_json
         expect(activity.id).to(eq(json_hash["id"]))
         expect(activity.parent_activity.id).to(eq(json_hash["parent_activity_id"]))
-        expect("First Activity").to(eq(json_hash["title"]))
-        expect("First Activity - Notes").to(eq(json_hash["notes"]))
-        expect(8).to(eq(json_hash["target_level"]))
-        expect("4th grade").to(eq(json_hash["scored_level"]))
+        expect(json_hash["title"]).to(eq("First Activity"))
+        expect(json_hash["notes"]).to(eq("First Activity - Notes"))
+        expect(json_hash["target_level"]).to(eq(8))
+        expect(json_hash["scored_level"]).to(eq("4th grade"))
         passage_hash = json_hash["passages"].first
         expect(passage.id).to(eq(passage_hash["id"]))
         expect(("Hello" * 20)).to(eq(passage_hash["text"]))
         prompt_hash = json_hash["prompts"].first
         expect(prompt.id).to(eq(prompt_hash["id"]))
-        expect("because").to(eq(prompt_hash["conjunction"]))
-        expect("it is good.").to(eq(prompt_hash["text"]))
-        expect(5).to(eq(prompt_hash["max_attempts"]))
-        expect("good work!.").to(eq(prompt_hash["max_attempts_feedback"]))
+        expect(prompt_hash["conjunction"]).to(eq("because"))
+        expect(prompt_hash["text"]).to(eq("it is good."))
+        expect(prompt_hash["max_attempts"]).to(eq(5))
+        expect(prompt_hash["max_attempts_feedback"]).to(eq("good work!."))
       end
     end
 

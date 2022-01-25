@@ -240,21 +240,21 @@ module Evidence
         it 'should assign newly created rule to all prompts if the rule is universal' do
           prompt = create(:evidence_prompt)
           rule = create(:evidence_rule, :universal => true)
-          expect(1).to(eq(prompt.rules.length))
+          expect(prompt.rules.length).to(eq(1))
           expect(rule.prompts.include?(prompt)).to(eq(true))
         end
 
         it 'should not assign newly created rule to all prompts if the rule is not universal' do
           prompt = create(:evidence_prompt)
           rule = create(:evidence_rule, :universal => false)
-          expect(0).to(eq(prompt.rules.length))
+          expect(prompt.rules.length).to(eq(0))
           expect(rule.prompts.include?(prompt)).to(eq(false))
         end
 
         it 'should not assign newly created rules to prompts that somehow already have them assigned' do
           prompt = create(:evidence_prompt)
           rule = create(:evidence_rule, :universal => true, :prompts => ([prompt]))
-          expect(1).to(eq(prompt.rules.length))
+          expect(prompt.rules.length).to(eq(1))
           expect(rule.prompts.include?(prompt)).to(eq(true))
         end
       end

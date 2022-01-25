@@ -225,13 +225,13 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
       parsed_response = JSON.parse(response.body)
 
-      expect(200).to eq(response.code.to_i)
+      expect(response.code.to_i).to eq(200)
       expect(parsed_response.to_json).to eq(FeedbackHistory.serialize_detail_by_activity_session(@feedback_history.feedback_session_uid).to_json)
     end
 
     it "should raise if not found (to be handled by parent app)" do
       get :show, params: { id: 99999 }, as: :json
-      expect(404).to eq(response.status)
+      expect(response.status).to eq(404)
       expect(response.body.include?("The resource you were looking for does not exist")).to be
     end
   end
