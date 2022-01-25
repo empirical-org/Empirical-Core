@@ -112,6 +112,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
         end
       end
+
       context 'turk_session_uid' do
         before do
           @activity_session = create(:activity_session)
@@ -131,6 +132,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
           expect(parsed_response['activity_sessions'][0]['session_uid']).to eq(@feedback_history1.feedback_session_uid)
         end
       end
+
       context 'filters' do
         before do
           user = create(:user)

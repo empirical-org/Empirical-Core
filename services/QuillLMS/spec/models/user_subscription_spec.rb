@@ -82,6 +82,7 @@ describe UserSubscription, type: :model do
         UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(user.id, subscription.id)
       end
     end
+
     describe 'when the user does have the passed subscription' do
       it "does call #self.create_user_sub_from_school_sub" do
         expect(UserSubscription).to receive(:create_user_sub_from_school_sub)

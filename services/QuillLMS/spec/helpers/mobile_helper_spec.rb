@@ -12,6 +12,7 @@ describe MobileHelper do
       expect(helper.render_dash(true)).to eq nil
     end
   end
+
   describe '#render_video_content' do
     it 'should return content if device and type arguments match' do
       expect(helper.render_video_content('mobile', 'mobile', 'www.test.com')).to eq "<div class='video-section'>

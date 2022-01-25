@@ -423,15 +423,6 @@ RSpec/DescribeClass:
 RSpec/DescribedClass:
   Enabled: false
 
-# Offense count: 6
-# Cop supports --auto-correct.
-RSpec/EmptyLineAfterExampleGroup:
-  Exclude:
-    - 'QuillLMS/spec/controllers/api/v1/session_feedback_histories_controller_spec.rb'
-    - 'QuillLMS/spec/helpers/mobile_helper_spec.rb'
-    - 'QuillLMS/spec/models/activity_session_spec.rb'
-    - 'QuillLMS/spec/models/user_subscription_spec.rb'
-
 # Offense count: 54
 # Cop supports --auto-correct.
 RSpec/EmptyLineAfterFinalLet:

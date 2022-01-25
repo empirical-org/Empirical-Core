@@ -936,6 +936,7 @@ end
       end
     end
   end
+
   describe '#mark_all_activity_sessions_complete' do
     let(:activity) { create(:activity) }
     let(:classroom_unit) { create(:classroom_unit) }
@@ -946,6 +947,7 @@ end
       expect(activity_session.reload.state).to eq('finished')
     end
   end
+
   describe '#has_a_started_session?' do
     context 'when session exists' do
       let(:activity_session) { create(:activity_session, state: "started") }
