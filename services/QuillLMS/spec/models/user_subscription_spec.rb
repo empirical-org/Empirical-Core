@@ -104,7 +104,7 @@ describe UserSubscription, type: :model do
       expect(user1.reload.subscription).to eq(new_sub)
     end
 
-    it 'calls #self.redeem_present_and_future_subscriptions_for_credit with the user_id ' do
+    it 'calls #self.redeem_present_and_future_subscriptions_for_credit with the user_id' do
       expect(UserSubscription).to receive(:redeem_present_and_future_subscriptions_for_credit).with(user1.id)
       UserSubscription.create_user_sub_from_school_sub(user1.id, new_sub.id)
     end

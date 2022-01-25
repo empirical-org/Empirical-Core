@@ -46,7 +46,7 @@ describe User, type: :model do
         expect(teacher.classrooms_i_own_that_a_specific_user_coteaches_with_me(coteacher.id)).to eq([])
       end
 
-      it 'returns the classroom the user owns if they coteach that classroom with the coteacher_id ' do
+      it 'returns the classroom the user owns if they coteach that classroom with the coteacher_id' do
         ct = create(:classrooms_teacher, classroom: classroom, role: 'coteacher')
         coteacher = ct.user
         expect(teacher.classrooms_i_own_that_a_specific_user_coteaches_with_me(coteacher.id)).to eq([classroom])

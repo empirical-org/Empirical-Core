@@ -124,7 +124,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       end
     end
 
-    context 'data time_tracking is included ' do
+    context 'data time_tracking is included' do
 
       it 'updates timespent on activity session' do
         data = {

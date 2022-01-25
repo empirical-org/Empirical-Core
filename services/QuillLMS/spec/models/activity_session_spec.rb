@@ -241,7 +241,7 @@ describe ActivitySession, type: :model, redis: true do
     end
   end
 
-  describe 'paginate ' do
+  describe 'paginate' do
     let(:activity_session) { create(:activity_session) }
     let(:activity_session1) { create(:activity_session) }
     let(:activity_session2) { create(:activity_session) }
@@ -696,7 +696,7 @@ end
       context "when completed_at is already set" do
         before { activity_session.completed_at = 5.minutes.ago }
 
-        it "should not change completed at " do
+        it "should not change completed at" do
           expect {
             activity_session.save!
           }.to_not change {
@@ -769,14 +769,14 @@ end
     let(:classroom_unit)   {create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
     let(:previous_final_score) {create(:activity_session, completed_at: Time.now, percentage: 0.9, is_final_score: true, user: student, classroom_unit: classroom_unit, activity: activity)}
 
-    it 'updates when new activity session has higher percentage ' do
+    it 'updates when new activity session has higher percentage' do
       previous_final_score
       new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
       new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: 0.95
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
 
-    it 'updates when new activity session has equal percentage ' do
+    it 'updates when new activity session has equal percentage' do
       previous_final_score
       new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
       new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: previous_final_score.percentage
