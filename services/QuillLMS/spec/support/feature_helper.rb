@@ -8,7 +8,7 @@ end
 
 shared_examples_for :requires_sign_in do
   it 'navigates to sign-in' do
-    expect(current_path).to eq SignInPage.path
+    expect(page).to have_current_path SignInPage.path, ignore_query: true
   end
 end
 

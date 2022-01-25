@@ -340,10 +340,10 @@ Naming/VariableNumber:
 # RSPEC
 #######################################################################################################################
 
-RSpec/BeEql:
+RSpec/AroundBlock:
   Enabled: true
 
-RSpec/AroundBlock:
+RSpec/BeEql:
   Enabled: true
 
 RSpec/ExcessiveDocstringSpacing:

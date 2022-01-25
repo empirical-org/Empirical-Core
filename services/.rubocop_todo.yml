@@ -397,13 +397,6 @@ RSpec/BeforeAfterAll:
     - 'QuillLMS/spec/script/setup_concepts_spec.rb'
     - 'QuillLMS/spec/workers/set_impact_metrics_worker_spec.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-RSpec/Capybara/CurrentPathExpectation:
-  Exclude:
-    - 'QuillLMS/spec/support/feature_helper.rb'
-    - 'QuillLMS/spec/system/login_spec.rb'
-
 # Offense count: 57
 # Cop supports --auto-correct.
 RSpec/ContextMethod:
