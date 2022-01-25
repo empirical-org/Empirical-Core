@@ -346,6 +346,9 @@ RSpec/AroundBlock:
 RSpec/BeEql:
   Enabled: true
 
+RSpec/Capybara/VisibilityMatcher:
+  Enabled: true
+
 RSpec/ExcessiveDocstringSpacing:
   Enabled: true
 
