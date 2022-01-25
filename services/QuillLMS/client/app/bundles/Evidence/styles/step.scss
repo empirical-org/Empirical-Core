@@ -102,16 +102,9 @@
   .feedback-section {
     margin: 16px 8px 0px 0px;
     .report-a-problem-button {
-      margin-left: 0px;
-      padding: 9px 16px;
-      border-radius: 0px 0px 6px 6px;
-      border: solid 1px #d8d8d8;
-      background-color: #fff;
-      border-top: none;
-      font-size: 14px;
       font-weight: 600;
-      line-height: 1;
-      color: #555;
+      color: #808080;
+      font-size: 14px;
     }
     .report-a-problem-section {
       padding: 9px 16px 16px;
@@ -122,12 +115,12 @@
       .report-a-problem-section-header {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
+        align-items: baseline;
         .label {
-          font-size: 14px;
-          font-weight: 600;
+          font-size: 16px;
           line-height: 1;
-          color: #555;
+          font-weight: normal;
+          color: #000000;
           margin-bottom: 8px;
         }
         .interactive-wrapper {
@@ -219,6 +212,11 @@
           color: #995f00;
           font-weight: 600;
         }
+      }
+      .report-a-problem-button-container{
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
       }
       p {
         white-space: pre-wrap;
