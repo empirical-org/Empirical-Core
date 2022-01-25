@@ -47,7 +47,7 @@ describe ClassroomsTeachersController, type: :controller do
       put :update_order, params: { updated_classrooms: params_array.to_json }
 
       classrooms_teacher_array.each_with_index do |classrooms_teacher, i|
-        expect classrooms_teacher.order == order[i]
+        expect(classrooms_teacher.order).to eq order[i]
       end
     end
   end

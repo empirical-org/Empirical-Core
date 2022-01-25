@@ -260,55 +260,6 @@ describe ActivitySession, type: :model, redis: true do
     end
   end
 
-  describe 'with_filters' do
-    let(:classroom_unit) { create(:classroom_unit) }
-
-    context 'classroom_id' do
-      let(:classroom) { create(:classroom) }
-      let(:classroom_unit1) { create(:classroom_unit, classroom: classroom) }
-
-      it 'should return the given query with the given classroom_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {classroom_id: classroom.id}))
-      end
-    end
-
-    context 'student_id' do
-      let(:student) { create(:student) }
-      let(:classroom_unit1) { create(:classroom_unit, user: student) }
-
-      it 'should return the given query with the given student_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {student_id: student.id}))
-      end
-    end
-
-    context 'unit_id' do
-      let(:unit) { create(:unit) }
-      let(:classroom_unit) { create(:classroom_unit, unit: unit) }
-
-      it 'should return the given query with the given classroom_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {unit_id: unit.id}))
-      end
-    end
-
-    context 'standard_level_id' do
-      let(:standard_level) { create(:standard_level) }
-      let(:classroom_unit1) { create(:classroom_unit, standard_level: standard_level) }
-
-      it 'should return the given query with the given standard_level_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {standard_level_id: standard_level.id}))
-      end
-    end
-
-    context 'standard_id' do
-      let(:standard) { create(:standard) }
-      let(:classroom_unit1) { create(:classroom_unit, standard: standard) }
-
-      it 'should return the given query with the given standard_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {standard_id: standard.id}))
-      end
-    end
-  end
-
   describe 'RESULTS_PER_PAGE' do
     it 'should be the correct number' do
       expect(ActivitySession::RESULTS_PER_PAGE).to eq 25

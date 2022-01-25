@@ -604,14 +604,6 @@ RSpec/SubjectStub:
 RSpec/VerifiedDoubles:
   Enabled: false
 
-# Offense count: 12
-RSpec/VoidExpect:
-  Exclude:
-    - 'QuillLMS/spec/controllers/api/v1/lessons_controller_spec.rb'
-    - 'QuillLMS/spec/controllers/classrooms_teachers_controller_spec.rb'
-    - 'QuillLMS/spec/models/activity_session_spec.rb'
-    - 'QuillLMS/spec/models/user_spec.rb'
-
 # Offense count: 18
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
