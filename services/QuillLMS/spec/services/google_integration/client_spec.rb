@@ -47,6 +47,6 @@ describe GoogleIntegration::Client do
 
     GoogleIntegration::Client.new(user, nil, token_refresher).create
 
-    expect(token_refresher_instance).to have_received(:refresh)
+    expect(token_refresher_instance).to receive(:refresh)
   end
 end

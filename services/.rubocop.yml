@@ -415,6 +415,10 @@ RSpec/IteratedExpectation:
 RSpec/LeakyConstantDeclaration:
   Enabled: true
 
+RSpec/MessageSpies:
+  Enabled: true
+  EnforcedStyle: receive
+
 RSpec/Rails/AvoidSetupHook:
   Enabled: true
 

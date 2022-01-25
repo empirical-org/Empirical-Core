@@ -512,12 +512,6 @@ RSpec/MessageChain:
     - 'QuillLMS/spec/controllers/teachers/units_controller_spec.rb'
     - 'QuillLMS/spec/services/google_integration/client_spec.rb'
 
-# Offense count: 454
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: have_received, receive
-RSpec/MessageSpies:
-  Enabled: false
-
 # Offense count: 1
 RSpec/MultipleDescribes:
   Exclude:
