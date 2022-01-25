@@ -340,6 +340,9 @@ Naming/VariableNumber:
 # RSPEC
 #######################################################################################################################
 
+RSpec/BeEql:
+  Enabled: true
+
 RSpec/AroundBlock:
   Enabled: true
 
