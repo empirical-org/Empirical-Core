@@ -48,7 +48,7 @@ RSpec.describe FeedbackHistory, type: :model do
     it { should validate_presence_of(:attempt) }
 
     it do
-       should validate_numericality_of(:attempt)
+       expect(subject).to validate_numericality_of(:attempt)
         .only_integer
         .is_greater_than_or_equal_to(1)
         .is_less_than_or_equal_to(5)

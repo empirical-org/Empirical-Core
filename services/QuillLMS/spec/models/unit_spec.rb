@@ -33,7 +33,7 @@ describe Unit, type: :model do
   it { should belong_to(:unit_template) }
 
   it do
-    is_expected
+    expect(subject)
       .to callback(:hide_classroom_units_and_unit_activities_if_visible_false)
       .after(:save)
   end

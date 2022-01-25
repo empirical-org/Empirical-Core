@@ -45,7 +45,7 @@ describe Activity, type: :model, redis: true do
   it { should have_one(:standard_level).through(:standard) }
 
   it do
-    should belong_to(:follow_up_activity).class_name("Activity")
+    expect(subject).to belong_to(:follow_up_activity).class_name("Activity")
       .with_foreign_key("follow_up_activity_id")
   end
 
@@ -65,7 +65,7 @@ describe Activity, type: :model, redis: true do
   it { is_expected.to callback(:flag_as_beta).before(:create).unless(:flags?) }
 
   it do
-    is_expected.to callback(:clear_activity_search_cache).after(:commit)
+    expect(subject).to callback(:clear_activity_search_cache).after(:commit)
   end
 
   it { should delegate_method(:form_url).to(:classification) }

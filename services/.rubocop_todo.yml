@@ -469,19 +469,6 @@ RSpec/FilePath:
 RSpec/ImplicitExpect:
   Enabled: false
 
-# Offense count: 10
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: single_line_only, single_statement_only, disallow
-RSpec/ImplicitSubject:
-  Exclude:
-    - 'QuillLMS/spec/models/activity_spec.rb'
-    - 'QuillLMS/spec/models/content_partner_spec.rb'
-    - 'QuillLMS/spec/models/feedback_history_spec.rb'
-    - 'QuillLMS/spec/models/recommendation_spec.rb'
-    - 'QuillLMS/spec/models/student_feedback_response_spec.rb'
-    - 'QuillLMS/spec/models/unit_spec.rb'
-
 # Offense count: 371
 # Configuration parameters: AssignmentOnly.
 RSpec/InstanceVariable:
