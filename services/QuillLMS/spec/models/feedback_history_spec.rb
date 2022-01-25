@@ -84,7 +84,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'concept results hash' do
-    setup do
+    before do
       @prompt = Evidence::Prompt.create(text: 'Test test test text')
       @activity = create(:evidence_activity)
       @activity_session = create(:activity_session, activity_id: @activity.id)
@@ -111,7 +111,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'serializable_hash' do
-    setup do
+    before do
       @prompt = Evidence::Prompt.create(text: 'Test text')
       @feedback_history = create(:feedback_history, prompt: @prompt)
     end
@@ -138,7 +138,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'batch_create' do
-    setup do
+    before do
       @valid_fh_params = {
         feedback_session_uid: SecureRandom.uuid,
         attempt: 1,
@@ -305,7 +305,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'Session-aggregate FeedbackHistories' do
-    setup do
+    before do
       @activity1 = Evidence::Activity.create!(notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
       @activity2 = Evidence::Activity.create!(notes: 'Title_2', title: 'Title 2', parent_activity_id: 2, target_level: 1)
       @because_prompt1 = Evidence::Prompt.create!(activity: @activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
@@ -486,7 +486,7 @@ RSpec.describe FeedbackHistory, type: :model do
     end
 
     context '#most_recent_rating' do
-      setup do
+      before do
         @prompt = Evidence::Prompt.create(text: 'Test text')
         @feedback_history = create(:feedback_history, prompt: @prompt)
         @user1 = create(:user)

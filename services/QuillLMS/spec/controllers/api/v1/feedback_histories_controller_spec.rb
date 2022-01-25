@@ -15,7 +15,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
     end
 
     context 'with feedback_history' do
-      setup do
+      before do
         create(:feedback_history, entry: 'This is the first entry in history')
         create(:feedback_history, entry: 'This is the second entry in history')
       end
@@ -217,7 +217,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
   end
 
   context "show" do
-    setup { @feedback_history = create(:feedback_history, entry: 'This is the first entry in history') }
+    before { @feedback_history = create(:feedback_history, entry: 'This is the first entry in history') }
 
     it "should return json if found" do
       get :show, params: { id: @feedback_history.id }, as: :json
