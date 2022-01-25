@@ -552,14 +552,6 @@ RSpec/PredicateMatcher:
     - 'QuillLMS/spec/models/user_spec.rb'
     - 'QuillLMS/spec/support/shared/ownable.rb'
 
-# Offense count: 8
-RSpec/RepeatedExampleGroupDescription:
-  Exclude:
-    - 'QuillLMS/spec/controllers/api/v1/activity_sessions_controller_spec.rb'
-    - 'QuillLMS/spec/models/activity_spec.rb'
-    - 'QuillLMS/spec/models/user_spec.rb'
-    - 'QuillLMS/spec/models/user_subscription_spec.rb'
-
 # Offense count: 112
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

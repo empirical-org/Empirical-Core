@@ -1071,20 +1071,6 @@ describe User, type: :model do
     end
   end
 
-  describe '#newsletter?' do
-    let(:user) { build(:user) }
-
-    it 'returns true when send_newsletter is true' do
-      user.send_newsletter = true
-      expect(user.send(:newsletter?)).to eq(true)
-    end
-
-    it 'returns false when send_newsletter is false' do
-      user.send_newsletter = false
-      expect(user.send(:newsletter?)).to eq(false)
-    end
-  end
-
   describe '#sorting_name' do
     subject(:sort_name) { user.sorting_name }
 

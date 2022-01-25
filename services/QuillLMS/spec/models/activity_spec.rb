@@ -349,10 +349,17 @@ describe Activity, type: :model, redis: true do
   end
 
   describe "#clear_activity_search_cache" do
+    let(:activity) { create(:activity) }
+
     it 'deletes the default_activity_search from the cache' do
       $redis.set('default_activity_search', {something: 'something'})
       Activity.clear_activity_search_cache
       expect($redis.get('default_activity_search')).to eq nil
+    end
+
+    it 'should call clear_activity_search_cache' do
+      expect(Activity).to receive(:clear_activity_search_cache)
+      activity.clear_activity_search_cache
     end
   end
 
@@ -401,15 +408,6 @@ describe Activity, type: :model, redis: true do
       expect(Activity.user_scope('alpha')).to eq(Activity.alpha_user)
       expect(Activity.user_scope('beta')).to eq(Activity.beta_user)
       expect(Activity.user_scope('anything')).to eq(Activity.production)
-    end
-  end
-
-  describe '#clear_activity_search_cache' do
-    let(:activity) { create(:activity) }
-
-    it 'should call clear_activity_search_cache' do
-      expect(Activity).to receive(:clear_activity_search_cache)
-      activity.clear_activity_search_cache
     end
   end
 
