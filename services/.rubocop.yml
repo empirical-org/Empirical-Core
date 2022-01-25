@@ -391,6 +391,9 @@ RSpec/FactoryBot/FactoryClassName:
 RSpec/FactoryBot/SyntaxMethods:
   Enabled: true
 
+RSpec/Focus:
+  Enabled: true
+
 RSpec/IdenticalEqualityAssertion:
   Enabled: true
 
