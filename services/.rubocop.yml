@@ -355,6 +355,9 @@ RSpec/FactoryBot/AttributeDefinedStatically:
 RSpec/FactoryBot/CreateList:
   Enabled: true
 
+RSpec/FactoryBot/FactoryClassName:
+  Enabled: true
+
 RSpec/FactoryBot/SyntaxMethods:
   Enabled: true
 
