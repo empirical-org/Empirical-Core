@@ -12,7 +12,6 @@ interface PromptStepProps {
   activityIsComplete: Boolean;
   className: string,
   completionButtonCallback: () => void;
-  everyOtherStepCompleted: boolean;
   submitResponse: Function;
   completeStep: (event: any) => void;
   stepNumber: number;
@@ -28,6 +27,7 @@ interface PromptStepState {
   customFeedback: string|null;
   customFeedbackKey: string|null;
   responseOverCharacterLimit: boolean;
+  submissionTime: number;
 }
 
 const RESPONSE = 'response'
@@ -52,10 +52,19 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       numberOfSubmissions: submittedResponses.length,
       customFeedback: null,
       customFeedbackKey: null,
-      responseOverCharacterLimit: false
+      responseOverCharacterLimit: false,
+      submissionTime: null
     };
 
     this.editor = React.createRef()
+  }
+
+  componentDidUpdate(prevProps) {
+    const { submittedResponses } = this.props;
+    const { numberOfSubmissions, submissionTime } = this.state;
+    if(submissionTime && numberOfSubmissions === submittedResponses.length) {
+      this.setState({ submissionTime: null });
+    }
   }
 
   lastSubmittedResponse = () => {
@@ -241,8 +250,12 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   handleGetFeedbackClick = (entry: string, promptId: string, promptText: string) => {
     const { submitResponse, } = this.props
 
-    this.setState(prevState => ({numberOfSubmissions: prevState.numberOfSubmissions + 1}), () => {
+    this.setState(prevState => ({
+      numberOfSubmissions: prevState.numberOfSubmissions + 1,
+      submissionTime: (new Date()).getTime()
+    }), () => {
       const { numberOfSubmissions, } = this.state
+      // submitResponse(entry, 34213412312, promptText, numberOfSubmissions)
       submitResponse(entry, promptId, promptText, numberOfSubmissions)
     })
   }
@@ -277,8 +290,23 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     }
   }
 
-  renderButton = () => {
-    const { prompt, submittedResponses, everyOtherStepCompleted, completionButtonCallback, activityIsComplete} = this.props
+  getFeedbackLoadingDetails = () => {
+    const { submissionTime } = this.state
+    if(!submissionTime) {
+      return <span />
+    }
+
+    const currentTime = (new Date()).getTime()
+    const timeLapsed = Math.abs(currentTime - submissionTime)
+    if(timeLapsed < 20000) {
+      return <p>Finding feedback...</p>
+    } else if(timeLapsed >= 20000) {
+      return <p>Still finding feedback. Thanks for your patience!</p>
+    }
+  }
+
+  renderFeedbackButtonAndDetails = () => {
+    const { prompt, submittedResponses, completionButtonCallback, activityIsComplete} = this.props
     const { id, text, max_attempts } = prompt
     const { html, numberOfSubmissions, responseOverCharacterLimit } = this.state
     const entry = this.stripHtml(html).trim()
@@ -298,7 +326,17 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       className += ' disabled'
       onClick = () => {}
     }
-    return <button className={className} onClick={onClick} type="button">{buttonLoadingSpinner}<span>{buttonCopy}</span></button>
+
+    if(awaitingFeedback) {
+      buttonCopy = ''
+    }
+
+    return(
+      <div className="feedback-details-section">
+        {this.getFeedbackLoadingDetails()}
+        <button className={className} onClick={onClick} type="button">{buttonLoadingSpinner}<span>{buttonCopy}</span></button>
+      </div>
+    )
   }
 
   renderFeedbackSection = () => {
@@ -393,7 +431,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
             <p className="number-of-attempts">{attemptsCount}</p>
             <p>{`of ${maxAttemptCount} attempts`}</p>
           </div>
-          {this.renderButton()}
+          {this.renderFeedbackButtonAndDetails()}
         </div>
         {this.renderFeedbackSection()}
       </div>
