@@ -5,7 +5,7 @@ import UnitTemplateRow from './unit_template_row'
 
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown';
 import LoadingSpinner from '../../Connect/components/shared/loading_indicator.jsx'
-import SortableList from  '../../Shared/index'
+import { SortableList, } from  '../../Shared/index'
 import getAuthToken from '../components/modules/get_auth_token'
 
 
@@ -80,8 +80,6 @@ export default class UnitTemplates extends React.Component {
       }
         return newUnitTemplate
       })
-
-
 
       const link = `${process.env.DEFAULT_URL}/cms/unit_templates/update_order_numbers`
       const data = new FormData();

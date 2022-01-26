@@ -31,6 +31,7 @@ const UnitTemplateRow = ({
   const handleSelectFlag = (e) => {
     let newUnitTemplate = unitTemplate
     newUnitTemplate.flag = e.target.value
+    console.log(e.target.value)
     updateUnitTemplate(newUnitTemplate)
   }
 
