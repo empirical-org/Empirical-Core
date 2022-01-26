@@ -73,7 +73,10 @@ describe GrowthResultsSummary do
                 acquired_skill_ids: [skill.id]
               }
             ],
-            total_acquired_skills_count: 1
+            total_acquired_skills_count: 1,
+            total_correct_skills_count: 1,
+            total_possible_skills_count: 1,
+            correct_skill_text: "1 of 1 skills correct"
           },
           {
             name: student2.name
@@ -133,7 +136,10 @@ describe GrowthResultsSummary do
                 acquired_skill_ids: [skill.id]
               }
             ],
-            total_acquired_skills_count: 1
+            total_acquired_skills_count: 1,
+            total_correct_skills_count: 1,
+            total_possible_skills_count: 1,
+            correct_skill_text: "1 of 1 skills correct"
           },
           {
             name: student2.name
@@ -191,7 +197,10 @@ describe GrowthResultsSummary do
                 acquired_skill_ids: [skill.id]
               }
             ],
-            total_acquired_skills_count: 1
+            total_acquired_skills_count: 1,
+            total_correct_skills_count: 1,
+            total_possible_skills_count: 1,
+            correct_skill_text: "1 of 1 skills correct"
           },
           {
             name: student2.name

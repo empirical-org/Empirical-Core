@@ -48,6 +48,8 @@ describe ResultsSummary do
                     summary: ResultsSummary::PARTIALLY_CORRECT,
                   }
                 ],
+                skill_ids: [skill.id],
+                correct_skill_ids: [],
                 number_of_correct_skills_text: "0 of 1 skills correct",
                 proficiency_text: ResultsSummary::NO_PROFICIENCY,
                 id: skill_group_activity.skill_group.id
@@ -92,6 +94,8 @@ describe ResultsSummary do
                     summary: ResultsSummary::PARTIALLY_CORRECT,
                   }
                 ],
+                skill_ids: [skill.id],
+                correct_skill_ids: [],
                 number_of_correct_skills_text: "0 of 1 skills correct",
                 proficiency_text: ResultsSummary::NO_PROFICIENCY,
                 id: skill_group_activity.skill_group.id
@@ -128,6 +132,8 @@ describe ResultsSummary do
               summary: ResultsSummary::PARTIALLY_CORRECT,
             }
           ],
+          skill_ids: [skill.id],
+          correct_skill_ids: [],
           number_of_correct_skills_text: "0 of 1 skills correct",
           proficiency_text: ResultsSummary::NO_PROFICIENCY,
           id: skill_group_activity.skill_group.id
