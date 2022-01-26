@@ -2,12 +2,12 @@ import * as React from 'react'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import stripHtml from "string-strip-html";
 
-import { BECAUSE, BUT, SO } from '../../../Shared/utils/constants'
 import { GRAMMAR, SPELLING, RULES_BASED_3, } from '../../../../constants/evidence'
 
 const loopSrc = `${process.env.CDN_URL}/images/icons/loop.svg`
 const smallCheckCircleSrc = `${process.env.CDN_URL}/images/icons/check-circle-small.svg`
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/clear-enabled.svg`
+const informationSrc = `${process.env.CDN_URL}/images/pages/evidence/icons-information-small.svg`
 
 const reportAProblemOptions = (optimal) => ([
   "I don't think this feedback applies to what I wrote",
@@ -21,14 +21,16 @@ const ReportAProblemOption = ({ option, handleSelectProblem, }) => {
   return <button className="report-a-problem-option focus-on-light" onClick={handleClick} type="button">{option}</button>
 }
 
-const feedbackToShow = (lastSubmittedResponse, submittedResponses, prompt, customFeedback) => {
-
+const madeLastAttemptAndItWasSuboptimal = (submittedResponses, prompt, lastSubmittedResponse) => {
   const madeLastAttempt = submittedResponses.length === prompt.max_attempts
-  const madeLastAttemptAndItWasSuboptimal = madeLastAttempt && !lastSubmittedResponse.optimal
+  return madeLastAttempt && !lastSubmittedResponse.optimal
+}
+
+const feedbackToShow = (lastSubmittedResponse, submittedResponses, prompt, customFeedback) => {
 
   if (customFeedback) { return customFeedback }
 
-  if (!madeLastAttemptAndItWasSuboptimal) { return lastSubmittedResponse.feedback }
+  if (!madeLastAttemptAndItWasSuboptimal(submittedResponses, prompt, lastSubmittedResponse)) { return lastSubmittedResponse.feedback }
 
   if ([GRAMMAR, SPELLING, RULES_BASED_3].includes(lastSubmittedResponse.feedback_type)) {
     return `<p>You completed four revisions! ${stripHtml(prompt.optimal_label_feedback || '')}</p><br/><p>However, our feedback bot detected additional spelling or grammar changes you could make to improve your sentence.</p><br/><p>Read your response one more time, and think about what changes you could make. Then move on to the next prompt.</p>`
@@ -100,6 +102,22 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
     </section>)
   }
 
+  let headsUpSection
+
+  if (madeLastAttemptAndItWasSuboptimal(submittedResponses, prompt, lastSubmittedResponse)) {
+    headsUpSection = (
+      <div className="heads-up">
+        <div className="label-section">
+          <img alt="Information icon" src={informationSrc} />
+          <p>Heads up</p>
+        </div>
+        <p>Our feedback bot is not perfect, and it sometimes might be wrong. If you think the feedback is inaccurate, please click on the “Report a problem” button above.</p>
+        <br />
+        <p>This activity is just for practice, and it is not graded. By practicing and revising on Quill, you are strengthening your writing skills.</p>
+      </div>
+    )
+  }
+
   return (
     <div className={`feedback-section ${reportAProblemExpanded ? 'expanded' : ''}`}>
       <ReactCSSTransitionReplace
@@ -109,7 +127,7 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
       >
         <React.Fragment>
           <div className={className} key={key}>
-            <div className="feedback-label-section">
+            <div className="label-section">
               <img alt={imageAlt} src={imageSrc} />
               <p>Feedback</p>
             </div>
@@ -119,6 +137,7 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
           {reportAProblemSection}
         </React.Fragment>
       </ReactCSSTransitionReplace>
+      {headsUpSection}
     </div>
   )
 }
