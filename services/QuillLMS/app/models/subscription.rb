@@ -196,12 +196,10 @@ class Subscription < ApplicationRecord
   def self.give_teacher_premium_if_charge_succeeds(user)
     teacher_premium_sub = new_teacher_premium_sub(user)
     teacher_premium_sub.save_if_charge_succeeds('teacher')
-    if teacher_premium_sub.new_record?
-      false
-    else
-      UserSubscription.create(user: user, subscription: teacher_premium_sub)
-      teacher_premium_sub
-    end
+    return false if teacher_premium_sub.new_record?
+
+    UserSubscription.create(user: user, subscription: teacher_premium_sub)
+    teacher_premium_sub
   end
 
   def self.give_school_premium_if_charge_succeeds(school, user)
