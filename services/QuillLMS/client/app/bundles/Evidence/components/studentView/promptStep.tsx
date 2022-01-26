@@ -255,7 +255,6 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       submissionTime: (new Date()).getTime()
     }), () => {
       const { numberOfSubmissions, } = this.state
-      // submitResponse(entry, 34213412312, promptText, numberOfSubmissions)
       submitResponse(entry, promptId, promptText, numberOfSubmissions)
     })
   }
