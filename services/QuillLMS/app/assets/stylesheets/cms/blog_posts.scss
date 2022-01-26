@@ -79,3 +79,88 @@
   color: $quillgreen;
   cursor: pointer;
 }
+
+.unit-template-inputs {
+  display: flex;
+}
+
+.name-col {
+  width: 300px !important;
+}
+
+.diagnostics-col {
+  width: 300px !important;
+}
+
+.flag-col {
+  width: 135px !important;
+}
+
+.category-col {
+  width: 125px !important;
+}
+
+.edit-col {
+  width: 50px !important;
+}
+
+.delete-col {
+  width: 75px !important;
+}
+
+.activity-name-col {
+  width: 250px !important;
+}
+
+.activity-flag-col {
+  width: 100px !important;
+}
+
+.activity-read-col {
+  width: 100px !important;
+}
+
+.activity-ccss-col {
+  width: 100px !important;
+}
+
+.activity-class-col {
+  width: 100px !important;
+}
+
+.activity-cat-col {
+  width: 100px !important;
+}
+
+.activity-remove-col {
+  width: 100px !important;
+}
+
+.delete-unit-template {
+  background-color: transparent;
+}
+
+.unit-template-activity-table {
+  background-color: white;
+  margin: 10px;
+  border-radius: 6px;
+}
+
+.unit-template-activity-row {
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+}
+
+.unit-template-row {
+  label {
+    display: none;
+  }
+}
+
+.unit-template-activity-headers {
+  th {
+    font-weight: 600 !important;
+    font-style: italic;
+  }
+
+}

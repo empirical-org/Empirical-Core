@@ -53,14 +53,14 @@ const UnitTemplateRow = ({
 
   return (
     <div>
-      <tr className="unit-template-row" onClick={showHideActivitiesRow}>
-        <td>{name}</td>
-        <td><FlagDropdown flag={flag} handleFlagChange={handleSelectFlag} isLessons={false} /></td>
-        <td>{diagnostic_names.map((d) => (<div key={d}>{d}</div>))}</td>
-        <td>{unit_template_category && unit_template_category.name}</td>
+      <tr className="blog-post-row unit-template-row" onClick={showHideActivitiesRow}>
+        <td className="name-col">{name}</td>
+        <td className="flag-col"><FlagDropdown flag={flag} handleFlagChange={handleSelectFlag} isLessons={false} /></td>
+        <td className="diagnostics-col">{diagnostic_names.map((d) => (<div key={d}>{d}</div>))}</td>
+        <td className="category-col">{unit_template_category && unit_template_category.name}</td>
         <td>{<a href={`${process.env.DEFAULT_URL}/assign/featured-activity-packs/${id}`} target="_blank">preview</a>}</td>
-        <td>{<a href={`${process.env.DEFAULT_URL}/cms/unit_templates/${id}/edit`} target="_blank">edit</a>}</td>
-        <td><button onClick={deleteUnitTemplate} type="button">delete</button></td>
+        <td className="edit-col">{<a href={`${process.env.DEFAULT_URL}/cms/unit_templates/${id}/edit`} target="_blank">edit</a>}</td>
+        <td className="delete-col"><button className="delete-unit-template" onClick={deleteUnitTemplate} type="button">delete</button></td>
       </tr>
 
       {showActivities ? <UnitTemplateActivityRow unit_template_id={id} activities={activities} handleRemove={handleRemoveActivity}/> : ''}

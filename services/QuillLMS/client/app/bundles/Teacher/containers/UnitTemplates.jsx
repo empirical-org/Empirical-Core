@@ -275,12 +275,10 @@ export default class UnitTemplates extends React.Component {
 
   renderTableHeader() {
     return (<tr>
-      <th>Name</th>
-      <th>Flag</th>
-      <th>Diagnostics</th>
-      <th>Unit Template Category</th>
-      <th>Preview</th>
-      <th>Edit</th>
+      <th className="name-col">Name</th>
+      <th className="flag-col">Flag</th>
+      <th className="diagnostics-col">Diagnostics</th>
+      <th className="category-col">Category</th>
     </tr>)
   }
 
@@ -326,22 +324,25 @@ export default class UnitTemplates extends React.Component {
       <div className="cms-unit-templates">
         <div className="standard-columns">
           <button className='button-green button-top' onClick={() => {window.open(`unit_templates/new`, '_blank')}}>New</button>
-          <ItemDropdown
-            callback={this.switchFlag}
-            items={options}
-            selectedItem={flag}
-          />
-          <label>Search by diagnostic</label>
-          {this.diagnosticsDropdown()}
-
-          <input
-              aria-label="Search by activity"
-              className="search-box"
-              name="searchInput"
-              onChange={this.handleSearchByActivity}
-              placeholder="Search by activity"
-              value={activitySearchInput || ""}
+          <div className="unit-template-inputs">
+            <label>Filter by flag</label>
+            <ItemDropdown
+              callback={this.switchFlag}
+              items={options}
+              selectedItem={flag}
             />
+            <label>Search by diagnostic</label>
+            {this.diagnosticsDropdown()}
+
+            <input
+                aria-label="Search by activity"
+                className="search-box"
+                name="searchInput"
+                onChange={this.handleSearchByActivity}
+                placeholder="Search by activity"
+                value={activitySearchInput || ""}
+              />
+          </div>
           {this.tableOrEmptyMessage()}
         </div>
       </div>

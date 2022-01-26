@@ -15,26 +15,26 @@ const UnitTemplateActivityRow = ({
 }) => {
 
   const activitiesRows = activities.map((a) =>
-  <tr key={a.id}>
-    <td>{a.name}</td>
-    <td>{a.data && a.data.flag}</td>
-    <td>{a.readability_grade_level}</td>
-    <td>{a.standard && a.standard.standard_level && a.standard.standard_level.name}</td>
-    <td>{a.activity_category && a.activity_category.name}</td>
-    <td>{a.classification.name}</td>
-    <td><button onClick={() => handleRemove(a.id)} type="button">remove</button></td>
+  <tr className="unit-template-activity-row" key={a.id}>
+    <td className="activity-name-col">{a.name}</td>
+    <td className="activity-flag-col">{a.data && a.data.flag}</td>
+    <td className="activity-read-col">{a.readability_grade_level}</td>
+    <td className="activity-ccss-col">{a.standard && a.standard.standard_level && a.standard.standard_level.name}</td>
+    <td className="activity-cat-col">{a.activity_category && a.activity_category.name}</td>
+    <td className="activity-class-col">{a.classification.name}</td>
+    <td className="activity-remove-col"><button onClick={() => handleRemove(a.id)} type="button">remove</button></td>
   </tr>
   )
 
   return (
-    <table>
-    <tr>
-      <th>name</th>
-      <th>flag</th>
-      <th>readability</th>
-      <th>CCSS</th>
-      <th>concept</th>
-      <th>tool</th>
+    <table className="unit-template-activity-table">
+    <tr className="unit-template-activity-headers">
+      <th className="activity-name-col">name</th>
+      <th className="activity-flag-col">flag</th>
+      <th className="activity-read-col">readability</th>
+      <th className="activity-ccss-col">CCSS</th>
+      <th className="activity-cat-col">concept</th>
+      <th className="activity-class-col">tool</th>
     </tr>
 
     {activitiesRows}
