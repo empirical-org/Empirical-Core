@@ -79,8 +79,6 @@ class Concept < ApplicationRecord
 
   def self.find_by_id_or_uid(arg)
     find_by(uid: arg) || find(arg)
-  rescue ActiveRecord::RecordNotFound
-    raise ActiveRecord::RecordNotFound, "Couldn't find Concept with 'id' or 'uid'=#{arg}"
   end
 
   def self.visible_level_zero_concept_ids
