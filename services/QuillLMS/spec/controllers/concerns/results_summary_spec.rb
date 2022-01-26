@@ -55,6 +55,9 @@ describe ResultsSummary do
                 id: skill_group_activity.skill_group.id
               }
             ],
+            total_correct_skills_count: 0,
+            total_possible_skills_count: 1,
+            correct_skill_text: "0 of 1 skills correct"
           },
           {
             name: student2.name
