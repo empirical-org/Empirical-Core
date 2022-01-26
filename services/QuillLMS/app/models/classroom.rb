@@ -59,7 +59,7 @@ class Classroom < ApplicationRecord
 
   accepts_nested_attributes_for :classrooms_teachers
 
-  def destroy 
+  def destroy
     # ClassroomsTeachers must be called explicitly, because the has_many relationship
     # does not retrieve Classroom.classrooms_teachers when a foreign_key is designated, as above
     # https://github.com/empirical-org/Empirical-Core/pull/8664
@@ -123,7 +123,7 @@ class Classroom < ApplicationRecord
   end
 
   def archived_classrooms_manager
-    coteachers = self.coteachers.empty? ? [] : self.coteachers.map { |ct| { name: ct.name, id: ct.id, email: ct.email } }
+    coteachers = self.coteachers.map { |ct| { name: ct.name, id: ct.id, email: ct.email } }
     {createdDate: created_at.strftime("%m/%d/%Y"), className: name, id: id, studentCount: students.count, classcode: code, ownerName: owner.name, from_google: !!google_classroom_id, coteachers: coteachers}
   end
 
@@ -143,7 +143,7 @@ class Classroom < ApplicationRecord
   def hide_appropriate_classroom_units
     return if visible
     return unless visible_changed?
-    
+
     hide_all_classroom_units
   end
 
