@@ -124,11 +124,13 @@ module Evidence
     end
 
     private def identify_matched_slices(entry_slices, passage_slices)
-      passage_slice_strings = passage_slices.map { |s| s.join(' ') }
       contiguous_matched_indexes = []
+      # Placeholder to be overridden during the first run of the loop that makes it past the confirm_minimum_overlap? guard statement.  If that never happens, we don't have to calculate this value
+      passage_slice_strings = nil
       entry_slices.each do |index, slice|
         next false unless confirm_minimum_overlap?(slice, passage_slices)
         slice_string = slice.join(' ')
+        passage_slice_strings ||= passage_slices.map { |s| s.join(' ') }
         match = passage_slice_strings.any? { |passage_string| DidYouMean::Levenshtein.distance(slice_string, passage_string) <= FUZZY_CHARACTER_THRESHOLD }
         contiguous_matched_indexes.append(index) if match
         # If we've been matching a series of slices, and this slice doesn't match, we've found
