@@ -105,20 +105,15 @@ exports[`PromptStep component active state before any responses have been submit
               of 5 attempts
             </p>
           </div>
-          <div
-            className="feedback-details-section"
+          <button
+            className="quill-button focus-on-light disabled"
+            onClick={[Function]}
+            type="button"
           >
-            <span />
-            <button
-              className="quill-button focus-on-light disabled"
-              onClick={[Function]}
-              type="button"
-            >
-              <span>
-                Get feedback
-              </span>
-            </button>
-          </div>
+            <span>
+              Get feedback
+            </span>
+          </button>
         </div>
       </div>
     </div>
@@ -241,20 +236,15 @@ exports[`PromptStep component active state when a suboptimal response has been s
               of 5 attempts
             </p>
           </div>
-          <div
-            className="feedback-details-section"
+          <button
+            className="quill-button focus-on-light disabled"
+            onClick={[Function]}
+            type="button"
           >
-            <span />
-            <button
-              className="quill-button focus-on-light disabled"
-              onClick={[Function]}
-              type="button"
-            >
-              <span>
-                Get feedback
-              </span>
-            </button>
-          </div>
+            <span>
+              Get feedback
+            </span>
+          </button>
         </div>
         <Feedback
           customFeedback={null}
@@ -486,20 +476,15 @@ exports[`PromptStep component active state when an optimal response has been sub
               of 5 attempts
             </p>
           </div>
-          <div
-            className="feedback-details-section"
+          <button
+            className="quill-button focus-on-light"
+            onClick={[Function]}
+            type="button"
           >
-            <span />
-            <button
-              className="quill-button focus-on-light"
-              onClick={[Function]}
-              type="button"
-            >
-              <span>
-                Next
-              </span>
-            </button>
-          </div>
+            <span>
+              Next
+            </span>
+          </button>
         </div>
         <Feedback
           customFeedback={null}
@@ -759,20 +744,15 @@ exports[`PromptStep component active state when the max attempts have been reach
               of 5 attempts
             </p>
           </div>
-          <div
-            className="feedback-details-section"
+          <button
+            className="quill-button focus-on-light"
+            onClick={[Function]}
+            type="button"
           >
-            <span />
-            <button
-              className="quill-button focus-on-light"
-              onClick={[Function]}
-              type="button"
-            >
-              <span>
-                Next
-              </span>
-            </button>
-          </div>
+            <span>
+              Next
+            </span>
+          </button>
         </div>
         <Feedback
           customFeedback={null}
@@ -1034,19 +1014,14 @@ exports[`PromptStep component active state when the max attempts have been reach
               of 5 attempts
             </p>
           </div>
-          <div
-            className="feedback-details-section"
+          <button
+            className="quill-button focus-on-light"
+            type="button"
           >
-            <span />
-            <button
-              className="quill-button focus-on-light"
-              type="button"
-            >
-              <span>
-                Done
-              </span>
-            </button>
-          </div>
+            <span>
+              Done
+            </span>
+          </button>
         </div>
         <Feedback
           customFeedback={null}
@@ -1267,20 +1242,15 @@ exports[`PromptStep component inactive state renders 1`] = `
               of 5 attempts
             </p>
           </div>
-          <div
-            className="feedback-details-section"
+          <button
+            className="quill-button focus-on-light disabled"
+            onClick={[Function]}
+            type="button"
           >
-            <span />
-            <button
-              className="quill-button focus-on-light disabled"
-              onClick={[Function]}
-              type="button"
-            >
-              <span>
-                Get feedback
-              </span>
-            </button>
-          </div>
+            <span>
+              Get feedback
+            </span>
+          </button>
         </div>
       </div>
     </div>

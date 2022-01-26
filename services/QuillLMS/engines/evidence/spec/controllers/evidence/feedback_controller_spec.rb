@@ -245,10 +245,10 @@ module Evidence
       end
 
       it 'should return successfully when there is fuzzy match plagiarism' do
-        post("plagiarism", :params => ({ :entry => ("bla bla bla FUZZY#{plagiarized_text1}"), :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
+        post("plagiarism", :params => ({ :entry => ("bla bla bla FZY#{plagiarized_text1}"), :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
         expect(false).to(eq(parsed_response["optimal"]))
-        expect("FUZZY#{plagiarized_text1}").to(eq(parsed_response["highlight"][0]["text"]))
+        expect("FZY#{plagiarized_text1}").to(eq(parsed_response["highlight"][0]["text"]))
         expect(plagiarized_text1).to(eq(parsed_response["highlight"][1]["text"]))
         expect(first_feedback.text).to(eq(parsed_response["feedback"]))
         request.env.delete("RAW_POST_DATA")
