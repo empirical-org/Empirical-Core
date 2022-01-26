@@ -26,7 +26,7 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
       retried = true
       retry
     end
-    render json: @activity_session.as_json
+    render json: {}, status: 204
   end
 
   private def working_params
