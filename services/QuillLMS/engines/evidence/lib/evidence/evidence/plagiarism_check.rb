@@ -124,13 +124,18 @@ module Evidence
     end
 
     private def identify_matched_slices(entry_slices, passage_slices)
-      entry_slices.select do |_, slice|
-        # Check to see if there's enough similarity for it to be worth doing a Levenshtein comparison
+      passage_slice_strings = passage_slices.map { |s| s.join(' ') }
+      contiguous_matched_indexes = []
+      entry_slices.each do |index, slice|
         next false unless confirm_minimum_overlap?(slice, passage_slices)
         slice_string = slice.join(' ')
-        passage_slice_strings = passage_slices.map { |s| s.join(' ') }
-        passage_slice_strings.any? { |passage_string| DidYouMean::Levenshtein.distance(slice_string, passage_string) <= FUZZY_CHARACTER_THRESHOLD }
-      end.keys
+        match = passage_slice_strings.any? { |passage_string| DidYouMean::Levenshtein.distance(slice_string, passage_string) <= FUZZY_CHARACTER_THRESHOLD }
+        contiguous_matched_indexes.append(index) if match
+        # If we've been matching a series of slices, and this slice doesn't match, we've found
+        # all the contiguous matched slices and can stop
+        break if contiguous_matched_indexes.length > 0 && !match
+      end
+      contiguous_matched_indexes
     end
 
     private def confirm_minimum_overlap?(target_array, source_arrays)
