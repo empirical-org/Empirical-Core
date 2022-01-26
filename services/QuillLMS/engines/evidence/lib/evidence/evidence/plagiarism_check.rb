@@ -135,7 +135,7 @@ module Evidence
         contiguous_matched_indexes.append(index) if match
         # If we've been matching a series of slices, and this slice doesn't match, we've found
         # all the contiguous matched slices and can stop
-        break if contiguous_matched_indexes.length > 0 && !match
+        break if !contiguous_matched_indexes.empty? && !match
       end
       contiguous_matched_indexes
     end
