@@ -1,7 +1,9 @@
 import * as React from 'react'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
+import stripHtml from "string-strip-html";
 
 import { BECAUSE, BUT, SO } from '../../../Shared/utils/constants'
+import { GRAMMAR, SPELLING, RULES_BASED_3, } from '../../../../constants/evidence'
 
 const loopSrc = `${process.env.CDN_URL}/images/icons/loop.svg`
 const smallCheckCircleSrc = `${process.env.CDN_URL}/images/icons/check-circle-small.svg`
@@ -26,7 +28,13 @@ const feedbackToShow = (lastSubmittedResponse, submittedResponses, prompt, custo
 
   if (customFeedback) { return customFeedback }
 
-  return madeLastAttemptAndItWasSuboptimal ? prompt.max_attempts_feedback : lastSubmittedResponse.feedback
+  if (!madeLastAttemptAndItWasSuboptimal) { return lastSubmittedResponse.feedback }
+
+  if ([GRAMMAR, SPELLING, RULES_BASED_3].includes(lastSubmittedResponse.feedback_type)) {
+    return `<p>You completed four revisions! ${stripHtml(prompt.optimal_label_feedback || '')}</p><br/><p>However, our feedback bot detected additional spelling or grammar changes you could make to improve your sentence.</p><br/><p>Read your response one more time, and think about what changes you could make. Then move on to the next prompt.</p>`
+  }
+
+  return prompt.max_attempts_feedback
 }
 
 const feedbackForInnerHTML = (feedback) => {
