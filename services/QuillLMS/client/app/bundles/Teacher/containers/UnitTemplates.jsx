@@ -15,18 +15,19 @@ import Cms from './Cms.jsx'
 const UNIT_TEMPLATES_URL = `${process.env.DEFAULT_URL}/cms/unit_templates.json`
 const DIAGNOSTICS_URL = `${process.env.DEFAULT_URL}/api/v1/activities/diagnostic_activities.json`
 const NO_DATA_FOUND_MESSAGE = "Activity Packs data could not be found. Refresh to try again, or contact the engineering team."
-const ALL_FLAGS = 'All'
+const ALL_FLAGS = 'All Flags'
+const ALL_DIAGNOSTICS = 'All Diagnostics'
 
 export default class UnitTemplates extends React.Component {
 
   state = {
     loadingTableData: true,
-    flag: 'All',
+    flag: ALL_FLAGS,
     fetchedData: [],
     activitySearchInput: "",
     dataToDownload: [],
     diagnostics: [],
-    diagnostic: 'All',
+    diagnostic: ALL_DIAGNOSTICS,
   };
 
   shouldComponentUpdate(nextProps, nextState){
@@ -145,7 +146,7 @@ export default class UnitTemplates extends React.Component {
       })
     }
 
-    if (diagnostic != 'All') {
+    if (diagnostic != ALL_DIAGNOSTICS) {
       filteredData = filteredData.filter(value => {
         return (
           value.diagnostic_names && value.diagnostic_names.some(y => y.toLowerCase().includes(diagnostic.toLowerCase()))
@@ -290,7 +291,7 @@ export default class UnitTemplates extends React.Component {
     const { diagnostics, diagnostic } = this.state
 
     let diagnostic_names = diagnostics.map((d) => d.name)
-    diagnostic_names.push('All')
+    diagnostic_names.push(ALL_DIAGNOSTICS)
     return (<ItemDropdown
       callback={this.switchDiagnostic}
       items={diagnostic_names}
@@ -308,9 +309,9 @@ export default class UnitTemplates extends React.Component {
 
   isSortable = () => {
     const { flag, activitySearchInput, diagnostic } = this.state
-    if(flag && !['All', 'Not Archived', 'Production'].includes(flag)) { return false }
+    if(flag && ![ALL_FLAGS, 'Not Archived', 'Production'].includes(flag)) { return false }
     if (activitySearchInput != '') { return false}
-    if (diagnostic != 'All') { return false}
+    if (diagnostic != ALL_DIAGNOSTICS) { return false}
     return true
   };
 
@@ -318,23 +319,17 @@ export default class UnitTemplates extends React.Component {
 
   render() {
     const { activitySearchInput, flag } = this.state
-    const options = ['All', 'Not Archived', 'Archived', 'Alpha', 'Beta', 'Gamma', 'Production', 'Private']
+    const options = [ALL_FLAGS, 'Not Archived', 'Archived', 'Alpha', 'Beta', 'Gamma', 'Production', 'Private']
 
     return (
       <div className="cms-unit-templates">
         <div className="standard-columns">
           <button className='button-green button-top' onClick={() => {window.open(`unit_templates/new`, '_blank')}}>New</button>
-          <div className="unit-template-inputs">
-            <label>Filter by flag</label>
-            <ItemDropdown
-              callback={this.switchFlag}
-              items={options}
-              selectedItem={flag}
-            />
-            <label>Search by diagnostic</label>
-            {this.diagnosticsDropdown()}
 
-            <input
+
+          <div className="unit-template-inputs">
+
+          <input
                 aria-label="Search by activity"
                 className="search-box"
                 name="searchInput"
@@ -342,6 +337,17 @@ export default class UnitTemplates extends React.Component {
                 placeholder="Search by activity"
                 value={activitySearchInput || ""}
               />
+            <div className="unit-template-dropdowns">
+              <ItemDropdown
+                callback={this.switchFlag}
+                items={options}
+                selectedItem={flag}
+              />
+              {this.diagnosticsDropdown()}
+            </div>
+
+
+
           </div>
           {this.tableOrEmptyMessage()}
         </div>

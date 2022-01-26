@@ -81,7 +81,20 @@
 }
 
 .unit-template-inputs {
-  display: flex;
+  display: block;
+  .unit-template-dropdowns {
+    display: flex;
+    height: 40px;
+  }
+  .dropdown-container {
+    top: -15px;
+    padding: 10px;
+  }
+  .search-box {
+    height: 35px;
+    width: 450px;
+    margin-bottom: 20px;
+  }
 }
 
 .name-col {
@@ -129,7 +142,7 @@
 }
 
 .activity-cat-col {
-  width: 100px !important;
+  width: 120px !important;
 }
 
 .activity-remove-col {
