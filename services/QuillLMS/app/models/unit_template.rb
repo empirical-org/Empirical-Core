@@ -44,6 +44,13 @@ class UnitTemplate < ApplicationRecord
   ALPHA = 'alpha'
   PRIVATE = 'private'
 
+  USER_SCOPES = {
+    PRIVATE => UnitTemplate.private_user,
+    ALPHA => UnitTemplate.alpha_user,
+    BETA => UnitTemplate.beta_user,
+    GAMMA => UnitTemplate.gamma_user
+  }
+
   scope :production, -> {where("unit_templates.flag IN('#{PRODUCTION}') OR unit_templates.flag IS null")}
   scope :gamma_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}') OR unit_templates.flag IS null")}
   scope :beta_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}','#{BETA}') OR unit_templates.flag IS null")}
@@ -87,18 +94,7 @@ class UnitTemplate < ApplicationRecord
   end
 
   def self.user_scope(user_flag)
-    case user_flag
-    when PRIVATE
-      UnitTemplate.private_user
-    when ALPHA
-      UnitTemplate.alpha_user
-    when BETA
-      UnitTemplate.beta_user
-    when GAMMA
-      UnitTemplate.gamma_user
-    else
-      UnitTemplate.production
-    end
+    USER_SCOPES.fetch(user_flag, UnitTemplate.production)
   end
 
   def get_cached_serialized_unit_template(flag=nil)
