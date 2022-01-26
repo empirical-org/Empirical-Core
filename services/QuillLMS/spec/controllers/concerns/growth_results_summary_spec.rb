@@ -70,7 +70,9 @@ describe GrowthResultsSummary do
                 pre_test_proficiency: GrowthResultsSummary::NO_PROFICIENCY,
                 post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
                 id: pre_test_skill_group_activity.skill_group.id,
-                acquired_skill_ids: [skill.id]
+                post_correct_skill_ids: [skill.id],
+                acquired_skill_ids: [skill.id],
+                skill_ids: [skill.id]
               }
             ],
             total_acquired_skills_count: 1,
@@ -133,7 +135,9 @@ describe GrowthResultsSummary do
                 pre_test_proficiency: GrowthResultsSummary::NO_PROFICIENCY,
                 post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
                 id: pre_test_skill_group_activity.skill_group.id,
-                acquired_skill_ids: [skill.id]
+                post_correct_skill_ids: [skill.id],
+                acquired_skill_ids: [skill.id],
+                skill_ids: [skill.id]
               }
             ],
             total_acquired_skills_count: 1,
@@ -194,7 +198,9 @@ describe GrowthResultsSummary do
                 pre_test_proficiency: GrowthResultsSummary::NO_PROFICIENCY,
                 post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
                 id: pre_test_skill_group_activity.skill_group.id,
-                acquired_skill_ids: [skill.id]
+                post_correct_skill_ids: [skill.id],
+                acquired_skill_ids: [skill.id],
+                skill_ids: [skill.id]
               }
             ],
             total_acquired_skills_count: 1,
@@ -271,7 +277,9 @@ describe GrowthResultsSummary do
           pre_test_proficiency: GrowthResultsSummary::NO_PROFICIENCY,
           post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
           id: pre_test_skill_group_activity.skill_group.id,
-          acquired_skill_ids: [skill.id]
+          post_correct_skill_ids: [skill.id],
+          acquired_skill_ids: [skill.id],
+          skill_ids: [skill.id]
         }
       ]
     end
