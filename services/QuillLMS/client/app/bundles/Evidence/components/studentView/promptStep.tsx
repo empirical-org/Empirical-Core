@@ -297,11 +297,10 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
     const currentTime = (new Date()).getTime()
     const timeLapsed = Math.abs(currentTime - submissionTime)
-    if(timeLapsed < 20000) {
+    if(timeLapsed <= 5000) {
       return <p>Finding feedback...</p>
-    } else if(timeLapsed >= 20000) {
-      return <p>Still finding feedback. Thanks for your patience!</p>
     }
+    return <p>Still finding feedback. Thanks for your patience!</p>
   }
 
   renderFeedbackButtonAndDetails = () => {
