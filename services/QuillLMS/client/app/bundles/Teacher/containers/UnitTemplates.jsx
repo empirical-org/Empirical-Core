@@ -1,16 +1,13 @@
 import React from 'react'
 import request from 'request'
-import ReactTable from 'react-table'
+
+import UnitTemplateRow from './unit_template_row'
 
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown';
 import LoadingSpinner from '../../Connect/components/shared/loading_indicator.jsx'
-import { SortableList, } from  '../../Shared/index'
-import UnitTemplateRow from './unit_template_row'
-import UnitTemplateActivityRow from './unit_template_activity_row'
+import SortableList from  '../../Shared/index'
 import getAuthToken from '../components/modules/get_auth_token'
 
-import UnitTemplate from '../components/unit_templates/unit_template.jsx'
-import Cms from './Cms.jsx'
 
 const UNIT_TEMPLATES_URL = `${process.env.DEFAULT_URL}/cms/unit_templates.json`
 const DIAGNOSTICS_URL = `${process.env.DEFAULT_URL}/api/v1/activities/diagnostic_activities.json`
@@ -30,10 +27,6 @@ export default class UnitTemplates extends React.Component {
     diagnostic: ALL_DIAGNOSTICS,
   };
 
-  shouldComponentUpdate(nextProps, nextState){
-    return !(this.state === nextState)
-  }
-
   componentDidMount() {
     this.fetchUnitTemplatesData();
     this.fetchDiagnosticsData();
@@ -45,7 +38,6 @@ export default class UnitTemplates extends React.Component {
     }, (e, r, body) => {
       let newState = {}
       if (e || r.statusCode != 200) {
-        console.log("dont got it")
         diagnostics = []
       } else {
         const data = JSON.parse(body);
@@ -61,15 +53,12 @@ export default class UnitTemplates extends React.Component {
     }, (e, r, body) => {
       let newState = {}
       if (e || r.statusCode != 200) {
-        console.log("dont got it")
         newState = {
           loadingTableData: false,
           dataResults: [],
         }
       } else {
-        console.log("got it")
         const data = JSON.parse(body);
-        console.log(data)
         newState = {
           loadingTableData: false,
           fetchedData: data.unit_templates
@@ -80,10 +69,7 @@ export default class UnitTemplates extends React.Component {
   }
 
   updateOrder = (sortInfo) => {
-    console.log("sort info")
-    console.log(sortInfo)
     if (this.isSortable()) {
-      console.log("sorting ")
       const { fetchedData, } = this.state
       const newOrder = sortInfo.map(item => item.key);
       const newOrderedUnitTemplates = fetchedData.map((ut, i) => {
@@ -98,8 +84,6 @@ export default class UnitTemplates extends React.Component {
 
 
       const link = `${process.env.DEFAULT_URL}/cms/unit_templates/update_order_numbers`
-        // console.log("updated orders")
-        // console.log(unitTemplates)
       const data = new FormData();
       data.append( "unit_templates", JSON.stringify(newOrderedUnitTemplates) );
       fetch(link, {
@@ -130,7 +114,6 @@ export default class UnitTemplates extends React.Component {
   orderedUnitTemplates = () => {
     const { fetchedData, activitySearchInput, flag, diagnostic } = this.state
     let filteredData = fetchedData
-    console.log(flag)
 
     if (flag === 'Not Archived') {
       filteredData = fetchedData.filter(data => data.flag != 'archived')
@@ -166,7 +149,7 @@ export default class UnitTemplates extends React.Component {
     })
   }
 
-  handleDelete = (id) => {
+  onDelete = (id) => {
     const link = `${process.env.DEFAULT_URL}/cms/unit_templates/${id}`
     fetch(link, {
       method: 'DELETE',
@@ -190,8 +173,6 @@ export default class UnitTemplates extends React.Component {
   }
 
   updateUnitTemplate = (unitTemplate) => {
-    console.log('new unit template')
-    console.log(unitTemplate)
     let newUnitTemplate = unitTemplate
     newUnitTemplate.unit_template_category_id = unitTemplate.unit_template_category.id
     newUnitTemplate.activity_ids = unitTemplate.activity_ids || unitTemplate.activities.map((a) => a.id)
@@ -223,19 +204,18 @@ export default class UnitTemplates extends React.Component {
 
   renderTableRow(unitTemplate) {
 
-    const { id, name, diagnostic_names, flag, order_number, activities, unit_template_category } = unitTemplate
+    const { id, name, diagnostic_names, flag, activities, unit_template_category } = unitTemplate
     return (<UnitTemplateRow
-      id={id}
-      flag={flag}
-      diagnostic_names={diagnostic_names}
-      handleDelete={this.handleDelete}
-      name={name}
-      order_number={order_number}
-      key={id}
       activities={activities}
-      updateUnitTemplate={this.updateUnitTemplate}
-      unitTemplate={unitTemplate}
+      diagnostic_names={diagnostic_names}
+      flag={flag}
+      handleDelete={this.onDelete}
+      id={id}
+      key={id}
+      name={name}
       unit_template_category={unit_template_category}
+      unitTemplate={unitTemplate}
+      updateUnitTemplate={this.updateUnitTemplate}
     />)
   }
 
@@ -245,17 +225,16 @@ export default class UnitTemplates extends React.Component {
     let tableOrEmptyMessage
 
     if (fetchedData) {
-      console.log("data is fetched")
-      // let dataToUse = this.getFilteredData()
       let dataToUse = this.orderedUnitTemplates()
       const unitTemplateRows = dataToUse.map((ut) => this.renderTableRow(ut))
       tableOrEmptyMessage = (
-      <div class="blog-post-table">
-        <table>
-          {this.renderTableHeader()}
-          <SortableList data={unitTemplateRows} sortCallback={this.updateOrder} />
-        </table>
-      </div>)
+        <div className="blog-post-table">
+          <table>
+            {this.renderTableHeader()}
+            <SortableList data={unitTemplateRows} sortCallback={this.updateOrder} />
+          </table>
+        </div>
+      )
     } else {
       tableOrEmptyMessage = NO_DATA_FOUND_MESSAGE
     }
@@ -315,8 +294,6 @@ export default class UnitTemplates extends React.Component {
     return true
   };
 
-
-
   render() {
     const { activitySearchInput, flag } = this.state
     const options = [ALL_FLAGS, 'Not Archived', 'Archived', 'Alpha', 'Beta', 'Gamma', 'Production', 'Private']
@@ -324,19 +301,16 @@ export default class UnitTemplates extends React.Component {
     return (
       <div className="cms-unit-templates">
         <div className="standard-columns">
-          <button className='button-green button-top' onClick={() => {window.open(`unit_templates/new`, '_blank')}}>New</button>
-
-
+          <button className='button-green button-top' onClick={() => {window.open(`unit_templates/new`, '_blank')}} type="button">New</button>
           <div className="unit-template-inputs">
-
-          <input
-                aria-label="Search by activity"
-                className="search-box"
-                name="searchInput"
-                onChange={this.handleSearchByActivity}
-                placeholder="Search by activity"
-                value={activitySearchInput || ""}
-              />
+            <input
+              aria-label="Search by activity"
+              className="search-box"
+              name="searchInput"
+              onChange={this.handleSearchByActivity}
+              placeholder="Search by activity"
+              value={activitySearchInput || ""}
+            />
             <div className="unit-template-dropdowns">
               <ItemDropdown
                 callback={this.switchFlag}
@@ -345,14 +319,10 @@ export default class UnitTemplates extends React.Component {
               />
               {this.diagnosticsDropdown()}
             </div>
-
-
-
           </div>
           {this.tableOrEmptyMessage()}
         </div>
       </div>
-
     )
   }
 }

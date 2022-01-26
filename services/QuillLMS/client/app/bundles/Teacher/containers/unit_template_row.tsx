@@ -1,15 +1,8 @@
 import React, {useState} from 'react'
 
 import UnitTemplateActivityRow from './unit_template_activity_row';
+
 import { FlagDropdown } from '../../Shared/index';
-
-// const featuredCellContent = ({ featuredOrderNumber, featuredBlogPostLimitReached, handleClickStar, draft, }) => {
-//   if (draft) { return 'DRAFT' }
-//   if (featuredBlogPostLimitReached && featuredOrderNumber === null) { return }
-
-//   const star = featuredOrderNumber === null ? <i className="far fa-star" /> : <i className="fas fa-star" />
-//   return <button className="interactive-wrapper" onClick={handleClickStar} type="button">{star}</button>
-// }
 
 
 const UnitTemplateRow = ({
@@ -17,7 +10,6 @@ const UnitTemplateRow = ({
   name,
   flag,
   diagnostic_names,
-  order_number,
   handleDelete,
   activities,
   unit_template_category,
@@ -25,7 +17,6 @@ const UnitTemplateRow = ({
   updateUnitTemplate
 }) => {
   const [showActivities, setShowActivities] = useState(false);
-  // const handleClickStar = () => onClickStar(id)
   const deleteUnitTemplate = () => {
     var confirm = window.confirm('are you sure you want to delete ' + name + '?');
     if (confirm) {
@@ -58,13 +49,12 @@ const UnitTemplateRow = ({
         <td className="flag-col"><FlagDropdown flag={flag} handleFlagChange={handleSelectFlag} isLessons={false} /></td>
         <td className="diagnostics-col">{diagnostic_names.map((d) => (<div key={d}>{d}</div>))}</td>
         <td className="category-col">{unit_template_category && unit_template_category.name}</td>
-        <td>{<a href={`${process.env.DEFAULT_URL}/assign/featured-activity-packs/${id}`} target="_blank">preview</a>}</td>
-        <td className="edit-col">{<a href={`${process.env.DEFAULT_URL}/cms/unit_templates/${id}/edit`} target="_blank">edit</a>}</td>
+        <td><a href={`${process.env.DEFAULT_URL}/assign/featured-activity-packs/${id}`} rel="noopener noreferrer" target="_blank">preview</a></td>
+        <td className="edit-col"><a href={`${process.env.DEFAULT_URL}/cms/unit_templates/${id}/edit`} rel="noopener noreferrer" target="_blank">edit</a></td>
         <td className="delete-col"><button className="delete-unit-template" onClick={deleteUnitTemplate} type="button">delete</button></td>
       </tr>
 
-      {showActivities ? <UnitTemplateActivityRow unit_template_id={id} activities={activities} handleRemove={handleRemoveActivity}/> : ''}
-
+      {showActivities ? <UnitTemplateActivityRow activities={activities} handleRemove={handleRemoveActivity} /> : ''}
 
     </div>
   )
