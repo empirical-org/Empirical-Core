@@ -195,6 +195,20 @@ describe Api::V1::ActivitiesController, type: :controller do
     end
   end
 
+  describe 'diagnostic_activities' do
+    let!(:connect_activity) { create(:connect_activity) }
+    let!(:diagnostic_activity_one) { create(:diagnostic_activity) }
+    let!(:diagnostic_activity_two) { create(:diagnostic_activity) }
+
+    it 'should return a list of diagnostic activities' do
+      get :diagnostic_activities, as: :json
+      response_obj = JSON.parse(response.body)['diagnostics']
+      expect(response_obj.size).to eq(2)
+      expect([diagnostic_activity_one.id, diagnostic_activity_two.id]).to include(response_obj[0]["id"])
+      expect([diagnostic_activity_one.id, diagnostic_activity_two.id]).to include(response_obj[1]["id"])
+    end
+  end
+
   describe '#question_health' do
     let!(:connect) { create(:activity_classification, key: ActivityClassification::CONNECT_KEY) }
     let!(:question) { create(:question)}

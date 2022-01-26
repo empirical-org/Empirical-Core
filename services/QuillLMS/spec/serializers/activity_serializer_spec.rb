@@ -47,6 +47,7 @@ describe ActivitySerializer, type: :serializer do
          flags
          id
          name
+         readability_grade_level
          standard
          uid
          updated_at
