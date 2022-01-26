@@ -35,7 +35,7 @@ export const HIGHLIGHT_REMOVAL = 'highlight removal'
 export const HIGHLIGHT_TYPE = 'highlight type'
 export const FEEDBACK_LAYER_ADDITION = 'feedback layer addition'
 export const FEEDBACK_LAYER_REMOVAL = 'feedback layer removal'
-export const MAX_ATTEMPTS_FEEDBACK_TEXT = 'Nice effort! You worked hard to make your sentence stronger.'
+export const MAX_ATTEMPTS_FEEDBACK_TEXT = '<p>You completed four revisions!</p><br/><p>[A message about why the response fell short of being an optimal response, such as, “Your response was missing key details about why New York City is building a surge barrier.”] Here are some strong responses:</p><br/><ul><li>[Exemplar #1 Response (Show the full sentence stem and the exemplar part in bold)].</li><li>[Exemplar #2 Response (Show the full sentence stem and the exemplar part in bold)].</li></ul><br/><p>Think about how these responses are similar or different from your response. Then move on to the next prompt.</p>'
 
 export const flagOptions = [
   {
@@ -122,7 +122,7 @@ export const universalRuleTypeOptions = [
   {"value":"grammar","label":"Grammar"},
   {"value":"opinion","label":"Opinion"},
   {"value":"spelling","label":"Spelling"},
-  {"value":"prefilter","label":"Prefilter"} 
+  {"value":"prefilter","label":"Prefilter"}
 ];
 
 export const ruleHighlightOptions = [

@@ -32,7 +32,8 @@ module Evidence
     def serializable_hash(options = nil)
       options ||= {}
       super(options.reverse_merge(
-        only: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :plagiarism_texts, :plagiarism_first_feedback, :plagiarism_second_feedback]
+        only: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :plagiarism_texts, :plagiarism_first_feedback, :plagiarism_second_feedback],
+        methods: [:optimal_label_feedback]
       ))
     end
 
