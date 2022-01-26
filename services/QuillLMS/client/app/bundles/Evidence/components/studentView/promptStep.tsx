@@ -284,7 +284,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     const entry = this.stripHtml(html).trim()
     const awaitingFeedback = numberOfSubmissions !== submittedResponses.length
     const buttonLoadingSpinner = awaitingFeedback ? <ButtonLoadingSpinner /> : null
-    let buttonCopy = submittedResponses.length ? 'Get new feedback' : 'Get feedback'
+    let buttonCopy = 'Get feedback'
     let className = 'quill-button focus-on-light'
     let onClick = () => this.handleGetFeedbackClick(entry, id, text)
 
@@ -293,7 +293,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       buttonCopy = 'Done'
     } else if (submittedResponses.length === max_attempts || this.lastSubmittedResponse().optimal) {
       onClick = this.completeStep
-      buttonCopy = 'Start next sentence'
+      buttonCopy = 'Next'
     } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback || responseOverCharacterLimit) {
       className += ' disabled'
       onClick = () => {}
