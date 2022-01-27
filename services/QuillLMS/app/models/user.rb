@@ -613,7 +613,7 @@ class User < ApplicationRecord
     # ensures there are no items in the flags array that are not in the VALID_FLAGS const
     invalid_flags = flags - VALID_FLAGS
 
-    return if invalid_flags.any?
+    return unless invalid_flags.any?
 
     errors.add(:flags, "invalid flag(s) #{invalid_flags}")
   end
