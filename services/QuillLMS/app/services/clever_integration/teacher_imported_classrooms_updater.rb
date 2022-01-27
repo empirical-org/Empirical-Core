@@ -55,7 +55,7 @@ module CleverIntegration
 
     private def update_classrooms_teachers
       existing_classrooms_where_teacher_was_added_in_clever.each do |classroom|
-        teacher.classrooms_teachers.create!(
+        teacher.classrooms_teachers.find_or_create_by!(
           classroom: classroom,
           role: classroom.classrooms_teachers.exists?(role: OWNER) ? COTEACHER : OWNER
         )
