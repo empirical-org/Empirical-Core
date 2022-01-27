@@ -8,13 +8,11 @@ class GoogleStudentImporterWorker
 
   def perform(teacher_id, context = "none", selected_classroom_ids=nil)
     teacher = User.find(teacher_id)
+    return unless teacher.google_authorized?
+
     GoogleIntegration::TeacherClassroomsStudentsImporter.run(teacher, selected_classroom_ids)
     PusherTrigger.run(teacher_id, PUSHER_EVENT_CHANNEL, "Google classroom students imported for #{teacher_id}.")
   rescue StandardError => e
-    if Rails.env.development?
-      puts 'ERROR', e
-    else
-      NewRelic::Agent.notice_error(e, context: context)
-    end
+    NewRelic::Agent.notice_error(e, context: context)
   end
 end
