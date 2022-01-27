@@ -8,7 +8,7 @@ describe GoogleIntegration::Client do
   let(:access_token) { 'coolio' }
   let(:token_refresher) { double('token_refresher') }
 
-  context do
+  context 'token refreshing with api client' do
     let(:api_client) { double('api_client') }
     let(:api_client_instance) { double('api_client_instance') }
     let(:api_version)  { '1.2.3' }
@@ -31,7 +31,7 @@ describe GoogleIntegration::Client do
     end
   end
 
-  context do
+  context 'token refreshing without api client' do
     let(:token_refresher_instance) { spy('token_refresher_instance') }
 
     it 'checks if access token needs to be refreshed' do
