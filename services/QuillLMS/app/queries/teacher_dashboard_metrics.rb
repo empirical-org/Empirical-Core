@@ -53,7 +53,7 @@ class TeacherDashboardMetrics
   end
 
   private def days_since_last_sunday
-    @days_since_last_sunday ||= today.wday == 0 ? 0 : (today.wday + 6) % 7 + 1
+    @days_since_last_sunday ||= today.wday == 0 ? 0 : ((today.wday + 6) % 7) + 1
   end
 
   private def last_sunday

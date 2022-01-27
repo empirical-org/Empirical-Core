@@ -104,17 +104,17 @@ class BlogPost < ApplicationRecord
 
   def path
     if TOPICS.include?(topic)
-      '/teacher-center/' + slug
+      "/teacher-center/#{slug}"
     else
-      '/student-center/' + slug
+      "/student-center/#{slug}"
     end
   end
 
   def topic_path
     if TOPICS.include?(topic)
-      '/teacher-center/topic/' + topic_slug
+      "/teacher-center/topic/#{topic_slug}"
     else
-      '/student-center/topic/' + topic_slug
+      "/student-center/topic/#{topic_slug}"
     end
   end
 

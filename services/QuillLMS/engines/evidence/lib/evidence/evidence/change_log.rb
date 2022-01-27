@@ -19,6 +19,7 @@ module Evidence
 
     included do
       attr_accessor :lms_user_id
+
       has_many :change_logs, as: :changed_record, class_name: "::ChangeLog"
       after_create :log_creation
       after_update :log_update

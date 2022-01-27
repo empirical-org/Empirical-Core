@@ -192,7 +192,7 @@ class SegmentAnalytics
   private def activity_info_for_tracking(activity)
     {
       activity_name: activity.name,
-      tool_name: activity.classification.name.split(' ')[1]
+      tool_name: activity.classification.name.split[1]
     }
   end
 end

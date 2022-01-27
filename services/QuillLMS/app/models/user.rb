@@ -60,8 +60,7 @@ class User < ApplicationRecord
   include CheckboxCallback
   include UserCacheable
 
-  attr_accessor :validate_username,
-                :require_password_confirmation_when_password_present
+  attr_accessor :validate_username, :require_password_confirmation_when_password_present, :newsletter
 
   CHAR_FIELD_MAX_LENGTH = 255
 
@@ -169,8 +168,6 @@ class User < ApplicationRecord
 
   scope :teacher, -> { where(role: TEACHER) }
   scope :student, -> { where(role: STUDENT) }
-
-  attr_accessor :newsletter
 
   def self.deleted_users
     where(
@@ -441,11 +438,11 @@ class User < ApplicationRecord
   end
 
   def first_name
-    @first_name ||= name.to_s.split("\s")[0]
+    @first_name ||= name.to_s.split[0]
   end
 
   def last_name
-    @last_name ||= name.to_s.split("\s")[-1]
+    @last_name ||= name.to_s.split[-1]
   end
 
   def set_name
@@ -454,7 +451,7 @@ class User < ApplicationRecord
 
   def generate_password
     # first we need to replace any existing spaces with hyphens
-    last_name_with_spaces_replaced_by_hyphens = last_name.split(' ').join('-')
+    last_name_with_spaces_replaced_by_hyphens = last_name.split.join('-')
     # then we want to capitalize the first letter
     self.password = self.password_confirmation = last_name_with_spaces_replaced_by_hyphens.slice(0,1).capitalize + last_name_with_spaces_replaced_by_hyphens.slice(1..-1)
   end

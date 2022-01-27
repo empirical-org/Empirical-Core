@@ -226,7 +226,7 @@ class Cms::UsersController < Cms::CmsController
     # School name: schools.name
     # User flag: user.flags
     # Premium status: subscriptions.account_type
-    sanitized_fuzzy_param_value = ActiveRecord::Base.connection.quote('%' + param_value + '%')
+    sanitized_fuzzy_param_value = ActiveRecord::Base.connection.quote("%#{param_value}%")
     sanitized_param_value = ActiveRecord::Base.connection.quote(param_value)
 
     case param
@@ -257,13 +257,13 @@ class Cms::UsersController < Cms::CmsController
     class_code = user_query_params["class_code"]
     if class_code.present?
       sanitized_class_code = ActiveRecord::Base.connection.quote(class_code)
-      query = """AND users.id IN
+      query = "AND users.id IN
         (( SELECT user_id FROM classrooms_teachers
         JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id
         WHERE classrooms.code = #{sanitized_class_code}) UNION
         ( SELECT student_id FROM students_classrooms
         JOIN classrooms ON classrooms.id = students_classrooms.classroom_id
-        WHERE classrooms.code = #{sanitized_class_code}))"""
+        WHERE classrooms.code = #{sanitized_class_code}))"
     end
   end
 
@@ -322,7 +322,7 @@ class Cms::UsersController < Cms::CmsController
       new_user_params = user_params.except("password_confirmation")
     end
 
-    difference = Hash[new_user_params.to_h.to_a - previous_user_params.to_h.to_a]
+    difference = (new_user_params.to_h.to_a - previous_user_params.to_h.to_a).to_h
     difference.each_key do |field|
       new_value = field == 'password' ? nil : difference[field]
       log_change(params[:action].to_sym, @user.id.to_s, nil, field, previous_user_params[field], new_value)
