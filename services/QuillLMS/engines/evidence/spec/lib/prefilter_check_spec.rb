@@ -23,6 +23,33 @@ module Evidence
       end
     end
 
+    describe '#highlights' do 
+      let!(:profanity_rule) do 
+        create(:evidence_rule, **rule_factory_overrides, uid: PrefilterCheck::PROFANITY_RULE_UID)
+      end
+      context 'no profanity' do 
+        it 'should return []' do 
+          prefilter_check = Evidence::PrefilterCheck.new("entry")
+          expect(prefilter_check.feedback_object[:highlight]).to eq []
+        end
+      end
+
+      context 'profanity detected' do 
+        it 'should return a profane highlight' do
+          prefilter_check = Evidence::PrefilterCheck.new("nero was an ahole")
+          expect(prefilter_check.feedback_object[:highlight]).to eq(
+            [
+              {
+                category: "", 
+                text: "ahole", 
+                type: Evidence::Highlight::TYPE_RESPONSE
+              }
+            ]
+          )
+        end
+      end
+    end
+
     describe '#feedback_object' do
       violations = [
         { 
@@ -68,7 +95,7 @@ module Evidence
 
       context 'no violation' do 
         it 'should return default_response' do 
-          prefilter_check = Evidence::PrefilterCheck.new('they descided on cheeseburgers.')
+          prefilter_check = Evidence::PrefilterCheck.new('they decided on cheeseburgers.')
           result = prefilter_check.feedback_object
           expect(result).to eq(prefilter_check.default_response)
         end
