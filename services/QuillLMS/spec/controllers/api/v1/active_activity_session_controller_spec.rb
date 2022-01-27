@@ -20,9 +20,11 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
   end
 
   describe "#update" do
-    xit 'performance testing' do 
+
+    # rubocop:disable RSpec/Pending, RSpec/ExampleLength
+    xit 'performance testing' do
       100.times do |i|
-        create(:active_activity_session) 
+        create(:active_activity_session)
       end
 
       data = {
@@ -331,7 +333,7 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       }
 
       Benchmark.bm do |x|
-        x.report do 
+        x.report do
           uids = ActiveActivitySession.all.pluck(:uid)
           uids.each do |uid|
             put :update, params: { id: active_activity_session.uid, active_activity_session: data }, as: :json
@@ -339,6 +341,7 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
         end
       end
     end
+    # rubocop:enable RSpec/Pending, RSpec/ExampleLength
 
     it "should update the existing record" do
       data = {"foo" => "bar"}
