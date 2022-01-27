@@ -40,7 +40,7 @@ RSpec.describe GoogleIntegration::StudentEmailUpdater do
         end
 
         context 'previous_email != email' do
-          let(:previous_email) { 'previous_' + email }
+          let(:previous_email) { "previous_#{email}" }
 
           context 'another user has email' do
             let!(:another_student) { create :student, email: email }

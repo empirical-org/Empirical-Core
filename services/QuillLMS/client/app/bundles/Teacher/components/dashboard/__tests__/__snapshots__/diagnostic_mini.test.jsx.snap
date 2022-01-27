@@ -228,7 +228,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             "id": "447-484134-826269",
             "results": <a
               className="focus-on-light"
-              href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/results?unit=826269"
+              href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269"
             >
               <img
                 alt="File with a chart icon"
@@ -238,7 +238,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 View
               </span>
             </a>,
-            "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/results?unit=826269",
+            "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269",
           },
           Object {
             "classroom": "A New Class",
@@ -247,7 +247,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             "id": "447-484135-826269",
             "results": <a
               className="focus-on-light"
-              href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/results?unit=826269"
+              href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269"
             >
               <img
                 alt="File with a chart icon"
@@ -257,7 +257,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 View
               </span>
             </a>,
-            "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/results?unit=826269",
+            "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269",
           },
           Object {
             "classroom": "Quill Classroom Extremely Long So Long SUper Duper",
@@ -266,7 +266,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             "id": "849-484134-826268",
             "results": <a
               className="focus-on-light"
-              href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826268"
+              href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268"
             >
               <img
                 alt="File with a chart icon"
@@ -276,7 +276,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 View
               </span>
             </a>,
-            "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826268",
+            "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268",
           },
           Object {
             "classroom": "Quill Classroom Extremely Long So Long SUper Duper",
@@ -285,7 +285,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             "id": "849-484134-826269",
             "results": <a
               className="focus-on-light"
-              href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826269"
+              href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269"
             >
               <img
                 alt="File with a chart icon"
@@ -295,7 +295,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 View
               </span>
             </a>,
-            "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826269",
+            "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269",
           },
           Object {
             "classroom": "A New Class",
@@ -304,7 +304,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             "id": "849-484135-826269",
             "results": <a
               className="focus-on-light"
-              href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/results?unit=826269"
+              href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269"
             >
               <img
                 alt="File with a chart icon"
@@ -314,7 +314,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 View
               </span>
             </a>,
-            "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/results?unit=826269",
+            "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269",
           },
         ]
       }
@@ -482,7 +482,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             >
               <a
                 className="focus-on-light"
-                href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/results?unit=826269"
+                href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269"
               >
                 <img
                   alt="File with a chart icon"
@@ -553,7 +553,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             >
               <a
                 className="focus-on-light"
-                href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/results?unit=826269"
+                href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269"
               >
                 <img
                   alt="File with a chart icon"
@@ -665,7 +665,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             >
               <a
                 className="focus-on-light"
-                href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826268"
+                href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268"
               >
                 <img
                   alt="File with a chart icon"
@@ -777,7 +777,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             >
               <a
                 className="focus-on-light"
-                href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826269"
+                href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269"
               >
                 <img
                   alt="File with a chart icon"
@@ -848,7 +848,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             >
               <a
                 className="focus-on-light"
-                href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/results?unit=826269"
+                href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269"
               >
                 <img
                   alt="File with a chart icon"
@@ -1089,7 +1089,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           "id": "447-484134-826269",
           "results": <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/results?unit=826269"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269"
           >
             <img
               alt="File with a chart icon"
@@ -1099,7 +1099,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
               View
             </span>
           </a>,
-          "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/results?unit=826269",
+          "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269",
         }
       }
     >
@@ -1114,7 +1114,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           </span>
           <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/results?unit=826269"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269"
           >
             View
           </a>
@@ -1134,7 +1134,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           "id": "447-484135-826269",
           "results": <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/results?unit=826269"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269"
           >
             <img
               alt="File with a chart icon"
@@ -1144,7 +1144,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
               View
             </span>
           </a>,
-          "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/results?unit=826269",
+          "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269",
         }
       }
     >
@@ -1159,7 +1159,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           </span>
           <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/results?unit=826269"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269"
           >
             View
           </a>
@@ -1179,7 +1179,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           "id": "849-484134-826268",
           "results": <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826268"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268"
           >
             <img
               alt="File with a chart icon"
@@ -1189,7 +1189,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
               View
             </span>
           </a>,
-          "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826268",
+          "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268",
         }
       }
     >
@@ -1204,7 +1204,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           </span>
           <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826268"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268"
           >
             View
           </a>
@@ -1224,7 +1224,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           "id": "849-484134-826269",
           "results": <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826269"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269"
           >
             <img
               alt="File with a chart icon"
@@ -1234,7 +1234,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
               View
             </span>
           </a>,
-          "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826269",
+          "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269",
         }
       }
     >
@@ -1249,7 +1249,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           </span>
           <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826269"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269"
           >
             View
           </a>
@@ -1269,7 +1269,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           "id": "849-484135-826269",
           "results": <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/results?unit=826269"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269"
           >
             <img
               alt="File with a chart icon"
@@ -1279,7 +1279,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
               View
             </span>
           </a>,
-          "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/results?unit=826269",
+          "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269",
         }
       }
     >
@@ -1294,7 +1294,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           </span>
           <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/results?unit=826269"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269"
           >
             View
           </a>

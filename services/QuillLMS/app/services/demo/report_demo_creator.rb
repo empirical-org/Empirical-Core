@@ -210,7 +210,7 @@ module Demo::ReportDemoCreator
   def self.create_demo(email)
     teacher = create_teacher(email)
     classroom = create_classroom(teacher)
-    students = create_students(classroom)
+    students = create_students(classroom, !email) # using the presence of a passed email to determine whether this is the standard /demo account or not
     units = create_units(teacher)
     classroom_units = create_classroom_units(classroom, units)
     activity_sessions = create_activity_sessions(students, classroom)
@@ -264,7 +264,7 @@ module Demo::ReportDemoCreator
     Subscription.create_with_user_join(teacher.id, attributes)
   end
 
-  def self.create_students(classroom)
+  def self.create_students(classroom, is_teacher_facing_demo_account)
     students = []
     student_values = [
       {
@@ -299,15 +299,19 @@ module Demo::ReportDemoCreator
         name: "Angie Thomas",
         username: "angie.thomas.#{classroom.id}@demo-teacher",
         role: "student",
-        email: 'angie_thomas_demo@quill.org',
+        email: is_teacher_facing_demo_account ? 'angie_thomas_demo@quill.org' : nil, # we only want to generate this account with the email linked to quill.org/student_demo if this is the standard quill.org/demo account
         password: 'password',
         password_confirmation: 'password'
       }
     ]
-    # In case the old one didn't get deleted, delete Angie Thomas so that we
-    # won't raise a validation error.
-    # This is important as we have /student set to go to the Angie Thomas email
-    User.where(email: 'angie_thomas_demo@quill.org').each(&:destroy)
+    
+    if is_teacher_facing_demo_account
+      # In case the old one didn't get deleted, delete Angie Thomas so that we
+      # won't raise a validation error.
+      # This is important as we have /student_demo set to go to the Angie Thomas email
+      User.where(email: 'angie_thomas_demo@quill.org').each(&:destroy)
+    end
+
     student_values.each do |values|
       student = User.create(values)
       StudentsClassrooms.create({student_id: student.id, classroom_id: classroom.id})

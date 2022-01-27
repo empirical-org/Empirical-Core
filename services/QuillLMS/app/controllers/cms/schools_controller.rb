@@ -262,7 +262,7 @@ class Cms::SchoolsController < Cms::CmsController
     # School zip: schools.zipcode or schools.mail_zipcode
     # District name: schools.leanm
     # Premium status: subscriptions.account_type
-    sanitized_fuzzy_param_value = ActiveRecord::Base.connection.quote('%' + param_value + '%')
+    sanitized_fuzzy_param_value = ActiveRecord::Base.connection.quote("%#{param_value}%")
     sanitized_param_value = ActiveRecord::Base.connection.quote(param_value)
 
     case param

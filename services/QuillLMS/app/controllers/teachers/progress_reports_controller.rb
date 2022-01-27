@@ -110,9 +110,10 @@ class Teachers::ProgressReportsController < ApplicationController
   end
 
   private def demo_redirect_path
-    if params[:name] == 'demoaccount'
+    case params[:name]
+    when 'demoaccount'
       teachers_progress_reports_concepts_students_path
-    elsif params[:name] == 'admin_demo'
+    when 'admin_demo'
       profile_path
     else
       scorebook_teachers_classrooms_path

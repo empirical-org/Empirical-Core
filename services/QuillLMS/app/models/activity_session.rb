@@ -272,7 +272,7 @@ class ActivitySession < ApplicationRecord
     if percentage.nil?
       "no percentage"
     else
-      (percentage*100).round.to_s + '%'
+      "#{(percentage*100).round}%"
     end
   end
 
@@ -371,9 +371,7 @@ class ActivitySession < ApplicationRecord
       concept_result[:concept_id] = concept.id
       concept_result[:activity_session_id] = activity_session_id
       concept_result.delete(:activity_session_uid)
-    end
 
-    concept_results.each do |concept_result|
       ConceptResult.create(
         concept_id: concept_result[:concept_id],
         question_type: concept_result[:question_type],
@@ -398,7 +396,7 @@ class ActivitySession < ApplicationRecord
   def self.save_timetracking_data_from_active_activity_session(activity_sessions)
     activity_sessions.each do |as|
       time_tracking = ActiveActivitySession.find_by_uid(as.uid)&.data&.fetch("timeTracking")
-      as.data['time_tracking'] = time_tracking&.map{ |k, milliseconds| [k, (milliseconds / 1000).round] }.to_h # timetracking is stored in milliseconds for active activity sessions, but seconds on the activity session
+      as.data['time_tracking'] = time_tracking&.transform_values{ |milliseconds| (milliseconds / 1000).round } # timetracking is stored in milliseconds for active activity sessions, but seconds on the activity session
       as.timespent = as.timespent
       as.save
     end

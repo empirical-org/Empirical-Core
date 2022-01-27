@@ -35,7 +35,7 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
   it { is_expected.to callback(:update_lessons_cache_with_data).after(:save) }
   it { is_expected.to callback(:lock_if_lesson).after(:create) }
 
-  let!(:activity_classification_6) { create(:lesson_classification)}
+  let!(:activity_classification6) { create(:lesson_classification)}
   let!(:activity) { create(:activity, activity_classification_id: 6) }
   let!(:student) { create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
   let!(:classroom) { create(:classroom, students: [student]) }
@@ -103,14 +103,14 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
         "unit_id" => cua.classroom_unit.unit_id,
         "completed" => cua.completed,
         "visible" => unit_activity.visible}
-      lesson_2_data = {"classroom_unit_id" => cua2.classroom_unit.id,
+      lesson2_data = {"classroom_unit_id" => cua2.classroom_unit.id,
         "classroom_unit_activity_state_id" => cua2.id,
         "activity_id" => cua2.unit_activity.activity.id,
         "activity_name" => cua2.unit_activity.activity.name,
         "unit_id" => cua2.classroom_unit.unit_id,
         "completed" => cua2.completed,
         "visible" => unit_activity.visible}
-      expect($redis.get("user_id:#{classroom_unit2.classroom.owner.id}_lessons_array")).to eq([lesson_data, lesson_2_data].to_json)
+      expect($redis.get("user_id:#{classroom_unit2.classroom.owner.id}_lessons_array")).to eq([lesson_data, lesson2_data].to_json)
     end
   end
 

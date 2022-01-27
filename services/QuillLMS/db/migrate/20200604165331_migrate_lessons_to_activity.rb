@@ -35,20 +35,22 @@ class MigrateLessonsToActivity < ActiveRecord::Migration[4.2]
         if activity.blank?
           activity = Activity.new(:name=> lesson[:data]["name"], :uid=>lesson.uid, :flags=>[lesson[:data]["flag"]])
 
-          if lesson.lesson_type == Lesson::TYPE_CONNECT_LESSON
+          case lesson.lesson_type
+          when Lesson::TYPE_CONNECT_LESSON
             activity.activity_classification_id = 5
-          elsif lesson.lesson_type == Lesson::TYPE_DIAGNOSTIC_LESSON
+          when Lesson::TYPE_DIAGNOSTIC_LESSON
             activity.activity_classification_id = 4
-          elsif lesson.lesson_type == Lesson::TYPE_GRAMMAR_ACTIVITY
+          when Lesson::TYPE_GRAMMAR_ACTIVITY
             activity.name = lesson[:data]["title"]
             activity.activity_classification_id = 2
           else
             activity.activity_classification_id = 1
           end
 
-          if lesson[:data]["flag"] == "archived"
+          case lesson[:data]["flag"]
+          when "archived"
             activity.flags = ["archived"]
-          elsif lesson[:data]["flag"] == "alpha"
+          when "alpha"
             activity.flags = ["alpha"]
           end
         end

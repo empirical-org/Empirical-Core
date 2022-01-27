@@ -37,6 +37,7 @@ class Teachers::UnitsController < ApplicationController
     render json: response.to_json
   end
 
+  # rubocop:disable Lint/DuplicateBranch
   def update
     unit_template_names = UnitTemplate.pluck(:name).map(&:downcase)
     if unit_params[:name] && unit_params[:name] === ''
@@ -49,6 +50,7 @@ class Teachers::UnitsController < ApplicationController
       render json: {errors: { name: "Each activity pack needs a unique name. You're already using that name for another activity pack. Please choose a different name."} }, status: 422
     end
   end
+  # rubocop:enable Lint/DuplicateBranch
 
   def update_classroom_unit_assigned_students
     activities_data = UnitActivity.where(unit_id: params[:id]).order(:order_number).pluck(:activity_id).map { |id| { id: id } }

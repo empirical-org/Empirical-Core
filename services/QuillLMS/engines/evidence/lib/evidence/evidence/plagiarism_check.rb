@@ -8,7 +8,7 @@ module Evidence
     ENTRY_TYPE = 'response'
     MATCH_MINIMUM = 10
     OPTIMAL_RULE_KEY = 'optimal_plagiarism_rule_serialized'
-    FUZZY_CHARACTER_THRESHOLD = 5
+    FUZZY_CHARACTER_THRESHOLD = 3
     attr_reader :entry, :passage, :nonoptimal_feedback
 
     def initialize(entry, passage, feedback, rule)

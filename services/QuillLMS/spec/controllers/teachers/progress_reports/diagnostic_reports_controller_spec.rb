@@ -34,9 +34,9 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
         let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
 
-        it 'responds with a results link' do
+        it 'responds with a summary link' do
           get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: ({unit_id: unit.id, activity_id: activity.id})
-          expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/results?unit=#{unit.id}"}.to_json)
+          expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/summary?unit=#{unit.id}"}.to_json)
         end
       end
 
@@ -48,9 +48,9 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
         let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
 
-        it 'responds with a results link' do
+        it 'responds with a summary link' do
           get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: ({unit_id: unit.id, activity_id: activity.id})
-          expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/results?unit=#{unit.id}"}.to_json)
+          expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/summary?unit=#{unit.id}"}.to_json)
         end
       end
 
@@ -62,9 +62,9 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
         let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
 
-        it 'responds with a growth_results link' do
+        it 'responds with a growth_summary link' do
           get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: ({unit_id: unit.id, activity_id: activity.id})
-          expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/growth_results?unit=#{unit.id}"}.to_json)
+          expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/growth_summary?unit=#{unit.id}"}.to_json)
         end
       end
 
@@ -75,9 +75,9 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
         let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
 
-        it 'responds with a results link that has a unit query param' do
+        it 'responds with a summary link that has a unit query param' do
           get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: ({unit_id: unit.id, activity_id: activity.id})
-          expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/results?unit=#{unit.id}"}.to_json)
+          expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/summary?unit=#{unit.id}"}.to_json)
         end
 
       end

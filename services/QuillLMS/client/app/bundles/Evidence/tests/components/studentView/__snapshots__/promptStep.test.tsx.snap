@@ -242,7 +242,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
             type="button"
           >
             <span>
-              Get new feedback
+              Get feedback
             </span>
           </button>
         </div>
@@ -316,10 +316,17 @@ exports[`PromptStep component active state when a suboptimal response has been s
                       className="feedback"
                       key="1"
                     >
-                      <img
-                        alt="Arrows pointing in opposite directions, making a loop"
-                        src="undefined/images/icons/loop.svg"
-                      />
+                      <div
+                        className="feedback-label-section"
+                      >
+                        <img
+                          alt="Revise icon"
+                          src="undefined/images/icons/loop.svg"
+                        />
+                        <p>
+                          Feedback
+                        </p>
+                      </div>
                       <p
                         className="feedback-text"
                         dangerouslySetInnerHTML={
@@ -329,14 +336,19 @@ exports[`PromptStep component active state when a suboptimal response has been s
                         }
                         role="status"
                       />
+                      <div
+                        className="report-a-problem-button-container"
+                      >
+                        <button
+                          className="report-a-problem-button interactive-wrapper"
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          Report a problem
+                        </button>
+                      </div>
                     </div>
-                    <button
-                      className="report-a-problem-button"
-                      onClick={[Function]}
-                      type="button"
-                    >
-                      Report a problem
-                    </button>
+                    <span />
                   </CSSTransitionGroupChild>
                 </span>
               </div>
@@ -470,7 +482,7 @@ exports[`PromptStep component active state when an optimal response has been sub
             type="button"
           >
             <span>
-              Start next sentence
+              Next
             </span>
           </button>
         </div>
@@ -544,10 +556,17 @@ exports[`PromptStep component active state when an optimal response has been sub
                       className="feedback optimal"
                       key="1"
                     >
-                      <img
-                        alt="Small green circle with a check in it"
-                        src="undefined/images/icons/check-circle-small.svg"
-                      />
+                      <div
+                        className="feedback-label-section"
+                      >
+                        <img
+                          alt="Check icon"
+                          src="undefined/images/icons/check-circle-small.svg"
+                        />
+                        <p>
+                          Feedback
+                        </p>
+                      </div>
                       <p
                         className="feedback-text"
                         dangerouslySetInnerHTML={
@@ -557,14 +576,19 @@ exports[`PromptStep component active state when an optimal response has been sub
                         }
                         role="status"
                       />
+                      <div
+                        className="report-a-problem-button-container"
+                      >
+                        <button
+                          className="report-a-problem-button interactive-wrapper"
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          Report a problem
+                        </button>
+                      </div>
                     </div>
-                    <button
-                      className="report-a-problem-button"
-                      onClick={[Function]}
-                      type="button"
-                    >
-                      Report a problem
-                    </button>
+                    <span />
                   </CSSTransitionGroupChild>
                 </span>
               </div>
@@ -726,7 +750,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             type="button"
           >
             <span>
-              Start next sentence
+              Next
             </span>
           </button>
         </div>
@@ -828,10 +852,17 @@ exports[`PromptStep component active state when the max attempts have been reach
                       className="feedback"
                       key="5"
                     >
-                      <img
-                        alt="Arrows pointing in opposite directions, making a loop"
-                        src="undefined/images/icons/loop.svg"
-                      />
+                      <div
+                        className="feedback-label-section"
+                      >
+                        <img
+                          alt="Revise icon"
+                          src="undefined/images/icons/loop.svg"
+                        />
+                        <p>
+                          Feedback
+                        </p>
+                      </div>
                       <p
                         className="feedback-text"
                         dangerouslySetInnerHTML={
@@ -843,14 +874,19 @@ exports[`PromptStep component active state when the max attempts have been reach
                         }
                         role="status"
                       />
+                      <div
+                        className="report-a-problem-button-container"
+                      >
+                        <button
+                          className="report-a-problem-button interactive-wrapper"
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          Report a problem
+                        </button>
+                      </div>
                     </div>
-                    <button
-                      className="report-a-problem-button"
-                      onClick={[Function]}
-                      type="button"
-                    >
-                      Report a problem
-                    </button>
+                    <span />
                   </CSSTransitionGroupChild>
                 </span>
               </div>
@@ -1057,10 +1093,17 @@ exports[`PromptStep component active state when the max attempts have been reach
                       className="feedback optimal"
                       key="1"
                     >
-                      <img
-                        alt="Small green circle with a check in it"
-                        src="undefined/images/icons/check-circle-small.svg"
-                      />
+                      <div
+                        className="feedback-label-section"
+                      >
+                        <img
+                          alt="Check icon"
+                          src="undefined/images/icons/check-circle-small.svg"
+                        />
+                        <p>
+                          Feedback
+                        </p>
+                      </div>
                       <p
                         className="feedback-text"
                         dangerouslySetInnerHTML={
@@ -1070,14 +1113,19 @@ exports[`PromptStep component active state when the max attempts have been reach
                         }
                         role="status"
                       />
+                      <div
+                        className="report-a-problem-button-container"
+                      >
+                        <button
+                          className="report-a-problem-button interactive-wrapper"
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          Report a problem
+                        </button>
+                      </div>
                     </div>
-                    <button
-                      className="report-a-problem-button"
-                      onClick={[Function]}
-                      type="button"
-                    >
-                      Report a problem
-                    </button>
+                    <span />
                   </CSSTransitionGroupChild>
                 </span>
               </div>

@@ -15,32 +15,33 @@ module PagesHelper
 		media_kit_actions = ['media_kit']
 		getting_started_actions = ['teacher-center']
 		media_actions = ['news', 'press', 'blog_posts']
-		if tabname == "about"
+		case tabname
+  when "about"
 			about_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'faq'
+		when 'faq'
 			faq_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'press'
+		when 'press'
 			press_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'partners'
+		when 'partners'
 			partners_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == "media"
+		when "media"
 			media_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == "team"
+		when "team"
 			team_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'getting-started'
+		when 'getting-started'
 			# TODO: revert this when we launch front end of knowlege center
 			action_name == 'temporarily_render_old_teacher_resources' ? 'active' : ''
-		elsif tabname == 'news'
+		when 'news'
 			news_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'media_kit'
+		when 'media_kit'
 			media_kit_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == "impact"
+		when "impact"
 			impact_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'standards'
+		when 'standards'
 			standards_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'topics'
+		when 'topics'
 			topics_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'premium'
+		when 'premium'
 			action_name == 'premium_from_discover' ? "premium-tab active" : ''
 		end
 
