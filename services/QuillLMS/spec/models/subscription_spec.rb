@@ -497,11 +497,8 @@ describe Subscription, type: :model do
 
     describe 'self.expired_today_or_previously_and_recurring' do
       it "returns all subscriptions where the expiration date is today and recurring is true and de_activated_date is null" do
-        expect(Subscription.expired_today_or_previously_and_recurring).to contain_exactly(recurring_subscription_expiring_today1, recurring_subscription_expiring_today2)
-      end
-
-      it "returns no subscriptions where the de_activated_date is not null" do
-        expect(Subscription.expired_today_or_previously_and_recurring).to contain_exactly(recurring_subscription_expiring_today1, recurring_subscription_expiring_today2)
+        expect(Subscription.expired_today_or_previously_and_recurring)
+        .to contain_exactly(recurring_subscription_expiring_today1, recurring_subscription_expiring_today2)
       end
 
       it "does not return subscriptions just because they expire today" do

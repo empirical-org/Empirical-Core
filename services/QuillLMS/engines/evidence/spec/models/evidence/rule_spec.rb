@@ -133,10 +133,6 @@ module Evidence
         let!(:regex_rule) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "^Hello", :sequence_type => "incorrect", :conditional => false) }
         let!(:regex_rule_two) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "^Something", :sequence_type => "incorrect", :conditional => false) }
 
-        it 'should be true if entry does not match the regex text' do
-          expect(rule.regex_is_passing?("Nope, I dont start with hello.")).to(eq(true))
-        end
-
         it 'should be true if sequence_type is incorrect and entry does not match the regex text' do
           expect(rule.regex_is_passing?("Nope, I dont start with hello.")).to(eq(true))
         end
