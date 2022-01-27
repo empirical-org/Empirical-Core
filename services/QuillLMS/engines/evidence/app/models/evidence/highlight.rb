@@ -8,12 +8,12 @@ module Evidence
     
     MIN_TEXT_LENGTH = 1
     MAX_TEXT_LENGTH = 5000
-    TYPES= [
-      'passage',
-      'response',
-      'prompt'
-    ]
 
+    TYPES = [
+      TYPE_PASSAGE = 'passage',
+      TYPE_RESPONSE = 'response',
+      TYPE_PROMPT = 'prompt'
+    ]
     belongs_to :feedback, inverse_of: :highlights
 
     validates :text, presence: true, length: {minimum: MIN_TEXT_LENGTH, maximum: MAX_TEXT_LENGTH}
