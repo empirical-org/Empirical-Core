@@ -25,7 +25,7 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
 
   context 'data has one already imported classroom with the teacher coteaches' do
     let(:classroom) { create(:classroom, :from_clever, :with_no_teacher).reload }
-    let(:updated_name) { 'new_' + classroom.name }
+    let(:updated_name) { "new_#{classroom.name}" }
     let(:classrooms) { [{ clever_id: classroom.clever_id, name: updated_name}] }
     let(:classroom_ids) { [classroom.id] }
 
@@ -37,7 +37,7 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
 
   context 'data has one already imported classroom with the teacher owns' do
     let(:classroom) { create(:classroom, :from_clever, :with_no_teacher).reload }
-    let(:updated_name) { 'new_' + classroom.name }
+    let(:updated_name) { "new_#{classroom.name}" }
     let(:classrooms) { [{ clever_id: classroom.clever_id, name: updated_name}] }
     let(:classroom_ids) { [classroom.id] }
 
@@ -49,7 +49,7 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
 
   context 'data has one already imported classroom that the teacher has no corresponding ClassroomsTeacher object ' do
     let(:classroom) { create(:classroom, :from_clever).reload }
-    let(:updated_name) { 'new_' + classroom.name }
+    let(:updated_name) { "new_#{classroom.name}" }
     let(:classrooms) { [{ clever_id: classroom.clever_id, name: updated_name}] }
     let(:classroom_ids) { [classroom.id] }
 
