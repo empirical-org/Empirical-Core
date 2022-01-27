@@ -32,22 +32,21 @@ describe ClassroomsTeachersController, type: :controller do
   end
 
   describe '#update_order' do
-    before do
-      user = create(:user, role: "teacher")
-      @classrooms_teacher1 = create(:classrooms_teacher, user_id: user.id)
-      @classrooms_teacher2 = create(:classrooms_teacher, user_id: user.id)
-      @classrooms_teacher3 = create(:classrooms_teacher, user_id: user.id)
+    let!(:user) { create(:teacher) }
+    let!(:classrooms_teachers) { create_list(:classrooms_teacher, 3, user_id: user.id) }
+    let(:updated_order) { [1, 2, 0] }
+
+    let(:updated_classrooms_params) do
+      classrooms_teachers.map.with_index do |classrooms_teacher, i|
+        { id: classrooms_teacher.classroom_id, order: updated_order[i] }
+      end
     end
 
     it 'should update the order value for classrooms_teachers' do
-      classrooms_teacher_array = [@classrooms_teacher1, @classrooms_teacher2, @classrooms_teacher3]
-      order = [1, 2, 0]
-      params_array = [{ id: @classrooms_teacher1.classroom_id, order: 1 }, { id: @classrooms_teacher2.classroom_id, order: 2 }, { id: @classrooms_teacher3.classroom_id, order: 0 }]
+      put :update_order, params: { updated_classrooms: updated_classrooms_params.to_json }
 
-      put :update_order, params: { updated_classrooms: params_array.to_json }
-
-      classrooms_teacher_array.each_with_index do |classrooms_teacher, i|
-        expect(classrooms_teacher.order).to eq order[i]
+      classrooms_teachers.each_with_index do |classrooms_teacher, i|
+        expect(classrooms_teacher.reload.order).to eq updated_order[i]
       end
     end
   end
