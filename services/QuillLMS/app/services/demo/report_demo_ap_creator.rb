@@ -165,10 +165,10 @@ module Demo::ReportDemoAPCreator
       }
     ]
     student_values.each do |values|
-      if !values[:email].blank?
-        student = User.find_by(email: values[:email]) || User.create(values)
-      else
+      if values[:email].blank?
         student = User.create(values)
+      else
+        student = User.find_by(email: values[:email]) || User.create(values)
       end
       students.push(student)
       StudentsClassrooms.create({student_id: student.id, classroom_id: classroom.id})

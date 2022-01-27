@@ -3,7 +3,7 @@
 FactoryBot.define do
   data = {questionType: "questions", questions: []}
 
-  factory :simple_activity, class: 'Activity' do; end
+  factory :simple_activity, class: 'Activity'
 
   factory :activity do
     sequence(:name) do |n|

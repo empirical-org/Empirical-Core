@@ -71,11 +71,9 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def dashboard
-    if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.none? && !current_user.has_outstanding_coteacher_invitation?
-      if current_user.schools_admins.any?
+    if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.none? && !current_user.has_outstanding_coteacher_invitation? && current_user.schools_admins.any?
         redirect_to teachers_admin_dashboard_path
       end
-    end
     welcome_milestone = Milestone.find_by_name(Milestone::TYPES[:see_welcome_modal])
     @must_see_modal = !UserMilestone.find_by(milestone_id: welcome_milestone&.id, user_id: current_user&.id) && Unit.unscoped.find_by_user_id(current_user&.id).nil?
     @featured_blog_posts = BlogPost.where.not(featured_order_number: nil).order(:featured_order_number)

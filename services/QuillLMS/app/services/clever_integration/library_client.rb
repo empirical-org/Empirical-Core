@@ -6,7 +6,7 @@ module CleverIntegration
     base_uri 'https://api.clever.com/v2.0'
 
     def initialize(bearer_token)
-      @options = { headers: { "Authorization": "Bearer " + bearer_token } }
+      @options = { headers: { "Authorization": "Bearer #{bearer_token}" } }
     end
 
     def get_district(district_id:)

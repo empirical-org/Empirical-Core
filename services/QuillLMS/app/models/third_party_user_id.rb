@@ -22,7 +22,7 @@
 class ThirdPartyUserId < ApplicationRecord
 
   module SOURCES
-    LEAP ||= "LEAP"
+    LEAP = "LEAP"
   end
 
   VALID_SOURCES = [SOURCES::LEAP].freeze

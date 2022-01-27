@@ -84,12 +84,13 @@ module IncorrectSequenceCalculator
   end
 
   def self.get_padded_words_array(sentence)
-    words = sentence.split(" ")
+    words = sentence.split
     words.map.with_index do |word, i|
-      if i == 0
-        word + " "
-      elsif i == words.length - 1
-        " " + word
+      case i
+      when 0
+        "#{word} "
+      when words.length - 1
+        " #{word}"
       else
         " #{word} "
       end
@@ -107,7 +108,7 @@ module IncorrectSequenceCalculator
     until i == number_of_words
       inner = i
       until inner == number_of_words
-        phrase = padded[i..inner].join("").gsub(/\s{2,}/, ' ')
+        phrase = padded[i..inner].join.gsub(/\s{2,}/, ' ')
         combinations.push(phrase)
         inner += 1
       end
@@ -128,7 +129,7 @@ module IncorrectSequenceCalculator
     until i == number_of_words
       inner = i
       until inner == number_of_words
-        phrase = padded[i..inner].join("").gsub(/\s{2,}/, ' ')
+        phrase = padded[i..inner].join.gsub(/\s{2,}/, ' ')
         if correct_substrings[phrase] == 0
           combinations.push(phrase)
         end
@@ -161,15 +162,13 @@ module IncorrectSequenceCalculator
         if v > 10
           correct_substrings.each do |corsub, c|
             if substring.slice(0...corsub.length) == corsub
-              new_substring = " " + substring.slice(corsub.length..-1)
+              new_substring = " #{substring.slice(corsub.length..-1)}"
             elsif substring.slice(-corsub.length..-1) == corsub
               new_substring = substring.slice(0..(substring.length - corsub.length))
             end
-            if new_substring && new_substring.strip != ""
-              if incorrect_substrings[new_substring] != 0
+            if new_substring && new_substring.strip != "" && (incorrect_substrings[new_substring] != 0)
                 incorrect_substrings[new_substring] += v
               end
-            end
 
           end
         end

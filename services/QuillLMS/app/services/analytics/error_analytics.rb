@@ -7,7 +7,7 @@ class ErrorAnalytics
     self.analytics = analyzer
   end
 
-  def track_500
+  def track500
     anonymous_id = SecureRandom.urlsafe_base64
     user = nil
     analytics.track({event: SegmentIo::BackgroundEvents::ERROR_500, anonymous_id: anonymous_id})

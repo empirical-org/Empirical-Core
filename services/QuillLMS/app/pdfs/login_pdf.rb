@@ -56,7 +56,7 @@ class LoginPdf < Prawn::Document
   def render_cover_page_table
     header = [["<b><font size='12'>Name</font></b>", "<b><font size='12'>Account Type</font></b>", "<b><font size='12'>Username</font></b>", "<b><font size='12'> Default Password</font></b>"]]
     body = []
-    @classroom.students.sort_by { |s| s.name.split(' ')[1]}.each do |student|
+    @classroom.students.sort_by { |s| s.name.split[1]}.each do |student|
       body << [student.name, student.account_type, username_or_email_value_for_student(student), render_password_for_student(student)]
     end
     table(header, cell_style: {

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :simple_unit_template, class: 'UnitTemplate' do; end
+  factory :simple_unit_template, class: 'UnitTemplate'
 
   factory :unit_template do
     sequence(:name) do |i|

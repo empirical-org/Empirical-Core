@@ -47,7 +47,7 @@ describe BlogPostsController, type: :controller do
     end
 
     it 'should redirect to blog post even if there are extra chars' do
-      get :show, params: { slug: blog_post.slug + ')()(' }
+      get :show, params: { slug: "#{blog_post.slug})()(" }
 
       expect(response).to redirect_to "/teacher-center/#{blog_post.slug}"
     end

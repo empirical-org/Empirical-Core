@@ -31,7 +31,7 @@ describe ProgressReports::Concepts::Concept do
     it 'retrieves the incorrect result count' do
       results = ConceptResult.where(concept: subject.first.concept_id).pluck(:metadata)
       cr_count = 0
-      results.each{|cr| cr_count += cr.dig("correct")}
+      results.each{|cr| cr_count += cr["correct"]}
       incorrect_count = results.count - cr_count
       expect(subject.first.incorrect_result_count).to eq(incorrect_count)
     end

@@ -31,7 +31,7 @@ class ActivitySearchWrapper
   end
 
   def self.search_cache_data(flag = nil)
-    substring = flag ? flag + "_" : ""
+    substring = flag ? "#{flag}_" : ""
     activity_search_json = ActivitySearchWrapper.new(flag).search.to_json
     $redis.set("default_#{substring}activity_search", activity_search_json)
     activity_search_json

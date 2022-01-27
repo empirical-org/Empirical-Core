@@ -42,7 +42,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     context 'concept results are included' do
       let(:writing_concept) { create(:concept, name: 'Creative Writing') }
 
-      let(:concept_result_1) do
+      let(:concept_result1) do
         create(:concept_result,
           activity_session_id: activity_session.id,
           concept: writing_concept,
@@ -50,25 +50,25 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         )
       end
 
-      let(:concept_result_2) do
+      let(:concept_result2) do
         create(:concept_result,
           activity_session_id: activity_session.id,
           metadata: { baz: 'foo' }
         )
       end
 
-      let(:concept_result_3) do
+      let(:concept_result3) do
         create(:concept_result,
           activity_session_id: activity_session.id
         )
       end
 
       let(:concept_results) do
-        results = JSON.parse([concept_result_1, concept_result_2, concept_result_3].to_json)
+        results = JSON.parse([concept_result1, concept_result2, concept_result3].to_json)
 
-        results[0] = results[0].merge('concept_uid' => concept_result_1.concept.uid)
-        results[1] = results[1].merge('concept_uid' => concept_result_2.concept.uid)
-        results[2] = results[2].merge('concept_uid' => concept_result_3.concept.uid)
+        results[0] = results[0].merge('concept_uid' => concept_result1.concept.uid)
+        results[1] = results[1].merge('concept_uid' => concept_result2.concept.uid)
+        results[2] = results[2].merge('concept_uid' => concept_result3.concept.uid)
 
         results
       end

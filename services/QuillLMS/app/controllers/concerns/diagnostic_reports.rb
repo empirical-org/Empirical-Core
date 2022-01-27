@@ -39,7 +39,7 @@ module DiagnosticReports
     end
   end
 
-  private def set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id=nil, hashify_activity_sessions=false)
+  private def set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id=nil, hashify_activity_sessions: false)
     if unit_id
       classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
       @assigned_students = User.where(id: classroom_unit.assigned_student_ids).sort_by { |u| u.last_name }
@@ -62,7 +62,7 @@ module DiagnosticReports
     end
   end
 
-  private def set_pre_test_activity_sessions_and_assigned_students(activity_id, classroom_id, hashify_activity_sessions=false)
+  private def set_pre_test_activity_sessions_and_assigned_students(activity_id, classroom_id, hashify_activity_sessions: false)
     classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
     assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
     @pre_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
@@ -78,7 +78,7 @@ module DiagnosticReports
 
   end
 
-  private def set_post_test_activity_sessions_and_assigned_students(activity_id, classroom_id, hashify_activity_sessions=false)
+  private def set_post_test_activity_sessions_and_assigned_students(activity_id, classroom_id, hashify_activity_sessions: false)
     classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
     assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
     @post_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
@@ -94,9 +94,10 @@ module DiagnosticReports
   end
 
   private def summarize_student_proficiency_for_skill_per_activity(present_skill_number, correct_skill_number)
-    if correct_skill_number == 0
+    case correct_skill_number
+    when 0
       NO_PROFICIENCY
-    elsif present_skill_number == correct_skill_number
+    when present_skill_number
       PROFICIENCY
     else
       PARTIAL_PROFICIENCY

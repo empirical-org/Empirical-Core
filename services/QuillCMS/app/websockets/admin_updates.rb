@@ -7,7 +7,7 @@ module AdminUpdates
         secret: ENV['PUSHER_SECRET'],
         encrypted: true
     )
-    pusher_client.trigger("admin-" + question_id.to_s, 'new-response', message: "time to reload!")
+    pusher_client.trigger("admin-#{question_id}", 'new-response', message: "time to reload!")
   end
 
 end
