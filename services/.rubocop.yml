@@ -9,16 +9,10 @@ inherit_mode:
 
 AllCops:
   Exclude:
-    - 'QuillConnect/node_modules/**/*'
-    - 'QuillComprehension/node_modules/**/*'
-    - 'QuillDiagnostic/node_modules/**/*'
-    - 'QuillGrammar/node_modules/**/*'
-    - 'QuillLessons/node_modules/**/*'
     - "QuillLMS/engines/evidence/spec/dummy/**/*"
     - "QuillLMS/engines/evidence/lib/generators/**/*"
     - 'QuillLMS/node_modules/**/*'
     - 'QuillLMS/client/node_modules/**/*'
-    - 'QuillProofreader/node_modules/**/*'
 
 #######################################################################################################################
 # GEMSPEC
