@@ -21,12 +21,12 @@ namespace :app_settings do
     if (CSV.parse(iostream, headers: true).headers & ["email", "flag"]).count != 2 
       puts "Invalid headers. Exiting."
       exit 1
-    end 
-    
+    end
+
     emails = CSV.parse(iostream, headers: true).map { |row| row['email'] }
     user_ids = emails.map do |email|
       user = User.find_by_email(email)
-      if !user 
+      if !user
         puts "User with email #{email} not found"
         next
       end
