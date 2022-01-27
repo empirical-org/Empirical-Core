@@ -69,7 +69,7 @@ export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries,
   if (loading) { return <LoadingSpinner /> }
 
   return (<main className="results-summary-container growth-results-summary-container">
-    <header>
+    <header className="results-header">
       <h1>Student results</h1>
       <a className="focus-on-light" href="https://support.quill.org/en/articles/5698227-how-do-i-read-the-growth-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
     </header>
