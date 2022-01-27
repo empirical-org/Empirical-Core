@@ -566,10 +566,12 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#scores' do
     let(:teacher) { create(:teacher) }
+    let(:classroom) { create(:classroom) }
 
     before do
       allow(controller).to receive(:current_user) { teacher }
       allow(Scorebook::Query).to receive(:run) { [1, 2, 3] }
+      allow(Classroom).to receive(:find) { classroom }
     end
 
     it 'should render the correct json' do

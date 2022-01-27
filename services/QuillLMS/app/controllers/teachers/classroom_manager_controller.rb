@@ -135,14 +135,27 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scores
-    scores = Scorebook::Query.run(params[:classroom_id], params[:current_page], params[:unit_id], params[:begin_date], params[:end_date], current_user.utc_offset)
-
-    last_page = scores.length < 200
-
-    render json: {
-      scores: scores,
-      is_last_page: last_page
+    classroom = Classroom.find(params[:classroom_id])
+    cache_groups = {
+      unit: params[:unit_id],
+      page: params[:current_page],
+      begin: params[:begin_date],
+      end: params[:end_date],
+      offset: current_user.utc_offset
     }
+
+    json = current_user.classroom_cache(classroom, key: 'classroom_manager.teacher_dashboard_metrics', groups: cache_groups) do
+      scores = Scorebook::Query.run(params[:classroom_id], params[:current_page], params[:unit_id], params[:begin_date], params[:end_date], current_user.utc_offset)
+
+      last_page = scores.length < 200
+
+      {
+        scores: scores,
+        is_last_page: last_page
+      }
+    end
+
+    render json: json
   end
 
   def my_account
