@@ -13,7 +13,7 @@ module Evidence
       return nil if found_bad_words.empty?
 
       # do a more rigorous word-by-word check for found bad words
-      entry.split(' ').find { |word| profane_word_check(word, found_bad_words)}
+      entry.split.find { |word| profane_word_check(word, found_bad_words)}
     end
 
     def self.profane_word_check(word, bad_words = BadWords::ALL)
