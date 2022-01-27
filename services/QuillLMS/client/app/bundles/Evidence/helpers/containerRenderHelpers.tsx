@@ -3,36 +3,34 @@ import ReactHtmlParser from 'react-html-parser'
 
 import { onMobile, orderedSteps, everyOtherStepCompleted, addPTagsToPassages, READ_PASSAGE_STEP } from './containerActionHelpers'
 
-import DirectionsSectionAndModal from '../components/studentView/directionsSectionAndModal'
+import DirectionsSection from '../components/studentView/directionsSection'
 import PromptStep from '../components/studentView/promptStep'
 import HeaderImage from '../components/studentView/headerImage'
 
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
 
-export const renderDirectionsSectionAndModal = ({ className, handleReadTheDirectionsButtonClick, activeStep, doneHighlighting, showReadTheDirectionsButton, activities }) => {
+export const renderDirectionsSection = ({ className, handleReadTheDirectionsButtonClick, activeStep, doneHighlighting, showReadTheDirectionsButton, activities }) => {
   const { currentActivity, } = activities
 
-  return  (<DirectionsSectionAndModal
+  return  (<DirectionsSection
     activeStep={activeStep}
     className={className}
-    handleReadTheDirectionsButtonClick={handleReadTheDirectionsButtonClick}
     inReflection={activeStep === READ_PASSAGE_STEP && doneHighlighting}
     passage={currentActivity.passages[0]}
-    showReadTheDirectionsButton={showReadTheDirectionsButton}
   />)
 }
 
 export const renderDirections = ({ handleReadTheDirectionsButtonClick, activeStep, doneHighlighting, showReadTheDirectionsButton, activities, hasStartedReadPassageStep, hasStartedPromptSteps }) => {
   const { currentActivity, } = activities
 
-  const directionsSectionAndModal = renderDirectionsSectionAndModal({ className: '', handleReadTheDirectionsButtonClick , activeStep, doneHighlighting, showReadTheDirectionsButton, activities })
+  const DirectionsSection = renderDirectionsSection({ className: '', handleReadTheDirectionsButtonClick , activeStep, doneHighlighting, showReadTheDirectionsButton, activities })
 
   if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && onMobile()) {
     return
   }
 
   if (!currentActivity || activeStep === READ_PASSAGE_STEP) {
-    return (<div className="hide-on-desktop step-links-and-directions-container">{directionsSectionAndModal}</div>)
+    return (<div className="hide-on-desktop step-links-and-directions-container">{DirectionsSection}</div>)
   }
 }
 
@@ -82,14 +80,13 @@ export const renderPromptStep = ({
   const prompt = prompts[stepNumber];
 
   return (<div className="prompt-steps">
-    {renderDirectionsSectionAndModal({ className: '', handleReadTheDirectionsButtonClick, activeStep, doneHighlighting, showReadTheDirectionsButton, activities })}
+    {renderDirectionsSection({ className: '', handleReadTheDirectionsButtonClick, activeStep, doneHighlighting, showReadTheDirectionsButton, activities })}
     <PromptStep
       activateStep={activateStep}
       activityIsComplete={activityIsComplete}
       className="step active"
       completeStep={completeStep}
       completionButtonCallback={completionButtonCallback}
-      everyOtherStepCompleted={everyOtherStepCompleted(activeStep, completedSteps)}
       key={activeStep}
       prompt={prompt}
       reportAProblem={reportAProblem}

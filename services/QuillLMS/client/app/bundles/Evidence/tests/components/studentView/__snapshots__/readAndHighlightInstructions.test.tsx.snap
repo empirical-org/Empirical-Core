@@ -17,10 +17,9 @@ exports[`ReadAndHighlightInstructions component when the student has not started
   <div
     className="read-and-highlight-container hide-on-mobile"
   >
-    <DirectionsSectionAndModal
+    <DirectionsSection
       activeStep={1}
       className="hide-on-mobile"
-      handleReadTheDirectionsButtonClick={[Function]}
       inReflection={false}
       passage={
         Object {
@@ -59,7 +58,7 @@ exports[`ReadAndHighlightInstructions component when the student has not started
           </p>
         </section>
       </div>
-    </DirectionsSectionAndModal>
+    </DirectionsSection>
     <section
       className="highlight-section"
     >
@@ -99,10 +98,9 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
   <div
     className="read-and-highlight-container"
   >
-    <DirectionsSectionAndModal
+    <DirectionsSection
       activeStep={1}
       className="hide-on-mobile"
-      handleReadTheDirectionsButtonClick={[Function]}
       inReflection={false}
       passage={
         Object {
@@ -141,7 +139,7 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
           </p>
         </section>
       </div>
-    </DirectionsSectionAndModal>
+    </DirectionsSection>
     <section
       className="highlight-section"
     >

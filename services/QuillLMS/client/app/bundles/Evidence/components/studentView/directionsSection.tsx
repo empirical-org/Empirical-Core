@@ -4,13 +4,6 @@ import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../Shared/utils/constants'
 
 const READ_PASSAGE_STEP = 1
 
-export const ReadTheDirectionsModal = ({ handleReadTheDirectionsButtonClick, }) => (
-  <section className="read-the-directions-modal">
-    <p>Read the directions carefully before moving onto reading and highlighting.</p>
-    <button className="quill-button primary contained large focus-on-light" onClick={handleReadTheDirectionsButtonClick} type="button">Got it</button>
-  </section>
-)
-
 const defaultDirections = (className) => (
   <section className="directions-section">
     <h3>Directions</h3>
@@ -22,7 +15,7 @@ const defaultDirections = (className) => (
 )
 
 
-const DirectionsSectionAndModal = ({ className, handleReadTheDirectionsButtonClick, passage, showReadTheDirectionsButton, inReflection, activeStep, }) => {
+const DirectionsSection = ({ className, passage, inReflection, activeStep, }) => {
   const uniquePartOfHighlightPrompt = passage.highlight_prompt ? passage.highlight_prompt.replace(DEFAULT_HIGHLIGHT_PROMPT, '') : ''
   if (inReflection) {
     return (<div className={className}>
@@ -46,6 +39,4 @@ const DirectionsSectionAndModal = ({ className, handleReadTheDirectionsButtonCli
   </div>)
 }
 
-{/* <p>{DEFAULT_HIGHLIGHT_PROMPT}<u>{uniquePartOfHighlightPrompt}</u></p> */}
-
-export default DirectionsSectionAndModal
+export default DirectionsSection

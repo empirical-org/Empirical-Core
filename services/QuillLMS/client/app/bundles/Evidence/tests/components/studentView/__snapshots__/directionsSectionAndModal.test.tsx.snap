@@ -1,17 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DirectionsSectionAndModal component when the student is in reflection renders on desktop 1`] = `
-<DirectionsSectionAndModal
+exports[`DirectionsSection component when the student is in reflection renders on desktop 1`] = `
+<DirectionsSection
   activeStep={1}
   className=""
-  handleReadTheDirectionsButtonClick={[Function]}
   inReflection={true}
   passage={
     Object {
       "highlight_prompt": "",
     }
   }
-  showReadTheDirectionsButton={false}
 >
   <div
     className=""
@@ -30,21 +28,19 @@ exports[`DirectionsSectionAndModal component when the student is in reflection r
       </p>
     </section>
   </div>
-</DirectionsSectionAndModal>
+</DirectionsSection>
 `;
 
-exports[`DirectionsSectionAndModal component when the student is on the read passage step renders 1`] = `
-<DirectionsSectionAndModal
+exports[`DirectionsSection component when the student is on the read passage step renders 1`] = `
+<DirectionsSection
   activeStep={1}
   className=""
-  handleReadTheDirectionsButtonClick={[Function]}
   inReflection={false}
   passage={
     Object {
       "highlight_prompt": "",
     }
   }
-  showReadTheDirectionsButton={false}
 >
   <div
     className=""
@@ -76,21 +72,19 @@ exports[`DirectionsSectionAndModal component when the student is on the read pas
       </p>
     </section>
   </div>
-</DirectionsSectionAndModal>
+</DirectionsSection>
 `;
 
-exports[`DirectionsSectionAndModal component when the student is past the read passage step renders on desktop 1`] = `
-<DirectionsSectionAndModal
+exports[`DirectionsSection component when the student is past the read passage step renders on desktop 1`] = `
+<DirectionsSection
   activeStep={2}
   className=""
-  handleReadTheDirectionsButtonClick={[Function]}
   inReflection={false}
   passage={
     Object {
       "highlight_prompt": "",
     }
   }
-  showReadTheDirectionsButton={false}
 >
   <section
     className="directions-section"
@@ -107,14 +101,13 @@ exports[`DirectionsSectionAndModal component when the student is past the read p
       </li>
     </ul>
   </section>
-</DirectionsSectionAndModal>
+</DirectionsSection>
 `;
 
-exports[`DirectionsSectionAndModal component when the student should see the modal renders on desktop 1`] = `
-<DirectionsSectionAndModal
+exports[`DirectionsSection component when the student should see the modal renders on desktop 1`] = `
+<DirectionsSection
   activeStep={1}
   className=""
-  handleReadTheDirectionsButtonClick={[Function]}
   inReflection={false}
   passage={
     Object {
@@ -153,5 +146,5 @@ exports[`DirectionsSectionAndModal component when the student should see the mod
       </p>
     </section>
   </div>
-</DirectionsSectionAndModal>
+</DirectionsSection>
 `;
