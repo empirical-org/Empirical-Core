@@ -12,8 +12,8 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
   subject { described_class.run(teacher_id) }
 
   before do
-    expect(CleverIntegration::TeacherClassroomsCache).to receive(:read).with(teacher_id).and_return(data)
-    expect(CleverIntegration::ImportClassroomStudentsWorker).to receive(:perform_async).with(teacher_id, classroom_ids)
+    allow(CleverIntegration::TeacherClassroomsCache).to receive(:read).with(teacher_id).and_return(data)
+    allow(CleverIntegration::ImportClassroomStudentsWorker).to receive(:perform_async).with(teacher_id, classroom_ids)
   end
 
   context 'data has one new classroom' do
