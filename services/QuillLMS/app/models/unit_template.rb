@@ -49,6 +49,14 @@ class UnitTemplate < ApplicationRecord
   scope :beta_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}','#{BETA}') OR unit_templates.flag IS null")}
   scope :alpha_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}','#{BETA}','#{ALPHA}') OR unit_templates.flag IS null")}
   scope :private_user, -> { where("unit_templates.flag IN('private', '#{PRODUCTION}','#{GAMMA}','#{BETA}','#{ALPHA}') OR unit_templates.flag IS null")}
+
+  USER_SCOPES = {
+    PRIVATE => UnitTemplate.private_user,
+    ALPHA => UnitTemplate.alpha_user,
+    BETA => UnitTemplate.beta_user,
+    GAMMA => UnitTemplate.gamma_user
+  }
+
   around_save :delete_relevant_caches
 
   WHOLE_CLASS_LESSONS = 'Whole class lessons'
@@ -87,17 +95,7 @@ class UnitTemplate < ApplicationRecord
   end
 
   def self.user_scope(user_flag)
-    if user_flag == PRIVATE
-      UnitTemplate.private_user
-    elsif user_flag == ALPHA
-      UnitTemplate.alpha_user
-    elsif user_flag == BETA
-      UnitTemplate.beta_user
-    elsif user_flag == GAMMA
-      UnitTemplate.gamma_user
-    else
-      UnitTemplate.production
-    end
+    USER_SCOPES.fetch(user_flag, UnitTemplate.production)
   end
 
   def get_cached_serialized_unit_template(flag=nil)

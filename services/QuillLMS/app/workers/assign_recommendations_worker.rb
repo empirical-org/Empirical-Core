@@ -39,7 +39,7 @@ class AssignRecommendationsWorker
   def assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher_id)
     if unit.present?
       show_classroom_units(unit.id, classroom_id)
-      Units::Updater.assign_unit_template_to_one_class(unit.id, classroom_data, unit_template_id, teacher_id, true)
+      Units::Updater.assign_unit_template_to_one_class(unit.id, classroom_data, unit_template_id, teacher_id, concatenate_extant_student_ids: true)
     else
       #  TODO: use a find or create for the unit var above.
       #  This way, we can just pass the units creator a unit argument.
@@ -68,7 +68,7 @@ class AssignRecommendationsWorker
   def find_unit(units)
     if units.length > 1
       visible_units = units.where(visible: true)
-      !visible_units.empty? ? visible_units.first : units.order('updated_at DESC').first
+      visible_units.empty? ? units.order('updated_at DESC').first : visible_units.first
     elsif units.length == 1
       units.first
     end

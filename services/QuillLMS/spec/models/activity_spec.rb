@@ -361,11 +361,11 @@ describe Activity, type: :model, redis: true do
 
   describe 'diagnositic_activit_ids' do
     let(:classification) { create(:diagnostic)}
-    let!(:activity_1) { create(:activity, classification: classification) }
-    let!(:activity_2) { create(:activity, classification: classification) }
+    let!(:activity1) { create(:activity, classification: classification) }
+    let!(:activity2) { create(:activity, classification: classification) }
 
     it 'should have the correct values' do
-      expect(Activity.diagnostic_activity_ids).to include(activity_1.id, activity_2.id)
+      expect(Activity.diagnostic_activity_ids).to include(activity1.id, activity2.id)
     end
   end
 

@@ -170,7 +170,7 @@ class Question < ApplicationRecord
   end
 
   private def stored_as_array?(key)
-    data[key].class == Array
+    data[key].instance_of?(Array)
   end
 
   private def validate_sequences
@@ -183,9 +183,10 @@ class Question < ApplicationRecord
   private def parse_and_validate(sequences)
     return if sequences.blank?
 
-    if sequences.is_a?(Hash)
+    case sequences
+    when Hash
       sequences.each { |key, value| validate_text_and_feedback(value) }
-    elsif sequences.is_a?(Array)
+    when Array
       sequences.each { |value| validate_text_and_feedback(value) }
     end
   end

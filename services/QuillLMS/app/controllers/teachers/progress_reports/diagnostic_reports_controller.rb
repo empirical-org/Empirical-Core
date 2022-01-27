@@ -36,7 +36,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       activity_id: activity_id,
       key: 'diagnostic_reports.diagnostic_student_responses_index'
     ) do
-      set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id, true)
+      set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id, hashify_activity_sessions: true)
       diagnostic_student_responses
     end
 

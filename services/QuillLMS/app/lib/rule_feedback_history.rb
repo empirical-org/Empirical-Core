@@ -46,7 +46,7 @@ class RuleFeedbackHistory
             response_id: f_h.id,
             datetime: f_h.updated_at,
             entry: f_h.entry,
-            highlight: f_h.metadata.class == Hash ? f_h.metadata['highlight'] : '',
+            highlight: f_h.metadata.instance_of?(Hash) ? f_h.metadata['highlight'] : '',
             session_uid: f_h.feedback_session_uid,
             strength: f_h.feedback_history_ratings.order(updated_at: :desc).first&.rating
         }

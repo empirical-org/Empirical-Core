@@ -7,7 +7,7 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
 
   let(:teacher_id) { imported_classroom.owner.id }
   let(:new_classroom_clever_id) { 'abcdefg' }
-  let(:updated_name) { 'new_' + imported_classroom.name}
+  let(:updated_name) { "new_#{imported_classroom.name}"}
 
   let(:data) do
     {

@@ -22,7 +22,7 @@ describe PopulateActivityHealthWorker do
     end
 
     let!(:content_partner) { create(:content_partner, activities: [activity])}
-    let!(:activity_session_1) do
+    let!(:activity_session1) do
       create(:activity_session,
         activity: activity,
         started_at: DateTime.new(2021,1,1,4,0,0),
@@ -30,7 +30,7 @@ describe PopulateActivityHealthWorker do
       )
     end
 
-    let!(:activity_session_2) do
+    let!(:activity_session2) do
       create(:activity_session,
         activity: activity,
         started_at: DateTime.new(2021,1,2,4,0,0),
@@ -38,7 +38,7 @@ describe PopulateActivityHealthWorker do
       )
     end
 
-    let!(:activity_session_3) do
+    let!(:activity_session3) do
       create(:activity_session,
         activity: activity,
         started_at: DateTime.new(2021,1,3,4,0,0),
@@ -53,9 +53,9 @@ describe PopulateActivityHealthWorker do
     let!(:unit_activity) { create(:unit_activity, unit: sample_unit, activity: activity)}
     let!(:recommendation) { create(:recommendation, activity: diagnostic, unit_template: unit_template)}
 
-    let!(:concept_result_1) do
+    let!(:concept_result1) do
       create(:concept_result,
-        activity_session: activity_session_1,
+        activity_session: activity_session1,
         metadata: {
           questionNumber: 1,
           questionScore: 1
@@ -63,9 +63,9 @@ describe PopulateActivityHealthWorker do
       )
     end
 
-    let!(:concept_result_2) do
+    let!(:concept_result2) do
       create(:concept_result,
-        activity_session: activity_session_2,
+        activity_session: activity_session2,
         metadata: {
           questionNumber: 1,
           questionScore: 0.75
@@ -73,9 +73,9 @@ describe PopulateActivityHealthWorker do
       )
     end
 
-    let!(:concept_result_3) do
+    let!(:concept_result3) do
       create(:concept_result,
-        activity_session: activity_session_3,
+        activity_session: activity_session3,
         metadata: {
           questionNumber: 1,
           questionScore: 0
@@ -83,9 +83,9 @@ describe PopulateActivityHealthWorker do
       )
     end
 
-    let!(:concept_result_4) do
+    let!(:concept_result4) do
       create(:concept_result,
-        activity_session: activity_session_1,
+        activity_session: activity_session1,
         metadata: {
           questionNumber: 2,
           questionScore: 1

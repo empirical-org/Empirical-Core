@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :simple_activity_session, class: 'ActivitySession' do; end
+  factory :simple_activity_session, class: 'ActivitySession'
 
   # TODO: don't make all activity_sessions finished, used :finished trait
   factory :activity_session do

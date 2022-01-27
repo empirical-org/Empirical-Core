@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe RuleFeedbackHistory, type: :model do
   before do
     # This is for CircleCI. Note that this refresh is NOT concurrent.
-    ActiveRecord::Base.refresh_materialized_view('feedback_histories_grouped_by_rule_uid', false)
+    ActiveRecord::Base.refresh_materialized_view('feedback_histories_grouped_by_rule_uid', concurrently: false)
   end
 
   def rule_factory(&hash_block)
@@ -294,7 +294,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         response_id: f_h.id,
         datetime: f_h.updated_at,
         entry: f_h.entry,
-        highlight: f_h.metadata.class == Hash ? f_h.metadata['highlight'] : '',
+        highlight: f_h.metadata.instance_of?(Hash) ? f_h.metadata['highlight'] : '',
         session_uid: f_h.feedback_session_uid,
         strength: f_h.feedback_history_ratings.order(updated_at: :desc).first&.rating
       }

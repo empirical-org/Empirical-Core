@@ -58,39 +58,39 @@ RSpec.describe AppSetting, type: :model do
 
   describe '#enabled_for_user?' do
     context 'override is false' do
-      let(:app_setting_1) { create(:app_setting, percent_active: 100, enabled: false) }
+      let(:app_setting1) { create(:app_setting, percent_active: 100, enabled: false) }
 
       it 'should return false' do
-        expect(app_setting_1.enabled_for_user?(user)).to be false
+        expect(app_setting1.enabled_for_user?(user)).to be false
       end
 
     end
 
-    context 'user is nil' do 
-      let(:app_setting_1) { create(:app_setting, percent_active: 100, enabled: true) }
+    context 'user is nil' do
+      let(:app_setting1) { create(:app_setting, percent_active: 100, enabled: true) }
 
       it 'should return false' do
-        expect(app_setting_1.enabled_for_user?(nil)).to be false
+        expect(app_setting1.enabled_for_user?(nil)).to be false
       end
     end
 
     context 'override is true, staff is true' do
-      let(:app_setting_1) { create(:app_setting, percent_active: 0, enabled: true, enabled_for_staff: true) }
+      let(:app_setting1) { create(:app_setting, percent_active: 0, enabled: true, enabled_for_staff: true) }
 
       it 'should return true when user is staff' do
         allow_any_instance_of(User).to receive(:staff?) { true }
-        expect(app_setting_1.enabled_for_user?(user)).to be true
+        expect(app_setting1.enabled_for_user?(user)).to be true
       end
 
       it 'should return true for non-staff user when user is in whitelist' do
         allow_any_instance_of(User).to receive(:staff?) { false }
-        app_setting_1.user_ids_allow_list = [user.id]
+        app_setting1.user_ids_allow_list = [user.id]
 
-        expect(app_setting_1.enabled_for_user?(user)).to be true
+        expect(app_setting1.enabled_for_user?(user)).to be true
       end
 
       it 'should return false when user does not meet enabled criteria' do
-        expect(app_setting_1.enabled_for_user?(user)).to be false
+        expect(app_setting1.enabled_for_user?(user)).to be false
       end
     end
 

@@ -15,7 +15,7 @@ RSpec.describe CleverIntegration::TeacherUpdater do
   context 'teacher is already linked with clever' do
     let(:provider_trait) { :signed_up_with_clever }
     let(:data_clever_id) { teacher.clever_id }
-    let(:data_email) { 'new' + email }
+    let(:data_email) { "new#{email}" }
 
     it { expect { subject }.to change(teacher, :name).from(name).to(data_name) }
     it { expect { subject }.to change(teacher, :email).from(email).to(data_email) }

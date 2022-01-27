@@ -126,36 +126,37 @@ class TeachersController < ApplicationController
   end
 
   def lessons_info_for_dashboard_mini
-    if !current_user
-      units = []
-    else
-      lessons_activity_ids = ActivityClassification.lessons.activity_ids
-      records = ClassroomsTeacher.select("classrooms.name AS classroom_name, activities.name AS activity_name, activities.supporting_info, activities.id AS activity_id, classroom_units.id AS classroom_unit_id, classrooms.id AS classroom_id")
-      .joins("JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = TRUE AND classrooms_teachers.user_id = #{current_user.id}")
-      .joins("JOIN classroom_units ON classroom_units.classroom_id = classrooms.id AND classroom_units.visible")
-      .joins("JOIN unit_activities ON unit_activities.unit_id = classroom_units.unit_id AND unit_activities.activity_id IN (#{lessons_activity_ids.join(',')}) AND unit_activities.visible")
-      .joins("JOIN activities ON unit_activities.activity_id = activities.id")
-      .joins("JOIN classroom_unit_activity_states ON classroom_unit_activity_states.classroom_unit_id = classroom_units.id AND classroom_unit_activity_states.unit_activity_id = unit_activities.id AND completed = FALSE")
-      .group("classrooms.name, activities.name, activities.id, activities.supporting_info, classroom_units.unit_id, classroom_units.id, classrooms.id, classroom_units.assigned_student_ids, classroom_units.created_at, unit_activities.created_at")
-      .order("greatest(classroom_units.created_at, unit_activities.created_at) DESC")
-      units = records.map do |r|
-        {
-          classroom_name: r['classroom_name'],
-          activity_name: r['activity_name'],
-          activity_id: r['activity_id'],
-          classroom_unit_id: r['classroom_unit_id'],
-          classroom_id: r['classroom_id'],
-          supporting_info: r['supporting_info']
-        }
-      end
+    return render json: { units: [] } if current_user.nil?
+
+    lessons_activity_ids = ActivityClassification.lessons.activity_ids
+
+    records =
+      ClassroomsTeacher
+        .select("classrooms.name AS classroom_name, activities.name AS activity_name, activities.supporting_info, activities.id AS activity_id, classroom_units.id AS classroom_unit_id, classrooms.id AS classroom_id")
+        .joins("JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = TRUE AND classrooms_teachers.user_id = #{current_user.id}")
+        .joins("JOIN classroom_units ON classroom_units.classroom_id = classrooms.id AND classroom_units.visible")
+        .joins("JOIN unit_activities ON unit_activities.unit_id = classroom_units.unit_id AND unit_activities.activity_id IN (#{lessons_activity_ids.join(',')}) AND unit_activities.visible")
+        .joins("JOIN activities ON unit_activities.activity_id = activities.id")
+        .joins("JOIN classroom_unit_activity_states ON classroom_unit_activity_states.classroom_unit_id = classroom_units.id AND classroom_unit_activity_states.unit_activity_id = unit_activities.id AND completed = FALSE")
+        .group("classrooms.name, activities.name, activities.id, activities.supporting_info, classroom_units.unit_id, classroom_units.id, classrooms.id, classroom_units.assigned_student_ids, classroom_units.created_at, unit_activities.created_at")
+        .order("greatest(classroom_units.created_at, unit_activities.created_at) DESC")
+
+    units = records.map do |r|
+      {
+        classroom_name: r['classroom_name'],
+        activity_name: r['activity_name'],
+        activity_id: r['activity_id'],
+        classroom_unit_id: r['classroom_unit_id'],
+        classroom_id: r['classroom_id'],
+        supporting_info: r['supporting_info']
+      }
     end
+
     render json: { units: units }
   end
 
   def diagnostic_info_for_dashboard_mini
-    if !current_user
-      units = []
-    else
+    if current_user
       diagnostic_activity_ids = ActivityClassification.diagnostic.activity_ids
       records = ClassroomsTeacher.select("classrooms.name AS classroom_name, activities.name AS activity_name, activities.id AS activity_id, activities.follow_up_activity_id AS post_test_id, pre_test.id AS pre_test_id, classroom_units.unit_id AS unit_id, classrooms.id AS classroom_id, activity_sessions.count AS completed_count, array_length(classroom_units.assigned_student_ids, 1) AS assigned_count")
       .joins("JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = TRUE AND classrooms_teachers.user_id = #{current_user.id}")
@@ -179,6 +180,8 @@ class TeachersController < ApplicationController
           classroom_id: r['classroom_id']
         }
       end
+    else
+      units = []
     end
     render json: { units: units }
   end

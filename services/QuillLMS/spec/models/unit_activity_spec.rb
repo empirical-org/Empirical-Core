@@ -35,9 +35,9 @@ describe UnitActivity, type: :model, redis: true do
   it { is_expected.to callback(:teacher_checkbox).after(:save) }
   it { is_expected.to callback(:hide_appropriate_activity_sessions).after(:save) }
 
-  let!(:activity_classification_3) { create(:activity_classification, id: 3)}
-  let!(:activity_classification_2) { create(:grammar)}
-  let!(:activity_classification_6) { create(:lesson_classification)}
+  let!(:activity_classification3) { create(:activity_classification, id: 3)}
+  let!(:activity_classification2) { create(:grammar)}
+  let!(:activity_classification6) { create(:lesson_classification)}
   let!(:diagnostic_activity_classification ) { create(:diagnostic) }
   let!(:activity) { create(:activity) }
   let!(:diagnostic_activity) { create(:diagnostic_activity, activity_classification_id: diagnostic_activity_classification.id) }
@@ -52,7 +52,7 @@ describe UnitActivity, type: :model, redis: true do
   let!(:activity_session) {create(:activity_session, user_id: student.id, state: 'unstarted', classroom_unit_id: classroom_unit.id)}
   let(:lessons_activity) { create(:activity, activity_classification_id: 6) }
   let(:lessons_unit_activity) { create(:unit_activity, unit: unit, activity: lessons_activity) }
-  let(:lessons_unit_activity_2) { create(:unit_activity, unit: unit, activity: lessons_activity) }
+  let(:lessons_unit_activity2) { create(:unit_activity, unit: unit, activity: lessons_activity) }
   let!(:unit_activity_with_no_activity_session) { create(:unit_activity, activity: activity) }
 
   describe '#formatted_due_date' do
@@ -77,20 +77,20 @@ describe UnitActivity, type: :model, redis: true do
 
   describe '#from_valid_date_for_activity_analysis?' do
     it 'returns true if the unit_activity activity_classification id is not 1 or 2' do
-      activity.classification = activity_classification_3
+      activity.classification = activity_classification3
       expect(unit_activity.from_valid_date_for_activity_analysis?).to eq(true)
     end
 
 
     it "returns true if it was created after 25-10-2016 and the classification is 1 or 2" do
         unit_activity.update(created_at: Date.parse('26-10-2016'))
-        activity.classification = activity_classification_2
+        activity.classification = activity_classification2
         expect(unit_activity.from_valid_date_for_activity_analysis?).to eq(true)
     end
 
     it "returns false if it was created before 25-10-2016 and the classification is 1 or 2" do
         unit_activity.update(created_at: Date.parse('24-10-2016'))
-        activity.classification = activity_classification_2
+        activity.classification = activity_classification2
         expect(unit_activity.from_valid_date_for_activity_analysis?).to eq(false)
     end
   end

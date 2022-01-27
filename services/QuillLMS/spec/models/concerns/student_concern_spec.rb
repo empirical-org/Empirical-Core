@@ -64,11 +64,11 @@ describe 'Student Concern', type: :model do
     )
   end
 
-  let!(:activity_session_for_second_student_1) do
+  let!(:activity_session_for_second_student1) do
     create(:activity_session, user_id: student2.id, classroom_unit_id: classroom_unit1.id)
   end
 
-  let!(:activity_session_for_second_student_2) do
+  let!(:activity_session_for_second_student2) do
     create(:activity_session, user_id: student2.id, classroom_unit_id: classroom_unit5.id)
   end
 

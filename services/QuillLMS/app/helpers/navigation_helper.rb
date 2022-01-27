@@ -42,9 +42,7 @@ module NavigationHelper
       "Premium  <i class='fas fa-star'></i> #{current_user.trial_days_remaining} Days Left"
     when 'locked'
       "Premium  <i class='fas fa-star'></i> Trial Expired"
-    when nil
-      "Try Premium <i class='fas fa-star'></i>"
-    when 'none'
+    when 'none', nil
       "Try Premium <i class='fas fa-star'></i>"
     end
   end
