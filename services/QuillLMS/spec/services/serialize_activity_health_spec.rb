@@ -34,21 +34,21 @@ describe 'SerializeActivityHealth' do
 
   let!(:content_partner) { create(:content_partner, activities: [activity])}
   let!(:start_time) { Time.now - 1.day }
-  let!(:activity_session_1) { create(:activity_session, activity: activity, state: "finished", started_at: DateTime.new(2021,1,1,4,0,0), completed_at: DateTime.new(2021,1,1,4,5,0)) }
-  let!(:activity_session_2) { create(:activity_session, activity: activity, state: "finished", started_at: start_time, completed_at: start_time + 10.minutes) }
-  let!(:activity_session_3) { create(:activity_session, activity: activity, state: "finished", started_at: start_time, completed_at: start_time + 20.minutes) }
+  let!(:activity_session1) { create(:activity_session, activity: activity, state: "finished", started_at: DateTime.new(2021,1,1,4,0,0), completed_at: DateTime.new(2021,1,1,4,5,0)) }
+  let!(:activity_session2) { create(:activity_session, activity: activity, state: "finished", started_at: start_time, completed_at: start_time + 10.minutes) }
+  let!(:activity_session3) { create(:activity_session, activity: activity, state: "finished", started_at: start_time, completed_at: start_time + 20.minutes) }
   let!(:diagnostic) { create(:diagnostic_activity)}
   let!(:unit_template) { create(:unit_template, flag: "production")}
   let!(:activities_unit_template) { create(:activities_unit_template, unit_template: unit_template, activity: activity)}
-  let!(:unit_template_2) { create(:unit_template, flag: "archived")}
-  let!(:activities_unit_template_2) { create(:activities_unit_template, unit_template: unit_template_2, activity: activity)}
+  let!(:unit_template2) { create(:unit_template, flag: "archived")}
+  let!(:activities_unit_template2) { create(:activities_unit_template, unit_template: unit_template2, activity: activity)}
   let!(:sample_unit) { create(:unit, unit_template: unit_template)}
   let!(:unit_activity) { create(:unit_activity, unit: sample_unit, activity: activity)}
   let!(:recommendation) { create(:recommendation, activity: diagnostic, unit_template: unit_template)}
 
-  let!(:concept_result_1) do
+  let!(:concept_result1) do
      create(:concept_result,
-      activity_session: activity_session_1,
+      activity_session: activity_session1,
       metadata: {
         questionNumber: 1,
         questionScore: 1
@@ -56,9 +56,9 @@ describe 'SerializeActivityHealth' do
     )
   end
 
-  let!(:concept_result_2) do
+  let!(:concept_result2) do
     create(:concept_result,
-      activity_session: activity_session_2,
+      activity_session: activity_session2,
       metadata: {
         questionNumber: 1,
         questionScore: 0.75
@@ -66,9 +66,9 @@ describe 'SerializeActivityHealth' do
     )
   end
 
-  let!(:concept_result_3) do
+  let!(:concept_result3) do
     create(:concept_result,
-      activity_session: activity_session_3,
+      activity_session: activity_session3,
       metadata: {
         questionNumber: 1,
         questionScore: 0
@@ -76,9 +76,9 @@ describe 'SerializeActivityHealth' do
     )
   end
 
-  let!(:concept_result_4) do
+  let!(:concept_result4) do
     create(:concept_result,
-      activity_session: activity_session_1,
+      activity_session: activity_session1,
       metadata: {
         questionNumber: 2,
         questionScore: 1

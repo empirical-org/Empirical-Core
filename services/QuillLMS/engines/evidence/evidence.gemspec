@@ -15,6 +15,8 @@ Gem::Specification.new do |s|
   s.summary     = 'Evidence app as a rails engine'
   s.description = 'API endpoints used by Evidence to be mounted in the main app'
   s.license     = 'MIT'
+  s.required_ruby_version = '>= 2.5'
+
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.rdoc']
   s.test_files = Dir['spec/**/*']

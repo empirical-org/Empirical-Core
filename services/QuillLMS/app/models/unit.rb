@@ -23,11 +23,9 @@
 #
 class UniqueNameWhenVisible < ActiveModel::Validator
   def validate(record)
-    if record.visible
-      if Unit.where(name: record.name, user_id: record.user_id, visible: true).where.not(id: record.id).any?
+    if record.visible && Unit.where(name: record.name, user_id: record.user_id, visible: true).where.not(id: record.id).any?
         record.errors[:name] << 'must be unique.'
       end
-    end
   end
 end
 

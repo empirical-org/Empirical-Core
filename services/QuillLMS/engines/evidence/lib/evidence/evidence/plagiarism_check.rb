@@ -8,7 +8,7 @@ module Evidence
     ENTRY_TYPE = 'response'
     MATCH_MINIMUM = 10
     OPTIMAL_RULE_KEY = 'optimal_plagiarism_rule_serialized'
-    FUZZY_CHARACTER_THRESHOLD = 5
+    FUZZY_CHARACTER_THRESHOLD = 3
     attr_reader :entry, :passage, :nonoptimal_feedback
 
     def initialize(entry, passage, feedback, rule)
@@ -149,7 +149,7 @@ module Evidence
       longest_consecutive_indices = matched_consecutive_indices.max_by(&:size)
 
       string_result = slices[longest_consecutive_indices[0]].join(' ')
-      longest_consecutive_indices.drop(1).each {|i| string_result += ' ' + slices[i].last}
+      longest_consecutive_indices.drop(1).each {|i| string_result += " #{slices[i].last}"}
       string_result
     end
 

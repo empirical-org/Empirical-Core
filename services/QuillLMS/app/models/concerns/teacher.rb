@@ -99,9 +99,10 @@ module Teacher
 
     all_ids.each do |row|
       row.each do |k,v|
-        if k == 'coteacher_classroom_invitation_id'
+        case k
+        when 'coteacher_classroom_invitation_id'
           coteacher_classroom_invitation_ids << v
-        elsif k == 'classrooms_teachers_id'
+        when 'classrooms_teachers_id'
           classrooms_teachers_ids << v.to_i
         end
       end
@@ -141,16 +142,17 @@ module Teacher
   end
 
   def archived_classrooms
-    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms(false)} AND ct.role = 'owner' AND classrooms.visible = false")
+    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms(only_visible_classrooms: false)} AND ct.role = 'owner' AND classrooms.visible = false")
   end
 
   def handle_negative_classrooms_from_update_coteachers(classroom_ids=nil)
     if classroom_ids && classroom_ids.any?
       # destroy the extant invitation and teacher relationships
       ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classroom_ids).each do |k,v|
-        if k == :classrooms_teachers_ids
+        case k
+        when :classrooms_teachers_ids
           ClassroomsTeacher.where(id: v).map(&:destroy)
-        elsif k ==  :coteacher_classroom_invitations_ids
+        when :coteacher_classroom_invitations_ids
           CoteacherClassroomInvitation.where(id: v).map(&:destroy)
         end
       end
@@ -319,10 +321,6 @@ module Teacher
       .joins(:classrooms_teachers)
       .where(classrooms_teachers: { user_id: id })
       .where.not(clever_id: nil)
-  end
-
-  def transfer_account
-    TransferAccountWorker.perform_async(id, new_user.id);
   end
 
   def classroom_units(includes_value = nil)
@@ -656,7 +654,7 @@ module Teacher
   end
 
   def generate_referrer_id
-    ReferrerUser.create(user_id: id, referral_code: name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-') + '-' + id.to_s)
+    ReferrerUser.create(user_id: id, referral_code: "#{name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-')}-#{id}")
   end
 
   def assigned_students_per_activity_assigned
@@ -669,7 +667,7 @@ module Teacher
     .select("assigned_student_ids, activities.id, unit_activities.created_at")
   end
 
-  private def base_sql_for_teacher_classrooms(only_visible_classrooms=true)
+  private def base_sql_for_teacher_classrooms(only_visible_classrooms: true)
     <<-SQL
       SELECT classrooms.*
       FROM classrooms_teachers AS ct

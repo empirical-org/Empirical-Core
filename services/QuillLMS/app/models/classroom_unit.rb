@@ -79,9 +79,7 @@ class ClassroomUnit < ApplicationRecord
         # We are explicitly checking to ensure that the student here actually belongs
         # in this classroom before running the validate_assigned_student method because
         # if this is not true, validate_assigned_student starts an infinite loop!
-        if !StudentsClassrooms.find_by(classroom_id: classroom_id, student_id: as.user_id)
-          as.update(visible: false)
-        elsif !validate_assigned_student(as.user_id)
+        if !StudentsClassrooms.find_by(classroom_id: classroom_id, student_id: as.user_id) || !validate_assigned_student(as.user_id)
           as.update(visible: false)
         end
       end
@@ -103,13 +101,14 @@ class ClassroomUnit < ApplicationRecord
 
   private def check_for_assign_on_join_and_update_students_array_if_true
     student_ids = StudentsClassrooms.where(classroom_id: classroom_id).pluck(:student_id)
-    if assigned_student_ids&.any? && !assign_on_join && assigned_student_ids.length >= student_ids.length
-      # then maybe it should be assign on join, so we do a more thorough check
-      if (assigned_student_ids - student_ids).empty?
+    if assigned_student_ids&.any? &&
+       !assign_on_join &&
+       assigned_student_ids.length >= student_ids.length &&
+       (assigned_student_ids - student_ids).empty?
+
         # then it should indeed be assigned to all
         self.assign_on_join = true
       end
-    end
     if assign_on_join
       # then we ensure that it has all the student ids
       self.assigned_student_ids = student_ids

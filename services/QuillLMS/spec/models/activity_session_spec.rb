@@ -555,8 +555,8 @@ end
     let!(:proficient_concept) { create(:concept)}
     let!(:proficient_concept_result) { create(:concept_result_with_correct_answer, concept: proficient_concept, activity_session: activity_session)}
     let!(:nearly_proficient_concept) { create(:concept)}
-    let!(:nearly_proficient_concept_result_positive_1) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
-    let!(:nearly_proficient_concept_result_positive_2) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
+    let!(:nearly_proficient_concept_result_positive1) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
+    let!(:nearly_proficient_concept_result_positive2) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
     let!(:nearly_proficient_concept_result_negative) { create(:concept_result_with_incorrect_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
     let!(:not_yet_proficient_concept) { create(:concept)}
     let!(:not_yet_proficient_concept_result) { create(:concept_result_with_incorrect_answer, concept: not_yet_proficient_concept, activity_session: activity_session)}

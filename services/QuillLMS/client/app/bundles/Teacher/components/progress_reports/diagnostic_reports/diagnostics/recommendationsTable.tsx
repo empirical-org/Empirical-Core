@@ -1,9 +1,11 @@
 import * as React from 'react'
+import { Link, } from 'react-router-dom'
 
 import {
   noDataYet,
   asteriskIcon,
   correctImage,
+  baseDiagnosticImageSrc,
   WIDE_SCREEN_MINIMUM_WIDTH,
   LEFT_OFFSET,
   DEFAULT_LEFT_PADDING,
@@ -23,8 +25,11 @@ import {
 } from '../../../../../Shared/index'
 import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 
+const openInNewTabIcon = <img alt="Open in new tab icon" src={`${baseDiagnosticImageSrc}/icons-open-in-new.svg`} />
+
 interface RecommendationsTableProps {
   recommendations: Recommendation[];
+  responsesLink: (studentId: number) => string;
   previouslyAssignedRecommendations: Recommendation[];
   students: Student[];
   selections: Recommendation[];
@@ -75,18 +80,27 @@ const RecommendationCell = ({ student, isAssigned, isRecommended, isSelected, se
   </td>)
 }
 
-const StudentRow = ({ student, selections, recommendations, previouslyAssignedRecommendations, setSelections, }) => {
+const StudentRow = ({ student, selections, recommendations, previouslyAssignedRecommendations, setSelections, responsesLink, }) => {
   const { name, completed, id, } = student
-  const diagnosticNotCompletedMessage = completed ? null : <span className="diagnostic-not-completed">Diagnostic not completed</span>
-  const firstCell = (<th className="name-cell">
+
+  let firstCell = (<th className="name-cell">
     <div>
       <StudentNameOrTooltip name={name} />
-      {diagnosticNotCompletedMessage}
+      <span className="name-section-subheader">Diagnostic not completed</span>
     </div>
   </th>)
 
   let selectionCells = selections.map((selection: Recommendation) => (<td key={selection.name} />))
   if (completed) {
+    firstCell = (
+      <th className="name-cell">
+        <Link rel="noopener noreferrer" target="_blank" to={responsesLink(id)}>
+          <StudentNameOrTooltip name={name} />
+          {openInNewTabIcon}
+        </Link>
+      </th>
+    )
+
     selectionCells = selections.map((selection: Recommendation, i: number) => {
       const isAssigned = previouslyAssignedRecommendations.find(r => r.activity_pack_id === selection.activity_pack_id).students.includes(id)
       const isRecommended = recommendations.find(r => r.activity_pack_id === selection.activity_pack_id).students.includes(id)
@@ -106,7 +120,7 @@ const StudentRow = ({ student, selections, recommendations, previouslyAssignedRe
   return <tr key={name}>{firstCell}{selectionCells}</tr>
 }
 
-const RecommendationsTable = ({ recommendations, students, selections, previouslyAssignedRecommendations, setSelections, }: RecommendationsTableProps) => {
+const RecommendationsTable = ({ recommendations, responsesLink, students, selections, previouslyAssignedRecommendations, setSelections, }: RecommendationsTableProps) => {
   const size = useWindowSize();
 
   const [isSticky, setIsSticky] = React.useState(false);
@@ -171,6 +185,7 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
       key={student.name}
       previouslyAssignedRecommendations={previouslyAssignedRecommendations}
       recommendations={recommendations}
+      responsesLink={responsesLink}
       selections={selections}
       setSelections={setSelections}
       student={student}

@@ -39,7 +39,7 @@ module LessonsRecommendations
             end
           end
         end
-        students_needing_instruction = students_needing_instruction.sort_by { |name| name.split(' ')[-1] }
+        students_needing_instruction = students_needing_instruction.sort_by { |name| name.split[-1] }
         return_value_for_lesson_recommendation(lessons_rec, fail_count, students_needing_instruction)
       end
     end

@@ -281,7 +281,7 @@ namespace :responses do
   def unstringify_concept_results
     Response.where.not(concept_results: nil, optimal: nil).in_batches do |batch|;
       batch.each do |response|
-        if response.concept_results.class == String
+        if response.concept_results.instance_of?(String)
           begin
             response.update({concept_results: JSON.parse(response.concept_results)})
           rescue JSON::ParserError
@@ -294,7 +294,7 @@ namespace :responses do
   end
 
   def parse_concept_results(concept_results)
-    if concept_results.class == String
+    if concept_results.instance_of?(String)
       begin
         JSON.parse(concept_results)
       rescue JSON::ParserError

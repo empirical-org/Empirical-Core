@@ -44,7 +44,7 @@ describe ClassroomUnit, type: :model, redis: true do
   let!(:teacher) {classroom.owner}
   let!(:unit) { create(:unit) }
   let!(:unit2) { create(:unit) }
-  let!(:unit_3) { create(:unit) }
+  let!(:unit3) { create(:unit) }
   let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [student.id]) }
   let!(:activity_session) {create(:activity_session, classroom_unit_id: classroom_unit.id, user_id: student.id, state: 'unstarted')}
 
@@ -111,7 +111,7 @@ describe ClassroomUnit, type: :model, redis: true do
   describe '#check_for_assign_on_join_and_update_students_array_if_true callback' do
     context 'when assign_on_join is false' do
       let(:classroom_with_two_students) { create(:classroom, students: [student, student2])}
-      let(:other_classroom_unit) { create(:classroom_unit, unit: unit_3, classroom: classroom_with_two_students, assigned_student_ids: []) }
+      let(:other_classroom_unit) { create(:classroom_unit, unit: unit3, classroom: classroom_with_two_students, assigned_student_ids: []) }
       describe 'when the assigned students contain all the students in the classroom' do
         it "sets the classroom unit to assign_on_join: true" do
           expect(other_classroom_unit.assign_on_join).not_to eq(true)

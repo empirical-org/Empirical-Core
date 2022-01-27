@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
 
   def render_error(status)
     respond_to do |format|
-      format.html { render template: "errors/error_#{status}", status: status }
+      format.html { render template: "errors/error#{status}", status: status }
       # So technically we shouldn't really be setting the content-type header
       # in a content-less error response at all, but CORS security logic in Rails
       # falsely flags lack of content-type headers in responses to routes that end

@@ -22,9 +22,10 @@ class CreditTransaction < ApplicationRecord
   belongs_to :source, polymorphic: true
 
   def action
-    if source_type == 'Subscription'
+    case source_type
+    when 'Subscription'
       'You subscribed to Quill Premium'
-    elsif source_type == 'ReferralsUser'
+    when 'ReferralsUser'
       'Someone you referred became a Quill user'
     end
   end

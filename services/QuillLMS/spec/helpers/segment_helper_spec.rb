@@ -57,20 +57,22 @@ describe SegmentioHelper do
   end
 
   describe '#format_analytics_properties' do
+    RequestStruct = Struct.new(:fullpath, :referrer)
+
     it 'should include request path' do
-      request = OpenStruct.new({fullpath: 'mock://full.path'})
+      request = RequestStruct.new('mock://full.path', nil)
       formatted_properties = format_analytics_properties(request, {})
       expect(formatted_properties[:path]).to eq(request.fullpath)
     end
 
     it 'should include request referrer' do
-      request = OpenStruct.new({referrer: 'mock://referrer.path'})
+      request = RequestStruct.new(nil, 'mock://referrer.path')
       formatted_properties = format_analytics_properties(request, {})
       expect(formatted_properties[:referrer]).to eq(request.referrer)
     end
 
     it 'should prepend "custom_" to all properties and include the result' do
-      request = OpenStruct.new()
+      request = RequestStruct.new(nil, nil)
       properties = {
         'test1': 1,
         'test2': 2,
