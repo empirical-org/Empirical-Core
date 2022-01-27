@@ -26,18 +26,11 @@ module Evidence
       @entry = entry
       @prefilter_rules = Evidence::Rule.where(rule_type: Evidence::Rule::TYPE_PREFILTER).includes(:feedbacks)
       @violated_rule = nil
-      @profanity_instance = nil
+      @profanity_instance = Profanity.profane(entry)
     end
 
     def profanity?
-      profanity = Profanity.profane(entry)
-      
-      if profanity.nil?
-        false 
-      else 
-        @profanity_instance = profanity
-        true
-      end
+      @profanity_instance.present?
     end
 
     def default_response
