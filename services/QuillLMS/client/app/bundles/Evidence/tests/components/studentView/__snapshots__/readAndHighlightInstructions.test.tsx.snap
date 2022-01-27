@@ -3,7 +3,7 @@
 exports[`ReadAndHighlightInstructions component when the student has not started making highlights renders 1`] = `
 <ReadAndHighlightInstructions
   activeStep={1}
-  closeReadTheDirectionsModal={[Function]}
+  handleReadTheDirectionsButtonClick={[Function]}
   inReflection={false}
   passage={
     Object {
@@ -11,7 +11,7 @@ exports[`ReadAndHighlightInstructions component when the student has not started
     }
   }
   removeHighlight={[Function]}
-  showReadTheDirectionsModal={false}
+  showReadTheDirectionsButton={false}
   studentHighlights={Array []}
 >
   <div
@@ -20,24 +20,38 @@ exports[`ReadAndHighlightInstructions component when the student has not started
     <DirectionsSectionAndModal
       activeStep={1}
       className="hide-on-mobile"
-      closeReadTheDirectionsModal={[Function]}
+      handleReadTheDirectionsButtonClick={[Function]}
       inReflection={false}
       passage={
         Object {
           "highlight_prompt": "",
         }
       }
-      showReadTheDirectionsModal={false}
+      showReadTheDirectionsButton={false}
     >
       <div
         className="hide-on-mobile"
       >
-        <span />
         <section
           className="directions-section"
         >
           <h3>
             Directions
+          </h3>
+          <ul>
+            <li>
+              Use information from the text to finish the sentence.
+            </li>
+            <li>
+              Put the information in your own words.
+            </li>
+          </ul>
+        </section>
+        <section
+          className="task-section"
+        >
+          <h3>
+            Task
           </h3>
           <p>
             As you read, highlight two sentences 
@@ -52,76 +66,13 @@ exports[`ReadAndHighlightInstructions component when the student has not started
       <h3>
         Highlights
       </h3>
-      <HighlightInstructions>
-        <div
-          className="highlight-instructions"
-        >
-          <h4>
-            How to highlight
-          </h4>
-          <div
-            className="highlight-instruction one"
-          >
-            <h5
-              className="highlight-instruction-header"
-            >
-              <span
-                className="highlight-instruction-number"
-              >
-                1
-              </span>
-              <span>
-                Hover over a sentence
-              </span>
-            </h5>
-            <img
-              alt="Cursor pointing hand"
-              src="undefined/images/icons/cursor-pointinghand.svg"
-            />
-            <p>
-              <span
-                className="student-highlight hover"
-              >
-                Yellowstone National Park was established in 1872 as the first national park in the United States.
-              </span>
-               It spans across areas in Wyoming, Idaho, and Montana. Yellowstone is extremely special and famous because it is located on a dormant volcano.
-            </p>
-          </div>
-          <div
-            className="highlight-instruction two"
-          >
-            <h5
-              className="highlight-instruction-header"
-            >
-              <span
-                className="highlight-instruction-number"
-              >
-                2
-              </span>
-              <span>
-                Click, tap, or select the sentence*
-              </span>
-            </h5>
-            <img
-              alt="Default cursor showing exaggerated clicking"
-              src="undefined/images/icons/cursor-click.svg"
-            />
-            <p>
-              <span
-                className="student-highlight"
-              >
-                Yellowstone National Park was established in 1872 as the first national park in the United States.
-              </span>
-               It spans across areas in Wyoming, Idaho, and Montana. Yellowstone is extremely special and famous because it is located on a dormant volcano.
-            </p>
-            <p
-              className="unhighlight-instructions"
-            >
-              *If you change your mind about something you've highlighted, click, tap, or deselect the sentence to remove the highlight
-            </p>
-          </div>
-        </div>
-      </HighlightInstructions>
+      <div
+        className="highlight-instructions"
+      >
+        <p>
+          Your highlights will appear here.
+        </p>
+      </div>
     </section>
   </div>
 </ReadAndHighlightInstructions>
@@ -130,7 +81,7 @@ exports[`ReadAndHighlightInstructions component when the student has not started
 exports[`ReadAndHighlightInstructions component when the student has started making highlights renders 1`] = `
 <ReadAndHighlightInstructions
   activeStep={1}
-  closeReadTheDirectionsModal={[Function]}
+  handleReadTheDirectionsButtonClick={[Function]}
   inReflection={false}
   passage={
     Object {
@@ -138,7 +89,7 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
     }
   }
   removeHighlight={[Function]}
-  showReadTheDirectionsModal={false}
+  showReadTheDirectionsButton={false}
   studentHighlights={
     Array [
       "This is a highlight made by a student.",
@@ -151,24 +102,38 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
     <DirectionsSectionAndModal
       activeStep={1}
       className="hide-on-mobile"
-      closeReadTheDirectionsModal={[Function]}
+      handleReadTheDirectionsButtonClick={[Function]}
       inReflection={false}
       passage={
         Object {
           "highlight_prompt": "",
         }
       }
-      showReadTheDirectionsModal={false}
+      showReadTheDirectionsButton={false}
     >
       <div
         className="hide-on-mobile"
       >
-        <span />
         <section
           className="directions-section"
         >
           <h3>
             Directions
+          </h3>
+          <ul>
+            <li>
+              Use information from the text to finish the sentence.
+            </li>
+            <li>
+              Put the information in your own words.
+            </li>
+          </ul>
+        </section>
+        <section
+          className="task-section"
+        >
+          <h3>
+            Task
           </h3>
           <p>
             As you read, highlight two sentences 

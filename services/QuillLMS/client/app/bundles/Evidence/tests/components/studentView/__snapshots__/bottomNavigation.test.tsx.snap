@@ -21,7 +21,6 @@ exports[`BottomNavigation component when the student has made at least two highl
 >
   <ReadAndHighlightTracker
     handleClickDoneHighlighting={[Function]}
-    onMobile={false}
     scrolledToEndOfPassage={true}
     studentHighlights={
       Array [
@@ -94,7 +93,6 @@ exports[`BottomNavigation component when the student has made at least two highl
 >
   <ReadAndHighlightTracker
     handleClickDoneHighlighting={[Function]}
-    onMobile={true}
     scrolledToEndOfPassage={true}
     studentHighlights={
       Array [
@@ -218,7 +216,6 @@ exports[`BottomNavigation component when the student has scrolled to the end of 
 >
   <ReadAndHighlightTracker
     handleClickDoneHighlighting={[Function]}
-    onMobile={false}
     scrolledToEndOfPassage={true}
     studentHighlights={Array []}
   >
@@ -278,7 +275,6 @@ exports[`BottomNavigation component when the student has scrolled to the end of 
 >
   <ReadAndHighlightTracker
     handleClickDoneHighlighting={[Function]}
-    onMobile={true}
     scrolledToEndOfPassage={true}
     studentHighlights={Array []}
   >
@@ -342,7 +338,6 @@ exports[`BottomNavigation component when the student has started highlighting re
 >
   <ReadAndHighlightTracker
     handleClickDoneHighlighting={[Function]}
-    onMobile={false}
     scrolledToEndOfPassage={true}
     studentHighlights={
       Array [
@@ -410,7 +405,6 @@ exports[`BottomNavigation component when the student has started highlighting re
 >
   <ReadAndHighlightTracker
     handleClickDoneHighlighting={[Function]}
-    onMobile={true}
     scrolledToEndOfPassage={true}
     studentHighlights={
       Array [
@@ -474,7 +468,6 @@ exports[`BottomNavigation component when the student has started the read passag
 >
   <ReadAndHighlightTracker
     handleClickDoneHighlighting={[Function]}
-    onMobile={false}
     scrolledToEndOfPassage={[Function]}
     studentHighlights={Array []}
   >
@@ -534,7 +527,6 @@ exports[`BottomNavigation component when the student has started the read passag
 >
   <ReadAndHighlightTracker
     handleClickDoneHighlighting={[Function]}
-    onMobile={true}
     scrolledToEndOfPassage={[Function]}
     studentHighlights={Array []}
   >

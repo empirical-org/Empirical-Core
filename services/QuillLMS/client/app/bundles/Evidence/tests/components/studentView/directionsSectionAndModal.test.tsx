@@ -5,15 +5,15 @@ import DirectionsSectionAndModal from '../../../components/studentView/direction
 
 const starterProps = {
   className: '',
-  closeReadTheDirectionsModal: () => {},
+  handleReadTheDirectionsButtonClick: () => {},
   passage: { highlight_prompt: ''},
-  showReadTheDirectionsModal: false,
+  showReadTheDirectionsButton: false,
   inReflection: false,
   activeStep: 1
 }
 
 const inReflectionProps = { ...starterProps, inReflection: true }
-const showReadTheDirectionsModalProps = { ...starterProps, showReadTheDirectionsModal: true, }
+const showReadTheDirectionsButtonProps = { ...starterProps, showReadTheDirectionsButton: true, }
 const activeStepGreaterThanOneProps = { ...starterProps, activeStep: 2 }
 
 describe('DirectionsSectionAndModal component', () => {
@@ -33,7 +33,7 @@ describe('DirectionsSectionAndModal component', () => {
 
   describe('when the student should see the modal', () => {
     it('renders on desktop', () => {
-      const wrapper = mount(<DirectionsSectionAndModal {...showReadTheDirectionsModalProps} />)
+      const wrapper = mount(<DirectionsSectionAndModal {...showReadTheDirectionsButtonProps} />)
       expect(wrapper).toMatchSnapshot()
     })
   })

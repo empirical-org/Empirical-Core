@@ -4,11 +4,24 @@ import { bigCheckIcon, } from '../../../Shared/index'
 
 const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
 
-const ReadAndHighlightTracker = ({ scrolledToEndOfPassage, studentHighlights, onMobile, handleClickDoneHighlighting, }) => {
+const ReadAndHighlightTracker = ({
+  scrolledToEndOfPassage,
+  studentHighlights,
+  handleClickDoneHighlighting,
+  handleReadTheDirectionsButtonClick,
+  showReadTheDirectionsButton
+}) => {
   const minimumMet = studentHighlights.length >= MINIMUM_STUDENT_HIGHLIGHT_COUNT
   let doneButton = <button className="quill-button contained primary large focus-on-light disabled" type="button">Done</button>
   if (scrolledToEndOfPassage && minimumMet) {
     doneButton = <button className="quill-button contained primary large focus-on-light" onClick={handleClickDoneHighlighting} type="button">Done</button>
+  }
+  if(showReadTheDirectionsButton) {
+    return(
+      <div className="read-and-highlight-tracker bottom-navigation read-instructions">
+        <button className="quill-button contained primary large focus-on-light" onClick={handleReadTheDirectionsButtonClick}>Got it</button>
+      </div>
+    )
   }
   return (
     <div className="read-and-highlight-tracker bottom-navigation">
@@ -27,7 +40,20 @@ const ReadAndHighlightTracker = ({ scrolledToEndOfPassage, studentHighlights, on
   )
 }
 
-const BottomNavigation = ({ scrolledToEndOfPassage, studentHighlights, onMobile, handleClickDoneHighlighting, doneHighlighting, handleDoneReadingClick, hasStartedPromptSteps, hasStartedReadPassageStep, handleStartPromptStepsClick, handleStartReadingPassageClick, inReflection, }) => {
+const BottomNavigation = ({
+  scrolledToEndOfPassage,
+  studentHighlights,
+  handleClickDoneHighlighting,
+  handleReadTheDirectionsButtonClick,
+  doneHighlighting,
+  handleDoneReadingClick,
+  hasStartedPromptSteps,
+  hasStartedReadPassageStep,
+  handleStartPromptStepsClick,
+  handleStartReadingPassageClick,
+  inReflection,
+  showReadTheDirectionsButton
+}) => {
   if (!hasStartedReadPassageStep) {
     return (<div className="bottom-navigation">
       <button className="quill-button outlined secondary large focus-on-dark" onClick={handleStartReadingPassageClick} type="button">Start</button>
@@ -37,8 +63,9 @@ const BottomNavigation = ({ scrolledToEndOfPassage, studentHighlights, onMobile,
   if (hasStartedReadPassageStep && !doneHighlighting) {
     return (<ReadAndHighlightTracker
       handleClickDoneHighlighting={handleClickDoneHighlighting}
-      onMobile={onMobile}
+      handleReadTheDirectionsButtonClick={handleReadTheDirectionsButtonClick}
       scrolledToEndOfPassage={scrolledToEndOfPassage}
+      showReadTheDirectionsButton={showReadTheDirectionsButton}
       studentHighlights={studentHighlights}
     />)
   }

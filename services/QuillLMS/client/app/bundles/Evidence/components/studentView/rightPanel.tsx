@@ -5,14 +5,14 @@ import BottomNavigation from './bottomNavigation'
 import StepOverview from './stepOverview'
 import Steps from './steps'
 
-import { onMobile, READ_PASSAGE_STEP } from '../../helpers/containerActionHelpers';
+import { READ_PASSAGE_STEP } from '../../helpers/containerActionHelpers';
 
 const RightPanel = ({
   activities,
   activateStep,
   activeStep,
   activityIsComplete,
-  closeReadTheDirectionsModal,
+  handleReadTheDirectionsButtonClick,
   completeStep,
   completedSteps,
   completionButtonCallback,
@@ -27,7 +27,7 @@ const RightPanel = ({
   resetTimers,
   scrolledToEndOfPassage,
   session,
-  showReadTheDirectionsModal,
+  showReadTheDirectionsButton,
   studentHighlights,
   submitResponse,
   toggleStudentHighlight,
@@ -37,13 +37,14 @@ const RightPanel = ({
     doneHighlighting={doneHighlighting}
     handleClickDoneHighlighting={handleClickDoneHighlighting}
     handleDoneReadingClick={handleDoneReadingClick}
+    handleReadTheDirectionsButtonClick={handleReadTheDirectionsButtonClick}
     handleStartPromptStepsClick={onStartPromptSteps}
     handleStartReadingPassageClick={onStartReadPassage}
     hasStartedPromptSteps={hasStartedPromptSteps}
     hasStartedReadPassageStep={hasStartedReadPassageStep}
     inReflection={doneHighlighting && activeStep === READ_PASSAGE_STEP}
-    onMobile={onMobile()}
     scrolledToEndOfPassage={scrolledToEndOfPassage}
+    showReadTheDirectionsButton={showReadTheDirectionsButton}
     studentHighlights={studentHighlights}
   />)
 
@@ -62,11 +63,11 @@ const RightPanel = ({
       <div className="steps-outer-container" onScroll={resetTimers}>
         <ReadAndHighlightInstructions
           activeStep={activeStep}
-          closeReadTheDirectionsModal={closeReadTheDirectionsModal}
+          handleReadTheDirectionsButtonClick={handleReadTheDirectionsButtonClick}
           inReflection={doneHighlighting && activeStep === READ_PASSAGE_STEP}
           passage={activities.currentActivity.passages[0]}
           removeHighlight={toggleStudentHighlight}
-          showReadTheDirectionsModal={showReadTheDirectionsModal}
+          showReadTheDirectionsButton={showReadTheDirectionsButton}
           studentHighlights={studentHighlights}
         />
         {bottomNavigation}
@@ -90,7 +91,7 @@ const RightPanel = ({
       activeStep={activeStep}
       activities={activities}
       activityIsComplete={activityIsComplete}
-      closeReadTheDirectionsModal={closeReadTheDirectionsModal}
+      handleReadTheDirectionsButtonClick={handleReadTheDirectionsButtonClick}
       completedSteps={completedSteps}
       completeStep={completeStep}
       completionButtonCallback={completionButtonCallback}
@@ -99,7 +100,7 @@ const RightPanel = ({
       reportAProblem={reportAProblem}
       resetTimers={resetTimers}
       session={session}
-      showReadTheDirectionsModal={showReadTheDirectionsModal}
+      showReadTheDirectionsButton={showReadTheDirectionsButton}
       submitResponse={submitResponse}
     />
   )
