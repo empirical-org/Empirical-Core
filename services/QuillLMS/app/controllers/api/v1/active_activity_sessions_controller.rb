@@ -12,7 +12,7 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
     begin
       @activity_session = ActiveActivitySession.find_or_initialize_by(uid: params[:id])
       @activity_session.data ||= {}
-      @activity_session.data = @activity_session.data.merge(working_params)
+      @activity_session.data = params#@activity_session.data.merge(working_params)
       @activity_session.save!
     rescue ActiveRecord::RecordNotUnique => e
       # Due to the way that ActiveRecord handles unique validations such as the one on UID,
@@ -26,7 +26,7 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
       retried = true
       retry
     end
-    render json: {}, status: 204
+    head :no_content
   end
 
   private def working_params
