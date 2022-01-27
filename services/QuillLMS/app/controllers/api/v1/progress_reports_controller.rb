@@ -5,11 +5,11 @@ class Api::V1::ProgressReportsController < Api::ApiController
 
   def activities_scores_by_classroom_data
     classroom_ids = current_user&.classrooms_i_teach&.map(&:id)
-    if !classroom_ids.empty?
+    if classroom_ids.empty?
+      render json: { data: [] }
+    else
       data = ProgressReports::ActivitiesScoresByClassroom.results(classroom_ids, current_user.time_zone)
       render json: { data: data }
-    else
-      render json: { data: [] }
     end
   end
 

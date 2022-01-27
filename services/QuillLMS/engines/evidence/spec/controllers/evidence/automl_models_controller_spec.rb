@@ -123,7 +123,7 @@ module Evidence
 
       it 'should update record if valid' do
         new_prompt = create(:evidence_prompt)
-        new_prompt_id = new_prompt_id
+        new_prompt_id = new_prompt.id
         patch(:update, :params => ({ :id => automl_model.id, :automl_model => ({ :prompt_id => new_prompt_id }) }))
         expect(response.code.to_i).to(eq(200))
         expect(automl_model.id).to(eq(JSON.parse(response.body)["id"]))

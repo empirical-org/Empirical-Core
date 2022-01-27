@@ -508,6 +508,12 @@ EmpiricalGrammar::Application.routes.draw do
     get '/clever/callback', to: 'clever#clever'
   end
 
+  namespace :clever_integration do
+    get '/teachers/retrieve_classrooms', to: 'teachers#retrieve_classrooms'
+    post '/teachers/import_classrooms', to: 'teachers#import_classrooms'
+    put '/teachers/import_students', to: 'teachers#import_students'
+  end
+
   get '/clever/auth_url_details', to: 'clever#auth_url_details'
   get '/clever/no_classroom', to: 'clever#no_classroom'
   get '/auth/failure', to: 'sessions#failure'
@@ -780,8 +786,8 @@ EmpiricalGrammar::Application.routes.draw do
   get 'AP', to: redirect('/ap')
   get 'springboard' => 'pages#springboard'
 
-  get '/404' => 'errors#error_404'
-  get '/500' => 'errors#error_500'
+  get '/404' => 'errors#error404'
+  get '/500' => 'errors#error500'
 
   root to: 'pages#home_new'
 

@@ -17,8 +17,8 @@ namespace :app_settings do
   desc 'Updates user allow list for existing AppSetting from a CSV file.'
   # Example usage: rake 'app_settings:update_user_ids_allow_list_from_csv[theName, filename]'
   task :update_user_ids_allow_list_from_csv, [:name, :filename] => :environment do |t, args|
-    iostream = File.open(args[:filename], 'r').read
-    if (CSV.parse(iostream, headers: true).headers & ["email", "flag"]).count != 2
+    iostream = File.read(args[:filename])
+    if (CSV.parse(iostream, headers: true).headers & ["email", "flag"]).count != 2 
       puts "Invalid headers. Exiting."
       exit 1
     end

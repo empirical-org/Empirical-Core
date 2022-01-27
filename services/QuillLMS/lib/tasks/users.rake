@@ -15,7 +15,7 @@ namespace :users do
   end
 
   task refresh_school_subscriptions: :environment do
-    pipe_data = STDIN.read unless STDIN.tty?
+    pipe_data = $stdin.read unless $stdin.tty?
 
     unless pipe_data
       puts 'No data detected on STDIN.  You must pass data to the task for it to run.  Example:'

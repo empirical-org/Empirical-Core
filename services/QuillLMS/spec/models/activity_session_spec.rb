@@ -555,8 +555,8 @@ end
     let!(:proficient_concept) { create(:concept)}
     let!(:proficient_concept_result) { create(:concept_result_with_correct_answer, concept: proficient_concept, activity_session: activity_session)}
     let!(:nearly_proficient_concept) { create(:concept)}
-    let!(:nearly_proficient_concept_result_positive_1) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
-    let!(:nearly_proficient_concept_result_positive_2) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
+    let!(:nearly_proficient_concept_result_positive1) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
+    let!(:nearly_proficient_concept_result_positive2) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
     let!(:nearly_proficient_concept_result_negative) { create(:concept_result_with_incorrect_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
     let!(:not_yet_proficient_concept) { create(:concept)}
     let!(:not_yet_proficient_concept_result) { create(:concept_result_with_incorrect_answer, concept: not_yet_proficient_concept, activity_session: activity_session)}
@@ -882,7 +882,7 @@ end
         metadata: metadata,
         question_type: 'lessons-slide'
       })
-      ActivitySession.save_concept_results(classroom_unit.id, unit_activity.activity_id, concept_results)
+      ActivitySession.save_concept_results([activity_session], concept_results)
     end
   end
 
@@ -894,7 +894,7 @@ end
 
     it 'should delete the activity sessions without the concept results' do
       activity_session.concept_results.destroy_all
-      expect{ ActivitySession.delete_activity_sessions_with_no_concept_results(classroom_unit.id, activity.id) }.to change(ActivitySession, :count).by(-1)
+      expect{ ActivitySession.delete_activity_sessions_with_no_concept_results([activity_session, activity_session1]) }.to change(ActivitySession, :count).by(-1)
     end
   end
 
@@ -905,7 +905,7 @@ end
     let!(:active_activity_session) { create(:active_activity_session, uid: activity_session.uid, data: { 'timeTracking': { 'total': 64691 }})}
 
     it 'should save the timetracking hash to the data field on the activity session and the total time to the timespent field' do
-      ActivitySession.save_timetracking_data_from_active_activity_session(classroom_unit.id, activity.id)
+      ActivitySession.save_timetracking_data_from_active_activity_session([activity_session])
       activity_session.reload
       expect(activity_session.data).to eq({'time_tracking' => { 'total' => 64 }})
       expect(activity_session.timespent).to eq(64)
@@ -942,7 +942,7 @@ end
     let(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, state: 'started') }
     it 'marks all of a classroom activities activity sessions finished' do
       expect(activity_session.state).not_to eq('finished')
-      ActivitySession.mark_all_activity_sessions_complete(classroom_unit.id, activity.id)
+      ActivitySession.mark_all_activity_sessions_complete([activity_session])
       expect(activity_session.reload.state).to eq('finished')
     end
   end

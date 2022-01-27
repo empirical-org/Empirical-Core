@@ -5,49 +5,44 @@ require 'rails_helper'
 describe GoogleIntegration::UpdateTeacherImportedClassroomsWorker do
   let(:worker) { described_class.new }
 
-  let(:retriever_class) { GoogleIntegration::TeacherClassroomsRetriever}
-  let(:updater_class) { GoogleIntegration::TeacherImportedClassroomsUpdater }
-
   subject { worker.perform(user_id) }
 
   context 'nil user_id' do
     let(:user_id) { nil }
 
-    it { should_not_call_service_objects }
+    it { should_not_run_service_objects }
   end
 
   context 'user does not exist' do
     let(:user_id) { 0 }
 
-    it { should_not_call_service_objects }
+    it { should_not_run_service_objects }
   end
 
   context 'user exists' do
-    context 'that does not have google_id' do
-      let(:user_id) { create(:teacher).id }
+    let!(:user) { create(:teacher, :signed_up_with_google) }
+    let(:user_id) { user.id }
 
-      it { should_not_call_service_objects }
+    context 'with no auth_credential' do
+      it { should_not_run_service_objects }
     end
 
-    context 'that has google_id' do
-      let(:updater) { instance_double(updater_class, run: nil) }
-      let(:retriever) { instance_double(retriever_class, run: nil) }
+    context 'with auth_credential' do
+      before { create(:google_auth_credential, user: user) }
 
-      let(:user_id) { create(:teacher, google_id: 123).id }
-
-      it { should_call_service_objects }
+      it { should_run_service_objects }
     end
   end
 
-  def should_not_call_service_objects
-    expect(retriever_class).to_not receive(:new)
-    expect(updater_class).to_not receive(:new)
+  def should_not_run_service_objects
+    expect(GoogleIntegration::TeacherClassroomsRetriever).to_not receive(:run)
+    expect(GoogleIntegration::TeacherImportedClassroomsUpdater).to_not receive(:run)
     subject
   end
 
-  def should_call_service_objects
-    expect(retriever_class).to receive(:new).with(user_id).and_return(retriever)
-    expect(updater_class).to receive(:new).with(user_id).and_return(updater)
+  def should_run_service_objects
+    expect(GoogleIntegration::TeacherClassroomsRetriever).to receive(:run).with(user_id)
+    expect(GoogleIntegration::TeacherImportedClassroomsUpdater).to receive(:run).with(user_id)
     subject
   end
 end

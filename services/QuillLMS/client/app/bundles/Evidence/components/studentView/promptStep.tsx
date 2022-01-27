@@ -9,21 +9,17 @@ import ButtonLoadingSpinner from '../shared/buttonLoadingSpinner'
 import { highlightSpellingGrammar } from '../../libs/stringFormatting'
 
 interface PromptStepProps {
-  active: Boolean;
   activityIsComplete: Boolean;
   className: string,
   completionButtonCallback: () => void;
   everyOtherStepCompleted: boolean;
   submitResponse: Function;
   completeStep: (event: any) => void;
-  stepNumberComponent: JSX.Element,
   stepNumber: number;
   activateStep: (event: any) => void;
   reportAProblem: ({}) => void;
   prompt: any,
-  passedRef: any,
   submittedResponses: Array<any>,
-  canBeClicked: boolean
 }
 
 interface PromptStepState {
@@ -41,6 +37,7 @@ const APPROACHING_LIMIT_MESSAGE = 'Your response is getting close to the maximum
 const OVER_LIMIT_MESSSAGE = 'Your response is too long for our feedback bot to understand';
 const WARNING_THRESHOLD = 160;
 const LIMIT_THRESHOLD = 200;
+const MAX_ATTEMPTS = 5;
 
 export class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
@@ -267,14 +264,14 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     completeStep(stepNumber)
   }
 
-  formatHtmlForEditorContainer = (html: string, active: boolean) => {
+  formatHtmlForEditorContainer = (html: string) => {
     const { prompt, } = this.props
     const text = html.replace(/<b>|<\/b>|<p>|<\/p>|<br>|<u>|<\/u>/g, '').replace('&nbsp;', '')
     const textWithoutStem = text.replace(prompt.text, '').trim()
     const textForCharacterCount = stripHtml(textWithoutStem);
     const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
     return {
-      htmlWithBolding: active ? `<p>${this.highlightsAddedPrompt(this.htmlStrippedPrompt())}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`,
+      htmlWithBolding: `<p>${this.highlightsAddedPrompt(this.htmlStrippedPrompt())}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>`,
       rawTextWithoutStem: textWithoutStem,
       textForCharacterCount
     }
@@ -287,7 +284,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     const entry = this.stripHtml(html).trim()
     const awaitingFeedback = numberOfSubmissions !== submittedResponses.length
     const buttonLoadingSpinner = awaitingFeedback ? <ButtonLoadingSpinner /> : null
-    let buttonCopy = submittedResponses.length ? 'Get new feedback' : 'Get feedback'
+    let buttonCopy = 'Get feedback'
     let className = 'quill-button focus-on-light'
     let onClick = () => this.handleGetFeedbackClick(entry, id, text)
 
@@ -296,7 +293,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       buttonCopy = 'Done'
     } else if (submittedResponses.length === max_attempts || this.lastSubmittedResponse().optimal) {
       onClick = this.completeStep
-      buttonCopy = 'Start next sentence'
+      buttonCopy = 'Next'
     } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback || responseOverCharacterLimit) {
       className += ' disabled'
       onClick = () => {}
@@ -332,7 +329,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
   renderEditorContainer = () => {
     const { html, responseOverCharacterLimit } = this.state
-    const { submittedResponses, prompt, active, } = this.props
+    const { submittedResponses, prompt } = this.props
     const lastSubmittedResponse = this.lastSubmittedResponse()
     let className = 'editor'
     let disabled = false
@@ -347,7 +344,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       className += ' suboptimal'
     }
 
-    const formattedText = this.formatHtmlForEditorContainer(html, active)
+    const formattedText = this.formatHtmlForEditorContainer(html)
     const { htmlWithBolding, rawTextWithoutStem, textForCharacterCount } = formattedText
     const characterCount = textForCharacterCount && textForCharacterCount.split('').length;
     let characterCountClassName;
@@ -385,57 +382,35 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   }
 
   renderActiveContent = () => {
-    const { active, prompt, stepNumberComponent, submittedResponses, } = this.props
-    const { text } = prompt
-
-    if (!active) {
-      const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
-      const lastSubmittedResponse = this.lastSubmittedResponse()
-      const outOfAttempts = submittedResponses.length === prompt.max_attempts
-      const editor = lastSubmittedResponse.optimal || outOfAttempts ? this.renderEditorContainer() : null
-      const fadedRectangle = editor ? <div className="faded-rectangle" /> : null
-      return (
-        <div>
-          <div className="step-header">
-            {stepNumberComponent}
-            {promptTextComponent}
-          </div>
-          {editor}
-          {fadedRectangle}
-        </div>
-      )
-    }
-
-    return (<div>
-      <div className="step-header">
-        {stepNumberComponent}
-        <p className="directions">{DIRECTIONS}</p>
-      </div>
+    const { prompt, submittedResponses } = this.props;
+    const attemptsCount = submittedResponses && submittedResponses.length ? submittedResponses.length : 0;
+    const maxAttemptCount = prompt && prompt.max_attempts ? prompt.max_attempts : MAX_ATTEMPTS;
+    return(
       <div className="active-content-container">
         {this.renderEditorContainer()}
-        {this.renderButton()}
+        <div className="attempts-and-button-container">
+          <div className="attempts-container">
+            <p className="number-of-attempts">{attemptsCount}</p>
+            <p>{`of ${maxAttemptCount} attempts`}</p>
+          </div>
+          {this.renderButton()}
+        </div>
         {this.renderFeedbackSection()}
       </div>
-    </div>)
+    )
   }
 
   render() {
-    const { className, passedRef, canBeClicked, } = this.props
-    const stepContent = (<div className="step-content">
-      {this.renderActiveContent()}
-    </div>)
+    const { className } = this.props
 
-    if (canBeClicked) {
-      return (<div className={className} onClick={this.handleStepInteraction} onKeyDown={this.handleStepInteraction} ref={passedRef} role="button" tabIndex={0}>
-        {stepContent}
-      </div>)
-
-    }
-
-    return (<div className={className}>
-      {stepContent}
-    </div>)
+    return (
+      <div className={className}>
+        <div className="step-content">
+          {this.renderActiveContent()}
+        </div>
+      </div>
+    )
   }
 }
 
-export default PromptStep
+export default PromptStep;

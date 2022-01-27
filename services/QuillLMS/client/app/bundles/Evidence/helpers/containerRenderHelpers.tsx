@@ -1,10 +1,9 @@
 import * as React from "react"
 import ReactHtmlParser from 'react-html-parser'
 
-import { onMobile, orderedSteps, everyOtherStepCompleted, addPTagsToPassages, READ_PASSAGE_STEP, ALL_STEPS } from './containerActionHelpers'
+import { onMobile, orderedSteps, everyOtherStepCompleted, addPTagsToPassages, READ_PASSAGE_STEP } from './containerActionHelpers'
 
 import DirectionsSectionAndModal from '../components/studentView/directionsSectionAndModal'
-import StepLink from '../components/studentView/stepLink'
 import PromptStep from '../components/studentView/promptStep'
 import HeaderImage from '../components/studentView/headerImage'
 
@@ -21,6 +20,20 @@ export const renderDirectionsSectionAndModal = ({ className, closeReadTheDirecti
     passage={currentActivity.passages[0]}
     showReadTheDirectionsModal={showReadTheDirectionsModal}
   />)
+}
+
+export const renderDirections = ({ closeReadTheDirectionsModal, activeStep, doneHighlighting, showReadTheDirectionsModal, activities, hasStartedReadPassageStep, hasStartedPromptSteps }) => {
+  const { currentActivity, } = activities
+
+  const directionsSectionAndModal = renderDirectionsSectionAndModal({ className: '', closeReadTheDirectionsModal , activeStep, doneHighlighting, showReadTheDirectionsModal, activities })
+
+  if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && onMobile()) {
+    return
+  }
+
+  if (!currentActivity || activeStep === READ_PASSAGE_STEP) {
+    return (<div className="hide-on-desktop step-links-and-directions-container">{directionsSectionAndModal}</div>)
+  }
 }
 
 export const renderStepNumber = (number: number, activeStep, completedSteps) => {
@@ -43,50 +56,7 @@ export const renderReadPassageStep = (activeStep, activities, handleDoneReadingC
   </div>)
 }
 
-export const renderStepLinksAndDirections = ({
-  activeStep,
-  hasStartedReadPassageStep,
-  hasStartedPromptSteps,
-  doneHighlighting,
-  showReadTheDirectionsModal,
-  completedSteps,
-  activities,
-  clickStepLink,
-  closeReadTheDirectionsModal,
-  scrollToQuestionSectionOnMobile
-}) => {
-  const { currentActivity, } = activities
-
-  const directionsSectionAndModal = renderDirectionsSectionAndModal({ className: '', closeReadTheDirectionsModal , activeStep, doneHighlighting, showReadTheDirectionsModal, activities })
-
-  if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && onMobile()) {
-    return
-  }
-
-  if (!currentActivity || activeStep === READ_PASSAGE_STEP) {
-    return (<div className="hide-on-desktop step-links-and-directions-container">{directionsSectionAndModal}</div>)
-  }
-
-  const links = []
-  const numberOfLinks = ALL_STEPS.length
-
-  // starting at 2 because we don't want to include the read passage step
-  for (let i=2; i <= numberOfLinks; i++ ) {
-    links.push(<StepLink activeStep={activeStep} clickStepLink={clickStepLink} completedSteps={completedSteps} index={i} renderStepNumber={renderStepNumber} />)
-  }
-
-  return (<div className="hide-on-desktop step-links-and-directions-container">
-    <div className="step-link-container">
-      <div className="step-links">
-        {links}
-      </div>
-      <button className="interactive-wrapper focus-on-light" onClick={scrollToQuestionSectionOnMobile} type="button">View questions</button>
-    </div>
-    {directionsSectionAndModal}
-  </div>)
-}
-
-export const renderPromptSteps = ({
+export const renderPromptStep = ({
   activateStep,
   activityIsComplete,
   completionButtonCallback,
@@ -99,42 +69,34 @@ export const renderPromptSteps = ({
   completedSteps,
   doneHighlighting,
   showReadTheDirectionsModal,
-  stepsHash,
   reportAProblem,
 }) => {
   const { currentActivity, } = activities
   const { submittedResponses, hasReceivedData, } = session
+
   if (!currentActivity || !hasReceivedData) return
 
-  // sort by conjunctions in alphabetical order: because, but, so
-  const steps =  orderedSteps(activities).map((prompt, i) => {
-    // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
-    const stepNumber = i + 2
-    const canBeClicked = completedSteps.includes(stepNumber - 1) || completedSteps.includes(stepNumber) // can click on completed steps or the one after the last completed
-
-    return (<PromptStep
-      activateStep={activateStep}
-      active={stepNumber === activeStep}
-      activityIsComplete={activityIsComplete}
-      canBeClicked={canBeClicked}
-      className={`step ${canBeClicked ? 'clickable' : ''} ${activeStep === stepNumber ? 'active' : ''}`}
-      completeStep={completeStep}
-      completionButtonCallback={completionButtonCallback}
-      everyOtherStepCompleted={everyOtherStepCompleted(stepNumber, completedSteps)}
-      key={stepNumber}
-      passedRef={stepsHash[`step${stepNumber}`]} // eslint-disable-line react/jsx-no-bind
-      prompt={prompt}
-      reportAProblem={reportAProblem}
-      stepNumber={stepNumber}
-      stepNumberComponent={renderStepNumber(stepNumber, activeStep, completedSteps)}
-      submitResponse={submitResponse}
-      submittedResponses={(submittedResponses && submittedResponses[prompt.id]) || []}
-    />)
-  })
+  // the first step is reading, so we will always start at 2 and therefore want to begin at the 0 index
+  const stepNumber = activeStep - 2;
+  const prompts = orderedSteps(activities);
+  const prompt = prompts[stepNumber];
 
   return (<div className="prompt-steps">
-    {renderDirectionsSectionAndModal({ className: 'hide-on-mobile', closeReadTheDirectionsModal, activeStep, doneHighlighting, showReadTheDirectionsModal, activities })}
-    {steps}
+    {renderDirectionsSectionAndModal({ className: '', closeReadTheDirectionsModal, activeStep, doneHighlighting, showReadTheDirectionsModal, activities })}
+    <PromptStep
+      activateStep={activateStep}
+      activityIsComplete={activityIsComplete}
+      className="step active"
+      completeStep={completeStep}
+      completionButtonCallback={completionButtonCallback}
+      everyOtherStepCompleted={everyOtherStepCompleted(activeStep, completedSteps)}
+      key={activeStep}
+      prompt={prompt}
+      reportAProblem={reportAProblem}
+      stepNumber={activeStep}
+      submitResponse={submitResponse}
+      submittedResponses={(submittedResponses && submittedResponses[prompt.id]) || []}
+    />
   </div>)
 }
 

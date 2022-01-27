@@ -17,7 +17,7 @@ export default class MoveStudent extends React.Component {
     const that = this
     request.post({
       url: `${process.env.DEFAULT_URL}/teacher_fix/move_student_from_one_class_to_another`,
-      json: {class_code_1: that.state.classCode1, class_code_2: that.state.classCode2, student_identifier: that.state.studentIdentifier, authenticity_token: getAuthToken()}
+      json: {class_code1: that.state.classCode1, class_code2: that.state.classCode2, student_identifier: that.state.studentIdentifier, authenticity_token: getAuthToken()}
     },
     (e, r, response) => {
       if (response.error) {

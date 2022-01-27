@@ -236,11 +236,11 @@ end
     end
 
     let!(:question_uid) { SecureRandom.uuid}
-    let!(:response_1) { create(:response, question_uid: question_uid, optimal: nil, count: 20)}
-    let!(:response_2) { create(:response, question_uid: question_uid, optimal: false, author: "Modified Word Hint", count: 20)}
-    let!(:response_3) { create(:response, question_uid: question_uid, optimal: false, author: "Required Words Hint", count: 20)}
-    let!(:response_4) { create(:response, question_uid: question_uid, optimal: false, author: "Spelling Hint", count: 20)}
-    let!(:response_5) { create(:response, question_uid: question_uid, optimal: true, count: 20)}
+    let!(:response1) { create(:response, question_uid: question_uid, optimal: nil, count: 20)}
+    let!(:response2) { create(:response, question_uid: question_uid, optimal: false, author: "Modified Word Hint", count: 20)}
+    let!(:response3) { create(:response, question_uid: question_uid, optimal: false, author: "Required Words Hint", count: 20)}
+    let!(:response4) { create(:response, question_uid: question_uid, optimal: false, author: "Spelling Hint", count: 20)}
+    let!(:response5) { create(:response, question_uid: question_uid, optimal: true, count: 20)}
 
     it 'gets question dashboard data' do
       get :question_dashboard, params: { question_uid: question_uid}

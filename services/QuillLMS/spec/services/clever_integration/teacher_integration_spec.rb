@@ -17,7 +17,7 @@ RSpec.describe CleverIntegration::TeacherIntegration do
       expect(CleverIntegration::TeacherDataAdapter).to receive(:run).with(info_hash).and_return(teacher_data)
       expect(CleverIntegration::TeacherImporter).to receive(:run).with(teacher_data).and_return(teacher)
       expect(CleverIntegration::LibraryTeacherIntegration).to receive(:run).with(teacher, auth_hash.credentials.token)
-      expect(CleverIntegration::TeacherClassroomsRetriever).to receive(:run).with(teacher.id)
+      expect(CleverIntegration::TeacherClassroomsCacheHydrator).to receive(:run).with(teacher.id)
       expect(CleverIntegration::TeacherImportedClassroomsUpdater).to receive(:run).with(teacher.id)
 
       expect(subject).to eq user_success(teacher)
@@ -38,7 +38,7 @@ RSpec.describe CleverIntegration::TeacherIntegration do
       expect(CleverIntegration::TeacherDataAdapter).to receive(:run).with(info_hash).and_return(teacher_data)
       expect(CleverIntegration::TeacherImporter).to receive(:run).with(teacher_data).and_return(teacher)
       expect(CleverIntegration::DistrictTeacherIntegration).to receive(:run).with(teacher, district.clever_id)
-      expect(CleverIntegration::TeacherClassroomsRetriever).to receive(:run).with(teacher.id)
+      expect(CleverIntegration::TeacherClassroomsCacheHydrator).to receive(:run).with(teacher.id)
       expect(CleverIntegration::TeacherImportedClassroomsUpdater).to receive(:run).with(teacher.id)
 
       expect(subject).to eq user_success(teacher)

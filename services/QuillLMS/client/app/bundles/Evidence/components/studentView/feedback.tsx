@@ -40,7 +40,6 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
   React.useEffect(() => {
     setReportAProblemExpanded(false)
     setReportSubmitted(false)
-    scrollToFeedback();
   }, [lastSubmittedResponse])
 
   React.useEffect(() => {
@@ -49,24 +48,6 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
       el.scrollIntoView(false)
     }
   }, [reportAProblemExpanded])
-
-  function scrollToFeedback() {
-    const scrollContainer = document.getElementsByClassName("steps-outer-container")[0];
-    if (scrollContainer) {
-      const { conjunction } = prompt;
-      const element: any = document.getElementsByClassName("step")[0]
-      const stepHeight = element.offsetHeight;
-      const heightsHash = {
-        // we are already viewing this prompt so we don't need to account for its height
-        [BECAUSE]: 0,
-        // we subtract 8 to show a bit of space above the container
-        [BUT]: (stepHeight * 2) - 8,
-        [SO]: (stepHeight * 3) - 8,
-      };
-      const height = heightsHash[conjunction];
-      scrollContainer.scrollTo(0, height);
-    }
-  }
 
   function toggleReportAProblemExpanded() { setReportAProblemExpanded(!reportAProblemExpanded) }
 
@@ -81,22 +62,22 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
 
   let className = 'feedback'
   let imageSrc = loopSrc
-  let imageAlt = 'Arrows pointing in opposite directions, making a loop'
+  let imageAlt = 'Revise icon'
   if (lastSubmittedResponse.optimal) {
     className += ' optimal'
     imageSrc = smallCheckCircleSrc
-    imageAlt = 'Small green circle with a check in it'
+    imageAlt = 'Check icon'
   }
 
   const key = customFeedbackKey || submittedResponses.length
   const feedback = feedbackToShow(lastSubmittedResponse, submittedResponses, prompt, customFeedback)
 
-  let reportAProblemSection = <button className="report-a-problem-button" onClick={toggleReportAProblemExpanded} type="button">Report a problem</button>
-
+  const reportAProblemButton = <button className="report-a-problem-button interactive-wrapper" onClick={toggleReportAProblemExpanded} type="button">Report a problem</button>
+  let reportAProblemSection = <span />
   if (reportAProblemExpanded) {
     const reportAProblemOptionElements = reportSubmitted ? null : <div className="options">{reportAProblemOptions(lastSubmittedResponse.optimal).map(opt => <ReportAProblemOption handleSelectProblem={handleSelectProblem} key={opt} option={opt} />)}</div>
-    const label = reportSubmitted ? 'Thank you for your feedback!' : 'Report a problem'
-    const text = reportSubmitted ? 'For now, please try your best to revise and improve your sentence.' : 'What did you notice?'
+    const label = reportSubmitted ? 'Thank you for your feedback!' : 'What did you notice?'
+    const text = reportSubmitted ? 'For now, please try your best to revise and improve your sentence.' : ''
 
     reportAProblemSection = (<section className="report-a-problem-section">
       <div className="report-a-problem-section-header">
@@ -113,9 +94,6 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
 
   return (
     <div className={`feedback-section ${reportAProblemExpanded ? 'expanded' : ''}`}>
-      <p className="feedback-section-header">
-        Feedback<span>{submittedResponses.length} of {prompt.max_attempts} attempts</span>
-      </p>
       <ReactCSSTransitionReplace
         transitionEnterTimeout={1000}
         transitionLeaveTimeout={400}
@@ -123,8 +101,12 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
       >
         <React.Fragment>
           <div className={className} key={key}>
-            <img alt={imageAlt} src={imageSrc} />
+            <div className="feedback-label-section">
+              <img alt={imageAlt} src={imageSrc} />
+              <p>Feedback</p>
+            </div>
             <p className="feedback-text" dangerouslySetInnerHTML={feedbackForInnerHTML(feedback)} role="status" />
+            <div className="report-a-problem-button-container">{reportAProblemButton}</div>
           </div>
           {reportAProblemSection}
         </React.Fragment>

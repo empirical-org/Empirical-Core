@@ -16,22 +16,22 @@ RSpec.describe CleverIntegration::TeacherClassroomsData do
   end
 
   context 'two classrooms' do
-    let(:classroom_clever_id_1) { 'abcdef' }
-    let(:classroom_clever_id_2) { 'ghijkl' }
+    let(:classroom_clever_id1) { 'abcdef' }
+    let(:classroom_clever_id2) { 'ghijkl' }
 
     let(:serialized_classrooms_data) do
       {
         classrooms: [
-          { clever_id: classroom_clever_id_1 },
-          { clever_id: classroom_clever_id_2 }
+          { clever_id: classroom_clever_id1 },
+          { clever_id: classroom_clever_id2 }
         ]
       }.to_json
     end
 
     let(:expected_classrooms_data) do
       [
-        { clever_id: classroom_clever_id_1, teacher_id: teacher.id },
-        { clever_id: classroom_clever_id_2, teacher_id: teacher.id }
+        { clever_id: classroom_clever_id1, teacher_id: teacher.id },
+        { clever_id: classroom_clever_id2, teacher_id: teacher.id }
       ]
     end
 

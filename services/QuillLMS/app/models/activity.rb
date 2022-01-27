@@ -109,13 +109,7 @@ class Activity < ApplicationRecord
   end
 
   def self.find_by_id_or_uid(arg)
-    begin
-      find_by!(uid: arg)
-    rescue ActiveRecord::RecordNotFound
-      find(arg)
-    rescue ActiveRecord::RecordNotFound
-      raise ActiveRecord::RecordNotFound, "Couldn't find Activity with 'id' or 'uid'=#{arg}"
-    end
+    find_by(uid: arg)  || find(arg)
   end
 
   def standard_uid= uid
@@ -127,11 +121,12 @@ class Activity < ApplicationRecord
   end
 
   def self.user_scope(user_flag)
-    if user_flag == ALPHA
+    case user_flag
+    when ALPHA
       Activity.alpha_user
-    elsif user_flag == BETA
+    when BETA
       Activity.beta_user
-    elsif user_flag == GAMMA
+    when GAMMA
       Activity.gamma_user
     else
       Activity.production
@@ -206,7 +201,7 @@ class Activity < ApplicationRecord
   end
 
   def self.search_results(flag)
-    substring = flag ? flag + "_" : ""
+    substring = flag ? "#{flag}_" : ""
     activity_search_results = $redis.get("default_#{substring}activity_search")
     activity_search_results ||= ActivitySearchWrapper.search_cache_data(flag)
     JSON.parse(activity_search_results)

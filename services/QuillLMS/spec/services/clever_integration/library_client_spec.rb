@@ -7,7 +7,7 @@ RSpec.describe CleverIntegration::LibraryClient do
 
   let(:teacher) { create(:teacher, clever_id: teacher_clever_id) }
   let(:bearer_token) { 'not-a-real-bearer-token' }
-  let(:options) { { headers: { "Authorization": "Bearer " + bearer_token } } }
+  let(:options) { { headers: { "Authorization": "Bearer #{bearer_token}" } } }
 
   subject { described_class.new(bearer_token) }
 

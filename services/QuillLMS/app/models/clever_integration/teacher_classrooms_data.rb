@@ -11,8 +11,8 @@ module CleverIntegration
       @serialized_classrooms_data = serialized_classrooms_data
     end
 
-    def each
-      classrooms_data.each { |classroom_data| yield classroom_data }
+    def each(&block)
+      classrooms_data.each(&block)
     end
 
     def clever_ids

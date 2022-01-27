@@ -12,12 +12,12 @@ module Evidence
       return false if found_bad_words.empty?
 
       # do a more rigorous word-by-word check for found bad words
-      entry.split(' ').any? { |word| profane_word_check?(word, found_bad_words)}
+      entry.split.any? { |word| profane_word_check?(word, found_bad_words)}
     end
 
     # keeping this for now for comparison and benchmarking
     def self.profane_legacy?(entry)
-      entry.split(' ').any? { |word| profane_word_check?(word)}
+      entry.split.any? { |word| profane_word_check?(word)}
     end
 
     def self.profane_word_check?(word, bad_words = BadWords::ALL)

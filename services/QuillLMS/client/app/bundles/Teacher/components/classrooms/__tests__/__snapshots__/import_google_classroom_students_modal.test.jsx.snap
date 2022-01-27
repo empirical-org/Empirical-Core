@@ -18,7 +18,7 @@ exports[`ImportGoogleClassroomStudentsModal component should render ImportGoogle
       </h3>
     </div>
     <p>
-      You're about to import students from the class 
+      You are about to import students from the class 
       Quill Classroom
       .
     </p>
@@ -43,12 +43,14 @@ exports[`ImportGoogleClassroomStudentsModal component should render ImportGoogle
       <button
         className="quill-button outlined secondary medium"
         onClick={[Function]}
+        type="button"
       >
         Cancel
       </button>
       <button
         className="quill-button contained primary medium disabled"
         onClick={[Function]}
+        type="button"
       >
         Import students
       </button>

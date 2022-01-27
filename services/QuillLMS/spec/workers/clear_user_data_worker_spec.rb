@@ -56,8 +56,10 @@ describe ClearUserDataWorker, type: :worker do
 
   it "removes student from related activity_sessions" do
     expect(user.reload.activity_sessions.count).to eq(0)
-    activity_sessions.each {|as| expect(as.classroom_unit_id).to be nil}
-    activity_sessions.each {|as| expect(as.user_id).to be nil}
+    activity_sessions.each do |as|
+      expect(as.classroom_unit_id).to be nil
+      expect(as.user_id).to be nil
+    end
   end
 
 end

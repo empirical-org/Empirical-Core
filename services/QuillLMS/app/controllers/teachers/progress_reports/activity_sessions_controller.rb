@@ -22,9 +22,9 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
   end
 
   private def return_data(should_return_json)
-    classroom_units_filter = !params[:classroom_id].blank? ? "AND classroom_units.classroom_id = #{params[:classroom_id].to_i}" : ''
-    student_filter = !params[:student_id].blank? ? " AND activity_sessions.user_id = #{params[:student_id].to_i}" : ''
-    unit_filter = !params[:unit_id].blank? ? " AND classroom_units.unit_id = #{params[:unit_id].to_i}" : ''
+    classroom_units_filter = params[:classroom_id].blank? ? '' : "AND classroom_units.classroom_id = #{params[:classroom_id].to_i}"
+    student_filter = params[:student_id].blank? ? '' : " AND activity_sessions.user_id = #{params[:student_id].to_i}"
+    unit_filter = params[:unit_id].blank? ? '' : " AND classroom_units.unit_id = #{params[:unit_id].to_i}"
 
     case (params[:sort_param])
     when 'student_id'

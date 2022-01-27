@@ -4,7 +4,7 @@ import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../Shared/utils/constants'
 
 const READ_PASSAGE_STEP = 1
 
-const ReadTheDirectionsModal = ({ closeReadTheDirectionsModal, }) => (<section className="read-the-directions-modal">
+export const ReadTheDirectionsModal = ({ closeReadTheDirectionsModal, }) => (<section className="read-the-directions-modal">
   <p>Read the directions carefully before moving onto reading and highlighting.</p>
   <button className="quill-button primary contained large focus-on-light" onClick={closeReadTheDirectionsModal} type="button">Got it</button>
 </section>)
@@ -25,7 +25,10 @@ const DirectionsSectionAndModal = ({ className, closeReadTheDirectionsModal, pas
     return (<div className={className}>
       <section className="directions-section">
         <h3>Directions</h3>
-        <p>Use information from the text to finish the sentence. <u>Remember to put the response in your own words.</u></p>
+        <ul>
+          <li>Use information from the text to finish the sentence.</li>
+          <li>Put the information in your own words.</li>
+        </ul>
       </section>
     </div>)
   }

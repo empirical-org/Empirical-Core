@@ -65,12 +65,12 @@ describe Subscription, type: :model do
     end
 
     context 'it does nothing to the subscription when' do
-      let(:user_subscription_2) { create(:user_subscription, subscription: subscription, user: user) }
+      let(:user_subscription2) { create(:user_subscription, subscription: subscription, user: user) }
       let!(:school) { create(:school) }
       let(:school_subscription) { create(:school_subscription, subscription: subscription, school: school) }
 
       it 'is a subscription with multiple users_subscriptions linked' do
-        user_subscription_2
+        user_subscription2
         old_sub_attributes = subscription.reload.attributes
         subscription.credit_user_and_de_activate
         expect(subscription.reload.attributes).to eq(old_sub_attributes)
@@ -368,8 +368,8 @@ describe Subscription, type: :model do
   context 'recurring subscriptions' do
     let!(:teacher_with_stripe_customer_id) {create(:teacher, :has_a_stripe_customer_id)}
     let!(:subscription) {create(:subscription)}
-    let!(:recurring_subscription_expiring_today_1) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today, recurring: true) }
-    let!(:recurring_subscription_expiring_today_2) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today, recurring: true) }
+    let!(:recurring_subscription_expiring_today1) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today, recurring: true) }
+    let!(:recurring_subscription_expiring_today2) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today, recurring: true) }
     let!(:recurring_subscription_expiring_but_de_activated) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today, recurring: true, de_activated_date: Date.today) }
     let!(:recurring_subscription_expiring_tomorrow) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today + 1, recurring: true) }
     let!(:non_recurring_subscription_expiring_today) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today + 1, recurring: false) }
@@ -379,12 +379,12 @@ describe Subscription, type: :model do
       it "calls update_if_charge_succeeds on all recurring subscriptions expiring that day" do
         # TODO: figure out why this doesn't work
         # # Subscription.any_instance.stub(:update_if_charge_succeeds)
-        # # [recurring_subscription_expiring_today_1, recurring_subscription_expiring_today_2].each do |s|
+        # # [recurring_subscription_expiring_today1, recurring_subscription_expiring_today2].each do |s|
         #   # expect(s).to receive(:update_if_charge_succeeds)
         # # end
         # Subscription.any_instance.stub(:charge_user).and_return({status: 'succeeded'})
-        # expect(recurring_subscription_expiring_today_1).to receive(:update_if_charge_succeeds)
-        # recurring_subscription_expiring_today_1.update_if_charge_succeeds
+        # expect(recurring_subscription_expiring_today1).to receive(:update_if_charge_succeeds)
+        # recurring_subscription_expiring_today1.update_if_charge_succeeds
         # # Subscription.update_todays_expired_recurring_subscriptions
       end
 
@@ -404,43 +404,43 @@ describe Subscription, type: :model do
 
       context 'when the charge succeeds' do
         before do
-          allow(recurring_subscription_expiring_today_1).to receive(:charge_user).and_return({status: 'succeeded'})
+          allow(recurring_subscription_expiring_today1).to receive(:charge_user).and_return({status: 'succeeded'})
         end
 
         it "calls charge_user" do
-          recurring_subscription_expiring_today_1.update_if_charge_succeeds
+          recurring_subscription_expiring_today1.update_if_charge_succeeds
         end
 
         it "calls renew_subscription" do
-          expect(recurring_subscription_expiring_today_1).to receive(:renew_subscription)
-          recurring_subscription_expiring_today_1.update_if_charge_succeeds
+          expect(recurring_subscription_expiring_today1).to receive(:renew_subscription)
+          recurring_subscription_expiring_today1.update_if_charge_succeeds
         end
       end
 
       context 'when the charge does not succeed' do
         before do
-          allow(recurring_subscription_expiring_today_1).to receive(:charge_user).and_return({status: 'failed'})
+          allow(recurring_subscription_expiring_today1).to receive(:charge_user).and_return({status: 'failed'})
         end
 
         it "calls charge_user" do
-          recurring_subscription_expiring_today_1.update_if_charge_succeeds
+          recurring_subscription_expiring_today1.update_if_charge_succeeds
         end
 
         it "does not call renew_subscription" do
-          expect(recurring_subscription_expiring_today_1).not_to receive(:renew_subscription)
-          recurring_subscription_expiring_today_1.update_if_charge_succeeds
+          expect(recurring_subscription_expiring_today1).not_to receive(:renew_subscription)
+          recurring_subscription_expiring_today1.update_if_charge_succeeds
         end
 
         it "sets recurring to false if expiration is more than 7 days old" do
-          recurring_subscription_expiring_today_1.expiration = 10.days.ago
-          recurring_subscription_expiring_today_1.update_if_charge_succeeds
-          expect(recurring_subscription_expiring_today_1.recurring).to eq(false)
+          recurring_subscription_expiring_today1.expiration = 10.days.ago
+          recurring_subscription_expiring_today1.update_if_charge_succeeds
+          expect(recurring_subscription_expiring_today1.recurring).to eq(false)
         end
 
         it "does not set recurring to false if expiration is less than 7 days old" do
-          recurring_subscription_expiring_today_1.expiration = 3.days.ago
-          recurring_subscription_expiring_today_1.update_if_charge_succeeds
-          expect(recurring_subscription_expiring_today_1.recurring).to eq(true)
+          recurring_subscription_expiring_today1.expiration = 3.days.ago
+          recurring_subscription_expiring_today1.update_if_charge_succeeds
+          expect(recurring_subscription_expiring_today1.recurring).to eq(true)
         end
       end
     end
@@ -494,11 +494,11 @@ describe Subscription, type: :model do
 
     describe 'self.expired_today_or_previously_and_recurring' do
       it "returns all subscriptions where the expiration date is today and recurring is true and de_activated_date is null" do
-        expect(Subscription.expired_today_or_previously_and_recurring).to contain_exactly(recurring_subscription_expiring_today_1, recurring_subscription_expiring_today_2)
+        expect(Subscription.expired_today_or_previously_and_recurring).to contain_exactly(recurring_subscription_expiring_today1, recurring_subscription_expiring_today2)
       end
 
       it "returns no subscriptions where the de_activated_date is not null" do
-        expect(Subscription.expired_today_or_previously_and_recurring).to contain_exactly(recurring_subscription_expiring_today_1, recurring_subscription_expiring_today_2)
+        expect(Subscription.expired_today_or_previously_and_recurring).to contain_exactly(recurring_subscription_expiring_today1, recurring_subscription_expiring_today2)
       end
 
       it "does not return subscriptions just because they expire today" do

@@ -2,6 +2,7 @@
 
 class Teachers::ClassroomManagerController < ApplicationController
   include CheckboxCallback
+  include CleverAuthable
   include DiagnosticReports
 
   respond_to :json, :html
@@ -22,9 +23,11 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def assign
     session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
+    session[CLEVER_REDIRECT] = request.env['PATH_INFO']
     set_classroom_variables
     set_banner_variables
     set_diagnostic_variables
+    @clever_link = clever_link
     @number_of_activities_assigned = current_user.units.map(&:unit_activities).flatten.map(&:activity_id).uniq.size
     find_or_create_checkbox(Objective::EXPLORE_OUR_LIBRARY, current_user)
     if params[:tab] == 'diagnostic'
@@ -68,11 +71,9 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def dashboard
-    if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.none? && !current_user.has_outstanding_coteacher_invitation?
-      if current_user.schools_admins.any?
+    if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.none? && !current_user.has_outstanding_coteacher_invitation? && current_user.schools_admins.any?
         redirect_to teachers_admin_dashboard_path
       end
-    end
     welcome_milestone = Milestone.find_by_name(Milestone::TYPES[:see_welcome_modal])
     @must_see_modal = !UserMilestone.find_by(milestone_id: welcome_milestone&.id, user_id: current_user&.id) && Unit.unscoped.find_by_user_id(current_user&.id).nil?
     @featured_blog_posts = BlogPost.where.not(featured_order_number: nil).order(:featured_order_number)
@@ -114,7 +115,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def teacher_dashboard_metrics
-    render json: TeacherDashboardMetrics.new(current_user).run
+    json = current_user.all_classrooms_cache(key: 'classroom_manager.teacher_dashboard_metrics') do
+      TeacherDashboardMetrics.new(current_user).run
+    end
+
+    render json: json
   end
 
   def teacher_guide
@@ -131,7 +136,9 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def scores
     scores = Scorebook::Query.run(params[:classroom_id], params[:current_page], params[:unit_id], params[:begin_date], params[:end_date], current_user.utc_offset)
+
     last_page = scores.length < 200
+
     render json: {
       scores: scores,
       is_last_page: last_page

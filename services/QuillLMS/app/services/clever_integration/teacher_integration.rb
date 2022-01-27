@@ -17,12 +17,12 @@ module CleverIntegration
     def run
       import_teacher
       run_teacher_integration
-      retrieve_teacher_classrooms
+      hydrate_teacher_classrooms_cache
       update_existing_teacher_classrooms
       { type: 'user_success', data: teacher }
     rescue StandardError => e
       NewRelic::Agent.notice_error(e, teacher_clever_id: info_hash.id)
-      { type: 'user_failure', data: 'Error: ' + e.message }
+      { type: 'user_failure', data: "Error: #{e.message}" }
     end
 
     private def district_teacher_integration
@@ -37,8 +37,8 @@ module CleverIntegration
       raise NilTeacherError if teacher.nil?
     end
 
-    private def retrieve_teacher_classrooms
-      TeacherClassroomsRetriever.run(teacher.id)
+    private def hydrate_teacher_classrooms_cache
+      TeacherClassroomsCacheHydrator.run(teacher.id)
     end
 
     private def run_teacher_integration

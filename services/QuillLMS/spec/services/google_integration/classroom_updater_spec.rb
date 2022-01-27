@@ -49,7 +49,7 @@ RSpec.describe GoogleIntegration::ClassroomUpdater do
     end
 
     context 'name on google_classroom changed' do
-      let(:data_name) { 'Renamed on Quill' + synced_name }
+      let(:data_name) { "Renamed on Quill#{synced_name}" }
 
       it 'updates name and synced name with data_name' do
         expect(subject.name).to eq data_name
@@ -59,7 +59,7 @@ RSpec.describe GoogleIntegration::ClassroomUpdater do
   end
 
   context 'custom classroom name' do
-    let(:name) { 'Renamed on Quill' + synced_name }
+    let(:name) { "Renamed on Quill#{synced_name}" }
     let(:synced_name) { 'google_classroom Classroom' }
 
     context 'name on google_classroom has not changed' do
@@ -72,7 +72,7 @@ RSpec.describe GoogleIntegration::ClassroomUpdater do
     end
 
     context 'name on google_classroom has changed' do
-      let(:data_name) { 'renamed on google_classroom ' + synced_name }
+      let(:data_name) { "renamed on google_classroom #{synced_name}" }
 
       it 'updates synced name with data_name' do
         expect(subject.name).to eq name
@@ -83,19 +83,19 @@ RSpec.describe GoogleIntegration::ClassroomUpdater do
 
   context "teacher owns another classroom with other_name" do
     let(:other_name) { 'other google_classroom classroom' }
-    let(:classroom_1) { create(:classroom, :from_google, :with_no_teacher, name: other_name) }
+    let(:classroom1) { create(:classroom, :from_google, :with_no_teacher, name: other_name) }
 
     let(:name) { 'google_classroom classroom'}
     let(:synced_name) { name }
     let(:data_name) { other_name }
 
-    before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom_1) }
+    before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom1) }
 
     it 'renames a name with duplicate if there is a collision' do
       expect(subject.name).to eq "#{other_name}_1"
     end
 
-    context 'teacher owns other classrooms with names other_name_1, ... other_name_[max]' do
+    context 'teacher owns other classrooms with names other_name1, ... other_name_[max]' do
       let(:max) { ::DuplicateNameResolver::MAX_BEFORE_RANDOMIZED }
 
       before do

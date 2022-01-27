@@ -183,11 +183,11 @@ module Evidence
 
       it 'return the highest score label display_name' do
         class MockResult
-          attr_reader :classification
-          attr_reader :display_name
+          attr_reader :classification, :display_name
 
           class Classification
             attr_reader :score 
+
             def initialize(score)
               @score = score 
             end 
@@ -202,6 +202,7 @@ module Evidence
 
         class MockPayload
           attr_reader :payload
+
           def initialize(payload)
             @payload = payload
           end
