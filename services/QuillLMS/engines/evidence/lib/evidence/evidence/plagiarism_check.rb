@@ -135,9 +135,9 @@ module Evidence
           else
             combined_matched_slices += " #{slice.last}"
           end
-        else
         # If we've been matching a series of slices, and this slice doesn't match, we've found
         # all the contiguous matched slices and can stop
+        else
           break unless combined_matched_slices.empty?
         end
       end
