@@ -144,7 +144,7 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
 
   function paddingLeft() {
     if (MOBILE_WIDTH >= window.innerWidth) { return DEFAULT_LEFT_PADDING_FOR_MOBILE }
-    const skillGroupSummaryCards = document.getElementsByClassName('skill-group-summary-cards')[0]
+    const skillGroupSummaryCards = document.getElementsByClassName('results-header')[0]
     return skillGroupSummaryCards && window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH ? skillGroupSummaryCards.getBoundingClientRect().left - LEFT_OFFSET : DEFAULT_LEFT_PADDING
   }
 
