@@ -52,11 +52,11 @@ class Auth::GoogleController < ApplicationController
   end
 
   private def follow_google_redirect
-    if session[GOOGLE_REDIRECT]
-      redirect_route = session[GOOGLE_REDIRECT]
-      session[GOOGLE_REDIRECT] = nil
-      redirect_to redirect_route
-    end
+    return unless session[GOOGLE_REDIRECT]
+
+    redirect_route = session[GOOGLE_REDIRECT]
+    session[GOOGLE_REDIRECT] = nil
+    redirect_to redirect_route
   end
 
   private def set_profile
@@ -80,11 +80,11 @@ class Auth::GoogleController < ApplicationController
     end
     @user = GoogleIntegration::User.new(@profile).update_or_initialize
 
-    if @user.new_record? && session[:role].blank?
-      flash[:error] = user_not_found_error_message
-      flash.keep(:error)
-      redirect_to(new_session_path, status: :see_other)
-    end
+    return unless if @user.new_record? && session[:role].blank?
+
+    flash[:error] = user_not_found_error_message
+    flash.keep(:error)
+    redirect_to(new_session_path, status: :see_other)
   end
 
   private def user_not_found_error_message
@@ -100,10 +100,9 @@ class Auth::GoogleController < ApplicationController
 
   private def save_student_from_google_signup
     return unless @user.new_record? && @user.student?
+    return if @user.save
 
-    unless @user.save
-      redirect_to new_account_path
-    end
+    redirect_to new_account_path
   end
 
   private def save_teacher_from_google_signup

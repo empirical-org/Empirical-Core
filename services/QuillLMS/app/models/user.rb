@@ -210,17 +210,23 @@ class User < ApplicationRecord
 
   def redeem_credit
     balance = credit_transactions.sum(:amount)
-    if balance > 0
-      new_sub = Subscription.create_with_user_join(id, {account_type: 'Premium Credit',
-                                                            payment_method: 'Premium Credit',
-                                                            expiration: Subscription.redemption_start_date(self) + balance,
-                                                            start_date: Subscription.redemption_start_date(self),
-                                                            purchaser_id: id})
-      if new_sub
-        CreditTransaction.create!(user: self, amount: 0 - balance, source: new_sub)
-      end
-      new_sub
-    end
+
+    return unless balance > 0
+
+    new_sub =
+      Subscription.create_with_user_join(
+        id,
+        {
+          account_type: 'Premium Credit',
+          payment_method: 'Premium Credit',
+          expiration: Subscription.redemption_start_date(self) + balance,
+          start_date: Subscription.redemption_start_date(self),
+          purchaser_id: id
+        }
+      )
+
+    CreditTransaction.create!(user: self, amount: 0 - balance, source: new_sub) if new_sub
+    new_sub
   end
 
   def subscription_authority_level(subscription_id)
@@ -284,21 +290,21 @@ class User < ApplicationRecord
   end
 
   def username_cannot_be_an_email
-    if username =~ VALID_EMAIL_REGEX
-      if id
-        db_self = User.find(id)
-        errors.add(:username, :invalid) unless db_self.username == username
-      else
-        errors.add(:username, :invalid)
-      end
+    return unless username =~ VALID_EMAIL_REGEX
+
+    if id
+      db_self = User.find(id)
+      errors.add(:username, :invalid) unless db_self.username == username
+    else
+      errors.add(:username, :invalid)
     end
   end
 
   # gets last four digits of Stripe card
   def last_four
-    if stripe_customer_id
-      Stripe::Customer.retrieve(stripe_customer_id).sources.data.first&.last4
-    end
+    return unless stripe_customer_id
+
+    Stripe::Customer.retrieve(stripe_customer_id).sources.data.first&.last4
   end
 
   def safe_role_assignment role
@@ -407,9 +413,9 @@ class User < ApplicationRecord
 
   def admins_teachers
     schools = administered_schools.includes(:users)
-    if schools.any?
-      schools.map{|school| school.users.ids}.flatten
-    end
+    return unless schools.any?
+
+    schools.map{|school| school.users.ids}.flatten
   end
 
   def refresh_token!
@@ -463,9 +469,9 @@ class User < ApplicationRecord
   end
 
   def teacher_of_student
-    unless classrooms.empty?
-      classrooms.first.owner
-    end
+    return if classrooms.empty?
+
+    classrooms.first.owner
   end
 
   def send_account_created_email(temp_password, admin_name)
@@ -506,15 +512,15 @@ class User < ApplicationRecord
   end
 
   def subscribe_to_newsletter
-    if role == "teacher"
-      SubscribeToNewsletterWorker.perform_async(id)
-    end
+    return unless role.teacher?
+
+    SubscribeToNewsletterWorker.perform_async(id)
   end
 
   def unsubscribe_from_newsletter
-    if role == "teacher"
-      UnsubscribeFromNewsletterWorker.perform_async(id)
-    end
+    return unless role.teacher?
+
+    UnsubscribeFromNewsletterWorker.perform_async(id)
   end
 
   ransacker :created_at_date, type: :date do |parent|
@@ -606,9 +612,10 @@ class User < ApplicationRecord
   private def validate_flags
     # ensures there are no items in the flags array that are not in the VALID_FLAGS const
     invalid_flags = flags - VALID_FLAGS
-    if invalid_flags.any?
-       errors.add(:flags, "invalid flag(s) #{invalid_flags}")
-    end
+
+    return if invalid_flags.any?
+
+    errors.add(:flags, "invalid flag(s) #{invalid_flags}")
   end
 
   private def prep_authentication_terms
@@ -617,9 +624,9 @@ class User < ApplicationRecord
   end
 
   private def check_for_school
-    if school
-      find_or_create_checkbox('Add School', self)
-    end
+    return unless school
+
+    find_or_create_checkbox('Add School', self)
   end
 
   # validation filters

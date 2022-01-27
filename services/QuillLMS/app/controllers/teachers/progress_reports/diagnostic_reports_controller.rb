@@ -124,6 +124,8 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     classroom_units = ClassroomUnit.where(unit_id: unit_id, classroom_id: current_user.classrooms_i_teach.map(&:id))
     last_activity_session = ActivitySession.where(classroom_unit: classroom_units, activity_id: activity_id, is_final_score: true).order(updated_at: :desc).limit(1)&.first
     classroom_id = last_activity_session&.classroom_unit&.classroom_id
+
+    # rubocop:disable Style/GuardClause
     if !classroom_id
       return render json: {}, status: 404
     elsif Activity.diagnostic_activity_ids.include?(activity_id.to_i)
@@ -134,6 +136,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     else
       render json: { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students" }
     end
+    # rubocop:enable Style/GuardClause
   end
 
   def assign_selected_packs

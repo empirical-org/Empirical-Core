@@ -94,13 +94,13 @@ class SerializeVitallySalesUser
   end
 
   def account_data
-    unless account_uid.blank? || account_data_params.blank?
-      {
-        accountId: account_uid.to_s,
-        type: 'account',
-        traits: account_data_params
-      }
-    end
+    return if account_uid.blank? || account_data_params.blank?
+
+    {
+      accountId: account_uid.to_s,
+      type: 'account',
+      traits: account_data_params
+    }
   end
 
   private def get_from_cache(key)

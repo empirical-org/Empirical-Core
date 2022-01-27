@@ -146,32 +146,33 @@ module Teacher
   end
 
   def handle_negative_classrooms_from_update_coteachers(classroom_ids=nil)
-    if classroom_ids && classroom_ids.any?
-      # destroy the extant invitation and teacher relationships
-      ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classroom_ids).each do |k,v|
-        case k
-        when :classrooms_teachers_ids
-          ClassroomsTeacher.where(id: v).map(&:destroy)
-        when :coteacher_classroom_invitations_ids
-          CoteacherClassroomInvitation.where(id: v).map(&:destroy)
-        end
+    return unless classroom_ids && classroom_ids.any?
+
+    # destroy the extant invitation and teacher relationships
+    ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classroom_ids).each do |k,v|
+      case k
+      when :classrooms_teachers_ids
+        ClassroomsTeacher.where(id: v).map(&:destroy)
+      when :coteacher_classroom_invitations_ids
+        CoteacherClassroomInvitation.where(id: v).map(&:destroy)
       end
     end
   end
 
   def handle_positive_classrooms_from_update_coteachers(classroom_ids, inviter_id)
-    if classroom_ids && classroom_ids.any?
-      new_classroom_ids = classroom_ids.map(&:to_i) - classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.to_a.map(&:to_i)
-      if new_classroom_ids.any?
-        invitation = Invitation.create(
-          invitee_email: email,
-          inviter_id: inviter_id,
-          invitation_type: Invitation::TYPES[:coteacher]
-        )
-        new_classroom_ids.each do |id|
-          CoteacherClassroomInvitation.find_or_create_by(invitation: invitation, classroom_id: id)
-        end
-      end
+    return unless classroom_ids && classroom_ids.any?
+
+    new_classroom_ids = classroom_ids.map(&:to_i) - classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.to_a.map(&:to_i)
+    return unless new_classroom_ids.any?
+
+    invitation = Invitation.create(
+      invitee_email: email,
+      inviter_id: inviter_id,
+      invitation_type: Invitation::TYPES[:coteacher]
+    )
+
+    new_classroom_ids.each do |id|
+      CoteacherClassroomInvitation.find_or_create_by(invitation: invitation, classroom_id: id)
     end
   end
 
@@ -408,10 +409,11 @@ module Teacher
     elsif school && self&.subscription&.account_type == "Purchase Missing School"
       SchoolSubscription.create(school_id: school_id, subscription_id: subscription.id)
     end
-    if school && school.subscription
-      # then we let the user subscription handle everything else
-      UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(id, school.subscription.id)
-    end
+
+    return unless school && school.subscription
+
+    # then we let the user subscription handle everything else
+    UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(id, school.subscription.id)
   end
 
   def has_matching_subscription?(user_id, subscription_id)
@@ -463,9 +465,9 @@ module Teacher
   end
 
   def premium_updated_or_created_today?
-    if subscription
-      [subscription.created_at, subscription.updated_at].max == Time.zone.now.beginning_of_day
-    end
+    return unless subscription
+
+    [subscription.created_at, subscription.updated_at].max == Time.zone.now.beginning_of_day
   end
 
   def premium_state

@@ -354,9 +354,9 @@ class ActivitySession < ApplicationRecord
 
   def invalidate_activity_session_count_if_completed
     classroom_id = classroom_unit&.classroom_id
-    if state == 'finished' && classroom_id
-      $redis.del("classroom_id:#{classroom_id}_completed_activity_count")
-    end
+    return unless state == 'finished' && classroom_id
+
+    $redis.del("classroom_id:#{classroom_id}_completed_activity_count")
   end
 
   def self.save_concept_results(activity_sessions, concept_results)
@@ -553,10 +553,9 @@ class ActivitySession < ApplicationRecord
     yield # http://stackoverflow.com/questions/4998553/rails-around-callbacks
 
     return unless saved_change_to_state?
+    return unless state == 'finished'
 
-    if state == 'finished'
-      FinishActivityWorker.perform_async(uid)
-    end
+    FinishActivityWorker.perform_async(uid)
   end
 
   private def set_state
@@ -578,9 +577,9 @@ class ActivitySession < ApplicationRecord
     # we check to see if it is finished because the only milestone we're checking for is the copleted idagnostic.
     # at a later date, we might have to update this check in case we want a milestone for sessions being assigned
     # or started.
-    if self.state == 'finished'
-      UpdateMilestonesWorker.perform_async(uid)
-    end
+    return unless self.state == 'finished'
+
+    UpdateMilestonesWorker.perform_async(uid)
   end
 
   private def increment_counts

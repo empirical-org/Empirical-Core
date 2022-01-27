@@ -27,9 +27,9 @@ module PublicProgressReports
       classroom_unit = ClassroomUnit.find(classroom_unit_id)
       unit_id = classroom_unit.unit_id
       classroom_id = classroom_unit.classroom_id
-      if unit_id && activity_id && classroom_id
-        "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students"
-      end
+      return unless unit_id && activity_id && classroom_id
+
+      "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students"
     end
 
     def default_diagnostic_url

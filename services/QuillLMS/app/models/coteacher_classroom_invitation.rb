@@ -28,9 +28,9 @@ class CoteacherClassroomInvitation < ApplicationRecord
   MAX_COTEACHER_INVITATIONS_PER_CLASS = 50
 
   private def update_parent_invitation
-    unless CoteacherClassroomInvitation.exists?(invitation_id: invitation_id)
-      Invitation.find(invitation_id).update(archived: true)
-    end
+    return if CoteacherClassroomInvitation.exists?(invitation_id: invitation_id)
+
+    Invitation.find(invitation_id).update(archived: true)
   end
 
   private def prevent_saving_if_classrooms_teacher_association_exists

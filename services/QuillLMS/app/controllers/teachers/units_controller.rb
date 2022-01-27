@@ -175,13 +175,13 @@ class Teachers::UnitsController < ApplicationController
   end
 
   private def authorize!
-    if params[:id]
-      @unit = Unit.find_by(id: params[:id])
-      if @unit.nil?
-        render json: {errors: 'Unit not found'}, status: 422
-      elsif !current_user.affiliated_with_unit?(@unit.id)
-        auth_failed
-      end
+    return unless params[:id]
+
+    @unit = Unit.find_by(id: params[:id])
+    if @unit.nil?
+      render json: {errors: 'Unit not found'}, status: 422
+    elsif !current_user.affiliated_with_unit?(@unit.id)
+      auth_failed
     end
   end
 

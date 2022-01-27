@@ -87,9 +87,9 @@ class Cms::RecommendationsController < Cms::CmsController
   end
 
   private def category
-    if Recommendation.categories.keys.include? recommendation_params[:category]
-      recommendation_params[:category].to_sym
-    end
+    return unless Recommendation.categories.keys.include? recommendation_params[:category]
+
+    recommendation_params[:category].to_sym
   end
 
   private def recommendation_params

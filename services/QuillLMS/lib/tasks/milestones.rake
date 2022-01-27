@@ -30,14 +30,11 @@ namespace :milestones do
   end
 
   module MilestoneMatcher
-
     def self.completed_diagnostic(teacher)
       milestone = Milestone.find_by(name: 'Complete Diagnostic')
-      if !teacher.finished_diagnostic_unit_ids.empty? && !milestone.users.find_by(id: teacher.id)
-        teacher.milestones.push(milestone)
-      end
+      return unless !teacher.finished_diagnostic_unit_ids.empty? && !milestone.users.find_by(id: teacher.id)
+
+      teacher.milestones.push(milestone)
     end
-
   end
-
 end

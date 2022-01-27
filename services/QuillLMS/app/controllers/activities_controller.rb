@@ -25,9 +25,9 @@ class ActivitiesController < ApplicationController
   end
 
   def name_and_id
-    if @activity
-      render json: { name: @activity.name, id: @activity.id }
-    end
+    return unless @activity
+
+    render json: { name: @activity.name, id: @activity.id }
   end
 
   def last_unit_template
@@ -52,9 +52,9 @@ class ActivitiesController < ApplicationController
   end
 
   def supporting_info
-    if @activity.supporting_info
-      redirect_to @activity.supporting_info
-    end
+    return unless @activity.supporting_info
+
+    redirect_to @activity.supporting_info
   end
 
   def customize_lesson

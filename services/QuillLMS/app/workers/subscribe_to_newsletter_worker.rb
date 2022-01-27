@@ -8,10 +8,10 @@ class SubscribeToNewsletterWorker
   def perform(recipient_id)
     @recipient = User.find recipient_id
     add_recipient_to_contacts
-    if @recipient.send_newsletter
-      add_recipient_to_list
-    end
-  end
+    return unless @recipient.send_newsletter
+
+    add_recipient_to_list
+  nd
 
   def add_recipient_to_contacts
     url = URI("https://api.sendgrid.com/v3/contactdb/recipients")

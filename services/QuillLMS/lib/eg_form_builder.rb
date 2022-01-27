@@ -260,9 +260,9 @@ class EgFormBuilder < CMS::FormBuilder
   end
 
   def error_messages
-    if object.errors.any?
-      @template.render partial: 'shared/form/error_messages', object: object.errors
-    end
+    return unless object.errors.any?
+
+    @template.render partial: 'shared/form/error_messages', object: object.errors
   end
 end
 

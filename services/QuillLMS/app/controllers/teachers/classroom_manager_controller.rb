@@ -30,9 +30,9 @@ class Teachers::ClassroomManagerController < ApplicationController
     @clever_link = clever_link
     @number_of_activities_assigned = current_user.units.map(&:unit_activities).flatten.map(&:activity_id).uniq.size
     find_or_create_checkbox(Objective::EXPLORE_OUR_LIBRARY, current_user)
-    if params[:tab] == 'diagnostic'
-      find_or_create_checkbox(Objective::EXPLORE_OUR_DIAGNOSTICS, current_user)
-    end
+    return unless if params[:tab] == 'diagnostic'
+
+    find_or_create_checkbox(Objective::EXPLORE_OUR_DIAGNOSTICS, current_user)
   end
 
   def generic_add_students
@@ -180,11 +180,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def clear_data
-    if params[:id]&.to_i == current_user.id
-      sign_out
-      User.find(params[:id]).clear_data
-      render json: {}
-    end
+    return unless params[:id]&.to_i == current_user.id
+
+    sign_out
+    User.find(params[:id]).clear_data
+    render json: {}
   end
 
   def retrieve_google_classrooms
@@ -339,15 +339,15 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   private def authorize_owner!
-    if params[:classroom_id]
-      classroom_owner!(params[:classroom_id])
-    end
+    return unless params[:classroom_id]
+
+    classroom_owner!(params[:classroom_id])
   end
 
   private def authorize_teacher!
-    if params[:classroom_id]
-      classroom_teacher!(params[:classroom_id])
-    end
+    return unless params[:classroom_id]
+
+    classroom_teacher!(params[:classroom_id])
   end
 
   private def teacher_or_public_activity_packs

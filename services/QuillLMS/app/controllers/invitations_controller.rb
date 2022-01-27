@@ -37,9 +37,9 @@ class InvitationsController < ApplicationController
   end
 
   private def invoke_email_worker
-    if Rails.env.production? || @invitee_email.match('quill.org')
-      InvitationEmailWorker.perform_async(@pending_invite.id)
-    end
+    return unless Rails.env.production? || @invitee_email.match('quill.org')
+
+    InvitationEmailWorker.perform_async(@pending_invite.id)
   end
 
   private def find_or_create_coteacher_invite_from_current_user
@@ -52,15 +52,15 @@ class InvitationsController < ApplicationController
   end
 
   private def validate_empty_classroom_ids_or_email
-    if @classroom_ids.empty? || @invitee_email.empty?
-      raise StandardError, "Please make sure you've entered a valid email and selected at least one classroom."
-    end
+    return unless @classroom_ids.empty? || @invitee_email.empty?
+
+    raise StandardError, "Please make sure you've entered a valid email and selected at least one classroom."
   end
 
   private def validate_email_format
-    unless @invitee_email =~ /.+@.+\..+/i
-      raise StandardError, "Please make sure you've entered a valid email."
-    end
+    return if @invitee_email =~ /.+@.+\..+/i
+
+    raise StandardError, "Please make sure you've entered a valid email."
   end
 
   private def set_classroom_ids_and_inviteee_email

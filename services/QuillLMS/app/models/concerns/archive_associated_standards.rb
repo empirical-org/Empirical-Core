@@ -8,10 +8,8 @@ module ArchiveAssociatedStandards
   end
 
   def archive_associated_standards_if_record_has_been_archived
-    if visible_changed? && !visible
-      standards.each do |standard|
-        standard.update(visible: false)
-      end
-    end
+    return unless visible_changed? && !visible
+
+    standards.each { |standard| standard.update(visible: false) }
   end
 end

@@ -565,6 +565,9 @@ Style/FrozenStringLiteralComment:
   Include:
     - "QuillLMS/**/*"
 
+Style/GuardClause:
+  Enabled: true
+
 Style/HashAsLastArrayItem:
   Enabled: false
 

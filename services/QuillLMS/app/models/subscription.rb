@@ -116,12 +116,12 @@ class Subscription < ApplicationRecord
   end
 
   def check_if_purchaser_email_is_in_database
-    if purchaser_email && !purchaser_id
-      purchaser_id = User.find_by_email(purchaser_email)&.id
-      if purchaser_id
-        update(purchaser_id: purchaser_id)
-      end
-    end
+    return unless purchaser_email && !purchaser_id
+
+    purchaser_id = User.find_by_email(purchaser_email)&.id
+    return unless purchaser_id
+
+    update(purchaser_id: purchaser_id)
   end
 
   def renewal_price
@@ -277,25 +277,23 @@ class Subscription < ApplicationRecord
   end
 
   protected def charge_user_for_teacher_premium
-    if purchaser && purchaser.stripe_customer_id
-      Stripe::Charge.create(amount: TEACHER_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
-    end
+    return unless purchaser && purchaser.stripe_customer_id
+
+    Stripe::Charge.create(amount: TEACHER_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
   end
 
   protected def charge_user_for_school_premium(school)
-    if purchaser && purchaser.stripe_customer_id
-      Stripe::Charge.create(amount: SCHOOL_FIRST_PURCHASE_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
-    end
+    return unless purchaser && purchaser.stripe_customer_id
+
+    Stripe::Charge.create(amount: SCHOOL_FIRST_PURCHASE_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
   end
 
   protected def charge_user
-    if purchaser && purchaser.stripe_customer_id
-      begin
-        Stripe::Charge.create(amount: renewal_price, currency: 'usd', customer: purchaser.stripe_customer_id)
-      rescue Stripe::CardError
-        UserMailer.declined_renewal_email(purchaser).deliver_now! if purchaser.email
-      end
-    end
+    return unless purchaser && purchaser.stripe_customer_id
+
+    Stripe::Charge.create(amount: renewal_price, currency: 'usd', customer: purchaser.stripe_customer_id)
+  rescue Stripe::CardError
+    UserMailer.declined_renewal_email(purchaser).deliver_now! if purchaser.email
   end
 
   def self.set_premium_expiration_and_start_date(school_or_user)
@@ -338,9 +336,9 @@ class Subscription < ApplicationRecord
   end
 
   protected def set_null_start_date_to_today
-    if !start_date
-      self.start_date = Date.today
-    end
+    return if start_date
+
+    self.start_date = Date.today
   end
 
   def self.create_with_school_or_user_join school_or_user_id, type, attributes

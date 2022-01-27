@@ -91,9 +91,9 @@ class BlogPost < ApplicationRecord
   scope :for_topics, ->(topic) { live.order('order_number ASC').where(topic: topic) }
 
   def set_order_number
-    if order_number.nil?
-      self.order_number =  BlogPost.where(topic: topic).count
-    end
+    return unless order_number.nil?
+
+    self.order_number =  BlogPost.where(topic: topic).count
   end
 
 
@@ -134,9 +134,9 @@ class BlogPost < ApplicationRecord
   end
 
   def add_published_at
-    if !draft && !published_at
-      update(published_at: DateTime.now)
-    end
+    return unless !draft && !published_at
+
+    update(published_at: DateTime.now)
   end
 
   private def generate_slug
