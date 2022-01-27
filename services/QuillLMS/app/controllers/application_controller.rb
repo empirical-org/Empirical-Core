@@ -26,26 +26,31 @@ class ApplicationController < ActionController::Base
 
   def admin!
     return if current_user.try(:admin?)
+
     auth_failed
   end
 
   def staff!
     return if current_user.try(:staff?)
+
     auth_failed
   end
 
   def teacher_or_staff!
     return if current_user.try(:teacher?)
+
     staff!
   end
 
   def teacher!
     return if current_user.try(:teacher?)
+
     admin!
   end
 
   def student!
     return if current_user.try(:student?)
+
     auth_failed
   end
 
@@ -129,6 +134,7 @@ class ApplicationController < ActionController::Base
   protected def confirm_valid_session
     # Don't do anything if there's no authorized user or session
     return if !current_user || !session
+
     # if user is staff, logout if last_sign_in was more than 4 hours ago
     if current_user && current_user.role == 'staff' && current_user.last_sign_in
       hours = time_diff(current_user.last_sign_in) / 3600

@@ -40,6 +40,7 @@ module Evidence
     def regex
       rule_type = params[:rule_type]
       return render :body => nil, :status => 404 if !Evidence::Rule::TYPES.include? rule_type
+
       regex_check = Evidence::RegexCheck.new(@entry, @prompt, rule_type)
       render json: regex_check.feedback_object
     end
@@ -48,12 +49,14 @@ module Evidence
       automl_check = Evidence::AutomlCheck.new(@entry, @prompt, @previous_feedback)
       feedback_object = automl_check.feedback_object
       return render :body => nil, :status => 404 unless feedback_object
+
       render json: feedback_object
     end
 
     def spelling
       spelling_check = Evidence::SpellingCheck.new(@entry)
       return render :body => {:error => spelling_check.error }.to_json, :status => 500 if spelling_check.error.present?
+
       render json: spelling_check.feedback_object
     end
 

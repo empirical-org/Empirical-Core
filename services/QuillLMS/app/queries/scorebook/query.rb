@@ -85,6 +85,7 @@ class Scorebook::Query
     sanitized_begin_date = sanitize_date(begin_date)
     sanitized_end_date = sanitize_date(new_end_date)
     return unless sanitized_begin_date || sanitized_end_date
+
     "AND (
       CASE
       WHEN acts.completed_at IS NOT NULL THEN

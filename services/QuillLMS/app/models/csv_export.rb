@@ -35,6 +35,7 @@ class CsvExport < ApplicationRecord
 
   def export!
     return if sent?
+
     begin
       file = generate_csv
       csv_file.store!(file)

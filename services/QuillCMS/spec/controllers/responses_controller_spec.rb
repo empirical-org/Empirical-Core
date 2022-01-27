@@ -8,6 +8,7 @@ RSpec.describe ResponsesController, type: :controller do
 
   def get_ids(array)
     return [] if array.nil?
+
     array.map { |r| r['id'] }.sort
   end
 

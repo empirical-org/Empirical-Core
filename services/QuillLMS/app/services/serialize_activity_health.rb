@@ -67,11 +67,13 @@ class SerializeActivityHealth
 
   private def average(list, attribute)
     return nil if list.empty?
+
     (list.map {|p| p[attribute] || 0}.sum(0.0) / list.size).round(2)
   end
 
   private def standard_deviation(list, attribute)
     return nil if list.empty?
+
     list = list.map {|p| p[attribute] }
     mean = list.sum(0.0) / list.size
     squares = list.map {|m| (m - mean) ** 2}

@@ -3,6 +3,7 @@
 module ConceptHelper
   def all_concept_stats(activity_session)
     return '' unless activity_session.present?
+
     # Generate a header for each applicable concept class (activity session has concept tag results for that class)
     concept_results = activity_session.concept_results
     concepts = activity_session.concepts
@@ -17,6 +18,7 @@ module ConceptHelper
     incorrect_count = 0
     concept_results.each do |result|
       next unless result.concept == concept
+
       if result.correct?
         correct_count += 1
       else

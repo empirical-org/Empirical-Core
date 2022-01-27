@@ -169,6 +169,7 @@ class Activity < ApplicationRecord
   # TODO: cleanup
   def flag(flag = nil)
     return super(flag) unless flag.nil?
+
     flags.first
   end
 
@@ -213,6 +214,7 @@ class Activity < ApplicationRecord
 
   def add_question(question)
     return if !validate_question(question)
+
     if !ACTIVITY_TYPES_WITH_QUESTIONS.include?(activity_classification_id)
       errors.add(:activity, "You can't add questions to this type of activity.")
       return
@@ -242,6 +244,7 @@ class Activity < ApplicationRecord
 
   def child_activity
     return unless is_evidence?
+
     Evidence::Activity.find_by(parent_activity_id: id)
   end
 

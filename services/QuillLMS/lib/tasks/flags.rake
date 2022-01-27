@@ -20,6 +20,7 @@ namespace :flags do
           end
 
           next if user.flags.include?(row['flag'])
+
           user.flags.append(row['flag'])
           user.save!
       end

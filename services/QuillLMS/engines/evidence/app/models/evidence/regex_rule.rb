@@ -64,6 +64,7 @@ module Evidence
 
     private def set_default_case_sensitivity
       return if case_sensitive.in? CASE_SENSITIVE_ALLOWED_VALUES
+
       self.case_sensitive = DEFAULT_CASE_SENSITIVITY
     end
 

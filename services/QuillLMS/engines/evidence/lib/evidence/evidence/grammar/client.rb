@@ -26,6 +26,7 @@ module Evidence
           if !response.success? 
             raise GrammarApiError, "Encountered upstream error: #{response}"
           end
+
           response.filter { |k,v| ALLOWED_PAYLOAD_KEYS.include?(k) }
         end
       end

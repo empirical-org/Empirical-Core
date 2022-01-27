@@ -123,6 +123,7 @@ class Cms::SchoolsController < Cms::CmsController
     begin
       user = User.find_by!(email: params[:email_address])
       raise ArgumentError if user.role != 'teacher'
+
       school = School.find_by!(id: params[:id])
       SchoolsUsers.where(user: user).destroy_all
       SchoolsUsers.create!(user_id: user.id, school_id: school.id)

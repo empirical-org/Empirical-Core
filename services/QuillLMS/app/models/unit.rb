@@ -82,6 +82,7 @@ class Unit < ApplicationRecord
   def self.create_with_incremented_name(user_id:, name: )
     unit = Unit.create(user_id: user_id, name: name)
     return unit if unit.persisted?
+
     (2..20).each do |counter|
       unit = Unit.create(user_id: user_id, name: "#{name} #{counter}")
       return unit if unit.persisted?

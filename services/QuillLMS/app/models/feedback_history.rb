@@ -96,6 +96,7 @@ class FeedbackHistory < ApplicationRecord
 
   def concept_results_hash
     return {} if concept.blank?
+
     {
       concept_uid: concept_uid,
       activity_session_id: activity_session&.id,
@@ -263,6 +264,7 @@ class FeedbackHistory < ApplicationRecord
   def self.serialize_detail_by_activity_session(feedback_session_uid)
     history = FeedbackHistory.list_by_activity_session.where(feedback_session_uid: feedback_session_uid).first
     return nil unless history
+
     histories = FeedbackHistory.where(feedback_session_uid: feedback_session_uid).all
 
     output = history.serialize_by_activity_session

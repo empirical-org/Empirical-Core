@@ -51,6 +51,7 @@ module Evidence
 
     private def highlights
       return [] if optimal?
+
       [entry_highlight, passage_highlight]
     end
 
@@ -80,11 +81,13 @@ module Evidence
 
     private def matched_slice
       return "" if !minimum_overlap?
+
       @matched_slice ||= match_entry_on_passage
     end
 
     private def matched_slice_passage
       return "" if !minimum_overlap?
+
       @matched_slice_passage ||= match_passage_on_entry
     end
 

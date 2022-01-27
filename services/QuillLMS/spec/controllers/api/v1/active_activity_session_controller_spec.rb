@@ -423,6 +423,7 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       allow_any_instance_of(ActiveActivitySession).to receive(:save!) do
         call_count += 1
         raise(ActiveRecord::RecordNotUnique, 'Error') if call_count == 1
+
         true
       end
       put :update, params: { id: active_activity_session.uid, active_activity_session: active_activity_session.data }

@@ -22,6 +22,7 @@ class Types::QueryType < Types::BaseObject
     return Concept.level_zero_only if level_zero_only
     return Concept.where(parent_id: nil) if level_two_only
     return Concept.level_one_only if level_one_only
+
     Concept.all
   end
 
@@ -43,6 +44,7 @@ class Types::QueryType < Types::BaseObject
 
   def change_logs(concept_change_logs: false)
     return ChangeLog.where(changed_record_type: 'Concept') if concept_change_logs
+
     ChangeLog.all
   end
 end
