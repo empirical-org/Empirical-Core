@@ -167,12 +167,12 @@ class Activity < ApplicationRecord
   end
 
   # TODO: cleanup
-  def flag flag = nil
+  def flag(flag = nil)
     return super(flag) unless flag.nil?
     flags.first
   end
 
-  def flag= flag
+  def flag=(flag)
     flag = :archived if flag.to_sym == :archive
     self.flags = [flag]
   end
