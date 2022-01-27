@@ -2,7 +2,7 @@
 
 module MobileHelper
   def render_dash(is_mobile)
-    return unless !is_mobile
+    return if is_mobile
 
     '<div class="light-bar"></div>'.html_safe
   end

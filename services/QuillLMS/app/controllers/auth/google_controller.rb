@@ -80,7 +80,7 @@ class Auth::GoogleController < ApplicationController
     end
     @user = GoogleIntegration::User.new(@profile).update_or_initialize
 
-    return unless if @user.new_record? && session[:role].blank?
+    return unless @user.new_record? && session[:role].blank?
 
     flash[:error] = user_not_found_error_message
     flash.keep(:error)

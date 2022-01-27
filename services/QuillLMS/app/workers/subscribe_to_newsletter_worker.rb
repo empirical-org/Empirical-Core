@@ -11,7 +11,7 @@ class SubscribeToNewsletterWorker
     return unless @recipient.send_newsletter
 
     add_recipient_to_list
-  nd
+  end
 
   def add_recipient_to_contacts
     url = URI("https://api.sendgrid.com/v3/contactdb/recipients")
@@ -41,5 +41,4 @@ class SubscribeToNewsletterWorker
 
     response = http.request(request)
   end
-
 end

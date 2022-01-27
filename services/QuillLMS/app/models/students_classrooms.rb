@@ -44,7 +44,7 @@ class StudentsClassrooms < ApplicationRecord
   end
 
   private def run_associator
-    return unless if student && classroom && visible
+    return unless student && classroom && visible
 
     Associators::StudentsToClassrooms.run(student, classroom)
   end
