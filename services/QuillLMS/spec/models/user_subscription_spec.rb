@@ -81,6 +81,7 @@ describe UserSubscription, type: :model do
       it "does not call #self.create_user_sub_from_school_sub" do
         expect(UserSubscription).not_to receive(:create_user_sub_from_school_sub)
         UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(user.id, subscription.id)
+      end
 
       it "does call #self.create_user_sub_from_school_sub" do
         expect(UserSubscription).to receive(:create_user_sub_from_school_sub)
