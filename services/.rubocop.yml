@@ -1,5 +1,8 @@
 inherit_from: .rubocop_todo.yml
 
+require:
+  - rubocop-rspec
+
 inherit_mode:
   merge:
     - Exclude
@@ -8,6 +11,8 @@ AllCops:
   Exclude:
     - "QuillLMS/engines/evidence/spec/dummy/**/*"
     - "QuillLMS/engines/evidence/lib/generators/**/*"
+    - 'QuillLMS/node_modules/**/*'
+    - 'QuillLMS/client/node_modules/**/*'
 
 #######################################################################################################################
 # GEMSPEC
@@ -334,6 +339,120 @@ Naming/VariableName:
   Enabled: true
 
 Naming/VariableNumber:
+  Enabled: true
+
+#######################################################################################################################
+# RSPEC
+#######################################################################################################################
+
+RSpec/AroundBlock:
+  Enabled: true
+
+RSpec/BeEql:
+  Enabled: true
+
+RSpec/Capybara/VisibilityMatcher:
+  Enabled: true
+
+# TODO enable due to https://github.com/rubocop/rubocop-rspec/issues/735#issuecomment-540116917
+RSpec/DescribedClassModuleWrapping:
+  Enabled: false
+
+RSpec/DescribeSymbol:
+  Enabled: true
+
+RSpec/EmptyHook:
+  Enabled: true
+
+RSpec/EmptyLineAfterExample:
+  Enabled: true
+
+RSpec/EmptyLineAfterHook:
+  Enabled: true
+
+RSpec/ExcessiveDocstringSpacing:
+  Enabled: true
+
+RSpec/ExpectOutput:
+  Enabled: true
+
+RSpec/FactoryBot/AttributeDefinedStatically:
+  Enabled: true
+
+RSpec/FactoryBot/CreateList:
+  Enabled: true
+
+RSpec/FactoryBot/FactoryClassName:
+  Enabled: true
+
+RSpec/FactoryBot/SyntaxMethods:
+  Enabled: true
+
+RSpec/Focus:
+  Enabled: true
+
+RSpec/HookArgument:
+  Enabled: true
+
+RSpec/HooksBeforeExamples:
+  Enabled: true
+
+RSpec/IdenticalEqualityAssertion:
+  Enabled: true
+
+RSpec/InstanceSpy:
+  Enabled: true
+
+RSpec/ItBehavesLike:
+  Enabled: true
+
+RSpec/IteratedExpectation:
+  Enabled: true
+
+RSpec/LeakyConstantDeclaration:
+  Enabled: true
+
+RSpec/MessageSpies:
+  Enabled: true
+  EnforcedStyle: receive
+
+RSpec/MissingExampleGroupArgument:
+  Enabled: true
+
+RSpec/MultipleSubjects:
+  Enabled: true
+
+RSpec/OverwritingSetup:
+  Enabled: true
+
+RSpec/Pending:
+  Enabled: true
+
+RSpec/RepeatedDescription:
+  Enabled: true
+
+RSpec/RepeatedIncludeExample:
+  Enabled: true
+
+RSpec/SharedContext:
+  Enabled: true
+
+RSpec/Rails/AvoidSetupHook:
+  Enabled: true
+
+RSpec/SubjectDeclaration:
+  Enabled: true
+
+RSpec/UnspecifiedException:
+  Enabled: true
+
+RSpec/VariableDefinition:
+  Enabled: true
+
+RSpec/VariableName:
+  Enabled: true
+
+RSpec/Yield:
   Enabled: true
 
 #######################################################################################################################

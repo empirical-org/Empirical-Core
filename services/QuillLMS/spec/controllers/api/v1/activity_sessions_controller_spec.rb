@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe Api::V1::ActivitySessionsController, type: :controller do
   describe '#update' do
+
     let(:token) { double :acceptable? => true, resource_owner_id: user.id }
     let(:user) { create(:student) }
     let(:activity_classification) { create(:activity_classification) }
@@ -124,7 +125,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       end
     end
 
-    context 'data time_tracking is included ' do
+    context 'data time_tracking is included' do
 
       it 'updates timespent on activity session' do
         data = {
@@ -157,6 +158,39 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         end
       end
     end
+
+    context 'a finished session' do
+      let(:token) { double :acceptable? => true, resource_owner_id: user.id }
+      let(:user) { create(:student) }
+      let!(:activity_session) do
+        create(:activity_session, state: 'finished', user: user, percentage: 1.0, completed_at: Time.now)
+      end
+
+      before { allow(controller).to receive(:doorkeeper_token) {token} }
+
+      it 'returns a 422 error if activity session is already saved' do
+        put :update, params: { id: activity_session.uid }, as: :json
+        parsed_body = JSON.parse(response.body)
+        expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
+      end
+
+      it 'returns a 200 if the activity session is not already finished and can be updated' do
+        activity_session.update(completed_at: nil, state: 'started')
+        put :update, params: { id: activity_session.uid }, as: :json
+        parsed_body = JSON.parse(response.body)
+        expect(parsed_body["meta"]["message"]).to eq("Activity Session Updated")
+      end
+
+      it 'returns a 422 error if activity session update method fails' do
+        # create a double
+        activity_session = create(:activity_session, state: 'started', user: user)
+        allow(activity_session).to receive(:update).and_return(false)
+
+        put :update, params: { id: activity_session.uid }, as: :json
+        parsed_body = JSON.parse(response.body)
+        expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
+      end
+    end
   end
 
   describe '#show' do
@@ -177,39 +211,6 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       expect(JSON.parse(response.body)["activity_session"]["temporary"]).to eq session.temporary
       expect(JSON.parse(response.body)["activity_session"]["activity_uid"]).to eq session.activity_uid
       expect(JSON.parse(response.body)["activity_session"]["anonymous"]).to eq session.anonymous
-    end
-  end
-
-  describe '#update' do
-    let(:token) { double :acceptable? => true, resource_owner_id: user.id }
-    let(:user) { create(:student) }
-    let!(:activity_session) do
-      create(:activity_session, state: 'finished', user: user, percentage: 1.0, completed_at: Time.now)
-    end
-
-    before { allow(controller).to receive(:doorkeeper_token) {token} }
-
-    it 'returns a 422 error if activity session is already saved' do
-      put :update, params: { id: activity_session.uid }, as: :json
-      parsed_body = JSON.parse(response.body)
-      expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
-    end
-
-    it 'returns a 200 if the activity session is not already finished and can be updated' do
-      activity_session.update(completed_at: nil, state: 'started')
-      put :update, params: { id: activity_session.uid }, as: :json
-      parsed_body = JSON.parse(response.body)
-      expect(parsed_body["meta"]["message"]).to eq("Activity Session Updated")
-    end
-
-    it 'returns a 422 error if activity session update method fails' do
-      # create a double
-      activity_session = create(:activity_session, state: 'started', user: user)
-      allow(activity_session).to receive(:update).and_return(false)
-
-      put :update, params: { id: activity_session.uid }, as: :json
-      parsed_body = JSON.parse(response.body)
-      expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
     end
   end
 

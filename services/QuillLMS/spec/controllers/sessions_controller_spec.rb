@@ -194,7 +194,7 @@ describe SessionsController, type: :controller do
   end
 
   describe '#new' do
-    it 'should set the js file, role in session  and post auth redirect in session' do
+    it 'should set the js file, role in session and post auth redirect in session' do
       session[:role] = "something"
       session[ApplicationController::POST_AUTH_REDIRECT] = "something else"
       get :new, params: { redirect: root_path }

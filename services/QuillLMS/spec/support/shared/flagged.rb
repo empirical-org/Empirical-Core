@@ -18,9 +18,11 @@ shared_examples_for "flagged" do
 				flagged.flag :alpha
 				flagged.flag :betha
 			end
+
 			it "must be an array" do 
 				expect(flagged.flags).to an_instance_of Array
 			end
+
 			it "must to contains 2 elements" do 
 				expect(flagged.flags.count).to eq 2
 			end
@@ -33,10 +35,12 @@ shared_examples_for "flagged" do
 				flagged.flag :alpha
 				flagged.flag :betha
 			end
+
 			it "must pop the passed flag as argument" do 
 				flagged.unflag :alpha
 				expect( flagged.flags ).to eq [:betha]
 			end
+
 			it "must to contains 1 elements" do 
 				flagged.unflag :alpha
 				expect( flagged.flags.count ).to eq 1
@@ -45,7 +49,7 @@ shared_examples_for "flagged" do
 	end
 
 	context "when methods preserve the changes" do 
-		after :each do 
+		after do 
 				expect(flagged).to be_persisted			
 		end
 

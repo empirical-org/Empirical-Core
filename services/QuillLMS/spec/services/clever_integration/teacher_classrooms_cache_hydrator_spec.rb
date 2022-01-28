@@ -13,7 +13,7 @@ describe CleverIntegration::TeacherClassroomsCacheHydrator do
     let!(:auth_credential) { create(:clever_library_auth_credential, user: teacher) }
     let(:client) { double(:clever_client, get_teacher_classrooms: raw_data) }
 
-    it '' do
+    it do
       expect(CleverIntegration::ClientFetcher).to receive(:run).with(teacher).and_return(client)
       expect(CleverIntegration::TeacherClassroomsCache).to receive(:write).with(teacher.id, data.to_json)
       expect(PusherTrigger).to receive(:run)

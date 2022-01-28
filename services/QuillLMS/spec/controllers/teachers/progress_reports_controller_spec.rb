@@ -3,14 +3,12 @@
 require 'rails_helper'
 
 describe Teachers::ProgressReportsController do
-  it { should use_before_action :authorize! }
-  it { should use_before_action :set_vary_header }
-
   let(:teacher) { create(:teacher) }
 
-  before do
-    allow(controller).to receive(:current_user) { teacher }
-  end
+  before { allow(controller).to receive(:current_user) { teacher } }
+
+  it { should use_before_action :authorize! }
+  it { should use_before_action :set_vary_header }
 
   describe '#demo' do
     context 'when name not given' do

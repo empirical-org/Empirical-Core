@@ -19,6 +19,7 @@ describe TeacherSavedActivitiesController do
       expect(response.body).to eq({ activity_ids: [activity1.id, activity2.id]}.to_json)
       expect(response.status).to be(200)
     end
+
     it 'should not error if the current_user is nil' do
       get :saved_activity_ids_for_current_user, current_user: nil
       expect(response.body).to eq({ activity_ids: []}.to_json)

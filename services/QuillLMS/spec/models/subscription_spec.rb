@@ -40,6 +40,7 @@ describe Subscription, type: :model do
         expect(subscription.is_trial?).to be
       end
     end
+
     it "returns false if the subscription is not Subscription::TRIAL_TYPES" do
       Subscription::ALL_PAID_TYPES.each do |tt|
         subscription.update(account_type: tt)
@@ -248,6 +249,7 @@ describe Subscription, type: :model do
     let!(:subscription) { create(:subscription) }
     let!(:user) { create(:user) }
     let!(:user_subscription) { create(:user_subscription, subscription: subscription, user: user) }
+
     it "responds with true if school or user has ever had anything in the ALL_PAID_TYPES_LIST" do
       Subscription::ALL_PAID_TYPES.each do |type|
         subscription.update(account_type: type)
@@ -373,6 +375,7 @@ describe Subscription, type: :model do
     let!(:recurring_subscription_expiring_but_de_activated) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today, recurring: true, de_activated_date: Date.today) }
     let!(:recurring_subscription_expiring_tomorrow) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today + 1, recurring: true) }
     let!(:non_recurring_subscription_expiring_today) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today + 1, recurring: false) }
+
     describe 'self.update_todays_expired_recurring_subscriptions' do
 
 
@@ -494,11 +497,8 @@ describe Subscription, type: :model do
 
     describe 'self.expired_today_or_previously_and_recurring' do
       it "returns all subscriptions where the expiration date is today and recurring is true and de_activated_date is null" do
-        expect(Subscription.expired_today_or_previously_and_recurring).to contain_exactly(recurring_subscription_expiring_today1, recurring_subscription_expiring_today2)
-      end
-
-      it "returns no subscriptions where the de_activated_date is not null" do
-        expect(Subscription.expired_today_or_previously_and_recurring).to contain_exactly(recurring_subscription_expiring_today1, recurring_subscription_expiring_today2)
+        expect(Subscription.expired_today_or_previously_and_recurring)
+        .to contain_exactly(recurring_subscription_expiring_today1, recurring_subscription_expiring_today2)
       end
 
       it "does not return subscriptions just because they expire today" do

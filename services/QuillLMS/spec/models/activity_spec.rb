@@ -43,10 +43,12 @@ describe Activity, type: :model, redis: true do
   it { should belong_to(:standard) }
   it { should belong_to(:raw_score) }
   it { should have_one(:standard_level).through(:standard) }
+
   it do
-    should belong_to(:follow_up_activity).class_name("Activity")
+    expect(subject).to belong_to(:follow_up_activity).class_name("Activity")
       .with_foreign_key("follow_up_activity_id")
   end
+
   it { should have_many(:unit_activities).dependent(:destroy) }
   it { should have_many(:units).through(:unit_activities) }
   it { should have_many(:classroom_units).through(:units) }
@@ -61,9 +63,11 @@ describe Activity, type: :model, redis: true do
   it { should have_many(:topics).through(:activity_topics)}
 
   it { is_expected.to callback(:flag_as_beta).before(:create).unless(:flags?) }
+
   it do
-    is_expected.to callback(:clear_activity_search_cache).after(:commit)
+    expect(subject).to callback(:clear_activity_search_cache).after(:commit)
   end
+
   it { should delegate_method(:form_url).to(:classification) }
 
   let!(:activity){ build(:activity) }
@@ -126,23 +130,25 @@ describe Activity, type: :model, redis: true do
   end
 
   describe "#classification_key" do
-  	describe "#classification_key="
-	  it "must set classification relationship" do
-  	  	activity.classification=nil
-	  	expect(activity.classification).to_not be_present
-	  	expect(activity.classification_key=ActivityClassification.first.key || create(:classification).key).to be_present
-	  end
+    describe "#classification_key=" do
+      it "must set classification relationship" do
+        activity.classification=nil
+        expect(activity.classification).to_not be_present
+        expect(activity.classification_key=ActivityClassification.first.key || create(:classification).key).to be_present
+      end
+    end
 
-  	describe "#classification_key"
-  	  before do
-  	  	activity.classification=nil
-  	  	activity.classification_key=ActivityClassification.first.key || create(:classification).key
-  	  end
-	  it "must set classification relationship" do
-	  	expect(activity.classification_key).to be_present
-	  end
+    describe "#classification_key" do
+      before do
+        activity.classification=nil
+        activity.classification_key=ActivityClassification.first.key || create(:classification).key
+      end
+
+      it "must set classification relationship" do
+        expect(activity.classification_key).to be_present
+      end
+    end
   end
-
 
   describe "#form_url" do
     it "must not include uid if hasn't been validated" do
@@ -273,6 +279,7 @@ describe Activity, type: :model, redis: true do
       before do
         activity.flag=:alpha
       end
+
       it "must return the correct value" do
         expect(activity.flag).to eq :alpha
       end
@@ -342,10 +349,17 @@ describe Activity, type: :model, redis: true do
   end
 
   describe "#clear_activity_search_cache" do
+    let(:activity) { create(:activity) }
+
     it 'deletes the default_activity_search from the cache' do
       $redis.set('default_activity_search', {something: 'something'})
       Activity.clear_activity_search_cache
       expect($redis.get('default_activity_search')).to eq nil
+    end
+
+    it 'should call clear_activity_search_cache' do
+      expect(Activity).to receive(:clear_activity_search_cache)
+      activity.clear_activity_search_cache
     end
   end
 
@@ -394,15 +408,6 @@ describe Activity, type: :model, redis: true do
       expect(Activity.user_scope('alpha')).to eq(Activity.alpha_user)
       expect(Activity.user_scope('beta')).to eq(Activity.beta_user)
       expect(Activity.user_scope('anything')).to eq(Activity.production)
-    end
-  end
-
-  describe '#clear_activity_search_cache' do
-    let(:activity) { create(:activity) }
-
-    it 'should call clear_activity_search_cache' do
-      expect(Activity).to receive(:clear_activity_search_cache)
-      activity.clear_activity_search_cache
     end
   end
 

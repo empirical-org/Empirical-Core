@@ -55,7 +55,7 @@ describe Units::Updater do
             classroom_unit
           end
 
-          before(:each) do
+          before do
             update_ca_to_all_assigned
           end
 
@@ -79,7 +79,7 @@ describe Units::Updater do
             classroom_unit
           end
 
-          before(:each) do
+          before do
             update_cu_to_some_assigned
           end
 
@@ -113,7 +113,7 @@ describe Units::Updater do
         classroom_unit
       end
 
-      before(:each) do
+      before do
         hide_ca
       end
 
@@ -149,7 +149,7 @@ describe Units::Updater do
 
     describe 'new or updated activity sessions' do
 
-      before(:each) do
+      before do
         cu_with_unit
         ua_with_unit
         classroom.students.push(student1, student2, student)

@@ -3,13 +3,12 @@
 require 'rails_helper'
 
 describe Cms::AnnouncementsController, type: :controller do
+  before { allow(controller).to receive(:current_user) { user } }
+
   it { should use_before_action :signed_in! }
 
   let(:user) { create(:staff) }
 
-  before do
-    allow(controller).to receive(:current_user) { user }
-  end
 
   describe '#index' do
     let!(:announcement) { create(:announcement) }

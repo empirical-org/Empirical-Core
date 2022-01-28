@@ -3,12 +3,11 @@
 require 'rails_helper'
 
 describe AccountCreationWorker do
-  let(:subject) { described_class.new }
   let(:analyzer) { double(:analyzer, track_chain: true, track_with_attributes: true) }
 
-  before do
-    allow(Analyzer).to receive(:new) { analyzer }
-  end
+  subject { described_class.new }
+
+  before { allow(Analyzer).to receive(:new) { analyzer } }
 
   describe '#perform' do
     context 'when user is a teacher' do

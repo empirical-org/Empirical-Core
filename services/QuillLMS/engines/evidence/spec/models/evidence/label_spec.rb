@@ -24,6 +24,7 @@ module Evidence
 
       context 'should #name_unique_for_prompt' do
         let!(:label) { create(:evidence_label) } 
+
         it 'should not allow a label to be created if its name collides with another on the prompt' do
           prompt = create(:evidence_prompt)
           label.rule.update(:prompts => ([prompt]))
