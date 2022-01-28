@@ -45,7 +45,7 @@ class SchoolSubscription < ApplicationRecord
   end
 
   def update_subscription
-    return unless subscription.account_type === 'Purchase Missing School'
+    return if subscription.account_type != 'Purchase Missing School'
 
     subscription.update(account_type: 'School Paid')
   end
