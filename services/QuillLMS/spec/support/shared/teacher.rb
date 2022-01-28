@@ -16,11 +16,11 @@ shared_examples_for "teacher" do
   end
 
   context "with the ActiveRecords's delegated methods" do
-      describe ".all" do
-        it "must me included in methods" do
-          expect(Teacher.methods).to include( :all)
-        end
+    describe ".all" do
+      it "must me included in methods" do
+        expect(Teacher.methods).to include( :all)
       end
+    end
 
       describe ".first" do
         it "must me included in methods" do

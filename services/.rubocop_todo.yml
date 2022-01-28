@@ -148,12 +148,6 @@ Layout/HashAlignment:
 Layout/IndentationStyle:
   Enabled: false
 
-# Offense count: 302
-# Cop supports --auto-correct.
-# Configuration parameters: Width, IgnoredPatterns.
-Layout/IndentationWidth:
-  Enabled: false
-
 # Offense count: 50
 # Cop supports --auto-correct.
 # Configuration parameters: AllowDoxygenCommentStyle, AllowGemfileRubyComment.

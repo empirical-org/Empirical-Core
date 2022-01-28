@@ -121,11 +121,11 @@ class FeedbackHistory < ApplicationRecord
   end
 
   def serialize_by_activity_session
-   serializable_hash(only: [:session_uid, :start_date, :activity_id, :flags, :because_attempts, :but_attempts, :so_attempts, :scored_count, :weak_count, :strong_count, :complete], include: []).symbolize_keys
+    serializable_hash(only: [:session_uid, :start_date, :activity_id, :flags, :because_attempts, :but_attempts, :so_attempts, :scored_count, :weak_count, :strong_count, :complete], include: []).symbolize_keys
   end
 
   def serialize_by_activity_session_detail
-   serializable_hash(only: [:id, :entry, :feedback_text, :feedback_type, :optimal, :used, :rule_uid], include: [], methods: [:most_recent_rating]).symbolize_keys
+    serializable_hash(only: [:id, :entry, :feedback_text, :feedback_type, :optimal, :used, :rule_uid], include: [], methods: [:most_recent_rating]).symbolize_keys
   end
 
   def most_recent_rating

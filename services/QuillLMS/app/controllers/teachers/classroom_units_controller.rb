@@ -14,18 +14,18 @@ class Teachers::ClassroomUnitsController < ApplicationController
 
   def launch_lesson
     begin
-    @unit_activity = UnitActivity.find_by(
-      unit_id: @classroom_unit.unit_id,
-      activity: @lesson.id
-    )
-    cuas = ClassroomUnitActivityState.find_or_create_by(
-      classroom_unit: @classroom_unit,
-      unit_activity: @unit_activity
-    )
-    rescue ActiveRecord::StatementInvalid
-      flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
-      redirect_back(fallback_location: dashboard_teachers_classrooms_path)
-      return
+      @unit_activity = UnitActivity.find_by(
+        unit_id: @classroom_unit.unit_id,
+        activity: @lesson.id
+      )
+      cuas = ClassroomUnitActivityState.find_or_create_by(
+        classroom_unit: @classroom_unit,
+        unit_activity: @unit_activity
+      )
+      rescue ActiveRecord::StatementInvalid
+        flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
+        redirect_back(fallback_location: dashboard_teachers_classrooms_path)
+        return
     end
 
     # rubocop:disable Style/GuardClause

@@ -15,7 +15,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def question_view
-      set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(params[:activity_id], params[:classroom_id], params[:unit_id])
+    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(params[:activity_id], params[:classroom_id], params[:unit_id])
       activity = Activity.includes(:classification)
                          .find(params[:activity_id])
       render json: { data: results_by_question(params[:activity_id]),
@@ -23,7 +23,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def students_by_classroom
-      render json: results_for_classroom(params[:unit_id], params[:activity_id], params[:classroom_id])
+    render json: results_for_classroom(params[:unit_id], params[:activity_id], params[:classroom_id])
   end
 
   def diagnostic_student_responses_index
@@ -87,7 +87,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def recommendations_for_classroom
-      render json: generate_recommendations_for_classroom(current_user, params[:unit_id], params[:classroom_id], params[:activity_id])
+    render json: generate_recommendations_for_classroom(current_user, params[:unit_id], params[:classroom_id], params[:activity_id])
   end
 
   def lesson_recommendations_for_classroom
@@ -144,18 +144,18 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def assign_selected_packs
-      if params[:selections]
-        params[:selections].map { |s| s['id']}.each do |ut_id|
-          ut = UnitTemplate.find(ut_id)
-          Unit.unscoped.find_or_create_by(unit_template_id: ut.id, name: ut.name, user_id: current_user.id)
-        end
+    if params[:selections]
+      params[:selections].map { |s| s['id']}.each do |ut_id|
+        ut = UnitTemplate.find(ut_id)
+        Unit.unscoped.find_or_create_by(unit_template_id: ut.id, name: ut.name, user_id: current_user.id)
       end
+    end
       create_or_update_selected_packs
       render json: { data: 'Hi' }
   end
 
   def default_diagnostic_report
-      redirect_to default_diagnostic_url
+    redirect_to default_diagnostic_url
   end
 
   def report_from_classroom_unit_and_activity
@@ -249,7 +249,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         $redis.set("user_id:#{current_user.id}_diagnostic_recommendations_start_time", Time.now)
         number_of_selections = selections_with_students.length
         selections_with_students.each_with_index do |value, index|
-            last = (number_of_selections - 1) == index
+          last = (number_of_selections - 1) == index
             # this only accommodates one classroom at a time
             classroom = value[:classrooms][0]
             argument_hash = {

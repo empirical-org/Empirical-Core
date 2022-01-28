@@ -137,7 +137,7 @@ class Classroom < ApplicationRecord
   def self.generate_unique_code
     code = NameGenerator.generate
     if Classroom.unscoped.find_by_code(code)
-       generate_unique_code
+      generate_unique_code
     else
       code
     end

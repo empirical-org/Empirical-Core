@@ -71,12 +71,12 @@ class SchoolsController < ApplicationController
     if @schools.empty? and @prefix.length < MIN_PREFIX_LENGHT_WHEN_LAT_LON_NOT_PRESENT
       @schools = []
     elsif @schools.empty?
-        @schools = School.select("schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers")
-        .joins('LEFT JOIN schools_users ON schools_users.school_id = schools.id')
-        .where(
-           "lower(name) LIKE :prefix", prefix: "#{@prefix.downcase}%"
-         ).group("schools.id")
-         .limit(@limit)
+      @schools = School.select("schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers")
+      .joins('LEFT JOIN schools_users ON schools_users.school_id = schools.id')
+      .where(
+         "lower(name) LIKE :prefix", prefix: "#{@prefix.downcase}%"
+       ).group("schools.id")
+       .limit(@limit)
         $redis.set("PREFIX_TO_SCHOOL_#{@prefix}", @schools.map {|s| s.id}.to_json)
       # longer cache, more general
         $redis.expire("PREFIX_TO_SCHOOL_#{@prefix}", 60*60)

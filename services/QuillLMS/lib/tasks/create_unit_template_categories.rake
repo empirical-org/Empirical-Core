@@ -23,13 +23,13 @@ namespace :unit_template_categories do
   end
 
   def utc_data
-      [
-        %w(ELL #348fdf #014f92),
-        %w(Elementary #9c2bde #560684),
-        %w(Middle #ea9a1a #875a12),
-        %w(High #ff4542 #c51916),
-        %w(University #82bf3c #457818),
-        %w(Themed #00c2a2 #027360)
-      ]
+    [
+      %w(ELL #348fdf #014f92),
+      %w(Elementary #9c2bde #560684),
+      %w(Middle #ea9a1a #875a12),
+      %w(High #ff4542 #c51916),
+      %w(University #82bf3c #457818),
+      %w(Themed #00c2a2 #027360)
+    ]
   end
 end

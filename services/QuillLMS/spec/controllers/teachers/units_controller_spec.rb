@@ -11,11 +11,11 @@ describe Teachers::UnitsController, type: :controller do
   let!(:unit2) {create(:unit, user: teacher)}
 
   let!(:classroom_unit) do
-     create(:classroom_unit,
-      unit: unit,
-      classroom: classroom,
-      assigned_student_ids: [student.id]
-    )
+    create(:classroom_unit,
+     unit: unit,
+     classroom: classroom,
+     assigned_student_ids: [student.id]
+   )
   end
 
   let!(:diagnostic) { create(:diagnostic) }
@@ -203,7 +203,7 @@ describe Teachers::UnitsController, type: :controller do
   describe '#classrooms_with_students_and_classroom_units' do
 
     it "returns #get_classrooms_with_students_and_classroom_units when it is passed a valid unit id" do
-        get :classrooms_with_students_and_classroom_units, params: { id: unit.id }
+      get :classrooms_with_students_and_classroom_units, params: { id: unit.id }
         res = JSON.parse(response.body)
         expect(res["classrooms"].first["id"]).to eq(classroom.id)
         expect(res["classrooms"].first["name"]).to eq(classroom.name)

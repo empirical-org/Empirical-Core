@@ -59,7 +59,7 @@ describe School, type: :model do
   let!(:queens_teacher) { create(:teacher, school: queens_school) }
 
   describe('#subscription') do
-      let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
+    let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
       let!(:school_subscription) {create(:school_subscription, school: bk_school, subscription: subscription)}
 
       it "returns a subscription if a valid one exists" do

@@ -38,7 +38,7 @@ module Evidence
         regex = ::Regexp.new("^#{stripped_badword}")
         word.match?(regex)
       else
-         stripped_badword == word
+        stripped_badword == word
       end
     end
 

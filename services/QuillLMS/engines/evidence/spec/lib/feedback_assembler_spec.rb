@@ -68,9 +68,9 @@ module Evidence
       context 'key does not exist in lookup table' do
         it 'should raise KeyError' do
           expect do
-           FeedbackAssembler.run({
-              'abstract_error' => 'unknown'
-            })
+            FeedbackAssembler.run({
+               'abstract_error' => 'unknown'
+             })
           end.to raise_error(KeyError)
         end
       end

@@ -13,7 +13,7 @@ namespace :flags do
       end
 
       CSV.parse(iostream, headers: true) do |row|
-          user = User.find_by_email(row['email'])
+        user = User.find_by_email(row['email'])
           if user.nil?
             puts "Unable to locate user with email #{row['email']}"
             next

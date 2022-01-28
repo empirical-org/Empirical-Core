@@ -649,7 +649,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     before { allow(controller).to receive(:current_user) { teacher } }
 
     it 'should return an array with two classrooms' do
-      post :update_google_classrooms, params: { selected_classrooms: selected_classrooms }, as: :json
+     post :update_google_classrooms, params: { selected_classrooms: selected_classrooms }, as: :json
 
       classrooms = JSON.parse(response.body).deep_symbolize_keys.fetch(:classrooms)
 

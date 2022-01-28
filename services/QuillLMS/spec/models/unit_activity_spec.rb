@@ -83,32 +83,32 @@ describe UnitActivity, type: :model, redis: true do
 
 
     it "returns true if it was created after 25-10-2016 and the classification is 1 or 2" do
-        unit_activity.update(created_at: Date.parse('26-10-2016'))
+      unit_activity.update(created_at: Date.parse('26-10-2016'))
         activity.classification = activity_classification2
         expect(unit_activity.from_valid_date_for_activity_analysis?).to eq(true)
     end
 
     it "returns false if it was created before 25-10-2016 and the classification is 1 or 2" do
-        unit_activity.update(created_at: Date.parse('24-10-2016'))
+      unit_activity.update(created_at: Date.parse('24-10-2016'))
         activity.classification = activity_classification2
         expect(unit_activity.from_valid_date_for_activity_analysis?).to eq(false)
     end
   end
 
   describe 'gives a checkbox when the teacher' do
-      before do
-          classroom.update(teacher_id: teacher.id)
-      end
+    before do
+      classroom.update(teacher_id: teacher.id)
+    end
 
       it 'assigns a unit activity through a custom activity pack' do
-          obj = Objective.create(name: 'Build Your Own Activity Pack')
+        obj = Objective.create(name: 'Build Your Own Activity Pack')
           new_unit = Unit.create(name: 'There is no way a featured activity pack would have this name', user: teacher)
           unit_activity.update(unit: new_unit)
           expect(unit_activity.unit.user.checkboxes.last.objective).to eq(obj)
       end
 
       it 'creates a unit with a unit_template_id' do
-          ut = UnitTemplate.create(name: 'Adverbs')
+        ut = UnitTemplate.create(name: 'Adverbs')
           obj = Objective.create(name: 'Assign Featured Activity Pack')
           new_unit = Unit.create(name: 'Adverbs', unit_template_id: ut.id, user: teacher)
           unit_activity.update!(unit: new_unit)
@@ -116,30 +116,30 @@ describe UnitActivity, type: :model, redis: true do
       end
 
       it 'assigns the entry diagnostic' do
-          obj = Objective.create(name: 'Assign Entry Diagnostic')
+        obj = Objective.create(name: 'Assign Entry Diagnostic')
           unit_activity.update!(activity_id: diagnostic_activity.id)
           expect(unit_activity.unit.user.checkboxes.last.objective).to eq(obj)
       end
   end
 
   context 'when it has a due_date_string attribute' do
-      describe '#due_date_string=' do
-          it 'must have a due date setter' do
-              expect(unit_activity.due_date_string = '03/02/2012').to eq('03/02/2012')
-          end
-
-          it 'must throw an exception whn not valid input' do
-              expect { unit_activity.due_date_string = '03-02-2012' }.to raise_error ArgumentError
-          end
+    describe '#due_date_string=' do
+      it 'must have a due date setter' do
+        expect(unit_activity.due_date_string = '03/02/2012').to eq('03/02/2012')
       end
 
+        it 'must throw an exception whn not valid input' do
+          expect { unit_activity.due_date_string = '03-02-2012' }.to raise_error ArgumentError
+        end
+    end
+
       describe '#due_date_string' do
-          before do
-              unit_activity.due_date_string = '03/02/2012'
-          end
+        before do
+          unit_activity.due_date_string = '03/02/2012'
+        end
 
           it 'must have a getter' do
-              expect(unit_activity.due_date_string).to eq('03/02/2012')
+            expect(unit_activity.due_date_string).to eq('03/02/2012')
           end
       end
   end

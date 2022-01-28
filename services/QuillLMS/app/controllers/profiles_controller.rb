@@ -139,7 +139,7 @@ class ProfilesController < ApplicationController
     if classroom_id
       current_user.classrooms.find_by(id: classroom_id.to_i) if !!classroom_id
     else
-       current_user.classrooms.last
+      current_user.classrooms.last
     end
   end
 end

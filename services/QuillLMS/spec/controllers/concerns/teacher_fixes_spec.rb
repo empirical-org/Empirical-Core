@@ -301,7 +301,7 @@ describe TeacherFixes do
     describe '#merge_two_units' do
       describe 'the first unit passed' do
         it 'has no classroom units' do
-            TeacherFixes::merge_two_units(unit1, unit2)
+          TeacherFixes::merge_two_units(unit1, unit2)
             expect(unit1.reload.classroom_units.where(visible: true)).to be_empty
         end
       end

@@ -3,7 +3,7 @@
 class CreateTopicCategories < ActiveRecord::Migration[4.2]
   def change
     create_table :topic_categories do |t|
-    	t.string :name
+    	 t.string :name
     	t.timestamps
     end
 
