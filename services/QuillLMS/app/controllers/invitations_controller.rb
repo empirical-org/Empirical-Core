@@ -52,7 +52,7 @@ class InvitationsController < ApplicationController
   end
 
   private def validate_empty_classroom_ids_or_email
-    return unless @classroom_ids.empty? || @invitee_email.empty?
+    return if @classroom_ids.present? && @invitee_email.present?
 
     raise StandardError, "Please make sure you've entered a valid email and selected at least one classroom."
   end
