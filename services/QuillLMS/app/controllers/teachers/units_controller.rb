@@ -144,7 +144,7 @@ class Teachers::UnitsController < ApplicationController
       activity: params[:activity_id]
     }
 
-    json = current_user.classroom_unit_cache(classroom_unit, key: 'units.score_info' , groups: cache_groups) do
+    json = current_user.classroom_unit_cache(classroom_unit, key: 'units.score_info', groups: cache_groups) do
       completed = ActivitySession.where(
         classroom_unit_id: params[:classroom_unit_id],
         activity_id: params[:activity_id],
