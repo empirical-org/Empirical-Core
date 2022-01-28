@@ -234,7 +234,7 @@ class Cms::SchoolsController < Cms::CmsController
     # We have to use HAVING here instead of including this in the WHERE query
     # builder because we're doing an aggregation here. This will merely filter
     # the results at the end.
-    return unless !school_query_params[:search_schools_with_zero_teachers] || school_query_params[:search_schools_with_zero_teachers] == 'false'
+    return if school_query_params[:search_schools_with_zero_teachers].present? && school_query_params[:search_schools_with_zero_teachers] != 'false'
 
     'HAVING COUNT(schools_users.*) != 0'
   end
