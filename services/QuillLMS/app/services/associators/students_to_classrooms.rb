@@ -2,6 +2,7 @@
 
 module Associators::StudentsToClassrooms
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.run(student, classroom)
     @@classroom = classroom
     if legit_classroom && legit_teacher && (student&.role == 'student')
@@ -22,8 +23,8 @@ module Associators::StudentsToClassrooms
     end
     student
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
-  
   def self.update_classroom_units(student_classroom)
     cus = ClassroomUnit.where(classroom_id: student_classroom.classroom_id)
     cus.each{|cu| cu.validate_assigned_student(student_classroom.student_id)}

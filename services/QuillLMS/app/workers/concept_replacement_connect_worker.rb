@@ -13,6 +13,7 @@ class ConceptReplacementConnectWorker
     replace_questions_in_connect('diagnostic_fillInBlankQuestions', original_concept_uid, new_concept_uid)
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def replace_questions_in_connect(endpoint, original_concept_uid, new_concept_uid)
     questions = HTTParty.get("#{ENV['FIREBASE_DATABASE_URL']}/v2/#{endpoint}.json").parsed_response
     questions.each do |key, q|
@@ -46,7 +47,9 @@ class ConceptReplacementConnectWorker
 
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def replace_focus_points_for_question(fp_obj, original_concept_uid, new_concept_uid)
     return if fp_obj.none? { |k, v| v['conceptResults'] && v['conceptResults'].any? { |crk, crv| crv['conceptUID'] == original_concept_uid } }
 
@@ -71,7 +74,9 @@ class ConceptReplacementConnectWorker
     end
     new_fp_obj
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def replace_incorrect_sequences_for_question(is_array, original_concept_uid, new_concept_uid)
     return if is_array.none? { |is| is['conceptResults'] && is['conceptResults'].any? { |crk, crv| crv['conceptUID'] == original_concept_uid } }
 
@@ -97,4 +102,5 @@ class ConceptReplacementConnectWorker
     end
     new_is_array
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

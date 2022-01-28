@@ -4,6 +4,7 @@ class AssignRecommendationsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def perform(options={})
     options = options.with_indifferent_access
     unit_template_id = options["unit_template_id"]
@@ -35,6 +36,7 @@ class AssignRecommendationsWorker
     PusherRecommendationCompleted.run(classroom, unit_template_id, lesson)
     track_assign_all_recommendations(teacher) if assigning_all_recommended_packs
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher_id)
     if unit.present?

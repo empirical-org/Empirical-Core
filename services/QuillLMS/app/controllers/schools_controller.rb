@@ -6,6 +6,7 @@ class SchoolsController < ApplicationController
   include CheckboxCallback
   MIN_PREFIX_LENGHT_WHEN_LAT_LON_NOT_PRESENT = 4
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def index
     @radius = params[:radius].presence || 5
     @lat = params[:lat]
@@ -82,6 +83,7 @@ class SchoolsController < ApplicationController
     end
 
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def new
   end

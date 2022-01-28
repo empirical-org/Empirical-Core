@@ -61,9 +61,11 @@ class SerializeActivityHealth
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def diagnostics
     @activity.unit_templates&.map {|ut| ut.recommendations}&.map{|r| r.map{|rr| rr.activity.name}}&.reject{|n| n == ''}&.flatten
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def average(list, attribute)
     return nil if list.empty?

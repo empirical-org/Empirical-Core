@@ -24,6 +24,7 @@ module Units::Updater
     update_helper(unit_id, activities_data, classrooms_data, current_user_id || teacher_id)
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.matching_or_new_classroom_unit(classroom, extant_classroom_units, new_cus, hidden_cus_ids, unit_id, concatenate_extant_student_ids)
     classroom_id = classroom[:id].to_i || classroom['id'].to_i
     matching_cu = extant_classroom_units.find{|cu| cu.classroom_id == classroom_id}
@@ -47,6 +48,7 @@ module Units::Updater
          assigned_student_ids: classroom[:student_ids]})
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def self.matching_or_new_unit_activity(activity_data, extant_unit_activities, new_uas, hidden_ua_ids, unit_id, order_number)
     activity_data_id = activity_data[:id].to_i || activity_data['id'].to_i
@@ -65,6 +67,7 @@ module Units::Updater
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.update_helper(unit_id, activities_data, classrooms_data, current_user_id, concatenate_extant_student_ids: false)
     extant_classroom_units = ClassroomUnit.where(unit_id: unit_id)
     new_cus = []
@@ -93,5 +96,6 @@ module Units::Updater
     end
     AssignActivityWorker.perform_async(current_user_id, unit_id)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
 end

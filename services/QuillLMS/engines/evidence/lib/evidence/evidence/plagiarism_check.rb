@@ -157,6 +157,7 @@ module Evidence
       @passage_word_arrays ||= clean_passage.split.each_cons(MATCH_MINIMUM).to_a
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     private def get_highlight(text, cleaned_text, matched_slice)
       extra_space_indexes = []
       cleaned_text.each_char.with_index { |c, i| extra_space_indexes.push(i) if c == ' ' && cleaned_text[i+1] == ' ' }
@@ -172,5 +173,6 @@ module Evidence
       char_positions = text.enum_for(:scan, /[A-Za-z0-9\s]/).map { |c| Regexp.last_match.begin(0) }
       text[char_positions[start_index]..char_positions[end_index]]
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
   end
 end

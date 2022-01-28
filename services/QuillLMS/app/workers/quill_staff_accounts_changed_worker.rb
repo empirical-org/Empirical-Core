@@ -31,6 +31,7 @@ class QuillStaffAccountsChangedWorker
     JSON.parse($redis.get(STAFF_ACCOUNTS_CACHE_KEY) || '[]')
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def notify_staff(current_staff_accounts, previous_staff_accounts)
     body = ''.dup
 
@@ -63,4 +64,5 @@ class QuillStaffAccountsChangedWorker
       body: body
     ).deliver
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

@@ -4,6 +4,7 @@ class Dashboard
   SUFFICIENT_DATA_AMOUNT = 30
   RESULT_LIMITS = 5
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.queries(user)
     get_redis_values(user)
     strug_stud = @@cached_strug_stud
@@ -32,6 +33,7 @@ class Dashboard
               {header: 'Difficult Concepts', results: diff_con}
 ]
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def self.completed_activity_count(user_id)
     RawSqlRunner.execute(

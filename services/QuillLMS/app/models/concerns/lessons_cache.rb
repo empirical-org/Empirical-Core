@@ -15,6 +15,7 @@ module LessonsCache
       "visible" => cua.unit_activity.visible}
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def update_lessons_cache(cua)
     classroom_id = cua.classroom_unit.classroom_id
     classroom = Classroom.find_by(id: classroom_id)
@@ -45,6 +46,7 @@ module LessonsCache
       $redis.set("user_id:#{user_id}_lessons_array", lessons_cache.to_json)
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def format_initial_lessons_cache(teacher)
     cuas = []

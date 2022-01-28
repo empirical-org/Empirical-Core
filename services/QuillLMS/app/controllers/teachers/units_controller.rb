@@ -196,6 +196,7 @@ class Teachers::UnitsController < ApplicationController
     units_i_teach_own_or_coteach('teach', report, false)
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def units_i_teach_own_or_coteach(teach_own_or_coteach, report, lessons)
     # returns an empty array if teach_own_or_coteach_classrooms_array is empty
     teach_own_or_coteach_classrooms_array = current_user.send("classrooms_i_#{teach_own_or_coteach}").map(&:id)
@@ -314,6 +315,7 @@ class Teachers::UnitsController < ApplicationController
       unit
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def diagnostic_unit_records
     diagnostic_activity_ids = ActivityClassification.find_by_key('diagnostic').activity_ids
@@ -352,6 +354,7 @@ class Teachers::UnitsController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def diagnostics_organized_by_classroom
     classrooms = []
     diagnostic_records = diagnostic_unit_records
@@ -390,7 +393,9 @@ class Teachers::UnitsController < ApplicationController
     end
     classrooms
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def record_with_aggregated_activity_sessions(diagnostic_records, activity_id, classroom_id, pre_test_activity_id)
     records = diagnostic_records.select { |record| record['activity_id'] == activity_id && record['classroom_id'] == classroom_id }
     return if records.empty?
@@ -406,6 +411,7 @@ class Teachers::UnitsController < ApplicationController
     record['assigned_count'] = assigned_student_ids.size
     record.except('unit_id', 'unit_name', 'classroom_unit_id', 'assigned_student_ids')
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def grouped_name(record)
     activity_ids_to_names = {

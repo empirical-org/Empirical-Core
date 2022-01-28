@@ -33,6 +33,7 @@ class Cms::SchoolsController < Cms::CmsController
 
   # This allows staff members to drill down on a specific school, including
   # viewing an index of teachers at this school.
+  # rubocop:disable Metrics/CyclomaticComplexity
   def show
     @subscription = @school&.subscription
     @school_subscription_info = {
@@ -60,6 +61,7 @@ class Cms::SchoolsController < Cms::CmsController
       }
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   # This allows staff members to edit certain details about a school.
   def edit
@@ -239,6 +241,7 @@ class Cms::SchoolsController < Cms::CmsController
     'HAVING COUNT(schools_users.*) != 0'
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def where_query_string_builder
     conditions = []
     # This converts all of the search inputs into strings so we can iterate
@@ -253,6 +256,7 @@ class Cms::SchoolsController < Cms::CmsController
     conditions = conditions.reject(&:nil?)
     "WHERE #{conditions.join(' AND ')}" unless conditions.empty?
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def where_query_string_clause_for(param, param_value)
     # Potential params by which to search:

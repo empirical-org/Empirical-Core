@@ -24,6 +24,7 @@ class RawScore < ApplicationRecord
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def readability_grade_level(activity_classification_id=nil)
     activity_classification = ActivityClassification.find_by_id(activity_classification_id)
     case name
@@ -59,4 +60,5 @@ class RawScore < ApplicationRecord
       ""
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

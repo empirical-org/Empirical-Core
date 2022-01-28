@@ -39,6 +39,7 @@ module DiagnosticReports
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id=nil, hashify_activity_sessions: false)
     if unit_id
       classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
@@ -61,6 +62,7 @@ module DiagnosticReports
 
     @activity_sessions = @activity_sessions.map { |session| [session.user_id, session] }.to_h
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def set_pre_test_activity_sessions_and_assigned_students(activity_id, classroom_id, hashify_activity_sessions: false)
     classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})

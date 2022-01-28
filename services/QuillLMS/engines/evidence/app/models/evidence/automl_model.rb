@@ -46,6 +46,7 @@ module Evidence
       state == STATE_ACTIVE
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def activate
       AutomlModel.transaction do
         prompt.automl_models.update_all(state: STATE_INACTIVE)
@@ -61,6 +62,8 @@ module Evidence
       raise e unless e.is_a?(ActiveRecord::RecordInvalid)
       return false
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
+
 
     def fetch_automl_label(text)
       automl_payload = {

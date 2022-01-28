@@ -200,6 +200,7 @@ class FeedbackHistory < ApplicationRecord
   end
   # rubocop:enable Lint/DuplicateBranch
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.list_by_activity_session(activity_id: nil, page: 1, start_date: nil, end_date: nil, page_size: DEFAULT_PAGE_SIZE, turk_session_id: nil, filter_type: nil)
     query = select(
       <<-SQL
@@ -244,6 +245,7 @@ class FeedbackHistory < ApplicationRecord
     query = query.offset((page.to_i - 1) * page_size.to_i) if page && page.to_i > 1
     query
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def self.get_total_count(activity_id: nil, start_date: nil, end_date: nil, turk_session_id: nil)
     query = FeedbackHistory.select(:feedback_session_uid)
@@ -260,6 +262,7 @@ class FeedbackHistory < ApplicationRecord
     query.length
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.serialize_detail_by_activity_session(feedback_session_uid)
     history = FeedbackHistory.list_by_activity_session.where(feedback_session_uid: feedback_session_uid).first
     return nil unless history
@@ -286,4 +289,5 @@ class FeedbackHistory < ApplicationRecord
     output[:prompts] = prompt_groups
     output.symbolize_keys
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

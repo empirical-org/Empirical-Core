@@ -7,6 +7,7 @@ class Cms::RostersController < Cms::CmsController
 
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def upload_teachers_and_students
     school = School.find_by(id: params[:school_id])
     raise "School not found. Check that the ID is correct and try again." if school.blank?
@@ -43,5 +44,6 @@ class Cms::RostersController < Cms::CmsController
   rescue StandardError => e
     render json: {errors: e.message}, status: 422
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
 end

@@ -67,6 +67,7 @@ class Classroom < ApplicationRecord
     super
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def validate_name
     return unless name_changed?
 
@@ -77,6 +78,7 @@ class Classroom < ApplicationRecord
 
     errors.add(:name, :taken)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def self.create_with_join(classroom_attributes, teacher_id)
     classroom = Classroom.new(classroom_attributes)

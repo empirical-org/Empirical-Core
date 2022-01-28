@@ -157,6 +157,7 @@ class EgFormBuilder < CMS::FormBuilder
     @template.content_tag :div, options, &block
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def field(*args, &block)
     type, name, options = _extract_field_args(args)
     out = ''.html_safe
@@ -210,6 +211,7 @@ class EgFormBuilder < CMS::FormBuilder
       out
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   # simple helper method for extracting and applying default options.
   def _apply_default_options(args, defaults)
@@ -236,6 +238,7 @@ class EgFormBuilder < CMS::FormBuilder
     [type, name, options]
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def _field_types(type)
     case type
     when :string, :location
@@ -258,6 +261,7 @@ class EgFormBuilder < CMS::FormBuilder
       :select
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def error_messages
     return if object.errors.none?

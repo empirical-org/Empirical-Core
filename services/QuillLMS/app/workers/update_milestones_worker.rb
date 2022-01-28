@@ -3,6 +3,7 @@
 class UpdateMilestonesWorker
   include Sidekiq::Worker
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def perform(activity_session_uid)
     activity_session = ActivitySession.find_by_uid(activity_session_uid)
     return unless activity_session
@@ -18,4 +19,5 @@ class UpdateMilestonesWorker
 
     teacher_milestones.push(Milestone.find_by(name: 'Complete Diagnostic'))
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

@@ -126,6 +126,7 @@ class ApplicationController < ActionController::Base
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   protected def confirm_valid_session
     # Don't do anything if there's no authorized user or session
     return if !current_user || !session
@@ -152,6 +153,7 @@ class ApplicationController < ActionController::Base
     # we can reset the session whenever (Time.now > (current_user.auth_credential.created_at + 5 months))
     return reset_session if current_user.google_id && current_user.auth_credential && Time.now > (current_user.auth_credential.created_at + 5.months)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   protected def user_inactive_for_too_long?
     return false if session[KEEP_ME_SIGNED_IN] || current_user.google_id || current_user.clever_id

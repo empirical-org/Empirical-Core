@@ -17,7 +17,7 @@ class Demo::CreateAdminReport
   private :email_safe_school_name
   private :teacher_email
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   private def create_demo
     # Create the school
     school = School.create!(name: name)
@@ -192,5 +192,5 @@ class Demo::CreateAdminReport
 
     admin_teacher
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 end

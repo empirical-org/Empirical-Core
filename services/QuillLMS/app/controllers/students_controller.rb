@@ -98,6 +98,7 @@ class StudentsController < ApplicationController
     auth_failed unless current_user
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def redirect_to_profile
     @current_user = current_user
     classroom_id = params["classroom"]
@@ -113,6 +114,7 @@ class StudentsController < ApplicationController
       redirect_to classes_path
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def flash_missing_unit_error
     classroom_id = params["classroom"]

@@ -13,6 +13,7 @@ class UniversalRuleLoader
     opinion: 'Opinion API'
   }
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.update_from_csv(type:, iostream:)
     if !Evidence::Rule::TYPES.include?(type) || TYPE_LOOKUP[type.to_sym].nil?
       raise ArgumentError, "Invalid rule type: #{type}"
@@ -56,4 +57,5 @@ class UniversalRuleLoader
       end
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

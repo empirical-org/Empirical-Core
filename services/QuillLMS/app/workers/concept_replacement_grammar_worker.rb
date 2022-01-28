@@ -4,6 +4,7 @@ class ConceptReplacementGrammarWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def perform(original_concept_uid, new_concept_uid)
     activities = HTTParty.get("#{ENV['FIREBASE_DATABASE_URL']}/v3/grammarActivities.json").parsed_response
     activities.each do |key, act|
@@ -45,7 +46,9 @@ class ConceptReplacementGrammarWorker
       end
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def replace_focus_points_or_incorrect_sequences_for_question(fp_or_is, original_concept_uid, new_concept_uid)
     return unless fp_or_is.any? { |k, v| v['conceptResults'] && v['conceptResults'].any? { |crk, crv| crv['conceptUID'] == original_concept_uid } }
 
@@ -70,4 +73,5 @@ class ConceptReplacementGrammarWorker
     end
     new_fp_or_is
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

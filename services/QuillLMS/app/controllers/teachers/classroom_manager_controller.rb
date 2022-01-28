@@ -70,6 +70,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     @classroom = @classroom.as_json
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def dashboard
     if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.none? && !current_user.has_outstanding_coteacher_invitation? && current_user.schools_admins.any?
         redirect_to teachers_admin_dashboard_path
@@ -87,6 +88,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     growth_diagnostic_promotion_card_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_growth_diagnostic_promotion_card])
     @show_diagnostic_promotion_card = !UserMilestone.find_by(milestone_id: growth_diagnostic_promotion_card_milestone&.id, user_id: current_user&.id) && (current_user.created_at < "2021-11-29".to_date || current_user&.unit_activities&.where(activity_id: Activity.diagnostic_activity_ids)&.any?)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def students_list
     @classroom = current_user.classrooms_i_teach.find {|classroom| classroom.id == params[:id]&.to_i}
@@ -255,6 +257,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     render json: { data: TeacherActivityFeed.get(current_user.id) }
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def generate_onboarding_checklist
     Objective::ONBOARDING_CHECKLIST_NAMES.map do |name|
       objective = Objective.find_by_name(name)
@@ -272,6 +275,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       }
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def set_classroom_variables
     @tab = params[:tab]
@@ -286,6 +290,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     @last_classroom_id = last_classroom.id
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def set_banner_variables
     acknowledge_diagnostic_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_diagnostic_banner])
     acknowledge_lessons_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_lessons_banner])
@@ -293,7 +298,9 @@ class Teachers::ClassroomManagerController < ApplicationController
     @show_diagnostic_banner = !UserMilestone.find_by(milestone_id: acknowledge_diagnostic_banner_milestone&.id, user_id: current_user&.id) && current_user&.unit_activities&.where(activity_id: diagnostic_ids)&.none?
     @show_lessons_banner = !UserMilestone.find_by(milestone_id: acknowledge_lessons_banner_milestone&.id, user_id: current_user&.id) && current_user&.classroom_unit_activity_states&.where(completed: true)&.none?
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def set_diagnostic_variables
     @assigned_pre_tests = Activity.where(id: Activity::PRE_TEST_DIAGNOSTIC_IDS).map do |act|
       pre_test_diagnostic_unit_ids = current_user&.unit_activities&.where(activity_id: act.id)&.map(&:unit_id) || []
@@ -315,6 +322,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       }
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def classroom_with_students_json(classrooms)
     { classrooms_and_their_students: classrooms.map { |classroom| classroom_json(classroom) } }
