@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'webmock/minitest'
 
-require("webmock/minitest")
 module Evidence
   RSpec.describe(FeedbackController, :type => :controller) do
     before do
@@ -210,7 +210,7 @@ module Evidence
       it 'should return successfully' do
         post("plagiarism", :params => ({ :entry => "No plagiarism here.", :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response["optimal"]).to(eq(true))
+        expect(parsed_response["optimal"]).to be true
       end
 
       it 'should return 404 if prompt id does not exist' do
@@ -221,42 +221,42 @@ module Evidence
       it 'should return successfully when there is plagiarism that matches the first plagiarism text string' do
         post("plagiarism", :params => ({ :entry => ("bla bla bla #{plagiarized_text1}"), :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response["optimal"]).to(eq(false))
+        expect(parsed_response["optimal"]).to be false
         expect(plagiarized_text1).to(eq(parsed_response["highlight"][0]["text"]))
         expect(plagiarized_text1).to(eq(parsed_response["highlight"][1]["text"]))
         expect(first_feedback.text).to(eq(parsed_response["feedback"]))
         request.env.delete("RAW_POST_DATA")
         post("plagiarism", :params => ({ :entry => ("bla bla bla #{plagiarized_text1}"), :prompt_id => prompt.id, :session_id => 5, :previous_feedback => ([parsed_response]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response["optimal"]).to(eq(false))
+        expect(parsed_response["optimal"]).to be false
         expect(second_feedback.text).to(eq(parsed_response["feedback"]))
       end
 
       it 'should return successfully when there is plagiarism that matches the second plagiarism text string' do
         post("plagiarism", :params => ({ :entry => ("bla bla bla #{plagiarized_text2}"), :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response["optimal"]).to(eq(false))
+        expect(parsed_response["optimal"]).to be false
         expect(plagiarized_text2).to(eq(parsed_response["highlight"][0]["text"]))
         expect(plagiarized_text2).to(eq(parsed_response["highlight"][1]["text"]))
         expect(first_feedback.text).to(eq(parsed_response["feedback"]))
         request.env.delete("RAW_POST_DATA")
         post("plagiarism", :params => ({ :entry => ("bla bla bla #{plagiarized_text2}"), :prompt_id => prompt.id, :session_id => 5, :previous_feedback => ([parsed_response]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response["optimal"]).to(eq(false))
+        expect(parsed_response["optimal"]).to be false
         expect(second_feedback.text).to(eq(parsed_response["feedback"]))
       end
 
       it 'should return successfully when there is fuzzy match plagiarism' do
         post("plagiarism", :params => ({ :entry => ("bla bla bla FZY#{plagiarized_text1}"), :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response["optimal"]).to(eq(false))
+        expect(parsed_response["optimal"]).to be false
         expect("FZY#{plagiarized_text1}").to(eq(parsed_response["highlight"][0]["text"]))
         expect(plagiarized_text1).to(eq(parsed_response["highlight"][1]["text"]))
         expect(first_feedback.text).to(eq(parsed_response["feedback"]))
         request.env.delete("RAW_POST_DATA")
         post("plagiarism", :params => ({ :entry => ("bla bla bla #{plagiarized_text1}"), :prompt_id => prompt.id, :session_id => 5, :previous_feedback => ([parsed_response]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response["optimal"]).to(eq(false))
+        expect(parsed_response["optimal"]).to be false
         expect(second_feedback.text).to(eq(parsed_response["feedback"]))
       end
     end
@@ -266,7 +266,7 @@ module Evidence
       it 'should return successfully' do
         post("regex", :params => ({ :rule_type => rule_regex.rule_type, :entry => "no regex problems here.", :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response["optimal"]).to(eq(true))
+        expect(parsed_response["optimal"]).to be true
       end
 
       it 'should return 404 if prompt id does not exist' do
@@ -282,7 +282,7 @@ module Evidence
       it 'should return successfully when there is regex feedback' do
         post("regex", :params => ({ :rule_type => rule_regex.rule_type, :entry => "test regex response", :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response["optimal"]).to(eq(false))
+        expect(parsed_response["optimal"]).to be false
       end
     end
 
@@ -317,7 +317,7 @@ module Evidence
         post("spelling", :params => ({ :entry => "test spelin error", :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
         parsed_response = JSON.parse(response.body)
         expect(response.status).to(eq(200))
-        expect(parsed_response["optimal"]).to(eq(false))
+        expect(parsed_response["optimal"]).to be false
       end
 
       it 'should return 500 if there is an error on the bing API' do
