@@ -8,19 +8,19 @@ class RuleFeedbackHistory
 
   def self.exec_query(conjunction:, activity_id:, start_date:, end_date:, turk_session_id:)
     query = Evidence::Rule.select(<<~SELECT
-          comprehension_rules.id,
-          comprehension_rules.uid AS rules_uid,
-          prompts.activity_id AS activity_id,
-          comprehension_rules.rule_type AS rule_type,
-          comprehension_rules.suborder AS rule_suborder,
-          comprehension_rules.name AS rule_name,
-          comprehension_rules.note AS rule_note,
-          count(DISTINCT feedback_histories.id) AS total_responses,
-          count(DISTINCT CASE WHEN feedback_history_ratings.rating = true THEN feedback_history_ratings.id END) AS total_strong,
-          count(DISTINCT CASE WHEN feedback_history_ratings.rating = false THEN feedback_history_ratings.id END) AS total_weak,
-          count(DISTINCT CASE WHEN feedback_history_flags.flag = '#{FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE}' THEN feedback_history_flags.id END) AS repeated_consecutive,
-          count(DISTINCT CASE WHEN feedback_history_flags.flag = '#{FeedbackHistoryFlag::FLAG_REPEATED_RULE_NON_CONSECUTIVE}' THEN feedback_history_flags.id END) AS repeated_non_consecutive
-        SELECT
+      comprehension_rules.id,
+      comprehension_rules.uid AS rules_uid,
+      prompts.activity_id AS activity_id,
+      comprehension_rules.rule_type AS rule_type,
+      comprehension_rules.suborder AS rule_suborder,
+      comprehension_rules.name AS rule_name,
+      comprehension_rules.note AS rule_note,
+      count(DISTINCT feedback_histories.id) AS total_responses,
+      count(DISTINCT CASE WHEN feedback_history_ratings.rating = true THEN feedback_history_ratings.id END) AS total_strong,
+      count(DISTINCT CASE WHEN feedback_history_ratings.rating = false THEN feedback_history_ratings.id END) AS total_weak,
+      count(DISTINCT CASE WHEN feedback_history_flags.flag = '#{FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE}' THEN feedback_history_flags.id END) AS repeated_consecutive,
+      count(DISTINCT CASE WHEN feedback_history_flags.flag = '#{FeedbackHistoryFlag::FLAG_REPEATED_RULE_NON_CONSECUTIVE}' THEN feedback_history_flags.id END) AS repeated_non_consecutive
+    SELECT
     )
     .joins('INNER JOIN comprehension_prompts_rules as prompts_rules ON comprehension_rules.id = prompts_rules.rule_id')
     .joins('INNER JOIN comprehension_prompts as prompts ON prompts_rules.prompt_id = prompts.id')

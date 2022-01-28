@@ -60,8 +60,8 @@ class StudentsClassroomsController < ApplicationController
         .where(student_id: current_user.id, visible: false)
         .includes(classroom: :teacher)
         .map(&:archived_classrooms_manager)
-      rescue NoMethodError => e
-        render json: {error: "No classrooms yet!"}, status: 400
+    rescue NoMethodError => e
+      render json: {error: "No classrooms yet!"}, status: 400
       else
         render json: {active: active, inactive: inactive}
     end

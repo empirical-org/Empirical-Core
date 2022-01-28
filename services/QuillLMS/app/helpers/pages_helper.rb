@@ -2,7 +2,7 @@
 
 module PagesHelper
 
- # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity
 	 def pages_tab_class(tabname)
  		 about_actions = ["mission", "develop", "faq"]
  		 impact_actions = ['impact', 'map', 'stats']
@@ -30,7 +30,7 @@ module PagesHelper
   		when "team"
   			 team_actions.include?(action_name) ? 'active' : ''
   		when 'getting-started'
-  			# TODO: revert this when we launch front end of knowlege center
+  			 # TODO: revert this when we launch front end of knowlege center
   			 action_name == 'temporarily_render_old_teacher_resources' ? 'active' : ''
   		when 'news'
   			 news_actions.include?(action_name) ? 'active' : ''
@@ -47,7 +47,7 @@ module PagesHelper
   		end
 
  	end
- # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity
 
 	 def subtab_class(tabname)
  		 if action_name == tabname
@@ -221,7 +221,7 @@ module PagesHelper
         ]
       }
     ]
- 	 end
+  end
 
   def board_and_advisors_info
     [

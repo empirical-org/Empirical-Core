@@ -250,7 +250,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         number_of_selections = selections_with_students.length
         selections_with_students.each_with_index do |value, index|
           last = (number_of_selections - 1) == index
-            # this only accommodates one classroom at a time
+          # this only accommodates one classroom at a time
           classroom = value[:classrooms][0]
           argument_hash = {
             unit_template_id: value[:id],

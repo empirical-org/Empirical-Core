@@ -4,8 +4,8 @@ namespace :add_user_id_to_units do
   desc 'assign existing units the correct user_id'
   task :update => :environment do
 
-    # if we ever start allowing users to restore units they've archived,
-    # this will need to be updated
+   # if we ever start allowing users to restore units they've archived,
+   # this will need to be updated
 
    Unit.where(user_id: nil).each do |unit|
     classroom_activities = ClassroomActivity.unscoped.where(unit_id: unit.id)

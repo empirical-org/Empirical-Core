@@ -9,8 +9,8 @@ describe Units::Updater do
     let!(:unit_template) { create(:unit_template_with_activities )}
     let!(:unit_based_on_unit_template) { create(:unit, user_id: teacher.id, unit_template_id: unit_template.id)}
     let!(:classroom_unit_for_unit_template) { create(:classroom_unit, classroom_id: classroom.id, unit_id: unit_based_on_unit_template.id, assigned_student_ids: [student.id])}
-  # let activities_data = [{id: activity.id, due_date: nil}]
-  # classroom_unit.update(unit_id: unit.id)
+    # let activities_data = [{id: activity.id, due_date: nil}]
+    # classroom_unit.update(unit_id: unit.id)
 
     def activities_data
       [{id: activity.id, due_date: nil}]
@@ -26,10 +26,10 @@ describe Units::Updater do
       unit_activity
     end
 
-  # in this file, 'unit' refers to a unit object, 'activities_data' to an array of objects
-  # with activity ids and due_dates, and 'classrooms_data' to an array of objects with an id
-  # and array of student ids.
-  # self.run(unit.id, activities_data, classrooms_data)
+    # in this file, 'unit' refers to a unit object, 'activities_data' to an array of objects
+    # with activity ids and due_dates, and 'classrooms_data' to an array of objects with an id
+    # and array of student ids.
+    # self.run(unit.id, activities_data, classrooms_data)
 
     describe "assign_unit_template_to_one_class" do
       context "there are already students assigned to the classroom unit" do

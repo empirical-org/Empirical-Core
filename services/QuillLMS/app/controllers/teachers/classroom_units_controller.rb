@@ -22,10 +22,10 @@ class Teachers::ClassroomUnitsController < ApplicationController
         classroom_unit: @classroom_unit,
         unit_activity: @unit_activity
       )
-      rescue ActiveRecord::StatementInvalid
-        flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
-        redirect_back(fallback_location: dashboard_teachers_classrooms_path)
-        return
+    rescue ActiveRecord::StatementInvalid
+      flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
+      redirect_back(fallback_location: dashboard_teachers_classrooms_path)
+      return
     end
 
     # rubocop:disable Style/GuardClause

@@ -18,7 +18,7 @@ module LessonsRecommendations
     PublicProgressReports.activity_sessions_with_counted_concepts(@activity_sessions)
   end
 
-    # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity
   def recommendations
     LessonRecommendationsQuery.new(
       @activity_id,
@@ -44,7 +44,7 @@ module LessonsRecommendations
       return_value_for_lesson_recommendation(lessons_rec, fail_count, students_needing_instruction)
     end
   end
-    # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def return_value_for_lesson_recommendation(lessons_rec, fail_count, students_needing_instruction)
     {

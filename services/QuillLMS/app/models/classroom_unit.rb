@@ -106,7 +106,7 @@ class ClassroomUnit < ApplicationRecord
        assigned_student_ids.length >= student_ids.length &&
        (assigned_student_ids - student_ids).empty?
 
-        # then it should indeed be assigned to all
+      # then it should indeed be assigned to all
       self.assign_on_join = true
     end
 
