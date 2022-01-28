@@ -63,6 +63,22 @@
       color: #808080;
     }
   }
+  .highlight-section {
+    .highlight-label-section {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+      h3 {
+        margin: 0px 4px 0px 0px;
+      }
+      .quill-tooltip-trigger {
+        width: auto;
+        .quill-tooltip-wrapper {
+          transform: initial;
+        }
+      }
+    }
+  }
   section.read-the-directions-modal {
     padding: 16px 20px;
     border-radius: 10px;

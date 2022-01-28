@@ -63,11 +63,9 @@ const RightPanel = ({
       <div className="steps-outer-container" onScroll={resetTimers}>
         <ReadAndHighlightInstructions
           activeStep={activeStep}
-          handleReadTheDirectionsButtonClick={handleReadTheDirectionsButtonClick}
           inReflection={doneHighlighting && activeStep === READ_PASSAGE_STEP}
           passage={activities.currentActivity.passages[0]}
           removeHighlight={toggleStudentHighlight}
-          showReadTheDirectionsButton={showReadTheDirectionsButton}
           studentHighlights={studentHighlights}
         />
         {bottomNavigation}

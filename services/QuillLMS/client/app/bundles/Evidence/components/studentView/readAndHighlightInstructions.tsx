@@ -3,13 +3,18 @@ import * as React from 'react'
 import DisplayStudentHighlight from './displayStudentHighlight'
 import DirectionsSection from './directionsSection'
 
-const ReadAndHighlightInstructions = ({ passage, activeStep, showReadTheDirectionsButton, handleReadTheDirectionsButtonClick, studentHighlights, removeHighlight, inReflection, }) => {
+import { helpIcon, Tooltip } from '../../../Shared/index'
+
+const ReadAndHighlightInstructions = ({ passage, activeStep, studentHighlights, removeHighlight, inReflection, }) => {
   let studentHighlightsOrHighlightInstructions = (
     <div className="highlight-instructions">
       <p>Your highlights will appear here.</p>
     </div>
   )
   let readAndHighlightContainerClassName = 'read-and-highlight-container hide-on-mobile'
+  const tooltipTrigger = <img alt={helpIcon.alt} src={helpIcon.src} />
+  const tooltipText = "<p>How to highlight:</p><br/><p>Step 1 - Hover over a sentence</p><br/><p>Step 2 - Click, tap, or select the sentence</p><br/><p>If you change your mind about something you've highlighted, click, tap, or deselect the sentence again to remove the highlight.</p>"
+
   if (studentHighlights.length) {
     studentHighlightsOrHighlightInstructions = studentHighlights.map(sh => (
       <DisplayStudentHighlight
@@ -27,10 +32,16 @@ const ReadAndHighlightInstructions = ({ passage, activeStep, showReadTheDirectio
       className="hide-on-mobile"
       inReflection={inReflection}
       passage={passage}
-      showReadTheDirectionsButton={showReadTheDirectionsButton}
     />
     <section className="highlight-section">
-      <h3>Highlights</h3>
+      <div className="highlight-label-section">
+        <h3>Highlights</h3>
+        <Tooltip
+          isTabbable={true}
+          tooltipText={tooltipText}
+          tooltipTriggerText={tooltipTrigger}
+        />
+      </div>
       {studentHighlightsOrHighlightInstructions}
     </section>
   </div>)
