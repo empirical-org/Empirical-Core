@@ -13,6 +13,8 @@ class ActiveRecord::Relation
   #
   # Returns
   #   nothing is returned from the function
+
+  # rubocop:disable Metrics/CyclomaticComplexity
   def pluck_in_batches(*columns, batch_size: 1000)
     if columns.empty?
       raise "There must be at least one column to pluck"
@@ -60,6 +62,7 @@ class ActiveRecord::Relation
       batch_start = last_id + 1
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end
 
 module IncorrectSequenceCalculator
@@ -156,6 +159,7 @@ module IncorrectSequenceCalculator
     counter
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.amplify(incorrect_substrings, correct_substrings)
     begin
       incorrect_substrings.each do |substring,v|
@@ -178,5 +182,6 @@ module IncorrectSequenceCalculator
       raise
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
 end

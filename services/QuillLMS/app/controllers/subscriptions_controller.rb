@@ -68,6 +68,7 @@ class SubscriptionsController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def subscription_status
     current_subscription = current_user.subscription
     if current_subscription
@@ -85,6 +86,7 @@ class SubscriptionsController < ApplicationController
     subscription_attributes = @subscription_status_obj&.attributes || {}
     @subscription_status = subscription_attributes.merge(attributes_for_front_end)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def subscription_params
     params.require(:subscription).permit(:id, :purchaser_id, :expiration, :account_type, :authenticity_token, :recurring)

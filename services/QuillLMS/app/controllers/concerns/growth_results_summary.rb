@@ -50,6 +50,7 @@ module GrowthResultsSummary
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def skill_groups_for_session(skill_groups, post_test_activity_session, pre_test_activity_session, student_name)
     skill_groups.map do |skill_group|
       skills = skill_group.skills.map do |skill|
@@ -88,6 +89,7 @@ module GrowthResultsSummary
       }
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def summarize_student_proficiency_for_skill_overall(present_skill_number, correct_skill_number, pre_correct_skill_number)
     case correct_skill_number

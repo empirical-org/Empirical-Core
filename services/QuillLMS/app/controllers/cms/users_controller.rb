@@ -216,6 +216,7 @@ class Cms::UsersController < Cms::CmsController
     "WHERE #{conditions.reject(&:nil?).join(' AND ')}"
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   protected def where_query_string_clause_for(param, param_value)
     # Potential params by which to search:
     # User name: users.name
@@ -252,6 +253,7 @@ class Cms::UsersController < Cms::CmsController
       nil
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   protected def class_code_string_builder
     class_code = user_query_params["class_code"]

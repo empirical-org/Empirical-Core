@@ -6,17 +6,17 @@ module Evidence
   class FeedbackController < ApiController
     before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling]
 
-    def grammar 
+    def grammar
       grammar_client = Grammar::Client.new(entry: params['entry'], prompt_text: params['prompt_text'])
       render json: Grammar::FeedbackAssembler.run(grammar_client.post)
     end
 
-    def opinion 
+    def opinion
       oapi_client = Opinion::Client.new(entry: params['entry'], prompt_text: params['prompt_text'])
       render json: Opinion::FeedbackAssembler.run(oapi_client.post)
-    end 
+    end
 
-    def prefilter 
+    def prefilter
       prefilter_check = Evidence::PrefilterCheck.new(prefilter_params)
       render json: prefilter_check.feedback_object
     end
@@ -75,10 +75,12 @@ module Evidence
       @previous_feedback = params[:previous_feedback]
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     private def get_plagiarism_feedback_from_previous_feedback(prev, rule)
       previous_plagiarism = prev.select {|f| f["feedback_type"] == Evidence::Rule::TYPE_PLAGIARISM && f["optimal"] == false }
       feedbacks = rule&.feedbacks
       previous_plagiarism.empty? ? feedbacks&.find_by(order: 0)&.text : feedbacks&.find_by(order: 1)&.text
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
   end
 end

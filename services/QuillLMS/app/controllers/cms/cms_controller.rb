@@ -3,6 +3,7 @@
 class Cms::CmsController < ApplicationController
   before_action :staff!
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def subscription_data
     if !@school && !@user && @subscription.schools.any?
       # then we are here directly through edit subscriptions and we want to select
@@ -22,4 +23,5 @@ class Cms::CmsController < ApplicationController
 
     @schools_users = @school.users.map{|u| {id: u.id, name: u.name, email: u.email}}
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

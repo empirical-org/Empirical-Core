@@ -119,6 +119,7 @@ module Evidence
       identify_first_matched_substring(passage_word_arrays, slices)
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     private def identify_first_matched_substring(slices_to_assemble, slices_to_match)
       combined_matched_slices = []
       # Placeholder to be overridden during the first run of the loop that makes it past the confirm_minimum_overlap? guard statement.  If that never happens, we don't have to calculate this value
@@ -147,6 +148,7 @@ module Evidence
       end
       combined_matched_slices
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     private def confirm_minimum_overlap?(target_array, source_arrays)
       # Since we allow character deviation that's smaller than the total number of words compared
@@ -161,6 +163,7 @@ module Evidence
       @passage_word_arrays ||= clean_passage.split.each_cons(MATCH_MINIMUM).to_a
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     private def get_highlight(text, cleaned_text, matched_slice)
       extra_space_indexes = []
       cleaned_text.each_char.with_index { |c, i| extra_space_indexes.push(i) if c == ' ' && cleaned_text[i+1] == ' ' }
@@ -176,5 +179,6 @@ module Evidence
       char_positions = text.enum_for(:scan, /[A-Za-z0-9\s]/).map { |c| Regexp.last_match.begin(0) }
       text[char_positions[start_index]..char_positions[end_index]]
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
   end
 end

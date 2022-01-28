@@ -29,6 +29,7 @@ class BlogPostsController < ApplicationController
     render :index
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def show
     draft_statuses = current_user&.staff? ? [true, false] : false
 
@@ -55,6 +56,7 @@ class BlogPostsController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def search
     @query = params[:query]

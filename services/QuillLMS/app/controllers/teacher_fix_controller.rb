@@ -80,6 +80,7 @@ class TeacherFixController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def merge_student_accounts
     primary_account = User.find_by_username_or_email(params['account1_identifier'])
     secondary_account = User.find_by_username_or_email(params['account2_identifier'])
@@ -99,7 +100,9 @@ class TeacherFixController < ApplicationController
       render json: {error: "We do not have an account for #{missing_account_identifier}"}
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def merge_teacher_accounts
     account1 = User.find_by_username_or_email(params['account1_identifier'])
     account2 = User.find_by_username_or_email(params['account2_identifier'])
@@ -125,6 +128,7 @@ class TeacherFixController < ApplicationController
       render json: {error: "We do not have an account for #{missing_account_identifier}"}
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def move_student_from_one_class_to_another
     account_identifier = params['student_identifier']
@@ -198,6 +202,7 @@ class TeacherFixController < ApplicationController
     render json: {}, status: 200
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def merge_activity_packs
     begin
       raise 'Please specify an activity pack ID.' if params['from_activity_pack_id'].nil? || params['to_activity_pack_id'].nil?
@@ -216,6 +221,7 @@ class TeacherFixController < ApplicationController
     end
     render json: {}, status: 200
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def delete_last_activity_session
     begin

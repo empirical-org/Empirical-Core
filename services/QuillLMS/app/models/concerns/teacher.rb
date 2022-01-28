@@ -68,6 +68,7 @@ module Teacher
     Set.new.tap { |ids| all_ids.each { |row| ids.merge(row.values) } }
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classrooms_ids_to_check=nil)
     if classrooms_ids_to_check && classrooms_ids_to_check.any?
       # if there are specific ids passed it will only return those that match
@@ -113,6 +114,7 @@ module Teacher
       classrooms_teachers_ids: classrooms_teachers_ids.to_a
     }
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def affiliated_with_unit?(unit_id)
     RawSqlRunner.execute(
@@ -145,6 +147,7 @@ module Teacher
     Classroom.find_by_sql("#{base_sql_for_teacher_classrooms(only_visible_classrooms: false)} AND ct.role = 'owner' AND classrooms.visible = false")
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def handle_negative_classrooms_from_update_coteachers(classroom_ids=nil)
     return unless classroom_ids && classroom_ids.any?
 
@@ -158,6 +161,7 @@ module Teacher
       end
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def handle_positive_classrooms_from_update_coteachers(classroom_ids, inviter_id)
     return unless classroom_ids && classroom_ids.any?
@@ -333,6 +337,7 @@ module Teacher
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def update_teacher params
     return if !teacher?
 
@@ -401,7 +406,9 @@ module Teacher
     end
     response
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def updated_school(school_id)
     school = School.find_by(id: school_id)
     if subscription && subscription.school_subscriptions.any? && !has_matching_subscription?(id, school&.subscription&.id)
@@ -416,6 +423,7 @@ module Teacher
     # then we let the user subscription handle everything else
     UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(id, school.subscription.id)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def has_matching_subscription?(user_id, subscription_id)
     UserSubscription.where(user_id: user_id, subscription_id: subscription_id).exists?

@@ -5,6 +5,7 @@ class Cms::ActivityCategoriesController < Cms::CmsController
     render json: { activity_categories: format_activity_categories }
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def mass_update
     ActivityCategory.all.each do |extant_ac|
       ac = params[:activity_categories].find { |activity_category| activity_category[:id].to_i == extant_ac.id }
@@ -24,6 +25,7 @@ class Cms::ActivityCategoriesController < Cms::CmsController
     end
     render json: { activity_categories: format_activity_categories }
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def create
     activity_category = ActivityCategory.create(activity_category_params)

@@ -44,6 +44,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: { students: students_json }
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def individual_student_diagnostic_responses
     activity_id = individual_student_diagnostic_responses_params[:activity_id]
     classroom_id = individual_student_diagnostic_responses_params[:classroom_id]
@@ -78,6 +79,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
     render json: { concept_results: concept_results, skill_results: skill_results, name: student.name }
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def classrooms_with_students
     classrooms = classrooms_with_students_for_report(params[:unit_id], params[:activity_id])
@@ -117,6 +119,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: { skills_growth: skills_growth_by_classroom_for_post_tests(params[:classroom_id], params[:post_test_activity_id], params[:pre_test_activity_id]) }
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit
     params.permit(:unit_id, :activity_id)
     unit_id = params[:unit_id]
@@ -138,6 +141,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
     # rubocop:enable Style/GuardClause
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def assign_selected_packs
       if params[:selections]
@@ -227,6 +231,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: GrowthResultsSummary.growth_results_summary(pre_test.id, results_summary_params[:activity_id], results_summary_params[:classroom_id])
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def create_or_update_selected_packs
     if params[:whole_class]
       $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.now)
@@ -260,6 +265,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       end
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def authorize_teacher!
     classroom_teacher!(params[:classroom_id])

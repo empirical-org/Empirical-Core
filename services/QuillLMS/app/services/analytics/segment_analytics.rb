@@ -48,6 +48,7 @@ class SegmentAnalytics
     })
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def track_activity_pack_assignment(teacher_id, unit_id)
     unit = Unit.find_by_id(unit_id)
 
@@ -79,6 +80,7 @@ class SegmentAnalytics
       }
     })
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def track_activity_completion(user, student_id, activity)
     track({
@@ -88,6 +90,7 @@ class SegmentAnalytics
     })
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def track_classroom_creation(classroom)
     # TODO: Remove early return once this bug is fixed
     # https://sentry.io/organizations/quillorg-5s/issues/2459924163/?project=11238&query=is%3Aunresolved
@@ -109,6 +112,7 @@ class SegmentAnalytics
       }
     })
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def track_activity_search(user_id, search_query)
     track({

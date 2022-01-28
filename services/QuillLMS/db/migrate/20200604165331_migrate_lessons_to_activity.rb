@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class MigrateLessonsToActivity < ActiveRecord::Migration[4.2]
+  # rubocop:disable Metrics/CyclomaticComplexity
   def change
     # Before running this part, make sure that the inconsistent names in this
     # spreadsheet are resolved:
@@ -67,6 +68,6 @@ class MigrateLessonsToActivity < ActiveRecord::Migration[4.2]
       a.data = data
       a.save!
     end
-
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

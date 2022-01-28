@@ -219,6 +219,7 @@ class ActivitySession < ApplicationRecord
     super || unit_activity&.activity
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def determine_if_final_score
     return if state != 'finished' || (percentage.nil? && !activity.is_evidence?)
 
@@ -239,6 +240,7 @@ class ActivitySession < ApplicationRecord
     # return true otherwise save will be prevented
     true
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def formatted_due_date
     return nil if unit_activity&.due_date.nil?
@@ -314,6 +316,7 @@ class ActivitySession < ApplicationRecord
     percentage
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def parse_for_results
     concept_results_by_concept = concept_results.group_by { |c| c.concept_id }
 
@@ -343,6 +346,7 @@ class ActivitySession < ApplicationRecord
 
     results
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   alias owner user
 
@@ -519,6 +523,7 @@ class ActivitySession < ApplicationRecord
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.search_sort_sql(sort)
     if sort.blank? or sort[:field].blank?
       sort = {
@@ -552,6 +557,7 @@ class ActivitySession < ApplicationRecord
       "standards.name #{order}"
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def trigger_events
     yield # http://stackoverflow.com/questions/4998553/rails-around-callbacks

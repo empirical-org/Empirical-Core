@@ -9,6 +9,7 @@ class SerializeVitallySalesUser
     @user = user
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def data
     current_time = Time.zone.now
     school_year_start = School.school_year_start(current_time)
@@ -88,6 +89,7 @@ class SerializeVitallySalesUser
       }.merge(account_data_params)
     }
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def evidence_id
     ActivityClassification.evidence.id

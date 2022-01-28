@@ -44,7 +44,7 @@ module TeacherFixes
     cu1.update!(visible: false)
   end
 
-  # rubocop:disable Lint/DuplicateBranch
+  # rubocop:disable Lint/DuplicateBranch, Metrics/CyclomaticComplexity
   def self.merge_activity_sessions_between_two_classroom_units(cu1, cu2)
     # use the most recently completed activity session
     cu1.activity_sessions.each do |act_sesh1|
@@ -64,7 +64,7 @@ module TeacherFixes
       end
     end
   end
-  # rubocop:enable Lint/DuplicateBranch
+  # rubocop:enable Lint/DuplicateBranch, Metrics/CyclomaticComplexity
 
   def self.move_activity_sessions(user, classroom1, classroom2)
     classroom1_id = classroom1.id

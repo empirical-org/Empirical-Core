@@ -21,6 +21,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def return_data(should_return_json)
     classroom_units_filter = params[:classroom_id].blank? ? '' : "AND classroom_units.classroom_id = #{params[:classroom_id].to_i}"
     student_filter = params[:student_id].blank? ? '' : " AND activity_sessions.user_id = #{params[:student_id].to_i}"
@@ -143,6 +144,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
       render plain: csv_string(activity_sessions)
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def score(percentage)
     case percentage
@@ -152,6 +154,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def timespent_string(seconds)
     return "N/A" unless seconds
     return "<1 min" if seconds < 60
@@ -168,6 +171,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
     end
     "#{hours} #{hours_text}"
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def csv_string(activity_sessions)
     CSV.generate do |csv|

@@ -62,6 +62,7 @@ class CsvExport < ApplicationRecord
     save!
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def csv_exporter
     @exporter ||=
       case export_type.to_sym
@@ -81,6 +82,7 @@ class CsvExport < ApplicationRecord
         raise "Export type named #{export_type} could not be found!"
       end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def csv_basename
     "csv_#{teacher_id}_#{export_type}"

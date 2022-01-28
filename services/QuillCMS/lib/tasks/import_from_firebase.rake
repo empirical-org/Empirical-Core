@@ -172,6 +172,7 @@ namespace :responses do
     puts dupes_hash
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def convert_to_csv
     graded_file_name = "tmp/data/gradedResponses.json"
     graded_file = File.read(graded_file_name)
@@ -235,6 +236,7 @@ namespace :responses do
     end;0
 
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def import_from_zip
     Zip::File.open('respforpostgres.csv.zip') do |zip_file|

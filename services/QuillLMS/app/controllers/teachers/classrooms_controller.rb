@@ -158,6 +158,7 @@ class Teachers::ClassroomsController < ApplicationController
     render json: {}
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def format_coteacher_invitations_for_index
     coteacher_invitations = CoteacherClassroomInvitation.includes(invitation: :inviter).joins(:invitation, :classroom).where(invitations: {invitee_email: current_user.email}, classrooms: { visible: true})
 
@@ -169,6 +170,7 @@ class Teachers::ClassroomsController < ApplicationController
       coteacher_invitation_obj
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def format_classrooms_for_index
     has_classroom_order = ClassroomsTeacher.where(user_id: current_user.id).all? { |classroom| classroom.order }

@@ -274,6 +274,9 @@ Metrics/AbcSize:
 Metrics/BlockNesting:
   Max: 4
 
+Metrics/CyclomaticComplexity:
+  Max: 7
+
 # TODO temporaily disable since it's outputting too much noise
 Metrics/MethodLength:
   Enabled: false

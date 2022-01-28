@@ -42,6 +42,7 @@ module PublicProgressReports
       end
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def results_by_question(activity_id)
       activity = Activity.includes(:classification).find(activity_id)
       questions = Hash.new{|h,k| h[k]={} }
@@ -74,7 +75,9 @@ module PublicProgressReports
 
       questions_arr
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def classrooms_with_students_for_report(unit_id, activity_id)
       h = {}
       unit = Unit.find_by(id: unit_id)
@@ -108,7 +111,9 @@ module PublicProgressReports
         []
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def results_for_classroom(unit_id, activity_id, classroom_id)
       classroom_unit = ClassroomUnit.find_by(
         classroom_id: classroom_id,
@@ -164,6 +169,7 @@ module PublicProgressReports
 
       scores
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     private def unfinished_key(state)
       return :missed_names if state&.completed
@@ -200,6 +206,7 @@ module PublicProgressReports
       time > 60 ? '> 60' : time
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def format_concept_results(activity_session, concept_results)
       concept_results.group_by{|cr| cr[:metadata]["questionNumber"]}.map { |key, cr|
         # if we don't sort them, we can't rely on the first result being the first attemptNum
@@ -234,6 +241,7 @@ module PublicProgressReports
         hash
       }
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     def get_score_for_question(concept_results)
       if !concept_results.empty? && concept_results.first[:metadata]['questionScore']
@@ -251,6 +259,7 @@ module PublicProgressReports
       end
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def get_feedback_from_feedback_history(activity_session, prompt_text, attempt_number)
       feedback_histories = activity_session.feedback_histories
       return "" if feedback_histories.empty? || prompt_text.blank? || attempt_number.blank?
@@ -260,7 +269,9 @@ module PublicProgressReports
       feedback_history = feedback_histories.select {|fh| fh.attempt == attempt_number.to_i && fh.prompt_id == prompt&.id }&.first
       feedback_history&.feedback_text
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def generate_recommendations_for_classroom(current_user, unit_id, classroom_id, activity_id)
       set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id)
       diagnostic = Activity.find(activity_id)
@@ -293,6 +304,7 @@ module PublicProgressReports
         recommendations: recommendations
       }
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     def return_value_for_recommendation(students, activity_pack_recommendation)
       {

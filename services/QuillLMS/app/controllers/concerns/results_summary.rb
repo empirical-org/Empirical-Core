@@ -45,6 +45,7 @@ module ResultsSummary
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def skill_groups_for_session(skill_groups, activity_session, student_name)
     skill_groups.map do |skill_group|
       skills = skill_group.skills.map { |skill| data_for_skill_by_activity_session(activity_session.concept_results, skill) }
@@ -70,5 +71,6 @@ module ResultsSummary
       }
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
 end

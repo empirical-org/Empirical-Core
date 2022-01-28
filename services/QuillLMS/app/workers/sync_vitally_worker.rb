@@ -7,6 +7,7 @@ class SyncVitallyWorker
   FIRST_DAY_OF_SCHOOL_YEAR_MONTH = 7
   FIRST_DAY_OF_SCHOOL_YEAR_DAY = 1
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def perform
     if Date.today.month == FIRST_DAY_OF_SCHOOL_YEAR_MONTH && Date.today.day == FIRST_DAY_OF_SCHOOL_YEAR_DAY
       PopulateAnnualVitallyWorker.perform_async
@@ -23,6 +24,7 @@ class SyncVitallyWorker
       SyncVitallyUsersWorker.perform_async(user_ids)
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def schools_to_sync
     School.select(:id).distinct.joins(:users).where('users.role = ?', 'teacher')

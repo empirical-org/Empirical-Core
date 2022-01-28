@@ -26,6 +26,7 @@ class PagesController < ApplicationController
     self.formats = ['html']
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def home_new
     if signed_in?
       redirect_to(profile_path) && return
@@ -46,6 +47,7 @@ class PagesController < ApplicationController
     end
     self.formats = ['html']
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def develop
   end
@@ -411,6 +413,7 @@ class PagesController < ApplicationController
   end
 
   # for link to premium within 'about' (discover) pages
+  # rubocop:disable Metrics/CyclomaticComplexity
   def premium
     @user_is_eligible_for_new_subscription= current_user&.eligible_for_new_subscription?
     @user_is_eligible_for_trial = current_user&.subscriptions&.where&.not(account_type: Subscription::COVID_TYPES)&.none?
@@ -443,6 +446,7 @@ class PagesController < ApplicationController
 
     @title = 'Premium'
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def tutorials
   end
@@ -516,6 +520,7 @@ class PagesController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def determine_js_file
     case action_name
     when 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'privacy', 'map', 'teacher-center', 'news', 'stats', 'activities'
@@ -538,6 +543,7 @@ class PagesController < ApplicationController
       @js_file = ApplicationController::DIAGNOSTIC
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def determine_flag
     case action_name
