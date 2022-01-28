@@ -69,17 +69,31 @@ export default class UnitTemplates extends React.Component {
   }
 
   updateOrder = (sortInfo) => {
+    const { flag } = this.state
+
+
     if (this.isSortable()) {
       const { fetchedData, } = this.state
-      const newOrder = sortInfo.map(item => item.key);
-      const newOrderedUnitTemplates = fetchedData.map((ut, i) => {
-      const newUnitTemplate = ut
-      const newIndex = newOrder.findIndex(key => Number(key) === Number(ut.id))
-      if (newIndex !== -1) {
-        newUnitTemplate['order_number'] = newIndex
+      let orderedData = this.sort(fetchedData)
+      if (flag === 'Production') {
+        console.log(sortInfo)
       }
+      const newOrder = sortInfo.map(item => item.key);
+      let count = newOrder.length
+      const newOrderedUnitTemplates = orderedData.map((ut) => {
+
+        const newUnitTemplate = ut
+        const newIndex = newOrder.findIndex(key => Number(key) === Number(ut.id))
+        if (newIndex !== -1) {
+          newUnitTemplate['order_number'] = newIndex
+        } else {
+          newUnitTemplate['order_number'] = count
+        }
+        count += 1
         return newUnitTemplate
       })
+      console.log("new rder")
+      console.log(newOrderedUnitTemplates)
 
       const link = `${process.env.DEFAULT_URL}/cms/unit_templates/update_order_numbers`
       const data = new FormData();
@@ -135,7 +149,11 @@ export default class UnitTemplates extends React.Component {
       })
     }
 
-    return filteredData.sort((bp1, bp2) => {
+    return this.sort(filteredData)
+  }
+
+  sort = (list) => {
+    return list.sort((bp1, bp2) => {
       // Group archived activities at the bottom of the list (they automatically get a higher order number
       // than any unarchived activity)
       if (bp1.flag === 'archived' && bp2.flag !== 'archived') {
@@ -171,12 +189,12 @@ export default class UnitTemplates extends React.Component {
   }
 
   updateUnitTemplate = (unitTemplate) => {
+    const { fetchedData } = this.state
     let newUnitTemplate = unitTemplate
     newUnitTemplate.unit_template_category_id = unitTemplate.unit_template_category.id
     newUnitTemplate.activity_ids = unitTemplate.activity_ids || unitTemplate.activities.map((a) => a.id)
     const link = `${process.env.DEFAULT_URL}/cms/unit_templates/${unitTemplate.id}.json`
-    // const data = new FormData();
-    // data.append( "unit_template", JSON.stringify({}) );
+    const index = fetchedData.findIndex((e) => e.id === unitTemplate.id)
     fetch(link, {
       method: 'PUT',
       mode: 'cors',
@@ -194,7 +212,9 @@ export default class UnitTemplates extends React.Component {
         }
         return response.json();
       }).then((response) => {
-        alert(`Activity has been saved.`)
+        let newData = fetchedData
+        newData[index] = response.unit_template
+        this.setState({fetchedData: newData}, alert(`Activity has been saved.`))
       }).catch((error) => {
         // to do, use Sentry to capture error
       })
@@ -252,7 +272,7 @@ export default class UnitTemplates extends React.Component {
   }
 
   renderTableHeader() {
-    return (<tr>
+    return (<tr className="unit-template-headers">
       <th className="name-col">Name</th>
       <th className="flag-col">Flag</th>
       <th className="diagnostics-col">Diagnostics</th>

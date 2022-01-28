@@ -22,14 +22,14 @@ const UnitTemplateActivityRow = ({
 
   return (
     <table className="unit-template-activity-table">
-      <tr className="unit-template-activity-headers">
+      {activities.length > 0 && <tr className="unit-template-activity-headers">
         <th className="activity-name-col">name</th>
         <th className="activity-flag-col">flag</th>
         <th className="activity-read-col">readability</th>
         <th className="activity-ccss-col">CCSS</th>
         <th className="activity-cat-col">concept</th>
         <th className="activity-class-col">tool</th>
-      </tr>
+      </tr>}
       {activitiesRows}
     </table>
   )

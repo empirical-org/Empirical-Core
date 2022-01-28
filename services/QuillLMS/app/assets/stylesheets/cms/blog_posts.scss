@@ -80,6 +80,10 @@
   cursor: pointer;
 }
 
+.unit-template-headers {
+  margin-left: 35px;
+}
+
 .unit-template-inputs {
   display: block;
   .unit-template-dropdowns {
@@ -165,6 +169,10 @@
 }
 
 .unit-template-row {
+  .expand-collapse-button {
+    background: transparent;
+    height: 15px;
+  }
   label {
     display: none;
   }
