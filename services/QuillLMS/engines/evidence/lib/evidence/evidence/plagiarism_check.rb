@@ -125,6 +125,7 @@ module Evidence
       slices_to_match_strings = nil
       slices_to_assemble.each do |slice|
         next false unless confirm_minimum_overlap?(slice, slices_to_match)
+
         slice_string = slice.join(' ')
         slices_to_match_strings ||= slices_to_match.map { |s| s.join(' ') }
         match = slices_to_match_strings.any? { |match_string| DidYouMean::Levenshtein.distance(slice_string, match_string) <= FUZZY_CHARACTER_THRESHOLD }
