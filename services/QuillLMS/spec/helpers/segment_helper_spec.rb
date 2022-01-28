@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe SegmentioHelper do
-  let!(:user) {create(:teacher)}
+  let!(:user) {create(:teacher, :premium)}
 
   describe '#generate_segment_identify_arguments' do
     it 'should construct a series of three javascript-parsable "function arguments"' do
@@ -22,6 +22,7 @@ describe SegmentioHelper do
         userType: user.role,
         createdAt: user.created_at,
         daysSinceJoining: ((Time.zone.now - user.created_at) / 60 / 60 / 24).to_i,
+        premiumType: user.subscription.account_type
       }
       expect(serialization).to eq(expected_serialization)
     end
