@@ -111,6 +111,8 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
 
   function handleSetPassageText(text: string) { handleSetActivityPassages('text', text)}
 
+  function handleSetPassageEssentialKnowledgeText(text: string) { handleSetActivityPassages('essential_knowledge_text', text)}
+
   function handleSetImageAttribution(e: TextAreaEvent) { handleSetActivityPassages('image_attribution', e.target.value)}
 
   function handleSetImageCaption(e: InputEvent) { handleSetActivityPassages('image_caption', e.target.value)}
@@ -175,7 +177,9 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   const requestErrorsPresent = !!(requestErrors && requestErrors.length);
   const showErrorsContainer = formErrorsPresent || requestErrorsPresent;
   const passageLabelStyle = activityPassages[0].text.length  && activityPassages[0].text !== '<br/>' ? 'has-text' : '';
+  const imageAttributionStyle = activityPassages[0].image_attribution  && activityPassages[0].image_attribution !== '<br/>' ? 'has-text' : '';
   const maxAttemptStyle = activityMaxFeedback.length && activityMaxFeedback !== '<br/>' ? 'has-text' : '';
+  const essentialKnowledgeStyle = activityPassages[0].essential_knowledge_text && activityPassages[0].essential_knowledge_text !== '<br/>' ? 'has-text' : '';
   const imageAttributionGuideLink = 'https://www.notion.so/quill/Activity-Images-9bc3993400da46a6af445a8a0d2d9d3f#11e9a01b071e41bc954e1182d56e93e8';
   const invalidHighlightsPresent = (invalid_highlights && invalid_highlights.length > 0)
 
@@ -272,7 +276,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
           value={activityPassages[0].image_caption}
         />
         {errors[IMAGE_CAPTION] && <p className="error-message">{errors[IMAGE_CAPTION]}</p>}
-        <p className="text-editor-label" id="image-attribution-label"> Image Attribution</p>
+        <p className={`text-editor-label ${imageAttributionStyle}`} id="image-attribution-label"> Image Attribution</p>
         <a className="data-link image-attribution-guide-link" href={imageAttributionGuideLink} rel="noopener noreferrer" target="_blank">Image Atributtion Guide</a>
         <textarea
           className="image-attribution-text-area"
@@ -304,6 +308,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
           shouldCheckSpelling={true}
           text={activityMaxFeedback}
         />
+        {errors[MAX_ATTEMPTS_FEEDBACK] && <p className="error-message">{errors[MAX_ATTEMPTS_FEEDBACK]}</p>}
         <Input
           className="highlight-prompt-input"
           error={errors[HIGHLIGHT_PROMPT]}
@@ -311,7 +316,15 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
           label={`Highlight Prompt: "${DEFAULT_HIGHLIGHT_PROMPT}..."`}
           value={activityPassages[0].highlight_prompt || DEFAULT_HIGHLIGHT_PROMPT}
         />
-        {errors[MAX_ATTEMPTS_FEEDBACK] && <p className="error-message">{errors[MAX_ATTEMPTS_FEEDBACK]}</p>}
+        <p className={`text-editor-label ${essentialKnowledgeStyle}`}>Building Essential Knowledge Text</p>
+        <TextEditor
+          ContentState={ContentState}
+          EditorState={EditorState}
+          handleTextChange={handleSetPassageEssentialKnowledgeText}
+          key="essential-knowledge-text"
+          shouldCheckSpelling={true}
+          text={activityPassages[0].essential_knowledge_text}
+        />
         <PromptsForm
           activityBecausePrompt={activityBecausePrompt}
           activityButPrompt={activityButPrompt}
