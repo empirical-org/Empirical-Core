@@ -20,6 +20,7 @@ class PagesController < ApplicationController
     if signed_in?
       redirect_to(profile_path) && return
     end
+
     @body_class = 'home-page'
     @activity = Activity.with_classification.find_by_uid(ENVr.fetch('HOMEPAGE_ACTIVITY_UID', ''))
     self.formats = ['html']
@@ -29,6 +30,7 @@ class PagesController < ApplicationController
     if signed_in?
       redirect_to(profile_path) && return
     end
+
     @title = 'Quill.org | Interactive Writing and Grammar'
     @description = 'Quill provides free writing and grammar activities for middle and high school students.'
     # default numbers are current as of 03/12/19

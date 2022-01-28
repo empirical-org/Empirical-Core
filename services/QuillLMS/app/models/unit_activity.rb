@@ -102,6 +102,7 @@ class UnitActivity < ApplicationRecord
 
   def self.get_classroom_user_profile(classroom_id, user_id)
     return [] unless classroom_id && user_id
+
     # Generate a rich profile of Classroom Activities for a given user in a given classroom
     RawSqlRunner.execute(
       <<-SQL

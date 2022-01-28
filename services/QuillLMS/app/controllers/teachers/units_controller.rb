@@ -86,6 +86,7 @@ class Teachers::UnitsController < ApplicationController
     activity_id = params[:activity_id].to_i
     classroom_units = get_classroom_units_for_activity(activity_id)
     return render json: {errors: 'No activities found'}, status: 422 if classroom_units.empty?
+
     render json: {
       classroom_units: classroom_units,
       activity_name: Activity.select('name').where("id = #{activity_id}")
@@ -394,6 +395,7 @@ class Teachers::UnitsController < ApplicationController
   private def record_with_aggregated_activity_sessions(diagnostic_records, activity_id, classroom_id, pre_test_activity_id)
     records = diagnostic_records.select { |record| record['activity_id'] == activity_id && record['classroom_id'] == classroom_id }
     return if records.empty?
+
     classroom_unit_ids = records.map { |record| record['classroom_unit_id'] }
     assigned_student_ids = records.map { |r| r['assigned_student_ids'] }.flatten.uniq
     activity_sessions = ActivitySession
@@ -402,6 +404,7 @@ class Teachers::UnitsController < ApplicationController
       .uniq { |activity_session| activity_session.user_id }
     record = records[0]
     return if !record
+
     record['completed_count'] = activity_sessions.size
     record['assigned_count'] = assigned_student_ids.size
     record.except('unit_id', 'unit_name', 'classroom_unit_id', 'assigned_student_ids')

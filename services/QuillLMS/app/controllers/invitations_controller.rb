@@ -10,6 +10,7 @@ class InvitationsController < ApplicationController
       validate_email_and_classroom_ids
       @pending_invite = find_or_create_coteacher_invite_from_current_user
       raise StandardError, @pending_invite.errors[:base].join(" ") unless @pending_invite.valid?
+
       assign_classrooms_to_invitee
       invoke_email_worker
       render json: { invite_id: @pending_invite.id }

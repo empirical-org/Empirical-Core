@@ -23,6 +23,7 @@ class ProgressReports::Standards::StandardSerializer < ActiveModel::Serializer
 
   def standard_students_href
     return '' unless classroom_id.present?
+
     teachers_progress_reports_standards_classroom_standard_students_path(
       standard_id: object.id,
       classroom_id: classroom_id)

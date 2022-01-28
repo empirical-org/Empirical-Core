@@ -55,6 +55,7 @@ module GoogleIntegration
 
       loop do
         return temp_name unless other_owned_classroom_names.include?(temp_name)
+
         temp_name += '_1'
       end
     end

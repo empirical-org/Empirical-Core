@@ -15,6 +15,7 @@ module AsyncHelper
       end
       return if e.nil?
       raise e if Time.now >= time_limit
+
       sleep interval
     end
   end

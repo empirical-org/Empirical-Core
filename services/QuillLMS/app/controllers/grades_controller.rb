@@ -71,6 +71,7 @@ class GradesController < ApplicationController
 
   private def authorize!
     return unless params[:classroom_unit_id].present?
+
     classroom_unit = ClassroomUnit.includes(:classroom).find(params[:classroom_unit_id])
     classroom_teacher!(classroom_unit.classroom_id)
   end

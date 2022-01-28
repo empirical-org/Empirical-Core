@@ -51,6 +51,7 @@ module Evidence
 
     private def highlights
       return [] if optimal?
+
       [entry_highlight, passage_highlight]
     end
 
@@ -80,11 +81,13 @@ module Evidence
 
     private def matched_slice
       return "" if !minimum_overlap?
+
       @matched_slice ||= match_entry_on_passage
     end
 
     private def matched_slice_passage
       return "" if !minimum_overlap?
+
       @matched_slice_passage ||= match_passage_on_entry
     end
 
@@ -122,6 +125,7 @@ module Evidence
       slices_to_match_strings = nil
       slices_to_assemble.each do |slice|
         next false unless confirm_minimum_overlap?(slice, slices_to_match)
+
         slice_string = slice.join(' ')
         slices_to_match_strings ||= slices_to_match.map { |s| s.join(' ') }
         match = slices_to_match_strings.any? { |match_string| DidYouMean::Levenshtein.distance(slice_string, match_string) <= FUZZY_CHARACTER_THRESHOLD }

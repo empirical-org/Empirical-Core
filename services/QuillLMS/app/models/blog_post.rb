@@ -125,6 +125,7 @@ class BlogPost < ApplicationRecord
   def can_be_accessed_by(user)
     return true unless premium
     return true if premium && user&.is_premium?
+
     false
   end
 

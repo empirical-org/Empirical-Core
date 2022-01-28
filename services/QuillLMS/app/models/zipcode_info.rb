@@ -38,6 +38,7 @@ class ZipcodeInfo < ApplicationRecord
     unless distance.is_a? Integer or distance.is_a? Float
       return []
     end
+
     distance = distance.to_i # if distance is a float
 
     dist_btwn_lat_deg = 69.172

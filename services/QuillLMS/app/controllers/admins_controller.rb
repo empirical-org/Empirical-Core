@@ -42,6 +42,7 @@ class AdminsController < ApplicationController
 
   private def admin_of_this_teacher!
     return if SchoolsAdmins.where(user_id: current_user.id, school_id: @teacher.school.id).limit(1).exists?
+
     auth_failed
   end
 

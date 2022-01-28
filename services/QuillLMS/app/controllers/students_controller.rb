@@ -62,6 +62,7 @@ class StudentsController < ApplicationController
       errors['current_password'] = 'Wrong password. Try again or click Forgot password to reset it.'
     end
     return render json: {errors: errors}, status: 422 if errors.any?
+
     render json: current_user, serializer: UserSerializer
   end
 

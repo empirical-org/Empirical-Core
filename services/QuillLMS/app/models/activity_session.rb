@@ -242,11 +242,13 @@ class ActivitySession < ApplicationRecord
 
   def formatted_due_date
     return nil if unit_activity&.due_date.nil?
+
     unit_activity.due_date.strftime('%A, %B %d, %Y')
   end
 
   def formatted_completed_at
     return nil if completed_at.nil?
+
     completed_at.strftime('%A, %B %d, %Y')
   end
 
@@ -286,6 +288,7 @@ class ActivitySession < ApplicationRecord
 
   def start
     return if state != 'unstarted'
+
     self.started_at ||= Time.current
     self.state = 'started'
   end
@@ -479,6 +482,7 @@ class ActivitySession < ApplicationRecord
 
   def minutes_to_complete
     return nil unless completed_at && started_at
+
     ((completed_at - started_at)/60).round
   end
 

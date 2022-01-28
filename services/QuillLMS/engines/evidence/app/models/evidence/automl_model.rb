@@ -59,6 +59,7 @@ module Evidence
       self
     rescue StandardError => e
       raise e unless e.is_a?(ActiveRecord::RecordInvalid)
+
       return false
     end
 

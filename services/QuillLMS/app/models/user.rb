@@ -544,6 +544,7 @@ class User < ApplicationRecord
   def generate_student_username_if_absent
     return if !student?
     return if username.present?
+
     classroom_id = classrooms.any? ? classrooms.first.id : nil
     generate_username(classroom_id)
   end
@@ -638,6 +639,7 @@ class User < ApplicationRecord
     return false if clever_id
     return false if role.temporary?
     return true if teacher?
+
     false
   end
 
@@ -652,6 +654,7 @@ class User < ApplicationRecord
   private def requires_password?
     return false if clever_id
     return false if signed_up_with_google
+
     permanent? && new_record?
   end
 
@@ -662,6 +665,7 @@ class User < ApplicationRecord
 
   private def get_class_code(classroom_id)
     return 'student' if classroom_id.nil?
+
     Classroom.find(classroom_id).code
   end
 

@@ -39,11 +39,13 @@ module QuillAuthentication
 
   def classroom_owner!(classroom_id)
     return if ClassroomsTeacher.exists?(classroom_id: classroom_id, user: current_user, role: 'owner')
+
     auth_failed
   end
 
   def classroom_coteacher!(classroom_id)
     return if ClassroomsTeacher.exists?(classroom_id: classroom_id, user: current_user, role: 'coteacher')
+
     auth_failed
   end
 
@@ -52,6 +54,7 @@ module QuillAuthentication
       classroom_id: classroom_id,
       user: current_user
     )
+
     auth_failed
   end
 
@@ -120,6 +123,7 @@ module QuillAuthentication
 
   def signed_in!
     return if signed_in?
+
     auth_failed
   end
 
@@ -165,6 +169,7 @@ module QuillAuthentication
 
   def doorkeeper_token
     return @token if instance_variable_defined?(:@token)
+
     methods = Doorkeeper.configuration.access_token_methods
     @token = Doorkeeper::OAuth::Token.authenticate(request, *methods)
   end

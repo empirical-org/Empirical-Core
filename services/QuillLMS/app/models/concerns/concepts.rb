@@ -6,6 +6,7 @@ module Concepts
   # This groups all concept results by question type, then groups them by concept for the reports page
   def all_concept_stats(activity_session)
     return '' unless activity_session.present?
+
     @concepts = activity_session.concepts
     @concept_results_by_question_type = activity_session.concept_results.group_by{|c| c.question_type}.values
     organize_by_type
@@ -35,6 +36,7 @@ module Concepts
     incorrect_count = 0
     concept_results.each do |result|
       next unless result.concept == concept
+
       if result.correct?
         correct_count += 1
       else

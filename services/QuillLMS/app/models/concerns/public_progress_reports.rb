@@ -357,6 +357,7 @@ module PublicProgressReports
       question_array = []
       questions.compact.each do |q|
         next if !q.data['prompt']
+
         question_array.push({
           question_id: question_array.length + 1,
           score: nil,
