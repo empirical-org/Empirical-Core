@@ -105,32 +105,43 @@ module Evidence
     private def match_entry_on_passage
       entry_arr = clean_entry.split
 
-      slices = entry_arr.each_cons(MATCH_MINIMUM).with_index.to_a.map(&:reverse).to_h
-      matched_slices = identify_matched_slices(slices, passage_word_arrays)
-      return "" if matched_slices.empty?
-
-      build_longest_continuous_slice(matched_slices, slices)
+      slices = entry_arr.each_cons(MATCH_MINIMUM)
+      identify_first_matched_substring(slices, passage_word_arrays)
     end
 
     private def match_passage_on_entry
       entry_arr = clean_entry.split
 
       slices = entry_arr.each_cons(MATCH_MINIMUM)
-      passage_slices = passage_word_arrays.each_with_index.to_a.map(&:reverse).to_h
-      matched_slices = identify_matched_slices(passage_slices, slices)
-      return "" if matched_slices.empty?
-
-      build_longest_continuous_slice(matched_slices, passage_slices)
+      identify_first_matched_substring(passage_word_arrays, slices)
     end
 
-    private def identify_matched_slices(entry_slices, passage_slices)
-      entry_slices.select do |_, slice|
-        # Check to see if there's enough similarity for it to be worth doing a Levenshtein comparison
-        next false unless confirm_minimum_overlap?(slice, passage_slices)
+    private def identify_first_matched_substring(slices_to_assemble, slices_to_match)
+      combined_matched_slices = []
+      # Placeholder to be overridden during the first run of the loop that makes it past the confirm_minimum_overlap? guard statement.  If that never happens, we don't have to calculate this value
+      slices_to_match_strings = nil
+      slices_to_assemble.each do |slice|
+        next false unless confirm_minimum_overlap?(slice, slices_to_match)
         slice_string = slice.join(' ')
-        passage_slice_strings = passage_slices.map { |s| s.join(' ') }
-        passage_slice_strings.any? { |passage_string| DidYouMean::Levenshtein.distance(slice_string, passage_string) <= FUZZY_CHARACTER_THRESHOLD }
-      end.keys
+        slices_to_match_strings ||= slices_to_match.map { |s| s.join(' ') }
+        match = slices_to_match_strings.any? { |match_string| DidYouMean::Levenshtein.distance(slice_string, match_string) <= FUZZY_CHARACTER_THRESHOLD }
+        if match
+          # If we have our first match, we want to populate the return value with the full string from
+          # that match
+          if combined_matched_slices.empty?
+            combined_matched_slices = slice_string
+          # If this is a subsequent match, we already have most of the words from the match in the
+          # return value already, and only need the last word (which will be the new word)
+          else
+            combined_matched_slices += " #{slice.last}"
+          end
+        # If we've been matching a series of slices, and this slice doesn't match, we've found
+        # all the contiguous matched slices and can stop
+        else
+          break unless combined_matched_slices.empty?
+        end
+      end
+      combined_matched_slices
     end
 
     private def confirm_minimum_overlap?(target_array, source_arrays)
@@ -140,17 +151,6 @@ module Evidence
       source_arrays.any? do |source_array|
         (source_array & target_array).length >= (MATCH_MINIMUM - FUZZY_CHARACTER_THRESHOLD)
       end
-    end
-
-    # using the indices of plagiarized slices, find the longest continuous plagiarized section
-    # piece together the words of the longest plagiarized section and return that string
-    def build_longest_continuous_slice(matched_slices, slices)
-      matched_consecutive_indices = matched_slices.slice_when {|before_item, after_item| after_item != before_item + 1}.to_a
-      longest_consecutive_indices = matched_consecutive_indices.max_by(&:size)
-
-      string_result = slices[longest_consecutive_indices[0]].join(' ')
-      longest_consecutive_indices.drop(1).each {|i| string_result += " #{slices[i].last}"}
-      string_result
     end
 
     def passage_word_arrays
