@@ -23,7 +23,8 @@
 #
 class UniqueNameWhenVisible < ActiveModel::Validator
   def validate(record)
-    return unless record.visible && Unit.where(name: record.name, user_id: record.user_id, visible: true).where.not(id: record.id).any?
+    return unless record.visible
+    return if Unit.where(name: record.name, user_id: record.user_id, visible: true).where.not(id: record.id).none?
 
     record.errors[:name] << 'must be unique.'
   end
@@ -53,7 +54,7 @@ class Unit < ApplicationRecord
   end
 
   def hide_classroom_units_and_unit_activities_if_visible_false
-    return unless visible == false
+    return if visible
 
     UnitActivity.where(unit_id: id, visible: true).each{|ua| ua.update(visible: false)}
     ClassroomUnit.where(unit_id: id, visible: true).each{|cu| cu.update(visible: false)}

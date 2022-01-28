@@ -7,7 +7,7 @@ class InvitationEmailWorker
 
   def perform(invitation_id)
     invitation = Invitation.find_by(id: invitation_id)
-    return unless invitation && invitation.inviter
+    return unless invitation&.inviter
 
     email_vars = invitation.attributes
     email_vars[:inviter_name] = invitation.inviter.name

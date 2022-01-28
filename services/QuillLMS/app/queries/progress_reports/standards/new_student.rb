@@ -98,7 +98,8 @@ class ProgressReports::Standards::NewStudent
   end
 
   private def classroom_conditional
-    return unless @classroom_id && @classroom_id != 0 && @classroom_id != '0'
+    return unless @classroom_id
+    return if [0, '0'].include?(@classroom_id)
 
     "AND classrooms.id = #{@classroom_id}"
   end

@@ -113,7 +113,7 @@ class ActivitySessionsController < ApplicationController
   end
 
   private def update_student_last_active
-    return unless current_user && current_user.role == 'student'
+    return unless current_user&.role&.student?
 
     UpdateStudentLastActiveWorker.perform_async(current_user.id, DateTime.now)
   end

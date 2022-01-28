@@ -211,7 +211,7 @@ class User < ApplicationRecord
   def redeem_credit
     balance = credit_transactions.sum(:amount)
 
-    return unless balance > 0
+    return if balance <= 0
 
     new_sub =
       Subscription.create_with_user_join(
@@ -413,7 +413,7 @@ class User < ApplicationRecord
 
   def admins_teachers
     schools = administered_schools.includes(:users)
-    return unless schools.any?
+    return if schools.none?
 
     schools.map{|school| school.users.ids}.flatten
   end
@@ -613,7 +613,7 @@ class User < ApplicationRecord
     # ensures there are no items in the flags array that are not in the VALID_FLAGS const
     invalid_flags = flags - VALID_FLAGS
 
-    return unless invalid_flags.any?
+    return if invalid_flags.none?
 
     errors.add(:flags, "invalid flag(s) #{invalid_flags}")
   end

@@ -111,7 +111,8 @@ module Evidence
     end
 
     private def validate_label_associations
-      return unless active? && !labels_have_associated_rules
+      return unless active?
+      return if labels_have_associated_rules
 
       errors.add(:state, "can't be set to 'active' until all labels have a corresponding rule")
     end

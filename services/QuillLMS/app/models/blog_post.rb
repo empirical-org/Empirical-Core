@@ -134,7 +134,8 @@ class BlogPost < ApplicationRecord
   end
 
   def add_published_at
-    return unless !draft && !published_at
+    return if draft
+    return if published_at
 
     update(published_at: DateTime.now)
   end

@@ -116,12 +116,13 @@ class Subscription < ApplicationRecord
   end
 
   def check_if_purchaser_email_is_in_database
-    return unless purchaser_email && !purchaser_id
+    return unless purchaser_email
+    return if purchaser_id
 
-    purchaser_id = User.find_by_email(purchaser_email)&.id
-    return unless purchaser_id
+    new_purchaser_id = User.find_by_email(purchaser_email)&.id
+    return unless new_purchaser_id
 
-    update(purchaser_id: purchaser_id)
+    update(purchaser_id: new_purchaser_id)
   end
 
   def renewal_price
@@ -277,13 +278,13 @@ class Subscription < ApplicationRecord
   end
 
   protected def charge_user_for_teacher_premium
-    return unless purchaser && purchaser.stripe_customer_id
+    return unless purchaser&.stripe_customer_id
 
     Stripe::Charge.create(amount: TEACHER_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
   end
 
   protected def charge_user_for_school_premium(school)
-    return unless purchaser && purchaser.stripe_customer_id
+    return unless purchaser&.stripe_customer_id
 
     Stripe::Charge.create(amount: SCHOOL_FIRST_PURCHASE_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
   end

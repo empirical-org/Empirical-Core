@@ -8,10 +8,13 @@ class UpdateMilestonesWorker
     return unless activity_session
     # more milestones can be added here as relevant, for now this just checks to see if a Completed Diagnostic milestone needs to be created
 
-    return unless activity_session.state == 'finished' && activity_session.classroom_unit_id && activity_session.activity.activity_classification_id === 4
+    return unless activity_session.state == 'finished'
+    return unless activity_session.classroom_unit_id
+    return unless activity_session.activity.activity_classification_id == 4
 
     teacher_milestones = activity_session&.classroom_unit&.unit&.user&.milestones
-    return unless teacher_milestones && !teacher_milestones.find_by(name: 'Complete Diagnostic')
+    return unless teacher_milestones
+    return if teacher_milestones.find_by(name: 'Complete Diagnostic')
 
     teacher_milestones.push(Milestone.find_by(name: 'Complete Diagnostic'))
   end

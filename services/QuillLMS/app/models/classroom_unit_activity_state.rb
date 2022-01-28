@@ -75,10 +75,10 @@ class ClassroomUnitActivityState < ApplicationRecord
   end
 
   private def handle_pinning
-    return unless pinned == true
+    return unless pinned
 
+    # unpin ca before archiving
     if visible == false
-      # unpin ca before archiving
       update!(pinned: false)
     else
       # unpin any other pinned ca before pinning new one

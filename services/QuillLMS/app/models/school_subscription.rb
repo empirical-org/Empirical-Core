@@ -23,7 +23,7 @@ class SchoolSubscription < ApplicationRecord
   after_create :send_premium_emails, :update_subscription
 
   def update_schools_users
-    return unless school && school.users
+    return unless school&.users
 
     school.users.each do |u|
       UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(u.id, subscription_id)
@@ -31,7 +31,7 @@ class SchoolSubscription < ApplicationRecord
   end
 
   def send_premium_emails
-    return unless school && school.users
+    return unless school&.users
 
     if Rails.env.production?
       school.users.each do |u|

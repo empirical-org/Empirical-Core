@@ -44,7 +44,8 @@ class Teachers::UnitActivitiesController < ApplicationController
 
   private def authorize!
     @unit_activity = UnitActivity.find params[:id]
-    return unless @unit_activity && @unit_activity.unit && @unit_activity.unit.classrooms && !@unit_activity.unit.classrooms.find { |c| c.teacher_ids.include?(current_user.id) }
+    return unless @unit_activity&.unit&.classrooms
+    return if @unit_activity.unit.classrooms.find { |c| c.teacher_ids.include?(current_user.id) }
 
     auth_failed
   end
