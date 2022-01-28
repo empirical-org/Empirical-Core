@@ -770,5 +770,8 @@ Style/WhileUntilDo:
 Style/UnlessElse:
   Enabled: true
 
+Style/UnlessLogicalOperators:
+  Enabled: true
+
 Style/ZeroLengthPredicate:
   Enabled: true

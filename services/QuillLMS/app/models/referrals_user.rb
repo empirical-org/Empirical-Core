@@ -57,8 +57,14 @@ class ReferralsUser < ApplicationRecord
     ).to_a
 
     referrer_hash = user_info.first
+    referrer_match = referrer_hash['email'].match('quill.org')
+
     referral_hash = user_info.last
-    return unless Rails.env.production? || (referrer_hash['email'].match('quill.org') && referral_hash['email'].match('quill.org'))
+    referral_match = referral_hash['email'].match('quill.org')
+
+    email_match = referrer_match && referral_match
+
+    return if !Rails.env.production? && !email_match
 
     UserMailer.activated_referral_email(referrer_hash, referral_hash).deliver_now!
   end
