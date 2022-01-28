@@ -91,7 +91,7 @@ class BlogPost < ApplicationRecord
   scope :for_topics, ->(topic) { live.order('order_number ASC').where(topic: topic) }
 
   def set_order_number
-    return unless order_number.nil?
+    return if order_number.present?
 
     self.order_number =  BlogPost.where(topic: topic).count
   end
