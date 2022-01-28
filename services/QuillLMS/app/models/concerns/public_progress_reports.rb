@@ -171,11 +171,11 @@ module PublicProgressReports
   end
     # rubocop:enable Metrics/CyclomaticComplexity
 
-    private def unfinished_key(state)
-      return :missed_names if state&.completed
+  private def unfinished_key(state)
+    return :missed_names if state&.completed
 
-      :not_completed_names
-    end
+    :not_completed_names
+  end
 
   def formatted_score_obj(final_activity_session, classification_key, student, average_score_on_quill)
     formatted_concept_results = format_concept_results(final_activity_session, final_activity_session.concept_results)

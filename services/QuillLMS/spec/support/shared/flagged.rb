@@ -16,16 +16,16 @@ shared_examples_for "flagged" do
  		 describe "#flags" do
   			 before do
    				 flagged.flag :alpha
-   				flagged.flag :betha
+   				 flagged.flag :betha
    			end
 
-  			it "must be an array" do
-  				 expect(flagged.flags).to an_instance_of Array
-  			end
+  			 it "must be an array" do
+   				 expect(flagged.flags).to an_instance_of Array
+   			end
 
-  			it "must to contains 2 elements" do
-  				 expect(flagged.flags.count).to eq 2
-  			end
+  			 it "must to contains 2 elements" do
+   				 expect(flagged.flags.count).to eq 2
+   			end
   		end
  	end
 
@@ -33,18 +33,18 @@ shared_examples_for "flagged" do
  		 describe "#unflag" do
   			 before do
    				 flagged.flag :alpha
-   				flagged.flag :betha
+   				 flagged.flag :betha
    			end
 
-  			it "must pop the passed flag as argument" do
-  				 flagged.unflag :alpha
-  				expect( flagged.flags ).to eq [:betha]
-  			end
+  			 it "must pop the passed flag as argument" do
+   				 flagged.unflag :alpha
+   				 expect( flagged.flags ).to eq [:betha]
+   			end
 
-  			it "must to contains 1 elements" do
-  				 flagged.unflag :alpha
-  				expect( flagged.flags.count ).to eq 1
-  			end
+  			 it "must to contains 1 elements" do
+   				 flagged.unflag :alpha
+   				 expect( flagged.flags.count ).to eq 1
+   			end
   		end
  	end
 
@@ -53,33 +53,33 @@ shared_examples_for "flagged" do
   				expect(flagged).to be_persisted
   		end
 
- 		describe "#flag!" do
- 			 it "must push the flag and save the instance" do
-  				 expect(flagged.flag!(:alpha)).to eq true
-  			end
- 		end
+ 		 describe "#flag!" do
+  			 it "must push the flag and save the instance" do
+   				 expect(flagged.flag!(:alpha)).to eq true
+   			end
+  		end
 
 
- 		describe "#unflag!" do
- 			 it "must pop the flag and save the instance" do
-  				 expect(flagged.unflag!(:alpha)).to eq true
-  			end
- 		end
+ 		 describe "#unflag!" do
+  			 it "must pop the flag and save the instance" do
+   				 expect(flagged.unflag!(:alpha)).to eq true
+   			end
+  		end
 
- 		describe "#archive!" do
- 			 it "must push the archived flag and save the instance" do
-  				 flagged.archive!
-  				expect(flagged.flags).to eq [:archived]
-  			end
- 		end
+ 		 describe "#archive!" do
+  			 it "must push the archived flag and save the instance" do
+   				 flagged.archive!
+   				 expect(flagged.flags).to eq [:archived]
+   			end
+  		end
 
- 		describe "#unarchive!" do
- 			 it "must pop the archived flag and save the instance" do
-  				 flagged.archive!
-  				flagged.unarchive!
-  				expect(flagged.flags).to eq []
-  			end
- 		end
+ 		 describe "#unarchive!" do
+  			 it "must pop the archived flag and save the instance" do
+   				 flagged.archive!
+   				 flagged.unarchive!
+   				 expect(flagged.flags).to eq []
+   			end
+  		end
  	end
 
 end

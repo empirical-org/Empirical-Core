@@ -273,52 +273,52 @@ describe ActivitySession, type: :model, redis: true do
   	 context "when there is a direct activity association" do
 
  	  let(:activity){ create(:activity) }
- 		  let(:activity_session){ build(:activity_session,activity_id: activity.id) }
+ 		 let(:activity_session){ build(:activity_session,activity_id: activity.id) }
 
-   		it "must return the associated activity" do
-   			 expect(activity_session.activity).to eq activity
-   		end
+   	it "must return the associated activity" do
+  			 expect(activity_session.activity).to eq activity
+  		end
 
  	end
 
-   describe "#invalidate_activity_session_count_if_completed" do
-     let!(:student){ create(:student, :in_one_classroom) }
-     let!(:classroom_unit) { create(:classroom_unit, classroom_id: student.classrooms.first.id, assigned_student_ids: [student.id]) }
-     let!(:activity_session){   create(:activity_session, classroom_unit: classroom_unit, state: 'not validated')}
+    describe "#invalidate_activity_session_count_if_completed" do
+      let!(:student){ create(:student, :in_one_classroom) }
+      let!(:classroom_unit) { create(:classroom_unit, classroom_id: student.classrooms.first.id, assigned_student_ids: [student.id]) }
+      let!(:activity_session){   create(:activity_session, classroom_unit: classroom_unit, state: 'not validated')}
 
-     before do
-       $redis.set("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
-     end
+      before do
+        $redis.set("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
+      end
 
-     it "deletes redis cache when an activity with a classroom's state is finished" do
-       activity_session.update(state: 'finished')
-       activity_session.invalidate_activity_session_count_if_completed
-       expect($redis.get("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).not_to be
-     end
+      it "deletes redis cache when an activity with a classroom's state is finished" do
+        activity_session.update(state: 'finished')
+        activity_session.invalidate_activity_session_count_if_completed
+        expect($redis.get("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).not_to be
+      end
 
-     it "does nothing to redis cache when any other classroom attribute changes" do
-       activity_session.update(visible: false)
-       activity_session.invalidate_activity_session_count_if_completed
-       expect($redis.get("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).to eq('10')
-     end
+      it "does nothing to redis cache when any other classroom attribute changes" do
+        activity_session.update(visible: false)
+        activity_session.invalidate_activity_session_count_if_completed
+        expect($redis.get("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).to eq('10')
+      end
 
-   end
+    end
 
-	  context "when there's not an associated activity but there's a classroom unit and only one unit activity" do
+	   context "when there's not an associated activity but there's a classroom unit and only one unit activity" do
 
-  	  let!(:activity){ create(:activity) }
-  	    let!(:student){ create(:student, :in_one_classroom) }
-  	    let!(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id], classroom_id: student.classrooms.first.id) }
-       let!(:unit_activity ) { create(:unit_activity, activity: activity, unit: classroom_unit.unit)}
-  		   let(:activity_session){   build(:activity_session, classroom_unit: classroom_unit)                     }
+   	  let!(:activity){ create(:activity) }
+   	  let!(:student){ create(:student, :in_one_classroom) }
+   	  let!(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id], classroom_id: student.classrooms.first.id) }
+      let!(:unit_activity ) { create(:unit_activity, activity: activity, unit: classroom_unit.unit)}
+   		 let(:activity_session){   build(:activity_session, classroom_unit: classroom_unit)                     }
 
-    		 it "must return the unit activity's activity" do
-     			 activity_session.activity_id=nil
+     	it "must return the unit activity's activity" do
+    			 activity_session.activity_id=nil
         unit_activity.unit.reload
-     			expect(activity_session.activity).to eq unit_activity.activity
-     		end
+    			 expect(activity_session.activity).to eq unit_activity.activity
+    		end
 
-  	end
+   	end
 
   end
 
@@ -326,11 +326,11 @@ describe ActivitySession, type: :model, redis: true do
 
   	 let(:activity){ create(:activity) }
 
-  	it "must associate activity by uid" do
-  		 activity_session.activity_id=nil
-  		activity_session.activity_uid=activity.uid
-  		expect(activity_session.activity_id).to eq activity.id
-  	end
+  	 it "must associate activity by uid" do
+   		 activity_session.activity_id=nil
+   		 activity_session.activity_uid=activity.uid
+   		 expect(activity_session.activity_id).to eq activity.id
+   	end
 
   end
 
@@ -457,13 +457,13 @@ describe ActivitySession, type: :model, redis: true do
   end
 end
 
-    context 'when percentage is present' do
-      let(:activity_session) { create(:activity_session, percentage: 0.4) }
+  context 'when percentage is present' do
+    let(:activity_session) { create(:activity_session, percentage: 0.4) }
 
-      it 'should return the formatted percentage' do
-        expect(activity_session.percentage_as_percent).to eq("40%")
-      end
+    it 'should return the formatted percentage' do
+      expect(activity_session.percentage_as_percent).to eq("40%")
     end
+  end
 end
 
   describe 'score' do
@@ -574,10 +574,10 @@ end
    		 expect(activity_session).to be_completed
    	end
 
-  	it "must be false when cmopleted_at is not present" do
-  		 activity_session.completed_at=nil
-  		expect(activity_session).to_not be_completed
-  	end
+  	 it "must be false when cmopleted_at is not present" do
+   		 activity_session.completed_at=nil
+   		 expect(activity_session).to_not be_completed
+   	end
   end
 
   describe "#by_teacher" do
@@ -618,10 +618,10 @@ end
    		 expect(activity_session.anonymous=true).to eq activity_session.temporary
    	end
 
-  	it "must return temporary" do
-  		 activity_session.anonymous=true
-  		expect(activity_session.anonymous).to eq activity_session.temporary
-  	end
+  	 it "must return temporary" do
+   		 activity_session.anonymous=true
+   		 expect(activity_session.anonymous).to eq activity_session.temporary
+   	end
   end
 
 
@@ -630,8 +630,8 @@ end
 
    		 it "must set state as unstarted" do
     			 activity_session.state=nil
-    			activity_session.save!
-    			expect(activity_session.state).to eq "unstarted"
+    			 activity_session.save!
+    			 expect(activity_session.state).to eq "unstarted"
     		end
    	end
   end
@@ -644,28 +644,28 @@ end
         activity_session.state="finished"
       end
 
-       context "when completed_at is already set" do
-         before { activity_session.completed_at = 5.minutes.ago }
+      context "when completed_at is already set" do
+        before { activity_session.completed_at = 5.minutes.ago }
 
-         it "should not change completed at" do
-           expect {
-             activity_session.save!
-           }.to_not change {
-             activity_session.reload.completed_at
-           }
-         end
-       end
+        it "should not change completed at" do
+          expect {
+            activity_session.save!
+          }.to_not change {
+            activity_session.reload.completed_at
+          }
+        end
+      end
 
-       context "when completed_at is not already set" do
-         before do
-           activity_session.completed_at = nil
-           activity_session.save!
-         end
+      context "when completed_at is not already set" do
+        before do
+          activity_session.completed_at = nil
+          activity_session.save!
+        end
 
-         it "should update completed_at" do
-           expect(activity_session.completed_at).to_not be_nil
-         end
-       end
+        it "should update completed_at" do
+          expect(activity_session.completed_at).to_not be_nil
+        end
+      end
    	end
 
   end
@@ -674,25 +674,25 @@ end
   	 describe ".completed" do
    		 before { create_list(:activity_session, 3) }
 
-   		it "must locate all the completed items" do
-   			 expect(ActivitySession.completed.count).to eq 3
-   		end
+   		 it "must locate all the completed items" do
+    			 expect(ActivitySession.completed.count).to eq 3
+    		end
 
-   		it "completed_at must be present" do
-   			 ActivitySession.completed.each do |item|
-    				 expect(item.completed_at).to be_present
-    			end
-   		end
+   		 it "completed_at must be present" do
+    			 ActivitySession.completed.each do |item|
+     				 expect(item.completed_at).to be_present
+     			end
+    		end
 
-   		it "must order by date desc" do
-   			#TODO: This test is not passing cause the ordering is wrong
-   			# p completed=ActivitySession.completed
-   			# current_date=completed.first.completed_at
-   			# completed.each do |item|
-   			# 	expect(item.completed_at).to satisfy { |x| p x.to_s+" <= "+current_date.to_s ||x <= current_date  }
-   			# 	current_date=item.completed_at
-   			# end
-   		end
+   		 it "must order by date desc" do
+    			#TODO: This test is not passing cause the ordering is wrong
+    			# p completed=ActivitySession.completed
+    			# current_date=completed.first.completed_at
+    			# completed.each do |item|
+    			# 	expect(item.completed_at).to satisfy { |x| p x.to_s+" <= "+current_date.to_s ||x <= current_date  }
+    			# 	current_date=item.completed_at
+    			# end
+    		end
    	end
   end
 
@@ -700,15 +700,15 @@ end
   	 describe ".incomplete" do
    		 before { create_list(:activity_session, 2, :unstarted) }
 
-   		it "must locate all the incompleted items" do
-   			 expect(ActivitySession.incomplete.count).to eq 2
-   		end
+   		 it "must locate all the incompleted items" do
+    			 expect(ActivitySession.incomplete.count).to eq 2
+    		end
 
-   		it "completed_at must be nil" do
-   			 ActivitySession.incomplete.each do |item|
-    				 expect(item.completed_at).to be_nil
-    			end
-   		end
+   		 it "completed_at must be nil" do
+    			 ActivitySession.incomplete.each do |item|
+     				 expect(item.completed_at).to be_nil
+     			end
+    		end
    	end
   end
 

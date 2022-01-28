@@ -204,12 +204,12 @@ describe Teachers::UnitsController, type: :controller do
 
     it "returns #get_classrooms_with_students_and_classroom_units when it is passed a valid unit id" do
       get :classrooms_with_students_and_classroom_units, params: { id: unit.id }
-        res = JSON.parse(response.body)
-        expect(res["classrooms"].first["id"]).to eq(classroom.id)
-        expect(res["classrooms"].first["name"]).to eq(classroom.name)
-        expect(res["classrooms"].first["students"].first['id']).to eq(student.id)
-        expect(res["classrooms"].first["students"].first['name']).to eq(student.name)
-        expect(res["classrooms"].first["classroom_unit"]).to eq({"id" => classroom_unit.id, "assigned_student_ids" => classroom_unit.assigned_student_ids, "assign_on_join" => true})
+      res = JSON.parse(response.body)
+      expect(res["classrooms"].first["id"]).to eq(classroom.id)
+      expect(res["classrooms"].first["name"]).to eq(classroom.name)
+      expect(res["classrooms"].first["students"].first['id']).to eq(student.id)
+      expect(res["classrooms"].first["students"].first['name']).to eq(student.name)
+      expect(res["classrooms"].first["classroom_unit"]).to eq({"id" => classroom_unit.id, "assigned_student_ids" => classroom_unit.assigned_student_ids, "assign_on_join" => true})
     end
 
 

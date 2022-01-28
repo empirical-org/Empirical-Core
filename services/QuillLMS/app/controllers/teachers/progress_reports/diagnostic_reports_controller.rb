@@ -16,10 +16,10 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
   def question_view
     set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(params[:activity_id], params[:classroom_id], params[:unit_id])
-      activity = Activity.includes(:classification)
-                         .find(params[:activity_id])
-      render json: { data: results_by_question(params[:activity_id]),
-                     classification: activity.classification.key }.to_json
+    activity = Activity.includes(:classification)
+                       .find(params[:activity_id])
+    render json: { data: results_by_question(params[:activity_id]),
+                   classification: activity.classification.key }.to_json
   end
 
   def students_by_classroom
@@ -150,8 +150,8 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         Unit.unscoped.find_or_create_by(unit_template_id: ut.id, name: ut.name, user_id: current_user.id)
       end
     end
-      create_or_update_selected_packs
-      render json: { data: 'Hi' }
+    create_or_update_selected_packs
+    render json: { data: 'Hi' }
   end
 
   def default_diagnostic_report
@@ -251,16 +251,16 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         selections_with_students.each_with_index do |value, index|
           last = (number_of_selections - 1) == index
             # this only accommodates one classroom at a time
-            classroom = value[:classrooms][0]
-            argument_hash = {
-              unit_template_id: value[:id],
-              classroom_id: classroom[:id],
-              student_ids: classroom[:student_ids].compact,
-              last: last,
-              lesson: false,
-              assigning_all_recommended_packs: params[:assigning_all_recommended_packs]
-            }
-            AssignRecommendationsWorker.perform_async(**argument_hash) if current_user.classrooms_i_teach.map(&:id).include?(classroom[:id].to_i)
+          classroom = value[:classrooms][0]
+          argument_hash = {
+            unit_template_id: value[:id],
+            classroom_id: classroom[:id],
+            student_ids: classroom[:student_ids].compact,
+            last: last,
+            lesson: false,
+            assigning_all_recommended_packs: params[:assigning_all_recommended_packs]
+          }
+          AssignRecommendationsWorker.perform_async(**argument_hash) if current_user.classrooms_i_teach.map(&:id).include?(classroom[:id].to_i)
         end
       end
     end

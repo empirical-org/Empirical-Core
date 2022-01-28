@@ -74,9 +74,9 @@ RSpec.describe 'Response model multi-db configuration checks', type: :request do
 
     describe 'responses#delete_many' do
       let(:params) { { ids: [q_response.id] } }
-     let(:url) { '/responses/mass_edit/delete_many' }
+      let(:url) { '/responses/mass_edit/delete_many' }
 
-     it { should_only_write_to_primary }
+      it { should_only_write_to_primary }
     end
 
     describe 'responses#count_affected_by_incorrect_sequences' do

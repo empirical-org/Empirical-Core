@@ -14,15 +14,15 @@ namespace :flags do
 
       CSV.parse(iostream, headers: true) do |row|
         user = User.find_by_email(row['email'])
-          if user.nil?
-            puts "Unable to locate user with email #{row['email']}"
-            next
-          end
+        if user.nil?
+          puts "Unable to locate user with email #{row['email']}"
+          next
+        end
 
-          next if user.flags.include?(row['flag'])
+        next if user.flags.include?(row['flag'])
 
-          user.flags.append(row['flag'])
-          user.save!
+        user.flags.append(row['flag'])
+        user.save!
       end
     end
 

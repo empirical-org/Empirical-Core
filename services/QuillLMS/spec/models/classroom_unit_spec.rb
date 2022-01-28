@@ -135,7 +135,7 @@ describe ClassroomUnit, type: :model, redis: true do
     context 'when assign_on_join is true' do
       it "updates the assigned student ids with all students in the classroom" do
         empty_classroom_unit = create(:classroom_unit, classroom: classroom, assign_on_join: true, assigned_student_ids: [])
-          expect(empty_classroom_unit.reload.assigned_student_ids).to eq([student.id])
+        expect(empty_classroom_unit.reload.assigned_student_ids).to eq([student.id])
       end
     end
   end

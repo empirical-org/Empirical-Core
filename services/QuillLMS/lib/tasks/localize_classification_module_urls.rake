@@ -7,11 +7,11 @@ namespace :local do
    	  original.gsub('https://www.quill.org', domain)
    	end
 
-  	ActivityClassification.all.each do |ac|
-  	  ac.update!(**{
-  	  	module_url: change_url_domain(ac.module_url),
-  	  	form_url: change_url_domain(ac.form_url)
-  	  })
-  	end
+  	 ActivityClassification.all.each do |ac|
+   	  ac.update!(**{
+   	  	module_url: change_url_domain(ac.module_url),
+   	  	form_url: change_url_domain(ac.form_url)
+   	  })
+   	end
   end
 end

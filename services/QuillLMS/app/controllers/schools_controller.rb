@@ -77,9 +77,9 @@ class SchoolsController < ApplicationController
          "lower(name) LIKE :prefix", prefix: "#{@prefix.downcase}%"
        ).group("schools.id")
        .limit(@limit)
-        $redis.set("PREFIX_TO_SCHOOL_#{@prefix}", @schools.map {|s| s.id}.to_json)
+      $redis.set("PREFIX_TO_SCHOOL_#{@prefix}", @schools.map {|s| s.id}.to_json)
       # longer cache, more general
-        $redis.expire("PREFIX_TO_SCHOOL_#{@prefix}", 60*60)
+      $redis.expire("PREFIX_TO_SCHOOL_#{@prefix}", 60*60)
     end
 
   end

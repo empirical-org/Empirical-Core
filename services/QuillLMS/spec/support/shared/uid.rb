@@ -19,7 +19,7 @@ shared_examples_for "uid" do
 
     it 'uid must be present' do
     	 parent.valid?
-     expect(parent.uid).to be_present
+      expect(parent.uid).to be_present
     end
 
   end
