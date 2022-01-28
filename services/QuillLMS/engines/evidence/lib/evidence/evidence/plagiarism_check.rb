@@ -116,12 +116,14 @@ module Evidence
       identify_first_matched_substring(passage_word_arrays, slices)
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     private def identify_first_matched_substring(slices_to_assemble, slices_to_match)
       combined_matched_slices = []
       # Placeholder to be overridden during the first run of the loop that makes it past the confirm_minimum_overlap? guard statement.  If that never happens, we don't have to calculate this value
       slices_to_match_strings = nil
       slices_to_assemble.each do |slice|
         next false unless confirm_minimum_overlap?(slice, slices_to_match)
+
         slice_string = slice.join(' ')
         slices_to_match_strings ||= slices_to_match.map { |s| s.join(' ') }
         match = slices_to_match_strings.any? { |match_string| DidYouMean::Levenshtein.distance(slice_string, match_string) <= FUZZY_CHARACTER_THRESHOLD }
@@ -143,6 +145,7 @@ module Evidence
       end
       combined_matched_slices
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     private def confirm_minimum_overlap?(target_array, source_arrays)
       # Since we allow character deviation that's smaller than the total number of words compared
