@@ -79,7 +79,7 @@ class Teachers::ProgressReportsController < ApplicationController
 
   private def set_user
     @user = User.find_by_email "hello+#{demo_name}@quill.org"
-    return unless @user.nil?
+    return if @user.present?
 
     recreate_demo
     set_user
