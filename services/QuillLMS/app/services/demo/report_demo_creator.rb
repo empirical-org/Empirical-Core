@@ -304,7 +304,7 @@ module Demo::ReportDemoCreator
         password_confirmation: 'password'
       }
     ]
-    
+
     if is_teacher_facing_demo_account
       # In case the old one didn't get deleted, delete Angie Thomas so that we
       # won't raise a validation error.

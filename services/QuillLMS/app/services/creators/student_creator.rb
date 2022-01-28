@@ -10,7 +10,7 @@ module Creators::StudentCreator
       name_validator[:notice]
     else
       name_validator
-      
+
     end
   end
 

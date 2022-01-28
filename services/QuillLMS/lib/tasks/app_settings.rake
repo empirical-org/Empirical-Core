@@ -18,7 +18,7 @@ namespace :app_settings do
   # Example usage: rake 'app_settings:update_user_ids_allow_list_from_csv[theName, filename]'
   task :update_user_ids_allow_list_from_csv, [:name, :filename] => :environment do |t, args|
     iostream = File.read(args[:filename])
-    if (CSV.parse(iostream, headers: true).headers & ["email", "flag"]).count != 2 
+    if (CSV.parse(iostream, headers: true).headers & ["email", "flag"]).count != 2
       puts "Invalid headers. Exiting."
       exit 1
     end

@@ -292,12 +292,6 @@ Layout/SpaceInsideParens:
 Layout/TrailingEmptyLines:
   Enabled: false
 
-# Offense count: 379
-# Cop supports --auto-correct.
-# Configuration parameters: AllowInHeredoc.
-Layout/TrailingWhitespace:
-  Enabled: false
-
 # Offense count: 21
 # Cop supports --auto-correct.
 Lint/ParenthesesAsGroupedExpression:

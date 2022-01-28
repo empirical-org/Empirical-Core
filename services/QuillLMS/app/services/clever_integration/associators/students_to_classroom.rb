@@ -6,6 +6,6 @@ module CleverIntegration::Associators::StudentsToClassroom
     students.map do |student|
       ::Associators::StudentsToClassrooms.run(student, classroom)
     end
-    
+
   end
 end

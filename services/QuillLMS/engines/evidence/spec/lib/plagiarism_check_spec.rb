@@ -4,7 +4,7 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(PlagiarismCheck, :type => :model) do
-    let!(:rule) { create(:evidence_rule, :rule_type => "plagiarism") } 
+    let!(:rule) { create(:evidence_rule, :rule_type => "plagiarism") }
 
     context 'should #feedback_object' do
 

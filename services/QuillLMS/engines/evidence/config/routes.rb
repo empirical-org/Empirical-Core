@@ -15,7 +15,7 @@ Evidence::Engine.routes.draw do
   end
   namespace :feedback do
     post :prefilter
-    post :opinion 
+    post :opinion
     post :grammar
     post :automl
     post :plagiarism
@@ -25,7 +25,7 @@ Evidence::Engine.routes.draw do
 
   put 'rules/update_rule_order' => 'rules#update_rule_order'
 
-  resources :rules, only: [:index, :show, :create, :update, :destroy] do 
+  resources :rules, only: [:index, :show, :create, :update, :destroy] do
     collection { get :universal }
   end
 

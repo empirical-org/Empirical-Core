@@ -7,7 +7,7 @@ class MaterializedViewRefreshWorker
       'feedback_histories_grouped_by_rule_uid'
     ]
     def perform
-        MATVIEWS.each do |matview| 
+        MATVIEWS.each do |matview|
             ActiveRecord::Base.refresh_materialized_view(matview)
         end
     end
