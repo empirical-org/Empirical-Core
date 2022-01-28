@@ -81,9 +81,9 @@ module Evidence
     end
 
     private def log_update
-      if saved_change_to_regex_text?
-        log_change(nil, :update, self, "regex_text", regex_text_before_last_save, regex_text)
-      end
+      return unless saved_change_to_regex_text?
+
+      log_change(nil, :update, self, "regex_text", regex_text_before_last_save, regex_text)
     end
   end
 end

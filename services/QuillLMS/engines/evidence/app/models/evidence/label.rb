@@ -26,9 +26,9 @@ module Evidence
 
     private def name_unique_for_prompt
       prompt_labels = rule&.prompts&.first&.rules&.map { |r| r.label }
-      if prompt_labels&.map { |l| l&.name }&.include?(name)
-        errors.add(:name, "can't be the same as any other labels related to the same prompt")
-      end
+      return unless prompt_labels&.map { |l| l&.name }&.include?(name)
+
+      errors.add(:name, "can't be the same as any other labels related to the same prompt")
     end
   end
 end

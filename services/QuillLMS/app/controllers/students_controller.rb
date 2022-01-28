@@ -10,10 +10,10 @@ class StudentsController < ApplicationController
     @current_user = current_user
     @js_file = 'student'
     classroom_id = params["classroom"]
-    if params["joined"] == 'success' && classroom_id
-      classroom = Classroom.find(classroom_id)
-      flash.now["join-class-notification"] = "You have joined #{classroom.name} 🎉🎊"
-    end
+    return unless params["joined"] == 'success' && classroom_id
+
+    classroom = Classroom.find(classroom_id)
+    flash.now["join-class-notification"] = "You have joined #{classroom.name} 🎉🎊"
   end
 
   def account_settings
@@ -120,11 +120,11 @@ class StudentsController < ApplicationController
 
     classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
 
-    unless classroom_unit && classroom_unit.assigned_student_ids.include?(current_user.id)
-      flash[:error] = t('activity_link.errors.activity_pack_not_assigned')
-      flash.keep(:error)
-      redirect_to classes_path
-    end
+    return if classroom_unit && classroom_unit.assigned_student_ids.include?(current_user.id)
+
+    flash[:error] = t('activity_link.errors.activity_pack_not_assigned')
+    flash.keep(:error)
+    redirect_to classes_path
   end
 
   private def student_params

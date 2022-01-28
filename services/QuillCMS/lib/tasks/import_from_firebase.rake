@@ -294,13 +294,11 @@ namespace :responses do
   end
 
   def parse_concept_results(concept_results)
-    if concept_results.instance_of?(String)
-      begin
-        JSON.parse(concept_results)
-      rescue JSON::ParserError
-        nil
-      end
-    end
+    return unless concept_results.instance_of?(String)
+
+    JSON.parse(concept_results)
+  rescue JSON::ParserError
+    nil
   end
 
   def convert_parent_uid_to_parent_id

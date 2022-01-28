@@ -74,14 +74,14 @@ class ClassroomUnit < ApplicationRecord
 
   private def hide_unassigned_activity_sessions
     #validate or hides any other related activity sessions
-    if activity_sessions.present?
-      activity_sessions.each do |as|
-        # We are explicitly checking to ensure that the student here actually belongs
-        # in this classroom before running the validate_assigned_student method because
-        # if this is not true, validate_assigned_student starts an infinite loop!
-        if !StudentsClassrooms.find_by(classroom_id: classroom_id, student_id: as.user_id) || !validate_assigned_student(as.user_id)
-          as.update(visible: false)
-        end
+    return unless activity_sessions.present?
+
+    activity_sessions.each do |as|
+      # We are explicitly checking to ensure that the student here actually belongs
+      # in this classroom before running the validate_assigned_student method because
+      # if this is not true, validate_assigned_student starts an infinite loop!
+      if !StudentsClassrooms.find_by(classroom_id: classroom_id, student_id: as.user_id) || !validate_assigned_student(as.user_id)
+        as.update(visible: false)
       end
     end
   end
@@ -108,11 +108,12 @@ class ClassroomUnit < ApplicationRecord
 
         # then it should indeed be assigned to all
         self.assign_on_join = true
-      end
-    if assign_on_join
-      # then we ensure that it has all the student ids
-      self.assigned_student_ids = student_ids
     end
+
+    return unless assign_on_join
+
+    # then we ensure that it has all the student ids
+    self.assigned_student_ids = student_ids
   end
 
   private def touch_classroom_without_callbacks

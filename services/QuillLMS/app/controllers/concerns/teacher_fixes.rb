@@ -154,16 +154,16 @@ module TeacherFixes
 
   def self.delete_last_activity_session(user_id, activity_id)
     last_activity_session = get_all_completed_activity_sessions_for_a_given_user_and_activity(user_id, activity_id).order("activity_sessions.completed_at DESC").limit(1)[0]
-    if last_activity_session
-      last_activity_session.delete
-    else
-      raise 'This activity session does not exist'
-    end
+    raise 'This activity session does not exist' unless last_activity_session
+
+    last_activity_session.delete
 
     remaining_activity_sessions = get_all_completed_activity_sessions_for_a_given_user_and_activity(user_id, activity_id)
-    if remaining_activity_sessions.length >= 1 && remaining_activity_sessions.none? { |as| as.is_final_score} && remaining_activity_sessions.any? { |as| as.state === 'finished'}
-      remaining_activity_sessions.order(:percentage).first.update(is_final_score: true)
-    end
+    return if remaining_activity_sessions.empty? 
+    return if remaining_activity_sessions.any?(&:is_final_score) 
+    return if remaining_activity_sessions.none? { |as| as.state == 'finished'}
+
+    remaining_activity_sessions.order(:percentage).first.update(is_final_score: true)
   end
 
   def self.get_all_completed_activity_sessions_for_a_given_user_and_activity(user_id, activity_id)

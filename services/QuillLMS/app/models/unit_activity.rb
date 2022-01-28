@@ -37,13 +37,13 @@ class UnitActivity < ApplicationRecord
   after_save :hide_appropriate_activity_sessions, :teacher_checkbox
 
   def teacher_checkbox
-    if unit && unit.user && unit.visible && visible
-      owner = unit.user
-      checkbox_name = checkbox_type
-      if owner && unit.name
-        find_or_create_checkbox(checkbox_name, owner, activity_id)
-      end
-    end
+    return unless unit
+    return unless unit.user
+    return unless unit.visible
+    return unless unit.name
+    return unless visible
+
+    find_or_create_checkbox(checkbox_type, unit.user, activity_id)
   end
 
   def checkbox_type
@@ -85,17 +85,17 @@ class UnitActivity < ApplicationRecord
   end
 
   private def hide_appropriate_activity_sessions
-    if visible == false
-      hide_all_activity_sessions
-    end
+    return if visible
+
+    hide_all_activity_sessions
   end
 
   private def hide_all_activity_sessions
-    if unit && unit.classroom_units
-      unit.classroom_units.each do |cu|
-        cu.activity_sessions.each do |as|
-          as.update(visible: false) if as.activity == activity
-        end
+    return unless unit&.classroom_units
+
+    unit.classroom_units.each do |cu|
+      cu.activity_sessions.each do |as|
+        as.update(visible: false) if as.activity == activity
       end
     end
   end

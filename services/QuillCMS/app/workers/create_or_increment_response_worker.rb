@@ -44,10 +44,11 @@ class CreateOrIncrementResponseWorker
     # id will be the first extant value or false. somehow 0 is being
     # used as when it shouldn't (possible JS remnant) so we verify that
     # id is truthy and not 0
-    if id && id != 0
-      parent = Response.find_by_id_or_uid(id)
-      parent.increment!(:child_count, 1, touch: true) unless parent.nil?
-    end
+    return unless id
+    return if id == 0
+
+    parent = Response.find_by_id_or_uid(id)
+    parent.increment!(:child_count, 1, touch: true) unless parent.nil?
   end
 
 end

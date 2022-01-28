@@ -48,9 +48,9 @@ class SubscriptionsController < ApplicationController
   end
 
   private def subscription_belongs_to_purchaser?
-    if current_user != @subscription.purchaser
-      auth_failed
-    end
+    return if current_user == @subscription.purchaser
+
+    auth_failed
   end
 
   private def set_index_variables

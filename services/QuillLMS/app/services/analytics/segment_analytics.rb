@@ -11,12 +11,12 @@ class SegmentAnalytics
 
   def initialize
     # Do not clobber the backend object if we already set a fake one under test
-    unless Rails.env.test?
-      self.backend ||= Segment::Analytics.new({
-        write_key: SegmentIo.configuration.write_key,
-        on_error: proc { |status, msg| print msg }
-      })
-    end
+    return if Rails.env.test?
+
+    self.backend ||= Segment::Analytics.new(
+      write_key: SegmentIo.configuration.write_key,
+      on_error: proc { |status, msg| print msg }
+    )
   end
 
   def track_event_from_string(event_name, user_id)
@@ -40,12 +40,12 @@ class SegmentAnalytics
     })
 
     # this event is for Vitally, which does not show properties
-    if Activity.diagnostic_activity_ids.include?(activity_id)
-      track({
-        user_id: teacher_id,
-        event: "#{SegmentIo::BackgroundEvents::DIAGNOSTIC_ASSIGNMENT} | #{activity.name}"
-      })
-    end
+    return unless Activity.diagnostic_activity_ids.include?(activity_id)
+
+    track({
+      user_id: teacher_id,
+      event: "#{SegmentIo::BackgroundEvents::DIAGNOSTIC_ASSIGNMENT} | #{activity.name}"
+    })
   end
 
   def track_activity_pack_assignment(teacher_id, unit_id)

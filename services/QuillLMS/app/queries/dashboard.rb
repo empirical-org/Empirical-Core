@@ -114,9 +114,10 @@ class Dashboard
     unless @@cached_strug_stud || strug_stud == 'insufficient data'
       $redis.set("user_id:#{user.id}_struggling_students", strug_stud.to_json, {ex: 16.hours})
     end
-    unless @@cached_diff_con || diff_con == 'insufficient data'
-      $redis.set("user_id:#{user.id}_difficult_concepts", diff_con.to_json, {ex: 16.hours})
-    end
+
+    return if @@cached_diff_con || diff_con == 'insufficient data'
+
+    $redis.set("user_id:#{user.id}_difficult_concepts", diff_con.to_json, {ex: 16.hours})
   end
 
   def self.get_redis_values(user)

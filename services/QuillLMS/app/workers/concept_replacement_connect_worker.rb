@@ -48,54 +48,53 @@ class ConceptReplacementConnectWorker
   end
 
   def replace_focus_points_for_question(fp_obj, original_concept_uid, new_concept_uid)
-    if fp_obj.any? { |k, v| v['conceptResults'] && v['conceptResults'].any? { |crk, crv| crv['conceptUID'] == original_concept_uid } }
-      new_fp_obj = fp_obj.deep_dup
-      begin
-        fp_obj.each do |k, v|
-          v['conceptResults'].each do |crk, crv|
-            if crv['conceptUID'] == original_concept_uid
-              concept = Concept.unscoped.find_by(uid: new_concept_uid)
-              parent_concept = concept.try(:parent)
-              grandparent_concept = parent_concept.try(:parent)
-              if concept && parent_concept && grandparent_concept
-                name = "#{grandparent_concept.name} | #{parent_concept.name} | #{concept.name}"
-                new_fp_obj[k]['conceptResults'][crk]['name'] = name
-              end
-              new_fp_obj[k]['conceptResults'][crk]['conceptUID'] = new_concept_uid
+    return if fp_obj.none? { |k, v| v['conceptResults'] && v['conceptResults'].any? { |crk, crv| crv['conceptUID'] == original_concept_uid } }
+
+    new_fp_obj = fp_obj.deep_dup
+    begin
+      fp_obj.each do |k, v|
+        v['conceptResults'].each do |crk, crv|
+          if crv['conceptUID'] == original_concept_uid
+            concept = Concept.unscoped.find_by(uid: new_concept_uid)
+            parent_concept = concept.try(:parent)
+            grandparent_concept = parent_concept.try(:parent)
+            if concept && parent_concept && grandparent_concept
+              name = "#{grandparent_concept.name} | #{parent_concept.name} | #{concept.name}"
+              new_fp_obj[k]['conceptResults'][crk]['name'] = name
             end
+            new_fp_obj[k]['conceptResults'][crk]['conceptUID'] = new_concept_uid
           end
         end
-      rescue => e
-        NewRelic::Agent.notice_error(e)
       end
-      new_fp_obj
+    rescue => e
+      NewRelic::Agent.notice_error(e)
     end
+    new_fp_obj
   end
 
   def replace_incorrect_sequences_for_question(is_array, original_concept_uid, new_concept_uid)
-    if is_array.any? { |is| is['conceptResults'] && is['conceptResults'].any? { |crk, crv| crv['conceptUID'] == original_concept_uid } }
-      new_is_array = is_array.deep_dup
-      begin
-        is_array.each_with_index do |is, i|
-          is['conceptResults'].each do |crk, crv|
-            if crv['conceptUID'] == original_concept_uid
-              concept = Concept.unscoped.find_by(uid: new_concept_uid)
-              parent_concept = concept.try(:parent)
-              grandparent_concept = parent_concept.try(:parent)
-              if concept && parent_concept && grandparent_concept
-                name = "#{grandparent_concept.name} | #{parent_concept.name} | #{concept.name}"
-                new_is_array[i]['conceptResults'][crk]['name'] = name
-              end
-              new_is_array[i]['conceptResults'][crk]['conceptUID'] = new_concept_uid
+    return if is_array.none? { |is| is['conceptResults'] && is['conceptResults'].any? { |crk, crv| crv['conceptUID'] == original_concept_uid } }
+
+    new_is_array = is_array.deep_dup
+
+    begin
+      is_array.each_with_index do |is, i|
+        is['conceptResults'].each do |crk, crv|
+          if crv['conceptUID'] == original_concept_uid
+            concept = Concept.unscoped.find_by(uid: new_concept_uid)
+            parent_concept = concept.try(:parent)
+            grandparent_concept = parent_concept.try(:parent)
+            if concept && parent_concept && grandparent_concept
+              name = "#{grandparent_concept.name} | #{parent_concept.name} | #{concept.name}"
+              new_is_array[i]['conceptResults'][crk]['name'] = name
             end
+            new_is_array[i]['conceptResults'][crk]['conceptUID'] = new_concept_uid
           end
         end
-      rescue => e
-        NewRelic::Agent.notice_error(e)
       end
-      new_is_array
+    rescue => e
+      NewRelic::Agent.notice_error(e)
     end
+    new_is_array
   end
-
-
 end

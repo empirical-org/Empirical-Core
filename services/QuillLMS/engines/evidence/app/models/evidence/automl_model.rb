@@ -111,9 +111,10 @@ module Evidence
     end
 
     private def validate_label_associations
-      if active? && !labels_have_associated_rules
-        errors.add(:state, "can't be set to 'active' until all labels have a corresponding rule")
-      end
+      return unless active?
+      return if labels_have_associated_rules
+
+      errors.add(:state, "can't be set to 'active' until all labels have a corresponding rule")
     end
 
     private def automl_client

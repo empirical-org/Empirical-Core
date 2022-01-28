@@ -28,6 +28,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
       return
     end
 
+    # rubocop:disable Style/GuardClause
     if lesson_tutorial_completed?
       if cuas && cuas.update(locked: false, pinned: true)
         find_or_create_lesson_activity_sessions_for_classroom
@@ -40,6 +41,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
     else
       redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.encode_www_form_component(launch_lesson_url)}" and return
     end
+    # rubocop:enable Style/GuardClause
   end
 
   def lessons_activities_cache

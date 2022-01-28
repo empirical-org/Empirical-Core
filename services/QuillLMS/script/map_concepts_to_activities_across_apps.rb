@@ -84,9 +84,9 @@ sf_questions = HTTParty.get("https://quillconnect.firebaseio.com/v2/sentenceFrag
 #
 def find_rule_number(uid, grammar_concepts)
   concept = grammar_concepts.values.find { |c| c["concept_level_0"]["uid"] == uid}
-  if concept
-    concept["ruleNumber"]
-  end
+  return unless concept
+
+  concept["ruleNumber"]
 end
 
 def find_categorized_connect_questions(uid, sc_questions, sf_questions, d_questions, fib_questions)
