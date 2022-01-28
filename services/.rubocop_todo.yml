@@ -68,11 +68,6 @@ Layout/CommentIndentation:
     - 'QuillLMS/spec/models/activity_session_spec.rb'
     - 'QuillLMS/spec/services/google_integration/classroom/main_spec.rb'
 
-# Offense count: 146
-# Cop supports --auto-correct.
-Layout/EmptyLineAfterGuardClause:
-  Enabled: false
-
 # Offense count: 36
 # Cop supports --auto-correct.
 # Configuration parameters: EmptyLineBetweenMethodDefs, EmptyLineBetweenClassDefs, EmptyLineBetweenModuleDefs, AllowAdjacentOneLineDefs, NumberOfEmptyLines.

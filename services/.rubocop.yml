@@ -59,9 +59,6 @@ Layout/ElseAlignment:
 Layout/EmptyComment:
   Enabled: true
 
-Layout/EmptyLineAfterGuardClause:
-  Enabled: true
-
 Layout/EmptyLineAfterMagicComment:
   Enabled: true
 
