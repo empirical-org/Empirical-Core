@@ -114,7 +114,17 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def skills_growth
-    render json: { skills_growth: skills_growth_by_classroom_for_post_tests(params[:classroom_id], params[:post_test_activity_id], params[:pre_test_activity_id]) }
+    classroom = Classroom.find(params[:classroom_id])
+    cache_keys = {
+      pre_test: params[:pre_test_activity_id],
+      post_test: params[:post_test_activity_id]
+    }
+
+    json = current_user.classroom_cache(classroom, key: 'teachers.progress_reports.diagnostic_reports.skills_growth', groups: cache_keys) do
+      { skills_growth: skills_growth_by_classroom_for_post_tests(params[:classroom_id], params[:post_test_activity_id], params[:pre_test_activity_id]) }
+    end
+
+    render json: json
   end
 
   def redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit
