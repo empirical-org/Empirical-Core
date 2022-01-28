@@ -87,7 +87,7 @@ class Teachers::ProgressReportsController < ApplicationController
 
   private def set_staff_user
     @staff_user = User.find_by_email "hello+#{staff_demo_name}@quill.org"
-    return unless @staff_user.nil?
+    return if @staff_user.present?
 
     recreate_staff_demo
     set_staff_user
