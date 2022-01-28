@@ -18,13 +18,13 @@ describe EmailApiHelper do
             }
         ]
     }
-   mock_comment_response = {
-        'responses': [
-            { 'feedback': 'this is great!', 'rating': 10 },
-            { 'feedback': nil, 'rating': 7 },
-            { 'feedback': 'meh', 'rating': 5 }
-        ]
-    }
+  mock_comment_response = {
+       'responses': [
+           { 'feedback': 'this is great!', 'rating': 10 },
+           { 'feedback': nil, 'rating': 7 },
+           { 'feedback': 'meh', 'rating': 5 }
+       ]
+   }
 
   describe '#parse_nps_response' do
     it 'should return the parsed response for the Satismeter response statistics API' do

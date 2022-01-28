@@ -309,62 +309,62 @@ describe Subscription, type: :model do
   let!(:user) { create(:user) }
   let(:old_sub) { Subscription.create_with_user_join(user.id, expiration: Date.yesterday, account_type: 'Teacher Paid') }
 
-    it 'creates a subscription based off of the passed attributes' do
-      attributes = { expiration: Date.yesterday, account_type: 'Teacher Paid' }
+  it 'creates a subscription based off of the passed attributes' do
+    attributes = { expiration: Date.yesterday, account_type: 'Teacher Paid' }
+    new_sub = Subscription.create_with_user_join(user.id, attributes)
+    expect(new_sub.account_type).to eq('Teacher Paid')
+    expect(new_sub.expiration).to eq(Date.yesterday)
+  end
+
+  context 'when the expiration is missing' do
+
+    it 'adds at least a year (or more, depending on promotions) to other accounts' do
+      attributes = { account_type: 'Teacher Paid' }
       new_sub = Subscription.create_with_user_join(user.id, attributes)
-      expect(new_sub.account_type).to eq('Teacher Paid')
-      expect(new_sub.expiration).to eq(Date.yesterday)
+      expect(new_sub.expiration).to be >= (Date.today + 365)
+    end
+  end
+
+  context 'when the subscription type is TEACHER_TRIAL' do
+    let!(:user_with_extant_subscription) { create(:user) }
+    let!(:extant_subscription ) { Subscription.create_with_user_join(user_with_extant_subscription.id, expiration: Date.today + 365, account_type: 'Teacher Paid') }
+    let!(:user_with_no_extant_subscription) { create(:user) }
+    let!(:user_with_expired_extant_subscription) { create(:user) }
+    let!(:extant_expired_subscription ) { Subscription.create_with_user_join(user_with_expired_extant_subscription.id, expiration: Date.today - 1, account_type: 'Teacher Paid') }
+
+    it 'creates a trial subscription with an expiration in 30 days if there is no extant subscription' do
+      attributes = { account_type: 'Teacher Trial' }
+      new_sub = Subscription.create_with_user_join(user_with_no_extant_subscription.id, attributes)
+      expect(new_sub.expiration).to eq(Date.today + 30)
     end
 
-    context 'when the expiration is missing' do
-
-      it 'adds at least a year (or more, depending on promotions) to other accounts' do
-        attributes = { account_type: 'Teacher Paid' }
-        new_sub = Subscription.create_with_user_join(user.id, attributes)
-        expect(new_sub.expiration).to be >= (Date.today + 365)
-      end
+    it 'creates a trial subscription with an expiration in 30 days if there is an expired extant subscription' do
+      attributes = { account_type: 'Teacher Trial' }
+      new_sub = Subscription.create_with_user_join(user_with_expired_extant_subscription.id, attributes)
+      expect(new_sub.expiration).to eq(Date.today + 30)
     end
 
-    context 'when the subscription type is TEACHER_TRIAL' do
-      let!(:user_with_extant_subscription) { create(:user) }
-      let!(:extant_subscription ) { Subscription.create_with_user_join(user_with_extant_subscription.id, expiration: Date.today + 365, account_type: 'Teacher Paid') }
-      let!(:user_with_no_extant_subscription) { create(:user) }
-      let!(:user_with_expired_extant_subscription) { create(:user) }
-      let!(:extant_expired_subscription ) { Subscription.create_with_user_join(user_with_expired_extant_subscription.id, expiration: Date.today - 1, account_type: 'Teacher Paid') }
-
-      it 'creates a trial subscription with an expiration in 30 days if there is no extant subscription' do
-        attributes = { account_type: 'Teacher Trial' }
-        new_sub = Subscription.create_with_user_join(user_with_no_extant_subscription.id, attributes)
-        expect(new_sub.expiration).to eq(Date.today + 30)
-      end
-
-      it 'creates a trial subscription with an expiration in 30 days if there is an expired extant subscription' do
-        attributes = { account_type: 'Teacher Trial' }
-        new_sub = Subscription.create_with_user_join(user_with_expired_extant_subscription.id, attributes)
-        expect(new_sub.expiration).to eq(Date.today + 30)
-      end
-
-      it 'create a trial subscription with an expiration 31 days after the extant subscription expiration' do
-        attributes = { account_type: 'Teacher Trial' }
-        new_sub = Subscription.create_with_user_join(user_with_extant_subscription.id, attributes)
-        expect(new_sub.expiration).to eq(extant_subscription.expiration + 31)
-      end
+    it 'create a trial subscription with an expiration 31 days after the extant subscription expiration' do
+      attributes = { account_type: 'Teacher Trial' }
+      new_sub = Subscription.create_with_user_join(user_with_extant_subscription.id, attributes)
+      expect(new_sub.expiration).to eq(extant_subscription.expiration + 31)
     end
+  end
 
-    it 'makes a matching UserSubscription join' do
-      attributes = { expiration: Date.yesterday, account_type: 'Teacher Paid' }
-      new_sub = Subscription.create_with_user_join(user.id, attributes)
-      join = new_sub.user_subscriptions.first
-      expect([join.user_id, join.subscription_id]).to eq([user.id, new_sub.id])
-    end
+  it 'makes a matching UserSubscription join' do
+    attributes = { expiration: Date.yesterday, account_type: 'Teacher Paid' }
+    new_sub = Subscription.create_with_user_join(user.id, attributes)
+    join = new_sub.user_subscriptions.first
+    expect([join.user_id, join.subscription_id]).to eq([user.id, new_sub.id])
+  end
 
-    context 'when the subscription already exists' do
-      it 'updates a UserSubscription based off of the passed attributes' do
-        attributes = { expiration: Date.tomorrow }
-        Subscription.create_with_user_join(user.id, attributes)
-        expect(user.reload.subscription.expiration).to eq(Date.tomorrow)
-      end
+  context 'when the subscription already exists' do
+    it 'updates a UserSubscription based off of the passed attributes' do
+      attributes = { expiration: Date.tomorrow }
+      Subscription.create_with_user_join(user.id, attributes)
+      expect(user.reload.subscription.expiration).to eq(Date.tomorrow)
     end
+  end
   end
 
   context 'recurring subscriptions' do

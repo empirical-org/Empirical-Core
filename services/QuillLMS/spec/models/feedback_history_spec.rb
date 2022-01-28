@@ -155,14 +155,14 @@ RSpec.describe FeedbackHistory, type: :model do
 
     it 'should save and return if all creations are valid' do
         expect(FeedbackHistory.count).to eq(0)
-	FeedbackHistory.batch_create([@valid_fh_params, @valid_fh_params, @valid_fh_params])
-	expect(FeedbackHistory.count).to eq(3)
+	       FeedbackHistory.batch_create([@valid_fh_params, @valid_fh_params, @valid_fh_params])
+	       expect(FeedbackHistory.count).to eq(3)
     end
 
     it 'should save any valid records if, but not any valid ones' do
         expect(FeedbackHistory.count).to eq(0)
-	results = FeedbackHistory.batch_create([@invalid_fh_params, @valid_fh_params])
-	expect(FeedbackHistory.count).to eq(1)
+	       results = FeedbackHistory.batch_create([@invalid_fh_params, @valid_fh_params])
+	       expect(FeedbackHistory.count).to eq(1)
         expect(results[0].errors[:entry].include?("can't be blank")).to be
         expect(results[1].valid?).to be
     end

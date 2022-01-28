@@ -161,46 +161,46 @@ RSpec.describe ResponsesController, type: :controller do
 
     end
 
-  it 'will not return responses with optimal nil' do
-    question_uids = [1, 2, 3, 4, 5]
-    true_false_or_nil = [true, false, nil]
-    10.times { Response.create(question_uid: question_uids.sample, optimal: true_false_or_nil.sample) }
-    post :batch_responses_for_lesson, params: {question_uids: question_uids}
-    questions_with_responses = {}
-    question_uids.each do |uid|
-      questions_with_responses[uid] = Response.where(question_uid: uid)
+    it 'will not return responses with optimal nil' do
+      question_uids = [1, 2, 3, 4, 5]
+      true_false_or_nil = [true, false, nil]
+      10.times { Response.create(question_uid: question_uids.sample, optimal: true_false_or_nil.sample) }
+      post :batch_responses_for_lesson, params: {question_uids: question_uids}
+      questions_with_responses = {}
+      question_uids.each do |uid|
+        questions_with_responses[uid] = Response.where(question_uid: uid)
+      end
+
+      parsed_response = (JSON.parse(response.body))['questionsWithResponses']
+
+      # because of the nested structure of these values and the difficulty of comparing json strings and active record objects,
+      # we are checking to see if each key in the returned json hash contains objects with the ids of the active record responses
+      # that have that question uid
+      question_uids.each do |quid|
+        expect(get_ids(parsed_response[quid.to_s])).to eq(filter_optimal_nil_responses(hashify_nested_ar_objects(questions_with_responses[quid])))
+      end
     end
 
-    parsed_response = (JSON.parse(response.body))['questionsWithResponses']
+    it 'will not return responses with a parent id' do
+      question_uids = [1, 2, 3, 4, 5]
+      true_or_false = [true, false]
+      parent_id = [nil, 1]
+      10.times { Response.create(question_uid: question_uids.sample, optimal: true_or_false.sample, parent_id: parent_id.sample) }
+      post :batch_responses_for_lesson, params: {question_uids: question_uids}
+      questions_with_responses = {}
+      question_uids.each do |uid|
+        questions_with_responses[uid] = Response.where(question_uid: uid)
+      end
 
-    # because of the nested structure of these values and the difficulty of comparing json strings and active record objects,
-    # we are checking to see if each key in the returned json hash contains objects with the ids of the active record responses
-    # that have that question uid
-    question_uids.each do |quid|
-      expect(get_ids(parsed_response[quid.to_s])).to eq(filter_optimal_nil_responses(hashify_nested_ar_objects(questions_with_responses[quid])))
+      parsed_response = (JSON.parse(response.body))['questionsWithResponses']
+
+      # because of the nested structure of these values and the difficulty of comparing json strings and active record objects,
+      # we are checking to see if each key in the returned json hash contains objects with the ids of the active record responses
+      # that have that question uid
+      question_uids.each do |quid|
+        expect(get_ids(parsed_response[quid.to_s])).to eq(filter_responses_with_parent_id(hashify_nested_ar_objects(questions_with_responses[quid])))
+      end
     end
-  end
-
-  it 'will not return responses with a parent id' do
-    question_uids = [1, 2, 3, 4, 5]
-    true_or_false = [true, false]
-    parent_id = [nil, 1]
-    10.times { Response.create(question_uid: question_uids.sample, optimal: true_or_false.sample, parent_id: parent_id.sample) }
-    post :batch_responses_for_lesson, params: {question_uids: question_uids}
-    questions_with_responses = {}
-    question_uids.each do |uid|
-      questions_with_responses[uid] = Response.where(question_uid: uid)
-    end
-
-    parsed_response = (JSON.parse(response.body))['questionsWithResponses']
-
-    # because of the nested structure of these values and the difficulty of comparing json strings and active record objects,
-    # we are checking to see if each key in the returned json hash contains objects with the ids of the active record responses
-    # that have that question uid
-    question_uids.each do |quid|
-      expect(get_ids(parsed_response[quid.to_s])).to eq(filter_responses_with_parent_id(hashify_nested_ar_objects(questions_with_responses[quid])))
-    end
-  end
 
 end
 
@@ -226,8 +226,8 @@ end
     it "should extract conceptUID and correct from sub-hash values" do
     input = {foo: {'conceptUID' => 'mock_uid',
                    'correct' => 'true'}}
-      output = controller.send(:concept_results_to_boolean, input)
-      expect(output['mock_uid']).to eq(true)
+    output = controller.send(:concept_results_to_boolean, input)
+    expect(output['mock_uid']).to eq(true)
     end
   end
 

@@ -43,12 +43,12 @@ module Concepts
         incorrect_count += 1
       end
     end
-   {
-    conceptId: concept.id,
-    conceptName: concept.name,
-    correctCount: correct_count,
-    incorrectCount: incorrect_count
-    }
+    {
+     conceptId: concept.id,
+     conceptName: concept.name,
+     correctCount: correct_count,
+     incorrectCount: incorrect_count
+     }
   end
 
 end

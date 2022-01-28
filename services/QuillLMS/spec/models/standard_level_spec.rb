@@ -18,7 +18,7 @@ describe StandardLevel, type: :model do
 
 	let(:standard_level){ build(:standard_level) }
 
-  it_behaves_like 'uid'
+ it_behaves_like 'uid'
 
 	context "when it's created/updated" do
 

@@ -24,7 +24,7 @@ describe Standard, type: :model do
 
 	let!(:standard){create(:standard, name: "a")}
 
-  it_behaves_like 'uid'
+ it_behaves_like 'uid'
 
 	context "when the default order is by name" do
 
@@ -76,59 +76,59 @@ describe Standard, type: :model do
 	context "retrieving standards for the progress report" do
     let(:filters) { {} }
 
-	  include_context 'Standard Progress Report'
+	   include_context 'Standard Progress Report'
 
-	  subject { ProgressReports::Standards::Standard.new(teacher).results(filters).to_a }
+	   subject { ProgressReports::Standards::Standard.new(teacher).results(filters).to_a }
 
-	  it "retrieves aggregated standards data" do
-	  	found_standards = subject
-	  	expect(found_standards.size).to eq(visible_standards.size)
-      expect(found_standards[0].name).to be_present
-      expect(found_standards[0].total_student_count).to be_present
-      expect(found_standards[0].proficient_student_count).to be_present
-      expect(found_standards[0].not_proficient_student_count).to be_present
-      expect(found_standards[0].total_activity_count).to be_present
-      expect(found_standards[0].average_score).to be_present
-	  end
+	   it "retrieves aggregated standards data" do
+ 	  	found_standards = subject
+ 	  	expect(found_standards.size).to eq(visible_standards.size)
+     expect(found_standards[0].name).to be_present
+     expect(found_standards[0].total_student_count).to be_present
+     expect(found_standards[0].proficient_student_count).to be_present
+     expect(found_standards[0].not_proficient_student_count).to be_present
+     expect(found_standards[0].total_activity_count).to be_present
+     expect(found_standards[0].average_score).to be_present
+ 	  end
 
-	  context "when a classroom filter is provided" do
-	    let(:filters) { {standard_level_id: standard_level.id, classroom_id: full_classroom.id} }
+	   context "when a classroom filter is provided" do
+ 	    let(:filters) { {standard_level_id: standard_level.id, classroom_id: full_classroom.id} }
 
-	  	it "filters by classroom" do
-	  		expect(subject.size).to eq(visible_standards.size)
-	  	end
-	  end
+ 	  	 it "filters by classroom" do
+  	  		expect(subject.size).to eq(visible_standards.size)
+  	  	end
+ 	  end
 
-	  context "classroom filter for an empty classroom" do
-	  	let(:filters) { {standard_level_id: standard_level.id, classroom_id: empty_classroom.id} }
+	   context "classroom filter for an empty classroom" do
+ 	  	let(:filters) { {standard_level_id: standard_level.id, classroom_id: empty_classroom.id} }
 
-	  	it "returns no results" do
-	  		expect(subject.size).to eq(0)
-	  	end
-	  end
+ 	  	it "returns no results" do
+ 	  		expect(subject.size).to eq(0)
+ 	  	end
+ 	  end
 
-	  context "classroom filter with no ID" do
-    	let(:filters) { {standard_level_id: standard_level.id, classroom_id: ""} }
+	   context "classroom filter with no ID" do
+     	let(:filters) { {standard_level_id: standard_level.id, classroom_id: ""} }
 
-	  	it "does not filter by classroom" do
-	  		expect(subject.size).to eq(visible_standards.size)
-	  	end
-	  end
+ 	  	 it "does not filter by classroom" do
+  	  		expect(subject.size).to eq(visible_standards.size)
+  	  	end
+ 	  end
 
-	  context "when a unit filter is provided" do
-    	let(:filters) { {standard_level_id: standard_level.id, unit_id: unit1.id} }
+	   context "when a unit filter is provided" do
+     	let(:filters) { {standard_level_id: standard_level.id, unit_id: unit1.id} }
 
-	  	it "filters by unit" do
-	  		expect(subject.size).to eq(visible_standards.size)
-	  	end
-	  end
+ 	  	 it "filters by unit" do
+  	  		expect(subject.size).to eq(visible_standards.size)
+  	  	end
+ 	  end
 
-	  context "when an empty unit filter is provided" do
-    	let(:filters) { {standard_level_id: standard_level.id, unit_id: ""} }
+	   context "when an empty unit filter is provided" do
+     	let(:filters) { {standard_level_id: standard_level.id, unit_id: ""} }
 
-	  	it "does not filter by unit" do
-	  		expect(subject.size).to eq(visible_standards.size)
-	  	end
-	  end
+ 	  	 it "does not filter by unit" do
+  	  		expect(subject.size).to eq(visible_standards.size)
+  	  	end
+ 	  end
 	end
 end

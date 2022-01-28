@@ -281,44 +281,44 @@ describe ActivitySession, type: :model, redis: true do
 
 	end
 
-  describe "#invalidate_activity_session_count_if_completed" do
-    let!(:student){ create(:student, :in_one_classroom) }
-    let!(:classroom_unit) { create(:classroom_unit, classroom_id: student.classrooms.first.id, assigned_student_ids: [student.id]) }
-    let!(:activity_session){   create(:activity_session, classroom_unit: classroom_unit, state: 'not validated')}
+   describe "#invalidate_activity_session_count_if_completed" do
+     let!(:student){ create(:student, :in_one_classroom) }
+     let!(:classroom_unit) { create(:classroom_unit, classroom_id: student.classrooms.first.id, assigned_student_ids: [student.id]) }
+     let!(:activity_session){   create(:activity_session, classroom_unit: classroom_unit, state: 'not validated')}
 
-    before do
-      $redis.set("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
-    end
+     before do
+       $redis.set("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
+     end
 
-    it "deletes redis cache when an activity with a classroom's state is finished" do
-      activity_session.update(state: 'finished')
-      activity_session.invalidate_activity_session_count_if_completed
-      expect($redis.get("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).not_to be
-    end
+     it "deletes redis cache when an activity with a classroom's state is finished" do
+       activity_session.update(state: 'finished')
+       activity_session.invalidate_activity_session_count_if_completed
+       expect($redis.get("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).not_to be
+     end
 
-    it "does nothing to redis cache when any other classroom attribute changes" do
-      activity_session.update(visible: false)
-      activity_session.invalidate_activity_session_count_if_completed
-      expect($redis.get("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).to eq('10')
-    end
+     it "does nothing to redis cache when any other classroom attribute changes" do
+       activity_session.update(visible: false)
+       activity_session.invalidate_activity_session_count_if_completed
+       expect($redis.get("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).to eq('10')
+     end
 
-  end
+   end
 
-	context "when there's not an associated activity but there's a classroom unit and only one unit activity" do
+	  context "when there's not an associated activity but there's a classroom unit and only one unit activity" do
 
-	    let!(:activity){ create(:activity) }
-	    let!(:student){ create(:student, :in_one_classroom) }
-	    let!(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id], classroom_id: student.classrooms.first.id) }
-      let!(:unit_activity ) { create(:unit_activity, activity: activity, unit: classroom_unit.unit)}
-		  let(:activity_session){   build(:activity_session, classroom_unit: classroom_unit)                     }
+  	    let!(:activity){ create(:activity) }
+  	    let!(:student){ create(:student, :in_one_classroom) }
+  	    let!(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id], classroom_id: student.classrooms.first.id) }
+       let!(:unit_activity ) { create(:unit_activity, activity: activity, unit: classroom_unit.unit)}
+  		   let(:activity_session){   build(:activity_session, classroom_unit: classroom_unit)                     }
 
-  		it "must return the unit activity's activity" do
-  			activity_session.activity_id=nil
+    		 it "must return the unit activity's activity" do
+     			activity_session.activity_id=nil
         unit_activity.unit.reload
-  			expect(activity_session.activity).to eq unit_activity.activity
-  		end
+     			expect(activity_session.activity).to eq unit_activity.activity
+     		end
 
-	end
+  	end
 
   end
 
@@ -457,13 +457,13 @@ describe ActivitySession, type: :model, redis: true do
     end
   end
 
-  context 'when percentage is present' do
-    let(:activity_session) { create(:activity_session, percentage: 0.4) }
+    context 'when percentage is present' do
+      let(:activity_session) { create(:activity_session, percentage: 0.4) }
 
-    it 'should return the formatted percentage' do
-      expect(activity_session.percentage_as_percent).to eq("40%")
+      it 'should return the formatted percentage' do
+        expect(activity_session.percentage_as_percent).to eq("40%")
+      end
     end
-  end
 end
 
   describe 'score' do

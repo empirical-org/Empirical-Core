@@ -58,16 +58,16 @@ describe ClassroomUnit, type: :model, redis: true do
     context 'when there is an assigned student' do
       let(:classroom) { create(:classroom, code: '101') }
 
-        before do
-          @student = classroom.students.build(first_name: 'John', last_name: 'Doe')
-          @student.generate_student(classroom.id)
-          @student.save!
-          @new_classroom_unit = create(:classroom_unit, classroom: classroom, assigned_student_ids: [@student.id])
-        end
+      before do
+        @student = classroom.students.build(first_name: 'John', last_name: 'Doe')
+        @student.generate_student(classroom.id)
+        @student.save!
+        @new_classroom_unit = create(:classroom_unit, classroom: classroom, assigned_student_ids: [@student.id])
+      end
 
-        it 'must return a list with one element' do
-          expect(@new_classroom_unit.assigned_students.first).to eq(@student)
-        end
+      it 'must return a list with one element' do
+        expect(@new_classroom_unit.assigned_students.first).to eq(@student)
+      end
     end
   end
 

@@ -62,20 +62,20 @@ describe School, type: :model do
       let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
       let!(:school_subscription) {create(:school_subscription, school: bk_school, subscription: subscription)}
 
-    it "returns a subscription if a valid one exists" do
-      expect(bk_school.reload.subscription).to eq(subscription)
-    end
+      it "returns a subscription if a valid one exists" do
+        expect(bk_school.reload.subscription).to eq(subscription)
+      end
 
-    it "returns the subscription with the latest expiration date multiple valid ones exists" do
-      later_subscription = create(:subscription, expiration: Date.today + 365)
-      later_user_sub = create(:school_subscription, school: bk_school, subscription: later_subscription)
-      expect(bk_school.reload.subscription).to eq(later_subscription)
-    end
+      it "returns the subscription with the latest expiration date multiple valid ones exists" do
+        later_subscription = create(:subscription, expiration: Date.today + 365)
+        later_user_sub = create(:school_subscription, school: bk_school, subscription: later_subscription)
+        expect(bk_school.reload.subscription).to eq(later_subscription)
+      end
 
-    it "returns nil if a valid subscription does not exist" do
-      subscription.update(expiration: Date.yesterday)
-      expect(bk_school.reload.subscription).to eq(nil)
-    end
+      it "returns nil if a valid subscription does not exist" do
+        subscription.update(expiration: Date.yesterday)
+        expect(bk_school.reload.subscription).to eq(nil)
+      end
   end
 
   describe('#present_and_future_subscriptions') do

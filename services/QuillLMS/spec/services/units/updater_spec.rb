@@ -107,109 +107,109 @@ describe Units::Updater do
 
     end
 
-    describe 'when an old classroom activity does not exist a new one is initialized' do
-      def hide_ca
-        classroom_unit.update(visible: false)
-        classroom_unit
+  describe 'when an old classroom activity does not exist a new one is initialized' do
+    def hide_ca
+      classroom_unit.update(visible: false)
+      classroom_unit
+    end
+
+    before do
+      hide_ca
+    end
+
+    it 'unless it does not have assigned students' do
+      initial_count = ClassroomUnit.count
+      classrooms_data = [{id: classroom.id, student_ids: false}]
+      Units::Updater.run(unit.id, activities_data, classrooms_data)
+      expect(ClassroomUnit.count).to eq(initial_count)
+    end
+
+    it 'with an entire class of assigned students' do
+      classrooms_data = [{id: classroom.id, student_ids: []}]
+      Units::Updater.run(unit.id, activities_data, classrooms_data)
+      expect(ClassroomUnit.all.last.assigned_student_ids).to eq([])
+    end
+
+    it 'with some assigned students' do
+      classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
+      Units::Updater.run(unit.id, activities_data, classrooms_data)
+      expect(ClassroomUnit.all.last.assigned_student_ids).to eq([student.id])
+    end
+
+    it 'with a new activity if it does not already exist' do
+      expect(UnitActivity.where(activity_id: activity1).count).to eq(0)
+      classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
+      activities_data = [{id: activity1.id, due_date: nil}]
+      Units::Updater.run(unit.id, activities_data, classrooms_data)
+      expect(UnitActivity.where(activity_id: activity1).count).to eq(1)
+    end
+
+  end
+
+
+  describe 'new or updated activity sessions' do
+
+    before do
+      cu_with_unit
+      ua_with_unit
+      classroom.students.push(student1, student2, student)
+    end
+
+    context 'when assigned students are changed' do
+
+      it 'does not give newly assigned students an activity session' do
+         classrooms_data = [{id: classroom.id, student_ids: [student.id, student1.id, student2.id]}]
+         old_activity_session_count = ActivitySession.count
+         Units::Updater.run(unit.id, activities_data, classrooms_data)
+         expect(ActivitySession.count).to eq(old_activity_session_count)
       end
 
-      before do
-        hide_ca
+      it 'hides the activity session of unassigned students' do
+        ActivitySession.create(user_id: student.id, activity_id: unit_activity.activity_id, classroom_unit_id: classroom_unit.id, completed_at: Date.today, state: 'finished', percentage: 0.8)
+        classrooms_data = [{id: classroom.id, student_ids: [student1.id, student2.id], assign_on_join: false}]
+        Units::Updater.run(unit.id, activities_data, classrooms_data)
+        student_as_visibility = ActivitySession.unscoped.where(user_id: student.id).first.visible
+        expect(student_as_visibility).to eq(false)
       end
 
-      it 'unless it does not have assigned students' do
-        initial_count = ClassroomUnit.count
+      it 'can add all students in a classroom' do
+        classrooms_data = [{id: classroom.id, student_ids: [], assign_on_join: true}]
+        Units::Updater.run(unit.id, activities_data, classrooms_data)
+        assigned_users = classroom_unit.reload.assigned_student_ids
+        expect(assigned_users).to include(student1.id, student2.id, student.id)
+      end
+
+      it 'can unnassign some students and assign new students' do
+        classrooms_data = [{id: classroom.id, student_ids: [student1.id]}]
+        old_assigned_student_ids = classroom_unit.assigned_student_ids
+        expect(old_assigned_student_ids).to eq([student.id])
+        Units::Updater.run(unit.id, activities_data, classrooms_data)
+        new_assigned_student_ids = classroom_unit.reload.assigned_student_ids
+        expect(new_assigned_student_ids).to eq([student1.id])
+      end
+
+      it "hides all activity sessions when assigned to no students" do
+        expect(classroom_unit.assigned_student_ids.any?).to eq(true)
         classrooms_data = [{id: classroom.id, student_ids: false}]
         Units::Updater.run(unit.id, activities_data, classrooms_data)
-        expect(ClassroomUnit.count).to eq(initial_count)
+        assigned_users = classroom_unit.reload.activity_sessions
+        expect(assigned_users).to be_empty
       end
 
-      it 'with an entire class of assigned students' do
-        classrooms_data = [{id: classroom.id, student_ids: []}]
-        Units::Updater.run(unit.id, activities_data, classrooms_data)
-        expect(ClassroomUnit.all.last.assigned_student_ids).to eq([])
-      end
+    end
 
-      it 'with some assigned students' do
-        classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
-        Units::Updater.run(unit.id, activities_data, classrooms_data)
-        expect(ClassroomUnit.all.last.assigned_student_ids).to eq([student.id])
-      end
+    context 'when a new activity is added' do
 
-      it 'with a new activity if it does not already exist' do
-        expect(UnitActivity.where(activity_id: activity1).count).to eq(0)
+      it "it does not create new activity sessions" do
+        # because it used to create new ones
+        expect(student.activity_sessions.map(&:activity_id)).to be_empty
         classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
         activities_data = [{id: activity1.id, due_date: nil}]
+        old_activity_session_count = ActivitySession.count
         Units::Updater.run(unit.id, activities_data, classrooms_data)
-        expect(UnitActivity.where(activity_id: activity1).count).to eq(1)
+        expect(ActivitySession.count).to eq(old_activity_session_count)
       end
 
     end
-
-
-    describe 'new or updated activity sessions' do
-
-      before do
-        cu_with_unit
-        ua_with_unit
-        classroom.students.push(student1, student2, student)
-      end
-
-      context 'when assigned students are changed' do
-
-        it 'does not give newly assigned students an activity session' do
-           classrooms_data = [{id: classroom.id, student_ids: [student.id, student1.id, student2.id]}]
-           old_activity_session_count = ActivitySession.count
-           Units::Updater.run(unit.id, activities_data, classrooms_data)
-           expect(ActivitySession.count).to eq(old_activity_session_count)
-        end
-
-        it 'hides the activity session of unassigned students' do
-          ActivitySession.create(user_id: student.id, activity_id: unit_activity.activity_id, classroom_unit_id: classroom_unit.id, completed_at: Date.today, state: 'finished', percentage: 0.8)
-          classrooms_data = [{id: classroom.id, student_ids: [student1.id, student2.id], assign_on_join: false}]
-          Units::Updater.run(unit.id, activities_data, classrooms_data)
-          student_as_visibility = ActivitySession.unscoped.where(user_id: student.id).first.visible
-          expect(student_as_visibility).to eq(false)
-        end
-
-        it 'can add all students in a classroom' do
-          classrooms_data = [{id: classroom.id, student_ids: [], assign_on_join: true}]
-          Units::Updater.run(unit.id, activities_data, classrooms_data)
-          assigned_users = classroom_unit.reload.assigned_student_ids
-          expect(assigned_users).to include(student1.id, student2.id, student.id)
-        end
-
-        it 'can unnassign some students and assign new students' do
-          classrooms_data = [{id: classroom.id, student_ids: [student1.id]}]
-          old_assigned_student_ids = classroom_unit.assigned_student_ids
-          expect(old_assigned_student_ids).to eq([student.id])
-          Units::Updater.run(unit.id, activities_data, classrooms_data)
-          new_assigned_student_ids = classroom_unit.reload.assigned_student_ids
-          expect(new_assigned_student_ids).to eq([student1.id])
-        end
-
-        it "hides all activity sessions when assigned to no students" do
-          expect(classroom_unit.assigned_student_ids.any?).to eq(true)
-          classrooms_data = [{id: classroom.id, student_ids: false}]
-          Units::Updater.run(unit.id, activities_data, classrooms_data)
-          assigned_users = classroom_unit.reload.activity_sessions
-          expect(assigned_users).to be_empty
-        end
-
-      end
-
-      context 'when a new activity is added' do
-
-        it "it does not create new activity sessions" do
-          # because it used to create new ones
-          expect(student.activity_sessions.map(&:activity_id)).to be_empty
-          classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
-          activities_data = [{id: activity1.id, due_date: nil}]
-          old_activity_session_count = ActivitySession.count
-          Units::Updater.run(unit.id, activities_data, classrooms_data)
-          expect(ActivitySession.count).to eq(old_activity_session_count)
-        end
-
-      end
-    end
+  end
   end
