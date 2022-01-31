@@ -7,7 +7,6 @@ exports[`RightPanel component should render RightPanel 1`] = `
 >
   <ReadAndHighlightInstructions
     activeStep={1}
-    handleReadTheDirectionsButtonClick={[MockFunction]}
     inReflection={true}
     passage={
       Object {
@@ -24,7 +23,6 @@ But how can democracies have representative governments unless all or most of th
       }
     }
     removeHighlight={[MockFunction]}
-    showReadTheDirectionsButton={false}
     studentHighlights={Array []}
   />
   <BottomNavigation

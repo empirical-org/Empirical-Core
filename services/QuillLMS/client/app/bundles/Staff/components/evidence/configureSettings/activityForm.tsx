@@ -25,7 +25,8 @@ import {
   PARENT_ACTIVITY_ID,
   HIGHLIGHT_PROMPT,
   flagOptions,
-  MAX_ATTEMPTS_FEEDBACK_TEXT
+  MAX_ATTEMPTS_FEEDBACK_TEXT,
+  ESSENTIAL_KNOWLEDGE_TEXT_FILLER
 } from '../../../../../constants/evidence';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent, ClickEvent,  TextAreaEvent } from '../../../interfaces/evidenceInterfaces';
 import { DataTable, Input, TextEditor, DropdownInput, } from '../../../../Shared/index'
@@ -64,7 +65,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   const { id, parent_activity_id, invalid_highlights, passages, prompts, scored_level, target_level, title, notes, flag, } = activity;
   const formattedScoredLevel = scored_level || '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
-  const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT }];
+  const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT, essential_knowledge_text: ESSENTIAL_KNOWLEDGE_TEXT_FILLER }];
   let formattedMaxFeedback;
   if(prompts && prompts[0] && prompts[0].max_attempts_feedback) {
     formattedMaxFeedback = prompts[0].max_attempts_feedback

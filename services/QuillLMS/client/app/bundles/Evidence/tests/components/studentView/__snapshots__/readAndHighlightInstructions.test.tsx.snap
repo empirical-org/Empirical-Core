@@ -26,7 +26,6 @@ exports[`ReadAndHighlightInstructions component when the student has not started
           "highlight_prompt": "",
         }
       }
-      showReadTheDirectionsButton={false}
     >
       <div
         className="hide-on-mobile"
@@ -57,14 +56,74 @@ exports[`ReadAndHighlightInstructions component when the student has not started
             <u />
           </p>
         </section>
+        <div
+          className="essential-knowledge-section"
+        >
+          <div
+            className="essential-knowledge-header"
+          >
+            <img
+              alt="Information icon"
+              src="undefined/images/icons/information.svg"
+            />
+            <h3>
+              Building Essential Knowledge
+            </h3>
+          </div>
+          <div
+            className="essential-knowledge"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": undefined,
+              }
+            }
+          />
+        </div>
       </div>
     </DirectionsSection>
     <section
       className="highlight-section"
     >
-      <h3>
-        Highlights
-      </h3>
+      <div
+        className="highlight-label-section"
+      >
+        <h3>
+          Highlights
+        </h3>
+        <Tooltip
+          isTabbable={true}
+          tooltipText="<p>How to highlight:</p><br/><p>Step 1 - Hover over a sentence</p><br/><p>Step 2 - Click, tap, or select the sentence</p><br/><p>If you change your mind about something you've highlighted, click, tap, or deselect the sentence again to remove the highlight.</p>"
+          tooltipTriggerText={
+            <img
+              alt="Question mark icon"
+              src="undefined/images/icons/icons-help.svg"
+            />
+          }
+        >
+          <span
+            className="quill-tooltip-trigger"
+          >
+            <span
+              className="undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              tabIndex={0}
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              className="quill-tooltip-wrapper"
+            >
+              <span
+                className="quill-tooltip"
+              />
+            </span>
+          </span>
+        </Tooltip>
+      </div>
       <div
         className="highlight-instructions"
       >
@@ -107,7 +166,6 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
           "highlight_prompt": "",
         }
       }
-      showReadTheDirectionsButton={false}
     >
       <div
         className="hide-on-mobile"
@@ -138,14 +196,74 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
             <u />
           </p>
         </section>
+        <div
+          className="essential-knowledge-section"
+        >
+          <div
+            className="essential-knowledge-header"
+          >
+            <img
+              alt="Information icon"
+              src="undefined/images/icons/information.svg"
+            />
+            <h3>
+              Building Essential Knowledge
+            </h3>
+          </div>
+          <div
+            className="essential-knowledge"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": undefined,
+              }
+            }
+          />
+        </div>
       </div>
     </DirectionsSection>
     <section
       className="highlight-section"
     >
-      <h3>
-        Highlights
-      </h3>
+      <div
+        className="highlight-label-section"
+      >
+        <h3>
+          Highlights
+        </h3>
+        <Tooltip
+          isTabbable={true}
+          tooltipText="<p>How to highlight:</p><br/><p>Step 1 - Hover over a sentence</p><br/><p>Step 2 - Click, tap, or select the sentence</p><br/><p>If you change your mind about something you've highlighted, click, tap, or deselect the sentence again to remove the highlight.</p>"
+          tooltipTriggerText={
+            <img
+              alt="Question mark icon"
+              src="undefined/images/icons/icons-help.svg"
+            />
+          }
+        >
+          <span
+            className="quill-tooltip-trigger"
+          >
+            <span
+              className="undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              tabIndex={0}
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              className="quill-tooltip-wrapper"
+            >
+              <span
+                className="quill-tooltip"
+              />
+            </span>
+          </span>
+        </Tooltip>
+      </div>
       <DisplayStudentHighlight
         inReflection={false}
         key="This is a highlight made by a student."

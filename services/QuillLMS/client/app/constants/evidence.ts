@@ -36,6 +36,7 @@ export const HIGHLIGHT_TYPE = 'highlight type'
 export const FEEDBACK_LAYER_ADDITION = 'feedback layer addition'
 export const FEEDBACK_LAYER_REMOVAL = 'feedback layer removal'
 export const MAX_ATTEMPTS_FEEDBACK_TEXT = 'Nice effort! You worked hard to make your sentence stronger.'
+export const ESSENTIAL_KNOWLEDGE_TEXT_FILLER = '<p>In this activity, you’ll read about how skateboarding gained popularity through a process called hierarchical diffusion.</p><br/><p><i>Hierarchical diffusion</i>, happens when an idea spreads through an established social structure (a hierarchy), usually from a person or place with more power and connections to people or places with less power and fewer connections.</p>'
 
 export const flagOptions = [
   {
@@ -122,7 +123,7 @@ export const universalRuleTypeOptions = [
   {"value":"grammar","label":"Grammar"},
   {"value":"opinion","label":"Opinion"},
   {"value":"spelling","label":"Spelling"},
-  {"value":"prefilter","label":"Prefilter"} 
+  {"value":"prefilter","label":"Prefilter"}
 ];
 
 export const ruleHighlightOptions = [

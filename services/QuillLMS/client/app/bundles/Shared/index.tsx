@@ -119,6 +119,7 @@ export {
   whiteCheckGreenBackgroundIcon,
   lockedIcon,
   closeIcon,
+  informationIcon
 } from './images/index'
 
 export {
