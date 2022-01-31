@@ -139,12 +139,14 @@ class Teachers::UnitsController < ApplicationController
   # :activity_id (in url)
   # :classroom_unit_id
   def score_info
-    classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
+    classroom_unit = ClassroomUnit.find_by(id: params[:classroom_unit_id])
+    return render json: { cumulative_score: 0, completed_count: 0 } unless classroom_unit
+
     cache_groups = {
       activity: params[:activity_id]
     }
 
-    json = current_user.classroom_unit_cache(classroom_unit, key: 'units.score_info', groups: cache_groups) do
+    json = current_user.classroom_unit_cache(classroom_unit, key: 'teachers.units.score_info', groups: cache_groups) do
       completed = ActivitySession.where(
         classroom_unit_id: params[:classroom_unit_id],
         activity_id: params[:activity_id],
@@ -159,11 +161,6 @@ class Teachers::UnitsController < ApplicationController
     end
 
     render json: json
-  rescue ActiveRecord::RecordNotFound
-    render json: {
-      cumulative_score: 0,
-      completed_count: 0
-    }
   end
 
   private def lessons_with_current_user_and_activity
