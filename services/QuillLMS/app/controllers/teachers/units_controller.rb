@@ -113,7 +113,11 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def diagnostic_units
-    render json: diagnostics_organized_by_classroom.to_json
+    json = current_user.all_classrooms_cache(key: 'teachers.units.diagnostic_units') do
+      diagnostics_organized_by_classroom.to_json
+    end
+
+    render json: json
   end
 
   # Get all Units containing lessons, and only retrieve the classroom activities for lessons.
@@ -140,17 +144,28 @@ class Teachers::UnitsController < ApplicationController
   # :activity_id (in url)
   # :classroom_unit_id
   def score_info
-    completed = ActivitySession.where(
-      classroom_unit_id: params[:classroom_unit_id],
-      activity_id: params[:activity_id],
-      is_final_score: true,
-      visible: true
-    )
+    classroom_unit = ClassroomUnit.find_by(id: params[:classroom_unit_id])
+    return render json: { cumulative_score: 0, completed_count: 0 } unless classroom_unit
 
-    completed_count = completed.count
-    cumulative_score = completed.sum(:percentage) * 100
+    cache_groups = {
+      activity: params[:activity_id]
+    }
 
-    render json: {cumulative_score: cumulative_score, completed_count: completed_count}
+    json = current_user.classroom_unit_cache(classroom_unit, key: 'teachers.units.score_info', groups: cache_groups) do
+      completed = ActivitySession.where(
+        classroom_unit_id: params[:classroom_unit_id],
+        activity_id: params[:activity_id],
+        is_final_score: true,
+        visible: true
+      )
+
+      completed_count = completed.count
+      cumulative_score = completed.sum(:percentage) * 100
+
+      {cumulative_score: cumulative_score, completed_count: completed_count}
+    end
+
+    render json: json
   end
 
   private def lessons_with_current_user_and_activity
