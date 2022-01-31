@@ -16,7 +16,7 @@ const defaultDirections = (className) => (
 )
 
 const essentialKnowledgeSection = ({ essential_knowledge_text }) => {
-  if(essential_knowledge_text === '<br/>') { return }
+  if(!essential_knowledge_text || essential_knowledge_text === '<br/>') { return }
 
   return(
     <div className="essential-knowledge-section">
