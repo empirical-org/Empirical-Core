@@ -28,6 +28,11 @@ class Cron
     Question::TYPES.each {|type| RefreshQuestionCacheWorker.perform_async(type) }
   end
 
+  # Configured in Heroku Scheduler to run at XX:20 and XX:50 marks every hour
+  def self.run_at_20_and_50_on_the_hour
+    ResetGhostInspectorAccountWorker.perform_async
+  end
+
   def self.run_saturday
     SetImpactMetricsWorker.perform_async
     UploadLeapReportWorker.perform_async(29087)
