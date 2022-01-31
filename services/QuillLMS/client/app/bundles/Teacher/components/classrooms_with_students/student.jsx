@@ -20,21 +20,23 @@
    determineCheckbox = () => {
      // TODO: rewrite this method to make checked a variable, nothing else changes
      if (this.props.student.isSelected == true) {
-       return ( <input
-         checked="checked"
-         className="css-checkbox"
-         id={'student_' + this.props.student.id + 'classroom_' + this.props.classroom.id}
-         onChange={this.handleStudentSelection}
-         type="checkbox"
-       />
+       return ( 
+         <input
+           checked="checked"
+           className="css-checkbox"
+           id={'student_' + this.props.student.id + 'classroom_' + this.props.classroom.id}
+           onChange={this.handleStudentSelection}
+           type="checkbox"
+         />
        );
      } else {
-       return (<input
-         className="css-checkbox"
-         id={'student_' + this.props.student.id + 'classroom_' + this.props.classroom.id}
-         onChange={this.handleStudentSelection}
-         type="checkbox"
-       />
+       return (
+         <input
+           className="css-checkbox"
+           id={'student_' + this.props.student.id + 'classroom_' + this.props.classroom.id}
+           onChange={this.handleStudentSelection}
+           type="checkbox"
+         />
        );
      }
    };

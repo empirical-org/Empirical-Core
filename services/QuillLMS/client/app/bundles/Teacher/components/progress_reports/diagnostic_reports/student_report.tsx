@@ -81,23 +81,27 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
     if (![GRAMMAR_KEY, CONNECT_KEY, EVIDENCE_KEY].includes(studentData.activity_classification)) { return }
 
     if (boldingExplanationIsOpen) {
-      return (<button className="bolding-explanation is-open" onClick={this.handleToggleBoldingExplanation} type="button">
-        <div>
-          <h3>The bolded text helps you see the edits. It is not what the student sees.</h3>
-          <p>In each student response, we have bolded all of the text that was added or edited by the student during the previous revision so that it is easier for you to skim the student&#39;s results and quickly see what changed in their writing.</p>
-          <p>In the student experience, Quill uses bolding to provide hints for the student about what to change. In the Quill Feedback below, the feedback refers to the bolding the student sees as a hint, not the bolded text displayed in this report. </p>
-        </div>
-        <img alt={expandIcon.alt} src={expandIcon.src} />
-      </button>)
+      return (
+        <button className="bolding-explanation is-open" onClick={this.handleToggleBoldingExplanation} type="button">
+          <div>
+            <h3>The bolded text helps you see the edits. It is not what the student sees.</h3>
+            <p>In each student response, we have bolded all of the text that was added or edited by the student during the previous revision so that it is easier for you to skim the student&#39;s results and quickly see what changed in their writing.</p>
+            <p>In the student experience, Quill uses bolding to provide hints for the student about what to change. In the Quill Feedback below, the feedback refers to the bolding the student sees as a hint, not the bolded text displayed in this report. </p>
+          </div>
+          <img alt={expandIcon.alt} src={expandIcon.src} />
+        </button>
+)
     }
 
-    return (<button className="bolding-explanation is-closed" onClick={this.handleToggleBoldingExplanation} type="button">
-      <div>
-        <h3>The bolded text helps you see the edits. It is not what the student sees.</h3>
-        <p>(Expand to show more information)</p>
-      </div>
-      <img alt={expandIcon.alt} src={expandIcon.src} />
-    </button>)
+    return (
+      <button className="bolding-explanation is-closed" onClick={this.handleToggleBoldingExplanation} type="button">
+        <div>
+          <h3>The bolded text helps you see the edits. It is not what the student sees.</h3>
+          <p>(Expand to show more information)</p>
+        </div>
+        <img alt={expandIcon.alt} src={expandIcon.src} />
+      </button>
+)
   }
 
   render() {

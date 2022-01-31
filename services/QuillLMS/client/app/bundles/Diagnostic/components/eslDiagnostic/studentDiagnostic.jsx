@@ -435,11 +435,13 @@ export class ELLStudentDiagnostic extends React.Component {
   renderFooter = () => {
     if (!this.language()) { return }
 
-    return (<Footer
-      handleClickOpenMobileLanguageMenu={this.onClickOpenMobileLanguageMenu}
-      language={this.language()}
-      updateLanguage={this.updateLanguage}
-    />)
+    return (
+      <Footer
+        handleClickOpenMobileLanguageMenu={this.onClickOpenMobileLanguageMenu}
+        language={this.language()}
+        updateLanguage={this.updateLanguage}
+      />
+)
   }
 
   renderProgressBar = () => {
@@ -458,12 +460,14 @@ export class ELLStudentDiagnostic extends React.Component {
 
 
 
-    return (<ProgressBar
-      answeredQuestionCount={displayedAnsweredQuestionCount > totalQuestionCount ? totalQuestionCount : displayedAnsweredQuestionCount}
-      label='questions'
-      percent={progressPercent}
-      questionCount={totalQuestionCount}
-    />)
+    return (
+      <ProgressBar
+        answeredQuestionCount={displayedAnsweredQuestionCount > totalQuestionCount ? totalQuestionCount : displayedAnsweredQuestionCount}
+        label='questions'
+        percent={progressPercent}
+        questionCount={totalQuestionCount}
+      />
+)
   }
 
   render() {

@@ -502,41 +502,49 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { showEarlySubmitModal, necessaryEdits } = this.state
       const requiredEditCount = necessaryEdits && necessaryEdits.length ? Math.floor(necessaryEdits.length / 2) : 5
       if (showEarlySubmitModal) {
-        return (<EarlySubmitModal
-          closeModal={this.closeEarlySubmitModal}
-          requiredEditCount={requiredEditCount}
-        />)
+        return (
+          <EarlySubmitModal
+            closeModal={this.closeEarlySubmitModal}
+            requiredEditCount={requiredEditCount}
+          />
+)
       }
     }
 
     renderShowResetModal = (): JSX.Element|void => {
       const { showResetModal, } = this.state
       if (showResetModal) {
-        return (<ResetModal
-          closeModal={this.closeResetModal}
-          reset={this.reset}
-        />)
+        return (
+          <ResetModal
+            closeModal={this.closeResetModal}
+            reset={this.reset}
+          />
+)
       }
     }
 
     renderFollowupModal = (): JSX.Element|void => {
       const { showFollowupModal, } = this.state
       if (!showFollowupModal) { return }
-      return (<FollowupModal
-        goToFollowupPractice={this.goToFollowupPractice}
-        goToLMS={this.goToLMS}
-      />)
+      return (
+        <FollowupModal
+          goToFollowupPractice={this.goToFollowupPractice}
+          goToLMS={this.goToLMS}
+        />
+)
     }
 
     renderShowReviewModal = (): JSX.Element|void => {
       const { showReviewModal, necessaryEdits, numberOfCorrectChanges } = this.state
       const numberOfErrors = necessaryEdits && necessaryEdits.length ? necessaryEdits.length : 0
       if (showReviewModal) {
-        return (<ReviewModal
-          closeModal={this.closeReviewModal}
-          numberOfCorrectChanges={numberOfCorrectChanges || 0}
-          numberOfErrors={numberOfErrors}
-        />)
+        return (
+          <ReviewModal
+            closeModal={this.closeReviewModal}
+            numberOfCorrectChanges={numberOfCorrectChanges || 0}
+            numberOfErrors={numberOfErrors}
+          />
+)
       }
     }
 
@@ -547,21 +555,25 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { underlineErrorsInProofreader } = proofreaderActivities.currentActivity
       if (reviewing) {
         const text = reviewablePassage ? reviewablePassage : ''
-        return (<PassageReviewer
-          concepts={concepts.data[0]}
-          finishReview={this.finishReview}
-          text={text}
-        />)
+        return (
+          <PassageReviewer
+            concepts={concepts.data[0]}
+            finishReview={this.finishReview}
+            text={text}
+          />
+)
       } else if (passage) {
         const paragraphs = passage.map((p, i) => {
-          return (<Paragraph
-            handleParagraphChange={this.onParagraphChange}
-            index={i}
-            key={i}
-            numberOfResets={numberOfResets}
-            underlineErrors={underlineErrorsInProofreader}
-            words={p}
-          />)
+          return (
+            <Paragraph
+              handleParagraphChange={this.onParagraphChange}
+              index={i}
+              key={i}
+              numberOfResets={numberOfResets}
+              underlineErrors={underlineErrorsInProofreader}
+              words={p}
+            />
+)
         })
         return <div className="editor">{paragraphs}</div>
       }
@@ -609,33 +621,35 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
       const necessaryEditsLength = necessaryEdits ? necessaryEdits.length : 1
       const meterWidth = edits / necessaryEditsLength * 100
-      return (<div className="passage-container">
-        <div className="header-section">
-          <ProgressBar answeredQuestionCount={edits} percent={meterWidth} questionCount={necessaryEditsLength} />
-          <div className="inner-header">
-            <h1>{currentActivity.title}</h1>
-            <div className="instructions">
-              <div>
-                <img alt="Directions icon" src={directionSrc} />
-                <p dangerouslySetInnerHTML={{__html: currentActivity.description || this.defaultInstructions()}} />
+      return (
+        <div className="passage-container">
+          <div className="header-section">
+            <ProgressBar answeredQuestionCount={edits} percent={meterWidth} questionCount={necessaryEditsLength} />
+            <div className="inner-header">
+              <h1>{currentActivity.title}</h1>
+              <div className="instructions">
+                <div>
+                  <img alt="Directions icon" src={directionSrc} />
+                  <p dangerouslySetInnerHTML={{__html: currentActivity.description || this.defaultInstructions()}} />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        {this.renderShowEarlySubmitModal()}
-        {this.renderShowResetModal()}
-        {this.renderShowReviewModal()}
-        {this.renderFollowupModal()}
-        <div className={`passage ${className}`}>
-          {this.renderPassage()}
-        </div>
-        <div className="bottom-section">
-          <div id="button-container" tabIndex={-1}>
-            {this.renderResetButton()}
-            {this.renderCheckWorkButton()}
+          {this.renderShowEarlySubmitModal()}
+          {this.renderShowResetModal()}
+          {this.renderShowReviewModal()}
+          {this.renderFollowupModal()}
+          <div className={`passage ${className}`}>
+            {this.renderPassage()}
+          </div>
+          <div className="bottom-section">
+            <div id="button-container" tabIndex={-1}>
+              {this.renderResetButton()}
+              {this.renderCheckWorkButton()}
+            </div>
           </div>
         </div>
-      </div>)
+)
     }
 }
 

@@ -25,14 +25,16 @@ class ConceptsFeedback extends React.Component {
     if (data && data["0"]) {
       return data["0"].map((concept) => {
         const hasFeedback = !!conceptsFeedback.data[concept.uid];
-        return (<LinkListItem
-          activeClassName='is-active'
-          basePath='concepts-feedback'
-          className={hasFeedback ? "" : "no-feedback"}
-          itemKey={concept.uid}
-          key={concept.uid}
-          text={concept.displayName}
-        />)
+        return (
+          <LinkListItem
+            activeClassName='is-active'
+            basePath='concepts-feedback'
+            className={hasFeedback ? "" : "no-feedback"}
+            itemKey={concept.uid}
+            key={concept.uid}
+            text={concept.displayName}
+          />
+)
       })
     }
   };

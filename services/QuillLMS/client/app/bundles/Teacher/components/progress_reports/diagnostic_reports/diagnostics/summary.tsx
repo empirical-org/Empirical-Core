@@ -53,13 +53,15 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => 
       {needPracticeElement}
     </React.Fragment>)
   }
-  return (<section className="skill-group-summary-card">
-    <div className="card-header">
-      <span className="skill-group-name">{name}</span>
-      <SkillGroupTooltip description={description} name={name} />
-    </div>
-    {cardContent}
-  </section>)
+  return (
+    <section className="skill-group-summary-card">
+      <div className="card-header">
+        <span className="skill-group-name">{name}</span>
+        <SkillGroupTooltip description={description} name={name} />
+      </div>
+      {cardContent}
+    </section>
+)
 }
 
 export const Summary = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, location, }) => {
@@ -106,15 +108,16 @@ export const Summary = ({ passedStudentResults, passedSkillGroupSummaries, match
 
   const skillGroupSummaryCards = skillGroupSummaries.map(skillGroupSummary => <SkillGroupSummaryCard completedStudentCount={completedStudentCount} key={skillGroupSummary.name} skillGroupSummary={skillGroupSummary} />)
 
-  return (<main className="results-summary-container">
-    <header>
-      <h1>Class summary</h1>
-      {!!skillGroupSummaries.length && <a className="focus-on-light" href="https://support.quill.org/en/articles/5698112-how-do-i-read-the-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>}
-    </header>
-    {mobileNavigation}
-    {emptyState}
-    {!!skillGroupSummaries.length && <section className="skill-group-summary-cards">{skillGroupSummaryCards}</section>}
-  </main>
+  return (
+    <main className="results-summary-container">
+      <header>
+        <h1>Class summary</h1>
+        {!!skillGroupSummaries.length && <a className="focus-on-light" href="https://support.quill.org/en/articles/5698112-how-do-i-read-the-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>}
+      </header>
+      {mobileNavigation}
+      {emptyState}
+      {!!skillGroupSummaries.length && <section className="skill-group-summary-cards">{skillGroupSummaryCards}</section>}
+    </main>
   )
 }
 

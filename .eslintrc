@@ -85,6 +85,6 @@
     "react/jsx-tag-spacing": "error",
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
-    "react/jsx-wrap-multilines": "error"
+    "react/jsx-wrap-multilines": ["error", { "return": "parens-new-line" }]
   }
 }

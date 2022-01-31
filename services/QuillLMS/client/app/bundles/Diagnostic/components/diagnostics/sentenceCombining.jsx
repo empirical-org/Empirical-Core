@@ -95,10 +95,12 @@ class PlayDiagnosticQuestion extends React.Component {
 
   renderCues = () => {
     const { question } = this.props;
-    return (<RenderQuestionCues
-      displayArrowAndText={true}
-      question={question}
-    />);
+    return (
+      <RenderQuestionCues
+        displayArrowAndText={true}
+        question={question}
+      />
+);
   }
 
   updateResponseResource = (response) => {
@@ -189,12 +191,14 @@ class PlayDiagnosticQuestion extends React.Component {
     const { error, } = this.state;
     if (!error) { return }
 
-    return (<div className="error-container">
-      <Feedback
-        feedback={<p>{error}</p>}
-        feedbackType="revise-unmatched"
-      />
-    </div>)
+    return (
+      <div className="error-container">
+        <Feedback
+          feedback={<p>{error}</p>}
+          feedbackType="revise-unmatched"
+        />
+      </div>
+)
   }
 
   getButton = () => {

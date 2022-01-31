@@ -47,9 +47,11 @@ const negativeMultipleChoiceOptions = [
 const EmojiButton = ({ src, alt, emojiNumber, setSelectedEmoji, selectedEmoji, }) => {
   function handleClick() { setSelectedEmoji(emojiNumber) }
 
-  return (<button className={`emoji-button ${selectedEmoji === emojiNumber ? 'selected' : ''}`} onClick={handleClick} type="button">
-    <img alt={alt} src={src} />
-  </button>)
+  return (
+    <button className={`emoji-button ${selectedEmoji === emojiNumber ? 'selected' : ''}`} onClick={handleClick} type="button">
+      <img alt={alt} src={src} />
+    </button>
+)
 }
 
 const MultipleChoiceOption = ({ text, selectedMultipleChoiceOptions, setSelectedMultipleChoiceOptions, }) => {
@@ -67,10 +69,12 @@ const MultipleChoiceOption = ({ text, selectedMultipleChoiceOptions, setSelected
     </span>)
   }
 
-  return (<button className={`multiple-choice-option ${optionIsSelected ? 'selected' : ''}`} onClick={handleCheckboxClick} type="button">
-    {checkbox}
-    <span className="text-container">{text}</span>
-  </button>)
+  return (
+    <button className={`multiple-choice-option ${optionIsSelected ? 'selected' : ''}`} onClick={handleCheckboxClick} type="button">
+      {checkbox}
+      <span className="text-container">{text}</span>
+    </button>
+)
 }
 
 const ActivitySurvey = ({ sessionID, saveActivitySurveyResponse, setSubmittedActivitySurvey, }) => {
@@ -122,17 +126,19 @@ const ActivitySurvey = ({ sessionID, saveActivitySurveyResponse, setSubmittedAct
 
   const sendButtonClassName = selectedMultipleChoiceOptions.length ? 'quill-button large secondary outlined focus-on-dark' : 'quill-button large disabled contained focus-on-dark'
 
-  return (<div className="activity-follow-up-container activity-survey-container">
-    <div className="activity-survey-content">
-      {activitySurveyHeader}
-      <div className="emoji-buttons">{emojiButtons}</div>
-      {multipleChoiceSection}
+  return (
+    <div className="activity-follow-up-container activity-survey-container">
+      <div className="activity-survey-content">
+        {activitySurveyHeader}
+        <div className="emoji-buttons">{emojiButtons}</div>
+        {multipleChoiceSection}
+      </div>
+      <div className="button-section">
+        <a className="focus-on-dark" href={process.env.DEFAULT_URL} onClick={handleLinkClick}>Skip</a>
+        <button className={sendButtonClassName} onClick={handleSend} type="button">Send</button>
+      </div>
     </div>
-    <div className="button-section">
-      <a className="focus-on-dark" href={process.env.DEFAULT_URL} onClick={handleLinkClick}>Skip</a>
-      <button className={sendButtonClassName} onClick={handleSend} type="button">Send</button>
-    </div>
-  </div>)
+)
 }
 
 export default ActivitySurvey

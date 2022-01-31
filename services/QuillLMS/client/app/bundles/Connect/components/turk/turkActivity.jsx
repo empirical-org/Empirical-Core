@@ -189,12 +189,14 @@ export class TurkActivity extends React.Component {
     const currentQuestionIsNotFirstQuestion = calculatedAnsweredQuestionCount !== 0
     const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
 
-    return (<ProgressBar
-      answeredQuestionCount={displayedAnsweredQuestionCount}
-      label='questions'
-      percent={getProgressPercent(playTurk)}
-      questionCount={questionCount(playTurk)}
-    />)
+    return (
+      <ProgressBar
+        answeredQuestionCount={displayedAnsweredQuestionCount}
+        label='questions'
+        percent={getProgressPercent(playTurk)}
+        questionCount={questionCount(playTurk)}
+      />
+)
   }
 
 

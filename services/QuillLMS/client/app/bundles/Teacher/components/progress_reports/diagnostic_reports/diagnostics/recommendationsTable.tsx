@@ -71,13 +71,15 @@ const RecommendationCell = ({ student, isAssigned, isRecommended, isSelected, se
       <img alt={smallWhiteCheckIcon.alt} src={smallWhiteCheckIcon.src} />
     </span>)
   }
-  return (<td className="recommendation-cell">
-    <button className={`interactive-wrapper ${isRecommended && isSelected && !isAssigned ? 'recommended-and-selected' : ''}`} onClick={isAssigned ? () => {} : toggleSelection} type="button">
-      {isRecommended ? asteriskIcon : <span />}
-      {assigned || checkbox}
-      <span />
-    </button>
-  </td>)
+  return (
+    <td className="recommendation-cell">
+      <button className={`interactive-wrapper ${isRecommended && isSelected && !isAssigned ? 'recommended-and-selected' : ''}`} onClick={isAssigned ? () => {} : toggleSelection} type="button">
+        {isRecommended ? asteriskIcon : <span />}
+        {assigned || checkbox}
+        <span />
+      </button>
+    </td>
+)
 }
 
 const StudentRow = ({ student, selections, recommendations, previouslyAssignedRecommendations, setSelections, responsesLink, }) => {
@@ -105,16 +107,18 @@ const StudentRow = ({ student, selections, recommendations, previouslyAssignedRe
       const isAssigned = previouslyAssignedRecommendations.find(r => r.activity_pack_id === selection.activity_pack_id).students.includes(id)
       const isRecommended = recommendations.find(r => r.activity_pack_id === selection.activity_pack_id).students.includes(id)
       const isSelected = selection.students.includes(id)
-      return (<RecommendationCell
-        isAssigned={isAssigned}
-        isRecommended={isRecommended}
-        isSelected={isSelected}
-        key={`${id}-${selection.activity_pack_id}`}
-        selectionIndex={i}
-        selections={selections}
-        setSelections={setSelections}
-        student={student}
-      />)
+      return (
+        <RecommendationCell
+          isAssigned={isAssigned}
+          isRecommended={isRecommended}
+          isSelected={isSelected}
+          key={`${id}-${selection.activity_pack_id}`}
+          selectionIndex={i}
+          selections={selections}
+          setSelections={setSelections}
+          student={student}
+        />
+)
     })
   }
   return <tr key={name}>{firstCell}{selectionCells}</tr>
@@ -168,16 +172,18 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
 
   const tableHeaders = recommendations && recommendations.map(recommendation => {
     const { activity_pack_id, name, activity_count, students, } = recommendation
-    return (<th className="recommendation-header" key={name}>
-      <div className="name-and-tooltip">
-        <span>{name}</span>
-        <Tooltip
-          tooltipText={`<a href='/activities/packs/${activity_pack_id}' target="_blank">Preview the activity pack</a>`}
-          tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
-        />
-      </div>
-      <span className="activity-count">{activity_count} activities</span>
-    </th>)
+    return (
+      <th className="recommendation-header" key={name}>
+        <div className="name-and-tooltip">
+          <span>{name}</span>
+          <Tooltip
+            tooltipText={`<a href='/activities/packs/${activity_pack_id}' target="_blank">Preview the activity pack</a>`}
+            tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+          />
+        </div>
+        <span className="activity-count">{activity_count} activities</span>
+      </th>
+)
   })
 
   const studentRows = students.map(student => (
@@ -205,16 +211,19 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
       style = { left: -(LEFT_OFFSET - (stickyTableStyle.left - paddingLeft())) + 1 }
     }
 
-    return (<thead>
-      <tr>
-        <th className="corner-header" style={sticky ? style : {}}>Name</th>
-        {tableHeaders}
-      </tr>
-    </thead>)
+    return (
+      <thead>
+        <tr>
+          <th className="corner-header" style={sticky ? style : {}}>Name</th>
+          {tableHeaders}
+        </tr>
+      </thead>
+)
   }
 
-  return (<div className="recommendations-table-container" onScroll={handleScroll}>
-    {isSticky && tableHasContent && (
+  return (
+    <div className="recommendations-table-container" onScroll={handleScroll}>
+      {isSticky && tableHasContent && (
       <table
         className={`${tableClassName} sticky`}
         style={stickyTableStyle}
@@ -222,14 +231,15 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
         {renderHeader(true)}
       </table>
     )}
-    <table className={tableClassName} ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
-      {renderHeader(false)}
-      {tableHasContent ? null : noDataYet}
-      <tbody>
-        {studentRows}
-      </tbody>
-    </table>
-  </div>)
+      <table className={tableClassName} ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
+        {renderHeader(false)}
+        {tableHasContent ? null : noDataYet}
+        <tbody>
+          {studentRows}
+        </tbody>
+      </table>
+    </div>
+)
 }
 
 export default RecommendationsTable

@@ -52,12 +52,14 @@ export default class ActivitiesUnit extends React.Component {
     // and we need to do a number of things with it that are better with an array
     const classrooms = Array.isArray(dclassy) ? dclassy : Array.from(dclassy);
     const classroomList = this.classroomList(classrooms);
-    return (<div className="assigned-to">
-      <span className="heading">Assigned to {classrooms.length} {Pluralize('class', classrooms.length)}:</span>
-      <ul>
-        {classroomList}
-      </ul>
-    </div>);
+    return (
+      <div className="assigned-to">
+        <span className="heading">Assigned to {classrooms.length} {Pluralize('class', classrooms.length)}:</span>
+        <ul>
+          {classroomList}
+        </ul>
+      </div>
+);
   }
 
   changeToEdit = () => {
@@ -80,15 +82,17 @@ export default class ActivitiesUnit extends React.Component {
     if (!this.props.report && !this.props.lesson && ownedByCurrentUser) {
       return <span className="delete-unit" onClick={this.hideUnit}>Delete Activity Pack</span>;
     } else if (!ownedByCurrentUser) {
-      return (<span
-        className='locked-unit'
-        onMouseEnter={this.toggleTooltip}
-        onMouseLeave={this.toggleTooltip}
-      >
-        <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg" />
+      return (
+        <span
+          className='locked-unit'
+          onMouseEnter={this.toggleTooltip}
+          onMouseLeave={this.toggleTooltip}
+        >
+          <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg" />
           Created By {firstCa.ownerName}
-        {this.renderTooltip()}
-      </span>);
+          {this.renderTooltip()}
+        </span>
+);
     }
   }
 
@@ -264,11 +268,13 @@ export default class ActivitiesUnit extends React.Component {
   renderTooltip = () => {
     const visible = this.state.showTooltip ? 'visible' : 'invisible';
     const ownerName = this.state.classroomActivities.values().next().value.ownerName;
-    return (<div className={`tooltip ${visible}`}>
-      <i className="fas fa-caret-up" />
-      <p>Since {ownerName} created this activity pack, you are unable to edit this activity pack. You can ask the creator to edit it.</p>
-      <p>If you would like to assign additional practice activities, you can create a new pack for your students.</p>
-    </div>);
+    return (
+      <div className={`tooltip ${visible}`}>
+        <i className="fas fa-caret-up" />
+        <p>Since {ownerName} created this activity pack, you are unable to edit this activity pack. You can ask the creator to edit it.</p>
+        <p>If you would like to assign additional practice activities, you can create a new pack for your students.</p>
+      </div>
+);
   }
 
   render = () => {

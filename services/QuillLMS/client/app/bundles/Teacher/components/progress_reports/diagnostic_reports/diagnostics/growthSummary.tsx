@@ -77,13 +77,15 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
     </React.Fragment>)
   }
 
-  return (<section className="skill-group-summary-card">
-    <div className="card-header">
-      <span className="skill-group-name">{name}</span>
-      <SkillGroupTooltip description={description} name={name} />
-    </div>
-    {cardContent}
-  </section>)
+  return (
+    <section className="skill-group-summary-card">
+      <div className="card-header">
+        <span className="skill-group-name">{name}</span>
+        <SkillGroupTooltip description={description} name={name} />
+      </div>
+      {cardContent}
+    </section>
+)
 }
 
 export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {
@@ -118,14 +120,15 @@ export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries,
 
   const skillGroupSummaryCards = skillGroupSummaries.map(skillGroupSummary => <SkillGroupSummaryCard completedStudentCount={completedStudentCount} key={skillGroupSummary.name} skillGroupSummary={skillGroupSummary} />)
 
-  return (<main className="results-summary-container growth-results-summary-container">
-    <header>
-      <h1>Class summary</h1>
-      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698227-how-do-i-read-the-growth-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
-    </header>
-    {mobileNavigation}
-    <section className="skill-group-summary-cards">{skillGroupSummaryCards}</section>
-  </main>
+  return (
+    <main className="results-summary-container growth-results-summary-container">
+      <header>
+        <h1>Class summary</h1>
+        <a className="focus-on-light" href="https://support.quill.org/en/articles/5698227-how-do-i-read-the-growth-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
+      </header>
+      {mobileNavigation}
+      <section className="skill-group-summary-cards">{skillGroupSummaryCards}</section>
+    </main>
   )
 }
 

@@ -17,11 +17,13 @@ export default class CheckboxSections extends React.Component {
     if (this.props.dashboard) {
       return (<a href={url}><img src='/images/getting_started_arrow.png' /></a>);
     } else {
-      return (<a className='btn btn-default' href={url}><div>
-        <div>Launch</div>
-        <div className='favicon-div'><i aria-hidden="true" className="fas fa-long-arrow-alt-right" /></div>
-      </div>
-      </a>);
+      return (
+        <a className='btn btn-default' href={url}><div>
+          <div>Launch</div>
+          <div className='favicon-div'><i aria-hidden="true" className="fas fa-long-arrow-alt-right" /></div>
+        </div>
+        </a>
+);
     }
   };
 

@@ -162,20 +162,24 @@ export default class CmsUserIndex extends React.Component {
   renderPageSelector() {
     const currentPage = this.state.query.page || 1
     const totalPages = this.state.numberOfPages || 1
-    return (<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-      <a onClick={() => this.updatePage(1)}>First</a>
-      <form onSubmit={this.submitPageForm}>
-        <input defaultValue={currentPage} name='page' /><span>of {totalPages}</span>
-      </form>
-      <a onClick={() => this.updatePage(totalPages)}>Last</a>
-    </div>)
+    return (
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        <a onClick={() => this.updatePage(1)}>First</a>
+        <form onSubmit={this.submitPageForm}>
+          <input defaultValue={currentPage} name='page' /><span>of {totalPages}</span>
+        </form>
+        <a onClick={() => this.updatePage(totalPages)}>Last</a>
+      </div>
+)
   }
 
   renderPremiumStatusSelect() {
     const options = this.props.schoolPremiumTypes.map(o => <option value={o}>{o}</option>)
-    return (<select multiple={true} onChange={this.updatePremiumStatus}>
-      {options}
-    </select>)
+    return (
+      <select multiple={true} onChange={this.updatePremiumStatus}>
+        {options}
+      </select>
+)
   }
 
   renderTableOrLoading() {
@@ -184,24 +188,26 @@ export default class CmsUserIndex extends React.Component {
     } else if (this.state.data && this.state.data.length) {
       const sort = this.state.query.sort ? this.state.query.sort : 'last_sign_in'
       const sortDescending = this.state.query.sort_direction ? this.state.query.sort_direction === 'desc' : true
-      return (<div>
-        <ReactTable
-          className='progress-report activity-scores-table'
-          columns={this.state.columns}
-          data={this.state.data}
-          defaultPageSize={100}
-          defaultSorted={[{id: sort, desc: sortDescending}]}
-          minRows={1}
-          onSortedChange={this.setSort}
-          showPageSizeOptions={false}
-          showPagination={false}
-          showPaginationBottom={false}
-          showPaginationTop={false}
-        />
-        <div className='cms-pagination-container'>
-          {this.renderPageSelector()}
+      return (
+        <div>
+          <ReactTable
+            className='progress-report activity-scores-table'
+            columns={this.state.columns}
+            data={this.state.data}
+            defaultPageSize={100}
+            defaultSorted={[{id: sort, desc: sortDescending}]}
+            minRows={1}
+            onSortedChange={this.setSort}
+            showPageSizeOptions={false}
+            showPagination={false}
+            showPaginationBottom={false}
+            showPaginationTop={false}
+          />
+          <div className='cms-pagination-container'>
+            {this.renderPageSelector()}
+          </div>
         </div>
-      </div>)
+)
     } else if (this.state.numberOfPages === 0) {
       return <p>No records found.</p>
     }
@@ -210,16 +216,20 @@ export default class CmsUserIndex extends React.Component {
 
   renderUserFlagSelect() {
     const options = [<option value />].concat(this.props.userFlags.map(o => <option value={o}>{o}</option>))
-    return (<select onChange={e => this.updateField(e, 'user_flag')}>
-      {options}
-    </select>)
+    return (
+      <select onChange={e => this.updateField(e, 'user_flag')}>
+        {options}
+      </select>
+)
   }
 
   renderUserRoleSelect() {
     const options = [<option value />].concat(this.props.userRoleTypes.map(o => <option value={o}>{o}</option>))
-    return (<select onChange={e => this.updateField(e, 'user_role')}>
-      {options}
-    </select>)
+    return (
+      <select onChange={e => this.updateField(e, 'user_role')}>
+        {options}
+      </select>
+)
   }
 
   render() {

@@ -243,12 +243,14 @@ class TurkDiagnostic extends React.Component {
 
     const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
 
-    return (<ProgressBar
-      answeredQuestionCount={displayedAnsweredQuestionCount}
-      label='questions'
-      percent={getProgressPercent(playDiagnostic)}
-      questionCount={questionCount(playDiagnostic)}
-    />)
+    return (
+      <ProgressBar
+        answeredQuestionCount={displayedAnsweredQuestionCount}
+        label='questions'
+        percent={getProgressPercent(playDiagnostic)}
+        questionCount={questionCount(playDiagnostic)}
+      />
+)
   }
 
   render() {

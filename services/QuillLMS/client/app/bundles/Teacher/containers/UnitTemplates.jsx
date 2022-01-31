@@ -6,10 +6,12 @@ import Cms from './Cms.jsx'
 export default class extends React.Component {
   resourceComponentGenerator = (cmsComponent) => {
     // FIXME : replace below with more general EC.Resource and the appropriate props
-    return (<UnitTemplate
-      returnToIndex={cmsComponent.returnToIndex}
-      unitTemplate={cmsComponent.state.resourceToEdit}
-    />);
+    return (
+      <UnitTemplate
+        returnToIndex={cmsComponent.returnToIndex}
+        unitTemplate={cmsComponent.state.resourceToEdit}
+      />
+);
   };
 
   render() {

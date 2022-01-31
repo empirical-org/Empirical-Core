@@ -29,9 +29,10 @@ export default class UnitTemplateProfileActivityTable extends React.Component {
           const standardName = props.value.standard.name ? `<p>${props.value.standard.name}</p>` : ''
           const readability = props.value.readability ? `<p>Readability: ${props.value.readability}</p>` : ''
           const topic = props.value.level_zero_topic_name ? `<p>Topic: ${props.value.level_zero_topic_name}</p>` : ''
-          return (<a
-            className='row-link-disguise highlight-on-hover'
-            data-tip={
+          return (
+            <a
+              className='row-link-disguise highlight-on-hover'
+              data-tip={
               `<h1>${props.value.name}</h1>
                 <p>Tool: ${props.value.classification.name}</p>
                 ${standardLevelName}
@@ -40,12 +41,13 @@ export default class UnitTemplateProfileActivityTable extends React.Component {
                 ${topic}
                 <p>${props.value.description}</p>`
             }
-            onClick={() => this.redirectToActivity(props.value.id)}
-            target="_new"
-          >
-            {props.value.name}
-            <ReactTooltip className="react-tooltip-custom" effect="solid" html multiline type="light" />
-          </a>)
+              onClick={() => this.redirectToActivity(props.value.id)}
+              target="_new"
+            >
+              {props.value.name}
+              <ReactTooltip className="react-tooltip-custom" effect="solid" html multiline type="light" />
+            </a>
+)
         },
       },
       {
@@ -77,14 +79,16 @@ export default class UnitTemplateProfileActivityTable extends React.Component {
     const sectionClass = 'something-class'
     const sectionText = (<a className='row-link-disguise' onClick={() => this.redirectToActivity(props.value.id)} style={{color: 'black'}}><span>{props.value.standard.standard_category.name}</span></a>)
     if ((String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
-      return (<Tooltip
-        key={key}
-        tooltipText={rowDisplayText}
-        tooltipTriggerStyle={style}
-        tooltipTriggerText={sectionText}
-        tooltipTriggerTextClass={sectionClass}
-        tooltipTriggerTextStyle={style}
-      />)
+      return (
+        <Tooltip
+          key={key}
+          tooltipText={rowDisplayText}
+          tooltipTriggerStyle={style}
+          tooltipTriggerText={sectionText}
+          tooltipTriggerTextClass={sectionClass}
+          tooltipTriggerTextStyle={style}
+        />
+)
     } else {
       return sectionText
     }

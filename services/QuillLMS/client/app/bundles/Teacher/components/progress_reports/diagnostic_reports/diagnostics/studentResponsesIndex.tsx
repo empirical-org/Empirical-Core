@@ -137,29 +137,31 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
     }
   })
 
-  return (<main className="student-responses-index-container">
-    <header>
-      <h1>Student responses</h1>
-      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698167-how-do-i-read-the-student-responses-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
-    </header>
-    {mobileNavigation}
-    <div className="data-table-container">
-      <DataTable
-        className="hide-on-mobile"
-        defaultSortAttribute={worthSorting && 'totalCorrectSkillsCount'}
-        defaultSortDirection='asc'
-        headers={desktopHeaders(worthSorting)}
-        rows={desktopRows}
-      />
-      <DataTable
-        className="hide-on-desktop"
-        defaultSortAttribute={worthSorting && 'totalCorrectSkillsCount'}
-        defaultSortDirection='asc'
-        headers={mobileHeaders(worthSorting)}
-        rows={mobileRows}
-      />
-    </div>
-  </main>)
+  return (
+    <main className="student-responses-index-container">
+      <header>
+        <h1>Student responses</h1>
+        <a className="focus-on-light" href="https://support.quill.org/en/articles/5698167-how-do-i-read-the-student-responses-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
+      </header>
+      {mobileNavigation}
+      <div className="data-table-container">
+        <DataTable
+          className="hide-on-mobile"
+          defaultSortAttribute={worthSorting && 'totalCorrectSkillsCount'}
+          defaultSortDirection='asc'
+          headers={desktopHeaders(worthSorting)}
+          rows={desktopRows}
+        />
+        <DataTable
+          className="hide-on-desktop"
+          defaultSortAttribute={worthSorting && 'totalCorrectSkillsCount'}
+          defaultSortDirection='asc'
+          headers={mobileHeaders(worthSorting)}
+          rows={mobileRows}
+        />
+      </div>
+    </main>
+)
 }
 
 export default withRouter(StudentResponsesIndex)

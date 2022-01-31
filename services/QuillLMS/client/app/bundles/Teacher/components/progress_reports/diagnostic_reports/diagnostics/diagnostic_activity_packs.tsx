@@ -38,26 +38,30 @@ const AssignedSection = ({ activity, sectionTitle, isPostDiagnostic, }) => {
   if (window.innerWidth > MOBILE_WIDTH && ((activityPackText.length * AVERAGE_FONT_WIDTH) > ACTIVITY_PACK_TEXT_MAX_WIDTH)) {
     activityPackElement = <Tooltip tooltipText={activityPackText} tooltipTriggerText={activityPackText} tooltipTriggerTextClass="activity-pack-name" />
   }
-  return (<section className="pre">
-    <div>
-      <h4>{sectionTitle}</h4>
-      <p>{calendarDateIcon}<span>Assigned: {moment(assigned_date).format('MMM D, YYYY')}</span></p>
-      {unit_name && <p>{multipleCardsIcon}{activityPackElement}</p>}
-      <p>{multipleUsersIcon}<span>Completed: {completed_count} of {assigned_count}</span></p>
-    </div>
-    <div>
-      <a className="focus-on-light" href={summaryLink(isPostDiagnostic, activity_id, classroom_id, unit_id)}>View results and recommendations</a>
-    </div>
-  </section>)
+  return (
+    <section className="pre">
+      <div>
+        <h4>{sectionTitle}</h4>
+        <p>{calendarDateIcon}<span>Assigned: {moment(assigned_date).format('MMM D, YYYY')}</span></p>
+        {unit_name && <p>{multipleCardsIcon}{activityPackElement}</p>}
+        <p>{multipleUsersIcon}<span>Completed: {completed_count} of {assigned_count}</span></p>
+      </div>
+      <div>
+        <a className="focus-on-light" href={summaryLink(isPostDiagnostic, activity_id, classroom_id, unit_id)}>View results and recommendations</a>
+      </div>
+    </section>
+)
 }
 
 const PostInProgress = ({ name, }) => {
-  return (<section className="post-in-progress">
-    <div>
-      <h4>Post</h4>
-      <p>{wrenchIcon}<span>We’re working on building the {name} (Post). We’ll let you know when it’s available.</span></p>
-    </div>
-  </section>)
+  return (
+    <section className="post-in-progress">
+      <div>
+        <h4>Post</h4>
+        <p>{wrenchIcon}<span>We’re working on building the {name} (Post). We’ll let you know when it’s available.</span></p>
+      </div>
+    </section>
+)
 }
 
 const PostSection = ({ post, activityId, unitTemplateId, name, }) => {
@@ -69,16 +73,18 @@ const PostSection = ({ post, activityId, unitTemplateId, name, }) => {
     goToAssign(unitTemplateId, name, activityId)
   }
 
-  return (<section className="post">
-    <div>
-      <h4>Post</h4>
-      <p>{calendarDateIcon}<span>Not assigned</span></p>
-    </div>
-    <div>
-      <a className="focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activityId}`} rel="noopener noreferrer" target="_blank">Preview</a>
-      <button className="focus-on-light fake-link" onClick={handleAssignClick} type="button">Assign</button>
-    </div>
-  </section>)
+  return (
+    <section className="post">
+      <div>
+        <h4>Post</h4>
+        <p>{calendarDateIcon}<span>Not assigned</span></p>
+      </div>
+      <div>
+        <a className="focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activityId}`} rel="noopener noreferrer" target="_blank">Preview</a>
+        <button className="focus-on-light fake-link" onClick={handleAssignClick} type="button">Assign</button>
+      </div>
+    </section>
+)
 }
 
 const Diagnostic = ({ diagnostic, }) => {
@@ -119,21 +125,25 @@ const Diagnostic = ({ diagnostic, }) => {
     }
   }
 
-  return (<section className="diagnostic">
-    <div className="name"><h3>{name}</h3></div>
-    <div className="pre-and-post-wrapper">
-      <AssignedSection activity={pre} isPostDiagnostic={false} sectionTitle="Pre" />
-      {postAndGrowth}
-    </div>
-  </section>)
+  return (
+    <section className="diagnostic">
+      <div className="name"><h3>{name}</h3></div>
+      <div className="pre-and-post-wrapper">
+        <AssignedSection activity={pre} isPostDiagnostic={false} sectionTitle="Pre" />
+        {postAndGrowth}
+      </div>
+    </section>
+)
 }
 
 const Classroom = ({ classroom, }) => {
   const diagnostics = classroom.diagnostics.map(d => <Diagnostic diagnostic={d} key={d.pre.id} />)
-  return (<section className="classroom-section">
-    <h2>{classroom.name}</h2>
-    {diagnostics}
-  </section>)
+  return (
+    <section className="classroom-section">
+      <h2>{classroom.name}</h2>
+      {diagnostics}
+    </section>
+)
 }
 
 const DiagnosticActivityPacks = ({ classrooms, }) => {

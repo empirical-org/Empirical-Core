@@ -46,20 +46,22 @@ const ConceptReportsTable = ({ data, }) => {
   ];
 
   if (data && data.length) {
-    return (<div key={`${data.length}-length-for-activities-scores-by-classroom`}>
-      <ReactTable
-        className="progress-report has-green-arrow"
-        columns={columns}
-        data={data}
-        defaultPageSize={100}
-        defaultSorted={[{ id: 'last_active', desc: true, }]}
-        minRows={1}
-        showPageSizeOptions={false}
-        showPagination
-        showPaginationBottom
-        showPaginationTop={false}
-      />
-    </div>);
+    return (
+      <div key={`${data.length}-length-for-activities-scores-by-classroom`}>
+        <ReactTable
+          className="progress-report has-green-arrow"
+          columns={columns}
+          data={data}
+          defaultPageSize={100}
+          defaultSorted={[{ id: 'last_active', desc: true, }]}
+          minRows={1}
+          showPageSizeOptions={false}
+          showPagination
+          showPaginationBottom
+          showPaginationTop={false}
+        />
+      </div>
+);
   }
   return <EmptyStateForReport />;
 };

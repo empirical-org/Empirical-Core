@@ -12,12 +12,14 @@ export default class CmsIndexTable extends React.Component {
   };
 
   furnishRow = (resource, index) => {
-    return (<CmsIndexTableRow
-      actions={this.props.actions}
-      data={{resource: resource, identifier: this.props.data.identifier}}
-      key={index}
-      resourceNameSingular={this.props.resourceNameSingular}
-    />);
+    return (
+      <CmsIndexTableRow
+        actions={this.props.actions}
+        data={{resource: resource, identifier: this.props.data.identifier}}
+        key={index}
+        resourceNameSingular={this.props.resourceNameSingular}
+      />
+);
   };
 
   identifier = () => {
@@ -26,22 +28,26 @@ export default class CmsIndexTable extends React.Component {
 
   renderRows = () => {
     if(this.props.isSortable) {
-      return (<div className="sortable-table">
-        <div className="header"><span>Name</span><span>Actions</span></div>
-        <SortableList data={this.furnishRows()} sortCallback={this.props.updateOrder} />
-      </div>)
+      return (
+        <div className="sortable-table">
+          <div className="header"><span>Name</span><span>Actions</span></div>
+          <SortableList data={this.furnishRows()} sortCallback={this.props.updateOrder} />
+        </div>
+)
     } else {
-      return (<table className='table'>
-        <thead>
-          <tr>
-            <th>{this.identifier()}</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.furnishRows()}
-        </tbody>
-      </table>)
+      return (
+        <table className='table'>
+          <thead>
+            <tr>
+              <th>{this.identifier()}</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.furnishRows()}
+          </tbody>
+        </table>
+)
     }
   };
 

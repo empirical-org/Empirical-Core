@@ -314,7 +314,8 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
               menuIsOpen={menuIsOpen}
               onChange={this.handleOptionSelection}
             />
-          </div>)
+          </div>
+)
       } else {
         return (
           <div
@@ -331,30 +332,33 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
               menuIsOpen={false}
             />
             {this.renderErrorText()}
-          </div>)
+          </div>
+)
       }
     } else if (isMulti) {
-      return (<div
-        className={sharedClasses}
-        onClick={this.handleInputActivation}
-        onKeyDown={this.handleKeyDownOnInputContainer}
-        ref={node => this.node = node}
-        role="button"
-        tabIndex={0}
-      >
-        <label htmlFor={id}>{label}</label>
-        <Select
-          {...sharedProps}
-          closeMenuOnSelect={false}
-          components={{ Option: CheckableDropdownOption, ValueContainer: CheckableDropdownValueContainer }}
-          hideSelectedOptions={false}
-          isMulti
-          isSearchable={false}
-          menuIsOpen={active ? menuIsOpen : false}
-          onChange={this.handleOptionSelection}
-          optionType={optionType}
-        />
-      </div>)
+      return (
+        <div
+          className={sharedClasses}
+          onClick={this.handleInputActivation}
+          onKeyDown={this.handleKeyDownOnInputContainer}
+          ref={node => this.node = node}
+          role="button"
+          tabIndex={0}
+        >
+          <label htmlFor={id}>{label}</label>
+          <Select
+            {...sharedProps}
+            closeMenuOnSelect={false}
+            components={{ Option: CheckableDropdownOption, ValueContainer: CheckableDropdownValueContainer }}
+            hideSelectedOptions={false}
+            isMulti
+            isSearchable={false}
+            menuIsOpen={active ? menuIsOpen : false}
+            onChange={this.handleOptionSelection}
+            optionType={optionType}
+          />
+        </div>
+)
     } else if (usesCustomOption) {
       return (
         <div
@@ -373,7 +377,8 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             menuIsOpen={active ? menuIsOpen : false}
             onChange={this.handleOptionSelection}
           />
-        </div>)
+        </div>
+)
     } else if (!active) {
       return (
         <div

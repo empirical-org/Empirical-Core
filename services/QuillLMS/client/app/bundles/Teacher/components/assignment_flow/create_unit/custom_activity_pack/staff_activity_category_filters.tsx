@@ -190,26 +190,28 @@ const StaffActivityCategoryFilters = ({ activityCategoryEditor, filterActivities
   let createNewActivityCategoryButtonClassName = "quill-button primary contained fun"
   if (!newActivityCategoryName.length) { createNewActivityCategoryButtonClassName += ' disabled' }
 
-  return (<section className="filter-section staff-activity-category-filter-section">
-    <Snackbar text="Changes saved" visible={showSnackbar} />
-    <div className="name-and-clear-wrapper">
-      <h2>Concepts (Activity Category)
-        <Tooltip
-          tooltipText={activityCategoryTooltipText}
-          tooltipTriggerText={<i className="fal fa-info-circle" />}
+  return (
+    <section className="filter-section staff-activity-category-filter-section">
+      <Snackbar text="Changes saved" visible={showSnackbar} />
+      <div className="name-and-clear-wrapper">
+        <h2>Concepts (Activity Category)
+          <Tooltip
+            tooltipText={activityCategoryTooltipText}
+            tooltipTriggerText={<i className="fal fa-info-circle" />}
+          />
+        </h2>
+      </div>
+      {activityCategoryList}
+      <section className="create-activity-category-form">
+        <Input
+          handleChange={handleNewActivityCategoryNameChange}
+          label="Activity category"
+          value={newActivityCategoryName}
         />
-      </h2>
-    </div>
-    {activityCategoryList}
-    <section className="create-activity-category-form">
-      <Input
-        handleChange={handleNewActivityCategoryNameChange}
-        label="Activity category"
-        value={newActivityCategoryName}
-      />
-      <button className={createNewActivityCategoryButtonClassName} onClick={createNewActivityCategory}>Add</button>
+        <button className={createNewActivityCategoryButtonClassName} onClick={createNewActivityCategory}>Add</button>
+      </section>
     </section>
-  </section>)
+)
 }
 
 export default StaffActivityCategoryFilters

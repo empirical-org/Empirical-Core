@@ -51,14 +51,16 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
 
   renderHeader() {
     const { step, } = this.state
-    return (<div className="create-a-class-modal-header">
-      <div className="navigation">
-        <p className={step === 1 ? 'active' : ''}>1. Create a class</p>
-        <p className={step === 2 ? 'active' : ''}>2. Add students</p>
-        <p className={step === 3 ? 'active' : ''}>3. Setup instructions</p>
+    return (
+      <div className="create-a-class-modal-header">
+        <div className="navigation">
+          <p className={step === 1 ? 'active' : ''}>1. Create a class</p>
+          <p className={step === 2 ? 'active' : ''}>2. Add students</p>
+          <p className={step === 3 ? 'active' : ''}>3. Setup instructions</p>
+        </div>
+        <img onClick={this.props.close} src={closeIconSrc} />
       </div>
-      <img onClick={this.props.close} src={closeIconSrc} />
-    </div>)
+)
   }
 
   renderModalContent() {
@@ -74,12 +76,14 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
   }
 
   render() {
-    return (<div className="modal-container create-a-class-modal-container">
-      <div className="modal-background" />
-      <div className="create-a-class-modal quill-modal">
-        {this.renderHeader()}
-        {this.renderModalContent()}
+    return (
+      <div className="modal-container create-a-class-modal-container">
+        <div className="modal-background" />
+        <div className="create-a-class-modal quill-modal">
+          {this.renderHeader()}
+          {this.renderModalContent()}
+        </div>
       </div>
-    </div>)
+)
   }
 }

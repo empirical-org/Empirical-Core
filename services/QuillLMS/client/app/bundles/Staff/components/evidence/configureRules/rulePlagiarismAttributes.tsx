@@ -17,17 +17,19 @@ export const PlagiarismTextEditor = ({ text, index, setPlagiarismText, }) => {
     setPlagiarismText(text, index)
   }
 
-  return (<React.Fragment key={index}>
-    <p className="form-subsection-label">Plagiarism Text - Text String {index + 1}</p>
-    <TextEditor
-      ContentState={ContentState}
-      EditorState={EditorState}
-      handleTextChange={onHandleSetPlagiarismText}
-      key={`plagiarism-text-${index}`}
-      shouldCheckSpelling={true}
-      text={text}
-    />
-  </React.Fragment>)
+  return (
+    <React.Fragment key={index}>
+      <p className="form-subsection-label">Plagiarism Text - Text String {index + 1}</p>
+      <TextEditor
+        ContentState={ContentState}
+        EditorState={EditorState}
+        handleTextChange={onHandleSetPlagiarismText}
+        key={`plagiarism-text-${index}`}
+        shouldCheckSpelling={true}
+        text={text}
+      />
+    </React.Fragment>
+)
 }
 
 const RulePlagiarismAttributes = ({
@@ -98,12 +100,14 @@ const RulePlagiarismAttributes = ({
     const plagiarismTextEditorElements = plagiarismTexts.map((plagiarismText, i) => {
       if (plagiarismText._destroy) { return <span /> }
 
-      return (<PlagiarismTextEditor
-        index={i}
-        key={i}
-        setPlagiarismText={onHandleSetPlagiarismText}
-        text={plagiarismText.text}
-      />)
+      return (
+        <PlagiarismTextEditor
+          index={i}
+          key={i}
+          setPlagiarismText={onHandleSetPlagiarismText}
+          text={plagiarismText.text}
+        />
+)
     })
 
     return(

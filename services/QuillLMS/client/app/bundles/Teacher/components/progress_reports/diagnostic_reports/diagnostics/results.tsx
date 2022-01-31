@@ -83,13 +83,14 @@ export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match
     </section>)
   }
 
-  return (<main className="results-summary-container">
-    <header className="results-header">
-      <h1>Student results</h1>
-      {!!skillGroupSummaries.length && <a className="focus-on-light" href="https://support.quill.org/en/articles/5698112-how-do-i-read-the-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>}
-    </header>
-    {mobileNavigation}
-    {emptyState || (
+  return (
+    <main className="results-summary-container">
+      <header className="results-header">
+        <h1>Student results</h1>
+        {!!skillGroupSummaries.length && <a className="focus-on-light" href="https://support.quill.org/en/articles/5698112-how-do-i-read-the-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>}
+      </header>
+      {mobileNavigation}
+      {emptyState || (
       <section className="proficiency-keys">
         <div className="proficiency-key">
           {noProficiencyTag}
@@ -105,10 +106,10 @@ export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match
         </div>
       </section>
     )}
-    {!!skillGroupSummaries.length && (<section className="student-results">
-      <StudentResultsTable openPopover={openPopover} responsesLink={responsesLink} setOpenPopover={setOpenPopover} skillGroupSummaries={skillGroupSummaries} studentResults={studentResults} />
-    </section>)}
-  </main>
+      {!!skillGroupSummaries.length && (<section className="student-results">
+        <StudentResultsTable openPopover={openPopover} responsesLink={responsesLink} setOpenPopover={setOpenPopover} skillGroupSummaries={skillGroupSummaries} studentResults={studentResults} />
+      </section>)}
+    </main>
   )
 }
 

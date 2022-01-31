@@ -19,11 +19,13 @@ export default class ScorebookTooltip extends React.Component {
 
   activityOverview() {
     const { data } = this.props;
-    return (<div className="activity-overview">
-      <ActivityDetails data={data} />
-      {this.totalScoreOrNot()}
-      {this.timeSpent()}
-    </div>)
+    return (
+      <div className="activity-overview">
+        <ActivityDetails data={data} />
+        {this.totalScoreOrNot()}
+        {this.timeSpent()}
+      </div>
+)
   }
 
   timeSpent = () => {

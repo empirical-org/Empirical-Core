@@ -87,11 +87,12 @@ class LessonForm extends React.Component {
         const questionobj = this.props[question.questionType].data[question.key];
         const prompt = questionobj ? questionobj.prompt : 'Question No Longer Exists';
         const promptOrTitle = question.questionType === 'titleCards' ? questionobj.title : prompt
-        return (<p className="sortable-list-item" key={question.key} questionType={question.questionType}>
-          {promptOrTitle}
-          {'\t\t'}
-          <button onClick={this.handleChange.bind(null, question.key)}>Delete</button>
-        </p>
+        return (
+          <p className="sortable-list-item" key={question.key} questionType={question.questionType}>
+            {promptOrTitle}
+            {'\t\t'}
+            <button onClick={this.handleChange.bind(null, question.key)}>Delete</button>
+          </p>
         );
       });
       return <SortableList data={questionsList} key={this.state.selectedQuestions.length} sortCallback={this.sortCallback} />;
@@ -113,12 +114,14 @@ class LessonForm extends React.Component {
       } else {
         formatted = options.map((opt) => { return { name: opt.title, value: opt.key } })
       }
-      return (<QuestionSelector
-        key={questionType}
-        onChange={this.handleSearchChange}
-        options={formatted}
-        placeholder="Search for a question"
-      />);
+      return (
+        <QuestionSelector
+          key={questionType}
+          onChange={this.handleSearchChange}
+          options={formatted}
+          placeholder="Search for a question"
+        />
+);
     }
   };
 

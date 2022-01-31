@@ -194,10 +194,12 @@ export default class AssignStudents extends React.Component {
         <img alt="check" src={indeterminateSrc} />
       </span>)
     }
-    return (<div className="all-classes-checkbox">
-      {checkbox}
-      <span className="all-classes-text">All classes and students</span>
-    </div>)
+    return (
+      <div className="all-classes-checkbox">
+        {checkbox}
+        <span className="all-classes-text">All classes and students</span>
+      </div>
+)
   }
 
   renderClassroom(c) {
@@ -228,40 +230,44 @@ export default class AssignStudents extends React.Component {
   }
 
   renderClassroomsSection() {
-    return (<div className="assignment-section">
-      <div className="assignment-section-header assign-students">
-        <div className="number-and-name">
-          <span className="assignment-section-number">3</span>
-          <span className="assignment-section-name">Choose classes or students</span>
-        </div>
-        <div className="import-or-create-classroom-buttons">
-          {this.renderImportFromCleverButton()}
-          {this.renderImportFromGoogleClassroomButton()}
-          <button
-            className="quill-button medium secondary outlined create-a-class-button"
-            onClick={() => this.openFormOrModal(createAClassForm)}
-            type="button"
-          >
+    return (
+      <div className="assignment-section">
+        <div className="assignment-section-header assign-students">
+          <div className="number-and-name">
+            <span className="assignment-section-number">3</span>
+            <span className="assignment-section-name">Choose classes or students</span>
+          </div>
+          <div className="import-or-create-classroom-buttons">
+            {this.renderImportFromCleverButton()}
+            {this.renderImportFromGoogleClassroomButton()}
+            <button
+              className="quill-button medium secondary outlined create-a-class-button"
+              onClick={() => this.openFormOrModal(createAClassForm)}
+              type="button"
+            >
             Create a class
-          </button>
+            </button>
+          </div>
+        </div>
+        <div className="assignment-section-body">
+          {this.renderCreateAClassInlineForm()}
+          {this.renderAllClassroomsCheckbox()}
+          {this.renderClassroomList()}
         </div>
       </div>
-      <div className="assignment-section-body">
-        {this.renderCreateAClassInlineForm()}
-        {this.renderAllClassroomsCheckbox()}
-        {this.renderClassroomList()}
-      </div>
-    </div>)
+)
   }
 
   renderCreateAClassInlineForm() {
     const { showFormOrModal } = this.state
 
     if (showFormOrModal === createAClassForm) {
-      return (<CreateAClassInlineForm
-        cancel={this.closeFormOrModal}
-        onSuccess={this.onSuccess}
-      />)
+      return (
+        <CreateAClassInlineForm
+          cancel={this.closeFormOrModal}
+          onSuccess={this.onSuccess}
+        />
+)
     }
   }
 

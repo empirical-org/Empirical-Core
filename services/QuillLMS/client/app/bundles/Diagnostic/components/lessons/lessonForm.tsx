@@ -130,11 +130,12 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
         const questionObject = this.props[question.questionType].data[question.key]; // eslint-disable-line react/destructuring-assignment
         const prompt = questionObject ? questionObject.prompt : 'Question No Longer Exists';
         const promptOrTitle = questionObject && question.questionType === 'titleCards' ? questionObject.title : prompt
-        return (<p className="sortable-list-item" defaultValue={question.questionType} key={question.key}>
-          {promptOrTitle}
-          {'\t\t'}
-          <DeleteButton onChange={this.handleQuestionChange} questionId={question.key} />
-        </p>
+        return (
+          <p className="sortable-list-item" defaultValue={question.questionType} key={question.key}>
+            {promptOrTitle}
+            {'\t\t'}
+            <DeleteButton onChange={this.handleQuestionChange} questionId={question.key} />
+          </p>
         );
       });
       return <SortableList data={questionsList} id="currently-selected-questions" key={selectedQuestions.length} sortCallback={this.sortCallback} />;
@@ -166,13 +167,15 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
           return { name: opt.title, value: opt.key }
         });
       }
-      return (<QuestionSelector
-        id="all-questions"
-        key={questionType}
-        onChange={this.handleSearchChange}
-        options={formatted}
-        placeholder="Search for a question"
-      />);
+      return (
+        <QuestionSelector
+          id="all-questions"
+          key={questionType}
+          onChange={this.handleSearchChange}
+          options={formatted}
+          placeholder="Search for a question"
+        />
+);
     }
   }
 

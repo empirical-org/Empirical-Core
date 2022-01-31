@@ -329,10 +329,12 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       default:
 
     }
-    return (<div>
-      {this.renderProjectorModal()}
-      {slide}
-    </div>)
+    return (
+      <div>
+        {this.renderProjectorModal()}
+        {slide}
+      </div>
+)
   }
 
   handleChange = (e) => {
@@ -352,33 +354,37 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     const { classroomSessions, } = this.props
     const currentSlide = Number(classroomSessions.data.current_slide)
     if (!getParameterByName('projector') || currentSlide === 0) { return }
-    return (<button
-      className="projector-navigation-button left"
-      onClick={this.handleClickLeftButton}
-      type="button"
-    >
-      <img
-        alt="Arrow pointing left in circle"
-        className="left-button"
-        src={arrowSrc}
-      />
-    </button>)
+    return (
+      <button
+        className="projector-navigation-button left"
+        onClick={this.handleClickLeftButton}
+        type="button"
+      >
+        <img
+          alt="Arrow pointing left in circle"
+          className="left-button"
+          src={arrowSrc}
+        />
+      </button>
+)
   }
 
   renderRightButton() {
     const { classroomSessions, customize,  } = this.props
     const currentSlide = Number(classroomSessions.data.current_slide)
     if (!getParameterByName('projector') || currentSlide === customize.editionQuestions.questions.length - 1) { return }
-    return (<button
-      className="projector-navigation-button right"
-      onClick={this.handleClickRightButton}
-      type="button"
-    >
-      <img
-        alt="Arrow pointing right"
-        src={arrowSrc}
-      />
-    </button>)
+    return (
+      <button
+        className="projector-navigation-button right"
+        onClick={this.handleClickRightButton}
+        type="button"
+      >
+        <img
+          alt="Arrow pointing right"
+          src={arrowSrc}
+        />
+      </button>
+)
   }
 
   public render() {
@@ -454,10 +460,12 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
          }
        }
      }
-     return (<div>
-       {navbar}
-       <div id="main-content" tabIndex={-1}>{mainContent}</div>
-     </div>)
+     return (
+       <div>
+         {navbar}
+         <div id="main-content" tabIndex={-1}>{mainContent}</div>
+       </div>
+)
    }
 
 }

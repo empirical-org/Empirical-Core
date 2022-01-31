@@ -158,14 +158,16 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
     activity.id = activity.uaId
     return activity
   }).filter(Boolean)
-  return (<DataTable
-    headers={tableHeaders(isOwner)}
-    isReorderable={isOwner}
-    removeRow={hideUnitActivity}
-    reorderCallback={reorderCallback}
-    rows={activityRows}
-    showRemoveIcon={isOwner}
-  />)
+  return (
+    <DataTable
+      headers={tableHeaders(isOwner)}
+      isReorderable={isOwner}
+      removeRow={hideUnitActivity}
+      reorderCallback={reorderCallback}
+      rows={activityRows}
+      showRemoveIcon={isOwner}
+    />
+)
 }
 
 export default ActivityTable

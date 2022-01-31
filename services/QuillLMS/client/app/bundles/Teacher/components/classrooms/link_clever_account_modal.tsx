@@ -71,25 +71,27 @@ export default class LinkCleverAccountModal
 
   render() {
     const { user, close } = this.props
-    return (<div className="modal-container link-clever-account-modal-container">
-      <div className="modal-background" />
-      <div className="link-clever-account-modal quill-modal modal-body">
-        <div>
-          <h3 className="title">Link your account to Clever</h3>
-        </div>
-        <p>Your email, {user.email}, is not associated with a Clever account.</p>
-        {this.renderCheckboxes()}
-        <div className="form-buttons">
-          <button
-            className="quill-button outlined secondary medium"
-            onClick={close}
-            type="button"
-          >
+    return (
+      <div className="modal-container link-clever-account-modal-container">
+        <div className="modal-background" />
+        <div className="link-clever-account-modal quill-modal modal-body">
+          <div>
+            <h3 className="title">Link your account to Clever</h3>
+          </div>
+          <p>Your email, {user.email}, is not associated with a Clever account.</p>
+          {this.renderCheckboxes()}
+          <div className="form-buttons">
+            <button
+              className="quill-button outlined secondary medium"
+              onClick={close}
+              type="button"
+            >
             Cancel
-          </button>
-          {this.renderLinkAccountButton()}
+            </button>
+            {this.renderLinkAccountButton()}
+          </div>
         </div>
       </div>
-    </div>)
+)
   }
 }

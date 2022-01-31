@@ -136,16 +136,20 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     const allChecked = rows.every(row => row.checked)
     if (allChecked) {
-      return (<button className={`quill-checkbox selected ${dataTableHeaderClassName}`} onClick={uncheckAllRows} type="button">
-        <img alt="check" src={smallWhiteCheckSrc} />
-      </button>)
+      return (
+        <button className={`quill-checkbox selected ${dataTableHeaderClassName}`} onClick={uncheckAllRows} type="button">
+          <img alt="check" src={smallWhiteCheckSrc} />
+        </button>
+)
     }
 
     const anyChecked = rows.some(row => row.checked)
     if (anyChecked) {
-      return (<button className={`quill-checkbox selected ${dataTableHeaderClassName}`} onClick={uncheckAllRows} type="button">
-        <img alt="check" src={indeterminateSrc} />
-      </button>)
+      return (
+        <button className={`quill-checkbox selected ${dataTableHeaderClassName}`} onClick={uncheckAllRows} type="button">
+          <img alt="check" src={indeterminateSrc} />
+        </button>
+)
     }
 
     return <button aria-label="Unchecked checkbox" className={`quill-checkbox unselected ${dataTableHeaderClassName}`} onClick={checkAllRows} type="button" />
@@ -199,9 +203,11 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const { rowWithActionsOpen } = this.state
     const actionsIsOpen = rowWithActionsOpen === row.id;
 
-    return (<span className="data-table-row-section actions-section">
-      {actionsIsOpen ? this.renderOpenActions(row) : this.renderClosedActions(row)}
-    </span>)
+    return (
+      <span className="data-table-row-section actions-section">
+        {actionsIsOpen ? this.renderOpenActions(row) : this.renderClosedActions(row)}
+      </span>
+)
   }
 
   renderOpenActions(row) {
@@ -210,21 +216,25 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
       return <button className="action focus-on-light" key={act.action} onClick={() => this.clickAction(act.action, row.id)} type="button">{act.name}</button>
     })
 
-    return (<div className="actions-menu-container" ref={node => this.selectedActions = node}>
-      <div className="actions-menu">
-        {rowActions}
+    return (
+      <div className="actions-menu-container" ref={node => this.selectedActions = node}>
+        <div className="actions-menu">
+          {rowActions}
+        </div>
       </div>
-    </div>)
+)
   }
 
   renderClosedActions(row) {
-    return (<button
-      className="quill-button actions-button focus-on-light"
-      onClick={() => this.setState({ rowWithActionsOpen: row.id })}
-      type="button"
-    >
-      <img alt="ellipses" src={moreHorizontalSrc} />
-    </button>)
+    return (
+      <button
+        className="quill-button actions-button focus-on-light"
+        onClick={() => this.setState({ rowWithActionsOpen: row.id })}
+        type="button"
+      >
+        <img alt="ellipses" src={moreHorizontalSrc} />
+      </button>
+)
   }
 
   renderHeader(header) {
@@ -242,16 +252,18 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
       className+= ' sortable'
       tabIndex = 0
     }
-    return (<button
-      className={className}
-      onClick={onClick}
-      style={style as any}
-      tabIndex={tabIndex}
-      type="button"
-    >
-      {header.name}
-      {sortArrow}
-    </button>)
+    return (
+      <button
+        className={className}
+        onClick={onClick}
+        style={style as any}
+        tabIndex={tabIndex}
+        type="button"
+      >
+        {header.name}
+        {sortArrow}
+      </button>
+)
   }
 
   renderHeaders() {
@@ -276,22 +288,26 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     const rowDisplayText = linkDisplayText || sectionText
     if (!header.noTooltip && (String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
-      return (<Tooltip
-        key={key}
-        tooltipText={rowDisplayText}
-        tooltipTriggerStyle={style}
-        tooltipTriggerText={sectionText}
-        tooltipTriggerTextClass={dataTableRowSectionClassName}
-        tooltipTriggerTextStyle={style}
-      />)
+      return (
+        <Tooltip
+          key={key}
+          tooltipText={rowDisplayText}
+          tooltipTriggerStyle={style}
+          tooltipTriggerText={sectionText}
+          tooltipTriggerTextClass={dataTableRowSectionClassName}
+          tooltipTriggerTextStyle={style}
+        />
+)
     } else {
-      return (<span
-        className={dataTableRowSectionClassName}
-        key={key}
-        style={style as any}
-      >
-        {sectionText}
-      </span>)
+      return (
+        <span
+          className={dataTableRowSectionClassName}
+          key={key}
+          style={style as any}
+        >
+          {sectionText}
+        </span>
+)
     }
   }
 
@@ -327,10 +343,12 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
   render() {
     const { className, } = this.props
-    return (<div className={`data-table ${className}`}>
-      {this.renderHeaders()}
-      {this.renderRows()}
-    </div>)
+    return (
+      <div className={`data-table ${className}`}>
+        {this.renderHeaders()}
+        {this.renderRows()}
+      </div>
+)
   }
 
 }

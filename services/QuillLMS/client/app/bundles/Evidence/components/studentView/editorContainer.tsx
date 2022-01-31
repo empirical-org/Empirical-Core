@@ -27,17 +27,19 @@ export default class EditorContainer extends React.Component<EditorContainerProp
 
   render() {
     const { disabled, html, innerRef, handleTextChange, className, handleFocus, } = this.props
-    return (<div className="editor-container">
-      <ContentEditable
-        className={className}
-        data-gramm={false}
-        disabled={disabled}
-        html={html}
-        innerRef={innerRef}
-        onChange={handleTextChange}
-        onFocus={handleFocus}
-        spellCheck={true}
-      />
-    </div>)
+    return (
+      <div className="editor-container">
+        <ContentEditable
+          className={className}
+          data-gramm={false}
+          disabled={disabled}
+          html={html}
+          innerRef={innerRef}
+          onChange={handleTextChange}
+          onFocus={handleFocus}
+          spellCheck={true}
+        />
+      </div>
+)
   }
 }

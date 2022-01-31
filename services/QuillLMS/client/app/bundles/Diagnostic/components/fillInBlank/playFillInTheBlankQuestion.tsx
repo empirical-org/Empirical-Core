@@ -328,10 +328,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
       } else {
         feedback = <p>{feedbackText}</p>
       }
-      return (<Feedback
-        feedback={feedback}
-        feedbackType="revise-unmatched"
-      />)
+      return (
+        <Feedback
+          feedback={feedback}
+          feedbackType="revise-unmatched"
+        />
+)
     }
     if(previewMode && latestAttempt && latestAttempt.response) {
       return renderPreviewFeedback(latestAttempt);

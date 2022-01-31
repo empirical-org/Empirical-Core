@@ -318,16 +318,19 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
             unitId={this.props.match.params.unitId}
             unitName={this.state.unitName}
           />
-        </div>);
+        </div>
+);
     }
   }
 
   renderCreateAClassModal() {
     if (this.state.showModal === createAClassModal) {
-      return (<CreateAClassModal
-        close={() => this.closeModal(this.getClassroomsAndStudentsData)}
-        showSnackbar={this.showSnackbar}
-      />)
+      return (
+        <CreateAClassModal
+          close={() => this.closeModal(this.getClassroomsAndStudentsData)}
+          showSnackbar={this.showSnackbar}
+        />
+)
     }
   }
 
@@ -346,9 +349,11 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
   renderGoogleClassroomsEmptyModal() {
     const { showModal, } = this.state
     if (showModal === googleClassroomsEmptyModal) {
-      return (<GoogleClassroomsEmptyModal
-        close={this.closeModal}
-      />)
+      return (
+        <GoogleClassroomsEmptyModal
+          close={this.closeModal}
+        />
+)
     }
   }
 
@@ -360,23 +365,27 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
       buttonContent = <ButtonLoadingIndicator />
       buttonClassName += ' loading'
     }
-    return (<button
-      className={buttonClassName}
-      onClick={this.clickImportGoogleClassrooms}
-    >
-      {buttonContent}
-    </button>)
+    return (
+      <button
+        className={buttonClassName}
+        onClick={this.clickImportGoogleClassrooms}
+      >
+        {buttonContent}
+      </button>
+)
   }
 
   renderImportGoogleClassroomsModal() {
     const { googleClassrooms, showModal, } = this.state
     if (showModal === importGoogleClassroomsModal) {
-      return (<ImportGoogleClassroomsModal
-        classrooms={googleClassrooms}
-        close={this.closeModal}
-        onSuccess={this.onSuccess}
-        user={this.props.user}
-      />)
+      return (
+        <ImportGoogleClassroomsModal
+          classrooms={googleClassrooms}
+          close={this.closeModal}
+          onSuccess={this.onSuccess}
+          user={this.props.user}
+        />
+)
     }
   }
 
@@ -386,20 +395,22 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
   }
 
   render() {
-    return (<div className="classroom-with-students-container container">
-      {this.renderCreateAClassModal()}
-      {this.renderImportGoogleClassroomsModal()}
-      {this.renderGoogleClassroomEmailModal()}
-      {this.renderGoogleClassroomsEmptyModal()}
-      {this.renderSnackbar()}
-      <div className="classroom-with-students-header">
-        <h2>{this.headerCopy()}</h2>
-        <div className="buttons">
-          {this.renderImportGoogleClassroomsButton()}
-          <button className="quill-button medium primary contained create-a-class-button" onClick={() => this.openModal(createAClassModal)}>Create a class</button>
+    return (
+      <div className="classroom-with-students-container container">
+        {this.renderCreateAClassModal()}
+        {this.renderImportGoogleClassroomsModal()}
+        {this.renderGoogleClassroomEmailModal()}
+        {this.renderGoogleClassroomsEmptyModal()}
+        {this.renderSnackbar()}
+        <div className="classroom-with-students-header">
+          <h2>{this.headerCopy()}</h2>
+          <div className="buttons">
+            {this.renderImportGoogleClassroomsButton()}
+            <button className="quill-button medium primary contained create-a-class-button" onClick={() => this.openModal(createAClassModal)}>Create a class</button>
+          </div>
         </div>
+        {this.renderContent()}
       </div>
-      {this.renderContent()}
-    </div>)
+)
   }
 }

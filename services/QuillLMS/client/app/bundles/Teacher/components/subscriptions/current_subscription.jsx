@@ -258,9 +258,11 @@ export default class extends React.Component {
   }
 
   renewPremium() {
-    return (<div>
-      <button className="renew-subscription q-button bg-orange text-white cta-button" onClick={this.props.showPurchaseModal}>Renew Subscription</button>
-    </div>);
+    return (
+      <div>
+        <button className="renew-subscription q-button bg-orange text-white cta-button" onClick={this.props.showPurchaseModal}>Renew Subscription</button>
+      </div>
+);
   }
 
   showChangePlan = () => {

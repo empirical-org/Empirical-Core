@@ -146,7 +146,8 @@ export default class EditOrCreateSubscription extends React.Component {
             onChange={this.handleRecurringChange}
             type="checkbox"
           />
-        </label>);
+        </label>
+);
     }
   }
 
@@ -271,6 +272,7 @@ export default class EditOrCreateSubscription extends React.Component {
             {view === 'new' ? 'New' : 'Update'} Subscription
           </button>
         </div>
-      </div>);
+      </div>
+);
   }
 }

@@ -25,18 +25,22 @@ export default class UnitTemplateFirstRow extends React.Component {
 
     const toolClassifications = data.activities.map(act => act.classification)
     const toolRows = _.uniqWith(toolClassifications, _.isEqual).map(classification => {
-      return (<span className="tool-row" key={classification.key}>
-        {imageTagForClassification(classification.key)}
-        <span>{classification.name}</span>
-      </span>)
+      return (
+        <span className="tool-row" key={classification.key}>
+          {imageTagForClassification(classification.key)}
+          <span>{classification.name}</span>
+        </span>
+)
     });
 
-    return (<div className="tool-names">
-      <span>Contains activities from:</span>
-      <p>
-        {toolRows}
-      </p>
-    </div>)
+    return (
+      <div className="tool-names">
+        <span>Contains activities from:</span>
+        <p>
+          {toolRows}
+        </p>
+      </div>
+)
   }
 
   render() {

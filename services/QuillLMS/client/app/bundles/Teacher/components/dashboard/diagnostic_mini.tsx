@@ -54,13 +54,15 @@ const MobileRecommendationRow = ({ row, }) => {
     summaryHref,
     classroom,
   } = row
-  return (<div className="mobile-data-row">
-    <div className="top-row">
-      <span>{diagnostic}</span>
-      <a className="focus-on-light" href={summaryHref}>View</a>
+  return (
+    <div className="mobile-data-row">
+      <div className="top-row">
+        <span>{diagnostic}</span>
+        <a className="focus-on-light" href={summaryHref}>View</a>
+      </div>
+      <div>{classroom}</div>
     </div>
-    <div>{classroom}</div>
-  </div>)
+)
 }
 
 const DiagnosticMini = ({diagnostics, onMobile, }) => {
@@ -97,19 +99,21 @@ const DiagnosticMini = ({diagnostics, onMobile, }) => {
 
   const dataDisplay = onMobile ? rows.map(r => <MobileRecommendationRow key={r.id} row={r} />) : <DataTable headers={headers} rows={rows} />
 
-  return (<section className="diagnostic-mini">
-    <header>
-      <h2>
-        <span>Diagnostic </span>
-        <span className="no-break">
-          <span>results</span>
-          <a className="focus-on-light" href="https://support.quill.org/en/articles/5014101-how-does-the-diagnostic-recommendations-section-on-the-teacher-home-page-work" rel="noopener noreferrer" target="_blank"><img alt={helpIcon.alt} src={helpIcon.src} /></a>
-        </span>
-      </h2>
-    </header>
-    {dataDisplay}
-    {diagnostics.length > INITIAL_MAX && !showAll && <button className="bottom-button focus-on-light interactive-wrapper" onClick={handleShowMoreClick} type="button">Show more <img alt={expandIcon.alt} src={expandIcon.src} /></button>}
-  </section>)
+  return (
+    <section className="diagnostic-mini">
+      <header>
+        <h2>
+          <span>Diagnostic </span>
+          <span className="no-break">
+            <span>results</span>
+            <a className="focus-on-light" href="https://support.quill.org/en/articles/5014101-how-does-the-diagnostic-recommendations-section-on-the-teacher-home-page-work" rel="noopener noreferrer" target="_blank"><img alt={helpIcon.alt} src={helpIcon.src} /></a>
+          </span>
+        </h2>
+      </header>
+      {dataDisplay}
+      {diagnostics.length > INITIAL_MAX && !showAll && <button className="bottom-button focus-on-light interactive-wrapper" onClick={handleShowMoreClick} type="button">Show more <img alt={expandIcon.alt} src={expandIcon.src} /></button>}
+    </section>
+)
 }
 
 export default DiagnosticMini

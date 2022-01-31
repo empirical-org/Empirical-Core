@@ -16,12 +16,14 @@ export default class SchoolOption extends React.Component<SchoolOptionProps, {}>
 
   render() {
     const { text, secondaryText, numberOfTeachersText, } = this.props
-    return (<li onClick={this.handleSchoolOptionClick}>
-      <span className="text">
-        <span className="primary-text">{text}</span>
-        <span className="secondary-text">{secondaryText}</span>
-      </span>
-      <span className="metadata">{numberOfTeachersText}</span>
-    </li>)
+    return (
+      <li onClick={this.handleSchoolOptionClick}>
+        <span className="text">
+          <span className="primary-text">{text}</span>
+          <span className="secondary-text">{secondaryText}</span>
+        </span>
+        <span className="metadata">{numberOfTeachersText}</span>
+      </li>
+)
   }
 }

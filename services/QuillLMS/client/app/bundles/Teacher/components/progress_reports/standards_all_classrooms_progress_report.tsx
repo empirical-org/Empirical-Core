@@ -152,14 +152,16 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
       {row.original['name']}
     </a>)
     if ((String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
-      return (<Tooltip
-        key={key}
-        tooltipText={rowDisplayText}
-        tooltipTriggerStyle={style}
-        tooltipTriggerText={sectionText}
-        tooltipTriggerTextClass={sectionClass}
-        tooltipTriggerTextStyle={style}
-      />)
+      return (
+        <Tooltip
+          key={key}
+          tooltipText={rowDisplayText}
+          tooltipTriggerStyle={style}
+          tooltipTriggerText={sectionText}
+          tooltipTriggerTextClass={sectionClass}
+          tooltipTriggerTextStyle={style}
+        />
+)
     } else {
       return sectionText
     }

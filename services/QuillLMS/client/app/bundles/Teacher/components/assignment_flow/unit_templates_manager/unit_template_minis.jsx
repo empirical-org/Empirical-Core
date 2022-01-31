@@ -79,13 +79,15 @@ export default class UnitTemplateMinis extends React.Component {
 
   generateUnitTemplateView = (model, index) => {
     const { actions, signedInTeacher, } = this.props
-    return (<UnitTemplateMini
-      actions={actions}
-      data={model}
-      index={index}
-      key={model.id}
-      signedInTeacher={signedInTeacher}
-    />)
+    return (
+      <UnitTemplateMini
+        actions={actions}
+        data={model}
+        index={index}
+        key={model.id}
+        signedInTeacher={signedInTeacher}
+      />
+)
   };
 
   generateUnitTemplateViews() {
@@ -180,11 +182,13 @@ export default class UnitTemplateMinis extends React.Component {
     const typeOptions = types.map(type => {
       const { id, name, } = type
       const qs = this.generateQueryString(currentCategory, data.selectedReadabilityLevel, id)
-      return (<Link
-        className={selectedTypeId === id ? 'active' : null}
-        key={id}
-        to={`${baseLink}${qs}`}
-      >{name}</Link>)
+      return (
+        <Link
+          className={selectedTypeId === id ? 'active' : null}
+          key={id}
+          to={`${baseLink}${qs}`}
+        >{name}</Link>
+)
     })
 
     const typeOptionsForDropdown = types.map(type => {
@@ -241,23 +245,25 @@ export default class UnitTemplateMinis extends React.Component {
   }
 
   render() {
-    return (<div className='unit-template-minis-container' key='always-display'>
-      {this.userLoggedIn() ? <AssignmentFlowNavigation /> : null}
-      <div className="container">
-        <div>
-          <h1>Select an activity pack for your students</h1>
+    return (
+      <div className='unit-template-minis-container' key='always-display'>
+        {this.userLoggedIn() ? <AssignmentFlowNavigation /> : null}
+        <div className="container">
           <div>
-            {this.renderFilterOptions()}
-            {this.generateShowAllGradesView()}
-            <div className="unit-template-minis">
-              {this.generateUnitTemplateViews()}
-            </div>
+            <h1>Select an activity pack for your students</h1>
             <div>
+              {this.renderFilterOptions()}
               {this.generateShowAllGradesView()}
+              <div className="unit-template-minis">
+                {this.generateUnitTemplateViews()}
+              </div>
+              <div>
+                {this.generateShowAllGradesView()}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>)
+)
   }
 }

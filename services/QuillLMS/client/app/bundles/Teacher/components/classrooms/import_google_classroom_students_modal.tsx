@@ -114,21 +114,23 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
 
   render() {
     const { classroom, close } = this.props
-    return (<div className="modal-container import-google-classroom-students-modal-container">
-      <div className="modal-background" />
-      <div className="import-google-classroom-students-modal quill-modal modal-body">
-        <div>
-          <h3 className="title">Import students from Google Classroom</h3>
-        </div>
-        <p>You are about to import students from the class {classroom.name}.</p>
-        {this.renderCheckboxes()}
-        <div className="form-buttons">
-          <button className="quill-button outlined secondary medium" onClick={close} type="button">
+    return (
+      <div className="modal-container import-google-classroom-students-modal-container">
+        <div className="modal-background" />
+        <div className="import-google-classroom-students-modal quill-modal modal-body">
+          <div>
+            <h3 className="title">Import students from Google Classroom</h3>
+          </div>
+          <p>You are about to import students from the class {classroom.name}.</p>
+          {this.renderCheckboxes()}
+          <div className="form-buttons">
+            <button className="quill-button outlined secondary medium" onClick={close} type="button">
             Cancel
-          </button>
-          {this.renderImportButton()}
+            </button>
+            {this.renderImportButton()}
+          </div>
         </div>
       </div>
-    </div>)
+)
   }
 }

@@ -172,16 +172,18 @@ export default class UnitTemplatesManager extends React.Component {
 
     const { category, grade, type, readability, } = this.parsedQueryParams()
     const displayedModels = this.filterModels(category, grade, type, readability)
-    return (<UnitTemplateMinis
-      actions={this.unitTemplatesManagerActions()}
-      data={unitTemplatesManager}
-      displayedModels={displayedModels}
-      selectCategory={this.selectCategory}
-      selectedTypeId={type}
-      selectReadability={this.selectReadability}
-      signedInTeacher={signedInTeacher}
-      types={types}
-    />)
+    return (
+      <UnitTemplateMinis
+        actions={this.unitTemplatesManagerActions()}
+        data={unitTemplatesManager}
+        displayedModels={displayedModels}
+        selectCategory={this.selectCategory}
+        selectedTypeId={type}
+        selectReadability={this.selectReadability}
+        signedInTeacher={signedInTeacher}
+        types={types}
+      />
+)
   }
 
   toggleTab(tab) {

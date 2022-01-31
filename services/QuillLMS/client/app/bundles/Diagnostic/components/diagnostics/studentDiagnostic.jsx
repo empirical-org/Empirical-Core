@@ -411,12 +411,14 @@ export class StudentDiagnostic extends React.Component {
     const progressPercent = getProgressPercent(playDiagnostic);
     const totalQuestionCount = questionCount(playDiagnostic);
 
-    return (<ProgressBar
-      answeredQuestionCount={displayedAnsweredQuestionCount > totalQuestionCount ? totalQuestionCount : displayedAnsweredQuestionCount}
-      label='questions'
-      percent={progressPercent}
-      questionCount={totalQuestionCount}
-    />)
+    return (
+      <ProgressBar
+        answeredQuestionCount={displayedAnsweredQuestionCount > totalQuestionCount ? totalQuestionCount : displayedAnsweredQuestionCount}
+        label='questions'
+        percent={progressPercent}
+        questionCount={totalQuestionCount}
+      />
+)
   }
 
   render() {

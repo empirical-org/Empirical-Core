@@ -157,7 +157,8 @@ class Lesson extends React.Component {
               {questionDisplayString}
               {cuesList}
             </Link>
-          </li>);
+          </li>
+);
       });
       return (
         <ul>{listItems}</ul>

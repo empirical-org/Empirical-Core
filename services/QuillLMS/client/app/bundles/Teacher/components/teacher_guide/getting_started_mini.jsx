@@ -8,10 +8,12 @@ export default class GettingStartedMini extends React.Component {
     if (this.props.checkboxData.loading) {
       return <LoadingIndicator />;
     }
-    return (<CheckboxSection
-      checkboxes={this.props.checkboxData}
-      dashboard
-    />)
+    return (
+      <CheckboxSection
+        checkboxes={this.props.checkboxData}
+        dashboard
+      />
+)
   }
 
   graphSection() {
@@ -46,6 +48,7 @@ export default class GettingStartedMini extends React.Component {
             {this.checklistSection()}
           </div>
         </div>
-      </div>)
+      </div>
+)
   }
 }

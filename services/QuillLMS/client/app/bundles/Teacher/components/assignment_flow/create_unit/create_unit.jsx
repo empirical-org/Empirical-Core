@@ -274,17 +274,19 @@ export default class CreateUnit extends React.Component {
   stage1SpecificComponents = () => {
     const { activities, } = this.state
     const { showLessonsBanner, } = this.props
-    return (<Stage1
-      activities={activities}
-      clickContinue={this.clickContinue}
-      determineIfInputProvidedAndValid={this.determineIfInputProvidedAndValid}
-      errorMessage={this.determineStage1ErrorMessage()}
-      selectedActivities={this.getSelectedActivities()}
-      setSelectedActivities={this.setSelectedActivities}
-      showLessonsBanner={showLessonsBanner}
-      toggleActivitySelection={this.toggleActivitySelection}
-      updateUnitName={this.updateUnitName}
-    />);
+    return (
+      <Stage1
+        activities={activities}
+        clickContinue={this.clickContinue}
+        determineIfInputProvidedAndValid={this.determineIfInputProvidedAndValid}
+        errorMessage={this.determineStage1ErrorMessage()}
+        selectedActivities={this.getSelectedActivities()}
+        setSelectedActivities={this.setSelectedActivities}
+        showLessonsBanner={showLessonsBanner}
+        toggleActivitySelection={this.toggleActivitySelection}
+        updateUnitName={this.updateUnitName}
+      />
+);
   }
 
   restrictedActivityBeingAssigned = () => {
@@ -428,15 +430,17 @@ export default class CreateUnit extends React.Component {
     const { referralCode, location, history, } = this.props
     const { classrooms, selectedActivities, name, assignSuccess, newUnitId, } = this.state
     if (assignSuccess) {
-      return (<UnitAssignmentFollowup
-        classrooms={classrooms}
-        history={history}
-        location={location}
-        referralCode={referralCode}
-        referralCode={referralCode}
-        selectedActivities={selectedActivities}
-        unitName={name}
-      />);
+      return (
+        <UnitAssignmentFollowup
+          classrooms={classrooms}
+          history={history}
+          location={location}
+          referralCode={referralCode}
+          referralCode={referralCode}
+          selectedActivities={selectedActivities}
+          unitName={name}
+        />
+);
     }
 
     if (_.map(selectedActivities, activity => { return activity.activity_classification.id }).includes(6)) {

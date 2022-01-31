@@ -67,22 +67,26 @@ export const PremiumPricingGuide = ({ lastFour, diagnosticActivityCount, indepen
 
   const renderPremiumConfirmationModal = () => {
     if (!shouldShowPremiumConfirmationModal) { return }
-    return (<PremiumConfirmationModal
-      hideModal={hidePremiumConfirmationModal}
-      show={shouldShowPremiumConfirmationModal}
-      subscription={subscriptionStatus}
-    />)
+    return (
+      <PremiumConfirmationModal
+        hideModal={hidePremiumConfirmationModal}
+        show={shouldShowPremiumConfirmationModal}
+        subscription={subscriptionStatus}
+      />
+)
   }
 
   const renderPurchaseModal = () => {
     if (!shouldShowPurchaseModal) { return }
-    return (<PurchaseModal
-      hideModal={hidePurchaseModal}
-      lastFour={lastFour}
-      show={showPurchaseModal}
-      subscriptionType={subscriptionType}
-      updateSubscriptionStatus={updateSubscriptionStatus}
-    />)
+    return (
+      <PurchaseModal
+        hideModal={hidePurchaseModal}
+        lastFour={lastFour}
+        show={showPurchaseModal}
+        subscriptionType={subscriptionType}
+        updateSubscriptionStatus={updateSubscriptionStatus}
+      />
+)
   }
 
   return (

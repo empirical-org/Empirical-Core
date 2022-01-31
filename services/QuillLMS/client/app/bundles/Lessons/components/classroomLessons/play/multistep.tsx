@@ -84,15 +84,17 @@ class Multistep extends React.Component<MultistepProps, MultistepState> {
       let className = "multistep-display-answers-row "
       className+= i === 0 ? 'first' : ''
 
-      return (<div className={className} key={sl}>
-        <p className="step-label">{sl}</p>
-        <ProjectedAnswers
-          {...commonProps}
-          response={response}
-          selectedSubmissionOrder={selectedSubmissionOrder}
-          selectedSubmissions={selectedSubmissions}
-        />
-      </div>)
+      return (
+        <div className={className} key={sl}>
+          <p className="step-label">{sl}</p>
+          <ProjectedAnswers
+            {...commonProps}
+            response={response}
+            selectedSubmissionOrder={selectedSubmissionOrder}
+            selectedSubmissions={selectedSubmissions}
+          />
+        </div>
+)
     })
 
     return rows
@@ -173,10 +175,12 @@ class Multistep extends React.Component<MultistepProps, MultistepState> {
       feedbackType = 'revise-unmatched'
     }
 
-    return (<Feedback
-      feedback={(<p dangerouslySetInnerHTML={{__html: feedback}} />)}
-      feedbackType={feedbackType}
-    />);
+    return (
+      <Feedback
+        feedback={(<p dangerouslySetInnerHTML={{__html: feedback}} />)}
+        feedbackType={feedbackType}
+      />
+);
   }
 
   renderModeSpecificContent(){
@@ -189,10 +193,12 @@ class Multistep extends React.Component<MultistepProps, MultistepState> {
       />
     )
     if (mode === PROJECT) {
-      return (<React.Fragment>
-        {promptSection}
-        {this.renderProjectedAnswers()}
-      </React.Fragment>)
+      return (
+        <React.Fragment>
+          {promptSection}
+          {this.renderProjectedAnswers()}
+        </React.Fragment>
+)
     }
     const submitButton = answerCount(savedSubmission(submissions)) === data.play.stepLabels.length ? null : <SubmitButton disabled={!this.isSubmittable()} onClick={this.handleStudentSubmission} />
     return (

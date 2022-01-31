@@ -65,19 +65,21 @@ export default class extends React.Component{
     : <input onChange={this.handleChange} placeholder={'Update your Quill email'} style={inputBorderColor} type="text" />
 
 
-    return(<div>
-      <form onSubmit={this.handleSubmit}>
-        {input}
-        <input
-          className='q-button cta-button bg-white text-black'
-          disabled={this.state.updated}
-          type="submit"
-          value={this.state.updated
+    return(
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          {input}
+          <input
+            className='q-button cta-button bg-white text-black'
+            disabled={this.state.updated}
+            type="submit"
+            value={this.state.updated
               ? 'Updated!'
               : 'Update Email'}
-        />
-      </form>
-      {this.showEmailErrors()}
-    </div>)
+          />
+        </form>
+        {this.showEmailErrors()}
+      </div>
+)
   }
 }

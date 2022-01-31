@@ -16,8 +16,10 @@ export default (props) => {
         Coming Soon!
     <img src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg" style={{marginTop: '20px'}} />
   </div>)
-    return (<div className="announcements-page">
-      <HeaderSection subtitle="See what's new with Quill" title="Announcements" />
-      {content}
-    </div>)
+    return (
+      <div className="announcements-page">
+        <HeaderSection subtitle="See what's new with Quill" title="Announcements" />
+        {content}
+      </div>
+)
 }

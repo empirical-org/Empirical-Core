@@ -27,15 +27,17 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
       className += ' bolded'
     }
     const key = `${paragraphIndex}-${wordIndex}-${numberOfResets}`
-    return (<ContentEditable
-      className={className}
-      data-gramm={false}
-      html={currentText}
-      innerRef={this.setEditInputRef}
-      key={key}
-      onChange={this.handleWordChange}
-      spellCheck={false}
-      tagName="span"
-    />)
+    return (
+      <ContentEditable
+        className={className}
+        data-gramm={false}
+        html={currentText}
+        innerRef={this.setEditInputRef}
+        key={key}
+        onChange={this.handleWordChange}
+        spellCheck={false}
+        tagName="span"
+      />
+)
   }
 }

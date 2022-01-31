@@ -81,10 +81,12 @@ const QuestionTable = ({ question, }) => {
     {mobileRows}
   </div>)
 
-  return (<React.Fragment>
-    <DataTable headers={headers} rows={rows} />
-    {mobileTable}
-  </React.Fragment>)
+  return (
+    <React.Fragment>
+      <DataTable headers={headers} rows={rows} />
+      {mobileTable}
+    </React.Fragment>
+)
 }
 
 const Tab = ({ activeTab, label, setPreOrPost, value, }) => {
@@ -146,15 +148,17 @@ export const IndividualStudentResponses = ({ match, passedConceptResults, passed
     conceptResultElements = conceptResults.questions.map(question => <QuestionTable key={question.question_number} question={question} />)
   }
 
-  return (<main className="individual-student-responses-container">
-    <header>
-      <h1>{name}&#39;s responses</h1>
-      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698167-how-do-i-read-the-student-responses-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
-    </header>
-    {mobileNavigation}
-    {skillsSection}
-    <section className="concept-results-container">{conceptResultElements}</section>
-  </main>)
+  return (
+    <main className="individual-student-responses-container">
+      <header>
+        <h1>{name}&#39;s responses</h1>
+        <a className="focus-on-light" href="https://support.quill.org/en/articles/5698167-how-do-i-read-the-student-responses-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
+      </header>
+      {mobileNavigation}
+      {skillsSection}
+      <section className="concept-results-container">{conceptResultElements}</section>
+    </main>
+)
 
 }
 

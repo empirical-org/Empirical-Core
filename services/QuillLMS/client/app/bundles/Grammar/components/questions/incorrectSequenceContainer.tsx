@@ -160,37 +160,38 @@ class IncorrectSequencesContainer extends React.Component {
     const { match } = this.props
     const components = this.sequencesSortedByOrder().map((seq) => {
       const onClickDelete = () => { this.handleDeleteSequence(seq.key) }
-      return (<div className="card is-fullwidth has-bottom-margin" key={seq.key}>
-        <header className="card-header">
-          <input className="regex-name" onChange={(e) => this.handleNameChange(e, seq.key)} placeholder="Name" type="text" value={seq.name || ''} />
-        </header>
-        <header className="card-header">
-          <p className="card-header-title" style={{ display: 'inline-block', }}>
-            {this.renderTextInputFields(seq.text, seq.key)}
-            <button className="add-regex-button" onClick={(e) => this.addNewSequence(e, seq.key)} type="button">+</button>
-          </p>
-          <p className="card-header-icon">
-            {seq.order}
-          </p>
-        </header>
-        <div className="card-content">
-          <label className="label" htmlFor="feedback" style={{ marginTop: 10, }}>Feedback</label>
-          <TextEditor
-            ContentState={ContentState}
-            EditorState={EditorState}
-            handleTextChange={(e) => this.handleFeedbackChange(e, seq.key)}
-            key="feedback"
-            text={seq.feedback}
-          />
-          <br />
-          {this.renderConceptResults(seq.conceptResults, seq.key)}
+      return (
+        <div className="card is-fullwidth has-bottom-margin" key={seq.key}>
+          <header className="card-header">
+            <input className="regex-name" onChange={(e) => this.handleNameChange(e, seq.key)} placeholder="Name" type="text" value={seq.name || ''} />
+          </header>
+          <header className="card-header">
+            <p className="card-header-title" style={{ display: 'inline-block', }}>
+              {this.renderTextInputFields(seq.text, seq.key)}
+              <button className="add-regex-button" onClick={(e) => this.addNewSequence(e, seq.key)} type="button">+</button>
+            </p>
+            <p className="card-header-icon">
+              {seq.order}
+            </p>
+          </header>
+          <div className="card-content">
+            <label className="label" htmlFor="feedback" style={{ marginTop: 10, }}>Feedback</label>
+            <TextEditor
+              ContentState={ContentState}
+              EditorState={EditorState}
+              handleTextChange={(e) => this.handleFeedbackChange(e, seq.key)}
+              key="feedback"
+              text={seq.feedback}
+            />
+            <br />
+            {this.renderConceptResults(seq.conceptResults, seq.key)}
+          </div>
+          <footer className="card-footer">
+            <a className="card-footer-item" href={`/grammar/#/admin/questions/${match.params.questionID}/incorrect-sequences/${seq.key}/edit`}>Edit</a>
+            <button className="card-footer-item" onClick={onClickDelete} type="button">Delete</button>
+            <a className="card-footer-item" onClick={() => this.saveSequencesAndFeedback(seq.key)}>Save</a>
+          </footer>
         </div>
-        <footer className="card-footer">
-          <a className="card-footer-item" href={`/grammar/#/admin/questions/${match.params.questionID}/incorrect-sequences/${seq.key}/edit`}>Edit</a>
-          <button className="card-footer-item" onClick={onClickDelete} type="button">Delete</button>
-          <a className="card-footer-item" onClick={() => this.saveSequencesAndFeedback(seq.key)}>Save</a>
-        </footer>
-      </div>
     )});
     return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
   }

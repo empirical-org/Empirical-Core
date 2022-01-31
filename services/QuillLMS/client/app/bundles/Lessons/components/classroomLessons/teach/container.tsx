@@ -172,10 +172,12 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       component = <ErrorPage text={lessonError} />
     }
 
-    return (<div>
-      <NavBar />
-      {component}
-    </div>)
+    return (
+      <div>
+        <NavBar />
+        {component}
+      </div>
+)
   }
 }
 

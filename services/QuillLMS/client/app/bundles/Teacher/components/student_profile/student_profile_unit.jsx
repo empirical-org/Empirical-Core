@@ -150,7 +150,8 @@ export default class StudentProfileUnit extends React.Component {
               <span>Completed</span>
             </div>
           }
-        />)
+        />
+)
     }
 
     if (maxPercentage >= PROFICIENT_CUTOFF) {
@@ -199,12 +200,14 @@ export default class StudentProfileUnit extends React.Component {
       }
     })
 
-    return (<div className="activities-container completed-activities">
-      <DataTable
-        headers={completeHeaders}
-        rows={rows}
-      />
-    </div>)
+    return (
+      <div className="activities-container completed-activities">
+        <DataTable
+          headers={completeHeaders}
+          rows={rows}
+        />
+      </div>
+)
   }
 
   renderIncompleteActivities = () => {
@@ -222,23 +225,27 @@ export default class StudentProfileUnit extends React.Component {
       }
     })
 
-    return (<div className="activities-container incomplete-activities">
-      <DataTable
-        headers={incompleteHeaders}
-        rows={rows}
-      />
-    </div>)
+    return (
+      <div className="activities-container incomplete-activities">
+        <DataTable
+          headers={incompleteHeaders}
+          rows={rows}
+        />
+      </div>
+)
   }
 
   render() {
     const { unitName, id, isSelectedUnit, } = this.props
     const className = isSelectedUnit ? "student-profile-unit selected-unit" : "student-profile-unit"
-    return (<div className={className} id={id}>
-      <div className="unit-name">
-        <h2>{unitName}</h2>
+    return (
+      <div className={className} id={id}>
+        <div className="unit-name">
+          <h2>{unitName}</h2>
+        </div>
+        {this.renderIncompleteActivities()}
+        {this.renderCompletedActivities()}
       </div>
-      {this.renderIncompleteActivities()}
-      {this.renderCompletedActivities()}
-    </div>)
+)
   }
 }

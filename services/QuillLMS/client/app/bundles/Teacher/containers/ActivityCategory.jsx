@@ -56,14 +56,15 @@ export default class ActivityCategory extends React.Component {
   };
 
   render() {
-    return(<div>
-      <CustomActivityPackPage
-        clickContinue={this.destroyAndRecreateOrderNumbers}
-        selectedActivities={this.state.selectedActivities}
-        setSelectedActivities={this.updateActivityOrder}
-        toggleActivitySelection={this.toggleActivitySelection}
-      />
-    </div>
+    return(
+      <div>
+        <CustomActivityPackPage
+          clickContinue={this.destroyAndRecreateOrderNumbers}
+          selectedActivities={this.state.selectedActivities}
+          setSelectedActivities={this.updateActivityOrder}
+          toggleActivitySelection={this.toggleActivitySelection}
+        />
+      </div>
   )
   }
 }

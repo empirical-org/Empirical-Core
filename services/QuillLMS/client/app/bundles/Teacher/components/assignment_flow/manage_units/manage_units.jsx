@@ -178,11 +178,13 @@ export default class ManageUnits extends React.Component {
     const { units, selectedClassroomId, classrooms, } = this.state
 
     if (!units.length) {
-      return (<div className="my-activities-empty-state container">
-        <img alt="Clipboard with notes written on it" src={clipboardSrc} />
-        <h2>Start by assigning activities</h2>
-        <p>Nothing to see here yet! Once you assign activities, they will show up here.</p>
-      </div>)
+      return (
+        <div className="my-activities-empty-state container">
+          <img alt="Clipboard with notes written on it" src={clipboardSrc} />
+          <h2>Start by assigning activities</h2>
+          <p>Nothing to see here yet! Once you assign activities, they will show up here.</p>
+        </div>
+)
     }
 
     const activityPacks = units.map(unit => (

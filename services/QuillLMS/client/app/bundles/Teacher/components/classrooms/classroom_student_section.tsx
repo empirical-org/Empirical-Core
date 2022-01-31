@@ -284,12 +284,14 @@ export default class ClassroomStudentSection
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.editStudentAccountModal && studentIdsForModal.length === 1) {
       const student = classroom.students.find(s => s.id === studentIdsForModal[0])
-      return (<EditStudentAccountModal
-        classroom={classroom}
-        close={this.closeModal}
-        onSuccess={this.handleSuccess}
-        student={student}
-      />)
+      return (
+        <EditStudentAccountModal
+          classroom={classroom}
+          close={this.closeModal}
+          onSuccess={this.handleSuccess}
+          student={student}
+        />
+)
     }
   }
 
@@ -298,12 +300,14 @@ export default class ClassroomStudentSection
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.resetStudentPasswordModal && studentIdsForModal.length === 1) {
       const student = classroom.students.find(s => s.id === studentIdsForModal[0])
-      return (<ResetStudentPasswordModal
-        classroom={classroom}
-        close={this.closeModal}
-        onSuccess={this.handleSuccess}
-        student={student}
-      />)
+      return (
+        <ResetStudentPasswordModal
+          classroom={classroom}
+          close={this.closeModal}
+          onSuccess={this.handleSuccess}
+          student={student}
+        />
+)
     }
   }
 
@@ -311,12 +315,14 @@ export default class ClassroomStudentSection
     const { classroom, } = this.props
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.mergeStudentAccountsModal) {
-      return (<MergeStudentAccountsModal
-        classroom={classroom}
-        close={this.closeModal}
-        onSuccess={this.handleSuccess}
-        selectedStudentIds={studentIdsForModal}
-      />)
+      return (
+        <MergeStudentAccountsModal
+          classroom={classroom}
+          close={this.closeModal}
+          onSuccess={this.handleSuccess}
+          selectedStudentIds={studentIdsForModal}
+        />
+)
     }
   }
 
@@ -324,13 +330,15 @@ export default class ClassroomStudentSection
     const { classroom, classrooms, } = this.props
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.moveStudentsModal) {
-      return (<MoveStudentsModal
-        classroom={classroom}
-        classrooms={classrooms}
-        close={this.closeModal}
-        onSuccess={this.handleSuccess}
-        selectedStudentIds={studentIdsForModal}
-      />)
+      return (
+        <MoveStudentsModal
+          classroom={classroom}
+          classrooms={classrooms}
+          close={this.closeModal}
+          onSuccess={this.handleSuccess}
+          selectedStudentIds={studentIdsForModal}
+        />
+)
     }
   }
 
@@ -338,12 +346,14 @@ export default class ClassroomStudentSection
     const { classroom, } = this.props
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.removeStudentsModal) {
-      return (<RemoveStudentsModal
-        classroom={classroom}
-        close={this.closeModal}
-        onSuccess={this.handleSuccess}
-        selectedStudentIds={studentIdsForModal}
-      />)
+      return (
+        <RemoveStudentsModal
+          classroom={classroom}
+          close={this.closeModal}
+          onSuccess={this.handleSuccess}
+          selectedStudentIds={studentIdsForModal}
+        />
+)
     }
   }
 
@@ -399,13 +409,15 @@ export default class ClassroomStudentSection
     if (!classroom.visible) {
       return null
     } else {
-      return (<DropdownInput
-        className="student-actions-dropdown"
-        disabled={selectedStudentIds.length === 0}
-        handleChange={this.selectAction}
-        label="Actions"
-        options={this.optionsForStudentActions()}
-      />)
+      return (
+        <DropdownInput
+          className="student-actions-dropdown"
+          disabled={selectedStudentIds.length === 0}
+          handleChange={this.selectAction}
+          label="Actions"
+          options={this.optionsForStudentActions()}
+        />
+)
     }
   }
 
@@ -422,13 +434,15 @@ export default class ClassroomStudentSection
       } else if (allCleverStudents) {
         copy = "Your students’ account information is auto-synced from your Clever account. You can modify your Quill class rosters from your Clever account."
       }
-      return (<div className="google-or-clever-note-of-explanation">
-        <div className="google-or-clever-note-of-explanation-text">
-          <h4>Why can&#39;t I edit my students’ account information?</h4>
-          <p>{copy}</p>
+      return (
+        <div className="google-or-clever-note-of-explanation">
+          <div className="google-or-clever-note-of-explanation-text">
+            <h4>Why can&#39;t I edit my students’ account information?</h4>
+            <p>{copy}</p>
+          </div>
+          <img alt="lightbulb" src={bulbSrc} />
         </div>
-        <img alt="lightbulb" src={bulbSrc} />
-      </div>)
+)
     }
   }
 
@@ -475,17 +489,19 @@ export default class ClassroomStudentSection
       }
     })
 
-    return (<DataTable
-      checkAllRows={this.checkAllRows}
-      checkRow={this.checkRow}
-      className='show-overflow'
-      headers={classroom.visible ? activeHeaders(hasProviderClassroom) : archivedHeaders(hasProviderClassroom)}
-      rows={rows}
-      showActions={classroom.visible}
-      showCheckboxes={classroom.visible}
-      uncheckAllRows={this.uncheckAllRows}
-      uncheckRow={this.uncheckRow}
-    />)
+    return (
+      <DataTable
+        checkAllRows={this.checkAllRows}
+        checkRow={this.checkRow}
+        className='show-overflow'
+        headers={classroom.visible ? activeHeaders(hasProviderClassroom) : archivedHeaders(hasProviderClassroom)}
+        rows={rows}
+        showActions={classroom.visible}
+        showCheckboxes={classroom.visible}
+        uncheckAllRows={this.uncheckAllRows}
+        uncheckRow={this.uncheckRow}
+      />
+)
   }
 
   renderStudentHeaderButtons() {
@@ -560,20 +576,22 @@ export default class ClassroomStudentSection
   renderStudentSection = () => {
     const { classroom, } = this.props
     if (classroom.students.length) {
-      return (<div className="students-section">
-        {this.renderEditStudentAccountModal()}
-        {this.renderResetStudentPasswordModal()}
-        {this.renderMergeStudentAccountsModal()}
-        {this.renderMoveStudentsModal()}
-        {this.renderRemoveStudentsModal()}
-        <div className="students-section-header with-students">
-          <h3>Students</h3>
-          {this.renderStudentHeaderButtons()}
+      return (
+        <div className="students-section">
+          {this.renderEditStudentAccountModal()}
+          {this.renderResetStudentPasswordModal()}
+          {this.renderMergeStudentAccountsModal()}
+          {this.renderMoveStudentsModal()}
+          {this.renderRemoveStudentsModal()}
+          <div className="students-section-header with-students">
+            <h3>Students</h3>
+            {this.renderStudentHeaderButtons()}
+          </div>
+          {this.renderGoogleOrCleverNoteOfExplanation()}
+          {this.renderStudentActions()}
+          {this.renderStudentDataTable()}
         </div>
-        {this.renderGoogleOrCleverNoteOfExplanation()}
-        {this.renderStudentActions()}
-        {this.renderStudentDataTable()}
-      </div>)
+)
     } else if (classroom.visible) {
       let copy = 'Click on the "Invite students" button to get started with your writing instruction!'
       if (classroom.google_classroom_id) {
@@ -581,22 +599,26 @@ export default class ClassroomStudentSection
       } else if (classroom.clever_id) {
         copy = 'Add students to your class in Clever and they will automatically appear here.'
       }
-      return (<div className="students-section">
-        <div className="students-section-header">
-          <h3>Students</h3>
-          {this.renderInviteStudents()}
+      return (
+        <div className="students-section">
+          <div className="students-section-header">
+            <h3>Students</h3>
+            {this.renderInviteStudents()}
+          </div>
+          <div className="no-students">
+            <img alt="Three empty desks" src={emptyDeskSrc} />
+            <p>{copy}</p>
+          </div>
         </div>
-        <div className="no-students">
-          <img alt="Three empty desks" src={emptyDeskSrc} />
-          <p>{copy}</p>
-        </div>
-      </div>)
+)
     } else {
-      return (<div className="students-section empty">
-        <div className="students-section-header">
-          <h3>Students</h3>
+      return (
+        <div className="students-section empty">
+          <div className="students-section-header">
+            <h3>Students</h3>
+          </div>
         </div>
-      </div>)
+)
     }
   }
 

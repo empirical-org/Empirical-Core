@@ -178,15 +178,17 @@ class TeacherNavbar extends React.Component<any, any> {
     if (classroomSessions.data.supportingInfo) {
       const className = tooltip === PDF ? HOVER : ''
       /* eslint-disable react/jsx-no-target-blank */
-      return (<a
-        href={`${process.env.DEFAULT_URL}/activities/${params.lessonID}/supporting_info`}
-        onMouseEnter={this.handleMouseEnterPDFIcon}
-        onMouseLeave={this.handleMouseLeaveTooltip}
-        target="_blank"
-      >
-        <img className={className} src={pdfIcon} />
-        {this.renderTooltip(PDF)}
-      </a>)
+      return (
+        <a
+          href={`${process.env.DEFAULT_URL}/activities/${params.lessonID}/supporting_info`}
+          onMouseEnter={this.handleMouseEnterPDFIcon}
+          onMouseLeave={this.handleMouseLeaveTooltip}
+          target="_blank"
+        >
+          <img className={className} src={pdfIcon} />
+          {this.renderTooltip(PDF)}
+        </a>
+)
       /* eslint-enable react/jsx-no-target-blank */
     }
   }
@@ -301,10 +303,12 @@ class TeacherNavbar extends React.Component<any, any> {
         if (numberOfStudents - 1 === index) {
           return (<p key={index}>{students[studentId]}</p>)
         } else {
-          return (<span key={index}>
-            <p>{students[studentId]}</p>
-            <hr />
-          </span>)
+          return (
+            <span key={index}>
+              <p>{students[studentId]}</p>
+              <hr />
+            </span>
+)
         }
       })
     } else {
@@ -312,10 +316,12 @@ class TeacherNavbar extends React.Component<any, any> {
       content = <span><p className="no-flagged-students" key='no-flagged-students'>No Flagged Students</p><p className="explanation" key="explanation">Flag students based on their performance for small group instruction.</p></span>
     }
     const className = oneRow ? "flag-dropdown one-row" : "flag-dropdown"
-    return (<div className={className}>
-      <i className="fa fa-caret-up" />
-      {content}
-    </div>)
+    return (
+      <div className={className}>
+        <i className="fa fa-caret-up" />
+        {content}
+      </div>
+)
   }
 
   handleExitLessonClick = () => {
@@ -351,10 +357,12 @@ class TeacherNavbar extends React.Component<any, any> {
       const assignLink = `${process.env.DEFAULT_URL}/assign/activity-library?activityClassificationFilters[]=lessons`
       const studentLink = window.location.href.replace('teach', 'play').concat('&student=student')
       /* eslint-disable react/jsx-no-target-blank */
-      return (<div className="lessons-teacher-preview-bar">
-        <p><i className="fa fa-eye" />You are previewing the teacher&#39;s view of Quill Lessons. <a href={assignLink} target="_blank">Assign Quill Lessons</a> from your dashboard.</p>
-        <a className="student-link" href={studentLink} target="_blank">Open Student View<i className="fa fa-external-link" /></a>
-      </div>)
+      return (
+        <div className="lessons-teacher-preview-bar">
+          <p><i className="fa fa-eye" />You are previewing the teacher&#39;s view of Quill Lessons. <a href={assignLink} target="_blank">Assign Quill Lessons</a> from your dashboard.</p>
+          <a className="student-link" href={studentLink} target="_blank">Open Student View<i className="fa fa-external-link" /></a>
+        </div>
+)
       /* eslint-enable react/jsx-no-target-blank */
     }
   }

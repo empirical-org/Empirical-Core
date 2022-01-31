@@ -344,23 +344,25 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       if ((grammarActivities.hasreceiveddata || proofreaderSessionId) && session.hasreceiveddata) {
 
         if (session.currentQuestion) {
-          return (<QuestionComponent
-            activity={grammarActivities ? grammarActivities.currentActivity : null}
-            answeredQuestions={session.answeredQuestions}
-            checkAnswer={this.checkAnswer}
-            concepts={concepts}
-            conceptsFeedback={conceptsFeedback}
-            currentQuestion={session.currentQuestion}
-            dispatch={dispatch}
-            goToNextQuestion={this.goToNextQuestion}
-            handleTogglePreviewMenu={handleTogglePreviewMenu}
-            handleToggleQuestion={handleToggleQuestion}
-            isOnMobile={isOnMobile}
-            previewMode={previewMode}
-            questions={questions}
-            questionSet={session.questionSet}
-            unansweredQuestions={session.unansweredQuestions}
-          />)
+          return (
+            <QuestionComponent
+              activity={grammarActivities ? grammarActivities.currentActivity : null}
+              answeredQuestions={session.answeredQuestions}
+              checkAnswer={this.checkAnswer}
+              concepts={concepts}
+              conceptsFeedback={conceptsFeedback}
+              currentQuestion={session.currentQuestion}
+              dispatch={dispatch}
+              goToNextQuestion={this.goToNextQuestion}
+              handleTogglePreviewMenu={handleTogglePreviewMenu}
+              handleToggleQuestion={handleToggleQuestion}
+              isOnMobile={isOnMobile}
+              previewMode={previewMode}
+              questions={questions}
+              questionSet={session.questionSet}
+              unansweredQuestions={session.unansweredQuestions}
+            />
+)
         }
         if (saving || (!grammarActivities && !proofreaderSessionId)) { return <LoadingSpinner /> }
         return <Intro activity={grammarActivities.currentActivity} previewMode={previewMode} session={session} startActivity={this.goToNextQuestion} />

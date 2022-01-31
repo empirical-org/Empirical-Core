@@ -76,10 +76,12 @@ export default class ClassroomActivity extends React.Component {
     if (isNaN(averageScore)) {
       return '—';
     } else if (nonRelevantActivityClassificationIds.includes(data.activityClassificationId)) {
-      return (<Tooltip
-        tooltipText={`This type of activity is not graded.`}
-        tooltipTriggerText="N/A"
-      />)
+      return (
+        <Tooltip
+          tooltipText={`This type of activity is not graded.`}
+          tooltipTriggerText="N/A"
+        />
+)
     } else if (Math.round(averageScore).toString().length === 2) {
       return `${averageScore.toPrecision(2)}%`;
     }
@@ -223,19 +225,21 @@ export default class ClassroomActivity extends React.Component {
       {this.renderLessonPlanTooltip()}
     </a>)
     /* eslint-enable react/jsx-no-target-blank */
-    return (<div className="lessons-end-row">
-      {this.lessonCompletedOrLaunch()}
-      <a
-        className="customize-lesson"
-        href={`/customize/${data.activityUid}`}
-        onMouseEnter={this.handleMouseActionOnCustomize}
-        onMouseLeave={this.handleMouseActionOnCustomize}
-      >
-        <i className="fas fa-icon fa-magic" />
-        {this.renderCustomizeTooltip()}
-      </a>
-      {supportingInfoLink}
-    </div>);
+    return (
+      <div className="lessons-end-row">
+        {this.lessonCompletedOrLaunch()}
+        <a
+          className="customize-lesson"
+          href={`/customize/${data.activityUid}`}
+          onMouseEnter={this.handleMouseActionOnCustomize}
+          onMouseLeave={this.handleMouseActionOnCustomize}
+        >
+          <i className="fas fa-icon fa-magic" />
+          {this.renderCustomizeTooltip()}
+        </a>
+        {supportingInfoLink}
+      </div>
+);
   }
 
   uaId = () => {
@@ -252,10 +256,12 @@ export default class ClassroomActivity extends React.Component {
     const { showCustomizeTooltip, } = this.state
     if (!showCustomizeTooltip) { return }
 
-    return (<div className="customize-tooltip">
-      <i className="fas fa-caret-up" />
+    return (
+      <div className="customize-tooltip">
+        <i className="fas fa-caret-up" />
       Customize
-    </div>);
+      </div>
+);
   }
 
   renderCustomizedEditionsTag = () => {
@@ -268,10 +274,12 @@ export default class ClassroomActivity extends React.Component {
     const { showLessonPlanTooltip, } = this.state
     if (!showLessonPlanTooltip) { return }
 
-    return (<div className="lesson-plan-tooltip">
-      <i className="fas fa-caret-up" />
+    return (
+      <div className="lesson-plan-tooltip">
+        <i className="fas fa-caret-up" />
       Download Lesson Plan
-    </div>);
+      </div>
+);
   }
 
   renderLessonsAction = () => {
@@ -291,12 +299,14 @@ export default class ClassroomActivity extends React.Component {
     const { showModal, } = this.state
     const { data, } = this.props
     if (!showModal) { return }
-    return (<PreviewOrLaunchModal
-      classroomUnitId={this.classroomUnitId()}
-      closeModal={this.closeModal}
-      completed={data.completed}
-      lessonID={this.activityId()}
-    />);
+    return (
+      <PreviewOrLaunchModal
+        classroomUnitId={this.classroomUnitId()}
+        closeModal={this.closeModal}
+        completed={data.completed}
+        lessonID={this.activityId()}
+      />
+);
   }
 
   renderPieChart = () => {

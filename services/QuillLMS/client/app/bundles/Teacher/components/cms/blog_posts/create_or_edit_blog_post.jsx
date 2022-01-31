@@ -555,41 +555,45 @@ export default class CreateOrEditBlogPost extends React.Component {
         content = <textarea id="markdown-content" onChange={this.handleBodyChange} rows={20} type="text" value={body} />
         mdLink = <a className='markdown-cheatsheet' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
     }
-    return (<div>
-      <label>Article Content</label>
-      <div className="article-content-container">
-        <div id="article-preview-bar">
-          {toolbarLeft}
-          <div>
-            <span className={`article-tab ${showArticlePreview ? null : 'active'}`} onClick={this.handleClickEdit}>Edit</span>
-            <span className={`article-tab ${showArticlePreview ? 'active' : null}`} onClick={this.handleClickPreview}>Preview</span>
+    return (
+      <div>
+        <label>Article Content</label>
+        <div className="article-content-container">
+          <div id="article-preview-bar">
+            {toolbarLeft}
+            <div>
+              <span className={`article-tab ${showArticlePreview ? null : 'active'}`} onClick={this.handleClickEdit}>Edit</span>
+              <span className={`article-tab ${showArticlePreview ? 'active' : null}`} onClick={this.handleClickPreview}>Preview</span>
+            </div>
           </div>
+          {content}
         </div>
-        {content}
+        {mdLink}
       </div>
-      {mdLink}
-    </div>)
+)
 
   }
 
   renderDatepicker = () => {
     const { focused, publishedAt, } = this.state
     const dropdownIconStyle = focused ? { transform: 'rotate(180deg)', } : null;
-    return (<div>
-      <label>Published At Date:</label>
-      <SingleDatePicker
-        customInputIcon={<img alt="dropdown indicator" src="https://assets.quill.org/images/icons/dropdown.svg" style={dropdownIconStyle} />}
-        date={publishedAt ? moment(publishedAt) : null}
-        focused={focused}
-        id={`date-picker`}
-        inputIconPosition="after"
-        navNext={'›'}
-        navPrev={'‹'}
-        numberOfMonths={1}
-        onDateChange={this.handlePublishedAtChange}
-        onFocusChange={({ focused }) => this.setState({ focused })}
-      />
-    </div>)
+    return (
+      <div>
+        <label>Published At Date:</label>
+        <SingleDatePicker
+          customInputIcon={<img alt="dropdown indicator" src="https://assets.quill.org/images/icons/dropdown.svg" style={dropdownIconStyle} />}
+          date={publishedAt ? moment(publishedAt) : null}
+          focused={focused}
+          id={`date-picker`}
+          inputIconPosition="after"
+          navNext={'›'}
+          navPrev={'‹'}
+          numberOfMonths={1}
+          onDateChange={this.handlePublishedAtChange}
+          onFocusChange={({ focused }) => this.setState({ focused })}
+        />
+      </div>
+)
   }
 
   renderPreviewCardContentFields = () => {
@@ -650,15 +654,17 @@ export default class CreateOrEditBlogPost extends React.Component {
 
   renderPreviewCardTypeDropdown = () => {
     const { preview_card_type, } = this.state
-    return (<div className="preview-card-container">
-      <label>Preview Card Template:</label>
-      <ItemDropdown
-        callback={this.changePreviewCardType}
-        className="blog-dropdown"
-        items={['Tiny Image', 'Medium Image', 'Large Image', 'YouTube Video', 'Tweet', 'Custom HTML']}
-        selectedItem={preview_card_type}
-      />
-    </div>)
+    return (
+      <div className="preview-card-container">
+        <label>Preview Card Template:</label>
+        <ItemDropdown
+          callback={this.changePreviewCardType}
+          className="blog-dropdown"
+          items={['Tiny Image', 'Medium Image', 'Large Image', 'YouTube Video', 'Tweet', 'Custom HTML']}
+          selectedItem={preview_card_type}
+        />
+      </div>
+)
   }
 
   renderSaveAndPreviewButton = () => {

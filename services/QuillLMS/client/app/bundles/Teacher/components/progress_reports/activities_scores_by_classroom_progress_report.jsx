@@ -73,9 +73,11 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         minWidth: 80,
         Cell: row => {
           const value = Math.round(parseFloat(row.original.average_score) * 100);
-          return (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
-            {isNaN(value) ? '--' : value + '%'}
-          </a>)
+          return (
+            <a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
+              {isNaN(value) ? '--' : value + '%'}
+            </a>
+)
         }
       },
       {
@@ -85,9 +87,11 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         minWidth: 80,
         Cell: row => {
           const value = row.original.timespent;
-          return (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
-            {getTimeSpent(value)}
-          </a>)
+          return (
+            <a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
+              {getTimeSpent(value)}
+            </a>
+)
         }
       },
       {
@@ -147,19 +151,21 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
 
   tableOrEmptyMessage(filteredClassroomsData){
     if (filteredClassroomsData.length) {
-      return (<div key={`${filteredClassroomsData.length}-length-for-activities-scores-by-classroom`}>
-        <ReactTable
-          className='progress-report'
-          columns={this.columns()}
-          data={filteredClassroomsData}
-          defaultPageSize={filteredClassroomsData.length}
-          defaultSorted={[{id: 'last_active', desc: true}]}
-          showPageSizeOptions={false}
-          showPagination={false}
-          showPaginationBottom={false}
-          showPaginationTop={false}
-        />
-      </div>)
+      return (
+        <div key={`${filteredClassroomsData.length}-length-for-activities-scores-by-classroom`}>
+          <ReactTable
+            className='progress-report'
+            columns={this.columns()}
+            data={filteredClassroomsData}
+            defaultPageSize={filteredClassroomsData.length}
+            defaultSorted={[{id: 'last_active', desc: true}]}
+            showPageSizeOptions={false}
+            showPagination={false}
+            showPaginationBottom={false}
+            showPaginationTop={false}
+          />
+        </div>
+)
     } else {
       return <EmptyStateForReport />
     }
