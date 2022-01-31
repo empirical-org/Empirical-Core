@@ -37,7 +37,7 @@ export default class SetupInstructions extends React.Component<SetupInstructions
         {downloadImgLink}
         {downloadLink}
       </div>
-)
+    )
   }
 
   renderFooter() {
@@ -47,7 +47,7 @@ export default class SetupInstructions extends React.Component<SetupInstructions
         <button className="quill-button secondary outlined medium" onClick={back} type="button">Back</button>
         <button className="quill-button primary contained medium" onClick={close} type="button">Done</button>
       </div>
-)
+    )
   }
 
   render() {

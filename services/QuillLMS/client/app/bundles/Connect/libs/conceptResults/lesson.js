@@ -70,15 +70,15 @@ export function calculateScoreForLesson(questions) {
   let correct = 0;
   questions.forEach((question) => {
     switch (question.type) {
-      case 'SF':
-        correct += getScoreForSentenceFragment(question.question);
-        break;
-      case 'SC':
-      case 'FB':
-        correct += getScoreForSentenceCombining(question.question);
-        break;
-      default:
-        throw new Error('question is not compatible type');
+    case 'SF':
+      correct += getScoreForSentenceFragment(question.question);
+      break;
+    case 'SC':
+    case 'FB':
+      correct += getScoreForSentenceCombining(question.question);
+      break;
+    default:
+      throw new Error('question is not compatible type');
     }
   });
   return Math.round((correct / questions.length) * 100) / 100;

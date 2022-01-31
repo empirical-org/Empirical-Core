@@ -142,7 +142,7 @@ export class TextArea extends React.Component<InputProps, InputState> {
             {this.renderCancelSymbol()}
             {this.renderCharacterLimit()}
           </div>
-)
+        )
       } else {
         return (
           <div
@@ -163,7 +163,7 @@ export class TextArea extends React.Component<InputProps, InputState> {
             {this.renderErrorText()}
             {this.renderCharacterLimit()}
           </div>
-)
+        )
       }
     } else if (inactive) {
       return (
@@ -184,7 +184,7 @@ export class TextArea extends React.Component<InputProps, InputState> {
           {this.renderHelperText()}
           {this.renderCharacterLimit()}
         </div>
-)
+      )
     } else {
       return (
         <div
@@ -204,7 +204,7 @@ export class TextArea extends React.Component<InputProps, InputState> {
           {this.renderCancelSymbol()}
           {this.renderCharacterLimit()}
         </div>
-)
+      )
     }
   }
 

@@ -54,7 +54,7 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
         </div>
         <img onClick={this.props.close} src={closeIconSrc} />
       </div>
-)
+    )
   }
 
   renderModalContent() {
@@ -76,6 +76,6 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
           {this.renderModalContent()}
         </div>
       </div>
-)
+    )
   }
 }

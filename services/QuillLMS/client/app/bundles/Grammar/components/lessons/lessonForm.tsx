@@ -150,15 +150,15 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     let options = hashToCollection(questions.data);
     let formatted
     if (options.length > 0) {
-        options = _.filter(options, option => option.flag !== "archived" && option.prompt); // filter out questions with no valid concept
-        formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
+      options = _.filter(options, option => option.flag !== "archived" && option.prompt); // filter out questions with no valid concept
+      formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
       return (
         <QuestionSelector
           onChange={this.handleSearchChange}
           options={formatted}
           placeholder="Search for a question"
         />
-);
+      );
     }
   }
 
@@ -186,7 +186,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
                 <span onClick={() => this.removeConcept(c)} style={{ cursor: 'pointer' }}>X</span>
               </span>
             </div>
-)
+          )
         } else {
           return undefined
         }

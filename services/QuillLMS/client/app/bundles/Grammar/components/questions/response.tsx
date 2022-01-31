@@ -281,7 +281,7 @@ export default class extends React.Component<ResponseProps, ResponseState> {
         response={response}
         toggleCheckboxCorrect={this.toggleCheckboxCorrect}
       />
-)
+    )
   }
 
   renderResponseContent = (isEditing, response) => {
@@ -312,7 +312,7 @@ export default class extends React.Component<ResponseProps, ResponseState> {
           (<span><strong>Differences:</strong> {diffText}</span>),
           (<br />),
           (<br />)
-          ];
+        ];
       }
     }
 

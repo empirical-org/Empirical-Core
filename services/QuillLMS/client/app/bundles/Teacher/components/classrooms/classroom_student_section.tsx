@@ -291,7 +291,7 @@ export default class ClassroomStudentSection
           onSuccess={this.handleSuccess}
           student={student}
         />
-)
+      )
     }
   }
 
@@ -307,7 +307,7 @@ export default class ClassroomStudentSection
           onSuccess={this.handleSuccess}
           student={student}
         />
-)
+      )
     }
   }
 
@@ -322,7 +322,7 @@ export default class ClassroomStudentSection
           onSuccess={this.handleSuccess}
           selectedStudentIds={studentIdsForModal}
         />
-)
+      )
     }
   }
 
@@ -338,7 +338,7 @@ export default class ClassroomStudentSection
           onSuccess={this.handleSuccess}
           selectedStudentIds={studentIdsForModal}
         />
-)
+      )
     }
   }
 
@@ -353,7 +353,7 @@ export default class ClassroomStudentSection
           onSuccess={this.handleSuccess}
           selectedStudentIds={studentIdsForModal}
         />
-)
+      )
     }
   }
 
@@ -417,7 +417,7 @@ export default class ClassroomStudentSection
           label="Actions"
           options={this.optionsForStudentActions()}
         />
-)
+      )
     }
   }
 
@@ -442,7 +442,7 @@ export default class ClassroomStudentSection
           </div>
           <img alt="lightbulb" src={bulbSrc} />
         </div>
-)
+      )
     }
   }
 
@@ -501,7 +501,7 @@ export default class ClassroomStudentSection
         uncheckAllRows={this.uncheckAllRows}
         uncheckRow={this.uncheckRow}
       />
-)
+    )
   }
 
   renderStudentHeaderButtons() {
@@ -591,7 +591,7 @@ export default class ClassroomStudentSection
           {this.renderStudentActions()}
           {this.renderStudentDataTable()}
         </div>
-)
+      )
     } else if (classroom.visible) {
       let copy = 'Click on the "Invite students" button to get started with your writing instruction!'
       if (classroom.google_classroom_id) {
@@ -610,7 +610,7 @@ export default class ClassroomStudentSection
             <p>{copy}</p>
           </div>
         </div>
-)
+      )
     } else {
       return (
         <div className="students-section empty">
@@ -618,7 +618,7 @@ export default class ClassroomStudentSection
             <h3>Students</h3>
           </div>
         </div>
-)
+      )
     }
   }
 

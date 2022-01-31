@@ -19,9 +19,9 @@ describe('ClassroomActivity component', () => {
                 scorebook_icon_class: '',
               },
             },
-              activityId: 412, }}
+        activityId: 412, }}
       />
-      );
+    );
     expect(wrapper.find('.recommendations-button')).toHaveLength(0);
   });
 
@@ -32,12 +32,12 @@ describe('ClassroomActivity component', () => {
         data={{ activity:
           { anonymous_path: '',
             classification: {
-                scorebook_icon_class: '',
-              },
+              scorebook_icon_class: '',
+            },
           },
-            activityId: 413 ,}}
+        activityId: 413 ,}}
       />
-      );
+    );
     expect(wrapper.find('.recommendations-button')).toHaveLength(0);
   });
 
@@ -48,14 +48,14 @@ describe('ClassroomActivity component', () => {
         data={{ activity:
           { anonymous_path: '',
             classification: {
-                scorebook_icon_class: '',
-              },
+              scorebook_icon_class: '',
+            },
           },
-          }}
+        }}
         lesson
         report={false}
       />
-      );
+    );
     expect(wrapper.find('.lessons-end-row')).toHaveLength(1);
   });
 
@@ -64,13 +64,13 @@ describe('ClassroomActivity component', () => {
     const wrapper = shallow(
       <ClassroomActivity
         data={{
-            activityId: 567,
-            activityClassificationId: 6,
-            name: 'I am a lesson',
-          }}
+          activityId: 567,
+          activityClassificationId: 6,
+          name: 'I am a lesson',
+        }}
         report={false}
       />
-      );
+    );
     expect(wrapper.find('.lessons-end-row')).toHaveLength(1);
   });
 
@@ -79,15 +79,15 @@ describe('ClassroomActivity component', () => {
     const wrapper = shallow(
       <ClassroomActivity
         data={{
-            activity: { anonymous_path: '' },
-            activityId: 567,
-            activityClassificationId: 6,
-            name: 'I am a lesson',
-          }}
+          activity: { anonymous_path: '' },
+          activityId: 567,
+          activityClassificationId: 6,
+          name: 'I am a lesson',
+        }}
         lesson
         report
       />
-      );
+    );
     expect(wrapper.find('.lessons-end-row')).toHaveLength(0);
   });
 });

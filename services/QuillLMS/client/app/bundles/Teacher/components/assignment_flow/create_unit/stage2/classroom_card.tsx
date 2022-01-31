@@ -94,7 +94,7 @@ export default class ClassroomCard extends React.Component<ClassroomCardProps, C
           optionType="student"
           value={selectedStudents}
         />
-)
+      )
     } else if (emptyClassroomSelected) {
       return <span className="empty-class-students">And all students who join in the future</span>
     }
@@ -115,6 +115,6 @@ export default class ClassroomCard extends React.Component<ClassroomCardProps, C
           {this.renderStudentSection()}
         </div>
       </div>
-)
+    )
   }
 }

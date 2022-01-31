@@ -58,7 +58,7 @@ const RecordColumns = ({ searchValue, visible, isNew, standardCategories, standa
         selectRecord={selectRecord}
         visible={visible}
       />
-)
+    )
   })
 
   return (
@@ -69,7 +69,7 @@ const RecordColumns = ({ searchValue, visible, isNew, standardCategories, standa
         {newRecordBoxes}
       </div>
     </div>
-)
+  )
 }
 
 export default RecordColumns

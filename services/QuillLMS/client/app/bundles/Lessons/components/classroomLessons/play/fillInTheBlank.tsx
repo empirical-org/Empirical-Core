@@ -217,7 +217,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
         feedback={(<p dangerouslySetInnerHTML={{__html: feedback}} />)}
         feedbackType={feedbackType}
       />
-);
+    );
   }
 
   renderCues() {
@@ -245,7 +245,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
         mode={mode}
         promptElement={prompt}
       />
-)
+    )
   }
 
   renderProject() {
@@ -263,7 +263,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
         selectedSubmissions={selected_submissions}
         submissions={submissions}
       />
-)
+    )
   }
 
 

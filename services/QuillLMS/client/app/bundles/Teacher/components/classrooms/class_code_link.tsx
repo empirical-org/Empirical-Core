@@ -43,7 +43,7 @@ export default class ClassCodeLink extends React.Component<ClassCodeLinkProps, C
           </CopyToClipboard>
         </div>
       </div>
-)
+    )
   }
 
   renderFooter() {
@@ -53,7 +53,7 @@ export default class ClassCodeLink extends React.Component<ClassCodeLinkProps, C
         <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
         <button className="quill-button primary contained medium" onClick={next}>Next</button>
       </div>
-)
+    )
   }
 
   render() {

@@ -23,7 +23,7 @@ const ArchiveModal = ({ onSuccess, closeModal, unitId, unitName, }) => {
         </div>
       </div>
     </div>
-)
+  )
 }
 
 export default ArchiveModal

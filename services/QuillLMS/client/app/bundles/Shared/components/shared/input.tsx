@@ -169,7 +169,7 @@ export class Input extends React.Component<InputProps, InputState> {
             {this.renderCancelSymbol()}
             {this.renderCharacterLimit()}
           </div>
-)
+        )
       } else {
         return (
           <div
@@ -185,7 +185,7 @@ export class Input extends React.Component<InputProps, InputState> {
             {this.renderCancelSymbol()}
             {this.renderErrorText()}
           </div>
-)
+        )
       }
     } else if (inactive) {
       return (
@@ -202,7 +202,7 @@ export class Input extends React.Component<InputProps, InputState> {
           {this.renderHelperText()}
           {this.renderCharacterLimit()}
         </div>
-)
+      )
     } else {
       return (
         <div
@@ -215,7 +215,7 @@ export class Input extends React.Component<InputProps, InputState> {
           {this.renderCancelSymbol()}
           {this.renderCharacterLimit()}
         </div>
-)
+      )
     }
   }
 

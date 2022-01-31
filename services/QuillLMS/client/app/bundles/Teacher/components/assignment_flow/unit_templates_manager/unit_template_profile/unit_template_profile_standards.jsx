@@ -16,7 +16,7 @@ const UnitTemplateProfileStandards = ({ data, }) => {
         <dt><strong>Standards</strong></dt>
         {standards.map(s => <dd key={s}>{s}</dd>)}
       </React.Fragment>
-)
+    )
   };
 
   const renderConcepts = () => {
@@ -27,7 +27,7 @@ const UnitTemplateProfileStandards = ({ data, }) => {
         <dt><strong>Concepts</strong></dt>
         {concepts.map(s => <dd className="concept" key={s}>{s}</dd>)}
       </React.Fragment>
-)
+    )
   };
 
   const renderReadability = () => {
@@ -38,7 +38,7 @@ const UnitTemplateProfileStandards = ({ data, }) => {
         <dt><strong>Readability</strong></dt>
         <dd>{data.readability}</dd>
       </React.Fragment>
-)
+    )
   };
 
   const renderRecommendedBy = () => {
@@ -49,7 +49,7 @@ const UnitTemplateProfileStandards = ({ data, }) => {
         <dt><strong>Recommended by</strong></dt>
         {productionActivitiesRecommendedBy.map(s => <dd key={s}>{s.name}</dd>)}
       </React.Fragment>
-)
+    )
   };
 
 

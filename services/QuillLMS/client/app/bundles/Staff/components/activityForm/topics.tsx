@@ -70,7 +70,7 @@ const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, })
       <TopicColumn {...sharedTopicColumnProps} levelNumber={1} />
       <TopicColumn {...sharedTopicColumnProps} levelNumber={0} />
     </section>
-)
+  )
 }
 
 export default Topics

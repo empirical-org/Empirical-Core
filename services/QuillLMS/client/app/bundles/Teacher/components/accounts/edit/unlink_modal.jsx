@@ -75,7 +75,7 @@ export default class UnlinkModal extends React.Component {
             <span>I understand that I will no longer be able to sync classes with Google Classroom.</span>
           </div>
         </div>
-)
+      )
     } else {
       return (
         <div className="checkboxes">
@@ -92,7 +92,7 @@ export default class UnlinkModal extends React.Component {
             <span>I understand that my students can still access Quill through Clever.</span>
           </div>
         </div>
-)
+      )
     }
   }
 
@@ -139,6 +139,6 @@ export default class UnlinkModal extends React.Component {
           </div>
         </div>
       </div>
-)
+    )
   }
 }

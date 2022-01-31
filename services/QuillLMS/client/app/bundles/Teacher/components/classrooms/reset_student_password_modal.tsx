@@ -50,6 +50,6 @@ export default class ResetStudentPasswordModal extends React.Component<ResetStud
           </div>
         </div>
       </div>
-)
+    )
   }
 }

@@ -9,7 +9,7 @@ const AssignPreAp = () => {
       <AssignmentFlowNavigation />
       <PreApContainer isPartOfAssignmentFlow={true} />
     </div>
-)
+  )
 }
 
 export default AssignPreAp

@@ -33,7 +33,7 @@ export default class UnitTemplateProfileAssignButton extends React.Component {
           <button className="quill-button medium primary contained" onClick={this.handleClickSignUp}>Sign up</button>
         </div>
       </div>
-)
+    )
   };
 
   render() {

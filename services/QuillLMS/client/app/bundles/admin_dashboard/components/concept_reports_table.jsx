@@ -61,7 +61,7 @@ const ConceptReportsTable = ({ data, }) => {
           showPaginationTop={false}
         />
       </div>
-);
+    );
   }
   return <EmptyStateForReport />;
 };

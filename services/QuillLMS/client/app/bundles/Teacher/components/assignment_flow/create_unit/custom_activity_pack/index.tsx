@@ -339,7 +339,7 @@ const CustomActivityPack = ({
         />
       </section>
     </div>
-)
+  )
 }
 
 export default CustomActivityPack

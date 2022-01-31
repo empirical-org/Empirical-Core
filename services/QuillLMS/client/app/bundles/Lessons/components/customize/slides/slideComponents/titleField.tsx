@@ -28,7 +28,7 @@ const TitleField: React.SFC<titleFieldProps> = (props) => {
         <input className="input" onChange={props.handleTitleChange} type="text" value={props.title} />
       </div>
     </div>
-)
+  )
 }
 
 export default TitleField

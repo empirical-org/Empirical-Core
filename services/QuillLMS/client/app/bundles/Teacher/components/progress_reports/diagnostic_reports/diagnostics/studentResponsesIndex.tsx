@@ -161,7 +161,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
         />
       </div>
     </main>
-)
+  )
 }
 
 export default withRouter(StudentResponsesIndex)

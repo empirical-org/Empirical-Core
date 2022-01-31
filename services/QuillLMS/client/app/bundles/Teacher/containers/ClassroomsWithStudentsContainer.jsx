@@ -57,11 +57,11 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
       unitName = data => data.unit_name;
     }
     requestGet(url, (body) => {
-        that.setState({ loading: false, classrooms: body.classrooms, unitName: unitName(body), });
-        that.state.newUnit ? null : that.selectPreviouslyAssignedStudents();
-      }, (body) => {
-        that.setState({ errors: body ? body.errors : undefined, loading: false, });
-      }
+      that.setState({ loading: false, classrooms: body.classrooms, unitName: unitName(body), });
+      that.state.newUnit ? null : that.selectPreviouslyAssignedStudents();
+    }, (body) => {
+      that.setState({ errors: body ? body.errors : undefined, loading: false, });
+    }
     );
   };
 
@@ -109,19 +109,19 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     if (classy.classroom_unit) {
       const ca = classy.classroom_unit;
       if (ca.assign_on_join && classy.students.length === ca.assigned_student_ids.length) {
-				// if everyone in class was assigned, check to see if assignedStudentIds length is equal to number of students in class
-				// if it is, there hasn't been an update unless there are no students in the class
+        // if everyone in class was assigned, check to see if assignedStudentIds length is equal to number of students in class
+        // if it is, there hasn't been an update unless there are no students in the class
         const equalLengths = assignedStudentIds.length === classy.students.length;
-				// this handles the edge case where a classroom with no students has an activity assigned,
-				// because if that class does have a classroom activity it would initially have allSelected = true, not noneSelected
+        // this handles the edge case where a classroom with no students has an activity assigned,
+        // because if that class does have a classroom activity it would initially have allSelected = true, not noneSelected
         updated = classy.students.length === 0 && classy.noneSelected ? true : !equalLengths;
       } else {
-				// if not everyone in the class was assigned, check to see if assigned student arrays are the same
+        // if not everyone in the class was assigned, check to see if assigned student arrays are the same
         updated = !_.isEqual(assignedStudentIds, ca.assigned_student_ids.filter(Number).sort());
       }
     } else if (assignedStudentIds.length > 0 || classy.allSelected) {
-			// if there were no students assigned but there are now,
-			// or everyone is selected (in the case of an empty classroom), students have been added
+      // if there were no students assigned but there are now,
+      // or everyone is selected (in the case of an empty classroom), students have been added
       updated = true;
     } else {
       updated = false;
@@ -159,7 +159,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
 
   findTargetStudentIndex(studentId, targetClassIndex) {
     return this.state.classrooms[targetClassIndex].students.findIndex(
-			stud => stud.id === studentId);
+      stud => stud.id === studentId);
   }
 
   handleStudentCheckboxClick = (studentId, classroomId) => {
@@ -182,7 +182,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
   };
 
   selectPreviouslyAssignedStudents() {
-	// 	// @TODO if (window.location.pathname.includes('edit')) {
+    // 	// @TODO if (window.location.pathname.includes('edit')) {
     const that = this;
     const newState = Object.assign({}, this.state);
     newState.classrooms.forEach((classy, classroomIndex) => {
@@ -192,8 +192,8 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
         if (ca.assigned_student_ids && ca.assigned_student_ids.length > 0) {
           ca.assigned_student_ids.forEach((studId) => {
             const studIndex = that.findTargetStudentIndex(studId, classroomIndex);
-								// only do this if the student is still in the classroom
-								// otherwise, we may have assigned students that have left the classroom
+            // only do this if the student is still in the classroom
+            // otherwise, we may have assigned students that have left the classroom
             if (studIndex !== -1) {
               that.toggleStudentSelection(studIndex, classroomIndex);
               selectedCount += 1;
@@ -280,8 +280,8 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     selectedStudent.isSelected = !selectedStudent.isSelected;
     newState.classrooms[classIndex].edited = this.classroomUpdated(newState.classrooms[classIndex]);
     newState.studentsChanged = this.studentsChanged(newState.classrooms);
-		// we check to see if something has changed because this method gets called when the page loads
-		// as well as when a student's checkbox is clicked
+    // we check to see if something has changed because this method gets called when the page loads
+    // as well as when a student's checkbox is clicked
     if (newState.studentsChanged) {
       const selectedCount = this.countAssigned(classy);
       this.updateAllOrNoneAssigned(classy, selectedCount);
@@ -319,7 +319,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
             unitName={this.state.unitName}
           />
         </div>
-);
+      );
     }
   }
 
@@ -330,7 +330,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
           close={() => this.closeModal(this.getClassroomsAndStudentsData)}
           showSnackbar={this.showSnackbar}
         />
-)
+      )
     }
   }
 
@@ -353,7 +353,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
         <GoogleClassroomsEmptyModal
           close={this.closeModal}
         />
-)
+      )
     }
   }
 
@@ -372,7 +372,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
       >
         {buttonContent}
       </button>
-)
+    )
   }
 
   renderImportGoogleClassroomsModal() {
@@ -385,7 +385,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
           onSuccess={this.onSuccess}
           user={this.props.user}
         />
-)
+      )
     }
   }
 
@@ -411,6 +411,6 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
         </div>
         {this.renderContent()}
       </div>
-)
+    )
   }
 }

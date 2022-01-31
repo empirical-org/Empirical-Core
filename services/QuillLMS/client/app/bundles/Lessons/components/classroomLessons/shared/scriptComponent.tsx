@@ -84,9 +84,9 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       const prompt = nextProps.prompt;
       const promptNotEmpty = textEditorInputNotEmpty(prompt);
       this.setState({ model: modelNotEmpty ? textEditorInputClean(models[current]) : '',
-                      prompt: promptNotEmpty ? textEditorInputClean(prompt) : textEditorInputClean(nextProps.lessonPrompt),
-                      showDifferences: false
-                    })
+        prompt: promptNotEmpty ? textEditorInputClean(prompt) : textEditorInputClean(nextProps.lessonPrompt),
+        showDifferences: false
+      })
     }
 
     if (nextProps.submissions && nextProps.submissions[nextProps.current_slide]) {
@@ -102,35 +102,35 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   renderScript(script: Array<ScriptItem>) {
     return script.map((item, index) => {
       switch(item.type) {
-        case 'T-REVIEW':
-          return this.renderReview(index);
-        case 'STEP-HTML':
-          return (
-            <StepHtml
-              isTip={false}
-              item={item}
-              key={index}
-              onlyShowHeaders={this.props.onlyShowHeaders}
-              updateToggledHeaderCount={this.props.updateToggledHeaderCount}
-            />
-)
-        case 'STEP-HTML-TIP':
-            return (
-              <StepHtml
-                isTip={true}
-                item={item}
-                key={index}
-                onlyShowHeaders={this.props.onlyShowHeaders}
-                updateToggledHeaderCount={this.props.updateToggledHeaderCount}
-              />
-)
-        case 'T-MODEL':
-          return this.renderTeacherModel()
-        case 'Overview':
-          const html:string = item && item.data && item.data.body ? item.data.body : ''
-          return <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}}  />
-        default:
-          return <li key={index}>Unsupported type</li>
+      case 'T-REVIEW':
+        return this.renderReview(index);
+      case 'STEP-HTML':
+        return (
+          <StepHtml
+            isTip={false}
+            item={item}
+            key={index}
+            onlyShowHeaders={this.props.onlyShowHeaders}
+            updateToggledHeaderCount={this.props.updateToggledHeaderCount}
+          />
+        )
+      case 'STEP-HTML-TIP':
+        return (
+          <StepHtml
+            isTip={true}
+            item={item}
+            key={index}
+            onlyShowHeaders={this.props.onlyShowHeaders}
+            updateToggledHeaderCount={this.props.updateToggledHeaderCount}
+          />
+        )
+      case 'T-MODEL':
+        return this.renderTeacherModel()
+      case 'Overview':
+        const html:string = item && item.data && item.data.body ? item.data.body : ''
+        return <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}}  />
+      default:
+        return <li key={index}>Unsupported type</li>
       }
     });
   }
@@ -249,27 +249,27 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const {submissions, selected_submissions, current_slide, students, flaggedStudents, timestamps, } = this.props
     const sortedRows = studentsToBeSorted.sort((studentKey1, studentKey2) => {
       switch(this.state.sort) {
-        case 'flag':
+      case 'flag':
         if (flaggedStudents) {
           const studentFlag1 = flaggedStudents[studentKey1] ? flaggedStudents[studentKey1] : false
           const studentFlag2 = flaggedStudents[studentKey2] ? flaggedStudents[studentKey2] : false
           return sortByFlag(studentFlag1, studentFlag2)
         }
-        case 'responses':
-          const answer1 = submissions[current_slide][studentKey1].data
-          const answer2 = submissions[current_slide][studentKey2].data
-          return sortByAnswer(answer1, answer2)
-        case 'time':
-          const time1 = calculateElapsedMilliseconds(moment(submissions[current_slide][studentKey1].timestamp), timestamps, current_slide)
-          const time2 = calculateElapsedMilliseconds(moment(submissions[current_slide][studentKey2].timestamp), timestamps, current_slide)
-          return sortByTime(time1, time2)
-        case 'displayed':
-          if (selected_submissions && selected_submissions[current_slide]) {
-            return sortByDisplayed(selected_submissions[current_slide][studentKey1], selected_submissions[current_slide][studentKey2])
-          }
-        case 'lastName':
-        default:
-          return sortByLastName(studentKey1, studentKey2, students)
+      case 'responses':
+        const answer1 = submissions[current_slide][studentKey1].data
+        const answer2 = submissions[current_slide][studentKey2].data
+        return sortByAnswer(answer1, answer2)
+      case 'time':
+        const time1 = calculateElapsedMilliseconds(moment(submissions[current_slide][studentKey1].timestamp), timestamps, current_slide)
+        const time2 = calculateElapsedMilliseconds(moment(submissions[current_slide][studentKey2].timestamp), timestamps, current_slide)
+        return sortByTime(time1, time2)
+      case 'displayed':
+        if (selected_submissions && selected_submissions[current_slide]) {
+          return sortByDisplayed(selected_submissions[current_slide][studentKey1], selected_submissions[current_slide][studentKey2])
+        }
+      case 'lastName':
+      default:
+        return sortByLastName(studentKey1, studentKey2, students)
       }
     })
 
@@ -305,7 +305,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         <td />
 
       </tr>
-)
+    )
   }
 
   renderReview(index: number) {
@@ -373,8 +373,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       } else {
         let caret = sort === key && dir === 'asc' ? 'fa-caret-up' : 'fa-caret-down'
         const header = key === 'displayed'
-        ? <th key={key}><span onClick={() => this.setSort(key)}>{fields[key]}<i className={`fa ${caret}`} /></span>{this.renderUnselectAllButton()}</th>
-        : <th key={key}><span onClick={() => this.setSort(key)}>{fields[key]}<i className={`fa ${caret}`} /></span></th>
+          ? <th key={key}><span onClick={() => this.setSort(key)}>{fields[key]}<i className={`fa ${caret}`} /></span>{this.renderUnselectAllButton()}</th>
+          : <th key={key}><span onClick={() => this.setSort(key)}>{fields[key]}<i className={`fa ${caret}`} /></span></th>
         headers.push(header)
       }
     }
@@ -385,7 +385,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           <th />
         </tr>
       </thead>
-)
+    )
   }
 
   renderStudentRows() {
@@ -401,11 +401,11 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       // they should all be sorted together
       if (this.state.sort === 'lastName' || this.state.sort === 'flag' || workingStudents.length < 1) {
         const sortedStudents: Array<string> | null = this.sortedRows(Object.keys(presence))
-          sortedRows = sortedStudents.map((studentKey, index) => {
-            return submittedStudents.indexOf(studentKey) !== -1
+        sortedRows = sortedStudents.map((studentKey, index) => {
+          return submittedStudents.indexOf(studentKey) !== -1
             ? this.renderSubmissionRow(studentKey, index)
             : this.renderNoSubmissionRow(studentKey)
-          })
+        })
       // otherwise they need to be sorted separately and then concatenated
       } else {
         const sortedSubmittedStudents: Array<string> = this.sortedRows(Object.keys(submissions[current_slide]))
@@ -439,7 +439,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         <td />
         <td />
       </tr>
-)
+    )
   }
 
   renderHTMLFromSubmissionObject(submission) {
@@ -469,7 +469,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         timestamps={timestamps}
         toggleSelected={toggleSelected}
       />
-)
+    )
   }
 
   renderNoSubmissionsTable(numStudents: number, index: number) {
@@ -495,7 +495,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         </div>
 
       </li>
-)
+    )
   }
 
   determineCheckbox = (checked: boolean) => {

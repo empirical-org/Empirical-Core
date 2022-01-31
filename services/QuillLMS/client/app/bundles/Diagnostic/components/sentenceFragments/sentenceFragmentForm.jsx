@@ -39,35 +39,35 @@ class sentenceFragmentForm extends React.Component {
   handleChange = (key, e) => {
     const { wordCountChange } = this.state
     switch (key) {
-      case 'prompt':
-        this.setState({ prompt: e.target.value, });
-        break;
-      case 'optimalResponseText':
-        this.setState({ optimalResponseText: e.target.value, });
-        break;
-      case 'instructions':
-        this.setState({ instructions: e.target.value, });
-        break;
-      case 'isFragment':
-        this.setState({ isFragment: e.target.checked, });
-        break;
-      case 'needsIdentification':
-        this.setState({ needsIdentification: e.target.checked, });
-        break;
-      case 'maxWordCountChange':
-        let newWordCountChange = { ...wordCountChange }
-        newWordCountChange.max = e.target ? e.target.value : '';
-        this.setState({ wordCountChange: newWordCountChange, });
-        break;
-      case 'minWordCountChange':
-        newWordCountChange = { ...wordCountChange }
-        newWordCountChange.min = e.target ? e.target.value : '';
-        this.setState({ wordCountChange: newWordCountChange, });
-        break;
-      case 'flag':
-        this.setState({ flag: e.target.value, });
-        break;
-      default:
+    case 'prompt':
+      this.setState({ prompt: e.target.value, });
+      break;
+    case 'optimalResponseText':
+      this.setState({ optimalResponseText: e.target.value, });
+      break;
+    case 'instructions':
+      this.setState({ instructions: e.target.value, });
+      break;
+    case 'isFragment':
+      this.setState({ isFragment: e.target.checked, });
+      break;
+    case 'needsIdentification':
+      this.setState({ needsIdentification: e.target.checked, });
+      break;
+    case 'maxWordCountChange':
+      let newWordCountChange = { ...wordCountChange }
+      newWordCountChange.max = e.target ? e.target.value : '';
+      this.setState({ wordCountChange: newWordCountChange, });
+      break;
+    case 'minWordCountChange':
+      newWordCountChange = { ...wordCountChange }
+      newWordCountChange.min = e.target ? e.target.value : '';
+      this.setState({ wordCountChange: newWordCountChange, });
+      break;
+    case 'flag':
+      this.setState({ flag: e.target.value, });
+      break;
+    default:
     }
   };
 
@@ -82,18 +82,18 @@ class sentenceFragmentForm extends React.Component {
 
   conceptsToOptions = () => {
     return _.map(this.props.concepts.data['0'], concept => (
-        { name: concept.displayName, value: concept.uid, shortenedName: concept.name, }
-      ));
+      { name: concept.displayName, value: concept.uid, shortenedName: concept.name, }
+    ));
   };
 
   renderOptimalResponseTextInput = () => {
     return (
-    [
+      [
         (<label className="label">Optimal Answer Text (The most obvious short answer, you can add more later)</label>),
         (<p className="control">
           <input className="input" onChange={(e) => this.handleChange('optimalResponseText', e)} type="text" value={this.state.optimalResponseText} />
         </p>)
-    ]
+      ]
     );
   };
 

@@ -5,8 +5,8 @@
 (function ( $ ) { // This extends JQuery with the function loadingButton
   $.fn.loadingButton = function() {
     var loadingSpinnerClass = 'loading-spinner',
-    container = this,
-    parent = {};
+      container = this,
+      parent = {};
 
     this.addClass('loading-btn');
     $('body').append('<span class="' + loadingSpinnerClass + '"></span>');
@@ -21,8 +21,8 @@
 (function ( $ ) {
   $.fn.removeLoadingButton = function() {
     var loadingSpinnerClass = 'loading-spinner',
-    container = this,
-    parent = {};
+      container = this,
+      parent = {};
 
     this.removeClass('loading-btn');
     $('.loading-spinner').remove();

@@ -37,9 +37,9 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
       },
       (err, httpResponse, data) => {
         this.setState({matchedCount: data.matchedCount})
-        }
-      );
-    };
+      }
+    );
+  };
 
   handleNameChange = e => {
     this.setState({name: e.target.value})
@@ -155,8 +155,8 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
       >
         {seq}
       </span>
-)
-   }
+    )
+  }
 
   renderExplanatoryNote() {
     return (
@@ -165,7 +165,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
         <br />
         <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
       </div>
-)
+    )
   }
 
   render() {

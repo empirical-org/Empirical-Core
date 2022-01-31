@@ -19,7 +19,7 @@ export default class CmsIndexTable extends React.Component {
         key={index}
         resourceNameSingular={this.props.resourceNameSingular}
       />
-);
+    );
   };
 
   identifier = () => {
@@ -33,7 +33,7 @@ export default class CmsIndexTable extends React.Component {
           <div className="header"><span>Name</span><span>Actions</span></div>
           <SortableList data={this.furnishRows()} sortCallback={this.props.updateOrder} />
         </div>
-)
+      )
     } else {
       return (
         <table className='table'>
@@ -47,7 +47,7 @@ export default class CmsIndexTable extends React.Component {
             {this.furnishRows()}
           </tbody>
         </table>
-)
+      )
     }
   };
 

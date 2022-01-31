@@ -12,7 +12,7 @@ const AssignActivityPackBanner = ({ login, }) => {
       <p>{copy}</p>
       <p className="activity-pack-name">{unitTemplateName}</p>
     </div>
-)
+  )
 }
 
 

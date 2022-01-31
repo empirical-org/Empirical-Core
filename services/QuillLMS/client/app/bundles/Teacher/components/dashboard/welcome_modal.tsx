@@ -26,7 +26,7 @@ const WelcomeModal = ({ close, size }) => {
         <img alt="Teacher at projector in classroom" src={classroomActivitiesSrc} />
       </div>
     </div>
-)
+  )
 }
 
 export default WelcomeModal

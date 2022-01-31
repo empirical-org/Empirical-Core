@@ -114,7 +114,7 @@ const ArchivedRecordBox = ({ originalRecord, recordType, standardLevels, standar
           {renderArchivedOrLive(selectedStandardCategory)}
         </div>
       </div>
-)
+    )
   }
 
   function renderArchivedOrLive(r) {
@@ -158,7 +158,7 @@ const ArchivedRecordBox = ({ originalRecord, recordType, standardLevels, standar
         </div>
         <IndividualRecordChangeLogs changeLogs={record.change_logs} formatDateTime={formatDateTime} />
       </div>
-)
+    )
   }
 
   function renderSaveButton() {
@@ -172,7 +172,7 @@ const ArchivedRecordBox = ({ originalRecord, recordType, standardLevels, standar
           type="submit"
           value="Unarchive, set live"
         />
-)
+      )
     }
 
     return (
@@ -181,7 +181,7 @@ const ArchivedRecordBox = ({ originalRecord, recordType, standardLevels, standar
         type="submit"
         value="Unarchive, set live"
       />
-)
+    )
   }
 
   function renderChangeLogModal() {
@@ -201,7 +201,7 @@ const ArchivedRecordBox = ({ originalRecord, recordType, standardLevels, standar
         record={record}
         save={setChangeLogs}
       />
-)
+    )
   }
 
   return (
@@ -219,7 +219,7 @@ const ArchivedRecordBox = ({ originalRecord, recordType, standardLevels, standar
         </div>
       </form>
     </div>
-)
+  )
 }
 
 

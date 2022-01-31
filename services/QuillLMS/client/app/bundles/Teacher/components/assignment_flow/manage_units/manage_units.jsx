@@ -184,7 +184,7 @@ export default class ManageUnits extends React.Component {
           <h2>Start by assigning activities</h2>
           <p>Nothing to see here yet! Once you assign activities, they will show up here.</p>
         </div>
-)
+      )
     }
 
     const activityPacks = units.map(unit => (

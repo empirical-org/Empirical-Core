@@ -100,17 +100,17 @@ export function getActivityPrompt({
 }) {
   let prompt;
   switch(conjunction) {
-    case BECAUSE:
-      prompt = {...activityBecausePrompt};
-      break;
-    case BUT:
-      prompt = {...activityButPrompt};
-      break;
-    case SO:
-      prompt = {...activitySoPrompt};
-      break;
-    default:
-      prompt;
+  case BECAUSE:
+    prompt = {...activityBecausePrompt};
+    break;
+  case BUT:
+    prompt = {...activityButPrompt};
+    break;
+  case SO:
+    prompt = {...activitySoPrompt};
+    break;
+  default:
+    prompt;
   }
   return prompt;
 };
@@ -123,17 +123,17 @@ export function getActivityPromptSetter({
 }) {
   let updatePrompt;
   switch(conjunction) {
-    case BECAUSE:
-      updatePrompt = setActivityBecausePrompt;
-      break;
-    case BUT:
-      updatePrompt = setActivityButPrompt;
-      break;
-    case SO:
-      updatePrompt = setActivitySoPrompt;
-      break;
-    default:
-      updatePrompt;
+  case BECAUSE:
+    updatePrompt = setActivityBecausePrompt;
+    break;
+  case BUT:
+    updatePrompt = setActivityButPrompt;
+    break;
+  case SO:
+    updatePrompt = setActivitySoPrompt;
+    break;
+  default:
+    updatePrompt;
   }
   return updatePrompt;
 };

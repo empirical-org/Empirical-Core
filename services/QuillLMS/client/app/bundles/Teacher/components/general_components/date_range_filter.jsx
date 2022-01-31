@@ -29,7 +29,7 @@ export default class  DateRangeFilter extends React.Component {
               selected={selected}
               title={filter.title}
             />
-)
+          )
         }
         )}
       </div>

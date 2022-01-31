@@ -8,7 +8,7 @@ const AttributesManagerIndex = () => {
     <BrowserRouter>
       <Route component={AttributesManager} path='/cms/attributes_manager' />
     </BrowserRouter>
-)
+  )
 }
 
 export default AttributesManagerIndex

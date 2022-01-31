@@ -26,6 +26,6 @@ export default class ResetModal extends React.Component<ResetModalProps> {
           </div>
         </div>
       </div>
-)
+    )
   }
 }

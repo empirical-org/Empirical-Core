@@ -50,7 +50,7 @@ export default class DeleteAccountModal extends React.Component {
           <span>All content you created, including lessons and projects</span>
         </div>
       </div>
-)
+    )
   }
 
   render() {
@@ -71,6 +71,6 @@ export default class DeleteAccountModal extends React.Component {
           </div>
         </div>
       </div>
-)
+    )
   }
 }

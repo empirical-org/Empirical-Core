@@ -172,18 +172,18 @@ class TurkDiagnostic extends React.Component {
       question.attempts = question.attempts ? question.attempts : []
       let type
       switch (questionType) {
-        case 'questions':
-          type = 'SC'
-          break
-        case 'fillInBlank':
-          type = 'FB'
-          break
-        case 'titleCards':
-          type = 'TL'
-          break
-        case 'sentenceFragments':
-        default:
-          type = 'SF'
+      case 'questions':
+        type = 'SC'
+        break
+      case 'fillInBlank':
+        type = 'FB'
+        break
+      case 'titleCards':
+        type = 'TL'
+        break
+      case 'sentenceFragments':
+      default:
+        type = 'SF'
       }
       return { type, data: question, };
     });
@@ -250,7 +250,7 @@ class TurkDiagnostic extends React.Component {
         percent={getProgressPercent(playDiagnostic)}
         questionCount={questionCount(playDiagnostic)}
       />
-)
+    )
   }
 
   render() {

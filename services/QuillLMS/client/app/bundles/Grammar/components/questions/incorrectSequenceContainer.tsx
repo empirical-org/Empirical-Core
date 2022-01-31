@@ -73,7 +73,7 @@ class IncorrectSequencesContainer extends React.Component {
       Object.assign({}, val, {
         text: val.text.split(/\|{3}(?!\|)/).filter(val => val !== '').join('|||')
       })
-      )
+    )
     );
   }
 
@@ -139,10 +139,10 @@ class IncorrectSequencesContainer extends React.Component {
       const components = _.mapObject(concepts, (val, key) => (
         <p className="control sub-title is-6" key={`${val.name}`}>{val.name}
           {val.correct ? <span className="tag is-small is-success" style={{ marginLeft: 5, }}>Correct</span>
-          : <span className="tag is-small is-danger" style={{ marginLeft: 5, }}>Incorrect</span> }
+            : <span className="tag is-small is-danger" style={{ marginLeft: 5, }}>Incorrect</span> }
           <button className="tag is-small is-warning" onClick={() => this.handleDeleteConceptResult(key, sequenceKey)} style={{ cursor: 'pointer', marginLeft: 5, }} type="button">Delete</button>
         </p>
-        )
+      )
       );
       return _.values(components);
     }
@@ -192,7 +192,7 @@ class IncorrectSequencesContainer extends React.Component {
             <a className="card-footer-item" onClick={() => this.saveSequencesAndFeedback(seq.key)}>Save</a>
           </footer>
         </div>
-    )});
+      )});
     return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
   }
 

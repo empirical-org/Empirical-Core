@@ -157,7 +157,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
           <div className="quill-button outlined secondary medium" id="cancel" onClick={this.resetAndDeactivateSection}>Cancel</div>
           <input className={this.submitClass()} name="commit" type="submit" value="Save changes" />
         </div>
-)
+      )
     }
   }
 
@@ -174,7 +174,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
           type="text"
           value={email}
         />
-)
+      )
     } else if (cleverId) {
       return (
         <Input
@@ -185,7 +185,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
           type="text"
           value={email}
         />
-)
+      )
     } else {
       return (
         <Input
@@ -198,7 +198,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
           type='text'
           value={email}
         />
-)
+      )
     }
   }
 
@@ -269,6 +269,6 @@ export default class TeacherGeneralAccountInfo extends React.Component {
           {this.renderButtonSection()}
         </form>
       </div>
-)
+    )
   }
 }

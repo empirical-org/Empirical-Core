@@ -47,7 +47,7 @@ const KeyMetrics = ({ firstName, metrics, }) => {
         <KeyMetric label={`${completedActivitiesCount === 1 ? 'Activity' : 'Activities'} completed`} number={completedActivitiesCount} />
       </div>
     </section>
-)
+  )
 
 }
 

@@ -10,7 +10,7 @@ const DisplayStudentHighlight = ({ studentHighlight, removeHighlight, inReflecti
       <span>{studentHighlight}</span>
       {inReflection ? <span /> : <button className="interactive-wrapper focus-on-light" onClick={handleClickRemove} type="button"><img alt={removeIcon.alt} src={removeIcon.src} /></button>}
     </div>
-)
+  )
 }
 
 export default DisplayStudentHighlight

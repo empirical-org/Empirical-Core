@@ -50,7 +50,7 @@ const AssignedSection = ({ activity, sectionTitle, isPostDiagnostic, }) => {
         <a className="focus-on-light" href={summaryLink(isPostDiagnostic, activity_id, classroom_id, unit_id)}>View results and recommendations</a>
       </div>
     </section>
-)
+  )
 }
 
 const PostInProgress = ({ name, }) => {
@@ -61,7 +61,7 @@ const PostInProgress = ({ name, }) => {
         <p>{wrenchIcon}<span>We’re working on building the {name} (Post). We’ll let you know when it’s available.</span></p>
       </div>
     </section>
-)
+  )
 }
 
 const PostSection = ({ post, activityId, unitTemplateId, name, }) => {
@@ -84,7 +84,7 @@ const PostSection = ({ post, activityId, unitTemplateId, name, }) => {
         <button className="focus-on-light fake-link" onClick={handleAssignClick} type="button">Assign</button>
       </div>
     </section>
-)
+  )
 }
 
 const Diagnostic = ({ diagnostic, }) => {
@@ -133,7 +133,7 @@ const Diagnostic = ({ diagnostic, }) => {
         {postAndGrowth}
       </div>
     </section>
-)
+  )
 }
 
 const Classroom = ({ classroom, }) => {
@@ -143,7 +143,7 @@ const Classroom = ({ classroom, }) => {
       <h2>{classroom.name}</h2>
       {diagnostics}
     </section>
-)
+  )
 }
 
 const DiagnosticActivityPacks = ({ classrooms, }) => {

@@ -122,7 +122,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           record={concept}
           save={(changeLogs) => { this.save(editConcept, changeLogs)}}
         />
-)
+      )
     }
   }
 
@@ -207,44 +207,44 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           query={gql(levelOneConceptsQuery())}
         >
           {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error :(</p>;
-          const possibleConcepts = data.concepts.filter(c => c.visible && c.parent.visible).sort((a, b) => a.label.localeCompare(b.label));
-          const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
-          return (
-            <DropdownInput
-              handleChange={this.changeLevel1}
-              isSearchable={true}
-              label="Level 1"
-              options={possibleConcepts}
-              value={value}
-            />
-)
-        }}
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Error :(</p>;
+            const possibleConcepts = data.concepts.filter(c => c.visible && c.parent.visible).sort((a, b) => a.label.localeCompare(b.label));
+            const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
+            return (
+              <DropdownInput
+                handleChange={this.changeLevel1}
+                isSearchable={true}
+                label="Level 1"
+                options={possibleConcepts}
+                value={value}
+              />
+            )
+          }}
         </Query>
-)
+      )
     } else {
       return (
         <Query
           query={gql(levelTwoConceptsQuery())}
         >
           {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error :(</p>;
-          const possibleConcepts = data.concepts.filter(c => c.visible).sort((a, b) => a.label.localeCompare(b.label));
-          const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
-          return (
-            <DropdownInput
-              handleChange={this.changeLevel2}
-              isSearchable={true}
-              label="Level 2"
-              options={possibleConcepts}
-              value={value}
-            />
-)
-        }}
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Error :(</p>;
+            const possibleConcepts = data.concepts.filter(c => c.visible).sort((a, b) => a.label.localeCompare(b.label));
+            const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
+            return (
+              <DropdownInput
+                handleChange={this.changeLevel2}
+                isSearchable={true}
+                label="Level 2"
+                options={possibleConcepts}
+                value={value}
+              />
+            )
+          }}
         </Query>
-)
+      )
 
     }
   }
@@ -262,7 +262,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           <span>{ concept.visible ? 'Archive' : 'Unarchive' }</span>
         </span>
       </div>
-)
+    )
   }
 
   renderLevels = () => {
@@ -284,7 +284,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           </div>
           <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
         </div>
-)
+      )
     } else if (levelNumber === 1) {
       return (
         <div>
@@ -302,7 +302,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           </div>
           <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
         </div>
-)
+      )
     } else if (levelNumber === 0) {
       return (
         <div>
@@ -328,7 +328,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           <ExplanationField explanation={concept.explanation} handleChange={this.changeExplanation} />
           <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
         </div>
-)
+      )
     }
   }
 
@@ -341,7 +341,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           type="submit"
           value="Save"
         />
-)
+      )
     }
   }
 

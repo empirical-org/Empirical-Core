@@ -343,7 +343,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         </div>
         {this.renderExample()}
       </div>
-)
+    )
   }
 
   renderTextareaSection = () => {
@@ -365,7 +365,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           spellCheck={false}
         />
       </div>
-)
+    )
   }
 
   renderQuestionSection(): JSX.Element {
@@ -392,7 +392,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           {this.renderConceptExplanation()}
         </div>
       </div>
-)
+    )
   }
 
   renderFeedbackSection(): JSX.Element | undefined {
@@ -455,7 +455,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         {this.renderTopSection()}
         {this.renderQuestionSection()}
       </div>
-)
+    )
   }
 }
 

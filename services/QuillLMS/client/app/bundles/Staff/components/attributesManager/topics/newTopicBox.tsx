@@ -77,7 +77,7 @@ const NewTopicBox = ({ levelNumber, levelThreeTopics, createNewTopic, closeTopic
         options={options}
         value={value}
       />
-)
+    )
   }
 
   function renderLevels() {
@@ -95,7 +95,7 @@ const NewTopicBox = ({ levelNumber, levelThreeTopics, createNewTopic, closeTopic
           />
         </div>
       </div>
-)
+    )
   }
 
   function renderSaveButton() {
@@ -108,7 +108,7 @@ const NewTopicBox = ({ levelNumber, levelThreeTopics, createNewTopic, closeTopic
           type="submit"
           value="Save"
         />
-)
+      )
     }
   }
 
@@ -123,7 +123,7 @@ const NewTopicBox = ({ levelNumber, levelThreeTopics, createNewTopic, closeTopic
         record={topic}
         save={setChangeLogs}
       />
-)
+    )
   }
 
   return (
@@ -140,7 +140,7 @@ const NewTopicBox = ({ levelNumber, levelThreeTopics, createNewTopic, closeTopic
         </div>
       </form>
     </div>
-)
+  )
 }
 
 

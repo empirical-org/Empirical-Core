@@ -11,7 +11,7 @@ export default class extends React.Component {
         returnToIndex={cmsComponent.returnToIndex}
         unitTemplate={cmsComponent.state.resourceToEdit}
       />
-);
+    );
   };
 
   render() {

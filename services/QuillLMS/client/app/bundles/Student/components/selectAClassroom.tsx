@@ -46,7 +46,7 @@ export default class SelectAClassroom extends React.Component<any, { showJoinCla
             <h3>{classroom.teacher}</h3>
           </div>
         </button>
-)
+      )
     })
 
     return (
@@ -54,7 +54,7 @@ export default class SelectAClassroom extends React.Component<any, { showJoinCla
         {joinAClassCard}
         {classroomCards}
       </div>
-)
+    )
   }
 
   renderJoinClassModal = () => {
@@ -78,7 +78,7 @@ export default class SelectAClassroom extends React.Component<any, { showJoinCla
           </div>
         </div>
       </div>
-)
+    )
   }
 
   render() {
@@ -90,6 +90,6 @@ export default class SelectAClassroom extends React.Component<any, { showJoinCla
           {this.renderClassroomCards()}
         </div>
       </div>
-)
+    )
   }
 }

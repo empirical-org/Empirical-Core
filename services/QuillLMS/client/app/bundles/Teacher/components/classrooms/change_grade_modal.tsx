@@ -85,6 +85,6 @@ export default class ChangeGradeModal extends React.Component<ChangeGradeModalPr
           </div>
         </div>
       </div>
-)
+    )
   }
 }

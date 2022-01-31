@@ -129,7 +129,7 @@ export const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
         onClick={handleGoToClassroomIndex}
         text={`You currently have ${numberOfClassroomsFirstText} that ${numberOfClassroomsSecondText} no students.`}
       />
-)
+    )
   }
 
   function renderShareActivityPackCards() {

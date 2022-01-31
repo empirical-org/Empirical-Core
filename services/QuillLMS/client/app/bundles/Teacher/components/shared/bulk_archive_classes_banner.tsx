@@ -51,7 +51,7 @@ const BulkArchiveClassesBanner = ({ classes, onSuccess, userId, }) => {
         </span>
       </section>
     </React.Fragment>
-)
+  )
 }
 
 export default BulkArchiveClassesBanner

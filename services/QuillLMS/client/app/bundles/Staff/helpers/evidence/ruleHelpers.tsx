@@ -138,43 +138,43 @@ export const formatRegexRules = ({ rule, setRegexRules }) => {
 }
 
 export function handleSetFeedback({
-    text,
-    feedback,
-    setFeedback,
-    updateType,
-    feedbackIndex,
-    highlightIndex
+  text,
+  feedback,
+  setFeedback,
+  updateType,
+  feedbackIndex,
+  highlightIndex
 }) {
   let updatedFeedback = [...feedback];
 
   switch(updateType) {
-    case FEEDBACK:
-      updatedFeedback[feedbackIndex].text = text;
-      setFeedback(updatedFeedback);
-      break
-    case HIGHLIGHT_TEXT:
-      updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].text = text;
-      setFeedback(updatedFeedback);
-      break
-    case HIGHLIGHT_ADDITION:
-      updatedFeedback[feedbackIndex].highlights_attributes.push({ text: '' });
-      break
-    case HIGHLIGHT_REMOVAL:
-      updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex]._destroy = true
-      break
-    case HIGHLIGHT_TYPE:
-      updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].highlight_type = text
-      break
-    case FEEDBACK_LAYER_ADDITION:
-      updatedFeedback.push({
-        text: '',
-        order: feedback.length,
-        highlights_attributes: []
-      });
-      break
-    case FEEDBACK_LAYER_REMOVAL:
-      updatedFeedback = updatedFeedback.slice(0, -1)
-      break
+  case FEEDBACK:
+    updatedFeedback[feedbackIndex].text = text;
+    setFeedback(updatedFeedback);
+    break
+  case HIGHLIGHT_TEXT:
+    updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].text = text;
+    setFeedback(updatedFeedback);
+    break
+  case HIGHLIGHT_ADDITION:
+    updatedFeedback[feedbackIndex].highlights_attributes.push({ text: '' });
+    break
+  case HIGHLIGHT_REMOVAL:
+    updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex]._destroy = true
+    break
+  case HIGHLIGHT_TYPE:
+    updatedFeedback[feedbackIndex].highlights_attributes[highlightIndex].highlight_type = text
+    break
+  case FEEDBACK_LAYER_ADDITION:
+    updatedFeedback.push({
+      text: '',
+      order: feedback.length,
+      highlights_attributes: []
+    });
+    break
+  case FEEDBACK_LAYER_REMOVAL:
+    updatedFeedback = updatedFeedback.slice(0, -1)
+    break
   }
   setFeedback(updatedFeedback);
 }
@@ -465,18 +465,18 @@ export function getReturnLinkLabel(ruleType) {
 export function getRefetchQueryString(rule: RuleInterface, activityId: string) {
   const { rule_type } = rule;
   switch (rule_type) {
-    case RULES_BASED_1:
-      return `rules-${activityId}-${RULES_BASED_1}`;
-    case RULES_BASED_2:
-      return `rules-${activityId}-${RULES_BASED_2}`;
-    case RULES_BASED_3:
-      return `rules-${activityId}-${RULES_BASED_3}`;
-    case PLAGIARISM:
-      return `rules-${activityId}-${PLAGIARISM}`;
-    case AUTO_ML:
-      return `rules-${activityId}-${AUTO_ML}`;
-    default:
-      return `rules-${activityId}`;
+  case RULES_BASED_1:
+    return `rules-${activityId}-${RULES_BASED_1}`;
+  case RULES_BASED_2:
+    return `rules-${activityId}-${RULES_BASED_2}`;
+  case RULES_BASED_3:
+    return `rules-${activityId}-${RULES_BASED_3}`;
+  case PLAGIARISM:
+    return `rules-${activityId}-${PLAGIARISM}`;
+  case AUTO_ML:
+    return `rules-${activityId}-${AUTO_ML}`;
+  default:
+    return `rules-${activityId}`;
   }
 }
 

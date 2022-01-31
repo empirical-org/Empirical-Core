@@ -181,37 +181,37 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     const options = this.filteredOptions()
 
     switch (e.key) {
-      case ARROWDOWN:
-        if (cursor < options.length - 1) {
-          this.setState(prevState => {
-            if (prevState.cursor !== null) {
-              return { cursor: prevState.cursor + 1 }
-            }
-            return { cursor: 0 }
-          }, this.updateFocusedOption)
-        } else if (cursor === null && options.length === 1) {
-          this.setState({ cursor: 0 }, this.updateFocusedOption)
-        } else {
-          this.updateFocusedOption()
-        }
-        break
-      case ARROWUP:
-        this.setState(prevState => ({ cursor: Math.max(prevState.cursor - 1, 0) }), this.updateFocusedOption)
-        break
-      case TAB:
-        this.deactivateInput()
-        break
-      case ENTER:
-        e.preventDefault()
-        if (!active || !menuIsOpen) {
-          this.handleInputActivation()
-        } else if (cursor !== null) {
-          this.handleEnterWithFocusedOption()
-        }
-        break
+    case ARROWDOWN:
+      if (cursor < options.length - 1) {
+        this.setState(prevState => {
+          if (prevState.cursor !== null) {
+            return { cursor: prevState.cursor + 1 }
+          }
+          return { cursor: 0 }
+        }, this.updateFocusedOption)
+      } else if (cursor === null && options.length === 1) {
+        this.setState({ cursor: 0 }, this.updateFocusedOption)
+      } else {
+        this.updateFocusedOption()
+      }
+      break
+    case ARROWUP:
+      this.setState(prevState => ({ cursor: Math.max(prevState.cursor - 1, 0) }), this.updateFocusedOption)
+      break
+    case TAB:
+      this.deactivateInput()
+      break
+    case ENTER:
+      e.preventDefault()
+      if (!active || !menuIsOpen) {
+        this.handleInputActivation()
+      } else if (cursor !== null) {
+        this.handleEnterWithFocusedOption()
+      }
+      break
 
-      default:
-        break
+    default:
+      break
     }
   }
 
@@ -315,7 +315,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
               onChange={this.handleOptionSelection}
             />
           </div>
-)
+        )
       } else {
         return (
           <div
@@ -333,7 +333,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             />
             {this.renderErrorText()}
           </div>
-)
+        )
       }
     } else if (isMulti) {
       return (
@@ -358,7 +358,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             optionType={optionType}
           />
         </div>
-)
+      )
     } else if (usesCustomOption) {
       return (
         <div
@@ -378,7 +378,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             onChange={this.handleOptionSelection}
           />
         </div>
-)
+      )
     } else if (!active) {
       return (
         <div

@@ -91,7 +91,7 @@ const ContentPartnersTable = ({ visible, contentPartners, saveContentPartnerChan
         {newRecordBox}
       </div>
     </div>
-)
+  )
 }
 
 export default ContentPartnersTable

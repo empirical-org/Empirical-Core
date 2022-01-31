@@ -16,7 +16,7 @@ const CuesField: React.SFC<any> = (props) => {
         <input className="input" onChange={props.handleCuesChange} type="text" value={props.cues.join(',')} />
       </div>
     </div>
-)
+  )
 }
 
 export default CuesField

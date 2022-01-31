@@ -26,7 +26,7 @@ export default class ConceptResults extends React.Component<any, any> {
               onCheckboxChange={() => this.props.toggleCheckboxCorrect(uid)}
               selectorDisabled={uid === null || uid === 'null' ? false : true}
             />
-)
+          )
         });
       } else {
         components = Object.keys(conceptResults).map(uid => {
@@ -38,7 +38,7 @@ export default class ConceptResults extends React.Component<any, any> {
                 {concept.displayName} {conceptResults[uid] && conceptResults[uid] !== 'false' ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
                 {'\t'}
               </li>
-)
+            )
           }
         });
       }
@@ -51,7 +51,7 @@ export default class ConceptResults extends React.Component<any, any> {
       <div>
         {this.renderConceptResults()}
       </div>
-)
+    )
   }
 
 }

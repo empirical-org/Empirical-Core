@@ -7,12 +7,12 @@ import {
 } from '../../../../Shared/index'
 
 import {
-QuestionData,
+  QuestionData,
 } from '../../../interfaces/classroomLessons'
 import {
-ClassroomLessonSession,
-SelectedSubmissionsForQuestion,
-QuestionSubmissionsList
+  ClassroomLessonSession,
+  SelectedSubmissionsForQuestion,
+  QuestionSubmissionsList
 } from '../interfaces'
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import SubmitButton from './submitButton'
@@ -79,7 +79,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
         selectedSubmissions={selected_submissions}
         submissions={submissions}
       />
-)
+    )
   }
 
   isSubmittable = () => {
@@ -160,7 +160,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
         feedback={(<p dangerouslySetInnerHTML={{__html: feedback}} />)}
         feedbackType={feedbackType}
       />
-);
+    );
   }
 
   renderModeSpecificContent(){
@@ -178,7 +178,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
           {promptSection}
           {this.renderProjectedAnswers()}
         </React.Fragment>
-)
+      )
     }
     const submitButton = answerCount(savedSubmission(submissions)) === data.play.nBlanks ? null : <SubmitButton disabled={!this.isSubmittable()} onClick={this.handleStudentSubmission} />
     return (

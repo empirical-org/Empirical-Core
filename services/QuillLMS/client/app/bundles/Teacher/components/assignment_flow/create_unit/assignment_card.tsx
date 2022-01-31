@@ -76,6 +76,6 @@ export default class AssignmentCard extends React.Component<AssignmentCardProps,
           {bodyElements}
         </div>
       </div>
-)
+    )
   }
 }

@@ -25,6 +25,6 @@ export default class FollowupModal extends React.Component<FollowupModalProps> {
           </div>
         </div>
       </div>
-)
+    )
   }
 }

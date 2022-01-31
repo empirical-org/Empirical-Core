@@ -39,28 +39,28 @@ export default class CongratulationsModal extends React.Component<{closeModal: a
         {text}
         <a href="https://goo.gl/forms/n5xkhRBMg8V4v0Fj1" rel="noopener noreferrer" target="_blank">Share Your Feedback</a>
       </div>
-)
+    )
   }
 
   renderFeedbackSection = () => {
     const { selectedEmoji, } = this.state
     switch (selectedEmoji) {
-      case 2:
-      case 1:
-      case 0:
-        return this.renderFeedbackResponse()
-      default:
-        return (
-          <div className="feedback">
-            <p>How was your experience with Quill Lessons?</p>
-            <p>We are eager to hear your feedback to improve this tool.</p>
-            <div className="emoji-row">
-              <img onClick={this.handleDisappointedEmojiClick} src="https://assets.quill.org/images/emojis/disappointed_face.png" />
-              <img onClick={this.handleNeutralEmojiClick} src="https://assets.quill.org/images/emojis/neutral_face.png" />
-              <img onClick={this.handleHappyEmojiClick} src="https://assets.quill.org/images/emojis/inlove_face.png" />
-            </div>
+    case 2:
+    case 1:
+    case 0:
+      return this.renderFeedbackResponse()
+    default:
+      return (
+        <div className="feedback">
+          <p>How was your experience with Quill Lessons?</p>
+          <p>We are eager to hear your feedback to improve this tool.</p>
+          <div className="emoji-row">
+            <img onClick={this.handleDisappointedEmojiClick} src="https://assets.quill.org/images/emojis/disappointed_face.png" />
+            <img onClick={this.handleNeutralEmojiClick} src="https://assets.quill.org/images/emojis/neutral_face.png" />
+            <img onClick={this.handleHappyEmojiClick} src="https://assets.quill.org/images/emojis/inlove_face.png" />
           </div>
-)
+        </div>
+      )
     }
   }
 
@@ -80,6 +80,6 @@ export default class CongratulationsModal extends React.Component<{closeModal: a
           {this.renderFeedbackSection()}
         </div>
       </div>
-)
+    )
   }
 }

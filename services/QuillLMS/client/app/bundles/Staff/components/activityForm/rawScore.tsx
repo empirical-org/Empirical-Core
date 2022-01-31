@@ -36,7 +36,7 @@ const RawScore = ({ activity, rawScoreOptions, handleRawScoreChange, gradeBands,
         <p>{gradeLevel}</p>
       </section>
     </section>
-)
+  )
 }
 
 export default RawScore

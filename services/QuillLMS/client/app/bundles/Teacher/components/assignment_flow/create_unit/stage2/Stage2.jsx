@@ -85,7 +85,7 @@ export default class Stage2 extends React.Component {
         handleCloseModal={this.closeOverrideWarningModal}
         studentNames={alreadyCompletedDiagnosticStudentNames}
       />
-)
+    )
   }
 
   renderSkipRecommendationsWarningModal() {
@@ -101,7 +101,7 @@ export default class Stage2 extends React.Component {
         restrictedActivityId={restrictedActivity.id}
         studentNames={notYetCompletedPreTestStudentNames}
       />
-)
+    )
   }
 
   renderAssignStudentsSection() {
@@ -140,7 +140,7 @@ export default class Stage2 extends React.Component {
         unitName={unitName}
         updateUnitName={updateUnitName}
       />
-)
+    )
   }
 
   renderReviewActivitiesSection() {
@@ -157,7 +157,7 @@ export default class Stage2 extends React.Component {
         dueDates={dueDates}
         toggleActivitySelection={toggleActivitySelection}
       />
-)
+    )
   }
 
   render() {

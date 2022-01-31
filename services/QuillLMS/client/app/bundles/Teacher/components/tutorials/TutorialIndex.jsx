@@ -10,10 +10,10 @@ export default class TutorialIndex extends React.Component {
 
     let slides;
     switch (props.match.params.tool) {
-      case 'lessons':
-      default:
-        slides = LessonsSlides;
-        break;
+    case 'lessons':
+    default:
+      slides = LessonsSlides;
+      break;
     }
 
     this.state = {

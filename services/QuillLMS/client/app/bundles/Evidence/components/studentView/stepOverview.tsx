@@ -44,7 +44,7 @@ const Step = ({ active, completed, handleClick, step }: StepProps) => {
           <div className="now-tag">Now</div>
         </button>
       </section>
-)
+    )
   }
 
   if (completed) {
@@ -55,7 +55,7 @@ const Step = ({ active, completed, handleClick, step }: StepProps) => {
           {html}
         </div>
       </section>
-)
+    )
   }
 
   return (
@@ -65,7 +65,7 @@ const Step = ({ active, completed, handleClick, step }: StepProps) => {
         {html}
       </div>
     </section>
-)
+  )
 }
 
 const StepOverview = ({ activeStep, handleClick, }) => {
@@ -91,7 +91,7 @@ const StepOverview = ({ activeStep, handleClick, }) => {
           step={steps[SO_PASSAGE_STEP_NUMBER]}
         />
       </div>
-)
+    )
   }
 
   return (
@@ -115,7 +115,7 @@ const StepOverview = ({ activeStep, handleClick, }) => {
         step={steps[SO_PASSAGE_STEP_NUMBER]}
       />
     </div>
-)
+  )
 }
 
 export default StepOverview

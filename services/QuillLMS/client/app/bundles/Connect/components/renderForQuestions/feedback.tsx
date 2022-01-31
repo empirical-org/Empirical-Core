@@ -43,38 +43,38 @@ class FeedbackComponent extends React.Component<any, any> {
     const latestAttempt = getLatestAttempt(question.attempts);
     let returnVal;
     switch (this.getFeedbackType(data)) {
-      case "revise-unmatched":
-        returnVal = (<p>{sentence}</p>);
-        break;
-      case "revise-matched":
-      case "correct-matched":
-        returnVal = renderFeedbackStatements(latestAttempt);
-        break;
-      case "override":
-        returnVal = (<p>{sentence}</p>);
-        break;
-      case "instructions":
-        returnVal = (<p>{question.instructions}</p>);
-        break;
-      case "getQuestion-instructions":
-        returnVal = (<p>{question.instructions}</p>);
-        break;
-      case "default-fill-in-blank":
-        returnVal = (<p>Fill in the blank with the correct option.</p>);
-        break;
-      case "default-with-cues":
-        const cues = question.cues
-        if (cues.length === 1) {
-          returnVal = (<p>Combine the sentences into one sentence. Use the joining word.</p>)
-        } else {
-          returnVal = (<p>Combine the sentences into one sentence. Use one of the joining words.</p>)
-        }
-        break;
-      case "default":
-        returnVal = (<p>Combine the sentences into one sentence.</p>)
-        break;
-      default:
-        returnVal = (<p>Combine the sentences into one sentence.</p>)
+    case "revise-unmatched":
+      returnVal = (<p>{sentence}</p>);
+      break;
+    case "revise-matched":
+    case "correct-matched":
+      returnVal = renderFeedbackStatements(latestAttempt);
+      break;
+    case "override":
+      returnVal = (<p>{sentence}</p>);
+      break;
+    case "instructions":
+      returnVal = (<p>{question.instructions}</p>);
+      break;
+    case "getQuestion-instructions":
+      returnVal = (<p>{question.instructions}</p>);
+      break;
+    case "default-fill-in-blank":
+      returnVal = (<p>Fill in the blank with the correct option.</p>);
+      break;
+    case "default-with-cues":
+      const cues = question.cues
+      if (cues.length === 1) {
+        returnVal = (<p>Combine the sentences into one sentence. Use the joining word.</p>)
+      } else {
+        returnVal = (<p>Combine the sentences into one sentence. Use one of the joining words.</p>)
+      }
+      break;
+    case "default":
+      returnVal = (<p>Combine the sentences into one sentence.</p>)
+      break;
+    default:
+      returnVal = (<p>Combine the sentences into one sentence.</p>)
     }
     return returnVal
   }

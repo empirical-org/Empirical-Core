@@ -21,7 +21,7 @@ const PromptSection = ({ promptElement, mode, }) => {
           </div>
         </div>
       </React.Fragment>
-)
+    )
   }
 
   return (
@@ -30,7 +30,7 @@ const PromptSection = ({ promptElement, mode, }) => {
         <button className="focus-on-light" onClick={handleShowPromptButtonClick} type="button">Show</button>
       </div>
     </div>
-)
+  )
 }
 
 export default PromptSection

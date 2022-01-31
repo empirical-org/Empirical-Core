@@ -28,7 +28,7 @@ export default class BlogPostTable extends React.Component {
         <th />
         <th />
       </tr>
-)
+    )
   }
 
   renderTableRow(blogPost, index) {
@@ -52,7 +52,7 @@ export default class BlogPostTable extends React.Component {
         updatedAt={moment(updated_at).format('MM-DD-YY')}
         views={read_count}
       />
-)
+    )
   }
 
   orderedBlogPosts = () => {
@@ -78,6 +78,6 @@ export default class BlogPostTable extends React.Component {
           </table>
         </div>
       </div>
-)
+    )
   }
 };

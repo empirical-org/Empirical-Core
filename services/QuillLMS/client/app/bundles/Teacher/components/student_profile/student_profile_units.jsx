@@ -30,14 +30,14 @@ export default class StudentProfileUnits extends React.Component {
     const groupedUnits = this.groupUnits()
 
     switch(activeClassworkTab) {
-      case TO_DO_ACTIVITIES:
-        const unitsWithIncompleteActivities = groupedUnits.filter(u => u.incomplete && u.incomplete.length)
-        return unitsWithIncompleteActivities.map(u => ({ incomplete: u.incomplete }))
-      case COMPLETED_ACTIVITIES:
-        const unitsWithCompletedActivities = groupedUnits.filter(u => u.complete && u.complete.length)
-        return unitsWithCompletedActivities.map(u => ({ complete: u.complete }))
-      default:
-        return groupedUnits
+    case TO_DO_ACTIVITIES:
+      const unitsWithIncompleteActivities = groupedUnits.filter(u => u.incomplete && u.incomplete.length)
+      return unitsWithIncompleteActivities.map(u => ({ incomplete: u.incomplete }))
+    case COMPLETED_ACTIVITIES:
+      const unitsWithCompletedActivities = groupedUnits.filter(u => u.complete && u.complete.length)
+      return unitsWithCompletedActivities.map(u => ({ complete: u.complete }))
+    default:
+      return groupedUnits
     }
   }
 
@@ -45,12 +45,12 @@ export default class StudentProfileUnits extends React.Component {
     const { activeClassworkTab, } = this.props
 
     switch(activeClassworkTab) {
-      case TO_DO_ACTIVITIES:
-        return this.groupUnits().length ? 'Write on! You’re all finished with your activities.' : 'Nothing to see here yet! Once your teacher assigns activities they will show up here.'
-      case COMPLETED_ACTIVITIES:
-        return 'Nothing to see here yet! Once you complete an activity it will show up here.'
-      default:
-        return 'Nothing to see here yet! Once your teacher assigns activities they will show up here.'
+    case TO_DO_ACTIVITIES:
+      return this.groupUnits().length ? 'Write on! You’re all finished with your activities.' : 'Nothing to see here yet! Once your teacher assigns activities they will show up here.'
+    case COMPLETED_ACTIVITIES:
+      return 'Nothing to see here yet! Once you complete an activity it will show up here.'
+    default:
+      return 'Nothing to see here yet! Once your teacher assigns activities they will show up here.'
     }
   }
 
@@ -110,7 +110,7 @@ export default class StudentProfileUnits extends React.Component {
           onShowPreviewModal={this.handleShowPreviewModal}
           unitName={unit_name}
         />
-)
+      )
     })
 
     return content.length ? content : this.renderEmptyState()
@@ -138,7 +138,7 @@ export default class StudentProfileUnits extends React.Component {
         name={name}
         onShowPreviewModal={this.handleShowPreviewModal}
       />
-)
+    )
   }
 
   renderPreviewModal = () => {
@@ -151,7 +151,7 @@ export default class StudentProfileUnits extends React.Component {
         onClosePreviewActivityModalClick={this.handleClosePreviewActivityModalClick}
         previewActivityId={previewActivityId}
       />
-)
+    )
   }
 
   renderPinnedActivityModal = () => {
@@ -169,7 +169,7 @@ export default class StudentProfileUnits extends React.Component {
         onClosePinnedActivityModalClick={this.handleClosePinnedActivityModalClick}
         teacherName={teacherName}
       />
-)
+    )
   }
 
   render() {

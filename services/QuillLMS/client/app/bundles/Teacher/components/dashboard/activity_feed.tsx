@@ -48,7 +48,7 @@ const MobileActivityRow = ({ row, }) => {
       <div>{activityName}</div>
       <div>{scoreTag}</div>
     </a>
-)
+  )
 }
 
 const ActivityFeed = ({ onMobile, activityFeed, }) => {
@@ -76,7 +76,7 @@ const ActivityFeed = ({ onMobile, activityFeed, }) => {
         <h2>Activity feed</h2>
         <p>Once your students complete activities, you’ll be able to see them here.</p>
       </section>
-)
+    )
   }
 
   let bottomButton
@@ -92,7 +92,7 @@ const ActivityFeed = ({ onMobile, activityFeed, }) => {
       {dataDisplay}
       {bottomButton}
     </section>
-)
+  )
 
 }
 

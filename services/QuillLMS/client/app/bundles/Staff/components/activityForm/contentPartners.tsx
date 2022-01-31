@@ -30,7 +30,7 @@ const ContentPartners = ({ activity, contentPartnerOptions, handleContentPartner
         <select disabled={!contentPartnerEnabled} multiple onChange={onChangeContentPartner} value={activity.content_partner_ids}>{contentPartnerOptionElements}</select>
       </section>
     </section>
-)
+  )
 }
 
 export default ContentPartners

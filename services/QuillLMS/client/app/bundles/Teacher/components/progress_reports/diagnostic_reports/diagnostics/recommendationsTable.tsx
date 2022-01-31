@@ -79,7 +79,7 @@ const RecommendationCell = ({ student, isAssigned, isRecommended, isSelected, se
         <span />
       </button>
     </td>
-)
+  )
 }
 
 const StudentRow = ({ student, selections, recommendations, previouslyAssignedRecommendations, setSelections, responsesLink, }) => {
@@ -118,7 +118,7 @@ const StudentRow = ({ student, selections, recommendations, previouslyAssignedRe
           setSelections={setSelections}
           student={student}
         />
-)
+      )
     })
   }
   return <tr key={name}>{firstCell}{selectionCells}</tr>
@@ -183,7 +183,7 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
         </div>
         <span className="activity-count">{activity_count} activities</span>
       </th>
-)
+    )
   })
 
   const studentRows = students.map(student => (
@@ -218,19 +218,19 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
           {tableHeaders}
         </tr>
       </thead>
-)
+    )
   }
 
   return (
     <div className="recommendations-table-container" onScroll={handleScroll}>
       {isSticky && tableHasContent && (
-      <table
-        className={`${tableClassName} sticky`}
-        style={stickyTableStyle}
-      >
-        {renderHeader(true)}
-      </table>
-    )}
+        <table
+          className={`${tableClassName} sticky`}
+          style={stickyTableStyle}
+        >
+          {renderHeader(true)}
+        </table>
+      )}
       <table className={tableClassName} ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
         {renderHeader(false)}
         {tableHasContent ? null : noDataYet}
@@ -239,7 +239,7 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
         </tbody>
       </table>
     </div>
-)
+  )
 }
 
 export default RecommendationsTable

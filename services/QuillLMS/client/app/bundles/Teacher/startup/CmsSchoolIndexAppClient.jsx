@@ -17,71 +17,71 @@ export default class CmsSchoolIndex extends React.Component {
   }
 
   getColumns() {
-      return [
-        {
-          Header: 'Name',
-          accessor: 'school_name',
-          resizable: false,
-          minWidth: 140,
-          Cell: row => row.original.school_name
-        }, {
-          Header: "District",
-          accessor: 'district_name',
-          resizable: false,
-          minWidth: 140,
-          Cell: row => row.original.district_name
-        }, {
-          Header: "City",
-          accessor: 'school_city',
-          minWidth: 140,
-          resizable: false,
-          Cell: row => row.original.school_city
-        }, {
-          Header: "State",
-          accessor: 'school_state',
-          resizable: false,
-          minWidth: 60,
-          Cell: row => row.original.school_state,
-        }, {
-          Header: 'ZIP',
-          accessor: 'school_zip',
-          resizable: false,
-          minWidth: 60,
-          Cell: row => Number(row.original.school_zip),
-        }, {
-          Header: "FRL",
-          accessor: 'frl',
-          resizable: false,
-          minWidth: 60,
-          Cell: row => row.original.frl ? `${row.original.frl}%` : '',
-        }, {
-          Header: "Teachers",
-          accessor: 'number_teachers',
-          resizable: false,
-          minWidth: 80,
-          Cell: row => Number(row.original.number_teachers),
-        }, {
-          Header: "Premium?",
-          accessor: 'premium_status',
-          resizable: false,
-          minWidth: 90,
-          Cell: row => row.original.premium_status,
-        }, {
-          Header: "Admins",
-          accessor: 'number_admins',
-          resizable: false,
-          minWidth: 80,
-          Cell: row => Number(row.original.number_admins),
-        }, {
-          Header: "Edit",
-          accessor: 'edit',
-          resizable: false,
-          minWidth: 60,
-          Cell: (row) => {
-            return <a href={`${process.env.DEFAULT_URL}/cms/schools/${row.original.id}`}>Edit</a>
-          }
+    return [
+      {
+        Header: 'Name',
+        accessor: 'school_name',
+        resizable: false,
+        minWidth: 140,
+        Cell: row => row.original.school_name
+      }, {
+        Header: "District",
+        accessor: 'district_name',
+        resizable: false,
+        minWidth: 140,
+        Cell: row => row.original.district_name
+      }, {
+        Header: "City",
+        accessor: 'school_city',
+        minWidth: 140,
+        resizable: false,
+        Cell: row => row.original.school_city
+      }, {
+        Header: "State",
+        accessor: 'school_state',
+        resizable: false,
+        minWidth: 60,
+        Cell: row => row.original.school_state,
+      }, {
+        Header: 'ZIP',
+        accessor: 'school_zip',
+        resizable: false,
+        minWidth: 60,
+        Cell: row => Number(row.original.school_zip),
+      }, {
+        Header: "FRL",
+        accessor: 'frl',
+        resizable: false,
+        minWidth: 60,
+        Cell: row => row.original.frl ? `${row.original.frl}%` : '',
+      }, {
+        Header: "Teachers",
+        accessor: 'number_teachers',
+        resizable: false,
+        minWidth: 80,
+        Cell: row => Number(row.original.number_teachers),
+      }, {
+        Header: "Premium?",
+        accessor: 'premium_status',
+        resizable: false,
+        minWidth: 90,
+        Cell: row => row.original.premium_status,
+      }, {
+        Header: "Admins",
+        accessor: 'number_admins',
+        resizable: false,
+        minWidth: 80,
+        Cell: row => Number(row.original.number_admins),
+      }, {
+        Header: "Edit",
+        accessor: 'edit',
+        resizable: false,
+        minWidth: 60,
+        Cell: (row) => {
+          return <a href={`${process.env.DEFAULT_URL}/cms/schools/${row.original.id}`}>Edit</a>
         }
-      ];
+      }
+    ];
   }
 
   setSort = newSorted => {
@@ -169,7 +169,7 @@ export default class CmsSchoolIndex extends React.Component {
         </form>
         <a onClick={() => this.updatePage(totalPages)}>Last</a>
       </div>
-)
+    )
   }
 
   renderPremiumStatusSelect() {
@@ -178,7 +178,7 @@ export default class CmsSchoolIndex extends React.Component {
       <select multiple={true} onChange={this.updatePremiumStatus}>
         {options}
       </select>
-)
+    )
   }
 
   renderTableOrLoading() {
@@ -206,10 +206,10 @@ export default class CmsSchoolIndex extends React.Component {
             {this.renderPageSelector()}
           </div>
         </div>
-)
-  } else {
-    return <p>No records found for your query.</p>
-  }
+      )
+    } else {
+      return <p>No records found for your query.</p>
+    }
   }
 
   render() {

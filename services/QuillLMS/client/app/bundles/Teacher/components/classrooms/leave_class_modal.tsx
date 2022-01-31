@@ -43,6 +43,6 @@ export default class LeaveClassModal extends React.Component<LeaveClassModalProp
           </div>
         </div>
       </div>
-)
+    )
   }
 }

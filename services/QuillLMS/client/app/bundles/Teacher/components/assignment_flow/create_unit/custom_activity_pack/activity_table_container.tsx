@@ -50,7 +50,7 @@ const FilterAndSort = ({ setShowMobileFilterMenu, setShowMobileSortMenu, }) => {
       Sort by
       </button>
     </section>
-)
+  )
 }
 
 const SearchAndSort = ({ handleSearch, search, setSort, sort, }) => {
@@ -72,7 +72,7 @@ const SearchAndSort = ({ handleSearch, search, setSort, sort, }) => {
       </div>
       <SortDropdown setSort={setSort} sort={sort} />
     </section>
-)
+  )
 }
 
 const EmptyState = ({ undoLastFilter, resetAllFilters, }) => {
@@ -86,7 +86,7 @@ const EmptyState = ({ undoLastFilter, resetAllFilters, }) => {
         <button className="focus-on-light quill-button medium contained primary" onClick={undoLastFilter} type="button">Undo</button>
       </div>
     </div>
-)
+  )
 }
 
 const LessonsBanner = ({ lessonsBannerShowing, selectedActivities, closeLessonsBanner, }) => {
@@ -138,7 +138,7 @@ const ActivityTableContainer = ({
         toggleActivitySelection={toggleActivitySelection}
         unsaveActivity={unsaveActivity}
       />
-)
+    )
   })
 
   const activityRowsOrEmptyState = activityRows.length ? activityRows : <EmptyState resetAllFilters={resetAllFilters} undoLastFilter={undoLastFilter} />
@@ -151,7 +151,7 @@ const ActivityTableContainer = ({
       {activityRowsOrEmptyState}
       <Pagination activities={filteredActivities} currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </section>
-)
+  )
 }
 
 export default ActivityTableContainer

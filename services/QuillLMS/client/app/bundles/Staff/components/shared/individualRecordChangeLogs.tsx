@@ -41,7 +41,7 @@ export default class IndividualRecordChangeLogs extends React.Component<Individu
               <span>{cl.user.name}</span>
             </p>
           </div>
-)
+        )
       })
       return <div className="change-log-items">{changeLogItems}</div>
     }
@@ -58,6 +58,6 @@ export default class IndividualRecordChangeLogs extends React.Component<Individu
         </div>
         {this.renderChangeLogs()}
       </div>
-)
+    )
   }
 }

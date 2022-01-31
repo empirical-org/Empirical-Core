@@ -10,7 +10,7 @@ const ProjectorHeader = ({ studentCount, submissions, }) => {
       <div className="students-type-tag tag"><img alt="Laptop Icon" src={laptopGlyphSrc} /><span>Students type response</span></div>
       <p className="answered-count">{studentCountText}</p>
     </div>
-)
+  )
 }
 
 export default ProjectorHeader

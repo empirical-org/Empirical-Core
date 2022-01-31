@@ -170,7 +170,7 @@ export default class CmsUserIndex extends React.Component {
         </form>
         <a onClick={() => this.updatePage(totalPages)}>Last</a>
       </div>
-)
+    )
   }
 
   renderPremiumStatusSelect() {
@@ -179,7 +179,7 @@ export default class CmsUserIndex extends React.Component {
       <select multiple={true} onChange={this.updatePremiumStatus}>
         {options}
       </select>
-)
+    )
   }
 
   renderTableOrLoading() {
@@ -207,7 +207,7 @@ export default class CmsUserIndex extends React.Component {
             {this.renderPageSelector()}
           </div>
         </div>
-)
+      )
     } else if (this.state.numberOfPages === 0) {
       return <p>No records found.</p>
     }
@@ -220,7 +220,7 @@ export default class CmsUserIndex extends React.Component {
       <select onChange={e => this.updateField(e, 'user_flag')}>
         {options}
       </select>
-)
+    )
   }
 
   renderUserRoleSelect() {
@@ -229,7 +229,7 @@ export default class CmsUserIndex extends React.Component {
       <select onChange={e => this.updateField(e, 'user_role')}>
         {options}
       </select>
-)
+    )
   }
 
   render() {

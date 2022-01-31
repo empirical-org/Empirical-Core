@@ -40,6 +40,6 @@ export default class EditorContainer extends React.Component<EditorContainerProp
           spellCheck={true}
         />
       </div>
-)
+    )
   }
 }

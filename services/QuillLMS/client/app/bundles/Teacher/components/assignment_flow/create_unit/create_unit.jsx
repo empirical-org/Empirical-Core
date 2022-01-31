@@ -286,7 +286,7 @@ export default class CreateUnit extends React.Component {
         toggleActivitySelection={this.toggleActivitySelection}
         updateUnitName={this.updateUnitName}
       />
-);
+    );
   }
 
   restrictedActivityBeingAssigned = () => {
@@ -440,7 +440,7 @@ export default class CreateUnit extends React.Component {
           selectedActivities={selectedActivities}
           unitName={name}
         />
-);
+      );
     }
 
     if (_.map(selectedActivities, activity => { return activity.activity_classification.id }).includes(6)) {

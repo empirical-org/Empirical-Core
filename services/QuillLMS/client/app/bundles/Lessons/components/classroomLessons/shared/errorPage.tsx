@@ -11,13 +11,13 @@ const ErrorPage: React.SFC<{text: string}> = (props) => {
         <p>If this does not solve the problem and you are a student, please ask your teacher to re-assign the lesson from the Quill activity dashboard.</p>
         <p>If this continues to happen, please contact us at hello@quill.org or by calling us at 646-442-1095</p>
       </div>
-)
+    )
   }
-   return (
-     <div>
-       {props.text}
-     </div>
-)
+  return (
+    <div>
+      {props.text}
+    </div>
+  )
 }
 
 export default ErrorPage

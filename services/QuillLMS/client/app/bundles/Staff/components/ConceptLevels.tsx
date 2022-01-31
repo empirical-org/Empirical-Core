@@ -65,7 +65,7 @@ export default class ConceptLevels extends React.Component<ConceptLevelsProps, a
           unselectConcept={this.props.unselectConcept}
         />
       </div>
-)
+    )
   }
 
   render() {

@@ -42,7 +42,7 @@ export default class EditGenerator extends React.Component {
           <label className="label">Generated Edit: </label>
           <span>{this.state.generatedEdit}</span>
         </p>
-)
+      )
     }
   }
 
@@ -69,7 +69,7 @@ export default class EditGenerator extends React.Component {
         </div>
         {this.renderGeneratedEditTag()}
       </div>
-)
+    )
   }
 
 }

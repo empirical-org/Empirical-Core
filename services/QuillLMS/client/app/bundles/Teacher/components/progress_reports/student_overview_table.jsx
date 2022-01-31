@@ -58,7 +58,7 @@ export default class StudentOveriewTable extends React.Component {
         <a href={`/teachers/progress_reports/report_from_classroom_unit_and_activity_and_user/cu/${row.classroom_unit_id}/user/${studentId}/a/${row.activity_id}`}>
           <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
         </a>
-)
+      )
     }
   }
 

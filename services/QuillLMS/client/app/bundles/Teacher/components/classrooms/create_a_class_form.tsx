@@ -113,7 +113,7 @@ export default class CreateAClassForm extends React.Component<CreateAClassFormPr
           </div>
         </form>
       </div>
-)
+    )
   }
 
   renderFooter() {
@@ -121,7 +121,7 @@ export default class CreateAClassForm extends React.Component<CreateAClassFormPr
       <div className="create-a-class-modal-footer">
         <button className={this.footerButtonClass()} onClick={this.createClass}>Create class, next</button>
       </div>
-)
+    )
   }
 
   render() {

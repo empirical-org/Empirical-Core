@@ -28,7 +28,7 @@ const RetryCell = ({ identifier, handleRetryClick, submissions, }) => {
     <button className="interactive-wrapper" onClick={handleClick} type="button">
       <i className="fa fa-refresh student-retry-question" />
     </button>
-)
+  )
 }
 
 const CheckboxCell = ({ determineCheckbox, selectedSubmissions, currentSlide, identifier, studentKey, studentName, handleClickCheckbox, }) => {
@@ -49,7 +49,7 @@ const CheckboxCell = ({ determineCheckbox, selectedSubmissions, currentSlide, id
         {checkbox}
       </label>
     </React.Fragment>
-)
+  )
 }
 
 const AnswerNumber = ({ selectedSubmissions, selectedSubmissionOrder, currentSlide, studentKey, identifier, }) => {
@@ -137,7 +137,7 @@ const ReviewStudentRow = ({
           />
         </td>
       </tr>
-)
+    )
   })
 
   return rows

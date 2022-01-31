@@ -30,12 +30,12 @@ export const Link = ({ contentState, entityKey, children }) => {
 
 const addLinkPlugin = {
 
-	decorators: [
-		{
-			strategy: linkStrategy,
-			component: Link
-		}
-	]
+  decorators: [
+    {
+      strategy: linkStrategy,
+      component: Link
+    }
+  ]
 };
 
 export default addLinkPlugin;

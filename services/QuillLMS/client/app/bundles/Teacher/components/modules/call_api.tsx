@@ -14,12 +14,12 @@ function put(path: string, payload: object, onSuccess: Function, onError: Functi
       throw error;
     }
     switch (response.statusCode) {
-      case 200:
-        if (onSuccess) onSuccess(response);
-        break;
-      case 422:
-        if (onError) onError(response);
-        break;
+    case 200:
+      if (onSuccess) onSuccess(response);
+      break;
+    case 422:
+      if (onError) onError(response);
+      break;
     }
   });
 }

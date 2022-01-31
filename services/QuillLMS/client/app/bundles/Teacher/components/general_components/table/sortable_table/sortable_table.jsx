@@ -31,7 +31,7 @@ export default class SortableTable extends React.Component {
           sortDirection={this.props.currentSort.direction || 'asc'}
           sortHandler={this.sortByColumn(column.sortByField)}
         />
-)
+      )
     }, this);
   };
 

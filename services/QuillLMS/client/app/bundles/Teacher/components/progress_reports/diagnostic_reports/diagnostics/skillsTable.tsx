@@ -44,7 +44,7 @@ const SkillsTable = ({ skillGroup, isExpandable, }: { skillGroup: SkillGroup, is
       </table>
       {showMoreButton}
     </div>
-)
+  )
 }
 
 export default SkillsTable

@@ -73,7 +73,7 @@ export default class RemoveCoteacherModal extends React.Component<RemoveCoteache
           <span>I understand that the co-teacher will no longer have access to the students’ work or data.</span>
         </div>
       </div>
-)
+    )
   }
 
   render() {
@@ -97,6 +97,6 @@ export default class RemoveCoteacherModal extends React.Component<RemoveCoteache
           </div>
         </div>
       </div>
-)
+    )
   }
 }

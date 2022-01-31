@@ -46,6 +46,6 @@ export default class LeavingModal extends React.Component<LeavingModalProps, Lea
           </div>
         </div>
       </div>
-)
+    )
   }
 }

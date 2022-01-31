@@ -87,7 +87,7 @@ export default class ConceptColumn extends React.Component<ConceptColumnProps, C
         options={options}
         value={value}
       />
-)
+    )
   }
 
   render() {
@@ -99,6 +99,6 @@ export default class ConceptColumn extends React.Component<ConceptColumnProps, C
         </div>
         {this.renderConceptList()}
       </div>
-)
+    )
   }
 }

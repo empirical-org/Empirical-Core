@@ -80,13 +80,13 @@ export default class CreateOrEditBlogPost extends React.Component {
   appropriatePlaceholderImage = () => {
     const { preview_card_type, } = this.state
     switch (preview_card_type) {
-      case 'Large Image':
-        return 'http://placehold.it/300x200'
-      case 'Tiny Image':
-        return 'http://placehold.it/300x90'
-      case 'Medium Image':
-      default:
-        return 'http://placehold.it/300x138'
+    case 'Large Image':
+      return 'http://placehold.it/300x200'
+    case 'Tiny Image':
+      return 'http://placehold.it/300x90'
+    case 'Medium Image':
+    default:
+      return 'http://placehold.it/300x138'
     }
   }
 
@@ -182,8 +182,8 @@ export default class CreateOrEditBlogPost extends React.Component {
         },
         body: data
       })
-      .then(response => response.json()) // if the response is a JSON object
-      .then(response => this.setState({uploadedImageLink: response.url})); // Handle the success response object
+        .then(response => response.json()) // if the response is a JSON object
+        .then(response => this.setState({uploadedImageLink: response.url})); // Handle the success response object
     });
   }
 
@@ -380,7 +380,7 @@ export default class CreateOrEditBlogPost extends React.Component {
           - if multiple lines are highlighted, we should insert startChar at beginning of each line
         - Extract this and the buttons into a separate component
     */
-   const { body, } = this.state
+    const { body, } = this.state
     const container = document.getElementById('markdown-content');
     let newValue = body;
     if (container.selectionStart || container.selectionStart === 0) {
@@ -401,22 +401,22 @@ export default class CreateOrEditBlogPost extends React.Component {
   updatePreviewCardBasedOnType = () => {
     const { preview_card_type, custom_preview_card_content, } = this.state
     switch (preview_card_type) {
-      case 'Tiny Image':
-      case 'Medium Image':
-      case 'Large Image':
-        this.setState({blogPostPreviewImage: this.appropriatePlaceholderImage()}, this.updatePreviewCardFromBlogPostPreview)
-        break;
-      case 'Tweet':
-        this.updatePreviewCardTweetContent();
-        break;
-      case 'YouTube Video':
-        this.updatePreviewCardVideoContent();
-        break;
-      case 'Button':
-        this.updatePreviewCardButtonContent();
-        break;
-      default:
-        this.setState({ preview_card_content: custom_preview_card_content })
+    case 'Tiny Image':
+    case 'Medium Image':
+    case 'Large Image':
+      this.setState({blogPostPreviewImage: this.appropriatePlaceholderImage()}, this.updatePreviewCardFromBlogPostPreview)
+      break;
+    case 'Tweet':
+      this.updatePreviewCardTweetContent();
+      break;
+    case 'YouTube Video':
+      this.updatePreviewCardVideoContent();
+      break;
+    case 'Button':
+      this.updatePreviewCardButtonContent();
+      break;
+    default:
+      this.setState({ preview_card_content: custom_preview_card_content })
     }
   }
 
@@ -538,22 +538,22 @@ export default class CreateOrEditBlogPost extends React.Component {
         </article>
       </div>)
     } else {
-        toolbarLeft = (<div className="toolbar-left">
-          <p onClick={this.handleInsertH1}>H1</p>
-          <p onClick={this.handleInsertH2}>H2</p>
-          <p onClick={this.handleInsertH3}>H3</p>
-          <i className="fas fa-bold" onClick={this.handleInsertBold} />
-          <i className="fas fa-italic" onClick={this.handleInsertItalic} />
-          <i className="fas fa-list-ul" onClick={this.handleInsertUnorderedList} />
-          <i className="fas fa-list-ol" onClick={this.handleInsertOrderedList} />
-          <i className="fas fa-quote-left" onClick={this.handleInsertQuote} />
-          <i className="fas fa-link" onClick={this.handleInsertLink} />
-          <i className="fas fa-file-image" onClick={this.handleInsertFileImage} />
-          <i className="fas fa-square" onClick={this.handleInsertPrimaryButton} />
-          <i className="far fa-square" onClick={this.handleInsertSecondaryButton} />
-        </div>)
-        content = <textarea id="markdown-content" onChange={this.handleBodyChange} rows={20} type="text" value={body} />
-        mdLink = <a className='markdown-cheatsheet' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
+      toolbarLeft = (<div className="toolbar-left">
+        <p onClick={this.handleInsertH1}>H1</p>
+        <p onClick={this.handleInsertH2}>H2</p>
+        <p onClick={this.handleInsertH3}>H3</p>
+        <i className="fas fa-bold" onClick={this.handleInsertBold} />
+        <i className="fas fa-italic" onClick={this.handleInsertItalic} />
+        <i className="fas fa-list-ul" onClick={this.handleInsertUnorderedList} />
+        <i className="fas fa-list-ol" onClick={this.handleInsertOrderedList} />
+        <i className="fas fa-quote-left" onClick={this.handleInsertQuote} />
+        <i className="fas fa-link" onClick={this.handleInsertLink} />
+        <i className="fas fa-file-image" onClick={this.handleInsertFileImage} />
+        <i className="fas fa-square" onClick={this.handleInsertPrimaryButton} />
+        <i className="far fa-square" onClick={this.handleInsertSecondaryButton} />
+      </div>)
+      content = <textarea id="markdown-content" onChange={this.handleBodyChange} rows={20} type="text" value={body} />
+      mdLink = <a className='markdown-cheatsheet' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
     }
     return (
       <div>
@@ -570,7 +570,7 @@ export default class CreateOrEditBlogPost extends React.Component {
         </div>
         {mdLink}
       </div>
-)
+    )
 
   }
 
@@ -593,7 +593,7 @@ export default class CreateOrEditBlogPost extends React.Component {
           onFocusChange={({ focused }) => this.setState({ focused })}
         />
       </div>
-)
+    )
   }
 
   renderPreviewCardContentFields = () => {
@@ -664,7 +664,7 @@ export default class CreateOrEditBlogPost extends React.Component {
           selectedItem={preview_card_type}
         />
       </div>
-)
+    )
   }
 
   renderSaveAndPreviewButton = () => {

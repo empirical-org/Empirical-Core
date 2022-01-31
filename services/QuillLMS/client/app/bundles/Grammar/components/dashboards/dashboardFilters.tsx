@@ -64,7 +64,7 @@ export default class DashboardFilters extends React.Component<DashboardFiltersPr
         />
         <label htmlFor={`${questionOrActivity}-${flag}`}>{flag}</label>
       </div>
-)
+    )
   }
 
   renderQuestionFilters():JSX.Element|void {
@@ -79,7 +79,7 @@ export default class DashboardFilters extends React.Component<DashboardFiltersPr
           {this.renderCheckbox(QUESTION, ARCHIVED)}
           {this.renderCheckbox(QUESTION, NONE)}
         </div>
-)
+      )
     }
   }
 
@@ -95,7 +95,7 @@ export default class DashboardFilters extends React.Component<DashboardFiltersPr
           {this.renderCheckbox(ACTIVITY, ARCHIVED)}
           {this.renderCheckbox(ACTIVITY, NONE)}
         </div>
-)
+      )
     }
   }
 
@@ -105,6 +105,6 @@ export default class DashboardFilters extends React.Component<DashboardFiltersPr
         {this.renderActivityFilters()}
         {this.renderQuestionFilters()}
       </div>
-)
+    )
   }
 }

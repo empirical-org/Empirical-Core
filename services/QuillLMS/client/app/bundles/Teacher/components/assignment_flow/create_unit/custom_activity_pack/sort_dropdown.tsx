@@ -49,25 +49,25 @@ const SortDropdown = ({ setSort, sort, }) => {
     if (inactiveNode && keyWasNotTab) { return }
 
     switch (e.key) {
-      case ARROWDOWN:
-        e.preventDefault()
-        if (cursor < sortOptions.length - 1) {
-          setCursor(prevCursor => prevCursor !== null ? prevCursor + 1 : 0)
-        } else if (cursor === null && sortOptions.length === 1) {
-          setCursor(0)
-        } else {
-          updateFocusedOption()
-        }
-        break
-      case ARROWUP:
-        e.preventDefault()
-        setCursor(prevCursor => Math.max(prevCursor - 1, 0))
-        break
-      case TAB:
-        setDropdownIsOpen(false)
-        break
-      default:
-        break
+    case ARROWDOWN:
+      e.preventDefault()
+      if (cursor < sortOptions.length - 1) {
+        setCursor(prevCursor => prevCursor !== null ? prevCursor + 1 : 0)
+      } else if (cursor === null && sortOptions.length === 1) {
+        setCursor(0)
+      } else {
+        updateFocusedOption()
+      }
+      break
+    case ARROWUP:
+      e.preventDefault()
+      setCursor(prevCursor => Math.max(prevCursor - 1, 0))
+      break
+    case TAB:
+      setDropdownIsOpen(false)
+      break
+    default:
+      break
     }
   }, [cursor])
 
@@ -99,7 +99,7 @@ const SortDropdown = ({ setSort, sort, }) => {
       <button className="sort-dropdown-label interactive-wrapper focus-on-light" onClick={toggleDropdownIsOpen} type="button">Sort by: <span>{selectedOption ? selectedOption.label : 'Default'}</span> {sortIcon}</button>
       <SortDropdownOptions dropdownIsOpen={dropdownIsOpen} setDropdownIsOpen={setDropdownIsOpen} setSort={setSort} />
     </div>
-)
+  )
 }
 
 

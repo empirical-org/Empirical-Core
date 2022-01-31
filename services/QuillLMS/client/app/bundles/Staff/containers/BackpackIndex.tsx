@@ -14,7 +14,7 @@ export default class BackpackIndex extends React.Component {
       <li>
         <a href={href}>{text}</a>
       </li>
-)
+    )
   }
 
   render() {
@@ -54,6 +54,6 @@ export default class BackpackIndex extends React.Component {
           <Sliders />
         </div>
       </div>
-)
+    )
   }
 }

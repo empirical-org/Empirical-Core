@@ -31,6 +31,6 @@ export default class TeacherEmailNotifications extends React.Component {
           </div>
         </div>
       </div>
-)
+    )
   }
 }

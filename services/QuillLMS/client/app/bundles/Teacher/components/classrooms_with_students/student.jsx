@@ -1,9 +1,9 @@
 'use strict'
 
- import React from 'react'
- import $ from 'jquery'
+import React from 'react'
+import $ from 'jquery'
 
- export default class extends React.Component {
+export default class extends React.Component {
    handleStudentSelection = (e) => {
      const checked = $(e.target).is(':checked');
      if (this.props.toggleStudentSelection) {
@@ -49,4 +49,4 @@
        </div>
      );
    }
- }
+}

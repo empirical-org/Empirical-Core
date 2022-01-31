@@ -30,7 +30,7 @@ export default class UnitTemplateFirstRow extends React.Component {
           {imageTagForClassification(classification.key)}
           <span>{classification.name}</span>
         </span>
-)
+      )
     });
 
     return (
@@ -40,7 +40,7 @@ export default class UnitTemplateFirstRow extends React.Component {
           {toolRows}
         </p>
       </div>
-)
+    )
   }
 
   render() {

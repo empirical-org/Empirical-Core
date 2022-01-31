@@ -31,7 +31,7 @@ export default class StudentOptions extends React.Component<StudentOptionsProps>
           />
         </div>
       </div>
-)
+    )
   }
 
   renderFooter() {
@@ -40,7 +40,7 @@ export default class StudentOptions extends React.Component<StudentOptionsProps>
       <div className="create-a-class-modal-footer">
         <button className="quill-button secondary outlined medium" onClick={next}>Skip</button>
       </div>
-)
+    )
   }
 
   render() {

@@ -99,7 +99,7 @@ class TextFields extends React.Component {
           </div>
         </div>
       </div>
-)
+    )
   }
 }
 

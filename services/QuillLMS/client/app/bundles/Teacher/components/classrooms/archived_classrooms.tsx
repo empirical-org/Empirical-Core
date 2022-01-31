@@ -91,7 +91,7 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
           close={this.closeModal}
           onSuccess={this.onSuccess}
         />
-)
+      )
     }
   }
 
@@ -125,7 +125,7 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
         <div className="archived-classes">
           {classroomCards}
         </div>
-)
+      )
     }
   }
 
@@ -136,14 +136,14 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
         <div className="header">
           <h1>Archived Classes</h1>
         </div>
-)
+      )
     } else {
       return (
         <div className="header">
           <h1>No archived classes</h1>
           <p>When you archive a class, you will see it listed here.</p>
         </div>
-)
+      )
     }
   }
 
@@ -155,6 +155,6 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
         {this.renderHeader()}
         {this.renderPageContent()}
       </div>
-)
+    )
   }
 }

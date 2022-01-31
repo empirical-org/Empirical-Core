@@ -141,7 +141,7 @@ export default createReactClass({
   fetchData: function(setStateBasedOnURLParams) {
     this.setState({loading: true});
     $.get(this.props.sourceUrl, this.requestParams(), function onSuccess(data) {
-        this.setState({
+      this.setState({
         activityClassification: data.classification,
         numPages: data.page_count,
         loading: false,

@@ -46,7 +46,7 @@ export default class MissedLessonRow extends React.Component {
         <i className="fas fa-caret-up" style={caretStyle} />
       You can reassign this lesson to the students who missed it.
       </div>
-)
+    )
   }
 
   render() {
@@ -58,6 +58,6 @@ export default class MissedLessonRow extends React.Component {
           {this.tooltip()}
         </td>
       </tr>
-)
+    )
   }
 }

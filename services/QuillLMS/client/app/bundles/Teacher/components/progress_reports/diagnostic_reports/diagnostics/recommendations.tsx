@@ -74,7 +74,7 @@ const LessonRecommendation = ({ previouslyAssignedRecommendations, selections, s
           <span>Preview</span>
         </a>
       </div>
-)
+    )
   })
 
   return (
@@ -98,7 +98,7 @@ const LessonRecommendation = ({ previouslyAssignedRecommendations, selections, s
       </div>
       {isExpanded && activityRows}
     </section>
-)
+  )
 }
 
 const LessonsRecommendations = ({ assigningLessonsBanner, previouslyAssignedRecommendations, recommendations, selections, setSelections, }) => {
@@ -134,7 +134,7 @@ const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActi
         </div>
       </div>
     </div>
-)
+  )
 }
 
 const IndependentRecommendationsButtons = ({ assignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, }) => {

@@ -25,7 +25,7 @@ export default class ScorebookTooltip extends React.Component {
         {this.totalScoreOrNot()}
         {this.timeSpent()}
       </div>
-)
+    )
   }
 
   timeSpent = () => {
@@ -69,7 +69,7 @@ export default class ScorebookTooltip extends React.Component {
     let totalScoreOrNot
     const { data } = this.props;
     const actClassId = data.activity ? data.activity.classification.id : data.activity_classification_id;
-     if (Number(actClassId) === 4 && data.percentage) {
+    if (Number(actClassId) === 4 && data.percentage) {
       totalScoreOrNot = <p className="tooltip-score-time-data">Quill Diagnostic does not provide a score. You can click to view recommended activities based on the student&apos;s performance.</p>;
     } else if (Number(actClassId) === 6 && data.percentage) {
       totalScoreOrNot = <p className="tooltip-score-time-data">Quill Lessons are facilitated by the teachers and not graded. You can click to view your student&apos;s answers from this lesson.</p>;

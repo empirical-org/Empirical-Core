@@ -69,7 +69,7 @@ const Activities = ({ location, match }) => {
         />
       </div>
     </React.Fragment>
-);
+  );
 }
 
 export default Activities

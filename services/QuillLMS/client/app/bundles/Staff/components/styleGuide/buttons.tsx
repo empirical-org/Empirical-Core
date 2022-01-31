@@ -30,7 +30,7 @@ const Buttons = () => {
         {renderElementRow('disabled outlined')}
       </div>
     </div>
-)
+  )
 }
 
 export default Buttons

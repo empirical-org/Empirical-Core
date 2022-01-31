@@ -22,7 +22,7 @@ const PromptField: React.SFC<any> = (props) => {
         />
       </div>
     </div>
-)
+  )
 }
 
 export default PromptField

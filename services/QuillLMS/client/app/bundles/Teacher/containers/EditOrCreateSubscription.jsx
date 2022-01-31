@@ -147,7 +147,7 @@ export default class EditOrCreateSubscription extends React.Component {
             type="checkbox"
           />
         </label>
-);
+      );
     }
   }
 
@@ -273,6 +273,6 @@ export default class EditOrCreateSubscription extends React.Component {
           </button>
         </div>
       </div>
-);
+    );
   }
 }

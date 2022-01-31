@@ -139,13 +139,13 @@ export default class Cms extends React.Component {
           [resourceName]: that.state[resourceName],
           authenticity_token: getAuthToken()
         }}, (e, r, response) => {
-          if (e) {
-            // to do, use Sentry to capture error
-            alert(`We could not save the updated order. Here is the error: ${e}`);
-          } else {
-            that.setState({[resourceName]: response[resourceName]});
-            alert('The updated order has been saved.');
-          }
+        if (e) {
+          // to do, use Sentry to capture error
+          alert(`We could not save the updated order. Here is the error: ${e}`);
+        } else {
+          that.setState({[resourceName]: response[resourceName]});
+          alert('The updated order has been saved.');
+        }
       })
     }
   };
@@ -166,7 +166,7 @@ export default class Cms extends React.Component {
             selectedItem={this.state.flag}
           />
         </div>
-)
+      )
     }
   };
 
@@ -183,15 +183,15 @@ export default class Cms extends React.Component {
   render() {
     var result;
     switch (this.state.crudState) {
-      case 'index':
-        result = this.indexTable();
-        break;
-      case 'edit':
-        result = this.individualResourceMode();
-        break;
-      case 'new':
-        result = this.individualResourceMode();
-        break;
+    case 'index':
+      result = this.indexTable();
+      break;
+    case 'edit':
+      result = this.individualResourceMode();
+      break;
+    case 'new':
+      result = this.individualResourceMode();
+      break;
     }
 
     return result || null;

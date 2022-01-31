@@ -155,7 +155,7 @@ class ChooseEdition extends React.Component<any, any> {
           <i className="fa fa-icon fa-chevron-left" />
       Back
         </div>
-)
+      )
     }
   }
 
@@ -176,7 +176,7 @@ class ChooseEdition extends React.Component<any, any> {
         <p>{text}</p>
         <h2 className="lesson-title"><span>Lesson {lessonData.lesson}:</span> {lessonData.title}</h2>
       </div>
-)
+    )
   }
 
   renderHeader() {
@@ -196,7 +196,7 @@ class ChooseEdition extends React.Component<any, any> {
         <p>You can change the prompts in this lesson by clicking <span>"Customize"</span> and selecting <span>"Make Copy."</span> This will create your own edition of the lesson, which you can customize.</p>
         <p>Once you publish your customized edition of the lesson, it will be listed as an option any time you click on the lesson's name.</p>
       </div>
-)
+    )
   }
 
   renderNamingModal() {
@@ -209,7 +209,7 @@ class ChooseEdition extends React.Component<any, any> {
           saveNameAndGoToCustomize={this.saveNameAndGoToCustomize}
           updateName={this.updateName}
         />
-)
+      )
     }
   }
 
@@ -296,7 +296,7 @@ class ChooseEdition extends React.Component<any, any> {
         {myEditionSection}
         {coteacherEditionSection}
       </div>
-)
+    )
   }
 
   renderSignupModal() {
@@ -306,7 +306,7 @@ class ChooseEdition extends React.Component<any, any> {
           closeModal={this.hideSignupModal}
           goToSignup={() => window.location.href = `${process.env.DEFAULT_URL}/account/new`}
         />
-)
+      )
     }
   }
 
@@ -324,7 +324,7 @@ class ChooseEdition extends React.Component<any, any> {
           {this.renderNamingModal()}
         </div>
       </div>
-)
+    )
   }
 }
 

@@ -153,7 +153,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     channel.bind('clever-classrooms-retrieved', () => {
       that.importCleverClassrooms()
       pusher.unsubscribe(channelName)
-   })
+    })
   }
 
   getGoogleClassrooms = () => {
@@ -386,7 +386,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           {coteacherInvitationCards}
           {classroomCards}
         </div>
-)
+      )
     }
   }
 

@@ -35,7 +35,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
           this.setState({matchedCount: data.matchedCount})
         }
       });
-    };
+  };
 
   addOrEditItemLabel = () => {
     return this.props.item ? `Edit ${this.props.itemLabel}` : `Add New ${this.props.itemLabel}`;
@@ -146,7 +146,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
         <br />
         <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
       </div>
-)
+    )
   }
 
   renderSequenceTag = (seq, backgroundColor, i) => {
@@ -159,8 +159,8 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
       >
         {seq}
       </span>
-)
-   }
+    )
+  }
 
   renderTextInputFields = () => {
     return this.state.itemText.split(/\|{3}(?!\|)/).map(text => (

@@ -56,7 +56,7 @@ const RightPanel = ({
         />
         {bottomNavigation}
       </div>
-)
+    )
   }
 
   if (activeStep === READ_PASSAGE_STEP) {
@@ -85,7 +85,7 @@ const RightPanel = ({
         />
         {bottomNavigation}
       </div>
-)
+    )
   }
 
   return(

@@ -140,7 +140,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
           text={`You currently have ${this.numberOfClassroomsText(emptyClassrooms)} that ${emptyClassrooms.length === 1 ? 'has' : 'have'} no students.`}
         />
       </div>
-)
+    )
   }
 
   renderNextOptions = () => (
@@ -209,7 +209,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
           </div>
         </div>
       </div>
-)
+    )
   }
 
   renderFollowUp = () => {
@@ -238,7 +238,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
         close={this.closeViewAsStudentModal}
         handleViewClick={this.onClickViewAsIndividualStudent}
       />
-)
+    )
   }
 
   render() {
@@ -256,6 +256,6 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
           {this.renderFollowUp()}
         </div>
       </div>
-)
+    )
   }
 }

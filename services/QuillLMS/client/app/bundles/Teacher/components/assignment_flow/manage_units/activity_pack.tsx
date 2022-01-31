@@ -166,7 +166,7 @@ const ActivityPack = ({
       />
       {isOwner && <a className="quill-button secondary medium focus-on-light outlined add-activities-button" href={`/teachers/classrooms/activity_planner/units/${data.unitId}/activities/edit/${encodeURIComponent(data.unitName)}`}>Add activities</a>}
     </section>
-)
+  )
 }
 
 export default ActivityPack

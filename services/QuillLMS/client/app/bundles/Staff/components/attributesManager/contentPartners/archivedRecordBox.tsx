@@ -77,7 +77,7 @@ const ArchivedRecordBox = ({ originalRecord, saveContentPartnerChanges, closeRec
           />
         </div>
       </div>
-)
+    )
   }
 
   function renderSaveButton() {
@@ -87,7 +87,7 @@ const ArchivedRecordBox = ({ originalRecord, saveContentPartnerChanges, closeRec
         type="submit"
         value="Unarchive, set live"
       />
-)
+    )
   }
 
   return (
@@ -104,7 +104,7 @@ const ArchivedRecordBox = ({ originalRecord, saveContentPartnerChanges, closeRec
         </div>
       </form>
     </div>
-)
+  )
 }
 
 

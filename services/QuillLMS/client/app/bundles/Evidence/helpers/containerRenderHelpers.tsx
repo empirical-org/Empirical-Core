@@ -21,7 +21,7 @@ export const renderDirectionsSectionAndModal = ({ className, closeReadTheDirecti
       passage={currentActivity.passages[0]}
       showReadTheDirectionsModal={showReadTheDirectionsModal}
     />
-)
+  )
 }
 
 export const renderDirections = ({ closeReadTheDirectionsModal, activeStep, doneHighlighting, showReadTheDirectionsModal, activities, hasStartedReadPassageStep, hasStartedPromptSteps }) => {
@@ -57,7 +57,7 @@ export const renderReadPassageStep = (activeStep, activities, handleDoneReadingC
       <h2>Read the text.</h2>
       <button className='quill-button large primary contained done-reading-button' onClick={handleDoneReadingClick} type="button">Done reading</button>
     </div>
-)
+  )
 }
 
 export const renderPromptStep = ({
@@ -103,7 +103,7 @@ export const renderPromptStep = ({
         submittedResponses={(submittedResponses && submittedResponses[prompt.id]) || []}
       />
     </div>
-)
+  )
 }
 
 export const renderReadPassageContainer = ({
@@ -115,7 +115,7 @@ export const renderReadPassageContainer = ({
   scrolledToEndOfPassage,
   showReadTheDirectionsModal,
   transformMarkTags
- }) => {
+}) => {
   const { currentActivity, } = activities
   if (!currentActivity) { return }
 
@@ -137,5 +137,5 @@ export const renderReadPassageContainer = ({
         <div className="passage">{ReactHtmlParser(formattedPassage, { transform: transformMarkTags })}</div>
       </div>
     </div>
-)
+  )
 }

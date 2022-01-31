@@ -148,22 +148,22 @@ class QuestionDashboard extends React.Component<QuestionDashboardProps, Question
             showPagination={false}
           />
         </div>
-);
+      );
     }
     return <LoadingSpinner />;
   };
 }
 
 const mapStateToProps = (state: any) => {
-    return {
-      questionAndConceptMap: state.questionAndConceptMap
-    };
+  return {
+    questionAndConceptMap: state.questionAndConceptMap
+  };
 };
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => {
-    return {
-        dispatch
-    };
+  return {
+    dispatch
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionDashboard);

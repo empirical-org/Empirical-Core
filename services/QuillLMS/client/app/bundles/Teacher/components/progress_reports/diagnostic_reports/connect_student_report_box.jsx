@@ -22,7 +22,7 @@ const ConnectStudentReportBox = ({ questionData, boxNumber, showScore, showDiff,
           <td />
           <td>{formatString(directionsOrFeedback)}</td>
         </tr>
-)
+      )
     }
   }
 
@@ -78,7 +78,7 @@ const ConnectStudentReportBox = ({ questionData, boxNumber, showScore, showDiff,
         <td />
         <td />
       </tr>
-)
+    )
   }
 
   function scoreRow(answer, attemptNum, averageScore, previousAnswer) {

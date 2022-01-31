@@ -42,7 +42,7 @@ class ConceptsFeedback extends React.Component<ConceptsFeedbackProps> {
             key={concept.uid}
             text={concept.displayName}
           />
-)
+        )
       })
     } else {
       return [<li />]
@@ -53,26 +53,26 @@ class ConceptsFeedback extends React.Component<ConceptsFeedbackProps> {
     const {submittingnew} = this.props.conceptsFeedback;
     const stateSpecificClass = submittingnew ? 'is-loading' : '';
     if (this.props.conceptsFeedback.newConceptModalOpen) {
-        return (
-          <Modal close={this.createNew}>
-            <div className="box">
-              <h4 className="title">Add New Concept</h4>
-              <p className="control">
-                <label className="label">Name</label>
-                <input
-                  className="input"
-                  placeholder="Text input"
-                  ref="newConceptName"
-                  type="text"
-                />
-              </p>
-              <p className="control">
-                <button className={"button is-primary " + stateSpecificClass} onClick={this.submitNewConceptFeedback}>Submit</button>
-              </p>
-            </div>
-          </Modal>
-        )
-      }
+      return (
+        <Modal close={this.createNew}>
+          <div className="box">
+            <h4 className="title">Add New Concept</h4>
+            <p className="control">
+              <label className="label">Name</label>
+              <input
+                className="input"
+                placeholder="Text input"
+                ref="newConceptName"
+                type="text"
+              />
+            </p>
+            <p className="control">
+              <button className={"button is-primary " + stateSpecificClass} onClick={this.submitNewConceptFeedback}>Submit</button>
+            </p>
+          </div>
+        </Modal>
+      )
+    }
   }
 
   render() {

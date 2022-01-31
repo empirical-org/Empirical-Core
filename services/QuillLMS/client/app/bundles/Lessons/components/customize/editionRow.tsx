@@ -74,25 +74,25 @@ class EditionRow extends React.Component<AppProps, EditionRowState> {
           {this.renderDropdown()}
         </div>
       </div>
-)
+    )
   }
 
   renderDropdown() {
     const dropdownClass = this.state.showDropdown ? '' : 'hidden'
-      let options
-      const makeCopy = <div className="option" key="new" onClick={this.makeNewEdition}><img src={MakeCopy} />Make Copy</div>
-      if (this.props.creator === 'user') {
-        const editEdition = <div className="option" key="edit" onClick={this.editEdition}><img src={EditEdition} />Edit Edition</div>
-        const archiveEdition = <div className="option" key="archive" onClick={this.archiveEdition}><img src={DeleteEdition} />Delete Edition</div>
-        options = [makeCopy, editEdition, archiveEdition]
-      } else {
-        options = [makeCopy]
-      }
-      return (
-        <div className={`dropdown ${dropdownClass}`}>
-          {options}
-        </div>
-)
+    let options
+    const makeCopy = <div className="option" key="new" onClick={this.makeNewEdition}><img src={MakeCopy} />Make Copy</div>
+    if (this.props.creator === 'user') {
+      const editEdition = <div className="option" key="edit" onClick={this.editEdition}><img src={EditEdition} />Edit Edition</div>
+      const archiveEdition = <div className="option" key="archive" onClick={this.archiveEdition}><img src={DeleteEdition} />Delete Edition</div>
+      options = [makeCopy, editEdition, archiveEdition]
+    } else {
+      options = [makeCopy]
+    }
+    return (
+      <div className={`dropdown ${dropdownClass}`}>
+        {options}
+      </div>
+    )
   }
 
   renderSelectButton() {
@@ -133,7 +133,7 @@ class EditionRow extends React.Component<AppProps, EditionRowState> {
         </div>
         {selectedEditionTag}
       </div>
-)
+    )
 
   }
 }

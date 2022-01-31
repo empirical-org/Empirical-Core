@@ -99,7 +99,7 @@ export default class AssignStudents extends React.Component {
     channel.bind('clever-classrooms-retrieved', () => {
       that.importCleverClassrooms()
       pusher.unsubscribe(channelName)
-   })
+    })
   }
 
   getGoogleClassrooms = () => {
@@ -199,7 +199,7 @@ export default class AssignStudents extends React.Component {
         {checkbox}
         <span className="all-classes-text">All classes and students</span>
       </div>
-)
+    )
   }
 
   renderClassroom(c) {
@@ -255,7 +255,7 @@ export default class AssignStudents extends React.Component {
           {this.renderClassroomList()}
         </div>
       </div>
-)
+    )
   }
 
   renderCreateAClassInlineForm() {
@@ -267,7 +267,7 @@ export default class AssignStudents extends React.Component {
           cancel={this.closeFormOrModal}
           onSuccess={this.onSuccess}
         />
-)
+      )
     }
   }
 

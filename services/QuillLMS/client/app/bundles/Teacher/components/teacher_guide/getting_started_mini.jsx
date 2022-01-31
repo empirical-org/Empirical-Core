@@ -13,7 +13,7 @@ export default class GettingStartedMini extends React.Component {
         checkboxes={this.props.checkboxData}
         dashboard
       />
-)
+    )
   }
 
   graphSection() {
@@ -49,6 +49,6 @@ export default class GettingStartedMini extends React.Component {
           </div>
         </div>
       </div>
-)
+    )
   }
 }

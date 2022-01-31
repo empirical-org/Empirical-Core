@@ -119,7 +119,7 @@ export class TurkActivity extends React.Component {
     const { lessonID, } = params
 
     const filteredQuestions = data[lessonID].questions.filter(ques =>
-       this.props[ques.questionType].data[ques.key]  // eslint-disable-line react/destructuring-assignment
+      this.props[ques.questionType].data[ques.key]  // eslint-disable-line react/destructuring-assignment
     );
     // this is a quickfix for missing questions -- if we leave this in here
     // long term, we should return an array through a forloop to
@@ -131,18 +131,18 @@ export class TurkActivity extends React.Component {
       data.key = key;
       let type
       switch (questionType) {
-        case 'questions':
-          type = 'SC'
-          break
-        case 'fillInBlank':
-          type = 'FB'
-          break
-        case 'titleCards':
-          type = 'TL'
-          break
-        case 'sentenceFragments':
-        default:
-          type = 'SF'
+      case 'questions':
+        type = 'SC'
+        break
+      case 'fillInBlank':
+        type = 'FB'
+        break
+      case 'titleCards':
+        type = 'TL'
+        break
+      case 'sentenceFragments':
+      default:
+        type = 'SF'
       }
       return { type, data, };
     });
@@ -196,7 +196,7 @@ export class TurkActivity extends React.Component {
         percent={getProgressPercent(playTurk)}
         questionCount={questionCount(playTurk)}
       />
-)
+    )
   }
 
 

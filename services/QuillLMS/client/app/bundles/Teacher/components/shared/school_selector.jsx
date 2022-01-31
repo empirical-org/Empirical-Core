@@ -67,7 +67,7 @@ export default class SchoolSelector extends React.Component {
       <div className="loading">
         <LoadingIndicator />
       </div>
-)
+    )
   }
 
   renderDefault() {
@@ -76,7 +76,7 @@ export default class SchoolSelector extends React.Component {
         <img alt="Map with a magnifying glass over it" src={mapSearchSrc} />
         <p className="message">Search for your school above</p>
       </div>
-)
+    )
   }
 
   renderNoSchoolFound() {
@@ -86,7 +86,7 @@ export default class SchoolSelector extends React.Component {
         <p className="message">We couldn&#39;t find your school</p>
         <p className="sub-text">Try another search or click skip for now below.</p>
       </div>
-)
+    )
   }
 
   renderSchoolsList = (schools) => {
@@ -120,7 +120,7 @@ export default class SchoolSelector extends React.Component {
           selectSchool={selectSchool}
           text={text}
         />
-)
+      )
     })
     return <ul className="list quill-list double-line">{schoolItems}</ul>
   }
@@ -144,7 +144,7 @@ export default class SchoolSelector extends React.Component {
         {schoolsListOrEmptyState}
         <div className="school-not-listed">School not listed? <button className="interactive-wrapper" onClick={this.handleSkipClick} type="button">Skip for now</button></div>
       </div>
-)
+    )
   }
 
   render () {
@@ -162,6 +162,6 @@ export default class SchoolSelector extends React.Component {
         />
         {this.renderSchoolsListSection()}
       </div>
-)
+    )
   }
 }

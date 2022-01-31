@@ -22,6 +22,6 @@ export default class EarlySubmitModal extends React.Component<EarlySubmitModalPr
           </div>
         </div>
       </div>
-)
+    )
   }
 }

@@ -159,7 +159,7 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
         <p>When you've saved the activity, please head over to the <a href='/assign/activity-library'>Activity Library</a> to make sure the activity metadata looks right in production.</p>
       </form>
     </section>
-)
+  )
 }
 
 export default ActivityForm

@@ -39,6 +39,6 @@ export default class UploadOptimalResponses extends React.Component {
         </p>
         <button className="button is-primary" onClick={this.submitResponses}>Upload Optimal Responses</button>
       </div>
-)
+    )
   }
 }

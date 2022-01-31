@@ -51,7 +51,7 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
   selectedStudent = (students: Student[]) => {
     const { params } = this.props;
     const { studentId } = params;
-      return studentId ? students.find((student: Student) => student.id === parseInt(studentId)) : students[0];
+    return studentId ? students.find((student: Student) => student.id === parseInt(studentId)) : students[0];
   }
 
   getStudentData = (params: StudentReportProps['params']) => {
@@ -90,7 +90,7 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
           </div>
           <img alt={expandIcon.alt} src={expandIcon.src} />
         </button>
-)
+      )
     }
 
     return (
@@ -101,7 +101,7 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
         </div>
         <img alt={expandIcon.alt} src={expandIcon.src} />
       </button>
-)
+    )
   }
 
   render() {

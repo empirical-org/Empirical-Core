@@ -20,7 +20,7 @@ const ThankYouSlide = () => {
         <a className='quill-button large secondary outlined focus-on-dark' href={process.env.DEFAULT_URL} onClick={backToDashboard}>Back to my dashboard</a>
       </div>
     </div>
-)
+  )
 }
 
 export default ThankYouSlide

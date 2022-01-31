@@ -134,7 +134,7 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
           levelNumber={levelNumber}
           visible={visible}
         />
-)
+      )
     }
   }
 
@@ -151,7 +151,7 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
         <p className={visible ? 'active' : ''} onClick={() => this.setVisible(true)}>Live</p>
         <p className={visible ? '' : 'active'} onClick={() => this.setVisible(false)}>Archived</p>
       </div>
-)
+    )
   }
 
   renderConcepts(data) {
@@ -162,7 +162,7 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
           selectConcept={this.selectConcept}
           visible={this.state.visible}
         />
-)
+      )
     } else {
       return (
         <ConceptLevels
@@ -171,7 +171,7 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
           selectedConcept={this.state.selectedConcept}
           unselectConcept={this.closeConceptBox}
         />
-)
+      )
     }
   }
 
@@ -208,7 +208,7 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
                   {this.renderConceptBox(refetch)}
                 </div>
               </div>
-)
+            )
           }}
         </Query>
       </div>

@@ -85,7 +85,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
       </div>
       {cardContent}
     </section>
-)
+  )
 }
 
 export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {

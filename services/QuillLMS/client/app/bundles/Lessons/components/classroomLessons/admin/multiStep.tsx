@@ -119,7 +119,7 @@ class AdminMultistep extends React.Component<AdminMultistepProps, any>{
           <input className="input" onChange={(e) => this.handleStepLabelChange(e, i)} placeholder="Text input" type="text" value={sl} />
           {deleteButton}
         </div>
-)
+      )
     })
   }
 

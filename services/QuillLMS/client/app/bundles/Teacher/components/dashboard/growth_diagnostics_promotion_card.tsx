@@ -26,7 +26,7 @@ const GrowthDiagnosticsPromotionCard = () => {
       <button className="interactive-wrapper" onClick={hideCard} type="button"><img alt={closeIcon.alt} className="close-icon" src={closeIcon.src} /></button>
       <img alt="Chart showing growth illustration" className="chart-illustration" src={chartIllustrationSrc} />
     </section>
-)
+  )
 }
 
 export default GrowthDiagnosticsPromotionCard

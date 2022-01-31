@@ -42,22 +42,22 @@ const Footer = ({ language, handleClickOpenMobileLanguageMenu, updateLanguage, }
           </button>
         </div>
       </div>
-)
-    }
+    )
+  }
 
-    return (
-      <div className="ell-footer">
-        <div className="student-container">
-          <DropdownInput
-            className="ell-language-selector"
-            handleChange={onChange}
-            label="Directions language"
-            options={options()}
-            usesCustomOption
-            value={value}
-          />
-        </div>
+  return (
+    <div className="ell-footer">
+      <div className="student-container">
+        <DropdownInput
+          className="ell-language-selector"
+          handleChange={onChange}
+          label="Directions language"
+          options={options()}
+          usesCustomOption
+          value={value}
+        />
       </div>
+    </div>
   )
 }
 

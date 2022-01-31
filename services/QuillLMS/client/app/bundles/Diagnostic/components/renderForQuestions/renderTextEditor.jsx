@@ -60,36 +60,36 @@ export default class RenderTextEditor extends React.Component {
 
   getUnderliningFunction(errorType, targetString, userString) {
     switch (errorType) {
-      case 'punctuationError':
-      case 'typingError':
-      case 'caseError':
-      case 'modifiedWordError':
-      case 'additionalWordError':
-      case 'missingWordError':
-        return generateStyleObjects(targetString, userString);
-      case 'flexibleModifiedWordError':
-      case 'flexibleAdditionalWordError':
-      case 'flexibleMissingWordError':
-        return generateStyleObjects(targetString, userString, true);
-      default:
-        return undefined;
+    case 'punctuationError':
+    case 'typingError':
+    case 'caseError':
+    case 'modifiedWordError':
+    case 'additionalWordError':
+    case 'missingWordError':
+      return generateStyleObjects(targetString, userString);
+    case 'flexibleModifiedWordError':
+    case 'flexibleAdditionalWordError':
+    case 'flexibleMissingWordError':
+      return generateStyleObjects(targetString, userString, true);
+    default:
+      return undefined;
     }
   }
 
   getUnderliningFunctionFromAuthor(author, targetString, userString) {
     switch (author) {
-      case 'Punctuation Hint':
-      case 'Capitalization Hint':
-      case 'Modified Word Hint':
-      case 'Additional Word Hint':
-      case 'Missing Word Hint':
-        return generateStyleObjects(targetString, userString);
-      case 'Flexible Modified Word Hint':
-      case 'Flexible Additional Word Hint':
-      case 'Flexible Missing Word Hint':
-        return generateStyleObjects(targetString, userString, true);
-      default:
-        return undefined;
+    case 'Punctuation Hint':
+    case 'Capitalization Hint':
+    case 'Modified Word Hint':
+    case 'Additional Word Hint':
+    case 'Missing Word Hint':
+      return generateStyleObjects(targetString, userString);
+    case 'Flexible Modified Word Hint':
+    case 'Flexible Additional Word Hint':
+    case 'Flexible Missing Word Hint':
+      return generateStyleObjects(targetString, userString, true);
+    default:
+      return undefined;
     }
   }
 

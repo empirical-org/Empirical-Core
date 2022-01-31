@@ -38,6 +38,6 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
         spellCheck={false}
         tagName="span"
       />
-)
+    )
   }
 }

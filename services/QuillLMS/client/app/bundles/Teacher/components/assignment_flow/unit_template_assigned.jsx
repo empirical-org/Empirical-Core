@@ -116,7 +116,7 @@ export default class UnitTemplateAssigned extends React.Component {
           <UnitTemplateProfileShareButtons text={this.socialShareCopy()} url={this.socialShareUrl()} />
         </div>
       </div>
-)
+    )
   }
 
   render() {
@@ -141,6 +141,6 @@ export default class UnitTemplateAssigned extends React.Component {
         </div>
         {this.renderSharingContainer()}
       </div>
-  );
+    );
   }
 }

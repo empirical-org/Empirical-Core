@@ -68,7 +68,7 @@ export default class TeacherLinkedAccounts extends React.Component {
         </div>
         {actionElement}
       </div>
-)
+    )
   }
 
   renderGoogleSection = () => {
@@ -92,7 +92,7 @@ export default class TeacherLinkedAccounts extends React.Component {
           {actionElement}
         </div>
       </div>
-);
+    );
   }
 
   renderModal = () => {
@@ -108,7 +108,7 @@ export default class TeacherLinkedAccounts extends React.Component {
           timesSubmitted={timesSubmitted}
           updateUser={updateUser}
         />
-)
+      )
     } else if (showCleverModal) {
       return (
         <UnlinkModal
@@ -119,7 +119,7 @@ export default class TeacherLinkedAccounts extends React.Component {
           timesSubmitted={timesSubmitted}
           updateUser={updateUser}
         />
-)
+      )
     }
   }
 
@@ -132,6 +132,6 @@ export default class TeacherLinkedAccounts extends React.Component {
         <hr />
         {this.renderCleverSection()}
       </div>
-)
+    )
   }
 }

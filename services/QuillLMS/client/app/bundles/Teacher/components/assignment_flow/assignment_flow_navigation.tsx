@@ -189,6 +189,6 @@ export default class AssignmentFlowNavigation extends React.Component<Assignment
         </div>
         {this.renderProgressBar()}
       </div>
-)
+    )
   }
 }

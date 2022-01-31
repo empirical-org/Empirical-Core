@@ -45,7 +45,7 @@ export default class Paragraph extends React.Component<ParagraphProps, {}> {
           numberOfResets={numberOfResets}
           onWordChange={this.handleWordChange}
         />
-    )})
+      )})
     return <div className={className}>{inputs}</div>
   }
 

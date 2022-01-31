@@ -23,7 +23,7 @@ export default class CheckboxSections extends React.Component {
           <div className='favicon-div'><i aria-hidden="true" className="fas fa-long-arrow-alt-right" /></div>
         </div>
         </a>
-);
+      );
     }
   };
 
@@ -50,8 +50,8 @@ export default class CheckboxSections extends React.Component {
   category = () => {
     if (!this.props.dashboard){
       return <h3>{this.props.checkboxes[0].section || 'Miscellaneous'}</h3>
-  }
-};
+    }
+  };
 
   sortBoxes = () => {
     return this.props.checkboxes.sort((a,b) => a.section_placement - b.section_placement);
@@ -75,7 +75,7 @@ export default class CheckboxSections extends React.Component {
           </tbody>
         </table>
       </div>
-      );
+    );
   };
 
   render() {

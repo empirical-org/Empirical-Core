@@ -156,7 +156,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
           options={options}
           value={value}
         />
-)
+      )
     } else {
       let possibleConcepts = level2Concepts
       if (levelNumber === 0 && concept.parent.id) {
@@ -177,7 +177,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
           options={options}
           value={value}
         />
-)
+      )
     }
   }
 
@@ -195,7 +195,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
             />
           </div>
         </div>
-)
+      )
     } else if (this.props.levelNumber === 1) {
       return (
         <div>
@@ -209,7 +209,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
             />
           </div>
         </div>
-)
+      )
     } else if (this.props.levelNumber === 0) {
       return (
         <div>
@@ -226,7 +226,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
           <RuleDescriptionField handleChange={this.changeDescription} isNew={true} ruleDescription={concept.ruleDescription} />
           <ExplanationField explanation={concept.explanation} handleChange={this.changeExplanation} isNew={true} />
         </div>
-)
+      )
     }
   }
 
@@ -240,7 +240,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
           type="submit"
           value={`Add New Level ${this.props.levelNumber}`}
         />
-)
+      )
     } else if ((levelNumber === 1 || levelNumber === 0) && concept.parent.id) {
       return (
         <input
@@ -248,7 +248,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
           type="submit"
           value={`Add New Level ${this.props.levelNumber}`}
         />
-)
+      )
     }
   }
 
@@ -263,7 +263,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
           record={concept}
           save={(changeLogs) => { this.save(createConcept, changeLogs)}}
         />
-)
+      )
     }
   }
 

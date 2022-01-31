@@ -148,7 +148,7 @@ class StudentProfile extends React.Component {
           />
         </div>
       </div>
-);
+    );
   }
 }
 

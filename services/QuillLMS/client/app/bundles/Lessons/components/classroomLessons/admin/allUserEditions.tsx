@@ -49,12 +49,12 @@ class AllUserEditions extends Component<any, any> {
   sortData(data) {
     const { sort, } = this.state
     switch (sort) {
-      case 'name':
-      case 'lessonName':
-        return this.sortAlphabetically(data);
-      case 'last_published_at':
-      case 'user_id':
-        return this.sortNumerically(data)
+    case 'name':
+    case 'lessonName':
+      return this.sortAlphabetically(data);
+    case 'last_published_at':
+    case 'user_id':
+      return this.sortNumerically(data)
     }
   }
 
@@ -110,7 +110,7 @@ class AllUserEditions extends Component<any, any> {
             {this.renderEditionRows()}
           </tbody>
         </table>
-)
+      )
     }
   }
 
@@ -130,7 +130,7 @@ class AllUserEditions extends Component<any, any> {
           <td><a href={link}>{edition.name || 'No Name'}</a></td>
           <td>{date}</td>
         </tr>
-)
+      )
     }
     );
   }

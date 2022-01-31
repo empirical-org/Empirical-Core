@@ -65,6 +65,6 @@ export default class MergeStudentAccounts extends React.Component {
         </div>
 
       </div>
-)
+    )
   }
 }

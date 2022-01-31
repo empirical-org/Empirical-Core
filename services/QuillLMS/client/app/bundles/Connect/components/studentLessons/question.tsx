@@ -192,7 +192,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
         responses={this.getResponses()}
         sentence={sentence}
       />
-);
+    );
   }
 
   getErrorsForAttempt = () => {
@@ -212,7 +212,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
         displayArrowAndText={true}
         question={question}
       />
-);
+    );
   }
 
   updateResponseResource(response) {
@@ -438,7 +438,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
               disabled
               nextQuestionButton={this.renderFinishedQuestionButton()}
             />
-            );
+          );
         } else {
           sharedProps.feedback = this.renderFeedback('Nice try. Let’s try a multiple choice question.');
           component = (
@@ -447,7 +447,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
               disabled
               nextQuestionButton={this.renderMultipleChoiceButton()}
             />
-            );
+          );
         }
       } else if (someAttemptsSubmitted) {
         if (this.readyForNext()) {

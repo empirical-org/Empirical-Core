@@ -45,7 +45,7 @@ export default class Landing extends React.Component {
           Once you&#39;re finished, Quill will create a learning plan just for you!
           </p>
         </div>
-)
+      )
     }
   }
 

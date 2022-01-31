@@ -32,17 +32,17 @@ export default {
     _.each(config, (value, key) => {
       if (!_.isFunction(value)) {
         switch (value) {
-          case 'numeric':
-            config[key] = this.numericSort;
-            break;
-          case 'natural':
-            config[key] = this.naturalSort;
-            break;
-          case 'lastName':
-            config[key] = this.lastNameSort;
-            break;
-          default:
-            throw `Sort function named '${value}' not recognized`;
+        case 'numeric':
+          config[key] = this.numericSort;
+          break;
+        case 'natural':
+          config[key] = this.naturalSort;
+          break;
+        case 'lastName':
+          config[key] = this.lastNameSort;
+          break;
+        default:
+          throw `Sort function named '${value}' not recognized`;
         }
       }
     });

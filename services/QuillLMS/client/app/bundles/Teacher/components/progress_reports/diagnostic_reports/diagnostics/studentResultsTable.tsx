@@ -67,7 +67,7 @@ const Popover = ({ studentResult, skillGroup, closePopover, responsesLink, }: Po
         <Link to={responsesLink(studentResult.id)}>{accountCommentIcon}<span>View {studentResult.name}&#39;s responses</span></Link>
       </section>
     </div>
-)
+  )
 }
 
 const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopover, responsesLink, }: StudentResultCellProps) => {
@@ -94,7 +94,7 @@ const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopo
       </button>
       {openPopover.studentId === studentResult.id && openPopover.skillGroupId === id && <Popover closePopover={closePopover} responsesLink={responsesLink} skillGroup={skillGroup} studentResult={studentResult} />}
     </td>
-)
+  )
 }
 
 const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPopover, responsesLink, }) => {
@@ -208,7 +208,7 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
         </div>
         {completedStudentCount && <span className="label">{proficientStudentCount} of {completedStudentCount} student{proficientStudentCount === 1 ? '' : 's'} proficient</span>}
       </th>
-)
+    )
   })
 
   const renderHeader = (sticky) => {
@@ -226,7 +226,7 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
           {tableHeaders}
         </tr>
       </thead>
-)
+    )
   }
 
   if (window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH && paddingLeft() === DEFAULT_LEFT_PADDING) { return <span /> }
@@ -234,13 +234,13 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
   return (
     <div className="student-results-table-container" onScroll={handleScroll}>
       {isSticky && completedStudentCount && (
-      <table
-        className={`${tableClassName} sticky`}
-        style={stickyTableStyle}
-      >
-        {renderHeader(true)}
-      </table>
-    )}
+        <table
+          className={`${tableClassName} sticky`}
+          style={stickyTableStyle}
+        >
+          {renderHeader(true)}
+        </table>
+      )}
       <table className={tableClassName} ref={tableRef} style={completedStudentCount ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
         {renderHeader(false)}
         {completedStudentCount ? null : noDataYet}
@@ -249,7 +249,7 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
         </tbody>
       </table>
     </div>
-)
+  )
 }
 
 export default StudentResultsTable

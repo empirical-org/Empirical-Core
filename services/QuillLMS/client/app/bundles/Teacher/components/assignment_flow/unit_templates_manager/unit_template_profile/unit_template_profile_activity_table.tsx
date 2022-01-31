@@ -33,21 +33,21 @@ export default class UnitTemplateProfileActivityTable extends React.Component {
             <a
               className='row-link-disguise highlight-on-hover'
               data-tip={
-              `<h1>${props.value.name}</h1>
+                `<h1>${props.value.name}</h1>
                 <p>Tool: ${props.value.classification.name}</p>
                 ${standardLevelName}
                 ${standardName}
                 ${readability}
                 ${topic}
                 <p>${props.value.description}</p>`
-            }
+              }
               onClick={() => this.redirectToActivity(props.value.id)}
               target="_new"
             >
               {props.value.name}
               <ReactTooltip className="react-tooltip-custom" effect="solid" html multiline type="light" />
             </a>
-)
+          )
         },
       },
       {
@@ -88,7 +88,7 @@ export default class UnitTemplateProfileActivityTable extends React.Component {
           tooltipTriggerTextClass={sectionClass}
           tooltipTriggerTextStyle={style}
         />
-)
+      )
     } else {
       return sectionText
     }

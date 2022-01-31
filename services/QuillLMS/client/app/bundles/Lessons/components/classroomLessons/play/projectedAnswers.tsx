@@ -12,7 +12,7 @@ const renderYourAnswer = (projector, response) => {
       <p className="answer-header">Your response</p>
       {responses}
     </div>
-)
+  )
 }
 
 const renderClassAnswersList = (selectedSubmissionOrder, submissions, sampleCorrectAnswer) => {

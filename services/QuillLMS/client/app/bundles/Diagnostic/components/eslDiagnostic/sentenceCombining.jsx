@@ -101,7 +101,7 @@ class ELLSentenceCombining extends React.Component {
         renderFeedbackStatements={this.renderFeedbackStatements}
         sentence="We have not seen this sentence before. Could you please try writing it in another way?"
       />
-);
+    );
   }
 
   getErrorsForAttempt(attempt) {
@@ -123,7 +123,7 @@ class ELLSentenceCombining extends React.Component {
         question={question}
         translate={translate}
       />
-);
+    );
   }
 
   updateResponseResource = (response) => {
@@ -228,7 +228,7 @@ class ELLSentenceCombining extends React.Component {
           feedbackType="revise-unmatched"
         />
       </div>
-)
+    )
   }
 
   renderButton = () => {

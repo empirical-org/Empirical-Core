@@ -121,12 +121,12 @@ class ResponseComponent extends React.Component {
         url: `${process.env.QUILL_CMS}/questions/${this.props.questionID}/grade_breakdown`,
         method: 'GET',
       },
-        (err, httpResponse, data) => {
-          this.setState({
-            gradeBreakdown: JSON.parse(data),
-          });
-        }
-      );
+      (err, httpResponse, data) => {
+        this.setState({
+          gradeBreakdown: JSON.parse(data),
+        });
+      }
+    );
   };
 
   getHealth = () => {
@@ -135,12 +135,12 @@ class ResponseComponent extends React.Component {
         url: `${process.env.QUILL_CMS}/questions/${this.props.questionID}/health`,
         method: 'GET',
       },
-        (err, httpResponse, data) => {
-          this.setState({
-            health: JSON.parse(data),
-          });
-        }
-      );
+      (err, httpResponse, data) => {
+        this.setState({
+          health: JSON.parse(data),
+        });
+      }
+    );
   };
 
   getNumberOfPages = () => {
@@ -511,7 +511,7 @@ class ResponseComponent extends React.Component {
           selectedIncorrectSequences={selectedIncorrectSequences}
           states={this.props.states}
         />
-);
+      );
     }
   };
 
@@ -522,7 +522,7 @@ class ResponseComponent extends React.Component {
         sorting={this.props.filters.sorting}
         toggleResponseSort={this.toggleResponseSort}
       />
-);
+    );
   };
 
   renderStatusToggleMenu = () => {
@@ -570,8 +570,8 @@ class ResponseComponent extends React.Component {
     const { filters, mode } = this.props;
     const { responses, stringFilter } = filters;
     const questionBar = responses && Object.keys(responses).length > 0
-    ? <QuestionBar data={_.values(this.formatForQuestionBar())} />
-    : <span />;
+      ? <QuestionBar data={_.values(this.formatForQuestionBar())} />
+      : <span />;
     const showPosOrUniqueButton = mode === 'questions' ? <span /> : this.renderViewResponsesOrPOSButton()
 
     return (

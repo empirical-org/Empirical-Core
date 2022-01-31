@@ -77,7 +77,7 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
           timesSubmitted={0}
           value={this.state[key].explanation}
         />
-)
+      )
     })
   }
 
@@ -93,7 +93,7 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
         <button className="quill-button medium secondary outlined" onClick={cancel}>Cancel</button>
         <button className={saveButtonClass} onClick={this.handleClickSave}>Save</button>
       </div>
-)
+    )
   }
 
   render() {
@@ -109,6 +109,6 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
           </form>
         </div>
       </div>
-)
+    )
   }
 }

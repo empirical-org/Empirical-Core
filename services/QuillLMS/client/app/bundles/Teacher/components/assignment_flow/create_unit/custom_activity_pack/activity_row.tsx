@@ -82,7 +82,7 @@ const ActivityRowClassification = ({ classification, }: { classification?: Activ
         {imageTagForClassification(classification.key)}
         <span>{classification.alias}</span>
       </span>
-)
+    )
   }
 
   return <span className={className} />
@@ -96,7 +96,7 @@ const ActivityRowConcept = ({ conceptName, }: { conceptName?: string }) => {
         <img alt="Pencil writing icon" src={conceptSrc} />
         <span>{conceptName}</span>
       </span>
-)
+    )
   }
 
   return <span className={className} />
@@ -122,7 +122,7 @@ const ActivityRowTopics = ({ topics, maxAllowedLength, }: { topics?: Topic[], ma
         <img alt="Globe icon" src={topicSrc} />
         {topicElement}
       </span>
-)
+    )
   }
 
   return <span className={className} />
@@ -137,7 +137,7 @@ const ActivityRowReadabilityGradeLevel = ({ readabilityGradeLevel, }: { readabil
         <img alt="Book icon" src={readabilitySrc} />
         <span>Readability: Grades {readabilityGradeLevel}</span>
       </span>
-)
+    )
   }
 
   return <span className={className} />
@@ -151,7 +151,7 @@ const ActivityRowStandardLevel = ({ standardLevelName, }: { standardLevelName?: 
         <img alt="Common Core State Standards icon" src={ccssSrc} />
         <span>{standardLevelName}</span>
       </span>
-)
+    )
   }
 
   return <span />
@@ -183,7 +183,7 @@ const ActivityRowExpandedSection = ({ activity, isExpanded}: { activity: Activit
       {readabilityLine}
       {contentPartnerLines}
     </React.Fragment>
-)
+  )
 }
 
 const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, showTooltip: boolean }) => {
@@ -212,7 +212,7 @@ const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, show
       {readabilityLine}
       {contentPartnerLines}
     </div>
-)
+  )
 }
 
 const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckbox, showRemoveButton, isFirst, setShowSnackbar, saveActivity, unsaveActivity, savedActivityIds, }: ActivityRowProps) => {
@@ -279,7 +279,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
       <ActivityRowExpandedSection activity={activity} isExpanded={isExpanded} />
       {mobileOnly}
     </section>
-)
+  )
 }
 
 ActivityRow.defaultProps = {

@@ -45,7 +45,7 @@ const HandyActions = ({ linkedToClever, setShowDemoModal}) => {
       <HandyAction icon={groupAccountIcon} link="/teachers/classrooms/new" text="Add a class" />
       {!linkedToClever && <HandyAction icon={googleClassroomIcon} link="/teachers/classrooms?modal=google-classroom" text="Import classes from Google" />}
     </section>
-)
+  )
 }
 
 export default HandyActions

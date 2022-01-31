@@ -63,7 +63,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
           tooltipText={`Class code: <b>${code}</b><br/><br/>The easiest way for your students to join your class is through Google Classroom. However, if your students are not syncing, try the class code.`}
           tooltipTriggerText={<div className="text-and-icon-wrapper"><span>Class code:&nbsp;</span><img alt={helpIcon.alt} src={helpIcon.src} /></div>}
         />
-)
+      )
     }
 
     if (clever_id) {
@@ -72,7 +72,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
           tooltipText={`Class code: <b>${code}</b><br/><br/>The easiest way for your students to join your class is through Clever. However, if your students are not syncing, try the class code.`}
           tooltipTriggerText={<div className="text-and-icon-wrapper"><span>Class code:&nbsp;</span><img alt={helpIcon.alt} src={helpIcon.src} /></div>}
         />
-)
+      )
     }
 
     return `Class code: ${code}`
@@ -187,7 +187,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
         </div>
         <img className="expand-arrow" src={expandSrc} />
       </div>
-)
+    )
   }
 
   renderClassSettings() {
@@ -225,7 +225,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
           {settings}
         </div>
       </div>
-)
+    )
   }
 
   renderClassroomContent() {
@@ -262,7 +262,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
           leaveClass={this.leaveClass}
         />
       </div>
-)
+    )
   }
 
   renderLeaveClassModal() {
@@ -275,7 +275,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
           close={this.closeModal}
           onSuccess={onSuccess}
         />
-)
+      )
     }
   }
 

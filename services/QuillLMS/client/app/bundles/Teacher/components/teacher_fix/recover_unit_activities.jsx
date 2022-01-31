@@ -54,6 +54,6 @@ export default class RecoverUnitActivities extends React.Component {
           {this.renderError()}
         </div>
       </div>
-)
+    )
   }
 }

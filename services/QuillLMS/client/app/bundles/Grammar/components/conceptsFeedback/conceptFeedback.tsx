@@ -47,7 +47,7 @@ class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentP
   }
 
   cancelEdit(conceptFeedbackID: string) {
-      this.props.dispatch(actions.cancelConceptsFeedbackEdit(conceptFeedbackID))
+    this.props.dispatch(actions.cancelConceptsFeedbackEdit(conceptFeedbackID))
   }
 
   concept() {

@@ -133,7 +133,7 @@ const RecordBox = ({ originalRecord, saveRecordChanges, closeRecordBox, recordTy
           value={standardCategoryValue}
         />
       </div>
-)
+    )
   }
 
   function renderRenameAndArchiveSection() {
@@ -148,7 +148,7 @@ const RecordBox = ({ originalRecord, saveRecordChanges, closeRecordBox, recordTy
           <span>{ record.visible ? 'Archive' : 'Unarchive' }</span>
         </span>
       </div>
-)
+    )
   }
 
   function renderLevels() {
@@ -170,7 +170,7 @@ const RecordBox = ({ originalRecord, saveRecordChanges, closeRecordBox, recordTy
         </div>
         <IndividualRecordChangeLogs changeLogs={record.change_logs} formatDateTime={formatDateTime} />
       </div>
-)
+    )
   }
 
   function renderSaveButton() {
@@ -181,7 +181,7 @@ const RecordBox = ({ originalRecord, saveRecordChanges, closeRecordBox, recordTy
           type="submit"
           value="Save"
         />
-)
+      )
     }
   }
 
@@ -202,7 +202,7 @@ const RecordBox = ({ originalRecord, saveRecordChanges, closeRecordBox, recordTy
         record={record}
         save={setChangeLogs}
       />
-)
+    )
   }
 
   return (
@@ -220,7 +220,7 @@ const RecordBox = ({ originalRecord, saveRecordChanges, closeRecordBox, recordTy
         </div>
       </form>
     </div>
-)
+  )
 }
 
 

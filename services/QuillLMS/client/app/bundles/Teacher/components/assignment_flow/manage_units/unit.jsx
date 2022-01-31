@@ -36,7 +36,7 @@ export default class Unit extends React.Component {
     return (
       <div className="assigned-to">{`Assigned to ${studentCount} ${Pluralize('Student', studentCount)} in
     ${classrooms.length} ${Pluralize('class', classrooms.length)} (${classrooms.join(', ')}).`}</div>
-);
+    );
   };
 
   editUnit = () => {

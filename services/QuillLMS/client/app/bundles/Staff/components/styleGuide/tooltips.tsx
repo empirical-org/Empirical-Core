@@ -13,7 +13,7 @@ class Tooltips extends React.Component<any, any> {
         <div className="element-container">
           <pre>
             {
-`<div className="tooltips-container">
+              `<div className="tooltips-container">
   <Tooltip
     tooltipText="I am a tooltip!"
     tooltipTriggerText="Hover here"
@@ -23,7 +23,7 @@ class Tooltips extends React.Component<any, any> {
     tooltipTriggerText="Or here"
   />
 </div>`
-          }
+            }
           </pre>
           <div className="tooltips-container">
             <Tooltip
@@ -37,7 +37,7 @@ class Tooltips extends React.Component<any, any> {
           </div>
         </div>
       </div>
-)
+    )
   }
 
 }

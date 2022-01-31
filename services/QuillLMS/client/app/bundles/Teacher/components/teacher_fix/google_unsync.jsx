@@ -68,6 +68,6 @@ export default class GoogleUnsync extends React.Component {
         </div>
 
       </div>
-)
+    )
   }
 }

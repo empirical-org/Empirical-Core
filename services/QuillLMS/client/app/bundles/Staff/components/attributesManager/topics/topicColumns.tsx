@@ -62,7 +62,7 @@ const TopicColumns = ({ topics, searchValue, saveTopicChanges, createNewTopic, v
         {newTopicBoxes}
       </div>
     </div>
-)
+  )
 }
 
 export default TopicColumns

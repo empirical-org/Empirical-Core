@@ -48,6 +48,6 @@ export default class CoteacherInvitation extends React.Component<CoteacherInvita
           </div>
         </div>
       </div>
-)
+    )
   }
 }

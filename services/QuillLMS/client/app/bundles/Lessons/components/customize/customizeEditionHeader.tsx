@@ -22,7 +22,7 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
           Back
           </span>
         </div>
-)
+      )
     }
   }
 
@@ -47,7 +47,7 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
           <img src="https://assets.quill.org/images/illustrations/customization-tip-x2.png" />
         </div>
       </div>
-)
+    )
   }
 
   render() {
@@ -78,7 +78,7 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
           {this.renderNote()}
         </div>
       </div>
-)
+    )
 
   }
 }

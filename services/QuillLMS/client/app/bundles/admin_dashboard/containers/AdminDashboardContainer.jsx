@@ -24,6 +24,6 @@ const AdminDashboardContainer = (props) => (
       </div>
     </div>
   </div>
-  );
+);
 
 export default AdminDashboardContainer;

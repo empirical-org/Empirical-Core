@@ -23,7 +23,7 @@ const IndividualClassroom = ({ classroom, }) => {
         <span className="count">{classroom.assignedStudentCount} of {classroom.totalStudentCount} student{classroom.totalStudentCount === 1 ? '' : 's'}</span>
       </div>
     </div>
-)
+  )
 }
 
 export default IndividualClassroom

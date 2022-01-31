@@ -35,8 +35,8 @@ export function sortByLevenshteinAndOptimal(userString:string, responses:Array<R
     if ((aLevenshtein - bLevenshtein) != 0) {
       return aLevenshtein - bLevenshtein;
     }
-      // sorts by boolean
-      // from http://stackoverflow.com/questions/17387435/javascript-sort-array-of-objects-by-a-boolean-property
+    // sorts by boolean
+    // from http://stackoverflow.com/questions/17387435/javascript-sort-array-of-objects-by-a-boolean-property
     return (a.optimal === b.optimal) ? 0 : a.optimal ? -1 : 1;
   });
 }

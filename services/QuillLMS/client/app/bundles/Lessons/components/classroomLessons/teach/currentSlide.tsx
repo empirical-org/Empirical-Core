@@ -279,7 +279,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
           closeModal={this.closeTimeoutModal}
           finishLesson={this.finishLesson}
         />
-)
+      )
     }
   }
 
@@ -297,7 +297,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
           goToSignup={() => window.location.href = `${process.env.DEFAULT_URL}/account/new`}
           lessonId={this.props.lessonId}
         />
-)
+      )
     }
   }
 
@@ -312,59 +312,59 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
       const current = editionData.questions[parseInt(data.current_slide) || 0];
       let slide
       switch (current.type) {
-        case 'CL-LB':
-          slide = <CLLobby data={data} lessonData={lessonData} slideData={current} />
-          break
-        case 'CL-ST':
-          slide = (<CLStatic
-            data={data}
-            editionData={editionData}
-            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
-            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
-            updateToggledHeaderCount={this.updateToggledHeaderCount}
-          />)
-          break
-        case 'CL-MD':
-        case 'CL-SA':
-        case 'CL-FB':
-        case 'CL-FL':
-        case 'CL-MS':
-          slide = (<CLSingleAnswer
-            clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
-            clearAllSubmissions={this.clearAllSubmissions}
-            clearStudentSubmission={this.clearStudentSubmission}
-            data={data}
-            editionData={editionData}
-            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
-            saveModel={this.saveModel}
-            savePrompt={this.savePrompt}
-            startDisplayingAnswers={this.startDisplayingAnswers}
-            stopDisplayingAnswers={this.stopDisplayingAnswers}
-            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
-            toggleSelected={this.toggleSelected}
-            toggleStudentFlag={this.toggleStudentFlag}
-            updateToggledHeaderCount={this.updateToggledHeaderCount}
-          />)
-          break
-        case 'CL-EX':
-          slide = (<CLExit
-            completed={this.state.completed}
-            data={data}
-            editionData={editionData}
-            finishLesson={this.finishLesson}
-            flaggedStudents={data.flaggedStudents}
-            followUpActivityName={data.followUpActivityName}
-            lessonId={lessonId}
-            script={current.data.teach.script}
-            selectedOptionKey={this.state.selectedOptionKey}
-            students={data.students}
-            toggleStudentFlag={this.toggleStudentFlag}
-            updateSelectedOptionKey={this.updateSelectedOptionKey}
-          />)
-            break
-        default:
-          slide = <p>UNSUPPORTED QUESTION TYPE</p>
-          break
+      case 'CL-LB':
+        slide = <CLLobby data={data} lessonData={lessonData} slideData={current} />
+        break
+      case 'CL-ST':
+        slide = (<CLStatic
+          data={data}
+          editionData={editionData}
+          onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+          toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
+          updateToggledHeaderCount={this.updateToggledHeaderCount}
+        />)
+        break
+      case 'CL-MD':
+      case 'CL-SA':
+      case 'CL-FB':
+      case 'CL-FL':
+      case 'CL-MS':
+        slide = (<CLSingleAnswer
+          clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
+          clearAllSubmissions={this.clearAllSubmissions}
+          clearStudentSubmission={this.clearStudentSubmission}
+          data={data}
+          editionData={editionData}
+          onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+          saveModel={this.saveModel}
+          savePrompt={this.savePrompt}
+          startDisplayingAnswers={this.startDisplayingAnswers}
+          stopDisplayingAnswers={this.stopDisplayingAnswers}
+          toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
+          toggleSelected={this.toggleSelected}
+          toggleStudentFlag={this.toggleStudentFlag}
+          updateToggledHeaderCount={this.updateToggledHeaderCount}
+        />)
+        break
+      case 'CL-EX':
+        slide = (<CLExit
+          completed={this.state.completed}
+          data={data}
+          editionData={editionData}
+          finishLesson={this.finishLesson}
+          flaggedStudents={data.flaggedStudents}
+          followUpActivityName={data.followUpActivityName}
+          lessonId={lessonId}
+          script={current.data.teach.script}
+          selectedOptionKey={this.state.selectedOptionKey}
+          students={data.students}
+          toggleStudentFlag={this.toggleStudentFlag}
+          updateSelectedOptionKey={this.updateSelectedOptionKey}
+        />)
+        break
+      default:
+        slide = <p>UNSUPPORTED QUESTION TYPE</p>
+        break
       }
       return (
         <div>
@@ -374,7 +374,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
           {this.renderSignupModal()}
           {slide}
         </div>
-)
+      )
     } else {
       return (
         <div>

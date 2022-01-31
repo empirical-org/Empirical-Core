@@ -128,21 +128,21 @@ const joinWords = (wordArray: string[]) => {
 }
 
 export class PlayProofreaderContainer extends React.Component<PlayProofreaderContainerProps, PlayProofreaderContainerState> {
-    static getDerivedStateFromProps(nextProps: PlayProofreaderContainerProps, prevState: PlayProofreaderContainerState) {
-      const { proofreaderActivities, session, dispatch, } = nextProps
-      const theCurrentActivityHasNotChanged = _.isEqual(proofreaderActivities.currentActivity, prevState.currentActivity)
-      if ((session.passage && theCurrentActivityHasNotChanged && prevState.necessaryEdits) || !proofreaderActivities.currentActivity) { return null }
+  static getDerivedStateFromProps(nextProps: PlayProofreaderContainerProps, prevState: PlayProofreaderContainerState) {
+    const { proofreaderActivities, session, dispatch, } = nextProps
+    const theCurrentActivityHasNotChanged = _.isEqual(proofreaderActivities.currentActivity, prevState.currentActivity)
+    if ((session.passage && theCurrentActivityHasNotChanged && prevState.necessaryEdits) || !proofreaderActivities.currentActivity) { return null }
 
-      const { passage } = proofreaderActivities.currentActivity
-      const initialPassageData = formatInitialPassage(passage)
-      const formattedPassage = initialPassageData.passage
-      let currentPassage = formattedPassage
-      if (session.passageFromFirebase && typeof session.passageFromFirebase !== 'string' && session.passageFromFirebase.length) {
-        currentPassage = session.passageFromFirebase
-      }
-      dispatch(setPassage(currentPassage))
-      return { originalPassage: _.cloneDeep(formattedPassage), necessaryEdits: initialPassageData.necessaryEdits, edits: editCount(currentPassage), currentActivity: proofreaderActivities.currentActivity, loadingFirebaseSession: false }
+    const { passage } = proofreaderActivities.currentActivity
+    const initialPassageData = formatInitialPassage(passage)
+    const formattedPassage = initialPassageData.passage
+    let currentPassage = formattedPassage
+    if (session.passageFromFirebase && typeof session.passageFromFirebase !== 'string' && session.passageFromFirebase.length) {
+      currentPassage = session.passageFromFirebase
     }
+    dispatch(setPassage(currentPassage))
+    return { originalPassage: _.cloneDeep(formattedPassage), necessaryEdits: initialPassageData.necessaryEdits, edits: editCount(currentPassage), currentActivity: proofreaderActivities.currentActivity, loadingFirebaseSession: false }
+  }
 
     private interval: any // eslint-disable-line react/sort-comp
 
@@ -507,7 +507,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             closeModal={this.closeEarlySubmitModal}
             requiredEditCount={requiredEditCount}
           />
-)
+        )
       }
     }
 
@@ -519,7 +519,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             closeModal={this.closeResetModal}
             reset={this.reset}
           />
-)
+        )
       }
     }
 
@@ -531,7 +531,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           goToFollowupPractice={this.goToFollowupPractice}
           goToLMS={this.goToLMS}
         />
-)
+      )
     }
 
     renderShowReviewModal = (): JSX.Element|void => {
@@ -544,7 +544,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             numberOfCorrectChanges={numberOfCorrectChanges || 0}
             numberOfErrors={numberOfErrors}
           />
-)
+        )
       }
     }
 
@@ -561,7 +561,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             finishReview={this.finishReview}
             text={text}
           />
-)
+        )
       } else if (passage) {
         const paragraphs = passage.map((p, i) => {
           return (
@@ -573,7 +573,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               underlineErrors={underlineErrorsInProofreader}
               words={p}
             />
-)
+          )
         })
         return <div className="editor">{paragraphs}</div>
       }
@@ -649,7 +649,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             </div>
           </div>
         </div>
-)
+      )
     }
 }
 

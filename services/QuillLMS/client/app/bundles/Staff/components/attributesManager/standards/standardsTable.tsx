@@ -137,7 +137,7 @@ const StandardsTable = ({ searchValue, standardCategories, standardLevels, recor
         {recordBox}
       </div>
     </div>
-)
+  )
 }
 
 export default StandardsTable

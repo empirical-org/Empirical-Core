@@ -9,7 +9,7 @@ const Highlight = ({ blogPost, }) => {
       <h3>{blogPost.title}</h3>
       <span>{blogPost.topic}</span>
     </a>
-)
+  )
 }
 
 const TeacherCenterHighlights = ({ featuredBlogPosts, }) => {
@@ -19,7 +19,7 @@ const TeacherCenterHighlights = ({ featuredBlogPosts, }) => {
       {featuredBlogPosts.map(bp => <Highlight blogPost={bp} key={bp.id} />)}
       <a className="see-all-resources focus-on-light" href={`/${TEACHER_CENTER_SLUG}`} rel="noopener noreferrer" target="_blank">See all resources</a>
     </section>
-)
+  )
 }
 
 export default TeacherCenterHighlights

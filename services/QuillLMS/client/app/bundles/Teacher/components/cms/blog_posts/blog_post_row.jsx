@@ -40,7 +40,7 @@ const BlogPostRow = ({
       <td><a className="button" href={previewLink}>Preview</a></td>
       <td><a className="button" href={deleteLink}>Delete</a></td>
     </tr>
-)
+  )
 }
 
 export default BlogPostRow

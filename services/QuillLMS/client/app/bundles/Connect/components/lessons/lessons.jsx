@@ -74,7 +74,7 @@ class Lessons extends React.Component {
           showHideButtonText={{'show':'Show Prompts','hide':'Hide Prompts'}}
           text={data[key].name || 'No name'}
         />
-)
+      )
     });
   };
 

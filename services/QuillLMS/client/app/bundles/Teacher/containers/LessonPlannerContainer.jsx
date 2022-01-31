@@ -34,6 +34,6 @@ export default class LessonPlannerContainer extends React.Component {
           <Route component={UnitTemplatesManager} path="/activities/packs/grade/:grade" />
         </Switch>
       </div>
-)
-   }
+    )
+  }
 }

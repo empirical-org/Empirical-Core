@@ -388,17 +388,17 @@ export class ELLStudentDiagnostic extends React.Component {
         question.attempts = question.attempts ? question.attempts : []
         let type
         switch (questionType) {
-          case 'questions':
+        case 'questions':
           type = 'SC'
           break
-          case 'fillInBlank':
+        case 'fillInBlank':
           type = 'FB'
           break
-          case 'titleCards':
+        case 'titleCards':
           type = TITLE_CARD_TYPE
           break
-          case 'sentenceFragments':
-          default:
+        case 'sentenceFragments':
+        default:
           type = 'SF'
         }
         return { type, data: question, };
@@ -441,7 +441,7 @@ export class ELLStudentDiagnostic extends React.Component {
         language={this.language()}
         updateLanguage={this.updateLanguage}
       />
-)
+    )
   }
 
   renderProgressBar = () => {
@@ -467,7 +467,7 @@ export class ELLStudentDiagnostic extends React.Component {
         percent={progressPercent}
         questionCount={totalQuestionCount}
       />
-)
+    )
   }
 
   render() {

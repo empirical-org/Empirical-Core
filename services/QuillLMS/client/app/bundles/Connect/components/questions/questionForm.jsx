@@ -87,7 +87,7 @@ export default class extends React.Component {
           />
         </div>
       </div>
-)
+    )
   };
 
   renderOptimalResponse = () => {
@@ -99,7 +99,7 @@ export default class extends React.Component {
             <input className="input" onChange={this.handleOptimalResponseText} type="text" />
           </p>
         </div>
-)
+      )
     }
   };
 

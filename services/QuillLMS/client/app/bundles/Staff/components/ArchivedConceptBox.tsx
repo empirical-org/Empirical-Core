@@ -168,7 +168,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
             Live
           </div>
         </div>
-)
+      )
     } else {
       return (
         <div className="live-or-archived">
@@ -178,7 +178,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           </div>
           <div className="date">{moment(concept.updatedAt* 1000).format('M/D/YY')}</div>
         </div>
-)
+      )
     }
   }
 
@@ -208,7 +208,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           record={concept}
           save={(changeLogs) => { this.save(editConcept, changeLogs)}}
         />
-)
+      )
     }
   }
 
@@ -220,54 +220,54 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           query={gql(levelOneConceptsQuery())}
         >
           {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error :(</p>;
-          const possibleConcepts = data.concepts;
-          const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt, parent: c.parent }}).sort((a, b) => a.label.localeCompare(b.label))
-          const value = options.find(opt => opt.value === concept.parent.id)
-          return (
-            <div className="record-input-container">
-              <DropdownInput
-                error={errors.level1}
-                handleChange={this.changeLevel1}
-                isSearchable={true}
-                label="Level 1"
-                options={options}
-                value={value}
-              />
-              {this.renderArchivedOrLive(value)}
-            </div>
-)
-        }}
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Error :(</p>;
+            const possibleConcepts = data.concepts;
+            const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt, parent: c.parent }}).sort((a, b) => a.label.localeCompare(b.label))
+            const value = options.find(opt => opt.value === concept.parent.id)
+            return (
+              <div className="record-input-container">
+                <DropdownInput
+                  error={errors.level1}
+                  handleChange={this.changeLevel1}
+                  isSearchable={true}
+                  label="Level 1"
+                  options={options}
+                  value={value}
+                />
+                {this.renderArchivedOrLive(value)}
+              </div>
+            )
+          }}
         </Query>
-)
+      )
     } else {
       return (
         <Query
           query={gql(levelTwoConceptsQuery())}
         >
           {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error :(</p>;
-          const possibleConcepts = data.concepts;
-          const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt }}).sort((a, b) => a.label.localeCompare(b.label))
-          const value = options.find(opt => opt.value === concept.parent.id)
-          return (
-            <div className="record-input-container">
-              <DropdownInput
-                error={errors.level2}
-                handleChange={this.changeLevel2}
-                isSearchable={true}
-                label="Level 2"
-                options={options}
-                value={value}
-              />
-              {this.renderArchivedOrLive(value)}
-            </div>
-)
-        }}
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Error :(</p>;
+            const possibleConcepts = data.concepts;
+            const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt }}).sort((a, b) => a.label.localeCompare(b.label))
+            const value = options.find(opt => opt.value === concept.parent.id)
+            return (
+              <div className="record-input-container">
+                <DropdownInput
+                  error={errors.level2}
+                  handleChange={this.changeLevel2}
+                  isSearchable={true}
+                  label="Level 2"
+                  options={options}
+                  value={value}
+                />
+                {this.renderArchivedOrLive(value)}
+              </div>
+            )
+          }}
         </Query>
-)
+      )
 
     }
   }
@@ -288,7 +288,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           </div>
           <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
         </div>
-)
+      )
     } else if (this.props.levelNumber === 1) {
       return (
         <div>
@@ -304,7 +304,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           </div>
           <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
         </div>
-)
+      )
     } else if (this.props.levelNumber === 0) {
       return (
         <div>
@@ -329,7 +329,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           </div>
           <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
         </div>
-)
+      )
     }
   }
 
@@ -343,7 +343,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           type="submit"
           value="Unarchive, set live"
         />
-)
+      )
     } else if (levelNumber === 1 && concept.parent.visible) {
       return (
         <input
@@ -351,7 +351,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           type="submit"
           value="Unarchive, set live"
         />
-)
+      )
     } else if (levelNumber === 0 && concept.parent.visible && concept.parent.parent.visible) {
       return (
         <input
@@ -359,7 +359,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           type="submit"
           value="Unarchive, set live"
         />
-)
+      )
     } else {
       return (
         <input
@@ -367,7 +367,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           type="submit"
           value="Unarchive, set live"
         />
-)
+      )
     }
   }
 

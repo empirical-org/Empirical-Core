@@ -25,7 +25,7 @@ class ExitSlide extends React.Component<any, any> {
         <div className='assign-button-container'>
           <button onClick={this.goToReports}>Exit Lesson | View Report</button>
         </div>
-)
+      )
     } else {
       if (followUpActivityName && students && Object.keys(students).length > 0) {
         return (
@@ -41,13 +41,13 @@ class ExitSlide extends React.Component<any, any> {
               selectedOptionKey={this.props.selectedOptionKey}
             />
           </div>
-)
+        )
       } else if (!followUpActivityName && !this.props.data.preview) {
         return (
           <div className='assign-button-container'>
             <button onClick={this.props.finishLesson}>Mark Lesson As Complete</button>
           </div>
-)
+        )
       }
     }
   }
@@ -55,13 +55,13 @@ class ExitSlide extends React.Component<any, any> {
   renderFlaggedStudents() {
     const {flaggedStudents, students} = this.props
     if (students && Object.keys(students).length > 0)
-    return  (
-      <FlaggedStudents
-        flaggedStudents={flaggedStudents}
-        students={students}
-        toggleStudentFlag={this.props.toggleStudentFlag}
-      />
-)
+      return  (
+        <FlaggedStudents
+          flaggedStudents={flaggedStudents}
+          students={students}
+          toggleStudentFlag={this.props.toggleStudentFlag}
+        />
+      )
   }
 
   renderAssignedSection() {

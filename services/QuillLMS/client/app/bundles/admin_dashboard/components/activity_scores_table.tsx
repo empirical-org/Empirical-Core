@@ -90,7 +90,7 @@ const ActivityScoresTable = ({ data }) => {
           showPaginationTop={false}
         />
       </div>
-)
+    )
   } else {
     return <EmptyStateForReport />
   }

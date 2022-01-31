@@ -20,7 +20,7 @@ const DirectionsSectionAndModal = ({ className, closeReadTheDirectionsModal, pas
           <p>Great! <u>Now take a moment to reflect on the sentences you highlighted.</u></p>
         </section>
       </div>
-)
+    )
   }
 
   if (activeStep > READ_PASSAGE_STEP) {
@@ -34,7 +34,7 @@ const DirectionsSectionAndModal = ({ className, closeReadTheDirectionsModal, pas
           </ul>
         </section>
       </div>
-)
+    )
   }
 
   return (
@@ -45,7 +45,7 @@ const DirectionsSectionAndModal = ({ className, closeReadTheDirectionsModal, pas
         <p>{DEFAULT_HIGHLIGHT_PROMPT}<u>{uniquePartOfHighlightPrompt}</u></p>
       </section>
     </div>
-)
+  )
 }
 
 export default DirectionsSectionAndModal

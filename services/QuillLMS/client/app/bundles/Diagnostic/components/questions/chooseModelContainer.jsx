@@ -103,7 +103,7 @@ class ChooseModelContainer extends Component {
             <p>The activity that this question belongs to has the following Model Concept:</p>
             <p><i>"{concept.displayName}"</i></p>
           </div>
-)
+        )
       }
     }
   }

@@ -76,7 +76,7 @@ export default class UpdatePassword extends Component {
           <button className="quill-button outlined secondary medium focus-on-light" id="cancel" onClick={this.handleClickCancel} type="button">Cancel</button>
           <input aria-label="Change password" className={this.submitClass()} name="commit" type="submit" value="Change password" />
         </div>
-)
+      )
     }
   }
 
@@ -114,7 +114,7 @@ export default class UpdatePassword extends Component {
           </div>
           {this.renderButtonSection()}
         </form>
-)
+      )
     } else if (googleId || cleverId) {
       return (
         <p className="google-or-clever-password">{role === 'teacher' ? teacherScript : studentScript}</p>
@@ -131,7 +131,7 @@ export default class UpdatePassword extends Component {
           />
           <button className="change-password focus-on-light" onClick={this.handleClickChangePassword} type="button">Change password</button>
         </div>
-)
+      )
     }
   }
 
@@ -141,6 +141,6 @@ export default class UpdatePassword extends Component {
         <h1>Password</h1>
         {this.renderContent()}
       </div>
-)
+    )
   }
 }

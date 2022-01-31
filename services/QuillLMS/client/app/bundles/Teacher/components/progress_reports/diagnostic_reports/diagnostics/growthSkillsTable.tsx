@@ -36,7 +36,7 @@ const GrowthSkillsTable = ({ skillGroup, isExpandable, }: { skillGroup: SkillGro
           </div>
         </td>
       </tr>
-)
+    )
   })
 
   const displayedRows = isExpandable && !isExpanded ? skillRows.splice(0, DEFAULT_ROW_COUNT) : skillRows
@@ -60,7 +60,7 @@ const GrowthSkillsTable = ({ skillGroup, isExpandable, }: { skillGroup: SkillGro
       </table>
       {showMoreButton}
     </div>
-)
+  )
 }
 
 export default GrowthSkillsTable

@@ -52,7 +52,7 @@ function renderDataTable(selectedClassroom: any, handleViewClick: (id: string|nu
       headers={headers}
       rows={rows}
     />
-)
+  )
 }
 
 export default function ViewAsStudentModal({classrooms, close, defaultClassroomId, handleViewClick}: ViewAsStudentModalProps) {
@@ -92,5 +92,5 @@ export default function ViewAsStudentModal({classrooms, close, defaultClassroomI
         </div>
       </div>
     </div>
-)
+  )
 }

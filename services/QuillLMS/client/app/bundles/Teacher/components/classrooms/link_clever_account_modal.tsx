@@ -92,6 +92,6 @@ export default class LinkCleverAccountModal
           </div>
         </div>
       </div>
-)
+    )
   }
 }

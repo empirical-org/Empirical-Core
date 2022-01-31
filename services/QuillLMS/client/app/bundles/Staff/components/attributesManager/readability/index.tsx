@@ -38,7 +38,7 @@ const RawScoreTableRow = ({ rawScore, saveRawScoreChanges, }) => {
         <button className="interactive-wrapper" onClick={toggleEditing}>Cancel</button>
         <button className="quill-button fun contained primary" onClick={handleSave}>Save</button>
       </div>
-)
+    )
   }
 
   return (
@@ -46,7 +46,7 @@ const RawScoreTableRow = ({ rawScore, saveRawScoreChanges, }) => {
       <Input disabled={true} value={rawScore.name} />
       <button className="interactive-wrapper" onClick={toggleEditing}><i className="fas fa-edit" /> Edit</button>
     </div>
-)
+  )
 }
 
 const Readability = ({ match, location, }) => {

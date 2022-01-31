@@ -95,7 +95,7 @@ export default class ClassroomLessons extends React.Component {
       cuId: classroom_unit_id,
       uaId: unit_activity_id,
       activityClassificationId: activity_classification_id,
-			classroomId: classroom_id,
+      classroomId: classroom_id,
       dueDate: due_date,
       supportingInfo: supporting_info,
       completed,
@@ -155,23 +155,23 @@ export default class ClassroomLessons extends React.Component {
         // add the activity info if it doesn't exist
         caUnit.classroomActivities.set(activity_id,
           caUnit.classroomActivities[activity_id] || {
-          name: activity_name,
-          activityId: activity_id,
-          activityUid: activity_uid,
-          created_at: unit_activity_created_at,
-          cuId: classroom_unit_id,
-          uaId: unit_activity_id,
-          activityClassificationId: activity_classification_id,
-          classroomId: classroom_id,
-          dueDate: due_date,
-          supportingInfo: supporting_info,
-          completed,
-          studentCount,
-          started: started_count > 0,
-          hasEditions: hasEditions,
-          ownedByCurrentUser: owned_by_current_user,
-          ownerName: owner_name
-        });
+            name: activity_name,
+            activityId: activity_id,
+            activityUid: activity_uid,
+            created_at: unit_activity_created_at,
+            cuId: classroom_unit_id,
+            uaId: unit_activity_id,
+            activityClassificationId: activity_classification_id,
+            classroomId: classroom_id,
+            dueDate: due_date,
+            supportingInfo: supporting_info,
+            completed,
+            studentCount,
+            started: started_count > 0,
+            hasEditions: hasEditions,
+            ownedByCurrentUser: owned_by_current_user,
+            ownerName: owner_name
+          });
       }
     });
     return this.orderUnits(parsedUnits);
@@ -199,7 +199,7 @@ export default class ClassroomLessons extends React.Component {
         </div>
         <img alt="cartoon of a teacher gesturing at a projector screen showing Quill Lessons content" src={`${process.env.CDN_URL}/images/illustrations/empty_state_illustration_lessons.svg`} />
       </div>
-);
+    );
   }
 
   renderFeedbackNote() {
@@ -207,7 +207,7 @@ export default class ClassroomLessons extends React.Component {
       <div className="feedback-note">
       We would love to hear about your experience with Quill Lessons. Please share your feedback by filling out this <a href="https://goo.gl/forms/podicVxtfRR8CVVO2" rel="noopener noreferrer" target="_blank">short feedback form</a>.
       </div>
-)
+    )
   }
 
   renderHeader() {
@@ -221,7 +221,7 @@ export default class ClassroomLessons extends React.Component {
         {paragraphWithLinks}
         <p><span>Note:</span> If you want to re-do a lesson with your class, re-assign the lesson then launch it.</p>
       </div>
-);
+    );
   }
 
   render() {
@@ -245,7 +245,7 @@ export default class ClassroomLessons extends React.Component {
             {this.renderFeedbackNote()}
           </div>
         </div>
-);
+      );
     }
     return <LoadingIndicator />;
   }

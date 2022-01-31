@@ -68,7 +68,7 @@ class CustomizeMultistep extends Component<CustomizeMultistepProps, {}>{
         <div className="control" key={i} style={{display: 'flex'}}>
           <input className="input" onChange={(e) => this.handleStepLabelChange(e, i)} type="text" value={sl} />
         </div>
-)
+      )
     }
     )
   }

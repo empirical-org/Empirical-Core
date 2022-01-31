@@ -39,6 +39,6 @@ export default class ArchiveClassModal extends React.Component<ArchiveClassModal
           </div>
         </div>
       </div>
-)
+    )
   }
 }

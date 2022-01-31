@@ -91,21 +91,21 @@ export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match
       </header>
       {mobileNavigation}
       {emptyState || (
-      <section className="proficiency-keys">
-        <div className="proficiency-key">
-          {noProficiencyTag}
-          <p>The student did not use any of the skills correctly.</p>
-        </div>
-        <div className="proficiency-key">
-          {partialProficiencyTag}
-          <p>The student’s response contained some correct responses, but not all of the responses were marked correct.</p>
-        </div>
-        <div className="proficiency-key">
-          {proficiencyTag}
-          <p>The student used each skill correctly 100% of the time.</p>
-        </div>
-      </section>
-    )}
+        <section className="proficiency-keys">
+          <div className="proficiency-key">
+            {noProficiencyTag}
+            <p>The student did not use any of the skills correctly.</p>
+          </div>
+          <div className="proficiency-key">
+            {partialProficiencyTag}
+            <p>The student’s response contained some correct responses, but not all of the responses were marked correct.</p>
+          </div>
+          <div className="proficiency-key">
+            {proficiencyTag}
+            <p>The student used each skill correctly 100% of the time.</p>
+          </div>
+        </section>
+      )}
       {!!skillGroupSummaries.length && (<section className="student-results">
         <StudentResultsTable openPopover={openPopover} responsesLink={responsesLink} setOpenPopover={setOpenPopover} skillGroupSummaries={skillGroupSummaries} studentResults={studentResults} />
       </section>)}

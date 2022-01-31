@@ -9,7 +9,7 @@ const AssignSpringBoard = () => {
       <AssignmentFlowNavigation />
       <SpringBoardContainer isPartOfAssignmentFlow={true} />
     </div>
-)
+  )
 }
 
 export default AssignSpringBoard

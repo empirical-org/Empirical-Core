@@ -86,7 +86,7 @@ export default class UnarchiveUnits extends React.Component {
         <input onChange={this.updateTeacherIdentifier} type="text" value={this.state.teacherIdentifier} />
         <button onClick={this.getArchivedUnits}>Submit</button>
       </div>
-)
+    )
   }
 
   renderUnitsForm() {
@@ -99,7 +99,7 @@ export default class UnarchiveUnits extends React.Component {
             <input checked={checked} id={u.id} onChange={this.toggleSelected} type="checkbox" />
             <input onChange={(e) => this.updateName(e, u.id)} style={nameFieldStyle} value={this.state.changedNames[u.id] || u.name} />
           </div>
-)
+        )
       })
       const selectAllCopy = this.state.archivedUnits.length === this.state.selectedUnitIds.length ? 'Unselect All Units' : 'Select All Units'
       return (
@@ -108,7 +108,7 @@ export default class UnarchiveUnits extends React.Component {
           {unitsList}
           <button onClick={this.unarchiveUnits}>Unarchive Units</button>
         </div>
-)
+      )
     }
   }
 
@@ -123,5 +123,5 @@ export default class UnarchiveUnits extends React.Component {
         {this.renderError()}
         {this.renderUnitsForm()}
       </div>
-  )}
+    )}
 }

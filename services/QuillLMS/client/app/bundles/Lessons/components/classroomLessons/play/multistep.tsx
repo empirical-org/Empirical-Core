@@ -6,12 +6,12 @@ import {
 } from '../../../../Shared/index'
 
 import {
-QuestionData,
+  QuestionData,
 } from '../../../interfaces/classroomLessons'
 import {
-ClassroomLessonSession,
-SelectedSubmissionsForQuestion,
-QuestionSubmissionsList
+  ClassroomLessonSession,
+  SelectedSubmissionsForQuestion,
+  QuestionSubmissionsList
 } from '../interfaces'
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import SubmitButton from './submitButton'
@@ -94,7 +94,7 @@ class Multistep extends React.Component<MultistepProps, MultistepState> {
             selectedSubmissions={selectedSubmissions}
           />
         </div>
-)
+      )
     })
 
     return rows
@@ -128,22 +128,22 @@ class Multistep extends React.Component<MultistepProps, MultistepState> {
     )
   }
 
-    listBlanks() {
-      const { data, } = this.props
-      const { stepLabels, } = data.play
-      const nStepLabels = stepLabels.length;
-      const textEditorArr : JSX.Element[]  = [];
-      for (let i = 0; i < nStepLabels; i+=1) {
-          textEditorArr.push(
-          this.textEditListComponents(stepLabels[i], i)
-        )
-      }
-      return (
-        <div className="list-blanks">
-          {textEditorArr}
-        </div>
+  listBlanks() {
+    const { data, } = this.props
+    const { stepLabels, } = data.play
+    const nStepLabels = stepLabels.length;
+    const textEditorArr : JSX.Element[]  = [];
+    for (let i = 0; i < nStepLabels; i+=1) {
+      textEditorArr.push(
+        this.textEditListComponents(stepLabels[i], i)
       )
     }
+    return (
+      <div className="list-blanks">
+        {textEditorArr}
+      </div>
+    )
+  }
 
   handleStudentSubmission = () => {
     const { answers, } = this.state
@@ -180,7 +180,7 @@ class Multistep extends React.Component<MultistepProps, MultistepState> {
         feedback={(<p dangerouslySetInnerHTML={{__html: feedback}} />)}
         feedbackType={feedbackType}
       />
-);
+    );
   }
 
   renderModeSpecificContent(){
@@ -198,7 +198,7 @@ class Multistep extends React.Component<MultistepProps, MultistepState> {
           {promptSection}
           {this.renderProjectedAnswers()}
         </React.Fragment>
-)
+      )
     }
     const submitButton = answerCount(savedSubmission(submissions)) === data.play.stepLabels.length ? null : <SubmitButton disabled={!this.isSubmittable()} onClick={this.handleStudentSubmission} />
     return (

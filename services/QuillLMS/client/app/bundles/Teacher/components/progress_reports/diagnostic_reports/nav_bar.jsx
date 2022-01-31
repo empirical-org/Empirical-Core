@@ -46,7 +46,7 @@ const Navbar = ({ params, selectedActivity, classrooms, buttonGroupCallback, dro
         </nav>
       </div>
     </header>
-)
+  )
 }
 
 export default Navbar

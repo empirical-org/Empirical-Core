@@ -7,7 +7,7 @@ import { getParameterByName } from '../../libs/getParameterByName';
 import {
   publishEdition,
   setIncompleteQuestions
- } from '../../actions/customize'
+} from '../../actions/customize'
 import { formatDateTime } from '../customize/helpers'
 
 class CustomizeNavbar extends React.Component<any, any> {
@@ -76,7 +76,7 @@ class CustomizeNavbar extends React.Component<any, any> {
           </div>
         </div>
       </div>
-)
+    )
   }
 
 }

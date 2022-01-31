@@ -38,7 +38,7 @@ const OnboardingChecklist = ({ onboardingChecklist, firstName, }: { onboardingCh
       </div>
       <img alt="Woman holding a check mark up to an oversized checklist" className="illustration" src={personWithChecklistSrc} />
     </div>
-)
+  )
 }
 
 export default OnboardingChecklist

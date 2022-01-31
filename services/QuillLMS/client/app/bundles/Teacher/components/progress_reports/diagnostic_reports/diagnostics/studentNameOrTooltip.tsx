@@ -15,7 +15,7 @@ const StudentNameOrTooltip = ({ name, }) => {
         tooltipTriggerText={name}
         tooltipTriggerTextClass='student-name'
       />
-)
+    )
   }
   return <span className="student-name">{name}</span>
 }

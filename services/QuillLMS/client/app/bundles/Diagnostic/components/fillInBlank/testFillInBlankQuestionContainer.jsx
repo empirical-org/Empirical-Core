@@ -65,7 +65,7 @@ class TestQuestion extends Component {
           <p>Author: {author}</p>
           <p>Feedback: {feedback}</p>
         </div>
-)
+      )
     }
   }
 

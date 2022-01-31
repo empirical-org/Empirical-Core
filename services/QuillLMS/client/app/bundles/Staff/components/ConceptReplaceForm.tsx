@@ -69,7 +69,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
           record={replacedConcept}
           save={(changeLogs) => { this.save(replaceConcept, changeLogs)}}
         />
-)
+      )
     }
   }
 
@@ -100,7 +100,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
           type="submit"
           value="Replace"
         />
-)
+      )
     }
   }
 
@@ -118,7 +118,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
           options={options}
           value={value}
         />
-)
+      )
     } else {
       const value = options.find(o => o.value === replacementId)
       return (
@@ -129,7 +129,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
           options={options}
           value={value}
         />
-)
+      )
     }
   }
 

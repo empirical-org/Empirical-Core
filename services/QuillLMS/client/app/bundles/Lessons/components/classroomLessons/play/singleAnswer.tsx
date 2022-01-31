@@ -44,8 +44,8 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
     const { submissions, data, } = props
     this.state = {
       response: student && submissions && submissions[student] ?
-                submissions[student].data :
-                data.play.prefilledText,
+        submissions[student].data :
+        data.play.prefilledText,
       editing: false,
       submitted: student && submissions && submissions[student]
     };
@@ -97,7 +97,7 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
         selectedSubmissions={selected_submissions}
         submissions={submissions}
       />
-)
+    )
   }
 
   modeAppropriateRender() {
@@ -131,7 +131,7 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
         feedback={(<p dangerouslySetInnerHTML={{__html: data.play.instructions}} />)}
         feedbackType="default"
       />
-);
+    );
   }
 
   renderCues() {
@@ -175,7 +175,7 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
         mode={mode}
         promptElement={prompt}
       />
-)
+    )
   }
 
   renderProjectorHeader() {

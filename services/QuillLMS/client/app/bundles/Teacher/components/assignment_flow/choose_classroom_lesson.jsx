@@ -68,14 +68,14 @@ export default class ChooseClassroomLesson extends React.Component {
         </div>
         {completionText}
       </div>
-)
+    )
   }
 
   render() {
     const buttonClass = this.state.classroomUnitId ? 'bg-quillgreen' : ''
     const text = this.state.classroomUnitId && this.state.classroomUnits.find(cu => cu.id === this.state.classroomUnitId).started === true
-          ? 'Resume Lesson'
-          : 'Launch Lesson'
+      ? 'Resume Lesson'
+      : 'Launch Lesson'
     if (this.state.loading) {
       return <LoadingSpinner />
     } else {
@@ -101,7 +101,7 @@ export default class ChooseClassroomLesson extends React.Component {
             <a className={`q-button text-white ${buttonClass}`} href={this.launchLessonLink()}>{text}</a>
           </div>
         </div>
-)
+      )
     }
   }
 }

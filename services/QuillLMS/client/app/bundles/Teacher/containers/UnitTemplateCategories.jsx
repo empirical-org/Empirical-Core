@@ -35,7 +35,7 @@ export default class UnitTemplateCategories extends React.Component {
         returnToIndex={cmsComponent.returnToIndex}
         savingKeys={savingKeys}
       />
-);
+    );
   }
 
   render() {

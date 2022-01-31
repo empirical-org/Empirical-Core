@@ -24,7 +24,7 @@ const GrowthSummarySection = ({ showGrowthSummary, skillsGrowth, name, growthSum
           <a className="focus-on-light" href={growthSummaryLink}>View growth</a>
         </div>
       </section>
-)
+    )
   }
 
   return (
@@ -34,7 +34,7 @@ const GrowthSummarySection = ({ showGrowthSummary, skillsGrowth, name, growthSum
         <p>{barGraphIncreasingIcon}<span>To see how your students have grown, first assign the {name} (Post)</span></p>
       </div>
     </section>
-)
+  )
 }
 
 export default GrowthSummarySection

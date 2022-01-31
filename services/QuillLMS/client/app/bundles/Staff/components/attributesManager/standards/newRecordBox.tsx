@@ -106,7 +106,7 @@ const NewRecordBox = ({ recordType, createNewRecord, closeRecordBox, standardCat
           value={standardCategoryValue}
         />
       </div>
-)
+    )
   }
 
   function renderFields() {
@@ -124,7 +124,7 @@ const NewRecordBox = ({ recordType, createNewRecord, closeRecordBox, standardCat
           />
         </div>
       </div>
-)
+    )
   }
 
   function renderSaveButton() {
@@ -137,7 +137,7 @@ const NewRecordBox = ({ recordType, createNewRecord, closeRecordBox, standardCat
           type="submit"
           value="Save"
         />
-)
+      )
     }
   }
 
@@ -151,7 +151,7 @@ const NewRecordBox = ({ recordType, createNewRecord, closeRecordBox, standardCat
         record={record}
         save={setChangeLogs}
       />
-)
+    )
   }
 
   return (
@@ -168,7 +168,7 @@ const NewRecordBox = ({ recordType, createNewRecord, closeRecordBox, standardCat
         </div>
       </form>
     </div>
-)
+  )
 }
 
 

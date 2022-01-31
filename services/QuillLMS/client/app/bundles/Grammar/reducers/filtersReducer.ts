@@ -100,72 +100,72 @@ function getSort(state: any) {
 export default function(currentState: any, action: any) {
   let newState: any;
   switch (action.type) {
-    case ActionTypes.TOGGLE_EXPAND_SINGLE_RESPONSE:
-      newState = _.cloneDeep(currentState);
-      newState.expanded[action.rkey] = !currentState.expanded[action.rkey];
-      return newState;
-    case ActionTypes.COLLAPSE_ALL_RESPONSES:
-      newState = _.cloneDeep(currentState);
-      newState.expanded = {};
-      return newState;
-    case ActionTypes.EXPAND_ALL_RESPONSES:
-      newState = _.cloneDeep(currentState);
-      newState.expanded = action.expandedResponses;
-      return newState;
-    case ActionTypes.TOGGLE_STATUS_FIELD:
-      newState = _.cloneDeep(currentState);
-      newState.visibleStatuses[action.status] = !currentState.visibleStatuses[action.status];
-      newState.formattedFilterData = getFormattedFilterData(newState)
-      return newState;
-    case ActionTypes.TOGGLE_RESPONSE_SORT:
-      newState = _.cloneDeep(currentState);
-      if (currentState.sorting === action.field) {
-        newState.ascending = !currentState.ascending;
-      } else {
-        newState.ascending = false;
-        newState.sorting = action.field;
-      }
-      newState.formattedFilterData = getFormattedFilterData(newState)
-      return newState;
-    case ActionTypes.TOGGLE_EXCLUDE_MISSPELLINGS:
-      newState = _.cloneDeep(currentState);
-      newState.excludeMisspellings = !newState.excludeMisspellings;
-      newState.formattedFilterData = getFormattedFilterData(newState);
-      return newState;
-    case ActionTypes.RESET_ALL_FIELDS:
-      newState = _.cloneDeep(currentState);
-      _.forIn(newState.visibleStatuses, (status, key) => {
-        newState.visibleStatuses[key] = true;
-      });
-      newState.formattedFilterData = getFormattedFilterData(newState)
-      return newState;
-    case ActionTypes.DESELECT_ALL_FIELDS:
-      newState = _.cloneDeep(currentState);
-      _.forIn(newState.visibleStatuses, (status, key) => {
-        newState.visibleStatuses[key] = false;
-      });
-      newState.formattedFilterData = getFormattedFilterData(newState)
-      return newState;
-    case ActionTypes.UPDATE_SEARCHED_RESPONSES:
-      newState = _.cloneDeep(currentState);
-      newState.responses = action.data.responses
-      newState.numberOfPages = action.data.numberOfPages
-      newState.numberOfResponses = action.data.numberOfResponses
-      return newState;
-    case ActionTypes.SET_RESPONSE_PAGE_NUMBER:
-      newState = _.cloneDeep(currentState);
-      newState.responsePageNumber = action.pageNumber
-      return newState;
-    case ActionTypes.SET_RESPONSE_STRING_FILTER:
-      newState = _.cloneDeep(currentState);
-      newState.stringFilter = action.stringFilter
-      newState.responsePageNumber = 1
-      return newState;
-    case ActionTypes.INCREMENT_REQUEST_COUNT:
-      newState = _.cloneDeep(currentState);
-      newState.requestCount = currentState.requestCount + 1
-      return newState
-    default:
-      return currentState || initialState.filters;
+  case ActionTypes.TOGGLE_EXPAND_SINGLE_RESPONSE:
+    newState = _.cloneDeep(currentState);
+    newState.expanded[action.rkey] = !currentState.expanded[action.rkey];
+    return newState;
+  case ActionTypes.COLLAPSE_ALL_RESPONSES:
+    newState = _.cloneDeep(currentState);
+    newState.expanded = {};
+    return newState;
+  case ActionTypes.EXPAND_ALL_RESPONSES:
+    newState = _.cloneDeep(currentState);
+    newState.expanded = action.expandedResponses;
+    return newState;
+  case ActionTypes.TOGGLE_STATUS_FIELD:
+    newState = _.cloneDeep(currentState);
+    newState.visibleStatuses[action.status] = !currentState.visibleStatuses[action.status];
+    newState.formattedFilterData = getFormattedFilterData(newState)
+    return newState;
+  case ActionTypes.TOGGLE_RESPONSE_SORT:
+    newState = _.cloneDeep(currentState);
+    if (currentState.sorting === action.field) {
+      newState.ascending = !currentState.ascending;
+    } else {
+      newState.ascending = false;
+      newState.sorting = action.field;
+    }
+    newState.formattedFilterData = getFormattedFilterData(newState)
+    return newState;
+  case ActionTypes.TOGGLE_EXCLUDE_MISSPELLINGS:
+    newState = _.cloneDeep(currentState);
+    newState.excludeMisspellings = !newState.excludeMisspellings;
+    newState.formattedFilterData = getFormattedFilterData(newState);
+    return newState;
+  case ActionTypes.RESET_ALL_FIELDS:
+    newState = _.cloneDeep(currentState);
+    _.forIn(newState.visibleStatuses, (status, key) => {
+      newState.visibleStatuses[key] = true;
+    });
+    newState.formattedFilterData = getFormattedFilterData(newState)
+    return newState;
+  case ActionTypes.DESELECT_ALL_FIELDS:
+    newState = _.cloneDeep(currentState);
+    _.forIn(newState.visibleStatuses, (status, key) => {
+      newState.visibleStatuses[key] = false;
+    });
+    newState.formattedFilterData = getFormattedFilterData(newState)
+    return newState;
+  case ActionTypes.UPDATE_SEARCHED_RESPONSES:
+    newState = _.cloneDeep(currentState);
+    newState.responses = action.data.responses
+    newState.numberOfPages = action.data.numberOfPages
+    newState.numberOfResponses = action.data.numberOfResponses
+    return newState;
+  case ActionTypes.SET_RESPONSE_PAGE_NUMBER:
+    newState = _.cloneDeep(currentState);
+    newState.responsePageNumber = action.pageNumber
+    return newState;
+  case ActionTypes.SET_RESPONSE_STRING_FILTER:
+    newState = _.cloneDeep(currentState);
+    newState.stringFilter = action.stringFilter
+    newState.responsePageNumber = 1
+    return newState;
+  case ActionTypes.INCREMENT_REQUEST_COUNT:
+    newState = _.cloneDeep(currentState);
+    newState.requestCount = currentState.requestCount + 1
+    return newState
+  default:
+    return currentState || initialState.filters;
   }
 }

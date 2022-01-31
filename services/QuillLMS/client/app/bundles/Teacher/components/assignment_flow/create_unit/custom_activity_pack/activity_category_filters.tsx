@@ -54,7 +54,7 @@ const ActivityCategoryFilterRow = ({ activityCategoryFilters, activityCategory, 
       </div>
       <span>({activityCount})</span>
     </div>
-)
+  )
 }
 
 const ActivityCategoryFilters = ({ activities, filterActivities, activityCategoryFilters, handleActivityCategoryFilterChange, }: ActivityCategoryFiltersProps) => {
@@ -93,7 +93,7 @@ const ActivityCategoryFilters = ({ activities, filterActivities, activityCategor
       {activityCategoryRows}
       <button className="interactive-wrapper focus-on-light toggle-show-all-button" onClick={toggleShowAll} type="button">{showAll ? 'View fewer' : `View all ${uniqueActivityCategories.length} concepts`}</button>
     </section>
-)
+  )
 }
 
 export default ActivityCategoryFilters

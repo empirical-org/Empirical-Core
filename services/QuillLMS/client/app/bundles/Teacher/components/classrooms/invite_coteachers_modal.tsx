@@ -103,7 +103,7 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
           type="text"
           value={email}
         />
-)
+      )
     } else {
       return (
         <Input
@@ -114,7 +114,7 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
           type="text"
           value={email}
         />
-)
+      )
     }
   }
 
@@ -125,7 +125,7 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
         {this.renderEmailInput()}
         {this.renderDataTable()}
       </div>
-)
+    )
   }
 
   renderDataTable() {
@@ -162,7 +162,7 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
         uncheckAllRows={this.uncheckAllRows}
         uncheckRow={this.uncheckRow}
       />
-)
+    )
   }
 
   render() {
@@ -189,6 +189,6 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
 
         </div>
       </div>
-)
+    )
   }
 }

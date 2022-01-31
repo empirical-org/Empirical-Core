@@ -54,6 +54,6 @@ export default class RecoverClassroomActivities extends React.Component {
           {this.renderError()}
         </div>
       </div>
-)
+    )
   }
 }

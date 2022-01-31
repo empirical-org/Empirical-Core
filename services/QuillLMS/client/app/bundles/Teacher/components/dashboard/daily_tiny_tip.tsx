@@ -96,7 +96,7 @@ const DailyTinyTip = () => {
         <img alt={tip.imageAlt} src={tip.imageSrc} />
       </a>
     </section>
-)
+  )
 }
 
 export default DailyTinyTip

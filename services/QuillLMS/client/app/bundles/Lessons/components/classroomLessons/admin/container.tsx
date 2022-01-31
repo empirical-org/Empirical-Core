@@ -40,7 +40,7 @@ class AdminClassLessonsContainer extends React.Component<any, any> {
         <Route component={ShowClassroomLesson} path='/admin/classroom-lessons/:classroomLessonID' />
         <Route component={ClassroomLessonsIndex} path='/admin/classroom-lessons' />
       </Switch>
-)
+    )
   }
 
 }

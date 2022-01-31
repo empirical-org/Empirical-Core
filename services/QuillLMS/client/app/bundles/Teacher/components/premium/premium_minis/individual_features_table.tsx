@@ -16,7 +16,7 @@ const IndividualFeaturesTable = ({ premiumFeatureData, type, }) => {
       <div className="individual-features-table-container">
         <button className="interactive-wrapper focus-on-light" onClick={toggleIsOpen} type="button">Show all features <img alt={expandImgAltText} src={expandSrc} /></button>
       </div>
-)
+    )
   }
 
   const table = premiumFeatureData.map(section => {
@@ -33,7 +33,7 @@ const IndividualFeaturesTable = ({ premiumFeatureData, type, }) => {
         </div>
         {rows}
       </React.Fragment>
-)
+    )
   })
 
   return (
@@ -41,7 +41,7 @@ const IndividualFeaturesTable = ({ premiumFeatureData, type, }) => {
       <button className="interactive-wrapper focus-on-light" onClick={toggleIsOpen} type="button">Hide all features <img alt={expandImgAltText} src={expandSrc} /></button>
       {table}
     </div>
-)
+  )
 }
 
 export default IndividualFeaturesTable

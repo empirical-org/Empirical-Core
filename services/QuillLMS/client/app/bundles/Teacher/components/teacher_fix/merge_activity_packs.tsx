@@ -60,6 +60,6 @@ export default class MergeActivityPacks extends React.Component {
         </div>
 
       </div>
-)
+    )
   }
 }

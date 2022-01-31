@@ -13,7 +13,7 @@ export default class ActivityClassifications extends React.Component {
         activityClassification={cmsComponent.state.resourceToEdit}
         returnToIndex={cmsComponent.returnToIndex}
       />
-)
+    )
   }
 
   render() {
@@ -26,6 +26,6 @@ export default class ActivityClassifications extends React.Component {
           resourceNameSingular='activity_classification'
         />
       </div>
-);
+    );
   }
 }

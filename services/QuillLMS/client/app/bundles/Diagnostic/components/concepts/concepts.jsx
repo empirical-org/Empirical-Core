@@ -30,7 +30,7 @@ class Concepts extends React.Component {
             key={uid}
             text={displayName}
           />
-)
+        )
       })
     }
   };

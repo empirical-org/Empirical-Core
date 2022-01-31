@@ -53,7 +53,7 @@ const RenameModal = ({ onSuccess, closeModal, unitId, unitName, }) => {
         </div>
       </div>
     </div>
-)
+  )
 }
 
 export default RenameModal

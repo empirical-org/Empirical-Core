@@ -87,7 +87,7 @@ export default class UnitTemplateMinis extends React.Component {
         key={model.id}
         signedInTeacher={signedInTeacher}
       />
-)
+    )
   };
 
   generateUnitTemplateViews() {
@@ -139,12 +139,12 @@ export default class UnitTemplateMinis extends React.Component {
 
   getLabelName(name) {
     switch (name) {
-      case 'Whole class lessons':
-        return 'Whole class lessons';
-      case 'Independent practice':
-        return 'Independent'
-      default:
-        return name;
+    case 'Whole class lessons':
+      return 'Whole class lessons';
+    case 'Independent practice':
+      return 'Independent'
+    default:
+      return name;
     }
   }
 
@@ -188,7 +188,7 @@ export default class UnitTemplateMinis extends React.Component {
           key={id}
           to={`${baseLink}${qs}`}
         >{name}</Link>
-)
+      )
     })
 
     const typeOptionsForDropdown = types.map(type => {
@@ -264,6 +264,6 @@ export default class UnitTemplateMinis extends React.Component {
           </div>
         </div>
       </div>
-)
+    )
   }
 }

@@ -97,7 +97,7 @@ const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopi
         options={options}
         value={value}
       />
-)
+    )
   }
 
   function renderRenameAndArchiveSection() {
@@ -112,7 +112,7 @@ const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopi
           <span>{ topic.visible ? 'Archive' : 'Unarchive' }</span>
         </span>
       </div>
-)
+    )
   }
 
   function renderLevels() {
@@ -134,7 +134,7 @@ const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopi
         </div>
         <IndividualRecordChangeLogs changeLogs={topic.change_logs} formatDateTime={formatDateTime} />
       </div>
-)
+    )
   }
 
   function renderSaveButton() {
@@ -145,7 +145,7 @@ const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopi
           type="submit"
           value="Save"
         />
-)
+      )
     }
   }
 
@@ -167,7 +167,7 @@ const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopi
         record={topic}
         save={setChangeLogs}
       />
-)
+    )
   }
 
   return (
@@ -185,7 +185,7 @@ const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopi
         </div>
       </form>
     </div>
-)
+  )
 }
 
 

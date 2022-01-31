@@ -140,7 +140,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
         <button className={`quill-checkbox selected ${dataTableHeaderClassName}`} onClick={uncheckAllRows} type="button">
           <img alt="check" src={smallWhiteCheckSrc} />
         </button>
-)
+      )
     }
 
     const anyChecked = rows.some(row => row.checked)
@@ -149,7 +149,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
         <button className={`quill-checkbox selected ${dataTableHeaderClassName}`} onClick={uncheckAllRows} type="button">
           <img alt="check" src={indeterminateSrc} />
         </button>
-)
+      )
     }
 
     return <button aria-label="Unchecked checkbox" className={`quill-checkbox unselected ${dataTableHeaderClassName}`} onClick={checkAllRows} type="button" />
@@ -207,7 +207,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
       <span className="data-table-row-section actions-section">
         {actionsIsOpen ? this.renderOpenActions(row) : this.renderClosedActions(row)}
       </span>
-)
+    )
   }
 
   renderOpenActions(row) {
@@ -222,7 +222,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
           {rowActions}
         </div>
       </div>
-)
+    )
   }
 
   renderClosedActions(row) {
@@ -234,7 +234,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
       >
         <img alt="ellipses" src={moreHorizontalSrc} />
       </button>
-)
+    )
   }
 
   renderHeader(header) {
@@ -263,7 +263,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
         {header.name}
         {sortArrow}
       </button>
-)
+    )
   }
 
   renderHeaders() {
@@ -297,7 +297,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
           tooltipTriggerTextClass={dataTableRowSectionClassName}
           tooltipTriggerTextStyle={style}
         />
-)
+      )
     } else {
       return (
         <span
@@ -307,7 +307,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
         >
           {sectionText}
         </span>
-)
+      )
     }
   }
 
@@ -348,7 +348,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
         {this.renderHeaders()}
         {this.renderRows()}
       </div>
-)
+    )
   }
 
 }

@@ -20,7 +20,7 @@ jest.mock("react-query", () => ({
 jest.mock('../../../helpers/evidence/miscHelpers', () => ({
   titleCase: jest.fn().mockImplementation(() => {
     return '';
-   }),
+  }),
 }));
 const { firstBy } = jest.requireActual('thenby');
 

@@ -24,6 +24,6 @@ export default class ReviewModal extends React.Component<ReviewModalProps> {
           </div>
         </div>
       </div>
-)
+    )
   }
 }

@@ -19,6 +19,6 @@ export default class CheckBoxes extends React.Component {
         <h3>{this.props.label}</h3>
         <div>{checkBoxes}</div>
       </div>
-);
+    );
   }
 }

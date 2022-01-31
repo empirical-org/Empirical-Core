@@ -54,7 +54,7 @@ render() {
         </div>
         <Snackbar text="I am a snackbar!" visible={this.state.visible} />
       </div>
-)
+    )
   }
 
 }

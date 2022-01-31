@@ -56,7 +56,7 @@ const StudentFeedbackModal = ({ question, gradeLevels, }) => {
         </form>
       </div>
     </div>
-)
+  )
 }
 
 export default StudentFeedbackModal

@@ -49,7 +49,7 @@ const StandardsReportsTable = ({ data, }) => {
           showPaginationTop={false}
         />
       </div>
-);
+    );
   }
   return <EmptyStateForReport  />;
 };

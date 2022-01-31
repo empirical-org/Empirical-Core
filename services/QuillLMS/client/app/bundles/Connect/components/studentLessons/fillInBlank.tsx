@@ -109,7 +109,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     if (latestAttempt && latestAttempt.response && latestAttempt.response.feedback) {
       const component = <span dangerouslySetInnerHTML={{__html: latestAttempt.response.feedback}} />
       instructions = latestAttempt.response.feedback ? component :
-      'Revise your work. Fill in the blanks with the word or phrase that best fits the sentence.';
+        'Revise your work. Fill in the blanks with the word or phrase that best fits the sentence.';
     } else if (question.instructions && question.instructions !== '') {
       instructions = question.instructions;
     }
@@ -230,12 +230,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     if (latestAttempt && latestAttempt.response && !latestAttempt.response.optimal ) {
       if (latestAttempt.response.conceptResults) {
         const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
-          if (conceptID) {
-            const data = conceptsFeedback.data[conceptID.conceptUID];
-            if (data) {
-              return <ConceptExplanation {...data} />;
-            }
+        if (conceptID) {
+          const data = conceptsFeedback.data[conceptID.conceptUID];
+          if (data) {
+            return <ConceptExplanation {...data} />;
           }
+        }
       } else if (latestAttempt.response.concept_results) {
         const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
         if (conceptID) {
@@ -383,7 +383,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
           feedback={feedback}
           feedbackType="revise-unmatched"
         />
-)
+      )
     }
 
     return (
@@ -394,7 +394,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
         responses={responses}
         sentence={this.getInstructionText()}
       />
-)
+    )
   }
 
   render() {

@@ -35,7 +35,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
         {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
         <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
       </div>
-)
+    )
   }
 
   const [metrics, setMetrics] = React.useState(null)
@@ -96,7 +96,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
           <Spinner />
         </div>
       </div>
-)
+    )
   }
 
   return (
@@ -118,7 +118,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
         </aside>
       </div>
     </div>
-)
+  )
 
 }
 

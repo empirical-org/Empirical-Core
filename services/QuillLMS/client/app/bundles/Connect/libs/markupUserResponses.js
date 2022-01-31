@@ -153,29 +153,29 @@ export function generateStyleObjects(targetString, userString, important = false
   const errorType = getErrorType(targetString, userString);
   const originalUserString = important ? userString : false;
   switch (errorType) {
-    case ERROR_TYPES.INCORRECT_WORD:
-      return {
-        text: userString,
-        inlineStyleRanges: [
-          getInlineStyleRangeObject(parsedTargetString, parsedUserString, originalUserString)
-        ],
-      };
-    case ERROR_TYPES.ADDITIONAL_WORD:
-      return {
-        text: userString,
-        inlineStyleRanges: [
-          getAdditionalInlineStyleRangeObject(parsedTargetString, parsedUserString, originalUserString)
-        ],
-      };
-    case ERROR_TYPES.MISSING_WORD:
-      return {
-        text: userString,
-        inlineStyleRanges: [],
-      };
-    default:
-      return {
-        text: userString,
-        inlineStyleRanges: [],
-      };
+  case ERROR_TYPES.INCORRECT_WORD:
+    return {
+      text: userString,
+      inlineStyleRanges: [
+        getInlineStyleRangeObject(parsedTargetString, parsedUserString, originalUserString)
+      ],
+    };
+  case ERROR_TYPES.ADDITIONAL_WORD:
+    return {
+      text: userString,
+      inlineStyleRanges: [
+        getAdditionalInlineStyleRangeObject(parsedTargetString, parsedUserString, originalUserString)
+      ],
+    };
+  case ERROR_TYPES.MISSING_WORD:
+    return {
+      text: userString,
+      inlineStyleRanges: [],
+    };
+  default:
+    return {
+      text: userString,
+      inlineStyleRanges: [],
+    };
   }
 }

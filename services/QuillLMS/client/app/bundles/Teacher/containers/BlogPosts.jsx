@@ -141,7 +141,7 @@ export default class BlogPosts extends React.Component {
             topic={t}
             updateOrder={this.updateOrderNumber}
           />
-)
+        )
       }
     }
     )

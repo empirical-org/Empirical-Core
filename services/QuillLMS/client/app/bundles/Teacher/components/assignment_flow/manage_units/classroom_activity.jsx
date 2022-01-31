@@ -81,7 +81,7 @@ export default class ClassroomActivity extends React.Component {
           tooltipText={`This type of activity is not graded.`}
           tooltipTriggerText="N/A"
         />
-)
+      )
     } else if (Math.round(averageScore).toString().length === 2) {
       return `${averageScore.toPrecision(2)}%`;
     }
@@ -239,7 +239,7 @@ export default class ClassroomActivity extends React.Component {
         </a>
         {supportingInfoLink}
       </div>
-);
+    );
   }
 
   uaId = () => {
@@ -261,7 +261,7 @@ export default class ClassroomActivity extends React.Component {
         <i className="fas fa-caret-up" />
       Customize
       </div>
-);
+    );
   }
 
   renderCustomizedEditionsTag = () => {
@@ -279,7 +279,7 @@ export default class ClassroomActivity extends React.Component {
         <i className="fas fa-caret-up" />
       Download Lesson Plan
       </div>
-);
+    );
   }
 
   renderLessonsAction = () => {
@@ -306,7 +306,7 @@ export default class ClassroomActivity extends React.Component {
         completed={data.completed}
         lessonID={this.activityId()}
       />
-);
+    );
   }
 
   renderPieChart = () => {

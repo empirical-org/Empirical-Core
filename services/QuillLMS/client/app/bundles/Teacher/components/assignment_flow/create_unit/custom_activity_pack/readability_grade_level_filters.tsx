@@ -49,7 +49,7 @@ const ReadabilityGradeLevelFilters = ({ readabilityGradeLevelFilters, handleRead
         />
       </div>
     </section>
-)
+  )
 }
 
 export default ReadabilityGradeLevelFilters

@@ -83,7 +83,7 @@ export class FocusPointsContainer extends Component {
       Object.assign({}, val, {
         text: val.text.split(/\|{3}(?!\|)/).filter(val => val !== '').join('|||')
       })
-      )
+    )
     );
   }
 
@@ -160,10 +160,10 @@ export class FocusPointsContainer extends Component {
       const components = _.mapObject(concepts, (val, key) => (
         <p className="control sub-title is-6" key={`${val.name}`}>{val.name}
           {val.correct ? <span className="tag is-small is-success" style={{ marginLeft: 5, }}>Correct</span>
-          : <span className="tag is-small is-danger" style={{ marginLeft: 5, }}>Incorrect</span> }
+            : <span className="tag is-small is-danger" style={{ marginLeft: 5, }}>Incorrect</span> }
           <span className="tag is-small is-warning" onClick={() => this.deleteConceptResult(key, focusPointKey)} style={{ cursor: 'pointer', marginLeft: 5, }}>Delete</span>
         </p>
-        )
+      )
       );
       return _.values(components);
     }

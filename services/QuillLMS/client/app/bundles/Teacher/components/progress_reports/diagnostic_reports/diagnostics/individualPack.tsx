@@ -48,7 +48,7 @@ const DiagnosticSection = ({ activity, isPostDiagnostic, isDisabled, search, }) 
       {isDisabled ? <span className='disabled-link'>{responsesLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/responses${queryString}`}>{responsesLinkContent}</NavLink>}
       {isDisabled ? <span className='disabled-link'>{questionsLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/questions${queryString}`}>{questionsLinkContent}</NavLink>}
     </section>
-)
+  )
 }
 
 const mobileLinkOptions = (diagnostic, search) => {
@@ -110,7 +110,7 @@ const PostDiagnosticCard = ({ activityId, activityName, unitTemplateId, }) => {
         <button className="focus-on-light fake-link" onClick={handleAssignClick} type="button">Assign</button>
       </div>
     </section>
-)
+  )
 }
 
 const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsShowable, }) => {
@@ -223,7 +223,7 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
         <Route path='/diagnostics/:activityId/classroom/:classroomId/responses' render={() => <StudentResponsesIndex {...sharedProps} />} />
       </Switch>
     </div>
-)
+  )
 }
 
 export default withRouter(IndividualPack)

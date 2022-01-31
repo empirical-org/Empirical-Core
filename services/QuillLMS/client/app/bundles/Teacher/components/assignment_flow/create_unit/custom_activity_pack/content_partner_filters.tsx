@@ -50,7 +50,7 @@ const ContentPartnerFilterRow = ({ contentPartnerFilters, contentPartner, handle
       </div>
       <span>({activityCount})</span>
     </div>
-)
+  )
 }
 
 const ContentPartnerFilters = ({ activities, filterActivities, contentPartnerFilters, handleContentPartnerFilterChange, }: ContentPartnerFiltersProps) => {
@@ -84,7 +84,7 @@ const ContentPartnerFilters = ({ activities, filterActivities, contentPartnerFil
       </div>
       {contentPartnerRows}
     </section>
-)
+  )
 }
 
 export default ContentPartnerFilters

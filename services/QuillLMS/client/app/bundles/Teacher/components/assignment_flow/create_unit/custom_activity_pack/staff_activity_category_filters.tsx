@@ -211,7 +211,7 @@ const StaffActivityCategoryFilters = ({ activityCategoryEditor, filterActivities
         <button className={createNewActivityCategoryButtonClassName} onClick={createNewActivityCategory}>Add</button>
       </section>
     </section>
-)
+  )
 }
 
 export default StaffActivityCategoryFilters

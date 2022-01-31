@@ -124,7 +124,7 @@ export default class StudentGeneralAccountInfo extends Component {
           <button className="quill-button outlined secondary medium focus-on-light" id="cancel" onClick={this.handleCancel} type="button">Cancel</button>
           <input aria-label="Save changes" className={this.submitClass()} name="commit" type="submit" value="Save changes" />
         </div>
-)
+      )
     }
   }
 

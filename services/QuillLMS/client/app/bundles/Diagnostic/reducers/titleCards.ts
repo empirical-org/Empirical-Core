@@ -12,8 +12,8 @@ type TitleCardsReducerAction = Action & { data: TitleCard };
 
 
 const initialState = {
-    hasreceiveddata: false,
-    data: {}
+  hasreceiveddata: false,
+  data: {}
 }
 
 export default (
@@ -21,11 +21,11 @@ export default (
   action: TitleCardsReducerAction
 ) => {
   switch (action.type) {
-    case ActionTypes.RECEIVE_TITLE_CARDS_DATA:
-      return Object.assign({}, currentState, {
-        hasreceiveddata: true,
-        data: action.data
-      });
-    default: return currentState || initialState;
+  case ActionTypes.RECEIVE_TITLE_CARDS_DATA:
+    return Object.assign({}, currentState, {
+      hasreceiveddata: true,
+      data: action.data
+    });
+  default: return currentState || initialState;
   }
 }

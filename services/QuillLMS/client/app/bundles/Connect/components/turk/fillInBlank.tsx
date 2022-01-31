@@ -262,7 +262,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
           feedback={feedback}
           feedbackType="revise-unmatched"
         />
-)
+      )
     }
 
     return <Feedback feedback={this.getInstructionText()} feedbackType="instructions" />

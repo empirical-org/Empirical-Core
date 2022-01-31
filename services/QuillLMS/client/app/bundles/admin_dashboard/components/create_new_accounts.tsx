@@ -120,7 +120,7 @@ class CreateNewAccounts extends React.Component<any, any> {
         {this.renderError()}
         {this.renderMessage()}
       </div>
-)
+    )
   }
 }
 

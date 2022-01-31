@@ -72,7 +72,7 @@ const RecordBox = ({ originalRecord, saveContentPartnerChanges, closeRecordBox, 
           <span>{ record.visible ? 'Archive' : 'Unarchive' }</span>
         </span>
       </div>
-)
+    )
   }
 
   function renderFields() {
@@ -100,7 +100,7 @@ const RecordBox = ({ originalRecord, saveContentPartnerChanges, closeRecordBox, 
           />
         </div>
       </div>
-)
+    )
   }
 
   function renderSaveButton() {
@@ -111,7 +111,7 @@ const RecordBox = ({ originalRecord, saveContentPartnerChanges, closeRecordBox, 
           type="submit"
           value="Save"
         />
-)
+      )
     }
   }
 
@@ -129,7 +129,7 @@ const RecordBox = ({ originalRecord, saveContentPartnerChanges, closeRecordBox, 
         </div>
       </form>
     </div>
-)
+  )
 }
 
 

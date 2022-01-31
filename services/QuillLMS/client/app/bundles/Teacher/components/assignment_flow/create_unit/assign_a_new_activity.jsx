@@ -97,7 +97,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
         </p>
       </div>
     </div>
-)
+  )
 }
 
 export default AssignANewActivity

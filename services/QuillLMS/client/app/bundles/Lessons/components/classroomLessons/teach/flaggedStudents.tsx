@@ -59,7 +59,7 @@ class FlaggedStudents extends React.Component<flaggedStudentsProps, flaggedStude
         <span className="student-name">{studNames[asId]}</span>
         {this.renderFlag(asId)}
       </li>
-)
+    )
   }
 
   render() {

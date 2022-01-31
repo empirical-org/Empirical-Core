@@ -24,6 +24,6 @@ export default class SchoolOption extends React.Component<SchoolOptionProps, {}>
         </span>
         <span className="metadata">{numberOfTeachersText}</span>
       </li>
-)
+    )
   }
 }

@@ -28,7 +28,7 @@ class Lobby extends React.Component<LobbyProps, {}> {
         <div className="decorative-circle" />
         <p>{studentName}</p>
       </div>
-)
+    )
   }
 
   renderProjectorView() {
@@ -66,7 +66,7 @@ class Lobby extends React.Component<LobbyProps, {}> {
           </div>
         </div>
       </div>
-)
+    )
   }
 
   renderStudentView() {
@@ -78,7 +78,7 @@ class Lobby extends React.Component<LobbyProps, {}> {
           <h2>Wait for other students to join and for your teacher to begin.</h2>
         </div>
       </div>
-)
+    )
   }
 
   renderStudentOrProjectorLobby() {
@@ -93,7 +93,7 @@ class Lobby extends React.Component<LobbyProps, {}> {
       <div className="student-lobby">
         {this.renderStudentOrProjectorLobby()}
       </div>
-)
+    )
   }
 
 }

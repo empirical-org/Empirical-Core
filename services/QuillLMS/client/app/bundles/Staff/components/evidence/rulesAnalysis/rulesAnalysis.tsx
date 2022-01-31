@@ -53,7 +53,7 @@ const MoreInfo = (row) => {
       <p><strong>First Layer Feedback:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.firstLayerFeedback || "N/A" }} /></p>
       <p><strong>Second Layer Feedback:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.secondLayerFeedback || "N/A" }} /></p>
     </div>
-)
+  )
 }
 
 const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {

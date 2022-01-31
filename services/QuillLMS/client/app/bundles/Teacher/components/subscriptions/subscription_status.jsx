@@ -34,46 +34,46 @@ export default class extends React.Component {
       remainingDays = expiration.diff(moment(), 'days');
     }
     switch (this.props.subscriptionType) {
-      case 'Basic':
-        image = 'basic_icon.png';
-        content.pCopy = quillBasicCopy;
-        content.boxColor = '#00c2a2';
-        content.buttonOrDate = <a className="q-button cta-button bg-orange text-white" href="/premium">Learn More About Quill Premium</a>;
-        subscriptionType = 'Quill Basic';
-        content.status = <h2>{`You have a ${subscriptionType} subscription`}<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
-        break;
-      case 'Teacher':
-        image = 'teacher_premium_icon.png';
-        content.pCopy = teacherPremiumCopy;
-        if (remainingDays < 0) {
-          content.boxColor = '#ff4542';
-        } else {
-          content.boxColor = '#348fdf';
-        }
-        break;
-      case 'Trial':
-        content.pCopy = teacherPremiumCopy;
-        image = 'teacher_premium_icon.png';
-        content.status = <h2>{'You have a Teacher Premium subscription'}<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
+    case 'Basic':
+      image = 'basic_icon.png';
+      content.pCopy = quillBasicCopy;
+      content.boxColor = '#00c2a2';
+      content.buttonOrDate = <a className="q-button cta-button bg-orange text-white" href="/premium">Learn More About Quill Premium</a>;
+      subscriptionType = 'Quill Basic';
+      content.status = <h2>{`You have a ${subscriptionType} subscription`}<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
+      break;
+    case 'Teacher':
+      image = 'teacher_premium_icon.png';
+      content.pCopy = teacherPremiumCopy;
+      if (remainingDays < 0) {
+        content.boxColor = '#ff4542';
+      } else {
         content.boxColor = '#348fdf';
-        break;
-      case 'School':
-        content.pCopy = schoolPremiumCopy;
-        content.boxColor = '#9c2bde';
-        image = 'school_premium_icon.png';
-        if (remainingDays < 90 && !this.props.subscriptionStatus.recurring) {
-          if (this.props.userIsContact) {
-            content.buttonOrDate = <button className="q-button bg-orange text-white cta-button" onClick={this.props.showPurchaseModal}>Renew School Premium</button>;
-          } else {
-            content.buttonOrDate = <button>Contact {this.props.subscriptionStatus.contact_name} to Renew</button>;
-          }
+      }
+      break;
+    case 'Trial':
+      content.pCopy = teacherPremiumCopy;
+      image = 'teacher_premium_icon.png';
+      content.status = <h2>{'You have a Teacher Premium subscription'}<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
+      content.boxColor = '#348fdf';
+      break;
+    case 'School':
+      content.pCopy = schoolPremiumCopy;
+      content.boxColor = '#9c2bde';
+      image = 'school_premium_icon.png';
+      if (remainingDays < 90 && !this.props.subscriptionStatus.recurring) {
+        if (this.props.userIsContact) {
+          content.buttonOrDate = <button className="q-button bg-orange text-white cta-button" onClick={this.props.showPurchaseModal}>Renew School Premium</button>;
+        } else {
+          content.buttonOrDate = <button>Contact {this.props.subscriptionStatus.contact_name} to Renew</button>;
         }
-        break;
+      }
+      break;
     }
     this.handleExpired(content, remainingDays);
     content.buttonOrDate = content.buttonOrDate || (<span className="expiration-date">
       <span>Valid Until:</span> <span>{`${expiration.format('MMMM Do, YYYY')}`}</span><span className="time-left-in-days"> | {`${remainingDays} ${pluralize('days', remainingDays)}`}</span>
-      </span>);
+    </span>);
     content.status = content.status || <h2>{`You have a ${subscriptionType} Premium subscription`}<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
     return content;
   }

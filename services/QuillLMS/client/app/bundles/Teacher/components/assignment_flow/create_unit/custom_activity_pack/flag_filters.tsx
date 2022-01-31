@@ -50,7 +50,7 @@ const FlagFilterRow = ({ flagFilters, flag, handleFlagFilterChange, filteredActi
       </div>
       <span>({activityCount})</span>
     </div>
-)
+  )
 }
 
 const FlagFilters = ({ activities, filterActivities, flagFilters, handleFlagFilterChange, }: FlagFiltersProps) => {
@@ -77,7 +77,7 @@ const FlagFilters = ({ activities, filterActivities, flagFilters, handleFlagFilt
       </div>
       {flagRows}
     </section>
-)
+  )
 }
 
 export default FlagFilters

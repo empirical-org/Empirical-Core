@@ -64,6 +64,6 @@ export default class EditLessonDetails extends Component<any, any> {
           </p>
         </div>
       </div>
-)
+    )
   }
 }

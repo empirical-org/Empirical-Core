@@ -176,7 +176,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
         uncheckAllRows={this.uncheckAllRows}
         uncheckRow={this.toggleRowCheck}
       />
-)
+    )
   }
 
   renderImportButton() {
@@ -212,6 +212,6 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
 
         </div>
       </div>
-)
+    )
   }
 }

@@ -16,6 +16,6 @@ export default class PercentageGraph extends React.Component {
           </div>
         </div>
       </div>
-)
+    )
   }
 }

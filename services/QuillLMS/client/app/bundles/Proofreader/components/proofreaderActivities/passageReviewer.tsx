@@ -121,7 +121,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
             {this.renderFormattedText()}
           </div>
         </div>
-)
+      )
     } else {
       return <p>No passage</p>
     }

@@ -126,45 +126,45 @@ export const validateForm = (keys: string[], state: any[], ruleType?: string) =>
   let errors = {};
   state.map((value, i) => {
     switch(keys[i]) {
-      case IMAGE_LINK:
-      case IMAGE_ALT_TEXT:
-      case IMAGE_CAPTION:
-      case IMAGE_ATTRIBUTION:
-      case HIGHLIGHT_PROMPT:
-      case FLAG:
-        break;
-      case TARGET_READING_LEVEL:
-        const targetError = targetReadingLevelError(value);
-        if(targetError) {
-          errors[TARGET_READING_LEVEL] = targetError;
-        }
-        break;
-      case SCORED_READING_LEVEL:
-        const scoredError = scoredReadingLevelError(value);
-        if(scoredError) {
-          errors[SCORED_READING_LEVEL] = scoredError
-        }
-        break;
-      case "Stem Applied":
-        const stemsApplied = Object.keys(value).filter(stem => value[stem].checked);
-        if(!stemsApplied.length) {
-          errors[keys[i]] = 'You must select at least one stem.';
-        }
-        if(ruleType && ruleType === PLAGIARISM && stemsApplied.length > 1) {
-          errors[keys[i]] = 'You can only select one stem.';
-        }
-        break;
-      case "Concept UID":
-        if(!value) {
-          errors[keys[i]] = 'Concept UID cannot be blank. Default for plagiarism rules is "Kr8PdUfXnU0L7RrGpY4uqg"'
-        }
-        break;
-      default:
-        const strippedValue = value && stripHtml(value);
-        if(!strippedValue || strippedValue.length === 0) {
-          errors[keys[i]] = `${keys[i]} cannot be blank.`;
-        }
-     }
+    case IMAGE_LINK:
+    case IMAGE_ALT_TEXT:
+    case IMAGE_CAPTION:
+    case IMAGE_ATTRIBUTION:
+    case HIGHLIGHT_PROMPT:
+    case FLAG:
+      break;
+    case TARGET_READING_LEVEL:
+      const targetError = targetReadingLevelError(value);
+      if(targetError) {
+        errors[TARGET_READING_LEVEL] = targetError;
+      }
+      break;
+    case SCORED_READING_LEVEL:
+      const scoredError = scoredReadingLevelError(value);
+      if(scoredError) {
+        errors[SCORED_READING_LEVEL] = scoredError
+      }
+      break;
+    case "Stem Applied":
+      const stemsApplied = Object.keys(value).filter(stem => value[stem].checked);
+      if(!stemsApplied.length) {
+        errors[keys[i]] = 'You must select at least one stem.';
+      }
+      if(ruleType && ruleType === PLAGIARISM && stemsApplied.length > 1) {
+        errors[keys[i]] = 'You can only select one stem.';
+      }
+      break;
+    case "Concept UID":
+      if(!value) {
+        errors[keys[i]] = 'Concept UID cannot be blank. Default for plagiarism rules is "Kr8PdUfXnU0L7RrGpY4uqg"'
+      }
+      break;
+    default:
+      const strippedValue = value && stripHtml(value);
+      if(!strippedValue || strippedValue.length === 0) {
+        errors[keys[i]] = `${keys[i]} cannot be blank.`;
+      }
+    }
   });
   return errors;
 }

@@ -23,7 +23,7 @@ const DemoModal = ({ close, size }) => {
         </div>
       </div>
     </div>
-)
+  )
 }
 
 export default DemoModal

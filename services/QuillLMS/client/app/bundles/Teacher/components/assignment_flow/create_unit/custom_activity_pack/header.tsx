@@ -90,7 +90,7 @@ const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities
           <DragHandle />
           <ActivityRow activity={a} isSelected={true} setShowSnackbar={setShowSnackbar} showCheckbox={false} showRemoveButton={true} toggleActivitySelection={toggleActivitySelection} />
         </section>
-)
+      )
     })
     selectedActivitySection = <SortableList data={selectedActivityRows} helperClass="sortable-selected-activity-row" sortCallback={sortCallback} useDragHandle={true} />
   }
@@ -105,7 +105,7 @@ const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities
       </div>
       {selectedActivitySection}
     </header>
-)
+  )
 }
 
 export default Header

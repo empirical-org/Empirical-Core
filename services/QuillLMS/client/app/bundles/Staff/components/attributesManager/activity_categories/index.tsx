@@ -125,7 +125,7 @@ const ActivityCategories = () => {
         toggleActivitySelection={toggleActivitySelection}
       />
     </React.Fragment>
-)
+  )
 }
 
 export default ActivityCategories

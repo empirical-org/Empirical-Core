@@ -64,7 +64,7 @@ export default class extends React.Component {
             />
           </div>
         </div>
-)
+      )
     }
   };
 
@@ -77,7 +77,7 @@ export default class extends React.Component {
             <input className="input" onChange={this.handleOptimalResponseText} type="text" />
           </p>
         </div>
-)
+      )
     }
   };
 

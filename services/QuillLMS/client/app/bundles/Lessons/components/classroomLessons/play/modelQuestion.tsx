@@ -31,7 +31,7 @@ class ModelQuestion extends React.Component<ModelQuestionProps, ModelQuestionSta
         feedback={(<p dangerouslySetInnerHTML={{__html: data.play.instructions}} />)}
         feedbackType="default"
       />
-);
+    );
   }
 
   renderCues() {
@@ -79,7 +79,7 @@ class ModelQuestion extends React.Component<ModelQuestionProps, ModelQuestionSta
       <div className="projector-header-section">
         <div className="students-watch-tag tag"><img alt="Teacher pointing to a chalkboard icon" src={teacherPointingSrc} /><span>Students watch</span></div>
       </div>
-)
+    )
   }
 
   renderSubmittedBar() {

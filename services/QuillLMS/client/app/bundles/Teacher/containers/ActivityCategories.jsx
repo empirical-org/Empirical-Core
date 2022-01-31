@@ -38,14 +38,14 @@ export default class ActivityCategories extends React.Component {
         activity_categories: this.state.activity_categories,
         authenticity_token: getAuthToken()
       }}, (e, r, response) => {
-        if (e) {
-          // to do, use Sentry to capture error
-          alert(`We could not save the updated activity category order. Here is the error: ${e}`)
-        } else {
-          this.setState({activity_categories: response.activity_categories})
-          alert('The updated classroom order has been saved.')
+      if (e) {
+        // to do, use Sentry to capture error
+        alert(`We could not save the updated activity category order. Here is the error: ${e}`)
+      } else {
+        this.setState({activity_categories: response.activity_categories})
+        alert('The updated classroom order has been saved.')
 
-        }
+      }
     })
   };
 
@@ -69,7 +69,7 @@ export default class ActivityCategories extends React.Component {
           <span className="delete" onClick={() => this.deleteActivityCategory(key)}>Delete</span>
         </span>
       </div>
-)
+    )
   }
 
   render() {
@@ -80,6 +80,6 @@ export default class ActivityCategories extends React.Component {
         <SortableList data={activityCategoryItems} sortCallback={this.updateActivityCategoryOrder} />
         <button onClick={this.saveActivityCategories}>Save Activity Categories</button>
       </div>
-)
+    )
   }
 }

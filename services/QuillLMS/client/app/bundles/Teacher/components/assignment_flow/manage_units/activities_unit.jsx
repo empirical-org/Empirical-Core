@@ -59,7 +59,7 @@ export default class ActivitiesUnit extends React.Component {
           {classroomList}
         </ul>
       </div>
-);
+    );
   }
 
   changeToEdit = () => {
@@ -72,7 +72,7 @@ export default class ActivitiesUnit extends React.Component {
       classroomsArray.push(<li className="see-all" onClick={() => this.setState({showAllClassrooms: true})}>Show all {classrooms.length} classes <i className="fas fa-icon fa-chevron-down" /></li>)
       return classroomsArray
     }
-      return classrooms.map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
+    return classrooms.map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
 
   }
 
@@ -92,7 +92,7 @@ export default class ActivitiesUnit extends React.Component {
           Created By {firstCa.ownerName}
           {this.renderTooltip()}
         </span>
-);
+      );
     }
   }
 
@@ -147,12 +147,12 @@ export default class ActivitiesUnit extends React.Component {
   handleSubmit = () => {
     const that = this;
     api.changeActivityPackName(that.props.data.unitId, that.state.unitName,
-                               () => that.setState({edit: false,
-                                                    errors: undefined,
-                                                    savedUnitName: that.state.unitName}),
-                               (response) => that.setState({errors: response.body.errors,
-                                                            edit: false,
-                                                            unitName: that.state.savedUnitName}));
+      () => that.setState({edit: false,
+        errors: undefined,
+        savedUnitName: that.state.unitName}),
+      (response) => that.setState({errors: response.body.errors,
+        edit: false,
+        unitName: that.state.savedUnitName}));
   }
 
   hideUnit = () => {
@@ -274,7 +274,7 @@ export default class ActivitiesUnit extends React.Component {
         <p>Since {ownerName} created this activity pack, you are unable to edit this activity pack. You can ask the creator to edit it.</p>
         <p>If you would like to assign additional practice activities, you can create a new pack for your students.</p>
       </div>
-);
+    );
   }
 
   render = () => {

@@ -175,7 +175,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
           options={formatted}
           placeholder="Search for a question"
         />
-);
+      );
     }
   }
 

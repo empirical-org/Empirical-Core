@@ -45,7 +45,7 @@ const CCSSGradeLevelFilters = ({ ccssGradeLevelFilters, handleCCSSGradeLevelFilt
         />
       </div>
     </section>
-)
+  )
 }
 
 export default CCSSGradeLevelFilters

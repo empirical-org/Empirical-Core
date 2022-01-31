@@ -111,7 +111,7 @@ const MobileFilterMenu = ({
       Apply
       </button>
     </section>
-)
+  )
 }
 
 export default MobileFilterMenu

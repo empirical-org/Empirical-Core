@@ -12,7 +12,7 @@ const SlideOne = () => {
         <p>Quill Lessons provides a series of interactive slides that allows the entire class to work on the activities with their teacher. Your students will answer the questions on their devices and you will be able to project the answers back to the class and lead a class discussion.</p>
       </div>
     </div>
-)
+  )
 }
 
 const SlideTwo =() => {
@@ -27,7 +27,7 @@ const SlideTwo =() => {
         <p>Each slide contains a step-by-step guide to help you introduce grammar concepts. The step-by-step guide also includes suggestions on how to discuss students’ answers and how to model strong writing skills to the students.</p>
       </div>
     </div>
-)
+  )
 }
 
 const SlideThree =() => {
@@ -42,7 +42,7 @@ const SlideThree =() => {
         <p>See your student answers in real-time, and facilitate a conversation by selecting both strong and weak answers to project to the class. As a class, students can discuss why certain sentences are stronger than others.</p>
       </div>
     </div>
-)
+  )
 }
 
 const SlideFour =() => {
@@ -57,7 +57,7 @@ const SlideFour =() => {
         <p>When the students respond, you can click on the “flag” button to select students who may need extra support. At the end of the lesson, you can pull aside the flagged students for small group instruction.</p>
       </div>
     </div>
-)
+  )
 }
 
 // there is no video for this slide right now so it is not being passed to the tutorial index
@@ -68,7 +68,7 @@ const SlideFive =() => {
         <video />
       </div>
     </div>
-)
+  )
 }
 
 const SlideSix =() => {
@@ -83,7 +83,7 @@ const SlideSix =() => {
         <p>The icons at the top of the page allow you to see flagged students, open a new window to project the lesson, freeze students’ screen, exit the lesson, and view this guide.</p>
       </div>
     </div>
-)
+  )
 }
 
 export default [SlideOne(), SlideTwo(), SlideThree(), SlideFour(), SlideSix()]

@@ -28,6 +28,6 @@ export default class PinnedActivityBar extends React.Component<PinnedActivityBar
         <span>{name}</span>
         {link}
       </div>
-)
+    )
   }
 }

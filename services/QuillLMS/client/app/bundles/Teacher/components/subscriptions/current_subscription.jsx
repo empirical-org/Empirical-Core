@@ -21,12 +21,12 @@ export default class extends React.Component {
 
   getCondition() {
     switch (this.props.subscriptionType) {
-      case 'School':
-        return 'school';
-      case 'School Sponsored':
-        return 'school sponsored';
-      default:
-        return 'other';
+    case 'School':
+      return 'school';
+    case 'School Sponsored':
+      return 'school sponsored';
+    default:
+      return 'other';
     }
   }
 
@@ -107,9 +107,9 @@ export default class extends React.Component {
           {this.nextPlan()}
         </div>
       ),
-        cta: (<span />), });
+      cta: (<span />), });
     }
-  // set a more basic state if we don't have the info
+    // set a more basic state if we don't have the info
     return ({ metaRows: (
       <div className={metaRowClassName}>
         <div className="meta-section">
@@ -120,11 +120,11 @@ export default class extends React.Component {
         {this.nextPlan()}
       </div>
     ),
-      cta: (
-        <div className="sub-button-row">
-          <a className="q-button button cta-button bg-orange text-white" href="/premium">Learn More About Quill Premium</a>
-          <a className="q-button button cta-button bg-quillblue text-white" href="https://assets.quill.org/documents/quill_premium.pdf" rel="noopener noreferrer" target="_blank"><i className="fas fa-file-pdf" />Download Premium PDF</a>
-        </div>
+    cta: (
+      <div className="sub-button-row">
+        <a className="q-button button cta-button bg-orange text-white" href="/premium">Learn More About Quill Premium</a>
+        <a className="q-button button cta-button bg-quillblue text-white" href="https://assets.quill.org/documents/quill_premium.pdf" rel="noopener noreferrer" target="_blank"><i className="fas fa-file-pdf" />Download Premium PDF</a>
+      </div>
     ), });
   }
 
@@ -177,33 +177,33 @@ export default class extends React.Component {
     const expiration = moment(this.props.subscriptionStatus.expiration);
     const remainingDays = expiration.diff(moment(), 'days');
     switch (conditionWithAuthorization) {
-      case 'school sponsored authorization: false':
+    case 'school sponsored authorization: false':
+      return this.nextPlanAlert(this.onceYourPlanExpires());
+    case 'school expired authorization: false':
+      return this.lessThan90Days();
+    case 'school non-recurring authorization: true':
+      if (remainingDays > 90) {
+        return this.nextPlanAlert(this.contactSales());
+      }
+      return this.lessThan90Days();
+    case 'school non-recurring authorization: false':
+      if (remainingDays > 90) {
         return this.nextPlanAlert(this.onceYourPlanExpires());
-      case 'school expired authorization: false':
-        return this.lessThan90Days();
-      case 'school non-recurring authorization: true':
-        if (remainingDays > 90) {
-          return this.nextPlanAlert(this.contactSales());
-        }
-        return this.lessThan90Days();
-      case 'school non-recurring authorization: false':
-        if (remainingDays > 90) {
-          return this.nextPlanAlert(this.onceYourPlanExpires());
-        }
-        return this.lessThan90Days();
-      case 'recurring authorization: false':
-        return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate}.`);
-      case 'recurring authorization: true':
-        return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${this.state.lastFour} will be charged $${this.getPrice()}.`);
-      case 'school expired authorization: true':
-        return this.lessThan90Days();
-      case 'school expired authorization: false':
-        return this.lessThan90Days();
-      case 'other expired authorization: false':
-        return this.renewPremium();
-      case 'other expired authorization: true':
-        return this.renewPremium();
-      default:
+      }
+      return this.lessThan90Days();
+    case 'recurring authorization: false':
+      return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate}.`);
+    case 'recurring authorization: true':
+      return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${this.state.lastFour} will be charged $${this.getPrice()}.`);
+    case 'school expired authorization: true':
+      return this.lessThan90Days();
+    case 'school expired authorization: false':
+      return this.lessThan90Days();
+    case 'other expired authorization: false':
+      return this.renewPremium();
+    case 'other expired authorization: true':
+      return this.renewPremium();
+    default:
     }
   }
 
@@ -229,7 +229,7 @@ export default class extends React.Component {
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons('recurring', renewDate);
       beginsOn = (
         <TitleAndContent content={renewDate} title={'Begins On'} />
-        );
+      );
     } else if (condition === 'school' && !this.props.subscriptionStatus.recurring) {
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons(`${condition} non-recurring`);
       nextPlan = <span>Quill Basic - Free {this.changePlanInline()}</span>;
@@ -262,7 +262,7 @@ export default class extends React.Component {
       <div>
         <button className="renew-subscription q-button bg-orange text-white cta-button" onClick={this.props.showPurchaseModal}>Renew Subscription</button>
       </div>
-);
+    );
   }
 
   showChangePlan = () => {

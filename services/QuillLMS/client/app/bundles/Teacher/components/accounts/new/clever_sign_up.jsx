@@ -60,6 +60,6 @@ export default class CleverSignUp extends React.Component {
         <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
         <span>Sign up with Clever</span>
       </button>
-)
+    )
   }
 }

@@ -51,7 +51,7 @@ const EmojiButton = ({ src, alt, emojiNumber, setSelectedEmoji, selectedEmoji, }
     <button className={`emoji-button ${selectedEmoji === emojiNumber ? 'selected' : ''}`} onClick={handleClick} type="button">
       <img alt={alt} src={src} />
     </button>
-)
+  )
 }
 
 const MultipleChoiceOption = ({ text, selectedMultipleChoiceOptions, setSelectedMultipleChoiceOptions, }) => {
@@ -74,7 +74,7 @@ const MultipleChoiceOption = ({ text, selectedMultipleChoiceOptions, setSelected
       {checkbox}
       <span className="text-container">{text}</span>
     </button>
-)
+  )
 }
 
 const ActivitySurvey = ({ sessionID, saveActivitySurveyResponse, setSubmittedActivitySurvey, }) => {
@@ -138,7 +138,7 @@ const ActivitySurvey = ({ sessionID, saveActivitySurveyResponse, setSubmittedAct
         <button className={sendButtonClassName} onClick={handleSend} type="button">Send</button>
       </div>
     </div>
-)
+  )
 }
 
 export default ActivitySurvey

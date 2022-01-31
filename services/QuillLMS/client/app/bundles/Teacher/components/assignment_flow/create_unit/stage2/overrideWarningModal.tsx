@@ -30,7 +30,7 @@ const OverrideWarningModal = ({ handleClickAssign, handleCloseModal, studentName
 
       </div>
     </div>
-)
+  )
 
 }
 

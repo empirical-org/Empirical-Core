@@ -131,6 +131,6 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
           </div>
         </div>
       </div>
-)
+    )
   }
 }

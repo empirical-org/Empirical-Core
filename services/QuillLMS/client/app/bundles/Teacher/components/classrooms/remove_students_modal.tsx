@@ -75,7 +75,7 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
           <span>I understand that I will no longer have access to the students’ work or data.</span>
         </div>
       </div>
-)
+    )
   }
 
   render() {
@@ -96,6 +96,6 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
           </div>
         </div>
       </div>
-)
+    )
   }
 }

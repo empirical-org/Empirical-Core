@@ -14,7 +14,7 @@ const featuredBlogPost = (blogPost, handleClickStar) => {
       </div>
       <p>{blogPost.topic}</p>
     </div>
-)
+  )
 }
 
 const FeaturedBlogPosts = ({
@@ -37,7 +37,7 @@ const FeaturedBlogPosts = ({
       </div>
       <SortableList axis="x" data={blogPostCards} sortCallback={updateOrder} />
     </div>
-)
+  )
 }
 
 export default FeaturedBlogPosts

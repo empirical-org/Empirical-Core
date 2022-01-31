@@ -70,7 +70,7 @@ const IndividualTopicFilterRow = ({ topicFilters, topicKey, handleTopicFilterCha
       </div>
       <span>({activityCount})</span>
     </div>
-)
+  )
 }
 
 const TopicToggle = ({filteredActivities, grouping, uniqueLevelTwoTopics, topicFilters, handleTopicFilterChange, }: TopicToggleProps) => {
@@ -131,7 +131,7 @@ const TopicToggle = ({filteredActivities, grouping, uniqueLevelTwoTopics, topicF
       </div>
       {individualFilters}
     </section>
-)
+  )
 }
 
 const TopicFilters = ({ activities, filterActivities, topicFilters, handleTopicFilterChange, }: TopicFiltersProps) => {
@@ -179,7 +179,7 @@ const TopicFilters = ({ activities, filterActivities, topicFilters, handleTopicF
       </div>
       {topicToggles}
     </section>
-)
+  )
 }
 
 export default TopicFilters

@@ -125,12 +125,12 @@ function rematchResponse(matcher: any, matcherFields: any, response: any) {
 
   const delta = determineDelta(response, newResponse);
   switch (delta) {
-    case 'tobeunmatched':
-      return unmatchRematchedResponse(response);
-    case 'tobeupdated':
-      return updateRematchedResponse(response, newResponse);
-    default:
-      return false;
+  case 'tobeunmatched':
+    return unmatchRematchedResponse(response);
+  case 'tobeupdated':
+    return updateRematchedResponse(response, newResponse);
+  default:
+    return false;
   }
 }
 

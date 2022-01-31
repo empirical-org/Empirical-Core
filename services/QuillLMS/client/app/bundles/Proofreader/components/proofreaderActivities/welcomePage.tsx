@@ -34,7 +34,7 @@ const WelcomePage = ({onNextClick}) => {
         <button className="quill-button large contained primary focus-on-light" onClick={onNextClick} type="button">Next</button>
       </div>
     </div>
-)
+  )
 }
 
 export default WelcomePage

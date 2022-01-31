@@ -86,7 +86,7 @@ const QuestionTable = ({ question, }) => {
       <DataTable headers={headers} rows={rows} />
       {mobileTable}
     </React.Fragment>
-)
+  )
 }
 
 const Tab = ({ activeTab, label, setPreOrPost, value, }) => {
@@ -158,7 +158,7 @@ export const IndividualStudentResponses = ({ match, passedConceptResults, passed
       {skillsSection}
       <section className="concept-results-container">{conceptResultElements}</section>
     </main>
-)
+  )
 
 }
 

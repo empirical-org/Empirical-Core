@@ -47,7 +47,7 @@ const Cards = () => {
         </div>
       </div>
     </div>
-)
+  )
 }
 
 export default Cards

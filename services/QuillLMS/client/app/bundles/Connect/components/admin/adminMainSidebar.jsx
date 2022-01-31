@@ -6,7 +6,7 @@ const TabLink = ({ children, to }) => {
     <li>
       <NavLink activeClassName="is-active" to={to}>{children}</NavLink>
     </li>
-)
+  )
 };
 
 const AdminMainSidebar = () => {

@@ -120,6 +120,6 @@ export default class EditStudentAccountModal extends React.Component<EditStudent
           </div>
         </div>
       </div>
-)
+    )
   }
 }

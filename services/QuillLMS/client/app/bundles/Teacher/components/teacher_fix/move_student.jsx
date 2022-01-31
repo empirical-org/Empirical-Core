@@ -71,6 +71,6 @@ export default class MoveStudent extends React.Component {
         </div>
 
       </div>
-)
+    )
   }
 }

@@ -111,7 +111,7 @@ class ShowClassroomLesson extends Component<any, any> {
               <span onClick={() => this.copyEdition(e)} style={{margin: '0px 5px'}}>Make A Copy</span>
             </div>
           </li>
-)
+        )
       }
     })
     const components = _.compact(editions)
@@ -143,7 +143,7 @@ class ShowClassroomLesson extends Component<any, any> {
         </p>
       </div>
     )
-    }
+  }
 
   render() {
     if (this.props.classroomLessons.hasreceiveddata && this.classroomLesson()) {

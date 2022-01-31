@@ -46,29 +46,29 @@ export default class BlogPostIndex extends React.Component {
     }
 
     switch (this.pageTitle()) {
-      case TEACHER_STORIES:
-        return 'Read success stories about Quill in the classroom'
-      case GETTING_STARTED:
-        return 'Set up your classroom on Quill with guides, videos, and presentations'
-      case WRITING_INSTRUCTION_RESEARCH:
-        return "Learn about the research behind Quill's methods and pedagogy"
-      case SUPPORT:
-        return 'The most common questions teachers ask about Quill'
-      case WEBINARS:
-        return "Watch Quill's recorded professional development sessions to learn Quill's implementation best practices"
-      case VIDEO_TUTORIALS:
-        return "View detailed walkthroughs of Quill tools, set-up, and features"
-      case BEST_PRACTICES:
-        return 'Explore implementation ideas from Quill’s instructional experts'
-      case WHATS_NEW:
-        return 'Stay up to date on the latest Quill news'
-      case TEACHER_MATERIALS:
-        return 'Read and download useful materials to help navigate Quill, support students, and teach writing'
-      case USING_QUILL_FOR_READING_COMPREHENSION:
-        return "Learn all about Quill's new reading and writing tool"
-      case TEACHER_CENTER:
-      default:
-        return 'Everything you need to know about Quill’s pedagogy and use in the classroom'
+    case TEACHER_STORIES:
+      return 'Read success stories about Quill in the classroom'
+    case GETTING_STARTED:
+      return 'Set up your classroom on Quill with guides, videos, and presentations'
+    case WRITING_INSTRUCTION_RESEARCH:
+      return "Learn about the research behind Quill's methods and pedagogy"
+    case SUPPORT:
+      return 'The most common questions teachers ask about Quill'
+    case WEBINARS:
+      return "Watch Quill's recorded professional development sessions to learn Quill's implementation best practices"
+    case VIDEO_TUTORIALS:
+      return "View detailed walkthroughs of Quill tools, set-up, and features"
+    case BEST_PRACTICES:
+      return 'Explore implementation ideas from Quill’s instructional experts'
+    case WHATS_NEW:
+      return 'Stay up to date on the latest Quill news'
+    case TEACHER_MATERIALS:
+      return 'Read and download useful materials to help navigate Quill, support students, and teach writing'
+    case USING_QUILL_FOR_READING_COMPREHENSION:
+      return "Learn all about Quill's new reading and writing tool"
+    case TEACHER_CENTER:
+    default:
+      return 'Everything you need to know about Quill’s pedagogy and use in the classroom'
     }
   }
 
@@ -196,7 +196,7 @@ export default class BlogPostIndex extends React.Component {
           slug={topic.slug}
           title={topic.name}
         />
-      );
+        );
       }
     })
     return sections;
@@ -211,7 +211,7 @@ export default class BlogPostIndex extends React.Component {
             <img src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg" style={{marginTop: '20px'}} />
           </div>
         </div>
-)
+      )
     } else {
       return (
         <div id="knowledge-center">
@@ -225,6 +225,6 @@ export default class BlogPostIndex extends React.Component {
           {this.renderAnnouncement()}
           {this.renderBasedOnArticleFilter()}
         </div>
-    )};
+      )};
   }
 }

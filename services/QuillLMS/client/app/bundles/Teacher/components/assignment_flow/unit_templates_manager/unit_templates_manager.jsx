@@ -183,7 +183,7 @@ export default class UnitTemplatesManager extends React.Component {
         signedInTeacher={signedInTeacher}
         types={types}
       />
-)
+    )
   }
 
   toggleTab(tab) {

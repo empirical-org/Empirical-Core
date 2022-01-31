@@ -351,7 +351,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
         reportAProblem={reportAProblem}
         submittedResponses={submittedResponses}
       />
-)
+    )
   }
 
   renderCharacterLimitWarning = (characterCount: number, characterCountClassName: string) => {

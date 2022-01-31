@@ -102,7 +102,7 @@ class PlayDiagnosticQuestion extends React.Component {
         displayArrowAndText={true}
         question={question}
       />
-);
+    );
   }
 
   updateResponseResource = (response) => {
@@ -194,7 +194,7 @@ class PlayDiagnosticQuestion extends React.Component {
           feedbackType="revise-unmatched"
         />
       </div>
-)
+    )
   }
 
   render() {
@@ -234,7 +234,7 @@ class PlayDiagnosticQuestion extends React.Component {
         </div>
       );
     }
-      return (<p>Loading...</p>);
+    return (<p>Loading...</p>);
 
   }
 }

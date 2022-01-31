@@ -29,7 +29,7 @@ export default class ExplanationField extends React.Component<any, any> {
           <p>Add a concept explanation (optional)</p>
         </div>
       </div>
-)
+    )
   }
 
   renderExplanationEditor = () => {
@@ -52,7 +52,7 @@ export default class ExplanationField extends React.Component<any, any> {
           {isNew ? <p className="cancel-concept-attribute-field" onClick={this.cancel}>Cancel</p> : ''}
         </div>
       </div>
-)
+    )
   }
 
   render() {

@@ -31,7 +31,7 @@ export default class RuleDescriptionField extends React.Component<any, any> {
           <p>Add a Grammar rule description (optional)</p>
         </div>
       </div>
-)
+    )
   }
 
   renderRuleDescriptionEditor() {
@@ -53,7 +53,7 @@ export default class RuleDescriptionField extends React.Component<any, any> {
           {isNew ? <p className="cancel-concept-attribute-field" onClick={this.cancel}>Cancel</p> : ''}
         </div>
       </div>
-)
+    )
   }
 
   render() {

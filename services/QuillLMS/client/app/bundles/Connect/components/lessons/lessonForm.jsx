@@ -121,7 +121,7 @@ class LessonForm extends React.Component {
           options={formatted}
           placeholder="Search for a question"
         />
-);
+      );
     }
   };
 

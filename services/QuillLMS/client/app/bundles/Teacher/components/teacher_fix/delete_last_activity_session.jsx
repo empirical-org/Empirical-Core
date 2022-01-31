@@ -64,6 +64,6 @@ export default class DeleteLastActivitySession extends React.Component {
         </div>
 
       </div>
-)
+    )
   }
 }

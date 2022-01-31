@@ -74,26 +74,26 @@ class AddConcept extends React.Component<{}, AddConceptState> {
         query={gql(allConceptsQuery)}
       >
         {({ loading, error, data, refetch, networkStatus }) => {
-        if (networkStatus === 4) return <p>Refetching!</p>;
-        if (loading) return <p>Loading...</p>;
-        if (error) return <p>Error :(</p>;
+          if (networkStatus === 4) return <p>Refetching!</p>;
+          if (loading) return <p>Loading...</p>;
+          if (error) return <p>Error :(</p>;
 
-        const { selectedConcept, } = this.state
-        const concepts:Array<Concept> = data.concepts.filter(c => c.visible);
-        return (
-          <div className="concept-levels-and-forms-container">
-            <ConceptLevels
-              concepts={concepts}
-              selectConcept={this.selectConcept}
-              selectedConcept={selectedConcept}
-              unselectConcept={this.closeConceptBox}
-            />
-            {this.renderConceptForms(refetch, concepts)}
-          </div>
-)
-      }}
+          const { selectedConcept, } = this.state
+          const concepts:Array<Concept> = data.concepts.filter(c => c.visible);
+          return (
+            <div className="concept-levels-and-forms-container">
+              <ConceptLevels
+                concepts={concepts}
+                selectConcept={this.selectConcept}
+                selectedConcept={selectedConcept}
+                unselectConcept={this.closeConceptBox}
+              />
+              {this.renderConceptForms(refetch, concepts)}
+            </div>
+          )
+        }}
       </Query>
-)
+    )
   }
 
   // disabling the no-bind rule for the following two functions because we have to use the refetch that gets passed in on every render
@@ -113,7 +113,7 @@ class AddConcept extends React.Component<{}, AddConceptState> {
           />
           {this.renderAddNewConceptsForms(refetch, concepts)}
         </div>
-)
+      )
     } else {
       return this.renderAddNewConceptsForms(refetch, concepts)
     }
@@ -145,7 +145,7 @@ class AddConcept extends React.Component<{}, AddConceptState> {
           levelNumber={0}
         />
       </div>
-)
+    )
   }
   /* eslint-enable react/jsx-no-bind */
 

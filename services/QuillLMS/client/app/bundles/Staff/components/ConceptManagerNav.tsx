@@ -20,7 +20,7 @@ const ConceptManagerNav: React.SFC = () => {
         <Link className={activeLink === 'change_log' ? 'active': ''} to="/change_log">Change Log</Link>
       </div>
     </div>
-)
+  )
 }
 
 export default ConceptManagerNav

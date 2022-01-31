@@ -16,7 +16,7 @@ export default class extends React.Component {
             {subscriptionHistoryRows}
           </tbody>
         </table>
-);
+      );
     }
     return (
       <div className="empty-state flex-row justify-content">

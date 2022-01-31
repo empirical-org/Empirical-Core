@@ -20,20 +20,20 @@ interface CreateStudentAccountsState {
 }
 
 const tableHeaders = [{
-    name: 'Name',
-    attribute: 'name',
-    width: '161px'
-  },
-  {
-    name: 'Username',
-    attribute: 'username',
-    width: '267px'
-  },
-  {
-    name: 'Password',
-    attribute: 'password',
-    width: '148px'
-  }
+  name: 'Name',
+  attribute: 'name',
+  width: '161px'
+},
+{
+  name: 'Username',
+  attribute: 'username',
+  width: '267px'
+},
+{
+  name: 'Password',
+  attribute: 'password',
+  width: '148px'
+}
 ]
 
 export default class CreateStudentAccounts extends React.Component<CreateStudentAccountsProps, CreateStudentAccountsState> {
@@ -161,7 +161,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
           rows={studentRows}
           showRemoveIcon={true}
         />
-)
+      )
     }
   }
 
@@ -194,7 +194,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
         </form>
         {this.renderTable()}
       </div>
-)
+    )
   }
 
   renderFooter() {
@@ -209,7 +209,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
         <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
         {nextButton}
       </div>
-)
+    )
   }
 
   render() {

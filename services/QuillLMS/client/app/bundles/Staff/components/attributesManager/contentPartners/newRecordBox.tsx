@@ -55,7 +55,7 @@ const NewRecordBox = ({ createNewContentPartner, closeRecordBox, }: NewRecordBox
           />
         </div>
       </div>
-)
+    )
   }
 
   function renderSaveButton() {
@@ -67,7 +67,7 @@ const NewRecordBox = ({ createNewContentPartner, closeRecordBox, }: NewRecordBox
           type="submit"
           value="Save"
         />
-)
+      )
     }
   }
 
@@ -84,7 +84,7 @@ const NewRecordBox = ({ createNewContentPartner, closeRecordBox, }: NewRecordBox
         </div>
       </form>
     </div>
-)
+  )
 }
 
 

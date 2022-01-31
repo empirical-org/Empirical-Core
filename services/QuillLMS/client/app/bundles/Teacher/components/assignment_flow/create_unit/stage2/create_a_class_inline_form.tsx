@@ -113,7 +113,7 @@ export default class CreateAClassInlineForm extends React.Component<CreateAClass
           </div>
         </form>
       </div>
-)
+    )
   }
 
   renderFooter() {
@@ -128,7 +128,7 @@ export default class CreateAClassInlineForm extends React.Component<CreateAClass
           <button className={this.submitButtonClass()} onClick={this.createClass}>Create</button>
         </div>
       </div>
-)
+    )
   }
 
   render() {

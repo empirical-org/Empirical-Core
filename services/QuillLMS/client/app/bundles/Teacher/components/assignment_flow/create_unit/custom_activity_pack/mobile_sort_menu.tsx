@@ -38,7 +38,7 @@ const MobileSortMenu = ({
         {options}
       </div>
     </section>
-)
+  )
 }
 
 export default MobileSortMenu

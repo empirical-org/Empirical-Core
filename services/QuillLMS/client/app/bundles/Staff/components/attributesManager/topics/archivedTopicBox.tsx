@@ -84,7 +84,7 @@ const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopi
         />
         {renderArchivedOrLive(levelThreeTopic)}
       </div>
-)
+    )
   }
 
   function renderArchivedOrLive(t) {
@@ -127,7 +127,7 @@ const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopi
         </div>
         <IndividualRecordChangeLogs changeLogs={topic.change_logs} formatDateTime={formatDateTime} />
       </div>
-)
+    )
   }
 
   function renderSaveButton() {
@@ -138,7 +138,7 @@ const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopi
           type="submit"
           value="Unarchive, set live"
         />
-)
+      )
     }
 
     return (
@@ -147,7 +147,7 @@ const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopi
         type="submit"
         value="Unarchive, set live"
       />
-)
+    )
   }
 
   function renderChangeLogModal() {
@@ -168,7 +168,7 @@ const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopi
         record={topic}
         save={setChangeLogs}
       />
-)
+    )
   }
 
   return (
@@ -186,7 +186,7 @@ const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopi
         </div>
       </form>
     </div>
-)
+  )
 }
 
 

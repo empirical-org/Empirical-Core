@@ -77,7 +77,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
             <a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
               {isNaN(value) ? '--' : value + '%'}
             </a>
-)
+          )
         }
       },
       {
@@ -91,20 +91,20 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
             <a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
               {getTimeSpent(value)}
             </a>
-)
+          )
         }
       },
       {
-				Header: "Last active",
-				accessor: 'last_active',
-				resizable: false,
+        Header: "Last active",
+        accessor: 'last_active',
+        resizable: false,
         minWidth: 90,
         Cell: row => (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
           {row.original.last_active ? moment(row.original.last_active).format("MM/DD/YYYY") : <span />}
         </a>),
-				sortMethod: sortFromSQLTimeStamp,
-			},
-			{
+        sortMethod: sortFromSQLTimeStamp,
+      },
+      {
         Header: "Class",
         accessor: 'classroom_name',
         resizable: false,
@@ -165,7 +165,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
             showPaginationTop={false}
           />
         </div>
-)
+      )
     } else {
       return <EmptyStateForReport />
     }

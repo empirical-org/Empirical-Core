@@ -27,7 +27,7 @@ const PasswordWrapper = ({ autoComplete, className, error, onChange, id, label, 
       />
       <button className="interactive-wrapper focus-on-light" onClick={toggleShowPassword} type="button"><img alt={showPassword ? passwordNotVisibleAltText : passwordVisibleAltText} src={showPassword ? passwordNotVisibleSrc : passwordVisibleSrc} /></button>
     </div>
-)
+  )
 }
 
 export default PasswordWrapper

@@ -302,31 +302,31 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     const props = { mode, submissions, selected_submissions, selected_submission_order, projector, studentCount};
     let slide
     switch (current.type) {
-      case 'CL-LB':
-        slide = <CLStudentLobby data={data} key={data.current_slide} projector={projector} title={lessonData.title} />
-        break
-      case 'CL-ST':
-        slide = <CLStudentStatic data={current.data} key={data.current_slide} />
-        break
-      case 'CL-MD':
-        slide = <CLStudentModelQuestion data={current.data} key={data.current_slide} model={model} projector={projector} prompt={prompt} />
-        break
-      case 'CL-SA':
-        slide = <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
-        break
-      case 'CL-FB':
-        slide = <CLStudentFillInTheBlank data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
-        break
-      case 'CL-FL':
-        slide = <CLListBlanks data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
-        break
-      case 'CL-MS':
-        slide = <CLMultistep data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
-        break
-      case 'CL-EX':
-        slide = <CLStudentStatic data={current.data} key={data.current_slide} />
-        break
-      default:
+    case 'CL-LB':
+      slide = <CLStudentLobby data={data} key={data.current_slide} projector={projector} title={lessonData.title} />
+      break
+    case 'CL-ST':
+      slide = <CLStudentStatic data={current.data} key={data.current_slide} />
+      break
+    case 'CL-MD':
+      slide = <CLStudentModelQuestion data={current.data} key={data.current_slide} model={model} projector={projector} prompt={prompt} />
+      break
+    case 'CL-SA':
+      slide = <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
+      break
+    case 'CL-FB':
+      slide = <CLStudentFillInTheBlank data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
+      break
+    case 'CL-FL':
+      slide = <CLListBlanks data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
+      break
+    case 'CL-MS':
+      slide = <CLMultistep data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
+      break
+    case 'CL-EX':
+      slide = <CLStudentStatic data={current.data} key={data.current_slide} />
+      break
+    default:
 
     }
     return (
@@ -334,7 +334,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
         {this.renderProjectorModal()}
         {slide}
       </div>
-)
+    )
   }
 
   handleChange = (e) => {
@@ -366,7 +366,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
           src={arrowSrc}
         />
       </button>
-)
+    )
   }
 
   renderRightButton() {
@@ -384,7 +384,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
           src={arrowSrc}
         />
       </button>
-)
+    )
   }
 
   public render() {
@@ -407,66 +407,66 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     );
 
     if (shouldEnterName) {
-       mainContent = (
-         <div>
-           <div className="play-lesson-container">
-             <div className="main-content">
-               <div className="main-content-wrapper">
-                 <div className="easy-join-name-form-wrapper">
-                   <div className="easy-join-name-form">
-                     <p>Please enter your full name:</p>
-                     <input aria-label="Full name" onChange={this.handleChange} value={easyDemoName} />
-                     <button onClick={this.handleClickJoinDemo} type="button">Join</button>
-                   </div>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
+      mainContent = (
+        <div>
+          <div className="play-lesson-container">
+            <div className="main-content">
+              <div className="main-content-wrapper">
+                <div className="easy-join-name-form-wrapper">
+                  <div className="easy-join-name-form">
+                    <p>Please enter your full name:</p>
+                    <input aria-label="Full name" onChange={this.handleChange} value={easyDemoName} />
+                    <button onClick={this.handleClickJoinDemo} type="button">Join</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       )
     } else if (error) {
-       mainContent = <ErrorPage text={error} />
-     } else if (lessonError) {
-       mainContent = <ErrorPage text={lessonError} />
-     } else if (flaggedStudentCompletionScreen) {
-       mainContent = <FlaggedStudentCompletedPage />
-     } else {
-       const lessonData: ClassroomLesson = classroomLesson.data;
-       const lessonDataLoaded: boolean = classroomLesson.hasreceiveddata;
-       const editionData: CustomizeIntf.EditionQuestions = customize.editionQuestions;
-       const editionDataLoaded: boolean = Object.keys(editionData).length > 0;
-       // const data: ClassroomLessonSessions  = classroomSessions.data;
-       // const hasreceiveddata = classroomSessions.hasreceiveddata
-       const absentTeacher = classroomSessions.data.absentTeacherState ? <CLAbsentTeacher /> : null
-       const watchTeacher = classroomSessions.data.watchTeacherState && !projector ? <CLWatchTeacher /> : null
+      mainContent = <ErrorPage text={error} />
+    } else if (lessonError) {
+      mainContent = <ErrorPage text={lessonError} />
+    } else if (flaggedStudentCompletionScreen) {
+      mainContent = <FlaggedStudentCompletedPage />
+    } else {
+      const lessonData: ClassroomLesson = classroomLesson.data;
+      const lessonDataLoaded: boolean = classroomLesson.hasreceiveddata;
+      const editionData: CustomizeIntf.EditionQuestions = customize.editionQuestions;
+      const editionDataLoaded: boolean = Object.keys(editionData).length > 0;
+      // const data: ClassroomLessonSessions  = classroomSessions.data;
+      // const hasreceiveddata = classroomSessions.hasreceiveddata
+      const absentTeacher = classroomSessions.data.absentTeacherState ? <CLAbsentTeacher /> : null
+      const watchTeacher = classroomSessions.data.watchTeacherState && !projector ? <CLWatchTeacher /> : null
 
-       if (hasreceiveddata && lessonDataLoaded && editionDataLoaded) {
-         const component = this.renderCurrentSlide(data, lessonData, editionData);
-         if (component) {
-           mainContent = (
-             <div>
-               {absentTeacher || watchTeacher}
-               {this.renderLeftButton()}
-               <div className="play-lesson-container">
-                 <div className="main-content">
-                   <div className="main-content-wrapper">
-                     {component}
-                   </div>
-                 </div>
-               </div>
-               {this.renderRightButton()}
-             </div>
-           );
-         }
-       }
-     }
-     return (
-       <div>
-         {navbar}
-         <div id="main-content" tabIndex={-1}>{mainContent}</div>
-       </div>
-)
-   }
+      if (hasreceiveddata && lessonDataLoaded && editionDataLoaded) {
+        const component = this.renderCurrentSlide(data, lessonData, editionData);
+        if (component) {
+          mainContent = (
+            <div>
+              {absentTeacher || watchTeacher}
+              {this.renderLeftButton()}
+              <div className="play-lesson-container">
+                <div className="main-content">
+                  <div className="main-content-wrapper">
+                    {component}
+                  </div>
+                </div>
+              </div>
+              {this.renderRightButton()}
+            </div>
+          );
+        }
+      }
+    }
+    return (
+      <div>
+        {navbar}
+        <div id="main-content" tabIndex={-1}>{mainContent}</div>
+      </div>
+    )
+  }
 
 }
 

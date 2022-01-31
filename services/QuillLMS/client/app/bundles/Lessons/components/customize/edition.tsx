@@ -212,17 +212,17 @@ class CustomizeEdition extends React.Component<any, any> {
     slides.forEach((slide, i) => {
       let question = slide.data.play;
       let isIncomplete = (
-          question.prompt === '' ||
+        question.prompt === '' ||
           question.prompt &&
           question.prompt.trim() === '' ||
           question.prompt === '<p></p>' ||
           question.prompt == '<p><br></p>'
-        ) || (
-          !question.prompt &&
+      ) || (
+        !question.prompt &&
           question.html &&
           question.html === '<p></p>' ||
           question.html == '<p><br></p>'
-        );
+      );
 
       if (isIncomplete) {
         incompleteQuestions.push(i);
@@ -274,7 +274,7 @@ class CustomizeEdition extends React.Component<any, any> {
           <div className="publish-button" onClick={this.publish}>Publish Edition</div>
         </div>
       </div>
-)
+    )
   }
 
   renderSlides() {
@@ -295,7 +295,7 @@ class CustomizeEdition extends React.Component<any, any> {
         resetSlide={this.resetSlide}
         updateQuestion={this.updateQuestion}
       />
-)
+    )
   }
 
   renderEditModal() {
@@ -310,7 +310,7 @@ class CustomizeEdition extends React.Component<any, any> {
           updateName={this.updateName}
           updateSampleQuestion={this.updateSampleQuestion}
         />
-)
+      )
     }
   }
 
@@ -327,7 +327,7 @@ class CustomizeEdition extends React.Component<any, any> {
           editionLink={this.followUpLink()}
           editionName={this.props.editionMetadata.name}
         />
-)
+      )
     }
   }
 
@@ -355,7 +355,7 @@ class CustomizeEdition extends React.Component<any, any> {
           </div>
         </div>
       </div>
-)
+    )
   }
 }
 

@@ -83,6 +83,6 @@ export default class RenameClassModal extends React.Component<RenameClassModalPr
           </div>
         </div>
       </div>
-)
+    )
   }
 }

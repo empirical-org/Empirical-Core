@@ -115,7 +115,7 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
           <span>I understand that this action cannot be undone.</span>
         </div>
       </div>
-)
+    )
   }
 
   render() {
@@ -156,6 +156,6 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
           </div>
         </div>
       </div>
-)
+    )
   }
 }

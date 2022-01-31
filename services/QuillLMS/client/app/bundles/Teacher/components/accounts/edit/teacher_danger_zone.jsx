@@ -25,7 +25,7 @@ export default class TeacherDangerZone extends React.Component {
           cancel={this.hideDeleteAccountModal}
           deleteAccount={this.props.deleteAccount}
         />
-)
+      )
     }
   };
 
@@ -37,6 +37,6 @@ export default class TeacherDangerZone extends React.Component {
         <div className="quill-button outlined secondary medium" onClick={this.showDeleteAccountModal}>Delete my account</div>
         <p className="danger-zone-description">This will delete your user account, including all classes and reports.</p>
       </div>
-)
+    )
   }
 }

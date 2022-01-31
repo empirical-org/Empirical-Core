@@ -333,7 +333,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
           feedback={feedback}
           feedbackType="revise-unmatched"
         />
-)
+      )
     }
     if(previewMode && latestAttempt && latestAttempt.response) {
       return renderPreviewFeedback(latestAttempt);

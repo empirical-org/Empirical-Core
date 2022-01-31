@@ -185,7 +185,7 @@ export default createReactClass({
         options={this.state.options.unit_template_categories}
         select={this.modules.indicatorGenerator.selector('unit_template_category_id')}
       />
-);
+    );
   },
 
   getStatusFlag() {
@@ -197,7 +197,7 @@ export default createReactClass({
         options={this.state.options.flag}
         select={this.modules.indicatorGenerator.selector('flag')}
       />
-);
+    );
   },
 
   getTimeDropdownSelect() {
@@ -208,7 +208,7 @@ export default createReactClass({
         options={this.state.options.times}
         select={this.modules.indicatorGenerator.selector('time')}
       />
-);
+    );
   },
 
   getCustomActivityPack() {
@@ -219,7 +219,7 @@ export default createReactClass({
         setSelectedActivities={this.handleNewSelectedActivities}
         toggleActivitySelection={this.toggleActivitySelection}
       />
-);
+    );
   },
 
   getActivityPackDescriptionEditor() {
@@ -247,7 +247,7 @@ export default createReactClass({
         <div className={this.determineErrorMessageClass()}>{this.determineErrorMessage()}</div>
         <button className={this.determineContinueButtonClass()} id="continue" onClick={this.save}>Save</button>
       </div>
-);
+    );
   },
 
   getDiagnostics() {
@@ -257,7 +257,7 @@ export default createReactClass({
       <div>
         <h3>Diagnostics:</h3>
         <span>{diagnostic_names && diagnostic_names.map((diagnostic) => {
-            return (<span>{diagnostic}<br /></span>);
+          return (<span>{diagnostic}<br /></span>);
         })}</span>
         <br /><br />
       </div>
@@ -296,8 +296,8 @@ export default createReactClass({
         },
         body: data
       })
-      .then(response => response.json()) // if the response is a JSON object
-      .then(response => this.setState({uploadedFileLink: response.url})); // Handle the success response object
+        .then(response => response.json()) // if the response is a JSON object
+        .then(response => this.setState({uploadedFileLink: response.url})); // Handle the success response object
     });
   },
 

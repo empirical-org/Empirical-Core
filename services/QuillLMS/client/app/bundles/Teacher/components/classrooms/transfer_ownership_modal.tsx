@@ -68,7 +68,7 @@ export default class TransferOwnershipModal extends React.Component<TransferOwne
           <span>I understand that I will no longer have the ability to archive classes or edit activity packs.</span>
         </div>
       </div>
-)
+    )
   }
 
   render() {
@@ -88,6 +88,6 @@ export default class TransferOwnershipModal extends React.Component<TransferOwne
           </div>
         </div>
       </div>
-)
+    )
   }
 }

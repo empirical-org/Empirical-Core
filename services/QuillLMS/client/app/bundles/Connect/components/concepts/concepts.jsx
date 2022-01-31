@@ -28,7 +28,7 @@ class Concepts extends React.Component {
             key={concept.uid}
             text={concept.displayName}
           />
-)
+        )
       })
     }
   };

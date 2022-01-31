@@ -68,7 +68,7 @@ const TopicColumn = ({ createNewTopic, levelNumber, getFilteredOptionsForLevel, 
       />
       {newTopicField}
     </div>
-);
+  );
 }
 
 export default TopicColumn

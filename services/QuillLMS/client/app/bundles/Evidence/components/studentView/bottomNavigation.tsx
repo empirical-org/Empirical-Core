@@ -33,7 +33,7 @@ const BottomNavigation = ({ scrolledToEndOfPassage, studentHighlights, onMobile,
       <div className="bottom-navigation">
         <button className="quill-button outlined secondary large focus-on-dark" onClick={handleStartReadingPassageClick} type="button">Start</button>
       </div>
-)
+    )
   }
 
   if (hasStartedReadPassageStep && !doneHighlighting) {
@@ -44,7 +44,7 @@ const BottomNavigation = ({ scrolledToEndOfPassage, studentHighlights, onMobile,
         scrolledToEndOfPassage={scrolledToEndOfPassage}
         studentHighlights={studentHighlights}
       />
-)
+    )
   }
 
   if (inReflection) {
@@ -52,7 +52,7 @@ const BottomNavigation = ({ scrolledToEndOfPassage, studentHighlights, onMobile,
       <div className="bottom-navigation">
         <button className="quill-button contained primary large focus-on-light" onClick={handleDoneReadingClick} type="button">Next</button>
       </div>
-)
+    )
   }
 
   if (!hasStartedPromptSteps) {
@@ -60,7 +60,7 @@ const BottomNavigation = ({ scrolledToEndOfPassage, studentHighlights, onMobile,
       <div className="bottom-navigation">
         <button className="quill-button outlined secondary large focus-on-dark" onClick={handleStartPromptStepsClick} type="button">Next</button>
       </div>
-)
+    )
   }
 }
 

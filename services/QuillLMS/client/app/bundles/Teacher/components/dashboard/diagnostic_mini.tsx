@@ -62,7 +62,7 @@ const MobileRecommendationRow = ({ row, }) => {
       </div>
       <div>{classroom}</div>
     </div>
-)
+  )
 }
 
 const DiagnosticMini = ({diagnostics, onMobile, }) => {
@@ -113,7 +113,7 @@ const DiagnosticMini = ({diagnostics, onMobile, }) => {
       {dataDisplay}
       {diagnostics.length > INITIAL_MAX && !showAll && <button className="bottom-button focus-on-light interactive-wrapper" onClick={handleShowMoreClick} type="button">Show more <img alt={expandIcon.alt} src={expandIcon.src} /></button>}
     </section>
-)
+  )
 }
 
 export default DiagnosticMini

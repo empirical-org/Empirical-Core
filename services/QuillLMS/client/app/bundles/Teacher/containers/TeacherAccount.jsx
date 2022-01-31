@@ -191,6 +191,6 @@ export default class TeacherAccount extends React.Component {
         />
         {this.renderSnackbar()}
       </div>
-)
+    )
   }
 }

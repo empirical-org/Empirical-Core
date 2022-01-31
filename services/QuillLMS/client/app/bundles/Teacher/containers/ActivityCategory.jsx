@@ -21,13 +21,13 @@ export default class ActivityCategory extends React.Component {
         activities: activities,
         activity_category_id: that.props.activity_category.id
       }}, (e, r, response) => {
-        if (e) {
-          alert(`We could not save the updated activity order. Here is the error: ${e}`)
-        } else {
-          this.setState({selectedActivities: response.activities})
-          alert('The updated activity order has been saved.')
-        }
+      if (e) {
+        alert(`We could not save the updated activity order. Here is the error: ${e}`)
+      } else {
+        this.setState({selectedActivities: response.activities})
+        alert('The updated activity order has been saved.')
       }
+    }
     )
   };
 
@@ -65,6 +65,6 @@ export default class ActivityCategory extends React.Component {
           toggleActivitySelection={this.toggleActivitySelection}
         />
       </div>
-  )
+    )
   }
 }

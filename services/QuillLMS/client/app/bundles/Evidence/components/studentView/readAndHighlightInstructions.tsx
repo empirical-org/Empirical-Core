@@ -61,7 +61,7 @@ const ReadAndHighlightInstructions = ({ passage, activeStep, showReadTheDirectio
         {studentHighlightsOrHighlightInstructions}
       </section>
     </div>
-)
+  )
 }
 
 export default ReadAndHighlightInstructions

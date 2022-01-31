@@ -78,7 +78,7 @@ const IndividualActivityClassificationFilterRow = ({ activityClassificationFilte
       </div>
       <span>({activityCount})</span>
     </div>
-)
+  )
 }
 
 const ActivityClassificationToggle = ({filteredActivities, grouping, uniqueActivityClassifications, activityClassificationFilters, handleActivityClassificationFilterChange, }: ActivityClassificationToggleProps) => {
@@ -139,7 +139,7 @@ const ActivityClassificationToggle = ({filteredActivities, grouping, uniqueActiv
       </div>
       {individualFilters}
     </section>
-)
+  )
 }
 
 const SavedRow = ({ savedActivityFilters, handleSavedActivityFilterChange, savedActivityIds, filterActivities, }) => {
@@ -164,7 +164,7 @@ const SavedRow = ({ savedActivityFilters, handleSavedActivityFilterChange, saved
       </div>
       <span>({activityCount})</span>
     </div>
-)
+  )
 }
 
 const ActivityClassificationFilters = ({
@@ -211,7 +211,7 @@ const ActivityClassificationFilters = ({
       />
       {activityClassificationToggles}
     </section>
-)
+  )
 }
 
 export default ActivityClassificationFilters

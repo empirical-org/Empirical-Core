@@ -62,6 +62,6 @@ export default class MergeTwoClassrooms extends React.Component {
         </div>
 
       </div>
-)
+    )
   }
 }

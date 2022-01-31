@@ -18,14 +18,14 @@ export default class ResultsIcon extends React.Component {
     const { activityType, } = this.props
     let img;
     switch (activityType) {
-      case 'connect':
-        img = 'tool-connect-white.svg'
-        break;
-      case 'sentence':
-        img = 'tool-grammar-white.svg'
-        break;
-      default:
-        img = 'tool-proofreader-white.svg'
+    case 'connect':
+      img = 'tool-connect-white.svg'
+      break;
+    case 'sentence':
+      img = 'tool-grammar-white.svg'
+      break;
+    default:
+      img = 'tool-proofreader-white.svg'
     }
     return `${process.env.CDN_URL}/images/tools/${img}`
   }

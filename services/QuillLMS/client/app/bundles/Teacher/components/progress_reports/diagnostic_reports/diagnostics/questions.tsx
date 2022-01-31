@@ -91,7 +91,7 @@ const DirectionsAndPrompt = ({ directions, prompt, onMobile, }) => {
           tooltipTriggerText={stripHtml(text)}
           tooltipTriggerTextClass="directions-or-prompt"
         />
-)
+      )
     }
 
     return <p>{stripHtml(text)}</p>
@@ -108,7 +108,7 @@ const DirectionsAndPrompt = ({ directions, prompt, onMobile, }) => {
         {textOrTooltip(prompt)}
       </div>
     </div>
-)
+  )
 }
 
 export const Questions = ({ passedQuestions, match, mobileNavigation, location, }) => {
@@ -187,7 +187,7 @@ export const Questions = ({ passedQuestions, match, mobileNavigation, location, 
         />
       </div>
     </main>
-)
+  )
 }
 
 export default withRouter(Questions)

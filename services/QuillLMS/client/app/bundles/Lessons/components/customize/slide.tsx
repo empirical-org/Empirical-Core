@@ -33,35 +33,35 @@ export default class Slide extends React.Component<any, any> {
 
   slideTypeName() {
     switch (this.props.question.type) {
-      case 'CL-ST':
-      case 'CL-EX':
-        return 'Static Text'
-      case 'CL-MD':
-        return 'Teacher Model'
-      case 'CL-SA':
-      case 'CL-FB':
-      case 'CL-FL':
-      case 'CL-MS':
-        return 'Students Practice'
-      default:
-        return ''
+    case 'CL-ST':
+    case 'CL-EX':
+      return 'Static Text'
+    case 'CL-MD':
+      return 'Teacher Model'
+    case 'CL-SA':
+    case 'CL-FB':
+    case 'CL-FL':
+    case 'CL-MS':
+      return 'Students Practice'
+    default:
+      return ''
     }
   }
 
   numberAndTypeWidth() {
     switch (this.props.question.type) {
-      case 'CL-ST':
-      case 'CL-EX':
-        return '130px'
-      case 'CL-MD':
-        return '165px'
-      case 'CL-SA':
-      case 'CL-FB':
-      case 'CL-FL':
-      case 'CL-MS':
-        return '185px'
-      default:
-        return ''
+    case 'CL-ST':
+    case 'CL-EX':
+      return '130px'
+    case 'CL-MD':
+      return '165px'
+    case 'CL-SA':
+    case 'CL-FB':
+    case 'CL-FL':
+    case 'CL-MS':
+      return '185px'
+    default:
+      return ''
     }
   }
 
@@ -85,7 +85,7 @@ export default class Slide extends React.Component<any, any> {
           </div>
           {this.renderScript()}
         </div>
-)
+      )
     }
   }
 
@@ -96,7 +96,7 @@ export default class Slide extends React.Component<any, any> {
         <div className="script">
           <ScriptComponent script={filteredScript} />
         </div>
-)
+      )
     }
   }
 
@@ -114,6 +114,6 @@ export default class Slide extends React.Component<any, any> {
         </div>
         {this.renderSlide()}
       </div>
-)
+    )
   }
 }

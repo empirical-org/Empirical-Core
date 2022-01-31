@@ -68,7 +68,7 @@ const ModalContent = ({ classes, selectedClassroomIds, setSelectedClassroomIds, 
       uncheckAllRows={uncheckAllRows}
       uncheckRow={toggleRowCheck}
     />
-)
+  )
 }
 
 const BulkArchiveClassesModal = ({ classes, onCloseModal, onSuccess, }) => {
@@ -109,7 +109,7 @@ const BulkArchiveClassesModal = ({ classes, onCloseModal, onSuccess, }) => {
 
       </div>
     </div>
-)
+  )
 }
 
 export default BulkArchiveClassesModal

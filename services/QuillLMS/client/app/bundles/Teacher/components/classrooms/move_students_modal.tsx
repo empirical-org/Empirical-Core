@@ -97,7 +97,7 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
           <span>I understand that any activities that have not been started will not be transferred.</span>
         </div>
       </div>
-)
+    )
   }
 
   renderSubmitButton() {
@@ -137,6 +137,6 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
           </div>
         </div>
       </div>
-)
+    )
   }
 }
