@@ -15,6 +15,14 @@ const NO_DATA_FOUND_MESSAGE = "Activity Packs data could not be found. Refresh t
 const ALL_FLAGS = 'All Flags'
 const ALL_DIAGNOSTICS = 'All Diagnostics'
 
+const ARCHIVED_FLAG = 'Archived'
+const NOT_ARCHIVED_FLAG = 'Not Archived'
+const PRODUCTION_FLAG = 'Production'
+const ALPHA_FLAG = 'Alpha'
+const BETA_FLAG = 'Beta'
+const GAMMA_FLAG = 'Gamma'
+const PRIVATE_FLAG = 'Private'
+
 export default class UnitTemplates extends React.Component {
 
   state = {
@@ -75,9 +83,6 @@ export default class UnitTemplates extends React.Component {
     if (this.isSortable()) {
       const { fetchedData, } = this.state
       let orderedData = this.sort(fetchedData)
-      if (flag === 'Production') {
-        console.log(sortInfo)
-      }
       const newOrder = sortInfo.map(item => item.key);
       let count = newOrder.length
       const newOrderedUnitTemplates = orderedData.map((ut) => {
@@ -92,8 +97,6 @@ export default class UnitTemplates extends React.Component {
         count += 1
         return newUnitTemplate
       })
-      console.log("new rder")
-      console.log(newOrderedUnitTemplates)
 
       const link = `${process.env.DEFAULT_URL}/cms/unit_templates/update_order_numbers`
       const data = new FormData();
@@ -127,8 +130,8 @@ export default class UnitTemplates extends React.Component {
     const { fetchedData, activitySearchInput, flag, diagnostic } = this.state
     let filteredData = fetchedData
 
-    if (flag === 'Not Archived') {
-      filteredData = fetchedData.filter(data => data.flag != 'archived')
+    if (flag === NOT_ARCHIVED_FLAG) {
+      filteredData = fetchedData.filter(data => data.flag.toLowerCase() != ARCHIVED_FLAG)
     } else if (flag != ALL_FLAGS) {
       filteredData = fetchedData.filter(data => data.flag === flag.toLowerCase())
     }
@@ -156,9 +159,9 @@ export default class UnitTemplates extends React.Component {
     return list.sort((bp1, bp2) => {
       // Group archived activities at the bottom of the list (they automatically get a higher order number
       // than any unarchived activity)
-      if (bp1.flag === 'archived' && bp2.flag !== 'archived') {
+      if (bp1.flag.toLowerCase() === ARCHIVED_FLAG && bp2.flag.toLowerCase() !== ARCHIVED_FLAG) {
         return 1
-      } else if (bp2.flag === 'archived' && bp1.flag != 'archived') {
+      } else if (bp2.flag.toLowerCase() === ARCHIVED_FLAG && bp1.flag.toLowerCase() != ARCHIVED_FLAG) {
         return -1
       }
       return bp1.order_number - bp2.order_number
@@ -214,7 +217,7 @@ export default class UnitTemplates extends React.Component {
       }).then((response) => {
         let newData = fetchedData
         newData[index] = response.unit_template
-        this.setState({fetchedData: newData}, alert(`Activity has been saved.`))
+        this.setState({fetchedData: newData}, alert(`Activity Pack has been saved.`))
       }).catch((error) => {
         // to do, use Sentry to capture error
       })
@@ -287,7 +290,7 @@ export default class UnitTemplates extends React.Component {
   diagnosticsDropdown = () => {
     const { diagnostics, diagnostic } = this.state
 
-    let diagnostic_names = diagnostics.map((d) => d.name)
+    let diagnostic_names = diagnostics.filter(d => d.flags[0] != "archived").map((d) => d.name)
     diagnostic_names.push(ALL_DIAGNOSTICS)
     return (<ItemDropdown
       callback={this.switchDiagnostic}
@@ -306,7 +309,7 @@ export default class UnitTemplates extends React.Component {
 
   isSortable = () => {
     const { flag, activitySearchInput, diagnostic } = this.state
-    if(flag && ![ALL_FLAGS, 'Not Archived', 'Production'].includes(flag)) { return false }
+    if(flag && ![ALL_FLAGS, NOT_ARCHIVED_FLAG, PRODUCTION_FLAG].includes(flag)) { return false }
     if (activitySearchInput != '') { return false}
     if (diagnostic != ALL_DIAGNOSTICS) { return false}
     return true
@@ -314,7 +317,7 @@ export default class UnitTemplates extends React.Component {
 
   render() {
     const { activitySearchInput, flag } = this.state
-    const options = [ALL_FLAGS, 'Not Archived', 'Archived', 'Alpha', 'Beta', 'Gamma', 'Production', 'Private']
+    const options = [ALL_FLAGS, NOT_ARCHIVED_FLAG, ARCHIVED_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, PRODUCTION_FLAG, PRIVATE_FLAG]
 
     return (
       <div className="cms-unit-templates">

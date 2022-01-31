@@ -12,7 +12,7 @@ const UnitTemplateActivityRow = ({
         <td className="activity-name-col">{a.name}</td>
         <td className="activity-flag-col">{a.data && a.data.flag}</td>
         <td className="activity-read-col">{a.readability_grade_level}</td>
-        <td className="activity-ccss-col">{a.standard && a.standard.standard_level && a.standard.standard_level.name}</td>
+        <td className="activity-ccss-col">{a.standard && a.standard.name}</td>
         <td className="activity-cat-col">{a.activity_category && a.activity_category.name}</td>
         <td className="activity-class-col">{a.classification.name}</td>
         <td className="activity-remove-col"><button onClick={() => handleRemove(a.id)} type="button">remove</button></td>

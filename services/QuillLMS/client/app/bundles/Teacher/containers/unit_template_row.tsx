@@ -13,7 +13,7 @@ const UnitTemplateRow = ({
   const [showActivities, setShowActivities] = useState(false);
 
   const deleteUnitTemplate = () => {
-    var confirm = window.confirm('are you sure you want to delete ' + unitTemplate.name + '?');
+    var confirm = window.confirm('Are you sure you want to delete ' + unitTemplate.name + '?');
     if (confirm) {
       handleDelete(unitTemplate.id);
     }
@@ -31,18 +31,20 @@ const UnitTemplateRow = ({
   }
 
   const handleRemoveActivity = (act_id) => {
-    let newUnitTemplate = unitTemplate
-    let activityIds = unitTemplate.activities.map((a) => a.id)
-    activityIds.splice(activityIds.indexOf(act_id), 1)
-    newUnitTemplate.activity_ids = activityIds
-    updateUnitTemplate(newUnitTemplate)
+    var confirm = window.confirm('Are you sure you want to remove this activity?');
+    if (confirm) {
+      let newUnitTemplate = unitTemplate
+      let activityIds = unitTemplate.activities.map((a) => a.id)
+      activityIds.splice(activityIds.indexOf(act_id), 1)
+      newUnitTemplate.activity_ids = activityIds
+      updateUnitTemplate(newUnitTemplate)
+    }
   }
 
   const expandOrCollapseButton = () => {
     const buttonClass = 'focus-on-dark'
     let innerElement;
     const imageLink = showActivities ? 'collapse.svg' : 'expand.svg'
-    //innerElement = <img alt="expand-and-collapse" src={`${process.env.CDN_URL}/images/shared/${imageLink}`} />
     innerElement = <img alt="expand-and-collapse" src={`https://assets.quill.org/images/shared/${imageLink}`} />
     return <button className={`expand-collapse-button ${buttonClass}`} onClick={showHideActivitiesRow} onKeyPress={showHideActivitiesRow} type="button">{innerElement}</button>
   }
