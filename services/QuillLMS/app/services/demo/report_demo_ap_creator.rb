@@ -206,6 +206,7 @@ module Demo::ReportDemoAPCreator
       templates[num].each do |act_id, user_id|
         temp = ActivitySession.unscoped.where({activity_id: act_id, user_id: user_id, is_final_score: true}).first
         next unless temp
+
         cu = ClassroomUnit.where("#{student.id} = ANY (assigned_student_ids) AND classroom_id=#{classroom.id}").first
         act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
         temp.concept_results.each do |cr|

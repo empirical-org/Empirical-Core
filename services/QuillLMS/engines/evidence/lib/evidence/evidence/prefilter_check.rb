@@ -49,6 +49,7 @@ module Evidence
     def feedback_object
       @violated_rule = prefilter_rules.find do |rule|
         next unless @prefilters[rule.uid]
+
         @prefilters[rule.uid].call(entry)
       end
       return default_response unless @violated_rule
@@ -79,6 +80,7 @@ module Evidence
 
     def highlights
       return [] if @violated_rule.uid != PROFANITY_RULE_UID
+
       [{
         type: Evidence::Highlight::TYPE_RESPONSE,
         text: @profanity_instance,

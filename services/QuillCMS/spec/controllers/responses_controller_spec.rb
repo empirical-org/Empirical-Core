@@ -8,6 +8,7 @@ RSpec.describe ResponsesController, type: :controller do
 
   def get_ids(array)
     return [] if array.nil?
+
     array.map { |r| r['id'] }.sort
   end
 
@@ -20,7 +21,7 @@ RSpec.describe ResponsesController, type: :controller do
   end
 
   describe "#count_affected_by_incorrect_sequences" do
-    before(:each) do
+    before do
       create(:response, question_uid: '123', text: "some words", optimal: nil)
       create(:response, question_uid: '123', text: "matchyword some words", optimal: nil)
       create(:response, question_uid: '123', text: "some matchyword words", optimal: nil)

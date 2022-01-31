@@ -67,15 +67,18 @@ class Classroom < ApplicationRecord
     super
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def validate_name
     return unless name_changed?
+
     # can't use owner method below for new records
     owner = classrooms_teachers&.find { |ct| ct.role == 'owner' }&.teacher
     owner_has_other_classrooms_with_same_name = owner && owner.classrooms_i_own.any? { |classroom| classroom.name == name && classroom.id != id }
-    if owner_has_other_classrooms_with_same_name
-      errors.add(:name, :taken)
-    end
+    return unless owner_has_other_classrooms_with_same_name
+
+    errors.add(:name, :taken)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def self.create_with_join(classroom_attributes, teacher_id)
     classroom = Classroom.new(classroom_attributes)
@@ -182,7 +185,9 @@ class Classroom < ApplicationRecord
 
   def grade_as_integer
     return grade.to_i if (GRADES - [UNIVERSITY]).include? grade
+
     return GRADE_INTEGERS[grade&.to_sym] if GRADE_INTEGERS[grade&.to_sym].present?
+
     -1
   end
 

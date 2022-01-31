@@ -32,9 +32,9 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
       end
 
       context 'pagination' do
-        setup do
+        before do
           stub_const('FeedbackHistory::DEFAULT_PAGE_SIZE', 2)
-          3.times { create(:feedback_history) }
+          create_list(:feedback_history, 3)
         end
 
         it "should return 2 records at a time" do
@@ -57,11 +57,11 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
       end
 
       context 'activity_id' do
-        setup do
+        before do
           @activity = Evidence::Activity.create!(notes: 'Title 1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
           @prompt = Evidence::Prompt.create!(activity: @activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-          10.times { create(:feedback_history, prompt: @prompt) }
-          10.times { create(:feedback_history) }
+          create_list(:feedback_history, 10, prompt: @prompt)
+          create_list(:feedback_history, 10)
         end
 
         it 'should retrieve only items from the specified activity' do
@@ -85,7 +85,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
       end
 
       context 'start_date, end_date' do
-        setup do
+        before do
           create(:feedback_history, created_at: '2021-04-05T20:43:27.698Z')
           create(:feedback_history, created_at: '2021-04-06T20:43:27.698Z')
           create(:feedback_history, created_at: '2021-04-07T20:43:27.698Z')
@@ -93,7 +93,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
           create(:feedback_history, created_at: '2021-04-09T20:43:27.698Z')
         end
 
-        it 'should retrieve only items from the specified time constraints' do
+        it 'should retrieve only items from the specified start_date' do
           get :index, params: { start_date: '2021-04-06T20:43:27.698Z' }, as: :json
 
           parsed_response = JSON.parse(response.body)
@@ -102,7 +102,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
           expect(parsed_response['activity_sessions'].length).to eq(4)
         end
 
-        it 'should retrieve only items from the specified time constraints' do
+        it 'should retrieve only items from the specified start_date and end_date' do
           get :index, params: { start_date: '2021-04-06T20:43:27.698Z', end_date: '2021-04-08T20:43:27.698Z' }, as: :json
 
           parsed_response = JSON.parse(response.body)
@@ -112,8 +112,9 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
         end
       end
+
       context 'turk_session_uid' do
-        setup do
+        before do
           @activity_session = create(:activity_session)
           @comprehension_turking_round = create(:comprehension_turking_round_activity_session, activity_session_uid: @activity_session.uid)
           @feedback_history1 = create(:feedback_history, feedback_session_uid: @activity_session.uid)
@@ -131,8 +132,9 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
           expect(parsed_response['activity_sessions'][0]['session_uid']).to eq(@feedback_history1.feedback_session_uid)
         end
       end
+
       context 'filters' do
-        setup do
+        before do
           user = create(:user)
           @feedback_history1 = create(:feedback_history)
           feedback_history_rating1 = create(:feedback_history_rating, user_id: user.id, feedback_history_id: @feedback_history1.id, rating: true)
@@ -216,20 +218,20 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
   end
 
   context "show" do
-    setup { @feedback_history = create(:feedback_history, entry: 'This is the first entry in history') }
+    before { @feedback_history = create(:feedback_history, entry: 'This is the first entry in history') }
 
     it "should return json if found" do
       get :show, params: { id: @feedback_history.feedback_session_uid }, as: :json
 
       parsed_response = JSON.parse(response.body)
 
-      expect(200).to eq(response.code.to_i)
+      expect(response.code.to_i).to eq(200)
       expect(parsed_response.to_json).to eq(FeedbackHistory.serialize_detail_by_activity_session(@feedback_history.feedback_session_uid).to_json)
     end
 
     it "should raise if not found (to be handled by parent app)" do
       get :show, params: { id: 99999 }, as: :json
-      expect(404).to eq(response.status)
+      expect(response.status).to eq(404)
       expect(response.body.include?("The resource you were looking for does not exist")).to be
     end
   end

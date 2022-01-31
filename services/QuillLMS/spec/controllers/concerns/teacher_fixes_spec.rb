@@ -13,7 +13,6 @@ describe TeacherFixes do
   let!(:activity) { create(:activity) }
   let!(:unit1) { create(:unit) }
   let!(:unit2) { create(:unit) }
-  let!(:activity) { create(:activity) }
   let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom, unit: unit1) }
   let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom, unit: unit2) }
   let!(:classroom_unit3) { create(:classroom_unit, classroom: classroom) }

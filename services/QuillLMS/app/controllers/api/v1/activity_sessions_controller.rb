@@ -101,6 +101,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     @activity_session = ActivitySession.unscoped.find_by_uid!(params[:id])
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def activity_session_params
     params.delete(:activity_session)
     data = params.delete(:data)&.permit!
@@ -121,6 +122,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       .reject { |_, v| v.nil? }
       .merge(timespent: timespent && [timespent, MAX_4_BYTE_INTEGER_SIZE].min)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def transform_incoming_request
     if params[:concept_results].present?

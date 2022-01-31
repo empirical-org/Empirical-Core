@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe UpdateSalesContact do
   before { Timecop.freeze }
+
   after { Timecop.return }
 
   it 'updates the sales stage for a user' do

@@ -3,6 +3,7 @@
 class ClassroomActivitiesToUnitActivitiesAndClassroomUnitsWorker
   include Sidekiq::Worker
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def perform(unit_id)
     UnitActivity.skip_callback(:save, :after, :teacher_checkbox)
     ClassroomActivity.unscoped.where(unit_id: unit_id).each do |ca|
@@ -52,5 +53,6 @@ class ClassroomActivitiesToUnitActivitiesAndClassroomUnitsWorker
     end
     UnitActivity.set_callback(:save, :after, :teacher_checkbox)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
 end

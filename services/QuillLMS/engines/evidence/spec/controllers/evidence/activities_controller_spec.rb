@@ -18,7 +18,8 @@ module Evidence
 
       context 'should with actitivites' do
         let!(:first_activity) { create(:evidence_activity, :title => "An Activity", :notes => "Notes 1", :target_level => 8) }
-        before(:each) do
+
+        before do
           create(:evidence_activity, :title => "The Activity", :notes => "Notes 2", :target_level => 5)
         end
 
@@ -37,7 +38,8 @@ module Evidence
 
     context 'should create' do
       let!(:activity) { build(:evidence_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade", :notes => "First Activity - Notes") }
-      before(:each) do
+
+      before do
         session[:user_id] = 1
         Evidence.parent_activity_classification_class.create(:key => "evidence")
       end
@@ -123,9 +125,10 @@ module Evidence
     end
 
     context 'should update' do
-      before(:each) do
+      before do
         session[:user_id] = 1
       end
+
       let!(:activity) { create(:evidence_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade") }
       let!(:passage) { create(:evidence_passage, :activity => (activity)) }
       let!(:prompt) { create(:evidence_prompt, :activity => (activity)) }
@@ -235,9 +238,11 @@ module Evidence
       before do
         session[:user_id] = 1
       end
+
       let!(:activity) {build(:evidence_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade", notes: "First Activity - Notes")}
       let!(:prompt) {build(:evidence_prompt)}
       let!(:passage) {build(:evidence_passage)}
+
       Evidence.parent_activity_classification_class.create(key: 'evidence')
 
       it "should return change logs for that activity" do

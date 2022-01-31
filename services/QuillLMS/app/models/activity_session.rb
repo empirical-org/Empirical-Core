@@ -219,6 +219,7 @@ class ActivitySession < ApplicationRecord
     super || unit_activity&.activity
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def determine_if_final_score
     return if state != 'finished' || (percentage.nil? && !activity.is_evidence?)
 
@@ -239,14 +240,17 @@ class ActivitySession < ApplicationRecord
     # return true otherwise save will be prevented
     true
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def formatted_due_date
     return nil if unit_activity&.due_date.nil?
+
     unit_activity.due_date.strftime('%A, %B %d, %Y')
   end
 
   def formatted_completed_at
     return nil if completed_at.nil?
+
     completed_at.strftime('%A, %B %d, %Y')
   end
 
@@ -286,6 +290,7 @@ class ActivitySession < ApplicationRecord
 
   def start
     return if state != 'unstarted'
+
     self.started_at ||= Time.current
     self.state = 'started'
   end
@@ -311,6 +316,7 @@ class ActivitySession < ApplicationRecord
     percentage
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def parse_for_results
     concept_results_by_concept = concept_results.group_by { |c| c.concept_id }
 
@@ -340,6 +346,7 @@ class ActivitySession < ApplicationRecord
 
     results
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   alias owner user
 
@@ -354,9 +361,9 @@ class ActivitySession < ApplicationRecord
 
   def invalidate_activity_session_count_if_completed
     classroom_id = classroom_unit&.classroom_id
-    if state == 'finished' && classroom_id
-      $redis.del("classroom_id:#{classroom_id}_completed_activity_count")
-    end
+    return unless state == 'finished' && classroom_id
+
+    $redis.del("classroom_id:#{classroom_id}_completed_activity_count")
   end
 
   def self.save_concept_results(activity_sessions, concept_results)
@@ -479,6 +486,7 @@ class ActivitySession < ApplicationRecord
 
   def minutes_to_complete
     return nil unless completed_at && started_at
+
     ((completed_at - started_at)/60).round
   end
 
@@ -515,6 +523,7 @@ class ActivitySession < ApplicationRecord
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.search_sort_sql(sort)
     if sort.blank? or sort[:field].blank?
       sort = {
@@ -548,15 +557,15 @@ class ActivitySession < ApplicationRecord
       "standards.name #{order}"
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def trigger_events
     yield # http://stackoverflow.com/questions/4998553/rails-around-callbacks
 
     return unless saved_change_to_state?
+    return unless state == 'finished'
 
-    if state == 'finished'
-      FinishActivityWorker.perform_async(uid)
-    end
+    FinishActivityWorker.perform_async(uid)
   end
 
   private def set_state
@@ -578,9 +587,9 @@ class ActivitySession < ApplicationRecord
     # we check to see if it is finished because the only milestone we're checking for is the copleted idagnostic.
     # at a later date, we might have to update this check in case we want a milestone for sessions being assigned
     # or started.
-    if self.state == 'finished'
-      UpdateMilestonesWorker.perform_async(uid)
-    end
+    return unless self.state == 'finished'
+
+    UpdateMilestonesWorker.perform_async(uid)
   end
 
   private def increment_counts

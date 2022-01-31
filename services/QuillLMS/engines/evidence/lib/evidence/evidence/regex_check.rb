@@ -42,6 +42,7 @@ module Evidence
 
     private def feedback_text
       return ALL_CORRECT_FEEDBACK unless matched_rule
+
       feedback&.text
     end
 

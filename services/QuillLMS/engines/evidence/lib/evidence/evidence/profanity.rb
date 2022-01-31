@@ -18,6 +18,7 @@ module Evidence
 
     def self.profane_word_check(word, bad_words = BadWords::ALL)
       return nil unless word.is_a?(String) && word.length > 1
+
       word = word.downcase.gsub(/[.!?]/, '')
 
       a_match = bad_words.find do |badword|

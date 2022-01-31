@@ -28,6 +28,7 @@ describe AboutUsHelper do
     it 'should return the large tabs when large is true' do
       expect(helper.about_us_tabs(large: true)).to eq large_tabs
     end
+
     it 'should return the small tabs when large is false' do
       expect(helper.about_us_tabs(large: false)).to eq small_tabs
     end

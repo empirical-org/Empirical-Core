@@ -76,13 +76,13 @@ describe UserSubscription, type: :model do
     let!(:user) { create(:user, email: 'test@quill.org') }
     let!(:subscription) { create(:subscription) }
     let!(:user_subscription) { create(:user_subscription, user: user, subscription: subscription) }
+
     describe 'when the user does have the passed subscription' do
-      it "does call #self.create_user_sub_from_school_sub" do
+      it "does not call #self.create_user_sub_from_school_sub" do
         expect(UserSubscription).not_to receive(:create_user_sub_from_school_sub)
         UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(user.id, subscription.id)
       end
-    end
-    describe 'when the user does have the passed subscription' do
+
       it "does call #self.create_user_sub_from_school_sub" do
         expect(UserSubscription).to receive(:create_user_sub_from_school_sub)
         user_subscription.destroy
@@ -104,7 +104,7 @@ describe UserSubscription, type: :model do
       expect(user1.reload.subscription).to eq(new_sub)
     end
 
-    it 'calls #self.redeem_present_and_future_subscriptions_for_credit with the user_id ' do
+    it 'calls #self.redeem_present_and_future_subscriptions_for_credit with the user_id' do
       expect(UserSubscription).to receive(:redeem_present_and_future_subscriptions_for_credit).with(user1.id)
       UserSubscription.create_user_sub_from_school_sub(user1.id, new_sub.id)
     end

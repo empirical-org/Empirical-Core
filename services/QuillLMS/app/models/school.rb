@@ -162,6 +162,7 @@ class School < ApplicationRecord
 
   private def lower_grade_greater_than_upper_grade
     return true unless lower_grade && upper_grade
+
     errors.add(:lower_grade, 'must be less than or equal to upper grade') if lower_grade.to_i > upper_grade.to_i
   end
 end

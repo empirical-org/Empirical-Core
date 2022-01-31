@@ -12,8 +12,8 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
   subject { described_class.run(teacher_id) }
 
   before do
-    expect(CleverIntegration::TeacherClassroomsCache).to receive(:read).with(teacher_id).and_return(data)
-    expect(CleverIntegration::ImportClassroomStudentsWorker).to receive(:perform_async).with(teacher_id, classroom_ids)
+    allow(CleverIntegration::TeacherClassroomsCache).to receive(:read).with(teacher_id).and_return(data)
+    allow(CleverIntegration::ImportClassroomStudentsWorker).to receive(:perform_async).with(teacher_id, classroom_ids)
   end
 
   context 'data has one new classroom' do
@@ -47,7 +47,7 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
     it { should_update_the_classroom_synced_name }
   end
 
-  context 'data has one already imported classroom that the teacher has no corresponding ClassroomsTeacher object ' do
+  context 'data has one already imported classroom that the teacher has no corresponding ClassroomsTeacher object' do
     let(:classroom) { create(:classroom, :from_clever).reload }
     let(:updated_name) { "new_#{classroom.name}" }
     let(:classrooms) { [{ clever_id: classroom.clever_id, name: updated_name}] }
@@ -56,7 +56,7 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
     it { expect { subject }.to change(teacher.classrooms_teachers, :count).by(1) }
     it { should_update_the_classroom_synced_name }
 
-    context 'the classroom has a corresponding ClassroomsTeacher object with coteacher role ' do
+    context 'the classroom has a corresponding ClassroomsTeacher object with coteacher role' do
       before { classroom.classrooms_teachers.first.update(role: coteacher) }
 
       it 'assigns owner role to the teacher' do

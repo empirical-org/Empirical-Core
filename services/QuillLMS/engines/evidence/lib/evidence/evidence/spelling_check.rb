@@ -19,6 +19,7 @@ module Evidence
 
     def feedback_object
       return {} if error.present?
+
       {
         feedback: optimal? ? ALL_CORRECT_FEEDBACK : non_optimal_feedback_string,
         feedback_type: FEEDBACK_TYPE,
@@ -41,6 +42,7 @@ module Evidence
 
     private def spelling_rule
       return @spelling_rule if @spelling_rule
+
       @spelling_rule ||= Rule.where(rule_type: FEEDBACK_TYPE).first
     end
 

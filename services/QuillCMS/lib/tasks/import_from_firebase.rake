@@ -172,6 +172,7 @@ namespace :responses do
     puts dupes_hash
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def convert_to_csv
     graded_file_name = "tmp/data/gradedResponses.json"
     graded_file = File.read(graded_file_name)
@@ -235,6 +236,7 @@ namespace :responses do
     end;0
 
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def import_from_zip
     Zip::File.open('respforpostgres.csv.zip') do |zip_file|
@@ -294,13 +296,11 @@ namespace :responses do
   end
 
   def parse_concept_results(concept_results)
-    if concept_results.instance_of?(String)
-      begin
-        JSON.parse(concept_results)
-      rescue JSON::ParserError
-        nil
-      end
-    end
+    return unless concept_results.instance_of?(String)
+
+    JSON.parse(concept_results)
+  rescue JSON::ParserError
+    nil
   end
 
   def convert_parent_uid_to_parent_id

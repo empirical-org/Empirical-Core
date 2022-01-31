@@ -237,6 +237,7 @@ describe Classroom, type: :model do
     it "must not run before validate" do
       expect(classroom.code).to be_nil
     end
+
     it "must generate a code after validations" do
       classroom=create(:classroom)
       expect(classroom.code).to_not be_nil

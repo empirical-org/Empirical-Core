@@ -23,6 +23,7 @@ describe SubscriptionsController do
 
     describe '#index w/o subscription' do
       let!(:user_no_subscription) { create(:teacher) }
+
       before do
         allow(controller).to receive(:current_user) { user_no_subscription }
       end
@@ -84,7 +85,7 @@ describe SubscriptionsController do
 
   context "without user" do
 
-    before(:each) do
+    before do
       allow(controller).to receive(:current_user) { nil }
     end
 

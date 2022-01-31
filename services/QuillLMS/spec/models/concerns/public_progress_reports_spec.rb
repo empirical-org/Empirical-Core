@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe PublicProgressReports, type: :model do
 
-  before(:each) do
+  before do
     class FakeReports
       attr_accessor :session
 
@@ -69,7 +69,7 @@ describe PublicProgressReports, type: :model do
     end
 
     describe "completed activities" do
-      before(:each) do
+      before do
         unit_activity = UnitActivity.where(activity: activity, unit: classroom_unit.unit).first
         create(:classroom_unit_activity_state, completed: true, classroom_unit: classroom_unit, unit_activity: unit_activity)
       end

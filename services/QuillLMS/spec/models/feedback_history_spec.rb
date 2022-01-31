@@ -46,8 +46,9 @@ RSpec.describe FeedbackHistory, type: :model do
     it { should validate_presence_of(:feedback_session_uid) }
 
     it { should validate_presence_of(:attempt) }
+
     it do
-       should validate_numericality_of(:attempt)
+       expect(subject).to validate_numericality_of(:attempt)
         .only_integer
         .is_greater_than_or_equal_to(1)
         .is_less_than_or_equal_to(5)
@@ -84,7 +85,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'concept results hash' do
-    setup do
+    before do
       @prompt = Evidence::Prompt.create(text: 'Test test test text')
       @activity = create(:evidence_activity)
       @activity_session = create(:activity_session, activity_id: @activity.id)
@@ -111,7 +112,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'serializable_hash' do
-    setup do
+    before do
       @prompt = Evidence::Prompt.create(text: 'Test text')
       @feedback_history = create(:feedback_history, prompt: @prompt)
     end
@@ -138,7 +139,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'batch_create' do
-    setup do
+    before do
       @valid_fh_params = {
         feedback_session_uid: SecureRandom.uuid,
         attempt: 1,
@@ -185,7 +186,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'before_create: anonymize_session_uid' do
-    before(:each) do
+    before do
       @feedback_history = build(:feedback_history)
     end
 
@@ -216,7 +217,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'after_commit, on: :create' do
-    before(:each) do
+    before do
       @feedback_history = build(:feedback_history)
     end
 
@@ -305,7 +306,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'Session-aggregate FeedbackHistories' do
-    setup do
+    before do
       @activity1 = Evidence::Activity.create!(notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
       @activity2 = Evidence::Activity.create!(notes: 'Title_2', title: 'Title 2', parent_activity_id: 2, target_level: 1)
       @because_prompt1 = Evidence::Prompt.create!(activity: @activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
@@ -486,12 +487,13 @@ RSpec.describe FeedbackHistory, type: :model do
     end
 
     context '#most_recent_rating' do
-      setup do
+      before do
         @prompt = Evidence::Prompt.create(text: 'Test text')
         @feedback_history = create(:feedback_history, prompt: @prompt)
         @user1 = create(:user)
         @user2 = create(:user)
       end
+
       it 'should return the most recent FeedbackHistoryRating rating' do
         params1 = { user_id: @user1.id, feedback_history_id: @feedback_history.id, rating: false }
         params2 = { user_id: @user2.id, feedback_history_id: @feedback_history.id, rating: true }

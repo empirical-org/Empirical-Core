@@ -51,6 +51,7 @@ module Evidence
 
     private def highlights
       return [] if optimal?
+
       [entry_highlight, passage_highlight]
     end
 
@@ -80,11 +81,13 @@ module Evidence
 
     private def matched_slice
       return "" if !minimum_overlap?
+
       @matched_slice ||= match_entry_on_passage
     end
 
     private def matched_slice_passage
       return "" if !minimum_overlap?
+
       @matched_slice_passage ||= match_passage_on_entry
     end
 
@@ -116,12 +119,14 @@ module Evidence
       identify_first_matched_substring(passage_word_arrays, slices)
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     private def identify_first_matched_substring(slices_to_assemble, slices_to_match)
       combined_matched_slices = []
       # Placeholder to be overridden during the first run of the loop that makes it past the confirm_minimum_overlap? guard statement.  If that never happens, we don't have to calculate this value
       slices_to_match_strings = nil
       slices_to_assemble.each do |slice|
         next false unless confirm_minimum_overlap?(slice, slices_to_match)
+
         slice_string = slice.join(' ')
         slices_to_match_strings ||= slices_to_match.map { |s| s.join(' ') }
         match = slices_to_match_strings.any? { |match_string| DidYouMean::Levenshtein.distance(slice_string, match_string) <= FUZZY_CHARACTER_THRESHOLD }
@@ -143,6 +148,7 @@ module Evidence
       end
       combined_matched_slices
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     private def confirm_minimum_overlap?(target_array, source_arrays)
       # Since we allow character deviation that's smaller than the total number of words compared
@@ -157,6 +163,7 @@ module Evidence
       @passage_word_arrays ||= clean_passage.split.each_cons(MATCH_MINIMUM).to_a
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     private def get_highlight(text, cleaned_text, matched_slice)
       extra_space_indexes = []
       cleaned_text.each_char.with_index { |c, i| extra_space_indexes.push(i) if c == ' ' && cleaned_text[i+1] == ' ' }
@@ -172,5 +179,6 @@ module Evidence
       char_positions = text.enum_for(:scan, /[A-Za-z0-9\s]/).map { |c| Regexp.last_match.begin(0) }
       text[char_positions[start_index]..char_positions[end_index]]
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
   end
 end

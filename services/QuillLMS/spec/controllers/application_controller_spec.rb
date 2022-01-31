@@ -7,7 +7,7 @@ describe ApplicationController, type: :controller do
 
   describe "#user_inactive_for_too_long?" do
 
-    before(:each) do
+    before do
       ApplicationController.send(:public, *ApplicationController.protected_instance_methods)
     end
 

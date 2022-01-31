@@ -285,7 +285,7 @@ module Evidence
         model = create(:evidence_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => (["no_rule_for_label"])) 
         response = model.activate
         model.reload
-        expect(false).to(eq(response))
+        expect(response).to(eq(false))
         expect(AutomlModel::STATE_INACTIVE).to(eq(model.state))
       end
 
@@ -295,7 +295,7 @@ module Evidence
         old_model = create(:evidence_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_ACTIVE), :labels => ([label1, label2])) 
         new_model = create(:evidence_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => (["no_rule_for_label"])) 
         response = new_model.activate
-        expect(false).to(eq(response))
+        expect(response).to(eq(false))
         old_model.reload
         rule1.reload
         rule2.reload
@@ -319,13 +319,13 @@ module Evidence
       let!(:first_model) { create(:evidence_automl_model) } 
 
       it 'should be 0 if there are no previous models for the prompt' do
-        expect(0).to(eq(first_model.older_models))
+        expect(first_model.older_models).to(eq(0))
       end
 
       it 'should be 1 if there is a single previous model for the prompt' do
         second_model = create(:evidence_automl_model, :prompt => first_model.prompt)
-        expect(0).to(eq(first_model.older_models))
-        expect(1).to(eq(second_model.older_models))
+        expect(first_model.older_models).to(eq(0))
+        expect(second_model.older_models).to(eq(1))
       end
     end
   end

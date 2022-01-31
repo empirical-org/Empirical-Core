@@ -4,13 +4,11 @@ require 'rails_helper'
 
 
 describe StudentsController do
-  it { should use_before_action :authorize! }
-
   let(:user) { create(:student) }
 
-  before do
-    allow(controller).to receive(:current_user) { user }
-  end
+  before { allow(controller).to receive(:current_user) { user } }
+
+  it { should use_before_action :authorize! }
 
   describe '#index' do
     let!(:classroom) { create(:classroom) }
@@ -31,9 +29,7 @@ describe StudentsController do
   describe '#join_classroom' do
     let(:student) { create(:student) }
 
-    before do
-      allow(controller).to receive(:current_user) { student }
-    end
+    before { allow(controller).to receive(:current_user) { student } }
 
     it 'should redirect for an invalid class_code' do
       get :join_classroom, params: { classcode: 'nonsense_doesnt_exist' }
@@ -102,18 +98,21 @@ describe StudentsController do
   describe '#update_account' do
     let!(:user) { create(:user, name: "Maya Angelou", email: 'maya_angelou_demo@quill.org', username: "maya-angelou", role: "student") }
     let!(:second_user) { create(:user, name: "Harvey Milk", email: 'harvey@quill.org', username: "harvey-milk", role: "student") }
+
     it 'should update the name, email and username' do
       put :update_account, params: { email: "pablo@quill.org", username: "pabllo-vittar", name: "Pabllo Vittar" }
       expect(user.reload.email).to eq "pablo@quill.org"
       expect(user.reload.username).to eq "pabllo-vittar"
       expect(user.reload.name).to eq "Pabllo Vittar"
     end
+
     it 'should update only the fields that are changed' do
       put :update_account, params: { email: "pablo@quill.org", username: "rainha-do-carnaval", name: "Pabllo Vittar" }
       expect(user.reload.email).to eq "pablo@quill.org"
       expect(user.reload.username).to eq "rainha-do-carnaval"
       expect(user.reload.name).to eq "Pabllo Vittar"
     end
+
     it 'should not update the email or username if already taken' do
       put :update_account, params: { email: "harvey@quill.org", username: "pabllo-vittar", name: "Pabllo Vittar" }
       expect(user.reload.errors.messages[:email].first).to eq "That email is taken. Try another."

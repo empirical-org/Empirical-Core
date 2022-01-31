@@ -9,7 +9,7 @@ module Evidence
     def index
       @rules = Evidence::Rule
       @rules = @rules.includes(:prompts_rules).where(comprehension_prompts_rules: {prompt_id: params[:prompt_id].split(',')}) if params[:prompt_id]
-      @rules = @rules.where(rule_type: index_params['rule_type']) 
+      @rules = @rules.where(rule_type: index_params['rule_type'])
 
       # some rules will apply to multiple prompts so we only want to return them once
       render json: @rules.distinct.all
@@ -49,6 +49,7 @@ module Evidence
       head :no_content
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def update_rule_order
       ordered_rules = ordered_rules_params[:ordered_rule_ids].map.with_index do |id, index|
         rule = Evidence::Rule.find_by_id(id)
@@ -63,6 +64,7 @@ module Evidence
         render json: {error_messages: ordered_rules.map { |r| r&.errors }.join('; ')}, status: :unprocessable_entity
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     private def set_rule
       if params[:id].present?

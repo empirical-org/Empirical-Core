@@ -87,6 +87,7 @@ class Teachers::ClassroomsController < ApplicationController
   def bulk_archive
     Classroom.where(id: params[:ids]).each do |classroom|
       next if classroom.owner != current_user
+
       classroom.visible = false
       # we want to skip validations here because otherwise they can prevent archiving the classroom, when the classroom was created before the validation was added
       classroom.save(validate: false)
@@ -157,6 +158,7 @@ class Teachers::ClassroomsController < ApplicationController
     render json: {}
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def format_coteacher_invitations_for_index
     coteacher_invitations = CoteacherClassroomInvitation.includes(invitation: :inviter).joins(:invitation, :classroom).where(invitations: {invitee_email: current_user.email}, classrooms: { visible: true})
 
@@ -168,6 +170,7 @@ class Teachers::ClassroomsController < ApplicationController
       coteacher_invitation_obj
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def format_classrooms_for_index
     has_classroom_order = ClassroomsTeacher.where(user_id: current_user.id).all? { |classroom| classroom.order }
@@ -254,13 +257,16 @@ class Teachers::ClassroomsController < ApplicationController
   private def authorize_owner!
     classroom_id = block_given? ? yield : params[:id]
     return auth_failed unless classroom_id.present?
+
     classroom = Classroom.find_by(id: classroom_id)
     return auth_failed unless classroom
+
     classroom_owner!(classroom.id)
   end
 
   private def authorize_teacher!
     return unless params[:id].present?
+
     classroom_teacher!(params[:id])
   end
 end

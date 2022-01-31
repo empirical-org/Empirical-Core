@@ -10,7 +10,7 @@ shared_examples_for "ownable" do
   end
 
   describe ".owner_name" do 
-      it "must be present " do 
+      it "must be present" do 
         expect(described_class.owner_name).to be_present
       end
   end

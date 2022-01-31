@@ -2,7 +2,8 @@
 
 module PagesHelper
 
-	def pages_tab_class tabname
+ # rubocop:disable Metrics/CyclomaticComplexity
+	def pages_tab_class(tabname)
 		about_actions = ["mission", "develop", "faq"]
 		impact_actions = ['impact', 'map', 'stats']
 		team_actions = %w(team)
@@ -46,8 +47,9 @@ module PagesHelper
 		end
 
 	end
+ # rubocop:enable Metrics/CyclomaticComplexity
 
-	def subtab_class tabname
+	def subtab_class(tabname)
 		if action_name == tabname
 			"active"
 		else
