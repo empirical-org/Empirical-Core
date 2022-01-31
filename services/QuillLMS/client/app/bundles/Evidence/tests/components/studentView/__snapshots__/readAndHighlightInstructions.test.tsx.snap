@@ -56,29 +56,6 @@ exports[`ReadAndHighlightInstructions component when the student has not started
             <u />
           </p>
         </section>
-        <div
-          className="essential-knowledge-section"
-        >
-          <div
-            className="essential-knowledge-header"
-          >
-            <img
-              alt="Information icon"
-              src="undefined/images/icons/information.svg"
-            />
-            <h3>
-              Building Essential Knowledge
-            </h3>
-          </div>
-          <div
-            className="essential-knowledge"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": undefined,
-              }
-            }
-          />
-        </div>
       </div>
     </DirectionsSection>
     <section
@@ -196,29 +173,6 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
             <u />
           </p>
         </section>
-        <div
-          className="essential-knowledge-section"
-        >
-          <div
-            className="essential-knowledge-header"
-          >
-            <img
-              alt="Information icon"
-              src="undefined/images/icons/information.svg"
-            />
-            <h3>
-              Building Essential Knowledge
-            </h3>
-          </div>
-          <div
-            className="essential-knowledge"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": undefined,
-              }
-            }
-          />
-        </div>
       </div>
     </DirectionsSection>
     <section

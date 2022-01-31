@@ -68,29 +68,6 @@ exports[`DirectionsSection component when the student is on the read passage ste
         <u />
       </p>
     </section>
-    <div
-      className="essential-knowledge-section"
-    >
-      <div
-        className="essential-knowledge-header"
-      >
-        <img
-          alt="Information icon"
-          src="undefined/images/icons/information.svg"
-        />
-        <h3>
-          Building Essential Knowledge
-        </h3>
-      </div>
-      <div
-        className="essential-knowledge"
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": undefined,
-          }
-        }
-      />
-    </div>
   </div>
 </DirectionsSection>
 `;
@@ -165,29 +142,6 @@ exports[`DirectionsSection component when the student should see the modal rende
         <u />
       </p>
     </section>
-    <div
-      className="essential-knowledge-section"
-    >
-      <div
-        className="essential-knowledge-header"
-      >
-        <img
-          alt="Information icon"
-          src="undefined/images/icons/information.svg"
-        />
-        <h3>
-          Building Essential Knowledge
-        </h3>
-      </div>
-      <div
-        className="essential-knowledge"
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": undefined,
-          }
-        }
-      />
-    </div>
   </div>
 </DirectionsSection>
 `;
