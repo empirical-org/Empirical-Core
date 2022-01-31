@@ -29,12 +29,12 @@ class Cron
   end
 
   # Configured in Heroku Scheduler to run at XX:20
-  def self.run_hourly_at_20
+  def self.run_hourly_at_20_minute_mark
     ResetGhostInspectorAccountWorker.perform_async
   end
 
   # Configured in Heroku Scheduler to run at XX:50
-  def self.run_hourly_at_50
+  def self.run_hourly_at_50_minute_mark
     ResetGhostInspectorAccountWorker.perform_async
   end
 
