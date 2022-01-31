@@ -33,6 +33,20 @@ describe Cms::UnitTemplatesController, type: :controller do
     end
   end
 
+  describe '#new' do
+
+    let(:unit_template) { double(:unit_template) }
+
+    before do
+      allow(UnitTemplate).to receive(:new) { unit_template }
+    end
+
+    it 'should give a new criteria' do
+      get :new
+      expect(assigns(:unit_template)).to eq unit_template
+    end
+  end
+
   describe '#update' do
     let(:template) { create(:unit_template) }
 

@@ -290,7 +290,7 @@ export default class UnitTemplates extends React.Component {
   diagnosticsDropdown = () => {
     const { diagnostics, diagnostic } = this.state
 
-    let diagnostic_names = diagnostics.filter(d => d.flags[0] != "archived").map((d) => d.name)
+    let diagnostic_names = diagnostics.filter(d => d.data && d.data["flag"] != ARCHIVED_FLAG.toLowerCase()).map((d) => d.name)
     diagnostic_names.push(ALL_DIAGNOSTICS)
     return (<ItemDropdown
       callback={this.switchDiagnostic}
