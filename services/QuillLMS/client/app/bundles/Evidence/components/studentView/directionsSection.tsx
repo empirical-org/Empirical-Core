@@ -21,7 +21,7 @@ const essentialKnowledgeSection = ({ essential_knowledge_text }) => {
   return(
     <div className="essential-knowledge-section">
       <div className="essential-knowledge-header">
-        <img alt={informationIcon.alt} src={informationIcon.src}/>
+        <img alt={informationIcon.alt} src={informationIcon.src} />
         <h3>Building Essential Knowledge</h3>
       </div>
       <div className="essential-knowledge" dangerouslySetInnerHTML={{ __html: essential_knowledge_text }} />
@@ -33,12 +33,12 @@ const DirectionsSection = ({ className, passage, inReflection, activeStep, }) =>
   const uniquePartOfHighlightPrompt = passage.highlight_prompt ? passage.highlight_prompt.replace(DEFAULT_HIGHLIGHT_PROMPT, '') : ''
   if (inReflection) {
     return (
-    <div className={className}>
-      <section className="reflection-section">
-        <h3>Directions</h3>
-        <p>Great! Now take a moment to reflect on the sentences you highlighted. The ideas you highlighted may be helpful as you complete the writing prompts in the next section.</p>
-      </section>
-    </div>
+      <div className={className}>
+        <section className="reflection-section">
+          <h3>Directions</h3>
+          <p>Great! Now take a moment to reflect on the sentences you highlighted. The ideas you highlighted may be helpful as you complete the writing prompts in the next section.</p>
+        </section>
+      </div>
     )
   }
 
