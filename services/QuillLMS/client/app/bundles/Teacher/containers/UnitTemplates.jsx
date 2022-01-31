@@ -46,7 +46,7 @@ export default class UnitTemplates extends React.Component {
     }, (e, r, body) => {
       let newState = {}
       if (e || r.statusCode != 200) {
-        diagnostics = []
+        this.setState({diagnostics: []})
       } else {
         const data = JSON.parse(body);
         this.setState({diagnostics: data.diagnostics})
