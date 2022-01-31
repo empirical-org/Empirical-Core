@@ -61,10 +61,20 @@
           border-bottom: 1px solid #808080;
         }
       }
-      button {
-        padding: 15px 16px;
-        width: auto;
-        margin: 8px;
+      .feedback-details-section {
+        display: flex;
+        align-items: center;
+        p {
+          font-size: 14px;
+          color: #808080;
+          font-weight: 600;
+          margin-right: 8px;
+        }
+        button {
+          padding: 15px 16px;
+          width: auto;
+          margin: 8px;
+        }
       }
     }
   }
@@ -94,9 +104,6 @@
     &.disabled {
       background-color: #cccccc;
       color: #878787;
-    }
-    .button-loading-spinner-container {
-      margin-right: 10px;
     }
   }
   .feedback-section {
