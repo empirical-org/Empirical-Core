@@ -36,6 +36,7 @@ class AppSetting < ApplicationRecord
   def self.enabled?(name:, user:)
     app_setting = AppSetting.find_by_name(name)
     return false unless app_setting
+
     app_setting.enabled_for_user?(user)
   end
 

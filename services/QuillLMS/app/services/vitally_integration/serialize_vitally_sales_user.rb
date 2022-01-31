@@ -9,6 +9,7 @@ class SerializeVitallySalesUser
     @user = user
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def data
     current_time = Time.zone.now
     school_year_start = School.school_year_start(current_time)
@@ -88,19 +89,20 @@ class SerializeVitallySalesUser
       }.merge(account_data_params)
     }
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def evidence_id
     ActivityClassification.evidence.id
   end
 
   def account_data
-    unless account_uid.blank? || account_data_params.blank?
-      {
-        accountId: account_uid.to_s,
-        type: 'account',
-        traits: account_data_params
-      }
-    end
+    return if account_uid.blank? || account_data_params.blank?
+
+    {
+      accountId: account_uid.to_s,
+      type: 'account',
+      traits: account_data_params
+    }
   end
 
   private def get_from_cache(key)

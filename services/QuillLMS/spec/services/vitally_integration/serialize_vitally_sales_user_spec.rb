@@ -4,7 +4,9 @@ require 'rails_helper'
 
 describe 'SerializeVitallySalesUser' do
   before { Timecop.freeze }
+
   after { Timecop.return }
+
   let!(:current_time) { Time.now }
   let!(:school) { create(:school) }
   let!(:teacher) { create(:user, role: 'teacher', school: school)}

@@ -46,7 +46,7 @@ describe User, type: :model do
         expect(teacher.classrooms_i_own_that_a_specific_user_coteaches_with_me(coteacher.id)).to eq([])
       end
 
-      it 'returns the classroom the user owns if they coteach that classroom with the coteacher_id ' do
+      it 'returns the classroom the user owns if they coteach that classroom with the coteacher_id' do
         ct = create(:classrooms_teacher, classroom: classroom, role: 'coteacher')
         coteacher = ct.user
         expect(teacher.classrooms_i_own_that_a_specific_user_coteaches_with_me(coteacher.id)).to eq([classroom])
@@ -126,6 +126,7 @@ describe User, type: :model do
     describe '#classrooms_i_coteach' do
       let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
       let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
+
       it 'should return all visible classrooms associated with the teacher through classrooms teacher and role coteacher' do
         expect(teacher.classrooms_i_coteach).to match_array([co_taught_classroom])
         co_taught_classroom.update(visible: false)
@@ -186,7 +187,7 @@ describe User, type: :model do
           expect(results[:coteacher_classroom_invitations_ids]).to include(coteacher_classroom_invitation2.id)
         end
 
-        it "does not return cotaught classrooms if their classroom id is in the list" do
+        it "does not return cotaught classroom invitations if their classroom id is in the list" do
           results = teacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of([coteacher_classroom_invitation.classroom_id])
           expect(results[:coteacher_classroom_invitations_ids]).to_not include(coteacher_classroom_invitation2.id)
         end
@@ -263,6 +264,7 @@ describe User, type: :model do
           # for some reason Rspec was setting expiration as today if I set it at Date.yesterday, so had to minus 1 from yesterday
           let!(:subscription) { create(:subscription, expiration: Date.yesterday - 1, account_type: 'Teacher Paid') }
           let!(:user_subscription) { create(:user_subscription, user_id: teacher.id, subscription: subscription) }
+
           it 'returns false' do
             expect(teacher.reload.is_premium?).to be false
           end
@@ -380,6 +382,7 @@ describe User, type: :model do
       context 'user has or had a subscription' do
         let!(:subscription) { create(:subscription, expiration: Date.today + 1, account_type: 'Teacher Trial') }
         let!(:user_subscription) { create(:user_subscription, user_id: teacher.id, subscription: subscription) }
+
         context 'user is on a valid trial' do
           it "returns 'trial'" do
             subscription.update(account_type: 'trial')
@@ -525,6 +528,7 @@ describe User, type: :model do
 
     describe '#referral_code' do
       let!(:referral_code) { teacher.referrer_user.referral_code }
+
       it 'returns the appropriate referral code' do
         expect(teacher.referral_code).to be(referral_code)
       end

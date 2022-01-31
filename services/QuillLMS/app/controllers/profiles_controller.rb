@@ -125,9 +125,9 @@ class ProfilesController < ApplicationController
       !@act_sesh_records.first['max_percentage']
     end
 
-    if can_display_next_activity
-      @act_sesh_records.first
-    end
+    return unless can_display_next_activity
+
+    @act_sesh_records.first
   end
 
   protected def get_parsed_mobile_profile_data(classroom_id)

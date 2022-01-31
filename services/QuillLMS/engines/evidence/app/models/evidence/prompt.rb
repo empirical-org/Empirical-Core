@@ -68,12 +68,12 @@ module Evidence
     private def validate_prompt_text_length
       length = text&.length
       prompt = "#{conjunction} prompt"
-      if length
-        if length < MIN_TEXT_LENGTH
-          errors.add(:text, "#{prompt} too short (minimum is #{MIN_TEXT_LENGTH} characters)")
-        elsif length > MAX_TEXT_LENGTH
-          errors.add(:text, "#{prompt} too long (maximum is #{MAX_TEXT_LENGTH} characters)")
-        end
+      return unless length
+
+      if length < MIN_TEXT_LENGTH
+        errors.add(:text, "#{prompt} too short (minimum is #{MIN_TEXT_LENGTH} characters)")
+      elsif length > MAX_TEXT_LENGTH
+        errors.add(:text, "#{prompt} too long (maximum is #{MAX_TEXT_LENGTH} characters)")
       end
     end
   end

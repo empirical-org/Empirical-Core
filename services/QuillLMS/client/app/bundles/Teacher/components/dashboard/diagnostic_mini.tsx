@@ -51,13 +51,13 @@ const headers = [
 const MobileRecommendationRow = ({ row, }) => {
   const {
     diagnostic,
-    resultsHref,
+    summaryHref,
     classroom,
   } = row
   return (<div className="mobile-data-row">
     <div className="top-row">
       <span>{diagnostic}</span>
-      <a className="focus-on-light" href={resultsHref}>View</a>
+      <a className="focus-on-light" href={summaryHref}>View</a>
     </div>
     <div>{classroom}</div>
   </div>)
@@ -83,15 +83,15 @@ const DiagnosticMini = ({diagnostics, onMobile, }) => {
       post_test_id
     } = diagnostic
     const unitQueryString = pre_test_id || post_test_id ? '' : `?unit=${unit_id}` // for pre-tests that have post-tests and post-tests, we aggregate all the results for a classroom rather than breaking it down by unit
-    const resultsOrGrowthResults = pre_test_id ? 'growth_results' : 'results'
-    const resultsHref = `/teachers/progress_reports/diagnostic_reports#diagnostics/${activity_id}/classroom/${classroom_id}/${resultsOrGrowthResults}${unitQueryString}`
+    const summaryOrGrowthSummary = pre_test_id ? 'growth_summary' : 'summary'
+    const summaryHref = `/teachers/progress_reports/diagnostic_reports#diagnostics/${activity_id}/classroom/${classroom_id}/${summaryOrGrowthSummary}${unitQueryString}`
     return {
       id: `${activity_id}-${classroom_id}-${unit_id}`,
       classroom: classroom_name,
       diagnostic: activity_name,
       completed: `${completed_count} of ${assigned_count}`,
-      results: <a className="focus-on-light" href={resultsHref}><img alt={fileChartIcon.alt} src={fileChartIcon.src} /><span>View</span></a>,
-      resultsHref,
+      results: <a className="focus-on-light" href={summaryHref}><img alt={fileChartIcon.alt} src={fileChartIcon.src} /><span>View</span></a>,
+      summaryHref,
     }
   })
 

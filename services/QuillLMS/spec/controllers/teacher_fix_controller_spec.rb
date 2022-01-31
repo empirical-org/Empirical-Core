@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 describe TeacherFixController do
-  it { should use_before_action :staff! }
-
   let(:staff) { create(:staff) }
 
   before { allow(controller).to receive(:current_user) { staff } }
+
+  it { should use_before_action :staff! }
 
   describe '#archived_units' do
     context 'when user does not exist' do

@@ -14,6 +14,7 @@ module Evidence
 
     def feedback_object
       return unless matched_rule
+
       feedback = matched_rule.determine_feedback_from_history(@previous_feedback)
       highlight = feedback.highlights.map do |h|
         {
@@ -40,6 +41,7 @@ module Evidence
 
     private def fetch_matched_rule
       return unless @automl_model
+
       google_automl_label = @automl_model.fetch_automl_label(@entry)
       @prompt.rules.joins(:label).find_by(comprehension_labels: {name: google_automl_label})
     end

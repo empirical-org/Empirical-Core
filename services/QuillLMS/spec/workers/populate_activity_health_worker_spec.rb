@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe PopulateActivityHealthWorker do
-  let(:subject) { described_class.new }
+  subject { described_class.new }
 
   describe '#perform' do
     let!(:question) { create(:question)}
@@ -123,7 +123,7 @@ describe PopulateActivityHealthWorker do
       expect(PromptHealth.second.percent_common_unmatched).to eq(100)
     end
 
-    it 'should create a new Activity Health object' do
+    it 'should create a new Activity Health object with a bad activity' do
       bad_activity = create(:activity, activity_classification_id: connect.id, flags: ["nonflag"])
       expect { subject.perform(bad_activity.id) }.not_to raise_error
 

@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe ActivitySessionsController, type: :controller do
+  before { allow(controller).to receive(:current_user) { user } }
+
   it { should use_before_action :activity_session_from_id }
   it { should use_before_action :activity_session_from_uid }
   it { should use_before_action :activity_session_for_update }
@@ -20,19 +22,15 @@ describe ActivitySessionsController, type: :controller do
   let!(:activity_session) { create(:activity_session, user: user1, activity: activity, classroom_unit: cu, state: 'unstarted') }
   let(:user) { create(:staff) }
 
-  before do
-    allow(controller).to receive(:current_user) { user }
-  end
 
 
   describe '#play' do
-      before do
-        allow_any_instance_of(Activity).to receive(:activity_classification_id) { 3 }
-      end
-      it 'should redirect to module url' do
-        get :play, params: { id: activity_session.id }
-        expect(response).to redirect_to activity.module_url(activity_session)
-      end
+    before { allow_any_instance_of(Activity).to receive(:activity_classification_id) { 3 } }
+
+    it 'should redirect to module url' do
+      get :play, params: { id: activity_session.id }
+      expect(response).to redirect_to activity.module_url(activity_session)
+    end
   end
 
   describe '#result' do
@@ -57,9 +55,7 @@ describe ActivitySessionsController, type: :controller do
 
   describe '#anonymous' do
     context 'activity with classification key lessons' do
-      before do
-        allow_any_instance_of(ActivityClassification).to receive(:key) { "lessons" }
-      end
+      before { allow_any_instance_of(ActivityClassification).to receive(:key) { "lessons" } }
 
       it 'should assign the activity' do
         get :anonymous, params: { activity_id: activity.id }
@@ -73,9 +69,7 @@ describe ActivitySessionsController, type: :controller do
     end
 
     context 'activity without classification key lessons' do
-      before do
-        allow_any_instance_of(ActivityClassification).to receive(:key) { "not lessons" }
-      end
+      before { allow_any_instance_of(ActivityClassification).to receive(:key) { "not lessons" } }
 
       it 'should redirect to anonymous module url' do
         get :anonymous, params: { activity_id: activity.id }

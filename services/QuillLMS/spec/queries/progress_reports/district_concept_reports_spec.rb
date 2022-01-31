@@ -15,7 +15,8 @@ describe ProgressReports::DistrictConceptReports do
     let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id]) }
     let!(:activity_session) { create(:activity_session_without_concept_results, classroom_unit: classroom_unit, user_id: student.id) }
     let!(:concept_result) { create(:concept_result, activity_session: activity_session) }
-    let(:subject) { described_class.new(admin.id) }
+
+    subject { described_class.new(admin.id) }
 
     it 'should return the correct results' do
       correct = concept_result.metadata["correct"]

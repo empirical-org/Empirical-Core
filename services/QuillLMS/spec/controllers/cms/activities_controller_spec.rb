@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe Cms::ActivitiesController, type: :controller do
+  before { allow(controller).to receive(:current_user) { user } }
+
   it { should use_before_action :find_classification }
   it { should use_before_action :set_activity }
 
@@ -15,14 +17,9 @@ describe Cms::ActivitiesController, type: :controller do
   let(:activity_category) { create(:activity_category) }
   let(:standard) { create(:standard) }
 
-  before do
-    allow(controller).to receive(:current_user) { user }
-  end
 
   describe '#index' do
-    before do
-      allow_any_instance_of(ActivityClassification).to receive(:activities) { activities }
-    end
+    before { allow_any_instance_of(ActivityClassification).to receive(:activities) { activities } }
 
     context 'when flag is archive' do
       it 'should set the flag and activities' do

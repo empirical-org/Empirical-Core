@@ -80,6 +80,7 @@ class TeacherFixController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def merge_student_accounts
     primary_account = User.find_by_username_or_email(params['account1_identifier'])
     secondary_account = User.find_by_username_or_email(params['account2_identifier'])
@@ -99,7 +100,9 @@ class TeacherFixController < ApplicationController
       render json: {error: "We do not have an account for #{missing_account_identifier}"}
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def merge_teacher_accounts
     account1 = User.find_by_username_or_email(params['account1_identifier'])
     account2 = User.find_by_username_or_email(params['account2_identifier'])
@@ -125,6 +128,7 @@ class TeacherFixController < ApplicationController
       render json: {error: "We do not have an account for #{missing_account_identifier}"}
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def move_student_from_one_class_to_another
     account_identifier = params['student_identifier']
@@ -176,6 +180,7 @@ class TeacherFixController < ApplicationController
   def merge_two_schools
     begin
       raise 'Please specify a school ID.' if params['from_school_id'].nil? || params['to_school_id'].nil?
+
       TeacherFixes::merge_two_schools(params['from_school_id'], params['to_school_id'])
     rescue => e
       return render json: { error: e.message || e }
@@ -189,6 +194,7 @@ class TeacherFixController < ApplicationController
       classroom2 = Classroom.find_by(code: params['class_code2'])
       raise 'The first class code is invalid' if !classroom1
       raise 'The second class code is invalid' if !classroom2
+
       TeacherFixes::merge_two_classrooms(classroom1.id, classroom2.id)
     rescue => e
       return render json: { error: e.message || e }
@@ -196,9 +202,11 @@ class TeacherFixController < ApplicationController
     render json: {}, status: 200
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def merge_activity_packs
     begin
       raise 'Please specify an activity pack ID.' if params['from_activity_pack_id'].nil? || params['to_activity_pack_id'].nil?
+
       unit1 = Unit.find_by(id: params['from_activity_pack_id'])
       unit2 = Unit.find_by(id: params['to_activity_pack_id'])
       raise 'The first activity pack ID is invalid.' if !unit1
@@ -206,12 +214,14 @@ class TeacherFixController < ApplicationController
       raise 'The two activity packs must belong to the same teacher.' if unit1.user != unit2.user
 
       raise 'The two activity packs must be assigned to the same classroom.' if (unit1.classrooms & unit2.classrooms).empty?
+
       TeacherFixes::merge_two_units(unit1, unit2)
     rescue => e
       return render json: { error: e.message || e }
     end
     render json: {}, status: 200
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def delete_last_activity_session
     begin
@@ -220,6 +230,7 @@ class TeacherFixController < ApplicationController
       activity = Activity.find_by(name: params['activity_name'])
       raise 'No such student' if !user
       raise 'No such activity' if !activity
+
       TeacherFixes::delete_last_activity_session(user.id, activity.id)
     rescue => e
       return render json: { error: e.message || e }

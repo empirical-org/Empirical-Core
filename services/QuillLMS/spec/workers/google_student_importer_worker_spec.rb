@@ -19,7 +19,7 @@ describe GoogleStudentImporterWorker do
       subject.perform(teacher.id)
     end
 
-    it 'should run importing with valid teacher id and no selected_classroom_ids' do
+    it 'should run importing with valid teacher id and selected_classroom_ids' do
       expect(GoogleIntegration::TeacherClassroomsStudentsImporter).to receive(:new).with(teacher, selected_classroom_ids)
 
       GoogleStudentImporterWorker.new.perform(teacher.id, nil, selected_classroom_ids)

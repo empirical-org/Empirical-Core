@@ -62,20 +62,20 @@ class ProgressReports::Standards::AllClassroomsStandard
   end
 
   def classroom_joins(classroom_id)
-    if !classroom_id
-      "JOIN classrooms ON classroom_units.classroom_id = classrooms.id JOIN classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id AND classrooms_teachers.user_id = #{@teacher.id} AND classrooms.visible = true"
-    end
+    return if classroom_id
+
+    "JOIN classrooms ON classroom_units.classroom_id = classrooms.id JOIN classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id AND classrooms_teachers.user_id = #{@teacher.id} AND classrooms.visible = true"
   end
 
   def classroom_condition(classroom_id)
-    if classroom_id
-      "AND classroom_units.classroom_id = #{classroom_id}"
-    end
+    return unless classroom_id
+
+    "AND classroom_units.classroom_id = #{classroom_id}"
   end
 
   def student_condition(student_id)
-    if student_id
-      "AND activity_sessions.user_id = #{student_id}"
-    end
+    return unless student_id
+
+    "AND activity_sessions.user_id = #{student_id}"
   end
 end

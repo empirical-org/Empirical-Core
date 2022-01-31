@@ -241,7 +241,7 @@ describe ActivitySession, type: :model, redis: true do
     end
   end
 
-  describe 'paginate ' do
+  describe 'paginate' do
     let(:activity_session) { create(:activity_session) }
     let(:activity_session1) { create(:activity_session) }
     let(:activity_session2) { create(:activity_session) }
@@ -257,55 +257,6 @@ describe ActivitySession, type: :model, redis: true do
 
     it 'should return the sessions with final score true' do
       expect(ActivitySession.with_best_scores).to include(activity_session)
-    end
-  end
-
-  describe 'with_filters' do
-    let(:classroom_unit) { create(:classroom_unit) }
-
-    context 'classroom_id' do
-      let(:classroom) { create(:classroom) }
-      let(:classroom_unit1) { create(:classroom_unit, classroom: classroom) }
-
-      it 'should return the given query with the given classroom_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {classroom_id: classroom.id}))
-      end
-    end
-
-    context 'student_id' do
-      let(:student) { create(:student) }
-      let(:classroom_unit1) { create(:classroom_unit, user: student) }
-
-      it 'should return the given query with the given student_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {student_id: student.id}))
-      end
-    end
-
-    context 'unit_id' do
-      let(:unit) { create(:unit) }
-      let(:classroom_unit) { create(:classroom_unit, unit: unit) }
-
-      it 'should return the given query with the given classroom_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {unit_id: unit.id}))
-      end
-    end
-
-    context 'standard_level_id' do
-      let(:standard_level) { create(:standard_level) }
-      let(:classroom_unit1) { create(:classroom_unit, standard_level: standard_level) }
-
-      it 'should return the given query with the given standard_level_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {standard_level_id: standard_level.id}))
-      end
-    end
-
-    context 'standard_id' do
-      let(:standard) { create(:standard) }
-      let(:classroom_unit1) { create(:classroom_unit, standard: standard) }
-
-      it 'should return the given query with the given standard_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {standard_id: standard.id}))
-      end
     end
   end
 
@@ -335,7 +286,7 @@ describe ActivitySession, type: :model, redis: true do
     let!(:classroom_unit) { create(:classroom_unit, classroom_id: student.classrooms.first.id, assigned_student_ids: [student.id]) }
     let!(:activity_session){   create(:activity_session, classroom_unit: classroom_unit, state: 'not validated')}
 
-    before(:each) do
+    before do
       $redis.set("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
     end
 
@@ -643,8 +594,8 @@ end
     before do
       # Can't figure out why the setup above creates 2 activity sessions
       ActivitySession.destroy_all
-      2.times { create(:activity_session, classroom_unit: current_teacher_classroom_unit, user: current_student) }
-      3.times { create(:activity_session, classroom_unit: other_teacher_classroom_unit, user: other_student) }
+      create_list(:activity_session, 2, classroom_unit: current_teacher_classroom_unit, user: current_student)
+      create_list(:activity_session, 3, classroom_unit: other_teacher_classroom_unit, user: other_student)
     end
 
     it "only retrieves activity sessions for the students who have that teacher" do
@@ -696,7 +647,7 @@ end
       context "when completed_at is already set" do
         before { activity_session.completed_at = 5.minutes.ago }
 
-        it "should not change completed at " do
+        it "should not change completed at" do
           expect {
             activity_session.save!
           }.to_not change {
@@ -769,14 +720,14 @@ end
     let(:classroom_unit)   {create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
     let(:previous_final_score) {create(:activity_session, completed_at: Time.now, percentage: 0.9, is_final_score: true, user: student, classroom_unit: classroom_unit, activity: activity)}
 
-    it 'updates when new activity session has higher percentage ' do
+    it 'updates when new activity session has higher percentage' do
       previous_final_score
       new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
       new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: 0.95
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
 
-    it 'updates when new activity session has equal percentage ' do
+    it 'updates when new activity session has equal percentage' do
       previous_final_score
       new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
       new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: previous_final_score.percentage
@@ -936,16 +887,19 @@ end
       end
     end
   end
+
   describe '#mark_all_activity_sessions_complete' do
     let(:activity) { create(:activity) }
     let(:classroom_unit) { create(:classroom_unit) }
     let(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, state: 'started') }
+
     it 'marks all of a classroom activities activity sessions finished' do
       expect(activity_session.state).not_to eq('finished')
       ActivitySession.mark_all_activity_sessions_complete([activity_session])
       expect(activity_session.reload.state).to eq('finished')
     end
   end
+
   describe '#has_a_started_session?' do
     context 'when session exists' do
       let(:activity_session) { create(:activity_session, state: "started") }
@@ -967,6 +921,7 @@ end
   describe '#generate_activity_url' do
     let(:classroom_unit) { create(:classroom_unit) }
     let(:activity) { create(:activity) }
+
     ENV["DEFAULT_URL"] = 'http://cooolsville.edu'
 
     it 'returns a url including the default url' do

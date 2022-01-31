@@ -5,7 +5,8 @@ require 'rails_helper'
 describe GoogleIntegration::RefreshAccessToken do
   let(:user) { create(:user) }
   let!(:auth_credential) { create(:google_auth_credential, user: user) }
-  let(:subject) { described_class.new(user) }
+
+  subject { described_class.new(user) }
 
   describe '#refresh' do
     it 'returns current_credentials if should_refresh? is false' do

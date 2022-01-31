@@ -3,12 +3,11 @@
 require 'rails_helper'
 
 describe PremiumAnalyticsWorker do
-  let(:subject) { described_class.new }
+  subject { described_class.new }
+
   let(:analyzer) { double(:analyzer, track: true) }
 
-  before do
-    allow(Analyzer).to receive(:new) { analyzer }
-  end
+  before { allow(Analyzer).to receive(:new) { analyzer } }
 
   describe '#perform' do
     let!(:user) { create(:user) }

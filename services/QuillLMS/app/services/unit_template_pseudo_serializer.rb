@@ -134,6 +134,7 @@ class UnitTemplatePseudoSerializer
     activity_hashes.uniq { |a| a[:id] }
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def type
     acts = @unit_template.activities
     if acts.any? { |act| act&.classification&.key == ActivityClassification::LESSONS_KEY }
@@ -153,4 +154,5 @@ class UnitTemplatePseudoSerializer
       }
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

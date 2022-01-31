@@ -5,6 +5,7 @@ namespace :unit_templates do
   task :convert_to_markdown => :environment do
     UnitTemplate.all.each do |ut|
       next unless ut.activity_info.blank?
+
       markdown = ''
       unless ut.problem.blank?
         markdown.concat "### Problem\n\n#{ut.problem}\n\n"

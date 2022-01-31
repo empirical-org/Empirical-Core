@@ -10,10 +10,10 @@ class StudentsController < ApplicationController
     @current_user = current_user
     @js_file = 'student'
     classroom_id = params["classroom"]
-    if params["joined"] == 'success' && classroom_id
-      classroom = Classroom.find(classroom_id)
-      flash.now["join-class-notification"] = "You have joined #{classroom.name} 🎉🎊"
-    end
+    return unless params["joined"] == 'success' && classroom_id
+
+    classroom = Classroom.find(classroom_id)
+    flash.now["join-class-notification"] = "You have joined #{classroom.name} 🎉🎊"
   end
 
   def account_settings
@@ -62,6 +62,7 @@ class StudentsController < ApplicationController
       errors['current_password'] = 'Wrong password. Try again or click Forgot password to reset it.'
     end
     return render json: {errors: errors}, status: 422 if errors.any?
+
     render json: current_user, serializer: UserSerializer
   end
 
@@ -98,6 +99,7 @@ class StudentsController < ApplicationController
     auth_failed unless current_user
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def redirect_to_profile
     @current_user = current_user
     classroom_id = params["classroom"]
@@ -113,6 +115,7 @@ class StudentsController < ApplicationController
       redirect_to classes_path
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def flash_missing_unit_error
     classroom_id = params["classroom"]
@@ -120,11 +123,11 @@ class StudentsController < ApplicationController
 
     classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
 
-    unless classroom_unit && classroom_unit.assigned_student_ids.include?(current_user.id)
-      flash[:error] = t('activity_link.errors.activity_pack_not_assigned')
-      flash.keep(:error)
-      redirect_to classes_path
-    end
+    return if classroom_unit && classroom_unit.assigned_student_ids.include?(current_user.id)
+
+    flash[:error] = t('activity_link.errors.activity_pack_not_assigned')
+    flash.keep(:error)
+    redirect_to classes_path
   end
 
   private def student_params

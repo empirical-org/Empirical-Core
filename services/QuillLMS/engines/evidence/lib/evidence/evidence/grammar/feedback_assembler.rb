@@ -19,6 +19,7 @@ module Evidence
         "its_versus_it_s_it_s_optimal" => '8d8fe106-e0a5-440a-8bd4-4e34d8d0a16e',
         "its_versus_it_s_its_optimal" => 'f8d7863a-e52f-4d05-9b81-994c16004315',
         "lead_vs_led" => 'da9ded20-284d-4ceb-bb8a-c44623b26415',
+        "missing_hyphen" => 'da2b9bac-6109-40a7-a0d5-cdd6a2d148fb',
         "loose_vs_lose" => '32e8ab57-269a-45aa-9394-95f94e5020b7',
         "passed_vs_past" => 'ec41df97-603f-4e77-ab0c-0d27c2a265fd',
         "plural_versus_possessive_nouns_plural_noun_optimal" => 'a75f910d-fad0-4552-8985-1f989b92770e',

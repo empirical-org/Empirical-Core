@@ -32,6 +32,7 @@ class Admin::TeacherSerializer < ActiveModel::Serializer
   def time_spent
     x = object.try(:time_spent)
     return "No time yet" if x.nil?
+
     mm, ss = x.divmod(60)
     ss2 = ss.floor
     hh, mm2 = mm.divmod(60)

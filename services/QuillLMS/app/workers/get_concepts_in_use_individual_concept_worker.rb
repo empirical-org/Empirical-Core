@@ -4,6 +4,7 @@ class GetConceptsInUseIndividualConceptWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def perform(id)
     @sc_questions = JSON.parse($redis.get('SC_QUESTIONS'))
     @fib_questions = JSON.parse($redis.get('FIB_QUESTIONS'))
@@ -71,6 +72,7 @@ class GetConceptsInUseIndividualConceptWorker
 
     set_concepts_in_use_cache
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def get_activity_rows(id)
     begin

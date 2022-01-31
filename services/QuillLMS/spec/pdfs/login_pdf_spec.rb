@@ -47,10 +47,6 @@ describe LoginPdf do
       expect(@text_analysis.strings).to include(student.username)
     end
 
-    it 'shows email users the right password' do
-      expect(@text_analysis.strings).to include('N/A (Custom Password)')
-    end
-
     it 'shows users with the default password the default password' do
       expect(@text_analysis.strings).to include(normal_student.last_name.capitalize.to_s)
     end

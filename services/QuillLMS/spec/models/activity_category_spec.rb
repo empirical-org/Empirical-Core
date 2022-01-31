@@ -21,7 +21,7 @@ RSpec.describe ActivityCategory, type: :model do
       expect(activity_category.order_number).to eq(ActivityCategory.count)
     end
 
-    it('does not change  the order number if it is already set') do
+    it('does not change the order number if it is already set') do
       activity_category.order_number = 7
       activity_category.set_order_number
       expect(activity_category.order_number).to eq(7)

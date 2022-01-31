@@ -27,6 +27,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#assign as a staff w/o classrooms' do
     let(:user) { create(:staff) }
+
     before do
       allow(controller).to receive(:current_user) { user }
     end

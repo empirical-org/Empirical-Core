@@ -17,6 +17,7 @@ class GoogleDriveLoader
   # Initialize the client.
   def client
     return @client if defined? @client
+
     @client = Google::APIClient.new(
       application_name: 'Example Ruby application',
       application_version: '1.0.0'
@@ -88,6 +89,7 @@ class GoogleDriveFile
 
   def initialize loader, child
     raise if loader.nil?
+
     @loader = loader
     @child = child
   end

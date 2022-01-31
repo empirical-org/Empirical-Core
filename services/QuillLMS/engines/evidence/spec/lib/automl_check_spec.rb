@@ -14,7 +14,7 @@ module Evidence
 
       it 'should should have working accessor methods for all initialized fields' do
         automl_check = Evidence::AutomlCheck.new("entry", prompt)
-        expect("entry").to(eq(automl_check.entry))
+        expect(automl_check.entry).to(eq("entry"))
         expect(prompt).to(eq(automl_check.prompt))
       end
     end
@@ -24,14 +24,14 @@ module Evidence
       it 'should return nil if there is no matched rule' do
         AutomlModel.stub_any_instance(:fetch_automl_label, "NOT#{label.name}") do
           automl_check = Evidence::AutomlCheck.new("entry", prompt)
-          expect(nil).to(eq(automl_check.feedback_object))
+          expect(automl_check.feedback_object).to(eq(nil))
         end
       end
 
       it 'should return nil if there is no automl_model associated with the provided prompt' do
         automl_model.destroy
         automl_check = Evidence::AutomlCheck.new("entry", prompt)
-        expect(nil).to(eq(automl_check.feedback_object))
+        expect(automl_check.feedback_object).to(eq(nil))
       end
 
       it 'should return the feedback payload when there is a label match' do

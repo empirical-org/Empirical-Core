@@ -18,6 +18,7 @@ class Api::V1::IncorrectSequencesController < Api::ApiController
 
   def update
     return not_found unless @question.get_incorrect_sequence(params[:id])
+
     if @question.set_incorrect_sequence(params[:id], valid_params)
       render_incorrect_sequence(params[:id])
     else
@@ -55,6 +56,7 @@ class Api::V1::IncorrectSequencesController < Api::ApiController
   private def render_incorrect_sequence(incorrect_sequence_id)
     incorrect_sequence = @question.get_incorrect_sequence(incorrect_sequence_id)
     return not_found unless incorrect_sequence
+
     render(json: incorrect_sequence)
   end
 

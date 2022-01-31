@@ -116,6 +116,7 @@ class Question < ApplicationRecord
 
   def get_incorrect_sequence(incorrect_sequence_id)
     return nil if !data['incorrectSequences']
+
     incorrect_sequence_id = incorrect_sequence_id.to_i if stored_as_array?('incorrectSequences')
     return data['incorrectSequences'][incorrect_sequence_id]
   end

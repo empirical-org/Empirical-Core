@@ -38,6 +38,7 @@ class GenerateUsername < ApplicationService
 
   private def at_classcode(classcode)
     return "" if classcode.nil?
+
     "@#{classcode}"
   end
 end

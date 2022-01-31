@@ -109,22 +109,6 @@ describe Teachers::ClassroomsController, type: :controller do
     end
   end
 
-  describe '#remove_students' do
-    let!(:classroom) { create(:classroom) }
-    let(:teacher) { classroom.owner }
-
-    before do
-      allow(controller).to receive(:current_user) { teacher }
-    end
-
-    it 'should unhide the classroom' do
-      classroom.update(visible: false)
-      post :unhide, params: { class_id: classroom.id }
-      expect(classroom.reload.visible).to eq true
-    end
-  end
-
-
   describe 'creating a login pdf' do
     let(:teacher) { create(:teacher) }
     let(:different_classroom) { create(:classroom) }
