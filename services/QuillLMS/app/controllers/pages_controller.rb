@@ -89,7 +89,11 @@ class PagesController < ApplicationController
         faqs: [
           {
             question: "What is Quill?",
-            answer: '<p>Quill is a nonprofit 501(c)(3) that provides free writing and grammar activities for students. Quill&#39;s tools provide practice with <a href="https://www.quill.org/tools/grammar">grammar conventions</a>, <a href="https://www.quill.org/tools/connect">combining sentences</a>, and <a href="https://www.quill.org/tools/proofreader">proofreading passages</a>. Teachers can assign Quill&#39;s <a href="https://support.quill.org/en/articles/1173157-getting-started-how-to-set-up-your-first-quill-lesson">synchronous lessons tool</a> to provide whole-group or small-group instruction. Quill provides <a href="https://support.quill.org/en/articles/2554430-what-are-the-assessments-diagnostics-and-skills-surveys-available-on-quill-and-who-are-they-for">a baseline diagnostic assessment</a> teachers can assign to identify students&#39; current strengths and areas of growth. Once students complete a diagnostic, Quill provides <a href="https://support.quill.org/en/articles/5208118-diagnostic-recommendations-tips-and-tricks">personalized learning plans</a> for addressing each student&#39;s needs.</p>'
+            answer: '
+              <p>Quill is a nonprofit 501(c)(3) that provides free writing and grammar activities for students. Quill&#39;s tools provide practice with <a href="https://www.quill.org/tools/grammar">grammar conventions</a>, <a href="https://www.quill.org/tools/connect">combining sentences</a>, and <a href="https://www.quill.org/tools/proofreader">proofreading passages</a>.
+              Teachers can assign Quill&#39;s <a href="https://support.quill.org/en/articles/1173157-getting-started-how-to-set-up-your-first-quill-lesson">synchronous lessons tool</a> to provide whole-group or small-group instruction. Quill provides
+              <a href="https://support.quill.org/en/articles/2554430-what-are-the-assessments-diagnostics-and-skills-surveys-available-on-quill-and-who-are-they-for">a baseline diagnostic assessment</a> teachers can assign to identify students&#39; current strengths and areas of growth. Once students complete a diagnostic, Quill provides
+              <a href="https://support.quill.org/en/articles/5208118-diagnostic-recommendations-tips-and-tricks">personalized learning plans</a> for addressing each student&#39;s needs.</p>'
           },
           {
             question: "How does Quill work?",
