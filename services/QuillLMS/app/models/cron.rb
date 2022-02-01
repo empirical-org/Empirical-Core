@@ -3,6 +3,8 @@
 class Cron
   # Configured in Heroku Scheduler to run every 10 minutes
   def self.interval_10_min
+    run_at_20_minute_mark if Time.now.min == 20
+    run_at_50_minute_mark if Time.now.min == 50
   end
 
   # Configured in Heroku Scheduler to run every hour on the XX:30 mark
@@ -25,22 +27,22 @@ class Cron
     MaterializedViewRefreshWorker.perform_async
     RematchUpdatedQuestionsWorker.perform_async(date.beginning_of_day, date.end_of_day)
 
-    Question::TYPES.each {|type| RefreshQuestionCacheWorker.perform_async(type) }
+    Question::TYPES.each { |type| RefreshQuestionCacheWorker.perform_async(type) }
   end
 
   # Configured in Heroku Scheduler to run at XX:20
-  def self.run_hourly_at_20_minute_mark
+  def self.run_at_20_minute_mark
     ResetGhostInspectorAccountWorker.perform_async
   end
 
   # Configured in Heroku Scheduler to run at XX:50
-  def self.run_hourly_at_50_minute_mark
+  def self.run_at_50_minute_mark
     ResetGhostInspectorAccountWorker.perform_async
   end
 
   def self.run_saturday
     SetImpactMetricsWorker.perform_async
-    UploadLeapReportWorker.perform_async(29087)
+    UploadLeapReportWorker.perform_async(29_087)
     PopulateAllActivityHealthsWorker.perform_async
     DeleteObsoleteActiveActivitySessionsWorker.perform_async
   end

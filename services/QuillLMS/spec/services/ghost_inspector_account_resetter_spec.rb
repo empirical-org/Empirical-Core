@@ -8,7 +8,7 @@ RSpec.describe GhostInspectorAccountResetter do
   let!(:ghost_inspector_account) { create(:user, email: described_class::DEFAULT_GHOST_INSPECTOR_ACCOUNT_EMAIL) }
 
   context 'no units associated with ghost_inspector account exist' do
-    it 'does reset anything' do
+    it 'does not reset anything' do
       expect(ArchiveUnitsClassroomUnitsWorker).not_to receive(:perform_async)
       expect(ResetLessonCacheWorker).not_to receive(:perform_async)
       subject
