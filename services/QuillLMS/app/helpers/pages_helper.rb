@@ -17,8 +17,8 @@ module PagesHelper
     getting_started_actions = ['teacher-center']
     media_actions = ['news', 'press', 'blog_posts']
     case tabname
-  when "about"
-    about_actions.include?(action_name) ? 'active' : ''
+    when "about"
+      about_actions.include?(action_name) ? 'active' : ''
     when 'faq'
       faq_actions.include?(action_name) ? 'active' : ''
     when 'press'
@@ -30,7 +30,7 @@ module PagesHelper
     when "team"
       team_actions.include?(action_name) ? 'active' : ''
     when 'getting-started'
-       # TODO: revert this when we launch front end of knowlege center
+      # TODO: revert this when we launch front end of knowlege center
       action_name == 'temporarily_render_old_teacher_resources' ? 'active' : ''
     when 'news'
       news_actions.include?(action_name) ? 'active' : ''
