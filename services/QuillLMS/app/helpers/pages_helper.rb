@@ -215,7 +215,7 @@ module PagesHelper
           },
           {
             name: 'Cissy Yu',
-            title: 'Junior Software Developer',
+            title: 'Software Developer',
             img: 'team-cissy-yu@2x.png'
           }
         ]
