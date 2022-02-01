@@ -4,7 +4,7 @@ shared_examples_for "uid" do
 
 
   let(:parent) do
-  	 described_class.new
+    described_class.new
   end
 
   context 'when just invoked' do
@@ -18,7 +18,7 @@ shared_examples_for "uid" do
   context "when it's validated" do
 
     it 'uid must be present' do
-    	 parent.valid?
+      parent.valid?
       expect(parent.uid).to be_present
     end
 
