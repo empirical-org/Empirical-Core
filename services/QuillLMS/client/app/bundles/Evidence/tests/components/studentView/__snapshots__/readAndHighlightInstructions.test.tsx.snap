@@ -38,10 +38,10 @@ exports[`ReadAndHighlightInstructions component when the student has not started
           </h3>
           <ul>
             <li>
-              Use information from the text to finish the sentence.
+              First, read the highlighting task below.
             </li>
             <li>
-              Put the information in your own words.
+              Then, read the text and highlight sentences to complete the task.
             </li>
           </ul>
         </section>
@@ -155,10 +155,10 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
           </h3>
           <ul>
             <li>
-              Use information from the text to finish the sentence.
+              First, read the highlighting task below.
             </li>
             <li>
-              Put the information in your own words.
+              Then, read the text and highlight sentences to complete the task.
             </li>
           </ul>
         </section>

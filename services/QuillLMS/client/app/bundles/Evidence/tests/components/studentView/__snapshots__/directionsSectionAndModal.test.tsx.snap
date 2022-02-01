@@ -50,10 +50,10 @@ exports[`DirectionsSection component when the student is on the read passage ste
       </h3>
       <ul>
         <li>
-          Use information from the text to finish the sentence.
+          First, read the highlighting task below.
         </li>
         <li>
-          Put the information in your own words.
+          Then, read the text and highlight sentences to complete the task.
         </li>
       </ul>
     </section>
@@ -124,10 +124,10 @@ exports[`DirectionsSection component when the student should see the modal rende
       </h3>
       <ul>
         <li>
-          Use information from the text to finish the sentence.
+          First, read the highlighting task below.
         </li>
         <li>
-          Put the information in your own words.
+          Then, read the text and highlight sentences to complete the task.
         </li>
       </ul>
     </section>

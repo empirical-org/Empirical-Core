@@ -4,13 +4,16 @@ import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../Shared/utils/constants'
 import { informationIcon } from '../../../Shared/index'
 
 const READ_PASSAGE_STEP = 1
+const promptDirections = ['Use information from the text to finish the sentence.', 'Put the information in your own words.']
+const highlightDirections = ['First, read the highlighting task below.', 'Then, read the text and highlight sentences to complete the task.']
 
-const defaultDirections = (className) => (
+const renderDirections = (directionsTextArray: string[]) => (
   <section className="directions-section">
     <h3>Directions</h3>
     <ul>
-      <li>Use information from the text to finish the sentence.</li>
-      <li>Put the information in your own words.</li>
+      {directionsTextArray.map((text: string) => (
+        <li>{text}</li>
+      ))}
     </ul>
   </section>
 )
@@ -43,11 +46,11 @@ const DirectionsSection = ({ className, passage, inReflection, activeStep, }) =>
   }
 
   if (activeStep > READ_PASSAGE_STEP) {
-    return defaultDirections(className)
+    return renderDirections(promptDirections)
   }
 
   return (<div className={className}>
-    {defaultDirections(className)}
+    {renderDirections(highlightDirections)}
     <section className="task-section">
       <h3>Task</h3>
       <p>{DEFAULT_HIGHLIGHT_PROMPT}<u>{uniquePartOfHighlightPrompt}</u></p>
