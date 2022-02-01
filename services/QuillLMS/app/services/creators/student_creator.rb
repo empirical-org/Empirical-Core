@@ -10,7 +10,7 @@ module Creators::StudentCreator
       name_validator[:notice]
     else
       name_validator
-      
+
     end
   end
 
@@ -35,7 +35,7 @@ module Creators::StudentCreator
   def self.build_classroom_relation(classroom_id)
     sc  = StudentsClassrooms.unscoped.find_or_initialize_by(student_id: @student.id, classroom_id: classroom_id)
     if sc.new_record? && sc.save!
-        StudentJoinedClassroomWorker.perform_async(Classroom.find(classroom_id).owner.id, @student.id)
+      StudentJoinedClassroomWorker.perform_async(Classroom.find(classroom_id).owner.id, @student.id)
       end
     sc.update(visible: true)
     sc

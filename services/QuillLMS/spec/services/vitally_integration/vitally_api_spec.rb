@@ -25,7 +25,7 @@ describe VitallyApi do
       )
       api = VitallyApi.new
       # "send" is a private method, so we get to it through the public "batch" method
-      api.batch(payload)         
+      api.batch(payload)
     end
   end
 end

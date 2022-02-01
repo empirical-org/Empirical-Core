@@ -306,8 +306,8 @@ describe Subscription, type: :model do
   end
 
   describe 'create_with_user_join' do
-  let!(:user) { create(:user) }
-  let(:old_sub) { Subscription.create_with_user_join(user.id, expiration: Date.yesterday, account_type: 'Teacher Paid') }
+    let!(:user) { create(:user) }
+    let(:old_sub) { Subscription.create_with_user_join(user.id, expiration: Date.yesterday, account_type: 'Teacher Paid') }
 
     it 'creates a subscription based off of the passed attributes' do
       attributes = { expiration: Date.yesterday, account_type: 'Teacher Paid' }

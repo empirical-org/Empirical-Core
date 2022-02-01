@@ -20,12 +20,9 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
   end
 
   describe "#update" do
-
-    # rubocop:disable RSpec/Pending, RSpec/ExampleLength
-    xit 'performance testing' do
-      100.times do |i|
-        create(:active_activity_session)
-      end
+    # rubocop:disable RSpec/ExampleLength
+    it 'performance testing', :benchmarking do
+      create_list(:active_activity_session, 100)
 
       data = {
           "updatedAt": 1593741284430,
@@ -341,7 +338,7 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
         end
       end
     end
-    # rubocop:enable RSpec/Pending, RSpec/ExampleLength
+    # rubocop:enable RSpec/ExampleLength
 
     it "should update the existing record" do
       data = {"foo" => "bar"}

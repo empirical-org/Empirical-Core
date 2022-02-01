@@ -54,10 +54,10 @@ class ZipcodeInfo < ApplicationRecord
     lngmax = point[1] + lng_degr_rad
 
     if latmin > latmax
-        latmin, latmax = latmax, latmin
+      latmin, latmax = latmax, latmin
     end
     if lngmin > lngmax
-        lngmin, lngmax = lngmax, lngmin
+      lngmin, lngmax = lngmax, lngmin
     end
 
     zips = ZipcodeInfo.where(

@@ -244,17 +244,17 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     let(:unit_template_ids) { [unit_template1, unit_template2, unit_template3, unit_template4].map(&:id) }
 
     let(:selections) do
-       unit_template_ids.map do |unit_template_id|
-        {
-          id: unit_template_id,
-          classrooms: [
-            {
-              id: classroom.id,
-              student_ids: []
-            }
-          ]
-        }
-      end
+      unit_template_ids.map do |unit_template_id|
+       {
+         id: unit_template_id,
+         classrooms: [
+           {
+             id: classroom.id,
+             student_ids: []
+           }
+         ]
+       }
+     end
     end
 
     it 'creates units but does not create new classroom activities if passed no students ids' do

@@ -649,12 +649,12 @@ describe Teachers::ClassroomManagerController, type: :controller do
     before { allow(controller).to receive(:current_user) { teacher } }
 
     it 'should return an array with two classrooms' do
-      post :update_google_classrooms, params: { selected_classrooms: selected_classrooms }, as: :json
+     post :update_google_classrooms, params: { selected_classrooms: selected_classrooms }, as: :json
 
-      classrooms = JSON.parse(response.body).deep_symbolize_keys.fetch(:classrooms)
+     classrooms = JSON.parse(response.body).deep_symbolize_keys.fetch(:classrooms)
 
-      google_classroom_ids = classrooms.map { |classroom| classroom[:google_classroom_id] }.sort
-      expect(google_classroom_ids).to eq [google_classroom_id1, google_classroom_id2]
+     google_classroom_ids = classrooms.map { |classroom| classroom[:google_classroom_id] }.sort
+     expect(google_classroom_ids).to eq [google_classroom_id1, google_classroom_id2]
    end
   end
 

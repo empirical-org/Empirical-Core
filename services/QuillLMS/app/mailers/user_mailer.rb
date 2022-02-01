@@ -9,7 +9,7 @@ class UserMailer < ActionMailer::Base
   CONSTANTS = {
     signatures: {
       quill_team: 'The Quill Team'
-    }    
+    }
   }
 
   before_action { @constants = CONSTANTS }

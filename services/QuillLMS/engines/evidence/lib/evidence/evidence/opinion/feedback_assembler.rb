@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Evidence 
+module Evidence
   module Opinion
     class FeedbackAssembler < Evidence::FeedbackAssembler
       RULE_MAPPING = {
@@ -18,7 +18,7 @@ module Evidence
         'starts_with_a_verb' => '4f4ed261-16f8-44ae-905c-0ad7c6449af4'
       }
 
-      def self.error_to_rule_uid 
+      def self.error_to_rule_uid
         RULE_MAPPING
       end
 
@@ -26,10 +26,10 @@ module Evidence
         super.merge({'feedback_type' => 'opinion'})
       end
 
-      def self.error_name 
+      def self.error_name
         'oapi_error'
       end
     end
-    
+
   end
 end

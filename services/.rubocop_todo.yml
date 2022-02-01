@@ -141,24 +141,11 @@ Layout/FirstHashElementIndentation:
 Layout/HashAlignment:
   Enabled: false
 
-# Offense count: 83
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: normal, indented_internal_methods
-Layout/IndentationConsistency:
-  Enabled: false
-
 # Offense count: 574
 # Cop supports --auto-correct.
 # Configuration parameters: IndentationWidth, EnforcedStyle.
 # SupportedStyles: spaces, tabs
 Layout/IndentationStyle:
-  Enabled: false
-
-# Offense count: 302
-# Cop supports --auto-correct.
-# Configuration parameters: Width, IgnoredPatterns.
-Layout/IndentationWidth:
   Enabled: false
 
 # Offense count: 50
@@ -297,12 +284,6 @@ Layout/SpaceInsideParens:
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: final_newline, final_blank_line
 Layout/TrailingEmptyLines:
-  Enabled: false
-
-# Offense count: 379
-# Cop supports --auto-correct.
-# Configuration parameters: AllowInHeredoc.
-Layout/TrailingWhitespace:
   Enabled: false
 
 # Offense count: 21

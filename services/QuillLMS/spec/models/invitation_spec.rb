@@ -27,7 +27,7 @@ RSpec.describe Invitation, type: :model do
     it 'should downcase invitee email before saving' do
       invitee_email = 'ANGRY@example.com'
       invite = Invitation.create(invitee_email: invitee_email, inviter: teacher, invitation_type: Invitation::TYPES[:coteacher])
-      expect(invite.invitee_email).to eq(invitee_email.downcase) 
+      expect(invite.invitee_email).to eq(invitee_email.downcase)
     end
 
     it 'should error if the user has reached their daily limit of invitations' do

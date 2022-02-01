@@ -8,7 +8,7 @@ class Api::V1::AppSettingsController < ApplicationController
   end
 
   def show
-    name = app_setting_show_params[:name] 
+    name = app_setting_show_params[:name]
 
     render(json: {
       name => AppSetting.enabled?(name: name, user: current_user)
@@ -16,7 +16,7 @@ class Api::V1::AppSettingsController < ApplicationController
   end
 
   def admin_show
-    name = app_setting_show_params[:name] 
+    name = app_setting_show_params[:name]
     app_setting = AppSetting.find_by_name!(name)
     user_ids = app_setting.user_ids_allow_list
 

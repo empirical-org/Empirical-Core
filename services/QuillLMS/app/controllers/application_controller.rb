@@ -117,7 +117,7 @@ class ApplicationController < ActionController::Base
   end
 
   protected def set_vary_header
-     response.headers['Vary'] = 'Accept'
+    response.headers['Vary'] = 'Accept'
   end
 
   protected def set_default_cache_security_headers

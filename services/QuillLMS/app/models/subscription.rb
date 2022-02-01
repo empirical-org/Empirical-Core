@@ -298,19 +298,19 @@ class Subscription < ApplicationRecord
   end
 
   def self.set_premium_expiration_and_start_date(school_or_user)
-      if !Subscription.school_or_user_has_ever_paid?(school_or_user)
-        # We end their trial if they have one
-        school_or_user.subscription&.update(de_activated_date: Date.today)
-        # Then they get the promotional subscription
-        promotional_dates
-      elsif school_or_user.subscription
-        # Expire one year later, start at end of sub
-        old_sub = school_or_user.subscription
-        {expiration: old_sub.expiration + 1.year, start_date: old_sub.expiration}
-      else
-        # sub lasts one year from Date.today
-        {expiration: Date.today + 1.year, start_date: Date.today}
-      end
+    if !Subscription.school_or_user_has_ever_paid?(school_or_user)
+      # We end their trial if they have one
+      school_or_user.subscription&.update(de_activated_date: Date.today)
+      # Then they get the promotional subscription
+      promotional_dates
+    elsif school_or_user.subscription
+      # Expire one year later, start at end of sub
+      old_sub = school_or_user.subscription
+      {expiration: old_sub.expiration + 1.year, start_date: old_sub.expiration}
+    else
+      # sub lasts one year from Date.today
+      {expiration: Date.today + 1.year, start_date: Date.today}
+    end
   end
 
   def self.set_trial_expiration_and_start_date(user=nil)

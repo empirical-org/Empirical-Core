@@ -90,7 +90,7 @@ FactoryBot.define do
 
     factory :activity_session_without_concept_results do
       after(:create) do |activity_session|
-          ConceptResult.where(activity_session: activity_session).destroy_all
+        ConceptResult.where(activity_session: activity_session).destroy_all
       end
     end
   end

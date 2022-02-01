@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Evidence 
+module Evidence
   module Grammar
     class FeedbackAssembler < Evidence::FeedbackAssembler
       RULE_MAPPING = {
@@ -50,9 +50,9 @@ module Evidence
         "through_vs_threw_vs_thru" => '1f3cff3f-47ef-4e92-b7d5-9867cb4f3dff',
         "to_vs_too_vs_two" => '1522516d-4bdb-4cd1-8f90-30f4f4be3f30',
         "who_s_vs_whose" => 'b4d8997f-736b-41fc-92c5-b410981b43cb'
-      }   
+      }
 
-      def self.error_to_rule_uid 
+      def self.error_to_rule_uid
         RULE_MAPPING
       end
 
@@ -60,10 +60,10 @@ module Evidence
         super.merge({'feedback_type' => 'grammar'})
       end
 
-      def self.error_name 
+      def self.error_name
         'gapi_error'
       end
     end
-    
+
   end
 end

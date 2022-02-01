@@ -5,7 +5,7 @@ module Evidence
     self.table_name = 'comprehension_highlights'
 
     include Evidence::ChangeLog
-    
+
     MIN_TEXT_LENGTH = 1
     MAX_TEXT_LENGTH = 5000
 

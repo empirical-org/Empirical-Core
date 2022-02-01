@@ -12,6 +12,6 @@
 #  clever_id  :string
 #
 class District < ApplicationRecord
-  
+
   has_and_belongs_to_many :users
 end

@@ -78,6 +78,7 @@ RSpec.configure do |config|
 
   # focus tests
   config.filter_run focus: true
+  config.filter_run_excluding benchmarking: true
   config.silence_filter_announcements = true
   config.run_all_when_everything_filtered = true
 
