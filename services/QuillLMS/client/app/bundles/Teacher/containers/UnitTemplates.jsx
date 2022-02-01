@@ -99,14 +99,14 @@ export default class UnitTemplates extends React.Component {
       })
 
       const link = `${process.env.DEFAULT_URL}/cms/unit_templates/update_order_numbers`
-      const data = new FormData();
-      data.append( "unit_templates", JSON.stringify(newOrderedUnitTemplates) );
       fetch(link, {
         method: 'PUT',
         mode: 'cors',
         credentials: 'include',
-        body: data,
+        body: JSON.stringify({unit_templates: newOrderedUnitTemplates}),
         headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
           'X-CSRF-Token': getAuthToken()
         }
       }).then((response) => {
