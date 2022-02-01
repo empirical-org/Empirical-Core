@@ -48,7 +48,7 @@ export default (
         return Object.assign({}, currentState, { hasReceivedData: true });
       case ActionTypes.SET_SUBMITTED_RESPONSES:
         const { submittedResponses, } = action
-        return Object.assign({}, currentState, { submittedResponses, hasReceivedData: true });
+        return Object.assign({}, currentState, { explanationSlidesCompleted: true, submittedResponses, hasReceivedData: true });
       case ActionTypes.RECORD_FEEDBACK:
         const { promptID, feedbackObj, } = action
         const submittedResponsesForPrompt = currentState.submittedResponses[promptID] || []
