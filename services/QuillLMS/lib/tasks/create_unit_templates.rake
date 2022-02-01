@@ -21,10 +21,10 @@ namespace :unit_templates do
   end
 
   def ut_data
-      [
-        %w(John Landis Cool),
-        %w(Sarah Furth Great),
-        %w(Sarah Furth Nice)
-      ]
+    [
+      %w(John Landis Cool),
+      %w(Sarah Furth Great),
+      %w(Sarah Furth Nice)
+    ]
   end
 end

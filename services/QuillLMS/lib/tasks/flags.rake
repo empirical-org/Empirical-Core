@@ -2,27 +2,27 @@
 
 require 'csv'
 
-namespace :flags do 
-  namespace :users do 
+namespace :flags do
+  namespace :users do
     desc 'Update User.flags from a CSV file'
     task :update_from_csv, [:filepath] => :environment do |t, args|
       iostream = File.read(args[:filepath])
-      if (CSV.parse(iostream, headers: true).headers & ["email", "flag"]).count != 2 
+      if (CSV.parse(iostream, headers: true).headers & ["email", "flag"]).count != 2
         puts "Invalid headers. Exiting."
         exit 1
-      end 
-      
+      end
+
       CSV.parse(iostream, headers: true) do |row|
-          user = User.find_by_email(row['email'])
-          if user.nil?
-            puts "Unable to locate user with email #{row['email']}"
-            next 
-          end
+        user = User.find_by_email(row['email'])
+        if user.nil?
+          puts "Unable to locate user with email #{row['email']}"
+          next
+        end
 
-          next if user.flags.include?(row['flag'])
+        next if user.flags.include?(row['flag'])
 
-          user.flags.append(row['flag'])
-          user.save!
+        user.flags.append(row['flag'])
+        user.save!
       end
     end
 

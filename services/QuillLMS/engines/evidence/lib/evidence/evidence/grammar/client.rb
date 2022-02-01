@@ -14,16 +14,16 @@ module Evidence
       end
 
       def post
-        Timeout.timeout(API_TIMEOUT) do 
+        Timeout.timeout(API_TIMEOUT) do
           response = HTTParty.post(
-            ENV['GRAMMAR_API_DOMAIN'], 
+            ENV['GRAMMAR_API_DOMAIN'],
             headers:  {'Content-Type': 'application/json'},
             body:     {
               entry: @entry,
               prompt_text: @prompt_text
             }.to_json
           )
-          if !response.success? 
+          if !response.success?
             raise GrammarApiError, "Encountered upstream error: #{response}"
           end
 
@@ -31,7 +31,7 @@ module Evidence
         end
       end
     end
-    
+
   end
 end
 

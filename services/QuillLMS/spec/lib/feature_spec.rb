@@ -16,20 +16,20 @@ describe Feature do
       end
     end
 
-    context 'unexpected args' do 
-      it 'should not raise exception when a string is passed via percent_per_day' do 
+    context 'unexpected args' do
+      it 'should not raise exception when a string is passed via percent_per_day' do
         date = Date.parse('2000-01-01')
         travel_to(date) do
-          expect do 
+          expect do
             Feature.in_day_bucket?(id: 101, percent_per_day: 'foo')
           end.to_not raise_error
         end
       end
 
-      it 'should not raise exception when zero is passed via percent_per_day' do 
+      it 'should not raise exception when zero is passed via percent_per_day' do
         date = Date.parse('2000-01-01')
         travel_to(date) do
-          expect do 
+          expect do
             Feature.in_day_bucket?(id: 101, percent_per_day: '0')
           end.to_not raise_error
         end

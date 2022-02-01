@@ -73,7 +73,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   # rubocop:disable Metrics/CyclomaticComplexity
   def dashboard
     if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.none? && !current_user.has_outstanding_coteacher_invitation? && current_user.schools_admins.any?
-        redirect_to teachers_admin_dashboard_path
+      redirect_to teachers_admin_dashboard_path
       end
     welcome_milestone = Milestone.find_by_name(Milestone::TYPES[:see_welcome_modal])
     @must_see_modal = !UserMilestone.find_by(milestone_id: welcome_milestone&.id, user_id: current_user&.id) && Unit.unscoped.find_by_user_id(current_user&.id).nil?

@@ -20,9 +20,9 @@ RSpec.describe GoogleIntegration::ClassroomStudentsData do
   before { allow(classroom_students_client).to receive(:call).with(google_classroom_id).and_return(raw_students_data) }
 
   it 'constructs an enumerable object whose elements are hashes containing classroom student data' do
-     expect(subject.to_a).to match_array classroom_students_data
-     expect(subject.google_ids).to match_array google_ids
-     expect(subject.google_classroom_id).to eq google_classroom_id
+    expect(subject.to_a).to match_array classroom_students_data
+    expect(subject.google_ids).to match_array google_ids
+    expect(subject.google_classroom_id).to eq google_classroom_id
   end
 
   def classroom_student_data(student_data)

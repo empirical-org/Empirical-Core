@@ -13,23 +13,23 @@ RSpec.describe QuestionHealthObj, type: :model do
     let!(:activity_session3) { create(:activity_session, activity: activity) }
 
     let!(:concept_result1) do
-       create(:concept_result,
-        activity_session: activity_session1,
-        metadata: {
-          questionNumber: 1,
-          questionScore: 1
-        }
-      )
+      create(:concept_result,
+       activity_session: activity_session1,
+       metadata: {
+         questionNumber: 1,
+         questionScore: 1
+       }
+     )
     end
 
     let!(:concept_result2) do
-       create(:concept_result,
-        activity_session: activity_session2,
-        metadata: {
-          questionNumber: 1,
-          questionScore: 0.75
-        }
-      )
+      create(:concept_result,
+       activity_session: activity_session2,
+       metadata: {
+         questionNumber: 1,
+         questionScore: 0.75
+       }
+     )
     end
 
     let!(:concept_result3) do

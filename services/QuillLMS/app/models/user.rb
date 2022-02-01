@@ -232,7 +232,7 @@ class User < ApplicationRecord
   def subscription_authority_level(subscription_id)
     subscription = Subscription.find subscription_id
     if subscription.purchaser_id == id
-        'purchaser'
+      'purchaser'
     elsif subscription.schools.include?(school)
       if school.coordinator == self
         'coordinator'
@@ -243,13 +243,13 @@ class User < ApplicationRecord
   end
 
   def eligible_for_new_subscription?
-      if subscription
-        # if they have a subscription it must be a trial one
-        Subscription::TRIAL_TYPES.include?(subscription.account_type) || Subscription::COVID_TYPES.include?(subscription.account_type)
-      else
-        # otherwise they are good for purchase
-        true
-      end
+    if subscription
+      # if they have a subscription it must be a trial one
+      Subscription::TRIAL_TYPES.include?(subscription.account_type) || Subscription::COVID_TYPES.include?(subscription.account_type)
+    else
+      # otherwise they are good for purchase
+      true
+    end
   end
 
   def last_expired_subscription

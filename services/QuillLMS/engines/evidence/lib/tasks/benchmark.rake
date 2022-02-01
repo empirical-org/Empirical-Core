@@ -27,7 +27,7 @@ namespace :benchmark do
         "The Amazon rainforest is essential to the Ikpeng and other Indigenous communities because the communities rely on the rainforrest for their livelihood and survival."
       ]
     ]
-    
+
     passages = [
       "Due to the success of the 2014 pulse flow, another 11.4 billion gallons of water was released into the river in May 2021. Scientists think that this pulse flow will support the other conservation efforts Pronatura Noroeste and other local groups are already leading.",
       "Some environmental activists advocated for alternative solutions. Some proposed that New York City invest in building floodwalls and levees on the shore rather than surge barriers in the water. Advocates argued that those solutions would not have the same negative impact on the local ecosystem as surge barriers. Others offered entirely different solutions, such as raising up buildings and elevating New York City’s subway system.",

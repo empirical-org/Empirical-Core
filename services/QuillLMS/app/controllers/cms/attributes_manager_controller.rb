@@ -6,5 +6,5 @@ class Cms::AttributesManagerController < Cms::CmsController
     @js_file = 'staff'
     @style_file = 'staff'
   end
-  
+
 end
