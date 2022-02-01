@@ -3,8 +3,8 @@
 class Cron
   # Configured in Heroku Scheduler to run every 10 minutes
   def self.interval_10_min
-    run_at_20_minute_mark if Time.now.min.between?(20, 29)
-    run_at_50_minute_mark if Time.now.min.between?(50, 59)
+    run_at_20_minute_mark if now.min.between?(20, 29)
+    run_at_50_minute_mark if now.min.between?(50, 59)
   end
 
   # Configured in Heroku Scheduler to run every hour on the XX:30 mark
