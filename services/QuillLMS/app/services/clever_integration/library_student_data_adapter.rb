@@ -9,12 +9,12 @@ module CleverIntegration
     end
 
     def run
-       {
-         clever_id: clever_id,
-         email: email,
-         name: name,
-         username: username
-       }
+      {
+        clever_id: clever_id,
+        email: email,
+        name: name,
+        username: username
+      }
     end
 
     private def clever_id

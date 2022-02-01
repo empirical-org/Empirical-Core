@@ -35,9 +35,9 @@ describe NewRelicAttributable, type: :controller do
     end
   end
 
-  context 'Evidence engine' do 
+  context 'Evidence engine' do
     controller(Evidence::ApiController) do
-  
+
       def index
         head :ok
       end

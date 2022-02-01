@@ -93,7 +93,7 @@ module Demo::ConceptResults
       new_new_acc = [].concat(new_acc).push(new_hash)
       new_new_acc
     end
-    
+
   end
 
   def self.turn_csv_into_arr

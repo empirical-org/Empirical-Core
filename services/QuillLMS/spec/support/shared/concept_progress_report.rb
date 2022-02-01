@@ -106,12 +106,12 @@ shared_context 'Concept Progress Report' do
   end
 
   let!(:other_activity_session) do
-     create(:activity_session,
-      classroom_unit: other_classroom_unit,
-      user: other_student,
-      state: 'finished',
-      percentage: 0.75
-    )
+    create(:activity_session,
+     classroom_unit: other_classroom_unit,
+     user: other_student,
+     state: 'finished',
+     percentage: 0.75
+   )
   end
 
   let!(:other_grammar_result) do

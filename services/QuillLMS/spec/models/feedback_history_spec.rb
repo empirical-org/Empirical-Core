@@ -48,10 +48,10 @@ RSpec.describe FeedbackHistory, type: :model do
     it { should validate_presence_of(:attempt) }
 
     it do
-       expect(subject).to validate_numericality_of(:attempt)
-        .only_integer
-        .is_greater_than_or_equal_to(1)
-        .is_less_than_or_equal_to(5)
+      expect(subject).to validate_numericality_of(:attempt)
+       .only_integer
+       .is_greater_than_or_equal_to(1)
+       .is_less_than_or_equal_to(5)
     end
 
     it { should validate_length_of(:concept_uid).is_equal_to(22) }
@@ -154,17 +154,17 @@ RSpec.describe FeedbackHistory, type: :model do
     end
 
     it 'should save and return if all creations are valid' do
-        expect(FeedbackHistory.count).to eq(0)
-	FeedbackHistory.batch_create([@valid_fh_params, @valid_fh_params, @valid_fh_params])
-	expect(FeedbackHistory.count).to eq(3)
+      expect(FeedbackHistory.count).to eq(0)
+	     FeedbackHistory.batch_create([@valid_fh_params, @valid_fh_params, @valid_fh_params])
+	     expect(FeedbackHistory.count).to eq(3)
     end
 
     it 'should save any valid records if, but not any valid ones' do
-        expect(FeedbackHistory.count).to eq(0)
-	results = FeedbackHistory.batch_create([@invalid_fh_params, @valid_fh_params])
-	expect(FeedbackHistory.count).to eq(1)
-        expect(results[0].errors[:entry].include?("can't be blank")).to be
-        expect(results[1].valid?).to be
+      expect(FeedbackHistory.count).to eq(0)
+	     results = FeedbackHistory.batch_create([@invalid_fh_params, @valid_fh_params])
+	     expect(FeedbackHistory.count).to eq(1)
+      expect(results[0].errors[:entry].include?("can't be blank")).to be
+      expect(results[1].valid?).to be
     end
   end
 

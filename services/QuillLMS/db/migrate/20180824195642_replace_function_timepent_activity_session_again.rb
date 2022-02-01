@@ -28,10 +28,10 @@ class ReplaceFunctionTimepentActivitySessionAgain < ActiveRecord::Migration[4.2]
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-                
+
                 RETURN COALESCE(time_spent,0);
           END IF;
-          -- modern calculation (using activity session interaction logs) 
+          -- modern calculation (using activity session interaction logs)
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;

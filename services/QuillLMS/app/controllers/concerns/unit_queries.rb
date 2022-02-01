@@ -12,10 +12,10 @@ module UnitQueries
     else
       classrooms = current_user.classrooms_i_am_the_coteacher_for_with_a_specific_teacher_with_students(unit.user_id)
     end
-      classrooms.each do |c|
-        classroom_unit = ClassroomUnit.select("id, assigned_student_ids, assign_on_join").where(classroom_id: c['id'], unit_id: unit.id, visible: true).limit(1)
-        c[:classroom_unit] = classroom_unit.try(:first) || nil
-      end
+    classrooms.each do |c|
+      classroom_unit = ClassroomUnit.select("id, assigned_student_ids, assign_on_join").where(classroom_id: c['id'], unit_id: unit.id, visible: true).limit(1)
+      c[:classroom_unit] = classroom_unit.try(:first) || nil
+    end
     classrooms
   end
 

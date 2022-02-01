@@ -21,8 +21,8 @@ describe ClassroomsTeachersController, type: :controller do
     end
 
     before do
-     allow(user).to receive(:classrooms_i_own_that_a_specific_user_coteaches_with_me) { [classroom] }
-     allow(user).to receive(:classroom_ids_i_have_invited_a_specific_teacher_to_coteach) { [classroom.id] }
+      allow(user).to receive(:classrooms_i_own_that_a_specific_user_coteaches_with_me) { [classroom] }
+      allow(user).to receive(:classroom_ids_i_have_invited_a_specific_teacher_to_coteach) { [classroom.id] }
     end
 
     it 'should set the classroom, coteachers, and selected teacher and classroom' do

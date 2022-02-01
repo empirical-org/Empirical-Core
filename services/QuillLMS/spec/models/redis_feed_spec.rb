@@ -87,7 +87,7 @@ describe RedisFeed, type: :model do
     let(:test_instance) { test_feed_class_with_callback.new(1) }
 
     before do
-     test_instance.send(:delete_all)
+      test_instance.send(:delete_all)
     end
 
     context "callbacks" do

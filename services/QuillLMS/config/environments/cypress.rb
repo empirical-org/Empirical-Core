@@ -43,7 +43,7 @@ EmpiricalGrammar::Application.configure do
   config.log_level = :debug
 
   config.logger = Logger.new($stdout)
-  
+
   # Raise an error on page load if there are pending migrations
   config.active_record.migration_error = :page_load
 

@@ -71,7 +71,7 @@ namespace :leap do
         district_id = ThirdPartyUserId.find_or_create_by(user: user,
                                                          source: @id_source)
         district_id.third_party_id = row[@district_id_column_name].strip
-        district_id.save! 
+        district_id.save!
       else
         puts "Could not find user with email #{email}"
       end

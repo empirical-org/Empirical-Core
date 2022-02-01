@@ -7,12 +7,12 @@ class TeacherDashboardMetrics
   end
 
   def run
-   {
-      weekly_assigned_activities_count: count_of_assigned_activities(last_sunday),
-      yearly_assigned_activities_count: count_of_assigned_activities(last_july_first),
-      weekly_completed_activities_count: completed_at_array.count {|date| date >= last_sunday},
-      yearly_completed_activities_count: completed_at_array.count {|date| date >= last_july_first}
-    }
+    {
+       weekly_assigned_activities_count: count_of_assigned_activities(last_sunday),
+       yearly_assigned_activities_count: count_of_assigned_activities(last_july_first),
+       weekly_completed_activities_count: completed_at_array.count {|date| date >= last_sunday},
+       yearly_completed_activities_count: completed_at_array.count {|date| date >= last_july_first}
+     }
   end
 
   def count_of_assigned_activities(start_date)

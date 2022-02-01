@@ -10,15 +10,15 @@ describe PopulateActivityHealthWorker do
     let!(:another_question) { create(:question)}
     let!(:connect) { create(:activity_classification, key: ActivityClassification::CONNECT_KEY) }
     let!(:activity) do
-       create(:activity,
-        activity_classification_id: connect.id,
-        data: {
-          questions: [
-            {key: question.uid},
-            {key: another_question.uid}
-          ]
-        }
-      )
+      create(:activity,
+       activity_classification_id: connect.id,
+       data: {
+         questions: [
+           {key: question.uid},
+           {key: another_question.uid}
+         ]
+       }
+     )
     end
 
     let!(:content_partner) { create(:content_partner, activities: [activity])}

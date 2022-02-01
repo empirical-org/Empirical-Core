@@ -17,7 +17,7 @@ module Evidence
       end
 
       context 'should with turking_rounds' do
-        let!(:turking_round) { create(:evidence_turking_round) } 
+        let!(:turking_round) { create(:evidence_turking_round) }
 
         it 'should return successfully' do
           get(:index)
@@ -57,7 +57,7 @@ module Evidence
     end
 
     context 'should show' do
-      let!(:turking_round) { create(:evidence_turking_round) } 
+      let!(:turking_round) { create(:evidence_turking_round) }
 
       it 'should return json if found' do
         get(:show, :params => ({ :id => turking_round.id }))
@@ -74,7 +74,7 @@ module Evidence
     end
 
     context 'should update' do
-      let!(:turking_round) { create(:evidence_turking_round) } 
+      let!(:turking_round) { create(:evidence_turking_round) }
 
       it 'should update record if valid, return nothing' do
         new_activity = create(:evidence_activity)
@@ -98,7 +98,7 @@ module Evidence
     end
 
     context 'should destroy' do
-      let!(:turking_round) { create(:evidence_turking_round) } 
+      let!(:turking_round) { create(:evidence_turking_round) }
 
       it 'should destroy record at id' do
         delete(:destroy, :params => ({ :id => turking_round.id }))

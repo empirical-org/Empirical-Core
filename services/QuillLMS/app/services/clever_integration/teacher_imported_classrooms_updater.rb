@@ -46,7 +46,7 @@ module CleverIntegration
     end
 
     private def update_classrooms
-     imported_classrooms.each { |classroom| ClassroomUpdater.run(classroom, classroom_data(classroom) )}
+      imported_classrooms.each { |classroom| ClassroomUpdater.run(classroom, classroom_data(classroom) )}
     end
 
     private def update_classrooms_students

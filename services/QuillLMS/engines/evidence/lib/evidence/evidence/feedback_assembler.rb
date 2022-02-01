@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module Evidence 
+module Evidence
   class FeedbackAssembler
-    def self.error_to_rule_uid 
-      raise NotImplementedError, 'Cannot call #error_to_rule_uid on abstract class FeedbakAssembler' 
+    def self.error_to_rule_uid
+      raise NotImplementedError, 'Cannot call #error_to_rule_uid on abstract class FeedbakAssembler'
     end
 
     def self.run(client_response)
@@ -33,11 +33,11 @@ module Evidence
         'optimal': true,
         'highlight': '',
         'rule_uid': ''
-      }  
+      }
     end
 
-    def self.error_name 
+    def self.error_name
       raise NotImplementedError, 'Implement in a child class.'
     end
-  end    
+  end
 end

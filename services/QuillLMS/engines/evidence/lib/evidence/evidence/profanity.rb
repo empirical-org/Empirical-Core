@@ -30,15 +30,15 @@ module Evidence
       stripped_badword = badword.gsub('*', '')
       if badword.start_with?('*') && badword.end_with?('*')
         regex = ::Regexp.new(stripped_badword)
-         word.match?(regex)
+        word.match?(regex)
       elsif badword.start_with?('*')
         regex = ::Regexp.new("#{stripped_badword}$")
-         word.match?(regex)
+        word.match?(regex)
       elsif badword.end_with?('*')
         regex = ::Regexp.new("^#{stripped_badword}")
-         word.match?(regex)
+        word.match?(regex)
       else
-         stripped_badword == word
+        stripped_badword == word
       end
     end
 

@@ -22,7 +22,7 @@ class ReferralsController < ApplicationController
     }
 
     if (Rails.env.production? || (inviter_hash['email'].match('quill.org') && invitation_email.match('quill.org'))) && UserMailer.referral_invitation_email(inviter_hash, invitation_email).deliver_now!
-        return render json: {}
+      return render json: {}
       end
 
     render json: { error: 'Something hath gone awry.' }, status: 500
