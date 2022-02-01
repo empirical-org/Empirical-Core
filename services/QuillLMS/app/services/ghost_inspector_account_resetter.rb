@@ -14,7 +14,7 @@ class GhostInspectorAccountResetter < ApplicationService
   end
 
   private def ghost_inspector_account_email
-    ENV.fetch('GHOST_INSPECTOR_ACCOUNT_EMAIl', DEFAULT_GHOST_INSPECTOR_ACCOUNT_EMAIL)
+    ENV.fetch('GHOST_INSPECTOR_ACCOUNT_EMAIL', DEFAULT_GHOST_INSPECTOR_ACCOUNT_EMAIL)
   end
 
   private def hide_units
