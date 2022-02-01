@@ -130,7 +130,7 @@ module PagesHelper
           },
           {
             name: 'Emilia Friedberg',
-            title: 'Software Developer',
+            title: 'Senior Software Developer',
             img: 'team-emilia-friedberg@2x.png'
           },
           {
