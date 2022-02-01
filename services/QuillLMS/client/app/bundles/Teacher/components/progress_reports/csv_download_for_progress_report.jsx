@@ -11,6 +11,11 @@ function formatData(data) {
   })
 }
 
+const unclickedDownloadBtnClass = "btn button-green"
+const clickedDownloadBtnClass = "quill-button medium primary contained focus-on-light"
+const printBtnClass = "print-button"
+const printImgClass = "print-img"
+
 export default class CSVDownloadForProgressReports extends React.Component {
   constructor(props) {
     super(props)
@@ -75,7 +80,8 @@ export default class CSVDownloadForProgressReports extends React.Component {
   }
 
   closeDropdownIfOpen(e) {
-    if (this.state.showDropdown && e.target.classList.value !== 'btn button-green' && e.target.classList.value !== 'print-button' && e.target.classList.value !== 'print-img') {
+    const ignoreClasses = [printBtnClass, printImgClass, clickedDownloadBtnClass, unclickedDownloadBtnClass]
+    if (this.state.showDropdown && !ignoreClasses.includes(e.target.classList.value)) {
       this.setState({ showDropdown: false})
     }
   }
@@ -89,9 +95,7 @@ export default class CSVDownloadForProgressReports extends React.Component {
   }
 
   toggleDropdown = () => {
-    this.setState({
-      showDropdown: !this.state.showDropdown
-    })
+    this.setState({ showDropdown: !this.state.showDropdown })
   };
 
   render() {
@@ -120,10 +124,10 @@ export default class CSVDownloadForProgressReports extends React.Component {
 
             <div className='button-wrapper'>
 
-              <button className="print-button" onClick={window.print}>
+              <button className={printBtnClass} onClick={window.print}>
                 <img
                   alt="print"
-                  className="print-img"
+                  className={printImgClass}
                   src="https://assets.quill.org/images/icons/download-report-premium.svg"
                 />PDF
               </button>
@@ -145,13 +149,13 @@ export default class CSVDownloadForProgressReports extends React.Component {
       }
       return (
         <div className='download-button-wrapper'>
-          <button className="quill-button medium primary contained focus-on-light" onClick={this.toggleDropdown} style={style}>{this.props.buttonCopy || "Download Report"}</button>
+          <button className={clickedDownloadBtnClass} onClick={this.toggleDropdown} style={style}>{this.props.buttonCopy || "Download Report"}</button>
           {dropdown}
         </div>
       )
     } else {
       return (<button
-        className={this.props.className || 'btn button-green'}
+        className={this.props.className || unclickedDownloadBtnClass}
         onClick={this.handleClick}
         style={{
         display: 'block'
