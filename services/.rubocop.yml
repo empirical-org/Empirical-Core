@@ -528,6 +528,9 @@ Style/CommentedKeyword:
 Style/DefWithParentheses:
   Enabled: true
 
+Style/Documentation:
+  Enabled: false
+
 Style/DocumentDynamicEvalDefinition:
   Enabled: true
 

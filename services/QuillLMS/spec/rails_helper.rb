@@ -87,7 +87,6 @@ RSpec.configure do |config|
     example.run
     ActionController::Base.perform_caching = caching
   end
-
 end
 
 if defined?(Coveralls)
