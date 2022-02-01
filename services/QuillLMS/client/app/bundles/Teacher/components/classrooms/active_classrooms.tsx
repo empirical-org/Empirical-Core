@@ -181,7 +181,6 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
   }
 
-
   initializePusherForGoogleClassrooms(id) {
     if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
 

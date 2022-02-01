@@ -37,9 +37,15 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(id)
     const channel = pusher.subscribe(channelName);
-    const that = this;
+    const { onSuccess } = this.props
+
     channel.bind('google-classroom-students-imported', () => {
-      that.props.onSuccess('Class re-synced')
+      onSuccess('Class re-synced')
+      pusher.unsubscribe(channelName)
+    });
+
+    channel.bind('google-account-reauthorization-required', () => {
+      onSuccess('Reauthorization needed from Google account before student import can be completed.')
       pusher.unsubscribe(channelName)
     });
   }
