@@ -80,7 +80,8 @@ export default class CSVDownloadForProgressReports extends React.Component {
   }
 
   closeDropdownIfOpen(e) {
-    const ignoreClasses = [printBtnClass, printImgClass, clickedDownloadBtnClass, unclickedDownloadBtnClass]
+    const { className, } = this.props
+    const ignoreClasses = [printBtnClass, printImgClass, clickedDownloadBtnClass, unclickedDownloadBtnClass, className]
     if (this.state.showDropdown && !ignoreClasses.includes(e.target.classList.value)) {
       this.setState({ showDropdown: false})
     }
