@@ -9,6 +9,8 @@ class Cms::ImagesController < Cms::CmsController
   def create
     i = Image.new
     file = params[:file]
+    split_filename = file.original_filename.split('.')
+    file.original_filename = "#{split_filename[0]}_#{Image.last.id + 1}.#{split_filename[1]}"
     i.file.store!(file)
     i.file = file
     i.save!
