@@ -12,12 +12,14 @@ const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
 export const renderDirectionsSection = ({ className, handleReadTheDirectionsButtonClick, activeStep, doneHighlighting, showReadTheDirectionsButton, activities }) => {
   const { currentActivity, } = activities
 
-  return  (<DirectionsSection
-    activeStep={activeStep}
-    className={className}
-    inReflection={activeStep === READ_PASSAGE_STEP && doneHighlighting}
-    passage={currentActivity.passages[0]}
-  />)
+  return (
+    <DirectionsSection
+      activeStep={activeStep}
+      className={className}
+      inReflection={activeStep === READ_PASSAGE_STEP && doneHighlighting}
+      passage={currentActivity.passages[0]}
+    />
+  )
 }
 
 export const renderDirections = ({ handleReadTheDirectionsButtonClick, activeStep, doneHighlighting, showReadTheDirectionsButton, activities, hasStartedReadPassageStep, hasStartedPromptSteps }) => {
@@ -81,22 +83,24 @@ export const renderPromptStep = ({
   const prompts = orderedSteps(activities);
   const prompt = prompts[stepNumber];
 
-  return (<div className="prompt-steps">
-    {renderDirectionsSection({ className: '', handleReadTheDirectionsButtonClick, activeStep, doneHighlighting, showReadTheDirectionsButton, activities })}
-    <PromptStep
-      activateStep={activateStep}
-      activityIsComplete={activityIsComplete}
-      className="step active"
-      completeStep={completeStep}
-      completionButtonCallback={completionButtonCallback}
-      key={activeStep}
-      prompt={prompt}
-      reportAProblem={reportAProblem}
-      stepNumber={activeStep}
-      submitResponse={submitResponse}
-      submittedResponses={(submittedResponses && submittedResponses[prompt.id]) || []}
-    />
-  </div>)
+  return (
+    <div className="prompt-steps">
+      {renderDirectionsSection({ className: '', handleReadTheDirectionsButtonClick, activeStep, doneHighlighting, showReadTheDirectionsButton, activities })}
+      <PromptStep
+        activateStep={activateStep}
+        activityIsComplete={activityIsComplete}
+        className="step active"
+        completeStep={completeStep}
+        completionButtonCallback={completionButtonCallback}
+        key={activeStep}
+        prompt={prompt}
+        reportAProblem={reportAProblem}
+        stepNumber={activeStep}
+        submitResponse={submitResponse}
+        submittedResponses={(submittedResponses && submittedResponses[prompt.id]) || []}
+      />
+    </div>
+  )
 }
 
 export const renderReadPassageContainer = ({

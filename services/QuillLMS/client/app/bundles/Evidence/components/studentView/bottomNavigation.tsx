@@ -63,13 +63,15 @@ const BottomNavigation = ({
   }
 
   if (hasStartedReadPassageStep && !doneHighlighting) {
-    return (<ReadAndHighlightTracker
-      handleClickDoneHighlighting={handleClickDoneHighlighting}
-      handleReadTheDirectionsButtonClick={handleReadTheDirectionsButtonClick}
-      scrolledToEndOfPassage={scrolledToEndOfPassage}
-      showReadTheDirectionsButton={showReadTheDirectionsButton}
-      studentHighlights={studentHighlights}
-    />)
+    return (
+      <ReadAndHighlightTracker
+        handleClickDoneHighlighting={handleClickDoneHighlighting}
+        handleReadTheDirectionsButtonClick={handleReadTheDirectionsButtonClick}
+        scrolledToEndOfPassage={scrolledToEndOfPassage}
+        showReadTheDirectionsButton={showReadTheDirectionsButton}
+        studentHighlights={studentHighlights}
+      />
+    )
   }
 
   if (inReflection) {

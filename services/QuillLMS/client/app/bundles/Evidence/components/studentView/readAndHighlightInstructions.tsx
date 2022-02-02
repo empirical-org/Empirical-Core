@@ -26,25 +26,27 @@ const ReadAndHighlightInstructions = ({ passage, activeStep, studentHighlights, 
     )
     readAndHighlightContainerClassName = 'read-and-highlight-container'
   }
-  return (<div className={readAndHighlightContainerClassName}>
-    <DirectionsSection
-      activeStep={activeStep}
-      className="hide-on-mobile"
-      inReflection={inReflection}
-      passage={passage}
-    />
-    <section className="highlight-section">
-      <div className="highlight-label-section">
-        <h3>Highlights</h3>
-        <Tooltip
-          isTabbable={true}
-          tooltipText={tooltipText}
-          tooltipTriggerText={tooltipTrigger}
-        />
-      </div>
-      {studentHighlightsOrHighlightInstructions}
-    </section>
-  </div>)
+  return (
+    <div className={readAndHighlightContainerClassName}>
+      <DirectionsSection
+        activeStep={activeStep}
+        className="hide-on-mobile"
+        inReflection={inReflection}
+        passage={passage}
+      />
+      <section className="highlight-section">
+        <div className="highlight-label-section">
+          <h3>Highlights</h3>
+          <Tooltip
+            isTabbable={true}
+            tooltipText={tooltipText}
+            tooltipTriggerText={tooltipTrigger}
+          />
+        </div>
+        {studentHighlightsOrHighlightInstructions}
+      </section>
+    </div>
+  )
 }
 
 export default ReadAndHighlightInstructions

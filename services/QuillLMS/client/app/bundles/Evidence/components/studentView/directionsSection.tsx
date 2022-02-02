@@ -21,7 +21,7 @@ const renderDirections = (directionsTextArray: string[]) => (
 const essentialKnowledgeSection = ({ essential_knowledge_text }) => {
   if(!essential_knowledge_text || essential_knowledge_text === '<br/>') { return }
 
-  return(
+  return (
     <div className="essential-knowledge-section">
       <div className="essential-knowledge-header">
         <img alt={informationIcon.alt} src={informationIcon.src} />
@@ -49,14 +49,16 @@ const DirectionsSection = ({ className, passage, inReflection, activeStep, }) =>
     return renderDirections(promptDirections)
   }
 
-  return (<div className={className}>
-    {renderDirections(highlightDirections)}
-    <section className="task-section">
-      <h3>Task</h3>
-      <p>{DEFAULT_HIGHLIGHT_PROMPT}<u>{uniquePartOfHighlightPrompt}</u></p>
-    </section>
-    {essentialKnowledgeSection(passage)}
-  </div>)
+  return (
+    <div className={className}>
+      {renderDirections(highlightDirections)}
+      <section className="task-section">
+        <h3>Task</h3>
+        <p>{DEFAULT_HIGHLIGHT_PROMPT}<u>{uniquePartOfHighlightPrompt}</u></p>
+      </section>
+      {essentialKnowledgeSection(passage)}
+    </div>
+  )
 }
 
 export default DirectionsSection
