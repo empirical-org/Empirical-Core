@@ -85,26 +85,30 @@ const DirectionsAndPrompt = ({ directions, prompt, onMobile, }) => {
     }
 
     if ((stripHtml(text).length * AVERAGE_FONT_WIDTH) >= ALLOTTED_WIDTH) {
-      return (<Tooltip
-        tooltipText={text}
-        tooltipTriggerText={stripHtml(text)}
-        tooltipTriggerTextClass="directions-or-prompt"
-      />)
+      return (
+        <Tooltip
+          tooltipText={text}
+          tooltipTriggerText={stripHtml(text)}
+          tooltipTriggerTextClass="directions-or-prompt"
+        />
+      )
     }
 
     return <p>{stripHtml(text)}</p>
   }
 
-  return (<div className="directions-and-prompt">
-    <div className="directions">
-      <span>Directions</span>
-      {textOrTooltip(directions)}
+  return (
+    <div className="directions-and-prompt">
+      <div className="directions">
+        <span>Directions</span>
+        {textOrTooltip(directions)}
+      </div>
+      <div className="prompt">
+        <span>Prompt</span>
+        {textOrTooltip(prompt)}
+      </div>
     </div>
-    <div className="prompt">
-      <span>Prompt</span>
-      {textOrTooltip(prompt)}
-    </div>
-  </div>)
+  )
 }
 
 export const Questions = ({ passedQuestions, match, mobileNavigation, location, }) => {
@@ -159,29 +163,31 @@ export const Questions = ({ passedQuestions, match, mobileNavigation, location, 
     }
   })
 
-  return (<main className="questions-index-container">
-    <header>
-      <h1>Questions analysis</h1>
-      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698219-how-do-i-read-the-questions-analysis-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
-    </header>
-    {mobileNavigation}
-    <div className="data-table-container">
-      <DataTable
-        className="hide-on-mobile"
-        defaultSortAttribute={worthSorting && 'score'}
-        defaultSortDirection='asc'
-        headers={desktopHeaders(worthSorting)}
-        rows={desktopRows}
-      />
-      <DataTable
-        className="hide-on-desktop"
-        defaultSortAttribute={worthSorting && 'score'}
-        defaultSortDirection='asc'
-        headers={mobileHeaders(worthSorting)}
-        rows={mobileRows}
-      />
-    </div>
-  </main>)
+  return (
+    <main className="questions-index-container">
+      <header>
+        <h1>Questions analysis</h1>
+        <a className="focus-on-light" href="https://support.quill.org/en/articles/5698219-how-do-i-read-the-questions-analysis-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
+      </header>
+      {mobileNavigation}
+      <div className="data-table-container">
+        <DataTable
+          className="hide-on-mobile"
+          defaultSortAttribute={worthSorting && 'score'}
+          defaultSortDirection='asc'
+          headers={desktopHeaders(worthSorting)}
+          rows={desktopRows}
+        />
+        <DataTable
+          className="hide-on-desktop"
+          defaultSortAttribute={worthSorting && 'score'}
+          defaultSortDirection='asc'
+          headers={mobileHeaders(worthSorting)}
+          rows={mobileRows}
+        />
+      </div>
+    </main>
+  )
 }
 
 export default withRouter(Questions)

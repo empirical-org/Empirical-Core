@@ -27,7 +27,7 @@ describe('Question component', () => {
           value: 'test3'
         }
       },
-       states: {
+      states: {
         abc: {
           value: 'test1'
         },
@@ -37,7 +37,7 @@ describe('Question component', () => {
         ghi: {
           value: 'test3'
         }
-       }
+      }
     },
     massEdit: {
       numSelectedResponses: 3

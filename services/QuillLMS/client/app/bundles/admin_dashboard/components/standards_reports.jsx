@@ -36,6 +36,6 @@ const StandardsReports = ({
     <div className="dropdown-container" />
     <StandardsReportsTable data={filteredStandardsReportsData} />
   </div>
-  );
+);
 
 export default StandardsReports;

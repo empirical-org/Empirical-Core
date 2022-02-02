@@ -61,12 +61,12 @@ describe('Getting concept results from an answered sf object', () => {
         },
         question_type: 'sentence-fragment-expansion',
       },
-			// conceptResults.rideHome,
+      // conceptResults.rideHome,
       {
 		    concept_uid: 'iUE6tekeyep8U385dtmVfQ',
 		    metadata: {
 		      answer: 'I am listening to music on the ride home.',
-      attemptNumber: 1,
+          attemptNumber: 1,
 		      correct: 1,
 		      directions: 'Add/change as few words as you can to change this fragment into a sentence.',
 		      prompt: 'Listening to music on the ride home.',

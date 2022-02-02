@@ -96,19 +96,21 @@ class AllUserEditions extends Component<any, any> {
   renderEditionTable() {
     const { editions, } = this.state
     if (Object.keys(editions).length) {
-      return (<table className="table is-striped is-bordered">
-        <thead>
-          <tr>
-            <th onClick={this.clickSort.bind(this, 'lessonName')}>Lesson Name</th>
-            <th onClick={this.clickSort.bind(this, 'user_id')}>User ID</th>
-            <th onClick={this.clickSort.bind(this, 'name')}>Edition Name</th>
-            <th onClick={this.clickSort.bind(this, 'last_published_at')}>Last Published At</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.renderEditionRows()}
-        </tbody>
-      </table>)
+      return (
+        <table className="table is-striped is-bordered">
+          <thead>
+            <tr>
+              <th onClick={this.clickSort.bind(this, 'lessonName')}>Lesson Name</th>
+              <th onClick={this.clickSort.bind(this, 'user_id')}>User ID</th>
+              <th onClick={this.clickSort.bind(this, 'name')}>Edition Name</th>
+              <th onClick={this.clickSort.bind(this, 'last_published_at')}>Last Published At</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.renderEditionRows()}
+          </tbody>
+        </table>
+      )
     }
   }
 
@@ -121,12 +123,14 @@ class AllUserEditions extends Component<any, any> {
       const edition:CustomizeIntf.EditionMetadata|any = e
       const link = `/lessons/#/teach/class-lessons/${edition.lesson_id}/preview/${edition.key}`
       const date = edition.last_published_at ? `${new Date(edition.last_published_at)}` : 'Not Published'
-      return (<tr key={edition.key}>
-        <td>{edition.lessonName}</td>
-        <td>{edition.user_id}</td>
-        <td><a href={link}>{edition.name || 'No Name'}</a></td>
-        <td>{date}</td>
-      </tr>)
+      return (
+        <tr key={edition.key}>
+          <td>{edition.lessonName}</td>
+          <td>{edition.user_id}</td>
+          <td><a href={link}>{edition.name || 'No Name'}</a></td>
+          <td>{date}</td>
+        </tr>
+      )
     }
     );
   }

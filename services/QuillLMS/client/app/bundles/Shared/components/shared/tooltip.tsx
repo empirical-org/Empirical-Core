@@ -84,6 +84,7 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
             ref={node => this.tooltip = node}
           />
         </span>
-      </span>)
+      </span>
+    )
   }
 }

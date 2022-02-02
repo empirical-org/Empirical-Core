@@ -73,9 +73,9 @@ describe('StudentViewContainer component', () => {
 //   describe('when the activity has loaded', () => {
 //     wrapper.instance().setExplanationSlidesCompleted(true)
 //
-    it('renders', () => {
-      expect(toJson(wrapper)).toMatchSnapshot()
-    })
+  it('renders', () => {
+    expect(toJson(wrapper)).toMatchSnapshot()
+  })
 //
 //     it('should track a COMPREHENSION_ACTIVITY_STARTED event', () => {
 //       expect(mockGetActivity).toHaveBeenCalledWith(sessionReducer.sessionID, activityOne.activity_id)

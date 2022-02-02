@@ -116,7 +116,7 @@ export default class RenderTextEditor extends React.Component {
   }
 
   displayedHTML() {
-  const { value, latestAttempt, } = this.props
+    const { value, latestAttempt, } = this.props
     if (!(latestAttempt && latestAttempt.response && latestAttempt.response.misspelled_words)) {
       return value
     }

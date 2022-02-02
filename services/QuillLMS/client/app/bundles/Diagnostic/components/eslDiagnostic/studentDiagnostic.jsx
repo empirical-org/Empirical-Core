@@ -389,17 +389,17 @@ export class ELLStudentDiagnostic extends React.Component {
         let type
         switch (questionType) {
           case 'questions':
-          type = 'SC'
-          break
+            type = 'SC'
+            break
           case 'fillInBlank':
-          type = 'FB'
-          break
+            type = 'FB'
+            break
           case 'titleCards':
-          type = TITLE_CARD_TYPE
-          break
+            type = TITLE_CARD_TYPE
+            break
           case 'sentenceFragments':
           default:
-          type = 'SF'
+            type = 'SF'
         }
         return { type, data: question, };
       });
@@ -435,11 +435,13 @@ export class ELLStudentDiagnostic extends React.Component {
   renderFooter = () => {
     if (!this.language()) { return }
 
-    return (<Footer
-      handleClickOpenMobileLanguageMenu={this.onClickOpenMobileLanguageMenu}
-      language={this.language()}
-      updateLanguage={this.updateLanguage}
-    />)
+    return (
+      <Footer
+        handleClickOpenMobileLanguageMenu={this.onClickOpenMobileLanguageMenu}
+        language={this.language()}
+        updateLanguage={this.updateLanguage}
+      />
+    )
   }
 
   renderProgressBar = () => {
@@ -458,12 +460,14 @@ export class ELLStudentDiagnostic extends React.Component {
 
 
 
-    return (<ProgressBar
-      answeredQuestionCount={displayedAnsweredQuestionCount > totalQuestionCount ? totalQuestionCount : displayedAnsweredQuestionCount}
-      label='questions'
-      percent={progressPercent}
-      questionCount={totalQuestionCount}
-    />)
+    return (
+      <ProgressBar
+        answeredQuestionCount={displayedAnsweredQuestionCount > totalQuestionCount ? totalQuestionCount : displayedAnsweredQuestionCount}
+        label='questions'
+        percent={progressPercent}
+        questionCount={totalQuestionCount}
+      />
+    )
   }
 
   render() {

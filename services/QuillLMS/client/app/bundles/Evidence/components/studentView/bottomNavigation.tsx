@@ -55,9 +55,11 @@ const BottomNavigation = ({
   showReadTheDirectionsButton
 }) => {
   if (!hasStartedReadPassageStep) {
-    return (<div className="bottom-navigation">
-      <button className="quill-button outlined secondary large focus-on-dark" onClick={handleStartReadingPassageClick} type="button">Start</button>
-    </div>)
+    return (
+      <div className="bottom-navigation">
+        <button className="quill-button outlined secondary large focus-on-dark" onClick={handleStartReadingPassageClick} type="button">Start</button>
+      </div>
+    )
   }
 
   if (hasStartedReadPassageStep && !doneHighlighting) {
@@ -71,15 +73,19 @@ const BottomNavigation = ({
   }
 
   if (inReflection) {
-    return (<div className="bottom-navigation">
-      <button className="quill-button contained primary large focus-on-light" onClick={handleDoneReadingClick} type="button">Next</button>
-    </div>)
+    return (
+      <div className="bottom-navigation">
+        <button className="quill-button contained primary large focus-on-light" onClick={handleDoneReadingClick} type="button">Next</button>
+      </div>
+    )
   }
 
   if (!hasStartedPromptSteps) {
-    return (<div className="bottom-navigation">
-      <button className="quill-button outlined secondary large focus-on-dark" onClick={handleStartPromptStepsClick} type="button">Next</button>
-    </div>)
+    return (
+      <div className="bottom-navigation">
+        <button className="quill-button outlined secondary large focus-on-dark" onClick={handleStartPromptStepsClick} type="button">Next</button>
+      </div>
+    )
   }
 }
 

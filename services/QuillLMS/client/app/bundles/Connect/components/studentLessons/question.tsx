@@ -182,15 +182,17 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     } else {
       sentence = 'Keep writing! Revise your sentence by changing the order of the ideas.';
     }
-    return (<RenderFeedback
-      listCuesAsString={this.listCuesAsString}
-      override={!!override}
-      previewMode={previewMode}
-      question={question}
-      renderFeedbackStatements={this.renderFeedbackStatements}
-      responses={this.getResponses()}
-      sentence={sentence}
-    />);
+    return (
+      <RenderFeedback
+        listCuesAsString={this.listCuesAsString}
+        override={!!override}
+        previewMode={previewMode}
+        question={question}
+        renderFeedbackStatements={this.renderFeedbackStatements}
+        responses={this.getResponses()}
+        sentence={sentence}
+      />
+    );
   }
 
   getErrorsForAttempt = () => {
@@ -205,10 +207,12 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
 
   renderCues = () => {
     const { question } = this.props;
-    return (<RenderQuestionCues
-      displayArrowAndText={true}
-      question={question}
-    />);
+    return (
+      <RenderQuestionCues
+        displayArrowAndText={true}
+        question={question}
+      />
+    );
   }
 
   updateResponseResource(response) {
@@ -434,7 +438,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
               disabled
               nextQuestionButton={this.renderFinishedQuestionButton()}
             />
-            );
+          );
         } else {
           sharedProps.feedback = this.renderFeedback('Nice try. Let’s try a multiple choice question.');
           component = (
@@ -443,7 +447,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
               disabled
               nextQuestionButton={this.renderMultipleChoiceButton()}
             />
-            );
+          );
         }
       } else if (someAttemptsSubmitted) {
         if (this.readyForNext()) {

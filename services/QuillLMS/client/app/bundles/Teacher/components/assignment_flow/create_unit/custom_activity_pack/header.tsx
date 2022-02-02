@@ -85,23 +85,27 @@ const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities
     const selectedActivityRows = selectedActivities.map((a, i) => {
       const className = `selected-activity-row ${i === selectedActivities.length - 1 && 'is-last'}`
       const DragHandle = SortableHandle(() => <img alt="Reorder icon" className="reorder-icon focus-on-light" src={reorderSrc} tabIndex={0} />);
-      return (<section className={className} key={a.id}>
-        <DragHandle />
-        <ActivityRow activity={a} isSelected={true} setShowSnackbar={setShowSnackbar} showCheckbox={false} showRemoveButton={true} toggleActivitySelection={toggleActivitySelection} />
-      </section>)
+      return (
+        <section className={className} key={a.id}>
+          <DragHandle />
+          <ActivityRow activity={a} isSelected={true} setShowSnackbar={setShowSnackbar} showCheckbox={false} showRemoveButton={true} toggleActivitySelection={toggleActivitySelection} />
+        </section>
+      )
     })
     selectedActivitySection = <SortableList data={selectedActivityRows} helperClass="sortable-selected-activity-row" sortCallback={sortCallback} useDragHandle={true} />
   }
 
 
-  return (<header className={className}>
-    <Snackbar text="Activity removed" visible={showSnackbar} />
-    <div className="header-content">
-      {headerContent}
-      <AssignButton handleClickContinue={handleClickContinue} isStaff={isStaff} saveButtonEnabled={saveButtonEnabled} selectedActivities={selectedActivities} />
-    </div>
-    {selectedActivitySection}
-  </header>)
+  return (
+    <header className={className}>
+      <Snackbar text="Activity removed" visible={showSnackbar} />
+      <div className="header-content">
+        {headerContent}
+        <AssignButton handleClickContinue={handleClickContinue} isStaff={isStaff} saveButtonEnabled={saveButtonEnabled} selectedActivities={selectedActivities} />
+      </div>
+      {selectedActivitySection}
+    </header>
+  )
 }
 
 export default Header

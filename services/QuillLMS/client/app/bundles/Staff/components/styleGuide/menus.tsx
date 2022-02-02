@@ -29,14 +29,15 @@ class Menus extends React.Component {
   }
 
   render() {
-    return (<div id="menus">
-      <h2 className="style-guide-h2">Menus</h2>
-      <div className="element-container">
-        <h3 className="style-guide-h3">Dropdown Menu</h3>
-        <div className="element-row">
-          <div className="big-element">
-            <pre>
-              {`const options = ${JSON.stringify(options)}
+    return (
+      <div id="menus">
+        <h2 className="style-guide-h2">Menus</h2>
+        <div className="element-container">
+          <h3 className="style-guide-h3">Dropdown Menu</h3>
+          <div className="element-row">
+            <div className="big-element">
+              <pre>
+                {`const options = ${JSON.stringify(options)}
 
 <DropdownInput
   label="Label"
@@ -45,18 +46,18 @@ class Menus extends React.Component {
   isSearchable={false}
   value={this.state.dropdownOne}
 />`}
-            </pre>
-            <DropdownInput
-              handleChange={(e) => {this.changeSavedValues('dropdownOne', e)}}
-              isSearchable={false}
-              label="Label"
-              options={options}
-              value={this.state.dropdownOne}
-            />
-          </div>
-          <div className="big-element">
-            <pre>
-              {`const options = ${JSON.stringify(options)}
+              </pre>
+              <DropdownInput
+                handleChange={(e) => {this.changeSavedValues('dropdownOne', e)}}
+                isSearchable={false}
+                label="Label"
+                options={options}
+                value={this.state.dropdownOne}
+              />
+            </div>
+            <div className="big-element">
+              <pre>
+                {`const options = ${JSON.stringify(options)}
 
 <DropdownInput
   label="Label"
@@ -65,21 +66,21 @@ class Menus extends React.Component {
   handleChange={(e) => {this.changeSavedValues('dropdownTwo', e)}}
   isSearchable={false}
 />`}
-            </pre>
-            <DropdownInput
-              handleChange={(e) => {this.changeSavedValues('dropdownTwo', e)}}
-              isSearchable={false}
-              label="Label"
-              options={options}
-              value={this.state.dropdownTwo}
-            />
+              </pre>
+              <DropdownInput
+                handleChange={(e) => {this.changeSavedValues('dropdownTwo', e)}}
+                isSearchable={false}
+                label="Label"
+                options={options}
+                value={this.state.dropdownTwo}
+              />
+            </div>
           </div>
-        </div>
-        <h3 className="style-guide-h3">Exposed Editable Dropdown Menu</h3>
-        <div className="element-row">
-          <div className="big-element">
-            <pre>
-              {`const options = ${JSON.stringify(options)}
+          <h3 className="style-guide-h3">Exposed Editable Dropdown Menu</h3>
+          <div className="element-row">
+            <div className="big-element">
+              <pre>
+                {`const options = ${JSON.stringify(options)}
 
 <DropdownInput
   label="Label"
@@ -89,19 +90,19 @@ class Menus extends React.Component {
   isSearchable={true}
   placeholder="Value goes here"
 />`}
-            </pre>
-            <DropdownInput
-              handleChange={(e) => {this.changeSavedValues('dropdownThree', e)}}
-              isSearchable={true}
-              label="Label"
-              options={options}
-              placeholder="Value goes here"
-              value={this.state.dropdownThree}
-            />
-          </div>
-          <div className="big-element">
-            <pre>
-              {`const options = ${JSON.stringify(options)}
+              </pre>
+              <DropdownInput
+                handleChange={(e) => {this.changeSavedValues('dropdownThree', e)}}
+                isSearchable={true}
+                label="Label"
+                options={options}
+                placeholder="Value goes here"
+                value={this.state.dropdownThree}
+              />
+            </div>
+            <div className="big-element">
+              <pre>
+                {`const options = ${JSON.stringify(options)}
 
 <DropdownInput
   label="Label"
@@ -110,21 +111,21 @@ class Menus extends React.Component {
   options={options}
   handleChange={(e) => {this.changeSavedValues('dropdownFour', e)}}
 />`}
-            </pre>
-            <DropdownInput
-              handleChange={(e) => {this.changeSavedValues('dropdownFour', e)}}
-              isSearchable={true}
-              label="Label"
-              options={options}
-              value={this.state.dropdownFour}
-            />
+              </pre>
+              <DropdownInput
+                handleChange={(e) => {this.changeSavedValues('dropdownFour', e)}}
+                isSearchable={true}
+                label="Label"
+                options={options}
+                value={this.state.dropdownFour}
+              />
+            </div>
           </div>
-        </div>
-        <h3 className="style-guide-h3">Uneditable Checkbox Dropdown Menu</h3>
-        <div className="element-row">
-          <div className="big-element">
-            <pre>
-              {`const options = ${JSON.stringify(options)}
+          <h3 className="style-guide-h3">Uneditable Checkbox Dropdown Menu</h3>
+          <div className="element-row">
+            <div className="big-element">
+              <pre>
+                {`const options = ${JSON.stringify(options)}
 
 <DropdownInput
 value={this.state.dropdownFive}
@@ -133,18 +134,19 @@ options={options}
 optionType='option'
 handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
 />`}
-            </pre>
-            <DropdownInput
-              handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
-              isMulti={true}
-              options={options}
-              optionType='option'
-              value={this.state.dropdownFive}
-            />
+              </pre>
+              <DropdownInput
+                handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
+                isMulti={true}
+                options={options}
+                optionType='option'
+                value={this.state.dropdownFive}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>)
+    )
   }
 }
 

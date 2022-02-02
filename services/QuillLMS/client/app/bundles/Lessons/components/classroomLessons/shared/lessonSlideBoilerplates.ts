@@ -11,7 +11,7 @@ const lessonSlideTypes: CLIntF.Questions = {
       teach: {script: [
         SIB['Overview']
       ],
-        title: 'CHANGE ME'
+      title: 'CHANGE ME'
       }
     }
   },
@@ -24,7 +24,7 @@ const lessonSlideTypes: CLIntF.Questions = {
       teach: {script: [
         SIB['STEP-HTML']
       ],
-        title: 'STATIC SLIDE TITLE'
+      title: 'STATIC SLIDE TITLE'
       }
     }
   },
@@ -41,7 +41,7 @@ const lessonSlideTypes: CLIntF.Questions = {
         SIB['STEP-HTML'],
         SIB['T-MODEL']
       ],
-        title: 'MODEL SLIDE TITLE'
+      title: 'MODEL SLIDE TITLE'
       }
     }
   },
@@ -59,7 +59,7 @@ const lessonSlideTypes: CLIntF.Questions = {
         SIB['STEP-HTML'],
         SIB['T-REVIEW']
       ],
-        title: 'FILL IN THE LIST BLANKS SLIDE TITLE'
+      title: 'FILL IN THE LIST BLANKS SLIDE TITLE'
       }
     }
   },
@@ -75,7 +75,7 @@ const lessonSlideTypes: CLIntF.Questions = {
         SIB['STEP-HTML'],
         SIB['T-REVIEW']
       ],
-        title: 'FILL IN THE BLANKS SLIDE TITLE'
+      title: 'FILL IN THE BLANKS SLIDE TITLE'
       }
     }
   },
@@ -90,9 +90,9 @@ const lessonSlideTypes: CLIntF.Questions = {
       },
       teach: {
         script: [
-        SIB['STEP-HTML'],
-        SIB['T-REVIEW']
-      ],
+          SIB['STEP-HTML'],
+          SIB['T-REVIEW']
+        ],
         title: 'SINGLE ANSWER SLIDE TITLE'
       }
     }
@@ -123,8 +123,8 @@ const lessonSlideTypes: CLIntF.Questions = {
       },
       teach: {
         script: [
-        SIB['STEP-HTML']
-      ],
+          SIB['STEP-HTML']
+        ],
         title: 'Wrap-up'
       }
     }

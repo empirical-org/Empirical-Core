@@ -77,54 +77,58 @@ export default class CreateAClassInlineForm extends React.Component<CreateAClass
 
   renderBody() {
     const { name, grade, code, timesSubmitted, errors, } = this.state
-    return (<div className="create-a-class-inline-body inline-body">
-      <form className="create-a-class-form">
-        <Input
-          characterLimit={50}
-          className="name"
-          error={errors.name}
-          handleChange={this.handleNameChange}
-          label="Class name"
-          placeholder="e.g., Ms. Hall's 6th Period"
-          timesSubmitted={timesSubmitted}
-          type="text"
-          value={name}
-        />
-        <DropdownInput
-          className="grade"
-          error={errors.grade}
-          handleChange={this.handleGradeChange}
-          helperText="This will not limit the activities you can access."
-          label="Grade"
-          options={GradeOptions}
-          value={grade}
-        />
-
-        <div className="class-code-section">
+    return (
+      <div className="create-a-class-inline-body inline-body">
+        <form className="create-a-class-form">
           <Input
-            className="code"
-            disabled={true}
-            label="Class code"
+            characterLimit={50}
+            className="name"
+            error={errors.name}
+            handleChange={this.handleNameChange}
+            label="Class name"
+            placeholder="e.g., Ms. Hall's 6th Period"
+            timesSubmitted={timesSubmitted}
             type="text"
-            value={code}
+            value={name}
           />
-          <span className="reset" onClick={this.getClassCode}>Reset</span>
-        </div>
-      </form>
-    </div>)
+          <DropdownInput
+            className="grade"
+            error={errors.grade}
+            handleChange={this.handleGradeChange}
+            helperText="This will not limit the activities you can access."
+            label="Grade"
+            options={GradeOptions}
+            value={grade}
+          />
+
+          <div className="class-code-section">
+            <Input
+              className="code"
+              disabled={true}
+              label="Class code"
+              type="text"
+              value={code}
+            />
+            <span className="reset" onClick={this.getClassCode}>Reset</span>
+          </div>
+        </form>
+      </div>
+    )
   }
 
   renderFooter() {
-    return (<div className="create-a-class-inline-footer">
-      <div className="info">
-        <img alt="the letter I in a circle" src={informationSrc} />
-        <span>You’ll invite students after you assign.</span>
+    return (
+      <div className="create-a-class-inline-footer">
+        <div className="info">
+          <img alt="the letter I in a circle" src={informationSrc} />
+          <span>You’ll invite students after you assign.</span>
+        </div>
+        <div className="buttons">
+          <button className="quill-button medium secondary outlined" onClick={this.props.cancel}>Cancel</button>
+          <button className={this.submitButtonClass()} onClick={this.createClass}>Create</button>
+        </div>
       </div>
-      <div className="buttons">
-        <button className="quill-button medium secondary outlined" onClick={this.props.cancel}>Cancel</button>
-        <button className={this.submitButtonClass()} onClick={this.createClass}>Create</button>
-      </div>
-    </div>)
+    )
   }
 
   render() {

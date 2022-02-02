@@ -116,64 +116,72 @@ const RecordBox = ({ originalRecord, saveRecordChanges, closeRecordBox, recordTy
     const standardCategoryOptions = standardCategories.sort(sortWordsThatIncludeNumbers()).map(t => ({ value: t.id, label: t.name }))
     const standardLevelValue = standardLevelOptions.find(opt => opt.value === record.standard_level_id)
     const standardCategoryValue = standardCategoryOptions.find(opt => opt.value === record.standard_category_id)
-    return (<div>
-      <DropdownInput
-        handleChange={changeStandardLevel}
-        isSearchable={true}
-        label="Standard Level"
-        options={standardLevelOptions}
-        value={standardLevelValue}
-      />
-      <DropdownInput
-        handleChange={changeStandardCategory}
-        isSearchable={true}
-        label="Standard Category"
-        options={standardCategoryOptions}
-        value={standardCategoryValue}
-      />
-    </div>)
+    return (
+      <div>
+        <DropdownInput
+          handleChange={changeStandardLevel}
+          isSearchable={true}
+          label="Standard Level"
+          options={standardLevelOptions}
+          value={standardLevelValue}
+        />
+        <DropdownInput
+          handleChange={changeStandardCategory}
+          isSearchable={true}
+          label="Standard Category"
+          options={standardCategoryOptions}
+          value={standardCategoryValue}
+        />
+      </div>
+    )
   }
 
   function renderRenameAndArchiveSection() {
-    return (<div className="rename-and-archive">
-      <span className="rename" onClick={activateRecordInput}>
-        <i className="fas fa-edit" />
-        <span>Rename</span>
-      </span>
-      <span className="archive" onClick={toggleVisibility}>
-        <i className="fas fa-archive" />
-        <span>{ record.visible ? 'Archive' : 'Unarchive' }</span>
-      </span>
-    </div>)
+    return (
+      <div className="rename-and-archive">
+        <span className="rename" onClick={activateRecordInput}>
+          <i className="fas fa-edit" />
+          <span>Rename</span>
+        </span>
+        <span className="archive" onClick={toggleVisibility}>
+          <i className="fas fa-archive" />
+          <span>{ record.visible ? 'Archive' : 'Unarchive' }</span>
+        </span>
+      </div>
+    )
   }
 
   function renderLevels() {
     const dropdowns = recordType === STANDARD ? renderDropdownInputs() : null
 
-    return (<div>
-      {dropdowns}
-      <div className="record-input-container">
-        <Input
-          handleCancel={cancelRename}
-          handleChange={renameRecord}
-          id='record-name'
-          label={recordType}
-          type='text'
-          value={record.name}
-        />
-        {renderRenameAndArchiveSection()}
+    return (
+      <div>
+        {dropdowns}
+        <div className="record-input-container">
+          <Input
+            handleCancel={cancelRename}
+            handleChange={renameRecord}
+            id='record-name'
+            label={recordType}
+            type='text'
+            value={record.name}
+          />
+          {renderRenameAndArchiveSection()}
+        </div>
+        <IndividualRecordChangeLogs changeLogs={record.change_logs} formatDateTime={formatDateTime} />
       </div>
-      <IndividualRecordChangeLogs changeLogs={record.change_logs} formatDateTime={formatDateTime} />
-    </div>)
+    )
   }
 
   function renderSaveButton() {
     if (!_.isEqual(record, originalRecord)) {
-      return (<input
-        className="quill-button contained primary medium"
-        type="submit"
-        value="Save"
-      />)
+      return (
+        <input
+          className="quill-button contained primary medium"
+          type="submit"
+          value="Save"
+        />
+      )
     }
   }
 
@@ -187,28 +195,32 @@ const RecordBox = ({ originalRecord, saveRecordChanges, closeRecordBox, recordTy
         changedFields.push(changedField)
       }
     })
-    return (<ChangeLogModal
-      cancel={closeChangeLogModal}
-      changedFields={changedFields}
-      record={record}
-      save={setChangeLogs}
-    />)
+    return (
+      <ChangeLogModal
+        cancel={closeChangeLogModal}
+        changedFields={changedFields}
+        record={record}
+        save={setChangeLogs}
+      />
+    )
   }
 
-  return (<div className="record-box">
-    {renderChangeLogModal()}
-    <span className="close-record-box" onClick={closeRecordBox}><i className="fas fa-times" /></span>
-    <form acceptCharset="UTF-8" onSubmit={handleSubmit} >
-      <div className="static">
-        <p>{recordType}</p>
-        <h1>{record.name}</h1>
-      </div>
-      <div className="fields">
-        {renderLevels()}
-        {renderSaveButton()}
-      </div>
-    </form>
-  </div>)
+  return (
+    <div className="record-box">
+      {renderChangeLogModal()}
+      <span className="close-record-box" onClick={closeRecordBox}><i className="fas fa-times" /></span>
+      <form acceptCharset="UTF-8" onSubmit={handleSubmit} >
+        <div className="static">
+          <p>{recordType}</p>
+          <h1>{record.name}</h1>
+        </div>
+        <div className="fields">
+          {renderLevels()}
+          {renderSaveButton()}
+        </div>
+      </form>
+    </div>
+  )
 }
 
 

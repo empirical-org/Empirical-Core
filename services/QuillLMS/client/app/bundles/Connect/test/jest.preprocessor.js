@@ -8,7 +8,7 @@ module.exports = {
 
     if (isTs || isTsx) {
       src = tsc.transpileModule(
-                src,
+        src,
         {
           compilerOptions: {
             module: tsc.ModuleKind.ES6,
@@ -21,10 +21,10 @@ module.exports = {
           },
           fileName: path,
         }
-            );
+      );
       src = src.outputText;
 
-            // update the path so babel can try and process the output
+      // update the path so babel can try and process the output
       path = path.substr(0, path.lastIndexOf('.')) + (isTs ? '.js' : '.jsx') || path;
     }
 

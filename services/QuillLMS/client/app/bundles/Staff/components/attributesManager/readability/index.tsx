@@ -32,17 +32,21 @@ const RawScoreTableRow = ({ rawScore, saveRawScoreChanges, }) => {
   }
 
   if (editing) {
-    return (<div className="raw-score-table-row">
-      <Input handleCancel={undoChange} handleChange={onNameChange} value={newName} />
-      <button className="interactive-wrapper" onClick={toggleEditing}>Cancel</button>
-      <button className="quill-button fun contained primary" onClick={handleSave}>Save</button>
-    </div>)
+    return (
+      <div className="raw-score-table-row">
+        <Input handleCancel={undoChange} handleChange={onNameChange} value={newName} />
+        <button className="interactive-wrapper" onClick={toggleEditing}>Cancel</button>
+        <button className="quill-button fun contained primary" onClick={handleSave}>Save</button>
+      </div>
+    )
   }
 
-  return (<div className="raw-score-table-row">
-    <Input disabled={true} value={rawScore.name} />
-    <button className="interactive-wrapper" onClick={toggleEditing}><i className="fas fa-edit" /> Edit</button>
-  </div>)
+  return (
+    <div className="raw-score-table-row">
+      <Input disabled={true} value={rawScore.name} />
+      <button className="interactive-wrapper" onClick={toggleEditing}><i className="fas fa-edit" /> Edit</button>
+    </div>
+  )
 }
 
 const Readability = ({ match, location, }) => {

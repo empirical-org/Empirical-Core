@@ -2,7 +2,7 @@
 
 import _ from 'underscore'
 
- export default  function () {
+export default  function () {
 
   this.toggle = function (array, item) {
     var newArray, alreadyThere;

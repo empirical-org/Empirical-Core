@@ -42,13 +42,15 @@ const FlagFilterRow = ({ flagFilters, flag, handleFlagFilterChange, filteredActi
     </button>)
   }
 
-  return (<div className="individual-row filter-row" key={flag}>
-    <div>
-      {checkbox}
-      <span>{_.capitalize(flag)}</span>
+  return (
+    <div className="individual-row filter-row" key={flag}>
+      <div>
+        {checkbox}
+        <span>{_.capitalize(flag)}</span>
+      </div>
+      <span>({activityCount})</span>
     </div>
-    <span>({activityCount})</span>
-  </div>)
+  )
 }
 
 const FlagFilters = ({ activities, filterActivities, flagFilters, handleFlagFilterChange, }: FlagFiltersProps) => {
@@ -67,13 +69,15 @@ const FlagFilters = ({ activities, filterActivities, flagFilters, handleFlagFilt
   )
   const clearButton = flagFilters.length ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={clearAllFlagFilters} type="button">Clear</button> : <span />
 
-  return (<section className="filter-section flag-filter-section">
-    <div className="name-and-clear-wrapper">
-      <h2>Flags</h2>
-      {clearButton}
-    </div>
-    {flagRows}
-  </section>)
+  return (
+    <section className="filter-section flag-filter-section">
+      <div className="name-and-clear-wrapper">
+        <h2>Flags</h2>
+        {clearButton}
+      </div>
+      {flagRows}
+    </section>
+  )
 }
 
 export default FlagFilters

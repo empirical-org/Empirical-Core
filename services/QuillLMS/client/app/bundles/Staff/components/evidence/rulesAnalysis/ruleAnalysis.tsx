@@ -133,15 +133,15 @@ const RuleAnalysis = ({ match }) => {
     });
   }
 
-   async function toggleStrength(response) { updateFeedbackHistoryRatingStrength(response.response_id, response.strength === true ? null : true) }
+  async function toggleStrength(response) { updateFeedbackHistoryRatingStrength(response.response_id, response.strength === true ? null : true) }
 
-   async function toggleWeakness(response) { updateFeedbackHistoryRatingStrength(response.response_id, response.strength === false ? null : false) }
+  async function toggleWeakness(response) { updateFeedbackHistoryRatingStrength(response.response_id, response.strength === false ? null : false) }
 
-   async function updateFeedbackHistoryRatingStrength(responseId, rating) {
-     createOrUpdateFeedbackHistoryRating({ rating, feedback_history_id: responseId}).then((response) => {
-       queryCache.refetchQueries([`rule-feedback-histories-by-rule-${ruleId}-${promptId}`, ruleId, promptId, startDateForQuery, endDateForQuery]);
-     });
-   }
+  async function updateFeedbackHistoryRatingStrength(responseId, rating) {
+    createOrUpdateFeedbackHistoryRating({ rating, feedback_history_id: responseId}).then((response) => {
+      queryCache.refetchQueries([`rule-feedback-histories-by-rule-${ruleId}-${promptId}`, ruleId, promptId, startDateForQuery, endDateForQuery]);
+    });
+  }
 
   function getSortedRows(rows, sortInfo) {
     if(sortInfo) {

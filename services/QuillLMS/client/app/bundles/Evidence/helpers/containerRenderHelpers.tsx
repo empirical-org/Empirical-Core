@@ -48,10 +48,12 @@ export const renderReadPassageStep = (activeStep, activities, handleDoneReadingC
   const { currentActivity, } = activities
   if (!currentActivity || activeStep !== READ_PASSAGE_STEP) { return }
 
-  return (<div className='read-passage-step-container'>
-    <h2>Read the text.</h2>
-    <button className='quill-button large primary contained done-reading-button' onClick={handleDoneReadingClick} type="button">Done reading</button>
-  </div>)
+  return (
+    <div className='read-passage-step-container'>
+      <h2>Read the text.</h2>
+      <button className='quill-button large primary contained done-reading-button' onClick={handleDoneReadingClick} type="button">Done reading</button>
+    </div>
+  )
 }
 
 export const renderPromptStep = ({
@@ -106,7 +108,7 @@ export const renderReadPassageContainer = ({
   scrolledToEndOfPassage,
   showReadTheDirectionsButton,
   transformMarkTags
- }) => {
+}) => {
   const { currentActivity, } = activities
   if (!currentActivity) { return }
 
@@ -120,11 +122,13 @@ export const renderReadPassageContainer = ({
   }
   const formattedPassages = addPTagsToPassages(passages, scrolledToEndOfPassage)
   const formattedPassage = formattedPassages ? formattedPassages[0] : '';
-  return (<div className="read-passage-container" onScroll={handleReadPassageContainerScroll}>
-    <div className={innerContainerClassName}>
-      <h1 className="title">{title}</h1>
-      <HeaderImage headerImage={headerImage} passage={passages[0]} />
-      <div className="passage">{ReactHtmlParser(formattedPassage, { transform: transformMarkTags })}</div>
+  return (
+    <div className="read-passage-container" onScroll={handleReadPassageContainerScroll}>
+      <div className={innerContainerClassName}>
+        <h1 className="title">{title}</h1>
+        <HeaderImage headerImage={headerImage} passage={passages[0]} />
+        <div className="passage">{ReactHtmlParser(formattedPassage, { transform: transformMarkTags })}</div>
+      </div>
     </div>
-  </div>)
+  )
 }

@@ -49,13 +49,15 @@ const RightPanel = ({
   />)
 
   if (!hasStartedReadPassageStep) {
-    return (<div className="steps-outer-container step-overview-container" onScroll={resetTimers}>
-      <StepOverview
-        activeStep={activeStep}
-        handleClick={onStartReadPassage}
-      />
-      {bottomNavigation}
-    </div>)
+    return (
+      <div className="steps-outer-container step-overview-container" onScroll={resetTimers}>
+        <StepOverview
+          activeStep={activeStep}
+          handleClick={onStartReadPassage}
+        />
+        {bottomNavigation}
+      </div>
+    )
   }
 
   if (activeStep === READ_PASSAGE_STEP) {
@@ -74,13 +76,15 @@ const RightPanel = ({
   }
 
   if (!hasStartedPromptSteps) {
-    return (<div className="steps-outer-container step-overview-container" onScroll={resetTimers}>
-      <StepOverview
-        activeStep={activeStep}
-        handleClick={onStartPromptSteps}
-      />
-      {bottomNavigation}
-    </div>)
+    return (
+      <div className="steps-outer-container step-overview-container" onScroll={resetTimers}>
+        <StepOverview
+          activeStep={activeStep}
+          handleClick={onStartPromptSteps}
+        />
+        {bottomNavigation}
+      </div>
+    )
   }
 
   return(

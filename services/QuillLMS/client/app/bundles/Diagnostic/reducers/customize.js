@@ -43,9 +43,9 @@ export default function (currentstate, action) {
         workingEditionMetadata: action.metadata,
       });
     case C.SET_INCOMPLETE_QUESTIONS:
-    return Object.assign({}, currentstate, {
+      return Object.assign({}, currentstate, {
         incompleteQuestions: action.incompleteQuestions,
-    });
+      });
     default: return currentstate || initialState;
   }
 }

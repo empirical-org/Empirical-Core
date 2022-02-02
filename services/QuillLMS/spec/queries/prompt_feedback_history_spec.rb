@@ -190,7 +190,7 @@ RSpec.describe PromptFeedbackHistory, type: :model do
       parsed_result = PromptFeedbackHistory.serialize_results(result)
 
       expect(parsed_result).to eq({
-	@prompt1.id => {
+  @prompt1.id => {
           prompt_id: @prompt1.id,
           total_responses: 2,
           session_count: 1,
@@ -202,8 +202,8 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           num_sessions_with_non_consecutive_repeated_rule: 0.0,
           num_first_attempt_optimal: 0,
           num_first_attempt_not_optimal: 1
-	}.stringify_keys,
-	@prompt2.id => {
+  }.stringify_keys,
+  @prompt2.id => {
           prompt_id: @prompt2.id,
           total_responses: 1,
           session_count: 1,
@@ -215,7 +215,7 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           num_sessions_with_non_consecutive_repeated_rule: 0.0,
           num_first_attempt_optimal: 1,
           num_first_attempt_not_optimal: 0
-	}.stringify_keys
+  }.stringify_keys
       })
     end
   end

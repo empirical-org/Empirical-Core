@@ -12,21 +12,25 @@ const PromptSection = ({ promptElement, mode, }) => {
   }
 
   if (showPrompt) {
-    return (<React.Fragment>
-      {promptElement}
-      <div className="display-answers-divider prompt-showing">
-        <div className="display-answers-divider-content">
-          <button className="focus-on-light" onClick={handleShowPromptButtonClick} type="button">Hide</button>
+    return (
+      <React.Fragment>
+        {promptElement}
+        <div className="display-answers-divider prompt-showing">
+          <div className="display-answers-divider-content">
+            <button className="focus-on-light" onClick={handleShowPromptButtonClick} type="button">Hide</button>
+          </div>
         </div>
-      </div>
-    </React.Fragment>)
+      </React.Fragment>
+    )
   }
 
-  return (<div className="display-answers-divider prompt-hidden">
-    <div className="display-answers-divider-content">
-      <button className="focus-on-light" onClick={handleShowPromptButtonClick} type="button">Show</button>
+  return (
+    <div className="display-answers-divider prompt-hidden">
+      <div className="display-answers-divider-content">
+        <button className="focus-on-light" onClick={handleShowPromptButtonClick} type="button">Show</button>
+      </div>
     </div>
-  </div>)
+  )
 }
 
 export default PromptSection

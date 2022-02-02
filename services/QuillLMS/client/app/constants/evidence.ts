@@ -35,8 +35,8 @@ export const HIGHLIGHT_REMOVAL = 'highlight removal'
 export const HIGHLIGHT_TYPE = 'highlight type'
 export const FEEDBACK_LAYER_ADDITION = 'feedback layer addition'
 export const FEEDBACK_LAYER_REMOVAL = 'feedback layer removal'
-export const MAX_ATTEMPTS_FEEDBACK_TEXT = 'Nice effort! You worked hard to make your sentence stronger.'
 export const ESSENTIAL_KNOWLEDGE_TEXT_FILLER = '<p>In this activity, you’ll read about how skateboarding gained popularity through a process called hierarchical diffusion.</p><br/><p><i>Hierarchical diffusion</i>, happens when an idea spreads through an established social structure (a hierarchy), usually from a person or place with more power and connections to people or places with less power and fewer connections.</p>'
+export const MAX_ATTEMPTS_FEEDBACK_TEXT = '<p>You completed four revisions!</p><br/><p>[A message about why the response fell short of being an optimal response, such as, “Your response was missing key details about why New York City is building a surge barrier.”] Here are some strong responses:</p><br/><ul><li>[Exemplar #1 Response (Show the full sentence stem and the exemplar part in bold)].</li><li>[Exemplar #2 Response (Show the full sentence stem and the exemplar part in bold)].</li></ul><br/><p>Think about how these responses are similar or different from your response. Then move on to the next prompt.</p>'
 
 export const flagOptions = [
   {

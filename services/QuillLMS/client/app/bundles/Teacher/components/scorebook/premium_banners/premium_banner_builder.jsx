@@ -22,11 +22,11 @@ export default class PremiumBannerBuilder extends React.Component {
   fetchData = () => {
     var that = this;
     $.get('/teachers/classrooms/premium')
-    .done(function(data) {
-      that.setState({
-        has_premium: data['hasPremium'],
-        trial_days_remaining: data['trial_days_remaining'],
-        first_day_of_premium_or_trial: data['first_day_of_premium_or_trial']});});
+      .done(function(data) {
+        that.setState({
+          has_premium: data['hasPremium'],
+          trial_days_remaining: data['trial_days_remaining'],
+          first_day_of_premium_or_trial: data['first_day_of_premium_or_trial']});});
   };
 
   handleClickUpgradeNow = () => {
@@ -55,8 +55,8 @@ export default class PremiumBannerBuilder extends React.Component {
       );
     }
     else if ((has_premium === 'school') || ((has_premium === 'paid') && (first_day_of_premium_or_trial === false))) {
-        return (<span />);
-      }
+      return (<span />);
+    }
   };
 
   stateSpecificBackGroundColor = () => {
@@ -83,17 +83,17 @@ export default class PremiumBannerBuilder extends React.Component {
       backgroundImage: img
     };
     if ((this.state.has_premium === null) || (this.state.has_premium === 'school') || ((this.state.has_premium === 'paid') && (this.state.first_day_of_premium_or_trial === false))) {
-        return (<span />);
-      } else
-      {
-        return (
-          <div id='premium-banner' style={divStyle}>
-            <div className='container'>
-              {this.stateSpecificComponents()}
-            </div>
+      return (<span />);
+    } else
+    {
+      return (
+        <div id='premium-banner' style={divStyle}>
+          <div className='container'>
+            {this.stateSpecificComponents()}
           </div>
-    );
-  }
+        </div>
+      );
+    }
   };
 
   render() {

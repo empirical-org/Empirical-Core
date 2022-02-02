@@ -100,21 +100,23 @@ export default class UnitTemplateAssigned extends React.Component {
   }
 
   renderSharingContainer() {
-    return (<div className='sharing-container'>
-      <h2>
+    return (
+      <div className='sharing-container'>
+        <h2>
         Share Quill With Your Colleagues
-      </h2>
-      <p className='nonprofit-copy'>
+        </h2>
+        <p className='nonprofit-copy'>
         We’re a nonprofit providing free literacy activities. The more people <br />
         who use Quill, the more free activities we can create.
-      </p>
-      <p className='social-copy'>
-        <i>{this.socialShareCopy()}</i>
-      </p>
-      <div className='container'>
-        <UnitTemplateProfileShareButtons text={this.socialShareCopy()} url={this.socialShareUrl()} />
+        </p>
+        <p className='social-copy'>
+          <i>{this.socialShareCopy()}</i>
+        </p>
+        <div className='container'>
+          <UnitTemplateProfileShareButtons text={this.socialShareCopy()} url={this.socialShareUrl()} />
+        </div>
       </div>
-    </div>)
+    )
   }
 
   render() {
@@ -139,6 +141,6 @@ export default class UnitTemplateAssigned extends React.Component {
         </div>
         {this.renderSharingContainer()}
       </div>
-  );
+    );
   }
 }
