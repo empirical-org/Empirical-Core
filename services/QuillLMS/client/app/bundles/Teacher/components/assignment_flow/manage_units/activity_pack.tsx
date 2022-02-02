@@ -107,21 +107,22 @@ const ActivityPack = ({
   const firstActivity = Array.from(data.classroomActivities)[0][1]
   const isOwner = firstActivity.ownedByCurrentUser
 
-  return (<section className="activity-pack">
-    <Snackbar text={snackbarText} visible={showSnackbar} />
-    {showModal === RENAME && <RenameModal
-      closeModal={closeModal}
-      onSuccess={onSuccess}
-      unitId={data.unitId}
-      unitName={data.unitName}
-    />}
-    {showModal === ARCHIVE && <ArchiveModal
-      closeModal={closeModal}
-      onSuccess={onSuccess}
-      unitId={data.unitId}
-      unitName={data.unitName}
-    />}
-    {showModal === SHARE &&
+  return (
+    <section className="activity-pack">
+      <Snackbar text={snackbarText} visible={showSnackbar} />
+      {showModal === RENAME && <RenameModal
+        closeModal={closeModal}
+        onSuccess={onSuccess}
+        unitId={data.unitId}
+        unitName={data.unitName}
+      />}
+      {showModal === ARCHIVE && <ArchiveModal
+        closeModal={closeModal}
+        onSuccess={onSuccess}
+        unitId={data.unitId}
+        unitName={data.unitName}
+      />}
+      {showModal === SHARE &&
       <ShareActivityPackModal
         activityPackData={data && getActivityPackData()}
         closeModal={closeModal}
@@ -131,40 +132,41 @@ const ActivityPack = ({
         singleActivity={activityClicked}
         unitId={data && data.unitId}
       />}
-    <div className="top-section">
-      <div className="top-section-header">
-        {isOwner && <ActivityPackUpdateButtons handleClickShareActivityPack={handleClickShareActivityPack} handleClickShowRemove={handleClickShowRemove} handleClickShowRename={handleClickShowRename} />}
-        <div className="left-side">
-          <h2>{data.unitName}</h2>
-          {!isOwner && (<div className="coteacher-explanation">
-            <img alt="Lock" src={lockSrc} />
-            <div>
-              <p>Created by {firstActivity.ownerName}</p>
-              <span>Since you did not create this pack, you are unable to edit it.</span>
-            </div>
-          </div>)}
-          <p className={`total-classroom-info ${showIndividualClassroomInfo ? 'is-open' : 'is-closed'}`}>
-            <img alt="Multiple people with a check icon" src={multipleAccountSrc} />
-            <button className="interactive-wrapper focus-on-light" onClick={toggleShowIndividualClassroomInfo} type="button">
-              <span>{totalClassroomInfoCopy}</span>
-              <img alt="" src={expandSrc} />
-            </button>
-          </p>
-          <div className="individual-classroom-info small-screen">{individualClassroomInfo}</div>
+      <div className="top-section">
+        <div className="top-section-header">
+          {isOwner && <ActivityPackUpdateButtons handleClickShareActivityPack={handleClickShareActivityPack} handleClickShowRemove={handleClickShowRemove} handleClickShowRename={handleClickShowRename} />}
+          <div className="left-side">
+            <h2>{data.unitName}</h2>
+            {!isOwner && (<div className="coteacher-explanation">
+              <img alt="Lock" src={lockSrc} />
+              <div>
+                <p>Created by {firstActivity.ownerName}</p>
+                <span>Since you did not create this pack, you are unable to edit it.</span>
+              </div>
+            </div>)}
+            <p className={`total-classroom-info ${showIndividualClassroomInfo ? 'is-open' : 'is-closed'}`}>
+              <img alt="Multiple people with a check icon" src={multipleAccountSrc} />
+              <button className="interactive-wrapper focus-on-light" onClick={toggleShowIndividualClassroomInfo} type="button">
+                <span>{totalClassroomInfoCopy}</span>
+                <img alt="" src={expandSrc} />
+              </button>
+            </p>
+            <div className="individual-classroom-info small-screen">{individualClassroomInfo}</div>
+          </div>
         </div>
+        <div className="individual-classroom-info big-screen">{individualClassroomInfo}</div>
+        {isOwner && <a className="quill-button secondary outlined medium focus-on-light" href={`/teachers/classrooms/activity_planner/units/${data.unitId}/students/edit`}>Add/remove students assigned</a>}
       </div>
-      <div className="individual-classroom-info big-screen">{individualClassroomInfo}</div>
-      {isOwner && <a className="quill-button secondary outlined medium focus-on-light" href={`/teachers/classrooms/activity_planner/units/${data.unitId}/students/edit`}>Add/remove students assigned</a>}
-    </div>
-    <ActivityTable
-      data={data}
-      handleActivityClicked={handleActivityClicked}
-      handleToggleModal={handleClickShareActivity}
-      isOwner={isOwner}
-      onSuccess={onSuccess}
-    />
-    {isOwner && <a className="quill-button secondary medium focus-on-light outlined add-activities-button" href={`/teachers/classrooms/activity_planner/units/${data.unitId}/activities/edit/${encodeURIComponent(data.unitName)}`}>Add activities</a>}
-  </section>)
+      <ActivityTable
+        data={data}
+        handleActivityClicked={handleActivityClicked}
+        handleToggleModal={handleClickShareActivity}
+        isOwner={isOwner}
+        onSuccess={onSuccess}
+      />
+      {isOwner && <a className="quill-button secondary medium focus-on-light outlined add-activities-button" href={`/teachers/classrooms/activity_planner/units/${data.unitId}/activities/edit/${encodeURIComponent(data.unitName)}`}>Add activities</a>}
+    </section>
+  )
 }
 
 export default ActivityPack

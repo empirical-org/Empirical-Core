@@ -94,10 +94,12 @@ const SortDropdown = ({ setSort, sort, }) => {
 
   const selectedOption = sortOptions.find(s => s.value === sort)
 
-  return (<div className="sort-wrapper" ref={dropdownContainer}>
-    <button className="sort-dropdown-label interactive-wrapper focus-on-light" onClick={toggleDropdownIsOpen} type="button">Sort by: <span>{selectedOption ? selectedOption.label : 'Default'}</span> {sortIcon}</button>
-    <SortDropdownOptions dropdownIsOpen={dropdownIsOpen} setDropdownIsOpen={setDropdownIsOpen} setSort={setSort} />
-  </div>)
+  return (
+    <div className="sort-wrapper" ref={dropdownContainer}>
+      <button className="sort-dropdown-label interactive-wrapper focus-on-light" onClick={toggleDropdownIsOpen} type="button">Sort by: <span>{selectedOption ? selectedOption.label : 'Default'}</span> {sortIcon}</button>
+      <SortDropdownOptions dropdownIsOpen={dropdownIsOpen} setDropdownIsOpen={setDropdownIsOpen} setSort={setSort} />
+    </div>
+  )
 }
 
 

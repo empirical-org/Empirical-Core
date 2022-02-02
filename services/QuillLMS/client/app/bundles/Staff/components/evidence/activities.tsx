@@ -55,19 +55,21 @@ const Activities = ({ location, match }) => {
     { name: "Highlight Validation", attribute:"valid_highlights", width: "100px" }
   ];
 
-  return(<React.Fragment>
-    <Navigation location={location} match={match} />
-    {errors && renderErrorsContainer(false, errors)}
-    <div className="activities-container">
-      <FlagDropdown flag={flag} handleFlagChange={onFlagChange} isLessons={true} />
-      <DataTable
-        className="activities-table"
-        defaultSortAttribute="name"
-        headers={dataTableFields}
-        rows={formattedRows ? formattedRows : []}
-      />
-    </div>
-  </React.Fragment>);
+  return(
+    <React.Fragment>
+      <Navigation location={location} match={match} />
+      {errors && renderErrorsContainer(false, errors)}
+      <div className="activities-container">
+        <FlagDropdown flag={flag} handleFlagChange={onFlagChange} isLessons={true} />
+        <DataTable
+          className="activities-table"
+          defaultSortAttribute="name"
+          headers={dataTableFields}
+          rows={formattedRows ? formattedRows : []}
+        />
+      </div>
+    </React.Fragment>
+  );
 }
 
 export default Activities

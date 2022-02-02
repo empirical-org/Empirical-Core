@@ -22,7 +22,7 @@ export default function determineUnnecessaryEditType(originalText: string, edite
   for (const t of typeMatchers) {
     const r = t(originalText, editedText)
     if (r.matched) {
-       return r.unnecessaryEditType
+      return r.unnecessaryEditType
     }
   }
   return UNNECESSARY_CHANGE

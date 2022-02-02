@@ -167,7 +167,8 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
             <div className="live" />
             Live
           </div>
-        </div>)
+        </div>
+      )
     } else {
       return (
         <div className="live-or-archived">
@@ -176,7 +177,8 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
             Archived
           </div>
           <div className="date">{moment(concept.updatedAt* 1000).format('M/D/YY')}</div>
-        </div>)
+        </div>
+      )
     }
   }
 
@@ -198,64 +200,74 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           changedFields.push(changedField)
         }
       })
-      return (<ChangeLogModal
-        cancel={this.closeChangeLogModal}
-        changedFields={changedFields}
-        levelNumber={this.props.levelNumber}
-        record={concept}
-        save={(changeLogs) => { this.save(editConcept, changeLogs)}}
-      />)
+      return (
+        <ChangeLogModal
+          cancel={this.closeChangeLogModal}
+          changedFields={changedFields}
+          levelNumber={this.props.levelNumber}
+          record={concept}
+          save={(changeLogs) => { this.save(editConcept, changeLogs)}}
+        />
+      )
     }
   }
 
   renderDropdownInput() {
     const { concept, errors } = this.state
     if (this.props.levelNumber === 0) {
-      return (<Query
-        query={gql(levelOneConceptsQuery())}
-      >
-        {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error :(</p>;
-          const possibleConcepts = data.concepts;
-          const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt, parent: c.parent }}).sort((a, b) => a.label.localeCompare(b.label))
-          const value = options.find(opt => opt.value === concept.parent.id)
-          return (<div className="record-input-container">
-            <DropdownInput
-              error={errors.level1}
-              handleChange={this.changeLevel1}
-              isSearchable={true}
-              label="Level 1"
-              options={options}
-              value={value}
-            />
-            {this.renderArchivedOrLive(value)}
-          </div>)
-        }}
-      </Query>)
+      return (
+        <Query
+          query={gql(levelOneConceptsQuery())}
+        >
+          {({ loading, error, data }) => {
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Error :(</p>;
+            const possibleConcepts = data.concepts;
+            const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt, parent: c.parent }}).sort((a, b) => a.label.localeCompare(b.label))
+            const value = options.find(opt => opt.value === concept.parent.id)
+            return (
+              <div className="record-input-container">
+                <DropdownInput
+                  error={errors.level1}
+                  handleChange={this.changeLevel1}
+                  isSearchable={true}
+                  label="Level 1"
+                  options={options}
+                  value={value}
+                />
+                {this.renderArchivedOrLive(value)}
+              </div>
+            )
+          }}
+        </Query>
+      )
     } else {
-      return (<Query
-        query={gql(levelTwoConceptsQuery())}
-      >
-        {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error :(</p>;
-          const possibleConcepts = data.concepts;
-          const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt }}).sort((a, b) => a.label.localeCompare(b.label))
-          const value = options.find(opt => opt.value === concept.parent.id)
-          return (<div className="record-input-container">
-            <DropdownInput
-              error={errors.level2}
-              handleChange={this.changeLevel2}
-              isSearchable={true}
-              label="Level 2"
-              options={options}
-              value={value}
-            />
-            {this.renderArchivedOrLive(value)}
-          </div>)
-        }}
-      </Query>)
+      return (
+        <Query
+          query={gql(levelTwoConceptsQuery())}
+        >
+          {({ loading, error, data }) => {
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Error :(</p>;
+            const possibleConcepts = data.concepts;
+            const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt }}).sort((a, b) => a.label.localeCompare(b.label))
+            const value = options.find(opt => opt.value === concept.parent.id)
+            return (
+              <div className="record-input-container">
+                <DropdownInput
+                  error={errors.level2}
+                  handleChange={this.changeLevel2}
+                  isSearchable={true}
+                  label="Level 2"
+                  options={options}
+                  value={value}
+                />
+                {this.renderArchivedOrLive(value)}
+              </div>
+            )
+          }}
+        </Query>
+      )
 
     }
   }
@@ -263,55 +275,61 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
   renderLevels() {
     const { concept, } = this.state
     if (this.props.levelNumber === 2) {
-      return (<div>
-        <div className="record-input-container">
-          <Input
-            disabled={true}
-            label='Level 2'
-            type='text'
-            value={concept.name}
-          />
-          {this.renderArchivedOrLive(concept)}
+      return (
+        <div>
+          <div className="record-input-container">
+            <Input
+              disabled={true}
+              label='Level 2'
+              type='text'
+              value={concept.name}
+            />
+            {this.renderArchivedOrLive(concept)}
+          </div>
+          <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
         </div>
-        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
-      </div>)
+      )
     } else if (this.props.levelNumber === 1) {
-      return (<div>
-        {this.renderDropdownInput()}
-        <div className="record-input-container">
-          <Input
-            disabled={true}
-            label='Level 1'
-            type='text'
-            value={concept.name}
-          />
-          {this.renderArchivedOrLive(concept)}
+      return (
+        <div>
+          {this.renderDropdownInput()}
+          <div className="record-input-container">
+            <Input
+              disabled={true}
+              label='Level 1'
+              type='text'
+              value={concept.name}
+            />
+            {this.renderArchivedOrLive(concept)}
+          </div>
+          <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
         </div>
-        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
-      </div>)
+      )
     } else if (this.props.levelNumber === 0) {
-      return (<div>
-        <div className="record-input-container">
-          <Input
-            disabled={true}
-            label='Level 2'
-            type='text'
-            value={concept.parent.parent.name}
-          />
-          {this.renderArchivedOrLive(concept.parent.parent)}
+      return (
+        <div>
+          <div className="record-input-container">
+            <Input
+              disabled={true}
+              label='Level 2'
+              type='text'
+              value={concept.parent.parent.name}
+            />
+            {this.renderArchivedOrLive(concept.parent.parent)}
+          </div>
+          {this.renderDropdownInput()}
+          <div className="record-input-container">
+            <Input
+              disabled={true}
+              label='Level 0'
+              type='text'
+              value={concept.name}
+            />
+            {this.renderArchivedOrLive(concept)}
+          </div>
+          <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
         </div>
-        {this.renderDropdownInput()}
-        <div className="record-input-container">
-          <Input
-            disabled={true}
-            label='Level 0'
-            type='text'
-            value={concept.name}
-          />
-          {this.renderArchivedOrLive(concept)}
-        </div>
-        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
-      </div>)
+      )
     }
   }
 
@@ -319,29 +337,37 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
     const { levelNumber } = this.props
     const { concept } = this.state
     if (levelNumber === 2) {
-      return (<input
-        className="quill-button contained primary medium"
-        type="submit"
-        value="Unarchive, set live"
-      />)
+      return (
+        <input
+          className="quill-button contained primary medium"
+          type="submit"
+          value="Unarchive, set live"
+        />
+      )
     } else if (levelNumber === 1 && concept.parent.visible) {
-      return (<input
-        className="quill-button contained primary medium"
-        type="submit"
-        value="Unarchive, set live"
-      />)
+      return (
+        <input
+          className="quill-button contained primary medium"
+          type="submit"
+          value="Unarchive, set live"
+        />
+      )
     } else if (levelNumber === 0 && concept.parent.visible && concept.parent.parent.visible) {
-      return (<input
-        className="quill-button contained primary medium"
-        type="submit"
-        value="Unarchive, set live"
-      />)
+      return (
+        <input
+          className="quill-button contained primary medium"
+          type="submit"
+          value="Unarchive, set live"
+        />
+      )
     } else {
-      return (<input
-        className="quill-button contained disabled primary medium"
-        type="submit"
-        value="Unarchive, set live"
-      />)
+      return (
+        <input
+          className="quill-button contained disabled primary medium"
+          type="submit"
+          value="Unarchive, set live"
+        />
+      )
     }
   }
 

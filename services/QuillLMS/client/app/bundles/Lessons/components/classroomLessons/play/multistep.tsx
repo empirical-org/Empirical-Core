@@ -6,12 +6,12 @@ import {
 } from '../../../../Shared/index'
 
 import {
-QuestionData,
+  QuestionData,
 } from '../../../interfaces/classroomLessons'
 import {
-ClassroomLessonSession,
-SelectedSubmissionsForQuestion,
-QuestionSubmissionsList
+  ClassroomLessonSession,
+  SelectedSubmissionsForQuestion,
+  QuestionSubmissionsList
 } from '../interfaces'
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import SubmitButton from './submitButton'
@@ -84,15 +84,17 @@ class Multistep extends React.Component<MultistepProps, MultistepState> {
       let className = "multistep-display-answers-row "
       className+= i === 0 ? 'first' : ''
 
-      return (<div className={className} key={sl}>
-        <p className="step-label">{sl}</p>
-        <ProjectedAnswers
-          {...commonProps}
-          response={response}
-          selectedSubmissionOrder={selectedSubmissionOrder}
-          selectedSubmissions={selectedSubmissions}
-        />
-      </div>)
+      return (
+        <div className={className} key={sl}>
+          <p className="step-label">{sl}</p>
+          <ProjectedAnswers
+            {...commonProps}
+            response={response}
+            selectedSubmissionOrder={selectedSubmissionOrder}
+            selectedSubmissions={selectedSubmissions}
+          />
+        </div>
+      )
     })
 
     return rows
@@ -126,22 +128,22 @@ class Multistep extends React.Component<MultistepProps, MultistepState> {
     )
   }
 
-    listBlanks() {
-      const { data, } = this.props
-      const { stepLabels, } = data.play
-      const nStepLabels = stepLabels.length;
-      const textEditorArr : JSX.Element[]  = [];
-      for (let i = 0; i < nStepLabels; i+=1) {
-          textEditorArr.push(
-          this.textEditListComponents(stepLabels[i], i)
-        )
-      }
-      return (
-        <div className="list-blanks">
-          {textEditorArr}
-        </div>
+  listBlanks() {
+    const { data, } = this.props
+    const { stepLabels, } = data.play
+    const nStepLabels = stepLabels.length;
+    const textEditorArr : JSX.Element[]  = [];
+    for (let i = 0; i < nStepLabels; i+=1) {
+      textEditorArr.push(
+        this.textEditListComponents(stepLabels[i], i)
       )
     }
+    return (
+      <div className="list-blanks">
+        {textEditorArr}
+      </div>
+    )
+  }
 
   handleStudentSubmission = () => {
     const { answers, } = this.state
@@ -173,10 +175,12 @@ class Multistep extends React.Component<MultistepProps, MultistepState> {
       feedbackType = 'revise-unmatched'
     }
 
-    return (<Feedback
-      feedback={(<p dangerouslySetInnerHTML={{__html: feedback}} />)}
-      feedbackType={feedbackType}
-    />);
+    return (
+      <Feedback
+        feedback={(<p dangerouslySetInnerHTML={{__html: feedback}} />)}
+        feedbackType={feedbackType}
+      />
+    );
   }
 
   renderModeSpecificContent(){
@@ -189,10 +193,12 @@ class Multistep extends React.Component<MultistepProps, MultistepState> {
       />
     )
     if (mode === PROJECT) {
-      return (<React.Fragment>
-        {promptSection}
-        {this.renderProjectedAnswers()}
-      </React.Fragment>)
+      return (
+        <React.Fragment>
+          {promptSection}
+          {this.renderProjectedAnswers()}
+        </React.Fragment>
+      )
     }
     const submitButton = answerCount(savedSubmission(submissions)) === data.play.stepLabels.length ? null : <SubmitButton disabled={!this.isSubmittable()} onClick={this.handleStudentSubmission} />
     return (

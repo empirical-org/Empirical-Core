@@ -21,7 +21,7 @@ export default class extends React.Component {
       {name: 'email'},
 
       {name: 'password',
-       type: 'password'}
+        type: 'password'}
     ];
     return (
       <div>
@@ -40,7 +40,7 @@ export default class extends React.Component {
           </div>
         </div>
       </div>
-           );
+    );
   };
 
   render() {

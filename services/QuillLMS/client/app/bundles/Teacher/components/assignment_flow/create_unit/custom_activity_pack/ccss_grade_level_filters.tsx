@@ -25,25 +25,27 @@ const CCSSGradeLevelFilters = ({ ccssGradeLevelFilters, handleCCSSGradeLevelFilt
   const lowerValue = ccssGradeLevelFilters[0] || MIN_LEVEL
   const upperValue = ccssGradeLevelFilters[ccssGradeLevelFilters.length - 1] || MAX_LEVEL
 
-  return (<section className="filter-section">
-    <div className="name-and-clear-wrapper">
-      <h2>CCSS Grade Level</h2>
-      {clearButton}
-    </div>
-    <div className="slider-wrapper">
-      <label htmlFor="ccss-grade-level-slider">Standard: {lowerValue}-{upperValue} Grade Level</label>
-      <TwoThumbSlider
-        handleChange={onChange}
-        id="ccss-grade-level-slider"
-        lowerValue={lowerValue}
-        markLabels={arrayFromNumbers(MIN_LEVEL, MAX_LEVEL)}
-        maxValue={MAX_LEVEL}
-        minValue={MIN_LEVEL}
-        step={1}
-        upperValue={upperValue}
-      />
-    </div>
-  </section>)
+  return (
+    <section className="filter-section">
+      <div className="name-and-clear-wrapper">
+        <h2>CCSS Grade Level</h2>
+        {clearButton}
+      </div>
+      <div className="slider-wrapper">
+        <label htmlFor="ccss-grade-level-slider">Standard: {lowerValue}-{upperValue} Grade Level</label>
+        <TwoThumbSlider
+          handleChange={onChange}
+          id="ccss-grade-level-slider"
+          lowerValue={lowerValue}
+          markLabels={arrayFromNumbers(MIN_LEVEL, MAX_LEVEL)}
+          maxValue={MAX_LEVEL}
+          minValue={MIN_LEVEL}
+          step={1}
+          upperValue={upperValue}
+        />
+      </div>
+    </section>
+  )
 }
 
 export default CCSSGradeLevelFilters

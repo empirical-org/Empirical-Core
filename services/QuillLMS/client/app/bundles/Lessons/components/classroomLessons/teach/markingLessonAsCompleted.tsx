@@ -79,13 +79,13 @@ class MarkingLessonAsCompleted extends React.Component<any, MarkingLessonsAsComp
   }
 
   render() {
-      return (
-        <div className="marking-lesson-as-completed">
+    return (
+      <div className="marking-lesson-as-completed">
           This lesson is getting marked as completed
-        </div>
-      );
-    }
+      </div>
+    );
   }
+}
 
 function select(props) {
   return {

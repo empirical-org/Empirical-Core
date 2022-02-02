@@ -10,7 +10,7 @@ export default class ClassroomsWithStudents extends React.Component {
       data.create = true,
       data.unit_template_id = getParameterByName('unit_template_id');
       data.name = this.props.unitName,
-			data.activities = JSON.stringify(this.props.activityIds.split(',').map(actId => ({ id: actId, due_date: null, })));
+      data.activities = JSON.stringify(this.props.activityIds.split(',').map(actId => ({ id: actId, due_date: null, })));
     }
     return data;
   }
@@ -44,7 +44,7 @@ export default class ClassroomsWithStudents extends React.Component {
         classroomsWithNoAssignedStudents += 1;
       }
     }
-	);
+    );
     return classrooms_data;
   };
 

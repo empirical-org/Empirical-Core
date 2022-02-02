@@ -19,7 +19,7 @@ export function checkChangeObjectMatch(userString, responses, stringManipulation
         errorType: matchedErrorType,
       },
       textChanges
-      );
+    );
   }
 }
 
@@ -124,4 +124,4 @@ const checkForTooLongError = changeObject => (changeObject.removed || changeObje
 const getLengthOfChangeObject = changeObject =>
   // filter boolean removes empty strings from trailing,
   // leading, or double white space.
-   changeObject.value.split(' ').filter(Boolean).length;
+  changeObject.value.split(' ').filter(Boolean).length;

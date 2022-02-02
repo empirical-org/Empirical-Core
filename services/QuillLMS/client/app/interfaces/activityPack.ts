@@ -52,7 +52,7 @@ export interface Classroom {
   }[]
  }
 
- export interface ClassroomUnit {
+export interface ClassroomUnit {
   assign_on_join: boolean,
   assigned_student_ids: number[],
   classroom_id: number,

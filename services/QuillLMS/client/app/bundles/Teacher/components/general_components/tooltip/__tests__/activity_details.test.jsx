@@ -10,8 +10,8 @@ describe('ActivityDetails component', () => {
     const wrapperNoConcepts = shallow(<ActivityDetails data={baseData} />);
     const wrapperWithConcepts = shallow(<ActivityDetails
       data={
-      Object.assign({}, baseData, { concept_results: ['not empty!'], })
-    }
+        Object.assign({}, baseData, { concept_results: ['not empty!'], })
+      }
     />);
     expect(wrapperNoConcepts.find('.activity-details.no-concept-results').exists()).toBe(true);
     expect(wrapperWithConcepts.find('.activity-details').exists()).toBe(true);

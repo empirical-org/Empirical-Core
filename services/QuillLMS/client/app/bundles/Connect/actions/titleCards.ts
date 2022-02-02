@@ -59,9 +59,9 @@ function submitNewTitleCard(content, response, lessonID) {
         dispatch(action);
       }
     })
-    .catch((body) => {
-      dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${body}`, });
-    });
+      .catch((body) => {
+        dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${body}`, });
+      });
   };
 }
 

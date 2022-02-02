@@ -11,10 +11,10 @@ import {
 import { Questions, } from '../questions'
 
 jest.mock('qs', () => ({
-    default: {
-      parse: jest.fn(() => ({}))
-    }
-  })
+  default: {
+    parse: jest.fn(() => ({}))
+  }
+})
 )
 
 jest.mock('string-strip-html', () => ({

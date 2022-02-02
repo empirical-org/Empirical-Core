@@ -148,7 +148,7 @@ class Lesson extends React.Component {
           return <span className="tag" key={index}>{cue}</span>
         }) : null
         const questionURL = lessonQuestionType === 'title-cards' ? `/admin/lesson-view/${params.lessonID}/${lessonQuestionType}/${key}/` :
-                            `/admin/lesson-view/${params.lessonID}/${lessonQuestionType}/${key}/responses`
+          `/admin/lesson-view/${params.lessonID}/${lessonQuestionType}/${key}/responses`
         const questionDisplayString = questionNumber.concat(displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''))
         return (
           <li className={className} key={index} >
@@ -157,7 +157,8 @@ class Lesson extends React.Component {
               {questionDisplayString}
               {cuesList}
             </Link>
-          </li>);
+          </li>
+        );
       });
       return (
         <ul>{listItems}</ul>

@@ -29,6 +29,7 @@
     "for-direction": "error",
     "no-cond-assign": "error",
     "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
 
     "jsx-a11y/anchor-has-content": "error",
     "jsx-a11y/aria-activedescendant-has-tabindex": "error",
@@ -85,6 +86,6 @@
     "react/jsx-tag-spacing": "error",
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
-    "react/jsx-wrap-multilines": "error"
+    "react/jsx-wrap-multilines": ["error", { "return": "parens-new-line" }]
   }
 }

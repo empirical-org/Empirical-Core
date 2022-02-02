@@ -154,20 +154,22 @@ export class Input extends React.Component<InputProps, InputState> {
     }
     if (error) {
       if (errorAcknowledged) {
-        return (<div
-          className={`${sharedClassNames} error`}
-          onClick={this.handleInputContainerClick}
-          onKeyDown={this.handleKeyDownOnInputContainer}
-          ref={node => this.node = node}
-          role="button"
-          tabIndex={-1}
-        >
-          <label htmlFor={id}>{label}</label>
-          <input {...commonProps} />
-          {this.renderHelperText()}
-          {this.renderCancelSymbol()}
-          {this.renderCharacterLimit()}
-        </div>)
+        return (
+          <div
+            className={`${sharedClassNames} error`}
+            onClick={this.handleInputContainerClick}
+            onKeyDown={this.handleKeyDownOnInputContainer}
+            ref={node => this.node = node}
+            role="button"
+            tabIndex={-1}
+          >
+            <label htmlFor={id}>{label}</label>
+            <input {...commonProps} />
+            {this.renderHelperText()}
+            {this.renderCancelSymbol()}
+            {this.renderCharacterLimit()}
+          </div>
+        )
       } else {
         return (
           <div
@@ -182,7 +184,8 @@ export class Input extends React.Component<InputProps, InputState> {
             <input {...commonProps} />
             {this.renderCancelSymbol()}
             {this.renderErrorText()}
-          </div>)
+          </div>
+        )
       }
     } else if (inactive) {
       return (
@@ -198,7 +201,8 @@ export class Input extends React.Component<InputProps, InputState> {
           <input {...commonProps} onFocus={this.handleInputContainerClick} />
           {this.renderHelperText()}
           {this.renderCharacterLimit()}
-        </div>)
+        </div>
+      )
     } else {
       return (
         <div
@@ -210,7 +214,8 @@ export class Input extends React.Component<InputProps, InputState> {
           {this.renderHelperText()}
           {this.renderCancelSymbol()}
           {this.renderCharacterLimit()}
-        </div>)
+        </div>
+      )
     }
   }
 

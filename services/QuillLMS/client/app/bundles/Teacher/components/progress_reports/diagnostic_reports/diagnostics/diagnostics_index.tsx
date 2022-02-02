@@ -30,10 +30,12 @@ const DiagnosticsIndex = ({ passedClassrooms, history, match, lessonsBannerIsSho
 
   if (loading) { return <LoadingSpinner /> }
 
-  return (<Switch>
-    <Route path='/diagnostics/:activityId/classroom/:classroomId' render={() => <IndividualPack classrooms={classrooms} lessonsBannerIsShowable={lessonsBannerIsShowable} />} />
-    <Route path='/diagnostics' render={() => <DiagnosticActivityPacks classrooms={classrooms} history={history} />} />
-  </Switch>)
+  return (
+    <Switch>
+      <Route path='/diagnostics/:activityId/classroom/:classroomId' render={() => <IndividualPack classrooms={classrooms} lessonsBannerIsShowable={lessonsBannerIsShowable} />} />
+      <Route path='/diagnostics' render={() => <DiagnosticActivityPacks classrooms={classrooms} history={history} />} />
+    </Switch>
+  )
 }
 
 export default withRouter(DiagnosticsIndex)

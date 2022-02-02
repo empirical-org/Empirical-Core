@@ -16,9 +16,9 @@ describe('EditStudentsButton component', () => {
         dataFunc={dataFuncMock}
         enabled={true}
       />)
-      wrapper.setState({loading: false})
-      const handleClickMock = jest.fn()
-      wrapper.instance().handleClick = handleClickMock
+    wrapper.setState({loading: false})
+    const handleClickMock = jest.fn()
+    wrapper.instance().handleClick = handleClickMock
 
     it('renders one a-tag', () => {
       expect(wrapper.find('a')).toHaveLength(1)
@@ -41,19 +41,19 @@ describe('EditStudentsButton component', () => {
         disabledText={disabledText}
         enabled={false}
       />)
-      wrapper.setState({loading: false})
+    wrapper.setState({loading: false})
 
-      it('renders one a-tag', () => {
-        expect(wrapper.find('a')).toHaveLength(1)
-      })
+    it('renders one a-tag', () => {
+      expect(wrapper.find('a')).toHaveLength(1)
+    })
 
-      it('renders an element with the class bg-lightgray', () => {
-        expect(wrapper.find('.bg-lightgray')).toHaveLength(1)
-      })
+    it('renders an element with the class bg-lightgray', () => {
+      expect(wrapper.find('.bg-lightgray')).toHaveLength(1)
+    })
 
-      it('renders the text passed to it in props.buttonText', () => {
-        expect(wrapper.text()).toEqual(disabledText)
-      })
+    it('renders the text passed to it in props.buttonText', () => {
+      expect(wrapper.text()).toEqual(disabledText)
+    })
   })
 
   describe('if it is loading', () => {
@@ -61,23 +61,23 @@ describe('EditStudentsButton component', () => {
       <EditStudentsButton
         dataFunc={dataFuncMock}
       />)
-      wrapper.setState({loading: true})
+    wrapper.setState({loading: true})
 
-      it('renders one a-tag', () => {
-        expect(wrapper.find('a')).toHaveLength(1)
-      })
+    it('renders one a-tag', () => {
+      expect(wrapper.find('a')).toHaveLength(1)
+    })
 
-      it('renders an element with the class bg-lightgray', () => {
-        expect(wrapper.find('.bg-lightgray')).toHaveLength(1)
-      })
+    it('renders an element with the class bg-lightgray', () => {
+      expect(wrapper.find('.bg-lightgray')).toHaveLength(1)
+    })
 
-      it('renders a ButtonLoadingIndicator', () => {
-        expect(wrapper.find(ButtonLoadingIndicator)).toHaveLength(1)
-      })
+    it('renders a ButtonLoadingIndicator', () => {
+      expect(wrapper.find(ButtonLoadingIndicator)).toHaveLength(1)
+    })
 
-      it('renders the text "Saving"', () => {
-        expect(wrapper.text()).toContain('Saving')
-      })
+    it('renders the text "Saving"', () => {
+      expect(wrapper.text()).toContain('Saving')
+    })
 
   })
 

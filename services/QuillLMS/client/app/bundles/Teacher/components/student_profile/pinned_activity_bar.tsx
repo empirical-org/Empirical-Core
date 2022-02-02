@@ -23,9 +23,11 @@ export default class PinnedActivityBar extends React.Component<PinnedActivityBar
       link = <button className="quill-button medium primary contained focus-on-dark" onClick={this.handleClickDuringPreview} type="button">Join</button>
     }
 
-    return (<div className="pinned-activity">
-      <span>{name}</span>
-      {link}
-    </div>)
+    return (
+      <div className="pinned-activity">
+        <span>{name}</span>
+        {link}
+      </div>
+    )
   }
 }

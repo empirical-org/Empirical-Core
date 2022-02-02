@@ -237,7 +237,7 @@ export default createReactClass({
       currentPage: 0,
       selectedClassroom: option,
     }, this.fetchData
-  );
+    );
   },
 
   selectDates(beginDate, endDate, dateFilterName) {
@@ -256,7 +256,7 @@ export default createReactClass({
     if(savedString && savedString !== 'null') {
       return moment(savedString)
     }
-      return null;
+    return null;
 
   },
 

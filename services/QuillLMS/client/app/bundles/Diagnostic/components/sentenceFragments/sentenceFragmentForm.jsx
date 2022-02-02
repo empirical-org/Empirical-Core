@@ -82,18 +82,18 @@ class sentenceFragmentForm extends React.Component {
 
   conceptsToOptions = () => {
     return _.map(this.props.concepts.data['0'], concept => (
-        { name: concept.displayName, value: concept.uid, shortenedName: concept.name, }
-      ));
+      { name: concept.displayName, value: concept.uid, shortenedName: concept.name, }
+    ));
   };
 
   renderOptimalResponseTextInput = () => {
     return (
-    [
+      [
         (<label className="label">Optimal Answer Text (The most obvious short answer, you can add more later)</label>),
         (<p className="control">
           <input className="input" onChange={(e) => this.handleChange('optimalResponseText', e)} type="text" value={this.state.optimalResponseText} />
         </p>)
-    ]
+      ]
     );
   };
 

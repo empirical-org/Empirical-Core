@@ -26,15 +26,15 @@ class MultipleTextEditor extends React.Component {
         </span>
       </a>);
 
-      const BlockButton = ({className, toggleBlockType, isActive, label, blockType, title}) =>
-        (<a onClick={toggleBlockType}>
-          <span
-            className={`${className}`}
-            style={{ color: isActive ? '#000' : '#777' }}
-            title={title ? title : label}
-          >{title}
-          </span>
-        </a>);
+    const BlockButton = ({className, toggleBlockType, isActive, label, blockType, title}) =>
+      (<a onClick={toggleBlockType}>
+        <span
+          className={`${className}`}
+          style={{ color: isActive ? '#000' : '#777' }}
+          title={title ? title : label}
+        >{title}
+        </span>
+      </a>);
 
     this.state = {
       text: EditorState.createWithContent(convertFromHTML(this.props.text || '')),

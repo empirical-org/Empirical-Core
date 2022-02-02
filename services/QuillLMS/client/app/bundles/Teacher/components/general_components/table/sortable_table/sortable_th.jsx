@@ -24,7 +24,7 @@ export default class SortableTh extends React.Component {
 
   render() {
     var arrow,
-        className = 'sorter';
+      className = 'sorter';
     if (this.props.isCurrentSort && !_.isEmpty(this.props.displayName)) {
       arrow = <i className={this.arrowClass()} />;
     }

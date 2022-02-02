@@ -25,18 +25,20 @@ const MobileSortMenu = ({
 
   const options = sortOptions.map(opt => <button id={opt.key} key={opt.key} onClick={handleClickSortOption} type="button" value={opt.value}>{opt.label}</button>)
 
-  return (<section className="mobile-sort-menu">
-    <div className="top-section">
-      <button className="interactive-wrapper focus-on-light" onClick={closeMobileSortMenu} type="button">
-        <img alt="Close icon" src={closeIconSrc} />
+  return (
+    <section className="mobile-sort-menu">
+      <div className="top-section">
+        <button className="interactive-wrapper focus-on-light" onClick={closeMobileSortMenu} type="button">
+          <img alt="Close icon" src={closeIconSrc} />
         Close
-      </button>
-    </div>
-    <div className="sort-options">
-      <h2>Sort by</h2>
-      {options}
-    </div>
-  </section>)
+        </button>
+      </div>
+      <div className="sort-options">
+        <h2>Sort by</h2>
+        {options}
+      </div>
+    </section>
+  )
 }
 
 export default MobileSortMenu

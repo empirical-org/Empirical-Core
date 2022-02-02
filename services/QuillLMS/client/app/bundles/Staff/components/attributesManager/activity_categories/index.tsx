@@ -111,19 +111,21 @@ const ActivityCategories = () => {
     handleActivityCategorySelect,
     timesSubmitted
   }
-  return (<React.Fragment>
-    <Snackbar text="Changes saved" visible={showSnackbar} />
-    <CustomActivityPackPage
-      activityCategoryEditor={activityCategoryEditorProps}
-      clickContinue={saveActivityCategories}
-      isStaff={true}
-      passedActivities={activities}
-      saveButtonEnabled={saveButtonEnabled}
-      selectedActivities={selectedActivities}
-      setSelectedActivities={handleSelectedActivityReorder}
-      toggleActivitySelection={toggleActivitySelection}
-    />
-  </React.Fragment>)
+  return (
+    <React.Fragment>
+      <Snackbar text="Changes saved" visible={showSnackbar} />
+      <CustomActivityPackPage
+        activityCategoryEditor={activityCategoryEditorProps}
+        clickContinue={saveActivityCategories}
+        isStaff={true}
+        passedActivities={activities}
+        saveButtonEnabled={saveButtonEnabled}
+        selectedActivities={selectedActivities}
+        setSelectedActivities={handleSelectedActivityReorder}
+        toggleActivitySelection={toggleActivitySelection}
+      />
+    </React.Fragment>
+  )
 }
 
 export default ActivityCategories
