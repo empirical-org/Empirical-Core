@@ -16,7 +16,7 @@ module Evidence
     def serializable_hash(options = nil)
       options ||= {}
       super(options.reverse_merge(
-        only: [:id, :text, :image_link, :image_alt_text, :image_caption, :image_attribution, :highlight_prompt]
+        only: [:id, :text, :image_link, :image_alt_text, :image_caption, :image_attribution, :highlight_prompt, :essential_knowledge_text]
       ))
     end
 
