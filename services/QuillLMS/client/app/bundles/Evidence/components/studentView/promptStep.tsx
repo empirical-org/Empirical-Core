@@ -342,14 +342,16 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     const { submittedResponses, prompt, reportAProblem, } = this.props
     if (submittedResponses.length === 0 && !(customFeedback && customFeedbackKey)) { return }
 
-    return (<Feedback
-      customFeedback={customFeedback}
-      customFeedbackKey={customFeedbackKey}
-      lastSubmittedResponse={this.lastSubmittedResponse()}
-      prompt={prompt}
-      reportAProblem={reportAProblem}
-      submittedResponses={submittedResponses}
-    />)
+    return (
+      <Feedback
+        customFeedback={customFeedback}
+        customFeedbackKey={customFeedbackKey}
+        lastSubmittedResponse={this.lastSubmittedResponse()}
+        prompt={prompt}
+        reportAProblem={reportAProblem}
+        submittedResponses={submittedResponses}
+      />
+    )
   }
 
   renderCharacterLimitWarning = (characterCount: number, characterCountClassName: string) => {

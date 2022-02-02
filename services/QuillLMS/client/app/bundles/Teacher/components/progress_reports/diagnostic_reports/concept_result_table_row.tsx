@@ -5,7 +5,7 @@ interface ConceptResultTableRowProps {
   concept: Concept
 }
 
- const ConceptResultTableRow: React.SFC<ConceptResultTableRowProps> = (props) => {
+const ConceptResultTableRow: React.SFC<ConceptResultTableRowProps> = (props) => {
   const { concept } = props;
   const { correct, name } = concept;
   return (

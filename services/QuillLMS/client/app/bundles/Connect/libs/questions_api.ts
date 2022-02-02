@@ -2,8 +2,8 @@ import { requestDelete, requestGet, requestPost, requestPut } from './request';
 import { FocusPoint, IncorrectSequence, Question } from '../interfaces/questions';
 
 const SENTENCE_COMBINING_TYPE = 'connect_sentence_combining',
-      SENTENCE_FRAGMENTS_TYPE = 'connect_sentence_fragments',
-      FILL_IN_BLANKS_TYPE = 'connect_fill_in_blanks'
+  SENTENCE_FRAGMENTS_TYPE = 'connect_sentence_fragments',
+  FILL_IN_BLANKS_TYPE = 'connect_fill_in_blanks'
 
 const questionApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/questions`;
 

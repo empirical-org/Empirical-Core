@@ -1,7 +1,7 @@
 import {
-    rethinkdbConfig,
-    rethinkDBHost,
-    splitStringOnLast
+  rethinkdbConfig,
+  rethinkDBHost,
+  splitStringOnLast
 } from '../../src/config/rethinkdb';
 
 describe('rethinkdbConfig', () => {

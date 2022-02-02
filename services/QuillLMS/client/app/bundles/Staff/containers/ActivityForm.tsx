@@ -117,47 +117,49 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
   }
 
 
-  return (<section className="cms-form">
-    <Snackbar text="Changes saved" visible={showSnackbar} />
-    <form className="box-full-form form-vertical" onSubmit={handleSubmit}>
-      <section className="l-section">
+  return (
+    <section className="cms-form">
+      <Snackbar text="Changes saved" visible={showSnackbar} />
+      <form className="box-full-form form-vertical" onSubmit={handleSubmit}>
+        <section className="l-section">
+          <section>
+            <label>Activity name</label>
+            <input onChange={handleNameChange} value={editedActivity.name} />
+          </section>
+          <section className="description-container">
+            <label>Description</label>
+            <textarea cols={100} onChange={handleDescriptionChange} rows={10} value={editedActivity.description} />
+          </section>
+          <section>
+            <label>Flag</label>
+            <select onChange={handleFlagChange} value={editedActivity.flags[0]}>{flagOptionElements}</select>
+          </section>
+          <section className="repeatable-container checkbox-container">
+            <input checked={editedActivity.repeatable} onChange={handleRepeatableChange} type="checkbox" />
+            <label>Repeatable</label>
+          </section>
+        </section>
         <section>
-          <label>Activity name</label>
-          <input onChange={handleNameChange} value={editedActivity.name} />
+          <label>Supporting info</label>
+          <input onChange={handleSupportingInfoChange} value={editedActivity.supporting_info} />
         </section>
-        <section className="description-container">
-          <label>Description</label>
-          <textarea cols={100} onChange={handleDescriptionChange} rows={10} value={editedActivity.description} />
+        {followUpActivityField}
+        <section>
+          <label>Standard</label>
+          <select onChange={handleStandardChange} value={editedActivity.standard_id}>{standardOptionElements}</select>
         </section>
         <section>
-          <label>Flag</label>
-          <select onChange={handleFlagChange} value={editedActivity.flags[0]}>{flagOptionElements}</select>
+          <label>Activity Category</label>
+          <select className="activity-categories" multiple onChange={handleActivityCategoryChange} value={editedActivity.activity_category_ids}>{activityCategoryOptionElements}</select>
         </section>
-        <section className="repeatable-container checkbox-container">
-          <input checked={editedActivity.repeatable} onChange={handleRepeatableChange} type="checkbox" />
-          <label>Repeatable</label>
-        </section>
-      </section>
-      <section>
-        <label>Supporting info</label>
-        <input onChange={handleSupportingInfoChange} value={editedActivity.supporting_info} />
-      </section>
-      {followUpActivityField}
-      <section>
-        <label>Standard</label>
-        <select onChange={handleStandardChange} value={editedActivity.standard_id}>{standardOptionElements}</select>
-      </section>
-      <section>
-        <label>Activity Category</label>
-        <select className="activity-categories" multiple onChange={handleActivityCategoryChange} value={editedActivity.activity_category_ids}>{activityCategoryOptionElements}</select>
-      </section>
-      <ContentPartners activity={editedActivity} contentPartnerOptions={contentPartnerOptions} handleContentPartnerChange={handleContentPartnerChange} />
-      <RawScore activity={editedActivity} gradeBands={gradeBands} handleRawScoreChange={handleRawScoreChange} rawScoreOptions={rawScoreOptions} />
-      <Topics activity={editedActivity} createNewTopic={createNewTopic} handleTopicsChange={handleTopicsChange} topicOptions={topicOptions} />
-      <input className={submitClassName()} disabled={!editedActivity.name.length} type="submit" value="Save" />
-      <p>When you've saved the activity, please head over to the <a href='/assign/activity-library'>Activity Library</a> to make sure the activity metadata looks right in production.</p>
-    </form>
-  </section>)
+        <ContentPartners activity={editedActivity} contentPartnerOptions={contentPartnerOptions} handleContentPartnerChange={handleContentPartnerChange} />
+        <RawScore activity={editedActivity} gradeBands={gradeBands} handleRawScoreChange={handleRawScoreChange} rawScoreOptions={rawScoreOptions} />
+        <Topics activity={editedActivity} createNewTopic={createNewTopic} handleTopicsChange={handleTopicsChange} topicOptions={topicOptions} />
+        <input className={submitClassName()} disabled={!editedActivity.name.length} type="submit" value="Save" />
+        <p>When you've saved the activity, please head over to the <a href='/assign/activity-library'>Activity Library</a> to make sure the activity metadata looks right in production.</p>
+      </form>
+    </section>
+  )
 }
 
 export default ActivityForm

@@ -69,7 +69,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         Header: 'Name',
         accessor: 'name',
         filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["name"]}),
+          matchSorter(rows, filter.value, { keys: ["name"]}),
         filterAll: true,
         resizeable: true,
         minWidth: 200,
@@ -80,7 +80,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         Header: 'Activity Categories',
         accessor: 'activity_categories',
         filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["activity_categories"] }),
+          matchSorter(rows, filter.value, { keys: ["activity_categories"] }),
         filterAll: true,
         resizeable: true,
         sortMethod: sortByList,
@@ -88,9 +88,9 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
           <div>
             {
               row.original['activity_categories'] ?
-              row.original['activity_categories'].map((ap) => (
-                <div key={ap}>{ap}</div>
-              )) : ''
+                row.original['activity_categories'].map((ap) => (
+                  <div key={ap}>{ap}</div>
+                )) : ''
             }
           </div>
         )
@@ -122,7 +122,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         Header: 'Diagnostics',
         accessor: 'diagnostics',
         filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["diagnostics"] }),
+          matchSorter(rows, filter.value, { keys: ["diagnostics"] }),
         filterAll: true,
         resizeable: true,
         sortMethod: sortByList,
@@ -130,11 +130,11 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
           <div>
             {
               row.original['diagnostics'] ?
-              row.original['diagnostics'].map((diagnostic, index) => {
-                if (!diagnostic) return "";
-                else if (index != row.original['diagnostics'].length - 1) return <div key={diagnostic}>{diagnostic},</div>
-                else return <div key={diagnostic}>{diagnostic}</div>
-              }) : ''
+                row.original['diagnostics'].map((diagnostic, index) => {
+                  if (!diagnostic) return "";
+                  else if (index != row.original['diagnostics'].length - 1) return <div key={diagnostic}>{diagnostic},</div>
+                  else return <div key={diagnostic}>{diagnostic}</div>
+                }) : ''
             }
           </div>
         ),
@@ -161,7 +161,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         Header: 'Activity Packs',
         accessor: 'activity_packs',
         filterMethod: (filter, rows) =>
-              matchSorter(rows, filter.value, { keys: ["activity_packs.*.name"] }),
+          matchSorter(rows, filter.value, { keys: ["activity_packs.*.name"] }),
         filterAll: true,
         resizeable: true,
         sortMethod: sortByList,
@@ -169,11 +169,11 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
           <div>
             {
               row.original['activity_packs'] ?
-              row.original['activity_packs'].map((ap, index) => {
-                if (!ap.name) return "";
-                else if (index != row.original['activity_packs'].length - 1) return <div key={ap.id}>{ap.name},</div>
-                return <div key={ap.id}>{ap.name}</div>
-              }) : ''
+                row.original['activity_packs'].map((ap, index) => {
+                  if (!ap.name) return "";
+                  else if (index != row.original['activity_packs'].length - 1) return <div key={ap.id}>{ap.name},</div>
+                  return <div key={ap.id}>{ap.name}</div>
+                }) : ''
             }
           </div>
         ),
@@ -184,13 +184,13 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         accessor: 'avg_difficulty',
         filterMethod: filterNumbers,
         Filter: ({ filter, onChange }) =>
-        (
-          <NumberFilterInput
-            filter={filter}
-            handleChange={onChange}
-            label="Filter for average difficulty"
-          />
-        ),
+          (
+            <NumberFilterInput
+              filter={filter}
+              handleChange={onChange}
+              label="Filter for average difficulty"
+            />
+          ),
         resizeable: true,
         sortMethod: sort,
         Cell: props => props.value,
@@ -201,13 +201,13 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         accessor: 'standard_dev_difficulty',
         filterMethod: filterNumbers,
         Filter: ({ filter, onChange }) =>
-        (
-          <NumberFilterInput
-            filter={filter}
-            handleChange={onChange}
-            label="Filter for recent plays"
-          />
-        ),
+          (
+            <NumberFilterInput
+              filter={filter}
+              handleChange={onChange}
+              label="Filter for recent plays"
+            />
+          ),
         resizeable: true,
         sortMethod: sort,
         Cell: props => props.value,
@@ -218,13 +218,13 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         accessor: 'avg_common_unmatched',
         filterMethod: filterNumbers,
         Filter: ({ filter, onChange }) =>
-        (
-          <NumberFilterInput
-            filter={filter}
-            handleChange={onChange}
-            label="Filter for avg common unmatched"
-          />
-        ),
+          (
+            <NumberFilterInput
+              filter={filter}
+              handleChange={onChange}
+              label="Filter for avg common unmatched"
+            />
+          ),
         resizeable: true,
         sortMethod: sort,
         Cell: props => props.value,
@@ -245,11 +245,11 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
     const columns = this.columnDefinitions()
     let dataToDownload = []
     for (let index = 0; index < currentRecords.length; index++) {
-       let recordToDownload = {}
-       for(let colIndex = 0; colIndex < columns.length ; colIndex ++) {
-          recordToDownload[columns[colIndex].Header] = currentRecords[index][columns[colIndex].accessor]
-       }
-       dataToDownload.push(recordToDownload)
+      let recordToDownload = {}
+      for(let colIndex = 0; colIndex < columns.length ; colIndex ++) {
+        recordToDownload[columns[colIndex].Header] = currentRecords[index][columns[colIndex].accessor]
+      }
+      dataToDownload.push(recordToDownload)
     }
 
     // Map Activity Packs to strings because JSON objects dont display in CSVs
@@ -259,7 +259,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
     });
 
     this.setState({ dataToDownload: clonedDataToDownload }, () => {
-       this.csvLink.link.click();
+      this.csvLink.link.click();
     })
   }
 
@@ -343,11 +343,11 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
     } else {
       tableOrEmptyMessage = NO_DATA_FOUND_MESSAGE
     }
-      return (
-        <div>
-          {tableOrEmptyMessage}
-        </div>
-      )
+    return (
+      <div>
+        {tableOrEmptyMessage}
+      </div>
+    )
   }
 
   renderTable() {

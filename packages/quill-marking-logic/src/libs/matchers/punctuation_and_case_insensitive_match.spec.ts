@@ -19,11 +19,11 @@ const savedResponses: Array<Response> = [
 
 describe('The punctuationAndCaseInsensitiveMatch function', () => {
 
-    it('Should take a response string and find the corresponding saved response if the string matches exactly when punctuation is removed and both are downcased', () => {
-        const responseString = "my dog took a nap";
-        const matchedResponse: Response = punctuationAndCaseInsensitiveMatch(responseString, savedResponses);
-        assert.equal(matchedResponse.id, savedResponses[0].id);
-    });
+  it('Should take a response string and find the corresponding saved response if the string matches exactly when punctuation is removed and both are downcased', () => {
+    const responseString = "my dog took a nap";
+    const matchedResponse: Response = punctuationAndCaseInsensitiveMatch(responseString, savedResponses);
+    assert.equal(matchedResponse.id, savedResponses[0].id);
+  });
 
 });
 
@@ -32,14 +32,14 @@ describe('The punctuationAndCaseInsensitiveChecker', () => {
   it('Should return a partialResponse object if the lowercased response string matches a lowercased partial response', () => {
     const responseString = "my dog took a nap.";
     const partialResponse: PartialResponse =  {
-        feedback: feedbackStrings.punctuationAndCaseError,
-        author: 'Punctuation and Case Hint',
-        parent_id: punctuationAndCaseInsensitiveMatch(responseString, savedResponses).id,
-        concept_results: [
-          conceptResultTemplate('66upe3S5uvqxuHoHOt4PcQ'),
-          conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
-        ]
-      }
+      feedback: feedbackStrings.punctuationAndCaseError,
+      author: 'Punctuation and Case Hint',
+      parent_id: punctuationAndCaseInsensitiveMatch(responseString, savedResponses).id,
+      concept_results: [
+        conceptResultTemplate('66upe3S5uvqxuHoHOt4PcQ'),
+        conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+      ]
+    }
     assert.equal(punctuationAndCaseInsensitiveChecker(responseString, savedResponses).feedback, partialResponse.feedback);
     assert.equal(punctuationAndCaseInsensitiveChecker(responseString, savedResponses).author, partialResponse.author);
     assert.equal(punctuationAndCaseInsensitiveChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);

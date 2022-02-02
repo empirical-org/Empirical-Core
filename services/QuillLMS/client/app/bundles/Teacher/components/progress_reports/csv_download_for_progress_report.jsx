@@ -155,13 +155,15 @@ export default class CSVDownloadForProgressReports extends React.Component {
         </div>
       )
     } else {
-      return (<button
-        className={this.props.className || unclickedDownloadBtnClass}
-        onClick={this.handleClick}
-        style={{
-        display: 'block'
-      }}
-      >{this.props.buttonCopy || "Download Report"}</button>)
+      return (
+        <button
+          className={this.props.className || unclickedDownloadBtnClass}
+          onClick={this.handleClick}
+          style={{display: 'block'}}
+        >
+          {this.props.buttonCopy || "Download Report"}
+        </button>
+      )
     }
   }
 }

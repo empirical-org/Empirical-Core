@@ -259,7 +259,7 @@ class PlaySentenceFragment extends React.Component<PlaySentenceFragmentProps, Pl
     if (latestAttempt) {
       const component = <span dangerouslySetInnerHTML={{__html: latestAttempt.response.feedback}} />
       instructions = latestAttempt.response.feedback ? component :
-      'Revise your work. A complete sentence must have an action word and a person or thing doing the action.';
+        'Revise your work. A complete sentence must have an action word and a person or thing doing the action.';
     } else if (question.instructions && question.instructions !== '') {
       instructions = question.instructions;
     } else {

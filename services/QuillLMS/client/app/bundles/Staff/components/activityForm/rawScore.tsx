@@ -21,20 +21,22 @@ const RawScore = ({ activity, rawScoreOptions, handleRawScoreChange, gradeBands,
   const selectedRawScoreOption = rawScoreOptions.find(rs => rs.id === activity.raw_score_id)
   const gradeLevel = selectedRawScoreOption ? gradeBands[selectedRawScoreOption.name] : null
 
-  return (<section className="raw-score-container enabled-attribute-container">
-    <section className="enable-raw-score-container checkbox-container">
-      <input checked={rawScoreEnabled} onChange={toggleRawScoreEnabled} type="checkbox" />
-      <label>Readability enabled</label>
+  return (
+    <section className="raw-score-container enabled-attribute-container">
+      <section className="enable-raw-score-container checkbox-container">
+        <input checked={rawScoreEnabled} onChange={toggleRawScoreEnabled} type="checkbox" />
+        <label>Readability enabled</label>
+      </section>
+      <section>
+        <label>Readability</label>
+        <select disabled={!rawScoreEnabled} onChange={onChangeRawScore} value={activity.raw_score_id || ''}>{rawScoreOptionElements}</select>
+      </section>
+      <section>
+        <label>Readability Grade Level</label>
+        <p>{gradeLevel}</p>
+      </section>
     </section>
-    <section>
-      <label>Readability</label>
-      <select disabled={!rawScoreEnabled} onChange={onChangeRawScore} value={activity.raw_score_id || ''}>{rawScoreOptionElements}</select>
-    </section>
-    <section>
-      <label>Readability Grade Level</label>
-      <p>{gradeLevel}</p>
-    </section>
-  </section>)
+  )
 }
 
 export default RawScore

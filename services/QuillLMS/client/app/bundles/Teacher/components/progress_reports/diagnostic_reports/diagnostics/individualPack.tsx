@@ -39,14 +39,16 @@ const DiagnosticSection = ({ activity, isPostDiagnostic, isDisabled, search, }) 
   const resultsPath = isPostDiagnostic ? 'growth_results' : 'results'
   const summaryPath = isPostDiagnostic ? 'growth_summary' : 'summary'
 
-  return (<section className={`diagnostic-section ${isDisabled ? 'disabled' : ''}`}>
-    <h6><span>{activity_name}</span> <a className="focus-on-light preview-link" href={`/activity_sessions/anonymous?activity_id=${activity_id}`} rel="noopener noreferrer" target="_blank">{eyeIcon}</a></h6>
-    {isDisabled ? <span className='disabled-link'>{summaryLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/${summaryPath}${queryString}`}>{summaryLinkContent}</NavLink>}
-    {isDisabled ? <span className='disabled-link'>{resultLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/${resultsPath}${queryString}`}>{resultLinkContent}</NavLink>}
-    {isDisabled ? <span className='disabled-link'>{recommendationsLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/recommendations${queryString}`}>{recommendationsLinkContent}</NavLink>}
-    {isDisabled ? <span className='disabled-link'>{responsesLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/responses${queryString}`}>{responsesLinkContent}</NavLink>}
-    {isDisabled ? <span className='disabled-link'>{questionsLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/questions${queryString}`}>{questionsLinkContent}</NavLink>}
-  </section>)
+  return (
+    <section className={`diagnostic-section ${isDisabled ? 'disabled' : ''}`}>
+      <h6><span>{activity_name}</span> <a className="focus-on-light preview-link" href={`/activity_sessions/anonymous?activity_id=${activity_id}`} rel="noopener noreferrer" target="_blank">{eyeIcon}</a></h6>
+      {isDisabled ? <span className='disabled-link'>{summaryLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/${summaryPath}${queryString}`}>{summaryLinkContent}</NavLink>}
+      {isDisabled ? <span className='disabled-link'>{resultLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/${resultsPath}${queryString}`}>{resultLinkContent}</NavLink>}
+      {isDisabled ? <span className='disabled-link'>{recommendationsLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/recommendations${queryString}`}>{recommendationsLinkContent}</NavLink>}
+      {isDisabled ? <span className='disabled-link'>{responsesLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/responses${queryString}`}>{responsesLinkContent}</NavLink>}
+      {isDisabled ? <span className='disabled-link'>{questionsLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/questions${queryString}`}>{questionsLinkContent}</NavLink>}
+    </section>
+  )
 }
 
 const mobileLinkOptions = (diagnostic, search) => {
@@ -98,15 +100,17 @@ const PostDiagnosticCard = ({ activityId, activityName, unitTemplateId, }) => {
 
   function closeCard() { setClosed(true) }
 
-  return (<section className="post-diagnostic-card">
-    <button className="interactive-wrapper close-button focus-on-dark" onClick={closeCard} type="button">{closeIcon}</button>
-    {chartGrowthIllustration}
-    <p>Measure growth by assigning a {activityName}</p>
-    <div>
-      <a className="focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activityId}`} rel="noopener noreferrer" target="_blank">Preview</a>
-      <button className="focus-on-light fake-link" onClick={handleAssignClick} type="button">Assign</button>
-    </div>
-  </section>)
+  return (
+    <section className="post-diagnostic-card">
+      <button className="interactive-wrapper close-button focus-on-dark" onClick={closeCard} type="button">{closeIcon}</button>
+      {chartGrowthIllustration}
+      <p>Measure growth by assigning a {activityName}</p>
+      <div>
+        <a className="focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activityId}`} rel="noopener noreferrer" target="_blank">Preview</a>
+        <button className="focus-on-light fake-link" onClick={handleAssignClick} type="button">Assign</button>
+      </div>
+    </section>
+  )
 }
 
 const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsShowable, }) => {
@@ -201,23 +205,25 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
     isPostDiagnostic: activeDiagnosticIsPost()
   }
 
-  return (<div className="diagnostic-individual-pack">
-    <nav className="diagnostic-report-navigation hide-on-mobile">
-      {classroomDropdown}
-      <DiagnosticSection activity={activeDiagnostic.pre} search={location.search} />
-      {postDiagnosticContent}
-    </nav>
-    <Switch>
-      <Route path='/diagnostics/:activityId/classroom/:classroomId/growth_summary' render={() => <GrowthSummary {...sharedProps} />} />
-      <Route path='/diagnostics/:activityId/classroom/:classroomId/growth_results' render={() => <GrowthResults {...sharedProps} />} />
-      <Route path='/diagnostics/:activityId/classroom/:classroomId/summary' render={() => <Summary {...sharedProps} />} />
-      <Route path='/diagnostics/:activityId/classroom/:classroomId/results' render={() => <Results {...sharedProps} />} />
-      <Route path='/diagnostics/:activityId/classroom/:classroomId/recommendations' render={() => <Recommendations {...sharedProps} />} />
-      <Route path='/diagnostics/:activityId/classroom/:classroomId/questions' render={() => <Questions {...sharedProps} />} />
-      <Route path='/diagnostics/:activityId/classroom/:classroomId/responses/:studentId' render={() => <IndividualStudentResponses {...sharedProps} />} />
-      <Route path='/diagnostics/:activityId/classroom/:classroomId/responses' render={() => <StudentResponsesIndex {...sharedProps} />} />
-    </Switch>
-  </div>)
+  return (
+    <div className="diagnostic-individual-pack">
+      <nav className="diagnostic-report-navigation hide-on-mobile">
+        {classroomDropdown}
+        <DiagnosticSection activity={activeDiagnostic.pre} search={location.search} />
+        {postDiagnosticContent}
+      </nav>
+      <Switch>
+        <Route path='/diagnostics/:activityId/classroom/:classroomId/growth_summary' render={() => <GrowthSummary {...sharedProps} />} />
+        <Route path='/diagnostics/:activityId/classroom/:classroomId/growth_results' render={() => <GrowthResults {...sharedProps} />} />
+        <Route path='/diagnostics/:activityId/classroom/:classroomId/summary' render={() => <Summary {...sharedProps} />} />
+        <Route path='/diagnostics/:activityId/classroom/:classroomId/results' render={() => <Results {...sharedProps} />} />
+        <Route path='/diagnostics/:activityId/classroom/:classroomId/recommendations' render={() => <Recommendations {...sharedProps} />} />
+        <Route path='/diagnostics/:activityId/classroom/:classroomId/questions' render={() => <Questions {...sharedProps} />} />
+        <Route path='/diagnostics/:activityId/classroom/:classroomId/responses/:studentId' render={() => <IndividualStudentResponses {...sharedProps} />} />
+        <Route path='/diagnostics/:activityId/classroom/:classroomId/responses' render={() => <StudentResponsesIndex {...sharedProps} />} />
+      </Switch>
+    </div>
+  )
 }
 
 export default withRouter(IndividualPack)

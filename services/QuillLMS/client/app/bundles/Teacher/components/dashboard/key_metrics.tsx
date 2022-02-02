@@ -28,24 +28,26 @@ const KeyMetrics = ({ firstName, metrics, }) => {
   const assignedActivitiesCount = metrics[`${selectedTimeframe}_assigned_activities_count`]
   const completedActivitiesCount = metrics[`${selectedTimeframe}_completed_activities_count`]
 
-  return (<section className="key-metrics">
-    <header>
-      <h2>
-        <span>{firstName}, here&#39;s your {selectedTimeframe} </span>
-        <span className="no-break"><span>summary</span><a className="focus-on-light" href="https://support.quill.org/en/articles/5014089-how-are-the-metrics-on-the-teacher-home-page-calculated" rel="noopener noreferrer" target="_blank"><img alt={helpIcon.alt} src={helpIcon.src} /></a></span>
-      </h2>
-      <DropdownInput
-        handleChange={onChangeSelectedTimeframe}
-        label=''
-        options={timeframeOptions}
-        value={selectedTimeframeOption}
-      />
-    </header>
-    <div className="key-metrics-wrapper">
-      <KeyMetric label={`${assignedActivitiesCount === 1 ? 'Activity' : 'Activities'} assigned`} number={assignedActivitiesCount} />
-      <KeyMetric label={`${completedActivitiesCount === 1 ? 'Activity' : 'Activities'} completed`} number={completedActivitiesCount} />
-    </div>
-  </section>)
+  return (
+    <section className="key-metrics">
+      <header>
+        <h2>
+          <span>{firstName}, here&#39;s your {selectedTimeframe} </span>
+          <span className="no-break"><span>summary</span><a className="focus-on-light" href="https://support.quill.org/en/articles/5014089-how-are-the-metrics-on-the-teacher-home-page-calculated" rel="noopener noreferrer" target="_blank"><img alt={helpIcon.alt} src={helpIcon.src} /></a></span>
+        </h2>
+        <DropdownInput
+          handleChange={onChangeSelectedTimeframe}
+          label=''
+          options={timeframeOptions}
+          value={selectedTimeframeOption}
+        />
+      </header>
+      <div className="key-metrics-wrapper">
+        <KeyMetric label={`${assignedActivitiesCount === 1 ? 'Activity' : 'Activities'} assigned`} number={assignedActivitiesCount} />
+        <KeyMetric label={`${completedActivitiesCount === 1 ? 'Activity' : 'Activities'} completed`} number={completedActivitiesCount} />
+      </div>
+    </section>
+  )
 
 }
 

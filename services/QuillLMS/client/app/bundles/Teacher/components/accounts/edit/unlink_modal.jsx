@@ -68,27 +68,31 @@ export default class UnlinkModal extends React.Component {
   renderCheckboxes() {
     const { googleOrClever, } = this.props
     if (googleOrClever === 'Google') {
-      return (<div className="checkboxes">
-        <div className="checkbox-row">
-          {this.renderCheckbox('checkboxOne')}
-          <span>I understand that I will no longer be able to sync classes with Google Classroom.</span>
+      return (
+        <div className="checkboxes">
+          <div className="checkbox-row">
+            {this.renderCheckbox('checkboxOne')}
+            <span>I understand that I will no longer be able to sync classes with Google Classroom.</span>
+          </div>
         </div>
-      </div>)
+      )
     } else {
-      return (<div className="checkboxes">
-        <div className="checkbox-row">
-          {this.renderCheckbox('checkboxOne')}
-          <span>I understand that I no longer have access to Quill through Clever.</span>
+      return (
+        <div className="checkboxes">
+          <div className="checkbox-row">
+            {this.renderCheckbox('checkboxOne')}
+            <span>I understand that I no longer have access to Quill through Clever.</span>
+          </div>
+          <div className="checkbox-row">
+            {this.renderCheckbox('checkboxTwo')}
+            <span>I understand that I now log in to Quill using the "log in" button on the homepage.</span>
+          </div>
+          <div className="checkbox-row">
+            {this.renderCheckbox('checkboxThree')}
+            <span>I understand that my students can still access Quill through Clever.</span>
+          </div>
         </div>
-        <div className="checkbox-row">
-          {this.renderCheckbox('checkboxTwo')}
-          <span>I understand that I now log in to Quill using the "log in" button on the homepage.</span>
-        </div>
-        <div className="checkbox-row">
-          {this.renderCheckbox('checkboxThree')}
-          <span>I understand that my students can still access Quill through Clever.</span>
-        </div>
-      </div>)
+      )
     }
   }
 
@@ -134,6 +138,7 @@ export default class UnlinkModal extends React.Component {
             />
           </div>
         </div>
-      </div>)
+      </div>
+    )
   }
 }

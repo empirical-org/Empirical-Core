@@ -61,29 +61,33 @@ export default class TransferOwnershipModal extends React.Component<TransferOwne
   }
 
   renderCheckboxes() {
-    return (<div className="checkboxes">
-      <div className="checkbox-row">
-        {this.renderCheckbox('checkboxOne')}
-        <span>I understand that I will no longer have the ability to archive classes or edit activity packs.</span>
+    return (
+      <div className="checkboxes">
+        <div className="checkbox-row">
+          {this.renderCheckbox('checkboxOne')}
+          <span>I understand that I will no longer have the ability to archive classes or edit activity packs.</span>
+        </div>
       </div>
-    </div>)
+    )
   }
 
   render() {
     const { coteacher, close, classroom } = this.props
-    return (<div className="modal-container transfer-ownership-modal-container">
-      <div className="modal-background" />
-      <div className="transfer-ownership-modal quill-modal modal-body">
-        <div>
-          <h3 className="title">Transfer ownership of this class?</h3>
-        </div>
-        <p>You are transferring the class {classroom.name} to {coteacher.name} ({coteacher.email}). You will still have access to the class as a co-teacher.</p>
-        {this.renderCheckboxes()}
-        <div className="form-buttons">
-          <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
-          <button className={this.submitButtonClass()} onClick={this.transferOwnership}>Transfer class</button>
+    return (
+      <div className="modal-container transfer-ownership-modal-container">
+        <div className="modal-background" />
+        <div className="transfer-ownership-modal quill-modal modal-body">
+          <div>
+            <h3 className="title">Transfer ownership of this class?</h3>
+          </div>
+          <p>You are transferring the class {classroom.name} to {coteacher.name} ({coteacher.email}). You will still have access to the class as a co-teacher.</p>
+          {this.renderCheckboxes()}
+          <div className="form-buttons">
+            <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
+            <button className={this.submitButtonClass()} onClick={this.transferOwnership}>Transfer class</button>
+          </div>
         </div>
       </div>
-    </div>)
+    )
   }
 }

@@ -66,35 +66,39 @@ const LessonRecommendation = ({ previouslyAssignedRecommendations, selections, s
   }
   const studentNames = students_needing_instruction.join('<br/>')
   const activityRows = activities.map(activity => {
-    return (<div className="activity-row" key={activity.name}>
-      <span>{activity.name}</span>
-      <a className="interactive-wrapper focus-on-light" href={activity.url} rel="noopener noreferrer" target="_blank">
-        <img alt={previewIcon.alt} src={previewIcon.src} />
-        <span>Preview</span>
-      </a>
-    </div>)
+    return (
+      <div className="activity-row" key={activity.name}>
+        <span>{activity.name}</span>
+        <a className="interactive-wrapper focus-on-light" href={activity.url} rel="noopener noreferrer" target="_blank">
+          <img alt={previewIcon.alt} src={previewIcon.src} />
+          <span>Preview</span>
+        </a>
+      </div>
+    )
   })
 
-  return (<section className={`lessons-recommendation ${isExpanded? 'is-expanded' : ''} ${isRecommended && !isAssigned ? 'is-recommended-and-not-assigned' : ''}`}>
-    <div className="top-row">
-      <div>
-        {isRecommended ? asteriskIcon : <span className="asterisk-placeholder" />}
-        {isAssigned ? <span className="checkbox-placeholder" /> : checkbox}
-        <h3>{name}</h3>
+  return (
+    <section className={`lessons-recommendation ${isExpanded? 'is-expanded' : ''} ${isRecommended && !isAssigned ? 'is-recommended-and-not-assigned' : ''}`}>
+      <div className="top-row">
+        <div>
+          {isRecommended ? asteriskIcon : <span className="asterisk-placeholder" />}
+          {isAssigned ? <span className="checkbox-placeholder" /> : checkbox}
+          <h3>{name}</h3>
+        </div>
+        <div>
+          {isAssigned && assigned}
+          <Tooltip
+            tooltipText={studentNames}
+            tooltipTriggerText={informationIcon}
+          />
+          <span>{students_needing_instruction.length} student{students_needing_instruction.length === 1 ? '' : 's'} need{students_needing_instruction.length === 1 ? 's' : ''} instruction</span>
+          <span className="activities-count">{activities.length} lesson{activities.length === 1 ? '' : 's'}</span>
+          <button className="interactive-wrapper" onClick={toggleExpansion} type="button">{expandIcon}</button>
+        </div>
       </div>
-      <div>
-        {isAssigned && assigned}
-        <Tooltip
-          tooltipText={studentNames}
-          tooltipTriggerText={informationIcon}
-        />
-        <span>{students_needing_instruction.length} student{students_needing_instruction.length === 1 ? '' : 's'} need{students_needing_instruction.length === 1 ? 's' : ''} instruction</span>
-        <span className="activities-count">{activities.length} lesson{activities.length === 1 ? '' : 's'}</span>
-        <button className="interactive-wrapper" onClick={toggleExpansion} type="button">{expandIcon}</button>
-      </div>
-    </div>
-    {isExpanded && activityRows}
-  </section>)
+      {isExpanded && activityRows}
+    </section>
+  )
 }
 
 const LessonsRecommendations = ({ assigningLessonsBanner, previouslyAssignedRecommendations, recommendations, selections, setSelections, }) => {
@@ -117,18 +121,20 @@ const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActi
     assignButton = <button className="quill-button primary contained small focus-on-light" onClick={assignActivityPacks} type="button">Assign activity packs</button>
   }
 
-  return (<div className="recommendations-buttons-container">
-    <div className="recommendations-buttons">
-      <div>
-        <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAll} type="button">Select all</button>
-        <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAllRecommended} type="button">Select all recommended</button>
-        <button className="quill-button fun secondary outlined focus-on-light" onClick={deselectAll} type="button">Deselect all</button>
-      </div>
-      <div>
-        {assignButton}
+  return (
+    <div className="recommendations-buttons-container">
+      <div className="recommendations-buttons">
+        <div>
+          <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAll} type="button">Select all</button>
+          <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAllRecommended} type="button">Select all recommended</button>
+          <button className="quill-button fun secondary outlined focus-on-light" onClick={deselectAll} type="button">Deselect all</button>
+        </div>
+        <div>
+          {assignButton}
+        </div>
       </div>
     </div>
-  </div>)
+  )
 }
 
 const IndependentRecommendationsButtons = ({ assignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, }) => {
@@ -405,17 +411,18 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     </section>)
   }
 
-  return (<main className="diagnostic-recommendations-container">
-    <Snackbar text={snackbarText} visible={showSnackbar} />
-    <header>
-      <h1>Practice recommendations</h1>
-      {!emptyState && <a className="focus-on-light" href="https://support.quill.org/en/articles/5698147-how-do-i-read-the-practice-recommendations-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>}
-    </header>
-    {mobileNavigation}
-    {emptyState}
-    {independentRecommendationsSection}
-    {wholeClassInstructionSection}
-  </main>
+  return (
+    <main className="diagnostic-recommendations-container">
+      <Snackbar text={snackbarText} visible={showSnackbar} />
+      <header>
+        <h1>Practice recommendations</h1>
+        {!emptyState && <a className="focus-on-light" href="https://support.quill.org/en/articles/5698147-how-do-i-read-the-practice-recommendations-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>}
+      </header>
+      {mobileNavigation}
+      {emptyState}
+      {independentRecommendationsSection}
+      {wholeClassInstructionSection}
+    </main>
   )
 }
 

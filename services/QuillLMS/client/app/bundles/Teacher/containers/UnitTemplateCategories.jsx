@@ -25,15 +25,17 @@ export default class UnitTemplateCategories extends React.Component {
       }
     ];
 
-    return (<Resource
-      formFields={formFields}
-      initialModel={initialModel}
-      resource={cmsComponent.state.resourceToEdit}
-      resourceNamePlural='unit_template_categories'
-      resourceNameSingular='unit_template_category'
-      returnToIndex={cmsComponent.returnToIndex}
-      savingKeys={savingKeys}
-    />);
+    return (
+      <Resource
+        formFields={formFields}
+        initialModel={initialModel}
+        resource={cmsComponent.state.resourceToEdit}
+        resourceNamePlural='unit_template_categories'
+        resourceNameSingular='unit_template_category'
+        returnToIndex={cmsComponent.returnToIndex}
+        savingKeys={savingKeys}
+      />
+    );
   }
 
   render() {

@@ -1,5 +1,5 @@
 export default function keysForPOS() { 
- return {
+  return {
     "CC": "Coord Conjuncn",
     "CD": "Cardinal number",
     "DT": "Determiner",

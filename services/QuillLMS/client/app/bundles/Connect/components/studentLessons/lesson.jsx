@@ -421,12 +421,14 @@ export class Lesson extends React.Component {
     const answeredCount = previewMode ? this.getPreviewQuestionCount() : displayedAnsweredQuestionCount;
     const totalCount = previewMode ? playLesson.questionSet.length : questionCount(playLesson);
 
-    return (<ProgressBar
-      answeredQuestionCount={answeredCount}
-      label='questions'
-      percent={getProgressPercent({ playLesson, previewMode, questionToPreview })}
-      questionCount={totalCount}
-    />)
+    return (
+      <ProgressBar
+        answeredQuestionCount={answeredCount}
+        label='questions'
+        percent={getProgressPercent({ playLesson, previewMode, questionToPreview })}
+        questionCount={totalCount}
+      />
+    )
   }
 
   render() {

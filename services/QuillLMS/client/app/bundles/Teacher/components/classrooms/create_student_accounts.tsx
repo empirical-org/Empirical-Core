@@ -20,20 +20,20 @@ interface CreateStudentAccountsState {
 }
 
 const tableHeaders = [{
-    name: 'Name',
-    attribute: 'name',
-    width: '161px'
-  },
-  {
-    name: 'Username',
-    attribute: 'username',
-    width: '267px'
-  },
-  {
-    name: 'Password',
-    attribute: 'password',
-    width: '148px'
-  }
+  name: 'Name',
+  attribute: 'name',
+  width: '161px'
+},
+{
+  name: 'Username',
+  attribute: 'username',
+  width: '267px'
+},
+{
+  name: 'Password',
+  attribute: 'password',
+  width: '148px'
+}
 ]
 
 export default class CreateStudentAccounts extends React.Component<CreateStudentAccountsProps, CreateStudentAccountsState> {
@@ -154,43 +154,47 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
           studentRows.push(newStudent)
         }
       })
-      return (<DataTable
-        headers={tableHeaders}
-        removeRow={this.removeStudent}
-        rows={studentRows}
-        showRemoveIcon={true}
-      />)
+      return (
+        <DataTable
+          headers={tableHeaders}
+          removeRow={this.removeStudent}
+          rows={studentRows}
+          showRemoveIcon={true}
+        />
+      )
     }
   }
 
   renderBody() {
     const { firstName, lastName, } = this.state
-    return (<div className="create-a-class-modal-body modal-body create-students">
-      <h3 className="title">Create accounts for your students</h3>
-      <form onSubmit={this.addStudent}>
-        <Input
-          characterLimit={50}
-          className="first-name"
-          handleChange={this.handleFirstNameChange}
-          id="first-name"
-          label="First name"
-          ref={this.firstNameInput}
-          type="text"
-          value={firstName}
-        />
-        <Input
-          characterLimit={50}
-          className="last-name"
-          handleChange={this.handleLastNameChange}
-          label="Last name"
-          ref={this.lastNameInput}
-          type="text"
-          value={lastName}
-        />
-        <input className={this.submitClass()} name="commit" type="submit" value="Add" />
-      </form>
-      {this.renderTable()}
-    </div>)
+    return (
+      <div className="create-a-class-modal-body modal-body create-students">
+        <h3 className="title">Create accounts for your students</h3>
+        <form onSubmit={this.addStudent}>
+          <Input
+            characterLimit={50}
+            className="first-name"
+            handleChange={this.handleFirstNameChange}
+            id="first-name"
+            label="First name"
+            ref={this.firstNameInput}
+            type="text"
+            value={firstName}
+          />
+          <Input
+            characterLimit={50}
+            className="last-name"
+            handleChange={this.handleLastNameChange}
+            label="Last name"
+            ref={this.lastNameInput}
+            type="text"
+            value={lastName}
+          />
+          <input className={this.submitClass()} name="commit" type="submit" value="Add" />
+        </form>
+        {this.renderTable()}
+      </div>
+    )
   }
 
   renderFooter() {
@@ -200,10 +204,12 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
     if (waiting) {
       nextButton = <button className={this.footerButtonClass()}><ButtonLoadingIndicator /></button>
     }
-    return (<div className="create-a-class-modal-footer with-back-button">
-      <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
-      {nextButton}
-    </div>)
+    return (
+      <div className="create-a-class-modal-footer with-back-button">
+        <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
+        {nextButton}
+      </div>
+    )
   }
 
   render() {

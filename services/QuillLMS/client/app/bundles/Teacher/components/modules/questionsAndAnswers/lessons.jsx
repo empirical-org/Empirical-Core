@@ -6,7 +6,7 @@ const lessons = () => [
     answer: [<p>Lessons are intended to take <strong>about 20-30 minutes to complete</strong>. The length of time depends on how long you choose to spend discussing each answer. While in most cases five minutes is enough, teachers may want to facilitate a longer conversation.</p>,
       <p>To end a lesson early, press the “Start Practice Mode” button or “End Session” button in the toolbar at any time. To continue a lesson with a selected group of students, you can assign other students to start independent practice while keeping the lesson open for your group.</p>,
       <p>If you need to abbreviate your time on Quill, you can complete a lesson at any point, and wait to assign the follow up activity until another time.</p>
-          ]
+    ]
   },
   {
     question: 'How can I support both struggling students and advanced learners in lessons mode?',
@@ -35,7 +35,7 @@ const lessons = () => [
         <li>Uncheck <strong>Mirror Displays.</strong></li>
       </ol>,
       <p>Once you have unmirrored your screen from the projector, you can move the student slide window to the projector so the class could see it. You will be able to control what the students see and the projector slide from your teacher view.</p>
-          ]
+    ]
   },
   {
     question: 'How can I draw & write on a Quill Lesson using my SMARTboard?',

@@ -64,7 +64,7 @@ export const completeActivitySession = (sessionID, activityId, percentage, conce
 
 export const processUnfetchableSession = () => {
   return (dispatch: Function) => {
-      dispatch({ type: ActionTypes.SESION_HAS_NO_DATA })
+    dispatch({ type: ActionTypes.SESION_HAS_NO_DATA })
   }
 }
 

@@ -62,38 +62,42 @@ class EditScriptItem extends Component<EditScriptItemProps, EditScriptItemState>
     switch (scriptItem.type) {
       case 'STEP-HTML-TIP':
       case 'STEP-HTML':
-        return (<div className="admin-show-script-item">
-          <div className="field">
-            <label className="label">Heading</label>
-            <div className="control">
-              <input className="input" onChange={(e) => this.updateValue(e, 'heading')} placeholder="Heading" type="text" value={heading} />
+        return (
+          <div className="admin-show-script-item">
+            <div className="field">
+              <label className="label">Heading</label>
+              <div className="control">
+                <input className="input" onChange={(e) => this.updateValue(e, 'heading')} placeholder="Heading" type="text" value={heading} />
+              </div>
             </div>
-          </div>
-          <div className="field">
-            <label className="label">Body</label>
-            <div className="control">
-              <SlideHTMLEditor
-                handleTextChange={(e) => this.updateBody(e)}
-                text={body}
-              />
+            <div className="field">
+              <label className="label">Body</label>
+              <div className="control">
+                <SlideHTMLEditor
+                  handleTextChange={(e) => this.updateBody(e)}
+                  text={body}
+                />
+              </div>
             </div>
+            <button className='button is-primary' onClick={this.saveChanges} style={{marginRight: '15px'}}>Save Changes</button>
+            <button className='button is-primary' onClick={this.deleteScriptItem}>Delete</button>
           </div>
-          <button className='button is-primary' onClick={this.saveChanges} style={{marginRight: '15px'}}>Save Changes</button>
-          <button className='button is-primary' onClick={this.deleteScriptItem}>Delete</button>
-        </div>)
+        )
       case 'Overview':
-        return (<div className="admin-show-script-item">
-          <div className="field">
-            <label className="label">Body</label>
-            <div className="control">
-              <SlideHTMLEditor
-                handleTextChange={(e) => this.updateBody(e)}
-                text={body}
-              />
+        return (
+          <div className="admin-show-script-item">
+            <div className="field">
+              <label className="label">Body</label>
+              <div className="control">
+                <SlideHTMLEditor
+                  handleTextChange={(e) => this.updateBody(e)}
+                  text={body}
+                />
+              </div>
             </div>
+            <button className='button is-primary' onClick={this.saveChanges}>Save Changes</button>
           </div>
-          <button className='button is-primary' onClick={this.saveChanges}>Save Changes</button>
-        </div>)
+        )
     }
   }
 

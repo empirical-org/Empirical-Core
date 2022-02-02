@@ -29,30 +29,38 @@ const ReadAndHighlightTracker = ({ scrolledToEndOfPassage, studentHighlights, on
 
 const BottomNavigation = ({ scrolledToEndOfPassage, studentHighlights, onMobile, handleClickDoneHighlighting, doneHighlighting, handleDoneReadingClick, hasStartedPromptSteps, hasStartedReadPassageStep, handleStartPromptStepsClick, handleStartReadingPassageClick, inReflection, }) => {
   if (!hasStartedReadPassageStep) {
-    return (<div className="bottom-navigation">
-      <button className="quill-button outlined secondary large focus-on-dark" onClick={handleStartReadingPassageClick} type="button">Start</button>
-    </div>)
+    return (
+      <div className="bottom-navigation">
+        <button className="quill-button outlined secondary large focus-on-dark" onClick={handleStartReadingPassageClick} type="button">Start</button>
+      </div>
+    )
   }
 
   if (hasStartedReadPassageStep && !doneHighlighting) {
-    return (<ReadAndHighlightTracker
-      handleClickDoneHighlighting={handleClickDoneHighlighting}
-      onMobile={onMobile}
-      scrolledToEndOfPassage={scrolledToEndOfPassage}
-      studentHighlights={studentHighlights}
-    />)
+    return (
+      <ReadAndHighlightTracker
+        handleClickDoneHighlighting={handleClickDoneHighlighting}
+        onMobile={onMobile}
+        scrolledToEndOfPassage={scrolledToEndOfPassage}
+        studentHighlights={studentHighlights}
+      />
+    )
   }
 
   if (inReflection) {
-    return (<div className="bottom-navigation">
-      <button className="quill-button contained primary large focus-on-light" onClick={handleDoneReadingClick} type="button">Next</button>
-    </div>)
+    return (
+      <div className="bottom-navigation">
+        <button className="quill-button contained primary large focus-on-light" onClick={handleDoneReadingClick} type="button">Next</button>
+      </div>
+    )
   }
 
   if (!hasStartedPromptSteps) {
-    return (<div className="bottom-navigation">
-      <button className="quill-button outlined secondary large focus-on-dark" onClick={handleStartPromptStepsClick} type="button">Next</button>
-    </div>)
+    return (
+      <div className="bottom-navigation">
+        <button className="quill-button outlined secondary large focus-on-dark" onClick={handleStartPromptStepsClick} type="button">Next</button>
+      </div>
+    )
   }
 }
 

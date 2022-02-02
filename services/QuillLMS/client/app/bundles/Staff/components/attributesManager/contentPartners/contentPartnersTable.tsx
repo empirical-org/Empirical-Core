@@ -77,19 +77,21 @@ const ContentPartnersTable = ({ visible, contentPartners, saveContentPartnerChan
     createNewContentPartner={createNewContentPartner}
   />)
 
-  return (<div className="content-partner-columns">
-    <ReactTable
-      className="records-table"
-      columns={columns(selectRecord, visible)}
-      data={filteredRecords}
-      defaultPageSize={filteredRecords.length}
-      showPagination={false}
-    />
-    <div className="record-box-container">
-      {recordBox}
-      {newRecordBox}
+  return (
+    <div className="content-partner-columns">
+      <ReactTable
+        className="records-table"
+        columns={columns(selectRecord, visible)}
+        data={filteredRecords}
+        defaultPageSize={filteredRecords.length}
+        showPagination={false}
+      />
+      <div className="record-box-container">
+        {recordBox}
+        {newRecordBox}
+      </div>
     </div>
-  </div>)
+  )
 }
 
 export default ContentPartnersTable

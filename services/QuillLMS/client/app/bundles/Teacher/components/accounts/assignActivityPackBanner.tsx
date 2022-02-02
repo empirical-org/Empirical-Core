@@ -7,10 +7,12 @@ const AssignActivityPackBanner = ({ login, }) => {
 
   const copy = login ? "After you log in, you'll be assigning" : "After you create an account, you’ll be assigning"
 
-  return (<div className="anonymous-assign-activity-pack-banner">
-    <p>{copy}</p>
-    <p className="activity-pack-name">{unitTemplateName}</p>
-  </div>)
+  return (
+    <div className="anonymous-assign-activity-pack-banner">
+      <p>{copy}</p>
+      <p className="activity-pack-name">{unitTemplateName}</p>
+    </div>
+  )
 }
 
 

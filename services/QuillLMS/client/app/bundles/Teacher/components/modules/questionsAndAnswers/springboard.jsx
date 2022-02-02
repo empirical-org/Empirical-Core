@@ -97,7 +97,7 @@ const springboard = () => [
         <p className="college-board-q-and-a-text">AP® is a registered trademark of the College Board.</p>
       </div>
     )
-   },
+  },
 ]
 
 export default springboard

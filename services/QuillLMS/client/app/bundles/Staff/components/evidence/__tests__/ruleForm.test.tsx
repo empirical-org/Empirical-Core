@@ -10,7 +10,7 @@ import RulePrompts from '../configureRules/rulePrompts';
 jest.mock('../../../helpers/evidence/ruleHelpers', () => ({
   getInitialRuleType: jest.fn().mockImplementation(() => {
     return { value: 'rules-based-1', label: 'Sentence Structure Regex' }
-   }),
+  }),
   formatInitialFeedbacks: jest.fn().mockImplementation(() => {
     return [{
       id: 7,

@@ -26,10 +26,12 @@ class ModelQuestion extends React.Component<ModelQuestionProps, ModelQuestionSta
 
     if (!data.play.instructions) { return }
 
-    return (<Feedback
-      feedback={(<p dangerouslySetInnerHTML={{__html: data.play.instructions}} />)}
-      feedbackType="default"
-    />);
+    return (
+      <Feedback
+        feedback={(<p dangerouslySetInnerHTML={{__html: data.play.instructions}} />)}
+        feedbackType="default"
+      />
+    );
   }
 
   renderCues() {
@@ -73,9 +75,11 @@ class ModelQuestion extends React.Component<ModelQuestionProps, ModelQuestionSta
   renderProjectorHeader() {
     const { projector, } = this.props
     if (!projector) { return }
-    return (<div className="projector-header-section">
-      <div className="students-watch-tag tag"><img alt="Teacher pointing to a chalkboard icon" src={teacherPointingSrc} /><span>Students watch</span></div>
-    </div>)
+    return (
+      <div className="projector-header-section">
+        <div className="students-watch-tag tag"><img alt="Teacher pointing to a chalkboard icon" src={teacherPointingSrc} /><span>Students watch</span></div>
+      </div>
+    )
   }
 
   renderSubmittedBar() {

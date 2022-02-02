@@ -69,68 +69,78 @@ const NewTopicBox = ({ levelNumber, levelThreeTopics, createNewTopic, closeTopic
   function renderDropdownInput() {
     const options = levelThreeTopics.map(t => ({ value: t.id, label: t.name })).sort((a, b) => a.label.localeCompare(b.label))
     const value = options.find(opt => opt.value === topic.parent_id)
-    return (<DropdownInput
-      handleChange={changeLevel1}
-      isSearchable={true}
-      label="Level 3"
-      options={options}
-      value={value}
-    />)
+    return (
+      <DropdownInput
+        handleChange={changeLevel1}
+        isSearchable={true}
+        label="Level 3"
+        options={options}
+        value={value}
+      />
+    )
   }
 
   function renderLevels() {
     const dropdown = topic.level === 2 ? renderDropdownInput() : null
 
-    return (<div>
-      {dropdown}
-      <div className="record-input-container">
-        <Input
-          handleChange={renameTopic}
-          label={`Level ${topic.level}`}
-          type='text'
-          value={topic.name}
-        />
+    return (
+      <div>
+        {dropdown}
+        <div className="record-input-container">
+          <Input
+            handleChange={renameTopic}
+            label={`Level ${topic.level}`}
+            type='text'
+            value={topic.name}
+          />
+        </div>
       </div>
-    </div>)
+    )
   }
 
   function renderSaveButton() {
     const { name, level, parent_id, } = topic
     const hasParentIfLevelTwo = parent_id || level !== 2
     if (name.length && hasParentIfLevelTwo) {
-      return (<input
-        className="quill-button contained primary medium"
-        type="submit"
-        value="Save"
-      />)
+      return (
+        <input
+          className="quill-button contained primary medium"
+          type="submit"
+          value="Save"
+        />
+      )
     }
   }
 
   function renderChangeLogModal() {
     if (!showChangeLogModal) { return }
 
-    return (<ChangeLogModal
-      cancel={closeChangeLogModal}
-      changedFields={[{ fieldName: 'new' }]}
-      levelNumber={topic.level}
-      record={topic}
-      save={setChangeLogs}
-    />)
+    return (
+      <ChangeLogModal
+        cancel={closeChangeLogModal}
+        changedFields={[{ fieldName: 'new' }]}
+        levelNumber={topic.level}
+        record={topic}
+        save={setChangeLogs}
+      />
+    )
   }
 
-  return (<div className="record-box create-record-box">
-    {renderChangeLogModal()}
-    <span className="close-record-box" onClick={closeTopicBox}><i className="fas fa-times" /></span>
-    <form acceptCharset="UTF-8" onSubmit={handleSubmit} >
-      <div className="static">
-        <p>Create a Level {topic.level}</p>
-      </div>
-      <div className="fields">
-        {renderLevels()}
-        {renderSaveButton()}
-      </div>
-    </form>
-  </div>)
+  return (
+    <div className="record-box create-record-box">
+      {renderChangeLogModal()}
+      <span className="close-record-box" onClick={closeTopicBox}><i className="fas fa-times" /></span>
+      <form acceptCharset="UTF-8" onSubmit={handleSubmit} >
+        <div className="static">
+          <p>Create a Level {topic.level}</p>
+        </div>
+        <div className="fields">
+          {renderLevels()}
+          {renderSaveButton()}
+        </div>
+      </form>
+    </div>
+  )
 }
 
 

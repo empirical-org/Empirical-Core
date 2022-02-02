@@ -327,7 +327,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
                       key="1"
                     >
                       <div
-                        className="feedback-label-section"
+                        className="label-section"
                       >
                         <img
                           alt="Revise icon"
@@ -572,7 +572,7 @@ exports[`PromptStep component active state when an optimal response has been sub
                       key="1"
                     >
                       <div
-                        className="feedback-label-section"
+                        className="label-section"
                       >
                         <img
                           alt="Check icon"
@@ -873,7 +873,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                       key="5"
                     >
                       <div
-                        className="feedback-label-section"
+                        className="label-section"
                       >
                         <img
                           alt="Revise icon"
@@ -911,6 +911,28 @@ exports[`PromptStep component active state when the max attempts have been reach
                 </span>
               </div>
             </ReactCSSTransitionReplace>
+            <div
+              className="heads-up"
+            >
+              <div
+                className="label-section"
+              >
+                <img
+                  alt="Information icon"
+                  src="undefined/images/pages/evidence/icons-information-small.svg"
+                />
+                <p>
+                  Heads up
+                </p>
+              </div>
+              <p>
+                Our feedback bot is not perfect, and it sometimes might be wrong. If you think the feedback is inaccurate, please click on the “Report a problem” button above.
+              </p>
+              <br />
+              <p>
+                This activity is just for practice, and it is not graded. By practicing and revising on Quill, you are strengthening your writing skills.
+              </p>
+            </div>
           </div>
         </Feedback>
       </div>
@@ -1119,7 +1141,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                       key="1"
                     >
                       <div
-                        className="feedback-label-section"
+                        className="label-section"
                       >
                         <img
                           alt="Check icon"

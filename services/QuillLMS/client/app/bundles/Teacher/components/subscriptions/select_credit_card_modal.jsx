@@ -59,11 +59,11 @@ export default class extends React.Component {
 
   toggleChangeCard = () => {
     this.setState({ extantCardSelected: false, changeCardSelected: !this.state.changeCardSelected, },
-        () => {
-          if (this.state.changeCardSelected) {
-            new EnterOrUpdateStripeCard(this.updateLastFour, this.state.lastFour ? 'Update' : 'Enter');
-          }
+      () => {
+        if (this.state.changeCardSelected) {
+          new EnterOrUpdateStripeCard(this.updateLastFour, this.state.lastFour ? 'Update' : 'Enter');
         }
+      }
     );
   };
 

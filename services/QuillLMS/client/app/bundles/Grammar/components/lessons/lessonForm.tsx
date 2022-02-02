@@ -131,11 +131,12 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
         const questionobj = questions.data[question.key];
         const prompt = questionobj ? questionobj.prompt : 'Question No Longer Exists';
         const promptOrTitle = questionobj.title || questionobj.prompt
-        return (<p className="sortable-list-item" key={question.key}>
-          {promptOrTitle}
-          {'\t\t'}
-          <button onClick={this.handleQuestionChange.bind(null, question.key)}>Delete</button>
-        </p>
+        return (
+          <p className="sortable-list-item" key={question.key}>
+            {promptOrTitle}
+            {'\t\t'}
+            <button onClick={this.handleQuestionChange.bind(null, question.key)}>Delete</button>
+          </p>
         );
       });
       return <SortableList data={questionsList} key={Object.keys(activityQuestions).length} sortCallback={this.sortCallback} />;
@@ -149,13 +150,15 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     let options = hashToCollection(questions.data);
     let formatted
     if (options.length > 0) {
-        options = _.filter(options, option => option.flag !== "archived" && option.prompt); // filter out questions with no valid concept
-        formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
-      return (<QuestionSelector
-        onChange={this.handleSearchChange}
-        options={formatted}
-        placeholder="Search for a question"
-      />);
+      options = _.filter(options, option => option.flag !== "archived" && option.prompt); // filter out questions with no valid concept
+      formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
+      return (
+        <QuestionSelector
+          onChange={this.handleSearchChange}
+          options={formatted}
+          placeholder="Search for a question"
+        />
+      );
     }
   }
 
@@ -168,20 +171,22 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
         const conceptVal = activityConcepts[c]
         const conceptAttributes = concepts.data['0'].find((concept: Concept) => concept.uid === c)
         if (conceptVal && conceptAttributes) {
-          return (<div key={c} style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span>{conceptAttributes.displayName}</span>
-            <span style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span>
-                <span>Quantity: </span>
-                <input
-                  defaultValue={conceptVal.quantity.toString()}
-                  onChange={(e) => this.changeConceptQuantity(c, e)}
-                  style={{ width: '50px' }}
-                />
+          return (
+            <div key={c} style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span>{conceptAttributes.displayName}</span>
+              <span style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>
+                  <span>Quantity: </span>
+                  <input
+                    defaultValue={conceptVal.quantity.toString()}
+                    onChange={(e) => this.changeConceptQuantity(c, e)}
+                    style={{ width: '50px' }}
+                  />
+                </span>
+                <span onClick={() => this.removeConcept(c)} style={{ cursor: 'pointer' }}>X</span>
               </span>
-              <span onClick={() => this.removeConcept(c)} style={{ cursor: 'pointer' }}>X</span>
-            </span>
-          </div>)
+            </div>
+          )
         } else {
           return undefined
         }

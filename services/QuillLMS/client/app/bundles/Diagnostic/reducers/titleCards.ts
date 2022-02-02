@@ -12,8 +12,8 @@ type TitleCardsReducerAction = Action & { data: TitleCard };
 
 
 const initialState = {
-    hasreceiveddata: false,
-    data: {}
+  hasreceiveddata: false,
+  data: {}
 }
 
 export default (
