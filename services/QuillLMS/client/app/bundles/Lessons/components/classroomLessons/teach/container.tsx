@@ -157,8 +157,8 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     const classroomActivityError = classroomSessions.error;
     const lessonError = classroomLesson.error;
     const teachLessonContainerStyle = classroomSessions.data && classroomSessions.data.preview
-    ? {'height': 'calc(100vh - 113px)'}
-    : {'height': 'calc(100vh - 60px)'}
+      ? {'height': 'calc(100vh - 113px)'}
+      : {'height': 'calc(100vh - 60px)'}
     let component = (
       <div className="teach-lesson-container" style={teachLessonContainerStyle}>
         <Sidebar classroomSessionId={classroomSessionId} match={match} />
@@ -172,10 +172,12 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       component = <ErrorPage text={lessonError} />
     }
 
-    return (<div>
-      <NavBar />
-      {component}
-    </div>)
+    return (
+      <div>
+        <NavBar />
+        {component}
+      </div>
+    )
   }
 }
 

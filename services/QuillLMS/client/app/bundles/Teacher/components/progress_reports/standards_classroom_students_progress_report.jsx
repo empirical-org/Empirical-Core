@@ -130,7 +130,7 @@ export default class extends React.Component {
               id: 'total_result_count',
               desc: true
             }
-          ]}
+            ]}
             showPageSizeOptions={false}
             showPagination={false}
             showPaginationBottom={false}

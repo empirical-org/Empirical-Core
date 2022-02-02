@@ -119,7 +119,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
     const updatedPassages = [...activityPassages];
     updatedPassages[0][key] = value;
     setActivityPassages(updatedPassages)
-   };
+  };
 
   function handleSetPrompt (e: InputEvent, conjunction: string) {
     const prompt = getActivityPrompt({ activityBecausePrompt, activityButPrompt, activitySoPrompt, conjunction });
@@ -196,12 +196,14 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
       { name: "Invalid Highlights", attribute:"link", width: "100%", noTooltip: true }
     ];
 
-    return (<DataTable
-      className="activities-table"
-      defaultSortAttribute="name"
-      headers={dataTableFields}
-      rows={formattedRows ? formattedRows : []}
-    />)
+    return (
+      <DataTable
+        className="activities-table"
+        defaultSortAttribute="name"
+        headers={dataTableFields}
+        rows={formattedRows ? formattedRows : []}
+      />
+    )
   }
 
   return(

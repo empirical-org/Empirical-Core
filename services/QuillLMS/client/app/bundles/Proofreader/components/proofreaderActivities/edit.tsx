@@ -60,10 +60,12 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean,
   renderConceptExplanation(): JSX.Element {
     const { concept } = this.props
     if (!(concept && concept.explanation)) { return <span /> }
-    return (<div className="explanation">
-      <p className="label">Explanation</p>
-      <p dangerouslySetInnerHTML={{ __html: concept.explanation }} />
-    </div>)
+    return (
+      <div className="explanation">
+        <p className="label">Explanation</p>
+        <p dangerouslySetInnerHTML={{ __html: concept.explanation }} />
+      </div>
+    )
   }
 
   renderCorrectAnswers() {
@@ -73,10 +75,12 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean,
     const correctAnswerArray = displayText ? displayText.split('~') : []
     const correctAnswers = correctAnswerArray.map(ca => <span className="correct-answer" key={ca}>{ca}</span>)
     const correctAnswerHTML = <p>{correctAnswers}</p>
-    return (<div>
-      <p className="label">Correct</p>
-      {correctAnswerHTML}
-    </div>)
+    return (
+      <div>
+        <p className="label">Correct</p>
+        {correctAnswerHTML}
+      </div>
+    )
   }
 
   renderNotNecessaryExplanation() {
@@ -144,22 +148,24 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean,
     const style = parentElement ? { top: `${parentElement.offsetTop + 5}px`, height: tooltipHeight } : {}
     const backButton = back ? <button className="quill-button medium secondary outlined focus-on-light" onClick={back} type="button">Back</button> : <div className="placeholder" />
     const nextButton = <button className="quill-button medium primary contained focus-on-light" onClick={next} type="button">{index + 1 === numberOfEdits ? 'Done' : 'Next'}</button>
-    return (<div className="edit-tooltip" style={style}>
-      <div className="top-section">
-        <img alt={altText} src={src} />
-        <h2>{headerText}</h2>
+    return (
+      <div className="edit-tooltip" style={style}>
+        <div className="top-section">
+          <img alt={altText} src={src} />
+          <h2>{headerText}</h2>
+        </div>
+        <div className="middle-section">
+          {this.renderNotNecessaryExplanation()}
+          {this.renderCorrectAnswers()}
+          {this.renderConceptExplanation()}
+        </div>
+        <div className="button-section">
+          {backButton}
+          <div className="counter">{index + 1} of {numberOfEdits}</div>
+          {nextButton}
+        </div>
       </div>
-      <div className="middle-section">
-        {this.renderNotNecessaryExplanation()}
-        {this.renderCorrectAnswers()}
-        {this.renderConceptExplanation()}
-      </div>
-      <div className="button-section">
-        {backButton}
-        <div className="counter">{index + 1} of {numberOfEdits}</div>
-        {nextButton}
-      </div>
-    </div>)
+    )
   }
 
   editClassName() {
@@ -187,9 +193,11 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean,
   render() {
     const { id, incorrectText, displayText, } = this.props
     const tooltip = this.renderTooltip()
-    return (<div className={`edit ${this.editClassName()}`} id={id}>
-      <span className="displayed-text">{incorrectText || displayText}</span>
-      {tooltip}
-    </div>)
+    return (
+      <div className={`edit ${this.editClassName()}`} id={id}>
+        <span className="displayed-text">{incorrectText || displayText}</span>
+        {tooltip}
+      </div>
+    )
   }
 }

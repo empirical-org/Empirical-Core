@@ -69,27 +69,31 @@ class AddConcept extends React.Component<{}, AddConceptState> {
   }
 
   renderContent() {
-    return (<Query
-      query={gql(allConceptsQuery)}
-    >
-      {({ loading, error, data, refetch, networkStatus }) => {
-        if (networkStatus === 4) return <p>Refetching!</p>;
-        if (loading) return <p>Loading...</p>;
-        if (error) return <p>Error :(</p>;
+    return (
+      <Query
+        query={gql(allConceptsQuery)}
+      >
+        {({ loading, error, data, refetch, networkStatus }) => {
+          if (networkStatus === 4) return <p>Refetching!</p>;
+          if (loading) return <p>Loading...</p>;
+          if (error) return <p>Error :(</p>;
 
-        const { selectedConcept, } = this.state
-        const concepts:Array<Concept> = data.concepts.filter(c => c.visible);
-        return (<div className="concept-levels-and-forms-container">
-          <ConceptLevels
-            concepts={concepts}
-            selectConcept={this.selectConcept}
-            selectedConcept={selectedConcept}
-            unselectConcept={this.closeConceptBox}
-          />
-          {this.renderConceptForms(refetch, concepts)}
-        </div>)
-      }}
-    </Query>)
+          const { selectedConcept, } = this.state
+          const concepts:Array<Concept> = data.concepts.filter(c => c.visible);
+          return (
+            <div className="concept-levels-and-forms-container">
+              <ConceptLevels
+                concepts={concepts}
+                selectConcept={this.selectConcept}
+                selectedConcept={selectedConcept}
+                unselectConcept={this.closeConceptBox}
+              />
+              {this.renderConceptForms(refetch, concepts)}
+            </div>
+          )
+        }}
+      </Query>
+    )
   }
 
   // disabling the no-bind rule for the following two functions because we have to use the refetch that gets passed in on every render
@@ -98,46 +102,50 @@ class AddConcept extends React.Component<{}, AddConceptState> {
     const { selectedConcept, } = this.state
     const { conceptID, levelNumber } = selectedConcept
     if (conceptID && (levelNumber || levelNumber === 0)) {
-      return (<div>
-        <ConceptBoxContainer
-          closeConceptBox={this.closeConceptBox}
-          conceptID={conceptID}
-          finishEditingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
-          levelNumber={levelNumber}
-          visible={true}
-        />
-        {this.renderAddNewConceptsForms(refetch, concepts)}
-      </div>)
+      return (
+        <div>
+          <ConceptBoxContainer
+            closeConceptBox={this.closeConceptBox}
+            conceptID={conceptID}
+            finishEditingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
+            levelNumber={levelNumber}
+            visible={true}
+          />
+          {this.renderAddNewConceptsForms(refetch, concepts)}
+        </div>
+      )
     } else {
       return this.renderAddNewConceptsForms(refetch, concepts)
     }
   }
 
   renderAddNewConceptsForms(refetch, concepts) {
-    return (<div className="new-concept-forms">
-      <div className="concept-guide-section">
-        <i className="fas fa-book-open" />
-        <div>
-          <a href="https://docs.google.com/document/d/1pWdDMGlqpoIjO75lIe6gfYMo3v4L7mAZjN2VBpwehhk/edit#heading=h.5sblht1hha9p" rel="noopener noreferrer" target="_blank">Concept Guide</a>
-          <p>Are you an intern, or not sure how to create a Concept? Then please read our documentation.</p>
+    return (
+      <div className="new-concept-forms">
+        <div className="concept-guide-section">
+          <i className="fas fa-book-open" />
+          <div>
+            <a href="https://docs.google.com/document/d/1pWdDMGlqpoIjO75lIe6gfYMo3v4L7mAZjN2VBpwehhk/edit#heading=h.5sblht1hha9p" rel="noopener noreferrer" target="_blank">Concept Guide</a>
+            <p>Are you an intern, or not sure how to create a Concept? Then please read our documentation.</p>
+          </div>
         </div>
+        <CreateConceptBox
+          concepts={concepts}
+          finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
+          levelNumber={2}
+        />
+        <CreateConceptBox
+          concepts={concepts}
+          finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
+          levelNumber={1}
+        />
+        <CreateConceptBox
+          concepts={concepts}
+          finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
+          levelNumber={0}
+        />
       </div>
-      <CreateConceptBox
-        concepts={concepts}
-        finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
-        levelNumber={2}
-      />
-      <CreateConceptBox
-        concepts={concepts}
-        finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
-        levelNumber={1}
-      />
-      <CreateConceptBox
-        concepts={concepts}
-        finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
-        levelNumber={0}
-      />
-    </div>)
+    )
   }
   /* eslint-enable react/jsx-no-bind */
 

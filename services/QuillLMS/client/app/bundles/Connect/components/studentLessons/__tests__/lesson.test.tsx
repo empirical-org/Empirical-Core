@@ -260,7 +260,7 @@ describe('Lesson Container functions', () => {
       currentQuestion: {
         type: 'TL',
         data: {
-            key: 'test-key'
+          key: 'test-key'
         }
       }
     };

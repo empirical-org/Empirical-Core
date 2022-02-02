@@ -30,15 +30,17 @@ class AdminClassLessonsContainer extends React.Component<any, any> {
   }
 
   render() {
-    return (<Switch>
-      <Route component={ShowEditionScriptItem} path='/admin/classroom-lessons/:classroomLessonID/editions/:editionID/slide/:slideID/scriptItem/:scriptItemID' />
-      <Route component={ShowEditionSlide} path='/admin/classroom-lessons/:classroomLessonID/editions/:editionID/slide/:slideID' />
-      <Route component={ShowAdminEdition} path='/admin/classroom-lessons/:classroomLessonID/editions/:editionID' />
-      <Route component={ShowClassroomLessonUserEditions} path='/admin/classroom-lessons/:classroomLessonID/editions' />
-      <Route component={AllUserEditions} path='/admin/classroom-lessons/editions' />
-      <Route component={ShowClassroomLesson} path='/admin/classroom-lessons/:classroomLessonID' />
-      <Route component={ClassroomLessonsIndex} path='/admin/classroom-lessons' />
-    </Switch>)
+    return (
+      <Switch>
+        <Route component={ShowEditionScriptItem} path='/admin/classroom-lessons/:classroomLessonID/editions/:editionID/slide/:slideID/scriptItem/:scriptItemID' />
+        <Route component={ShowEditionSlide} path='/admin/classroom-lessons/:classroomLessonID/editions/:editionID/slide/:slideID' />
+        <Route component={ShowAdminEdition} path='/admin/classroom-lessons/:classroomLessonID/editions/:editionID' />
+        <Route component={ShowClassroomLessonUserEditions} path='/admin/classroom-lessons/:classroomLessonID/editions' />
+        <Route component={AllUserEditions} path='/admin/classroom-lessons/editions' />
+        <Route component={ShowClassroomLesson} path='/admin/classroom-lessons/:classroomLessonID' />
+        <Route component={ClassroomLessonsIndex} path='/admin/classroom-lessons' />
+      </Switch>
+    )
   }
 
 }

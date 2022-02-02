@@ -52,10 +52,10 @@ class TextEditor extends React.Component <any, any> {
     const { boilerplate, EditorState, handleTextChange, ContentState, } = this.props
     if (nextProps.boilerplate !== boilerplate) {
       this.setState({text: EditorState.createWithContent(ContentState.createFromBlockArray(this.contentState(nextProps.boilerplate)))},
-      () => {
-        handleTextChange(this.html())
-      }
-    )
+        () => {
+          handleTextChange(this.html())
+        }
+      )
     }
   }
 
@@ -87,11 +87,11 @@ class TextEditor extends React.Component <any, any> {
       },
       htmlToEntity: (nodeName, node, createEntity) => {
         if (nodeName === 'a') {
-            return createEntity(
-                LINK,
-                MUTABLE,
-                {url: node.href}
-            )
+          return createEntity(
+            LINK,
+            MUTABLE,
+            {url: node.href}
+          )
         }
       },
     })(html);

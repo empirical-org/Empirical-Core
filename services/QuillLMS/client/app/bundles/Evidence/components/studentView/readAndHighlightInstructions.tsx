@@ -46,20 +46,22 @@ const ReadAndHighlightInstructions = ({ passage, activeStep, showReadTheDirectio
     )
     readAndHighlightContainerClassName = 'read-and-highlight-container'
   }
-  return (<div className={readAndHighlightContainerClassName}>
-    <DirectionsSectionAndModal
-      activeStep={activeStep}
-      className="hide-on-mobile"
-      closeReadTheDirectionsModal={closeReadTheDirectionsModal}
-      inReflection={inReflection}
-      passage={passage}
-      showReadTheDirectionsModal={showReadTheDirectionsModal}
-    />
-    <section className="highlight-section">
-      <h3>Highlights</h3>
-      {studentHighlightsOrHighlightInstructions}
-    </section>
-  </div>)
+  return (
+    <div className={readAndHighlightContainerClassName}>
+      <DirectionsSectionAndModal
+        activeStep={activeStep}
+        className="hide-on-mobile"
+        closeReadTheDirectionsModal={closeReadTheDirectionsModal}
+        inReflection={inReflection}
+        passage={passage}
+        showReadTheDirectionsModal={showReadTheDirectionsModal}
+      />
+      <section className="highlight-section">
+        <h3>Highlights</h3>
+        {studentHighlightsOrHighlightInstructions}
+      </section>
+    </div>
+  )
 }
 
 export default ReadAndHighlightInstructions

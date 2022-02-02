@@ -1,8 +1,8 @@
 import 'whatwg-fetch'
 import { allQuestions,
-         denormalizeSession,
-         normalizeSession,
-         populateQuestions } from '../../actions/session';
+  denormalizeSession,
+  normalizeSession,
+  populateQuestions } from '../../actions/session';
 import {
   denormalizedSession,
   normalizedSession,

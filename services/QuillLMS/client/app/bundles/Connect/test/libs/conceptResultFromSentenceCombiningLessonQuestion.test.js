@@ -2,8 +2,8 @@ import expect from 'expect';
 
 import data from '../dataFromLesson';
 import {
-    getConceptResultsForSentenceCombining,
-    getConceptResultsForSentenceCombiningAttempt
+  getConceptResultsForSentenceCombining,
+  getConceptResultsForSentenceCombiningAttempt
 } from '../../libs/conceptResults/sentenceCombiningLessonQuestion';
 
 describe('Getting concept results from an answered SC object', () => {
@@ -20,28 +20,28 @@ describe('Getting concept results from an answered SC object', () => {
       },
       question_type: 'sentence-combining',
     },
-      {
-        concept_uid: 'Q8FfGSv4Z9L2r1CYOfvO9A',
-        metadata: {
-          answer: 'Until a coconut ripens, it is filled with water.',
-          attemptNumber: 1,
-          correct: 1,
-          directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
-          prompt: 'A coconut ripens. \nIt is filled with water.',
-        },
-        question_type: 'sentence-combining',
+    {
+      concept_uid: 'Q8FfGSv4Z9L2r1CYOfvO9A',
+      metadata: {
+        answer: 'Until a coconut ripens, it is filled with water.',
+        attemptNumber: 1,
+        correct: 1,
+        directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
+        prompt: 'A coconut ripens. \nIt is filled with water.',
       },
-      {
-        concept_uid: 'bZmNou1vg97xYkCKG6sfTg',
-        metadata: {
-          answer: 'Until a coconut ripens, it is filled with water.',
-          attemptNumber: 1,
-          correct: 1,
-          directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
-          prompt: 'A coconut ripens. \nIt is filled with water.',
-        },
-        question_type: 'sentence-combining',
-      }];
+      question_type: 'sentence-combining',
+    },
+    {
+      concept_uid: 'bZmNou1vg97xYkCKG6sfTg',
+      metadata: {
+        answer: 'Until a coconut ripens, it is filled with water.',
+        attemptNumber: 1,
+        correct: 1,
+        directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
+        prompt: 'A coconut ripens. \nIt is filled with water.',
+      },
+      question_type: 'sentence-combining',
+    }];
     const generated = getConceptResultsForSentenceCombining(question);
 
     expect(generated).toEqual(expected);
@@ -61,28 +61,28 @@ describe('Getting concept results from an answered SC object', () => {
       },
       question_type: 'sentence-combining',
     },
-      {
-        concept_uid: 'Q8FfGSv4Z9L2r1CYOfvO9A',
-        metadata: {
-          answer: 'Until a coconut ripens, it is filled with water.',
-          attemptNumber: 1,
-          correct: 1,
-          directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
-          prompt: 'A coconut ripens. \nIt is filled with water.',
-        },
-        question_type: 'sentence-combining',
+    {
+      concept_uid: 'Q8FfGSv4Z9L2r1CYOfvO9A',
+      metadata: {
+        answer: 'Until a coconut ripens, it is filled with water.',
+        attemptNumber: 1,
+        correct: 1,
+        directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
+        prompt: 'A coconut ripens. \nIt is filled with water.',
       },
-      {
-        concept_uid: 'bZmNou1vg97xYkCKG6sfTg',
-        metadata: {
-          answer: 'Until a coconut ripens, it is filled with water.',
-          attemptNumber: 1,
-          correct: 1,
-          directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
-          prompt: 'A coconut ripens. \nIt is filled with water.',
-        },
-        question_type: 'sentence-combining',
-      }];
+      question_type: 'sentence-combining',
+    },
+    {
+      concept_uid: 'bZmNou1vg97xYkCKG6sfTg',
+      metadata: {
+        answer: 'Until a coconut ripens, it is filled with water.',
+        attemptNumber: 1,
+        correct: 1,
+        directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
+        prompt: 'A coconut ripens. \nIt is filled with water.',
+      },
+      question_type: 'sentence-combining',
+    }];
     const generated = getConceptResultsForSentenceCombiningAttempt(question, 0);
 
     expect(generated).toEqual(expected);
@@ -199,18 +199,18 @@ describe('Getting concept results from an answered SC object', () => {
       },
       question_type: 'sentence-combining',
     },
-      {
-        concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
-        metadata: {
-          answer: 'The weather is really cold, so coconut trees palms grow as soon as it is warm again.',
-          attemptNumber: 5,
-          correct: 0,
-          lastFeedback: 'Revise your work. Which joining word helps show the order of events? ',
-          directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
-          prompt: 'The weather is warm.\nCoconut palms grow.',
-        },
-        question_type: 'sentence-combining',
-      }];
+    {
+      concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+      metadata: {
+        answer: 'The weather is really cold, so coconut trees palms grow as soon as it is warm again.',
+        attemptNumber: 5,
+        correct: 0,
+        lastFeedback: 'Revise your work. Which joining word helps show the order of events? ',
+        directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
+        prompt: 'The weather is warm.\nCoconut palms grow.',
+      },
+      question_type: 'sentence-combining',
+    }];
     const generated = getConceptResultsForSentenceCombining(question);
 
     expect(generated).toEqual(expected);

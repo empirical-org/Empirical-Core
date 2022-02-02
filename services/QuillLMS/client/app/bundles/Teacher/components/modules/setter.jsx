@@ -15,7 +15,7 @@ var _deepFunction = function(mergeArrays) {
         result = b
       }
     } else if (_.isObject(a) && _.isObject(b)) {
-        result = _.extend(a, b, f)
+      result = _.extend(a, b, f)
     } else {
       result = b;
     }
@@ -25,28 +25,28 @@ var _deepFunction = function(mergeArrays) {
 }
 
 export default function (object, path, value, mergeArrays) {
- var pathArr, len, keysExceptLastKey, lastKey, _deep;
- _deep = _deepFunction(mergeArrays)
+  var pathArr, len, keysExceptLastKey, lastKey, _deep;
+  _deep = _deepFunction(mergeArrays)
 
- if (!path) {
-   object = _.extend({}, object, value, _deep);
- } else {
-   pathArr = path.split('.');
-   len = pathArr.length;
-   keysExceptLastKey = _.take(pathArr, len -1);
-   lastKey = pathArr[len - 1]
+  if (!path) {
+    object = _.extend({}, object, value, _deep);
+  } else {
+    pathArr = path.split('.');
+    len = pathArr.length;
+    keysExceptLastKey = _.take(pathArr, len -1);
+    lastKey = pathArr[len - 1]
 
-   var nestedItem = _.reduce(keysExceptLastKey, function (acc, ele) {
-     if (! acc[ele]) acc[ele] = {}
-     return acc[ele]
-   }, object)
+    var nestedItem = _.reduce(keysExceptLastKey, function (acc, ele) {
+      if (! acc[ele]) acc[ele] = {}
+      return acc[ele]
+    }, object)
 
-   if ((value instanceof Object) && (nestedItem[lastKey] instanceof Object)){
-     nestedItem[lastKey] = _.extend({}, nestedItem[lastKey], value, _deep);
-   } else {
-     nestedItem[lastKey] = value;
-   }
- }
+    if ((value instanceof Object) && (nestedItem[lastKey] instanceof Object)){
+      nestedItem[lastKey] = _.extend({}, nestedItem[lastKey], value, _deep);
+    } else {
+      nestedItem[lastKey] = value;
+    }
+  }
 
- return object;
+  return object;
 }

@@ -100,16 +100,18 @@ class ShowClassroomLesson extends Component<any, any> {
     const editions = Object.keys(this.props.customize.editions).map(e => {
       const edition = this.props.customize.editions[e]
       if (edition.user_id === 'quill-staff' && edition.lesson_id === this.props.match.params.classroomLessonID) {
-        return (<li>
-          <div>{edition.name}</div>
-          <div>
-            <span onClick={() => this.props.history.push(`/admin/classroom-lessons/${edition.lesson_id}/editions/${e}`)} style={{margin: '0px 5px'}}>Edit</span>
+        return (
+          <li>
+            <div>{edition.name}</div>
+            <div>
+              <span onClick={() => this.props.history.push(`/admin/classroom-lessons/${edition.lesson_id}/editions/${e}`)} style={{margin: '0px 5px'}}>Edit</span>
             |
-            <span onClick={() => this.props.history.push(`/teach/class-lessons/${edition.lesson_id}/preview/${e}`)} style={{margin: '0px 5px'}}>Preview</span>
+              <span onClick={() => this.props.history.push(`/teach/class-lessons/${edition.lesson_id}/preview/${e}`)} style={{margin: '0px 5px'}}>Preview</span>
             |
-            <span onClick={() => this.copyEdition(e)} style={{margin: '0px 5px'}}>Make A Copy</span>
-          </div>
-        </li>)
+              <span onClick={() => this.copyEdition(e)} style={{margin: '0px 5px'}}>Make A Copy</span>
+            </div>
+          </li>
+        )
       }
     })
     const components = _.compact(editions)
@@ -141,7 +143,7 @@ class ShowClassroomLesson extends Component<any, any> {
         </p>
       </div>
     )
-    }
+  }
 
   render() {
     if (this.props.classroomLessons.hasreceiveddata && this.classroomLesson()) {

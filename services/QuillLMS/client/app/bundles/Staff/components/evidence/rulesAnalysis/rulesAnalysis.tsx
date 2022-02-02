@@ -47,11 +47,13 @@ function weakTextClassName(percentage) {
 }
 
 const MoreInfo = (row) => {
-  return (<div className="more-info">
-    <p><strong>Rule Note:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.note || "N/A" }} /></p>
-    <p><strong>First Layer Feedback:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.firstLayerFeedback || "N/A" }} /></p>
-    <p><strong>Second Layer Feedback:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.secondLayerFeedback || "N/A" }} /></p>
-  </div>)
+  return (
+    <div className="more-info">
+      <p><strong>Rule Note:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.note || "N/A" }} /></p>
+      <p><strong>First Layer Feedback:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.firstLayerFeedback || "N/A" }} /></p>
+      <p><strong>Second Layer Feedback:</strong> <span dangerouslySetInnerHTML={{ __html: row.original.secondLayerFeedback || "N/A" }} /></p>
+    </div>
+  )
 }
 
 const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {

@@ -7,7 +7,7 @@
  * @version   v1.7.3
  */
 
-  /* Sample html structure
+/* Sample html structure
   <div class='tabs'>
     <ul class='horizontal'>
       <li><a href="#tab-1">Tab 1</a></li>

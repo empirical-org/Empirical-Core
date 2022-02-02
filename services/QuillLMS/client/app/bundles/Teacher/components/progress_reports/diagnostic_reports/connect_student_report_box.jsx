@@ -16,11 +16,13 @@ const ConnectStudentReportBox = ({ questionData, boxNumber, showScore, showDiff,
 
   function feedbackOrDirections(directionsOrFeedback, classNameAndText) {
     if (directionsOrFeedback) {
-      return (<tr className={classNameAndText}>
-        <td>{classNameAndText}</td>
-        <td />
-        <td>{formatString(directionsOrFeedback)}</td>
-      </tr>)
+      return (
+        <tr className={classNameAndText}>
+          <td>{classNameAndText}</td>
+          <td />
+          <td>{formatString(directionsOrFeedback)}</td>
+        </tr>
+      )
     }
   }
 
@@ -70,11 +72,13 @@ const ConnectStudentReportBox = ({ questionData, boxNumber, showScore, showDiff,
   }
 
   function emptyRow(key) {
-    return (<tr key={'empty-row'+key}>
-      <td />
-      <td />
-      <td />
-    </tr>)
+    return (
+      <tr key={'empty-row'+key}>
+        <td />
+        <td />
+        <td />
+      </tr>
+    )
   }
 
   function scoreRow(answer, attemptNum, averageScore, previousAnswer) {

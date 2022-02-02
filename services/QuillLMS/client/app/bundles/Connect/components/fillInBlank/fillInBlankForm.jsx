@@ -81,7 +81,7 @@ class FillInBlankForm extends Component {
       >
         {item}
       </button>)
-                                    )
+    )
     if (showDefaultInstructions) {
       return (
         <div style={{position: 'relative'}}>

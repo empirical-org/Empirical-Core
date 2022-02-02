@@ -52,7 +52,7 @@ export default class Pagination extends React.Component {
             </span>
           </li>
         </ul>
-			);
+      );
     } else {
       result = <span />;
     }

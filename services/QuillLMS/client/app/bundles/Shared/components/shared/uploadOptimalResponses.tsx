@@ -42,20 +42,22 @@ export class UploadOptimalResponses extends React.Component<UploadOptimalRespons
   }
 
   render() {
-    return (<div className="box">
-      <h6 className="control subtitle">Upload optimal responses</h6>
-      <p>Upload an xlsx file with the prompt in the first row, followed by optimal responses with their associated concepts.</p>
-      <a href="https://docs.google.com/spreadsheets/d/1zciamOQ8dtpLLUp4_hdiOkmVlylqNMmeRgyyHrtqtZ8/edit#gid=537498895" rel="noopener noreferrer" target="_blank">See example</a>
-      <label className="label">File</label>
-      <p className="control">
-        <input
-          accept=".xlsx"
-          onChange={e => this.handleChangeFile(e.target.files[0])}
-          type="file"
-        />
-      </p>
-      <button className="button is-primary" onClick={this.submitResponses}>Upload Optimal Responses</button>
-    </div>)
+    return (
+      <div className="box">
+        <h6 className="control subtitle">Upload optimal responses</h6>
+        <p>Upload an xlsx file with the prompt in the first row, followed by optimal responses with their associated concepts.</p>
+        <a href="https://docs.google.com/spreadsheets/d/1zciamOQ8dtpLLUp4_hdiOkmVlylqNMmeRgyyHrtqtZ8/edit#gid=537498895" rel="noopener noreferrer" target="_blank">See example</a>
+        <label className="label">File</label>
+        <p className="control">
+          <input
+            accept=".xlsx"
+            onChange={e => this.handleChangeFile(e.target.files[0])}
+            type="file"
+          />
+        </p>
+        <button className="button is-primary" onClick={this.submitResponses}>Upload Optimal Responses</button>
+      </div>
+    )
   }
 
 }

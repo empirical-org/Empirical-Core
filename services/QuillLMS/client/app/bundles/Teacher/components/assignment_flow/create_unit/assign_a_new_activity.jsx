@@ -85,17 +85,19 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
     </section>)
   }
 
-  return (<div className="assign-a-new-activity-container">
-    <div className="assign-a-new-activity container">
-      <h1>Find the perfect writing activities for your students.</h1>
-      {diagnosticBanner}
-      <div className="minis">{minis(diagnosticBannerShowing)}</div>
-      <p className="previously-assigned-activities">
+  return (
+    <div className="assign-a-new-activity-container">
+      <div className="assign-a-new-activity container">
+        <h1>Find the perfect writing activities for your students.</h1>
+        {diagnosticBanner}
+        <div className="minis">{minis(diagnosticBannerShowing)}</div>
+        <p className="previously-assigned-activities">
         You have {numberOfActivitiesAssigned} {numberOfActivitiesAssigned === 1 ? 'activity' : 'activities'} assigned.&nbsp;
-        <a href="/teachers/classrooms/activity_planner">View assigned activities</a>
-      </p>
+          <a href="/teachers/classrooms/activity_planner">View assigned activities</a>
+        </p>
+      </div>
     </div>
-  </div>)
+  )
 }
 
 export default AssignANewActivity

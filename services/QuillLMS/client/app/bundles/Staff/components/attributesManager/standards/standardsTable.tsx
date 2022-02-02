@@ -124,18 +124,20 @@ const StandardsTable = ({ searchValue, standardCategories, standardLevels, recor
     return r.visible === true && (standardLevelNameMatchesSearch || standardCategoryNameMatchesSearch || standardNameMatchesSearch)
   })
 
-  return (<div className="standard-columns">
-    <ReactTable
-      className="records-table"
-      columns={columns(selectRecord, filteredRecords)}
-      data={filteredRecords}
-      defaultPageSize={filteredRecords.length}
-      showPagination={false}
-    />
-    <div className="record-box-container">
-      {recordBox}
+  return (
+    <div className="standard-columns">
+      <ReactTable
+        className="records-table"
+        columns={columns(selectRecord, filteredRecords)}
+        data={filteredRecords}
+        defaultPageSize={filteredRecords.length}
+        showPagination={false}
+      />
+      <div className="record-box-container">
+        {recordBox}
+      </div>
     </div>
-  </div>)
+  )
 }
 
 export default StandardsTable

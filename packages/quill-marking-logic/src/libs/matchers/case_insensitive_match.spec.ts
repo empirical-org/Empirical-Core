@@ -42,13 +42,13 @@ const savedResponses: Array<Response> = [
 describe('The caseInsensitiveMatch function', () => {
 
   it('Should return true if the lowercased response string matches a lowercased partial response', () => {
-      const responseString = "my dog took a nap.";
-      assert.ok(caseInsensitiveMatch(responseString, savedResponses, false));
+    const responseString = "my dog took a nap.";
+    assert.ok(caseInsensitiveMatch(responseString, savedResponses, false));
   });
 
   it('Should return false if the lowercased response string does not match a lowercased partial response', () => {
-      const responseString = "my cat took a nap.";
-      assert.notOk(caseInsensitiveMatch(responseString, savedResponses, false));
+    const responseString = "my cat took a nap.";
+    assert.notOk(caseInsensitiveMatch(responseString, savedResponses, false));
   });
 
 });
@@ -58,13 +58,13 @@ describe('The caseInsensitiveChecker', () => {
   it('Should return a partialResponse object if the lowercased response string matches a lowercased partial response', () => {
     const responseString = "my dog took a nap.";
     const partialResponse =  {
-        feedback: feedbackStrings.caseError,
-        author: 'Capitalization Hint',
-        parent_id: caseInsensitiveMatch(responseString, savedResponses, false).id,
-        concept_results: [
-          conceptResultTemplate('S76ceOpAWR-5m-k47nu6KQ')
-        ],
-      }
+      feedback: feedbackStrings.caseError,
+      author: 'Capitalization Hint',
+      parent_id: caseInsensitiveMatch(responseString, savedResponses, false).id,
+      concept_results: [
+        conceptResultTemplate('S76ceOpAWR-5m-k47nu6KQ')
+      ],
+    }
     assert.equal(caseInsensitiveChecker(responseString, savedResponses).feedback, partialResponse.feedback);
     assert.equal(caseInsensitiveChecker(responseString, savedResponses).author, partialResponse.author);
     assert.equal(caseInsensitiveChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);

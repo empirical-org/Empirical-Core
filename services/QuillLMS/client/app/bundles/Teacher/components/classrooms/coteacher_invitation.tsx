@@ -37,15 +37,17 @@ export default class CoteacherInvitation extends React.Component<CoteacherInvita
   render() {
     const { coteacherInvitation } = this.props
     const { classroom_name, inviter_name, inviter_email } = coteacherInvitation
-    return (<div className="coteacher-invitation">
-      <h2>Invitation to co-teach "{classroom_name}"</h2>
-      <div className="coteacher-invitation-content">
-        <p>{inviter_name} ({inviter_email}) invited you to co-teach.</p>
-        <div className="accept-or-decline">
-          <span onClick={this.rejectInvitation}>Decline</span>
-          <span onClick={this.acceptInvitation}>Accept</span>
+    return (
+      <div className="coteacher-invitation">
+        <h2>Invitation to co-teach "{classroom_name}"</h2>
+        <div className="coteacher-invitation-content">
+          <p>{inviter_name} ({inviter_email}) invited you to co-teach.</p>
+          <div className="accept-or-decline">
+            <span onClick={this.rejectInvitation}>Decline</span>
+            <span onClick={this.acceptInvitation}>Accept</span>
+          </div>
         </div>
       </div>
-    </div>)
+    )
   }
 }

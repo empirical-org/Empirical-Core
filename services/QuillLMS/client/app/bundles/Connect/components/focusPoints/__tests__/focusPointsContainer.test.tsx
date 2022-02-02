@@ -30,7 +30,7 @@ describe('The focusPointsContainer', () => {
       const { props, } = setup();
       const wrapper = mount(
         <Router><FocusPointsContainer {...props} /></Router>
-        );
+      );
       expect(wrapper.find(SortableList)).toHaveLength(1);
     });
 
@@ -38,7 +38,7 @@ describe('The focusPointsContainer', () => {
       const { props, } = setup();
       const wrapper = mount(
         <Router><FocusPointsContainer {...props} /></Router>
-        );
+      );
       const order = wrapper.find('.card-header-icon').map(node => Number(node.text()));
       expect(order).toEqual([1, 2, 3]);
     });

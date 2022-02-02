@@ -88,13 +88,15 @@ function dailyTip() {
 
 const DailyTinyTip = () => {
   const tip = dailyTip()
-  return (<section className="daily-tiny-tip">
-    <h2>Daily tiny tip</h2>
-    <a className="focus-on-light" href={tip.url} rel="noopener noreferrer" target="_blank">
-      <span>{tip.title}</span>
-      <img alt={tip.imageAlt} src={tip.imageSrc} />
-    </a>
-  </section>)
+  return (
+    <section className="daily-tiny-tip">
+      <h2>Daily tiny tip</h2>
+      <a className="focus-on-light" href={tip.url} rel="noopener noreferrer" target="_blank">
+        <span>{tip.title}</span>
+        <img alt={tip.imageAlt} src={tip.imageSrc} />
+      </a>
+    </section>
+  )
 }
 
 export default DailyTinyTip

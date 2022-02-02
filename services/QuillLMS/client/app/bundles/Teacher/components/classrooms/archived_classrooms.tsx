@@ -85,11 +85,13 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
     const { showModal, classrooms, selectedClassroomId } = this.state
     if (showModal === unarchiveClassroomModal) {
       const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
-      return (<UnarchiveClassroomModal
-        classroom={selectedClassroom}
-        close={this.closeModal}
-        onSuccess={this.onSuccess}
-      />)
+      return (
+        <UnarchiveClassroomModal
+          classroom={selectedClassroom}
+          close={this.closeModal}
+          onSuccess={this.onSuccess}
+        />
+      )
     }
   }
 
@@ -119,32 +121,40 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
           />
         )
       })
-      return (<div className="archived-classes">
-        {classroomCards}
-      </div>)
+      return (
+        <div className="archived-classes">
+          {classroomCards}
+        </div>
+      )
     }
   }
 
   renderHeader() {
     const { classrooms } = this.state
     if (classrooms.length) {
-      return (<div className="header">
-        <h1>Archived Classes</h1>
-      </div>)
+      return (
+        <div className="header">
+          <h1>Archived Classes</h1>
+        </div>
+      )
     } else {
-      return (<div className="header">
-        <h1>No archived classes</h1>
-        <p>When you archive a class, you will see it listed here.</p>
-      </div>)
+      return (
+        <div className="header">
+          <h1>No archived classes</h1>
+          <p>When you archive a class, you will see it listed here.</p>
+        </div>
+      )
     }
   }
 
   render() {
-    return (<div className="archived-classrooms classrooms-page">
-      {this.renderUnarchiveClassroomModal()}
-      {this.renderSnackbar()}
-      {this.renderHeader()}
-      {this.renderPageContent()}
-    </div>)
+    return (
+      <div className="archived-classrooms classrooms-page">
+        {this.renderUnarchiveClassroomModal()}
+        {this.renderSnackbar()}
+        {this.renderHeader()}
+        {this.renderPageContent()}
+      </div>
+    )
   }
 }

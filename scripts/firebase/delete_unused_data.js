@@ -12,7 +12,7 @@ const validEnvs = [stagingString, prodString];
 const ENV = process.argv[2];
 if (!validEnvs.includes(ENV)) {
   process.stdout.write(
-`This script must be run with a command line flag of either '${prodString}' or '${stagingString}'.
+    `This script must be run with a command line flag of either '${prodString}' or '${stagingString}'.
 In order to actually execute the script against the database include a command line arg of "commit".\n`);
   process.exit();
 }
@@ -61,18 +61,18 @@ function deleteKey(key) {
   }
   process.stdout.write(`Deleting key ${key}... `);
   return request(options).
-         then((resp) => process.stdout.write(`done\n`)).
-         catch((err) => {
-           const errObj = JSON.parse(err.error);
-           // Conditional checking on raw error message because the status code 400 can be used for multiple issues,
-           // but we only have error handling conditions for one of them.
-           if (errObj.error === "Data to write exceeds the maximum size that can be modified with a single request.") {
-             process.stdout.write(`Key holds too much data.  Recursively deleting sub-keys...\n`);
-             deleteKeys(key)
-           } else {
-             process.stdout.write(`${errObj.error}\n`);
-           }
-         });
+    then((resp) => process.stdout.write(`done\n`)).
+    catch((err) => {
+      const errObj = JSON.parse(err.error);
+      // Conditional checking on raw error message because the status code 400 can be used for multiple issues,
+      // but we only have error handling conditions for one of them.
+      if (errObj.error === "Data to write exceeds the maximum size that can be modified with a single request.") {
+        process.stdout.write(`Key holds too much data.  Recursively deleting sub-keys...\n`);
+        deleteKeys(key)
+      } else {
+        process.stdout.write(`${errObj.error}\n`);
+      }
+    });
 }
 
 function deleteKeys(rootKey, excludeKeys) {

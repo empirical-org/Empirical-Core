@@ -14,29 +14,29 @@ import generatedIncorrectSequences from './generatedIncorrectSequencesReducer'
 import questionAndConceptMap from './questionAndConceptMapReducer'
 
 export const initState: IState = {
-    grammarActivities: {},
-    session: {},
-    questions: {},
-    concepts: {},
-    display : {},
-    responses: {},
-    massEdit: {},
-    filters: {},
-    conceptsFeedback: {},
-    generatedIncorrectSequences: {},
-    questionAndConceptMap: {}
+  grammarActivities: {},
+  session: {},
+  questions: {},
+  concepts: {},
+  display : {},
+  responses: {},
+  massEdit: {},
+  filters: {},
+  conceptsFeedback: {},
+  generatedIncorrectSequences: {},
+  questionAndConceptMap: {}
 };
 
 export const rootReducer = combineReducers({
-    grammarActivities,
-    session,
-    questions,
-    concepts,
-    display,
-    responses,
-    massEdit,
-    filters,
-    conceptsFeedback,
-    generatedIncorrectSequences,
-    questionAndConceptMap
+  grammarActivities,
+  session,
+  questions,
+  concepts,
+  display,
+  responses,
+  massEdit,
+  filters,
+  conceptsFeedback,
+  generatedIncorrectSequences,
+  questionAndConceptMap
 });
