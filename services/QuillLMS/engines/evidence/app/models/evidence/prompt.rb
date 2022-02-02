@@ -50,7 +50,7 @@ module Evidence
     end
 
     def optimal_label_feedback
-      # we can just grab the first feedback here because all optimal feedback text strings will be the same for any given prompt 
+      # we can just grab the first feedback here because all optimal feedback text strings will be the same for any given prompt
       rules.where(optimal: true, rule_type: Evidence::Rule::TYPE_AUTOML).joins("JOIN comprehension_feedbacks ON comprehension_feedbacks.rule_id = comprehension_rules.id").first&.feedbacks&.first&.text
     end
 
