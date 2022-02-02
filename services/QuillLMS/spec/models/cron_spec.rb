@@ -4,6 +4,26 @@ require 'rails_helper'
 require 'sidekiq/testing'
 
 describe "Cron", type: :model do
+  describe "#interval_10_min" do
+    [20, 50].each do |num_minutes|
+      it "enqueues ResetGhostInspectorAccountWorker at #{num_minutes} minute marks" do
+        time = Time.now.midnight + num_minutes.minutes
+        expect(Cron).to receive(:now).at_least(:twice).and_return(time)
+        expect(ResetGhostInspectorAccountWorker).to receive(:perform_async)
+        Cron.interval_10_min
+      end
+    end
+
+    [0, 10, 30, 40].each do |num_minutes|
+      it "does not enqueue ResetGhostInspectorAccountWorker at #{num_minutes} minute marks" do
+        time = Time.now.midnight + num_minutes.minutes
+        expect(Cron).to receive(:now).at_least(:twice).and_return(time)
+        expect(ResetGhostInspectorAccountWorker).not_to receive(:perform_async)
+        Cron.interval_10_min
+      end
+    end
+  end
+
   describe "#interval_1_hour" do
     it "enqueues CreditReferringAccountsWorker" do
       expect(CreditReferringAccountsWorker).to receive(:perform_async)
