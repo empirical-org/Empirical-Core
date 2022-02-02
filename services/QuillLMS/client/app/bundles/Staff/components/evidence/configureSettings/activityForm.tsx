@@ -295,7 +295,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
           />
         </div>
         {errors[PASSAGE] && <p className="error-message">{errors[PASSAGE]}</p>}
-        <p className={`text-editor-label ${maxAttemptStyle}`}>Max Attempts Feedback</p>
+        <p className={`text-editor-label ${maxAttemptStyle}`}>Max Attempts Feedback - Student Did Not Reach Optimal AutoML Label</p>
         <TextEditor
           ContentState={ContentState}
           EditorState={EditorState}
