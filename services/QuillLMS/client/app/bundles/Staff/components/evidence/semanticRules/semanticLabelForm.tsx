@@ -7,6 +7,7 @@ import RulePlagiarismAttributes from '../configureRules/rulePlagiarismAttributes
 import RuleSemanticAttributes from '../configureRules/ruleSemanticAttributes';
 import RuleRegexAttributes from '../configureRules/ruleRegexAttributes';
 import RulePrompts from '../configureRules/rulePrompts';
+import RuleHint from '../configureRules/ruleHint';
 import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
 import { Spinner, Modal } from '../../../../Shared/index';
 import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/evidence/ruleAPIs';
@@ -246,11 +247,14 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
         />}
         {(isUniversal || isSemantic) && <RuleUniversalAttributes
           errors={errors}
-          hint={ruleHint}
-          setHint={setRuleHint}
           setUniversalFeedback={setRuleFeedbacks}
           universalFeedback={ruleFeedbacks}
         />}
+        <RuleHint
+          errors={errors}
+          hint={ruleHint}
+          setHint={setRuleHint}
+        />
         <div className="submit-button-container">
           {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
           <button className="quill-button fun primary contained" id="rule-submit-button" onClick={onHandleSubmitRule} type="button">

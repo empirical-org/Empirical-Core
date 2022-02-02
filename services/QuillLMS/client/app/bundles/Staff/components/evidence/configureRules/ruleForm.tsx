@@ -6,6 +6,7 @@ import RulePlagiarismAttributes from './rulePlagiarismAttributes';
 import RuleRegexAttributes from './ruleRegexAttributes';
 import RulePrompts from './rulePrompts';
 import RuleUniversalAttributes from './ruleUniversalAttributes';
+import RuleHint from './ruleHint'
 
 import { fetchRules, fetchUniversalRules } from '../../../utils/evidence/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/evidence/conceptAPIs';
@@ -173,11 +174,14 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestEr
         />}
         {isUniversal && <RuleUniversalAttributes
           errors={errors}
-          hint={ruleHint}
-          setHint={setRuleHint}
           setUniversalFeedback={setRuleFeedbacks}
           universalFeedback={ruleFeedbacks}
         />}
+        <RuleHint
+          errors={errors}
+          hint={ruleHint}
+          setHint={setRuleHint}
+        />
         <div className="submit-button-container">
           {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
           <button className="quill-button fun primary contained" id="activity-submit-button" onClick={onHandleSubmitRule} type="button">
