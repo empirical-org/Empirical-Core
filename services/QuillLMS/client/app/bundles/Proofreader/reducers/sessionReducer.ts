@@ -16,13 +16,13 @@ export default (
   action: SessionAction,
 ): SessionState => {
   switch (action.type) {
-  case ActionTypes.SET_FIREBASE_PASSAGE:
-    return Object.assign({}, currentState, {passageFromFirebase: action.passage})
-  case ActionTypes.SET_PASSAGE:
-    return Object.assign({}, currentState, {passage: action.passage})
-  case ActionTypes.SET_TIMETRACKING:
-    return Object.assign({}, currentState, {timeTracking: action.timeTracking})
-  default:
-    return currentState;
+    case ActionTypes.SET_FIREBASE_PASSAGE:
+      return Object.assign({}, currentState, {passageFromFirebase: action.passage})
+    case ActionTypes.SET_PASSAGE:
+      return Object.assign({}, currentState, {passage: action.passage})
+    case ActionTypes.SET_TIMETRACKING:
+      return Object.assign({}, currentState, {timeTracking: action.timeTracking})
+    default:
+      return currentState;
   }
 };

@@ -125,48 +125,48 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
         let selected_submission_order: Array<string>|null = data.selected_submission_order && data.selected_submission_order[slide] ? data.selected_submission_order[slide] : null;
         let props = { mode, submissions, selected_submissions, selected_submission_order};
         switch (questions[slide].type) {
-        case 'CL-LB':
-          thumb = (
-            <CLStudentLobby data={data} projector={true} title={lessonData.title} />
-          );
-          break;
-        case 'CL-ST':
-          thumb = (
-            <CLStudentStatic data={questions[slide].data} />
-          );
-          break;
-        case 'CL-MD':
-          thumb = (
-            <CLStudentModelQuestion data={questions[slide].data} model={model} prompt={prompt} />
-          );
-          break;
-        case 'CL-SA':
-          thumb = (
-            <CLStudentSingleAnswer data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
-          );
-          break
-        case 'CL-FB':
-          thumb = (
-            <CLStudentFillInTheBlank data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
-          );
-          break;
-        case 'CL-FL':
-          thumb = (
-            <CLStudentListBlanks data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
-          );
-          break;
-        case 'CL-EX':
-          thumb = (
-            <CLStudentStatic data={questions[slide].data} />
-          );
-          break;
-        case 'CL-MS':
-          thumb = (
-            <CLStudentMultistep data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
-          )
-          break;
-        default:
-          thumb = questions[slide].type;
+          case 'CL-LB':
+            thumb = (
+              <CLStudentLobby data={data} projector={true} title={lessonData.title} />
+            );
+            break;
+          case 'CL-ST':
+            thumb = (
+              <CLStudentStatic data={questions[slide].data} />
+            );
+            break;
+          case 'CL-MD':
+            thumb = (
+              <CLStudentModelQuestion data={questions[slide].data} model={model} prompt={prompt} />
+            );
+            break;
+          case 'CL-SA':
+            thumb = (
+              <CLStudentSingleAnswer data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
+            );
+            break
+          case 'CL-FB':
+            thumb = (
+              <CLStudentFillInTheBlank data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
+            );
+            break;
+          case 'CL-FL':
+            thumb = (
+              <CLStudentListBlanks data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
+            );
+            break;
+          case 'CL-EX':
+            thumb = (
+              <CLStudentStatic data={questions[slide].data} />
+            );
+            break;
+          case 'CL-MS':
+            thumb = (
+              <CLStudentMultistep data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
+            )
+            break;
+          default:
+            thumb = questions[slide].type;
         }
         const isLobbySlide = Number(slide) === 0
         const headerText = isLobbySlide ? <span>Title Slide{titleSection}</span> : <span>Slide {slide} / {length}{titleSection}</span>

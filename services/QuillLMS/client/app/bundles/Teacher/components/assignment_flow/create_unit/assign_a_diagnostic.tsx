@@ -114,15 +114,15 @@ const AssignADiagnostic = ({ history, assignedPreTests, }) => {
   const all = [general, ell, collegeBoard].flat()
   let minis = all
   switch(filter) {
-  case GENERAL:
-    minis = general;
-    break;
-  case ELL:
-    minis = ell;
-    break;
-  case COLLEGEBOARD:
-    minis = collegeBoard;
-    break;
+    case GENERAL:
+      minis = general;
+      break;
+    case ELL:
+      minis = ell;
+      break;
+    case COLLEGEBOARD:
+      minis = collegeBoard;
+      break;
   }
 
   return (

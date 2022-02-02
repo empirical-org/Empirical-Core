@@ -15,12 +15,12 @@ export default (
   action: QuestionAndConceptMapReducerAction,
 ) => {
   switch (action.type) {
-  case ActionTypes.RECEIVE_GRAMMAR_QUESTION_AND_CONCEPT_MAP:
-    return Object.assign({}, currentState, {
-      hasreceiveddata: true,
-      data: action.data,
-    });
-  default:
-    return currentState;
+    case ActionTypes.RECEIVE_GRAMMAR_QUESTION_AND_CONCEPT_MAP:
+      return Object.assign({}, currentState, {
+        hasreceiveddata: true,
+        data: action.data,
+      });
+    default:
+      return currentState;
   }
 };

@@ -86,26 +86,26 @@ export default class Question {
     const changeObjectMatch = this.checkChangeObjectLevenshteinMatch(response);
     if (changeObjectMatch !== undefined) {
       switch (changeObjectMatch.errorType) {
-      case ERROR_TYPES.INCORRECT_WORD:
-        res.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
-        res.author = 'Modified Word Hint';
-        res.parentID = changeObjectMatch.response.key;
-        this.copyParentResponses(res, changeObjectMatch.response);
-        return returnValue;
-      case ERROR_TYPES.ADDITIONAL_WORD:
-        res.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
-        res.author = 'Additional Word Hint';
-        res.parentID = changeObjectMatch.response.key;
-        this.copyParentResponses(res, changeObjectMatch.response);
-        return returnValue;
-      case ERROR_TYPES.MISSING_WORD:
-        res.feedback = constants.FEEDBACK_STRINGS.missingWordError;
-        res.author = 'Missing Word Hint';
-        res.parentID = changeObjectMatch.response.key;
-        this.copyParentResponses(res, changeObjectMatch.response);
-        return returnValue;
-      default:
-        return;
+        case ERROR_TYPES.INCORRECT_WORD:
+          res.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
+          res.author = 'Modified Word Hint';
+          res.parentID = changeObjectMatch.response.key;
+          this.copyParentResponses(res, changeObjectMatch.response);
+          return returnValue;
+        case ERROR_TYPES.ADDITIONAL_WORD:
+          res.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
+          res.author = 'Additional Word Hint';
+          res.parentID = changeObjectMatch.response.key;
+          this.copyParentResponses(res, changeObjectMatch.response);
+          return returnValue;
+        case ERROR_TYPES.MISSING_WORD:
+          res.feedback = constants.FEEDBACK_STRINGS.missingWordError;
+          res.author = 'Missing Word Hint';
+          res.parentID = changeObjectMatch.response.key;
+          this.copyParentResponses(res, changeObjectMatch.response);
+          return returnValue;
+        default:
+          return;
       }
     }
     const whitespaceMatch = this.checkWhiteSpaceMatch(response);

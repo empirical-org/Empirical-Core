@@ -39,35 +39,35 @@ class sentenceFragmentForm extends React.Component {
   handleChange = (key, e) => {
     const { wordCountChange } = this.state
     switch (key) {
-    case 'prompt':
-      this.setState({ prompt: e.target.value, });
-      break;
-    case 'optimalResponseText':
-      this.setState({ optimalResponseText: e.target.value, });
-      break;
-    case 'instructions':
-      this.setState({ instructions: e.target.value, });
-      break;
-    case 'isFragment':
-      this.setState({ isFragment: e.target.checked, });
-      break;
-    case 'needsIdentification':
-      this.setState({ needsIdentification: e.target.checked, });
-      break;
-    case 'maxWordCountChange':
-      let newWordCountChange = { ...wordCountChange }
-      newWordCountChange.max = e.target ? e.target.value : '';
-      this.setState({ wordCountChange: newWordCountChange, });
-      break;
-    case 'minWordCountChange':
-      newWordCountChange = { ...wordCountChange }
-      newWordCountChange.min = e.target ? e.target.value : '';
-      this.setState({ wordCountChange: newWordCountChange, });
-      break;
-    case 'flag':
-      this.setState({ flag: e.target.value, });
-      break;
-    default:
+      case 'prompt':
+        this.setState({ prompt: e.target.value, });
+        break;
+      case 'optimalResponseText':
+        this.setState({ optimalResponseText: e.target.value, });
+        break;
+      case 'instructions':
+        this.setState({ instructions: e.target.value, });
+        break;
+      case 'isFragment':
+        this.setState({ isFragment: e.target.checked, });
+        break;
+      case 'needsIdentification':
+        this.setState({ needsIdentification: e.target.checked, });
+        break;
+      case 'maxWordCountChange':
+        let newWordCountChange = { ...wordCountChange }
+        newWordCountChange.max = e.target ? e.target.value : '';
+        this.setState({ wordCountChange: newWordCountChange, });
+        break;
+      case 'minWordCountChange':
+        newWordCountChange = { ...wordCountChange }
+        newWordCountChange.min = e.target ? e.target.value : '';
+        this.setState({ wordCountChange: newWordCountChange, });
+        break;
+      case 'flag':
+        this.setState({ flag: e.target.value, });
+        break;
+      default:
     }
   };
 

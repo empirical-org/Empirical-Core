@@ -87,30 +87,30 @@ export default class StudentNavbarItems extends React.Component<StudentNavbarIte
     if (inactiveNode && keyWasNotTab) { return }
 
     switch (e.key) {
-    case ARROWDOWN:
-      e.preventDefault()
-      if (cursor < this.links().length - 1) {
-        this.setState(prevState => {
-          if (prevState.cursor !== null) {
-            return { cursor: prevState.cursor + 1 }
-          }
-          return { cursor: 0 }
-        }, this.updateFocusedLink)
-      } else if (cursor === null && this.links().length === 1) {
-        this.setState({ cursor: 0 }, this.updateFocusedLink)
-      } else {
-        this.updateFocusedLink()
-      }
-      break
-    case ARROWUP:
-      e.preventDefault()
-      this.setState(prevState => ({ cursor: Math.max(prevState.cursor - 1, 0) }), this.updateFocusedLink)
-      break
-    case TAB:
-      this.setState({ isOpen: false, })
-      break
-    default:
-      break
+      case ARROWDOWN:
+        e.preventDefault()
+        if (cursor < this.links().length - 1) {
+          this.setState(prevState => {
+            if (prevState.cursor !== null) {
+              return { cursor: prevState.cursor + 1 }
+            }
+            return { cursor: 0 }
+          }, this.updateFocusedLink)
+        } else if (cursor === null && this.links().length === 1) {
+          this.setState({ cursor: 0 }, this.updateFocusedLink)
+        } else {
+          this.updateFocusedLink()
+        }
+        break
+      case ARROWUP:
+        e.preventDefault()
+        this.setState(prevState => ({ cursor: Math.max(prevState.cursor - 1, 0) }), this.updateFocusedLink)
+        break
+      case TAB:
+        this.setState({ isOpen: false, })
+        break
+      default:
+        break
     }
   }
 

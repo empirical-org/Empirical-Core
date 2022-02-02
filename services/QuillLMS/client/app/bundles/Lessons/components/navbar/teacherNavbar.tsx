@@ -131,41 +131,41 @@ class TeacherNavbar extends React.Component<any, any> {
       }
     } else if (!showHelpDropdown && !showFlagDropdown && !showCustomizeDropdown) {
       switch (icon) {
-      case CUSTOMIZE:
-        if (tooltip === CUSTOMIZE) {
-          return (this.customizeDropdown())
-        }
-      case FLAG:
-        if (tooltip === FLAG) {
-          return (this.flagDropdown())
-        }
-        break
-      case PROJECTOR:
-        if (tooltip === PROJECTOR) {
-          return (<Tooltip className={icon} text="Launch Projector" />)
-        }
-        break
-      case WATCH_TEACHER:
-        if (tooltip === WATCH_TEACHER) {
-          return (<Tooltip className={icon} text={["Watch Teacher - ", <strong key="watch-teacher-on">Off</strong>]} />)
-        }
-        break
-      case EXIT:
-        if (tooltip === EXIT) {
-          return (<Tooltip className={icon} text="Save and Exit Lesson" />)
-        }
-        break
-      case HELP:
-        if (tooltip === HELP) {
-          return this.helpDropdown()
-        }
-        break
-      case PDF:
-        if (tooltip === PDF) {
-          return <Tooltip className={icon} text="Download Lesson Plan" />
-        }
-      default:
-        break
+        case CUSTOMIZE:
+          if (tooltip === CUSTOMIZE) {
+            return (this.customizeDropdown())
+          }
+        case FLAG:
+          if (tooltip === FLAG) {
+            return (this.flagDropdown())
+          }
+          break
+        case PROJECTOR:
+          if (tooltip === PROJECTOR) {
+            return (<Tooltip className={icon} text="Launch Projector" />)
+          }
+          break
+        case WATCH_TEACHER:
+          if (tooltip === WATCH_TEACHER) {
+            return (<Tooltip className={icon} text={["Watch Teacher - ", <strong key="watch-teacher-on">Off</strong>]} />)
+          }
+          break
+        case EXIT:
+          if (tooltip === EXIT) {
+            return (<Tooltip className={icon} text="Save and Exit Lesson" />)
+          }
+          break
+        case HELP:
+          if (tooltip === HELP) {
+            return this.helpDropdown()
+          }
+          break
+        case PDF:
+          if (tooltip === PDF) {
+            return <Tooltip className={icon} text="Download Lesson Plan" />
+          }
+        default:
+          break
       }
     }
   }
@@ -379,26 +379,26 @@ class TeacherNavbar extends React.Component<any, any> {
 
     if (!showHelpDropdown && !watchTeacherState && !showFlagDropdown) {
       switch (tooltip) {
-      case CUSTOMIZE:
-        customizeClass = HOVER
-        break
-      case PROJECTOR:
-        projectorClass = HOVER
-        break
-      case WATCH_TEACHER:
-        watchTeacherClass = HOVER
-        break
-      case EXIT:
-        exitClass = HOVER
-        break
-      case HELP:
-        helpClass = HOVER
-        break
-      case FLAG:
-        flagClass = HOVER
-        break
-      default:
-        break
+        case CUSTOMIZE:
+          customizeClass = HOVER
+          break
+        case PROJECTOR:
+          projectorClass = HOVER
+          break
+        case WATCH_TEACHER:
+          watchTeacherClass = HOVER
+          break
+        case EXIT:
+          exitClass = HOVER
+          break
+        case HELP:
+          helpClass = HOVER
+          break
+        case FLAG:
+          flagClass = HOVER
+          break
+        default:
+          break
       }
     }
 

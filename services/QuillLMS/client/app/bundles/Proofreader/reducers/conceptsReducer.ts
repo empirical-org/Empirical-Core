@@ -19,11 +19,11 @@ const initialState = {
 }
 export default function(currentstate: ConceptReducerState, action: ConceptReducerAction) {
   switch (action.type) {
-  case ActionTypes.RECEIVE_CONCEPTS_DATA:
-    return Object.assign({}, currentstate, {
-      hasreceiveddata: true,
-      data: action.data
-    });
-  default: return currentstate || initialState.concepts;
+    case ActionTypes.RECEIVE_CONCEPTS_DATA:
+      return Object.assign({}, currentstate, {
+        hasreceiveddata: true,
+        data: action.data
+      });
+    default: return currentstate || initialState.concepts;
   }
 };

@@ -46,12 +46,12 @@ export default class JoinClass extends React.Component {
         if (response.error) {
           let error
           switch (response.error) {
-          case 'Class is archived':
-            error = 'Oops! That class has been archived. Please try a different class code.'
-            break
-          default:
-            error = 'Enter a valid class code. Ask your teacher for help.'
-            break
+            case 'Class is archived':
+              error = 'Oops! That class has been archived. Please try a different class code.'
+              break
+            default:
+              error = 'Enter a valid class code. Ask your teacher for help.'
+              break
           }
           this.setState({ errors: { classCode: error, }, timesSubmitted: timesSubmitted + 1, })
         } else {

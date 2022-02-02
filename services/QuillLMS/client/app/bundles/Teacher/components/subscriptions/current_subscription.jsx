@@ -21,12 +21,12 @@ export default class extends React.Component {
 
   getCondition() {
     switch (this.props.subscriptionType) {
-    case 'School':
-      return 'school';
-    case 'School Sponsored':
-      return 'school sponsored';
-    default:
-      return 'other';
+      case 'School':
+        return 'school';
+      case 'School Sponsored':
+        return 'school sponsored';
+      default:
+        return 'other';
     }
   }
 
@@ -177,33 +177,33 @@ export default class extends React.Component {
     const expiration = moment(this.props.subscriptionStatus.expiration);
     const remainingDays = expiration.diff(moment(), 'days');
     switch (conditionWithAuthorization) {
-    case 'school sponsored authorization: false':
-      return this.nextPlanAlert(this.onceYourPlanExpires());
-    case 'school expired authorization: false':
-      return this.lessThan90Days();
-    case 'school non-recurring authorization: true':
-      if (remainingDays > 90) {
-        return this.nextPlanAlert(this.contactSales());
-      }
-      return this.lessThan90Days();
-    case 'school non-recurring authorization: false':
-      if (remainingDays > 90) {
+      case 'school sponsored authorization: false':
         return this.nextPlanAlert(this.onceYourPlanExpires());
-      }
-      return this.lessThan90Days();
-    case 'recurring authorization: false':
-      return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate}.`);
-    case 'recurring authorization: true':
-      return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${this.state.lastFour} will be charged $${this.getPrice()}.`);
-    case 'school expired authorization: true':
-      return this.lessThan90Days();
-    case 'school expired authorization: false':
-      return this.lessThan90Days();
-    case 'other expired authorization: false':
-      return this.renewPremium();
-    case 'other expired authorization: true':
-      return this.renewPremium();
-    default:
+      case 'school expired authorization: false':
+        return this.lessThan90Days();
+      case 'school non-recurring authorization: true':
+        if (remainingDays > 90) {
+          return this.nextPlanAlert(this.contactSales());
+        }
+        return this.lessThan90Days();
+      case 'school non-recurring authorization: false':
+        if (remainingDays > 90) {
+          return this.nextPlanAlert(this.onceYourPlanExpires());
+        }
+        return this.lessThan90Days();
+      case 'recurring authorization: false':
+        return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate}.`);
+      case 'recurring authorization: true':
+        return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${this.state.lastFour} will be charged $${this.getPrice()}.`);
+      case 'school expired authorization: true':
+        return this.lessThan90Days();
+      case 'school expired authorization: false':
+        return this.lessThan90Days();
+      case 'other expired authorization: false':
+        return this.renewPremium();
+      case 'other expired authorization: true':
+        return this.renewPremium();
+      default:
     }
   }
 

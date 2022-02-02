@@ -55,20 +55,20 @@ function objectWithSnakeKeysFromCamel(camelObj, convertCR = true) {
     if (camelObj.hasOwnProperty(camelKey)) {
       let snakeKey;
       switch (camelKey) {
-      case 'questionUID':
-        snakeKey = 'question_uid';
-        break;
-      case 'gradeIndex':
-        snakeKey = 'grade_index';
-        break;
-      case 'parentID':
-        snakeKey = 'parent_id';
-        break;
-      case 'conceptResults':
-        snakeKey = 'concept_results';
-        break;
-      default:
-        snakeKey = camelKey;
+        case 'questionUID':
+          snakeKey = 'question_uid';
+          break;
+        case 'gradeIndex':
+          snakeKey = 'grade_index';
+          break;
+        case 'parentID':
+          snakeKey = 'parent_id';
+          break;
+        case 'conceptResults':
+          snakeKey = 'concept_results';
+          break;
+        default:
+          snakeKey = camelKey;
       }
       snakeObj[snakeKey] = camelObj[camelKey];
     }
@@ -116,12 +116,12 @@ function rematchResponse(matcher, matcherFields, response) {
     const newResponse = { response: newResolvedResponse }
     const delta = determineDelta(response, newResponse);
     switch (delta) {
-    case 'tobeunmatched':
-      return unmatchRematchedResponse(response);
-    case 'tobeupdated':
-      return updateRematchedResponse(response, newResponse);
-    default:
-      return {};
+      case 'tobeunmatched':
+        return unmatchRematchedResponse(response);
+      case 'tobeupdated':
+        return updateRematchedResponse(response, newResponse);
+      default:
+        return {};
     }
   });
 }

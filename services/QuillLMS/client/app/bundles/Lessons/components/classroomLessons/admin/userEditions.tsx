@@ -46,11 +46,11 @@ class UserEditions extends Component<any, any> {
 
   sortData(data) {
     switch (this.state.sort) {
-    case 'name':
-      return this.sortAlphabetically(data);
-    case 'last_published_at':
-    case 'user_id':
-      return this.sortNumerically(data)
+      case 'name':
+        return this.sortAlphabetically(data);
+      case 'last_published_at':
+      case 'user_id':
+        return this.sortNumerically(data)
     }
   }
 

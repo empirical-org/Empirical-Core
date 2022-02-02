@@ -194,30 +194,30 @@ export const imageTagForClassification = (classificationKey: string): JSX.Elemen
   let imgAlt = ""
   let imgSrc
   switch(classificationKey) {
-  case 'connect':
-    imgAlt = "Target representing Quill Connect"
-    imgSrc = connectSrc
-    break
-  case 'diagnostic':
-    imgAlt = "Magnifying glass representing Quill Diagnostic"
-    imgSrc = diagnosticSrc
-    break
-  case 'sentence':
-    imgAlt = "Puzzle piece representing Quill Grammar"
-    imgSrc = grammarSrc
-    break
-  case 'lessons':
-    imgAlt = "Apple representing Quill Lessons"
-    imgSrc = lessonsSrc
-    break
-  case 'passage':
-    imgAlt = "Flag representing Quill Proofreader"
-    imgSrc = proofreaderSrc
-    break
-  case 'evidence':
-    imgAlt = "Book representing Quill Evidence"
-    imgSrc = comprehensionSrc
-    break
+    case 'connect':
+      imgAlt = "Target representing Quill Connect"
+      imgSrc = connectSrc
+      break
+    case 'diagnostic':
+      imgAlt = "Magnifying glass representing Quill Diagnostic"
+      imgSrc = diagnosticSrc
+      break
+    case 'sentence':
+      imgAlt = "Puzzle piece representing Quill Grammar"
+      imgSrc = grammarSrc
+      break
+    case 'lessons':
+      imgAlt = "Apple representing Quill Lessons"
+      imgSrc = lessonsSrc
+      break
+    case 'passage':
+      imgAlt = "Flag representing Quill Proofreader"
+      imgSrc = proofreaderSrc
+      break
+    case 'evidence':
+      imgAlt = "Book representing Quill Evidence"
+      imgSrc = comprehensionSrc
+      break
   }
 
   return <img alt={imgAlt} src={imgSrc} />

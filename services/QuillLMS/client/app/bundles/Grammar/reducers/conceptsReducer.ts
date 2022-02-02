@@ -22,11 +22,11 @@ const initialState = {
 
 export default function(currentstate: ConceptReducerState, action: ConceptReducerAction) {
   switch (action.type) {
-  case ActionTypes.RECEIVE_CONCEPTS_DATA:
-    return Object.assign({}, currentstate, {
-      hasreceiveddata: true,
-      data: action.data
-    });
+    case ActionTypes.RECEIVE_CONCEPTS_DATA:
+      return Object.assign({}, currentstate, {
+        hasreceiveddata: true,
+        data: action.data
+      });
     // case C.AWAIT_NEW_CONCEPT_RESPONSE:
     //     return Object.assign({},currentstate,{
     //         submittingnew: true
@@ -52,6 +52,6 @@ export default function(currentstate: ConceptReducerState, action: ConceptReduce
     //     return Object.assign({},currentstate,{
     //         newConceptModalOpen: !currentstate.newConceptModalOpen
     //     });
-  default: return currentstate || initialState.concepts;
+    default: return currentstate || initialState.concepts;
   }
 };

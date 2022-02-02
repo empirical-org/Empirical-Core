@@ -19,10 +19,10 @@ const initialState: GeneratedIncorrectSequencesReducerState = {
 export default function (currentstate: GeneratedIncorrectSequencesReducerState, action: GeneratedIncorrectSequencesAction) {
   let newstate;
   switch (action.type) {
-  case ActionTypes.SET_USED_SEQUENCES:
-    newstate = _.cloneDeep(currentstate);
-    newstate.used[action.qid] = action.seq
-    return newstate;
-  default: return currentstate || initialState.generatedIncorrectSequences;
+    case ActionTypes.SET_USED_SEQUENCES:
+      newstate = _.cloneDeep(currentstate);
+      newstate.used[action.qid] = action.seq
+      return newstate;
+    default: return currentstate || initialState.generatedIncorrectSequences;
   }
 }

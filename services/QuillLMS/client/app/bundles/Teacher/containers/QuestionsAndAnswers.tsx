@@ -26,27 +26,27 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
 
     let questionsAndAnswers;
     switch (props.questionsAndAnswersFile) {
-    case 'admin':
-      questionsAndAnswers = admin
-      break
-    case 'lessons':
-      questionsAndAnswers = lessons
-      break
-    case 'premium':
-      questionsAndAnswers = premium
-      break
-    case PRE_AP:
-      questionsAndAnswers = preap
-      break
-    case AP:
-      questionsAndAnswers = ap
-      break
-    case SPRINGBOARD:
-      questionsAndAnswers = springboard
-      break
-    default:
-      questionsAndAnswers = []
-      break
+      case 'admin':
+        questionsAndAnswers = admin
+        break
+      case 'lessons':
+        questionsAndAnswers = lessons
+        break
+      case 'premium':
+        questionsAndAnswers = premium
+        break
+      case PRE_AP:
+        questionsAndAnswers = preap
+        break
+      case AP:
+        questionsAndAnswers = ap
+        break
+      case SPRINGBOARD:
+        questionsAndAnswers = springboard
+        break
+      default:
+        questionsAndAnswers = []
+        break
     }
 
     this.state = {

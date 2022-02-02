@@ -11,22 +11,22 @@ import CustomizeMultistep from './slides/multistep';
 
 export function getComponent(type: string) {
   switch (type) {
-  case 'CL-ST':
-    return CustomizeStatic
-  case 'CL-MD':
-    return CustomizeModel
-  case 'CL-SA':
-    return CustomizeSingleAnswer
-  case 'CL-FB':
-    return CustomizeFillInTheBlanks
-  case 'CL-FL':
-    return CustomizeFillInTheList
-  case 'CL-EX':
-    return CustomizeExit
-  case 'CL-MS':
-    return CustomizeMultistep
-  default:
-    return CustomizeUnsupported
+    case 'CL-ST':
+      return CustomizeStatic
+    case 'CL-MD':
+      return CustomizeModel
+    case 'CL-SA':
+      return CustomizeSingleAnswer
+    case 'CL-FB':
+      return CustomizeFillInTheBlanks
+    case 'CL-FL':
+      return CustomizeFillInTheList
+    case 'CL-EX':
+      return CustomizeExit
+    case 'CL-MS':
+      return CustomizeMultistep
+    default:
+      return CustomizeUnsupported
   }
 }
 

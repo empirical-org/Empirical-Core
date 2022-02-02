@@ -388,18 +388,18 @@ export class ELLStudentDiagnostic extends React.Component {
         question.attempts = question.attempts ? question.attempts : []
         let type
         switch (questionType) {
-        case 'questions':
-          type = 'SC'
-          break
-        case 'fillInBlank':
-          type = 'FB'
-          break
-        case 'titleCards':
-          type = TITLE_CARD_TYPE
-          break
-        case 'sentenceFragments':
-        default:
-          type = 'SF'
+          case 'questions':
+            type = 'SC'
+            break
+          case 'fillInBlank':
+            type = 'FB'
+            break
+          case 'titleCards':
+            type = TITLE_CARD_TYPE
+            break
+          case 'sentenceFragments':
+          default:
+            type = 'SF'
         }
         return { type, data: question, };
       });

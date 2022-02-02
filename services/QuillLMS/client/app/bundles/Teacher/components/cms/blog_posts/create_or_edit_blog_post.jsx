@@ -80,13 +80,13 @@ export default class CreateOrEditBlogPost extends React.Component {
   appropriatePlaceholderImage = () => {
     const { preview_card_type, } = this.state
     switch (preview_card_type) {
-    case 'Large Image':
-      return 'http://placehold.it/300x200'
-    case 'Tiny Image':
-      return 'http://placehold.it/300x90'
-    case 'Medium Image':
-    default:
-      return 'http://placehold.it/300x138'
+      case 'Large Image':
+        return 'http://placehold.it/300x200'
+      case 'Tiny Image':
+        return 'http://placehold.it/300x90'
+      case 'Medium Image':
+      default:
+        return 'http://placehold.it/300x138'
     }
   }
 
@@ -401,22 +401,22 @@ export default class CreateOrEditBlogPost extends React.Component {
   updatePreviewCardBasedOnType = () => {
     const { preview_card_type, custom_preview_card_content, } = this.state
     switch (preview_card_type) {
-    case 'Tiny Image':
-    case 'Medium Image':
-    case 'Large Image':
-      this.setState({blogPostPreviewImage: this.appropriatePlaceholderImage()}, this.updatePreviewCardFromBlogPostPreview)
-      break;
-    case 'Tweet':
-      this.updatePreviewCardTweetContent();
-      break;
-    case 'YouTube Video':
-      this.updatePreviewCardVideoContent();
-      break;
-    case 'Button':
-      this.updatePreviewCardButtonContent();
-      break;
-    default:
-      this.setState({ preview_card_content: custom_preview_card_content })
+      case 'Tiny Image':
+      case 'Medium Image':
+      case 'Large Image':
+        this.setState({blogPostPreviewImage: this.appropriatePlaceholderImage()}, this.updatePreviewCardFromBlogPostPreview)
+        break;
+      case 'Tweet':
+        this.updatePreviewCardTweetContent();
+        break;
+      case 'YouTube Video':
+        this.updatePreviewCardVideoContent();
+        break;
+      case 'Button':
+        this.updatePreviewCardButtonContent();
+        break;
+      default:
+        this.setState({ preview_card_content: custom_preview_card_content })
     }
   }
 

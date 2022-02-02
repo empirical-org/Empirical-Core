@@ -167,20 +167,20 @@ export default class StudentProfileUnit extends React.Component {
 
   toolIcon = (key) => {
     switch(key) {
-    case PROOFREADER_ACTIVITY_CLASSIFICATION_KEY:
-      return <img alt="Flag representing Quill Proofreader" src={proofreaderSrc} />
-    case GRAMMAR_ACTIVITY_CLASSIFICATION_KEY:
-      return <img alt="Puzzle piece representing Quill Grammar" src={grammarSrc} />
-    case DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY:
-      return <img alt="Magnifying glass representing Quill Diagnostic" src={diagnosticSrc} />
-    case CONNECT_ACTIVITY_CLASSIFICATION_KEY:
-      return <img alt="Target representing Quill Connect" src={connectSrc} />
-    case LESSONS_ACTIVITY_CLASSIFICATION_KEY:
-      return <img alt="Apple representing Quill Lessons" src={lessonsSrc} />
-    case EVIDENCE_ACTIVITY_CLASSIFICATION_KEY:
-      return <img alt="Book representing Quill Evidence" src={evidenceSrc} />
-    default:
-      return
+      case PROOFREADER_ACTIVITY_CLASSIFICATION_KEY:
+        return <img alt="Flag representing Quill Proofreader" src={proofreaderSrc} />
+      case GRAMMAR_ACTIVITY_CLASSIFICATION_KEY:
+        return <img alt="Puzzle piece representing Quill Grammar" src={grammarSrc} />
+      case DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY:
+        return <img alt="Magnifying glass representing Quill Diagnostic" src={diagnosticSrc} />
+      case CONNECT_ACTIVITY_CLASSIFICATION_KEY:
+        return <img alt="Target representing Quill Connect" src={connectSrc} />
+      case LESSONS_ACTIVITY_CLASSIFICATION_KEY:
+        return <img alt="Apple representing Quill Lessons" src={lessonsSrc} />
+      case EVIDENCE_ACTIVITY_CLASSIFICATION_KEY:
+        return <img alt="Book representing Quill Evidence" src={evidenceSrc} />
+      default:
+        return
     }
   }
 

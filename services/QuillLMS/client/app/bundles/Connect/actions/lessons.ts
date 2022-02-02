@@ -41,17 +41,17 @@ const loadLessonWithQuestions = (uid) => {
       questionTypes.forEach((questionType) => {
         const questionUids = fetchedLesson.questions.filter((q) => q.questionType == questionType).map((q) => q.key);
         switch (questionType) {
-        case 'questions':
-          dispatch(questionActions.loadSpecifiedQuestions(questionUids));
-          break
-        case 'fillInBlank':
-          dispatch(fillInBlankActions.loadSpecifiedQuestions(questionUids));
-          break
-        case 'titleCards':
-          dispatch(titleCardActions.loadSpecifiedTitleCards(questionUids));
-          break
-        case 'sentenceFragments':
-          dispatch(sentenceFragmentActions.loadSpecifiedSentenceFragments(questionUids));
+          case 'questions':
+            dispatch(questionActions.loadSpecifiedQuestions(questionUids));
+            break
+          case 'fillInBlank':
+            dispatch(fillInBlankActions.loadSpecifiedQuestions(questionUids));
+            break
+          case 'titleCards':
+            dispatch(titleCardActions.loadSpecifiedTitleCards(questionUids));
+            break
+          case 'sentenceFragments':
+            dispatch(sentenceFragmentActions.loadSpecifiedSentenceFragments(questionUids));
         }
       });
     });

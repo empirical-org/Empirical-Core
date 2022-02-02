@@ -15,28 +15,28 @@ class ResponseToggleFields extends React.Component<any, any> {
 
     if (addColorToTag) {
       switch (status) {
-      case 'Human Optimal':
-        tagClass += ' is-success';
-        break;
+        case 'Human Optimal':
+          tagClass += ' is-success';
+          break;
 
-      case 'Human Sub-Optimal':
-        tagClass += ' is-warning';
-        break;
+        case 'Human Sub-Optimal':
+          tagClass += ' is-warning';
+          break;
 
-      case 'Algorithm Optimal':
-        tagClass += ' is-success is-algo-optimal';
-        break;
+        case 'Algorithm Optimal':
+          tagClass += ' is-success is-algo-optimal';
+          break;
 
-      case 'Algorithm Sub-Optimal':
-        tagClass += ' is-info';
-        break;
+        case 'Algorithm Sub-Optimal':
+          tagClass += ' is-info';
+          break;
 
-      case 'Unmatched':
-        tagClass += ' is-danger';
-        break;
+        case 'Unmatched':
+          tagClass += ' is-danger';
+          break;
 
-      default:
-        tagClass += ' is-dark';
+        default:
+          tagClass += ' is-dark';
       }
     }
 

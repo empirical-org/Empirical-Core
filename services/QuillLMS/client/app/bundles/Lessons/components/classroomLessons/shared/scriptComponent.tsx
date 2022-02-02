@@ -102,35 +102,35 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   renderScript(script: Array<ScriptItem>) {
     return script.map((item, index) => {
       switch(item.type) {
-      case 'T-REVIEW':
-        return this.renderReview(index);
-      case 'STEP-HTML':
-        return (
-          <StepHtml
-            isTip={false}
-            item={item}
-            key={index}
-            onlyShowHeaders={this.props.onlyShowHeaders}
-            updateToggledHeaderCount={this.props.updateToggledHeaderCount}
-          />
-        )
-      case 'STEP-HTML-TIP':
-        return (
-          <StepHtml
-            isTip={true}
-            item={item}
-            key={index}
-            onlyShowHeaders={this.props.onlyShowHeaders}
-            updateToggledHeaderCount={this.props.updateToggledHeaderCount}
-          />
-        )
-      case 'T-MODEL':
-        return this.renderTeacherModel()
-      case 'Overview':
-        const html:string = item && item.data && item.data.body ? item.data.body : ''
-        return <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}}  />
-      default:
-        return <li key={index}>Unsupported type</li>
+        case 'T-REVIEW':
+          return this.renderReview(index);
+        case 'STEP-HTML':
+          return (
+            <StepHtml
+              isTip={false}
+              item={item}
+              key={index}
+              onlyShowHeaders={this.props.onlyShowHeaders}
+              updateToggledHeaderCount={this.props.updateToggledHeaderCount}
+            />
+          )
+        case 'STEP-HTML-TIP':
+          return (
+            <StepHtml
+              isTip={true}
+              item={item}
+              key={index}
+              onlyShowHeaders={this.props.onlyShowHeaders}
+              updateToggledHeaderCount={this.props.updateToggledHeaderCount}
+            />
+          )
+        case 'T-MODEL':
+          return this.renderTeacherModel()
+        case 'Overview':
+          const html:string = item && item.data && item.data.body ? item.data.body : ''
+          return <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}}  />
+        default:
+          return <li key={index}>Unsupported type</li>
       }
     });
   }
@@ -249,27 +249,27 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const {submissions, selected_submissions, current_slide, students, flaggedStudents, timestamps, } = this.props
     const sortedRows = studentsToBeSorted.sort((studentKey1, studentKey2) => {
       switch(this.state.sort) {
-      case 'flag':
-        if (flaggedStudents) {
-          const studentFlag1 = flaggedStudents[studentKey1] ? flaggedStudents[studentKey1] : false
-          const studentFlag2 = flaggedStudents[studentKey2] ? flaggedStudents[studentKey2] : false
-          return sortByFlag(studentFlag1, studentFlag2)
-        }
-      case 'responses':
-        const answer1 = submissions[current_slide][studentKey1].data
-        const answer2 = submissions[current_slide][studentKey2].data
-        return sortByAnswer(answer1, answer2)
-      case 'time':
-        const time1 = calculateElapsedMilliseconds(moment(submissions[current_slide][studentKey1].timestamp), timestamps, current_slide)
-        const time2 = calculateElapsedMilliseconds(moment(submissions[current_slide][studentKey2].timestamp), timestamps, current_slide)
-        return sortByTime(time1, time2)
-      case 'displayed':
-        if (selected_submissions && selected_submissions[current_slide]) {
-          return sortByDisplayed(selected_submissions[current_slide][studentKey1], selected_submissions[current_slide][studentKey2])
-        }
-      case 'lastName':
-      default:
-        return sortByLastName(studentKey1, studentKey2, students)
+        case 'flag':
+          if (flaggedStudents) {
+            const studentFlag1 = flaggedStudents[studentKey1] ? flaggedStudents[studentKey1] : false
+            const studentFlag2 = flaggedStudents[studentKey2] ? flaggedStudents[studentKey2] : false
+            return sortByFlag(studentFlag1, studentFlag2)
+          }
+        case 'responses':
+          const answer1 = submissions[current_slide][studentKey1].data
+          const answer2 = submissions[current_slide][studentKey2].data
+          return sortByAnswer(answer1, answer2)
+        case 'time':
+          const time1 = calculateElapsedMilliseconds(moment(submissions[current_slide][studentKey1].timestamp), timestamps, current_slide)
+          const time2 = calculateElapsedMilliseconds(moment(submissions[current_slide][studentKey2].timestamp), timestamps, current_slide)
+          return sortByTime(time1, time2)
+        case 'displayed':
+          if (selected_submissions && selected_submissions[current_slide]) {
+            return sortByDisplayed(selected_submissions[current_slide][studentKey1], selected_submissions[current_slide][studentKey2])
+          }
+        case 'lastName':
+        default:
+          return sortByLastName(studentKey1, studentKey2, students)
       }
     })
 

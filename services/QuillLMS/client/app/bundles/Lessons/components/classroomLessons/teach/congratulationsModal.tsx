@@ -45,22 +45,22 @@ export default class CongratulationsModal extends React.Component<{closeModal: a
   renderFeedbackSection = () => {
     const { selectedEmoji, } = this.state
     switch (selectedEmoji) {
-    case 2:
-    case 1:
-    case 0:
-      return this.renderFeedbackResponse()
-    default:
-      return (
-        <div className="feedback">
-          <p>How was your experience with Quill Lessons?</p>
-          <p>We are eager to hear your feedback to improve this tool.</p>
-          <div className="emoji-row">
-            <img onClick={this.handleDisappointedEmojiClick} src="https://assets.quill.org/images/emojis/disappointed_face.png" />
-            <img onClick={this.handleNeutralEmojiClick} src="https://assets.quill.org/images/emojis/neutral_face.png" />
-            <img onClick={this.handleHappyEmojiClick} src="https://assets.quill.org/images/emojis/inlove_face.png" />
+      case 2:
+      case 1:
+      case 0:
+        return this.renderFeedbackResponse()
+      default:
+        return (
+          <div className="feedback">
+            <p>How was your experience with Quill Lessons?</p>
+            <p>We are eager to hear your feedback to improve this tool.</p>
+            <div className="emoji-row">
+              <img onClick={this.handleDisappointedEmojiClick} src="https://assets.quill.org/images/emojis/disappointed_face.png" />
+              <img onClick={this.handleNeutralEmojiClick} src="https://assets.quill.org/images/emojis/neutral_face.png" />
+              <img onClick={this.handleHappyEmojiClick} src="https://assets.quill.org/images/emojis/inlove_face.png" />
+            </div>
           </div>
-        </div>
-      )
+        )
     }
   }
 

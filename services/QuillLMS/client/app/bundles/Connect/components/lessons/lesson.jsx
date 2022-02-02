@@ -51,48 +51,48 @@ class Lesson extends React.Component {
   getQuestionAction = () => {
     const questionType = this.lesson().questionType
     switch (questionType) {
-    case C.INTERNAL_SENTENCE_COMBINING_TYPE:
-      return questionActions.submitNewQuestion
-    case C.INTERNAL_SENTENCE_FRAGMENTS_TYPE:
-      return sentenceFragmentActions.submitNewSentenceFragment
-    case C.INTERNAL_FILL_IN_BLANK_TYPE:
-      return fillInBlankActions.submitNewQuestion
-    case C.INTERNAL_TITLE_CARDS_TYPE:
-      return titleCardActions.submitNewTitleCard
-    default:
-      return questionActions.submitNewQuestion
+      case C.INTERNAL_SENTENCE_COMBINING_TYPE:
+        return questionActions.submitNewQuestion
+      case C.INTERNAL_SENTENCE_FRAGMENTS_TYPE:
+        return sentenceFragmentActions.submitNewSentenceFragment
+      case C.INTERNAL_FILL_IN_BLANK_TYPE:
+        return fillInBlankActions.submitNewQuestion
+      case C.INTERNAL_TITLE_CARDS_TYPE:
+        return titleCardActions.submitNewTitleCard
+      default:
+        return questionActions.submitNewQuestion
     }
   };
 
   promptForm = () => {
     const questionType = this.lesson().questionType
     switch (questionType) {
-    case C.INTERNAL_SENTENCE_COMBINING_TYPE:
-      return QuestionForm
-    case C.INTERNAL_SENTENCE_FRAGMENTS_TYPE:
-      return SentenceFragmentForm
-    case C.INTERNAL_FILL_IN_BLANK_TYPE:
-      return FillInBlankForm
-    case C.INTERNAL_TITLE_CARDS_TYPE:
-      return TitleCardForm
-    default:
-      return QuestionForm
+      case C.INTERNAL_SENTENCE_COMBINING_TYPE:
+        return QuestionForm
+      case C.INTERNAL_SENTENCE_FRAGMENTS_TYPE:
+        return SentenceFragmentForm
+      case C.INTERNAL_FILL_IN_BLANK_TYPE:
+        return FillInBlankForm
+      case C.INTERNAL_TITLE_CARDS_TYPE:
+        return TitleCardForm
+      default:
+        return QuestionForm
     }
   };
 
   urlString = () => {
     const questionType = this.lesson().questionType
     switch (questionType) {
-    case C.INTERNAL_SENTENCE_COMBINING_TYPE:
-      return 'questions'
-    case C.INTERNAL_SENTENCE_FRAGMENTS_TYPE:
-      return 'sentence-fragments'
-    case C.INTERNAL_FILL_IN_BLANK_TYPE:
-      return 'fill-in-the-blanks'
-    case C.INTERNAL_TITLE_CARDS_TYPE:
-      return 'title-cards'
-    default:
-      return 'questions'
+      case C.INTERNAL_SENTENCE_COMBINING_TYPE:
+        return 'questions'
+      case C.INTERNAL_SENTENCE_FRAGMENTS_TYPE:
+        return 'sentence-fragments'
+      case C.INTERNAL_FILL_IN_BLANK_TYPE:
+        return 'fill-in-the-blanks'
+      case C.INTERNAL_TITLE_CARDS_TYPE:
+        return 'title-cards'
+      default:
+        return 'questions'
     }
   };
 

@@ -15,22 +15,22 @@ export default (state, action) => {
   state = state || initialState;
 
   switch(action.type) {
-  case 'SWITCH_SCHOOL':
-    return updateObject(state, {
-      selectedSchool: action.school,
-      selectedTeacher: 'All Teachers',
-      selectedClassroom: 'All Classrooms',
-    });
-  case 'SWITCH_TEACHER':
-    return updateObject(state, {
-      selectedTeacher: action.teacher,
-      selectedClassroom: 'All Classrooms',
-    });
-  case 'SWITCH_CLASSROOM':
-    return updateObject(state, {
-      selectedClassroom: action.classroom,
-    });
-  default:
-    return state;
+    case 'SWITCH_SCHOOL':
+      return updateObject(state, {
+        selectedSchool: action.school,
+        selectedTeacher: 'All Teachers',
+        selectedClassroom: 'All Classrooms',
+      });
+    case 'SWITCH_TEACHER':
+      return updateObject(state, {
+        selectedTeacher: action.teacher,
+        selectedClassroom: 'All Classrooms',
+      });
+    case 'SWITCH_CLASSROOM':
+      return updateObject(state, {
+        selectedClassroom: action.classroom,
+      });
+    default:
+      return state;
   }
 };

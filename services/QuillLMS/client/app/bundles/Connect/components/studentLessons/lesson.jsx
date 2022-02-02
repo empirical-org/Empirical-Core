@@ -313,18 +313,18 @@ export class Lesson extends React.Component {
       question.key = key;
       let type
       switch (questionType) {
-      case 'questions':
-        type = 'SC'
-        break
-      case 'fillInBlank':
-        type = 'FB'
-        break
-      case 'titleCards':
-        type = TITLE_CARD_TYPE
-        break
-      case 'sentenceFragments':
-      default:
-        type = 'SF'
+        case 'questions':
+          type = 'SC'
+          break
+        case 'fillInBlank':
+          type = 'FB'
+          break
+        case 'titleCards':
+          type = TITLE_CARD_TYPE
+          break
+        case 'sentenceFragments':
+        default:
+          type = 'SF'
       }
       return { type, question, };
     });

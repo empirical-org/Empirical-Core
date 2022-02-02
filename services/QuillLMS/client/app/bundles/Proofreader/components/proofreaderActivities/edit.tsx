@@ -90,27 +90,27 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean,
     let explanation
 
     switch (state) {
-    case UNNECESSARY_SPACE:
-      explanation = 'You added an unnecessary space.'
-      break
-    case MULTIPLE_UNNECESSARY_DELETION:
-      explanation = "You took out words that weren't part of an error."
-      break
-    case SINGLE_UNNECESSARY_DELETION:
-      explanation = "You took out a word that wasn't part of an error."
-      break
-    case MULTIPLE_UNNECESSARY_ADDITION:
-      explanation = "You added unnecessary words."
-      break
-    case SINGLE_UNNECESSARY_ADDITION:
-      explanation = "You added an unnecessary word."
-      break
-    case SINGLE_UNNECESSARY_ADDITION:
-      explanation = "You added an unnecessary word."
-      break
-    case UNNECESSARY_CHANGE:
-      explanation = 'You made an unnecessary change.'
-      break
+      case UNNECESSARY_SPACE:
+        explanation = 'You added an unnecessary space.'
+        break
+      case MULTIPLE_UNNECESSARY_DELETION:
+        explanation = "You took out words that weren't part of an error."
+        break
+      case SINGLE_UNNECESSARY_DELETION:
+        explanation = "You took out a word that wasn't part of an error."
+        break
+      case MULTIPLE_UNNECESSARY_ADDITION:
+        explanation = "You added unnecessary words."
+        break
+      case SINGLE_UNNECESSARY_ADDITION:
+        explanation = "You added an unnecessary word."
+        break
+      case SINGLE_UNNECESSARY_ADDITION:
+        explanation = "You added an unnecessary word."
+        break
+      case UNNECESSARY_CHANGE:
+        explanation = 'You made an unnecessary change.'
+        break
     }
 
     return <p className="unnecessary-explanation">{explanation}</p>
@@ -123,26 +123,26 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean,
 
     let src, headerText, altText
     switch (state) {
-    case 'correct':
-      src = correctIconSrc
-      altText = "Correct icon"
-      headerText = "Correct"
-      break
-    case 'incorrect':
-      src = incorrectIconSrc
-      altText = "Incorrect icon"
-      headerText = "Incorrect"
-      break
-    case UNNECESSARY_SPACE:
-    case MULTIPLE_UNNECESSARY_DELETION:
-    case SINGLE_UNNECESSARY_DELETION:
-    case MULTIPLE_UNNECESSARY_ADDITION:
-    case SINGLE_UNNECESSARY_ADDITION:
-    case UNNECESSARY_CHANGE:
-      src = notNecessaryIconSrc
-      altText = "Not necessary icon"
-      headerText = "Not necessary"
-      break
+      case 'correct':
+        src = correctIconSrc
+        altText = "Correct icon"
+        headerText = "Correct"
+        break
+      case 'incorrect':
+        src = incorrectIconSrc
+        altText = "Incorrect icon"
+        headerText = "Incorrect"
+        break
+      case UNNECESSARY_SPACE:
+      case MULTIPLE_UNNECESSARY_DELETION:
+      case SINGLE_UNNECESSARY_DELETION:
+      case MULTIPLE_UNNECESSARY_ADDITION:
+      case SINGLE_UNNECESSARY_ADDITION:
+      case UNNECESSARY_CHANGE:
+        src = notNecessaryIconSrc
+        altText = "Not necessary icon"
+        headerText = "Not necessary"
+        break
     }
     const parentElement = document.getElementById(id)
     const style = parentElement ? { top: `${parentElement.offsetTop + 5}px`, height: tooltipHeight } : {}
@@ -172,20 +172,20 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean,
     const { activeIndex, index, state, } = this.props
     let className = activeIndex === index ? 'active' : ''
     switch (state) {
-    case 'correct':
-      className += ' correct'
-      break
-    case 'incorrect':
-      className += ' incorrect'
-      break
-    case UNNECESSARY_SPACE:
-    case MULTIPLE_UNNECESSARY_DELETION:
-    case SINGLE_UNNECESSARY_DELETION:
-    case MULTIPLE_UNNECESSARY_ADDITION:
-    case SINGLE_UNNECESSARY_ADDITION:
-    case UNNECESSARY_CHANGE:
-      className += ' unnecessary'
-      break
+      case 'correct':
+        className += ' correct'
+        break
+      case 'incorrect':
+        className += ' incorrect'
+        break
+      case UNNECESSARY_SPACE:
+      case MULTIPLE_UNNECESSARY_DELETION:
+      case SINGLE_UNNECESSARY_DELETION:
+      case MULTIPLE_UNNECESSARY_ADDITION:
+      case SINGLE_UNNECESSARY_ADDITION:
+      case UNNECESSARY_CHANGE:
+        className += ' unnecessary'
+        break
     }
     return className
   }

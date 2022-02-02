@@ -48,41 +48,41 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch, 
   const res: PartialResponse = {}
   const matchConceptResults = match.response.concept_results || match.response.conceptResults
   switch (match.errorType) {
-  case ERROR_TYPES.INCORRECT_WORD:
-    res.feedback = feedbackStrings.modifiedWordError;
-    res.author = 'Modified Word Hint';
-    res.parent_id = match.response.key;
-    res.concept_results = copyMatchConceptResults && matchConceptResults ? matchConceptResults : [
-      conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
-    ];
-    return res;
-  case ERROR_TYPES.MISSPELLED_WORD:
-    res.feedback = spellingFeedbackStrings['Spelling Hint'];
-    res.author = 'Spelling Hint';
-    res.parent_id = match.response.key;
-    res.misspelled_words = [match.extraneousText]
-    res.concept_results = copyMatchConceptResults && matchConceptResults ? matchConceptResults : [
-      conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g')
-    ];
-    return res;
-  case ERROR_TYPES.ADDITIONAL_WORD:
-    res.feedback = feedbackStrings.additionalWordError;
-    res.author = 'Additional Word Hint';
-    res.parent_id = match.response.key;
-    res.concept_results = copyMatchConceptResults && matchConceptResults ? matchConceptResults : [
-      conceptResultTemplate('QYHg1tpDghy5AHWpsIodAg')
-    ];
-    return res;
-  case ERROR_TYPES.MISSING_WORD:
-    res.feedback = feedbackStrings.missingWordError;
-    res.author = 'Missing Word Hint';
-    res.parent_id = match.response.key;
-    res.concept_results = copyMatchConceptResults && matchConceptResults ? matchConceptResults : [
-      conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
-    ];
-    return res;
-  default:
-    return;
+    case ERROR_TYPES.INCORRECT_WORD:
+      res.feedback = feedbackStrings.modifiedWordError;
+      res.author = 'Modified Word Hint';
+      res.parent_id = match.response.key;
+      res.concept_results = copyMatchConceptResults && matchConceptResults ? matchConceptResults : [
+        conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
+      ];
+      return res;
+    case ERROR_TYPES.MISSPELLED_WORD:
+      res.feedback = spellingFeedbackStrings['Spelling Hint'];
+      res.author = 'Spelling Hint';
+      res.parent_id = match.response.key;
+      res.misspelled_words = [match.extraneousText]
+      res.concept_results = copyMatchConceptResults && matchConceptResults ? matchConceptResults : [
+        conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g')
+      ];
+      return res;
+    case ERROR_TYPES.ADDITIONAL_WORD:
+      res.feedback = feedbackStrings.additionalWordError;
+      res.author = 'Additional Word Hint';
+      res.parent_id = match.response.key;
+      res.concept_results = copyMatchConceptResults && matchConceptResults ? matchConceptResults : [
+        conceptResultTemplate('QYHg1tpDghy5AHWpsIodAg')
+      ];
+      return res;
+    case ERROR_TYPES.MISSING_WORD:
+      res.feedback = feedbackStrings.missingWordError;
+      res.author = 'Missing Word Hint';
+      res.parent_id = match.response.key;
+      res.concept_results = copyMatchConceptResults && matchConceptResults ? matchConceptResults : [
+        conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
+      ];
+      return res;
+    default:
+      return;
   }
 }
 

@@ -302,31 +302,31 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     const props = { mode, submissions, selected_submissions, selected_submission_order, projector, studentCount};
     let slide
     switch (current.type) {
-    case 'CL-LB':
-      slide = <CLStudentLobby data={data} key={data.current_slide} projector={projector} title={lessonData.title} />
-      break
-    case 'CL-ST':
-      slide = <CLStudentStatic data={current.data} key={data.current_slide} />
-      break
-    case 'CL-MD':
-      slide = <CLStudentModelQuestion data={current.data} key={data.current_slide} model={model} projector={projector} prompt={prompt} />
-      break
-    case 'CL-SA':
-      slide = <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
-      break
-    case 'CL-FB':
-      slide = <CLStudentFillInTheBlank data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
-      break
-    case 'CL-FL':
-      slide = <CLListBlanks data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
-      break
-    case 'CL-MS':
-      slide = <CLMultistep data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
-      break
-    case 'CL-EX':
-      slide = <CLStudentStatic data={current.data} key={data.current_slide} />
-      break
-    default:
+      case 'CL-LB':
+        slide = <CLStudentLobby data={data} key={data.current_slide} projector={projector} title={lessonData.title} />
+        break
+      case 'CL-ST':
+        slide = <CLStudentStatic data={current.data} key={data.current_slide} />
+        break
+      case 'CL-MD':
+        slide = <CLStudentModelQuestion data={current.data} key={data.current_slide} model={model} projector={projector} prompt={prompt} />
+        break
+      case 'CL-SA':
+        slide = <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
+        break
+      case 'CL-FB':
+        slide = <CLStudentFillInTheBlank data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
+        break
+      case 'CL-FL':
+        slide = <CLListBlanks data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
+        break
+      case 'CL-MS':
+        slide = <CLMultistep data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
+        break
+      case 'CL-EX':
+        slide = <CLStudentStatic data={current.data} key={data.current_slide} />
+        break
+      default:
 
     }
     return (

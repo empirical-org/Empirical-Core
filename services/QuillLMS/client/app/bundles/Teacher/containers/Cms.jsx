@@ -183,15 +183,15 @@ export default class Cms extends React.Component {
   render() {
     var result;
     switch (this.state.crudState) {
-    case 'index':
-      result = this.indexTable();
-      break;
-    case 'edit':
-      result = this.individualResourceMode();
-      break;
-    case 'new':
-      result = this.individualResourceMode();
-      break;
+      case 'index':
+        result = this.indexTable();
+        break;
+      case 'edit':
+        result = this.individualResourceMode();
+        break;
+      case 'new':
+        result = this.individualResourceMode();
+        break;
     }
 
     return result || null;

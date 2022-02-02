@@ -50,33 +50,33 @@ class FeedbackComponent extends React.Component<any, any> {
     const latestAttempt = getLatestAttempt(data.question.attempts);
     let returnVal;
     switch (this.getFeedbackType(data)) {
-    case "revise-unmatched":
-      returnVal = (<p>{data.sentence}</p>);
-      break;
-    case "revise-matched":
-    case "correct-matched":
-      returnVal = data.renderFeedbackStatements(latestAttempt);
-      break;
-    case "override":
-      returnVal = (<p>{data.sentence}</p>);
-      break;
-    case "instructions":
-      returnVal = (<p>{data.question.instructions}</p>);
-      break;
-    case "getQuestion-instructions":
-      returnVal = (<p>{data.getQuestion().instructions}</p>);
-      break;
-    case "default-fill-in-blank":
-      returnVal = (<p>Fill in the blank with the correct option.</p>);
-      break;
-    case "default-with-cues":
-      returnVal = (<p>Combine the sentences using {data.listCuesAsString(data.getQuestion().cues)}</p>);
-      break;
-    case "default":
-      returnVal = (<p>Combine the sentences into one sentence.</p>)
-      break;
-    default:
-      returnVal = (<p>Combine the sentences into one sentence.</p>)
+      case "revise-unmatched":
+        returnVal = (<p>{data.sentence}</p>);
+        break;
+      case "revise-matched":
+      case "correct-matched":
+        returnVal = data.renderFeedbackStatements(latestAttempt);
+        break;
+      case "override":
+        returnVal = (<p>{data.sentence}</p>);
+        break;
+      case "instructions":
+        returnVal = (<p>{data.question.instructions}</p>);
+        break;
+      case "getQuestion-instructions":
+        returnVal = (<p>{data.getQuestion().instructions}</p>);
+        break;
+      case "default-fill-in-blank":
+        returnVal = (<p>Fill in the blank with the correct option.</p>);
+        break;
+      case "default-with-cues":
+        returnVal = (<p>Combine the sentences using {data.listCuesAsString(data.getQuestion().cues)}</p>);
+        break;
+      case "default":
+        returnVal = (<p>Combine the sentences into one sentence.</p>)
+        break;
+      default:
+        returnVal = (<p>Combine the sentences into one sentence.</p>)
     }
     return returnVal
   }
