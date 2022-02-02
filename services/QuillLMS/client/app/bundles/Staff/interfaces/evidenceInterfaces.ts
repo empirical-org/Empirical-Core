@@ -87,6 +87,11 @@ export interface RuleInterface {
   prompt_ids?: number[],
   state: string,
   conditional?: boolean,
+  hint?: {
+    id: number,
+    image_link: string,
+    explanation: string
+  },
   label?: {
     id: number,
     name: string

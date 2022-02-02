@@ -28,7 +28,7 @@ interface RuleFormProps {
 
 const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestErrors,  rule, submitRule, universalRuleType }: RuleFormProps) => {
 
-  const { name, rule_type, id, uid, optimal, plagiarism_texts, concept_uid, note, feedbacks, conditional } = rule;
+  const { name, rule_type, id, uid, optimal, plagiarism_texts, concept_uid, note, feedbacks, conditional, hint, } = rule;
   const initialRuleType = getInitialRuleType({ isUniversal, rule_type, universalRuleType});
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
   const initialPlagiarismTexts = plagiarism_texts || [{ text: '' }]
@@ -41,6 +41,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestEr
   const [ruleConceptUID, setRuleConceptUID] = React.useState<string>(concept_uid);
   const [ruleNote, setRuleNote] = React.useState<string>(initialNote);
   const [ruleFeedbacks, setRuleFeedbacks] = React.useState<object>(initialFeedbacks);
+  const [ruleHint, setRuleHint] = React.useState<object|null>(hint)
   const [ruleOptimal, setRuleOptimal] = React.useState<any>(initialRuleOptimal);
   const [ruleName, setRuleName] = React.useState<string>(name || '');
   const [rulePrompts, setRulePrompts] = React.useState<object>({});
@@ -110,7 +111,8 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestEr
       ruleType,
       setErrors,
       submitRule,
-      universalRulesCount
+      universalRulesCount,
+      ruleHint,
     });
   }
 
@@ -171,6 +173,8 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestEr
         />}
         {isUniversal && <RuleUniversalAttributes
           errors={errors}
+          hint={ruleHint}
+          setHint={setRuleHint}
           setUniversalFeedback={setRuleFeedbacks}
           universalFeedback={ruleFeedbacks}
         />}

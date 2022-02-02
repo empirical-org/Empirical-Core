@@ -35,7 +35,7 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
   const { params } = match;
   const { promptId } = params;
 
-  const { name, rule_type, id, uid, optimal, plagiarism_texts, concept_uid, note, feedbacks, state, label, conditional } = rule;
+  const { name, rule_type, id, uid, optimal, plagiarism_texts, concept_uid, note, feedbacks, state, label, conditional, hint, } = rule;
 
   const initialRuleType = getInitialRuleType({ isUniversal, rule_type, universalRuleType: null});
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
@@ -53,6 +53,7 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
   const [ruleConceptUID, setRuleConceptUID] = React.useState<string>(concept_uid || '');
   const [ruleNote, setRuleNote] = React.useState<string>(initialNote);
   const [ruleFeedbacks, setRuleFeedbacks] = React.useState<object>(initialFeedbacks);
+  const [ruleHint, setRuleHint] = React.useState<object|null>(hint)
   const [ruleOptimal, setRuleOptimal] = React.useState<any>(initialRuleOptimal);
   const [ruleName, setRuleName] = React.useState<string>(name || '');
   const [ruleLabelName, setRuleLabelName] = React.useState<string>(initialLabel);
@@ -137,7 +138,8 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
       ruleConditional,
       setErrors,
       submitRule,
-      universalRulesCount
+      universalRulesCount,
+      ruleHint,
     }).then(() => {
       setIsLoading(false);
     });
@@ -244,6 +246,8 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
         />}
         {(isUniversal || isSemantic) && <RuleUniversalAttributes
           errors={errors}
+          hint={ruleHint}
+          setHint={setRuleHint}
           setUniversalFeedback={setRuleFeedbacks}
           universalFeedback={ruleFeedbacks}
         />}

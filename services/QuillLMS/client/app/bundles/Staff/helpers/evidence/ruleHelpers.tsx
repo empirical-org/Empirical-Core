@@ -300,7 +300,8 @@ export const buildRule = ({
   ruleType,
   ruleFeedbacks,
   ruleConditional,
-  universalRulesCount
+  universalRulesCount,
+  ruleHint,
 }) => {
   const { suborder, universal, state } =  rule;
   const promptIds = [];
@@ -319,6 +320,7 @@ export const buildRule = ({
     rule_type: ruleType.value,
     suborder: suborder ? suborder : order,
     universal: universal,
+    hint_attributes: ruleHint,
     state
   };
 
@@ -370,7 +372,8 @@ export async function handleSubmitRule({
   setErrors,
   submitRule,
   ruleFeedbacks,
-  universalRulesCount
+  universalRulesCount,
+  ruleHint
 }) {
   const newOrUpdatedRule = buildRule({
     plagiarismTexts,
@@ -387,7 +390,8 @@ export async function handleSubmitRule({
     ruleType,
     ruleFeedbacks,
     universalRulesCount,
-    ruleConditional
+    ruleConditional,
+    ruleHint
   });
   const { universal } = rule;
   let keys: string[] = ['Name', 'Concept UID'];
