@@ -89,7 +89,11 @@ class PagesController < ApplicationController
         faqs: [
           {
             question: "What is Quill?",
-            answer: "<p>Quill is a lightweight learning management system integrated with a suite of online apps that teach writing, grammar, and vocabulary skills to students. Students using Quill learn English grammar and vocabulary by fixing sentences, proofreading passages, and collaboratively writing passages. Quill is part of Empirical, a 501(c)3 nonprofit organization.</p>"
+            answer: '
+              <p>Quill is a nonprofit 501(c)(3) that provides free writing and grammar activities for students. Quill&#39;s tools provide practice with <a href="https://www.quill.org/tools/grammar">grammar conventions</a>, <a href="https://www.quill.org/tools/connect">combining sentences</a>, and <a href="https://www.quill.org/tools/proofreader">proofreading passages</a>.
+              Teachers can assign Quill&#39;s <a href="https://support.quill.org/en/articles/1173157-getting-started-how-to-set-up-your-first-quill-lesson">synchronous lessons tool</a> to provide whole-group or small-group instruction. Quill provides
+              <a href="https://support.quill.org/en/articles/2554430-what-are-the-assessments-diagnostics-and-skills-surveys-available-on-quill-and-who-are-they-for">a baseline diagnostic assessment</a> teachers can assign to identify students&#39; current strengths and areas of growth. Once students complete a diagnostic, Quill provides
+              <a href="https://support.quill.org/en/articles/5208118-diagnostic-recommendations-tips-and-tricks">personalized learning plans</a> for addressing each student&#39;s needs.</p>'
           },
           {
             question: "How does Quill work?",
@@ -115,12 +119,13 @@ class PagesController < ApplicationController
           },
           {
             question: "How can I integrate Quill into my classroom?",
-            answer: "
+            answer: '
               <p><strong>Do Now</strong>: Use Quill’s activities as a quick daily warm-up at the beginning of class.</p>
               <p><strong>Whole-Class Lessons</strong>: Lead whole-class interactive and small group writing instruction.</p>
               <p><strong>Independent Practice</strong>: Use Quill after a mini lesson to reinforce your instruction.</p>
               <p><strong>Homework</strong>: Assign Quill as homework for students to complete on a smartphone or a computer.</p>
-            "
+              <p>For more information and ideas, check out our <a href="https://www.quill.org/teacher-center/topic/teacher-stories">teacher stories.</a></p>
+            '
           },
           {
             question: "Which grammar concepts are covered by Quill?",
@@ -147,7 +152,7 @@ class PagesController < ApplicationController
         faqs: [
           {
             question: "I just signed up for Quill. Now what?",
-            answer: "<p>We have a getting started guide <a href='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_Guide_for_Teachers_Updated_03_20_2020.pdf'>here.</a></p>"
+            answer: '<p>Welcome to Quill! We have a getting started guide <a href="https://support.quill.org/en/articles/4645316-getting-started-guide-for-teachers">here</a>. You can also email support@quill.org with specific questions.</p>'
           },
           {
             question: "How much time should my students spend on Quill?",
@@ -286,7 +291,7 @@ class PagesController < ApplicationController
           },
           {
             question: "What are Quill's technical requirements?",
-            answer: "<p>Quill is built in HTML5, so it runs on all tablets, smartphones and modern browsers. Quill runs in Firefox, Chrome, Safari, and Internet Explorer 9, 10, and 11. Quill recommends that students have access to keyboards so that they can type their responses.</p>"
+            answer: "<p>Quill is built in HTML5, so it runs on all tablets, smartphones and modern browsers. Quill runs in Firefox, Chrome, Safari, and Microsoft Edge. Quill recommends that students have access to keyboards so that they can type their responses.</p>"
           },
           {
             question: "Can Quill be used on smartphones and tablets?",
@@ -329,9 +334,9 @@ class PagesController < ApplicationController
           },
           {
             question: "I have an idea or a suggestion for Quill. How can I share it?",
-            answer: "
-              <p>We are always looking for suggestions and ideas from our teachers to improve and grow Quill so if you have an idea that you would like to see on Quill, please fill out <a href='https://docs.google.com/forms/d/e/1FAIpQLScwoB67VKZicMzukzpiK5ufDFSEjLXbUBjEGOl_UMsRl02aiw/viewform?usp=send_form'>this short form</a> and share it with us. We have so far turned many of our teachers' ideas to products such as Quill Diagnostic and Quill Lessons, so don't hesitate to reach out to us.</p>
-            "
+            answer: '
+              <p>We are always looking for suggestions and ideas from our teachers to improve and grow Quill. If you have an idea for a feature you would like to see on Quill, please <a href="https://quillorg.canny.io/feedback">create a post here</a>. If you have an idea for content you would like to see on Quill, please <a href="https://quillorg.canny.io/content-feedback">create a post here</a>. We have turned many of our teachers&#39; ideas to products such as Quill Diagnostic and Quill Lessons, so don&#39;t hesitate to reach out to us.</p>
+            '
           },
         ]
       },
