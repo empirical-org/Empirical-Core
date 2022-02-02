@@ -13,7 +13,7 @@ exports[`PromptStep component active state before any responses have been submit
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -139,7 +139,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -272,7 +272,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
             Object {
               "conjunction": "because",
               "max_attempts": 5,
-              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
               "prompt_id": 1,
@@ -384,7 +384,7 @@ exports[`PromptStep component active state when an optimal response has been sub
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -489,6 +489,7 @@ exports[`PromptStep component active state when an optimal response has been sub
           <div
             className="feedback-details-section"
           >
+<<<<<<< HEAD
             <span />
             <button
               className="quill-button focus-on-light"
@@ -500,6 +501,12 @@ exports[`PromptStep component active state when an optimal response has been sub
               </span>
             </button>
           </div>
+=======
+            <span>
+              Next
+            </span>
+          </button>
+>>>>>>> a59a51ad5 (small cosmetic changes)
         </div>
         <Feedback
           customFeedback={null}
@@ -517,7 +524,7 @@ exports[`PromptStep component active state when an optimal response has been sub
             Object {
               "conjunction": "because",
               "max_attempts": 5,
-              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
               "prompt_id": 1,
@@ -629,7 +636,7 @@ exports[`PromptStep component active state when the max attempts have been reach
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -762,6 +769,7 @@ exports[`PromptStep component active state when the max attempts have been reach
           <div
             className="feedback-details-section"
           >
+<<<<<<< HEAD
             <span />
             <button
               className="quill-button focus-on-light"
@@ -773,6 +781,12 @@ exports[`PromptStep component active state when the max attempts have been reach
               </span>
             </button>
           </div>
+=======
+            <span>
+              Next
+            </span>
+          </button>
+>>>>>>> a59a51ad5 (small cosmetic changes)
         </div>
         <Feedback
           customFeedback={null}
@@ -790,7 +804,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             Object {
               "conjunction": "because",
               "max_attempts": 5,
-              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
               "prompt_id": 1,
@@ -887,7 +901,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                         className="feedback-text"
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+                            "__html": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                           }
@@ -954,7 +968,7 @@ exports[`PromptStep component active state when the max attempts have been reach
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -1086,7 +1100,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             Object {
               "conjunction": "because",
               "max_attempts": 5,
-              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
               "prompt_id": 1,
@@ -1197,7 +1211,7 @@ exports[`PromptStep component inactive state renders 1`] = `
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
