@@ -65,7 +65,8 @@ export interface PassagesInterface {
   image_alt_text?: string,
   image_caption?: string,
   image_attribution?: string,
-  highlight_prompt?: string
+  highlight_prompt?: string,
+  essential_knowledge_text?: string
 }
 
 export interface PlagiarismText {

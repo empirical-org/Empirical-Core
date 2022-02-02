@@ -6,8 +6,8 @@ import ReadAndHighlightInstructions from '../../../components/studentView/readAn
 const starterProps = {
   passage: { highlight_prompt: ''},
   activeStep: 1,
-  showReadTheDirectionsModal: false,
-  closeReadTheDirectionsModal: () => {},
+  showReadTheDirectionsButton: false,
+  handleReadTheDirectionsButtonClick: () => {},
   studentHighlights: [],
   removeHighlight: () => {},
   inReflection: false
