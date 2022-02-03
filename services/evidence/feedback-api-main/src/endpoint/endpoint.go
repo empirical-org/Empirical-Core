@@ -208,7 +208,7 @@ func buildFeedbackHistory(request_object APIRequest, feedback APIResponse, used 
 			Highlight: feedback.Highlight,
 			Labels: feedback.Labels,
 			Response_id: feedback.Response_id,
-			Hint: feedback.Hint
+			Hint: feedback.Hint,
 		},
 	}
 }
