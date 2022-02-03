@@ -267,6 +267,12 @@ func TestBuildFeedbackHistory(t *testing.T) {
 				Character: 0,
 			},
 		},
+		Hint: Hint {
+			Id: 1,
+			Explanation: "this is an explanation",
+			Image_link: "google.com",
+			Image_alt_text: "a description of the image",
+		},
 	}
 	used := true
 	time_received := time.Now()
@@ -287,6 +293,7 @@ func TestBuildFeedbackHistory(t *testing.T) {
 			Highlight: feedback.Highlight,
 			Labels: feedback.Labels,
 			Response_id: feedback.Response_id,
+			Hint: feedback.Hint,
 		},
 	}
 
@@ -301,4 +308,12 @@ type ResponseJson struct {
 	Feedback_type string
 	Response_id string
 	Highlight []string
+	Hint Hint
+}
+
+type Hint struct {
+	Id int
+	Explanation string
+	Image_link string
+	Image_alt_text string
 }
