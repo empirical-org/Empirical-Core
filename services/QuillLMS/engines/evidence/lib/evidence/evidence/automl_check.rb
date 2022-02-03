@@ -31,6 +31,7 @@ module Evidence
         entry: @entry,
         concept_uid: matched_rule&.concept_uid || '',
         rule_uid: matched_rule&.uid || '',
+        hint: matched_rule&.hint,
         highlight: highlight
       }
     end

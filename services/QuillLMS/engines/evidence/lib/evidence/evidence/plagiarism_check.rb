@@ -27,6 +27,7 @@ module Evidence
         entry: @entry,
         concept_uid: optimal? ? optimal_rule_hash["concept_uid"] : @rule&.concept_uid,
         rule_uid: optimal? ? optimal_rule_hash["uid"] : @rule&.uid,
+        hint: optimal ? nil : @rule&.hint,
         highlight: highlights
       }
     end
