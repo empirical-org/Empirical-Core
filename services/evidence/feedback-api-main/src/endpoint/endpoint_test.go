@@ -310,10 +310,3 @@ type ResponseJson struct {
 	Highlight []string
 	Hint Hint
 }
-
-type Hint struct {
-	Id int
-	Explanation string
-	Image_link string
-	Image_alt_text string
-}
