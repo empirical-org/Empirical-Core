@@ -208,6 +208,7 @@ func buildFeedbackHistory(request_object APIRequest, feedback APIResponse, used 
 			Highlight: feedback.Highlight,
 			Labels: feedback.Labels,
 			Response_id: feedback.Response_id,
+      Hint: feedback.Hint
 		},
 	}
 }
@@ -239,6 +240,7 @@ type APIResponse struct {
 	Optimal bool `json:"optimal"`
 	Response_id string `json:"response_id"`
 	Highlight []Highlight `json:"highlight"`
+  Hint Hint `json:"hint"`
 	Labels string `json:"labels,omitempty"`
 	Rule_uid string `json:"rule_uid"`
 }
@@ -251,6 +253,13 @@ type Highlight struct {
 	Character int `json:"character,omitempty"`
 }
 
+type Hint struct {
+  Id int `json:"id,omitempty"`
+	Explanation string `json:"explanation"`
+	Image_link string `json:"image_link"`
+  Image_alt_text string `json:"image_alt_text"`
+}
+
 type InternalAPIResponse struct {
 	Priority int
 	APIResponse APIResponse
@@ -259,6 +268,7 @@ type InternalAPIResponse struct {
 
 type FeedbackHistoryMetadata struct {
 	Highlight []Highlight `json:"highlight"`
+  Hint Hint `json:"hint"`
 	Labels string `json:"labels,omitempty"`
 	Response_id string `json:"response_id"`
 }
