@@ -130,7 +130,7 @@ module PagesHelper
           },
           {
             name: 'Emilia Friedberg',
-            title: 'Software Developer',
+            title: 'Senior Software Developer',
             img: 'team-emilia-friedberg@2x.png'
           },
           {
@@ -215,7 +215,7 @@ module PagesHelper
           },
           {
             name: 'Cissy Yu',
-            title: 'Junior Software Developer',
+            title: 'Software Developer',
             img: 'team-cissy-yu@2x.png'
           }
         ]
