@@ -14,7 +14,6 @@ module Evidence
     end
 
     def feedback_object
-      puts 'I AM CONFUSED'
       {
         feedback: feedback_text,
         feedback_type: @rule_type,

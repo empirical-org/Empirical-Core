@@ -17,6 +17,7 @@ module Evidence
       @entry = entry
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def feedback_object
       return {} if error.present?
 
@@ -32,6 +33,7 @@ module Evidence
         highlight: optimal? ? [] : highlight
       }
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     def non_optimal_feedback_string
       spelling_rule&.feedbacks&.first&.text || FALLBACK_INCORRECT_FEEDBACK
