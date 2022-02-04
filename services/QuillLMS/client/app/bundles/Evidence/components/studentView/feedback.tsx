@@ -121,7 +121,7 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
 
   let hintSection
 
-  if (lastSubmittedResponse.hint) {
+  if (lastSubmittedResponse.hint && lastSubmittedResponse.hint.id) {
     const { explanation, image_alt_text, image_link, } = lastSubmittedResponse.hint
     hintSection = (
       <div className="hint">
