@@ -240,7 +240,7 @@ type APIResponse struct {
 	Optimal bool `json:"optimal"`
 	Response_id string `json:"response_id"`
 	Highlight []Highlight `json:"highlight"`
-	Hint Hint `json:"hint"`
+	Hint Hint `json:"hint,omitempty"`
 	Labels string `json:"labels,omitempty"`
 	Rule_uid string `json:"rule_uid"`
 }
@@ -255,9 +255,9 @@ type Highlight struct {
 
 type Hint struct {
   Id int `json:"id,omitempty"`
-	Explanation string `json:"explanation"`
-	Image_link string `json:"image_link"`
-  Image_alt_text string `json:"image_alt_text"`
+	Explanation string `json:"explanation,omitempty"`
+	Image_link string `json:"image_link,omitempty"`
+  Image_alt_text string `json:"image_alt_text,omitempty"`
 }
 
 type InternalAPIResponse struct {
@@ -268,7 +268,7 @@ type InternalAPIResponse struct {
 
 type FeedbackHistoryMetadata struct {
 	Highlight []Highlight `json:"highlight"`
-	Hint Hint `json:"hint"`
+	Hint Hint `json:"hint,omitempty"`
 	Labels string `json:"labels,omitempty"`
 	Response_id string `json:"response_id"`
 }
