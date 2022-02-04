@@ -28,7 +28,7 @@ module Evidence
         entry: @entry,
         concept_uid: SPELLING_CONCEPT_UID,
         rule_uid: spelling_rule&.uid || '',
-        hint: spelling_rule&.hint,
+        hint: optimal? ? nil : spelling_rule&.hint,
         highlight: optimal? ? [] : highlight
       }
     end
