@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from evidence (originally 20220201131639)
 class CreateEvidenceHints < ActiveRecord::Migration[5.1]
   def change

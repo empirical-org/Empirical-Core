@@ -12,6 +12,7 @@ module Evidence
       @previous_feedback = previous_feedback
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def feedback_object
       return unless matched_rule
 
@@ -35,6 +36,7 @@ module Evidence
         highlight: highlight
       }
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     private def matched_rule
       @matched_rule ||= fetch_matched_rule
