@@ -29,7 +29,7 @@ import {
   ESSENTIAL_KNOWLEDGE_TEXT_FILLER
 } from '../../../../../constants/evidence';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent, ClickEvent,  TextAreaEvent } from '../../../interfaces/evidenceInterfaces';
-import { DataTable, Input, TextEditor, DropdownInput, } from '../../../../Shared/index'
+import { DataTable, Input, TextEditor, DropdownInput } from '../../../../Shared/index'
 import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../../Shared/utils/constants'
 
 interface ActivityFormProps {
@@ -124,11 +124,11 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
     setActivityPassages(updatedPassages)
   };
 
-  function handleSetPrompt (e: InputEvent, conjunction: string) {
+  function handleSetPrompt (e: InputEvent, conjunction: string, key: string) {
     const prompt = getActivityPrompt({ activityBecausePrompt, activityButPrompt, activitySoPrompt, conjunction });
     const updatePrompt = getActivityPromptSetter({ setActivityBecausePrompt, setActivityButPrompt, setActivitySoPrompt, conjunction});
     if(prompt && updatePrompt) {
-      prompt.text = e.target.value;
+      prompt[key] = e.target.value;
       updatePrompt(prompt);
     }
   }

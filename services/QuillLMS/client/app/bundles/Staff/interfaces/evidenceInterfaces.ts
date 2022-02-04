@@ -29,7 +29,9 @@ export interface PromptInterface {
   conjunction: string,
   text: string,
   max_attempts: number,
-  max_attempts_feedback: string
+  max_attempts_feedback: string,
+  first_strong_example: string,
+  second_strong_example: string
 }
 
 export interface RegexRuleInterface {
