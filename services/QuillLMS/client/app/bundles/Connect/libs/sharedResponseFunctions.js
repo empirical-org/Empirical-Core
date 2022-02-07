@@ -29,9 +29,9 @@ export function getPercentageWeakResponses(responses) {
 }
 
 export function getGradedResponses(responses) {
-    // Returns sorted collection optimal first followed by suboptimal
+  // Returns sorted collection optimal first followed by suboptimal
   const gradedResponses = _.reject(responses, response =>
-      (response.optimal === undefined) || (response.parentID)
-    );
+    (response.optimal === undefined) || (response.parentID)
+  );
   return _.sortBy(gradedResponses, 'optimal').reverse();
 }

@@ -128,40 +128,42 @@ class QuestionDashboard extends React.Component<QuestionDashboardProps, Question
         return (allowedQuestionFlags.includes(q.flag)
         || (!q.flag && allowedQuestionFlags.includes(NONE)))
       })
-      return (<div className="dashboard-table-container question-dashboard" key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
-        <DashboardFilters
-          allowedActivityFlags={allowedActivityFlags}
-          allowedQuestionFlags={allowedQuestionFlags}
-          updateAllowedActivityFlags={this.updateAllowedActivityFlags}
-          updateAllowedQuestionFlags={this.updateAllowedQuestionFlags}
-        />
-        <ReactTable
-          className="question-dashboard-table"
-          columns={this.columns()}
-          data={filteredData}
-          defaultPageSize={filteredData.length}
-          defaultSorted={[{ id: 'prompt', desc: false, }]}
-          defaultSortMethod={this.defaultSort}
-          minRows={1}
-          showPageSizeOptions={false}
-          showPagination={false}
-        />
-      </div>);
+      return (
+        <div className="dashboard-table-container question-dashboard" key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
+          <DashboardFilters
+            allowedActivityFlags={allowedActivityFlags}
+            allowedQuestionFlags={allowedQuestionFlags}
+            updateAllowedActivityFlags={this.updateAllowedActivityFlags}
+            updateAllowedQuestionFlags={this.updateAllowedQuestionFlags}
+          />
+          <ReactTable
+            className="question-dashboard-table"
+            columns={this.columns()}
+            data={filteredData}
+            defaultPageSize={filteredData.length}
+            defaultSorted={[{ id: 'prompt', desc: false, }]}
+            defaultSortMethod={this.defaultSort}
+            minRows={1}
+            showPageSizeOptions={false}
+            showPagination={false}
+          />
+        </div>
+      );
     }
     return <LoadingSpinner />;
   };
 }
 
 const mapStateToProps = (state: any) => {
-    return {
-      questionAndConceptMap: state.questionAndConceptMap
-    };
+  return {
+    questionAndConceptMap: state.questionAndConceptMap
+  };
 };
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => {
-    return {
-        dispatch
-    };
+  return {
+    dispatch
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionDashboard);

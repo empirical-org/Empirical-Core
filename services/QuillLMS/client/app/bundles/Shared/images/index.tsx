@@ -127,3 +127,8 @@ export const closeIcon = {
   alt: 'Close icon',
   src: `${process.env.CDN_URL}/images/icons/close.svg`
 }
+
+export const informationIcon = {
+  alt: 'Information icon',
+  src: `${process.env.CDN_URL}/images/icons/information.svg`
+}

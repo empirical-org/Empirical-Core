@@ -15,12 +15,12 @@ class SelectUserType extends React.Component {
         role,
         authenticity_token: getAuthToken(),
       }, }, (e) => {
-        if (e) {
-          this.setRoleOnSessionError()
-        } else {
-          window.location = `/sign-up/${role}`;
-        }
+      if (e) {
+        this.setRoleOnSessionError()
+      } else {
+        window.location = `/sign-up/${role}`;
       }
+    }
     )
   }
 

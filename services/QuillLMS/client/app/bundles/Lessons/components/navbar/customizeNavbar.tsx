@@ -7,7 +7,7 @@ import { getParameterByName } from '../../libs/getParameterByName';
 import {
   publishEdition,
   setIncompleteQuestions
- } from '../../actions/customize'
+} from '../../actions/customize'
 import { formatDateTime } from '../customize/helpers'
 
 class CustomizeNavbar extends React.Component<any, any> {
@@ -60,21 +60,23 @@ class CustomizeNavbar extends React.Component<any, any> {
       <img className="he)lp" src={helpIcon} />Help
     </a>)
     /* eslint-enable react/jsx-no-target-blank */
-    return (<div className="customize-navbar-container">
-      <div className="customize-navbar">
-        <div className="left">
-          <span>Create Customized Edition</span>
-          <span className="vertical-line" />
-          <span>
-            {supportLink}
-          </span>
-        </div>
-        <div className="right">
-          {this.lastPublishedAt()}
-          {this.renderPublishButton()}
+    return (
+      <div className="customize-navbar-container">
+        <div className="customize-navbar">
+          <div className="left">
+            <span>Create Customized Edition</span>
+            <span className="vertical-line" />
+            <span>
+              {supportLink}
+            </span>
+          </div>
+          <div className="right">
+            {this.lastPublishedAt()}
+            {this.renderPublishButton()}
+          </div>
         </div>
       </div>
-    </div>)
+    )
   }
 
 }

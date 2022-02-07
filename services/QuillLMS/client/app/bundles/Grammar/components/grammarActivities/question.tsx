@@ -329,19 +329,21 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     const counts = this.getQuestionCounts();
     const meterWidth = counts['answeredQuestionCount'] / counts['totalQuestionCount'] * 100
     const studentSession = getParameterByName('student', window.location.href);
-    return (<div className="top-section">
-      {isOnMobile && !studentSession && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreviewMenu} />}
-      <ProgressBar
-        answeredQuestionCount={counts['answeredQuestionCount']}
-        label="questions"
-        percent={meterWidth}
-        questionCount={counts['totalQuestionCount']}
-      />
-      <div className="flex-space-between">
-        <h1>{activity ? activity.title : null}</h1>
+    return (
+      <div className="top-section">
+        {isOnMobile && !studentSession && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreviewMenu} />}
+        <ProgressBar
+          answeredQuestionCount={counts['answeredQuestionCount']}
+          label="questions"
+          percent={meterWidth}
+          questionCount={counts['totalQuestionCount']}
+        />
+        <div className="flex-space-between">
+          <h1>{activity ? activity.title : null}</h1>
+        </div>
+        {this.renderExample()}
       </div>
-      {this.renderExample()}
-    </div>)
+    )
   }
 
   renderTextareaSection = () => {
@@ -349,19 +351,21 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     const noMoreSubmissionsForStudentSession = [CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus)
     const disabled = noMoreSubmissionsForStudentSession ? 'disabled' : '';
 
-    return (<div className="flex-start">
-      <ContentEditable
-        className={`input-field ${disabled}`}
-        data-gramm={false}
-        disabled={!!disabled}
-        html={response}
-        onChange={this.handleResponseChange}
-        onDrop={this.handleDrop}
-        onKeyDown={this.handleKeyDown}
-        placeholder="Type your answer here."
-        spellCheck={false}
-      />
-    </div>)
+    return (
+      <div className="flex-start">
+        <ContentEditable
+          className={`input-field ${disabled}`}
+          data-gramm={false}
+          disabled={!!disabled}
+          html={response}
+          onChange={this.handleResponseChange}
+          onDrop={this.handleDrop}
+          onKeyDown={this.handleKeyDown}
+          placeholder="Type your answer here."
+          spellCheck={false}
+        />
+      </div>
+    )
   }
 
   renderQuestionSection(): JSX.Element {
@@ -369,24 +373,26 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     const { prompt, attempts, cues, cues_label, } = question
     const latestAttempt = this.handleGetLatestAttempt(attempts)
     const feedbackKey = latestAttempt ? latestAttempt.text : 'instructions'
-    return (<div className="question-section">
-      <div className="flex-start">
-        <div className="prompt" dangerouslySetInnerHTML={{ __html: prompt }} />
+    return (
+      <div className="question-section">
+        <div className="flex-start">
+          <div className="prompt" dangerouslySetInnerHTML={{ __html: prompt }} />
+        </div>
+        <div className="flex-start">
+          <Cues cues={cues} cuesLabel={cues_label} />
+        </div>
+        <div className="flex-start" key={feedbackKey}>
+          {this.renderFeedbackSection()}
+        </div>
+        {this.renderTextareaSection()}
+        <div className="flex-end">
+          {this.renderCheckAnswerButton()}
+        </div>
+        <div className="flex-start">
+          {this.renderConceptExplanation()}
+        </div>
       </div>
-      <div className="flex-start">
-        <Cues cues={cues} cuesLabel={cues_label} />
-      </div>
-      <div className="flex-start" key={feedbackKey}>
-        {this.renderFeedbackSection()}
-      </div>
-      {this.renderTextareaSection()}
-      <div className="flex-end">
-        {this.renderCheckAnswerButton()}
-      </div>
-      <div className="flex-start">
-        {this.renderConceptExplanation()}
-      </div>
-    </div>)
+    )
   }
 
   renderFeedbackSection(): JSX.Element | undefined {
@@ -444,10 +450,12 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   render(): JSX.Element {
-    return (<div className="question">
-      {this.renderTopSection()}
-      {this.renderQuestionSection()}
-    </div>)
+    return (
+      <div className="question">
+        {this.renderTopSection()}
+        {this.renderQuestionSection()}
+      </div>
+    )
   }
 }
 

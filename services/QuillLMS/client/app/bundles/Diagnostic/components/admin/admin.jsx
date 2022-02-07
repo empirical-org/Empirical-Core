@@ -64,9 +64,9 @@ class Admin extends React.Component {
       }
       return response.json();
     }).then((response) => {
-        if (response.user.hasOwnProperty('role') && response.user.role !== 'staff'){
-          window.location = newSessionEndpoint;
-        }
+      if (response.user.hasOwnProperty('role') && response.user.role !== 'staff'){
+        window.location = newSessionEndpoint;
+      }
     }).catch((error) => {
       // to do, use Sentry to capture error
     })

@@ -428,13 +428,13 @@ export default class POSMatcher {
         utl.handleAttemptSubmission();
       })
       .catch((err) => {
-          // POST failed...
-          // to do, use Sentry to capture error
-          returnValue.found = false;
-          utl.updateResRes(returnValue, utl.key, utl.attempts, utl.dispatch, );
-          utl.updateAttempts(returnValue);
-          utl.setState({ checkAnswerEnabled: true, });
-          utl.handleAttemptSubmission();
+        // POST failed...
+        // to do, use Sentry to capture error
+        returnValue.found = false;
+        utl.updateResRes(returnValue, utl.key, utl.attempts, utl.dispatch, );
+        utl.updateAttempts(returnValue);
+        utl.setState({ checkAnswerEnabled: true, });
+        utl.handleAttemptSubmission();
       });
   }
 }

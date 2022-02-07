@@ -89,55 +89,63 @@ const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopi
   function renderDropdownInput() {
     const options = levelThreeTopics.map(t => ({ value: t.id, label: t.name })).sort((a, b) => a.label.localeCompare(b.label))
     const value = options.find(opt => opt.value === topic.parent_id)
-    return (<DropdownInput
-      handleChange={changeLevel1}
-      isSearchable={true}
-      label="Level 3"
-      options={options}
-      value={value}
-    />)
+    return (
+      <DropdownInput
+        handleChange={changeLevel1}
+        isSearchable={true}
+        label="Level 3"
+        options={options}
+        value={value}
+      />
+    )
   }
 
   function renderRenameAndArchiveSection() {
-    return (<div className="rename-and-archive">
-      <span className="rename" onClick={activateTopicInput}>
-        <i className="fas fa-edit" />
-        <span>Rename</span>
-      </span>
-      <span className="archive" onClick={toggleVisibility}>
-        <i className="fas fa-archive" />
-        <span>{ topic.visible ? 'Archive' : 'Unarchive' }</span>
-      </span>
-    </div>)
+    return (
+      <div className="rename-and-archive">
+        <span className="rename" onClick={activateTopicInput}>
+          <i className="fas fa-edit" />
+          <span>Rename</span>
+        </span>
+        <span className="archive" onClick={toggleVisibility}>
+          <i className="fas fa-archive" />
+          <span>{ topic.visible ? 'Archive' : 'Unarchive' }</span>
+        </span>
+      </div>
+    )
   }
 
   function renderLevels() {
     const dropdown = topic.level === 2 ? renderDropdownInput() : null
 
-    return (<div>
-      {dropdown}
-      <div className="record-input-container">
-        <Input
-          handleCancel={cancelRename}
-          handleChange={renameTopic}
-          id='record-name'
-          label={`Level ${topic.level}`}
-          type='text'
-          value={topic.name}
-        />
-        {renderRenameAndArchiveSection()}
+    return (
+      <div>
+        {dropdown}
+        <div className="record-input-container">
+          <Input
+            handleCancel={cancelRename}
+            handleChange={renameTopic}
+            id='record-name'
+            label={`Level ${topic.level}`}
+            type='text'
+            value={topic.name}
+          />
+          {renderRenameAndArchiveSection()}
+        </div>
+        <IndividualRecordChangeLogs changeLogs={topic.change_logs} formatDateTime={formatDateTime} />
       </div>
-      <IndividualRecordChangeLogs changeLogs={topic.change_logs} formatDateTime={formatDateTime} />
-    </div>)
+    )
   }
 
   function renderSaveButton() {
     if (!_.isEqual(topic, originalTopic)) {
-      return (<input
-        className="quill-button contained primary medium"
-        type="submit"
-        value="Save"
-      />)
+      return (
+        <input
+          className="quill-button contained primary medium"
+          type="submit"
+          value="Save"
+        />
+      )
     }
   }
 
@@ -151,29 +159,33 @@ const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopi
         changedFields.push(changedField)
       }
     })
-    return (<ChangeLogModal
-      cancel={closeChangeLogModal}
-      changedFields={changedFields}
-      levelNumber={topic.level}
-      record={topic}
-      save={setChangeLogs}
-    />)
+    return (
+      <ChangeLogModal
+        cancel={closeChangeLogModal}
+        changedFields={changedFields}
+        levelNumber={topic.level}
+        record={topic}
+        save={setChangeLogs}
+      />
+    )
   }
 
-  return (<div className="record-box">
-    {renderChangeLogModal()}
-    <span className="close-record-box" onClick={closeTopicBox}><i className="fas fa-times" /></span>
-    <form acceptCharset="UTF-8" onSubmit={handleSubmit} >
-      <div className="static">
-        <p>Level {topic.level}</p>
-        <h1>{topic.name}</h1>
-      </div>
-      <div className="fields">
-        {renderLevels()}
-        {renderSaveButton()}
-      </div>
-    </form>
-  </div>)
+  return (
+    <div className="record-box">
+      {renderChangeLogModal()}
+      <span className="close-record-box" onClick={closeTopicBox}><i className="fas fa-times" /></span>
+      <form acceptCharset="UTF-8" onSubmit={handleSubmit} >
+        <div className="static">
+          <p>Level {topic.level}</p>
+          <h1>{topic.name}</h1>
+        </div>
+        <div className="fields">
+          {renderLevels()}
+          {renderSaveButton()}
+        </div>
+      </form>
+    </div>
+  )
 }
 
 

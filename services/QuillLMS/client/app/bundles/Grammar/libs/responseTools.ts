@@ -28,8 +28,8 @@ export function sortByLevenshteinAndOptimal(userString: string, responses: Respo
     if ((a.levenshtein - b.levenshtein) !== 0) {
       return a.levenshtein - b.levenshtein;
     }
-      // sorts by boolean
-      // from http://stackoverflow.com/questions/17387435/javascript-sort-array-of-objects-by-a-boolean-property
+    // sorts by boolean
+    // from http://stackoverflow.com/questions/17387435/javascript-sort-array-of-objects-by-a-boolean-property
     return (a.optimal === b.optimal) ? 0 : a.optimal ? -1 : 1;
   });
 }

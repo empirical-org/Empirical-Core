@@ -101,10 +101,10 @@ class ItemLevelForm extends React.Component {
             {cancelAndDeleteButtons}
           </div>
         </div>
-    )} else {
-        return (
-          <div>Loading...</div>
-        )
+      )} else {
+      return (
+        <div>Loading...</div>
+      )
     }
   }
 }

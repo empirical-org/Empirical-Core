@@ -6,14 +6,14 @@ import PageLayout from "./components/PageLayout";
 import PlayProofreader from "./components/proofreaderActivities/container"
 
 export const routes: RouteConfig[] = [
-    {
-      path: "/play/pf",
-      component: () => (<PlayProofreader />)
-    },
-    {
-      path: "/admin",
-      component: () => (<Admin />)
-    }
+  {
+    path: "/play/pf",
+    component: () => (<PlayProofreader />)
+  },
+  {
+    path: "/admin",
+    component: () => (<Admin />)
+  }
 ];
 
 export const route = (

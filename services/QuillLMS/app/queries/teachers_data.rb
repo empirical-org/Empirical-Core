@@ -63,6 +63,7 @@ module TeachersData
       combiner[row.id] = {
         name: row.name,
         email: row.email,
+        school: row.school,
         number_of_students: row.number_of_students
       }
     end
@@ -80,7 +81,8 @@ module TeachersData
       user = User.new(
         id: key,
         name: hash_value[:name],
-        email: hash_value[:email]
+        email: hash_value[:email],
+        school: hash_value[:school]
       )
       user.define_singleton_method(:number_of_students) do
         hash_value[:number_of_students]

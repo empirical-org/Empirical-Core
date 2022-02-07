@@ -43,9 +43,9 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
       },
       (err, httpResponse, data) => {
         this.setState({matchedCount: data.matchedCount})
-        }
-      );
-    }
+      }
+    );
+  }
 
   handleNameChange(e) {
     this.setState({name: e.target.value})
@@ -145,23 +145,27 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
   }
 
   renderSequenceTag(seq, backgroundColor, i) {
-    return (<span
-      className="tag"
-      key={i}
-      onClick={() => this.toggleSuggestedSequence(seq)}
-      style={{margin: '5px', backgroundColor: backgroundColor, color: 'white'}}
-    >
-      {seq}
-    </span>)
-   }
+    return (
+      <span
+        className="tag"
+        key={i}
+        onClick={() => this.toggleSuggestedSequence(seq)}
+        style={{margin: '5px', backgroundColor: backgroundColor, color: 'white'}}
+      >
+        {seq}
+      </span>
+    )
+  }
 
-   renderExplanatoryNote() {
-     return (<div style={{ marginBottom: '10px' }}>
-       <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
-       <br />
-       <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
-     </div>)
-   }
+  renderExplanatoryNote() {
+    return (
+      <div style={{ marginBottom: '10px' }}>
+        <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
+        <br />
+        <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
+      </div>
+    )
+  }
 
   render() {
     const appropriateData = this.returnAppropriateDataset();

@@ -150,10 +150,12 @@ class ChooseEdition extends React.Component<any, any> {
 
   renderBackButton() {
     if (window.history.length > 1) {
-      return (<div className="back-button" onClick={() => window.history.back()}>
-        <i className="fa fa-icon fa-chevron-left" />
+      return (
+        <div className="back-button" onClick={() => window.history.back()}>
+          <i className="fa fa-icon fa-chevron-left" />
       Back
-      </div>)
+        </div>
+      )
     }
   }
 
@@ -169,10 +171,12 @@ class ChooseEdition extends React.Component<any, any> {
     } else {
       text = 'You are customizing this lesson:'
     }
-    return (<div className="lesson-info">
-      <p>{text}</p>
-      <h2 className="lesson-title"><span>Lesson {lessonData.lesson}:</span> {lessonData.title}</h2>
-    </div>)
+    return (
+      <div className="lesson-info">
+        <p>{text}</p>
+        <h2 className="lesson-title"><span>Lesson {lessonData.lesson}:</span> {lessonData.title}</h2>
+      </div>
+    )
   }
 
   renderHeader() {
@@ -187,21 +191,25 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   renderExplanation() {
-    return (<div className="explanation">
-      <p>You can change the prompts in this lesson by clicking <span>"Customize"</span> and selecting <span>"Make Copy."</span> This will create your own edition of the lesson, which you can customize.</p>
-      <p>Once you publish your customized edition of the lesson, it will be listed as an option any time you click on the lesson's name.</p>
-    </div>)
+    return (
+      <div className="explanation">
+        <p>You can change the prompts in this lesson by clicking <span>"Customize"</span> and selecting <span>"Make Copy."</span> This will create your own edition of the lesson, which you can customize.</p>
+        <p>Once you publish your customized edition of the lesson, it will be listed as an option any time you click on the lesson's name.</p>
+      </div>
+    )
   }
 
   renderNamingModal() {
     if (this.state.showNamingModal) {
       const buttonClassName = this.state.newEditionName ? 'active' : 'inactive'
-      return (<EditionNamingModal
-        buttonClassName={buttonClassName}
-        deleteNewEdition={this.deleteNewEdition}
-        saveNameAndGoToCustomize={this.saveNameAndGoToCustomize}
-        updateName={this.updateName}
-      />)
+      return (
+        <EditionNamingModal
+          buttonClassName={buttonClassName}
+          deleteNewEdition={this.deleteNewEdition}
+          saveNameAndGoToCustomize={this.saveNameAndGoToCustomize}
+          updateName={this.updateName}
+        />
+      )
     }
   }
 
@@ -282,35 +290,41 @@ class ChooseEdition extends React.Component<any, any> {
         {compactedMyEditions}
       </div>)
     }
-    return (<div>
-      {quillEditionSection}
-      {myEditionSection}
-      {coteacherEditionSection}
-    </div>)
+    return (
+      <div>
+        {quillEditionSection}
+        {myEditionSection}
+        {coteacherEditionSection}
+      </div>
+    )
   }
 
   renderSignupModal() {
     if (this.state.showSignupModal) {
-      return (<SignupModal
-        closeModal={this.hideSignupModal}
-        goToSignup={() => window.location.href = `${process.env.DEFAULT_URL}/account/new`}
-      />)
+      return (
+        <SignupModal
+          closeModal={this.hideSignupModal}
+          goToSignup={() => window.location.href = `${process.env.DEFAULT_URL}/account/new`}
+        />
+      )
     }
   }
 
   render() {
-    return (<div>
-      <CreateCustomizedEditionNavbar />
-      <div className="choose-edition customize-page">
-        {this.renderSignupModal()}
-        {this.renderBackButton()}
-        {this.renderLessonInfo()}
-        {this.renderHeader()}
-        {this.renderExplanation()}
-        {this.renderEditions()}
-        {this.renderNamingModal()}
+    return (
+      <div>
+        <CreateCustomizedEditionNavbar />
+        <div className="choose-edition customize-page">
+          {this.renderSignupModal()}
+          {this.renderBackButton()}
+          {this.renderLessonInfo()}
+          {this.renderHeader()}
+          {this.renderExplanation()}
+          {this.renderEditions()}
+          {this.renderNamingModal()}
+        </div>
       </div>
-    </div>)
+    )
   }
 }
 

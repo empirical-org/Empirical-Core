@@ -138,11 +138,13 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
   }
 
   renderExplanatoryNote() {
-    return (<div style={{ marginBottom: '10px' }}>
-      <p>Incorrect sequences can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
-      <br />
-      <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
-    </div>)
+    return (
+      <div style={{ marginBottom: '10px' }}>
+        <p>Incorrect sequences can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
+        <br />
+        <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
+      </div>
+    )
   }
 
   render() {

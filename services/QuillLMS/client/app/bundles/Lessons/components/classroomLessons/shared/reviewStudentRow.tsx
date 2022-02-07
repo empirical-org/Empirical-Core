@@ -24,9 +24,11 @@ const RetryCell = ({ identifier, handleRetryClick, submissions, }) => {
     newSubmissions[identifier] = ''
   }
   const handleClick = () => handleRetryClick(newSubmissions)
-  return (<button className="interactive-wrapper" onClick={handleClick} type="button">
-    <i className="fa fa-refresh student-retry-question" />
-  </button>)
+  return (
+    <button className="interactive-wrapper" onClick={handleClick} type="button">
+      <i className="fa fa-refresh student-retry-question" />
+    </button>
+  )
 }
 
 const CheckboxCell = ({ determineCheckbox, selectedSubmissions, currentSlide, identifier, studentKey, studentName, handleClickCheckbox, }) => {
@@ -34,18 +36,20 @@ const CheckboxCell = ({ determineCheckbox, selectedSubmissions, currentSlide, id
   const handleClick = (e) => handleClickCheckbox(e, key)
   const checked: boolean = selectedSubmissions && selectedSubmissions[currentSlide] ? selectedSubmissions[currentSlide][key] : false
   const checkbox = determineCheckbox(checked)
-  return (<React.Fragment>
-    <input
-      defaultChecked={checked}
-      id={key}
-      name={studentName}
-      onClick={handleClick}
-      type="checkbox"
-    />
-    <label aria-checked={checked} htmlFor={key}>
-      {checkbox}
-    </label>
-  </React.Fragment>)
+  return (
+    <React.Fragment>
+      <input
+        defaultChecked={checked}
+        id={key}
+        name={studentName}
+        onClick={handleClick}
+        type="checkbox"
+      />
+      <label aria-checked={checked} htmlFor={key}>
+        {checkbox}
+      </label>
+    </React.Fragment>
+  )
 }
 
 const AnswerNumber = ({ selectedSubmissions, selectedSubmissionOrder, currentSlide, studentKey, identifier, }) => {
@@ -99,39 +103,41 @@ const ReviewStudentRow = ({
       flagCellContent = renderFlag(studentKey)
       elapsedTimeCellContent = elapsedTime
     }
-    return (<tr className={className} key={`${index}-${subIndex}`}>
-      <td>{studentNameCellContent}</td>
-      <td>{flagCellContent}</td>
-      <td className="response-cell">{stepLabel}{responseSpan(submissionText)}</td>
-      <td>{elapsedTimeCellContent}</td>
-      <td>
-        <CheckboxCell
-          currentSlide={currentSlide}
-          determineCheckbox={determineCheckbox}
-          handleClickCheckbox={handleClickCheckbox}
-          identifier={key}
-          selectedSubmissions={selectedSubmissions}
-          studentKey={studentKey}
-          studentName={studentName}
-        />
-      </td>
-      <td>
-        <AnswerNumber
-          currentSlide={currentSlide}
-          identifier={key}
-          selectedSubmissionOrder={selectedSubmissionOrder}
-          selectedSubmissions={selectedSubmissions}
-          studentKey={studentKey}
-        />
-      </td>
-      <td className="retry-question-cell">
-        <RetryCell
-          handleRetryClick={handleRetryClick}
-          identifier={key}
-          submissions={textObject}
-        />
-      </td>
-    </tr>)
+    return (
+      <tr className={className} key={`${index}-${subIndex}`}>
+        <td>{studentNameCellContent}</td>
+        <td>{flagCellContent}</td>
+        <td className="response-cell">{stepLabel}{responseSpan(submissionText)}</td>
+        <td>{elapsedTimeCellContent}</td>
+        <td>
+          <CheckboxCell
+            currentSlide={currentSlide}
+            determineCheckbox={determineCheckbox}
+            handleClickCheckbox={handleClickCheckbox}
+            identifier={key}
+            selectedSubmissions={selectedSubmissions}
+            studentKey={studentKey}
+            studentName={studentName}
+          />
+        </td>
+        <td>
+          <AnswerNumber
+            currentSlide={currentSlide}
+            identifier={key}
+            selectedSubmissionOrder={selectedSubmissionOrder}
+            selectedSubmissions={selectedSubmissions}
+            studentKey={studentKey}
+          />
+        </td>
+        <td className="retry-question-cell">
+          <RetryCell
+            handleRetryClick={handleRetryClick}
+            identifier={key}
+            submissions={textObject}
+          />
+        </td>
+      </tr>
+    )
   })
 
   return rows

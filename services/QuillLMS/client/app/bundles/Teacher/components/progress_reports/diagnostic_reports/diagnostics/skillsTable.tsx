@@ -29,20 +29,22 @@ const SkillsTable = ({ skillGroup, isExpandable, }: { skillGroup: SkillGroup, is
 
   const tableClassName = isExpandable && !isExpanded ? 'contracted' : ''
 
-  return (<div className="skills-table-container">
-    <table className={`skills-table ${tableClassName}`}>
-      <thead>
-        <tr>
-          <th className="skill-column-header">Skill</th>
-          <th>Correct</th>
-          <th>Incorrect</th>
-          <th className="summary-header">Summary</th>
-        </tr>
-      </thead>
-      <tbody>{displayedRows}</tbody>
-    </table>
-    {showMoreButton}
-  </div>)
+  return (
+    <div className="skills-table-container">
+      <table className={`skills-table ${tableClassName}`}>
+        <thead>
+          <tr>
+            <th className="skill-column-header">Skill</th>
+            <th>Correct</th>
+            <th>Incorrect</th>
+            <th className="summary-header">Summary</th>
+          </tr>
+        </thead>
+        <tbody>{displayedRows}</tbody>
+      </table>
+      {showMoreButton}
+    </div>
+  )
 }
 
 export default SkillsTable

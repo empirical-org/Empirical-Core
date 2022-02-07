@@ -91,28 +91,30 @@ const ArchivedRecordBox = ({ originalRecord, recordType, standardLevels, standar
     const standardCategoryOptions = standardCategories.sort(sortWordsThatIncludeNumbers()).map(t => ({ value: t.id, label: t.name }))
     const selectedStandardCategory = standardCategories.find(sl => sl.id === record.standard_category_id)
     const standardCategoryValue = standardCategoryOptions.find(opt => opt.value === record.standard_category_id)
-    return (<div>
-      <div className="record-input-container">
-        <DropdownInput
-          handleChange={changeStandardLevel}
-          isSearchable={true}
-          label="Standard Level"
-          options={standardLevelOptions}
-          value={standardLevelValue}
-        />
-        {renderArchivedOrLive(selectedStandardLevel)}
+    return (
+      <div>
+        <div className="record-input-container">
+          <DropdownInput
+            handleChange={changeStandardLevel}
+            isSearchable={true}
+            label="Standard Level"
+            options={standardLevelOptions}
+            value={standardLevelValue}
+          />
+          {renderArchivedOrLive(selectedStandardLevel)}
+        </div>
+        <div className="record-input-container">
+          <DropdownInput
+            handleChange={changeStandardCategory}
+            isSearchable={true}
+            label="Standard Category"
+            options={standardCategoryOptions}
+            value={standardCategoryValue}
+          />
+          {renderArchivedOrLive(selectedStandardCategory)}
+        </div>
       </div>
-      <div className="record-input-container">
-        <DropdownInput
-          handleChange={changeStandardCategory}
-          isSearchable={true}
-          label="Standard Category"
-          options={standardCategoryOptions}
-          value={standardCategoryValue}
-        />
-        {renderArchivedOrLive(selectedStandardCategory)}
-      </div>
-    </div>)
+    )
   }
 
   function renderArchivedOrLive(r) {
@@ -142,19 +144,21 @@ const ArchivedRecordBox = ({ originalRecord, recordType, standardLevels, standar
   function renderLevels() {
     const dropdown = recordType === STANDARD ? renderDropdownInputs() : null
 
-    return (<div>
-      {dropdown}
-      <div className="record-input-container">
-        <Input
-          disabled={true}
-          label={recordType}
-          type='text'
-          value={record.name}
-        />
-        {renderArchivedOrLive(record)}
+    return (
+      <div>
+        {dropdown}
+        <div className="record-input-container">
+          <Input
+            disabled={true}
+            label={recordType}
+            type='text'
+            value={record.name}
+          />
+          {renderArchivedOrLive(record)}
+        </div>
+        <IndividualRecordChangeLogs changeLogs={record.change_logs} formatDateTime={formatDateTime} />
       </div>
-      <IndividualRecordChangeLogs changeLogs={record.change_logs} formatDateTime={formatDateTime} />
-    </div>)
+    )
   }
 
   function renderSaveButton() {
@@ -162,18 +166,22 @@ const ArchivedRecordBox = ({ originalRecord, recordType, standardLevels, standar
     const hasStandardCategoryAndLevelIfStandard = recordType === STANDARD ? standard_category_id && standard_level_id && standardCategories.find(t => t.id === record.standard_category_id).visible && standardLevels.find(t => t.id === record.standard_level_id).visible : true
 
     if (!hasStandardCategoryAndLevelIfStandard) {
-      return (<input
-        className="quill-button contained disabled primary medium"
-        type="submit"
-        value="Unarchive, set live"
-      />)
+      return (
+        <input
+          className="quill-button contained disabled primary medium"
+          type="submit"
+          value="Unarchive, set live"
+        />
+      )
     }
 
-    return (<input
-      className="quill-button contained primary medium"
-      type="submit"
-      value="Unarchive, set live"
-    />)
+    return (
+      <input
+        className="quill-button contained primary medium"
+        type="submit"
+        value="Unarchive, set live"
+      />
+    )
   }
 
   function renderChangeLogModal() {
@@ -186,28 +194,32 @@ const ArchivedRecordBox = ({ originalRecord, recordType, standardLevels, standar
         changedFields.push(changedField)
       }
     })
-    return (<ChangeLogModal
-      cancel={closeChangeLogModal}
-      changedFields={changedFields}
-      record={record}
-      save={setChangeLogs}
-    />)
+    return (
+      <ChangeLogModal
+        cancel={closeChangeLogModal}
+        changedFields={changedFields}
+        record={record}
+        save={setChangeLogs}
+      />
+    )
   }
 
-  return (<div className="record-box">
-    {renderChangeLogModal()}
-    <span className="close-record-box" onClick={closeRecordBox}><i className="fas fa-times" /></span>
-    <form acceptCharset="UTF-8" onSubmit={handleSubmit} >
-      <div className="static">
-        <p>{recordType}</p>
-        <h1>{record.name}</h1>
-      </div>
-      <div className="fields">
-        {renderLevels()}
-        {renderSaveButton()}
-      </div>
-    </form>
-  </div>)
+  return (
+    <div className="record-box">
+      {renderChangeLogModal()}
+      <span className="close-record-box" onClick={closeRecordBox}><i className="fas fa-times" /></span>
+      <form acceptCharset="UTF-8" onSubmit={handleSubmit} >
+        <div className="static">
+          <p>{recordType}</p>
+          <h1>{record.name}</h1>
+        </div>
+        <div className="fields">
+          {renderLevels()}
+          {renderSaveButton()}
+        </div>
+      </form>
+    </div>
+  )
 }
 
 

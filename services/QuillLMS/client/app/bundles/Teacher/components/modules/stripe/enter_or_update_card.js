@@ -11,18 +11,18 @@ export default function (successCallback, enterOrUpdate) {
     email: document.getElementById('current-user-email').getAttribute('content'),
     token(token) {
       $.post(`charges/${urlString}`,
-          { authenticity_token: $('meta[name=csrf-token]').attr('content'), source: token, card: token.card, })
-          .done((data) => {
-            if (data.err) {
-              // there is an error for this in the charges controller,
-              // but better error is passing weirdness back
-              const initialMessage = data.err.message ? data.err.message : 'Please ensure you are providing the same email used to login to Quill, and try again';
-              alert(`Your card was not changed. ${initialMessage}. If the issue persists, please contact ryan@quill.org for help.`);
-            } else if (data.message) {
-              alert(data.message);
-            }
-            successCallback(token.card.last4);
-          });
+        { authenticity_token: $('meta[name=csrf-token]').attr('content'), source: token, card: token.card, })
+        .done((data) => {
+          if (data.err) {
+            // there is an error for this in the charges controller,
+            // but better error is passing weirdness back
+            const initialMessage = data.err.message ? data.err.message : 'Please ensure you are providing the same email used to login to Quill, and try again';
+            alert(`Your card was not changed. ${initialMessage}. If the issue persists, please contact ryan@quill.org for help.`);
+          } else if (data.message) {
+            alert(data.message);
+          }
+          successCallback(token.card.last4);
+        });
     },
   });
 
@@ -31,7 +31,7 @@ export default function (successCallback, enterOrUpdate) {
     description: `${enterOrUpdate} Your Credit Card`,
   });
 
-    // Close Checkout on page navigation
+  // Close Checkout on page navigation
   $(window).on('popstate', () => {
     handler.close();
   });

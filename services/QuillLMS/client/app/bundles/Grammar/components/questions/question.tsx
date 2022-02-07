@@ -112,13 +112,13 @@ class AdminQuestion extends React.Component<AdminQuestionProps, AdminQuestionSta
   boilerplateCategoriesToOptions() {
     return getBoilerplateFeedback().map(category => (
       <option className="boilerplate-feedback-dropdown-option">{category.description}</option>
-      ));
+    ));
   }
 
   boilerplateSpecificFeedbackToOptions(selectedCategory) {
     return selectedCategory.children.map(childFeedback => (
       <option className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
-      ));
+    ));
   }
 
   chooseBoilerplateCategory(e) {
@@ -219,8 +219,8 @@ class AdminQuestion extends React.Component<AdminQuestionProps, AdminQuestionSta
       return (<p>Loading...</p>);
     } else if (data[questionID]) {
       const activeLink = this.props.massEdit.numSelectedResponses > 1
-      ? <li><Link activeClassName="is-active" to={`/admin/questions/${questionID}/mass-edit`}>Mass Edit ({this.props.massEdit.numSelectedResponses})</Link></li>
-      : <li style={{color: "#a2a1a1"}}>Mass Edit ({this.props.massEdit.numSelectedResponses})</li>
+        ? <li><Link activeClassName="is-active" to={`/admin/questions/${questionID}/mass-edit`}>Mass Edit ({this.props.massEdit.numSelectedResponses})</Link></li>
+        : <li style={{color: "#a2a1a1"}}>Mass Edit ({this.props.massEdit.numSelectedResponses})</li>
       const modelText = data[questionID].modelConceptUID ? 'Edit Model Concept' : 'Add Model Concept'
 
       return (

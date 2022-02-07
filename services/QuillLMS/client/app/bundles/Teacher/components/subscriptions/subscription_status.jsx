@@ -73,7 +73,7 @@ export default class extends React.Component {
     this.handleExpired(content, remainingDays);
     content.buttonOrDate = content.buttonOrDate || (<span className="expiration-date">
       <span>Valid Until:</span> <span>{`${expiration.format('MMMM Do, YYYY')}`}</span><span className="time-left-in-days"> | {`${remainingDays} ${pluralize('days', remainingDays)}`}</span>
-      </span>);
+    </span>);
     content.status = content.status || <h2>{`You have a ${subscriptionType} Premium subscription`}<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
     return content;
   }

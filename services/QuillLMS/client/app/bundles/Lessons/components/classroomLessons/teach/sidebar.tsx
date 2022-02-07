@@ -144,7 +144,7 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
             thumb = (
               <CLStudentSingleAnswer data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
             );
-          break
+            break
           case 'CL-FB':
             thumb = (
               <CLStudentFillInTheBlank data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />

@@ -3,59 +3,59 @@
 module PagesHelper
 
   # rubocop:disable Metrics/CyclomaticComplexity
-	 def pages_tab_class(tabname)
- 		 about_actions = ["mission", "develop", "faq"]
- 		 impact_actions = ['impact', 'map', 'stats']
- 		 team_actions = %w(team)
- 		 partners_actions = %w(partners)
- 		 news_actions = %w(news)
- 		 press_actions = %w(press)
- 		 standards_actions = ['activities']
- 		 topics_actions = ['index']
- 		 faq_actions = ['faq']
- 		 media_kit_actions = ['media_kit']
- 		 getting_started_actions = ['teacher-center']
- 		 media_actions = ['news', 'press', 'blog_posts']
- 		 case tabname
+  def pages_tab_class(tabname)
+    about_actions = ["mission", "develop", "faq"]
+    impact_actions = ['impact', 'map', 'stats']
+    team_actions = %w(team)
+    partners_actions = %w(partners)
+    news_actions = %w(news)
+    press_actions = %w(press)
+    standards_actions = ['activities']
+    topics_actions = ['index']
+    faq_actions = ['faq']
+    media_kit_actions = ['media_kit']
+    getting_started_actions = ['teacher-center']
+    media_actions = ['news', 'press', 'blog_posts']
+    case tabname
     when "about"
-  			 about_actions.include?(action_name) ? 'active' : ''
-  		when 'faq'
-  			 faq_actions.include?(action_name) ? 'active' : ''
-  		when 'press'
-  			 press_actions.include?(action_name) ? 'active' : ''
-  		when 'partners'
-  			 partners_actions.include?(action_name) ? 'active' : ''
-  		when "media"
-  			 media_actions.include?(action_name) ? 'active' : ''
-  		when "team"
-  			 team_actions.include?(action_name) ? 'active' : ''
-  		when 'getting-started'
-  			 # TODO: revert this when we launch front end of knowlege center
-  			 action_name == 'temporarily_render_old_teacher_resources' ? 'active' : ''
-  		when 'news'
-  			 news_actions.include?(action_name) ? 'active' : ''
-  		when 'media_kit'
-  			 media_kit_actions.include?(action_name) ? 'active' : ''
-  		when "impact"
-  			 impact_actions.include?(action_name) ? 'active' : ''
-  		when 'standards'
-  			 standards_actions.include?(action_name) ? 'active' : ''
-  		when 'topics'
-  			 topics_actions.include?(action_name) ? 'active' : ''
-  		when 'premium'
-  			 action_name == 'premium_from_discover' ? "premium-tab active" : ''
-  		end
+      about_actions.include?(action_name) ? 'active' : ''
+    when 'faq'
+      faq_actions.include?(action_name) ? 'active' : ''
+    when 'press'
+      press_actions.include?(action_name) ? 'active' : ''
+    when 'partners'
+      partners_actions.include?(action_name) ? 'active' : ''
+    when "media"
+      media_actions.include?(action_name) ? 'active' : ''
+    when "team"
+      team_actions.include?(action_name) ? 'active' : ''
+    when 'getting-started'
+      # TODO: revert this when we launch front end of knowlege center
+      action_name == 'temporarily_render_old_teacher_resources' ? 'active' : ''
+    when 'news'
+      news_actions.include?(action_name) ? 'active' : ''
+    when 'media_kit'
+      media_kit_actions.include?(action_name) ? 'active' : ''
+    when "impact"
+      impact_actions.include?(action_name) ? 'active' : ''
+    when 'standards'
+      standards_actions.include?(action_name) ? 'active' : ''
+    when 'topics'
+      topics_actions.include?(action_name) ? 'active' : ''
+    when 'premium'
+      action_name == 'premium_from_discover' ? "premium-tab active" : ''
+    end
 
- 	end
+  end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-	 def subtab_class(tabname)
- 		 if action_name == tabname
-  			 "active"
-  		else
-  			 ""
-  		end
- 	end
+  def subtab_class(tabname)
+    if action_name == tabname
+      "active"
+    else
+      ""
+    end
+  end
 
   def team_info
     [
@@ -130,7 +130,7 @@ module PagesHelper
           },
           {
             name: 'Emilia Friedberg',
-            title: 'Software Developer',
+            title: 'Senior Software Developer',
             img: 'team-emilia-friedberg@2x.png'
           },
           {
@@ -215,7 +215,7 @@ module PagesHelper
           },
           {
             name: 'Cissy Yu',
-            title: 'Junior Software Developer',
+            title: 'Software Developer',
             img: 'team-cissy-yu@2x.png'
           }
         ]

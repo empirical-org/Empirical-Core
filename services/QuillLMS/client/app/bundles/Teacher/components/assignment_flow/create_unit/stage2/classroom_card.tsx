@@ -86,13 +86,15 @@ export default class ClassroomCard extends React.Component<ClassroomCardProps, C
     if (!selectedStudents.length && !emptyClassroomSelected && !isActive) { return null }
 
     if (options.length) {
-      return (<DropdownInput
-        handleChange={(e) => { this.selectStudents(e, id) }}
-        isMulti
-        options={options}
-        optionType="student"
-        value={selectedStudents}
-      />)
+      return (
+        <DropdownInput
+          handleChange={(e) => { this.selectStudents(e, id) }}
+          isMulti
+          options={options}
+          optionType="student"
+          value={selectedStudents}
+        />
+      )
     } else if (emptyClassroomSelected) {
       return <span className="empty-class-students">And all students who join in the future</span>
     }
@@ -100,17 +102,19 @@ export default class ClassroomCard extends React.Component<ClassroomCardProps, C
 
   render() {
     const { classroom, toggleClassroomSelection, } = this.props
-    return (<div className="classroom">
-      <div className="checkbox-and-name-container">
-        {this.renderClassroomCheckbox()}
-        <div className="name-container">
-          <span className="name-label">Class</span>
-          <span className="name" onClick={() => toggleClassroomSelection(classroom)}>{classroom.name}</span>
+    return (
+      <div className="classroom">
+        <div className="checkbox-and-name-container">
+          {this.renderClassroomCheckbox()}
+          <div className="name-container">
+            <span className="name-label">Class</span>
+            <span className="name" onClick={() => toggleClassroomSelection(classroom)}>{classroom.name}</span>
+          </div>
+        </div>
+        <div className="students-container" ref={node => this.studentSection = node}>
+          {this.renderStudentSection()}
         </div>
       </div>
-      <div className="students-container" ref={node => this.studentSection = node}>
-        {this.renderStudentSection()}
-      </div>
-    </div>)
+    )
   }
 }

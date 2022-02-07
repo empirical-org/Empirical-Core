@@ -8,5 +8,5 @@ export default class ButtonLoadingIndicator extends React.Component {
         <img alt="a circle being retraced" className='assigner' src={`${process.env.CDN_URL}/images/shared/assigner_still.png`} />
       </span>
     )
-	}
+  }
 }

@@ -58,17 +58,21 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     const { classroom } = this.props
     const { code, google_classroom_id, clever_id, } = classroom
     if (google_classroom_id) {
-      return (<Tooltip
-        tooltipText={`Class code: <b>${code}</b><br/><br/>The easiest way for your students to join your class is through Google Classroom. However, if your students are not syncing, try the class code.`}
-        tooltipTriggerText={<div className="text-and-icon-wrapper"><span>Class code:&nbsp;</span><img alt={helpIcon.alt} src={helpIcon.src} /></div>}
-      />)
+      return (
+        <Tooltip
+          tooltipText={`Class code: <b>${code}</b><br/><br/>The easiest way for your students to join your class is through Google Classroom. However, if your students are not syncing, try the class code.`}
+          tooltipTriggerText={<div className="text-and-icon-wrapper"><span>Class code:&nbsp;</span><img alt={helpIcon.alt} src={helpIcon.src} /></div>}
+        />
+      )
     }
 
     if (clever_id) {
-      return (<Tooltip
-        tooltipText={`Class code: <b>${code}</b><br/><br/>The easiest way for your students to join your class is through Clever. However, if your students are not syncing, try the class code.`}
-        tooltipTriggerText={<div className="text-and-icon-wrapper"><span>Class code:&nbsp;</span><img alt={helpIcon.alt} src={helpIcon.src} /></div>}
-      />)
+      return (
+        <Tooltip
+          tooltipText={`Class code: <b>${code}</b><br/><br/>The easiest way for your students to join your class is through Clever. However, if your students are not syncing, try the class code.`}
+          tooltipTriggerText={<div className="text-and-icon-wrapper"><span>Class code:&nbsp;</span><img alt={helpIcon.alt} src={helpIcon.src} /></div>}
+        />
+      )
     }
 
     return `Class code: ${code}`
@@ -175,13 +179,15 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
 
   renderClassroomHeader() {
     const { classroom, clickClassroomHeader } = this.props
-    return (<div className="classroom-card-header" onClick={() => clickClassroomHeader(classroom.id)}>
-      <div className="classroom-info">
-        <h2 className="classroom-name">{classroom.name}</h2>
-        {this.renderClassroomData()}
+    return (
+      <div className="classroom-card-header" onClick={() => clickClassroomHeader(classroom.id)}>
+        <div className="classroom-info">
+          <h2 className="classroom-name">{classroom.name}</h2>
+          {this.renderClassroomData()}
+        </div>
+        <img className="expand-arrow" src={expandSrc} />
       </div>
-      <img className="expand-arrow" src={expandSrc} />
-    </div>)
+    )
   }
 
   renderClassSettings() {
@@ -211,13 +217,15 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
         <button className="quill-button secondary outlined small" key={`unarchive-class-${classroom.id}`} onClick={unarchiveClass} type="button">Un-archive</button>
       ]
     }
-    return (<div className={classSettingsClassName}>
-      <h3>Class settings</h3>
-      {coteacherNote}
-      <div className="class-settings-buttons">
-        {settings}
+    return (
+      <div className={classSettingsClassName}>
+        <h3>Class settings</h3>
+        {coteacherNote}
+        <div className="class-settings-buttons">
+          {settings}
+        </div>
       </div>
-    </div>)
+    )
   }
 
   renderClassroomContent() {
@@ -239,31 +247,35 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
       isOwnedByCurrentUser,
       classrooms
     }
-    return (<div>
-      {this.renderClassSettings()}
-      <ClassroomStudentSection
-        {...sharedProps}
-        importCleverClassroomStudents={importCleverClassroomStudents}
-        importGoogleClassroomStudents={importGoogleClassroomStudents}
-        inviteStudents={inviteStudents}
-        viewAsStudent={viewAsStudent}
-      />
-      <ClassroomTeacherSection
-        {...sharedProps}
-        leaveClass={this.leaveClass}
-      />
-    </div>)
+    return (
+      <div>
+        {this.renderClassSettings()}
+        <ClassroomStudentSection
+          {...sharedProps}
+          importCleverClassroomStudents={importCleverClassroomStudents}
+          importGoogleClassroomStudents={importGoogleClassroomStudents}
+          inviteStudents={inviteStudents}
+          viewAsStudent={viewAsStudent}
+        />
+        <ClassroomTeacherSection
+          {...sharedProps}
+          leaveClass={this.leaveClass}
+        />
+      </div>
+    )
   }
 
   renderLeaveClassModal() {
     const { classroom, onSuccess, } = this.props
     const { showModal } = this.state
     if (showModal === leaveClassModal) {
-      return (<LeaveClassModal
-        classroom={classroom}
-        close={this.closeModal}
-        onSuccess={onSuccess}
-      />)
+      return (
+        <LeaveClassModal
+          classroom={classroom}
+          close={this.closeModal}
+          onSuccess={onSuccess}
+        />
+      )
     }
   }
 

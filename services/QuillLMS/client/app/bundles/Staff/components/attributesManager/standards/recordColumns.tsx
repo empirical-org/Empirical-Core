@@ -51,21 +51,25 @@ const RecordColumns = ({ searchValue, visible, isNew, standardCategories, standa
 
   const recordColumns = recordTypes.map(rt => {
     const filteredRecords = rt.records.filter(t => t.visible === visible && t.name.toLowerCase().includes(searchValue.toLowerCase()))
-    return (<RecordColumn
-      records={filteredRecords}
-      recordType={rt.recordType}
-      selectRecord={selectRecord}
-      visible={visible}
-    />)
+    return (
+      <RecordColumn
+        records={filteredRecords}
+        recordType={rt.recordType}
+        selectRecord={selectRecord}
+        visible={visible}
+      />
+    )
   })
 
-  return (<div className="standard-columns">
-    {recordColumns}
-    <div className="record-box-container">
-      {recordBox}
-      {newRecordBoxes}
+  return (
+    <div className="standard-columns">
+      {recordColumns}
+      <div className="record-box-container">
+        {recordBox}
+        {newRecordBoxes}
+      </div>
     </div>
-  </div>)
+  )
 }
 
 export default RecordColumns

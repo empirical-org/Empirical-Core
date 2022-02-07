@@ -60,10 +60,12 @@ class TestQuestion extends Component {
     if (gradedResponse) {
       const { response } = gradedResponse;
       const { author, feedback } = response;
-      return (<div style={{marginTop: '30px'}}>
-        <p>Author: {author}</p>
-        <p>Feedback: {feedback}</p>
-      </div>)
+      return (
+        <div style={{marginTop: '30px'}}>
+          <p>Author: {author}</p>
+          <p>Feedback: {feedback}</p>
+        </div>
+      )
     }
   }
 

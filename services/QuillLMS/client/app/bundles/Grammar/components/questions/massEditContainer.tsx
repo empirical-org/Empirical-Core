@@ -67,13 +67,13 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
         method: 'POST',
         json: { responses: this.props.massEdit.selectedResponses, },
       },
-        (err, httpResponse, data) => {
-          const parsedResponses = _.indexBy(data.responses, 'id');
-          this.setState({
-            responses: parsedResponses,
-          });
-        }
-      );
+      (err, httpResponse, data) => {
+        const parsedResponses = _.indexBy(data.responses, 'id');
+        this.setState({
+          responses: parsedResponses,
+        });
+      }
+    );
   }
 
   clearResponsesFromMassEditArray() {
@@ -165,13 +165,13 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
   boilerplateCategoriesToOptions() {
     return getBoilerplateFeedback().map(category => (
       <option className="boilerplate-feedback-dropdown-option" key={category.key}>{category.description}</option>
-        ));
+    ));
   }
 
   boilerplateSpecificFeedbackToOptions(selectedCategory: any) {
     return selectedCategory.children.map((childFeedback: {[key: string]: string}) => (
       <option className="boilerplate-feedback-dropdown-option" key={childFeedback.key}>{childFeedback.description}</option>
-        ));
+    ));
   }
 
   renderMassEditForm() {

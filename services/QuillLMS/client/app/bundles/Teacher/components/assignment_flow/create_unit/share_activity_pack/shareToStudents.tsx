@@ -121,13 +121,15 @@ export const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
     const emptyClassrooms = classrooms.filter(c => !c.students.length)
     const numberOfClassroomsFirstText = `${emptyClassrooms.length} ${emptyClassrooms.length === 1 ? 'class' : 'classes'}`
     const numberOfClassroomsSecondText = `${emptyClassrooms.length === 1 ? 'has' : 'have'}`
-    return (<Card
-      header="Invite students to your classes"
-      imgAlt="students"
-      imgSrc={addStudentsSrc}
-      onClick={handleGoToClassroomIndex}
-      text={`You currently have ${numberOfClassroomsFirstText} that ${numberOfClassroomsSecondText} no students.`}
-    />)
+    return (
+      <Card
+        header="Invite students to your classes"
+        imgAlt="students"
+        imgSrc={addStudentsSrc}
+        onClick={handleGoToClassroomIndex}
+        text={`You currently have ${numberOfClassroomsFirstText} that ${numberOfClassroomsSecondText} no students.`}
+      />
+    )
   }
 
   function renderShareActivityPackCards() {

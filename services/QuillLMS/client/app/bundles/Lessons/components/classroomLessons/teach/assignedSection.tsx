@@ -34,10 +34,12 @@ const AssignedSection = ({ selectedOptionKey, }) => {
       <p className="text">{suggestionText}</p>
     </div>)
   }
-  return (<div className="assigned-section">
-    <div className="message"><i className="fa fa-check-circle" /> {text}</div>
-    {suggestion}
-  </div>)
+  return (
+    <div className="assigned-section">
+      <div className="message"><i className="fa fa-check-circle" /> {text}</div>
+      {suggestion}
+    </div>
+  )
 }
 
 export default AssignedSection

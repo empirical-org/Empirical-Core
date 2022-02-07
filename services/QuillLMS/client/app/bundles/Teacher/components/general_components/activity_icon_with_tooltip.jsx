@@ -54,7 +54,7 @@ export default class ActivityIconWithTooltip extends React.Component {
   };
 
   goToReport() {
-      window.location = `/teachers/progress_reports/report_from_classroom_unit_and_activity_and_user/cu/${this.props.data.cuId}/user/${this.props.data.userId}/a/${this.activityId()}`
+    window.location = `/teachers/progress_reports/report_from_classroom_unit_and_activity_and_user/cu/${this.props.data.cuId}/user/${this.props.data.userId}/a/${this.activityId()}`
   }
 
   hideTooltip = () => {
@@ -114,10 +114,12 @@ export default class ActivityIconWithTooltip extends React.Component {
       return <img className="in-progress-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-sliced.svg" />
     } else if (completed_attempts > 1) {
       const completedNumber = completed_attempts > 9 ? '+' : completed_attempts
-      return (<span>
-        <img className="attempt-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-solid.svg" />
-        <span className="attempt-count">{completedNumber}</span>
-      </span>)
+      return (
+        <span>
+          <img className="attempt-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-solid.svg" />
+          <span className="attempt-count">{completedNumber}</span>
+        </span>
+      )
     }
   }
 

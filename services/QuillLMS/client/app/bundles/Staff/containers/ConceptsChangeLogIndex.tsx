@@ -71,9 +71,11 @@ class ConceptsChangeLog extends React.Component<any, ConceptsChangeLogState> {
   }
 
   renderConceptsChangeLog(data) {
-    return (<ChangeLogTable
-      changeLogs={this.filterChangeLog(data.changeLogs, this.state.searchValue)}
-    />)
+    return (
+      <ChangeLogTable
+        changeLogs={this.filterChangeLog(data.changeLogs, this.state.searchValue)}
+      />
+    )
   }
 
   render() {
@@ -105,7 +107,8 @@ class ConceptsChangeLog extends React.Component<any, ConceptsChangeLogState> {
                     </div>
                   </div>
                 </div>
-              </div>)
+              </div>
+            )
           }}
         </Query>
       </div>

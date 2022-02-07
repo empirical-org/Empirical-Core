@@ -77,25 +77,29 @@ export default class extends React.Component {
   };
 
   renderConceptSelector = () => {
-    return (<div>
-      <label className="label">Concept</label>
+    return (
       <div>
-        <ConceptSelector
-          currentConceptUID={this.state.concept}
-          handleSelectorChange={this.handleSelectorChange}
-        />
+        <label className="label">Concept</label>
+        <div>
+          <ConceptSelector
+            currentConceptUID={this.state.concept}
+            handleSelectorChange={this.handleSelectorChange}
+          />
+        </div>
       </div>
-    </div>)
+    )
   };
 
   renderOptimalResponse = () => {
     if (this.props.new) {
-      return (<div>
-        <label className="label">Optimal Response</label>
-        <p className="control">
-          <input className="input" onChange={this.handleOptimalResponseText} type="text" />
-        </p>
-      </div>)
+      return (
+        <div>
+          <label className="label">Optimal Response</label>
+          <p className="control">
+            <input className="input" onChange={this.handleOptimalResponseText} type="text" />
+          </p>
+        </div>
+      )
     }
   };
 

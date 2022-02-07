@@ -5,14 +5,14 @@ import BottomNavigation from './bottomNavigation'
 import StepOverview from './stepOverview'
 import Steps from './steps'
 
-import { onMobile, READ_PASSAGE_STEP } from '../../helpers/containerActionHelpers';
+import { READ_PASSAGE_STEP } from '../../helpers/containerActionHelpers';
 
 const RightPanel = ({
   activities,
   activateStep,
   activeStep,
   activityIsComplete,
-  closeReadTheDirectionsModal,
+  handleReadTheDirectionsButtonClick,
   completeStep,
   completedSteps,
   completionButtonCallback,
@@ -27,7 +27,7 @@ const RightPanel = ({
   resetTimers,
   scrolledToEndOfPassage,
   session,
-  showReadTheDirectionsModal,
+  showReadTheDirectionsButton,
   studentHighlights,
   submitResponse,
   toggleStudentHighlight,
@@ -37,24 +37,27 @@ const RightPanel = ({
     doneHighlighting={doneHighlighting}
     handleClickDoneHighlighting={handleClickDoneHighlighting}
     handleDoneReadingClick={handleDoneReadingClick}
+    handleReadTheDirectionsButtonClick={handleReadTheDirectionsButtonClick}
     handleStartPromptStepsClick={onStartPromptSteps}
     handleStartReadingPassageClick={onStartReadPassage}
     hasStartedPromptSteps={hasStartedPromptSteps}
     hasStartedReadPassageStep={hasStartedReadPassageStep}
     inReflection={doneHighlighting && activeStep === READ_PASSAGE_STEP}
-    onMobile={onMobile()}
     scrolledToEndOfPassage={scrolledToEndOfPassage}
+    showReadTheDirectionsButton={showReadTheDirectionsButton}
     studentHighlights={studentHighlights}
   />)
 
   if (!hasStartedReadPassageStep) {
-    return (<div className="steps-outer-container step-overview-container" onScroll={resetTimers}>
-      <StepOverview
-        activeStep={activeStep}
-        handleClick={onStartReadPassage}
-      />
-      {bottomNavigation}
-    </div>)
+    return (
+      <div className="steps-outer-container step-overview-container" onScroll={resetTimers}>
+        <StepOverview
+          activeStep={activeStep}
+          handleClick={onStartReadPassage}
+        />
+        {bottomNavigation}
+      </div>
+    )
   }
 
   if (activeStep === READ_PASSAGE_STEP) {
@@ -62,11 +65,9 @@ const RightPanel = ({
       <div className="steps-outer-container" onScroll={resetTimers}>
         <ReadAndHighlightInstructions
           activeStep={activeStep}
-          closeReadTheDirectionsModal={closeReadTheDirectionsModal}
           inReflection={doneHighlighting && activeStep === READ_PASSAGE_STEP}
           passage={activities.currentActivity.passages[0]}
           removeHighlight={toggleStudentHighlight}
-          showReadTheDirectionsModal={showReadTheDirectionsModal}
           studentHighlights={studentHighlights}
         />
         {bottomNavigation}
@@ -75,13 +76,15 @@ const RightPanel = ({
   }
 
   if (!hasStartedPromptSteps) {
-    return (<div className="steps-outer-container step-overview-container" onScroll={resetTimers}>
-      <StepOverview
-        activeStep={activeStep}
-        handleClick={onStartPromptSteps}
-      />
-      {bottomNavigation}
-    </div>)
+    return (
+      <div className="steps-outer-container step-overview-container" onScroll={resetTimers}>
+        <StepOverview
+          activeStep={activeStep}
+          handleClick={onStartPromptSteps}
+        />
+        {bottomNavigation}
+      </div>
+    )
   }
 
   return(
@@ -90,16 +93,16 @@ const RightPanel = ({
       activeStep={activeStep}
       activities={activities}
       activityIsComplete={activityIsComplete}
-      closeReadTheDirectionsModal={closeReadTheDirectionsModal}
       completedSteps={completedSteps}
       completeStep={completeStep}
       completionButtonCallback={completionButtonCallback}
       doneHighlighting={doneHighlighting}
       handleDoneReadingClick={handleDoneReadingClick}
+      handleReadTheDirectionsButtonClick={handleReadTheDirectionsButtonClick}
       reportAProblem={reportAProblem}
       resetTimers={resetTimers}
       session={session}
-      showReadTheDirectionsModal={showReadTheDirectionsModal}
+      showReadTheDirectionsButton={showReadTheDirectionsButton}
       submitResponse={submitResponse}
     />
   )

@@ -1,7 +1,7 @@
 'use strict'
 
 
- export default  function () {
+export default  function () {
 
   this.sayNumberOfThings = function (number, singular, plural) {
     var value;

@@ -55,7 +55,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => {
   return {
-      dispatch
+    dispatch
   };
 };
 

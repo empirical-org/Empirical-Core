@@ -178,40 +178,48 @@ export default createReactClass({
   },
 
   getUnitTemplateCategorySelect() {
-    return (<DropdownSelector
-      defaultValue={this.state.model.unit_template_category_id}
-      label="Select Activity Pack Category"
-      options={this.state.options.unit_template_categories}
-      select={this.modules.indicatorGenerator.selector('unit_template_category_id')}
-    />);
+    return (
+      <DropdownSelector
+        defaultValue={this.state.model.unit_template_category_id}
+        label={'Select Activity Pack Category'}
+        options={this.state.options.unit_template_categories}
+        select={this.modules.indicatorGenerator.selector('unit_template_category_id')}
+      />
+    );
   },
 
   getStatusFlag() {
     // The label is a quick hack as it wasn't automatically turning to the correct one
-    return (<DropdownSelector
-      defaultValue={this.state.model.flag}
-      label="Select Flag"
-      options={this.state.options.flag}
-      select={this.modules.indicatorGenerator.selector('flag')}
-    />);
+    return (
+      <DropdownSelector
+        defaultValue={this.state.model.flag}
+        label={'Select Flag'}
+        options={this.state.options.flag}
+        select={this.modules.indicatorGenerator.selector('flag')}
+      />
+    );
   },
 
   getTimeDropdownSelect() {
-    return (<DropdownSelector
-      defaultValue={this.state.model.time}
-      label="Select time in minutes"
-      options={this.state.options.times}
-      select={this.modules.indicatorGenerator.selector('time')}
-    />);
+    return (
+      <DropdownSelector
+        defaultValue={this.state.model.time}
+        label={'Select time in minutes'}
+        options={this.state.options.times}
+        select={this.modules.indicatorGenerator.selector('time')}
+      />
+    );
   },
 
   getCustomActivityPack() {
-    return (<CustomActivityPack
-      clickContinue={this.save}
-      selectedActivities={this.state.model.activities}
-      setSelectedActivities={this.handleNewSelectedActivities}
-      toggleActivitySelection={this.toggleActivitySelection}
-    />);
+    return (
+      <CustomActivityPack
+        clickContinue={this.save}
+        selectedActivities={this.state.model.activities}
+        setSelectedActivities={this.handleNewSelectedActivities}
+        toggleActivitySelection={this.toggleActivitySelection}
+      />
+    );
   },
 
   getActivityPackDescriptionEditor() {
@@ -234,10 +242,12 @@ export default createReactClass({
   },
 
   getErrorMessageAndButton() {
-    return (<div className="error-message-and-button">
-      <div className={this.determineErrorMessageClass()}>{this.determineErrorMessage()}</div>
-      <button className={this.determineContinueButtonClass()} id="continue" onClick={this.save}>Save</button>
-    </div>);
+    return (
+      <div className="error-message-and-button">
+        <div className={this.determineErrorMessageClass()}>{this.determineErrorMessage()}</div>
+        <button className={this.determineContinueButtonClass()} id="continue" onClick={this.save}>Save</button>
+      </div>
+    );
   },
 
   getDiagnostics() {
@@ -247,7 +257,7 @@ export default createReactClass({
       <div>
         <h3>Diagnostics:</h3>
         <span>{diagnostic_names && diagnostic_names.map((diagnostic) => {
-            return (<span>{diagnostic}<br /></span>);
+          return (<span>{diagnostic}<br /></span>);
         })}</span>
         <br /><br />
       </div>
@@ -286,8 +296,8 @@ export default createReactClass({
         },
         body: data
       })
-      .then(response => response.json()) // if the response is a JSON object
-      .then(response => this.setState({uploadedFileLink: response.url})); // Handle the success response object
+        .then(response => response.json()) // if the response is a JSON object
+        .then(response => this.setState({uploadedFileLink: response.url})); // Handle the success response object
     });
   },
 

@@ -29,8 +29,8 @@ import { ActionTypes } from '../../actions/actionTypes';
 const labels = ActionTypes.ERROR_AUTHORS;
 const qualityLabels = ['Human Optimal', 'Human Sub-Optimal', 'Algorithm Optimal', 'Algorithm Sub-Optimal', 'Unmatched'];
 // ["Human Optimal", "Human Sub-Optimal", "Algorithm Optimal", "Algorithm Sub-Optimal",  "Unmatched",
-                // "Focus Point Hint", "Word Error Hint", "Punctuation Hint", "Capitalization Hint", "Punctuation and Case Hint", "Whitespace Hint",
-                // "Missing Word Hint", "Additional Word Hint", "Modified Word Hint", "Missing Details Hint", "Not Concise Hint", "No Hint"]
+// "Focus Point Hint", "Word Error Hint", "Punctuation Hint", "Capitalization Hint", "Punctuation and Case Hint", "Whitespace Hint",
+// "Missing Word Hint", "Additional Word Hint", "Modified Word Hint", "Missing Details Hint", "Not Concise Hint", "No Hint"]
 const colors = ['#81c784', '#ffb74d', '#BA68C8', '#5171A5', '#e57373'];
 
 const responsesPerPage = 20;
@@ -128,12 +128,12 @@ class ResponseComponent extends React.Component {
         url: `${process.env.QUILL_CMS}/questions/${this.props.questionID}/health`,
         method: 'GET',
       },
-        (err, httpResponse, data) => {
-          this.setState({
-            health: JSON.parse(data),
-          });
-        }
-      );
+      (err, httpResponse, data) => {
+        this.setState({
+          health: JSON.parse(data),
+        });
+      }
+    );
   }
 
   getGradeBreakdown() {
@@ -142,12 +142,12 @@ class ResponseComponent extends React.Component {
         url: `${process.env.QUILL_CMS}/questions/${this.props.questionID}/grade_breakdown`,
         method: 'GET',
       },
-        (err, httpResponse, data) => {
-          this.setState({
-            gradeBreakdown: JSON.parse(data),
-          });
-        }
-      );
+      (err, httpResponse, data) => {
+        this.setState({
+          gradeBreakdown: JSON.parse(data),
+        });
+      }
+    );
   }
 
   clearResponses() {
@@ -287,27 +287,29 @@ class ResponseComponent extends React.Component {
       const { questionID, selectedIncorrectSequences, selectedFocusPoints } = this.props;
       const responsesWStatus = this.responsesWithStatus();
       const responses = _.sortBy(responsesWStatus, 'sortOrder');
-      return (<ResponseList
-        admin={this.props.admin}
-        ascending={this.props.filters.ascending}
-        conceptID={this.props.question.conceptID}
-        concepts={this.props.concepts}
-        conceptsFeedback={this.props.conceptsFeedback}
-        dispatch={this.props.dispatch}
-        expand={this.expand}
-        expanded={this.props.filters.expanded}
-        getChildResponses={this.getChildResponses}
-        getMatchingResponse={this.rematchResponse}
-        getResponse={this.getResponse}
-        massEdit={this.props.massEdit}
-        mode={this.props.mode}
-        question={this.props.question}
-        questionID={questionID}
-        responses={responses}
-        selectedFocusPoints={selectedFocusPoints}
-        selectedIncorrectSequences={selectedIncorrectSequences}
-        states={this.props.states}
-      />);
+      return (
+        <ResponseList
+          admin={this.props.admin}
+          ascending={this.props.filters.ascending}
+          conceptID={this.props.question.conceptID}
+          concepts={this.props.concepts}
+          conceptsFeedback={this.props.conceptsFeedback}
+          dispatch={this.props.dispatch}
+          expand={this.expand}
+          expanded={this.props.filters.expanded}
+          getChildResponses={this.getChildResponses}
+          getMatchingResponse={this.rematchResponse}
+          getResponse={this.getResponse}
+          massEdit={this.props.massEdit}
+          mode={this.props.mode}
+          question={this.props.question}
+          questionID={questionID}
+          responses={responses}
+          selectedFocusPoints={selectedFocusPoints}
+          selectedIncorrectSequences={selectedIncorrectSequences}
+          states={this.props.states}
+        />
+      );
     }
   }
 
@@ -316,11 +318,13 @@ class ResponseComponent extends React.Component {
   }
 
   renderSortingFields() {
-    return (<ResponseSortFields
-      ascending={this.props.filters.ascending}
-      sorting={this.props.filters.sorting}
-      toggleResponseSort={this.toggleResponseSort}
-    />);
+    return (
+      <ResponseSortFields
+        ascending={this.props.filters.ascending}
+        sorting={this.props.filters.sorting}
+        toggleResponseSort={this.toggleResponseSort}
+      />
+    );
   }
 
   toggleField(status) {
@@ -613,8 +617,8 @@ class ResponseComponent extends React.Component {
 
   render() {
     const questionBar = this.props.filters.responses && Object.keys(this.props.filters.responses).length > 0
-    ? <QuestionBar data={_.values(this.formatForQuestionBar())} />
-    : <span />;
+      ? <QuestionBar data={_.values(this.formatForQuestionBar())} />
+      : <span />;
 
     return (
       <div style={{ marginTop: 0, paddingTop: 0, }}>

@@ -60,9 +60,9 @@ export default class StepHtml extends React.Component<StepHtmlProps, StepHtmlSta
           <div dangerouslySetInnerHTML={{ __html: this.props.item.data.body, }} />
         </li>)
       return html
-  } else {
-    return <span />
-  }
+    } else {
+      return <span />
+    }
   // return  renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean | null, index: number) {
   //     if (item.data) {
   //       const html = onlyShowHeaders
@@ -74,6 +74,6 @@ export default class StepHtml extends React.Component<StepHtmlProps, StepHtmlSta
   //         </li>)
   //       return html
   //     }
-    }
+  }
 
 }

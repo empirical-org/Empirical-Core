@@ -49,13 +49,13 @@ class MassEditContainer extends React.Component {
         method: 'POST',
         json: { responses: this.props.massEdit.selectedResponses, },
       },
-        (err, httpResponse, data) => {
-          const parsedResponses = _.indexBy(data.responses, 'id');
-          this.setState({
-            responses: parsedResponses,
-          });
-        }
-      );
+      (err, httpResponse, data) => {
+        const parsedResponses = _.indexBy(data.responses, 'id');
+        this.setState({
+          responses: parsedResponses,
+        });
+      }
+    );
   }
 
   clearResponsesFromMassEditArray() {

@@ -329,10 +329,12 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       default:
 
     }
-    return (<div>
-      {this.renderProjectorModal()}
-      {slide}
-    </div>)
+    return (
+      <div>
+        {this.renderProjectorModal()}
+        {slide}
+      </div>
+    )
   }
 
   handleChange = (e) => {
@@ -352,33 +354,37 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     const { classroomSessions, } = this.props
     const currentSlide = Number(classroomSessions.data.current_slide)
     if (!getParameterByName('projector') || currentSlide === 0) { return }
-    return (<button
-      className="projector-navigation-button left"
-      onClick={this.handleClickLeftButton}
-      type="button"
-    >
-      <img
-        alt="Arrow pointing left in circle"
-        className="left-button"
-        src={arrowSrc}
-      />
-    </button>)
+    return (
+      <button
+        className="projector-navigation-button left"
+        onClick={this.handleClickLeftButton}
+        type="button"
+      >
+        <img
+          alt="Arrow pointing left in circle"
+          className="left-button"
+          src={arrowSrc}
+        />
+      </button>
+    )
   }
 
   renderRightButton() {
     const { classroomSessions, customize,  } = this.props
     const currentSlide = Number(classroomSessions.data.current_slide)
     if (!getParameterByName('projector') || currentSlide === customize.editionQuestions.questions.length - 1) { return }
-    return (<button
-      className="projector-navigation-button right"
-      onClick={this.handleClickRightButton}
-      type="button"
-    >
-      <img
-        alt="Arrow pointing right"
-        src={arrowSrc}
-      />
-    </button>)
+    return (
+      <button
+        className="projector-navigation-button right"
+        onClick={this.handleClickRightButton}
+        type="button"
+      >
+        <img
+          alt="Arrow pointing right"
+          src={arrowSrc}
+        />
+      </button>
+    )
   }
 
   public render() {
@@ -401,64 +407,66 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     );
 
     if (shouldEnterName) {
-       mainContent = (
-         <div>
-           <div className="play-lesson-container">
-             <div className="main-content">
-               <div className="main-content-wrapper">
-                 <div className="easy-join-name-form-wrapper">
-                   <div className="easy-join-name-form">
-                     <p>Please enter your full name:</p>
-                     <input aria-label="Full name" onChange={this.handleChange} value={easyDemoName} />
-                     <button onClick={this.handleClickJoinDemo} type="button">Join</button>
-                   </div>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
+      mainContent = (
+        <div>
+          <div className="play-lesson-container">
+            <div className="main-content">
+              <div className="main-content-wrapper">
+                <div className="easy-join-name-form-wrapper">
+                  <div className="easy-join-name-form">
+                    <p>Please enter your full name:</p>
+                    <input aria-label="Full name" onChange={this.handleChange} value={easyDemoName} />
+                    <button onClick={this.handleClickJoinDemo} type="button">Join</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       )
     } else if (error) {
-       mainContent = <ErrorPage text={error} />
-     } else if (lessonError) {
-       mainContent = <ErrorPage text={lessonError} />
-     } else if (flaggedStudentCompletionScreen) {
-       mainContent = <FlaggedStudentCompletedPage />
-     } else {
-       const lessonData: ClassroomLesson = classroomLesson.data;
-       const lessonDataLoaded: boolean = classroomLesson.hasreceiveddata;
-       const editionData: CustomizeIntf.EditionQuestions = customize.editionQuestions;
-       const editionDataLoaded: boolean = Object.keys(editionData).length > 0;
-       // const data: ClassroomLessonSessions  = classroomSessions.data;
-       // const hasreceiveddata = classroomSessions.hasreceiveddata
-       const absentTeacher = classroomSessions.data.absentTeacherState ? <CLAbsentTeacher /> : null
-       const watchTeacher = classroomSessions.data.watchTeacherState && !projector ? <CLWatchTeacher /> : null
+      mainContent = <ErrorPage text={error} />
+    } else if (lessonError) {
+      mainContent = <ErrorPage text={lessonError} />
+    } else if (flaggedStudentCompletionScreen) {
+      mainContent = <FlaggedStudentCompletedPage />
+    } else {
+      const lessonData: ClassroomLesson = classroomLesson.data;
+      const lessonDataLoaded: boolean = classroomLesson.hasreceiveddata;
+      const editionData: CustomizeIntf.EditionQuestions = customize.editionQuestions;
+      const editionDataLoaded: boolean = Object.keys(editionData).length > 0;
+      // const data: ClassroomLessonSessions  = classroomSessions.data;
+      // const hasreceiveddata = classroomSessions.hasreceiveddata
+      const absentTeacher = classroomSessions.data.absentTeacherState ? <CLAbsentTeacher /> : null
+      const watchTeacher = classroomSessions.data.watchTeacherState && !projector ? <CLWatchTeacher /> : null
 
-       if (hasreceiveddata && lessonDataLoaded && editionDataLoaded) {
-         const component = this.renderCurrentSlide(data, lessonData, editionData);
-         if (component) {
-           mainContent = (
-             <div>
-               {absentTeacher || watchTeacher}
-               {this.renderLeftButton()}
-               <div className="play-lesson-container">
-                 <div className="main-content">
-                   <div className="main-content-wrapper">
-                     {component}
-                   </div>
-                 </div>
-               </div>
-               {this.renderRightButton()}
-             </div>
-           );
-         }
-       }
-     }
-     return (<div>
-       {navbar}
-       <div id="main-content" tabIndex={-1}>{mainContent}</div>
-     </div>)
-   }
+      if (hasreceiveddata && lessonDataLoaded && editionDataLoaded) {
+        const component = this.renderCurrentSlide(data, lessonData, editionData);
+        if (component) {
+          mainContent = (
+            <div>
+              {absentTeacher || watchTeacher}
+              {this.renderLeftButton()}
+              <div className="play-lesson-container">
+                <div className="main-content">
+                  <div className="main-content-wrapper">
+                    {component}
+                  </div>
+                </div>
+              </div>
+              {this.renderRightButton()}
+            </div>
+          );
+        }
+      }
+    }
+    return (
+      <div>
+        {navbar}
+        <div id="main-content" tabIndex={-1}>{mainContent}</div>
+      </div>
+    )
+  }
 
 }
 

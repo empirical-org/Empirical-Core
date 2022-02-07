@@ -40,16 +40,18 @@ const BulkArchiveClassesBanner = ({ classes, onSuccess, userId, }) => {
     setPreviouslyClosedBanner('true')
   }
 
-  return (<React.Fragment>
-    {modalIsOpen && <BulkArchiveClassesModal classes={classes} onCloseModal={handleCloseModal} onSuccess={onSuccess} /> }
-    <section className="bulk-archive-classes-banner">
-      <span><strong>Start of a new school year?</strong>&nbsp;Quickly archive last year’s classes.</span>
-      <span>
-        <button className="quill-button medium outlined secondary" onClick={handleOpenModal} type="button">Archive classes</button>
-        <button className="pass-through-button" onClick={handleCloseBanner} type="button"><img alt="X icon" src={closeIconSrc} /></button>
-      </span>
-    </section>
-  </React.Fragment>)
+  return (
+    <React.Fragment>
+      {modalIsOpen && <BulkArchiveClassesModal classes={classes} onCloseModal={handleCloseModal} onSuccess={onSuccess} /> }
+      <section className="bulk-archive-classes-banner">
+        <span><strong>Start of a new school year?</strong>&nbsp;Quickly archive last year’s classes.</span>
+        <span>
+          <button className="quill-button medium outlined secondary" onClick={handleOpenModal} type="button">Archive classes</button>
+          <button className="pass-through-button" onClick={handleCloseBanner} type="button"><img alt="X icon" src={closeIconSrc} /></button>
+        </span>
+      </section>
+    </React.Fragment>
+  )
 }
 
 export default BulkArchiveClassesBanner

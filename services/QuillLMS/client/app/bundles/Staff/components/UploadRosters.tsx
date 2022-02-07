@@ -48,12 +48,12 @@ export const UploadRosters = () => {
         teachers: teachers,
         students: students
       }}, (e, r, response) => {
-        if (response.errors) {
-          alert(response.errors)
-        } else {
-          alert("Rosters uploaded successfully!")
-        }
+      if (response.errors) {
+        alert(response.errors)
+      } else {
+        alert("Rosters uploaded successfully!")
       }
+    }
     );
   }
 
