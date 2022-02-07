@@ -228,7 +228,7 @@ export default class extends React.Component {
       const renewDate = moment(this.props.subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons('recurring', renewDate);
       beginsOn = (
-        <TitleAndContent content={renewDate} title={'Begins On'} />
+        <TitleAndContent content={renewDate} title="Begins On" />
       );
     } else if (condition === 'school' && !this.props.subscriptionStatus.recurring) {
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons(`${condition} non-recurring`);

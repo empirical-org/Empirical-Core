@@ -78,7 +78,7 @@ export default class ClassroomActivity extends React.Component {
     } else if (nonRelevantActivityClassificationIds.includes(data.activityClassificationId)) {
       return (
         <Tooltip
-          tooltipText={`This type of activity is not graded.`}
+          tooltipText="This type of activity is not graded."
           tooltipTriggerText="N/A"
         />
       )
