@@ -69,7 +69,7 @@ module Evidence
           'highlight' => [
             { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
           ],
-          'hint' => { 'id' => grammar_hint.id, 'explanation' => grammar_hint.explanation, 'image_link' => grammar_hint.image_link, 'image_alt_text' => grammar_hint.image_alt_text },
+          'hint' => { 'id' => grammar_hint.id, 'explanation' => grammar_hint.explanation, 'image_link' => grammar_hint.image_link, 'image_alt_text' => grammar_hint.image_alt_text, 'rule_id' => grammar_hint.rule_id },
           'labels' => '',
           'rule_uid' => example_rule_uid.to_s
         })
@@ -92,7 +92,7 @@ module Evidence
             'highlight' => [
               { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
             ],
-            'hint' => { 'id' => grammar_hint.id, 'explanation' => grammar_hint.explanation, 'image_link' => grammar_hint.image_link, 'image_alt_text' => grammar_hint.image_alt_text },
+            'hint' => { 'id' => grammar_hint.id, 'explanation' => grammar_hint.explanation, 'image_link' => grammar_hint.image_link, 'image_alt_text' => grammar_hint.image_alt_text, 'rule_id' => grammar_hint.rule_id },
             'labels' => '',
             'rule_uid' => example_rule_uid.to_s
           })
@@ -147,7 +147,7 @@ module Evidence
           'highlight' => [
             { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
           ],
-          'hint' => { 'id' => opinion_hint.id, 'explanation' => opinion_hint.explanation, 'image_link' => opinion_hint.image_link, 'image_alt_text' => opinion_hint.image_alt_text },
+          'hint' => { 'id' => opinion_hint.id, 'explanation' => opinion_hint.explanation, 'image_link' => opinion_hint.image_link, 'image_alt_text' => opinion_hint.image_alt_text, 'rule_id' => opinion_hint.rule_id },
           'labels' => '',
           'rule_uid' => example_rule_uid.to_s
         })
@@ -170,7 +170,7 @@ module Evidence
             'highlight' => [
               { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
             ],
-            'hint' => { 'id' => opinion_hint.id, 'explanation' => opinion_hint.explanation, 'image_link' => opinion_hint.image_link, 'image_alt_text' => opinion_hint.image_alt_text },
+            'hint' => { 'id' => opinion_hint.id, 'explanation' => opinion_hint.explanation, 'image_link' => opinion_hint.image_link, 'image_alt_text' => opinion_hint.image_alt_text, 'rule_id' => opinion_hint.rule_id },
             'labels' => '',
             'rule_uid' => example_rule_uid.to_s
           })
@@ -313,7 +313,17 @@ module Evidence
           Rule.stub_any_instance(:determine_feedback_from_history, first_feedback) do
             post("automl", :params => ({ :entry => entry, :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
             parsed_response = JSON.parse(response.body)
-            expect({ :feedback => first_feedback.text, :feedback_type => "autoML", :optimal => rule.optimal, :response_id => "", :entry => entry, :concept_uid => rule.concept_uid, :rule_uid => rule.uid, :highlight => ([]) }.stringify_keys).to(eq(parsed_response))
+            expect({
+              :feedback => first_feedback.text,
+              :feedback_type => "autoML",
+              :optimal => rule.optimal,
+              :response_id => "",
+              :entry => entry,
+              :concept_uid => rule.concept_uid,
+              :rule_uid => rule.uid,
+              :highlight => ([]),
+              :hint => rule.hint.serializable_hash
+            }.stringify_keys).to(eq(parsed_response))
           end
         end
       end

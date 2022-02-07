@@ -3,7 +3,7 @@
 
 ## Unit tests
 
-    Empirical-Core/services/comprehension/feedback-api-main/src/endpoint$ go test
+    Empirical-Core/services/evidence/feedback-api-main/src/endpoint$ go test
 
 ## local development
 Not yet set up

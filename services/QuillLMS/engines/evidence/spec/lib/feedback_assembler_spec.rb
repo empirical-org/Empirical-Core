@@ -53,6 +53,7 @@ module Evidence
             highlight: [
               { type: 'response', text: 'someText', character: 0 }
             ],
+            hint: rule.hint,
             labels: '',
             rule_uid: example_rule_uid.to_s
           })
