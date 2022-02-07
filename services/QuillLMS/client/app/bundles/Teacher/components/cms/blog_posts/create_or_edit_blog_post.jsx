@@ -581,10 +581,10 @@ export default class CreateOrEditBlogPost extends React.Component {
         customInputIcon={<img alt="dropdown indicator" src="https://assets.quill.org/images/icons/dropdown.svg" style={dropdownIconStyle} />}
         date={publishedAt ? moment(publishedAt) : null}
         focused={focused}
-        id={`date-picker`}
+        id="date-picker"
         inputIconPosition="after"
-        navNext={'›'}
-        navPrev={'‹'}
+        navNext="›"
+        navPrev="‹"
         numberOfMonths={1}
         onDateChange={this.handlePublishedAtChange}
         onFocusChange={({ focused }) => this.setState({ focused })}

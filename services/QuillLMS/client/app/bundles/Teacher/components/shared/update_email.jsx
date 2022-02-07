@@ -62,7 +62,7 @@ export default class extends React.Component{
     const inputBorderColor = this.state.error ? { 'border': '1px solid #ff4542'} : {'display': 'inherit'}
     const input = this.state.email
     ? <input onChange={this.handleChange} style={inputBorderColor} type="text" value={this.state.email} />
-    : <input onChange={this.handleChange} placeholder={'Update your Quill email'} style={inputBorderColor} type="text" />
+    : <input onChange={this.handleChange} placeholder="Update your Quill email" style={inputBorderColor} type="text" />
 
 
     return(<div>

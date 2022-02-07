@@ -58,11 +58,11 @@ class ItemLevelForm extends React.Component {
         className="box"
         cancelAndDeleteButtons =
           (<div className="button-group">
-            <Link to={'/admin/item-levels'}>
-              <button className={"button is-danger"} onClick={this.deleteItemLevel}>Delete</button>
+            <Link to="/admin/item-levels">
+              <button className="button is-danger" onClick={this.deleteItemLevel}>Delete</button>
             </Link>
-            <Link to={'/admin/item-levels'}>
-              <button className={"button is-info"} onClick={this.cancelEdit}>Cancel</button>
+            <Link to="/admin/item-levels">
+              <button className="button is-info" onClick={this.cancelEdit}>Cancel</button>
             </Link>
           </div>)
       }
@@ -93,7 +93,7 @@ class ItemLevelForm extends React.Component {
             />
           </p>
           <div className="control">
-            <Link to={'admin/item-levels'}>
+            <Link to="admin/item-levels">
               <button className="button is-primary" onClick={this.submit}>Submit</button>
             </Link>
           </div>

@@ -19,7 +19,7 @@ export default class CmsIndexTableRow extends React.Component {
 
   activitiesLink = () => {
     if (this.props.resourceNameSingular === 'activity_classification') {
-      return <div className='col-xs-4' key={'activities'} onClick={this.goToActivities}>activities</div>
+      return <div className='col-xs-4' key="activities" onClick={this.goToActivities}>activities</div>
     }
   };
 

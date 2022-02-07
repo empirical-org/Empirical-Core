@@ -232,7 +232,7 @@ class Questions extends React.Component {
             <br />
             <br />
             <QuestionListByConcept
-              basePath={'questions'}
+              basePath="questions"
               concepts={concepts}
               questions={diagnosticQuestions}
               showOnlyArchived={showOnlyArchived}

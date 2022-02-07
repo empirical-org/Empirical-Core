@@ -243,10 +243,10 @@ export default class EditOrCreateSubscription extends React.Component {
         <SingleDatePicker
           date={subscription.start_date ? moment(subscription.start_date) : null}
           focused={firstFocused}
-          id={`date-picker`}
+          id="date-picker"
           inputIconPosition="after"
-          navNext={'›'}
-          navPrev={'‹'}
+          navNext="›"
+          navPrev="‹"
           numberOfMonths={1}
           onDateChange={this.handleStartDateChange}
           onFocusChange={() => this.setState({ firstFocused: !firstFocused })}
@@ -258,10 +258,10 @@ export default class EditOrCreateSubscription extends React.Component {
         <SingleDatePicker
           date={subscription.expiration ? moment(subscription.expiration) : null}
           focused={secondFocused}
-          id={`date-picker`}
+          id="date-picker"
           inputIconPosition="after"
-          navNext={'›'}
-          navPrev={'‹'}
+          navNext="›"
+          navPrev="‹"
           numberOfMonths={1}
           onDateChange={this.handleExpirationDateChange}
           onFocusChange={() => this.setState({ secondFocused: !secondFocused })}

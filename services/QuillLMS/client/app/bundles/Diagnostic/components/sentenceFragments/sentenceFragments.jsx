@@ -40,7 +40,7 @@ class SentenceFragments extends React.Component {
     return (
       <section className="section">
         <div className="container">
-          <Link to={'/admin/sentence-fragments/new'}>
+          <Link to="/admin/sentence-fragments/new">
             <button className="button is-primary">Create a New Sentence Fragment</button>
           </Link>
           <ArchivedButton
@@ -50,7 +50,7 @@ class SentenceFragments extends React.Component {
           />
           <p className="menu-label">Sentence Fragments</p>
           <QuestionList
-            basePath={'sentence-fragments'}
+            basePath="sentence-fragments"
             questions={sentenceFragments || []}
             showOnlyArchived={showOnlyArchived}
           />

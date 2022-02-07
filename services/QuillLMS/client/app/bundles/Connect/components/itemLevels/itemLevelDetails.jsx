@@ -28,7 +28,7 @@ class ItemLevelDetails extends React.Component {
           <ul className="menu-list">{questionsToRender}</ul>
           <br />
           <Link to={"/admin/item-levels/" + levelID + "/edit"}><button className="button is-info">Edit Level</button></Link>
-          <Link to={"/admin/item-levels"}><button className="button is-danger">Back</button></Link>
+          <Link to="/admin/item-levels"><button className="button is-danger">Back</button></Link>
         </div>
       )
     } else {

@@ -173,7 +173,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   renderDisplayButton() {
     if (this.state.projecting) {
       return (
-        <button className={"show-prompt-button "} onClick={this.stopDisplayingAnswers}>Stop Displaying Answers</button>
+        <button className="show-prompt-button " onClick={this.stopDisplayingAnswers}>Stop Displaying Answers</button>
       )
     } else {
       const selected_submissions: SelectedSubmissions = this.props.selected_submissions;
@@ -288,11 +288,11 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       <td>
         <input
           defaultChecked={checked}
-          id={'correct'}
-          name={'correct'}
+          id="correct"
+          name="correct"
           type="checkbox"
         />
-        <label htmlFor={'correct'} onClick={(e) => { this.props.toggleSelected(e, current_slide, 'correct'); }}>
+        <label htmlFor="correct" onClick={(e) => { this.props.toggleSelected(e, current_slide, 'correct'); }}>
           {checkbox}
         </label>
       </td>
@@ -536,7 +536,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
             handleTextChange={this.handlePromptChange}
             lessonPrompt={textEditorInputClean(this.props.lessonPrompt)}
             text={this.state.prompt}
-            title={"Prompt:"}
+            title="Prompt:"
           />
         </div>
       )
@@ -557,7 +557,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           <MultipleTextEditor
             handleTextChange={this.handleModelChange}
             text={this.state.model}
-            title={"Your Model:"}
+            title="Your Model:"
           />
         </div>
       </div>

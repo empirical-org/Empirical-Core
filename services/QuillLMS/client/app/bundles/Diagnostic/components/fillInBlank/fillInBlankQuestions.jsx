@@ -37,7 +37,7 @@ class FillInBlankQuestions extends Component {
     return (
       <section className="section">
         <div className="admin-container">
-          <Link to={'/admin/fill-in-the-blanks/new'}>
+          <Link to="/admin/fill-in-the-blanks/new">
             <button className="button is-primary">Create a New Fill In The Blank</button>
           </Link>
           <ArchivedButton lessons={false} showOnlyArchived={showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
