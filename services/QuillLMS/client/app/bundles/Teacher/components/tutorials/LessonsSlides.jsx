@@ -52,15 +52,6 @@ const SlideFour =() => {
   </div>)
 }
 
-// there is no video for this slide right now so it is not being passed to the tutorial index
-const SlideFive =() => {
-  return (<div className='slide lessons-slide-five' key='five'>
-    <div className="media">
-      <video />
-    </div>
-  </div>)
-}
-
 const SlideSix =() => {
   return (<div className='slide lessons-slide-six' key='six'>
     <div className="media">
