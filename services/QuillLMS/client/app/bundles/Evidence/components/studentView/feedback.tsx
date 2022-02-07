@@ -60,6 +60,11 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
     }
   }, [reportAProblemExpanded])
 
+  React.useEffect(() => {
+    const el = document.getElementsByClassName('editor-container')[0]
+    if (el) { el.scrollIntoView(true) }
+  }, [lastSubmittedResponse])
+
   function toggleReportAProblemExpanded() { setReportAProblemExpanded(!reportAProblemExpanded) }
 
   function handleSelectProblem(report) {
