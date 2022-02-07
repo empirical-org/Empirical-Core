@@ -2,7 +2,6 @@
   "rules": {
     "jsx-a11y/alt-text": "error",
     "jsx-a11y/anchor-is-valid": "error",
-    "jsx-a11y/aria-role": "error",
     "jsx-a11y/click-events-have-key-events": "error",
     "jsx-a11y/control-has-associated-label": "error",
     "jsx-a11y/label-has-associated-control": "error",

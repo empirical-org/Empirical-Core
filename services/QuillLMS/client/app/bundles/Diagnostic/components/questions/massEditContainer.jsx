@@ -217,7 +217,7 @@ class MassEditContainer extends React.Component {
           </header>
           <div className="card-content">
             <div className="content">
-              <h3>CONCEPT RESULTS <span style={{ fontSize: '0.7em', marginLeft: '0.75em', }}>⚠️️ All other concept results associated with selected responses will be overwritten</span></h3>
+              <h3>CONCEPT RESULTS <span style={{ fontSize: '0.7em', marginLeft: '0.75em', }}>All other concept results associated with selected responses will be overwritten</span></h3>
               <ConceptResultList updateConceptResults={this.updateConceptResults} />
             </div>
           </div>
