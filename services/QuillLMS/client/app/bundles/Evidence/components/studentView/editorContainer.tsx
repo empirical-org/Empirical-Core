@@ -11,6 +11,7 @@ interface EditorContainerProps {
   html: string;
   disabled: boolean;
   handleFocus: (event: any) => void;
+  handleKeyDown: (event: any) => void;
   innerRef: Function;
   handleTextChange: (event: any) => void;
   className: string;
@@ -26,7 +27,7 @@ export default class EditorContainer extends React.Component<EditorContainerProp
   }
 
   render() {
-    const { disabled, html, innerRef, handleTextChange, className, handleFocus, } = this.props
+    const { disabled, html, innerRef, handleTextChange, className, handleFocus, handleKeyDown } = this.props
     return (
       <div className="editor-container">
         <ContentEditable
@@ -37,6 +38,7 @@ export default class EditorContainer extends React.Component<EditorContainerProp
           innerRef={innerRef}
           onChange={handleTextChange}
           onFocus={handleFocus}
+          onKeyDown={handleKeyDown}
           spellCheck={true}
         />
       </div>
