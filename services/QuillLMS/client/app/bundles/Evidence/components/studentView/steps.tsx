@@ -11,12 +11,12 @@ const Steps = ({
   completionButtonCallback,
   completeStep,
   submitResponse,
-  closeReadTheDirectionsModal,
+  handleReadTheDirectionsButtonClick,
   session,
   completedSteps,
   doneHighlighting,
   resetTimers,
-  showReadTheDirectionsModal,
+  showReadTheDirectionsButton,
   reportAProblem,
 }) => {
   return(
@@ -29,13 +29,13 @@ const Steps = ({
           completionButtonCallback,
           completeStep,
           submitResponse,
-          closeReadTheDirectionsModal,
+          handleReadTheDirectionsButtonClick,
           activities,
           session,
           activeStep,
           completedSteps,
           doneHighlighting,
-          showReadTheDirectionsModal,
+          showReadTheDirectionsButton,
           reportAProblem,
         })}
       </div>

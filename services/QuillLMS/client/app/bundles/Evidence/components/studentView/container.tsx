@@ -42,7 +42,7 @@ interface StudentViewContainerState {
   timeTracking: { [key:string]: number };
   studentHighlights: string[];
   doneHighlighting: boolean;
-  showReadTheDirectionsModal: boolean;
+  showReadTheDirectionsButton: boolean;
   scrolledToEndOfPassage: boolean;
   hasStartedReadPassageStep: boolean;
   hasStartedPromptSteps: boolean;
@@ -77,7 +77,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   const [hasStartedReadPassageStep, setHasStartedReadPassageStep] = React.useState(shouldSkipToPrompts)
   const [hasStartedPromptSteps, setHasStartedPromptsSteps] = React.useState(shouldSkipToPrompts)
   const [doneHighlighting, setDoneHighlighting] = React.useState(shouldSkipToPrompts)
-  const [showReadTheDirectionsModal, setShowReadTheDirectionsModal] = React.useState(false)
+  const [showReadTheDirectionsButton, setShowReadTheDirectionsButton] = React.useState(false)
   const [timeTracking, setTimeTracking] = React.useState({
     [ONBOARDING]: 0,
     1: 0,
@@ -182,7 +182,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     if (e) { resetTimers(e) }
   }
 
-  function closeReadTheDirectionsModal() { setShowReadTheDirectionsModal(false) }
+  function handleReadTheDirectionsButtonClick() { setShowReadTheDirectionsButton(false) }
 
   function resetTimers(e=null) {
     const now = Date.now()
@@ -332,8 +332,8 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
 
   function handleClick(e) {
-    if (showReadTheDirectionsModal && e.target.className.indexOf('read-the-directions-modal') === -1) {
-      closeReadTheDirectionsModal()
+    if (showReadTheDirectionsButton && e.target.className.indexOf('read-the-directions-modal') === -1) {
+      handleReadTheDirectionsButtonClick()
     }
 
     resetTimers(e)
@@ -355,7 +355,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   function onStartReadPassage(e) {
     e.stopPropagation()
     setHasStartedReadPassageStep(true)
-    setShowReadTheDirectionsModal(true)
+    setShowReadTheDirectionsButton(true)
   }
 
   function onStartPromptSteps() { setHasStartedPromptsSteps(true) }
@@ -469,7 +469,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     }
 
     if (node.name === 'mark') {
-      const shouldBeHighlightable = !doneHighlighting && !showReadTheDirectionsModal && hasStartedReadPassageStep
+      const shouldBeHighlightable = !doneHighlighting && !showReadTheDirectionsButton && hasStartedReadPassageStep
       const innerElements = node.children.map((n, i) => convertNodeToElement(n, i, transformMarkTags))
       const stringifiedInnerElements = node.children.map(n => n.data ? n.data : n.children[0].data).join('')
       let className = ''
@@ -520,10 +520,10 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   return (
     <div className={className}>
       {renderDirections({
-        closeReadTheDirectionsModal,
+        handleReadTheDirectionsButtonClick,
         activeStep,
         doneHighlighting,
-        showReadTheDirectionsModal,
+        showReadTheDirectionsButton,
         activities,
         hasStartedReadPassageStep,
         hasStartedPromptSteps
@@ -535,7 +535,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         hasStartedPromptSteps,
         hasStartedReadPassageStep,
         scrolledToEndOfPassage,
-        showReadTheDirectionsModal,
+        showReadTheDirectionsButton,
         transformMarkTags: transformMarkTags
       })}
       <RightPanel
@@ -543,13 +543,13 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         activeStep={activeStep}
         activities={activities}
         activityIsComplete={activityIsComplete}
-        closeReadTheDirectionsModal={closeReadTheDirectionsModal}
         completedSteps={completedSteps}
         completeStep={completeStep}
         completionButtonCallback={completionButtonCallback}
         doneHighlighting={doneHighlighting}
         handleClickDoneHighlighting={handleClickDoneHighlighting}
         handleDoneReadingClick={handleDoneReadingClick}
+        handleReadTheDirectionsButtonClick={handleReadTheDirectionsButtonClick}
         hasStartedPromptSteps={hasStartedPromptSteps}
         hasStartedReadPassageStep={hasStartedReadPassageStep}
         onStartPromptSteps={onStartPromptSteps}
@@ -558,7 +558,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         resetTimers={resetTimers}
         scrolledToEndOfPassage={scrolledToEndOfPassage}
         session={session}
-        showReadTheDirectionsModal={showReadTheDirectionsModal}
+        showReadTheDirectionsButton={showReadTheDirectionsButton}
         studentHighlights={studentHighlights}
         submitResponse={submitResponse}
         toggleStudentHighlight={toggleStudentHighlight}
