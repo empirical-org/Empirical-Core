@@ -5,8 +5,6 @@
     "jsx-a11y/click-events-have-key-events": "error",
     "jsx-a11y/control-has-associated-label": "error",
     "jsx-a11y/label-has-associated-control": "error",
-    "jsx-a11y/mouse-events-have-key-events": "error",
-    "jsx-a11y/no-autofocus": "error",
     "jsx-a11y/no-noninteractive-element-interactions": "error",
     "jsx-a11y/no-noninteractive-element-to-interactive-role": "error",
     "jsx-a11y/no-noninteractive-tabindex": "error",
