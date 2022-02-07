@@ -13,7 +13,7 @@ RSpec.describe CleverIntegration::TeacherIntegration do
   context 'library integration' do
     let(:auth_hash) { library_auth_hash }
 
-    it '' do
+    it do
       expect(CleverIntegration::TeacherDataAdapter).to receive(:run).with(info_hash).and_return(teacher_data)
       expect(CleverIntegration::TeacherImporter).to receive(:run).with(teacher_data).and_return(teacher)
       expect(CleverIntegration::LibraryTeacherIntegration).to receive(:run).with(teacher, auth_hash.credentials.token)
@@ -34,7 +34,7 @@ RSpec.describe CleverIntegration::TeacherIntegration do
   context 'district integration' do
     let(:auth_hash) { district_auth_hash }
 
-    it '' do
+    it do
       expect(CleverIntegration::TeacherDataAdapter).to receive(:run).with(info_hash).and_return(teacher_data)
       expect(CleverIntegration::TeacherImporter).to receive(:run).with(teacher_data).and_return(teacher)
       expect(CleverIntegration::DistrictTeacherIntegration).to receive(:run).with(teacher, district.clever_id)

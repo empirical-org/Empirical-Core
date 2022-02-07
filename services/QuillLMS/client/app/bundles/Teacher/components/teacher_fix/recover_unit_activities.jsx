@@ -40,18 +40,20 @@ export default class RecoverUnitActivities extends React.Component {
   }
 
   render() {
-    return (<div>
-      <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
-      <h2>Recover Unit Activities</h2>
-      <p>This method will unarchive all of the unit activities for all of the given teacher's non-archived units.</p>
+    return (
       <div>
-        <div className="input-row">
-          <label>Teacher Email:</label>
-          <input onChange={this.updateEmail} type="text" value={this.state.email} />
+        <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
+        <h2>Recover Unit Activities</h2>
+        <p>This method will unarchive all of the unit activities for all of the given teacher's non-archived units.</p>
+        <div>
+          <div className="input-row">
+            <label>Teacher Email:</label>
+            <input onChange={this.updateEmail} type="text" value={this.state.email} />
+          </div>
+          <button onClick={this.submit}>Recover Unit Activities</button>
+          {this.renderError()}
         </div>
-        <button onClick={this.submit}>Recover Unit Activities</button>
-        {this.renderError()}
       </div>
-    </div>)
+    )
   }
 }

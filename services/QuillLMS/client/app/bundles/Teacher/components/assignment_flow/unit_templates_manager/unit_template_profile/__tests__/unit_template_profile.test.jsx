@@ -37,26 +37,26 @@ describe('UnitTemplateProfile component', () => {
 
   describe('the loading indicator', () => {
     it('should render a loading indicator by default', () => {
-        const wrapper = shallow(
-          <UnitTemplateProfile {...props} />
-        );
-        expect(wrapper.find(LoadingIndicator)).toHaveLength(1);
+      const wrapper = shallow(
+        <UnitTemplateProfile {...props} />
+      );
+      expect(wrapper.find(LoadingIndicator)).toHaveLength(1);
     });
 
     it('should render a loading indicator if the state is loading', () => {
-        const wrapper = shallow(
-          <UnitTemplateProfile {...props} />
-        );
-        wrapper.setState({ loading: true });
-        expect(wrapper.find(LoadingIndicator)).toHaveLength(1);
+      const wrapper = shallow(
+        <UnitTemplateProfile {...props} />
+      );
+      wrapper.setState({ loading: true });
+      expect(wrapper.find(LoadingIndicator)).toHaveLength(1);
     });
 
     it('should not render a loading indicator if the state is not loading', () => {
-        const wrapper = shallow(
-          <UnitTemplateProfile {...props} />
-        );
-        wrapper.setState({ loading: false, data: {non_authenticated: false}});
-        expect(wrapper.find(LoadingIndicator)).toHaveLength(0);
+      const wrapper = shallow(
+        <UnitTemplateProfile {...props} />
+      );
+      wrapper.setState({ loading: false, data: {non_authenticated: false}});
+      expect(wrapper.find(LoadingIndicator)).toHaveLength(0);
     });
   })
 

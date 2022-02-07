@@ -113,6 +113,11 @@ export const greenCheckIcon = {
   alt: 'Green check icon'
 }
 
+export const whiteCheckGreenBackgroundIcon = {
+  src: `${process.env.CDN_URL}/images/icons/icons-check-circle-dark.svg`,
+  alt: 'White check with green background icon'
+}
+
 export const lockedIcon = {
   alt: 'Lock icon',
   src: `${process.env.CDN_URL}/images/icons/icons-locked.svg`
@@ -121,4 +126,9 @@ export const lockedIcon = {
 export const closeIcon = {
   alt: 'Close icon',
   src: `${process.env.CDN_URL}/images/icons/close.svg`
+}
+
+export const informationIcon = {
+  alt: 'Information icon',
+  src: `${process.env.CDN_URL}/images/icons/information.svg`
 }

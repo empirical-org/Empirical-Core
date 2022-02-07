@@ -8,6 +8,7 @@ RSpec.describe ResponsesController, type: :controller do
 
   def get_ids(array)
     return [] if array.nil?
+
     array.map { |r| r['id'] }.sort
   end
 
@@ -20,7 +21,7 @@ RSpec.describe ResponsesController, type: :controller do
   end
 
   describe "#count_affected_by_incorrect_sequences" do
-    before(:each) do
+    before do
       create(:response, question_uid: '123', text: "some words", optimal: nil)
       create(:response, question_uid: '123', text: "matchyword some words", optimal: nil)
       create(:response, question_uid: '123', text: "some matchyword words", optimal: nil)
@@ -139,26 +140,26 @@ RSpec.describe ResponsesController, type: :controller do
 
   describe 'POST #batch_responses_for_lesson' do
 
-    it 'returns an object with question uids as keys and an array of responses as values' do
-      question_uids = [1, 2, 3, 4, 5]
-      true_or_false = [true, false]
-      10.times { Response.create(question_uid: question_uids.sample, optimal: true_or_false.sample) }
-      post :batch_responses_for_lesson, params: {question_uids: question_uids}
-      questions_with_responses = {}
-      question_uids.each do |uid|
-        questions_with_responses[uid] = Response.where(question_uid: uid)
-      end
-
-      parsed_response = (JSON.parse(response.body))['questionsWithResponses']
-
-      # because of the nested structure of these values and the difficulty of comparing json strings and active record objects,
-      # we are checking to see if each key in the returned json hash contains objects with the ids of the active record responses
-      # that have that question uid
-      question_uids.each do |quid|
-        expect(get_ids(parsed_response[quid.to_s])).to eq(get_ids(hashify_nested_ar_objects(questions_with_responses[quid])))
-      end
-
+  it 'returns an object with question uids as keys and an array of responses as values' do
+    question_uids = [1, 2, 3, 4, 5]
+    true_or_false = [true, false]
+    10.times { Response.create(question_uid: question_uids.sample, optimal: true_or_false.sample) }
+    post :batch_responses_for_lesson, params: {question_uids: question_uids}
+    questions_with_responses = {}
+    question_uids.each do |uid|
+      questions_with_responses[uid] = Response.where(question_uid: uid)
     end
+
+    parsed_response = (JSON.parse(response.body))['questionsWithResponses']
+
+    # because of the nested structure of these values and the difficulty of comparing json strings and active record objects,
+    # we are checking to see if each key in the returned json hash contains objects with the ids of the active record responses
+    # that have that question uid
+    question_uids.each do |quid|
+      expect(get_ids(parsed_response[quid.to_s])).to eq(get_ids(hashify_nested_ar_objects(questions_with_responses[quid])))
+    end
+
+  end
 
   it 'will not return responses with optimal nil' do
     question_uids = [1, 2, 3, 4, 5]
@@ -223,8 +224,8 @@ end
     end
 
     it "should extract conceptUID and correct from sub-hash values" do
-    input = {foo: {'conceptUID' => 'mock_uid',
-                   'correct' => 'true'}}
+      input = {foo: {'conceptUID' => 'mock_uid',
+                     'correct' => 'true'}}
       output = controller.send(:concept_results_to_boolean, input)
       expect(output['mock_uid']).to eq(true)
     end
@@ -236,11 +237,11 @@ end
     end
 
     let!(:question_uid) { SecureRandom.uuid}
-    let!(:response_1) { create(:response, question_uid: question_uid, optimal: nil, count: 20)}
-    let!(:response_2) { create(:response, question_uid: question_uid, optimal: false, author: "Modified Word Hint", count: 20)}
-    let!(:response_3) { create(:response, question_uid: question_uid, optimal: false, author: "Required Words Hint", count: 20)}
-    let!(:response_4) { create(:response, question_uid: question_uid, optimal: false, author: "Spelling Hint", count: 20)}
-    let!(:response_5) { create(:response, question_uid: question_uid, optimal: true, count: 20)}
+    let!(:response1) { create(:response, question_uid: question_uid, optimal: nil, count: 20)}
+    let!(:response2) { create(:response, question_uid: question_uid, optimal: false, author: "Modified Word Hint", count: 20)}
+    let!(:response3) { create(:response, question_uid: question_uid, optimal: false, author: "Required Words Hint", count: 20)}
+    let!(:response4) { create(:response, question_uid: question_uid, optimal: false, author: "Spelling Hint", count: 20)}
+    let!(:response5) { create(:response, question_uid: question_uid, optimal: true, count: 20)}
 
     it 'gets question dashboard data' do
       get :question_dashboard, params: { question_uid: question_uid}

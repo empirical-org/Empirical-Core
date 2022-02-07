@@ -3,18 +3,14 @@
 require 'rails_helper'
 
 describe AccountsController, type: :controller do
-  it { should use_before_action :signed_in! }
-
   let(:user) { create(:user) }
 
-  before do
-    allow(controller).to receive(:current_user) { user }
-  end
+  before { allow(controller).to receive(:current_user) { user } }
+
+  it { should use_before_action :signed_in! }
 
   describe '#new' do
-    before do
-      session[:role] = "something"
-    end
+    before { session[:role] = "something" }
 
     it 'should kick off the background job, set the session values and variables' do
       get :new, params: { redirect: "www.test.com" }
@@ -48,16 +44,12 @@ describe AccountsController, type: :controller do
     context 'when user found' do
       let!(:another_user) { create(:user) }
 
-      before do
-        session[:temporary_user_id] = another_user.id
-      end
+      before { session[:temporary_user_id] = another_user.id }
 
       context 'when user is saved' do
         let(:callbacks) { double(:callbacks, call: true) }
 
-        before do
-          allow(CompleteAccountCreation).to receive(:new) { callbacks }
-        end
+        before { allow(CompleteAccountCreation).to receive(:new) { callbacks } }
 
         it 'should kick off the account creation callback' do
           expect(callbacks).to receive(:call)

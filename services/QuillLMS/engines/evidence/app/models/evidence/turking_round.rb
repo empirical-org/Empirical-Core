@@ -30,6 +30,7 @@ module Evidence
 
     private def expires_at_in_future
       return if expires_at.blank?
+
       errors.add(:expires_at, 'must be in the future') unless expires_at > Time.zone.now
     end
 

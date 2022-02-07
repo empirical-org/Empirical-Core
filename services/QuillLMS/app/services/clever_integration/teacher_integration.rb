@@ -22,7 +22,7 @@ module CleverIntegration
       { type: 'user_success', data: teacher }
     rescue StandardError => e
       NewRelic::Agent.notice_error(e, teacher_clever_id: info_hash.id)
-      { type: 'user_failure', data: 'Error: ' + e.message }
+      { type: 'user_failure', data: "Error: #{e.message}" }
     end
 
     private def district_teacher_integration

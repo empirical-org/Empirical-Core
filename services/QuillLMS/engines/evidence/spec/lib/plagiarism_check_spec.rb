@@ -4,7 +4,7 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(PlagiarismCheck, :type => :model) do
-    let!(:rule) { create(:evidence_rule, :rule_type => "plagiarism") } 
+    let!(:rule) { create(:evidence_rule, :rule_type => "plagiarism") }
 
     context 'should #feedback_object' do
 
@@ -53,6 +53,16 @@ module Evidence
         expect(feedback[:entry]).to(be_truthy)
         expect(feedback[:rule_uid]).to(be_truthy)
         expect(feedback[:concept_uid]).to(be_truthy)
+      end
+
+      it 'should highlight the first matched instance of plagiarism even if there are multiple instances' do
+        entry = "This particular sentence is both plagiarized and longer than just, however this particular sentence is both plagiarized and longer than just ten words."
+        passage = "This particular sentence is both plagiarized and longer than just ten words."
+        feedback = "Feedback!"
+        optimal_rule = create(:evidence_rule, :rule_type => "plagiarism", :optimal => true)
+        plagiarism_check = Evidence::PlagiarismCheck.new(entry, passage, feedback, rule)
+        feedback = plagiarism_check.feedback_object
+        expect(feedback[:highlight][0][:text]).to eq("This particular sentence is both plagiarized and longer than just")
       end
 
       context 'space normalization handling' do

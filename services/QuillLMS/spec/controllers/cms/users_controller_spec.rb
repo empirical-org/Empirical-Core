@@ -3,16 +3,16 @@
 require 'rails_helper'
 
 describe Cms::UsersController do
+  let!(:user) { create(:staff) }
+
+  before { allow(controller).to receive(:current_user) { user } }
+
   it { should use_before_action :signed_in! }
   it { should use_before_action :set_flags }
   it { should use_before_action :set_user }
   it { should use_before_action :set_search_inputs }
   it { should use_before_action :subscription_data }
   it { should use_before_action :filter_zeroes_from_checkboxes }
-
-  let!(:user) { create(:staff) }
-
-  before { allow(controller).to receive(:current_user) { user } }
 
   describe '#index' do
     before { allow(RawSqlRunner).to receive(:execute) { ["results"] } }
@@ -28,7 +28,7 @@ describe Cms::UsersController do
 
   describe '#search' do
 
-    it 'should search for the users' do
+    it 'should search for the users with user_flag' do
       get :search, params: { user_flag: "auditor" }
       expect(response.body).to eq({numberOfPages: 0, userSearchQueryResults: [], userSearchQuery: {user_flag: "auditor"}}.to_json)
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
@@ -65,7 +65,7 @@ describe Cms::UsersController do
       end
     end
 
-    it 'should search for the users' do
+    it 'should search for the users with class_code' do
       teacher = create(:teacher_with_one_classroom, email: 'test@t.org')
       classroom = teacher.classrooms_i_teach.first
       classroom.teachers = [teacher]
@@ -183,6 +183,7 @@ describe Cms::UsersController do
 
   describe '#edit' do
     let!(:another_user) { create(:user) }
+
     it 'should log when admin visits the edit page' do
       get :edit, params: { id: another_user.id }
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:edit])

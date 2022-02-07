@@ -102,10 +102,6 @@ describe UnitTemplate, redis: true, type: :model do
     end
   end
 
-  describe '#activities' do
-    #TODO
-  end
-
   describe '#user_scope' do
     it 'should give the right unit template for the given flags' do
       expect(UnitTemplate.user_scope('alpha')).to eq(UnitTemplate.alpha_user)
@@ -185,7 +181,7 @@ describe UnitTemplate, redis: true, type: :model do
 
   describe '#around_save callback' do
 
-    before(:each) do
+    before do
       $redis.redis.flushdb
       $redis.multi{
         $redis.set('beta_unit_templates', 'a')

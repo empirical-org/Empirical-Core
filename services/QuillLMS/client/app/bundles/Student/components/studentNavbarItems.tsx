@@ -123,9 +123,11 @@ export default class StudentNavbarItems extends React.Component<StudentNavbarIte
 
     if (!isOpen) { return }
 
-    return (<div className="dropdown-menu">
-      {this.links()}
-    </div>)
+    return (
+      <div className="dropdown-menu">
+        {this.links()}
+      </div>
+    )
   }
 
   renderMobileMenu() {
@@ -133,9 +135,11 @@ export default class StudentNavbarItems extends React.Component<StudentNavbarIte
 
     if (!isOpen) { return }
 
-    return (<div className="mobile-student-nav-menu">
-      {this.links()}
-    </div>)
+    return (
+      <div className="mobile-student-nav-menu">
+        {this.links()}
+      </div>
+    )
   }
 
   renderDesktopNavbar = () => {
@@ -174,9 +178,11 @@ export default class StudentNavbarItems extends React.Component<StudentNavbarIte
 
 
   render() {
-    return (<div className="student-navbar-items">
-      {this.renderDesktopNavbar()}
-      {this.renderMobileNavbar()}
-    </div>)
+    return (
+      <div className="student-navbar-items">
+        {this.renderDesktopNavbar()}
+        {this.renderMobileNavbar()}
+      </div>
+    )
   }
 }

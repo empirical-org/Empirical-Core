@@ -2,6 +2,7 @@
 
 class WebinarBanner
   attr_reader :time
+
   ZOOM_URL = "https://quill-org.zoom.us/webinar/register"
 
   MLK_DAY_2021 = Date.parse("20210118")

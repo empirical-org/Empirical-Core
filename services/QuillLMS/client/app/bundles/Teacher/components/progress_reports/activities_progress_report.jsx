@@ -198,26 +198,26 @@ export default createReactClass({
         showPaginationBottom={true}
         showPaginationTop={false}
       />)
-      } else {
-        tableOrEmptyMessage = <EmptyStateForReport />
-      }
-      return (
-        <div>
-          <ProgressReportFilters
-            classroomFilters={this.state.classroomFilters}
-            filterTypes={['unit', 'classroom', 'student']}
-            selectClassroom={this.selectClassroom}
-            selectedClassroom={this.state.selectedClassroom}
-            selectedStudent={this.state.selectedStudent}
-            selectedUnit={this.state.selectedUnit}
-            selectStudent={this.selectStudent}
-            selectUnit={this.selectUnit}
-            studentFilters={this.state.studentFilters}
-            unitFilters={this.state.unitFilters}
-          />
-          {tableOrEmptyMessage}
-        </div>
-      )
+    } else {
+      tableOrEmptyMessage = <EmptyStateForReport />
+    }
+    return (
+      <div>
+        <ProgressReportFilters
+          classroomFilters={this.state.classroomFilters}
+          filterTypes={['unit', 'classroom', 'student']}
+          selectClassroom={this.selectClassroom}
+          selectedClassroom={this.state.selectedClassroom}
+          selectedStudent={this.state.selectedStudent}
+          selectedUnit={this.state.selectedUnit}
+          selectStudent={this.selectStudent}
+          selectUnit={this.selectUnit}
+          studentFilters={this.state.studentFilters}
+          unitFilters={this.state.unitFilters}
+        />
+        {tableOrEmptyMessage}
+      </div>
+    )
   },
 
   renderFiltersAndTable: function() {

@@ -107,9 +107,9 @@ export default class extends React.Component {
           {this.nextPlan()}
         </div>
       ),
-        cta: (<span />), });
+      cta: (<span />), });
     }
-  // set a more basic state if we don't have the info
+    // set a more basic state if we don't have the info
     return ({ metaRows: (
       <div className={metaRowClassName}>
         <div className="meta-section">
@@ -120,11 +120,11 @@ export default class extends React.Component {
         {this.nextPlan()}
       </div>
     ),
-      cta: (
-        <div className="sub-button-row">
-          <a className="q-button button cta-button bg-orange text-white" href="/premium">Learn More About Quill Premium</a>
-          <a className="q-button button cta-button bg-quillblue text-white" href="https://assets.quill.org/documents/quill_premium.pdf" rel="noopener noreferrer" target="_blank"><i className="fas fa-file-pdf" />Download Premium PDF</a>
-        </div>
+    cta: (
+      <div className="sub-button-row">
+        <a className="q-button button cta-button bg-orange text-white" href="/premium">Learn More About Quill Premium</a>
+        <a className="q-button button cta-button bg-quillblue text-white" href="https://assets.quill.org/documents/quill_premium.pdf" rel="noopener noreferrer" target="_blank"><i className="fas fa-file-pdf" />Download Premium PDF</a>
+      </div>
     ), });
   }
 
@@ -229,7 +229,7 @@ export default class extends React.Component {
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons('recurring', renewDate);
       beginsOn = (
         <TitleAndContent content={renewDate} title={'Begins On'} />
-        );
+      );
     } else if (condition === 'school' && !this.props.subscriptionStatus.recurring) {
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons(`${condition} non-recurring`);
       nextPlan = <span>Quill Basic - Free {this.changePlanInline()}</span>;
@@ -258,9 +258,11 @@ export default class extends React.Component {
   }
 
   renewPremium() {
-    return (<div>
-      <button className="renew-subscription q-button bg-orange text-white cta-button" onClick={this.props.showPurchaseModal}>Renew Subscription</button>
-    </div>);
+    return (
+      <div>
+        <button className="renew-subscription q-button bg-orange text-white cta-button" onClick={this.props.showPurchaseModal}>Renew Subscription</button>
+      </div>
+    );
   }
 
   showChangePlan = () => {

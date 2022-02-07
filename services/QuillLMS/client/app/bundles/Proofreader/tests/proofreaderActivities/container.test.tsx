@@ -14,8 +14,8 @@ describe("<PlayProofreaderContainer />", () => {
     session={{ passage: [] }}
   />)
 
-    it("should render", () => {
-      expect(wrapper).toMatchSnapshot();
-    });
+  it("should render", () => {
+    expect(wrapper).toMatchSnapshot();
+  });
 
 });

@@ -93,6 +93,7 @@ class ResponsesController < ApplicationController
     render json: IncorrectSequenceCalculator.incorrect_sequences_for_question(params[:question_uid])
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def count_affected_by_incorrect_sequences
     used_sequences = (
       params_for_count_affected_by_incorrect_sequences[:used_sequences] || []
@@ -114,10 +115,11 @@ class ResponsesController < ApplicationController
       if matching_selected_sequence
         matched_responses_count += 1
       end
-
     end
+
     render json: {matchedCount: matched_responses_count}
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def count_affected_by_focus_points
     selected_sequences = params_for_count_affected_by_focus_points[:selected_sequences]

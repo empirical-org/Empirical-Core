@@ -52,14 +52,11 @@ jest.mock('string-strip-html', () => ({
 }))
 
 import { StudentViewContainer } from '../../../components/studentView/container'
-import LoadingSpinner from '../../../components/shared/loadingSpinner'
-import PromptStep from '../../../components/studentView/promptStep'
-import { Events } from '../../../modules/analytics'
 
 const dispatch = () => {}
 
 const activitiesReducer = { hasReceivedData: true, currentActivity: activityOne}
-const sessionReducer = { submittedResponses: [], sessionID: 'MockSessionID', hasReceivedData: true }
+const sessionReducer = { submittedResponses: [], sessionID: 'MockSessionID', hasReceivedData: true, activeStep: 1, explanationSlidesCompleted: false }
 
 const wrapper = mount(<StudentViewContainer
   activities={activitiesReducer}
@@ -76,9 +73,9 @@ describe('StudentViewContainer component', () => {
 //   describe('when the activity has loaded', () => {
 //     wrapper.instance().setExplanationSlidesCompleted(true)
 //
-    it('renders', () => {
-      expect(toJson(wrapper)).toMatchSnapshot()
-    })
+  it('renders', () => {
+    expect(toJson(wrapper)).toMatchSnapshot()
+  })
 //
 //     it('should track a COMPREHENSION_ACTIVITY_STARTED event', () => {
 //       expect(mockGetActivity).toHaveBeenCalledWith(sessionReducer.sessionID, activityOne.activity_id)

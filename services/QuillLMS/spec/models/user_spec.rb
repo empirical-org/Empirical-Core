@@ -128,9 +128,11 @@ describe User, type: :model do
         user.update(flags: [User::PERMISSIONS_FLAGS.first])
         expect(user.testing_flag).to eq(nil)
       end
+
       it "returns nil if the user does any flags" do
         expect(user.testing_flag).to eq(nil)
       end
+
       it "returns a flag from the User::TESTING_FLAGS array if the user does have one" do
         sample_testing_flag = User::TESTING_FLAGS.first
         user.update(flags: [sample_testing_flag])
@@ -156,7 +158,7 @@ describe User, type: :model do
       expect(user.last_four).to eq(nil)
     end
 
-    it "calls Stripe::Customer.retrieve with the current user's stripe_customer_id " do
+    it "calls Stripe::Customer.retrieve with the current user's stripe_customer_id" do
       user.update(stripe_customer_id: 10)
       expect(Stripe::Customer).to receive(:retrieve).with(user.stripe_customer_id) {
         double('retrieve', sources: double(data: double(first: double(last4: 1000))))
@@ -552,7 +554,6 @@ describe User, type: :model do
 
   describe "default scope" do
     let(:user1) { create(:user) }
-    let(:user2) { create(:user) }
     let(:user2) { create(:user, role: 'temporary') }
 
     it 'must list all users but the ones with temporary role' do
@@ -923,6 +924,7 @@ describe User, type: :model do
           user = User.new(email: user_with_original_email.email)
           expect(user.save(validate: false)).to be
         end
+
         it 'cannot update its email to an existing one' do
           user = User.create(email: 'whatever@example.com', name: 'whatever whatever')
           user.save(validate: false)
@@ -943,6 +945,7 @@ describe User, type: :model do
         user2 = create(:user)
         expect(user2.update(username: user1.username)).to be(false)
       end
+
       it 'uniqueness is not enforced on non-unique usernames changing other fields' do
         user1 = create(:user, username: 'testtest.lan')
         user2 = build(:user, username: 'testtest.lan')
@@ -996,7 +999,7 @@ describe User, type: :model do
         user.first_name = 'Has'
         user.last_name = 'Multiple Last Names'
         user.save
-        expect(user.name).to eq(user.first_name + ' ' + user.last_name)
+        expect(user.name).to eq("#{user.first_name} #{user.last_name}")
       end
     end
   end
@@ -1053,30 +1056,18 @@ describe User, type: :model do
 
     describe '#username' do
       subject { super().username }
+
       it { is_expected.to eq('john.doe@101') }
     end
 
     describe '#role' do
       subject { super().role }
+
       it { is_expected.to eq('student') }
     end
 
     it 'should authenticate with last name' do
       expect(subject.authenticate('Doe')).to be_truthy
-    end
-  end
-
-  describe '#newsletter?' do
-    let(:user) { build(:user) }
-
-    it 'returns true when send_newsletter is true' do
-      user.send_newsletter = true
-      expect(user.send(:newsletter?)).to eq(true)
-    end
-
-    it 'returns false when send_newsletter is false' do
-      user.send_newsletter = false
-      expect(user.send(:newsletter?)).to eq(false)
     end
   end
 
@@ -1100,7 +1091,7 @@ describe User, type: :model do
       let(:name) { 'SingleName' }
       let(:user) { User.new(name: name) }
 
-      before(:each) { user.name = name }
+      before { user.name = name }
 
       it 'returns "name, name"' do
         expect(sort_name).to eq "#{name}, #{name}"
@@ -1180,7 +1171,7 @@ describe User, type: :model do
       referrer_users = ReferrerUser.count
       teacher = create(:teacher)
       expect(ReferrerUser.count).to be(referrer_users + 1)
-      expect(teacher.referral_code).to eq(teacher.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-') + '-' + teacher.id.to_s)
+      expect(teacher.referral_code).to eq("#{teacher.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-')}-#{teacher.id}")
     end
 
     it 'does not create a new ReferrerUser when a student is created' do
@@ -1273,10 +1264,10 @@ describe User, type: :model do
   end
 
   describe '.valid_email?' do
-    it { expect { User.valid_email?('').to be_false } }
-    it { expect { User.valid_email?(nil).to be_false } }
-    it { expect { User.valid_email?('1').to be_false } }
-    it { expect { User.valid_email?('a@b.c').to be_true } }
+    it { expect(User.valid_email?('')).to be false }
+    it { expect(User.valid_email?(nil)).to be false }
+    it { expect(User.valid_email?('1')).to be false }
+    it { expect(User.valid_email?('a@b.com')).to be true }
   end
 
   describe '#google_authorized?' do

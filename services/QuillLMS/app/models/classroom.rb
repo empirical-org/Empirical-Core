@@ -59,7 +59,7 @@ class Classroom < ApplicationRecord
 
   accepts_nested_attributes_for :classrooms_teachers
 
-  def destroy 
+  def destroy
     # ClassroomsTeachers must be called explicitly, because the has_many relationship
     # does not retrieve Classroom.classrooms_teachers when a foreign_key is designated, as above
     # https://github.com/empirical-org/Empirical-Core/pull/8664
@@ -67,15 +67,18 @@ class Classroom < ApplicationRecord
     super
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def validate_name
     return unless name_changed?
+
     # can't use owner method below for new records
     owner = classrooms_teachers&.find { |ct| ct.role == 'owner' }&.teacher
     owner_has_other_classrooms_with_same_name = owner && owner.classrooms_i_own.any? { |classroom| classroom.name == name && classroom.id != id }
-    if owner_has_other_classrooms_with_same_name
-      errors.add(:name, :taken)
-    end
+    return unless owner_has_other_classrooms_with_same_name
+
+    errors.add(:name, :taken)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def self.create_with_join(classroom_attributes, teacher_id)
     classroom = Classroom.new(classroom_attributes)
@@ -123,7 +126,7 @@ class Classroom < ApplicationRecord
   end
 
   def archived_classrooms_manager
-    coteachers = !self.coteachers.empty? ? self.coteachers.map { |ct| { name: ct.name, id: ct.id, email: ct.email } } : []
+    coteachers = self.coteachers.map { |ct| { name: ct.name, id: ct.id, email: ct.email } }
     {createdDate: created_at.strftime("%m/%d/%Y"), className: name, id: id, studentCount: students.count, classcode: code, ownerName: owner.name, from_google: !!google_classroom_id, coteachers: coteachers}
   end
 
@@ -134,7 +137,7 @@ class Classroom < ApplicationRecord
   def self.generate_unique_code
     code = NameGenerator.generate
     if Classroom.unscoped.find_by_code(code)
-       generate_unique_code
+      generate_unique_code
     else
       code
     end
@@ -143,7 +146,7 @@ class Classroom < ApplicationRecord
   def hide_appropriate_classroom_units
     return if visible
     return unless visible_changed?
-    
+
     hide_all_classroom_units
   end
 
@@ -182,7 +185,9 @@ class Classroom < ApplicationRecord
 
   def grade_as_integer
     return grade.to_i if (GRADES - [UNIVERSITY]).include? grade
+
     return GRADE_INTEGERS[grade&.to_sym] if GRADE_INTEGERS[grade&.to_sym].present?
+
     -1
   end
 

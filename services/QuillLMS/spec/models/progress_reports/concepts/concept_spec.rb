@@ -8,6 +8,7 @@ describe ProgressReports::Concepts::Concept do
   let!(:classroom) {create(:classroom_with_classroom_units)}
   let!(:teacher) { classroom.owner }
   # described_class is an rspec method that references ProgressReports::Concepts::Concept
+
   subject { described_class.results(teacher, filters).to_a }
   # if you want to see what is going on in subject, you'll need to convert it to JSON
 
@@ -31,7 +32,7 @@ describe ProgressReports::Concepts::Concept do
     it 'retrieves the incorrect result count' do
       results = ConceptResult.where(concept: subject.first.concept_id).pluck(:metadata)
       cr_count = 0
-      results.each{|cr| cr_count += cr.dig("correct")}
+      results.each{|cr| cr_count += cr["correct"]}
       incorrect_count = results.count - cr_count
       expect(subject.first.incorrect_result_count).to eq(incorrect_count)
     end

@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 describe SyncVitallyPastYearUsersWorker do
-  let(:subject) { described_class.new }
+  subject { described_class.new }
+
   let(:user) { create(:teacher, role: 'teacher') }
 
   describe '#perform' do

@@ -20,6 +20,6 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class FeedbackHistoryRating < ApplicationRecord
-    belongs_to :feedback_history
-    belongs_to :user
+  belongs_to :feedback_history
+  belongs_to :user
 end

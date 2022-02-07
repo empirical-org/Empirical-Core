@@ -89,7 +89,7 @@ class School < ApplicationRecord
   HALF_A_YEAR = 6.months
 
   def subscription
-   subscriptions.where("expiration > ? AND start_date <= ?", Date.today, Date.today).order(expiration: :desc).limit(1).first
+    subscriptions.where("expiration > ? AND start_date <= ?", Date.today, Date.today).order(expiration: :desc).limit(1).first
   end
 
   def present_and_future_subscriptions
@@ -162,6 +162,7 @@ class School < ApplicationRecord
 
   private def lower_grade_greater_than_upper_grade
     return true unless lower_grade && upper_grade
+
     errors.add(:lower_grade, 'must be less than or equal to upper grade') if lower_grade.to_i > upper_grade.to_i
   end
 end

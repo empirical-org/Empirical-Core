@@ -8,6 +8,9 @@ describe 'TeachersData' do
 
   let!(:classroom) { create(:classroom_with_a_couple_students) }
   let!(:teacher) { classroom.owner }
+  let!(:school) { create(:school) }
+  let!(:schools_user) {create(:schools_users, school: school, user: teacher) }
+
   let!(:teacher_ids) { [teacher.id] }
   let!(:unit) { create(:unit, user_id: teacher.id)}
   let!(:student1) { classroom.students.first }
@@ -40,8 +43,12 @@ describe 'TeachersData' do
   let!(:concept_result1) { create(:concept_result, concept: concept1, activity_session: activity_session1) }
   let!(:concept_result2) { create(:concept_result, concept: concept2, activity_session: activity_session2) }
 
-  before :each do
+  before do
     @results = teachers_data_module.run(teacher_ids)
+  end
+
+  it 'school works' do
+    expect(@results.first.school.name).to eq(school.name)
   end
 
   it 'number_of_students works' do

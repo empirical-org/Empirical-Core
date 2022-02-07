@@ -83,25 +83,25 @@ class LoginFormApp extends React.Component {
         authenticity_token: getAuthToken(),
       },
     },
-      (err, httpResponse, body) => {
-        if (httpResponse.statusCode === 200 && body.redirect) {
-          window.location = body.redirect;
+    (err, httpResponse, body) => {
+      if (httpResponse.statusCode === 200 && body.redirect) {
+        window.location = body.redirect;
+      } else {
+        let state;
+        if (body.type && body.message) {
+          const errors = {};
+          errors[body.type] = body.message;
+          state = { lastUpdate: new Date(), errors, timesSubmitted: timesSubmitted + 1, };
         } else {
-          let state;
-          if (body.type && body.message) {
-            const errors = {};
-            errors[body.type] = body.message;
-            state = { lastUpdate: new Date(), errors, timesSubmitted: timesSubmitted + 1, };
-          } else {
-            let message = 'You have entered an incorrect email/username or password.';
-            if (httpResponse.statusCode === 429) {
-              message = 'Too many failed attempts. Please wait one minute and try again.';
-            }
-            state = { lastUpdate: new Date(), message: (body.message || message), };
+          let message = 'You have entered an incorrect email/username or password.';
+          if (httpResponse.statusCode === 429) {
+            message = 'Too many failed attempts. Please wait one minute and try again.';
           }
-          this.setState(state);
+          state = { lastUpdate: new Date(), message: (body.message || message), };
         }
-      });
+        this.setState(state);
+      }
+    });
   }
 
   submitClass = () => {

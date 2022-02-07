@@ -23,14 +23,16 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
       # If, for some reason, running this a second time generates the same error, we don't
       # want to keep retrying because that indicates some other, more worrying, problem.
       raise e if retried
+
       retried = true
       retry
     end
-    render json: @activity_session.as_json
+    head :no_content
   end
 
   private def working_params
     return valid_params unless params.dig(:active_activity_session, :passage)
+
     permitted_passage_object = params[:active_activity_session][:passage].map do |paragraph|
       paragraph.map do |word_object|
         word_object.permit!

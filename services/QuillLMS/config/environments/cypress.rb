@@ -42,8 +42,8 @@ EmpiricalGrammar::Application.configure do
   config.active_support.deprecation = :log
   config.log_level = :debug
 
-  config.logger = Logger.new(STDOUT)
-  
+  config.logger = Logger.new($stdout)
+
   # Raise an error on page load if there are pending migrations
   config.active_record.migration_error = :page_load
 

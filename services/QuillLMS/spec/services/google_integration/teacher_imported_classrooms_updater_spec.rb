@@ -8,7 +8,7 @@ RSpec.describe GoogleIntegration::TeacherImportedClassroomsUpdater do
 
   let(:new_google_classroom_id) { 345 }
 
-  let(:updated_name) { 'new_' + imported_classroom.name}
+  let(:updated_name) { "new_#{imported_classroom.name}"}
 
   let(:data) do
     {

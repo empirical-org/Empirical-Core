@@ -1,5 +1,5 @@
 import { SubmitActions } from '../actions';
- /// make this playLessonsReducer.
+/// make this playLessonsReducer.
 const initialState = {
   answeredQuestions: [],
   unansweredQuestions: []
@@ -28,7 +28,7 @@ function question(state = initialState, action) {
     case SubmitActions.CLEAR_DATA:
       return initialState
     case SubmitActions.EXIT:
-     return Object.assign({}, state, {
+      return Object.assign({}, state, {
         completedQuestions: undefined,
         answeredQuestions: [],
         unansweredQuestions: []
@@ -41,11 +41,11 @@ function question(state = initialState, action) {
             {
               attempts: state.currentQuestion.question.attempts.concat([action.response])
             })
-          })
-        }
+        })
+      }
       return Object.assign({}, state, changes)
     case SubmitActions.START_QUESTION:
-    var changes = {currentQuestion:
+      var changes = {currentQuestion:
       Object.assign({}, state.currentQuestion, {
         started: true
       })}
@@ -59,7 +59,7 @@ function question(state = initialState, action) {
         question: Object.assign({},
           state.currentQuestion.question,
           action.data)
-        })
+      })
       }
       return Object.assign({}, state, changes)
     case SubmitActions.RESUME_PREVIOUS_SESSION:

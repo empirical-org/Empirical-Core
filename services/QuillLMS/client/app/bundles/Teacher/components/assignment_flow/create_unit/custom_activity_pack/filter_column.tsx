@@ -90,47 +90,49 @@ const FilterColumn = ({
     />)
   }
 
-  return (<section className="filter-column">
-    <section className="filter-section filtered-results">
-      <div className="name-and-clear-wrapper">
-        <h2>Filtered Results</h2>
-        {clearAllButton}
-      </div>
-      <p>{filterCount}{filteredActivities.length} of {activities.length} activities</p>
+  return (
+    <section className="filter-column">
+      <section className="filter-section filtered-results">
+        <div className="name-and-clear-wrapper">
+          <h2>Filtered Results</h2>
+          {clearAllButton}
+        </div>
+        <p>{filterCount}{filteredActivities.length} of {activities.length} activities</p>
+      </section>
+      {flagFilterSection}
+      <ActivityClassificationFilters
+        activities={activities}
+        activityClassificationFilters={activityClassificationFilters}
+        filterActivities={filterActivities}
+        handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
+        handleSavedActivityFilterChange={handleSavedActivityFilterChange}
+        savedActivityFilters={savedActivityFilters}
+        savedActivityIds={savedActivityIds}
+        showComprehension={showComprehension}
+      />
+      <ReadabilityGradeLevelFilters
+        handleReadabilityGradeLevelFilterChange={handleReadabilityGradeLevelFilterChange}
+        readabilityGradeLevelFilters={readabilityGradeLevelFilters}
+      />
+      <CCSSGradeLevelFilters
+        ccssGradeLevelFilters={ccssGradeLevelFilters}
+        handleCCSSGradeLevelFilterChange={handleCCSSGradeLevelFilterChange}
+      />
+      {activityCategoryFilterSection}
+      <TopicFilters
+        activities={activities}
+        filterActivities={filterActivities}
+        handleTopicFilterChange={handleTopicFilterChange}
+        topicFilters={topicFilters}
+      />
+      <ContentPartnerFilters
+        activities={activities}
+        contentPartnerFilters={contentPartnerFilters}
+        filterActivities={filterActivities}
+        handleContentPartnerFilterChange={handleContentPartnerFilterChange}
+      />
     </section>
-    {flagFilterSection}
-    <ActivityClassificationFilters
-      activities={activities}
-      activityClassificationFilters={activityClassificationFilters}
-      filterActivities={filterActivities}
-      handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
-      handleSavedActivityFilterChange={handleSavedActivityFilterChange}
-      savedActivityFilters={savedActivityFilters}
-      savedActivityIds={savedActivityIds}
-      showComprehension={showComprehension}
-    />
-    <ReadabilityGradeLevelFilters
-      handleReadabilityGradeLevelFilterChange={handleReadabilityGradeLevelFilterChange}
-      readabilityGradeLevelFilters={readabilityGradeLevelFilters}
-    />
-    <CCSSGradeLevelFilters
-      ccssGradeLevelFilters={ccssGradeLevelFilters}
-      handleCCSSGradeLevelFilterChange={handleCCSSGradeLevelFilterChange}
-    />
-    {activityCategoryFilterSection}
-    <TopicFilters
-      activities={activities}
-      filterActivities={filterActivities}
-      handleTopicFilterChange={handleTopicFilterChange}
-      topicFilters={topicFilters}
-    />
-    <ContentPartnerFilters
-      activities={activities}
-      contentPartnerFilters={contentPartnerFilters}
-      filterActivities={filterActivities}
-      handleContentPartnerFilterChange={handleContentPartnerFilterChange}
-    />
-  </section>)
+  )
 }
 
 export default FilterColumn

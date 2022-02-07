@@ -33,6 +33,7 @@ class Cms::SchoolsController < Cms::CmsController
 
   # This allows staff members to drill down on a specific school, including
   # viewing an index of teachers at this school.
+  # rubocop:disable Metrics/CyclomaticComplexity
   def show
     @subscription = @school&.subscription
     @school_subscription_info = {
@@ -60,6 +61,7 @@ class Cms::SchoolsController < Cms::CmsController
       }
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   # This allows staff members to edit certain details about a school.
   def edit
@@ -123,6 +125,7 @@ class Cms::SchoolsController < Cms::CmsController
     begin
       user = User.find_by!(email: params[:email_address])
       raise ArgumentError if user.role != 'teacher'
+
       school = School.find_by!(id: params[:id])
       SchoolsUsers.where(user: user).destroy_all
       SchoolsUsers.create!(user_id: user.id, school_id: school.id)
@@ -234,11 +237,12 @@ class Cms::SchoolsController < Cms::CmsController
     # We have to use HAVING here instead of including this in the WHERE query
     # builder because we're doing an aggregation here. This will merely filter
     # the results at the end.
-    if !school_query_params[:search_schools_with_zero_teachers] || school_query_params[:search_schools_with_zero_teachers] == 'false'
-      'HAVING COUNT(schools_users.*) != 0'
-    end
+    return if school_query_params[:search_schools_with_zero_teachers].present? && school_query_params[:search_schools_with_zero_teachers] != 'false'
+
+    'HAVING COUNT(schools_users.*) != 0'
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def where_query_string_builder
     conditions = []
     # This converts all of the search inputs into strings so we can iterate
@@ -253,6 +257,7 @@ class Cms::SchoolsController < Cms::CmsController
     conditions = conditions.reject(&:nil?)
     "WHERE #{conditions.join(' AND ')}" unless conditions.empty?
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def where_query_string_clause_for(param, param_value)
     # Potential params by which to search:
@@ -262,7 +267,7 @@ class Cms::SchoolsController < Cms::CmsController
     # School zip: schools.zipcode or schools.mail_zipcode
     # District name: schools.leanm
     # Premium status: subscriptions.account_type
-    sanitized_fuzzy_param_value = ActiveRecord::Base.connection.quote('%' + param_value + '%')
+    sanitized_fuzzy_param_value = ActiveRecord::Base.connection.quote("%#{param_value}%")
     sanitized_param_value = ActiveRecord::Base.connection.quote(param_value)
 
     case param

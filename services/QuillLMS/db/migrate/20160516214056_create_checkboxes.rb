@@ -8,6 +8,6 @@ class CreateCheckboxes < ActiveRecord::Migration[4.2]
       t.string :metadata, null: true
       t.timestamps null: false
     end
-      add_index :checkboxes, [:user_id, :objective_id], :unique => true
+    add_index :checkboxes, [:user_id, :objective_id], :unique => true
   end
 end

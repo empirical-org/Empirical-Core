@@ -26,10 +26,10 @@ class Concept < ApplicationRecord
   def lineage
     family_tree = name
     if parent
-      family_tree = parent.name+' | '+family_tree
+      family_tree = "#{parent.name} | #{family_tree}"
     end
     if parent and parent.parent
-      family_tree = parent.parent.name+' | '+family_tree
+      family_tree = "#{parent.parent.name} | #{family_tree}"
     end
     family_tree
   end
@@ -78,13 +78,7 @@ class Concept < ApplicationRecord
   end
 
   def self.find_by_id_or_uid(arg)
-    begin
-      find(arg)
-    rescue ActiveRecord::RecordNotFound
-      find_by(uid: arg)
-    rescue ActiveRecord::RecordNotFound
-      raise ActiveRecord::RecordNotFound, "Couldn't find Concept with 'id' or 'uid'=#{arg}"
-    end
+    find_by(uid: arg) || find(arg)
   end
 
   def self.visible_level_zero_concept_ids

@@ -39,14 +39,16 @@ const MobileActivityRow = ({ row, }) => {
     link,
     completed,
   } = row
-  return (<a className="mobile-data-row focus-on-light" href={link}>
-    <div className="top-row">
-      <span>{studentName}</span>
-      <span>{completed}</span>
-    </div>
-    <div>{activityName}</div>
-    <div>{scoreTag}</div>
-  </a>)
+  return (
+    <a className="mobile-data-row focus-on-light" href={link}>
+      <div className="top-row">
+        <span>{studentName}</span>
+        <span>{completed}</span>
+      </div>
+      <div>{activityName}</div>
+      <div>{scoreTag}</div>
+    </a>
+  )
 }
 
 const ActivityFeed = ({ onMobile, activityFeed, }) => {
@@ -68,11 +70,13 @@ const ActivityFeed = ({ onMobile, activityFeed, }) => {
   })
 
   if (activityFeed.length === 0) {
-    return (<section className="activity-feed empty">
-      <img alt="Document with a bulleted list illustration" src={listIllustrationSrc} />
-      <h2>Activity feed</h2>
-      <p>Once your students complete activities, you’ll be able to see them here.</p>
-    </section>)
+    return (
+      <section className="activity-feed empty">
+        <img alt="Document with a bulleted list illustration" src={listIllustrationSrc} />
+        <h2>Activity feed</h2>
+        <p>Once your students complete activities, you’ll be able to see them here.</p>
+      </section>
+    )
   }
 
   let bottomButton
@@ -82,11 +86,13 @@ const ActivityFeed = ({ onMobile, activityFeed, }) => {
 
   const dataDisplay = onMobile ? rows.map(r => <MobileActivityRow key={r.id} row={r} />) : <DataTable headers={headers} rows={rows} />
 
-  return (<section className="activity-feed populated">
-    <h2>Activity feed</h2>
-    {dataDisplay}
-    {bottomButton}
-  </section>)
+  return (
+    <section className="activity-feed populated">
+      <h2>Activity feed</h2>
+      {dataDisplay}
+      {bottomButton}
+    </section>
+  )
 
 }
 

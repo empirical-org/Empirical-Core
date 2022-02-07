@@ -125,10 +125,11 @@ describe UserMailer, type: :mailer do
     end
   end
 
-  describe 'declined_renewal_email' do 
+  describe 'declined_renewal_email' do
     let(:user) { build(:user) }
     let(:mail) { described_class.declined_renewal_email(user) }
-    it 'should interpolate team signature from constants object' do 
+
+    it 'should interpolate team signature from constants object' do
       expect(mail.body.encoded).to include(described_class::CONSTANTS[:signatures][:quill_team])
     end
   end

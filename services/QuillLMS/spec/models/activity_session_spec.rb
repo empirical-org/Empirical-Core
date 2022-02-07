@@ -241,7 +241,7 @@ describe ActivitySession, type: :model, redis: true do
     end
   end
 
-  describe 'paginate ' do
+  describe 'paginate' do
     let(:activity_session) { create(:activity_session) }
     let(:activity_session1) { create(:activity_session) }
     let(:activity_session2) { create(:activity_session) }
@@ -260,55 +260,6 @@ describe ActivitySession, type: :model, redis: true do
     end
   end
 
-  describe 'with_filters' do
-    let(:classroom_unit) { create(:classroom_unit) }
-
-    context 'classroom_id' do
-      let(:classroom) { create(:classroom) }
-      let(:classroom_unit1) { create(:classroom_unit, classroom: classroom) }
-
-      it 'should return the given query with the given classroom_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {classroom_id: classroom.id}))
-      end
-    end
-
-    context 'student_id' do
-      let(:student) { create(:student) }
-      let(:classroom_unit1) { create(:classroom_unit, user: student) }
-
-      it 'should return the given query with the given student_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {student_id: student.id}))
-      end
-    end
-
-    context 'unit_id' do
-      let(:unit) { create(:unit) }
-      let(:classroom_unit) { create(:classroom_unit, unit: unit) }
-
-      it 'should return the given query with the given classroom_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {unit_id: unit.id}))
-      end
-    end
-
-    context 'standard_level_id' do
-      let(:standard_level) { create(:standard_level) }
-      let(:classroom_unit1) { create(:classroom_unit, standard_level: standard_level) }
-
-      it 'should return the given query with the given standard_level_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {standard_level_id: standard_level.id}))
-      end
-    end
-
-    context 'standard_id' do
-      let(:standard) { create(:standard) }
-      let(:classroom_unit1) { create(:classroom_unit, standard: standard) }
-
-      it 'should return the given query with the given standard_id' do
-        expect(ActivitySession.with_filters(ClassroomUnit, {standard_id: standard.id}))
-      end
-    end
-  end
-
   describe 'RESULTS_PER_PAGE' do
     it 'should be the correct number' do
       expect(ActivitySession::RESULTS_PER_PAGE).to eq 25
@@ -319,67 +270,67 @@ describe ActivitySession, type: :model, redis: true do
 
   describe "#activity" do
 
-  	context "when there is a direct activity association" do
+    context "when there is a direct activity association" do
 
-	  	let(:activity){ create(:activity) }
-		  let(:activity_session){ build(:activity_session,activity_id: activity.id) }
+    let(:activity){ create(:activity) }
+    let(:activity_session){ build(:activity_session,activity_id: activity.id) }
 
-  		it "must return the associated activity" do
-  			expect(activity_session.activity).to eq activity
-  		end
-
-	end
-
-  describe "#invalidate_activity_session_count_if_completed" do
-    let!(:student){ create(:student, :in_one_classroom) }
-    let!(:classroom_unit) { create(:classroom_unit, classroom_id: student.classrooms.first.id, assigned_student_ids: [student.id]) }
-    let!(:activity_session){   create(:activity_session, classroom_unit: classroom_unit, state: 'not validated')}
-
-    before(:each) do
-      $redis.set("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
-    end
-
-    it "deletes redis cache when an activity with a classroom's state is finished" do
-      activity_session.update(state: 'finished')
-      activity_session.invalidate_activity_session_count_if_completed
-      expect($redis.get("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).not_to be
-    end
-
-    it "does nothing to redis cache when any other classroom attribute changes" do
-      activity_session.update(visible: false)
-      activity_session.invalidate_activity_session_count_if_completed
-      expect($redis.get("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).to eq('10')
-    end
+    it "must return the associated activity" do
+       expect(activity_session.activity).to eq activity
+     end
 
   end
 
-	context "when there's not an associated activity but there's a classroom unit and only one unit activity" do
+    describe "#invalidate_activity_session_count_if_completed" do
+      let!(:student){ create(:student, :in_one_classroom) }
+      let!(:classroom_unit) { create(:classroom_unit, classroom_id: student.classrooms.first.id, assigned_student_ids: [student.id]) }
+      let!(:activity_session){   create(:activity_session, classroom_unit: classroom_unit, state: 'not validated')}
 
-	    let!(:activity){ create(:activity) }
-	    let!(:student){ create(:student, :in_one_classroom) }
-	    let!(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id], classroom_id: student.classrooms.first.id) }
+      before do
+        $redis.set("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
+      end
+
+      it "deletes redis cache when an activity with a classroom's state is finished" do
+        activity_session.update(state: 'finished')
+        activity_session.invalidate_activity_session_count_if_completed
+        expect($redis.get("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).not_to be
+      end
+
+      it "does nothing to redis cache when any other classroom attribute changes" do
+        activity_session.update(visible: false)
+        activity_session.invalidate_activity_session_count_if_completed
+        expect($redis.get("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).to eq('10')
+      end
+
+    end
+
+    context "when there's not an associated activity but there's a classroom unit and only one unit activity" do
+
+      let!(:activity){ create(:activity) }
+      let!(:student){ create(:student, :in_one_classroom) }
+      let!(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id], classroom_id: student.classrooms.first.id) }
       let!(:unit_activity ) { create(:unit_activity, activity: activity, unit: classroom_unit.unit)}
-		  let(:activity_session){   build(:activity_session, classroom_unit: classroom_unit)                     }
+      let(:activity_session){   build(:activity_session, classroom_unit: classroom_unit)                     }
 
-  		it "must return the unit activity's activity" do
-  			activity_session.activity_id=nil
-        unit_activity.unit.reload
-  			expect(activity_session.activity).to eq unit_activity.activity
-  		end
+      it "must return the unit activity's activity" do
+         activity_session.activity_id=nil
+         unit_activity.unit.reload
+         expect(activity_session.activity).to eq unit_activity.activity
+       end
 
-	end
+    end
 
   end
 
   describe "#activity_uid=" do
 
-  	let(:activity){ create(:activity) }
+    let(:activity){ create(:activity) }
 
-  	it "must associate activity by uid" do
-  		activity_session.activity_id=nil
-  		activity_session.activity_uid=activity.uid
-  		expect(activity_session.activity_id).to eq activity.id
-  	end
+    it "must associate activity by uid" do
+      activity_session.activity_id=nil
+      activity_session.activity_uid=activity.uid
+      expect(activity_session.activity_id).to eq activity.id
+    end
 
   end
 
@@ -498,13 +449,13 @@ describe ActivitySession, type: :model, redis: true do
   end
 
   describe '#percentage_as_percent' do
-    context 'when percentage is nil' do
-    let(:activity_session) { create(:activity_session, percentage: nil) }
+  context 'when percentage is nil' do
+  let(:activity_session) { create(:activity_session, percentage: nil) }
 
-    it 'should return no percentage' do
-      expect(activity_session.percentage_as_percent).to eq("no percentage")
-    end
+  it 'should return no percentage' do
+    expect(activity_session.percentage_as_percent).to eq("no percentage")
   end
+end
 
   context 'when percentage is present' do
     let(:activity_session) { create(:activity_session, percentage: 0.4) }
@@ -555,8 +506,8 @@ end
     let!(:proficient_concept) { create(:concept)}
     let!(:proficient_concept_result) { create(:concept_result_with_correct_answer, concept: proficient_concept, activity_session: activity_session)}
     let!(:nearly_proficient_concept) { create(:concept)}
-    let!(:nearly_proficient_concept_result_positive_1) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
-    let!(:nearly_proficient_concept_result_positive_2) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
+    let!(:nearly_proficient_concept_result_positive1) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
+    let!(:nearly_proficient_concept_result_positive2) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
     let!(:nearly_proficient_concept_result_negative) { create(:concept_result_with_incorrect_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
     let!(:not_yet_proficient_concept) { create(:concept)}
     let!(:not_yet_proficient_concept_result) { create(:concept_result_with_incorrect_answer, concept: not_yet_proficient_concept, activity_session: activity_session)}
@@ -598,9 +549,9 @@ end
 
   describe "#activity_uid" do
 
-  	it "must return an uid when activity is present" do
-  		expect(activity_session.activity_uid).to be_present
-  	end
+    it "must return an uid when activity is present" do
+      expect(activity_session.activity_uid).to be_present
+    end
 
   end
 
@@ -619,14 +570,14 @@ end
   end
 
   describe "#completed?" do
-  	it "must be true when completed_at is present" do
-  		expect(activity_session).to be_completed
-  	end
+    it "must be true when completed_at is present" do
+      expect(activity_session).to be_completed
+    end
 
-  	it "must be false when cmopleted_at is not present" do
-  		activity_session.completed_at=nil
-  		expect(activity_session).to_not be_completed
-  	end
+    it "must be false when cmopleted_at is not present" do
+      activity_session.completed_at=nil
+      expect(activity_session).to_not be_completed
+    end
   end
 
   describe "#by_teacher" do
@@ -643,8 +594,8 @@ end
     before do
       # Can't figure out why the setup above creates 2 activity sessions
       ActivitySession.destroy_all
-      2.times { create(:activity_session, classroom_unit: current_teacher_classroom_unit, user: current_student) }
-      3.times { create(:activity_session, classroom_unit: other_teacher_classroom_unit, user: other_student) }
+      create_list(:activity_session, 2, classroom_unit: current_teacher_classroom_unit, user: current_student)
+      create_list(:activity_session, 3, classroom_unit: other_teacher_classroom_unit, user: other_student)
     end
 
     it "only retrieves activity sessions for the students who have that teacher" do
@@ -656,38 +607,38 @@ end
   #--- legacy methods
 
   describe "#grade" do
-  	it "must be equal to percentage" do
-  		expect(activity_session.grade).to eq activity_session.percentage
-  	end
+    it "must be equal to percentage" do
+      expect(activity_session.grade).to eq activity_session.percentage
+    end
 
   end
 
   describe "#anonymous=" do
-  	it "must be equal to temporary" do
-  		expect(activity_session.anonymous=true).to eq activity_session.temporary
-  	end
+    it "must be equal to temporary" do
+      expect(activity_session.anonymous=true).to eq activity_session.temporary
+    end
 
-  	it "must return temporary" do
-  		activity_session.anonymous=true
-  		expect(activity_session.anonymous).to eq activity_session.temporary
-  	end
+    it "must return temporary" do
+      activity_session.anonymous=true
+      expect(activity_session.anonymous).to eq activity_session.temporary
+    end
   end
 
 
   context "when before_create is fired" do
-  	describe "#set_state" do
+    describe "#set_state" do
 
-  		it "must set state as unstarted" do
-  			activity_session.state=nil
-  			activity_session.save!
-  			expect(activity_session.state).to eq "unstarted"
-  		end
-  	end
+      it "must set state as unstarted" do
+        activity_session.state=nil
+        activity_session.save!
+        expect(activity_session.state).to eq "unstarted"
+      end
+    end
   end
 
   context "when before_save is triggered" do
 
-  	describe "#set_completed_at when state = finished" do
+    describe "#set_completed_at when state = finished" do
       before do
         activity_session.save!
         activity_session.state="finished"
@@ -696,7 +647,7 @@ end
       context "when completed_at is already set" do
         before { activity_session.completed_at = 5.minutes.ago }
 
-        it "should not change completed at " do
+        it "should not change completed at" do
           expect {
             activity_session.save!
           }.to_not change {
@@ -715,50 +666,50 @@ end
           expect(activity_session.completed_at).to_not be_nil
         end
       end
-  	end
+    end
 
   end
 
   context "when completed scope" do
-  	describe ".completed" do
-  		before { create_list(:activity_session, 3) }
+    describe ".completed" do
+      before { create_list(:activity_session, 3) }
 
-  		it "must locate all the completed items" do
-  			expect(ActivitySession.completed.count).to eq 3
-  		end
+      it "must locate all the completed items" do
+        expect(ActivitySession.completed.count).to eq 3
+      end
 
-  		it "completed_at must be present" do
-  			ActivitySession.completed.each do |item|
-  				expect(item.completed_at).to be_present
-  			end
-  		end
+      it "completed_at must be present" do
+        ActivitySession.completed.each do |item|
+          expect(item.completed_at).to be_present
+        end
+      end
 
-  		it "must order by date desc" do
-  			#TODO: This test is not passing cause the ordering is wrong
-  			# p completed=ActivitySession.completed
-  			# current_date=completed.first.completed_at
-  			# completed.each do |item|
-  			# 	expect(item.completed_at).to satisfy { |x| p x.to_s+" <= "+current_date.to_s ||x <= current_date  }
-  			# 	current_date=item.completed_at
-  			# end
-  		end
-  	end
+      it "must order by date desc" do
+        #TODO: This test is not passing cause the ordering is wrong
+        # p completed=ActivitySession.completed
+        # current_date=completed.first.completed_at
+        # completed.each do |item|
+        # 	expect(item.completed_at).to satisfy { |x| p x.to_s+" <= "+current_date.to_s ||x <= current_date  }
+        # 	current_date=item.completed_at
+        # end
+      end
+    end
   end
 
   context "when incompleted scope" do
-  	describe ".incomplete" do
-  		before { create_list(:activity_session, 2, :unstarted) }
+    describe ".incomplete" do
+      before { create_list(:activity_session, 2, :unstarted) }
 
-  		it "must locate all the incompleted items" do
-  			expect(ActivitySession.incomplete.count).to eq 2
-  		end
+      it "must locate all the incompleted items" do
+        expect(ActivitySession.incomplete.count).to eq 2
+      end
 
-  		it "completed_at must be nil" do
-  			ActivitySession.incomplete.each do |item|
-  				expect(item.completed_at).to be_nil
-  			end
-  		end
-  	end
+      it "completed_at must be nil" do
+        ActivitySession.incomplete.each do |item|
+          expect(item.completed_at).to be_nil
+        end
+      end
+    end
   end
 
   describe '#determine_if_final_score' do
@@ -769,14 +720,14 @@ end
     let(:classroom_unit)   {create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
     let(:previous_final_score) {create(:activity_session, completed_at: Time.now, percentage: 0.9, is_final_score: true, user: student, classroom_unit: classroom_unit, activity: activity)}
 
-    it 'updates when new activity session has higher percentage ' do
+    it 'updates when new activity session has higher percentage' do
       previous_final_score
       new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
       new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: 0.95
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
 
-    it 'updates when new activity session has equal percentage ' do
+    it 'updates when new activity session has equal percentage' do
       previous_final_score
       new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
       new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: previous_final_score.percentage
@@ -936,16 +887,19 @@ end
       end
     end
   end
+
   describe '#mark_all_activity_sessions_complete' do
     let(:activity) { create(:activity) }
     let(:classroom_unit) { create(:classroom_unit) }
     let(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, state: 'started') }
+
     it 'marks all of a classroom activities activity sessions finished' do
       expect(activity_session.state).not_to eq('finished')
       ActivitySession.mark_all_activity_sessions_complete([activity_session])
       expect(activity_session.reload.state).to eq('finished')
     end
   end
+
   describe '#has_a_started_session?' do
     context 'when session exists' do
       let(:activity_session) { create(:activity_session, state: "started") }
@@ -967,6 +921,7 @@ end
   describe '#generate_activity_url' do
     let(:classroom_unit) { create(:classroom_unit) }
     let(:activity) { create(:activity) }
+
     ENV["DEFAULT_URL"] = 'http://cooolsville.edu'
 
     it 'returns a url including the default url' do

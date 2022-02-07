@@ -61,13 +61,15 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
     const replacedConcept = this.props.concepts.find(c => c.id === replacedId)
     if (showChangeLogModal) {
       const changedFields = [ { fieldName: 'replaced' } ]
-      return (<ChangeLogModal
-        cancel={this.closeChangeLogModal}
-        changedFields={changedFields}
-        levelNumber={0}
-        record={replacedConcept}
-        save={(changeLogs) => { this.save(replaceConcept, changeLogs)}}
-      />)
+      return (
+        <ChangeLogModal
+          cancel={this.closeChangeLogModal}
+          changedFields={changedFields}
+          levelNumber={0}
+          record={replacedConcept}
+          save={(changeLogs) => { this.save(replaceConcept, changeLogs)}}
+        />
+      )
     }
   }
 
@@ -92,11 +94,13 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
   renderSaveButton() {
     const { replacementId, replacedId } = this.state
     if (replacementId && replacedId) {
-      return (<input
-        className="quill-button contained primary medium"
-        type="submit"
-        value="Replace"
-      />)
+      return (
+        <input
+          className="quill-button contained primary medium"
+          type="submit"
+          value="Replace"
+        />
+      )
     }
   }
 
@@ -106,22 +110,26 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
     const options = concepts.map(c => { return { label: `${c.parent.parent.name} | ${c.parent.name} | ${c.name}`, value: c.id }}).sort((a, b) => a.label.localeCompare(b.label))
     if (replacedOrReplacement === 'replaced') {
       const value = options.find(o => o.value === replacedId)
-      return (<DropdownInput
-        handleChange={this.changeReplacedId}
-        isSearchable={true}
-        label="Concept"
-        options={options}
-        value={value}
-      />)
+      return (
+        <DropdownInput
+          handleChange={this.changeReplacedId}
+          isSearchable={true}
+          label="Concept"
+          options={options}
+          value={value}
+        />
+      )
     } else {
       const value = options.find(o => o.value === replacementId)
-      return (<DropdownInput
-        handleChange={this.changeReplacementId}
-        isSearchable={true}
-        label="Concept"
-        options={options}
-        value={value}
-      />)
+      return (
+        <DropdownInput
+          handleChange={this.changeReplacementId}
+          isSearchable={true}
+          label="Concept"
+          options={options}
+          value={value}
+        />
+      )
     }
   }
 

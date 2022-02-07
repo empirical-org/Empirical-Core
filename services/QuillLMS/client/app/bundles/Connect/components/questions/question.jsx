@@ -239,8 +239,8 @@ export class Question extends React.Component {
       return (<p>Loading...</p>);
     } else if (data[questionID]) {
       const activeLink = massEdit.numSelectedResponses > 1
-      ? <NavLink activeClassName="is-active" to='mass-edit'>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
-      : <li style={{color: "#a2a1a1"}}>Mass Edit ({massEdit.numSelectedResponses})</li>
+        ? <NavLink activeClassName="is-active" to='mass-edit'>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
+        : <li style={{color: "#a2a1a1"}}>Mass Edit ({massEdit.numSelectedResponses})</li>
 
       const { instructions, cues } = data[questionID]
       let instructionText = 'Combine the sentences into one sentence.'

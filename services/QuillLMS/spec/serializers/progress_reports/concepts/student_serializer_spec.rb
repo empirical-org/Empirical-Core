@@ -32,6 +32,7 @@ describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
 
   describe '#to_json' do
     subject { JSON.parse(serializer.to_json) }
+
     let(:parsed_student) { subject['student'] }
 
     it 'includes the right keys' do

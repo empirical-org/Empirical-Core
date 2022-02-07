@@ -67,15 +67,17 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
 
   renderChangeLogFields() {
     return Object.keys(this.state).map(key => {
-      return (<TextArea
-        characterLimit={800}
-        handleChange={(e) => {this.updateExplanation(key, e)}}
-        id={key}
-        key={key}
-        label={`Action Explanation: ${this.state[key].action}`}
-        timesSubmitted={0}
-        value={this.state[key].explanation}
-      />)
+      return (
+        <TextArea
+          characterLimit={800}
+          handleChange={(e) => {this.updateExplanation(key, e)}}
+          id={key}
+          key={key}
+          label={`Action Explanation: ${this.state[key].action}`}
+          timesSubmitted={0}
+          value={this.state[key].explanation}
+        />
+      )
     })
   }
 
@@ -86,23 +88,27 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
     if (!allChangesEntered) {
       saveButtonClass += ' disabled';
     }
-    return (<div className="buttons">
-      <button className="quill-button medium secondary outlined" onClick={cancel}>Cancel</button>
-      <button className={saveButtonClass} onClick={this.handleClickSave}>Save</button>
-    </div>)
+    return (
+      <div className="buttons">
+        <button className="quill-button medium secondary outlined" onClick={cancel}>Cancel</button>
+        <button className={saveButtonClass} onClick={this.handleClickSave}>Save</button>
+      </div>
+    )
   }
 
   render() {
-    return (<div className="change-log-modal-container">
-      <div className="modal-background" />
-      <div className="change-log-modal">
-        <h1>Describe what action you took and why.</h1>
-        <p>Be as specific as possible. For example, if you rename a record, include the record's original name in the description. If you archive a record because it was a duplicate, include the UID of the record being retained.</p>
-        <form acceptCharset="UTF-8" >
-          {this.renderChangeLogFields()}
-          {this.renderButtons()}
-        </form>
+    return (
+      <div className="change-log-modal-container">
+        <div className="modal-background" />
+        <div className="change-log-modal">
+          <h1>Describe what action you took and why.</h1>
+          <p>Be as specific as possible. For example, if you rename a record, include the record's original name in the description. If you archive a record because it was a duplicate, include the UID of the record being retained.</p>
+          <form acceptCharset="UTF-8" >
+            {this.renderChangeLogFields()}
+            {this.renderButtons()}
+          </form>
+        </div>
       </div>
-    </div>)
+    )
   }
 }

@@ -8,7 +8,7 @@ describe MaterializedViewRefreshWorker, type: :worker do
   it 'sends a segment.io event' do
     MaterializedViewRefreshWorker::MATVIEWS.each do |matview|
       expect(ActiveRecord::Base).to receive(:refresh_materialized_view).with(matview)
-    end 
+    end
     worker.perform
   end
 end

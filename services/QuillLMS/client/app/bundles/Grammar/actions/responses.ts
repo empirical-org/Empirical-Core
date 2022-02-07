@@ -39,15 +39,15 @@ export function submitResponse(content: Response, prid: string, isFirstAttempt: 
     request.post({
       url: `${process.env.QUILL_CMS}/responses/create_or_increment`,
       form: { response: rubyConvertedResponse, }, },
-      (error, httpStatus, body) => {
-        if (error) {
-          dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-        } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
-          dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-        } else {
-          // to do - do something with this body
-        }
-      },
+    (error, httpStatus, body) => {
+      if (error) {
+        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+      } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+      } else {
+        // to do - do something with this body
+      }
+    },
     );
   };
 }
@@ -58,16 +58,16 @@ export function submitMassEditFeedback(ids: string[], properties, qid: string) {
     request.put({
       url: `${process.env.QUILL_CMS}/responses/mass_edit/edit_many`,
       json: { ids, updated_attribute: updatedAttribute, }, },
-      (error, httpStatus, body) => {
-        if (error) {
-          dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-        } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
-          dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-          dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
-        } else {
-          // to do - do something with this error
-        }
-      });
+    (error, httpStatus, body) => {
+      if (error) {
+        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+      } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+        dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
+      } else {
+        // to do - do something with this error
+      }
+    });
   };
 }
 
@@ -79,16 +79,16 @@ export function submitMassEditConceptResults(ids: string[], conceptResults: Conc
     request.put({
       url: `${process.env.QUILL_CMS}/responses/mass_edit/edit_many`,
       json: { ids, updated_attribute: updatedAttribute, }, },
-      (error, httpStatus, body) => {
-        if (error) {
-          dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-        } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
-          dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-          dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
-        } else {
-          // to do - do something with this error
-        }
-      });
+    (error, httpStatus, body) => {
+      if (error) {
+        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+      } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+        dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
+      } else {
+        // to do - do something with this error
+      }
+    });
   };
 }
 
@@ -97,16 +97,16 @@ export function massEditDeleteResponses(ids: string[], qid: string) {
     request.post({
       url: `${process.env.QUILL_CMS}/responses/mass_edit/delete_many`,
       json: { ids, }, },
-      (error, httpStatus, body) => {
-        if (error) {
-          dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-        } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
-          dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-          dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
-        } else {
-          // to do - do something with this error
-        }
-      });
+    (error, httpStatus, body) => {
+      if (error) {
+        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+      } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+        dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
+      } else {
+        // to do - do something with this error
+      }
+    });
   };
 }
 
@@ -116,16 +116,16 @@ export function submitResponseEdit(rid: string, content: Response & { concept_re
     request.put({
       url: `${process.env.QUILL_CMS}/responses/${rid}`,
       form: { response: rubyConvertedResponse, }, },
-      (error, httpStatus, body) => {
-        if (error) {
-          dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-        } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
-          dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-          dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
-        } else {
-          // to do - do something with this error
-        }
-      });
+    (error, httpStatus, body) => {
+      if (error) {
+        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+      } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+        dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
+      } else {
+        // to do - do something with this error
+      }
+    });
   };
 }
 
@@ -135,17 +135,17 @@ export function updateConceptResults(rid, content, qid) {
     request.put({
       url: `${process.env.QUILL_CMS}/responses/${rid}`,
       json: { response: rubyConvertedResponse, }, },
-      (error, httpStatus, body) => {
-        if (error) {
-          dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-        } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
-          dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-          dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
-          dispatch({ type: ActionTypes.START_RESPONSE_EDIT, qid, rid, });
-        } else {
-          // to do - do something with this error
-        }
-      });
+    (error, httpStatus, body) => {
+      if (error) {
+        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+      } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+        dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
+        dispatch({ type: ActionTypes.START_RESPONSE_EDIT, qid, rid, });
+      } else {
+        // to do - do something with this error
+      }
+    });
   };
 }
 
@@ -155,17 +155,17 @@ export function deleteConceptResult(rid, content, qid) {
     request.put({
       url: `${process.env.QUILL_CMS}/responses/${rid}`,
       form: { response: updatedResponse, }, },
-      (error, httpStatus, body) => {
-        if (error) {
-          dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-        } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
-          dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-          dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
-          dispatch({ type: ActionTypes.START_RESPONSE_EDIT, qid, rid, });
-        } else {
-          // to do - do something with this error
-        }
-      });
+    (error, httpStatus, body) => {
+      if (error) {
+        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+      } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+        dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
+        dispatch({ type: ActionTypes.START_RESPONSE_EDIT, qid, rid, });
+      } else {
+        // to do - do something with this error
+      }
+    });
   };
 }
 
@@ -193,8 +193,8 @@ function makeIterator(array) {
   return {
     next() {
       return nextIndex < array.length ?
-               { value: array[nextIndex+=1], done: false, } :
-               { done: true, };
+        { value: array[nextIndex+=1], done: false, } :
+        { done: true, };
     },
   };
 }

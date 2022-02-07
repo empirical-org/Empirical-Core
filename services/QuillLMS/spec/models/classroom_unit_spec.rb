@@ -44,28 +44,30 @@ describe ClassroomUnit, type: :model, redis: true do
   let!(:teacher) {classroom.owner}
   let!(:unit) { create(:unit) }
   let!(:unit2) { create(:unit) }
-  let!(:unit_3) { create(:unit) }
+  let!(:unit3) { create(:unit) }
   let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [student.id]) }
   let!(:activity_session) {create(:activity_session, classroom_unit_id: classroom_unit.id, user_id: student.id, state: 'unstarted')}
 
   describe '#assigned_students' do
     let(:classroom_unit_with_no_assigned_students) { create(:classroom_unit, unit: unit2, classroom: classroom2, assigned_student_ids: []) }
+
     it 'must be empty if none assigned' do
       expect(classroom_unit_with_no_assigned_students.assigned_students).to be_empty
     end
 
     context 'when there is an assigned student' do
       let(:classroom) { create(:classroom, code: '101') }
-        before do
-          @student = classroom.students.build(first_name: 'John', last_name: 'Doe')
-          @student.generate_student(classroom.id)
-          @student.save!
-          @new_classroom_unit = create(:classroom_unit, classroom: classroom, assigned_student_ids: [@student.id])
-        end
 
-        it 'must return a list with one element' do
-          expect(@new_classroom_unit.assigned_students.first).to eq(@student)
-        end
+      before do
+        @student = classroom.students.build(first_name: 'John', last_name: 'Doe')
+        @student.generate_student(classroom.id)
+        @student.save!
+        @new_classroom_unit = create(:classroom_unit, classroom: classroom, assigned_student_ids: [@student.id])
+      end
+
+      it 'must return a list with one element' do
+        expect(@new_classroom_unit.assigned_students.first).to eq(@student)
+      end
     end
   end
 
@@ -111,7 +113,8 @@ describe ClassroomUnit, type: :model, redis: true do
   describe '#check_for_assign_on_join_and_update_students_array_if_true callback' do
     context 'when assign_on_join is false' do
       let(:classroom_with_two_students) { create(:classroom, students: [student, student2])}
-      let(:other_classroom_unit) { create(:classroom_unit, unit: unit_3, classroom: classroom_with_two_students, assigned_student_ids: []) }
+      let(:other_classroom_unit) { create(:classroom_unit, unit: unit3, classroom: classroom_with_two_students, assigned_student_ids: []) }
+
       describe 'when the assigned students contain all the students in the classroom' do
         it "sets the classroom unit to assign_on_join: true" do
           expect(other_classroom_unit.assign_on_join).not_to eq(true)
@@ -131,8 +134,8 @@ describe ClassroomUnit, type: :model, redis: true do
 
     context 'when assign_on_join is true' do
       it "updates the assigned student ids with all students in the classroom" do
-          empty_classroom_unit = create(:classroom_unit, classroom: classroom, assign_on_join: true, assigned_student_ids: [])
-          expect(empty_classroom_unit.reload.assigned_student_ids).to eq([student.id])
+        empty_classroom_unit = create(:classroom_unit, classroom: classroom, assign_on_join: true, assigned_student_ids: [])
+        expect(empty_classroom_unit.reload.assigned_student_ids).to eq([student.id])
       end
     end
   end

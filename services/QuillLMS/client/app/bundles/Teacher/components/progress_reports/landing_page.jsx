@@ -84,13 +84,13 @@ export default class extends React.Component {
   minis = () => {
     const minisArr = [];
     this.miniList().forEach((mini) => {
-			// if the flag isn't mini or beta we always want to display it
+      // if the flag isn't mini or beta we always want to display it
       if (['beta', 'alpha'].indexOf(mini.flag) === -1) {
         minisArr.push(this.miniBuilder(mini));
-			// if the flag is beta only show to beta/alpha users
+        // if the flag is beta only show to beta/alpha users
       } else if (mini.flag === 'beta' && this.props.flag === ('beta' || 'alpha')) {
         minisArr.push(this.miniBuilder(mini));
-			// if the flag is alpha, only show to alpha users
+        // if the flag is alpha, only show to alpha users
       } else if (mini.flag === 'alpha' && this.props.flag === 'alpha') {
         minisArr.push(this.miniBuilder(mini));
       }

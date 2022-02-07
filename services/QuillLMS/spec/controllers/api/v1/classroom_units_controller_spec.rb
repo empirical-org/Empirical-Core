@@ -134,7 +134,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
         as: :json
 
       expected_url = "#{ENV['DEFAULT_URL']}/activity_sessions/classroom_units/" \
-        "#{classroom_unit.id}/activities/#{activity.follow_up_activity_id}"
+                     "#{classroom_unit.id}/activities/#{activity.follow_up_activity_id}"
 
       expect(JSON.parse(response.body))
         .to eq({ "follow_up_url" => expected_url })
@@ -180,7 +180,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
   end
 
   describe '#classroom_teacher_and_coteacher_ids' do
-    let(:teacher_ids) { Hash[classroom.teacher_ids.collect {|i| [i, true]}] }
+    let(:teacher_ids) { classroom.teacher_ids.collect {|i| [i, true]}.to_h }
 
     before { session[:user_id] = teacher.id }
 

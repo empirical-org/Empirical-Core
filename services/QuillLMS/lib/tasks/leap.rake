@@ -8,7 +8,7 @@ namespace :leap do
     include LeapTaskHelpers
     arg_values(args)
 
-    pipe_data = STDIN.read unless STDIN.tty?
+    pipe_data = $stdin.read unless $stdin.tty?
 
     if !@email_domain || !pipe_data
       puts('You must pipe the csv data you want to process and provide the email domain to use to identify users')
@@ -67,13 +67,13 @@ namespace :leap do
     def process_row(row)
       email = "#{row[@google_id_column_name].strip}@#{@email_domain}".downcase
       user = User.find_by(email: email)
-      if !user
-        puts "Could not find user with email #{email}"
-      else
+      if user
         district_id = ThirdPartyUserId.find_or_create_by(user: user,
                                                          source: @id_source)
         district_id.third_party_id = row[@district_id_column_name].strip
-        district_id.save! 
+        district_id.save!
+      else
+        puts "Could not find user with email #{email}"
       end
     end
   end

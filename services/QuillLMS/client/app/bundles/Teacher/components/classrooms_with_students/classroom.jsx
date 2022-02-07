@@ -5,9 +5,9 @@ import _ from 'underscore'
 export default class Classroom extends React.Component {
   state = { open: false }
 
- componentDidMount() {
-   window.scrollTo(0, 0);
- }
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
 
  handleClassroomSelection = (e) => {
    const { classroom, toggleClassroomSelection } = this.props
@@ -38,7 +38,7 @@ export default class Classroom extends React.Component {
        onChange={this.handleClassroomSelection}
        type='checkbox'
      />
-     );
+   );
  };
 
  angleIcon = () => {
@@ -58,7 +58,7 @@ export default class Classroom extends React.Component {
  };
 
  renderStudentCountText = () => {
-  const { allSelected, students } = this.props
+   const { allSelected, students } = this.props
    const numberOfStudents = students.length
    const selectedStudentCount = this.selectedStudentCount()
    if (numberOfStudents === 0 && allSelected) {
@@ -76,8 +76,8 @@ export default class Classroom extends React.Component {
  // columns style. This is because with the way multicolumn css works, we will
  // otherwise experience some strange formatting we don't want here.
  shouldUnsetColumns = () => {
-  const { open, } = this.state
-  const { students, } = this.props
+   const { open, } = this.state
+   const { students, } = this.props
    if(!open) {
      return { display: 'none' }
    } else if(students.length < 4) {
@@ -86,30 +86,30 @@ export default class Classroom extends React.Component {
  };
 
  renderPanel = () => {
-  const { classroom, handleStudentCheckboxClick, students, toggleStudentSelection } = this.props
-  const { id } = classroom
-  const { open, } = this.state
+   const { classroom, handleStudentCheckboxClick, students, toggleStudentSelection } = this.props
+   const { id } = classroom
+   const { open, } = this.state
 
-  if (!open) { return }
+   if (!open) { return }
 
-  const studentList = students.map((student) => (<Student
-    classroom={classroom}
-    handleStudentCheckboxClick={handleStudentCheckboxClick}
-    key={`c${id}s${student.id}`}
-    student={student}
-    toggleStudentSelection={toggleStudentSelection}
-  />)
-  )
-  return (
-    <div className='panel-body student-panel-body' style={this.shouldUnsetColumns()}>
-      {studentList}
-    </div>
-  )
+   const studentList = students.map((student) => (<Student
+     classroom={classroom}
+     handleStudentCheckboxClick={handleStudentCheckboxClick}
+     key={`c${id}s${student.id}`}
+     student={student}
+     toggleStudentSelection={toggleStudentSelection}
+   />)
+   )
+   return (
+     <div className='panel-body student-panel-body' style={this.shouldUnsetColumns()}>
+       {studentList}
+     </div>
+   )
  }
 
  render() {
-  const { classroom } = this.props
-  const { id, name } = classroom
+   const { classroom } = this.props
+   const { id, name } = classroom
    return (
      <div className='panel-group'>
        <div className='panel panel-default'>

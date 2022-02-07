@@ -44,28 +44,30 @@ export default class GoogleUnsync extends React.Component {
   }
 
   render() {
-    return (<div>
-      <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
-      <h2>Unsync Account with Google Classroom</h2>
-      <p>This method will sever an account's connection with Google Classroom, allowing them to log in normally.</p>
-      <p>The new email field is optional, and can be left blank if the user does not wish to change their email.</p>
+    return (
       <div>
-        <div className="input-row">
-          <label>Google Classroom Email:</label>
-          <input onChange={(e) => this.updateField(e, 'originalEmail')} type="text" value={this.state.originalEmail} />
+        <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
+        <h2>Unsync Account with Google Classroom</h2>
+        <p>This method will sever an account's connection with Google Classroom, allowing them to log in normally.</p>
+        <p>The new email field is optional, and can be left blank if the user does not wish to change their email.</p>
+        <div>
+          <div className="input-row">
+            <label>Google Classroom Email:</label>
+            <input onChange={(e) => this.updateField(e, 'originalEmail')} type="text" value={this.state.originalEmail} />
+          </div>
+          <div className="input-row">
+            <label>New Email:</label>
+            <input onChange={(e) => this.updateField(e, 'newEmail')} type="text" value={this.state.newEmail} />
+          </div>
+          <div className="input-row">
+            <label>Password:</label>
+            <input onChange={(e) => this.updateField(e, 'password')} type="text" value={this.state.password} />
+          </div>
+          <button onClick={this.submit}>Unsync</button>
+          {this.renderError()}
         </div>
-        <div className="input-row">
-          <label>New Email:</label>
-          <input onChange={(e) => this.updateField(e, 'newEmail')} type="text" value={this.state.newEmail} />
-        </div>
-        <div className="input-row">
-          <label>Password:</label>
-          <input onChange={(e) => this.updateField(e, 'password')} type="text" value={this.state.password} />
-        </div>
-        <button onClick={this.submit}>Unsync</button>
-        {this.renderError()}
-      </div>
 
-    </div>)
+      </div>
+    )
   }
 }

@@ -48,11 +48,16 @@ describe ResultsSummary do
                     summary: ResultsSummary::PARTIALLY_CORRECT,
                   }
                 ],
+                skill_ids: [skill.id],
+                correct_skill_ids: [],
                 number_of_correct_skills_text: "0 of 1 skills correct",
                 proficiency_text: ResultsSummary::NO_PROFICIENCY,
                 id: skill_group_activity.skill_group.id
               }
             ],
+            total_correct_skills_count: 0,
+            total_possible_skills_count: 1,
+            correct_skill_text: "0 of 1 skills correct"
           },
           {
             name: student2.name
@@ -92,11 +97,16 @@ describe ResultsSummary do
                     summary: ResultsSummary::PARTIALLY_CORRECT,
                   }
                 ],
+                skill_ids: [skill.id],
+                correct_skill_ids: [],
                 number_of_correct_skills_text: "0 of 1 skills correct",
                 proficiency_text: ResultsSummary::NO_PROFICIENCY,
                 id: skill_group_activity.skill_group.id
               }
             ],
+            total_correct_skills_count: 0,
+            total_possible_skills_count: 1,
+            correct_skill_text: "0 of 1 skills correct"
           },
           {
             name: student2.name
@@ -128,6 +138,8 @@ describe ResultsSummary do
               summary: ResultsSummary::PARTIALLY_CORRECT,
             }
           ],
+          skill_ids: [skill.id],
+          correct_skill_ids: [],
           number_of_correct_skills_text: "0 of 1 skills correct",
           proficiency_text: ResultsSummary::NO_PROFICIENCY,
           id: skill_group_activity.skill_group.id

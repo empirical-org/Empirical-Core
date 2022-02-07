@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Evidence
-  module Opinion 
+  module Opinion
     class Client
       API_TIMEOUT = 500
       ALLOWED_PAYLOAD_KEYS = ['oapi_error', 'highlight']
@@ -14,23 +14,24 @@ module Evidence
       end
 
       def post
-        Timeout.timeout(API_TIMEOUT) do 
+        Timeout.timeout(API_TIMEOUT) do
           response = HTTParty.post(
-            ENV['OPINION_API_DOMAIN'], 
+            ENV['OPINION_API_DOMAIN'],
             headers:  {'Content-Type': 'application/json'},
             body:     {
               entry: @entry,
               prompt_text: @prompt_text
             }.to_json
           )
-          if !response.success? 
+          if !response.success?
             raise OpinionAPIError, "Encountered upstream error: #{response}"
           end
+
           response.filter { |k,v| ALLOWED_PAYLOAD_KEYS.include?(k) }
         end
       end
     end
-    
+
   end
 end
 

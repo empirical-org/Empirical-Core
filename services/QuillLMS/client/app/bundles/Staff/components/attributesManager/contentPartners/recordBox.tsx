@@ -61,67 +61,75 @@ const RecordBox = ({ originalRecord, saveContentPartnerChanges, closeRecordBox, 
   }
 
   function renderRenameAndArchiveSection() {
-    return (<div className="rename-and-archive">
-      <span className="rename" onClick={activateRecordInput}>
-        <i className="fas fa-edit" />
-        <span>Rename</span>
-      </span>
-      <span className="archive" onClick={toggleVisibility}>
-        <i className="fas fa-archive" />
-        <span>{ record.visible ? 'Archive' : 'Unarchive' }</span>
-      </span>
-    </div>)
+    return (
+      <div className="rename-and-archive">
+        <span className="rename" onClick={activateRecordInput}>
+          <i className="fas fa-edit" />
+          <span>Rename</span>
+        </span>
+        <span className="archive" onClick={toggleVisibility}>
+          <i className="fas fa-archive" />
+          <span>{ record.visible ? 'Archive' : 'Unarchive' }</span>
+        </span>
+      </div>
+    )
   }
 
   function renderFields() {
-    return (<div>
-      <div className="record-input-container">
-        <Input
-          handleCancel={cancelRename}
-          handleChange={renameRecord}
-          id='record-name'
-          label={recordType}
-          type='text'
-          value={record.name}
-        />
-        {renderRenameAndArchiveSection()}
+    return (
+      <div>
+        <div className="record-input-container">
+          <Input
+            handleCancel={cancelRename}
+            handleChange={renameRecord}
+            id='record-name'
+            label={recordType}
+            type='text'
+            value={record.name}
+          />
+          {renderRenameAndArchiveSection()}
+        </div>
+        <div className="record-input-container description">
+          <TextArea
+            characterLimit={190}
+            handleChange={handleDescriptionChange}
+            id='description'
+            label={recordType}
+            type='text'
+            value={record.description}
+          />
+        </div>
       </div>
-      <div className="record-input-container description">
-        <TextArea
-          characterLimit={190}
-          handleChange={handleDescriptionChange}
-          id='description'
-          label={recordType}
-          type='text'
-          value={record.description}
-        />
-      </div>
-    </div>)
+    )
   }
 
   function renderSaveButton() {
     if (!_.isEqual(record, originalRecord)) {
-      return (<input
-        className="quill-button contained primary medium"
-        type="submit"
-        value="Save"
-      />)
+      return (
+        <input
+          className="quill-button contained primary medium"
+          type="submit"
+          value="Save"
+        />
+      )
     }
   }
 
-  return (<div className="record-box">
-    <span className="close-record-box" onClick={closeRecordBox}><i className="fas fa-times" /></span>
-    <form acceptCharset="UTF-8" onSubmit={handleSubmit} >
-      <div className="static">
-        <p>{recordType}</p>
-        <h1>{record.name}</h1>
-      </div>
-      <div className="fields">
-        {renderFields()}
-        {renderSaveButton()}
-      </div>
-    </form>
-  </div>)
+  return (
+    <div className="record-box">
+      <span className="close-record-box" onClick={closeRecordBox}><i className="fas fa-times" /></span>
+      <form acceptCharset="UTF-8" onSubmit={handleSubmit} >
+        <div className="static">
+          <p>{recordType}</p>
+          <h1>{record.name}</h1>
+        </div>
+        <div className="fields">
+          {renderFields()}
+          {renderSaveButton()}
+        </div>
+      </form>
+    </div>
+  )
 }
 
 

@@ -4,6 +4,7 @@ class Dashboard
   SUFFICIENT_DATA_AMOUNT = 30
   RESULT_LIMITS = 5
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.queries(user)
     get_redis_values(user)
     strug_stud = @@cached_strug_stud
@@ -32,6 +33,7 @@ class Dashboard
               {header: 'Difficult Concepts', results: diff_con}
 ]
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def self.completed_activity_count(user_id)
     RawSqlRunner.execute(
@@ -114,9 +116,10 @@ class Dashboard
     unless @@cached_strug_stud || strug_stud == 'insufficient data'
       $redis.set("user_id:#{user.id}_struggling_students", strug_stud.to_json, {ex: 16.hours})
     end
-    unless @@cached_diff_con || diff_con == 'insufficient data'
-      $redis.set("user_id:#{user.id}_difficult_concepts", diff_con.to_json, {ex: 16.hours})
-    end
+
+    return if @@cached_diff_con || diff_con == 'insufficient data'
+
+    $redis.set("user_id:#{user.id}_difficult_concepts", diff_con.to_json, {ex: 16.hours})
   end
 
   def self.get_redis_values(user)

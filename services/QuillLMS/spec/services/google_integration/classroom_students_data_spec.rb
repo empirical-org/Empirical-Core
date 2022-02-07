@@ -10,19 +10,19 @@ RSpec.describe GoogleIntegration::ClassroomStudentsData do
 
   subject { described_class.new(classroom, classroom_students_client) }
 
-  let(:student_data_1) { student_data("107674265", "tim", "student", "tim student", "tim_student@gmail.com") }
-  let(:student_data_2) { student_data("410622567", "ann", "student", "ann student", "ann_student@gmail.com") }
-  let(:classroom_students_data) { [classroom_student_data(student_data_1), classroom_student_data(student_data_2)] }
-  let(:google_ids) { [student_data_1[:google_id], student_data_2[:google_id]] }
+  let(:student_data1) { student_data("107674265", "tim", "student", "tim student", "tim_student@gmail.com") }
+  let(:student_data2) { student_data("410622567", "ann", "student", "ann student", "ann_student@gmail.com") }
+  let(:classroom_students_data) { [classroom_student_data(student_data1), classroom_student_data(student_data2)] }
+  let(:google_ids) { [student_data1[:google_id], student_data2[:google_id]] }
 
-  let(:raw_students_data) { [raw_student_data(student_data_1), raw_student_data(student_data_2)] }
+  let(:raw_students_data) { [raw_student_data(student_data1), raw_student_data(student_data2)] }
 
   before { allow(classroom_students_client).to receive(:call).with(google_classroom_id).and_return(raw_students_data) }
 
   it 'constructs an enumerable object whose elements are hashes containing classroom student data' do
-     expect(subject.to_a).to match_array classroom_students_data
-     expect(subject.google_ids).to match_array google_ids
-     expect(subject.google_classroom_id).to eq google_classroom_id
+    expect(subject.to_a).to match_array classroom_students_data
+    expect(subject.google_ids).to match_array google_ids
+    expect(subject.google_classroom_id).to eq google_classroom_id
   end
 
   def classroom_student_data(student_data)

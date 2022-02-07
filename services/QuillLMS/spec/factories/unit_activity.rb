@@ -6,7 +6,7 @@ FactoryBot.define do
     activity        { create(:activity, :production) }
 
     factory :unit_activity_with_activity do
-       activity { Activity.first || create(:activity) }
+      activity { Activity.first || create(:activity) }
     end
 
     trait :diagnostic_unit_activity do

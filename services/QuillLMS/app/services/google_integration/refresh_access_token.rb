@@ -34,6 +34,7 @@ module GoogleIntegration
         # 6 months can not be refreshed:
         # https://developers.google.com/identity/protocols/OAuth2#expiration
         raise TokenTooOldToRefreshError if token_too_old_to_refresh?
+
         handle_response(make_request)
       else
         current_credentials

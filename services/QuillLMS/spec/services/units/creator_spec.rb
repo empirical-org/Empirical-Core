@@ -18,14 +18,4 @@ describe Units::Creator do
     )
     expect(Unit.last.user).to eq(teacher)
   end
-
-  it 'kicks off an assign activity worker' do
-    Units::Creator.run(
-      teacher,
-      'Something Really Cool',
-      [{id: activity.id}],
-      [{id: classroom.id, student_ids: []}]
-    )
-    expect(Unit.last.user).to eq(teacher)
-  end
 end

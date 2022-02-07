@@ -109,26 +109,26 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
             {row.original['number_of_students']}
           </a>
         )
-        }, {
-				Header: "Proficient",
-				accessor: 'proficient',
-				resizable: false,
+      }, {
+        Header: "Proficient",
+        accessor: 'proficient',
+        resizable: false,
         className: blurIfNotPremium,
         Cell: (row) => (
           <a className="row-link-disguise" href={row.original['link']}>
             {row.original['proficient']}
           </a>
         )
-				}, {
-				Header: "Activities",
-				accessor: 'activities',
-				resizable: false,
+      }, {
+        Header: "Activities",
+        accessor: 'activities',
+        resizable: false,
         Cell: (row) => (
           <a className="row-link-disguise" href={row.original['link']}>
             {row.original['activities']}
           </a>
         )
-				}, {
+      }, {
         Header: "Time spent",
         accessor: 'timespent',
         resizable: false,
@@ -137,7 +137,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
             {getTimeSpent(row.original['timespent'])}
           </a>
         )
-        }
+      }
     ])
   }
 
@@ -152,14 +152,16 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
       {row.original['name']}
     </a>)
     if ((String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
-      return (<Tooltip
-        key={key}
-        tooltipText={rowDisplayText}
-        tooltipTriggerStyle={style}
-        tooltipTriggerText={sectionText}
-        tooltipTriggerTextClass={sectionClass}
-        tooltipTriggerTextStyle={style}
-      />)
+      return (
+        <Tooltip
+          key={key}
+          tooltipText={rowDisplayText}
+          tooltipTriggerStyle={style}
+          tooltipTriggerText={sectionText}
+          tooltipTriggerTextClass={sectionClass}
+          tooltipTriggerTextStyle={style}
+        />
+      )
     } else {
       return sectionText
     }

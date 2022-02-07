@@ -116,12 +116,13 @@ class Subscription < ApplicationRecord
   end
 
   def check_if_purchaser_email_is_in_database
-    if purchaser_email && !purchaser_id
-      purchaser_id = User.find_by_email(purchaser_email)&.id
-      if purchaser_id
-        update(purchaser_id: purchaser_id)
-      end
-    end
+    return unless purchaser_email
+    return if purchaser_id
+
+    new_purchaser_id = User.find_by_email(purchaser_email)&.id
+    return unless new_purchaser_id
+
+    update(purchaser_id: new_purchaser_id)
   end
 
   def renewal_price
@@ -196,22 +197,20 @@ class Subscription < ApplicationRecord
   def self.give_teacher_premium_if_charge_succeeds(user)
     teacher_premium_sub = new_teacher_premium_sub(user)
     teacher_premium_sub.save_if_charge_succeeds('teacher')
-    if !teacher_premium_sub.new_record?
-      UserSubscription.create(user: user, subscription: teacher_premium_sub)
-      teacher_premium_sub
-    else
-      false
-    end
+    return false if teacher_premium_sub.new_record?
+
+    UserSubscription.create(user: user, subscription: teacher_premium_sub)
+    teacher_premium_sub
   end
 
   def self.give_school_premium_if_charge_succeeds(school, user)
     school_premium_sub = new_school_premium_sub(school, user)
     school_premium_sub.save_if_charge_succeeds('school', school)
-    if !school_premium_sub.new_record?
+    if school_premium_sub.new_record?
+      false
+    else
       SchoolSubscription.create(school: school, subscription: school_premium_sub)
       school_premium_sub
-    else
-      false
     end
   end
 
@@ -279,41 +278,39 @@ class Subscription < ApplicationRecord
   end
 
   protected def charge_user_for_teacher_premium
-    if purchaser && purchaser.stripe_customer_id
-      Stripe::Charge.create(amount: TEACHER_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
-    end
+    return unless purchaser&.stripe_customer_id
+
+    Stripe::Charge.create(amount: TEACHER_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
   end
 
   protected def charge_user_for_school_premium(school)
-    if purchaser && purchaser.stripe_customer_id
-      Stripe::Charge.create(amount: SCHOOL_FIRST_PURCHASE_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
-    end
+    return unless purchaser&.stripe_customer_id
+
+    Stripe::Charge.create(amount: SCHOOL_FIRST_PURCHASE_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
   end
 
   protected def charge_user
-    if purchaser && purchaser.stripe_customer_id
-      begin
-        Stripe::Charge.create(amount: renewal_price, currency: 'usd', customer: purchaser.stripe_customer_id)
-      rescue Stripe::CardError
-        UserMailer.declined_renewal_email(purchaser).deliver_now! if purchaser.email
-      end
-    end
+    return unless purchaser && purchaser.stripe_customer_id
+
+    Stripe::Charge.create(amount: renewal_price, currency: 'usd', customer: purchaser.stripe_customer_id)
+  rescue Stripe::CardError
+    UserMailer.declined_renewal_email(purchaser).deliver_now! if purchaser.email
   end
 
   def self.set_premium_expiration_and_start_date(school_or_user)
-      if !Subscription.school_or_user_has_ever_paid?(school_or_user)
-        # We end their trial if they have one
-        school_or_user.subscription&.update(de_activated_date: Date.today)
-        # Then they get the promotional subscription
-        promotional_dates
-      elsif school_or_user.subscription
-        # Expire one year later, start at end of sub
-        old_sub = school_or_user.subscription
-        {expiration: old_sub.expiration + 1.year, start_date: old_sub.expiration}
-      else
-        # sub lasts one year from Date.today
-        {expiration: Date.today + 1.year, start_date: Date.today}
-      end
+    if !Subscription.school_or_user_has_ever_paid?(school_or_user)
+      # We end their trial if they have one
+      school_or_user.subscription&.update(de_activated_date: Date.today)
+      # Then they get the promotional subscription
+      promotional_dates
+    elsif school_or_user.subscription
+      # Expire one year later, start at end of sub
+      old_sub = school_or_user.subscription
+      {expiration: old_sub.expiration + 1.year, start_date: old_sub.expiration}
+    else
+      # sub lasts one year from Date.today
+      {expiration: Date.today + 1.year, start_date: Date.today}
+    end
   end
 
   def self.set_trial_expiration_and_start_date(user=nil)
@@ -340,9 +337,9 @@ class Subscription < ApplicationRecord
   end
 
   protected def set_null_start_date_to_today
-    if !start_date
-      self.start_date = Date.today
-    end
+    return if start_date
+
+    self.start_date = Date.today
   end
 
   def self.create_with_school_or_user_join school_or_user_id, type, attributes

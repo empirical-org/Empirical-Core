@@ -15,34 +15,38 @@ module LessonsCache
       "visible" => cua.unit_activity.visible}
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def update_lessons_cache(cua)
     classroom_id = cua.classroom_unit.classroom_id
     classroom = Classroom.find_by(id: classroom_id)
-    if classroom
-      teacher = classroom.owner
-      if cua.unit_activity.activity.is_lesson?
-        user_ids = ClassroomsTeacher.where(classroom_id: classroom_id).map(&:user_id)
-        user_ids.each do |user_id|
-          lessons_cache = $redis.get("user_id:#{user_id}_lessons_array")
-          if lessons_cache
-            lessons_cache = JSON.parse(lessons_cache)
-            formatted_lesson = lessons_cache_info_formatter(cua)
-            lesson_index_in_cache = lessons_cache.find_index { |l| l['classroom_unit_activity_state_id'] == formatted_lesson['classroom_unit_activity_state_id']}
-            if cua.visible == true && !lesson_index_in_cache
-              lessons_cache.push(formatted_lesson)
-            elsif cua.visible == false && lesson_index_in_cache
-              lessons_cache.delete(formatted_lesson)
-            elsif cua.completed && lesson_index_in_cache
-              lessons_cache[lesson_index_in_cache] = formatted_lesson
-            end
-          else
-            lessons_cache = format_initial_lessons_cache(teacher)
-          end
-          $redis.set("user_id:#{user_id}_lessons_array", lessons_cache.to_json)
+
+    return unless classroom
+
+    teacher = classroom.owner
+
+    return unless cua.unit_activity.activity.is_lesson?
+
+    user_ids = ClassroomsTeacher.where(classroom_id: classroom_id).map(&:user_id)
+    user_ids.each do |user_id|
+      lessons_cache = $redis.get("user_id:#{user_id}_lessons_array")
+      if lessons_cache
+        lessons_cache = JSON.parse(lessons_cache)
+        formatted_lesson = lessons_cache_info_formatter(cua)
+        lesson_index_in_cache = lessons_cache.find_index { |l| l['classroom_unit_activity_state_id'] == formatted_lesson['classroom_unit_activity_state_id']}
+        if cua.visible == true && !lesson_index_in_cache
+          lessons_cache.push(formatted_lesson)
+        elsif cua.visible == false && lesson_index_in_cache
+          lessons_cache.delete(formatted_lesson)
+        elsif cua.completed && lesson_index_in_cache
+          lessons_cache[lesson_index_in_cache] = formatted_lesson
         end
+      else
+        lessons_cache = format_initial_lessons_cache(teacher)
       end
+      $redis.set("user_id:#{user_id}_lessons_array", lessons_cache.to_json)
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def format_initial_lessons_cache(teacher)
     cuas = []

@@ -19,9 +19,9 @@ class ActivityCategory < ApplicationRecord
   before_create :set_order_number
 
   def set_order_number
-    if order_number.nil?
-      self.order_number =  ActivityCategory.count
-    end
+    return if order_number.present?
+
+    self.order_number =  ActivityCategory.count
   end
 
   def clear_activity_search_cache

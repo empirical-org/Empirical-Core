@@ -6,7 +6,7 @@ module Evidence
   RSpec.describe(Passage, :type => :model) do
 
     context 'relations' do
-      it { should belong_to(:activity) } 
+      it { should belong_to(:activity) }
     end
 
     context 'should validations' do

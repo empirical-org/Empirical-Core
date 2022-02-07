@@ -156,7 +156,7 @@ export default class IndividualStandardsReport extends React.Component {
               id: 'average_score',
               desc: false
             }
-          ]}
+            ]}
             showPageSizeOptions={false}
             showPagination={false}
             showPaginationBottom={false}

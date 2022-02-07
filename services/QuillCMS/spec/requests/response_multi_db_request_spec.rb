@@ -6,8 +6,11 @@ RSpec.describe 'Response model multi-db configuration checks', type: :request do
   let(:question_uid) { q_response.question_uid }
 
   before { allow(Pusher::Client).to receive(:new) { double(:client, trigger: true) } }
+
   before { allow_any_instance_of(ResponseSearch).to receive(:search_responses).and_return({}) }
+
   before { allow(RematchResponsesForQuestionWorker).to receive(:perform_in) }
+
   before { allow(CreateOrIncrementResponseWorker).to receive(:perform_async) }
 
   before { http_request }
@@ -70,8 +73,8 @@ RSpec.describe 'Response model multi-db configuration checks', type: :request do
     end
 
     describe 'responses#delete_many' do
-     let(:params) { { ids: [q_response.id] } }
-     let(:url) { '/responses/mass_edit/delete_many' }
+      let(:params) { { ids: [q_response.id] } }
+      let(:url) { '/responses/mass_edit/delete_many' }
 
       it { should_only_write_to_primary }
     end

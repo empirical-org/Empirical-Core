@@ -42,7 +42,7 @@ export const TurkerView = ({ session }) => {
     if (activityStarted && !activityCompleted) { return <StudentView handleFinishActivity={handleFinishActivity} isTurk={true} />}
 
     return <TurkCompleted code={sessionID} />
- }
+  }
 
   return(
     <div className="turker-view-container">

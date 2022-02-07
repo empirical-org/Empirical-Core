@@ -1,6 +1,6 @@
 import { SubmitActions } from '../actions/diagnostics.js';
 import { getCurrentQuestion, getQuestionsWithAttempts, getFilteredQuestions } from '../../Shared/index';
- // / make this playLessonsReducer.
+// / make this playLessonsReducer.
 const initialState = {
   answeredQuestions: [],
   unansweredQuestions: [],
@@ -74,7 +74,7 @@ function question(state = initialState, action) {
             {
               attempts: state.currentQuestion.data.attempts.concat([action.response]),
             }),
-          }),
+        }),
         };
         return Object.assign({}, state, changes);
       }
@@ -94,9 +94,9 @@ function question(state = initialState, action) {
       var change = action.data;
       changes = { currentQuestion: Object.assign({}, state.currentQuestion, {
         data: Object.assign({},
-            state.currentQuestion.data,
-            change
-          ),
+          state.currentQuestion.data,
+          change
+        ),
       }), };
       return Object.assign({}, state, changes);
     case SubmitActions.RESUME_PREVIOUS_DIAGNOSTIC_SESSION:

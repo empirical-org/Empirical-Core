@@ -6,9 +6,9 @@ class ClassroomCreationWorker
 
   def perform(classroom_id)
     classroom = Classroom.unscoped.find_by_id(classroom_id)
-    if classroom
-      analytics = SegmentAnalytics.new
-      analytics.track_classroom_creation(classroom)
-    end
+    return unless classroom
+
+    analytics = SegmentAnalytics.new
+    analytics.track_classroom_creation(classroom)
   end
 end

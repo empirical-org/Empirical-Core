@@ -6,7 +6,7 @@ module Evidence
   RSpec.describe(Label, :type => :model) do
 
     context 'should validations' do
-      let!(:label) { create(:evidence_label) } 
+      let!(:label) { create(:evidence_label) }
 
       it { should validate_presence_of(:name) }
 
@@ -23,7 +23,8 @@ module Evidence
       end
 
       context 'should #name_unique_for_prompt' do
-        let!(:label) { create(:evidence_label) } 
+        let!(:label) { create(:evidence_label) }
+
         it 'should not allow a label to be created if its name collides with another on the prompt' do
           prompt = create(:evidence_prompt)
           label.rule.update(:prompts => ([prompt]))
@@ -35,7 +36,7 @@ module Evidence
       end
     end
 
-    context 'should relationships' do 
+    context 'should relationships' do
 
       it { should belong_to(:rule) }
 

@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 describe DeleteStudentWorker do
-  let(:subject) { described_class.new }
+  subject { described_class.new }
+
   let(:analyzer) { double(:analyzer, track: true) }
 
   before do

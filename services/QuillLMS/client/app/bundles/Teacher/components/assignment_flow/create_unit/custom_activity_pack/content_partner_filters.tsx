@@ -42,13 +42,15 @@ const ContentPartnerFilterRow = ({ contentPartnerFilters, contentPartner, handle
     </button>)
   }
 
-  return (<div className="individual-row filter-row" key={contentPartner.id}>
-    <div>
-      {checkbox}
-      <span>{contentPartner.name}</span>
+  return (
+    <div className="individual-row filter-row" key={contentPartner.id}>
+      <div>
+        {checkbox}
+        <span>{contentPartner.name}</span>
+      </div>
+      <span>({activityCount})</span>
     </div>
-    <span>({activityCount})</span>
-  </div>)
+  )
 }
 
 const ContentPartnerFilters = ({ activities, filterActivities, contentPartnerFilters, handleContentPartnerFilterChange, }: ContentPartnerFiltersProps) => {
@@ -74,13 +76,15 @@ const ContentPartnerFilters = ({ activities, filterActivities, contentPartnerFil
   )
   const clearButton = contentPartnerFilters.length ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={clearAllContentPartnerFilters} type="button">Clear</button> : <span />
 
-  return (<section className="filter-section content-partner-filter-section">
-    <div className="name-and-clear-wrapper">
-      <h2>Content Partners</h2>
-      {clearButton}
-    </div>
-    {contentPartnerRows}
-  </section>)
+  return (
+    <section className="filter-section content-partner-filter-section">
+      <div className="name-and-clear-wrapper">
+        <h2>Content Partners</h2>
+        {clearButton}
+      </div>
+      {contentPartnerRows}
+    </section>
+  )
 }
 
 export default ContentPartnerFilters

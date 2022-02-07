@@ -21,7 +21,7 @@ RSpec.describe CleverIntegration::ClientFetcher do
   context AuthCredential::CLEVER_DISTRICT_PROVIDER do
     let!(:auth_credential) { create(:clever_district_auth_credential, user: user) }
 
-    it '' do
+    it do
       expect(CleverIntegration::DistrictClient).to receive(:new).with(access_token)
       subject
     end
@@ -30,7 +30,7 @@ RSpec.describe CleverIntegration::ClientFetcher do
   context AuthCredential::CLEVER_LIBRARY_PROVIDER do
     let!(:auth_credential) { create(:clever_library_auth_credential, user: user) }
 
-    it '' do
+    it do
       expect(CleverIntegration::LibraryClient).to receive(:new).with(access_token)
       subject
     end

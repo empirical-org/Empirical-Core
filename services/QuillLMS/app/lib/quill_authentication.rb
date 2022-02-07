@@ -16,6 +16,7 @@ module QuillAuthentication
     signed_in!
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def current_user
     begin
       if session[:preview_student_id]
@@ -36,14 +37,17 @@ module QuillAuthentication
       nil
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def classroom_owner!(classroom_id)
     return if ClassroomsTeacher.exists?(classroom_id: classroom_id, user: current_user, role: 'owner')
+
     auth_failed
   end
 
   def classroom_coteacher!(classroom_id)
     return if ClassroomsTeacher.exists?(classroom_id: classroom_id, user: current_user, role: 'coteacher')
+
     auth_failed
   end
 
@@ -52,9 +56,11 @@ module QuillAuthentication
       classroom_id: classroom_id,
       user: current_user
     )
+
     auth_failed
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def sign_in(user)
     remote_ip = (request.present? ? request.remote_ip : nil)
 
@@ -62,15 +68,16 @@ module QuillAuthentication
       TestForEarnedCheckboxesWorker.perform_async(user.id)
     end
 
-    if !session[:staff_id] || session[:staff_id] == user.id
+    if (!session[:staff_id] || session[:staff_id] == user.id) && user&.id
       # only kick off login worker if there is no staff id,
       # or if the user getting logged into is staff
-      UserLoginWorker.perform_async(user.id, remote_ip) if user&.id
+      UserLoginWorker.perform_async(user.id, remote_ip)
     end
     session[:user_id] = user.id
     session[:admin_id] = user.id if user.admin?
     @current_user = user
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def current_user_demo_id=(demo_id)
     session[:demo_id] = demo_id
@@ -120,6 +127,7 @@ module QuillAuthentication
 
   def signed_in!
     return if signed_in?
+
     auth_failed
   end
 
@@ -165,6 +173,7 @@ module QuillAuthentication
 
   def doorkeeper_token
     return @token if instance_variable_defined?(:@token)
+
     methods = Doorkeeper.configuration.access_token_methods
     @token = Doorkeeper::OAuth::Token.authenticate(request, *methods)
   end

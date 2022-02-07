@@ -9,14 +9,14 @@ const mockProps = {
   activities: { currentActivity: activityOne },
   activateStep: jest.fn(),
   activeStep: 1,
-  closeReadTheDirectionsModal: jest.fn(),
+  handleReadTheDirectionsButtonClick: jest.fn(),
   completeStep: jest.fn(),
   completedSteps: [],
   doneHighlighting: true,
   handleDoneReadingClick: jest.fn(),
   resetTimers: jest.fn(),
   session: {},
-  showReadTheDirectionsModal: false,
+  showReadTheDirectionsButton: false,
   stepsHash: {},
   submitResponse: jest.fn()
 };

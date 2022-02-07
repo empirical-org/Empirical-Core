@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class EgFormBuilder < CMS::FormBuilder
-  def radio name, *args
+  def radio(name, *args)
     args = _apply_field_defaults(args)
     options = args.extract_options!
     values = args
@@ -25,11 +25,11 @@ class EgFormBuilder < CMS::FormBuilder
     end
   end
 
-  def location name, options
+  def location(name, options)
     autocomplete name, options.merge(prepend: @template.content_tag(:div, '', class: 'geolocate'))
   end
 
-  def autocomplete name, *args
+  def autocomplete(name, *args)
     args = _apply_field_defaults(args)
     options = args.extract_options!
     options.reverse_merge!(waiting: 'Searching...')
@@ -52,7 +52,7 @@ class EgFormBuilder < CMS::FormBuilder
     end
   end
 
-  def text_with_counter name, *args
+  def text_with_counter(name, *args)
     args = _apply_field_defaults(args)
     options = args.extract_options!
 
@@ -63,23 +63,23 @@ class EgFormBuilder < CMS::FormBuilder
     text(name, options.merge(label: options[:label], append: counter))
   end
 
-  def boolean *args
+  def boolean(*args)
     field :boolean, *_apply_default_options(args, label_first: false)
   end
 
-  def string *args
+  def string(*args)
     field :string, *args
   end
 
-  def search *args
+  def search(*args)
     field :search, *args
   end
 
-  def text *args
+  def text(*args)
     field :text, *args
   end
 
-  def email *args
+  def email(*args)
     field :email, *args
   end
 
@@ -87,17 +87,17 @@ class EgFormBuilder < CMS::FormBuilder
     field :password, *args
   end
 
-  def hidden *args
+  def hidden(*args)
     field :hidden, *_apply_default_options(args, label: false, wrap_field: false)
   end
 
-  def choices attribute, choices, *args
+  def choices(attribute, choices, *args)
     field :choices, *_apply_default_options(args << attribute,  choices: choices)
   end
 
   # slider is weird enough that we will not use the default field helper.
   # instead, we will construct our own field that looks like a regular field.
-  def slider name, *args
+  def slider(name, *args)
     args = _apply_field_defaults(args)
     options = args.extract_options!
     out = ''.html_safe
@@ -109,7 +109,7 @@ class EgFormBuilder < CMS::FormBuilder
     end
   end
 
-  def toggle name, *args
+  def toggle(name, *args)
     args = _apply_field_defaults(args)
     options = args.extract_options!
     out = ''.html_safe
@@ -121,7 +121,7 @@ class EgFormBuilder < CMS::FormBuilder
     end
   end
 
-  def actions options = {}, &block
+  def actions(options = {}, &block)
     options.reverse_merge! save: 'Save', saving: 'Saving...', class: 'form-actions', save_class: 'btn btn-primary'
     @template.content_tag(:div, class: options.delete(:class)) do
       actions = ''.html_safe
@@ -132,7 +132,7 @@ class EgFormBuilder < CMS::FormBuilder
     end
   end
 
-  def modal_actions options = {}
+  def modal_actions(options = {})
     options.reverse_merge! save: 'Save', saving: 'Saving...', class: 'modal-footer'
     @template.content_tag(:div, class: options.delete(:class)) do
       actions = ''.html_safe
@@ -141,31 +141,24 @@ class EgFormBuilder < CMS::FormBuilder
     end
   end
 
-  def status options = {}
+  def status(options = {})
     options.reverse_merge! success: 'Saved!', error: 'Failed!'
     out = @template.content_tag(:div, class: 'status') do
       status = ''.html_safe
       status << @template.content_tag(:div, '', class: 'spinner')
-      # status << @template.content_tag(:div, options[:success], class: 'success')
-      # status << @template.content_tag(:div, options[:error], class: 'error')
     end
   end
 
-  def field_wrapper type, name, options = {}
+  def field_wrapper(type, name, options = {}, &block)
     classes = "field #{type} #{name.to_s.dasherize} control-group"
     classes << options[:classes] if options[:classes]
     classes << ' error' if object.errors.include? name
     options.merge! class: classes
-    @template.content_tag :div, options do
-      yield
-    end
+    @template.content_tag :div, options, &block
   end
 
-  # def _input_options options
-  #   [:autocomplete, :placeholder]
-  # end
-
-  def field *args, &block
+  # rubocop:disable Metrics/CyclomaticComplexity
+  def field(*args, &block)
     type, name, options = _extract_field_args(args)
     out = ''.html_safe
 
@@ -181,20 +174,14 @@ class EgFormBuilder < CMS::FormBuilder
       input_options[:placeholder] = ((placeholder = options.delete(:placeholder)) == true ? name.to_s.humanize : placeholder)
     end
 
-    unless options[:hidden].nil?
-      input_options[:class] = 'hidden' if options[:hidden] == true
-    end
-
-    unless options[:required].nil?
-      input_options[:required] = 'required' if options[:required] == true
-    end
+    input_options[:class] = 'hidden' if options[:hidden] == true
+    input_options[:required] = 'required' if options[:required] == true
 
     unless options[:choices].nil?
       input_args << options[:choices]
     end
 
     out.concat options[:prepend] if options[:prepend]
-
 
     label_html = label(name, options[:label], class: 'control-label')
 
@@ -224,15 +211,16 @@ class EgFormBuilder < CMS::FormBuilder
       out
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   # simple helper method for extracting and applying default options.
-  def _apply_default_options args, defaults
+  def _apply_default_options(args, defaults)
     options = args.extract_options!
     args << options.reverse_merge!(defaults)
   end
 
   # apply the default options for all fields.
-  def _apply_field_defaults args
+  def _apply_field_defaults(args)
     _apply_default_options args, field_options.reverse_merge(label: true, wrap_field: true, label_first: true)
   end
 
@@ -241,7 +229,7 @@ class EgFormBuilder < CMS::FormBuilder
   end
 
   # single use method for parsing options provided by the +field+ helper
-  def _extract_field_args args
+  def _extract_field_args(args)
     args = _apply_field_defaults(args)
     options = args.extract_options!
     name = args.pop
@@ -250,6 +238,7 @@ class EgFormBuilder < CMS::FormBuilder
     [type, name, options]
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def _field_types(type)
     case type
     when :string, :location
@@ -272,11 +261,12 @@ class EgFormBuilder < CMS::FormBuilder
       :select
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def error_messages
-    if object.errors.any?
-      @template.render partial: 'shared/form/error_messages', object: object.errors
-    end
+    return if object.errors.none?
+
+    @template.render partial: 'shared/form/error_messages', object: object.errors
   end
 end
 

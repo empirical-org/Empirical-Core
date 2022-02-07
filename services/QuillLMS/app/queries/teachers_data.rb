@@ -32,10 +32,10 @@ module TeachersData
     )
 
     question_count_query = User.find_by_sql(
-      "SELECT 
+      "SELECT
         users.id,
         COUNT(DISTINCT concept_results.id) AS number_of_questions_completed
-      FROM users 
+      FROM users
       INNER JOIN units ON users.id = units.user_id
       INNER JOIN classroom_units ON units.id = classroom_units.unit_id
       INNER JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
@@ -46,10 +46,10 @@ module TeachersData
     )
 
     time_spent_query = User.find_by_sql(
-      "SELECT 
+      "SELECT
         users.id,
         #{time_spent} AS time_spent
-      FROM users 
+      FROM users
       INNER JOIN units ON users.id = units.user_id
       INNER JOIN classroom_units ON units.id = classroom_units.unit_id
       INNER JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
@@ -62,7 +62,8 @@ module TeachersData
     number_of_students_query.each do |row|
       combiner[row.id] = {
         name: row.name,
-        email: row.email, 
+        email: row.email,
+        school: row.school,
         number_of_students: row.number_of_students
       }
     end
@@ -80,13 +81,14 @@ module TeachersData
       user = User.new(
         id: key,
         name: hash_value[:name],
-        email: hash_value[:email]
+        email: hash_value[:email],
+        school: hash_value[:school]
       )
-      user.define_singleton_method(:number_of_students) do 
-        hash_value[:number_of_students] 
+      user.define_singleton_method(:number_of_students) do
+        hash_value[:number_of_students]
       end
-      user.define_singleton_method(:number_of_questions_completed) do 
-        hash_value[:number_of_questions_completed] 
+      user.define_singleton_method(:number_of_questions_completed) do
+        hash_value[:number_of_questions_completed]
       end
       user.define_singleton_method(:time_spent) { hash_value[:time_spent] }
       user

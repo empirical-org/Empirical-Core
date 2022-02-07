@@ -59,6 +59,6 @@ const ConceptReports = ({
     </div>
     <ConceptReportsTable data={filteredConceptReportsData} />
   </div>
-  );
+);
 
 export default ConceptReports;

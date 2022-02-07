@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe SetImpactMetricsWorker do
-  let(:subject) { described_class.new }
+  subject { described_class.new }
 
   describe '#perform' do
     let!(:school) { create(:school) }

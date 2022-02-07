@@ -11,7 +11,7 @@ describe 'ReferrerAnalytics' do
   let(:referral) { create(:teacher) }
 
   context 'when a referral signs up' do
-    before(:each) do
+    before do
       analytics.track_referral_invited(referrer, referral.id)
     end
 
@@ -28,7 +28,7 @@ describe 'ReferrerAnalytics' do
   end
 
   context 'when a referral becomes active' do
-    before(:each) do
+    before do
       analytics.track_referral_activated(referrer, referral.id)
     end
 

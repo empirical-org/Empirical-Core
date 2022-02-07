@@ -35,13 +35,13 @@ const RuleRegexAttributes = ({
 
   function onHandleSetRegexRule(e: InputEvent) {
     handleSetRegexRule({
-    e,
-    regexRules,
-    rulesToUpdate,
-    rulesToCreate,
-    setRegexRules,
-    setRulesToUpdate,
-    setRulesToCreate})
+      e,
+      regexRules,
+      rulesToUpdate,
+      rulesToCreate,
+      setRegexRules,
+      setRulesToUpdate,
+      setRulesToCreate})
   }
 
   function onHandleSetRegexRuleSequence(option: DropdownObjectInterface, ruleKey) {

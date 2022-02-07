@@ -19,7 +19,7 @@ namespace :activities do
 
   desc 'Take pipe of CSV with activity names to be set to "private"'
   task set_to_private_by_name: :environment do
-    pipe_data = STDIN.read unless STDIN.tty?
+    pipe_data = $stdin.read unless $stdin.tty?
 
     unless pipe_data
       puts 'No data detected on STDIN.  You must pass data to the task for it to run.  Example:'

@@ -116,8 +116,10 @@ export {
   removeIcon,
   encircledWhiteArrowIcon,
   greenCheckIcon,
+  whiteCheckGreenBackgroundIcon,
   lockedIcon,
   closeIcon,
+  informationIcon
 } from './images/index'
 
 export {
@@ -130,3 +132,14 @@ export {
   SCROLL,
   TOUCHMOVE,
 } from './utils/eventNames'
+
+export {
+  DEFAULT_HIGHLIGHT_PROMPT,
+  BECAUSE,
+  BUT,
+  SO,
+  READ_PASSAGE_STEP_NUMBER,
+  BECAUSE_PASSAGE_STEP_NUMBER,
+  BUT_PASSAGE_STEP_NUMBER,
+  SO_PASSAGE_STEP_NUMBER
+} from './utils/constants'

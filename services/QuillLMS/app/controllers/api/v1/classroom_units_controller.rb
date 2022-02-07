@@ -108,7 +108,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
 
     teacher_ids = classroom_unit.try(&:classroom).try(&:teacher_ids)
     if teacher_ids
-      teacher_ids_h = Hash[teacher_ids.collect { |item| [item, true] }]
+      teacher_ids_h = teacher_ids.collect { |item| [item, true] }.to_h
     end
     render json: {teacher_ids: teacher_ids_h || {}}
   end

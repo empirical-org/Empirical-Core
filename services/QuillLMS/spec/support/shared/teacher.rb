@@ -16,35 +16,35 @@ shared_examples_for "teacher" do
   end
 
   context "with the ActiveRecords's delegated methods" do
-      describe ".all" do
-        it "must me included in methods" do
-          expect(Teacher.methods).to include( :all)
-        end
+    describe ".all" do
+      it "must me included in methods" do
+        expect(Teacher.methods).to include( :all)
       end
+    end
 
-      describe ".first" do
-        it "must me included in methods" do
-          expect(Teacher.methods).to include( :first)
-        end
+    describe ".first" do
+      it "must me included in methods" do
+        expect(Teacher.methods).to include( :first)
       end
+    end
 
-      describe ".where" do
-        it "must me included in methods" do
-          expect(Teacher.methods).to include( :where)
-        end
+    describe ".where" do
+      it "must me included in methods" do
+        expect(Teacher.methods).to include( :where)
       end
+    end
 
-      describe ".find" do
-        it "must me included in methods" do
-          expect(Teacher.methods).to include( :find)
-        end
+    describe ".find" do
+      it "must me included in methods" do
+        expect(Teacher.methods).to include( :find)
       end
+    end
 
-      describe "count" do
-        it "must me included in methods" do
-          expect(Teacher.methods).to include( :count)
-        end
+    describe "count" do
+      it "must me included in methods" do
+        expect(Teacher.methods).to include( :count)
       end
+    end
   end
 
   describe "default scope" do

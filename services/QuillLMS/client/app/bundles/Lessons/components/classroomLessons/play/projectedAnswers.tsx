@@ -7,10 +7,12 @@ const renderYourAnswer = (projector, response) => {
 
   const responses = responseArray.map(r => <p className="your-answer" dangerouslySetInnerHTML={{ __html: r}} key={r} />)
 
-  return (<div className="your-answer-container">
-    <p className="answer-header">Your response</p>
-    {responses}
-  </div>)
+  return (
+    <div className="your-answer-container">
+      <p className="answer-header">Your response</p>
+      {responses}
+    </div>
+  )
 }
 
 const renderClassAnswersList = (selectedSubmissionOrder, submissions, sampleCorrectAnswer) => {

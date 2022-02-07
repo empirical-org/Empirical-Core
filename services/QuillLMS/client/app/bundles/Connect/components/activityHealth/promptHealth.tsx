@@ -93,11 +93,11 @@ class PromptHealth extends React.Component<PromptHealthProps, PromptHealthState>
     } else {
       tableOrEmptyMessage = NO_DATA_FOUND_MESSAGE
     }
-      return (
-        <div>
-          {tableOrEmptyMessage}
-        </div>
-      )
+    return (
+      <div>
+        {tableOrEmptyMessage}
+      </div>
+    )
   }
 
   render() {

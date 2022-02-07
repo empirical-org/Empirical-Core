@@ -16,14 +16,14 @@ export default class extends React.Component {
   render() {
     const { originPage, upgradeNow } = this.props
     const premiumButton = originPage == 'premium' ?
-    (
-      <button className='btn-orange' onClick={upgradeNow} type='button'>Upgrade to Premium Now</button>
-    ) :
-    (
-      <a href='/premium'>
-        <button className='btn-orange' type='button'>Upgrade to Premium Now</button>
-      </a>
-    )
+      (
+        <button className='btn-orange' onClick={upgradeNow} type='button'>Upgrade to Premium Now</button>
+      ) :
+      (
+        <a href='/premium'>
+          <button className='btn-orange' type='button'>Upgrade to Premium Now</button>
+        </a>
+      )
     return (
       <div className='row'>
         <div className='col-md-9 col-xs-12 pull-left'>

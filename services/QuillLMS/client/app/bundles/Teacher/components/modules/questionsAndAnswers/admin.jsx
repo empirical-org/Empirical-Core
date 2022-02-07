@@ -15,7 +15,7 @@ const admin = () => [
     question: 'What is the Professional Development session structure like?',
     answer: [
       <p>The personalized session will last 45 to 75 minutes, and will involve a review of chosen tools as they relate to the school’s focus, and (time allowing) a conversation surrounding how teachers can effectively integrate Quill into their classroom. In the session, teachers will establish a direct line of communication with the School Partnerships team.</p>
-            ]
+    ]
   },
   {
     question: 'How will I access the Professional Development session?',
@@ -26,7 +26,7 @@ const admin = () => [
     answer: [
       <p>Teachers and administrators will continue to have access to basic reporting features, including the Activity Summary, Activity Analysis and Diagnostic reports. <a href="https://support.quill.org/getting-started-for-teachers/viewing-reports/where-can-i-see-my-student-scores-and-answers">Here’s a guide</a> on standard reports.</p>,
       <p>Premium teacher reports are available to teachers within their account and administrators via a link in the Administrator Dashboard. Those reports include List Overview, Concepts and Common Core Standards reporting. You will be able to download and print each of the premium reports to share with your colleagues, administrators or parents. <a href="https://support.quill.org/quill-premium">Here’s a guide</a> on Premium Reports.</p>
-  ]
+    ]
   },
   {
     question: 'What resources can I use to introduce Quill to the teachers in my school?',

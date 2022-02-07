@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :simple_activity_session, class: 'ActivitySession' do; end
+  factory :simple_activity_session, class: 'ActivitySession'
 
   # TODO: don't make all activity_sessions finished, used :finished trait
   factory :activity_session do
@@ -90,7 +90,7 @@ FactoryBot.define do
 
     factory :activity_session_without_concept_results do
       after(:create) do |activity_session|
-          ConceptResult.where(activity_session: activity_session).destroy_all
+        ConceptResult.where(activity_session: activity_session).destroy_all
       end
     end
   end

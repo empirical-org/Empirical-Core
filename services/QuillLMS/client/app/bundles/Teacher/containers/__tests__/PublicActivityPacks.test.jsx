@@ -13,7 +13,7 @@ describe('PublicActivityPacks container', () => {
 
   describe('UnitTemplatesManager', () => {
     it('should render', () => {
-        expect(wrapper.find(UnitTemplatesManager).exists()).toBe(true);
+      expect(wrapper.find(UnitTemplatesManager).exists()).toBe(true);
     });
 
     it('should have data based on state', () => {
@@ -131,14 +131,14 @@ describe('PublicActivityPacks container', () => {
   });
 
   // describe('fetchClassrooms function', () => {
-    //TODO: figure out how to mock jQuery and have getInitialState still work.
-    //TODO: finish these tests
-    // wrapper.instance().fetchClassrooms();
-    // expect($.ajax).toHaveBeenCalled();
-    // expect($.ajax.mock.calls[0][0].url).toBe('/teachers/classrooms/retrieve_classrooms_for_assigning_activities');
-    // expect($.ajax.mock.calls[0][0].context).toBe(wrapper.instance());
-    // expect($.ajax.mock.calls[0][0].success).toBe(wrapper.instance().updateCreateUnit);
-    // expect($.ajax.mock.calls[0][0].url).toBe();
+  //TODO: figure out how to mock jQuery and have getInitialState still work.
+  //TODO: finish these tests
+  // wrapper.instance().fetchClassrooms();
+  // expect($.ajax).toHaveBeenCalled();
+  // expect($.ajax.mock.calls[0][0].url).toBe('/teachers/classrooms/retrieve_classrooms_for_assigning_activities');
+  // expect($.ajax.mock.calls[0][0].context).toBe(wrapper.instance());
+  // expect($.ajax.mock.calls[0][0].success).toBe(wrapper.instance().updateCreateUnit);
+  // expect($.ajax.mock.calls[0][0].url).toBe();
   // });
 
   //TODO: test componentDidMount

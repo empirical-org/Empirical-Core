@@ -4,12 +4,9 @@ require 'rails_helper'
 
 describe Cms::UnitTemplatesController, type: :controller do
   let!(:staff) { create(:staff)}
-
   let(:parsed_body) { JSON.parse(response.body) }
 
-  before do
-    allow(controller).to receive(:current_user) { staff }
-  end
+  before { allow(controller).to receive(:current_user) { staff } }
 
   describe '#index, as: :json' do
     let!(:author) { create(:author) }

@@ -37,9 +37,15 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(id)
     const channel = pusher.subscribe(channelName);
-    const that = this;
+    const { onSuccess } = this.props
+
     channel.bind('google-classroom-students-imported', () => {
-      that.props.onSuccess('Class re-synced')
+      onSuccess('Class re-synced')
+      pusher.unsubscribe(channelName)
+    });
+
+    channel.bind('google-account-reauthorization-required', () => {
+      onSuccess('Reauthorization needed from Google account before student import can be completed.')
       pusher.unsubscribe(channelName)
     });
   }
@@ -114,21 +120,23 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
 
   render() {
     const { classroom, close } = this.props
-    return (<div className="modal-container import-google-classroom-students-modal-container">
-      <div className="modal-background" />
-      <div className="import-google-classroom-students-modal quill-modal modal-body">
-        <div>
-          <h3 className="title">Import students from Google Classroom</h3>
-        </div>
-        <p>You are about to import students from the class {classroom.name}.</p>
-        {this.renderCheckboxes()}
-        <div className="form-buttons">
-          <button className="quill-button outlined secondary medium" onClick={close} type="button">
+    return (
+      <div className="modal-container import-google-classroom-students-modal-container">
+        <div className="modal-background" />
+        <div className="import-google-classroom-students-modal quill-modal modal-body">
+          <div>
+            <h3 className="title">Import students from Google Classroom</h3>
+          </div>
+          <p>You are about to import students from the class {classroom.name}.</p>
+          {this.renderCheckboxes()}
+          <div className="form-buttons">
+            <button className="quill-button outlined secondary medium" onClick={close} type="button">
             Cancel
-          </button>
-          {this.renderImportButton()}
+            </button>
+            {this.renderImportButton()}
+          </div>
         </div>
       </div>
-    </div>)
+    )
   }
 }

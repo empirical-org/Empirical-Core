@@ -32,7 +32,7 @@ describe RematchResponseWorker do
     "feedback": "Revise your work.",
     "spelling_error": false
   }
-  let(:subject) { described_class.new }
+  subject { described_class.new }
 
   sample_payload = {
     "response":{
@@ -177,7 +177,7 @@ describe RematchResponseWorker do
       stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/)
         .to_return(status: 504, body: sample_lambda_response.to_json, headers: {})
 
-      expect do 
+      expect do
         subject.call_lambda_http_endpoint({})
       end.to raise_error(Net::HTTPRetriableError)
     end
@@ -186,7 +186,7 @@ describe RematchResponseWorker do
       stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/)
         .to_return(status: 503, body: sample_lambda_response.to_json, headers: {})
 
-      expect do 
+      expect do
         subject.call_lambda_http_endpoint({})
       end.to raise_error(RematchResponseWorker::LambdaHTTPError)
     end

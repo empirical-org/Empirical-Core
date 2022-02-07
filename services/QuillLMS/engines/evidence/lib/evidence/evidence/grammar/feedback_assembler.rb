@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Evidence 
+module Evidence
   module Grammar
     class FeedbackAssembler < Evidence::FeedbackAssembler
       RULE_MAPPING = {
@@ -19,6 +19,7 @@ module Evidence
         "its_versus_it_s_it_s_optimal" => '8d8fe106-e0a5-440a-8bd4-4e34d8d0a16e',
         "its_versus_it_s_its_optimal" => 'f8d7863a-e52f-4d05-9b81-994c16004315',
         "lead_vs_led" => 'da9ded20-284d-4ceb-bb8a-c44623b26415',
+        "missing_hyphen" => 'da2b9bac-6109-40a7-a0d5-cdd6a2d148fb',
         "loose_vs_lose" => '32e8ab57-269a-45aa-9394-95f94e5020b7',
         "passed_vs_past" => 'ec41df97-603f-4e77-ab0c-0d27c2a265fd',
         "plural_versus_possessive_nouns_plural_noun_optimal" => 'a75f910d-fad0-4552-8985-1f989b92770e',
@@ -49,9 +50,9 @@ module Evidence
         "through_vs_threw_vs_thru" => '1f3cff3f-47ef-4e92-b7d5-9867cb4f3dff',
         "to_vs_too_vs_two" => '1522516d-4bdb-4cd1-8f90-30f4f4be3f30',
         "who_s_vs_whose" => 'b4d8997f-736b-41fc-92c5-b410981b43cb'
-      }   
+      }
 
-      def self.error_to_rule_uid 
+      def self.error_to_rule_uid
         RULE_MAPPING
       end
 
@@ -59,10 +60,10 @@ module Evidence
         super.merge({'feedback_type' => 'grammar'})
       end
 
-      def self.error_name 
+      def self.error_name
         'gapi_error'
       end
     end
-    
+
   end
 end

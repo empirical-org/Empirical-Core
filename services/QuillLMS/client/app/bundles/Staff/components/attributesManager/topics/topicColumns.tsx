@@ -51,16 +51,18 @@ const TopicColumns = ({ topics, searchValue, saveTopicChanges, createNewTopic, v
     visible,
   }
 
-  return (<div className="topic-columns">
-    <TopicLevelTable {...sharedProps} levelNumber={3} />
-    <TopicLevelTable {...sharedProps} levelNumber={2} />
-    <TopicLevelTable {...sharedProps} levelNumber={1} />
-    <TopicLevelTable {...sharedProps} levelNumber={0} />
-    <div className="record-box-container">
-      {topicBox}
-      {newTopicBoxes}
+  return (
+    <div className="topic-columns">
+      <TopicLevelTable {...sharedProps} levelNumber={3} />
+      <TopicLevelTable {...sharedProps} levelNumber={2} />
+      <TopicLevelTable {...sharedProps} levelNumber={1} />
+      <TopicLevelTable {...sharedProps} levelNumber={0} />
+      <div className="record-box-container">
+        {topicBox}
+        {newTopicBoxes}
+      </div>
     </div>
-  </div>)
+  )
 }
 
 export default TopicColumns

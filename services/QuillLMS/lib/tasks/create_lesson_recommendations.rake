@@ -424,9 +424,9 @@ namespace :recommendations do
         }
       ]
     }
-    
+
     manditory_concept = Concept.find_or_create_by(name: 'Mandatory')
-    
+
     activities.each do |activity_id, recommendations|
       ActiveRecord::Base.transaction do
         recommendations.each_with_index do |recommendation_data, i|
@@ -437,9 +437,9 @@ namespace :recommendations do
             category: :independent_practice,
             order: i
           )
-    
+
           puts "Created recommendation - #{recommendation.name}"
-    
+
           recommendation_data[:requirements].each do |criterion_data|
             concept_uid = begin
               if criterion_data[:concept_id] === 'mandatory'
@@ -448,7 +448,7 @@ namespace :recommendations do
                 criterion_data[:concept_id]
               end
             end
-    
+
             concept   = Concept.find_by(uid: concept_uid)
             criterion = Criterion.create!(
               concept: concept,
@@ -456,13 +456,13 @@ namespace :recommendations do
               recommendation: recommendation,
               no_incorrect: !!criterion_data[:noIncorrect]
             )
-    
+
             puts " --> Created criterion - id:#{criterion.id}"
           end
         end
       end
     end
-    
+
   end
 
   task :create_group => :environment do
@@ -648,9 +648,9 @@ namespace :recommendations do
         }
       ]
     }
-    
+
     manditory_concept = Concept.find_or_create_by(name: 'Mandatory')
-    
+
     activities.each do |activity_id, recommendations|
       ActiveRecord::Base.transaction do
         recommendations.each_with_index do |recommendation_data, i|
@@ -661,9 +661,9 @@ namespace :recommendations do
             category: :group_lesson,
             order: i
           )
-    
+
           puts "Created recommendation - #{recommendation.name}"
-    
+
           recommendation_data[:requirements].each do |criterion_data|
             concept_uid = begin
               if criterion_data[:concept_id] === 'mandatory'
@@ -672,7 +672,7 @@ namespace :recommendations do
                 criterion_data[:concept_id]
               end
             end
-    
+
             concept   = Concept.find_by(uid: concept_uid)
             criterion = Criterion.create!(
               concept: concept,
@@ -680,13 +680,13 @@ namespace :recommendations do
               recommendation: recommendation,
               no_incorrect: !!criterion_data[:noIncorrect]
             )
-    
+
             puts " --> Created criterion - id:#{criterion.id}"
           end
         end
       end
     end
-    
+
   end
 
 end

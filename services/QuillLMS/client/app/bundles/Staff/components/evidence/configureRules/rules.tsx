@@ -54,8 +54,8 @@ const Rules = ({ activityId, history, prompt }: RulesProps) => {
       const { rules } = rulesData;
       const multiSortRules = rules.sort(
         firstBy("rule_type", { cmp: sortByRuleApiOrder, direction: "asc" })
-        .thenBy('prompt_ids')
-        .thenBy('suborder')
+          .thenBy('prompt_ids')
+          .thenBy('suborder')
       );
       setSortedRules(multiSortRules);
     }

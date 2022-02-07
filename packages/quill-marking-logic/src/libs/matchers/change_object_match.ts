@@ -127,7 +127,7 @@ export function checkChangeObjectMatch(userString: string, responses: Array<Resp
         errorType: matchedErrorType,
       },
       textChanges
-      );
+    );
   }
 }
 
@@ -158,8 +158,8 @@ const getErrorType = (targetString:string, userString:string, responses):string|
   }
   const hasAdditions = checkForAdditions(changeObjects);
   if (hasAdditions) {
-   return ERROR_TYPES.ADDITIONAL_WORD;
- }
+    return ERROR_TYPES.ADDITIONAL_WORD;
+  }
   const hasDeletions = checkForDeletions(changeObjects);
   if (hasDeletions) {
     return ERROR_TYPES.MISSING_WORD;

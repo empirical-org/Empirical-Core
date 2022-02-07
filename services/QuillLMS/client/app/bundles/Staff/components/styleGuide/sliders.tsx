@@ -11,12 +11,13 @@ const Sliders = () => {
     setUpperValue(valuesArray[1])
   }
 
-    return (<div id="sliders">
+  return (
+    <div id="sliders">
       <h2 className="style-guide-h2">Sliders</h2>
       <div className="element-container">
         <pre>
           {
-  `
+            `
   const [lowerValue, setLowerValue] = React.useState(1)
   const [upperValue, setUpperValue] = React.useState(4)
 
@@ -50,7 +51,8 @@ const Sliders = () => {
           />
         </div>
       </div>
-    </div>)
+    </div>
+  )
 }
 
 export default Sliders
