@@ -610,6 +610,19 @@ class User < ApplicationRecord
     user_activity_classifications.sum(:count)
   end
 
+  def clear_attrs
+    update!(
+      clever_id: nil,
+      email: "deleted_user_#{id}@example.com",
+      google_id: nil,
+      ip_address: nil,
+      name: "Deleted User_#{id}",
+      send_newsletter: false,
+      stripe_customer_id: nil,
+      username: "deleted_user_#{id}"
+    )
+  end
+
   private def validate_flags
     # ensures there are no items in the flags array that are not in the VALID_FLAGS const
     invalid_flags = flags - VALID_FLAGS
