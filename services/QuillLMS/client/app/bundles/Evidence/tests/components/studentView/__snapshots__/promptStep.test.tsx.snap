@@ -37,6 +37,7 @@ exports[`PromptStep component active state before any responses have been submit
             className="editor"
             disabled={false}
             handleFocus={[Function]}
+            handleKeyDown={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
@@ -56,6 +57,7 @@ exports[`PromptStep component active state before any responses have been submit
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
+                onKeyDown={[Function]}
                 spellCheck={true}
               >
                 <div
@@ -173,6 +175,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
             className="editor suboptimal"
             disabled={false}
             handleFocus={[Function]}
+            handleKeyDown={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
             innerRef={[Function]}
@@ -192,6 +195,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
+                onKeyDown={[Function]}
                 spellCheck={true}
               >
                 <div
@@ -418,6 +422,7 @@ exports[`PromptStep component active state when an optimal response has been sub
             className="editor optimal disabled"
             disabled={true}
             handleFocus={[Function]}
+            handleKeyDown={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
             innerRef={[Function]}
@@ -437,6 +442,7 @@ exports[`PromptStep component active state when an optimal response has been sub
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
+                onKeyDown={[Function]}
                 spellCheck={true}
               >
                 <div
@@ -691,6 +697,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             className="editor suboptimal disabled"
             disabled={true}
             handleFocus={[Function]}
+            handleKeyDown={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
             innerRef={[Function]}
@@ -710,6 +717,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
+                onKeyDown={[Function]}
                 spellCheck={true}
               >
                 <div
@@ -988,6 +996,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             className="editor optimal disabled"
             disabled={true}
             handleFocus={[Function]}
+            handleKeyDown={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
             innerRef={[Function]}
@@ -1007,6 +1016,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
+                onKeyDown={[Function]}
                 spellCheck={true}
               >
                 <div
@@ -1221,6 +1231,7 @@ exports[`PromptStep component inactive state renders 1`] = `
             className="editor"
             disabled={false}
             handleFocus={[Function]}
+            handleKeyDown={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
@@ -1240,6 +1251,7 @@ exports[`PromptStep component inactive state renders 1`] = `
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
+                onKeyDown={[Function]}
                 spellCheck={true}
               >
                 <div
