@@ -12,7 +12,7 @@ const RuleHint = ({
   setHint,
 }) => {
 
-  function handleAddHint() {
+  function handleHintCreation() {
     setHint({
       explanation: '',
       image_link: '',
@@ -81,7 +81,7 @@ const RuleHint = ({
   return(
     // eslint-disable-next-line
     <React.Fragment>
-      {hint && !hint._destroy ? renderHint() : <button className="add-feedback-layer quill-button small primary outlined" onClick={handleAddHint} type="button">Add Hint</button>}
+      {hint && !hint._destroy ? renderHint() : <button className="add-feedback-layer quill-button small primary outlined" onClick={handleHintCreation} type="button">Add Hint</button>}
     </React.Fragment>
   );
 };
