@@ -46,8 +46,8 @@ const RightPanel = ({
     hasStartedReadPassageStep={hasStartedReadPassageStep}
     inReflection={doneHighlighting && activeStep === READ_PASSAGE_STEP}
     scrolledToEndOfPassage={scrolledToEndOfPassage}
-    showStepsSummary={showStepsSummary}
     showReadTheDirectionsButton={showReadTheDirectionsButton}
+    showStepsSummary={showStepsSummary}
     studentHighlights={studentHighlights}
     toggleShowStepsSummary={toggleShowStepsSummary}
   />)
