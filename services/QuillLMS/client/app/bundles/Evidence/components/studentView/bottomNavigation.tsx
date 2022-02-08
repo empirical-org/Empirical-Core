@@ -52,8 +52,11 @@ const BottomNavigation = ({
   handleStartPromptStepsClick,
   handleStartReadingPassageClick,
   inReflection,
-  showReadTheDirectionsButton
+  showReadTheDirectionsButton,
+  showStepsSummary,
+  toggleShowStepsSummary
 }) => {
+
   if (!hasStartedReadPassageStep) {
     return (
       <div className="bottom-navigation">
@@ -86,6 +89,15 @@ const BottomNavigation = ({
     return (
       <div className="bottom-navigation">
         <button className="quill-button outlined secondary large focus-on-dark" onClick={handleStartPromptStepsClick} type="button">Next</button>
+      </div>
+    )
+  }
+
+  if (showStepsSummary) {
+    console.log("🚀 ~ file: bottomNavigation.tsx ~ line 97 ~ showStepsSummary", showStepsSummary)
+    return (
+      <div className="bottom-navigation">
+        <button className="quill-button outlined secondary large focus-on-dark" onClick={toggleShowStepsSummary} type="button">Next</button>
       </div>
     )
   }
