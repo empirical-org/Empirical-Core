@@ -329,6 +329,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const uniqueCompletedSteps = Array.from(new Set(newCompletedSteps))
     trackCurrentPromptCompletedEvent()
     setCompletedSteps(uniqueCompletedSteps)
+    // we only want to render the step summary list again after completing the because and but prompts
     if(stepNumber > READ_PASSAGE_STEP_NUMBER && stepNumber < SO_PASSAGE_STEP_NUMBER) {
       setShowStepsSummary(true);
     }

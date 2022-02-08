@@ -94,7 +94,6 @@ const BottomNavigation = ({
   }
 
   if (showStepsSummary) {
-    console.log("🚀 ~ file: bottomNavigation.tsx ~ line 97 ~ showStepsSummary", showStepsSummary)
     return (
       <div className="bottom-navigation">
         <button className="quill-button outlined secondary large focus-on-dark" onClick={toggleShowStepsSummary} type="button">Next</button>
