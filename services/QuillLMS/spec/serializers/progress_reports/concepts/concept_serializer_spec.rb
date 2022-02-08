@@ -36,6 +36,7 @@ describe ProgressReports::Concepts::ConceptSerializer, type: :serializer do
 
   describe '#to_json' do
     subject { JSON.parse(serializer.to_json) }
+
     let(:parsed_concept) { subject['concept'] }
 
     it 'includes the right keys' do

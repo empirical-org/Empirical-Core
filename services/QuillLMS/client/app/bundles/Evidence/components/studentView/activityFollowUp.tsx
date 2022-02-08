@@ -15,11 +15,13 @@ const ActivityFollowUp = ({ responses, user, sessionID, saveActivitySurveyRespon
   }
 
   if (showActivitySurvey) {
-    return (<ActivitySurvey
-      saveActivitySurveyResponse={saveActivitySurveyResponse}
-      sessionID={sessionID}
-      setSubmittedActivitySurvey={setSubmittedActivitySurvey}
-    />)
+    return (
+      <ActivitySurvey
+        saveActivitySurveyResponse={saveActivitySurveyResponse}
+        sessionID={sessionID}
+        setSubmittedActivitySurvey={setSubmittedActivitySurvey}
+      />
+    )
   }
   return <PostActivitySlide handleClick={onClickNext} responses={responses} user={user} />
 }

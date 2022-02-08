@@ -14,13 +14,11 @@ jest.mock('string-strip-html', () => ({
 const prompt = activityOne.prompts[2]
 
 const defaultProps = {
-  active: false,
   activityIsComplete: false,
   className: 'step',
   everyOtherStepCompleted: false,
   submitResponse: () => {},
   completeStep: () => {},
-  stepNumberComponent: <span />,
   onClick: () => {},
   prompt,
   passedRef: () => {},
@@ -169,9 +167,9 @@ describe('PromptStep component', () => {
         expect(wrapper.find(EditorContainer)).toHaveLength(1)
       })
 
-      it('has a non-disabled button with the text "Start next sentence"', () => {
+      it('has a non-disabled button with the text "Next"', () => {
         expect(wrapper.find('.quill-button.disabled')).toHaveLength(0)
-        expect(wrapper.find('.quill-button').text()).toEqual("Start next sentence")
+        expect(wrapper.find('.quill-button').text()).toEqual("Next")
       })
 
     })
@@ -195,9 +193,9 @@ describe('PromptStep component', () => {
         expect(wrapper.find(EditorContainer)).toHaveLength(1)
       })
 
-      it('has a disabled button with the text "Get new feedback"', () => {
+      it('has a disabled button with the text "Get feedback"', () => {
         expect(wrapper.find('.quill-button.disabled')).toHaveLength(1)
-        expect(wrapper.find('.quill-button.disabled').text()).toEqual("Get new feedback")
+        expect(wrapper.find('.quill-button.disabled').text()).toEqual("Get feedback")
       })
     })
 
@@ -218,9 +216,9 @@ describe('PromptStep component', () => {
         expect(wrapper.find(EditorContainer)).toHaveLength(1)
       })
 
-      it('has a non-disabled button with the text "Start next sentence"', () => {
+      it('has a non-disabled button with the text "Next"', () => {
         expect(wrapper.find('.quill-button.disabled')).toHaveLength(0)
-        expect(wrapper.find('.quill-button').text()).toEqual("Start next sentence")
+        expect(wrapper.find('.quill-button').text()).toEqual("Next")
       })
     })
 

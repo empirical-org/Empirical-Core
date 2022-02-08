@@ -142,53 +142,55 @@ export default class TeacherAccount extends React.Component {
       postGoogleClassroomAssignments,
     } = this.state
     const { accountInfo, alternativeSchools, alternativeSchoolsNameMap, cleverLink } = this.props
-    return (<div className="user-account">
-      <TeacherGeneralAccountInfo
-        activateSection={() => this.activateSection('general')}
-        active={activeSection === 'general'}
-        alternativeSchools={alternativeSchools}
-        alternativeSchoolsNameMap={alternativeSchoolsNameMap}
-        cleverId={cleverId}
-        deactivateSection={() => this.deactivateSection('general')}
-        email={email}
-        errors={errors}
-        googleId={googleId}
-        name={name}
-        school={school}
-        schoolType={schoolType}
-        timesSubmitted={timesSubmitted}
-        timeZone={timeZone}
-        updateUser={this.updateUser}
-      />
-      <TeacherPasswordAccountInfo
-        activateSection={() => this.activateSection('password')}
-        active={activeSection === 'password'}
-        cleverId={cleverId}
-        deactivateSection={() => this.deactivateSection('password')}
-        errors={errors}
-        googleId={googleId}
-        role={accountInfo.role}
-        timesSubmitted={timesSubmitted}
-        updateUser={this.updateUser}
-      />
-      <TeacherLinkedAccounts
-        cleverId={cleverId}
-        cleverLink={cleverLink}
-        email={email}
-        errors={errors}
-        googleId={googleId}
-        postGoogleClassroomAssignments={postGoogleClassroomAssignments}
-        timesSubmitted={timesSubmitted}
-        updateUser={this.updateUser}
-      />
-      <TeacherEmailNotifications
-        sendNewsletter={sendNewsletter}
-        updateUser={this.updateUser}
-      />
-      <TeacherDangerZone
-        deleteAccount={this.deleteAccount}
-      />
-      {this.renderSnackbar()}
-    </div>)
+    return (
+      <div className="user-account">
+        <TeacherGeneralAccountInfo
+          activateSection={() => this.activateSection('general')}
+          active={activeSection === 'general'}
+          alternativeSchools={alternativeSchools}
+          alternativeSchoolsNameMap={alternativeSchoolsNameMap}
+          cleverId={cleverId}
+          deactivateSection={() => this.deactivateSection('general')}
+          email={email}
+          errors={errors}
+          googleId={googleId}
+          name={name}
+          school={school}
+          schoolType={schoolType}
+          timesSubmitted={timesSubmitted}
+          timeZone={timeZone}
+          updateUser={this.updateUser}
+        />
+        <TeacherPasswordAccountInfo
+          activateSection={() => this.activateSection('password')}
+          active={activeSection === 'password'}
+          cleverId={cleverId}
+          deactivateSection={() => this.deactivateSection('password')}
+          errors={errors}
+          googleId={googleId}
+          role={accountInfo.role}
+          timesSubmitted={timesSubmitted}
+          updateUser={this.updateUser}
+        />
+        <TeacherLinkedAccounts
+          cleverId={cleverId}
+          cleverLink={cleverLink}
+          email={email}
+          errors={errors}
+          googleId={googleId}
+          postGoogleClassroomAssignments={postGoogleClassroomAssignments}
+          timesSubmitted={timesSubmitted}
+          updateUser={this.updateUser}
+        />
+        <TeacherEmailNotifications
+          sendNewsletter={sendNewsletter}
+          updateUser={this.updateUser}
+        />
+        <TeacherDangerZone
+          deleteAccount={this.deleteAccount}
+        />
+        {this.renderSnackbar()}
+      </div>
+    )
   }
 }

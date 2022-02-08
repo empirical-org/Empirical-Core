@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
 
   before_action :signed_in!, only: [:destroy]
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def create
     email_or_username = params[:user][:email].downcase.strip unless params[:user][:email].nil?
     @user =  User.find_by_username_or_email(email_or_username)
@@ -37,7 +38,9 @@ class SessionsController < ApplicationController
       login_failure_message
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def login_through_ajax
     email_or_username = params[:user][:email].downcase.strip unless params[:user][:email].nil?
     @user =  User.find_by_username_or_email(email_or_username)
@@ -71,6 +74,7 @@ class SessionsController < ApplicationController
       render json: {message: 'Wrong password. Try again or click Forgot password to reset it.', type: 'password'}, status: 401
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def destroy
     admin_id = session.delete(:admin_id)

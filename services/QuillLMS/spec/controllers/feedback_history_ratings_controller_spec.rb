@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe FeedbackHistoryRatingsController, type: :controller do
 
   let(:user) {create(:user)}
+
   before do
     allow(controller).to receive(:current_user) { user }
   end

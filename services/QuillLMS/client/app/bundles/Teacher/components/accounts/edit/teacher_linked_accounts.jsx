@@ -60,13 +60,15 @@ export default class TeacherLinkedAccounts extends React.Component {
       copy = 'Clever account is linked'
       actionElement = <button className="google-or-clever-action" onClick={this.handleClickUnlinkClever} type="button">Unlink</button>
     }
-    return (<div className="clever-row">
-      <div className="first-half">
-        <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
-        <span>{copy}</span>
+    return (
+      <div className="clever-row">
+        <div className="first-half">
+          <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
+          <span>{copy}</span>
+        </div>
+        {actionElement}
       </div>
-      {actionElement}
-    </div>)
+    )
   }
 
   renderGoogleSection = () => {
@@ -89,40 +91,47 @@ export default class TeacherLinkedAccounts extends React.Component {
           </div>
           {actionElement}
         </div>
-      </div>);
+      </div>
+    );
   }
 
   renderModal = () => {
     const { showGoogleModal, showCleverModal, } = this.state
     const { updateUser, email, timesSubmitted, errors, } = this.props
     if (showGoogleModal) {
-      return (<UnlinkModal
-        cancel={this.hideGoogleModal}
-        email={email}
-        errors={errors}
-        googleOrClever="Google"
-        timesSubmitted={timesSubmitted}
-        updateUser={updateUser}
-      />)
+      return (
+        <UnlinkModal
+          cancel={this.hideGoogleModal}
+          email={email}
+          errors={errors}
+          googleOrClever="Google"
+          timesSubmitted={timesSubmitted}
+          updateUser={updateUser}
+        />
+      )
     } else if (showCleverModal) {
-      return (<UnlinkModal
-        cancel={this.hideCleverModal}
-        email={email}
-        errors={errors}
-        googleOrClever="Clever"
-        timesSubmitted={timesSubmitted}
-        updateUser={updateUser}
-      />)
+      return (
+        <UnlinkModal
+          cancel={this.hideCleverModal}
+          email={email}
+          errors={errors}
+          googleOrClever="Clever"
+          timesSubmitted={timesSubmitted}
+          updateUser={updateUser}
+        />
+      )
     }
   }
 
   render() {
-    return (<div className="user-linked-accounts user-account-section">
-      {this.renderModal()}
-      <h1>Linked accounts</h1>
-      {this.renderGoogleSection()}
-      <hr />
-      {this.renderCleverSection()}
-    </div>)
+    return (
+      <div className="user-linked-accounts user-account-section">
+        {this.renderModal()}
+        <h1>Linked accounts</h1>
+        {this.renderGoogleSection()}
+        <hr />
+        {this.renderCleverSection()}
+      </div>
+    )
   }
 }

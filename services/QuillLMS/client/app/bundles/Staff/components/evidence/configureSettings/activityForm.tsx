@@ -25,7 +25,8 @@ import {
   PARENT_ACTIVITY_ID,
   HIGHLIGHT_PROMPT,
   flagOptions,
-  MAX_ATTEMPTS_FEEDBACK_TEXT
+  MAX_ATTEMPTS_FEEDBACK_TEXT,
+  ESSENTIAL_KNOWLEDGE_TEXT_FILLER
 } from '../../../../../constants/evidence';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent, ClickEvent,  TextAreaEvent } from '../../../interfaces/evidenceInterfaces';
 import { DataTable, Input, TextEditor, DropdownInput, } from '../../../../Shared/index'
@@ -64,7 +65,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   const { id, parent_activity_id, invalid_highlights, passages, prompts, scored_level, target_level, title, notes, flag, } = activity;
   const formattedScoredLevel = scored_level || '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
-  const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT }];
+  const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT, essential_knowledge_text: ESSENTIAL_KNOWLEDGE_TEXT_FILLER }];
   let formattedMaxFeedback;
   if(prompts && prompts[0] && prompts[0].max_attempts_feedback) {
     formattedMaxFeedback = prompts[0].max_attempts_feedback
@@ -111,6 +112,8 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
 
   function handleSetPassageText(text: string) { handleSetActivityPassages('text', text)}
 
+  function handleSetPassageEssentialKnowledgeText(text: string) { handleSetActivityPassages('essential_knowledge_text', text)}
+
   function handleSetImageAttribution(e: TextAreaEvent) { handleSetActivityPassages('image_attribution', e.target.value)}
 
   function handleSetImageCaption(e: InputEvent) { handleSetActivityPassages('image_caption', e.target.value)}
@@ -119,7 +122,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
     const updatedPassages = [...activityPassages];
     updatedPassages[0][key] = value;
     setActivityPassages(updatedPassages)
-   };
+  };
 
   function handleSetPrompt (e: InputEvent, conjunction: string) {
     const prompt = getActivityPrompt({ activityBecausePrompt, activityButPrompt, activitySoPrompt, conjunction });
@@ -175,7 +178,9 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   const requestErrorsPresent = !!(requestErrors && requestErrors.length);
   const showErrorsContainer = formErrorsPresent || requestErrorsPresent;
   const passageLabelStyle = activityPassages[0].text.length  && activityPassages[0].text !== '<br/>' ? 'has-text' : '';
+  const imageAttributionStyle = activityPassages[0].image_attribution  && activityPassages[0].image_attribution !== '<br/>' ? 'has-text' : '';
   const maxAttemptStyle = activityMaxFeedback.length && activityMaxFeedback !== '<br/>' ? 'has-text' : '';
+  const essentialKnowledgeStyle = activityPassages[0].essential_knowledge_text && activityPassages[0].essential_knowledge_text !== '<br/>' ? 'has-text' : '';
   const imageAttributionGuideLink = 'https://www.notion.so/quill/Activity-Images-9bc3993400da46a6af445a8a0d2d9d3f#11e9a01b071e41bc954e1182d56e93e8';
   const invalidHighlightsPresent = (invalid_highlights && invalid_highlights.length > 0)
 
@@ -196,12 +201,14 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
       { name: "Invalid Highlights", attribute:"link", width: "100%", noTooltip: true }
     ];
 
-    return (<DataTable
-      className="activities-table"
-      defaultSortAttribute="name"
-      headers={dataTableFields}
-      rows={formattedRows ? formattedRows : []}
-    />)
+    return (
+      <DataTable
+        className="activities-table"
+        defaultSortAttribute="name"
+        headers={dataTableFields}
+        rows={formattedRows ? formattedRows : []}
+      />
+    )
   }
 
   return(
@@ -272,7 +279,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
           value={activityPassages[0].image_caption}
         />
         {errors[IMAGE_CAPTION] && <p className="error-message">{errors[IMAGE_CAPTION]}</p>}
-        <p className="text-editor-label" id="image-attribution-label"> Image Attribution</p>
+        <p className={`text-editor-label ${imageAttributionStyle}`} id="image-attribution-label"> Image Attribution</p>
         <a className="data-link image-attribution-guide-link" href={imageAttributionGuideLink} rel="noopener noreferrer" target="_blank">Image Atributtion Guide</a>
         <textarea
           className="image-attribution-text-area"
@@ -295,7 +302,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
           />
         </div>
         {errors[PASSAGE] && <p className="error-message">{errors[PASSAGE]}</p>}
-        <p className={`text-editor-label ${maxAttemptStyle}`}>Max Attempts Feedback</p>
+        <p className={`text-editor-label ${maxAttemptStyle}`}>Max Attempts Feedback - Student Did Not Reach Optimal AutoML Label</p>
         <TextEditor
           ContentState={ContentState}
           EditorState={EditorState}
@@ -304,6 +311,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
           shouldCheckSpelling={true}
           text={activityMaxFeedback}
         />
+        {errors[MAX_ATTEMPTS_FEEDBACK] && <p className="error-message">{errors[MAX_ATTEMPTS_FEEDBACK]}</p>}
         <Input
           className="highlight-prompt-input"
           error={errors[HIGHLIGHT_PROMPT]}
@@ -311,7 +319,15 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
           label={`Highlight Prompt: "${DEFAULT_HIGHLIGHT_PROMPT}..."`}
           value={activityPassages[0].highlight_prompt || DEFAULT_HIGHLIGHT_PROMPT}
         />
-        {errors[MAX_ATTEMPTS_FEEDBACK] && <p className="error-message">{errors[MAX_ATTEMPTS_FEEDBACK]}</p>}
+        <p className={`text-editor-label ${essentialKnowledgeStyle}`}>Building Essential Knowledge Text</p>
+        <TextEditor
+          ContentState={ContentState}
+          EditorState={EditorState}
+          handleTextChange={handleSetPassageEssentialKnowledgeText}
+          key="essential-knowledge-text"
+          shouldCheckSpelling={true}
+          text={activityPassages[0].essential_knowledge_text}
+        />
         <PromptsForm
           activityBecausePrompt={activityBecausePrompt}
           activityButPrompt={activityButPrompt}

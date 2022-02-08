@@ -159,6 +159,7 @@ RSpec.describe Question, type: :model do
 
   describe '#update_focus_points' do
     let(:update_data) { {"foo" => {"text"=>"text", "feedback"=>"bar"} } }
+
     it 'should change the contents of focusPoints' do
       question.update_focus_points(update_data)
       question.reload
@@ -278,6 +279,7 @@ RSpec.describe Question, type: :model do
 
   describe '#update_incorrect_sequences' do
     let(:update_data) { {"foo" => {"text"=>"text", "feedback"=>"bar"} }}
+
     it 'should change the contents of incorrectSequences' do
       question.update_incorrect_sequences(update_data)
       question.reload

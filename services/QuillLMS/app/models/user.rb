@@ -60,8 +60,7 @@ class User < ApplicationRecord
   include CheckboxCallback
   include UserCacheable
 
-  attr_accessor :validate_username,
-                :require_password_confirmation_when_password_present
+  attr_accessor :validate_username, :require_password_confirmation_when_password_present, :newsletter
 
   CHAR_FIELD_MAX_LENGTH = 255
 
@@ -170,8 +169,6 @@ class User < ApplicationRecord
   scope :teacher, -> { where(role: TEACHER) }
   scope :student, -> { where(role: STUDENT) }
 
-  attr_accessor :newsletter
-
   def self.deleted_users
     where(
       <<-SQL
@@ -213,23 +210,29 @@ class User < ApplicationRecord
 
   def redeem_credit
     balance = credit_transactions.sum(:amount)
-    if balance > 0
-      new_sub = Subscription.create_with_user_join(id, {account_type: 'Premium Credit',
-                                                            payment_method: 'Premium Credit',
-                                                            expiration: Subscription.redemption_start_date(self) + balance,
-                                                            start_date: Subscription.redemption_start_date(self),
-                                                            purchaser_id: id})
-      if new_sub
-        CreditTransaction.create!(user: self, amount: 0 - balance, source: new_sub)
-      end
-      new_sub
-    end
+
+    return if balance <= 0
+
+    new_sub =
+      Subscription.create_with_user_join(
+        id,
+        {
+          account_type: 'Premium Credit',
+          payment_method: 'Premium Credit',
+          expiration: Subscription.redemption_start_date(self) + balance,
+          start_date: Subscription.redemption_start_date(self),
+          purchaser_id: id
+        }
+      )
+
+    CreditTransaction.create!(user: self, amount: 0 - balance, source: new_sub) if new_sub
+    new_sub
   end
 
   def subscription_authority_level(subscription_id)
     subscription = Subscription.find subscription_id
     if subscription.purchaser_id == id
-        'purchaser'
+      'purchaser'
     elsif subscription.schools.include?(school)
       if school.coordinator == self
         'coordinator'
@@ -240,13 +243,13 @@ class User < ApplicationRecord
   end
 
   def eligible_for_new_subscription?
-      if subscription
-        # if they have a subscription it must be a trial one
-        Subscription::TRIAL_TYPES.include?(subscription.account_type) || Subscription::COVID_TYPES.include?(subscription.account_type)
-      else
-        # otherwise they are good for purchase
-        true
-      end
+    if subscription
+      # if they have a subscription it must be a trial one
+      Subscription::TRIAL_TYPES.include?(subscription.account_type) || Subscription::COVID_TYPES.include?(subscription.account_type)
+    else
+      # otherwise they are good for purchase
+      true
+    end
   end
 
   def last_expired_subscription
@@ -287,21 +290,21 @@ class User < ApplicationRecord
   end
 
   def username_cannot_be_an_email
-    if username =~ VALID_EMAIL_REGEX
-      if id
-        db_self = User.find(id)
-        errors.add(:username, :invalid) unless db_self.username == username
-      else
-        errors.add(:username, :invalid)
-      end
+    return unless username =~ VALID_EMAIL_REGEX
+
+    if id
+      db_self = User.find(id)
+      errors.add(:username, :invalid) unless db_self.username == username
+    else
+      errors.add(:username, :invalid)
     end
   end
 
   # gets last four digits of Stripe card
   def last_four
-    if stripe_customer_id
-      Stripe::Customer.retrieve(stripe_customer_id).sources.data.first&.last4
-    end
+    return unless stripe_customer_id
+
+    Stripe::Customer.retrieve(stripe_customer_id).sources.data.first&.last4
   end
 
   def safe_role_assignment role
@@ -410,9 +413,9 @@ class User < ApplicationRecord
 
   def admins_teachers
     schools = administered_schools.includes(:users)
-    if schools.any?
-      schools.map{|school| school.users.ids}.flatten
-    end
+    return if schools.none?
+
+    schools.map{|school| school.users.ids}.flatten
   end
 
   def refresh_token!
@@ -441,11 +444,11 @@ class User < ApplicationRecord
   end
 
   def first_name
-    @first_name ||= name.to_s.split("\s")[0]
+    @first_name ||= name.to_s.split[0]
   end
 
   def last_name
-    @last_name ||= name.to_s.split("\s")[-1]
+    @last_name ||= name.to_s.split[-1]
   end
 
   def set_name
@@ -454,7 +457,7 @@ class User < ApplicationRecord
 
   def generate_password
     # first we need to replace any existing spaces with hyphens
-    last_name_with_spaces_replaced_by_hyphens = last_name.split(' ').join('-')
+    last_name_with_spaces_replaced_by_hyphens = last_name.split.join('-')
     # then we want to capitalize the first letter
     self.password = self.password_confirmation = last_name_with_spaces_replaced_by_hyphens.slice(0,1).capitalize + last_name_with_spaces_replaced_by_hyphens.slice(1..-1)
   end
@@ -466,9 +469,9 @@ class User < ApplicationRecord
   end
 
   def teacher_of_student
-    unless classrooms.empty?
-      classrooms.first.owner
-    end
+    return if classrooms.empty?
+
+    classrooms.first.owner
   end
 
   def send_account_created_email(temp_password, admin_name)
@@ -509,15 +512,15 @@ class User < ApplicationRecord
   end
 
   def subscribe_to_newsletter
-    if role == "teacher"
-      SubscribeToNewsletterWorker.perform_async(id)
-    end
+    return unless role.teacher?
+
+    SubscribeToNewsletterWorker.perform_async(id)
   end
 
   def unsubscribe_from_newsletter
-    if role == "teacher"
-      UnsubscribeFromNewsletterWorker.perform_async(id)
-    end
+    return unless role.teacher?
+
+    UnsubscribeFromNewsletterWorker.perform_async(id)
   end
 
   ransacker :created_at_date, type: :date do |parent|
@@ -541,6 +544,7 @@ class User < ApplicationRecord
   def generate_student_username_if_absent
     return if !student?
     return if username.present?
+
     classroom_id = classrooms.any? ? classrooms.first.id : nil
     generate_username(classroom_id)
   end
@@ -609,9 +613,10 @@ class User < ApplicationRecord
   private def validate_flags
     # ensures there are no items in the flags array that are not in the VALID_FLAGS const
     invalid_flags = flags - VALID_FLAGS
-    if invalid_flags.any?
-       errors.add(:flags, "invalid flag(s) #{invalid_flags}")
-    end
+
+    return if invalid_flags.none?
+
+    errors.add(:flags, "invalid flag(s) #{invalid_flags}")
   end
 
   private def prep_authentication_terms
@@ -620,9 +625,9 @@ class User < ApplicationRecord
   end
 
   private def check_for_school
-    if school
-      find_or_create_checkbox('Add School', self)
-    end
+    return unless school
+
+    find_or_create_checkbox('Add School', self)
   end
 
   # validation filters
@@ -634,6 +639,7 @@ class User < ApplicationRecord
     return false if clever_id
     return false if role.temporary?
     return true if teacher?
+
     false
   end
 
@@ -648,6 +654,7 @@ class User < ApplicationRecord
   private def requires_password?
     return false if clever_id
     return false if signed_up_with_google
+
     permanent? && new_record?
   end
 
@@ -658,6 +665,7 @@ class User < ApplicationRecord
 
   private def get_class_code(classroom_id)
     return 'student' if classroom_id.nil?
+
     Classroom.find(classroom_id).code
   end
 

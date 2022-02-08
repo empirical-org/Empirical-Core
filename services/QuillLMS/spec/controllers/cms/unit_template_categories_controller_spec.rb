@@ -3,13 +3,14 @@
 require 'rails_helper'
 
 describe Cms::UnitTemplateCategoriesController do
+  before do
+    allow(controller).to receive(:current_user) { user }
+  end
+
   it { should use_before_action :set_unit_template_category }
 
   let(:user) { create(:staff) }
 
-  before do
-    allow(controller).to receive(:current_user) { user }
-  end
 
   describe '#index' do
     let!(:category) { create(:unit_template_category) }

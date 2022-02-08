@@ -21,14 +21,16 @@ export default class TeacherEmailNotifications extends React.Component {
   }
 
   render() {
-    return (<div className="teacher-account-email-notifications user-account-section">
-      <h1>Email notifications</h1>
-      <div className="checkboxes">
-        <div className="checkbox-row">
-          {this.renderCheckbox('checkboxOne')}
-          <span>Receive updates on new content</span>
+    return (
+      <div className="teacher-account-email-notifications user-account-section">
+        <h1>Email notifications</h1>
+        <div className="checkboxes">
+          <div className="checkbox-row">
+            {this.renderCheckbox('checkboxOne')}
+            <span>Receive updates on new content</span>
+          </div>
         </div>
       </div>
-    </div>)
+    )
   }
 }

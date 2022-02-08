@@ -1,3 +1,3 @@
 export function countKeys(candidates) {
-	return Object.keys(candidates).length
+  return Object.keys(candidates).length
 }

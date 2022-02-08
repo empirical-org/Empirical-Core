@@ -54,6 +54,6 @@ export default class AdminSubnav extends React.Component<any, any> {
           </ul>
         </div>
       </div>
-);
+    );
   }
 };

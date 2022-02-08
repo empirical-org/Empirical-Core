@@ -3,14 +3,15 @@
 require 'rails_helper'
 
 describe AssignRecommendationsWorker do
-  let(:subject) { described_class.new }
+  subject { described_class.new }
+
   let(:unit_template) { create(:unit_template) }
   let(:classroom) { create(:classroom) }
   let(:teacher) { classroom.owner }
   let(:student) { create(:student) }
   let(:analyzer) { double(:analyzer, track: true) }
 
-  before(:each) do
+  before do
     allow(Analyzer).to receive(:new) { analyzer }
     allow(PusherRecommendationCompleted).to receive(:run) { true }
     allow(Units::Creator).to receive(:assign_unit_template_to_one_class) { true }
@@ -62,7 +63,7 @@ describe AssignRecommendationsWorker do
               },
               unit_template.id,
               teacher.id,
-              true
+              concatenate_extant_student_ids: true
           )
           call_method
         end
@@ -148,7 +149,7 @@ describe AssignRecommendationsWorker do
             },
             unit_template.id,
             teacher.id,
-            true
+            concatenate_extant_student_ids: true
         )
         call_method
       end
@@ -192,7 +193,7 @@ describe AssignRecommendationsWorker do
             },
             unit_template.id,
             teacher.id,
-            true
+            concatenate_extant_student_ids: true
         )
         call_method
       end

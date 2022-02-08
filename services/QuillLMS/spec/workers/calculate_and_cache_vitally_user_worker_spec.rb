@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 describe CalculateAndCacheVitallyUserWorker do
-  let(:subject) { described_class.new }
+  subject { described_class.new }
+
   let(:school) { create(:school) }
   let(:user) { create(:teacher, school: school) }
 

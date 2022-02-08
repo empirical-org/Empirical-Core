@@ -35,20 +35,22 @@ export default class DeleteAccountModal extends React.Component {
   }
 
   renderCheckboxes() {
-    return (<div className="checkboxes">
-      <div className="checkbox-row">
-        {this.renderCheckbox('checkboxOne')}
-        <span>Your personal information</span>
+    return (
+      <div className="checkboxes">
+        <div className="checkbox-row">
+          {this.renderCheckbox('checkboxOne')}
+          <span>Your personal information</span>
+        </div>
+        <div className="checkbox-row">
+          {this.renderCheckbox('checkboxTwo')}
+          <span>Classes and students' assignments and progress</span>
+        </div>
+        <div className="checkbox-row">
+          {this.renderCheckbox('checkboxThree')}
+          <span>All content you created, including lessons and projects</span>
+        </div>
       </div>
-      <div className="checkbox-row">
-        {this.renderCheckbox('checkboxTwo')}
-        <span>Classes and students' assignments and progress</span>
-      </div>
-      <div className="checkbox-row">
-        {this.renderCheckbox('checkboxThree')}
-        <span>All content you created, including lessons and projects</span>
-      </div>
-    </div>)
+    )
   }
 
   render() {
@@ -68,6 +70,7 @@ export default class DeleteAccountModal extends React.Component {
             <input className={this.submitClass()} name="commit" onClick={deleteAccount} type="submit" value="Delete account" />
           </div>
         </div>
-      </div>)
+      </div>
+    )
   }
 }

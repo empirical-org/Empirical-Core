@@ -409,9 +409,9 @@ EmpiricalGrammar::Application.routes.draw do
 
       resources :users, only: [:index]
       resources :app_settings, only: [:index, :show], param: :name do
-          member do
-            get :admin_show
-          end
+        member do
+          get :admin_show
+        end
       end
 
       resources :classroom_units,         only: [] do
@@ -787,8 +787,8 @@ EmpiricalGrammar::Application.routes.draw do
   get 'AP', to: redirect('/ap')
   get 'springboard' => 'pages#springboard'
 
-  get '/404' => 'errors#error_404'
-  get '/500' => 'errors#error_500'
+  get '/404' => 'errors#error404'
+  get '/500' => 'errors#error500'
 
   root to: 'pages#home_new'
 

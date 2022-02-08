@@ -15,13 +15,15 @@ const IndividualClassroom = ({ classroom, }) => {
 
   const classroomNameElement = classroom.name.length * AVERAGE_FONT_WIDTH >= maxWidth ? <Tooltip tooltipText={classroom.name} tooltipTriggerText={classroom.name} tooltipTriggerTextClass="tooltip-trigger-text" /> : <span>{classroom.name}</span>
 
-  return (<div className="individual-classroom">
-    <img alt="Multiple people outlined with a check icon" src={multipleAccountOutlinedSrc} />
-    <div className="name-and-count">
-      {classroomNameElement}
-      <span className="count">{classroom.assignedStudentCount} of {classroom.totalStudentCount} student{classroom.totalStudentCount === 1 ? '' : 's'}</span>
+  return (
+    <div className="individual-classroom">
+      <img alt="Multiple people outlined with a check icon" src={multipleAccountOutlinedSrc} />
+      <div className="name-and-count">
+        {classroomNameElement}
+        <span className="count">{classroom.assignedStudentCount} of {classroom.totalStudentCount} student{classroom.totalStudentCount === 1 ? '' : 's'}</span>
+      </div>
     </div>
-  </div>)
+  )
 }
 
 export default IndividualClassroom

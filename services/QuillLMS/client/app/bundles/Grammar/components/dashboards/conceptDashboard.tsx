@@ -102,38 +102,40 @@ class ConceptDashboard extends React.Component<ConceptDashboardProps, ConceptDas
       && questionAndConceptMap.data.conceptRows
       && questionAndConceptMap.data.conceptRows.length
     ) {
-      return (<div className="dashboard-table-container concept-dashboard" key={`${questionAndConceptMap.data.conceptRows.length}-length-for-activities-scores-by-classroom`}>
-        <DashboardFilters
-          allowedActivityFlags={allowedActivityFlags}
-          updateAllowedActivityFlags={this.updateAllowedActivityFlags}
-        />
-        <ReactTable
-          className="concept-dashboard-table"
-          columns={this.columns()}
-          data={questionAndConceptMap.data.conceptRows}
-          defaultPageSize={questionAndConceptMap.data.conceptRows.length}
-          defaultSorted={[{ id: 'name', desc: false, }]}
-          defaultSortMethod={this.defaultSort}
-          minRows={1}
-          showPageSizeOptions={false}
-          showPagination={false}
-        />
-      </div>);
+      return (
+        <div className="dashboard-table-container concept-dashboard" key={`${questionAndConceptMap.data.conceptRows.length}-length-for-activities-scores-by-classroom`}>
+          <DashboardFilters
+            allowedActivityFlags={allowedActivityFlags}
+            updateAllowedActivityFlags={this.updateAllowedActivityFlags}
+          />
+          <ReactTable
+            className="concept-dashboard-table"
+            columns={this.columns()}
+            data={questionAndConceptMap.data.conceptRows}
+            defaultPageSize={questionAndConceptMap.data.conceptRows.length}
+            defaultSorted={[{ id: 'name', desc: false, }]}
+            defaultSortMethod={this.defaultSort}
+            minRows={1}
+            showPageSizeOptions={false}
+            showPagination={false}
+          />
+        </div>
+      );
     }
     return <LoadingSpinner />;
   };
 }
 
 const mapStateToProps = (state: any) => {
-    return {
-      questionAndConceptMap: state.questionAndConceptMap
-    };
+  return {
+    questionAndConceptMap: state.questionAndConceptMap
+  };
 };
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => {
-    return {
-        dispatch
-    };
+  return {
+    dispatch
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConceptDashboard);

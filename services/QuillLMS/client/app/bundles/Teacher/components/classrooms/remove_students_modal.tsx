@@ -68,30 +68,34 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
   }
 
   renderCheckboxes() {
-    return (<div className="checkboxes">
-      <div className="checkbox-row">
-        {this.renderCheckbox('checkboxOne')}
-        <span>I understand that I will no longer have access to the students’ work or data.</span>
+    return (
+      <div className="checkboxes">
+        <div className="checkbox-row">
+          {this.renderCheckbox('checkboxOne')}
+          <span>I understand that I will no longer have access to the students’ work or data.</span>
+        </div>
       </div>
-    </div>)
+    )
   }
 
   render() {
     const { selectedStudentIds, close } = this.props
     const numberOfSelectedStudents = selectedStudentIds.length
-    return (<div className="modal-container remove-students-modal-container">
-      <div className="modal-background" />
-      <div className="remove-students-modal quill-modal modal-body">
-        <div>
-          <h3 className="title">Remove {numberOfSelectedStudents} {this.studentOrStudents()} from your class?</h3>
-        </div>
-        <p>Students' Quill accounts will remain active. If you bring students back into the class, the data from their completed activities will be restored.</p>
-        {this.renderCheckboxes()}
-        <div className="form-buttons">
-          <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
-          <button className={this.submitButtonClass()} onClick={this.removeStudents}>Remove from class</button>
+    return (
+      <div className="modal-container remove-students-modal-container">
+        <div className="modal-background" />
+        <div className="remove-students-modal quill-modal modal-body">
+          <div>
+            <h3 className="title">Remove {numberOfSelectedStudents} {this.studentOrStudents()} from your class?</h3>
+          </div>
+          <p>Students' Quill accounts will remain active. If you bring students back into the class, the data from their completed activities will be restored.</p>
+          {this.renderCheckboxes()}
+          <div className="form-buttons">
+            <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
+            <button className={this.submitButtonClass()} onClick={this.removeStudents}>Remove from class</button>
+          </div>
         </div>
       </div>
-    </div>)
+    )
   }
 }

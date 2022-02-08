@@ -13,5 +13,5 @@ class CleverController < ApplicationController
   def no_classroom
     render 'clever/no_classroom'
   end
-  
+
 end

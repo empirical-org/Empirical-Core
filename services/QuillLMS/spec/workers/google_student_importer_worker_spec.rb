@@ -6,23 +6,29 @@ describe GoogleStudentImporterWorker do
   describe '#perform' do
     let(:teacher) { create(:teacher, :signed_up_with_google) }
     let(:selected_classroom_ids) { [123, 456] }
+    let(:importer_class) { GoogleIntegration::TeacherClassroomsStudentsImporter }
 
-    it 'should raise an error with a invalid teacher_id' do
-      expect(GoogleIntegration::TeacherClassroomsStudentsImporter).not_to receive(:new)
+    subject { described_class.new }
 
-      subject.perform(nil)
+    context 'no auth_credential' do
+      it 'should raise an error with an invalid teacher_id' do
+        expect(importer_class).not_to receive(:new)
+        subject.perform(nil)
+      end
     end
 
-    it 'should run importing with valid teacher id and no selected_classroom_ids' do
-      expect(GoogleIntegration::TeacherClassroomsStudentsImporter).to receive(:new).with(teacher, nil)
+    context 'with an auth credential' do
+      before { create(:google_auth_credential, user: teacher) }
 
-      subject.perform(teacher.id)
-    end
+      it 'should run importing with valid teacher id and no selected_classroom_ids' do
+        expect(importer_class).to receive(:new).with(teacher, nil)
+        subject.perform(teacher.id)
+      end
 
-    it 'should run importing with valid teacher id and no selected_classroom_ids' do
-      expect(GoogleIntegration::TeacherClassroomsStudentsImporter).to receive(:new).with(teacher, selected_classroom_ids)
-
-      GoogleStudentImporterWorker.new.perform(teacher.id, nil, selected_classroom_ids)
+      it 'should run importing with valid teacher id and selected_classroom_ids' do
+        expect(importer_class).to receive(:new).with(teacher, selected_classroom_ids)
+        subject.perform(teacher.id, nil, selected_classroom_ids)
+      end
     end
   end
 end

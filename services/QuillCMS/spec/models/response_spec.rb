@@ -14,7 +14,7 @@ RSpec.describe Response do
       response.update(text: 'covfefe')
     end
 
-    it "after_update_commit calls #update_index_in_elastic_search" do
+    it "after_update_commit calls #destroy_index_in_elastic_search" do
       response = Response.create()
       expect(response).to receive(:destroy_index_in_elastic_search)
       response.destroy

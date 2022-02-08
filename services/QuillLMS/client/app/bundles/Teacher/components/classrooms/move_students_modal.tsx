@@ -90,12 +90,14 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
   }
 
   renderCheckboxes() {
-    return (<div className="checkboxes">
-      <div className="checkbox-row">
-        {this.renderCheckbox()}
-        <span>I understand that any activities that have not been started will not be transferred.</span>
+    return (
+      <div className="checkboxes">
+        <div className="checkbox-row">
+          {this.renderCheckbox()}
+          <span>I understand that any activities that have not been started will not be transferred.</span>
+        </div>
       </div>
-    </div>)
+    )
   }
 
   renderSubmitButton() {
@@ -113,26 +115,28 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
     const numberOfSelectedStudents = selectedStudentIds.length
     const classroomOptions = this.classroomOptions()
     const classroomOptionsForDropdown = classroomOptions.filter(opt => opt.value !== classroom.id)
-    return (<div className="modal-container move-students-modal-container">
-      <div className="modal-background" />
-      <div className="move-students-modal quill-modal modal-body">
-        <div>
-          <h3 className="title">Move {numberOfSelectedStudents} {this.studentOrStudents().toLowerCase()} to a new class</h3>
-        </div>
-        <p>All of the data from the activities that your {numberOfSelectedStudents === 1 ? 'student has' :'students have'} started or completed will be moved.</p>
-        <DropdownInput
-          className="class"
-          handleChange={this.handleClassroomChange}
-          label="Class"
-          options={classroomOptionsForDropdown}
-          value={classroomOptions.find(co => co.value === newClassroomId)}
-        />
-        {this.renderCheckboxes()}
-        <div className="form-buttons">
-          <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
-          {this.renderSubmitButton()}
+    return (
+      <div className="modal-container move-students-modal-container">
+        <div className="modal-background" />
+        <div className="move-students-modal quill-modal modal-body">
+          <div>
+            <h3 className="title">Move {numberOfSelectedStudents} {this.studentOrStudents().toLowerCase()} to a new class</h3>
+          </div>
+          <p>All of the data from the activities that your {numberOfSelectedStudents === 1 ? 'student has' :'students have'} started or completed will be moved.</p>
+          <DropdownInput
+            className="class"
+            handleChange={this.handleClassroomChange}
+            label="Class"
+            options={classroomOptionsForDropdown}
+            value={classroomOptions.find(co => co.value === newClassroomId)}
+          />
+          {this.renderCheckboxes()}
+          <div className="form-buttons">
+            <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
+            {this.renderSubmitButton()}
+          </div>
         </div>
       </div>
-    </div>)
+    )
   }
 }

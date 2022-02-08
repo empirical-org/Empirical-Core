@@ -44,20 +44,20 @@ class StudentsClassrooms < ApplicationRecord
   end
 
   private def run_associator
-    if student && classroom && visible
-      Associators::StudentsToClassrooms.run(student, classroom)
-    end
+    return unless student && classroom && visible
+
+    Associators::StudentsToClassrooms.run(student, classroom)
   end
 
   private def checkbox
-    if classroom
-      find_or_create_checkbox(Objective::ADD_STUDENTS, classroom.owner)
-    end
+    return unless classroom
+
+    find_or_create_checkbox(Objective::ADD_STUDENTS, classroom.owner)
   end
 
   private def invalidate_classroom_minis
-    if classroom&.owner.present?
-      $redis.del("user_id:#{classroom.owner.id}_classroom_minis")
-    end
+    return unless classroom&.owner.present?
+
+    $redis.del("user_id:#{classroom.owner.id}_classroom_minis")
   end
 end

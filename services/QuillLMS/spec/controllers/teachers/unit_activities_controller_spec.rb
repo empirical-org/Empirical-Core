@@ -3,9 +3,6 @@
 require 'rails_helper'
 
 describe Teachers::UnitActivitiesController, type: :controller do
-  it { should use_before_action :authorize! }
-  it { should use_before_action :teacher! }
-
   let(:classroom) { create(:classroom)}
   let(:teacher) { classroom.owner }
   let(:unit_activity) { create(:unit_activity)}
@@ -13,9 +10,10 @@ describe Teachers::UnitActivitiesController, type: :controller do
   let(:unit_activity3) { create(:unit_activity, unit_id: unit_activity.unit.id)}
   let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit_id: unit_activity.unit.id)}
 
-  before do
-    allow(controller).to receive(:current_user) { teacher }
-  end
+  before { allow(controller).to receive(:current_user) { teacher } }
+
+  it { should use_before_action :authorize! }
+  it { should use_before_action :teacher! }
 
   describe '#hide' do
     let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit) }

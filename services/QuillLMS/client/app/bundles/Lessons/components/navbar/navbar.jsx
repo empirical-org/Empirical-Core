@@ -95,7 +95,7 @@ class Navbar extends React.Component {
             </span>
           </div>
         </header>
-    )
+      )
     }
   }
 }

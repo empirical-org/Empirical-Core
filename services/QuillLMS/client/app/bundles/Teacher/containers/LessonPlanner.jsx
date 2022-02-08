@@ -111,7 +111,7 @@ export default class LessonPlanner extends React.Component {
   selectModel = (ut) => {
     const relatedModels = _l.filter(this.state.unitTemplatesManager.models, {
       unit_template_category: {
-      id: ut.unit_template_category.id
+        id: ut.unit_template_category.id
       }
     })
     this.updateUnitTemplatesManager({stage: 'profile', model: ut, relatedModels: relatedModels})
@@ -190,12 +190,12 @@ export default class LessonPlanner extends React.Component {
       this.setState({tab: tab});
     } else if (tab === 'exploreActivityPacks') {
       this.deepExtendState({
-      tab: tab,
-      unitTemplatesManager: {
-        stage: 'index',
-        firstAssignButtonClicked: false,
-        model_id: null,
-        model: null
+        tab: tab,
+        unitTemplatesManager: {
+          stage: 'index',
+          firstAssignButtonClicked: false,
+          model_id: null,
+          model: null
         }
       });
       this.fetchUnitTemplateModels();
@@ -227,7 +227,7 @@ export default class LessonPlanner extends React.Component {
 
   toggleActivitySelection = (activity, true_or_false) => {
     if (true_or_false) {
-    this.analytics().track('select activity in lesson planner', {
+      this.analytics().track('select activity in lesson planner', {
         name: activity.name,
         id: activity.id
       });
@@ -277,9 +277,9 @@ export default class LessonPlanner extends React.Component {
 
   manageUnit = () => {
     <ManageUnits actions={{
-        toggleTab: this.toggleTab,
-        editUnit: this.editUnit
-      }}
+      toggleTab: this.toggleTab,
+      editUnit: this.editUnit
+    }}
     />;
   };
 

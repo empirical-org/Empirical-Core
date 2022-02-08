@@ -3,14 +3,14 @@
 require 'rails_helper'
 
 describe Cms::SchoolsController do
+  let(:user) { create(:staff) }
+
+  before { allow(controller).to receive(:current_user) { user } }
+
   it { should use_before_action :signed_in! }
   it { should use_before_action :text_search_inputs }
   it { should use_before_action :set_school }
   it { should use_before_action :subscription_data }
-
-  let(:user) { create(:staff) }
-
-  before { allow(controller).to receive(:current_user) { user } }
 
   describe "SCHOOLS_PER_PAGE" do
     it 'should have the correct value' do
@@ -66,12 +66,12 @@ describe Cms::SchoolsController do
       })
       expect(assigns(:teacher_data)).to eq "teacher data"
       expect(assigns(:admins)).to eq(SchoolsAdmins.includes(:user).where(school_id: school.id).map do |admin|
-        {
-            name: admin.user.name,
-            email: admin.user.email,
-            school_id: admin.school_id,
-            user_id: admin.user_id
-        }
+          {
+              name: admin.user.name,
+              email: admin.user.email,
+              school_id: admin.school_id,
+              user_id: admin.user_id
+          }
         end
       )
     end
@@ -175,7 +175,8 @@ describe Cms::SchoolsController do
   describe '#add_existing_user_by_email' do
     let!(:another_user) { create(:user, role: 'teacher') }
     let!(:school) { create(:school) }
-    before(:each) do
+
+    before do
       request.env['HTTP_REFERER'] = 'quill.org'
     end
 
@@ -197,7 +198,8 @@ describe Cms::SchoolsController do
   describe '#unlink' do
     let!(:school) { create(:school)}
     let!(:another_user) { create(:user, school: school)}
-    before(:each) do
+
+    before do
       request.env['HTTP_REFERER'] = cms_school_path(school.id)
     end
 

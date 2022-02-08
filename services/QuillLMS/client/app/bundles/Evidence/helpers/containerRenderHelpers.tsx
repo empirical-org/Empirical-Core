@@ -1,26 +1,39 @@
 import * as React from "react"
 import ReactHtmlParser from 'react-html-parser'
 
-import { onMobile, orderedSteps, everyOtherStepCompleted, addPTagsToPassages, READ_PASSAGE_STEP, ALL_STEPS } from './containerActionHelpers'
+import { onMobile, orderedSteps, everyOtherStepCompleted, addPTagsToPassages, READ_PASSAGE_STEP } from './containerActionHelpers'
 
-import DirectionsSectionAndModal from '../components/studentView/directionsSectionAndModal'
-import StepLink from '../components/studentView/stepLink'
+import DirectionsSection from '../components/studentView/directionsSection'
 import PromptStep from '../components/studentView/promptStep'
 import HeaderImage from '../components/studentView/headerImage'
 
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
 
-export const renderDirectionsSectionAndModal = ({ className, closeReadTheDirectionsModal, activeStep, doneHighlighting, showReadTheDirectionsModal, activities }) => {
+export const renderDirectionsSection = ({ className, handleReadTheDirectionsButtonClick, activeStep, doneHighlighting, showReadTheDirectionsButton, activities }) => {
   const { currentActivity, } = activities
 
-  return  (<DirectionsSectionAndModal
-    activeStep={activeStep}
-    className={className}
-    closeReadTheDirectionsModal={closeReadTheDirectionsModal}
-    inReflection={activeStep === READ_PASSAGE_STEP && doneHighlighting}
-    passage={currentActivity.passages[0]}
-    showReadTheDirectionsModal={showReadTheDirectionsModal}
-  />)
+  return (
+    <DirectionsSection
+      activeStep={activeStep}
+      className={className}
+      inReflection={activeStep === READ_PASSAGE_STEP && doneHighlighting}
+      passage={currentActivity.passages[0]}
+    />
+  )
+}
+
+export const renderDirections = ({ handleReadTheDirectionsButtonClick, activeStep, doneHighlighting, showReadTheDirectionsButton, activities, hasStartedReadPassageStep, hasStartedPromptSteps }) => {
+  const { currentActivity, } = activities
+
+  const DirectionsSection = renderDirectionsSection({ className: '', handleReadTheDirectionsButtonClick , activeStep, doneHighlighting, showReadTheDirectionsButton, activities })
+
+  if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && onMobile()) {
+    return
+  }
+
+  if (!currentActivity || activeStep === READ_PASSAGE_STEP) {
+    return (<div className="hide-on-desktop step-links-and-directions-container">{DirectionsSection}</div>)
+  }
 }
 
 export const renderStepNumber = (number: number, activeStep, completedSteps) => {
@@ -37,105 +50,57 @@ export const renderReadPassageStep = (activeStep, activities, handleDoneReadingC
   const { currentActivity, } = activities
   if (!currentActivity || activeStep !== READ_PASSAGE_STEP) { return }
 
-  return (<div className='read-passage-step-container'>
-    <h2>Read the text.</h2>
-    <button className='quill-button large primary contained done-reading-button' onClick={handleDoneReadingClick} type="button">Done reading</button>
-  </div>)
-}
-
-export const renderStepLinksAndDirections = ({
-  activeStep,
-  hasStartedReadPassageStep,
-  hasStartedPromptSteps,
-  doneHighlighting,
-  showReadTheDirectionsModal,
-  completedSteps,
-  activities,
-  clickStepLink,
-  closeReadTheDirectionsModal,
-  scrollToQuestionSectionOnMobile
-}) => {
-  const { currentActivity, } = activities
-
-  const directionsSectionAndModal = renderDirectionsSectionAndModal({ className: '', closeReadTheDirectionsModal , activeStep, doneHighlighting, showReadTheDirectionsModal, activities })
-
-  if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && onMobile()) {
-    return
-  }
-
-  if (!currentActivity || activeStep === READ_PASSAGE_STEP) {
-    return (<div className="hide-on-desktop step-links-and-directions-container">{directionsSectionAndModal}</div>)
-  }
-
-  const links = []
-  const numberOfLinks = ALL_STEPS.length
-
-  // starting at 2 because we don't want to include the read passage step
-  for (let i=2; i <= numberOfLinks; i++ ) {
-    links.push(<StepLink activeStep={activeStep} clickStepLink={clickStepLink} completedSteps={completedSteps} index={i} renderStepNumber={renderStepNumber} />)
-  }
-
-  return (<div className="hide-on-desktop step-links-and-directions-container">
-    <div className="step-link-container">
-      <div className="step-links">
-        {links}
-      </div>
-      <button className="interactive-wrapper focus-on-light" onClick={scrollToQuestionSectionOnMobile} type="button">View questions</button>
+  return (
+    <div className='read-passage-step-container'>
+      <h2>Read the text.</h2>
+      <button className='quill-button large primary contained done-reading-button' onClick={handleDoneReadingClick} type="button">Done reading</button>
     </div>
-    {directionsSectionAndModal}
-  </div>)
+  )
 }
 
-export const renderPromptSteps = ({
+export const renderPromptStep = ({
   activateStep,
   activityIsComplete,
   completionButtonCallback,
   completeStep,
   submitResponse,
-  closeReadTheDirectionsModal,
+  handleReadTheDirectionsButtonClick,
   activities,
   session,
   activeStep,
   completedSteps,
   doneHighlighting,
-  showReadTheDirectionsModal,
-  stepsHash,
+  showReadTheDirectionsButton,
   reportAProblem,
 }) => {
   const { currentActivity, } = activities
   const { submittedResponses, hasReceivedData, } = session
+
   if (!currentActivity || !hasReceivedData) return
 
-  // sort by conjunctions in alphabetical order: because, but, so
-  const steps =  orderedSteps(activities).map((prompt, i) => {
-    // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
-    const stepNumber = i + 2
-    const canBeClicked = completedSteps.includes(stepNumber - 1) || completedSteps.includes(stepNumber) // can click on completed steps or the one after the last completed
+  // the first step is reading, so we will always start at 2 and therefore want to begin at the 0 index
+  const stepNumber = activeStep - 2;
+  const prompts = orderedSteps(activities);
+  const prompt = prompts[stepNumber];
 
-    return (<PromptStep
-      activateStep={activateStep}
-      active={stepNumber === activeStep}
-      activityIsComplete={activityIsComplete}
-      canBeClicked={canBeClicked}
-      className={`step ${canBeClicked ? 'clickable' : ''} ${activeStep === stepNumber ? 'active' : ''}`}
-      completeStep={completeStep}
-      completionButtonCallback={completionButtonCallback}
-      everyOtherStepCompleted={everyOtherStepCompleted(stepNumber, completedSteps)}
-      key={stepNumber}
-      passedRef={stepsHash[`step${stepNumber}`]} // eslint-disable-line react/jsx-no-bind
-      prompt={prompt}
-      reportAProblem={reportAProblem}
-      stepNumber={stepNumber}
-      stepNumberComponent={renderStepNumber(stepNumber, activeStep, completedSteps)}
-      submitResponse={submitResponse}
-      submittedResponses={(submittedResponses && submittedResponses[prompt.id]) || []}
-    />)
-  })
-
-  return (<div className="prompt-steps">
-    {renderDirectionsSectionAndModal({ className: 'hide-on-mobile', closeReadTheDirectionsModal, activeStep, doneHighlighting, showReadTheDirectionsModal, activities })}
-    {steps}
-  </div>)
+  return (
+    <div className="prompt-steps">
+      {renderDirectionsSection({ className: '', handleReadTheDirectionsButtonClick, activeStep, doneHighlighting, showReadTheDirectionsButton, activities })}
+      <PromptStep
+        activateStep={activateStep}
+        activityIsComplete={activityIsComplete}
+        className="step active"
+        completeStep={completeStep}
+        completionButtonCallback={completionButtonCallback}
+        key={activeStep}
+        prompt={prompt}
+        reportAProblem={reportAProblem}
+        stepNumber={activeStep}
+        submitResponse={submitResponse}
+        submittedResponses={(submittedResponses && submittedResponses[prompt.id]) || []}
+      />
+    </div>
+  )
 }
 
 export const renderReadPassageContainer = ({
@@ -145,27 +110,29 @@ export const renderReadPassageContainer = ({
   hasStartedPromptSteps,
   hasStartedReadPassageStep,
   scrolledToEndOfPassage,
-  showReadTheDirectionsModal,
+  showReadTheDirectionsButton,
   transformMarkTags
- }) => {
+}) => {
   const { currentActivity, } = activities
   if (!currentActivity) { return }
 
   const { title, passages, } = currentActivity
   const headerImage = passages[0].image_link && <img alt={passages[0].image_alt_text} className="header-image" src={passages[0].image_link} />
   let innerContainerClassName = "read-passage-inner-container "
-  innerContainerClassName += !hasStartedReadPassageStep || showReadTheDirectionsModal || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps) ? 'blur' : ''
+  innerContainerClassName += !hasStartedReadPassageStep || showReadTheDirectionsButton || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps) ? 'blur' : ''
 
   if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && onMobile()) {
     return
   }
   const formattedPassages = addPTagsToPassages(passages, scrolledToEndOfPassage)
   const formattedPassage = formattedPassages ? formattedPassages[0] : '';
-  return (<div className="read-passage-container" onScroll={handleReadPassageContainerScroll}>
-    <div className={innerContainerClassName}>
-      <h1 className="title">{title}</h1>
-      <HeaderImage headerImage={headerImage} passage={passages[0]} />
-      <div className="passage">{ReactHtmlParser(formattedPassage, { transform: transformMarkTags })}</div>
+  return (
+    <div className="read-passage-container" onScroll={handleReadPassageContainerScroll}>
+      <div className={innerContainerClassName}>
+        <h1 className="title">{title}</h1>
+        <HeaderImage headerImage={headerImage} passage={passages[0]} />
+        <div className="passage">{ReactHtmlParser(formattedPassage, { transform: transformMarkTags })}</div>
+      </div>
     </div>
-  </div>)
+  )
 }

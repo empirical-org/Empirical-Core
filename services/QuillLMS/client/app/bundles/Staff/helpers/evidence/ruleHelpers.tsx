@@ -138,12 +138,12 @@ export const formatRegexRules = ({ rule, setRegexRules }) => {
 }
 
 export function handleSetFeedback({
-    text,
-    feedback,
-    setFeedback,
-    updateType,
-    feedbackIndex,
-    highlightIndex
+  text,
+  feedback,
+  setFeedback,
+  updateType,
+  feedbackIndex,
+  highlightIndex
 }) {
   let updatedFeedback = [...feedback];
 

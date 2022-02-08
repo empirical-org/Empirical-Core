@@ -5,15 +5,15 @@ module Evidence
     self.table_name = 'comprehension_highlights'
 
     include Evidence::ChangeLog
-    
+
     MIN_TEXT_LENGTH = 1
     MAX_TEXT_LENGTH = 5000
-    TYPES= [
-      'passage',
-      'response',
-      'prompt'
-    ]
 
+    TYPES = [
+      TYPE_PASSAGE = 'passage',
+      TYPE_RESPONSE = 'response',
+      TYPE_PROMPT = 'prompt'
+    ]
     belongs_to :feedback, inverse_of: :highlights
 
     validates :text, presence: true, length: {minimum: MIN_TEXT_LENGTH, maximum: MAX_TEXT_LENGTH}
@@ -61,9 +61,11 @@ module Evidence
 
     def invalid_activity_ids
       return unless highlight_type == 'passage'
+
       related_passages = feedback.rule.prompts.map(&:activity).uniq.map(&:passages).flatten
       invalid_ids = related_passages.reject {|p| p.text.include?(text)}.map {|p| p.activity.id}
       return if invalid_ids.empty?
+
       invalid_ids
     end
 

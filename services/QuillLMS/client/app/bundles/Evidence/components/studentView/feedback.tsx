@@ -1,11 +1,13 @@
 import * as React from 'react'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
+import stripHtml from "string-strip-html";
 
-import { BECAUSE, BUT, SO } from '../../../Shared/utils/constants'
+import { GRAMMAR, SPELLING, RULES_BASED_3, } from '../../../../constants/evidence'
 
 const loopSrc = `${process.env.CDN_URL}/images/icons/loop.svg`
 const smallCheckCircleSrc = `${process.env.CDN_URL}/images/icons/check-circle-small.svg`
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/clear-enabled.svg`
+const informationSrc = `${process.env.CDN_URL}/images/pages/evidence/icons-information-small.svg`
 
 const reportAProblemOptions = (optimal) => ([
   "I don't think this feedback applies to what I wrote",
@@ -19,14 +21,22 @@ const ReportAProblemOption = ({ option, handleSelectProblem, }) => {
   return <button className="report-a-problem-option focus-on-light" onClick={handleClick} type="button">{option}</button>
 }
 
-const feedbackToShow = (lastSubmittedResponse, submittedResponses, prompt, customFeedback) => {
-
+const madeLastAttemptAndItWasSuboptimal = (submittedResponses, prompt, lastSubmittedResponse) => {
   const madeLastAttempt = submittedResponses.length === prompt.max_attempts
-  const madeLastAttemptAndItWasSuboptimal = madeLastAttempt && !lastSubmittedResponse.optimal
+  return madeLastAttempt && !lastSubmittedResponse.optimal
+}
+
+const feedbackToShow = (lastSubmittedResponse, submittedResponses, prompt, customFeedback) => {
 
   if (customFeedback) { return customFeedback }
 
-  return madeLastAttemptAndItWasSuboptimal ? prompt.max_attempts_feedback : lastSubmittedResponse.feedback
+  if (!madeLastAttemptAndItWasSuboptimal(submittedResponses, prompt, lastSubmittedResponse)) { return lastSubmittedResponse.feedback }
+
+  if ([GRAMMAR, SPELLING, RULES_BASED_3].includes(lastSubmittedResponse.feedback_type)) {
+    return `<p>You completed four revisions! ${stripHtml(prompt.optimal_label_feedback || '')}</p><br/><p>However, our feedback bot detected additional spelling or grammar changes you could make to improve your sentence.</p><br/><p>Read your response one more time, and think about what changes you could make. Then move on to the next prompt.</p>`
+  }
+
+  return prompt.max_attempts_feedback
 }
 
 const feedbackForInnerHTML = (feedback) => {
@@ -40,7 +50,6 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
   React.useEffect(() => {
     setReportAProblemExpanded(false)
     setReportSubmitted(false)
-    scrollToFeedback();
   }, [lastSubmittedResponse])
 
   React.useEffect(() => {
@@ -49,24 +58,6 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
       el.scrollIntoView(false)
     }
   }, [reportAProblemExpanded])
-
-  function scrollToFeedback() {
-    const scrollContainer = document.getElementsByClassName("steps-outer-container")[0];
-    if (scrollContainer) {
-      const { conjunction } = prompt;
-      const element: any = document.getElementsByClassName("step")[0]
-      const stepHeight = element.offsetHeight;
-      const heightsHash = {
-        // we are already viewing this prompt so we don't need to account for its height
-        [BECAUSE]: 0,
-        // we subtract 8 to show a bit of space above the container
-        [BUT]: (stepHeight * 2) - 8,
-        [SO]: (stepHeight * 3) - 8,
-      };
-      const height = heightsHash[conjunction];
-      scrollContainer.scrollTo(0, height);
-    }
-  }
 
   function toggleReportAProblemExpanded() { setReportAProblemExpanded(!reportAProblemExpanded) }
 
@@ -81,22 +72,22 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
 
   let className = 'feedback'
   let imageSrc = loopSrc
-  let imageAlt = 'Arrows pointing in opposite directions, making a loop'
+  let imageAlt = 'Revise icon'
   if (lastSubmittedResponse.optimal) {
     className += ' optimal'
     imageSrc = smallCheckCircleSrc
-    imageAlt = 'Small green circle with a check in it'
+    imageAlt = 'Check icon'
   }
 
   const key = customFeedbackKey || submittedResponses.length
   const feedback = feedbackToShow(lastSubmittedResponse, submittedResponses, prompt, customFeedback)
 
-  let reportAProblemSection = <button className="report-a-problem-button" onClick={toggleReportAProblemExpanded} type="button">Report a problem</button>
-
+  const reportAProblemButton = <button className="report-a-problem-button interactive-wrapper" onClick={toggleReportAProblemExpanded} type="button">Report a problem</button>
+  let reportAProblemSection = <span />
   if (reportAProblemExpanded) {
     const reportAProblemOptionElements = reportSubmitted ? null : <div className="options">{reportAProblemOptions(lastSubmittedResponse.optimal).map(opt => <ReportAProblemOption handleSelectProblem={handleSelectProblem} key={opt} option={opt} />)}</div>
-    const label = reportSubmitted ? 'Thank you for your feedback!' : 'Report a problem'
-    const text = reportSubmitted ? 'For now, please try your best to revise and improve your sentence.' : 'What did you notice?'
+    const label = reportSubmitted ? 'Thank you for your feedback!' : 'What did you notice?'
+    const text = reportSubmitted ? 'For now, please try your best to revise and improve your sentence.' : ''
 
     reportAProblemSection = (<section className="report-a-problem-section">
       <div className="report-a-problem-section-header">
@@ -111,11 +102,24 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
     </section>)
   }
 
+  let headsUpSection
+
+  if (madeLastAttemptAndItWasSuboptimal(submittedResponses, prompt, lastSubmittedResponse)) {
+    headsUpSection = (
+      <div className="heads-up">
+        <div className="label-section">
+          <img alt="Information icon" src={informationSrc} />
+          <p>Heads up</p>
+        </div>
+        <p>Our feedback bot is not perfect, and it sometimes might be wrong. If you think the feedback is inaccurate, please click on the “Report a problem” button above.</p>
+        <br />
+        <p>This activity is just for practice, and it is not graded. By practicing and revising on Quill, you are strengthening your writing skills.</p>
+      </div>
+    )
+  }
+
   return (
     <div className={`feedback-section ${reportAProblemExpanded ? 'expanded' : ''}`}>
-      <p className="feedback-section-header">
-        Feedback<span>{submittedResponses.length} of {prompt.max_attempts} attempts</span>
-      </p>
       <ReactCSSTransitionReplace
         transitionEnterTimeout={1000}
         transitionLeaveTimeout={400}
@@ -123,12 +127,17 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
       >
         <React.Fragment>
           <div className={className} key={key}>
-            <img alt={imageAlt} src={imageSrc} />
+            <div className="label-section">
+              <img alt={imageAlt} src={imageSrc} />
+              <p>Feedback</p>
+            </div>
             <p className="feedback-text" dangerouslySetInnerHTML={feedbackForInnerHTML(feedback)} role="status" />
+            <div className="report-a-problem-button-container">{reportAProblemButton}</div>
           </div>
           {reportAProblemSection}
         </React.Fragment>
       </ReactCSSTransitionReplace>
+      {headsUpSection}
     </div>
   )
 }

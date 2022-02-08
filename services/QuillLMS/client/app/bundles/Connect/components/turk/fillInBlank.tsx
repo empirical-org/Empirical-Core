@@ -257,10 +257,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''
       const feedbackText = `Choose one of the options provided${blankFeedback}. Make sure it is spelled correctly.`
       const feedback = <p>{feedbackText}</p>
-      return (<Feedback
-        feedback={feedback}
-        feedbackType="revise-unmatched"
-      />)
+      return (
+        <Feedback
+          feedback={feedback}
+          feedbackType="revise-unmatched"
+        />
+      )
     }
 
     return <Feedback feedback={this.getInstructionText()} feedbackType="instructions" />

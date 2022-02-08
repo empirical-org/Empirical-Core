@@ -47,10 +47,10 @@ export default class ActivityPacks extends React.Component {
 
   getRecommendationIds = () => {
     fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
-    method: 'GET',
-    mode: 'cors',
-    credentials: 'include',
-  }).then((response) => {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+    }).then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
       }
@@ -159,7 +159,7 @@ export default class ActivityPacks extends React.Component {
           caUnit.classrooms.push(classroom);
         }
         // if the activity info already exists, add to the completed count
-				// otherwise, add the activity info if it doesn't already exist
+        // otherwise, add the activity info if it doesn't already exist
         let completedCount,
           cumulativeScore;
         if (caUnit.classroomActivities.has(u.activity_id)) {

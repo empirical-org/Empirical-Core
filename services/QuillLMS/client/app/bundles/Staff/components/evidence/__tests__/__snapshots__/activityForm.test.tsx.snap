@@ -122,7 +122,7 @@ exports[`Activity Form component should render Activities 1`] = `
       label="Image Caption"
     />
     <p
-      className="text-editor-label"
+      className="text-editor-label "
       id="image-attribution-label"
     >
        Image Attribution
@@ -168,7 +168,7 @@ exports[`Activity Form component should render Activities 1`] = `
     <p
       className="text-editor-label has-text"
     >
-      Max Attempts Feedback
+      Max Attempts Feedback - Student Did Not Reach Optimal AutoML Label
     </p>
     <TextEditor
       ContentState={[Function]}
@@ -184,6 +184,18 @@ exports[`Activity Form component should render Activities 1`] = `
       handleChange={[Function]}
       label="Highlight Prompt: \\"As you read, highlight two sentences ...\\""
       value="As you read, highlight two sentences "
+    />
+    <p
+      className="text-editor-label "
+    >
+      Building Essential Knowledge Text
+    </p>
+    <TextEditor
+      ContentState={[Function]}
+      EditorState={[Function]}
+      handleTextChange={[Function]}
+      key="essential-knowledge-text"
+      shouldCheckSpelling={true}
     />
     <PromptsForm
       activityBecausePrompt={

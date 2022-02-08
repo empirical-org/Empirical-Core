@@ -50,6 +50,6 @@ export default class extends React.Component {
         unitName={this.props.match.params.unitName}
         updateActivities={this.updateActivities}
       />
-      )
+    )
   }
 }

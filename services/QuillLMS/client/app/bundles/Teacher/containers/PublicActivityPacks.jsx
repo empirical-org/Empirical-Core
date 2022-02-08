@@ -16,11 +16,11 @@ export default class PublicActivityPacks extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.modules = {
-			fnl: new fnl,
-			updaterGenerator: new updaterGenerator(this),
-			unitTemplatesServer: new Server('unit_template', 'unit_templates', '/teachers'),
+      fnl: new fnl,
+      updaterGenerator: new updaterGenerator(this),
+      unitTemplatesServer: new Server('unit_template', 'unit_templates', '/teachers'),
       windowPosition: new WindowPosition(),
-		};
+    };
 
     this.deepExtendState = this.modules.updaterGenerator.updater(null)
     this.updateCreateUnit = this.modules.updaterGenerator.updater('createUnit');
@@ -71,7 +71,7 @@ export default class PublicActivityPacks extends React.Component {
   };
 
   _modelsInCategory = (categoryId) => {
-      return this.state.unitTemplatesManager.models.filter(ut => {
+    return this.state.unitTemplatesManager.models.filter(ut => {
       if (ut.unit_template_category && ut.unit_template_category.id === categoryId) {
         return ut
       }
@@ -80,9 +80,9 @@ export default class PublicActivityPacks extends React.Component {
 
   updateUnitTemplateModels = (models) => {
     var categories =  _.chain(models)
-                        .pluck('unit_template_category')
-                        .uniq(_.property('id'))
-                        .value();
+      .pluck('unit_template_category')
+      .uniq(_.property('id'))
+      .value();
 
     var newHash = {
       models: models,
@@ -118,9 +118,9 @@ export default class PublicActivityPacks extends React.Component {
   fetchClassrooms = () => {
     var that = this;
     requestGet('/teachers/classrooms/retrieve_classrooms_for_assigning_activities',
-               (data) => {
-                 that.updateCreateUnit({options: {classrooms: data.classrooms_and_their_students}})
-               }
+      (data) => {
+        that.updateCreateUnit({options: {classrooms: data.classrooms_and_their_students}})
+      }
     );
   };
 

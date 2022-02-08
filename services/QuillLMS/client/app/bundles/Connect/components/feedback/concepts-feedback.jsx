@@ -26,15 +26,17 @@ class ConceptsFeedback extends React.Component {
     if (data && data["0"]) {
       return data["0"].map((concept) => {
         const hasFeedback = !!conceptsFeedback.data[concept.uid];
-        return (<LinkListItem
-          activeClassName='is-active'
-          basePath='concepts-feedback'
-          className={hasFeedback ? "" : "no-feedback"}
-          excludeResponses={true}
-          itemKey={concept.uid}
-          key={concept.uid}
-          text={concept.displayName}
-        />)
+        return (
+          <LinkListItem
+            activeClassName='is-active'
+            basePath='concepts-feedback'
+            className={hasFeedback ? "" : "no-feedback"}
+            excludeResponses={true}
+            itemKey={concept.uid}
+            key={concept.uid}
+            text={concept.displayName}
+          />
+        )
       })
     }
   };
@@ -44,26 +46,26 @@ class ConceptsFeedback extends React.Component {
     const { newConceptModalOpen, submittingnew} = conceptsFeedback;
     const stateSpecificClass = submittingnew ? 'is-loading' : '';
     if (newConceptModalOpen) {
-        return (
-          <Modal close={this.createNew}>
-            <div className="box">
-              <h4 className="title">Add New Concept</h4>
-              <p className="control">
-                <label className="label">Name</label>
-                <input
-                  className="input"
-                  placeholder="Text input"
-                  ref="newConceptName"
-                  type="text"
-                />
-              </p>
-              <p className="control">
-                <button className={"button is-primary " + stateSpecificClass} onClick={this.submitNewConcept}>Submit</button>
-              </p>
-            </div>
-          </Modal>
-        )
-      }
+      return (
+        <Modal close={this.createNew}>
+          <div className="box">
+            <h4 className="title">Add New Concept</h4>
+            <p className="control">
+              <label className="label">Name</label>
+              <input
+                className="input"
+                placeholder="Text input"
+                ref="newConceptName"
+                type="text"
+              />
+            </p>
+            <p className="control">
+              <button className={"button is-primary " + stateSpecificClass} onClick={this.submitNewConcept}>Submit</button>
+            </p>
+          </div>
+        </Modal>
+      )
+    }
   };
 
   render() {

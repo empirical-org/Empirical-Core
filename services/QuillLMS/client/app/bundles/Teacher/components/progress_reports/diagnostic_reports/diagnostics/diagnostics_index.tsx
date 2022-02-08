@@ -9,7 +9,7 @@ import { Classroom, Activity, Diagnostic, } from './interfaces'
 import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../../modules/request/index';
 
-const DiagnosticsIndex = ({ passedClassrooms, history, match, }) => {
+const DiagnosticsIndex = ({ passedClassrooms, history, match, lessonsBannerIsShowable, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedClassrooms);
   const [classrooms, setClassrooms] = React.useState<Array<Classroom>>(passedClassrooms || []);
 
@@ -30,10 +30,12 @@ const DiagnosticsIndex = ({ passedClassrooms, history, match, }) => {
 
   if (loading) { return <LoadingSpinner /> }
 
-  return (<Switch>
-    <Route path='/diagnostics/:activityId/classroom/:classroomId' render={() => <IndividualPack classrooms={classrooms} />} />
-    <Route path='/diagnostics' render={() => <DiagnosticActivityPacks classrooms={classrooms} history={history} />} />
-  </Switch>)
+  return (
+    <Switch>
+      <Route path='/diagnostics/:activityId/classroom/:classroomId' render={() => <IndividualPack classrooms={classrooms} lessonsBannerIsShowable={lessonsBannerIsShowable} />} />
+      <Route path='/diagnostics' render={() => <DiagnosticActivityPacks classrooms={classrooms} history={history} />} />
+    </Switch>
+  )
 }
 
 export default withRouter(DiagnosticsIndex)

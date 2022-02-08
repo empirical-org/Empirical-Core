@@ -62,17 +62,19 @@ class Lessons extends React.Component {
         if (questionsData[q.key]) return questionsData[q.key].prompt
         return ''
       })
-      return (<ExpandLessonQuestions
-        activeClassName='is-active'
-        basePath='lessons'
-        className='activity-link'
-        goToButtonText='View Activity'
-        itemKey={key}
-        key={key}
-        listElements={questions}
-        showHideButtonText={{'show':'Show Prompts','hide':'Hide Prompts'}}
-        text={data[key].name || 'No name'}
-      />)
+      return (
+        <ExpandLessonQuestions
+          activeClassName='is-active'
+          basePath='lessons'
+          className='activity-link'
+          goToButtonText='View Activity'
+          itemKey={key}
+          key={key}
+          listElements={questions}
+          showHideButtonText={{'show':'Show Prompts','hide':'Hide Prompts'}}
+          text={data[key].name || 'No name'}
+        />
+      )
     });
   };
 

@@ -125,9 +125,9 @@ class ProfilesController < ApplicationController
       !@act_sesh_records.first['max_percentage']
     end
 
-    if can_display_next_activity
-      @act_sesh_records.first
-    end
+    return unless can_display_next_activity
+
+    @act_sesh_records.first
   end
 
   protected def get_parsed_mobile_profile_data(classroom_id)
@@ -136,10 +136,10 @@ class ProfilesController < ApplicationController
   end
 
   protected def current_classroom(classroom_id = nil)
-    if !classroom_id
-       current_user.classrooms.last
-    else
+    if classroom_id
       current_user.classrooms.find_by(id: classroom_id.to_i) if !!classroom_id
+    else
+      current_user.classrooms.last
     end
   end
 end

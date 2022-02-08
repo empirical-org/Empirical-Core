@@ -55,18 +55,20 @@ const TopicColumn = ({ createNewTopic, levelNumber, getFilteredOptionsForLevel, 
     </div>)
   }
 
-  return (<div className="topic-column">
-    <label>Topic Level {levelNumber}</label>
-    {selectedOptionElement}
-    <ReactTable
-      columns={columns(selectedOption)}
-      data={options}
-      defaultFilterMethod={(filter, row) => row._original.name ? row._original.name.toLowerCase().includes(filter.value.toLowerCase()) : ''}
-      filterable
-      showPagination={false}
-    />
-    {newTopicField}
-  </div>);
+  return (
+    <div className="topic-column">
+      <label>Topic Level {levelNumber}</label>
+      {selectedOptionElement}
+      <ReactTable
+        columns={columns(selectedOption)}
+        data={options}
+        defaultFilterMethod={(filter, row) => row._original.name ? row._original.name.toLowerCase().includes(filter.value.toLowerCase()) : ''}
+        filterable
+        showPagination={false}
+      />
+      {newTopicField}
+    </div>
+  );
 }
 
 export default TopicColumn

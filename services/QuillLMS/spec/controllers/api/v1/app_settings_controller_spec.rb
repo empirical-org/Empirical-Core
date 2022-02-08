@@ -22,7 +22,7 @@ RSpec.describe Api::V1::AppSettingsController, type: :controller do
     end
   end
 
-  describe 'GET #admin_show' do 
+  describe 'GET #admin_show' do
     it "returns a success response" do
       user1 = create(:user, email: 'a@b.com')
       user2 = create(:user, email: 'c@d.com')

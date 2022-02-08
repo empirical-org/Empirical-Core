@@ -46,6 +46,7 @@ module Evidence
       state == STATE_ACTIVE
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def activate
       AutomlModel.transaction do
         prompt.automl_models.update_all(state: STATE_INACTIVE)
@@ -59,8 +60,11 @@ module Evidence
       self
     rescue StandardError => e
       raise e unless e.is_a?(ActiveRecord::RecordInvalid)
+
       return false
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
+
 
     def fetch_automl_label(text)
       automl_payload = {
@@ -111,9 +115,10 @@ module Evidence
     end
 
     private def validate_label_associations
-      if active? && !labels_have_associated_rules
-        errors.add(:state, "can't be set to 'active' until all labels have a corresponding rule")
-      end
+      return unless active?
+      return if labels_have_associated_rules
+
+      errors.add(:state, "can't be set to 'active' until all labels have a corresponding rule")
     end
 
     private def automl_client

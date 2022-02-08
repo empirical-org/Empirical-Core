@@ -164,7 +164,7 @@ export const validateForm = (keys: string[], state: any[], ruleType?: string) =>
         if(!strippedValue || strippedValue.length === 0) {
           errors[keys[i]] = `${keys[i]} cannot be blank.`;
         }
-     }
+    }
   });
   return errors;
 }

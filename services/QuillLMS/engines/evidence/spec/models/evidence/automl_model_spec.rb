@@ -55,7 +55,7 @@ module Evidence
 
 
       context '#state_can_be_active' do
-        let!(:automl_model) { create(:evidence_automl_model) } 
+        let!(:automl_model) { create(:evidence_automl_model) }
 
 
         it 'should not validate state = active if labels_have_associated_rules is false' do
@@ -115,7 +115,7 @@ module Evidence
     end
 
     context 'should #labels_have_associated_rules?' do
-      let!(:automl_model) { create(:evidence_automl_model) } 
+      let!(:automl_model) { create(:evidence_automl_model) }
 
       it 'should be true if there are matching labels tied to the same prompt as the automl_model' do
         prompt = create(:evidence_prompt)
@@ -177,20 +177,20 @@ module Evidence
       end
     end
 
-    context 'should #fetch_automl_label' do 
+    context 'should #fetch_automl_label' do
       let!(:automl_model) { create(:evidence_automl_model) }
 
 
       it 'return the highest score label display_name' do
         class MockResult
-          attr_reader :classification
-          attr_reader :display_name
+          attr_reader :classification, :display_name
 
           class Classification
-            attr_reader :score 
+            attr_reader :score
+
             def initialize(score)
-              @score = score 
-            end 
+              @score = score
+            end
           end
 
           def initialize(score, display_name)
@@ -202,6 +202,7 @@ module Evidence
 
         class MockPayload
           attr_reader :payload
+
           def initialize(payload)
             @payload = payload
           end
@@ -210,7 +211,7 @@ module Evidence
         prediction_client = double
         result1 = MockResult.new(2, 'result1')
         result2 = MockResult.new(1, 'result2')
- 
+
         expect(prediction_client).to receive(:predict).and_return( MockPayload.new([result1, result2]) )
         expect(Google::Cloud::AutoML).to receive(:prediction_service).and_return(prediction_client)
 
@@ -244,18 +245,18 @@ module Evidence
       let!(:rule1) { create(:evidence_rule, :prompts => ([prompt]), :rule_type => (Rule::TYPE_AUTOML), :state => (Rule::STATE_INACTIVE)) }
       let!(:rule2) { create(:evidence_rule, :prompts => ([prompt]), :rule_type => (Rule::TYPE_AUTOML), :state => (Rule::STATE_INACTIVE)) }
       let!(:rule3) { create(:evidence_rule, :prompts => ([prompt]), :rule_type => (Rule::TYPE_AUTOML), :state => (Rule::STATE_INACTIVE)) }
-      let(:label1) { "label1" } 
-      let(:label2) { "label2" } 
-      let(:label3) { "label3" } 
-      
-      before do  
+      let(:label1) { "label1" }
+      let(:label2) { "label2" }
+      let(:label3) { "label3" }
+
+      before do
         create(:evidence_label, :name => (label1), :rule => (rule1))
         create(:evidence_label, :name => (label2), :rule => (rule2))
         create(:evidence_label, :name => (label3), :rule => (rule3))
       end
 
       it 'should set model and associated rules to state active if valid' do
-        model = create(:evidence_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => ([label1, label2])) 
+        model = create(:evidence_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => ([label1, label2]))
         model.activate
         rule1.reload
         rule2.reload
@@ -268,8 +269,8 @@ module Evidence
       it 'should set previously active model and unassociated rules to state inactive' do
         rule1.update(:state => (Rule::STATE_ACTIVE))
         rule2.update(:state => (Rule::STATE_ACTIVE))
-        old_model = create(:evidence_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_ACTIVE), :labels => ([label1, label2])) 
-        new_model = create(:evidence_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => ([label2, label3])) 
+        old_model = create(:evidence_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_ACTIVE), :labels => ([label1, label2]))
+        new_model = create(:evidence_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => ([label2, label3]))
         expect(old_model.valid?).to(eq(true))
         new_model.activate
         old_model.reload
@@ -281,20 +282,20 @@ module Evidence
       end
 
       it 'should return false and not activate if the active state can not be validated because of labels without corresponding rules' do
-        model = create(:evidence_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => (["no_rule_for_label"])) 
+        model = create(:evidence_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => (["no_rule_for_label"]))
         response = model.activate
         model.reload
-        expect(false).to(eq(response))
+        expect(response).to(eq(false))
         expect(AutomlModel::STATE_INACTIVE).to(eq(model.state))
       end
 
       it 'should not change state of anything if activate fails' do
         rule1.update(:state => (Rule::STATE_ACTIVE))
         rule2.update(:state => (Rule::STATE_ACTIVE))
-        old_model = create(:evidence_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_ACTIVE), :labels => ([label1, label2])) 
-        new_model = create(:evidence_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => (["no_rule_for_label"])) 
+        old_model = create(:evidence_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_ACTIVE), :labels => ([label1, label2]))
+        new_model = create(:evidence_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_INACTIVE), :labels => (["no_rule_for_label"]))
         response = new_model.activate
-        expect(false).to(eq(response))
+        expect(response).to(eq(false))
         old_model.reload
         rule1.reload
         rule2.reload
@@ -304,7 +305,7 @@ module Evidence
       end
 
       it 'should return self and be valid with state active if this item is already the active model' do
-        model = create(:evidence_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_ACTIVE), :labels => ([label1, label2])) 
+        model = create(:evidence_automl_model, :prompt => (prompt), :state => (AutomlModel::STATE_ACTIVE), :labels => ([label1, label2]))
         expect(model.valid?).to(eq(true))
         expect(AutomlModel::STATE_ACTIVE).to(eq(model.state))
         result = model.activate
@@ -315,16 +316,16 @@ module Evidence
     end
 
     context 'should #older_models' do
-      let!(:first_model) { create(:evidence_automl_model) } 
+      let!(:first_model) { create(:evidence_automl_model) }
 
       it 'should be 0 if there are no previous models for the prompt' do
-        expect(0).to(eq(first_model.older_models))
+        expect(first_model.older_models).to(eq(0))
       end
 
       it 'should be 1 if there is a single previous model for the prompt' do
         second_model = create(:evidence_automl_model, :prompt => first_model.prompt)
-        expect(0).to(eq(first_model.older_models))
-        expect(1).to(eq(second_model.older_models))
+        expect(first_model.older_models).to(eq(0))
+        expect(second_model.older_models).to(eq(1))
       end
     end
   end

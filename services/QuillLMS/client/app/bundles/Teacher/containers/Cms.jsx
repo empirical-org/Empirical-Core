@@ -139,13 +139,13 @@ export default class Cms extends React.Component {
           [resourceName]: that.state[resourceName],
           authenticity_token: getAuthToken()
         }}, (e, r, response) => {
-          if (e) {
-            // to do, use Sentry to capture error
-            alert(`We could not save the updated order. Here is the error: ${e}`);
-          } else {
-            that.setState({[resourceName]: response[resourceName]});
-            alert('The updated order has been saved.');
-          }
+        if (e) {
+          // to do, use Sentry to capture error
+          alert(`We could not save the updated order. Here is the error: ${e}`);
+        } else {
+          that.setState({[resourceName]: response[resourceName]});
+          alert('The updated order has been saved.');
+        }
       })
     }
   };
@@ -158,13 +158,15 @@ export default class Cms extends React.Component {
     const resourceName = this.props.resourceNamePlural;
     if (resourceName === 'unit_templates') {
       const options = ['All', 'Not Archived', 'Archived', 'Alpha', 'Beta', 'Gamma', 'Production']
-      return (<div style={{ marginLeft: '10px', display: 'inline', }}>
-        <ItemDropdown
-          callback={this.switchFlag}
-          items={options}
-          selectedItem={this.state.flag}
-        />
-      </div>)
+      return (
+        <div style={{ marginLeft: '10px', display: 'inline', }}>
+          <ItemDropdown
+            callback={this.switchFlag}
+            items={options}
+            selectedItem={this.state.flag}
+          />
+        </div>
+      )
     }
   };
 

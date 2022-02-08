@@ -6,6 +6,7 @@ module ScorebookHelper
     proficiency_cutoff = ProficiencyEvaluator.proficiency_cutoff
     nearly_proficient_cutoff = ProficiencyEvaluator.nearly_proficient_cutoff
     return 'gray' unless score
+
     score = score.to_f / 100.0 if score > 1
     score = score.round(2)
     case score

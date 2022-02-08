@@ -41,29 +41,31 @@ export default class ConceptLevels extends React.Component<ConceptLevelsProps, a
         levelZeroConcepts = levelZeroConcepts.filter(c => c.parent.id === selectedConcept.conceptID)
       }
     }
-    return (<div className="concept-level-columns">
-      <ConceptColumn
-        concepts={levelTwoConcepts}
-        levelNumber={2}
-        selectConcept={this.props.selectConcept}
-        selectedConcept={completeSelectedConcept}
-        unselectConcept={this.props.unselectConcept}
-      />
-      <ConceptColumn
-        concepts={levelOneConcepts}
-        levelNumber={1}
-        selectConcept={this.props.selectConcept}
-        selectedConcept={completeSelectedConcept}
-        unselectConcept={this.props.unselectConcept}
-      />
-      <ConceptColumn
-        concepts={levelZeroConcepts}
-        levelNumber={0}
-        selectConcept={this.props.selectConcept}
-        selectedConcept={completeSelectedConcept}
-        unselectConcept={this.props.unselectConcept}
-      />
-    </div>)
+    return (
+      <div className="concept-level-columns">
+        <ConceptColumn
+          concepts={levelTwoConcepts}
+          levelNumber={2}
+          selectConcept={this.props.selectConcept}
+          selectedConcept={completeSelectedConcept}
+          unselectConcept={this.props.unselectConcept}
+        />
+        <ConceptColumn
+          concepts={levelOneConcepts}
+          levelNumber={1}
+          selectConcept={this.props.selectConcept}
+          selectedConcept={completeSelectedConcept}
+          unselectConcept={this.props.unselectConcept}
+        />
+        <ConceptColumn
+          concepts={levelZeroConcepts}
+          levelNumber={0}
+          selectConcept={this.props.selectConcept}
+          selectedConcept={completeSelectedConcept}
+          unselectConcept={this.props.unselectConcept}
+        />
+      </div>
+    )
   }
 
   render() {

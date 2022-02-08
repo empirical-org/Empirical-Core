@@ -76,11 +76,13 @@ module Evidence
 
     def regex_is_passing?(entry)
       return true if regex_rules.empty?
+
       grade_sequences(entry)
     end
 
     def grade_sequences(entry)
       return true if all_incorrect_sequences_passing?(entry) && one_non_conditional_required_sequences_passing?(entry)
+
       at_least_one_conditional_required_sequence_passing?(entry)
     end
 
@@ -142,16 +144,19 @@ module Evidence
 
     def conjunctions
       return nil if universal_rule_type?
+
       prompts.map(&:conjunction)
     end
 
     def conditional
       return nil if !regex? || regex_rules.empty?
+
       return regex_rules.all? { |r| r.conditional? }
     end
 
     private def all_incorrect_sequences_passing?(entry)
       return true if incorrect_sequences.empty?
+
       incorrect_sequences.none? do |regex_rule|
         regex_rule.entry_failing?(entry)
       end
@@ -159,6 +164,7 @@ module Evidence
 
     private def at_least_one_conditional_required_sequence_passing?(entry)
       return false if required_sequences.where(conditional: true).empty?
+
       required_sequences.where(conditional: true).any? do |regex_rule|
         !regex_rule.entry_failing?(entry)
       end
@@ -166,6 +172,7 @@ module Evidence
 
     private def one_non_conditional_required_sequences_passing?(entry)
       return true if required_sequences.where(conditional: false).empty?
+
       required_sequences.where(conditional: false).any? do |regex_rule|
         !regex_rule.entry_failing?(entry)
       end

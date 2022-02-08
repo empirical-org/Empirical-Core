@@ -11,16 +11,16 @@ export interface QuestionAndConceptMapReducerState {
 type QuestionAndConceptMapReducerAction = Action & { data: { questionRows: Array<DashboardQuestionRow>, conceptRows: Array<DashboardConceptRow>} }
 
 export default (
-    currentState = {hasreceiveddata: false},
-    action: QuestionAndConceptMapReducerAction,
+  currentState = {hasreceiveddata: false},
+  action: QuestionAndConceptMapReducerAction,
 ) => {
-    switch (action.type) {
+  switch (action.type) {
     case ActionTypes.RECEIVE_GRAMMAR_QUESTION_AND_CONCEPT_MAP:
       return Object.assign({}, currentState, {
         hasreceiveddata: true,
         data: action.data,
       });
-      default:
-          return currentState;
-    }
+    default:
+      return currentState;
+  }
 };

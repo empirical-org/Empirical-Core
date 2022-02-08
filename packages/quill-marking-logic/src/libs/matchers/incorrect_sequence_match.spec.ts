@@ -111,11 +111,11 @@ describe('The incorrectSequenceChecker', () => {
   it('Should return a partialResponse object if the response string matches an incorrect sequence', () => {
     const responseString = "Jared likes early stage companies.";
     const partialResponse =  {
-        feedback: incorrectSequenceMatch(responseString, incorrectSequences).feedback,
-        author: 'Incorrect Sequence Hint',
-        parent_id: getTopOptimalResponse(savedResponses).id,
-        concept_results: incorrectSequenceMatch(responseString, incorrectSequences).concept_results
-      }
+      feedback: incorrectSequenceMatch(responseString, incorrectSequences).feedback,
+      author: 'Incorrect Sequence Hint',
+      parent_id: getTopOptimalResponse(savedResponses).id,
+      concept_results: incorrectSequenceMatch(responseString, incorrectSequences).concept_results
+    }
     assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).feedback, partialResponse.feedback);
     assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).author, partialResponse.author);
     assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).parent_id, partialResponse.parent_id);
@@ -125,11 +125,11 @@ describe('The incorrectSequenceChecker', () => {
   it('Should return a partialResponse object if the response string matches an incorrect sequence case insensitively', () => {
     const responseString = "Jared likes EARLY STAGE COMPANIES.";
     const partialResponse =  {
-        feedback: incorrectSequenceMatch(responseString, incorrectSequences).feedback,
-        author: 'Incorrect Sequence Hint',
-        parent_id: getTopOptimalResponse(savedResponses).id,
-        concept_results: incorrectSequenceMatch(responseString, incorrectSequences).concept_results
-      }
+      feedback: incorrectSequenceMatch(responseString, incorrectSequences).feedback,
+      author: 'Incorrect Sequence Hint',
+      parent_id: getTopOptimalResponse(savedResponses).id,
+      concept_results: incorrectSequenceMatch(responseString, incorrectSequences).concept_results
+    }
     assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).feedback, partialResponse.feedback);
     assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).author, partialResponse.author);
     assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).parent_id, partialResponse.parent_id);
@@ -144,11 +144,11 @@ describe('The incorrectSequenceChecker', () => {
   it("Should return a partialResponse object with the incorrectSequence's name as the author if the response string matches an incorrect sequence with a name", () => {
     const responseString = "Cissy likes some companies.";
     const partialResponse =  {
-        feedback: incorrectSequenceMatch(responseString, incorrectSequences).feedback,
-        author: 'do not mention Cissy',
-        parent_id: getTopOptimalResponse(savedResponses).id,
-        concept_results: incorrectSequenceMatch(responseString, incorrectSequences).concept_results
-      }
+      feedback: incorrectSequenceMatch(responseString, incorrectSequences).feedback,
+      author: 'do not mention Cissy',
+      parent_id: getTopOptimalResponse(savedResponses).id,
+      concept_results: incorrectSequenceMatch(responseString, incorrectSequences).concept_results
+    }
 
     assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).feedback, partialResponse.feedback);
     assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).author, partialResponse.author);

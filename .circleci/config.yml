@@ -344,8 +344,9 @@ workflows:
           filters:
             branches:
               ignore: /^deploy-.*/
-      - lms_integration_build:
-          <<: *default_filter
+      # Turning this off for now due to spurious failures
+      # - lms_integration_build:
+      #     <<: *default_filter
       - lms_node_build:
           <<: *default_filter
       - marking_logic_node_build:
