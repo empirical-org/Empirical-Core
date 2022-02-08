@@ -2,7 +2,7 @@ import * as React from "react";
 import { EditorState, ContentState } from 'draft-js'
 
 import { numericalWordOptions } from '../../../../../constants/evidence';
-import { RuleFeedbackInterface, ClickEvent, TextAreaEvent,  } from '../../../interfaces/evidenceInterfaces';
+import { RuleFeedbackInterface, ClickEvent,  } from '../../../interfaces/evidenceInterfaces';
 import { handleSetFeedback, renderHighlights } from '../../../helpers/evidence/ruleHelpers';
 import { TextEditor } from '../../../../Shared/index';
 import { HIGHLIGHT_ADDITION, HIGHLIGHT_REMOVAL, FEEDBACK, FEEDBACK_LAYER_ADDITION, FEEDBACK_LAYER_REMOVAL, } from '../../../../../constants/evidence';

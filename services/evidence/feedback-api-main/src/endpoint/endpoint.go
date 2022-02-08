@@ -255,8 +255,8 @@ type Highlight struct {
 
 type Hint struct {
   Id int `json:"id,omitempty"`
-	Explanation string `json:"explanation,omitempty"`
-	Image_link string `json:"image_link,omitempty"`
+  Explanation string `json:"explanation,omitempty"`
+  Image_link string `json:"image_link,omitempty"`
   Image_alt_text string `json:"image_alt_text,omitempty"`
 }
 
