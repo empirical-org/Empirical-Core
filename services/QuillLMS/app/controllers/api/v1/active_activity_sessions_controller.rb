@@ -8,11 +8,12 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
   end
 
   def update
+    ActionController::Parameters.permit_all_parameters = true
     retried = false
     begin
       @activity_session = ActiveActivitySession.find_or_initialize_by(uid: params[:id])
       @activity_session.data ||= {}
-      @activity_session.data = @activity_session.data.merge(working_params)
+      @activity_session.data = @activity_session.data.merge(params)
       @activity_session.save!
     rescue ActiveRecord::RecordNotUnique => e
       # Due to the way that ActiveRecord handles unique validations such as the one on UID,
