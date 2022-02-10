@@ -158,12 +158,20 @@ describe User, type: :model do
       expect(user.last_four).to eq(nil)
     end
 
-    it "calls Stripe::Customer.retrieve with the current user's stripe_customer_id" do
-      user.update(stripe_customer_id: 10)
-      expect(Stripe::Customer).to receive(:retrieve).with(user.stripe_customer_id) {
-        double('retrieve', sources: double(data: double(first: double(last4: 1000))))
-      }
-      expect(user.last_four).to eq(1000)
+    context 'user has a stripe customer_id' do
+      let(:user) { create(:user, stripe_customer_id: stripe_customer_id)}
+      let(:stripe_customer_id) { 'cus_abcdefg' }
+      let(:last4) { 1000 }
+
+      before do
+        allow(Stripe::Customer).to receive(:retrieve).with(stripe_customer_id) do
+          double('retrieve', sources: double(data: double(first: double(last4: last4))))
+        end
+      end
+
+      it "calls Stripe::Customer.retrieve with the current user's stripe_customer_id" do
+        expect(user.last_four).to eq last4
+      end
     end
   end
 

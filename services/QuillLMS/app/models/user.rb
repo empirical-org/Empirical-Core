@@ -308,7 +308,7 @@ class User < ApplicationRecord
   end
 
   def stripe_customer?
-    stripe_customer_id.present? && !Stripe::Customer.retrieve(stripe_customer_id).to_hash[:deleted]
+    stripe_customer_id.present? && !Stripe::Customer.retrieve(stripe_customer_id).respond_to?(:deleted)
   rescue Stripe::InvalidRequestError
     false
   end
