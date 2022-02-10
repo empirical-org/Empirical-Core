@@ -175,10 +175,7 @@ class Subscription < ApplicationRecord
 
 
   def self.expired_today_or_previously_and_recurring
-    Subscription
-      .where('expiration <= ?', Date.today)
-      .where(recurring: true)
-      .where(de_activated_date: nil)
+    Subscription.where('expiration <= ? AND recurring IS TRUE AND de_activated_date IS NULL', Date.today)
   end
 
   def self.school_or_user_has_ever_paid?(school_or_user)
@@ -293,7 +290,7 @@ class Subscription < ApplicationRecord
   end
 
   protected def charge_user
-    return unless purchaser&.stripe_customer_id
+    return unless purchaser && purchaser.stripe_customer_id
 
     Stripe::Charge.create(amount: renewal_price, currency: 'usd', customer: purchaser.stripe_customer_id)
   rescue Stripe::CardError

@@ -6,7 +6,15 @@ class ClearUserDataWorker
   def perform(id)
     user = User.find(id)
     ActiveRecord::Base.transaction do
-      user.clear_attrs
+      user.update!(
+        name:      "Deleted User_#{id}",
+        email:     "deleted_user_#{id}@example.com",
+        username:  "deleted_user_#{id}",
+        google_id: nil,
+        clever_id: nil,
+        ip_address: nil,
+        send_newsletter: false
+      )
       StudentsClassrooms.where(student_id: id).destroy_all
       user.auth_credential.destroy! if user.auth_credential.present?
       user.ip_location.destroy! if user.ip_location.present?

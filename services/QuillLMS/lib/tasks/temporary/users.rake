@@ -20,16 +20,4 @@ namespace :users do
 
     puts "\nUpdated #{num_updates} user emails"
   end
-
-  task clear_stripe_customer_ids_on_deleted_users: :environment do
-    deleted_users_with_stripe_customer_ids = User.deleted_users.where.not(stripe_customer_id: nil)
-
-    num_updates = deleted_users_with_stripe_customer_ids.count
-    puts "Going to clear #{num_updates} user accounts"
-
-    ActiveRecord::Base.transaction { deleted_users_with_stripe_customer_ids.each(&:clear_attrs) }
-
-    remaining_num_accounts = User.deleted_users.where.not(stripe_customer_id: nil).count
-    puts "\nCleared #{num_updates - remaining_num_accounts} user accounts"
-  end
 end
