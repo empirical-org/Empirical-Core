@@ -154,7 +154,7 @@ describe User, type: :model do
   end
 
   describe '#last_four' do
-    it "returns nil if a user does not have a stripe_customer_id" do
+    it 'returns nil if a user does not have a stripe_customer_id' do
       expect(user.last_four).to eq(nil)
     end
 
@@ -162,12 +162,9 @@ describe User, type: :model do
       let(:user) { create(:user, stripe_customer_id: stripe_customer_id)}
       let(:stripe_customer_id) { 'cus_abcdefg' }
       let(:last4) { 1000 }
+      let(:customer_data) { double('customer_data', sources: double(data: double(first: double(last4: last4)))) }
 
-      before do
-        allow(Stripe::Customer).to receive(:retrieve).with(stripe_customer_id) do
-          double('retrieve', sources: double(data: double(first: double(last4: last4))))
-        end
-      end
+      before { allow(Stripe::Customer).to receive(:retrieve).with(stripe_customer_id).and_return(customer_data) }
 
       it "calls Stripe::Customer.retrieve with the current user's stripe_customer_id" do
         expect(user.last_four).to eq last4
@@ -193,7 +190,7 @@ describe User, type: :model do
     end
 
     context 'customer exists on stripe' do
-      let(:stripe_customer) { double(:stripe_customer, to_hash: customer_attrs) }
+      let(:stripe_customer) { double(:stripe_customer, customer_attrs) }
       let(:customer_attrs) { { id: stripe_customer_id, object: "customer" } }
 
       before { retrieve_stripe_customer.and_return(stripe_customer) }
@@ -202,7 +199,7 @@ describe User, type: :model do
     end
 
     context 'customer exists on stripe but is deleted' do
-      let(:stripe_customer) { double(:stripe_customer, to_hash: customer_attrs) }
+      let(:stripe_customer) { double(:stripe_customer, customer_attrs) }
       let(:customer_attrs) { { id: stripe_customer_id, object: "customer", deleted: true } }
 
       before { retrieve_stripe_customer.and_return(stripe_customer) }
