@@ -33,7 +33,7 @@ export default class extends React.Component {
       content = 'In order to access our different reports, you need to create a class and assign activities to your students.'
     } return (
       <div className="empty-progress-report">
-        <img src='/images/empty_state_illustration.png' />
+        <img alt="" src='/images/empty_state_illustration.png' />
         <h1>{title}</h1>
         <p>{content}</p>
         <button className="button-green create-unit featured-button" onClick={onButtonClick}>{buttonText}</button>

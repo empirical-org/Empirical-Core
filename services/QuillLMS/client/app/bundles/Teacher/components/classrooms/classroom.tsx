@@ -185,7 +185,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
           <h2 className="classroom-name">{classroom.name}</h2>
           {this.renderClassroomData()}
         </div>
-        <img className="expand-arrow" src={expandSrc} />
+        <img alt="" className="expand-arrow" src={expandSrc} />
       </div>
     )
   }

@@ -44,7 +44,7 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
         </div>
         <div className="image">
           <span onClick={this.handleCloseNoteClick}>Close</span>
-          <img src="https://assets.quill.org/images/illustrations/customization-tip-x2.png" />
+          <img alt="" src="https://assets.quill.org/images/illustrations/customization-tip-x2.png" />
         </div>
       </div>
     )

@@ -88,7 +88,7 @@ export default class ActivitiesUnit extends React.Component {
           onMouseEnter={this.toggleTooltip}
           onMouseLeave={this.toggleTooltip}
         >
-          <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg" />
+          <img alt="" src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg" />
           Created By {firstCa.ownerName}
           {this.renderTooltip()}
         </span>
