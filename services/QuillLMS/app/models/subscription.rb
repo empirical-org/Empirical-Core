@@ -278,19 +278,19 @@ class Subscription < ApplicationRecord
   end
 
   protected def charge_user_for_teacher_premium
-    return unless purchaser&.stripe_customer_id
+    return unless purchaser&.stripe_customer?
 
     Stripe::Charge.create(amount: TEACHER_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
   end
 
   protected def charge_user_for_school_premium(school)
-    return unless purchaser&.stripe_customer_id
+    return unless purchaser&.stripe_customer?
 
     Stripe::Charge.create(amount: SCHOOL_FIRST_PURCHASE_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
   end
 
   protected def charge_user
-    return unless purchaser && purchaser.stripe_customer_id
+    return unless purchaser&.stripe_customer?
 
     Stripe::Charge.create(amount: renewal_price, currency: 'usd', customer: purchaser.stripe_customer_id)
   rescue Stripe::CardError

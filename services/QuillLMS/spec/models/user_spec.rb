@@ -167,6 +167,46 @@ describe User, type: :model do
     end
   end
 
+  describe '#stripe_customer?' do
+    let(:user) { create(:teacher, :has_a_stripe_customer_id) }
+    let(:stripe_customer_id) { user.stripe_customer_id }
+    let(:retrieve_stripe_customer) { allow(Stripe::Customer).to receive(:retrieve).with(stripe_customer_id) }
+
+    context 'error is raised on customer retrieval' do
+      before { retrieve_stripe_customer.and_raise(Stripe::InvalidRequestError.new(error_msg, :id)) }
+
+      context 'no customer exists on stripe' do
+        let(:error_msg) { "No such customer: '#{stripe_customer_id}'" }
+
+        it { expect(user.stripe_customer?).to eq false }
+      end
+
+      context 'an unexpected InvalidRequestError is raised' do
+        let(:error_msg) { 'an unexpected eror' }
+
+        it { expect { user.stripe_customer? }.to raise_error(Stripe::InvalidRequestError) }
+      end
+    end
+
+    context 'customer exists on stripe' do
+      let(:stripe_customer) { double(:stripe_customer, to_hash: customer_attrs) }
+      let(:customer_attrs) { { id: stripe_customer_id, object: "customer" } }
+
+      before { retrieve_stripe_customer.and_return(stripe_customer) }
+
+      it { expect(user.stripe_customer?).to be true }
+    end
+
+    context 'customer exists on stripe but is deleted' do
+      let(:stripe_customer) { double(:stripe_customer, to_hash: customer_attrs) }
+      let(:customer_attrs) { { id: stripe_customer_id, object: "customer", deleted: true } }
+
+      before { retrieve_stripe_customer.and_return(stripe_customer) }
+
+      it { expect(user.stripe_customer?).to be false }
+    end
+  end
+
   describe '#utc_offset' do
     it "returns 0 if the user does not have a timezone" do
       expect(user.utc_offset).to eq(0)
