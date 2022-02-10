@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from 'react-router-dom';
 import { EditorState, ContentState } from 'draft-js';
-import _ from 'lodash'
+import * as _ from 'lodash'
 
 import PromptsForm from './promptsForm';
 
