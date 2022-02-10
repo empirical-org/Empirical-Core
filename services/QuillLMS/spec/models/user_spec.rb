@@ -176,20 +176,12 @@ describe User, type: :model do
       it { expect(create(:teacher).stripe_customer?).to eq false }
     end
 
-    context 'error is raised on customer retrieval' do
+    context 'customer does not exist on stripe' do
+      let(:error_msg) { "No such customer: '#{stripe_customer_id}'" }
+
       before { retrieve_stripe_customer.and_raise(Stripe::InvalidRequestError.new(error_msg, :id)) }
 
-      context 'no customer exists on stripe' do
-        let(:error_msg) { "No such customer: '#{stripe_customer_id}'" }
-
-        it { expect(user.stripe_customer?).to eq false }
-      end
-
-      context 'an unexpected InvalidRequestError is raised' do
-        let(:error_msg) { 'an unexpected eror' }
-
-        it { expect { user.stripe_customer? }.to raise_error(Stripe::InvalidRequestError) }
-      end
+      it { expect(user.stripe_customer?).to eq false }
     end
 
     context 'customer exists on stripe' do
