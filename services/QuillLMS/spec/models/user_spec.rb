@@ -172,6 +172,10 @@ describe User, type: :model do
     let(:stripe_customer_id) { user.stripe_customer_id }
     let(:retrieve_stripe_customer) { allow(Stripe::Customer).to receive(:retrieve).with(stripe_customer_id) }
 
+    context 'user with no stripe_customer_id' do
+      it { expect(create(:teacher).stripe_customer?).to eq false }
+    end
+
     context 'error is raised on customer retrieval' do
       before { retrieve_stripe_customer.and_raise(Stripe::InvalidRequestError.new(error_msg, :id)) }
 

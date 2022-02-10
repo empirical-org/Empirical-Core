@@ -308,7 +308,7 @@ class User < ApplicationRecord
   end
 
   def stripe_customer?
-    !Stripe::Customer.retrieve(stripe_customer_id).to_hash[:deleted]
+    stripe_customer_id.present? && !Stripe::Customer.retrieve(stripe_customer_id).to_hash[:deleted]
   rescue Stripe::InvalidRequestError => e
     return false if e.message == "No such customer: '#{stripe_customer_id}'"
 
