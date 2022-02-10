@@ -5,6 +5,7 @@ exports[`LoadingIndicator component should render 1`] = `
   className="spinner-container"
 >
   <img
+    alt=""
     className="spinner"
     src="/images/loader_still.svg"
   />

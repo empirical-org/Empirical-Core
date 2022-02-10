@@ -1036,6 +1036,7 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
       className="spinner-container"
     >
       <img
+        alt=""
         className="spinner"
         src="/images/loader_still.svg"
       />
@@ -1561,6 +1562,7 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
       className="spinner-container"
     >
       <img
+        alt=""
         className="spinner"
         src="/images/loader_still.svg"
       />

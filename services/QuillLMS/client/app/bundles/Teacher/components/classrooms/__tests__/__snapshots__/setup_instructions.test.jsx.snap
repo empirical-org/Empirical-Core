@@ -22,6 +22,7 @@ exports[`SetupInstructions component if there are no students should render Setu
       target="_blank"
     >
       <img
+        alt=""
         src="undefined/images/illustrations/setup-instructions-generic.svg"
       />
     </a>
@@ -76,6 +77,7 @@ exports[`SetupInstructions component if there are students should render SetupIn
       target="_blank"
     >
       <img
+        alt=""
         src="undefined/images/illustrations/setup-instructions.svg"
       />
     </a>
