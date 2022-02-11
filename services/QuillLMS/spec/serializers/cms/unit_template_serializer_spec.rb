@@ -22,6 +22,7 @@ describe Cms::UnitTemplateSerializer do
         image_link
         readability
         diagnostic_names
+        unit_template_category
       }
     end
   end

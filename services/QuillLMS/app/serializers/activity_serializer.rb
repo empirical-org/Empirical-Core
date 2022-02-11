@@ -33,7 +33,7 @@
 #  fk_rails_...  (standard_id => standards.id)
 #
 class ActivitySerializer < ActiveModel::Serializer
-  attributes :uid, :id, :name, :description, :flags, :data, :created_at, :updated_at, :supporting_info, :anonymous_path, :activity_category
+  attributes :uid, :id, :name, :description, :flags, :data, :created_at, :updated_at, :supporting_info, :anonymous_path, :activity_category, :readability_grade_level
 
   has_one :classification, serializer: ClassificationSerializer
   has_one :standard

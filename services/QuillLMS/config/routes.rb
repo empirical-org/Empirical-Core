@@ -384,6 +384,7 @@ EmpiricalGrammar::Application.routes.draw do
     namespace :v1 do
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
       get 'activities/activities_health' => 'activities#activities_health'
+      get 'activities/diagnostic_activities' => 'activities#diagnostic_activities'
       get 'rule_feedback_histories' => 'rule_feedback_histories#by_conjunction'
       get 'rule_feedback_history/:rule_uid' => 'rule_feedback_histories#rule_detail'
       get 'prompt_health' => 'rule_feedback_histories#prompt_health'
@@ -551,7 +552,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :standard_categories, only: [:index, :create, :update]
     resources :authors, only: [:index, :create, :edit, :update, :new]
     put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
-    resources :unit_templates, only: [:index, :create, :edit, :update, :destroy]
+    resources :unit_templates, only: [:index, :create, :edit, :new, :update, :destroy]
     resources :unit_template_categories, only: [:index, :edit, :create, :update, :destroy]
     put '/blog_posts/update_order_numbers', to: 'blog_posts#update_order_numbers'
     put '/blog_posts/update_featured_order_numbers', to: 'blog_posts#update_featured_order_numbers'
