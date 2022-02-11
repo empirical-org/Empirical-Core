@@ -181,8 +181,7 @@ const UnitTemplates = () => {
     const newUnitTemplate = unitTemplate
     newUnitTemplate.unit_template_category_id = unitTemplate.unit_template_category.id
     newUnitTemplate.activity_ids = unitTemplate.activity_ids || unitTemplate.activities.map((a) => a.id)
-    //const link = `${process.env.DEFAULT_URL}/cms/unit_templates/${unitTemplate.id}.json`
-    const link = `http://localhost:5000/cms/unit_templates/${unitTemplate.id}.json`
+    const link = `${process.env.DEFAULT_URL}/cms/unit_templates/${unitTemplate.id}.json`
     const index = fetchedData.findIndex((e) => e.id === unitTemplate.id)
     fetch(link, {
       method: 'PUT',
