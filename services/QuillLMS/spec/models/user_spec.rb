@@ -154,16 +154,57 @@ describe User, type: :model do
   end
 
   describe '#last_four' do
-    it "returns nil if a user does not have a stripe_customer_id" do
+    it 'returns nil if a user does not have a stripe_customer_id' do
       expect(user.last_four).to eq(nil)
     end
 
-    it "calls Stripe::Customer.retrieve with the current user's stripe_customer_id" do
-      user.update(stripe_customer_id: 10)
-      expect(Stripe::Customer).to receive(:retrieve).with(user.stripe_customer_id) {
-        double('retrieve', sources: double(data: double(first: double(last4: 1000))))
-      }
-      expect(user.last_four).to eq(1000)
+    context 'user has a stripe customer_id' do
+      let(:user) { create(:user, stripe_customer_id: stripe_customer_id)}
+      let(:stripe_customer_id) { 'cus_abcdefg' }
+      let(:last4) { 1000 }
+      let(:customer_data) { double('customer_data', sources: double(data: double(first: double(last4: last4)))) }
+
+      before { allow(Stripe::Customer).to receive(:retrieve).with(stripe_customer_id).and_return(customer_data) }
+
+      it "calls Stripe::Customer.retrieve with the current user's stripe_customer_id" do
+        expect(user.last_four).to eq last4
+      end
+    end
+  end
+
+  describe '#stripe_customer?' do
+    let(:user) { create(:teacher, :has_a_stripe_customer_id) }
+    let(:stripe_customer_id) { user.stripe_customer_id }
+    let(:retrieve_stripe_customer) { allow(Stripe::Customer).to receive(:retrieve).with(stripe_customer_id) }
+
+    context 'user with no stripe_customer_id' do
+      it { expect(create(:teacher).stripe_customer?).to eq false }
+    end
+
+    context 'customer does not exist on stripe' do
+      let(:error_msg) { "No such customer: '#{stripe_customer_id}'" }
+
+      before { retrieve_stripe_customer.and_raise(Stripe::InvalidRequestError.new(error_msg, :id)) }
+
+      it { expect(user.stripe_customer?).to eq false }
+    end
+
+    context 'customer exists on stripe' do
+      let(:stripe_customer) { double(:stripe_customer, customer_attrs) }
+      let(:customer_attrs) { { id: stripe_customer_id, object: "customer" } }
+
+      before { retrieve_stripe_customer.and_return(stripe_customer) }
+
+      it { expect(user.stripe_customer?).to be true }
+    end
+
+    context 'customer exists on stripe but is deleted' do
+      let(:stripe_customer) { double(:stripe_customer, customer_attrs) }
+      let(:customer_attrs) { { id: stripe_customer_id, object: "customer", deleted: true } }
+
+      before { retrieve_stripe_customer.and_return(stripe_customer) }
+
+      it { expect(user.stripe_customer?).to be false }
     end
   end
 
