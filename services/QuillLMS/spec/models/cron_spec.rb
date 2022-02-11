@@ -44,7 +44,7 @@ describe "Cron", type: :model do
       Cron.interval_1_day
     end
 
-    # TODO re-enable
+    # TODO: RE-ENABLE THIS SOON
     # it "enqueues RenewExpiringRecurringSubscriptionsWorker" do
     #   expect(RenewExpiringRecurringSubscriptionsWorker).to receive(:perform_async)
     #   Cron.interval_1_day

@@ -21,7 +21,7 @@ class Cron
 
     DailyStatsEmailJob.perform_async(date)
     QuillStaffAccountsChangedWorker.perform_async
-    # TODO Temporarily disable
+    # TODO: Re-enable this soon
     # RenewExpiringRecurringSubscriptionsWorker.perform_async
     ResetDemoAccountWorker.perform_async
     SyncVitallyWorker.perform_async
