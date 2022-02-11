@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220105145314) do
+ActiveRecord::Schema.define(version: 20220201161535) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20220105145314) do
     t.string "highlight_prompt"
     t.text "image_caption", default: ""
     t.text "image_attribution", default: ""
+    t.string "essential_knowledge_text", default: ""
     t.index ["activity_id"], name: "index_comprehension_passages_on_activity_id"
   end
 
@@ -117,6 +118,8 @@ ActiveRecord::Schema.define(version: 20220105145314) do
     t.text "max_attempts_feedback"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_strong_example", default: ""
+    t.string "second_strong_example", default: ""
     t.index ["activity_id"], name: "index_comprehension_prompts_on_activity_id"
   end
 
