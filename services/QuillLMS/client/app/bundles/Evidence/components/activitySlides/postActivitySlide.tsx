@@ -7,40 +7,13 @@ const FIRST_STRONG_EXAMPLE = 'first_strong_example';
 const SECOND_STRONG_EXAMPLE = 'second_strong_example';
 const conjunctions = [BECAUSE, BUT, SO];
 
-const responses = {
-  1: [
-    {
-      entry: "A surge barrier in New York City could harm the local ecosystem because this is a test response ."
-    },
-    {
-      entry: "A surge barrier in New York City could harm the local ecosystem because this is a test response."
-    }
-  ],
-  2: [
-    {
-      entry: "A surge barrier in New York City could harm the local ecosystem, but this is a test response."
-    }
-  ],
-  3: [
-    {
-      entry: "A surge barrier in New York City could harm the local ecosystem, so this is a shit response."
-    },
-    {
-      entry: "A surge barrier in New York City could harm the local ecosystem, so this is a shit response ."
-    },
-    {
-      entry: "A surge barrier in New York City could harm the local ecosystem, so this is a shirt response."
-    }
-  ]
-}
-
 interface PostActivitySlideProps {
   handleClick: () => void,
   prompts: PromptInterface[],
   responses: any
 }
 
-export const PostActivitySlide = ({ handleClick, prompts }: PostActivitySlideProps) => {
+export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActivitySlideProps) => {
 
   function getStrongExemplar(conjunction: string, property: string) {
     const prompt = prompts.filter(prompt => prompt.conjunction === conjunction)[0];
@@ -57,9 +30,11 @@ export const PostActivitySlide = ({ handleClick, prompts }: PostActivitySlidePro
     return responses[responsesKeyHash[conjunction]];
   }
 
-  function getResponse(conjunction) {
-    console.log(`${conjunction}: `, getResponsesForConjunction(conjunction))
-    return null
+  function getResponse(conjunction: string) {
+    const responses = getResponsesForConjunction(conjunction)
+    const lastResponseText = responses[responses.length - 1].entry;
+    const splitResponse = lastResponseText.split(conjunction);
+    return <p>{splitResponse[0]}<u>{conjunction}</u>{splitResponse[1]}</p>
   }
 
   function getRevisionCopyForConjunction(conjunction) {

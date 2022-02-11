@@ -28,11 +28,12 @@
     .response-exemplars-section {
       display: flex;
       margin-top: 16px;
+      border-bottom: 1px solid #e0e0e0;
       .response-section {
         margin-right: 24px;
         .response-exemplar-header {
           display: flex;
-          text-align: center;
+          justify-content: center;
           margin-bottom: 8px;
           .revision-count {
             margin-left: 4px;
@@ -56,7 +57,16 @@
             }
           }
         }
+        .exemplar-box:last-of-type {
+          margin-bottom: 80px;
+        }
       }
+    }
+    .exemplar-box, .response-box {
+      width: 340px;
+      margin-bottom: 40px;
+      background-color: #f5f5f5;
+      padding: 16px;
     }
   }
 
@@ -126,7 +136,7 @@
 }
 
 
-@media (max-width: 1099px) {
+@media (max-width: 992px) {
   .post-activity-slide-container {
     height: calc(100% - 48px);
     overflow-x: hidden;
@@ -164,6 +174,19 @@
       }
       #first-sub-text {
         margin-top: 32px;
+      }
+    }
+
+    .responses-exemplars-container {
+      .response-exemplars-section {
+        flex-direction: column;
+        align-items: center;
+        .response-section, .exemplars-section {
+          margin: 0;
+          .response-box, .exemplar-box {
+            width: 100%;
+          }
+        }
       }
     }
     #button-container {
