@@ -259,7 +259,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     })
   }
 
-  handleStepInteraction = (e) => {
+  onStepInteraction = (e) => {
     const { key, ctrlKey, metaKey, } = e
     const { activateStep, stepNumber, } = this.props
 
@@ -406,6 +406,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
           className={className}
           disabled={disabled}
           handleFocus={this.onFocus}
+          handleKeyDown={this.onStepInteraction}
           handleTextChange={this.onTextChange}
           html={htmlWithBolding}
           innerRef={this.setEditorRef}
