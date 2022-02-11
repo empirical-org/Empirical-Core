@@ -28,7 +28,7 @@ class UnitTemplate < ApplicationRecord
   belongs_to :author
   has_many :activities_unit_templates, -> { order('order_number ASC') }
   has_many :activities, through: :activities_unit_templates
-  has_many :units, dependent: :destroy
+  has_many :units
   has_many :partner_contents, dependent: :destroy, as: :content
   has_many :recommendations, dependent: :destroy
   has_many :diagnostics_recommended_by, :through => :recommendations, :source => :activity
