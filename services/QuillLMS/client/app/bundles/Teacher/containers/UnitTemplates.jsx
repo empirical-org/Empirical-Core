@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import request from 'request'
 
 import UnitTemplateRow from './unit_template_row'
@@ -11,6 +11,8 @@ import getAuthToken from '../components/modules/get_auth_token'
 
 const UNIT_TEMPLATES_URL = `${process.env.DEFAULT_URL}/cms/unit_templates.json`
 const DIAGNOSTICS_URL = `${process.env.DEFAULT_URL}/api/v1/activities/diagnostic_activities.json`
+const UPDATE_ORDER_URL = `${process.env.DEFAULT_URL}/cms/unit_templates/update_order_numbers`
+
 const NO_DATA_FOUND_MESSAGE = "Activity Packs data could not be found. Refresh to try again, or contact the engineering team."
 const ALL_FLAGS = 'All Flags'
 const ALL_DIAGNOSTICS = 'All Diagnostics'
@@ -22,71 +24,64 @@ const ALPHA_FLAG = 'Alpha'
 const BETA_FLAG = 'Beta'
 const GAMMA_FLAG = 'Gamma'
 const PRIVATE_FLAG = 'Private'
+const options = [ALL_FLAGS, NOT_ARCHIVED_FLAG, ARCHIVED_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, PRODUCTION_FLAG, PRIVATE_FLAG]
+const headerHash = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json',
+  'X-CSRF-Token': getAuthToken()
+}
 
-export default class UnitTemplates extends React.Component {
+const UnitTemplates = () => {
 
-  state = {
-    loadingTableData: true,
-    flag: ALL_FLAGS,
-    fetchedData: [],
-    activitySearchInput: "",
-    dataToDownload: [],
-    diagnostics: [],
-    diagnostic: ALL_DIAGNOSTICS,
-  };
+  const [loadingTableData, setLoadingTableData] = React.useState(true);
+  const [flag, setFlag] = React.useState(ALL_FLAGS)
+  const [fetchedData, setFetchedData] = React.useState([])
+  const [activitySearchInput, setActivitySearchInput] = React.useState("")
+  const [diagnostics, setDiagnostics] = React.useState([])
+  const [diagnostic, setDiagnostic] = React.useState(ALL_DIAGNOSTICS)
 
-  componentDidMount() {
-    this.fetchUnitTemplatesData();
-    this.fetchDiagnosticsData();
-  }
+  React.useEffect(() => {
+    if (loadingTableData && fetchedData.length === 0 && diagnostics.length === 0) {
+      fetchUnitTemplatesData()
+      fetchDiagnosticsData()
+    }
+  })
 
-  fetchDiagnosticsData() {
-    request.get({
-      url: DIAGNOSTICS_URL,
-    }, (e, r, body) => {
-      let newState = {}
-      if (e || r.statusCode != 200) {
-        this.setState({diagnostics: []})
-      } else {
-        const data = JSON.parse(body);
-        this.setState({diagnostics: data.diagnostics})
-      }
-    });
-  }
-
-  fetchUnitTemplatesData() {
-    this.setState({ loadingTableData: true })
+  function fetchUnitTemplatesData() {
+    setLoadingTableData(true)
     request.get({
       url: UNIT_TEMPLATES_URL,
     }, (e, r, body) => {
-      let newState = {}
-      if (e || r.statusCode != 200) {
-        newState = {
-          loadingTableData: false,
-          dataResults: [],
-        }
+      if (e || r.statusCode !== 200) {
+        setLoadingTableData(false)
+        setFetchedData([])
       } else {
         const data = JSON.parse(body);
-        newState = {
-          loadingTableData: false,
-          fetchedData: data.unit_templates
-        };
+        setLoadingTableData(false)
+        setFetchedData(data.unit_templates)
       }
-      this.setState(newState)
     });
   }
 
-  updateOrder = (sortInfo) => {
-    const { flag } = this.state
+  function fetchDiagnosticsData() {
+    request.get({
+      url: DIAGNOSTICS_URL,
+    }, (e, r, body) => {
+      if (e || r.statusCode !== 200) {
+        setDiagnostics([])
+      } else {
+        const data = JSON.parse(body);
+        setDiagnostics(data.diagnostics)
+      }
+    });
+  }
 
-
-    if (this.isSortable()) {
-      const { fetchedData, } = this.state
-      let orderedData = this.sort(fetchedData)
+  function updateOrder(sortInfo) {
+    if (isSortable()) {
+      let orderedData = sort(fetchedData)
       const newOrder = sortInfo.map(item => item.key);
       let count = newOrder.length
       const newOrderedUnitTemplates = orderedData.map((ut) => {
-
         const newUnitTemplate = ut
         const newIndex = newOrder.findIndex(key => Number(key) === Number(ut.id))
         if (newIndex !== -1) {
@@ -98,17 +93,12 @@ export default class UnitTemplates extends React.Component {
         return newUnitTemplate
       })
 
-      const link = `${process.env.DEFAULT_URL}/cms/unit_templates/update_order_numbers`
-      fetch(link, {
+      fetch(UPDATE_ORDER_URL, {
         method: 'PUT',
         mode: 'cors',
         credentials: 'include',
         body: JSON.stringify({unit_templates: newOrderedUnitTemplates}),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': getAuthToken()
-        }
+        headers: headerHash,
       }).then((response) => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -119,24 +109,20 @@ export default class UnitTemplates extends React.Component {
       }).catch((error) => {
         // to do, use Sentry to capture error
       })
-
-      this.setState({fetchedData: newOrderedUnitTemplates});
+      setFetchedData(newOrderedUnitTemplates)
     }
-
 
   };
 
-  orderedUnitTemplates = () => {
-    const { fetchedData, activitySearchInput, flag, diagnostic } = this.state
+  function orderedUnitTemplates() {
     let filteredData = fetchedData
-
     if (flag === NOT_ARCHIVED_FLAG) {
-      filteredData = fetchedData.filter(data => data.flag.toLowerCase() != ARCHIVED_FLAG)
-    } else if (flag != ALL_FLAGS) {
+      filteredData = fetchedData.filter(data => data.flag !== ARCHIVED_FLAG.toLowerCase())
+    } else if (flag !== ALL_FLAGS) {
       filteredData = fetchedData.filter(data => data.flag === flag.toLowerCase())
     }
 
-    if (activitySearchInput != '') {
+    if (activitySearchInput !== '') {
       filteredData = filteredData.filter(value => {
         return (
           value.activities && value.activities.map(x => x.name || '').some(y => y.toLowerCase().includes(activitySearchInput.toLowerCase()))
@@ -144,7 +130,7 @@ export default class UnitTemplates extends React.Component {
       })
     }
 
-    if (diagnostic != ALL_DIAGNOSTICS) {
+    if (diagnostic !== ALL_DIAGNOSTICS) {
       filteredData = filteredData.filter(value => {
         return (
           value.diagnostic_names && value.diagnostic_names.some(y => y.toLowerCase().includes(diagnostic.toLowerCase()))
@@ -152,23 +138,23 @@ export default class UnitTemplates extends React.Component {
       })
     }
 
-    return this.sort(filteredData)
+    return sort(filteredData)
   }
 
-  sort = (list) => {
+  function sort (list) {
     return list.sort((bp1, bp2) => {
       // Group archived activities at the bottom of the list (they automatically get a higher order number
       // than any unarchived activity)
       if (bp1.flag.toLowerCase() === ARCHIVED_FLAG && bp2.flag.toLowerCase() !== ARCHIVED_FLAG) {
         return 1
-      } else if (bp2.flag.toLowerCase() === ARCHIVED_FLAG && bp1.flag.toLowerCase() != ARCHIVED_FLAG) {
+      } else if (bp2.flag.toLowerCase() === ARCHIVED_FLAG && bp1.flag.toLowerCase() !== ARCHIVED_FLAG) {
         return -1
       }
       return bp1.order_number - bp2.order_number
     })
   }
 
-  onDelete = (id) => {
+  function onDelete(id) {
     const link = `${process.env.DEFAULT_URL}/cms/unit_templates/${id}`
     fetch(link, {
       method: 'DELETE',
@@ -185,18 +171,18 @@ export default class UnitTemplates extends React.Component {
       return response.json();
     }).then((response) => {
       alert(`Activity pack was deleted.`)
-      this.fetchUnitTemplatesData();
+      fetchUnitTemplatesData();
     }).catch((error) => {
       // to do, use Sentry to capture error
     })
   }
 
-  updateUnitTemplate = (unitTemplate) => {
-    const { fetchedData } = this.state
-    let newUnitTemplate = unitTemplate
+  function updateUnitTemplate(unitTemplate) {
+    const newUnitTemplate = unitTemplate
     newUnitTemplate.unit_template_category_id = unitTemplate.unit_template_category.id
     newUnitTemplate.activity_ids = unitTemplate.activity_ids || unitTemplate.activities.map((a) => a.id)
-    const link = `${process.env.DEFAULT_URL}/cms/unit_templates/${unitTemplate.id}.json`
+    //const link = `${process.env.DEFAULT_URL}/cms/unit_templates/${unitTemplate.id}.json`
+    const link = `http://localhost:5000/cms/unit_templates/${unitTemplate.id}.json`
     const index = fetchedData.findIndex((e) => e.id === unitTemplate.id)
     fetch(link, {
       method: 'PUT',
@@ -204,146 +190,142 @@ export default class UnitTemplates extends React.Component {
       credentials: 'include',
       body: JSON.stringify({unit_template: newUnitTemplate}),
       dataType: 'json',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': getAuthToken()
-        }
-      }).then((response) => {
-        if (!response.ok) {
-          throw Error(response.statusText);
-        }
-        return response.json();
-      }).then((response) => {
-        let newData = fetchedData
-        newData[index] = response.unit_template
-        this.setState({fetchedData: newData}, alert(`Activity Pack has been saved.`))
-      }).catch((error) => {
-        // to do, use Sentry to capture error
-      })
+      headers: headerHash,
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      let newData = fetchedData
+      newData[index] = response.unit_template
+      setFetchedData(newData, alert(`Activity Pack has been saved.`))
+    }).catch((error) => {
+      // to do, use Sentry to capture error
+    })
   }
 
-  renderTableRow(unitTemplate) {
-
+  function renderTableRow(unitTemplate) {
     const { id, name, diagnostic_names, flag, activities, unit_template_category } = unitTemplate
-    return (<UnitTemplateRow
-      activities={activities}
-      diagnostic_names={diagnostic_names}
-      flag={flag}
-      handleDelete={this.onDelete}
-      id={id}
-      key={id}
-      name={name}
-      unit_template_category={unit_template_category}
-      unitTemplate={unitTemplate}
-      updateUnitTemplate={this.updateUnitTemplate}
-    />)
+    return (
+      <UnitTemplateRow
+        activities={activities}
+        diagnostic_names={diagnostic_names}
+        flag={flag}
+        handleDelete={onDelete}
+        id={id}
+        key={id}
+        name={name}
+        unit_template_category={unit_template_category}
+        unitTemplate={unitTemplate}
+        updateUnitTemplate={updateUnitTemplate}
+      />
+    )
   }
 
-  tableOrEmptyMessage() {
-    const { fetchedData } = this.state
-
+  function tableOrEmptyMessage() {
     let tableOrEmptyMessage
 
     if (fetchedData) {
-      let dataToUse = this.orderedUnitTemplates()
-      const unitTemplateRows = dataToUse.map((ut) => this.renderTableRow(ut))
+      let dataToUse = orderedUnitTemplates()
+      const unitTemplateRows = dataToUse.map((ut) => renderTableRow(ut))
       tableOrEmptyMessage = (
         <div className="blog-post-table">
           <table>
-            {this.renderTableHeader()}
-            <SortableList data={unitTemplateRows} sortCallback={this.updateOrder} />
+            {renderTableHeader()}
+            <SortableList data={unitTemplateRows} sortCallback={updateOrder} />
           </table>
         </div>
       )
     } else {
       tableOrEmptyMessage = NO_DATA_FOUND_MESSAGE
     }
-      return (
-        <div>
-          {tableOrEmptyMessage}
-        </div>
-      )
-  }
-
-  renderTable() {
-    const { loadingTableData } = this.state
-    if(loadingTableData) {
-      return <LoadingSpinner />
-    }
-    return (this.tableOrEmptyMessage())
-  }
-
-  renderTableHeader() {
-    return (<tr className="unit-template-headers">
-      <th className="name-col">Name</th>
-      <th className="flag-col">Flag</th>
-      <th className="diagnostics-col">Diagnostics</th>
-      <th className="category-col">Category</th>
-    </tr>)
-  }
-
-  switchDiagnostic = (diagnostic) => {
-    this.setState({ diagnostic: diagnostic })
-  }
-
-  diagnosticsDropdown = () => {
-    const { diagnostics, diagnostic } = this.state
-
-    let diagnostic_names = diagnostics.filter(d => d.data && d.data["flag"] != ARCHIVED_FLAG.toLowerCase()).map((d) => d.name)
-    diagnostic_names.push(ALL_DIAGNOSTICS)
-    return (<ItemDropdown
-      callback={this.switchDiagnostic}
-      items={diagnostic_names}
-      selectedItem={diagnostic}
-    />)
-  }
-
-  handleSearchByActivity = (e) => {
-    this.setState({ activitySearchInput: e.target.value })
-  }
-
-  switchFlag = (flag) => {
-    this.setState({flag: flag})
-  }
-
-  isSortable = () => {
-    const { flag, activitySearchInput, diagnostic } = this.state
-    if(flag && ![ALL_FLAGS, NOT_ARCHIVED_FLAG, PRODUCTION_FLAG].includes(flag)) { return false }
-    if (activitySearchInput != '') { return false}
-    if (diagnostic != ALL_DIAGNOSTICS) { return false}
-    return true
-  };
-
-  render() {
-    const { activitySearchInput, flag } = this.state
-    const options = [ALL_FLAGS, NOT_ARCHIVED_FLAG, ARCHIVED_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, PRODUCTION_FLAG, PRIVATE_FLAG]
-
     return (
-      <div className="cms-unit-templates">
-        <div className="standard-columns">
-          <button className='button-green button-top' onClick={() => {window.open(`unit_templates/new`, '_blank')}} type="button">New</button>
-          <div className="unit-template-inputs">
-            <input
-              aria-label="Search by activity"
-              className="search-box"
-              name="searchInput"
-              onChange={this.handleSearchByActivity}
-              placeholder="Search by activity"
-              value={activitySearchInput || ""}
-            />
-            <div className="unit-template-dropdowns">
-              <ItemDropdown
-                callback={this.switchFlag}
-                items={options}
-                selectedItem={flag}
-              />
-              {this.diagnosticsDropdown()}
-            </div>
-          </div>
-          {this.tableOrEmptyMessage()}
-        </div>
+      <div>
+        {tableOrEmptyMessage}
       </div>
     )
   }
+
+  function renderTable() {
+    if(loadingTableData) {
+      return <LoadingSpinner />
+    }
+    return (tableOrEmptyMessage())
+  }
+
+  function renderTableHeader() {
+    return (
+      <tr className="unit-template-headers">
+        <th className="name-col">Name</th>
+        <th className="flag-col">Flag</th>
+        <th className="diagnostics-col">Diagnostics</th>
+        <th className="category-col">Category</th>
+      </tr>
+    )
+  }
+
+  function switchDiagnostic(diagnostic) {
+    setDiagnostic(diagnostic)
+  }
+
+  function diagnosticsDropdown() {
+    let diagnostic_names = diagnostics.filter(d => d.data && d.data["flag"] !== ARCHIVED_FLAG.toLowerCase()).map((d) => d.name)
+    diagnostic_names.push(ALL_DIAGNOSTICS)
+    return (
+      <ItemDropdown
+        callback={switchDiagnostic}
+        items={diagnostic_names}
+        selectedItem={diagnostic}
+      />
+    )
+  }
+
+  function handleSearchByActivity(e) {
+    setActivitySearchInput(e.target.value)
+  }
+
+  function switchFlag(flag) {
+    setFlag(flag)
+  }
+
+  function isSortable() {
+    if(flag && ![ALL_FLAGS, NOT_ARCHIVED_FLAG, PRODUCTION_FLAG].includes(flag)) { return false }
+    if (activitySearchInput !== '') { return false}
+    if (diagnostic !== ALL_DIAGNOSTICS) { return false}
+    return true
+  };
+
+  function newUnitTemplate() {
+    window.open(`unit_templates/new`, '_blank')
+  }
+
+  return (
+    <div className="cms-unit-templates">
+      <div className="standard-columns">
+        <button className='button-green button-top' onClick={newUnitTemplate} type="button">New</button>
+        <div className="unit-template-inputs">
+          <input
+            aria-label="Search by activity"
+            className="search-box"
+            name="searchInput"
+            onChange={handleSearchByActivity}
+            placeholder="Search by activity"
+            value={activitySearchInput || ""}
+          />
+          <div className="unit-template-dropdowns">
+            <ItemDropdown
+              callback={switchFlag}
+              items={options}
+              selectedItem={flag}
+            />
+            {diagnosticsDropdown()}
+          </div>
+        </div>
+        {tableOrEmptyMessage()}
+      </div>
+    </div>
+  )
 }
+
+export default UnitTemplates

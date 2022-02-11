@@ -10,10 +10,10 @@ const UnitTemplateRow = ({
   unitTemplate,
   updateUnitTemplate
 }) => {
-  const [showActivities, setShowActivities] = useState(false);
+  const [showActivities, setShowActivities] = useState<boolean>(false);
 
   const deleteUnitTemplate = () => {
-    var confirm = window.confirm('Are you sure you want to delete ' + unitTemplate.name + '?');
+    const confirm = window.confirm('Are you sure you want to delete ' + unitTemplate.name + '?');
     if (confirm) {
       handleDelete(unitTemplate.id);
     }
@@ -30,7 +30,7 @@ const UnitTemplateRow = ({
   }
 
   const handleRemoveActivity = (act_id) => {
-    var confirm = window.confirm('Are you sure you want to remove this activity?');
+    const confirm = window.confirm('Are you sure you want to remove this activity?');
     if (confirm) {
       let newUnitTemplate = unitTemplate
       let activityIds = unitTemplate.activities.map((a) => a.id)
