@@ -139,70 +139,75 @@ module Evidence
       end
     end
 
-    context 'skip benchmarking', :benchmarking do
+    context 'benchmarking', :benchmarking do
       let(:plagiarism_text) { "At particular times in the year, fish travel to new locations where they lay their eggs. A surge barrier could block certain fish from getting to their spawning locations and safely releasing their eggs. A surge barrier could also slow the flow of the water, causing some eggs to sink. This could pose a problem for fish eggs that need oxygen and must stay on the surface of the water in order to survive."}
 
-      it 'benchmark non-plagiarized cases' do
-        non_plagiarized_samples = [
-          "A surge barrier in New York City could harm the local ecosystem because it is home to a huge population of marine animals and a  barrier could block a fish from getting to their spawning location to lay eggs and could slow the flow of water.",
-          "A surge barrier in New York City could harm the local ecosystem because it is home to a huge population of marine animals.",
-          "A surge barrier in New York City could harm the local ecosystem because it could cause many fish from swimming to a certain location and releasing their eggs.",
-          "A surge barrier in New York City could harm the local ecosystem because it would stop certain fish species from laying their eggs as the fish wouldn't be able to get past the barrier meaning the fish wouldn't lay their eggs.",
-          "A surge barrier in New York City could harm the local ecosystem because it would stop certain fish species from laying their eggs in New York harbour.",
-          "A surge barrier in New York City could harm the local ecosystem because it would disturb the marine life by interrupting spawning season due to the surge barrier blocking their way and slowing the flow of water.",
-          "A surge barrier in New York City could harm the local ecosystem because it would disturb the marine life by interrupting spawning season and slowing the flow of water.",
-          "A surge barrier in New York City could harm the local ecosystem because it would disturb the marine life.",
-          "A surge barrier in New York City could harm the local ecosystem because it interrupts spawning season for fish.",
-          "A surge barrier in New York City could harm the local ecosystem because it's bad for fish.",
-          "A surge barrier in New York City could harm the local ecosystem because the storm barrier could interrupt the spawning season for many fish by blocking the flow of water causing some eggs to sink and die due to the lack of oxygen from the surface of the water.",
-          "A surge barrier in New York City could harm the local ecosystem because the storm barrier could interrupt the spawning season for many fish.",
-          "A surge barrier in New York City could harm the local ecosystem because it can hurt the marine animals, for example it could slow the flow of water causing eggs to sink.",
-          "A surge barrier in New York City could harm the local ecosystem because the surge barrier could interrupt the spawning season for many fish, and this time of the year the fish travel to new places and they lay their eggs.",
-          "A surge barrier in New York City could harm the local ecosystem because it can hurt the marine animals, for example it could slow the flow of water.",
-          "A surge barrier in New York City could harm the local ecosystem because it can hurt the marine animals, for example it could harm the fish eggs.",
-          "A surge barrier in New York City could harm the local ecosystem because it can hurt the marine animals, for example it could harm the fish eggs",
-          "A surge barrier in New York City could harm the local ecosystem because it can hurt the marine animals.",
-          "A surge barrier in New York City could harm the local ecosystem because the surge barrier could interrupt the spawning season for many fish."
-        ]
-
+      def run_benchmark_on_entries(label, entries, plagiarized)
         runtime = Benchmark.realtime do
-          non_plagiarized_samples.each do |entry|
-            Evidence::PlagiarismCheck.new(entry, plagiarism_text, '', rule).feedback_object
+          entries.each do |entry|
+            expect(Evidence::PlagiarismCheck.new(entry, plagiarism_text, '', rule).feedback_object[:optimal]).to eq(plagiarized)
           end
         end
-        puts format('Average non-plagiarism runtime: %<runtime>.3f seconds', {runtime: (runtime / non_plagiarized_samples.length)})
+        puts format('Average %<label>s runtime: %<runtime>.3f seconds', {label: label, runtime: (runtime / entries.length)})
       end
 
-      it 'benchmarks plagiarism cases' do
-        plagiarized_samples = [
-          "A surge barrier in New York City could harm the local ecosystem because it could cause many fish from getting to their spawning location and safely releasing their eggs.",
-          "A surge barrier in New York City could harm the local ecosystem because it could block certain fish from getting to their spawning locations and safely releasing their eggs.",
-          "A surge barrier in New York City could harm the local ecosystem because the surge barrier could interrupt the spawning season for many fish, and this time of the year, fish travel to new locations where they lay their eggs.",
-          "A surge barrier in New York City could harm the local ecosystem because the surge barrier could interrupt the spawning season for many fish, and this particular times in the year, fish travel to new locations where they lay their eggs.",
-          "A surge barrier in New York City could harm the local ecosystem because the surge barrier could interrupt the spawning season for many fish and the surge barrier could certain fish from getting to their spawn locations and safely releasing their eggs.",
-          "A surge barrier in New York City could harm the local ecosystem because they could trap sewage and toxins and they would pose a problem for fish eggs that need oxygen.",
-          "A surge barrier in New York City could harm the local ecosystem because it would block certain fish from getting to their spawning locations and releasing their eggs.",
-          "A surge barrier in New York City could harm the local ecosystem because the surge barrier could interrupt the spawning season for many fish, a surge barrier could block certain fish from getting to their spawning locations and safely release their eggs.",
-          "A surge barrier in New York City could harm the local ecosystem because it could block certain fish from getting to their spawning locations.",
-          "A surge barrier in New York City could harm the local ecosystem because it could slow the flow of the water causing some eggs to sink.",
-          "A surge barrier in New York City could harm the local ecosystem because the surge barrier could interrupt the spawning season for many fish, the surge barrier could block certain fish from getting to their spawning locations and safely releasing their eggs.",
-          "A surge barrier in New York City could harm the local ecosystem because surge barrier could also slow the flow of the water causing the fish eggs to die and also lose their location",
-          "A surge barrier in New York City could harm the local ecosystem because surge barrier could also slow the flow of the water causing some eggs to sink this could pose a prpblem for fish eggs that need oxygen and must stay on surface of the water in order to survive",
-          "A surge barrier in New York City could harm the local ecosystem because a surge barrier could block certain fish from getting to their spawning locations and safely releasing their eggs.",
-          "A surge barrier in New York City could harm the local ecosystem because it could block certain fish from getting to their spawning locations ans safely release their eggs and could slow the flow of the water.",
-          "A surge barrier in New York City could harm the local ecosystem because it could harm fish, for example a surge barrier could block fish from getting to their spawning locations and safely releasing their eggs.",
-          "A surge barrier in New York City could harm the local ecosystem because there are certain fish that need oxygen and must stay on the surface of the water to survive.",
-          "A surge barrier in New York City could harm the local ecosystem because it could harm fish, a surge barrier could block certain fish from getting to their spawning locations and safely releasing their eggs.",
-          "A surge barrier in New York City could harm the local ecosystem because the surge barrier could slow the flow of the water causing some eggs to sink.",
-          "A surge barrier in New York City could harm the local ecosystem because at particular times in the year, fish travel to new locations where they lay their eggs which get blocked by the surge barrier.",
-        ]
+      it '#short plagiarized responses' do
+        run_benchmark_on_entries('short (50-100 character) plagiarized entries', [
+          "A surge barrier in New York City could harm the local ecosystem because it could block certain fish from getting to their spawning locations",
+          "A surge barrier in New York City could harm the local ecosystem because it could slow the flow of the water, causing some eggs to sink.",
+          "A surge barrier in New York City could harm the local ecosystem because the fish eggs need oxygen and must stay on the surface of the water.",
+          "A surge barrier in New York City could harm the local ecosystem because it can block fish from getting to their spawning locations and safely releasing their eggs.",
+          "A surge barrier in New York City could harm the local ecosystem because it could block certain fish and it could also slow the flow of the water, causing some eggs to sink.",
+          "A surge barrier in New York City could harm the local ecosystem because it could block certain fish from getting to their spawning locations"
+        ], false)
+      end
 
-        runtime = Benchmark.realtime do
-          plagiarized_samples.each do |entry|
-            Evidence::PlagiarismCheck.new(entry, plagiarism_text, '', rule).feedback_object
-          end
-        end
-        puts format('Average plagiarism runtime: %<runtime>.3f seconds', {runtime: (runtime / plagiarized_samples.length)})
+      it '#short non-plagiarized cases' do
+        run_benchmark_on_entries("short (50-100 character) non-plagiarized entries", [
+          "A surge barrier in New York City could harm the local ecosystem because a surge barrier could interupt the spawning season for many fish.",
+          "A surge barrier in New York City could harm the local ecosystem because a surge barrier could intterupt spawaning season for many fish.",
+          "A surge barrier in New York City could harm the local ecosystem because a surge barrier could keep fish away from their spawning location.",
+          "A surge barrier in New York City could harm the local ecosystem because a surge barrier is one of the more expensive options.",
+          "A surge barrier in New York City could harm the local ecosystem because a surge barrier can block fish from their spawning locations.",
+          "A surge barrier in New York City could harm the local ecosystem because a surge barrier can block fish to go to their spawning area to safely release their eggs.",
+          "A surge barrier in New York City could harm the local ecosystem because a surge barrier can block the fish from going to their spawning locations and cause eggs to sink."
+        ], true)
+      end
+
+      it '#medium plagiarism cases' do
+        run_benchmark_on_entries("medium (101-150 character) plagiarized entries", [
+          'A surge barrier in New York City could harm the local ecosystem because a surge barrier could "block certain fish from getting to their spawning locations" and could "slow the flow of water" causing eggs to "sink."',
+          "A surge barrier in New York City could harm the local ecosystem because a surge barrier could block certain fish from getting to their spawning locations and safely releasing their eggs.",
+          "A surge barrier in New York City could harm the local ecosystem because at particular times in the year fish ravel to new locations where they lay their eggs a surge barrier could also slow the flow of the water.",
+          "A surge barrier in New York City could harm the local ecosystem because a surge barrier could pose a problem for fish eggs that need oxygen and must stay on the surface of the water in order to survive."
+        ], false)
+      end
+
+      it '#medium non-plagiarism cases' do
+        run_benchmark_on_entries("medium (101-150 character) non-plagiarized entries", [
+          "A surge barrier in New York City could harm the local ecosystem because a surge barrier can harm the spawning season for many fish and could block some of the fish from getting to their spawning locations safely.",
+          "A surge barrier in New York City could harm the local ecosystem because a surge barrier can interrupt fish having babies because they can't get to their location to lay the eggs.",
+          "A surge barrier in New York City could harm the local ecosystem because a surge barrier can interrupt the fish spawning by cutting causing some eggs to sink and lose oxygen, which harms the ecosystem.",
+          "A surge barrier in New York City could harm the local ecosystem because a surge barrier can interrupt the fish spawning by cutting causing some eggs to sink, which harms the ecosystem.",
+          "A surge barrier in New York City could harm the local ecosystem because a surge barrier can slow the flow of the water which cause some fish's eggs to sink which can be a problem for fish eggs."
+        ], true)
+      end
+
+      it '#long plagiarism cases' do
+        run_benchmark_on_entries("long (151-200 character) plagiarized entries", [
+          "A surge barrier in New York City could harm the local ecosystem because it could interrupt the spawning season for many fish and the fish go to new locations to lay their eggs and a surge barrier could block certain fish from getting to their location.",
+          "A surge barrier in New York City could harm the local ecosystem because it could interrupt the spawning season for many fish and the fish travel to new locations where they lay their eggs so a surge barrier could block certain fish from getting to their location.",
+          'A surge barrier in New York City could harm the local ecosystem because it "could interrupt the spawning season for many fish by blocking certain fish from getting to their spawning locations and safely relasing their eggs.'
+        ], false)
+      end
+
+      it '#long non-plagiarism cases' do
+        run_benchmark_on_entries("long (151-200 character) non-plagiarized entries", [
+          "A surge barrier in New York City could harm the local ecosystem because if surge barriers slow the flow of water and fish eggs start sinking, then more and more fish will start to die because they still need oxygen to survive.",
+          "A surge barrier in New York City could harm the local ecosystem because in 2019, in the United States Army Corps of Engineers proposed five different options to protect New York against huge hurricane floods like the hurricane that damaged the city during hurricane sandy",
+          "A surge barrier in New York City could harm the local ecosystem because interrupt fish reproduce season blocking fish from their habitat, and also make some eggs sink, cause a problem for baby fish that needs oxygen to survive.",
+          "A surge barrier in New York City could harm the local ecosystem because interrupt fish reproduce season by blocking fish from their habitat, and also make some eggs sink, cause a problem for baby fish that needs oxygen to survive."
+        ], true)
       end
     end
   end
