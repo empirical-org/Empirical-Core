@@ -498,20 +498,20 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP ? 'on-read-passage' : ''}`
 
-  if(!explanationSlidesCompleted) {
-    if (explanationSlideStep === 0) {
-      return <WelcomeSlide onHandleClick={handleExplanationSlideClick} user={user} />
-    }
+  // if(!explanationSlidesCompleted) {
+  //   if (explanationSlideStep === 0) {
+  //     return <WelcomeSlide onHandleClick={handleExplanationSlideClick} user={user} />
+  //   }
+  //   return(
+  //     <ExplanationSlide onHandleClick={handleExplanationSlideClick} slideData={explanationData[explanationSlideStep]} />
+  //   );
+  // }
+  // if(completeButtonClicked && !window.location.href.includes('turk')) {
     return(
-      <ExplanationSlide onHandleClick={handleExplanationSlideClick} slideData={explanationData[explanationSlideStep]} />
-    );
-  }
-  if(completeButtonClicked && !window.location.href.includes('turk')) {
-    return(
-      <ActivityFollowUp responses={submittedResponses} saveActivitySurveyResponse={saveActivitySurveyResponse} sessionID={sessionID} user={user} />
+      <ActivityFollowUp activity={activities.currentActivity} responses={submittedResponses} saveActivitySurveyResponse={saveActivitySurveyResponse} sessionID={sessionID} />
     );
 
-  }
+  // }
 
   const completionButtonCallback = () => {
     setCompleteButtonClicked(true)
