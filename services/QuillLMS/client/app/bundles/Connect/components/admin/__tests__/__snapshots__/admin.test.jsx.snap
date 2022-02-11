@@ -1522,6 +1522,11 @@ exports[`adminContainer component should render with main sidebar when url does 
                                     >
                                       archived
                                     </option>
+                                    <option
+                                      value="private"
+                                    >
+                                      private
+                                    </option>
                                   </select>
                                 </span>
                               </p>
