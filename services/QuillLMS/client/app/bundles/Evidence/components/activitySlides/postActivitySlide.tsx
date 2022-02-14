@@ -13,7 +13,34 @@ interface PostActivitySlideProps {
   responses: any
 }
 
-export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActivitySlideProps) => {
+const responses = {
+  1: [
+    {
+      entry: "A surge barrier in New York City could harm the local ecosystem because this is a test response ."
+    },
+    {
+      entry: "A surge barrier in New York City could harm the local ecosystem because this is a test response."
+    }
+  ],
+  2: [
+    {
+      entry: "A surge barrier in New York City could harm the local ecosystem, but this is a test response."
+    }
+  ],
+  3: [
+    {
+      entry: "A surge barrier in New York City could harm the local ecosystem, so this is a shit response."
+    },
+    {
+      entry: "A surge barrier in New York City could harm the local ecosystem, so this is a shit response ."
+    },
+    {
+      entry: "A surge barrier in New York City could harm the local ecosystem, so this is a shirt response."
+    }
+  ]
+}
+
+export const PostActivitySlide = ({ handleClick, prompts }: PostActivitySlideProps) => {
 
   function getStrongExemplar(conjunction: string, property: string) {
     const prompt = prompts.filter(prompt => prompt.conjunction === conjunction)[0];
@@ -35,18 +62,6 @@ export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActiv
     const lastResponseText = responses[responses.length - 1].entry;
     const splitResponse = lastResponseText.split(conjunction);
     return <p>{splitResponse[0]}<u>{conjunction}</u>{splitResponse[1]}</p>
-  }
-
-  function getRevisionCopyForConjunction(conjunction) {
-    const count = getResponsesForConjunction(conjunction).length;
-    // first submission was optimal so 0 revisions
-    if(count === 1) {
-      return '0 revisions'
-    }
-    if(count === 2) {
-      return '1 revision';
-    }
-    return `${count} revisions`
   }
 
   function getRevisionCopy() {
@@ -71,7 +86,6 @@ export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActiv
         <section className="response-section">
           <div className="response-exemplar-header">
             <p className="sub-header-text">You wrote</p>
-            <p className="revision-count">{getRevisionCopyForConjunction(conjunction)}</p>
           </div>
           <section className="response-box">{getResponse(conjunction)}</section>
         </section>
@@ -89,11 +103,11 @@ export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActiv
   return(
     <div className="post-activity-slide-container">
       <section id="information-section">
+      <img alt="An illustration of a party popper" id="celebration-vector" src={`${process.env.CDN_URL}/images/evidence/party-celebration.svg`} />
         <p id="revision-text">{getRevisionCopy()}</p>
         <p className="slide-sub-text" id="second-sub-text">Revising is a sign of being a thoughtful writer. Be proud of the work you did today, and celebrate your success!</p>
-        {/* <img alt="An illustration of a party popper" id="celebration-vector" src={`${process.env.CDN_URL}/images/comprehension/celebrating-activity-completion.svg`} /> */}
         <section id="reminder-badge-section">
-          <img alt="An illustration of an A+ that is crossed out" id="grade-badge" src={`${process.env.CDN_URL}/images/comprehension/no-grade-badge.svg`} />
+          <img alt="An illustration of an A+ that is crossed out" id="grade-badge" src={`${process.env.CDN_URL}/images/evidence/paper-check.svg`} />
           <section id="reminder-text-section">
             <p className="sub-header-text">Reminder about grades</p>
             <p className="sub-header-subtext">Your teacher will see all of your revisions, but this activity was for practice, so it isn’t graded.</p>

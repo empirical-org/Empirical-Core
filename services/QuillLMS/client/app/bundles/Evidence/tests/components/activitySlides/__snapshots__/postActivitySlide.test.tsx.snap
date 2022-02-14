@@ -7,57 +7,253 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
   <section
     id="information-section"
   >
-    <p
-      className="slide-sub-text"
-      id="first-sub-text"
-    >
-      Ru Paul, you completed the activity!
-    </p>
-    <p
-      id="revision-text"
-    >
-      You used evidence to write 3 strong sentences!
-    </p>
     <img
       alt="An illustration of a party popper"
       id="celebration-vector"
-      src="undefined/images/comprehension/celebrating-activity-completion.svg"
+      src="undefined/images/evidence/party-celebration.svg"
     />
+    <p
+      id="revision-text"
+    >
+      You completed the activity with 3 revisions!
+    </p>
+    <p
+      className="slide-sub-text"
+      id="second-sub-text"
+    >
+      Revising is a sign of being a thoughtful writer. Be proud of the work you did today, and celebrate your success!
+    </p>
     <section
       id="reminder-badge-section"
     >
       <img
         alt="An illustration of an A+ that is crossed out"
         id="grade-badge"
-        src="undefined/images/comprehension/no-grade-badge.svg"
+        src="undefined/images/evidence/paper-check.svg"
       />
       <section
         id="reminder-text-section"
       >
         <p
-          id="reminder-header"
+          className="sub-header-text"
         >
           Reminder about grades
         </p>
         <p
-          id="reminder-subtext"
+          className="sub-header-subtext"
         >
           Your teacher will see all of your revisions, but this activity was for practice, so it isn’t graded.
         </p>
       </section>
     </section>
-    <p
-      className="slide-sub-text"
-      id="second-sub-text"
+  </section>
+  <section
+    className="responses-exemplars-container"
+  >
+    <section
+      className="review-response-header-section"
     >
-      Revising is a sign of being a thoughtful writer. Be proud of the work you did today and celebrate your success!
-    </p>
+      <p
+        className="sub-header-text"
+      >
+        Review the other responses.
+      </p>
+      <p
+        className="sub-header-subtext"
+      >
+        How is your response similar or different from these responses?
+      </p>
+    </section>
+    <section
+      className="response-exemplars-section"
+    >
+      <section
+        className="response-section"
+      >
+        <div
+          className="response-exemplar-header"
+        >
+          <p
+            className="sub-header-text"
+          >
+            You wrote
+          </p>
+        </div>
+        <section
+          className="response-box"
+        >
+          <p>
+            A surge barrier in New York City could harm the local ecosystem 
+            <u>
+              because
+            </u>
+             this is a test response.
+          </p>
+        </section>
+      </section>
+      <section
+        className="exemplars-section"
+      >
+        <div
+          className="response-exemplar-header"
+        >
+          <p
+            className="sub-header-text"
+          >
+            Example Responses
+          </p>
+        </div>
+        <section
+          className="exemplar-box"
+        >
+          <p>
+            test
+            <u>
+              because
+            </u>
+          </p>
+        </section>
+        <section
+          className="exemplar-box"
+        >
+          <p>
+            test
+            <u>
+              because
+            </u>
+          </p>
+        </section>
+      </section>
+    </section>
+    <section
+      className="response-exemplars-section"
+    >
+      <section
+        className="response-section"
+      >
+        <div
+          className="response-exemplar-header"
+        >
+          <p
+            className="sub-header-text"
+          >
+            You wrote
+          </p>
+        </div>
+        <section
+          className="response-box"
+        >
+          <p>
+            A surge barrier in New York City could harm the local ecosystem, 
+            <u>
+              but
+            </u>
+             this is a test response.
+          </p>
+        </section>
+      </section>
+      <section
+        className="exemplars-section"
+      >
+        <div
+          className="response-exemplar-header"
+        >
+          <p
+            className="sub-header-text"
+          >
+            Example Responses
+          </p>
+        </div>
+        <section
+          className="exemplar-box"
+        >
+          <p>
+            test
+            <u>
+              but
+            </u>
+          </p>
+        </section>
+        <section
+          className="exemplar-box"
+        >
+          <p>
+            test
+            <u>
+              but
+            </u>
+          </p>
+        </section>
+      </section>
+    </section>
+    <section
+      className="response-exemplars-section"
+    >
+      <section
+        className="response-section"
+      >
+        <div
+          className="response-exemplar-header"
+        >
+          <p
+            className="sub-header-text"
+          >
+            You wrote
+          </p>
+        </div>
+        <section
+          className="response-box"
+        >
+          <p>
+            A surge barrier in New York City could harm the local ecosystem, 
+            <u>
+              so
+            </u>
+             this is a shirt response.
+          </p>
+        </section>
+      </section>
+      <section
+        className="exemplars-section"
+      >
+        <div
+          className="response-exemplar-header"
+        >
+          <p
+            className="sub-header-text"
+          >
+            Example Responses
+          </p>
+        </div>
+        <section
+          className="exemplar-box"
+        >
+          <p>
+            test
+            <u>
+              so
+            </u>
+          </p>
+        </section>
+        <section
+          className="exemplar-box"
+        >
+          <p>
+            test
+            <u>
+              so
+            </u>
+          </p>
+        </section>
+      </section>
+    </section>
   </section>
   <section
     id="button-container"
   >
     <button
       className="quill-button large secondary outlined focus-on-dark"
+      onClick={[MockFunction]}
       type="button"
     >
       Next
