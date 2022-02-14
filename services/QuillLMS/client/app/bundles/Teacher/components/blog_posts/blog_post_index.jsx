@@ -208,7 +208,7 @@ export default class BlogPostIndex extends React.Component {
         <div className="container">
           <div style={{fontSize: '40px', display: 'flex', justifyContent: 'center', height: '60vh', alignItems: 'center', flexDirection: 'column', fontWeight: 'bold'}}>
           Coming Soon!
-            <img src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg" style={{marginTop: '20px'}} />
+            <img alt="" src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg" style={{marginTop: '20px'}} />
           </div>
         </div>
       )

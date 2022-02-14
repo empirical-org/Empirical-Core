@@ -57,7 +57,7 @@ class CustomizeNavbar extends React.Component<any, any> {
   render() {
     /* eslint-disable react/jsx-no-target-blank */
     const supportLink = (<a href="https://support.quill.org/using-quill-tools/quill-lessons/how-do-i-customize-a-quill-lesson" target="_blank">
-      <img className="he)lp" src={helpIcon} />Help
+      <img alt="" className="he)lp" src={helpIcon} />Help
     </a>)
     /* eslint-enable react/jsx-no-target-blank */
     return (

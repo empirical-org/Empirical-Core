@@ -33,15 +33,15 @@ export default class TopicSection extends React.Component {
   topicIcon() {
     switch (this.props.title) {
       case GETTING_STARTED:
-        return <img src="https://assets.quill.org/images/teacher_center/gettingstarted-gray.svg" />
+        return <img alt="" src="https://assets.quill.org/images/teacher_center/gettingstarted-gray.svg" />
       case WHATS_NEW:
-        return <img src="https://assets.quill.org/images/teacher_center/announcement-gray.svg" />
+        return <img alt="" src="https://assets.quill.org/images/teacher_center/announcement-gray.svg" />
       case TEACHER_STORIES:
-        return <img src="https://assets.quill.org/images/teacher_center/casestudies-gray.svg" />
+        return <img alt="" src="https://assets.quill.org/images/teacher_center/casestudies-gray.svg" />
       case WRITING_INSTRUCTION_RESEARCH:
-        return <img src="https://assets.quill.org/images/teacher_center/research-gray.svg" />
+        return <img alt="" src="https://assets.quill.org/images/teacher_center/research-gray.svg" />
       case IN_THE_NEWS:
-        return <img src="https://assets.quill.org/images/teacher_center/inthepress-gray.svg" />
+        return <img alt="" src="https://assets.quill.org/images/teacher_center/inthepress-gray.svg" />
       default:
         return ''
     }

@@ -10,12 +10,12 @@ export default class CheckboxSections extends React.Component {
   };
 
   checkboxElement = () => {
-    return <div className='image-wrapper'><img src='/images/teacher-guide-check.png' /></div>
+    return <div className='image-wrapper'><img alt="" src='/images/teacher-guide-check.png' /></div>
   };
 
   pageBasedActionIcon = (url) => {
     if (this.props.dashboard) {
-      return (<a href={url}><img src='/images/getting_started_arrow.png' /></a>);
+      return (<a href={url}><img alt="" src='/images/getting_started_arrow.png' /></a>);
     } else {
       return (
         <a className='btn btn-default' href={url}><div>

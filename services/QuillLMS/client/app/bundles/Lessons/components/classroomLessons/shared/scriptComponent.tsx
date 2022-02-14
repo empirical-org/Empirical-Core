@@ -427,7 +427,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     if (flaggedStudents && flaggedStudents[studentKey]) {
       flag = blueFlag
     }
-    return <img onClick={() => toggleStudentFlag(studentKey)} src={flag} />
+    return <img alt="" onClick={() => toggleStudentFlag(studentKey)} src={flag} />
   }
 
   renderNoSubmissionRow(studentKey: string) {
@@ -501,9 +501,9 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   determineCheckbox = (checked: boolean) => {
     const { projecting, } = this.state
     if (checked) {
-      return projecting ? <img src={checkedGreenCheckbox} /> : <img src={checkedGrayCheckbox} />
+      return projecting ? <img alt="" src={checkedGreenCheckbox} /> : <img alt="" src={checkedGrayCheckbox} />
     } else {
-      return projecting ? <img src={uncheckedGreenCheckbox} /> : <img src={uncheckedGrayCheckbox} />
+      return projecting ? <img alt="" src={uncheckedGreenCheckbox} /> : <img alt="" src={uncheckedGrayCheckbox} />
     }
   }
 

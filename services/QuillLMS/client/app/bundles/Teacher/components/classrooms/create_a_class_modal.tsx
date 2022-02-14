@@ -58,7 +58,7 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
           <p className={step === 2 ? 'active' : ''}>2. Add students</p>
           <p className={step === 3 ? 'active' : ''}>3. Setup instructions</p>
         </div>
-        <img onClick={this.props.close} src={closeIconSrc} />
+        <img alt="" onClick={this.props.close} src={closeIconSrc} />
       </div>
     )
   }

@@ -233,7 +233,7 @@ class AdminQuestion extends React.Component<AdminQuestionProps, AdminQuestionSta
           </div>
           <Cues cues={data[questionID].cues} cuesLabel={data[questionID].cues_label} />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
-            <img className="info" src={icon} />
+            <img alt="" className="info" src={icon} />
             <p>{data[questionID].instructions || 'Correct the underlined error in the sentence.'}</p>
           </div>
           <p className="control button-group" style={{ marginTop: 10, }}>

@@ -63,7 +63,7 @@ export default class ChooseClassroomLesson extends React.Component {
     return (
       <div className={`classroom-row ${selectedClassName} ${completionClass}`} key={i} onClick={clickFunction}>
         <div>
-          <img src={`${process.env.CDN_URL}/images/shared/${imgName}.svg`} />
+          <img alt="" src={`${process.env.CDN_URL}/images/shared/${imgName}.svg`} />
           <span>{cu.classroom_name}</span> ({numberOfStudents})
         </div>
         {completionText}
@@ -84,7 +84,7 @@ export default class ChooseClassroomLesson extends React.Component {
           <div className='lesson-section'>
             <p>You've selected this lesson to launch:</p>
             <div className="lesson-row">
-              <img src={`${process.env.CDN_URL}/images/shared/icon-lesson-box.svg`} />
+              <img alt="" src={`${process.env.CDN_URL}/images/shared/icon-lesson-box.svg`} />
               <p>{this.state.activityName}</p>
               <span onClick={this.goBack}>Undo Selection</span>
             </div>

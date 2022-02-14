@@ -6,7 +6,7 @@ const PublishSuccessModal: React.SFC<any> = (props) => {
     <div className="publish-success-modal-container">
       <div className="publish-success-modal-background" />
       <div className="publish-success-modal">
-        <img src="https://assets.quill.org/images/illustrations/edition-published.svg" />
+        <img alt="" src="https://assets.quill.org/images/illustrations/edition-published.svg" />
         <h1>Lesson Edition Published!</h1>
         <p className="explanation">You have successfully created and published your own edition of the lesson.</p>
         <div className="fields">

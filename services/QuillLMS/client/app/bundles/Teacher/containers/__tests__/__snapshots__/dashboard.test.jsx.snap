@@ -67,6 +67,7 @@ exports[`Dashboard container when all the onboarding items have been checked sho
             className="spinner-container"
           >
             <img
+              alt=""
               className="spinner"
               src="https://assets.quill.org/images/icons/loader_still.svg"
             />
@@ -145,6 +146,7 @@ exports[`Dashboard container when none of the onboarding items have been checked
             className="spinner-container"
           >
             <img
+              alt=""
               className="spinner"
               src="https://assets.quill.org/images/icons/loader_still.svg"
             />
