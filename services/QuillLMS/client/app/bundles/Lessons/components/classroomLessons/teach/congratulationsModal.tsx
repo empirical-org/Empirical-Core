@@ -55,9 +55,9 @@ export default class CongratulationsModal extends React.Component<{closeModal: a
             <p>How was your experience with Quill Lessons?</p>
             <p>We are eager to hear your feedback to improve this tool.</p>
             <div className="emoji-row">
-              <img onClick={this.handleDisappointedEmojiClick} src="https://assets.quill.org/images/emojis/disappointed_face.png" />
-              <img onClick={this.handleNeutralEmojiClick} src="https://assets.quill.org/images/emojis/neutral_face.png" />
-              <img onClick={this.handleHappyEmojiClick} src="https://assets.quill.org/images/emojis/inlove_face.png" />
+              <img alt="" onClick={this.handleDisappointedEmojiClick} src="https://assets.quill.org/images/emojis/disappointed_face.png" />
+              <img alt="" onClick={this.handleNeutralEmojiClick} src="https://assets.quill.org/images/emojis/neutral_face.png" />
+              <img alt="" onClick={this.handleHappyEmojiClick} src="https://assets.quill.org/images/emojis/inlove_face.png" />
             </div>
           </div>
         )
@@ -70,8 +70,8 @@ export default class CongratulationsModal extends React.Component<{closeModal: a
       <div className="congratulations-modal-container">
         <div className="congratulations-modal-background" onClick={closeModal} />
         <div className="congratulations-modal">
-          <img className="exit" onClick={closeModal} src="https://assets.quill.org/images/icons/CloseIcon.svg" />
-          <img className="illustration" src="https://assets.quill.org/images/illustrations/congratulations_illustration.svg" />
+          <img alt="" className="exit" onClick={closeModal} src="https://assets.quill.org/images/icons/CloseIcon.svg" />
+          <img alt="" className="illustration" src="https://assets.quill.org/images/illustrations/congratulations_illustration.svg" />
           <h1 className="congratulations">Congratulations!</h1>
           <h1>You&#39;ve completed a Quill Lessons Activity.</h1>
           <p>This lesson will be marked as complete for your students.</p>

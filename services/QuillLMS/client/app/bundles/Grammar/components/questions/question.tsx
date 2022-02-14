@@ -233,7 +233,7 @@ class AdminQuestion extends React.Component<AdminQuestionProps, AdminQuestionSta
           </div>
           <Cues cues={data[questionID].cues} cuesLabel={data[questionID].cues_label} />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
-            <img className="info" src={icon} />
+            <img alt="" className="info" src={icon} />
             <p>{data[questionID].instructions || 'Correct the underlined error in the sentence.'}</p>
           </div>
           <p className="control button-group" style={{ marginTop: 10, }}>
@@ -253,16 +253,16 @@ class AdminQuestion extends React.Component<AdminQuestionProps, AdminQuestionSta
           </div>
           {this.props.children}
           <Switch>
-            <Route component={ResponseComponentWrapper} path={`/admin/questions/:questionID/responses`} questionID={questionID} />
-            <Route component={TestQuestion} path={`/admin/questions/:questionID/test`} />
-            <Route component={ChooseModelContainer} path={`/admin/questions/:questionID/choose_model`} />
-            <Route component={MassEditContainer} path={`/admin/questions/:questionID/mass-edit`} />
-            <Route component={EditFocusPointsContainer} path={`/admin/questions/:questionID/focus-points/:focusPointID/edit`} />
-            <Route component={NewFocusPointsContainer} path={`/admin/questions/:questionID/focus-points/new`} />
-            <Route component={FocusPointsContainer} path={`/admin/questions/:questionID/focus-points`} />
-            <Route component={EditIncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences/:incorrectSequenceID/edit`} />
-            <Route component={NewIncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences/new`} />
-            <Route component={IncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences`} />
+            <Route component={ResponseComponentWrapper} path="/admin/questions/:questionID/responses" questionID={questionID} />
+            <Route component={TestQuestion} path="/admin/questions/:questionID/test" />
+            <Route component={ChooseModelContainer} path="/admin/questions/:questionID/choose_model" />
+            <Route component={MassEditContainer} path="/admin/questions/:questionID/mass-edit" />
+            <Route component={EditFocusPointsContainer} path="/admin/questions/:questionID/focus-points/:focusPointID/edit" />
+            <Route component={NewFocusPointsContainer} path="/admin/questions/:questionID/focus-points/new" />
+            <Route component={FocusPointsContainer} path="/admin/questions/:questionID/focus-points" />
+            <Route component={EditIncorrectSequenceContainer} path="/admin/questions/:questionID/incorrect-sequences/:incorrectSequenceID/edit" />
+            <Route component={NewIncorrectSequenceContainer} path="/admin/questions/:questionID/incorrect-sequences/new" />
+            <Route component={IncorrectSequenceContainer} path="/admin/questions/:questionID/incorrect-sequences" />
           </Switch>
         </div>
       );

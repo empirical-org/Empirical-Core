@@ -185,7 +185,7 @@ class TeacherNavbar extends React.Component<any, any> {
           onMouseLeave={this.handleMouseLeaveTooltip}
           target="_blank"
         >
-          <img className={className} src={pdfIcon} />
+          <img alt="" className={className} src={pdfIcon} />
           {this.renderTooltip(PDF)}
         </a>
       )
@@ -430,7 +430,7 @@ class TeacherNavbar extends React.Component<any, any> {
               onMouseLeave={this.handleMouseLeaveTooltip}
               tabIndex={0}
             >
-              <img className={`flag-icon ${flagClass}`} src={flagIcon} />
+              <img alt="" className={`flag-icon ${flagClass}`} src={flagIcon} />
               {this.renderTooltip(FLAG)}
               {this.renderFlagDropdown()}
             </div>
@@ -439,7 +439,7 @@ class TeacherNavbar extends React.Component<any, any> {
               onMouseEnter={this.handleMouseEnterProjectorIcon}
               onMouseLeave={this.handleMouseLeaveTooltip}
             >
-              <img className={projectorClass} src={projectorIcon} />
+              <img alt="" className={projectorClass} src={projectorIcon} />
               {this.renderTooltip(PROJECTOR)}
             </div>
             <div
@@ -447,7 +447,7 @@ class TeacherNavbar extends React.Component<any, any> {
               onMouseEnter={this.handleMouseEnterWatchTeacherIcon}
               onMouseLeave={this.handleMouseLeaveTooltip}
             >
-              <img className={watchTeacherClass} src={watchTeacherIcon} />
+              <img alt="" className={watchTeacherClass} src={watchTeacherIcon} />
               {this.renderTooltip(WATCH_TEACHER)}
             </div>
             <div
@@ -455,7 +455,7 @@ class TeacherNavbar extends React.Component<any, any> {
               onMouseEnter={this.handleMouseEnterExitIcon}
               onMouseLeave={this.handleMouseLeaveTooltip}
             >
-              <img className={exitClass} src={exitIcon} />
+              <img alt="" className={exitClass} src={exitIcon} />
               {this.renderTooltip(EXIT)}
             </div>
             <div
@@ -465,7 +465,7 @@ class TeacherNavbar extends React.Component<any, any> {
               onMouseLeave={this.handleMouseLeaveTooltip}
               tabIndex={0}
             >
-              <img className={`help-icon ${helpClass}`} src={helpIcon} />
+              <img alt="" className={`help-icon ${helpClass}`} src={helpIcon} />
               {this.renderTooltip(HELP)}
               {this.renderHelpDropdown()}
             </div>

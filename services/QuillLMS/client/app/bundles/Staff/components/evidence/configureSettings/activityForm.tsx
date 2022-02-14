@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from 'react-router-dom';
 import { EditorState, ContentState } from 'draft-js';
+import * as _ from 'lodash'
 
 import PromptsForm from './promptsForm';
 
@@ -16,7 +17,6 @@ import {
   NOTES,
   SCORED_READING_LEVEL,
   TARGET_READING_LEVEL,
-  MAX_ATTEMPTS_FEEDBACK,
   PASSAGE,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
@@ -61,17 +61,33 @@ const RULE_TYPE_TO_NAME = {
   'rules-based-3': 'Typo Regex'
 }
 
+const MaxAttemptsEditor = ({ conjunction, prompt, handleSetPrompt, }) => {
+  function handleSetActivityMaxFeedback(text) {
+    handleSetPrompt(text, conjunction, 'max_attempts_feedback')
+  }
+
+  const maxAttemptStyle = prompt.max_attempts_feedback.length && prompt.max_attempts_feedback !== '<br/>' ? 'has-text' : '';
+
+  return (
+    <div>
+      <p className={`text-editor-label ${maxAttemptStyle}`}>{_.capitalize(conjunction)} - Max Attempts Feedback - Student Did Not Reach Optimal AutoML Label</p>
+      <TextEditor
+        ContentState={ContentState}
+        EditorState={EditorState}
+        handleTextChange={handleSetActivityMaxFeedback}
+        key="but-max-attempt-feedback"
+        shouldCheckSpelling={true}
+        text={prompt.max_attempts_feedback || MAX_ATTEMPTS_FEEDBACK_TEXT}
+      />
+    </div>
+  )
+}
+
 const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, submitActivity }: ActivityFormProps) => {
   const { id, parent_activity_id, invalid_highlights, passages, prompts, scored_level, target_level, title, notes, flag, } = activity;
   const formattedScoredLevel = scored_level || '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
   const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT, essential_knowledge_text: ESSENTIAL_KNOWLEDGE_TEXT_FILLER }];
-  let formattedMaxFeedback;
-  if(prompts && prompts[0] && prompts[0].max_attempts_feedback) {
-    formattedMaxFeedback = prompts[0].max_attempts_feedback
-  } else {
-    formattedMaxFeedback = MAX_ATTEMPTS_FEEDBACK_TEXT;
-  }
   const formattedPrompts = promptsByConjunction(prompts);
   const becausePrompt = formattedPrompts && formattedPrompts[BECAUSE] ? formattedPrompts[BECAUSE] : buildBlankPrompt(BECAUSE);
   const butPrompt = formattedPrompts && formattedPrompts[BUT] ? formattedPrompts[BUT] : buildBlankPrompt(BUT);
@@ -83,7 +99,6 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   const [activityScoredReadingLevel, setActivityScoredReadingLevel] = React.useState<string>(formattedScoredLevel);
   const [activityTargetReadingLevel, setActivityTargetReadingLevel] = React.useState<string>(formattedTargetLevel);
   const [activityPassages, setActivityPassages] = React.useState<PassagesInterface[]>(formattedPassage);
-  const [activityMaxFeedback, setActivityMaxFeedback] = React.useState<string>(formattedMaxFeedback)
   const [activityBecausePrompt, setActivityBecausePrompt] = React.useState<PromptInterface>(becausePrompt);
   const [activityButPrompt, setActivityButPrompt] = React.useState<PromptInterface>(butPrompt);
   const [activitySoPrompt, setActivitySoPrompt] = React.useState<PromptInterface>(soPrompt);
@@ -97,8 +112,6 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   function handleSetActivityTitle(e: InputEvent){ setActivityTitle(e.target.value) };
 
   function handleSetActivityNotes(e: InputEvent){ setActivityNotes(e.target.value) };
-
-  function handleSetActivityMaxFeedback(text: string){ setActivityMaxFeedback(text) };
 
   function handleSetActivityScoredReadingLevel(e: InputEvent){ setActivityScoredReadingLevel(e.target.value) };
 
@@ -124,11 +137,11 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
     setActivityPassages(updatedPassages)
   };
 
-  function handleSetPrompt (e: InputEvent, conjunction: string, key: string) {
+  function handleSetPrompt (text: string, conjunction: string, attribute: string) {
     const prompt = getActivityPrompt({ activityBecausePrompt, activityButPrompt, activitySoPrompt, conjunction });
     const updatePrompt = getActivityPromptSetter({ setActivityBecausePrompt, setActivityButPrompt, setActivitySoPrompt, conjunction});
     if(prompt && updatePrompt) {
-      prompt[key] = e.target.value;
+      prompt[attribute] = text;
       updatePrompt(prompt);
     }
   }
@@ -142,7 +155,6 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
       activityTargetReadingLevel,
       activityParentActivityId: parent_activity_id,
       activityPassages,
-      activityMaxFeedback,
       activityBecausePrompt,
       activityButPrompt,
       activitySoPrompt,
@@ -155,7 +167,6 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
       activityScoredReadingLevel,
       activityTargetReadingLevel,
       activityPassages[0].text,
-      activityMaxFeedback,
       activityBecausePrompt.text,
       activityButPrompt.text,
       activitySoPrompt.text,
@@ -179,7 +190,6 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   const showErrorsContainer = formErrorsPresent || requestErrorsPresent;
   const passageLabelStyle = activityPassages[0].text.length  && activityPassages[0].text !== '<br/>' ? 'has-text' : '';
   const imageAttributionStyle = activityPassages[0].image_attribution  && activityPassages[0].image_attribution !== '<br/>' ? 'has-text' : '';
-  const maxAttemptStyle = activityMaxFeedback.length && activityMaxFeedback !== '<br/>' ? 'has-text' : '';
   const essentialKnowledgeStyle = activityPassages[0].essential_knowledge_text && activityPassages[0].essential_knowledge_text !== '<br/>' ? 'has-text' : '';
   const imageAttributionGuideLink = 'https://www.notion.so/quill/Activity-Images-9bc3993400da46a6af445a8a0d2d9d3f#11e9a01b071e41bc954e1182d56e93e8';
   const invalidHighlightsPresent = (invalid_highlights && invalid_highlights.length > 0)
@@ -282,6 +292,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
         <p className={`text-editor-label ${imageAttributionStyle}`} id="image-attribution-label"> Image Attribution</p>
         <a className="data-link image-attribution-guide-link" href={imageAttributionGuideLink} rel="noopener noreferrer" target="_blank">Image Atributtion Guide</a>
         <textarea
+          aria-labelledby="image-attribution-label"
           className="image-attribution-text-area"
           onChange={handleSetImageAttribution}
           value={activityPassages[0].image_attribution}
@@ -302,16 +313,21 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
           />
         </div>
         {errors[PASSAGE] && <p className="error-message">{errors[PASSAGE]}</p>}
-        <p className={`text-editor-label ${maxAttemptStyle}`}>Max Attempts Feedback - Student Did Not Reach Optimal AutoML Label</p>
-        <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
-          handleTextChange={handleSetActivityMaxFeedback}
-          key="max-attempt-feedback"
-          shouldCheckSpelling={true}
-          text={activityMaxFeedback}
+        <MaxAttemptsEditor
+          conjunction={BECAUSE}
+          handleSetPrompt={handleSetPrompt}
+          prompt={activityBecausePrompt}
         />
-        {errors[MAX_ATTEMPTS_FEEDBACK] && <p className="error-message">{errors[MAX_ATTEMPTS_FEEDBACK]}</p>}
+        <MaxAttemptsEditor
+          conjunction={BUT}
+          handleSetPrompt={handleSetPrompt}
+          prompt={activityButPrompt}
+        />
+        <MaxAttemptsEditor
+          conjunction={SO}
+          handleSetPrompt={handleSetPrompt}
+          prompt={activitySoPrompt}
+        />
         <Input
           className="highlight-prompt-input"
           error={errors[HIGHLIGHT_PROMPT]}

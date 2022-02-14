@@ -5,8 +5,8 @@ const NameAndSampleQuestionModal: React.SFC<any> = (props) => {
     <div className="name-and-sample-question-modal-container">
       <div className="name-and-sample-question-modal-background" />
       <div className="name-and-sample-question-modal">
-        <img className="exit" onClick={props.closeEditModal} src="https://assets.quill.org/images/icons/CloseIcon.svg" />
-        <img className="illustration" src="https://assets.quill.org/images/illustrations/edition-published.svg" />
+        <img alt="" className="exit" onClick={props.closeEditModal} src="https://assets.quill.org/images/icons/CloseIcon.svg" />
+        <img alt="" className="illustration" src="https://assets.quill.org/images/illustrations/edition-published.svg" />
         <h1>Edit Edition Name and Sample Question</h1>
         <p className="explanation">The name and sample question of the edition will help you identify this customized edition before you launch the lesson.</p>
         <div className="fields">

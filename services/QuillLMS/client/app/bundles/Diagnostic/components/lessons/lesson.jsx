@@ -102,7 +102,7 @@ class Lesson extends React.Component {
       const numberOfQuestions = data[lessonID].questions ? data[lessonID].questions.length : 0;
       return (
         <div>
-          <Link to={'/admin/lessons'}>Return to All Activities</Link>
+          <Link to="/admin/lessons">Return to All Activities</Link>
           <br />
           {this.renderEditLessonForm()}
           <h4 className="title">{data[lessonID].name}</h4>

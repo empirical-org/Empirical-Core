@@ -96,7 +96,7 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
     const presence = this.props.classroomSessions.data.presence
     const numPresent = presence === undefined ? 0 : Object.keys(presence).filter((id) => presence[id] === true ).length
     return (
-      <div className="present-students"><img src={studentIcon} /><span> {numPresent} Student{numPresent === 1 ? '': 's'} Viewing</span></div>
+      <div className="present-students"><img alt="" src={studentIcon} /><span> {numPresent} Student{numPresent === 1 ? '': 's'} Viewing</span></div>
     )
   }
 

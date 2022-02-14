@@ -11,20 +11,20 @@ interface PromptsFormProps {
   activityButPrompt: PromptInterface;
   activitySoPrompt: PromptInterface;
   errors: any;
-  handleSetPrompt: (e: InputEvent, conjunction: string, key: string) => void;
+  handleSetPrompt: (text: string, conjunction: string, attribute: string) => void;
 }
 
 const PromptsForm = ({ activityBecausePrompt, activityButPrompt, activitySoPrompt, errors, handleSetPrompt }: PromptsFormProps) => {
 
-  function handleSetBecausePromptText (e: InputEvent) { handleSetPrompt(e, C.BECAUSE, C.TEXT) }
-  function handleSetBecausePromptFirstStrongExample (e: InputEvent) { handleSetPrompt(e, C.BECAUSE, C.FIRST_STRONG_EXAMPLE) }
-  function handleSetBecausePromptSecondStrongExample (e: InputEvent) { handleSetPrompt(e, C.BECAUSE, C.SECOND_STRONG_EXAMPLE) }
-  function handleSetButPromptText (e: InputEvent) { handleSetPrompt(e, C.BUT, C.TEXT) }
-  function handleSetButPromptFirstStrongExample (e: InputEvent) { handleSetPrompt(e, C.BUT, C.FIRST_STRONG_EXAMPLE) }
-  function handleSetButPromptSecondStrongExample (e: InputEvent) { handleSetPrompt(e, C.BUT, C.SECOND_STRONG_EXAMPLE) }
-  function handleSetSoPromptText (e: InputEvent) { handleSetPrompt(e, C.SO, C.TEXT) }
-  function handleSetSoPromptFirstStrongExample (e: InputEvent) { handleSetPrompt(e, C.SO, C.FIRST_STRONG_EXAMPLE) }
-  function handleSetSoPromptSecondStrongExample (e: InputEvent) { handleSetPrompt(e, C.SO, C.SECOND_STRONG_EXAMPLE) }
+  function handleSetBecausePromptText (e: InputEvent) { handleSetPrompt(e.target.value, C.BECAUSE, C.TEXT) }
+  function handleSetBecausePromptFirstStrongExample (e: InputEvent) { handleSetPrompt(e.target.value, C.BECAUSE, C.FIRST_STRONG_EXAMPLE) }
+  function handleSetBecausePromptSecondStrongExample (e: InputEvent) { handleSetPrompt(e.target.value, C.BECAUSE, C.SECOND_STRONG_EXAMPLE) }
+  function handleSetButPromptText (e: InputEvent) { handleSetPrompt(e.target.value, C.BUT, C.TEXT) }
+  function handleSetButPromptFirstStrongExample (e: InputEvent) { handleSetPrompt(e.target.value, C.BUT, C.FIRST_STRONG_EXAMPLE) }
+  function handleSetButPromptSecondStrongExample (e: InputEvent) { handleSetPrompt(e.target.value, C.BUT, C.SECOND_STRONG_EXAMPLE) }
+  function handleSetSoPromptText (e: InputEvent) { handleSetPrompt(e.target.value, C.SO, C.TEXT) }
+  function handleSetSoPromptFirstStrongExample (e: InputEvent) { handleSetPrompt(e.target.value, C.SO, C.FIRST_STRONG_EXAMPLE) }
+  function handleSetSoPromptSecondStrongExample (e: InputEvent) { handleSetPrompt(e.target.value, C.SO, C.SECOND_STRONG_EXAMPLE) }
 
   return(
     <React.Fragment>

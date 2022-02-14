@@ -60,14 +60,14 @@ class ChooseModelContainer extends Component {
     return(
       <p className="control">
         <button
-          className={'button is-primary'}
+          className="button is-primary"
           disabled={modelConceptUID === data[questionID].modelConceptUID}
           onClick={this.saveModelConcept}
         >
           Save Model Concept
         </button>
         <button
-          className={'button is-outlined is-info'}
+          className="button is-outlined is-info"
           onClick={() => window.history.back()}
           style={{marginLeft: 5}}
         >

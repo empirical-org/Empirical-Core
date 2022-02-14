@@ -38,10 +38,10 @@ describe('PromptsForm component', () => {
   it('should call handleSetPrompt when user types in input fields for because, but and so stems', () => {
     const e = { target: { value: 'test change' } };
     container.find('Input').get(0).props.handleChange(e)
-    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e, BECAUSE);
+    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e.target.value, BECAUSE, 'text');
     container.find('Input').get(1).props.handleChange(e, BUT)
-    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e, BUT);
+    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e.target.value, BUT, 'text');
     container.find('Input').get(2).props.handleChange(e, SO)
-    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e, SO);
+    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e.target.value, SO, 'text');
   });
 });
