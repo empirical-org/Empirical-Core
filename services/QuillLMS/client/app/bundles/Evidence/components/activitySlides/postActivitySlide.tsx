@@ -13,34 +13,7 @@ interface PostActivitySlideProps {
   responses: any
 }
 
-const responses = {
-  1: [
-    {
-      entry: "A surge barrier in New York City could harm the local ecosystem because this is a test response ."
-    },
-    {
-      entry: "A surge barrier in New York City could harm the local ecosystem because this is a test response."
-    }
-  ],
-  2: [
-    {
-      entry: "A surge barrier in New York City could harm the local ecosystem, but this is a test response."
-    }
-  ],
-  3: [
-    {
-      entry: "A surge barrier in New York City could harm the local ecosystem, so this is a shit response."
-    },
-    {
-      entry: "A surge barrier in New York City could harm the local ecosystem, so this is a shit response ."
-    },
-    {
-      entry: "A surge barrier in New York City could harm the local ecosystem, so this is a shirt response."
-    }
-  ]
-}
-
-export const PostActivitySlide = ({ handleClick, prompts }: PostActivitySlideProps) => {
+export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActivitySlideProps) => {
 
   function getStrongExemplar(conjunction: string, property: string) {
     const prompt = prompts.filter(prompt => prompt.conjunction === conjunction)[0];
@@ -103,7 +76,7 @@ export const PostActivitySlide = ({ handleClick, prompts }: PostActivitySlidePro
   return(
     <div className="post-activity-slide-container">
       <section id="information-section">
-      <img alt="An illustration of a party popper" id="celebration-vector" src={`${process.env.CDN_URL}/images/evidence/party-celebration.svg`} />
+        <img alt="An illustration of a party popper" id="celebration-vector" src={`${process.env.CDN_URL}/images/evidence/party-celebration.svg`} />
         <p id="revision-text">{getRevisionCopy()}</p>
         <p className="slide-sub-text" id="second-sub-text">Revising is a sign of being a thoughtful writer. Be proud of the work you did today, and celebrate your success!</p>
         <section id="reminder-badge-section">
