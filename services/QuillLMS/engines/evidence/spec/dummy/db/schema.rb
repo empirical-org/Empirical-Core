@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220105145314) do
+ActiveRecord::Schema.define(version: 20220201131639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20220105145314) do
     t.string "highlight_prompt"
     t.text "image_caption", default: ""
     t.text "image_attribution", default: ""
+    t.string "essential_knowledge_text", default: ""
     t.index ["activity_id"], name: "index_comprehension_passages_on_activity_id"
   end
 
@@ -172,6 +173,16 @@ ActiveRecord::Schema.define(version: 20220105145314) do
     t.datetime "updated_at", null: false
     t.index ["activity_id"], name: "index_comprehension_turking_rounds_on_activity_id"
     t.index ["uuid"], name: "index_comprehension_turking_rounds_on_uuid", unique: true
+  end
+
+  create_table "evidence_hints", force: :cascade do |t|
+    t.string "explanation", null: false
+    t.string "image_link", null: false
+    t.string "image_alt_text", null: false
+    t.bigint "rule_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rule_id"], name: "index_evidence_hints_on_rule_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

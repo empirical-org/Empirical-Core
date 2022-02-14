@@ -75,6 +75,10 @@ exports[`RuleForm component should render RuleForm 1`] = `
       rulePromptsDisabled={false}
       setRulePrompts={[Function]}
     />
+    <RuleHint
+      errors={Object {}}
+      setHint={[Function]}
+    />
     <div
       className="submit-button-container"
     >

@@ -38,7 +38,7 @@ module Evidence
         AutomlModel.stub_any_instance(:fetch_automl_label, label.name) do
           entry = "entry"
           automl_check = Evidence::AutomlCheck.new(entry, prompt)
-          expect(:feedback => feedback.text, :feedback_type => "autoML", :optimal => rule.optimal, :response_id => "", :entry => entry, :concept_uid => ((rule&.concept_uid or "")), :rule_uid => (rule&.uid), :highlight => ([])).to(eq(automl_check.feedback_object))
+          expect(:feedback => feedback.text, :feedback_type => "autoML", :optimal => rule.optimal, :response_id => "", :entry => entry, :concept_uid => ((rule&.concept_uid or "")), :rule_uid => (rule&.uid), :highlight => ([]), :hint => nil).to(eq(automl_check.feedback_object))
         end
       end
 
@@ -49,6 +49,15 @@ module Evidence
           expect([{ :type => highlight.highlight_type, :text => highlight.text, :category => "" }]).to(eq(automl_check.feedback_object[:highlight]))
         end
       end
+
+      it 'should include hint data when there is an associated hint' do
+        AutomlModel.stub_any_instance(:fetch_automl_label, label.name) do
+          hint = create(:evidence_hint, :rule => (rule))
+          automl_check = Evidence::AutomlCheck.new("whatever", prompt)
+          expect(hint).to(eq(automl_check.feedback_object[:hint]))
+        end
+      end
+
     end
   end
 end
