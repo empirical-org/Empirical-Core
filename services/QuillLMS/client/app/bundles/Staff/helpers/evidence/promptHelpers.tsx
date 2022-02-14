@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import {
   promptStems,
   DEFAULT_MAX_ATTEMPTS,
@@ -35,7 +36,7 @@ export const buildBlankPrompt = (conjunction: string) => {
     conjunction: conjunction,
     text: '',
     max_attempts: DEFAULT_MAX_ATTEMPTS,
-    max_attempts_feedback: ''
+    max_attempts_feedback: MAX_ATTEMPTS_FEEDBACK_TEXT
   }
 }
 
