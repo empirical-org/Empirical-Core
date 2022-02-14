@@ -32,6 +32,7 @@ export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActiv
 
   function getResponse(conjunction: string) {
     const responses = getResponsesForConjunction(conjunction)
+    if(!responses) { return }
     const lastResponseText = responses[responses.length - 1].entry;
     const splitResponse = lastResponseText.split(conjunction);
     return <p>{splitResponse[0]}<u>{conjunction}</u>{splitResponse[1]}</p>
