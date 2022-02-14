@@ -99,19 +99,22 @@ const StepOverview = ({ activeStep, handleClick, }) => {
       <h1>Nice! Keep going!</h1>
       <Step
         active={false}
-        completed={true}
+        completed={activeStep > READ_PASSAGE_STEP_NUMBER}
         step={steps[READ_PASSAGE_STEP_NUMBER]}
       />
       <Step
         active={activeStep === BECAUSE_PASSAGE_STEP_NUMBER}
+        completed={activeStep > BECAUSE_PASSAGE_STEP_NUMBER}
         step={steps[BECAUSE_PASSAGE_STEP_NUMBER]}
       />
       <Step
         active={activeStep === BUT_PASSAGE_STEP_NUMBER}
+        completed={activeStep > BUT_PASSAGE_STEP_NUMBER}
         step={steps[BUT_PASSAGE_STEP_NUMBER]}
       />
       <Step
         active={activeStep === SO_PASSAGE_STEP_NUMBER}
+        completed={activeStep > SO_PASSAGE_STEP_NUMBER}
         step={steps[SO_PASSAGE_STEP_NUMBER]}
       />
     </div>
