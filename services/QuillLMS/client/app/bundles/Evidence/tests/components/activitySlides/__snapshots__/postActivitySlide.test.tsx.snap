@@ -15,7 +15,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
     <p
       id="revision-text"
     >
-      You completed the activity with 3 revisions!
+      You completed the activity with 0 revisions!
     </p>
     <p
       className="slide-sub-text"
@@ -83,11 +83,10 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           className="response-box"
         >
           <p>
-            A surge barrier in New York City could harm the local ecosystem 
+            test1
             <u>
               because
             </u>
-             this is a test response.
           </p>
         </section>
       </section>
@@ -144,11 +143,10 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           className="response-box"
         >
           <p>
-            A surge barrier in New York City could harm the local ecosystem, 
+            test2
             <u>
               but
             </u>
-             this is a test response.
           </p>
         </section>
       </section>
@@ -205,11 +203,10 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           className="response-box"
         >
           <p>
-            A surge barrier in New York City could harm the local ecosystem, 
+            test3
             <u>
               so
             </u>
-             this is a shirt response.
           </p>
         </section>
       </section>
