@@ -15,13 +15,13 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
     <p
       id="revision-text"
     >
-      You completed the activity with 0 revisions!
+      You have completed the activity!
     </p>
     <p
       className="slide-sub-text"
       id="second-sub-text"
     >
-      Revising is a sign of being a thoughtful writer. Be proud of the work you did today, and celebrate your success!
+      Be proud of the work you did today, and celebrate your success! This practice will help you grow as a reader and a writer. The more you practice, the stronger your critical thinking, reading, and writing skills will be.
     </p>
     <section
       id="reminder-badge-section"
@@ -56,12 +56,12 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
       <p
         className="sub-header-text"
       >
-        Review the other responses.
+        Reflect on your work.
       </p>
       <p
         className="sub-header-subtext"
       >
-        How is your response similar or different from these responses?
+        There are many different ways to use evidence in your writing. Consider how your responses compare to the strong examples. In what ways are they similar or different? Notice the ideas, the phrasing, and the tone of voice, and think about how you could use because, but, and so in your future writing.
       </p>
     </section>
     <section
@@ -76,7 +76,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p
             className="sub-header-text"
           >
-            You wrote
+            Your response
           </p>
         </div>
         <section
@@ -85,7 +85,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p>
             test1
             <u>
-              because
+              because undefined
             </u>
           </p>
         </section>
@@ -99,7 +99,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p
             className="sub-header-text"
           >
-            Example Responses
+            Example strong responses
           </p>
         </div>
         <section
@@ -108,7 +108,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p>
             test
             <u>
-              because
+              because undefined
             </u>
           </p>
         </section>
@@ -118,7 +118,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p>
             test
             <u>
-              because
+              because undefined
             </u>
           </p>
         </section>
@@ -136,7 +136,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p
             className="sub-header-text"
           >
-            You wrote
+            Your response
           </p>
         </div>
         <section
@@ -145,7 +145,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p>
             test2
             <u>
-              but
+              but undefined
             </u>
           </p>
         </section>
@@ -159,7 +159,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p
             className="sub-header-text"
           >
-            Example Responses
+            Example strong responses
           </p>
         </div>
         <section
@@ -168,7 +168,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p>
             test
             <u>
-              but
+              but undefined
             </u>
           </p>
         </section>
@@ -178,7 +178,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p>
             test
             <u>
-              but
+              but undefined
             </u>
           </p>
         </section>
@@ -196,7 +196,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p
             className="sub-header-text"
           >
-            You wrote
+            Your response
           </p>
         </div>
         <section
@@ -205,7 +205,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p>
             test3
             <u>
-              so
+              so undefined
             </u>
           </p>
         </section>
@@ -219,7 +219,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p
             className="sub-header-text"
           >
-            Example Responses
+            Example strong responses
           </p>
         </div>
         <section
@@ -228,7 +228,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p>
             test
             <u>
-              so
+              so undefined
             </u>
           </p>
         </section>
@@ -238,7 +238,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p>
             test
             <u>
-              so
+              so undefined
             </u>
           </p>
         </section>
