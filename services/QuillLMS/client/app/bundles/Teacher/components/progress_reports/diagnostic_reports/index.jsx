@@ -151,7 +151,7 @@ class DiagnosticReports extends React.Component {
             buttonGroupCallback={this.changeReport}
             classrooms={this.state.classrooms}
             dropdownCallback={this.changeClassroom}
-            key={'key'}
+            key="key"
             params={params}
             selectedActivity={this.state.selectedActivity}
             selectedStudentId={params.studentId}

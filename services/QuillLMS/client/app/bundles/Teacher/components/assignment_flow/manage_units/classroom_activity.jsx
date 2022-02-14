@@ -78,7 +78,7 @@ export default class ClassroomActivity extends React.Component {
     } else if (nonRelevantActivityClassificationIds.includes(data.activityClassificationId)) {
       return (
         <Tooltip
-          tooltipText={`This type of activity is not graded.`}
+          tooltipText="This type of activity is not graded."
           tooltipTriggerText="N/A"
         />
       )
@@ -111,7 +111,7 @@ export default class ClassroomActivity extends React.Component {
     const { report, data, } = this.props
     if (!report && !(this.isLesson())) {
       const style = !data.ownedByCurrentUser ? { visibility: 'hidden', } : null;
-      return <div className="pull-right" style={style}><img className="delete-classroom-activity h-pointer" onClick={this.handleHideUnitActivityClick} src="/images/x.svg" /></div>;
+      return <div className="pull-right" style={style}><img alt="" className="delete-classroom-activity h-pointer" onClick={this.handleHideUnitActivityClick} src="/images/x.svg" /></div>;
     }
   }
 
@@ -128,7 +128,7 @@ export default class ClassroomActivity extends React.Component {
       return [
         <span className="number-of-students" key="number-of-students">{this.renderPieChart()} {data.completedCount} of {numberOfStudentsAssignedToUnit} {Pluralize('student', numberOfStudentsAssignedToUnit)}</span>,
         <span className="average-score" key="average-score">{this.calculateAverageScore()}</span>,
-        <img className="chevron-right" key="chevron-right" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
+        <img alt="" className="chevron-right" key="chevron-right" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
       ];
     } else if (report) {
       /* eslint-disable react/jsx-no-target-blank */
@@ -221,7 +221,7 @@ export default class ClassroomActivity extends React.Component {
       onMouseLeave={this.handleMouseActionOnSupportingInfo}
       target="_blank"
     >
-      <img src="https://assets.quill.org/images/icons/download-lesson-plan-green-icon.svg" />
+      <img alt="" src="https://assets.quill.org/images/icons/download-lesson-plan-green-icon.svg" />
       {this.renderLessonPlanTooltip()}
     </a>)
     /* eslint-enable react/jsx-no-target-blank */

@@ -34,7 +34,7 @@ const ScorebookFilters = (
         <DropdownFilter
           icon="fa-users"
           options={classroomFilters}
-          placeholder={'Select a Classroom'}
+          placeholder="Select a Classroom"
           selectedOption={selectedClassroom}
           selectOption={selectClassroom}
         />

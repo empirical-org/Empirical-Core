@@ -67,7 +67,7 @@ class Concept extends React.Component {
     if (this.getConcept()) {
       return (
         <div className="admin-container">
-          <Link to={'/admin/concepts'}>Return to All Concepts</Link>
+          <Link to="/admin/concepts">Return to All Concepts</Link>
           <h4 className="title">{this.getConcept().displayName}</h4>
           <h6 className="subtitle">{this.questionsForConcept().length} Questions</h6>
           {this.renderNewQuestionForm()}

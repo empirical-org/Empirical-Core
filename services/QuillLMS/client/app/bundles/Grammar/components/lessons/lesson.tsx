@@ -178,7 +178,7 @@ class Lesson extends React.Component<LessonProps> {
     if (data && lessonID && data[lessonID]) {
       return (
         <div>
-          <Link to={'/admin/lessons'}>Return to All Activities</Link>
+          <Link to="/admin/lessons">Return to All Activities</Link>
           <br />
           {this.renderEditLessonForm()}
           <h4 className="title">{data[lessonID].title}</h4>

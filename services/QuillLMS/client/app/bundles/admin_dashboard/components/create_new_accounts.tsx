@@ -32,7 +32,7 @@ class CreateNewAccounts extends React.Component<any, any> {
   schoolsList = () => {
     const { schools, } = this.props
     return schools.map(school =>
-      <div className="school" key={school.id}><img src="https://assets.quill.org/images/icons/school_icon_admin.svg" />{school.name}</div>
+      <div className="school" key={school.id}><img alt="" src="https://assets.quill.org/images/icons/school_icon_admin.svg" />{school.name}</div>
     )
   }
 

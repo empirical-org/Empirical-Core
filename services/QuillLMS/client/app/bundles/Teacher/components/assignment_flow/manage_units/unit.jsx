@@ -49,7 +49,7 @@ export default class Unit extends React.Component {
     if (!this.props.report && !this.props.lesson && ownedByCurrentUser) {
       return <span className="delete-unit" onClick={this.hideUnit}>Delete</span>;
     } else if (!ownedByCurrentUser) {
-      return <span className="locked-unit">   <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg"  />Created By {firstCa.ownerName}</span>;
+      return <span className="locked-unit">   <img alt="" src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg"  />Created By {firstCa.ownerName}</span>;
     }
   };
 

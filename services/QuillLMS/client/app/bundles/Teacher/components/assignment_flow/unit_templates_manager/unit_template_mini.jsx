@@ -52,7 +52,7 @@ export default class UnitTemplateMini extends React.Component {
         <a href={this.getLink()}>
           <div className='text-center create-your-own'>
             <div className='content-wrapper'>
-              <img className='plus_icon' src='/add_class.png' />
+              <img alt="" className='plus_icon' src='/add_class.png' />
               <h3>Create Your Own Activity Pack</h3>
               <h5 style={{paddingTop: '5px'}}>Select from over 150 grammar exercises.</h5>
             </div>

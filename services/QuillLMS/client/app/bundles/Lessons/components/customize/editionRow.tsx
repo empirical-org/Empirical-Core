@@ -80,10 +80,10 @@ class EditionRow extends React.Component<AppProps, EditionRowState> {
   renderDropdown() {
     const dropdownClass = this.state.showDropdown ? '' : 'hidden'
     let options
-    const makeCopy = <div className="option" key="new" onClick={this.makeNewEdition}><img src={MakeCopy} />Make Copy</div>
+    const makeCopy = <div className="option" key="new" onClick={this.makeNewEdition}><img alt="" src={MakeCopy} />Make Copy</div>
     if (this.props.creator === 'user') {
-      const editEdition = <div className="option" key="edit" onClick={this.editEdition}><img src={EditEdition} />Edit Edition</div>
-      const archiveEdition = <div className="option" key="archive" onClick={this.archiveEdition}><img src={DeleteEdition} />Delete Edition</div>
+      const editEdition = <div className="option" key="edit" onClick={this.editEdition}><img alt="" src={EditEdition} />Edit Edition</div>
+      const archiveEdition = <div className="option" key="archive" onClick={this.archiveEdition}><img alt="" src={DeleteEdition} />Delete Edition</div>
       options = [makeCopy, editEdition, archiveEdition]
     } else {
       options = [makeCopy]

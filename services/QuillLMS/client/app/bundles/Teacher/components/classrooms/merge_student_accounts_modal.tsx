@@ -132,7 +132,7 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
           </div>
           <p>Please select the account that you'd like the student to use going forward as the primary account.</p>
           <div className="swap" onClick={this.swapAccounts}>
-            <img src={swapVerticalSrc} />
+            <img alt="" src={swapVerticalSrc} />
             <span>Swap accounts</span>
           </div>
           <DropdownInput

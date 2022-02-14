@@ -73,7 +73,7 @@ export default class extends React.Component {
           <h3>{mini.title}</h3>
           {premium}
           <div className="img-wrapper">
-            <img src={mini.img} />
+            <img alt="" src={mini.img} />
           </div>
           <p style={mini.pStyle ? mini.pStyle : {}}>{mini.bodyText}</p>
         </a>
