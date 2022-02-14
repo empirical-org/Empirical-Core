@@ -23,7 +23,7 @@ export default class DropdownSeletor extends React.Component {
     return (
       <div className='dropdown-select-and-label'>
         <h3 className='dropdown-select-label'>{this.props.label}</h3>
-        <select onChange={this.select} ref={'select'} value={this.props.defaultValue}>
+        <select onChange={this.select} ref="select" value={this.props.defaultValue}>
           {options}
         </select>
       </div>

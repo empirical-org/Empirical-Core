@@ -88,9 +88,9 @@ export default class StandardsByClassroomProgressReport extends React.Component 
     return (
       <ProgressReport
         columnDefinitions={this.columnDefinitions}
-        exportCsv={'standards_classroom_standards'}
+        exportCsv="standards_classroom_standards"
         filterTypes={['unit']}
-        jsonResultsKey={'standards'}
+        jsonResultsKey="standards"
         onFetchSuccess={this.onFetchSuccess}
         pagination={false}
         sortDefinitions={this.sortDefinitions}

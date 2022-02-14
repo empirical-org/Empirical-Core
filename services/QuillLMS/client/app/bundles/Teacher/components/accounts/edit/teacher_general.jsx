@@ -169,7 +169,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
         <Input
           className="email google-or-clever"
           disabled={true}
-          helperText={'Unlink your Google account below to change your email.'}
+          helperText="Unlink your Google account below to change your email."
           label="Email"
           type="text"
           value={email}
@@ -180,7 +180,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
         <Input
           className="email google-or-clever"
           disabled={true}
-          helperText={'Unlink your Clever account below to change your email.'}
+          helperText="Unlink your Clever account below to change your email."
           label="Email"
           type="text"
           value={email}

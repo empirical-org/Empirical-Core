@@ -166,7 +166,7 @@ export default class extends React.Component {
               ContentState={ContentState}
               EditorState={EditorState}
               handleTextChange={this.handleFeedbackChange}
-              key={"feedback"}
+              key="feedback"
               text={this.state.itemFeedback || ""}
             />
             <label className="label" style={{ marginTop: 10, }}>Concepts</label>
@@ -177,8 +177,8 @@ export default class extends React.Component {
             </p>
           </div>
           <p className="control">
-            <button className={'button is-primary '} onClick={() => this.submit(this.props.item ? this.props.item.id : null)}>Submit</button>
-            <button className={'button is-outlined is-info'} onClick={() => window.history.back()} style={{ marginLeft: 5, }}>Cancel</button>
+            <button className="button is-primary " onClick={() => this.submit(this.props.item ? this.props.item.id : null)}>Submit</button>
+            <button className="button is-outlined is-info" onClick={() => window.history.back()} style={{ marginLeft: 5, }}>Cancel</button>
           </p>
         </div>
         <div>

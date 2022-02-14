@@ -6,7 +6,7 @@ import $ from 'jquery';
 export default class DropdownFilter extends React.Component {
   getFilterOptions = () => {
     return (
-      <ul className="dropdown-menu" role="menu">
+      <ul className="dropdown-menu">
         {_.map(this.props.options, function (option, i) {
           return <DropdownFilterOption key={i} name={option.name} selectOption={this.handleSelect} value={option.value} />;
         }, this)}

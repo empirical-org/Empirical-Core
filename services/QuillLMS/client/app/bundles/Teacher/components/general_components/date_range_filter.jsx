@@ -44,8 +44,8 @@ export default class  DateRangeFilter extends React.Component {
         endDate={this.props.endDate}
         focusedInput={this.state.focusedInput}
         isOutsideRange={day => {return false}}
-        navNext={'›'}
-        navPrev={'‹'}
+        navNext="›"
+        navPrev="‹"
         numberOfMonths={1}
         onDatesChange={({ startDate, endDate }) => this.props.selectDates(startDate, endDate, null)}
         onFocusChange={focusedInput => this.setState({ focusedInput })}

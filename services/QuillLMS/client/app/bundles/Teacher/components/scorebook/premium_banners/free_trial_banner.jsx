@@ -20,7 +20,7 @@ export default class FreeTrialBanner extends React.Component {
     const { trialStarted, } = this.state
 
     if (trialStarted) {
-      return (<NewSignUpBanner status={'trial'} />);
+      return (<NewSignUpBanner status="trial" />);
     }
     return (
       <div className="row free-trial-promo">
