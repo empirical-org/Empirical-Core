@@ -8,6 +8,7 @@ const loopSrc = `${process.env.CDN_URL}/images/icons/loop.svg`
 const smallCheckCircleSrc = `${process.env.CDN_URL}/images/icons/check-circle-small.svg`
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/clear-enabled.svg`
 const informationSrc = `${process.env.CDN_URL}/images/pages/evidence/icons-information-small.svg`
+const lightbulbSrc = `${process.env.CDN_URL}/images/pages/evidence/icons-lightbulb-small.svg`
 
 const reportAProblemOptions = (optimal) => ([
   "I don't think this feedback applies to what I wrote",
@@ -118,6 +119,22 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
     )
   }
 
+  let hintSection
+
+  if (lastSubmittedResponse.hint && lastSubmittedResponse.hint.id) {
+    const { explanation, image_alt_text, image_link, } = lastSubmittedResponse.hint
+    hintSection = (
+      <div className="hint">
+        <div className="label-section">
+          <img alt="Lightbulb icon" src={lightbulbSrc} />
+          <p>Hint</p>
+        </div>
+        <div dangerouslySetInnerHTML={{ __html: explanation }} />
+        <img alt={image_alt_text} src={image_link} />
+      </div>
+    )
+  }
+
   return (
     <div className={`feedback-section ${reportAProblemExpanded ? 'expanded' : ''}`}>
       <ReactCSSTransitionReplace
@@ -137,7 +154,7 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
           {reportAProblemSection}
         </React.Fragment>
       </ReactCSSTransitionReplace>
-      {headsUpSection}
+      {headsUpSection || hintSection}
     </div>
   )
 }

@@ -202,7 +202,7 @@ export const getFeedback = (args: GetFeedbackArguments) => {
     }));
 
     request.post(requestObject, (e, r, body) => {
-      const { concept_uid, feedback, feedback_type, optimal, response_id, highlight, labels, } = body
+      const { concept_uid, feedback, feedback_type, optimal, response_id, highlight, labels, hint, } = body
       const feedbackObj: FeedbackObject = {
         concept_uid,
         entry,
@@ -211,13 +211,15 @@ export const getFeedback = (args: GetFeedbackArguments) => {
         optimal,
         response_id,
         highlight,
-        labels
+        labels,
+        hint,
       }
       dispatch({ type: ActionTypes.RECORD_FEEDBACK, promptID, feedbackObj });
       dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_FEEDBACK_RECEIVED, {
         activityID: activityUID,
         attemptNumber: attempt,
         promptID,
+        hint,
         promptStemText: promptText,
         returnedFeedback: feedbackObj.feedback,
         returnedFeedbackID: feedbackObj.response_id,

@@ -28,8 +28,10 @@ const RightPanel = ({
   scrolledToEndOfPassage,
   session,
   showReadTheDirectionsButton,
+  showStepsSummary,
   studentHighlights,
   submitResponse,
+  toggleShowStepsSummary,
   toggleStudentHighlight,
 }) => {
 
@@ -45,7 +47,9 @@ const RightPanel = ({
     inReflection={doneHighlighting && activeStep === READ_PASSAGE_STEP}
     scrolledToEndOfPassage={scrolledToEndOfPassage}
     showReadTheDirectionsButton={showReadTheDirectionsButton}
+    showStepsSummary={showStepsSummary}
     studentHighlights={studentHighlights}
+    toggleShowStepsSummary={toggleShowStepsSummary}
   />)
 
   if (!hasStartedReadPassageStep) {
@@ -76,6 +80,18 @@ const RightPanel = ({
   }
 
   if (!hasStartedPromptSteps) {
+    return (
+      <div className="steps-outer-container step-overview-container" onScroll={resetTimers}>
+        <StepOverview
+          activeStep={activeStep}
+          handleClick={onStartPromptSteps}
+        />
+        {bottomNavigation}
+      </div>
+    )
+  }
+
+  if (showStepsSummary) {
     return (
       <div className="steps-outer-container step-overview-container" onScroll={resetTimers}>
         <StepOverview

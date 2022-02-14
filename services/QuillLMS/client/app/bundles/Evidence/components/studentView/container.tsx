@@ -21,7 +21,7 @@ import getParameterByName from '../../helpers/getParameterByName';
 import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted, getStrippedPassageHighlights } from '../../helpers/containerActionHelpers';
 import { renderReadPassageContainer, renderDirections} from '../../helpers/containerRenderHelpers';
 import { postTurkSession } from '../../utils/turkAPI';
-import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE } from '../../../Shared/index'
+import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE, READ_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER } from '../../../Shared/index'
 
 interface StudentViewContainerProps {
   dispatch: Function;
@@ -49,13 +49,12 @@ interface StudentViewContainerState {
 }
 
 const ONBOARDING = 'onboarding'
-const READ_PASSAGE_STEP = 1
-const ALL_STEPS = [READ_PASSAGE_STEP, 2, 3, 4]
+const ALL_STEPS = [READ_PASSAGE_STEP_NUMBER, 2, 3, 4]
 const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
 
 export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user, }: StudentViewContainerProps) => {
   const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
-  const defaultCompletedSteps = shouldSkipToPrompts ? [READ_PASSAGE_STEP] : []
+  const defaultCompletedSteps = shouldSkipToPrompts ? [READ_PASSAGE_STEP_NUMBER] : []
 
   const refs = {
     step1: React.useRef(),
@@ -70,6 +69,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   const [completeButtonClicked, setCompleteButtonClicked] = React.useState(false)
   const [completedSteps, setCompletedSteps] = React.useState(defaultCompletedSteps)
   const [showFocusState, setShowFocusState] = React.useState(false)
+  const [showStepsSummary, setShowStepsSummary] = React.useState(false)
   const [startTime, setStartTime] = React.useState(Date.now())
   const [isIdle, setIsIdle] = React.useState(false)
   const [studentHighlights, setStudentHighlights] = React.useState([])
@@ -163,7 +163,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       // don't activate a step if it's already active
       if (activeStep == nextStep) return
       // // don't activate nextSteps before Done reading button has been clicked
-      if (nextStep && nextStep > 1 && !completedSteps.includes(READ_PASSAGE_STEP)) return
+      if (nextStep && nextStep > 1 && !completedSteps.includes(READ_PASSAGE_STEP_NUMBER)) return
 
       dispatch(setActiveStepForSession(nextStep))
       setStartTime(Date.now())
@@ -175,7 +175,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   React.useEffect(() => {
     const { activeStep } = session;
-    activeStep !== READ_PASSAGE_STEP ? scrollToStep(`step${activeStep}`) : null
+    activeStep !== READ_PASSAGE_STEP_NUMBER ? scrollToStep(`step${activeStep}`) : null
   }, [session.activeStep])
 
   function handleReadPassageContainerScroll(e=null) {
@@ -189,7 +189,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const { activeStep } = session;
     if (completedSteps.includes(activeStep)) { return } // don't want to add time if a user is revisiting a previously completed step
     if (outOfAttemptsForActivePrompt(activeStep, session, activities)) { return } // or if they are finished submitting responses for the current active step
-    if (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps) { return } // or if they are between the read passage step and starting the prompts
+    if (activeStep > READ_PASSAGE_STEP_NUMBER && !hasStartedPromptSteps) { return } // or if they are between the read passage step and starting the prompts
 
     let elapsedTime = now - startTime
     if (isIdle) {
@@ -236,7 +236,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const data = {
       time_tracking: {
         onboarding: roundMillisecondsToSeconds(timeTracking[ONBOARDING]),
-        reading: roundMillisecondsToSeconds(timeTracking[READ_PASSAGE_STEP]),
+        reading: roundMillisecondsToSeconds(timeTracking[READ_PASSAGE_STEP_NUMBER]),
         because: roundMillisecondsToSeconds(timeTracking[2]),
         but: roundMillisecondsToSeconds(timeTracking[3]),
         so: roundMillisecondsToSeconds(timeTracking[4]),
@@ -329,6 +329,10 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const uniqueCompletedSteps = Array.from(new Set(newCompletedSteps))
     trackCurrentPromptCompletedEvent()
     setCompletedSteps(uniqueCompletedSteps)
+    // we only want to render the step summary list again after completing the because and but prompts
+    if(stepNumber > READ_PASSAGE_STEP_NUMBER && stepNumber < SO_PASSAGE_STEP_NUMBER) {
+      setShowStepsSummary(true);
+    }
   }
 
   function handleClick(e) {
@@ -346,7 +350,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
 
   function handleDoneReadingClick() {
-    completeStep(READ_PASSAGE_STEP)
+    completeStep(READ_PASSAGE_STEP_NUMBER)
     const scrollContainer = document.getElementsByClassName("read-passage-container")[0]
     scrollContainer.scrollTo(0, 0)
     trackPassageReadEvent();
@@ -444,6 +448,10 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     callback && callback()
   }
 
+  function toggleShowStepsSummary() {
+    setShowStepsSummary(!showStepsSummary)
+  }
+
   React.useEffect(() => {
     if (studentHighlights.length === 0 ) { return }
     callSaveActiveActivitySession()
@@ -496,7 +504,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   if (!activities.hasReceivedData) { return <LoadingSpinner /> }
 
-  const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP ? 'on-read-passage' : ''}`
+  const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'} ${activeStep === READ_PASSAGE_STEP_NUMBER ? 'on-read-passage' : ''}`
 
   if(!explanationSlidesCompleted) {
     if (explanationSlideStep === 0) {
@@ -559,8 +567,10 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         scrolledToEndOfPassage={scrolledToEndOfPassage}
         session={session}
         showReadTheDirectionsButton={showReadTheDirectionsButton}
+        showStepsSummary={showStepsSummary}
         studentHighlights={studentHighlights}
         submitResponse={submitResponse}
+        toggleShowStepsSummary={toggleShowStepsSummary}
         toggleStudentHighlight={toggleStudentHighlight}
       />
     </div>

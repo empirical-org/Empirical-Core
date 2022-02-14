@@ -19,7 +19,8 @@ module Evidence
         'feedback': top_feedback&.text,
         'optimal': rule&.optimal.nil? ? true : rule&.optimal,
         'highlight': client_response['highlight'],
-        'rule_uid': rule&.uid
+        'rule_uid': rule&.uid,
+        'hint': rule&.hint
       })
     end
 

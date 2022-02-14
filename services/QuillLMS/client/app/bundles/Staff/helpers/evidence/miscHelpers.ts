@@ -24,15 +24,12 @@ export const buildActivity = ({
   activityTargetReadingLevel,
   activityParentActivityId,
   activityPassages,
-  activityMaxFeedback,
   activityBecausePrompt,
   activityButPrompt,
   activitySoPrompt,
   highlightPrompt,
 }) => {
   const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt];
-  const maxFeedback = activityMaxFeedback || MAX_ATTEMPTS_FEEDBACK_TEXT;
-  prompts.forEach(prompt => prompt.max_attempts_feedback = maxFeedback);
   return {
     activity: {
       notes: activityNotes,

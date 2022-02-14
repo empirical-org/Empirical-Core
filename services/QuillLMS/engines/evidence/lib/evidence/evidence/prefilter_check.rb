@@ -61,6 +61,7 @@ module Evidence
           feedback: feedback&.text,
           optimal: false,
           rule_uid: @violated_rule.uid,
+          hint: @violated_rule.hint,
           highlight: highlights
         }
       )

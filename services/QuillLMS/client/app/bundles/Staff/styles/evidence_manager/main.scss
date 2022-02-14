@@ -32,6 +32,9 @@
       z-index: 100;
       .modal-content {
         overflow: auto;
+        .rule-form {
+          max-height: 100vh;
+        }
       }
     }
     .modal-close {

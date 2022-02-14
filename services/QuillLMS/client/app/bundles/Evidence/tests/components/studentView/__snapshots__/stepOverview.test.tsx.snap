@@ -204,6 +204,7 @@ exports[`StepOverview component when the student is past step one renders 1`] = 
     </Step>
     <Step
       active={true}
+      completed={false}
       step={
         Object {
           "html": <p>
@@ -250,6 +251,7 @@ exports[`StepOverview component when the student is past step one renders 1`] = 
     </Step>
     <Step
       active={false}
+      completed={false}
       step={
         Object {
           "html": <p>
@@ -286,6 +288,7 @@ exports[`StepOverview component when the student is past step one renders 1`] = 
     </Step>
     <Step
       active={false}
+      completed={false}
       step={
         Object {
           "html": <p>
