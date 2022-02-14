@@ -4,8 +4,8 @@ import { EditorState, ContentState } from 'draft-js';
 import Dropzone from 'react-dropzone'
 import _ from 'underscore';
 
+import UnitTemplateActivitySelector from './unit_template_activity_selector'
 import DropdownSelector from '../general_components/dropdown_selectors/dropdown_selector.jsx';
-import CustomActivityPack from '../assignment_flow/create_unit/custom_activity_pack/index';
 import Server from '../modules/server/server.jsx';
 import Fnl from '../modules/fnl.jsx';
 import { TextEditor } from '../../../Shared/index'
@@ -211,17 +211,6 @@ export default createReactClass({
     );
   },
 
-  getCustomActivityPack() {
-    return (
-      <CustomActivityPack
-        clickContinue={this.save}
-        selectedActivities={this.state.model.activities}
-        setSelectedActivities={this.handleNewSelectedActivities}
-        toggleActivitySelection={this.toggleActivitySelection}
-      />
-    );
-  },
-
   getActivityPackDescriptionEditor() {
     const { model } = this.state
     const { activity_info } = model
@@ -331,7 +320,7 @@ export default createReactClass({
         {this.getPdfUpload()}
         <br /><br />
         <span>
-          {this.getCustomActivityPack()}
+          <UnitTemplateActivitySelector />
           {this.getErrorMessageAndButton()}
         </span>
       </span>
