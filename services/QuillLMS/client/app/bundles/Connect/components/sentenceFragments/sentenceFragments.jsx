@@ -45,7 +45,7 @@ class SentenceFragments extends React.Component {
           />
           <p className="menu-label">Sentence Fragments</p>
           <QuestionList
-            basePath={'sentence-fragments'}
+            basePath="sentence-fragments"
             questions={sentenceFragments || []}
             showOnlyArchived={showOnlyArchived}
           />

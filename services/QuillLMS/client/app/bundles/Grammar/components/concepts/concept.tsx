@@ -121,7 +121,7 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
     if (this.props.concepts.hasreceiveddata && this.getConcept()) {
       return (
         <div>
-          <Link to={'/admin/concepts'}>Return to All Concepts</Link>
+          <Link to="/admin/concepts">Return to All Concepts</Link>
           <h4 className="title">{this.getConcept().displayName}</h4>
           <h6 className="subtitle">{this.questionsForConcept().length} Questions</h6>
           <div className="box">

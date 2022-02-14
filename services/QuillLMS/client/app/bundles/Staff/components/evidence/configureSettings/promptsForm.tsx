@@ -11,14 +11,14 @@ interface PromptsFormProps {
   activityButPrompt: PromptInterface;
   activitySoPrompt: PromptInterface;
   errors: any;
-  handleSetPrompt: (e: InputEvent, conjunction: string) => void;
+  handleSetPrompt: (text: string, conjunction: string, attribute: string) => void;
 }
 
 const PromptsForm = ({ activityBecausePrompt, activityButPrompt, activitySoPrompt, errors, handleSetPrompt }: PromptsFormProps) => {
 
-  function handleSetBecausePrompt (e: InputEvent) { handleSetPrompt(e, C.BECAUSE) }
-  function handleSetButPrompt (e: InputEvent) { handleSetPrompt(e, C.BUT) }
-  function handleSetSoPrompt (e: InputEvent) { handleSetPrompt(e, C.SO) }
+  function handleSetBecausePrompt (e: InputEvent) { handleSetPrompt(e.target.value, C.BECAUSE, 'text') }
+  function handleSetButPrompt (e: InputEvent) { handleSetPrompt(e.target.value, C.BUT, 'text') }
+  function handleSetSoPrompt (e: InputEvent) { handleSetPrompt(e.target.value, C.SO, 'text') }
 
   return(
     <React.Fragment>

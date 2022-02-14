@@ -94,12 +94,12 @@ export default class extends React.Component {
             <h3>CURRENT SUBSCRIPTION</h3>
             <div className="flex-row space-between">
               <div>
-                <TitleAndContent content={currSub.account_type} title={'Plan'} />
-                <TitleAndContent content={this.props.purchaserNameOrEmail} title={'Purchaser'} />
+                <TitleAndContent content={currSub.account_type} title="Plan" />
+                <TitleAndContent content={this.props.purchaserNameOrEmail} title="Purchaser" />
               </div>
               <div>
-                <TitleAndContent content={moment(currSub.start_date).format('MMMM Do, YYYY')} title={'Start Date'} />
-                <TitleAndContent content={moment(currSub.expiration).format('MMMM Do, YYYY')} title={'End Date'} />
+                <TitleAndContent content={moment(currSub.start_date).format('MMMM Do, YYYY')} title="Start Date" />
+                <TitleAndContent content={moment(currSub.expiration).format('MMMM Do, YYYY')} title="End Date" />
               </div>
             </div>
           </div>
@@ -114,7 +114,7 @@ export default class extends React.Component {
       <div className={metaRowClassName}>
         <div className="meta-section">
           <h3>CURRENT SUBSCRIPTION</h3>
-          <TitleAndContent content={'Quill Basic - Free'} title={'Plan'} />
+          <TitleAndContent content="Quill Basic - Free" title="Plan" />
         </div>
         {this.paymentMethod()}
         {this.nextPlan()}
@@ -218,7 +218,7 @@ export default class extends React.Component {
       const content = (<span>Quill Basic - Free
         <a className="green-link" href="/premium">Change Plan</a>
       </span>);
-      return (<TitleAndContent content={content} title={'Next Plan'} />);
+      return (<TitleAndContent content={content} title="Next Plan" />);
     } else if (condition === 'school sponsored') {
       nextPlan = this.nextPlanAlertOrButtons(condition);
     } else if (this.props.subscriptionStatus.recurring) {
@@ -228,7 +228,7 @@ export default class extends React.Component {
       const renewDate = moment(this.props.subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons('recurring', renewDate);
       beginsOn = (
-        <TitleAndContent content={renewDate} title={'Begins On'} />
+        <TitleAndContent content={renewDate} title="Begins On" />
       );
     } else if (condition === 'school' && !this.props.subscriptionStatus.recurring) {
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons(`${condition} non-recurring`);
@@ -240,7 +240,7 @@ export default class extends React.Component {
     return (
       <div>
         <div className="flex-row space-between">
-          <TitleAndContent content={<span >{nextPlan}</span>} title={'Next Plan'} />
+          <TitleAndContent content={<span >{nextPlan}</span>} title="Next Plan" />
           {beginsOn}
         </div>
         {nextPlanAlertOrButtons}

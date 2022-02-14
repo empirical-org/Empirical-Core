@@ -2,7 +2,7 @@ import * as React from "react";
 import { EditorState, ContentState } from 'draft-js'
 
 import { numericalWordOptions } from '../../../../../constants/evidence';
-import { RuleFeedbackInterface, ClickEvent } from '../../../interfaces/evidenceInterfaces';
+import { RuleFeedbackInterface, ClickEvent,  } from '../../../interfaces/evidenceInterfaces';
 import { handleSetFeedback, renderHighlights } from '../../../helpers/evidence/ruleHelpers';
 import { TextEditor } from '../../../../Shared/index';
 import { HIGHLIGHT_ADDITION, HIGHLIGHT_REMOVAL, FEEDBACK, FEEDBACK_LAYER_ADDITION, FEEDBACK_LAYER_REMOVAL, } from '../../../../../constants/evidence';
@@ -15,7 +15,7 @@ Fragment is appropriate since there can be multiple feedbacks */
 const RuleAttributesSection = ({
   errors,
   setUniversalFeedback,
-  universalFeedback
+  universalFeedback,
 }) => {
 
   function onHandleSetUniversalFeedback(text: string, i: number, j: number, updateType:  string) {

@@ -302,9 +302,15 @@ class User < ApplicationRecord
 
   # gets last four digits of Stripe card
   def last_four
-    return unless stripe_customer_id
+    return unless stripe_customer?
 
     Stripe::Customer.retrieve(stripe_customer_id).sources.data.first&.last4
+  end
+
+  def stripe_customer?
+    stripe_customer_id.present? && !Stripe::Customer.retrieve(stripe_customer_id).respond_to?(:deleted)
+  rescue Stripe::InvalidRequestError
+    false
   end
 
   def safe_role_assignment role

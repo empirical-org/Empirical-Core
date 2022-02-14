@@ -14,6 +14,7 @@ const FlagDropdown = (props) => {
           <option value="gamma">gamma</option>
           <option value="production">production</option>
           <option value="archived">archived</option>
+          <option value="private">private</option>
         </select>
       </span>
     </p>

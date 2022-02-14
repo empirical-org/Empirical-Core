@@ -181,7 +181,7 @@ export default createReactClass({
     return (
       <DropdownSelector
         defaultValue={this.state.model.unit_template_category_id}
-        label={'Select Activity Pack Category'}
+        label="Select Activity Pack Category"
         options={this.state.options.unit_template_categories}
         select={this.modules.indicatorGenerator.selector('unit_template_category_id')}
       />
@@ -193,7 +193,7 @@ export default createReactClass({
     return (
       <DropdownSelector
         defaultValue={this.state.model.flag}
-        label={'Select Flag'}
+        label="Select Flag"
         options={this.state.options.flag}
         select={this.modules.indicatorGenerator.selector('flag')}
       />
@@ -204,7 +204,7 @@ export default createReactClass({
     return (
       <DropdownSelector
         defaultValue={this.state.model.time}
-        label={'Select time in minutes'}
+        label="Select time in minutes"
         options={this.state.options.times}
         select={this.modules.indicatorGenerator.selector('time')}
       />

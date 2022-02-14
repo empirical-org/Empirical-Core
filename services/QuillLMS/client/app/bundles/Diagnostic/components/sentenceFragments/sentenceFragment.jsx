@@ -199,16 +199,16 @@ class SentenceFragment extends React.Component {
           </div>
           <br />
           <Switch>
-            <Route component={EditIncorrectSequenceContainer} path={`/admin/sentence-fragments/:questionID/incorrect-sequences/:incorrectSequenceID/edit`} />
-            <Route component={NewIncorrectSequenceContainer} path={`/admin/sentence-fragments/:questionID/incorrect-sequences/new`} />
-            <Route component={IncorrectSequenceContainer} path={`/admin/sentence-fragments/:questionID/incorrect-sequences`} />
-            <Route component={EditFocusPointsContainer} path={`/admin/sentence-fragments/:questionID/focus-points/edit`} />
-            <Route component={NewFocusPointsContainer} path={`/admin/sentence-fragments/:questionID/focus-points/new`} />
-            <Route component={FocusPointsContainer} path={`/admin/sentence-fragments/:questionID/focus-points`} />
-            <Route component={TestQuestionContainer} path={`/admin/sentence-fragments/:questionID/test`} />
-            <Route component={ChooseModelContainer} path={`/admin/sentence-fragments/:questionID/choose-model`} />
-            <Route component={MassEditContainer} path={`/admin/sentence-fragments/:questionID/mass-edit`} />
-            <Route component={ResponseComponentWrapper} path={`/admin/sentence-fragments/:questionID/responses`} />
+            <Route component={EditIncorrectSequenceContainer} path="/admin/sentence-fragments/:questionID/incorrect-sequences/:incorrectSequenceID/edit" />
+            <Route component={NewIncorrectSequenceContainer} path="/admin/sentence-fragments/:questionID/incorrect-sequences/new" />
+            <Route component={IncorrectSequenceContainer} path="/admin/sentence-fragments/:questionID/incorrect-sequences" />
+            <Route component={EditFocusPointsContainer} path="/admin/sentence-fragments/:questionID/focus-points/edit" />
+            <Route component={NewFocusPointsContainer} path="/admin/sentence-fragments/:questionID/focus-points/new" />
+            <Route component={FocusPointsContainer} path="/admin/sentence-fragments/:questionID/focus-points" />
+            <Route component={TestQuestionContainer} path="/admin/sentence-fragments/:questionID/test" />
+            <Route component={ChooseModelContainer} path="/admin/sentence-fragments/:questionID/choose-model" />
+            <Route component={MassEditContainer} path="/admin/sentence-fragments/:questionID/mass-edit" />
+            <Route component={ResponseComponentWrapper} path="/admin/sentence-fragments/:questionID/responses" />
           </Switch>
         </div>
       );

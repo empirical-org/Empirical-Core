@@ -35,7 +35,7 @@ export const CheckableDropdownOption = props => {
   passedProps.innerProps.id = data.value
 
   return (
-    <div className="checkable-dropdown-option" onMouseOver={handleMouseEnter(props)}>
+    <div className="checkable-dropdown-option" onFocus={handleMouseEnter(props)} onMouseOver={handleMouseEnter(props)}>
       <components.Option {...passedProps}>
         {renderCheckbox(props)}
         <span>{data.label}</span>

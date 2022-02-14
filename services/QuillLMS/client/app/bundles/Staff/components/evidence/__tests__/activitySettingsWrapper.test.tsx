@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
+import * as _ from 'lodash'
 
 import ActivitySettingsWrapper from '../configureSettings/activitySettingsWrapper';
 

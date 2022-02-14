@@ -85,8 +85,8 @@ export default class ReviewActivities extends React.Component {
         focused={this.state[focusedKey]} // PropTypes.bool
         id={`${id}-date-picker`} // PropTypes.func.isRequired
         inputIconPosition="after" // PropTypes.string.isRequired,
-        navNext={'›'}
-        navPrev={'‹'}
+        navNext="›"
+        navPrev="‹"
         numberOfMonths={1}
         onDateChange={date => this.handleDueDateChange(id, date)}
         onFocusChange={({ focused, }) => this.setState({ [focusedKey]: focused })}

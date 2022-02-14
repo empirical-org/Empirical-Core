@@ -14,6 +14,7 @@ function CmsActivitiesRouter(props) {
     <BrowserRouter>
       <Switch>
         <Route component={routerProps => <UnitTemplate {...props} {...routerProps} />} path="/cms/unit_templates/:id/edit" />
+        <Route component={routerProps => <UnitTemplate {...props} {...routerProps} />} path="/cms/unit_templates/new" />
         <Route component={routerProps => <ActivityClassification {...props} {...routerProps} />} path="/cms/activity_classifications/:id/edit" />
         <Route component={routerProps => <UnitTemplateCategory {...props} {...routerProps} />} path="/cms/unit_template_categories/:id/edit" />
         <Route component={UnitTemplates} path="/cms/unit_templates" />
