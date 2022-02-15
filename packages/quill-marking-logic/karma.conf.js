@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Mon Jan 23 2017 01:17:51 GMT+0100 (Paris, Madrid)
 
-var webpackConfig = require('./webpack.config');
+let webpackConfig = require('./webpack.config');
 webpackConfig.entry = {};
 webpackConfig.plugins = [];
 webpackConfig.devtool = 'inline-source-map';

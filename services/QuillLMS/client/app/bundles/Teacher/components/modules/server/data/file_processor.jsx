@@ -8,15 +8,15 @@ export default  function () {
 
   // can probably move this into EC.fnl
   var _getAllValues = function (value) {
-    var values;
-    var total;
+    let values;
+    let total;
 
     if (value instanceof Object) {
       values = _.values(value);
-      var next = _.map(values, function (val) {
+      let next = _.map(values, function (val) {
         return _getAllValues(val);
       })
-      var flattenedNext = _.flattenDeep(next);
+      let flattenedNext = _.flattenDeep(next);
       total = _(values).concat(flattenedNext).value();
     } else {
       total = [value];
@@ -24,11 +24,11 @@ export default  function () {
     return total;
   }
 
-  var _isFile = function (item) {
+  let _isFile = function (item) {
     return item instanceof File;
   }
 
-  var _includesFile = function (array) {
+  let _includesFile = function (array) {
     return (_.filter(array, _isFile).length !== 0)
   }
 
@@ -36,10 +36,10 @@ export default  function () {
   var _intoFormData = function (obj, form, namespace) {
     // FROM : (with correction that commenter pointed out aboug passing in namespace to recursive call) : https://gist.github.com/ghinda/8442a57f22099bdb2e34
     // works because of http://stackoverflow.com/questions/12854259/square-brackets-in-name-attribute-of-input-tag
-    var fd = form || new FormData();
-    var formKey;
+    let fd = form || new FormData();
+    let formKey;
 
-    for(var property in obj) {
+    for(let property in obj) {
       if(obj.hasOwnProperty(property)) {
 
         if(namespace) {
@@ -68,7 +68,7 @@ export default  function () {
 
 
   this.process = function (data) {
-    var values, newData;
+    let values, newData;
 
     values = _getAllValues(data);
     if (_includesFile(values)) {

@@ -1,5 +1,7 @@
 {
   "rules": {
+    "eqeqeq": ["error", "smart"],
+    "no-var": "error",
     "jsx-a11y/anchor-is-valid": "error",
     "jsx-a11y/click-events-have-key-events": "error",
     "jsx-a11y/control-has-associated-label": "error",

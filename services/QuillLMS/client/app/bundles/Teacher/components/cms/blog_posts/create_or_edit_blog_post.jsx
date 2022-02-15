@@ -384,8 +384,8 @@ export default class CreateOrEditBlogPost extends React.Component {
     const container = document.getElementById('markdown-content');
     let newValue = body;
     if (container.selectionStart || container.selectionStart === 0) {
-      var startPos = container.selectionStart;
-      var endPos = container.selectionEnd;
+      let startPos = container.selectionStart;
+      let endPos = container.selectionEnd;
       newValue = container.value.substring(0, startPos);
       newValue += startChar;
       newValue += container.value.substring(startPos, endPos);

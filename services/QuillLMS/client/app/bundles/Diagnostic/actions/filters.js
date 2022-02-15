@@ -1,4 +1,4 @@
-var C = require("../constants").default;
+let C = require("../constants").default;
 
 module.exports = {
   toggleExpandSingleResponse: function (rkey) {

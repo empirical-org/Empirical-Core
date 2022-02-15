@@ -11,7 +11,7 @@ const initialState = {
 }
 
 export default function(currentstate,action){
-  var newstate;
+  let newstate;
   switch(action.type){
     case C.RECEIVE_DIAGNOSTIC_QUESTIONS_DATA:
       return Object.assign({},currentstate,{
