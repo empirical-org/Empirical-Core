@@ -20,7 +20,7 @@ const UnitTemplateActivityDataRow = ({activity}) => {
     <tr className="ut-activity-second-row">
       <td />
       <td>Description: {activity.description}</td>
-      <td>In packs: {activity.unit_template_names.map((ut) => <span key={ut.id}><br />{ut}</span>)}</td>
+      <td colSpan="2">In packs: {activity.unit_template_names.map((ut) => <span key={ut.id}><br />{ut}</span>)}</td>
     </tr>
   )
 
