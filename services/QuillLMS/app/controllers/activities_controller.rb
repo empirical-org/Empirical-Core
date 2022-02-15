@@ -15,7 +15,7 @@ class ActivitiesController < ApplicationController
   end
 
   def index_with_unit_templates
-    render json: Activity.all.map{|a| Cms::ActivitySerializer.new(a).as_json(root: false)}
+    render json: Activity.all.map{|a| Cms::ActivityUnitTemplateSerializer.new(a).as_json(root: false)}
   end
 
   def count

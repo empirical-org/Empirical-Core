@@ -18,8 +18,9 @@ const UnitTemplateActivityDataRow = ({activity}) => {
 
   const secondRow = (
     <tr className="ut-activity-second-row">
+      <td />
       <td>Description: {activity.description}</td>
-      <td>Other activity packs:</td>
+      <td>In packs: {activity.unit_template_names.map((ut) => <span key={ut.id}><br />{ut}</span>)}</td>
     </tr>
   )
 
@@ -32,7 +33,7 @@ const UnitTemplateActivityDataRow = ({activity}) => {
         <td className="ut-activity-readability-col">{activity.readability_grade_level}</td>
         <td className="ut-activity-ccss-col">{activity.standard && activity.standard.name}</td>
         <td className="ut-activity-cat-col">{activity.activity_category && activity.activity_category.name}</td>
-        <td className="ut-activity-class-col">{activity.activity_classification && activity.activity_classification.key}</td>
+        <td className="ut-activity-class-col">{activity.classification && activity.classification.key}</td>
       </tr>
       {showActivities && secondRow}
     </span>

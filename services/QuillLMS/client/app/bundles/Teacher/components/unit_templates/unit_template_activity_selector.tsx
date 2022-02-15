@@ -64,7 +64,9 @@ const UnitTemplateActivitySelector = () => {
       <div className="unit-template-activities-table">
         {tableHeaders}
         <table className="unit-template-activities-table-rows">
-          {activityRows}
+          <tbody className="unit-template-activities-tbody">
+            {activityRows}
+          </tbody>
         </table>
       </div>
       <Pagination activities={activities} currentPage={currentPage} setCurrentPage={setCurrentPage} />

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Cms::ActivitySerializer < ActiveModel::Serializer
-  attributes :uid, :id, :name, :description, :flags, :data, :created_at, :updated_at, :supporting_info, :anonymous_path, :activity_category, :readability_grade_level, :unit_templates
+class Cms::ActivityUnitTemplateSerializer < ActiveModel::Serializer
+  attributes :uid, :id, :name, :description, :flags, :data, :created_at, :updated_at, :supporting_info, :anonymous_path, :activity_category, :readability_grade_level, :unit_template_names
 
   has_one :classification, serializer: ClassificationSerializer
   has_one :standard
@@ -19,5 +19,9 @@ class Cms::ActivitySerializer < ActiveModel::Serializer
       .limit(1)
       .to_a
       .first
+  end
+
+  def unit_template_names
+    object.unit_templates.map {|ut| ut.name}
   end
 end
