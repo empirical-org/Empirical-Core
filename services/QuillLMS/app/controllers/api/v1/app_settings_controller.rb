@@ -20,7 +20,8 @@ class Api::V1::AppSettingsController < ApplicationController
     app_setting = AppSetting.find_by_name!(name)
     user_ids = app_setting.user_ids_allow_list
 
-    emails = User.where(id: user_ids).pluck(:email).sort
+    emails = User.where(id: user_ids).pluck(:email).compact.sort
+
     render(json: {
       name: name,
       enabled: app_setting.enabled,
