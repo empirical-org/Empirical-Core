@@ -514,6 +514,14 @@ class PagesController < ApplicationController
     @title = 'Administrator'
   end
 
+  def locker
+    if !current_user || current_user && current_user.role != 'staff'
+      redirect_to(profile_path) && return
+    else
+      @style_file = 'staff'
+    end
+  end
+
   private def determine_layout
     case action_name
     when 'home'
@@ -533,6 +541,8 @@ class PagesController < ApplicationController
     when 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool'
       @js_file = 'tools'
     when 'backpack'
+      @js_file = 'staff'
+    when 'locker'
       @js_file = 'staff'
     when ApplicationController::EVIDENCE
       @js_file = ApplicationController::EVIDENCE

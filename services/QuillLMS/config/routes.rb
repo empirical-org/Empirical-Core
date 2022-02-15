@@ -650,6 +650,7 @@ EmpiricalGrammar::Application.routes.draw do
     preap_units
     springboard_units
     administrator
+    locker
   )
 
   all_pages = other_pages
