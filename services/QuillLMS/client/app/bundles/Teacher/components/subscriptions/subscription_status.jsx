@@ -73,11 +73,15 @@ const SubscriptionStatus = ({ subscriptionType, showPurchaseModal, subscriptionS
   }
 
   if (remainingDays < 1) {
+    const dateFormat = "MM/DD/YY"
+
+    const formattedStartDate = subscriptionStatus && moment(subscriptionStatus.start_date).format(dateFormat)
+    const formattedExpirationDate = expiration && expiration.format(dateFormat)
     content.boxColor = '#ff4542';
     content.status = <h2><i className="fas fa-exclamation-triangle" />{`Your ${subscriptionType} Premium subscription has expired`}</h2>;
     content.pCopy = (
       <span>
-        <strong>Your {subscriptionType} Premium subscription has expired and you are back to Quill Basic.</strong>
+        <strong>Your {subscriptionType} Premium subscription ({formattedStartDate} - {formattedExpirationDate}) has expired and you are back to Quill Basic.</strong>
         {quillBasicCopy}
       </span>);
     content.buttonOrDate = <button className="renew-subscription q-button bg-orange text-white cta-button" onClick={showPurchaseModal} type="button">Renew Subscription</button>;
