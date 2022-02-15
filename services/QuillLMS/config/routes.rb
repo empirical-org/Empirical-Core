@@ -318,7 +318,6 @@ EmpiricalGrammar::Application.routes.draw do
 
         ##DASHBOARD ROUTES
         get :classroom_mini, controller: 'classroom_manager', action: 'classroom_mini'
-        get :dashboard_query, controller: 'classroom_manager', action: 'dashboard_query'
         get :premium, controller: 'classroom_manager', action: 'premium'
       end
 
