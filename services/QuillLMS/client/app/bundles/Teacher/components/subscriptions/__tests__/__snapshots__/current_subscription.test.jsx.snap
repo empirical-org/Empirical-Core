@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CurrentSubscription container should render when the subscription is expired 1`] = `
+<CurrentSubscription
+  subscriptionStatus={
+    Object {
+      "account_type": "Teacher Paid",
+      "created_at": "2022-02-15T16:43:30.344Z",
+      "de_activated_date": null,
+      "expiration": "2022-02-15",
+      "expired": true,
+      "id": 5,
+      "mail_to": null,
+      "payment_amount": null,
+      "payment_method": null,
+      "purchaser_email": null,
+      "purchaser_id": null,
+      "purchaser_name": null,
+      "recurring": false,
+      "start_date": "2022-02-15",
+      "subscription_type_id": null,
+      "updated_at": "2022-02-15T16:43:30.344Z",
+    }
+  }
+>
+  <span />
+</CurrentSubscription>
+`;
+
+exports[`CurrentSubscription container should render when there is no subscription 1`] = `
+<CurrentSubscription
+  subscriptionStatus={null}
+>
+  <span />
+</CurrentSubscription>
+`;
