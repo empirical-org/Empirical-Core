@@ -22,7 +22,7 @@ class Api::V1::AppSettingsController < ApplicationController
 
     users = User.where(id: user_ids)
     emails = users.pluck(:email).compact.sort
-    users_without_emails = users.filter {|u| u.email.nil? }.map{|u| u.name}
+    users_without_emails = users.filter {|u| u.email.nil? }.map {|u| u.name }
 
     render(json: {
       name: name,
