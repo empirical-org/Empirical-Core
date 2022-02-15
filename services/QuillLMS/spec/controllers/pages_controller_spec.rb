@@ -194,6 +194,25 @@ describe PagesController do
     end
   end
 
+  describe '#locker' do
+  let!(:user) { create(:user) }
+
+  before do
+    allow(controller).to receive(:current_user) { user }
+  end
+
+  it 'should redirect if current user is not staff' do
+    get :locker
+    expect(response).to redirect_to profile_path
+  end
+
+  it 'should render for staff' do
+    user.role = 'staff'
+    get :locker
+    expect(response.status).to eq 200
+  end
+end
+
   describe '#press' do
     let!(:post) { create(:blog_post, draft: false, topic: "In the news") }
     let!(:other_post) { create(:blog_post, draft: false, topic: "Press releases") }
