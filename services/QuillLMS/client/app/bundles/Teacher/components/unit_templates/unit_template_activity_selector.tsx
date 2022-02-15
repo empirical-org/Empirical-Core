@@ -7,7 +7,7 @@ import Pagination from '../../../Teacher/components/assignment_flow/create_unit/
 import { lowerBound, upperBound, sortFunctions, } from '../../../Teacher/components/assignment_flow/create_unit/custom_activity_pack/shared'
 import { requestGet, requestPost, requestDelete } from '../../../../modules/request/index'
 
-const ACTIVITIES_URL = `http://localhost:5000/activities/index_with_unit_templates`
+const ACTIVITIES_URL = `${process.env.DEFAULT_URL}/activities/index_with_unit_templates`
 
 const UnitTemplateActivitySelector = () => {
 
