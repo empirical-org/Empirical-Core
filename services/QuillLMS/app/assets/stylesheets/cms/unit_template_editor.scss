@@ -26,5 +26,60 @@
 
   .unit-template-activities-table {
     padding-top: 30px;
+
+    .ut-activity-row {
+      background-color: white;
+      padding: 5px;
+      border: 1px solid gray;
+
+      .expand-collapse-button {
+        background-color: white;
+      }
+
+      .ut-activity-name-col {
+        min-width: 300px !important;
+      }
+
+      .ut-activity-flag-col {
+        min-width: 135px !important;
+      }
+
+      .ut-activity-readability-col {
+        min-width: 135px !important;
+      }
+
+      .ut-activity-ccss-col {
+        min-width: 135px !important;
+      }
+
+      .ut-activity-cat-col {
+        min-width: 135px !important;
+      }
+    }
+
+    .ut-break {
+      width: 35px;
+      background: none;
+    }
+
+    .ut-name-col {
+      width: 300px;
+    }
+
+    .ut-flag-col {
+      width: 135px !important;
+    }
+
+    .ut-readability-col {
+      width: 135px !important;
+    }
+
+    .ut-ccss-col {
+      width: 135px !important;
+    }
+
+    .ut-concept-col {
+      width: 135px !important;
+    }
   }
 }
