@@ -515,11 +515,8 @@ class PagesController < ApplicationController
   end
 
   def locker
-    if !current_user || current_user && current_user.role != 'staff'
-      redirect_to(profile_path) && return
-    else
-      @style_file = 'staff'
-    end
+    redirect_to(profile_path) && return if !current_user || (current_user && current_user.role != 'staff')
+    @style_file = 'staff'
   end
 
   private def determine_layout
@@ -540,9 +537,7 @@ class PagesController < ApplicationController
       @js_file = 'public'
     when 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool'
       @js_file = 'tools'
-    when 'backpack'
-      @js_file = 'staff'
-    when 'locker'
+    when 'backpack' || 'locker'
       @js_file = 'staff'
     when ApplicationController::EVIDENCE
       @js_file = ApplicationController::EVIDENCE
