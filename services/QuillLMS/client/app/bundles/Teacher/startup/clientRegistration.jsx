@@ -41,7 +41,7 @@ import SpringBoard from './SpringBoardAppClient.tsx';
 import UploadRostersApp from '../../Staff/startup/UploadRostersAppClient';
 import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClient'
 import StudentFeedbackModal from '../../Student/startup/StudentFeedbackModalAppClient'
-import LockerApp from '../../Staff/startup/LockerAppClient'
+import LockerApp from '../../Staff/startup/lockerAppClient'
 
 require('../../../assets/styles/home.scss');
 
