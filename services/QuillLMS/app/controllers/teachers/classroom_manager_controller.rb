@@ -100,6 +100,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     @subscription_type = current_user.premium_state
     render json: {
       hasPremium: @subscription_type,
+      last_subscription_was_trial: current_user.last_expired_subscription&.is_trial?,
       trial_days_remaining: current_user.trial_days_remaining,
       first_day_of_premium_or_trial: current_user.premium_updated_or_created_today?
     }
