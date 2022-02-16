@@ -11,7 +11,16 @@ import { requestGet, requestPost, requestDelete } from '../../../../modules/requ
 const ACTIVITIES_URL = `${process.env.DEFAULT_URL}/activities/index_with_unit_templates`
 const DEFAULT_FLAG = 'All Flags'
 const DEFAULT_TOOL = 'All Tools'
-const TOOL_OPTIONS = ['All Tools', 'connect', 'proofreader', 'grammar', 'diagnostic', 'evidence', 'lessons']
+const DEFAULT_READABILITY = 'All Readability levels'
+const TOOL_OPTIONS = [
+  'All Tools',
+  'connect',
+  'grammar',
+  'proofreader',
+  'evidence',
+  'lessons',
+  'diagnostic'
+]
 
 const UnitTemplateActivitySelector = () => {
 
@@ -25,7 +34,8 @@ const UnitTemplateActivitySelector = () => {
   const [activityPacksSearch, setActivityPacksSearch] = React.useState('')
   const [flagSearch, setFlagSearch] = React.useState(DEFAULT_FLAG)
   const [toolSearch, setToolSearch] = React.useState(DEFAULT_TOOL)
-  const [sort, setSort] = React.useState('default')
+  const [readabilitySearch, setReadabilitySearch] = React.useState(DEFAULT_READABILITY)
+  const [readabilityOptions, setReadabilityOptions] = React.useState([])
 
   React.useEffect(() => {
     if (loading) { getActivities() }
@@ -41,6 +51,12 @@ const UnitTemplateActivitySelector = () => {
         const data = JSON.parse(body);
         setLoading(false)
         setActivities(data.activities);
+
+        const readArr = data.activities.map(act => act.readability_grade_level)
+        const readUnique = Array.from(new Set(readArr))
+        const readFiltered = readUnique.filter(c => c !== '' && c !== null).sort()
+        readFiltered.push(DEFAULT_READABILITY)
+        setReadabilityOptions(readFiltered)
       }
     })
   }
@@ -52,7 +68,10 @@ const UnitTemplateActivitySelector = () => {
         (descriptionSearch === '' || (act.description && act.description.toLowerCase().includes(descriptionSearch.toLowerCase()))) &&
         (ccssSearch === '' || (act.standard && act.standard.name.toLowerCase().includes(ccssSearch.toLowerCase()))) &&
         (conceptSearch === '' || (act.activity_category && act.activity_category.name.toLowerCase().includes(conceptSearch.toLowerCase()))) &&
-        (activityPacksSearch === '' || (act.unit_template_names && act.unit_template_names.some(ut => ut.includes(activityPacksSearch.toLowerCase()))))
+        (activityPacksSearch === '' || (act.unit_template_names && act.unit_template_names.some(ut => ut.includes(activityPacksSearch.toLowerCase())))) &&
+        (flagSearch === DEFAULT_FLAG || (act.data && act.data['flag'] && act.data['flag'] === flagSearch)) &&
+        (toolSearch === DEFAULT_TOOL || (act.classification && act.classification.key === toolSearch)) &&
+        (readabilitySearch === DEFAULT_READABILITY || (act.readability_grade_level && act.readability_grade_level === readabilitySearch))
       );
     })
   }
@@ -107,8 +126,12 @@ const UnitTemplateActivitySelector = () => {
     setFlagSearch(e.target.value)
   }
 
-  function handleToolSearch(tool) {
-    setFlagSearch(tool)
+  function handleToolSearch(e) {
+    setToolSearch(e.target.value)
+  }
+
+  function handleReadabilitySearch(e) {
+    setReadabilitySearch(e.target.value)
   }
 
   const filterInputs = (
@@ -153,18 +176,25 @@ const UnitTemplateActivitySelector = () => {
         placeholder="Search by Activity Pack"
         value={activityPacksSearch || ""}
       />
-      <FlagDropdown
-        flag={flagSearch}
-        handleFlagChange={handleFlagSearch}
-        isLessons={true}
-      />
-      <DropdownInput
-        handleChange={handleToolSearch}
-        isSearchable={false}
-        label="Tool"
-        options={["connect"]}
-        value="connect"
-      />
+      <div className="unit-template-dropdown-filters">
+        <FlagDropdown
+          flag={flagSearch}
+          handleFlagChange={handleFlagSearch}
+          isLessons={true}
+        />
+        <span className="tool-dropdown select is-large">
+          <select onChange={handleToolSearch} value={toolSearch}>
+            {TOOL_OPTIONS.map(key => <option key={key} value={key}>{key}</option>)}
+          </select>
+        </span>
+        <span className="readability-dropdown select is-large">
+          <select onChange={handleReadabilitySearch} value={readabilitySearch}>
+            {readabilityOptions.map(key => <option key={key} value={key}>{key}</option>)}
+          </select>
+        </span>
+      </div>
+
+
     </div>
   )
 
