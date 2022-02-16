@@ -38,7 +38,7 @@ const PremiumCreditsTable = ({ premiumCredits, earnedCredits, }) => {
     );
   }
 
-  const monthsOfCredit = Math.round(((earnedCredits / 30.42) * 10) / 10);
+  const weeksOfCredit = Math.round(earnedCredits / 7);
   return (
     <section>
       <div className="flex-row space-between">
@@ -46,7 +46,7 @@ const PremiumCreditsTable = ({ premiumCredits, earnedCredits, }) => {
         <a className="green-link" href="/referrals">How to earn more Premium credit</a>
       </div>
       {renderPremiumCreditsTable()}
-      <span className="total-premium-credits"><span className="total-header">Total Premium Credits Earned:</span> {`${monthsOfCredit} ${pluralize('month', monthsOfCredit)}`}</span>
+      <span className="total-premium-credits"><span className="total-header">Total Premium Credits Earned:</span> {`${weeksOfCredit} ${pluralize('week', weeksOfCredit)}`}</span>
     </section>
   );
 }
