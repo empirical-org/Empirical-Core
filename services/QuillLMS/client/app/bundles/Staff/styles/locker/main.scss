@@ -1,13 +1,17 @@
-.locker-main-container {
+.locker-content {
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
   width: 980px;
-  h3 {
-    margin-bottom: 24px;
-    font-weight: bold;
-  }
+}
+
+.subheader {
+  margin-bottom: 24px;
+  font-weight: bold;
+}
+
+.locker-index-container {
   .team-lockers-container {
     display: flex;
     flex-wrap: wrap;
@@ -32,5 +36,26 @@
     .locker-container:hover {
       background-color: #efefef;
     }
+  }
+}
+
+.team-locker-container {
+  margin-top: 16px;
+  .back-nav-link:hover {
+    text-decoration: none;
+  }
+  .button-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #cbc8c8;
+    width: 128px;
+    padding: 4px 8px 4px 8px;
+    border-radius: 6px;
+    p {
+      margin: 0px 0px 0px 8px;
+    }
+  }
+  .button-container:hover {
+    background-color: #efefef;
   }
 }

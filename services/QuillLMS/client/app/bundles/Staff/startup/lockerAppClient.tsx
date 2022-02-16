@@ -1,11 +1,11 @@
 import React from 'react';
-import LockerIndex from '../components/locker/lockerIndex';
+import LockerApp from '../components/locker/lockerApp';
 import { BrowserRouter, Route,  } from 'react-router-dom'
 
-const LockerApp = () => (
+const LockerAppClient = () => (
   <BrowserRouter>
-    <Route component={LockerIndex} path="/" />
+    <Route component={LockerApp} path="/" />
   </BrowserRouter>
 );
 
-export default LockerApp
+export default LockerAppClient

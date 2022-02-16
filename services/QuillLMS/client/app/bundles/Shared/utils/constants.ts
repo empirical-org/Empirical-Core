@@ -6,3 +6,10 @@ export const READ_PASSAGE_STEP_NUMBER = 1
 export const BECAUSE_PASSAGE_STEP_NUMBER = 2
 export const BUT_PASSAGE_STEP_NUMBER = 3
 export const SO_PASSAGE_STEP_NUMBER = 4
+
+export const CURRICULUM = 'curriculum';
+export const PARTNERSHIPS = 'partnerships';
+export const PRODUCT = 'product';
+export const SUPPORT = 'support';
+export const PATHWAYS = 'pathways';
+export const TEAMS = [CURRICULUM, PARTNERSHIPS, PRODUCT, SUPPORT, PATHWAYS];

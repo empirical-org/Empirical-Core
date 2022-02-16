@@ -1,18 +1,21 @@
 import * as React from "react";
 
-import TeamLocker from './teamLocker';
+import Locker from './locker';
 
-const TEAM_LOCKERS = ['curriculum', 'partnerships', 'product', 'support', 'pathways'];
+import { lockerItems } from "../../helpers/locker/lockerItems";
+import { TEAMS } from "../../../Shared";
 
 export const LockerIndex = () => {
+
   function renderTeamLockers() {
-    return TEAM_LOCKERS.map(lockerKey => (
-      <TeamLocker lockerKey={lockerKey} />
+    return TEAMS.map(lockerKey => (
+      <Locker key={lockerKey} lockerContents={lockerItems[lockerKey]} />
     ));
   }
+
   return(
-    <div className="locker-main-container">
-      <h3>Team Lockers</h3>
+    <div className="locker-index-container locker-content">
+      <h3 className="subheader">Team Lockers</h3>
       <div className="team-lockers-container">
         {renderTeamLockers()}
       </div>

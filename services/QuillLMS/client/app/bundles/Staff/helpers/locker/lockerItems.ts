@@ -1,163 +1,165 @@
+import { CURRICULUM, PARTNERSHIPS, PRODUCT, SUPPORT, PATHWAYS } from "../../../Shared"
+
 export const lockerItems = {
   'userManager': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'schoolManager': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'unarchiveUnits': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'teacherFixes': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'posts': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'postImages': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'announcements': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'uploadRosters': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'activitiesEditor': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'activityPacksEditor': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'activityPacksCategoriesEditor': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'authorsEditor': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'conceptsManager': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'attributesManager': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'railsAdmin': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'evidence': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'connect': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'diagnostic': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'grammar': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'lessons': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'proofreader': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
   'backpack': {
     label: '',
-    route: ``,
+    href: ``,
     emoji: '',
     emojiLabel: ''
   },
-  'curriculum': {
-    label: 'Curriculum',
-    route: ``,
+  [CURRICULUM]: {
+    label: CURRICULUM,
+    route: `locker/${CURRICULUM}`,
     emoji: '📚',
     emojiLabel: 'stack of books'
   },
-  'partnerships': {
-    label: 'Partnerships',
-    route: ``,
+  [PARTNERSHIPS]: {
+    label: PARTNERSHIPS,
+    route: `locker/${PARTNERSHIPS}`,
     emoji: '🎓',
     emojiLabel: 'graduation cap'
   },
-  'product': {
-    label: 'Product',
-    route: ``,
+  [PRODUCT]: {
+    label: PRODUCT,
+    route: `locker/${PRODUCT}`,
     emoji: '🚀',
     emojiLabel: 'rocket ship'
   },
-  'support': {
-    label: 'Support',
-    route: ``,
-    emoji: '☎',
+  [SUPPORT]: {
+    label: SUPPORT,
+    route: `locker/${SUPPORT}`,
+    emoji: '📞',
     emojiLabel: 'telephone'
   },
-  'pathways': {
-    label: 'Pathways',
-    route: ``,
+  [PATHWAYS]: {
+    label: PATHWAYS,
+    route: `locker/${PATHWAYS}`,
     emoji: '🖋',
     emojiLabel: ''
   },
