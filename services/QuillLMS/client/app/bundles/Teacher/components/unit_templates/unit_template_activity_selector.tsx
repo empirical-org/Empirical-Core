@@ -3,20 +3,29 @@ import request from 'request';
 
 import UnitTemplateActivityDataRow from './unit_template_activity_data_row'
 
+import { FlagDropdown, DropdownInput } from '../../../Shared/index'
 import Pagination from '../../../Teacher/components/assignment_flow/create_unit/custom_activity_pack/pagination'
 import { lowerBound, upperBound, sortFunctions, } from '../../../Teacher/components/assignment_flow/create_unit/custom_activity_pack/shared'
 import { requestGet, requestPost, requestDelete } from '../../../../modules/request/index'
 
 const ACTIVITIES_URL = `${process.env.DEFAULT_URL}/activities/index_with_unit_templates`
+const DEFAULT_FLAG = 'All Flags'
+const DEFAULT_TOOL = 'All Tools'
+const TOOL_OPTIONS = ['All Tools', 'connect', 'proofreader', 'grammar', 'diagnostic', 'evidence', 'lessons']
 
 const UnitTemplateActivitySelector = () => {
 
   const [activities, setActivities] = React.useState([])
   const [loading, setLoading] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [search, setSearch] = React.useState('')
+  const [nameSearch, setNameSearch] = React.useState('')
+  const [descriptionSearch, setDescriptionSearch] = React.useState('')
+  const [ccssSearch, setCCSSSearch] = React.useState('')
+  const [conceptSearch, setConceptSearch] = React.useState('')
+  const [activityPacksSearch, setActivityPacksSearch] = React.useState('')
+  const [flagSearch, setFlagSearch] = React.useState(DEFAULT_FLAG)
+  const [toolSearch, setToolSearch] = React.useState(DEFAULT_TOOL)
   const [sort, setSort] = React.useState('default')
-  const currentPageActivities = activities.slice(lowerBound(currentPage), upperBound(currentPage));
 
   React.useEffect(() => {
     if (loading) { getActivities() }
@@ -36,6 +45,22 @@ const UnitTemplateActivitySelector = () => {
     })
   }
 
+  function getFilteredActivities() {
+    return activities.filter(act => {
+      return (
+        (nameSearch === '' || (act.name && act.name.toLowerCase().includes(nameSearch.toLowerCase()))) &&
+        (descriptionSearch === '' || (act.description && act.description.toLowerCase().includes(descriptionSearch.toLowerCase()))) &&
+        (ccssSearch === '' || (act.standard && act.standard.name.toLowerCase().includes(ccssSearch.toLowerCase()))) &&
+        (conceptSearch === '' || (act.activity_category && act.activity_category.name.toLowerCase().includes(conceptSearch.toLowerCase()))) &&
+        (activityPacksSearch === '' || (act.unit_template_names && act.unit_template_names.some(ut => ut.includes(activityPacksSearch.toLowerCase()))))
+      );
+    })
+  }
+
+  function currentPageActivities() {
+    return getFilteredActivities().slice(lowerBound(currentPage), upperBound(currentPage))
+  }
+
   const tableHeaders = (
     <tr className="ut-activities-headers">
       <th className="ut-break">&nbsp;</th>
@@ -49,7 +74,7 @@ const UnitTemplateActivitySelector = () => {
   )
 
 
-  const activityRows = currentPageActivities.map((act) => {
+  const activityRows = currentPageActivities().map((act) => {
     return (
       <UnitTemplateActivityDataRow
         activity={act}
@@ -58,8 +83,95 @@ const UnitTemplateActivitySelector = () => {
     )
   })
 
+  function handleNameSearch(e) {
+    setNameSearch(e.target.value)
+  }
+
+  function handleDescriptionSearch(e) {
+    setDescriptionSearch(e.target.value)
+  }
+
+  function handleCCSSSearch(e) {
+    setCCSSSearch(e.target.value)
+  }
+
+  function handleConceptSearch(e) {
+    setConceptSearch(e.target.value)
+  }
+
+  function handleActivityPacksSearch(e) {
+    setActivityPacksSearch(e.target.value)
+  }
+
+  function handleFlagSearch(e) {
+    setFlagSearch(e.target.value)
+  }
+
+  function handleToolSearch(tool) {
+    setFlagSearch(tool)
+  }
+
+  const filterInputs = (
+    <div className="unit-template-filters">
+      <input
+        aria-label="Search by name"
+        className="name-search-box"
+        name="nameInput"
+        onChange={handleNameSearch}
+        placeholder="Search by name"
+        value={nameSearch || ""}
+      />
+      <input
+        aria-label="Search by description"
+        className="description-search-box"
+        name="descriptionInput"
+        onChange={handleDescriptionSearch}
+        placeholder="Search by description"
+        value={descriptionSearch || ""}
+      />
+      <input
+        aria-label="Search by CCSS"
+        className="ccss-search-box"
+        name="ccssInput"
+        onChange={handleCCSSSearch}
+        placeholder="Search by CCSS"
+        value={ccssSearch || ""}
+      />
+      <input
+        aria-label="Search by Concept"
+        className="concept-search-box"
+        name="conceptInput"
+        onChange={handleConceptSearch}
+        placeholder="Search by Concept"
+        value={conceptSearch || ""}
+      />
+      <input
+        aria-label="Search by Activity Pack"
+        className="activity-packs-search-box"
+        name="activityPacksInput"
+        onChange={handleActivityPacksSearch}
+        placeholder="Search by Activity Pack"
+        value={activityPacksSearch || ""}
+      />
+      <FlagDropdown
+        flag={flagSearch}
+        handleFlagChange={handleFlagSearch}
+        isLessons={true}
+      />
+      <DropdownInput
+        handleChange={handleToolSearch}
+        isSearchable={false}
+        label="Tool"
+        options={["connect"]}
+        value="connect"
+      />
+    </div>
+  )
+
   return (
     <div className="unit-template-activities">
+      <h3>Activities in Pack:</h3>
+      {filterInputs}
       <h4>All Activities</h4>
       <div className="unit-template-activities-table">
         {tableHeaders}
@@ -69,7 +181,7 @@ const UnitTemplateActivitySelector = () => {
           </tbody>
         </table>
       </div>
-      <Pagination activities={activities} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <Pagination activities={getFilteredActivities()} currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </div>
   )
 }
