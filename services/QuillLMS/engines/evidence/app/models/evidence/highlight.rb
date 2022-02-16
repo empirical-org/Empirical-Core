@@ -63,7 +63,7 @@ module Evidence
       return unless highlight_type == 'passage'
 
       related_passages = feedback.rule.prompts.map(&:activity).uniq.map(&:passages).flatten
-      invalid_ids = related_passages.reject {|p| p.text.include?(text)}.map {|p| p.activity.id}
+      invalid_ids = related_passages.reject {|p| strip_tags(p.text).include?(text)}.map {|p| p.activity.id}
       return if invalid_ids.empty?
 
       invalid_ids
@@ -79,6 +79,10 @@ module Evidence
 
     private def second_order
       feedback.order == 1
+    end
+
+    private def strip_tags(input)
+      ::ActionController::Base.helpers.strip_tags(input)
     end
   end
 end
