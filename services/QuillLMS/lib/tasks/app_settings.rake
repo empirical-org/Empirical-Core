@@ -35,7 +35,7 @@ namespace :app_settings do
 
     app_setting = AppSetting.find_by_name!(args[:name])
 
-    app_setting.update!(user_ids_allow_list: app_setting.user_ids_allow_list.uniq.concat(user_ids))
+    app_setting.update!(user_ids_allow_list: app_setting.user_ids_allow_list.concat(user_ids).uniq)
     puts "AppSetting #{app_setting.name} has been updated with user list: #{user_ids}."
   end
 end
