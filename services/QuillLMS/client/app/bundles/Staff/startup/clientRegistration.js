@@ -8,13 +8,11 @@ import EvidenceIndex from './EvidenceIndex.tsx';
 import BackpackIndex from '../containers/BackpackIndex.tsx'
 import AttributesManagerIndex from './AttributesManagerIndex'
 import ActivityFormIndex from './ActivityFormIndex'
-import LockerIndex from './LockerIndex'
 
 ReactOnRails.register({
   ConceptsIndex,
   BackpackIndex,
   EvidenceIndex,
   AttributesManagerIndex,
-  ActivityFormIndex,
-  LockerIndex
+  ActivityFormIndex
 });

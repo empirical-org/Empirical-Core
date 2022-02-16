@@ -1,7 +1,7 @@
 import * as React from "react";
 
-const LockerLanding = () => (
+export const LockerIndex = () => (
   <div className="locker-main-container" />
 )
 
-export default LockerLanding;
+export default LockerIndex;
