@@ -45,7 +45,7 @@ export default class CurrentSubscription extends React.Component {
     } else if (subscriptionType === 'School Sponsored' || subscriptionType === 'Trial') {
       return <span>No Payment Method on File</span>;
     } else if (subscriptionStatus && (!subscriptionStatus.payment_method || subscriptionStatus.payment_method === 'School Invoice')) {
-      return <span>School Invoice</span>;
+      return <span>Invoice</span>;
     } else if (!subscriptionStatus && lastFour) {
       return this.editCreditCardElement();
     }
@@ -109,7 +109,7 @@ export default class CurrentSubscription extends React.Component {
             <div className="flex-row space-between">
               <div>
                 <TitleAndContent content={subscriptionStatus.account_type} title="Plan" />
-                <TitleAndContent content={purchaserNameOrEmail} title="Purchaser" />
+                {purchaserNameOrEmail && purchaserNameOrEmail.length && <TitleAndContent content={purchaserNameOrEmail} title="Purchaser" />}
               </div>
               <div>
                 <TitleAndContent content={moment(subscriptionStatus.start_date).format('MMMM Do, YYYY')} title="Start Date" />
