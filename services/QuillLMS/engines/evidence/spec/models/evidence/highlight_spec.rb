@@ -44,6 +44,12 @@ module Evidence
         expect(highlight.invalid_activity_ids).to be_nil
       end
 
+      it 'should return nil if the is contained n the passage after HTML tags are stripped from the highlight' do
+        tag_wrapped_words = highlight.text.split.map{ |word| "<b>#{word}</b>" }.join(" ")
+        highlight.update(text: tag_wrapped_words)
+        expect(highlight.invalid_activity_ids).to be_nil
+      end
+
       it 'should return an array of activity_ids for activities that have unmatched passages' do
         highlight.update(text: 'text that definitely is not in the passage')
         expect(highlight.invalid_activity_ids).to include(activity.id)
