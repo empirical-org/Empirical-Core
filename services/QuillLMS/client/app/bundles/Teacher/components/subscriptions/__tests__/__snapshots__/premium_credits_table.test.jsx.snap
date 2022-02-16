@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PremiumCreditsTable container should render when there are no premium credits 1`] = `
+<PremiumCreditsTable
+  earnedCredits={0}
+  premiumCredits={Array []}
+>
+  <section>
+    <div
+      className="flex-row space-between"
+    >
+      <h2>
+        Earned Premium Credits History
+      </h2>
+      <a
+        className="green-link"
+        href="/referrals"
+      >
+        How to earn more Premium credit
+      </a>
+    </div>
+    <table
+      className="premium-credits-table"
+    >
+      <tbody>
+        <tr>
+          <th>
+            Date Received
+          </th>
+          <th>
+            Amount Credited
+          </th>
+          <th>
+            Action
+          </th>
+        </tr>
+      </tbody>
+    </table>
+    <span
+      className="total-premium-credits"
+    >
+      <span
+        className="total-header"
+      >
+        Total Premium Credits Earned:
+      </span>
+       
+      0 months
+    </span>
+  </section>
+</PremiumCreditsTable>
+`;
