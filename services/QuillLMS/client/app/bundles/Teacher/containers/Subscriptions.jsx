@@ -99,7 +99,7 @@ export default class Subscriptions extends React.Component {
   };
 
   subscriptionType() {
-    const { subscriptionStatus, } = this.props
+    const { subscriptionStatus, schoolSubscriptionTypes, trialSubscriptionTypes, } = this.props
 
     if (!subscriptionStatus) {
       return 'Basic';
@@ -147,12 +147,12 @@ export default class Subscriptions extends React.Component {
 
   render() {
     const { lastFour, premiumCredits, } = this.props
-    const { subscriptionStatus, authorityLevel, availableCredits, earnedCredits, showPremiumConfirmationModal, showPurchaseModal, } = this.state
+    const { subscriptionStatus, authorityLevel, availableCredits, earnedCredits, showPremiumConfirmationModal, showPurchaseModal, subscriptions, } = this.state
 
     const userHasValidSub = subscriptionStatus && !subscriptionStatus.expired;
     const subId = `${_.get(subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`;
     // don't show any last four unless they have an authority level with their purchase, or they don't have a sub
-    const lastFour = (authorityLevel || !subscriptionStatus) ? lastFour : null;
+    const lastFourToPass = (authorityLevel || !subscriptionStatus) ? lastFour : null;
     return (
       <div>
         <SubscriptionStatus
@@ -164,7 +164,7 @@ export default class Subscriptions extends React.Component {
         />
         <CurrentSubscription
           authorityLevel={authorityLevel}
-          lastFour={lastFour}
+          lastFour={lastFourToPass}
           purchaserNameOrEmail={this.purchaserNameOrEmail()}
           showPurchaseModal={this.showPurchaseModal}
           subscriptionStatus={subscriptionStatus}
@@ -190,7 +190,7 @@ export default class Subscriptions extends React.Component {
         />
         <PurchaseModal
           hideModal={this.hidePurchaseModal}
-          lastFour={lastFour}
+          lastFour={lastFourToPass}
           show={showPurchaseModal}
           subscriptionType={this.subscriptionType()}
           updateSubscriptionStatus={this.updateSubscriptionStatus}
