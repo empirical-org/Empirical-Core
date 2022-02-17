@@ -20,7 +20,7 @@ export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActiv
     if (!prompt) { return }
     const stemWithoutConjunction = prompt.text.replace(conjunction, '');
     const exemplar = prompt[property];
-    return <p>{stemWithoutConjunction}<strong>{`${conjunction} `}</strong><br/><u>{exemplar}</u></p>;
+    return <p>{stemWithoutConjunction}<strong>{`${conjunction} `}</strong><br /><u>{exemplar}</u></p>;
   }
 
   function getResponsesForConjunction(conjunction: string) {
@@ -35,7 +35,7 @@ export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActiv
     if(!responses) { return }
     const lastResponseText = responses[responses.length - 1].entry;
     const splitResponse = lastResponseText.split(conjunction);
-    return <p>{splitResponse[0]}<strong>{`${conjunction} `}</strong><br/><u>{splitResponse[1]}</u></p>
+    return <p>{splitResponse[0]}<strong>{`${conjunction} `}</strong><br /><u>{splitResponse[1]}</u></p>
   }
 
   function renderResponseAndExamplarsSection(conjunction: string) {
