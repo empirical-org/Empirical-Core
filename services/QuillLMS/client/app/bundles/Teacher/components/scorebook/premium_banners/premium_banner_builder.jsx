@@ -20,7 +20,7 @@ export default class PremiumBannerBuilder extends React.Component {
   }
 
   fetchData = () => {
-    var that = this;
+    let that = this;
     $.get('/teachers/classrooms/premium')
       .done(function(data) {
         that.setState({
@@ -76,9 +76,9 @@ export default class PremiumBannerBuilder extends React.Component {
   };
 
   hasPremium = () => {
-    var color = this.stateSpecificBackGroundColor();
-    var img = this.stateSpecificBackGroundImage();
-    var divStyle = {
+    let color = this.stateSpecificBackGroundColor();
+    let img = this.stateSpecificBackGroundImage();
+    let divStyle = {
       backgroundColor: color,
       backgroundImage: img
     };

@@ -41,7 +41,7 @@ class ItemLevelForm extends React.Component {
       alert("You must choose a name for this item level")
       return
     }
-    var newItemLevel = {
+    let newItemLevel = {
       name: this.refs.newItemLevelName.value,
       integerValue: this.refs.integerValue.value,
     }

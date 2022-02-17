@@ -23,16 +23,16 @@ describe("The question object", () => {
   });
 
   it("should be able to check for an exact match in the responses.", () => {
-    var correctResponse = question.checkExactMatch("Frida Kahlo’s childhood home is called “The Blue House” because it is painted a bright cobalt blue.");
+    let correctResponse = question.checkExactMatch("Frida Kahlo’s childhood home is called “The Blue House” because it is painted a bright cobalt blue.");
     expect(correctResponse).toExist()
-    var alternateQuotationResponse = question.checkExactMatch("Frida Kahlo’s childhood home is called \"The Blue House\" because it is painted a bright cobalt blue.");
+    let alternateQuotationResponse = question.checkExactMatch("Frida Kahlo’s childhood home is called \"The Blue House\" because it is painted a bright cobalt blue.");
     expect(alternateQuotationResponse).toExist();
   });
 
   it("should be able to check for an exact match in the responses.", () => {
-    var correctResponse = question.checkExactMatch("Frida Kahlo’s childhood home is called “The Blue House” because it is painted a bright cobalt blue.");
+    let correctResponse = question.checkExactMatch("Frida Kahlo’s childhood home is called “The Blue House” because it is painted a bright cobalt blue.");
     expect(correctResponse).toExist()
-    var alternateQuotationResponse = question.checkExactMatch("Frida Kahlo's childhood home is called \"The Blue House\" because it is painted a bright cobalt blue.");
+    let alternateQuotationResponse = question.checkExactMatch("Frida Kahlo's childhood home is called \"The Blue House\" because it is painted a bright cobalt blue.");
     expect(alternateQuotationResponse).toExist();
   });
 });

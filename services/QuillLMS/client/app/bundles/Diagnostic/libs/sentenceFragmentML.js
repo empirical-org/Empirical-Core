@@ -395,7 +395,7 @@ export default class POSMatcher {
   }
 
   checkMLMatch(userSubmission, returnValue, utl) {
-    var options = {
+    let options = {
       method: 'POST',
       uri: `${process.env.QUILL_CMS}/fragments/is_sentence`,
       form: {

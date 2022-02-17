@@ -28,42 +28,42 @@ describe("The question object", () => {
   });
 
   it("should be able to check for an additional word.", () => {
-    var correctResponse = question.checkChangeObjectRigidMatch("The fox ran away.");
+    let correctResponse = question.checkChangeObjectRigidMatch("The fox ran away.");
     expect(correctResponse).toExist()
   });
 
   it("should be able to check for an additional word. 2", () => {
-    var correctResponse = question.checkChangeObjectRigidMatch("The fox away ran.");
+    let correctResponse = question.checkChangeObjectRigidMatch("The fox away ran.");
     expect(correctResponse).toExist()
   });
 
   it("should be able to check for an additional word. 3", () => {
-    var correctResponse = question.checkChangeObjectRigidMatch("The away fox ran.");
+    let correctResponse = question.checkChangeObjectRigidMatch("The away fox ran.");
     expect(correctResponse).toExist()
   });
 
   it("should be able to check for a missing word.", () => {
-    var correctResponse = question.checkChangeObjectRigidMatch("The ran.");
+    let correctResponse = question.checkChangeObjectRigidMatch("The ran.");
     expect(correctResponse).toExist()
   });
 
   it("should be able to check for a modified word.", () => {
-    var correctResponse = question.checkChangeObjectRigidMatch("The dog ran.");
+    let correctResponse = question.checkChangeObjectRigidMatch("The dog ran.");
     expect(correctResponse).toExist()
   });
 
   it("should be able to check no change.", () => {
-    var correctResponse = question.checkChangeObjectRigidMatch("The fox ran.");
+    let correctResponse = question.checkChangeObjectRigidMatch("The fox ran.");
     expect(correctResponse).toExist()
   });
 
   it("should not match more than one missing word.", () => {
-    var correctResponse = question.checkChangeObjectRigidMatch("The.");
+    let correctResponse = question.checkChangeObjectRigidMatch("The.");
     expect(correctResponse).toNotExist()
   });
 
   it("should not match more than one additional word.", () => {
-    var correctResponse = question.checkChangeObjectRigidMatch("The fleeting fast fox ran.");
+    let correctResponse = question.checkChangeObjectRigidMatch("The fleeting fast fox ran.");
     expect(correctResponse).toNotExist()
   });
 

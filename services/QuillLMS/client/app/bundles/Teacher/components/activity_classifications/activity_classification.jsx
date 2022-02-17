@@ -38,8 +38,8 @@ export default class ActivityClassification extends React.Component {
   }
 
   initializeModules() {
-    var fnl = new Fnl();
-    var server = new Server(this.resourceNameSingular, this.resourceNamePlural, '/cms');
+    let fnl = new Fnl();
+    let server = new Server(this.resourceNameSingular, this.resourceNamePlural, '/cms');
     this.modules = {
       textInputGenerator: new TextInputGenerator(this, this.updateModelState),
       server: server,

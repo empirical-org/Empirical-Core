@@ -1,4 +1,4 @@
-var path = require('path'),
+let path = require('path'),
   webpack = require('webpack');
 
 module.exports = {
