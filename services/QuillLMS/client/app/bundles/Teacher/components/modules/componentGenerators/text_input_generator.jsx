@@ -5,7 +5,7 @@ import TextInput from '../../general_components/text_input'
 
 export default function (component, update, options) {
 
-  var config = {
+  let config = {
     errors: [],
     update: update
   };
@@ -14,8 +14,8 @@ export default function (component, update, options) {
     config = _.merge(config, options)
   }
 
-  var _fun1 = function (ele) {
-    var default1;
+  let _fun1 = function (ele) {
+    let default1;
     if (ele.default) {
       default1 = ele.default
     } else if (component.state.model) {
@@ -47,7 +47,7 @@ export default function (component, update, options) {
   };
 
   this.generate = function (fieldObjs) {
-    var inputs;
+    let inputs;
     if (config.update !== null) {
       inputs = _.map(fieldObjs, _fun1)
     } else {

@@ -6,7 +6,7 @@ import _ from 'underscore'
 
 export default  function () {
 
-  var _modules = {
+  let _modules = {
     data:   new Data(),
     params: new Params()
   }

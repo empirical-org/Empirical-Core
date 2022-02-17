@@ -151,7 +151,7 @@ export default class LessonPlanner extends React.Component {
 
   filterByGrade = () => {
     const { grade, models, } = this.state.unitTemplatesManager;
-    var uts;
+    let uts;
     if (grade) {
       uts = this._modelsInGrade(grade)
     } else {
@@ -232,14 +232,14 @@ export default class LessonPlanner extends React.Component {
         id: activity.id
       });
     }
-    var sas = this.modules.fnl.toggleById(this.getSelectedActivities(), activity);
+    let sas = this.modules.fnl.toggleById(this.getSelectedActivities(), activity);
     this.updateCreateUnitModel({selectedActivities: sas});
   };
 
   clickAssignButton = () => this.updateUnitTemplatesManager({firstAssignButtonClicked: true});
 
   onFastAssignSuccess = () => {
-    var lastActivity = this.state.unitTemplatesManager.model;
+    let lastActivity = this.state.unitTemplatesManager.model;
     this.analytics().track('click Create Unit', {});
     this.deepExtendState(this.blankState());
     this.updateUnitTemplatesManager({lastActivityAssigned: lastActivity});
@@ -284,7 +284,7 @@ export default class LessonPlanner extends React.Component {
   };
 
   render() {
-    var tabSpecificComponents;
+    let tabSpecificComponents;
     // Ultimately, none of the tab state should exist, and we should transfer
     // entirely to react-router for managing that, along with redux for
     // the general state in this section

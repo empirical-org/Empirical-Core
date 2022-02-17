@@ -5,9 +5,9 @@
 import _ from 'underscore'
 
 //http://stackoverflow.com/questions/14843815/recursive-deep-extend-assign-in-underscore-js
-var _deepFunction = function(mergeArrays) {
+let _deepFunction = function(mergeArrays) {
   var f = function(a, b) {
-    var result;
+    let result;
     if (_.isArray(a) && _.isArray(b)) {
       if (mergeArrays) {
         result = a.concat(b)
@@ -25,7 +25,7 @@ var _deepFunction = function(mergeArrays) {
 }
 
 export default function (object, path, value, mergeArrays) {
-  var pathArr, len, keysExceptLastKey, lastKey, _deep;
+  let pathArr, len, keysExceptLastKey, lastKey, _deep;
   _deep = _deepFunction(mergeArrays)
 
   if (!path) {
@@ -36,7 +36,7 @@ export default function (object, path, value, mergeArrays) {
     keysExceptLastKey = _.take(pathArr, len -1);
     lastKey = pathArr[len - 1]
 
-    var nestedItem = _.reduce(keysExceptLastKey, function (acc, ele) {
+    let nestedItem = _.reduce(keysExceptLastKey, function (acc, ele) {
       if (! acc[ele]) acc[ele] = {}
       return acc[ele]
     }, object)
