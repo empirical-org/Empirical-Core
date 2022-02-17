@@ -1,6 +1,6 @@
 class DropResponsesTextIndex < ActiveRecord::Migration[6.1]
   def up
-    remove_index :responses, :text    
+    remove_index :responses, :text
   end
 
   def down
