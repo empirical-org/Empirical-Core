@@ -1,4 +1,4 @@
-import { CURRICULUM, PARTNERSHIPS, PRODUCT, SUPPORT, PATHWAYS } from "../../../Shared"
+import { EVIDENCE, CONNECT, DIAGNOSTIC, GRAMMAR, LESSONS, PROOFREADER, CURRICULUM, PARTNERSHIPS, PRODUCT, SUPPORT, PATHWAYS } from "../../../Shared"
 
 export const lockerItems = {
   'userManager': {
@@ -91,38 +91,38 @@ export const lockerItems = {
     emoji: '',
     emojiLabel: ''
   },
-  'evidence': {
-    label: '',
+  [EVIDENCE]: {
+    label: EVIDENCE,
     href: ``,
     emoji: '',
     emojiLabel: ''
   },
-  'connect': {
-    label: '',
+  [CONNECT]: {
+    label: CONNECT,
     href: ``,
     emoji: '',
     emojiLabel: ''
   },
-  'diagnostic': {
-    label: '',
+  [DIAGNOSTIC]: {
+    label: DIAGNOSTIC,
     href: ``,
     emoji: '',
     emojiLabel: ''
   },
-  'grammar': {
-    label: '',
+  [GRAMMAR]: {
+    label: GRAMMAR,
     href: ``,
     emoji: '',
     emojiLabel: ''
   },
-  'lessons': {
-    label: '',
+  [LESSONS]: {
+    label: LESSONS,
     href: ``,
     emoji: '',
     emojiLabel: ''
   },
-  'proofreader': {
-    label: '',
+  [PROOFREADER]: {
+    label: PROOFREADER,
     href: ``,
     emoji: '',
     emojiLabel: ''
@@ -137,7 +137,12 @@ export const lockerItems = {
     label: CURRICULUM,
     route: `locker/${CURRICULUM}`,
     emoji: '📚',
-    emojiLabel: 'stack of books'
+    emojiLabel: 'stack of books',
+    lockers: {
+      'tools': [EVIDENCE, CONNECT, DIAGNOSTIC, GRAMMAR, LESSONS, PROOFREADER],
+      'activity management': [],
+      'concept management': []
+    }
   },
   [PARTNERSHIPS]: {
     label: PARTNERSHIPS,
