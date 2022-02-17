@@ -37,7 +37,7 @@ export default class ProgressReportFilters extends React.Component {
   };
 
   render() {
-    var filters = [];
+    let filters = [];
     if (_.include(this.props.filterTypes, 'classroom')) {
       filters.push(this.classroomFilter());
     }

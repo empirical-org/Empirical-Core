@@ -28,7 +28,7 @@ export default class CheckboxSections extends React.Component {
   };
 
   pageBasedHelpInfo = (url) => {
-    var text = this.props.dashboard ? 'Guide' : 'View the Guide'
+    let text = this.props.dashboard ? 'Guide' : 'View the Guide'
     return <a href={url}>{text}</a>
   };
 
@@ -37,7 +37,7 @@ export default class CheckboxSections extends React.Component {
   };
 
   optionalInfo = (box) => {
-    var info = [];
+    let info = [];
     if (box.help_info) {
       info.push(<td className='text-right help-info' key={'help-info ' + box.action_url}>{this.pageBasedHelpInfo(box.help_info)}</td>);
     }
@@ -58,8 +58,8 @@ export default class CheckboxSections extends React.Component {
   };
 
   section = () => {
-    var that = this;
-    var boxes = this.sortBoxes().map(box =>
+    let that = this;
+    let boxes = this.sortBoxes().map(box =>
       (<tr className={'completed-' + box.completed} key={box.id}>
         <td className='check-or-number'>{that.checkOrNumber(box)}</td>
         <td className='text-left'><a href={box.action_url}>{box.name}</a></td>

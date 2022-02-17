@@ -6,28 +6,28 @@ import Normalizer from './normalizer'
 
 export default function () {
 
-  var _modules = {
+  let _modules = {
     fileProcessor: new FileProcessor(),
     normalizer: new Normalizer()
   }
 
-  var _constructData = function (resourceNameSingular) {
+  let _constructData = function (resourceNameSingular) {
     return function (data) {
-      var hash = {}
+      let hash = {}
       hash[resourceNameSingular] = data
       return hash;
     }
   }
 
-  var _normalizer = function (fieldDatas) {
+  let _normalizer = function (fieldDatas) {
     return function (data) {
       return _modules.normalizer.process(data, fieldDatas);
     }
   }
 
-  var _partsPicker = function (savingKeys) {
+  let _partsPicker = function (savingKeys) {
     return function (data) {
-      var result;
+      let result;
       if (savingKeys && savingKeys.length) {
         result = _.pick(data, savingKeys);
       } else {

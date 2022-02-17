@@ -7,7 +7,7 @@ import { SortableList, } from '../../../../Shared/index'
 
 export default class CmsIndexTable extends React.Component {
   furnishRows = () => {
-    var rows = this.props.data.resources.map((resource, index) => this.furnishRow(resource, index) );
+    let rows = this.props.data.resources.map((resource, index) => this.furnishRow(resource, index) );
     return rows;
   };
 
