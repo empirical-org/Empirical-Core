@@ -321,7 +321,7 @@ export default createReactClass({
         {this.getPdfUpload()}
         <br /><br />
         <span>
-          <UnitTemplateActivitySelector parentActivities={model.activities}/>
+          <UnitTemplateActivitySelector parentActivities={model.activities} />
           {this.getErrorMessageAndButton()}
         </span>
       </span>
