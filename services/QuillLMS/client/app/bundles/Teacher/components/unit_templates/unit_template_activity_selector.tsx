@@ -8,7 +8,7 @@ import Pagination from '../../../Teacher/components/assignment_flow/create_unit/
 import { lowerBound, upperBound, sortFunctions, } from '../../../Teacher/components/assignment_flow/create_unit/custom_activity_pack/shared'
 import { requestGet, requestPost, requestDelete } from '../../../../modules/request/index'
 
-const ACTIVITIES_URL = `${process.env.DEFAULT_URL}/activities/index_with_unit_templates`
+const ACTIVITIES_URL = 'http://localhost:5000/activities/index_with_unit_templates'
 const DEFAULT_FLAG = 'All Flags'
 const DEFAULT_TOOL = 'All Tools'
 const DEFAULT_READABILITY = 'All Readability levels'
@@ -21,10 +21,13 @@ const TOOL_OPTIONS = [
   'lessons',
   'diagnostic'
 ]
+const UNSELECTED_TYPE = 'unselected'
+const SELECTED_TYPE = 'selected'
 
-const UnitTemplateActivitySelector = () => {
+const UnitTemplateActivitySelector = ({ parentActivities, }) => {
 
   const [activities, setActivities] = React.useState([])
+  const [selectedActivities, setSelectedActivities] = React.useState(parentActivities)
   const [loading, setLoading] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [nameSearch, setNameSearch] = React.useState('')
@@ -71,7 +74,8 @@ const UnitTemplateActivitySelector = () => {
         (activityPacksSearch === '' || (act.unit_template_names && act.unit_template_names.some(ut => ut.includes(activityPacksSearch.toLowerCase())))) &&
         (flagSearch === DEFAULT_FLAG || (act.data && act.data['flag'] && act.data['flag'] === flagSearch)) &&
         (toolSearch === DEFAULT_TOOL || (act.classification && act.classification.key === toolSearch)) &&
-        (readabilitySearch === DEFAULT_READABILITY || (act.readability_grade_level && act.readability_grade_level === readabilitySearch))
+        (readabilitySearch === DEFAULT_READABILITY || (act.readability_grade_level && act.readability_grade_level === readabilitySearch)) &&
+        (selectedActivities.length === 0 || !selectedActivities.map(a => a.id).includes(act.id))
       );
     })
   }
@@ -80,8 +84,20 @@ const UnitTemplateActivitySelector = () => {
     return getFilteredActivities().slice(lowerBound(currentPage), upperBound(currentPage))
   }
 
+  function handleAddActivity(activity) {
+    const newSelectedActivities = selectedActivities.slice()
+    newSelectedActivities.push(activity)
+    setSelectedActivities(newSelectedActivities)
+  }
+
+  function handleRemoveActivity(activity) {
+    const newSelectedActivities = selectedActivities.filter(a => a.id !== activity.id)
+    setSelectedActivities(newSelectedActivities)
+  }
+
   const tableHeaders = (
     <tr className="ut-activities-headers">
+      <th className="ut-break">&nbsp;</th>
       <th className="ut-break">&nbsp;</th>
       <th className="ut-name-col">Name</th>
       <th className="ut-flag-col">Flag</th>
@@ -97,7 +113,10 @@ const UnitTemplateActivitySelector = () => {
     return (
       <UnitTemplateActivityDataRow
         activity={act}
+        handleAdd={handleAddActivity}
+        handleRemove={handleRemoveActivity}
         key={act.id}
+        type={UNSELECTED_TYPE}
       />
     )
   })
@@ -134,6 +153,31 @@ const UnitTemplateActivitySelector = () => {
     setReadabilitySearch(e.target.value)
   }
 
+  function selectedActivitiesTable() {
+    const fullSelectedActivities = activities.length > 0 ? selectedActivities.map((act) => activities.find(a => act.id === a.id)) : []
+    return (
+      <div className="unit-template-activities-table unit-template-selected-activities-table">
+        <h4 className="selected-activities-header">Selected Activities:</h4>
+        <table className="unit-template-activities-table-rows">
+          {tableHeaders}
+          <tbody className="unit-template-activities-tbody">
+            {fullSelectedActivities.map((act) => {
+              return (
+                <UnitTemplateActivityDataRow
+                  activity={act}
+                  handleAdd={handleAddActivity}
+                  handleRemove={handleRemoveActivity}
+                  key={act.id}
+                  type={SELECTED_TYPE}
+                />
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+
   const filterInputs = (
     <div className="unit-template-filters">
       <input
@@ -161,19 +205,19 @@ const UnitTemplateActivitySelector = () => {
         value={ccssSearch || ""}
       />
       <input
-        aria-label="Search by Concept"
+        aria-label="Search by concept"
         className="concept-search-box"
         name="conceptInput"
         onChange={handleConceptSearch}
-        placeholder="Search by Concept"
+        placeholder="Search by concept"
         value={conceptSearch || ""}
       />
       <input
-        aria-label="Search by Activity Pack"
+        aria-label="Search by activity pack"
         className="activity-packs-search-box"
         name="activityPacksInput"
         onChange={handleActivityPacksSearch}
-        placeholder="Search by Activity Pack"
+        placeholder="Search by activity pack"
         value={activityPacksSearch || ""}
       />
       <div className="unit-template-dropdown-filters">
@@ -201,8 +245,9 @@ const UnitTemplateActivitySelector = () => {
   return (
     <div className="unit-template-activities">
       <h3>Activities in Pack:</h3>
+      {selectedActivitiesTable()}
+      <h4>All Activities:</h4>
       {filterInputs}
-      <h4>All Activities</h4>
       <div className="unit-template-activities-table">
         {tableHeaders}
         <table className="unit-template-activities-table-rows">

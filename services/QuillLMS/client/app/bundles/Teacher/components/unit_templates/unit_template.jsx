@@ -303,6 +303,7 @@ export default createReactClass({
   },
 
   render() {
+    const { model, } = this.state
     let inputs;
     inputs = this.modules.textInputGenerator.generate(this.formFields);
     return (
@@ -320,7 +321,7 @@ export default createReactClass({
         {this.getPdfUpload()}
         <br /><br />
         <span>
-          <UnitTemplateActivitySelector />
+          <UnitTemplateActivitySelector parentActivities={model.activities}/>
           {this.getErrorMessageAndButton()}
         </span>
       </span>
