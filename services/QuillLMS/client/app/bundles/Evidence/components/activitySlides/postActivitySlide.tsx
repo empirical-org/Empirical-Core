@@ -20,7 +20,7 @@ export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActiv
     if (!prompt) { return }
     const stemWithoutConjunction = prompt.text.replace(conjunction, '');
     const exemplar = prompt[property];
-    return <p>{stemWithoutConjunction}<u>{`${conjunction} ${exemplar}`}</u></p>;
+    return <p>{stemWithoutConjunction}<strong>{`${conjunction} `}</strong><br/><u>{exemplar}</u></p>;
   }
 
   function getResponsesForConjunction(conjunction: string) {
@@ -35,7 +35,7 @@ export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActiv
     if(!responses) { return }
     const lastResponseText = responses[responses.length - 1].entry;
     const splitResponse = lastResponseText.split(conjunction);
-    return <p>{splitResponse[0]}<u>{`${conjunction} ${splitResponse[1]}`}</u></p>
+    return <p>{splitResponse[0]}<strong>{`${conjunction} `}</strong><br/><u>{splitResponse[1]}</u></p>
   }
 
   function renderResponseAndExamplarsSection(conjunction: string) {
@@ -68,13 +68,13 @@ export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActiv
           <img alt="An illustration of an A+ that is crossed out" id="grade-badge" src={`${process.env.CDN_URL}/images/evidence/paper-check.svg`} />
           <section id="reminder-text-section">
             <p className="sub-header-text">Reminder about grades</p>
-            <p className="sub-header-subtext">Your teacher will see all of your revisions, but this activity was for practice, so it isn’t graded.</p>
+            <p className="sub-header-subtext">This is practice, so your teacher will see your revisions, but Quill won&apos;t assign you a grade.</p>
           </section>
         </section>
       </section>
       <section className="responses-exemplars-container">
         <section className="review-response-header-section">
-          <p className="sub-header-text">Reflect on your work.</p>
+          <p className="sub-header-text">Reflect on your work</p>
           <p className="sub-header-subtext">There are many different ways to use evidence in your writing. Consider how your responses compare to the strong examples. In what ways are they similar or different? Notice the ideas, the phrasing, and the tone of voice, and think about how you could use because, but, and so in your future writing.</p>
         </section>
         {renderResponseAndExamplarsSection(BECAUSE)}

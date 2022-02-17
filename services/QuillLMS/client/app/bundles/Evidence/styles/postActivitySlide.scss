@@ -11,13 +11,13 @@
     align-items: center;
     background-color: #FFFFFF;
     width: 100%;
-    max-width: 980px;
+    max-width: 1200px;
     margin-bottom: 40px;
     border-radius: 6px;
     border: solid 1px #e0e0e0;
     .review-response-header-section {
       margin-top: 40px;
-      max-width: 728px;
+      max-width: 808px;
       width: 100%;
       text-align: center;
       border-bottom: 1px solid #e0e0e0;
@@ -56,8 +56,8 @@
       }
     }
     .exemplar-box, .response-box {
-      width: 450px;
-      margin-bottom: 40px;
+      width: 568px;
+      margin-bottom: 32px;
       background-color: #f5f5f5;
       padding: 16px;
       border-radius: 6px;
@@ -134,7 +134,7 @@
 }
 
 
-@media (max-width: 992px) {
+@media (max-width: 1200px) {
   .post-activity-slide-container {
     height: calc(100% - 48px);
     overflow-x: hidden;
@@ -158,19 +158,11 @@
         max-width: 320px;
       }
 
-      #reminder-badge-section {
-        width: 280px;
-        padding: 0px 16px;
-        margin: 0px 38px 24px 38px;
-
-        #grade-badge {
-          display: none;
-        }
-      }
       #second-sub-text {
         margin-top: 22px;
         padding-bottom: 16px;
       }
+
       #first-sub-text {
         margin-top: 32px;
       }
@@ -219,5 +211,20 @@
   .post-activity-slide-container {
     height: min-content;
     padding-top: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .post-activity-slide-container {
+    #information-section {
+      #reminder-badge-section {
+        width: 280px;
+        padding: 0px 16px;
+        margin: 0px 38px 24px 38px;
+        #grade-badge {
+          display: none;
+        }
+      }
+    }
   }
 }

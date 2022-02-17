@@ -42,7 +42,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
         <p
           className="sub-header-subtext"
         >
-          Your teacher will see all of your revisions, but this activity was for practice, so it isn’t graded.
+          This is practice, so your teacher will see your revisions, but Quill won't assign you a grade.
         </p>
       </section>
     </section>
@@ -56,7 +56,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
       <p
         className="sub-header-text"
       >
-        Reflect on your work.
+        Reflect on your work
       </p>
       <p
         className="sub-header-subtext"
@@ -84,9 +84,11 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
         >
           <p>
             test1
-            <u>
-              because undefined
-            </u>
+            <strong>
+              because 
+            </strong>
+            <br />
+            <u />
           </p>
         </section>
       </section>
@@ -107,9 +109,11 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
         >
           <p>
             test
-            <u>
-              because undefined
-            </u>
+            <strong>
+              because 
+            </strong>
+            <br />
+            <u />
           </p>
         </section>
         <section
@@ -117,9 +121,11 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
         >
           <p>
             test
-            <u>
-              because undefined
-            </u>
+            <strong>
+              because 
+            </strong>
+            <br />
+            <u />
           </p>
         </section>
       </section>
@@ -144,9 +150,11 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
         >
           <p>
             test2
-            <u>
-              but undefined
-            </u>
+            <strong>
+              but 
+            </strong>
+            <br />
+            <u />
           </p>
         </section>
       </section>
@@ -167,9 +175,11 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
         >
           <p>
             test
-            <u>
-              but undefined
-            </u>
+            <strong>
+              but 
+            </strong>
+            <br />
+            <u />
           </p>
         </section>
         <section
@@ -177,9 +187,11 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
         >
           <p>
             test
-            <u>
-              but undefined
-            </u>
+            <strong>
+              but 
+            </strong>
+            <br />
+            <u />
           </p>
         </section>
       </section>
@@ -204,9 +216,11 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
         >
           <p>
             test3
-            <u>
-              so undefined
-            </u>
+            <strong>
+              so 
+            </strong>
+            <br />
+            <u />
           </p>
         </section>
       </section>
@@ -227,9 +241,11 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
         >
           <p>
             test
-            <u>
-              so undefined
-            </u>
+            <strong>
+              so 
+            </strong>
+            <br />
+            <u />
           </p>
         </section>
         <section
@@ -237,9 +253,11 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
         >
           <p>
             test
-            <u>
-              so undefined
-            </u>
+            <strong>
+              so 
+            </strong>
+            <br />
+            <u />
           </p>
         </section>
       </section>
