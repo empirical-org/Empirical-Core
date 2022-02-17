@@ -44,8 +44,9 @@ class Unit < ApplicationRecord
   belongs_to :unit_template
   after_save :hide_classroom_units_and_unit_activities_if_visible_false
   after_save :create_any_new_classroom_unit_activity_states
-  after_touch :touch_all_classrooms_and_classroom_units
-  after_save :touch_all_classrooms_and_classroom_units
+  # Using an after_commit hook here because we want to trigger the callback
+  # on save or touch, and touch explicitly bypasses after_save hooks
+  after_commit :touch_all_classrooms_and_classroom_units
 
   def hide_if_no_visible_unit_activities
     return if unit_activities.where(visible: true).exists?
