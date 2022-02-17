@@ -90,7 +90,7 @@ export default class UnitTemplateCategory extends React.Component<UnitTemplateCa
 
   render() {
     const { modules, formFields } = this.state
-    var inputs = modules.textInputGenerator.generate(formFields);
+    let inputs = modules.textInputGenerator.generate(formFields);
     return(
       <div className='edit_activity_classification cms-form'>
         {inputs}

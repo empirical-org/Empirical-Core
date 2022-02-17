@@ -21,7 +21,7 @@ export default class SortableTable extends React.Component {
 
   columns = () => {
     return _.map(this.props.columns, function (column, i) {
-      var isCurrentSort = (column.sortByField === this.props.currentSort.field);
+      let isCurrentSort = (column.sortByField === this.props.currentSort.field);
       return (
         <SortableTh
           displayClass={column.className}
