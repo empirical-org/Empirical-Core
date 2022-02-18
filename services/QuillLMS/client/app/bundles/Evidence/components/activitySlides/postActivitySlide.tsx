@@ -1,10 +1,9 @@
 import * as React from "react";
 
 import { BECAUSE, BUT, SO } from '../../../Shared/index'
+import { FIRST_STRONG_EXAMPLE, SECOND_STRONG_EXAMPLE } from "../../../../constants/evidence";
 import { PromptInterface } from "../../../Staff/interfaces/evidenceInterfaces";
 
-const FIRST_STRONG_EXAMPLE = 'first_strong_example';
-const SECOND_STRONG_EXAMPLE = 'second_strong_example';
 const conjunctions = [BECAUSE, BUT, SO];
 
 interface PostActivitySlideProps {

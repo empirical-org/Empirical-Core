@@ -54,7 +54,7 @@ exports[`PromptsForm component should render PromptsForm 1`] = `
     />
     <Input
       autoComplete="on"
-      className="But-example"
+      className="but-example"
       handleChange={[Function]}
       label="But Second Exemplar"
     />

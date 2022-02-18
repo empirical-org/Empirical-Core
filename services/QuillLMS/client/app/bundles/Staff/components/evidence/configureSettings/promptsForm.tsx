@@ -68,7 +68,7 @@ const PromptsForm = ({ activityBecausePrompt, activityButPrompt, activitySoPromp
           value={activityButPrompt.first_strong_example}
         />
         <Input
-          className="But-example"
+          className="but-example"
           handleChange={handleSetButPromptSecondStrongExample}
           label="But Second Exemplar"
           value={activityButPrompt.second_strong_example}
