@@ -26,6 +26,7 @@ module GrowthResultsSummary
     }
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def student_results
     @post_test_assigned_students.map do |assigned_student|
       post_test_activity_session = @post_test_activity_sessions[assigned_student.id]
@@ -52,7 +53,6 @@ module GrowthResultsSummary
     end
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   private def skill_groups_for_session(skill_groups, post_test_activity_session, pre_test_activity_session, student_name)
     skill_groups.map do |skill_group|
       skills = skill_group.skills.map do |skill|
