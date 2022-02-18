@@ -153,4 +153,35 @@ describe Unit, type: :model do
       expect{ unit.email_lesson_plan }.to change(LessonPlanEmailWorker.jobs, :size).by 1
     end
   end
+
+  describe '#touch_all_classrooms_and_classroom_units' do
+    let(:initial_time) { Time.now - 1.day}
+    let!(:unit) { create(:unit) }
+    let!(:classroom) { create(:classroom) }
+    let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit)}
+
+    it "should update classrooms and classroom_units updated_at on unit save" do
+      classroom.update_columns(updated_at: initial_time)
+      classroom_updated_at = classroom.reload.updated_at
+      classroom_unit.update_columns(updated_at: initial_time)
+      classroom_unit_updated_at = classroom_unit.reload.updated_at
+
+      unit.save
+
+      expect(classroom.reload.updated_at.to_i).not_to equal(classroom_updated_at.to_i)
+      expect(classroom_unit.reload.updated_at.to_i).not_to equal(classroom_unit_updated_at.to_i)
+    end
+
+    it "should update classrooms updated_t on classroom_unit touch" do
+      classroom.update_columns(updated_at: initial_time)
+      classroom_updated_at = classroom.reload.updated_at
+      classroom_unit.update_columns(updated_at: initial_time)
+      classroom_unit_updated_at = classroom_unit.reload.updated_at
+
+      unit.touch
+
+      expect(classroom.reload.updated_at.to_i).not_to equal(classroom_updated_at.to_i)
+      expect(classroom_unit.reload.updated_at.to_i).not_to equal(classroom_unit_updated_at.to_i)
+    end
+  end
 end
