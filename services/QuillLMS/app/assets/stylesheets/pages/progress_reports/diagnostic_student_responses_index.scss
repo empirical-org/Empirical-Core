@@ -1,5 +1,7 @@
 .diagnostic-individual-pack main.student-responses-index-container {
-  overflow: scroll;
+  .data-table-container {
+    overflow: scroll;
+  }
   .data-table {
     overflow: hidden;
     border-radius: 8px;

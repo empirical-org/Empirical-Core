@@ -42,8 +42,8 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
     this.getStudentData(params);
   }
 
-  componentWillReceiveProps(nextProps: StudentReportProps) {
-    const { params } = nextProps;
+  componentDidUpdate() {
+    const { params } = this.props;
     this.setState({ loading: true });
     this.getStudentData(params);
   }
@@ -82,7 +82,7 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
 
     if (boldingExplanationIsOpen) {
       return (
-        <button className="bolding-explanation is-open" onClick={this.handleToggleBoldingExplanation} type="button">
+        <button className="toggle-explanation is-open" onClick={this.handleToggleBoldingExplanation} type="button">
           <div>
             <h3>The bolded text helps you see the edits. It is not what the student sees.</h3>
             <p>In each student response, we have bolded all of the text that was added or edited by the student during the previous revision so that it is easier for you to skim the student&#39;s results and quickly see what changed in their writing.</p>
@@ -94,7 +94,7 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
     }
 
     return (
-      <button className="bolding-explanation is-closed" onClick={this.handleToggleBoldingExplanation} type="button">
+      <button className="toggle-explanation is-closed" onClick={this.handleToggleBoldingExplanation} type="button">
         <div>
           <h3>The bolded text helps you see the edits. It is not what the student sees.</h3>
           <p>(Expand to show more information)</p>
