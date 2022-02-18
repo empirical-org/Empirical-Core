@@ -178,6 +178,8 @@ exports[`UnitTemplate component Markdown Preview should not render without activ
           },
         ]
       }
+      setParentActivities={[Function]}
+      toggleParentActivity={[Function]}
     />
     <div
       className="error-message-and-button"
