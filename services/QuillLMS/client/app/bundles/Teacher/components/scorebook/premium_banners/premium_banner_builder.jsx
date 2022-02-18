@@ -25,6 +25,7 @@ export default class PremiumBannerBuilder extends React.Component {
     $.get('/teachers/classrooms/premium')
       .done(function(data) {
         that.setState({
+          last_subscription_was_trial: data.last_subscription_was_trial,
           has_premium: data['hasPremium'],
           trial_days_remaining: data['trial_days_remaining'],
           first_day_of_premium_or_trial: data['first_day_of_premium_or_trial']});});
@@ -65,7 +66,7 @@ export default class PremiumBannerBuilder extends React.Component {
 
   stateSpecificBackGroundColor = () => {
     const { daysLeft, } = this.props
-    if (daysLeft == 30){
+    if (daysLeft === 30){
       return('#d0ffc6');
     } else {
       return('#ffe7c0');
@@ -74,7 +75,7 @@ export default class PremiumBannerBuilder extends React.Component {
 
   stateSpecificBackGroundImage = () => {
     const { daysLeft, } = this.props
-    if (daysLeft == 30){
+    if (daysLeft === 30){
       return('none');
     } else {
       return('url(/images/star_pattern_5.png)');
