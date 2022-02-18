@@ -168,7 +168,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
       totalCorrectSkillsCount: total_correct_skills_count,
       totalPreCorrectSkillsCount: total_pre_correct_skills_count,
       preSkillsCorrectElement: total_pre_correct_skills_count ? <div className="skills-correct-element">{total_pre_correct_skills_count} of {total_possible_skills_count} ({calculateSkillsPercentage(total_pre_correct_skills_count, total_possible_skills_count)}%)</div> : null,
-      activeDiagnosticSkillsCorrectElement: total_correct_skills_count ? <div className="skills-correct-element">{total_correct_skills_count} of {total_possible_skills_count} ({calculateSkillsPercentage(total_correct_skills_count, total_possible_skills_count)}%)</div> : null,
+      activeDiagnosticSkillsCorrectElement: total_correct_skills_count !== undefined ? <div className="skills-correct-element">{total_correct_skills_count} of {total_possible_skills_count} ({calculateSkillsPercentage(total_correct_skills_count, total_possible_skills_count)}%)</div> : null,
       individualResponsesLink: total_correct_skills_count !== undefined ? <Link className="quill-button fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link> : <span className="name-section-subheader">Diagnostic not completed</span>
     }
   })
