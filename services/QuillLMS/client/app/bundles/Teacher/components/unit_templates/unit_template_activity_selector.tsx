@@ -5,26 +5,25 @@ import UnitTemplateActivityDataRow from './unit_template_activity_data_row'
 
 import { FlagDropdown, SortableList } from '../../../Shared/index'
 import Pagination from '../../../Teacher/components/assignment_flow/create_unit/custom_activity_pack/pagination'
-import { lowerBound, upperBound, sortFunctions, } from '../../../Teacher/components/assignment_flow/create_unit/custom_activity_pack/shared'
-import { requestGet, requestPost, requestDelete } from '../../../../modules/request/index'
+import { lowerBound, upperBound, } from '../../../Teacher/components/assignment_flow/create_unit/custom_activity_pack/shared'
 
-const ACTIVITIES_URL = 'http://localhost:5000/activities/index_with_unit_templates'
+const ACTIVITIES_URL = `${process.env.DEFAULT_URL}/activities/index_with_unit_templates`
 const DEFAULT_FLAG = 'All Flags'
 const DEFAULT_TOOL = 'All Tools'
 const DEFAULT_READABILITY = 'All Readability levels'
 const TOOL_OPTIONS = [
   'All Tools',
-  'connect',
-  'grammar',
-  'proofreader',
-  'evidence',
-  'lessons',
-  'diagnostic'
+  'Quill Connect',
+  'Quill Grammar',
+  'Quill Proofreader',
+  'Quill Evidence',
+  'Quill Lessons',
+  'Quill Diagnostic'
 ]
 const UNSELECTED_TYPE = 'unselected'
 const SELECTED_TYPE = 'selected'
 
-const UnitTemplateActivitySelector = ({ parentActivities, }) => {
+const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, toggleParentActivity }) => {
 
   const [activities, setActivities] = React.useState([])
   const [selectedActivities, setSelectedActivities] = React.useState(parentActivities)
@@ -71,7 +70,7 @@ const UnitTemplateActivitySelector = ({ parentActivities, }) => {
         (descriptionSearch === '' || (act.description && act.description.toLowerCase().includes(descriptionSearch.toLowerCase()))) &&
         (ccssSearch === '' || (act.standard && act.standard.name.toLowerCase().includes(ccssSearch.toLowerCase()))) &&
         (conceptSearch === '' || (act.activity_category && act.activity_category.name.toLowerCase().includes(conceptSearch.toLowerCase()))) &&
-        (activityPacksSearch === '' || (act.unit_template_names && act.unit_template_names.some(ut => ut.includes(activityPacksSearch.toLowerCase())))) &&
+        (activityPacksSearch === '' || (act.unit_template_names && act.unit_template_names.some(ut => ut.toLowerCase().includes(activityPacksSearch.toLowerCase())))) &&
         (flagSearch === DEFAULT_FLAG || (act.data && act.data['flag'] && act.data['flag'] === flagSearch)) &&
         (toolSearch === DEFAULT_TOOL || (act.classification && act.classification.key === toolSearch)) &&
         (readabilitySearch === DEFAULT_READABILITY || (act.readability_grade_level && act.readability_grade_level === readabilitySearch)) &&
@@ -84,13 +83,19 @@ const UnitTemplateActivitySelector = ({ parentActivities, }) => {
     return getFilteredActivities().slice(lowerBound(currentPage), upperBound(currentPage))
   }
 
+  function findAndToggleParentActivity(activity) {
+    toggleParentActivity(activity)
+  }
+
   function handleAddActivity(activity) {
+    findAndToggleParentActivity(activity)
     const newSelectedActivities = selectedActivities.slice()
     newSelectedActivities.push(activity)
     setSelectedActivities(newSelectedActivities)
   }
 
   function handleRemoveActivity(activity) {
+    findAndToggleParentActivity(activity)
     const newSelectedActivities = selectedActivities.filter(a => a.id !== activity.id)
     setSelectedActivities(newSelectedActivities)
   }
@@ -157,6 +162,9 @@ const UnitTemplateActivitySelector = ({ parentActivities, }) => {
     const sortedIds = sortInfo.map(s => s.key)
     const newOrderedActivities = sortedIds.map((s) => activities.find((a) => a.id === parseInt(s)))
     setSelectedActivities(newOrderedActivities)
+
+    const selectedParentActivities = newOrderedActivities.map(act => parentActivities.find(a => a.id === act.id))
+    setParentActivities(selectedParentActivities)
   }
 
   function selectedActivitiesTable() {

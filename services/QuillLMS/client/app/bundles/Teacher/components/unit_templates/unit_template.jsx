@@ -321,7 +321,11 @@ export default createReactClass({
         {this.getPdfUpload()}
         <br /><br />
         <span>
-          <UnitTemplateActivitySelector parentActivities={model.activities} />
+          <UnitTemplateActivitySelector
+            parentActivities={model.activities}
+            setParentActivities={this.handleNewSelectedActivities}
+            toggleParentActivity={this.toggleActivitySelection}
+          />
           {this.getErrorMessageAndButton()}
         </span>
       </span>
