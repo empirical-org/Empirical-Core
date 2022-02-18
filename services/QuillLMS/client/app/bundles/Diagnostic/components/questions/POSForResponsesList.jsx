@@ -36,11 +36,11 @@ export default class extends React.Component {
   };
 
   renderPOSTagsList = () => {
-    var posTagsList = this.sortResponses(this.props.posTagsList)
+    let posTagsList = this.sortResponses(this.props.posTagsList)
 
     return _.map(posTagsList, (tag, index) => {
-      var bgColor;
-      var icon;
+      let bgColor;
+      let icon;
       if (!tag.responses[0].feedback) {
         bgColor = "not-found-response";
       } else if (!!tag.responses[0].parentID) {
@@ -53,13 +53,13 @@ export default class extends React.Component {
         icon = "⚠️";
       }
 
-      var tagsToRender = [];
+      let tagsToRender = [];
       const posTagKeys = keysForPOS()
 
       tag.tags.forEach((index) => {
         tagsToRender.push(posTagKeys[index])
       })
-      var headerStyle = {
+      let headerStyle = {
         "padding": "10px 20px",
         "borderBottom": "0.2px solid #e6e6e6"
       }

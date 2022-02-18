@@ -4,7 +4,7 @@
 export default  function () {
 
   this.sayNumberOfThings = function (number, singular, plural) {
-    var value;
+    let value;
     if (number == 1) {
       value = singular;
     } else {
