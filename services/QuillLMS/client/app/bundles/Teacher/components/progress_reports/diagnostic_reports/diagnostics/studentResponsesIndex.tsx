@@ -4,7 +4,6 @@ import { withRouter, Link, } from 'react-router-dom';
 
 import {
   fileDocumentIcon,
-  lightGreenTriangleUpIcon,
 } from './shared'
 
 import LoadingSpinner from '../../../shared/loading_indicator.jsx'
@@ -76,14 +75,6 @@ const postTestDesktopHeaders = (isSortable) => ([
     width: '102px',
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
-    noTooltip: true,
-    isSortable
-  },
-  {
-    name: 'Growth',
-    attribute: 'growth',
-    sortAttribute: 'totalAcquiredSkillsCount',
-    width: '70px',
     noTooltip: true,
     isSortable
   },
@@ -168,8 +159,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
   const worthSorting = students.filter(s => s.total_correct_skills_count).length
 
   const desktopRows = students.map(student => {
-    const { name, total_acquired_skills_count, total_possible_skills_count, total_correct_skills_count, total_pre_correct_skills_count, id, } = student
-    const skillsDelta = total_acquired_skills_count ? <div className="skills-delta">{lightGreenTriangleUpIcon}<span className="skill-count">{total_acquired_skills_count} (+{calculateSkillsPercentage(total_acquired_skills_count, total_possible_skills_count)}%)</span></div> : null
+    const { name, total_possible_skills_count, total_correct_skills_count, total_pre_correct_skills_count, id, } = student
 
     return {
       id: id || name,
@@ -177,10 +167,8 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
       alphabeticalName: alphabeticalName(name),
       totalCorrectSkillsCount: total_correct_skills_count,
       totalPreCorrectSkillsCount: total_pre_correct_skills_count,
-      totalAcquiredSkillsCount: total_acquired_skills_count,
       preSkillsCorrectElement: total_pre_correct_skills_count ? <div className="skills-correct-element">{total_pre_correct_skills_count} of {total_possible_skills_count} ({calculateSkillsPercentage(total_pre_correct_skills_count, total_possible_skills_count)}%)</div> : null,
       activeDiagnosticSkillsCorrectElement: total_correct_skills_count ? <div className="skills-correct-element">{total_correct_skills_count} of {total_possible_skills_count} ({calculateSkillsPercentage(total_correct_skills_count, total_possible_skills_count)}%)</div> : null,
-      growth: skillsDelta,
       individualResponsesLink: total_correct_skills_count !== undefined ? <Link className="quill-button fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link> : <span className="name-section-subheader">Diagnostic not completed</span>
     }
   })
