@@ -35,12 +35,14 @@ module GrowthResultsSummary
         total_acquired_skills_count = skill_groups.map { |sg| sg[:acquired_skill_ids] }.flatten.uniq.count
         total_possible_skills_count = skill_groups.map { |sg| sg[:skill_ids] }.flatten.uniq.count
         total_correct_skills_count = skill_groups.map { |sg| sg[:post_correct_skill_ids] }.flatten.uniq.count
+        total_pre_correct_skills_count = skill_groups.map { |sg| sg[:pre_correct_skill_ids] }.flatten.uniq.count
         {
           name: assigned_student.name,
           id: assigned_student.id,
           skill_groups: skill_groups,
           total_acquired_skills_count: total_acquired_skills_count,
           total_correct_skills_count: total_correct_skills_count,
+          total_pre_correct_skills_count: total_pre_correct_skills_count,
           total_possible_skills_count: total_possible_skills_count,
           correct_skill_text: "#{total_correct_skills_count} of #{total_possible_skills_count} skills correct"
         }
@@ -61,6 +63,7 @@ module GrowthResultsSummary
       end
       pre_correct_skills = skills.select { |skill| skill[:pre][:summary] == FULLY_CORRECT }
       post_correct_skills = skills.select { |skill| skill[:post][:summary] == FULLY_CORRECT }
+      pre_correct_skill_ids = pre_correct_skills.map { |s| s[:pre][:id] }
       post_correct_skill_ids = post_correct_skills.map { |s| s[:post][:id] }
       pre_correct_skill_number = pre_correct_skills.count
       pre_present_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:pre][:summary] == NOT_PRESENT ? 0 : 1 }
@@ -84,7 +87,8 @@ module GrowthResultsSummary
         post_test_proficiency: post_test_proficiency,
         id: skill_group.id,
         post_correct_skill_ids: post_correct_skill_ids,
-        acquired_skill_ids: post_correct_skill_ids - pre_correct_skills.map { |s| s[:pre][:id] },
+        pre_correct_skill_ids: pre_correct_skill_ids,
+        acquired_skill_ids: post_correct_skill_ids - pre_correct_skill_ids,
         skill_ids: skills.map { |s| s[:post][:id] }
       }
     end

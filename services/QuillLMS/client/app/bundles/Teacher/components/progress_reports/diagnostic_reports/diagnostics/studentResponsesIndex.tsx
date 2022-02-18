@@ -20,7 +20,7 @@ interface Student {
   id: number;
 }
 
-const desktopHeaders = (isSortable) => ([
+const preTestDesktopHeaders = (isSortable) => ([
   {
     name: 'Name',
     attribute: 'name',
@@ -29,8 +29,8 @@ const desktopHeaders = (isSortable) => ([
     isSortable: true
   },
   {
-    name: 'Skills correct',
-    attribute: 'skillsCorrectElement',
+    name: 'Pre - Skills',
+    attribute: 'activeDiagnosticSkillsCorrectElement',
     sortAttribute: 'totalCorrectSkillsCount',
     width: '102px',
     rowSectionClassName: 'score-section',
@@ -47,6 +47,53 @@ const desktopHeaders = (isSortable) => ([
     headerClassName: 'individual-responses-header'
   }
 ])
+
+const postTestDesktopHeaders = (isSortable) => ([
+  {
+    name: 'Name',
+    attribute: 'name',
+    width: '372px',
+    sortAttribute: 'alphabeticalName',
+    isSortable: true
+  },
+  {
+    name: 'Pre - Skills',
+    attribute: 'preSkillsCorrectElement',
+    sortAttribute: 'totalPreCorrectSkillsCount',
+    width: '102px',
+    rowSectionClassName: 'score-section',
+    headerClassName: 'score-header',
+    noTooltip: true,
+    isSortable
+  },
+  {
+    name: 'Post - Skills',
+    attribute: 'activeDiagnosticSkillsCorrectElement',
+    sortAttribute: 'totalCorrectSkillsCount',
+    width: '102px',
+    rowSectionClassName: 'score-section',
+    headerClassName: 'score-header',
+    noTooltip: true,
+    isSortable
+  },
+  {
+    name: 'Growth',
+    attribute: 'growth',
+    sortAttribute: 'totalAcquiredSkillsCount',
+    width: '70px',
+    noTooltip: true,
+    isSortable
+  },
+  {
+    name: 'Responses',
+    attribute: 'individualResponsesLink',
+    width: '84px',
+    noTooltip: true,
+    rowSectionClassName: 'individual-responses-link',
+    headerClassName: 'individual-responses-header'
+  }
+])
+
 
 const mobileHeaders = (isSortable) => ([
   {
@@ -69,6 +116,10 @@ const mobileHeaders = (isSortable) => ([
     isSortable
   }
 ])
+
+function calculateSkillsPercentage(correct, total) {
+  return Math.round((correct/total) * 100)
+}
 
 export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, location, isPostDiagnostic, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudents);
@@ -111,15 +162,19 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
   const worthSorting = students.filter(s => s.total_correct_skills_count).length
 
   const desktopRows = students.map(student => {
-    const { name, total_acquired_skills_count, total_possible_skills_count, total_correct_skills_count, id, } = student
-    const skillsDelta = total_acquired_skills_count ? <div className="skills-delta">{lightGreenTriangleUpIcon}<span className="skill-count">{total_acquired_skills_count}</span></div> : null
+    const { name, total_acquired_skills_count, total_possible_skills_count, total_correct_skills_count, total_pre_correct_skills_count, id, } = student
+    const skillsDelta = total_acquired_skills_count ? <div className="skills-delta">{lightGreenTriangleUpIcon}<span className="skill-count">{total_acquired_skills_count} (+{calculateSkillsPercentage(total_acquired_skills_count, total_possible_skills_count)}%)</span></div> : null
 
     return {
       id: id || name,
       name,
       alphabeticalName: alphabeticalName(name),
       totalCorrectSkillsCount: total_correct_skills_count,
-      skillsCorrectElement: total_correct_skills_count ? <div className="skills-correct-element">{total_correct_skills_count} of {total_possible_skills_count}{skillsDelta}</div> : null,
+      totalPreCorrectSkillsCount: total_pre_correct_skills_count,
+      totalAcquiredSkillsCount: total_acquired_skills_count,
+      preSkillsCorrectElement: total_pre_correct_skills_count ? <div className="skills-correct-element">{total_pre_correct_skills_count} of {total_possible_skills_count} ({calculateSkillsPercentage(total_pre_correct_skills_count, total_possible_skills_count)}%)</div> : null,
+      activeDiagnosticSkillsCorrectElement: total_correct_skills_count ? <div className="skills-correct-element">{total_correct_skills_count} of {total_possible_skills_count} ({calculateSkillsPercentage(total_correct_skills_count, total_possible_skills_count)}%)</div> : null,
+      growth: skillsDelta,
       individualResponsesLink: total_correct_skills_count !== undefined ? <Link className="quill-button fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link> : <span className="name-section-subheader">Diagnostic not completed</span>
     }
   })
@@ -132,7 +187,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
       name: nameElement,
       alphabeticalName: alphabeticalName(name),
       totalCorrectSkillsCount: total_correct_skills_count,
-      skillsCorrectElement: total_correct_skills_count !== undefined ? <div className="skills-correct-element">{total_correct_skills_count} of {total_possible_skills_count}</div> : null,
+      skillsCorrectElement: total_correct_skills_count !== undefined ? <div className="skills-correct-element">{total_correct_skills_count} of {total_possible_skills_count} ({calculateSkillsPercentage(total_correct_skills_count, total_possible_skills_count)}%)</div> : null,
       individualResponsesLink: total_correct_skills_count !== undefined ? <Link className="quill-button fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link> : <span className="name-section-subheader">Diagnostic not completed</span>
     }
   })
@@ -146,10 +201,10 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
       {mobileNavigation}
       <div className="data-table-container">
         <DataTable
-          className="hide-on-mobile"
+          className={`hide-on-mobile ${isPostDiagnostic ? 'post-test' : 'pre-test'}`}
           defaultSortAttribute={worthSorting && 'totalCorrectSkillsCount'}
           defaultSortDirection='asc'
-          headers={desktopHeaders(worthSorting)}
+          headers={isPostDiagnostic ? postTestDesktopHeaders(worthSorting) : preTestDesktopHeaders(worthSorting)}
           rows={desktopRows}
         />
         <DataTable

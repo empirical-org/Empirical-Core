@@ -1,4 +1,5 @@
 .diagnostic-individual-pack main.student-responses-index-container {
+  overflow: scroll;
   .data-table {
     overflow: hidden;
     border-radius: 8px;
@@ -8,36 +9,11 @@
       height: 32px;
     }
     &.hide-on-mobile {
-      width: 650px;
-    }
-    .score-header {
-      margin-right: 40px;
-    }
-    .score-section {
-      margin-right: 40px;
-      display: flex;
-      overflow: visible;
-      height: 100%;
-      justify-content: flex-end;
-      .skills-correct-element {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        padding-right: 30px;
-        position: relative;
-        .skills-delta {
-          color: #367300;
-          right: -18px;
-          width: 40px;
-          position: absolute;
-          img {
-            margin-right: 1px;
-          }
-        }
+      &.pre-test {
+        width: 650px;
       }
-      span {
-        padding: 12px;
-        margin-left: -12px;
+      &.post-test {
+        width: 870px;
       }
     }
     .individual-responses-header {
@@ -62,6 +38,12 @@
       font-size: 12px;
       line-height: 1.33;
       color: #808080;
+    }
+    .skills-delta {
+      color: #367300;
+      img {
+        margin-right: 1px;
+      }
     }
   }
 
