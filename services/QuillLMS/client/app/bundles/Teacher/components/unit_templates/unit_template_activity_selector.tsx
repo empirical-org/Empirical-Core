@@ -3,7 +3,7 @@ import request from 'request';
 
 import UnitTemplateActivityDataRow from './unit_template_activity_data_row'
 
-import { FlagDropdown, DropdownInput } from '../../../Shared/index'
+import { FlagDropdown, SortableList } from '../../../Shared/index'
 import Pagination from '../../../Teacher/components/assignment_flow/create_unit/custom_activity_pack/pagination'
 import { lowerBound, upperBound, sortFunctions, } from '../../../Teacher/components/assignment_flow/create_unit/custom_activity_pack/shared'
 import { requestGet, requestPost, requestDelete } from '../../../../modules/request/index'
@@ -153,25 +153,33 @@ const UnitTemplateActivitySelector = ({ parentActivities, }) => {
     setReadabilitySearch(e.target.value)
   }
 
+  function updateOrder(sortInfo) {
+    const sortedIds = sortInfo.map(s => s.key)
+    const newOrderedActivities = sortedIds.map((s) => activities.find((a) => a.id === parseInt(s)))
+    setSelectedActivities(newOrderedActivities)
+  }
+
   function selectedActivitiesTable() {
     const fullSelectedActivities = activities.length > 0 ? selectedActivities.map((act) => activities.find(a => act.id === a.id)) : []
+    const rows = fullSelectedActivities.map((act) => {
+      return (
+        <UnitTemplateActivityDataRow
+          activity={act}
+          handleAdd={handleAddActivity}
+          handleRemove={handleRemoveActivity}
+          key={act.id}
+          type={SELECTED_TYPE}
+        />
+      )
+    })
     return (
       <div className="unit-template-activities-table unit-template-selected-activities-table">
         <h4 className="selected-activities-header">Selected Activities:</h4>
         <table className="unit-template-activities-table-rows">
           {tableHeaders}
           <tbody className="unit-template-activities-tbody">
-            {fullSelectedActivities.map((act) => {
-              return (
-                <UnitTemplateActivityDataRow
-                  activity={act}
-                  handleAdd={handleAddActivity}
-                  handleRemove={handleRemoveActivity}
-                  key={act.id}
-                  type={SELECTED_TYPE}
-                />
-              )
-            })}
+            <SortableList data={rows} sortCallback={updateOrder} />
+            {}
           </tbody>
         </table>
       </div>
