@@ -1,5 +1,7 @@
 import * as React from "react";
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+
+import Locker from './locker';
 
 import { lockerItems } from "../../helpers/locker/lockerItems";
 import { titleCase } from "../../../Shared";
@@ -10,7 +12,29 @@ export const TeamLocker = ({ match }) => {
   const { params } = match;
   const { team } = params;
   const lockerContents = lockerItems[team];
-  const { label } = lockerContents;
+  console.log("🚀 ~ file: teamLocker.tsx ~ line 15 ~ TeamLocker ~ lockerContents", lockerContents)
+  const { label, lockers } = lockerContents;
+
+  function renderTeamLockersSection() {
+    return Object.keys(lockers).map(lockerSection => {
+      return(
+        <div className="locker-section-container" key={lockerSection}>
+          <h4>{titleCase(lockerSection)}</h4>
+          <div className="lockers-container">
+            {renderLockerSection(lockerSection)}
+          </div>
+        </div>
+      );
+    });
+  }
+
+  function renderLockerSection(lockerSection: string) {
+    const lockersForSection = lockers[lockerSection];
+    return lockersForSection.map((lockerForSection: string) => {
+      const lockerContents = lockerItems[lockerForSection];
+      return <Locker key={lockerForSection} lockerContents={lockerContents} />
+    });
+  }
 
   return(
     <div className="team-locker-container locker-content">
@@ -21,8 +45,9 @@ export const TeamLocker = ({ match }) => {
         </button>
       </Link>
       <h3 className="subheader">{`${titleCase(label)} lockers`}</h3>
+      {renderTeamLockersSection()}
     </div>
   );
 }
 
-export default TeamLocker;
+export default withRouter(TeamLocker);

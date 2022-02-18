@@ -11,7 +11,7 @@ export const TeamLocker = ({ lockerContents }) => {
     if(route) {
       history.push(`/${route}`)
     } else {
-      window.location.href = `${process.env.DEFAULT_URL}${href}`
+      window.open(href, '_blank').focus();
     }
   }
 

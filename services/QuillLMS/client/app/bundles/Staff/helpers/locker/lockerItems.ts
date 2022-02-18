@@ -1,137 +1,149 @@
-import { EVIDENCE, CONNECT, DIAGNOSTIC, GRAMMAR, LESSONS, PROOFREADER, CURRICULUM, PARTNERSHIPS, PRODUCT, SUPPORT, PATHWAYS } from "../../../Shared"
+import {
+  EVIDENCE, CONNECT, DIAGNOSTIC, GRAMMAR, LESSONS, PROOFREADER, CURRICULUM, PARTNERSHIPS,
+  PRODUCT, SUPPORT, PATHWAYS
+} from "../../../Shared"
+
+import {
+  USERS, SCHOOLS, UNARCHIVE_UNITS, TEACHER_FIXES, POSTS, POST_IMAGES,
+  ANNOUNCEMENTS, UPLOAD_ROSTERS, ACTIVITIES, ACTIVITY_PACKS, ACTIVIVTY_PACKS_CATEGORIES,
+  AUTHORS, CONCEPTS, ATTRIBUTES_MANAGER, RAILS_ADMIN, BACKPACK, TOOLS, CONCEPT_MANAGEMENT,
+  ACTIVITY_MANAGEMENT, USER_MANAGEMENT, TEACHER_CENTER
+} from "./lockerConstants";
+
+const baseUrl = process.env.DEFAULT_URL;
 
 export const lockerItems = {
-  'userManager': {
+  [USERS]: {
+    label: USERS,
+    href: `${baseUrl}/cms/${USERS}`,
+    emoji: '👥',
+    emojiLabel: 'busts in silhouette'
+  },
+  [SCHOOLS]: {
+    label: SCHOOLS,
+    href: `${baseUrl}/cms/${SCHOOLS}`,
+    emoji: '🏫',
+    emojiLabel: 'school'
+  },
+  // [unarchiveUnits]: {
+  //   label: 'unarchive units',
+  //   href: ``,
+  //   emoji: '',
+  //   emojiLabel: ''
+  // },
+  [TEACHER_FIXES]: {
+    label: TEACHER_FIXES,
+    href: ``,
+    emoji: '',
+    emojiLabel: ''
+  },
+  [POSTS]: {
+    label: POSTS,
+    href: `${baseUrl}/cms/blog_posts`,
+    emoji: '📰',
+    emojiLabel: 'newspaper'
+  },
+  [POST_IMAGES]: {
+    label: POST_IMAGES,
+    href: `${baseUrl}/cms/images`,
+    emoji: '🖼',
+    emojiLabel: 'framed picture'
+  },
+  [ANNOUNCEMENTS]: {
+    label: ANNOUNCEMENTS,
+    href: `${baseUrl}/cms/${ANNOUNCEMENTS}`,
+    emoji: '📢',
+    emojiLabel: 'loudspeaker'
+  },
+  // [uploadRosters]: {
+  //   label: '',
+  //   href: ``,
+  //   emoji: '',
+  //   emojiLabel: ''
+  // },
+  [ACTIVITIES]: {
+    label: ACTIVITIES,
+    href: `${baseUrl}/cms/activity_classifications`,
+    emoji: '🍒',
+    emojiLabel: 'cherries'
+  },
+  [ACTIVITY_PACKS]: {
+    label: ACTIVITY_PACKS,
+    href: `${baseUrl}/cms/unit_templates`,
+    emoji: '🍇',
+    emojiLabel: 'grapes'
+  },
+  [ACTIVIVTY_PACKS_CATEGORIES]: {
+    label: ACTIVIVTY_PACKS_CATEGORIES,
+    href: `${baseUrl}/cms/unit_template_categories`,
+    emoji: '🍱',
+    emojiLabel: 'bento box'
+  },
+  [AUTHORS]: {
+    label: AUTHORS,
+    href: `${baseUrl}/cms/${AUTHORS}`,
+    emoji: '👩‍🍳',
+    emojiLabel: 'chef'
+  },
+  [CONCEPTS]: {
+    label: CONCEPTS,
+    href: `${baseUrl}/cms/${CONCEPTS}`,
+    emoji: '🔖',
+    emojiLabel: 'bookmark'
+  },
+  [ATTRIBUTES_MANAGER]: {
     label: '',
     href: ``,
     emoji: '',
     emojiLabel: ''
   },
-  'schoolManager': {
-    label: '',
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
-  },
-  'unarchiveUnits': {
-    label: '',
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
-  },
-  'teacherFixes': {
-    label: '',
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
-  },
-  'posts': {
-    label: '',
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
-  },
-  'postImages': {
-    label: '',
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
-  },
-  'announcements': {
-    label: '',
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
-  },
-  'uploadRosters': {
-    label: '',
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
-  },
-  'activitiesEditor': {
-    label: '',
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
-  },
-  'activityPacksEditor': {
-    label: '',
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
-  },
-  'activityPacksCategoriesEditor': {
-    label: '',
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
-  },
-  'authorsEditor': {
-    label: '',
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
-  },
-  'conceptsManager': {
-    label: '',
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
-  },
-  'attributesManager': {
-    label: '',
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
-  },
-  'railsAdmin': {
-    label: '',
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
+  [RAILS_ADMIN]: {
+    label: 'overview (Rails Admin)',
+    href: `${baseUrl}/staff/activity`,
+    emoji: '🍚',
+    emojiLabel: 'cooked rice'
   },
   [EVIDENCE]: {
     label: EVIDENCE,
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
+    href: `${baseUrl}/cms/${EVIDENCE}`,
+    emoji: '📖',
+    emojiLabel: 'open book with writing'
   },
   [CONNECT]: {
     label: CONNECT,
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
+    href: `${baseUrl}/${CONNECT}#/admin`,
+    emoji: '🎯',
+    emojiLabel: 'bullseye target'
   },
   [DIAGNOSTIC]: {
     label: DIAGNOSTIC,
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
+    href: `${baseUrl}/${DIAGNOSTIC}#/admin`,
+    emoji: '🔍',
+    emojiLabel: 'magnifying glass tilted left'
   },
   [GRAMMAR]: {
     label: GRAMMAR,
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
+    href: `${baseUrl}/${GRAMMAR}#/admin/lessons`,
+    emoji: '🧩',
+    emojiLabel: 'puzzle piece'
   },
   [LESSONS]: {
     label: LESSONS,
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
+    href: `${baseUrl}/${LESSONS}#/admin/classroom-lessons`,
+    emoji: '🍎',
+    emojiLabel: 'red apple'
   },
   [PROOFREADER]: {
     label: PROOFREADER,
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
+    href: `${baseUrl}/${PROOFREADER}#/admin/lessons`,
+    emoji: '🚩',
+    emojiLabel: 'triangular flag'
   },
-  'backpack': {
-    label: '',
-    href: ``,
-    emoji: '',
-    emojiLabel: ''
+  [BACKPACK]: {
+    label: BACKPACK,
+    href: `${baseUrl}/${BACKPACK}`,
+    emoji: '🎒',
+    emojiLabel: BACKPACK
   },
   [CURRICULUM]: {
     label: CURRICULUM,
@@ -139,33 +151,47 @@ export const lockerItems = {
     emoji: '📚',
     emojiLabel: 'stack of books',
     lockers: {
-      'tools': [EVIDENCE, CONNECT, DIAGNOSTIC, GRAMMAR, LESSONS, PROOFREADER],
-      'activity management': [],
-      'concept management': []
+      [TOOLS]: [EVIDENCE, CONNECT, DIAGNOSTIC, GRAMMAR, LESSONS, PROOFREADER],
+      [ACTIVITY_MANAGEMENT]: [ACTIVITIES, ACTIVITY_PACKS, ACTIVIVTY_PACKS_CATEGORIES, AUTHORS, RAILS_ADMIN],
+      [CONCEPT_MANAGEMENT]: [CONCEPTS]
     }
   },
   [PARTNERSHIPS]: {
     label: PARTNERSHIPS,
     route: `locker/${PARTNERSHIPS}`,
     emoji: '🎓',
-    emojiLabel: 'graduation cap'
+    emojiLabel: 'graduation cap',
+    lockers: {
+      [TEACHER_CENTER]: [POSTS, POST_IMAGES, ANNOUNCEMENTS],
+      [USER_MANAGEMENT]: [USERS, SCHOOLS]
+    }
   },
   [PRODUCT]: {
     label: PRODUCT,
     route: `locker/${PRODUCT}`,
     emoji: '🚀',
-    emojiLabel: 'rocket ship'
+    emojiLabel: 'rocket ship',
+    lockers: {
+      [USER_MANAGEMENT]: [USERS, SCHOOLS],
+      [PRODUCT]: [BACKPACK]
+    }
   },
   [SUPPORT]: {
     label: SUPPORT,
     route: `locker/${SUPPORT}`,
     emoji: '📞',
-    emojiLabel: 'telephone'
+    emojiLabel: 'telephone',
+    lockers: {
+      [USER_MANAGEMENT]: [USERS, SCHOOLS]
+    }
   },
   [PATHWAYS]: {
     label: PATHWAYS,
     route: `locker/${PATHWAYS}`,
     emoji: '🖋',
-    emojiLabel: ''
+    emojiLabel: '',
+    lockers: {
+
+    }
   },
 }

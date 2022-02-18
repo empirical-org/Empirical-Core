@@ -11,51 +11,31 @@
   font-weight: bold;
 }
 
-.locker-index-container {
-  .team-lockers-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    .locker-container {
-      display: flex;
-      align-items: center;
-      border: 1px solid #cbc8c8;
-      border-radius: 6px;
-      padding: 8px 0px 8px 16px;
-      width: 224px;
-      margin-bottom: 16px;
-      span {
-        font-size: 40px;
-      }
-      .locker-label {
-        margin: 0px 0px 0px 8px;
-        font-size: 16px;
-        font-weight: 600;
-      }
-    }
-    .locker-container:hover {
-      background-color: #efefef;
-    }
+.locker-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #cbc8c8;
+  border-radius: 6px;
+  padding: 8px 0px 8px 16px;
+  width: 216px;
+  margin: 0px 16px 16px 0px;
+  span {
+    font-size: 40px;
+  }
+  .locker-label {
+    margin: 0px 0px 0px 8px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
   }
 }
 
-.team-locker-container {
-  margin-top: 16px;
-  .back-nav-link:hover {
-    text-decoration: none;
-  }
-  .button-container {
+.locker-index-container, .team-locker-container {
+  .team-lockers-container, .lockers-container {
     display: flex;
-    align-items: center;
-    border: 1px solid #cbc8c8;
-    width: 128px;
-    padding: 4px 8px 4px 8px;
-    border-radius: 6px;
-    p {
-      margin: 0px 0px 0px 8px;
+    flex-wrap: wrap;
+    .locker-container:hover {
+      background-color: #efefef;
     }
-  }
-  .button-container:hover {
-    background-color: #efefef;
   }
 }
