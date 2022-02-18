@@ -1,5 +1,5 @@
 class DropResponseQuestionUidIndex < ActiveRecord::Migration[6.1]
-  def up 
+  def up
     remove_index :responses, :question_uid
   end
 
