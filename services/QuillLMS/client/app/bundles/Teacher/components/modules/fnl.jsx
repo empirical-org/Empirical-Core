@@ -5,7 +5,7 @@ import _ from 'underscore'
 export default  function () {
 
   this.toggle = function (array, item) {
-    var newArray, alreadyThere;
+    let newArray, alreadyThere;
     alreadyThere = _.contains(array, item)
     if (alreadyThere) {
       newArray = _.reject(array, function (ele) {return ele == item});
@@ -16,7 +16,7 @@ export default  function () {
   };
 
   this.toggleById = function (array, item) {
-    var newArray, alreadyThere, extant;
+    let newArray, alreadyThere, extant;
     extant = _.find(array, function (ele) { return ele.id === item.id })
     alreadyThere = (extant != undefined)
     if (alreadyThere) {

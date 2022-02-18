@@ -10,7 +10,7 @@ export default class Cms extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.initializeModules()
-    var hash1 = {
+    let hash1 = {
       crudState: 'index',
       resourceToEdit: null,
       flag: 'All'
@@ -24,7 +24,7 @@ export default class Cms extends React.Component {
   }
 
   initializeModules = () => {
-    var server = new Server(this.props.resourceNameSingular, this.props.resourceNamePlural);
+    let server = new Server(this.props.resourceNameSingular, this.props.resourceNamePlural);
     this.modules = {
       server: server
     }
@@ -32,7 +32,7 @@ export default class Cms extends React.Component {
 
   // TODO: abstract out below method
   updateState = (key, value) => {
-    var newState = this.state;
+    let newState = this.state;
     newState[key] = value;
     this.setState(newState);
   };
@@ -49,7 +49,7 @@ export default class Cms extends React.Component {
     // FIXME this fn does not have to be so complicated, need to change server module
     let that = this;
     return function (data) {
-      var newState = that.state;
+      let newState = that.state;
       newState[that.props.resourceNamePlural] = data[that.props.resourceNamePlural];
       that.setState(newState);
     }
@@ -181,7 +181,7 @@ export default class Cms extends React.Component {
   };
 
   render() {
-    var result;
+    let result;
     switch (this.state.crudState) {
       case 'index':
         result = this.indexTable();

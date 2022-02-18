@@ -515,7 +515,7 @@ class PagesController < ApplicationController
   end
 
   def locker
-    redirect_to(profile_path) && return if !current_user || (current_user && current_user.role != 'staff')
+    return redirect_to profile_path if !staff?
 
     @style_file = 'staff'
   end

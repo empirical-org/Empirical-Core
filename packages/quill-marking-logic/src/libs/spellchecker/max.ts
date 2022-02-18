@@ -1,5 +1,5 @@
 export function max(candidates) {
-  var candidate, arr = [];
+  let candidate, arr = [];
   for (candidate in candidates)
     if (candidates.hasOwnProperty(candidate))
       arr.push(candidate);

@@ -11,7 +11,7 @@ const initialState = {
 }
 
 export default function(currentstate,action){
-  var newstate;
+  let newstate;
   switch(action.type){
     case C.RECEIVE_SENTENCE_FRAGMENTS_DATA:
       return Object.assign({},currentstate,{

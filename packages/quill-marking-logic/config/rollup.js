@@ -1,16 +1,16 @@
-var fs = require('fs');
-var zlib = require('zlib');
-var rollup = require('rollup');
-var uglify = require('uglify-js');
-var commonjs = require('rollup-plugin-commonjs');
-var nodeResolve = require('rollup-plugin-node-resolve');
-var typescript = require('rollup-plugin-typescript2');
-var json = require('rollup-plugin-json');
-var nodeGlobals = require('rollup-plugin-node-globals')
-var builtins = require('rollup-plugin-node-builtins-brofs');
-var uglifyPlugin = require('rollup-plugin-uglify')
-var version = process.env.VERSION || require('../package.json').version;
-var banner =
+let fs = require('fs');
+let zlib = require('zlib');
+let rollup = require('rollup');
+let uglify = require('uglify-js');
+let commonjs = require('rollup-plugin-commonjs');
+let nodeResolve = require('rollup-plugin-node-resolve');
+let typescript = require('rollup-plugin-typescript2');
+let json = require('rollup-plugin-json');
+let nodeGlobals = require('rollup-plugin-node-globals')
+let builtins = require('rollup-plugin-node-builtins-brofs');
+let uglifyPlugin = require('rollup-plugin-uglify')
+let version = process.env.VERSION || require('../package.json').version;
+let banner =
     '/*!\n' +
     ' * {LIB} v' + version + '\n' +
     ' * (c) ' + new Date().getFullYear() + ' {NAME}\n' +
