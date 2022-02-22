@@ -42,10 +42,13 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
     this.getStudentData(params);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const { params } = this.props;
-    this.setState({ loading: true });
-    this.getStudentData(params);
+
+    if (!_.isEqual(params, prevProps.params)) {
+      this.setState({ loading: true });
+      this.getStudentData(params);
+    }
   }
 
   selectedStudent = (students: Student[]) => {
