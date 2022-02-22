@@ -6,9 +6,9 @@ import { lockerItems } from "../../helpers/locker/lockerItems";
 import { TEAMS } from "../../../Shared";
 
 export const LockerIndex = () => {
-
-  function renderTeamLockers() {
-    return TEAMS.map(lockerKey => (
+  const allLockers = [...TEAMS, 'index'];
+  function renderLockers() {
+    return allLockers.map(lockerKey => (
       <Locker key={lockerKey} lockerContents={lockerItems[lockerKey]} />
     ));
   }
@@ -17,7 +17,7 @@ export const LockerIndex = () => {
     <div className="locker-index-container locker-content">
       <h3 className="subheader">Team Lockers</h3>
       <div className="team-lockers-container">
-        {renderTeamLockers()}
+        {renderLockers()}
       </div>
     </div>
   );

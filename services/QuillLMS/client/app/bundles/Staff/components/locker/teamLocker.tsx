@@ -5,6 +5,7 @@ import Locker from './locker';
 
 import { lockerItems } from "../../helpers/locker/lockerItems";
 import { titleCase } from "../../../Shared";
+import { renderHeader } from "../../helpers/evidence/renderHelpers";
 
 const arrow = `${process.env.CDN_URL}/images/icons/arrow-back.svg`;
 
@@ -12,7 +13,6 @@ export const TeamLocker = ({ match }) => {
   const { params } = match;
   const { team } = params;
   const lockerContents = lockerItems[team];
-  console.log("🚀 ~ file: teamLocker.tsx ~ line 15 ~ TeamLocker ~ lockerContents", lockerContents)
   const { label, lockers } = lockerContents;
 
   function renderTeamLockersSection() {
@@ -36,6 +36,11 @@ export const TeamLocker = ({ match }) => {
     });
   }
 
+  function renderHeader() {
+    if(label === 'all lockers') { return <h3 className="subheader">Index</h3>}
+    return <h3 className="subheader">{`${titleCase(label)} lockers`}</h3>
+  }
+
   return(
     <div className="team-locker-container locker-content">
       <Link className="back-nav-link" tabIndex={-1} to="/locker">
@@ -44,7 +49,7 @@ export const TeamLocker = ({ match }) => {
           <p>All Lockers</p>
         </button>
       </Link>
-      <h3 className="subheader">{`${titleCase(label)} lockers`}</h3>
+      {renderHeader()}
       {renderTeamLockersSection()}
     </div>
   );

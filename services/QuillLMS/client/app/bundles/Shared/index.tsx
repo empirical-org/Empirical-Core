@@ -153,6 +153,5 @@ export {
   PARTNERSHIPS,
   PRODUCT,
   SUPPORT,
-  PATHWAYS,
   TEAMS
 } from './utils/constants'

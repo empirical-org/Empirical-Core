@@ -18,5 +18,4 @@ export const CURRICULUM = 'curriculum';
 export const PARTNERSHIPS = 'partnerships';
 export const PRODUCT = 'product';
 export const SUPPORT = 'support';
-export const PATHWAYS = 'pathways';
-export const TEAMS = [CURRICULUM, PARTNERSHIPS, PRODUCT, SUPPORT, PATHWAYS];
+export const TEAMS = [CURRICULUM, PARTNERSHIPS, PRODUCT, SUPPORT];
