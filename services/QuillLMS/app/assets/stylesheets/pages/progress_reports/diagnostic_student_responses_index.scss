@@ -51,6 +51,10 @@
 
   .toggle-explanation {
     max-width: 770px;
+    margin-top: 20px;
+    h3 {
+      font-weight: 400;
+    }
   }
 
   @media (max-width: 930px) {

@@ -189,7 +189,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
   let scoringExplanation = (
     <button className="toggle-explanation is-closed" onClick={handleToggleExplanation} type="button">
       <div>
-        <h3>In this report, you’ll see the number of skills each student answered correctly on their assessment rather than the number of questions answered correctly.</h3>
+        <h3><b>Update:</b> This report now shows the number of skills each student answered correctly on their diagnostic. Previously, it showed the number of questions answered correctly.</h3>
         <p>(Expand to show more information)</p>
       </div>
       <img alt={expandIcon.alt} src={expandIcon.src} />
@@ -200,7 +200,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
     scoringExplanation = (
       <button className="toggle-explanation is-open" onClick={handleToggleExplanation} type="button">
         <div>
-          <h3>In this report, you’ll see the number of skills each student answered correctly on their assessment rather than the number of questions answered correctly.</h3>
+          <h3><b>Update:</b> This report now shows the number of skills each student answered correctly on their diagnostic. Previously, it showed the number of questions answered correctly.</h3>
           <p>In an effort to provide teachers with the most accurate and valuable data, Quill has made an update to how students’ skill understanding and growth are displayed in this report. Our focus is on measuring the development of key writing skills by making this the primary metric in the reporting, but we also understand that this growth metric needs to be contextualized as a percentage.</p>
           <p>Each diagnostic assess a distinct number of specific skills. That skill number is different than the total number of questions, as some skills are aligned to more than one question. In this report, you’ll see the number of skills each student answered correctly on their assessment rather than the number of questions answered correctly. This change in calculation means that the percentages you now see are slightly different than the percentages you may have previously seen when Quill reported the number of questions correct on any diagnostic assessment.</p>
         </div>
@@ -217,6 +217,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
         <a className="focus-on-light" href="https://support.quill.org/en/articles/5698167-how-do-i-read-the-student-responses-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
       </header>
       {mobileNavigation}
+      <div className="scoring-explanation-container">{scoringExplanation}</div>
       <div className="data-table-container">
         <DataTable
           className={`hide-on-mobile ${isPostDiagnostic ? 'post-test' : 'pre-test'}`}
@@ -233,7 +234,6 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
           rows={mobileRows}
         />
       </div>
-      <div className="scoring-explanation-container">{scoringExplanation}</div>
     </main>
   )
 }
