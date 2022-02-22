@@ -23,6 +23,11 @@
 }
 
 .unit-template-activities {
+  .no-activity-packs-label {
+    padding-top: 13px;
+    font-weight: normal;
+  }
+
   .unit-template-selected-activities-table {
     margin-top: 10px;
     margin-bottom: 30px;
@@ -73,7 +78,7 @@
   .unit-template-activities-table {
 
     .ut-break {
-      width: 35px;
+      width: 33px;
       background: none;
     }
 
@@ -86,7 +91,7 @@
     }
 
     .ut-readability-col {
-      width: 135px !important;
+      width: 125px !important;
     }
 
     .ut-ccss-col {
@@ -144,7 +149,7 @@
         }
 
         .ut-activity-readability-col {
-          min-width: 135px !important;
+          min-width: 125px !important;
         }
 
         .ut-activity-ccss-col {
@@ -153,6 +158,7 @@
 
         .ut-activity-cat-col {
           min-width: 115px !important;
+          padding-left: 4px;
         }
 
         .ut-activity-class-col {

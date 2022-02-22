@@ -10,7 +10,7 @@ import { lowerBound, upperBound, } from '../../../Teacher/components/assignment_
 const ACTIVITIES_URL = `${process.env.DEFAULT_URL}/activities/index_with_unit_templates`
 const DEFAULT_FLAG = 'All Flags'
 const DEFAULT_TOOL = 'All Tools'
-const DEFAULT_READABILITY = 'All Readability levels'
+const DEFAULT_READABILITY = 'All readability levels'
 const TOOL_OPTIONS = [
   'All Tools',
   'Quill Connect',
@@ -38,6 +38,7 @@ const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, t
   const [toolSearch, setToolSearch] = React.useState(DEFAULT_TOOL)
   const [readabilitySearch, setReadabilitySearch] = React.useState(DEFAULT_READABILITY)
   const [readabilityOptions, setReadabilityOptions] = React.useState([])
+  const [showNoActivityPacks, setShowNoActivityPacks] = React.useState(false)
 
   React.useEffect(() => {
     if (loading) { getActivities() }
@@ -72,9 +73,10 @@ const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, t
         (conceptSearch === '' || (act.activity_category && act.activity_category.name.toLowerCase().includes(conceptSearch.toLowerCase()))) &&
         (activityPacksSearch === '' || (act.unit_template_names && act.unit_template_names.some(ut => ut.toLowerCase().includes(activityPacksSearch.toLowerCase())))) &&
         (flagSearch === DEFAULT_FLAG || (act.data && act.data['flag'] && act.data['flag'] === flagSearch)) &&
-        (toolSearch === DEFAULT_TOOL || (act.classification && act.classification.key === toolSearch)) &&
+        (toolSearch === DEFAULT_TOOL || (act.classification && act.classification.name === toolSearch)) &&
         (readabilitySearch === DEFAULT_READABILITY || (act.readability_grade_level && act.readability_grade_level === readabilitySearch)) &&
-        (selectedActivities.length === 0 || !selectedActivities.map(a => a.id).includes(act.id))
+        (selectedActivities.length === 0 || !selectedActivities.map(a => a.id).includes(act.id)) &&
+        (showNoActivityPacks === false || (act.unit_template_names && act.unit_template_names.length === 0))
       );
     })
   }
@@ -167,6 +169,10 @@ const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, t
     setParentActivities(selectedParentActivities)
   }
 
+  function toggleShowNoActivityPacks() {
+    setShowNoActivityPacks(!showNoActivityPacks)
+  }
+
   function selectedActivitiesTable() {
     const fullSelectedActivities = activities.length > 0 ? selectedActivities.map((act) => activities.find(a => act.id === a.id)) : []
     const rows = fullSelectedActivities.map((act) => {
@@ -252,6 +258,8 @@ const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, t
             {readabilityOptions.map(key => <option key={key} value={key}>{key}</option>)}
           </select>
         </span>
+        <input aria-label="filter for activities without activity packs" id="no-activity-packs" name="no-activity-packs" onChange={toggleShowNoActivityPacks} type="checkbox" value="no-activity-packs" />
+        <label className="no-activity-packs-label" htmlFor="no-activity-packs">Only show activities without activity packs</label>
       </div>
 
 
