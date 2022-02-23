@@ -14,19 +14,32 @@
 .locker-container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border: 1px solid #cbc8c8;
   border-radius: 6px;
-  padding: 8px 0px 8px 16px;
-  width: 216px;
+  padding: 8px;
+  width: 272px;
   margin: 0px 16px 16px 0px;
-  span {
-    font-size: 40px;
+  .left-side-contents {
+    display: flex;
+    align-items: center;
+    .emoji-image {
+      font-size: 40px;
+    }
+    .locker-label {
+      font-size: 16px;
+      font-weight: 600;
+      text-align: left;
+      margin: 0px 0px 0px 16px;
+    }
   }
-  .locker-label {
-    margin: 0px 0px 0px 8px;
-    font-size: 16px;
-    font-weight: 600;
-    text-align: left;
+  .tooltip-container {
+    .quill-tooltip {
+      text-align: left;
+    }
+    &.hide-tooltip {
+      visibility: hidden;
+    }
   }
 }
 

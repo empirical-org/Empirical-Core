@@ -4,7 +4,7 @@ import {
   USERS, SCHOOLS, UNARCHIVE_UNITS, RESTORE_CLASSROOM_UNITS, RESTORE_UNIT_ACTIVITIES, RESTORE_ACTIVITY_SESSIONS,
   MERGE_STUDENT_ACCOUNTS, MERGE_TEACHER_ACCOUNTS, TRANSFER_STUDENT_TO_ANOTHER_CLASS, UNSYNC_USER_WITH_GOOGLE_CLASSROOM,
   MERGE_TWO_SCHOOLS, MERGE_TWO_CLASSROOMS, MERGE_ACTIVITY_PACKS, DELETE_LAST_ACTIVITY_SESSION,
-  REMOVE_ALL_UNSYNCED_STUDENTS_FROM_CLASSES, TEACHER_FIXES, POSTS, POST_IMAGES, ANNOUNCEMENTS, UPLOAD_ROSTERS,
+  REMOVE_UNSYNCED_STUDENTS_FROM_CLASSES, TEACHER_FIXES, POSTS, POST_IMAGES, ANNOUNCEMENTS, UPLOAD_ROSTERS,
   ACTIVITIES, ACTIVITY_PACKS, ACTIVIVTY_PACKS_CATEGORIES, AUTHORS, CONCEPTS, ATTRIBUTES_MANAGER, RAILS_ADMIN, BACKPACK,
   TOOLS, CONCEPT_MANAGEMENT, ACTIVITY_MANAGEMENT, USER_MANAGEMENT, TEACHER_CENTER
 } from "./lockerConstants";
@@ -28,25 +28,29 @@ export const lockerItems = {
     label: UNARCHIVE_UNITS,
     href: `${baseUrl}/teacher_fix/unarchive_units`,
     emoji: '✨',
-    emojiLabel: 'sparkles'
+    emojiLabel: 'sparkles',
+    tooltipInfo: 'Use when a teacher has purposefully or accidentally deleted an activity pack and wants it back.'
   },
   [RESTORE_ACTIVITY_SESSIONS]: {
     label: RESTORE_ACTIVITY_SESSIONS,
     href: `${baseUrl}/teacher_fix/recover_activity_sessions`,
     emoji: '🌙',
-    emojiLabel: 'crescent moon'
+    emojiLabel: 'crescent moon',
+    tooltipInfo: 'Use as a first line of defense when teachers complain about missing activity sessions, frequently seen with the diagnostic.'
   },
   [RESTORE_CLASSROOM_UNITS]: {
     label: RESTORE_CLASSROOM_UNITS,
     href: `${baseUrl}/teacher_fix/recover_classroom_units`,
     emoji: '👩‍🏫',
-    emojiLabel: 'teacher'
+    emojiLabel: 'teacher',
+    tooltipInfo: 'Use this when a teacher has archived and then unarchived a classroom and wants their data back.'
   },
   [RESTORE_UNIT_ACTIVITIES]: {
     label: RESTORE_UNIT_ACTIVITIES,
     href: `${baseUrl}/teacher_fix/recover_unit_activities`,
     emoji: '🌟',
-    emojiLabel: 'glowing star'
+    emojiLabel: 'glowing star',
+    tooltipInfo: 'Use when a teacher has purposefully or accidentally deleted an activity from an activity pack and wants it back.'
   },
   [MERGE_STUDENT_ACCOUNTS]: {
     label: MERGE_STUDENT_ACCOUNTS,
@@ -86,7 +90,7 @@ export const lockerItems = {
   },
   [MERGE_ACTIVITY_PACKS]: {
     label: MERGE_ACTIVITY_PACKS,
-    href: `${baseUrl}/eacher_fix/merge_activity_packs`,
+    href: `${baseUrl}/teacher_fix/merge_activity_packs`,
     emoji: '🎊',
     emojiLabel: 'confetti balls'
   },
@@ -94,10 +98,11 @@ export const lockerItems = {
     label: DELETE_LAST_ACTIVITY_SESSION,
     href: `${baseUrl}/teacher_fix/delete_last_activity_session`,
     emoji: '🔥',
-    emojiLabel: 'fire'
+    emojiLabel: 'fire',
+    tooltipInfo: 'Use when you have completed an activity session on behalf of a student and need to erase the evidence.'
   },
-  [REMOVE_ALL_UNSYNCED_STUDENTS_FROM_CLASSES]: {
-    label: REMOVE_ALL_UNSYNCED_STUDENTS_FROM_CLASSES,
+  [REMOVE_UNSYNCED_STUDENTS_FROM_CLASSES]: {
+    label: REMOVE_UNSYNCED_STUDENTS_FROM_CLASSES,
     href: `${baseUrl}/teacher_fix/remove_unsynced_students`,
     emoji: '👷',
     emojiLabel: 'construction worker'
@@ -163,10 +168,11 @@ export const lockerItems = {
     emojiLabel: 'abacus'
   },
   [RAILS_ADMIN]: {
-    label: 'overview (Rails Admin)',
+    label: 'Overview (Rails Admin)',
     href: `${baseUrl}/staff/activity`,
     emoji: '🍚',
-    emojiLabel: 'cooked rice'
+    emojiLabel: 'cooked rice',
+    overrideTitleCase: true
   },
   [EVIDENCE]: {
     label: EVIDENCE,
@@ -232,7 +238,7 @@ export const lockerItems = {
       [TEACHER_FIXES]: [UNARCHIVE_UNITS, RESTORE_CLASSROOM_UNITS, RESTORE_UNIT_ACTIVITIES, RESTORE_ACTIVITY_SESSIONS,
         MERGE_STUDENT_ACCOUNTS, MERGE_TEACHER_ACCOUNTS, TRANSFER_STUDENT_TO_ANOTHER_CLASS, UNSYNC_USER_WITH_GOOGLE_CLASSROOM,
         MERGE_TWO_SCHOOLS, MERGE_TWO_CLASSROOMS, MERGE_ACTIVITY_PACKS, DELETE_LAST_ACTIVITY_SESSION,
-        REMOVE_ALL_UNSYNCED_STUDENTS_FROM_CLASSES]
+        REMOVE_UNSYNCED_STUDENTS_FROM_CLASSES]
     }
   },
   [PRODUCT]: {
@@ -256,7 +262,7 @@ export const lockerItems = {
       [TEACHER_FIXES]: [UNARCHIVE_UNITS, RESTORE_CLASSROOM_UNITS, RESTORE_UNIT_ACTIVITIES, RESTORE_ACTIVITY_SESSIONS,
         MERGE_STUDENT_ACCOUNTS, MERGE_TEACHER_ACCOUNTS, TRANSFER_STUDENT_TO_ANOTHER_CLASS, UNSYNC_USER_WITH_GOOGLE_CLASSROOM,
         MERGE_TWO_SCHOOLS, MERGE_TWO_CLASSROOMS, MERGE_ACTIVITY_PACKS, DELETE_LAST_ACTIVITY_SESSION,
-        REMOVE_ALL_UNSYNCED_STUDENTS_FROM_CLASSES]
+        REMOVE_UNSYNCED_STUDENTS_FROM_CLASSES]
     }
   },
   'index': {
@@ -269,7 +275,7 @@ export const lockerItems = {
       [TEACHER_FIXES]: [UNARCHIVE_UNITS, RESTORE_CLASSROOM_UNITS, RESTORE_UNIT_ACTIVITIES, RESTORE_ACTIVITY_SESSIONS,
         MERGE_STUDENT_ACCOUNTS, MERGE_TEACHER_ACCOUNTS, TRANSFER_STUDENT_TO_ANOTHER_CLASS, UNSYNC_USER_WITH_GOOGLE_CLASSROOM,
         MERGE_TWO_SCHOOLS, MERGE_TWO_CLASSROOMS, MERGE_ACTIVITY_PACKS, DELETE_LAST_ACTIVITY_SESSION,
-        REMOVE_ALL_UNSYNCED_STUDENTS_FROM_CLASSES],
+        REMOVE_UNSYNCED_STUDENTS_FROM_CLASSES],
       [TOOLS]: [EVIDENCE, CONNECT, DIAGNOSTIC, GRAMMAR, LESSONS, PROOFREADER],
       [ACTIVITY_MANAGEMENT]: [ACTIVITIES, ACTIVITY_PACKS, ACTIVIVTY_PACKS_CATEGORIES, AUTHORS, RAILS_ADMIN],
       [CONCEPT_MANAGEMENT]: [CONCEPTS, ATTRIBUTES_MANAGER],
