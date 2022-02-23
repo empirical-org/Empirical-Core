@@ -6,9 +6,9 @@ namespace :migrate_subscriptions do
     ActiveRecord::Base.transaction do
       old_subscriptions = Subscription.where(account_type: args[:old_sub].to_s)
       old_subscriptions.each do |sub|
-        puts "Updating subscription #{sub.id} from #{args[:old_sub].to_s} to #{args[:new_sub].to_s}"
+        puts "Updating subscription #{sub.id} from #{args[:old_sub]} to #{args[:new_sub]}"
         sub.update!(account_type: args[:new_sub].to_s)
       end
     end
- end
+  end
 end
