@@ -1,26 +1,30 @@
 import React from 'react';
 import moment from 'moment';
 import _ from 'lodash';
-import EnterOrUpdateStripeCard from '../modules/stripe/enter_or_update_card.js';
+
 import ChangePlan from './change_plan';
 import TitleAndContent from './current_subscription_title_and_content';
 
-export default class extends React.Component {
+import EnterOrUpdateStripeCard from '../modules/stripe/enter_or_update_card.js';
+
+export default class CurrentSubscription extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       showChangePlan: false,
-      lastFour: this.props.lastFour,
-      recurring: _.get(this.props.subscriptionStatus, 'recurring'),
+      lastFour: props.lastFour,
+      recurring: _.get(props.subscriptionStatus, 'recurring'),
     };
   }
 
   onceYourPlanExpires() {
-    return `Once your current ${this.props.subscriptionType} Premium subscription expires, you will be downgraded to the Quill Basic subscription.`;
+    const { subscriptionType, } = this.props
+    return `Once your current ${subscriptionType} Premium subscription expires, you will be downgraded to the Quill Basic subscription.`;
   }
 
   getCondition() {
-    switch (this.props.subscriptionType) {
+    const { subscriptionType, } = this.props
+    switch (subscriptionType) {
       case 'School':
         return 'school';
       case 'School Sponsored':
@@ -31,45 +35,54 @@ export default class extends React.Component {
   }
 
   getPaymentMethod() {
-    const subStat = this.props.subscriptionStatus;
-    if (subStat && subStat.payment_method === 'Credit Card' && this.state.lastFour && this.props.authorityLevel) {
+    const { subscriptionStatus, authorityLevel, subscriptionType, } = this.props
+    const { lastFour, } = this.state
+
+    if (subscriptionStatus && subscriptionStatus.payment_method === 'Credit Card' && lastFour && authorityLevel) {
       return this.editCreditCardElement();
-    } else if (subStat && subStat.payment_method === 'Credit Card') {
+    } else if (subscriptionStatus && subscriptionStatus.payment_method === 'Credit Card') {
       return <span>Credit Card</span>;
-    } else if (this.props.subscriptionType === 'School Sponsored' || this.props.subscriptionType === 'Trial') {
+    } else if (subscriptionType === 'School Sponsored' || subscriptionType === 'Trial') {
       return <span>No Payment Method on File</span>;
-    } else if (subStat && (!subStat.payment_method || subStat.payment_method === 'School Invoice')) {
-      return <span>School Invoice</span>;
-    } else if (!subStat && this.state.lastFour) {
+    } else if (subscriptionStatus && (!subscriptionStatus.payment_method || subscriptionStatus.payment_method === 'School Invoice')) {
+      return <span>Invoice</span>;
+    } else if (!subscriptionStatus && lastFour) {
       return this.editCreditCardElement();
     }
     return <span>No Payment Method on File</span>;
   }
 
   getPrice() {
-    if (this.props.subscriptionType === 'School') {
+    const { subscriptionType, } = this.props
+    if (subscriptionType === 'School') {
       return '900';
     }
     return '80';
   }
 
   changePlan() {
-    if (this.state.showChangePlan) {
-      return (<ChangePlan changeRecurringStatus={this.changeRecurringStatus} price={this.getPrice()} recurring={this.state.recurring} subscriptionType={this.props.subscriptionType} />);
+    const { showChangePlan, recurring, } = this.state
+    const { subscriptionType, } = this.props
+
+    if (showChangePlan) {
+      return (<ChangePlan changeRecurringStatus={this.changeRecurringStatus} price={this.getPrice()} recurring={recurring} subscriptionType={subscriptionType} />);
     }
   }
 
   changePlanInline() {
-    if (this.props.authorityLevel && this.props.subscriptionStatus.payment_method === 'Credit Card') {
+    const { authorityLevel, subscriptionStatus, } = this.props
+    const { showChangePlan, } = this.state
+
+    if (authorityLevel && subscriptionStatus.payment_method === 'Credit Card') {
       let onClickEvent = this.showChangePlan;
       let copy = 'Change Plan';
-      if (this.state.showChangePlan) {
+      if (showChangePlan) {
         onClickEvent = this.updateRecurring;
         copy = 'Save Change';
       }
       return (
-        <span key={`change-plan${this.state.showChangePlan}`}>
-          <span className="green-link" onClick={onClickEvent}>{copy}</span>
+        <span key={`change-plan${showChangePlan}`}>
+          <button className="green-link interactive-wrapper focus-on-light" onClick={onClickEvent} type="button">{copy}</button>
           {this.changePlan()}
         </span>
       );
@@ -85,21 +98,22 @@ export default class extends React.Component {
   }
 
   content() {
-    const currSub = this.props.subscriptionStatus;
+    const { subscriptionStatus, purchaserNameOrEmail, } = this.props
+
     const metaRowClassName = 'sub-meta-info';
-    if (currSub) {
+    if (subscriptionStatus) {
       return ({ metaRows: (
         <div className={metaRowClassName}>
           <div className="meta-section">
             <h3>CURRENT SUBSCRIPTION</h3>
             <div className="flex-row space-between">
               <div>
-                <TitleAndContent content={currSub.account_type} title="Plan" />
-                <TitleAndContent content={this.props.purchaserNameOrEmail} title="Purchaser" />
+                <TitleAndContent content={subscriptionStatus.account_type} title="Plan" />
+                {purchaserNameOrEmail && purchaserNameOrEmail.length && <TitleAndContent content={purchaserNameOrEmail} title="Purchaser" />}
               </div>
               <div>
-                <TitleAndContent content={moment(currSub.start_date).format('MMMM Do, YYYY')} title="Start Date" />
-                <TitleAndContent content={moment(currSub.expiration).format('MMMM Do, YYYY')} title="End Date" />
+                <TitleAndContent content={moment(subscriptionStatus.start_date).format('MMMM Do, YYYY')} title="Start Date" />
+                <TitleAndContent content={moment(subscriptionStatus.expiration).format('MMMM Do, YYYY')} title="End Date" />
               </div>
             </div>
           </div>
@@ -128,37 +142,43 @@ export default class extends React.Component {
     ), });
   }
 
-  editCreditCard = () => {
+  handleEditCreditCardClick = () => {
     new EnterOrUpdateStripeCard(this.updateLastFour, 'Update');
   };
 
   editCreditCardElement() {
+    const { lastFour, } = this.state
     return (
-      <span>{`Credit Card Ending In ${this.state.lastFour}`}
-        <span
-          onClick={this.editCreditCard}
+      <span>{`Credit Card Ending In ${lastFour}`}
+        <button
+          className="interactive-wrapper focus-on-light"
+          onClick={this.handleEditCreditCardClick}
           style={{
             color: '#027360',
             fontSize: '14px',
             paddingLeft: '10px',
             cursor: 'pointer',
           }}
-        >Edit Credit Card</span>
+          type="button"
+        >Edit Credit Card</button>
       </span>
     );
   }
 
   lessThan90Days() {
-    // <button className="q-button bg-quillblue text-white">Download Quote</button>
+    const { showPurchaseModal, } = this.props
+
     return (
       <div>
-        <button className="q-button bg-orange text-white" onClick={this.props.showPurchaseModal}>Renew Subscription</button>
+        <button className="q-button bg-orange text-white" onClick={showPurchaseModal} type="button">Renew Subscription</button>
       </div>
     );
   }
 
   nextPlan() {
-    if (this.props.subscriptionStatus) {
+    const { subscriptionStatus, } = this.props
+
+    if (subscriptionStatus) {
       return (
         <div className="meta-section">
           <h3>NEXT SUBSCRIPTION</h3>
@@ -173,8 +193,10 @@ export default class extends React.Component {
   }
 
   nextPlanAlertOrButtons(condition, renewDate) {
-    const conditionWithAuthorization = `${condition} authorization: ${!!this.props.authorityLevel}`;
-    const expiration = moment(this.props.subscriptionStatus.expiration);
+    const { lastFour, } = this.state
+    const { authorityLevel, subscriptionStatus, } = this.props
+    const conditionWithAuthorization = `${condition} authorization: ${!!authorityLevel}`;
+    const expiration = moment(subscriptionStatus.expiration);
     const remainingDays = expiration.diff(moment(), 'days');
     switch (conditionWithAuthorization) {
       case 'school sponsored authorization: false':
@@ -194,7 +216,7 @@ export default class extends React.Component {
       case 'recurring authorization: false':
         return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate}.`);
       case 'recurring authorization: true':
-        return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${this.state.lastFour} will be charged $${this.getPrice()}.`);
+        return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${lastFour} will be charged $${this.getPrice()}.`);
       case 'school expired authorization: true':
         return this.lessThan90Days();
       case 'school expired authorization: false':
@@ -208,29 +230,30 @@ export default class extends React.Component {
   }
 
   nextPlanContent() {
+    const { subscriptionStatus, subscriptionType, } = this.props
     let nextPlan;
     let beginsOn;
     let nextPlanAlertOrButtons;
     const condition = this.getCondition();
-    if (this.props.subscriptionStatus.expired) {
+    if (subscriptionStatus.expired) {
       return this.nextPlanAlertOrButtons(`${condition} expired`);
-    } else if (this.props.subscriptionStatus.account_type === 'Premium Credit') {
+    } else if (subscriptionStatus.account_type === 'Premium Credit') {
       const content = (<span>Quill Basic - Free
         <a className="green-link" href="/premium">Change Plan</a>
       </span>);
       return (<TitleAndContent content={content} title="Next Plan" />);
     } else if (condition === 'school sponsored') {
       nextPlan = this.nextPlanAlertOrButtons(condition);
-    } else if (this.props.subscriptionStatus.recurring) {
+    } else if (subscriptionStatus.recurring) {
       nextPlan = (<span>
-        {this.props.subscriptionType} Premium - ${this.getPrice()} Annual Subscription {this.changePlanInline()}
+        {subscriptionType} Premium - ${this.getPrice()} Annual Subscription {this.changePlanInline()}
       </span>);
-      const renewDate = moment(this.props.subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
+      const renewDate = moment(subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons('recurring', renewDate);
       beginsOn = (
         <TitleAndContent content={renewDate} title="Begins On" />
       );
-    } else if (condition === 'school' && !this.props.subscriptionStatus.recurring) {
+    } else if (condition === 'school' && !subscriptionStatus.recurring) {
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons(`${condition} non-recurring`);
       nextPlan = <span>Quill Basic - Free {this.changePlanInline()}</span>;
     } else {
@@ -258,9 +281,10 @@ export default class extends React.Component {
   }
 
   renewPremium() {
+    const { showPurchaseModal, } = this.props
     return (
       <div>
-        <button className="renew-subscription q-button bg-orange text-white cta-button" onClick={this.props.showPurchaseModal}>Renew Subscription</button>
+        <button className="renew-subscription q-button bg-orange text-white cta-button" onClick={showPurchaseModal} type="button">Renew Subscription</button>
       </div>
     );
   }
@@ -275,12 +299,16 @@ export default class extends React.Component {
     this.setState({ lastFour: newLastFour, });
   };
 
-  updateRecurring = recurring => {
-    this.props.updateSubscription(
-      { recurring: this.state.recurring, }, _.get(this.props.subscriptionStatus, 'id'));
+  updateRecurring = (recurring) => {
+    const { updateSubscription, subscriptionStatus, } = this.props
+    updateSubscription(
+      { recurring, }, _.get(subscriptionStatus, 'id'));
   };
 
   render() {
+    const { subscriptionStatus, } = this.props
+    if (!subscriptionStatus || subscriptionStatus.expired) { return <span /> }
+
     const content = this.content();
     return (
       <section>
