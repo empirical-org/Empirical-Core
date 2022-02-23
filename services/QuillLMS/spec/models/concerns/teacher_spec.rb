@@ -385,9 +385,6 @@ describe User, type: :model do
 
         context 'user is on a valid trial' do
           it "returns 'trial'" do
-            subscription.update(account_type: 'trial')
-            expect(teacher.premium_state).to eq('trial')
-
             subscription.update(account_type: 'Teacher Trial')
             expect(teacher.premium_state).to eq('trial')
           end

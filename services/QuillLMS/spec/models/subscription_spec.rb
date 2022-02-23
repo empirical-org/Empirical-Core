@@ -42,7 +42,7 @@ describe Subscription, type: :model do
     end
 
     it "returns false if the subscription is not Subscription::TRIAL_TYPES" do
-      Subscription::ALL_PAID_TYPES.each do |tt|
+      Subscription::OFFICIAL_PAID_TYPES.each do |tt|
         subscription.update(account_type: tt)
         expect(subscription.is_trial?).not_to be
       end
@@ -250,15 +250,15 @@ describe Subscription, type: :model do
     let!(:user) { create(:user) }
     let!(:user_subscription) { create(:user_subscription, subscription: subscription, user: user) }
 
-    it "responds with true if school or user has ever had anything in the ALL_PAID_TYPES_LIST" do
-      Subscription::ALL_PAID_TYPES.each do |type|
+    it "responds with true if school or user has ever had anything in the OFFICIAL_PAID_TYPES_LIST" do
+      Subscription::OFFICIAL_PAID_TYPES.each do |type|
         subscription.update(account_type: type)
         expect(Subscription.school_or_user_has_ever_paid?(user)).to be
       end
     end
 
-    it "responds with false if school or user has only had things in the ALL_FREE_TYPES_LIST" do
-      Subscription::ALL_FREE_TYPES.each do |type|
+    it "responds with false if school or user has only had things in the OFFICIAL_FREE_TYPES_LIST" do
+      Subscription::OFFICIAL_FREE_TYPES.each do |type|
         subscription.update(account_type: type)
         expect(Subscription.school_or_user_has_ever_paid?(user)).not_to be
       end

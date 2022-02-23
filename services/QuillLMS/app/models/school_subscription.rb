@@ -20,7 +20,7 @@ class SchoolSubscription < ApplicationRecord
   belongs_to :school
   belongs_to :subscription
   after_commit :update_schools_users
-  after_create :send_premium_emails, :update_subscription
+  after_create :send_premium_emails
 
   def update_schools_users
     return unless school&.users
@@ -42,9 +42,5 @@ class SchoolSubscription < ApplicationRecord
         PremiumSchoolSubscriptionEmailWorker.perform_async(u.id) if u.email.match('quill.org')
       end
     end
-  end
-
-  def update_subscription
-    subscription.update(account_type: 'School Paid')
   end
 end
