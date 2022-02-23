@@ -25,20 +25,20 @@ const SELECTED_TYPE = 'selected'
 
 const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, toggleParentActivity }) => {
 
-  const [activities, setActivities] = React.useState([])
-  const [selectedActivities, setSelectedActivities] = React.useState(parentActivities)
-  const [loading, setLoading] = React.useState(true);
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const [nameSearch, setNameSearch] = React.useState('')
-  const [descriptionSearch, setDescriptionSearch] = React.useState('')
-  const [ccssSearch, setCCSSSearch] = React.useState('')
-  const [conceptSearch, setConceptSearch] = React.useState('')
-  const [activityPacksSearch, setActivityPacksSearch] = React.useState('')
-  const [flagSearch, setFlagSearch] = React.useState(DEFAULT_FLAG)
-  const [toolSearch, setToolSearch] = React.useState(DEFAULT_TOOL)
-  const [readabilitySearch, setReadabilitySearch] = React.useState(DEFAULT_READABILITY)
-  const [readabilityOptions, setReadabilityOptions] = React.useState([])
-  const [showNoActivityPacks, setShowNoActivityPacks] = React.useState(false)
+  const [activities, setActivities] = React.useState<Array<any>>([])
+  const [selectedActivities, setSelectedActivities] = React.useState<Array<any>>(parentActivities)
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [currentPage, setCurrentPage] = React.useState<Number>(1);
+  const [nameSearch, setNameSearch] = React.useState<string>('')
+  const [descriptionSearch, setDescriptionSearch] = React.useState<string>('')
+  const [ccssSearch, setCCSSSearch] = React.useState<string>('')
+  const [conceptSearch, setConceptSearch] = React.useState<string>('')
+  const [activityPacksSearch, setActivityPacksSearch] = React.useState<string>('')
+  const [flagSearch, setFlagSearch] = React.useState<string>(DEFAULT_FLAG)
+  const [toolSearch, setToolSearch] = React.useState<string>(DEFAULT_TOOL)
+  const [readabilitySearch, setReadabilitySearch] = React.useState<string>(DEFAULT_READABILITY)
+  const [readabilityOptions, setReadabilityOptions] = React.useState<Array<any>>([])
+  const [showNoActivityPacks, setShowNoActivityPacks] = React.useState<boolean>(false)
 
   React.useEffect(() => {
     if (loading) { getActivities() }
@@ -65,18 +65,21 @@ const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, t
   }
 
   function getFilteredActivities() {
+
     return activities.filter(act => {
+      const nameMatch = nameSearch === '' || (act.name && act.name.toLowerCase().includes(nameSearch.toLowerCase()))
+      const descriptionMatch = descriptionSearch === '' || (act.description && act.description.toLowerCase().includes(descriptionSearch.toLowerCase()))
+      const ccssMatch = ccssSearch === '' || (act.standard && act.standard.name.toLowerCase().includes(ccssSearch.toLowerCase()))
+      const conceptMatch = conceptSearch === '' || (act.activity_category && act.activity_category.name.toLowerCase().includes(conceptSearch.toLowerCase()))
+      const activityPackMatch = activityPacksSearch === '' || (act.unit_template_names && act.unit_template_names.some(ut => ut.toLowerCase().includes(activityPacksSearch.toLowerCase())))
+      const flagMatch = flagSearch === DEFAULT_FLAG || (act.data && act.data['flag'] && act.data['flag'] === flagSearch)
+      const toolMatch = toolSearch === DEFAULT_TOOL || (act.classification && act.classification.name === toolSearch)
+      const readabilityMatch = readabilitySearch === DEFAULT_READABILITY || (act.readability_grade_level && act.readability_grade_level === readabilitySearch)
+      const selectedActivitiesMatch = selectedActivities.length === 0 || !selectedActivities.map(a => a.id).includes(act.id)
+      const showNoActivityPacksMatch = showNoActivityPacks === false || (act.unit_template_names && act.unit_template_names.length === 0)
       return (
-        (nameSearch === '' || (act.name && act.name.toLowerCase().includes(nameSearch.toLowerCase()))) &&
-        (descriptionSearch === '' || (act.description && act.description.toLowerCase().includes(descriptionSearch.toLowerCase()))) &&
-        (ccssSearch === '' || (act.standard && act.standard.name.toLowerCase().includes(ccssSearch.toLowerCase()))) &&
-        (conceptSearch === '' || (act.activity_category && act.activity_category.name.toLowerCase().includes(conceptSearch.toLowerCase()))) &&
-        (activityPacksSearch === '' || (act.unit_template_names && act.unit_template_names.some(ut => ut.toLowerCase().includes(activityPacksSearch.toLowerCase())))) &&
-        (flagSearch === DEFAULT_FLAG || (act.data && act.data['flag'] && act.data['flag'] === flagSearch)) &&
-        (toolSearch === DEFAULT_TOOL || (act.classification && act.classification.name === toolSearch)) &&
-        (readabilitySearch === DEFAULT_READABILITY || (act.readability_grade_level && act.readability_grade_level === readabilitySearch)) &&
-        (selectedActivities.length === 0 || !selectedActivities.map(a => a.id).includes(act.id)) &&
-        (showNoActivityPacks === false || (act.unit_template_names && act.unit_template_names.length === 0))
+        nameMatch && descriptionMatch && ccssMatch && conceptMatch && activityPackMatch &&
+        flagMatch && toolMatch && readabilityMatch && selectedActivitiesMatch && showNoActivityPacksMatch
       );
     })
   }
@@ -85,19 +88,15 @@ const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, t
     return getFilteredActivities().slice(lowerBound(currentPage), upperBound(currentPage))
   }
 
-  function findAndToggleParentActivity(activity) {
-    toggleParentActivity(activity)
-  }
-
   function handleAddActivity(activity) {
-    findAndToggleParentActivity(activity)
+    toggleParentActivity(activity)
     const newSelectedActivities = selectedActivities.slice()
     newSelectedActivities.push(activity)
     setSelectedActivities(newSelectedActivities)
   }
 
   function handleRemoveActivity(activity) {
-    findAndToggleParentActivity(activity)
+    toggleParentActivity(activity)
     const newSelectedActivities = selectedActivities.filter(a => a.id !== activity.id)
     setSelectedActivities(newSelectedActivities)
   }
@@ -174,7 +173,7 @@ const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, t
   }
 
   function selectedActivitiesTable() {
-    const fullSelectedActivities = activities.length > 0 ? selectedActivities.map((act) => activities.find(a => act.id === a.id)) : []
+    const fullSelectedActivities = activities.length ? selectedActivities.map((act) => activities.find(a => act.id === a.id)) : []
     const rows = fullSelectedActivities.map((act) => {
       return (
         <UnitTemplateActivityDataRow
@@ -193,7 +192,6 @@ const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, t
           {tableHeaders}
           <tbody className="unit-template-activities-tbody">
             <SortableList data={rows} sortCallback={updateOrder} />
-            {}
           </tbody>
         </table>
       </div>
