@@ -514,11 +514,11 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       <ExplanationSlide onHandleClick={handleExplanationSlideClick} slideData={explanationData[explanationSlideStep]} />
     );
   }
+
   if(completeButtonClicked && !window.location.href.includes('turk')) {
     return(
-      <ActivityFollowUp responses={submittedResponses} saveActivitySurveyResponse={saveActivitySurveyResponse} sessionID={sessionID} user={user} />
+      <ActivityFollowUp activity={activities.currentActivity} responses={submittedResponses} saveActivitySurveyResponse={saveActivitySurveyResponse} sessionID={sessionID} />
     );
-
   }
 
   const completionButtonCallback = () => {
