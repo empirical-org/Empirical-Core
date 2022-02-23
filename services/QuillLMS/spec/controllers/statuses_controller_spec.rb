@@ -75,21 +75,21 @@ describe StatusesController, type: :controller do
     end
 
     it 'should include Sidekiq queues' do
-        get :sidekiq_queue_length
+      get :sidekiq_queue_length
 
-        parsed_response = JSON.parse(response.body)
+      parsed_response = JSON.parse(response.body)
 
-        expect(response.status).to eq 200
-        expect(parsed_response).to include(queues_hash)
+      expect(response.status).to eq 200
+      expect(parsed_response).to include(queues_hash)
     end
 
     it 'should include accumulated retry count across all queues' do
-        get :sidekiq_queue_length
+      get :sidekiq_queue_length
 
-        parsed_response = JSON.parse(response.body)
+      parsed_response = JSON.parse(response.body)
 
-        expect(response.status).to eq 200
-        expect(parsed_response["retry"]).to eq(retry_size)
+      expect(response.status).to eq 200
+      expect(parsed_response["retry"]).to eq(retry_size)
     end
   end
 end
