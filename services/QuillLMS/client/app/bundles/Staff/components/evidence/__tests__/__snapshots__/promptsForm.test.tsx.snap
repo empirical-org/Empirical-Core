@@ -2,6 +2,17 @@
 
 exports[`PromptsForm component should render PromptsForm 1`] = `
 <Fragment>
+  <div
+    className="info-section"
+  >
+    <img
+      alt="Information icon"
+      src="undefined/images/pages/evidence/icons-information-small.svg"
+    />
+    <p>
+      You do not need to retype the stem for exemplars.
+    </p>
+  </div>
   <section
     className="prompt-section"
   >
@@ -11,6 +22,18 @@ exports[`PromptsForm component should render PromptsForm 1`] = `
       handleChange={[Function]}
       label="Because Stem"
       value="1"
+    />
+    <Input
+      autoComplete="on"
+      className="because-example"
+      handleChange={[Function]}
+      label="Because First Exemplar"
+    />
+    <Input
+      autoComplete="on"
+      className="because-example"
+      handleChange={[Function]}
+      label="Because Second Exemplar"
     />
   </section>
   <section
@@ -23,6 +46,18 @@ exports[`PromptsForm component should render PromptsForm 1`] = `
       label="But Stem"
       value="2"
     />
+    <Input
+      autoComplete="on"
+      className="but-example"
+      handleChange={[Function]}
+      label="But First Exemplar"
+    />
+    <Input
+      autoComplete="on"
+      className="but-example"
+      handleChange={[Function]}
+      label="But Second Exemplar"
+    />
   </section>
   <section
     className="prompt-section"
@@ -33,6 +68,18 @@ exports[`PromptsForm component should render PromptsForm 1`] = `
       handleChange={[Function]}
       label="So Stem"
       value="3"
+    />
+    <Input
+      autoComplete="on"
+      className="so-example"
+      handleChange={[Function]}
+      label="So First Exemplar"
+    />
+    <Input
+      autoComplete="on"
+      className="so-example"
+      handleChange={[Function]}
+      label="So Second Exemplar"
     />
   </section>
 </Fragment>
