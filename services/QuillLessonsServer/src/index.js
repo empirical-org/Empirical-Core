@@ -129,6 +129,8 @@ function disconnect({
   client,
   connection,
 }) {
+  if (!currentConnections[client.id]) { return }
+  
   if (currentConnections[client.id].role === 'teacher') {
     let session = {
       id: currentConnections[client.id].classroomSessionId,
@@ -674,4 +676,3 @@ app.on('error', err => {
 });
 
 app.listen(port, () => {});
-
