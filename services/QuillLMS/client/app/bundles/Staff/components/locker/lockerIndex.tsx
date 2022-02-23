@@ -8,7 +8,7 @@ import { TEAMS } from "../../../Shared";
 export const LockerIndex = () => {
   const allLockers = [...TEAMS, 'index'];
   function renderLockers() {
-    return allLockers.map(lockerKey => (
+    return allLockers.map((lockerKey: string) => (
       <Locker key={lockerKey} lockerContents={lockerItems[lockerKey]} />
     ));
   }

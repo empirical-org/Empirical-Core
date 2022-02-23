@@ -3,7 +3,17 @@ import { useHistory } from 'react-router-dom';
 
 import { titleCase, informationIcon, Tooltip } from "../../../Shared";
 
-export const TeamLocker = ({ lockerContents }) => {
+interface LockerContentsInterface {
+  label: string;
+  route: string;
+  href: string;
+  emoji: string;
+  emojiLabel: string;
+  tooltipInfo: string;
+  overrideTitleCase: boolean;
+}
+
+export const TeamLocker = ({ lockerContents }: {lockerContents: LockerContentsInterface}) => {
   const history = useHistory();
   const { label, route, href, emoji, emojiLabel, tooltipInfo, overrideTitleCase } = lockerContents;
 
@@ -35,7 +45,7 @@ export const TeamLocker = ({ lockerContents }) => {
   return(
     <button className="locker-container interactive-wrapper focus-on-light" onClick={handleClick}>
       <div className="left-side-contents">
-        <span className="emoji-image" role="img" aria-label={emojiLabel}>{emoji}</span>
+        <span aria-label={emojiLabel} className="emoji-image" role="img">{emoji}</span>
         <p className="locker-label">{renderLabel()}</p>
       </div>
       {renderTooltip()}
