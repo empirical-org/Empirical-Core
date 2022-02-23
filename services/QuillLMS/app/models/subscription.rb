@@ -262,10 +262,16 @@ class Subscription < ApplicationRecord
     end
   end
 
-
   def self.update_todays_expired_recurring_subscriptions
-    expired_today_or_previously_and_recurring.each do |s|
-      s.update_if_charge_succeeds unless s.users.empty?
+    expired_today_or_previously_and_recurring.each do |subscription|
+      # TODO: Deactivate subscriptions with multiple users
+      next unless subscription.users.count == 1
+
+      if subscription.users.first.subscriptions.active.empty?
+        subscription.update_if_charge_succeeds
+      else
+        subscription.update(de_activated_date: Date.today)
+      end
     end
   end
 
