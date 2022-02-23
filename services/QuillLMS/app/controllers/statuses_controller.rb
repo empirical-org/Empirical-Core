@@ -33,7 +33,11 @@ class StatusesController < ApplicationController
   end
 
   def sidekiq_queue_length
-    render json: Sidekiq::Stats.new.queues
+    queues_hash = Sidekiq::Stats.new.queues
+    retry_hash = {
+      "retry" => Sidekiq::RetrySet.new.size
+    }
+    render json: queues_hash.merge(retry_hash)
   end
 
   def deployment_notification
