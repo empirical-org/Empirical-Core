@@ -2,10 +2,9 @@ import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
 
-export default class extends React.Component {
-
-  premiumCreditsTable() {
-    const creditRows = this.props.premiumCredits.map((credit) => {
+const PremiumCreditsTable = ({ premiumCredits, earnedCredits, }) => {
+  const renderPremiumCreditsTable = () => {
+    const creditRows = premiumCredits.map((credit) => {
       // if it is less than one week, we round up to 1
       let amountCredited = credit.amount;
       if (amountCredited > 0) {
@@ -39,18 +38,17 @@ export default class extends React.Component {
     );
   }
 
-  render() {
-    const monthsOfCredit = Math.round(((this.props.earnedCredits / 30.42) * 10) / 10);
-    return (
-      <section>
-        <div className="flex-row space-between">
-          <h2>Earned Premium Credits History</h2>
-          <a className="green-link" href="">How to earn more Premium credit</a>
-        </div>
-        {this.premiumCreditsTable()}
-        <span className="total-premium-credits"><span className="total-header">Total Premium Credits Earned:</span> {`${monthsOfCredit} ${pluralize('month', monthsOfCredit)}`}</span>
-      </section>
-    );
-  }
-
+  const weeksOfCredit = Math.round(earnedCredits / 7);
+  return (
+    <section>
+      <div className="flex-row space-between">
+        <h2>Earned Premium Credits History</h2>
+        <a className="green-link" href="/referrals">How to earn more Premium credit</a>
+      </div>
+      {renderPremiumCreditsTable()}
+      <span className="total-premium-credits"><span className="total-header">Total Premium Credits Earned:</span> {`${weeksOfCredit} ${pluralize('week', weeksOfCredit)}`}</span>
+    </section>
+  );
 }
+
+export default PremiumCreditsTable

@@ -1,0 +1,546 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CurrentSubscription container should render when the subscription is expired 1`] = `
+<CurrentSubscription
+  subscriptionStatus={
+    Object {
+      "account_type": "Teacher Paid",
+      "created_at": "2022-02-15T16:43:30.344Z",
+      "de_activated_date": null,
+      "expiration": "2022-02-15",
+      "expired": true,
+      "id": 5,
+      "mail_to": null,
+      "payment_amount": null,
+      "payment_method": null,
+      "purchaser_email": null,
+      "purchaser_id": null,
+      "purchaser_name": null,
+      "recurring": false,
+      "start_date": "2022-02-15",
+      "subscription_type_id": null,
+      "updated_at": "2022-02-15T16:43:30.344Z",
+    }
+  }
+>
+  <span />
+</CurrentSubscription>
+`;
+
+exports[`CurrentSubscription container should render when there is no subscription 1`] = `
+<CurrentSubscription
+  subscriptionStatus={null}
+>
+  <span />
+</CurrentSubscription>
+`;
+
+exports[`CurrentSubscription container when there is a current subscription should render when the purchaserNameOrEmail is an empty string 1`] = `
+<CurrentSubscription
+  authorityLevel={null}
+  lastFour={null}
+  purchaserNameOrEmail=""
+  subscriptionStatus={
+    Object {
+      "account_type": "School Paid",
+      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "de_activated_date": null,
+      "expiration": "2023-07-31",
+      "expired": false,
+      "id": 7,
+      "mail_to": "emilia+3@quill.org",
+      "payment_amount": null,
+      "payment_method": null,
+      "purchaser_email": "emilia+3@quill.org",
+      "purchaser_id": null,
+      "purchaser_name": null,
+      "recurring": false,
+      "start_date": "2022-02-16",
+      "subscription_type_id": null,
+      "updated_at": "2022-02-16T14: 07: 25.976Z",
+    }
+  }
+  subscriptionType="School"
+  userIsContact={false}
+>
+  <section>
+    <h2>
+      Subscription Information
+    </h2>
+    <div
+      className="current-subscription-information-and-cta"
+    >
+      <div
+        className="current-subscription-information"
+      >
+        <div
+          className="sub-meta-info"
+        >
+          <div
+            className="meta-section"
+          >
+            <h3>
+              CURRENT SUBSCRIPTION
+            </h3>
+            <div
+              className="flex-row space-between"
+            >
+              <div>
+                <_default
+                  content="School Paid"
+                  title="Plan"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Plan
+                    </span>
+                    <span>
+                      School Paid
+                    </span>
+                  </div>
+                </_default>
+              </div>
+              <div>
+                <_default
+                  content="February 16th, 2022"
+                  title="Start Date"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Start Date
+                    </span>
+                    <span>
+                      February 16th, 2022
+                    </span>
+                  </div>
+                </_default>
+                <_default
+                  content="July 31st, 2023"
+                  title="End Date"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      End Date
+                    </span>
+                    <span>
+                      July 31st, 2023
+                    </span>
+                  </div>
+                </_default>
+              </div>
+            </div>
+          </div>
+          <div
+            className="meta-section payment"
+          >
+            <h3>
+              PAYMENT METHOD ON FILE
+            </h3>
+            <span>
+              Invoice
+            </span>
+          </div>
+          <div
+            className="meta-section"
+          >
+            <h3>
+              NEXT SUBSCRIPTION
+            </h3>
+            <div>
+              <div
+                className="flex-row space-between"
+              >
+                <_default
+                  content={
+                    <span>
+                      <span>
+                        Quill Basic - Free 
+                      </span>
+                    </span>
+                  }
+                  title="Next Plan"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Next Plan
+                    </span>
+                    <span>
+                      <span>
+                        <span>
+                          Quill Basic - Free 
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </_default>
+              </div>
+              <div
+                className="next-plan-alert flex-row vertically-centered"
+              >
+                <i
+                  className="fas fa-icon fa-lightbulb-o"
+                />
+                Once your current School Premium subscription expires, you will be downgraded to the Quill Basic subscription.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span />
+    </div>
+  </section>
+</CurrentSubscription>
+`;
+
+exports[`CurrentSubscription container when there is a current subscription should render when there is a purchaserNameOrEmail 1`] = `
+<CurrentSubscription
+  authorityLevel={null}
+  lastFour={null}
+  purchaserNameOrEmail="emilia+3@quill.org"
+  subscriptionStatus={
+    Object {
+      "account_type": "School Paid",
+      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "de_activated_date": null,
+      "expiration": "2023-07-31",
+      "expired": false,
+      "id": 7,
+      "mail_to": "emilia+3@quill.org",
+      "payment_amount": null,
+      "payment_method": null,
+      "purchaser_email": "emilia+3@quill.org",
+      "purchaser_id": null,
+      "purchaser_name": null,
+      "recurring": false,
+      "start_date": "2022-02-16",
+      "subscription_type_id": null,
+      "updated_at": "2022-02-16T14: 07: 25.976Z",
+    }
+  }
+  subscriptionType="School"
+  userIsContact={false}
+>
+  <section>
+    <h2>
+      Subscription Information
+    </h2>
+    <div
+      className="current-subscription-information-and-cta"
+    >
+      <div
+        className="current-subscription-information"
+      >
+        <div
+          className="sub-meta-info"
+        >
+          <div
+            className="meta-section"
+          >
+            <h3>
+              CURRENT SUBSCRIPTION
+            </h3>
+            <div
+              className="flex-row space-between"
+            >
+              <div>
+                <_default
+                  content="School Paid"
+                  title="Plan"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Plan
+                    </span>
+                    <span>
+                      School Paid
+                    </span>
+                  </div>
+                </_default>
+                <_default
+                  content="emilia+3@quill.org"
+                  title="Purchaser"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Purchaser
+                    </span>
+                    <span>
+                      emilia+3@quill.org
+                    </span>
+                  </div>
+                </_default>
+              </div>
+              <div>
+                <_default
+                  content="February 16th, 2022"
+                  title="Start Date"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Start Date
+                    </span>
+                    <span>
+                      February 16th, 2022
+                    </span>
+                  </div>
+                </_default>
+                <_default
+                  content="July 31st, 2023"
+                  title="End Date"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      End Date
+                    </span>
+                    <span>
+                      July 31st, 2023
+                    </span>
+                  </div>
+                </_default>
+              </div>
+            </div>
+          </div>
+          <div
+            className="meta-section payment"
+          >
+            <h3>
+              PAYMENT METHOD ON FILE
+            </h3>
+            <span>
+              Invoice
+            </span>
+          </div>
+          <div
+            className="meta-section"
+          >
+            <h3>
+              NEXT SUBSCRIPTION
+            </h3>
+            <div>
+              <div
+                className="flex-row space-between"
+              >
+                <_default
+                  content={
+                    <span>
+                      <span>
+                        Quill Basic - Free 
+                      </span>
+                    </span>
+                  }
+                  title="Next Plan"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Next Plan
+                    </span>
+                    <span>
+                      <span>
+                        <span>
+                          Quill Basic - Free 
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </_default>
+              </div>
+              <div
+                className="next-plan-alert flex-row vertically-centered"
+              >
+                <i
+                  className="fas fa-icon fa-lightbulb-o"
+                />
+                Once your current School Premium subscription expires, you will be downgraded to the Quill Basic subscription.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span />
+    </div>
+  </section>
+</CurrentSubscription>
+`;
+
+exports[`CurrentSubscription container when there is a current subscription should render when there is no purchaserNameOrEmail 1`] = `
+<CurrentSubscription
+  authorityLevel={null}
+  lastFour={null}
+  purchaserNameOrEmail={null}
+  subscriptionStatus={
+    Object {
+      "account_type": "School Paid",
+      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "de_activated_date": null,
+      "expiration": "2023-07-31",
+      "expired": false,
+      "id": 7,
+      "mail_to": "emilia+3@quill.org",
+      "payment_amount": null,
+      "payment_method": null,
+      "purchaser_email": "emilia+3@quill.org",
+      "purchaser_id": null,
+      "purchaser_name": null,
+      "recurring": false,
+      "start_date": "2022-02-16",
+      "subscription_type_id": null,
+      "updated_at": "2022-02-16T14: 07: 25.976Z",
+    }
+  }
+  subscriptionType="School"
+  userIsContact={false}
+>
+  <section>
+    <h2>
+      Subscription Information
+    </h2>
+    <div
+      className="current-subscription-information-and-cta"
+    >
+      <div
+        className="current-subscription-information"
+      >
+        <div
+          className="sub-meta-info"
+        >
+          <div
+            className="meta-section"
+          >
+            <h3>
+              CURRENT SUBSCRIPTION
+            </h3>
+            <div
+              className="flex-row space-between"
+            >
+              <div>
+                <_default
+                  content="School Paid"
+                  title="Plan"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Plan
+                    </span>
+                    <span>
+                      School Paid
+                    </span>
+                  </div>
+                </_default>
+              </div>
+              <div>
+                <_default
+                  content="February 16th, 2022"
+                  title="Start Date"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Start Date
+                    </span>
+                    <span>
+                      February 16th, 2022
+                    </span>
+                  </div>
+                </_default>
+                <_default
+                  content="July 31st, 2023"
+                  title="End Date"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      End Date
+                    </span>
+                    <span>
+                      July 31st, 2023
+                    </span>
+                  </div>
+                </_default>
+              </div>
+            </div>
+          </div>
+          <div
+            className="meta-section payment"
+          >
+            <h3>
+              PAYMENT METHOD ON FILE
+            </h3>
+            <span>
+              Invoice
+            </span>
+          </div>
+          <div
+            className="meta-section"
+          >
+            <h3>
+              NEXT SUBSCRIPTION
+            </h3>
+            <div>
+              <div
+                className="flex-row space-between"
+              >
+                <_default
+                  content={
+                    <span>
+                      <span>
+                        Quill Basic - Free 
+                      </span>
+                    </span>
+                  }
+                  title="Next Plan"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Next Plan
+                    </span>
+                    <span>
+                      <span>
+                        <span>
+                          Quill Basic - Free 
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </_default>
+              </div>
+              <div
+                className="next-plan-alert flex-row vertically-centered"
+              >
+                <i
+                  className="fas fa-icon fa-lightbulb-o"
+                />
+                Once your current School Premium subscription expires, you will be downgraded to the Quill Basic subscription.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span />
+    </div>
+  </section>
+</CurrentSubscription>
+`;

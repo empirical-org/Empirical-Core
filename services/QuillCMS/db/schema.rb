@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 2022_02_18_185111) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "spelling_error", default: false
+    t.index ["count"], name: "index_responses_on_count"
+    t.index ["optimal"], name: "index_responses_on_optimal"
     t.index ["question_uid", "text"], name: "index_responses_on_question_uid_and_text", unique: true
     t.index ["uid"], name: "index_responses_on_uid"
   end

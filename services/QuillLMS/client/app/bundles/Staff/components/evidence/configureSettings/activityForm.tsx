@@ -29,7 +29,7 @@ import {
   ESSENTIAL_KNOWLEDGE_TEXT_FILLER
 } from '../../../../../constants/evidence';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent, ClickEvent,  TextAreaEvent } from '../../../interfaces/evidenceInterfaces';
-import { DataTable, Input, TextEditor, DropdownInput, } from '../../../../Shared/index'
+import { DataTable, Input, TextEditor, DropdownInput } from '../../../../Shared/index'
 import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../../Shared/utils/constants'
 
 interface ActivityFormProps {

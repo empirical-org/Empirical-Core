@@ -4,7 +4,7 @@
 #
 # Table name: activities_unit_templates
 #
-#  id               :bigint           not null, primary key
+#  id               :integer          not null, primary key
 #  order_number     :integer
 #  activity_id      :integer          not null
 #  unit_template_id :integer          not null
