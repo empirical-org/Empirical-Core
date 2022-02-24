@@ -71,12 +71,14 @@ describe GrowthResultsSummary do
                 post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
                 id: pre_test_skill_group_activity.skill_group.id,
                 post_correct_skill_ids: [skill.id],
+                pre_correct_skill_ids: [],
                 acquired_skill_ids: [skill.id],
                 skill_ids: [skill.id]
               }
             ],
             total_acquired_skills_count: 1,
             total_correct_skills_count: 1,
+            total_pre_correct_skills_count: 0,
             total_possible_skills_count: 1,
             correct_skill_text: "1 of 1 skills correct"
           },
@@ -136,12 +138,14 @@ describe GrowthResultsSummary do
                 post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
                 id: pre_test_skill_group_activity.skill_group.id,
                 post_correct_skill_ids: [skill.id],
+                pre_correct_skill_ids: [],
                 acquired_skill_ids: [skill.id],
                 skill_ids: [skill.id]
               }
             ],
             total_acquired_skills_count: 1,
             total_correct_skills_count: 1,
+            total_pre_correct_skills_count: 0,
             total_possible_skills_count: 1,
             correct_skill_text: "1 of 1 skills correct"
           },
@@ -215,6 +219,7 @@ describe GrowthResultsSummary do
           post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
           id: pre_test_skill_group_activity.skill_group.id,
           post_correct_skill_ids: [skill.id],
+          pre_correct_skill_ids: [],
           acquired_skill_ids: [skill.id],
           skill_ids: [skill.id]
         }

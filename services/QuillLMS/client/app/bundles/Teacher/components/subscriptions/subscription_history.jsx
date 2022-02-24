@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
 
-export default class extends React.Component {
+export default class SubscriptionHistory extends React.Component {
 
   content() {
     const subscriptionHistoryRows = this.subscriptionHistoryRows();
@@ -21,13 +21,14 @@ export default class extends React.Component {
     return (
       <div className="empty-state flex-row justify-content">
         <h3>You have not yet started a Quill Premium Subscription</h3>
-        <p>Purchase Quill Premium or apply credits to get access to Premium reports.</p>
+        <p><a href="/premium">Purchase Quill Premium</a> or apply credits to get access to Premium reports.</p>
       </div>
     );
   }
 
   paymentContent(subscription) {
-    if (this.props.authorityLevel) {
+    const { authorityLevel, } = this.props
+    if (authorityLevel) {
       if (subscription.payment_amount) {
         return `$${subscription.payment_amount / 100}`;
       } else if (subscription.payment_method === 'Premium Credit') {
@@ -38,14 +39,16 @@ export default class extends React.Component {
   }
 
   subscriptionHistoryRows() {
+    const { subscriptions, premiumCredits, view, } = this.props
+
     const rows = [];
-    this.props.subscriptions.forEach((sub) => {
+    subscriptions.forEach((sub) => {
       const startD = moment(sub.start_date);
       const endD = moment(sub.expiration);
       const calculatedDuration = endD.diff(startD, 'months');
       // if duration is calculated as 0, make it 1
       const duration = Math.max(calculatedDuration, 1);
-      const matchingTransaction = this.props.premiumCredits.find(transaction => (transaction.source_id === sub.id && transaction.source_type === 'Subscription' && transaction.amount > 0));
+      const matchingTransaction = premiumCredits.find(transaction => (transaction.source_id === sub.id && transaction.source_type === 'Subscription' && transaction.amount > 0));
       if (matchingTransaction) {
         const amountCredited = matchingTransaction.amount > 6
           ? Math.round(matchingTransaction.amount / 7)
@@ -65,7 +68,7 @@ export default class extends React.Component {
         <td key={`${sub.id}-4-row`}>{`${duration} ${pluralize('month', duration)}`}</td>,
         <td key={`${sub.id}-5-row`}>{`${startD.format('MM/DD/YY')} - ${endD.format('MM/DD/YY')}`}</td>
       ];
-      if (this.props.view === 'subscriptionHistory') {
+      if (view === 'subscriptionHistory') {
         tds.push(<td key={`${sub.id}-6-row`}><a href={`${process.env.DEFAULT_URL}/cms/subscriptions/${sub.id}/edit`}>Edit Subscription</a></td>);
       }
       rows.push(
@@ -76,8 +79,10 @@ export default class extends React.Component {
   }
 
   tableHeaders() {
+    const { view, } = this.props
+
     const tableHeaders = ['Purchase Date', 'Subscription', 'Payment', 'Length', 'Start & End Date'];
-    if (this.props.view === 'subscriptionHistory') {
+    if (view === 'subscriptionHistory') {
       tableHeaders.push('Edit Link');
     }
     return tableHeaders.map((content, i) => <th key={`${i}-table-header`}>{content}</th>);

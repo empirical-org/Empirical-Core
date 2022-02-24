@@ -514,6 +514,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(assigns(:subscription_type)).to eq "some subscription"
       expect(response.body).to eq({
         hasPremium: "some subscription",
+        last_subscription_was_trial: nil,
         trial_days_remaining: 10,
         first_day_of_premium_or_trial: true
       }.to_json)

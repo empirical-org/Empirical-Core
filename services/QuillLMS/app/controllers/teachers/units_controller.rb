@@ -113,7 +113,11 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def diagnostic_units
-    render json: diagnostics_organized_by_classroom.to_json
+    json = current_user.all_classrooms_cache(key: 'teachers.units.diagnostic_units') do
+      diagnostics_organized_by_classroom.to_json
+    end
+
+    render json: json
   end
 
   # Get all Units containing lessons, and only retrieve the classroom activities for lessons.

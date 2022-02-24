@@ -35,8 +35,12 @@
     padding: 0px 30px 0px 30px;
     .title-input, .course-input, .flag-input, .reading-level-input,
     .reading-score-input, .because-input, .but-input, .name-input, .highlight-prompt-input,
-    .scored-reading-level-input, .target-reading-level-input, .image-link-input {
+    .scored-reading-level-input, .target-reading-level-input, .image-link-input,
+    .because-example, .but-example, .so-example {
       margin-top: 20px;
+    }
+    .because-example, .but-example, .so-example {
+      margin-left: 16px;
     }
     .image-attribution-text-area {
       margin-top: 16px;
@@ -92,6 +96,14 @@
         .primary-feedback-input, .secondary-feedback-input {
           margin-top: 15px;
         }
+      }
+    }
+    .info-section {
+      display: flex;
+      align-items: center;
+      margin: 16px 0px -8px 0px;
+      p {
+        margin: 0px 0px 0px 4px;
       }
     }
   }
