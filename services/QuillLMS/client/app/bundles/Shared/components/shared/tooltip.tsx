@@ -10,13 +10,15 @@ interface TooltipProps {
   tooltipTriggerStyle?: { [key:string]: any }
 }
 
-export class Tooltip extends React.Component<TooltipProps, {}> {
+export class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean }> {
   private timer: any // eslint-disable-line react/sort-comp
   private tooltip: any // eslint-disable-line react/sort-comp
   private tooltipTrigger: any // eslint-disable-line react/sort-comp
 
   constructor(props) {
     super(props)
+
+    this.state = { clickedFromMobile: false }
 
     document.addEventListener('click', this.hideTooltipOnClick.bind(this));
 
@@ -33,13 +35,17 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
   }
 
   hideTooltipOnClick(e) {
+    const { clickedFromMobile } = this.state;
     const { handleClick } = this.props;
-    if (this.tooltip && e.target !== this.tooltip && e.target !== this.tooltipTrigger) {
+    const secondClickFromMobile = clickedFromMobile && e.pointerType === 'touch'
+    const shouldHideTooltip = (this.tooltip && e.target !== this.tooltip && e.target !== this.tooltipTrigger && e.pointerType !== 'touch') || secondClickFromMobile
+    if (shouldHideTooltip) {
       this.hideTooltip()
     }
     if(handleClick) {
       handleClick(e);
     }
+    this.setState(prevState => ({clickedFromMobile: !prevState.clickedFromMobile}));
   }
 
   showTooltip() {
@@ -72,10 +78,10 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
       >
         <span
           className={`${tooltipTriggerTextClass}`}
-          onMouseEnter={isOnMobile ? null : this.showTooltip}
-          onMouseLeave={isOnMobile ? null : this.startTimer}
-          onTouchStart={isOnMobile ? this.showTooltip: null}
-          onTouchEnd={isOnMobile ? this.startTimer: null}
+          onMouseEnter={isOnMobile ? () => false : this.showTooltip}
+          onMouseLeave={isOnMobile ? () => false : this.startTimer}
+          onTouchStart={isOnMobile ? this.showTooltip : () => false}
+          onTouchEnd={isOnMobile ? this.startTimer : () => false}
           style={tooltipTriggerTextStyle}
           tabIndex={tabIndex}
         >
