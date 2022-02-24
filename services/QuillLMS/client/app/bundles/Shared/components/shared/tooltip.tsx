@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { onMobile } from '../..'
 
 interface TooltipProps {
   isTabbable?: boolean,
@@ -63,6 +64,7 @@ export class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: 
   render() {
     const { tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, isTabbable } = this.props
     const tabIndex = isTabbable ? 0 : null;
+
     return (
       <span
         className="quill-tooltip-trigger"
@@ -71,7 +73,7 @@ export class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: 
       >
         <span
           className={`${tooltipTriggerTextClass}`}
-          onClick={this.handleTooltipClick}
+          onClick={onMobile() ? this.handleTooltipClick : () => false} // eslint-disable-next-line react/jsx-no-bind
           onMouseEnter={this.showTooltip}
           onMouseLeave={this.startTimer}
           style={tooltipTriggerTextStyle}

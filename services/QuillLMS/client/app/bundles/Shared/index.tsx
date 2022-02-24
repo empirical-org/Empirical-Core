@@ -89,7 +89,8 @@ export {
   getDisplayedText,
   renderPreviewFeedback,
   roundValuesToSeconds,
-  roundMillisecondsToSeconds
+  roundMillisecondsToSeconds,
+  onMobile
 } from './libs/index'
 
 export {
