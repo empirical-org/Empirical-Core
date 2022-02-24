@@ -71,9 +71,9 @@ export class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: 
       >
         <span
           className={`${tooltipTriggerTextClass}`}
+          onClick={this.handleTooltipClick}
           onMouseEnter={this.showTooltip}
           onMouseLeave={this.startTimer}
-          onClick={this.handleTooltipClick}
           style={tooltipTriggerTextStyle}
           tabIndex={tabIndex}
         >
