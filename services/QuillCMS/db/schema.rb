@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 2022_02_18_165350) do
     t.index ["count"], name: "index_responses_on_count"
     t.index ["optimal"], name: "index_responses_on_optimal"
     t.index ["parent_id"], name: "index_responses_on_parent_id"
-    t.index ["parent_uid"], name: "index_responses_on_parent_uid"
     t.index ["question_uid", "text"], name: "index_responses_on_question_uid_and_text", unique: true
     t.index ["uid"], name: "index_responses_on_uid"
   end
