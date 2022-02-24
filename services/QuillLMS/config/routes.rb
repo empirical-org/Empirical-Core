@@ -122,6 +122,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :activities, only: [] do
     post :retry, on: :member
     get :search, on: :collection
+    get :index_with_unit_templates, on: :collection
   end
 
   resources :milestones, only: [] do
