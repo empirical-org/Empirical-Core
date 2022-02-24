@@ -14,6 +14,10 @@ class ActivitiesController < ApplicationController
     render json: search_result.to_json
   end
 
+  def index_with_unit_templates
+    render json: Activity.includes(:standard, :raw_score, :classification, :unit_templates, :activities_unit_templates).all.map{|a| Cms::ActivitySerializer.new(a).as_json(root: false)}
+  end
+
   def count
     @count = Activity.where(flags: '{production}').count
     render json: {count: @count}
