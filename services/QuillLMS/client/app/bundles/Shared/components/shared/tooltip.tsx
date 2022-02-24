@@ -63,6 +63,7 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
   render() {
     const { tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, isTabbable } = this.props
     const tabIndex = isTabbable ? 0 : null;
+    const isOnMobile = window.innerWidth < 770;
     return (
       <span
         className="quill-tooltip-trigger"
@@ -71,8 +72,10 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
       >
         <span
           className={`${tooltipTriggerTextClass}`}
-          onMouseEnter={this.showTooltip}
-          onMouseLeave={this.startTimer}
+          onMouseEnter={isOnMobile ? null : this.showTooltip}
+          onMouseLeave={isOnMobile ? null : this.startTimer}
+          onTouchStart={isOnMobile ? this.showTooltip: null}
+          onTouchEnd={isOnMobile ? this.startTimer: null}
           style={tooltipTriggerTextStyle}
           tabIndex={tabIndex}
         >
