@@ -80,8 +80,8 @@ export class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: 
           className={`${tooltipTriggerTextClass}`}
           onMouseEnter={isOnMobile ? () => false : this.showTooltip}
           onMouseLeave={isOnMobile ? () => false : this.startTimer}
-          onTouchStart={isOnMobile ? this.showTooltip : () => false}
           onTouchEnd={isOnMobile ? this.startTimer : () => false}
+          onTouchStart={isOnMobile ? this.showTooltip : () => false}
           style={tooltipTriggerTextStyle}
           tabIndex={tabIndex}
         >

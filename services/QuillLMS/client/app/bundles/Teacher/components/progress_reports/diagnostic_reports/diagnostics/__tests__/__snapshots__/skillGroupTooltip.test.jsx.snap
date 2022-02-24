@@ -21,6 +21,8 @@ exports[`SkillGroupTooltip component should render 1`] = `
         className="undefined"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
+        onTouchEnd={[Function]}
+        onTouchStart={[Function]}
         tabIndex={null}
       >
         <img

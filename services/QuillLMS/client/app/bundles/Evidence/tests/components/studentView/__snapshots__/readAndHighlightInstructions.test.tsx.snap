@@ -84,6 +84,8 @@ exports[`ReadAndHighlightInstructions component when the student has not started
               className="undefined"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
+              onTouchEnd={[Function]}
+              onTouchStart={[Function]}
               tabIndex={0}
             >
               <img
@@ -201,6 +203,8 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
               className="undefined"
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
+              onTouchEnd={[Function]}
+              onTouchStart={[Function]}
               tabIndex={0}
             >
               <img

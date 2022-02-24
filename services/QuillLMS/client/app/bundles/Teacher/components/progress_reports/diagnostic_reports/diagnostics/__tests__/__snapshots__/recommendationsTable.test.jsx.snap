@@ -353,6 +353,8 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="undefined"
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -403,6 +405,8 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="undefined"
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -453,6 +457,8 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="undefined"
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -503,6 +509,8 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="undefined"
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -553,6 +561,8 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="undefined"
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -603,6 +613,8 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="undefined"
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -5026,6 +5038,8 @@ exports[`RecommendationsTable component should render when no students have comp
                             className="student-name"
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
                             tabIndex={null}
                           >
                             Gabriel De La Concordia Garcia
@@ -7389,6 +7403,8 @@ exports[`RecommendationsTable component should render when no students have comp
                             className="student-name"
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
                             tabIndex={null}
                           >
                             Judy Heier-hammond Name Keeps Going For A Long Long Tim
@@ -8540,6 +8556,8 @@ exports[`RecommendationsTable component should render when no students have comp
                             className="student-name"
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
                             tabIndex={null}
                           >
                             Dehab Lee Kassis-washington
@@ -10660,6 +10678,8 @@ exports[`RecommendationsTable component should render when no students have comp
                             className="student-name"
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
                             tabIndex={null}
                           >
                             Henry Wadsworth Longfellow
@@ -11348,6 +11368,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="undefined"
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -11398,6 +11420,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="undefined"
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -11448,6 +11472,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="undefined"
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -11498,6 +11524,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="undefined"
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -11548,6 +11576,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="undefined"
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -11598,6 +11628,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="undefined"
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -19243,6 +19275,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                             className="student-name"
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
                             tabIndex={null}
                           >
                             Gabriel De La Concordia Garcia
@@ -23316,6 +23350,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                             className="student-name"
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
                             tabIndex={null}
                           >
                             Judy Heier-hammond Name Keeps Going For A Long Long Tim
@@ -25256,6 +25292,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                             className="student-name"
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
                             tabIndex={null}
                           >
                             Dehab Lee Kassis-washington
@@ -28708,6 +28746,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                             className="student-name"
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
                             tabIndex={null}
                           >
                             Henry Wadsworth Longfellow

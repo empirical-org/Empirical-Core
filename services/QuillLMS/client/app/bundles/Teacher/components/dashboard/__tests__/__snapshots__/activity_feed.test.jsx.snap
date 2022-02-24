@@ -430,6 +430,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   className="data-table-row-section undefined"
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
                   style={
                     Object {
                       "minWidth": "245px",
@@ -536,6 +538,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   className="data-table-row-section undefined"
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
                   style={
                     Object {
                       "minWidth": "245px",
@@ -902,6 +906,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   className="data-table-row-section undefined"
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
                   style={
                     Object {
                       "minWidth": "245px",

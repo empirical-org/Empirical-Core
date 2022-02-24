@@ -44,6 +44,8 @@ exports[`SkipRecommendationsWarningModal component should render 1`] = `
                 className="undefined"
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
+                onTouchEnd={[Function]}
+                onTouchStart={[Function]}
                 tabIndex={null}
               >
                 1 student

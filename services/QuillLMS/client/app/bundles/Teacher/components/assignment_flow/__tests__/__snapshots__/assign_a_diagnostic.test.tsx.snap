@@ -586,6 +586,8 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                           className="undefined"
                           onMouseEnter={[Function]}
                           onMouseLeave={[Function]}
+                          onTouchEnd={[Function]}
+                          onTouchStart={[Function]}
                           tabIndex={null}
                         >
                           <button
@@ -858,6 +860,8 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                           className="undefined"
                           onMouseEnter={[Function]}
                           onMouseLeave={[Function]}
+                          onTouchEnd={[Function]}
+                          onTouchStart={[Function]}
                           tabIndex={null}
                         >
                           <button

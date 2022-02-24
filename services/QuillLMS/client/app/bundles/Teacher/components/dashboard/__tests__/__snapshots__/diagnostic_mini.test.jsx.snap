@@ -436,6 +436,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   className="data-table-row-section undefined"
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
                   style={
                     Object {
                       "minWidth": "180px",
@@ -619,6 +621,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   className="data-table-row-section undefined"
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
                   style={
                     Object {
                       "minWidth": "180px",
@@ -731,6 +735,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   className="data-table-row-section undefined"
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
                   style={
                     Object {
                       "minWidth": "180px",

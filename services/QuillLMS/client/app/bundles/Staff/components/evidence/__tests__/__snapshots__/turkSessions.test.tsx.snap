@@ -1540,6 +1540,8 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                   className="data-table-row-section undefined"
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
                   style={
                     Object {
                       "minWidth": "100px",
@@ -1623,6 +1625,8 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                   className="data-table-row-section undefined"
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
                   style={
                     Object {
                       "minWidth": "100px",
@@ -1704,6 +1708,8 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                   className="data-table-row-section undefined"
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
                   style={
                     Object {
                       "minWidth": "100px",

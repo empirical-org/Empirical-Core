@@ -130,6 +130,8 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="undefined"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchStart={[Function]}
                       tabIndex={null}
                     >
                       <img
@@ -181,6 +183,8 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="undefined"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchStart={[Function]}
                       tabIndex={null}
                     >
                       <img
@@ -232,6 +236,8 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="undefined"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchStart={[Function]}
                       tabIndex={null}
                     >
                       <img
@@ -283,6 +289,8 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="undefined"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchStart={[Function]}
                       tabIndex={null}
                     >
                       <img
@@ -334,6 +342,8 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="undefined"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchStart={[Function]}
                       tabIndex={null}
                     >
                       <img
@@ -385,6 +395,8 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="undefined"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchStart={[Function]}
                       tabIndex={null}
                     >
                       <img
@@ -436,6 +448,8 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="undefined"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchStart={[Function]}
                       tabIndex={null}
                     >
                       <img
@@ -487,6 +501,8 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="undefined"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchStart={[Function]}
                       tabIndex={null}
                     >
                       <img
@@ -1561,6 +1577,8 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="undefined"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchStart={[Function]}
                       tabIndex={null}
                     >
                       <img
@@ -1620,6 +1638,8 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="undefined"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchStart={[Function]}
                       tabIndex={null}
                     >
                       <img
@@ -1680,6 +1700,8 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="undefined"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchStart={[Function]}
                       tabIndex={null}
                     >
                       <img
@@ -1740,6 +1762,8 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="undefined"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchStart={[Function]}
                       tabIndex={null}
                     >
                       <img
@@ -1800,6 +1824,8 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="undefined"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchStart={[Function]}
                       tabIndex={null}
                     >
                       <img
@@ -1859,6 +1885,8 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="undefined"
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchStart={[Function]}
                       tabIndex={null}
                     >
                       <img
