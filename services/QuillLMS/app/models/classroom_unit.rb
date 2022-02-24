@@ -38,7 +38,9 @@ class ClassroomUnit < ApplicationRecord
   validates :unit, uniqueness: { scope: :classroom }
   before_save :check_for_assign_on_join_and_update_students_array_if_true
   after_save  :hide_appropriate_activity_sessions
-  after_save :touch_classroom_without_callbacks
+  # Using an after_commit hook here because we want to trigger the callback
+  # on save or touch, and touch explicitly bypasses after_save hooks
+  after_commit :touch_classroom_without_callbacks
 
   # this method does not seem to be getting used, but leaving it in for the tests for now
   def assigned_students
@@ -117,6 +119,6 @@ class ClassroomUnit < ApplicationRecord
   end
 
   private def touch_classroom_without_callbacks
-    classroom&.update_columns(updated_at: current_time_from_proper_timezone)
+    classroom&.update_columns(updated_at: current_time_from_proper_timezone) unless classroom&.destroyed?
   end
 end

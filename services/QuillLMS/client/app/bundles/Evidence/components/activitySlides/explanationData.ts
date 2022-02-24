@@ -4,7 +4,7 @@ export const explanationData = {
     header: "This activity is not graded",
     imageData: {
       imageAlt: "An illustration of an A+ that is crossed out",
-      imageUrl: "images/comprehension/no-grades.svg"
+      imageUrl: "images/evidence/no-grades.svg"
     },
     isBeta: false,
     step: 2,
@@ -15,7 +15,7 @@ export const explanationData = {
     header: "We use a feedback bot",
     imageData: {
       imageAlt: "An illustration of a smiling robot head",
-      imageUrl: "images/comprehension/feedback-bot.svg"
+      imageUrl: "images/evidence/feedback-bot.svg"
     },
     isBeta: true,
     step: 3,
@@ -26,7 +26,7 @@ export const explanationData = {
     header: "All writers revise",
     imageData: {
       imageAlt: "An illustration of a pencil circled with a revision",
-      imageUrl: "images/comprehension/revising-pencil.svg"
+      imageUrl: "images/evidence/revising-pencil.svg"
     },
     isBeta: false,
     step: 4,

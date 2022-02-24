@@ -171,6 +171,15 @@ describe ClassroomUnit, type: :model, redis: true do
       expect(classroom.reload.updated_at.to_i).not_to equal(classroom_updated_at.to_i)
     end
 
+    it "should update classrooms updated_t on classroom_unit touch" do
+      classroom.update_columns(updated_at: initial_time)
+      classroom_updated_at = classroom.reload.updated_at
+
+      classroom_unit.touch
+
+      expect(classroom.reload.updated_at.to_i).not_to equal(classroom_updated_at.to_i)
+    end
+
     context "with a hidden classroom" do
       let(:classroom) { create(:classroom, visible: false) }
       let(:classroom_unit) { create(:classroom_unit, classroom: classroom)}
