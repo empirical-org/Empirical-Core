@@ -14,10 +14,9 @@ exports[`StudentNameOrTooltip component should render if the name is long enough
     >
       <span
         className="student-name"
+        onClick={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        onTouchEnd={[Function]}
-        onTouchStart={[Function]}
         tabIndex={null}
       >
         Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia

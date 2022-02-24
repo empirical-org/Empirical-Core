@@ -10,7 +10,7 @@ interface TooltipProps {
   tooltipTriggerStyle?: { [key:string]: any }
 }
 
-export class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean }> {
+export class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean, tooltipVisible: boolean }> {
   private timer: any // eslint-disable-line react/sort-comp
   private tooltip: any // eslint-disable-line react/sort-comp
   private tooltipTrigger: any // eslint-disable-line react/sort-comp
@@ -18,34 +18,13 @@ export class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: 
   constructor(props) {
     super(props)
 
-    this.state = { clickedFromMobile: false }
-
-    document.addEventListener('click', this.hideTooltipOnClick.bind(this));
+    this.state = { clickedFromMobile: false, tooltipVisible: false }
 
     this.timer = null
 
     this.showTooltip = this.showTooltip.bind(this)
     this.startTimer = this.startTimer.bind(this)
     this.hideTooltip = this.hideTooltip.bind(this)
-  }
-
-
-  componentWillUnmount() {
-    document.removeEventListener('click', this.hideTooltipOnClick, false)
-  }
-
-  hideTooltipOnClick(e) {
-    const { clickedFromMobile } = this.state;
-    const { handleClick } = this.props;
-    const secondClickFromMobile = clickedFromMobile && e.pointerType === 'touch'
-    const shouldHideTooltip = (this.tooltip && e.target !== this.tooltip && e.target !== this.tooltipTrigger && e.pointerType !== 'touch') || secondClickFromMobile
-    if (shouldHideTooltip) {
-      this.hideTooltip()
-    }
-    if(handleClick) {
-      handleClick(e);
-    }
-    this.setState(prevState => ({clickedFromMobile: !prevState.clickedFromMobile}));
   }
 
   showTooltip() {
@@ -55,21 +34,35 @@ export class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: 
     clearTimeout(this.timer)
     this.tooltip.innerHTML = tooltipText
     this.tooltip.classList.add('visible')
+    this.setState({ tooltipVisible: true })
   }
 
   hideTooltip() {
     this.tooltip.classList.remove('visible')
     this.tooltip.innerHTML = ''
+    this.setState({ tooltipVisible: false })
   }
 
   startTimer() {
     this.timer = setTimeout(this.hideTooltip, 1500)
   }
 
+  handleTooltipClick = (e) => {
+    const { tooltipVisible } = this.state
+
+    if(tooltipVisible) {
+      this.setState({ tooltipVisible: false })
+      this.hideTooltip()
+    } else {
+      this.setState({ tooltipVisible: true })
+      this.showTooltip()
+      this.startTimer()
+    }
+  }
+
   render() {
     const { tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, isTabbable } = this.props
     const tabIndex = isTabbable ? 0 : null;
-    const isOnMobile = window.innerWidth < 770;
     return (
       <span
         className="quill-tooltip-trigger"
@@ -78,10 +71,9 @@ export class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: 
       >
         <span
           className={`${tooltipTriggerTextClass}`}
-          onMouseEnter={isOnMobile ? () => false : this.showTooltip}
-          onMouseLeave={isOnMobile ? () => false : this.startTimer}
-          onTouchEnd={isOnMobile ? this.startTimer : () => false}
-          onTouchStart={isOnMobile ? this.showTooltip : () => false}
+          onMouseEnter={this.showTooltip}
+          onMouseLeave={this.startTimer}
+          onClick={this.handleTooltipClick}
           style={tooltipTriggerTextStyle}
           tabIndex={tabIndex}
         >

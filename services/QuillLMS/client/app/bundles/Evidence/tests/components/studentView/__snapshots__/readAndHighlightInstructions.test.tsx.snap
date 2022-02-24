@@ -82,10 +82,9 @@ exports[`ReadAndHighlightInstructions component when the student has not started
           >
             <span
               className="undefined"
+              onClick={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              onTouchEnd={[Function]}
-              onTouchStart={[Function]}
               tabIndex={0}
             >
               <img
@@ -201,10 +200,9 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
           >
             <span
               className="undefined"
+              onClick={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              onTouchEnd={[Function]}
-              onTouchStart={[Function]}
               tabIndex={0}
             >
               <img

@@ -351,10 +351,9 @@ exports[`RecommendationsTable component should render when no students have comp
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -403,10 +402,9 @@ exports[`RecommendationsTable component should render when no students have comp
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -455,10 +453,9 @@ exports[`RecommendationsTable component should render when no students have comp
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -507,10 +504,9 @@ exports[`RecommendationsTable component should render when no students have comp
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -559,10 +555,9 @@ exports[`RecommendationsTable component should render when no students have comp
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -611,10 +606,9 @@ exports[`RecommendationsTable component should render when no students have comp
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -5036,10 +5030,9 @@ exports[`RecommendationsTable component should render when no students have comp
                         >
                           <span
                             className="student-name"
+                            onClick={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
-                            onTouchEnd={[Function]}
-                            onTouchStart={[Function]}
                             tabIndex={null}
                           >
                             Gabriel De La Concordia Garcia
@@ -7401,10 +7394,9 @@ exports[`RecommendationsTable component should render when no students have comp
                         >
                           <span
                             className="student-name"
+                            onClick={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
-                            onTouchEnd={[Function]}
-                            onTouchStart={[Function]}
                             tabIndex={null}
                           >
                             Judy Heier-hammond Name Keeps Going For A Long Long Tim
@@ -8554,10 +8546,9 @@ exports[`RecommendationsTable component should render when no students have comp
                         >
                           <span
                             className="student-name"
+                            onClick={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
-                            onTouchEnd={[Function]}
-                            onTouchStart={[Function]}
                             tabIndex={null}
                           >
                             Dehab Lee Kassis-washington
@@ -10676,10 +10667,9 @@ exports[`RecommendationsTable component should render when no students have comp
                         >
                           <span
                             className="student-name"
+                            onClick={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
-                            onTouchEnd={[Function]}
-                            onTouchStart={[Function]}
                             tabIndex={null}
                           >
                             Henry Wadsworth Longfellow
@@ -11366,10 +11356,9 @@ exports[`RecommendationsTable component should render when there are recommendat
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -11418,10 +11407,9 @@ exports[`RecommendationsTable component should render when there are recommendat
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -11470,10 +11458,9 @@ exports[`RecommendationsTable component should render when there are recommendat
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -11522,10 +11509,9 @@ exports[`RecommendationsTable component should render when there are recommendat
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -11574,10 +11560,9 @@ exports[`RecommendationsTable component should render when there are recommendat
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -11626,10 +11611,9 @@ exports[`RecommendationsTable component should render when there are recommendat
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchStart={[Function]}
                         tabIndex={null}
                       >
                         <img
@@ -19273,10 +19257,9 @@ exports[`RecommendationsTable component should render when there are recommendat
                         >
                           <span
                             className="student-name"
+                            onClick={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
-                            onTouchEnd={[Function]}
-                            onTouchStart={[Function]}
                             tabIndex={null}
                           >
                             Gabriel De La Concordia Garcia
@@ -23348,10 +23331,9 @@ exports[`RecommendationsTable component should render when there are recommendat
                         >
                           <span
                             className="student-name"
+                            onClick={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
-                            onTouchEnd={[Function]}
-                            onTouchStart={[Function]}
                             tabIndex={null}
                           >
                             Judy Heier-hammond Name Keeps Going For A Long Long Tim
@@ -25290,10 +25272,9 @@ exports[`RecommendationsTable component should render when there are recommendat
                         >
                           <span
                             className="student-name"
+                            onClick={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
-                            onTouchEnd={[Function]}
-                            onTouchStart={[Function]}
                             tabIndex={null}
                           >
                             Dehab Lee Kassis-washington
@@ -28744,10 +28725,9 @@ exports[`RecommendationsTable component should render when there are recommendat
                         >
                           <span
                             className="student-name"
+                            onClick={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
-                            onTouchEnd={[Function]}
-                            onTouchStart={[Function]}
                             tabIndex={null}
                           >
                             Henry Wadsworth Longfellow

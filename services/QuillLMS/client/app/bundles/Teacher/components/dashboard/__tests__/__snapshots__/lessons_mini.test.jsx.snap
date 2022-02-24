@@ -722,10 +722,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               >
                 <span
                   className="data-table-row-section undefined"
+                  onClick={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
-                  onTouchEnd={[Function]}
-                  onTouchStart={[Function]}
                   style={
                     Object {
                       "minWidth": "289px",
@@ -981,10 +980,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               >
                 <span
                   className="data-table-row-section undefined"
+                  onClick={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
-                  onTouchEnd={[Function]}
-                  onTouchStart={[Function]}
                   style={
                     Object {
                       "minWidth": "289px",
