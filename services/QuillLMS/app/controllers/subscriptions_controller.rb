@@ -74,9 +74,12 @@ class SubscriptionsController < ApplicationController
     if current_subscription
       @subscription_status_obj = current_subscription
       expired = false
-    else
+    elsif current_user.last_expired_subscription
       @subscription_status_obj = current_user.last_expired_subscription
       expired = true
+    else
+      @subscription_status = nil
+      return
     end
     attributes_for_front_end = {
       expired: expired,
