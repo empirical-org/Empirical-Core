@@ -8,7 +8,6 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
   end
 
   def update
-    ActionController::Parameters.permit_all_parameters = true
     retried = false
     begin
       @activity_session = ActiveActivitySession.find_or_initialize_by(uid: params[:id])
@@ -32,7 +31,9 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
   end
 
   private def update_params
-    params['active_activity_session'].reject {|key, _| key == 'uid'}
+    params['active_activity_session']
+      .reject {|key, _| key == 'uid' }
+      .to_unsafe_hash
   end
 
   private def activity_session_by_uid
