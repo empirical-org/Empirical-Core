@@ -13,13 +13,8 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
     @aas_data = $redis.get(cache_key).
       yield_self { |x| x.nil? ? '{}' : x }.
       yield_self { |x| JSON.parse x }
-    puts "cache key: #{cache_key}, existing payload: #{@aas_data}"
+    #puts "cache key: #{cache_key}, existing payload: #{@aas_data}"
     merged = @aas_data.merge(working_params)
-    puts $redis.set(cache_key, merged.to_json)
-    # @activity_session = ActiveActivitySession.find_or_initialize_by(uid: params[:id])
-    # @activity_session.data ||= {}
-    # @activity_session.data = @activity_session.data.merge(working_params)
-    # @activity_session.save!
 
     head :no_content
   end
