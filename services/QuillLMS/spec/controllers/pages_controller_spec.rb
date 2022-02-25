@@ -186,12 +186,6 @@ describe PagesController do
       expect(assigns(:user_belongs_to_school_that_has_paid)).to eq user&.school ? Subscription.school_or_user_has_ever_paid?(user&.school) : false
       expect(assigns(:last_four)).to eq user.last_four
     end
-
-    it 'should make the user eligible for trial even if they have a covid subscription' do
-      Subscription.create_with_user_join(user.id, account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE)
-      get :premium
-      expect(assigns(:user_is_eligible_for_trial)).to eq true
-    end
   end
 
   describe '#press' do
