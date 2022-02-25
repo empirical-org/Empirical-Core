@@ -84,7 +84,8 @@ const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities
   if (showActivities) {
     const selectedActivityRows = selectedActivities.map((a, i) => {
       const className = `selected-activity-row ${i === selectedActivities.length - 1 && 'is-last'}`
-      const DragHandle = SortableHandle(() => <img alt="Reorder icon" className="reorder-icon focus-on-light" src={reorderSrc} tabIndex={0} />);
+      // using a div as the outer element instead of a button here because something about default button behavior overrides the keypress handling by sortablehandle
+      const DragHandle = SortableHandle(() => <div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div>);
       return (
         <section className={className} key={a.id}>
           <DragHandle />
