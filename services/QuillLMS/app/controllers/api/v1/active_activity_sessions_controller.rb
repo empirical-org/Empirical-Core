@@ -4,7 +4,7 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
   before_action :activity_session_by_uid, only: [:show]
   REDIS_PREFIX = 'active_activity_session_data_'
   def show
-    render json: @activity_session.as_json
+    render json: @activity_session
   end
 
   def update
@@ -43,6 +43,9 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
   end
 
   private def activity_session_by_uid
-    @activity_session = ActiveActivitySession.find_by!(uid: params[:id])
+    cache_key = "#{REDIS_PREFIX}#{params[:id]}"
+    @activity_session = $redis.get(cache_key).
+      yield_self { |x| x.nil? ? '{}' : x }.
+      yield_self { |x| JSON.parse x }
   end
 end
