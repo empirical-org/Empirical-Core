@@ -347,6 +347,13 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       expect(active_activity_session.data).to eq(data)
     end
 
+    it 'should work with redis' do
+      data = {"foo" => "bar"}
+      put :update, params: { id: active_activity_session.uid, active_activity_session: data }, as: :json
+      active_activity_session.reload
+      expect(active_activity_session.data).to eq(data)
+    end
+
     it "should filter out uid" do
       data = {"foo" => "bar", "uid" => "this-should-be-filtered-out" }
       put :update, params: { id: active_activity_session.uid, active_activity_session: data }, as: :json
