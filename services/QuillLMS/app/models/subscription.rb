@@ -44,56 +44,30 @@ class Subscription < ApplicationRecord
 
   CB_LIFETIME_DURATION = 365 * 50 # In days, this is approximately 50 years
 
-  COVID_19_SUBSCRIPTION_TYPE = 'Quill Premium for School Closures'
-  COVID_19_SCHOOL_SUBSCRIPTION_TYPE = 'Quill School Premium for School Closures'
   CB_LIFETIME_SUBSCRIPTION_TYPE = 'College Board Educator Lifetime Premium'
 
   OFFICIAL_PAID_TYPES = ['School District Paid',
-                         'School NYC Paid',
-                         'School Strategic Paid',
                          'School Paid',
                          'Teacher Paid',
-                         'Purchase Missing School',
                          'Premium Credit',
                          CB_LIFETIME_SUBSCRIPTION_TYPE]
 
-  OFFICIAL_FREE_TYPES = ['School NYC Free',
-                         'School Research',
-                         'School Sponsored Free',
-                         'School Strategic Free',
-                         'Teacher Contributor Free',
+  OFFICIAL_FREE_TYPES = ['School Sponsored Free',
                          'Teacher Sponsored Free',
-                         'Teacher Trial',
-                         COVID_19_SUBSCRIPTION_TYPE,
-                         COVID_19_SCHOOL_SUBSCRIPTION_TYPE]
+                         'Teacher Trial']
 
   OFFICIAL_SCHOOL_TYPES = ['School District Paid',
-                           'School NYC Paid',
-                           'School Strategic Paid',
                            'School Paid',
-                           'Purchase Missing School',
-                           'School NYC Free',
-                           'School Research',
-                           'School Sponsored Free',
-                           'School Strategic Free',
-                           COVID_19_SCHOOL_SUBSCRIPTION_TYPE]
+                           'School Sponsored Free']
 
   OFFICIAL_TEACHER_TYPES = ['Teacher Paid',
                             'Premium Credit',
-                            'Teacher Contributor Free',
                             'Teacher Sponsored Free',
                             'Teacher Trial',
-                            COVID_19_SUBSCRIPTION_TYPE,
                             CB_LIFETIME_SUBSCRIPTION_TYPE]
 
-  # TODO: ultimately these should be cleaned up so we just have OFFICIAL_TYPES but until then, we keep them here
-  GRANDFATHERED_PAID_TYPES = ['paid', 'school', 'premium', 'school', 'School']
-  GRANDFATHERED_FREE_TYPES = ['trial']
-  ALL_FREE_TYPES = GRANDFATHERED_FREE_TYPES.dup.concat(OFFICIAL_FREE_TYPES)
-  ALL_PAID_TYPES = GRANDFATHERED_PAID_TYPES.dup.concat(OFFICIAL_PAID_TYPES)
   ALL_OFFICIAL_TYPES = OFFICIAL_PAID_TYPES.dup.concat(OFFICIAL_FREE_TYPES)
-  TRIAL_TYPES = ['Teacher Trial', 'trial']
-  COVID_TYPES = [COVID_19_SCHOOL_SUBSCRIPTION_TYPE, COVID_19_SUBSCRIPTION_TYPE]
+  TRIAL_TYPES = ['Teacher Trial']
   SCHOOL_RENEWAL_PRICE = 90000
 
   TYPES_HASH = {
@@ -107,12 +81,12 @@ class Subscription < ApplicationRecord
   TEACHER_PRICE = 8000
   ALL_PRICES = [TEACHER_PRICE, SCHOOL_RENEWAL_PRICE]
   PAYMENT_METHODS = ['Invoice', 'Credit Card', 'Premium Credit']
-  ALL_TYPES = ALL_FREE_TYPES.dup.concat(ALL_PAID_TYPES)
+  ALL_TYPES = OFFICIAL_FREE_TYPES.dup.concat(OFFICIAL_PAID_TYPES)
 
   scope :active, -> { where(de_activated_date: nil).where("expiration > ?", Date.today).order(expiration: :asc) }
 
   def is_trial?
-    account_type && (TRIAL_TYPES | COVID_TYPES).include?(account_type)
+    account_type && TRIAL_TYPES.include?(account_type)
   end
 
   def check_if_purchaser_email_is_in_database
@@ -180,7 +154,7 @@ class Subscription < ApplicationRecord
 
   def self.school_or_user_has_ever_paid?(school_or_user)
     # TODO: 'subscription type spot'
-    paid_accounts = school_or_user.subscriptions.pluck(:account_type) & ALL_PAID_TYPES
+    paid_accounts = school_or_user.subscriptions.pluck(:account_type) & OFFICIAL_PAID_TYPES
     paid_accounts.any?
   end
 
@@ -262,10 +236,16 @@ class Subscription < ApplicationRecord
     end
   end
 
-
   def self.update_todays_expired_recurring_subscriptions
-    expired_today_or_previously_and_recurring.each do |s|
-      s.update_if_charge_succeeds unless s.users.empty?
+    expired_today_or_previously_and_recurring.each do |subscription|
+      # TODO: Deactivate subscriptions with multiple users
+      next unless subscription.users.count == 1
+
+      if subscription.users.first.subscriptions.active.empty?
+        subscription.update_if_charge_succeeds
+      else
+        subscription.update(de_activated_date: Date.today)
+      end
     end
   end
 

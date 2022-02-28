@@ -421,7 +421,7 @@ class PagesController < ApplicationController
   # rubocop:disable Metrics/CyclomaticComplexity
   def premium
     @user_is_eligible_for_new_subscription= current_user&.eligible_for_new_subscription?
-    @user_is_eligible_for_trial = current_user&.subscriptions&.where&.not(account_type: Subscription::COVID_TYPES)&.none?
+    @user_is_eligible_for_trial = current_user&.subscriptions&.none?
 
     @user_has_school = !!current_user&.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(current_user&.school&.name)
     @user_belongs_to_school_that_has_paid = current_user&.school ? Subscription.school_or_user_has_ever_paid?(current_user&.school) : false
