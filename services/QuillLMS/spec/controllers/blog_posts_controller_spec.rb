@@ -84,7 +84,7 @@ describe BlogPostsController, type: :controller do
   end
 
   describe '#show_topic' do
-    let(:topic) { BlogPost::TEACHER_TOPICS.sample }
+    let(:topic) { BlogPost::PUBLIC_TEACHER_TOPICS.sample }
     let(:blog_posts) { create_list(:blog_post, 3, topic: topic) }
     let(:draft_post) { create(:blog_post, :draft, topic: topic) }
 
@@ -127,8 +127,8 @@ describe BlogPostsController, type: :controller do
 
     context 'using-quill-for-reading-comprehension' do
       let(:app_setting) { create(:app_setting, name: AppSetting::COMPREHENSION) }
-      let(:slug) { 'using-quill-for-reading-comprehension' }
-      let(:topic) { slug.tr('-', ' ').capitalize }
+      let(:topic) { BlogPost::USING_QUILL_FOR_READING_COMPREHENSION }
+      let(:slug) { topic.tr(' ', '-').downcase }
       let!(:blog_posts) { create_list(:blog_post, 2, topic: topic) }
 
       subject { get :show_topic, params: { topic: slug } }
