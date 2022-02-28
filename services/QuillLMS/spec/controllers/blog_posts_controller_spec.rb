@@ -125,7 +125,7 @@ describe BlogPostsController, type: :controller do
       expect(assigns(:title)).to eq(topic)
     end
 
-    context 'using-quill-for-reading-comprehension' do
+    context 'topics requiring authorization' do
       let(:app_setting) { create(:app_setting, name: AppSetting::COMPREHENSION) }
       let(:topic) { BlogPost::USING_QUILL_FOR_READING_COMPREHENSION }
       let(:slug) { topic.tr(' ', '-').downcase }
