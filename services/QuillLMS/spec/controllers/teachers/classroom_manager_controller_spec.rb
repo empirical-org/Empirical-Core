@@ -615,20 +615,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
-  describe '#dashboard_query' do
-    let(:teacher) { create(:teacher) }
-
-    before do
-      allow(Dashboard).to receive(:queries) { "queries" }
-      allow(controller).to receive(:current_user) { teacher }
-    end
-
-    it 'should render the dashboard query' do
-      get :dashboard_query
-      expect(response.body).to eq({performanceQuery: "queries"}.to_json)
-    end
-  end
-
   describe '#update_my_account' do
     let(:teacher) { create(:teacher) }
 
