@@ -7,9 +7,7 @@ class Api::V1::ProgressReportsController < Api::ApiController
     classroom_ids = current_user&.classrooms_i_teach&.map(&:id)
     return render json: { data: [] } if classroom_ids.empty?
 
-    data = current_user.all_classrooms_cache(key: 'api.v1.progress_reports.activities_scores_by_classroom_data') do
-      ProgressReports::ActivitiesScoresByClassroom.results(classroom_ids, current_user.time_zone)
-    end
+    data = ProgressReports::ActivitiesScoresByClassroom.results(classroom_ids, current_user.time_zone)
 
     render json: { data: data }
   end
