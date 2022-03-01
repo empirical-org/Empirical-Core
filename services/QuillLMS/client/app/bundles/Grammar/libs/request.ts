@@ -17,7 +17,14 @@ async function handleFetch(url: string, method: string, payload?: object): Promi
     if (!response.ok) {
       throw response
     }
-    if (response.headers.get('content-type').startsWith('application/json;')) {
+
+    if (response.headers === null) {
+      return ""
+    }
+
+    const contentType = String(response.headers.get('content-type'))
+
+    if (contentType.startsWith('application/json;')) {
       return response.json()
     }
     return response.text()
