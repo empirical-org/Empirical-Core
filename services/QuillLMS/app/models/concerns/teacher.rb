@@ -466,6 +466,7 @@ module Teacher
   end
 
   def unlink
+    VitallyIntegration::UnlinkUserWorker.perform_async(id, school&.id)
     self.school = nil
     updated_school(nil)
     save
