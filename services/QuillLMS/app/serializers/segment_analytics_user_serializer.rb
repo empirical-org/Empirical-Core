@@ -7,8 +7,7 @@ class SegmentAnalyticsUserSerializer < UserSerializer
     {
       userType: object.role,
       createdAt: object.created_at,
-      daysSinceJoining: ((Time.zone.now - object.created_at) / 60 / 60 / 24).to_i,
-      premiumType: object.subscription&.account_type
+      daysSinceJoining: ((Time.zone.now - object.created_at) / 60 / 60 / 24).to_i
     }
   end
 end
