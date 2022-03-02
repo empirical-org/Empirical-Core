@@ -37,6 +37,10 @@ exports[`Activity Form component should render Activities 1`] = `
             "value": "alpha",
           },
           Object {
+            "label": "private",
+            "value": "private",
+          },
+          Object {
             "label": "beta",
             "value": "beta",
           },
