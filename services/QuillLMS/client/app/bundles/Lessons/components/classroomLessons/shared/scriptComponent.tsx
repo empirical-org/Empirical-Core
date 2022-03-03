@@ -295,9 +295,10 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
             defaultChecked={checked}
             id="correct"
             name="correct"
+            onClick={(e) => { this.props.toggleSelected(e, current_slide, 'correct'); }}
             type="checkbox"
           />
-          <label htmlFor="correct" onClick={(e) => { this.props.toggleSelected(e, current_slide, 'correct'); }}>
+          <label htmlFor="correct">
             {checkbox}
           </label>
         </td>
