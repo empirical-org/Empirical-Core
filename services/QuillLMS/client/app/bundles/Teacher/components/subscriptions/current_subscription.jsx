@@ -44,7 +44,7 @@ export default class CurrentSubscription extends React.Component {
       return <span>Credit Card</span>;
     } else if (subscriptionType === 'School Sponsored' || subscriptionType === 'Trial') {
       return <span>No Payment Method on File</span>;
-    } else if (subscriptionStatus && (!subscriptionStatus.payment_method || subscriptionStatus.payment_method === 'School Invoice')) {
+    } else if (subscriptionStatus && ['Invoice', 'School Invoice'].includes(subscriptionStatus.payment_method)) {
       return <span>Invoice</span>;
     } else if (!subscriptionStatus && lastFour) {
       return this.editCreditCardElement();
