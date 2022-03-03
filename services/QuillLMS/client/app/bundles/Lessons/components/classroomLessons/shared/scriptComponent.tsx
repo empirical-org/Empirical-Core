@@ -156,7 +156,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderRetryQuestionButton() {
-    return <p onClick={this.retryQuestion}><i className="fa fa-refresh" />Retry Question</p>
+    return <button className="interactive-wrapper focus-on-light" onClick={this.retryQuestion} type="button"><i className="fa fa-refresh" />Retry Question</button>
   }
 
   retryQuestion = () => {
@@ -220,7 +220,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   renderUnselectAllButton() {
     const { selected_submissions, current_slide } = this.props;
     if (selected_submissions && selected_submissions[current_slide]) {
-      return <p onClick={this.clearSelectedSubmissions}>Unselect All</p>
+      return <button className="interactive-wrapper focus-on-light" onClick={this.clearSelectedSubmissions} type="button">Unselect All</button>
     } else {
       return <p />
     }
@@ -427,7 +427,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     if (flaggedStudents && flaggedStudents[studentKey]) {
       flag = blueFlag
     }
-    return <img alt="" onClick={() => toggleStudentFlag(studentKey)} src={flag} />
+    return <button className="interactive-wrapper focus-on-light" onClick={() => toggleStudentFlag(studentKey)} type="button"><img alt="" src={flag} /></button>
   }
 
   renderNoSubmissionRow(studentKey: string) {
@@ -561,9 +561,9 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           <p className="model-header">
             Model Your Answer
           </p>
-          <p className="reset-prompt-button" onClick={this.resetSlide}>
+          <button className="reset-prompt-button interactive-wrapper focus-on-light" onClick={this.resetSlide} type="button">
             Reset Slide
-          </p>
+          </button>
         </div>
         {promptEditor}
         {this.renderCues()}

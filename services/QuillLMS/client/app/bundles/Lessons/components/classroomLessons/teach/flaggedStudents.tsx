@@ -28,7 +28,7 @@ class FlaggedStudents extends React.Component<flaggedStudentsProps, flaggedStude
     if (this.props.flaggedStudents && this.props.flaggedStudents[studentKey]) {
       flag = blueFlag
     }
-    return <img alt="" onClick={() => this.props.toggleStudentFlag(studentKey)} src={flag} />
+    return <button className="interactive-wrapper focus-on-light" onClick={() => this.props.toggleStudentFlag(studentKey)} type="button"><img alt="Flag icon" src={flag} /></button>
   }
 
   flaggedStudentsList() {
