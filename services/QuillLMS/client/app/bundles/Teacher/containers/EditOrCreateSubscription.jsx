@@ -202,7 +202,7 @@ export default class EditOrCreateSubscription extends React.Component {
 
   render() {
     const { firstFocused, secondFocused, subscription, } = this.state
-    const { user, school, view, premiumTypes, subscriptionPaymentMethods, promoExpiration, } = this.props
+    const { user, school, view, premiumTypes, subscriptionPaymentMethods, } = this.props
     const schoolOrUser = school || user || null;
     const submitAction = school ? this.submitConfirmation : this.submit;
     return (
@@ -253,9 +253,6 @@ export default class EditOrCreateSubscription extends React.Component {
           onFocusChange={() => this.setState({ firstFocused: !firstFocused })}
         />
         <label htmlFor="">End Date</label>
-        <p>
-          If this a school or users first paid subscription, the default end date is {promoExpiration}. This value just stated will update automatically depending on the time of year.
-        </p>
         <SingleDatePicker
           date={subscription.expiration ? moment(subscription.expiration) : null}
           focused={secondFocused}

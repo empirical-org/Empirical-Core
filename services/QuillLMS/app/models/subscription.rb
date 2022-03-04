@@ -159,12 +159,12 @@ class Subscription < ApplicationRecord
   end
 
   def self.new_teacher_premium_sub(user)
-    expiration = school_or_user_has_ever_paid?(user) ? (Date.today + 1.year) : promotional_dates[:expiration]
+    expiration = Date.today + 1.year
     new(expiration: expiration, start_date: Date.today, account_type: 'Teacher Paid', recurring: true, purchaser_id: user.id)
   end
 
   def self.new_school_premium_sub(school, user)
-    expiration = school_or_user_has_ever_paid?(school) ? (Date.today + 1.year) : promotional_dates[:expiration]
+    expiration = Date.today + 1.year
     new(expiration: expiration, start_date: Date.today, account_type: 'School Paid', recurring: true, purchaser_id: user.id)
   end
 
@@ -202,7 +202,7 @@ class Subscription < ApplicationRecord
     if last_subscription.present?
       redemption_start_date(school_or_user) + 1.year
     else
-      promotional_dates[:expiration]
+      Date.today + 1.year
     end
   end
 
@@ -249,14 +249,6 @@ class Subscription < ApplicationRecord
     end
   end
 
-  def self.promotional_dates
-    # available to users who have never paid before
-    # if today's month is before august, it expires end of July, else December
-    exp_month = Date.today.month < 8 ? 7 : 12
-    {expiration: Date::strptime("31-#{exp_month}-#{Date.today.year+1}","%d-%m-%Y"),
-    start_date: Date.today}
-  end
-
   protected def charge_user_for_teacher_premium
     return unless purchaser&.stripe_customer?
 
@@ -278,12 +270,7 @@ class Subscription < ApplicationRecord
   end
 
   def self.set_premium_expiration_and_start_date(school_or_user)
-    if !Subscription.school_or_user_has_ever_paid?(school_or_user)
-      # We end their trial if they have one
-      school_or_user.subscription&.update(de_activated_date: Date.today)
-      # Then they get the promotional subscription
-      promotional_dates
-    elsif school_or_user.subscription
+    if school_or_user.subscription
       # Expire one year later, start at end of sub
       old_sub = school_or_user.subscription
       {expiration: old_sub.expiration + 1.year, start_date: old_sub.expiration}
