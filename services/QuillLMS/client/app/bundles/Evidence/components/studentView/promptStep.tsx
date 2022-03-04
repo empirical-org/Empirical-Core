@@ -132,7 +132,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
     let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).map(hl => this.stripHtml(hl.text))
     wordsToFormat = wordsToFormat.length === 1 ? wordsToFormat[0] : wordsToFormat
-    if (lastSubmittedResponse.feedback_type == 'plagiarism') {
+    if (lastSubmittedResponse.feedback_type === 'plagiarism') {
       return this.formatPlagiarismHighlight(str, wordsToFormat)
     } else {
       return highlightSpellingGrammar(str, wordsToFormat)
@@ -155,8 +155,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   promptAsRegex = () => new RegExp(`^${this.htmlStrippedPrompt(true)}`)
 
   onTextChange = (e) => {
-    const { html, } = this.state
-    const { value, } = e.target
+    const { value } = e.target
     const text = value.replace(/<b>|<\/b>|<p>|<\/p>|<br>/g, '')
     const regex = this.promptAsRegex()
     const caretPosition = EditCaretPositioning.saveSelection(this.editor)
@@ -199,9 +198,11 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
           if (diffWordWithoutHtmlLettersArray) {
             const diffWordEquivalentWithoutHtmlLettersArray = this.stripHtml(diffWordEquivalent)
             const indexOfLettersToKeepFromDiffWord = diffWordWithoutHtmlLettersArray.findIndex((letter: string, i: number) => letter !== diffWordEquivalentWithoutHtmlLettersArray[i])
-            const partOfDiffWordToKeep = diffWordWithoutHtmlLettersArray.slice(indexOfLettersToKeepFromDiffWord).join('').replace(/(&nbsp;)|(<u>)|(<\/u>)/g, '')
-            // keeping track of what they'd modified it to be, so we don't lose those changes
-            textToAddAfterPromptText.push(partOfDiffWordToKeep)
+            if (indexOfLettersToKeepFromDiffWord !== -1) {
+              const partOfDiffWordToKeep = diffWordWithoutHtmlLettersArray.slice(indexOfLettersToKeepFromDiffWord).join('').replace(/(&nbsp;)|(<u>)|(<\/u>)/g, '')
+              // keeping track of what they'd modified it to be, so we don't lose those changes
+              textToAddAfterPromptText.push(partOfDiffWordToKeep)
+            }
           }
         })
 
