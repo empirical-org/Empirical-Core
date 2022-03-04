@@ -46,14 +46,15 @@ module PublicProgressReports
   def results_by_question(activity_id)
     activity = Activity.includes(:classification).find(activity_id)
     questions = Hash.new{|h,k| h[k]={} }
-    all_answers = ActivitySession.activity_session_metadata(@activity_sessions)
+    all_answers = ActivitySession.activity_session_metadata(@activity_sessions) #concept_result metadatas
     all_answers.each do |answer|
       curr_quest = questions[answer["questionNumber"]]
       curr_quest[:correct] ||= 0
       curr_quest[:total] ||= 0
       curr_quest[:correct] += answer["questionScore"] || answer["correct"]
       curr_quest[:total] += 1
-      curr_quest[:prompt] ||= answer["prompt"]
+      puts "curr_quest #{curr_quest}"
+      curr_quest[:prompt] ||= 'foo' #answer["prompt"]
       curr_quest[:question_number] ||= answer["question_number"]
       if answer["attemptNumber"] == 1 || !curr_quest[:instructions]
         direct = answer["directions"] || answer["instructions"] || ""
