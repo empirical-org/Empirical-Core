@@ -174,11 +174,6 @@ module PagesHelper
             img: 'team-katie-moylan@2x.png'
           },
           {
-            name: 'Lindsey Murphy',
-            title: 'Curriculum & Product Manager',
-            img: 'team-lindsey-murphy@2x.png'
-          },
-          {
             name: 'Erika Parker-Havens',
             title: 'Senior Instructional Coach',
             img: 'team-erika-parker-havens@2x.png'
