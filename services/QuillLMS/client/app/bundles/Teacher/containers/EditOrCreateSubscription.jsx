@@ -51,7 +51,8 @@ export default class EditOrCreateSubscription extends React.Component {
   changePaymentMethod = (e) => {
     const { subscription, } = this.state
     const newSub = Object.assign({}, subscription);
-    newSub.payment_method = e;
+    const newPaymentMethod = e === 'N/A' ? null : e
+    newSub.payment_method = newPaymentMethod;
     this.setState({ subscription: newSub, });
   }
 
@@ -205,6 +206,7 @@ export default class EditOrCreateSubscription extends React.Component {
     const { user, school, view, premiumTypes, subscriptionPaymentMethods, promoExpiration, } = this.props
     const schoolOrUser = school || user || null;
     const submitAction = school ? this.submitConfirmation : this.submit;
+    const subscriptionPaymentOptions = subscriptionPaymentMethods.concat('N/A')
     return (
       <div className="cms-subscription">
         <h1>{view === 'edit' ? 'Edit' : 'New'} Subscription: {_.get(schoolOrUser, 'name')}</h1>
@@ -223,8 +225,8 @@ export default class EditOrCreateSubscription extends React.Component {
         <ItemDropdown
           callback={this.changePaymentMethod}
           className="subscription-dropdown"
-          items={subscriptionPaymentMethods}
-          selectedItem={subscription.payment_method || ''}
+          items={subscriptionPaymentOptions}
+          selectedItem={subscription.payment_method || 'N/A'}
         />
         <label>Purchase Amount (dollar value as integer -- no decimal or symbol)</label>
         <input onChange={this.handlePaymentAmountChange} type="text" value={subscription.payment_amount / 100} />
