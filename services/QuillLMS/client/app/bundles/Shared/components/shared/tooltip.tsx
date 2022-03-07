@@ -106,10 +106,10 @@ export class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: 
           {tooltipTriggerText}
         </span>
         <span className="quill-tooltip-wrapper">
-          {<span
+          <span
             className="quill-tooltip"
             ref={node => this.tooltip = node}
-          />}
+          />
         </span>
       </span>
     )
