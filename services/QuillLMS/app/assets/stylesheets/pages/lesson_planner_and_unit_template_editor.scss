@@ -407,10 +407,12 @@
         -webkit-appearance: none;
       }
     }
-    span {
+    span, button {
       padding: 5px 14px;
       display: block;
       color: #000;
+      width: 100%;
+      text-align: left;
       &:hover {
         background: #f0f0f0;
       }
