@@ -245,7 +245,7 @@ class User < ApplicationRecord
   def eligible_for_new_subscription?
     if subscription
       # if they have a subscription it must be a trial one
-      Subscription::TRIAL_TYPES.include?(subscription.account_type) || Subscription::COVID_TYPES.include?(subscription.account_type)
+      Subscription::TRIAL_TYPES.include?(subscription.account_type)
     else
       # otherwise they are good for purchase
       true

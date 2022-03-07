@@ -48,6 +48,10 @@ export const flagOptions = [
     value: 'alpha'
   },
   {
+    label: 'private',
+    value: 'private'
+  },
+  {
     label: 'beta',
     value: 'beta'
   },

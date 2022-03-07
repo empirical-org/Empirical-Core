@@ -110,13 +110,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     render json: { classes: current_user.classroom_minis_info}
   end
 
-  def dashboard_query
-    @query_results = Dashboard.queries(current_user)
-    render json: {
-      performanceQuery: @query_results
-    }
-  end
-
   def teacher_dashboard_metrics
     json = current_user.all_classrooms_cache(key: 'classroom_manager.teacher_dashboard_metrics') do
       TeacherDashboardMetrics.new(current_user).run
