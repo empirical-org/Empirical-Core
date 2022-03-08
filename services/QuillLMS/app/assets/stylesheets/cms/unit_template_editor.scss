@@ -48,11 +48,11 @@
       margin-right: 15px;
       margin-top: 15px;
     }
-    .name-search-box, .ccss-search-box {
+    .name-search-box {
       width: 400px;
     }
     .description-search-box {
-      width: 490px;
+      width: 420px;
     }
     .activity-packs-search-box {
       width: 300px;
@@ -92,10 +92,6 @@
 
     .ut-readability-col {
       width: 125px !important;
-    }
-
-    .ut-ccss-col {
-      width: 155px !important;
     }
 
     .ut-concept-col {
@@ -141,28 +137,24 @@
         }
 
         .ut-activity-name-col {
-          min-width: 300px !important;
+          width: 300px !important;
         }
 
         .ut-activity-flag-col {
-          min-width: 135px !important;
+          width: 135px !important;
         }
 
         .ut-activity-readability-col {
-          min-width: 125px !important;
-        }
-
-        .ut-activity-ccss-col {
-          min-width: 155px !important;
+          width: 125px !important;
         }
 
         .ut-activity-cat-col {
-          min-width: 115px !important;
+          width: 115px !important;
           padding-left: 4px;
         }
 
         .ut-activity-class-col {
-          min-width: 100px !important;
+          width: 100px !important;
         }
       }
 

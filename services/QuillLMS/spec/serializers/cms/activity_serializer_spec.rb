@@ -22,7 +22,6 @@ describe Cms::ActivitySerializer do
         readability_grade_level
         unit_template_names
         classification
-        standard
       }
     end
   end
