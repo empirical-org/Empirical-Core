@@ -4,7 +4,7 @@ import PostActivitySlide from '../activitySlides/postActivitySlide'
 import ThankYouSlide from '../activitySlides/thankYouSlide'
 import ActivitySurvey from '../activitySlides/activitySurvey'
 
-const ActivityFollowUp = ({ responses, user, sessionID, saveActivitySurveyResponse, }) => {
+const ActivityFollowUp = ({ activity, responses, sessionID, saveActivitySurveyResponse, }) => {
   const [showActivitySurvey, setShowActivitySurvey] = React.useState(false)
   const [submittedActivitySurvey, setSubmittedActivitySurvey] = React.useState(false)
 
@@ -23,7 +23,7 @@ const ActivityFollowUp = ({ responses, user, sessionID, saveActivitySurveyRespon
       />
     )
   }
-  return <PostActivitySlide handleClick={onClickNext} responses={responses} user={user} />
+  return <PostActivitySlide handleClick={onClickNext} prompts={activity && activity.prompts} responses={responses} />
 }
 
 export default ActivityFollowUp

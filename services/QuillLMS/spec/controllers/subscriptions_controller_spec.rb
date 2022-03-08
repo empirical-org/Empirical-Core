@@ -32,6 +32,12 @@ describe SubscriptionsController do
         get :index
         expect(response.status).to eq(200)
       end
+
+      it 'sets subscription status to nil' do
+        get :index
+        expect(assigns(:subscription_status)).to eq nil
+
+      end
     end
 
     describe "#purchaser_name" do

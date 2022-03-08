@@ -514,6 +514,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(assigns(:subscription_type)).to eq "some subscription"
       expect(response.body).to eq({
         hasPremium: "some subscription",
+        last_subscription_was_trial: nil,
         trial_days_remaining: 10,
         first_day_of_premium_or_trial: true
       }.to_json)
@@ -611,20 +612,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
       expect(GoogleStudentImporterWorker).to receive(:perform_async)
       put :import_google_students, params: { selected_classroom_ids: [1,2], as: :json }
-    end
-  end
-
-  describe '#dashboard_query' do
-    let(:teacher) { create(:teacher) }
-
-    before do
-      allow(Dashboard).to receive(:queries) { "queries" }
-      allow(controller).to receive(:current_user) { teacher }
-    end
-
-    it 'should render the dashboard query' do
-      get :dashboard_query
-      expect(response.body).to eq({performanceQuery: "queries"}.to_json)
     end
   end
 

@@ -157,14 +157,19 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
 
   describe '#unpin_and_lock_activity' do
     let(:unit_activity) { UnitActivity.find_by(unit: classroom_unit.unit, activity: activity) }
+    let!(:classroom_unit_activity_state) do
+      create(:classroom_unit_activity_state,
+        classroom_unit: classroom_unit,
+        unit_activity: unit_activity,
+        pinned: true,
+        locked: false
+      )
+    end
 
     before { session[:user_id] = teacher.id }
 
 
     it 'should unpin and lock the state of classroom unit activity' do
-      classroom_unit_activity_state = ClassroomUnitActivityState.find_by(unit_activity_id: unit_activity.id, classroom_unit_id: classroom_unit.id)
-      classroom_unit_activity_state.update_columns(pinned: true, locked: false)
-
       put :unpin_and_lock_activity,
         params: {
           activity_id: activity.uid,

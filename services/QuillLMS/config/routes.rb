@@ -122,6 +122,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :activities, only: [] do
     post :retry, on: :member
     get :search, on: :collection
+    get :index_with_unit_templates, on: :collection
   end
 
   resources :milestones, only: [] do
@@ -318,7 +319,6 @@ EmpiricalGrammar::Application.routes.draw do
 
         ##DASHBOARD ROUTES
         get :classroom_mini, controller: 'classroom_manager', action: 'classroom_mini'
-        get :dashboard_query, controller: 'classroom_manager', action: 'dashboard_query'
         get :premium, controller: 'classroom_manager', action: 'premium'
       end
 

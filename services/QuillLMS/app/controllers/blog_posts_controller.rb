@@ -3,11 +3,10 @@
 class BlogPostsController < ApplicationController
   before_action :redirect_legacy_topic_urls, only: [:show_topic]
   before_action :redirect_invalid_topics, only: [:show_topic]
+  before_action :redirect_unauthorized_topics, only: [:show_topic]
 
   before_action :set_announcement, only: [:index, :show, :show_topic]
   before_action :set_root_url
-
-
 
   def index
     topic_names = BlogPost::TEACHER_TOPICS
@@ -100,14 +99,20 @@ class BlogPostsController < ApplicationController
     @root_url = root_url
   end
 
+  private def redirect_unauthorized_topics
+    return if params[:topic] != "using-quill-for-reading-comprehension"
+    return if AppSetting.enabled?(name: AppSetting::COMPREHENSION, user: current_user)
+
+    flash[:error] = "You are unauthorized to view that topic"
+    redirect_to center_home_url and return
+  end
+
   private def redirect_invalid_topics
     topic = CGI::unescape(params[:topic]).gsub('-', ' ').capitalize
     return if BlogPost::TOPICS.include?(topic)
     return if BlogPost::STUDENT_TOPICS.include?(topic)
 
     flash[:error] = "Oops! We can't seem to find that topic!"
-    center_home_url = current_user&.student? ? '/student-center' : '/teacher-center'
-
     redirect_to center_home_url and return
   end
 
@@ -116,8 +121,10 @@ class BlogPostsController < ApplicationController
     return unless params[:topic].include?('_')
 
     new_topic = params[:topic].gsub('_', '-')
-    base_url = current_user&.student? ? 'student-center' : 'teacher-center'
+    redirect_to "#{center_home_url}/topic/#{new_topic}" and return
+  end
 
-    redirect_to "/#{base_url}/topic/#{new_topic}" and return
+  private def center_home_url
+    current_user&.student? ? '/student-center' : '/teacher-center'
   end
 end
