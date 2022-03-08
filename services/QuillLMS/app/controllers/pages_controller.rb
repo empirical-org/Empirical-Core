@@ -28,7 +28,9 @@ class PagesController < ApplicationController
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def home_new
-    if signed_in?
+    if signed_in? && staff?
+      redirect_to(locker_path) && return
+    elsif signed_in?
       redirect_to(profile_path) && return
     end
 

@@ -7,7 +7,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
   <h3
     className="subheader"
   >
-    Team Lockers
+    Team lockers
   </h3>
   <div
     className="team-lockers-container"
@@ -54,7 +54,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
           "lockers": Object {
             "teacher center": Array [
               "posts",
-              "post images",
+              "article images",
               "announcements",
             ],
             "teacher fixes": Array [
@@ -112,7 +112,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
           "lockers": Object {
             "teacher center": Array [
               "posts",
-              "post images",
+              "article images",
               "announcements",
             ],
             "teacher fixes": Array [

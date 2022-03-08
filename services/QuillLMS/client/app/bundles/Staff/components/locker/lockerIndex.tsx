@@ -15,7 +15,7 @@ export const LockerIndex = () => {
 
   return(
     <div className="locker-index-container locker-content">
-      <h3 className="subheader">Team Lockers</h3>
+      <h3 className="subheader">Team lockers</h3>
       <div className="team-lockers-container">
         {renderLockers()}
       </div>

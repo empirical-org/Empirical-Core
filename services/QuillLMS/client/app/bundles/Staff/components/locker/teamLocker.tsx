@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import Locker from './locker';
 
@@ -8,7 +8,9 @@ import { titleCase } from "../../../Shared";
 
 const arrow = `${process.env.CDN_URL}/images/icons/arrow-back.svg`;
 
-export const TeamLocker = ({ match }) => {
+export const TeamLocker = (props) => {
+  console.log("🚀 ~ file: teamLocker.tsx ~ line 12 ~ TeamLocker ~ props", props)
+  const { match, history } = props;
   const { params } = match;
   const { team } = params;
   const lockerContents = lockerItems[team];
@@ -40,14 +42,16 @@ export const TeamLocker = ({ match }) => {
     return <h3 className="subheader">{`${titleCase(label)} lockers`}</h3>
   }
 
+  function handleClick() {
+    history.push('/locker');
+  }
+
   return(
     <div className="team-locker-container locker-content">
-      <Link className="back-nav-link" tabIndex={-1} to="/locker">
-        <button className="button-container interactive-wrapper focus-on-light">
-          <img alt="left pointing arrow" src={arrow} />
-          <p>All Lockers</p>
-        </button>
-      </Link>
+      <button className="button-container interactive-wrapper focus-on-light" onClick={handleClick}>
+        <img alt="left pointing arrow" src={arrow} />
+        <p>All lockers</p>
+      </button>
       {renderHeader()}
       {renderTeamLockersSection()}
     </div>
