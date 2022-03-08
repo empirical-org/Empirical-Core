@@ -2,6 +2,8 @@ import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
 
+import { ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES } from './constants';
+
 export default class SubscriptionHistory extends React.Component {
 
   content() {
@@ -63,7 +65,7 @@ export default class SubscriptionHistory extends React.Component {
       }
       const tds = [
         <td key={`${sub.id}-1-row`}>{moment(sub.created_at).format('MMMM Do, YYYY')}</td>,
-        <td key={`${sub.id}-2-row`}>{sub.account_type}</td>,
+        <td key={`${sub.id}-2-row`}>{ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[sub.account_type]}</td>,
         <td key={`${sub.id}-3-row`}>{this.paymentContent(sub)}</td>,
         <td key={`${sub.id}-4-row`}>{`${duration} ${pluralize('month', duration)}`}</td>,
         <td key={`${sub.id}-5-row`}>{`${startD.format('MM/DD/YY')} - ${endD.format('MM/DD/YY')}`}</td>

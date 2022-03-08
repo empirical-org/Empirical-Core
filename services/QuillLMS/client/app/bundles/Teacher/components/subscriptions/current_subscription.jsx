@@ -19,18 +19,15 @@ export default class CurrentSubscription extends React.Component {
 
   onceYourPlanExpires() {
     const { subscriptionType, } = this.props
-    return `Once your current ${subscriptionType} Premium subscription expires, you will be downgraded to the Quill Basic subscription.`;
+    return `Once your current ${subscriptionType} subscription expires, you will be downgraded to the Quill Basic subscription.`;
   }
 
   getCondition() {
     const { subscriptionType, } = this.props
-    switch (subscriptionType) {
-      case 'School':
-        return 'school';
-      case 'School Sponsored':
-        return 'school sponsored';
-      default:
-        return 'other';
+    if (['School Premium', 'District Premium'].includes(subscriptionType)) {
+      return 'school'
+    } else {
+      return 'other'
     }
   }
 
@@ -42,7 +39,7 @@ export default class CurrentSubscription extends React.Component {
       return this.editCreditCardElement();
     } else if (subscriptionStatus && subscriptionStatus.payment_method === 'Credit Card') {
       return <span>Credit Card</span>;
-    } else if (subscriptionType === 'School Sponsored' || subscriptionType === 'Trial') {
+    } else if (subscriptionType === 'Teacher Premium Trial') {
       return <span>No Payment Method on File</span>;
     } else if (subscriptionStatus && ['Invoice', 'School Invoice'].includes(subscriptionStatus.payment_method)) {
       return <span>Invoice</span>;
@@ -54,7 +51,7 @@ export default class CurrentSubscription extends React.Component {
 
   getPrice() {
     const { subscriptionType, } = this.props
-    if (subscriptionType === 'School') {
+    if (['District Premium', 'School Premium'].includes(subscriptionType)) {
       return '900';
     }
     return '80';
@@ -98,7 +95,7 @@ export default class CurrentSubscription extends React.Component {
   }
 
   content() {
-    const { subscriptionStatus, purchaserNameOrEmail, } = this.props
+    const { subscriptionStatus, purchaserNameOrEmail, subscriptionType } = this.props
 
     const metaRowClassName = 'sub-meta-info';
     if (subscriptionStatus) {
@@ -108,7 +105,7 @@ export default class CurrentSubscription extends React.Component {
             <h3>CURRENT SUBSCRIPTION</h3>
             <div className="flex-row space-between">
               <div>
-                <TitleAndContent content={subscriptionStatus.account_type} title="Plan" />
+                <TitleAndContent content={subscriptionType} title="Plan" />
                 {purchaserNameOrEmail && purchaserNameOrEmail.length && <TitleAndContent content={purchaserNameOrEmail} title="Purchaser" />}
               </div>
               <div>
@@ -246,7 +243,7 @@ export default class CurrentSubscription extends React.Component {
       nextPlan = this.nextPlanAlertOrButtons(condition);
     } else if (subscriptionStatus.recurring) {
       nextPlan = (<span>
-        {subscriptionType} Premium - ${this.getPrice()} Annual Subscription {this.changePlanInline()}
+        {subscriptionType} - ${this.getPrice()} Annual Subscription {this.changePlanInline()}
       </span>);
       const renewDate = moment(subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons('recurring', renewDate);
