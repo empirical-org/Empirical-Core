@@ -162,9 +162,14 @@ describe User, type: :model do
       let(:user) { create(:user, stripe_customer_id: stripe_customer_id)}
       let(:stripe_customer_id) { 'cus_abcdefg' }
       let(:last4) { 1000 }
-      let(:customer_data) { double('customer_data', sources: double(data: double(first: double(last4: last4)))) }
+      let(:customer) { double('customer') }
+      let(:customer_with_sources) { double('customer', sources: double(data: double(first: double(last4: last4)))) }
+      let(:retrieve_sources_args) { { id: stripe_customer_id, expand: ['sources'] } }
 
-      before { allow(Stripe::Customer).to receive(:retrieve).with(stripe_customer_id).and_return(customer_data) }
+      before do
+        allow(Stripe::Customer).to receive(:retrieve).with(stripe_customer_id).and_return(customer)
+        allow(Stripe::Customer).to receive(:retrieve).with(retrieve_sources_args).and_return(customer_with_sources)
+      end
 
       it "calls Stripe::Customer.retrieve with the current user's stripe_customer_id" do
         expect(user.last_four).to eq last4
@@ -226,12 +231,12 @@ describe User, type: :model do
 
   describe 'subscription methods' do
 
-    context('subscription methods') do
+    context 'subscription methods' do
       let(:user) { create(:user) }
       let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
       let!(:user_subscription) { create(:user_subscription, user: user, subscription: subscription) }
 
-      describe('#subscription_authority_level') do
+      describe '#subscription_authority_level' do
         let!(:school) {create(:school)}
         let!(:school_subscription) {create(:school_subscription, school: school, subscription: subscription)}
 
@@ -274,7 +279,7 @@ describe User, type: :model do
         end
       end
 
-      describe('#eligible_for_new_subscription?') do
+      describe '#eligible_for_new_subscription?' do
         it "returns true if the user does not have a subscription" do
           user.reload.subscription.destroy
           expect(user.eligible_for_new_subscription?).to be
@@ -295,9 +300,7 @@ describe User, type: :model do
         end
       end
 
-
-
-      describe('#subscription') do
+      describe '#subscription' do
         it 'returns a subscription if a valid one exists' do
           expect(user.reload.subscription).to eq(subscription)
         end
@@ -314,7 +317,7 @@ describe User, type: :model do
         end
       end
 
-      describe('#present_and_future_subscriptions') do
+      describe '#present_and_future_subscriptions' do
         it 'returns an empty array if there are no subscriptions with expirations in the future' do
           subscription.update(expiration: Date.yesterday)
           expect(user.present_and_future_subscriptions).to be_empty
@@ -337,9 +340,6 @@ describe User, type: :model do
         end
       end
     end
-
-
-
   end
 
   describe 'constants' do
