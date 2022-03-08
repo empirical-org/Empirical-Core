@@ -414,8 +414,6 @@ module Teacher
     if subscription && subscription.school_subscriptions.any? && !has_matching_subscription?(id, school&.subscription&.id)
       # then they were previously in a school with a subscription, so we destroy the relationship
       UserSubscription.find_by(user_id: id, subscription_id: subscription.id).destroy
-    elsif school && self&.subscription&.account_type == "Purchase Missing School"
-      SchoolSubscription.create(school_id: school_id, subscription_id: subscription.id)
     end
 
     return unless school && school.subscription
@@ -468,6 +466,7 @@ module Teacher
   end
 
   def unlink
+    VitallyIntegration::UnlinkUserWorker.perform_async(id, school&.id)
     self.school = nil
     updated_school(nil)
     save
@@ -481,7 +480,7 @@ module Teacher
 
   def premium_state
     if subscription
-      (Subscription::TRIAL_TYPES | Subscription::COVID_TYPES).include?(subscription.account_type) ? 'trial' : 'paid'
+      Subscription::TRIAL_TYPES.include?(subscription.account_type) ? 'trial' : 'paid'
     elsif subscriptions.exists?
       # then they have an expired or 'locked' sub
       'locked'

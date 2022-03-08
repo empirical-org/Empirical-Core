@@ -130,5 +130,5 @@ export const closeIcon = {
 
 export const informationIcon = {
   alt: 'Information icon',
-  src: `${process.env.CDN_URL}/images/icons/information.svg`
+  src: `${process.env.CDN_URL}/images/pages/evidence/icons-information-small.svg`
 }

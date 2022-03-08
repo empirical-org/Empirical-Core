@@ -1,8 +1,10 @@
 import React from 'react';
 import request from 'request';
 import _ from 'lodash';
-import SubscriptionStatus from '../components/subscriptions/subscription_status';
+
 import PurchaseModal from './PurchaseModal';
+
+import SubscriptionStatus from '../components/subscriptions/subscription_status';
 import AvailableCredits from '../components/subscriptions/available_credits';
 import CurrentSubscription from '../components/subscriptions/current_subscription';
 import SubscriptionHistory from '../components/subscriptions/subscription_history';
@@ -11,38 +13,28 @@ import RefundPolicy from '../components/subscriptions/refund_policy';
 import PremiumCreditsTable from '../components/subscriptions/premium_credits_table';
 import getAuthToken from '../components/modules/get_auth_token';
 
-export default class extends React.Component {
+export default class Subscriptions extends React.Component {
   constructor(props) {
     super(props);
     const availableAndEarnedCredits = this.availableAndEarnedCredits();
     this.state = {
-      subscriptions: this.props.subscriptions,
-      subscriptionStatus: this.props.subscriptionStatus,
+      subscriptions: props.subscriptions,
+      subscriptionStatus: props.subscriptionStatus,
       availableCredits: availableAndEarnedCredits.available,
       earnedCredits: availableAndEarnedCredits.earned,
       showPremiumConfirmationModal: false,
       showPurchaseModal: false,
-      purchaserNameOrEmail: this.purchaserNameOrEmail(),
-      authorityLevel: this.props.userAuthorityLevel,
+      authorityLevel: props.userAuthorityLevel,
     };
   }
 
-  getPurchaserName() {
-    const that = this;
-    const idPath = 'subscriptionStatus.id';
-    const subId = _.get(that.state, idPath) || _.get(that.props, idPath);
-    request.get({
-      url: `${process.env.DEFAULT_URL}/subscriptions/${subId}/purchaser_name`,
-    },
-    (e, r, body) => {
-      that.setState({ purchaserNameOrEmail: JSON.parse(body).name, });
-    });
-  }
-
   availableAndEarnedCredits() {
+    const { premiumCredits, } = this.props
+
     let earned = 0;
     let spent = 0;
-    this.props.premiumCredits.forEach((c) => {
+
+    premiumCredits.forEach((c) => {
       if (c.amount > 0) {
         earned += c.amount;
       } else {
@@ -53,10 +45,12 @@ export default class extends React.Component {
   }
 
   currentSubscription(newSub) {
-    if (!this.state.subscriptionStatus || this.state.subscriptionStatus.expired) {
+    const { subscriptionStatus, } = this.state
+
+    if (!subscriptionStatus || subscriptionStatus.expired) {
       return newSub;
     }
-    return this.state.subscriptionStatus;
+    return subscriptionStatus;
   }
 
   hidePremiumConfirmationModal = () => {
@@ -67,24 +61,16 @@ export default class extends React.Component {
     this.setState({ showPurchaseModal: false, });
   };
 
-  purchasePremiumButton() {
-    return <button className="q-button button cta-button bg-orange text-white" data-toggle="modal" id="purchase-btn" onClick={this.purchasePremium} type="button">Update Card</button>;
-  }
-
   purchaserNameOrEmail() {
-    const sub = (this.state && this.state.subscriptionStatus) || this.props.subscriptionStatus;
-    if (sub) {
-      if (!sub.purchaser_id) {
-        this.setState({ purchaserNameOrEmail: sub.user_email ? sub.user_email : 'Not Recorded', });
-      } else {
-        this.getPurchaserName();
-      }
-    } else {
-      this.setState({ purchaserNameOrEmail: 'N/A', });
-    }
+    const { subscriptionStatus, } = this.state
+
+    if (!subscriptionStatus) { return }
+
+    return subscriptionStatus.purchaser_name || subscriptionStatus.purchaser_email
   }
 
   redeemPremiumCredits = () => {
+    const { subscriptions, } = this.state
     request.put({
       url: `${process.env.DEFAULT_URL}/credit_transactions/redeem_credits_for_premium`,
       json: {
@@ -95,7 +81,7 @@ export default class extends React.Component {
         alert(body.error);
       } else {
         this.setState({
-          subscriptions: [body.subscription].concat(this.state.subscriptions),
+          subscriptions: [body.subscription].concat(subscriptions),
           subscriptionStatus: this.currentSubscription(body.subscription),
           availableCredits: 0,
           showPremiumConfirmationModal: true,
@@ -113,16 +99,18 @@ export default class extends React.Component {
   };
 
   subscriptionType() {
-    if (!this.props.subscriptionStatus) {
+    const { subscriptionStatus, schoolSubscriptionTypes, trialSubscriptionTypes, } = this.props
+
+    if (!subscriptionStatus) {
       return 'Basic';
     }
-    const accountType = this.props.subscriptionStatus.account_type;
-    if (this.props.schoolSubscriptionTypes === 'School Sponsored') {
+    const accountType = subscriptionStatus.account_type;
+    if (schoolSubscriptionTypes === 'School Sponsored') {
       return 'School Sponsored';
     }
-    if (this.props.schoolSubscriptionTypes.includes(accountType)) {
+    if (schoolSubscriptionTypes.includes(accountType)) {
       return 'School';
-    } else if (this.props.trialSubscriptionTypes.includes(accountType)) {
+    } else if (trialSubscriptionTypes.includes(accountType)) {
       return 'Trial';
     }
     return 'Teacher';
@@ -150,56 +138,60 @@ export default class extends React.Component {
   };
 
   userIsContact() {
-    if (this.props.subscriptionStatus) {
-      return Number(document.getElementById('current-user-id').getAttribute('content')) === this.props.subscriptionStatus.purchaser_id;
+    const { subscriptionStatus, } = this.props
+    if (subscriptionStatus) {
+      return Number(document.getElementById('current-user-id').getAttribute('content')) === subscriptionStatus.purchaser_id;
     }
     return false;
   }
 
   render() {
-    const userHasValidSub = this.state.subscriptionStatus && !this.state.subscriptionStatus.expired;
-    const subId = `${_.get(this.state.subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`;
+    const { lastFour, premiumCredits, } = this.props
+    const { subscriptionStatus, authorityLevel, availableCredits, earnedCredits, showPremiumConfirmationModal, showPurchaseModal, subscriptions, } = this.state
+
+    const userHasValidSub = subscriptionStatus && !subscriptionStatus.expired;
+    const subId = `${_.get(subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`;
     // don't show any last four unless they have an authority level with their purchase, or they don't have a sub
-    const lastFour = (this.state.authorityLevel || !this.state.subscriptionStatus) ? this.props.lastFour : null;
+    const lastFourToPass = (authorityLevel || !subscriptionStatus) ? lastFour : null;
     return (
       <div>
         <SubscriptionStatus
           key={subId}
           showPurchaseModal={this.showPurchaseModal}
-          subscriptionStatus={this.state.subscriptionStatus}
+          subscriptionStatus={subscriptionStatus}
           subscriptionType={this.subscriptionType()}
           userIsContact={this.userIsContact()}
         />
         <CurrentSubscription
-          authorityLevel={this.state.authorityLevel}
-          lastFour={lastFour}
-          purchaserNameOrEmail={this.state.purchaserNameOrEmail}
+          authorityLevel={authorityLevel}
+          lastFour={lastFourToPass}
+          purchaserNameOrEmail={this.purchaserNameOrEmail()}
           showPurchaseModal={this.showPurchaseModal}
-          subscriptionStatus={this.state.subscriptionStatus}
+          subscriptionStatus={subscriptionStatus}
           subscriptionType={this.subscriptionType()}
           updateSubscription={this.updateSubscription}
           userIsContact={this.userIsContact()}
         />
         <SubscriptionHistory
-          authorityLevel={this.state.authorityLevel}
-          premiumCredits={this.props.premiumCredits}
-          subscriptions={this.state.subscriptions}
+          authorityLevel={authorityLevel}
+          premiumCredits={premiumCredits}
+          subscriptions={subscriptions}
         />
-        <AvailableCredits availableCredits={this.state.availableCredits} redeemPremiumCredits={this.redeemPremiumCredits} userHasValidSub={userHasValidSub} />
+        <AvailableCredits availableCredits={availableCredits} redeemPremiumCredits={this.redeemPremiumCredits} userHasValidSub={userHasValidSub} />
         <PremiumCreditsTable
-          earnedCredits={this.state.earnedCredits}
-          premiumCredits={this.props.premiumCredits}
+          earnedCredits={earnedCredits}
+          premiumCredits={premiumCredits}
         />
         <RefundPolicy />
         <PremiumConfirmationModal
           hideModal={this.hidePremiumConfirmationModal}
-          show={this.state.showPremiumConfirmationModal}
-          subscription={this.state.subscriptionStatus}
+          show={showPremiumConfirmationModal}
+          subscription={subscriptionStatus}
         />
         <PurchaseModal
           hideModal={this.hidePurchaseModal}
-          lastFour={lastFour}
-          show={this.state.showPurchaseModal}
+          lastFour={lastFourToPass}
+          show={showPurchaseModal}
           subscriptionType={this.subscriptionType()}
           updateSubscriptionStatus={this.updateSubscriptionStatus}
         />
@@ -207,5 +199,3 @@ export default class extends React.Component {
     );
   }
 }
-
-
