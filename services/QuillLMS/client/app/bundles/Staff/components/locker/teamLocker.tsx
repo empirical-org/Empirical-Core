@@ -8,9 +8,7 @@ import { titleCase } from "../../../Shared";
 
 const arrow = `${process.env.CDN_URL}/images/icons/arrow-back.svg`;
 
-export const TeamLocker = (props) => {
-  console.log("🚀 ~ file: teamLocker.tsx ~ line 12 ~ TeamLocker ~ props", props)
-  const { match, history } = props;
+export const TeamLocker = ({ match, history }) => {
   const { params } = match;
   const { team } = params;
   const lockerContents = lockerItems[team];
