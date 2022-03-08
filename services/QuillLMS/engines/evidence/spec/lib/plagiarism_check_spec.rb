@@ -218,7 +218,8 @@ module Evidence
           samples = [
             ["Some education experts have advocated for extended school days, so Unlike after-school progams or clubs, in these extra hours are required for all students ,this even those with busy after-school schedules.", plagiarism1], # 2950ms in prod
             ["Some education experts have advocated for extended school days, so many students appreciate that how the extended to schedule gives more time to unique electives and in depth class of discussions.", plagiarism1], # 2570ms in prod
-            ["Some Native Hawaiians are moving to Las Vegas because Hawaii has a higher cost of living in the nation, examples food, housing, clothing, electricity and other individuals cost more in Hawaii than in the United States.", plagiarism2] # 2620ms in prod
+            ["Some Native Hawaiians are moving to Las Vegas because Hawaii has a higher cost of living in the nation, examples food, housing, clothing, electricity and other individuals cost more in Hawaii than in the United States.", plagiarism2], # 2620ms in prod
+            ["Some education experts have advocated for extended school days, so Unlike after-school progams or clubs, in these extra hours are required for all students ,this even those with busy after-school schedules.", plagiarism1] # 3430ms in prod
           ]
           runtime = Benchmark.realtime do
             samples.each do |entry, plagiarism_text|
