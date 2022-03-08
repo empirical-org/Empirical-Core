@@ -56,6 +56,7 @@
     position: relative;
     button, a {
       text-align: left;
+      cursor: pointer;
       .tooltip i {
         bottom: 0px;
         top: -32px;
@@ -133,9 +134,11 @@
   .customize-dropdown {
     font-weight: 600;
     left: 64px;
-    a {
+    button {
       display: block;
       color: #027360;
+      font-weight: 600;
+      width: 100%;
       &:hover {
         background-color: #f5f5f5;
       }

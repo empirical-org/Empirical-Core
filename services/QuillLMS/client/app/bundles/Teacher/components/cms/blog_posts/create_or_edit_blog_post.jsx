@@ -539,9 +539,9 @@ export default class CreateOrEditBlogPost extends React.Component {
       </div>)
     } else {
       toolbarLeft = (<div className="toolbar-left">
-        <p onClick={this.handleInsertH1}>H1</p>
-        <p onClick={this.handleInsertH2}>H2</p>
-        <p onClick={this.handleInsertH3}>H3</p>
+        <button className="interactive-wrapper" onClick={this.handleInsertH1} type="button">H1</button>
+        <button className="interactive-wrapper" onClick={this.handleInsertH2} type="button">H2</button>
+        <button className="interactive-wrapper" onClick={this.handleInsertH3} type="button">H3</button>
         <i className="fas fa-bold" onClick={this.handleInsertBold} />
         <i className="fas fa-italic" onClick={this.handleInsertItalic} />
         <i className="fas fa-list-ul" onClick={this.handleInsertUnorderedList} />

@@ -69,7 +69,7 @@ export default class ActivitiesUnit extends React.Component {
   classroomList = (classrooms) => {
     if (classrooms.length >= 4 && !this.state.showAllClassrooms) {
       const classroomsArray = classrooms.slice(0, 3).map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
-      classroomsArray.push(<li className="see-all" onClick={() => this.setState({showAllClassrooms: true})}>Show all {classrooms.length} classes <i className="fas fa-icon fa-chevron-down" /></li>)
+      classroomsArray.push(<button className="interactive-wrapper focus-on-light" onClick={() => this.setState({showAllClassrooms: true})} type="button"><li className="see-all" >Show all {classrooms.length} classes <i className="fas fa-icon fa-chevron-down" /></li></button>)
       return classroomsArray
     }
     return classrooms.map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)

@@ -55,7 +55,7 @@
         font-weight: bold;
       }
     }
-    button {
+    button:not(.interactive-wrapper) {
       margin-top: 30px;
       width: 147px;
       height: 40px;
