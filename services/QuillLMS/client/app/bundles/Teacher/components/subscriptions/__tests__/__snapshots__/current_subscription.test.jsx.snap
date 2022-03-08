@@ -60,7 +60,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "updated_at": "2022-02-16T14: 07: 25.976Z",
     }
   }
-  subscriptionType="School"
+  subscriptionType="School Premium"
   userIsContact={false}
 >
   <section>
@@ -87,7 +87,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
             >
               <div>
                 <_default
-                  content="School"
+                  content="School Premium"
                   title="Plan"
                 >
                   <div>
@@ -97,7 +97,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       Plan
                     </span>
                     <span>
-                      School
+                      School Premium
                     </span>
                   </div>
                 </_default>
@@ -188,7 +188,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                 <i
                   className="fas fa-icon fa-lightbulb-o"
                 />
-                Once your current School subscription expires, you will be downgraded to the Quill Basic subscription.
+                Once your current School Premium subscription expires, you will be downgraded to the Quill Basic subscription.
               </div>
             </div>
           </div>
@@ -225,7 +225,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "updated_at": "2022-02-16T14: 07: 25.976Z",
     }
   }
-  subscriptionType="School"
+  subscriptionType="School Premium"
   userIsContact={false}
 >
   <section>
@@ -252,7 +252,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
             >
               <div>
                 <_default
-                  content="School"
+                  content="School Premium"
                   title="Plan"
                 >
                   <div>
@@ -262,7 +262,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       Plan
                     </span>
                     <span>
-                      School
+                      School Premium
                     </span>
                   </div>
                 </_default>
@@ -368,7 +368,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                 <i
                   className="fas fa-icon fa-lightbulb-o"
                 />
-                Once your current School subscription expires, you will be downgraded to the Quill Basic subscription.
+                Once your current School Premium subscription expires, you will be downgraded to the Quill Basic subscription.
               </div>
             </div>
           </div>
@@ -405,7 +405,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "updated_at": "2022-02-16T14: 07: 25.976Z",
     }
   }
-  subscriptionType="School"
+  subscriptionType="School Premium"
   userIsContact={false}
 >
   <section>
@@ -432,7 +432,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
             >
               <div>
                 <_default
-                  content="School"
+                  content="School Premium"
                   title="Plan"
                 >
                   <div>
@@ -442,7 +442,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       Plan
                     </span>
                     <span>
-                      School
+                      School Premium
                     </span>
                   </div>
                 </_default>
@@ -533,7 +533,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                 <i
                   className="fas fa-icon fa-lightbulb-o"
                 />
-                Once your current School subscription expires, you will be downgraded to the Quill Basic subscription.
+                Once your current School Premium subscription expires, you will be downgraded to the Quill Basic subscription.
               </div>
             </div>
           </div>
