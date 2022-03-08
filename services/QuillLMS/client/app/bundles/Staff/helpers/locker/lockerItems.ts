@@ -218,7 +218,7 @@ export const lockerItems = {
   },
   [CURRICULUM]: {
     label: CURRICULUM,
-    route: `locker/curriculum`,
+    route: CURRICULUM,
     emoji: '📚',
     emojiLabel: 'stack of books',
     lockers: {
@@ -229,7 +229,7 @@ export const lockerItems = {
   },
   [PARTNERSHIPS]: {
     label: PARTNERSHIPS,
-    route: `locker/partnerships`,
+    route: PARTNERSHIPS,
     emoji: '🎓',
     emojiLabel: 'graduation cap',
     lockers: {
@@ -243,7 +243,7 @@ export const lockerItems = {
   },
   [PRODUCT]: {
     label: PRODUCT,
-    route: `locker/product`,
+    route: PRODUCT,
     emoji: '🚀',
     emojiLabel: 'rocket ship',
     lockers: {
@@ -253,7 +253,7 @@ export const lockerItems = {
   },
   [SUPPORT]: {
     label: SUPPORT,
-    route: `locker/support`,
+    route: SUPPORT,
     emoji: '📞',
     emojiLabel: 'telephone',
     lockers: {
@@ -267,7 +267,7 @@ export const lockerItems = {
   },
   'index': {
     label: 'all lockers',
-    route: `locker/index`,
+    route: 'index',
     emoji: '🔐',
     emojiLabel: 'locked with key',
     lockers: {

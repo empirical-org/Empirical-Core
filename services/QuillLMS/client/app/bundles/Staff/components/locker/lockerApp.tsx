@@ -7,8 +7,8 @@ import TeamLocker from './teamLocker';
 export const LockerApp = () => {
   return(
     <Switch>
-      <Route component={TeamLocker} path='/locker/:team' />
-      <Route component={LockerIndex} path='/locker' />
+      <Route component={TeamLocker} path='/:team' />
+      <Route component={LockerIndex} path='/' />
     </Switch>
   );
 }

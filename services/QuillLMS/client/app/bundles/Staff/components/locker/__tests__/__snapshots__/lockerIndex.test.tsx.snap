@@ -40,7 +40,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
               "proofreader",
             ],
           },
-          "route": "locker/curriculum",
+          "route": "curriculum",
         }
       }
     />
@@ -78,7 +78,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
               "upload rosters",
             ],
           },
-          "route": "locker/partnerships",
+          "route": "partnerships",
         }
       }
     />
@@ -98,7 +98,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
               "schools",
             ],
           },
-          "route": "locker/product",
+          "route": "product",
         }
       }
     />
@@ -136,7 +136,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
               "upload rosters",
             ],
           },
-          "route": "locker/support",
+          "route": "support",
         }
       }
     />
@@ -191,7 +191,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
               "upload rosters",
             ],
           },
-          "route": "locker/index",
+          "route": "index",
         }
       }
     />

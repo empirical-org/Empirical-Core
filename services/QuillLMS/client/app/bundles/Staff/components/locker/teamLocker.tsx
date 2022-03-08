@@ -41,7 +41,7 @@ export const TeamLocker = ({ match, history }) => {
   }
 
   function handleClick() {
-    history.push('/locker');
+    history.push('/');
   }
 
   return(
