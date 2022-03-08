@@ -14,7 +14,7 @@ class QuillStaffAccountsChangedWorker
     current_staff_accounts = current_staff_account_data
     previous_staff_accounts = cached_staff_account_data
     notify_staff(current_staff_accounts, previous_staff_accounts) unless current_staff_accounts == previous_staff_accounts
-    $redis.set(STAFF_ACCOUNTS_CACHE_KEY, current_staff_accounts.to_json)
+    $redis.set(STAFF_ACCOUNTS_CACHE_KEY, current_staff_accounts.to_json, ex: 25.hours.to_i)
   end
 
   def current_staff_account_data
