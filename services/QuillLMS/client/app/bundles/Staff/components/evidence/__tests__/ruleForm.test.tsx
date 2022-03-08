@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 import { mockRule } from '../__mocks__/data';
 import RuleForm from '../configureRules/ruleForm';
@@ -27,6 +28,8 @@ jest.mock('../../../helpers/evidence/renderHelpers', () => ({
   })
 }));
 
+const queryClient = new QueryClient()
+
 const mockProps = {
   rule: mockRule,
   activityData: {
@@ -43,7 +46,11 @@ const mockProps = {
 };
 
 describe('RuleForm component', () => {
-  let container = shallow(<RuleForm {...mockProps} />);
+  let container = shallow(
+    <QueryClientProvider client={queryClient} contextSharing={true}>
+      <RuleForm {...mockProps} />
+    </QueryClientProvider>
+  );
 
   it('should render RuleForm', () => {
     expect(container).toMatchSnapshot();
@@ -61,7 +68,11 @@ describe('RuleForm component', () => {
   });
   it('displays request errors if prop is present', () => {
     mockProps.requestErrors = ['feedback.text: text is too short'];
-    container = shallow(<RuleForm {...mockProps} />);
+    container = shallow(
+      <QueryClientProvider client={queryClient} contextSharing={true}>
+        <RuleForm {...mockProps} />
+      </QueryClientProvider>
+    );
     expect(container.find('strong').length).toEqual(1);
   });
 });
