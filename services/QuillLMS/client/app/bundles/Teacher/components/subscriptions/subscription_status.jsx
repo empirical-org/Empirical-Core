@@ -8,13 +8,15 @@ const quillBasicCopy = (
   </span>);
 
 function schoolPremiumCopy(subscriptionType) {
-  return <span>
-    With {subscriptionType}, you will have access to all of Quill’s
-    free reports as well as additional advanced reporting. You will also
-    be able to view and print reports of your students’ progress. Our
-    advanced reports support concept, Common Core, and overall progress
-    analysis. <a className="green-link" href="https://support.quill.org/quill-premium">Here’s more information</a> about your {subscriptionType} features.
-  </span>
+  return (
+    <span>
+      With {subscriptionType}, you will have access to all of Quill’s
+      free reports as well as additional advanced reporting. You will also
+      be able to view and print reports of your students’ progress. Our
+      advanced reports support concept, Common Core, and overall progress
+      analysis. <a className="green-link" href="https://support.quill.org/quill-premium">Here’s more information</a> about your {subscriptionType} features.
+    </span>
+  )
 };
 
 function teacherPremiumCopy(subscriptionType) {
