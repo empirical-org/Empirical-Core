@@ -41,7 +41,6 @@ const UnitTemplateActivityDataRow = ({activity, handleAdd, handleRemove, type}) 
         <td className="ut-activity-name-col">{activity.name}</td>
         <td className="ut-activity-flag-col">{activity.data && activity.data["flag"]}</td>
         <td className="ut-activity-readability-col">{activity.readability_grade_level}</td>
-        <td className="ut-activity-ccss-col">{activity.standard && activity.standard.name}</td>
         <td className="ut-activity-cat-col">{activity.activity_category && activity.activity_category.name}</td>
         <td className="ut-activity-class-col">{activity.classification && activity.classification.name}</td>
       </tr>
