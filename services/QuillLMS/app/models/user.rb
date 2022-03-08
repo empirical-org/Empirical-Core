@@ -304,7 +304,7 @@ class User < ApplicationRecord
   def last_four
     return unless stripe_customer?
 
-    Stripe::Customer.retrieve(stripe_customer_id).sources.data.first&.last4
+    Stripe::Customer.retrieve(id: stripe_customer_id, expand: ['sources']).sources.data.first&.last4
   end
 
   def stripe_customer?
