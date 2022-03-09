@@ -5,6 +5,7 @@ import _ from 'lodash';
 import ChangePlan from './change_plan';
 import TitleAndContent from './current_subscription_title_and_content';
 
+import { Tooltip, helpIcon, } from '../../../Shared/index'
 import EnterOrUpdateStripeCard from '../modules/stripe/enter_or_update_card.js';
 
 export default class CurrentSubscription extends React.Component {
@@ -99,13 +100,22 @@ export default class CurrentSubscription extends React.Component {
 
     const metaRowClassName = 'sub-meta-info';
     if (subscriptionStatus) {
+      const titleContent = (
+        <span>
+          {subscriptionType}
+          <Tooltip
+            tooltipText={`You have a ${subscriptionStatus.account_type} subscription`}
+            tooltipTriggerText={<span><img alt={helpIcon.alt} className="subscription-tooltip" src={helpIcon.src} /></span>}
+          />
+        </span>
+      )
       return ({ metaRows: (
         <div className={metaRowClassName}>
           <div className="meta-section">
             <h3>CURRENT SUBSCRIPTION</h3>
             <div className="flex-row space-between">
               <div>
-                <TitleAndContent content={subscriptionType} title="Plan" />
+                <TitleAndContent content={titleContent} title="Plan" />
                 {purchaserNameOrEmail && purchaserNameOrEmail.length && <TitleAndContent content={purchaserNameOrEmail} title="Purchaser" />}
               </div>
               <div>

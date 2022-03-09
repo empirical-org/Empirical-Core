@@ -4,6 +4,8 @@ import pluralize from 'pluralize';
 
 import { ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES } from './constants';
 
+import { Tooltip, helpIcon, } from '../../../Shared/index'
+
 export default class SubscriptionHistory extends React.Component {
 
   content() {
@@ -63,9 +65,18 @@ export default class SubscriptionHistory extends React.Component {
           </tr>
         );
       }
+      const subscriptionTypeContent = (
+        <span>
+          {ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[sub.account_type]}
+          <Tooltip
+            tooltipText={`You have a ${sub.account_type} subscription`}
+            tooltipTriggerText={<span><img alt={helpIcon.alt} className="subscription-tooltip" src={helpIcon.src} /></span>}
+          />
+        </span>
+      );
       const tds = [
         <td key={`${sub.id}-1-row`}>{moment(sub.created_at).format('MMMM Do, YYYY')}</td>,
-        <td key={`${sub.id}-2-row`}>{ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[sub.account_type]}</td>,
+        <td key={`${sub.id}-2-row`}>{subscriptionTypeContent}</td>,
         <td key={`${sub.id}-3-row`}>{this.paymentContent(sub)}</td>,
         <td key={`${sub.id}-4-row`}>{`${duration} ${pluralize('month', duration)}`}</td>,
         <td key={`${sub.id}-5-row`}>{`${startD.format('MM/DD/YY')} - ${endD.format('MM/DD/YY')}`}</td>
