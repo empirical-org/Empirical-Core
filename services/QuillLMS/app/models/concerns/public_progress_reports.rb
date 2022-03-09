@@ -45,7 +45,7 @@ module PublicProgressReports
   # rubocop:disable Metrics/CyclomaticComplexity
   def results_by_question(activity_id)
     activity = Activity.includes(:classification).find(activity_id)
-    questions = {}
+    questions = Hash.new{|h,k| h[k]={} }
 
     all_answers = ActivitySession.activity_session_metadata(@activity_sessions) #concept_result metadatas
 
