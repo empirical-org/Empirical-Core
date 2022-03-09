@@ -9,6 +9,8 @@ module Evidence
       @previous_feedback = previous_feedback
     end
 
+    # run method of subclass should populate @response with the API response
+    # it can optionally populate @error
     def run
       raise NotImplementedError
     end

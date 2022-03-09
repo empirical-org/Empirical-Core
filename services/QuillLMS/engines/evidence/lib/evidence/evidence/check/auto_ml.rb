@@ -6,5 +6,9 @@ module Evidence
       @response = automl_check.feedback_object
     end
 
+    def autoML?
+      true
+    end
+
   end
 end
