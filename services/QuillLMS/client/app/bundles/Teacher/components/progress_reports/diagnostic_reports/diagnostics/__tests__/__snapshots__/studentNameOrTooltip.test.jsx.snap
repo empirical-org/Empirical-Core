@@ -14,6 +14,7 @@ exports[`StudentNameOrTooltip component should render if the name is long enough
     >
       <span
         className="student-name"
+        onClick={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         tabIndex={null}
