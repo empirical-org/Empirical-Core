@@ -86,7 +86,7 @@ const ActivitySettings = ({ activity, history }: {activity: ActivityInterface, h
   return(
     <div className="activity-settings-container">
       {showSubmissionModal && renderSubmissionModal()}
-      {activity && renderHeader({activity: activity}, 'Activity Settings')}
+      {activity && renderHeader({activity: activity}, 'Activity Settings', true)}
       <ActivityForm activity={activity} handleClickArchiveActivity={handleClickArchiveActivity} requestErrors={errors} submitActivity={submitFunction} />
     </div>
   );

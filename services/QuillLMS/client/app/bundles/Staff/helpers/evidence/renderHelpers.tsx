@@ -37,7 +37,7 @@ export function renderErrorsContainer(formErrorsPresent: boolean, requestErrors:
   )
 }
 
-export const renderHeader = (activityData: {activity: ActivityInterface}, header: string) => {
+export const renderHeader = (activityData: {activity: ActivityInterface}, header: string, hideActivityName?: boolean) => {
   if(!activityData) { return }
   if(!activityData.activity) { return }
   const { activity } = activityData;
@@ -45,8 +45,12 @@ export const renderHeader = (activityData: {activity: ActivityInterface}, header
   return(
     <section className="comprehension-page-header-container">
       <h2>{header}</h2>
-      <h3>{title}</h3>
-      <h4>{notes}</h4>
+      {!hideActivityName &&
+        <React.Fragment>
+          <h3>{title}</h3>
+          <h4>{notes}</h4>
+        </React.Fragment>
+      }
     </section>
   );
 }

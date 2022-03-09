@@ -14,20 +14,31 @@
       text-align: left;
     }
   }
-  .comprehension-activity-form {
+  .title-input {
+    margin-bottom: 24px;
+  }
+  .flag-input {
+    width: 10vw;
+  }
+  .button-and-id-container {
+    display: flex;
+    margin: 24px 0px 24px 0px;
     .label-status-container {
-      min-height: 58px;
-      margin-top: 8px;
+      margin-right: 16px;
       #label-status-label {
         font-size: 12px;
         font-weight: 600;
         color: #7f7f7f;
+        margin: 0;
       }
       #label-status {
         font-size: 16px;
         color: #7f7f7f;
         margin: 0;
       }
+    }
+    a, button {
+      margin-left: 16px;
     }
   }
   .comprehension-activity-form {
