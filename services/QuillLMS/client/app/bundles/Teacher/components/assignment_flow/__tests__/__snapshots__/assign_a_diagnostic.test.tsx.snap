@@ -589,6 +589,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       >
                         <span
                           className="undefined"
+                          onClick={[Function]}
                           onMouseEnter={[Function]}
                           onMouseLeave={[Function]}
                           tabIndex={null}
@@ -861,6 +862,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       >
                         <span
                           className="undefined"
+                          onClick={[Function]}
                           onMouseEnter={[Function]}
                           onMouseLeave={[Function]}
                           tabIndex={null}

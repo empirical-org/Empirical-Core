@@ -17819,6 +17819,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="tooltip-trigger-text"
+                onClick={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
                 tabIndex={null}
@@ -44642,6 +44643,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <span
                 className="tooltip-trigger-text"
+                onClick={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
                 tabIndex={null}
