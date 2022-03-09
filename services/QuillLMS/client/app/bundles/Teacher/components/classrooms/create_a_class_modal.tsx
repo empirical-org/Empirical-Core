@@ -51,6 +51,7 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
 
   renderHeader() {
     const { step, } = this.state
+    const { close, } = this.props
     return (
       <div className="create-a-class-modal-header">
         <div className="navigation">
@@ -58,7 +59,7 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
           <p className={step === 2 ? 'active' : ''}>2. Add students</p>
           <p className={step === 3 ? 'active' : ''}>3. Setup instructions</p>
         </div>
-        <img alt="" onClick={this.props.close} src={closeIconSrc} />
+        <button className="interactive-wrapper focus-on-light" onClick={close} type="button"><img alt="Close icon" src={closeIconSrc} /></button>
       </div>
     )
   }

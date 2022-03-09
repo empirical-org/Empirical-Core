@@ -180,7 +180,7 @@ export default class AssignmentFlowNavigation extends React.Component<Assignment
         {this.renderLeavingModal()}
         <div className="assignment-flow-navigation-container">
           <div className="left">
-            <img alt="green Quill logo" onClick={this.toggleLeavingModal} src={quillLogoGreenSrc} />
+            <button className="interactive-wrapper focus-on-light" onClick={this.toggleLeavingModal} type="button"><img alt="green Quill logo" src={quillLogoGreenSrc} /></button>
             {this.renderLinks()}
           </div>
           <div className="right">

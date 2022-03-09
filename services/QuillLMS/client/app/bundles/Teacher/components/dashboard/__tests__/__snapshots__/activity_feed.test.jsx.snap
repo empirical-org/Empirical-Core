@@ -428,6 +428,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 <span
                   className="data-table-row-section undefined"
+                  onClick={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
@@ -534,6 +535,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 <span
                   className="data-table-row-section undefined"
+                  onClick={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
@@ -900,6 +902,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 <span
                   className="data-table-row-section undefined"
+                  onClick={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={

@@ -4,7 +4,6 @@ class Cms::ActivitySerializer < ActiveModel::Serializer
   attributes :uid, :id, :name, :description, :flags, :data, :created_at, :updated_at, :supporting_info, :activity_category, :readability_grade_level, :unit_template_names
 
   has_one :classification, serializer: ClassificationSerializer
-  has_one :standard
 
   def activity_category
     return unless object.id

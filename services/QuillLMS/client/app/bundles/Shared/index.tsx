@@ -90,7 +90,8 @@ export {
   renderPreviewFeedback,
   roundValuesToSeconds,
   roundMillisecondsToSeconds,
-  titleCase
+  titleCase,
+  onMobile
 } from './libs/index'
 
 export {

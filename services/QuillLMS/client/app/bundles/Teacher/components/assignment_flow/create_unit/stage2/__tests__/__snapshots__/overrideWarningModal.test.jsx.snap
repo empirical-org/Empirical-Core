@@ -42,6 +42,7 @@ exports[`OverrideWarningModal component should render 1`] = `
             >
               <span
                 className="undefined"
+                onClick={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
                 tabIndex={null}

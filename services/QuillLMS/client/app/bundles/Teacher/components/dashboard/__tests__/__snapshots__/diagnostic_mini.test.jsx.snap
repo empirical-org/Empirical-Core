@@ -434,6 +434,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               >
                 <span
                   className="data-table-row-section undefined"
+                  onClick={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
@@ -617,6 +618,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               >
                 <span
                   className="data-table-row-section undefined"
+                  onClick={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
@@ -729,6 +731,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               >
                 <span
                   className="data-table-row-section undefined"
+                  onClick={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
