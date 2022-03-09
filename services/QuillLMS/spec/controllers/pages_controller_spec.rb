@@ -34,6 +34,7 @@ describe PagesController do
     context 'when user is signed in' do
       before do
         allow(controller).to receive(:signed_in?) { true }
+        allow(controller).to receive(:current_user) { create(:user) }
       end
 
       it 'should redirect to profile path' do

@@ -28,9 +28,8 @@ class PagesController < ApplicationController
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def home_new
-    if signed_in?
-      redirect_to(profile_path) && return
-    end
+    redirect_to(locker_path) && return if current_user && signed_in? && staff?
+    redirect_to(profile_path) && return if current_user && signed_in?
 
     @title = 'Quill.org | Interactive Writing and Grammar'
     @description = 'Quill provides free writing and grammar activities for middle and high school students.'

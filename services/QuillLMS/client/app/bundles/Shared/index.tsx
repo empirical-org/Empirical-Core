@@ -89,7 +89,8 @@ export {
   getDisplayedText,
   renderPreviewFeedback,
   roundValuesToSeconds,
-  roundMillisecondsToSeconds
+  roundMillisecondsToSeconds,
+  titleCase
 } from './libs/index'
 
 export {
@@ -141,5 +142,16 @@ export {
   READ_PASSAGE_STEP_NUMBER,
   BECAUSE_PASSAGE_STEP_NUMBER,
   BUT_PASSAGE_STEP_NUMBER,
-  SO_PASSAGE_STEP_NUMBER
+  SO_PASSAGE_STEP_NUMBER,
+  EVIDENCE,
+  CONNECT,
+  DIAGNOSTIC,
+  GRAMMAR,
+  LESSONS,
+  PROOFREADER,
+  CURRICULUM,
+  PARTNERSHIPS,
+  PRODUCT,
+  SUPPORT,
+  TEAMS
 } from './utils/constants'
