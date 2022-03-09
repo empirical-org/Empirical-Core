@@ -10,11 +10,11 @@ module Evidence
       Check::Prefilter,
       Check::RegexSentence,
       Check::Opinion,
-      # Check::Plagiarism,
+      Check::Plagiarism,
       Check::AutoML,
       Check::RegexPostTopic,
       Check::Grammar,
-      Check::Spelling
+      Check::Spelling,
       Check::RegexTypo
     ]
 
