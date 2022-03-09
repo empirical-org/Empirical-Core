@@ -40,13 +40,13 @@ module DiagnosticReports
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  private def set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id=nil, hashify_activity_sessions: false)
+  def set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id=nil, hashify_activity_sessions: false)
     if unit_id
       classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
       @assigned_students = User.where(id: classroom_unit.assigned_student_ids).sort_by { |u| u.last_name }
       @activity_sessions = ActivitySession
         .includes(:concept_results, activity: {skills: :concepts})
-        .where(classroom_unit: classroom_unit, is_final_score: true, user_id: classroom_unit.assigned_student_ids)
+        .where(classroom_unit: classroom_unit, is_final_score: true, user_id: classroom_unit.assigned_student_ids, activity_id: activity_id)
     else
       classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
       assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
