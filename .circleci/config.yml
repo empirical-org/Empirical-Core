@@ -25,6 +25,7 @@ jobs:
           name: Bundle Install if cache isn't present.
           command: |
             cd services/QuillLMS
+            gem install bundler:2.2.33
             # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
             bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
             bundle check || bundle install --path vendor/bundle

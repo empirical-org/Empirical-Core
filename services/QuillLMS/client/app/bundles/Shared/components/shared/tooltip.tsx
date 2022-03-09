@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { onMobile } from '../..'
 
 interface TooltipProps {
   isTabbable?: boolean,
@@ -10,7 +11,7 @@ interface TooltipProps {
   tooltipTriggerStyle?: { [key:string]: any }
 }
 
-export class Tooltip extends React.Component<TooltipProps, {}> {
+export class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean, tooltipVisible: boolean }> {
   private timer: any // eslint-disable-line react/sort-comp
   private tooltip: any // eslint-disable-line react/sort-comp
   private tooltipTrigger: any // eslint-disable-line react/sort-comp
@@ -18,7 +19,9 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
   constructor(props) {
     super(props)
 
-    document.addEventListener('click', this.hideTooltipOnClick.bind(this));
+    document.addEventListener('click', this.handlePageClick.bind(this));
+
+    this.state = { clickedFromMobile: false, tooltipVisible: false }
 
     this.timer = null
 
@@ -27,19 +30,8 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
     this.hideTooltip = this.hideTooltip.bind(this)
   }
 
-
   componentWillUnmount() {
-    document.removeEventListener('click', this.hideTooltipOnClick, false)
-  }
-
-  hideTooltipOnClick(e) {
-    const { handleClick } = this.props;
-    if (this.tooltip && e.target !== this.tooltip && e.target !== this.tooltipTrigger) {
-      this.hideTooltip()
-    }
-    if(handleClick) {
-      handleClick(e);
-    }
+    document.removeEventListener('click', this.handlePageClick, false)
   }
 
   showTooltip() {
@@ -54,15 +46,49 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
   hideTooltip() {
     this.tooltip.classList.remove('visible')
     this.tooltip.innerHTML = ''
+    // we need to reset tooltipVisible to false in the case that the user has clicked once and the the tooltip is hidden after startTimer calls hideTooltip
+    this.setState({ tooltipVisible: false });
   }
 
   startTimer() {
     this.timer = setTimeout(this.hideTooltip, 1500)
   }
 
+  handlePageClick = (e) => {
+    const { tooltipTriggerTextClass, handleClick } = this.props
+    const clickedOutsideTooltip = this.tooltip && e.target !== this.tooltip && e.target !== this.tooltipTrigger && e.target.className !== tooltipTriggerTextClass
+    if (clickedOutsideTooltip) {
+      handleClick && handleClick(e)
+      this.hideTooltip()
+    } else {
+      this.handleTooltipClick(e)
+    }
+  }
+
+  handleTooltipClick = (e) => {
+    // https://stackoverflow.com/questions/57633984/react-stop-click-event-propagation-when-using-mixed-react-and-dom-events
+    // we want to prevent any of this logic being fired by any upper level tooltip elements that are attached to the DOM
+    if(e.nativeEvent) {
+      const { tooltipVisible } = this.state
+
+      if(!onMobile()) {
+        return () => false;
+      }
+      if(tooltipVisible) {
+        this.setState({ tooltipVisible: false })
+        this.hideTooltip()
+      } else {
+        this.setState({ tooltipVisible: true })
+        this.showTooltip()
+        this.startTimer()
+      }
+    }
+  }
+
   render() {
     const { tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, isTabbable } = this.props
     const tabIndex = isTabbable ? 0 : null;
+
     return (
       <span
         className="quill-tooltip-trigger"
@@ -71,6 +97,7 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
       >
         <span
           className={`${tooltipTriggerTextClass}`}
+          onClick={this.handleTooltipClick}
           onMouseEnter={this.showTooltip}
           onMouseLeave={this.startTimer}
           style={tooltipTriggerTextStyle}

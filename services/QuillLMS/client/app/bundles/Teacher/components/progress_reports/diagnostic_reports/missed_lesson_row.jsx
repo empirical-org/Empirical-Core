@@ -53,9 +53,11 @@ export default class MissedLessonRow extends React.Component {
     return (
       <tr className='not-completed-row' key={this.props.name}>
         <td>{this.props.name}</td>
-        <td colSpan='3' onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip} style={{position: 'relative'}}>
-        Missed Lesson
-          {this.tooltip()}
+        <td colSpan='3' style={{position: 'relative'}}>
+          <span onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip}>
+            Missed Lesson
+            {this.tooltip()}
+          </span>
         </td>
       </tr>
     )

@@ -74,7 +74,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     document.addEventListener('mousedown', this.handleClick, false)
   }
 
@@ -315,7 +315,8 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const { isReorderable, } = this.props
     if (!isReorderable) { return }
 
-    const DragHandle = SortableHandle(() => <img alt="Reorder icon" className="reorder-icon focus-on-light" src={reorderSrc} tabIndex={0} />);
+    // using a div as the outer element instead of a button here because something about default button behavior overrides the keypress handling by sortablehandle
+    const DragHandle = SortableHandle(() => <div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div>);
     return <span className='reorder-section data-table-row-section'><DragHandle /></span>
   }
 
