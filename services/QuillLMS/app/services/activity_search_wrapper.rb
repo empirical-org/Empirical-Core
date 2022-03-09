@@ -162,7 +162,7 @@ class ActivitySearchWrapper
       }
     when ActivityClassification::EVIDENCE_KEY
       h = {
-        alias: 'Quill Evidence',
+        alias: 'Quill Reading for Evidence',
         description: '',
         key: ActivityClassification::EVIDENCE_KEY
       }

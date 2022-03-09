@@ -7,126 +7,137 @@ exports[`AppLegend component should render 1`] = `
   <div
     className="icons"
   >
-    <a
-      className="icon focus-on-light"
-      href="undefined/tools/diagnostic"
-      rel="noopener noreferrer"
-      target="_blank"
+    <div
+      className="first-row"
     >
-      <div
-        className="icon-wrapper icon-diagnostic-embossed"
-      />
-      <div
-        className="icons-description-wrapper"
+      <a
+        className="icon focus-on-light"
+        href="undefined/tools/diagnostic"
+        rel="noopener noreferrer"
+        target="_blank"
       >
-        <p
-          className="title"
+        <div
+          className="icon-wrapper icon-diagnostic-embossed"
+        />
+        <div
+          className="icons-description-wrapper"
         >
-          Quill Diagnostic
-        </p>
-        <p
-          className="description"
+          <p
+            className="title"
+          >
+            Quill Diagnostic
+          </p>
+          <p
+            className="description"
+          >
+            Identify learning gaps
+          </p>
+        </div>
+      </a>
+      <a
+        className="icon focus-on-light"
+        href="undefined/tools/lessons"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <div
+          className="icon-wrapper icon-lessons-embossed"
+        />
+        <div
+          className="icons-description-wrapper"
         >
-          Identify learning gaps
-        </p>
-      </div>
-    </a>
-    <a
-      className="icon focus-on-light"
-      href="undefined/tools/lessons"
-      rel="noopener noreferrer"
-      target="_blank"
+          <p
+            className="title"
+          >
+            Quill Lessons
+          </p>
+          <p
+            className="description"
+          >
+            Shared group lessons
+          </p>
+        </div>
+      </a>
+      <a
+        className="icon focus-on-light"
+        href="undefined/tools/connect"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <div
+          className="icon-wrapper icon-connect-embossed"
+        />
+        <div
+          className="icons-description-wrapper"
+        >
+          <p
+            className="title"
+          >
+            Quill Connect
+          </p>
+          <p
+            className="description"
+          >
+            Combine sentences
+          </p>
+        </div>
+      </a>
+    </div>
+    <div
+      className="second-row"
     >
-      <div
-        className="icon-wrapper icon-lessons-embossed"
-      />
-      <div
-        className="icons-description-wrapper"
+      <a
+        className="icon focus-on-light"
+        href="undefined/tools/proofreader"
+        rel="noopener noreferrer"
+        target="_blank"
       >
-        <p
-          className="title"
+        <div
+          className="icon-wrapper icon-flag-embossed"
+        />
+        <div
+          className="icons-description-wrapper"
         >
-          Quill Lessons
-        </p>
-        <p
-          className="description"
-        >
-          Shared group lessons
-        </p>
-      </div>
-    </a>
-    <a
-      className="icon focus-on-light"
-      href="undefined/tools/connect"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <div
-        className="icon-wrapper icon-connect-embossed"
-      />
-      <div
-        className="icons-description-wrapper"
+          <p
+            className="title"
+          >
+            Quill Proofreader
+          </p>
+          <p
+            className="description"
+          >
+            Fix errors in passages
+          </p>
+        </div>
+      </a>
+      <a
+        className="icon focus-on-light"
+        href="undefined/tools/grammar"
+        rel="noopener noreferrer"
+        target="_blank"
       >
-        <p
-          className="title"
+        <div
+          className="icon-wrapper icon-puzzle-embossed"
+        />
+        <div
+          className="icons-description-wrapper"
         >
-          Quill Connect
-        </p>
-        <p
-          className="description"
-        >
-          Combine sentences
-        </p>
-      </div>
-    </a>
-    <a
-      className="icon focus-on-light"
-      href="undefined/tools/proofreader"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <div
-        className="icon-wrapper icon-flag-embossed"
+          <p
+            className="title"
+          >
+            Quill Grammar
+          </p>
+          <p
+            className="description"
+          >
+            Practice mechanics
+          </p>
+        </div>
+      </a>
+      <span
+        className="icon"
       />
-      <div
-        className="icons-description-wrapper"
-      >
-        <p
-          className="title"
-        >
-          Quill Proofreader
-        </p>
-        <p
-          className="description"
-        >
-          Fix errors in passages
-        </p>
-      </div>
-    </a>
-    <a
-      className="icon focus-on-light"
-      href="undefined/tools/grammar"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <div
-        className="icon-wrapper icon-puzzle-embossed"
-      />
-      <div
-        className="icons-description-wrapper"
-      >
-        <p
-          className="title"
-        >
-          Quill Grammar
-        </p>
-        <p
-          className="description"
-        >
-          Practice mechanics
-        </p>
-      </div>
-    </a>
+    </div>
   </div>
 </div>
 `;

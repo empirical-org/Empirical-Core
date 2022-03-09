@@ -33,7 +33,7 @@ exports[`StudentViewContainer component when the activity has loaded renders 1`]
           </a>
           <Tooltip
             isTabbable={true}
-            tooltipText="Quill Evidence is in beta, which means that it’s not perfect yet. As you complete activities, you may notice some issues—a button may not work or some feedback could be unhelpful. Please know that we’re actively working on Quill Evidence and making improvements every day."
+            tooltipText="Quill Reading for Evidence is in beta, which means that it’s not perfect yet. As you complete activities, you may notice some issues—a button may not work or some feedback could be unhelpful. Please know that we’re actively working on Quill Reading for Evidence and making improvements every day."
             tooltipTriggerText={
               <div>
                 <img
