@@ -15,8 +15,6 @@ import {
   activityFormKeys,
   TITLE,
   NOTES,
-  SCORED_READING_LEVEL,
-  TARGET_READING_LEVEL,
   PASSAGE,
   IMAGE_LINK,
   IMAGE_ALT_TEXT,
@@ -112,10 +110,6 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   function handleSetActivityTitle(e: InputEvent){ setActivityTitle(e.target.value) };
 
   function handleSetActivityNotes(e: InputEvent){ setActivityNotes(e.target.value) };
-
-  function handleSetActivityScoredReadingLevel(e: InputEvent){ setActivityScoredReadingLevel(e.target.value) };
-
-  function handleSetActivityTargetReadingLevel(e: InputEvent){ setActivityTargetReadingLevel(e.target.value) };
 
   function handleSetHighlightPrompt(e: InputEvent){ handleSetActivityPassages('highlight_prompt', e.target.value) };
 
@@ -221,17 +215,79 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
     )
   }
 
+  function getMaxAttemptsFeedbackComponent(conjunction: string, prompt: PromptInterface) {
+    return <MaxAttemptsEditor conjunction={conjunction} handleSetPrompt={handleSetPrompt} prompt={prompt}
+  />
+  }
+
   const passageComponent = (
-    <div className={showHighlights ? '' : 'hide-highlights'}>
+    <React.Fragment>
+      <p className={`text-editor-label ${passageLabelStyle}`}>
+        <span>Passage</span>
+        <button className="quill-button fun secondary outlined focus-on-light" onClick={toggleShowHighlights} type="button">{showHighlights ? 'Hide highlights' : 'Show highlights'}</button>
+      </p>
+      <div className={showHighlights ? '' : 'hide-highlights'}>
+        <TextEditor
+          ContentState={ContentState}
+          EditorState={EditorState}
+          handleTextChange={handleSetPassageText}
+          key="passage-description"
+          shouldCheckSpelling={true}
+          text={activityPassages[0].text}
+        />
+      </div>
+      {errors[PASSAGE] && <p className="error-message">{errors[PASSAGE]}</p>}
+    </React.Fragment>
+  );
+
+  const imageComponent = (
+    <React.Fragment>
+      <Input
+        className="image-link-input"
+        error={errors[IMAGE_LINK]}
+        handleChange={handleSetImageLink}
+        label="Image Link"
+        value={activityPassages[0].image_link}
+      />
+      <Input
+        className="image-alt-text-input"
+        error={errors[IMAGE_ALT_TEXT]}
+        handleChange={handleSetImageAltText}
+        label="Image Alt Text"
+        value={activityPassages[0].image_alt_text}
+      />
+      <Input
+        className="image-caption-text-input"
+        error={errors[IMAGE_CAPTION]}
+        handleChange={handleSetImageCaption}
+        label="Image Caption"
+        value={activityPassages[0].image_caption}
+      />
+      {errors[IMAGE_CAPTION] && <p className="error-message">{errors[IMAGE_CAPTION]}</p>}
+      <p className={`text-editor-label ${imageAttributionStyle}`} id="image-attribution-label"> Image Attribution</p>
+      <a className="data-link image-attribution-guide-link" href={imageAttributionGuideLink} rel="noopener noreferrer" target="_blank">Image Atributtion Guide</a>
+      <textarea
+        aria-labelledby="image-attribution-label"
+        className="image-attribution-text-area"
+        onChange={handleSetImageAttribution}
+        value={activityPassages[0].image_attribution}
+      />
+      {errors[IMAGE_ATTRIBUTION] && <p className="error-message">{errors[IMAGE_ATTRIBUTION]}</p>}
+    </React.Fragment>
+  );
+
+  const buildingEssentialKnowledgeComponent = (
+    <React.Fragment>
+      <p className={`text-editor-label ${essentialKnowledgeStyle}`}>Building Essential Knowledge Text</p>
       <TextEditor
         ContentState={ContentState}
         EditorState={EditorState}
-        handleTextChange={handleSetPassageText}
-        key="passage-description"
+        handleTextChange={handleSetPassageEssentialKnowledgeText}
+        key="essential-knowledge-text"
         shouldCheckSpelling={true}
-        text={activityPassages[0].text}
+        text={activityPassages[0].essential_knowledge_text}
       />
-    </div>
+    </React.Fragment>
   );
 
   return(
@@ -265,106 +321,33 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
       />
       {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
       <ToggleComponentSection label="Text" components={[passageComponent]} />
-      <form className="comprehension-activity-form">
-        <Input
-          className="scored-reading-level-input"
-          error={errors[SCORED_READING_LEVEL]}
-          handleChange={handleSetActivityScoredReadingLevel}
-          label="Scored Reading Level"
-          value={activityScoredReadingLevel}
-        />
-        <Input
-          className="target-reading-level-input"
-          error={errors[TARGET_READING_LEVEL]}
-          handleChange={handleSetActivityTargetReadingLevel}
-          label="Target Reading Level"
-          value={activityTargetReadingLevel}
-        />
-        <Input
-          className="image-link-input"
-          error={errors[IMAGE_LINK]}
-          handleChange={handleSetImageLink}
-          label="Image Link"
-          value={activityPassages[0].image_link}
-        />
-        <Input
-          className="image-alt-text-input"
-          error={errors[IMAGE_ALT_TEXT]}
-          handleChange={handleSetImageAltText}
-          label="Image Alt Text"
-          value={activityPassages[0].image_alt_text}
-        />
-        <Input
-          className="image-caption-text-input"
-          error={errors[IMAGE_CAPTION]}
-          handleChange={handleSetImageCaption}
-          label="Image Caption"
-          value={activityPassages[0].image_caption}
-        />
-        {errors[IMAGE_CAPTION] && <p className="error-message">{errors[IMAGE_CAPTION]}</p>}
-        <p className={`text-editor-label ${imageAttributionStyle}`} id="image-attribution-label"> Image Attribution</p>
-        <a className="data-link image-attribution-guide-link" href={imageAttributionGuideLink} rel="noopener noreferrer" target="_blank">Image Atributtion Guide</a>
-        <textarea
-          aria-labelledby="image-attribution-label"
-          className="image-attribution-text-area"
-          onChange={handleSetImageAttribution}
-          value={activityPassages[0].image_attribution}
-        />
-        {errors[IMAGE_ATTRIBUTION] && <p className="error-message">{errors[IMAGE_ATTRIBUTION]}</p>}
-        <p className={`text-editor-label ${passageLabelStyle}`}>
-          <span>Passage</span>
-          <button className="quill-button fun secondary outlined focus-on-light" onClick={toggleShowHighlights} type="button">{showHighlights ? 'Hide highlights' : 'Show highlights'}</button>
-        </p>
-        {/* <div className={showHighlights ? '' : 'hide-highlights'}>
-          <TextEditor
-            ContentState={ContentState}
-            EditorState={EditorState}
-            handleTextChange={handleSetPassageText}
-            key="passage-description"
-            shouldCheckSpelling={true}
-            text={activityPassages[0].text}
+      <ToggleComponentSection label="Image" components={[imageComponent]} />
+      <ToggleComponentSection
+        label="Highlighting Prompt"
+        components={[
+          <Input
+            className="highlight-prompt-input"
+            error={errors[HIGHLIGHT_PROMPT]}
+            handleChange={handleSetHighlightPrompt}
+            label={`Highlight Prompt: "${DEFAULT_HIGHLIGHT_PROMPT}..."`}
+            value={activityPassages[0].highlight_prompt || DEFAULT_HIGHLIGHT_PROMPT}
           />
-        </div> */}
-        {errors[PASSAGE] && <p className="error-message">{errors[PASSAGE]}</p>}
-        <MaxAttemptsEditor
-          conjunction={BECAUSE}
-          handleSetPrompt={handleSetPrompt}
-          prompt={activityBecausePrompt}
-        />
-        <MaxAttemptsEditor
-          conjunction={BUT}
-          handleSetPrompt={handleSetPrompt}
-          prompt={activityButPrompt}
-        />
-        <MaxAttemptsEditor
-          conjunction={SO}
-          handleSetPrompt={handleSetPrompt}
-          prompt={activitySoPrompt}
-        />
-        <Input
-          className="highlight-prompt-input"
-          error={errors[HIGHLIGHT_PROMPT]}
-          handleChange={handleSetHighlightPrompt}
-          label={`Highlight Prompt: "${DEFAULT_HIGHLIGHT_PROMPT}..."`}
-          value={activityPassages[0].highlight_prompt || DEFAULT_HIGHLIGHT_PROMPT}
-        />
-        <p className={`text-editor-label ${essentialKnowledgeStyle}`}>Building Essential Knowledge Text</p>
-        <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
-          handleTextChange={handleSetPassageEssentialKnowledgeText}
-          key="essential-knowledge-text"
-          shouldCheckSpelling={true}
-          text={activityPassages[0].essential_knowledge_text}
-        />
-        <PromptsForm
-          activityBecausePrompt={activityBecausePrompt}
-          activityButPrompt={activityButPrompt}
-          activitySoPrompt={activitySoPrompt}
-          errors={errors}
-          handleSetPrompt={handleSetPrompt}
-        />
-      </form>
+        ]}
+      />
+      <ToggleComponentSection label="Building Essential Knowledge" components={[buildingEssentialKnowledgeComponent]} />
+      <ToggleComponentSection label="Max Attempts Feedback" components={[getMaxAttemptsFeedbackComponent(BECAUSE, activityBecausePrompt), getMaxAttemptsFeedbackComponent(BUT, activityButPrompt), getMaxAttemptsFeedbackComponent(SO, activitySoPrompt)]} />
+      <ToggleComponentSection
+        label="Prompts"
+        components={[
+          <PromptsForm
+            activityBecausePrompt={activityBecausePrompt}
+            activityButPrompt={activityButPrompt}
+            activitySoPrompt={activitySoPrompt}
+            errors={errors}
+            handleSetPrompt={handleSetPrompt}
+          />
+        ]}
+      />
       {invalidHighlightsPresent && renderInvalidHighlightLinks(invalid_highlights)}
     </div>
   )
