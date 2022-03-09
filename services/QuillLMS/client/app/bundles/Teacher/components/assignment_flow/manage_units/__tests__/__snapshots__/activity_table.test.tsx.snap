@@ -4878,12 +4878,17 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         >
                           <sortableHandle>
                             <Component>
-                              <img
-                                alt="Reorder icon"
-                                className="reorder-icon focus-on-light"
-                                src="undefined/images/icons/reorder.svg"
+                              <div
+                                className="focus-on-light"
+                                role="button"
                                 tabIndex={0}
-                              />
+                              >
+                                <img
+                                  alt="Reorder icon"
+                                  className="reorder-icon"
+                                  src="undefined/images/icons/reorder.svg"
+                                />
+                              </div>
                             </Component>
                           </sortableHandle>
                         </span>
@@ -6669,12 +6674,17 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         >
                           <sortableHandle>
                             <Component>
-                              <img
-                                alt="Reorder icon"
-                                className="reorder-icon focus-on-light"
-                                src="undefined/images/icons/reorder.svg"
+                              <div
+                                className="focus-on-light"
+                                role="button"
                                 tabIndex={0}
-                              />
+                              >
+                                <img
+                                  alt="Reorder icon"
+                                  className="reorder-icon"
+                                  src="undefined/images/icons/reorder.svg"
+                                />
+                              </div>
                             </Component>
                           </sortableHandle>
                         </span>
@@ -8460,12 +8470,17 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         >
                           <sortableHandle>
                             <Component>
-                              <img
-                                alt="Reorder icon"
-                                className="reorder-icon focus-on-light"
-                                src="undefined/images/icons/reorder.svg"
+                              <div
+                                className="focus-on-light"
+                                role="button"
                                 tabIndex={0}
-                              />
+                              >
+                                <img
+                                  alt="Reorder icon"
+                                  className="reorder-icon"
+                                  src="undefined/images/icons/reorder.svg"
+                                />
+                              </div>
                             </Component>
                           </sortableHandle>
                         </span>
@@ -10251,12 +10266,17 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         >
                           <sortableHandle>
                             <Component>
-                              <img
-                                alt="Reorder icon"
-                                className="reorder-icon focus-on-light"
-                                src="undefined/images/icons/reorder.svg"
+                              <div
+                                className="focus-on-light"
+                                role="button"
                                 tabIndex={0}
-                              />
+                              >
+                                <img
+                                  alt="Reorder icon"
+                                  className="reorder-icon"
+                                  src="undefined/images/icons/reorder.svg"
+                                />
+                              </div>
                             </Component>
                           </sortableHandle>
                         </span>
@@ -12042,12 +12062,17 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         >
                           <sortableHandle>
                             <Component>
-                              <img
-                                alt="Reorder icon"
-                                className="reorder-icon focus-on-light"
-                                src="undefined/images/icons/reorder.svg"
+                              <div
+                                className="focus-on-light"
+                                role="button"
                                 tabIndex={0}
-                              />
+                              >
+                                <img
+                                  alt="Reorder icon"
+                                  className="reorder-icon"
+                                  src="undefined/images/icons/reorder.svg"
+                                />
+                              </div>
                             </Component>
                           </sortableHandle>
                         </span>

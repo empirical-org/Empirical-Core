@@ -8,13 +8,13 @@ export default function SchoolPremiumModal({ hideModal, purchaseSchoolPremium, s
     <div className="school-premium-modal">
       <div className="modal-background" />
       <div className="modal-content">
-        <img alt="close-modal" className="pull-right modal-button-close" onClick={hideModal} src={`${process.env.CDN_URL}/images/icons/CloseIcon.svg`} />
+        <button className="interactive-wrapper focus-on-light close-modal-button" onClick={hideModal} type="button"><img alt="close-modal" src={`${process.env.CDN_URL}/images/shared/close_x.svg`} /></button>
         <div className="pricing-info text-center">
           <div className="current-year">
             <h1>Quill School Premium</h1>
             <span>$900 for one-year subscription</span>
           </div>
-          <span>Next Year's Rate is $1800</span>
+          <span>Next Year’s Rate is $1800</span>
         </div>
         <div className="cta-section">
           <h3>How would you like to renew your School’s <br />Premium subscription?</h3>

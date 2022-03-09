@@ -31,9 +31,9 @@ class Static extends Component<StaticProps, StaticState> {
           <h1>
             <span>Slide {this.props.data.current_slide}:</span> {this.props.editionData.questions[this.props.data.current_slide].data.teach.title}
           </h1>
-          <p onClick={this.props.toggleOnlyShowHeaders}>
+          <button className="interactive-wrapper focus-on-light" onClick={this.props.toggleOnlyShowHeaders} type="button">
             {showHeaderText}
-          </p>
+          </button>
         </div>
         <ul>
           <ScriptComponent

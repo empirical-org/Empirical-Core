@@ -7,10 +7,10 @@ export default class DropdownFilterOption extends React.Component {
 
   render() {
     return (
-      <li onClick={this.clickOption}>
-        <span className="filter_option">
+      <li>
+        <button className="filter_option interactive-wrapper focus-on-light" onClick={this.clickOption} type="button">
           {this.props.name}
-        </span>
+        </button>
       </li>
     );
   }

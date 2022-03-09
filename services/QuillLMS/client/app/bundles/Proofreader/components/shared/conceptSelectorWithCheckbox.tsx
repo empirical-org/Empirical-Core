@@ -23,7 +23,7 @@ const ConceptSelectorWithCheckbox = (props: ConceptSelectorWithCheckboxProps) =>
       <h3><input checked={props.checked} onClick={props.onCheckboxChange} type="checkbox" /> Correct?</h3>
     </label>
 
-    <p onClick={props.deleteConceptResult} style={{paddingLeft: '10px', paddingTop: '6px', cursor: 'pointer'}}>X</p>
+    <button className="interactive-wrapper focus-on-light" onClick={props.deleteConceptResult} style={{paddingLeft: '10px', paddingTop: '6px', cursor: 'pointer'}} type="button">X</button>
   </div>
 )
 

@@ -35,7 +35,7 @@ export default class StepHtml extends React.Component<StepHtmlProps, StepHtmlSta
 
   header() {
     if (this.props.item.data && this.props.item.data.heading) {
-      return <p className="script-item-heading" onClick={this.toggleHideBody}>{this.props.item.data.heading}</p>
+      return <button className="script-item-heading interactive-wrapper focus-on-light" onClick={this.toggleHideBody} type="button">{this.props.item.data.heading}</button>
     }
   }
 

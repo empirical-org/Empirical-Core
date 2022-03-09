@@ -36,7 +36,7 @@ const UnitTemplateActivityDataRow = ({activity, handleAdd, handleRemove, type}) 
   return (
     <span>
       <tr className="ut-activity-row">
-        <td onClick={handleAddRemove}>{type === UNSELECTED_TYPE ? <span className="ut-add-activity">+</span> : <span className="ut-remove-activity">-</span>}</td>
+        <td><button className="interactive-wrapper focus-on-light" onClick={handleAddRemove} type="button">{type === UNSELECTED_TYPE ? <span className="ut-add-activity">+</span> : <span className="ut-remove-activity">-</span>}</button></td>
         {expandOrCollapseButton()}
         <td className="ut-activity-name-col">{activity.name}</td>
         <td className="ut-activity-flag-col">{activity.data && activity.data["flag"]}</td>

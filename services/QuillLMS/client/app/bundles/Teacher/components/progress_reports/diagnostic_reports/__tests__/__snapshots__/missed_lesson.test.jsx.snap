@@ -10,49 +10,52 @@ exports[`ClassReport component matches the snapshot 1`] = `
   </td>
   <td
     colSpan="3"
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
     style={
       Object {
         "position": "relative",
       }
     }
   >
-    Missed Lesson
-    <div
-      style={
-        Object {
-          "alignItems": "center",
-          "background": "#348fdf",
-          "borderRadius": "3px",
-          "bottom": "-34px",
-          "color": "white",
-          "display": "none",
-          "fontSize": "12px",
-          "justifyContent": "center",
-          "left": "11px",
-          "lineHeight": "normal",
-          "padding": "3px 0px 5px",
-          "position": "absolute",
-          "width": "205px",
-          "zIndex": 100,
-        }
-      }
+    <span
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
     >
-      <i
-        className="fas fa-caret-up"
+      Missed Lesson
+      <div
         style={
           Object {
-            "bottom": "22px",
-            "color": "#348fdf",
-            "fontSize": "16px",
-            "left": "10px",
-            "position": "relative",
+            "alignItems": "center",
+            "background": "#348fdf",
+            "borderRadius": "3px",
+            "bottom": "-34px",
+            "color": "white",
+            "display": "none",
+            "fontSize": "12px",
+            "justifyContent": "center",
+            "left": "11px",
+            "lineHeight": "normal",
+            "padding": "3px 0px 5px",
+            "position": "absolute",
+            "width": "205px",
+            "zIndex": 100,
           }
         }
-      />
-      You can reassign this lesson to the students who missed it.
-    </div>
+      >
+        <i
+          className="fas fa-caret-up"
+          style={
+            Object {
+              "bottom": "22px",
+              "color": "#348fdf",
+              "fontSize": "16px",
+              "left": "10px",
+              "position": "relative",
+            }
+          }
+        />
+        You can reassign this lesson to the students who missed it.
+      </div>
+    </span>
   </td>
 </tr>
 `;
