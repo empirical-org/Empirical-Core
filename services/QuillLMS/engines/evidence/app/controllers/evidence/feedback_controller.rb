@@ -4,7 +4,44 @@ module Evidence
   require 'json'
 
   class FeedbackController < ApiController
-    before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling]
+    before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling, :create]
+
+    CHECKS = [
+      # Check::Prefilter,
+      # Check::RegexSentence,
+      # Check::Opinion,
+      # Check::Plagiarism,
+      # Check::AutoML,
+      # Check::RegexPostTopic,
+      Check::Grammar
+      # Check::Spelling,
+      # Check::RegexType
+    ]
+
+    def create
+      autoML_feedback = nil
+      nonoptimal_feedback = nil
+
+      CHECKS.each do |check|
+        feedback = check.run(@entry, @prompt, @previous_feedback)
+
+        next unless feedback.success?
+
+        autoML_feedback = feedback if feedback.autoML?
+
+        next if feedback.optimal?
+
+        nonoptimal_feedback = feedback
+
+        break
+      end
+
+      feedback = nonoptimal_feedback || autoML_feedback
+
+      # TODO store feedback history
+
+      render json: feedback&.response || {}
+    end
 
     def grammar
       grammar_client = Grammar::Client.new(entry: params['entry'], prompt_text: params['prompt_text'])

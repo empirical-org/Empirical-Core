@@ -23,6 +23,63 @@ module Evidence
     let!(:first_feedback) { create(:evidence_feedback, :text => "here is our first feedback", :rule => (rule), :order => 0) }
     let!(:second_feedback) { create(:evidence_feedback, :text => "here is our second feedback", :rule => (rule), :order => 1) }
 
+    describe '#create' do
+      context "grammar rule test" do
+        let(:example_error) { 'example_error' }
+        let(:example_rule_uid) { 123 }
+        let(:incoming_payload) do
+          {
+            'entry' => 'eat junk food at home.',
+            'prompt_id' => prompt.id
+          }
+        end
+
+        let(:client_response) do
+          {
+            'gapi_error' => example_error,
+            'highlight' => [{
+              'type': 'response',
+              'text': 'someText',
+              'character': 0
+            }]
+          }
+        end
+
+        let!(:grammar_rule) do
+          create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz')
+        end
+
+        let!(:grammar_hint) { create(:evidence_hint, rule: grammar_rule) }
+
+        before do
+          allow(Grammar::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
+            { example_error => example_rule_uid }
+          )
+          allow_any_instance_of(Grammar::Client).to receive(:post).and_return(client_response)
+        end
+
+        it 'should return a valid json response' do
+          stub_const("Evidence::FeedbackController::CHECKS", [Check::Grammar])
+          post :create, params: incoming_payload, as: :json
+
+          expect(JSON.parse(response.body)).to eq({
+            'concept_uid' => 'xyz',
+            'feedback' => nil,
+            'feedback_type' => 'grammar',
+            'optimal' => false,
+            'response_id' => '0',
+            'highlight' => [
+              { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
+            ],
+            'hint' => { 'id' => grammar_hint.id, 'explanation' => grammar_hint.explanation, 'image_link' => grammar_hint.image_link, 'image_alt_text' => grammar_hint.image_alt_text, 'rule_id' => grammar_hint.rule_id },
+            'labels' => '',
+            'rule_uid' => example_rule_uid.to_s
+          })
+        end
+
+      end
+    end
+
     describe '#grammar' do
       let(:example_error) { 'example_error' }
       let(:example_rule_uid) { 123 }
