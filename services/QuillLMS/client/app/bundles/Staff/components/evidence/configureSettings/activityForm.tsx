@@ -29,7 +29,7 @@ import {
   ESSENTIAL_KNOWLEDGE_TEXT_FILLER
 } from '../../../../../constants/evidence';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent, ClickEvent,  TextAreaEvent } from '../../../interfaces/evidenceInterfaces';
-import { DataTable, Input, TextEditor, DropdownInput } from '../../../../Shared/index'
+import { DataTable, Input, TextEditor, DropdownInput, ToggleComponentSection } from '../../../../Shared/index'
 import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../../Shared/utils/constants'
 
 interface ActivityFormProps {
@@ -221,6 +221,19 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
     )
   }
 
+  const passageComponent = (
+    <div className={showHighlights ? '' : 'hide-highlights'}>
+      <TextEditor
+        ContentState={ContentState}
+        EditorState={EditorState}
+        handleTextChange={handleSetPassageText}
+        key="passage-description"
+        shouldCheckSpelling={true}
+        text={activityPassages[0].text}
+      />
+    </div>
+  );
+
   return(
     <div className="activity-form-container">
       <Input
@@ -251,6 +264,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
         value={flagOptions.find(opt => opt.value === activityFlag)}
       />
       {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
+      <ToggleComponentSection label="Text" components={[passageComponent]} />
       <form className="comprehension-activity-form">
         <Input
           className="scored-reading-level-input"
@@ -301,7 +315,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
           <span>Passage</span>
           <button className="quill-button fun secondary outlined focus-on-light" onClick={toggleShowHighlights} type="button">{showHighlights ? 'Hide highlights' : 'Show highlights'}</button>
         </p>
-        <div className={showHighlights ? '' : 'hide-highlights'}>
+        {/* <div className={showHighlights ? '' : 'hide-highlights'}>
           <TextEditor
             ContentState={ContentState}
             EditorState={EditorState}
@@ -310,7 +324,7 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
             shouldCheckSpelling={true}
             text={activityPassages[0].text}
           />
-        </div>
+        </div> */}
         {errors[PASSAGE] && <p className="error-message">{errors[PASSAGE]}</p>}
         <MaxAttemptsEditor
           conjunction={BECAUSE}

@@ -1,0 +1,13 @@
+.expand-component-section-button {
+  display: flex;
+  align-items: center;
+  p {
+    font-size: 16px;
+    margin: 0px 0px 0px 8px;
+  }
+  &.open {
+    .expand-arrow {
+      transform: rotate(180deg);
+    }
+  }
+}
