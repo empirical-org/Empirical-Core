@@ -11,6 +11,7 @@ exports[`Container component should render 1`] = `
         "getState": [Function],
         "isActionDispatched": [Function],
         "isActionTypeDispatched": [Function],
+        "replaceReducer": [Function],
         "subscribe": [Function],
       },
       "subscription": Object {

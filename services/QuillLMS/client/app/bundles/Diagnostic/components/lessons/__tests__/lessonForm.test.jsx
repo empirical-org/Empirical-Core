@@ -218,9 +218,10 @@ describe('LessonForm component', () => {
   it('renderSearchBox renders a QuestionSelector component with question options', () => {
     const names = ['How much cheese is too much cheese?', 'What is the best way to cultivate mass?', 'Do jobs grow on jobbies?'];
     const handleSearchChange = container.instance().handleSearchChange;
-    const questionSelector = container.find('OnClickOutside(SelectSearch)');
+    const questionSelector = container.find('#all-questions');
     const getQuestionName = i => questionSelector.props().options[i].name;
     container.instance().renderSearchBox();
+    expect(container).toMatchSnapshot()
     expect(questionSelector.length).toEqual(1);
     expect(questionSelector.props().onChange).toEqual(handleSearchChange);
     expect(getQuestionName(0)).toEqual(names[0]);

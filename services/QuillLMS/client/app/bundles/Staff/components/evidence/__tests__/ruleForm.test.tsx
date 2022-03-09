@@ -4,11 +4,11 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 
 import { mockRule } from '../__mocks__/data';
 import RuleForm from '../configureRules/ruleForm';
-import RuleGenericAttributes from '../configureRules/ruleGenericAttributes';
-import RuleRegexAttributes from '../configureRules/ruleRegexAttributes';
-import RulePrompts from '../configureRules/rulePrompts';
 
 jest.mock('../../../helpers/evidence/ruleHelpers', () => ({
+  // ...jest.requireActual('../../../helpers/evidence/ruleHelpers'),
+  handleSetRuleNote: jest.fn().mockImplementation((text: string, setRuleNote) => { setRuleNote(text) }),
+  handleSetFeedback: jest.fn().mockImplementation(() => {}),
   getInitialRuleType: jest.fn().mockImplementation(() => {
     return { value: 'rules-based-1', label: 'Sentence Structure Regex' }
   }),
@@ -20,12 +20,27 @@ jest.mock('../../../helpers/evidence/ruleHelpers', () => ({
       text: 'Revise your work. Delete the phrase "it contains methane" because it repeats the first part of the sentence',
       highlights_attributes: []
     }];
+  }),
+  renderHighlights: jest.fn().mockImplementation(() => {
+    return []
+  }),
+  formatRegexRules: jest.fn().mockImplementation(({ rule, setRegexRules }) => {
+    let formatted = {};
+    setRegexRules(formatted);
   })
 }));
 jest.mock('../../../helpers/evidence/renderHelpers', () => ({
   renderErrorsContainer: jest.fn().mockImplementation(() => {
     return <strong>error!</strong>
-  })
+  }),
+  renderIDorUID: (idOrRuleId: string | number, type: string) => {
+    return(
+      <section className="label-status-container">
+        <p id="label-status-label">{type}</p>
+        <p id="label-status">{idOrRuleId}</p>
+      </section>
+    );
+  }
 }));
 
 const queryClient = new QueryClient()
@@ -54,25 +69,5 @@ describe('RuleForm component', () => {
 
   it('should render RuleForm', () => {
     expect(container).toMatchSnapshot();
-  });
-
-  it('should render a RuleGenericAttributes component and other expected components', () => {
-    expect(container.find(RuleGenericAttributes).length).toEqual(1);
-    expect(container.find(RuleRegexAttributes).length).toEqual(1);
-    expect(container.find(RulePrompts).length).toEqual(1);
-  });
-  it('clicking the "x" button or "close" button should call closeModal prop', () => {
-    container.find('#activity-close-button').simulate('click');
-    container.find('#activity-cancel-button').simulate('click');
-    expect(mockProps.closeModal).toHaveBeenCalledTimes(2);
-  });
-  it('displays request errors if prop is present', () => {
-    mockProps.requestErrors = ['feedback.text: text is too short'];
-    container = shallow(
-      <QueryClientProvider client={queryClient} contextSharing={true}>
-        <RuleForm {...mockProps} />
-      </QueryClientProvider>
-    );
-    expect(container.find('strong').length).toEqual(1);
   });
 });
