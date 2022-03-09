@@ -62,6 +62,44 @@ module Evidence
         end
       end
 
+      context 'regex1 test' do
+        it 'should return successfully when there is regex1 feedback' do
+          stub_const("Evidence::FeedbackController::CHECKS", [Check::RegexSentence])
+          post :create, params: {entry: "test regex response", prompt_id: prompt.id, session_id: 1, previous_feedback: ([]) }, as: :json
+
+          parsed_response = JSON.parse(response.body)
+          expect(parsed_response["optimal"]).to be false
+        end
+      end
+
+      context 'regex2 test' do
+        let!(:rule_regex2) { create(:evidence_regex_rule, :regex_text => "^test", :rule => (rule2)) }
+        let!(:rule2) { create(:evidence_rule, :rule_type => "rules-based-2") }
+        let!(:prompts_rule_2) { create(:evidence_prompts_rule, :rule => (rule2), :prompt => (prompt)) }
+
+        it 'should return successfully when there is regex2 feedback' do
+          stub_const("Evidence::FeedbackController::CHECKS", [Check::RegexPostTopic])
+          post :create, params: {entry: "test regex response", prompt_id: prompt.id, session_id: 1, previous_feedback: ([]) }, as: :json
+
+          parsed_response = JSON.parse(response.body)
+          expect(parsed_response["optimal"]).to be false
+        end
+      end
+
+      context 'regex3 test' do
+        let!(:rule_regex3) { create(:evidence_regex_rule, :regex_text => "^test", :rule => (rule3)) }
+        let!(:rule3) { create(:evidence_rule, :rule_type => "rules-based-3") }
+        let!(:prompts_rule_3) { create(:evidence_prompts_rule, :rule => (rule3), :prompt => (prompt)) }
+
+        it 'should return successfully when there is regex3 feedback' do
+          stub_const("Evidence::FeedbackController::CHECKS", [Check::RegexTypo])
+          post :create, params: {entry: "test regex response", prompt_id: prompt.id, session_id: 1, previous_feedback: ([]) }, as: :json
+
+          parsed_response = JSON.parse(response.body)
+          expect(parsed_response["optimal"]).to be false
+        end
+      end
+
       context 'prefilter test' do
         let!(:profanity_rule) do
           create(:evidence_rule, rule_type: 'prefilter', uid: 'fdee458a-f017-4f9a-a7d4-a72d1143abeb')

@@ -8,14 +8,14 @@ module Evidence
 
     CHECKS = [
       Check::Prefilter,
-      # Check::RegexSentence,
+      Check::RegexSentence,
       Check::Opinion,
       # Check::Plagiarism,
       Check::AutoML,
-      # Check::RegexPostTopic,
+      Check::RegexPostTopic,
       Check::Grammar,
       Check::Spelling
-      # Check::RegexType
+      Check::RegexTypo
     ]
 
     def create
