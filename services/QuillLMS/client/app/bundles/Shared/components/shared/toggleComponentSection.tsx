@@ -19,6 +19,7 @@ export const ToggleComponentSection = ({ label, components }) => {
       </React.Fragment>
     )
   }
+
   const expandedStyle = isExpanded ? 'open' : '';
   return(
     <React.Fragment>

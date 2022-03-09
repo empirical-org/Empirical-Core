@@ -168,6 +168,22 @@ export const ruleOrder = {
   'Spelling': 6
 }
 
+export const RULE_TYPE_TO_ROUTE_PART = {
+  autoML: 'semantic-labels',
+  plagiarism: 'plagiarism-rules',
+  'rules-based-1': 'regex-rules',
+  'rules-based-2': 'regex-rules',
+  'rules-based-3': 'regex-rules'
+}
+
+export const RULE_TYPE_TO_NAME = {
+  autoML: 'Semantic',
+  plagiarism: 'Plagiarism',
+  'rules-based-1': 'Sentence Structure Regex',
+  'rules-based-2': 'Post-topic Regex',
+  'rules-based-3': 'Typo Regex'
+}
+
 export const PROMPT_ATTEMPTS_FEEDBACK_LABELS = {
   "1": {
     attemptLabel: '1st Attempt',
@@ -283,8 +299,6 @@ export const activityFormKeys = [
   FLAG,
   TITLE,
   NOTES,
-  SCORED_READING_LEVEL,
-  TARGET_READING_LEVEL,
   PASSAGE,
   BECAUSE_STEM,
   BUT_STEM,

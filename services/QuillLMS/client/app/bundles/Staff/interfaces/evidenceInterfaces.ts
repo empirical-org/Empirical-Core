@@ -21,7 +21,7 @@ export interface ActivityInterface {
   prompts?: PromptInterface[],
   passage_attributes?: PassagesInterface[],
   prompt_attributes?: PromptInterface[],
-  invalid_highlights: InvalidHighlight[]
+  invalid_highlights?: InvalidHighlight[]
 }
 
 export interface PromptInterface {

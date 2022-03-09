@@ -4,35 +4,19 @@ import { EditorState, ContentState } from 'draft-js';
 import * as _ from 'lodash'
 
 import PromptsForm from './promptsForm';
+import UpperFormSection from './upperFormSection';
+import MaxAttemptsEditor from "./maxAttemptsEditor";
+import ImageSection from "./imageSection";
 
 import { validateForm, buildActivity } from '../../../helpers/evidence/miscHelpers';
-import { renderErrorsContainer, renderIDorUID } from '../../../helpers/evidence/renderHelpers';
 import { getActivityPrompt, promptsByConjunction, buildBlankPrompt, getActivityPromptSetter } from '../../../helpers/evidence/promptHelpers';
-import {
-  BECAUSE,
-  BUT,
-  SO,
-  activityFormKeys,
-  TITLE,
-  NOTES,
-  PASSAGE,
-  IMAGE_LINK,
-  IMAGE_ALT_TEXT,
-  IMAGE_ATTRIBUTION,
-  IMAGE_CAPTION,
-  PARENT_ACTIVITY_ID,
-  HIGHLIGHT_PROMPT,
-  flagOptions,
-  MAX_ATTEMPTS_FEEDBACK_TEXT,
-  ESSENTIAL_KNOWLEDGE_TEXT_FILLER
-} from '../../../../../constants/evidence';
+import { BECAUSE,BUT, SO, activityFormKeys, PASSAGE, HIGHLIGHT_PROMPT, ESSENTIAL_KNOWLEDGE_TEXT_FILLER, RULE_TYPE_TO_ROUTE_PART, RULE_TYPE_TO_NAME } from '../../../../../constants/evidence';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent, ClickEvent,  TextAreaEvent } from '../../../interfaces/evidenceInterfaces';
-import { DataTable, Input, TextEditor, DropdownInput, ToggleComponentSection } from '../../../../Shared/index'
-import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../../Shared/utils/constants'
+import { DataTable, Input, TextEditor, ToggleComponentSection } from '../../../../Shared/index'
+import { DEFAULT_HIGHLIGHT_PROMPT } from '../../../../Shared/utils/constants'
 
 interface ActivityFormProps {
   activity: ActivityInterface,
-  handleClickArchiveActivity: (any) => void,
   requestErrors: string[],
   submitActivity: (activity: object) => void
 }
@@ -43,48 +27,8 @@ interface InvalidHighlightProps {
   prompt_id: number
 }
 
-const RULE_TYPE_TO_ROUTE_PART = {
-  autoML: 'semantic-labels',
-  plagiarism: 'plagiarism-rules',
-  'rules-based-1': 'regex-rules',
-  'rules-based-2': 'regex-rules',
-  'rules-based-3': 'regex-rules'
-}
-
-const RULE_TYPE_TO_NAME = {
-  autoML: 'Semantic',
-  plagiarism: 'Plagiarism',
-  'rules-based-1': 'Sentence Structure Regex',
-  'rules-based-2': 'Post-topic Regex',
-  'rules-based-3': 'Typo Regex'
-}
-
-const MaxAttemptsEditor = ({ conjunction, prompt, handleSetPrompt, }) => {
-  function handleSetActivityMaxFeedback(text) {
-    handleSetPrompt(text, conjunction, 'max_attempts_feedback')
-  }
-
-  const maxAttemptStyle = prompt.max_attempts_feedback.length && prompt.max_attempts_feedback !== '<br/>' ? 'has-text' : '';
-
-  return (
-    <div>
-      <p className={`text-editor-label ${maxAttemptStyle}`}>{_.capitalize(conjunction)} - Max Attempts Feedback - Student Did Not Reach Optimal AutoML Label</p>
-      <TextEditor
-        ContentState={ContentState}
-        EditorState={EditorState}
-        handleTextChange={handleSetActivityMaxFeedback}
-        key="but-max-attempt-feedback"
-        shouldCheckSpelling={true}
-        text={prompt.max_attempts_feedback || MAX_ATTEMPTS_FEEDBACK_TEXT}
-      />
-    </div>
-  )
-}
-
-const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, submitActivity }: ActivityFormProps) => {
-  const { id, parent_activity_id, invalid_highlights, passages, prompts, scored_level, target_level, title, notes, flag, } = activity;
-  const formattedScoredLevel = scored_level || '';
-  const formattedTargetLevel = target_level ? target_level.toString() : '';
+const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormProps) => {
+  const { id, parent_activity_id, invalid_highlights, passages, prompts, title, notes, flag, } = activity;
   const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT, essential_knowledge_text: ESSENTIAL_KNOWLEDGE_TEXT_FILLER }];
   const formattedPrompts = promptsByConjunction(prompts);
   const becausePrompt = formattedPrompts && formattedPrompts[BECAUSE] ? formattedPrompts[BECAUSE] : buildBlankPrompt(BECAUSE);
@@ -94,8 +38,6 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   const [activityTitle, setActivityTitle] = React.useState<string>(title || '');
   const [activityNotes, setActivityNotes] = React.useState<string>(notes || '');
   const [activityFlag, setActivityFlag] = React.useState<string>(flag || 'alpha');
-  const [activityScoredReadingLevel, setActivityScoredReadingLevel] = React.useState<string>(formattedScoredLevel);
-  const [activityTargetReadingLevel, setActivityTargetReadingLevel] = React.useState<string>(formattedTargetLevel);
   const [activityPassages, setActivityPassages] = React.useState<PassagesInterface[]>(formattedPassage);
   const [activityBecausePrompt, setActivityBecausePrompt] = React.useState<PromptInterface>(becausePrompt);
   const [activityButPrompt, setActivityButPrompt] = React.useState<PromptInterface>(butPrompt);
@@ -104,25 +46,15 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
   const [showHighlights, setShowHighlights] = React.useState(true)
 
   function toggleShowHighlights(e: ClickEvent) { setShowHighlights(!showHighlights)}
-
   function handleSetActivityFlag(option: { value: string, label: string }) { setActivityFlag(option.value) };
-
   function handleSetActivityTitle(e: InputEvent){ setActivityTitle(e.target.value) };
-
   function handleSetActivityNotes(e: InputEvent){ setActivityNotes(e.target.value) };
-
   function handleSetHighlightPrompt(e: InputEvent){ handleSetActivityPassages('highlight_prompt', e.target.value) };
-
   function handleSetImageLink(e: InputEvent){ handleSetActivityPassages('image_link', e.target.value) };
-
   function handleSetImageAltText(e: InputEvent){ handleSetActivityPassages('image_alt_text', e.target.value) };
-
   function handleSetPassageText(text: string) { handleSetActivityPassages('text', text)}
-
   function handleSetPassageEssentialKnowledgeText(text: string) { handleSetActivityPassages('essential_knowledge_text', text)}
-
   function handleSetImageAttribution(e: TextAreaEvent) { handleSetActivityPassages('image_attribution', e.target.value)}
-
   function handleSetImageCaption(e: InputEvent) { handleSetActivityPassages('image_caption', e.target.value)}
 
   function handleSetActivityPassages(key, value){
@@ -145,8 +77,6 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
       activityFlag,
       activityNotes,
       activityTitle,
-      activityScoredReadingLevel,
-      activityTargetReadingLevel,
       activityParentActivityId: parent_activity_id,
       activityPassages,
       activityBecausePrompt,
@@ -158,8 +88,6 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
       activityFlag,
       activityTitle,
       activityNotes,
-      activityScoredReadingLevel,
-      activityTargetReadingLevel,
       activityPassages[0].text,
       activityBecausePrompt.text,
       activityButPrompt.text,
@@ -240,42 +168,6 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
     </React.Fragment>
   );
 
-  const imageComponent = (
-    <React.Fragment>
-      <Input
-        className="image-link-input"
-        error={errors[IMAGE_LINK]}
-        handleChange={handleSetImageLink}
-        label="Image Link"
-        value={activityPassages[0].image_link}
-      />
-      <Input
-        className="image-alt-text-input"
-        error={errors[IMAGE_ALT_TEXT]}
-        handleChange={handleSetImageAltText}
-        label="Image Alt Text"
-        value={activityPassages[0].image_alt_text}
-      />
-      <Input
-        className="image-caption-text-input"
-        error={errors[IMAGE_CAPTION]}
-        handleChange={handleSetImageCaption}
-        label="Image Caption"
-        value={activityPassages[0].image_caption}
-      />
-      {errors[IMAGE_CAPTION] && <p className="error-message">{errors[IMAGE_CAPTION]}</p>}
-      <p className={`text-editor-label ${imageAttributionStyle}`} id="image-attribution-label"> Image Attribution</p>
-      <a className="data-link image-attribution-guide-link" href={imageAttributionGuideLink} rel="noopener noreferrer" target="_blank">Image Atributtion Guide</a>
-      <textarea
-        aria-labelledby="image-attribution-label"
-        className="image-attribution-text-area"
-        onChange={handleSetImageAttribution}
-        value={activityPassages[0].image_attribution}
-      />
-      {errors[IMAGE_ATTRIBUTION] && <p className="error-message">{errors[IMAGE_ATTRIBUTION]}</p>}
-    </React.Fragment>
-  );
-
   const buildingEssentialKnowledgeComponent = (
     <React.Fragment>
       <p className={`text-editor-label ${essentialKnowledgeStyle}`}>Building Essential Knowledge Text</p>
@@ -292,36 +184,37 @@ const ActivityForm = ({ activity, handleClickArchiveActivity, requestErrors, sub
 
   return(
     <div className="activity-form-container">
-      <Input
-          className="title-input"
-          error={errors[TITLE]}
-          handleChange={handleSetActivityTitle}
-          label="Activity Name"
-          value={activityTitle}
-        />
-      <Input
-        className="name-input"
-        error={errors[NOTES]}
-        handleChange={handleSetActivityNotes}
-        label="Internal Name"
-        value={activityNotes}
+      <UpperFormSection
+        activity={activity}
+        activityTitle={activityTitle}
+        activityNotes={activityNotes}
+        activityFlag={activityFlag}
+        errors={errors}
+        formErrorsPresent={formErrorsPresent}
+        handleSetActivityFlag={handleSetActivityFlag}
+        handleSetActivityNotes={handleSetActivityNotes}
+        handleSetActivityTitle={handleSetActivityTitle}
+        handleSubmitActivity={handleSubmitActivity}
+        parentActivityId={parent_activity_id}
+        requestErrors={requestErrors}
+        showErrorsContainer={showErrorsContainer}
       />
-      <div className="button-and-id-container">
-        {parent_activity_id && renderIDorUID(parent_activity_id, PARENT_ACTIVITY_ID)}
-        {activity.id && <a className="quill-button fun secondary outlined" href={`/evidence/#/play?uid=${activity.id}&skipToPrompts=true`} rel="noopener noreferrer" target="_blank">Play Test Activity</a>}
-        {activity.id && <a className="quill-button fun secondary outlined" href={`/evidence/#/play?uid=${activity.id}`} rel="noopener noreferrer" target="_blank">Play Student Activity</a>}
-        <button className="quill-button fun primary contained" id="activity-submit-button" onClick={handleSubmitActivity} type="submit">Save</button>
-      </div>
-      <DropdownInput
-        className="flag-input"
-        handleChange={handleSetActivityFlag}
-        label="Activity Flag"
-        options={flagOptions}
-        value={flagOptions.find(opt => opt.value === activityFlag)}
-      />
-      {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
       <ToggleComponentSection label="Text" components={[passageComponent]} />
-      <ToggleComponentSection label="Image" components={[imageComponent]} />
+      <ToggleComponentSection
+        label="Image"
+        components={[
+          <ImageSection
+            activityPassages={activityPassages}
+            errors={errors}
+            handleSetImageLink={handleSetImageLink}
+            handleSetImageAltText={handleSetImageAltText}
+            handleSetImageCaption={handleSetImageCaption}
+            imageAttributionStyle={imageAttributionStyle}
+            imageAttributionGuideLink={imageAttributionGuideLink}
+            handleSetImageAttribution={handleSetImageAttribution}
+          />
+        ]}
+      />
       <ToggleComponentSection
         label="Highlighting Prompt"
         components={[

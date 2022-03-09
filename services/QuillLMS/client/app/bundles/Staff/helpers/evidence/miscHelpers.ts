@@ -20,8 +20,6 @@ export const buildActivity = ({
   activityFlag,
   activityNotes,
   activityTitle,
-  activityScoredReadingLevel,
-  activityTargetReadingLevel,
   activityParentActivityId,
   activityPassages,
   activityBecausePrompt,
@@ -36,8 +34,6 @@ export const buildActivity = ({
       title: activityTitle,
       parent_activity_id: activityParentActivityId ? parseInt(activityParentActivityId) : null,
       flag: activityFlag,
-      scored_level: activityScoredReadingLevel,
-      target_level: parseInt(activityTargetReadingLevel),
       highlight_prompt: highlightPrompt,
       passages_attributes: activityPassages,
       prompts_attributes: prompts
