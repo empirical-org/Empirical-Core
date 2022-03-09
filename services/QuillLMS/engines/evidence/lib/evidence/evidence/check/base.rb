@@ -1,12 +1,16 @@
 module Evidence
   class Check::Base
 
-    attr_reader :entry, :prompt, :previous_feedback, :error
+    attr_reader :entry, :prompt, :previous_feedback, :error, :response
 
     def initialize(entry, prompt, previous_feedback)
       @entry = entry
       @prompt = prompt
       @previous_feedback = previous_feedback
+    end
+
+    def run
+      raise NotImplementedError
     end
 
     def self.run(entry, prompt, previous_feedback)
@@ -21,8 +25,10 @@ module Evidence
       end
     end
 
-    def run
-      raise NotImplementedError
+    def optimal?
+      return true unless response
+
+      response['optimal']
     end
 
     def autoML?
@@ -31,14 +37,6 @@ module Evidence
 
     def success?
       error.nil?
-    end
-
-    def optimal?
-      raise NotImplementedError
-    end
-
-    def response
-      raise NotImplementedError
     end
   end
 end

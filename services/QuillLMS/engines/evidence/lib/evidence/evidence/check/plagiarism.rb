@@ -1,14 +1,12 @@
 module Evidence
   class Check::Plagiarism < Check::Base
 
-    attr_reader :api_response
-
     def run
       rule = prompt.rules&.find_by(rule_type: Evidence::Rule::TYPE_PLAGIARISM)
       feedback = get_plagiarism_feedback_from_previous_feedback(previous_feedback, rule)
 
       if rule.plagiarism_texts.none?
-        @api_response = Evidence::PlagiarismCheck.new(entry, '', feedback, rule).feedback_object
+        @response = Evidence::PlagiarismCheck.new(entry, '', feedback, rule).feedback_object
       else
         plagiarism_check = nil
         rule.plagiarism_texts.each do |plagiarism_text|
@@ -16,18 +14,8 @@ module Evidence
           break unless plagiarism_check.feedback_object[:optimal]
         end
 
-        @api_response = plagiarism_check.feedback_object
+        @response = plagiarism_check.feedback_object
       end
-    end
-
-    def optimal?
-      return true unless response
-
-      response['optimal']
-    end
-
-    def response
-      api_response
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity
