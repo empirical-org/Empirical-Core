@@ -16,7 +16,7 @@ module Evidence
         rescue => e
           # TODO log error
           puts e
-          error = e
+          @error = e
         end
       end
     end

@@ -1,11 +1,11 @@
 module Evidence
-  class Check::Grammar < Check::Base
+  class Check::Prefilter < Check::Base
 
     attr_reader :api_response
 
     def run
-      grammar_client = Grammar::Client.new(entry: entry, prompt_text: prompt.text)
-      @api_response = Grammar::FeedbackAssembler.run(grammar_client.post)
+      prefilter_check = Evidence::PrefilterCheck.new(entry)
+      @api_response = prefilter_check.feedback_object.stringify_keys
     end
 
     def optimal?

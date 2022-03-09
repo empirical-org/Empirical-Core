@@ -7,14 +7,14 @@ module Evidence
     before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling, :create]
 
     CHECKS = [
-      # Check::Prefilter,
+      Check::Prefilter,
       # Check::RegexSentence,
-      # Check::Opinion,
+      Check::Opinion,
       # Check::Plagiarism,
-      # Check::AutoML,
+      Check::AutoML,
       # Check::RegexPostTopic,
-      Check::Grammar
-      # Check::Spelling,
+      Check::Grammar,
+      Check::Spelling
       # Check::RegexType
     ]
 

@@ -1,11 +1,12 @@
 module Evidence
-  class Check::Grammar < Check::Base
+  class Check::Spelling < Check::Base
 
     attr_reader :api_response
 
     def run
-      grammar_client = Grammar::Client.new(entry: entry, prompt_text: prompt.text)
-      @api_response = Grammar::FeedbackAssembler.run(grammar_client.post)
+      spelling_check = Evidence::SpellingCheck.new(entry)
+      @error = spelling_check.error
+      @api_response = spelling_check.feedback_object
     end
 
     def optimal?

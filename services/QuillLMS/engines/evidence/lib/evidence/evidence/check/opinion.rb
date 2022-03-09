@@ -1,11 +1,11 @@
 module Evidence
-  class Check::Grammar < Check::Base
+  class Check::Opinion < Check::Base
 
     attr_reader :api_response
 
     def run
-      grammar_client = Grammar::Client.new(entry: entry, prompt_text: prompt.text)
-      @api_response = Grammar::FeedbackAssembler.run(grammar_client.post)
+      opinion_client = Opinion::Client.new(entry: entry, prompt_text: prompt.text)
+      @api_response = Opinion::FeedbackAssembler.run(opinion_client.post)
     end
 
     def optimal?
