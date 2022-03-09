@@ -87,7 +87,23 @@ exports[`CurrentSubscription container when there is a current subscription shou
             >
               <div>
                 <_default
-                  content="School Premium"
+                  content={
+                    <span>
+                      School Premium
+                      <Tooltip
+                        tooltipText="You have a School Paid subscription"
+                        tooltipTriggerText={
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        }
+                      />
+                    </span>
+                  }
                   title="Plan"
                 >
                   <div>
@@ -97,7 +113,47 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       Plan
                     </span>
                     <span>
-                      School Premium
+                      <span>
+                        School Premium
+                        <Tooltip
+                          tooltipText="You have a School Paid subscription"
+                          tooltipTriggerText={
+                            <span>
+                              <img
+                                alt="Question mark icon"
+                                className="subscription-tooltip"
+                                src="undefined/images/icons/icons-help.svg"
+                              />
+                            </span>
+                          }
+                        >
+                          <span
+                            className="quill-tooltip-trigger"
+                          >
+                            <span
+                              className="undefined"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
+                              tabIndex={null}
+                            >
+                              <span>
+                                <img
+                                  alt="Question mark icon"
+                                  className="subscription-tooltip"
+                                  src="undefined/images/icons/icons-help.svg"
+                                />
+                              </span>
+                            </span>
+                            <span
+                              className="quill-tooltip-wrapper"
+                            >
+                              <span
+                                className="quill-tooltip"
+                              />
+                            </span>
+                          </span>
+                        </Tooltip>
+                      </span>
                     </span>
                   </div>
                 </_default>
@@ -252,7 +308,23 @@ exports[`CurrentSubscription container when there is a current subscription shou
             >
               <div>
                 <_default
-                  content="School Premium"
+                  content={
+                    <span>
+                      School Premium
+                      <Tooltip
+                        tooltipText="You have a School Paid subscription"
+                        tooltipTriggerText={
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        }
+                      />
+                    </span>
+                  }
                   title="Plan"
                 >
                   <div>
@@ -262,7 +334,47 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       Plan
                     </span>
                     <span>
-                      School Premium
+                      <span>
+                        School Premium
+                        <Tooltip
+                          tooltipText="You have a School Paid subscription"
+                          tooltipTriggerText={
+                            <span>
+                              <img
+                                alt="Question mark icon"
+                                className="subscription-tooltip"
+                                src="undefined/images/icons/icons-help.svg"
+                              />
+                            </span>
+                          }
+                        >
+                          <span
+                            className="quill-tooltip-trigger"
+                          >
+                            <span
+                              className="undefined"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
+                              tabIndex={null}
+                            >
+                              <span>
+                                <img
+                                  alt="Question mark icon"
+                                  className="subscription-tooltip"
+                                  src="undefined/images/icons/icons-help.svg"
+                                />
+                              </span>
+                            </span>
+                            <span
+                              className="quill-tooltip-wrapper"
+                            >
+                              <span
+                                className="quill-tooltip"
+                              />
+                            </span>
+                          </span>
+                        </Tooltip>
+                      </span>
                     </span>
                   </div>
                 </_default>
@@ -432,7 +544,23 @@ exports[`CurrentSubscription container when there is a current subscription shou
             >
               <div>
                 <_default
-                  content="School Premium"
+                  content={
+                    <span>
+                      School Premium
+                      <Tooltip
+                        tooltipText="You have a School Paid subscription"
+                        tooltipTriggerText={
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        }
+                      />
+                    </span>
+                  }
                   title="Plan"
                 >
                   <div>
@@ -442,7 +570,47 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       Plan
                     </span>
                     <span>
-                      School Premium
+                      <span>
+                        School Premium
+                        <Tooltip
+                          tooltipText="You have a School Paid subscription"
+                          tooltipTriggerText={
+                            <span>
+                              <img
+                                alt="Question mark icon"
+                                className="subscription-tooltip"
+                                src="undefined/images/icons/icons-help.svg"
+                              />
+                            </span>
+                          }
+                        >
+                          <span
+                            className="quill-tooltip-trigger"
+                          >
+                            <span
+                              className="undefined"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
+                              tabIndex={null}
+                            >
+                              <span>
+                                <img
+                                  alt="Question mark icon"
+                                  className="subscription-tooltip"
+                                  src="undefined/images/icons/icons-help.svg"
+                                />
+                              </span>
+                            </span>
+                            <span
+                              className="quill-tooltip-wrapper"
+                            >
+                              <span
+                                className="quill-tooltip"
+                              />
+                            </span>
+                          </span>
+                        </Tooltip>
+                      </span>
                     </span>
                   </div>
                 </_default>
