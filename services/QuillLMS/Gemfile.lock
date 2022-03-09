@@ -8,8 +8,14 @@ PATH
       rails (= 5.1.7)
 
 GEM
-  remote: https://rubygems.org/
   remote: https://gems.contribsys.com/
+  specs:
+    sidekiq-pro (4.0.5)
+      concurrent-ruby (>= 1.0.5)
+      sidekiq (>= 5.2.1)
+
+GEM
+  remote: https://rubygems.org/
   specs:
     Ascii85 (1.0.3)
     actioncable (5.1.7)
@@ -356,7 +362,7 @@ GEM
     letter_opener (1.7.0)
       launchy (~> 2.2)
     libsqreen (1.0.4.0.0)
-    libv8 (8.4.255.0)
+    libv8-node (15.14.0.1)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -388,8 +394,8 @@ GEM
       rake
     mini_mime (1.1.0)
     mini_portile2 (2.7.1)
-    mini_racer (0.3.1)
-      libv8 (~> 8.4.255)
+    mini_racer (0.4.0)
+      libv8-node (~> 15.14.0.0)
     minisyntax (0.2.5)
     minitest (5.15.0)
     multi_json (1.15.0)
@@ -680,9 +686,6 @@ GEM
       rack (>= 1.5.0)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 5)
-    sidekiq-pro (4.0.5)
-      concurrent-ruby (>= 1.0.5)
-      sidekiq (>= 5.2.1)
     sidekiq-retries (0.4.0)
       sidekiq (>= 3.2.4)
     signet (0.12.0)
@@ -716,10 +719,9 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sq_mini_racer (0.3.1.0.6)
-    sqreen (1.24.2)
+    sqreen (1.25.1)
       libsqreen (~> 1.0)
-      sq_mini_racer (~> 0.2, < 0.5.a)
+      mini_racer (>= 0.4.0)
       sqreen-backport (~> 0.1.0)
       sqreen-kit (~> 0.2.4)
     sqreen-backport (0.1.0)
@@ -836,7 +838,7 @@ DEPENDENCIES
   letter_opener
   livingstyleguide
   lograge
-  mini_racer (= 0.3.1)
+  mini_racer (= 0.4.0)
   newrelic_rpm
   nokogiri (>= 1.10.4)
   omniauth
@@ -925,4 +927,4 @@ RUBY VERSION
    ruby 2.6.6p146
 
 BUNDLED WITH
-   1.17.3
+   2.2.33
