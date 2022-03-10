@@ -1,7 +1,9 @@
 import * as React from 'react'
 import { connect } from 'react-redux';
-import { ConceptExplanation } from '../../../Shared/index';
+
 import ConceptSelector from './conceptSelector'
+
+import { ConceptExplanation } from '../../../Shared/index';
 
 interface ConceptSelectorWithCheckboxProps {
   handleSelectorChange: Function;
@@ -13,10 +15,6 @@ interface ConceptSelectorWithCheckboxProps {
 }
 
 class ConceptSelectorWithCheckbox extends React.Component {
-
-  constructor(props: ConceptSelectorWithCheckboxProps) {
-    super(props)
-  }
 
   currentConcept = () => {
     const { concepts, currentConceptUID } = this.props
@@ -44,10 +42,10 @@ class ConceptSelectorWithCheckbox extends React.Component {
             />
           </div>
           <label className="checkbox" style={{lineHeight: '32px', marginLeft: '5px'}}>
-            <h3><input checked={checked} onClick={onCheckboxChange} type="checkbox" /> Correct?</h3>
+            <h3><input aria-label="Correct?" checked={checked} onClick={onCheckboxChange} type="checkbox" /> Correct?</h3>
           </label>
 
-          <p onClick={deleteConceptResult} style={{paddingLeft: '10px', paddingTop: '6px', cursor: 'pointer'}}>X</p>
+          <button className="interactive-wrapper focus-on-light" onClick={deleteConceptResult} style={{paddingLeft: '10px', paddingTop: '6px', cursor: 'pointer'}} type="button">X</button>
         </div>
         {this.renderConceptFeedback()}
       </div>

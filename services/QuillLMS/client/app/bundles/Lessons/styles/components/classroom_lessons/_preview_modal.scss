@@ -44,7 +44,7 @@
       font-weight: bold;
     }
   }
-  button {
+  button:not(.interactive-wrapper) {
     width: 237px;
     height: 40px;
     border-radius: 3px;

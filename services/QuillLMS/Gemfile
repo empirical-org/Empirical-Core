@@ -199,7 +199,7 @@ group :test do
   gem 'capybara-screenshot'
   gem 'codeclimate-test-reporter', require: nil
   gem 'codecov'
-  gem 'mini_racer', '= 0.3.1'
+  gem 'mini_racer', '= 0.4.0'
   gem 'fakeredis', '~> 0.7.0'
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'

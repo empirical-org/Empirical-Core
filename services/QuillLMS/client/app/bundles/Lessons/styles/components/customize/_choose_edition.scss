@@ -188,6 +188,8 @@
         }
       }
       .dropdown {
+        display: flex;
+        flex-direction: column;
         position: absolute;
         width: 160px;
         border-radius: 3px;
