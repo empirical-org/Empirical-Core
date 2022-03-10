@@ -73,6 +73,23 @@ RSpec.describe UserCacheable, type: :model do
         expect(post_update_second_page_fetch).to eq(4)
       end
     end
+
+    context 'teacher with multiple classrooms' do
+      let(:teacher) {create(:teacher_with_one_classroom) }
+      let!(:older_classroom) { create(:classroom) }
+      let!(:newer_classroom) { create(:classroom, updated_at: older_classroom.updated_at + 10.days) }
+      let!(:older_classrooms_teacher) { create(:classrooms_teacher, user: teacher, role: 'owner', classroom: older_classroom) }
+      let!(:newer_classrooms_teacher) { create(:classrooms_teacher, user: teacher, role: 'owner', classroom: newer_classroom) }
+
+      it 'should use the most recently updated_at classroom for caching' do
+        key = 'test.key'
+        groups = {page: 1}
+
+        expect(teacher).to receive(:model_cache).with(newer_classroom, key: key, groups: groups)
+
+        teacher.all_classrooms_cache(key: key, groups: groups)
+      end
+    end
   end
 
   describe '#classroom_cache' do
@@ -239,6 +256,54 @@ RSpec.describe UserCacheable, type: :model do
 
       expect(post_update_first_page_fetch).to eq(3)
       expect(post_update_second_page_fetch).to eq(4)
+    end
+
+    context 'cache invalidation' do
+      let(:teacher) { create(:teacher, :with_classrooms_students_and_activities) }
+      let(:key) { 'test.key' }
+      let!(:old_value) { teacher.all_classrooms_cache(key: key) { false } }
+
+      it 'should invalidate when an ActivitySession is touched' do
+        create(:activity_session, classroom_unit: teacher.classroom_units.first)
+
+        expect(teacher.all_classrooms_cache(key: key) { true }).not_to eq(old_value)
+      end
+
+      it 'should invalidate when a ClassroomUnit is touched' do
+        teacher.classroom_units.first.touch
+
+        expect(teacher.all_classrooms_cache(key: key) { true }).not_to eq(old_value)
+      end
+
+      it 'should invalidate when a ClassroomsTeacher is touched' do
+        teacher.classrooms_teachers.first.touch
+
+        expect(teacher.all_classrooms_cache(key: key) { true }).not_to eq(old_value)
+      end
+
+      it 'should invalidate when a ClassroomUnitActivityState is touched' do
+        create(:classroom_unit_activity_state, classroom_unit: teacher.classroom_units.first)
+
+        expect(teacher.all_classrooms_cache(key: key) { true }).not_to eq(old_value)
+      end
+
+      it 'should invalidate when a StudentsClassrooms is touched' do
+        teacher.students_i_teach.first.students_classrooms.first.touch
+
+        expect(teacher.all_classrooms_cache(key: key) { true }).not_to eq(old_value)
+      end
+
+      it 'should invalidate when a Unit is touched' do
+        teacher.classrooms_i_teach.first.units.first.touch
+
+        expect(teacher.all_classrooms_cache(key: key) { true }).not_to eq(old_value)
+      end
+
+      it 'should invalidate when a UnitActivity is touched' do
+        teacher.classrooms_i_teach.first.units.first.unit_activities.first.touch
+
+        expect(teacher.all_classrooms_cache(key: key) { true }).not_to eq(old_value)
+      end
     end
   end
 end
