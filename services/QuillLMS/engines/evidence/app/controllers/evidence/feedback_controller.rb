@@ -6,39 +6,40 @@ module Evidence
   class FeedbackController < ApiController
     before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling, :create]
 
-    CHECKS = [
-      Check::Prefilter,
-      Check::RegexSentence,
-      Check::Opinion,
-      Check::Plagiarism,
-      Check::AutoML,
-      Check::RegexPostTopic,
-      Check::Grammar,
-      Check::Spelling,
-      Check::RegexTypo
-    ]
+    # CHECKS = [
+    #   Check::Prefilter,
+    #   Check::RegexSentence,
+    #   Check::Opinion,
+    #   Check::Plagiarism,
+    #   Check::AutoML,
+    #   Check::RegexPostTopic,
+    #   Check::Grammar,
+    #   Check::Spelling,
+    #   Check::RegexTypo
+    # ]
 
     def create
-      autoML_feedback = nil
-      nonoptimal_feedback = nil
+      # auto_ml_feedback = nil
+      # nonoptimal_feedback = nil
 
-      CHECKS.each do |check|
-        feedback = check.run(@entry, @prompt, @previous_feedback)
+      # CHECKS.each do |check|
+      #   feedback = check.run(@entry, @prompt, @previous_feedback)
 
-        next unless feedback.success?
+      #   next unless feedback.success?
 
-        autoML_feedback = feedback if feedback.autoML?
+      #   auto_ml_feedback = feedback if feedback.auto_ml?
 
-        next if feedback.optimal?
+      #   next if feedback.optimal?
 
-        nonoptimal_feedback = feedback
+      #   nonoptimal_feedback = feedback
 
-        break
-      end
+      #   break
+      # end
 
-      feedback = nonoptimal_feedback || autoML_feedback
+      # feedback = nonoptimal_feedback || auto_ml_feedback
+      feedback = Check.run(@entry, @prompt, @previous_feedback)
 
-      # TODO store feedback history
+      # TODO: store feedback history
 
       render json: feedback&.response || {}
     end

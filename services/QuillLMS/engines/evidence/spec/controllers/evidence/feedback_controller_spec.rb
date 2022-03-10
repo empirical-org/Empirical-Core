@@ -26,7 +26,7 @@ module Evidence
     describe '#create' do
       context "autoML test" do
         it 'should return feedback payloads based on the lib matched_rule value' do
-          stub_const("Evidence::FeedbackController::CHECKS", [Check::AutoML])
+          stub_const("Evidence::Check::ALL_CHECKS", [Check::AutoML])
 
           entry = "entry"
           AutomlCheck.stub_any_instance(:matched_rule, rule) do
@@ -52,7 +52,7 @@ module Evidence
 
       context "spelling test" do
         it 'should return correct spelling feedback when endpoint returns 200' do
-          stub_const("Evidence::FeedbackController::CHECKS", [Check::Spelling])
+          stub_const("Evidence::Check::ALL_CHECKS", [Check::Spelling])
           stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=test%20spelin%20error").to_return(:status => 200, :body => { :flaggedTokens => ([{ :token => "spelin" }]) }.to_json, :headers => ({}))
           post :create, params: { entry: "test spelin error", :prompt_id => prompt.id, :session_id => 1 }, as: :json
 
@@ -64,7 +64,7 @@ module Evidence
 
       context 'regex1 test' do
         it 'should return successfully when there is regex1 feedback' do
-          stub_const("Evidence::FeedbackController::CHECKS", [Check::RegexSentence])
+          stub_const("Evidence::Check::ALL_CHECKS", [Check::RegexSentence])
           post :create, params: {entry: "test regex response", prompt_id: prompt.id, session_id: 1, previous_feedback: ([]) }, as: :json
 
           parsed_response = JSON.parse(response.body)
@@ -75,10 +75,10 @@ module Evidence
       context 'regex2 test' do
         let!(:rule_regex2) { create(:evidence_regex_rule, :regex_text => "^test", :rule => (rule2)) }
         let!(:rule2) { create(:evidence_rule, :rule_type => "rules-based-2") }
-        let!(:prompts_rule_2) { create(:evidence_prompts_rule, :rule => (rule2), :prompt => (prompt)) }
+        let!(:prompts_rule2) { create(:evidence_prompts_rule, :rule => (rule2), :prompt => (prompt)) }
 
         it 'should return successfully when there is regex2 feedback' do
-          stub_const("Evidence::FeedbackController::CHECKS", [Check::RegexPostTopic])
+          stub_const("Evidence::Check::ALL_CHECKS", [Check::RegexPostTopic])
           post :create, params: {entry: "test regex response", prompt_id: prompt.id, session_id: 1, previous_feedback: ([]) }, as: :json
 
           parsed_response = JSON.parse(response.body)
@@ -89,10 +89,10 @@ module Evidence
       context 'regex3 test' do
         let!(:rule_regex3) { create(:evidence_regex_rule, :regex_text => "^test", :rule => (rule3)) }
         let!(:rule3) { create(:evidence_rule, :rule_type => "rules-based-3") }
-        let!(:prompts_rule_3) { create(:evidence_prompts_rule, :rule => (rule3), :prompt => (prompt)) }
+        let!(:prompts_rule3) { create(:evidence_prompts_rule, :rule => (rule3), :prompt => (prompt)) }
 
         it 'should return successfully when there is regex3 feedback' do
-          stub_const("Evidence::FeedbackController::CHECKS", [Check::RegexTypo])
+          stub_const("Evidence::Check::ALL_CHECKS", [Check::RegexTypo])
           post :create, params: {entry: "test regex response", prompt_id: prompt.id, session_id: 1, previous_feedback: ([]) }, as: :json
 
           parsed_response = JSON.parse(response.body)
@@ -102,7 +102,7 @@ module Evidence
 
       context 'plagiarism test' do
         it 'should return successfully when there is plagiarism that matches the second plagiarism text string' do
-          stub_const("Evidence::FeedbackController::CHECKS", [Check::Plagiarism])
+          stub_const("Evidence::Check::ALL_CHECKS", [Check::Plagiarism])
           post :create, params: { entry: "bla bla bla #{plagiarized_text2}", prompt_id: prompt.id, session_id: 1, previous_feedback: [] }, as: :json
 
           parsed_response = JSON.parse(response.body)
@@ -124,7 +124,7 @@ module Evidence
         end
 
         before do
-          stub_const("Evidence::FeedbackController::CHECKS", [Check::Prefilter])
+          stub_const("Evidence::Check::ALL_CHECKS", [Check::Prefilter])
         end
 
         context 'profanity violation' do
@@ -153,7 +153,7 @@ module Evidence
 
             expect(response.status).to eq 200
             parsed_response = JSON.parse(response.body)
-            expect(parsed_response).to be {}
+            expect(parsed_response).to eq({})
           end
         end
       end
@@ -193,7 +193,7 @@ module Evidence
         end
 
         it 'should return a valid json response' do
-          stub_const("Evidence::FeedbackController::CHECKS", [Check::Grammar])
+          stub_const("Evidence::Check::ALL_CHECKS", [Check::Grammar])
           post :create, params: incoming_payload, as: :json
 
           expect(JSON.parse(response.body)).to eq({
@@ -240,7 +240,7 @@ module Evidence
         let!(:opinion_hint) { create(:evidence_hint, rule: opinion_rule) }
 
         before do
-          stub_const("Evidence::FeedbackController::CHECKS", [Check::Opinion])
+          stub_const("Evidence::Check::ALL_CHECKS", [Check::Opinion])
           allow(Opinion::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
             { example_error => example_rule_uid }
           )
