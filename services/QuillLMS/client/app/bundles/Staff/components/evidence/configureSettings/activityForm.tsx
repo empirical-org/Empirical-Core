@@ -165,18 +165,18 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
         requestErrors={requestErrors}
         showErrorsContainer={showErrorsContainer}
       />
-      <ToggleComponentSection label="Text" components={[passageComponent]} />
+      <ToggleComponentSection components={[passageComponent]} label="Text" />
       <ToggleComponentSection
         components={[
           <ImageSection
             activityPassages={activityPassages}
             errors={errors}
-            handleSetImageLink={handleSetImageLink}
             handleSetImageAltText={handleSetImageAltText}
-            handleSetImageCaption={handleSetImageCaption}
-            imageAttributionStyle={imageAttributionStyle}
-            imageAttributionGuideLink={imageAttributionGuideLink}
             handleSetImageAttribution={handleSetImageAttribution}
+            handleSetImageCaption={handleSetImageCaption}
+            handleSetImageLink={handleSetImageLink}
+            imageAttributionGuideLink={imageAttributionGuideLink}
+            imageAttributionStyle={imageAttributionStyle}
           />
         ]}
         label="Image"
@@ -194,7 +194,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
         label="Highlighting Prompt"
       />
       <ToggleComponentSection components={[buildingEssentialKnowledgeComponent]} label="Building Essential Knowledge" />
-      <ToggleComponentSection components={[getMaxAttemptsFeedbackComponent(BECAUSE, activityBecausePrompt), getMaxAttemptsFeedbackComponent(BUT, activityButPrompt), getMaxAttemptsFeedbackComponent(SO, activitySoPrompt)]}label="Max Attempts Feedback" />
+      <ToggleComponentSection components={[getMaxAttemptsFeedbackComponent(BECAUSE, activityBecausePrompt), getMaxAttemptsFeedbackComponent(BUT, activityButPrompt), getMaxAttemptsFeedbackComponent(SO, activitySoPrompt)]} label="Max Attempts Feedback" />
       <ToggleComponentSection
         components={[
           <PromptsForm
