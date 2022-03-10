@@ -69,7 +69,7 @@ export default class SubscriptionHistory extends React.Component {
         <span>
           {ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[sub.account_type]}
           <Tooltip
-            tooltipText={`You have a ${sub.account_type} subscription`}
+            tooltipText={`${sub.account_type} subscription`}
             tooltipTriggerText={<span><img alt={helpIcon.alt} className="subscription-tooltip" src={helpIcon.src} /></span>}
           />
         </span>
