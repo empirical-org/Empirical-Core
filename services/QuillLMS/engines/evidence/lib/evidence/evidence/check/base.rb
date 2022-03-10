@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence
   class Check::Base
 
@@ -20,7 +22,7 @@ module Evidence
         begin
           check.run
         rescue => e
-          # TODO log error
+          # TODO: log error to New Relix
           puts e
           @error = e
         end
@@ -33,7 +35,7 @@ module Evidence
       response['optimal']
     end
 
-    def autoML?
+    def auto_ml?
       false
     end
 
