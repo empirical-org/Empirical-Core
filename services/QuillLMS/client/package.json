@@ -110,7 +110,7 @@
     "react-select-search": "^3.0.9",
     "react-simple-pie-chart": "^0.5.0",
     "react-sortable-hoc": "^2.0.0",
-    "react-table": "^7.7.0",
+    "react-table": "^6.7.5",
     "react-textarea-autosize": "^4.3.2",
     "react-tooltip": "^4.1.2",
     "react-visibility-sensor": "^5.1.1",
