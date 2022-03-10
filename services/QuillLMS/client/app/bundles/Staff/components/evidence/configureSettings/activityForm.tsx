@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Link } from 'react-router-dom';
 import { EditorState, ContentState } from 'draft-js';
 import * as _ from 'lodash'
 
@@ -9,22 +8,17 @@ import MaxAttemptsEditor from "./maxAttemptsEditor";
 import ImageSection from "./imageSection";
 
 import { validateForm, buildActivity } from '../../../helpers/evidence/miscHelpers';
+import { renderInvalidHighlightLinks } from '../../../helpers/evidence/renderHelpers';
 import { getActivityPrompt, promptsByConjunction, buildBlankPrompt, getActivityPromptSetter } from '../../../helpers/evidence/promptHelpers';
-import { BECAUSE,BUT, SO, activityFormKeys, PASSAGE, HIGHLIGHT_PROMPT, ESSENTIAL_KNOWLEDGE_TEXT_FILLER, RULE_TYPE_TO_ROUTE_PART, RULE_TYPE_TO_NAME } from '../../../../../constants/evidence';
+import { BECAUSE,BUT, SO, activityFormKeys, PASSAGE, HIGHLIGHT_PROMPT, ESSENTIAL_KNOWLEDGE_TEXT_FILLER } from '../../../../../constants/evidence';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent, ClickEvent,  TextAreaEvent } from '../../../interfaces/evidenceInterfaces';
-import { DataTable, Input, TextEditor, ToggleComponentSection } from '../../../../Shared/index'
+import { Input, TextEditor, ToggleComponentSection } from '../../../../Shared/index'
 import { DEFAULT_HIGHLIGHT_PROMPT } from '../../../../Shared/utils/constants'
 
 interface ActivityFormProps {
   activity: ActivityInterface,
   requestErrors: string[],
   submitActivity: (activity: object) => void
-}
-
-interface InvalidHighlightProps {
-  rule_id: number,
-  rule_type: string,
-  prompt_id: number
 }
 
 const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormProps) => {
@@ -115,33 +109,6 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
   const essentialKnowledgeStyle = activityPassages[0].essential_knowledge_text && activityPassages[0].essential_knowledge_text !== '<br/>' ? 'has-text' : '';
   const imageAttributionGuideLink = 'https://www.notion.so/quill/Activity-Images-9bc3993400da46a6af445a8a0d2d9d3f#11e9a01b071e41bc954e1182d56e93e8';
   const invalidHighlightsPresent = (invalid_highlights && invalid_highlights.length > 0)
-
-  function renderInvalidHighlightLinks(invalidHighlights){
-    const formattedRows = invalidHighlights && invalidHighlights.length && invalidHighlights.map((highlight: InvalidHighlightProps) => {
-      const { rule_id, rule_type, prompt_id  } = highlight;
-      const ruleTypePart = RULE_TYPE_TO_ROUTE_PART[rule_type]
-      const ruleName = RULE_TYPE_TO_NAME[rule_type]
-      const idPart = (rule_type == 'autoML') ? `${prompt_id}/${rule_id}` : rule_id
-      const invalidHighlightLink = (<Link to={`/activities/${id}/${ruleTypePart}/${idPart}`}>{ruleName} Rule #{rule_id}</Link>);
-      return {
-        id: rule_id,
-        link: invalidHighlightLink
-      }
-    });
-
-    const dataTableFields = [
-      { name: "Invalid Highlights", attribute:"link", width: "100%", noTooltip: true }
-    ];
-
-    return (
-      <DataTable
-        className="activities-table"
-        defaultSortAttribute="name"
-        headers={dataTableFields}
-        rows={formattedRows ? formattedRows : []}
-      />
-    )
-  }
 
   function getMaxAttemptsFeedbackComponent(conjunction: string, prompt: PromptInterface) {
     return <MaxAttemptsEditor conjunction={conjunction} handleSetPrompt={handleSetPrompt} prompt={prompt}
@@ -241,7 +208,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
           />
         ]}
       />
-      {invalidHighlightsPresent && renderInvalidHighlightLinks(invalid_highlights)}
+      {invalidHighlightsPresent && renderInvalidHighlightLinks(invalid_highlights, id)}
     </div>
   )
 }

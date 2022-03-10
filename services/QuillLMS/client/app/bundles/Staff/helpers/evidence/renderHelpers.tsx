@@ -1,5 +1,10 @@
 import * as React from "react";
-import { ActivityInterface } from '../../interfaces/evidenceInterfaces'
+import { Link } from 'react-router-dom';
+
+import { ActivityInterface, InvalidHighlight } from '../../interfaces/evidenceInterfaces';
+import { DataTable } from "../../../Shared";
+import { RULE_TYPE_TO_ROUTE_PART, RULE_TYPE_TO_NAME } from "../../../../constants/evidence";
+
 const quillCheckmark = `/images/green_check.svg`;
 const quillX = '/images/red_x.svg';
 
@@ -53,4 +58,31 @@ export const renderHeader = (activityData: {activity: ActivityInterface}, header
       }
     </section>
   );
+}
+
+export const renderInvalidHighlightLinks = (invalidHighlights: InvalidHighlight[], id: string) => {
+  const formattedRows = invalidHighlights && invalidHighlights.length && invalidHighlights.map((highlight: InvalidHighlight) => {
+    const { rule_id, rule_type, prompt_id  } = highlight;
+    const ruleTypePart = RULE_TYPE_TO_ROUTE_PART[rule_type]
+    const ruleName = RULE_TYPE_TO_NAME[rule_type]
+    const idPart = (rule_type == 'autoML') ? `${prompt_id}/${rule_id}` : rule_id
+    const invalidHighlightLink = (<Link to={`/activities/${id}/${ruleTypePart}/${idPart}`}>{ruleName} Rule #{rule_id}</Link>);
+    return {
+      id: rule_id,
+      link: invalidHighlightLink
+    }
+  });
+
+  const dataTableFields = [
+    { name: "Invalid Highlights", attribute:"link", width: "100%", noTooltip: true }
+  ];
+
+  return (
+    <DataTable
+      className="activities-table"
+      defaultSortAttribute="name"
+      headers={dataTableFields}
+      rows={formattedRows ? formattedRows : []}
+    />
+  )
 }

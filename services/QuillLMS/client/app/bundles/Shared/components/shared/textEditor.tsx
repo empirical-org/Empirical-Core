@@ -173,7 +173,7 @@ class TextEditor extends React.Component <any, any> {
             <BlockquoteButton />
             <ULButton />
             <HighlightButton />
-            <button className="add-link" id="link-url" onClick={this.handleAddLink} type="button">
+            <button className="interactive-wrapper add-link" id="link-url" onClick={this.handleAddLink} type="button">
               <span>Link</span>
             </button>
           </div>

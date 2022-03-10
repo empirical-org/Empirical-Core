@@ -37,9 +37,9 @@ export const UpperFormSection = ({
       />
       <div className="button-and-id-container">
         {parentActivityId && renderIDorUID(parentActivityId, PARENT_ACTIVITY_ID)}
-        {activity.id && <a className="quill-button fun secondary outlined" href={`/evidence/#/play?uid=${activity.id}&skipToPrompts=true`} rel="noopener noreferrer" target="_blank">Play Test Activity</a>}
-        {activity.id && <a className="quill-button fun secondary outlined" href={`/evidence/#/play?uid=${activity.id}`} rel="noopener noreferrer" target="_blank">Play Student Activity</a>}
-        <button className="quill-button fun primary contained" id="activity-submit-button" onClick={handleSubmitActivity} type="submit">Save</button>
+        {activity.id && <a className="quill-button fun secondary outlined focus-on-light" href={`/evidence/#/play?uid=${activity.id}&skipToPrompts=true`} rel="noopener noreferrer" target="_blank">Play Test Activity</a>}
+        {activity.id && <a className="quill-button fun secondary outlined focus-on-light" href={`/evidence/#/play?uid=${activity.id}`} rel="noopener noreferrer" target="_blank">Play Student Activity</a>}
+        <button className="quill-button fun primary contained focus-on-light" id="activity-submit-button" onClick={handleSubmitActivity} type="submit">Save</button>
       </div>
       <DropdownInput
         className="flag-input"

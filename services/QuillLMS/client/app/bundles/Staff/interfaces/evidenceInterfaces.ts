@@ -6,7 +6,8 @@ export interface ActivityRouteProps {
 
 export interface InvalidHighlight {
   rule_id: number,
-  rule_type: string
+  rule_type: string,
+  prompt_id?: number
 }
 
 export interface ActivityInterface {
