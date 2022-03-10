@@ -111,8 +111,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
   const invalidHighlightsPresent = (invalid_highlights && invalid_highlights.length > 0)
 
   function getMaxAttemptsFeedbackComponent(conjunction: string, prompt: PromptInterface) {
-    return <MaxAttemptsEditor conjunction={conjunction} handleSetPrompt={handleSetPrompt} prompt={prompt}
-  />
+    return <MaxAttemptsEditor conjunction={conjunction} handleSetPrompt={handleSetPrompt} prompt={prompt} />
   }
 
   const passageComponent = (
@@ -153,9 +152,9 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
     <div className="activity-form-container">
       <UpperFormSection
         activity={activity}
-        activityTitle={activityTitle}
-        activityNotes={activityNotes}
         activityFlag={activityFlag}
+        activityNotes={activityNotes}
+        activityTitle={activityTitle}
         errors={errors}
         formErrorsPresent={formErrorsPresent}
         handleSetActivityFlag={handleSetActivityFlag}
@@ -168,7 +167,6 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
       />
       <ToggleComponentSection label="Text" components={[passageComponent]} />
       <ToggleComponentSection
-        label="Image"
         components={[
           <ImageSection
             activityPassages={activityPassages}
@@ -181,9 +179,9 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
             handleSetImageAttribution={handleSetImageAttribution}
           />
         ]}
+        label="Image"
       />
       <ToggleComponentSection
-        label="Highlighting Prompt"
         components={[
           <Input
             className="highlight-prompt-input"
@@ -193,11 +191,11 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
             value={activityPassages[0].highlight_prompt || DEFAULT_HIGHLIGHT_PROMPT}
           />
         ]}
+        label="Highlighting Prompt"
       />
-      <ToggleComponentSection label="Building Essential Knowledge" components={[buildingEssentialKnowledgeComponent]} />
-      <ToggleComponentSection label="Max Attempts Feedback" components={[getMaxAttemptsFeedbackComponent(BECAUSE, activityBecausePrompt), getMaxAttemptsFeedbackComponent(BUT, activityButPrompt), getMaxAttemptsFeedbackComponent(SO, activitySoPrompt)]} />
+      <ToggleComponentSection components={[buildingEssentialKnowledgeComponent]} label="Building Essential Knowledge" />
+      <ToggleComponentSection components={[getMaxAttemptsFeedbackComponent(BECAUSE, activityBecausePrompt), getMaxAttemptsFeedbackComponent(BUT, activityButPrompt), getMaxAttemptsFeedbackComponent(SO, activitySoPrompt)]}label="Max Attempts Feedback" />
       <ToggleComponentSection
-        label="Prompts"
         components={[
           <PromptsForm
             activityBecausePrompt={activityBecausePrompt}
@@ -207,6 +205,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
             handleSetPrompt={handleSetPrompt}
           />
         ]}
+        label="Prompts"
       />
       {invalidHighlightsPresent && renderInvalidHighlightLinks(invalid_highlights, id)}
     </div>

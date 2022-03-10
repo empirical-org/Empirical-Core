@@ -50,7 +50,8 @@ export const renderHeader = (activityData: {activity: ActivityInterface}, header
   return(
     <section className="comprehension-page-header-container">
       <h2>{header}</h2>
-      {!hideActivityName &&
+      {
+        !hideActivityName &&
         <React.Fragment>
           <h3>{title}</h3>
           <h4>{notes}</h4>

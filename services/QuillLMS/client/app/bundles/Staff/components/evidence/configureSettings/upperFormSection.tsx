@@ -27,7 +27,7 @@ export const UpperFormSection = ({
         handleChange={handleSetActivityTitle}
         label="Activity Name"
         value={activityTitle}
-        />
+      />
       <Input
         className="name-input"
         error={errors[NOTES]}
