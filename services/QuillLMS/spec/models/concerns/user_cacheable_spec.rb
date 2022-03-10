@@ -73,6 +73,23 @@ RSpec.describe UserCacheable, type: :model do
         expect(post_update_second_page_fetch).to eq(4)
       end
     end
+
+    context 'teacher with multiple classrooms' do
+      let(:teacher) {create(:teacher_with_one_classroom) }
+      let!(:older_classroom) { create(:classroom) }
+      let!(:newer_classroom) { create(:classroom, updated_at: older_classroom.updated_at + 10.days) }
+      let!(:older_classrooms_teacher) { create(:classrooms_teacher, user: teacher, role: 'owner', classroom: older_classroom) }
+      let!(:newer_classrooms_teacher) { create(:classrooms_teacher, user: teacher, role: 'owner', classroom: newer_classroom) }
+
+      it 'should use the most recently updated_at classroom for caching' do
+        key = 'test.key'
+        groups = {page: 1}
+
+        expect(teacher).to receive(:model_cache).with(newer_classroom, key: key, groups: groups)
+
+        teacher.all_classrooms_cache(key: key, groups: groups)
+      end
+    end
   end
 
   describe '#classroom_cache' do
