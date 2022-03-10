@@ -260,48 +260,49 @@ RSpec.describe UserCacheable, type: :model do
 
     context 'cache invalidation' do
       let(:teacher) { create(:teacher, :with_classrooms_students_and_activities) }
-      let!(:old_value) { teacher.all_classrooms_cache(key: 'test.key') { false } }
+      let(:key) { 'test.key' }
+      let!(:old_value) { teacher.all_classrooms_cache(key: key) { false } }
 
       it 'should invalidate when an ActivitySession is touched' do
         create(:activity_session, classroom_unit: teacher.classroom_units.first)
 
-        expect(teacher.all_classrooms_cache(key: 'test.key') { true }).not_to eq(old_value)
+        expect(teacher.all_classrooms_cache(key: key) { true }).not_to eq(old_value)
       end
 
       it 'should invalidate when a ClassroomUnit is touched' do
         teacher.classroom_units.first.touch
 
-        expect(teacher.all_classrooms_cache(key: 'test.key') { true }).not_to eq(old_value)
+        expect(teacher.all_classrooms_cache(key: key) { true }).not_to eq(old_value)
       end
 
       it 'should invalidate when a ClassroomsTeacher is touched' do
         teacher.classrooms_teachers.first.touch
 
-        expect(teacher.all_classrooms_cache(key: 'test.key') { true }).not_to eq(old_value)
+        expect(teacher.all_classrooms_cache(key: key) { true }).not_to eq(old_value)
       end
 
       it 'should invalidate when a ClassroomUnitActivityState is touched' do
         create(:classroom_unit_activity_state, classroom_unit: teacher.classroom_units.first)
 
-        expect(teacher.all_classrooms_cache(key: 'test.key') { true }).not_to eq(old_value)
+        expect(teacher.all_classrooms_cache(key: key) { true }).not_to eq(old_value)
       end
 
       it 'should invalidate when a StudentsClassrooms is touched' do
         teacher.students_i_teach.first.students_classrooms.first.touch
 
-        expect(teacher.all_classrooms_cache(key: 'test.key') { true }).not_to eq(old_value)
+        expect(teacher.all_classrooms_cache(key: key) { true }).not_to eq(old_value)
       end
 
       it 'should invalidate when a Unit is touched' do
         teacher.classrooms_i_teach.first.units.first.touch
 
-        expect(teacher.all_classrooms_cache(key: 'test.key') { true }).not_to eq(old_value)
+        expect(teacher.all_classrooms_cache(key: key) { true }).not_to eq(old_value)
       end
 
       it 'should invalidate when a UnitActivity is touched' do
         teacher.classrooms_i_teach.first.units.first.unit_activities.first.touch
 
-        expect(teacher.all_classrooms_cache(key: 'test.key') { true }).not_to eq(old_value)
+        expect(teacher.all_classrooms_cache(key: key) { true }).not_to eq(old_value)
       end
     end
   end
