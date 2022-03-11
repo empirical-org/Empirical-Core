@@ -37,14 +37,16 @@ export const ImageSection = ({
         value={activityPassages[0].image_caption}
       />
       {errors[IMAGE_CAPTION] && <p className="error-message">{errors[IMAGE_CAPTION]}</p>}
-      <p className={`text-editor-label ${imageAttributionStyle}`} id="image-attribution-label"> Image Attribution</p>
-      <a className="data-link image-attribution-guide-link" href={imageAttributionGuideLink} rel="noopener noreferrer" target="_blank">Image Atributtion Guide</a>
-      <textarea
-        aria-labelledby="image-attribution-label"
-        className="image-attribution-text-area"
-        onChange={handleSetImageAttribution}
-        value={activityPassages[0].image_attribution}
-      />
+      <div className="image-attribution-container">
+        <p className={`text-editor-label ${imageAttributionStyle}`} id="image-attribution-label"> Image Attribution</p>
+        <a className="data-link image-attribution-guide-link" href={imageAttributionGuideLink} rel="noopener noreferrer" target="_blank">Image Atributtion Guide</a>
+        <textarea
+          aria-labelledby="image-attribution-label"
+          className="image-attribution-text-area"
+          onChange={handleSetImageAttribution}
+          value={activityPassages[0].image_attribution}
+        />
+      </div>
       {errors[IMAGE_ATTRIBUTION] && <p className="error-message">{errors[IMAGE_ATTRIBUTION]}</p>}
     </React.Fragment>
   );
