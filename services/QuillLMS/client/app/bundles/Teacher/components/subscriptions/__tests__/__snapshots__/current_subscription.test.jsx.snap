@@ -132,6 +132,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                           >
                             <span
                               className="undefined"
+                              onClick={[Function]}
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                               tabIndex={null}
@@ -216,7 +217,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                   content={
                     <span>
                       <span>
-                        Quill Basic - Free 
+                        Quill Basic - Free
                       </span>
                     </span>
                   }
@@ -231,7 +232,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                     <span>
                       <span>
                         <span>
-                          Quill Basic - Free 
+                          Quill Basic - Free
                         </span>
                       </span>
                     </span>
@@ -353,6 +354,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                           >
                             <span
                               className="undefined"
+                              onClick={[Function]}
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                               tabIndex={null}
@@ -452,7 +454,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                   content={
                     <span>
                       <span>
-                        Quill Basic - Free 
+                        Quill Basic - Free
                       </span>
                     </span>
                   }
@@ -467,7 +469,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                     <span>
                       <span>
                         <span>
-                          Quill Basic - Free 
+                          Quill Basic - Free
                         </span>
                       </span>
                     </span>
@@ -589,6 +591,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                           >
                             <span
                               className="undefined"
+                              onClick={[Function]}
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                               tabIndex={null}
@@ -673,7 +676,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                   content={
                     <span>
                       <span>
-                        Quill Basic - Free 
+                        Quill Basic - Free
                       </span>
                     </span>
                   }
@@ -688,7 +691,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                     <span>
                       <span>
                         <span>
-                          Quill Basic - Free 
+                          Quill Basic - Free
                         </span>
                       </span>
                     </span>
