@@ -14,6 +14,7 @@ module Evidence
       create(:evidence_plagiarism_text, :text => (plagiarized_text2), :rule => (rule))
     end
 
+    let(:entry) {'hello you'}
     let!(:prompt) { create(:evidence_prompt) }
     let!(:rule) { create(:evidence_rule, :rule_type => "plagiarism") }
     let!(:rule_regex) { create(:evidence_rule, :rule_type => "rules-based-1") }
@@ -24,6 +25,19 @@ module Evidence
     let!(:second_feedback) { create(:evidence_feedback, :text => "here is our second feedback", :rule => (rule), :order => 1) }
 
     describe '#create' do
+
+      let(:feedback) { double('feedback', response: {key1: 'some value'} ) }
+
+      it "should call Check.run_all, save history, and return feedback.response" do
+        expect(Check).to receive(:run_all).with(entry, prompt, []).and_return(feedback)
+        expect(Evidence.feedback_history_class).to receive(:save_feedback).with(feedback, entry, prompt.id, 99, 3)
+
+        post :create, params: {entry: entry, prompt_id: prompt.id, session_id: 99, previous_feedback: ([]), attempt: 3 }, as: :json
+
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response['key1']).to eq('some value')
+      end
+
       context "autoML test" do
         it 'should return feedback payloads based on the lib matched_rule value' do
           stub_const("Evidence::Check::ALL_CHECKS", [Check::AutoML])
