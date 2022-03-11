@@ -6,40 +6,10 @@ module Evidence
   class FeedbackController < ApiController
     before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling, :create]
 
-    # CHECKS = [
-    #   Check::Prefilter,
-    #   Check::RegexSentence,
-    #   Check::Opinion,
-    #   Check::Plagiarism,
-    #   Check::AutoML,
-    #   Check::RegexPostTopic,
-    #   Check::Grammar,
-    #   Check::Spelling,
-    #   Check::RegexTypo
-    # ]
-
     def create
-      # auto_ml_feedback = nil
-      # nonoptimal_feedback = nil
+      feedback = Check.run_all(@entry, @prompt, @previous_feedback)
 
-      # CHECKS.each do |check|
-      #   feedback = check.run(@entry, @prompt, @previous_feedback)
-
-      #   next unless feedback.success?
-
-      #   auto_ml_feedback = feedback if feedback.auto_ml?
-
-      #   next if feedback.optimal?
-
-      #   nonoptimal_feedback = feedback
-
-      #   break
-      # end
-
-      # feedback = nonoptimal_feedback || auto_ml_feedback
-      feedback = Check.run(@entry, @prompt, @previous_feedback)
-
-      # TODO: store feedback history
+      save_feedback_history(feedback)
 
       render json: feedback&.response || {}
     end
@@ -120,5 +90,14 @@ module Evidence
       previous_plagiarism.empty? ? feedbacks&.find_by(order: 0)&.text : feedbacks&.find_by(order: 1)&.text
     end
     # rubocop:enable Metrics/CyclomaticComplexity
+
+    private def save_feedback_history(feedback)
+      return unless feedback
+      # TODO: store feedback history
+      attempt = params[:attempt] || 0
+
+      Evidence.feedback_history_class.save_feedback(feedback, @entry, @prompt, @session_id, attempt)
+    end
+
   end
 end
