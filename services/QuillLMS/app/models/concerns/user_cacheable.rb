@@ -56,6 +56,7 @@ module UserCacheable
       .unscoped
       .joins(:classrooms_teachers)
       .where(classrooms_teachers: {user_id: id})
+      .order(updated_at: :desc)
       .first
   end
 

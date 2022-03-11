@@ -2,9 +2,10 @@ import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
 
+
 import { ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES } from './constants';
 
-export default class extends React.Component {
+export default class PremiumConfirmationModal extends React.Component {
   getModalContent = () => {
     const { subscription } = this.props
     const { account_type, expiration, start_date } = subscription
@@ -27,13 +28,6 @@ export default class extends React.Component {
     );
   };
 
-  handleKeyPress = (e) => {
-    const { hideModal } = this.props
-    if(e.key === "Enter") {
-      hideModal()
-    }
-  }
-
   render() {
     const { hideModal, show, subscription } = this.props
     if (!subscription || !show) {
@@ -46,7 +40,7 @@ export default class extends React.Component {
       <div className="premium-confirmation">
         <div className="modal-background" />
         <div className="modal-content">
-          <img alt="close-modal" className="pull-right modal-button-close" onClick={hideModal} onKeyPress={this.handleKeyPress} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} />
+          <button className="interactive-wrapper focus-on-light pull-right" onClick={hideModal} type="button"><img alt="close-modal" className="modal-button-close" src={`${process.env.CDN_URL}/images/shared/close_x.svg`} /></button>
           <h1>Congratulations!</h1>
           <h2 id="subscription-type">You have a {ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[account_type]} Subscription</h2>
           {content}

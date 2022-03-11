@@ -30,6 +30,8 @@ class Auth::GoogleController < ApplicationController
       url = session[ApplicationController::POST_AUTH_REDIRECT]
       session.delete(ApplicationController::POST_AUTH_REDIRECT)
       redirect_to url
+    elsif staff?
+      redirect_to locker_path
     else
       redirect_to profile_path
     end

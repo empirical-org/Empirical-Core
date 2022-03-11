@@ -34,6 +34,7 @@ describe PagesController do
     context 'when user is signed in' do
       before do
         allow(controller).to receive(:signed_in?) { true }
+        allow(controller).to receive(:current_user) { create(:user) }
       end
 
       it 'should redirect to profile path' do
@@ -185,6 +186,25 @@ describe PagesController do
       expect(assigns(:user_has_school)).to eq !!user.school
       expect(assigns(:user_belongs_to_school_that_has_paid)).to eq user&.school ? Subscription.school_or_user_has_ever_paid?(user&.school) : false
       expect(assigns(:last_four)).to eq user.last_four
+    end
+  end
+
+  describe '#locker' do
+    let!(:user) { create(:user) }
+
+    before do
+      allow(controller).to receive(:current_user) { user }
+    end
+
+    it 'should redirect if current user is not staff' do
+      get :locker
+      expect(response).to redirect_to profile_path
+    end
+
+    it 'should render for staff' do
+      user.role = 'staff'
+      get :locker
+      expect(response.status).to eq 200
     end
   end
 

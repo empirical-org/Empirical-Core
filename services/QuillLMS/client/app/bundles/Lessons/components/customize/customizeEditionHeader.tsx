@@ -62,7 +62,7 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
             <h1><span>Lesson {lessonNumber}:</span>{lessonTitle}</h1>
           </div>
           <div className="edition-name-and-sample-question-section">
-            <p className="edit" onClick={showEditModal}><i className="fa fa-icon fa-pencil" />Edit</p>
+            <p className="edit"><button className="interactive-wrapper focus-on-light" onClick={showEditModal} type="button"><i className="fa fa-icon fa-pencil" />Edit</button></p>
             <div className={`edition-name-and-sample-question ${errorClass}`} onClick={showEditModal}>
               <div className="name">
                 <p>Edition Name</p>
