@@ -93,7 +93,7 @@ module Evidence
 
     private def save_feedback_history(feedback)
       return unless feedback
-      # TODO: store feedback history
+
       attempt = params[:attempt] || 0
 
       Evidence.feedback_history_class.save_feedback(feedback, @entry, @prompt.id, @session_id, attempt)
