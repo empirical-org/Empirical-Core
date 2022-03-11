@@ -34,7 +34,7 @@ gem 'rack-attack'
 gem 'premailer-rails'
 # if you have trouble installing nokogiri on a mac,
 # try uninstalling nokogiri, running `xcode-select --install`, and then `bundle install` once more
-gem 'nokogiri', '>= 1.10.4'
+gem 'nokogiri', '>= 1.13.2'
 
 # VALIDATIONS
 gem 'validates_email_format_of'
