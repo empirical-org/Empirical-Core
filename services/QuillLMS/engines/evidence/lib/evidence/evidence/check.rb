@@ -16,24 +16,24 @@ module Evidence
 
     # returns first nonoptimal feedback, and if all are optimal, returns automl feedback
     def self.run_all(entry, prompt, previous_feedback)
-      auto_ml_feedback = nil
-      nonoptimal_feedback = nil
+      auto_ml_response = nil
+      nonoptimal_response = nil
 
       ALL_CHECKS.each do |check|
-        feedback = check.run(entry, prompt, previous_feedback)
+        response = check.run(entry, prompt, previous_feedback)
 
-        next unless feedback.success?
+        next unless response.success?
 
-        auto_ml_feedback = feedback if feedback.auto_ml?
+        auto_ml_response = response if response.auto_ml?
 
-        next if feedback.optimal?
+        next if response.optimal?
 
-        nonoptimal_feedback = feedback
+        nonoptimal_response = response
 
         break
       end
 
-      nonoptimal_feedback || auto_ml_feedback
+      nonoptimal_response || auto_ml_response
     end
 
   end
