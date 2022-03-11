@@ -30,6 +30,7 @@
   }
   .card {
     max-width: unset !important;
+    margin-bottom: 16px;
   }
   .error-message-container {
     width: 100%;
@@ -47,7 +48,6 @@
   }
   .flag-input {
     width: 10vw;
-    margin-bottom: 24px;
   }
   .button-and-id-container {
     display: flex;

@@ -200,17 +200,18 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
     const { label } = props;
     switch(label) {
       case titleCase(TEXT):
-        const passagePresent = activityPassages && activityPassages[0] && activityPassages[0].text !== BREAK_TAG;
+        const passagePresent = activityPassages && activityPassages[0] && activityPassages[0].text && activityPassages[0].text !== BREAK_TAG;
         return getCheckIcon(passagePresent);
       case BUILDING_ESSENTIAL_KNOWLEDGE:
         const essentialKnowledgePresent = (
           activityPassages && activityPassages[0] &&
           !!activityPassages[0].essential_knowledge_text &&
+          activityPassages[0].essential_knowledge_text !== ESSENTIAL_KNOWLEDGE_TEXT_FILLER &&
           activityPassages[0].essential_knowledge_text !== BREAK_TAG
         );
         return getCheckIcon(essentialKnowledgePresent);
       case HIGHLIGHTING_PROMPT:
-        const highlightingPresent = (activityPassages && activityPassages[0] && !!activityPassages[0].highlight_prompt);
+        const highlightingPresent = (activityPassages && activityPassages[0] && !!activityPassages[0].highlight_prompt && activityPassages[0].highlight_prompt !== DEFAULT_HIGHLIGHT_PROMPT);
         return getCheckIcon(highlightingPresent);
       case IMAGE:
         const imageDetailsPresent = (
