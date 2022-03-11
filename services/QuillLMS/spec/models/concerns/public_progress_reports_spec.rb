@@ -7,7 +7,6 @@ describe PublicProgressReports, type: :model do
   before do
     class FakeReports
       attr_accessor :session
-      attr_accessor :activity_sessions
 
       include PublicProgressReports
     end
@@ -263,65 +262,4 @@ describe PublicProgressReports, type: :model do
 
     end
   end
-
-  describe '#results_by_question' do
-    let(:concept_result_metadata) do
-      {
-        "correct":1,
-        "directions":"Rewrite the sentence with the correct capitalization.",
-        "lastFeedback":"Revise your work.",
-        "prompt":"i saw the mayor give a speech at richmond city hall.",
-        "attemptNumber":2,
-        "answer":"I saw the mayor give a speech at Richmond City Hall.",
-        "questionNumber":3,
-        "questionScore":0.8
-      }
-    end
-
-    let!(:activity) { create(:activity) }
-    let!(:activity_session1) { create(:activity_session_without_concept_results, activity_id: activity.id) }
-    let!(:activity_session2) { create(:activity_session_without_concept_results, activity_id: activity.id) }
-
-    let!(:a_s1_concept_result1) do
-      create(
-        :concept_result,
-        activity_session: activity_session1,
-        metadata: concept_result_metadata
-      )
-    end
-
-    let!(:a_s2_concept_result1) do
-      create(
-        :concept_result,
-        activity_session: activity_session2,
-        metadata: concept_result_metadata
-      )
-    end
-
-    let!(:a_s2_concept_result2_no_prompt) do
-      create(
-        :concept_result,
-        activity_session: activity_session2,
-        metadata: concept_result_metadata.reject {|k,v| k == 'prompt' }
-      )
-    end
-
-
-
-    it 'should foo' do
-      report = FakeReports.new
-      report.instance_variable_set(:@activity_sessions, ActivitySession.all)
-
-      results = report.results_by_question(activity.id)
-      binding.pry
-    end
-  end
 end
-
-
-
-# classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
-# @assigned_students = User.where(id: classroom_unit.assigned_student_ids).sort_by { |u| u.last_name }
-# @activity_sessions = ActivitySession
-#   .includes(:concept_results, activity: {skills: :concepts})
-#   .where(classroom_unit: classroom_unit, is_final_score: true, user_id: classroom_unit.assigned_student_ids)

@@ -47,7 +47,7 @@ module PublicProgressReports
     activity = Activity.includes(:classification).find(activity_id)
     questions = Hash.new{|h,k| h[k]={} }
 
-    all_answers = ActivitySession.activity_session_metadata(@activity_sessions) #concept_result metadatas
+    all_answers = ActivitySession.activity_session_metadata(@activity_sessions)
 
     all_answers.each do |answer|
       curr_quest = questions[answer["questionNumber"]]
