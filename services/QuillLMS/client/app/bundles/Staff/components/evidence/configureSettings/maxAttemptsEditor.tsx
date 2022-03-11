@@ -3,7 +3,6 @@ import { EditorState, ContentState } from 'draft-js';
 import * as _ from 'lodash'
 
 import { TextEditor } from '../../../../Shared';
-import { MAX_ATTEMPTS_FEEDBACK_TEXT } from '../../../../../constants/evidence';
 import { PromptInterface } from '../../../interfaces/evidenceInterfaces';
 
 interface MaxAttemptsEditorProps {
@@ -28,7 +27,7 @@ export const MaxAttemptsEditor = ({ conjunction, prompt, handleSetPrompt }: MaxA
         handleTextChange={handleSetActivityMaxFeedback}
         key="but-max-attempt-feedback"
         shouldCheckSpelling={true}
-        text={prompt.max_attempts_feedback || MAX_ATTEMPTS_FEEDBACK_TEXT}
+        text={prompt.max_attempts_feedback || ''}
       />
     </div>
   )

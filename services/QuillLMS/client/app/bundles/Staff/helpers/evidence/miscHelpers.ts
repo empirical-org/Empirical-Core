@@ -11,8 +11,7 @@ import {
   IMAGE_ATTRIBUTION,
   HIGHLIGHT_PROMPT,
   PLAGIARISM,
-  FLAG,
-  MAX_ATTEMPTS_FEEDBACK_TEXT
+  FLAG
 } from '../../../../constants/evidence';
 import { DropdownObjectInterface } from '../../interfaces/evidenceInterfaces'
 
