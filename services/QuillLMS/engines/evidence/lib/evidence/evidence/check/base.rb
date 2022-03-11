@@ -22,7 +22,7 @@ module Evidence
         begin
           check.run
         rescue => e
-          # TODO: log error to New Relix
+          # TODO: log error to New Relic
           puts e
           @error = e
         end

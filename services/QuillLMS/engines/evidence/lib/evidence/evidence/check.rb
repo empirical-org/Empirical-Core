@@ -14,7 +14,8 @@ module Evidence
       RegexTypo
     ]
 
-    def self.run(entry, prompt, previous_feedback)
+    # returns first nonoptimal feedback, and if all are optimal, returns automl feedback
+    def self.run_all(entry, prompt, previous_feedback)
       auto_ml_feedback = nil
       nonoptimal_feedback = nil
 
