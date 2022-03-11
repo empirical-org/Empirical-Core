@@ -7,8 +7,8 @@ import UpperFormSection from './upperFormSection';
 import MaxAttemptsEditor from "./maxAttemptsEditor";
 import ImageSection from "./imageSection";
 
-import { validateForm, buildActivity } from '../../../helpers/evidence/miscHelpers';
-import { renderInvalidHighlightLinks, getCheckIcon } from '../../../helpers/evidence/renderHelpers';
+import { validateForm, buildActivity, validateFormSection } from '../../../helpers/evidence/miscHelpers';
+import { renderInvalidHighlightLinks} from '../../../helpers/evidence/renderHelpers';
 import { getActivityPrompt, promptsByConjunction, buildBlankPrompt, getActivityPromptSetter } from '../../../helpers/evidence/promptHelpers';
 import {
   BECAUSE, BUT, SO, activityFormKeys, PASSAGE, HIGHLIGHT_PROMPT, ESSENTIAL_KNOWLEDGE_TEXT_FILLER,
@@ -196,74 +196,15 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
     />
   ];
 
-  function validateFormSection({ props }) {
+  const formattedRows = formComponents.map((component, i) => {
+    const { props } = component;
     const { label } = props;
-    switch(label) {
-      case titleCase(TEXT):
-        const passagePresent = activityPassages && activityPassages[0] && activityPassages[0].text && activityPassages[0].text !== BREAK_TAG;
-        return getCheckIcon(passagePresent);
-      case BUILDING_ESSENTIAL_KNOWLEDGE:
-        const essentialKnowledgePresent = (
-          activityPassages && activityPassages[0] &&
-          !!activityPassages[0].essential_knowledge_text &&
-          activityPassages[0].essential_knowledge_text !== ESSENTIAL_KNOWLEDGE_TEXT_FILLER &&
-          activityPassages[0].essential_knowledge_text !== BREAK_TAG
-        );
-        return getCheckIcon(essentialKnowledgePresent);
-      case HIGHLIGHTING_PROMPT:
-        const highlightingPresent = (activityPassages && activityPassages[0] && !!activityPassages[0].highlight_prompt && activityPassages[0].highlight_prompt !== DEFAULT_HIGHLIGHT_PROMPT);
-        return getCheckIcon(highlightingPresent);
-      case IMAGE:
-        const imageDetailsPresent = (
-          activityPassages &&
-          activityPassages[0] &&
-          !!activityPassages[0].image_link &&
-          !!activityPassages[0].image_alt_text &&
-          !!activityPassages[0].image_caption &&
-          !!activityPassages[0].image_attribution
-        );
-        return getCheckIcon(imageDetailsPresent);
-      case MAX_ATTEMPTS_FEEDBACK:
-        const maxAttemptsFeedbackPresent = (
-          activityBecausePrompt &&
-          activityButPrompt &&
-          activitySoPrompt &&
-          !!activityBecausePrompt.max_attempts_feedback &&
-          !!activityButPrompt.max_attempts_feedback &&
-          !!activitySoPrompt.max_attempts_feedback &&
-          activityBecausePrompt.max_attempts_feedback !== BREAK_TAG &&
-          activityButPrompt.max_attempts_feedback !== BREAK_TAG &&
-          activitySoPrompt.max_attempts_feedback !== BREAK_TAG
-        );
-        return getCheckIcon(maxAttemptsFeedbackPresent);
-      case PROMPTS:
-        const promptsDetailsPresent = (
-          activityBecausePrompt &&
-          activityButPrompt &&
-          activitySoPrompt &&
-          !!activityBecausePrompt.text &&
-          !!activityButPrompt.text &&
-          !!activitySoPrompt.text &&
-          !!activityBecausePrompt.first_strong_example &&
-          !!activityButPrompt.first_strong_example &&
-          !!activitySoPrompt.first_strong_example &&
-          !!activityBecausePrompt.second_strong_example &&
-          !!activityButPrompt.second_strong_example &&
-          !!activitySoPrompt.second_strong_example
-        );
-        return getCheckIcon(promptsDetailsPresent);
-      default:
-        break
-    }
-  }
-
-  const formattedRows = formComponents.map((component, i) => (
-    {
+    return {
       id: i,
       component,
-      added: validateFormSection(component)
+      added: validateFormSection({ label, activityPassages, activityBecausePrompt, activityButPrompt, activitySoPrompt })
     }
-  ));
+  });
 
   const dataTableFields = [
     { name: "", attribute:"component", width: "800px" },

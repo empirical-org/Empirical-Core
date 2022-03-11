@@ -21,24 +21,28 @@ exports[`ImageSection component should render ImageSection 1`] = `
     handleChange={[MockFunction]}
     label="Image Caption"
   />
-  <p
-    className="text-editor-label "
-    id="image-attribution-label"
+  <div
+    className="image-attribution-container"
   >
-     Image Attribution
-  </p>
-  <a
-    className="data-link image-attribution-guide-link"
-    href=""
-    rel="noopener noreferrer"
-    target="_blank"
-  >
-    Image Atributtion Guide
-  </a>
-  <textarea
-    aria-labelledby="image-attribution-label"
-    className="image-attribution-text-area"
-    onChange={[MockFunction]}
-  />
+    <p
+      className="text-editor-label "
+      id="image-attribution-label"
+    >
+       Image Attribution
+    </p>
+    <a
+      className="data-link image-attribution-guide-link"
+      href=""
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Image Atributtion Guide
+    </a>
+    <textarea
+      aria-labelledby="image-attribution-label"
+      className="image-attribution-text-area"
+      onChange={[MockFunction]}
+    />
+  </div>
 </Fragment>
 `;
