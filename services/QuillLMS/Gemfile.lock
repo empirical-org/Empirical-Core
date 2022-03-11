@@ -495,7 +495,7 @@ GEM
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
     public_suffix (4.0.6)
-    puma (4.3.10)
+    puma (4.3.11)
       nio4r (~> 2.0)
     puma_worker_killer (0.1.1)
       get_process_mem (~> 0.2)
@@ -868,7 +868,7 @@ DEPENDENCIES
   pry-remote
   pry-rescue
   pry-stack_explorer
-  puma (~> 4.3.8)
+  puma (>= 4.3.11)
   puma_worker_killer (~> 0.1.0)
   pusher
   rack-affiliates (= 0.4.0)
