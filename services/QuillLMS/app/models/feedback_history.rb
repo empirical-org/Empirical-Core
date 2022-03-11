@@ -132,6 +132,32 @@ class FeedbackHistory < ApplicationRecord
     feedback_history_ratings.order(updated_at: :desc).first&.rating
   end
 
+  # TODO: consider making this a background job.
+  def self.save_feedback(feedback_hash_raw, entry, prompt_id, session_uid, attempt)
+    feedback_hash = feedback_hash_raw.deep_stringify_keys
+
+    create(
+      feedback_session_uid: session_uid,
+      prompt_id: prompt_id,
+      attempt: attempt,
+      entry: entry,
+      used: true,
+      time: Time.zone.now,
+      rule_uid: feedback_hash['rule_uid'],
+      concept_uid: feedback_hash['concept_uid'],
+      feedback_text: feedback_hash['feedback'],
+      feedback_type: feedback_hash['feedback_type'],
+      optimal: feedback_hash['optimal'],
+      rule_uid: feedback_hash['rule_uid'],
+      metadata: {
+        highlight: feedback_hash['highlight'],
+        labels: feedback_hash['labels'],
+        response_id: feedback_hash['response_id'],
+        hint: feedback_hash['hint']
+      }
+    )
+  end
+
   def rule_violation_repititions?
     histories_from_same_session.where(rule_uid: rule_uid)
       .where('attempt < ?', attempt)

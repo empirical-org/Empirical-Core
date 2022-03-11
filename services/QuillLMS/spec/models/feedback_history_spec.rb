@@ -138,6 +138,44 @@ RSpec.describe FeedbackHistory, type: :model do
     end
   end
 
+  context 'save_feedback' do
+    let!(:entry) { 'some response text' }
+    let(:session_uid) { SecureRandom.uuid }
+    let(:rule_uid) { SecureRandom.uuid }
+    let!(:feedback_hash) {
+      {
+        rule_uid: rule_uid,
+        concept_uid: 'rCuCaRpGZg0TeFfy4LeM9A',
+        feedback: 'write better',
+        feedback_type: 'grammar',
+        optimal: false,
+        highlight: [{text: 'some', type: 'entry', category: 'grammar', character: 0}],
+        labels: [],
+        response_id: 'abc123',
+        hint: 'a hint'
+      }
+    }
+
+    it 'should store the data properly' do
+      feedback = FeedbackHistory.save_feedback(feedback_hash, entry, 99, session_uid, 5)
+
+      expect(feedback.valid?).to be true
+      expect(feedback.feedback_session_uid).to eq(session_uid)
+      expect(feedback.prompt_id).to eq(99)
+      expect(feedback.feedback_text).to eq('write better')
+      expect(feedback.feedback_type).to eq('grammar')
+      expect(feedback.optimal).to be false
+      expect(feedback.concept_uid).to eq('rCuCaRpGZg0TeFfy4LeM9A')
+      expect(feedback.rule_uid).to eq(rule_uid)
+      expect(feedback.attempt).to eq(5)
+      expect(feedback.entry).to eq(entry)
+      expect(feedback.metadata['highlight'].first['text']).to eq('some')
+      expect(feedback.metadata['labels'].to be_empty
+      expect(feedback.metadata['response_id']).to eq('abc123')
+      expect(feedback.metadata['hint']).to eq('a hint')
+    end
+  end
+
   context 'batch_create' do
     before do
       @valid_fh_params = {
