@@ -38,11 +38,10 @@ module Evidence
 
         auto_ml_check = check if check.auto_ml?
 
-        next if check.optimal?
-
-        first_nonoptimal_check = check
-
-        break
+        if !check.optimal?
+          first_nonoptimal_check = check
+          break
+        end
       end
 
       first_nonoptimal_check || auto_ml_check
