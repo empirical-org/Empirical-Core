@@ -7,11 +7,11 @@ module Evidence
     before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling, :create]
 
     def create
-      feedback = Check.run_all(@entry, @prompt, @previous_feedback)
+      feedback = Check.feedback(@entry, @prompt, @previous_feedback)
 
       save_feedback_history(feedback)
 
-      render json: feedback&.response || {}
+      render json: feedback
     end
 
     def grammar

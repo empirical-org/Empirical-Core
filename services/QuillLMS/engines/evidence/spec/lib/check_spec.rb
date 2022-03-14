@@ -4,12 +4,33 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(Check, type: :module) do
+    let(:entry) { 'this is the entry'}
+    let(:prompt) {'some prompt'}
+    let(:previous_feedback) { []}
 
-    context "run_all" do
-      let(:entry) { 'this is the entry'}
-      let(:prompt) {'some prompt'}
-      let(:previous_feedback) { []}
 
+    context "feedback" do
+      let(:response) { {key: 'value'} }
+      let(:check) {double('check', response: response)}
+
+      it "should return trigger_check's response if there is one" do
+        expect(Check).to receive(:find_triggered_check).once.and_return(check)
+
+        feedback = Check.feedback(entry, prompt, previous_feedback)
+
+        expect(feedback).to eq(response)
+      end
+
+      it "should return fallback response if no trigger check is found" do
+        expect(Check).to receive(:find_triggered_check).once.and_return(nil)
+
+        feedback = Check.feedback(entry, prompt, previous_feedback)
+
+        expect(feedback).to eq(Check::FALLBACK_RESPONSE)
+      end
+    end
+
+    context "find_triggered_check" do
       context 'all optimal' do
         it "should return autoML feedback" do
           Evidence::Check::ALL_CHECKS.each do |check_class|
@@ -17,7 +38,7 @@ module Evidence
             expect_any_instance_of(check_class).to receive(:optimal?).once.and_return(true)
           end
 
-          feedback = Check.run_all(entry, prompt, previous_feedback)
+          feedback = Check.find_triggered_check(entry, prompt, previous_feedback)
 
           expect(feedback.class).to be(Check::AutoML)
         end
@@ -39,7 +60,7 @@ module Evidence
             expect_any_instance_of(check_class).not_to receive(:run)
           end
 
-          feedback = Check.run_all(entry, prompt, previous_feedback)
+          feedback = Check.find_triggered_check(entry, prompt, previous_feedback)
 
           expect(feedback.class).to be(non_optimal_check_class)
         end
@@ -58,7 +79,7 @@ module Evidence
             expect_any_instance_of(check_class).not_to receive(:run)
           end
 
-          feedback = Check.run_all(entry, prompt, previous_feedback)
+          feedback = Check.find_triggered_check(entry, prompt, previous_feedback)
 
           expect(feedback.class).to be(second_check_class)
         end
