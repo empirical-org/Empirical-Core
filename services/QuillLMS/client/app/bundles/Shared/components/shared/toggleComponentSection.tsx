@@ -13,13 +13,7 @@ export const ToggleComponentSection = ({ label, components }) => {
     if(!isExpanded) {
       return <span />
     }
-    // there is an open issue with this being flagged as a false positive: https://github.com/yannickcr/eslint-plugin-react/issues/2584
-    /* eslint-disable react/jsx-no-useless-fragment */
-    return(
-      <React.Fragment>
-        {components.map(component => (component))}
-      </React.Fragment>
-    );
+    return components;
   }
 
   const expandedStyle = isExpanded ? 'open' : '';

@@ -39,7 +39,7 @@ export const ImageSection = ({
       {errors[IMAGE_CAPTION] && <p className="error-message">{errors[IMAGE_CAPTION]}</p>}
       <div className="image-attribution-container">
         <p className={`text-editor-label ${imageAttributionStyle}`} id="image-attribution-label"> Image Attribution</p>
-        <a className="data-link image-attribution-guide-link" href={imageAttributionGuideLink} rel="noopener noreferrer" target="_blank">Image Atributtion Guide</a>
+        <a className="data-link image-attribution-guide-link" href={imageAttributionGuideLink} rel="noopener noreferrer" target="_blank">Image Attribution Guide</a>
         <textarea
           aria-labelledby="image-attribution-label"
           className="image-attribution-text-area"

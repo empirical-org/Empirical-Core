@@ -36,7 +36,7 @@ exports[`ImageSection component should render ImageSection 1`] = `
       rel="noopener noreferrer"
       target="_blank"
     >
-      Image Atributtion Guide
+      Image Attribution Guide
     </a>
     <textarea
       aria-labelledby="image-attribution-label"
