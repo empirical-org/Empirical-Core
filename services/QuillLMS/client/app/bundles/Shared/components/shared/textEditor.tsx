@@ -163,7 +163,7 @@ class TextEditor extends React.Component <any, any> {
     };
 
     return (
-      <div className="card is-fullwidth">
+      <div className="text-editor card is-fullwidth">
         <header className="card-header">
           <div className="myToolbar" style={{margin: '1em'}}>
             <H3Button />
