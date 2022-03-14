@@ -114,7 +114,9 @@ SecureHeaders::Configuration.default do |config|
       "https://*.sentry.io",
       "wss://*.quill.org",
       "https://*.satismeter.com",
-      "http://localhost:8080/"
+      "http://localhost:8080/",
+      "http://localhost:3200",
+      "ws://localhost:3200"
     ]
   }
 

@@ -14,7 +14,7 @@ describe QuillStaffAccountsChangedWorker, type: :worker do
       expect(worker).to receive(:current_staff_account_data).and_return([staff_json])
       expect(worker).to receive(:cached_staff_account_data).and_return({})
       expect(worker).to receive(:notify_staff)
-      expect($redis).to receive(:set).with(QuillStaffAccountsChangedWorker::STAFF_ACCOUNTS_CACHE_KEY, [staff_json].to_json)
+      expect($redis).to receive(:set).with(QuillStaffAccountsChangedWorker::STAFF_ACCOUNTS_CACHE_KEY, [staff_json].to_json, ex: 25.hours.to_i)
       worker.perform
     end
 
@@ -22,7 +22,7 @@ describe QuillStaffAccountsChangedWorker, type: :worker do
       expect(worker).to receive(:current_staff_account_data).and_return([staff_json])
       expect(worker).to receive(:cached_staff_account_data).and_return([staff_json])
       expect(worker).not_to receive(:notify_staff)
-      expect($redis).to receive(:set).with(QuillStaffAccountsChangedWorker::STAFF_ACCOUNTS_CACHE_KEY, [staff_json].to_json)
+      expect($redis).to receive(:set).with(QuillStaffAccountsChangedWorker::STAFF_ACCOUNTS_CACHE_KEY, [staff_json].to_json, ex: 25.hours.to_i)
       worker.perform
     end
 

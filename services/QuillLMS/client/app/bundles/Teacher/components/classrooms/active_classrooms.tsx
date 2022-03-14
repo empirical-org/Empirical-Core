@@ -291,7 +291,8 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   getClassroomCardsWithHandle(classroomCards) {
-    const DragHandle = SortableHandle(() => <img alt="Reorder icon" className="reorder-icon focus-on-light" src={reorderSrc} tabIndex={0} />);
+    // using a div as the outer element instead of a button here because something about default button behavior overrides the keypress handling by sortablehandle
+    const DragHandle = SortableHandle(() => <div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div>);
     const handle = <span className='reorder-classroom-item'><DragHandle /></span>
 
     return classroomCards.map(card => {

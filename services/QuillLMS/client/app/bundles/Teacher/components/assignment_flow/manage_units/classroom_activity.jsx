@@ -111,7 +111,7 @@ export default class ClassroomActivity extends React.Component {
     const { report, data, } = this.props
     if (!report && !(this.isLesson())) {
       const style = !data.ownedByCurrentUser ? { visibility: 'hidden', } : null;
-      return <div className="pull-right" style={style}><img alt="" className="delete-classroom-activity h-pointer" onClick={this.handleHideUnitActivityClick} src="/images/x.svg" /></div>;
+      return <button className="pull-right interactive-wrapper focus-on-light" onClick={this.handleHideUnitActivityClick} style={style} type="button"><img alt="" className="delete-classroom-activity h-pointer" src="/images/x.svg" /></button>;
     }
   }
 

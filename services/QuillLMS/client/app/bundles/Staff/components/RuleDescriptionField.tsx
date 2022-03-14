@@ -41,7 +41,7 @@ export default class RuleDescriptionField extends React.Component<any, any> {
         <div className="concept-attribute-field-editor">
           <div className="concept-attribute-field-editor-header">
             <p>Grammar rule description (optional)</p>
-            {isNew ? '' : <p className="remove-concept-attribute-field" onClick={this.cancel}><i className="fas fa-archive" /><span>Remove</span></p>}
+            {isNew ? '' : <button className="interactive-wrapper focus-on-light remove-concept-attribute-field" onClick={this.cancel} type="button"><i className="fas fa-archive" /><span>Remove</span></button>}
           </div>
           <TextEditor
             ContentState={ContentState}
@@ -50,7 +50,7 @@ export default class RuleDescriptionField extends React.Component<any, any> {
             key="rule-description"
             text={ruleDescription}
           />
-          {isNew ? <p className="cancel-concept-attribute-field" onClick={this.cancel}>Cancel</p> : ''}
+          {isNew ? <button className="interactive-wrapper focus-on-light cancel-concept-attribute-field" onClick={this.cancel} type="button">Cancel</button> : ''}
         </div>
       </div>
     )

@@ -83,7 +83,7 @@
         }
       }
     }
-    button {
+    button:not(.interactive-wrapper) {
       width: 145px;
       height: 40px;
       border-radius: 3px;
