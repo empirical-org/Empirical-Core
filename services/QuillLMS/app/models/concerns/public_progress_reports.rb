@@ -46,7 +46,9 @@ module PublicProgressReports
   def results_by_question(activity_id)
     activity = Activity.includes(:classification).find(activity_id)
     questions = Hash.new{|h,k| h[k]={} }
+
     all_answers = ActivitySession.activity_session_metadata(@activity_sessions)
+
     all_answers.each do |answer|
       curr_quest = questions[answer["questionNumber"]]
       curr_quest[:correct] ||= 0
@@ -72,7 +74,6 @@ module PublicProgressReports
     if questions_arr.empty?
       questions_arr = generic_questions_for_report(params[:activity_id])
     end
-
     questions_arr
   end
   # rubocop:enable Metrics/CyclomaticComplexity

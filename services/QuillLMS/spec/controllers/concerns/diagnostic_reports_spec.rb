@@ -53,13 +53,24 @@ describe DiagnosticReports do
       let!(:students_classroom3) { create(:students_classrooms, classroom: classroom, student: student3)}
       let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student1.id, student2.id, student3.id]) }
       let!(:unit_activity) { create(:unit_activity, unit: unit) }
+      let!(:unrelated_unit_activity) { create(:unit_activity) }
+
       let!(:activity_session1) { create(:activity_session, :finished, user: student1, classroom_unit: classroom_unit, activity: unit_activity.activity) }
       let!(:activity_session2) { create(:activity_session, :finished, user: student2, classroom_unit: classroom_unit, activity: unit_activity.activity) }
+      let!(:unrelated_activity_session) do
+        create(:activity_session, :finished, user: student2, classroom_unit: classroom_unit, activity: unrelated_unit_activity.activity)
+      end
 
       it 'should set the variables for all the final score activity sessions for that activity, classroom, and unit' do
         set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(unit_activity.activity_id, classroom.id, unit.id)
         expect(@assigned_students).to include(student1, student2, student3)
         expect(@activity_sessions).to include(activity_session1, activity_session2)
+      end
+
+      it 'should only return activity sessions belonging to the specified activity' do
+        set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(unit_activity.activity_id, classroom.id, unit.id)
+        expect(@activity_sessions.count).to eq 2
+        expect(@activity_sessions.filter {|as| as.id == unrelated_activity_session.id}).to eq []
       end
 
       it 'should not include a student or their activity session if they are no longer in the assigned student ids array' do
@@ -69,6 +80,7 @@ describe DiagnosticReports do
         expect(@assigned_students).to include(student2, student3)
         expect(@activity_sessions).to include(activity_session2)
       end
+
     end
 
     describe 'if there is no unit_id' do
