@@ -27,12 +27,14 @@ module Evidence
     describe '#create' do
 
       let(:feedback) { double('feedback', response: {key1: 'some value'} ) }
+      let(:session_id) { 99 }
+      let(:attempt) { 3 }
 
       it "should call Check.run_all, save history, and return feedback.response" do
         expect(Check).to receive(:run_all).with(entry, prompt, []).and_return(feedback)
-        expect(Evidence.feedback_history_class).to receive(:save_feedback).with(feedback, entry, prompt.id, 99, 3)
+        expect(Evidence.feedback_history_class).to receive(:save_feedback).with(feedback, entry, prompt.id, session_id, attempt)
 
-        post :create, params: {entry: entry, prompt_id: prompt.id, session_id: 99, previous_feedback: ([]), attempt: 3 }, as: :json
+        post :create, params: {entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt }, as: :json
 
         parsed_response = JSON.parse(response.body)
         expect(parsed_response['key1']).to eq('some value')
@@ -133,9 +135,7 @@ module Evidence
       end
 
       context 'prefilter test' do
-        let!(:profanity_rule) do
-          create(:evidence_rule, rule_type: 'prefilter', uid: 'fdee458a-f017-4f9a-a7d4-a72d1143abeb')
-        end
+        let!(:profanity_rule) { create(:evidence_rule, rule_type: 'prefilter', uid: 'fdee458a-f017-4f9a-a7d4-a72d1143abeb')}
 
         before do
           stub_const("Evidence::Check::ALL_CHECKS", [Check::Prefilter])
@@ -153,21 +153,6 @@ module Evidence
             parsed_response = JSON.parse(response.body)
             expect(parsed_response['optimal']).to be false
             expect(parsed_response['rule_uid']).to eq profanity_rule.uid
-          end
-        end
-
-        context 'no violation' do
-          it 'should return empty response' do
-            post :create, params: {
-              entry: "the quick brown fox",
-              prompt_id: prompt.id,
-              session_id: 1,
-              previous_feedback: ([])
-            }, :as => :json
-
-            expect(response.status).to eq 200
-            parsed_response = JSON.parse(response.body)
-            expect(parsed_response).to eq({})
           end
         end
       end
@@ -193,9 +178,7 @@ module Evidence
           }
         end
 
-        let!(:grammar_rule) do
-          create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz')
-        end
+        let!(:grammar_rule) {create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz')}
 
         let!(:grammar_hint) { create(:evidence_hint, rule: grammar_rule) }
 

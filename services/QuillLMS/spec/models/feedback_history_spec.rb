@@ -142,6 +142,9 @@ RSpec.describe FeedbackHistory, type: :model do
     let!(:entry) { 'some response text' }
     let(:session_uid) { SecureRandom.uuid }
     let(:rule_uid) { SecureRandom.uuid }
+    let(:prompt_id) { 99 }
+    let(:attempt) { 5 }
+
     let!(:feedback_hash) {
       {
         rule_uid: rule_uid,
@@ -157,17 +160,17 @@ RSpec.describe FeedbackHistory, type: :model do
     }
 
     it 'should store the data properly' do
-      feedback = FeedbackHistory.save_feedback(feedback_hash, entry, 99, session_uid, 5)
+      feedback = FeedbackHistory.save_feedback(feedback_hash, entry, prompt_id, session_uid, attempt)
 
       expect(feedback.valid?).to be true
       expect(feedback.feedback_session_uid).to eq(session_uid)
-      expect(feedback.prompt_id).to eq(99)
+      expect(feedback.prompt_id).to eq(prompt_id)
       expect(feedback.feedback_text).to eq('write better')
       expect(feedback.feedback_type).to eq('grammar')
       expect(feedback.optimal).to be false
       expect(feedback.concept_uid).to eq('rCuCaRpGZg0TeFfy4LeM9A')
       expect(feedback.rule_uid).to eq(rule_uid)
-      expect(feedback.attempt).to eq(5)
+      expect(feedback.attempt).to eq(attempt)
       expect(feedback.entry).to eq(entry)
       expect(feedback.metadata['highlight'].first['text']).to eq('some')
       expect(feedback.metadata['labels'].to be_empty
