@@ -2,6 +2,16 @@ import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
 
+import {
+  TEACHER_PREMIUM_TRIAL,
+  TEACHER_PREMIUM_CREDIT,
+  TEACHER_PREMIUM_SCHOLARSHIP,
+  TEACHER_PREMIUM,
+  SCHOOL_PREMIUM,
+  SCHOOL_PREMIUM_SCHOLARSHIP,
+  DISTRICT_PREMIUM
+} from './constants';
+
 const quillBasicCopy = (
   <span>
     Quill Basic provides access to all of Quill&apos;s content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription.
@@ -51,13 +61,13 @@ const SubscriptionStatus = ({ subscriptionType, showPurchaseModal, subscriptionS
       subscriptionTypeText = 'Quill Basic';
       content.status = <h2>{`You have a ${subscriptionType} subscription`}<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
       break;
-    case 'Teacher Premium Trial':
-    case 'Teacher Premium Credit':
-    case 'Teacher Premium':
-    case 'Teacher Premium (Scholarship)':
+    case TEACHER_PREMIUM_TRIAL:
+    case TEACHER_PREMIUM_CREDIT:
+    case TEACHER_PREMIUM:
+    case TEACHER_PREMIUM_SCHOLARSHIP:
       content.pCopy = teacherPremiumCopy(subscriptionType);
       image = 'teacher_premium_icon.png';
-      const teacherSubDisplayName = subscriptionType === 'Teacher Premium (Scholarship)' ? 'Teacher Premium' : subscriptionType
+      const teacherSubDisplayName = subscriptionType === TEACHER_PREMIUM_SCHOLARSHIP ? TEACHER_PREMIUM : subscriptionType
       content.status = <h2>You have a {teacherSubDisplayName} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
       if (remainingDays < 0) {
         content.boxColor = '#ff4542';
@@ -65,11 +75,11 @@ const SubscriptionStatus = ({ subscriptionType, showPurchaseModal, subscriptionS
         content.boxColor = '#348fdf';
       }
       break;
-    case 'School Paid':
-    case 'District Premium':
-    case 'School Premium (Scholarship)':
+    case SCHOOL_PREMIUM:
+    case DISTRICT_PREMIUM:
+    case SCHOOL_PREMIUM_SCHOLARSHIP:
       content.pCopy = schoolPremiumCopy(subscriptionType);
-      const schoolSubDisplayName = subscriptionType === 'School Premium (Scholarship)' ? 'School Premium' : subscriptionType
+      const schoolSubDisplayName = subscriptionType === SCHOOL_PREMIUM_SCHOLARSHIP ? SCHOOL_PREMIUM : subscriptionType
       content.status = <h2>You have a {schoolSubDisplayName} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
       content.boxColor = '#9c2bde';
       image = 'school_premium_icon.png';

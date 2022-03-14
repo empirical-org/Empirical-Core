@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 import ChangePlan from './change_plan';
 import TitleAndContent from './current_subscription_title_and_content';
+import { TEACHER_PREMIUM_TRIAL, SCHOOL_PREMIUM, DISTRICT_PREMIUM } from './constants';
 
 import { Tooltip, helpIcon, } from '../../../Shared/index'
 import EnterOrUpdateStripeCard from '../modules/stripe/enter_or_update_card.js';
@@ -25,7 +26,7 @@ export default class CurrentSubscription extends React.Component {
 
   getCondition() {
     const { subscriptionType, } = this.props
-    if (['School Premium', 'District Premium'].includes(subscriptionType)) {
+    if ([SCHOOL_PREMIUM, DISTRICT_PREMIUM].includes(subscriptionType)) {
       return 'school'
     } else {
       return 'other'
@@ -40,7 +41,7 @@ export default class CurrentSubscription extends React.Component {
       return this.editCreditCardElement();
     } else if (subscriptionStatus && subscriptionStatus.payment_method === 'Credit Card') {
       return <span>Credit Card</span>;
-    } else if (subscriptionType === 'Teacher Premium Trial') {
+    } else if (subscriptionType === TEACHER_PREMIUM_TRIAL) {
       return <span>No Payment Method on File</span>;
     } else if (subscriptionStatus && ['Invoice', 'School Invoice'].includes(subscriptionStatus.payment_method)) {
       return <span>Invoice</span>;
@@ -52,7 +53,7 @@ export default class CurrentSubscription extends React.Component {
 
   getPrice() {
     const { subscriptionType, } = this.props
-    if (['District Premium', 'School Premium'].includes(subscriptionType)) {
+    if ([DISTRICT_PREMIUM, SCHOOL_PREMIUM].includes(subscriptionType)) {
       return '900';
     }
     return '80';
