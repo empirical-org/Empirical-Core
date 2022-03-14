@@ -36,7 +36,7 @@ module Evidence
           expect_any_instance_of(non_optimal_check_class).to receive(:optimal?).once.and_return(false)
 
           Evidence::Check::ALL_CHECKS.slice(4..-1).each do |check_class|
-            expect_any_instance_of(check_class).to receive(:run).never
+            expect_any_instance_of(check_class).not_to receive(:run)
           end
 
           feedback = Check.run_all(entry, prompt, previous_feedback)
@@ -55,7 +55,7 @@ module Evidence
           expect_any_instance_of(second_check_class).to receive(:optimal?).once.and_return(false)
 
           Evidence::Check::ALL_CHECKS.slice(2..-1).each do |check_class|
-            expect_any_instance_of(check_class).to receive(:run).never
+            expect_any_instance_of(check_class).not_to receive(:run)
           end
 
           feedback = Check.run_all(entry, prompt, previous_feedback)

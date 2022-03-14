@@ -148,7 +148,6 @@ class FeedbackHistory < ApplicationRecord
       feedback_text: feedback_hash['feedback'],
       feedback_type: feedback_hash['feedback_type'],
       optimal: feedback_hash['optimal'],
-      rule_uid: feedback_hash['rule_uid'],
       metadata: {
         highlight: feedback_hash['highlight'],
         labels: feedback_hash['labels'],

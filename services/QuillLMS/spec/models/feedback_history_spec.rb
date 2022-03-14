@@ -173,7 +173,7 @@ RSpec.describe FeedbackHistory, type: :model do
       expect(feedback.attempt).to eq(attempt)
       expect(feedback.entry).to eq(entry)
       expect(feedback.metadata['highlight'].first['text']).to eq('some')
-      expect(feedback.metadata['labels'].to be_empty
+      expect(feedback.metadata['labels']).to be_empty
       expect(feedback.metadata['response_id']).to eq('abc123')
       expect(feedback.metadata['hint']).to eq('a hint')
     end

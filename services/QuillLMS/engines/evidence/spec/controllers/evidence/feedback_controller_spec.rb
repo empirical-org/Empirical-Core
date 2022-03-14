@@ -3,6 +3,7 @@
 require 'rails_helper'
 require 'webmock/minitest'
 
+# rubocop:disable Metrics/ModuleLength
 module Evidence
   RSpec.describe(FeedbackController, :type => :controller) do
     before do
@@ -614,3 +615,4 @@ module Evidence
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength
