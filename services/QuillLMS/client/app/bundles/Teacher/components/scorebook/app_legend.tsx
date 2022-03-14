@@ -72,7 +72,7 @@ export const AppLegend = () => {
       <img alt="Book representing Quill Reading for Evidence" className="icon-wrapper evidence-icon" src={EVIDENCE_ICON_SRC} />
       <div className="icons-description-wrapper">
         <p className="title">Quill Reading for Evidence</p>
-        <p className="description" />
+        <p className="description">Use a text to write with evidence</p>
       </div>
     </div>)
 

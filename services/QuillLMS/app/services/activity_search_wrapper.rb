@@ -163,7 +163,7 @@ class ActivitySearchWrapper
     when ActivityClassification::EVIDENCE_KEY
       h = {
         alias: 'Quill Reading for Evidence',
-        description: '',
+        description: 'Use a Text to Write with Evidence',
         key: ActivityClassification::EVIDENCE_KEY
       }
     else
