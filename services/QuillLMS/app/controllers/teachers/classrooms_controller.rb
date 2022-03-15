@@ -31,8 +31,11 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def classrooms_i_teach
-    @classrooms = current_user.classrooms_i_teach
-    render json: @classrooms.sort_by { |c| c[:update_at] }, each_serializer: ClassroomSerializer
+    data = current_user.all_classrooms_cache(key: 'teachers.classrooms.classrooms_i_teach') do
+      @classrooms = current_user.classrooms_i_teach
+      @classrooms.sort_by { |c| c[:update_at] }
+    end
+    render json: data, each_serializer: ClassroomSerializer
   end
 
   def regenerate_code
