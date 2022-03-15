@@ -13,10 +13,10 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
           flash[:warning] = 'Downloadable reports are only available to Premium users.'
           return redirect_to premium_path
         end
-        return_data(false)
+        render plain: return_data(false)
       end
       format.json do
-        return_data(true)
+        render json: return_data(true)
       end
     end
   end
@@ -139,12 +139,12 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
         page_count = (count.to_f / PAGE_SIZE).ceil
 
         if params[:without_filters]
-          render json: {
+          {
             activity_sessions: activity_sessions,
             page_count: page_count,
           }
         else
-          render json: {
+          {
             classrooms: current_user.ids_and_names_of_affiliated_classrooms,
             students: current_user.ids_and_names_of_affiliated_students,
             units: current_user.ids_and_names_of_affiliated_units,
@@ -153,7 +153,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
           }
         end
       else
-        render plain: csv_string(activity_sessions)
+        csv_string(activity_sessions)
       end
     end
   end
