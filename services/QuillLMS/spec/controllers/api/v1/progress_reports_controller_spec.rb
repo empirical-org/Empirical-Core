@@ -52,6 +52,23 @@ describe Api::V1::ProgressReportsController, type: :controller do
         classroom_name: classroom.name
       }.to_json)
     end
+
+    it 'should successfully return fresh and cached payloads' do
+      session[:user_id] = teacher.id
+      2.times do
+        get :student_overview_data, params: { student_id: student.id, classroom_id: classroom.id }, as: :json
+        expect(response.status).to eq(200)
+        expect(response.body).to eq({
+          report_data: ProgressReports::StudentOverview.results(classroom.id, student.id),
+          student_data: {
+            name: student.name,
+            id: student.id,
+            last_active: student.last_active
+          },
+          classroom_name: classroom.name
+        }.to_json)
+      end
+    end
   end
 
   describe '#district_activity_scores' do
