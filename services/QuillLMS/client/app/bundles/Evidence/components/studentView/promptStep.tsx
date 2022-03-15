@@ -28,6 +28,8 @@ interface PromptStepState {
   customFeedbackKey: string|null;
   responseOverCharacterLimit: boolean;
   submissionTime: number;
+  currentTime: number;
+  failedToLoadFeedback: boolean;
 }
 
 const RESPONSE = 'response'
@@ -38,9 +40,12 @@ const OVER_LIMIT_MESSSAGE = 'Your response is too long for our feedback bot to u
 const WARNING_THRESHOLD = 160;
 const LIMIT_THRESHOLD = 200;
 const MAX_ATTEMPTS = 5;
+const SLOW_FEEDBACK_CONSTRAINT = 10000;
+const FEEDBACK_LOADING_LIMIT = 30000;
 
 export class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
+  private interval: any // eslint-disable-line react/sort-comp
 
   constructor(props: PromptStepProps) {
     super(props)
@@ -53,18 +58,33 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       customFeedback: null,
       customFeedbackKey: null,
       responseOverCharacterLimit: false,
-      submissionTime: null
+      submissionTime: 0,
+      failedToLoadFeedback: false,
+      currentTime: 0
     };
 
     this.editor = React.createRef()
+    this.interval = null;
   }
 
-  componentDidUpdate(prevProps) {
+
+  componentDidUpdate() {
     const { submittedResponses } = this.props;
-    const { numberOfSubmissions, submissionTime } = this.state;
+    const { numberOfSubmissions, submissionTime, currentTime, failedToLoadFeedback } = this.state;
+    const timeLapsed = Math.abs(currentTime - submissionTime)
+
     if(submissionTime && numberOfSubmissions === submittedResponses.length) {
-      this.setState({ submissionTime: null });
+      this.setState({ submissionTime: 0, currentTime: 0 });
+      clearInterval(this.interval);
     }
+    if(currentTime && timeLapsed >= FEEDBACK_LOADING_LIMIT && !failedToLoadFeedback) {
+      const feedbackFailedToLoadText = 'Sorry, our feedback did not load properly. Please try again or refresh the page.'
+      this.setState({ failedToLoadFeedback: true, customFeedback: feedbackFailedToLoadText, customFeedbackKey: 'feedback failed' });
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   lastSubmittedResponse = () => {
@@ -253,10 +273,14 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
     this.setState(prevState => ({
       numberOfSubmissions: prevState.numberOfSubmissions + 1,
-      submissionTime: (new Date()).getTime()
+      submissionTime: (new Date()).getTime(),
+      failedToLoadFeedback: false,
+      customFeedback: null,
+      customFeedbackKey: null
     }), () => {
       const { numberOfSubmissions, } = this.state
       submitResponse(entry, promptId, promptText, numberOfSubmissions)
+      this.interval = setInterval(() => this.setState({ currentTime: (new Date()).getTime() }), 1000);
     })
   }
 
@@ -291,25 +315,25 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   }
 
   getFeedbackLoadingDetails = () => {
-    const { submissionTime } = this.state
+    const { submissionTime, currentTime } = this.state
     if(!submissionTime) {
       return <span />
     }
-
-    const currentTime = (new Date()).getTime()
     const timeLapsed = Math.abs(currentTime - submissionTime)
-    if(timeLapsed <= 5000) {
+    if(timeLapsed <= SLOW_FEEDBACK_CONSTRAINT) {
       return <p>Finding feedback...</p>
+    } else if(timeLapsed > SLOW_FEEDBACK_CONSTRAINT && timeLapsed <= FEEDBACK_LOADING_LIMIT) {
+      return <p>Still finding feedback. Thanks for your patience!</p>
     }
-    return <p>Still finding feedback. Thanks for your patience!</p>
+    return <span />
   }
 
   renderFeedbackButtonAndDetails = () => {
     const { prompt, submittedResponses, completionButtonCallback, activityIsComplete} = this.props
     const { id, text, max_attempts } = prompt
-    const { html, numberOfSubmissions, responseOverCharacterLimit } = this.state
+    const { html, numberOfSubmissions, responseOverCharacterLimit, failedToLoadFeedback } = this.state
     const entry = this.stripHtml(html).trim()
-    const awaitingFeedback = numberOfSubmissions !== submittedResponses.length
+    const awaitingFeedback = (numberOfSubmissions !== submittedResponses.length) && !failedToLoadFeedback
     const buttonLoadingSpinner = awaitingFeedback ? <ButtonLoadingSpinner /> : null
     let buttonCopy = 'Get feedback'
     let className = 'quill-button focus-on-light'

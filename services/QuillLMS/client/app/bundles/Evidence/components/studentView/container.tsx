@@ -481,13 +481,14 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       const innerElements = node.children.map((n, i) => convertNodeToElement(n, i, transformMarkTags))
       const stringifiedInnerElements = node.children.map(n => n.data ? n.data : n.children[0].data).join('')
       let className = ''
+      const key = `${Math.random()}`;
       if(activeStep === 1) {
         className += studentHighlights.includes(stringifiedInnerElements) ? ' highlighted' : ''
       }
       className += shouldBeHighlightable  ? ' highlightable' : ''
-      if (!shouldBeHighlightable) { return <mark className={className}>{innerElements}</mark>}
+      if (!shouldBeHighlightable) { return <mark className={className} key={key}>{innerElements}</mark>}
       /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
-      return <mark className={className} onClick={handleHighlightClick} onKeyDown={handleHighlightKeyDown} role="button" tabIndex={0}>{innerElements}</mark>
+      return <mark className={className} key={key} onClick={handleHighlightClick} onKeyDown={handleHighlightKeyDown} role="button" tabIndex={0}>{innerElements}</mark>
     }
   }
 

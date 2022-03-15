@@ -11,8 +11,8 @@ const renderDirections = (directionsTextArray: string[]) => (
   <section className="directions-section">
     <h3>Directions</h3>
     <ul>
-      {directionsTextArray.map((text: string) => (
-        <li>{text}</li>
+      {directionsTextArray.map((text: string, i: number) => (
+        <li key={i}>{text}</li>
       ))}
     </ul>
   </section>
