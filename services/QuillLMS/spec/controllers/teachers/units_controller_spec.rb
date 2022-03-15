@@ -110,11 +110,8 @@ describe Teachers::UnitsController, type: :controller do
   end
 
   describe '#diagnostic_units' do
-
-    it 'should render the correct json' do
-      get :diagnostic_units
-
-      expected_response = [
+    let(:expected_response) do
+      [
         {
           name: classroom.name,
           id: classroom.id,
@@ -137,7 +134,21 @@ describe Teachers::UnitsController, type: :controller do
           ]
         }
       ]
+    end
+
+    it 'should render the correct json' do
+      get :diagnostic_units
+
       expect(response.body).to eq(expected_response.to_json)
+    end
+
+    it 'should successfully render both fresh data and cached data' do
+      2.times do
+        get :diagnostic_units
+
+        expect(response.status).to eq(200)
+        expect(response.body).to eq(expected_response.to_json)
+      end
     end
   end
 
