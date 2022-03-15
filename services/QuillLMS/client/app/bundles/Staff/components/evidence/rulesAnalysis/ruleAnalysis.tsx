@@ -1,5 +1,5 @@
 import * as React from "react";
-import { queryCache, useQuery } from 'react-query';
+import { useQueryClient, useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import ReactTable from 'react-table';
@@ -43,6 +43,8 @@ const RuleAnalysis = ({ match }) => {
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
   const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
   const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
+
+  const queryClient = useQueryClient()
 
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
@@ -129,7 +131,7 @@ const RuleAnalysis = ({ match }) => {
   async function massMark(rating) {
     setSelectedIds([])
     massCreateOrUpdateFeedbackHistoryRating({ rating, feedback_history_ids: selectedIds}).then((response) => {
-      queryCache.refetchQueries([`rule-feedback-histories-by-rule-${ruleId}-${promptId}`, ruleId, promptId, startDateForQuery, endDateForQuery]);
+      queryClient.refetchQueries([`rule-feedback-histories-by-rule-${ruleId}-${promptId}`, ruleId, promptId, startDateForQuery, endDateForQuery]);
     });
   }
 
@@ -139,7 +141,7 @@ const RuleAnalysis = ({ match }) => {
 
   async function updateFeedbackHistoryRatingStrength(responseId, rating) {
     createOrUpdateFeedbackHistoryRating({ rating, feedback_history_id: responseId}).then((response) => {
-      queryCache.refetchQueries([`rule-feedback-histories-by-rule-${ruleId}-${promptId}`, ruleId, promptId, startDateForQuery, endDateForQuery]);
+      queryClient.refetchQueries([`rule-feedback-histories-by-rule-${ruleId}-${promptId}`, ruleId, promptId, startDateForQuery, endDateForQuery]);
     });
   }
 

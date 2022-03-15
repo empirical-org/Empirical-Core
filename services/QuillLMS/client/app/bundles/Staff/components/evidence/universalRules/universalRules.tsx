@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from 'react-router-dom';
-import { queryCache, useQuery } from 'react-query';
+import { useQueryClient, useQuery } from 'react-query';
 
 import Navigation from '../navigation'
 import { createRule, fetchUniversalRules } from '../../../utils/evidence/ruleAPIs';
@@ -20,6 +20,8 @@ const UniversalRulesIndex = ({ location, match }) => {
   const [rulesUpdated, setRulesUpdated] = React.useState<boolean>(false);
   const [showAddRuleModal, setShowAddRuleModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<string[]>([]);
+
+  const queryClient = useQueryClient()
 
   // cache ruleSets data for handling universal rule suborder
   const { data: rules } = useQuery("universal-rules", fetchUniversalRules);
@@ -89,7 +91,7 @@ const UniversalRulesIndex = ({ location, match }) => {
       } else {
         setErrors([]);
         toggleAddRuleModal();
-        queryCache.refetchQueries(`universal-rules`).then(() => {
+        queryClient.refetchQueries(`universal-rules`).then(() => {
           handleUpdateRulesList(rule);
         });
       }

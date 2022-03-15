@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useQuery, queryCache } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { Link, withRouter } from 'react-router-dom';
 
 import RuleGenericAttributes from '../configureRules/ruleGenericAttributes';
@@ -87,6 +87,8 @@ const RuleViewForm = ({
   const [showDeleteRuleModal, setShowDeleteRuleModal] = React.useState<boolean>(false);
   const [universalRulesCount, setUniversalRulesCount] = React.useState<number>(null);
 
+  const queryClient = useQueryClient()
+
   // cache ruleSets data for handling rule suborder
   const { data: rulesData } = useQuery({
     queryKey: [`rules-${activityId}`, activityId],
@@ -164,7 +166,7 @@ const RuleViewForm = ({
     deleteRule(ruleId).then((response) => {
       toggleShowDeleteRuleModal();
       // update ruleSets cache to remove delete ruleSet
-      queryCache.refetchQueries(`rules-${activityId}`);
+      queryClient.refetchQueries(`rules-${activityId}`);
       history.push(`/activities/${activityId}/${returnLinkRuleType}`);
     });
   }

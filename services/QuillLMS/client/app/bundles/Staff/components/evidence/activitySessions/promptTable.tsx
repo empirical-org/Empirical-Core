@@ -1,7 +1,7 @@
 import * as React from "react";
 import stripHtml from "string-strip-html";
 import { Link } from 'react-router-dom';
-import { queryCache } from 'react-query';
+import { useQueryClient, } from 'react-query';
 
 import { createOrUpdateFeedbackHistoryRating } from '../../../utils/evidence/feedbackHistoryRatingAPIs';
 import { DataTable, Spinner, ButtonLoadingSpinner } from '../../../../Shared/index';
@@ -18,6 +18,8 @@ interface PromptTableProps {
 const PromptTable = ({ activity, rules, prompt, showHeader, sessionId }: PromptTableProps) => {
 
   const [loadingType, setLoadingType] = React.useState<string>(null);
+
+  const queryClient = useQueryClient()
 
   function formatFirstTableData(prompt: any) {
     const { attempts } = prompt;
@@ -51,7 +53,7 @@ const PromptTable = ({ activity, rules, prompt, showHeader, sessionId }: PromptT
   async function updateFeedbackHistoryRatingStrength(responseId, rating, type) {
     setLoadingType(type);
     createOrUpdateFeedbackHistoryRating({ rating, feedback_history_id: responseId}).then((response) => {
-      queryCache.refetchQueries(`activity-${activity.id}-session-${sessionId}`).then(() => {
+      queryClient.refetchQueries(`activity-${activity.id}-session-${sessionId}`).then(() => {
         setLoadingType(null);
       });
     });
@@ -60,7 +62,7 @@ const PromptTable = ({ activity, rules, prompt, showHeader, sessionId }: PromptT
   function getRuleName(ruleUID: string) {
     if (!rules) return null;
 
-    const rule = rules.find((rule) => { return rule.uid == ruleUID });
+    const rule = rules.find((rule) => { return rule.uid === ruleUID });
     return rule ? rule.name: ''
   }
 
