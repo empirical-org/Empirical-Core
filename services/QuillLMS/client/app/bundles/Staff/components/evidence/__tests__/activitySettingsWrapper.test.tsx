@@ -13,6 +13,7 @@ jest.mock("react-query", () => ({
     status: "success",
     isFetching: true,
   })),
+  useQueryClient: jest.fn(() => ({})),
 }));
 
 const mockProps = {
