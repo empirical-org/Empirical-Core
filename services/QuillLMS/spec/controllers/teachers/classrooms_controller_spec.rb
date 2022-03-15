@@ -316,7 +316,7 @@ describe Teachers::ClassroomsController, type: :controller do
     let(:classroom) { create(:classroom) }
 
     before do
-      allow(teacher).to receive(:classrooms_i_teach).once { [classroom] }
+      allow(teacher).to receive(:classrooms_i_teach).once.and_return([classroom])
       allow(controller).to receive(:current_user) { teacher }
     end
 
