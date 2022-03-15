@@ -220,10 +220,23 @@
         color: #5c5c5c;
         margin-bottom: 16px;
       }
+      p, ul {
+        font-size: 14px;
+        line-height: 1.43;
+        color: #5c5c5c;
+      }
+      ul {
+        list-style: inherit;
+      }
+      li {
+        display: list-item;
+        margin-left: 20px;
+      }
       .label-section p {
         margin-left: 12px;
         margin-bottom: 0px;
       }
+
     }
     .heads-up {
       border: solid 1px #9e9e9e;
