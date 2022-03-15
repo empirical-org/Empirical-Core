@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from 'react-router-dom';
-import { queryCache, useQuery } from 'react-query';
+import { useQueryClient, useQuery } from 'react-query';
 import { firstBy } from "thenby";
 
 import RuleViewForm from './ruleViewForm';
@@ -31,6 +31,8 @@ const Rules = ({ activityId, history, prompt }: RulesProps) => {
   const [ruleToEdit, setRuleToEdit] = React.useState<RuleInterface>(null);
   const [errors, setErrors] = React.useState<string[]>([]);
   const [sortedRules, setSortedRules] = React.useState<[]>(null);
+
+  const queryClient = useQueryClient()
 
   // get cached activity data to pass to rule
   const { data: activityData } = useQuery({
@@ -97,7 +99,7 @@ const Rules = ({ activityId, history, prompt }: RulesProps) => {
       } else {
         setErrors([]);
         // clear rule cache to display newly created rule
-        queryCache.clear();
+        queryClient.clear();
         history.push(`/activities/${activityId}/rules/${rule.id}`);
         toggleAddRuleModal();
       }
@@ -113,7 +115,7 @@ const Rules = ({ activityId, history, prompt }: RulesProps) => {
       } else {
         setErrors([]);
         // clear rule cache to display newly updated rule
-        queryCache.clear();
+        queryClient.clear();
         toggleEditRuleModal();
       }
     });

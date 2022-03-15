@@ -4,6 +4,10 @@ import 'whatwg-fetch';
 
 import EditOrDeleteTurkSession from '../gatherResponses/editOrDeleteTurkSession';
 
+jest.mock("react-query", () => ({
+  useQueryClient: jest.fn(() => ({})),
+}));
+
 describe('EditOrDeleteTurkSession component', () => {
   const mockProps = {
     activityId: 1,
