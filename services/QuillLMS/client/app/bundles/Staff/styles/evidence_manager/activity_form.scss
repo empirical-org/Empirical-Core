@@ -2,20 +2,35 @@
   width: 100%;
   padding: 0px 30px 0px 16px;
   .expand-component-section-button {
-    margin: 16px 0px 16px -6px;
-    border-bottom: 1px solid #e0e0e0;
+    margin: 16px 0px 16px 8px;
     width: 40vw;
-    padding-bottom: 8px;
     font-weight: 600;
     &.open {
       color: #00c2a2;
     }
   }
-  .expand-component-section-button:last-of-type {
-    margin-bottom: 32px;
+  .activity-fields-table {
+    .data-table-body {
+      .data-table-row {
+        height: auto;
+        .quill-tooltip-trigger {
+          align-self: flex-start;
+          margin-top: 16px;
+        }
+      }
+      .data-table-row:hover {
+        background-color: #ffffff;
+      }
+    }
+  }
+  .image-attribution-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
   }
   .card {
     max-width: unset !important;
+    margin-bottom: 16px;
   }
   .error-message-container {
     width: 100%;
@@ -33,7 +48,6 @@
   }
   .flag-input {
     width: 10vw;
-    margin-bottom: 24px;
   }
   .button-and-id-container {
     display: flex;

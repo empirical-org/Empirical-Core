@@ -7,12 +7,15 @@ import UpperFormSection from './upperFormSection';
 import MaxAttemptsEditor from "./maxAttemptsEditor";
 import ImageSection from "./imageSection";
 
-import { validateForm, buildActivity } from '../../../helpers/evidence/miscHelpers';
-import { renderInvalidHighlightLinks } from '../../../helpers/evidence/renderHelpers';
+import { validateForm, buildActivity, validateFormSection } from '../../../helpers/evidence/miscHelpers';
+import { renderInvalidHighlightLinks} from '../../../helpers/evidence/renderHelpers';
 import { getActivityPrompt, promptsByConjunction, buildBlankPrompt, getActivityPromptSetter } from '../../../helpers/evidence/promptHelpers';
-import { BECAUSE,BUT, SO, activityFormKeys, PASSAGE, HIGHLIGHT_PROMPT, ESSENTIAL_KNOWLEDGE_TEXT_FILLER } from '../../../../../constants/evidence';
+import {
+  BECAUSE, BUT, SO, activityFormKeys, PASSAGE, HIGHLIGHT_PROMPT, ESSENTIAL_KNOWLEDGE_TEXT_FILLER,
+  BUILDING_ESSENTIAL_KNOWLEDGE, HIGHLIGHTING_PROMPT, IMAGE, MAX_ATTEMPTS_FEEDBACK, BREAK_TAG, TEXT, PROMPTS
+} from '../../../../../constants/evidence';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent, ClickEvent,  TextAreaEvent } from '../../../interfaces/evidenceInterfaces';
-import { Input, TextEditor, ToggleComponentSection } from '../../../../Shared/index'
+import { Input, TextEditor, ToggleComponentSection, DataTable, titleCase } from '../../../../Shared/index'
 import { DEFAULT_HIGHLIGHT_PROMPT } from '../../../../Shared/utils/constants'
 
 interface ActivityFormProps {
@@ -104,9 +107,9 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
   const formErrorsPresent = !!Object.keys(errors).length;
   const requestErrorsPresent = !!(requestErrors && requestErrors.length);
   const showErrorsContainer = formErrorsPresent || requestErrorsPresent;
-  const passageLabelStyle = activityPassages[0].text.length  && activityPassages[0].text !== '<br/>' ? 'has-text' : '';
-  const imageAttributionStyle = activityPassages[0].image_attribution  && activityPassages[0].image_attribution !== '<br/>' ? 'has-text' : '';
-  const essentialKnowledgeStyle = activityPassages[0].essential_knowledge_text && activityPassages[0].essential_knowledge_text !== '<br/>' ? 'has-text' : '';
+  const passageLabelStyle = activityPassages[0].text.length  && activityPassages[0].text !== BREAK_TAG ? 'has-text' : '';
+  const imageAttributionStyle = activityPassages[0].image_attribution  && activityPassages[0].image_attribution !== BREAK_TAG ? 'has-text' : '';
+  const essentialKnowledgeStyle = activityPassages[0].essential_knowledge_text && activityPassages[0].essential_knowledge_text !== BREAK_TAG ? 'has-text' : '';
   const imageAttributionGuideLink = 'https://www.notion.so/quill/Activity-Images-9bc3993400da46a6af445a8a0d2d9d3f#11e9a01b071e41bc954e1182d56e93e8';
   const invalidHighlightsPresent = (invalid_highlights && invalid_highlights.length > 0)
 
@@ -118,7 +121,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
     <React.Fragment>
       <p className={`text-editor-label ${passageLabelStyle}`}>
         <span>Passage</span>
-        <button className="quill-button fun secondary outlined focus-on-light" onClick={toggleShowHighlights} type="button">{showHighlights ? 'Hide highlights' : 'Show highlights'}</button>
+        <button className="quill-button fun primary outlined focus-on-light" onClick={toggleShowHighlights} type="button">{showHighlights ? 'Hide highlights' : 'Show highlights'}</button>
       </p>
       <div className={showHighlights ? '' : 'hide-highlights'}>
         <TextEditor
@@ -148,6 +151,66 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
     </React.Fragment>
   );
 
+  const formComponents = [
+    <ToggleComponentSection components={[passageComponent]} label={titleCase(TEXT)} />,
+    <ToggleComponentSection
+      components={[
+        <ImageSection
+          activityPassages={activityPassages}
+          errors={errors}
+          handleSetImageAltText={handleSetImageAltText}
+          handleSetImageAttribution={handleSetImageAttribution}
+          handleSetImageCaption={handleSetImageCaption}
+          handleSetImageLink={handleSetImageLink}
+          imageAttributionGuideLink={imageAttributionGuideLink}
+          imageAttributionStyle={imageAttributionStyle}
+        />
+      ]}
+      label={IMAGE}
+    />,
+    <ToggleComponentSection
+      components={[
+        <Input
+          className="highlight-prompt-input"
+          error={errors[HIGHLIGHT_PROMPT]}
+          handleChange={handleSetHighlightPrompt}
+          label={`Highlight Prompt: "${DEFAULT_HIGHLIGHT_PROMPT}..."`}
+          value={activityPassages[0].highlight_prompt || DEFAULT_HIGHLIGHT_PROMPT}
+        />
+      ]}
+      label={HIGHLIGHTING_PROMPT}
+    />,
+    <ToggleComponentSection components={[buildingEssentialKnowledgeComponent]} label={BUILDING_ESSENTIAL_KNOWLEDGE} />,
+    <ToggleComponentSection components={[getMaxAttemptsFeedbackComponent(BECAUSE, activityBecausePrompt), getMaxAttemptsFeedbackComponent(BUT, activityButPrompt), getMaxAttemptsFeedbackComponent(SO, activitySoPrompt)]} label={MAX_ATTEMPTS_FEEDBACK} />,
+    <ToggleComponentSection
+      components={[
+        <PromptsForm
+          activityBecausePrompt={activityBecausePrompt}
+          activityButPrompt={activityButPrompt}
+          activitySoPrompt={activitySoPrompt}
+          errors={errors}
+          handleSetPrompt={handleSetPrompt}
+        />
+      ]}
+      label={PROMPTS}
+    />
+  ];
+
+  const formattedRows = formComponents.map((component, i) => {
+    const { props } = component;
+    const { label } = props;
+    return {
+      id: i,
+      component,
+      added: validateFormSection({ label, activityPassages, activityBecausePrompt, activityButPrompt, activitySoPrompt })
+    }
+  });
+
+  const dataTableFields = [
+    { name: "", attribute:"component", width: "800px" },
+    { name: "Added?", attribute:"added", width: "50px" }
+  ];
+
   return(
     <div className="activity-form-container">
       <UpperFormSection
@@ -165,47 +228,11 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
         requestErrors={requestErrors}
         showErrorsContainer={showErrorsContainer}
       />
-      <ToggleComponentSection components={[passageComponent]} label="Text" />
-      <ToggleComponentSection
-        components={[
-          <ImageSection
-            activityPassages={activityPassages}
-            errors={errors}
-            handleSetImageAltText={handleSetImageAltText}
-            handleSetImageAttribution={handleSetImageAttribution}
-            handleSetImageCaption={handleSetImageCaption}
-            handleSetImageLink={handleSetImageLink}
-            imageAttributionGuideLink={imageAttributionGuideLink}
-            imageAttributionStyle={imageAttributionStyle}
-          />
-        ]}
-        label="Image"
-      />
-      <ToggleComponentSection
-        components={[
-          <Input
-            className="highlight-prompt-input"
-            error={errors[HIGHLIGHT_PROMPT]}
-            handleChange={handleSetHighlightPrompt}
-            label={`Highlight Prompt: "${DEFAULT_HIGHLIGHT_PROMPT}..."`}
-            value={activityPassages[0].highlight_prompt || DEFAULT_HIGHLIGHT_PROMPT}
-          />
-        ]}
-        label="Highlighting Prompt"
-      />
-      <ToggleComponentSection components={[buildingEssentialKnowledgeComponent]} label="Building Essential Knowledge" />
-      <ToggleComponentSection components={[getMaxAttemptsFeedbackComponent(BECAUSE, activityBecausePrompt), getMaxAttemptsFeedbackComponent(BUT, activityButPrompt), getMaxAttemptsFeedbackComponent(SO, activitySoPrompt)]} label="Max Attempts Feedback" />
-      <ToggleComponentSection
-        components={[
-          <PromptsForm
-            activityBecausePrompt={activityBecausePrompt}
-            activityButPrompt={activityButPrompt}
-            activitySoPrompt={activitySoPrompt}
-            errors={errors}
-            handleSetPrompt={handleSetPrompt}
-          />
-        ]}
-        label="Prompts"
+      <DataTable
+        className="activity-fields-table"
+        defaultSortAttribute=""
+        headers={dataTableFields}
+        rows={formattedRows}
       />
       {invalidHighlightsPresent && renderInvalidHighlightLinks(invalid_highlights, id)}
     </div>

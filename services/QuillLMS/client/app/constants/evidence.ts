@@ -36,6 +36,7 @@ export const HIGHLIGHT_TYPE = 'highlight type'
 export const FEEDBACK_LAYER_ADDITION = 'feedback layer addition'
 export const FEEDBACK_LAYER_REMOVAL = 'feedback layer removal'
 export const ESSENTIAL_KNOWLEDGE_TEXT_FILLER = '<p>In this activity, you’ll read about how skateboarding gained popularity through a process called hierarchical diffusion.</p><br/><p><i>Hierarchical diffusion</i>, happens when an idea spreads through an established social structure (a hierarchy), usually from a person or place with more power and connections to people or places with less power and fewer connections.</p>'
+export const BREAK_TAG = '<br/>';
 
 export const TEXT = 'text';
 export const FIRST_STRONG_EXAMPLE = 'first_strong_example';
@@ -285,7 +286,6 @@ export const FLAG = 'Flag';
 export const PARENT_ACTIVITY_ID = 'Parent Activity ID';
 export const HIGHLIGHT_PROMPT = 'Highlight Prompt';
 export const PASSAGE = 'Passage';
-export const MAX_ATTEMPTS_FEEDBACK = 'Max attempts feedback';
 export const BECAUSE_STEM = 'Because stem';
 export const BUT_STEM = 'But stem';
 export const SO_STEM = 'So stem';
@@ -293,6 +293,11 @@ export const IMAGE_LINK = 'Image link';
 export const IMAGE_ALT_TEXT = 'Image alt text';
 export const IMAGE_CAPTION = 'Image caption';
 export const IMAGE_ATTRIBUTION = 'Image attribution';
+export const BUILDING_ESSENTIAL_KNOWLEDGE = 'Building Essential Knowledge';
+export const HIGHLIGHTING_PROMPT = 'Highlight Prompt';
+export const IMAGE = 'Image';
+export const MAX_ATTEMPTS_FEEDBACK = 'Max Attempts Feedback';
+export const PROMPTS = 'Prompts'
 
 export const activityFormKeys = [
   FLAG,

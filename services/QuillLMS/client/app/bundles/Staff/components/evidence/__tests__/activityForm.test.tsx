@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import { mockActivity } from '../__mocks__/data';
 import ActivityForm from '../configureSettings/activityForm';
 import UpperFormSection from '../configureSettings/upperFormSection';
-import { ToggleComponentSection } from '../../../../Shared';
+import { DataTable } from '../../../../Shared';
 
 const mockProps = {
   activity: mockActivity,
@@ -23,9 +23,8 @@ describe('Activity Form component', () => {
     container = shallow(<ActivityForm {...mockProps} />);
     expect(container.find(UpperFormSection).length).toEqual(1);
   });
-  it('should render 6 ToggleComponentSection components', () => {
-    mockProps.requestErrors = ['passage.text: passage text is too short'];
+  it('should render a DataTable component', () => {
     container = shallow(<ActivityForm {...mockProps} />);
-    expect(container.find(ToggleComponentSection).length).toEqual(6);
+    expect(container.find(DataTable).length).toEqual(1);
   });
 });
