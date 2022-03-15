@@ -1,0 +1,34 @@
+# frozen_string_literal: true
+
+# == Schema Information
+#
+# Table name: plans
+#
+#  id              :bigint           not null, primary key
+#  audience        :string           not null
+#  display_name    :string           not null
+#  interval        :string
+#  interval_count  :integer
+#  name            :string           not null
+#  paid            :boolean          not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  stripe_price_id :string
+#
+# Indexes
+#
+#  index_plans_on_name  (name) UNIQUE
+#
+require 'rails_helper'
+
+FactoryBot.define do
+  factory :plan, aliases: [:teacher_paid] do
+    name { 'Teacher Paid' }
+    display_name { 'Teacher Premium' }
+    paid { true }
+    audience { Plan::TEACHER_AUDIENCE_TYPE }
+    interval { Plan::YEARLY_INTERVAL_TYPE }
+    interval_count { 1 }
+    stripe_price_id { 'price_A0B1C2D3E4f5ghijk'}
+  end
+end
