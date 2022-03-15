@@ -49,6 +49,14 @@ describe Teachers::ProgressReports::ActivitySessionsController, type: :controlle
         expect(json['students']).to eq(teacher.ids_and_names_of_affiliated_students)
         expect(json['units']).to eq(teacher.ids_and_names_of_affiliated_units)
       end
+
+      it 'renders the same data fresh and from cache' do
+        2.times do
+          get :index, params: { page: 1 }, as: :json
+          expect(response.status).to eq(200)
+          expect(json['activity_sessions'][0]['activity_classification_name']).to_not be_nil
+        end
+      end
     end
   end
 
