@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :plans do
   task seed: :environment do
     ActiveRecord::Base.transaction do
