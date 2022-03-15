@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useQuery, queryCache } from 'react-query';
+import { useQuery, useQueryClient, } from 'react-query';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 import SemanticLabelsOverview from './semanticLabelsOverview'
@@ -23,6 +23,8 @@ const SemanticLabelsIndex = ({ location, history, match }) => {
 
   const [errors, setErrors] = React.useState<string[]>([]);
 
+  const queryClient = useQueryClient()
+
   // get cached activity data to pass to ruleForm
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
@@ -38,7 +40,7 @@ const SemanticLabelsIndex = ({ location, history, match }) => {
         const { prompt_ids } = rule;
         const conjunction = getPromptConjunction(activityData, prompt_ids[0]);
         setErrors([]);
-        queryCache.clear();
+        queryClient.clear();
         history.push(`/activities/${activityId}/semantic-labels/${conjunction}`);
       }
       return rule;
@@ -54,7 +56,7 @@ const SemanticLabelsIndex = ({ location, history, match }) => {
         const { prompt_ids } = rule;
         const conjunction = getPromptConjunction(activityData, prompt_ids[0]);
         setErrors([]);
-        queryCache.clear();
+        queryClient.clear();
         history.push(`/activities/${activityId}/semantic-labels/${conjunction}`);
       }
       return rule;

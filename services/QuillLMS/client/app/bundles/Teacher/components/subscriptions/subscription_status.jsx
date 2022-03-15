@@ -2,24 +2,42 @@ import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
 
+import {
+  TEACHER_PREMIUM_TRIAL,
+  TEACHER_PREMIUM_CREDIT,
+  TEACHER_PREMIUM_SCHOLARSHIP,
+  TEACHER_PREMIUM,
+  SCHOOL_PREMIUM,
+  SCHOOL_PREMIUM_SCHOLARSHIP,
+  DISTRICT_PREMIUM
+} from './constants';
+
 const quillBasicCopy = (
   <span>
     Quill Basic provides access to all of Quill&apos;s content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription.
   </span>);
 
-const schoolPremiumCopy = (
-  <span>
-    With Quill School Premium, you will have access to all of Quill’s
-    free reports as well as additional advanced reporting. You will also
-    be able to view and print reports of your students’ progress. Our
-    advanced reports support concept, Common Core, and overall progress
-    analysis. <a className="green-link" href="https://support.quill.org/quill-premium">Here’s more information</a> about your School Premium features.
-  </span>
-);
+function schoolPremiumCopy(subscriptionType) {
+  return (
+    <span>
+      With {subscriptionType}, you will have access to all of Quill’s
+      free reports as well as additional advanced reporting. You will also
+      be able to view and print reports of your students’ progress. Our
+      advanced reports support concept, Common Core, and overall progress
+      analysis. <a className="green-link" href="https://support.quill.org/quill-premium">Here’s more information</a> about your {subscriptionType} features.
+    </span>
+  )
+};
 
-const teacherPremiumCopy = (
-  <span>With Quill Teacher Premium, you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. <a className="green-link" href="https://support.quill.org/quill-premium">Here’s more information</a> about your Teacher Premium features.</span>
-);
+function teacherPremiumCopy(subscriptionType) {
+  return (
+    <span>
+      With {subscriptionType}, you will have access to all of Quill’s free reports as well as additional advanced reporting.
+      You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis.
+      <a className="green-link" href="https://support.quill.org/quill-premium"> Here’s more information</a> about your {subscriptionType} features.
+    </span>
+  )
+};
 
 const SubscriptionStatus = ({ subscriptionType, showPurchaseModal, subscriptionStatus, userIsContact, }) => {
   const content = {};
@@ -43,23 +61,26 @@ const SubscriptionStatus = ({ subscriptionType, showPurchaseModal, subscriptionS
       subscriptionTypeText = 'Quill Basic';
       content.status = <h2>{`You have a ${subscriptionType} subscription`}<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
       break;
-    case 'Teacher':
+    case TEACHER_PREMIUM_TRIAL:
+    case TEACHER_PREMIUM_CREDIT:
+    case TEACHER_PREMIUM:
+    case TEACHER_PREMIUM_SCHOLARSHIP:
+      content.pCopy = teacherPremiumCopy(subscriptionType);
       image = 'teacher_premium_icon.png';
-      content.pCopy = teacherPremiumCopy;
+      const teacherSubDisplayName = subscriptionType === TEACHER_PREMIUM_SCHOLARSHIP ? TEACHER_PREMIUM : subscriptionType
+      content.status = <h2>You have a {teacherSubDisplayName} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
       if (remainingDays < 0) {
         content.boxColor = '#ff4542';
       } else {
         content.boxColor = '#348fdf';
       }
       break;
-    case 'Trial':
-      content.pCopy = teacherPremiumCopy;
-      image = 'teacher_premium_icon.png';
-      content.status = <h2>You have a Teacher Premium subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
-      content.boxColor = '#348fdf';
-      break;
-    case 'School':
-      content.pCopy = schoolPremiumCopy;
+    case SCHOOL_PREMIUM:
+    case DISTRICT_PREMIUM:
+    case SCHOOL_PREMIUM_SCHOLARSHIP:
+      content.pCopy = schoolPremiumCopy(subscriptionType);
+      const schoolSubDisplayName = subscriptionType === SCHOOL_PREMIUM_SCHOLARSHIP ? SCHOOL_PREMIUM : subscriptionType
+      content.status = <h2>You have a {schoolSubDisplayName} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
       content.boxColor = '#9c2bde';
       image = 'school_premium_icon.png';
       if (remainingDays < 90 && !subscriptionStatus.recurring) {
@@ -78,10 +99,10 @@ const SubscriptionStatus = ({ subscriptionType, showPurchaseModal, subscriptionS
     const formattedStartDate = subscriptionStatus && moment(subscriptionStatus.start_date).format(dateFormat)
     const formattedExpirationDate = expiration && expiration.format(dateFormat)
     content.boxColor = '#ff4542';
-    content.status = <h2><i className="fas fa-exclamation-triangle" />{`Your ${subscriptionType} Premium subscription has expired`}</h2>;
+    content.status = <h2><i className="fas fa-exclamation-triangle" />{`Your ${subscriptionType} subscription has expired`}</h2>;
     content.pCopy = (
       <span>
-        <strong>Your {subscriptionType} Premium subscription ({formattedStartDate} - {formattedExpirationDate}) has expired and you are back to Quill Basic.</strong>
+        <strong>Your {subscriptionType} subscription ({formattedStartDate} - {formattedExpirationDate}) has expired and you are back to Quill Basic.</strong>
         {quillBasicCopy}
       </span>);
     content.buttonOrDate = <button className="renew-subscription q-button bg-orange text-white cta-button" onClick={showPurchaseModal} type="button">Renew Subscription</button>;
@@ -90,7 +111,7 @@ const SubscriptionStatus = ({ subscriptionType, showPurchaseModal, subscriptionS
   content.buttonOrDate = content.buttonOrDate || (<span className="expiration-date">
     <span>Valid Until:</span> <span>{`${expiration.format('MMMM Do, YYYY')}`}</span><span className="time-left-in-days"> | {`${remainingDays} ${pluralize('days', remainingDays)}`}</span>
   </span>);
-  content.status = content.status || <h2>{`You have a ${subscriptionTypeText} Premium subscription`}<img alt={`${subscriptionTypeText}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
+  content.status = content.status || <h2>{`You have a ${subscriptionTypeText} subscription`}<img alt={`${subscriptionTypeText}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
 
   return (
     <section className="subscription-status">

@@ -1,19 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExpandLessonQuestions component matches the snapshot 1`] = `
-<Connect(Lessons)
-  props={
+<ContextProvider
+  value={
     Object {
-      "basePath": "path",
-      "goToButtonText": "go to",
-      "itemKey": "key",
-      "listElements": Array [
-        "one",
-        "two",
-      ],
-      "showHideButtonText": "show hide",
-      "text": "test",
+      "store": Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+        Symbol(observable): [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "onStateChange": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
     }
   }
-/>
+>
+  <Connect(Lessons)
+    props={
+      Object {
+        "basePath": "path",
+        "goToButtonText": "go to",
+        "itemKey": "key",
+        "listElements": Array [
+          "one",
+          "two",
+        ],
+        "showHideButtonText": "show hide",
+        "text": "test",
+      }
+    }
+  />
+</ContextProvider>
 `;

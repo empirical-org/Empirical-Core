@@ -40,7 +40,7 @@ describe('CurrentSubscription container', () => {
         "purchaser_name": null,
         "mail_to": "emilia+3@quill.org"
       },
-      "subscriptionType": "School",
+      "subscriptionType": "School Premium",
       "userIsContact": false
     }
 

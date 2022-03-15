@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useQuery, queryCache } from 'react-query';
+import { useQuery, useQueryClient, } from 'react-query';
 import { Link, withRouter } from 'react-router-dom';
 
 import RuleGenericAttributes from '../configureRules/ruleGenericAttributes';
@@ -66,6 +66,8 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
   const [ruleType, setRuleType] = React.useState<DropdownObjectInterface>(initialRuleType);
   const [showDeleteRuleModal, setShowDeleteRuleModal] = React.useState<boolean>(false);
   const [universalRulesCount, setUniversalRulesCount] = React.useState<number>(null);
+
+  const queryClient = useQueryClient()
 
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
@@ -154,7 +156,7 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
     deleteRule(ruleId).then((response) => {
       toggleShowDeleteRuleModal();
       // update ruleSets cache to remove delete ruleSet
-      queryCache.refetchQueries(`rules-${activityId}`);
+      queryClient.refetchQueries(`rules-${activityId}`);
       history.push(`/activities/${activityId}/semantic-labels/all`);
     });
   }

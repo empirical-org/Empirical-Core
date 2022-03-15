@@ -1,5 +1,5 @@
 import * as React from "react";
-import { queryCache, useQuery } from 'react-query';
+import { useQueryClient, useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import stripHtml from "string-strip-html";
 
@@ -19,6 +19,8 @@ const Rule = ({ history, match }) => {
   const [showDeleteRuleModal, setShowDeleteRuleModal] = React.useState<boolean>(false);
   const [showEditRuleModal, setShowEditRuleModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<string[]>([]);
+
+  const queryClient = useQueryClient()
 
   // get cached activity data to pass to ruleForm
   const { data: activityData } = useQuery({
@@ -117,7 +119,7 @@ const Rule = ({ history, match }) => {
       } else {
         setErrors([]);
         // update rule cache to display newly updated rule
-        queryCache.refetchQueries(`rule-${ruleId}`);
+        queryClient.refetchQueries(`rule-${ruleId}`);
         toggleShowEditRuleModal();
       }
     });
@@ -131,7 +133,7 @@ const Rule = ({ history, match }) => {
       } else {
         setErrors([]);
         // update ruleSets cache to remove delete ruleSet
-        queryCache.refetchQueries(`rules-${activityId}`);
+        queryClient.refetchQueries(`rules-${activityId}`);
         history.push(`/activities/${activityId}/rules`);
         toggleShowDeleteRuleModal();
       }

@@ -1,12 +1,12 @@
 import * as React from "react";
-import { queryCache } from 'react-query';
+import { useQueryClient, } from 'react-query';
 import { withRouter } from 'react-router-dom';
 
 import ActivityForm from './activityForm';
 
 import { ActivityInterface } from '../../../interfaces/evidenceInterfaces';
 import SubmissionModal from '../shared/submissionModal';
-import { createActivity, updateActivity, archiveParentActivity } from '../../../utils/evidence/activityAPIs';
+import { createActivity, updateActivity } from '../../../utils/evidence/activityAPIs';
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { Spinner } from '../../../../Shared/index';
 
@@ -15,6 +15,7 @@ const ActivitySettings = ({ activity, history }: {activity: ActivityInterface, h
   const [errorOrSuccessMessage, setErrorOrSuccessMessage] = React.useState<string>(null);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<string[]>([]);
+  const queryClient = useQueryClient()
 
   function handleUpdateActivity (activity: ActivityInterface) {
     updateActivity(activity, id).then((response) => {
@@ -22,8 +23,8 @@ const ActivitySettings = ({ activity, history }: {activity: ActivityInterface, h
       if(errors && errors.length) {
         setErrors(errors);
       } else {
-        queryCache.refetchQueries(`activity-${id}`)
-        queryCache.removeQueries('activities')
+        queryClient.refetchQueries(`activity-${id}`)
+        queryClient.removeQueries('activities')
         setErrors([]);
         // reset errorOrSuccessMessage in case of subsequent submission
         setErrorOrSuccessMessage('Activity successfully updated!');
@@ -39,7 +40,7 @@ const ActivitySettings = ({ activity, history }: {activity: ActivityInterface, h
         setErrors(errors);
       } else {
         // update activities cache to display newly created activity
-        queryCache.refetchQueries('activities');
+        queryClient.refetchQueries('activities');
         setErrors([]);
         setErrorOrSuccessMessage('Activity successfully created!');
         toggleSubmissionModal();
