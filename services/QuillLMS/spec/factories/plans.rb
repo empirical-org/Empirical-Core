@@ -10,7 +10,7 @@
 #  interval        :string
 #  interval_count  :integer
 #  name            :string           not null
-#  paid            :boolean          not null
+#  price           :integer          default(0)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  stripe_price_id :string
@@ -25,7 +25,7 @@ FactoryBot.define do
   factory :plan, aliases: [:teacher_paid] do
     name { 'Teacher Paid' }
     display_name { 'Teacher Premium' }
-    paid { true }
+    price { 9000 }
     audience { Plan::TEACHER_AUDIENCE_TYPE }
     interval { Plan::YEARLY_INTERVAL_TYPE }
     interval_count { 1 }

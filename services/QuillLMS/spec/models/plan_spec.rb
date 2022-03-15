@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: plans
@@ -8,7 +10,7 @@
 #  interval        :string
 #  interval_count  :integer
 #  name            :string           not null
-#  paid            :boolean          not null
+#  price           :integer          default(0)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  stripe_price_id :string
@@ -30,6 +32,11 @@ RSpec.describe Plan, type: :model do
       expect(plan).not_to be_valid
     end
 
+    it 'expects a nonnegative price' do
+      plan.price = '-10'
+      expect(plan).not_to be_valid
+    end
+
     it 'expects audience to be one of AUDIENCE_TYPES' do
       plan.audience = 'student'
       expect(plan).not_to be_valid
@@ -40,8 +47,8 @@ RSpec.describe Plan, type: :model do
       expect(plan).not_to be_valid
     end
 
-    it 'expects interval_count to be nonnegative' do
-      plan.interval_count = '-10'
+    it 'expects a nonnegative interval count' do
+      plan.interval_count = '-5'
       expect(plan).not_to be_valid
     end
 

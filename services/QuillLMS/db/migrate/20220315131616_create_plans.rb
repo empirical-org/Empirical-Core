@@ -5,7 +5,7 @@ class CreatePlans < ActiveRecord::Migration[5.1]
     create_table :plans do |t|
       t.string :name, null: false
       t.string :display_name, null: false
-      t.boolean :paid, null: false
+      t.integer :price, default: 0
       t.string :audience, null: false
       t.string :interval
       t.integer :interval_count

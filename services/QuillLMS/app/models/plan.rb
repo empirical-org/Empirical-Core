@@ -10,7 +10,7 @@
 #  interval        :string
 #  interval_count  :integer
 #  name            :string           not null
-#  paid            :boolean          not null
+#  price           :integer          default(0)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  stripe_price_id :string
@@ -33,6 +33,7 @@ class Plan < ApplicationRecord
   ]
 
   validates :name, presence: true, uniqueness: true
+  validates :price, numericality: { greater_than_or_equal_to: 0 }
   validates :audience, presence: true, inclusion: { in: AUDIENCE_TYPES }
   validates :interval, presence: true, inclusion: { in: INTERVAL_TYPES }
   validates :interval_count, numericality: { greater_than_or_equal_to: 0 }

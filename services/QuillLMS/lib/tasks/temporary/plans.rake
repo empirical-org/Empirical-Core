@@ -5,31 +5,33 @@ namespace :plans do
         {
           name: 'Teacher Paid',
           display_name: 'Teacher Premium',
-          paid: true,
+          price: 8000,
           audience: 'teacher',
           interval: 'yearly',
-          interval_count: 1
+          interval_count: 1,
+          stripe_price_id: ENV.fetch('STRIPE_TEACHER_PREMIUM_PRICE_ID', '')
         },
         {
           name: 'School Paid (via Stripe)',
           display_name: 'School Premium',
-          paid: true,
+          price: 8000,
+          audience: 'school',
+          interval: 'yearly',
+          interval_count: 1,
+          stripe_price_id: ENV.fetch('STRIPE_SCHOOL_PREMIUM_PRICE_ID', '')
+        },
+        {
+          name: 'School Paid (via invoice)',
+          display_name: 'School Premium',
+          price: 180000,
           audience: 'school',
           interval: 'yearly',
           interval_count: 1
         },
         {
-          name: 'School Paid (via invoice)',
-          display_name: 'School Premium',
-        paid: true,
-        audience: 'school',
-        interval: 'yearly',
-        interval_count: 1
-        },
-        {
           name: 'School District Paid',
           display_name: 'District Premium',
-          paid: true,
+          price: 180000,
           audience: 'district',
           interval: 'yearly',
           interval_count: 1
@@ -37,7 +39,7 @@ namespace :plans do
         {
           name: 'Premium Credit',
           display_name: 'Teacher Premium Credit',
-          paid: true,
+          price: 0,
           audience: 'teacher',
           interval: 'weekly',
           interval_count: 4
@@ -45,7 +47,7 @@ namespace :plans do
         {
           name: 'College Board Educator Lifetime Premium',
           display_name: 'Teacher Premium',
-          paid: false,
+          price: 0,
           audience: 'teacher',
           interval: 'yearly',
           interval_count: 50
@@ -53,7 +55,7 @@ namespace :plans do
         {
           name: 'School Sponsored Free',
           display_name: 'School Premium (Scholarship)',
-          paid: false,
+          price: 0,
           audience: 'school',
           interval: 'yearly',
           interval_count: 1
@@ -61,7 +63,7 @@ namespace :plans do
         {
           name: 'Teacher Sponsored Free',
           display_name: 'Teacher Premium (Scholarship)',
-          paid: false,
+          price: 0,
           audience: 'teacher',
           interval: 'yearly',
           interval_count: 1
@@ -69,7 +71,7 @@ namespace :plans do
         {
           name: 'Teacher Trial',
           display_name: 'Teacher Premium Trial',
-          paid: false,
+          price: 0,
           audience: 'teacher',
           interval: 'daily',
           interval_count: 30
