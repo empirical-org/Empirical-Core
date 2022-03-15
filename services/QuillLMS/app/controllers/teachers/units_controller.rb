@@ -113,7 +113,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def diagnostic_units
-    render json: diagnostics_organized_by_classroom.to_json
+    render json: diagnostics_organized_by_classroom
   end
 
   # Get all Units containing lessons, and only retrieve the classroom activities for lessons.
@@ -368,42 +368,44 @@ class Teachers::UnitsController < ApplicationController
 
   # rubocop:disable Metrics/CyclomaticComplexity
   private def diagnostics_organized_by_classroom
-    classrooms = []
-    diagnostic_records = diagnostic_unit_records
-    post_test_ids = diagnostic_records.map { |r| r['post_test_id'] }.compact
-    diagnostic_records.each do |record|
-      next if post_test_ids.include?(record['activity_id'])
+    current_user.all_classrooms_cache(key: 'teachers.classrooms.diagnostic_units') do
+      classrooms = []
+      diagnostic_records = diagnostic_unit_records
+      post_test_ids = diagnostic_records.map { |r| r['post_test_id'] }.compact
+      diagnostic_records.each do |record|
+        next if post_test_ids.include?(record['activity_id'])
 
-      index_of_extant_classroom = classrooms.find_index { |c| c['id'] == record['classroom_id'] }
-      name = grouped_name(record)
+        index_of_extant_classroom = classrooms.find_index { |c| c['id'] == record['classroom_id'] }
+        name = grouped_name(record)
 
-      next if record['post_test_id'] && index_of_extant_classroom && classrooms[index_of_extant_classroom]['diagnostics'].find { |diagnostic| diagnostic[:name] == name }
+        next if record['post_test_id'] && index_of_extant_classroom && classrooms[index_of_extant_classroom]['diagnostics'].find { |diagnostic| diagnostic[:name] == name }
 
-      grouped_record = {
-        name: name,
-        pre: record
-      }
+        grouped_record = {
+          name: name,
+          pre: record
+        }
 
-      if record['post_test_id']
-        post_test = record_with_aggregated_activity_sessions(diagnostic_records, record['post_test_id'], record['classroom_id'], record['activity_id'])
-        grouped_record[:post] = post_test || { activity_name: Activity.find_by_id(record['post_test_id'])&.name, unit_template_id: ActivitiesUnitTemplate.find_by_activity_id(record['post_test_id'])&.unit_template_id }
-        grouped_record[:pre] = record_with_aggregated_activity_sessions(diagnostic_records, record['activity_id'], record['classroom_id'], nil)
-      else
-        grouped_record[:pre]['completed_count'] = ActivitySession.where(activity_id: record['activity_id'], classroom_unit_id: record['classroom_unit_id'], state: 'finished', user_id: record['assigned_student_ids']).size
-        grouped_record[:pre]['assigned_count'] = record['assigned_student_ids'].size
+        if record['post_test_id']
+          post_test = record_with_aggregated_activity_sessions(diagnostic_records, record['post_test_id'], record['classroom_id'], record['activity_id'])
+          grouped_record[:post] = post_test || { activity_name: Activity.find_by_id(record['post_test_id'])&.name, unit_template_id: ActivitiesUnitTemplate.find_by_activity_id(record['post_test_id'])&.unit_template_id }
+          grouped_record[:pre] = record_with_aggregated_activity_sessions(diagnostic_records, record['activity_id'], record['classroom_id'], nil)
+        else
+          grouped_record[:pre]['completed_count'] = ActivitySession.where(activity_id: record['activity_id'], classroom_unit_id: record['classroom_unit_id'], state: 'finished', user_id: record['assigned_student_ids']).size
+          grouped_record[:pre]['assigned_count'] = record['assigned_student_ids'].size
+        end
+        if index_of_extant_classroom
+          classrooms[index_of_extant_classroom]['diagnostics'].push(grouped_record)
+          next
+        end
+        classroom = {
+          "name" => record['classroom_name'],
+          "id" => record['classroom_id'],
+          "diagnostics" => [grouped_record]
+        }
+        classrooms.push(classroom)
       end
-      if index_of_extant_classroom
-        classrooms[index_of_extant_classroom]['diagnostics'].push(grouped_record)
-        next
-      end
-      classroom = {
-        "name" => record['classroom_name'],
-        "id" => record['classroom_id'],
-        "diagnostics" => [grouped_record]
-      }
-      classrooms.push(classroom)
+      classrooms.to_json
     end
-    classrooms
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
