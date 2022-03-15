@@ -7,7 +7,7 @@ module Evidence
     before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling, :create]
 
     def create
-      feedback = Check.feedback(@entry, @prompt, @previous_feedback)
+      feedback = Check.get_feedback(@entry, @prompt, @previous_feedback)
 
       save_feedback_history(feedback)
 

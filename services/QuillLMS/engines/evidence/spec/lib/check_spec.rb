@@ -9,14 +9,14 @@ module Evidence
     let(:previous_feedback) { []}
 
 
-    context "feedback" do
+    context "get_feedback" do
       let(:response) { {key: 'value'} }
       let(:check) {double('check', response: response)}
 
       it "should return trigger_check's response if there is one" do
         expect(Check).to receive(:find_triggered_check).once.and_return(check)
 
-        feedback = Check.feedback(entry, prompt, previous_feedback)
+        feedback = Check.get_feedback(entry, prompt, previous_feedback)
 
         expect(feedback).to eq(response)
       end
@@ -24,7 +24,7 @@ module Evidence
       it "should return fallback response if no trigger check is found" do
         expect(Check).to receive(:find_triggered_check).once.and_return(nil)
 
-        feedback = Check.feedback(entry, prompt, previous_feedback)
+        feedback = Check.get_feedback(entry, prompt, previous_feedback)
 
         expect(feedback).to eq(Check::FALLBACK_RESPONSE)
       end

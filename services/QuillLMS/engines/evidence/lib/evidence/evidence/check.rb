@@ -20,7 +20,7 @@ module Evidence
       optimal: true,
     }
 
-    def self.feedback(entry, prompt, previous_feedback)
+    def self.get_feedback(entry, prompt, previous_feedback)
       triggered_check = find_triggered_check(entry, prompt, previous_feedback)
 
       triggered_check&.response || FALLBACK_RESPONSE
