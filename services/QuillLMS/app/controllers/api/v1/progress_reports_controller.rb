@@ -60,11 +60,15 @@ class Api::V1::ProgressReportsController < Api::ApiController
   end
 
   def student_overview_data
+    render json: fetch_student_overview_data_cache
+  end
+
+  private def fetch_student_overview_data_cache
     classroom = Classroom.find(params[:classroom_id].to_i)
     cache_groups = {
       student_id: params[:student_id]
     }
-    data = current_user.classroom_cache(classroom, key: 'api.v1.progress_reports.student_overview_data', groups: cache_groups) do
+    current_user.classroom_cache(classroom, key: 'api.v1.progress_reports.student_overview_data', groups: cache_groups) do
       student        = User.find(params[:student_id].to_i)
       report_data    = ProgressReports::StudentOverview.results(params[:classroom_id].to_i, params[:student_id].to_i)
       {
@@ -77,8 +81,6 @@ class Api::V1::ProgressReportsController < Api::ApiController
         classroom_name: classroom.name
       }
     end
-
-    render json: data
   end
 
   private def authorize!
