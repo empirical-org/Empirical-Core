@@ -1,17 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Container component should render 1`] = `
-<Connect(PlayGrammarContainer)
-  conceptsFeedback={Object {}}
-  dispatch={[MockFunction]}
-  grammarActivities={Object {}}
-  handleTogglePreviewMenu={[MockFunction]}
-  handleToggleQuestion={[MockFunction]}
-  isOnMobile={false}
-  previewMode={true}
-  questionToPreview={Object {}}
-  questions={Array []}
-  session={Object {}}
-  skippedToQuestionFromIntro={false}
-/>
+<ContextProvider
+  value={
+    Object {
+      "store": Object {
+        "dispatch": [Function],
+        "getAction": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "isActionDispatched": [Function],
+        "isActionTypeDispatched": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "onStateChange": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
+    }
+  }
+>
+  <Connect(PlayGrammarContainer)
+    conceptsFeedback={Object {}}
+    dispatch={[MockFunction]}
+    grammarActivities={Object {}}
+    handleTogglePreviewMenu={[MockFunction]}
+    handleToggleQuestion={[MockFunction]}
+    isOnMobile={false}
+    previewMode={true}
+    questionToPreview={Object {}}
+    questions={Array []}
+    session={Object {}}
+    skippedToQuestionFromIntro={false}
+  />
+</ContextProvider>
 `;

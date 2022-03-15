@@ -2,7 +2,9 @@ import { RuleInterface } from '../../interfaces/evidenceInterfaces';
 import { handleApiError, apiFetch, handleRequestErrors, requestFailed } from '../../helpers/evidence/routingHelpers';
 import { getRulesUrl } from '../../helpers/evidence/ruleHelpers';
 
-export const fetchRules = async (key: string, activityId: string, promptId?: any, ruleType?: string) => {
+export const fetchRules = async ({queryKey}) => {
+  const [key, activityId, promptId, ruleType]: [string, string, any, string] = queryKey
+
   const url = getRulesUrl(activityId, promptId, ruleType)
 
   const response = await apiFetch(url);
@@ -16,7 +18,7 @@ export const fetchRules = async (key: string, activityId: string, promptId?: any
   };
 }
 
-export const fetchUniversalRules = async (key: string) => {
+export const fetchUniversalRules = async () => {
   const response = await apiFetch(`rules/universal`);
   let universalRules = await response.json();
   if(universalRules.rules && universalRules.rules.length) {
@@ -28,7 +30,9 @@ export const fetchUniversalRules = async (key: string) => {
   };
 }
 
-export const fetchRule = async (key: string, ruleId: string) => {
+export const fetchRule = async ({ queryKey, }) => {
+  const [key, ruleId]: [string, string] = queryKey
+
   const response = await apiFetch(`rules/${ruleId}`);
   const rule = await response.json();
   return {

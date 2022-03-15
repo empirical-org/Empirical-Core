@@ -1,13 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { mount, shallow } from 'enzyme';
-// import { MemoryRouter } from 'react-router';
 import { createMockStore } from 'redux-test-utils';
-// DistrictStandardsReportsProgressReport
 import AdminDashboardRouter from '../AdminDashboardRouter.jsx';
 import DistrictStandardsReports from '../DistrictStandardsReports.jsx';
-// import DistrictStandardsReportsProgressReports from 'bundles/admin_dashboard/containers/DistrictStandardsReports.jsx'
-// import DistrictStandardsReportsProgressReports from 'bundles/Teacher/components/progress_reports/district_standards_reports_progress_report.jsx'
 
 describe('DistrictStandardsReports', () => {
   it('renders report for all students', () => {
@@ -31,7 +27,7 @@ describe('DistrictStandardsReports', () => {
     const store = createMockStore(state);
     const wrapper = shallow(<DistrictStandardsReports store={store} />);
 
-    expect(wrapper.prop('filteredStandardsReportsData')).toEqual([classroom]);
+    expect(wrapper.find('DistrictStandardsReports').prop('filteredStandardsReportsData')).toEqual([classroom]);
   });
 
   it('formats csv data', () => {
@@ -55,7 +51,7 @@ describe('DistrictStandardsReports', () => {
     const store = createMockStore(state);
     const wrapper = shallow(<DistrictStandardsReports store={store} />);
 
-    expect(wrapper.prop('csvData')).toEqual([
+    expect(wrapper.find('DistrictStandardsReports').prop('csvData')).toEqual([
       [
         'Standard Level',
         'Standard Name',
