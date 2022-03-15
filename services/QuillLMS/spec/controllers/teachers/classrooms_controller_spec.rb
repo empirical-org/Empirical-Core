@@ -324,6 +324,14 @@ describe Teachers::ClassroomsController, type: :controller do
       get :classrooms_i_teach
       expect(assigns(:classrooms)).to eq [classroom]
     end
+
+    it 'should provide valid data when making fresh and cached queries' do
+      2.times do
+        get :classrooms_i_teach
+        expect(response.status).to eq(200)
+        expect(assigns(:classrooms)).to eq [classroom]
+      end
+    end
   end
 
   describe '#regenerate_code' do
