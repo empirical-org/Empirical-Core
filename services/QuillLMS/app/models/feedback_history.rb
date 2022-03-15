@@ -133,11 +133,12 @@ class FeedbackHistory < ApplicationRecord
   end
 
   # TODO: consider making this a background job.
-  def self.save_feedback(feedback_hash_raw, entry, prompt_id, session_uid, attempt)
+  def self.save_feedback(feedback_hash_raw, entry, prompt_id, activity_session_uid, attempt)
     feedback_hash = feedback_hash_raw.deep_stringify_keys
 
+    # NB, there is a before_create that swaps activity_session_uid for a feedback_session.uid
     create(
-      feedback_session_uid: session_uid,
+      feedback_session_uid: activity_session_uid,
       prompt_id: prompt_id,
       attempt: attempt,
       entry: entry,

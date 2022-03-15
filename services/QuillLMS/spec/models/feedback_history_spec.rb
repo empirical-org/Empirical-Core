@@ -139,8 +139,8 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'save_feedback' do
-    let!(:entry) { 'some response text' }
-    let(:session_uid) { SecureRandom.uuid }
+    let(:entry) { 'some response text' }
+    let(:activity_session_uid) { SecureRandom.uuid }
     let(:rule_uid) { SecureRandom.uuid }
     let(:prompt_id) { 99 }
     let(:attempt) { 5 }
@@ -160,10 +160,12 @@ RSpec.describe FeedbackHistory, type: :model do
     }
 
     it 'should store the data properly' do
-      feedback = FeedbackHistory.save_feedback(feedback_hash, entry, prompt_id, session_uid, attempt)
+      feedback = FeedbackHistory.save_feedback(feedback_hash, entry, prompt_id, activity_session_uid, attempt)
+
+      feedback_session = FeedbackSession.find_by(activity_session_uid: activity_session_uid)
 
       expect(feedback.valid?).to be true
-      expect(feedback.feedback_session_uid).to eq(session_uid)
+      expect(feedback.feedback_session_uid).to eq(feedback_session.uid)
       expect(feedback.prompt_id).to eq(prompt_id)
       expect(feedback.feedback_text).to eq('write better')
       expect(feedback.feedback_type).to eq('grammar')
