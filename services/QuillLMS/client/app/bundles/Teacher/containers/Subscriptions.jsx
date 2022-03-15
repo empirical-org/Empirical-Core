@@ -12,6 +12,7 @@ import PremiumConfirmationModal from '../components/subscriptions/premium_confir
 import RefundPolicy from '../components/subscriptions/refund_policy';
 import PremiumCreditsTable from '../components/subscriptions/premium_credits_table';
 import getAuthToken from '../components/modules/get_auth_token';
+import { ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES } from '../components/subscriptions/constants';
 
 export default class Subscriptions extends React.Component {
   constructor(props) {
@@ -105,15 +106,7 @@ export default class Subscriptions extends React.Component {
       return 'Basic';
     }
     const accountType = subscriptionStatus.account_type;
-    if (schoolSubscriptionTypes === 'School Sponsored') {
-      return 'School Sponsored';
-    }
-    if (schoolSubscriptionTypes.includes(accountType)) {
-      return 'School';
-    } else if (trialSubscriptionTypes.includes(accountType)) {
-      return 'Trial';
-    }
-    return 'Teacher';
+    return ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[accountType]
   }
 
   updateCard = () => {

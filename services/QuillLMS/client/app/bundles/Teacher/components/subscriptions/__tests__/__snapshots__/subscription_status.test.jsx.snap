@@ -48,7 +48,7 @@ exports[`SubscriptionStatus container should render when the subscription is exp
             <i
               className="fas fa-exclamation-triangle"
             />
-            Your teacher Premium subscription has expired
+            Your teacher subscription has expired
           </h2>
         </h2>
       </div>
@@ -65,7 +65,7 @@ exports[`SubscriptionStatus container should render when the subscription is exp
         <strong>
           Your 
           teacher
-           Premium subscription (
+           subscription (
           02/15/22
            - 
           02/15/22
