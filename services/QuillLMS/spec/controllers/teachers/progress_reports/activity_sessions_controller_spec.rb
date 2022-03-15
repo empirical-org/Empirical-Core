@@ -51,6 +51,7 @@ describe Teachers::ProgressReports::ActivitySessionsController, type: :controlle
       end
 
       it 'renders the same data fresh and from cache' do
+        expect(controller).to receive(:return_data).with(any_args).once.and_call_original
         2.times do
           get :index, params: { page: 1 }, as: :json
           expect(response.status).to eq(200)
