@@ -316,7 +316,7 @@ describe Teachers::ClassroomsController, type: :controller do
     let(:classroom) { create(:classroom) }
 
     before do
-      allow(teacher).to receive(:classrooms_i_teach) { [classroom] }
+      allow(teacher).to receive(:classrooms_i_teach).once { [classroom] }
       allow(controller).to receive(:current_user) { teacher }
     end
 
@@ -326,10 +326,13 @@ describe Teachers::ClassroomsController, type: :controller do
     end
 
     it 'should provide valid data when making fresh and cached queries' do
+
       2.times do
         get :classrooms_i_teach
         expect(response.status).to eq(200)
-        expect(assigns(:classrooms)).to eq [classroom]
+        classrooms_payload = JSON.parse(response.body)['classrooms']
+        expect(classrooms_payload.length).to eq(1)
+        expect(classrooms_payload[0]['id']).to eq(classroom.id)
       end
     end
   end

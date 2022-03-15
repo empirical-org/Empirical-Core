@@ -31,11 +31,7 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def classrooms_i_teach
-    data = current_user.all_classrooms_cache(key: 'teachers.classrooms.classrooms_i_teach') do
-      @classrooms = current_user.classrooms_i_teach
-      @classrooms.sort_by { |c| c[:update_at] }
-    end
-    render json: data, each_serializer: ClassroomSerializer
+    render json: fetch_classrooms_i_teach_cache, each_serializer: ClassroomSerializer
   end
 
   def regenerate_code
@@ -159,6 +155,13 @@ class Teachers::ClassroomsController < ApplicationController
     end
 
     render json: {}
+  end
+
+  private def fetch_classrooms_i_teach_cache
+    current_user.all_classrooms_cache(key: 'teachers.classrooms.classrooms_i_teach') do
+      @classrooms = current_user.classrooms_i_teach
+      @classrooms.sort_by { |c| c[:update_at] }
+    end
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
