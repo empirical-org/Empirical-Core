@@ -38,4 +38,10 @@ class Plan < ApplicationRecord
   validates :interval, presence: true, inclusion: { in: INTERVAL_TYPES }
   validates :interval_count, numericality: { greater_than_or_equal_to: 0 }
   validates :stripe_price_id, allow_blank: true, format: { with: /\Aprice_[0-9a-zA-Z]*\z/ }
+
+  before_destroy { |record| raise ActiveRecord::ReadOnlyRecord }
+
+  def readonly?
+    !new_record?
+  end
 end

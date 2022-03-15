@@ -57,4 +57,12 @@ RSpec.describe Plan, type: :model do
       expect(plan).not_to be_valid
     end
   end
+
+  context 'readonly protection' do
+    let(:plan) { create(:plan) }
+
+    it { expect { plan.destroy }.to raise_error ActiveRecord::ReadOnlyRecord }
+    it { expect { plan.update(price: 10) }.to raise_error ActiveRecord::ReadOnlyRecord }
+    it { expect { plan.update(name: plan.name) }.to raise_error ActiveRecord::ReadOnlyRecord }
+  end
 end
