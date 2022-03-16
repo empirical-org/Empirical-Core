@@ -160,7 +160,6 @@ class Teachers::ClassroomsController < ApplicationController
   private def fetch_classrooms_i_teach_cache
     current_user.all_classrooms_cache(key: 'teachers.classrooms.classrooms_i_teach') do
       @classrooms = current_user.classrooms_i_teach
-      @classrooms.sort_by { |c| c[:update_at] }
     end
   end
 
