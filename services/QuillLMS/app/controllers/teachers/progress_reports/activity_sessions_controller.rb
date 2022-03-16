@@ -21,9 +21,9 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
     end
   end
 
-  private def fetch_index_cache(as_json)
+  private def fetch_index_cache(should_return_json)
     cache_groups = {
-      json_format: as_json,
+      json_format: should_return_json,
       classroom_id: params[:classroom_id],
       student_id: params[:student_id],
       unit_id: params[:unit_id],
@@ -34,7 +34,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
     }
 
     current_user.all_classrooms_cache(key: 'teachers.progress_reports.activity_sessions', groups: cache_groups) do
-      return_data(as_json)
+      return_data(should_return_json)
     end
   end
 
