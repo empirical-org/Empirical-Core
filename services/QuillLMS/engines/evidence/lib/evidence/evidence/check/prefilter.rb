@@ -5,7 +5,7 @@ module Evidence
 
     def run
       prefilter_check = Evidence::PrefilterCheck.new(entry)
-      @response = prefilter_check.feedback_object.stringify_keys
+      @response = prefilter_check.feedback_object
     end
 
   end

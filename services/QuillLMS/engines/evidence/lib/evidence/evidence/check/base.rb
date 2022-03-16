@@ -32,7 +32,7 @@ module Evidence
     def optimal?
       return true unless response
 
-      response['optimal']
+      response.stringify_keys['optimal']
     end
 
     def auto_ml?
