@@ -32,6 +32,8 @@ class Plan < ApplicationRecord
     DAILY_INTERVAL_TYPE = 'daily'
   ]
 
+  attr_readonly :audience, :interval, :interval_count, :name, :price, :stripe_price_id
+
   validates :name, presence: true, uniqueness: true
   validates :price, numericality: { greater_than_or_equal_to: 0 }
   validates :audience, presence: true, inclusion: { in: AUDIENCE_TYPES }
@@ -40,8 +42,4 @@ class Plan < ApplicationRecord
   validates :stripe_price_id, allow_blank: true, format: { with: /\Aprice_[0-9a-zA-Z]*\z/ }
 
   before_destroy { |record| raise ActiveRecord::ReadOnlyRecord }
-
-  def readonly?
-    !new_record?
-  end
 end

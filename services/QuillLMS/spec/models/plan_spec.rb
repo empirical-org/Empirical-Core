@@ -58,11 +58,16 @@ RSpec.describe Plan, type: :model do
     end
   end
 
-  context 'readonly protection' do
+  context 'readonly' do
     let(:plan) { create(:plan) }
 
     it { expect { plan.destroy }.to raise_error ActiveRecord::ReadOnlyRecord }
-    it { expect { plan.update(price: 10) }.to raise_error ActiveRecord::ReadOnlyRecord }
-    it { expect { plan.update(name: plan.name) }.to raise_error ActiveRecord::ReadOnlyRecord }
+
+    it { should have_readonly_attribute(:audience) }
+    it { should have_readonly_attribute(:interval) }
+    it { should have_readonly_attribute(:interval_count) }
+    it { should have_readonly_attribute(:name) }
+    it { should have_readonly_attribute(:price) }
+    it { should have_readonly_attribute(:stripe_price_id) }
   end
 end
