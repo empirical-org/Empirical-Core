@@ -136,6 +136,13 @@ class FeedbackHistory < ApplicationRecord
   def self.save_feedback(feedback_hash_raw, entry, prompt_id, activity_session_uid, attempt)
     feedback_hash = feedback_hash_raw.deep_stringify_keys
 
+    # Remove blank values from metadata
+    metadata = {
+      highlight: feedback_hash['highlight'],
+      response_id: feedback_hash['response_id'],
+      hint: feedback_hash['hint']
+    }.reject {|_,v| v.blank? }
+
     # NB, there is a before_create that swaps activity_session_uid for a feedback_session.uid
     create(
       feedback_session_uid: activity_session_uid,
@@ -149,12 +156,7 @@ class FeedbackHistory < ApplicationRecord
       feedback_text: feedback_hash['feedback'],
       feedback_type: feedback_hash['feedback_type'],
       optimal: feedback_hash['optimal'],
-      metadata: {
-        highlight: feedback_hash['highlight'],
-        labels: feedback_hash['labels'],
-        response_id: feedback_hash['response_id'],
-        hint: feedback_hash['hint']
-      }
+      metadata: metadata
     )
   end
 

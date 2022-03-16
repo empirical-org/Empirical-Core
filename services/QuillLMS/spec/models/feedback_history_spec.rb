@@ -153,11 +153,25 @@ RSpec.describe FeedbackHistory, type: :model do
         feedback_type: 'grammar',
         optimal: false,
         highlight: [{text: 'some', type: 'entry', category: 'grammar', character: 0}],
-        labels: [],
         response_id: 'abc123',
         hint: 'a hint'
       }
     }
+
+    # missing hint: key, blank response, empty highlight
+    let(:feedback_hash_with_blank_metadata) {
+      {
+        rule_uid: rule_uid,
+        concept_uid: 'rCuCaRpGZg0TeFfy4LeM9A',
+        feedback: 'write better',
+        feedback_type: 'grammar',
+        optimal: false,
+        highlight: [],
+        response_id: '',
+      }
+    }
+
+    let(:highlight) {'some highlight'}
 
     it 'should store the data properly' do
       feedback = FeedbackHistory.save_feedback(feedback_hash, entry, prompt_id, activity_session_uid, attempt)
@@ -175,9 +189,23 @@ RSpec.describe FeedbackHistory, type: :model do
       expect(feedback.attempt).to eq(attempt)
       expect(feedback.entry).to eq(entry)
       expect(feedback.metadata['highlight'].first['text']).to eq('some')
-      expect(feedback.metadata['labels']).to be_empty
       expect(feedback.metadata['response_id']).to eq('abc123')
       expect(feedback.metadata['hint']).to eq('a hint')
+    end
+
+    it 'should store the metadata properly for all blank_values' do
+      feedback = FeedbackHistory.save_feedback(feedback_hash_with_blank_metadata, entry, prompt_id, activity_session_uid, attempt)
+
+      expect(feedback.valid?).to be true
+      expect(feedback.metadata).to eq({})
+    end
+
+    it 'should store the metadata properly for one non blank value' do
+      feedback_hash = feedback_hash_with_blank_metadata.merge(highlight: [highlight])
+      feedback = FeedbackHistory.save_feedback(feedback_hash, entry, prompt_id, activity_session_uid, attempt)
+
+      expect(feedback.valid?).to be true
+      expect(feedback.metadata['highlight'].first).to eq(highlight)
     end
   end
 
