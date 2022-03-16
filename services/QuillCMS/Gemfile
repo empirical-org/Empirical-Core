@@ -23,7 +23,7 @@ gem 'scenic', '~> 1.5.4'
 # QUEUE/CACHING
 gem 'connection_pool'
 gem 'dalli'
-gem 'redis'
+gem 'redis', '~> 4.5'
 gem 'redis-namespace'
 #gem 'sidekiq-pro', '5.0.0', source: 'http://gems.contribsys.com/'
 gem 'sidekiq', '~> 5.2.10'
