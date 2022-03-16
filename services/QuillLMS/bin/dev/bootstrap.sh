@@ -84,7 +84,7 @@ git remote add quill-lms-prod  https://git.heroku.com/empirical-grammar.git
 
 echo 'Install Bundler'
 # there are breaking changes in bundler 2.0, so pin to this version for now.
-gem install bundler -v 1.17.3
+gem install bundler -v 2.2.33
 gem install foreman -v 0.87.2
 
 # set bundle config, needed for sidekiq-pro

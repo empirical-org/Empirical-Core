@@ -1538,6 +1538,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               >
                 <span
                   className="data-table-row-section undefined"
+                  onClick={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
@@ -1621,6 +1622,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               >
                 <span
                   className="data-table-row-section undefined"
+                  onClick={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
@@ -1702,6 +1704,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               >
                 <span
                   className="data-table-row-section undefined"
+                  onClick={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={

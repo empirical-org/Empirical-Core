@@ -55,9 +55,9 @@ export default class CongratulationsModal extends React.Component<{closeModal: a
             <p>How was your experience with Quill Lessons?</p>
             <p>We are eager to hear your feedback to improve this tool.</p>
             <div className="emoji-row">
-              <img alt="" onClick={this.handleDisappointedEmojiClick} src="https://assets.quill.org/images/emojis/disappointed_face.png" />
-              <img alt="" onClick={this.handleNeutralEmojiClick} src="https://assets.quill.org/images/emojis/neutral_face.png" />
-              <img alt="" onClick={this.handleHappyEmojiClick} src="https://assets.quill.org/images/emojis/inlove_face.png" />
+              <button className="interactive-wrapper focus-on-light" onClick={this.handleDisappointedEmojiClick} type="button"><img alt="" src="https://assets.quill.org/images/emojis/disappointed_face.png" /></button>
+              <button className="interactive-wrapper focus-on-light" onClick={this.handleNeutralEmojiClick} type="button"><img alt="" src="https://assets.quill.org/images/emojis/neutral_face.png" /></button>
+              <button className="interactive-wrapper focus-on-light" onClick={this.handleHappyEmojiClick} type="button"><img alt="" src="https://assets.quill.org/images/emojis/inlove_face.png" /></button>
             </div>
           </div>
         )
@@ -70,7 +70,7 @@ export default class CongratulationsModal extends React.Component<{closeModal: a
       <div className="congratulations-modal-container">
         <div className="congratulations-modal-background" onClick={closeModal} />
         <div className="congratulations-modal">
-          <img alt="" className="exit" onClick={closeModal} src="https://assets.quill.org/images/icons/CloseIcon.svg" />
+          <button className="interactive-wrapper focus-on-light exit" onClick={closeModal} type="button"><img alt="Close icon" src="https://assets.quill.org/images/icons/CloseIcon.svg" /></button>
           <img alt="" className="illustration" src="https://assets.quill.org/images/illustrations/congratulations_illustration.svg" />
           <h1 className="congratulations">Congratulations!</h1>
           <h1>You&#39;ve completed a Quill Lessons Activity.</h1>

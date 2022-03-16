@@ -95,7 +95,7 @@
             display: flex;
             align-items: center;
           }
-          p {
+          p, .interactive-wrapper {
             cursor: pointer;
             color: #027360;
             margin-top: 5px;
@@ -232,10 +232,10 @@
       color: #027360;
     }
 
-    p {
+    .interactive-wrapper {
       margin-right: 15px;
       font-weight: 600;
-      cursor: pointer;
+      color: #027360;
     }
 
     i {
@@ -261,6 +261,7 @@
     .script-item-heading {
       cursor: pointer;
       font-weight: bold;
+      font-size: 18px;
     }
     hr {
       border: solid 1px #e9e9e9;

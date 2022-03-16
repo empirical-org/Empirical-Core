@@ -6,8 +6,7 @@ import {
   BECAUSE,
   BUT,
   SO,
-  ALL,
-  MAX_ATTEMPTS_FEEDBACK_TEXT
+  ALL
 } from '../../../../constants/evidence';
 import { PromptInterface } from '../../interfaces/evidenceInterfaces';
 const quillCheckmark = `/images/green_check.svg`;
@@ -36,7 +35,7 @@ export const buildBlankPrompt = (conjunction: string) => {
     conjunction: conjunction,
     text: '',
     max_attempts: DEFAULT_MAX_ATTEMPTS,
-    max_attempts_feedback: MAX_ATTEMPTS_FEEDBACK_TEXT
+    max_attempts_feedback: ''
   }
 }
 

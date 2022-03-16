@@ -4,7 +4,6 @@ import createReactClass from 'create-react-class';
 
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin'
 import TableSortingMixin from '../general_components/table/sortable_table/table_sorting_mixin'
-import Pagination from './pagination/pagination'
 import ExportCsv from './export_csv'
 import LoadingIndicator from '../shared/loading_indicator'
 import SortableTable from '../general_components/table/sortable_table/sortable_table.jsx'
@@ -212,9 +211,6 @@ export default createReactClass({
       mainSection,
       faqLink;
     let filteredResults = this.getFilteredResults();
-    if (this.props.pagination) {
-      pagination = <Pagination currentPage={this.state.currentPage} maxPageNumber={this.props.maxPageNumber} numberOfPages={this.state.numPages} selectPageNumber={this.goToPage} />;
-    }
     let visibleResults = this.getVisibleResults(filteredResults);
 
     if (this.props.exportCsv) {

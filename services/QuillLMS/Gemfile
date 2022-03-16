@@ -6,7 +6,7 @@ ruby '2.6.6'
 
 # CORE DEPS
 gem 'rails', '5.1.7'
-gem 'puma', '~> 4.3.8'
+gem 'puma', '>= 4.3.11'
 
 # EARLY TO APPLY TO OTHER GEMS
 gem 'dotenv-rails'
@@ -34,7 +34,7 @@ gem 'rack-attack'
 gem 'premailer-rails'
 # if you have trouble installing nokogiri on a mac,
 # try uninstalling nokogiri, running `xcode-select --install`, and then `bundle install` once more
-gem 'nokogiri', '>= 1.10.4'
+gem 'nokogiri', '>= 1.13.2'
 
 # VALIDATIONS
 gem 'validates_email_format_of'
@@ -199,7 +199,7 @@ group :test do
   gem 'capybara-screenshot'
   gem 'codeclimate-test-reporter', require: nil
   gem 'codecov'
-  gem 'mini_racer', '= 0.3.1'
+  gem 'mini_racer', '= 0.4.0'
   gem 'fakeredis', '~> 0.7.0'
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'

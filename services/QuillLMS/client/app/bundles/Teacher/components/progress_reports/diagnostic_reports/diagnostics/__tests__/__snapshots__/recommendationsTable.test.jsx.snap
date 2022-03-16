@@ -351,6 +351,7 @@ exports[`RecommendationsTable component should render when no students have comp
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -401,6 +402,7 @@ exports[`RecommendationsTable component should render when no students have comp
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -451,6 +453,7 @@ exports[`RecommendationsTable component should render when no students have comp
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -501,6 +504,7 @@ exports[`RecommendationsTable component should render when no students have comp
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -551,6 +555,7 @@ exports[`RecommendationsTable component should render when no students have comp
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -601,6 +606,7 @@ exports[`RecommendationsTable component should render when no students have comp
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -5024,6 +5030,7 @@ exports[`RecommendationsTable component should render when no students have comp
                         >
                           <span
                             className="student-name"
+                            onClick={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
                             tabIndex={null}
@@ -7387,6 +7394,7 @@ exports[`RecommendationsTable component should render when no students have comp
                         >
                           <span
                             className="student-name"
+                            onClick={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
                             tabIndex={null}
@@ -8538,6 +8546,7 @@ exports[`RecommendationsTable component should render when no students have comp
                         >
                           <span
                             className="student-name"
+                            onClick={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
                             tabIndex={null}
@@ -10658,6 +10667,7 @@ exports[`RecommendationsTable component should render when no students have comp
                         >
                           <span
                             className="student-name"
+                            onClick={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
                             tabIndex={null}
@@ -11346,6 +11356,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -11396,6 +11407,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -11446,6 +11458,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -11496,6 +11509,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -11546,6 +11560,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -11596,6 +11611,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     >
                       <span
                         className="undefined"
+                        onClick={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -19241,6 +19257,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                         >
                           <span
                             className="student-name"
+                            onClick={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
                             tabIndex={null}
@@ -23314,6 +23331,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                         >
                           <span
                             className="student-name"
+                            onClick={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
                             tabIndex={null}
@@ -25254,6 +25272,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                         >
                           <span
                             className="student-name"
+                            onClick={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
                             tabIndex={null}
@@ -28706,6 +28725,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                         >
                           <span
                             className="student-name"
+                            onClick={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
                             tabIndex={null}

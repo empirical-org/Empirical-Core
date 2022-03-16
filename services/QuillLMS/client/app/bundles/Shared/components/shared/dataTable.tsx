@@ -74,7 +74,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     document.addEventListener('mousedown', this.handleClick, false)
   }
 
@@ -284,9 +284,12 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     let linkDisplayText
     if (sectionText && sectionText.type === 'a' && sectionText.props.children && sectionText.props.children[1] && sectionText.props.children[1].props) {
       linkDisplayText = sectionText.props.children[1].props.children
+    } else if(sectionText && sectionText.type && sectionText.type.displayName === 'Link' && sectionText.props && sectionText.props.children) {
+      linkDisplayText = sectionText.props.children
     }
 
     const rowDisplayText = linkDisplayText || sectionText
+
     if (!header.noTooltip && (String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
       return (
         <Tooltip
@@ -315,7 +318,8 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const { isReorderable, } = this.props
     if (!isReorderable) { return }
 
-    const DragHandle = SortableHandle(() => <img alt="Reorder icon" className="reorder-icon focus-on-light" src={reorderSrc} tabIndex={0} />);
+    // using a div as the outer element instead of a button here because something about default button behavior overrides the keypress handling by sortablehandle
+    const DragHandle = SortableHandle(() => <div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div>);
     return <span className='reorder-section data-table-row-section'><DragHandle /></span>
   }
 

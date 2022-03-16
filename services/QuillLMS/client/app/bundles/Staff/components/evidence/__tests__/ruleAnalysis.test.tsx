@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { createMemoryHistory, createLocation } from 'history';
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 import RuleAnalysis from '../rulesAnalysis/ruleAnalysis';
 import 'whatwg-fetch';
@@ -18,8 +19,14 @@ const mockProps = {
   location: createLocation('')
 }
 
+const queryClient = new QueryClient()
+
 describe('RuleAnalysis component', () => {
-  const container = shallow(<RuleAnalysis {...mockProps} />);
+  const container = shallow(
+    <QueryClientProvider client={queryClient} contextSharing={true}>
+      <RuleAnalysis {...mockProps} />
+    </QueryClientProvider>
+  );
 
   it('should render RuleAnalysis', () => {
     expect(container).toMatchSnapshot();

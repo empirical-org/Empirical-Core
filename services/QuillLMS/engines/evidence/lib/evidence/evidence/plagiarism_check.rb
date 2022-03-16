@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'hotwater'
+
 module Evidence
   class PlagiarismCheck
 
@@ -130,7 +132,7 @@ module Evidence
 
         slice_string = slice.join(' ')
         slices_to_match_strings ||= slices_to_match.map { |s| s.join(' ') }
-        match = slices_to_match_strings.any? { |match_string| DidYouMean::Levenshtein.distance(slice_string, match_string) <= FUZZY_CHARACTER_THRESHOLD }
+        match = slices_to_match_strings.any? { |match_string| ::Hotwater.levenshtein_distance(slice_string, match_string) <= FUZZY_CHARACTER_THRESHOLD }
         if match
           # If we have our first match, we want to populate the return value with the full string from
           # that match

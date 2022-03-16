@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useQuery, queryCache } from 'react-query';
+import { useQuery, useQueryClient, } from 'react-query';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import RegexRulesIndex from './regexRulesIndex';
@@ -17,6 +17,8 @@ const RegexRulesRouter = ({ history, match }) => {
 
   const [errors, setErrors] = React.useState<string[]>([]);
 
+  const queryClient = useQueryClient()
+
   // get cached activity data to pass to ruleForm
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
@@ -32,7 +34,7 @@ const RegexRulesRouter = ({ history, match }) => {
         const queryString = getRefetchQueryString(rule, activityId);
         setErrors([]);
         // update rules cache to display newly created rule
-        queryCache.refetchQueries(queryString).then(() => {
+        queryClient.refetchQueries(queryString).then(() => {
           history.push(`/activities/${activityId}/regex-rules`);
         });
       }
@@ -48,7 +50,7 @@ const RegexRulesRouter = ({ history, match }) => {
       } else {
         setErrors([]);
         // update rules cache to display newly updated rule
-        queryCache.refetchQueries(`rule-${ruleId}`).then(() => {
+        queryClient.refetchQueries(`rule-${ruleId}`).then(() => {
           history.push(`/activities/${activityId}/regex-rules`);
         });
       }

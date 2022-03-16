@@ -2,7 +2,10 @@ import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
 
-export default class extends React.Component {
+
+import { ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES } from './constants';
+
+export default class PremiumConfirmationModal extends React.Component {
   getModalContent = () => {
     const { subscription } = this.props
     const { account_type, expiration, start_date } = subscription
@@ -16,20 +19,14 @@ export default class extends React.Component {
   };
 
   paymentCopy = (startD, endD) => {
-    const { subscriptionType} = this.props
+    const { subscription } = this.props
+    const { account_type } = subscription
     return (
       <span>
-        We have received your payment. You will receive an email shortly with your receipt. Your {subscriptionType} Premium is valid until <strong>{moment(endD).format('MMMM Do, YYYY')}</strong>. Your subscription will auto-renew {moment(endD).format('MMMM Do, YYYY')}. You can review your subscription information and modify your renewal settings on the subscription page.
+        We have received your payment. You will receive an email shortly with your receipt. Your {ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[account_type]} is valid until <strong>{moment(endD).format('MMMM Do, YYYY')}</strong>. Your subscription will auto-renew {moment(endD).format('MMMM Do, YYYY')}. You can review your subscription information and modify your renewal settings on the subscription page.
       </span>
     );
   };
-
-  handleKeyPress = (e) => {
-    const { hideModal } = this.props
-    if(e.key === "Enter") {
-      hideModal()
-    }
-  }
 
   render() {
     const { hideModal, show, subscription } = this.props
@@ -43,9 +40,9 @@ export default class extends React.Component {
       <div className="premium-confirmation">
         <div className="modal-background" />
         <div className="modal-content">
-          <img alt="close-modal" className="pull-right modal-button-close" onClick={hideModal} onKeyPress={this.handleKeyPress} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} />
+          <button className="interactive-wrapper focus-on-light pull-right" onClick={hideModal} type="button"><img alt="close-modal" className="modal-button-close" src={`${process.env.CDN_URL}/images/shared/close_x.svg`} /></button>
           <h1>Congratulations!</h1>
-          <h2 id="subscription-type">You have a {account_type} Subscription</h2>
+          <h2 id="subscription-type">You have a {ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[account_type]} Subscription</h2>
           {content}
           <a className="q-button button cta-button bg-orange text-white view-premium-reports" href="/teachers/progress_reports/activities_scores_by_classroom" id="view-premium-reports-button">View Premium Reports</a>
         </div>

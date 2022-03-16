@@ -10,6 +10,7 @@ exports[`Tooltip component should render when it is not searchable 1`] = `
   >
     <span
       className="undefined"
+      onClick={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
       tabIndex={null}
