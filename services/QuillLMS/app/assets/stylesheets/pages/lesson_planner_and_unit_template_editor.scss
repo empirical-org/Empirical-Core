@@ -380,6 +380,15 @@
       align-items: center;
       padding: 0px 14px;
     }
+    .input-container {
+      min-height: 50px;
+      &.active {
+        min-height: 0px;
+      }
+    }
+    .dropdown__control {
+      background-color: transparent;
+    }
   }
   .scorebook-dropdown-icon {
     float: left;

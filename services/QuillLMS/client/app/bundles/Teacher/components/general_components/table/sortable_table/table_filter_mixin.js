@@ -36,8 +36,9 @@ export default {
     const allNames = _.chain(results).map(result => ({
       name: result[nameField],
       value: result[valueField],
+      label: result[nameField]
     })).uniq(false, option => option.value).reject(option => option.value === null).value();
-    allNames.unshift({ name: allOptionName, value: '', });
+    allNames.unshift({ name: allOptionName, value: '', label: allOptionName, });
     return allNames;
   },
 };

@@ -258,6 +258,10 @@ a.progress-reports-nav {
   display: flex;
   margin: 20px 0;
 
+  .dropdown__control {
+    background-color: transparent;
+  }
+
   & > div {
     padding-left: 0 !important;
     padding-right: 0 !important;
