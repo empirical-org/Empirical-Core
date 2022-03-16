@@ -163,7 +163,7 @@ class TextEditor extends React.Component <any, any> {
     };
 
     return (
-      <div className="card is-fullwidth">
+      <div className="text-editor card is-fullwidth">
         <header className="card-header">
           <div className="myToolbar" style={{margin: '1em'}}>
             <H3Button />
@@ -173,7 +173,7 @@ class TextEditor extends React.Component <any, any> {
             <BlockquoteButton />
             <ULButton />
             <HighlightButton />
-            <button className="add-link" id="link-url" onClick={this.handleAddLink} type="button">
+            <button className="interactive-wrapper add-link" id="link-url" onClick={this.handleAddLink} type="button">
               <span>Link</span>
             </button>
           </div>

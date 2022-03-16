@@ -12,16 +12,23 @@ import {
   HIGHLIGHT_PROMPT,
   PLAGIARISM,
   FLAG,
-  MAX_ATTEMPTS_FEEDBACK_TEXT
+  TEXT,
+  BUILDING_ESSENTIAL_KNOWLEDGE,
+  ESSENTIAL_KNOWLEDGE_TEXT_FILLER,
+  MAX_ATTEMPTS_FEEDBACK,
+  HIGHLIGHTING_PROMPT,
+  IMAGE,
+  PROMPTS,
+  BREAK_TAG
 } from '../../../../constants/evidence';
+import { DEFAULT_HIGHLIGHT_PROMPT } from "../../../Shared";
 import { DropdownObjectInterface } from '../../interfaces/evidenceInterfaces'
+import { getCheckIcon } from "./renderHelpers";
 
 export const buildActivity = ({
   activityFlag,
   activityNotes,
   activityTitle,
-  activityScoredReadingLevel,
-  activityTargetReadingLevel,
   activityParentActivityId,
   activityPassages,
   activityBecausePrompt,
@@ -36,8 +43,6 @@ export const buildActivity = ({
       title: activityTitle,
       parent_activity_id: activityParentActivityId ? parseInt(activityParentActivityId) : null,
       flag: activityFlag,
-      scored_level: activityScoredReadingLevel,
-      target_level: parseInt(activityTargetReadingLevel),
       highlight_prompt: highlightPrompt,
       passages_attributes: activityPassages,
       prompts_attributes: prompts
@@ -164,6 +169,72 @@ export const validateForm = (keys: string[], state: any[], ruleType?: string) =>
     }
   });
   return errors;
+}
+
+export function validateFormSection({
+  label,
+  activityPassages,
+  activityBecausePrompt,
+  activityButPrompt,
+  activitySoPrompt,
+}) {
+  switch(label) {
+    case titleCase(TEXT):
+      const passagePresent = activityPassages && activityPassages[0] && activityPassages[0].text && activityPassages[0].text !== BREAK_TAG;
+      return getCheckIcon(passagePresent);
+    case BUILDING_ESSENTIAL_KNOWLEDGE:
+      const essentialKnowledgePresent = (
+        activityPassages && activityPassages[0] &&
+        !!activityPassages[0].essential_knowledge_text &&
+        activityPassages[0].essential_knowledge_text !== ESSENTIAL_KNOWLEDGE_TEXT_FILLER &&
+        activityPassages[0].essential_knowledge_text !== BREAK_TAG
+      );
+      return getCheckIcon(essentialKnowledgePresent);
+    case HIGHLIGHTING_PROMPT:
+      const highlightingPresent = (activityPassages && activityPassages[0] && !!activityPassages[0].highlight_prompt && activityPassages[0].highlight_prompt !== DEFAULT_HIGHLIGHT_PROMPT);
+      return getCheckIcon(highlightingPresent);
+    case IMAGE:
+      const imageDetailsPresent = (
+        activityPassages &&
+        activityPassages[0] &&
+        !!activityPassages[0].image_link &&
+        !!activityPassages[0].image_alt_text &&
+        !!activityPassages[0].image_caption &&
+        !!activityPassages[0].image_attribution
+      );
+      return getCheckIcon(imageDetailsPresent);
+    case MAX_ATTEMPTS_FEEDBACK:
+      const maxAttemptsFeedbackPresent = (
+        activityBecausePrompt &&
+        activityButPrompt &&
+        activitySoPrompt &&
+        !!activityBecausePrompt.max_attempts_feedback &&
+        !!activityButPrompt.max_attempts_feedback &&
+        !!activitySoPrompt.max_attempts_feedback &&
+        activityBecausePrompt.max_attempts_feedback !== BREAK_TAG &&
+        activityButPrompt.max_attempts_feedback !== BREAK_TAG &&
+        activitySoPrompt.max_attempts_feedback !== BREAK_TAG
+      );
+      return getCheckIcon(maxAttemptsFeedbackPresent);
+    case PROMPTS:
+      const promptsDetailsPresent = (
+        activityBecausePrompt &&
+        activityButPrompt &&
+        activitySoPrompt &&
+        !!activityBecausePrompt.text &&
+        !!activityButPrompt.text &&
+        !!activitySoPrompt.text &&
+        !!activityBecausePrompt.first_strong_example &&
+        !!activityButPrompt.first_strong_example &&
+        !!activitySoPrompt.first_strong_example &&
+        !!activityBecausePrompt.second_strong_example &&
+        !!activityButPrompt.second_strong_example &&
+        !!activitySoPrompt.second_strong_example
+      );
+      return getCheckIcon(promptsDetailsPresent);
+    default:
+      break
+  }
 }
 
 export function titleCase(string: string){
