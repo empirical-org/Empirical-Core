@@ -284,9 +284,12 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     let linkDisplayText
     if (sectionText && sectionText.type === 'a' && sectionText.props.children && sectionText.props.children[1] && sectionText.props.children[1].props) {
       linkDisplayText = sectionText.props.children[1].props.children
+    } else if(sectionText && sectionText.type && sectionText.type.displayName === 'Link' && sectionText.props && sectionText.props.children) {
+      linkDisplayText = sectionText.props.children
     }
 
     const rowDisplayText = linkDisplayText || sectionText
+
     if (!header.noTooltip && (String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
       return (
         <Tooltip
