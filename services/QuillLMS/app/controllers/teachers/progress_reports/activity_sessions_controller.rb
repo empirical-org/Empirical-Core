@@ -13,11 +13,28 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
           flash[:warning] = 'Downloadable reports are only available to Premium users.'
           return redirect_to premium_path
         end
-        return_data(false)
+        render plain: fetch_index_cache(false)
       end
       format.json do
-        return_data(true)
+        render json: fetch_index_cache(true)
       end
+    end
+  end
+
+  private def fetch_index_cache(should_return_json)
+    cache_groups = {
+      json_format: should_return_json,
+      classroom_id: params[:classroom_id],
+      student_id: params[:student_id],
+      unit_id: params[:unit_id],
+      sort_param: params[:sort_param],
+      sort_descending: params[:sort_descending],
+      page: params[:page],
+      without_filters: params[:without_filters]
+    }
+
+    current_user.all_classrooms_cache(key: 'teachers.progress_reports.activity_sessions', groups: cache_groups) do
+      return_data(should_return_json)
     end
   end
 
@@ -127,12 +144,12 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
       page_count = (count.to_f / PAGE_SIZE).ceil
 
       if params[:without_filters]
-        render json: {
+        {
           activity_sessions: activity_sessions,
           page_count: page_count,
         }
       else
-        render json: {
+        {
           classrooms: current_user.ids_and_names_of_affiliated_classrooms,
           students: current_user.ids_and_names_of_affiliated_students,
           units: current_user.ids_and_names_of_affiliated_units,
@@ -141,7 +158,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
         }
       end
     else
-      render plain: csv_string(activity_sessions)
+      csv_string(activity_sessions)
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity
