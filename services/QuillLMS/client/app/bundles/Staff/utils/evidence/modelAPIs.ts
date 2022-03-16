@@ -1,7 +1,7 @@
 import { handleApiError, apiFetch, getModelsUrl } from '../../helpers/evidence/routingHelpers';
 
 export const fetchModels = async ({ queryKey }) => {
-  const [key, promptId, state]: [string, number, string] = queryKey
+  const [key, promptId, state]: [string, number, string?] = queryKey
   const url = getModelsUrl(promptId, state);
 
   const response = await apiFetch(url);
