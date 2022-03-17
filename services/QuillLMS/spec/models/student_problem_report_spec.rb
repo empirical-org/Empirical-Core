@@ -23,5 +23,6 @@ describe StudentProblemReport, type: :model do
     it { should belong_to(:feedback_history) }
     it { should validate_presence_of(:feedback_history_id) }
     it { should validate_presence_of(:report) }
+    it { should validate_presence_of(:optimal) }
   end
 end
