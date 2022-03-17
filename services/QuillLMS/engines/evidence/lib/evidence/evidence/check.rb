@@ -46,6 +46,5 @@ module Evidence
 
       first_nonoptimal_check || auto_ml_check
     end
-
   end
 end
