@@ -11,6 +11,10 @@ module Evidence
     RESPONSE_TYPE = 'response'
     BING_API_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck'
     SPELLING_CONCEPT_UID = 'H-2lrblngQAQ8_s-ctye4g'
+
+    # TODO: replace with better exception code
+    EXCEPTIONS = ['solartogether']
+
     attr_reader :entry
 
     def initialize(entry)
@@ -58,7 +62,7 @@ module Evidence
     end
 
     private def misspelled
-      bing_response['flaggedTokens'] || []
+      bing_response['flaggedTokens']&.reject {|r| r['token']&.downcase&.in?(EXCEPTIONS)} || []
     end
 
     private def bing_response
