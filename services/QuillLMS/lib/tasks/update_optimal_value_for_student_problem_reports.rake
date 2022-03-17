@@ -5,7 +5,7 @@ namespace :update_optimal_value_for_student_problem_reports do
   task :run => :environment do
     StudentProblemReport.all.each do |report|
       is_optimal = FeedbackHistory.find(report.feedback_history_id)&.optimal
-      report.optimal if !is_optimal.nil?
+      report.optimal = is_optimal if !is_optimal.nil?
       report.save!
     end
   end
