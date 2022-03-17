@@ -28,7 +28,7 @@ interface PromptStepState {
   customFeedbackKey: string|null;
   responseOverCharacterLimit: boolean;
   submissionTime: number;
-  currentTime: number;
+  timeAtLastFeedbackSubmissionCheck: number;
   failedToLoadFeedback: boolean;
 }
 
@@ -60,7 +60,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       responseOverCharacterLimit: false,
       submissionTime: 0,
       failedToLoadFeedback: false,
-      currentTime: 0
+      timeAtLastFeedbackSubmissionCheck: 0
     };
 
     this.editor = React.createRef()
@@ -70,14 +70,14 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
   componentDidUpdate() {
     const { submittedResponses } = this.props;
-    const { numberOfSubmissions, submissionTime, currentTime, failedToLoadFeedback } = this.state;
-    const timeLapsed = Math.abs(currentTime - submissionTime)
+    const { numberOfSubmissions, submissionTime, timeAtLastFeedbackSubmissionCheck, failedToLoadFeedback } = this.state;
+    const timeLapsed = Math.abs(timeAtLastFeedbackSubmissionCheck - submissionTime)
 
     if(submissionTime && numberOfSubmissions === submittedResponses.length) {
-      this.setState({ submissionTime: 0, currentTime: 0 });
+      this.setState({ submissionTime: 0, timeAtLastFeedbackSubmissionCheck: 0 });
       clearInterval(this.interval);
     }
-    if(currentTime && timeLapsed >= FEEDBACK_LOADING_LIMIT && !failedToLoadFeedback) {
+    if(timeAtLastFeedbackSubmissionCheck && timeLapsed >= FEEDBACK_LOADING_LIMIT && !failedToLoadFeedback) {
       const feedbackFailedToLoadText = 'Sorry, our feedback did not load properly. Please try again or refresh the page.'
       this.setState({ failedToLoadFeedback: true, customFeedback: feedbackFailedToLoadText, customFeedbackKey: 'feedback failed' });
     }
@@ -280,7 +280,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     }), () => {
       const { numberOfSubmissions, } = this.state
       submitResponse(entry, promptId, promptText, numberOfSubmissions)
-      this.interval = setInterval(() => this.setState({ currentTime: (new Date()).getTime() }), 1000);
+      this.interval = setInterval(() => this.setState({ timeAtLastFeedbackSubmissionCheck: (new Date()).getTime() }), 1000);
     })
   }
 
@@ -315,11 +315,11 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   }
 
   getFeedbackLoadingDetails = () => {
-    const { submissionTime, currentTime } = this.state
+    const { submissionTime, timeAtLastFeedbackSubmissionCheck } = this.state
     if(!submissionTime) {
       return <span />
     }
-    const timeLapsed = Math.abs(currentTime - submissionTime)
+    const timeLapsed = Math.abs(timeAtLastFeedbackSubmissionCheck - submissionTime)
     if(timeLapsed <= SLOW_FEEDBACK_CONSTRAINT) {
       return <p>Finding feedback...</p>
     } else if(timeLapsed > SLOW_FEEDBACK_CONSTRAINT && timeLapsed <= FEEDBACK_LOADING_LIMIT) {

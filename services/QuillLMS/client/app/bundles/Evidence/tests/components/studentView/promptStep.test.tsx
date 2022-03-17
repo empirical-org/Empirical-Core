@@ -264,7 +264,7 @@ describe('PromptStep component', () => {
         expect(wrapper.find('.feedback-details-section').props().children[0].props.children).toEqual('Finding feedback...')
       })
       it('displays "Finding feedback..." when feedback loading state is over 5 seconds', () => {
-        wrapper.setState({ submissionTime: 1000, currentTime: 17000 })
+        wrapper.setState({ submissionTime: 1000, timeAtLastFeedbackSubmissionCheck: 17000 })
         expect(wrapper.find('.feedback-details-section')).toHaveLength(1)
         expect(wrapper.find('.feedback-details-section').props().children[0].props.children).toEqual('Still finding feedback. Thanks for your patience!')
       })
