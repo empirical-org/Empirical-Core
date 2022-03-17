@@ -246,6 +246,29 @@ describe('PromptStep component', () => {
         expect(wrapper.find('.quill-button').text()).toEqual("Done")
       })
     })
+
+    describe('while submitting a response', () => {
+      const submittedResponses = []
+      const wrapper = mount(<PromptStep
+        {...defaultProps}
+        active
+        className="step active"
+        submittedResponses={submittedResponses}
+      />)
+
+      wrapper.setState({ submissionTime: 1000, currentTime: 3000 })
+
+
+      it('displays "Finding feedback..." when feedback loading state is under 5 seconds', () => {
+        expect(wrapper.find('.feedback-details-section')).toHaveLength(1)
+        expect(wrapper.find('.feedback-details-section').props().children[0].props.children).toEqual('Finding feedback...')
+      })
+      it('displays "Finding feedback..." when feedback loading state is over 5 seconds', () => {
+        wrapper.setState({ submissionTime: 1000, timeAtLastFeedbackSubmissionCheck: 17000 })
+        expect(wrapper.find('.feedback-details-section')).toHaveLength(1)
+        expect(wrapper.find('.feedback-details-section').props().children[0].props.children).toEqual('Still finding feedback. Thanks for your patience!')
+      })
+    })
   })
 
 })
