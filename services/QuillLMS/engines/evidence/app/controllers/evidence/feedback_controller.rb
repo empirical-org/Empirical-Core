@@ -4,7 +4,15 @@ module Evidence
   require 'json'
 
   class FeedbackController < ApiController
-    before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling]
+    before_action :set_params, only: [:automl, :plagiarism, :regex, :spelling, :create]
+
+    def create
+      feedback = Check.get_feedback(@entry, @prompt, @previous_feedback)
+
+      save_feedback_history(feedback)
+
+      render json: feedback
+    end
 
     def grammar
       grammar_client = Grammar::Client.new(entry: params['entry'], prompt_text: params['prompt_text'])
@@ -82,5 +90,14 @@ module Evidence
       previous_plagiarism.empty? ? feedbacks&.find_by(order: 0)&.text : feedbacks&.find_by(order: 1)&.text
     end
     # rubocop:enable Metrics/CyclomaticComplexity
+
+    private def save_feedback_history(feedback)
+      return unless feedback
+
+      attempt = params[:attempt] || 0
+
+      Evidence.feedback_history_class.save_feedback(feedback, @entry, @prompt.id, @session_id, attempt)
+    end
+
   end
 end
