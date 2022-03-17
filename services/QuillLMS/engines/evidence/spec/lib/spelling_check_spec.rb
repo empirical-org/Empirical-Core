@@ -22,6 +22,23 @@ module Evidence
         expect(feedback[:highlight][0][:text]).to(be_truthy)
       end
 
+      it 'should not flag error if the spelling error downcased is in exception list' do
+        spelling_error = "SpeliN"
+        stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=there%20is%20a%20spelin%20error%20here").to_return(:status => 200, :body => { :flaggedTokens => ([{ :token => spelling_error }]) }.to_json, :headers => ({}))
+        stub_const("Evidence::SpellingCheck::EXCEPTIONS", [spelling_error.downcase])
+        entry = "there is a spelin error here"
+        spelling_check = Evidence::SpellingCheck.new(entry)
+        feedback = spelling_check.feedback_object
+
+        expect(feedback[:feedback]).to(be_truthy)
+        expect(feedback[:feedback_type]).to(be_truthy)
+        expect(feedback[:optimal]).to be true
+        expect(feedback[:entry]).to(be_truthy)
+        expect(feedback[:rule_uid]).to(be_truthy)
+        expect(feedback[:concept_uid]).to(be_truthy)
+        expect(feedback[:highlight]).to be_empty
+      end
+
       it 'should return appropriate feedback attributes if there is no spelling error' do
         stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=there%20is%20no%20spelling%20error%20here").to_return(:status => 200, :body => { :flaggedTokens => ({}) }.to_json, :headers => ({}))
         entry = "there is no spelling error here"
