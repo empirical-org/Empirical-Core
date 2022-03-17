@@ -150,7 +150,7 @@ export const saveActivitySurveyResponse = ({ sessionID, activitySurveyResponse, 
   })
 }
 
-export const reportAProblem = ({ sessionID, entry, report, callback, }) => {
+export const reportAProblem = ({ sessionID, entry, report, callback, isOptimal }) => {
   const reportAProblemUrl = `${process.env.DEFAULT_URL}/api/v1/student_problem_reports`
 
   const requestObject = {
@@ -158,7 +158,8 @@ export const reportAProblem = ({ sessionID, entry, report, callback, }) => {
     body: {
       entry,
       report,
-      activity_session_uid: sessionID
+      activity_session_uid: sessionID,
+      optimal: isOptimal
     },
     json: true,
   }
