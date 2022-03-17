@@ -13,7 +13,7 @@ Evidence::Engine.routes.draw do
       put :activate
     end
   end
-  namespace :feedback do
+  resource :feedback, only: [:create], controller: :feedback do
     post :prefilter
     post :opinion
     post :grammar

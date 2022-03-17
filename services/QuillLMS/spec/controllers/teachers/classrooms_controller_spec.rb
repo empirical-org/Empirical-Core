@@ -316,13 +316,24 @@ describe Teachers::ClassroomsController, type: :controller do
     let(:classroom) { create(:classroom) }
 
     before do
-      allow(teacher).to receive(:classrooms_i_teach) { [classroom] }
+      allow(teacher).to receive(:classrooms_i_teach).once.and_return([classroom])
       allow(controller).to receive(:current_user) { teacher }
     end
 
     it 'should give the classroom i teach for the current user' do
       get :classrooms_i_teach
       expect(assigns(:classrooms)).to eq [classroom]
+    end
+
+    it 'should provide valid data when making fresh and cached queries' do
+
+      2.times do
+        get :classrooms_i_teach
+        expect(response.status).to eq(200)
+        classrooms_payload = JSON.parse(response.body)['classrooms']
+        expect(classrooms_payload.length).to eq(1)
+        expect(classrooms_payload[0]['id']).to eq(classroom.id)
+      end
     end
   end
 

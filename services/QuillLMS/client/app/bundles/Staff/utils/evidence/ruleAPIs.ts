@@ -2,7 +2,7 @@ import { RuleInterface } from '../../interfaces/evidenceInterfaces';
 import { handleApiError, apiFetch, handleRequestErrors, requestFailed } from '../../helpers/evidence/routingHelpers';
 import { getRulesUrl } from '../../helpers/evidence/ruleHelpers';
 
-export const fetchRules = async ({queryKey}) => {
+export const fetchRules = async ({ queryKey }) => {
   const [key, activityId, promptId, ruleType]: [string, string, any, string] = queryKey
 
   const url = getRulesUrl(activityId, promptId, ruleType)

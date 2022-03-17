@@ -10,6 +10,8 @@ const mockPrompts = [
     text: "1",
     max_attempts: 5,
     max_attempts_feedback: FEEDBACK,
+    first_strong_example: '',
+    second_strong_example: ''
   },
   {
     id: 8,
@@ -17,6 +19,8 @@ const mockPrompts = [
     text: "2",
     max_attempts: 5,
     max_attempts_feedback: FEEDBACK,
+    first_strong_example: '',
+    second_strong_example: ''
   },
   {
     id: 9,
@@ -24,6 +28,8 @@ const mockPrompts = [
     text: "3",
     max_attempts: 5,
     max_attempts_feedback: FEEDBACK,
+    first_strong_example: '',
+    second_strong_example: ''
   },
 ];
 
