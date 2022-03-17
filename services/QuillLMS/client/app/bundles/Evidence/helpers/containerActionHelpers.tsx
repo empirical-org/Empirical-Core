@@ -74,12 +74,16 @@ export const everyOtherStepCompleted = (stepNumber, completedSteps) => {
   return completedSteps.filter(s => s !== stepNumber).length === 3
 }
 
-export const getStrippedPassageHighlights = ({ activities, session, activeStep }) => {
+export const getLastSubmittedResponse = ({ activities, session, activeStep }) => {
   const { currentActivity } = activities;
   const promptIndex = activeStep - 2
   const activePromptId = currentActivity && currentActivity.prompts[promptIndex] && currentActivity.prompts[promptIndex].id
   const submittedResponsesForActivePrompt = session.submittedResponses[activePromptId]
-  const lastSubmittedResponse = submittedResponsesForActivePrompt && submittedResponsesForActivePrompt[submittedResponsesForActivePrompt.length - 1]
+  return submittedResponsesForActivePrompt && submittedResponsesForActivePrompt[submittedResponsesForActivePrompt.length - 1]
+}
+
+export const getStrippedPassageHighlights = ({ activities, session, activeStep }) => {
+  const lastSubmittedResponse = getLastSubmittedResponse({ activities, session, activeStep });
   const passageHighlights = lastSubmittedResponse && lastSubmittedResponse.highlight && lastSubmittedResponse.highlight.filter(hl => hl.type === "passage")
   return passageHighlights && passageHighlights.map(highlight => stripHtml(highlight.text));
 }

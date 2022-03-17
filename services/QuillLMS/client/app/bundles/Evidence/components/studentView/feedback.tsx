@@ -45,6 +45,7 @@ const feedbackForInnerHTML = (feedback) => {
 }
 
 const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses, customFeedback, customFeedbackKey, reportAProblem, }: any) => {
+  const { entry, optimal, hint } = lastSubmittedResponse
   const [reportAProblemExpanded, setReportAProblemExpanded] = React.useState(false)
   const [reportSubmitted, setReportSubmitted] = React.useState(false)
 
@@ -63,7 +64,6 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
   function toggleReportAProblemExpanded() { setReportAProblemExpanded(!reportAProblemExpanded) }
 
   function handleSelectProblem(report) {
-    const { entry, } = lastSubmittedResponse
     const { text, } = prompt
     const entryWithoutStem = entry.replace(text, '').trim()
     const callback = () => setReportSubmitted(true)
@@ -74,7 +74,7 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
   let className = 'feedback'
   let imageSrc = loopSrc
   let imageAlt = 'Revise icon'
-  if (lastSubmittedResponse.optimal) {
+  if (optimal) {
     className += ' optimal'
     imageSrc = smallCheckCircleSrc
     imageAlt = 'Check icon'
@@ -88,7 +88,12 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
   if (reportAProblemExpanded) {
     const reportAProblemOptionElements = reportSubmitted ? null : <div className="options">{reportAProblemOptions(lastSubmittedResponse.optimal).map(opt => <ReportAProblemOption handleSelectProblem={handleSelectProblem} key={opt} option={opt} />)}</div>
     const label = reportSubmitted ? 'Thank you for your feedback!' : 'What did you notice?'
-    const text = reportSubmitted ? 'For now, please try your best to revise and improve your sentence.' : ''
+    let text = ''
+    if(reportSubmitted && optimal) {
+      text = 'Thank you for your feedback! For now, move on to the next part of the activity.'
+    } else if(reportSubmitted) {
+      text = 'For now, please try your best to revise and improve your sentence.'
+    }
 
     reportAProblemSection = (<section className="report-a-problem-section">
       <div className="report-a-problem-section-header">
@@ -121,8 +126,8 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
 
   let hintSection
 
-  if (lastSubmittedResponse.hint && lastSubmittedResponse.hint.id) {
-    const { explanation, image_alt_text, image_link, } = lastSubmittedResponse.hint
+  if (hint && hint.id) {
+    const { explanation, image_alt_text, image_link, } = hint
     hintSection = (
       <div className="hint">
         <div className="label-section">
