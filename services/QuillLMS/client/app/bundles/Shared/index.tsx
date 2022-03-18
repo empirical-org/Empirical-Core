@@ -36,6 +36,7 @@ export {
   TeacherPreviewMenuButton,
   TextEditor,
   TextArea,
+  ToggleComponentSection,
   Tooltip,
   TwoThumbSlider,
   UploadOptimalResponses

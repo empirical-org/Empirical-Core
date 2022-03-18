@@ -15,7 +15,7 @@ export const mainApiFetch = fetchDefaults(fetch, mainApiBaseUrl, headerHash)
 
 export const mainFetch = fetchDefaults(fetch, process.env.DEFAULT_URL, headerHash)
 
-export function getModelsUrl(promptId: string, state: string) {
+export function getModelsUrl(promptId: string | number, state: string) {
   let url = 'automl_models';
   if(promptId && !state) {
     url = url + `?prompt_id=${promptId}`;

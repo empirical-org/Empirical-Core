@@ -4,7 +4,9 @@ import _ from 'lodash';
 
 import ChangePlan from './change_plan';
 import TitleAndContent from './current_subscription_title_and_content';
+import { TEACHER_PREMIUM_TRIAL, SCHOOL_PREMIUM, DISTRICT_PREMIUM } from './constants';
 
+import { Tooltip, helpIcon, } from '../../../Shared/index'
 import EnterOrUpdateStripeCard from '../modules/stripe/enter_or_update_card.js';
 
 export default class CurrentSubscription extends React.Component {
@@ -19,18 +21,15 @@ export default class CurrentSubscription extends React.Component {
 
   onceYourPlanExpires() {
     const { subscriptionType, } = this.props
-    return `Once your current ${subscriptionType} Premium subscription expires, you will be downgraded to the Quill Basic subscription.`;
+    return `Once your current ${subscriptionType} subscription expires, you will be downgraded to the Quill Basic subscription.`;
   }
 
   getCondition() {
     const { subscriptionType, } = this.props
-    switch (subscriptionType) {
-      case 'School':
-        return 'school';
-      case 'School Sponsored':
-        return 'school sponsored';
-      default:
-        return 'other';
+    if ([SCHOOL_PREMIUM, DISTRICT_PREMIUM].includes(subscriptionType)) {
+      return 'school'
+    } else {
+      return 'other'
     }
   }
 
@@ -42,7 +41,7 @@ export default class CurrentSubscription extends React.Component {
       return this.editCreditCardElement();
     } else if (subscriptionStatus && subscriptionStatus.payment_method === 'Credit Card') {
       return <span>Credit Card</span>;
-    } else if (subscriptionType === 'School Sponsored' || subscriptionType === 'Trial') {
+    } else if (subscriptionType === TEACHER_PREMIUM_TRIAL) {
       return <span>No Payment Method on File</span>;
     } else if (subscriptionStatus && ['Invoice', 'School Invoice'].includes(subscriptionStatus.payment_method)) {
       return <span>Invoice</span>;
@@ -54,7 +53,7 @@ export default class CurrentSubscription extends React.Component {
 
   getPrice() {
     const { subscriptionType, } = this.props
-    if (subscriptionType === 'School') {
+    if ([DISTRICT_PREMIUM, SCHOOL_PREMIUM].includes(subscriptionType)) {
       return '900';
     }
     return '80';
@@ -98,17 +97,26 @@ export default class CurrentSubscription extends React.Component {
   }
 
   content() {
-    const { subscriptionStatus, purchaserNameOrEmail, } = this.props
+    const { subscriptionStatus, purchaserNameOrEmail, subscriptionType } = this.props
 
     const metaRowClassName = 'sub-meta-info';
     if (subscriptionStatus) {
+      const titleContent = (
+        <span>
+          {subscriptionType}
+          <Tooltip
+            tooltipText={`You have a ${subscriptionStatus.account_type} subscription`}
+            tooltipTriggerText={<span><img alt={helpIcon.alt} className="subscription-tooltip" src={helpIcon.src} /></span>}
+          />
+        </span>
+      )
       return ({ metaRows: (
         <div className={metaRowClassName}>
           <div className="meta-section">
             <h3>CURRENT SUBSCRIPTION</h3>
             <div className="flex-row space-between">
               <div>
-                <TitleAndContent content={subscriptionStatus.account_type} title="Plan" />
+                <TitleAndContent content={titleContent} title="Plan" />
                 {purchaserNameOrEmail && purchaserNameOrEmail.length && <TitleAndContent content={purchaserNameOrEmail} title="Purchaser" />}
               </div>
               <div>
@@ -246,7 +254,7 @@ export default class CurrentSubscription extends React.Component {
       nextPlan = this.nextPlanAlertOrButtons(condition);
     } else if (subscriptionStatus.recurring) {
       nextPlan = (<span>
-        {subscriptionType} Premium - ${this.getPrice()} Annual Subscription {this.changePlanInline()}
+        {subscriptionType} - ${this.getPrice()} Annual Subscription {this.changePlanInline()}
       </span>);
       const renewDate = moment(subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons('recurring', renewDate);

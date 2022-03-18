@@ -14,17 +14,11 @@ export const fetchActivities = async () => {
 export const fetchActivity = async ({ queryKey, }) => {
   const [key, activityId] = queryKey
   let activity: ActivityInterface;
-  // let flagObject: any = {};
   const response = await apiFetch(`activities/${activityId}`);
   activity = await response.json();
-  // if(activity) {
-  //   const { flag } = activity
-  //   flagObject = { label: flag, value: flag };
-  // }
   return {
     activity,
-    error: handleApiError('Failed to fetch activity, please refresh the page.', response),
-    // flag: flagObject
+    error: handleApiError('Failed to fetch activity, please refresh the page.', response)
   };
 }
 
