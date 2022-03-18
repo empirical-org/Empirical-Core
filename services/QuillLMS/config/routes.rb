@@ -522,6 +522,10 @@ EmpiricalGrammar::Application.routes.draw do
   put '/select_school', to: 'schools#select_school'
   get '/select_school', to: 'schools#select_school'
 
+  namespace :stripe_integration do
+    post '/checkout_sessions', to: 'checkout_sessions#create'
+  end
+
   namespace :cms do
     resources :images, only: [:index, :destroy, :create]
     put '/activity_categories/mass_update', to: 'activity_categories#mass_update'
@@ -652,7 +656,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   all_pages = other_pages
   all_pages.each do |page|
-    get page => "pages##{page}", as: "#{page}"
+    get page => "pages##{page}", as: page.to_s
   end
 
   # These are legacy routes that we are redirecting for posterity.
