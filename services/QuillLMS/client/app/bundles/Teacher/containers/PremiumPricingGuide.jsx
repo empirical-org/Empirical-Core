@@ -29,7 +29,17 @@ const subscribers = [
   { name: 'Princeton Public Schools logo', source: '/images/subscribers/16_princeton.png', id: 'princeton'}
 ]
 
-export const PremiumPricingGuide = ({ lastFour, diagnosticActivityCount, independentPracticeActivityCount, lessonsActivityCount, userIsEligibleForNewSubscription }) => {
+export const PremiumPricingGuide = ({
+  customerEmail,
+  diagnosticActivityCount,
+  independentPracticeActivityCount,
+  lastFour,
+  lessonsActivityCount,
+  stripeCustomerId,
+  stripeTeacherPlan,
+  userIsEligibleForNewSubscription,
+}) => {
+
   // const size = useWindowSize();
   // const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
   //
@@ -37,7 +47,6 @@ export const PremiumPricingGuide = ({ lastFour, diagnosticActivityCount, indepen
   const [shouldShowPurchaseModal, setShouldShowPurchaseModal] = React.useState(false)
   const [subscriptionType, setSubscriptionType] = React.useState(null)
   const [subscriptionStatus, setSubscriptionStatus] = React.useState(null)
-  const [isScrolled, setIsScrolled] = React.useState(false)
 
   const userIsSignedIn = () => {
     return !!Number(document.getElementById('current-user-id').getAttribute('content'))
@@ -49,10 +58,6 @@ export const PremiumPricingGuide = ({ lastFour, diagnosticActivityCount, indepen
   const hidePurchaseModal = () => {
     setShouldShowPurchaseModal(false)
     setSubscriptionType(null)
-  };
-
-  const showPremiumConfirmationModal = () => {
-    setShouldShowPremiumConfirmationModal(true)
   };
 
   const showPurchaseModal = () => {
@@ -94,7 +99,18 @@ export const PremiumPricingGuide = ({ lastFour, diagnosticActivityCount, indepen
       <div className="container premium-page">
         {userIsSignedIn() && <PremiumBannerBuilder originPage="premium" showPurchaseModal={showPurchaseModal} />}
         <div className="overview text-center">
-          <PremiumPricingMinisRow diagnosticActivityCount={diagnosticActivityCount} independentPracticeActivityCount={independentPracticeActivityCount} lastFour={lastFour} lessonsActivityCount={lessonsActivityCount} showPurchaseModal={showPurchaseModal} userIsEligibleForNewSubscription={userIsEligibleForNewSubscription} />
+          <PremiumPricingMinisRow
+            customerEmail={customerEmail}
+            diagnosticActivityCount={diagnosticActivityCount}
+            independentPracticeActivityCount={independentPracticeActivityCount}
+            lastFour={lastFour}
+            lessonsActivityCount={lessonsActivityCount}
+            showPurchaseModal={showPurchaseModal}
+            stripeCustomerId={stripeCustomerId}
+            stripeTeacherPlan={stripeTeacherPlan}
+            userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
+          />
+
           <PremiumFeaturesTable
             diagnosticActivityCount={diagnosticActivityCount}
             independentPracticeActivityCount={independentPracticeActivityCount}

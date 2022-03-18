@@ -5,8 +5,6 @@ import BasicPricingMini from './premium_minis/basic_pricing_mini.jsx';
 import TeacherPricingMini from './premium_minis/teacher_pricing_mini.jsx';
 import SchoolPricingMini from './premium_minis/school_pricing_mini.jsx';
 
-const handshakeHeartSrc = `${process.env.CDN_URL}/images/icons/handshake-heart.svg`
-
 export default class PremiumPricingMinisRow extends React.Component {
   state = {
     subscriptionType: null,
@@ -30,12 +28,13 @@ export default class PremiumPricingMinisRow extends React.Component {
 
   render() {
     const { diagnosticActivityCount, lessonsActivityCount, independentPracticeActivityCount, } = this.props
-    const {
-      userIsSignedIn,
-      isScrolled,
-    } = this.state
+    const { userIsSignedIn, isScrolled, } = this.state
 
-    const premiumFeatureData = premiumFeatures({ diagnosticActivityCount, lessonsActivityCount, independentPracticeActivityCount,})
+    const premiumFeatureData = premiumFeatures({
+      diagnosticActivityCount,
+      lessonsActivityCount,
+      independentPracticeActivityCount
+    })
 
     return (
       <React.Fragment>
