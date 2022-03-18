@@ -32,6 +32,8 @@ class Plan < ApplicationRecord
     DAILY_INTERVAL_TYPE = 'daily'
   ]
 
+  STRIPE_TEACHER_PLAN = 'Teacher Paid'
+
   attr_readonly :audience, :interval, :interval_count, :name, :price, :stripe_price_id
 
   validates :name, presence: true, uniqueness: true
@@ -42,4 +44,8 @@ class Plan < ApplicationRecord
   validates :stripe_price_id, allow_blank: true, format: { with: /\Aprice_[0-9a-zA-Z]*\z/ }
 
   before_destroy { |record| raise ActiveRecord::ReadOnlyRecord }
+
+  def self.stripe_teacher_plan
+    find_by(name: STRIPE_TEACHER_PLAN)
+  end
 end
