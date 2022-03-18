@@ -74,20 +74,6 @@ describe PagesController do
     end
   end
 
-  describe '#ideas' do
-    let(:page) { double(:page, body: [{id: "some_id"}, {id: "some_other_id"}].to_json) }
-
-    before do
-      allow(HTTParty).to receive(:get) { page }
-    end
-
-    it 'should return the parsed body' do
-      get :ideas
-      expect(assigns(:connect_json)).to eq [{"id" => "some_id", "cards" => page}, {"id" => "some_other_id", "cards" => page}]
-      expect(assigns(:lessons_json)).to eq [{"id" => "some_id", "cards" => page}, {"id" => "some_other_id", "cards" => page}]
-    end
-  end
-
   describe '#play' do
     let!(:activity) { create(:activity, uid: "-K0rnIIF_iejGqS3XPJ8") }
 
