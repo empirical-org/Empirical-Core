@@ -58,8 +58,8 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
       (data) => {
         getTopics()
         setShowSnackbar(true)
-        const extantTopicIds = activity.topic_ids
-        handleTopicsChange(extantTopicIds.concat(data.topic.id))
+        const existingTopicIds = activity.topic_ids
+        handleTopicsChange(existingTopicIds.concat(data.topic.id))
       }
     )
   }

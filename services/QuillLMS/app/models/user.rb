@@ -653,8 +653,8 @@ class User < ApplicationRecord
     return false if !clever_id
     return true if !id
 
-    extant_user = User.find_by_id(id)
-    extant_user.clever_id != clever_id
+    existing_user = User.find_by_id(id)
+    existing_user.clever_id != clever_id
   end
 
   private def requires_password?

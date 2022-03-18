@@ -41,9 +41,9 @@ const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, })
   function onChangeTopics(topicId) {
     let newTopicIds = [...activity.topic_ids, topicId]
     const topic = topicOptions.find(t => t.id === topicId)
-    const extantOption = getSelectedOptionForLevel(topic.level)
-    if (extantOption) {
-      newTopicIds = newTopicIds.filter(id => id !== extantOption.id)
+    const existingOption = getSelectedOptionForLevel(topic.level)
+    if (existingOption) {
+      newTopicIds = newTopicIds.filter(id => id !== existingOption.id)
     }
     handleTopicsChange(newTopicIds)
   }

@@ -64,7 +64,7 @@
   # }
   #
   # context 'student' do
-  #   let!(:extant_google_classroom) {
+  #   let!(:existing_google_classroom) {
   #     create(:classroom, google_classroom_id: google_classroom_id.to_i)
   #   }
   #
@@ -72,7 +72,7 @@
   #
   #   it 'associates student to her first google classroom' do
   #     subject
-  #     expect(user.classrooms.first).to eq(extant_google_classroom)
+  #     expect(user.classrooms.first).to eq(existing_google_classroom)
   #   end
   # end
   #
