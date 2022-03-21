@@ -16,7 +16,7 @@ const TOOL_OPTIONS = [
   'Quill Connect',
   'Quill Grammar',
   'Quill Proofreader',
-  'Quill Evidence',
+  'Quill Reading for Evidence',
   'Quill Lessons',
   'Quill Diagnostic'
 ]
