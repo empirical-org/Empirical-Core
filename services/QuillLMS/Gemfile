@@ -88,8 +88,9 @@ gem 'addressable'
 source "https://gems.contribsys.com/" do
   gem 'sidekiq-pro'
 end
+gem 'sidekiq', '~> 5.2.10'
 gem 'sidekiq-retries', require: false
-gem 'redis', '3.3.5'
+gem 'redis', '~> 4.5'
 gem 'redis-namespace'
 gem 'redis-rails'
 gem 'redis-rack-cache'
