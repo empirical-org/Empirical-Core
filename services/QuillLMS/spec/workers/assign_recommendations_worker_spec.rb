@@ -63,7 +63,7 @@ describe AssignRecommendationsWorker do
               },
               unit_template.id,
               teacher.id,
-              concatenate_extant_student_ids: true
+              concatenate_existing_student_ids: true
           )
           call_method
         end
@@ -103,7 +103,7 @@ describe AssignRecommendationsWorker do
                   id: classroom.id,
                   student_ids: [student.id],
                   assign_on_join: false
-              },
+              }
           )
           call_method
         end
@@ -149,7 +149,7 @@ describe AssignRecommendationsWorker do
             },
             unit_template.id,
             teacher.id,
-            concatenate_extant_student_ids: true
+            concatenate_existing_student_ids: true
         )
         call_method
       end
@@ -193,7 +193,7 @@ describe AssignRecommendationsWorker do
             },
             unit_template.id,
             teacher.id,
-            concatenate_extant_student_ids: true
+            concatenate_existing_student_ids: true
         )
         call_method
       end
