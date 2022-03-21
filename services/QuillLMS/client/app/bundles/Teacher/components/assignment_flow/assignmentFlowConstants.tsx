@@ -215,7 +215,7 @@ export const imageTagForClassification = (classificationKey: string): JSX.Elemen
       imgSrc = proofreaderSrc
       break
     case 'evidence':
-      imgAlt = "Book representing Quill Evidence"
+      imgAlt = "Book representing Quill Reading for Evidence"
       imgSrc = comprehensionSrc
       break
   }

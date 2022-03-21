@@ -51,16 +51,6 @@ class PagesController < ApplicationController
   def develop
   end
 
-  def ideas
-    connect = HTTParty.get('https://trello.com/1/boards/5B4Jalbc/lists?fields=name,id')
-    lessons = HTTParty.get('https://trello.com/1/boards/cIRvYfE7/lists?fields=name,id')
-    @connect_json = add_cards(JSON.parse(connect.body))
-    @lessons_json = add_cards(JSON.parse(lessons.body))
-  end
-
-  def partners
-  end
-
   def mission
     redirect_to('/about')
   end
@@ -380,9 +370,6 @@ class PagesController < ApplicationController
 
   def privacy
     @body_class = 'auxiliary white-page formatted-text'
-  end
-
-  def board
   end
 
   def diagnostic_tool
