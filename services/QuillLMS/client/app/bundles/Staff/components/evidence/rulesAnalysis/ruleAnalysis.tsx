@@ -2,7 +2,8 @@ import * as React from "react";
 import { useQueryClient, useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import ReactTable from 'react-table';
+import ReactTable from 'react-table-6'
+;
 import { firstBy } from 'thenby';
 
 import FilterWidget from "../shared/filterWidget";

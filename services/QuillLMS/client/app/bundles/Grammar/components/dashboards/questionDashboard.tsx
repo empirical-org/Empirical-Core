@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as Redux from "redux";
-import ReactTable from 'react-table';
+import ReactTable from 'react-table-6'
+;
 import { connect } from 'react-redux';
 import DashboardFilters from './dashboardFilters'
 import LoadingSpinner from '../shared/loading_spinner'

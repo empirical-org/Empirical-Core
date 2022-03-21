@@ -1,9 +1,8 @@
 import React from 'react'
 import createReactClass from 'create-react-class';
 import request from 'request'
-import ReactTable from 'react-table'
+import ReactTable from 'react-table-6'
 import moment from 'moment'
-import 'react-table/react-table.css'
 
 import ProgressReportFilters from './progress_report_filters.jsx'
 import EmptyStateForReport from './empty_state_for_report.jsx'

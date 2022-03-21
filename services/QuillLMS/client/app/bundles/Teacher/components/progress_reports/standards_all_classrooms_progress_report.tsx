@@ -2,8 +2,7 @@ import * as React from 'react'
 import request from 'request'
 import queryString from 'query-string';
 import _ from 'underscore'
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
+import ReactTable from 'react-table-6'
 
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import EmptyStateForReport from './empty_state_for_report'

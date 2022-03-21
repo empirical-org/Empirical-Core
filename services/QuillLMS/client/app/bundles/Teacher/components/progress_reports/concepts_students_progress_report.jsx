@@ -3,10 +3,10 @@
 import React from 'react'
 import request from 'request'
 import queryString from 'query-string';
+import ReactTable from 'react-table-6'
 
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
+
 import {sortByLastName} from '../../../../modules/sortingMethods.js'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'

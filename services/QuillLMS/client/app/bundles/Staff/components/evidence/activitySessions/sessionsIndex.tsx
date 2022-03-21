@@ -1,5 +1,6 @@
 import * as React from "react";
-import ReactTable from 'react-table';
+import ReactTable from 'react-table-6'
+;
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import * as moment from 'moment';

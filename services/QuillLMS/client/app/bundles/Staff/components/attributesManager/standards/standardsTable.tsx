@@ -1,5 +1,6 @@
 import * as React from 'react'
-import ReactTable from 'react-table';
+import ReactTable from 'react-table-6'
+;
 import moment from 'moment';
 
 import RecordBox from './recordBox'
