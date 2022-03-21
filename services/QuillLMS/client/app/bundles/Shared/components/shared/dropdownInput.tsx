@@ -8,7 +8,7 @@ import { CheckableDropdownValueContainer } from './checkableDropdownValueContain
 import { StandardDropdownOption } from './standardDropdownOption'
 
 interface DropdownInputProps {
-  options: Array<any>;
+  options: Array<{label: string, value: string, [key:string]: any}>;
   className?: string;
   disabled?: boolean;
   error?: string;
