@@ -8,7 +8,7 @@ export default class extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      extantCardSelected: false,
+      existingCardSelected: false,
       changeCardSelected: false,
       lastFour: this.props.lastFour,
     };
@@ -30,20 +30,20 @@ export default class extends React.Component {
   };
 
   loadingOrButtons() {
-    const { extantCardSelected, lastFour } = this.state
+    const { existingCardSelected, lastFour } = this.state
     if (!lastFour) {
-      const className = `enter-credit-card ${extantCardSelected ? 'selected' : ''}`;
+      const className = `enter-credit-card ${existingCardSelected ? 'selected' : ''}`;
       return <button className={className} key="enter a card" onClick={this.toggleChangeCard}>Enter Credit Card</button>;
     }
     return ([
-      <button className={`extant-card ${extantCardSelected ? 'selected' : ''}`} key="extant" onClick={this.toggleExtantCard}>Credit Card ending with {lastFour}</button>,
-      <button className={`different-card ${extantCardSelected ? 'selected' : ''}`} key="change" onClick={this.toggleChangeCard}><i className="fas fa-credit-card" />Use a Different Card</button>
+      <button className={`existing-card ${existingCardSelected ? 'selected' : ''}`} key="existing" onClick={this.toggleExistingCard}>Credit Card ending with {lastFour}</button>,
+      <button className={`different-card ${existingCardSelected ? 'selected' : ''}`} key="change" onClick={this.toggleChangeCard}><i className="fas fa-credit-card" />Use a Different Card</button>
     ]);
   }
 
   showBuyNowIfChargeSelection() {
-    const { extantCardSelected } = this.state
-    if (extantCardSelected) {
+    const { existingCardSelected } = this.state
+    if (existingCardSelected) {
       return <button className="button q-button button-green cta-button" onClick={this.stripeCharge}>Buy Now</button>;
     }
   }
@@ -58,7 +58,7 @@ export default class extends React.Component {
   };
 
   toggleChangeCard = () => {
-    this.setState({ extantCardSelected: false, changeCardSelected: !this.state.changeCardSelected, },
+    this.setState({ existingCardSelected: false, changeCardSelected: !this.state.changeCardSelected, },
       () => {
         if (this.state.changeCardSelected) {
           new EnterOrUpdateStripeCard(this.updateLastFour, this.state.lastFour ? 'Update' : 'Enter');
@@ -67,12 +67,12 @@ export default class extends React.Component {
     );
   };
 
-  toggleExtantCard = () => {
-    this.setState({ extantCardSelected: !this.state.extantCardSelected, changeCardSelected: false, });
+  toggleExistingCard = () => {
+    this.setState({ existingCardSelected: !this.state.existingCardSelected, changeCardSelected: false, });
   };
 
   updateLastFour = newLastFour => {
-    this.setState({ lastFour: newLastFour, extantCardSelected: true, changeCardSelected: false, });
+    this.setState({ lastFour: newLastFour, existingCardSelected: true, changeCardSelected: false, });
   };
 
   render() {

@@ -78,10 +78,10 @@ module Demo::ConceptResults
 
   def self.process_arr(arr)
     arr.reduce([]) do |acc, ele|
-      extant = acc.find{|x| x[:activity] == ele[:activity]}
-      if extant.present?
-        crd = extant[:concept_result_data]
-        new_acc = acc.reject{|y| y == extant}
+      existing = acc.find{|x| x[:activity] == ele[:activity]}
+      if existing.present?
+        crd = existing[:concept_result_data]
+        new_acc = acc.reject{|y| y == existing}
       else
         crd = []
         new_acc = [].concat(acc)

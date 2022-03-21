@@ -16,9 +16,9 @@ export default  function () {
   };
 
   this.toggleById = function (array, item) {
-    let newArray, alreadyThere, extant;
-    extant = _.find(array, function (ele) { return ele.id === item.id })
-    alreadyThere = (extant != undefined)
+    let newArray, alreadyThere, existing;
+    existing = _.find(array, function (ele) { return ele.id === item.id })
+    alreadyThere = (existing != undefined)
     if (alreadyThere) {
       newArray = _.reject(array, function (ele) {return ele == item})
     } else {

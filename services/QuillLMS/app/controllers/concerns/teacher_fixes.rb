@@ -127,13 +127,13 @@ module TeacherFixes
 
   def self.move_classroom_units_and_activity_sessions_from_one_class_to_another(class_id1, class_id2)
     ClassroomUnit.where(classroom_id: class_id1).each do |ca|
-      extant_ca = ClassroomUnit.find_by(classroom_id: class_id2, unit_id: ca.unit_id)
-      if extant_ca
-        ca.activity_sessions.update_all(classroom_unit_id: extant_ca.id)
-        extant_ca.update(assigned_student_ids: ca.assigned_student_ids.concat(extant_ca.assigned_student_ids).uniq)
-        extant_ca.assigned_student_ids.each do |student_id|
+      existing_ca = ClassroomUnit.find_by(classroom_id: class_id2, unit_id: ca.unit_id)
+      if existing_ca
+        ca.activity_sessions.update_all(classroom_unit_id: existing_ca.id)
+        existing_ca.update(assigned_student_ids: ca.assigned_student_ids.concat(existing_ca.assigned_student_ids).uniq)
+        existing_ca.assigned_student_ids.each do |student_id|
           student = User.find(student_id)
-          student.hide_extra_activity_sessions(extant_ca.id)
+          student.hide_extra_activity_sessions(existing_ca.id)
         end
         ca.update(visible: false)
       else

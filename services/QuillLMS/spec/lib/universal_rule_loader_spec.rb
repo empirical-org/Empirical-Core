@@ -36,7 +36,7 @@ RSpec.describe UniversalRuleLoader do
       let(:csv1) do
         <<~HEREDOC
           Rule UID,Rule,Concept UID,Feedback - Revised,Activity,Module
-          1d66a,ExtantRule,4d5e3,the feedback,Universal,Grammar API
+          1d66a,ExistingRule,4d5e3,the feedback,Universal,Grammar API
         HEREDOC
       end
 
