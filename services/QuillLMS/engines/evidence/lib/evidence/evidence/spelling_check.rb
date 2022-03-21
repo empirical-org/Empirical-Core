@@ -13,7 +13,19 @@ module Evidence
     SPELLING_CONCEPT_UID = 'H-2lrblngQAQ8_s-ctye4g'
 
     # TODO: replace with better exception code
-    EXCEPTIONS = ['solartogether']
+    EXCEPTIONS = [
+      'solartogether',
+      'jerom',
+      'espana',
+      'españa',
+      'cafebabel',
+      'cafébabel',
+      'sanchez',
+      'sánchez',
+      'kanaka',
+      'kānaka',
+      'worldwatch'
+    ]
 
     attr_reader :entry
 
