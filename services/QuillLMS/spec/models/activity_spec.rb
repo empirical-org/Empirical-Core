@@ -608,7 +608,7 @@ describe Activity, type: :model, redis: true do
     let!(:recommendation1) { create(:recommendation) }
     let!(:recommendation2) { create(:recommendation) }
 
-    after(:each) do
+    after do
       Rails.cache.clear
     end
 
