@@ -80,14 +80,21 @@ RSpec.describe UserCacheable, type: :model do
       let!(:newer_classroom) { create(:classroom, updated_at: older_classroom.updated_at + 10.days) }
       let!(:older_classrooms_teacher) { create(:classrooms_teacher, user: teacher, role: 'owner', classroom: older_classroom) }
       let!(:newer_classrooms_teacher) { create(:classrooms_teacher, user: teacher, role: 'owner', classroom: newer_classroom) }
+      let(:key) { 'test.key' }
+      let(:groups) { {page: 1} }
 
       it 'should use the most recently updated_at classroom for caching' do
-        key = 'test.key'
-        groups = {page: 1}
-
-        expect(teacher).to receive(:model_cache).with(newer_classroom, key: key, groups: groups)
+        expect(teacher).to receive(:model_cache).with(newer_classroom, key: key, groups: groups, expires_in: subject::DEFAULT_EXPIRATION)
 
         teacher.all_classrooms_cache(key: key, groups: groups)
+      end
+
+      it 'should pass through custom expiration if provided' do
+        expires_in = 1.hour
+
+        expect(teacher).to receive(:model_cache).with(newer_classroom, key: key, groups: groups, expires_in: expires_in)
+
+        teacher.all_classrooms_cache(key: key, groups: groups, expires_in: expires_in)
       end
     end
   end
@@ -97,9 +104,17 @@ RSpec.describe UserCacheable, type: :model do
     let(:classroom) {create(:classroom) }
 
     it 'should call model_cache' do
-      expect(teacher).to receive(:model_cache).with(classroom, key: 'test.key', groups: {page: 1})
+      expect(teacher).to receive(:model_cache).with(classroom, key: 'test.key', groups: {page: 1}, expires_in: subject::DEFAULT_EXPIRATION)
 
       teacher.classroom_cache(classroom, key: 'test.key', groups: {page: 1})
+    end
+
+    it 'should pass through custom expiration if provided' do
+      expires_in = 1.hour
+
+      expect(teacher).to receive(:model_cache).with(classroom, key: 'test.key', groups: {page: 1}, expires_in: expires_in)
+
+      teacher.classroom_cache(classroom, key: 'test.key', groups: {page: 1}, expires_in: expires_in)
     end
 
     it 'should yield to model_cache' do
@@ -126,9 +141,17 @@ RSpec.describe UserCacheable, type: :model do
     let(:classroom_unit) {create(:classroom_unit) }
 
     it 'should call model_cache' do
-      expect(teacher).to receive(:model_cache).with(classroom_unit, key: 'test.key', groups: {page: 1})
+      expect(teacher).to receive(:model_cache).with(classroom_unit, key: 'test.key', groups: {page: 1}, expires_in: subject::DEFAULT_EXPIRATION)
 
       teacher.classroom_unit_cache(classroom_unit, key: 'test.key', groups: {page: 1})
+    end
+
+    it 'should pass through custom expiration if provided' do
+      expires_in = 1.hour
+
+      expect(teacher).to receive(:model_cache).with(classroom_unit, key: 'test.key', groups: {page: 1}, expires_in: expires_in)
+
+      teacher.classroom_unit_cache(classroom_unit, key: 'test.key', groups: {page: 1}, expires_in: expires_in)
     end
 
     it 'should yield to model_cache' do
@@ -161,15 +184,23 @@ RSpec.describe UserCacheable, type: :model do
     let(:classroom_unit2) {create(:classroom_unit, classroom: classroom, unit: unit_activity2.unit) }
 
     it 'should call model_cache with last updated unit if no unit_id' do
-      expect(teacher).to receive(:model_cache).with(classroom_unit2, key: 'test.key', groups: {page: 1})
+      expect(teacher).to receive(:model_cache).with(classroom_unit2, key: 'test.key', groups: {page: 1}, expires_in: subject::DEFAULT_EXPIRATION)
 
       teacher.classroom_unit_by_ids_cache(classroom_id: classroom.id, unit_id: nil, activity_id: activity.id, key: 'test.key', groups: {page: 1})
     end
 
     it 'should call model_cache with first matching unit if there is a unit_id' do
-      expect(teacher).to receive(:model_cache).with(classroom_unit1, key: 'test.key', groups: {page: 1})
+      expect(teacher).to receive(:model_cache).with(classroom_unit1, key: 'test.key', groups: {page: 1}, expires_in: subject::DEFAULT_EXPIRATION)
 
       teacher.classroom_unit_by_ids_cache(classroom_id: classroom.id, unit_id: unit_activity1.unit_id, activity_id: activity.id, key: 'test.key', groups: {page: 1})
+    end
+
+    it 'should pass through custom expiration if provided' do
+      expires_in = 1.hour
+
+      expect(teacher).to receive(:model_cache).with(classroom_unit2, key: 'test.key', groups: {page: 1}, expires_in: expires_in)
+
+      teacher.classroom_unit_by_ids_cache(classroom_id: classroom.id, unit_id: nil, activity_id: activity.id, key: 'test.key', groups: {page: 1}, expires_in: expires_in)
     end
 
     it 'should yield to model_cache' do
