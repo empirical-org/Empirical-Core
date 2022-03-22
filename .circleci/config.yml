@@ -315,7 +315,7 @@ jobs:
   rubocop_lint:
     working_directory: ~/Empirical-Core
     docker:
-      - image: circleci/ruby:2.5.1-node
+      - image: circleci/ruby:2.6.6-node
     steps:
       - checkout
       - run:
