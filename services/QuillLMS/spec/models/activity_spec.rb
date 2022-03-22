@@ -603,4 +603,26 @@ describe Activity, type: :model, redis: true do
       end
     end
   end
+
+  context '#activity_with_recommendations_ids' do
+    let!(:recommendation1) { create(:recommendation) }
+    let!(:recommendation2) { create(:recommendation) }
+
+    after(:each) do
+      Rails.cache.clear
+    end
+
+    it 'should return an array of all recommendation activity_ids' do
+      expect(Activity.activity_with_recommendations_ids).to eq([recommendation1.activity_id, recommendation2.activity_id])
+    end
+
+    it 'should cache the activity_ids' do
+      Rails.cache.clear
+      expect(Recommendation).to receive(:all).with(any_args).once.and_call_original
+
+      2.times do |i|
+        expect(Activity.activity_with_recommendations_ids).to eq([recommendation1.activity_id, recommendation2.activity_id])
+      end
+    end
+  end
 end
