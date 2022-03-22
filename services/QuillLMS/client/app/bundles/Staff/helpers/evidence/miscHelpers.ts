@@ -22,7 +22,7 @@ import {
   BREAK_TAG
 } from '../../../../constants/evidence';
 import { DEFAULT_HIGHLIGHT_PROMPT } from "../../../Shared";
-import { DropdownObjectInterface } from '../../interfaces/evidenceInterfaces'
+import { DropdownObjectInterface, PromptInterface } from '../../interfaces/evidenceInterfaces'
 import { getCheckIcon } from "./renderHelpers";
 
 export const buildActivity = ({
@@ -36,7 +36,7 @@ export const buildActivity = ({
   activitySoPrompt,
   highlightPrompt,
 }) => {
-  const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt];
+  const prompts = [trimmedPrompt(activityBecausePrompt), trimmedPrompt(activityButPrompt), trimmedPrompt(activitySoPrompt)];
   return {
     activity: {
       notes: activityNotes,
@@ -48,6 +48,12 @@ export const buildActivity = ({
       prompts_attributes: prompts
     }
   };
+}
+
+export const trimmedPrompt = (prompt: PromptInterface) => {
+  const newPrompt = {...prompt};
+  newPrompt.text = prompt.text.trim();
+  return newPrompt;
 }
 
 const targetReadingLevelError = (value: string) => {
