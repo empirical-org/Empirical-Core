@@ -36,7 +36,7 @@ export const buildActivity = ({
   activitySoPrompt,
   highlightPrompt,
 }) => {
-  const prompts = [trimmedPrompt(activityBecausePrompt), trimmedPrompt(activityButPrompt), trimmedPrompt(activitySoPrompt)];
+  const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt];
   return {
     activity: {
       notes: activityNotes,
@@ -48,12 +48,6 @@ export const buildActivity = ({
       prompts_attributes: prompts
     }
   };
-}
-
-export const trimmedPrompt = (prompt: PromptInterface) => {
-  const newPrompt = {...prompt};
-  newPrompt.text = prompt.text.trim();
-  return newPrompt;
 }
 
 const targetReadingLevelError = (value: string) => {

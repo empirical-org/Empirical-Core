@@ -1,5 +1,5 @@
 import { mockPrompts } from '../../components/evidence/__mocks__/data';
-import { trimmedPrompt  } from '../evidence/miscHelpers';
+import { trimmedPrompt  } from '../evidence/promptHelpers';
 
 describe('Evidence misc helper functions', () => {
 
