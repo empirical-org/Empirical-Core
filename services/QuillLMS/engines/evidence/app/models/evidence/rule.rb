@@ -16,6 +16,7 @@ module Evidence
     ]
     TYPES = [
       TYPE_AUTOML       = 'autoML',
+      TYPE_ERROR	= 'error',
       TYPE_GRAMMAR      = 'grammar',
       TYPE_OPINION      = 'opinion',
       TYPE_PLAGIARISM   = 'plagiarism',

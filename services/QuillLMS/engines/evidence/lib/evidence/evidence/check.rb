@@ -14,10 +14,11 @@ module Evidence
       RegexTypo
     ]
 
+    ERROR_RULE = Rule.find_by(rule_type: Rule::TYPE_ERROR)
     FALLBACK_RESPONSE = {
-      feedback: "Thank you for your response.",
-      feedback_type: "autoML",
-      optimal: true,
+      feedback: ERROR_RULE.feedbacks.first.text,
+      feedback_type: ERROR_RULE.rule_type,
+      optimal: ERROR_RULE.optimal,
     }
 
     def self.get_feedback(entry, prompt, previous_feedback)
