@@ -221,6 +221,19 @@ module Evidence
 
         expect(automl_model.fetch_automl_label('some text')).to eq 'result1'
       end
+
+      it "should raise if the google api a raises for a timeout" do
+        prediction_client = double
+
+        expect(prediction_client).to receive(:predict).and_raise(Google::Cloud::Error)
+        expect(Google::Cloud::AutoML).to receive(:prediction_service).and_return(prediction_client)
+
+        client = double
+        expect(client).to receive(:model_path).and_return("the_path")
+        expect(Google::Cloud::AutoML).to receive(:auto_ml).and_return(client)
+
+        expect { automl_model.fetch_automl_label('some text')}.to(raise_error(Google::Cloud::Error))
+      end
     end
 
 
