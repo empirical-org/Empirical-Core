@@ -1,11 +1,17 @@
 import React from 'react';
-import LockerApp from '../components/locker/lockerApp';
-import { HashRouter, Route } from 'react-router-dom'
+import { HashRouter, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
-const LockerAppClient = () => (
-  <HashRouter>
-    <Route component={LockerApp} path="/" />
-  </HashRouter>
+import LockerApp from '../components/locker/lockerApp';
+
+const queryClient = new QueryClient()
+
+const LockerAppClient = (props) => (
+  <QueryClientProvider client={queryClient} contextSharing={true}>
+    <HashRouter>
+      <Route render={() => <LockerApp {...props} />} path="/" />
+    </HashRouter>
+  </QueryClientProvider>
 );
 
 export default LockerAppClient

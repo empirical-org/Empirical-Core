@@ -2,11 +2,10 @@ import * as React from "react";
 import { withRouter } from 'react-router-dom';
 
 import Locker from './locker';
+import ReturnButton from "./returnButton";
 
 import { lockerItems } from "../../helpers/locker/lockerItems";
 import { titleCase } from "../../../Shared";
-
-const arrow = `${process.env.CDN_URL}/images/icons/arrow-back.svg`;
 
 export const TeamLocker = ({ match, history }) => {
   const { params } = match;
@@ -40,16 +39,9 @@ export const TeamLocker = ({ match, history }) => {
     return <h3 className="subheader">{`${titleCase(label)} lockers`}</h3>
   }
 
-  function handleClick() {
-    history.push('/');
-  }
-
   return(
     <div className="team-locker-container locker-content">
-      <button className="button-container interactive-wrapper focus-on-light" onClick={handleClick}>
-        <img alt="left pointing arrow" src={arrow} />
-        <p>All lockers</p>
-      </button>
+      <ReturnButton history={history} />
       {renderHeader()}
       {renderTeamLockersSection()}
     </div>

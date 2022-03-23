@@ -9,9 +9,11 @@ import {
   TOOLS, CONCEPT_MANAGEMENT, ACTIVITY_MANAGEMENT, USER_MANAGEMENT, TEACHER_CENTER
 } from "./lockerConstants";
 
+import { LockerItemsInterface } from "../../interfaces/interfaces";
+
 const baseUrl = process.env.DEFAULT_URL;
 
-export const lockerItems = {
+export const lockerItems: LockerItemsInterface = {
   [USERS]: {
     label: USERS,
     href: `${baseUrl}/cms/users`,
@@ -281,5 +283,11 @@ export const lockerItems = {
       [CONCEPT_MANAGEMENT]: [CONCEPTS, ATTRIBUTES_MANAGER],
       [PRODUCT]: [BACKPACK]
     }
+  },
+  'personal locker': {
+    label: 'create your own locker',
+    route: 'personal-locker',
+    emoji: '➕',
+    emojiLabel: 'addition sign'
   }
 }
