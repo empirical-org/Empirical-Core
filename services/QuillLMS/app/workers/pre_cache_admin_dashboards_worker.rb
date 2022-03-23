@@ -4,7 +4,7 @@ class PreCacheAdminDashboardsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::DEFAULT
 
-  def perform()
+  def perform
     active_admins = User.where('last_sign_in >= ?', School.school_year_start(Time.now)).joins(:schools_admins).all
 
     active_admins.each do |user|

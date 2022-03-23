@@ -70,7 +70,7 @@ describe "Cron", type: :model do
     end
     
     it "enqueues PreCacheAdminDashboardsWorker" do
-      expect(PreCacheAdminDashboardsWorker.to receive(:perform_async)
+      expect(PreCacheAdminDashboardsWorker).to receive(:perform_async)
       Cron.interval_1_day
     end
   end
