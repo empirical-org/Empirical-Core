@@ -55,7 +55,7 @@ class CreateNewAccounts extends React.Component<any, any> {
         last_name: lastName,
         email
       },
-      id: school.value
+      id: school.value || school.id
     }
     addTeacherAccount(data)
   }
@@ -104,7 +104,7 @@ class CreateNewAccounts extends React.Component<any, any> {
               handleChange={this.updateSchool}
               options={this.schoolOptions()}
               placeholder='Select School for Teacher'
-              value={this.schoolOptions().find(s => s.value === school.id)}
+              value={this.schoolOptions().find(s => s.value === school.id || s.value === school.value)}
             />
             <button className="button-green pull-right" onClick={this.handleAddTeacherAccountClick} type="button">Add Teacher Account</button>
           </div>
