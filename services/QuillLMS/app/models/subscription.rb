@@ -201,7 +201,7 @@ class Subscription < ApplicationRecord
     last_subscription = school_or_user.subscriptions.active.first
     if last_subscription.present?
       redemption_start_date(school_or_user) + 1.year
-    elsif school_or_user.class.name == 'School'
+    elsif school_or_user.instance_of?(School)
       promotional_dates[:expiration]
     else
       Date.today + 1.year
@@ -280,7 +280,7 @@ class Subscription < ApplicationRecord
   end
 
   def self.set_premium_expiration_and_start_date(school_or_user)
-    if !Subscription.school_or_user_has_ever_paid?(school_or_user) && school_or_user.class.name == 'School'
+    if !Subscription.school_or_user_has_ever_paid?(school_or_user) && school_or_user.instance_of?(School)
       # We end their trial if they have one
       school_or_user.subscription&.update(de_activated_date: Date.today)
       # Then they get the promotional subscription
