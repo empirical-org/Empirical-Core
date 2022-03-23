@@ -49,6 +49,7 @@ gem 'rubyzip'
 gem 'nokogiri', '~> 1.13.3'
 gem 'actionpack', '~> 6.1.4.6'
 gem 'activerecord', '~> 6.1.4.6'
+gem 'faraday_middleware'
 
 # WEBSOCKETS
 gem 'pusher', '~> 1.4.3'
