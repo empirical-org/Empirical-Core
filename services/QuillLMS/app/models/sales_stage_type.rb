@@ -20,6 +20,10 @@ class SalesStageType < ApplicationRecord
   validates :name, uniqueness: true
   validates :order, uniqueness: true
 
+  ORDER_TYPES = [
+    TEACHER_PREMIUM = '2'
+  ]
+
   enum trigger: { auto: 0, user: 1 }
 
   def name_param

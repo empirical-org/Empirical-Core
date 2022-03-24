@@ -48,4 +48,8 @@ class Plan < ApplicationRecord
   def self.stripe_teacher_plan
     find_by(name: STRIPE_TEACHER_PLAN)
   end
+
+  def teacher?
+    audience == TEACHER_AUDIENCE_TYPE
+  end
 end

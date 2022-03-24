@@ -3510,6 +3510,41 @@ ALTER SEQUENCE public.standards_id_seq OWNED BY public.standards.id;
 
 
 --
+-- Name: stripe_webhook_events; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.stripe_webhook_events (
+    id bigint NOT NULL,
+    event_type character varying NOT NULL,
+    data jsonb NOT NULL,
+    status character varying DEFAULT 'pending'::character varying,
+    external_id character varying NOT NULL,
+    processing_errors character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: stripe_webhook_events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.stripe_webhook_events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: stripe_webhook_events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.stripe_webhook_events_id_seq OWNED BY public.stripe_webhook_events.id;
+
+
+--
 -- Name: student_feedback_responses; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3610,40 +3645,6 @@ ALTER SEQUENCE public.students_classrooms_id_seq OWNED BY public.students_classr
 
 
 --
--- Name: subscription_types; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.subscription_types (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    price integer,
-    teacher_alias character varying
-);
-
-
---
--- Name: subscription_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.subscription_types_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: subscription_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.subscription_types_id_seq OWNED BY public.subscription_types.id;
-
-
---
 -- Name: subscriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3655,12 +3656,13 @@ CREATE TABLE public.subscriptions (
     account_type character varying,
     purchaser_email character varying,
     start_date date,
-    subscription_type_id integer,
+    plan_id integer,
     purchaser_id integer,
     recurring boolean DEFAULT false,
     de_activated_date date,
     payment_method character varying,
-    payment_amount integer
+    payment_amount integer,
+    stripe_subscription_id character varying
 );
 
 
@@ -4791,6 +4793,13 @@ ALTER TABLE ONLY public.standards ALTER COLUMN id SET DEFAULT nextval('public.st
 
 
 --
+-- Name: stripe_webhook_events id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_webhook_events ALTER COLUMN id SET DEFAULT nextval('public.stripe_webhook_events_id_seq'::regclass);
+
+
+--
 -- Name: student_feedback_responses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4809,13 +4818,6 @@ ALTER TABLE ONLY public.student_problem_reports ALTER COLUMN id SET DEFAULT next
 --
 
 ALTER TABLE ONLY public.students_classrooms ALTER COLUMN id SET DEFAULT nextval('public.students_classrooms_id_seq'::regclass);
-
-
---
--- Name: subscription_types id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.subscription_types ALTER COLUMN id SET DEFAULT nextval('public.subscription_types_id_seq'::regclass);
 
 
 --
@@ -5669,6 +5671,14 @@ ALTER TABLE ONLY public.standards
 
 
 --
+-- Name: stripe_webhook_events stripe_webhook_events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_webhook_events
+    ADD CONSTRAINT stripe_webhook_events_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: student_feedback_responses student_feedback_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5690,14 +5700,6 @@ ALTER TABLE ONLY public.student_problem_reports
 
 ALTER TABLE ONLY public.students_classrooms
     ADD CONSTRAINT students_classrooms_pkey PRIMARY KEY (id);
-
-
---
--- Name: subscription_types subscription_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.subscription_types
-    ADD CONSTRAINT subscription_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -6744,6 +6746,13 @@ CREATE INDEX index_skills_on_skill_group_id ON public.skills USING btree (skill_
 
 
 --
+-- Name: index_stripe_webhook_events_on_external_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_stripe_webhook_events_on_external_id ON public.stripe_webhook_events USING btree (external_id);
+
+
+--
 -- Name: index_student_problem_reports_on_feedback_history_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6769,13 +6778,6 @@ CREATE INDEX index_students_classrooms_on_student_id ON public.students_classroo
 --
 
 CREATE UNIQUE INDEX index_students_classrooms_on_student_id_and_classroom_id ON public.students_classrooms USING btree (student_id, classroom_id);
-
-
---
--- Name: index_subscription_types_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_subscription_types_on_name ON public.subscription_types USING btree (name);
 
 
 --
@@ -8082,6 +8084,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220201161514'),
 ('20220315131616'),
 ('20220317153356'),
-('20220321215816');
+('20220321170433'),
+('20220321215816'),
+('20220322164718'),
+('20220323145502'),
+('20220323145803');
 
 

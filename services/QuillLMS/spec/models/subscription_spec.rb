@@ -4,19 +4,20 @@
 #
 # Table name: subscriptions
 #
-#  id                   :integer          not null, primary key
-#  account_type         :string
-#  de_activated_date    :date
-#  expiration           :date
-#  payment_amount       :integer
-#  payment_method       :string
-#  purchaser_email      :string
-#  recurring            :boolean          default(FALSE)
-#  start_date           :date
-#  created_at           :datetime
-#  updated_at           :datetime
-#  purchaser_id         :integer
-#  subscription_type_id :integer
+#  id                     :integer          not null, primary key
+#  account_type           :string
+#  de_activated_date      :date
+#  expiration             :date
+#  payment_amount         :integer
+#  payment_method         :string
+#  purchaser_email        :string
+#  recurring              :boolean          default(FALSE)
+#  start_date             :date
+#  created_at             :datetime
+#  updated_at             :datetime
+#  plan_id                :integer
+#  purchaser_id           :integer
+#  stripe_subscription_id :string
 #
 # Indexes
 #
@@ -30,6 +31,15 @@ require 'rails_helper'
 require 'ostruct'
 
 describe Subscription, type: :model do
+  context 'validations' do
+    let(:subscription) { build(:subscription) }
+
+    it 'expects stripe_subscription_id to be of a given format' do
+      subscription.stripe_subscription_id = 'not_the_subscription_format'
+      expect(plan).not_to be_valid
+    end
+  end
+
   describe '#is_trial?' do
     let!(:subscription) { create(:subscription) }
 

@@ -23,11 +23,11 @@ export default class TeacherPricingMini extends React.Component {
           authenticity_token: getAuthToken(),
           customer: stripeCustomerId,
           customer_email: customerEmail,
-          price_id: stripeTeacherPlan.stripe_price_id
+          price_id: stripeTeacherPlan.plan.stripe_price_id
         }
       }, (error, _httpStatus, body) => {
         if (error) {
-          console.error('error', error
+          console.error('error', error)
         } else {
           window.location.replace(JSON.parse(body).redirect_url)
         }
@@ -60,9 +60,9 @@ export default class TeacherPricingMini extends React.Component {
     return (
       <div className="pricing-mini">
         <section className="pricing-info">
-          <h2>{stripeTeacherPlan.display_name}</h2>
+          <h2>{stripeTeacherPlan.plan.display_name}</h2>
           <div className="premium-rates">
-            <h3>${stripeTeacherPlan.price_in_dollars}</h3>
+            <h3>${stripeTeacherPlan.plan.price_in_dollars}</h3>
             <p>Per teacher, per year</p>
           </div>
           <div className="premium-button-container">

@@ -4,19 +4,20 @@
 #
 # Table name: subscriptions
 #
-#  id                   :integer          not null, primary key
-#  account_type         :string
-#  de_activated_date    :date
-#  expiration           :date
-#  payment_amount       :integer
-#  payment_method       :string
-#  purchaser_email      :string
-#  recurring            :boolean          default(FALSE)
-#  start_date           :date
-#  created_at           :datetime
-#  updated_at           :datetime
-#  purchaser_id         :integer
-#  subscription_type_id :integer
+#  id                     :integer          not null, primary key
+#  account_type           :string
+#  de_activated_date      :date
+#  expiration             :date
+#  payment_amount         :integer
+#  payment_method         :string
+#  purchaser_email        :string
+#  recurring              :boolean          default(FALSE)
+#  start_date             :date
+#  created_at             :datetime
+#  updated_at             :datetime
+#  plan_id                :integer
+#  purchaser_id           :integer
+#  stripe_subscription_id :string
 #
 # Indexes
 #
@@ -38,6 +39,7 @@ class Subscription < ApplicationRecord
   has_many :schools, through: :school_subscriptions
   belongs_to :purchaser, class_name: "User"
   belongs_to :subscription_type
+  belongs_to :plan, optional: true
   validates :expiration, presence: true
   after_commit :check_if_purchaser_email_is_in_database
   after_initialize :set_null_start_date_to_today
@@ -82,6 +84,8 @@ class Subscription < ApplicationRecord
   ALL_PRICES = [TEACHER_PRICE, SCHOOL_RENEWAL_PRICE]
   PAYMENT_METHODS = ['Invoice', 'Credit Card', 'Premium Credit']
   ALL_TYPES = OFFICIAL_FREE_TYPES.dup.concat(OFFICIAL_PAID_TYPES)
+
+  validates :stripe_subscription_id, allow_blank: true, format: { with: /\Asub_[0-9a-zA-Z]*\z/ }
 
   scope :active, -> { where(de_activated_date: nil).where("expiration > ?", Date.today).order(expiration: :asc) }
 

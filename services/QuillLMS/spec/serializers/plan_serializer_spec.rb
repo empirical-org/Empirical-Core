@@ -21,14 +21,16 @@
 #
 require 'rails_helper'
 
-FactoryBot.define do
-  factory :plan, aliases: [:teacher_paid_plan] do
-    name { 'Teacher Paid' }
-    display_name { 'Teacher Premium' }
-    price { 9000 }
-    audience { Plan::TEACHER_AUDIENCE_TYPE }
-    interval { Plan::YEARLY_INTERVAL_TYPE }
-    interval_count { 1 }
-    stripe_price_id { 'price_A0B1C2D3E4f5ghijk'}
+describe PlanSerializer, type: :serializer do
+  it_behaves_like 'serializer' do
+    let(:record_instance) { create(:plan) }
+
+    let(:expected_serialized_keys) do
+      %w(
+        display_name
+        price_in_dollars
+        stripe_price_id
+      )
+    end
   end
 end

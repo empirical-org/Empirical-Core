@@ -1,0 +1,44 @@
+# frozen_string_literal: true
+
+module StripeIntegration
+  class WebhooksController < ApplicationController
+    protect_from_forgery except: :create
+
+    def create
+      Webhooks::HandleEventWorker.perform_async(stripe_webhook_event.id)
+      head 200
+    rescue ActiveRecord::RecordNotUnique
+      head 200
+    rescue JSON::ParserError, Stripe::SignatureVerificationError => e
+      NewRelic::Agent.notice_error(e)
+      head 400
+    rescue => e
+      NewRelic::Agent.notice_error(e, event: event&.id)
+      head 400
+    end
+
+    private def endpoint_secret
+      ENV.fetch('STRIPE_ENDPOINT_SECRET')
+    end
+
+    private def event
+      Stripe::Webhook.construct_event(payload, signature_header, endpoint_secret)
+    end
+
+    private def payload
+      request.body.read
+    end
+
+    private def signature_header
+      request.env['HTTP_STRIPE_SIGNATURE']
+    end
+
+    private def stripe_webhook_event
+      StripeWebhookEvent.create!(
+        data: event.data.to_json,
+        event_type: event.type,
+        external_id: event.id
+      )
+    end
+  end
+end

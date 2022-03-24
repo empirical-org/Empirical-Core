@@ -524,6 +524,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   namespace :stripe_integration do
     post '/checkout_sessions', to: 'checkout_sessions#create'
+    post '/webhooks', to: 'webhooks#create'
   end
 
   namespace :cms do

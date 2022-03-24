@@ -70,4 +70,16 @@ RSpec.describe Plan, type: :model do
     it { should have_readonly_attribute(:price) }
     it { should have_readonly_attribute(:stripe_price_id) }
   end
+
+  context '.stripe_teacher_plan' do
+    let!(:plan) { create(:teacher_paid_plan) }
+
+    it { expect(Plan.stripe_teacher_plan).to eq plan }
+  end
+
+  context 'teacher?' do
+    let(:plan) { create(:teacher_paid_plan) }
+
+    it { expect(plan.teacher?).to be true }
+  end
 end
