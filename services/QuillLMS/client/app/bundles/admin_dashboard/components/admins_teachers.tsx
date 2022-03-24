@@ -1,6 +1,7 @@
 import * as React from 'react';
 import TeacherLinks from './teacher_links';
-import ReactTable from 'react-table';
+import ReactTable from 'react-table-6';
+
 import UnlinkLink from './unlink_link';
 
 interface AdminsTeachersProps {

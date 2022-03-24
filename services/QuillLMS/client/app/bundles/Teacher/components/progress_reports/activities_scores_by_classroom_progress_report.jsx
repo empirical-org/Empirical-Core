@@ -3,8 +3,7 @@ import request from 'request'
 import _ from 'underscore'
 import queryString from 'query-string';
 import ReactTooltip from 'react-tooltip';
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
+import ReactTable from 'react-table-6'
 import moment from 'moment'
 
 import EmptyStateForReport from './empty_state_for_report'

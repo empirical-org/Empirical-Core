@@ -2,7 +2,8 @@ import * as React from "react";
 import { RouteComponentProps } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import { firstBy } from "thenby";
-import ReactTable from 'react-table';
+import ReactTable from 'react-table-6'
+;
 import qs from 'qs';
 import _ from 'lodash';
 

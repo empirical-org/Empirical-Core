@@ -1,7 +1,7 @@
 import * as React from 'react'
-import ReactTable from 'react-table'
+import ReactTable from 'react-table-6'
+
 import { matchSorter } from 'match-sorter';
-import 'react-table/react-table.css';
 import request from 'request'
 import _ from 'underscore'
 import stripHtml from "string-strip-html"
