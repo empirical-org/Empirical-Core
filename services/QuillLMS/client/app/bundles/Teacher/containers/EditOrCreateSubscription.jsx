@@ -203,6 +203,8 @@ export default class EditOrCreateSubscription extends React.Component {
 
   render() {
     const { user, school, view, premiumTypes, subscriptionPaymentMethods, promoExpiration, } = this.props
+    const { subscription, firstFocused, secondFocused } = this.state
+
     const schoolOrUser = school || user || null;
     const submitAction = school ? this.submitConfirmation : this.submit;
     const subscriptionPaymentOptions = subscriptionPaymentMethods.concat('N/A')
