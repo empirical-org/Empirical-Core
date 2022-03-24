@@ -205,6 +205,10 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         create(:activity_session, :started, user: student3, activity: activity, classroom_unit: cu)
       end
 
+      after do
+        Rails.cache.clear
+      end
+
       it 'should return report data for completed student sessions' do
         Rails.logger.info "\n\n\nStart"
         get :classrooms_with_students, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
@@ -215,6 +219,21 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
 
         expect(json.count).to eq 1
         expect(json.first['students'].count).to eq 2
+      end
+
+      it 'should cache response data' do
+        expect(controller).to receive(:classrooms_with_students_for_report).with(any_args).once.and_call_original
+
+        2.times do
+          get :classrooms_with_students, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
+
+          expect(response).to be_success
+
+          json = JSON.parse(response.body)
+
+          expect(json.count).to eq 1
+          expect(json.first['students'].count).to eq 2
+        end
       end
     end
   end
