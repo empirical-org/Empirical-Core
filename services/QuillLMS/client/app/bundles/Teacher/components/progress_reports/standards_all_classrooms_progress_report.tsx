@@ -6,6 +6,7 @@ import ReactTable from 'react-table-6'
 
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import EmptyStateForReport from './empty_state_for_report'
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants'
 
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
@@ -71,7 +72,13 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
       const students = Array.from(new Set(JSON.parse(body).students))
       classrooms.unshift({name: showAllClassroomKey})
       students.unshift({name: showAllStudentsKey})
-      that.setState({loading: false, updatingData: false, errors: body.errors, standardsData, classrooms, students});
+      const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
+      const classroomFromLocalStorageId = !selectedClassroomId && localStorageSelectedClassroomId && classrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))
+      if (classroomFromLocalStorageId) {
+        this.switchClassrooms(classroomFromLocalStorageId)
+      } else {
+        that.setState({loading: false, updatingData: false, errors: body.errors, standardsData, classrooms, students});
+      }
     });
   }
 
@@ -212,6 +219,8 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
     } else {
       window.history.pushState({}, '', window.location.pathname);
     }
+
+    window.localStorage.setItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, classroom.id)
 
     this.setState({selectedClassroomId: classroom.id, updatingData: true}, () => this.getData())
   };
