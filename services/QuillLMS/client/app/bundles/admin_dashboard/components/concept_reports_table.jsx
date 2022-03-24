@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
+import ReactTable from 'react-table-6'
+
 import EmptyStateForReport from '../../Teacher/components/progress_reports/empty_state_for_report';
 import { sortByLastName } from '../../../modules/sortingMethods';
 

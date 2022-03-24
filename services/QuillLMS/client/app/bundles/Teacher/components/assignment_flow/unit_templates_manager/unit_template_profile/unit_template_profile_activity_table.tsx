@@ -1,6 +1,7 @@
 import * as React from 'react';
 import ReactTooltip from 'react-tooltip'
-import ReactTable from 'react-table'
+import ReactTable from 'react-table-6'
+
 
 import {Tooltip} from '../../../../../Shared/components/shared/tooltip'
 

@@ -151,7 +151,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
         options={
           Array [
             Object {
-              "label": "All classes",
+              "label": "All classrooms",
               "value": "ALL",
             },
             Object {
@@ -166,7 +166,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
         }
         value={
           Object {
-            "label": "All classes",
+            "label": "All classrooms",
             "value": "ALL",
           }
         }
@@ -200,7 +200,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
             options={
               Array [
                 Object {
-                  "label": "All classes",
+                  "label": "All classrooms",
                   "value": "ALL",
                 },
                 Object {
@@ -218,7 +218,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
             updateCursor={[Function]}
             value={
               Object {
-                "label": "All classes",
+                "label": "All classrooms",
                 "value": "ALL",
               }
             }
@@ -270,7 +270,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
               options={
                 Array [
                   Object {
-                    "label": "All classes",
+                    "label": "All classrooms",
                     "value": "ALL",
                   },
                   Object {
@@ -292,7 +292,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
               updateCursor={[Function]}
               value={
                 Object {
-                  "label": "All classes",
+                  "label": "All classrooms",
                   "value": "ALL",
                 }
               }
@@ -317,7 +317,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                 options={
                   Array [
                     Object {
-                      "label": "All classes",
+                      "label": "All classrooms",
                       "value": "ALL",
                     },
                     Object {
@@ -377,7 +377,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     "openMenuOnFocus": false,
                     "options": Array [
                       Object {
-                        "label": "All classes",
+                        "label": "All classrooms",
                         "value": "ALL",
                       },
                       Object {
@@ -398,7 +398,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     "type": undefined,
                     "updateCursor": [Function],
                     "value": Object {
-                      "label": "All classes",
+                      "label": "All classrooms",
                       "value": "ALL",
                     },
                   }
@@ -474,7 +474,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       options={
                         Array [
                           Object {
-                            "label": "All classes",
+                            "label": "All classrooms",
                             "value": "ALL",
                           },
                           Object {
@@ -534,7 +534,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           "openMenuOnFocus": false,
                           "options": Array [
                             Object {
-                              "label": "All classes",
+                              "label": "All classrooms",
                               "value": "ALL",
                             },
                             Object {
@@ -555,7 +555,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           "type": undefined,
                           "updateCursor": [Function],
                           "value": Object {
-                            "label": "All classes",
+                            "label": "All classrooms",
                             "value": "ALL",
                           },
                         }
@@ -639,7 +639,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                             options={
                               Array [
                                 Object {
-                                  "label": "All classes",
+                                  "label": "All classrooms",
                                   "value": "ALL",
                                 },
                                 Object {
@@ -699,7 +699,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                 "openMenuOnFocus": false,
                                 "options": Array [
                                   Object {
-                                    "label": "All classes",
+                                    "label": "All classrooms",
                                     "value": "ALL",
                                   },
                                   Object {
@@ -720,7 +720,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                 "type": undefined,
                                 "updateCursor": [Function],
                                 "value": Object {
-                                  "label": "All classes",
+                                  "label": "All classrooms",
                                   "value": "ALL",
                                 },
                               }
@@ -782,7 +782,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                   cx={[Function]}
                                   data={
                                     Object {
-                                      "label": "All classes",
+                                      "label": "All classrooms",
                                       "value": "ALL",
                                     }
                                   }
@@ -795,7 +795,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                   options={
                                     Array [
                                       Object {
-                                        "label": "All classes",
+                                        "label": "All classrooms",
                                         "value": "ALL",
                                       },
                                       Object {
@@ -855,7 +855,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "openMenuOnFocus": false,
                                       "options": Array [
                                         Object {
-                                          "label": "All classes",
+                                          "label": "All classrooms",
                                           "value": "ALL",
                                         },
                                         Object {
@@ -876,7 +876,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "type": undefined,
                                       "updateCursor": [Function],
                                       "value": Object {
-                                        "label": "All classes",
+                                        "label": "All classrooms",
                                         "value": "ALL",
                                       },
                                     }
@@ -936,7 +936,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                     <div
                                       className="dropdown__single-value css-1uccc91-singleValue"
                                     >
-                                      All classes
+                                      All classrooms
                                     </div>
                                   </EmotionCssPropInternal>
                                 </SingleValue>
@@ -1003,7 +1003,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                             options={
                               Array [
                                 Object {
-                                  "label": "All classes",
+                                  "label": "All classrooms",
                                   "value": "ALL",
                                 },
                                 Object {
@@ -1063,7 +1063,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                 "openMenuOnFocus": false,
                                 "options": Array [
                                   Object {
-                                    "label": "All classes",
+                                    "label": "All classrooms",
                                     "value": "ALL",
                                   },
                                   Object {
@@ -1084,7 +1084,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                 "type": undefined,
                                 "updateCursor": [Function],
                                 "value": Object {
-                                  "label": "All classes",
+                                  "label": "All classrooms",
                                   "value": "ALL",
                                 },
                               }
@@ -1150,7 +1150,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                   options={
                                     Array [
                                       Object {
-                                        "label": "All classes",
+                                        "label": "All classrooms",
                                         "value": "ALL",
                                       },
                                       Object {
@@ -1210,7 +1210,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "openMenuOnFocus": false,
                                       "options": Array [
                                         Object {
-                                          "label": "All classes",
+                                          "label": "All classrooms",
                                           "value": "ALL",
                                         },
                                         Object {
@@ -1231,7 +1231,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "type": undefined,
                                       "updateCursor": [Function],
                                       "value": Object {
-                                        "label": "All classes",
+                                        "label": "All classrooms",
                                         "value": "ALL",
                                       },
                                     }
@@ -1308,7 +1308,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                   options={
                                     Array [
                                       Object {
-                                        "label": "All classes",
+                                        "label": "All classrooms",
                                         "value": "ALL",
                                       },
                                       Object {
@@ -1368,7 +1368,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "openMenuOnFocus": false,
                                       "options": Array [
                                         Object {
-                                          "label": "All classes",
+                                          "label": "All classrooms",
                                           "value": "ALL",
                                         },
                                         Object {
@@ -1389,7 +1389,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "type": undefined,
                                       "updateCursor": [Function],
                                       "value": Object {
-                                        "label": "All classes",
+                                        "label": "All classrooms",
                                         "value": "ALL",
                                       },
                                     }

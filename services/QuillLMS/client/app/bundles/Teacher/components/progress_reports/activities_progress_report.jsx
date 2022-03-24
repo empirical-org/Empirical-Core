@@ -1,16 +1,17 @@
 import React from 'react'
 import createReactClass from 'create-react-class';
 import request from 'request'
-import ReactTable from 'react-table'
+import ReactTable from 'react-table-6'
 import moment from 'moment'
-import 'react-table/react-table.css'
 
 import ProgressReportFilters from './progress_report_filters.jsx'
 import EmptyStateForReport from './empty_state_for_report.jsx'
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants'
 
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin'
 import { getTimeSpent } from '../../helpers/studentReports';
+
 
 export default createReactClass({
   displayName: 'activities_progress_report',
@@ -32,13 +33,14 @@ export default createReactClass({
   },
 
   requestParams: function() {
+    const { currentPage, currentFilters, currentSort, filtersLoaded, } = this.state
     let params = Object.assign({},
-      { page: this.state.currentPage + 1 },
-      this.state.currentFilters,
-      this.state.currentSort
+      { page: currentPage + 1 },
+      currentFilters,
+      currentSort
     );
 
-    if(this.state.filtersLoaded) {
+    if(filtersLoaded) {
       params = Object.assign(params, {without_filters: true});
     }
 
@@ -46,51 +48,74 @@ export default createReactClass({
   },
 
   fetchData: function() {
+    const { filtersLoaded, } = this.state
     this.setState({ loadingNewTableData: true });
-    const that = this;
     request.get({
       url: `${process.env.DEFAULT_URL}/teachers/progress_reports/activity_sessions.json`,
       qs: this.requestParams()
     }, (e, r, body) => {
       const data = JSON.parse(body);
-      let newState = {
-        loadingFilterOptions: false,
-        loadingNewTableData: false,
-        results: data.activity_sessions,
-        numPages: data.page_count,
-      };
 
-      if(!this.state.filtersLoaded) {
-        newState = Object.assign(newState, {
-          classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All classes'),
-          studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All students'),
-          unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All activity packs'),
-          filtersLoaded: true
+      const classroomFilters = this.getFilterOptions(data.classrooms, 'name', 'id', 'All classes')
+      const studentFilters = this.getFilterOptions(data.students, 'name', 'id', 'All students')
+      const unitFilters = this.getFilterOptions(data.units, 'name', 'id', 'All activity packs')
+
+      const selectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
+
+      if (!filtersLoaded && selectedClassroomId && classroomFilters.find(c => Number(c.value) === Number(selectedClassroomId))) {
+        const newState = {
+          classroomFilters,
+          studentFilters,
+          unitFilters,
+          filtersLoaded: true,
+          currentFilters: { classroom_id: Number(selectedClassroomId), }
+        }
+        this.setState(newState, () => this.fetchData())
+      } else {
+        let newState = {
+          loadingFilterOptions: false,
+          loadingNewTableData: false,
+          results: data.activity_sessions,
+          numPages: data.page_count,
+        };
+
+        if (!filtersLoaded) {
+          newState = Object.assign(newState, {
+            classroomFilters,
+            studentFilters,
+            unitFilters,
+            filtersLoaded: true
+          })
+        }
+
+        this.setState(newState, () => {
+          const { classroomFilters, selectedStudent, studentFilters, selectedUnit, unitFilters, } = this.state
+          const selectedClassroom = classroomFilters.find(c => Number(c.value) === Number(selectedClassroomId)) || classroomFilters[0]
+          this.setState({
+            selectedClassroom,
+            selectedStudent: selectedStudent || studentFilters[0],
+            selectedUnit: selectedUnit || unitFilters[0]
+          })
         });
       }
 
-      that.setState(newState, () => {
-        this.setState({
-          selectedClassroom: this.state.selectedClassroom || this.state.classroomFilters[0],
-          selectedStudent: this.state.selectedStudent || this.state.studentFilters[0],
-          selectedUnit: this.state.selectedUnit || this.state.unitFilters[0]
-        })
-      });
     });
   },
 
   canViewReport: function() {
-    return this.props.premiumStatus === 'paid' || this.props.premiumStatus === 'trial'
+    const { premiumStatus, } = this.props
+    return premiumStatus === 'paid' || premiumStatus === 'trial'
   },
 
   columnDefinitions: function() {
+    const { studentFilters, } = this.state
     // Student, Date, Activity, Score, Standard, Tool
     return [
       {
         Header: 'Student',
         accessor: 'student_id',
         resizeable: false,
-        Cell: props => this.state.studentFilters.find(student => student.value == props.value).name,
+        Cell: props => studentFilters.find(student => student.value == props.value).name,
         className: this.nonPremiumBlur(),
         maxWidth: 200
       },
@@ -143,6 +168,7 @@ export default createReactClass({
 
   selectClassroom: function(classroom) {
     this.setState({ selectedClassroom: classroom, });
+    window.localStorage.setItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, classroom.value)
     this.filterByField('classroom_id', classroom.value, this.onFilterChange);
   },
 
@@ -178,20 +204,32 @@ export default createReactClass({
   },
 
   tableOrEmptyMessage: function(){
+    const {
+      results,
+      loadingNewTableData,
+      currentPage,
+      numPages,
+      classroomFilters,
+      selectedClassroom,
+      selectedStudent,
+      selectedUnit,
+      studentFilters,
+      unitFilters,
+    } = this.state
     let tableOrEmptyMessage
-    if (this.state.results.length) {
+    if (results.length) {
       tableOrEmptyMessage = (<ReactTable
         className='progress-report'
         columns={this.columnDefinitions()}
-        data={this.state.results}
-        defaultPageSize={Math.min(this.state.results.length, 25)}
+        data={results}
+        defaultPageSize={Math.min(results.length, 25)}
         defaultSorted={[{id: 'completed_at', desc: true}]}
-        loading={this.state.loadingNewTableData}
+        loading={loadingNewTableData}
         manual={true}
         onPageChange={this.reactTablePageChange}
         onSortedChange={this.reactTableSortedChange}
-        page={this.state.currentPage}
-        pages={this.state.numPages}
+        page={currentPage}
+        pages={numPages}
         resizable={false}
         showPageSizeOptions={false}
         showPagination={true}
@@ -204,16 +242,16 @@ export default createReactClass({
     return (
       <div>
         <ProgressReportFilters
-          classroomFilters={this.state.classroomFilters}
+          classroomFilters={classroomFilters}
           filterTypes={['unit', 'classroom', 'student']}
           selectClassroom={this.selectClassroom}
-          selectedClassroom={this.state.selectedClassroom}
-          selectedStudent={this.state.selectedStudent}
-          selectedUnit={this.state.selectedUnit}
+          selectedClassroom={selectedClassroom}
+          selectedStudent={selectedStudent}
+          selectedUnit={selectedUnit}
           selectStudent={this.selectStudent}
           selectUnit={this.selectUnit}
-          studentFilters={this.state.studentFilters}
-          unitFilters={this.state.unitFilters}
+          studentFilters={studentFilters}
+          unitFilters={unitFilters}
         />
         {tableOrEmptyMessage}
       </div>
@@ -221,7 +259,8 @@ export default createReactClass({
   },
 
   renderFiltersAndTable: function() {
-    if(this.state.loadingFilterOptions) {
+    const { loadingFilterOptions, loadingNewTableData, } = this.state
+    if(loadingFilterOptions || loadingNewTableData) {
       return <LoadingSpinner />
     }
     return (this.tableOrEmptyMessage())

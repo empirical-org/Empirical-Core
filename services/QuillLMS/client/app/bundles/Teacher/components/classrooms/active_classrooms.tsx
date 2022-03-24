@@ -91,7 +91,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     const classroom = urlParams.get('classroom')
 
     let showModal
-    let selectedClassroomId = Number(classroom)
+    let selectedClassroomId = Number(classroom) || null
     if (modal === 'create-a-class') {
       showModal = createAClassModal
     } else if (modal === 'google-classroom') {
