@@ -261,6 +261,36 @@ describe Subscription, type: :model do
     end
   end
 
+  describe ".promotional_dates" do
+    context 'when called on a day prior to July, 1' do
+      before do
+        allow(Date).to receive(:today).and_return Date.new(2018,4,4)
+      end
+
+      it "returns an expiration date of June 30 the next year when called on a day prior to July" do
+        expect(Subscription.promotional_dates[:expiration]).to eq(Date.new(2019,6,30))
+      end
+
+      it "returns a start date one year from the day it was called" do
+        expect(Subscription.promotional_dates[:start_date]).to eq(Date.today)
+      end
+    end
+
+    context 'when called on a day after June 30' do
+      before do
+        allow(Date).to receive(:today).and_return Date.new(2018,10,4)
+      end
+
+      it "returns an expiration date of December 31 the next year when called on a day prior to July" do
+        expect(Subscription.promotional_dates[:expiration]).to eq(Date.new(2019,12,31))
+      end
+
+      it "returns a start date one year from the day it was called" do
+        expect(Subscription.promotional_dates[:start_date]).to eq(Date.today)
+      end
+    end
+  end
+
   describe 'create_with_user_join' do
     let!(:user) { create(:user) }
     let(:old_sub) { Subscription.create_with_user_join(user.id, expiration: Date.yesterday, account_type: 'Teacher Paid') }
