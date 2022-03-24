@@ -253,8 +253,8 @@ class Subscription < ApplicationRecord
 
   def self.promotional_dates
     # available to users who have never paid before
-    # if today's month is before august, it expires end of July, else December
-    exp_month_and_day = Date.today.month < 8 ? "30-6" : "31-12"
+    # if today's month is before july, it expires end of June, else December
+    exp_month_and_day = Date.today.month < 7 ? "30-6" : "31-12"
     {expiration: Date::strptime("#{exp_month_and_day}-#{Date.today.year+1}","%d-%m-%Y"),
     start_date: Date.today}
   end
