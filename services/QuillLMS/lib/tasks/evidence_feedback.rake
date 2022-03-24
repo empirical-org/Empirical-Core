@@ -5,6 +5,7 @@ namespace :evidence_feedback do
   task :ensure_html => :environment do
     def htmlize(input)
       return input if input.start_with?('<p>')
+
       input = input.sub('\'', '&#x27;')
       input = input.sub('"', '&quot;')
       "<p>#{input}</p>"
