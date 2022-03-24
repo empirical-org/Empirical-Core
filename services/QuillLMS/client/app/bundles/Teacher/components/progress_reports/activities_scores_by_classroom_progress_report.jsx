@@ -9,6 +9,7 @@ import moment from 'moment'
 
 import EmptyStateForReport from './empty_state_for_report'
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants'
 
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
@@ -40,10 +41,16 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
       const newState = {loading: false, errors: body.errors, classroomsData, classroomNames}
       const selectedClassroomId = queryString.parse(window.location.search).classroom_id
 
+      const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
+      const localStorageSelectedClassroom = localStorageSelectedClassroomId && classroomsData.find(c => Number(c.classroom_id) === Number(localStorageSelectedClassroomId))
+
       if (selectedClassroomId) {
         const selectedClassroom = classroomsData.find(c => Number(c.classroom_id) === Number(selectedClassroomId))
         newState.selectedClassroom = selectedClassroom.classroom_name || showAllClassroomKey
+      } else if (localStorageSelectedClassroom) {
+        newState.selectedClassroom = localStorageSelectedClassroom.classroom_name
       }
+
       this.setState(newState);
     });
   }
@@ -141,10 +148,13 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
   switchClassrooms = classroom => {
     const { classroomsData, } = this.state
     const classroomRecord = classroomsData.find(c => c.classroom_name === classroom)
+
     if (classroomRecord) {
       window.history.pushState({}, '', `${window.location.pathname}?classroom_id=${classroomRecord.classroom_id}`);
+      window.localStorage.setItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, classroomRecord.classroom_id)
     } else {
       window.history.pushState({}, '', window.location.pathname);
+      window.localStorage.setItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, null)
     }
     this.setState({selectedClassroom: classroom})
   };

@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import { DataTable, DropdownInput, } from '../../../Shared/index'
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../progress_reports/progress_report_constants'
 
 interface ViewAsStudentModalProps {
   classrooms: Array<any>;
@@ -65,9 +66,12 @@ export default function ViewAsStudentModal({classrooms, close, defaultClassroomI
     return classroom
   })
 
-  const [selectedClassroom, setSelectedClassroom] = React.useState(defaultClassroomId ? classroomOptions.find(classroom => classroom.id === defaultClassroomId) : classroomOptions[0])
+  const classroomId = defaultClassroomId || window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
+  const classroomFromClassroomId = classroomOptions.find(classroom => Number(classroom.id) === Number(classroomId))
+  const [selectedClassroom, setSelectedClassroom] = React.useState(classroomFromClassroomId || classroomOptions[0])
 
   function onSelectClassroom(classroom: any) {
+    window.localStorage.setItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, classroom.id)
     return setSelectedClassroom(classroom)
   }
   return (
@@ -93,4 +97,8 @@ export default function ViewAsStudentModal({classrooms, close, defaultClassroomI
       </div>
     </div>
   )
+}
+
+ViewAsStudentModal.defaultProps = {
+  defaultClassroomId: window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
 }

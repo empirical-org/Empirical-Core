@@ -14,6 +14,7 @@ import Questions from './questions'
 import { Classroom, Activity, Diagnostic, } from './interfaces'
 import { goToAssign, baseDiagnosticImageSrc, accountCommentIcon, closeIcon, } from './shared'
 
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_report_constants'
 import { DropdownInput, } from '../../../../../Shared/index'
 
 const barChartIcon = <img alt="Bar chart icon" src={`${baseDiagnosticImageSrc}/icons-bar-chart.svg`} />
@@ -162,6 +163,7 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
     const parallelDiagnostic = diagnosticForClassroom(newClassroom)
     // the following line handles the case where we are currently viewing a post-diagnostic page, but the parallel classroom hasn't yet been assigned the post diagnostic
     const newActivityId = parallelDiagnostic.post && parallelDiagnostic.post.activity_id === activityId ? activityId : parallelDiagnostic.pre.activity_id
+    window.localStorage.setItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, e.value)
     history.push(`/diagnostics/${newActivityId}/classroom/${e.value}/${subPage}${location.search}`)
   }
 

@@ -5,6 +5,7 @@ import Units from './manage_units/units';
 
 import LoadingIndicator from '../shared/loading_indicator';
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../progress_reports/progress_report_constants'
 
 export default class ClassroomLessons extends React.Component {
   constructor(props) {
@@ -34,7 +35,10 @@ export default class ClassroomLessons extends React.Component {
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_lessons`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
       if (classrooms.length > 0) {
-        this.setState({ classrooms, selectedClassroomId: classroomId || classrooms[0].id, }, () => this.getAllLessons());
+        const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
+        const classroomFromLocalStorageClassroomId = classrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))
+        const classroomIdToUse = classroomFromLocalStorageClassroomId && !classroomId ? localStorageSelectedClassroomId : classroomId
+        this.setState({ classrooms, selectedClassroomId: classroomIdToUse || classrooms[0].id, }, () => this.getAllLessons());
       } else {
         this.setState({ empty: true, loaded: true, });
       }
@@ -179,6 +183,7 @@ export default class ClassroomLessons extends React.Component {
 
   switchClassrooms = (classroom) => {
     const { history, } = this.props
+    window.localStorage.setItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, classroom.id)
     history.push(`/teachers/classrooms/activity_planner/lessons/${classroom.id}`);
     this.setState({ selectedClassroomId: classroom.id, }, () => this.getLessonsForCurrentClass());
   }
