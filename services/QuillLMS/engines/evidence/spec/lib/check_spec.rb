@@ -87,7 +87,7 @@ module Evidence
     end
 
     context "fallback_feedback" do
-      before do
+      it 'should construct feedback based on an error-type rule if it exists' do
         Check::ALL_CHECKS.each do |check_class|
           if check_class == Check::AutoML
             expect_any_instance_of(check_class).to receive(:run).and_raise("some error")
@@ -96,9 +96,6 @@ module Evidence
             expect_any_instance_of(check_class).to receive(:optimal?).and_return(true)
           end
         end
-      end
-
-      it 'should construct feedback based on an error-type rule if it exists' do
         rule = create(:evidence_rule, rule_type: Rule::TYPE_ERROR)
         feedback = create(:evidence_feedback, rule: rule)
 
@@ -110,12 +107,28 @@ module Evidence
       end
 
       it 'provides constant-based feedback if there is no error-type rule' do
+        Check::ALL_CHECKS.each do |check_class|
+          if check_class == Check::AutoML
+            expect_any_instance_of(check_class).to receive(:run).and_raise("some error")
+          else
+            expect_any_instance_of(check_class).to receive(:run)
+            expect_any_instance_of(check_class).to receive(:optimal?).and_return(true)
+          end
+        end
         result = Check.get_feedback(entry, prompt, previous_feedback)
 
         expect(result).to eq(Check::FALLBACK_RESPONSE)
       end
 
       it 'provides constant-based feedback if there are multiple error-type rules' do
+        Check::ALL_CHECKS.each do |check_class|
+          if check_class == Check::AutoML
+            expect_any_instance_of(check_class).to receive(:run).and_raise("some error")
+          else
+            expect_any_instance_of(check_class).to receive(:run)
+            expect_any_instance_of(check_class).to receive(:optimal?).and_return(true)
+          end
+        end
         create(:evidence_rule, rule_type: Rule::TYPE_ERROR)
         create(:evidence_rule, rule_type: Rule::TYPE_ERROR)
 

@@ -48,11 +48,11 @@ module Evidence
     end
 
     def self.fallback_feedback
-      @@error_rule ||= Rule.find_by(rule_type: Rule::TYPE_ERROR)
+      @error_rule ||= Rule.find_by(rule_type: Rule::TYPE_ERROR)
       {
-        feedback: @@error_rule.feedbacks.first.text,
-        feedback_type: @@error_rule.rule_type,
-        optimal: @@error_rule.optimal,
+        feedback: @error_rule.feedbacks.first.text,
+        feedback_type: @error_rule.rule_type,
+        optimal: @error_rule.optimal,
       }
     rescue
       FALLBACK_RESPONSE

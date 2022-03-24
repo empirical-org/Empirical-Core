@@ -20,7 +20,7 @@ namespace :universal_rules do
         universal: true,
         optimal: true,
         rule_type: Evidence::Rule::TYPE_ERROR,
-        state: Evidence::Rule::STATE_ACTIVE,
+        state: Evidence::Rule::STATE_ACTIVE
       )
       error_rule.feedbacks = [Evidence::Feedback.new(
         order: 0,
