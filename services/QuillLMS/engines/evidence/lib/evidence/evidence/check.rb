@@ -15,7 +15,7 @@ module Evidence
     ]
 
     FALLBACK_RESPONSE = {
-      feedback: "Thank you for your response.",
+      feedback: "<p>Thank you for your response.</p>",
       feedback_type: Rule::TYPE_ERROR,
       optimal: true,
     }
