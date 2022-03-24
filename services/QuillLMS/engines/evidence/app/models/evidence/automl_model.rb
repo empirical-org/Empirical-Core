@@ -13,6 +13,7 @@ module Evidence
       STATE_ACTIVE = 'active',
       STATE_INACTIVE = 'inactive'
     ]
+    PREDICT_API_TIMEOUT = 5.0
 
     attr_readonly :automl_model_id, :name, :labels
 
@@ -126,7 +127,9 @@ module Evidence
     end
 
     private def automl_prediction_client
-      @automl_prediction_client ||= Google::Cloud::AutoML.prediction_service
+      @automl_prediction_client ||= Google::Cloud::AutoML.prediction_service do |config|
+        config.timeout = PREDICT_API_TIMEOUT
+      end
     end
 
     private def automl_model_full_id
