@@ -66,7 +66,8 @@ export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match
     if (!openPopover.studentId) { return }
 
     const popoverElements = document.getElementsByClassName('student-results-popover')
-    if (popoverElements && (!popoverElements[0].contains(e.target) || e.target.classList.includes('interactive-wrapper'))) {
+    const studentRow = document.getElementById(String(openPopover.studentId))
+    if (popoverElements && (!popoverElements[0].contains(e.target) && !studentRow.contains(e.target))) {
       setOpenPopover({})
     }
   }

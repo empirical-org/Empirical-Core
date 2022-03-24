@@ -17,7 +17,8 @@ export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActiv
   function getStrongExemplar(conjunction: string, property: string) {
     const prompt = prompts.filter(prompt => prompt.conjunction === conjunction)[0];
     if (!prompt) { return }
-    const stemWithoutConjunction = prompt.text.replace(conjunction, '');
+    const conjunctionRegex = new RegExp(`${conjunction}$`)
+    const stemWithoutConjunction = prompt.text.replace(conjunctionRegex, '');
     const exemplar = prompt[property];
     return <p>{stemWithoutConjunction}<strong>{`${conjunction} `}</strong><br /><u>{exemplar}</u></p>;
   }
@@ -33,8 +34,9 @@ export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActiv
     const responses = getResponsesForConjunction(conjunction)
     if(!responses) { return }
     const lastResponseText = responses[responses.length - 1].entry;
-    const splitResponse = lastResponseText.split(conjunction);
-    return <p>{splitResponse[0]}<strong>{`${conjunction} `}</strong><br /><u>{splitResponse[1]}</u></p>
+    const conjunctionRegex = new RegExp(`\\s${conjunction}\\s`)
+    const splitResponse = lastResponseText.split(conjunctionRegex);
+    return <p>{splitResponse[0]}<strong>{` ${conjunction} `}</strong><br /><u>{splitResponse[1]}</u></p>
   }
 
   function renderResponseAndExamplarsSection(conjunction: string) {
