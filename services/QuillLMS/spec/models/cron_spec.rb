@@ -68,6 +68,11 @@ describe "Cron", type: :model do
       expect(RefreshQuestionCacheWorker).to receive(:perform_async).exactly(7).times
       Cron.interval_1_day
     end
+
+    it "enqueues PreCacheAdminDashboardsWorker" do
+      expect(PreCacheAdminDashboardsWorker).to receive(:perform_async)
+      Cron.interval_1_day
+    end
   end
 
   describe "#run_saturday" do
