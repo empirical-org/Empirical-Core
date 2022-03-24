@@ -15,6 +15,8 @@ namespace :evidence_feedback do
     end
 
     FeedbackHistory.where("feedback_text NOT LIKE '<p>%'").each do |feedback_history|
+      # FeedbackHistory is a read-only model, so if we want to make changes to it
+      # we have to do so through raw SQL rather than ActiveRecord
       sql = <<-SQL
         UPDATE feedback_histories
           SET feedback_text = '#{htmlize(feedback_history.feedback_text)}'
