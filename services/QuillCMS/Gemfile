@@ -8,8 +8,8 @@ git_source(:github) do |repo_name|
 end
 
 # CORE
-gem 'puma', '~> 4.3.11'
-gem 'rails', '~> 6.1.4.6'
+gem 'puma', '~> 4.3'
+gem 'rails', '~> 6.1'
 
 # EARLY TO APPLY TO OTHER GEMS
 gem 'dotenv-rails', '~> 2.7'
@@ -18,7 +18,7 @@ gem 'dotenv-rails', '~> 2.7'
 gem 'activerecord-import'
 gem 'bulk_insert'
 gem 'pg', '~> 1.2'
-gem 'scenic', '~> 1.5.5'
+gem 'scenic', '~> 1.5.4'
 
 # QUEUE/CACHING
 gem 'connection_pool'
@@ -46,10 +46,6 @@ gem 'kaminari'
 
 gem 'newrelic_rpm'
 gem 'rubyzip'
-gem 'nokogiri', '~> 1.13.3'
-gem 'actionpack', '~> 6.1.4.6'
-gem 'activerecord', '~> 6.1.4.6'
-gem 'faraday_middleware'
 
 # WEBSOCKETS
 gem 'pusher', '~> 1.4.3'
