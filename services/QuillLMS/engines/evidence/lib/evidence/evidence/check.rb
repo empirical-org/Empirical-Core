@@ -14,17 +14,16 @@ module Evidence
       RegexTypo
     ]
 
-    ERROR_RULE = Rule.find_by(rule_type: Rule::TYPE_ERROR)
     FALLBACK_RESPONSE = {
-      feedback: ERROR_RULE.feedbacks.first.text,
-      feedback_type: ERROR_RULE.rule_type,
-      optimal: ERROR_RULE.optimal,
+      feedback: "Thank you for your response.",
+      feedback_type: Rule::TYPE_ERROR,
+      optimal: true,
     }
 
     def self.get_feedback(entry, prompt, previous_feedback)
       triggered_check = find_triggered_check(entry, prompt, previous_feedback)
 
-      triggered_check&.response || FALLBACK_RESPONSE
+      triggered_check&.response || fallback_feedback
     end
 
     # returns first nonoptimal feedback, and if all are optimal, returns automl feedback
@@ -46,6 +45,17 @@ module Evidence
       end
 
       first_nonoptimal_check || auto_ml_check
+    end
+
+    def self.fallback_feedback
+      @@error_rule ||= Rule.find_by(rule_type: Rule::TYPE_ERROR)
+      {
+        feedback: @@error_rule.feedbacks.first.text,
+        feedback_type: @@error_rule.rule_type,
+        optimal: @@error_rule.optimal,
+      }
+    rescue
+      FALLBACK_RESPONSE
     end
   end
 end
