@@ -105,7 +105,9 @@ class Activity < ApplicationRecord
   end
 
   def self.activity_with_recommendations_ids
-    Recommendation.all.map(&:activity_id).uniq
+    Rails.cache.fetch('all_recommendation_activity_ids', expires_in: 24.hours) do
+      Recommendation.all.map(&:activity_id).uniq
+    end
   end
 
   def self.find_by_id_or_uid(arg)
