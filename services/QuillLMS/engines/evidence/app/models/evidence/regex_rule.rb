@@ -49,6 +49,10 @@ module Evidence
       "Regex Rule Regex"
     end
 
+    def unconditional
+      !conditional
+    end
+
     def url
       rule.url
     end

@@ -64,7 +64,10 @@ module Evidence
     end
 
     private def first_failing_regex_rule
-      rules = @prompt.rules.where(rule_type: @rule_type).order(:suborder)
+      rules = @prompt.rules
+        .where(rule_type: @rule_type)
+        .includes(:required_sequences, :incorrect_sequences)
+        .order(:suborder)
 
       rules.find {|rule| !rule.regex_is_passing?(@entry) }
     end

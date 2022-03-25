@@ -169,17 +169,15 @@ module Evidence
     end
 
     private def at_least_one_conditional_required_sequence_passing?(entry)
-      return false if required_sequences.where(conditional: true).empty?
-
-      required_sequences.where(conditional: true).any? do |regex_rule|
+      required_sequences.select(&:conditional).any? do |regex_rule|
         !regex_rule.entry_failing?(entry)
       end
     end
 
     private def one_non_conditional_required_sequences_passing?(entry)
-      return true if required_sequences.where(conditional: false).empty?
+      return true if required_sequences.select(&:unconditional).empty?
 
-      required_sequences.where(conditional: false).any? do |regex_rule|
+      required_sequences.select(&:unconditional).any? do |regex_rule|
         !regex_rule.entry_failing?(entry)
       end
     end
