@@ -7,7 +7,7 @@ module Evidence
     context '#post' do
       let(:mock_endpoint) { 'https://www.grammar.com' }
       let(:client) { Grammar::Client.new(entry: '', prompt_text: '') }
-       # include headers in response for proper parsing by HTTParty
+      # include headers in response for proper parsing by HTTParty
       let(:sample_response) { {body: '{}', headers: {content_type: 'application/json'}} }
 
       before do

@@ -7,7 +7,7 @@ module Evidence
     context '#post' do
       let(:mock_endpoint) { 'https://www.opinion.com' }
       let(:client) { Opinion::Client.new(entry: '', prompt_text: '') }
-       # include headers in response for proper parsing by HTTParty
+      # include headers in response for proper parsing by HTTParty
       let(:sample_response) { {body: '{}', headers: {content_type: 'application/json'}} }
 
       before do
@@ -26,7 +26,6 @@ module Evidence
 
         expect { client.post}.to raise_error(Evidence::Opinion::Client::OpinionAPIError)
       end
-
 
       it 'should raise error on timeout' do
         stub_request(:post, mock_endpoint).to_timeout
