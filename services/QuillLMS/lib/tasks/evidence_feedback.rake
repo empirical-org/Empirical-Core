@@ -15,15 +15,13 @@ namespace :evidence_feedback do
       feedback.update(text: htmlize(feedback.text))
     end
 
-    FeedbackHistory.where("feedback_text NOT LIKE '<p>%'").each do |feedback_history|
-      # FeedbackHistory is a read-only model, so if we want to make changes to it
-      # we have to do so through raw SQL rather than ActiveRecord
-      sql = <<-SQL
-        UPDATE feedback_histories
-          SET feedback_text = '#{htmlize(feedback_history.feedback_text)}'
-          WHERE id = #{feedback_history.id}
-      SQL
-      ActiveRecord::Base.connection.execute(sql)
-    end
+    # FeedbackHistory is a read-only model, so if we want to make changes to it
+    # we have to do so through raw SQL rather than ActiveRecord
+    sql = <<-SQL
+      UPDATE feedback_histories
+        SET feedback_text = CONCAT('<p>', REPLACE(REPLACE(feedback_text, '''', '&x27;'), '"', '&quot;'), '</p>')
+        WHERE feedback_text NOT LIKE '<p>%'
+    SQL
+    ActiveRecord::Base.connection.execute(sql)
   end
 end
