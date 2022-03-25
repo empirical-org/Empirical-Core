@@ -3,10 +3,11 @@
 module Evidence
   module Grammar
     class Client
-      API_TIMEOUT = 500
+      API_TIMEOUT = 5
       ALLOWED_PAYLOAD_KEYS = ['gapi_error', 'highlight']
+      API_ENDPOINT = ENV['GRAMMAR_API_DOMAIN']
 
-      class GrammarApiError < StandardError; end
+      class GrammarAPIError < StandardError; end
 
       def initialize(entry:, prompt_text:)
         @entry = entry
@@ -14,21 +15,22 @@ module Evidence
       end
 
       def post
-        Timeout.timeout(API_TIMEOUT) do
-          response = HTTParty.post(
-            ENV['GRAMMAR_API_DOMAIN'],
-            headers:  {'Content-Type': 'application/json'},
-            body:     {
-              entry: @entry,
-              prompt_text: @prompt_text
-            }.to_json
-          )
-          if !response.success?
-            raise GrammarApiError, "Encountered upstream error: #{response}"
-          end
+        response = HTTParty.post(
+          API_ENDPOINT,
+          headers:  {'Content-Type': 'application/json'},
+          body:     {
+            entry: @entry,
+            prompt_text: @prompt_text
+          }.to_json,
+          timeout: API_TIMEOUT
+        )
 
-          response.filter { |k,v| ALLOWED_PAYLOAD_KEYS.include?(k) }
+        if !response.success?
+          raise GrammarAPIError, "Encountered upstream error: #{response}"
         end
+
+        response.filter { |k,v| ALLOWED_PAYLOAD_KEYS.include?(k) }
+
       end
     end
 
