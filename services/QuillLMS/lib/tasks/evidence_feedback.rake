@@ -6,8 +6,8 @@ namespace :evidence_feedback do
     def htmlize(input)
       return input if input.start_with?('<p>')
 
-      input = input.sub('\'', '&#x27;')
-      input = input.sub('"', '&quot;')
+      input = input.gsub(/'/, '&#x27;')
+      input = input.gsub(/"/, '&quot;')
       "<p>#{input}</p>"
     end
 
