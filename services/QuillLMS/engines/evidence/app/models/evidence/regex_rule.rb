@@ -24,6 +24,9 @@ module Evidence
     validates :case_sensitive, inclusion: CASE_SENSITIVE_ALLOWED_VALUES
     validates :sequence_type, inclusion: SEQUENCE_TYPES
 
+    scope :required_sequences, -> { where(sequence_type: TYPE_REQUIRED) }
+    scope :incorrect_sequences, -> { where(sequence_type: TYPE_INCORRECT) }
+
     def serializable_hash(options = nil)
       options ||= {}
 

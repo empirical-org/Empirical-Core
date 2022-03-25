@@ -41,7 +41,11 @@ module Evidence
     has_one :label, inverse_of: :rule, dependent: :destroy
     has_many :prompts_rules, inverse_of: :rule
     has_many :prompts, through: :prompts_rules, inverse_of: :rules
+
     has_many :regex_rules, inverse_of: :rule, dependent: :destroy
+    has_many :required_sequences, -> { required_sequences }, class_name: 'Evidence::RegexRule'
+    has_many :incorrect_sequences, -> { incorrect_sequences }, class_name: 'Evidence::RegexRule'
+
     has_one :hint, inverse_of: :rule, dependent: :destroy
 
     accepts_nested_attributes_for :plagiarism_texts, allow_destroy: true
@@ -178,14 +182,6 @@ module Evidence
       required_sequences.where(conditional: false).any? do |regex_rule|
         !regex_rule.entry_failing?(entry)
       end
-    end
-
-    private def incorrect_sequences
-      regex_rules.where(sequence_type: RegexRule::TYPE_INCORRECT)
-    end
-
-    private def required_sequences
-      regex_rules.where(sequence_type: RegexRule::TYPE_REQUIRED)
     end
 
     private def assign_uid_if_missing
