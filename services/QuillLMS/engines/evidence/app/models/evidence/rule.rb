@@ -81,7 +81,7 @@ module Evidence
     end
 
     def regex_is_passing?(entry)
-      return true if regex_rules.empty?
+      return true if incorrect_sequences.empty? && required_sequences.empty?
 
       grade_sequences(entry)
     end
