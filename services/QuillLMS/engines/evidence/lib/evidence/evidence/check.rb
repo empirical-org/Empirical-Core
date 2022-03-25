@@ -15,7 +15,7 @@ module Evidence
     ]
 
     FALLBACK_RESPONSE = {
-      feedback: "<p>Thank you for your response.</p>",
+      feedback: "<p>Thank you for your response! Something went wrong on our end and our feedback system doesn’t understand your response. Move on to the next prompt!</p>",
       feedback_type: Rule::TYPE_ERROR,
       optimal: true,
     }
