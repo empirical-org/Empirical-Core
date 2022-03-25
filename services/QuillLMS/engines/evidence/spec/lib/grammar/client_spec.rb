@@ -27,7 +27,6 @@ module Evidence
         expect { client.post}.to raise_error(Evidence::Grammar::Client::GrammarAPIError)
       end
 
-
       it 'should raise error on timeout' do
         stub_request(:post, mock_endpoint).to_timeout
 
