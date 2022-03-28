@@ -3,7 +3,7 @@
 module Evidence
   class RegexCheck
 
-    ALL_CORRECT_FEEDBACK = 'All regex checks passed.'
+    ALL_CORRECT_FEEDBACK = '<p>All regex checks passed.</p>'
     OPTIMAL_RULE_KEY = 'optimal_regex_rule_uid'
     attr_reader :entry, :prompt, :rule_type
 
