@@ -1,5 +1,4 @@
 import React from 'react';
-// import ReactTable from 'react-table-6'
 
 import { sortTableByLastName, sortTableFromSQLTimeStamp } from 'modules/sortingMethods';
 import getAuthToken from '../components/modules/get_auth_token';
@@ -198,7 +197,7 @@ export default class CmsUserIndex extends React.Component {
             defaultSorted={[{id: sort, desc: sortDescending}]}
             manualSortBy={true}
             minRows={1}
-            onChangeSort={this.setSort}
+            onSortedChange={this.setSort}
             showPageSizeOptions={false}
             showPagination={false}
             showPaginationBottom={false}

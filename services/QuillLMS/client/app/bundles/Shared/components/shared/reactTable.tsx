@@ -17,7 +17,7 @@ const ReactTable = ({
   showPagination,
   defaultSorted,
   minRows,
-  onChangeSort,
+  onSortedChange,
   showPageSizeOptions,
   showPaginationBottom,
   showPaginationTop,
@@ -57,8 +57,8 @@ const ReactTable = ({
   );
 
   React.useEffect(() => {
-    onChangeSort(sortBy);
-  }, [onChangeSort, sortBy]);
+    onSortedChange(sortBy);
+  }, [onSortedChange, sortBy]);
 
   return (
     <div className={`${className} ReactTable`}>
