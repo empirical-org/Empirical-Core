@@ -26,6 +26,7 @@ export {
   FlagDropdown,
   Input,
   Passthrough,
+  ReactTable,
   ResumeOrBeginButton,
   SmartSpinner,
   Snackbar,

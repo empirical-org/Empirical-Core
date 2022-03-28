@@ -47,6 +47,10 @@ export {
 } from './passthrough'
 
 export {
+  ReactTable
+} from './reactTable'
+
+export {
   ResumeOrBeginButton
 } from './resumeOrBeginButton'
 

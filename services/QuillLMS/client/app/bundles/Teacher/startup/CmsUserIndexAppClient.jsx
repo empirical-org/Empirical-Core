@@ -1,9 +1,10 @@
 import React from 'react';
-import ReactTable from 'react-table-6'
+// import ReactTable from 'react-table-6'
 
 import { sortByLastName, sortFromSQLTimeStamp } from 'modules/sortingMethods';
 import getAuthToken from '../components/modules/get_auth_token';
 import LoadingIndicator from '../components/shared/loading_indicator'
+import { ReactTable, } from '../../Shared/index'
 
 export default class CmsUserIndex extends React.Component {
   constructor(props) {
@@ -25,37 +26,33 @@ export default class CmsUserIndex extends React.Component {
         accessor: 'name',
         resizable: false,
         minWidth: 120,
-        sortMethod: sortByLastName,
-        Cell: row => row.original.name
+        sortType: sortByLastName,
       }, {
         Header: "Email",
         accessor: 'email',
         resizable: false,
         minWidth: 250,
-        Cell: row => row.original.email
       }, {
         Header: "Role",
         accessor: 'role',
-        minWidth: 80,
+        maxWidth: 80,
         resizable: false,
-        Cell: row => row.original.role
       }, {
         Header: "Premium",
         accessor: 'subscription',
         resizable: false,
-        Cell: row => row.original.subscription,
       }, {
         Header: 'Last Sign In',
         accessor: 'last_sign_in',
         resizable: false,
-        sortMethod: sortFromSQLTimeStamp,
-        Cell: row => row.original.last_sign_in,
+        minWidth: 100,
+        sortType: sortFromSQLTimeStamp,
       }, {
         Header: "School",
         accessor: 'school',
         resizable: false,
         minWidth: 90,
-        Cell: (row) => {
+        Cell: ({row}) => {
           if (row.original.school) {
             return <a href={`${process.env.DEFAULT_URL}/cms/schools/${row.original.school_id}`}>{row.original.school}</a>
           }
@@ -65,24 +62,24 @@ export default class CmsUserIndex extends React.Component {
         Header: "Edit",
         accessor: 'edit',
         resizable: false,
-        minWidth: 40,
-        Cell: (row) => {
+        maxWidth: 40,
+        Cell: ({row}) => {
           return <a href={`${process.env.DEFAULT_URL}/cms/users/${row.original.id}/edit`}>Edit</a>
         }
       }, {
         Header: "Details",
         accessor: 'details',
         resizable: false,
-        minWidth: 60,
-        Cell: (row) => {
+        maxWidth: 60,
+        Cell: ({row}) => {
           return <a href={`${process.env.DEFAULT_URL}/cms/users/${row.original.id}`}>Details</a>
         }
       }, {
         Header: "Sign In",
         accessor: 'sign_in',
         resizable: false,
-        minWidth: 60,
-        Cell: (row) => {
+        maxWidth: 60,
+        Cell: ({row}) => {
           return <a href={`${process.env.DEFAULT_URL}/cms/users/${row.original.id}/sign_in`}>Sign In</a>
         }
       }
@@ -90,6 +87,7 @@ export default class CmsUserIndex extends React.Component {
   }
 
   setSort = newSorted => {
+    debugger;
     const sort = newSorted[0].id
     const sort_direction = newSorted[0].desc ? 'desc' : 'asc'
     if (sort !== this.state.query.sort || sort_direction !== this.state.query.sort_direction) {
@@ -197,7 +195,7 @@ export default class CmsUserIndex extends React.Component {
             defaultPageSize={100}
             defaultSorted={[{id: sort, desc: sortDescending}]}
             minRows={1}
-            onSortedChange={this.setSort}
+            setSortBy={this.setSort}
             showPageSizeOptions={false}
             showPagination={false}
             showPaginationBottom={false}
