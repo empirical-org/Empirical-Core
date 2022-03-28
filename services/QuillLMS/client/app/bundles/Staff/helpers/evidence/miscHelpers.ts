@@ -22,7 +22,7 @@ import {
   BREAK_TAG
 } from '../../../../constants/evidence';
 import { DEFAULT_HIGHLIGHT_PROMPT } from "../../../Shared";
-import { DropdownObjectInterface } from '../../interfaces/evidenceInterfaces'
+import { DropdownObjectInterface, PromptInterface } from '../../interfaces/evidenceInterfaces'
 import { getCheckIcon } from "./renderHelpers";
 
 export const buildActivity = ({
