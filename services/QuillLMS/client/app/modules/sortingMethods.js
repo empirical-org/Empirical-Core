@@ -7,11 +7,25 @@ export function sortByLastName(fullName1, fullName2){
   return sort(lastName1, lastName2);
 }
 
+export function sortTableByLastName(row1, row2) {
+  const lastName1 = _.last(row1.original.name.split(' '))
+  const lastName2 = _.last(row2.original.name.split(' '))
+  return sort(lastName1, lastName2);
+}
+
 export function sortList(list1, list2) {
   return sort(list1.sort()[0], list2.sort()[0])
 }
 
 export function sortFromSQLTimeStamp(timeStamp1, timeStamp2) {
+  const epoch1 = timeStamp1 ? moment(timeStamp1).unix() : 0;
+  const epoch2 = timeStamp2 ? moment(timeStamp2).unix() : 0;
+  return sort(epoch1, epoch2)
+}
+
+export function sortTableFromSQLTimeStamp(row1, row2) {
+  const timeStamp1 = row1.original.last_sign_in
+  const timeStamp2 = row2.original.last_sign_in
   const epoch1 = timeStamp1 ? moment(timeStamp1).unix() : 0;
   const epoch2 = timeStamp2 ? moment(timeStamp2).unix() : 0;
   return sort(epoch1, epoch2)

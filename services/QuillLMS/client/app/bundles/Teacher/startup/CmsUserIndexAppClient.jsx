@@ -1,7 +1,7 @@
 import React from 'react';
 // import ReactTable from 'react-table-6'
 
-import { sortByLastName, sortFromSQLTimeStamp } from 'modules/sortingMethods';
+import { sortTableByLastName, sortTableFromSQLTimeStamp } from 'modules/sortingMethods';
 import getAuthToken from '../components/modules/get_auth_token';
 import LoadingIndicator from '../components/shared/loading_indicator'
 import { ReactTable, } from '../../Shared/index'
@@ -26,7 +26,7 @@ export default class CmsUserIndex extends React.Component {
         accessor: 'name',
         resizable: false,
         minWidth: 120,
-        sortType: sortByLastName,
+        sortType: sortTableByLastName,
       }, {
         Header: "Email",
         accessor: 'email',
@@ -46,7 +46,8 @@ export default class CmsUserIndex extends React.Component {
         accessor: 'last_sign_in',
         resizable: false,
         minWidth: 100,
-        sortType: sortFromSQLTimeStamp,
+        sortType: sortTableFromSQLTimeStamp,
+        Cell: ({row}) => String(row.original.last_sign_in_text)
       }, {
         Header: "School",
         accessor: 'school',
@@ -87,7 +88,8 @@ export default class CmsUserIndex extends React.Component {
   }
 
   setSort = newSorted => {
-    debugger;
+    if (!newSorted.length) { return }
+
     const sort = newSorted[0].id
     const sort_direction = newSorted[0].desc ? 'desc' : 'asc'
     if (sort !== this.state.query.sort || sort_direction !== this.state.query.sort_direction) {
@@ -194,8 +196,9 @@ export default class CmsUserIndex extends React.Component {
             data={this.state.data}
             defaultPageSize={100}
             defaultSorted={[{id: sort, desc: sortDescending}]}
+            manualSortBy={true}
             minRows={1}
-            setSortBy={this.setSort}
+            onChangeSort={this.setSort}
             showPageSizeOptions={false}
             showPagination={false}
             showPaginationBottom={false}
