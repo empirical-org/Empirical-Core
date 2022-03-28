@@ -36,11 +36,13 @@
 #  authorizer_id         :integer
 #  clever_id             :string
 #  coordinator_id        :integer
+#  district_id           :bigint
 #  lea_id                :string
 #  nces_id               :string
 #
 # Indexes
 #
+#  index_schools_on_district_id     (district_id)
 #  index_schools_on_mail_zipcode    (mail_zipcode)
 #  index_schools_on_name            (name)
 #  index_schools_on_nces_id         (nces_id)
@@ -58,6 +60,7 @@ class School < ApplicationRecord
   has_many :admins, through: :schools_admins, source: :user
   belongs_to :authorizer, class_name: 'User'
   belongs_to :coordinator, class_name: 'User'
+  belongs_to :district
 
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
            :lower_grade_greater_than_upper_grade

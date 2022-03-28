@@ -36,11 +36,13 @@
 #  authorizer_id         :integer
 #  clever_id             :string
 #  coordinator_id        :integer
+#  district_id           :bigint
 #  lea_id                :string
 #  nces_id               :string
 #
 # Indexes
 #
+#  index_schools_on_district_id     (district_id)
 #  index_schools_on_mail_zipcode    (mail_zipcode)
 #  index_schools_on_name            (name)
 #  index_schools_on_nces_id         (nces_id)
@@ -52,6 +54,8 @@
 require 'rails_helper'
 
 describe School, type: :model do
+  it { should belong_to(:district) }
+
   let!(:bk_school) { create :school, name: "Brooklyn Charter School", zipcode: '11206'}
   let!(:queens_school) { create :school, name: "Queens Charter School", zipcode: '11385'}
   let!(:bk_teacher) { create(:teacher, school: bk_school) }

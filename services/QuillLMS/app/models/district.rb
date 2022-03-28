@@ -4,14 +4,23 @@
 #
 # Table name: districts
 #
-#  id         :integer          not null, primary key
-#  name       :string
-#  token      :string
-#  created_at :datetime
-#  updated_at :datetime
-#  clever_id  :string
+#  id             :integer          not null, primary key
+#  city           :string
+#  grade_range    :string
+#  name           :string
+#  phone          :string
+#  state          :string
+#  token          :string
+#  total_schools  :integer
+#  total_students :integer
+#  zipcode        :integer
+#  created_at     :datetime
+#  updated_at     :datetime
+#  clever_id      :string
+#  nces_id        :integer
 #
 class District < ApplicationRecord
 
-  has_and_belongs_to_many :users
+  has_many :schools
+
 end

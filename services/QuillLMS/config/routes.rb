@@ -597,6 +597,17 @@ EmpiricalGrammar::Application.routes.draw do
       end
     end
 
+    resources :districts do
+      collection do
+        post :search
+        get :search, to: 'districts#index'
+      end
+      member do
+        post :add_admin
+        post :remove_admin
+      end
+    end
+
     resources :announcements, only: [:index, :new, :create, :update, :edit]
 
     resources :topics, only: [:index, :update, :create]
