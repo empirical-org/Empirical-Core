@@ -14,6 +14,8 @@ module Evidence
       STATE_INACTIVE = 'inactive'
     ]
     PREDICT_API_TIMEOUT = 5.0
+    GOOGLE_PROJECT_ID = ENV['AUTOML_GOOGLE_PROJECT_ID']
+    GOOGLE_LOCATION = ENV['AUTOML_GOOGLE_LOCATION']
 
     attr_readonly :automl_model_id, :name, :labels
 
@@ -73,7 +75,7 @@ module Evidence
           content: text
         }
       }
-      results = automl_prediction_client.predict(name: automl_model_full_id, payload: automl_payload)
+      results = automl_prediction_client.predict(name: automl_prediction_model_path, payload: automl_payload)
       sorted_results = results.payload.sort_by { |i| i.classification.score }.reverse
       sorted_results[0].display_name
     end
@@ -132,17 +134,25 @@ module Evidence
       end
     end
 
-    private def automl_model_full_id
-      @model_full_id ||= automl_client.model_path(project: ENV['AUTOML_GOOGLE_PROJECT_ID'], location: ENV['AUTOML_GOOGLE_LOCATION'], model: automl_model_id.strip)
+    private def automl_model_path
+      @automl_model_path ||= automl_client.model_path(**model_path_args)
+    end
+
+    private def automl_prediction_model_path
+      @automl_prediction_model_path ||= automl_prediction_client.model_path(**model_path_args)
+    end
+
+    private def model_path_args
+      {project: GOOGLE_PROJECT_ID, location: GOOGLE_LOCATION, model: automl_model_id.strip}
     end
 
     private def automl_labels
-      evaluations = automl_client.list_model_evaluations(parent: automl_model_full_id)
+      evaluations = automl_client.list_model_evaluations(parent: automl_model_path)
       evaluations.map { |e| e.display_name }.reject { |l| l.empty? }
     end
 
     private def automl_name
-      model = automl_client.get_model(name: automl_model_full_id)
+      model = automl_client.get_model(name: automl_model_path)
       model.display_name
     end
 
