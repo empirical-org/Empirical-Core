@@ -3,7 +3,7 @@ import { BUT, BECAUSE, SO } from "../../../../../constants/evidence"
 const FEEDBACK =
   "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul."
 
-const mockPrompts = [
+export const mockPrompts = [
   {
     id: 7,
     conjunction: BECAUSE,

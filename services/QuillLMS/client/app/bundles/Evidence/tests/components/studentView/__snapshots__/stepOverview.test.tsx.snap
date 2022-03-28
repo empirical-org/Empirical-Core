@@ -27,7 +27,7 @@ exports[`StepOverview component when the student is on step one renders 1`] = `
         className="step-overview-step-container"
       >
         <button
-          className="step-overview-step active"
+          className="step-overview-step active focus-on-dark"
           onClick={[Function]}
           type="button"
         >
@@ -177,6 +177,7 @@ exports[`StepOverview component when the student is past step one renders 1`] = 
     <Step
       active={false}
       completed={true}
+      handleClick={[Function]}
       step={
         Object {
           "html": <p>
@@ -205,6 +206,7 @@ exports[`StepOverview component when the student is past step one renders 1`] = 
     <Step
       active={true}
       completed={false}
+      handleClick={[Function]}
       step={
         Object {
           "html": <p>
@@ -222,7 +224,8 @@ exports[`StepOverview component when the student is past step one renders 1`] = 
         className="step-overview-step-container"
       >
         <button
-          className="step-overview-step active"
+          className="step-overview-step active focus-on-dark"
+          onClick={[Function]}
           type="button"
         >
           <div
@@ -252,6 +255,7 @@ exports[`StepOverview component when the student is past step one renders 1`] = 
     <Step
       active={false}
       completed={false}
+      handleClick={[Function]}
       step={
         Object {
           "html": <p>
@@ -289,6 +293,7 @@ exports[`StepOverview component when the student is past step one renders 1`] = 
     <Step
       active={false}
       completed={false}
+      handleClick={[Function]}
       step={
         Object {
           "html": <p>

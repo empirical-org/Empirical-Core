@@ -36,7 +36,7 @@ const Step = ({ active, completed, handleClick, step }: StepProps) => {
   if (active) {
     return (
       <section className="step-overview-step-container">
-        <button className="step-overview-step active" onClick={handleClick} type="button">
+        <button className="step-overview-step active focus-on-dark" onClick={handleClick} type="button">
           <div className="left-side-container">
             <div className={`evidence-step-number-small ${active ? 'active' : ''}`}>{stepNumber}</div>
             {html}
@@ -100,21 +100,25 @@ const StepOverview = ({ activeStep, handleClick, }) => {
       <Step
         active={false}
         completed={activeStep > READ_PASSAGE_STEP_NUMBER}
+        handleClick={handleClick}
         step={steps[READ_PASSAGE_STEP_NUMBER]}
       />
       <Step
         active={activeStep === BECAUSE_PASSAGE_STEP_NUMBER}
         completed={activeStep > BECAUSE_PASSAGE_STEP_NUMBER}
+        handleClick={handleClick}
         step={steps[BECAUSE_PASSAGE_STEP_NUMBER]}
       />
       <Step
         active={activeStep === BUT_PASSAGE_STEP_NUMBER}
         completed={activeStep > BUT_PASSAGE_STEP_NUMBER}
+        handleClick={handleClick}
         step={steps[BUT_PASSAGE_STEP_NUMBER]}
       />
       <Step
         active={activeStep === SO_PASSAGE_STEP_NUMBER}
         completed={activeStep > SO_PASSAGE_STEP_NUMBER}
+        handleClick={handleClick}
         step={steps[SO_PASSAGE_STEP_NUMBER]}
       />
     </div>
