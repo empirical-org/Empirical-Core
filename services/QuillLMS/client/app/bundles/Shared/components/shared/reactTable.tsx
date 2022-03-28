@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useTable, useSortBy, usePagination, } from "react-table";
+import { useTable, useSortBy, usePagination, useFilters, useExpanded, } from "react-table";
 
 function columnClassName(isSorted, isSortedDesc) {
   const defaultClassName = 'rt-th -cursor-pointer'
@@ -10,7 +10,27 @@ function columnClassName(isSorted, isSortedDesc) {
   return `${defaultClassName} -sort-asc`
 }
 
-const ReactTable = ({
+export const expanderColumn = {
+  Header: "",
+  id: "expander",
+  resizable: false,
+  className: "text-center",
+  Cell: ({ row }) => {
+    return (
+      <div
+        {...row.getToggleRowExpandedProps()}
+        title="Click here to see more information"
+        className="rt-td rt-expandable p-0"
+      >
+        <div className={`rt-expander ${row.isExpanded ? "-open" : ""}`} >
+          •
+        </div>
+      </div>
+    );
+  }
+}
+
+export const ReactTable = ({
   columns,
   data,
   className,
@@ -22,6 +42,7 @@ const ReactTable = ({
   showPaginationBottom,
   showPaginationTop,
   manualSortBy,
+  SubComponent,
 }) => {
   const defaultColumn = {
     width: 'min-content',
@@ -42,23 +63,28 @@ const ReactTable = ({
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize, sortBy, }
+    state: { pageIndex, pageSize, sortBy, filters, }
   } = useTable(
     {
-      columns,
       data,
       defaultColumn,
       manualSortBy,
+      SubComponent,
+      columns,
       autoResetSortBy: false,
       initialState: { pageIndex: 0, sortBy: defaultSorted, }
     },
+    useFilters,
     useSortBy,
-    usePagination
+    useExpanded,
+    usePagination,
   );
 
   React.useEffect(() => {
-    onSortedChange(sortBy);
-  }, [onSortedChange, sortBy]);
+    if (manualSortBy && onSortedChange) {
+      onSortedChange(sortBy);
+    }
+  }, [sortBy]);
 
   return (
     <div className={`${className} ReactTable`}>
@@ -84,23 +110,25 @@ const ReactTable = ({
           {rows.map((row, i) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()} className="rt-tr">
-                {row.cells.map(cell => {
-                  return (
-                    <td {...cell.getCellProps({
+              <React.Fragment>
+                <tr {...row.getRowProps()} className="rt-tr">
+                  {row.cells.map(cell => {
+                    return (
+                      <td {...cell.getCellProps({
                         style: {
                           minWidth: cell.column.minWidth,
                           width: cell.column.width,
                           maxWidth: cell.column.maxWidth
                         },
                       })}
-                      className="rt-td"
-                    >
-                    {cell.render('Cell')}
-                    </td>
-                  );
-                })}
-              </tr>
+                      className="rt-td">
+                        {cell.render('Cell')}
+                      </td>
+                    );
+                  })}
+                </tr>
+                {row.isExpanded ? SubComponent({ row }) : null}
+              </React.Fragment>
             );
           })}
         </tbody>
@@ -108,5 +136,3 @@ const ReactTable = ({
     </div>
   );
 };
-
-export { ReactTable, }

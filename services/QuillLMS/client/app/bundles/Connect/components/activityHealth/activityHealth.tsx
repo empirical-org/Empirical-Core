@@ -1,5 +1,4 @@
 import * as React from 'react'
-import ReactTable from 'react-table-6'
 
 import { matchSorter } from 'match-sorter';
 import request from 'request'
@@ -13,7 +12,7 @@ import { NumberFilterInput } from './numberFilterInput'
 
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import { sort, sortByList } from '../../../../modules/sortingMethods.js'
-import { FlagDropdown } from '../../../Shared/index'
+import { FlagDropdown, ReactTable, expanderColumn, } from '../../../Shared/index'
 import { filterNumbers } from '../../../../modules/filteringMethods.js'
 import actions from '../../actions/activityHealth'
 
@@ -65,26 +64,27 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
 
   columnDefinitions() {
     return [
+      expanderColumn,
       {
         Header: 'Name',
         accessor: 'name',
-        filterMethod: (filter, rows) =>
+        filter: (filter, rows) =>
           matchSorter(rows, filter.value, { keys: ["name"]}),
         filterAll: true,
         resizeable: true,
         minWidth: 200,
         sortMethod: sort,
-        Cell: cell => (<a href={cell.original.url} rel="noopener noreferrer" target="_blank">{cell.original.name}</a>)
+        Cell: ({row}) => (<a href={row.original.url} rel="noopener noreferrer" target="_blank">{row.original.name}</a>)
       },
       {
         Header: 'Activity Categories',
         accessor: 'activity_categories',
-        filterMethod: (filter, rows) =>
+        filter: (filter, rows) =>
           matchSorter(rows, filter.value, { keys: ["activity_categories"] }),
         filterAll: true,
         resizeable: true,
         sortMethod: sortByList,
-        Cell: (row) => (
+        Cell: ({row}) => (
           <div>
             {
               row.original['activity_categories'] ?
@@ -98,7 +98,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
       {
         Header: 'Tool',
         accessor: 'tool',
-        filterMethod: (filter, row) => {
+        filter: (filter, row) => {
           if (filter.value === "all") { return true }
           return row[filter.id] === filter.value
         },
@@ -121,12 +121,12 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
       {
         Header: 'Diagnostics',
         accessor: 'diagnostics',
-        filterMethod: (filter, rows) =>
+        filter: (filter, rows) =>
           matchSorter(rows, filter.value, { keys: ["diagnostics"] }),
         filterAll: true,
         resizeable: true,
         sortMethod: sortByList,
-        Cell: (row) => (
+        Cell: ({row}) => (
           <div>
             {
               row.original['diagnostics'] ?
@@ -143,7 +143,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
       {
         Header: "Plays in Last 3 Months",
         accessor: 'recent_plays',
-        filterMethod: filterNumbers,
+        filter: filterNumbers,
         Filter: ({ filter, onChange }) =>
           (
             <NumberFilterInput
@@ -160,12 +160,12 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
       {
         Header: 'Activity Packs',
         accessor: 'activity_packs',
-        filterMethod: (filter, rows) =>
+        filter: (filter, rows) =>
           matchSorter(rows, filter.value, { keys: ["activity_packs.*.name"] }),
         filterAll: true,
         resizeable: true,
         sortMethod: sortByList,
-        Cell: (row) => (
+        Cell: ({row}) => (
           <div>
             {
               row.original['activity_packs'] ?
@@ -182,7 +182,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
       {
         Header: 'Average Difficulty',
         accessor: 'avg_difficulty',
-        filterMethod: filterNumbers,
+        filter: filterNumbers,
         Filter: ({ filter, onChange }) =>
           (
             <NumberFilterInput
@@ -199,7 +199,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
       {
         Header: 'Standard Deviation Difficulty',
         accessor: 'standard_dev_difficulty',
-        filterMethod: filterNumbers,
+        filter: filterNumbers,
         Filter: ({ filter, onChange }) =>
           (
             <NumberFilterInput
@@ -216,7 +216,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
       {
         Header: 'Average Common Unmatched',
         accessor: 'avg_common_unmatched',
-        filterMethod: filterNumbers,
+        filter: filterNumbers,
         Filter: ({ filter, onChange }) =>
           (
             <NumberFilterInput
@@ -332,7 +332,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         showPageSizeOptions={false}
         showPagination={false}
         style={{height: "600px"}}
-        SubComponent={row => {
+        SubComponent={({row}) => {
           return (
             <PromptHealth
               dataResults={row.original.prompt_healths}

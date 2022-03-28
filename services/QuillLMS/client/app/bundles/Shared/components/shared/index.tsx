@@ -47,7 +47,8 @@ export {
 } from './passthrough'
 
 export {
-  ReactTable
+  ReactTable,
+  expanderColumn,
 } from './reactTable'
 
 export {

@@ -27,6 +27,7 @@ export {
   Input,
   Passthrough,
   ReactTable,
+  expanderColumn,
   ResumeOrBeginButton,
   SmartSpinner,
   Snackbar,
