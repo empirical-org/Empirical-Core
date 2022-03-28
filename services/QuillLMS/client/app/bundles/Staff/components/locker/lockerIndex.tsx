@@ -33,7 +33,7 @@ export const LockerIndex = ({ personalLocker }) => {
   return(
     <div className="locker-index-container locker-content">
       <h3 className="subheader">Personal Locker</h3>
-        <Locker lockerContents={getContentForPersonalLocker()} />
+      <Locker lockerContents={getContentForPersonalLocker()} />
       <h3 className="subheader">Team lockers</h3>
       <div className="team-lockers-container">
         {renderLockers()}

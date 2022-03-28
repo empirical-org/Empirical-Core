@@ -16,9 +16,9 @@ export const LockerApp = (props) => {
 
   return(
     <Switch>
-      <Route render={() => <PersonalLocker {...props} personalLocker={personalLockerData} />} path='/:personal-locker' />
+      <Route render={() => <PersonalLocker personalLocker={personalLockerData} {...props} />} path='/:personal-locker' />
       <Route render={() => <TeamLocker {...props} />} path='/:team' />
-      <Route render={() => <LockerIndex {...props} personalLocker={personalLockerData} />} path='/' />
+      <Route render={() => <LockerIndex personalLocker={personalLockerData} {...props} />} path='/' />
     </Switch>
   );
 }
