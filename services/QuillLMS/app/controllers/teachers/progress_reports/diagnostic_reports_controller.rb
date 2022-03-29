@@ -82,8 +82,18 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def classrooms_with_students
-    classrooms = classrooms_with_students_for_report(params[:unit_id], params[:activity_id])
-    render json: classrooms.to_json
+    render json: fetch_classrooms_with_students_cache
+  end
+
+  private def fetch_classrooms_with_students_cache
+    cache_groups = {
+      unit_id: params[:unit_id],
+      activity_id: params[:activity_id]
+    }
+
+    current_user.all_classrooms_cache(key: 'teachers.progress_reports.diagnostic_reports.classrooms_with_students', groups: cache_groups) do
+      classrooms_with_students_for_report(params[:unit_id], params[:activity_id]).to_json
+    end
   end
 
   def recommendations_for_classroom

@@ -1,6 +1,6 @@
 import * as React from 'react'
-import ReactTable from 'react-table'
-import 'react-table/react-table.css';
+import ReactTable from 'react-table-6'
+;
 import stripHtml from "string-strip-html";
 import _ from 'underscore'
 

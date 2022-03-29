@@ -16,6 +16,7 @@ module Evidence
     ]
     TYPES = [
       TYPE_AUTOML       = 'autoML',
+      TYPE_ERROR	= 'error',
       TYPE_GRAMMAR      = 'grammar',
       TYPE_OPINION      = 'opinion',
       TYPE_PLAGIARISM   = 'plagiarism',
@@ -41,7 +42,11 @@ module Evidence
     has_one :label, inverse_of: :rule, dependent: :destroy
     has_many :prompts_rules, inverse_of: :rule
     has_many :prompts, through: :prompts_rules, inverse_of: :rules
+
     has_many :regex_rules, inverse_of: :rule, dependent: :destroy
+    has_many :required_sequences, -> { required_sequences }, class_name: 'Evidence::RegexRule'
+    has_many :incorrect_sequences, -> { incorrect_sequences }, class_name: 'Evidence::RegexRule'
+
     has_one :hint, inverse_of: :rule, dependent: :destroy
 
     accepts_nested_attributes_for :plagiarism_texts, allow_destroy: true
@@ -77,7 +82,7 @@ module Evidence
     end
 
     def regex_is_passing?(entry)
-      return true if regex_rules.empty?
+      return true if incorrect_sequences.empty? && required_sequences.empty?
 
       grade_sequences(entry)
     end
@@ -165,27 +170,17 @@ module Evidence
     end
 
     private def at_least_one_conditional_required_sequence_passing?(entry)
-      return false if required_sequences.where(conditional: true).empty?
-
-      required_sequences.where(conditional: true).any? do |regex_rule|
+      required_sequences.select(&:conditional).any? do |regex_rule|
         !regex_rule.entry_failing?(entry)
       end
     end
 
     private def one_non_conditional_required_sequences_passing?(entry)
-      return true if required_sequences.where(conditional: false).empty?
+      return true if required_sequences.select(&:unconditional).empty?
 
-      required_sequences.where(conditional: false).any? do |regex_rule|
+      required_sequences.select(&:unconditional).any? do |regex_rule|
         !regex_rule.entry_failing?(entry)
       end
-    end
-
-    private def incorrect_sequences
-      regex_rules.where(sequence_type: RegexRule::TYPE_INCORRECT)
-    end
-
-    private def required_sequences
-      regex_rules.where(sequence_type: RegexRule::TYPE_REQUIRED)
     end
 
     private def assign_uid_if_missing

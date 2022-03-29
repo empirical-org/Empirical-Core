@@ -37,6 +37,7 @@ class FeedbackHistory < ApplicationRecord
   MIN_FEEDBACK_LENGTH = 10
   MAX_FEEDBACK_LENGTH = 500
   FEEDBACK_TYPES = [
+    ERROR = "error",
     GRAMMAR = "grammar",
     PLAGIARISM = "plagiarism",
     RULES_BASED_ONE = "rules-based-1",

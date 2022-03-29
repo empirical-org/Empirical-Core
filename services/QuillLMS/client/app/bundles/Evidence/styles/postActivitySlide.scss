@@ -186,7 +186,7 @@
           margin: 0;
           padding: 0px 16px 0px 16px;
           .response-box, .exemplar-box {
-            width: 100%;
+            width: 60vw;
           }
           .exemplar-box:last-of-type {
             margin-bottom: 40px
@@ -223,6 +223,15 @@
         margin: 0px 38px 24px 38px;
         #grade-badge {
           display: none;
+        }
+      }
+    }
+    .responses-exemplars-container {
+      .response-exemplars-section {
+        .response-section, .exemplars-section {
+          .response-box, .exemplar-box {
+            width: 75vw;
+          }
         }
       }
     }

@@ -241,8 +241,6 @@ CREATE FUNCTION public.timespent_teacher(teacher integer) RETURNS bigint
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
-
 --
 -- Name: active_activity_sessions; Type: TABLE; Schema: public; Owner: -
 --
@@ -1629,9 +1627,10 @@ CREATE TABLE public.comprehension_rules (
     rule_type character varying NOT NULL,
     optimal boolean NOT NULL,
     suborder integer,
-    concept_uid character varying,
+    concept_uid character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    sequence_type character varying,
     state character varying NOT NULL
 );
 
@@ -2428,23 +2427,24 @@ ALTER SEQUENCE public.ip_locations_id_seq OWNED BY public.ip_locations.id;
 
 
 --
--- Name: json_perf_tests; Type: TABLE; Schema: public; Owner: -
+-- Name: lockers; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.json_perf_tests (
+CREATE TABLE public.lockers (
     id bigint NOT NULL,
-    jsoncol json,
-    jsonbcol jsonb,
+    user_id integer,
+    label character varying,
+    preferences jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
 
 
 --
--- Name: json_perf_tests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: lockers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.json_perf_tests_id_seq
+CREATE SEQUENCE public.lockers_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2453,10 +2453,10 @@ CREATE SEQUENCE public.json_perf_tests_id_seq
 
 
 --
--- Name: json_perf_tests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: lockers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.json_perf_tests_id_seq OWNED BY public.json_perf_tests.id;
+ALTER SEQUENCE public.lockers_id_seq OWNED BY public.lockers.id;
 
 
 --
@@ -2698,6 +2698,43 @@ CREATE SEQUENCE public.partner_contents_id_seq
 --
 
 ALTER SEQUENCE public.partner_contents_id_seq OWNED BY public.partner_contents.id;
+
+
+--
+-- Name: plans; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.plans (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    display_name character varying NOT NULL,
+    price integer DEFAULT 0,
+    audience character varying NOT NULL,
+    "interval" character varying,
+    interval_count integer,
+    stripe_price_id character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: plans_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.plans_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: plans_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.plans_id_seq OWNED BY public.plans.id;
 
 
 --
@@ -3515,7 +3552,8 @@ CREATE TABLE public.student_problem_reports (
     feedback_history_id bigint NOT NULL,
     report character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    optimal boolean DEFAULT false NOT NULL
 );
 
 
@@ -4536,10 +4574,10 @@ ALTER TABLE ONLY public.ip_locations ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- Name: json_perf_tests id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: lockers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.json_perf_tests ALTER COLUMN id SET DEFAULT nextval('public.json_perf_tests_id_seq'::regclass);
+ALTER TABLE ONLY public.lockers ALTER COLUMN id SET DEFAULT nextval('public.lockers_id_seq'::regclass);
 
 
 --
@@ -4589,6 +4627,13 @@ ALTER TABLE ONLY public.page_areas ALTER COLUMN id SET DEFAULT nextval('public.p
 --
 
 ALTER TABLE ONLY public.partner_contents ALTER COLUMN id SET DEFAULT nextval('public.partner_contents_id_seq'::regclass);
+
+
+--
+-- Name: plans id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.plans ALTER COLUMN id SET DEFAULT nextval('public.plans_id_seq'::regclass);
 
 
 --
@@ -5360,11 +5405,11 @@ ALTER TABLE ONLY public.ip_locations
 
 
 --
--- Name: json_perf_tests json_perf_tests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: lockers lockers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.json_perf_tests
-    ADD CONSTRAINT json_perf_tests_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.lockers
+    ADD CONSTRAINT lockers_pkey PRIMARY KEY (id);
 
 
 --
@@ -5437,6 +5482,14 @@ ALTER TABLE ONLY public.page_areas
 
 ALTER TABLE ONLY public.partner_contents
     ADD CONSTRAINT partner_contents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: plans plans_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.plans
+    ADD CONSTRAINT plans_pkey PRIMARY KEY (id);
 
 
 --
@@ -6450,6 +6503,13 @@ CREATE INDEX index_partner_contents_on_content_type_and_content_id ON public.par
 --
 
 CREATE INDEX index_partner_contents_on_partner ON public.partner_contents USING btree (partner);
+
+
+--
+-- Name: index_plans_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_plans_on_name ON public.plans USING btree (name);
 
 
 --
@@ -7971,6 +8031,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210219164011'),
 ('20210219185502'),
 ('20210222201347'),
+('20210224162204'),
 ('20210224165328'),
 ('20210224165329'),
 ('20210224165330'),
@@ -8019,6 +8080,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220128175405'),
 ('20220201132114'),
 ('20220201161514'),
-('20220211171043');
+('20220315131616'),
+('20220317153356'),
+('20220321215816');
 
 

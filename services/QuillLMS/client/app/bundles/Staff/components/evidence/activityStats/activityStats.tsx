@@ -1,7 +1,8 @@
 import * as React from "react";
 import { RouteComponentProps } from 'react-router-dom'
 import { useQuery } from 'react-query';
-import ReactTable from 'react-table';
+import ReactTable from 'react-table-6'
+;
 import * as _ from 'lodash'
 
 import FilterWidget from "../shared/filterWidget";

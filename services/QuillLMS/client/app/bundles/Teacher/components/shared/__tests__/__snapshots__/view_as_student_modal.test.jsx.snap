@@ -51,6 +51,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
     ]
   }
   close={[Function]}
+  defaultClassroomId={null}
   handleViewClick={[Function]}
 >
   <div

@@ -18,22 +18,24 @@
 module UserCacheable
   extend ActiveSupport::Concern
 
-  def all_classrooms_cache(key:, groups: {}, &block)
-    model_cache(last_updated_classroom, key: key, groups: groups, &block)
+  DEFAULT_EXPIRATION = 24.hours
+
+  def all_classrooms_cache(key:, groups: {}, expires_in: DEFAULT_EXPIRATION, &block)
+    model_cache(last_updated_classroom, key: key, groups: groups, expires_in: expires_in, &block)
   end
 
-  def classroom_cache(classroom, key:, groups: {}, &block)
-    model_cache(classroom, key: key, groups: groups, &block)
+  def classroom_cache(classroom, key:, groups: {}, expires_in: DEFAULT_EXPIRATION, &block)
+    model_cache(classroom, key: key, groups: groups, expires_in: expires_in, &block)
   end
 
-  def classroom_unit_cache(classroom_unit, key:, groups: {}, &block)
-    model_cache(classroom_unit, key: key, groups: groups, &block)
+  def classroom_unit_cache(classroom_unit, key:, groups: {}, expires_in: DEFAULT_EXPIRATION, &block)
+    model_cache(classroom_unit, key: key, groups: groups, expires_in: expires_in, &block)
   end
 
-  def classroom_unit_by_ids_cache(classroom_id:, unit_id:, activity_id:, key:, groups: {}, &block)
+  def classroom_unit_by_ids_cache(classroom_id:, unit_id:, activity_id:, key:, groups: {}, expires_in: DEFAULT_EXPIRATION, &block)
     classroom_unit = classroom_unit_for_ids(classroom_id: classroom_id, unit_id: unit_id, activity_id: activity_id)
 
-    model_cache(classroom_unit, key: key, groups: groups, &block)
+    model_cache(classroom_unit, key: key, groups: groups, expires_in: expires_in, &block)
   end
 
   # NOTE: object for caching defaults to the 'user'
@@ -44,10 +46,10 @@ module UserCacheable
     [key, *group_array, object || self]
   end
 
-  private def model_cache(object, key:, groups:, &block)
+  private def model_cache(object, key:, groups:, expires_in: DEFAULT_EXPIRATION, &block)
     raise LocalJumpError unless block_given?
 
-    Rails.cache.fetch(model_cache_key(object, key: key, groups: groups), &block)
+    Rails.cache.fetch(model_cache_key(object, key: key, groups: groups), expires_in: expires_in, &block)
   end
 
   private def last_updated_classroom

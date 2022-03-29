@@ -6,6 +6,7 @@ import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.js
 import { Classroom, Activity, Diagnostic, } from './interfaces'
 import { goToAssign, baseDiagnosticImageSrc, } from './shared'
 
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_report_constants'
 import { DropdownInput, Tooltip, } from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request/index';
 
@@ -19,7 +20,7 @@ const AVERAGE_FONT_WIDTH = 5
 const ACTIVITY_PACK_TEXT_MAX_WIDTH = 264
 
 const ALL = 'ALL'
-const ALL_OPTION = { label: 'All classes', value: ALL }
+const ALL_OPTION = { label: 'All classrooms', value: ALL }
 
 const STARTER_V1_ID = 849
 const INTERMEDIATE_V1_ID = 850
@@ -147,9 +148,11 @@ const Classroom = ({ classroom, }) => {
 }
 
 const DiagnosticActivityPacks = ({ classrooms, }) => {
-  const [selectedClassroomId, setSelectedClassroomId] = React.useState(ALL)
+  const selectedClassroom = classrooms.find(c => Number(c.id) === Number(window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)))
+  const [selectedClassroomId, setSelectedClassroomId] = React.useState(selectedClassroom && selectedClassroom.id || ALL)
 
   function onClassesDropdownChange(e) {
+    window.localStorage.setItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, e.value)
     setSelectedClassroomId(e.value)
   }
 

@@ -113,7 +113,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def diagnostic_units
-    render json: diagnostics_organized_by_classroom.to_json
+    render json: fetch_diagnostic_units_cache
   end
 
   # Get all Units containing lessons, and only retrieve the classroom activities for lessons.
@@ -366,6 +366,12 @@ class Teachers::UnitsController < ApplicationController
     end
   end
 
+  private def fetch_diagnostic_units_cache
+    current_user.all_classrooms_cache(key: 'teachers.classrooms.diagnostic_units') do
+      diagnostics_organized_by_classroom
+    end
+  end
+
   # rubocop:disable Metrics/CyclomaticComplexity
   private def diagnostics_organized_by_classroom
     classrooms = []
@@ -403,7 +409,7 @@ class Teachers::UnitsController < ApplicationController
       }
       classrooms.push(classroom)
     end
-    classrooms
+    classrooms.to_json
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 

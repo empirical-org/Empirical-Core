@@ -2761,6 +2761,7 @@ exports[`StudentResultsTable component should render when there is student data 
           }
         >
           <tr
+            id={7}
             key="Angie Thomas"
           >
             <th
