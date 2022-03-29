@@ -5,6 +5,8 @@ import { useQuery } from 'react-query';
 import LockerIndex from './lockerIndex';
 import PersonalLocker from "./personalLocker";
 import TeamLocker from './teamLocker';
+import OrganizeLockerForm from "./organizeLockerForm";
+
 import { fetchLocker } from "../../utils/evidence/lockerAPIs";
 
 export const LockerApp = (props) => {
@@ -16,9 +18,10 @@ export const LockerApp = (props) => {
 
   return(
     <Switch>
-      <Route render={() => <PersonalLocker personalLocker={personalLockerData} {...props} />} path='/:personal-locker' />
+      <Route render={() => <OrganizeLockerForm personalLocker={personalLockerData && personalLockerData.locker} {...props} />} path='/:personal-locker/organize' />
+      <Route render={() => <PersonalLocker personalLocker={personalLockerData && personalLockerData.locker} {...props} />} path='/:personal-locker' />
       <Route render={() => <TeamLocker {...props} />} path='/:team' />
-      <Route render={() => <LockerIndex personalLocker={personalLockerData} {...props} />} path='/' />
+      <Route render={() => <LockerIndex personalLocker={personalLockerData && personalLockerData.locker} {...props} />} path='/' />
     </Switch>
   );
 }

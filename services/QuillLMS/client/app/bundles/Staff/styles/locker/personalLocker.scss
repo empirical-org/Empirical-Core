@@ -1,0 +1,40 @@
+.personal-locker-container {
+  margin-top: 16px;
+
+  .locker-section-container {
+    .lockers-container {
+      display: flex;
+    }
+  }
+  .buttons-container {
+    display: flex;
+    .organize-button {
+      display: flex;
+      margin-left: 16px;
+      width: 152px;
+      p {
+        margin: 0
+      }
+      p:first-of-type {
+        margin-right: 8px;
+      }
+    }
+  }
+  .modal {
+    display: flex;
+    .modal-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+      .modal-content {
+        overflow: auto;
+        .rule-form {
+          max-height: 100vh;
+        }
+      }
+    }
+  }
+}

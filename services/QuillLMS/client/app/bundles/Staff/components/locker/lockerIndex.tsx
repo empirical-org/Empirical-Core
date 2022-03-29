@@ -18,8 +18,7 @@ export const LockerIndex = ({ personalLocker }) => {
     if(!personalLocker || (personalLocker && personalLocker.no_locker)) {
       return lockerItems['personal locker'];
     } else {
-      const { locker } = personalLocker;
-      const { label } = locker;
+      const { label } = personalLocker;
 
       return {
         label,
