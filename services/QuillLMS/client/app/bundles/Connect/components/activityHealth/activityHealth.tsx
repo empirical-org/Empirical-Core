@@ -11,7 +11,7 @@ import PromptHealth from './promptHealth'
 import { NumberFilterInput } from './numberFilterInput'
 
 import LoadingSpinner from '../shared/loading_indicator.jsx'
-import { sort, sortByList } from '../../../../modules/sortingMethods.js'
+import { tableSort, sortTableByList } from '../../../../modules/sortingMethods.js'
 import { FlagDropdown, ReactTable, expanderColumn, TextFilter, } from '../../../Shared/index'
 import { filterNumbers } from '../../../../modules/filteringMethods.js'
 import actions from '../../actions/activityHealth'
@@ -75,7 +75,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         filterAll: true,
         resizeable: true,
         minWidth: 200,
-        sortType: sort,
+        sortType: tableSort,
         Cell: ({row}) => (<a href={row.original.url} rel="noopener noreferrer" target="_blank">{row.original.name}</a>)
       },
       {
@@ -87,7 +87,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         filterAll: true,
         Filter: TextFilter,
         resizeable: true,
-        sortType: sortByList,
+        sortType: sortTableByList,
         Cell: ({row}) => (
           <div>
             {
@@ -120,7 +120,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
           </select>
         ),
         resizeable: true,
-        sortType: sort,
+        sortType: tableSort,
         minWidth: 90,
         Cell: props => this.getToolBadge(props.value)
       },
@@ -133,7 +133,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         filterAll: true,
         Filter: TextFilter,
         resizeable: true,
-        sortType: sortByList,
+        sortType: sortTableByList,
         Cell: ({row}) => (
           <div>
             {
@@ -161,7 +161,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
             />
           ),
         resizeable: true,
-        sortType: sort,
+        sortType: tableSort,
         Cell: props => addCommasToThousands(props.value),
         maxWidth: 90
       },
@@ -173,7 +173,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         filterAll: true,
         Filter: TextFilter,
         resizeable: true,
-        sortType: sortByList,
+        sortType: sortTableByList,
         Cell: ({row}) => (
           <div>
             {
@@ -201,7 +201,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
             />
           ),
         resizeable: true,
-        sortType: sort,
+        sortType: tableSort,
         Cell: props => props.value,
         maxWidth: 150
       },
@@ -218,7 +218,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
             />
           ),
         resizeable: true,
-        sortType: sort,
+        sortType: tableSort,
         Cell: props => props.value,
         maxWidth: 150
       },
@@ -235,7 +235,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
             />
           ),
         resizeable: true,
-        sortType: sort,
+        sortType: tableSort,
         Cell: props => props.value,
         maxWidth: 150
       }
@@ -331,12 +331,13 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         columns={this.columnDefinitions()}
         data={dataToUse}
         defaultSorted={[{id: 'name', desc: false}]}
+        filterable
         showPageSizeOptions={false}
         showPagination={false}
-        SubComponent={({row}) => {
+        SubComponent={(row) => {
           return (
             <PromptHealth
-              dataResults={row.original.prompt_healths}
+              dataResults={row.original && row.original.prompt_healths || []}
             />
           );
         }}

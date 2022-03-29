@@ -29,8 +29,8 @@ export const expanderColumn = {
     return (
       <div
         {...row.getToggleRowExpandedProps()}
-        title="Click here to see more information"
         className="rt-td rt-expandable p-0"
+        title="Click here to see more information"
       >
         <div className={`rt-expander ${row.isExpanded ? "-open" : ""}`} >
           •
@@ -44,6 +44,7 @@ export const ReactTable = ({
   columns,
   data,
   className,
+  filterable,
   showPagination,
   defaultSorted,
   minRows,
@@ -82,7 +83,7 @@ export const ReactTable = ({
       SubComponent,
       columns,
       autoResetSortBy: false,
-      initialState: { pageIndex: 0, sortBy: defaultSorted, }
+      initialState: { pageIndex: 0, sortBy: defaultSorted || [], }
     },
     useFilters,
     useSortBy,
@@ -91,7 +92,6 @@ export const ReactTable = ({
   );
 
   React.useEffect(() => {
-    console.log('wtf')
     if (manualSortBy && onSortedChange) {
       onSortedChange(sortBy);
     }
@@ -111,7 +111,7 @@ export const ReactTable = ({
                   className={columnClassName(column.isSorted, column.isSortedDesc)}
                 >
                   <div {...column.getSortByToggleProps()}>{column.render("Header")}</div>
-                  <div>{column.canFilter ? column.render("Filter") : null}</div>
+                  <div>{filterable && column.canFilter ? column.render("Filter") : null}</div>
                 </th>
               ))}
             </tr>
@@ -126,19 +126,20 @@ export const ReactTable = ({
                   {row.cells.map(cell => {
                     return (
                       <td {...cell.getCellProps({
-                        style: {
-                          minWidth: cell.column.minWidth,
-                          width: cell.column.width,
-                          maxWidth: cell.column.maxWidth
-                        },
-                      })}
-                      className="rt-td">
+                          style: {
+                            minWidth: cell.column.minWidth,
+                            width: cell.column.width,
+                            maxWidth: cell.column.maxWidth
+                          },
+                        })}
+                        className="rt-td"
+                      >
                         {cell.render('Cell')}
                       </td>
                     );
                   })}
                 </tr>
-                {row.isExpanded ? SubComponent({ row }) : null}
+                {row.isExpanded && SubComponent ? SubComponent(row) : null}
               </React.Fragment>
             );
           })}
