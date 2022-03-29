@@ -5,6 +5,7 @@ module StripeIntegration
     class SubscriptionCreator < ApplicationService
       class Error < StandardError; end
       class DuplicateSubscriptionError < Error; end
+      class NilStripeCustomerIdError < Error; end
       class NilStripeSubscriptionIdError < Error; end
       class PlanNotFoundError < Error; end
       class PurchaserNotFoundError < Error; end
@@ -12,9 +13,9 @@ module StripeIntegration
       attr_reader :purchaser_email, :stripe_customer_id, :stripe_subscription_id
 
       def initialize(data)
-        @purchaser_email = data[:customer_email]
-        @stripe_customer_id = data[:customer]
-        @stripe_subscription_id = data[:subscription]
+        @purchaser_email = data['customer_email']
+        @stripe_customer_id = data['customer']
+        @stripe_subscription_id = data['subscription']
       end
 
       def run
@@ -22,7 +23,7 @@ module StripeIntegration
         raise DuplicateSubscriptionError if Subscription.exists?(stripe_subscription_id: stripe_subscription_id)
 
         subscription
-        update_stripe_customer_id
+        save_stripe_customer_id
         run_plan_custom_tasks
       end
 
@@ -65,15 +66,17 @@ module StripeIntegration
         @subscription ||= Subscription.create!(
           expiration: expiration,
           plan: plan,
-          purchaser: purchaser,
+          purchaser_email: purchaser_email,
           recurring: true,
           start_date: start_date,
           stripe_subscription_id: stripe_subscription_id
         )
       end
 
-      private def update_stripe_customer_id
-        purchaser.update!(stripe_customer_id: stripe_customer_id) unless stripe_customer_id.nil?
+      private def save_stripe_customer_id
+        raise NilStripeCustomerIdError if stripe_customer_id.nil?
+
+        purchaser.update!(stripe_customer_id: stripe_customer_id)
       end
     end
   end

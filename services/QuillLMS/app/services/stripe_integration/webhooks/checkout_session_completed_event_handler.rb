@@ -10,7 +10,7 @@ module StripeIntegration
       end
 
       def run
-        SubscriptionCreator.run(stripe_webhook_event.parsed_data)
+        SubscriptionCreator.run(stripe_webhook_event.data)
         stripe_webhook_event.processed!
       rescue => e
         stripe_webhook_event.log_error(e)

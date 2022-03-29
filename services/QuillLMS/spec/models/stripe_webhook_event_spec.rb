@@ -34,17 +34,16 @@ RSpec.describe StripeWebhookEvent, type: :model do
     it { expect { subject.log_error(error) }.to change(subject, :processing_errors).to(error.message) }
 
     it do
-      expect(NewRelic::Agent).to receive(:notice_error).with(error, external_id: subject.external_id)
+      expect(NewRelic::Agent).to receive(:notice_error).with(error, stripe_webhook_event: subject.id)
       subject.log_error(error)
     end
   end
 
-  context '#parsed_data' do
+  context '#data' do
     include_context "Stripe Checkout Session Completed Data"
 
     subject { create(:checkout_session_completed_webhook_event, data: stripe_checkout_session_data) }
 
-    it { expect(subject.parsed_data[:customer_email]).to eq customer_email }
+    it { expect(subject.data['customer_email']).to eq customer_email }
   end
-
 end

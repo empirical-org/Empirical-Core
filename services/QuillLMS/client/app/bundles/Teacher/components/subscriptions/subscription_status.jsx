@@ -39,7 +39,7 @@ function teacherPremiumCopy(subscriptionType) {
   )
 };
 
-const SubscriptionStatus = ({ subscriptionType, showPurchaseModal, subscriptionStatus, userIsContact, }) => {
+const SubscriptionStatus = ({ subscriptionType, userIsContact, }) => {
   const content = {};
   let image
   let expiration

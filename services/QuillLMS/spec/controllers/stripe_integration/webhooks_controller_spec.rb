@@ -3,15 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe StripeIntegration::WebhooksController, type: :controller do
-  include_context "Stripe Checkout Session Completed Data"
+  include_context "Stripe Checkout Session Completed Event"
 
   let(:stub_construct_event) { allow(Stripe::Webhook).to receive(:construct_event) }
-  let(:stripe_event_id) { 'evt_abc123' }
   let(:handle_event_worker) { StripeIntegration::Webhooks::HandleEventWorker }
 
   describe '#create' do
     context 'valid event payload' do
-      let(:event) { double(:webhook_event, id: stripe_event_id, data: {}, type: 'event.type') }
+      let(:stripe_event_id) { "evt_#{SecureRandom.hex}" }
+      let(:event) { stripe_checkout_session_event }
 
       before { stub_construct_event.and_return(event) }
 
@@ -23,7 +23,8 @@ RSpec.describe StripeIntegration::WebhooksController, type: :controller do
     end
 
     context 'stripe_webhook_event with external_id already exists' do
-      let(:event) { double(:webhook_event, id: stripe_event_id, data: {}, type: 'event.type') }
+      let(:stripe_event_id) { "evt_#{SecureRandom.hex}" }
+      let(:event) { stripe_checkout_session_event }
       let!(:stripe_webhook_event) { create(:stripe_webhook_event, external_id: stripe_event_id) }
 
       before { stub_construct_event.and_return(event) }
@@ -62,7 +63,8 @@ RSpec.describe StripeIntegration::WebhooksController, type: :controller do
     end
 
     context 'other types of errors' do
-      let(:event) { double(:webhook_event, id: stripe_event_id, data: '{}', type: nil) }
+      let(:stripe_event_id) { "evt_#{SecureRandom.hex}" }
+      let(:event) { double(:webhook_event, id: stripe_event_id, data: {}, type: nil) }
 
       before { stub_construct_event.and_return(event) }
 

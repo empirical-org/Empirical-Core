@@ -50,9 +50,7 @@ export default class PremiumPricingMinisRow extends React.Component {
             />
             <TeacherPricingMini
               {...this.props}
-              hidePurchaseModal={this.hidePurchaseModal}
               premiumFeatureData={premiumFeatureData}
-              userIsSignedIn={userIsSignedIn}
             />
             <SchoolPricingMini
               premiumFeatureData={premiumFeatureData}

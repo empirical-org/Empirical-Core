@@ -2,7 +2,7 @@ import React from 'react';
 import request from 'request';
 import _ from 'lodash';
 
-import PurchaseModal from './PurchaseModal';
+// import PurchaseModal from './PurchaseModal';
 
 import SubscriptionStatus from '../components/subscriptions/subscription_status';
 import AvailableCredits from '../components/subscriptions/available_credits';
@@ -110,7 +110,7 @@ export default class Subscriptions extends React.Component {
   }
 
   updateCard = () => {
-    this.showPurchaseModal();
+    // this.showPurchaseModal();
   };
 
   updateSubscription = (params, subscriptionId) => {
@@ -139,13 +139,14 @@ export default class Subscriptions extends React.Component {
   }
 
   render() {
-    const { lastFour, premiumCredits, } = this.props
-    const { subscriptionStatus, authorityLevel, availableCredits, earnedCredits, showPremiumConfirmationModal, showPurchaseModal, subscriptions, } = this.state
+    const { lastFour, premiumCredits, paymentConfirmationSubscription } = this.props
+    const { subscriptionStatus, authorityLevel, availableCredits, earnedCredits, subscriptions, } = this.state
 
     const userHasValidSub = subscriptionStatus && !subscriptionStatus.expired;
     const subId = `${_.get(subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`;
     // don't show any last four unless they have an authority level with their purchase, or they don't have a sub
     const lastFourToPass = (authorityLevel || !subscriptionStatus) ? lastFour : null;
+
     return (
       <div>
         <SubscriptionStatus
@@ -170,24 +171,17 @@ export default class Subscriptions extends React.Component {
           premiumCredits={premiumCredits}
           subscriptions={subscriptions}
         />
-        <AvailableCredits availableCredits={availableCredits} redeemPremiumCredits={this.redeemPremiumCredits} userHasValidSub={userHasValidSub} />
+        <AvailableCredits
+          availableCredits={availableCredits}
+          redeemPremiumCredits={this.redeemPremiumCredits}
+          userHasValidSub={userHasValidSub}
+        />
         <PremiumCreditsTable
           earnedCredits={earnedCredits}
           premiumCredits={premiumCredits}
         />
         <RefundPolicy />
-        <PremiumConfirmationModal
-          hideModal={this.hidePremiumConfirmationModal}
-          show={showPremiumConfirmationModal}
-          subscription={subscriptionStatus}
-        />
-        <PurchaseModal
-          hideModal={this.hidePurchaseModal}
-          lastFour={lastFourToPass}
-          show={showPurchaseModal}
-          subscriptionType={this.subscriptionType()}
-          updateSubscriptionStatus={this.updateSubscriptionStatus}
-        />
+        <PremiumConfirmationModal subscription={paymentConfirmationSubscription} />
       </div>
     );
   }

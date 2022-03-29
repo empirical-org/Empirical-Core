@@ -122,57 +122,6 @@ describe Subscription, type: :model do
     end
   end
 
-  describe ".give_teacher_premium_if_charge_succeeds" do
-    let!(:user) { create(:user) }
-    let!(:subscription) { build(:subscription, expiration: Date.new(2018,4,6), purchaser: user) }
-
-    subject { Subscription.give_teacher_premium_if_charge_succeeds(user) }
-
-    before { allow_any_instance_of(Subscription).to receive(:charge_user_for_teacher_premium).and_return(status: 'succeeded') }
-
-    it "calls #Subscription.new_teacher_premium_sub" do
-      expect(Subscription).to receive(:new_teacher_premium_sub).with(user).and_return(subscription)
-      subject
-    end
-
-    it "calls #Subscription.save_if_charge_succeeds" do
-      expect_any_instance_of(Subscription).to receive(:save_if_charge_succeeds)
-      subject
-    end
-
-    it "creates a new subscription when the charge succeeds" do
-      expect { subject }.to change(Subscription, :count).by(1)
-    end
-
-    it "creates a new user-subscription join when the charge succeeds" do
-      expect { subject }.to change(UserSubscription, :count).by(1)
-    end
-
-    it "creates a new subscription with the correct payment amount" do
-      expect(subject.payment_amount).to eq(Subscription::TEACHER_PRICE)
-    end
-
-    it "creates a new subscription with the correct payment method" do
-      expect(subject.payment_method).to eq 'Credit Card'
-    end
-
-    it "creates a new subscription with the correct contact" do
-      expect(subject.purchaser).to eq user
-    end
-
-    context 'when the charge does not succeed' do
-      before { allow_any_instance_of(Subscription).to receive(:charge_user_for_teacher_premium).and_return(status: 'failed') }
-
-      it "does not create a new subscription when the charge succeeds" do
-        expect { subject }.not_to change(Subscription, :count)
-      end
-
-      it "does not create a new user-subscription join when the charge succeeds" do
-        expect { subject }.not_to change(UserSubscription, :count)
-      end
-    end
-  end
-
   describe ".give_school_premium_if_charge_succeeds" do
     let!(:school) { create(:school) }
     let!(:user) { create(:user) }

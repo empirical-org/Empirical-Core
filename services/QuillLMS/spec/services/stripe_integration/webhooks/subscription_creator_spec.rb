@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
-  include_context 'Stripe Checkout Session Completed Data'
+  include_context 'Stripe Checkout Session'
 
   subject { described_class.run(data)}
 
@@ -24,7 +24,7 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
   end
 
   context 'nil stripe_subscription_id' do
-    let(:data) { { subscription: nil } }
+    let(:data) { { 'subscription' => nil } }
 
     it { expect { subject }.to raise_error described_class::NilStripeSubscriptionIdError }
   end
@@ -41,7 +41,7 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
     it { expect { subject }.to raise_error described_class::PlanNotFoundError }
   end
 
-  context 'customer does not exist' do
+  context 'purchaser does not exist' do
     before { allow(User).to receive(:find_by!).and_raise(ActiveRecord::RecordNotFound) }
 
     it { expect { subject }.to raise_error described_class::PurchaserNotFoundError }

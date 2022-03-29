@@ -9,11 +9,8 @@ module StripeIntegration
       head 200
     rescue ActiveRecord::RecordNotUnique
       head 200
-    rescue JSON::ParserError, Stripe::SignatureVerificationError => e
-      NewRelic::Agent.notice_error(e)
-      head 400
     rescue => e
-      NewRelic::Agent.notice_error(e, event: event&.id)
+      NewRelic::Agent.notice_error(e)
       head 400
     end
 
@@ -22,7 +19,7 @@ module StripeIntegration
     end
 
     private def event
-      Stripe::Webhook.construct_event(payload, signature_header, endpoint_secret)
+      @event ||= Stripe::Webhook.construct_event(payload, signature_header, endpoint_secret)
     end
 
     private def payload
@@ -35,7 +32,7 @@ module StripeIntegration
 
     private def stripe_webhook_event
       StripeWebhookEvent.create!(
-        data: event.data.to_json,
+        data: event.data.object,
         event_type: event.type,
         external_id: event.id
       )

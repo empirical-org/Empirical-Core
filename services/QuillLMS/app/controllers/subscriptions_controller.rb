@@ -6,6 +6,7 @@ class SubscriptionsController < ApplicationController
 
   def index
     set_index_variables
+
     respond_to do |format|
       format.html
       format.json {render json: @subscriptions}
@@ -60,6 +61,8 @@ class SubscriptionsController < ApplicationController
     @school_subscription_types = Subscription::OFFICIAL_SCHOOL_TYPES
     @last_four = current_user&.last_four
     @trial_types = Subscription::TRIAL_TYPES
+    @payment_confirmation_subscription = payment_confirmation_subscription
+
     if @subscription_status&.key?('id')
       @user_authority_level = current_user.subscription_authority_level(@subscription_status['id'])
       # @coordinator_email = Subscription.find(@subscription_status['id'])&.coordinator&.email
@@ -97,5 +100,19 @@ class SubscriptionsController < ApplicationController
 
   private def set_subscription
     @subscription = current_user&.subscriptions&.find(params[:id])
+  end
+
+  private def checkout_session_id
+    params[:checkout_session_id]
+  end
+
+  private def payment_confirmation_subscription
+    return nil if checkout_session_id.nil?
+
+    stripe_subscription_id = StripeWebhookEvent.stripe_subscription_id(checkout_session_id)
+
+    return nil if stripe_subscription_id.nil?
+
+    Subscription.find_by(stripe_subscription_id: stripe_subscription_id)&.to_json
   end
 end

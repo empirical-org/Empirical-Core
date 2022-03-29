@@ -178,10 +178,33 @@ export default class CurrentSubscription extends React.Component {
 
     return (
       <div>
-        <button className="q-button bg-orange text-white" onClick={showPurchaseModal} type="button">Renew Subscription</button>
+        <button
+          className="q-button bg-orange text-white"
+          onClick={showPurchaseModal}
+          type="button"
+        >
+            Renew Subscription
+        </button>
       </div>
     );
   }
+
+  renewPremium() {
+    const { showPurchaseModal, } = this.props
+
+    return (
+      <div>
+        <button
+          className="renew-subscription q-button bg-orange text-white cta-button"
+          onClick={showPurchaseModal}
+          type="button"
+        >
+          Renew Subscription
+        </button>
+      </div>
+    );
+  }
+
 
   nextPlan() {
     const { subscriptionStatus, } = this.props
@@ -284,15 +307,6 @@ export default class CurrentSubscription extends React.Component {
       <div className="meta-section payment">
         <h3>PAYMENT METHOD ON FILE</h3>
         {this.getPaymentMethod()}
-      </div>
-    );
-  }
-
-  renewPremium() {
-    const { showPurchaseModal, } = this.props
-    return (
-      <div>
-        <button className="renew-subscription q-button bg-orange text-white cta-button" onClick={showPurchaseModal} type="button">Renew Subscription</button>
       </div>
     );
   }

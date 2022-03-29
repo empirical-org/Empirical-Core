@@ -162,18 +162,12 @@ class Subscription < ApplicationRecord
     paid_accounts.any?
   end
 
-  def self.new_teacher_premium_sub(user)
-    expiration = Date.today + 1.year
-    new(expiration: expiration, start_date: Date.today, account_type: 'Teacher Paid', recurring: true, purchaser_id: user.id)
-  end
-
   def self.new_school_premium_sub(school, user)
     expiration = school_or_user_has_ever_paid?(school) ? (Date.today + 1.year) : promotional_dates[:expiration]
     new(expiration: expiration, start_date: Date.today, account_type: 'School Paid', recurring: true, purchaser_id: user.id)
   end
 
   def self.give_teacher_premium_if_charge_succeeds(user)
-    teacher_premium_sub = new_teacher_premium_sub(user)
     teacher_premium_sub.save_if_charge_succeeds('teacher')
     return false if teacher_premium_sub.new_record?
 
@@ -223,10 +217,7 @@ class Subscription < ApplicationRecord
   end
 
   def save_if_charge_succeeds(premium_type, school=nil)
-    if premium_type === 'teacher'
-      charge = charge_user_for_teacher_premium
-      payment_amount = TEACHER_PRICE
-    elsif premium_type === 'school'
+    if premium_type === 'school'
       charge = charge_user_for_school_premium(school)
       payment_amount = SCHOOL_RENEWAL_PRICE
     else

@@ -72,7 +72,6 @@ EmpiricalGrammar::Application.routes.draw do
   resources :charges, only: [:create]
   post 'charges/update_card' => 'charges#update_card'
   post 'charges/create_customer_with_card' => 'charges#create_customer_with_card'
-  post 'charges/new_teacher_premium' => 'charges#new_teacher_premium'
   post 'charges/new_school_premium' => 'charges#new_school_premium'
   put 'credit_transactions/redeem_credits_for_premium' => 'credit_transactions#redeem_credits_for_premium'
 
@@ -523,7 +522,9 @@ EmpiricalGrammar::Application.routes.draw do
   get '/select_school', to: 'schools#select_school'
 
   namespace :stripe_integration do
+    get '/checkout_sessions/subscriptions/:checkout_session_id', to: 'checkout_sessions#subscription'
     post '/checkout_sessions', to: 'checkout_sessions#create'
+
     post '/webhooks', to: 'webhooks#create'
   end
 

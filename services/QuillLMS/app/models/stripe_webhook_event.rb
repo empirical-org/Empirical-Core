@@ -24,7 +24,20 @@ class StripeWebhookEvent < ApplicationRecord
     PROCESSED = 'processed'
   ]
 
+  scope :pending, -> { where(status: PENDING) }
+  scope :processed, -> { where(status: PROCESSED) }
+  scope :failed, -> { where(status: FAILED) }
+  scope :checkout_session_completed, -> { where(event_type: 'checkout.session.completed') }
+
   validates :external_id, format: { with: /\Aevt_[0-9a-zA-Z]*\z/ }
+
+  def self.stripe_subscription_id(checkout_session_id)
+    checkout_session_completed
+      .processed
+      .find_by("data->> 'id' = ?", checkout_session_id)
+      &.data
+      &.fetch('subscription', nil)
+  end
 
   def failed!
     update(status: FAILED)
@@ -34,10 +47,6 @@ class StripeWebhookEvent < ApplicationRecord
     failed!
     update(processing_errors: error.message)
     NewRelic::Agent.notice_error(error, stripe_webhook_event: id)
-  end
-
-  def parsed_data
-    JSON.parse(data).deep_symbolize_keys
   end
 
   def processed!
