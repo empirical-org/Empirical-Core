@@ -27,6 +27,7 @@ export {
   Input,
   Passthrough,
   ReactTable,
+  TextFilter,
   expanderColumn,
   ResumeOrBeginButton,
   SmartSpinner,

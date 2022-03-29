@@ -10,6 +10,16 @@ function columnClassName(isSorted, isSortedDesc) {
   return `${defaultClassName} -sort-asc`
 }
 
+export const TextFilter = ({ column, setFilter, }) => {
+  return (
+    <input
+      onChange={event => setFilter(column.id, event.target.value)}
+      style={{ width: "100%" }}
+      value={column.filterValue}
+    />
+  )
+}
+
 export const expanderColumn = {
   Header: "",
   id: "expander",
@@ -81,6 +91,7 @@ export const ReactTable = ({
   );
 
   React.useEffect(() => {
+    console.log('wtf')
     if (manualSortBy && onSortedChange) {
       onSortedChange(sortBy);
     }
@@ -95,12 +106,12 @@ export const ReactTable = ({
               {headerGroup.headers.map(column => (
                 <th
                   {...column.getHeaderProps({
-                    ...column.getSortByToggleProps(),
                     style: { minWidth: column.minWidth, width: column.width, maxWidth: column.maxWidth },
                   })}
                   className={columnClassName(column.isSorted, column.isSortedDesc)}
                 >
-                  {column.render("Header")}
+                  <div {...column.getSortByToggleProps()}>{column.render("Header")}</div>
+                  <div>{column.canFilter ? column.render("Filter") : null}</div>
                 </th>
               ))}
             </tr>

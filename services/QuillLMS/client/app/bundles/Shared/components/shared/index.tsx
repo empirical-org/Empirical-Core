@@ -48,6 +48,7 @@ export {
 
 export {
   ReactTable,
+  TextFilter,
   expanderColumn,
 } from './reactTable'
 
