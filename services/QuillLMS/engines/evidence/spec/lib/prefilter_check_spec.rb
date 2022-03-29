@@ -90,6 +90,7 @@ module Evidence
             expect(response[:rule_uid]).to eq violation[:rule_uid]
             expect(response[:optimal]).to eq false
             expect(response[:feedback]).to eq "#{violation[:name]} feedback"
+            expect(response[:concept_uid]).to eq 'ConceptUID'
           end
         end
       end
