@@ -5,8 +5,8 @@ module Evidence
     class BingRateLimitException < StandardError; end
 
     API_TIMEOUT = 5
-    ALL_CORRECT_FEEDBACK = 'Correct spelling!'
-    FALLBACK_INCORRECT_FEEDBACK = 'Update the spelling of the bolded word(s).'
+    ALL_CORRECT_FEEDBACK = '<p>Correct spelling!</p>'
+    FALLBACK_INCORRECT_FEEDBACK = '<p>Update the spelling of the bolded word(s).</p>'
     FEEDBACK_TYPE = Rule::TYPE_SPELLING
     RESPONSE_TYPE = 'response'
     BING_API_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck'
