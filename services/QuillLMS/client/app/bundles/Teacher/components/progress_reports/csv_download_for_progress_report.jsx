@@ -108,7 +108,6 @@ export class CSVDownloadForProgressReport extends React.Component {
         c
       if (showDropdown) {
         style = {
-          // border: "solid 1px #00c2a2",
           boxShadow: "0 0 0 1px #00c2a2",
           backgroundColor: '#fff',
           color: '#00c2a2'
