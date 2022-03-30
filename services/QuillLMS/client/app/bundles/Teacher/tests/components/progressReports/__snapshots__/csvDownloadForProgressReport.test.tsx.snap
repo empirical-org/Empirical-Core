@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivitySurvey Component should match snapshot 1`] = `
+<CSVDownloadForProgressReport
+  data={
+    Array [
+      Array [
+        "Classroom Name",
+        "Student Name",
+        "School Name",
+        "Teacher Name",
+        "Average Score",
+        "Activity Count",
+        "Last Active",
+      ],
+      Array [
+        "Test Class",
+        "Jen Penn",
+        "Drag Rage Academy",
+        "Jane Fonda",
+        "99%",
+        2,
+        "2022-03-29 15:13:19",
+      ],
+    ]
+  }
+>
+  <div
+    className="download-button-wrapper"
+  >
+    <button
+      className="quill-button medium primary contained focus-on-light"
+      onClick={[Function]}
+    >
+      Download Report
+    </button>
+  </div>
+</CSVDownloadForProgressReport>
+`;
