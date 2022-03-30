@@ -18,10 +18,4 @@ describe('ActivitySurvey Component', () => {
   it('should match snapshot', () => {
     expect(component).toMatchSnapshot();
   });
-  it('should pass expected data', () => {
-    component.setState({ showDropdown: true });
-    component.update();
-    console.log(component.debug())
-    console.log(component.find(CSVLink).props().data)
-  });
 });
