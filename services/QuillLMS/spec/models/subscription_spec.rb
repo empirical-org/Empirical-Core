@@ -495,5 +495,13 @@ describe Subscription, type: :model do
         expect(subject).not_to include(subscription)
       end
     end
+
+    # TODO
+    describe '#subscription_status' do
+    end
+
+    describe '.find_by_checkout_session_id' do
+
+    end
   end
 end

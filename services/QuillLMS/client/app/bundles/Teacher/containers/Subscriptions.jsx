@@ -2,9 +2,7 @@ import React from 'react';
 import request from 'request';
 import _ from 'lodash';
 
-// import PurchaseModal from './PurchaseModal';
-
-import SubscriptionStatus from '../components/subscriptions/subscription_status';
+import SubscriptionStatus from '../components/subscriptions/SubscriptionStatus';
 import AvailableCredits from '../components/subscriptions/available_credits';
 import CurrentSubscription from '../components/subscriptions/current_subscription';
 import SubscriptionHistory from '../components/subscriptions/subscription_history';
@@ -18,13 +16,12 @@ export default class Subscriptions extends React.Component {
   constructor(props) {
     super(props);
     const availableAndEarnedCredits = this.availableAndEarnedCredits();
+
     this.state = {
       subscriptions: props.subscriptions,
       subscriptionStatus: props.subscriptionStatus,
       availableCredits: availableAndEarnedCredits.available,
       earnedCredits: availableAndEarnedCredits.earned,
-      showPremiumConfirmationModal: false,
-      showPurchaseModal: false,
       authorityLevel: props.userAuthorityLevel,
     };
   }
@@ -53,14 +50,6 @@ export default class Subscriptions extends React.Component {
     }
     return subscriptionStatus;
   }
-
-  hidePremiumConfirmationModal = () => {
-    this.setState({ showPremiumConfirmationModal: false, });
-  };
-
-  hidePurchaseModal = () => {
-    this.setState({ showPurchaseModal: false, });
-  };
 
   purchaserNameOrEmail() {
     const { subscriptionStatus, } = this.state
@@ -91,26 +80,15 @@ export default class Subscriptions extends React.Component {
     });
   };
 
-  showPremiumConfirmationModal = () => {
-    this.setState({ showPremiumConfirmationModal: true, });
-  };
-
-  showPurchaseModal = () => {
-    this.setState({ showPurchaseModal: true, });
-  };
-
   subscriptionType() {
-    const { subscriptionStatus, schoolSubscriptionTypes, trialSubscriptionTypes, } = this.props
+    const { subscriptionStatus } = this.props
 
-    if (!subscriptionStatus) {
-      return 'Basic';
-    }
-    const accountType = subscriptionStatus.account_type;
-    return ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[accountType]
+    if (!subscriptionStatus) { return 'Basic' }
+
+    return ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[subscriptionStatus.account_type]
   }
 
   updateCard = () => {
-    // this.showPurchaseModal();
   };
 
   updateSubscription = (params, subscriptionId) => {
@@ -139,11 +117,12 @@ export default class Subscriptions extends React.Component {
   }
 
   render() {
-    const { lastFour, premiumCredits, paymentConfirmationSubscription } = this.props
+    const { lastFour, premiumCredits, paymentConfirmationSubscription, stripeTeacherPlan } = this.props
     const { subscriptionStatus, authorityLevel, availableCredits, earnedCredits, subscriptions, } = this.state
 
     const userHasValidSub = subscriptionStatus && !subscriptionStatus.expired;
-    const subId = `${_.get(subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`;
+    const subId = `${_.get(subscriptionStatus, 'id')}-subscription-status-id`;
+
     // don't show any last four unless they have an authority level with their purchase, or they don't have a sub
     const lastFourToPass = (authorityLevel || !subscriptionStatus) ? lastFour : null;
 
@@ -151,7 +130,7 @@ export default class Subscriptions extends React.Component {
       <div>
         <SubscriptionStatus
           key={subId}
-          showPurchaseModal={this.showPurchaseModal}
+          stripeTeacherPlan={stripeTeacherPlan}
           subscriptionStatus={subscriptionStatus}
           subscriptionType={this.subscriptionType()}
           userIsContact={this.userIsContact()}
@@ -160,7 +139,6 @@ export default class Subscriptions extends React.Component {
           authorityLevel={authorityLevel}
           lastFour={lastFourToPass}
           purchaserNameOrEmail={this.purchaserNameOrEmail()}
-          showPurchaseModal={this.showPurchaseModal}
           subscriptionStatus={subscriptionStatus}
           subscriptionType={this.subscriptionType()}
           updateSubscription={this.updateSubscription}
@@ -183,6 +161,6 @@ export default class Subscriptions extends React.Component {
         <RefundPolicy />
         <PremiumConfirmationModal subscription={paymentConfirmationSubscription} />
       </div>
-    );
+    )
   }
 }

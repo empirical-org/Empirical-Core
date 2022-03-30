@@ -6,7 +6,7 @@ import PremiumPricingMinisRow from '../components/premium/premium_pricing_minis_
 import PremiumFeaturesTable from '../components/premium/premium_features_table.tsx'
 import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
 import SchoolPremium from '../components/premium/school_premium.jsx';
-import StripeCheckoutButton from '../components/shared/stripe_checkout_session_button.jsx'
+import StripeCheckoutSessionButton from '../components/shared/StripeCheckoutSessionButton';
 
 const subscribers = [
   { name: 'Achievement first school logo', source: '/images/subscribers/1_achievement.png', id: 'achievement-first'},
@@ -44,7 +44,7 @@ export const PremiumPricingGuide = ({
 
   const buyNowButton = () => {
     return (
-      <StripeCheckoutButton
+      <StripeCheckoutSessionButton
         buttonClassName="quill-button contained medium primary focus-on-light"
         buttonId="purchase-btn"
         buttonText='Buy Now'
@@ -57,10 +57,24 @@ export const PremiumPricingGuide = ({
     )
   }
 
+  const upgradeToPremiumNowButton = () => {
+    return (
+      <StripeCheckoutSessionButton
+        buttonClassName='btn-orange'
+        buttonText='Upgrade to Premium Now'
+        customerEmail={customerEmail}
+        stripeCustomerId={stripeCustomerId}
+        stripePlan={stripeTeacherPlan}
+        userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
+        userIsSignedIn={userIsSignedIn()}
+      />
+    )
+  }
+
   return (
     <div>
       <div className="container premium-page">
-        {userIsSignedIn() && <PremiumBannerBuilder originPage="premium" />}
+        {userIsSignedIn() && <PremiumBannerBuilder originPage="premium" upgradeToPremiumNowButton={upgradeToPremiumNowButton} />}
         <div className="overview text-center">
           <PremiumPricingMinisRow
             buyNowButton={buyNowButton}

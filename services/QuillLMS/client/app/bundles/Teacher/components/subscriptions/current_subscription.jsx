@@ -220,7 +220,12 @@ export default class CurrentSubscription extends React.Component {
   }
 
   nextPlanAlert(body) {
-    return <div className="next-plan-alert flex-row vertically-centered"><i className="fas fa-icon fa-lightbulb-o" />{body}</div>;
+    return (
+      <div className="next-plan-alert flex-row vertically-centered">
+        <i className="fas fa-icon fa-lightbulb-o" />
+        {body}
+      </div>
+    )
   }
 
   nextPlanAlertOrButtons(condition, renewDate) {

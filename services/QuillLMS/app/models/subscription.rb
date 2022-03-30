@@ -93,6 +93,10 @@ class Subscription < ApplicationRecord
     account_type && TRIAL_TYPES.include?(account_type)
   end
 
+  def expired?
+    expiration <= Date.today
+  end
+
   def check_if_purchaser_email_is_in_database
     return unless purchaser_email
     return if purchaser_id
@@ -113,6 +117,17 @@ class Subscription < ApplicationRecord
 
   def self.create_with_user_join user_id, attributes
     create_with_school_or_user_join user_id, 'User', attributes
+  end
+
+
+  def self.find_by_checkout_session_id(checkout_session_id)
+    return nil if checkout_session_id.nil?
+
+    stripe_subscription_id = StripeWebhookEvent.stripe_subscription_id(checkout_session_id)
+
+    return nil if stripe_subscription_id.nil?
+
+    find_by(stripe_subscription_id: stripe_subscription_id)
   end
 
   def school_subscription?
@@ -217,12 +232,11 @@ class Subscription < ApplicationRecord
   end
 
   def save_if_charge_succeeds(premium_type, school=nil)
-    if premium_type === 'school'
-      charge = charge_user_for_school_premium(school)
-      payment_amount = SCHOOL_RENEWAL_PRICE
-    else
-      raise "an incorrect premium type #{premium_type} was passed"
-    end
+    raise "an incorrect premium type #{premium_type} was passed" unless premium_type == 'school'
+
+    charge = charge_user_for_school_premium(school)
+    payment_amount = SCHOOL_RENEWAL_PRICE
+
     if charge[:status] == 'succeeded'
       self.payment_method = 'Credit Card'
       self.payment_amount = payment_amount
@@ -319,7 +333,7 @@ class Subscription < ApplicationRecord
     self.start_date = Date.today
   end
 
-  def self.create_with_school_or_user_join school_or_user_id, type, attributes
+  def self.create_with_school_or_user_join(school_or_user_id, type, attributes)
     type = type.capitalize
     # since we're constantizing the type, need to make sure it is capitalized if not already
     school_or_user = type.constantize.find school_or_user_id
@@ -347,4 +361,13 @@ class Subscription < ApplicationRecord
     subscription
   end
 
+  def subscription_status
+    attributes.merge(
+      account_type: account_type || plan&.name,
+      customer_email: purchaser&.email,
+      expired: expired?,
+      purchaser_name: purchaser&.name,
+      stripe_customer_id: purchaser&.stripe_customer_id
+    )
+  end
 end

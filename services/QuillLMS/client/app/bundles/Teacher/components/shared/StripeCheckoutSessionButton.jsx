@@ -53,4 +53,4 @@ export const StripeCheckoutSessionButton = ({
   )
 }
 
-export default StripeCheckoutButton
+export default StripeCheckoutSessionButton

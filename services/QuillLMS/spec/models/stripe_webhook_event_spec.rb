@@ -46,4 +46,9 @@ RSpec.describe StripeWebhookEvent, type: :model do
 
     it { expect(subject.data['customer_email']).to eq customer_email }
   end
+
+
+    # TODO
+    describe '.stripe_subcription_id' do
+    end
 end
