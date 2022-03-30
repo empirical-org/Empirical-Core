@@ -52,30 +52,28 @@ export class CSVDownloadForProgressReport extends React.Component {
   }
 
   cleanData(data) {
-    console.log("🚀 ~ file: csv_download_for_progress_report.jsx ~ line 55 ~ CSVDownloadForProgressReport ~ cleanData ~ data", data)
+    const { keysToOmit, valuesToChange, preserveCasing } = this.props;
     let finalValue
-    const formattedData = formatData(data);
-    if (!Array.isArray(formattedData[0])) {
-      const copiedData = JSON.parse(JSON.stringify(formattedData))
+    if (!Array.isArray(data[0])) {
+      const copiedData = JSON.parse(JSON.stringify(data))
       let newData = []
       copiedData.forEach(row => {
-        if (this.props.keysToOmit) {
+        if (keysToOmit) {
           row = this.omitKeys(row)
         }
-        if (this.props.valuesToChange) {
+        if (valuesToChange) {
           this.changeValues(row)
         }
-        if (!this.props.preserveCasing) {
+        if (!preserveCasing) {
           this.getRidOfCamelCase(row)
         }
         newData.push(row)
       })
       finalValue = newData
     } else {
-      finalValue = formattedData
+      finalValue = data
     }
-    console.log("🚀 ~ file: csv_download_for_progress_report.jsx ~ line 76 ~ CSVDownloadForProgressReport ~ cleanData ~ finalValue", finalValue)
-    return finalValue
+    return formatData(finalValue)
   }
 
   closeDropdownIfOpen(e) {
