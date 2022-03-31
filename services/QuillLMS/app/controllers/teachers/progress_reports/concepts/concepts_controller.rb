@@ -13,10 +13,12 @@ class Teachers::ProgressReports::Concepts::ConceptsController < Teachers::Progre
   end
 
   private def json_payload
-    {
-      concepts: concepts_as_json,
-      student: {name: student.name}
-    }
+    current_user.all_classrooms_cache(key: 'teachers.progress_reports.concepts.concepts') do
+      {
+        concepts: concepts_as_json,
+        student: {name: student.name}
+      }
+    end
   end
 
   private def concepts
