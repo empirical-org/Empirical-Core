@@ -26,7 +26,7 @@ const incompleteHeaders = [
     width: '633px',
     name: 'Activity',
     attribute: 'name',
-    noTooltip: onMobile(),
+    noTooltip: onMobile(), // On mobile we don't want a tooltip wrapper since they basically don't work there
     headerClassName: 'name-section',
     rowSectionClassName: 'name-section'
   }, {
