@@ -62,7 +62,8 @@ module Evidence
           optimal: false,
           rule_uid: @violated_rule.uid,
           hint: @violated_rule.hint,
-          highlight: highlights
+          highlight: highlights,
+          concept_uid: @violated_rule.concept_uid
         }
       )
     end
